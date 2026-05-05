@@ -26,7 +26,7 @@ function composeMinterm(n, rowBits, colBits, rowClauseIdx, colClauseIdx) {
   return minterm;
 }
 
-export function buildKMap(rows, clauses, target = true) {
+export function buildKMap(rows, clauses, target = true, dnf = []) {
   const n = clauses.length;
   if (n < 1 || n > 4) {
     return { unsupported: true, n };
@@ -34,7 +34,7 @@ export function buildKMap(rows, clauses, target = true) {
 
   const map = new Map();
   rows.forEach((row) => {
-    map.set(row.index, { value: row.predicate === target, minterm: row.index });
+    map.set(row.index, { value: row.predicate === target, minterm: row.index, values: row.values });
   });
 
   let rowOrder;
@@ -67,12 +67,13 @@ export function buildKMap(rows, clauses, target = true) {
     rowClauseIdx = [2];
     colClauseIdx = [0, 1];
   } else {
+    // 列：cd；欄：ab，兩者皆為 Gray code 00/01/11/10。
     rowOrder = GRAY4;
     colOrder = GRAY4;
-    rowVars = [clauses[0], clauses[1]];
-    colVars = [clauses[2], clauses[3]];
-    rowClauseIdx = [0, 1];
-    colClauseIdx = [2, 3];
+    rowVars = [clauses[2], clauses[3]];
+    colVars = [clauses[0], clauses[1]];
+    rowClauseIdx = [2, 3];
+    colClauseIdx = [0, 1];
   }
 
   const rowWidth = rowClauseIdx.length;
@@ -82,9 +83,19 @@ export function buildKMap(rows, clauses, target = true) {
     const cells = colOrder.map((cBits) => {
       const minterm = composeMinterm(n, rBits, cBits, rowClauseIdx, colClauseIdx);
       const entry = map.get(minterm);
+      const values = entry?.values || {};
+      const implicants = [];
+      if (entry?.value) {
+        dnf.forEach((term, idx) => {
+          if (term.every((lit) => Boolean(values[lit.name]) !== lit.negated)) {
+            implicants.push(idx);
+          }
+        });
+      }
       return {
         minterm,
         value: entry ? entry.value : false,
+        implicants,
       };
     });
     return {

@@ -2991,14 +2991,14 @@
     });
     return minterm;
   }
-  function buildKMap(rows, clauses, target = true) {
+  function buildKMap(rows, clauses, target = true, dnf = []) {
     const n = clauses.length;
     if (n < 1 || n > 4) {
       return { unsupported: true, n };
     }
     const map = /* @__PURE__ */ new Map();
     rows.forEach((row) => {
-      map.set(row.index, { value: row.predicate === target, minterm: row.index });
+      map.set(row.index, { value: row.predicate === target, minterm: row.index, values: row.values });
     });
     let rowOrder;
     let colOrder;
@@ -3030,10 +3030,10 @@
     } else {
       rowOrder = GRAY4;
       colOrder = GRAY4;
-      rowVars = [clauses[0], clauses[1]];
-      colVars = [clauses[2], clauses[3]];
-      rowClauseIdx = [0, 1];
-      colClauseIdx = [2, 3];
+      rowVars = [clauses[2], clauses[3]];
+      colVars = [clauses[0], clauses[1]];
+      rowClauseIdx = [2, 3];
+      colClauseIdx = [0, 1];
     }
     const rowWidth = rowClauseIdx.length;
     const colWidth = colClauseIdx.length;
@@ -3041,9 +3041,19 @@
       const cells = colOrder.map((cBits) => {
         const minterm = composeMinterm(n, rBits, cBits, rowClauseIdx, colClauseIdx);
         const entry = map.get(minterm);
+        const values = (entry == null ? void 0 : entry.values) || {};
+        const implicants = [];
+        if (entry == null ? void 0 : entry.value) {
+          dnf.forEach((term, idx) => {
+            if (term.every((lit) => Boolean(values[lit.name]) !== lit.negated)) {
+              implicants.push(idx);
+            }
+          });
+        }
         return {
           minterm,
-          value: entry ? entry.value : false
+          value: entry ? entry.value : false,
+          implicants
         };
       });
       return {
