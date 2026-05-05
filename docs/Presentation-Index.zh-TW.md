@@ -5,6 +5,7 @@
 這份導覽頁用來快速定位本專案的簡報與說明文件。
 
 ## 文件入口
+- 完整規格文件： [Specification.zh-TW.md](Specification.zh-TW.md)
 - 完整對話與交付脈絡： [Conversation-Summary.md](Conversation-Summary.md)
 - 對外簡報版（英文）： [Presentation-External-Brief.md](Presentation-External-Brief.md)
 - 對外簡報版（繁中）： [Presentation-External-Brief.zh-TW.md](Presentation-External-Brief.zh-TW.md)
