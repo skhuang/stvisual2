@@ -1,7 +1,7 @@
 # stvisual 投影片逐頁講者備忘欄（中文版）
 
 日期：2026-04-12
-建議總長：3 分鐘
+建議總長：3“4 分鐘（加入 Logic Coverage 段落時建議拉長為 4 分鐘）
 
 ## Slide 1 - 標題頁（15 秒）
 ### 畫面重點
@@ -11,7 +11,7 @@
 ### 講者備忘
 - 關鍵句：
   - 「這是一個把軟體測試理論轉成互動流程的視覺化平台。」
-  - 「今天會聚焦 Graph Coverage 與程式碼上傳自動 CFG。」
+  - 「今天會同時說 Graph Coverage、程式碼自動 CFG，以及 Logic Coverage。」
 - 語氣建議：先講價值，不先講技術細節。
 
 ## Slide 2 - 問題背景（25 秒）
@@ -63,6 +63,25 @@
   - 點一個 requirement，指向 source mapping 的 Lx 行
   - 再切另一個 requirement，讓聽眾看到映射變化
 
+## Slide 5b - Logic Coverage Explorer（40 秒）
+### 畫面重點
+- predicate 輸入與內建例子
+- 真值表 + 主／次子句標記
+- 準則切換：PC / CC / CoC / GACC / CACC / RACC / GICC / RICC
+- IC 系列：DNF、Quine–McCluskey 最小化、重複列刪除線、¬f 的 implicants
+- f 與 ¬f 的 Karnaugh map
+
+### 講者備忘
+- 講法順序：
+  - 先示範 PC/CC 看到語意準則的差異
+  - 切到 GACC/CACC/RACC 說明 Active Clause 的原則
+  - 最後切到 IC，帶出 DNF、K-map 與重複列刪除的視覺效果
+- 關鍵句：
+  - 「邏輯覆蓋不再是黑板上的定義，而是可以選一條 predicate 马上看到所有語意與語法準則的具體測試。」
+- 建議示範動作：
+  - 輸入一條自訂 predicate，讓它進 recent chips
+  - 切一輪準則讓聽眾看到選取列變化
+
 ## Slide 6 - 技術與品質保證（25 秒）
 ### 畫面重點
 - 靜態架構（HTML + JS）
@@ -102,4 +121,5 @@
 - 先講價值，再講技術。
 - 三個關鍵詞反覆強調：可操作、可解釋、可驗證。
 - 展示時一定做「requirement 切換 -> 行號跟著變」。
+- 如果含 Logic Coverage：記得切一輪準則讓聽眾看到真值表與 K-map 變化。
 - 時間不夠就縮短技術細節，保留問題、解法、成果、下一步四段。

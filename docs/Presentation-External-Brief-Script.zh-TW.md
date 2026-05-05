@@ -4,11 +4,11 @@
 
 ## 0:00 - 0:20 開場
 大家好，我們今天介紹的是 stvisual。
-stvisual 是一個把軟體測試理論「視覺化」的互動平台，特別聚焦在 Graph Coverage。
+stvisual 是一個把軟體測試理論「視覺化」的互動平台，同時涵蓋 Graph Coverage 與 Logic Coverage 兩條主線。
 
 ## 0:20 - 0:45 問題
-傳統上我們在學 Node Coverage、Edge Coverage、Prime Path Coverage 時，常常只看到定義。
-但從定義走到可執行的測試需求，很多人會卡住，因為缺少可操作、可對照的工具。
+傳統上我們在學 Node Coverage、Edge Coverage、Prime Path Coverage，或是 Logic Coverage 裡的 PC、CC、ACC 時，常常只看到定義。
+但從定義走到可執行的測試需求、真值表或 Karnaugh map，很多人會卡住，因為缺少可操作、可對照的工具。
 
 ## 0:45 - 1:20 解法
 stvisual 的核心做法是把理論轉成可操作流程：
@@ -16,6 +16,7 @@ stvisual 的核心做法是把理論轉成可操作流程：
 - 可以從程式碼上傳，自動產生簡化 CFG
 - 可以看到測試路徑與最佳化前後指標
 - 可以把 requirement 反查到程式碼行號，知道「為什麼」要測這條路徑
+- 對任意布林 predicate，可以切換 PC / CC / CoC / ACC / ICC 與 IC / UTPC / NFPC / CUTPNFP，並同步顯示真值表、最小化後的 DNF 與 Karnaugh map
 
 ## 1:20 - 1:50 技術亮點
 在技術上，我們採用靜態 HTML + JavaScript 架構，部署簡單、可攜性高。
@@ -35,6 +36,7 @@ stvisual 的核心做法是把理論轉成可操作流程：
 - Graph Coverage 進階準則
 - 路徑最佳化與指標呈現
 - 程式碼上傳與 source mapping
+- Logic Coverage Explorer（語意與語法二大系列、K-map、最近 predicate 同步）
 - CI/CD 與文件化
 
 ## 2:45 - 3:00 收尾
@@ -45,5 +47,5 @@ stvisual 的核心做法是把理論轉成可操作流程：
 ---
 
 ## 備用 30 秒版本
-stvisual 是一個 Graph Coverage 互動平台，能從圖或程式碼兩種方式產生測試需求，並把 requirement 對回原始碼行號。
+stvisual 是一個 Graph Coverage 與 Logic Coverage 互動平台，能從圖、程式碼或任意布林 predicate 三種方式產生測試需求，並把 requirement 對回原始碼行號或真值表與 K-map。
 它不只可視化，也有完整 unit/E2E 與 CI，適合教學示範與測試分析。

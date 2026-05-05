@@ -19,7 +19,10 @@
 -  Prime path coverage
 - 條件覆蓋
 -  multiple conditions
-- Logic Coverage (PC / CC / ACC)
+- Logic Coverage
+  - 語意系列：PC / CC / CoC / GACC / CACC / RACC / GICC / RICC
+  - 語法（DNF）系列：IC / UTPC / NFPC / CUTPNFP（含 Quine–McCluskey 最小化與 ¬f 的 implicants）
+  - 真值表、決定列、Karnaugh map（f 與 ¬f）、教科書式 DNF 記號
 
 ### 3. 灰盒測試 (Gray Box Testing)
 - 結合黑盒與白盒

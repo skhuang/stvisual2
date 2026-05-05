@@ -5,6 +5,7 @@ import {
 import {
   buildAllCoverageSets,
   parsePredicate,
+  termToString,
 } from '../utils/logicCoverage.js';
 import { buildKMap } from '../utils/karnaughMap.js';
 import { createCloudIntegrationClient } from '../utils/cloudIntegration.js';
@@ -76,7 +77,19 @@ function dnfToCompactHtml(dnf) {
     .join(' &nbsp;+&nbsp; ');
 }
 
-function renderKMap(rows, clauses, target, title) {
+const IMPLICANT_PALETTE = [
+  '#e67e22', '#27ae60', '#2980b9', '#8e44ad',
+  '#c0392b', '#16a085', '#d35400', '#7f8c8d',
+];
+
+function renderKMap(rows, clauses, target, title, options = {}) {
+  const {
+    highlightedMinterms = null,
+    implicantGroups = [],
+    highlightLabel = 'UTP',
+    nfpMarks = null,    // Map<minterm, { color, label }>
+    ntpMarks = null,    // Map<minterm, { color, label }>
+  } = options;
   const map = buildKMap(rows, clauses, target);
   if (map.unsupported) {
     return `<div class="logic-kmap"><h4 class="logic-kmap-title">${escapeHtml(title)}</h4>
@@ -91,9 +104,36 @@ function renderKMap(rows, clauses, target, title) {
     .map((row) => {
       const cells = row.cells
         .map((cell) => {
-          const cls = cell.value ? 'logic-kmap-cell logic-kmap-on' : 'logic-kmap-cell';
+          const classes = ['logic-kmap-cell'];
+          if (cell.value) classes.push('logic-kmap-on');
+          const isHighlighted = highlightedMinterms?.has(cell.minterm);
+          if (isHighlighted) classes.push('logic-kmap-utp');
           const text = cell.value ? '1' : '0';
-          return `<td class="${cls}" title="m${cell.minterm}">${text}<sub>${cell.minterm}</sub></td>`;
+          const marker = isHighlighted ? '<span class="logic-kmap-utp-mark" aria-hidden="true">★</span>' : '';
+          const groupsCovering = implicantGroups.filter((g) => g.minterms.has(cell.minterm));
+          const dots = groupsCovering.length
+            ? `<span class="logic-kmap-dots">${groupsCovering
+                .map((g) => `<span class="logic-kmap-dot" style="background:${g.color}" title="${escapeHtml(g.label)}"></span>`)
+                .join('')}</span>`
+            : '';
+          const nfpInfo = nfpMarks?.get(cell.minterm);
+          const ntpInfo = ntpMarks?.get(cell.minterm);
+          if (nfpInfo) classes.push('logic-kmap-nfp');
+          if (ntpInfo) classes.push('logic-kmap-ntp');
+          const badge = (() => {
+            const parts = [];
+            if (ntpInfo) {
+              parts.push(`<span class="logic-kmap-badge logic-kmap-badge-ntp" style="background:${ntpInfo.color}" title="${escapeHtml(ntpInfo.label)}">UTP</span>`);
+            }
+            if (nfpInfo) {
+              parts.push(`<span class="logic-kmap-badge logic-kmap-badge-nfp" style="border-color:${nfpInfo.color};color:${nfpInfo.color}" title="${escapeHtml(nfpInfo.label)}">NFP</span>`);
+            }
+            return parts.length ? `<span class="logic-kmap-badges">${parts.join('')}</span>` : '';
+          })();
+          const titleAttr = `m${cell.minterm}${isHighlighted ? `（${highlightLabel}）` : ''}${
+            groupsCovering.length ? `｜${groupsCovering.map((g) => g.label).join(' / ')}` : ''
+          }${nfpInfo ? `｜NFP: ${nfpInfo.label}` : ''}${ntpInfo ? `｜UTP: ${ntpInfo.label}` : ''}`;
+          return `<td class="${classes.join(' ')}" title="${escapeHtml(titleAttr)}">${marker}${badge}${text}<sub>${cell.minterm}</sub>${dots}</td>`;
         })
         .join('');
       const rowHead = rowHeaderLabel
@@ -105,11 +145,44 @@ function renderKMap(rows, clauses, target, title) {
   const corner = rowHeaderLabel
     ? `<th class="logic-kmap-corner"><span>${escapeHtml(rowHeaderLabel)}</span><span class="logic-kmap-slash">\\</span><span>${escapeHtml(colHeaderLabel)}</span></th>`
     : `<th class="logic-kmap-corner">${escapeHtml(colHeaderLabel)}</th>`;
+  const legend = implicantGroups.length
+    ? `<ul class="logic-kmap-legend">${implicantGroups
+        .map((g) => `
+          <li>
+            <span class="logic-kmap-dot" style="background:${g.color}"></span>
+            <code>${g.labelHtml || escapeHtml(g.label)}</code>
+            ${g.testRowIndices?.length
+              ? `<span class="logic-kmap-legend-tests">tests: ${g.testRowIndices.map((i) => `m${i}`).join(', ')}</span>`
+              : ''}
+          </li>`)
+        .join('')}</ul>`
+    : '';
   return `<div class="logic-kmap" data-testid="${target ? 'logic-kmap-f' : 'logic-kmap-not-f'}">
     <h4 class="logic-kmap-title">${escapeHtml(title)}</h4>
     <table class="logic-kmap-table"><thead><tr>${corner}${colHeadHtml}</tr></thead>
     <tbody>${bodyHtml}</tbody></table>
+    ${legend}
   </div>`;
+}
+
+function buildImplicantGroups(rows, terms, target, paletteOffset = 0, testsForPolarity = []) {
+  return terms.map((term, idx) => {
+    const minterms = new Set(
+      rows
+        .filter((row) => row.predicate === target && term.every((lit) => Boolean(row.values[lit.name]) !== lit.negated))
+        .map((row) => row.index),
+    );
+    const testRowIndices = testsForPolarity
+      .filter((t) => t.implicantIndices?.includes(idx) || t.implicantIndex === idx)
+      .map((t) => t.row.index);
+    return {
+      color: IMPLICANT_PALETTE[(idx + paletteOffset) % IMPLICANT_PALETTE.length],
+      label: termToString(term),
+      labelHtml: termToCompactHtml(term),
+      minterms,
+      testRowIndices: [...new Set(testRowIndices)],
+    };
+  });
 }
 
 export function createLogicCoverageExplorer() {
@@ -264,6 +337,7 @@ export function createLogicCoverageExplorer() {
           autocomplete="off"
           data-testid="logic-expression-input"
         />
+        <p class="logic-input-hint">支援 <code>&amp;&amp;</code> / <code>||</code> / <code>!</code>，也接受教科書記號：相鄰即 AND（如 <code>ab</code>）、<code>+</code> 為 OR（如 <code>a+b</code>）。</p>
         <div class="logic-examples">${examplesMarkup}</div>
         ${recentMarkup}
       </div>
@@ -381,7 +455,7 @@ export function createLogicCoverageExplorer() {
       ? `<p class="logic-unsatisfied" data-testid="logic-unsatisfied">無法找到下列需求對應列：${set.unsatisfied.join(', ')}</p>`
       : '';
 
-    const dnfMarkup = ['ic', 'utpc', 'nfpc', 'cutpnfp'].includes(set.id) && state.analysis.dnf
+    const dnfMarkup = ['ic', 'utpc', 'mutpc', 'nfpc', 'mnfpc', 'cutpnfp'].includes(set.id) && state.analysis.dnf
       ? `<p class="logic-dnf" data-testid="logic-dnf">f 的最小 DNF：${dnfToHtml(state.analysis.dnf)}
           <span class="logic-dnf-alt">（教科書記號：${dnfToCompactHtml(state.analysis.dnf)}）</span>
         </p>${
@@ -393,11 +467,136 @@ export function createLogicCoverageExplorer() {
         }`
       : '';
 
-    const kmapMarkup = set.id === 'ic' && state.parsed
-      ? `<div class="logic-kmap-row">
-          ${renderKMap(state.analysis.rows, state.parsed.clauses, true, 'f 的 Karnaugh Map')}
-          ${renderKMap(state.analysis.rows, state.parsed.clauses, false, '¬f 的 Karnaugh Map')}
-        </div>`
+    const kmapMarkup = state.parsed && (set.id === 'ic' || set.id === 'utpc' || set.id === 'mutpc' || set.id === 'nfpc' || set.id === 'mnfpc' || set.id === 'cutpnfp')
+      ? (set.id === 'ic'
+          ? (() => {
+              const posTests = set.tests.filter((t) => t.polarity === 'pos');
+              const negTests = set.tests.filter((t) => t.polarity === 'neg');
+              const posGroups = buildImplicantGroups(
+                state.analysis.rows,
+                state.analysis.dnf || [],
+                true,
+                0,
+                posTests,
+              );
+              const negGroups = buildImplicantGroups(
+                state.analysis.rows,
+                state.analysis.negDnf || [],
+                false,
+                (state.analysis.dnf || []).length,
+                negTests,
+              );
+              const posTestSet = new Set(posTests.map((t) => t.row.index));
+              const negTestSet = new Set(negTests.map((t) => t.row.index));
+              return `<div class="logic-kmap-row">
+                ${renderKMap(
+                  state.analysis.rows,
+                  state.parsed.clauses,
+                  true,
+                  'f 的 Karnaugh Map（★ = 選用 test case）',
+                  { highlightedMinterms: posTestSet, implicantGroups: posGroups, highlightLabel: 'test' },
+                )}
+                ${renderKMap(
+                  state.analysis.rows,
+                  state.parsed.clauses,
+                  false,
+                  '¬f 的 Karnaugh Map（★ = 選用 test case）',
+                  { highlightedMinterms: negTestSet, implicantGroups: negGroups, highlightLabel: 'test' },
+                )}
+              </div>`;
+            })()
+          : set.id === 'utpc'
+            ? `<div class="logic-kmap-row">
+                ${renderKMap(
+                  state.analysis.rows,
+                  state.parsed.clauses,
+                  true,
+                  'f 的 Karnaugh Map（★ = 選取的 UTP）',
+                  { highlightedMinterms: new Set(set.tests.map((t) => t.row.index)) },
+                )}
+              </div>`
+            : set.id === 'mutpc'
+              ? (() => {
+                const dnf = state.analysis.dnf || [];
+                const groups = buildImplicantGroups(state.analysis.rows, dnf, true, 0, set.tests);
+                return `<div class="logic-kmap-row">
+                  ${renderKMap(
+                    state.analysis.rows,
+                    state.parsed.clauses,
+                    true,
+                    'f 的 Karnaugh Map（★ = 選取的 MUTP）',
+                    {
+                      highlightedMinterms: new Set(set.tests.map((t) => t.row.index)),
+                      implicantGroups: groups,
+                      highlightLabel: 'MUTP',
+                    },
+                  )}
+                </div>`;
+              })()
+            : set.id === 'nfpc' || set.id === 'mnfpc'
+              ? (() => {
+                const dnf = state.analysis.dnf || [];
+                const groups = buildImplicantGroups(state.analysis.rows, dnf, true, 0, []);
+                const nfpMarks = new Map();
+                const ntpMarks = new Map();
+                set.tests.forEach((t) => {
+                  const color = IMPLICANT_PALETTE[t.implicantIndex % IMPLICANT_PALETTE.length];
+                  const termText = termToString(dnf[t.implicantIndex] || []);
+                  const litText = t.literal ? `${t.literal.negated ? '!' : ''}${t.literal.name}` : '';
+                  const label = `{${termText}} 翻轉 ${litText}`;
+                  nfpMarks.set(t.row.index, { color, label });
+                  if (typeof t.pairedTruePointIndex === 'number') {
+                    ntpMarks.set(t.pairedTruePointIndex, { color, label });
+                  }
+                });
+                const titleText = set.id === 'mnfpc'
+                  ? 'f 的 Karnaugh Map（MNFP：每個 implicant × literal 選取的 NFPs）'
+                  : 'f 的 Karnaugh Map（NFP 與對應 UTP）';
+                return `<div class="logic-kmap-row">
+                  ${renderKMap(
+                    state.analysis.rows,
+                    state.parsed.clauses,
+                    true,
+                    titleText,
+                    { implicantGroups: groups, nfpMarks, ntpMarks, highlightLabel: 'test' },
+                  )}
+                </div>`;
+              })()
+              : (() => {
+                // CUTPNFP：每對都是 test case，雙向標示。
+                const dnf = state.analysis.dnf || [];
+                const groups = buildImplicantGroups(state.analysis.rows, dnf, true, 0, []);
+                const nfpMarks = new Map();
+                const ntpMarks = new Map();
+                const testRowSet = new Set();
+                set.tests.forEach((t) => {
+                  const color = IMPLICANT_PALETTE[t.implicantIndex % IMPLICANT_PALETTE.length];
+                  const termText = termToString(dnf[t.implicantIndex] || []);
+                  const litText = t.literal ? `${t.literal.negated ? '!' : ''}${t.literal.name}` : '';
+                  const label = `{${termText}} 翻轉 ${litText}`;
+                  testRowSet.add(t.row.index);
+                  if (t.role === 'utp') {
+                    ntpMarks.set(t.row.index, { color, label });
+                  } else {
+                    nfpMarks.set(t.row.index, { color, label });
+                  }
+                });
+                return `<div class="logic-kmap-row">
+                  ${renderKMap(
+                    state.analysis.rows,
+                    state.parsed.clauses,
+                    true,
+                    'f 的 Karnaugh Map（★ = 選取的 test case；UTP↔NFP 成對標示）',
+                    {
+                      implicantGroups: groups,
+                      nfpMarks,
+                      ntpMarks,
+                      highlightedMinterms: testRowSet,
+                      highlightLabel: 'test',
+                    },
+                  )}
+                </div>`;
+              })())
       : '';
 
     return `

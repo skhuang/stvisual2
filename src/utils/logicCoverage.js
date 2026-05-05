@@ -1,7 +1,11 @@
 // Logic Coverage utilities (Ammann & Offutt).
-// Parses a boolean predicate over named clauses (identifiers) using only
-// `!`, `&&`, `||`, parentheses, and whitespace. Provides truth-table generation
-// and test-set computation for several criteria:
+// Parses a boolean predicate over named clauses (single-letter identifiers,
+// optionally followed by digits, e.g. `a`, `b`, `c1`). Supports two notations
+// that can be mixed freely:
+//   - Programming style: `&&`, `||`, `!`, parentheses, whitespace
+//   - Textbook style:    juxtaposition for AND (e.g. `ab`), `+` for OR
+//                        (e.g. `a+b`), and `!` for NOT
+// Provides truth-table generation and test-set computation for several criteria:
 //   - PC  (Predicate Coverage)
 //   - CC  (Clause Coverage)
 //   - CoC (Combinatorial Coverage)
@@ -9,7 +13,12 @@
 //   - CACC (Correlated Active Clause Coverage)
 //   - RACC (Restricted Active Clause Coverage)
 
-const TOKEN_REGEX = /\s*(?:(\()|(\))|(&&)|(\|\|)|(!)|([A-Za-z_][A-Za-z0-9_]*))/y;
+// Tokens：
+//   `(` `)` `&&` `||` `!`  以及識別字（單一英文字母可選跟數字，如 a、b、c1、x2）。
+//   為了支援教科書記號，額外接受：
+//     `+`        表示 OR（等同 `||`）
+//     juxtaposition（兩個原子相鄰，例如 `ab`、`a!b`、`(a+b)(c+d)`）表示 AND
+const TOKEN_REGEX = /\s*(?:(\()|(\))|(&&)|(\|\|)|(\+)|(!)|([A-Za-z][0-9]*))/y;
 
 function tokenize(expression) {
   const tokens = [];
@@ -24,11 +33,11 @@ function tokenize(expression) {
       if (!remainder) break;
       throw new Error(`不支援的字元：「${remainder[0]}」於位置 ${start + 1}`);
     }
-    const [, lparen, rparen, andOp, orOp, notOp, ident] = match;
+    const [, lparen, rparen, andOp, orOp, plusOp, notOp, ident] = match;
     if (lparen) tokens.push({ type: 'lparen' });
     else if (rparen) tokens.push({ type: 'rparen' });
     else if (andOp) tokens.push({ type: 'and' });
-    else if (orOp) tokens.push({ type: 'or' });
+    else if (orOp || plusOp) tokens.push({ type: 'or' });
     else if (notOp) tokens.push({ type: 'not' });
     else if (ident) tokens.push({ type: 'ident', value: ident });
     lastIndex = TOKEN_REGEX.lastIndex;
@@ -68,9 +77,18 @@ function parseExpression(tokens) {
 
   function parseAnd() {
     let node = parseNot();
-    while (peek()?.type === 'and') {
-      consume('and');
-      node = { type: 'and', left: node, right: parseNot() };
+    // 接受 `&&` 或 juxtaposition（下一個 token 直接是另一個 atom 的開頭）。
+    while (true) {
+      const next = peek();
+      if (!next) break;
+      if (next.type === 'and') {
+        consume('and');
+        node = { type: 'and', left: node, right: parseNot() };
+      } else if (next.type === 'lparen' || next.type === 'not' || next.type === 'ident') {
+        node = { type: 'and', left: node, right: parseNot() };
+      } else {
+        break;
+      }
     }
     return node;
   }
@@ -453,7 +471,9 @@ export function buildAllCoverageSets(parsed) {
       ricc: buildRICCSet(rows, parsed.clauses),
       ic: buildImplicantCoverageSet(rows, dnf, negDnf),
       utpc: buildUTPCSet(rows, dnf),
+      mutpc: buildMUTPCSet(rows, parsed.clauses, dnf),
       nfpc: buildNFPCSet(rows, dnf),
+      mnfpc: buildMNFPCSet(rows, parsed.clauses, dnf),
       cutpnfp: buildCUTPNFPSet(rows, dnf),
     },
   };
@@ -753,24 +773,126 @@ export function buildUTPCSet(rows, dnf) {
       unsatisfied.push(`UTP for {${termLabel(term)}}`);
       return;
     }
-    const row = utps[0];
-    const key = `r${row.index}-utp${index}`;
-    if (seen.has(key)) return;
-    seen.add(key);
-    tests.push({
-      id: key,
-      row,
-      label: `UTP for {${termLabel(term)}}`,
-      implicantIndex: index,
+    utps.forEach((row) => {
+      const key = `r${row.index}-utp${index}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      tests.push({
+        id: key,
+        row,
+        label: `UTP for {${termLabel(term)}}`,
+        implicantIndex: index,
+      });
     });
   });
 
   return {
     id: 'utpc',
     name: 'Unique True Point Coverage',
-    description: '對每個 implicant，挑一個只滿足該 implicant 的 unique true point。',
+    description: '對每個 implicant，列出所有只滿足該 implicant 的 unique true point（任選其一即可滿足準則）。',
     tests,
     requirementCount: dnf.length,
+    unsatisfied,
+  };
+}
+
+// MUTPC（Multiple Unique True Point Coverage）：
+// 對 DNF 中每個 implicant i，挑一組 UTPs，使得每個「次子句」（不在 i 中的 clause c）
+// 都至少出現一次 c=T 與一次 c=F。
+export function buildMUTPCSet(rows, clauses, dnf) {
+  const tests = [];
+  const seen = new Set();
+  const unsatisfied = [];
+  let requirementCount = 0;
+
+  dnf.forEach((term, index) => {
+    const inImplicant = new Set(term.map((lit) => lit.name));
+    const minorClauses = clauses.filter((c) => !inImplicant.has(c));
+    requirementCount += minorClauses.length * 2;
+
+    const utps = uniqueTruePointsForTerm(rows, term, dnf, index);
+    if (!utps.length) {
+      minorClauses.forEach((c) => {
+        unsatisfied.push(`MUTP {${termLabel(term)}} 缺 ${c}=T`);
+        unsatisfied.push(`MUTP {${termLabel(term)}} 缺 ${c}=F`);
+      });
+      return;
+    }
+
+    if (!minorClauses.length) {
+      // 沒有次子句時退化為 UTPC（任一 UTP 即可）。
+      const row = utps[0];
+      const key = `r${row.index}-mutp${index}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        tests.push({
+          id: key,
+          row,
+          label: `MUTP {${termLabel(term)}}`,
+          implicantIndex: index,
+        });
+      }
+      return;
+    }
+
+    // 需求集：每個次子句的 (T, F) 共 2*minorClauses.length 個 (clause, value)。
+    const remaining = new Set();
+    minorClauses.forEach((c) => {
+      remaining.add(`${c}=T`);
+      remaining.add(`${c}=F`);
+    });
+
+    const chosen = [];
+    const utpReqs = utps.map((row) => {
+      const reqs = new Set();
+      minorClauses.forEach((c) => {
+        reqs.add(`${c}=${row.values[c] ? 'T' : 'F'}`);
+      });
+      return reqs;
+    });
+
+    while (remaining.size) {
+      let bestIdx = -1;
+      let bestCount = 0;
+      utpReqs.forEach((reqs, i) => {
+        if (chosen.includes(i)) return;
+        let cnt = 0;
+        reqs.forEach((r) => { if (remaining.has(r)) cnt += 1; });
+        if (cnt > bestCount) { bestCount = cnt; bestIdx = i; }
+      });
+      if (bestIdx < 0) break;
+      chosen.push(bestIdx);
+      utpReqs[bestIdx].forEach((r) => remaining.delete(r));
+    }
+
+    if (remaining.size) {
+      remaining.forEach((r) => {
+        unsatisfied.push(`MUTP {${termLabel(term)}} 缺 ${r}`);
+      });
+    }
+
+    chosen.forEach((i) => {
+      const row = utps[i];
+      const covered = [...utpReqs[i]].join(', ');
+      const key = `r${row.index}-mutp${index}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      tests.push({
+        id: key,
+        row,
+        label: `MUTP {${termLabel(term)}}（${covered}）`,
+        implicantIndex: index,
+      });
+    });
+  });
+
+  return {
+    id: 'mutpc',
+    name: 'Multiple Unique True Point Coverage',
+    description:
+      '對每個 implicant，挑選一組 UTPs，使每個次子句（不在 implicant 中的 clause）都至少出現一次 T 與一次 F。',
+    tests,
+    requirementCount,
     unsatisfied,
   };
 }
@@ -805,11 +927,21 @@ export function buildNFPCSet(rows, dnf) {
       const key = `r${row.index}-nfp${index}-${literalIndex}`;
       if (seen.has(key)) return;
       seen.add(key);
+      // 對應的 near-true point：把 literal 翻回 term 的極性後仍滿足整個 term 的列。
+      const pairedTruePoint = rows.find((candidate) =>
+        termSatisfiedBy(term, candidate.values)
+        && Object.keys(candidate.values).every((name) => {
+          if (name === literal.name) return candidate.values[name] !== row.values[name];
+          return candidate.values[name] === row.values[name];
+        }),
+      );
       tests.push({
         id: key,
         row,
         label: `NFP {${termLabel(term)}} 翻轉 ${literalKey(literal)}`,
         implicantIndex: index,
+        literal,
+        pairedTruePointIndex: pairedTruePoint ? pairedTruePoint.index : null,
       });
     });
   });
@@ -818,6 +950,113 @@ export function buildNFPCSet(rows, dnf) {
     id: 'nfpc',
     name: 'Near False Point Coverage',
     description: '對每個 implicant 的每個 literal，找一個翻轉該 literal 後使 implicant 為假且 P 為假的 row。',
+    tests,
+    requirementCount,
+    unsatisfied,
+  };
+}
+
+// MNFPC（Multiple Near False Point Coverage）：
+// 對每個 implicant i 與其每個 literal l，挑一組 NFPs of (i, l)，
+// 使每個次子句（不在 i 中的 clause）都至少出現一次 T 與一次 F。
+export function buildMNFPCSet(rows, clauses, dnf) {
+  const tests = [];
+  const seen = new Set();
+  const unsatisfied = [];
+  let requirementCount = 0;
+
+  dnf.forEach((term, index) => {
+    const inImplicant = new Set(term.map((lit) => lit.name));
+    const minorClauses = clauses.filter((c) => !inImplicant.has(c));
+
+    term.forEach((literal, literalIndex) => {
+      requirementCount += Math.max(minorClauses.length * 2, 1);
+      const nfps = nearFalsePointsFor(rows, term, literalIndex);
+      if (!nfps.length) {
+        if (!minorClauses.length) {
+          unsatisfied.push(`MNFP {${termLabel(term)}} 翻轉 ${literalKey(literal)}`);
+        } else {
+          minorClauses.forEach((c) => {
+            unsatisfied.push(`MNFP {${termLabel(term)}} 翻轉 ${literalKey(literal)} 缺 ${c}=T`);
+            unsatisfied.push(`MNFP {${termLabel(term)}} 翻轉 ${literalKey(literal)} 缺 ${c}=F`);
+          });
+        }
+        return;
+      }
+
+      if (!minorClauses.length) {
+        const row = nfps[0];
+        const key = `r${row.index}-mnfp${index}-${literalIndex}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          tests.push({
+            id: key,
+            row,
+            label: `MNFP {${termLabel(term)}} 翻轉 ${literalKey(literal)}`,
+            implicantIndex: index,
+            literal,
+          });
+        }
+        return;
+      }
+
+      const remaining = new Set();
+      minorClauses.forEach((c) => {
+        remaining.add(`${c}=T`);
+        remaining.add(`${c}=F`);
+      });
+
+      const reqsPerNfp = nfps.map((row) => {
+        const reqs = new Set();
+        minorClauses.forEach((c) => {
+          reqs.add(`${c}=${row.values[c] ? 'T' : 'F'}`);
+        });
+        return reqs;
+      });
+
+      const chosen = [];
+      while (remaining.size) {
+        let bestIdx = -1;
+        let bestCount = 0;
+        reqsPerNfp.forEach((reqs, i) => {
+          if (chosen.includes(i)) return;
+          let cnt = 0;
+          reqs.forEach((r) => { if (remaining.has(r)) cnt += 1; });
+          if (cnt > bestCount) { bestCount = cnt; bestIdx = i; }
+        });
+        if (bestIdx < 0) break;
+        chosen.push(bestIdx);
+        reqsPerNfp[bestIdx].forEach((r) => remaining.delete(r));
+      }
+
+      if (remaining.size) {
+        remaining.forEach((r) => {
+          unsatisfied.push(`MNFP {${termLabel(term)}} 翻轉 ${literalKey(literal)} 缺 ${r}`);
+        });
+      }
+
+      chosen.forEach((i) => {
+        const row = nfps[i];
+        const covered = [...reqsPerNfp[i]].join(', ');
+        const key = `r${row.index}-mnfp${index}-${literalIndex}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        tests.push({
+          id: key,
+          row,
+          label: `MNFP {${termLabel(term)}} 翻轉 ${literalKey(literal)}（${covered}）`,
+          implicantIndex: index,
+          literal,
+        });
+      });
+    });
+  });
+
+  return {
+    id: 'mnfpc',
+    name: 'Multiple Near False Point Coverage',
+    description:
+      '對每個 implicant 的每個 literal，挑一組 NFPs，使每個次子句都至少出現一次 T 與一次 F。',
     tests,
     requirementCount,
     unsatisfied,
@@ -861,6 +1100,9 @@ export function buildCUTPNFPSet(rows, dnf) {
           row,
           label: `${role === 0 ? 'UTP' : 'NFP'} pair {${termLabel(term)}} 翻轉 ${literalKey(literal)}`,
           implicantIndex: index,
+          literal,
+          role: role === 0 ? 'utp' : 'nfp',
+          pairedRowIndex: pair[role === 0 ? 1 : 0].index,
         });
       });
     });

@@ -372,10 +372,22 @@ export const logicCoverageCriteria = [
     description: '為每個 implicant 挑一個只滿足該 implicant 的 unique true point。',
   },
   {
+    id: 'mutpc',
+    label: 'Multiple Unique True Point Coverage',
+    labelZh: 'MUTPC',
+    description: '為每個 implicant 挑一組 UTPs，使每個次子句都至少出現一次 T 與一次 F。',
+  },
+  {
     id: 'nfpc',
     label: 'Near False Point Coverage',
     labelZh: 'NFPC',
     description: '為每個 implicant 的每個 literal 找一個翻轉後使 P 為 false 的列。',
+  },
+  {
+    id: 'mnfpc',
+    label: 'Multiple Near False Point Coverage',
+    labelZh: 'MNFPC',
+    description: '為每個 implicant 的每個 literal 挑一組 NFPs，使每個次子句都至少出現一次 T 與一次 F。',
   },
   {
     id: 'cutpnfp',

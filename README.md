@@ -4,7 +4,7 @@
 [![Deploy GitHub Pages](https://github.com/skhuang/stvisual/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/skhuang/stvisual/actions/workflows/deploy-pages.yml)
 [![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0a7ea4)](https://skhuang.github.io/stvisual/)
 
-An interactive visualization project for software testing concepts, including testing method taxonomy, testing flow, common testing types, and graph coverage analysis.
+An interactive visualization project for software testing concepts, including testing method taxonomy, testing flow, common testing types, graph coverage analysis, and logic (predicate / clause) coverage analysis.
 
 Live demo: <https://skhuang.github.io/stvisual/>
 
@@ -35,6 +35,16 @@ Live demo: <https://skhuang.github.io/stvisual/>
 - Applies a greedy set-cover approximation to reduce the selected test path set
 - Displays before/after optimization metrics and saved path count
 - Lets users edit the graph structure live with nodes, edges, start node, and end node inputs
+- Provides logic coverage visualization for:
+  - Predicate Coverage (PC)
+  - Clause Coverage (CC)
+  - Combinatorial Coverage (CoC)
+  - Active Clause Coverage variants: GACC / CACC / RACC
+  - Inactive Clause Coverage variants: GICC / RICC
+  - Syntactic (DNF-based) criteria: IC / UTPC / NFPC / CUTPNFP
+- Renders the truth table, identifies major / minor clauses, and marks duplicate test rows
+- Computes a minimized DNF via Quine–McCluskey and renders Karnaugh maps for `f` and `¬f`
+- Lets users enter custom predicates and persists recent ones as removable chips (synced to Firestore when signed in)
 
 ## Architecture
 
@@ -137,6 +147,19 @@ This project is useful for:
 - observing the mapping between requirements and test paths
 - demonstrating path reduction with a set-cover style approximation
 
+## Logic Coverage Focus
+
+The logic coverage section currently supports:
+
+- parsing arbitrary boolean predicates over named clauses (`&&`, `||`, `!`, parentheses)
+- enumerating the full truth table and the determining (active) rows per clause
+- generating test requirements and concrete row selections for PC / CC / CoC / GACC / CACC / RACC / GICC / RICC
+- DNF-based criteria (IC / UTPC / NFPC / CUTPNFP) with Quine–McCluskey minimization, including implicants of `¬f`
+- minimizing the IC test set via greedy set cover and striking through duplicate rows
+- rendering Karnaugh maps for `f` and `¬f` (for n = 3, columns are `ab`, rows are `c`)
+- a textbook-style DNF notation (adjacency = AND, `+` = OR, overline = NOT)
+- a curated list of built-in predicates plus user-supplied recent predicates
+
 ## GitHub Pages Deployment
 
 To prepare the static site output locally:
@@ -161,8 +184,9 @@ This command:
 │   ├── main.js
 │   ├── standalone.js
 │   ├── data/
-│   ├── utils/
-│   ├── components/
+│   ├── utils/         # graphCoverage, programToGraph, logicCoverage, karnaughMap, cloudIntegration
+│   ├── components/    # TestingMethodTree, TestingFlow, TestingTypesTable,
+│   │                  # GraphCoverageExplorer, LogicCoverageExplorer, CloudStoragePanel
 │   └── tests/
 ├── e2e/
 ├── scripts/

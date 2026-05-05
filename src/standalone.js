@@ -367,10 +367,22 @@
       description: "\u70BA\u6BCF\u500B implicant \u6311\u4E00\u500B\u53EA\u6EFF\u8DB3\u8A72 implicant \u7684 unique true point\u3002"
     },
     {
+      id: "mutpc",
+      label: "Multiple Unique True Point Coverage",
+      labelZh: "MUTPC",
+      description: "\u70BA\u6BCF\u500B implicant \u6311\u4E00\u7D44 UTPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002"
+    },
+    {
       id: "nfpc",
       label: "Near False Point Coverage",
       labelZh: "NFPC",
       description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal \u627E\u4E00\u500B\u7FFB\u8F49\u5F8C\u4F7F P \u70BA false \u7684\u5217\u3002"
+    },
+    {
+      id: "mnfpc",
+      label: "Multiple Near False Point Coverage",
+      labelZh: "MNFPC",
+      description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal \u6311\u4E00\u7D44 NFPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002"
     },
     {
       id: "cutpnfp",
@@ -2032,7 +2044,7 @@
   }
 
   // src/utils/logicCoverage.js
-  var TOKEN_REGEX = /\s*(?:(\()|(\))|(&&)|(\|\|)|(!)|([A-Za-z_][A-Za-z0-9_]*))/y;
+  var TOKEN_REGEX = /\s*(?:(\()|(\))|(&&)|(\|\|)|(\+)|(!)|([A-Za-z][0-9]*))/y;
   function tokenize(expression) {
     const tokens = [];
     TOKEN_REGEX.lastIndex = 0;
@@ -2045,11 +2057,11 @@
         if (!remainder) break;
         throw new Error(`\u4E0D\u652F\u63F4\u7684\u5B57\u5143\uFF1A\u300C${remainder[0]}\u300D\u65BC\u4F4D\u7F6E ${start + 1}`);
       }
-      const [, lparen, rparen, andOp, orOp, notOp, ident] = match;
+      const [, lparen, rparen, andOp, orOp, plusOp, notOp, ident] = match;
       if (lparen) tokens.push({ type: "lparen" });
       else if (rparen) tokens.push({ type: "rparen" });
       else if (andOp) tokens.push({ type: "and" });
-      else if (orOp) tokens.push({ type: "or" });
+      else if (orOp || plusOp) tokens.push({ type: "or" });
       else if (notOp) tokens.push({ type: "not" });
       else if (ident) tokens.push({ type: "ident", value: ident });
       lastIndex = TOKEN_REGEX.lastIndex;
@@ -2082,11 +2094,18 @@
       return node;
     }
     function parseAnd() {
-      var _a;
       let node = parseNot();
-      while (((_a = peek()) == null ? void 0 : _a.type) === "and") {
-        consume("and");
-        node = { type: "and", left: node, right: parseNot() };
+      while (true) {
+        const next = peek();
+        if (!next) break;
+        if (next.type === "and") {
+          consume("and");
+          node = { type: "and", left: node, right: parseNot() };
+        } else if (next.type === "lparen" || next.type === "not" || next.type === "ident") {
+          node = { type: "and", left: node, right: parseNot() };
+        } else {
+          break;
+        }
       }
       return node;
     }
@@ -2433,7 +2452,9 @@
         ricc: buildRICCSet(rows, parsed.clauses),
         ic: buildImplicantCoverageSet(rows, dnf, negDnf),
         utpc: buildUTPCSet(rows, dnf),
+        mutpc: buildMUTPCSet(rows, parsed.clauses, dnf),
         nfpc: buildNFPCSet(rows, dnf),
+        mnfpc: buildMNFPCSet(rows, parsed.clauses, dnf),
         cutpnfp: buildCUTPNFPSet(rows, dnf)
       }
     };
@@ -2637,23 +2658,114 @@
         unsatisfied.push(`UTP for {${termLabel(term)}}`);
         return;
       }
-      const row = utps[0];
-      const key = `r${row.index}-utp${index}`;
-      if (seen.has(key)) return;
-      seen.add(key);
-      tests.push({
-        id: key,
-        row,
-        label: `UTP for {${termLabel(term)}}`,
-        implicantIndex: index
+      utps.forEach((row) => {
+        const key = `r${row.index}-utp${index}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        tests.push({
+          id: key,
+          row,
+          label: `UTP for {${termLabel(term)}}`,
+          implicantIndex: index
+        });
       });
     });
     return {
       id: "utpc",
       name: "Unique True Point Coverage",
-      description: "\u5C0D\u6BCF\u500B implicant\uFF0C\u6311\u4E00\u500B\u53EA\u6EFF\u8DB3\u8A72 implicant \u7684 unique true point\u3002",
+      description: "\u5C0D\u6BCF\u500B implicant\uFF0C\u5217\u51FA\u6240\u6709\u53EA\u6EFF\u8DB3\u8A72 implicant \u7684 unique true point\uFF08\u4EFB\u9078\u5176\u4E00\u5373\u53EF\u6EFF\u8DB3\u6E96\u5247\uFF09\u3002",
       tests,
       requirementCount: dnf.length,
+      unsatisfied
+    };
+  }
+  function buildMUTPCSet(rows, clauses, dnf) {
+    const tests = [];
+    const seen = /* @__PURE__ */ new Set();
+    const unsatisfied = [];
+    let requirementCount = 0;
+    dnf.forEach((term, index) => {
+      const inImplicant = new Set(term.map((lit) => lit.name));
+      const minorClauses = clauses.filter((c) => !inImplicant.has(c));
+      requirementCount += minorClauses.length * 2;
+      const utps = uniqueTruePointsForTerm(rows, term, dnf, index);
+      if (!utps.length) {
+        minorClauses.forEach((c) => {
+          unsatisfied.push(`MUTP {${termLabel(term)}} \u7F3A ${c}=T`);
+          unsatisfied.push(`MUTP {${termLabel(term)}} \u7F3A ${c}=F`);
+        });
+        return;
+      }
+      if (!minorClauses.length) {
+        const row = utps[0];
+        const key = `r${row.index}-mutp${index}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          tests.push({
+            id: key,
+            row,
+            label: `MUTP {${termLabel(term)}}`,
+            implicantIndex: index
+          });
+        }
+        return;
+      }
+      const remaining = /* @__PURE__ */ new Set();
+      minorClauses.forEach((c) => {
+        remaining.add(`${c}=T`);
+        remaining.add(`${c}=F`);
+      });
+      const chosen = [];
+      const utpReqs = utps.map((row) => {
+        const reqs = /* @__PURE__ */ new Set();
+        minorClauses.forEach((c) => {
+          reqs.add(`${c}=${row.values[c] ? "T" : "F"}`);
+        });
+        return reqs;
+      });
+      while (remaining.size) {
+        let bestIdx = -1;
+        let bestCount = 0;
+        utpReqs.forEach((reqs, i) => {
+          if (chosen.includes(i)) return;
+          let cnt = 0;
+          reqs.forEach((r) => {
+            if (remaining.has(r)) cnt += 1;
+          });
+          if (cnt > bestCount) {
+            bestCount = cnt;
+            bestIdx = i;
+          }
+        });
+        if (bestIdx < 0) break;
+        chosen.push(bestIdx);
+        utpReqs[bestIdx].forEach((r) => remaining.delete(r));
+      }
+      if (remaining.size) {
+        remaining.forEach((r) => {
+          unsatisfied.push(`MUTP {${termLabel(term)}} \u7F3A ${r}`);
+        });
+      }
+      chosen.forEach((i) => {
+        const row = utps[i];
+        const covered = [...utpReqs[i]].join(", ");
+        const key = `r${row.index}-mutp${index}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        tests.push({
+          id: key,
+          row,
+          label: `MUTP {${termLabel(term)}}\uFF08${covered}\uFF09`,
+          implicantIndex: index
+        });
+      });
+    });
+    return {
+      id: "mutpc",
+      name: "Multiple Unique True Point Coverage",
+      description: "\u5C0D\u6BCF\u500B implicant\uFF0C\u6311\u9078\u4E00\u7D44 UTPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\uFF08\u4E0D\u5728 implicant \u4E2D\u7684 clause\uFF09\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002",
+      tests,
+      requirementCount,
       unsatisfied
     };
   }
@@ -2685,11 +2797,19 @@
         const key = `r${row.index}-nfp${index}-${literalIndex}`;
         if (seen.has(key)) return;
         seen.add(key);
+        const pairedTruePoint = rows.find(
+          (candidate) => termSatisfiedBy(term, candidate.values) && Object.keys(candidate.values).every((name) => {
+            if (name === literal.name) return candidate.values[name] !== row.values[name];
+            return candidate.values[name] === row.values[name];
+          })
+        );
         tests.push({
           id: key,
           row,
           label: `NFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`,
-          implicantIndex: index
+          implicantIndex: index,
+          literal,
+          pairedTruePointIndex: pairedTruePoint ? pairedTruePoint.index : null
         });
       });
     });
@@ -2697,6 +2817,104 @@
       id: "nfpc",
       name: "Near False Point Coverage",
       description: "\u5C0D\u6BCF\u500B implicant \u7684\u6BCF\u500B literal\uFF0C\u627E\u4E00\u500B\u7FFB\u8F49\u8A72 literal \u5F8C\u4F7F implicant \u70BA\u5047\u4E14 P \u70BA\u5047\u7684 row\u3002",
+      tests,
+      requirementCount,
+      unsatisfied
+    };
+  }
+  function buildMNFPCSet(rows, clauses, dnf) {
+    const tests = [];
+    const seen = /* @__PURE__ */ new Set();
+    const unsatisfied = [];
+    let requirementCount = 0;
+    dnf.forEach((term, index) => {
+      const inImplicant = new Set(term.map((lit) => lit.name));
+      const minorClauses = clauses.filter((c) => !inImplicant.has(c));
+      term.forEach((literal, literalIndex) => {
+        requirementCount += Math.max(minorClauses.length * 2, 1);
+        const nfps = nearFalsePointsFor(rows, term, literalIndex);
+        if (!nfps.length) {
+          if (!minorClauses.length) {
+            unsatisfied.push(`MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`);
+          } else {
+            minorClauses.forEach((c) => {
+              unsatisfied.push(`MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)} \u7F3A ${c}=T`);
+              unsatisfied.push(`MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)} \u7F3A ${c}=F`);
+            });
+          }
+          return;
+        }
+        if (!minorClauses.length) {
+          const row = nfps[0];
+          const key = `r${row.index}-mnfp${index}-${literalIndex}`;
+          if (!seen.has(key)) {
+            seen.add(key);
+            tests.push({
+              id: key,
+              row,
+              label: `MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`,
+              implicantIndex: index,
+              literal
+            });
+          }
+          return;
+        }
+        const remaining = /* @__PURE__ */ new Set();
+        minorClauses.forEach((c) => {
+          remaining.add(`${c}=T`);
+          remaining.add(`${c}=F`);
+        });
+        const reqsPerNfp = nfps.map((row) => {
+          const reqs = /* @__PURE__ */ new Set();
+          minorClauses.forEach((c) => {
+            reqs.add(`${c}=${row.values[c] ? "T" : "F"}`);
+          });
+          return reqs;
+        });
+        const chosen = [];
+        while (remaining.size) {
+          let bestIdx = -1;
+          let bestCount = 0;
+          reqsPerNfp.forEach((reqs, i) => {
+            if (chosen.includes(i)) return;
+            let cnt = 0;
+            reqs.forEach((r) => {
+              if (remaining.has(r)) cnt += 1;
+            });
+            if (cnt > bestCount) {
+              bestCount = cnt;
+              bestIdx = i;
+            }
+          });
+          if (bestIdx < 0) break;
+          chosen.push(bestIdx);
+          reqsPerNfp[bestIdx].forEach((r) => remaining.delete(r));
+        }
+        if (remaining.size) {
+          remaining.forEach((r) => {
+            unsatisfied.push(`MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)} \u7F3A ${r}`);
+          });
+        }
+        chosen.forEach((i) => {
+          const row = nfps[i];
+          const covered = [...reqsPerNfp[i]].join(", ");
+          const key = `r${row.index}-mnfp${index}-${literalIndex}`;
+          if (seen.has(key)) return;
+          seen.add(key);
+          tests.push({
+            id: key,
+            row,
+            label: `MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}\uFF08${covered}\uFF09`,
+            implicantIndex: index,
+            literal
+          });
+        });
+      });
+    });
+    return {
+      id: "mnfpc",
+      name: "Multiple Near False Point Coverage",
+      description: "\u5C0D\u6BCF\u500B implicant \u7684\u6BCF\u500B literal\uFF0C\u6311\u4E00\u7D44 NFPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002",
       tests,
       requirementCount,
       unsatisfied
@@ -2737,7 +2955,10 @@
             id: key,
             row,
             label: `${role === 0 ? "UTP" : "NFP"} pair {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`,
-            implicantIndex: index
+            implicantIndex: index,
+            literal,
+            role: role === 0 ? "utp" : "nfp",
+            pairedRowIndex: pair[role === 0 ? 1 : 0].index
           });
         });
       });
@@ -3118,7 +3339,26 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     if (!dnf.length) return "<code>0</code>";
     return dnf.map((term) => `<code>${termToCompactHtml(term)}</code>`).join(" &nbsp;+&nbsp; ");
   }
-  function renderKMap(rows, clauses, target, title) {
+  var IMPLICANT_PALETTE = [
+    "#e67e22",
+    "#27ae60",
+    "#2980b9",
+    "#8e44ad",
+    "#c0392b",
+    "#16a085",
+    "#d35400",
+    "#7f8c8d"
+  ];
+  function renderKMap(rows, clauses, target, title, options = {}) {
+    const {
+      highlightedMinterms = null,
+      implicantGroups = [],
+      highlightLabel = "UTP",
+      nfpMarks = null,
+      // Map<minterm, { color, label }>
+      ntpMarks = null
+      // Map<minterm, { color, label }>
+    } = options;
     const map = buildKMap(rows, clauses, target);
     if (map.unsupported) {
       return `<div class="logic-kmap"><h4 class="logic-kmap-title">${escapeHtml2(title)}</h4>
@@ -3129,19 +3369,68 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const colHeadHtml = map.colHeaders.map((h) => `<th scope="col">${escapeHtml2(h)}</th>`).join("");
     const bodyHtml = map.grid.map((row) => {
       const cells = row.cells.map((cell) => {
-        const cls = cell.value ? "logic-kmap-cell logic-kmap-on" : "logic-kmap-cell";
+        const classes = ["logic-kmap-cell"];
+        if (cell.value) classes.push("logic-kmap-on");
+        const isHighlighted = highlightedMinterms == null ? void 0 : highlightedMinterms.has(cell.minterm);
+        if (isHighlighted) classes.push("logic-kmap-utp");
         const text = cell.value ? "1" : "0";
-        return `<td class="${cls}" title="m${cell.minterm}">${text}<sub>${cell.minterm}</sub></td>`;
+        const marker = isHighlighted ? '<span class="logic-kmap-utp-mark" aria-hidden="true">\u2605</span>' : "";
+        const groupsCovering = implicantGroups.filter((g) => g.minterms.has(cell.minterm));
+        const dots = groupsCovering.length ? `<span class="logic-kmap-dots">${groupsCovering.map((g) => `<span class="logic-kmap-dot" style="background:${g.color}" title="${escapeHtml2(g.label)}"></span>`).join("")}</span>` : "";
+        const nfpInfo = nfpMarks == null ? void 0 : nfpMarks.get(cell.minterm);
+        const ntpInfo = ntpMarks == null ? void 0 : ntpMarks.get(cell.minterm);
+        if (nfpInfo) classes.push("logic-kmap-nfp");
+        if (ntpInfo) classes.push("logic-kmap-ntp");
+        const badge = (() => {
+          const parts = [];
+          if (ntpInfo) {
+            parts.push(`<span class="logic-kmap-badge logic-kmap-badge-ntp" style="background:${ntpInfo.color}" title="${escapeHtml2(ntpInfo.label)}">UTP</span>`);
+          }
+          if (nfpInfo) {
+            parts.push(`<span class="logic-kmap-badge logic-kmap-badge-nfp" style="border-color:${nfpInfo.color};color:${nfpInfo.color}" title="${escapeHtml2(nfpInfo.label)}">NFP</span>`);
+          }
+          return parts.length ? `<span class="logic-kmap-badges">${parts.join("")}</span>` : "";
+        })();
+        const titleAttr = `m${cell.minterm}${isHighlighted ? `\uFF08${highlightLabel}\uFF09` : ""}${groupsCovering.length ? `\uFF5C${groupsCovering.map((g) => g.label).join(" / ")}` : ""}${nfpInfo ? `\uFF5CNFP: ${nfpInfo.label}` : ""}${ntpInfo ? `\uFF5CUTP: ${ntpInfo.label}` : ""}`;
+        return `<td class="${classes.join(" ")}" title="${escapeHtml2(titleAttr)}">${marker}${badge}${text}<sub>${cell.minterm}</sub>${dots}</td>`;
       }).join("");
       const rowHead = rowHeaderLabel ? `<th scope="row">${escapeHtml2(row.header)}</th>` : "";
       return `<tr>${rowHead}${cells}</tr>`;
     }).join("");
     const corner = rowHeaderLabel ? `<th class="logic-kmap-corner"><span>${escapeHtml2(rowHeaderLabel)}</span><span class="logic-kmap-slash">\\</span><span>${escapeHtml2(colHeaderLabel)}</span></th>` : `<th class="logic-kmap-corner">${escapeHtml2(colHeaderLabel)}</th>`;
+    const legend = implicantGroups.length ? `<ul class="logic-kmap-legend">${implicantGroups.map((g) => {
+      var _a;
+      return `
+          <li>
+            <span class="logic-kmap-dot" style="background:${g.color}"></span>
+            <code>${g.labelHtml || escapeHtml2(g.label)}</code>
+            ${((_a = g.testRowIndices) == null ? void 0 : _a.length) ? `<span class="logic-kmap-legend-tests">tests: ${g.testRowIndices.map((i) => `m${i}`).join(", ")}</span>` : ""}
+          </li>`;
+    }).join("")}</ul>` : "";
     return `<div class="logic-kmap" data-testid="${target ? "logic-kmap-f" : "logic-kmap-not-f"}">
     <h4 class="logic-kmap-title">${escapeHtml2(title)}</h4>
     <table class="logic-kmap-table"><thead><tr>${corner}${colHeadHtml}</tr></thead>
     <tbody>${bodyHtml}</tbody></table>
+    ${legend}
   </div>`;
+  }
+  function buildImplicantGroups(rows, terms, target, paletteOffset = 0, testsForPolarity = []) {
+    return terms.map((term, idx) => {
+      const minterms = new Set(
+        rows.filter((row) => row.predicate === target && term.every((lit) => Boolean(row.values[lit.name]) !== lit.negated)).map((row) => row.index)
+      );
+      const testRowIndices = testsForPolarity.filter((t) => {
+        var _a;
+        return ((_a = t.implicantIndices) == null ? void 0 : _a.includes(idx)) || t.implicantIndex === idx;
+      }).map((t) => t.row.index);
+      return {
+        color: IMPLICANT_PALETTE[(idx + paletteOffset) % IMPLICANT_PALETTE.length],
+        label: termToString(term),
+        labelHtml: termToCompactHtml(term),
+        minterms,
+        testRowIndices: [...new Set(testRowIndices)]
+      };
+    });
   }
   function createLogicCoverageExplorer() {
     const root2 = document.createElement("div");
@@ -3272,6 +3561,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           autocomplete="off"
           data-testid="logic-expression-input"
         />
+        <p class="logic-input-hint">\u652F\u63F4 <code>&amp;&amp;</code> / <code>||</code> / <code>!</code>\uFF0C\u4E5F\u63A5\u53D7\u6559\u79D1\u66F8\u8A18\u865F\uFF1A\u76F8\u9130\u5373 AND\uFF08\u5982 <code>ab</code>\uFF09\u3001<code>+</code> \u70BA OR\uFF08\u5982 <code>a+b</code>\uFF09\u3002</p>
         <div class="logic-examples">${examplesMarkup}</div>
         ${recentMarkup}
       </div>
@@ -3367,15 +3657,129 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </li>
       `).join("");
       const unsatisfied = ((_a = set.unsatisfied) == null ? void 0 : _a.length) ? `<p class="logic-unsatisfied" data-testid="logic-unsatisfied">\u7121\u6CD5\u627E\u5230\u4E0B\u5217\u9700\u6C42\u5C0D\u61C9\u5217\uFF1A${set.unsatisfied.join(", ")}</p>` : "";
-      const dnfMarkup = ["ic", "utpc", "nfpc", "cutpnfp"].includes(set.id) && state.analysis.dnf ? `<p class="logic-dnf" data-testid="logic-dnf">f \u7684\u6700\u5C0F DNF\uFF1A${dnfToHtml(state.analysis.dnf)}
+      const dnfMarkup = ["ic", "utpc", "mutpc", "nfpc", "mnfpc", "cutpnfp"].includes(set.id) && state.analysis.dnf ? `<p class="logic-dnf" data-testid="logic-dnf">f \u7684\u6700\u5C0F DNF\uFF1A${dnfToHtml(state.analysis.dnf)}
           <span class="logic-dnf-alt">\uFF08\u6559\u79D1\u66F8\u8A18\u865F\uFF1A${dnfToCompactHtml(state.analysis.dnf)}\uFF09</span>
         </p>${set.id === "ic" && state.analysis.negDnf ? `<p class="logic-dnf" data-testid="logic-dnf-neg">\xACf \u7684\u6700\u5C0F DNF\uFF1A${dnfToHtml(state.analysis.negDnf)}
                 <span class="logic-dnf-alt">\uFF08\u6559\u79D1\u66F8\u8A18\u865F\uFF1A${dnfToCompactHtml(state.analysis.negDnf)}\uFF09</span>
               </p>` : ""}` : "";
-      const kmapMarkup = set.id === "ic" && state.parsed ? `<div class="logic-kmap-row">
-          ${renderKMap(state.analysis.rows, state.parsed.clauses, true, "f \u7684 Karnaugh Map")}
-          ${renderKMap(state.analysis.rows, state.parsed.clauses, false, "\xACf \u7684 Karnaugh Map")}
-        </div>` : "";
+      const kmapMarkup = state.parsed && (set.id === "ic" || set.id === "utpc" || set.id === "mutpc" || set.id === "nfpc" || set.id === "mnfpc" || set.id === "cutpnfp") ? set.id === "ic" ? (() => {
+        const posTests = set.tests.filter((t) => t.polarity === "pos");
+        const negTests = set.tests.filter((t) => t.polarity === "neg");
+        const posGroups = buildImplicantGroups(
+          state.analysis.rows,
+          state.analysis.dnf || [],
+          true,
+          0,
+          posTests
+        );
+        const negGroups = buildImplicantGroups(
+          state.analysis.rows,
+          state.analysis.negDnf || [],
+          false,
+          (state.analysis.dnf || []).length,
+          negTests
+        );
+        const posTestSet = new Set(posTests.map((t) => t.row.index));
+        const negTestSet = new Set(negTests.map((t) => t.row.index));
+        return `<div class="logic-kmap-row">
+                ${renderKMap(
+          state.analysis.rows,
+          state.parsed.clauses,
+          true,
+          "f \u7684 Karnaugh Map\uFF08\u2605 = \u9078\u7528 test case\uFF09",
+          { highlightedMinterms: posTestSet, implicantGroups: posGroups, highlightLabel: "test" }
+        )}
+                ${renderKMap(
+          state.analysis.rows,
+          state.parsed.clauses,
+          false,
+          "\xACf \u7684 Karnaugh Map\uFF08\u2605 = \u9078\u7528 test case\uFF09",
+          { highlightedMinterms: negTestSet, implicantGroups: negGroups, highlightLabel: "test" }
+        )}
+              </div>`;
+      })() : set.id === "utpc" ? `<div class="logic-kmap-row">
+                ${renderKMap(
+        state.analysis.rows,
+        state.parsed.clauses,
+        true,
+        "f \u7684 Karnaugh Map\uFF08\u2605 = \u9078\u53D6\u7684 UTP\uFF09",
+        { highlightedMinterms: new Set(set.tests.map((t) => t.row.index)) }
+      )}
+              </div>` : set.id === "mutpc" ? (() => {
+        const dnf = state.analysis.dnf || [];
+        const groups = buildImplicantGroups(state.analysis.rows, dnf, true, 0, set.tests);
+        return `<div class="logic-kmap-row">
+                  ${renderKMap(
+          state.analysis.rows,
+          state.parsed.clauses,
+          true,
+          "f \u7684 Karnaugh Map\uFF08\u2605 = \u9078\u53D6\u7684 MUTP\uFF09",
+          {
+            highlightedMinterms: new Set(set.tests.map((t) => t.row.index)),
+            implicantGroups: groups,
+            highlightLabel: "MUTP"
+          }
+        )}
+                </div>`;
+      })() : set.id === "nfpc" || set.id === "mnfpc" ? (() => {
+        const dnf = state.analysis.dnf || [];
+        const groups = buildImplicantGroups(state.analysis.rows, dnf, true, 0, []);
+        const nfpMarks = /* @__PURE__ */ new Map();
+        const ntpMarks = /* @__PURE__ */ new Map();
+        set.tests.forEach((t) => {
+          const color = IMPLICANT_PALETTE[t.implicantIndex % IMPLICANT_PALETTE.length];
+          const termText = termToString(dnf[t.implicantIndex] || []);
+          const litText = t.literal ? `${t.literal.negated ? "!" : ""}${t.literal.name}` : "";
+          const label = `{${termText}} \u7FFB\u8F49 ${litText}`;
+          nfpMarks.set(t.row.index, { color, label });
+          if (typeof t.pairedTruePointIndex === "number") {
+            ntpMarks.set(t.pairedTruePointIndex, { color, label });
+          }
+        });
+        const titleText = set.id === "mnfpc" ? "f \u7684 Karnaugh Map\uFF08MNFP\uFF1A\u6BCF\u500B implicant \xD7 literal \u9078\u53D6\u7684 NFPs\uFF09" : "f \u7684 Karnaugh Map\uFF08NFP \u8207\u5C0D\u61C9 UTP\uFF09";
+        return `<div class="logic-kmap-row">
+                  ${renderKMap(
+          state.analysis.rows,
+          state.parsed.clauses,
+          true,
+          titleText,
+          { implicantGroups: groups, nfpMarks, ntpMarks, highlightLabel: "test" }
+        )}
+                </div>`;
+      })() : (() => {
+        const dnf = state.analysis.dnf || [];
+        const groups = buildImplicantGroups(state.analysis.rows, dnf, true, 0, []);
+        const nfpMarks = /* @__PURE__ */ new Map();
+        const ntpMarks = /* @__PURE__ */ new Map();
+        const testRowSet = /* @__PURE__ */ new Set();
+        set.tests.forEach((t) => {
+          const color = IMPLICANT_PALETTE[t.implicantIndex % IMPLICANT_PALETTE.length];
+          const termText = termToString(dnf[t.implicantIndex] || []);
+          const litText = t.literal ? `${t.literal.negated ? "!" : ""}${t.literal.name}` : "";
+          const label = `{${termText}} \u7FFB\u8F49 ${litText}`;
+          testRowSet.add(t.row.index);
+          if (t.role === "utp") {
+            ntpMarks.set(t.row.index, { color, label });
+          } else {
+            nfpMarks.set(t.row.index, { color, label });
+          }
+        });
+        return `<div class="logic-kmap-row">
+                  ${renderKMap(
+          state.analysis.rows,
+          state.parsed.clauses,
+          true,
+          "f \u7684 Karnaugh Map\uFF08\u2605 = \u9078\u53D6\u7684 test case\uFF1BUTP\u2194NFP \u6210\u5C0D\u6A19\u793A\uFF09",
+          {
+            implicantGroups: groups,
+            nfpMarks,
+            ntpMarks,
+            highlightedMinterms: testRowSet,
+            highlightLabel: "test"
+          }
+        )}
+                </div>`;
+      })() : "";
       return `
       <h3 class="logic-summary-title">${escapeHtml2(set.name)}</h3>
       <p class="logic-summary-desc">${escapeHtml2(set.description)}</p>
