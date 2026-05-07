@@ -673,6 +673,39 @@
       "grammar.origRejects": "orig: reject",
       "grammar.mutAccepts": "mut: accept",
       "grammar.mutRejects": "mut: reject",
+      "grammar.string.title": "Mutation on Strings (BNF Mutation)",
+      "grammar.string.subtitle": "Apply mutation operators to a derived string. In-language results stress the parser; out-of-language results test error handling.",
+      "grammar.string.seed": "Seed string",
+      "grammar.string.maxPerOp": "Max mutants / op",
+      "grammar.string.empty": "No string mutants \u2014 pick a seed and at least one operator.",
+      "grammar.string.colMutated": "Mutated string",
+      "grammar.string.colKind": "Result",
+      "grammar.string.inLang": "in language",
+      "grammar.string.outLang": "not in language",
+      "grammar.string.statsPositive": "Positive (in-language)",
+      "grammar.string.statsNegative": "Negative (out-of-language)",
+      "grammar.string.original": "Original",
+      "grammar.string.mutated": "Mutated",
+      "grammar.string.flipped": "Flips language membership vs. seed.",
+      "grammar.string.sameLang": "Same membership as seed.",
+      "grammar.string.selectHint": "Select a row to inspect.",
+      "spec.kicker": "Specification-Based Mutation",
+      "spec.title": "Specification Mutation Explorer",
+      "spec.subtitle": "Mutate a Boolean specification (precondition / invariant) and find assignments that distinguish the original from each mutant.",
+      "spec.predicateLabel": "Predicate (e.g. (a || b) && c)",
+      "spec.clauses": "Clauses",
+      "spec.canonical": "Canonical",
+      "spec.mutants": "Specification mutants",
+      "spec.noMutants": "No mutants \u2014 enable at least one operator.",
+      "spec.testNote": "Tests are the full truth table over the predicate clauses; a mutant is killed when its value differs from the original on any row.",
+      "spec.mutantText": "Mutant predicate",
+      "spec.equivalentHint": "No assignment in the truth table distinguishes this mutant from the original (likely equivalent).",
+      "spec.op.ENF": "ENF \u2014 negate entire predicate",
+      "spec.op.BCR": "BCR \u2014 replace clause with true / false",
+      "spec.op.CRR": "CRR \u2014 replace clause with another clause",
+      "spec.op.LRO": "LRO \u2014 swap && and ||",
+      "spec.op.UOI": "UOI \u2014 insert NOT around a clause",
+      "spec.op.MCR": "MCR \u2014 drop one operand of && or ||",
       "syntax.cloud.failed": "Sync failed",
       "syntax.cloud.linked": "Linked: {name}",
       "syntax.cloud.reloading": "Reloading from cloud\u2026",
@@ -941,6 +974,39 @@
       "grammar.origRejects": "\u539F grammar\uFF1A\u62D2\u7D55",
       "grammar.mutAccepts": "mutant\uFF1A\u63A5\u53D7",
       "grammar.mutRejects": "mutant\uFF1A\u62D2\u7D55",
+      "grammar.string.title": "\u5B57\u4E32\u7A81\u8B8A\uFF08Mutation on Strings\uFF09",
+      "grammar.string.subtitle": "\u5C0D\u884D\u751F\u5B57\u4E32\u5957\u7528\u7A81\u8B8A\u904B\u7B97\u5B50\uFF1B\u843D\u5728\u8A9E\u8A00\u5167\u7684\u5B57\u4E32\u53EF\u4F5C\u70BA\u6B63\u5411\u6E2C\u8A66\uFF0C\u843D\u5728\u8A9E\u8A00\u5916\u7684\u5B57\u4E32\u5247\u7528\u65BC\u932F\u8AA4\u8655\u7406\u6E2C\u8A66\u3002",
+      "grammar.string.seed": "\u7A2E\u5B50\u5B57\u4E32",
+      "grammar.string.maxPerOp": "\u6BCF\u904B\u7B97\u5B50\u6700\u591A mutants",
+      "grammar.string.empty": "\u5C1A\u7121\u5B57\u4E32 mutants\uFF1B\u8ACB\u9078\u64C7\u7A2E\u5B50\u4E26\u81F3\u5C11\u555F\u7528\u4E00\u500B\u904B\u7B97\u5B50\u3002",
+      "grammar.string.colMutated": "\u7A81\u8B8A\u5B57\u4E32",
+      "grammar.string.colKind": "\u5224\u5B9A",
+      "grammar.string.inLang": "\u5C6C\u65BC\u8A9E\u8A00",
+      "grammar.string.outLang": "\u4E0D\u5C6C\u65BC\u8A9E\u8A00",
+      "grammar.string.statsPositive": "\u6B63\u5411\uFF08in-language\uFF09",
+      "grammar.string.statsNegative": "\u53CD\u5411\uFF08out-of-language\uFF09",
+      "grammar.string.original": "\u539F\u5B57\u4E32",
+      "grammar.string.mutated": "\u7A81\u8B8A\u5F8C",
+      "grammar.string.flipped": "\u76F8\u5C0D\u7A2E\u5B50\u7FFB\u8F49\u4E86\u8A9E\u8A00\u6B78\u5C6C\u3002",
+      "grammar.string.sameLang": "\u8207\u7A2E\u5B50\u5728\u540C\u4E00\u5074\uFF08\u5C6C\u65BC / \u4E0D\u5C6C\u65BC\uFF09\u3002",
+      "grammar.string.selectHint": "\u9EDE\u9078\u4E00\u5217\u67E5\u770B\u7D30\u7BC0\u3002",
+      "spec.kicker": "\u898F\u683C\u7A81\u8B8A\u6E2C\u8A66",
+      "spec.title": "Specification Mutation \u63A2\u7D22\u5668",
+      "spec.subtitle": "\u5C0D\u4E00\u500B\u5E03\u6797\u898F\u683C\uFF08\u524D\u7F6E\u689D\u4EF6 / \u4E0D\u8B8A\u5F0F\uFF09\u5957\u7528\u7A81\u8B8A\u904B\u7B97\u5B50\uFF0C\u4E26\u5728\u771F\u503C\u8868\u4E2D\u627E\u51FA\u80FD\u5340\u5206\u539F predicate \u8207 mutant \u7684\u8CDC\u503C\u3002",
+      "spec.predicateLabel": "Predicate\uFF08\u4F8B\uFF1A(a || b) && c\uFF09",
+      "spec.clauses": "\u5B50\u53E5",
+      "spec.canonical": "\u6A19\u6E96\u5316",
+      "spec.mutants": "\u898F\u683C Mutants",
+      "spec.noMutants": "\u5C1A\u7121 mutants\uFF1B\u8ACB\u81F3\u5C11\u555F\u7528\u4E00\u500B\u904B\u7B97\u5B50\u3002",
+      "spec.testNote": "\u6E2C\u8A66\u96C6\u70BA\u8A72 predicate \u6240\u6709\u5B50\u53E5\u7684\u5B8C\u6574\u771F\u503C\u8868\uFF1Bmutant \u53EA\u8981\u5728\u67D0\u4E00\u5217\u4E0A\u8207\u539F predicate \u8A55\u4F30\u7D50\u679C\u4E0D\u540C\u5373\u8996\u70BA killed\u3002",
+      "spec.mutantText": "Mutant Predicate",
+      "spec.equivalentHint": "\u771F\u503C\u8868\u4E2D\u6C92\u6709\u4EFB\u4F55\u8CDC\u503C\u80FD\u5340\u5206\u9019\u500B mutant\uFF08\u5F88\u53EF\u80FD\u662F equivalent mutant\uFF09\u3002",
+      "spec.op.ENF": "ENF \u2014 \u5C0D\u6574\u500B predicate \u53D6\u53CD",
+      "spec.op.BCR": "BCR \u2014 \u5C07\u5B50\u53E5\u63DB\u6210 true / false",
+      "spec.op.CRR": "CRR \u2014 \u5C07\u5B50\u53E5\u63DB\u6210\u53E6\u4E00\u500B\u5B50\u53E5",
+      "spec.op.LRO": "LRO \u2014 \u4EA4\u63DB && \u8207 ||",
+      "spec.op.UOI": "UOI \u2014 \u5728\u5B50\u53E5\u5916\u63D2\u5165 NOT",
+      "spec.op.MCR": "MCR \u2014 \u522A\u9664 && \u6216 || \u7684\u4E00\u500B\u64CD\u4F5C\u5143",
       "syntax.cloud.failed": "\u540C\u6B65\u5931\u6557",
       "syntax.cloud.linked": "\u5DF2\u9023\u7D50 {name}",
       "syntax.cloud.reloading": "\u91CD\u65B0\u5F9E\u96F2\u7AEF\u8B80\u53D6\u2026",
@@ -6757,10 +6823,133 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       };
     });
   }
+  var STRING_MUTATION_OPERATORS = ["REP", "DEL", "DUP", "INS", "SWP"];
+  function deriveAlphabet(grammar, seedStrings = []) {
+    const set = /* @__PURE__ */ new Set();
+    if (grammar == null ? void 0 : grammar.terminals) {
+      for (const t2 of grammar.terminals) {
+        for (const ch of String(t2)) set.add(ch);
+      }
+    }
+    for (const s of seedStrings) {
+      for (const ch of String(s)) set.add(ch);
+    }
+    return [...set];
+  }
+  function generateStringMutants(seed, opIds = STRING_MUTATION_OPERATORS, options = {}) {
+    var _a2;
+    if (typeof seed !== "string") throw new Error("Seed must be a string.");
+    const ops = new Set(opIds);
+    const alphabet = options.alphabet && options.alphabet.length > 0 ? [...new Set(options.alphabet)] : [...new Set(seed.split(""))];
+    const maxPerOp = (_a2 = options.maxPerOp) != null ? _a2 : 30;
+    const out = [];
+    const seen = /* @__PURE__ */ new Set();
+    const push = (operator, mutated, description) => {
+      if (mutated === seed) return;
+      const key = `${operator}|${mutated}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      out.push({
+        id: `${operator}:${out.length}`,
+        operator,
+        original: seed,
+        mutated,
+        description
+      });
+    };
+    if (ops.has("REP")) {
+      let count = 0;
+      outer: for (let i = 0; i < seed.length; i++) {
+        for (const ch of alphabet) {
+          if (ch === seed[i]) continue;
+          push(
+            "REP",
+            seed.slice(0, i) + ch + seed.slice(i + 1),
+            `Replace position ${i} '${seed[i]}' \u2192 '${ch}'`
+          );
+          count++;
+          if (count >= maxPerOp) break outer;
+        }
+      }
+    }
+    if (ops.has("DEL")) {
+      let count = 0;
+      for (let i = 0; i < seed.length; i++) {
+        push(
+          "DEL",
+          seed.slice(0, i) + seed.slice(i + 1),
+          `Delete position ${i} '${seed[i]}'`
+        );
+        count++;
+        if (count >= maxPerOp) break;
+      }
+    }
+    if (ops.has("DUP")) {
+      let count = 0;
+      for (let i = 0; i < seed.length; i++) {
+        push(
+          "DUP",
+          seed.slice(0, i + 1) + seed[i] + seed.slice(i + 1),
+          `Duplicate position ${i} '${seed[i]}'`
+        );
+        count++;
+        if (count >= maxPerOp) break;
+      }
+    }
+    if (ops.has("INS")) {
+      let count = 0;
+      outer: for (let i = 0; i <= seed.length; i++) {
+        for (const ch of alphabet) {
+          push(
+            "INS",
+            seed.slice(0, i) + ch + seed.slice(i),
+            `Insert '${ch}' at position ${i}`
+          );
+          count++;
+          if (count >= maxPerOp) break outer;
+        }
+      }
+    }
+    if (ops.has("SWP")) {
+      let count = 0;
+      for (let i = 0; i < seed.length - 1; i++) {
+        if (seed[i] === seed[i + 1]) continue;
+        push(
+          "SWP",
+          seed.slice(0, i) + seed[i + 1] + seed[i] + seed.slice(i + 2),
+          `Swap positions ${i}/${i + 1}`
+        );
+        count++;
+        if (count >= maxPerOp) break;
+      }
+    }
+    return out;
+  }
+  function classifyStringMutants(grammar, mutants, recOptions) {
+    const cache = /* @__PURE__ */ new Map();
+    const accepts = (s) => {
+      if (cache.has(s)) return cache.get(s);
+      const v = recognizes(grammar, s, recOptions);
+      cache.set(s, v);
+      return v;
+    };
+    return mutants.map((m) => {
+      const origAccepts = accepts(m.original);
+      const mutAccepts = accepts(m.mutated);
+      return {
+        ...m,
+        origAccepts,
+        mutAccepts,
+        kind: mutAccepts ? "positive" : "negative",
+        flipped: origAccepts !== mutAccepts
+      };
+    });
+  }
 
   // src/components/GrammarCoverageExplorer.js
   var STORAGE_KEY3 = "stvisual.grammarPrograms.v1";
   var DEFAULT_OPS = ["TR", "SD"];
+  var DEFAULT_STRING_OPS = ["REP", "DEL"];
   function escapeHtml4(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
@@ -6813,15 +7002,21 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       coverage: null,
       mutants: [],
       selectedMutantId: null,
-      extraTests: ""
+      extraTests: "",
       // user-added test strings, one per line
+      // Phase 3: Mutation on Strings (BNF Mutation)
+      stringOperators: new Set(DEFAULT_STRING_OPS),
+      seedIndex: 0,
+      maxPerStringOp: 12,
+      stringMutants: [],
+      selectedStringMutantId: null
     };
     function persistCurrent() {
       state.programs[state.exampleId] = state.text;
       saveLocalGrammars(state.programs);
     }
     function recompute() {
-      var _a2;
+      var _a2, _b;
       state.parseError = null;
       state.grammar = null;
       state.derivations = [];
@@ -6847,6 +7042,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         if (!state.mutants.find((m) => m.id === state.selectedMutantId)) {
           state.selectedMutantId = ((_a2 = state.mutants[0]) == null ? void 0 : _a2.id) || null;
         }
+        state.stringMutants = [];
+        if (state.derivations.length > 0 && state.stringOperators.size > 0) {
+          const idx = Math.min(state.seedIndex, state.derivations.length - 1);
+          const seed = state.derivations[idx].string;
+          const alphabet = deriveAlphabet(g, state.derivations.map((d) => d.string));
+          const raw = generateStringMutants(seed, [...state.stringOperators], {
+            alphabet,
+            maxPerOp: state.maxPerStringOp
+          });
+          state.stringMutants = classifyStringMutants(g, raw);
+        }
+        if (!state.stringMutants.find((m) => m.id === state.selectedStringMutantId)) {
+          state.selectedStringMutantId = ((_b = state.stringMutants[0]) == null ? void 0 : _b.id) || null;
+        }
       } catch (err) {
         state.parseError = err.message || String(err);
       }
@@ -6859,7 +7068,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       state.selectedMutantId = null;
     }
     function render() {
-      var _a2, _b, _c, _d, _e, _f, _g, _h;
+      var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j;
       recompute();
       const allExamples = [...grammarExamples, ...state.customExamples];
       const exampleButtons = allExamples.map((ex) => `
@@ -6910,6 +7119,44 @@ Content-Type: ${file.type || "application/octet-stream"}\r
                <ul class="grammar-killer-list">${selectedMutant.killers.slice(0, 8).map((k) => `<li><code>${escapeHtml4(k.string === "" ? "\u2205" : k.string)}</code> \xB7 ${k.origAccepts ? t("grammar.origAccepts") : t("grammar.origRejects")} \xB7 ${k.mutAccepts ? t("grammar.mutAccepts") : t("grammar.mutRejects")}</li>`).join("")}</ul>` : `<p class="grammar-mutant-live">${escapeHtml4(t("grammar.liveHint"))}</p>`}
         </div>` : `<p class="grammar-empty">${escapeHtml4(t("grammar.selectMutantHint"))}</p>`;
       const score = state.mutants.length === 0 ? null : { killed: state.mutants.filter((m) => m.killed).length, total: state.mutants.length };
+      const seedOptionsHtml = state.derivations.map((d, idx) => `
+      <option value="${idx}" ${idx === Math.min(state.seedIndex, state.derivations.length - 1) ? "selected" : ""}>
+        #${idx + 1}: ${escapeHtml4(d.string === "" ? "\u2205" : d.string)}
+      </option>`).join("");
+      const stringOpButtons = STRING_MUTATION_OPERATORS.map((op) => `
+      <label class="grammar-op-btn${state.stringOperators.has(op) ? " active" : ""}">
+        <input type="checkbox" data-grammar-string-op="${op}" ${state.stringOperators.has(op) ? "checked" : ""} />
+        <span>${op}</span>
+      </label>
+    `).join("");
+      const stringMutantsHtml = state.stringMutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.string.empty"))}</p>` : `<table class="grammar-string-mutant-table" data-testid="grammar-string-mutant-table">
+          <thead><tr>
+            <th>Op</th>
+            <th>${escapeHtml4(t("grammar.string.colMutated"))}</th>
+            <th>${escapeHtml4(t("grammar.string.colKind"))}</th>
+          </tr></thead>
+          <tbody>
+            ${state.stringMutants.map((m) => `<tr
+                class="grammar-string-row ${m.kind === "positive" ? "positive" : "negative"}${state.selectedStringMutantId === m.id ? " active" : ""}"
+                data-grammar-string-mutant="${escapeHtml4(m.id)}">
+                <td><span class="grammar-op-tag">${m.operator}</span></td>
+                <td><code>${escapeHtml4(m.mutated === "" ? "\u2205" : m.mutated)}</code></td>
+                <td>${m.kind === "positive" ? `<span class="grammar-string-kind positive">\u2713 ${escapeHtml4(t("grammar.string.inLang"))}</span>` : `<span class="grammar-string-kind negative">\u2717 ${escapeHtml4(t("grammar.string.outLang"))}</span>`}</td>
+              </tr>`).join("")}
+          </tbody>
+         </table>`;
+      const positives = state.stringMutants.filter((m) => m.kind === "positive").length;
+      const negatives = state.stringMutants.length - positives;
+      const stringStats = state.stringMutants.length === 0 ? null : `<span class="grammar-string-stats" data-testid="grammar-string-stats">
+          ${escapeHtml4(t("grammar.string.statsPositive"))}: ${positives} \xB7 ${escapeHtml4(t("grammar.string.statsNegative"))}: ${negatives}
+        </span>`;
+      const selectedStringMutant = state.stringMutants.find((m) => m.id === state.selectedStringMutantId) || null;
+      const selectedStringDetailHtml = selectedStringMutant ? `<div class="grammar-string-detail">
+          <p><strong>${escapeHtml4(selectedStringMutant.operator)}</strong> \xB7 ${escapeHtml4(selectedStringMutant.description)}</p>
+          <p>${escapeHtml4(t("grammar.string.original"))}: <code>${escapeHtml4(selectedStringMutant.original === "" ? "\u2205" : selectedStringMutant.original)}</code></p>
+          <p>${escapeHtml4(t("grammar.string.mutated"))}: <code>${escapeHtml4(selectedStringMutant.mutated === "" ? "\u2205" : selectedStringMutant.mutated)}</code></p>
+          <p>${selectedStringMutant.flipped ? `<span class="grammar-string-flip">\u26A1 ${escapeHtml4(t("grammar.string.flipped"))}</span>` : `<span class="grammar-string-same">${escapeHtml4(t("grammar.string.sameLang"))}</span>`}</p>
+        </div>` : `<p class="grammar-empty">${escapeHtml4(t("grammar.string.selectHint"))}</p>`;
       root2.innerHTML = `
       <div class="grammar-card">
         <header class="grammar-header">
@@ -6976,6 +7223,27 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             <div>${selectedMutantDetailHtml}</div>
           </div>
         </div>
+
+        <div class="grammar-string-block" data-testid="grammar-string-block">
+          <div class="grammar-mutation-header">
+            <h4>${escapeHtml4(t("grammar.string.title"))}</h4>
+            ${stringStats || ""}
+          </div>
+          <p class="grammar-string-subtitle">${escapeHtml4(t("grammar.string.subtitle"))}</p>
+          <div class="grammar-string-controls">
+            <label>${escapeHtml4(t("grammar.string.seed"))}
+              <select data-grammar-seed-select ${state.derivations.length === 0 ? "disabled" : ""}>${seedOptionsHtml}</select>
+            </label>
+            <label>${escapeHtml4(t("grammar.string.maxPerOp"))}
+              <input type="number" min="1" max="50" value="${state.maxPerStringOp}" data-grammar-max-per-string-op />
+            </label>
+          </div>
+          <div class="grammar-op-row">${stringOpButtons}</div>
+          <div class="grammar-mutation-grid">
+            <div>${stringMutantsHtml}</div>
+            <div>${selectedStringDetailHtml}</div>
+          </div>
+        </div>
       </div>
     `;
       root2.querySelectorAll("[data-grammar-example]").forEach((btn) => {
@@ -7018,6 +7286,29 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           render();
         });
       });
+      (_i = root2.querySelector("[data-grammar-seed-select]")) == null ? void 0 : _i.addEventListener("change", (e) => {
+        state.seedIndex = Math.max(0, Number(e.target.value) || 0);
+        state.selectedStringMutantId = null;
+        render();
+      });
+      (_j = root2.querySelector("[data-grammar-max-per-string-op]")) == null ? void 0 : _j.addEventListener("change", (e) => {
+        state.maxPerStringOp = Math.max(1, Math.min(50, Number(e.target.value) || 1));
+        render();
+      });
+      root2.querySelectorAll("[data-grammar-string-op]").forEach((cb) => {
+        cb.addEventListener("change", (e) => {
+          const op = e.target.dataset.grammarStringOp;
+          if (e.target.checked) state.stringOperators.add(op);
+          else state.stringOperators.delete(op);
+          render();
+        });
+      });
+      root2.querySelectorAll("[data-grammar-string-mutant]").forEach((row) => {
+        row.addEventListener("click", () => {
+          state.selectedStringMutantId = row.dataset.grammarStringMutant;
+          render();
+        });
+      });
     }
     render();
     if (typeof globalThis.addEventListener === "function") {
@@ -7046,6 +7337,366 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         render();
       });
     }
+    return root2;
+  }
+
+  // src/utils/specMutation.js
+  var SPEC_MUTATION_OPERATORS = ["ENF", "BCR", "CRR", "LRO", "UOI", "MCR"];
+  var TRUE_NODE = { type: "const", value: true };
+  var FALSE_NODE = { type: "const", value: false };
+  function cloneAst(node) {
+    switch (node.type) {
+      case "clause":
+        return { type: "clause", name: node.name };
+      case "const":
+        return { type: "const", value: node.value };
+      case "not":
+        return { type: "not", operand: cloneAst(node.operand) };
+      case "and":
+      case "or":
+        return { type: node.type, left: cloneAst(node.left), right: cloneAst(node.right) };
+      default:
+        throw new Error(`Unknown AST node: ${node.type}`);
+    }
+  }
+  function evaluateAst2(node, values) {
+    switch (node.type) {
+      case "const":
+        return Boolean(node.value);
+      case "clause": {
+        if (!(node.name in values)) throw new Error(`Missing clause value: ${node.name}`);
+        return Boolean(values[node.name]);
+      }
+      case "not":
+        return !evaluateAst2(node.operand, values);
+      case "and":
+        return evaluateAst2(node.left, values) && evaluateAst2(node.right, values);
+      case "or":
+        return evaluateAst2(node.left, values) || evaluateAst2(node.right, values);
+      default:
+        throw new Error(`Unknown AST node: ${node.type}`);
+    }
+  }
+  function astToString(node) {
+    switch (node.type) {
+      case "const":
+        return node.value ? "true" : "false";
+      case "clause":
+        return node.name;
+      case "not": {
+        const inner = node.operand;
+        const innerStr = astToString(inner);
+        const needParen = inner.type === "and" || inner.type === "or";
+        return `!${needParen ? `(${innerStr})` : innerStr}`;
+      }
+      case "and":
+      case "or": {
+        const op = node.type === "and" ? "&&" : "||";
+        const wrap = (child) => {
+          const s = astToString(child);
+          if (child.type === "and" || child.type === "or") return `(${s})`;
+          return s;
+        };
+        return `${wrap(node.left)} ${op} ${wrap(node.right)}`;
+      }
+      default:
+        throw new Error(`Unknown AST node: ${node.type}`);
+    }
+  }
+  function* walkWithReplacers(root2) {
+    function* walk(node, replaceInParent) {
+      yield [node, replaceInParent];
+      if (node.type === "not") {
+        yield* walk(node.operand, (newOperand) => {
+          const replaced = { ...node, operand: newOperand };
+          return replaceInParent(replaced);
+        });
+      } else if (node.type === "and" || node.type === "or") {
+        yield* walk(node.left, (newLeft) => {
+          const replaced = { ...node, left: newLeft };
+          return replaceInParent(replaced);
+        });
+        yield* walk(node.right, (newRight) => {
+          const replaced = { ...node, right: newRight };
+          return replaceInParent(replaced);
+        });
+      }
+    }
+    function topReplace(newRoot) {
+      return cloneAst(newRoot);
+    }
+    yield* walk(root2, topReplace);
+  }
+  function generateSpecMutants(parsed, opIds = SPEC_MUTATION_OPERATORS) {
+    if (!(parsed == null ? void 0 : parsed.ast)) throw new Error("parsed.ast is required");
+    const ops = new Set(opIds);
+    const mutants = [];
+    const seenStrings = /* @__PURE__ */ new Set();
+    const originalStr = astToString(parsed.ast);
+    const push = (operator, ast, description) => {
+      const text = astToString(ast);
+      if (text === originalStr) return;
+      const key = `${operator}|${text}`;
+      if (seenStrings.has(key)) return;
+      seenStrings.add(key);
+      mutants.push({
+        id: `${operator}:${mutants.length}`,
+        operator,
+        description,
+        ast,
+        text
+      });
+    };
+    if (ops.has("ENF")) {
+      push("ENF", { type: "not", operand: cloneAst(parsed.ast) }, "Negate the entire predicate");
+    }
+    for (const [node, replace] of walkWithReplacers(parsed.ast)) {
+      if (ops.has("BCR") && node.type === "clause") {
+        push("BCR", replace(TRUE_NODE), `Replace clause '${node.name}' with true`);
+        push("BCR", replace(FALSE_NODE), `Replace clause '${node.name}' with false`);
+      }
+      if (ops.has("CRR") && node.type === "clause") {
+        for (const other of parsed.clauses) {
+          if (other === node.name) continue;
+          push("CRR", replace({ type: "clause", name: other }), `Replace clause '${node.name}' with '${other}'`);
+        }
+      }
+      if (ops.has("LRO") && (node.type === "and" || node.type === "or")) {
+        const swapped = node.type === "and" ? "or" : "and";
+        push("LRO", replace({ ...node, type: swapped }), `Replace ${node.type.toUpperCase()} with ${swapped.toUpperCase()}`);
+      }
+      if (ops.has("UOI") && node.type === "clause") {
+        push("UOI", replace({ type: "not", operand: { type: "clause", name: node.name } }), `Insert NOT around clause '${node.name}'`);
+      }
+      if (ops.has("MCR") && (node.type === "and" || node.type === "or")) {
+        push("MCR", replace(cloneAst(node.left)), `Drop right operand of ${node.type.toUpperCase()} (keep left)`);
+        push("MCR", replace(cloneAst(node.right)), `Drop left operand of ${node.type.toUpperCase()} (keep right)`);
+      }
+    }
+    return mutants;
+  }
+  function evaluateSpecMutants(parsed, mutants, tests) {
+    const originalValues = tests.map((t2) => evaluateAst2(parsed.ast, t2));
+    return mutants.map((m) => {
+      const killers = [];
+      for (let i = 0; i < tests.length; i++) {
+        let mutValue;
+        try {
+          mutValue = evaluateAst2(m.ast, tests[i]);
+        } catch {
+          continue;
+        }
+        if (mutValue !== originalValues[i]) {
+          killers.push({ test: tests[i], orig: originalValues[i], mut: mutValue });
+        }
+      }
+      return { ...m, killed: killers.length > 0, killers };
+    });
+  }
+  function buildAssignmentSpace(clauses) {
+    const total = 1 << clauses.length;
+    const out = [];
+    for (let mask = 0; mask < total; mask++) {
+      const values = {};
+      clauses.forEach((c, i) => {
+        values[c] = Boolean(mask >> clauses.length - 1 - i & 1);
+      });
+      out.push(values);
+    }
+    return out;
+  }
+
+  // src/components/SpecMutationExplorer.js
+  var STORAGE_KEY4 = "stvisual.specMutation.v1";
+  var DEFAULT_PREDICATE = "(a || b) && c";
+  var DEFAULT_OPS2 = ["ENF", "BCR", "LRO", "UOI"];
+  function escapeHtml5(value = "") {
+    return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
+  }
+  var SPEC_EXAMPLES = [
+    { id: "guard", name: "Guard", nameEn: "Guard", text: "(a || b) && c" },
+    { id: "leap", name: "Leap year", nameEn: "Leap year", text: "(y && !c) || (y && c && q)" },
+    { id: "triangle", name: "Triangle ineq.", nameEn: "Triangle ineq.", text: "a && b && c" }
+  ];
+  function loadSaved() {
+    var _a2;
+    try {
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY4);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : null;
+    } catch {
+      return null;
+    }
+  }
+  function persist(state) {
+    var _a2;
+    try {
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY4, JSON.stringify({
+        text: state.text,
+        operators: [...state.operators],
+        tests: state.tests
+      }));
+    } catch {
+    }
+  }
+  function formatAssignment(values) {
+    return Object.entries(values).map(([k, v]) => `${k}=${v ? "T" : "F"}`).join(", ");
+  }
+  function createSpecMutationExplorer() {
+    const root2 = document.createElement("div");
+    root2.className = "spec-mutation";
+    root2.dataset.testid = "spec-mutation";
+    const saved = loadSaved();
+    const state = {
+      text: (saved == null ? void 0 : saved.text) || DEFAULT_PREDICATE,
+      operators: new Set((saved == null ? void 0 : saved.operators) || DEFAULT_OPS2),
+      parseError: null,
+      parsed: null,
+      mutants: [],
+      selectedMutantId: null,
+      // tests: array of {id, values:{clause:bool}, manual:bool}
+      tests: Array.isArray(saved == null ? void 0 : saved.tests) ? saved.tests : null,
+      useFullTable: true
+      // when true tests = full truth table
+    };
+    function recompute() {
+      var _a2;
+      state.parseError = null;
+      state.parsed = null;
+      state.mutants = [];
+      try {
+        const parsed = parsePredicate(state.text);
+        state.parsed = parsed;
+        const ops = [...state.operators];
+        const generated = ops.length > 0 ? generateSpecMutants(parsed, ops) : [];
+        let tests;
+        if (state.useFullTable) {
+          tests = buildAssignmentSpace(parsed.clauses);
+        } else {
+          tests = (state.tests || []).map((t2) => {
+            var _a3;
+            const v = {};
+            for (const c of parsed.clauses) v[c] = !!((_a3 = t2.values) == null ? void 0 : _a3[c]);
+            return v;
+          });
+        }
+        state.mutants = evaluateSpecMutants(parsed, generated, tests);
+        if (!state.mutants.find((m) => m.id === state.selectedMutantId)) {
+          state.selectedMutantId = ((_a2 = state.mutants[0]) == null ? void 0 : _a2.id) || null;
+        }
+      } catch (err) {
+        state.parseError = err.message || String(err);
+      }
+      persist(state);
+    }
+    function render() {
+      var _a2, _b;
+      recompute();
+      const exampleButtons = SPEC_EXAMPLES.map((ex) => `
+      <button type="button" class="spec-example-btn${state.text.trim() === ex.text ? " active" : ""}"
+        data-spec-example="${ex.id}">${escapeHtml5(ex.name)}</button>
+    `).join("");
+      const operatorButtons = SPEC_MUTATION_OPERATORS.map((op) => `
+      <label class="grammar-op-btn${state.operators.has(op) ? " active" : ""}" title="${escapeHtml5(t(`spec.op.${op}`))}">
+        <input type="checkbox" data-spec-op="${op}" ${state.operators.has(op) ? "checked" : ""} />
+        <span>${op}</span>
+      </label>
+    `).join("");
+      const score = state.mutants.length === 0 ? null : { killed: state.mutants.filter((m) => m.killed).length, total: state.mutants.length };
+      const mutantsHtml = state.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml5(t("spec.noMutants"))}</p>` : `<ul class="grammar-mutant-list" data-testid="spec-mutant-list">
+          ${state.mutants.map((m) => `<li>
+            <button type="button"
+              class="grammar-mutant-btn${state.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
+              data-spec-mutant="${escapeHtml5(m.id)}">
+              <span class="grammar-mutant-op">${m.operator}</span>
+              <span class="grammar-mutant-status">${m.killed ? t("grammar.killed") : t("grammar.live")}</span>
+              <span class="grammar-mutant-desc">
+                <code>${escapeHtml5(m.text)}</code>
+                <small>${escapeHtml5(m.description)}</small>
+              </span>
+            </button>
+          </li>`).join("")}
+         </ul>`;
+      const selected = state.mutants.find((m) => m.id === state.selectedMutantId) || null;
+      const selectedDetailHtml = selected ? `<div class="spec-mutant-detail">
+          <h5>${escapeHtml5(selected.id)}</h5>
+          <p>${escapeHtml5(selected.description)}</p>
+          <p><strong>${escapeHtml5(t("spec.mutantText"))}:</strong> <code>${escapeHtml5(selected.text)}</code></p>
+          ${selected.killed ? `<p><strong>${escapeHtml5(t("grammar.killedBy"))}</strong></p>
+               <ul class="grammar-killer-list">${selected.killers.slice(0, 8).map((k) => `<li>
+                 <code>${escapeHtml5(formatAssignment(k.test))}</code>
+                 \xB7 orig=${k.orig ? "T" : "F"} \xB7 mut=${k.mut ? "T" : "F"}
+               </li>`).join("")}</ul>` : `<p class="grammar-mutant-live">${escapeHtml5(t("spec.equivalentHint"))}</p>`}
+        </div>` : `<p class="grammar-empty">${escapeHtml5(t("grammar.selectMutantHint"))}</p>`;
+      root2.innerHTML = `
+      <div class="grammar-card spec-card">
+        <header class="grammar-header">
+          <p class="grammar-kicker">${escapeHtml5(t("spec.kicker"))}</p>
+          <h3>${escapeHtml5(t("spec.title"))}</h3>
+          <p class="grammar-subtitle">${escapeHtml5(t("spec.subtitle"))}</p>
+        </header>
+
+        <div class="grammar-example-row">${exampleButtons}</div>
+
+        <div class="spec-editor-row">
+          <label class="grammar-editor-label">
+            ${escapeHtml5(t("spec.predicateLabel"))}
+            <input type="text" data-testid="spec-text" value="${escapeHtml5(state.text)}" spellcheck="false" />
+          </label>
+          ${state.parseError ? `<p class="grammar-error" data-testid="spec-parse-error">${escapeHtml5(state.parseError)}</p>` : ""}
+          ${state.parsed ? `<p class="spec-clauses">
+            <strong>${escapeHtml5(t("spec.clauses"))}:</strong> ${state.parsed.clauses.map((c) => `<code>${escapeHtml5(c)}</code>`).join(", ") || "\u2014"}
+            \xB7 <strong>${escapeHtml5(t("spec.canonical"))}:</strong> <code>${escapeHtml5(astToString(state.parsed.ast))}</code>
+          </p>` : ""}
+        </div>
+
+        <div class="grammar-mutation-block">
+          <div class="grammar-mutation-header">
+            <h4>${escapeHtml5(t("spec.mutants"))}</h4>
+            ${score ? `<span class="grammar-score" data-testid="spec-mutation-score">${escapeHtml5(t("grammar.scoreLabel"))}: ${score.killed} / ${score.total} (${Math.round(score.killed / score.total * 100)}%)</span>` : ""}
+          </div>
+          <p class="spec-test-note">${escapeHtml5(t("spec.testNote"))}</p>
+          <div class="grammar-op-row">${operatorButtons}</div>
+          <div class="grammar-mutation-grid">
+            <div>${mutantsHtml}</div>
+            <div>${selectedDetailHtml}</div>
+          </div>
+        </div>
+      </div>
+    `;
+      root2.querySelectorAll("[data-spec-example]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const ex = SPEC_EXAMPLES.find((e) => e.id === btn.dataset.specExample);
+          if (!ex) return;
+          state.text = ex.text;
+          state.selectedMutantId = null;
+          render();
+        });
+      });
+      (_a2 = root2.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _a2.addEventListener("input", (e) => {
+        state.text = e.target.value;
+      });
+      (_b = root2.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _b.addEventListener("change", () => {
+        state.selectedMutantId = null;
+        render();
+      });
+      root2.querySelectorAll("[data-spec-op]").forEach((cb) => {
+        cb.addEventListener("change", (e) => {
+          const op = e.target.dataset.specOp;
+          if (e.target.checked) state.operators.add(op);
+          else state.operators.delete(op);
+          render();
+        });
+      });
+      root2.querySelectorAll("[data-spec-mutant]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.selectedMutantId = btn.dataset.specMutant;
+          render();
+        });
+      });
+    }
+    render();
     return root2;
   }
 
@@ -7112,6 +7763,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         logic: createLogicCoverageExplorer(),
         syntax: createSyntaxCoverageExplorer(),
         grammar: createGrammarCoverageExplorer(),
+        specMutation: createSpecMutationExplorer(),
         cloud: createCloudStoragePanel(),
         flow: createTestingFlow(),
         types: createTestingTypesTable()
@@ -7121,6 +7773,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       container.querySelector('[data-slot="logic"]').appendChild(components.logic);
       container.querySelector('[data-slot="syntax"]').appendChild(components.syntax);
       container.querySelector('[data-slot="syntax"]').appendChild(components.grammar);
+      container.querySelector('[data-slot="syntax"]').appendChild(components.specMutation);
       container.querySelector('[data-slot="cloud"]').appendChild(components.cloud);
       container.querySelector('[data-slot="flow"]').appendChild(components.flow);
       container.querySelector('[data-slot="types"]').appendChild(components.types);

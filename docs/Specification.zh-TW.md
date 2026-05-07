@@ -633,3 +633,109 @@ CloudStoragePanel 為每個檔案（含上傳清單與 Drive 既有檔案）多�
 - `npm run test:run` → **149/149**（在 §11 的 142 之上 +7 grammar tests）。
 - `npx playwright test` → **9/9**（e2e 已 pin locale=zh，不受新增功能影響）。
 - `node scripts/build-standalone.mjs` → 重新產出 `src/standalone.js`。
+
+## 13. Mutation on Strings / BNF Mutation（2026-05-06，第三階段）
+
+延續第二階段（Grammar Coverage / Grammar Mutants），第三階段把目標從**修改 grammar**轉為**修改由 grammar 產生的字串**。對應 Ammann/Offutt §9.2 之「mutation on ground strings」：以一個合法字串為種子，套用簡單的字元層級突變運算子，再用同一個 recognizer 判定突變後字串是否仍屬於該語言。
+
+### 13.1 運算子
+
+實作於 `src/utils/grammar.js` 的 `STRING_MUTATION_OPERATORS = ['REP','DEL','DUP','INS','SWP']`：
+
+| Op  | 說明 |
+| --- | --- |
+| REP | 將某一位置的字元換成 alphabet 中的其他字元 |
+| DEL | 刪除一個字元 |
+| DUP | 重複一個字元 |
+| INS | 在某位置插入 alphabet 中的字元 |
+| SWP | 交換兩個相鄰且不同的字元 |
+
+每個運算子可設 `maxPerOp`（預設 12，UI 上限 50）以控制突變數量。Alphabet 由 `deriveAlphabet(grammar, derivations)` 萃取：將文法所有 terminal 拆解為單字元，再聯集所有衍生字串中的字元。
+
+### 13.2 分類
+
+`classifyStringMutants(grammar, mutants)` 對每個 mutant 計算 `origAccepts` / `mutAccepts` / `kind`：
+- `kind === 'positive'`：mutant 仍屬於語言，可作為**正向測試**（壓力測試 parser 的 happy path）。
+- `kind === 'negative'`：mutant 不屬於語言，可作為**負向測試**（檢查 parser 的錯誤處理）。
+
+`flipped` 旗標指出 mutant 是否與種子在語言歸屬上相反；對於從合法字串衍生而來的 mutant，`flipped` 等同於 `kind === 'negative'`。
+
+### 13.3 UI
+
+`GrammarCoverageExplorer` 在 Grammar Mutants 區塊下方新增 **Mutation on Strings** 區塊（`data-testid="grammar-string-block"`）：
+
+- 種子下拉：列出目前 derivations，使用者選擇要突變的字串。
+- 每運算子最大 mutants 數欄位（1–50）。
+- 5 個運算子 checkbox（預設 REP / DEL）。
+- 表格：Op / Mutated / Result（綠勾＝in language，紅叉＝not in language）。
+- 統計列：positive / negative 數量。
+- 細節面板：原字串、突變字串、是否翻轉語言歸屬。
+
+### 13.4 測試
+
+`src/tests/grammar.test.js` 新增 `describe('string mutation (Phase 3)')`：
+- 運算子常數 / 多運算子產生不重複 mutant / DEL 與 DUP 的長度不變式。
+- 以 arithmetic 文法分類 mutants：每個 mutant 必有 `origAccepts === true`，且 `mutAccepts === (kind === 'positive')`。
+- `deriveAlphabet` 對 multi-char terminal（`"true"` / `"false"`）正確展開。
+
+### 13.5 驗證
+
+- `npm run test:run` → **153/153**（§12 的 149 之上 +4 string-mutation tests）。
+- `node scripts/build-standalone.mjs` → 重新產出 `src/standalone.js`。
+
+## 14. Specification-Based Mutation（2026-05-07，第四階段）
+
+延續第二／三階段（grammar mutants、string mutants），第四階段把 Ammann/Offutt §9.4「specification mutation」實作出來：把一個 Boolean 規格（precondition、invariant、guard）視為待測規格，套用結構性突變運算子，再用真值表搜尋能區分原 predicate 與 mutant 的 assignment（killer test）。
+
+### 14.1 運算子（`SPEC_MUTATION_OPERATORS`）
+
+定義於 `src/utils/specMutation.js`：
+
+| Op  | 名稱                              | 說明 |
+| --- | --------------------------------- | --- |
+| ENF | Expression Negation Failure       | 對整個 predicate 取反 |
+| BCR | Boolean Constant Replacement      | 將某個 clause 換成 `true` 或 `false` |
+| CRR | Clause Reference Replacement      | 將某個 clause 換成 predicate 中其他 clause |
+| LRO | Logical Operator Replacement      | `&&` ↔ `||` |
+| UOI | Unary Operator Insertion          | 在某 clause 外加上 NOT |
+| MCR | Missing Clause Replacement        | 從 `&&` 或 `||` 節點刪除一邊運算元 |
+
+實作要點：
+- 重用 `logicCoverage.parsePredicate`，因此語法與 Logic Coverage 區塊一致（支援 `&&`、`||`、`!`、juxtaposition、`+`）。
+- AST 內部以新增的 `const` 節點容納 `true` / `false`，`evaluateAst` 與 `astToString` 一同支援。
+- `walkWithReplacers` 提供 `(node, replace)` 配對的 pre-order 遍歷，每次套用運算子都重新建構整棵樹，確保 mutants 互不影響。
+
+### 14.2 評分
+
+`evaluateSpecMutants(parsed, mutants, tests)` 回傳每個 mutant 的 `killed` 與 `killers`（每個 killer 紀錄 assignment、原值、mutant 值）。`buildAssignmentSpace(clauses)` 產生完整真值表（$2^n$ 列），作為預設測試集合。
+
+### 14.3 UI
+
+新增 `src/components/SpecMutationExplorer.{js,css}`，置於 Syntax-Based Testing 區塊（與 Mutation Test、Grammar Coverage 為兄弟）：
+
+- 預設範例：Guard `(a || b) && c`、Leap year、Triangle inequality。
+- 單行 predicate 編輯器（input），即時顯示解析後的 clauses 與 canonical 字串。
+- 6 個運算子 toggle，預設啟用 ENF / BCR / LRO / UOI。
+- Mutants 列表：顯示 `text`（mutant predicate）、operator、killed/live；可點選查看 killer assignments。
+- 上方有 Mutation Score（killed / total）。
+
+狀態（predicate、operator 集合）寫入 `localStorage['stvisual.specMutation.v1']`。
+
+### 14.4 i18n
+
+新增 16 組 `spec.*` 鍵（EN + 繁中），其中 `spec.op.{ENF,BCR,CRR,LRO,UOI,MCR}` 用作運算子按鈕的 tooltip。
+
+### 14.5 測試
+
+`src/tests/specMutation.test.js` 共 6 個案例：
+- 運算子常數正確匯出。
+- `astToString` 與 `parsePredicate` 在語意上 round-trip。
+- `(a || b) && c` 對 6 個運算子各會產生至少一個 mutant。
+- 真值表上 ≥ 90% 的 mutants 被 kill。
+- LRO 對 `a && b` 產生唯一 mutant `a || b`，且被 `a=T,b=F` 殺死。
+- BCR 對 `a` 同時產生 `true` 與 `false` mutants。
+
+### 14.6 驗證
+
+- `npm run test:run` → **159/159**（§13 的 153 之上 +6 spec-mutation tests）。
+- `node scripts/build-standalone.mjs` → 重新產出 `src/standalone.js`。
