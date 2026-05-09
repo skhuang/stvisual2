@@ -230,4 +230,4 @@ Workflow files: `.github/workflows/test.yml`, `.github/workflows/deploy-pages.ym
 
 ## License
 
-No license file is currently included. Add a `LICENSE` file if you want to publish the project under an explicit open-source license.
+This project is licensed under the [MIT License](LICENSE).
