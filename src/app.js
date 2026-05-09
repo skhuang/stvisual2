@@ -31,7 +31,7 @@ export function renderApp(container) {
         <header class="app-header">
           <div class="app-header__text">
             <h1>${t('app.title')}</h1>
-            <p>${t('app.subtitle')}</p>
+            ${getLocale() === 'zh' ? `<p>${t('app.subtitle')}</p>` : ''}
           </div>
           <div class="app-lang" role="group" aria-label="${t('app.lang.label')}">
             <label class="app-lang__label" for="app-lang-select">${t('app.lang.label')}</label>
