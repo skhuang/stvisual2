@@ -33,11 +33,6 @@
 .syntax-cloud-indicator[data-status="synced"] { color: #047857; }
 .syntax-cloud-indicator[data-status="error"] { color: #b91c1c; }
 .syntax-cloud-indicator[data-status="idle"] { color: #64748b; font-style: italic; }
-.syntax-cloud-indicator[data-status="idle"]:empty::before {
-  content: '尚未登入：測試案例只會儲存在此瀏覽器';
-  color: #94a3b8;
-  font-style: italic;
-}
 
 .syntax-reset-btn {
   background: #fff;

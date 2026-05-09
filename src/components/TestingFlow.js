@@ -50,7 +50,7 @@ export function createTestingFlow() {
               <div class="flow-step-num">${index + 1}</div>
               <div class="flow-step-icon">${step.icon}</div>
               <div class="flow-step-label">${pickField(step, 'label')}</div>
-              <div class="flow-step-label-en">${getLocale() === 'en' ? step.label : step.labelEn}</div>
+              <div class="flow-step-label-en">${getLocale() === 'zh' ? step.labelEn : ''}</div>
               ${(hoveredStep === index || activeStep === index) ? `
                 <div class="flow-step-tooltip" data-testid="flow-tooltip-${step.id}">${pickField(step, 'description')}</div>
               ` : ''}

@@ -203,7 +203,7 @@ export function createSyntaxCoverageExplorer() {
   }
 
   function cloudIndicatorText() {
-    if (!state.cloudUser) return '';
+    if (!state.cloudUser) return t('syntax.cloud.notSignedIn');
     switch (state.cloudStatus) {
       case 'syncing': return t('syntax.cloud.syncing');
       case 'synced': return `☁ ${state.cloudMessage || t('syntax.cloud.synced')}`;
@@ -406,7 +406,7 @@ export function createSyntaxCoverageExplorer() {
       `).join('');
       return `
         <div class="syntax-mutant-group" data-testid="syntax-mutant-group-${op}">
-          <h5>${escapeHtml(op)}（${list.length}）</h5>
+          <h5>${t('syntax.col.mutantGroupHeading', { op: escapeHtml(op), count: list.length })}</h5>
           <ul>${items}</ul>
         </div>
       `;
@@ -468,7 +468,7 @@ export function createSyntaxCoverageExplorer() {
               <tr>
                 <th>id</th>
                 <th>${t('syntax.col.args')}</th>
-                <th>expected（JSON）</th>
+                <th>${t('syntax.col.expected')}</th>
                 <th>actual</th>
                 ${mutantHeaderCol}
                 <th></th>
@@ -486,7 +486,7 @@ export function createSyntaxCoverageExplorer() {
           <div class="syntax-score-fill" style="width:${scorePct}%" data-testid="syntax-score-fill"></div>
         </div>
         <p class="syntax-score-stats" data-testid="syntax-score-stats">
-          Mutation Score：<strong>${scorePct}%</strong>
+          ${t('syntax.score')}: <strong>${scorePct}%</strong>
           <span class="syntax-divider">·</span>
           ${t('syntax.totalLabel')} ${state.score.total}
           <span class="syntax-divider">·</span>

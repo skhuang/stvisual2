@@ -16,7 +16,7 @@ export function createTestingTypesTable() {
             style="--row-color: ${type.color}; --row-width: ${type.width}%; animation-delay: ${index * 0.12}s"
           >
             <span class="pyramid-row-label">${pickField(type, 'type')}</span>
-            <span class="pyramid-row-en">${getLocale() === 'en' ? type.type : type.typeEn}</span>
+            <span class="pyramid-row-en">${getLocale() === 'zh' ? type.typeEn : ''}</span>
           </div>
         `).join('')}
       </div>
@@ -33,7 +33,7 @@ export function createTestingTypesTable() {
             <div class="type-header">
               <span class="type-phase">Phase ${index + 1}</span>
               <h4 class="type-name">${pickField(type, 'type')}</h4>
-              <span class="type-name-en">${getLocale() === 'en' ? type.type : type.typeEn}</span>
+              <span class="type-name-en">${getLocale() === 'zh' ? type.typeEn : ''}</span>
             </div>
             <div class="type-detail">
               <div class="type-detail-row">

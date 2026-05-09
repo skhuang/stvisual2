@@ -776,6 +776,13 @@
       "cloud.driveListError": "Could not list Drive files: {msg}",
       "cloud.downloading": "Downloading {name}\u2026",
       "cloud.firebaseMissing": "Firebase config incomplete: {keys}",
+      "cloud.err.fileProtocol": "Google OAuth does not support file://. Please use http://localhost or an https URL.",
+      "cloud.err.firebaseIncomplete": "Firebase config incomplete: {keys}",
+      "cloud.err.sdkNotLoaded": "Firebase SDK not loaded. Please ensure index.html includes firebase-app/auth/firestore compat scripts.",
+      "cloud.err.noDriveToken": "No Drive access token available. Please sign in with Google again.",
+      "cloud.err.uploadFailed": "Failed to upload to Google Drive.",
+      "cloud.err.listFailed": "Failed to list Google Drive files.",
+      "cloud.err.downloadFailed": "Failed to download Google Drive file.",
       // Testing method tree
       "methods.intro": "Hierarchical view of common testing methods. Hover or click each branch.",
       "methods.expandAll": "Expand all",
@@ -1004,6 +1011,8 @@
       "syntax.mutant.liveHint": "This mutant is still live; you can mark it equivalent.",
       "syntax.mutant.empty": "Click a mutant on the left to see details.",
       "syntax.col.args": "args (JSON elements, comma-separated)",
+      "syntax.col.expected": "expected (JSON)",
+      "syntax.col.mutantGroupHeading": "{op} ({count})",
       "syntax.totalLabel": "Total",
       "syntax.noMutants": "No mutants (please select at least one operator).",
       "syntax.err.argsParse": "Failed to parse args: {msg}",
@@ -1148,6 +1157,13 @@
       "cloud.driveListError": "\u8B80\u53D6 Drive \u6A94\u6848\u5217\u8868\u5931\u6557\uFF1A{msg}",
       "cloud.downloading": "\u4E0B\u8F09 {name} \u4E2D\u2026",
       "cloud.firebaseMissing": "Firebase \u8A2D\u5B9A\u4E0D\u5B8C\u6574\uFF1A{keys}",
+      "cloud.err.fileProtocol": "Google OAuth \u4E0D\u652F\u63F4 file://\u3002\u8ACB\u6539\u7528 http://localhost \u6216 https \u7DB2\u5740\u958B\u555F\u9801\u9762\u3002",
+      "cloud.err.firebaseIncomplete": "Firebase \u8A2D\u5B9A\u4E0D\u5B8C\u6574\uFF0C\u7F3A\u5C11\uFF1A{keys}",
+      "cloud.err.sdkNotLoaded": "Firebase SDK \u5C1A\u672A\u8F09\u5165\uFF0C\u8ACB\u78BA\u8A8D index.html \u5DF2\u5F15\u5165 firebase-app/auth/firestore compat scripts\u3002",
+      "cloud.err.noDriveToken": "\u76EE\u524D\u6C92\u6709 Drive \u5B58\u53D6\u6B0A\u6756\uFF0C\u8ACB\u5148\u91CD\u65B0 Google \u767B\u5165\u3002",
+      "cloud.err.uploadFailed": "\u4E0A\u50B3\u5230 Google Drive \u5931\u6557\u3002",
+      "cloud.err.listFailed": "\u8B80\u53D6 Google Drive \u6A94\u6848\u5217\u8868\u5931\u6557\u3002",
+      "cloud.err.downloadFailed": "\u4E0B\u8F09 Google Drive \u6A94\u6848\u5931\u6557\u3002",
       "methods.intro": "\u5C64\u7D1A\u5F0F\u5448\u73FE\u5E38\u898B\u6E2C\u8A66\u65B9\u6CD5\u5206\u985E\uFF0C\u53EF\u6ED1\u9F20\u79FB\u4E0A\u6216\u9EDE\u9078\u67E5\u770B\u7D30\u7BC0\u3002",
       "methods.expandAll": "\u5168\u90E8\u5C55\u958B",
       "methods.collapseAll": "\u5168\u90E8\u6536\u5408",
@@ -1368,6 +1384,8 @@
       "syntax.mutant.liveHint": "\u6B64 mutant \u4ECD live\uFF1B\u53EF\u624B\u52D5\u6A19\u70BA equivalent\u3002",
       "syntax.mutant.empty": "\u9EDE\u9078\u5DE6\u5074 mutant \u67E5\u770B\u7D30\u7BC0\u3002",
       "syntax.col.args": "args\uFF08JSON \u5143\u7D20\uFF0C\u9017\u865F\u5206\u9694\uFF09",
+      "syntax.col.expected": "expected\uFF08JSON\uFF09",
+      "syntax.col.mutantGroupHeading": "{op}\uFF08{count}\uFF09",
       "syntax.totalLabel": "\u7E3D\u6578",
       "syntax.noMutants": "\u7121 mutants\uFF08\u8ACB\u9078\u64C7\u81F3\u5C11\u4E00\u500B operator\uFF09\u3002",
       "syntax.err.argsParse": "\u53C3\u6578\u89E3\u6790\u5931\u6557\uFF1A{msg}",
@@ -1469,7 +1487,7 @@
               >
                 <div class="method-card-title">
                   <h3>${pickField(method, "name")}</h3>
-                  <span class="method-card-en">${getLocale() === "en" ? method.name : method.nameEn}</span>
+                  <span class="method-card-en">${getLocale() === "zh" ? method.nameEn : ""}</span>
                 </div>
                 <span class="method-card-toggle${expanded ? " rotated" : ""}">\u25B7</span>
               </button>
@@ -1500,7 +1518,7 @@
                         style="animation-delay: ${index * 0.06}s"
                       >
                         <div class="technique-name">${pickField(tech, "name")}</div>
-                        <div class="technique-name-en">${getLocale() === "en" ? tech.name : tech.nameEn}</div>
+                        <div class="technique-name-en">${getLocale() === "zh" ? tech.nameEn : ""}</div>
                         <div class="technique-desc">${pickField(tech, "description")}</div>
                       </li>
                     `).join("")}
@@ -4688,16 +4706,16 @@
   // src/config/cloudConfig.js
   var cloudConfig = {
     firebase: {
-      apiKey: "__FIREBASE_API_KEY__",
-      authDomain: "__FIREBASE_AUTH_DOMAIN__",
-      projectId: "__FIREBASE_PROJECT_ID__",
-      storageBucket: "__FIREBASE_STORAGE_BUCKET__",
-      messagingSenderId: "__FIREBASE_MESSAGING_SENDER_ID__",
-      appId: "__FIREBASE_APP_ID__",
-      measurementId: "__FIREBASE_MEASUREMENT_ID__"
+      apiKey: "AIzaSyB9QlOS2IodbRQWxGGe_a8cEviSZURyo3k",
+      authDomain: "stvisual-a88cd.firebaseapp.com",
+      projectId: "stvisual-a88cd",
+      storageBucket: "stvisual-a88cd.firebasestorage.app",
+      messagingSenderId: "1030102454109",
+      appId: "1:1030102454109:web:cb50e6da22b4b5dda2a2b4",
+      measurementId: "G-RBRGPW34JQ"
     },
     drive: {
-      uploadFolderId: "__DRIVE_UPLOAD_FOLDER_ID__"
+      uploadFolderId: "1B5hCB2Scte4Sds0d03mYNu-iGZS0JKbJ"
     }
   };
   function getResolvedCloudConfig() {
@@ -4749,7 +4767,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const isConfigured = missingKeys.length === 0;
     const firebase = globalThis.firebase;
     if (!isSupportedOrigin) {
-      const originMessage = "Google OAuth \u4E0D\u652F\u63F4 file://\u3002\u8ACB\u6539\u7528 http://localhost \u6216 https \u7DB2\u5740\u958B\u555F\u9801\u9762\u3002";
+      const originMessage = t("cloud.err.fileProtocol");
       return {
         isConfigured,
         missingKeys,
@@ -4789,24 +4807,24 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           };
         },
         async signInWithGoogle() {
-          throw new Error(`Firebase \u8A2D\u5B9A\u4E0D\u5B8C\u6574\uFF0C\u7F3A\u5C11\uFF1A${missingKeys.join(", ")}`);
+          throw new Error(t("cloud.err.firebaseIncomplete", { keys: missingKeys.join(", ") }));
         },
         async signOutGoogle() {
-          throw new Error(`Firebase \u8A2D\u5B9A\u4E0D\u5B8C\u6574\uFF0C\u7F3A\u5C11\uFF1A${missingKeys.join(", ")}`);
+          throw new Error(t("cloud.err.firebaseIncomplete", { keys: missingKeys.join(", ") }));
         },
         async saveSettings() {
-          throw new Error(`Firebase \u8A2D\u5B9A\u4E0D\u5B8C\u6574\uFF0C\u7F3A\u5C11\uFF1A${missingKeys.join(", ")}`);
+          throw new Error(t("cloud.err.firebaseIncomplete", { keys: missingKeys.join(", ") }));
         },
         async loadSettings() {
-          throw new Error(`Firebase \u8A2D\u5B9A\u4E0D\u5B8C\u6574\uFF0C\u7F3A\u5C11\uFF1A${missingKeys.join(", ")}`);
+          throw new Error(t("cloud.err.firebaseIncomplete", { keys: missingKeys.join(", ") }));
         },
         async uploadFileToDrive() {
-          throw new Error(`Firebase \u8A2D\u5B9A\u4E0D\u5B8C\u6574\uFF0C\u7F3A\u5C11\uFF1A${missingKeys.join(", ")}`);
+          throw new Error(t("cloud.err.firebaseIncomplete", { keys: missingKeys.join(", ") }));
         }
       };
     }
     if (!(firebase == null ? void 0 : firebase.apps) || typeof firebase.initializeApp !== "function") {
-      const sdkMessage = "Firebase SDK \u5C1A\u672A\u8F09\u5165\uFF0C\u8ACB\u78BA\u8A8D index.html \u5DF2\u5F15\u5165 firebase-app/auth/firestore compat scripts\u3002";
+      const sdkMessage = t("cloud.err.sdkNotLoaded");
       return {
         isConfigured,
         missingKeys,
@@ -4905,7 +4923,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       async uploadFileToDrive(file, options = {}) {
         var _a3;
         if (!driveAccessToken) {
-          throw new Error("\u76EE\u524D\u6C92\u6709 Drive \u5B58\u53D6\u6B0A\u6756\uFF0C\u8ACB\u5148\u91CD\u65B0 Google \u767B\u5165\u3002");
+          throw new Error(t("cloud.err.noDriveToken"));
         }
         const metadata = {
           name: file.name
@@ -4925,14 +4943,14 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
         const payload = await response.json();
         if (!response.ok) {
-          throw new Error(((_a3 = payload == null ? void 0 : payload.error) == null ? void 0 : _a3.message) || "\u4E0A\u50B3\u5230 Google Drive \u5931\u6557\u3002");
+          throw new Error(((_a3 = payload == null ? void 0 : payload.error) == null ? void 0 : _a3.message) || t("cloud.err.uploadFailed"));
         }
         return payload;
       },
       async listDriveFiles(options = {}) {
         var _a3;
         if (!driveAccessToken) {
-          throw new Error("\u76EE\u524D\u6C92\u6709 Drive \u5B58\u53D6\u6B0A\u6756\uFF0C\u8ACB\u5148\u91CD\u65B0 Google \u767B\u5165\u3002");
+          throw new Error(t("cloud.err.noDriveToken"));
         }
         const params = new URLSearchParams({
           pageSize: String(options.pageSize || 30),
@@ -4948,20 +4966,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
         const payload = await response.json();
         if (!response.ok) {
-          throw new Error(((_a3 = payload == null ? void 0 : payload.error) == null ? void 0 : _a3.message) || "\u8B80\u53D6 Google Drive \u6A94\u6848\u5217\u8868\u5931\u6557\u3002");
+          throw new Error(((_a3 = payload == null ? void 0 : payload.error) == null ? void 0 : _a3.message) || t("cloud.err.listFailed"));
         }
         return Array.isArray(payload.files) ? payload.files : [];
       },
       async downloadDriveFile(fileId) {
         var _a3;
         if (!driveAccessToken) {
-          throw new Error("\u76EE\u524D\u6C92\u6709 Drive \u5B58\u53D6\u6B0A\u6756\uFF0C\u8ACB\u5148\u91CD\u65B0 Google \u767B\u5165\u3002");
+          throw new Error(t("cloud.err.noDriveToken"));
         }
         const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`, {
           headers: { Authorization: `Bearer ${driveAccessToken}` }
         });
         if (!response.ok) {
-          let msg = "\u4E0B\u8F09 Google Drive \u6A94\u6848\u5931\u6557\u3002";
+          let msg = t("cloud.err.downloadFailed");
           try {
             const j = await response.json();
             msg = ((_a3 = j == null ? void 0 : j.error) == null ? void 0 : _a3.message) || msg;
@@ -5618,7 +5636,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               <div class="flow-step-num">${index + 1}</div>
               <div class="flow-step-icon">${step.icon}</div>
               <div class="flow-step-label">${pickField(step, "label")}</div>
-              <div class="flow-step-label-en">${getLocale() === "en" ? step.label : step.labelEn}</div>
+              <div class="flow-step-label-en">${getLocale() === "zh" ? step.labelEn : ""}</div>
               ${hoveredStep === index || activeStep === index ? `
                 <div class="flow-step-tooltip" data-testid="flow-tooltip-${step.id}">${pickField(step, "description")}</div>
               ` : ""}
@@ -5696,7 +5714,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             style="--row-color: ${type.color}; --row-width: ${type.width}%; animation-delay: ${index * 0.12}s"
           >
             <span class="pyramid-row-label">${pickField(type, "type")}</span>
-            <span class="pyramid-row-en">${getLocale() === "en" ? type.type : type.typeEn}</span>
+            <span class="pyramid-row-en">${getLocale() === "zh" ? type.typeEn : ""}</span>
           </div>
         `).join("")}
       </div>
@@ -5713,7 +5731,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             <div class="type-header">
               <span class="type-phase">Phase ${index + 1}</span>
               <h4 class="type-name">${pickField(type, "type")}</h4>
-              <span class="type-name-en">${getLocale() === "en" ? type.type : type.typeEn}</span>
+              <span class="type-name-en">${getLocale() === "zh" ? type.typeEn : ""}</span>
             </div>
             <div class="type-detail">
               <div class="type-detail-row">
@@ -6068,6 +6086,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       params: ["a", "b"],
       body: "return a > b ? a : b;",
       description: "\u56DE\u50B3\u5169\u6578\u4E2D\u8F03\u5927\u8005\u3002",
+      descriptionEn: "Returns the larger of two numbers.",
       tests: [
         { id: "t1", args: [3, 5], expected: 5 },
         { id: "t2", args: [7, 2], expected: 7 },
@@ -6081,6 +6100,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       params: ["y"],
       body: "return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);",
       description: "\u5224\u65B7\u662F\u5426\u70BA\u958F\u5E74\u3002",
+      descriptionEn: "Determines whether a year is a leap year.",
       tests: [
         { id: "t1", args: [2024], expected: true },
         { id: "t2", args: [1900], expected: false },
@@ -6100,6 +6120,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         'return "scalene";'
       ].join("\n"),
       description: "\u4F9D\u4E09\u908A\u9577\u5224\u65B7\u4E09\u89D2\u5F62\u985E\u578B\u3002",
+      descriptionEn: "Classifies a triangle by its three side lengths.",
       tests: [
         { id: "t1", args: [3, 3, 3], expected: "equilateral" },
         { id: "t2", args: [3, 3, 4], expected: "isosceles" },
@@ -6131,6 +6152,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         'return "unknown";'
       ].join("\n"),
       description: "OO \u7BC4\u4F8B\uFF1AShape / Square / Circle \u7E7C\u627F\u968E\u5C64\uFF0C\u53EF\u793A\u7BC4 JTD\u3001ISD\u3001IOD\u3001PRV\u3002",
+      descriptionEn: "OOP example: Shape / Square / Circle inheritance hierarchy, demonstrates JTD, ISD, IOD, PRV.",
       tests: [
         { id: "t1", args: ["sq", 3], expected: "shape:9" },
         { id: "t2", args: ["sq", 5], expected: "shape:25" },
@@ -6159,6 +6181,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         "return { y: y, m: m + 1, d: 1 };"
       ].join("\n"),
       description: "\u56DE\u50B3\u4E0B\u4E00\u5929\uFF0C\u8655\u7406\u6708\u5E95\u8207\u5E74\u5E95\u8DE8\u5E74\u3002",
+      descriptionEn: "Returns the next date, handling month-end and year-end rollovers.",
       tests: [
         { id: "t1", args: [2024, 1, 15], expected: { y: 2024, m: 1, d: 16 } },
         { id: "t2", args: [2024, 1, 31], expected: { y: 2024, m: 2, d: 1 } },
@@ -6194,6 +6217,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         "return { y: ny, m: nm, d: nd };"
       ].join("\n"),
       description: "\u628A\u65E5\u671F\u52A0 7 \u5929\uFF0C\u8DE8\u6708/\u8DE8\u5E74\u3002",
+      descriptionEn: "Adds 7 days to a date, handling month/year rollovers.",
       tests: [
         { id: "t1", args: [2024, 1, 1], expected: { y: 2024, m: 1, d: 8 } },
         { id: "t2", args: [2024, 1, 28], expected: { y: 2024, m: 2, d: 4 } },
@@ -6968,7 +6992,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       node.textContent = cloudIndicatorText();
     }
     function cloudIndicatorText() {
-      if (!state.cloudUser) return "";
+      if (!state.cloudUser) return t("syntax.cloud.notSignedIn");
       switch (state.cloudStatus) {
         case "syncing":
           return t("syntax.cloud.syncing");
@@ -7149,7 +7173,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       `).join("");
         return `
         <div class="syntax-mutant-group" data-testid="syntax-mutant-group-${op}">
-          <h5>${escapeHtml3(op)}\uFF08${list.length}\uFF09</h5>
+          <h5>${t("syntax.col.mutantGroupHeading", { op: escapeHtml3(op), count: list.length })}</h5>
           <ul>${items}</ul>
         </div>
       `;
@@ -7206,7 +7230,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               <tr>
                 <th>id</th>
                 <th>${t("syntax.col.args")}</th>
-                <th>expected\uFF08JSON\uFF09</th>
+                <th>${t("syntax.col.expected")}</th>
                 <th>actual</th>
                 ${mutantHeaderCol}
                 <th></th>
@@ -7224,7 +7248,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <div class="syntax-score-fill" style="width:${scorePct}%" data-testid="syntax-score-fill"></div>
         </div>
         <p class="syntax-score-stats" data-testid="syntax-score-stats">
-          Mutation Score\uFF1A<strong>${scorePct}%</strong>
+          ${t("syntax.score")}: <strong>${scorePct}%</strong>
           <span class="syntax-divider">\xB7</span>
           ${t("syntax.totalLabel")} ${state.score.total}
           <span class="syntax-divider">\xB7</span>

@@ -29,7 +29,7 @@ export function createTestingMethodTree() {
               >
                 <div class="method-card-title">
                   <h3>${pickField(method, 'name')}</h3>
-                  <span class="method-card-en">${getLocale() === 'en' ? method.name : method.nameEn}</span>
+                  <span class="method-card-en">${getLocale() === 'zh' ? method.nameEn : ''}</span>
                 </div>
                 <span class="method-card-toggle${expanded ? ' rotated' : ''}">▷</span>
               </button>
@@ -60,7 +60,7 @@ export function createTestingMethodTree() {
                         style="animation-delay: ${index * 0.06}s"
                       >
                         <div class="technique-name">${pickField(tech, 'name')}</div>
-                        <div class="technique-name-en">${getLocale() === 'en' ? tech.name : tech.nameEn}</div>
+                        <div class="technique-name-en">${getLocale() === 'zh' ? tech.nameEn : ''}</div>
                         <div class="technique-desc">${pickField(tech, 'description')}</div>
                       </li>
                     `).join('')}

@@ -1,4 +1,5 @@
 import { getResolvedCloudConfig } from '../config/cloudConfig.js';
+import { t } from '../i18n/index.js';
 
 const REQUIRED_FIREBASE_KEYS = ['apiKey', 'authDomain', 'projectId', 'appId'];
 const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
@@ -28,7 +29,7 @@ export function createCloudIntegrationClient() {
   const firebase = globalThis.firebase;
 
   if (!isSupportedOrigin) {
-    const originMessage = 'Google OAuth 不支援 file://。請改用 http://localhost 或 https 網址開啟頁面。';
+    const originMessage = t('cloud.err.fileProtocol');
 
     return {
       isConfigured,
@@ -68,25 +69,25 @@ export function createCloudIntegrationClient() {
         return () => {};
       },
       async signInWithGoogle() {
-        throw new Error(`Firebase 設定不完整，缺少：${missingKeys.join(', ')}`);
+        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
       },
       async signOutGoogle() {
-        throw new Error(`Firebase 設定不完整，缺少：${missingKeys.join(', ')}`);
+        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
       },
       async saveSettings() {
-        throw new Error(`Firebase 設定不完整，缺少：${missingKeys.join(', ')}`);
+        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
       },
       async loadSettings() {
-        throw new Error(`Firebase 設定不完整，缺少：${missingKeys.join(', ')}`);
+        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
       },
       async uploadFileToDrive() {
-        throw new Error(`Firebase 設定不完整，缺少：${missingKeys.join(', ')}`);
+        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
       },
     };
   }
 
   if (!firebase?.apps || typeof firebase.initializeApp !== 'function') {
-    const sdkMessage = 'Firebase SDK 尚未載入，請確認 index.html 已引入 firebase-app/auth/firestore compat scripts。';
+    const sdkMessage = t('cloud.err.sdkNotLoaded');
 
     return {
       isConfigured,
@@ -194,7 +195,7 @@ export function createCloudIntegrationClient() {
     },
     async uploadFileToDrive(file, options = {}) {
       if (!driveAccessToken) {
-        throw new Error('目前沒有 Drive 存取權杖，請先重新 Google 登入。');
+        throw new Error(t('cloud.err.noDriveToken'));
       }
 
       const metadata = {
@@ -218,14 +219,14 @@ export function createCloudIntegrationClient() {
 
       const payload = await response.json();
       if (!response.ok) {
-        throw new Error(payload?.error?.message || '上傳到 Google Drive 失敗。');
+        throw new Error(payload?.error?.message || t('cloud.err.uploadFailed'));
       }
 
       return payload;
     },
     async listDriveFiles(options = {}) {
       if (!driveAccessToken) {
-        throw new Error('目前沒有 Drive 存取權杖，請先重新 Google 登入。');
+        throw new Error(t('cloud.err.noDriveToken'));
       }
       const params = new URLSearchParams({
         pageSize: String(options.pageSize || 30),
@@ -241,19 +242,19 @@ export function createCloudIntegrationClient() {
       });
       const payload = await response.json();
       if (!response.ok) {
-        throw new Error(payload?.error?.message || '讀取 Google Drive 檔案列表失敗。');
+        throw new Error(payload?.error?.message || t('cloud.err.listFailed'));
       }
       return Array.isArray(payload.files) ? payload.files : [];
     },
     async downloadDriveFile(fileId) {
       if (!driveAccessToken) {
-        throw new Error('目前沒有 Drive 存取權杖，請先重新 Google 登入。');
+        throw new Error(t('cloud.err.noDriveToken'));
       }
       const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`, {
         headers: { Authorization: `Bearer ${driveAccessToken}` },
       });
       if (!response.ok) {
-        let msg = '下載 Google Drive 檔案失敗。';
+        let msg = t('cloud.err.downloadFailed');
         try { const j = await response.json(); msg = j?.error?.message || msg; } catch { /* ignore */ }
         throw new Error(msg);
       }

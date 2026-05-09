@@ -27,6 +27,7 @@ export const programExamples = [
     params: ['a', 'b'],
     body: 'return a > b ? a : b;',
     description: '回傳兩數中較大者。',
+    descriptionEn: 'Returns the larger of two numbers.',
     tests: [
       { id: 't1', args: [3, 5], expected: 5 },
       { id: 't2', args: [7, 2], expected: 7 },
@@ -40,6 +41,7 @@ export const programExamples = [
     params: ['y'],
     body: 'return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);',
     description: '判斷是否為閏年。',
+    descriptionEn: 'Determines whether a year is a leap year.',
     tests: [
       { id: 't1', args: [2024], expected: true },
       { id: 't2', args: [1900], expected: false },
@@ -59,6 +61,7 @@ export const programExamples = [
       'return "scalene";',
     ].join('\n'),
     description: '依三邊長判斷三角形類型。',
+    descriptionEn: 'Classifies a triangle by its three side lengths.',
     tests: [
       { id: 't1', args: [3, 3, 3], expected: 'equilateral' },
       { id: 't2', args: [3, 3, 4], expected: 'isosceles' },
@@ -90,6 +93,7 @@ export const programExamples = [
       'return "unknown";',
     ].join('\n'),
     description: 'OO 範例：Shape / Square / Circle 繼承階層，可示範 JTD、ISD、IOD、PRV。',
+    descriptionEn: 'OOP example: Shape / Square / Circle inheritance hierarchy, demonstrates JTD, ISD, IOD, PRV.',
     tests: [
       { id: 't1', args: ['sq', 3], expected: 'shape:9' },
       { id: 't2', args: ['sq', 5], expected: 'shape:25' },
@@ -118,6 +122,7 @@ export const programExamples = [
       'return { y: y, m: m + 1, d: 1 };',
     ].join('\n'),
     description: '回傳下一天，處理月底與年底跨年。',
+    descriptionEn: 'Returns the next date, handling month-end and year-end rollovers.',
     tests: [
       { id: 't1', args: [2024, 1, 15], expected: { y: 2024, m: 1, d: 16 } },
       { id: 't2', args: [2024, 1, 31], expected: { y: 2024, m: 2, d: 1 } },
@@ -153,6 +158,7 @@ export const programExamples = [
       'return { y: ny, m: nm, d: nd };',
     ].join('\n'),
     description: '把日期加 7 天，跨月/跨年。',
+    descriptionEn: 'Adds 7 days to a date, handling month/year rollovers.',
     tests: [
       { id: 't1', args: [2024, 1, 1], expected: { y: 2024, m: 1, d: 8 } },
       { id: 't2', args: [2024, 1, 28], expected: { y: 2024, m: 2, d: 4 } },
