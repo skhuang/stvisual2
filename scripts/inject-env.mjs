@@ -22,7 +22,7 @@ try {
     const eq = trimmed.indexOf('=');
     if (eq < 1) continue;
     const key = trimmed.slice(0, eq).trim();
-    const value = trimmed.slice(eq + 1).trim();
+    const value = trimmed.slice(eq + 1).trim().replace(/^(['"])(.*)\1$/, '$2');
     if (!(key in process.env)) {
       process.env[key] = value;
     }
@@ -46,7 +46,7 @@ let source = await readFile(configPath, 'utf8');
 let replaced = 0;
 
 for (const [placeholder, envKey] of Object.entries(PLACEHOLDERS)) {
-  const value = process.env[envKey] || '';
+  const value = (process.env[envKey] || '').trim().replace(/[\r\n]+/g, '');
   if (source.includes(placeholder)) {
     source = source.replaceAll(placeholder, value);
     replaced += 1;
