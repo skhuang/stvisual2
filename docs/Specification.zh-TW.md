@@ -1,8 +1,8 @@
 # stvisual 完整規格文件
 
-最後更新：2026-05-06
+最後更新：2026-05-11
 
-本文件為 stvisual（軟體測試方法視覺化）專案的完整規格說明，包含產品定位、UI 章節、Graph Coverage / Logic Coverage 演算法與資料結構、Karnaugh Map 視覺化規則、雲端整合、測試與佈署流程。
+本文件為 stvisual（軟體測試方法視覺化）專案的完整規格說明，包含產品定位、UI 章節、Graph Coverage / Logic Coverage 演算法與資料結構、Karnaugh Map 視覺化規則、雲端整合、測試與佈署流程，以及最新加入的 Fuzz Testing / Symbolic Execution / Concolic Execution 三個執行式測試章節（§15–§17）。
 
 ---
 
@@ -48,6 +48,9 @@ flowchart LR
 | 2.4 | Graph Coverage | [GraphCoverageExplorer.js](../src/components/GraphCoverageExplorer.js) | `graphCoverageCriteria`, `graphCoverageGraph`, `graphCoverageProgramExamples` | `graph-coverage` |
 | 2.5 | Logic Coverage | [LogicCoverageExplorer.js](../src/components/LogicCoverageExplorer.js) | `logicCoverageCriteria`, `logicCoveragePredicates` | `logic-coverage` |
 | 2.6 | 雲端整合 | [CloudStoragePanel.js](../src/components/CloudStoragePanel.js) | `cloudConfig.js` + Firebase | `cloud-storage-panel` |
+| 2.7 | Symbolic Execution（§16） | [SymbolicExecutionExplorer.js](../src/components/SymbolicExecutionExplorer.js) | `symbolicExecutionExamples` + `symbolicExecution.js` | `symbex-explorer` |
+| 2.8 | Concolic Execution（§17） | [ConcolicExecutionExplorer.js](../src/components/ConcolicExecutionExplorer.js) | `concolicExecutionExamples` + `concolicExecution.js` | `concolic-explorer` |
+| 2.9 | Fuzz Testing（§15） | [FuzzTestingExplorer.js](../src/components/FuzzTestingExplorer.js) | `fuzzTestingExamples` + `fuzzTesting.js` + `pathToCfg.js` | `fuzz-explorer` |
 
 ### 2.1 測試方法分類
 
@@ -739,3 +742,285 @@ CloudStoragePanel 為每個檔案（含上傳清單與 Drive 既有檔案）多�
 
 - `npm run test:run` → **159/159**（§13 的 153 之上 +6 spec-mutation tests）。
 - `node scripts/build-standalone.mjs` → 重新產出 `src/standalone.js`。
+
+---
+
+## 15. Fuzz Testing（2026-05-11）
+
+第五階段把測試範式從「分析」轉到「執行行為觀察」：把待測函式塞進隨機輸入器，邊跑邊紀錄分支 trace，最後彙整 CFG 覆蓋。對應 Ammann/Offutt 教科書沒有獨立章節（fuzz 屬於 Random Testing 家族），但工程實務上是現代 fuzzer（AFL、libFuzzer、ClusterFuzz）的核心心智。
+
+### 15.1 模組與檔案
+
+- [src/utils/fuzzTesting.js](../src/utils/fuzzTesting.js)（192 行）
+  - `parseFunctionSignature(sourceCode)`：以 regex 抽出 `function name(params) { body }`；body 經 `instrumentBranches` 改寫；最後以 `new Function('__b__', ...paramNames, instrumented)` 包成可呼叫物件。
+  - `instrumentBranches(body)`：把 `if (cond)` 改寫成 `if ((__b__.push({ taken: !!(cond) }), __b__[...].taken))`；`while` 額外加 `++__lcN__ <= 10000` 迭代上限，避免 NaN 或無限迴圈造成 UI 卡死。
+  - `generateRandomValue(_index)`：70% 機率產整數 `[-100, 100]`，30% 機率產 boolean。**刻意不產字串**——避免 `a + b` 變成字串串接、條件永真而 hang。
+  - `fuzzTest(sourceCode, maxTests = 200)`：跑 N 個輸入，回傳 `{ totalTests, passedTests, failedTests, crashes, testCases, uniqueErrors, averageDuration, truncated }`。每個 `testCase` 含 `{ input, output, error, crashed, duration, branches }`。
+  - `formatInput(input)` / `formatOutput(output)` 為 UI 顯示輔助。
+- [src/utils/pathToCfg.js](../src/utils/pathToCfg.js)（197 行）
+  - `mapBranchesToCfg(cfg, branches)`：把每次 fuzz 跑的 `branches[]` trace 對應到 CFG 的 nodes/edges；偵測迴圈頭以正確處理多次造訪。
+  - `renderCfgSvg(cfg, highlight, options)`：產出帶高亮的 SVG，被 Fuzz / Symbex / Concolic 三個 explorer 共用。
+- [src/components/FuzzTestingExplorer.js](../src/components/FuzzTestingExplorer.js)（435 行）
+  - 編輯器、6 個範例 chips、test count 輸入、Run 按鈕、結果摘要、CFG 與測試案例列表。
+- [src/data/testingData.js → fuzzTestingExamples](../src/data/testingData.js)：6 個內建範例 `triangle-classifier`、`gcd-function`、`absolute-value`、`quadratic-formula`、`array-sum`、`max-value`。
+
+### 15.2 演算法
+
+```js
+function fuzzTest(sourceCode, maxTests) {
+  const parsed = parseFunctionSignature(sourceCode);   // 注入 __b__
+  for (let i = 0; i < maxTests; i++) {
+    const args = paramNames.map(generateRandomValue);
+    const branches = [];
+    try { output = parsed.func(branches, ...args); }
+    catch (err) { crashed = true; uniqueErrors.set(err.message, ...); }
+    testCases.push({ input, output, error, crashed, branches, duration });
+  }
+}
+```
+
+UI 端把每個 testCase 的 `branches` 餵 `mapBranchesToCfg` 計算 per-case 覆蓋，再對全部 testCases 取聯集得到整體 node / edge coverage（顯示在 `fuzz-node-cov` / `fuzz-edge-cov` badge）。
+
+### 15.3 主要 testid
+
+| testid | 用途 |
+| --- | --- |
+| `fuzz-explorer` | 根容器 |
+| `fuzz-example-{id}` | 6 個範例切換按鈕 |
+| `fuzz-source` | 程式碼 textarea |
+| `fuzz-test-count-input` | 1–200 整數輸入 |
+| `fuzz-run-btn` | 觸發 fuzz |
+| `fuzz-summary`、`fuzz-test-count`、`fuzz-passed-count`、`fuzz-crash-count` | 摘要 |
+| `fuzz-node-cov`、`fuzz-edge-cov` | 即時覆蓋率 badge |
+| `fuzz-cfg`、`fuzz-cfg-selected`、`fuzz-cfg-zoom-{in,out,reset}` | CFG 視圖 |
+| `fuzz-cases`、`fuzz-case-{id}` | 測試案例列表 |
+
+### 15.4 持久化
+
+- `localStorage['stvisual.fuzz.v1']` 儲存 `{ sourceCode, exampleId, testCount, cfgZoom }`。
+- 未串接 Firestore（與 #9 簡報「未來工作」一致）。
+
+### 15.5 限制與設計考量
+
+1. **不產字串**：`generateRandomValue` 排除 string 是刻意設計——`a + b` 在 JS 中對字串變串接，會讓 while 條件永真。
+2. **`MAX_LOOP_ITERATIONS = 10000`**：instrument 時注入的安全網；超過會擲 error，UI 標為 crash。
+3. **CFG 共用**：與 §3 / §16 / §17 共用 `programToGraph` + `pathToCfg`——對 try/catch、destructuring 不支援時 CFG 為空，coverage 無法計算。
+4. **沒有持久學習**：每次 Run 從零亂數開始，不像 AFL/libFuzzer 有 corpus minimization。
+
+### 15.6 測試
+
+| 檔案 | 測試數 | 重點 |
+| --- | --- | --- |
+| [src/tests/pathToCfg.test.js](../src/tests/pathToCfg.test.js) | 4 | trace → CFG 對應、迴圈頭偵測 |
+
+`fuzzTesting.js` 透過 explorer 的瀏覽器端使用驗證；單元測試目前覆蓋 `pathToCfg`，是 Fuzz / Symbex / Concolic 三者的共用核心。
+
+---
+
+## 16. Symbolic Execution（2026-05-11）
+
+教學等級的符號執行引擎：接受小 JS 子集，列舉所有路徑、累積 path condition、用 bounded brute-force solver 求 witness。對應 Ammann/Offutt §10 與 King (1976) 的經典 symbex 模型，但**不依賴 SMT solver**——以 [-5, 12] 整數枚舉取代，方便教學與離線執行。
+
+### 16.1 模組與檔案
+
+- [src/utils/symbolicExecution.js](../src/utils/symbolicExecution.js)（570 行，self-contained）
+  - **Tokeniser + parser**：手寫遞迴下降；KEYWORDS = `{function, let, var, const, if, else, while, return, true, false}`；PUNCT2 = `{==, !=, <=, >=, &&, ||}`。
+  - **AST 評估器**：`evalExpr(node, env)` 支援 `num/bool/ident/unary/binary`；`substitute(node, env)` 把 ident 換成符號表達式。
+  - `symbolicExecute(programSource, options)`：核心 entry，回傳 `{ function: { name, params }, paths: [...], truncated }`。
+  - `findWitness(pc, params, domain)`：對 path condition 暴力枚舉求解。
+  - 同檔以 `parse`/`evalExpr`/`substitute`/`negate`/`findWitness`/`exprToString` 對外 re-export，被 §17 重用。
+- [src/components/SymbolicExecutionExplorer.js](../src/components/SymbolicExecutionExplorer.js)（318 行）
+- [src/data/testingData.js → symbolicExecutionExamples](../src/data/testingData.js)：4 個範例 `triangle`、`max3`、`abs`、`gcd`。
+
+### 16.2 演算法
+
+```
+1. parse(sourceCode) → AST { name, params, body }
+2. walk(stmts, idx, env, pc, branches):
+     let/assign        → env[x] = substitute(value, env)
+     if(cond)          → fork:
+                            walk(then, ..., pc+cond, ...)
+                            walk(else, ..., pc+!cond, ...)
+     while(cond)       → unroll up to maxLoopUnroll；每輪 fork 兩條
+                         （進迴圈 vs 離開）；超過上限強制離開
+     return expr       → record(env, pc, branches, retExpr)
+3. record() 為每條 path 呼叫 findWitness(pc, params, domain)：
+     枚舉 domain^|params| 組合，找一組使所有 pc[i] 為 true 的具體輸入；
+     若找到 → feasible: true，並 evalExpr(retExpr, witness) 取具體回傳值
+     若找不到 → feasible: false（infeasible path）
+4. 回傳 { function, paths, truncated }
+```
+
+### 16.3 預設選項
+
+```ts
+const DEFAULT_OPTIONS = {
+  maxLoopUnroll: 3,                     // 每個 while 上限展開次數
+  maxPaths: 64,                         // 整體路徑上限
+  searchDomain: { min: -5, max: 12 },   // 18 個整數，3 參數 → 5832 組合
+};
+```
+
+`paths.length >= maxPaths` 時設 `truncated = true`、UI 顯示「結果可能不完整」。
+
+### 16.4 Path 物件結構
+
+```ts
+type Path = {
+  id: string;                                // 'path-{n}'
+  branches: Array<{ line: string; taken: boolean; loop?: boolean }>;
+  pathCondition: string[];                   // pc 的 ASCII 顯示
+  returnExpression: string | null;
+  feasible: boolean;
+  witness: Record<string, number> | null;
+  concreteEnv: Record<string, number> | null;
+  concreteReturn: number | boolean | null;
+};
+```
+
+### 16.5 主要 testid
+
+| testid | 用途 |
+| --- | --- |
+| `symbex-explorer` | 根容器 |
+| `symbex-example-{id}` | 4 個範例切換按鈕 |
+| `symbex-source` | 程式碼 textarea |
+| `symbex-max-unroll` | 1–10 整數輸入 |
+| `symbex-summary`、`symbex-path-count`、`symbex-feasible-count` | 摘要 |
+| `symbex-paths`、`symbex-{path-id}` | 路徑列表 |
+| `symbex-cfg`、`symbex-cfg-selected`、`symbex-cfg-zoom-{in,out,reset}` | CFG 視圖 |
+
+`data-symbex-path` 用於點選 path 後同步高亮 CFG。
+
+### 16.6 持久化
+
+- `localStorage['stvisual.symbex.v1']` 儲存 `{ sourceCode, exampleId, maxUnroll, cfgZoom }`（與 Fuzz / Concolic 一致的結構）。
+
+### 16.7 限制與設計考量
+
+1. **語法子集**：不支援 for/do-while、function call、object/array、try/catch；遇到不認得的 statement 直接報 parse error。
+2. **沒有 SMT solver**：bounded brute force 在 `searchDomain = [-5, 12]`、≤ 4 參數時夠用；遇到 `a == 12345` 這種精確值會直接 infeasible。
+3. **Path explosion**：n 個分支 → 2ⁿ 路徑；用 `maxPaths = 64` 截斷，並標 `truncated`。
+4. **與 §17 Concolic 的共用基底**：Concolic 從這支 module 直接 import `parseProgram, evalExpr, substitute, negate, findWitness, exprToString`——兩者共享 AST 與 solver。
+
+### 16.8 測試
+
+| 檔案 | 測試數 | 重點 |
+| --- | --- | --- |
+| [src/tests/symbolicExecution.test.js](../src/tests/symbolicExecution.test.js) | 7 | parser、`if`/`while` 列舉、witness solver、infeasible path、`abs` 兩條路徑、`gcd` unroll、truncated |
+
+---
+
+## 17. Concolic Execution（2026-05-11）
+
+接續 §16，把 symbex 從「全 symbolic fork」換成「**concrete run + 翻最後一個分支**」——對應 DART (Godefroid et al. 2005) 與 CUTE (Sen et al. 2005)。每輪具體跑一次程式、紀錄符號 trace、從後往前找未走過的分支翻轉、用 solver 求新輸入。
+
+### 17.1 模組與檔案
+
+- [src/utils/concolicExecution.js](../src/utils/concolicExecution.js)（240 行）
+  - **parser/solver 不重寫**：從 `symbolicExecution.js` 直接 import `parseProgram, evalExpr, substitute, negate, findWitness, exprToString`。
+  - `runConcolicOnce(fn, concreteInputs)`：跑一次具體執行，同時旁邊維護 `symbolicEnv` 紀錄每個 `if/while` 的符號條件；回傳 `{ branches, returnValue, returnExpression }`。
+  - `concolicExecute(programSource, options)`：worklist BFS 主迴圈。
+- [src/components/ConcolicExecutionExplorer.js](../src/components/ConcolicExecutionExplorer.js)（373 行）
+- [src/data/testingData.js → concolicExecutionExamples](../src/data/testingData.js)：4 個範例 `triangle`、`abs`、`max3`、`middle`（DART benchmark）。
+
+### 17.2 主迴圈
+
+```js
+worklist = [seed]
+seenInputs = { inputKey(seed) }
+seenPaths = ∅
+while (worklist.length && iterations < maxIterations) {
+  inputs = worklist.shift();
+  trace = runConcolicOnce(fn, inputs);  // 具體 + 符號 trace
+  seenPaths.add(pathKey(trace.branches));
+  // 從後往前找第一條「prefix + 翻轉」未走過的分支
+  for (i = trace.branches.length - 1; i >= 0; i--) {
+    constraint = prefix_symbolic(i) ∧ ¬trace.branches[i].symbolic;
+    if (seenPaths.has(candidateKey)) continue;
+    witness = findWitness(constraint, params, domain);
+    if (witness && !seenInputs.has(inputKey(witness))) {
+      worklist.push(witness); break;
+    }
+  }
+  iterations.push({ id, inputs, branches, pathCondition, returnValue, nextInput, negatedAt });
+}
+```
+
+### 17.3 預設選項
+
+```ts
+const DEFAULT_OPTIONS = {
+  maxIterations: 16,
+  searchDomain: { min: -5, max: 12 },
+};
+```
+
+可額外提供 `initialInputs`（種子 input map）；未指定的參數預設為 0。
+
+### 17.4 Iteration 物件結構
+
+```ts
+type Iteration = {
+  id: string;                                // 'iter-{n}'
+  inputs: Record<string, number>;
+  branches: Array<{
+    index: number;
+    condition: string;                       // 符號條件
+    taken: boolean;
+    loop: boolean;
+    negated: boolean;                        // 此分支被本輪翻轉
+  }>;
+  pathCondition: string[];
+  pathKey: string;                           // 'TFTF...' 的 T/F 串
+  returnValue: number | boolean | null;
+  returnExpression: string | null;           // 符號回傳式
+  runtimeError: string | null;
+  nextInput: Record<string, number> | null;
+  negatedAt: number | null;
+  negatedNewKey: string | null;
+};
+```
+
+### 17.5 主要 testid
+
+| testid | 用途 |
+| --- | --- |
+| `concolic-explorer` | 根容器 |
+| `concolic-example-{id}` | 4 個範例切換按鈕 |
+| `concolic-source` | 程式碼 textarea |
+| `concolic-seed` | 種子輸入文字框 |
+| `concolic-max-iter` | 1–32 整數輸入 |
+| `concolic-summary`、`concolic-iter-count`、`concolic-path-count` | 摘要 |
+| `concolic-iters`、`concolic-{iter-id}` | 迭代列表 |
+| `concolic-cfg`、`concolic-cfg-selected`、`concolic-cfg-zoom-{in,out,reset}` | CFG 視圖 |
+
+`data-concolic-iter` 用於點選 iteration 後同步高亮 CFG。
+
+### 17.6 持久化
+
+- `localStorage['stvisual.concolic.v1']` 儲存 `{ sourceCode, exampleId, seed, maxIter, cfgZoom }`。
+
+### 17.7 與 §16 Symbolic 的差異
+
+| 維度 | §16 Symbex | §17 Concolic |
+| --- | --- | --- |
+| Fork 時機 | 在 symbex walker 內 fork（兩條都走） | 不 fork——只走具體那一邊 |
+| Loop 處理 | `maxLoopUnroll` 強制截斷 | 跟具體 trace 自然停（有 256 次硬上限） |
+| 不可達路徑 | 會被 enumerate 為 `feasible: false` | 不會出現（只走實際走過的） |
+| 路徑成長 | 指數（路徑爆炸） | 線性（每輪 +1 條） |
+| 求解器 | 同一個 `findWitness` | 同一個 `findWitness` |
+
+兩個 explorer 在 UI 上互相對照，學生可直接觀察兩種搜尋策略對相同程式產出的路徑集合差異。
+
+### 17.8 測試
+
+| 檔案 | 測試數 | 重點 |
+| --- | --- | --- |
+| [src/tests/concolicExecution.test.js](../src/tests/concolicExecution.test.js) | 4 | 從 seed 出發、翻分支、收斂、`triangle`/`abs`/`max3` 覆蓋 |
+
+### 17.9 驗證（§15–§17 共同）
+
+- `npm run test:run` → **202/202**（§14 的 159 之上 +43：包含 fuzz / symbex / concolic / pathToCfg / data flow / spec FSM 等所有新增功能的測試）。
+- 三個 explorer 與 §3 CFG、§16 ↔ §17 解析器共用——任何 [src/utils/programToGraph.js](../src/utils/programToGraph.js) 或 [src/utils/symbolicExecution.js](../src/utils/symbolicExecution.js) 的變更皆需同時跑全部測試確認。
+- `node scripts/build-standalone.mjs` → 重新產出 `src/standalone.js`（含全部新模組）。
