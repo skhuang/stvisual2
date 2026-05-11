@@ -6,3 +6,11 @@ coverage/
 playwright-report/
 test-results/
 .env
+
+# Office / Keynote temp lock files
+~$*
+
+# Slide-deck artifacts — Markdown is the source of truth in docs/slides/
+docs/slides/*.pptx
+docs/slides/*.html
+docs/slides/*.pdf
