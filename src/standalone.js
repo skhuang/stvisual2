@@ -824,17 +824,29 @@
       "app.footer": "Built per Plan.md \xB7 Software Testing Methods Visualization",
       "app.overview.subtitle": "Choose a topic to open one focused explorer at a time.",
       "app.section.label": "Section",
+      "app.skipMain": "Skip to main content",
       "app.lang.label": "Language",
       "app.lang.en": "English",
       "app.lang.zh": "\u4E2D\u6587",
       "explorer.panel.input": "Input",
       "explorer.panel.cfg": "Control Flow Graph",
       "explorer.panel.results": "Results",
+      "explorer.mobileNav": "Explorer sections",
       // Sections
       "section.all": "Overview",
       "overview.group.foundations": "Foundations",
       "overview.group.coverage": "Coverage Criteria",
       "overview.group.execution": "Execution & Test Generation",
+      "overview.desc.methods": "Browse testing families and how black-box, white-box, and gray-box methods relate.",
+      "overview.desc.flow": "Walk through the testing lifecycle from requirements to defect reporting.",
+      "overview.desc.types": "Compare common testing levels and when each type is used.",
+      "overview.desc.graph": "Explore CFG coverage requirements, paths, and optimized test sets.",
+      "overview.desc.logic": "Evaluate predicates with truth tables, clause criteria, and Karnaugh maps.",
+      "overview.desc.syntax": "Try program, grammar, and specification mutation in one syntax-based workspace.",
+      "overview.desc.symbex": "Enumerate symbolic paths and inspect feasible witnesses on the CFG.",
+      "overview.desc.concolic": "Start from concrete inputs and watch branch negation discover new paths.",
+      "overview.desc.fuzz": "Generate random inputs, surface crashes, and inspect aggregate CFG coverage.",
+      "overview.desc.testgen": "Produce concrete tests from coverage requirements using symbolic witnesses.",
       "section.methods": "Testing Methods",
       "section.graph": "Graph Coverage",
       "section.logic": "Logic Coverage",
@@ -957,6 +969,7 @@
       "common.save": "Save",
       "common.delete": "Delete",
       "common.add": "Add",
+      "common.close": "Close",
       "common.notes": "Notes",
       "common.actual": "Actual",
       "common.expected": "Expected",
@@ -1287,16 +1300,28 @@
       "app.footer": "\u6839\u64DA Plan.md \u5EFA\u7ACB \xB7 \u8EDF\u9AD4\u6E2C\u8A66\u65B9\u6CD5\u8996\u89BA\u5316\u7CFB\u7D71",
       "app.overview.subtitle": "\u9078\u64C7\u4E00\u500B\u4E3B\u984C\uFF0C\u9032\u5165\u55AE\u4E00\u4E92\u52D5\u6A21\u7D44\u3002",
       "app.section.label": "\u5340\u584A",
+      "app.skipMain": "\u8DF3\u5230\u4E3B\u8981\u5167\u5BB9",
       "app.lang.label": "\u8A9E\u8A00",
       "app.lang.en": "English",
       "app.lang.zh": "\u4E2D\u6587",
       "explorer.panel.input": "\u8F38\u5165",
       "explorer.panel.cfg": "\u63A7\u5236\u6D41\u7A0B\u5716",
       "explorer.panel.results": "\u7D50\u679C",
+      "explorer.mobileNav": "Explorer \u5340\u584A",
       "section.all": "\u5168\u89BD",
       "overview.group.foundations": "\u57FA\u790E\u6982\u5FF5",
       "overview.group.coverage": "\u8986\u84CB\u6E96\u5247",
       "overview.group.execution": "\u57F7\u884C\u8207\u6E2C\u8A66\u751F\u6210",
+      "overview.desc.methods": "\u700F\u89BD\u9ED1\u7BB1\u3001\u767D\u7BB1\u3001\u7070\u7BB1\u6E2C\u8A66\u65B9\u6CD5\uFF0C\u4EE5\u53CA\u5404\u985E\u65B9\u6CD5\u4E4B\u9593\u7684\u95DC\u4FC2\u3002",
+      "overview.desc.flow": "\u5F9E\u9700\u6C42\u5206\u6790\u5230\u7F3A\u9677\u56DE\u5831\uFF0C\u9010\u6B65\u67E5\u770B\u6E2C\u8A66\u751F\u547D\u9031\u671F\u3002",
+      "overview.desc.types": "\u6BD4\u8F03\u5E38\u898B\u6E2C\u8A66\u5C64\u7D1A\uFF0C\u4EE5\u53CA\u5404\u985E\u578B\u9069\u5408\u4F7F\u7528\u7684\u6642\u6A5F\u3002",
+      "overview.desc.graph": "\u63A2\u7D22 CFG \u8986\u84CB\u9700\u6C42\u3001\u6E2C\u8A66\u8DEF\u5F91\u8207\u6700\u4F73\u5316\u5F8C\u7684\u6E2C\u8A66\u96C6\u5408\u3002",
+      "overview.desc.logic": "\u7528\u771F\u503C\u8868\u3001\u5B50\u53E5\u6E96\u5247\u8207 Karnaugh map \u5206\u6790\u908F\u8F2F\u8FF0\u8A5E\u3002",
+      "overview.desc.syntax": "\u5728\u540C\u4E00\u500B\u5DE5\u4F5C\u5340\u64CD\u4F5C\u7A0B\u5F0F\u3001\u6587\u6CD5\u8207\u898F\u683C mutation\u3002",
+      "overview.desc.symbex": "\u5217\u8209\u7B26\u865F\u8DEF\u5F91\uFF0C\u4E26\u5728 CFG \u4E0A\u6AA2\u8996\u53EF\u6EFF\u8DB3\u8DEF\u5F91\u8207 witness\u3002",
+      "overview.desc.concolic": "\u5F9E\u5177\u9AD4\u8F38\u5165\u51FA\u767C\uFF0C\u89C0\u5BDF\u5206\u652F\u53CD\u8F49\u5982\u4F55\u63A2\u7D22\u65B0\u8DEF\u5F91\u3002",
+      "overview.desc.fuzz": "\u7522\u751F\u96A8\u6A5F\u8F38\u5165\u3001\u627E\u51FA crash\uFF0C\u4E26\u6AA2\u8996\u6574\u9AD4 CFG \u8986\u84CB\u72C0\u614B\u3002",
+      "overview.desc.testgen": "\u6839\u64DA\u8986\u84CB\u9700\u6C42\u8207\u7B26\u865F witness \u7522\u751F\u5177\u9AD4\u6E2C\u8A66\u6848\u4F8B\u3002",
       "section.methods": "\u6E2C\u8A66\u65B9\u6CD5",
       "section.graph": "Graph Coverage",
       "section.logic": "Logic Coverage",
@@ -1418,6 +1443,7 @@
       "common.save": "\u5132\u5B58",
       "common.delete": "\u522A\u9664",
       "common.add": "\u65B0\u589E",
+      "common.close": "\u95DC\u9589",
       "common.notes": "\u5099\u8A3B",
       "common.actual": "\u5BE6\u969B",
       "common.expected": "\u9810\u671F",
@@ -10655,7 +10681,13 @@ INVARSPEC !w | (i & (l | h))`
          ${t("symbex.summary.feasible")}<strong data-testid="symbex-feasible-count">${state.result.paths.filter((p) => p.feasible).length}</strong>
          ${state.result.truncated ? `<span class="symbex-divider">\xB7</span><span class="symbex-truncated">${t("symbex.summary.truncated")}</span>` : ""}` : "";
       root2.innerHTML = `
-      <section class="symbex-panel symbex-input-panel">
+      <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="symbex-mobile-nav">
+        <a href="#symbex-input-panel">${t("explorer.panel.input")}</a>
+        <a href="#symbex-cfg-panel">${t("explorer.panel.cfg")}</a>
+        <a href="#symbex-results-panel">${t("explorer.panel.results")}</a>
+      </nav>
+
+      <section class="symbex-panel symbex-input-panel" id="symbex-input-panel">
         <header class="symbex-panel-header">
           <h3>${t("explorer.panel.input")}</h3>
         </header>
@@ -10682,13 +10714,13 @@ INVARSPEC !w | (i & (l | h))`
       </section>
 
       <div class="symbex-split-body">
-        <section class="symbex-panel symbex-cfg-pane">
+        <section class="symbex-panel symbex-cfg-pane" id="symbex-cfg-panel">
           <header class="symbex-panel-header">
             <h3>${t("explorer.panel.cfg")}</h3>
           </header>
           ${renderCfgPane()}
         </section>
-        <section class="symbex-panel symbex-results-pane">
+        <section class="symbex-panel symbex-results-pane" id="symbex-results-panel">
           <header class="symbex-panel-header">
             <h3>${t("explorer.panel.results")}</h3>
           </header>
@@ -11131,7 +11163,13 @@ INVARSPEC !w | (i & (l | h))`
          ${t("concolic.summary.uniqueInputs")}<strong>${state.result.uniqueInputCount}</strong>
          ${state.result.truncated ? `<span class="concolic-divider">\xB7</span><span class="concolic-truncated">${t("concolic.summary.truncated")}</span>` : ""}` : "";
       root2.innerHTML = `
-      <section class="concolic-panel concolic-input-panel">
+      <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="concolic-mobile-nav">
+        <a href="#concolic-input-panel">${t("explorer.panel.input")}</a>
+        <a href="#concolic-cfg-panel">${t("explorer.panel.cfg")}</a>
+        <a href="#concolic-results-panel">${t("explorer.panel.results")}</a>
+      </nav>
+
+      <section class="concolic-panel concolic-input-panel" id="concolic-input-panel">
         <header class="concolic-panel-header">
           <h3>${t("explorer.panel.input")}</h3>
         </header>
@@ -11164,13 +11202,13 @@ INVARSPEC !w | (i & (l | h))`
       </section>
 
       <div class="concolic-split-body">
-        <section class="concolic-panel concolic-cfg-pane">
+        <section class="concolic-panel concolic-cfg-pane" id="concolic-cfg-panel">
           <header class="concolic-panel-header">
             <h3>${t("explorer.panel.cfg")}</h3>
           </header>
           ${renderCfgPane()}
         </section>
-        <section class="concolic-panel concolic-results-pane">
+        <section class="concolic-panel concolic-results-pane" id="concolic-results-panel">
           <header class="concolic-panel-header">
             <h3>${t("explorer.panel.results")}</h3>
           </header>
@@ -11623,7 +11661,13 @@ INVARSPEC !w | (i & (l | h))`
          ${result.truncated ? `<span class="fuzz-divider">\xB7</span><span class="fuzz-truncated">${t("fuzz.summary.truncated")}</span>` : ""}` : "";
       const testCasesMarkup = error ? `<div class="fuzz-error" data-testid="fuzz-error">${escapeHtml8(error)}</div>` : renderTestCases(result);
       root2.innerHTML = `
-      <section class="fuzz-panel fuzz-input-panel">
+      <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="fuzz-mobile-nav">
+        <a href="#fuzz-input-panel">${t("explorer.panel.input")}</a>
+        <a href="#fuzz-cfg-panel">${t("explorer.panel.cfg")}</a>
+        <a href="#fuzz-results-panel">${t("explorer.panel.results")}</a>
+      </nav>
+
+      <section class="fuzz-panel fuzz-input-panel" id="fuzz-input-panel">
         <header class="fuzz-panel-header">
           <h3>${t("explorer.panel.input")}</h3>
         </header>
@@ -11656,14 +11700,14 @@ INVARSPEC !w | (i & (l | h))`
       </section>
 
       <div class="fuzz-split-body">
-        <section class="fuzz-panel fuzz-cfg-pane">
+        <section class="fuzz-panel fuzz-cfg-pane" id="fuzz-cfg-panel">
           <header class="fuzz-panel-header">
             <h3>${t("explorer.panel.cfg")}</h3>
           </header>
           ${renderCfgPane()}
         </section>
 
-        <section class="fuzz-panel fuzz-results-pane">
+        <section class="fuzz-panel fuzz-results-pane" id="fuzz-results-panel">
           <header class="fuzz-panel-header">
             <h3>${t("explorer.panel.results")}</h3>
           </header>
@@ -12154,7 +12198,13 @@ INVARSPEC !w | (i & (l | h))`
       </option>
     `).join("");
       root2.innerHTML = `
-      <section class="testgen-panel testgen-input-panel">
+      <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="testgen-mobile-nav">
+        <a href="#testgen-input-panel">${t("explorer.panel.input")}</a>
+        <a href="#testgen-cfg-panel">${t("explorer.panel.cfg")}</a>
+        <a href="#testgen-results-panel">${t("explorer.panel.results")}</a>
+      </nav>
+
+      <section class="testgen-panel testgen-input-panel" id="testgen-input-panel">
         <header class="testgen-panel-header">
           <h3>${t("explorer.panel.input")}</h3>
         </header>
@@ -12179,13 +12229,13 @@ INVARSPEC !w | (i & (l | h))`
       </section>
 
       <div class="testgen-split-body">
-        <section class="testgen-panel testgen-cfg-pane">
+        <section class="testgen-panel testgen-cfg-pane" id="testgen-cfg-panel">
           <header class="testgen-panel-header">
             <h3>${t("explorer.panel.cfg")}</h3>
           </header>
           ${renderCfgPane()}
         </section>
-        <section class="testgen-panel testgen-results-pane">
+        <section class="testgen-panel testgen-results-pane" id="testgen-results-panel">
           <header class="testgen-panel-header">
             <h3>${t("explorer.panel.results")}</h3>
           </header>
@@ -12434,6 +12484,7 @@ INVARSPEC !w | (i & (l | h))`
     { id: "cloud", key: "section.cloud" }
   ];
   var sectionSelectConfig = [...learningSectionsConfig, ...utilitySectionsConfig];
+  var ACTIVE_SECTION_KEY = "stvisual.activeSection";
   var overviewGroups = [
     {
       key: "overview.group.foundations",
@@ -12448,10 +12499,28 @@ INVARSPEC !w | (i & (l | h))`
       sectionIds: ["symbex", "concolic", "fuzz", "testgen"]
     }
   ];
+  function loadSavedSection() {
+    var _a2;
+    try {
+      const saved = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(ACTIVE_SECTION_KEY);
+      return learningSectionsConfig.some((section) => section.id === saved) ? saved : "all";
+    } catch {
+      return "all";
+    }
+  }
+  function persistActiveSection(sectionId) {
+    var _a2;
+    if (!learningSectionsConfig.some((section) => section.id === sectionId)) return;
+    try {
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(ACTIVE_SECTION_KEY, sectionId);
+    } catch {
+    }
+  }
   function renderApp(container) {
     function paint() {
       container.innerHTML = `
       <div class="app">
+        <a class="skip-link" href="#app-main">${t("app.skipMain")}</a>
         <header class="app-header">
           <div class="app-header__text">
             <h1>${t("app.title")}</h1>
@@ -12473,26 +12542,39 @@ INVARSPEC !w | (i & (l | h))`
 
         <nav class="app-nav" aria-label="${t("app.nav.aria")}" data-testid="app-nav"></nav>
 
-        <main class="app-main">
-          <section class="overview-section" data-testid="section-overview">
+        <main class="app-main" id="app-main" tabindex="-1">
+          <section class="overview-section" data-testid="section-overview" tabindex="-1" aria-labelledby="section-overview-title">
             <div class="overview-section__header">
-              <h2>${t("section.all")}</h2>
+              <h2 id="section-overview-title">${t("section.all")}</h2>
               <p>${t("app.overview.subtitle")}</p>
             </div>
             <div class="overview-grid" data-testid="overview-grid"></div>
           </section>
-          <section data-testid="section-methods"><h2>${t("section.methods.title")}</h2><div data-slot="methods"></div></section>
-          <section data-testid="section-graph"><h2>${t("section.graph.title")}</h2><div data-slot="graph"></div></section>
-          <section data-testid="section-logic"><h2>${t("section.logic.title")}</h2><div data-slot="logic"></div></section>
-          <section data-testid="section-syntax"><h2>${t("section.syntax.title")}</h2><div data-slot="syntax"></div></section>
-          <section data-testid="section-symbex"><h2>${t("section.symbex.title")}</h2><div data-slot="symbex"></div></section>
-          <section data-testid="section-concolic"><h2>${t("section.concolic.title")}</h2><div data-slot="concolic"></div></section>
-          <section data-testid="section-fuzz"><h2>${t("section.fuzz.title")}</h2><div data-slot="fuzz"></div></section>
-          <section data-testid="section-testgen"><h2>${t("section.testgen.title")}</h2><div data-slot="testgen"></div></section>
-          <section data-testid="section-cloud"><h2>${t("section.cloud.title")}</h2><div data-slot="cloud"></div></section>
-          <section data-testid="section-flow"><h2>${t("section.flow.title")}</h2><div data-slot="flow"></div></section>
-          <section data-testid="section-types"><h2>${t("section.types.title")}</h2><div data-slot="types"></div></section>
+          <section data-testid="section-methods" tabindex="-1" aria-labelledby="section-methods-title"><h2 id="section-methods-title">${t("section.methods.title")}</h2><div data-slot="methods"></div></section>
+          <section data-testid="section-graph" tabindex="-1" aria-labelledby="section-graph-title"><h2 id="section-graph-title">${t("section.graph.title")}</h2><div data-slot="graph"></div></section>
+          <section data-testid="section-logic" tabindex="-1" aria-labelledby="section-logic-title"><h2 id="section-logic-title">${t("section.logic.title")}</h2><div data-slot="logic"></div></section>
+          <section data-testid="section-syntax" tabindex="-1" aria-labelledby="section-syntax-title"><h2 id="section-syntax-title">${t("section.syntax.title")}</h2><div data-slot="syntax"></div></section>
+          <section data-testid="section-symbex" tabindex="-1" aria-labelledby="section-symbex-title"><h2 id="section-symbex-title">${t("section.symbex.title")}</h2><div data-slot="symbex"></div></section>
+          <section data-testid="section-concolic" tabindex="-1" aria-labelledby="section-concolic-title"><h2 id="section-concolic-title">${t("section.concolic.title")}</h2><div data-slot="concolic"></div></section>
+          <section data-testid="section-fuzz" tabindex="-1" aria-labelledby="section-fuzz-title"><h2 id="section-fuzz-title">${t("section.fuzz.title")}</h2><div data-slot="fuzz"></div></section>
+          <section data-testid="section-testgen" tabindex="-1" aria-labelledby="section-testgen-title"><h2 id="section-testgen-title">${t("section.testgen.title")}</h2><div data-slot="testgen"></div></section>
+          <section data-testid="section-flow" tabindex="-1" aria-labelledby="section-flow-title"><h2 id="section-flow-title">${t("section.flow.title")}</h2><div data-slot="flow"></div></section>
+          <section data-testid="section-types" tabindex="-1" aria-labelledby="section-types-title"><h2 id="section-types-title">${t("section.types.title")}</h2><div data-slot="types"></div></section>
         </main>
+
+        <div class="cloud-drawer" data-testid="cloud-settings-drawer" hidden>
+          <button class="cloud-drawer__backdrop" type="button" data-cloud-close tabindex="-1" aria-label="${t("common.close")}"></button>
+          <aside class="cloud-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cloud-drawer-title" tabindex="-1">
+            <header class="cloud-drawer__header">
+              <div>
+                <p>${t("cloud.kicker")}</p>
+                <h2 id="cloud-drawer-title">${t("section.cloud.title")}</h2>
+              </div>
+              <button class="cloud-drawer__close" type="button" data-cloud-close aria-label="${t("common.close")}">\xD7</button>
+            </header>
+            <div class="cloud-drawer__body" data-slot="cloud"></div>
+          </aside>
+        </div>
 
         <footer class="app-footer">
           <p>${t("app.footer")}</p>
@@ -12511,7 +12593,6 @@ INVARSPEC !w | (i & (l | h))`
         concolic: main.querySelector('[data-testid="section-concolic"]'),
         fuzz: main.querySelector('[data-testid="section-fuzz"]'),
         testgen: main.querySelector('[data-testid="section-testgen"]'),
-        cloud: main.querySelector('[data-testid="section-cloud"]'),
         flow: main.querySelector('[data-testid="section-flow"]'),
         types: main.querySelector('[data-testid="section-types"]')
       };
@@ -12600,10 +12681,14 @@ INVARSPEC !w | (i & (l | h))`
       container.querySelector('[data-slot="testgen"]').appendChild(components.testgen);
       container.querySelector('[data-slot="flow"]').appendChild(components.flow);
       container.querySelector('[data-slot="types"]').appendChild(components.types);
-      let activeSection = "all";
+      let activeSection = loadSavedSection();
+      let cloudDrawerOpen = false;
       const sectionsById = Object.fromEntries(sectionSelectConfig.map((section) => [section.id, section]));
       const overviewGrid = container.querySelector('[data-testid="overview-grid"]');
       const cloudTrigger = container.querySelector("[data-app-cloud]");
+      const cloudDrawer = container.querySelector('[data-testid="cloud-settings-drawer"]');
+      const cloudDrawerPanel = cloudDrawer.querySelector(".cloud-drawer__panel");
+      let drawerReturnFocusTarget = null;
       function renderOverview() {
         overviewGrid.innerHTML = overviewGroups.map((group) => `
         <section class="overview-group">
@@ -12619,6 +12704,7 @@ INVARSPEC !w | (i & (l | h))`
                 >
                   <span class="overview-card__label">${t(section.key)}</span>
                   <span class="overview-card__title">${t(`section.${section.id}.title`)}</span>
+                  <span class="overview-card__desc">${t(`overview.desc.${section.id}`)}</span>
                 </button>
               `;
         }).join("")}
@@ -12640,6 +12726,7 @@ INVARSPEC !w | (i & (l | h))`
               data-testid="nav-btn-${section.id}"
               data-section="${section.id}"
               type="button"
+              aria-current="${activeSection === section.id ? "page" : "false"}"
             >
               ${t(section.key)}
             </button>
@@ -12658,6 +12745,11 @@ INVARSPEC !w | (i & (l | h))`
           });
         });
         nav.querySelector('[data-testid="app-section-select"]').addEventListener("change", (event) => {
+          if (event.target.value === "cloud") {
+            openCloudDrawer();
+            renderNav();
+            return;
+          }
           setActiveSection(event.target.value, true);
         });
       }
@@ -12665,37 +12757,99 @@ INVARSPEC !w | (i & (l | h))`
         Object.entries(sections).forEach(([id, element]) => {
           const visible = activeSection === "all" && id === "overview" || activeSection === id;
           element.style.display = visible ? "" : "none";
+          element.setAttribute("aria-hidden", visible ? "false" : "true");
         });
       }
-      function scrollToActiveSection() {
+      function getActiveSectionElement() {
         const target = activeSection === "all" ? sections.overview : sections[activeSection];
+        return target || null;
+      }
+      function scrollToActiveSection() {
+        const target = getActiveSectionElement();
         if (!target) return;
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+      function focusActiveSection() {
+        const target = getActiveSectionElement();
+        if (!target) return;
+        target.focus({ preventScroll: true });
+      }
       function updateCloudTriggerState() {
-        const isActive = activeSection === "cloud";
-        cloudTrigger.classList.toggle("active", isActive);
-        cloudTrigger.setAttribute("aria-pressed", isActive ? "true" : "false");
+        cloudTrigger.classList.toggle("active", cloudDrawerOpen);
+        cloudTrigger.setAttribute("aria-pressed", cloudDrawerOpen ? "true" : "false");
+      }
+      function updateCloudDrawerState() {
+        cloudDrawer.hidden = !cloudDrawerOpen;
+        cloudDrawer.classList.toggle("open", cloudDrawerOpen);
+        cloudDrawer.setAttribute("aria-hidden", cloudDrawerOpen ? "false" : "true");
+        updateCloudTriggerState();
+      }
+      function openCloudDrawer() {
+        drawerReturnFocusTarget = document.activeElement instanceof HTMLElement ? document.activeElement : cloudTrigger;
+        cloudDrawerOpen = true;
+        updateCloudDrawerState();
+        requestAnimationFrame(() => cloudDrawerPanel.focus());
+      }
+      function closeCloudDrawer() {
+        cloudDrawerOpen = false;
+        updateCloudDrawerState();
+        const focusTarget = (drawerReturnFocusTarget == null ? void 0 : drawerReturnFocusTarget.isConnected) ? drawerReturnFocusTarget : cloudTrigger;
+        drawerReturnFocusTarget = null;
+        focusTarget.focus();
       }
       function setActiveSection(sectionId, shouldScroll = false) {
+        if (sectionId === "cloud") {
+          openCloudDrawer();
+          return;
+        }
         activeSection = sectionId;
+        persistActiveSection(activeSection);
         renderNav();
         updateSectionVisibility();
         updateCloudTriggerState();
         if (shouldScroll) {
-          requestAnimationFrame(scrollToActiveSection);
+          requestAnimationFrame(() => {
+            scrollToActiveSection();
+            focusActiveSection();
+          });
         }
       }
       container.querySelector("#app-lang-select").addEventListener("change", (e) => {
         setLocale(e.target.value);
       });
       cloudTrigger.addEventListener("click", () => {
-        setActiveSection("cloud", true);
+        openCloudDrawer();
+      });
+      cloudDrawer.querySelectorAll("[data-cloud-close]").forEach((button) => {
+        button.addEventListener("click", closeCloudDrawer);
+      });
+      cloudDrawer.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeCloudDrawer();
+          return;
+        }
+        if (event.key !== "Tab" || !cloudDrawerOpen) {
+          return;
+        }
+        const focusableElements = [...cloudDrawer.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )].filter((element) => !element.disabled && element.offsetParent !== null);
+        if (!focusableElements.length) return;
+        const first = focusableElements[0];
+        const last = focusableElements[focusableElements.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       });
       renderOverview();
       renderNav();
       updateSectionVisibility();
-      updateCloudTriggerState();
+      updateCloudDrawerState();
     }
     paint();
     onLocaleChange(() => paint());

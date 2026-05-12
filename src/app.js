@@ -32,6 +32,7 @@ const utilitySectionsConfig = [
 ];
 
 const sectionSelectConfig = [...learningSectionsConfig, ...utilitySectionsConfig];
+const ACTIVE_SECTION_KEY = 'stvisual.activeSection';
 
 const overviewGroups = [
   {
@@ -48,10 +49,29 @@ const overviewGroups = [
   },
 ];
 
+function loadSavedSection() {
+  try {
+    const saved = globalThis.localStorage?.getItem(ACTIVE_SECTION_KEY);
+    return learningSectionsConfig.some((section) => section.id === saved) ? saved : 'all';
+  } catch {
+    return 'all';
+  }
+}
+
+function persistActiveSection(sectionId) {
+  if (!learningSectionsConfig.some((section) => section.id === sectionId)) return;
+  try {
+    globalThis.localStorage?.setItem(ACTIVE_SECTION_KEY, sectionId);
+  } catch {
+    // ignore
+  }
+}
+
 export function renderApp(container) {
   function paint() {
     container.innerHTML = `
       <div class="app">
+        <a class="skip-link" href="#app-main">${t('app.skipMain')}</a>
         <header class="app-header">
           <div class="app-header__text">
             <h1>${t('app.title')}</h1>
@@ -73,26 +93,39 @@ export function renderApp(container) {
 
         <nav class="app-nav" aria-label="${t('app.nav.aria')}" data-testid="app-nav"></nav>
 
-        <main class="app-main">
-          <section class="overview-section" data-testid="section-overview">
+        <main class="app-main" id="app-main" tabindex="-1">
+          <section class="overview-section" data-testid="section-overview" tabindex="-1" aria-labelledby="section-overview-title">
             <div class="overview-section__header">
-              <h2>${t('section.all')}</h2>
+              <h2 id="section-overview-title">${t('section.all')}</h2>
               <p>${t('app.overview.subtitle')}</p>
             </div>
             <div class="overview-grid" data-testid="overview-grid"></div>
           </section>
-          <section data-testid="section-methods"><h2>${t('section.methods.title')}</h2><div data-slot="methods"></div></section>
-          <section data-testid="section-graph"><h2>${t('section.graph.title')}</h2><div data-slot="graph"></div></section>
-          <section data-testid="section-logic"><h2>${t('section.logic.title')}</h2><div data-slot="logic"></div></section>
-          <section data-testid="section-syntax"><h2>${t('section.syntax.title')}</h2><div data-slot="syntax"></div></section>
-          <section data-testid="section-symbex"><h2>${t('section.symbex.title')}</h2><div data-slot="symbex"></div></section>
-          <section data-testid="section-concolic"><h2>${t('section.concolic.title')}</h2><div data-slot="concolic"></div></section>
-          <section data-testid="section-fuzz"><h2>${t('section.fuzz.title')}</h2><div data-slot="fuzz"></div></section>
-          <section data-testid="section-testgen"><h2>${t('section.testgen.title')}</h2><div data-slot="testgen"></div></section>
-          <section data-testid="section-cloud"><h2>${t('section.cloud.title')}</h2><div data-slot="cloud"></div></section>
-          <section data-testid="section-flow"><h2>${t('section.flow.title')}</h2><div data-slot="flow"></div></section>
-          <section data-testid="section-types"><h2>${t('section.types.title')}</h2><div data-slot="types"></div></section>
+          <section data-testid="section-methods" tabindex="-1" aria-labelledby="section-methods-title"><h2 id="section-methods-title">${t('section.methods.title')}</h2><div data-slot="methods"></div></section>
+          <section data-testid="section-graph" tabindex="-1" aria-labelledby="section-graph-title"><h2 id="section-graph-title">${t('section.graph.title')}</h2><div data-slot="graph"></div></section>
+          <section data-testid="section-logic" tabindex="-1" aria-labelledby="section-logic-title"><h2 id="section-logic-title">${t('section.logic.title')}</h2><div data-slot="logic"></div></section>
+          <section data-testid="section-syntax" tabindex="-1" aria-labelledby="section-syntax-title"><h2 id="section-syntax-title">${t('section.syntax.title')}</h2><div data-slot="syntax"></div></section>
+          <section data-testid="section-symbex" tabindex="-1" aria-labelledby="section-symbex-title"><h2 id="section-symbex-title">${t('section.symbex.title')}</h2><div data-slot="symbex"></div></section>
+          <section data-testid="section-concolic" tabindex="-1" aria-labelledby="section-concolic-title"><h2 id="section-concolic-title">${t('section.concolic.title')}</h2><div data-slot="concolic"></div></section>
+          <section data-testid="section-fuzz" tabindex="-1" aria-labelledby="section-fuzz-title"><h2 id="section-fuzz-title">${t('section.fuzz.title')}</h2><div data-slot="fuzz"></div></section>
+          <section data-testid="section-testgen" tabindex="-1" aria-labelledby="section-testgen-title"><h2 id="section-testgen-title">${t('section.testgen.title')}</h2><div data-slot="testgen"></div></section>
+          <section data-testid="section-flow" tabindex="-1" aria-labelledby="section-flow-title"><h2 id="section-flow-title">${t('section.flow.title')}</h2><div data-slot="flow"></div></section>
+          <section data-testid="section-types" tabindex="-1" aria-labelledby="section-types-title"><h2 id="section-types-title">${t('section.types.title')}</h2><div data-slot="types"></div></section>
         </main>
+
+        <div class="cloud-drawer" data-testid="cloud-settings-drawer" hidden>
+          <button class="cloud-drawer__backdrop" type="button" data-cloud-close tabindex="-1" aria-label="${t('common.close')}"></button>
+          <aside class="cloud-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cloud-drawer-title" tabindex="-1">
+            <header class="cloud-drawer__header">
+              <div>
+                <p>${t('cloud.kicker')}</p>
+                <h2 id="cloud-drawer-title">${t('section.cloud.title')}</h2>
+              </div>
+              <button class="cloud-drawer__close" type="button" data-cloud-close aria-label="${t('common.close')}">×</button>
+            </header>
+            <div class="cloud-drawer__body" data-slot="cloud"></div>
+          </aside>
+        </div>
 
         <footer class="app-footer">
           <p>${t('app.footer')}</p>
@@ -112,7 +145,6 @@ export function renderApp(container) {
       concolic: main.querySelector('[data-testid="section-concolic"]'),
       fuzz: main.querySelector('[data-testid="section-fuzz"]'),
       testgen: main.querySelector('[data-testid="section-testgen"]'),
-      cloud: main.querySelector('[data-testid="section-cloud"]'),
       flow: main.querySelector('[data-testid="section-flow"]'),
       types: main.querySelector('[data-testid="section-types"]'),
     };
@@ -200,10 +232,14 @@ export function renderApp(container) {
     container.querySelector('[data-slot="flow"]').appendChild(components.flow);
     container.querySelector('[data-slot="types"]').appendChild(components.types);
 
-    let activeSection = 'all';
+    let activeSection = loadSavedSection();
+    let cloudDrawerOpen = false;
     const sectionsById = Object.fromEntries(sectionSelectConfig.map((section) => [section.id, section]));
     const overviewGrid = container.querySelector('[data-testid="overview-grid"]');
     const cloudTrigger = container.querySelector('[data-app-cloud]');
+    const cloudDrawer = container.querySelector('[data-testid="cloud-settings-drawer"]');
+    const cloudDrawerPanel = cloudDrawer.querySelector('.cloud-drawer__panel');
+    let drawerReturnFocusTarget = null;
 
     function renderOverview() {
       overviewGrid.innerHTML = overviewGroups.map((group) => `
@@ -220,6 +256,7 @@ export function renderApp(container) {
                 >
                   <span class="overview-card__label">${t(section.key)}</span>
                   <span class="overview-card__title">${t(`section.${section.id}.title`)}</span>
+                  <span class="overview-card__desc">${t(`overview.desc.${section.id}`)}</span>
                 </button>
               `;
             }).join('')}
@@ -243,6 +280,7 @@ export function renderApp(container) {
               data-testid="nav-btn-${section.id}"
               data-section="${section.id}"
               type="button"
+              aria-current="${activeSection === section.id ? 'page' : 'false'}"
             >
               ${t(section.key)}
             </button>
@@ -263,6 +301,11 @@ export function renderApp(container) {
       });
 
       nav.querySelector('[data-testid="app-section-select"]').addEventListener('change', (event) => {
+        if (event.target.value === 'cloud') {
+          openCloudDrawer();
+          renderNav();
+          return;
+        }
         setActiveSection(event.target.value, true);
       });
     }
@@ -271,28 +314,69 @@ export function renderApp(container) {
       Object.entries(sections).forEach(([id, element]) => {
         const visible = (activeSection === 'all' && id === 'overview') || activeSection === id;
         element.style.display = visible ? '' : 'none';
+        element.setAttribute('aria-hidden', visible ? 'false' : 'true');
       });
     }
 
-    function scrollToActiveSection() {
+    function getActiveSectionElement() {
       const target = activeSection === 'all' ? sections.overview : sections[activeSection];
+      return target || null;
+    }
+
+    function scrollToActiveSection() {
+      const target = getActiveSectionElement();
       if (!target) return;
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+    function focusActiveSection() {
+      const target = getActiveSectionElement();
+      if (!target) return;
+      target.focus({ preventScroll: true });
+    }
+
     function updateCloudTriggerState() {
-      const isActive = activeSection === 'cloud';
-      cloudTrigger.classList.toggle('active', isActive);
-      cloudTrigger.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      cloudTrigger.classList.toggle('active', cloudDrawerOpen);
+      cloudTrigger.setAttribute('aria-pressed', cloudDrawerOpen ? 'true' : 'false');
+    }
+
+    function updateCloudDrawerState() {
+      cloudDrawer.hidden = !cloudDrawerOpen;
+      cloudDrawer.classList.toggle('open', cloudDrawerOpen);
+      cloudDrawer.setAttribute('aria-hidden', cloudDrawerOpen ? 'false' : 'true');
+      updateCloudTriggerState();
+    }
+
+    function openCloudDrawer() {
+      drawerReturnFocusTarget = document.activeElement instanceof HTMLElement ? document.activeElement : cloudTrigger;
+      cloudDrawerOpen = true;
+      updateCloudDrawerState();
+      requestAnimationFrame(() => cloudDrawerPanel.focus());
+    }
+
+    function closeCloudDrawer() {
+      cloudDrawerOpen = false;
+      updateCloudDrawerState();
+      const focusTarget = drawerReturnFocusTarget?.isConnected ? drawerReturnFocusTarget : cloudTrigger;
+      drawerReturnFocusTarget = null;
+      focusTarget.focus();
     }
 
     function setActiveSection(sectionId, shouldScroll = false) {
+      if (sectionId === 'cloud') {
+        openCloudDrawer();
+        return;
+      }
       activeSection = sectionId;
+      persistActiveSection(activeSection);
       renderNav();
       updateSectionVisibility();
       updateCloudTriggerState();
       if (shouldScroll) {
-        requestAnimationFrame(scrollToActiveSection);
+        requestAnimationFrame(() => {
+          scrollToActiveSection();
+          focusActiveSection();
+        });
       }
     }
 
@@ -301,13 +385,44 @@ export function renderApp(container) {
     });
 
     cloudTrigger.addEventListener('click', () => {
-      setActiveSection('cloud', true);
+      openCloudDrawer();
+    });
+
+    cloudDrawer.querySelectorAll('[data-cloud-close]').forEach((button) => {
+      button.addEventListener('click', closeCloudDrawer);
+    });
+
+    cloudDrawer.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeCloudDrawer();
+        return;
+      }
+
+      if (event.key !== 'Tab' || !cloudDrawerOpen) {
+        return;
+      }
+
+      const focusableElements = [...cloudDrawer.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      )].filter((element) => !element.disabled && element.offsetParent !== null);
+      if (!focusableElements.length) return;
+
+      const first = focusableElements[0];
+      const last = focusableElements[focusableElements.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     renderOverview();
     renderNav();
     updateSectionVisibility();
-    updateCloudTriggerState();
+    updateCloudDrawerState();
   }
 
   paint();
