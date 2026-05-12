@@ -69,6 +69,39 @@ ExploratoryTestingExplorer、CloudStoragePanel。
 
 ---
 
+### E. Testing Flow 新增視覺化功能（進行中）
+
+以下三個功能將依序在 section-flow 以子頁籤形式呈現（與 Syntax 區塊相同的 tabs 模式）。
+
+#### E1 — 缺陷修復成本曲線（DefectCostExplorer）
+
+- 新元件：`src/components/DefectCostExplorer.js` + CSS
+- 6 個階段（需求→設計→編碼→單元測試→系統測試→上線後），每格顯示成本倍數（×1 → ×100）
+- 互動：hover / click 任一階段 → 顯示詳細說明（成本倍數、建議測試技術、範例）
+- 附加「成本比較條」以視覺化呈現各階段差距
+- ZH-TW / EN i18n；UI 標注「示意數字」免責說明
+- 加入 section-flow 子頁籤（"流程" + "缺陷成本"）
+
+#### E2 — 互動式 V-model（VModelExplorer）
+
+- 新元件：`src/components/VModelExplorer.js` + CSS
+- SVG V 型圖：左臂 = 開發階段，右臂 = 測試階段，底部 = 實作
+- 點擊左臂任一階段 → 右臂對應測試階段高亮；中央顯示連結 artifact
+- 5 組配對：需求↔驗收測試、系統設計↔系統測試、架構設計↔整合測試、模組設計↔單元測試、實作（底部）
+- ZH-TW / EN i18n
+- 加入 section-flow 子頁籤（第 3 頁籤 "V-model"）
+
+#### E3 — 測試金字塔比例調整器（PyramidAdjusterExplorer）
+
+- 新元件：`src/components/PyramidAdjusterExplorer.js` + CSS
+- 三個滑桿（Unit / Integration / E2E %），比例即時重繪金字塔
+- 三個衍生指標列：執行速度、維護成本、信心程度（以箭頭+顏色呈現 high/medium/low）
+- 預設按鈕：理想金字塔、冰淇淋錐（反模式）、沙漏形
+- ZH-TW / EN i18n
+- 加入 section-types 子頁籤（"金字塔" + "比例調整"）
+
+---
+
 ### D2. 關閉已完成的 GitHub Issues（已執行 2026-05-13）
 
 下列 issue 的對應 PR 均已 merge，已手動關閉：
