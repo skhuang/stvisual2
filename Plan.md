@@ -1,143 +1,127 @@
 # stvisual — 改善建議與路線圖
 
-> 最後更新：2026-05-12
+> 最後更新：2026-05-13
 
 ---
 
 ## 現況（已完成功能）
 
-### 互動式 Explorer（12 個）
+### 互動式 Explorer（20 個）
 
-| Explorer | 主要功能 |
-|----------|----------|
-| TestingMethodTree | 測試方法分類樹狀圖 |
-| TestingFlow + TestingTypesTable | 測試流程 & 測試金字塔 |
-| GraphCoverageExplorer | CFG 建構、Node/Edge/Prime-path 準則、DFG 資料流準則 |
-| LogicCoverageExplorer | 14 項 Logic Coverage 準則、K-map、clause binding（#12.2） |
-| SyntaxCoverageExplorer | Program Mutation（15 operators）、Grammar Mutation、String Mutation |
-| SpecMutationExplorer | FSM Safety Monitor、SMV-style 規格突變 |
-| FuzzTestingExplorer | 隨機 fuzzing + CFG 覆蓋熱度圖 |
-| SymbolicExecutionExplorer | 符號執行路徑樹 + CFG 映射 + 縮放 |
-| ConcolicExecutionExplorer | DART/CUTE-style concolic + CFG 映射 + 縮放 |
-| TestGenerationExplorer | 從 Graph / DFG 準則自動產生具體測試輸入（#12.1） |
-| CloudStoragePanel | Firebase / Google Drive 雲端同步 |
-| 全站 i18n | ZH-TW / EN 切換 |
+| Explorer | 主要功能 | Quiz |
+|----------|----------|------|
+| TestingMethodTree | 測試方法分類樹狀圖 | — |
+| TestingFlow + TestingTypesTable | 測試流程 & 測試金字塔 | — |
+| GraphCoverageExplorer | CFG 建構、Node/Edge/Prime-path 準則、DFG 資料流準則 | ✓ |
+| LogicCoverageExplorer | 14 項 Logic Coverage 準則、K-map、clause binding | — |
+| SyntaxCoverageExplorer | Program Mutation（6 operators）、Grammar Mutation | — |
+| SpecMutationExplorer | FSM Safety Monitor、SMV-style 規格突變 | — |
+| FuzzTestingExplorer | mutation-based fuzzing + CFG 覆蓋熱度圖 | — |
+| SymbolicExecutionExplorer | 符號執行路徑樹 + CFG 映射 + 縮放 | — |
+| ConcolicExecutionExplorer | DART/CUTE-style concolic + CFG 映射 + 縮放 | — |
+| TestGenerationExplorer | 從 Graph / DFG 準則自動產生具體測試輸入 + JS 匯出 | — |
+| CloudStoragePanel | Firebase / Google Drive 雲端同步 | — |
+| BoundaryValueExplorer | 5-point BVA + Robustness BVA、多參數 | ✓ |
+| EquivalenceClassExplorer | WECT / SECT、分割條件編輯器 | ✓ |
+| DecisionTableExplorer | 條件/動作矩陣、T/F/– 儲存格、覆蓋率徽章 | — |
+| StateTransitionExplorer | SVG 狀態圖、轉移覆蓋 + BFS 序列覆蓋 | — |
+| MetamorphicTestingExplorer | 5 個程式 × 2–3 個 MR、產生 8 對測試、通過/失敗表 | — |
+| ExploratoryTestingExplorer | 任務書、SFDIPOT 清單、HICCUPPS 參考、計時器、觀察日誌 | — |
+| TestDoublesExplorer | Dummy/Stub/Fake/Mock/Spy、2 個可執行情境/類型、呼叫記錄 | — |
+| 全站 i18n | ZH-TW / EN 切換 | — |
 
-### 投影片（12 講，雙語）
+### 投影片（13 講，雙語，含 speaker notes）
 
 01 課程概觀、02 測試流程、03 Graph Coverage、04 Data Flow、05 Logic Coverage、
 06 Program Mutation、07 Grammar & String、08 Spec Mutation、09 Fuzz Testing、
-10 Symbolic Execution、11 Concolic Execution、12 Test Generation
-
-- 44 張 Playwright 截圖（`docs/assets/slides/`）
-- 一鍵轉 PPTX：`npx @marp-team/marp-cli <file> --pptx`
+10 Symbolic Execution、11 Concolic Execution、12 Test Generation、13 Logic Binding
 
 ### 測試
 
-- 229 個 unit tests（Vitest）
+- 346 個 unit tests（Vitest + jsdom），34 個測試檔案
 - Playwright E2E：GraphCoverage、LogicCoverage、SyntaxCoverage、TestingFlow 等
 
----
+### CI / 佈署
 
-## 待修補（已知問題）
-
-| # | 說明 | 狀態 |
-|---|------|------|
-| [#78](https://github.com/skhuang/stvisual/issues/78) | Symbolic/Concolic split layout — issue 未關閉（#79 已修） | 關閉 issue |
-| [#72](https://github.com/skhuang/stvisual/issues/72) | CI secrets fix — issue 未關閉（ae84cd6 已修） | 關閉 issue |
-| 投影片 index 截圖數 | `index.zh-TW.md` / `index.en.md` 寫「43 張」，實際 44 張 | 小修 |
+- GitHub Actions：Node.js 24、兩個 workflow（`test.yml` + `deploy-pages.yml`）
+- GitHub Pages 自動部署：push to main → test → inject-env → build:standalone → site/
 
 ---
 
-## 改善建議
+## 待辦事項
 
-### A 優先（功能明確、學習價值高）
+### D1. 為所有尚未有 Quiz 模式的 Explorer 增加 self-test
 
-#### A1. #13 Logic Coverage Binding 投影片
+目前只有 3 個 Explorer 有 Quiz 模式，其餘 15 個尚無。優先從教學使用頻率高的開始：
 
-- 對應 `LogicCoverageExplorer` 的 clause binding 子面板（#12.2 功能）
-- 內容：clause → 程式變數對應、brute-force witness 求解、constraint 欄位說明
-- 產出：`docs/slides/13-logic-binding.zh-TW.md` + `.en.md` + 截圖 2–3 張
-- 投影片 index 更新為 13 講
+| 優先 | Explorer | 建議出題形式 |
+|------|----------|-------------|
+| 高 | LogicCoverageExplorer | 給定謂詞，請選出滿足指定準則的最小測試集 |
+| 高 | DecisionTableExplorer | 給定規則矩陣，找出重複規則或遺漏的覆蓋 |
+| 高 | StateTransitionExplorer | 給定狀態機，標出滿足轉移覆蓋所需的最少測試序列 |
+| 中 | SyntaxCoverageExplorer | 給定突變體，選出可以殺死它的測試案例 |
+| 中 | MetamorphicTestingExplorer | 給定程式，判斷某個變形關係是否成立 |
+| 中 | TestDoublesExplorer | 給定情境，選出適合使用的替身類型（Dummy/Stub/…） |
+| 低 | SymbolicExecutionExplorer | 給定路徑條件，填入滿足條件的具體輸入值 |
+| 低 | ConcolicExecutionExplorer | 同上 |
+| 低 | FuzzTestingExplorer | 觀察覆蓋熱度圖，判斷哪個突變策略效果最好 |
 
-#### A2. E2E 測試補齊（Playwright / JSDOM）
+不適合 quiz（工具型，無固定正確答案）：TestingMethodTree、TestingFlow、TestingTypesTable、
+ExploratoryTestingExplorer、CloudStoragePanel。
 
-目前缺 browser-level 測試的 explorer：
-
-| Explorer | 目前測試層級 | 缺少 |
-|----------|------------|------|
-| FuzzTestingExplorer | unit | JSDOM render smoke test |
-| TestGenerationExplorer | unit | JSDOM render smoke test |
-| LogicCoverageExplorer binding 面板 | unit（logicBinding.test.js） | binding inputs UI test |
-| SymbolicExecutionExplorer | unit | JSDOM render smoke test |
-| ConcolicExecutionExplorer | unit | JSDOM render smoke test |
-
-每個只需 20–30 行的 JSDOM render smoke test，確認不 crash 即可。
-
-#### A3. Test Generation 匯出
-
-- 在 TestGenerationExplorer 加「Download as JS」按鈕
-- 將產生的測試集輸出為可直接執行的 Vitest / Jest 檔案
-- 格式範例：
-  ```js
-  import { describe, it, expect } from 'vitest';
-  describe('generated tests', () => {
-    it('test 1: x=1, y=0', () => { /* ... */ });
-  });
-  ```
+**技術做法**（與現有 quiz 一致）：
+- 在 Explorer state 加 `quiz: { active, phase, ...answers }` 欄位
+- 加 "自我測驗" 按鈕於準則列旁邊
+- 評分後顯示正確答案並高亮差異
+- 使用共用 `quiz.css` 樣式
 
 ---
 
-### B 中優先（技術品質）
+### D2. 關閉已完成的 GitHub Issues（已執行 2026-05-13）
 
-#### B1. SMT Solver 整合（Logic Binding）
+下列 issue 的對應 PR 均已 merge，已手動關閉：
 
-- 目前：暴力窮舉整數 `[-10, 10]`，限制多
-- 改善：接入 [z3-solver](https://github.com/nicowillis/z3-solver-js)（WebAssembly 版）
-- 效益：支援大範圍整數、浮點、字串 constraint，不再有「infeasible」誤報
+| Issue | 說明 | 關閉時間 |
+|-------|------|---------|
+| #97 | Logic Binding 投影片 | 2026-05-13 |
+| #99 | JSDOM smoke tests | 2026-05-13 |
+| #101 | Download-as-JS 匯出 | 2026-05-13 |
+| #103 | Analytic interval solver | 2026-05-13 |
+| #111 | BVA + EC explorers | 2026-05-13 |
+| #113 | Quiz 模式 | 2026-05-13 |
+| #115 | Decision Table + State Transition | 2026-05-13 |
 
-#### B2. Logic Binding 更多程式範例
-
-- 目前 6 個：`abs`, `max(a,b)`, `triangle`, `triangle-valid`, `abs-predicate`, `max3-predicate`
-- 建議新增：`calendar`（月份邊界，多子句）、`gcd`、`binarySearch`
-- 每個附 `sourceCode` + `defaultBindings` + `bindingParams`
-
-#### B3. Fuzz Testing：Mutation-based Fuzzer
-
-- 目前：純隨機產生輸入
-- 改善：對現有 seed input 做小幅擾動（±1、bitflip、boundary nudge）
-- 效益：更快發現邊界 bug，覆蓋率上升更穩定
+目前無開放 issue。
 
 ---
 
-### C 低優先（教學加值）
+### D3. CI 升級 Node.js 20 → 24（已執行 2026-05-13）
 
-#### C1. Speaker Notes
+GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 
-- 對所有 12 份 Marp deck 加 `<!-- speaker -->` 區塊
-- 提供講師逐張說明文字（不影響投影片視覺）
+- `.github/workflows/test.yml` — `node-version: 24`
+- `.github/workflows/deploy-pages.yml` — `node-version: 24`
+- `README.md` — 文件同步更新
 
-#### C2. 邊界值 / 等價類分割 Explorer
-
-- 目前 Plan.md 原本規劃的黑盒測試方法尚未實作
-- `BoundaryValueExplorer`：輸入數值範圍，自動列出 on/off/in-point
-- `EquivalenceClassExplorer`：分割條件設定，產生測試用例
-
-#### C3. 課程進度追蹤 / Quiz 模式
-
-- 在每個 Explorer 加「自我測驗」按鈕
-- 出題：給定程式，要求選出滿足指定準則的最小測試集
-- 評分：對比學生答案與最小集
+**待確認**：push 後觀察 CI 是否全數通過（Vite / esbuild / Playwright 與 Node.js 24 相容性）。
 
 ---
 
-## 建議執行順序
+## 已完成的改善項目（歸檔）
 
-```
-A1（#13 投影片）→ A2（E2E 補測試）→ A3（匯出功能）
-→ B1（SMT solver）→ B2（更多範例）→ B3（mutation fuzzer）
-→ C1–C3（視課程需求選做）
-```
+| 項目 | PR | 完成日 |
+|------|----|--------|
+| A1 — #13 Logic Binding 投影片 | #98 | 2026-05-12 |
+| A2 — Explorer JSDOM smoke tests | #100 | 2026-05-12 |
+| A3 — TestGen Download-as-JS | #102 | 2026-05-12 |
+| B1 — Analytic interval solver | #104 | 2026-05-12 |
+| B2 — Logic Binding 更多範例（isLeapYear/gcdStep/binarySearch） | #106 | 2026-05-12 |
+| B3 — Mutation-based fuzzing engine | #108 | 2026-05-12 |
+| C1 — Speaker notes（13 講） | #110 | 2026-05-12 |
+| C2 — BVA + EC explorers | #112 | 2026-05-12 |
+| C3 — Quiz 模式（Graph/BVA/EC） | #114 | 2026-05-12 |
+| Decision Table + State Transition explorers | #116 | 2026-05-12 |
+| Metamorphic Testing + Exploratory Testing + Test Doubles | #118 | 2026-05-12 |
 
 ---
 
@@ -146,8 +130,9 @@ A1（#13 投影片）→ A2（E2E 補測試）→ A3（匯出功能）
 | 工具 | 用途 |
 |------|------|
 | Vite + 原生 JS | 前端，無框架 |
-| Vitest | Unit tests |
+| Vitest + jsdom | Unit tests（346 個） |
 | Playwright | E2E / screenshot capture |
 | Marp CLI | Markdown → PPTX |
 | Firebase / Google Drive | 雲端同步 |
-| z3-solver-js | （B1 預計引入）SMT solver |
+| esbuild | standalone.js 打包（file:// 模式） |
+| Node.js 24 | CI / GitHub Actions |

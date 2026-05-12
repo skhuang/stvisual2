@@ -298,7 +298,7 @@ If the app is served under a non-root path (e.g. `https://example.com/stvisual/`
 | **Test** | `test.yml` | push / PR to `main` | `unit-test` (Vitest), `browser-test` (Playwright/Chromium) |
 | **Deploy GitHub Pages** | `deploy-pages.yml` | push to `main`, manual | `test` → inject-env → build → `deploy` |
 
-Both workflows use **Node.js 20** and `npm ci --legacy-peer-deps`.
+Both workflows use **Node.js 24** and `npm ci --legacy-peer-deps`.
 
 ## Project Structure
 
