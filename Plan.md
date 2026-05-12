@@ -13,21 +13,21 @@
 | TestingMethodTree | 測試方法分類樹狀圖 | — |
 | TestingFlow + TestingTypesTable | 測試流程 & 測試金字塔 | — |
 | GraphCoverageExplorer | CFG 建構、Node/Edge/Prime-path 準則、DFG 資料流準則 | ✓ |
-| LogicCoverageExplorer | 14 項 Logic Coverage 準則、K-map、clause binding | — |
-| SyntaxCoverageExplorer | Program Mutation（6 operators）、Grammar Mutation | — |
+| LogicCoverageExplorer | 14 項 Logic Coverage 準則、K-map、clause binding | ✓ |
+| SyntaxCoverageExplorer | Program Mutation（6 operators）、Grammar Mutation | ✓ |
 | SpecMutationExplorer | FSM Safety Monitor、SMV-style 規格突變 | — |
-| FuzzTestingExplorer | mutation-based fuzzing + CFG 覆蓋熱度圖 | — |
-| SymbolicExecutionExplorer | 符號執行路徑樹 + CFG 映射 + 縮放 | — |
-| ConcolicExecutionExplorer | DART/CUTE-style concolic + CFG 映射 + 縮放 | — |
+| FuzzTestingExplorer | mutation-based fuzzing + CFG 覆蓋熱度圖 | ✓ |
+| SymbolicExecutionExplorer | 符號執行路徑樹 + CFG 映射 + 縮放 | ✓ |
+| ConcolicExecutionExplorer | DART/CUTE-style concolic + CFG 映射 + 縮放 | ✓ |
 | TestGenerationExplorer | 從 Graph / DFG 準則自動產生具體測試輸入 + JS 匯出 | — |
 | CloudStoragePanel | Firebase / Google Drive 雲端同步 | — |
 | BoundaryValueExplorer | 5-point BVA + Robustness BVA、多參數 | ✓ |
 | EquivalenceClassExplorer | WECT / SECT、分割條件編輯器 | ✓ |
-| DecisionTableExplorer | 條件/動作矩陣、T/F/– 儲存格、覆蓋率徽章 | — |
-| StateTransitionExplorer | SVG 狀態圖、轉移覆蓋 + BFS 序列覆蓋 | — |
-| MetamorphicTestingExplorer | 5 個程式 × 2–3 個 MR、產生 8 對測試、通過/失敗表 | — |
+| DecisionTableExplorer | 條件/動作矩陣、T/F/– 儲存格、覆蓋率徽章 | ✓ |
+| StateTransitionExplorer | SVG 狀態圖、轉移覆蓋 + BFS 序列覆蓋 | ✓ |
+| MetamorphicTestingExplorer | 5 個程式 × 2–3 個 MR、產生 8 對測試、通過/失敗表 | ✓ |
 | ExploratoryTestingExplorer | 任務書、SFDIPOT 清單、HICCUPPS 參考、計時器、觀察日誌 | — |
-| TestDoublesExplorer | Dummy/Stub/Fake/Mock/Spy、2 個可執行情境/類型、呼叫記錄 | — |
+| TestDoublesExplorer | Dummy/Stub/Fake/Mock/Spy、2 個可執行情境/類型、呼叫記錄 | ✓ |
 | 全站 i18n | ZH-TW / EN 切換 | — |
 
 ### 投影片（13 講，雙語，含 speaker notes）
@@ -50,30 +50,22 @@
 
 ## 待辦事項
 
-### D1. 為所有尚未有 Quiz 模式的 Explorer 增加 self-test
+### D1. 為所有尚未有 Quiz 模式的 Explorer 增加 self-test（已完成 2026-05-12）
 
-目前只有 3 個 Explorer 有 Quiz 模式，其餘 15 個尚無。優先從教學使用頻率高的開始：
+| PR | Explorer | 出題形式 | 完成日 |
+|----|----------|---------|--------|
+| #120 | LogicCoverageExplorer | 給定謂詞+準則，輸入不重複測試案例數 | 2026-05-12 |
+| #120 | DecisionTableExplorer | 輸入已覆蓋規則數 + 重複規則數 | 2026-05-12 |
+| #120 | StateTransitionExplorer | 輸入目前覆蓋模式所需測試數 | 2026-05-12 |
+| #122 | SyntaxCoverageExplorer | 輸入測試套件可殺死的突變體數 | 2026-05-12 |
+| #122 | MetamorphicTestingExplorer | 輸入 8 對測試中成立的對數（自動生成） | 2026-05-12 |
+| #122 | TestDoublesExplorer | 多選題：選出最適合的替身類型 | 2026-05-12 |
+| #124 | SymbolicExecutionExplorer | 輸入可行路徑數 | 2026-05-12 |
+| #124 | ConcolicExecutionExplorer | 輸入不重複路徑數 | 2026-05-12 |
+| #124 | FuzzTestingExplorer | 輸入節點覆蓋率 % | 2026-05-12 |
 
-| 優先 | Explorer | 建議出題形式 |
-|------|----------|-------------|
-| 高 | LogicCoverageExplorer | 給定謂詞，請選出滿足指定準則的最小測試集 |
-| 高 | DecisionTableExplorer | 給定規則矩陣，找出重複規則或遺漏的覆蓋 |
-| 高 | StateTransitionExplorer | 給定狀態機，標出滿足轉移覆蓋所需的最少測試序列 |
-| 中 | SyntaxCoverageExplorer | 給定突變體，選出可以殺死它的測試案例 |
-| 中 | MetamorphicTestingExplorer | 給定程式，判斷某個變形關係是否成立 |
-| 中 | TestDoublesExplorer | 給定情境，選出適合使用的替身類型（Dummy/Stub/…） |
-| 低 | SymbolicExecutionExplorer | 給定路徑條件，填入滿足條件的具體輸入值 |
-| 低 | ConcolicExecutionExplorer | 同上 |
-| 低 | FuzzTestingExplorer | 觀察覆蓋熱度圖，判斷哪個突變策略效果最好 |
-
-不適合 quiz（工具型，無固定正確答案）：TestingMethodTree、TestingFlow、TestingTypesTable、
+不適合 quiz（工具型）：TestingMethodTree、TestingFlow、TestingTypesTable、
 ExploratoryTestingExplorer、CloudStoragePanel。
-
-**技術做法**（與現有 quiz 一致）：
-- 在 Explorer state 加 `quiz: { active, phase, ...answers }` 欄位
-- 加 "自我測驗" 按鈕於準則列旁邊
-- 評分後顯示正確答案並高亮差異
-- 使用共用 `quiz.css` 樣式
 
 ---
 
@@ -122,6 +114,9 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 | C3 — Quiz 模式（Graph/BVA/EC） | #114 | 2026-05-12 |
 | Decision Table + State Transition explorers | #116 | 2026-05-12 |
 | Metamorphic Testing + Exploratory Testing + Test Doubles | #118 | 2026-05-12 |
+| D1 — Quiz 高優先（Logic/DT/ST） | #120 | 2026-05-12 |
+| D1 — Quiz 中優先（Syntax/MT/TD） | #122 | 2026-05-12 |
+| D1 — Quiz 低優先（Symbolic/Concolic/Fuzz） | #124 | 2026-05-12 |
 
 ---
 
