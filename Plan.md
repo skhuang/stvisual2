@@ -1,6 +1,6 @@
 # stvisual — 改善建議與路線圖
 
-> 最後更新：2026-05-13
+> 最後更新：2026-05-13（F-A3/A4 Lab 模式已完成，新增 G 節探索路線圖）
 
 ---
 
@@ -185,6 +185,120 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 - `README.md` — 文件同步更新
 
 **待確認**：push 後觀察 CI 是否全數通過（Vite / esbuild / Playwright 與 Node.js 24 相容性）。
+
+---
+
+## G. 新測試方法 Explorer（待評估／實作）
+
+> 分析現有 20 個 Explorer 後，下列方法在課程教材中常見，且適合純前端互動視覺化，值得納入規劃。
+
+### G1（高優先）— Pairwise / All-pairs Testing Explorer
+
+**教學動機**：學生直覺上低估多參數組合爆炸的嚴重性；視覺化 IPO 演算法能有效說明「為什麼只需 N 個測試就能覆蓋所有兩兩組合」。與現有 BVA / EC / DT 形成「黑箱三部曲」完整閉環。
+
+**功能規劃**
+
+- 參數編輯器：自訂參數名稱 + 每個參數的可能值（如 OS: Win/Mac/Linux，Browser: Chrome/FF/Safari）
+- IPO（In-Parameter-Order）greedy 演算法在前端純 JS 實作，生成最小覆蓋矩陣
+- 視覺化：覆蓋矩陣表格（高亮哪些 pair 被覆蓋）、vs 全配對數（n 個測試 vs n² 個 pair）
+- 對比面板：全配對（Exhaustive）/ WECT / Pairwise 三者測試數的比較
+- Quiz：「目前設定需要幾個 pairwise 測試案例？」
+- Lab Metric：pairwise 覆蓋率達 100% 才算通過
+
+**實作估計**：1 個 PR，約 400–600 行（JS + CSS + i18n）
+
+---
+
+### G2（高優先）— Cause-Effect Graphing Explorer
+
+**教學動機**：BVA / EC 的「上游」——從文字需求系統化推導條件（Causes）與效果（Effects），再自動轉換為決策表。補足黑箱技術的需求分析鏈路。
+
+**功能規劃**
+
+- 因果編輯器：左欄 Causes（條件）、右欄 Effects（效果），以 AND / OR / NOT / NAND 連接
+- SVG 互動圖：繪製因果關係圖（G-notation 符號：直線=直接、空心圓=NOT、弧=OR）
+- 自動推導：從因果圖自動生成決策表（等同 DT Explorer 的輸出）
+- 約束標記：E（Exclusive）、I（Inclusive）、O（One-and-only-one）、R（Requires）
+- Quiz：「這張因果圖可以推導出幾條決策規則？」
+
+**實作估計**：1–2 個 PR，較複雜（SVG 互動 + 推導演算法）
+
+---
+
+### G3（高優先）— Code Coverage Drill-down Explorer
+
+**教學動機**：Statement / Branch / Condition / MC/DC 覆蓋是最貼近實務的白箱技術，學生最常使用，卻常搞混四者差異。
+
+**功能規劃**
+
+- 程式碼編輯器（小型 JS 函數）+ 測試案例輸入
+- 執行測試案例，逐行追蹤哪些行/分支/條件被覆蓋（高亮顯示）
+- 四種準則切換：Statement → Branch → Condition → MC/DC，即時更新高亮
+- 覆蓋率百分比儀表板（每種準則分別顯示）
+- 與 GraphCoverageExplorer 做概念對應（Node ↔ Statement，Edge ↔ Branch）
+- Quiz：「目前測試套件達到哪個覆蓋準則？」
+- Lab Reflect：「MC/DC 比 Branch Coverage 多要求什麼？」
+
+**實作估計**：1–2 個 PR，需要輕量執行引擎（類似 Symbolic Execution 的 JS 子集解析）
+
+---
+
+### G4（中優先）— Integration Testing Strategies Explorer
+
+**教學動機**：整合測試策略（Big Bang / Top-down / Bottom-up / Sandwich）是架構課與測試課的交叉點，但缺乏互動教材。
+
+**功能規劃**
+
+- 元件相依圖（可自訂模組與相依邊）
+- 四種策略動畫：按步驟顯示整合順序、需要哪些 Stub / Driver
+- 對比面板：每種策略的優缺點、需要的替身數量
+- Quiz：「Top-down 策略在第 N 步需要幾個 Stub？」
+
+**實作估計**：1 個 PR
+
+---
+
+### G5（中優先）— Property-Based Testing Explorer
+
+**教學動機**：QuickCheck-style 測試（Haskell/Scala/Python hypothesis）越來越主流，但台灣課程少有互動教材。
+
+**功能規劃**
+
+- 輸入：函數定義 + 性質（invariant）表達式（如 `sort(x).length === x.length`）
+- 生成器：隨機整數/字串/陣列，可設定數量
+- Shrinking：找到反例後自動縮小到最小失敗案例
+- 視覺化：測試輸入分布圖 + 反例高亮
+- Lab Reflect：「找到的反例說明什麼邊界條件？」
+
+**實作估計**：1 個 PR
+
+---
+
+### G6（中優先）— Risk-Based Test Prioritization Explorer
+
+**教學動機**：測試資源有限時，如何選擇優先執行哪些測試？風險矩陣（可能性 × 影響）是業界常用工具。
+
+**功能規劃**
+
+- 可自訂功能模組清單 + 估計「故障可能性」與「業務影響」（1–5 分）
+- 風險熱圖（heat map）：自動著色高/中/低風險區
+- 測試套件子集選擇器：選擇只跑高風險模組的測試
+- Lab Metric：標記高風險模組並記錄覆蓋率
+
+**實作估計**：1 個 PR
+
+---
+
+### 優先順序建議
+
+| 排序 | 項目 | 理由 |
+|------|------|------|
+| ① | G1 Pairwise | 純演算法、最易實作、補足黑箱三部曲 |
+| ② | G3 Code Coverage | 學生最實用、與 Graph Coverage 有清晰對應 |
+| ③ | G2 Cause-Effect | 補足需求→測試鏈路，但 SVG 較複雜 |
+| ④ | G4 Integration | 補足架構層次的整合測試概念 |
+| ⑤ | G5 Property-Based | 進階主題，適合選修或延伸 |
+| ⑥ | G6 Risk-Based | 管理層次，適合配合專案課程 |
 
 ---
 
