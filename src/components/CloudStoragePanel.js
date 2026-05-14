@@ -37,6 +37,13 @@ export function createCloudStoragePanel() {
   let driveFiles = [];
   let driveFilesLoading = false;
 
+  // F-B: class code + auto-upload state
+  const CLASS_CODE_KEY = 'stvisual.classCode';
+  let classCode = '';
+  try { classCode = globalThis.localStorage?.getItem(CLASS_CODE_KEY) || ''; } catch {}
+  let uploadCount = 0;
+  const uploadedResultIds = new Set();
+
   function render() {
     root.className = 'cloud-storage';
     root.dataset.testid = 'cloud-storage-panel';
@@ -132,6 +139,37 @@ export function createCloudStoragePanel() {
                   </li>`).join('')}
             </ul>
           </section>
+
+          ${user ? `
+          <section class="cloud-section cloud-class-section">
+            <h4>${t('cloud.class.title')}</h4>
+            <label class="cloud-class-label">
+              ${t('cloud.class.code')}
+              <div class="cloud-class-row">
+                <input type="text"
+                  class="cloud-class-input"
+                  data-testid="cloud-class-code-input"
+                  value="${classCode.replace(/"/g, '&quot;')}"
+                  placeholder="${t('cloud.class.placeholder')}"
+                  maxlength="20"
+                  autocomplete="off"
+                  spellcheck="false" />
+                <button type="button" class="cloud-btn cloud-btn--small" data-testid="cloud-class-save">
+                  ${t('cloud.class.save')}
+                </button>
+              </div>
+            </label>
+            ${classCode
+              ? `<p class="cloud-class-status">
+                  ${t('cloud.class.uploading')}
+                  <strong data-testid="cloud-upload-count">${uploadCount}</strong>
+                  ${t('cloud.class.results')}
+                </p>
+                <button type="button" class="cloud-btn cloud-btn--small" data-testid="cloud-view-results">
+                  ${t('cloud.class.viewResults')}
+                </button>`
+              : `<p class="cloud-class-hint">${t('cloud.class.hint')}</p>`}
+          </section>` : ''}
         </div>
       </div>
     `;
@@ -287,6 +325,19 @@ export function createCloudStoragePanel() {
       });
     });
 
+    root.querySelector('[data-testid="cloud-class-save"]')?.addEventListener('click', () => {
+      const inp = root.querySelector('[data-testid="cloud-class-code-input"]');
+      classCode = (inp?.value || '').trim().toUpperCase();
+      try { globalThis.localStorage?.setItem(CLASS_CODE_KEY, classCode); } catch {}
+      render();
+    });
+
+    root.querySelector('[data-testid="cloud-view-results"]')?.addEventListener('click', () => {
+      globalThis.dispatchEvent?.(new CustomEvent('stvisual:open-teacher-dashboard', {
+        detail: { classCode },
+      }));
+    });
+
     root.querySelector('[data-testid="cloud-refresh-drive-btn"]')?.addEventListener('click', async () => {
       if (!user || typeof client.listDriveFiles !== 'function') return;
       driveFilesLoading = true;
@@ -331,6 +382,23 @@ export function createCloudStoragePanel() {
       });
     });
   }
+
+  // Document-level intercept: auto-upload any quiz/lab share button click
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-share-payload]');
+    if (!btn || !user || !classCode.trim()) return;
+    const payloadStr = btn.dataset.sharePayload;
+    if (!payloadStr || uploadedResultIds.has(payloadStr)) return;
+    try {
+      const payload = JSON.parse(decodeURIComponent(atob(payloadStr)));
+      if (!payload || !payload.explorer) return;
+      uploadedResultIds.add(payloadStr);
+      await client.saveResult(user.uid, user.displayName || '', user.email || '', classCode, payload);
+      uploadCount++;
+      const badge = root.querySelector('[data-testid="cloud-upload-count"]');
+      if (badge) badge.textContent = uploadCount;
+    } catch { /* silent — share still works via clipboard */ }
+  });
 
   client.subscribeAuthState(async (nextUser) => {
     user = nextUser;
