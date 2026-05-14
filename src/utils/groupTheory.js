@@ -155,6 +155,59 @@ export function determinationPairs(vars, formula, autGroup) {
 }
 
 /**
+ * Compute the automorphism group from a pre-computed truth table.
+ * truthTable: Map<mask, boolean> (or array where truthTable[mask] = boolean)
+ * Useful when the formula cannot be re-evaluated (e.g. LogicCoverageExplorer).
+ */
+export function computeAutGroupFromTable(vars, truthTable) {
+  if (!vars.length) return [];
+  const get = (mask) => (Array.isArray(truthTable) ? truthTable[mask] : truthTable.get(mask));
+  return permutationsOf(vars).filter(perm => {
+    for (let mask = 0; mask < (1 << vars.length); mask++) {
+      if (get(mask) === undefined || get(mask) === null) continue;
+      if (get(maskForPerm(mask, vars, perm)) !== get(mask)) return false;
+    }
+    return true;
+  });
+}
+
+/**
+ * CACC determination pairs using a pre-computed truth table (Map<mask, boolean>).
+ * Same semantics as determinationPairs() but does not re-evaluate any formula.
+ */
+export function determinationPairsFromTable(vars, truthTable, autGroup) {
+  const n = vars.length;
+  const total = 1 << n;
+  const get = (mask) => (Array.isArray(truthTable) ? truthTable[mask] : truthTable.get(mask));
+  const canonical = new Set();
+
+  return vars.map((v, vi) => {
+    const bit = 1 << (n - 1 - vi);
+    const rawPairs = [];
+    for (let m = 0; m < total; m++) {
+      const m2 = m ^ bit;
+      if (m2 <= m) continue;
+      const v1 = get(m); const v2 = get(m2);
+      if (v1 !== null && v1 !== undefined && v2 !== null && v2 !== undefined && v1 !== v2)
+        rawPairs.push([m, m2]);
+    }
+    return {
+      varName: v,
+      pairs: rawPairs.map(([r1, r2]) => {
+        const key = `${r1},${r2}`;
+        if (canonical.has(key)) return { row1: r1, row2: r2, derived: true };
+        for (const perm of autGroup) {
+          const ir1 = maskForPerm(r1, vars, perm);
+          const ir2 = maskForPerm(r2, vars, perm);
+          canonical.add(`${Math.min(ir1, ir2)},${Math.max(ir1, ir2)}`);
+        }
+        return { row1: r1, row2: r2, derived: false };
+      }),
+    };
+  });
+}
+
+/**
  * Generate an Orthogonal Array using GF(p), p prime.
  *   t=1 → p rows (trivial, any value works)
  *   t=2 → p² rows, k ≤ p+1 (standard GF(p) construction)

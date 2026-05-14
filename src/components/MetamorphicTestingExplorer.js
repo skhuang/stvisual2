@@ -2,6 +2,10 @@ import { t, getLocale } from '../i18n/index.js';
 import { encodeResult } from '../utils/resultExporter.js';
 import { metamorphicExamples, generateMrTests } from '../utils/metamorphicTesting.js';
 
+function scrollToSection(testid) {
+  document.querySelector(`[data-testid="${testid}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function escapeHtml(v = '') {
   return String(v)
     .replaceAll('&', '&amp;')
@@ -124,6 +128,7 @@ export function createMetamorphicTestingExplorer() {
               <span class="mt-mr-name">${isZh ? rel.nameZh : rel.name}</span>
               <code class="mt-mr-formula">${escapeHtml(rel.formula)}</code>
               ${!mtQuiz.active ? `<button type="button" class="quiz-start-btn" data-testid="mt-quiz-start">${t('quiz.start')}</button>` : ''}
+              <button type="button" class="mt-bridge-btn" data-testid="mt-bridge-groupth" title="${t('groupth.bridge.mt.title')}">🔗 ${t('groupth.bridge.mt.btn')}</button>
             </div>
             <p class="mt-mr-desc">${isZh ? rel.descZh : rel.desc}</p>
             <button type="button" class="mt-generate-btn" data-testid="mt-generate">
@@ -215,6 +220,10 @@ export function createMetamorphicTestingExplorer() {
         if (resultsEl) resultsEl.innerHTML = renderResults(state.results);
       });
     }
+
+    root.querySelector('[data-testid="mt-bridge-groupth"]')?.addEventListener('click', () => {
+      scrollToSection('section-groupth');
+    });
 
     const mqStart = root.querySelector('[data-testid="mt-quiz-start"]');
     if (mqStart) {

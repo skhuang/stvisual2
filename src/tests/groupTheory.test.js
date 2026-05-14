@@ -2,8 +2,10 @@ import { describe, it, expect } from 'vitest';
 import {
   parseDNF,
   computeAutGroup,
+  computeAutGroupFromTable,
   orbitPartition,
   determinationPairs,
+  determinationPairsFromTable,
   coveringArray,
   mrFromOrbit,
 } from '../utils/groupTheory.js';
@@ -263,5 +265,75 @@ describe('mrFromOrbit', () => {
     const mr = mrFromOrbit([0b01, 0b10], ['A', 'B']);
     expect(mr).toContain('=');
     expect(mr.split('=').length).toBeGreaterThanOrEqual(2);
+  });
+});
+
+// ── computeAutGroupFromTable ──────────────────────────────────────────────────
+
+describe('computeAutGroupFromTable', () => {
+  it('finds Z₂ symmetry for A AND B using pre-built truth table', () => {
+    // A AND B: truth[mask] = (A && B), mask bits: A=bit1, B=bit0
+    const table = new Map([[0b00, false],[0b01, false],[0b10, false],[0b11, true]]);
+    const auts = computeAutGroupFromTable(['A','B'], table);
+    expect(auts).toHaveLength(2);
+    expect(auts.map(p => p.join(','))).toContain('B,A');
+  });
+
+  it('finds identity only for asymmetric formula via table', () => {
+    // A AND NOT B: true only at 0b10 (A=T,B=F)
+    const table = new Map([[0b00,false],[0b01,false],[0b10,true],[0b11,false]]);
+    const auts = computeAutGroupFromTable(['A','B'], table);
+    expect(auts).toHaveLength(1);
+  });
+
+  it('matches computeAutGroup output for A OR B', () => {
+    const vars = ['A','B'];
+    const formula = 'A OR B';
+    const fromFormula = computeAutGroup(vars, formula);
+    const table = new Map([[0,false],[1,true],[2,true],[3,true]]);
+    const fromTable = computeAutGroupFromTable(vars, table);
+    expect(fromTable).toHaveLength(fromFormula.length);
+  });
+
+  it('accepts array-form truth table', () => {
+    // A AND B as array: index = mask
+    const table = [false, false, false, true];
+    const auts = computeAutGroupFromTable(['A','B'], table);
+    expect(auts).toHaveLength(2);
+  });
+
+  it('returns [] for empty vars', () => {
+    expect(computeAutGroupFromTable([], new Map())).toEqual([]);
+  });
+});
+
+// ── determinationPairsFromTable ───────────────────────────────────────────────
+
+describe('determinationPairsFromTable', () => {
+  it('B pair is derived for A AND B via table', () => {
+    const vars = ['A','B'];
+    const table = new Map([[0,false],[1,false],[2,false],[3,true]]);
+    const autGroup = computeAutGroupFromTable(vars, table);
+    const dp = determinationPairsFromTable(vars, table, autGroup);
+    const dpB = dp.find(d => d.varName === 'B');
+    expect(dpB.pairs.every(p => p.derived)).toBe(true);
+  });
+
+  it('no pairs derived for asymmetric formula via table', () => {
+    const vars = ['A','B'];
+    const table = new Map([[0,false],[1,false],[2,true],[3,false]]);
+    const autGroup = computeAutGroupFromTable(vars, table);
+    const dp = determinationPairsFromTable(vars, table, autGroup);
+    const allPairs = dp.flatMap(d => d.pairs);
+    expect(allPairs.every(p => !p.derived)).toBe(true);
+  });
+
+  it('returns one entry per variable', () => {
+    const vars = ['A','B','C'];
+    const table = new Map();
+    for (let m = 0; m < 8; m++) table.set(m, !!(m & 0b100)); // only A matters
+    const autGroup = computeAutGroupFromTable(vars, table);
+    const dp = determinationPairsFromTable(vars, table, autGroup);
+    expect(dp).toHaveLength(3);
   });
 });
