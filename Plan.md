@@ -1,6 +1,6 @@
 # stvisual — 改善建議與路線圖
 
-> 最後更新：2026-05-13（F-A3/A4 Lab 模式已完成，新增 G 節探索路線圖）
+> 最後更新：2026-05-14（F-B TeacherDashboard 完成；G1–G6、H1–H6 全數完成）
 
 ---
 
@@ -20,7 +20,8 @@
 | SymbolicExecutionExplorer | 符號執行路徑樹 + CFG 映射 + 縮放 | ✓ |
 | ConcolicExecutionExplorer | DART/CUTE-style concolic + CFG 映射 + 縮放 | ✓ |
 | TestGenerationExplorer | 從 Graph / DFG 準則自動產生具體測試輸入 + JS 匯出 | — |
-| CloudStoragePanel | Firebase / Google Drive 雲端同步 | — |
+| CloudStoragePanel | Firebase / Google Drive 雲端同步；班級代碼輸入、結果自動上傳 | — |
+| TeacherDashboard | 全班成績儀表板（Firestore 載入）、學生列表、Explorer 篩選 | — |
 | BoundaryValueExplorer | 5-point BVA + Robustness BVA、多參數 | ✓ |
 | EquivalenceClassExplorer | WECT / SECT、分割條件編輯器 | ✓ |
 | DecisionTableExplorer | 條件/動作矩陣、T/F/– 儲存格、覆蓋率徽章 | ✓ |
@@ -28,6 +29,13 @@
 | MetamorphicTestingExplorer | 5 個程式 × 2–3 個 MR、產生 8 對測試、通過/失敗表 | ✓ |
 | ExploratoryTestingExplorer | 任務書、SFDIPOT 清單、HICCUPPS 參考、計時器、觀察日誌 | — |
 | TestDoublesExplorer | Dummy/Stub/Fake/Mock/Spy、2 個可執行情境/類型、呼叫記錄 | ✓ |
+| PairwiseExplorer | IPO greedy 演算法、覆蓋矩陣視覺化、vs 全配對比較 | ✓ |
+| CauseEffectExplorer | 因果圖（SVG）、AND/OR/NOT 連接、自動推導決策表 | ✓ |
+| CodeCoverageExplorer | Statement/Branch/Condition/MC-DC 覆蓋、逐行高亮 | ✓ |
+| IntegrationTestingExplorer | Big Bang/Top-down/Bottom-up/Sandwich 動畫、Stub/Driver 計數 | ✓ |
+| PropertyBasedTestingExplorer | QuickCheck-style、隨機生成器、Shrinking、反例視覺化 | ✓ |
+| RiskBasedTestingExplorer | 風險矩陣熱圖、模組優先排序、Lab Metric | ✓ |
+| GroupTheoryExplorer | Orbit Explorer（Tab 1）、CACC Bridge（Tab 2）、Covering Array（Tab 3）；理論橋接 Logic & MT | ✓ |
 | 全站 i18n | ZH-TW / EN 切換 | — |
 
 ### 投影片（13 講，雙語，含 speaker notes）
@@ -38,7 +46,7 @@
 
 ### 測試
 
-- 346 個 unit tests（Vitest + jsdom），34 個測試檔案
+- 415 個 unit tests（Vitest + jsdom），37 個測試檔案
 - Playwright E2E：GraphCoverage、LogicCoverage、SyntaxCoverage、TestingFlow 等
 
 ### CI / 佈署
@@ -117,27 +125,38 @@ JSON = { v:1, explorer, mode:"quiz"|"lab-reflect"|"lab-metric",
 
 **限制**：純榮譽制，學生可自行修改連結；Phase B 才加簽章與身份驗證。
 
-**子任務**
+**子任務**（全部完成 2026-05-13，PR #133 / #135）
 
-- [ ] F-A1：`resultExporter.js` + `ResultViewer` 元件 + i18n + 測試
-- [ ] F-A2：所有現有 Quiz Explorer 加「分享成績」按鈕
-- [ ] F-A3：Lab — Reflection：為 Graph / Logic / Fuzz / Symbex 加反思問題 + 匯出
-- [ ] F-A4：Lab — Metric：Graph（覆蓋率）、Syntax（殺死突變體 %）、Fuzz（節點覆蓋 %）加達標匯出
-- [ ] F-A5：`ResultViewer` 整合進 app 首頁（URL 有 `?result=` 時自動彈出）
+- [x] F-A1：`resultExporter.js` + `ResultViewer` 元件 + i18n + 測試（#133）
+- [x] F-A2：所有現有 Quiz Explorer 加「分享成績」按鈕（#133）
+- [x] F-A3：Lab — Reflection：為 Graph / Logic / Fuzz / Symbex 加反思問題 + 匯出（#135）
+- [x] F-A4：Lab — Metric：Graph（覆蓋率）、Syntax（殺死突變體 %）、Fuzz（節點覆蓋 %）加達標匯出（#135）
+- [x] F-A5：`ResultViewer` 整合進 app 首頁（URL 有 `?result=` 時自動彈出）（#133）
 
 ---
 
-#### F-B — Phase B：Firebase Auth + Firestore 成績儀表板（待規劃）
+#### F-B — Phase B：Firebase Auth + Firestore 成績儀表板（已完成 2026-05-14）
 
 **目標**：Google Sign-In（Firebase Auth）+ Firestore 存分數；老師 dashboard 頁面看全班成績。Classroom 作業仍手動建（連結到工具特定 section），但成績追蹤自動化。
 
-**需要新增**
-- Firebase Functions（Node.js）作 OAuth token 管理
-- Firestore 資料結構：`courses/{courseId}/students/{uid}/results/{resultId}`
-- 老師 dashboard：班級成績總覽、個別學生答題明細
-- 學生端：登入後成績自動上傳，不需手動複製連結
+**架構決策**：不需 Firebase Functions — Firestore 直接寫入 + Security Rules 即可；省去冷啟動費用與 CI 複雜度。
 
-**前置條件**：F-A 完成；確認 Firebase Functions 費用與 CI 部署流程
+**子任務**
+
+| PR | 功能 | 完成日 |
+|----|------|--------|
+| #162 | F-B1：`cloudIntegration.js` 新增 `saveResult` / `loadCourseResults`；Firestore schema `courses/{classCode}/results/{uid}_{ts}`；`firestore.rules` | 2026-05-14 |
+| #164 | F-B2：`CloudStoragePanel` 班級代碼輸入（localStorage 持久化）、Upload Count 徽章、document-level `[data-share-payload]` 自動攔截上傳 | 2026-05-14 |
+| #166 | F-B3：`TeacherDashboard` 元件；全班成績表格（學生/Explorer/分數/時間）；Explorer 篩選；Summary 徽章；`stvisual:open-teacher-dashboard` 事件整合 | 2026-05-14 |
+
+**Firestore 資料結構**
+```
+courses/{classCode}/results/{uid}_{ts}
+  uid, displayName, email, explorer, explorerLabel,
+  mode, score, total, ts, lang, items[], savedAt
+```
+
+**Security Rules**：學生只能寫入自己的 uid 記錄；任何已登入用戶可讀（老師查詢全班）；禁止更新與刪除。
 
 ---
 
@@ -188,11 +207,11 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 
 ---
 
-## G. 新測試方法 Explorer（待評估／實作）
+## G. 新測試方法 Explorer（全部完成 2026-05-13/14）
 
-> 分析現有 20 個 Explorer 後，下列方法在課程教材中常見，且適合純前端互動視覺化，值得納入規劃。
+> G1–G6 均已實作完成並 merge 到 main。
 
-### G1（高優先）— Pairwise / All-pairs Testing Explorer
+### G1 — Pairwise / All-pairs Testing Explorer（完成 #137，2026-05-13）
 
 **教學動機**：學生直覺上低估多參數組合爆炸的嚴重性；視覺化 IPO 演算法能有效說明「為什麼只需 N 個測試就能覆蓋所有兩兩組合」。與現有 BVA / EC / DT 形成「黑箱三部曲」完整閉環。
 
@@ -205,11 +224,9 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 - Quiz：「目前設定需要幾個 pairwise 測試案例？」
 - Lab Metric：pairwise 覆蓋率達 100% 才算通過
 
-**實作估計**：1 個 PR，約 400–600 行（JS + CSS + i18n）
-
 ---
 
-### G2（高優先）— Cause-Effect Graphing Explorer
+### G2 — Cause-Effect Graphing Explorer（完成 #139，2026-05-13）
 
 **教學動機**：BVA / EC 的「上游」——從文字需求系統化推導條件（Causes）與效果（Effects），再自動轉換為決策表。補足黑箱技術的需求分析鏈路。
 
@@ -221,11 +238,9 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 - 約束標記：E（Exclusive）、I（Inclusive）、O（One-and-only-one）、R（Requires）
 - Quiz：「這張因果圖可以推導出幾條決策規則？」
 
-**實作估計**：1–2 個 PR，較複雜（SVG 互動 + 推導演算法）
-
 ---
 
-### G3（高優先）— Code Coverage Drill-down Explorer
+### G3 — Code Coverage Drill-down Explorer（完成 #141，2026-05-13）
 
 **教學動機**：Statement / Branch / Condition / MC/DC 覆蓋是最貼近實務的白箱技術，學生最常使用，卻常搞混四者差異。
 
@@ -239,11 +254,9 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 - Quiz：「目前測試套件達到哪個覆蓋準則？」
 - Lab Reflect：「MC/DC 比 Branch Coverage 多要求什麼？」
 
-**實作估計**：1–2 個 PR，需要輕量執行引擎（類似 Symbolic Execution 的 JS 子集解析）
-
 ---
 
-### G4（中優先）— Integration Testing Strategies Explorer
+### G4 — Integration Testing Strategies Explorer（完成 #143，2026-05-13）
 
 **教學動機**：整合測試策略（Big Bang / Top-down / Bottom-up / Sandwich）是架構課與測試課的交叉點，但缺乏互動教材。
 
@@ -254,11 +267,9 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 - 對比面板：每種策略的優缺點、需要的替身數量
 - Quiz：「Top-down 策略在第 N 步需要幾個 Stub？」
 
-**實作估計**：1 個 PR
-
 ---
 
-### G5（中優先）— Property-Based Testing Explorer
+### G5 — Property-Based Testing Explorer（完成 #145，2026-05-13）
 
 **教學動機**：QuickCheck-style 測試（Haskell/Scala/Python hypothesis）越來越主流，但台灣課程少有互動教材。
 
@@ -270,11 +281,9 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 - 視覺化：測試輸入分布圖 + 反例高亮
 - Lab Reflect：「找到的反例說明什麼邊界條件？」
 
-**實作估計**：1 個 PR
-
 ---
 
-### G6（中優先）— Risk-Based Test Prioritization Explorer
+### G6 — Risk-Based Test Prioritization Explorer（完成 #147，2026-05-14）
 
 **教學動機**：測試資源有限時，如何選擇優先執行哪些測試？風險矩陣（可能性 × 影響）是業界常用工具。
 
@@ -285,20 +294,24 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 - 測試套件子集選擇器：選擇只跑高風險模組的測試
 - Lab Metric：標記高風險模組並記錄覆蓋率
 
-**實作估計**：1 個 PR
-
 ---
 
-### 優先順序建議
+## H. Group Theory Explorer（全部完成 2026-05-14）
 
-| 排序 | 項目 | 理由 |
-|------|------|------|
-| ① | G1 Pairwise | 純演算法、最易實作、補足黑箱三部曲 |
-| ② | G3 Code Coverage | 學生最實用、與 Graph Coverage 有清晰對應 |
-| ③ | G2 Cause-Effect | 補足需求→測試鏈路，但 SVG 較複雜 |
-| ④ | G4 Integration | 補足架構層次的整合測試概念 |
-| ⑤ | G5 Property-Based | 進階主題，適合選修或延伸 |
-| ⑥ | G6 Risk-Based | 管理層次，適合配合專案課程 |
+> 以群論為核心，連結 Logic Coverage（CACC）與 Metamorphic Testing（對稱性），具備理論橋接按鈕。
+
+| PR | 子任務 | 說明 | 完成日 |
+|----|--------|------|--------|
+| #149 | H1 — 群論工具函式庫 | `computeAutGroupFromTable`、`determinationPairsFromTable`、35 個單元測試 | 2026-05-14 |
+| #151 | H2 — Orbit Explorer（Tab 1） | 運算表格輸入 → 自動計算自同構群、軌道分割、視覺化 | 2026-05-14 |
+| #153 | H3 — CACC Bridge（Tab 2） | 用群論 determination pairs 橋接 Logic Coverage；高亮對稱對 | 2026-05-14 |
+| #155 | H4 — Covering Array（Tab 3） | GF(p) 有限域 covering array 生成器；strength 滑桿 | 2026-05-14 |
+| #157 | H5 — Theory Bridge 按鈕 | GroupTheory → Metamorphic Testing（點擊 MT tab + 滾動至 section-blackbox）；Logic → GroupTheory | 2026-05-14 |
+| #159 + #160 | H6 — Per-tab Quiz & Lab Reflect | 每個 tab 獨立出題（動態計算正解）；Lab Reflect 雙 textarea；bridge 按鈕 bug 修復 | 2026-05-14 |
+
+**架構特點**
+- Quiz 正解依當前 tab 動態計算（`_quizCorrect()`），不用硬編碼
+- Bridge 按鈕：MT 是 `section-blackbox` 的子 tab，需 `.click()` 先切換再 `scrollIntoView`
 
 ---
 
@@ -323,6 +336,23 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 | E1 — DefectCostExplorer | #126 | 2026-05-13 |
 | E2 — VModelExplorer | #128 | 2026-05-13 |
 | E3 — PyramidAdjusterExplorer | #130 | 2026-05-13 |
+| F-A1/A2/A5 — ResultExporter + ResultViewer + 分享按鈕 | #133 | 2026-05-13 |
+| F-A3/A4 — Lab Reflect + Lab Metric 模式 | #135 | 2026-05-13 |
+| G1 — PairwiseExplorer | #137 | 2026-05-13 |
+| G2 — CauseEffectExplorer | #139 | 2026-05-13 |
+| G3 — CodeCoverageExplorer | #141 | 2026-05-13 |
+| G4 — IntegrationTestingExplorer | #143 | 2026-05-13 |
+| G5 — PropertyBasedTestingExplorer | #145 | 2026-05-13 |
+| G6 — RiskBasedTestingExplorer | #147 | 2026-05-14 |
+| H1 — 群論工具函式庫 | #149 | 2026-05-14 |
+| H2 — GroupTheoryExplorer Tab 1 Orbit | #151 | 2026-05-14 |
+| H3 — GroupTheoryExplorer Tab 2 CACC Bridge | #153 | 2026-05-14 |
+| H4 — GroupTheoryExplorer Tab 3 Covering Array | #155 | 2026-05-14 |
+| H5 — Theory Bridge 按鈕（GroupTheory ↔ Logic ↔ MT） | #157 | 2026-05-14 |
+| H6 — Per-tab Quiz & Lab Reflect；bridge bug fix | #159 / #160 | 2026-05-14 |
+| F-B1 — Firestore saveResult / loadCourseResults + Security Rules | #162 | 2026-05-14 |
+| F-B2 — CloudStoragePanel 班級代碼 UI + 自動上傳攔截 | #164 | 2026-05-14 |
+| F-B3 — TeacherDashboard 全班成績儀表板 | #166 | 2026-05-14 |
 
 ---
 
@@ -331,7 +361,7 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 | 工具 | 用途 |
 |------|------|
 | Vite + 原生 JS | 前端，無框架 |
-| Vitest + jsdom | Unit tests（346 個） |
+| Vitest + jsdom | Unit tests（415 個，37 檔） |
 | Playwright | E2E / screenshot capture |
 | Marp CLI | Markdown → PPTX |
 | Firebase / Google Drive | 雲端同步 |
