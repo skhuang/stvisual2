@@ -12,6 +12,7 @@ import { t, getLocale, pickField } from '../i18n/index.js';
 import { encodeResult, buildShareUrl } from '../utils/resultExporter.js';
 import { createCloudIntegrationClient } from '../utils/cloudIntegration.js';
 import { solveBinding, formatWitnessStr, extractVarsFromBindings, buildConstraintStr } from '../utils/logicBinding.js';
+import { computeAutGroupFromTable, determinationPairsFromTable } from '../utils/groupTheory.js';
 
 const RECENT_KEY = 'stvisual.logic.recentPredicates';
 const RECENT_LIMIT = 8;
@@ -449,6 +450,8 @@ export function createLogicCoverageExplorer() {
 
       <div class="logic-summary" data-testid="logic-summary">${summaryMarkup}</div>
 
+      ${renderSymmetryBridge()}
+
       ${renderBindingPanel()}
 
       <div class="logic-truth-table-wrap">${truthTableMarkup}</div>
@@ -784,6 +787,39 @@ export function createLogicCoverageExplorer() {
     `;
   }
 
+  function renderSymmetryBridge() {
+    const activeSet = getActiveSet();
+    if (!activeSet || !['cacc', 'racc'].includes(activeSet.id)) return '';
+    if (!state.analysis || state.error) return '';
+    const { clauses, rows } = state.analysis;
+    if (!clauses || clauses.length < 2 || clauses.length > 6) return '';
+
+    // Build truth table as Map<mask, boolean> from the pre-computed rows
+    const table = new Map();
+    for (const row of rows) {
+      let mask = 0;
+      for (let i = 0; i < clauses.length; i++) {
+        if (row.values[clauses[i]]) mask |= (1 << (clauses.length - 1 - i));
+      }
+      table.set(mask, row.predicate);
+    }
+    const autGroup = computeAutGroupFromTable(clauses, table);
+    const dp = determinationPairsFromTable(clauses, table, autGroup);
+    const allPairs = dp.flatMap(d => d.pairs);
+    const derivedCount = allPairs.filter(p => p.derived).length;
+    const autOrder = autGroup.length;
+
+    return `
+      <div class="logic-sym-bridge" data-testid="logic-sym-bridge">
+        <span class="logic-sym-title">${t('groupth.bridge.logic.title')}</span>
+        <span class="gth-badge gth-badge--blue">|Aut(f)| = ${autOrder}</span>
+        ${derivedCount > 0
+          ? `<span class="gth-badge gth-badge--green">${t('groupth.bridge.logic.derived', { n: derivedCount })}</span>`
+          : `<span class="gth-badge" style="background:#f1f5f9;color:#64748b">${t('groupth.bridge.logic.none')}</span>`}
+        <button type="button" class="mt-bridge-btn" data-testid="logic-bridge-groupth">${t('groupth.bridge.logic.btn')}</button>
+      </div>`;
+  }
+
   function activePredicateExample() {
     return logicCoveragePredicates.find((p) => p.expression === state.expression) || null;
   }
@@ -1014,6 +1050,10 @@ export function createLogicCoverageExplorer() {
         }
       });
     }
+
+    root.querySelector('[data-testid="logic-bridge-groupth"]')?.addEventListener('click', () => {
+      document.querySelector('[data-testid="section-groupth"]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
     // Search range inputs.
     root.querySelectorAll('[data-binding-range]').forEach((input) => {

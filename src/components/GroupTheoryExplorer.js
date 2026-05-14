@@ -149,7 +149,10 @@ export function createGroupTheoryExplorer() {
         </table>
       </div>
       ${mr ? `<details class="gth-mr-details"><summary>${t('groupth.mr.title')}</summary><ul class="gth-mr-list">${mr}</ul></details>` : ''}
-      <button type="button" class="gth-copy-btn" data-testid="gth-copy">${t('groupth.copy.btn')}</button>`;
+      <div class="gth-mr-bridge-row">
+        <button type="button" class="gth-copy-btn" data-testid="gth-copy">${t('groupth.copy.btn')}</button>
+        <button type="button" class="mt-bridge-btn" data-testid="gth-bridge-mt" title="${t('groupth.bridge.mt.title')}">🔗 ${t('groupth.bridge.mt.btn')}</button>
+      </div>`;
   }
 
   // ── CACC Bridge tab ──────────────────────────────────────────────────────
@@ -500,6 +503,10 @@ export function createGroupTheoryExplorer() {
         });
       });
     }
+
+    root.querySelector('[data-testid="gth-bridge-mt"]')?.addEventListener('click', () => {
+      document.querySelector('[data-testid="section-mt"]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
     // Covering array controls
     root.querySelector('[data-testid="gth-cov-p"]')?.addEventListener('change', e => {

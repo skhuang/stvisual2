@@ -653,3 +653,20 @@ details.logic-binding[open] .logic-binding-summary::before { content: '▼ '; }
   color: #b91c1c;
   font-style: italic;
 }
+
+/* ── Symmetry Bridge banner ── */
+.logic-sym-bridge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+.logic-sym-title {
+  font-weight: 700;
+  color: #0369a1;
+}

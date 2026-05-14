@@ -370,3 +370,24 @@
   color: #64748b;
   margin: 0;
 }
+
+/* ── Bridge buttons ── */
+.mt-bridge-btn {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid #0ea5e9;
+  background: transparent;
+  color: #0369a1;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mt-bridge-btn:hover { background: #e0f2fe; }
+
+.gth-mr-bridge-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.25rem;
+}
