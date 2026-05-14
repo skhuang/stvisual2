@@ -1,6 +1,6 @@
 # stvisual — 改善建議與路線圖
 
-> 最後更新：2026-05-14（F-B TeacherDashboard 完成；G1–G6、H1–H6 全數完成）
+> 最後更新：2026-05-14（F-B TeacherDashboard 完成；G1–G6、H1–H6 全數完成；新增 I 節 AI 輔助測試路線圖）
 
 ---
 
@@ -277,6 +277,130 @@ GitHub 警告 Node.js 20 將不再被支援；已更新兩個 workflow：
 | F-B1 — Firestore saveResult / loadCourseResults + Security Rules | #162 | 2026-05-14 |
 | F-B2 — CloudStoragePanel 班級代碼 UI + 自動上傳攔截 | #164 | 2026-05-14 |
 | F-B3 — TeacherDashboard 全班成績儀表板 | #166 | 2026-05-14 |
+
+---
+
+## I. AI 輔助測試 Explorer（進階路線圖）
+
+> 參考論文：**"Mutation-Guided LLM-based Test Generation at Meta"**（arXiv 2501.12862，FSE 2025）
+> 作者：Foster, Gulati, Harman, Harper, Mao, Ritchey, Robert, Sengupta（Meta）
+>
+> 論文核心：ACH（Automated Compliance Hardener）系統 — 三階段 LLM Agent 流程，針對特定故障類型（隱私合規）生成能殺死突變體的單元測試，在 10,795 個 Android Kotlin 類別上達到 73% 工程師接受率。
+>
+> 下列 Explorer 將論文中的技術概念轉化為互動教材，不需呼叫真實 LLM（使用預計算範例）。
+
+---
+
+### I1（高優先）— Equivalent Mutant Explorer（等效突變體偵測）
+
+**教學動機**：等效突變體是突變測試的核心難題 — 語法不同但語義相同的程式，任何測試都無法殺死它們。論文顯示 LLM 原始偵測 precision 0.79/recall 0.47，透過「移除注解」前處理後提升至 0.95/0.96，說明預處理步驟的關鍵性。
+
+**功能規劃**
+
+- 程式碼對比面板：左欄原始碼、右欄突變體，diff 高亮
+- 學生手動判斷：「這個突變體是否等效？」（Yes / No）→ 解釋原因
+- 前處理模擬器：
+  - Step 1：語法完全比對（字串相等 → 直接判等效）
+  - Step 2：移除注解後比對（說明 25% 假陽性來源）
+  - Step 3：LLM-as-judge（模擬，顯示 prompt 範本與判斷結果）
+- Precision/Recall 儀表板：隨學生答題即時更新
+- 預設題庫：8 組突變體對（4 組等效、4 組非等效），含 `// comment only` 型態
+- **Quiz**：「下列哪個步驟對偵測等效突變體的 recall 提升最大？」
+- **Lab Reflect**：「為什麼等效突變體的存在讓突變分數（mutation score）具有誤導性？」
+
+**實作估計**：1 個 PR，約 500 行
+
+---
+
+### I2（高優先）— Mutation Score vs Coverage Explorer（突變分數對比覆蓋率）
+
+**教學動機**：論文關鍵發現 — ACH 生成的測試中，49% 能殺死突變體但不增加行覆蓋率，顛覆「高覆蓋率 = 高品質測試」的直覺。現有 CodeCoverageExplorer（G3）只展示覆蓋率，本 Explorer 補足突變分數維度。
+
+**功能規劃**
+
+- 雙面板：左側程式碼（可執行小型 JS 函數）、右側測試套件編輯器
+- 即時計算兩個指標：
+  - **Line Coverage %**（已覆蓋行 / 總行數）
+  - **Mutation Score %**（已殺死突變體 / 非等效突變體總數）
+- 突變體清單：每個突變體顯示（存活 / 已殺死 / 等效）
+- 反例演示：預設一組「高覆蓋率但低突變分數」的測試套件 vs 「低覆蓋率但高突變分數」的測試套件
+- 新增測試後，動態高亮哪些突變體被新測試殺死、行覆蓋率如何變化
+- 數據視覺化：ACH 論文中的 kill rate 比較（ACH 15% vs TestGen-LLM 2.4%）
+- **Quiz**：「以下測試套件的突變分數是多少？（填數字）」
+- **Lab Metric**：Mutation Score ≥ 80% 才通過
+
+**實作估計**：1–2 個 PR，需擴充突變執行引擎
+
+---
+
+### I3（中優先）— LLM Test Generation Pipeline Explorer（三階段 Agent 流程）
+
+**教學動機**：ACH 的三 Agent 流程（突變生成 → 等效過濾 → 測試生成）是現代 AI 輔助測試的代表架構。讓學生理解每個 Agent 的職責、輸入/輸出、以及失敗模式。
+
+**功能規劃**
+
+- 流程圖視覺化（三個階段橫向排列）：
+  - **Agent 1（Mutation Agent）**：輸入 issue 描述 + 原始碼 → 輸出突變體候選清單
+  - **Agent 2（Equivalence Agent）**：輸入原始碼 + 突變體 → 過濾等效突變體，輸出非等效清單
+  - **Agent 3（Test Agent）**：輸入原始碼 + 非等效突變體 → 輸出能殺死突變體的測試
+- 每個 Stage 可點擊展開，顯示：
+  - 實際 Prompt 範本（來自論文附錄）
+  - 範例輸入/輸出（預計算，不需真實 LLM）
+  - 常見失敗情境（equivalent mutant leak、flaky test、build error）
+- 對比面板：Rule-based 突變測試流程 vs LLM-guided 流程
+- 論文數據摘要：各平台 kill rate（Messenger 14%、WhatsApp 25%…）
+- **Lab Reflect**：「LLM 生成突變體的等效率（~25%）為何高於 rule-based（~10-15%）？如何改善？」
+
+**實作估計**：1 個 PR，約 400 行（以 SVG 流程圖 + 可折疊說明面板為主）
+
+---
+
+### I4（中優先）— Test Quality Assessment Explorer（測試品質五維度）
+
+**教學動機**：論文定義的五類測試品質保證（Buildable、Valid Regression、Hardening、Relevant、Fashion Following）提供了系統化評估測試的框架，超越單純的覆蓋率思維。
+
+**功能規劃**
+
+- 給定一段程式碼 + 一份測試，學生依五個維度評分（0/1 或 1–5 分）：
+  1. **Buildable**：語法正確、依賴可解析
+  2. **Non-flaky**：多次執行結果一致（顯示執行 10 次的結果）
+  3. **Hardening**：能殺死現有測試套件殺不死的突變體
+  4. **Relevant**：與目標 issue/功能緊密相關
+  5. **Style Conforming**：符合既有程式碼風格
+- 預設 6 組測試情境，每組有不同品質缺陷（如：buildable 但 flaky；hardening 但不 relevant）
+- 評分後顯示論文中工程師接受/拒絕的理由分布（51% 增加覆蓋率、27% 角落案例、36% 隱私相關）
+- **Quiz**：多選題「以下哪些情況會讓測試被工程師拒絕？」
+- **Lab Reflect**：「Hardening 與 Relevant 兩個維度如何取捨？」
+
+**實作估計**：1 個 PR，約 400 行
+
+---
+
+### I5（低優先）— Fault-Directed Testing Explorer（缺陷導向測試）
+
+**教學動機**：ACH 的核心創新是「針對特定 issue 類型生成突變體」而非盲目套用全部算子。讓學生體驗從問題描述出發、設計針對性測試的思路。
+
+**功能規劃**
+
+- Issue 描述輸入（如「函數可能在 null 時洩漏用戶 ID」）
+- 系統展示三種可能的針對性突變（移除 null 檢查、改變條件方向、刪除清除操作）
+- 學生選擇最有意義的突變，並撰寫對應測試
+- 對比：同樣函數用 Statement Coverage 生成的測試 vs Fault-Directed 測試的殺傷力差異
+- **Lab Reflect**：「規格導向（specification-directed）測試與覆蓋率驅動（coverage-driven）測試的本質差異是什麼？」
+
+**實作估計**：1 個 PR，約 350 行
+
+---
+
+### 優先順序
+
+| 排序 | 項目 | 理由 |
+|------|------|------|
+| ① | I1 等效突變體偵測 | 補足現有 SyntaxCoverageExplorer 的缺口；概念獨立、易實作 |
+| ② | I2 突變分數 vs 覆蓋率 | 最具反直覺教學效果；與現有 G3 CodeCoverage 形成對比閉環 |
+| ③ | I3 三階段 Agent 流程 | 系統架構概念，適合投影片搭配講解 |
+| ④ | I4 測試品質五維度 | 高度實務導向，適合進階課程 |
+| ⑤ | I5 缺陷導向測試 | 概念較抽象，適合研究所課程 |
 
 ---
 
