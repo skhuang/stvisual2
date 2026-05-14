@@ -250,3 +250,51 @@
   color: #64748b;
   font-size: 0.85rem;
 }
+
+/* ── F-B: Class code section ── */
+.cloud-class-section {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.cloud-class-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.4rem;
+}
+
+.cloud-class-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.cloud-class-input {
+  flex: 1;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #d0d7e2;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+.cloud-class-status {
+  font-size: 0.8rem;
+  color: #374151;
+  margin: 0.5rem 0 0.35rem;
+}
+
+.cloud-class-status strong {
+  color: #1d4ed8;
+  font-variant-numeric: tabular-nums;
+}
+
+.cloud-class-hint {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0.4rem 0 0;
+}
