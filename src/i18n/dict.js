@@ -910,6 +910,7 @@ export const messages = {
     'cloud.err.uploadFailed': 'Failed to upload to Google Drive.',
     'cloud.err.listFailed': 'Failed to list Google Drive files.',
     'cloud.err.downloadFailed': 'Failed to download Google Drive file.',
+    'cloud.err.noClassCode': 'Class code is required to save results.',
 
     // Testing method tree
     'methods.intro': 'Hierarchical view of common testing methods. Hover or click each branch.',
@@ -2071,6 +2072,7 @@ export const messages = {
     'cloud.err.uploadFailed': '上傳到 Google Drive 失敗。',
     'cloud.err.listFailed': '讀取 Google Drive 檔案列表失敗。',
     'cloud.err.downloadFailed': '下載 Google Drive 檔案失敗。',
+    'cloud.err.noClassCode': '儲存成績需要填入班級代碼。',
 
     'methods.intro': '層級式呈現常見測試方法分類，可滑鼠移上或點選查看細節。',
     'methods.expandAll': '全部展開',

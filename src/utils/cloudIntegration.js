@@ -36,6 +36,7 @@ export function createCloudIntegrationClient() {
       missingKeys,
       isSupportedOrigin,
       originWarning: originMessage,
+      getUser() { return null; },
       subscribeAuthState(callback) {
         callback(null);
         return () => {};
@@ -54,34 +55,48 @@ export function createCloudIntegrationClient() {
       },
       async uploadFileToDrive() {
         throw new Error(originMessage);
+      },
+      async saveResult() {
+        throw new Error(originMessage);
+      },
+      async loadCourseResults() {
+        return [];
       },
     };
   }
 
   if (!isConfigured) {
+    const incompleteMsg = () => t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') });
     return {
       isConfigured,
       missingKeys,
       isSupportedOrigin,
       originWarning: '',
+      getUser() { return null; },
       subscribeAuthState(callback) {
         callback(null);
         return () => {};
       },
       async signInWithGoogle() {
-        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
+        throw new Error(incompleteMsg());
       },
       async signOutGoogle() {
-        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
+        throw new Error(incompleteMsg());
       },
       async saveSettings() {
-        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
+        throw new Error(incompleteMsg());
       },
       async loadSettings() {
-        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
+        throw new Error(incompleteMsg());
       },
       async uploadFileToDrive() {
-        throw new Error(t('cloud.err.firebaseIncomplete', { keys: missingKeys.join(', ') }));
+        throw new Error(incompleteMsg());
+      },
+      async saveResult() {
+        throw new Error(incompleteMsg());
+      },
+      async loadCourseResults() {
+        return [];
       },
     };
   }
@@ -94,6 +109,7 @@ export function createCloudIntegrationClient() {
       missingKeys,
       isSupportedOrigin,
       originWarning: '',
+      getUser() { return null; },
       subscribeAuthState(callback) {
         callback(null);
         return () => {};
@@ -112,6 +128,12 @@ export function createCloudIntegrationClient() {
       },
       async uploadFileToDrive() {
         throw new Error(sdkMessage);
+      },
+      async saveResult() {
+        throw new Error(sdkMessage);
+      },
+      async loadCourseResults() {
+        return [];
       },
     };
   }
@@ -132,6 +154,9 @@ export function createCloudIntegrationClient() {
     missingKeys,
     isSupportedOrigin,
     originWarning: '',
+    getUser() {
+      return auth.currentUser;
+    },
     subscribeAuthState(callback) {
       return auth.onAuthStateChanged(callback);
     },
@@ -259,6 +284,40 @@ export function createCloudIntegrationClient() {
         throw new Error(msg);
       }
       return response.text();
+    },
+
+    // ── F-B result storage ────────────────────────────────────────────────────
+
+    async saveResult(uid, displayName, email, classCode, payload) {
+      if (!classCode || !classCode.trim()) throw new Error(t('cloud.err.noClassCode'));
+      const code = classCode.trim().toUpperCase();
+      const ts = payload.ts || Date.now();
+      const docId = `${uid}_${ts}`;
+      await db.collection('courses').doc(code).collection('results').doc(docId).set({
+        uid,
+        displayName: displayName || '',
+        email: email || '',
+        explorer: payload.explorer || '',
+        explorerLabel: payload.explorerLabel || '',
+        mode: payload.mode || '',
+        score: typeof payload.score === 'number' ? payload.score : 0,
+        total: typeof payload.total === 'number' ? payload.total : 0,
+        ts,
+        lang: payload.lang || 'en',
+        items: Array.isArray(payload.items) ? payload.items : [],
+        savedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      return docId;
+    },
+
+    async loadCourseResults(classCode) {
+      if (!classCode || !classCode.trim()) return [];
+      const code = classCode.trim().toUpperCase();
+      const snapshot = await db.collection('courses').doc(code).collection('results')
+        .orderBy('ts', 'desc')
+        .limit(500)
+        .get();
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     },
   };
 }

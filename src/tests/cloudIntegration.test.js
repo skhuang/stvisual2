@@ -10,6 +10,24 @@ describe('cloudIntegration client', () => {
     expect(typeof client.isSupportedOrigin).toBe('boolean');
   });
 
+  it('exposes getUser method', () => {
+    const client = createCloudIntegrationClient();
+    expect(typeof client.getUser).toBe('function');
+    expect(client.getUser()).toBeNull();
+  });
+
+  it('exposes saveResult method', () => {
+    const client = createCloudIntegrationClient();
+    expect(typeof client.saveResult).toBe('function');
+  });
+
+  it('exposes loadCourseResults method that resolves to empty array when unconfigured', async () => {
+    const client = createCloudIntegrationClient();
+    const results = await client.loadCourseResults('TEST');
+    expect(Array.isArray(results)).toBe(true);
+    expect(results).toHaveLength(0);
+  });
+
   it('fails sign-in in unsupported test environment with meaningful message', async () => {
     const client = createCloudIntegrationClient();
 
@@ -24,5 +42,13 @@ describe('cloudIntegration client', () => {
     }
 
     await expect(client.signInWithGoogle()).rejects.toThrow(/operation-not-supported|popup|auth|SDK 尚未載入/i);
+  });
+
+  it('saveResult rejects when unconfigured or unsupported', async () => {
+    const client = createCloudIntegrationClient();
+    if (client.isConfigured && client.isSupportedOrigin) return; // skip in live env
+    await expect(
+      client.saveResult('uid', 'Name', 'a@b.com', 'ABC', { explorer: 'graph', score: 1, total: 2 })
+    ).rejects.toThrow();
   });
 });
