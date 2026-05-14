@@ -533,7 +533,9 @@ export function createGroupTheoryExplorer() {
     }
 
     root.querySelector('[data-testid="gth-bridge-mt"]')?.addEventListener('click', () => {
-      document.querySelector('[data-testid="section-mt"]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // MT is a tab inside section-blackbox, not a standalone section
+      document.querySelector('[data-blackbox-tab="mt"]')?.click();
+      document.querySelector('[data-testid="section-blackbox"]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     // Covering array controls
