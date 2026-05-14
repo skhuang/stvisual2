@@ -60,10 +60,10 @@ export function createGroupTheoryExplorer() {
   let covK = 3;  // number of parameters
   let covT = 2;  // coverage strength
 
-  // Quiz state (Tab 1)
-  const gthQuiz = { active: false, phase: 'question', answer: '' };
+  // Quiz state — tab-aware
+  const gthQuiz = { active: false, phase: 'question', answer: '', tab: 'orbits' };
   // Lab Reflect state
-  const gthLabReflect = { active: false, text: '' };
+  const gthLabReflect = { active: false, text: '', text2: '' };
 
   // ── compute helpers ──────────────────────────────────────────────────────
 
@@ -305,17 +305,44 @@ export function createGroupTheoryExplorer() {
 
   // ── Quiz helpers ─────────────────────────────────────────────────────────
 
+  function _quizCorrect() {
+    const tab = gthQuiz.tab;
+    if (tab === 'orbits') {
+      const r = computeOrbits();
+      return r ? r.orbits.size : 0;
+    }
+    if (tab === 'cacc') {
+      const { vars, valid } = parseDNF(formula);
+      if (!valid || vars.length === 0 || vars.length > 6) return 0;
+      const r = computeOrbits();
+      if (!r) return 0;
+      const dp = determinationPairs(vars, formula, r.autGroup);
+      return dp.flatMap(d => d.pairs).filter(p => p.derived).length;
+    }
+    if (tab === 'covarray') {
+      const maxK = 4;
+      const k = Math.min(covK, maxK);
+      return coveringArray(covP, k, covT).length;
+    }
+    return 0;
+  }
+
   function renderQuizPanel() {
     if (!gthQuiz.active) return '';
+    const tab = gthQuiz.tab;
+    const promptKey = `quiz.groupth.${tab}.prompt`;
+    const labelKey  = `quiz.groupth.${tab}.label`;
+    const ansKey    = `quiz.groupth.${tab}.answer`;
+
     if (gthQuiz.phase === 'graded') {
-      const correct = 4; // (A AND B) OR (B AND C) OR (A AND C) → 4 orbits under S₃
+      const correct = _quizCorrect();
       const userAns = parseInt(gthQuiz.answer, 10);
       const ok = userAns === correct;
       const shareEncoded = encodeResult({
         v: 1, explorer: 'groupth', explorerLabel: t('quiz.groupth.title'),
         mode: 'quiz', ts: Date.now(), lang: getLocale(),
         score: ok ? 1 : 0, total: 1,
-        items: [{ q: t('quiz.groupth.prompt'), a: String(gthQuiz.answer), expected: String(correct), ok }],
+        items: [{ q: t(promptKey), a: String(gthQuiz.answer), expected: String(correct), ok }],
       });
       return `
         <div class="quiz-panel" data-testid="gth-quiz-panel">
@@ -323,10 +350,10 @@ export function createGroupTheoryExplorer() {
             <span>${t('quiz.groupth.title')}</span>
             <button type="button" class="quiz-close-btn" data-testid="gth-quiz-close">✕</button>
           </div>
-          <p class="quiz-prompt">${t('quiz.groupth.prompt')}</p>
+          <p class="quiz-prompt">${t(promptKey)}</p>
           <p class="quiz-score ${ok ? 'quiz-score--perfect' : 'quiz-score--wrong'}">
             ${ok ? t('quiz.graph.perfect') : ''}
-            ${t('quiz.groupth.answer', { count: correct })}
+            ${t(ansKey, { count: correct })}
           </p>
           <button type="button" class="quiz-share-btn" data-share-payload="${shareEncoded}" data-testid="gth-quiz-share">📋 ${t('quiz.share.btn')}</button>
           <button type="button" class="quiz-start-btn" data-testid="gth-quiz-reset">${t('quiz.retry')}</button>
@@ -338,11 +365,11 @@ export function createGroupTheoryExplorer() {
           <span>${t('quiz.groupth.title')}</span>
           <button type="button" class="quiz-close-btn" data-testid="gth-quiz-close">✕</button>
         </div>
-        <p class="quiz-prompt">${t('quiz.groupth.prompt')}</p>
+        <p class="quiz-prompt">${t(promptKey)}</p>
         <div class="quiz-bva-inputs">
           <label class="quiz-bva-field">
-            ${t('quiz.groupth.label')}
-            <input type="number" min="1" class="quiz-input" data-testid="gth-quiz-input" value="${escapeHtml(gthQuiz.answer)}" />
+            ${t(labelKey)}
+            <input type="number" min="0" class="quiz-input" data-testid="gth-quiz-input" value="${escapeHtml(gthQuiz.answer)}" />
           </label>
         </div>
         <button type="button" class="quiz-submit-btn" data-testid="gth-quiz-submit">${t('quiz.submit')}</button>
@@ -354,10 +381,10 @@ export function createGroupTheoryExplorer() {
     const reflectEncoded = encodeResult({
       v: 1, explorer: 'groupth', explorerLabel: t('section.groupth'),
       mode: 'lab-reflect', ts: Date.now(), lang: getLocale(),
-      score: 1, total: 1,
+      score: (gthLabReflect.text.trim() ? 1 : 0) + (gthLabReflect.text2.trim() ? 1 : 0), total: 2,
       items: [
         { q: t('lab.reflect.q.groupth.1'), a: gthLabReflect.text, ok: true },
-        { q: t('lab.reflect.q.groupth.2'), a: '', ok: true },
+        { q: t('lab.reflect.q.groupth.2'), a: gthLabReflect.text2, ok: true },
       ],
     });
     return `
@@ -367,8 +394,9 @@ export function createGroupTheoryExplorer() {
           <button type="button" class="quiz-close-btn" data-testid="gth-lab-reflect-close">✕</button>
         </div>
         <p class="quiz-prompt">${t('lab.reflect.q.groupth.1')}</p>
-        <p class="quiz-prompt" style="margin-top:.5rem">${t('lab.reflect.q.groupth.2')}</p>
-        <textarea class="quiz-reflect-area" data-testid="gth-lab-reflect-text" rows="4">${escapeHtml(gthLabReflect.text)}</textarea>
+        <textarea class="quiz-reflect-area" data-testid="gth-lab-reflect-text" rows="3">${escapeHtml(gthLabReflect.text)}</textarea>
+        <p class="quiz-prompt" style="margin-top:.75rem">${t('lab.reflect.q.groupth.2')}</p>
+        <textarea class="quiz-reflect-area" data-testid="gth-lab-reflect-text2" rows="3">${escapeHtml(gthLabReflect.text2)}</textarea>
         <button type="button" class="quiz-share-btn" data-share-payload="${reflectEncoded}" data-testid="gth-lab-reflect-share">📋 ${t('lab.reflect.record')}</button>
       </div>`;
   }
@@ -439,7 +467,7 @@ export function createGroupTheoryExplorer() {
           <div class="gth-bottom-header">
             <h4 class="gth-bottom-title">${t('section.groupth')}</h4>
             <div class="gth-bottom-actions">
-              ${!gthQuiz.active ? `<button type="button" class="quiz-start-btn" data-testid="gth-quiz-start">${t('quiz.start')}</button>` : ''}
+              ${!gthQuiz.active ? `<button type="button" class="quiz-start-btn" data-testid="gth-quiz-start" data-quiz-tab="${activeTab}">${t('quiz.start')}</button>` : ''}
               ${!gthLabReflect.active ? `<button type="button" class="quiz-start-btn" data-testid="gth-lab-reflect-start">${t('lab.reflect.start')}</button>` : ''}
               <button type="button" class="quiz-share-btn" data-share-payload="${metricEncoded}" data-testid="gth-lab-metric">📊 ${t('lab.metric.record')}</button>
             </div>
@@ -526,7 +554,8 @@ export function createGroupTheoryExplorer() {
     });
 
     // Quiz
-    root.querySelector('[data-testid="gth-quiz-start"]')?.addEventListener('click', () => {
+    root.querySelector('[data-testid="gth-quiz-start"]')?.addEventListener('click', (e) => {
+      gthQuiz.tab = e.currentTarget.dataset.quizTab || activeTab;
       gthQuiz.active = true; gthQuiz.phase = 'question'; gthQuiz.answer = ''; render();
     });
     root.querySelector('[data-testid="gth-quiz-close"]')?.addEventListener('click', () => {
@@ -551,6 +580,9 @@ export function createGroupTheoryExplorer() {
     });
     root.querySelector('[data-testid="gth-lab-reflect-text"]')?.addEventListener('input', e => {
       gthLabReflect.text = e.target.value;
+    });
+    root.querySelector('[data-testid="gth-lab-reflect-text2"]')?.addEventListener('input', e => {
+      gthLabReflect.text2 = e.target.value;
     });
 
     // Share buttons
