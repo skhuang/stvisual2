@@ -137,6 +137,12 @@ export function renderApp(container) {
   // toggle the language.
   let initialDeeplinkHandled = false;
 
+  // Mirror of the most recent `location.search` we've written via
+  // `syncUrl()`. The popstate handler compares against this to decide
+  // whether to reload — hash-only navigation (skip-link Enter etc.)
+  // changes neither lastSearchSnapshot nor `location.search`.
+  let lastSearchSnapshot = globalThis.location?.search ?? '';
+
   function paint() {
     // Read URL state once at the top of paint() — tabbed-section setups
     // below reference it, so this MUST run before any of them.
@@ -702,7 +708,11 @@ export function renderApp(container) {
     });
     overviewPacksHost.appendChild(packBar.element);
 
-    function syncUrl() {
+    // mode='push' creates a new history entry (so the browser back button
+    // returns the user to the previous URL); 'replace' overwrites the
+    // current entry without polluting the back stack. Section/nav changes
+    // push; filter/tab/pack chip changes replace.
+    function syncUrl(mode = 'replace') {
       try {
         const state = {
           section: activeSection,
@@ -712,9 +722,18 @@ export function renderApp(container) {
         };
         const qs = serializeLocation(state);
         const url = `${globalThis.location.pathname}${qs}${globalThis.location.hash}`;
-        globalThis.history?.replaceState?.(null, '', url);
+        if (mode === 'push') {
+          globalThis.history?.pushState?.(null, '', url);
+        } else {
+          globalThis.history?.replaceState?.(null, '', url);
+        }
+        // Keep the popstate handler's reference in lockstep with the URL
+        // we just wrote — so a true back-navigation across our pushed
+        // entries flips this comparison, but a hash-only navigation
+        // (skip-link) leaves it equal.
+        lastSearchSnapshot = qs;
       } catch {
-        // Ignore — `replaceState` may be unavailable in some test envs.
+        // Ignore — push/replaceState may be unavailable in some test envs.
       }
     }
 
@@ -876,12 +895,16 @@ export function renderApp(container) {
         openCloudDrawer();
         return;
       }
+      // Section change is a navigation: push a history entry so the
+      // browser back button returns the user to the previous section.
+      // Same-section re-clicks fall through to replace (no history spam).
+      const sectionChanged = activeSection !== sectionId;
       activeSection = sectionId;
       persistActiveSection(activeSection);
       renderNav();
       updateSectionVisibility();
       updateCloudTriggerState();
-      syncUrl();
+      syncUrl(sectionChanged ? 'push' : 'replace');
       if (shouldScroll) {
         requestAnimationFrame(() => {
           scrollToActiveSection();
@@ -952,6 +975,19 @@ export function renderApp(container) {
 
   paint();
   onLocaleChange(() => paint());
+
+  // Browser back/forward across one of our pushState entries: reload so
+  // the app re-applies state from the new URL. Compare `location.search`
+  // against the last value `syncUrl()` wrote — hash-only navigation
+  // (skip-link `<a href="#app-main">` etc.) doesn't change search, so we
+  // ignore it.
+  globalThis.addEventListener?.('popstate', () => {
+    const current = globalThis.location?.search ?? '';
+    if (current !== lastSearchSnapshot) {
+      lastSearchSnapshot = current;
+      globalThis.location?.reload?.();
+    }
+  });
 
   // Show ResultViewer if URL contains ?result= (Phase A share link)
   const viewer = createResultViewer();
