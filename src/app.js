@@ -162,6 +162,10 @@ export function renderApp(container) {
   // toggle the language.
   let initialDeeplinkHandled = false;
 
+  // ?lang= URL lock: a share link can force the display language. Once a
+  // lang is present in the URL (or the user picks one) the URL keeps it.
+  let langInUrl = false;
+
   // Mirror of the most recent `location.search` we've written via
   // `syncUrl()`. The popstate handler compares against this to decide
   // whether to reload — hash-only navigation (skip-link Enter etc.)
@@ -171,7 +175,10 @@ export function renderApp(container) {
   function paint() {
     // Read URL state once at the top of paint() — tabbed-section setups
     // below reference it, so this MUST run before any of them.
-    const urlState = parseAppLocation(globalThis.location?.search ?? '');
+    const urlState = parseAppLocation(
+      globalThis.location?.search ?? '',
+      globalThis.location?.hash ?? '',
+    );
     container.innerHTML = `
       <div class="app">
         <a class="skip-link" href="#app-main">${t('app.skipMain')}</a>
@@ -274,6 +281,11 @@ export function renderApp(container) {
       flow: main.querySelector('[data-testid="section-flow"]'),
       types: main.querySelector('[data-testid="section-types"]'),
     };
+
+    // A stable `id` per section so a `#section-<id>` hash can deep-link to it.
+    for (const [sectionId, el] of Object.entries(sections)) {
+      if (el) el.id = `section-${sectionId}`;
+    }
 
     // Attach a "course slides" button to every section that owns decks.
     const sectionsWithDecks = [...new Set(SLIDE_DECKS.map((d) => d.section))];
@@ -963,9 +975,15 @@ export function renderApp(container) {
           tab: getCurrentTabForSection(activeSection),
           pack: packBar?.getActiveId() ?? null,
           filter: activeFilter,
+          lang: langInUrl ? getLocale() : undefined,
         };
         const qs = serializeLocation(state);
-        const url = `${globalThis.location.pathname}${qs}${globalThis.location.hash}`;
+        // A `#section-*` hash is an entry-only anchor; once the app has
+        // navigated, drop it so the URL carries no contradictory anchor.
+        // Other hashes (skip-links) are preserved verbatim.
+        const rawHash = globalThis.location.hash || '';
+        const hash = /^#section-[a-z0-9-]+$/.test(rawHash) ? '' : rawHash;
+        const url = `${globalThis.location.pathname}${qs}${hash}`;
         if (mode === 'push') {
           globalThis.history?.pushState?.(null, '', url);
         } else {
@@ -1162,6 +1180,7 @@ export function renderApp(container) {
     }
 
     container.querySelector('#app-lang-select').addEventListener('change', (e) => {
+      langInUrl = true;
       setLocale(e.target.value);
     });
 
@@ -1219,6 +1238,21 @@ export function renderApp(container) {
         });
       }
     }
+
+    // Keep ?lang= current after a language toggle (paint() re-runs on
+    // every locale change). No-op when the language was never URL-locked.
+    if (langInUrl) syncUrl('replace');
+  }
+
+  // Apply a URL-supplied language before the first paint, without
+  // overwriting the visitor's own saved preference.
+  const bootState = parseAppLocation(
+    globalThis.location?.search ?? '',
+    globalThis.location?.hash ?? '',
+  );
+  if (bootState.lang) {
+    langInUrl = true;
+    setLocale(bootState.lang, { persist: false });
   }
 
   paint();
@@ -1234,6 +1268,20 @@ export function renderApp(container) {
     if (current !== lastSearchSnapshot) {
       lastSearchSnapshot = current;
       globalThis.location?.reload?.();
+    }
+  });
+
+  // A deliberate `#section-<id>` hash navigation overrides any stale
+  // ?section= query: reload from a URL carrying only the hash, so boot
+  // re-applies state from the hash alone. The ?lang= lock is carried
+  // across so a language-locked share link survives the hash jump.
+  // Non-section hashes (skip-links) are left to the browser.
+  globalThis.addEventListener?.('hashchange', () => {
+    const hash = globalThis.location?.hash ?? '';
+    if (/^#section-[a-z0-9-]+$/.test(hash)) {
+      const lang = new URLSearchParams(globalThis.location?.search ?? '').get('lang');
+      const qs = (lang === 'en' || lang === 'zh') ? `?lang=${lang}` : '';
+      globalThis.location?.replace?.(`${globalThis.location.pathname}${qs}${hash}`);
     }
   });
 

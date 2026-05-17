@@ -219,3 +219,39 @@ describe('K4 — resolveInitialTab', () => {
     expect(sectionHasTabs('all')).toBe(false);
   });
 });
+
+describe('K — ?lang= URL lock', () => {
+  it('?lang=en is parsed into { lang }', () => {
+    expect(parseAppLocation('?lang=en')).toEqual({ lang: 'en' });
+  });
+  it('an unsupported ?lang= value is ignored', () => {
+    expect(parseAppLocation('?lang=fr')).toEqual({});
+  });
+  it('serializeLocation emits ?lang=', () => {
+    expect(serializeLocation({ lang: 'zh' })).toBe('?lang=zh');
+  });
+  it('lang round-trips alongside a section', () => {
+    const qs = serializeLocation({ lang: 'en', section: 'graph' });
+    expect(parseAppLocation(qs)).toEqual({ lang: 'en', section: 'graph' });
+  });
+});
+
+describe('K — #section anchor', () => {
+  it('a #section-<id> hash resolves a section when no query section', () => {
+    expect(parseAppLocation('', '#section-graph')).toEqual({ section: 'graph' });
+  });
+  it('a query ?section= wins over a #section hash', () => {
+    expect(parseAppLocation('?section=logic', '#section-graph'))
+      .toEqual({ section: 'logic' });
+  });
+  it('a query ?explorer= wins over a #section hash', () => {
+    const state = parseAppLocation('?explorer=PairwiseExplorer', '#section-graph');
+    expect(state.section).toBe('blackbox');
+  });
+  it('a non-section hash (skip-link) is ignored', () => {
+    expect(parseAppLocation('', '#app-main')).toEqual({});
+  });
+  it('parseAppLocation still works when called with no hash argument', () => {
+    expect(parseAppLocation('?section=graph')).toEqual({ section: 'graph' });
+  });
+});
