@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "decks": [
+    {
+      "id": "graph-instructor-notes",
+      "section": "graph",
+      "files": {
+        "en": "graph-instructor-notes.en.md",
+        "zh-TW": "graph-instructor-notes.zh-TW.md"
+      },
+      "titleEn": "Graph coverage — instructor notes",
+      "titleZh": "圖形涵蓋 —— 講師補充"
+    }
+  ]
+}
