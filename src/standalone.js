@@ -41278,7 +41278,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return t2.length > 4 && t2.startsWith("$$") && t2.endsWith("$$");
   }
   function isBlockStart(line) {
-    return /^(#{1,6}\s|>|\s*([-*+]|\d+\.)\s|```)/.test(line) || line.includes("|") || line.trim() === "$$" || isSingleLineDisplayMath(line);
+    return /^(#{1,6}\s|>|\s*([-*+]|\d+\.)\s|```)/.test(line) || line.includes("|") || line.trim() === "$$" || isSingleLineDisplayMath(line) || line.trimStart().startsWith("<svg");
   }
   function renderMarkdown(md) {
     const lines = md.split("\n");
@@ -41299,6 +41299,20 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         }
         i++;
         out.push(`<pre class="slide-code"><code>${escapeHtml26(code.join("\n"))}</code></pre>`);
+        continue;
+      }
+      if (line.trimStart().startsWith("<svg")) {
+        const buf = [];
+        let depth = 0;
+        while (i < lines.length) {
+          const cur = lines[i];
+          buf.push(cur);
+          depth += (cur.match(/<svg[\s/>]/g) || []).length;
+          depth -= (cur.match(/<\/svg>/g) || []).length;
+          i++;
+          if (depth <= 0) break;
+        }
+        out.push(buf.join("\n"));
         continue;
       }
       if (line.trim() === "$$") {
