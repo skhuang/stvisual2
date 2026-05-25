@@ -75,6 +75,27 @@ describe('renderMarkdown', () => {
   it('leaves prose prices ($50 to $99) unmathed', () => {
     expect(renderMarkdown('$50 to $99 range')).toBe('<p>$50 to $99 range</p>');
   });
+  it('passes through inline <svg> verbatim (not HTML-escaped)', () => {
+    const md = '<svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"/></svg>';
+    const html = renderMarkdown(md);
+    expect(html).toContain('<svg viewBox="0 0 10 10">');
+    expect(html).toContain('<circle cx="5" cy="5" r="4"/>');
+    expect(html).toContain('</svg>');
+    expect(html).not.toContain('&lt;svg');
+  });
+  it('keeps a multi-line <svg> block intact and resumes parsing after', () => {
+    const md = '<svg width="100" height="100">\n  <rect x="0" y="0" width="100" height="100"/>\n  <text x="10" y="20">hi</text>\n</svg>\n\nNext paragraph.';
+    const html = renderMarkdown(md);
+    expect(html).toContain('<rect x="0" y="0" width="100" height="100"/>');
+    expect(html).toContain('<text x="10" y="20">hi</text>');
+    expect(html).toContain('<p>Next paragraph.</p>');
+  });
+  it('balances nested <svg> (viewport) via depth count', () => {
+    const md = '<svg><svg x="10"><circle r="1"/></svg></svg>\n\nAfter.';
+    const html = renderMarkdown(md);
+    expect(html).toContain('<svg><svg x="10"><circle r="1"/></svg></svg>');
+    expect(html).toContain('<p>After.</p>');
+  });
 });
 
 describe('parseDeck', () => {

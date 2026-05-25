@@ -133,7 +133,8 @@ function isSingleLineDisplayMath(line) {
 function isBlockStart(line) {
   return /^(#{1,6}\s|>|\s*([-*+]|\d+\.)\s|```)/.test(line)
     || line.includes('|') || line.trim() === '$$'
-    || isSingleLineDisplayMath(line);
+    || isSingleLineDisplayMath(line)
+    || line.trimStart().startsWith('<svg');
 }
 
 export function renderMarkdown(md) {
@@ -150,6 +151,27 @@ export function renderMarkdown(md) {
       while (i < lines.length && !lines[i].trim().startsWith('```')) { code.push(lines[i]); i++; }
       i++;
       out.push(`<pre class="slide-code"><code>${escapeHtml(code.join('\n'))}</code></pre>`);
+      continue;
+    }
+
+    // Inline-rendered <svg> block — pass through verbatim. Authors paste
+    // pre-rendered SVG (e.g. from mmdc) directly into the deck markdown;
+    // the public slide pipeline ships inline SVG the same way, so the
+    // viewer already styles it. Nested <svg> is rare but valid (nested
+    // viewport), so count opens against closes rather than stopping at
+    // the first </svg>.
+    if (line.trimStart().startsWith('<svg')) {
+      const buf = [];
+      let depth = 0;
+      while (i < lines.length) {
+        const cur = lines[i];
+        buf.push(cur);
+        depth += (cur.match(/<svg[\s/>]/g) || []).length;
+        depth -= (cur.match(/<\/svg>/g) || []).length;
+        i++;
+        if (depth <= 0) break;
+      }
+      out.push(buf.join('\n'));
       continue;
     }
 
