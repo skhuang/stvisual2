@@ -28,6 +28,24 @@ Screenshots above are from the original Foundations + Coverage sections; newer e
 
 ## Feature Highlights
 
+### Unit View (classroom mode)
+
+Every Explorer now has a single-window unit view for projection:
+`?explorer=graph-coverage` (kebab id) or `?explorer=GraphCoverageExplorer`.
+The ⛶ button enters a fullscreen focus mode (Esc or the floating ✕ exits).
+The classic integrated page is still available via the Overview and
+`?view=all&section=…` links; category-nav dropdowns list every unit.
+
+### Quiz banks and labs
+
+- `quizzes/{en,zh}/<id>.xml` are Moodle-XML question banks;
+  `npm run build:quiz` regenerates `src/data/quizRendered.js` (committed).
+  Units with a bank show a Quiz button (practice / test modes, recent
+  attempts in localStorage).
+- `labs/labs.json` + `labs/<slug>/` define practice labs;
+  `npm run build:labs` regenerates `src/data/labRendered.js`. The judge
+  button is a "coming soon" placeholder until a judge URL is wired up.
+
 ### Testing Methods Overview
 - Visualizes testing method categories: black-box, white-box, gray-box, and their sub-techniques
 - Animates the testing workflow from requirements analysis to defect reporting
