@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Logic Coverage</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Predicate Coverage (PC) requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>Each predicate in the program evaluates to both true and false</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="0"><text>Each clause within a predicate evaluates to both true and false</text><feedback><text>That's Clause Coverage (CC).</text></feedback></answer>
+    <answer fraction="0"><text>All combinations of clause truth values are exercised for each predicate</text><feedback><text>That's Combinatorial Coverage (CoC).</text></feedback></answer>
+    <answer fraction="0"><text>Every path through the predicate's decision structure is exercised</text><feedback><text>That describes Path Coverage, not Predicate Coverage.</text></feedback></answer>
+    <generalfeedback><text>Predicate Coverage (PC) only requires the whole predicate to take both truth values at least once; it says nothing about the individual clauses inside it — that finer-grained requirement is Clause Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Clause determination</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8743; b, clause a <em>determines</em> p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b is true</text><feedback><text>Correct — with b true, p's value is exactly a's value, so toggling a toggles p.</text></feedback></answer>
+    <answer fraction="0"><text>b is false</text><feedback><text>When b is false, p is false regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>Always, regardless of b</text><feedback><text>Determination is a per-clause, per-assignment condition, not a constant.</text></feedback></answer>
+    <answer fraction="0"><text>Never, for a conjunction</text><feedback><text>Conjunctions do have determining assignments — just not when b is false.</text></feedback></answer>
+    <generalfeedback><text>A clause c determines predicate p when changing only c's truth value changes p's truth value while the other clauses stay fixed. For p = a &#8743; b, that happens exactly when b = true: p then mirrors a exactly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CACC vs RACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does Restricted Active Clause Coverage (RACC) differ from Correlated Active Clause Coverage (CACC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RACC additionally requires the minor clauses to hold identical values in the true/false test pair for the major clause</text><feedback><text>Correct — RACC is the stricter, "same minor-clause values" version of CACC.</text></feedback></answer>
+    <answer fraction="0"><text>RACC drops the requirement that the major clause determines the predicate</text><feedback><text>That describes General Active Clause Coverage (GACC), not RACC.</text></feedback></answer>
+    <answer fraction="0"><text>RACC only counts inactive clauses, not active ones</text><feedback><text>That describes the inactive-clause family (GICC/CICC), not RACC.</text></feedback></answer>
+    <answer fraction="0"><text>RACC requires covering all combinations of clause values</text><feedback><text>That's Combinatorial Coverage (CoC).</text></feedback></answer>
+    <generalfeedback><text>Both criteria require, for each major clause ci, a pair of tests where ci determines predicate p once true and once false. CACC allows the other (minor) clauses to differ between that pair; RACC additionally pins the minor clauses to the same values across the pair, making it strictly stronger.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combinatorial coverage count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate has 3 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 2^3 combinations of true/false.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>That's roughly the size of Clause Coverage (one flip per clause), not every combination.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Too few — 4 tests can't realize all 8 truth-value combinations.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 falls short of the full 2^3 = 8 combinations.</text></feedback></answer>
+    <generalfeedback><text>Combinatorial Coverage requires every one of the 2^n truth-value combinations of n clauses to be exercised (subject to feasibility); with 3 independent clauses that is 2^3 = 8 tests.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CACC infeasibility</text></name>
+    <questiontext format="html"><text><![CDATA[<p>CACC (and RACC) is infeasible for a clause that can never determine its predicate.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — if no assignment of the other clauses ever lets that clause determine the predicate, no test can satisfy the active-clause requirement for it.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Determination is a precondition for active-clause coverage; without it the criterion's test requirement for that clause has no test that can satisfy it, so it is infeasible.</text></feedback></answer>
+    <generalfeedback><text>Active-clause criteria (CACC, RACC, GACC) require a test pair where the clause determines the predicate. If some clause structurally never determines the predicate (e.g., it is masked out or redundant), that test requirement can never be satisfied — it is infeasible.</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>Unique true point coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which DNF-based logic-coverage criterion requires every unique true point of the predicate to be covered? (acronym)</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>UTPC</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="100"><text>unique true point*</text><feedback><text>Correct.</text></feedback></answer>
+    <generalfeedback><text>Unique True Point Coverage (UTPC) requires, for each term in the predicate's DNF representation, a test that makes exactly that term true (and all others false) — the "unique" true point for that term.</text></generalfeedback>
+  </question>
+</quiz>

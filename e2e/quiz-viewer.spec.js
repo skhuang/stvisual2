@@ -41,3 +41,15 @@ test('units without a bank show no quiz button', async ({ page }) => {
   await expect(page.getByTestId('unit-app')).toBeVisible();
   await expect(page.getByTestId('unit-quiz-btn')).toHaveCount(0);
 });
+
+test('shared quizId: mutation-score unit opens the mutation-testing bank', async ({ page }) => {
+  await page.goto('/?explorer=mutation-score');
+  await page.getByTestId('unit-quiz-btn').click();
+  await expect(page.getByTestId('quiz-begin')).toBeVisible();
+});
+
+test('shared quizId: equivalence-class opens boundary-value-equivalence bank', async ({ page }) => {
+  await page.goto('/?explorer=equivalence-class');
+  await page.getByTestId('unit-quiz-btn').click();
+  await expect(page.getByTestId('quiz-begin')).toBeVisible();
+});

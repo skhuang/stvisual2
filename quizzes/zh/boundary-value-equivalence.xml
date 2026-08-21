@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>範圍輸入的等價類別</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於一個定義域為 1..100 的整數輸入，標準等價類別劃分（equivalence-class partitioning）會定義多少個等價類別？分別是哪些？</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>三個：一個有效類別 [1,100]，加上兩個無效類別（&lt;1 與 &gt;100）</text><feedback><text>正確——一個類別對應合法輸入，另外兩個分別對應太小與太大的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>兩個：一個有效類別，以及一個涵蓋其外所有情況的無效類別</text><feedback><text>低於範圍與高於範圍的值失敗原因不同，通常會分成兩個獨立的無效類別。</text></feedback></answer>
+    <answer fraction="0"><text>一百個：每個合法整數值各自一個類別</text><feedback><text>等價類別劃分是把預期行為相同的值歸為同一類別，而不是每個值各自成一類。</text></feedback></answer>
+    <answer fraction="0"><text>以中點分成兩個有效類別，且沒有無效類別</text><feedback><text>單一連續的有效範圍不需要再切分，而超出範圍的輸入仍然需要無效類別來涵蓋。</text></feedback></answer>
+    <generalfeedback><text>對於有界範圍 [1,100]，標準等價類別劃分會產生三個類別：有效類別 [1,100]，以及分別代表低於最小值與高於最大值的兩個無效類別。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>BVA 測試值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於輸入範圍 [1,100]，標準邊界值分析（Boundary Value Analysis, BVA）的六個測試值是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0、1、2、99、100、101</text><feedback><text>正確——分別是 min&#8722;1、min、min+1、max&#8722;1、max、max+1。</text></feedback></answer>
+    <answer fraction="0"><text>1、100</text><feedback><text>這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的 off-point。</text></feedback></answer>
+    <answer fraction="0"><text>0、1、100、101</text><feedback><text>這遺漏了緊鄰邊界的 min+1 與 max&#8722;1（即 2 與 99）。</text></feedback></answer>
+    <answer fraction="0"><text>1、50、100</text><feedback><text>50 是中點值，並非邊界——BVA 針對的是定義域的邊緣，而非其中心。</text></feedback></answer>
+    <generalfeedback><text>標準 BVA 會取最小值與最大值（即「on-point」），再加上它們緊鄰的內側與外側鄰居（即「off-point」）：對 [1,100] 而言即為 0、1、2、99、100、101。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一致性假說</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼等價類別測試認為，每個類別只需測試一個代表值就足夠？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一致性假說（uniformity hypothesis）——假設同一類別中的所有值都會觸發相同的程式行為</text><feedback><text>正確——整個技巧都建立在這個假設之上。</text></feedback></answer>
+    <answer fraction="0"><text>窮舉假說——假設一個值就能證明所有值都正確</text><feedback><text>並不存在這樣的正式假說；等價類別測試本質上並非窮舉式的。</text></feedback></answer>
+    <answer fraction="0"><text>假設測試值是隨機選取的，因此隨便選一個都可以</text><feedback><text>代表值是刻意挑選的（例如邊界值），而非隨機決定。</text></feedback></answer>
+    <answer fraction="0"><text>獨立性假說——假設每個類別彼此無關</text><feedback><text>類別／變數之間的關係會影響強、弱等價類別測試的差異，但這並不是「每類只需一個值」的原因。</text></feedback></answer>
+    <generalfeedback><text>等價類別測試依賴一致性假說：假設程式對同一類別中的每個值都表現出相同的行為，因此測試任一個代表值，所提供的資訊等同於測試該類別中的所有值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>弱等價類別測試與強等價類別測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當程式有多個輸入變數時，弱等價類別測試與強等價類別測試的差異是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>弱測試只要求每個類別至少被涵蓋一次；強測試要求涵蓋所有變數之間類別的完整交叉組合</text><feedback><text>正確——強測試是弱測試在組合意義上的窮舉版本。</text></feedback></answer>
+    <answer fraction="0"><text>弱測試涵蓋完整交叉組合；強測試只要求每個類別各一次</text><feedback><text>這剛好把兩者的定義說反了。</text></feedback></answer>
+    <answer fraction="0"><text>弱測試只適用於邊界值分析；強測試只適用於等價類別</text><feedback><text>強／弱是等價類別測試內部的區別，並不是邊界值分析與等價類別測試之間的區分。</text></feedback></answer>
+    <answer fraction="0"><text>弱測試只測試無效類別；強測試只測試有效類別</text><feedback><text>弱測試與強測試通常都同時涵蓋有效與無效類別；兩者的差異在於組合涵蓋程度，而非有效性。</text></feedback></answer>
+    <generalfeedback><text>弱等價類別測試只需要足夠的測試，使每個變數的每個類別至少被涵蓋一次。強等價類別測試則要求涵蓋所有變數之間類別的完整交叉組合，因此測試案例數會呈組合式增長。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>封閉邊界的 off-point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於封閉邊界（boundary 值本身包含在定義域內），其 off-point 會落在定義域之外。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——由於 on-point（邊界值本身）已經在封閉定義域之內，其相鄰的 off-point 會恰好落在邊界之外。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>對封閉邊界而言，on-point 位於定義域內，因此與其配對的 off-point 就是緊鄰在其外側的值。</text></feedback></answer>
+    <generalfeedback><text>封閉邊界會把該極端值（on-point）納入定義域。與其配對的 off-point 則是在邊界另一側最鄰近的值——落在定義域之外。（若為開放邊界，兩者角色會互換：on-point 落在域外，而 off-point 則是被納入定義域的極端值。）</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>BVA 鎖定的錯誤類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>邊界值分析特別針對的是哪一類錯誤？（請以英文回答）</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>boundary*</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>off-by-one*</text><feedback><text>正確。</text></feedback></answer>
+    <generalfeedback><text>BVA 針對的是邊界錯誤（boundary faults）——也就是諸如以 &lt; 誤用取代 &lt;= 之類、恰好發生在輸入定義域邊緣的差一（off-by-one）錯誤，這正是它把測試值集中在邊界附近的原因。</text></generalfeedback>
+  </question>
+</quiz>
