@@ -49,6 +49,7 @@
     <questiontext format="html"><text><![CDATA[<p>只要控制流程圖（control-flow graph）中含有迴圈，完整路徑覆蓋（Complete Path Coverage）就不可行。</p>]]></text></questiontext>
     <answer fraction="100"><text>true</text><feedback><text>正確——迴圈會產生無窮多條路徑。</text></feedback></answer>
     <answer fraction="0"><text>false</text><feedback><text>迴圈會造成路徑數量無上限，因此完整路徑覆蓋無法在有限步驟內被滿足。</text></feedback></answer>
+    <generalfeedback><text>只要圖中含有迴圈，路徑就能任意次數地重複經過同一節點，使得「簡單且完整」的測試路徑集合變成無窮多——因此只要圖中有迴圈，完整路徑覆蓋就永遠無法在有限步驟內被滿足。</text></generalfeedback>
   </question>
   <question type="shortanswer">
     <name><text>集合覆蓋化約</text></name>

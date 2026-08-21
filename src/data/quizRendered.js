@@ -135,7 +135,7 @@ export const QUIZ_RENDERED = {
             "feedback": "Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied."
           }
         ],
-        "generalFeedback": ""
+        "generalFeedback": "A loop lets a path revisit the same node arbitrarily many times, so the set of simple-to-complete test paths is unbounded — Complete Path Coverage can never be finitely satisfied whenever the graph has a loop."
       },
       {
         "type": "shortanswer",
@@ -290,7 +290,7 @@ export const QUIZ_RENDERED = {
             "feedback": "迴圈會造成路徑數量無上限，因此完整路徑覆蓋無法在有限步驟內被滿足。"
           }
         ],
-        "generalFeedback": ""
+        "generalFeedback": "只要圖中含有迴圈，路徑就能任意次數地重複經過同一節點，使得「簡單且完整」的測試路徑集合變成無窮多——因此只要圖中有迴圈，完整路徑覆蓋就永遠無法在有限步驟內被滿足。"
       },
       {
         "type": "shortanswer",

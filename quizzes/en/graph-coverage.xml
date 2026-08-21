@@ -49,6 +49,7 @@
     <questiontext format="html"><text><![CDATA[<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>]]></text></questiontext>
     <answer fraction="100"><text>true</text><feedback><text>Correct — a loop yields infinitely many paths.</text></feedback></answer>
     <answer fraction="0"><text>false</text><feedback><text>Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied.</text></feedback></answer>
+    <generalfeedback><text>A loop lets a path revisit the same node arbitrarily many times, so the set of simple-to-complete test paths is unbounded — Complete Path Coverage can never be finitely satisfied whenever the graph has a loop.</text></generalfeedback>
   </question>
   <question type="shortanswer">
     <name><text>Set-cover reduction</text></name>
