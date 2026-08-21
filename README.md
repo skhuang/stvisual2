@@ -45,6 +45,8 @@ The classic integrated page is still available via the Overview and
 - `labs/labs.json` + `labs/<slug>/` define practice labs;
   `npm run build:labs` regenerates `src/data/labRendered.js`. The judge
   button is a "coming soon" placeholder until a judge URL is wired up.
+- `npm run serve` (used for e2e/preview) shells out to
+  `python3 -m http.server --protocol HTTP/1.1`, which requires Python ≥ 3.11.
 
 ### Testing Methods Overview
 - Visualizes testing method categories: black-box, white-box, gray-box, and their sub-techniques

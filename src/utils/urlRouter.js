@@ -6,9 +6,22 @@ import { resolveUnit, EXPLORER_UNITS } from '../data/explorerUnits.js';
 //   ?section=<id>         Which section is active (omit on overview "all").
 //   ?tab=<id>             Inner tab for tabbed sections (only meaningful if the
 //                         current section actually has tabs).
-//   ?explorer=<Component> Single param that resolves to a section + tab via
-//                         EXPLORER_TO_LOCATION; takes precedence over section/tab
-//                         on parse so a generated link can be short and stable.
+//   ?explorer=<id|Component>
+//                         Single param that opens the single-Explorer unit
+//                         view (not a scroll-to-section). Accepts either a
+//                         kebab unit id or a ComponentName; both resolve via
+//                         EXPLORER_UNITS/resolveUnit and normalize to
+//                         `unitId` + `explorer` (ComponentName), and still
+//                         resolve the underlying section/tab via
+//                         EXPLORER_TO_LOCATION so section/tab-based code keeps
+//                         working. Takes precedence over ?section/?tab on
+//                         parse so a generated link can be short and stable.
+//                         An unresolvable id/name sets `unknownExplorer`
+//                         instead and falls through to ordinary section/tab
+//                         parsing — the dispatcher renders the overview with
+//                         a "unit not found" notice in that case.
+//   ?view=all             Forces the integrated (all-sections) page even
+//                         when ?explorer= is present.
 //   ?pack=<id>            Course pack selection (highlights chip + applies its
 //                         filter); when present, raw filter params are ignored.
 //   ?level=...&technique=...&series=...&difficulty=...

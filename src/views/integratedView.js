@@ -1399,6 +1399,7 @@ export function renderIntegratedApp(container) {
                       </div>` : unitsForSection(sectionId).map((u) => `
                         <a class="nav-unit-link nav-unit-link--single" role="menuitem"
                            data-testid="nav-unit-${u.id}"
+                           aria-label="${unitTitle(u)}"
                            href="?explorer=${u.componentName}">⛶</a>`).join('')}
                   </div>`).join('')}
               </div>

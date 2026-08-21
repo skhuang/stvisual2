@@ -44678,6 +44678,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                       </div>` : unitsForSection(sectionId).map((u) => `
                         <a class="nav-unit-link nav-unit-link--single" role="menuitem"
                            data-testid="nav-unit-${u.id}"
+                           aria-label="${unitTitle(u)}"
                            href="?explorer=${u.componentName}">\u26F6</a>`).join("")}
                   </div>`).join("")}
               </div>
