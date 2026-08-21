@@ -25,3 +25,6 @@ firebase-debug.log
 firestore-debug.log
 # Local git worktrees
 .worktrees/
+
+# SDD scratch workspace
+.superpowers/
