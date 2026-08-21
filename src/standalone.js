@@ -43067,13 +43067,30 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   }
 
   // src/utils/unitTitles.js
+  var TAB_LABEL_PREFIX = {
+    blackbox: "blackboxTab",
+    flow: "flowTab",
+    types: "typesTab",
+    mbt: "mbtTab",
+    syntax: "syntaxTab",
+    acceptance: "acceptanceTab",
+    agile: "agileTab",
+    advanced: "advTab",
+    slicing: "slicing.tab",
+    tdd: "tdd.tab",
+    exploit: "exploit.tab",
+    sbst: "sbst.tab"
+  };
   function unitTitle(unit) {
     const loc = locationForUnit(unit);
     if (!loc) return unit.id;
     if (loc.tab) {
-      const key2 = `${loc.section}.tab.${loc.tab}`;
-      const label = t(key2);
-      if (label !== key2) return label;
+      const prefix = TAB_LABEL_PREFIX[loc.section];
+      if (prefix) {
+        const key2 = `${prefix}.${loc.tab}`;
+        const label = t(key2);
+        if (label !== key2) return label;
+      }
     }
     const sKey = `section.${loc.section}.title`;
     const sTitle = t(sKey);
