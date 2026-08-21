@@ -1,12 +1,12 @@
 # Software Testing Visualization
 
-[![Test](https://github.com/skhuang/stvisual/actions/workflows/test.yml/badge.svg)](https://github.com/skhuang/stvisual/actions/workflows/test.yml)
-[![Deploy GitHub Pages](https://github.com/skhuang/stvisual/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/skhuang/stvisual/actions/workflows/deploy-pages.yml)
-[![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0a7ea4)](https://skhuang.github.io/stvisual/)
+[![Test](https://github.com/skhuang/stvisual2/actions/workflows/test.yml/badge.svg)](https://github.com/skhuang/stvisual2/actions/workflows/test.yml)
+[![Deploy GitHub Pages](https://github.com/skhuang/stvisual2/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/skhuang/stvisual2/actions/workflows/deploy-pages.yml)
+[![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0a7ea4)](https://skhuang.github.io/stvisual2/)
 
 An interactive visualization project for software testing — **43 explorers across 7 sections**: foundations, coverage criteria, execution & test generation, black-box design, group-theory testing, AI-assisted research methods (based on the **Meta ACH** paper at FSE 2025, [arXiv 2501.12862](https://arxiv.org/abs/2501.12862)), and system / E2E / acceptance testing.
 
-Live demo: <https://skhuang.github.io/stvisual/>
+Live demo: <https://skhuang.github.io/stvisual2/>
 
 Every explorer ships with bilingual UI (English / 繁體中文), a self-test quiz, Lab Reflect / Lab Metric modes, and shareable result URLs. Class results stream to Firestore and surface in a Teacher Dashboard. Every Explorer is also tagged across five dimensions (level / technique / series / difficulty / source) so the Overview supports tag-chip filtering, course-pack presets, and per-Explorer deeplinks (e.g. `?explorer=PairwiseExplorer`).
 
@@ -24,7 +24,7 @@ Every explorer ships with bilingual UI (English / 繁體中文), a self-test qui
 |:---:|:---:|
 | ![Symbolic Execution](docs/assets/preview-symbolic-execution.png) | ![Concolic Execution](docs/assets/preview-concolic-execution.png) |
 
-Screenshots above are from the original Foundations + Coverage sections; newer explorers (Group Theory, Risk-Based, Advanced Testing / AI-Assisted) are best seen on the [live demo](https://skhuang.github.io/stvisual/).
+Screenshots above are from the original Foundations + Coverage sections; newer explorers (Group Theory, Risk-Based, Advanced Testing / AI-Assisted) are best seen on the [live demo](https://skhuang.github.io/stvisual2/).
 
 ## Feature Highlights
 
