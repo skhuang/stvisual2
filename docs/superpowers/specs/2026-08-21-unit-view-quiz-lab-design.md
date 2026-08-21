@@ -76,8 +76,10 @@ of scrolling the integrated page:
 - Top nav becomes a dsvisual-style **category nav**: the 8 taxonomy
   categories from `SECTION_TAXONOMY`; hover/click opens a dropdown listing
   that category's Explorers; selecting one navigates to its unit view.
-- The overview card grid (tag-chip filters, course packs, deeplinks) stays;
-  cards now link to unit views.
+- The overview card grid (tag-chip filters, course packs, deeplinks) stays
+  unchanged — its cards are per-*section* and keep navigating to the
+  integrated page. Unit views are reached through the category-nav dropdowns
+  (one link per Explorer) and by `?explorer=` deeplinks.
 - The **integrated page is fully preserved**: a nav entry "整合檢視"
   (integrated view) reaches it; existing `?section=` / `?tab=` URLs behave
   exactly as today. Only `?explorer=` changes meaning (unit view instead of
@@ -133,10 +135,11 @@ of scrolling the integrated page:
 
 - `src/views/unitView.js` — unit view rendering + focus mode wiring
 - `src/views/integratedView.js` — current sections/tabs page (moved, not
-  rewritten)
-- `src/shell/nav.js` — category nav + dropdowns
+  rewritten); its existing `renderNav()` gains the per-unit dropdown links
+  (a separate `shell/nav.js` split was considered and dropped — it would
+  churn integrated-view internals without serving the feature)
 - `src/app.js` — boot, routing dispatch (`overview | unit | integrated`),
-  locale plumbing, cloud drawer
+  locale plumbing
 
 No Explorer component file is modified.
 
