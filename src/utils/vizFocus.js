@@ -2,6 +2,25 @@
 // class .viz-focus-toggle; adds body.viz-focus (CSS hides chrome and expands
 // the stage) and best-effort requests browser fullscreen. Exits on Escape,
 // on the floating draggable ✕ button, or when browser fullscreen ends.
+
+const fsElement = () => document.fullscreenElement || document.webkitFullscreenElement || null;
+const fsExit = () => {
+  const fn = document.exitFullscreen || document.webkitExitFullscreen;
+  if (fn) fn.call(document);
+};
+
+// The two `document`-level fullscreenchange listeners are wired exactly once
+// per module lifetime — never per `initVizFocus` call. A full page remount
+// (e.g. in tests, or a fresh SPA navigation that wipes `document.body`) needs
+// a fresh exit button and a fresh click listener on the new `root`, but it
+// must NOT re-run `document.addEventListener('fullscreenchange', …)`: that
+// would leak another anonymous closure onto `document` on every bypass of the
+// remount guard below, forever. `latestExitFocus` lets this one permanent
+// listener pair always call into whichever `exitFocus` closure is current
+// after the most recent (re)wiring.
+let fullscreenListenersWired = false;
+let latestExitFocus = () => {};
+
 export function initVizFocus({ root = document } = {}) {
   const body = document.body;
   // Guarded by the exit button's presence (not just a flag): a full page
@@ -22,14 +41,9 @@ export function initVizFocus({ root = document } = {}) {
     document.body.appendChild(exitBtn);
   }
 
-  const fsElement = () => document.fullscreenElement || document.webkitFullscreenElement || null;
   const fsRequest = (el) => {
     const fn = el.requestFullscreen || el.webkitRequestFullscreen;
     return fn ? fn.call(el) : null;
-  };
-  const fsExit = () => {
-    const fn = document.exitFullscreen || document.webkitExitFullscreen;
-    if (fn) fn.call(document);
   };
   const setPressed = (on) => {
     document.querySelectorAll('.viz-focus-toggle').forEach((b) =>
@@ -62,6 +76,7 @@ export function initVizFocus({ root = document } = {}) {
     requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
     if (fsElement()) { try { fsExit(); } catch {} }
   }
+  latestExitFocus = exitFocus;
 
   root.addEventListener('click', (e) => {
     if (e.target?.closest?.('.viz-focus-toggle')) {
@@ -72,12 +87,15 @@ export function initVizFocus({ root = document } = {}) {
     if (exitBtn.dataset.dragged === '1') { delete exitBtn.dataset.dragged; return; }
     exitFocus();
   });
-  document.addEventListener('fullscreenchange', () => {
-    if (!fsElement() && body.classList.contains('viz-focus')) exitFocus();
-  });
-  document.addEventListener('webkitfullscreenchange', () => {
-    if (!fsElement() && body.classList.contains('viz-focus')) exitFocus();
-  });
+  if (!fullscreenListenersWired) {
+    fullscreenListenersWired = true;
+    document.addEventListener('fullscreenchange', () => {
+      if (!fsElement() && document.body.classList.contains('viz-focus')) latestExitFocus();
+    });
+    document.addEventListener('webkitfullscreenchange', () => {
+      if (!fsElement() && document.body.classList.contains('viz-focus')) latestExitFocus();
+    });
+  }
   makeExitDraggable(exitBtn);
 }
 
