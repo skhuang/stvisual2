@@ -4,6 +4,7 @@ import { FACTORY_BY_COMPONENT } from '../data/explorerFactories.js';
 import { unitTitle } from '../utils/unitTitles.js';
 import { initVizFocus } from '../utils/vizFocus.js';
 import { QuizViewer } from '../components/QuizViewer.js';
+import { LabViewer } from '../components/LabViewer.js';
 
 // Single-Explorer classroom view: minimal header, one mounted explorer,
 // fullscreen focus mode. Quiz/Lab buttons are appended by later features.
@@ -33,6 +34,10 @@ export function renderUnitView(container, urlState) {
               <button type="button" class="btn secondary" data-testid="unit-quiz-btn">
                 ${t('btn.quiz')}
               </button>` : ''}
+            ${LabViewer.has(unit.id) ? `
+              <button type="button" class="btn secondary" data-testid="unit-lab-btn">
+                ${t('btn.lab')}
+              </button>` : ''}
           </div>
         </header>
         <main class="unit-main" data-testid="unit-main"></main>
@@ -43,6 +48,8 @@ export function renderUnitView(container, urlState) {
       btn.addEventListener('click', () => setLocale(btn.dataset.unitLang)));
     container.querySelector('[data-testid="unit-quiz-btn"]')
       ?.addEventListener('click', () => QuizViewer.open(unit.quizId ?? unit.id));
+    container.querySelector('[data-testid="unit-lab-btn"]')
+      ?.addEventListener('click', () => LabViewer.open(unit.id));
   }
 
   paint();
