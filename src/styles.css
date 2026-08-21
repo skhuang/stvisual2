@@ -115,3 +115,30 @@
 .unit-not-found button {
   border: 0; background: none; color: inherit; font-size: 1.1rem; cursor: pointer;
 }
+
+/* ── Unit view (single-Explorer classroom mode) ──────────────────────── */
+.unit-app { max-width: 1400px; margin: 0 auto; padding: 1rem 1.5rem;
+  display: flex; flex-direction: column; min-height: 100vh; gap: 1rem; }
+.unit-header { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.unit-back { color: var(--app-primary); text-decoration: none; font-weight: 600;
+  white-space: nowrap; }
+.unit-back:hover { text-decoration: underline; }
+.unit-title { font-size: 1.35rem; color: var(--app-text-strong); flex: 1 1 auto; }
+.unit-tools { display: flex; align-items: center; gap: 0.6rem; }
+.unit-main { flex: 1 1 auto; min-height: 0; }
+
+/* Focus mode: hide chrome, stage fills the viewport. */
+body.viz-focus .unit-header,
+body.viz-focus .unit-not-found { display: none; }
+body.viz-focus .unit-main {
+  position: fixed; inset: 0; z-index: 900; overflow: auto;
+  background: var(--app-bg); padding: 0.5rem 0.75rem;
+}
+.viz-focus-exit {
+  position: fixed; right: 18px; bottom: 18px; z-index: 1000;
+  padding: 0.5rem 0.9rem; border-radius: 999px; border: 1px solid var(--app-border);
+  background: var(--app-surface); color: var(--app-text);
+  box-shadow: var(--app-shadow-md); cursor: grab; touch-action: none;
+  font-size: 0.9rem;
+}
+.viz-focus-exit:active { cursor: grabbing; }

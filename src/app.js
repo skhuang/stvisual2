@@ -3,6 +3,7 @@
 import { parseAppLocation } from './utils/urlRouter.js';
 import { t, setLocale } from './i18n/index.js';
 import { renderIntegratedApp } from './views/integratedView.js';
+import { renderUnitView } from './views/unitView.js';
 
 function showUnitNotFound(rawId) {
   const notice = document.createElement('div');
@@ -31,8 +32,10 @@ export function renderApp(container) {
 
   if (state.unknownExplorer) showUnitNotFound(state.unknownExplorer);
 
-  // Task 4 inserts the unit-view branch here:
-  // if (state.explorer && state.view !== 'all') { renderUnitView(container, state); return; }
+  if (state.explorer && state.view !== 'all') {
+    renderUnitView(container, state);
+    return;
+  }
 
   renderIntegratedApp(container);
 }
