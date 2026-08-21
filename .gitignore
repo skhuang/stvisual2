@@ -23,3 +23,5 @@ MANUAL_TEST_PLAN.pdf
 .firebase/
 firebase-debug.log
 firestore-debug.log
+# Local git worktrees
+.worktrees/
