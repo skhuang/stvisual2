@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Graph Coverage</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Node vs edge coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test path set satisfies Node Coverage but not Edge Coverage. What must be true?</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>Every node is visited, but some edge is never traversed</text><feedback><text>Correct — edge coverage subsumes node coverage, not vice versa.</text></feedback></answer>
+    <answer fraction="0"><text>Some node is never visited</text><feedback><text>Then node coverage would already fail.</text></feedback></answer>
+    <answer fraction="0"><text>Every prime path is toured</text><feedback><text>Prime path coverage would imply edge coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The graph has no branches</text><feedback><text>With no branches, node coverage implies edge coverage.</text></feedback></answer>
+    <generalfeedback><text>Edge coverage requires every edge; a branch can be skipped even when both its endpoints are visited via other paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A prime path is a simple path that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Is not a proper subpath of any other simple path</text><feedback><text>Correct — maximal simple paths.</text></feedback></answer>
+    <answer fraction="0"><text>Starts at the entry node and ends at the exit node</text><feedback><text>That describes a complete test path, not a prime path.</text></feedback></answer>
+    <answer fraction="0"><text>Visits every node exactly once</text><feedback><text>That is a Hamiltonian path.</text></feedback></answer>
+    <answer fraction="0"><text>Contains no loops at all</text><feedback><text>A prime path may begin and end at the same node (a loop boundary).</text></feedback></answer>
+    <generalfeedback><text>Prime paths are simple paths (no repeated nodes except possibly first = last) that are maximal — not proper subpaths of any other simple path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subsumption</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which criterion subsumes Edge Coverage on a graph with at least one edge?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Edge-Pair Coverage</text><feedback><text>Correct — covering every path of length ≤ 2 covers every length-1 path.</text></feedback></answer>
+    <answer fraction="0"><text>Node Coverage</text><feedback><text>Node coverage is weaker than edge coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Statement Coverage</text><feedback><text>Statement coverage corresponds to node coverage.</text></feedback></answer>
+    <answer fraction="0"><text>No criterion subsumes it</text><feedback><text>Edge-pair, prime path and complete path all do.</text></feedback></answer>
+    <generalfeedback><text>Edge-pair coverage requires all length-≤2 paths, which includes every single edge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DU pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In data-flow coverage, a DU pair for variable x is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A definition of x and a use of x reachable by a def-clear path</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="0"><text>Any two statements that mention x</text><feedback><text>Mentions alone don't form a DU pair.</text></feedback></answer>
+    <answer fraction="0"><text>Two consecutive assignments to x</text><feedback><text>The second assignment kills the first definition.</text></feedback></answer>
+    <answer fraction="0"><text>A use of x followed by its definition</text><feedback><text>Order is definition first, then use.</text></feedback></answer>
+    <generalfeedback><text>A DU pair (d, u) needs a path from d to u with no intervening redefinition of x — a def-clear path.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Complete path coverage feasibility</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a loop yields infinitely many paths.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied.</text></feedback></answer>
+  </question>
+  <question type="shortanswer">
+    <name><text>Set-cover reduction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>stvisual reduces the selected test-path set with a greedy approximation of which classic problem? (two words)</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>set cover*</text><feedback><text>Correct — greedy set cover.</text></feedback></answer>
+    <answer fraction="100"><text>set-cover*</text><feedback><text>Correct.</text></feedback></answer>
+    <generalfeedback><text>Choosing a minimal set of test paths covering all requirements is the (NP-hard) set-cover problem; the tool uses the greedy approximation.</text></generalfeedback>
+  </question>
+</quiz>

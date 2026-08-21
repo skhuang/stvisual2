@@ -1,0 +1,38 @@
+.quizviewer-overlay {
+  position: fixed; inset: 0; z-index: 1100;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex; align-items: center; justify-content: center; padding: 1rem;
+}
+.quizviewer-overlay[hidden] { display: none; }
+.quizviewer-panel {
+  width: min(720px, 100%); max-height: 90vh; overflow: auto;
+  background: var(--app-surface); color: var(--app-text);
+  border-radius: var(--app-radius-lg); box-shadow: var(--app-shadow-lg);
+  padding: 1.25rem;
+}
+.quizviewer-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.75rem; }
+.quizviewer-head-tools { display: flex; gap: 0.5rem; }
+.quiz-count { color: var(--app-text-muted); margin-bottom: 0.5rem; }
+.quiz-mode { display: flex; gap: 1rem; margin-bottom: 0.75rem; }
+.quiz-q-head { font-weight: 600; color: var(--app-text-muted); margin-bottom: 0.5rem; }
+.quiz-q-text { margin-bottom: 0.75rem; }
+.quiz-answers { display: flex; flex-direction: column; gap: 0.4rem; }
+.quiz-ans { display: flex; gap: 0.5rem; align-items: baseline; padding: 0.45rem 0.6rem;
+  border: 1px solid var(--app-border-muted); border-radius: var(--app-radius-md); cursor: pointer; }
+.quiz-ans.correct { border-color: #16a34a; background: rgba(22, 163, 74, 0.08); }
+.quiz-ans.wrong { border-color: #dc2626; background: rgba(220, 38, 38, 0.08); }
+.quiz-sa { padding: 0.45rem 0.6rem; border: 1px solid var(--app-border); border-radius: var(--app-radius-md); width: 100%; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.6rem 0.75rem; border-radius: var(--app-radius-md); }
+.quiz-feedback.ok { background: rgba(22, 163, 74, 0.1); }
+.quiz-feedback.bad { background: rgba(220, 38, 38, 0.1); }
+.quiz-foot { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem; }
+.quiz-recent { margin-top: 1.25rem; }
+.quiz-recent ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.5rem; }
+.quiz-recent-row { display: flex; gap: 0.75rem; width: 100%; text-align: left;
+  padding: 0.4rem 0.6rem; border: 1px solid var(--app-border-muted);
+  border-radius: var(--app-radius-md); background: var(--app-surface-muted); cursor: pointer; }
+.quiz-recent-row.stale { opacity: 0.6; cursor: default; }
+.quiz-recent-empty { color: var(--app-text-subtle); }
+.quiz-review { margin-top: 0.75rem; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.quiz-review li.ok { border-left: 3px solid #16a34a; padding-left: 0.6rem; }
+.quiz-review li.bad { border-left: 3px solid #dc2626; padding-left: 0.6rem; }

@@ -76,6 +76,7 @@
 @import url('./components/InputSpacePartitioningExplorer.css');
 @import url('./components/SlideViewer.css');
 @import url('./components/quiz.css');
+@import url('./components/QuizViewer.css');
 
 .section-slides-btn {
   flex: 0 0 auto;
