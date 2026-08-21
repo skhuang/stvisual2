@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Symbolic Execution</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號執行（symbolic execution）引擎所建立的路徑條件（path condition）是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>沿著一條執行路徑累積的所有分支限制式（branch constraints）的合取（conjunction），以符號化輸入變數表示</text><feedback><text>正確——這是一條公式，而非數值，用來描述哪些具體輸入會走上這條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>執行程式一次所記錄下來的單一具體執行軌跡</text><feedback><text>那是具體符號執行（concolic）／動態執行所記錄的內容；符號執行推理的是公式，而非單一具體執行。</text></feedback></answer>
+    <answer fraction="0"><text>回報分支被執行百分比的程式碼覆蓋率指標</text><feedback><text>覆蓋率是一項摘要統計數字；路徑條件則是與某條特定路徑綁定的邏輯公式。</text></feedback></answer>
+    <answer fraction="0"><text>程式控制流程圖（control-flow graph）的表示法</text><feedback><text>控制流程圖是被探索的靜態結構本身；路徑條件則是沿著其中一條走訪路徑所累積出的限制式。</text></feedback></answer>
+    <generalfeedback><text>符號執行沿著一條路徑前進時，會把每個分支決策（以符號化輸入表示）的限制式合取成一條公式——即路徑條件——精確地描述哪些具體輸入會走上這條路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>偵測不可行路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號執行引擎所探索的一條路徑，何時會被判定為不可行（infeasible）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>其路徑條件不可滿足（UNSAT）——沒有任何輸入指派能同時滿足所有累積的限制式</text><feedback><text>正確——UNSAT 代表不存在任何具體執行能走上這條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>引擎達到了設定的迴圈展開（loop-unrolling）上限</text><feedback><text>達到上限只是讓探索在該處停止，本身並不能證明該路徑不可行。</text></feedback></answer>
+    <answer fraction="0"><text>求解器在給出答案前逾時</text><feedback><text>逾時代表結果未定——該路徑仍可能是可行的，只是尚未被解出。</text></feedback></answer>
+    <answer fraction="0"><text>該路徑發生了除以零的錯誤</text><feedback><text>那是引擎在某條可行路徑上可能標記出的執行期錯誤，並非不可行的跡象。</text></feedback></answer>
+    <generalfeedback><text>路徑條件是一條邏輯公式；當求解器判定該公式為 UNSAT 時，就代表這條路徑不可行——也就是說，符號化輸入無論如何指派，都不可能讓執行走上這條路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可擴展性瓶頸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號執行擴展到大型程式時，主要的障礙是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>路徑爆炸（path explosion）——相異路徑的數量隨著分支與迴圈呈指數成長</text><feedback><text>正確——這是符號執行最典型的可擴展性瓶頸。</text></feedback></answer>
+    <answer fraction="0"><text>被插樁（instrumented）程式的記憶體洩漏</text><feedback><text>這不是典型瓶頸；記憶體洩漏是一般程式分析普遍會遇到的問題，並非符號執行擴展性的特有議題。</text></feedback></answer>
+    <answer fraction="0"><text>測試諭示問題（oracle problem）——不知道正確的預期輸出</text><feedback><text>測試諭示問題廣泛影響測試結果的驗證；符號執行本身的核心擴展性瓶頸在於路徑數量，而非諭示。</text></feedback></answer>
+    <answer fraction="0"><text>不穩定、不確定性的測試（flaky tests）</text><feedback><text>測試不穩定屬於動態測試的議題；符號執行是針對路徑做靜態推理，其瓶頸在於路徑數量本身。</text></feedback></answer>
+    <generalfeedback><text>由於每個分支都可能使待探索的路徑數量加倍，而迴圈更會貢獻大量額外路徑，路徑數量會呈指數成長——即路徑爆炸——使得對大型或迴圈密集程式進行窮舉式符號執行變得不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>限制式求解器的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SMT／限制式求解器（constraint solver）在符號執行中扮演什麼角色？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>給定一條路徑條件，求解器會產生滿足該條件的具體輸入指派（或回報 UNSAT）</text><feedback><text>正確——求解路徑條件正是符號執行把一條路徑轉換成可執行測試輸入的方式。</text></feedback></answer>
+    <answer fraction="0"><text>它負責對程式執行已產生的測試案例</text><feedback><text>執行測試是產生輸入之後的另一個獨立步驟，並非求解器的工作。</text></feedback></answer>
+    <answer fraction="0"><text>它負責變異程式原始碼以產生測試變體</text><feedback><text>那描述的是突變測試工具，而非限制式求解器。</text></feedback></answer>
+    <answer fraction="0"><text>它負責量測測試套件涵蓋了多少程式碼</text><feedback><text>覆蓋率量測通常由另外的插樁／追蹤工具完成，而非求解器。</text></feedback></answer>
+    <generalfeedback><text>限制式求解器會接收累積出的路徑條件，判斷其是否可滿足；若可滿足，便回傳一組符號化輸入的具體指派，成為驅動執行走上該路徑的實際測試輸入。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>具體符號執行（concolic execution）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>具體符號執行（concolic execution，「concrete + symbolic」）結合具體執行與符號推理，用以簡化純符號執行無法求解的限制式。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——當符號限制式變得過於複雜時（例如呼叫到外部或原生程式碼），具體符號執行會以實際執行所得的具體值來取代，使探索得以跨越純符號求解器會卡住的部分。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這正是具體符號執行（動態符號執行）的核心動機——它在追蹤符號限制式的同時搭配具體執行，使難以求解的運算式能借助實際觀察到的具體值加以簡化。</text></feedback></answer>
+    <generalfeedback><text>具體符號執行在具體輸入上執行程式，同時追蹤符號限制式；當某個限制式過於複雜時（例如涉及不透明的函式庫呼叫），便以執行期實際觀察到的具體值取代，繞過純符號執行的求解器無法處理的運算式。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>判定路徑條件可滿足性的元件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>負責判定路徑條件是否可滿足的元件叫做什麼？（請以英文術語或縮寫回答）</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>solver</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>SMT*</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>constraint solver*</text><feedback><text>正確。</text></feedback></answer>
+    <generalfeedback><text>SMT（Satisfiability Modulo Theories）求解器——泛稱限制式求解器——會接收路徑條件的公式並判斷其可滿足性，若存在滿足解，便回傳一組滿足指派（也就是具體的測試輸入）。</text></generalfeedback>
+  </question>
+</quiz>

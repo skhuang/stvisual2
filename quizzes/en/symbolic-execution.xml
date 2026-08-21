@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Symbolic Execution</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Path condition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path condition, as built by a symbolic execution engine, is:</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>The conjunction of the branch constraints accumulated along one execution path, expressed over symbolic input variables</text><feedback><text>Correct — it's a formula, not a value, describing which concrete inputs would follow that path.</text></feedback></answer>
+    <answer fraction="0"><text>A single concrete execution trace recorded by running the program once</text><feedback><text>That's what concolic/dynamic execution records; symbolic execution reasons about formulas, not one concrete run.</text></feedback></answer>
+    <answer fraction="0"><text>A code-coverage metric reporting the percentage of branches exercised</text><feedback><text>Coverage is a summary statistic; a path condition is a logical formula tied to one specific path.</text></feedback></answer>
+    <answer fraction="0"><text>A representation of the program's control-flow graph</text><feedback><text>The CFG is the static structure being explored; the path condition is the accumulated constraint along one traversal of it.</text></feedback></answer>
+    <generalfeedback><text>As symbolic execution follows a path, it conjoins the constraint from each branch decision (in terms of symbolic inputs) into a single formula — the path condition — that characterizes exactly which concrete inputs would take that path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Detecting infeasible paths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path explored by a symbolic execution engine is identified as infeasible when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its path condition is unsatisfiable (UNSAT) — no input assignment satisfies all the accumulated constraints</text><feedback><text>Correct — UNSAT means no concrete execution can ever take that path.</text></feedback></answer>
+    <answer fraction="0"><text>The engine hits its configured loop-unrolling bound</text><feedback><text>Hitting a bound just stops exploration there; it doesn't by itself prove the path is infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>The solver times out before returning an answer</text><feedback><text>A timeout is inconclusive — the path might still be feasible, just unresolved.</text></feedback></answer>
+    <answer fraction="0"><text>The path performs a division by zero</text><feedback><text>That's a runtime fault the engine may flag along a feasible path, not a sign of infeasibility.</text></feedback></answer>
+    <generalfeedback><text>A path's condition is a logical formula; the constraint solver deems the path infeasible precisely when that formula is UNSAT, meaning no assignment of the symbolic inputs could ever drive execution down that path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scalability bottleneck</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Path explosion — the number of distinct paths grows exponentially with branches and loops</text><feedback><text>Correct — this is the classic scalability wall for symbolic execution.</text></feedback></answer>
+    <answer fraction="0"><text>Memory leaks in the instrumented program</text><feedback><text>Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling.</text></feedback></answer>
+    <answer fraction="0"><text>The oracle problem — not knowing the correct expected output</text><feedback><text>The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles.</text></feedback></answer>
+    <answer fraction="0"><text>Flaky, non-deterministic tests</text><feedback><text>Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number.</text></feedback></answer>
+    <generalfeedback><text>Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially — path explosion — making exhaustive symbolic execution intractable for large or loop-heavy programs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of the constraint solver</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What role does an SMT/constraint solver play in symbolic execution?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given a path condition, it produces a concrete input assignment that satisfies it (or reports UNSAT)</text><feedback><text>Correct — solving the path condition is exactly how symbolic execution turns a path into a runnable test input.</text></feedback></answer>
+    <answer fraction="0"><text>It runs the generated test cases against the program</text><feedback><text>Executing tests is a separate step after input generation, not the solver's job.</text></feedback></answer>
+    <answer fraction="0"><text>It mutates the program's source code to create test variants</text><feedback><text>That describes a mutation-testing tool, not a constraint solver.</text></feedback></answer>
+    <answer fraction="0"><text>It measures how much of the code the test suite covers</text><feedback><text>Coverage measurement is typically done by separate instrumentation/tracking tools, not the solver.</text></feedback></answer>
+    <generalfeedback><text>The constraint solver is handed the accumulated path condition and determines whether it is satisfiable; if so, it returns a concrete assignment of the symbolic inputs, which becomes the actual test input driving execution down that path.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Concolic execution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Concolic ("concrete + symbolic") execution combines a concrete run with symbolic reasoning to simplify constraints that pure symbolic execution cannot solve.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — concolic execution substitutes concrete values from an actual run wherever the symbolic constraints become too complex (e.g., calls into external/native code), letting exploration proceed past terms a pure symbolic solver would get stuck on.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is precisely the motivation for concolic (dynamic symbolic) execution — it uses a concrete run alongside symbolic tracking so hard-to-solve expressions can be simplified using the concrete values actually observed.</text></feedback></answer>
+    <generalfeedback><text>Concolic execution runs the program on concrete inputs while simultaneously tracking symbolic constraints; when a constraint becomes too complex (e.g., involves opaque library calls) it substitutes in the concrete value observed at runtime, sidestepping expressions pure symbolic execution's solver cannot handle.</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>Deciding path-condition satisfiability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>solver</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="100"><text>SMT*</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="100"><text>constraint solver*</text><feedback><text>Correct.</text></feedback></answer>
+    <generalfeedback><text>An SMT (Satisfiability Modulo Theories) solver — generically, the constraint solver — takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,12 +1,27 @@
+import { resolveUnit, EXPLORER_UNITS } from '../data/explorerUnits.js';
+
 // Single source of truth for URL ↔ application state.
 //
 // URL params:
 //   ?section=<id>         Which section is active (omit on overview "all").
 //   ?tab=<id>             Inner tab for tabbed sections (only meaningful if the
 //                         current section actually has tabs).
-//   ?explorer=<Component> Single param that resolves to a section + tab via
-//                         EXPLORER_TO_LOCATION; takes precedence over section/tab
-//                         on parse so a generated link can be short and stable.
+//   ?explorer=<id|Component>
+//                         Single param that opens the single-Explorer unit
+//                         view (not a scroll-to-section). Accepts either a
+//                         kebab unit id or a ComponentName; both resolve via
+//                         EXPLORER_UNITS/resolveUnit and normalize to
+//                         `unitId` + `explorer` (ComponentName), and still
+//                         resolve the underlying section/tab via
+//                         EXPLORER_TO_LOCATION so section/tab-based code keeps
+//                         working. Takes precedence over ?section/?tab on
+//                         parse so a generated link can be short and stable.
+//                         An unresolvable id/name sets `unknownExplorer`
+//                         instead and falls through to ordinary section/tab
+//                         parsing — the dispatcher renders the overview with
+//                         a "unit not found" notice in that case.
+//   ?view=all             Forces the integrated (all-sections) page even
+//                         when ?explorer= is present.
 //   ?pack=<id>            Course pack selection (highlights chip + applies its
 //                         filter); when present, raw filter params are ignored.
 //   ?level=...&technique=...&series=...&difficulty=...
@@ -125,14 +140,18 @@ export function parseAppLocation(search, hash) {
   const params = new URLSearchParams(search ?? '');
   const out = {};
 
-  // ?explorer= takes precedence over ?section/?tab.
-  const explorer = params.get('explorer');
-  if (explorer && EXPLORER_TO_LOCATION[explorer]) {
-    const loc = EXPLORER_TO_LOCATION[explorer];
-    out.explorer = explorer;
+  // ?explorer= takes precedence over ?section/?tab. Accepts a ComponentName
+  // or a kebab unit id; both normalize to ComponentName + unitId.
+  const explorerRaw = params.get('explorer');
+  const unit = resolveUnit(explorerRaw);
+  if (explorerRaw && unit && EXPLORER_TO_LOCATION[unit.componentName]) {
+    const loc = EXPLORER_TO_LOCATION[unit.componentName];
+    out.explorer = unit.componentName;
+    out.unitId = unit.id;
     out.section = loc.section;
     if (loc.tab) out.tab = loc.tab;
   } else {
+    if (explorerRaw) out.unknownExplorer = explorerRaw;
     const sec = params.get('section');
     if (sec) out.section = sec;
     const tab = params.get('tab');
@@ -141,6 +160,9 @@ export function parseAppLocation(search, hash) {
       out.tab = tab;
     }
   }
+
+  // ?view=all forces the integrated page even when ?explorer= is present.
+  if (params.get('view') === 'all') out.view = 'all';
 
   const pack = params.get('pack');
   if (pack) out.pack = pack;
@@ -232,4 +254,27 @@ export function resolveInitialTab({ sectionId, urlSection, urlTab, saved }) {
   if (urlSection === sectionId && urlTab && info.tabs.includes(urlTab)) return urlTab;
   if (saved && info.tabs.includes(saved)) return saved;
   return info.default;
+}
+
+// ── unit helpers ─────────────────────────────────────────────────────
+
+// Units belonging to a section, ordered by the section's tab order (units
+// without a tab keep registry order). Powers the nav dropdown unit links.
+export function unitsForSection(sectionId) {
+  const units = EXPLORER_UNITS.filter(
+    (u) => EXPLORER_TO_LOCATION[u.componentName]?.section === sectionId,
+  );
+  const tabs = TAB_SECTIONS[sectionId]?.tabs;
+  if (!tabs) return units;
+  const rank = (u) => {
+    const t = EXPLORER_TO_LOCATION[u.componentName].tab;
+    const i = tabs.indexOf(t);
+    return i === -1 ? tabs.length : i;
+  };
+  return [...units].sort((a, b) => rank(a) - rank(b));
+}
+
+// Location info for a unit entry (section/tab), for title lookups.
+export function locationForUnit(unit) {
+  return EXPLORER_TO_LOCATION[unit.componentName] ?? null;
 }

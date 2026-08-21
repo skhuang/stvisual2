@@ -49,7 +49,7 @@ test.describe('Navigation state', () => {
   });
 
   test('?explorer=… deeplink scrolls the destination section into view on boot', async ({ page }) => {
-    await page.goto('/index.html?explorer=PairwiseExplorer');
+    await page.goto('/index.html?view=all&explorer=PairwiseExplorer');
     // Wait for the rAF inside paint() to execute the scroll.
     await page.waitForFunction(() => window.scrollY > 0, { timeout: 2000 }).catch(() => {});
 
@@ -65,7 +65,7 @@ test.describe('Navigation state', () => {
 
   test('browser back button returns to the source after a cross-section bridge click', async ({ page }) => {
     // Start on the BDD/Gherkin tab via deeplink.
-    await page.goto('/index.html?explorer=BDDGherkinExplorer');
+    await page.goto('/index.html?view=all&explorer=BDDGherkinExplorer');
     await page.waitForLoadState('networkidle');
     await page.getByTestId('bdd-preset-discount').click();
 
@@ -93,7 +93,7 @@ test.describe('Navigation state', () => {
 
   test('Advanced Testing two-level nav: paper selector switches sub-tabs', async ({ page }) => {
     // Deeplink to an ACH-paper Explorer.
-    await page.goto('/index.html?explorer=TestQualityExplorer');
+    await page.goto('/index.html?view=all&explorer=TestQualityExplorer');
     await page.waitForLoadState('networkidle');
 
     // ACH paper chip is active; its 5 sub-tabs are the visible ones.
@@ -110,7 +110,7 @@ test.describe('Navigation state', () => {
 
   test('cross-section bridge into a hidden Advanced tab still works (paper switch)', async ({ page }) => {
     // Land on the SAILOR paper so the TestQuality tab is rendered-but-hidden.
-    await page.goto('/index.html?explorer=SAILORPipelineExplorer');
+    await page.goto('/index.html?view=all&explorer=SAILORPipelineExplorer');
     await page.waitForLoadState('networkidle');
     await expect(page.locator('[data-advanced-paper="sailor"]')).toHaveAttribute('aria-selected', 'true');
 
@@ -127,7 +127,7 @@ test.describe('Navigation state', () => {
   });
 
   test('cross-section bridge from J1 BDD → Decision Table switches section AND inner tab', async ({ page }) => {
-    await page.goto('/index.html?explorer=BDDGherkinExplorer');
+    await page.goto('/index.html?view=all&explorer=BDDGherkinExplorer');
 
     // Pick the discount preset so the Examples table + bridge button are present.
     await page.getByTestId('bdd-preset-discount').click();

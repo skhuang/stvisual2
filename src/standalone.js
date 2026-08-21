@@ -1,900 +1,279 @@
 "use strict";
 (() => {
-  // src/data/testingData.js
-  var testingMethods = [
-    {
-      id: "blackbox",
-      name: "\u9ED1\u76D2\u6E2C\u8A66",
-      nameEn: "Black Box Testing",
-      description: "\u4E0D\u8003\u616E\u5167\u90E8\u5BE6\u73FE\uFF0C\u5B8C\u5168\u805A\u7126\u8F38\u5165\u8207\u8F38\u51FA\u884C\u70BA",
-      descriptionEn: "Ignores internal implementation; focuses entirely on input and output behavior.",
-      visibility: 0,
-      colorScheme: "dark",
-      techniques: [
-        { id: "bva", name: "\u908A\u754C\u503C\u5206\u6790", nameEn: "Boundary Value Analysis", description: "\u6E2C\u8A66\u8F38\u5165\u7684\u908A\u754C\u689D\u4EF6", descriptionEn: "Test inputs at the boundaries of input domains." },
-        { id: "ep", name: "\u7B49\u50F9\u985E\u5206\u5272", nameEn: "Equivalence Partitioning", description: "\u5C07\u8F38\u5165\u7A7A\u9593\u5283\u5206\u70BA\u7B49\u50F9\u985E", descriptionEn: "Partition the input space into equivalence classes." },
-        { id: "ceg", name: "\u56E0\u679C\u5716", nameEn: "Cause-Effect Graph", description: "\u5206\u6790\u8F38\u5165\u8F38\u51FA\u9593\u7684\u56E0\u679C\u95DC\u4FC2", descriptionEn: "Analyze cause-effect relations between inputs and outputs." },
-        { id: "stt", name: "\u72C0\u614B\u9077\u79FB\u6E2C\u8A66", nameEn: "State Transition Testing", description: "\u9A57\u8B49\u7CFB\u7D71\u7684\u72C0\u614B\u8F49\u63DB\u884C\u70BA", descriptionEn: "Validate the state transition behavior of the system." }
-      ]
-    },
-    {
-      id: "whitebox",
-      name: "\u767D\u76D2\u6E2C\u8A66",
-      nameEn: "White Box Testing",
-      description: "\u57FA\u65BC\u5167\u90E8\u4EE3\u78BC\u7D50\u69CB\uFF0C\u78BA\u4FDD\u6240\u6709\u8DEF\u5F91\u7686\u88AB\u8986\u84CB",
-      descriptionEn: "Based on internal code structure; aims to cover all paths.",
-      visibility: 100,
-      colorScheme: "light",
-      techniques: [
-        { id: "sc", name: "\u8A9E\u53E5\u8986\u84CB", nameEn: "Statement Coverage", description: "\u78BA\u4FDD\u6BCF\u689D\u8A9E\u53E5\u81F3\u5C11\u57F7\u884C\u4E00\u6B21", descriptionEn: "Ensure every statement executes at least once." },
-        { id: "bc", name: "\u5206\u652F\u8986\u84CB", nameEn: "Branch Coverage", description: "\u78BA\u4FDD\u6BCF\u500B\u5206\u652F\uFF08true/false\uFF09\u90FD\u88AB\u57F7\u884C", descriptionEn: "Ensure every branch (true/false) is executed." },
-        { id: "gc", name: "\u5716\u5F62\u8986\u84CB", nameEn: "Graph Coverage", description: "\u4EE5\u63A7\u5236\u6D41\u7A0B\u5716\u63A8\u5C0E\u7BC0\u9EDE\u3001\u908A\u8207 Prime Path \u7684\u6E2C\u8A66\u9700\u6C42", descriptionEn: "Derive node, edge, and prime-path requirements from the CFG." },
-        { id: "lc", name: "\u908F\u8F2F\u8986\u84CB", nameEn: "Logic Coverage", description: "\u4EE5\u8FF0\u8A5E\u8207\u5B50\u53E5\u70BA\u6838\u5FC3\u7684\u8986\u84CB\u7B56\u7565\uFF0C\u5305\u542B PC\u3001CC\u3001ACC \u7CFB\u5217", descriptionEn: "Predicate/clause-centric strategy: PC, CC, ACC family, etc." },
-        { id: "pc", name: "\u8DEF\u5F91\u8986\u84CB", nameEn: "Path Coverage", description: "\u78BA\u4FDD\u6BCF\u689D\u7368\u7ACB\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C", descriptionEn: "Ensure each independent path is executed." },
-        { id: "ppc", name: "Prime Path Coverage", nameEn: "Prime Path Coverage", description: "\u6700\u5C0F\u5316\u4E14\u5B8C\u6574\u7684\u8DEF\u5F91\u8986\u84CB\u96C6\u5408", descriptionEn: "Minimal yet complete prime-path coverage set." },
-        { id: "cc", name: "\u689D\u4EF6\u8986\u84CB", nameEn: "Condition Coverage", description: "\u78BA\u4FDD\u6BCF\u500B\u5E03\u6797\u689D\u4EF6\u7684\u771F\u5047\u90FD\u88AB\u6E2C\u8A66", descriptionEn: "Ensure each Boolean condition is tested for true and false." },
-        { id: "mc", name: "\u591A\u91CD\u689D\u4EF6\u8986\u84CB", nameEn: "Multiple Conditions", description: "\u6E2C\u8A66\u6240\u6709\u689D\u4EF6\u7D44\u5408\u7684\u771F\u5047\u60C5\u6CC1", descriptionEn: "Test all true/false combinations of conditions." },
-        { id: "symbex", name: "\u7B26\u865F\u57F7\u884C", nameEn: "Symbolic Execution", description: "\u4EE5\u7B26\u865F\u503C\u4EE3\u5165\u7A0B\u5F0F\u8B8A\u6578\uFF0C\u6CBF\u8DEF\u5F91\u6536\u96C6 path condition \u4E26\u6C42\u89E3\u53EF\u9054\u8F38\u5165", descriptionEn: "Substitute symbolic values for program inputs, collect a path condition along each path, and solve for concrete witnesses." },
-        { id: "concolic", name: "\u5177\u9AD4\u7B26\u865F\u57F7\u884C", nameEn: "Concolic Execution", description: "\u7D50\u5408\u5177\u9AD4\u57F7\u884C\u8207\u7B26\u865F\u57F7\u884C (DART/CUTE)\uFF1A\u6BCF\u6B21\u5177\u9AD4\u8DD1\u4E00\u689D\u8DEF\u5F91\uFF0C\u518D\u7FFB\u8F49\u5206\u652F\u689D\u4EF6\u6C42\u89E3\u65B0\u8F38\u5165\u4EE5\u6DB5\u84CB\u66F4\u591A\u8DEF\u5F91", descriptionEn: "Concrete + symbolic (DART/CUTE): runs the program concretely, then negates branch conditions to derive new inputs that cover additional paths." }
-      ]
-    },
-    {
-      id: "graybox",
-      name: "\u7070\u76D2\u6E2C\u8A66",
-      nameEn: "Gray Box Testing",
-      description: "\u90E8\u5206\u4E86\u89E3\u5167\u90E8\u5BE6\u73FE\uFF0C\u7D50\u5408\u5169\u8005\u512A\u9EDE\u4EE5\u63D0\u9AD8\u6548\u7387",
-      descriptionEn: "Partial knowledge of internals; combines black- and white-box advantages.",
-      visibility: 50,
-      colorScheme: "medium",
-      techniques: [
-        { id: "combined", name: "\u7D50\u5408\u9ED1\u76D2\u8207\u767D\u76D2", nameEn: "Combined Approach", description: "\u9748\u6D3B\u904B\u7528\u5169\u7A2E\u65B9\u6CD5\u7684\u6E2C\u8A66\u7B56\u7565", descriptionEn: "Flexible mix of both black- and white-box strategies." },
-        { id: "partial", name: "\u90E8\u5206\u4EE3\u78BC\u53EF\u898B", nameEn: "Partial Code Visibility", description: "\u5229\u7528\u53EF\u898B\u7684\u90E8\u5206\u5BE6\u73FE\u8F14\u52A9\u8A2D\u8A08\u6E2C\u8A66", descriptionEn: "Use the visible portion of the code to guide test design." }
-      ]
-    }
+  // src/data/explorerUnits.js
+  var EXPLORER_UNITS = [
+    { id: "testing-method-tree", componentName: "TestingMethodTree" },
+    { id: "testing-flow", componentName: "TestingFlow" },
+    { id: "defect-cost", componentName: "DefectCostExplorer" },
+    { id: "v-model", componentName: "VModelExplorer" },
+    { id: "testing-types-table", componentName: "TestingTypesTable" },
+    { id: "pyramid-adjuster", componentName: "PyramidAdjusterExplorer" },
+    { id: "graph-coverage", componentName: "GraphCoverageExplorer" },
+    { id: "logic-coverage", componentName: "LogicCoverageExplorer" },
+    { id: "code-coverage", componentName: "CodeCoverageExplorer" },
+    { id: "syntax-coverage", componentName: "SyntaxCoverageExplorer", quizId: "mutation-testing" },
+    { id: "grammar-coverage", componentName: "GrammarCoverageExplorer" },
+    { id: "spec-mutation", componentName: "SpecMutationExplorer" },
+    { id: "symbolic-execution", componentName: "SymbolicExecutionExplorer" },
+    { id: "concolic-execution", componentName: "ConcolicExecutionExplorer" },
+    { id: "fuzz-testing", componentName: "FuzzTestingExplorer" },
+    { id: "test-generation", componentName: "TestGenerationExplorer" },
+    { id: "integration-testing", componentName: "IntegrationTestingExplorer" },
+    { id: "property-based-testing", componentName: "PropertyBasedTestingExplorer" },
+    { id: "risk-based-testing", componentName: "RiskBasedTestingExplorer" },
+    { id: "boundary-value", componentName: "BoundaryValueExplorer", quizId: "boundary-value-equivalence" },
+    { id: "equivalence-class", componentName: "EquivalenceClassExplorer", quizId: "boundary-value-equivalence" },
+    { id: "input-space-partitioning", componentName: "InputSpacePartitioningExplorer" },
+    { id: "decision-table", componentName: "DecisionTableExplorer" },
+    { id: "state-transition", componentName: "StateTransitionExplorer" },
+    { id: "pairwise", componentName: "PairwiseExplorer" },
+    { id: "cause-effect", componentName: "CauseEffectExplorer" },
+    { id: "metamorphic-testing", componentName: "MetamorphicTestingExplorer" },
+    { id: "exploratory-testing", componentName: "ExploratoryTestingExplorer" },
+    { id: "test-doubles", componentName: "TestDoublesExplorer" },
+    { id: "group-theory", componentName: "GroupTheoryExplorer" },
+    { id: "equivalent-mutant", componentName: "EquivalentMutantExplorer", quizId: "mutation-testing" },
+    { id: "mutation-score", componentName: "MutationScoreExplorer", quizId: "mutation-testing" },
+    { id: "llm-pipeline", componentName: "LLMPipelineExplorer" },
+    { id: "test-quality", componentName: "TestQualityExplorer" },
+    { id: "fault-directed-testing", componentName: "FaultDirectedTestingExplorer" },
+    { id: "sailor-pipeline", componentName: "SAILORPipelineExplorer" },
+    { id: "bdd-gherkin", componentName: "BDDGherkinExplorer" },
+    { id: "use-case-derivation", componentName: "UseCaseDerivationExplorer" },
+    { id: "e2e-user-journey", componentName: "E2EUserJourneyExplorer" },
+    { id: "contract-testing", componentName: "ContractTestingExplorer" },
+    { id: "performance-load-profile", componentName: "PerformanceLoadProfileExplorer" },
+    { id: "chaos-engineering", componentName: "ChaosEngineeringExplorer" },
+    { id: "atdd-cycle", componentName: "ATDDCycleExplorer" },
+    { id: "flaky-diagnosis", componentName: "FlakyDiagnosisExplorer" },
+    { id: "mbt-workflow", componentName: "MBTWorkflowExplorer" },
+    { id: "fsm-test-generation", componentName: "FSMTestGenerationExplorer" },
+    { id: "w-method-conformance", componentName: "WMethodConformanceExplorer" },
+    { id: "efsm-guarded-transition", componentName: "EFSMGuardedTransitionExplorer" },
+    { id: "usage-model-statistical", componentName: "UsageModelStatisticalExplorer" },
+    { id: "model-mutation", componentName: "ModelMutationExplorer" },
+    { id: "agile-quadrants", componentName: "AgileQuadrantsExplorer" },
+    { id: "sprint-cadence", componentName: "SprintCadenceExplorer" },
+    { id: "definition-gates", componentName: "DefinitionGatesExplorer" },
+    { id: "example-mapping", componentName: "ExampleMappingExplorer" },
+    { id: "continuous-testing-pipeline", componentName: "ContinuousTestingPipelineExplorer" },
+    { id: "regression-debt", componentName: "RegressionDebtExplorer" },
+    { id: "program-slicing", componentName: "ProgramSlicingExplorer" },
+    { id: "slice-dicing", componentName: "SliceDicingExplorer" },
+    { id: "slice-coverage", componentName: "SliceCoverageExplorer" },
+    { id: "slice-regression", componentName: "SliceRegressionExplorer" },
+    { id: "tdd-cycle", componentName: "TddCycleExplorer" },
+    { id: "tdd-rules", componentName: "TddRulesExplorer" },
+    { id: "exploit-overflow", componentName: "ExploitOverflowExplorer" },
+    { id: "exploit-sqli", componentName: "ExploitSqliExplorer" },
+    { id: "exploit-cmdi", componentName: "ExploitCmdiExplorer" },
+    { id: "exploit-path", componentName: "ExploitPathExplorer" },
+    { id: "sbst-branch", componentName: "SbstBranchExplorer" },
+    { id: "sbst-compare", componentName: "SbstCompareExplorer" },
+    { id: "sbst-suite", componentName: "SbstSuiteExplorer" }
   ];
-  var testingFlow = [
-    { id: "req", label: "\u9700\u6C42\u5206\u6790", labelEn: "Requirements", icon: "\u{1F4CB}", description: "\u5206\u6790\u8EDF\u9AD4\u9700\u6C42\uFF0C\u78BA\u5B9A\u6E2C\u8A66\u76EE\u6A19\u8207\u7BC4\u570D", descriptionEn: "Analyze requirements; determine test goals and scope." },
-    { id: "plan", label: "\u6E2C\u8A66\u8A08\u5283", labelEn: "Test Plan", icon: "\u{1F4DD}", description: "\u5236\u5B9A\u6E2C\u8A66\u7B56\u7565\u3001\u8CC7\u6E90\u5206\u914D\u8207\u9032\u5EA6\u8A08\u5283", descriptionEn: "Define test strategy, resource allocation, and schedule." },
-    { id: "design", label: "\u6E2C\u8A66\u8A2D\u8A08", labelEn: "Test Design", icon: "\u270F\uFE0F", description: "\u8A2D\u8A08\u6E2C\u8A66\u7528\u4F8B\u3001\u8173\u672C\u8207\u6E2C\u8A66\u6578\u64DA", descriptionEn: "Design test cases, scripts, and test data." },
-    { id: "exec", label: "\u6E2C\u8A66\u57F7\u884C", labelEn: "Execution", icon: "\u25B6\uFE0F", description: "\u57F7\u884C\u6E2C\u8A66\u7528\u4F8B\uFF0C\u8A18\u9304\u5BE6\u969B\u8207\u9810\u671F\u7D50\u679C", descriptionEn: "Execute test cases; record actual vs. expected results." },
-    { id: "analysis", label: "\u7D50\u679C\u5206\u6790", labelEn: "Analysis", icon: "\u{1F50D}", description: "\u6BD4\u8F03\u7D50\u679C\uFF0C\u8B58\u5225\u7F3A\u9677\u4E26\u8A55\u4F30\u6E2C\u8A66\u8986\u84CB\u7387", descriptionEn: "Compare results, identify defects, and assess coverage." },
-    { id: "report", label: "\u7F3A\u9677\u5831\u544A", labelEn: "Defect Report", icon: "\u{1F4CA}", description: "\u64B0\u5BEB\u6E2C\u8A66\u5831\u544A\uFF0C\u8FFD\u8E64\u7F3A\u9677\u4FEE\u5FA9\u72C0\u614B", descriptionEn: "Write reports and track defect-fix status." }
-  ];
-  var testingTypes = [
-    { id: "unit", type: "\u55AE\u5143\u6E2C\u8A66", typeEn: "Unit Testing", purpose: "\u6E2C\u8A66\u6700\u5C0F\u55AE\u4F4D", purposeEn: "Test the smallest units of code.", timing: "\u958B\u767C\u968E\u6BB5", timingEn: "Development", color: "#3498db", width: 30 },
-    { id: "integration", type: "\u96C6\u6210\u6E2C\u8A66", typeEn: "Integration Testing", purpose: "\u6E2C\u8A66\u6A21\u7D44\u7D44\u5408", purposeEn: "Test combinations of modules.", timing: "\u958B\u767C\u5F8C\u671F", timingEn: "Late development", color: "#27ae60", width: 55 },
-    { id: "system", type: "\u7CFB\u7D71\u6E2C\u8A66", typeEn: "System Testing", purpose: "\u6E2C\u8A66\u6574\u9AD4\u7CFB\u7D71", purposeEn: "Test the system as a whole.", timing: "\u96C6\u6210\u5B8C\u6210\u5F8C", timingEn: "After integration", color: "#f39c12", width: 80 },
-    { id: "acceptance", type: "\u9A57\u6536\u6E2C\u8A66", typeEn: "Acceptance Testing", purpose: "\u9A57\u8B49\u9700\u6C42\u9054\u6210", purposeEn: "Verify requirements are satisfied.", timing: "\u90E8\u7F72\u524D", timingEn: "Before deployment", color: "#e74c3c", width: 100 }
-  ];
-  var graphCoverageCriteria = [
-    { id: "node", label: "Node Coverage", labelZh: "\u7BC0\u9EDE\u8986\u84CB", description: "\u6BCF\u500B\u7BC0\u9EDE\u81F3\u5C11\u88AB\u4E00\u500B\u6E2C\u8A66\u8DEF\u5F91\u62DC\u8A2A\u4E00\u6B21\u3002", descriptionEn: "Every node is visited by at least one test path." },
-    { id: "edge", label: "Edge Coverage", labelZh: "\u908A\u8986\u84CB", description: "\u6BCF\u689D\u6709\u5411\u908A\u81F3\u5C11\u88AB\u4E00\u500B\u6E2C\u8A66\u8DEF\u5F91\u7D93\u904E\u4E00\u6B21\u3002", descriptionEn: "Every directed edge is traversed by at least one test path." },
-    { id: "prime-path", label: "Prime Path Coverage", labelZh: "Prime Path \u8986\u84CB", description: "\u6240\u6709 prime path \u90FD\u5FC5\u9808\u88AB\u6E2C\u8A66\u9700\u6C42\u6DB5\u84CB\uFF0C\u5305\u542B\u8FF4\u5708\u3002", descriptionEn: "All prime paths (including loops) must be covered." },
-    { id: "edge-pair", label: "Edge-Pair Coverage", labelZh: "\u908A\u5C0D\u8986\u84CB", description: "\u6BCF\u4E00\u7D44\u76F8\u9130\u7684\u5169\u689D\u908A\u90FD\u8981\u81F3\u5C11\u88AB\u4E00\u689D\u6E2C\u8A66\u8DEF\u5F91\u8986\u84CB\u3002", descriptionEn: "Every pair of adjacent edges must be covered by some test path." },
-    { id: "complete-path", label: "Complete Path Coverage", labelZh: "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB", description: "\u4EE5\u6709\u9650\u6DF1\u5EA6\u5217\u8209 start \u5230 end \u7684\u5B8C\u6574\u53EF\u884C\u8DEF\u5F91\u96C6\u5408\u3002", descriptionEn: "Enumerate all complete feasible paths from start to end up to a finite depth." },
-    { id: "all-defs", label: "All-Defs Coverage", labelZh: "\u6240\u6709\u5B9A\u7FA9\u8986\u84CB", description: "\u5C0D\u65BC\u6BCF\u500B (\u7BC0\u9EDE, \u8B8A\u6578) \u7684\u5B9A\u7FA9\uFF0C\u81F3\u5C11\u6709\u4E00\u689D\u5F9E\u8A72\u5B9A\u7FA9\u5230\u67D0\u500B\u4F7F\u7528\u7684 def-clear \u8DEF\u5F91\u88AB\u8986\u84CB\u3002", descriptionEn: "For every (node, variable) definition, cover at least one definition-clear path from the def to some use of that variable." },
-    { id: "all-uses", label: "All-Uses Coverage", labelZh: "\u6240\u6709\u4F7F\u7528\u8986\u84CB", description: "\u5C0D\u65BC\u6BCF\u5C0D (\u5B9A\u7FA9, \u4F7F\u7528, \u8B8A\u6578)\uFF0C\u81F3\u5C11\u6709\u4E00\u689D def-clear \u8DEF\u5F91\u88AB\u6E2C\u8A66\u8DEF\u5F91\u8986\u84CB\u3002", descriptionEn: "For every (def, use, variable) pair, cover at least one definition-clear path from the def to that use." },
-    { id: "all-du-paths", label: "All-DU-Paths Coverage", labelZh: "\u6240\u6709 DU \u8DEF\u5F91\u8986\u84CB", description: "\u5C0D\u65BC\u6BCF\u5C0D (\u5B9A\u7FA9, \u4F7F\u7528, \u8B8A\u6578)\uFF0C\u6240\u6709 def-clear \u7C21\u55AE\u8DEF\u5F91\u90FD\u5FC5\u9808\u88AB\u6E2C\u8A66\u8DEF\u5F91\u8986\u84CB\u3002", descriptionEn: "For every (def, use, variable) pair, every definition-clear simple path from the def to that use must be covered." }
-  ];
-  var graphCoverageCodeLanguages = [
-    { id: "javascript", label: "JavaScript" },
-    { id: "pseudocode", label: "Pseudo Code" }
-  ];
-  var graphCoverageGraph = {
-    id: "control-flow-sample",
-    title: "\u63A7\u5236\u6D41\u7A0B\u5716\u7BC4\u4F8B",
-    titleEn: "Sample Control Flow Graph",
-    startNodeId: "S",
-    endNodeId: "T",
-    nodes: [
-      { id: "S", label: "Start", x: 80, y: 170, kind: "start" },
-      { id: "A", label: "A", x: 210, y: 170, kind: "decision" },
-      { id: "B", label: "B", x: 360, y: 80, kind: "node" },
-      { id: "C", label: "C", x: 360, y: 260, kind: "node" },
-      { id: "D", label: "D", x: 520, y: 170, kind: "decision" },
-      { id: "E", label: "E", x: 680, y: 80, kind: "node" },
-      { id: "F", label: "F", x: 680, y: 260, kind: "node" },
-      { id: "T", label: "End", x: 840, y: 170, kind: "end" }
-    ],
-    edges: [
-      { id: "S-A", from: "S", to: "A" },
-      { id: "A-B", from: "A", to: "B" },
-      { id: "A-C", from: "A", to: "C" },
-      { id: "B-D", from: "B", to: "D" },
-      { id: "C-D", from: "C", to: "D" },
-      { id: "D-E", from: "D", to: "E" },
-      { id: "D-F", from: "D", to: "F" },
-      { id: "E-B", from: "E", to: "B", control: { x: 520, y: -10 } },
-      { id: "E-T", from: "E", to: "T" },
-      { id: "F-T", from: "F", to: "T" }
-    ]
+  var UNIT_BY_ID = new Map(EXPLORER_UNITS.map((u) => [u.id, u]));
+  var UNIT_BY_COMPONENT = new Map(EXPLORER_UNITS.map((u) => [u.componentName, u]));
+  function resolveUnit(param) {
+    var _a, _b;
+    if (!param) return null;
+    return (_b = (_a = UNIT_BY_ID.get(param)) != null ? _a : UNIT_BY_COMPONENT.get(param)) != null ? _b : null;
+  }
+
+  // src/utils/urlRouter.js
+  var TAB_SECTIONS = {
+    syntax: { tabs: ["mutation", "grammar", "spec"], default: "mutation" },
+    blackbox: { tabs: ["bva", "ec", "isp", "dt", "st", "mt", "et", "td", "pairwise", "ceg"], default: "bva" },
+    advanced: { tabs: ["equivmutant", "mutationscore", "llmpipeline", "testquality", "faultdirected", "sailor"], default: "equivmutant" },
+    flow: { tabs: ["flow", "defectCost", "vmodel"], default: "flow" },
+    types: { tabs: ["pyramid", "adjuster"], default: "pyramid" },
+    // J-series acceptance tabs grow as J2-J8 land; J1 ships 'gherkin'.
+    acceptance: { tabs: ["gherkin", "usecase", "e2ejourney", "contract", "perfload", "chaos", "atdd", "flaky"], default: "gherkin" },
+    // L-series model-based tabs — L1-L6 complete.
+    mbt: { tabs: ["workflow", "fsmgen", "wmethod", "efsm", "usage", "modelmut"], default: "workflow" },
+    // M-series agile tabs — M1-M6 complete.
+    agile: { tabs: ["quadrants", "cadence", "gates", "examplemap", "pipeline", "regression"], default: "quadrants" },
+    // Section N — slice-based testing. N1 ships 'program'; N2-N4 tabs are
+    // added to this list as their plans land.
+    slicing: { tabs: ["program", "dicing", "coverage", "regression"], default: "program" },
+    // Section O — TDD. O1 ships 'cycle'; O2 ships 'rules'.
+    tdd: { tabs: ["cycle", "rules"], default: "cycle" },
+    // Section P — Exploit Generation. P1 ships 'overflow'; P2-P3 will add 'sqli', 'cmdi'.
+    exploit: { tabs: ["overflow", "sqli", "cmdi", "path"], default: "overflow" },
+    // Section — Search-Based Software Testing.
+    sbst: { tabs: ["branch", "compare", "suite"], default: "branch" }
   };
-  var graphCoverageProgramExamples = [
-    {
-      id: "triangle-problem",
-      name: "Triangle Problem",
-      language: "javascript",
-      description: "Classic triangle classification logic with validity, equilateral, isosceles, and scalene branches.",
-      sourceCode: `function classifyTriangle(a, b, c) {
-  if (a <= 0 || b <= 0 || c <= 0) {
-    return 'invalid';
-  }
-
-  if (a + b <= c || a + c <= b || b + c <= a) {
-    return 'invalid';
-  }
-
-  if (a === b && b === c) {
-    return 'equilateral';
-  }
-
-  if (a === b || b === c || a === c) {
-    return 'isosceles';
-  }
-
-  return 'scalene';
-}`,
-      graph: {
-        id: "triangle-problem-cfg",
-        title: "Triangle Problem Control Flow Graph",
-        startNodeId: "S",
-        endNodeId: "T",
-        nodes: [
-          { id: "S", label: "Start", x: 80, y: 180, kind: "start" },
-          { id: "V", label: "Positive?", x: 220, y: 180, kind: "decision" },
-          { id: "R1", label: "Invalid", x: 380, y: 70, kind: "node" },
-          { id: "I", label: "Triangle?", x: 380, y: 180, kind: "decision" },
-          { id: "E", label: "Equilateral?", x: 560, y: 100, kind: "decision" },
-          { id: "J", label: "Isosceles?", x: 560, y: 260, kind: "decision" },
-          { id: "R2", label: "Equilateral", x: 740, y: 60, kind: "node" },
-          { id: "R3", label: "Isosceles", x: 740, y: 180, kind: "node" },
-          { id: "R4", label: "Scalene", x: 740, y: 300, kind: "node" },
-          { id: "T", label: "End", x: 880, y: 180, kind: "end" }
-        ],
-        edges: [
-          { id: "S-V", from: "S", to: "V" },
-          { id: "V-R1", from: "V", to: "R1" },
-          { id: "V-I", from: "V", to: "I" },
-          { id: "I-R1", from: "I", to: "R1" },
-          { id: "I-E", from: "I", to: "E" },
-          { id: "E-R2", from: "E", to: "R2" },
-          { id: "E-J", from: "E", to: "J" },
-          { id: "J-R3", from: "J", to: "R3" },
-          { id: "J-R4", from: "J", to: "R4" },
-          { id: "R1-T", from: "R1", to: "T" },
-          { id: "R2-T", from: "R2", to: "T" },
-          { id: "R3-T", from: "R3", to: "T" },
-          { id: "R4-T", from: "R4", to: "T" }
-        ]
-      }
-    },
-    {
-      id: "next-date",
-      name: "Next Date",
-      language: "javascript",
-      description: "A simplified next-date program that validates the date, advances within a month, and handles year rollover.",
-      sourceCode: `function nextDate(year, month, day) {
-  if (!isValidDate(year, month, day)) {
-    return 'invalid';
-  }
-
-  if (day < daysInMonth(year, month)) {
-    return { year, month, day: day + 1 };
-  }
-
-  if (month === 12) {
-    return { year: year + 1, month: 1, day: 1 };
-  }
-
-  return { year, month: month + 1, day: 1 };
-}`,
-      graph: {
-        id: "next-date-cfg",
-        title: "Next Date Control Flow Graph",
-        startNodeId: "S",
-        endNodeId: "T",
-        nodes: [
-          { id: "S", label: "Start", x: 80, y: 180, kind: "start" },
-          { id: "V", label: "Valid Date?", x: 230, y: 180, kind: "decision" },
-          { id: "R1", label: "Invalid", x: 410, y: 70, kind: "node" },
-          { id: "D", label: "Day < Max?", x: 410, y: 180, kind: "decision" },
-          { id: "R2", label: "Next Day", x: 610, y: 70, kind: "node" },
-          { id: "M", label: "Month=12?", x: 610, y: 250, kind: "decision" },
-          { id: "R3", label: "Next Year", x: 790, y: 140, kind: "node" },
-          { id: "R4", label: "Next Month", x: 790, y: 300, kind: "node" },
-          { id: "T", label: "End", x: 900, y: 220, kind: "end" }
-        ],
-        edges: [
-          { id: "S-V", from: "S", to: "V" },
-          { id: "V-R1", from: "V", to: "R1" },
-          { id: "V-D", from: "V", to: "D" },
-          { id: "D-R2", from: "D", to: "R2" },
-          { id: "D-M", from: "D", to: "M" },
-          { id: "M-R3", from: "M", to: "R3" },
-          { id: "M-R4", from: "M", to: "R4" },
-          { id: "R1-T", from: "R1", to: "T" },
-          { id: "R2-T", from: "R2", to: "T" },
-          { id: "R3-T", from: "R3", to: "T" },
-          { id: "R4-T", from: "R4", to: "T" }
-        ]
-      }
-    },
-    {
-      id: "commission-problem",
-      name: "Commission Problem",
-      language: "javascript",
-      description: "A classic sales commission example with threshold-based decision logic.",
-      sourceCode: `function commission(locks, stocks, barrels) {
-  if (locks < 1 || stocks < 1 || barrels < 1) {
-    return 'invalid';
-  }
-
-  const sales = locks * 45 + stocks * 30 + barrels * 25;
-
-  if (sales <= 1000) {
-    return sales * 0.1;
-  }
-
-  if (sales <= 1800) {
-    return 100 + (sales - 1000) * 0.15;
-  }
-
-  return 220 + (sales - 1800) * 0.2;
-}`
-    },
-    {
-      id: "next-date-leap-year",
-      name: "Next Date Leap-Year Variant",
-      language: "javascript",
-      description: "A next-date variant that separates leap-year February handling from other month transitions.",
-      sourceCode: `function nextDateLeapYear(year, month, day) {
-  if (!isValidDate(year, month, day)) {
-    return 'invalid';
-  }
-
-  if (month === 2 && isLeapYear(year) && day === 28) {
-    return { year, month: 2, day: 29 };
-  }
-
-  if (day < daysInMonth(year, month)) {
-    return { year, month, day: day + 1 };
-  }
-
-  if (month === 12) {
-    return { year: year + 1, month: 1, day: 1 };
-  }
-
-  return { year, month: month + 1, day: 1 };
-}`
-    },
-    {
-      id: "calendar-days",
-      name: "Calendar Days Switch Variant",
-      language: "javascript",
-      description: "A calendar-style example using switch-case branches to classify month lengths.",
-      sourceCode: `function daysInMonth(month, leapYear) {
-  switch (month) {
-    case 2:
-      if (leapYear) {
-        return 29;
-      }
-      break;
-    case 4:
-    case 6:
-    case 9:
-    case 11:
-      return 30;
-    default:
-      return 31;
-  }
-}`
-    },
-    {
-      id: "quadrilateral-problem",
-      name: "The Quadrilateral Program",
-      language: "javascript",
-      description: "Classify a quadrilateral from four side lengths and two diagonals into square, rectangle, rhombus, parallelogram, trapezoid, or general.",
-      sourceCode: `function classifyQuadrilateral(a, b, c, d, p, q) {
-  if (a <= 0 || b <= 0 || c <= 0 || d <= 0) {
-    return 'invalid';
-  }
-
-  if (a === b && b === c && c === d) {
-    if (p === q) {
-      return 'square';
-    }
-    return 'rhombus';
-  }
-
-  if (a === c && b === d) {
-    if (p === q) {
-      return 'rectangle';
-    }
-    return 'parallelogram';
-  }
-
-  if (a === c || b === d) {
-    return 'trapezoid';
-  }
-
-  return 'general';
-}`
-    },
-    {
-      id: "next-week",
-      name: "Next Week",
-      language: "javascript",
-      description: "Advance a date by seven days, handling month-end and year rollover.",
-      sourceCode: `function nextWeek(year, month, day) {
-  if (!isValidDate(year, month, day)) {
-    return 'invalid';
-  }
-
-  let newDay = day + 7;
-  let newMonth = month;
-  let newYear = year;
-  const limit = daysInMonth(newYear, newMonth);
-
-  if (newDay > limit) {
-    newDay = newDay - limit;
-    if (newMonth === 12) {
-      newMonth = 1;
-      newYear = newYear + 1;
+  var EXPLORER_TO_LOCATION = {
+    TestingMethodTree: { section: "methods" },
+    TestingFlow: { section: "flow", tab: "flow" },
+    DefectCostExplorer: { section: "flow", tab: "defectCost" },
+    VModelExplorer: { section: "flow", tab: "vmodel" },
+    TestingTypesTable: { section: "types", tab: "pyramid" },
+    PyramidAdjusterExplorer: { section: "types", tab: "adjuster" },
+    GraphCoverageExplorer: { section: "graph" },
+    LogicCoverageExplorer: { section: "logic" },
+    CodeCoverageExplorer: { section: "codecov" },
+    SyntaxCoverageExplorer: { section: "syntax", tab: "mutation" },
+    GrammarCoverageExplorer: { section: "syntax", tab: "grammar" },
+    SpecMutationExplorer: { section: "syntax", tab: "spec" },
+    SymbolicExecutionExplorer: { section: "symbex" },
+    ConcolicExecutionExplorer: { section: "concolic" },
+    FuzzTestingExplorer: { section: "fuzz" },
+    TestGenerationExplorer: { section: "testgen" },
+    IntegrationTestingExplorer: { section: "inttest" },
+    PropertyBasedTestingExplorer: { section: "pbt" },
+    RiskBasedTestingExplorer: { section: "rbt" },
+    BoundaryValueExplorer: { section: "blackbox", tab: "bva" },
+    EquivalenceClassExplorer: { section: "blackbox", tab: "ec" },
+    InputSpacePartitioningExplorer: { section: "blackbox", tab: "isp" },
+    DecisionTableExplorer: { section: "blackbox", tab: "dt" },
+    StateTransitionExplorer: { section: "blackbox", tab: "st" },
+    PairwiseExplorer: { section: "blackbox", tab: "pairwise" },
+    CauseEffectExplorer: { section: "blackbox", tab: "ceg" },
+    MetamorphicTestingExplorer: { section: "blackbox", tab: "mt" },
+    ExploratoryTestingExplorer: { section: "blackbox", tab: "et" },
+    TestDoublesExplorer: { section: "blackbox", tab: "td" },
+    GroupTheoryExplorer: { section: "groupth" },
+    EquivalentMutantExplorer: { section: "advanced", tab: "equivmutant" },
+    MutationScoreExplorer: { section: "advanced", tab: "mutationscore" },
+    LLMPipelineExplorer: { section: "advanced", tab: "llmpipeline" },
+    TestQualityExplorer: { section: "advanced", tab: "testquality" },
+    FaultDirectedTestingExplorer: { section: "advanced", tab: "faultdirected" },
+    SAILORPipelineExplorer: { section: "advanced", tab: "sailor" },
+    BDDGherkinExplorer: { section: "acceptance", tab: "gherkin" },
+    UseCaseDerivationExplorer: { section: "acceptance", tab: "usecase" },
+    E2EUserJourneyExplorer: { section: "acceptance", tab: "e2ejourney" },
+    ContractTestingExplorer: { section: "acceptance", tab: "contract" },
+    PerformanceLoadProfileExplorer: { section: "acceptance", tab: "perfload" },
+    ChaosEngineeringExplorer: { section: "acceptance", tab: "chaos" },
+    ATDDCycleExplorer: { section: "acceptance", tab: "atdd" },
+    FlakyDiagnosisExplorer: { section: "acceptance", tab: "flaky" },
+    MBTWorkflowExplorer: { section: "mbt", tab: "workflow" },
+    FSMTestGenerationExplorer: { section: "mbt", tab: "fsmgen" },
+    WMethodConformanceExplorer: { section: "mbt", tab: "wmethod" },
+    EFSMGuardedTransitionExplorer: { section: "mbt", tab: "efsm" },
+    UsageModelStatisticalExplorer: { section: "mbt", tab: "usage" },
+    ModelMutationExplorer: { section: "mbt", tab: "modelmut" },
+    AgileQuadrantsExplorer: { section: "agile", tab: "quadrants" },
+    SprintCadenceExplorer: { section: "agile", tab: "cadence" },
+    DefinitionGatesExplorer: { section: "agile", tab: "gates" },
+    ExampleMappingExplorer: { section: "agile", tab: "examplemap" },
+    ContinuousTestingPipelineExplorer: { section: "agile", tab: "pipeline" },
+    RegressionDebtExplorer: { section: "agile", tab: "regression" },
+    ProgramSlicingExplorer: { section: "slicing", tab: "program" },
+    SliceDicingExplorer: { section: "slicing", tab: "dicing" },
+    SliceCoverageExplorer: { section: "slicing", tab: "coverage" },
+    SliceRegressionExplorer: { section: "slicing", tab: "regression" },
+    TddCycleExplorer: { section: "tdd", tab: "cycle" },
+    TddRulesExplorer: { section: "tdd", tab: "rules" },
+    ExploitOverflowExplorer: { section: "exploit", tab: "overflow" },
+    ExploitSqliExplorer: { section: "exploit", tab: "sqli" },
+    ExploitCmdiExplorer: { section: "exploit", tab: "cmdi" },
+    ExploitPathExplorer: { section: "exploit", tab: "path" },
+    SbstBranchExplorer: { section: "sbst", tab: "branch" },
+    SbstCompareExplorer: { section: "sbst", tab: "compare" },
+    SbstSuiteExplorer: { section: "sbst", tab: "suite" }
+  };
+  var FILTER_DIMS = ["level", "technique", "series", "difficulty"];
+  function parseAppLocation(search, hash) {
+    var _a;
+    const params = new URLSearchParams(search != null ? search : "");
+    const out = {};
+    const explorerRaw = params.get("explorer");
+    const unit = resolveUnit(explorerRaw);
+    if (explorerRaw && unit && EXPLORER_TO_LOCATION[unit.componentName]) {
+      const loc = EXPLORER_TO_LOCATION[unit.componentName];
+      out.explorer = unit.componentName;
+      out.unitId = unit.id;
+      out.section = loc.section;
+      if (loc.tab) out.tab = loc.tab;
     } else {
-      newMonth = newMonth + 1;
-    }
-  }
-
-  return { year: newYear, month: newMonth, day: newDay };
-}`
-    }
-  ];
-  var logicCoverageCriteria = [
-    {
-      id: "pc",
-      label: "Predicate Coverage",
-      labelZh: "Predicate Coverage",
-      description: "\u4F7F\u6574\u9AD4 predicate \u81F3\u5C11\u8A55\u4F30\u70BA true \u8207 false \u5404\u4E00\u6B21\u3002",
-      descriptionEn: "The predicate as a whole evaluates to true and to false at least once each."
-    },
-    {
-      id: "cc",
-      label: "Clause Coverage",
-      labelZh: "\u5B50\u53E5\u8986\u84CB",
-      description: "\u6BCF\u500B\u5B50\u53E5\u7686\u81F3\u5C11\u5404\u53D6 true \u8207 false \u4E00\u6B21\u3002",
-      descriptionEn: "Every clause takes both true and false at least once."
-    },
-    {
-      id: "coc",
-      label: "Combinatorial Coverage",
-      labelZh: "\u7D44\u5408\u8986\u84CB",
-      description: "\u5217\u8209\u6240\u6709 2^n \u500B\u5B50\u53E5\u771F\u5047\u7D44\u5408\u3002",
-      descriptionEn: "Enumerate all 2^n true/false combinations of the clauses."
-    },
-    {
-      id: "gacc",
-      label: "General Active Clause Coverage",
-      labelZh: "GACC",
-      description: "\u5C0D\u6BCF\u500B\u4E3B\u5B50\u53E5\u627E\u4E00\u5C0D\u5217\uFF0C\u4F7F\u8A72\u5B50\u53E5\u6C7A\u5B9A predicate \u7684\u503C\u3002",
-      descriptionEn: "For each major clause find a pair of rows where it determines the predicate."
-    },
-    {
-      id: "cacc",
-      label: "Correlated Active Clause Coverage",
-      labelZh: "CACC",
-      description: "\u4E3B\u5B50\u53E5\u6C7A\u5B9A predicate\uFF0C\u4E14\u5169\u5217\u7522\u751F\u4E0D\u540C\u7684 predicate \u503C\u3002",
-      descriptionEn: "Major clause determines the predicate, and the two rows yield different predicate values."
-    },
-    {
-      id: "racc",
-      label: "Restricted Active Clause Coverage",
-      labelZh: "RACC",
-      description: "\u4E3B\u5B50\u53E5\u6C7A\u5B9A predicate\uFF0C\u4E14\u5169\u5217\u7684\u6B21\u5B50\u53E5\u503C\u5B8C\u5168\u76F8\u540C\u3002",
-      descriptionEn: "Major clause determines the predicate, and the two rows have identical minor-clause values."
-    },
-    {
-      id: "gicc",
-      label: "General Inactive Clause Coverage",
-      labelZh: "GICC",
-      description: "\u4E3B\u5B50\u53E5\u4E0D\u6C7A\u5B9A predicate\uFF0C\u8986\u84CB (c=T/F)\xD7(P=T/F) \u5171 4 \u7A2E\u7D44\u5408\u3002",
-      descriptionEn: "Major clause does not determine the predicate; cover (c=T/F)\xD7(P=T/F) \u2014 four combinations."
-    },
-    {
-      id: "ricc",
-      label: "Restricted Inactive Clause Coverage",
-      labelZh: "RICC",
-      description: "\u540C GICC\uFF0C\u4F46\u6210\u5C0D\u5217\u9700\u6240\u6709\u6B21\u5B50\u53E5\u76F8\u540C\uFF0C\u50C5\u4E3B\u5B50\u53E5\u7FFB\u8F49\u3002",
-      descriptionEn: "Same as GICC but the paired rows keep all minor clauses identical; only the major clause flips."
-    },
-    {
-      id: "ic",
-      label: "Implicant Coverage",
-      labelZh: "IC",
-      description: "\u5C0D DNF \u7684\u6BCF\u500B implicant\uFF0C\u81F3\u5C11\u627E\u5230\u4E00\u500B true point\u3002",
-      descriptionEn: "For every implicant of the DNF, find at least one true point."
-    },
-    {
-      id: "utpc",
-      label: "Unique True Point Coverage",
-      labelZh: "UTPC",
-      description: "\u70BA\u6BCF\u500B implicant \u6311\u4E00\u500B\u53EA\u6EFF\u8DB3\u8A72 implicant \u7684 unique true point\u3002",
-      descriptionEn: "For every implicant pick a unique true point that satisfies only that implicant."
-    },
-    {
-      id: "mutpc",
-      label: "Multiple Unique True Point Coverage",
-      labelZh: "MUTPC",
-      description: "\u70BA\u6BCF\u500B implicant \u6311\u4E00\u7D44 UTPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002",
-      descriptionEn: "For every implicant pick a set of UTPs such that each minor clause takes both T and F."
-    },
-    {
-      id: "nfpc",
-      label: "Near False Point Coverage",
-      labelZh: "NFPC",
-      description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal \u627E\u4E00\u500B\u7FFB\u8F49\u5F8C\u4F7F P \u70BA false \u7684\u5217\u3002",
-      descriptionEn: "For every literal of every implicant find a row that, after flipping that literal, makes P false."
-    },
-    {
-      id: "mnfpc",
-      label: "Multiple Near False Point Coverage",
-      labelZh: "MNFPC",
-      description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal \u6311\u4E00\u7D44 NFPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002",
-      descriptionEn: "For every implicant pick a set of NFPs such that each minor clause takes both T and F."
-    },
-    {
-      id: "cutpnfp",
-      label: "Corresponding UTP + NFP Pair Coverage",
-      labelZh: "CUTPNFP",
-      description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal\uFF0C\u6311\u4E00\u5C0D\u50C5\u5728\u8A72 literal \u4E0D\u540C\u7684 UTP \u8207 NFP\u3002",
-      descriptionEn: "For every literal of every implicant pick a UTP/NFP pair that differs only in that literal."
-    }
-  ];
-  var logicCoveragePredicates = [
-    {
-      id: "simple-and-or",
-      name: "(a && b) || c",
-      expression: "(a && b) || c",
-      description: "\u5E38\u898B\u7684\u6DF7\u5408 AND/OR predicate\uFF0C\u4E09\u500B\u5B50\u53E5\u3002",
-      descriptionEn: "A common mixed AND/OR predicate with three clauses.",
-      defaultBindings: { a: "x > 0", b: "y > 0", c: "z === 0" },
-      bindingParams: "x, y, z",
-      sourceCode: `function f(x, y, z) {
-  if ((x > 0 && y > 0) || z === 0) {  // \u2190 (a && b) || c
-    return 'pass';
-  }
-  return 'fail';
-}`
-    },
-    {
-      id: "guarded-exit",
-      name: "a && (b || !c)",
-      expression: "a && (b || !c)",
-      description: "\u5E36\u6709\u5426\u5B9A\u5B50\u53E5\u7684\u5B88\u885B\u689D\u4EF6\u3002",
-      descriptionEn: "A guarded condition that includes a negated clause.",
-      defaultBindings: { a: "n > 0", b: "n % 2 === 0", c: "n > 100" },
-      bindingParams: "n",
-      sourceCode: `function process(n) {
-  if (n > 0 && (n % 2 === 0 || !(n > 100))) {  // \u2190 a && (b || !c)
-    return 'ok';
-  }
-  return 'skip';
-}`
-    },
-    {
-      id: "four-clause",
-      name: "(a || b) && (c || d)",
-      expression: "(a || b) && (c || d)",
-      description: "\u56DB\u500B\u5B50\u53E5\u7684\u4E58\u7A4D\u5F0F predicate\uFF0C\u5E38\u898B\u65BC\u7BC4\u570D\u6AA2\u67E5\u3002",
-      descriptionEn: "A four-clause product predicate, common in range checks.",
-      defaultBindings: { a: "x < 0", b: "x > 100", c: "y < 0", d: "y > 100" },
-      bindingParams: "x, y",
-      sourceCode: `function outOfBounds(x, y) {
-  if ((x < 0 || x > 100) && (y < 0 || y > 100)) {  // \u2190 (a||b) && (c||d)
-    return true;   // both axes out of range
-  }
-  return false;
-}`
-    },
-    {
-      id: "triangle-valid",
-      name: "Triangle valid",
-      expression: "a && b && c",
-      description: "\u4E09\u89D2\u5F62\u5408\u6CD5\u6027\uFF1A\u4E09\u908A\u6B63\u6578\u4E14\u4EFB\u610F\u5169\u908A\u4E4B\u548C\u5927\u65BC\u7B2C\u4E09\u908A\u3002",
-      descriptionEn: "Triangle validity: all sides positive and triangle inequality holds.",
-      defaultBindings: { a: "p > 0 && q > 0 && r > 0", b: "p + q > r", c: "p + r > q" },
-      bindingParams: "p, q, r",
-      sourceCode: `function isValidTriangle(p, q, r) {
-  if (p > 0 && q > 0 && r > 0   // \u2190 a
-      && p + q > r               // \u2190 b
-      && p + r > q) {            // \u2190 c
-    return 'valid';
-  }
-  return 'invalid';
-}`
-    },
-    {
-      id: "abs-predicate",
-      name: "abs(x) branch",
-      expression: "a",
-      description: "abs(x) \u51FD\u5F0F\u7684\u55AE\u4E00\u5206\u652F\u689D\u4EF6\uFF1Ax < 0 \u2192 \u56DE\u50B3 -x\u3002",
-      descriptionEn: "The single branch condition inside abs(x): x < 0 returns -x.",
-      defaultBindings: { a: "x < 0" },
-      bindingParams: "x",
-      sourceCode: `function abs(x) {
-  if (x < 0) {   // \u2190 a
-    return -x;
-  }
-  return x;
-}`
-    },
-    {
-      id: "max3-predicate",
-      name: "max3 branches",
-      expression: "a && b",
-      description: "max3 \u7684\u96D9\u5C64 if\uFF1Ax>y \u4E14 x>z \u6642 x \u70BA\u6700\u5927\u503C\u3002",
-      descriptionEn: "Nested ifs in max3: x is maximum when x>y and x>z.",
-      defaultBindings: { a: "x > y", b: "x > z" },
-      bindingParams: "x, y, z",
-      sourceCode: `function max3(x, y, z) {
-  if (x > y) {      // \u2190 a
-    if (x > z) {    // \u2190 b
-      return x;
-    }
-    return z;
-  }
-  if (y > z) { return y; }
-  return z;
-}`
-    },
-    {
-      id: "leap-year",
-      name: "isLeapYear(y)",
-      expression: "a && (b || c)",
-      description: "\u958F\u5E74\u5224\u65B7\uFF1A\u80FD\u88AB 4 \u6574\u9664\uFF0C\u4E14\uFF08\u4E0D\u80FD\u88AB 100 \u6574\u9664 \u6216 \u80FD\u88AB 400 \u6574\u9664\uFF09\u3002",
-      descriptionEn: "Leap year: divisible by 4 AND (not divisible by 100 OR divisible by 400).",
-      defaultBindings: { a: "y % 4 === 0", b: "y % 100 !== 0", c: "y % 400 === 0" },
-      bindingParams: "y",
-      sourceCode: `function isLeapYear(y) {
-  if (y % 4 === 0) {       // \u2190 a
-    if (y % 100 !== 0) {   // \u2190 b
-      return true;
-    }
-    if (y % 400 === 0) {   // \u2190 c
-      return true;
-    }
-  }
-  return false;
-}`
-    },
-    {
-      id: "gcd-step",
-      name: "gcdStep(a, b)",
-      expression: "p && q",
-      description: "Euclidean GCD \u7684\u4E00\u6B65\uFF1Ab>0 \u6642\u7E7C\u7E8C\uFF0Ca>b \u6642\u505A\u6E1B\u6CD5\u3002",
-      descriptionEn: "One step of Euclidean GCD: continue if b>0, subtract if a>b.",
-      defaultBindings: { p: "b > 0", q: "a > b" },
-      bindingParams: "a, b",
-      sourceCode: `function gcdStep(a, b) {
-  if (b > 0) {     // \u2190 p: still processing
-    if (a > b) {   // \u2190 q: subtract direction
-      return a - b;
-    }
-    return b - a;
-  }
-  return a;        // base case
-}`
-    },
-    {
-      id: "binary-search-step",
-      name: "binarySearch step",
-      expression: "q || r",
-      description: "Binary search \u7684\u6BD4\u8F03\u6B65\u9A5F\uFF1Atarget \u5C0F\u65BC\u6216\u5927\u65BC midVal \u6642\u5206\u5225\u5F80\u5DE6\u6216\u53F3\u8D70\u3002",
-      descriptionEn: "Binary search comparison: go left if target < midVal, right if target > midVal.",
-      defaultBindings: { q: "target < midVal", r: "target > midVal" },
-      bindingParams: "target, midVal",
-      sourceCode: `function searchStep(target, midVal) {
-  if (target < midVal) {   // \u2190 q: go left
-    return -1;
-  }
-  if (target > midVal) {   // \u2190 r: go right
-    return 1;
-  }
-  return 0;                // found
-}`
-    },
-    {
-      id: "calendar-month",
-      name: "calendarDays(m, leap)",
-      expression: "(a || b || c) && !(d)",
-      description: "\u6708\u4EFD\u5929\u6578\uFF1A\u6708\u4EFD\u70BA 1/3/5/7/8/10/12 (a)\uFF0C\u6216 4/6/9/11 (b)\uFF0C\u6216 2 (c)\uFF0C\u4E14\u975E\u958F\u5E74\u4E8C\u6708\u624D\u662F 28 \u5929 (!d)\u3002",
-      descriptionEn: "Calendar days: month has 31 days (a), 30 days (b), is Feb (c), and is not a leap year (d).",
-      defaultBindings: {
-        a: "[1,3,5,7,8,10,12].includes(m)",
-        b: "[4,6,9,11].includes(m)",
-        c: "m === 2",
-        d: "leap"
-      },
-      bindingParams: "m, leap",
-      sourceCode: `function calendarDays(m, leap) {
-  if ([1,3,5,7,8,10,12].includes(m)) {  // \u2190 a: 31-day months
-    return 31;
-  }
-  if ([4,6,9,11].includes(m)) {          // \u2190 b: 30-day months
-    return 30;
-  }
-  if (m === 2) {                          // \u2190 c: February
-    return leap ? 29 : 28;               // \u2190 d affects Feb
-  }
-  return -1;  // invalid month
-}`
-    }
-  ];
-  var symbolicExecutionExamples = [
-    {
-      id: "triangle",
-      name: "Triangle classifier",
-      nameEn: "Triangle classifier",
-      description: "\u7D93\u5178\u4E09\u89D2\u5F62\u5206\u985E\uFF1A\u56DE\u50B3 0 (\u975E\u4E09\u89D2\u5F62)\u30011 (\u4E00\u822C)\u30012 (\u7B49\u8170)\u30013 (\u7B49\u908A)\u3002",
-      descriptionEn: "Classic triangle classifier: returns 0 (none), 1 (scalene), 2 (isosceles), 3 (equilateral).",
-      sourceCode: `function classify(a, b, c) {
-  if (a <= 0 || b <= 0 || c <= 0) {
-    return 0;
-  }
-  if (a + b <= c || a + c <= b || b + c <= a) {
-    return 0;
-  }
-  if (a == b && b == c) {
-    return 3;
-  }
-  if (a == b || b == c || a == c) {
-    return 2;
-  }
-  return 1;
-}
-`
-    },
-    {
-      id: "max3",
-      name: "Max of three",
-      nameEn: "Max of three",
-      description: "\u56DE\u50B3 a, b, c \u4E09\u8005\u6700\u5927\u503C\uFF1B\u7D93\u5178\u5206\u652F\u7D50\u69CB\u793A\u7BC4\u3002",
-      descriptionEn: "Return the maximum of three integers \u2014 a canonical branching example.",
-      sourceCode: `function max3(a, b, c) {
-  let m = a;
-  if (b > m) {
-    m = b;
-  }
-  if (c > m) {
-    m = c;
-  }
-  return m;
-}
-`
-    },
-    {
-      id: "abs",
-      name: "Absolute value",
-      nameEn: "Absolute value",
-      description: "\u53EA\u6709\u5169\u689D\u8DEF\u5F91\u7684\u6700\u5C0F\u7BC4\u4F8B\uFF1Ax >= 0 \u8207 x < 0\u3002",
-      descriptionEn: "A minimal two-path example: x >= 0 versus x < 0.",
-      sourceCode: `function abs(x) {
-  if (x < 0) {
-    return -x;
-  }
-  return x;
-}
-`
-    },
-    {
-      id: "gcd",
-      name: "GCD (bounded)",
-      nameEn: "GCD (bounded)",
-      description: "\u6B50\u5E7E\u91CC\u5F97\u6F14\u7B97\u6CD5\uFF0C\u542B while \u8FF4\u5708\uFF1B\u4EE5\u6700\u5927\u5C55\u958B\u6B21\u6578\u6A21\u64EC\u6709\u754C\u8DEF\u5F91\u5217\u8209\u3002",
-      descriptionEn: "Euclidean algorithm with a while loop \u2014 bounded unrolling enumerates the first paths.",
-      sourceCode: `function gcd(a, b) {
-  while (b != 0) {
-    let t = b;
-    b = a % b;
-    a = t;
-  }
-  return a;
-}
-`
-    }
-  ];
-  var concolicExecutionExamples = [
-    {
-      id: "triangle",
-      name: "Triangle classifier",
-      nameEn: "Triangle classifier",
-      description: "\u5F9E (1,1,1) \u7B49\u908A\u4E09\u89D2\u5F62\u7A2E\u5B50\u51FA\u767C\uFF0C\u6BCF\u6B21\u7FFB\u8F49\u6700\u5F8C\u4E00\u500B\u672A\u63A2\u7D22\u7684\u5206\u652F\uFF0C\u81EA\u52D5\u7522\u751F\u65B0\u8F38\u5165\u3002",
-      descriptionEn: "Seeded with the equilateral triangle (1,1,1); each step flips the last unexplored branch to derive a new input.",
-      seed: "a=1, b=1, c=1",
-      sourceCode: `function classify(a, b, c) {
-  if (a <= 0 || b <= 0 || c <= 0) {
-    return 0;
-  }
-  if (a + b <= c || a + c <= b || b + c <= a) {
-    return 0;
-  }
-  if (a == b && b == c) {
-    return 3;
-  }
-  if (a == b || b == c || a == c) {
-    return 2;
-  }
-  return 1;
-}
-`
-    },
-    {
-      id: "abs",
-      name: "Absolute value",
-      nameEn: "Absolute value",
-      description: "\u6700\u5C0F\u7BC4\u4F8B\uFF1A\u5F9E x=0 \u51FA\u767C\uFF0Cconcolic \u8D70\u5B8C\u4E00\u689D\u8DEF\u5F91\u5F8C\u7FFB\u8F49\u689D\u4EF6\u5F97\u5230 x<0 \u7684\u5C0D\u5076\u8F38\u5165\u3002",
-      descriptionEn: "Minimal example: starting from x=0, concolic flips the branch to discover the x<0 dual input.",
-      seed: "x=0",
-      sourceCode: `function abs(x) {
-  if (x < 0) {
-    return -x;
-  }
-  return x;
-}
-`
-    },
-    {
-      id: "max3",
-      name: "Max of three",
-      nameEn: "Max of three",
-      description: "\u793A\u7BC4\u96D9\u5206\u652F\u7D50\u69CB\uFF1A\u6BCF\u689D\u8DEF\u5F91\u5C0D\u61C9 (b>a, c>m) \u5169\u500B\u5206\u652F\u7684\u771F\u5047\u7D44\u5408\u3002",
-      descriptionEn: "Demonstrates a two-branch structure: each path corresponds to a (b>a, c>m) truth combination.",
-      seed: "a=0, b=0, c=0",
-      sourceCode: `function max3(a, b, c) {
-  let m = a;
-  if (b > m) {
-    m = b;
-  }
-  if (c > m) {
-    m = c;
-  }
-  return m;
-}
-`
-    },
-    {
-      id: "middle",
-      name: "Middle value",
-      nameEn: "Middle value",
-      description: "\u7D93\u5178 DART \u6E2C\u8A66\u5C0D\u8C61\uFF08Khurshid et al.\uFF09\uFF1A\u56DE\u50B3\u4E09\u6578\u7684\u4E2D\u4F4D\u6578\u3002",
-      descriptionEn: "A classic DART benchmark (Khurshid et al.): returns the median of three integers.",
-      seed: "a=0, b=0, c=0",
-      sourceCode: `function middle(a, b, c) {
-  let m = b;
-  if (a < b) {
-    if (b > c) {
-      if (a < c) {
-        m = c;
-      } else {
-        m = a;
+      if (explorerRaw) out.unknownExplorer = explorerRaw;
+      const sec = params.get("section");
+      if (sec) out.section = sec;
+      const tab = params.get("tab");
+      if (tab && out.section && ((_a = TAB_SECTIONS[out.section]) == null ? void 0 : _a.tabs.includes(tab))) {
+        out.tab = tab;
       }
     }
-  } else {
-    if (b < c) {
-      if (a < c) {
-        m = a;
-      } else {
-        m = c;
+    if (params.get("view") === "all") out.view = "all";
+    const pack = params.get("pack");
+    if (pack) out.pack = pack;
+    const filter = { level: [], technique: [], series: [], difficulty: [] };
+    let anyFilter = false;
+    for (const dim of FILTER_DIMS) {
+      const raw = params.get(dim);
+      if (raw) {
+        filter[dim] = raw.split(",").filter(Boolean);
+        anyFilter = true;
       }
     }
-  }
-  return m;
-}
-`
+    if (anyFilter) out.filter = filter;
+    const lang2 = params.get("lang");
+    if (lang2 === "en" || lang2 === "zh") out.lang = lang2;
+    if (!out.section && typeof hash === "string") {
+      const m = /^#section-([a-z0-9-]+)$/.exec(hash);
+      if (m) out.section = m[1];
     }
-  ];
-  var fuzzTestingExamples = [
-    {
-      id: "triangle-classifier",
-      name: "Triangle Classifier",
-      description: "\u4E09\u89D2\u5F62\u5206\u985E\uFF1A\u6839\u64DA\u4E09\u908A\u908A\u9577\u5224\u65B7\u662F\u5426\u70BA\u7B49\u908A\u3001\u7B49\u8170\u6216\u4E0D\u7B49\u908A\u4E09\u89D2\u5F62\u3002",
-      descriptionEn: "Triangle classification: determine equilateral, isosceles, or scalene from three sides.",
-      sourceCode: `function classify(a, b, c) {
-  if (a <= 0 || b <= 0 || c <= 0) {
-    return 0;
+    return out;
   }
-  if (a + b <= c || a + c <= b || b + c <= a) {
-    return 0;
-  }
-  if (a == b && b == c) {
-    return 3;
-  }
-  if (a == b || b == c || a == c) {
-    return 2;
-  }
-  return 1;
-}`
-    },
-    {
-      id: "gcd-function",
-      name: "Greatest Common Divisor",
-      description: "\u8A08\u7B97\u6700\u5927\u516C\u56E0\u6578\uFF0C\u5305\u542B\u591A\u500B\u908A\u754C\u60C5\u6CC1\u3002",
-      descriptionEn: "Compute GCD with multiple boundary conditions.",
-      sourceCode: `function gcd(a, b) {
-  if (a <= 0 || b <= 0) {
-    return -1;
-  }
-  while (a != b) {
-    if (a > b) {
-      a = a - b;
-    } else {
-      b = b - a;
+  function serializeLocation(state41) {
+    if (!state41) return "";
+    const params = new URLSearchParams();
+    if (state41.lang === "en" || state41.lang === "zh") params.set("lang", state41.lang);
+    if (state41.section && state41.section !== "all") {
+      params.set("section", state41.section);
+      const sectionInfo = TAB_SECTIONS[state41.section];
+      if (sectionInfo && state41.tab && sectionInfo.tabs.includes(state41.tab)) {
+        params.set("tab", state41.tab);
+      }
     }
-  }
-  return a;
-}`
-    },
-    {
-      id: "absolute-value",
-      name: "Absolute Value",
-      description: "\u7C21\u55AE\u7684\u7D55\u5C0D\u503C\u8A08\u7B97\uFF0C\u6E2C\u8A66\u6B63\u6578\u3001\u8CA0\u6578\u548C\u96F6\u3002",
-      descriptionEn: "Simple absolute value with positive, negative, and zero cases.",
-      sourceCode: `function abs(x) {
-  if (x < 0) {
-    return -x;
-  }
-  return x;
-}`
-    },
-    {
-      id: "quadratic-formula",
-      name: "Quadratic Formula Solver",
-      description: "\u6C42\u89E3\u4E8C\u6B21\u65B9\u7A0B\u5F0F\u7684\u6839\uFF0C\u8655\u7406\u5224\u5225\u5F0F\u908A\u754C\u60C5\u6CC1\u3002",
-      descriptionEn: "Solve quadratic equations, handle discriminant edge cases.",
-      sourceCode: `function quadraticRoots(a, b, c) {
-  if (a == 0) {
-    return "not a quadratic";
-  }
-  const discriminant = b * b - 4 * a * c;
-  if (discriminant < 0) {
-    return "complex roots";
-  }
-  if (discriminant == 0) {
-    return -b / (2 * a);
-  }
-  const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-  const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-  return { root1, root2 };
-}`
-    },
-    {
-      id: "array-sum",
-      name: "Array Sum with Validation",
-      description: "\u8A08\u7B97\u9663\u5217\u7E3D\u548C\uFF0C\u9A57\u8B49\u9663\u5217\u4E0D\u70BA\u7A7A\u3002",
-      descriptionEn: "Compute array sum with empty-array validation.",
-      sourceCode: `function arraySum(arr) {
-  if (!arr || arr.length === 0) {
-    return -1;
-  }
-  let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum += arr[i];
-  }
-  return sum;
-}`
-    },
-    {
-      id: "max-value",
-      name: "Maximum of Two Values",
-      description: "\u627E\u51FA\u5169\u500B\u6578\u4E2D\u7684\u8F03\u5927\u503C\u3002",
-      descriptionEn: "Find the maximum of two values.",
-      sourceCode: `function max(a, b) {
-  if (a > b) {
-    return a;
-  }
-  return b;
-}`
+    if (state41.pack) {
+      params.set("pack", state41.pack);
+    } else if (state41.filter) {
+      for (const dim of FILTER_DIMS) {
+        const arr = state41.filter[dim];
+        if (Array.isArray(arr) && arr.length > 0) params.set(dim, arr.join(","));
+      }
     }
-  ];
+    const s = params.toString();
+    return s ? `?${s}` : "";
+  }
+  function explorerToUrl(componentName, baseUrl = "") {
+    const loc = EXPLORER_TO_LOCATION[componentName];
+    if (!loc) return baseUrl || "";
+    const url = new URL(baseUrl || "https://example.invalid");
+    url.searchParams.set("explorer", componentName);
+    return baseUrl ? url.toString() : `?${url.searchParams.toString()}`;
+  }
+  function resolveInitialTab({ sectionId, urlSection, urlTab, saved }) {
+    const info = TAB_SECTIONS[sectionId];
+    if (!info) return null;
+    if (urlSection === sectionId && urlTab && info.tabs.includes(urlTab)) return urlTab;
+    if (saved && info.tabs.includes(saved)) return saved;
+    return info.default;
+  }
+  function unitsForSection(sectionId) {
+    var _a;
+    const units = EXPLORER_UNITS.filter(
+      (u) => {
+        var _a2;
+        return ((_a2 = EXPLORER_TO_LOCATION[u.componentName]) == null ? void 0 : _a2.section) === sectionId;
+      }
+    );
+    const tabs = (_a = TAB_SECTIONS[sectionId]) == null ? void 0 : _a.tabs;
+    if (!tabs) return units;
+    const rank = (u) => {
+      const t4 = EXPLORER_TO_LOCATION[u.componentName].tab;
+      const i = tabs.indexOf(t4);
+      return i === -1 ? tabs.length : i;
+    };
+    return [...units].sort((a, b) => rank(a) - rank(b));
+  }
+  function locationForUnit(unit) {
+    var _a;
+    return (_a = EXPLORER_TO_LOCATION[unit.componentName]) != null ? _a : null;
+  }
 
   // src/i18n/dict.js
   var messages = {
@@ -3326,6 +2705,34 @@
       "common.add": "Add",
       "common.remove": "Remove",
       "common.close": "Close",
+      "unit.notFound": 'Unknown unit "{id}" \u2014 showing the overview instead.',
+      "unit.back": "All units",
+      "unit.fullscreen": "Fullscreen",
+      "unit.exitFullscreen": "Exit fullscreen",
+      "btn.quiz": "Quiz",
+      "quiz.practice": "Practice",
+      "quiz.test": "Test",
+      "quiz.mode": "Mode",
+      "quiz.begin": "Begin",
+      "quiz.next": "Next",
+      "quiz.prev": "Previous",
+      "quiz.finish": "Finish",
+      "quiz.score": "Score",
+      "quiz.home": "Back",
+      "quiz.incorrect": "Incorrect",
+      "quiz.question": "Question",
+      "quiz.questions": "questions",
+      "quiz.recent": "Recent attempts",
+      "quiz.recent.empty": "No attempts yet",
+      "quiz.review": "Review",
+      "quiz.resume": "Resume",
+      "quiz.inprogress": "In progress",
+      "btn.lab": "Lab",
+      "lab.difficulty": "Difficulty",
+      "lab.week": "Week",
+      "lab.samples": "Samples",
+      "lab.openRepo": "Open practice repo",
+      "lab.judgeSoon": "Practice on judge (coming soon)",
       "bva.param.name": "Parameter name",
       "bva.param.min": "Min",
       "bva.param.max": "Max",
@@ -6119,6 +5526,34 @@
       "common.add": "\u65B0\u589E",
       "common.remove": "\u79FB\u9664",
       "common.close": "\u95DC\u9589",
+      "unit.notFound": "\u627E\u4E0D\u5230\u55AE\u5143\u300C{id}\u300D\uFF0C\u5DF2\u6539\u986F\u793A\u7E3D\u89BD\u3002",
+      "unit.back": "\u8FD4\u56DE\u7E3D\u89BD",
+      "unit.fullscreen": "\u5168\u87A2\u5E55",
+      "unit.exitFullscreen": "\u96E2\u958B\u5168\u87A2\u5E55",
+      "btn.quiz": "\u81EA\u6211\u6E2C\u9A57",
+      "quiz.practice": "\u7DF4\u7FD2\u6A21\u5F0F",
+      "quiz.test": "\u6E2C\u9A57\u6A21\u5F0F",
+      "quiz.mode": "\u6A21\u5F0F",
+      "quiz.begin": "\u958B\u59CB",
+      "quiz.next": "\u4E0B\u4E00\u984C",
+      "quiz.prev": "\u4E0A\u4E00\u984C",
+      "quiz.finish": "\u5B8C\u6210",
+      "quiz.score": "\u5F97\u5206",
+      "quiz.home": "\u8FD4\u56DE",
+      "quiz.incorrect": "\u7B54\u932F",
+      "quiz.question": "\u7B2C",
+      "quiz.questions": "\u984C",
+      "quiz.recent": "\u8FD1\u671F\u4F5C\u7B54",
+      "quiz.recent.empty": "\u5C1A\u7121\u4F5C\u7B54\u7D00\u9304",
+      "quiz.review": "\u6AA2\u8996",
+      "quiz.resume": "\u7E8C\u7B54",
+      "quiz.inprogress": "\u4F5C\u7B54\u4E2D",
+      "btn.lab": "\u5BE6\u9A57",
+      "lab.difficulty": "\u96E3\u5EA6",
+      "lab.week": "\u9031\u6B21",
+      "lab.samples": "\u7BC4\u4F8B\u8F38\u5165\u8F38\u51FA",
+      "lab.openRepo": "\u958B\u555F\u7DF4\u7FD2 repo",
+      "lab.judgeSoon": "\u4E0A\u6A5F\u7DF4\u7FD2\uFF08\u5373\u5C07\u958B\u653E\uFF09",
       "common.notes": "\u5099\u8A3B",
       "bva.param.name": "\u53C3\u6578\u540D\u7A31",
       "bva.param.min": "\u6700\u5C0F\u503C",
@@ -6507,6 +5942,9 @@
   function getLocale() {
     return current;
   }
+  function getSupportedLocales() {
+    return [...SUPPORTED];
+  }
   function setLocale(locale, { persist: persist11 = true } = {}) {
     var _a;
     if (!SUPPORTED.includes(locale) || locale === current) return;
@@ -6530,14 +5968,14 @@
     listeners.add(callback);
     return () => listeners.delete(callback);
   }
-  function t(key, params) {
+  function t(key2, params) {
     const table = messages[current] || messages[DEFAULT_LOCALE];
-    let value = table[key];
+    let value = table[key2];
     if (value === void 0) {
-      value = messages[DEFAULT_LOCALE][key];
+      value = messages[DEFAULT_LOCALE][key2];
     }
     if (value === void 0) {
-      return key;
+      return key2;
     }
     if (params) {
       return String(value).replace(/\{(\w+)\}/g, (m, name) => Object.prototype.hasOwnProperty.call(params, name) ? String(params[name]) : m);
@@ -6563,11 +6001,907 @@
   }
   applyDocumentLocale();
 
+  // src/data/testingData.js
+  var testingMethods = [
+    {
+      id: "blackbox",
+      name: "\u9ED1\u76D2\u6E2C\u8A66",
+      nameEn: "Black Box Testing",
+      description: "\u4E0D\u8003\u616E\u5167\u90E8\u5BE6\u73FE\uFF0C\u5B8C\u5168\u805A\u7126\u8F38\u5165\u8207\u8F38\u51FA\u884C\u70BA",
+      descriptionEn: "Ignores internal implementation; focuses entirely on input and output behavior.",
+      visibility: 0,
+      colorScheme: "dark",
+      techniques: [
+        { id: "bva", name: "\u908A\u754C\u503C\u5206\u6790", nameEn: "Boundary Value Analysis", description: "\u6E2C\u8A66\u8F38\u5165\u7684\u908A\u754C\u689D\u4EF6", descriptionEn: "Test inputs at the boundaries of input domains." },
+        { id: "ep", name: "\u7B49\u50F9\u985E\u5206\u5272", nameEn: "Equivalence Partitioning", description: "\u5C07\u8F38\u5165\u7A7A\u9593\u5283\u5206\u70BA\u7B49\u50F9\u985E", descriptionEn: "Partition the input space into equivalence classes." },
+        { id: "ceg", name: "\u56E0\u679C\u5716", nameEn: "Cause-Effect Graph", description: "\u5206\u6790\u8F38\u5165\u8F38\u51FA\u9593\u7684\u56E0\u679C\u95DC\u4FC2", descriptionEn: "Analyze cause-effect relations between inputs and outputs." },
+        { id: "stt", name: "\u72C0\u614B\u9077\u79FB\u6E2C\u8A66", nameEn: "State Transition Testing", description: "\u9A57\u8B49\u7CFB\u7D71\u7684\u72C0\u614B\u8F49\u63DB\u884C\u70BA", descriptionEn: "Validate the state transition behavior of the system." }
+      ]
+    },
+    {
+      id: "whitebox",
+      name: "\u767D\u76D2\u6E2C\u8A66",
+      nameEn: "White Box Testing",
+      description: "\u57FA\u65BC\u5167\u90E8\u4EE3\u78BC\u7D50\u69CB\uFF0C\u78BA\u4FDD\u6240\u6709\u8DEF\u5F91\u7686\u88AB\u8986\u84CB",
+      descriptionEn: "Based on internal code structure; aims to cover all paths.",
+      visibility: 100,
+      colorScheme: "light",
+      techniques: [
+        { id: "sc", name: "\u8A9E\u53E5\u8986\u84CB", nameEn: "Statement Coverage", description: "\u78BA\u4FDD\u6BCF\u689D\u8A9E\u53E5\u81F3\u5C11\u57F7\u884C\u4E00\u6B21", descriptionEn: "Ensure every statement executes at least once." },
+        { id: "bc", name: "\u5206\u652F\u8986\u84CB", nameEn: "Branch Coverage", description: "\u78BA\u4FDD\u6BCF\u500B\u5206\u652F\uFF08true/false\uFF09\u90FD\u88AB\u57F7\u884C", descriptionEn: "Ensure every branch (true/false) is executed." },
+        { id: "gc", name: "\u5716\u5F62\u8986\u84CB", nameEn: "Graph Coverage", description: "\u4EE5\u63A7\u5236\u6D41\u7A0B\u5716\u63A8\u5C0E\u7BC0\u9EDE\u3001\u908A\u8207 Prime Path \u7684\u6E2C\u8A66\u9700\u6C42", descriptionEn: "Derive node, edge, and prime-path requirements from the CFG." },
+        { id: "lc", name: "\u908F\u8F2F\u8986\u84CB", nameEn: "Logic Coverage", description: "\u4EE5\u8FF0\u8A5E\u8207\u5B50\u53E5\u70BA\u6838\u5FC3\u7684\u8986\u84CB\u7B56\u7565\uFF0C\u5305\u542B PC\u3001CC\u3001ACC \u7CFB\u5217", descriptionEn: "Predicate/clause-centric strategy: PC, CC, ACC family, etc." },
+        { id: "pc", name: "\u8DEF\u5F91\u8986\u84CB", nameEn: "Path Coverage", description: "\u78BA\u4FDD\u6BCF\u689D\u7368\u7ACB\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C", descriptionEn: "Ensure each independent path is executed." },
+        { id: "ppc", name: "Prime Path Coverage", nameEn: "Prime Path Coverage", description: "\u6700\u5C0F\u5316\u4E14\u5B8C\u6574\u7684\u8DEF\u5F91\u8986\u84CB\u96C6\u5408", descriptionEn: "Minimal yet complete prime-path coverage set." },
+        { id: "cc", name: "\u689D\u4EF6\u8986\u84CB", nameEn: "Condition Coverage", description: "\u78BA\u4FDD\u6BCF\u500B\u5E03\u6797\u689D\u4EF6\u7684\u771F\u5047\u90FD\u88AB\u6E2C\u8A66", descriptionEn: "Ensure each Boolean condition is tested for true and false." },
+        { id: "mc", name: "\u591A\u91CD\u689D\u4EF6\u8986\u84CB", nameEn: "Multiple Conditions", description: "\u6E2C\u8A66\u6240\u6709\u689D\u4EF6\u7D44\u5408\u7684\u771F\u5047\u60C5\u6CC1", descriptionEn: "Test all true/false combinations of conditions." },
+        { id: "symbex", name: "\u7B26\u865F\u57F7\u884C", nameEn: "Symbolic Execution", description: "\u4EE5\u7B26\u865F\u503C\u4EE3\u5165\u7A0B\u5F0F\u8B8A\u6578\uFF0C\u6CBF\u8DEF\u5F91\u6536\u96C6 path condition \u4E26\u6C42\u89E3\u53EF\u9054\u8F38\u5165", descriptionEn: "Substitute symbolic values for program inputs, collect a path condition along each path, and solve for concrete witnesses." },
+        { id: "concolic", name: "\u5177\u9AD4\u7B26\u865F\u57F7\u884C", nameEn: "Concolic Execution", description: "\u7D50\u5408\u5177\u9AD4\u57F7\u884C\u8207\u7B26\u865F\u57F7\u884C (DART/CUTE)\uFF1A\u6BCF\u6B21\u5177\u9AD4\u8DD1\u4E00\u689D\u8DEF\u5F91\uFF0C\u518D\u7FFB\u8F49\u5206\u652F\u689D\u4EF6\u6C42\u89E3\u65B0\u8F38\u5165\u4EE5\u6DB5\u84CB\u66F4\u591A\u8DEF\u5F91", descriptionEn: "Concrete + symbolic (DART/CUTE): runs the program concretely, then negates branch conditions to derive new inputs that cover additional paths." }
+      ]
+    },
+    {
+      id: "graybox",
+      name: "\u7070\u76D2\u6E2C\u8A66",
+      nameEn: "Gray Box Testing",
+      description: "\u90E8\u5206\u4E86\u89E3\u5167\u90E8\u5BE6\u73FE\uFF0C\u7D50\u5408\u5169\u8005\u512A\u9EDE\u4EE5\u63D0\u9AD8\u6548\u7387",
+      descriptionEn: "Partial knowledge of internals; combines black- and white-box advantages.",
+      visibility: 50,
+      colorScheme: "medium",
+      techniques: [
+        { id: "combined", name: "\u7D50\u5408\u9ED1\u76D2\u8207\u767D\u76D2", nameEn: "Combined Approach", description: "\u9748\u6D3B\u904B\u7528\u5169\u7A2E\u65B9\u6CD5\u7684\u6E2C\u8A66\u7B56\u7565", descriptionEn: "Flexible mix of both black- and white-box strategies." },
+        { id: "partial", name: "\u90E8\u5206\u4EE3\u78BC\u53EF\u898B", nameEn: "Partial Code Visibility", description: "\u5229\u7528\u53EF\u898B\u7684\u90E8\u5206\u5BE6\u73FE\u8F14\u52A9\u8A2D\u8A08\u6E2C\u8A66", descriptionEn: "Use the visible portion of the code to guide test design." }
+      ]
+    }
+  ];
+  var testingFlow = [
+    { id: "req", label: "\u9700\u6C42\u5206\u6790", labelEn: "Requirements", icon: "\u{1F4CB}", description: "\u5206\u6790\u8EDF\u9AD4\u9700\u6C42\uFF0C\u78BA\u5B9A\u6E2C\u8A66\u76EE\u6A19\u8207\u7BC4\u570D", descriptionEn: "Analyze requirements; determine test goals and scope." },
+    { id: "plan", label: "\u6E2C\u8A66\u8A08\u5283", labelEn: "Test Plan", icon: "\u{1F4DD}", description: "\u5236\u5B9A\u6E2C\u8A66\u7B56\u7565\u3001\u8CC7\u6E90\u5206\u914D\u8207\u9032\u5EA6\u8A08\u5283", descriptionEn: "Define test strategy, resource allocation, and schedule." },
+    { id: "design", label: "\u6E2C\u8A66\u8A2D\u8A08", labelEn: "Test Design", icon: "\u270F\uFE0F", description: "\u8A2D\u8A08\u6E2C\u8A66\u7528\u4F8B\u3001\u8173\u672C\u8207\u6E2C\u8A66\u6578\u64DA", descriptionEn: "Design test cases, scripts, and test data." },
+    { id: "exec", label: "\u6E2C\u8A66\u57F7\u884C", labelEn: "Execution", icon: "\u25B6\uFE0F", description: "\u57F7\u884C\u6E2C\u8A66\u7528\u4F8B\uFF0C\u8A18\u9304\u5BE6\u969B\u8207\u9810\u671F\u7D50\u679C", descriptionEn: "Execute test cases; record actual vs. expected results." },
+    { id: "analysis", label: "\u7D50\u679C\u5206\u6790", labelEn: "Analysis", icon: "\u{1F50D}", description: "\u6BD4\u8F03\u7D50\u679C\uFF0C\u8B58\u5225\u7F3A\u9677\u4E26\u8A55\u4F30\u6E2C\u8A66\u8986\u84CB\u7387", descriptionEn: "Compare results, identify defects, and assess coverage." },
+    { id: "report", label: "\u7F3A\u9677\u5831\u544A", labelEn: "Defect Report", icon: "\u{1F4CA}", description: "\u64B0\u5BEB\u6E2C\u8A66\u5831\u544A\uFF0C\u8FFD\u8E64\u7F3A\u9677\u4FEE\u5FA9\u72C0\u614B", descriptionEn: "Write reports and track defect-fix status." }
+  ];
+  var testingTypes = [
+    { id: "unit", type: "\u55AE\u5143\u6E2C\u8A66", typeEn: "Unit Testing", purpose: "\u6E2C\u8A66\u6700\u5C0F\u55AE\u4F4D", purposeEn: "Test the smallest units of code.", timing: "\u958B\u767C\u968E\u6BB5", timingEn: "Development", color: "#3498db", width: 30 },
+    { id: "integration", type: "\u96C6\u6210\u6E2C\u8A66", typeEn: "Integration Testing", purpose: "\u6E2C\u8A66\u6A21\u7D44\u7D44\u5408", purposeEn: "Test combinations of modules.", timing: "\u958B\u767C\u5F8C\u671F", timingEn: "Late development", color: "#27ae60", width: 55 },
+    { id: "system", type: "\u7CFB\u7D71\u6E2C\u8A66", typeEn: "System Testing", purpose: "\u6E2C\u8A66\u6574\u9AD4\u7CFB\u7D71", purposeEn: "Test the system as a whole.", timing: "\u96C6\u6210\u5B8C\u6210\u5F8C", timingEn: "After integration", color: "#f39c12", width: 80 },
+    { id: "acceptance", type: "\u9A57\u6536\u6E2C\u8A66", typeEn: "Acceptance Testing", purpose: "\u9A57\u8B49\u9700\u6C42\u9054\u6210", purposeEn: "Verify requirements are satisfied.", timing: "\u90E8\u7F72\u524D", timingEn: "Before deployment", color: "#e74c3c", width: 100 }
+  ];
+  var graphCoverageCriteria = [
+    { id: "node", label: "Node Coverage", labelZh: "\u7BC0\u9EDE\u8986\u84CB", description: "\u6BCF\u500B\u7BC0\u9EDE\u81F3\u5C11\u88AB\u4E00\u500B\u6E2C\u8A66\u8DEF\u5F91\u62DC\u8A2A\u4E00\u6B21\u3002", descriptionEn: "Every node is visited by at least one test path." },
+    { id: "edge", label: "Edge Coverage", labelZh: "\u908A\u8986\u84CB", description: "\u6BCF\u689D\u6709\u5411\u908A\u81F3\u5C11\u88AB\u4E00\u500B\u6E2C\u8A66\u8DEF\u5F91\u7D93\u904E\u4E00\u6B21\u3002", descriptionEn: "Every directed edge is traversed by at least one test path." },
+    { id: "prime-path", label: "Prime Path Coverage", labelZh: "Prime Path \u8986\u84CB", description: "\u6240\u6709 prime path \u90FD\u5FC5\u9808\u88AB\u6E2C\u8A66\u9700\u6C42\u6DB5\u84CB\uFF0C\u5305\u542B\u8FF4\u5708\u3002", descriptionEn: "All prime paths (including loops) must be covered." },
+    { id: "edge-pair", label: "Edge-Pair Coverage", labelZh: "\u908A\u5C0D\u8986\u84CB", description: "\u6BCF\u4E00\u7D44\u76F8\u9130\u7684\u5169\u689D\u908A\u90FD\u8981\u81F3\u5C11\u88AB\u4E00\u689D\u6E2C\u8A66\u8DEF\u5F91\u8986\u84CB\u3002", descriptionEn: "Every pair of adjacent edges must be covered by some test path." },
+    { id: "complete-path", label: "Complete Path Coverage", labelZh: "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB", description: "\u4EE5\u6709\u9650\u6DF1\u5EA6\u5217\u8209 start \u5230 end \u7684\u5B8C\u6574\u53EF\u884C\u8DEF\u5F91\u96C6\u5408\u3002", descriptionEn: "Enumerate all complete feasible paths from start to end up to a finite depth." },
+    { id: "all-defs", label: "All-Defs Coverage", labelZh: "\u6240\u6709\u5B9A\u7FA9\u8986\u84CB", description: "\u5C0D\u65BC\u6BCF\u500B (\u7BC0\u9EDE, \u8B8A\u6578) \u7684\u5B9A\u7FA9\uFF0C\u81F3\u5C11\u6709\u4E00\u689D\u5F9E\u8A72\u5B9A\u7FA9\u5230\u67D0\u500B\u4F7F\u7528\u7684 def-clear \u8DEF\u5F91\u88AB\u8986\u84CB\u3002", descriptionEn: "For every (node, variable) definition, cover at least one definition-clear path from the def to some use of that variable." },
+    { id: "all-uses", label: "All-Uses Coverage", labelZh: "\u6240\u6709\u4F7F\u7528\u8986\u84CB", description: "\u5C0D\u65BC\u6BCF\u5C0D (\u5B9A\u7FA9, \u4F7F\u7528, \u8B8A\u6578)\uFF0C\u81F3\u5C11\u6709\u4E00\u689D def-clear \u8DEF\u5F91\u88AB\u6E2C\u8A66\u8DEF\u5F91\u8986\u84CB\u3002", descriptionEn: "For every (def, use, variable) pair, cover at least one definition-clear path from the def to that use." },
+    { id: "all-du-paths", label: "All-DU-Paths Coverage", labelZh: "\u6240\u6709 DU \u8DEF\u5F91\u8986\u84CB", description: "\u5C0D\u65BC\u6BCF\u5C0D (\u5B9A\u7FA9, \u4F7F\u7528, \u8B8A\u6578)\uFF0C\u6240\u6709 def-clear \u7C21\u55AE\u8DEF\u5F91\u90FD\u5FC5\u9808\u88AB\u6E2C\u8A66\u8DEF\u5F91\u8986\u84CB\u3002", descriptionEn: "For every (def, use, variable) pair, every definition-clear simple path from the def to that use must be covered." }
+  ];
+  var graphCoverageCodeLanguages = [
+    { id: "javascript", label: "JavaScript" },
+    { id: "pseudocode", label: "Pseudo Code" }
+  ];
+  var graphCoverageGraph = {
+    id: "control-flow-sample",
+    title: "\u63A7\u5236\u6D41\u7A0B\u5716\u7BC4\u4F8B",
+    titleEn: "Sample Control Flow Graph",
+    startNodeId: "S",
+    endNodeId: "T",
+    nodes: [
+      { id: "S", label: "Start", x: 80, y: 170, kind: "start" },
+      { id: "A", label: "A", x: 210, y: 170, kind: "decision" },
+      { id: "B", label: "B", x: 360, y: 80, kind: "node" },
+      { id: "C", label: "C", x: 360, y: 260, kind: "node" },
+      { id: "D", label: "D", x: 520, y: 170, kind: "decision" },
+      { id: "E", label: "E", x: 680, y: 80, kind: "node" },
+      { id: "F", label: "F", x: 680, y: 260, kind: "node" },
+      { id: "T", label: "End", x: 840, y: 170, kind: "end" }
+    ],
+    edges: [
+      { id: "S-A", from: "S", to: "A" },
+      { id: "A-B", from: "A", to: "B" },
+      { id: "A-C", from: "A", to: "C" },
+      { id: "B-D", from: "B", to: "D" },
+      { id: "C-D", from: "C", to: "D" },
+      { id: "D-E", from: "D", to: "E" },
+      { id: "D-F", from: "D", to: "F" },
+      { id: "E-B", from: "E", to: "B", control: { x: 520, y: -10 } },
+      { id: "E-T", from: "E", to: "T" },
+      { id: "F-T", from: "F", to: "T" }
+    ]
+  };
+  var graphCoverageProgramExamples = [
+    {
+      id: "triangle-problem",
+      name: "Triangle Problem",
+      language: "javascript",
+      description: "Classic triangle classification logic with validity, equilateral, isosceles, and scalene branches.",
+      sourceCode: `function classifyTriangle(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return 'invalid';
+  }
+
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return 'invalid';
+  }
+
+  if (a === b && b === c) {
+    return 'equilateral';
+  }
+
+  if (a === b || b === c || a === c) {
+    return 'isosceles';
+  }
+
+  return 'scalene';
+}`,
+      graph: {
+        id: "triangle-problem-cfg",
+        title: "Triangle Problem Control Flow Graph",
+        startNodeId: "S",
+        endNodeId: "T",
+        nodes: [
+          { id: "S", label: "Start", x: 80, y: 180, kind: "start" },
+          { id: "V", label: "Positive?", x: 220, y: 180, kind: "decision" },
+          { id: "R1", label: "Invalid", x: 380, y: 70, kind: "node" },
+          { id: "I", label: "Triangle?", x: 380, y: 180, kind: "decision" },
+          { id: "E", label: "Equilateral?", x: 560, y: 100, kind: "decision" },
+          { id: "J", label: "Isosceles?", x: 560, y: 260, kind: "decision" },
+          { id: "R2", label: "Equilateral", x: 740, y: 60, kind: "node" },
+          { id: "R3", label: "Isosceles", x: 740, y: 180, kind: "node" },
+          { id: "R4", label: "Scalene", x: 740, y: 300, kind: "node" },
+          { id: "T", label: "End", x: 880, y: 180, kind: "end" }
+        ],
+        edges: [
+          { id: "S-V", from: "S", to: "V" },
+          { id: "V-R1", from: "V", to: "R1" },
+          { id: "V-I", from: "V", to: "I" },
+          { id: "I-R1", from: "I", to: "R1" },
+          { id: "I-E", from: "I", to: "E" },
+          { id: "E-R2", from: "E", to: "R2" },
+          { id: "E-J", from: "E", to: "J" },
+          { id: "J-R3", from: "J", to: "R3" },
+          { id: "J-R4", from: "J", to: "R4" },
+          { id: "R1-T", from: "R1", to: "T" },
+          { id: "R2-T", from: "R2", to: "T" },
+          { id: "R3-T", from: "R3", to: "T" },
+          { id: "R4-T", from: "R4", to: "T" }
+        ]
+      }
+    },
+    {
+      id: "next-date",
+      name: "Next Date",
+      language: "javascript",
+      description: "A simplified next-date program that validates the date, advances within a month, and handles year rollover.",
+      sourceCode: `function nextDate(year, month, day) {
+  if (!isValidDate(year, month, day)) {
+    return 'invalid';
+  }
+
+  if (day < daysInMonth(year, month)) {
+    return { year, month, day: day + 1 };
+  }
+
+  if (month === 12) {
+    return { year: year + 1, month: 1, day: 1 };
+  }
+
+  return { year, month: month + 1, day: 1 };
+}`,
+      graph: {
+        id: "next-date-cfg",
+        title: "Next Date Control Flow Graph",
+        startNodeId: "S",
+        endNodeId: "T",
+        nodes: [
+          { id: "S", label: "Start", x: 80, y: 180, kind: "start" },
+          { id: "V", label: "Valid Date?", x: 230, y: 180, kind: "decision" },
+          { id: "R1", label: "Invalid", x: 410, y: 70, kind: "node" },
+          { id: "D", label: "Day < Max?", x: 410, y: 180, kind: "decision" },
+          { id: "R2", label: "Next Day", x: 610, y: 70, kind: "node" },
+          { id: "M", label: "Month=12?", x: 610, y: 250, kind: "decision" },
+          { id: "R3", label: "Next Year", x: 790, y: 140, kind: "node" },
+          { id: "R4", label: "Next Month", x: 790, y: 300, kind: "node" },
+          { id: "T", label: "End", x: 900, y: 220, kind: "end" }
+        ],
+        edges: [
+          { id: "S-V", from: "S", to: "V" },
+          { id: "V-R1", from: "V", to: "R1" },
+          { id: "V-D", from: "V", to: "D" },
+          { id: "D-R2", from: "D", to: "R2" },
+          { id: "D-M", from: "D", to: "M" },
+          { id: "M-R3", from: "M", to: "R3" },
+          { id: "M-R4", from: "M", to: "R4" },
+          { id: "R1-T", from: "R1", to: "T" },
+          { id: "R2-T", from: "R2", to: "T" },
+          { id: "R3-T", from: "R3", to: "T" },
+          { id: "R4-T", from: "R4", to: "T" }
+        ]
+      }
+    },
+    {
+      id: "commission-problem",
+      name: "Commission Problem",
+      language: "javascript",
+      description: "A classic sales commission example with threshold-based decision logic.",
+      sourceCode: `function commission(locks, stocks, barrels) {
+  if (locks < 1 || stocks < 1 || barrels < 1) {
+    return 'invalid';
+  }
+
+  const sales = locks * 45 + stocks * 30 + barrels * 25;
+
+  if (sales <= 1000) {
+    return sales * 0.1;
+  }
+
+  if (sales <= 1800) {
+    return 100 + (sales - 1000) * 0.15;
+  }
+
+  return 220 + (sales - 1800) * 0.2;
+}`
+    },
+    {
+      id: "next-date-leap-year",
+      name: "Next Date Leap-Year Variant",
+      language: "javascript",
+      description: "A next-date variant that separates leap-year February handling from other month transitions.",
+      sourceCode: `function nextDateLeapYear(year, month, day) {
+  if (!isValidDate(year, month, day)) {
+    return 'invalid';
+  }
+
+  if (month === 2 && isLeapYear(year) && day === 28) {
+    return { year, month: 2, day: 29 };
+  }
+
+  if (day < daysInMonth(year, month)) {
+    return { year, month, day: day + 1 };
+  }
+
+  if (month === 12) {
+    return { year: year + 1, month: 1, day: 1 };
+  }
+
+  return { year, month: month + 1, day: 1 };
+}`
+    },
+    {
+      id: "calendar-days",
+      name: "Calendar Days Switch Variant",
+      language: "javascript",
+      description: "A calendar-style example using switch-case branches to classify month lengths.",
+      sourceCode: `function daysInMonth(month, leapYear) {
+  switch (month) {
+    case 2:
+      if (leapYear) {
+        return 29;
+      }
+      break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      return 30;
+    default:
+      return 31;
+  }
+}`
+    },
+    {
+      id: "quadrilateral-problem",
+      name: "The Quadrilateral Program",
+      language: "javascript",
+      description: "Classify a quadrilateral from four side lengths and two diagonals into square, rectangle, rhombus, parallelogram, trapezoid, or general.",
+      sourceCode: `function classifyQuadrilateral(a, b, c, d, p, q) {
+  if (a <= 0 || b <= 0 || c <= 0 || d <= 0) {
+    return 'invalid';
+  }
+
+  if (a === b && b === c && c === d) {
+    if (p === q) {
+      return 'square';
+    }
+    return 'rhombus';
+  }
+
+  if (a === c && b === d) {
+    if (p === q) {
+      return 'rectangle';
+    }
+    return 'parallelogram';
+  }
+
+  if (a === c || b === d) {
+    return 'trapezoid';
+  }
+
+  return 'general';
+}`
+    },
+    {
+      id: "next-week",
+      name: "Next Week",
+      language: "javascript",
+      description: "Advance a date by seven days, handling month-end and year rollover.",
+      sourceCode: `function nextWeek(year, month, day) {
+  if (!isValidDate(year, month, day)) {
+    return 'invalid';
+  }
+
+  let newDay = day + 7;
+  let newMonth = month;
+  let newYear = year;
+  const limit = daysInMonth(newYear, newMonth);
+
+  if (newDay > limit) {
+    newDay = newDay - limit;
+    if (newMonth === 12) {
+      newMonth = 1;
+      newYear = newYear + 1;
+    } else {
+      newMonth = newMonth + 1;
+    }
+  }
+
+  return { year: newYear, month: newMonth, day: newDay };
+}`
+    }
+  ];
+  var logicCoverageCriteria = [
+    {
+      id: "pc",
+      label: "Predicate Coverage",
+      labelZh: "Predicate Coverage",
+      description: "\u4F7F\u6574\u9AD4 predicate \u81F3\u5C11\u8A55\u4F30\u70BA true \u8207 false \u5404\u4E00\u6B21\u3002",
+      descriptionEn: "The predicate as a whole evaluates to true and to false at least once each."
+    },
+    {
+      id: "cc",
+      label: "Clause Coverage",
+      labelZh: "\u5B50\u53E5\u8986\u84CB",
+      description: "\u6BCF\u500B\u5B50\u53E5\u7686\u81F3\u5C11\u5404\u53D6 true \u8207 false \u4E00\u6B21\u3002",
+      descriptionEn: "Every clause takes both true and false at least once."
+    },
+    {
+      id: "coc",
+      label: "Combinatorial Coverage",
+      labelZh: "\u7D44\u5408\u8986\u84CB",
+      description: "\u5217\u8209\u6240\u6709 2^n \u500B\u5B50\u53E5\u771F\u5047\u7D44\u5408\u3002",
+      descriptionEn: "Enumerate all 2^n true/false combinations of the clauses."
+    },
+    {
+      id: "gacc",
+      label: "General Active Clause Coverage",
+      labelZh: "GACC",
+      description: "\u5C0D\u6BCF\u500B\u4E3B\u5B50\u53E5\u627E\u4E00\u5C0D\u5217\uFF0C\u4F7F\u8A72\u5B50\u53E5\u6C7A\u5B9A predicate \u7684\u503C\u3002",
+      descriptionEn: "For each major clause find a pair of rows where it determines the predicate."
+    },
+    {
+      id: "cacc",
+      label: "Correlated Active Clause Coverage",
+      labelZh: "CACC",
+      description: "\u4E3B\u5B50\u53E5\u6C7A\u5B9A predicate\uFF0C\u4E14\u5169\u5217\u7522\u751F\u4E0D\u540C\u7684 predicate \u503C\u3002",
+      descriptionEn: "Major clause determines the predicate, and the two rows yield different predicate values."
+    },
+    {
+      id: "racc",
+      label: "Restricted Active Clause Coverage",
+      labelZh: "RACC",
+      description: "\u4E3B\u5B50\u53E5\u6C7A\u5B9A predicate\uFF0C\u4E14\u5169\u5217\u7684\u6B21\u5B50\u53E5\u503C\u5B8C\u5168\u76F8\u540C\u3002",
+      descriptionEn: "Major clause determines the predicate, and the two rows have identical minor-clause values."
+    },
+    {
+      id: "gicc",
+      label: "General Inactive Clause Coverage",
+      labelZh: "GICC",
+      description: "\u4E3B\u5B50\u53E5\u4E0D\u6C7A\u5B9A predicate\uFF0C\u8986\u84CB (c=T/F)\xD7(P=T/F) \u5171 4 \u7A2E\u7D44\u5408\u3002",
+      descriptionEn: "Major clause does not determine the predicate; cover (c=T/F)\xD7(P=T/F) \u2014 four combinations."
+    },
+    {
+      id: "ricc",
+      label: "Restricted Inactive Clause Coverage",
+      labelZh: "RICC",
+      description: "\u540C GICC\uFF0C\u4F46\u6210\u5C0D\u5217\u9700\u6240\u6709\u6B21\u5B50\u53E5\u76F8\u540C\uFF0C\u50C5\u4E3B\u5B50\u53E5\u7FFB\u8F49\u3002",
+      descriptionEn: "Same as GICC but the paired rows keep all minor clauses identical; only the major clause flips."
+    },
+    {
+      id: "ic",
+      label: "Implicant Coverage",
+      labelZh: "IC",
+      description: "\u5C0D DNF \u7684\u6BCF\u500B implicant\uFF0C\u81F3\u5C11\u627E\u5230\u4E00\u500B true point\u3002",
+      descriptionEn: "For every implicant of the DNF, find at least one true point."
+    },
+    {
+      id: "utpc",
+      label: "Unique True Point Coverage",
+      labelZh: "UTPC",
+      description: "\u70BA\u6BCF\u500B implicant \u6311\u4E00\u500B\u53EA\u6EFF\u8DB3\u8A72 implicant \u7684 unique true point\u3002",
+      descriptionEn: "For every implicant pick a unique true point that satisfies only that implicant."
+    },
+    {
+      id: "mutpc",
+      label: "Multiple Unique True Point Coverage",
+      labelZh: "MUTPC",
+      description: "\u70BA\u6BCF\u500B implicant \u6311\u4E00\u7D44 UTPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002",
+      descriptionEn: "For every implicant pick a set of UTPs such that each minor clause takes both T and F."
+    },
+    {
+      id: "nfpc",
+      label: "Near False Point Coverage",
+      labelZh: "NFPC",
+      description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal \u627E\u4E00\u500B\u7FFB\u8F49\u5F8C\u4F7F P \u70BA false \u7684\u5217\u3002",
+      descriptionEn: "For every literal of every implicant find a row that, after flipping that literal, makes P false."
+    },
+    {
+      id: "mnfpc",
+      label: "Multiple Near False Point Coverage",
+      labelZh: "MNFPC",
+      description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal \u6311\u4E00\u7D44 NFPs\uFF0C\u4F7F\u6BCF\u500B\u6B21\u5B50\u53E5\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21 T \u8207\u4E00\u6B21 F\u3002",
+      descriptionEn: "For every implicant pick a set of NFPs such that each minor clause takes both T and F."
+    },
+    {
+      id: "cutpnfp",
+      label: "Corresponding UTP + NFP Pair Coverage",
+      labelZh: "CUTPNFP",
+      description: "\u70BA\u6BCF\u500B implicant \u7684\u6BCF\u500B literal\uFF0C\u6311\u4E00\u5C0D\u50C5\u5728\u8A72 literal \u4E0D\u540C\u7684 UTP \u8207 NFP\u3002",
+      descriptionEn: "For every literal of every implicant pick a UTP/NFP pair that differs only in that literal."
+    }
+  ];
+  var logicCoveragePredicates = [
+    {
+      id: "simple-and-or",
+      name: "(a && b) || c",
+      expression: "(a && b) || c",
+      description: "\u5E38\u898B\u7684\u6DF7\u5408 AND/OR predicate\uFF0C\u4E09\u500B\u5B50\u53E5\u3002",
+      descriptionEn: "A common mixed AND/OR predicate with three clauses.",
+      defaultBindings: { a: "x > 0", b: "y > 0", c: "z === 0" },
+      bindingParams: "x, y, z",
+      sourceCode: `function f(x, y, z) {
+  if ((x > 0 && y > 0) || z === 0) {  // \u2190 (a && b) || c
+    return 'pass';
+  }
+  return 'fail';
+}`
+    },
+    {
+      id: "guarded-exit",
+      name: "a && (b || !c)",
+      expression: "a && (b || !c)",
+      description: "\u5E36\u6709\u5426\u5B9A\u5B50\u53E5\u7684\u5B88\u885B\u689D\u4EF6\u3002",
+      descriptionEn: "A guarded condition that includes a negated clause.",
+      defaultBindings: { a: "n > 0", b: "n % 2 === 0", c: "n > 100" },
+      bindingParams: "n",
+      sourceCode: `function process(n) {
+  if (n > 0 && (n % 2 === 0 || !(n > 100))) {  // \u2190 a && (b || !c)
+    return 'ok';
+  }
+  return 'skip';
+}`
+    },
+    {
+      id: "four-clause",
+      name: "(a || b) && (c || d)",
+      expression: "(a || b) && (c || d)",
+      description: "\u56DB\u500B\u5B50\u53E5\u7684\u4E58\u7A4D\u5F0F predicate\uFF0C\u5E38\u898B\u65BC\u7BC4\u570D\u6AA2\u67E5\u3002",
+      descriptionEn: "A four-clause product predicate, common in range checks.",
+      defaultBindings: { a: "x < 0", b: "x > 100", c: "y < 0", d: "y > 100" },
+      bindingParams: "x, y",
+      sourceCode: `function outOfBounds(x, y) {
+  if ((x < 0 || x > 100) && (y < 0 || y > 100)) {  // \u2190 (a||b) && (c||d)
+    return true;   // both axes out of range
+  }
+  return false;
+}`
+    },
+    {
+      id: "triangle-valid",
+      name: "Triangle valid",
+      expression: "a && b && c",
+      description: "\u4E09\u89D2\u5F62\u5408\u6CD5\u6027\uFF1A\u4E09\u908A\u6B63\u6578\u4E14\u4EFB\u610F\u5169\u908A\u4E4B\u548C\u5927\u65BC\u7B2C\u4E09\u908A\u3002",
+      descriptionEn: "Triangle validity: all sides positive and triangle inequality holds.",
+      defaultBindings: { a: "p > 0 && q > 0 && r > 0", b: "p + q > r", c: "p + r > q" },
+      bindingParams: "p, q, r",
+      sourceCode: `function isValidTriangle(p, q, r) {
+  if (p > 0 && q > 0 && r > 0   // \u2190 a
+      && p + q > r               // \u2190 b
+      && p + r > q) {            // \u2190 c
+    return 'valid';
+  }
+  return 'invalid';
+}`
+    },
+    {
+      id: "abs-predicate",
+      name: "abs(x) branch",
+      expression: "a",
+      description: "abs(x) \u51FD\u5F0F\u7684\u55AE\u4E00\u5206\u652F\u689D\u4EF6\uFF1Ax < 0 \u2192 \u56DE\u50B3 -x\u3002",
+      descriptionEn: "The single branch condition inside abs(x): x < 0 returns -x.",
+      defaultBindings: { a: "x < 0" },
+      bindingParams: "x",
+      sourceCode: `function abs(x) {
+  if (x < 0) {   // \u2190 a
+    return -x;
+  }
+  return x;
+}`
+    },
+    {
+      id: "max3-predicate",
+      name: "max3 branches",
+      expression: "a && b",
+      description: "max3 \u7684\u96D9\u5C64 if\uFF1Ax>y \u4E14 x>z \u6642 x \u70BA\u6700\u5927\u503C\u3002",
+      descriptionEn: "Nested ifs in max3: x is maximum when x>y and x>z.",
+      defaultBindings: { a: "x > y", b: "x > z" },
+      bindingParams: "x, y, z",
+      sourceCode: `function max3(x, y, z) {
+  if (x > y) {      // \u2190 a
+    if (x > z) {    // \u2190 b
+      return x;
+    }
+    return z;
+  }
+  if (y > z) { return y; }
+  return z;
+}`
+    },
+    {
+      id: "leap-year",
+      name: "isLeapYear(y)",
+      expression: "a && (b || c)",
+      description: "\u958F\u5E74\u5224\u65B7\uFF1A\u80FD\u88AB 4 \u6574\u9664\uFF0C\u4E14\uFF08\u4E0D\u80FD\u88AB 100 \u6574\u9664 \u6216 \u80FD\u88AB 400 \u6574\u9664\uFF09\u3002",
+      descriptionEn: "Leap year: divisible by 4 AND (not divisible by 100 OR divisible by 400).",
+      defaultBindings: { a: "y % 4 === 0", b: "y % 100 !== 0", c: "y % 400 === 0" },
+      bindingParams: "y",
+      sourceCode: `function isLeapYear(y) {
+  if (y % 4 === 0) {       // \u2190 a
+    if (y % 100 !== 0) {   // \u2190 b
+      return true;
+    }
+    if (y % 400 === 0) {   // \u2190 c
+      return true;
+    }
+  }
+  return false;
+}`
+    },
+    {
+      id: "gcd-step",
+      name: "gcdStep(a, b)",
+      expression: "p && q",
+      description: "Euclidean GCD \u7684\u4E00\u6B65\uFF1Ab>0 \u6642\u7E7C\u7E8C\uFF0Ca>b \u6642\u505A\u6E1B\u6CD5\u3002",
+      descriptionEn: "One step of Euclidean GCD: continue if b>0, subtract if a>b.",
+      defaultBindings: { p: "b > 0", q: "a > b" },
+      bindingParams: "a, b",
+      sourceCode: `function gcdStep(a, b) {
+  if (b > 0) {     // \u2190 p: still processing
+    if (a > b) {   // \u2190 q: subtract direction
+      return a - b;
+    }
+    return b - a;
+  }
+  return a;        // base case
+}`
+    },
+    {
+      id: "binary-search-step",
+      name: "binarySearch step",
+      expression: "q || r",
+      description: "Binary search \u7684\u6BD4\u8F03\u6B65\u9A5F\uFF1Atarget \u5C0F\u65BC\u6216\u5927\u65BC midVal \u6642\u5206\u5225\u5F80\u5DE6\u6216\u53F3\u8D70\u3002",
+      descriptionEn: "Binary search comparison: go left if target < midVal, right if target > midVal.",
+      defaultBindings: { q: "target < midVal", r: "target > midVal" },
+      bindingParams: "target, midVal",
+      sourceCode: `function searchStep(target, midVal) {
+  if (target < midVal) {   // \u2190 q: go left
+    return -1;
+  }
+  if (target > midVal) {   // \u2190 r: go right
+    return 1;
+  }
+  return 0;                // found
+}`
+    },
+    {
+      id: "calendar-month",
+      name: "calendarDays(m, leap)",
+      expression: "(a || b || c) && !(d)",
+      description: "\u6708\u4EFD\u5929\u6578\uFF1A\u6708\u4EFD\u70BA 1/3/5/7/8/10/12 (a)\uFF0C\u6216 4/6/9/11 (b)\uFF0C\u6216 2 (c)\uFF0C\u4E14\u975E\u958F\u5E74\u4E8C\u6708\u624D\u662F 28 \u5929 (!d)\u3002",
+      descriptionEn: "Calendar days: month has 31 days (a), 30 days (b), is Feb (c), and is not a leap year (d).",
+      defaultBindings: {
+        a: "[1,3,5,7,8,10,12].includes(m)",
+        b: "[4,6,9,11].includes(m)",
+        c: "m === 2",
+        d: "leap"
+      },
+      bindingParams: "m, leap",
+      sourceCode: `function calendarDays(m, leap) {
+  if ([1,3,5,7,8,10,12].includes(m)) {  // \u2190 a: 31-day months
+    return 31;
+  }
+  if ([4,6,9,11].includes(m)) {          // \u2190 b: 30-day months
+    return 30;
+  }
+  if (m === 2) {                          // \u2190 c: February
+    return leap ? 29 : 28;               // \u2190 d affects Feb
+  }
+  return -1;  // invalid month
+}`
+    }
+  ];
+  var symbolicExecutionExamples = [
+    {
+      id: "triangle",
+      name: "Triangle classifier",
+      nameEn: "Triangle classifier",
+      description: "\u7D93\u5178\u4E09\u89D2\u5F62\u5206\u985E\uFF1A\u56DE\u50B3 0 (\u975E\u4E09\u89D2\u5F62)\u30011 (\u4E00\u822C)\u30012 (\u7B49\u8170)\u30013 (\u7B49\u908A)\u3002",
+      descriptionEn: "Classic triangle classifier: returns 0 (none), 1 (scalene), 2 (isosceles), 3 (equilateral).",
+      sourceCode: `function classify(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return 0;
+  }
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return 0;
+  }
+  if (a == b && b == c) {
+    return 3;
+  }
+  if (a == b || b == c || a == c) {
+    return 2;
+  }
+  return 1;
+}
+`
+    },
+    {
+      id: "max3",
+      name: "Max of three",
+      nameEn: "Max of three",
+      description: "\u56DE\u50B3 a, b, c \u4E09\u8005\u6700\u5927\u503C\uFF1B\u7D93\u5178\u5206\u652F\u7D50\u69CB\u793A\u7BC4\u3002",
+      descriptionEn: "Return the maximum of three integers \u2014 a canonical branching example.",
+      sourceCode: `function max3(a, b, c) {
+  let m = a;
+  if (b > m) {
+    m = b;
+  }
+  if (c > m) {
+    m = c;
+  }
+  return m;
+}
+`
+    },
+    {
+      id: "abs",
+      name: "Absolute value",
+      nameEn: "Absolute value",
+      description: "\u53EA\u6709\u5169\u689D\u8DEF\u5F91\u7684\u6700\u5C0F\u7BC4\u4F8B\uFF1Ax >= 0 \u8207 x < 0\u3002",
+      descriptionEn: "A minimal two-path example: x >= 0 versus x < 0.",
+      sourceCode: `function abs(x) {
+  if (x < 0) {
+    return -x;
+  }
+  return x;
+}
+`
+    },
+    {
+      id: "gcd",
+      name: "GCD (bounded)",
+      nameEn: "GCD (bounded)",
+      description: "\u6B50\u5E7E\u91CC\u5F97\u6F14\u7B97\u6CD5\uFF0C\u542B while \u8FF4\u5708\uFF1B\u4EE5\u6700\u5927\u5C55\u958B\u6B21\u6578\u6A21\u64EC\u6709\u754C\u8DEF\u5F91\u5217\u8209\u3002",
+      descriptionEn: "Euclidean algorithm with a while loop \u2014 bounded unrolling enumerates the first paths.",
+      sourceCode: `function gcd(a, b) {
+  while (b != 0) {
+    let t = b;
+    b = a % b;
+    a = t;
+  }
+  return a;
+}
+`
+    }
+  ];
+  var concolicExecutionExamples = [
+    {
+      id: "triangle",
+      name: "Triangle classifier",
+      nameEn: "Triangle classifier",
+      description: "\u5F9E (1,1,1) \u7B49\u908A\u4E09\u89D2\u5F62\u7A2E\u5B50\u51FA\u767C\uFF0C\u6BCF\u6B21\u7FFB\u8F49\u6700\u5F8C\u4E00\u500B\u672A\u63A2\u7D22\u7684\u5206\u652F\uFF0C\u81EA\u52D5\u7522\u751F\u65B0\u8F38\u5165\u3002",
+      descriptionEn: "Seeded with the equilateral triangle (1,1,1); each step flips the last unexplored branch to derive a new input.",
+      seed: "a=1, b=1, c=1",
+      sourceCode: `function classify(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return 0;
+  }
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return 0;
+  }
+  if (a == b && b == c) {
+    return 3;
+  }
+  if (a == b || b == c || a == c) {
+    return 2;
+  }
+  return 1;
+}
+`
+    },
+    {
+      id: "abs",
+      name: "Absolute value",
+      nameEn: "Absolute value",
+      description: "\u6700\u5C0F\u7BC4\u4F8B\uFF1A\u5F9E x=0 \u51FA\u767C\uFF0Cconcolic \u8D70\u5B8C\u4E00\u689D\u8DEF\u5F91\u5F8C\u7FFB\u8F49\u689D\u4EF6\u5F97\u5230 x<0 \u7684\u5C0D\u5076\u8F38\u5165\u3002",
+      descriptionEn: "Minimal example: starting from x=0, concolic flips the branch to discover the x<0 dual input.",
+      seed: "x=0",
+      sourceCode: `function abs(x) {
+  if (x < 0) {
+    return -x;
+  }
+  return x;
+}
+`
+    },
+    {
+      id: "max3",
+      name: "Max of three",
+      nameEn: "Max of three",
+      description: "\u793A\u7BC4\u96D9\u5206\u652F\u7D50\u69CB\uFF1A\u6BCF\u689D\u8DEF\u5F91\u5C0D\u61C9 (b>a, c>m) \u5169\u500B\u5206\u652F\u7684\u771F\u5047\u7D44\u5408\u3002",
+      descriptionEn: "Demonstrates a two-branch structure: each path corresponds to a (b>a, c>m) truth combination.",
+      seed: "a=0, b=0, c=0",
+      sourceCode: `function max3(a, b, c) {
+  let m = a;
+  if (b > m) {
+    m = b;
+  }
+  if (c > m) {
+    m = c;
+  }
+  return m;
+}
+`
+    },
+    {
+      id: "middle",
+      name: "Middle value",
+      nameEn: "Middle value",
+      description: "\u7D93\u5178 DART \u6E2C\u8A66\u5C0D\u8C61\uFF08Khurshid et al.\uFF09\uFF1A\u56DE\u50B3\u4E09\u6578\u7684\u4E2D\u4F4D\u6578\u3002",
+      descriptionEn: "A classic DART benchmark (Khurshid et al.): returns the median of three integers.",
+      seed: "a=0, b=0, c=0",
+      sourceCode: `function middle(a, b, c) {
+  let m = b;
+  if (a < b) {
+    if (b > c) {
+      if (a < c) {
+        m = c;
+      } else {
+        m = a;
+      }
+    }
+  } else {
+    if (b < c) {
+      if (a < c) {
+        m = a;
+      } else {
+        m = c;
+      }
+    }
+  }
+  return m;
+}
+`
+    }
+  ];
+  var fuzzTestingExamples = [
+    {
+      id: "triangle-classifier",
+      name: "Triangle Classifier",
+      description: "\u4E09\u89D2\u5F62\u5206\u985E\uFF1A\u6839\u64DA\u4E09\u908A\u908A\u9577\u5224\u65B7\u662F\u5426\u70BA\u7B49\u908A\u3001\u7B49\u8170\u6216\u4E0D\u7B49\u908A\u4E09\u89D2\u5F62\u3002",
+      descriptionEn: "Triangle classification: determine equilateral, isosceles, or scalene from three sides.",
+      sourceCode: `function classify(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return 0;
+  }
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return 0;
+  }
+  if (a == b && b == c) {
+    return 3;
+  }
+  if (a == b || b == c || a == c) {
+    return 2;
+  }
+  return 1;
+}`
+    },
+    {
+      id: "gcd-function",
+      name: "Greatest Common Divisor",
+      description: "\u8A08\u7B97\u6700\u5927\u516C\u56E0\u6578\uFF0C\u5305\u542B\u591A\u500B\u908A\u754C\u60C5\u6CC1\u3002",
+      descriptionEn: "Compute GCD with multiple boundary conditions.",
+      sourceCode: `function gcd(a, b) {
+  if (a <= 0 || b <= 0) {
+    return -1;
+  }
+  while (a != b) {
+    if (a > b) {
+      a = a - b;
+    } else {
+      b = b - a;
+    }
+  }
+  return a;
+}`
+    },
+    {
+      id: "absolute-value",
+      name: "Absolute Value",
+      description: "\u7C21\u55AE\u7684\u7D55\u5C0D\u503C\u8A08\u7B97\uFF0C\u6E2C\u8A66\u6B63\u6578\u3001\u8CA0\u6578\u548C\u96F6\u3002",
+      descriptionEn: "Simple absolute value with positive, negative, and zero cases.",
+      sourceCode: `function abs(x) {
+  if (x < 0) {
+    return -x;
+  }
+  return x;
+}`
+    },
+    {
+      id: "quadratic-formula",
+      name: "Quadratic Formula Solver",
+      description: "\u6C42\u89E3\u4E8C\u6B21\u65B9\u7A0B\u5F0F\u7684\u6839\uFF0C\u8655\u7406\u5224\u5225\u5F0F\u908A\u754C\u60C5\u6CC1\u3002",
+      descriptionEn: "Solve quadratic equations, handle discriminant edge cases.",
+      sourceCode: `function quadraticRoots(a, b, c) {
+  if (a == 0) {
+    return "not a quadratic";
+  }
+  const discriminant = b * b - 4 * a * c;
+  if (discriminant < 0) {
+    return "complex roots";
+  }
+  if (discriminant == 0) {
+    return -b / (2 * a);
+  }
+  const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+  const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+  return { root1, root2 };
+}`
+    },
+    {
+      id: "array-sum",
+      name: "Array Sum with Validation",
+      description: "\u8A08\u7B97\u9663\u5217\u7E3D\u548C\uFF0C\u9A57\u8B49\u9663\u5217\u4E0D\u70BA\u7A7A\u3002",
+      descriptionEn: "Compute array sum with empty-array validation.",
+      sourceCode: `function arraySum(arr) {
+  if (!arr || arr.length === 0) {
+    return -1;
+  }
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}`
+    },
+    {
+      id: "max-value",
+      name: "Maximum of Two Values",
+      description: "\u627E\u51FA\u5169\u500B\u6578\u4E2D\u7684\u8F03\u5927\u503C\u3002",
+      descriptionEn: "Find the maximum of two values.",
+      sourceCode: `function max(a, b) {
+  if (a > b) {
+    return a;
+  }
+  return b;
+}`
+    }
+  ];
+
   // src/components/TestingMethodTree.js
   function createTestingMethodTree() {
     const root41 = document.createElement("div");
     let expandedIds = /* @__PURE__ */ new Set();
-    function render40() {
+    function render41() {
       const allExpanded = expandedIds.size === testingMethods.length;
       root41.className = "testing-method-tree";
       root41.dataset.testid = "testing-method-tree";
@@ -6635,7 +6969,7 @@
     `;
       root41.querySelector('[data-testid="toggle-all-btn"]').addEventListener("click", () => {
         expandedIds = allExpanded ? /* @__PURE__ */ new Set() : new Set(testingMethods.map((method) => method.id));
-        render40();
+        render41();
       });
       testingMethods.forEach((method) => {
         root41.querySelector(`[data-testid="method-card-btn-${method.id}"]`).addEventListener("click", () => {
@@ -6646,11 +6980,11 @@
             next.add(method.id);
           }
           expandedIds = next;
-          render40();
+          render41();
         });
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -6886,21 +7220,21 @@
     }
     return false;
   }
-  function requirementCoveredByRecord(requirement, record) {
+  function requirementCoveredByRecord(requirement, record2) {
     if (requirement.type === "node") {
-      return record.path.includes(requirement.nodes[0]);
+      return record2.path.includes(requirement.nodes[0]);
     }
     if (requirement.type === "edge") {
-      return record.edgeIds.includes(requirement.edges[0]);
+      return record2.edgeIds.includes(requirement.edges[0]);
     }
     if (requirement.type === "edge-pair") {
-      return containsEdgePath(record.edgeIds, requirement.edges);
+      return containsEdgePath(record2.edgeIds, requirement.edges);
     }
     if (requirement.type === "prime-path" || requirement.type === "complete-path") {
-      return containsNodePath(record.path, requirement.nodes);
+      return containsNodePath(record2.path, requirement.nodes);
     }
     if (requirement.type === "all-defs" || requirement.type === "all-uses" || requirement.type === "all-du-paths") {
-      return containsNodePath(record.path, requirement.path || requirement.nodes);
+      return containsNodePath(record2.path, requirement.path || requirement.nodes);
     }
     return false;
   }
@@ -6993,10 +7327,10 @@
     const pairs = collectDefUsePairs(normalizedGraph, defUseMap);
     const byDef = /* @__PURE__ */ new Map();
     pairs.forEach((p) => {
-      const key = `${p.defNodeId}|${p.variable}`;
-      const existing = byDef.get(key);
+      const key2 = `${p.defNodeId}|${p.variable}`;
+      const existing = byDef.get(key2);
       if (!existing || p.samplePath.length < existing.samplePath.length) {
-        byDef.set(key, p);
+        byDef.set(key2, p);
       }
     });
     return Array.from(byDef.values()).map((p, index) => ({
@@ -7065,14 +7399,14 @@
     while (uncovered.size > 0) {
       let bestRecord = null;
       let bestGain = 0;
-      pathRecords.forEach((record) => {
-        const gain = record.covers.reduce(
+      pathRecords.forEach((record2) => {
+        const gain = record2.covers.reduce(
           (count, requirementId) => count + (uncovered.has(requirementId) ? 1 : 0),
           0
         );
         if (gain > bestGain) {
           bestGain = gain;
-          bestRecord = record;
+          bestRecord = record2;
         }
       });
       if (!bestRecord || bestGain === 0) {
@@ -7096,9 +7430,9 @@
       if (path.length < 2) {
         return;
       }
-      const key = isCycle(path) ? canonicalCycleKey(path) : path.join("->");
-      if (!uniquePaths.has(key)) {
-        uniquePaths.set(key, path);
+      const key2 = isCycle(path) ? canonicalCycleKey(path) : path.join("->");
+      if (!uniquePaths.has(key2)) {
+        uniquePaths.set(key2, path);
       }
     }
     function dfs(startNodeId, path, visited) {
@@ -7242,9 +7576,9 @@
         return;
       }
       if (currentNodeId === normalizedGraph.endNodeId) {
-        const key = path.join("->");
-        if (!uniquePaths.has(key)) {
-          uniquePaths.set(key, [...path]);
+        const key2 = path.join("->");
+        if (!uniquePaths.has(key2)) {
+          uniquePaths.set(key2, [...path]);
         }
         return;
       }
@@ -7275,11 +7609,11 @@
       path,
       edgeIds: edgeIdsFromPath(normalizedGraph, path)
     }));
-    pathRecords.forEach((record) => {
-      record.covers = requirements.filter((requirement) => requirementCoveredByRecord(requirement, record)).map((requirement) => requirement.id);
+    pathRecords.forEach((record2) => {
+      record2.covers = requirements.filter((requirement) => requirementCoveredByRecord(requirement, record2)).map((requirement) => requirement.id);
     });
     const requirementPaths = requirements.map((requirement) => {
-      const matchedRecord = pathRecords.find((record) => requirementCoveredByRecord(requirement, record));
+      const matchedRecord = pathRecords.find((record2) => requirementCoveredByRecord(requirement, record2));
       return {
         requirement,
         path: matchedRecord ? matchedRecord.path : null,
@@ -7401,12 +7735,12 @@
   function createParserState(lines) {
     return { lines, index: 0 };
   }
-  function currentLine(state40) {
-    return state40.lines[state40.index] || null;
+  function currentLine(state41) {
+    return state41.lines[state41.index] || null;
   }
-  function consumeLine(state40) {
-    const line = currentLine(state40);
-    state40.index += 1;
+  function consumeLine(state41) {
+    const line = currentLine(state41);
+    state41.index += 1;
     return line;
   }
   function createAstNode(type, line, extra = {}) {
@@ -7429,50 +7763,50 @@
       return line.text.startsWith(token);
     });
   }
-  function parseJavascriptSingleStatement(state40) {
-    const line = currentLine(state40);
+  function parseJavascriptSingleStatement(state41) {
+    const line = currentLine(state41);
     if (!line) {
       return [];
     }
     if (line.text.startsWith("if")) {
-      return [parseJavascriptIf(state40)];
+      return [parseJavascriptIf(state41)];
     }
     if (line.text.startsWith("while")) {
-      return [parseJavascriptLoop(state40, "while")];
+      return [parseJavascriptLoop(state41, "while")];
     }
     if (line.text.startsWith("for")) {
-      return [parseJavascriptLoop(state40, "for")];
+      return [parseJavascriptLoop(state41, "for")];
     }
     if (line.text.startsWith("switch")) {
-      return [parseJavascriptSwitch(state40)];
+      return [parseJavascriptSwitch(state41)];
     }
     if (line.text.startsWith("return")) {
-      consumeLine(state40);
+      consumeLine(state41);
       return [createAstNode("return", line, { text: line.text.replace(/;$/, "") })];
     }
     if (line.text.startsWith("break")) {
-      consumeLine(state40);
+      consumeLine(state41);
       return [createAstNode("break", line, { text: line.text.replace(/;$/, "") })];
     }
     if (line.text.startsWith("continue")) {
-      consumeLine(state40);
+      consumeLine(state41);
       return [createAstNode("continue", line, { text: line.text.replace(/;$/, "") })];
     }
-    consumeLine(state40);
+    consumeLine(state41);
     return [createAstNode("statement", line, { text: line.text.replace(/;$/, "") })];
   }
-  function parseJavascriptIf(state40) {
-    const line = consumeLine(state40);
+  function parseJavascriptIf(state41) {
+    const line = consumeLine(state41);
     const condition = extractParenthesizedContent(line.text) || line.text.replace(/^if\s*/, "").replace(/\{$/, "").trim();
-    const consequent = line.text.endsWith("{") ? parseJavascriptStatements(state40) : parseJavascriptSingleStatement(state40);
+    const consequent = line.text.endsWith("{") ? parseJavascriptStatements(state41) : parseJavascriptSingleStatement(state41);
     let alternate = [];
-    const nextLine = currentLine(state40);
+    const nextLine = currentLine(state41);
     if (nextLine == null ? void 0 : nextLine.text.startsWith("else if")) {
-      state40.lines[state40.index] = { ...nextLine, text: nextLine.text.replace(/^else\s+/, "") };
-      alternate = [parseJavascriptIf(state40)];
+      state41.lines[state41.index] = { ...nextLine, text: nextLine.text.replace(/^else\s+/, "") };
+      alternate = [parseJavascriptIf(state41)];
     } else if (nextLine == null ? void 0 : nextLine.text.startsWith("else")) {
-      const elseLine = consumeLine(state40);
-      alternate = elseLine.text.endsWith("{") ? parseJavascriptStatements(state40) : parseJavascriptSingleStatement(state40);
+      const elseLine = consumeLine(state41);
+      alternate = elseLine.text.endsWith("{") ? parseJavascriptStatements(state41) : parseJavascriptSingleStatement(state41);
     }
     return createAstNode("if", line, {
       condition,
@@ -7480,33 +7814,33 @@
       alternate
     });
   }
-  function parseJavascriptLoop(state40, type) {
-    const line = consumeLine(state40);
+  function parseJavascriptLoop(state41, type) {
+    const line = consumeLine(state41);
     const condition = extractParenthesizedContent(line.text) || line.text.replace(new RegExp(`^${type}\\s*`), "").replace(/\{$/, "").trim();
-    const body = line.text.endsWith("{") ? parseJavascriptStatements(state40) : parseJavascriptSingleStatement(state40);
+    const body3 = line.text.endsWith("{") ? parseJavascriptStatements(state41) : parseJavascriptSingleStatement(state41);
     return createAstNode(type, line, {
       condition,
-      body
+      body: body3
     });
   }
-  function parseJavascriptSwitch(state40) {
-    const line = consumeLine(state40);
+  function parseJavascriptSwitch(state41) {
+    const line = consumeLine(state41);
     const expression = extractParenthesizedContent(line.text) || line.text.replace(/^switch\s*/, "").replace(/\{$/, "").trim();
     const cases = [];
-    while (state40.index < state40.lines.length) {
-      const nextLine = currentLine(state40);
+    while (state41.index < state41.lines.length) {
+      const nextLine = currentLine(state41);
       if (!nextLine) {
         break;
       }
       if (nextLine.text === "}") {
-        consumeLine(state40);
+        consumeLine(state41);
         break;
       }
       if (/^(case\s+.+:|default:)$/i.test(nextLine.text)) {
-        const caseLine = consumeLine(state40);
+        const caseLine = consumeLine(state41);
         const isDefault = caseLine.text.startsWith("default:");
         const label = isDefault ? "default" : caseLine.text.replace(/^case\s+/i, "").replace(/:$/, "").trim();
-        const statements = parseJavascriptStatements(state40, ["case ", "default:", "}"]);
+        const statements = parseJavascriptStatements(state41, ["case ", "default:", "}"]);
         cases.push(createAstNode("case", caseLine, {
           label,
           isDefault,
@@ -7514,40 +7848,40 @@
         }));
         continue;
       }
-      consumeLine(state40);
+      consumeLine(state41);
     }
     return createAstNode("switch", line, {
       expression,
       cases
     });
   }
-  function parseJavascriptStatements(state40, stopWhen = ["}"]) {
+  function parseJavascriptStatements(state41, stopWhen = ["}"]) {
     const statements = [];
-    while (state40.index < state40.lines.length) {
-      const line = currentLine(state40);
+    while (state41.index < state41.lines.length) {
+      const line = currentLine(state41);
       if (!line) {
         break;
       }
       if (isJavascriptStop(line, stopWhen)) {
         if (line.text === "}") {
-          consumeLine(state40);
+          consumeLine(state41);
         }
         break;
       }
       if ((line.text.startsWith("function ") || line.text.startsWith("export function ")) && line.text.endsWith("{")) {
-        consumeLine(state40);
+        consumeLine(state41);
         statements.push(createAstNode("statement", line, {
           text: line.text.replace(/\{$/, "").trim()
         }));
-        statements.push(...parseJavascriptStatements(state40));
+        statements.push(...parseJavascriptStatements(state41));
         continue;
       }
       if (line.text === "{") {
-        consumeLine(state40);
-        statements.push(...parseJavascriptStatements(state40));
+        consumeLine(state41);
+        statements.push(...parseJavascriptStatements(state41));
         continue;
       }
-      statements.push(...parseJavascriptSingleStatement(state40));
+      statements.push(...parseJavascriptSingleStatement(state41));
     }
     return statements;
   }
@@ -7558,22 +7892,22 @@
     const upper = line.text.toUpperCase();
     return stopWhen.some((token) => upper.startsWith(token));
   }
-  function parsePseudocodeIf(state40) {
+  function parsePseudocodeIf(state41) {
     var _a;
-    const line = consumeLine(state40);
+    const line = consumeLine(state41);
     const condition = line.text.replace(/^IF\s*/i, "").replace(/\s*THEN$/i, "").trim();
-    const consequent = parsePseudocodeStatements(state40, ["ELSE", "ELSE IF", "END IF", "ENDIF", "END"]);
+    const consequent = parsePseudocodeStatements(state41, ["ELSE", "ELSE IF", "END IF", "ENDIF", "END"]);
     let alternate = [];
-    const nextLine = currentLine(state40);
+    const nextLine = currentLine(state41);
     if (/^ELSE IF\b/i.test((nextLine == null ? void 0 : nextLine.text) || "")) {
-      state40.lines[state40.index] = { ...nextLine, text: nextLine.text.replace(/^ELSE\s+/i, "") };
-      alternate = [parsePseudocodeIf(state40)];
+      state41.lines[state41.index] = { ...nextLine, text: nextLine.text.replace(/^ELSE\s+/i, "") };
+      alternate = [parsePseudocodeIf(state41)];
     } else if (/^ELSE\b/i.test((nextLine == null ? void 0 : nextLine.text) || "")) {
-      consumeLine(state40);
-      alternate = parsePseudocodeStatements(state40, ["END IF", "ENDIF", "END"]);
+      consumeLine(state41);
+      alternate = parsePseudocodeStatements(state41, ["END IF", "ENDIF", "END"]);
     }
-    if (/^(END IF|ENDIF|END)$/i.test(((_a = currentLine(state40)) == null ? void 0 : _a.text) || "")) {
-      consumeLine(state40);
+    if (/^(END IF|ENDIF|END)$/i.test(((_a = currentLine(state41)) == null ? void 0 : _a.text) || "")) {
+      consumeLine(state41);
     }
     return createAstNode("if", line, {
       condition,
@@ -7581,51 +7915,51 @@
       alternate
     });
   }
-  function parsePseudocodeLoop(state40) {
+  function parsePseudocodeLoop(state41) {
     var _a;
-    const line = consumeLine(state40);
+    const line = consumeLine(state41);
     const condition = line.text.replace(/^(WHILE|FOR)\s*/i, "").replace(/\s*DO$/i, "").trim();
-    const body = parsePseudocodeStatements(state40, ["END WHILE", "END FOR", "END"]);
-    if (/^(END WHILE|END FOR|END)$/i.test(((_a = currentLine(state40)) == null ? void 0 : _a.text) || "")) {
-      consumeLine(state40);
+    const body3 = parsePseudocodeStatements(state41, ["END WHILE", "END FOR", "END"]);
+    if (/^(END WHILE|END FOR|END)$/i.test(((_a = currentLine(state41)) == null ? void 0 : _a.text) || "")) {
+      consumeLine(state41);
     }
     return createAstNode(/^WHILE\b/i.test(line.text) ? "while" : "for", line, {
       condition,
-      body
+      body: body3
     });
   }
-  function parsePseudocodeStatements(state40, stopWhen = []) {
+  function parsePseudocodeStatements(state41, stopWhen = []) {
     const statements = [];
-    while (state40.index < state40.lines.length) {
-      const line = currentLine(state40);
+    while (state41.index < state41.lines.length) {
+      const line = currentLine(state41);
       if (!line || isPseudocodeStop(line, stopWhen)) {
         break;
       }
       if (/^FUNCTION\b/i.test(line.text)) {
-        consumeLine(state40);
+        consumeLine(state41);
         continue;
       }
       if (/^IF\b/i.test(line.text)) {
-        statements.push(parsePseudocodeIf(state40));
+        statements.push(parsePseudocodeIf(state41));
         continue;
       }
       if (/^(WHILE|FOR)\b/i.test(line.text)) {
-        statements.push(parsePseudocodeLoop(state40));
+        statements.push(parsePseudocodeLoop(state41));
         continue;
       }
       if (/^RETURN\b/i.test(line.text)) {
-        statements.push(createAstNode("return", consumeLine(state40), { text: line.text }));
+        statements.push(createAstNode("return", consumeLine(state41), { text: line.text }));
         continue;
       }
       if (/^BREAK\b/i.test(line.text)) {
-        statements.push(createAstNode("break", consumeLine(state40), { text: line.text }));
+        statements.push(createAstNode("break", consumeLine(state41), { text: line.text }));
         continue;
       }
       if (/^CONTINUE\b/i.test(line.text)) {
-        statements.push(createAstNode("continue", consumeLine(state40), { text: line.text }));
+        statements.push(createAstNode("continue", consumeLine(state41), { text: line.text }));
         continue;
       }
-      statements.push(createAstNode("statement", consumeLine(state40), { text: line.text }));
+      statements.push(createAstNode("statement", consumeLine(state41), { text: line.text }));
     }
     return statements;
   }
@@ -7728,19 +8062,19 @@
   }
   function buildLoopStatement(builder, statement) {
     const decisionId = addNode(builder, `${statement.condition}?`, "decision", statement);
-    const body = buildSequence(builder, statement.body || []);
+    const body3 = buildSequence(builder, statement.body || []);
     const mergeId = addNode(builder, "Loop Exit");
     addEdge(builder, decisionId, mergeId);
-    if (body.entry) {
-      addEdge(builder, decisionId, body.entry);
-      body.normalExits.forEach((exitId) => {
+    if (body3.entry) {
+      addEdge(builder, decisionId, body3.entry);
+      body3.normalExits.forEach((exitId) => {
         addEdge(builder, exitId, decisionId);
       });
-      body.continueExits.forEach((exitId) => {
+      body3.continueExits.forEach((exitId) => {
         addEdge(builder, exitId, decisionId);
       });
     }
-    body.breakExits.forEach((exitId) => {
+    body3.breakExits.forEach((exitId) => {
       addEdge(builder, exitId, mergeId);
     });
     return {
@@ -8347,11 +8681,11 @@
     const { minX, minY, width, height } = computeGraphBounds(graph, dfg.edges);
     const grouped = /* @__PURE__ */ new Map();
     for (const e of dfg.edges) {
-      const key = `${e.from}->${e.to}`;
-      if (!grouped.has(key)) grouped.set(key, []);
-      grouped.get(key).push(e);
+      const key2 = `${e.from}->${e.to}`;
+      if (!grouped.has(key2)) grouped.set(key2, []);
+      grouped.get(key2).push(e);
     }
-    const edgeMarkup = [...grouped.entries()].map(([key, group]) => {
+    const edgeMarkup = [...grouped.entries()].map(([key2, group]) => {
       const sample = group[0];
       const a = nodeById.get(sample.from);
       const b = nodeById.get(sample.to);
@@ -8369,7 +8703,7 @@
       const start = trimToCircle({ x: cx, y: cy }, a, DFG_R);
       const end = trimToCircle({ x: cx, y: cy }, b, DFG_R + ARROW_GAP);
       return `
-      <g class="graph-dfg-edge" data-testid="dfg-edge-${escapeHtml(key)}">
+      <g class="graph-dfg-edge" data-testid="dfg-edge-${escapeHtml(key2)}">
         <path d="M ${start.x} ${start.y} Q ${cx} ${cy} ${end.x} ${end.y}"
               marker-end="url(#dfg-arrow)"></path>
         <text x="${cx}" y="${cy}" text-anchor="middle">${escapeHtml(labels)}</text>
@@ -8430,9 +8764,9 @@
       const candidates = [];
       for (const rp of pathPlan.requirementPaths) {
         if (!rp.path) continue;
-        const key = rp.path.join("->");
-        if (!seen.has(key)) {
-          seen.add(key);
+        const key2 = rp.path.join("->");
+        if (!seen.has(key2)) {
+          seen.add(key2);
           candidates.push(rp.path);
         }
       }
@@ -8456,7 +8790,7 @@
         userCount: userPaths.length
       };
       graphQuiz.phase = "graded";
-      render40();
+      render41();
     }
     function renderGraphLabReflectPanel() {
       if (!graphLabReflect.active) return "";
@@ -8486,14 +8820,14 @@
       const isGraded = graphQuiz.phase === "graded";
       const optimalKeys = new Set(pathPlan.selectedPaths.map((p) => p.join("->")));
       const pathItems = candidates.map((path, idx) => {
-        const key = path.join("->");
-        const checked = graphQuiz.selectedPaths.has(key) ? " checked" : "";
-        const isOptimal = optimalKeys.has(key);
+        const key2 = path.join("->");
+        const checked = graphQuiz.selectedPaths.has(key2) ? " checked" : "";
+        const isOptimal = optimalKeys.has(key2);
         const optLabel = isGraded && isOptimal ? ' <span class="quiz-optimal-badge">\u2713 optimal</span>' : "";
         return `<label class="quiz-path-item">
-        <input type="checkbox" data-quiz-path="${escapeHtml(key)}"${checked}
+        <input type="checkbox" data-quiz-path="${escapeHtml(key2)}"${checked}
           ${isGraded ? "disabled" : ""} data-testid="graph-quiz-path-${idx}"/>
-        <span class="quiz-path-text">${escapeHtml(key.replaceAll("->", " \u2192 "))}</span>
+        <span class="quiz-path-text">${escapeHtml(key2.replaceAll("->", " \u2192 "))}</span>
         ${optLabel}
       </label>`;
       }).join("");
@@ -8502,10 +8836,10 @@
       ${graphQuiz.result.covered === graphQuiz.result.total && graphQuiz.result.userCount === graphQuiz.result.optimal ? ` <strong>${t("quiz.graph.perfect")}</strong>` : graphQuiz.result.covered < graphQuiz.result.total ? ` <em>${t("quiz.graph.incomplete")}</em>` : ""}
     </p>
     <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "graph", explorerLabel: t("quiz.graph.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: graphQuiz.result.covered, total: graphQuiz.result.total, items: candidates.map((path) => {
-        const key = path.join("->");
-        const isOpt = optimalKeys.has(key);
-        const checked = graphQuiz.selectedPaths.has(key);
-        return { q: key.replaceAll("->", " \u2192 "), a: checked ? "\u2713" : "\u2014", expected: isOpt ? "\u2713" : "\u2014", ok: checked === isOpt };
+        const key2 = path.join("->");
+        const isOpt = optimalKeys.has(key2);
+        const checked = graphQuiz.selectedPaths.has(key2);
+        return { q: key2.replaceAll("->", " \u2192 "), a: checked ? "\u2713" : "\u2014", expected: isOpt ? "\u2713" : "\u2014", ok: checked === isOpt };
       }) })}" data-testid="graph-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>` : "";
       const prompt = t("quiz.graph.prompt").replace("{criterion}", escapeHtml(selectedCriterion ? selectedCriterion.label : criterionId)).replace("{program}", escapeHtml(activeProgram.name));
       return `<div class="quiz-panel quiz-panel--graph" data-testid="graph-quiz">
@@ -8530,7 +8864,7 @@
       parseError = "";
       sourceStatus = statusMessage;
       selectedRequirementId = null;
-      render40();
+      render41();
     }
     function scheduleAutoApply() {
       if (autoApplyTimer) {
@@ -8545,10 +8879,10 @@
           parseError = "";
           sourceStatus = t("graph.status.recomputed", { name: activeProgram.name });
           selectedRequirementId = null;
-          render40();
+          render41();
         } catch (error) {
           parseError = error.message;
-          render40();
+          render41();
         }
       }, 300);
     }
@@ -8558,7 +8892,7 @@
       parseError = "";
       sourceStatus = t("graph.status.reset", { name: activeProgram.name });
       selectedRequirementId = null;
-      render40();
+      render41();
     }
     function getState() {
       var _a;
@@ -8576,7 +8910,7 @@
         pathPlan
       };
     }
-    function render40() {
+    function render41() {
       var _a, _b, _c, _d, _e, _f, _g, _h;
       const { requirements, selectedRequirement, selectedCriterion, pathPlan } = getState();
       const selectedSourceNodes = getSelectedSourceNodes(graph, selectedRequirement);
@@ -8809,13 +9143,13 @@
         if (nextProgramId === "uploaded-spec") {
           selectedProgramId = nextProgramId;
           sourceStatus = t("graph.status.pickJson");
-          render40();
+          render41();
           return;
         }
         if (nextProgramId === "uploaded-code") {
           selectedProgramId = nextProgramId;
           sourceStatus = t("graph.status.pickCode");
-          render40();
+          render41();
           return;
         }
         const example5 = graphCoverageProgramExamples.find((item) => item.id === nextProgramId);
@@ -8849,7 +9183,7 @@
         } catch (error) {
           selectedProgramId = "uploaded-spec";
           parseError = error.message;
-          render40();
+          render41();
         }
       });
       root41.querySelector('[data-testid="code-upload-input"]').addEventListener("change", async (event) => {
@@ -8872,7 +9206,7 @@
         } catch (error) {
           parseError = error.message;
           sourceStatus = t("graph.status.codeFailed");
-          render40();
+          render41();
         }
       });
       root41.querySelectorAll("[data-draft-field]").forEach((input) => {
@@ -8888,13 +9222,13 @@
         button.addEventListener("click", () => {
           criterionId = button.dataset.criterion;
           selectedRequirementId = null;
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-requirement-id]").forEach((button) => {
         button.addEventListener("click", () => {
           selectedRequirementId = button.dataset.requirementId;
-          render40();
+          render41();
         });
       });
       (_a = root41.querySelector('[data-testid="graph-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
@@ -8902,17 +9236,17 @@
         graphQuiz.selectedPaths = /* @__PURE__ */ new Set();
         graphQuiz.phase = "question";
         graphQuiz.result = null;
-        render40();
+        render41();
       });
       (_b = root41.querySelector('[data-testid="graph-quiz-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
         graphQuiz.active = false;
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-quiz-path]").forEach((cb) => {
         cb.addEventListener("change", () => {
-          const key = cb.dataset.quizPath;
-          if (cb.checked) graphQuiz.selectedPaths.add(key);
-          else graphQuiz.selectedPaths.delete(key);
+          const key2 = cb.dataset.quizPath;
+          if (cb.checked) graphQuiz.selectedPaths.add(key2);
+          else graphQuiz.selectedPaths.delete(key2);
         });
       });
       (_c = root41.querySelector('[data-testid="graph-quiz-check"]')) == null ? void 0 : _c.addEventListener("click", () => {
@@ -8923,18 +9257,18 @@
         graphQuiz.selectedPaths = /* @__PURE__ */ new Set();
         graphQuiz.phase = "question";
         graphQuiz.result = null;
-        render40();
+        render41();
       });
       (_e = root41.querySelector('[data-testid="graph-lab-reflect-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
         graphLabReflect.active = true;
-        render40();
+        render41();
       });
       (_f = root41.querySelector('[data-testid="graph-lab-reflect-close"]')) == null ? void 0 : _f.addEventListener("click", () => {
         var _a2, _b2;
         graphLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || graphLabReflect.a1;
         graphLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || graphLabReflect.a2;
         graphLabReflect.active = false;
-        render40();
+        render41();
       });
       (_g = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
         graphLabReflect.a1 = e.target.value;
@@ -8982,7 +9316,7 @@
         });
       }
     }
-    render40();
+    render41();
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
         var _a;
@@ -9004,7 +9338,7 @@
         } catch (error) {
           parseError = error.message;
           sourceStatus = t("graph.status.codeFailed");
-          render40();
+          render41();
         }
       });
     }
@@ -9457,14 +9791,14 @@
             used[j] = true;
             const newDash = a.dash | diff;
             const newBits = a.bits & ~diff;
-            const key = `${newBits}|${newDash}`;
-            if (!seen.has(key)) {
+            const key2 = `${newBits}|${newDash}`;
+            if (!seen.has(key2)) {
               const covers = /* @__PURE__ */ new Set([...a.covers, ...b.covers]);
               const entry = { bits: newBits, dash: newDash, covers };
-              seen.set(key, entry);
+              seen.set(key2, entry);
               next.push(entry);
             } else {
-              const ex = seen.get(key);
+              const ex = seen.get(key2);
               a.covers.forEach((v) => ex.covers.add(v));
               b.covers.forEach((v) => ex.covers.add(v));
             }
@@ -9628,11 +9962,11 @@
         return;
       }
       utps.forEach((row) => {
-        const key = `r${row.index}-utp${index}`;
-        if (seen.has(key)) return;
-        seen.add(key);
+        const key2 = `r${row.index}-utp${index}`;
+        if (seen.has(key2)) return;
+        seen.add(key2);
         tests.push({
-          id: key,
+          id: key2,
           row,
           label: `UTP for {${termLabel(term)}}`,
           implicantIndex: index
@@ -9667,11 +10001,11 @@
       }
       if (!minorClauses.length) {
         const row = utps[0];
-        const key = `r${row.index}-mutp${index}`;
-        if (!seen.has(key)) {
-          seen.add(key);
+        const key2 = `r${row.index}-mutp${index}`;
+        if (!seen.has(key2)) {
+          seen.add(key2);
           tests.push({
-            id: key,
+            id: key2,
             row,
             label: `MUTP {${termLabel(term)}}`,
             implicantIndex: index
@@ -9718,11 +10052,11 @@
       chosen.forEach((i) => {
         const row = utps[i];
         const covered = [...utpReqs[i]].join(", ");
-        const key = `r${row.index}-mutp${index}`;
-        if (seen.has(key)) return;
-        seen.add(key);
+        const key2 = `r${row.index}-mutp${index}`;
+        if (seen.has(key2)) return;
+        seen.add(key2);
         tests.push({
-          id: key,
+          id: key2,
           row,
           label: `MUTP {${termLabel(term)}} (${covered})`,
           implicantIndex: index
@@ -9763,9 +10097,9 @@
           return;
         }
         const row = nfps[0];
-        const key = `r${row.index}-nfp${index}-${literalIndex}`;
-        if (seen.has(key)) return;
-        seen.add(key);
+        const key2 = `r${row.index}-nfp${index}-${literalIndex}`;
+        if (seen.has(key2)) return;
+        seen.add(key2);
         const pairedTruePoint = rows.find(
           (candidate) => termSatisfiedBy(term, candidate.values) && Object.keys(candidate.values).every((name) => {
             if (name === literal.name) return candidate.values[name] !== row.values[name];
@@ -9773,7 +10107,7 @@
           })
         );
         tests.push({
-          id: key,
+          id: key2,
           row,
           label: L(`NFP {${termLabel(term)}} flip ${literalKey(literal)}`, `NFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`),
           implicantIndex: index,
@@ -9815,11 +10149,11 @@
         }
         if (!minorClauses.length) {
           const row = nfps[0];
-          const key = `r${row.index}-mnfp${index}-${literalIndex}`;
-          if (!seen.has(key)) {
-            seen.add(key);
+          const key2 = `r${row.index}-mnfp${index}-${literalIndex}`;
+          if (!seen.has(key2)) {
+            seen.add(key2);
             tests.push({
-              id: key,
+              id: key2,
               row,
               label: L(`MNFP {${termLabel(term)}} flip ${literalKey(literal)}`, `MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`),
               implicantIndex: index,
@@ -9867,11 +10201,11 @@
         chosen.forEach((i) => {
           const row = nfps[i];
           const covered = [...reqsPerNfp[i]].join(", ");
-          const key = `r${row.index}-mnfp${index}-${literalIndex}`;
-          if (seen.has(key)) return;
-          seen.add(key);
+          const key2 = `r${row.index}-mnfp${index}-${literalIndex}`;
+          if (seen.has(key2)) return;
+          seen.add(key2);
           tests.push({
-            id: key,
+            id: key2,
             row,
             label: L(`MNFP {${termLabel(term)}} flip ${literalKey(literal)} (${covered})`, `MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}\uFF08${covered}\uFF09`),
             implicantIndex: index,
@@ -9917,11 +10251,11 @@
           return;
         }
         pair.forEach((row, role) => {
-          const key = `r${row.index}-cutp${index}-${literalIndex}-${role}`;
-          if (seen.has(key)) return;
-          seen.add(key);
+          const key2 = `r${row.index}-cutp${index}-${literalIndex}-${role}`;
+          if (seen.has(key2)) return;
+          seen.add(key2);
           tests.push({
-            id: key,
+            id: key2,
             row,
             label: L(`${role === 0 ? "UTP" : "NFP"} pair {${termLabel(term)}} flip ${literalKey(literal)}`, `${role === 0 ? "UTP" : "NFP"} pair {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`),
             implicantIndex: index,
@@ -10080,7 +10414,7 @@
   ];
   var cachedClient = null;
   function getMissingFirebaseKeys(firebaseConfig) {
-    return REQUIRED_FIREBASE_KEYS.filter((key) => !(firebaseConfig == null ? void 0 : firebaseConfig[key]));
+    return REQUIRED_FIREBASE_KEYS.filter((key2) => !(firebaseConfig == null ? void 0 : firebaseConfig[key2]));
   }
   function createMultipartBody(file, metadata) {
     const boundary = `stvisual-${Date.now()}`;
@@ -10322,14 +10656,14 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         if (folderId) {
           metadata.parents = [folderId];
         }
-        const { boundary, body } = createMultipartBody(file, metadata);
+        const { boundary, body: body3 } = createMultipartBody(file, metadata);
         const response = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${driveAccessToken}`,
             "Content-Type": `multipart/related; boundary=${boundary}`
           },
-          body
+          body: body3
         });
         const payload = await response.json();
         if (!response.ok) {
@@ -10685,20 +11019,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const consume = () => tokens[pos++];
     function primary() {
       var _a;
-      const t2 = peek();
-      if (!t2) throw new Error("Unexpected end of expression");
-      if (t2.type === "LPAREN") {
+      const t4 = peek();
+      if (!t4) throw new Error("Unexpected end of expression");
+      if (t4.type === "LPAREN") {
         consume();
         const node = expr();
         if (((_a = peek()) == null ? void 0 : _a.type) !== "RPAREN") throw new Error("Expected )");
         consume();
         return node;
       }
-      if (t2.type === "ATOM") {
+      if (t4.type === "ATOM") {
         consume();
-        return { type: "ATOM", value: t2.value };
+        return { type: "ATOM", value: t4.value };
       }
-      throw new Error(`Unexpected token: ${t2.type}`);
+      throw new Error(`Unexpected token: ${t4.type}`);
     }
     function notExpr() {
       var _a;
@@ -10878,8 +11212,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       return {
         varName: v,
         pairs: rawPairs.map(([r1, r2]) => {
-          const key = `${r1},${r2}`;
-          if (canonical.has(key)) return { row1: r1, row2: r2, derived: true };
+          const key2 = `${r1},${r2}`;
+          if (canonical.has(key2)) return { row1: r1, row2: r2, derived: true };
           for (const perm of autGroup) {
             const ir1 = maskForPerm(r1, vars, perm);
             const ir2 = maskForPerm(r2, vars, perm);
@@ -10920,8 +11254,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       return {
         varName: v,
         pairs: rawPairs.map(([r1, r2]) => {
-          const key = `${r1},${r2}`;
-          if (canonical.has(key)) return { row1: r1, row2: r2, derived: true };
+          const key2 = `${r1},${r2}`;
+          if (canonical.has(key2)) return { row1: r1, row2: r2, derived: true };
           for (const perm of autGroup) {
             const ir1 = maskForPerm(r1, vars, perm);
             const ir2 = maskForPerm(r2, vars, perm);
@@ -10932,8 +11266,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       };
     });
   }
-  function coveringArray(p, k, t2) {
-    if (t2 === 1) {
+  function coveringArray(p, k, t4) {
+    if (t4 === 1) {
       return Array.from(
         { length: p },
         (_, i) => Array.from({ length: k }, () => String(i))
@@ -11084,10 +11418,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const minterms = new Set(
         rows.filter((row) => row.predicate === target && term.every((lit) => Boolean(row.values[lit.name]) !== lit.negated)).map((row) => row.index)
       );
-      const testRowIndices = testsForPolarity.filter((t2) => {
+      const testRowIndices = testsForPolarity.filter((t4) => {
         var _a;
-        return ((_a = t2.implicantIndices) == null ? void 0 : _a.includes(idx)) || t2.implicantIndex === idx;
-      }).map((t2) => t2.row.index);
+        return ((_a = t4.implicantIndices) == null ? void 0 : _a.includes(idx)) || t4.implicantIndex === idx;
+      }).map((t4) => t4.row.index);
       return {
         color: IMPLICANT_PALETTE[(idx + paletteOffset) % IMPLICANT_PALETTE.length],
         label: termToString(term),
@@ -11101,7 +11435,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const root41 = document.createElement("div");
     root41.className = "logic-coverage";
     root41.dataset.testid = "logic-coverage";
-    const state40 = {
+    const state41 = {
       expression: logicCoveragePredicates[0].expression,
       selectedCriterion: "pc",
       error: null,
@@ -11149,8 +11483,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     function renderLogicQuizPanel() {
       if (!logicQuiz.active) return "";
-      const criterion = logicCoverageCriteria.find((c) => c.id === state40.selectedCriterion);
-      const criterionLabel = pickField(criterion, "label") || (criterion == null ? void 0 : criterion.id) || state40.selectedCriterion;
+      const criterion = logicCoverageCriteria.find((c) => c.id === state41.selectedCriterion);
+      const criterionLabel = pickField(criterion, "label") || (criterion == null ? void 0 : criterion.id) || state41.selectedCriterion;
       const uniqueCount = getQuizUniqueCount();
       if (uniqueCount === null) return "";
       const isGraded = logicQuiz.phase === "graded";
@@ -11161,7 +11495,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <h4>${t("quiz.logic.title")}</h4>
           <button type="button" class="quiz-close-btn" data-testid="logic-quiz-close">${t("quiz.close")}</button>
         </div>
-        <p class="quiz-prompt">${t("quiz.logic.prompt").replace("{expr}", escapeHtml2(state40.expression)).replace("{criterion}", escapeHtml2(criterionLabel))}</p>
+        <p class="quiz-prompt">${t("quiz.logic.prompt").replace("{expr}", escapeHtml2(state41.expression)).replace("{criterion}", escapeHtml2(criterionLabel))}</p>
         <div class="quiz-bva-inputs">
           <label class="quiz-bva-field">
             <span>${t("quiz.logic.label")}</span>
@@ -11176,7 +11510,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <p class="quiz-score" data-testid="logic-quiz-score">
             ${correct ? `<strong>${t("quiz.bva.perfect")}</strong>` : `${t("quiz.ec.wrong")} ${t("quiz.ec.answer").replace("{count}", uniqueCount)}`}
           </p>
-          <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "logic", explorerLabel: t("quiz.logic.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: correct ? 1 : 0, total: 1, items: [{ q: t("quiz.logic.prompt").replace("{expr}", state40.expression).replace("{criterion}", criterionLabel), a: String(logicQuiz.answer), expected: String(uniqueCount), ok: correct }] })}" data-testid="logic-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
+          <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "logic", explorerLabel: t("quiz.logic.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: correct ? 1 : 0, total: 1, items: [{ q: t("quiz.logic.prompt").replace("{expr}", state41.expression).replace("{criterion}", criterionLabel), a: String(logicQuiz.answer), expected: String(uniqueCount), ok: correct }] })}" data-testid="logic-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
           <button type="button" class="quiz-start-btn" data-testid="logic-quiz-reset">${t("quiz.reset")}</button>
         ` : `
           <button type="button" class="quiz-start-btn" data-testid="logic-quiz-check">${t("quiz.check")}</button>
@@ -11191,65 +11525,65 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       cloudClient = null;
     }
     function pushRecentToCloud(list) {
-      if (!cloudClient || !state40.cloudUser || typeof cloudClient.saveLogicRecent !== "function") return;
-      cloudClient.saveLogicRecent(state40.cloudUser.uid, list).catch(() => {
+      if (!cloudClient || !state41.cloudUser || typeof cloudClient.saveLogicRecent !== "function") return;
+      cloudClient.saveLogicRecent(state41.cloudUser.uid, list).catch(() => {
       });
     }
     function persistRecent() {
-      saveRecent(state40.recent);
-      pushRecentToCloud(state40.recent);
+      saveRecent(state41.recent);
+      pushRecentToCloud(state41.recent);
     }
     function rememberCurrentExpression() {
-      const expr = state40.expression.trim();
-      if (!expr || state40.error) return false;
+      const expr = state41.expression.trim();
+      if (!expr || state41.error) return false;
       if (isBuiltinExpression(expr)) return false;
-      const next = [expr, ...state40.recent.filter((item) => item !== expr)].slice(0, RECENT_LIMIT);
-      if (next.length === state40.recent.length && next[0] === state40.recent[0]) {
+      const next = [expr, ...state41.recent.filter((item) => item !== expr)].slice(0, RECENT_LIMIT);
+      if (next.length === state41.recent.length && next[0] === state41.recent[0]) {
         return false;
       }
-      state40.recent = next;
+      state41.recent = next;
       persistRecent();
       return true;
     }
     function removeRecent(expr) {
-      const next = state40.recent.filter((item) => item !== expr);
-      if (next.length === state40.recent.length) return;
-      state40.recent = next;
+      const next = state41.recent.filter((item) => item !== expr);
+      if (next.length === state41.recent.length) return;
+      state41.recent = next;
       persistRecent();
-      render40();
+      render41();
     }
     function recompute() {
       try {
-        state40.parsed = parsePredicate(state40.expression);
-        if (state40.parsed.clauses.length > 6) {
+        state41.parsed = parsePredicate(state41.expression);
+        if (state41.parsed.clauses.length > 6) {
           throw new Error(t("logic.err.tooManyClauses"));
         }
-        state40.analysis = buildAllCoverageSets(state40.parsed);
-        state40.error = null;
-        const clauseSet = new Set(state40.parsed.clauses);
-        for (const k of Object.keys(state40.bindings)) {
-          if (!clauseSet.has(k)) delete state40.bindings[k];
+        state41.analysis = buildAllCoverageSets(state41.parsed);
+        state41.error = null;
+        const clauseSet = new Set(state41.parsed.clauses);
+        for (const k of Object.keys(state41.bindings)) {
+          if (!clauseSet.has(k)) delete state41.bindings[k];
         }
       } catch (err) {
-        state40.parsed = null;
-        state40.analysis = null;
-        state40.error = err.message || String(err);
+        state41.parsed = null;
+        state41.analysis = null;
+        state41.error = err.message || String(err);
       }
     }
     function getActiveSet() {
-      if (!state40.analysis) return null;
-      return state40.analysis.sets[state40.selectedCriterion] || null;
+      if (!state41.analysis) return null;
+      return state41.analysis.sets[state41.selectedCriterion] || null;
     }
     function activeRowIds() {
       const set = getActiveSet();
       if (!set) return /* @__PURE__ */ new Set();
-      return new Set(set.tests.map((t2) => `r${t2.row.index}`));
+      return new Set(set.tests.map((t4) => `r${t4.row.index}`));
     }
-    function render40() {
+    function render41() {
       const examplesMarkup = logicCoveragePredicates.map((p) => `
         <button
           type="button"
-          class="logic-example-btn${state40.expression === p.expression ? " active" : ""}"
+          class="logic-example-btn${state41.expression === p.expression ? " active" : ""}"
           data-expression="${escapeHtml2(p.expression)}"
           data-testid="logic-example-${p.id}"
           title="${escapeHtml2(pickField(p, "description") || "")}"
@@ -11257,11 +11591,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           ${escapeHtml2(p.name)}
         </button>
       `).join("");
-      const recentMarkup = state40.recent.length ? `
+      const recentMarkup = state41.recent.length ? `
         <div class="logic-recent" data-testid="logic-recent">
           <span class="logic-recent-label">${t("logic.recent")}</span>
-          ${state40.recent.map((expr) => `
-              <span class="logic-recent-chip${state40.expression === expr ? " active" : ""}" data-testid="logic-recent-chip">
+          ${state41.recent.map((expr) => `
+              <span class="logic-recent-chip${state41.expression === expr ? " active" : ""}" data-testid="logic-recent-chip">
                 <button
                   type="button"
                   class="logic-recent-select"
@@ -11282,7 +11616,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const criteriaMarkup = logicCoverageCriteria.map((c) => `
         <button
           type="button"
-          class="logic-criterion-btn${state40.selectedCriterion === c.id ? " active" : ""}"
+          class="logic-criterion-btn${state41.selectedCriterion === c.id ? " active" : ""}"
           data-criterion="${c.id}"
           data-testid="logic-criterion-${c.id}"
         >
@@ -11291,7 +11625,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </button>
       `).join("");
       const truthTableMarkup = renderTruthTable();
-      const summaryMarkup = renderSummary2();
+      const summaryMarkup = renderSummary3();
       root41.innerHTML = `
       <div class="logic-toolbar">
         <label class="logic-input-label" for="logic-expression-input">Predicate</label>
@@ -11299,7 +11633,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           id="logic-expression-input"
           class="logic-expression-input"
           type="text"
-          value="${escapeHtml2(state40.expression)}"
+          value="${escapeHtml2(state41.expression)}"
           spellcheck="false"
           autocomplete="off"
           data-testid="logic-expression-input"
@@ -11309,12 +11643,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         ${recentMarkup}
       </div>
 
-      ${state40.error ? `<div class="logic-error" data-testid="logic-error">${escapeHtml2(state40.error)}</div>` : ""}
+      ${state41.error ? `<div class="logic-error" data-testid="logic-error">${escapeHtml2(state41.error)}</div>` : ""}
 
       <div class="logic-criteria" role="tablist" aria-label="${t("logic.aria.criteria")}">
         <div class="graph-criterion-row">
           ${criteriaMarkup}
-          ${!state40.error && state40.analysis ? `
+          ${!state41.error && state41.analysis ? `
             <button type="button" class="quiz-start-btn" data-testid="logic-quiz-start">
               ${t("quiz.start")}
             </button>
@@ -11337,20 +11671,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       bindEvents40();
     }
     function renderTruthTable() {
-      if (!state40.analysis) {
+      if (!state41.analysis) {
         return "";
       }
-      const { rows, clauses } = state40.analysis;
+      const { rows, clauses } = state41.analysis;
       const highlighted = activeRowIds();
       const activeSet = getActiveSet();
       const majorByRow = /* @__PURE__ */ new Map();
       if (activeSet && ["gacc", "cacc", "racc", "gicc", "ricc"].includes(activeSet.id)) {
         activeSet.tests.forEach((test) => {
-          const key = `r${test.row.index}`;
-          if (!majorByRow.has(key)) {
-            majorByRow.set(key, /* @__PURE__ */ new Set());
+          const key2 = `r${test.row.index}`;
+          if (!majorByRow.has(key2)) {
+            majorByRow.set(key2, /* @__PURE__ */ new Set());
           }
-          majorByRow.get(key).add(test.majorClause);
+          majorByRow.get(key2).add(test.majorClause);
         });
       }
       const headerCells = clauses.map((c) => `<th scope="col">${escapeHtml2(c)}</th>`).join("");
@@ -11388,19 +11722,19 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </table>
     `;
     }
-    function renderSummary2() {
+    function renderSummary3() {
       var _a;
-      if (state40.error || !state40.analysis) {
+      if (state41.error || !state41.analysis) {
         return "";
       }
       const set = getActiveSet();
       if (!set) return "";
       const seenRows = /* @__PURE__ */ new Set();
-      const annotated = set.tests.map((t2) => {
-        const key = `r${t2.row.index}`;
-        const isDuplicate = seenRows.has(key);
-        if (!isDuplicate) seenRows.add(key);
-        return { test: t2, isDuplicate };
+      const annotated = set.tests.map((t4) => {
+        const key2 = `r${t4.row.index}`;
+        const isDuplicate = seenRows.has(key2);
+        if (!isDuplicate) seenRows.add(key2);
+        return { test: t4, isDuplicate };
       });
       const totalCount = annotated.length;
       const duplicateCount = annotated.filter((item) => item.isDuplicate).length;
@@ -11408,48 +11742,48 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const testList = annotated.map(({ test, isDuplicate }) => `
         <li class="logic-test-item${isDuplicate ? " duplicate" : ""}" data-testid="logic-test-${escapeHtml2(test.id)}">
           <span class="logic-test-row">#${test.row.index}</span>
-          <span class="logic-test-values">${state40.analysis.clauses.map((c) => `${c}=${test.row.values[c] ? "T" : "F"}`).join(", ")}</span>
+          <span class="logic-test-values">${state41.analysis.clauses.map((c) => `${c}=${test.row.values[c] ? "T" : "F"}`).join(", ")}</span>
           <span class="logic-test-pred ${test.row.predicate ? "is-true" : "is-false"}">P=${test.row.predicate ? "T" : "F"}</span>
           <span class="logic-test-label">${escapeHtml2(test.label)}</span>
           ${isDuplicate ? `<span class="logic-test-dup-tag" aria-label="${t("logic.duplicate")}">${t("logic.duplicate")}</span>` : ""}
         </li>
       `).join("");
       const unsatisfied = ((_a = set.unsatisfied) == null ? void 0 : _a.length) ? `<p class="logic-unsatisfied" data-testid="logic-unsatisfied">${t("logic.unsatisfied", { items: set.unsatisfied.join(", ") })}</p>` : "";
-      const dnfMarkup = ["ic", "utpc", "mutpc", "nfpc", "mnfpc", "cutpnfp"].includes(set.id) && state40.analysis.dnf ? `<p class="logic-dnf" data-testid="logic-dnf">${t("logic.dnfPrefix")}${dnfToHtml(state40.analysis.dnf)}
-          <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state40.analysis.dnf)}${t("logic.textbookClose")}</span>
-        </p>${set.id === "ic" && state40.analysis.negDnf ? `<p class="logic-dnf" data-testid="logic-dnf-neg">${t("logic.dnfNegPrefix")}${dnfToHtml(state40.analysis.negDnf)}
-                <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state40.analysis.negDnf)}${t("logic.textbookClose")}</span>
+      const dnfMarkup = ["ic", "utpc", "mutpc", "nfpc", "mnfpc", "cutpnfp"].includes(set.id) && state41.analysis.dnf ? `<p class="logic-dnf" data-testid="logic-dnf">${t("logic.dnfPrefix")}${dnfToHtml(state41.analysis.dnf)}
+          <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state41.analysis.dnf)}${t("logic.textbookClose")}</span>
+        </p>${set.id === "ic" && state41.analysis.negDnf ? `<p class="logic-dnf" data-testid="logic-dnf-neg">${t("logic.dnfNegPrefix")}${dnfToHtml(state41.analysis.negDnf)}
+                <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state41.analysis.negDnf)}${t("logic.textbookClose")}</span>
               </p>` : ""}` : "";
-      const kmapMarkup = state40.parsed && (set.id === "ic" || set.id === "utpc" || set.id === "mutpc" || set.id === "nfpc" || set.id === "mnfpc" || set.id === "cutpnfp") ? set.id === "ic" ? (() => {
-        const posTests = set.tests.filter((t2) => t2.polarity === "pos");
-        const negTests = set.tests.filter((t2) => t2.polarity === "neg");
+      const kmapMarkup = state41.parsed && (set.id === "ic" || set.id === "utpc" || set.id === "mutpc" || set.id === "nfpc" || set.id === "mnfpc" || set.id === "cutpnfp") ? set.id === "ic" ? (() => {
+        const posTests = set.tests.filter((t4) => t4.polarity === "pos");
+        const negTests = set.tests.filter((t4) => t4.polarity === "neg");
         const posGroups = buildImplicantGroups(
-          state40.analysis.rows,
-          state40.analysis.dnf || [],
+          state41.analysis.rows,
+          state41.analysis.dnf || [],
           true,
           0,
           posTests
         );
         const negGroups = buildImplicantGroups(
-          state40.analysis.rows,
-          state40.analysis.negDnf || [],
+          state41.analysis.rows,
+          state41.analysis.negDnf || [],
           false,
-          (state40.analysis.dnf || []).length,
+          (state41.analysis.dnf || []).length,
           negTests
         );
-        const posTestSet = new Set(posTests.map((t2) => t2.row.index));
-        const negTestSet = new Set(negTests.map((t2) => t2.row.index));
+        const posTestSet = new Set(posTests.map((t4) => t4.row.index));
+        const negTestSet = new Set(negTests.map((t4) => t4.row.index));
         return `<div class="logic-kmap-row">
                 ${renderKMap(
-          state40.analysis.rows,
-          state40.parsed.clauses,
+          state41.analysis.rows,
+          state41.parsed.clauses,
           true,
           t("logic.kmap.title.fStar"),
           { highlightedMinterms: posTestSet, implicantGroups: posGroups, highlightLabel: "test" }
         )}
                 ${renderKMap(
-          state40.analysis.rows,
-          state40.parsed.clauses,
+          state41.analysis.rows,
+          state41.parsed.clauses,
           false,
           t("logic.kmap.title.fNegStar"),
           { highlightedMinterms: negTestSet, implicantGroups: negGroups, highlightLabel: "test" }
@@ -11457,31 +11791,31 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               </div>`;
       })() : set.id === "utpc" ? `<div class="logic-kmap-row">
                 ${renderKMap(
-        state40.analysis.rows,
-        state40.parsed.clauses,
+        state41.analysis.rows,
+        state41.parsed.clauses,
         true,
         t("logic.kmap.title.utp"),
-        { highlightedMinterms: new Set(set.tests.map((t2) => t2.row.index)) }
+        { highlightedMinterms: new Set(set.tests.map((t4) => t4.row.index)) }
       )}
               </div>` : set.id === "mutpc" ? (() => {
-        const dnf = state40.analysis.dnf || [];
-        const groups = buildImplicantGroups(state40.analysis.rows, dnf, true, 0, set.tests);
+        const dnf = state41.analysis.dnf || [];
+        const groups = buildImplicantGroups(state41.analysis.rows, dnf, true, 0, set.tests);
         return `<div class="logic-kmap-row">
                   ${renderKMap(
-          state40.analysis.rows,
-          state40.parsed.clauses,
+          state41.analysis.rows,
+          state41.parsed.clauses,
           true,
           t("logic.kmap.title.mutp"),
           {
-            highlightedMinterms: new Set(set.tests.map((t2) => t2.row.index)),
+            highlightedMinterms: new Set(set.tests.map((t4) => t4.row.index)),
             implicantGroups: groups,
             highlightLabel: "MUTP"
           }
         )}
                 </div>`;
       })() : set.id === "nfpc" || set.id === "mnfpc" ? (() => {
-        const dnf = state40.analysis.dnf || [];
-        const groups = buildImplicantGroups(state40.analysis.rows, dnf, true, 0, []);
+        const dnf = state41.analysis.dnf || [];
+        const groups = buildImplicantGroups(state41.analysis.rows, dnf, true, 0, []);
         const nfpMarks = /* @__PURE__ */ new Map();
         const ntpMarks = /* @__PURE__ */ new Map();
         set.tests.forEach((test) => {
@@ -11497,16 +11831,16 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         const titleText = set.id === "mnfpc" ? t("logic.kmap.title.mnfp") : t("logic.kmap.title.nfp");
         return `<div class="logic-kmap-row">
                   ${renderKMap(
-          state40.analysis.rows,
-          state40.parsed.clauses,
+          state41.analysis.rows,
+          state41.parsed.clauses,
           true,
           titleText,
           { implicantGroups: groups, nfpMarks, ntpMarks, highlightLabel: "test" }
         )}
                 </div>`;
       })() : (() => {
-        const dnf = state40.analysis.dnf || [];
-        const groups = buildImplicantGroups(state40.analysis.rows, dnf, true, 0, []);
+        const dnf = state41.analysis.dnf || [];
+        const groups = buildImplicantGroups(state41.analysis.rows, dnf, true, 0, []);
         const nfpMarks = /* @__PURE__ */ new Map();
         const ntpMarks = /* @__PURE__ */ new Map();
         const testRowSet = /* @__PURE__ */ new Set();
@@ -11524,8 +11858,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
         return `<div class="logic-kmap-row">
                   ${renderKMap(
-          state40.analysis.rows,
-          state40.parsed.clauses,
+          state41.analysis.rows,
+          state41.parsed.clauses,
           true,
           t("logic.kmap.title.cutpnfp"),
           {
@@ -11557,23 +11891,23 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     `;
     }
     function buildBindingResultsHTML() {
-      if (!state40.analysis) return "";
-      const { clauses } = state40.analysis;
+      if (!state41.analysis) return "";
+      const { clauses } = state41.analysis;
       const hasAnyBinding = clauses.some((c) => {
         var _a;
-        return (_a = state40.bindings[c]) == null ? void 0 : _a.trim();
+        return (_a = state41.bindings[c]) == null ? void 0 : _a.trim();
       });
       if (!hasAnyBinding) {
         return `<p class="logic-binding-hint-noentry" data-testid="logic-binding-no-entry">${t("logic.binding.noBinding")}</p>`;
       }
-      const vars = extractVarsFromBindings(state40.bindings);
+      const vars = extractVarsFromBindings(state41.bindings);
       const activeSet = getActiveSet();
       if (!activeSet) return "";
       const seenRows = /* @__PURE__ */ new Set();
       const uniqueTests = activeSet.tests.filter((test) => {
-        const key = `r${test.row.index}`;
-        if (seenRows.has(key)) return false;
-        seenRows.add(key);
+        const key2 = `r${test.row.index}`;
+        if (seenRows.has(key2)) return false;
+        seenRows.add(key2);
         return true;
       });
       const rows = uniqueTests.map((test) => {
@@ -11581,13 +11915,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         const valStr = clauses.map((c) => `${c}=${test.row.values[c] ? "T" : "F"}`).join(", ");
         const boundClauseValues = {};
         for (const c of clauses) {
-          if ((_a = state40.bindings[c]) == null ? void 0 : _a.trim()) boundClauseValues[c] = test.row.values[c];
+          if ((_a = state41.bindings[c]) == null ? void 0 : _a.trim()) boundClauseValues[c] = test.row.values[c];
         }
-        const constraintStr = buildConstraintStr(boundClauseValues, state40.bindings);
+        const constraintStr = buildConstraintStr(boundClauseValues, state41.bindings);
         const result = solveBinding({
           clauseValues: boundClauseValues,
-          bindings: state40.bindings,
-          searchRange: state40.bindingRange
+          bindings: state41.bindings,
+          searchRange: state41.bindingRange
         });
         const witnessCell = result.witness ? `<code class="logic-binding-witness" data-testid="logic-binding-witness-${test.row.index}">${escapeHtml2(formatWitnessStr(result.witness))}</code>` : `<span class="logic-binding-infeasible" data-testid="logic-binding-infeasible-${test.row.index}">${t("logic.binding.infeasible")}</span>`;
         return `
@@ -11618,8 +11952,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     function renderSymmetryBridge() {
       const activeSet = getActiveSet();
       if (!activeSet || !["cacc", "racc"].includes(activeSet.id)) return "";
-      if (!state40.analysis || state40.error) return "";
-      const { clauses, rows } = state40.analysis;
+      if (!state41.analysis || state41.error) return "";
+      const { clauses, rows } = state41.analysis;
       if (!clauses || clauses.length < 2 || clauses.length > 6) return "";
       const table = /* @__PURE__ */ new Map();
       for (const row of rows) {
@@ -11643,11 +11977,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </div>`;
     }
     function activePredicateExample() {
-      return logicCoveragePredicates.find((p) => p.expression === state40.expression) || null;
+      return logicCoveragePredicates.find((p) => p.expression === state41.expression) || null;
     }
     function renderBindingPanel() {
-      if (!state40.analysis || state40.error) return "";
-      const { clauses } = state40.analysis;
+      if (!state41.analysis || state41.error) return "";
+      const { clauses } = state41.analysis;
       const example5 = activePredicateExample();
       const hasDefaults = (example5 == null ? void 0 : example5.defaultBindings) && clauses.some((c) => example5.defaultBindings[c]);
       const inputRows = clauses.map((c) => `
@@ -11659,7 +11993,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           class="logic-binding-expr-input"
           data-testid="logic-binding-input-${escapeHtml2(c)}"
           data-binding-clause="${escapeHtml2(c)}"
-          value="${escapeHtml2(state40.bindings[c] || "")}"
+          value="${escapeHtml2(state41.bindings[c] || "")}"
           placeholder="${t("logic.binding.placeholder")}"
           spellcheck="false"
           autocomplete="off"
@@ -11685,10 +12019,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <div class="logic-binding-range-row">
           <span class="logic-binding-range-label">${t("logic.binding.range")}</span>
           <input type="number" class="logic-binding-range-input" data-testid="logic-binding-range-min"
-            data-binding-range="min" value="${state40.bindingRange[0]}" min="-1000" max="0" step="1" />
+            data-binding-range="min" value="${state41.bindingRange[0]}" min="-1000" max="0" step="1" />
           <span class="logic-binding-range-sep">${t("logic.binding.rangeTo")}</span>
           <input type="number" class="logic-binding-range-input" data-testid="logic-binding-range-max"
-            data-binding-range="max" value="${state40.bindingRange[1]}" min="0" max="1000" step="1" />
+            data-binding-range="max" value="${state41.bindingRange[1]}" min="0" max="1000" step="1" />
         </div>
         <div class="logic-binding-results" data-testid="logic-binding-results">
           ${buildBindingResultsHTML()}
@@ -11705,36 +12039,36 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const input = root41.querySelector('[data-testid="logic-expression-input"]');
       if (input) {
         input.addEventListener("input", (event) => {
-          state40.expression = event.target.value;
+          state41.expression = event.target.value;
           recompute();
           renderPreservingFocus("logic-expression-input");
         });
         input.addEventListener("blur", () => {
-          if (rememberCurrentExpression()) render40();
+          if (rememberCurrentExpression()) render41();
         });
         input.addEventListener("keydown", (event) => {
           if (event.key === "Enter") {
             event.preventDefault();
-            if (rememberCurrentExpression()) render40();
+            if (rememberCurrentExpression()) render41();
           }
         });
       }
       root41.querySelectorAll("[data-expression]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.expression = btn.dataset.expression;
+          state41.expression = btn.dataset.expression;
           recompute();
           const example5 = activePredicateExample();
           if (example5 == null ? void 0 : example5.defaultBindings) {
-            state40.bindings = { ...example5.defaultBindings };
+            state41.bindings = { ...example5.defaultBindings };
           }
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-recent-select]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.expression = btn.dataset.recentSelect;
+          state41.expression = btn.dataset.recentSelect;
           recompute();
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-recent-remove]").forEach((btn) => {
@@ -11745,12 +12079,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
       root41.querySelectorAll("[data-criterion]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.selectedCriterion = btn.dataset.criterion;
+          state41.selectedCriterion = btn.dataset.criterion;
           logicQuiz.active = false;
           logicQuiz.phase = "question";
           logicQuiz.answer = "";
           logicQuiz.result = null;
-          render40();
+          render41();
         });
       });
       (_a = root41.querySelector('[data-testid="logic-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
@@ -11760,15 +12094,15 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         logicQuiz.result = null;
         const quizEl = root41.querySelector('[data-testid="logic-quiz"]');
         if (!quizEl) {
-          render40();
+          render41();
           return;
         }
         quizEl.outerHTML = renderLogicQuizPanel();
-        render40();
+        render41();
       });
       (_b = root41.querySelector('[data-testid="logic-quiz-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
         logicQuiz.active = false;
-        render40();
+        render41();
       });
       (_c = root41.querySelector('[data-testid="logic-quiz-check"]')) == null ? void 0 : _c.addEventListener("click", () => {
         var _a2;
@@ -11777,23 +12111,23 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         logicQuiz.phase = "graded";
         const panel = root41.querySelector('[data-testid="logic-quiz"]');
         if (panel) panel.outerHTML = renderLogicQuizPanel();
-        render40();
+        render41();
       });
       (_d = root41.querySelector('[data-testid="logic-quiz-reset"]')) == null ? void 0 : _d.addEventListener("click", () => {
         logicQuiz.phase = "question";
         logicQuiz.answer = "";
-        render40();
+        render41();
       });
       (_e = root41.querySelector('[data-testid="logic-lab-reflect-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
         logicLabReflect.active = true;
-        render40();
+        render41();
       });
       (_f = root41.querySelector('[data-testid="logic-lab-reflect-close"]')) == null ? void 0 : _f.addEventListener("click", () => {
         var _a2, _b2;
         logicLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || logicLabReflect.a1;
         logicLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || logicLabReflect.a2;
         logicLabReflect.active = false;
-        render40();
+        render41();
       });
       (_g = root41.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
         logicLabReflect.a1 = e.target.value;
@@ -11844,7 +12178,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       root41.querySelectorAll("[data-binding-clause]").forEach((input2) => {
         input2.addEventListener("input", () => {
           const clause = input2.dataset.bindingClause;
-          state40.bindings[clause] = input2.value;
+          state41.bindings[clause] = input2.value;
           if (bindingTimer) clearTimeout(bindingTimer);
           bindingTimer = setTimeout(() => refreshBindingResults(), 200);
         });
@@ -11854,8 +12188,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         restoreBtn.addEventListener("click", () => {
           const example5 = activePredicateExample();
           if (example5 == null ? void 0 : example5.defaultBindings) {
-            state40.bindings = { ...example5.defaultBindings };
-            render40();
+            state41.bindings = { ...example5.defaultBindings };
+            render41();
           }
         });
       }
@@ -11868,9 +12202,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           const v = parseInt(input2.value, 10);
           if (Number.isNaN(v)) return;
           if (input2.dataset.bindingRange === "min") {
-            state40.bindingRange = [Math.min(v, state40.bindingRange[1] - 1), state40.bindingRange[1]];
+            state41.bindingRange = [Math.min(v, state41.bindingRange[1] - 1), state41.bindingRange[1]];
           } else {
-            state40.bindingRange = [state40.bindingRange[0], Math.max(v, state40.bindingRange[0] + 1)];
+            state41.bindingRange = [state41.bindingRange[0], Math.max(v, state41.bindingRange[0] + 1)];
           }
           refreshBindingResults();
         });
@@ -11880,7 +12214,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const previouslyFocused = root41.querySelector(`[data-testid="${testid}"]`);
       const selectionStart = previouslyFocused == null ? void 0 : previouslyFocused.selectionStart;
       const selectionEnd = previouslyFocused == null ? void 0 : previouslyFocused.selectionEnd;
-      render40();
+      render41();
       const next = root41.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
@@ -11890,10 +12224,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }
     }
     recompute();
-    render40();
+    render41();
     if (cloudClient && typeof cloudClient.subscribeAuthState === "function") {
       cloudClient.subscribeAuthState(async (user) => {
-        state40.cloudUser = user || null;
+        state41.cloudUser = user || null;
         if (!user || typeof cloudClient.loadLogicRecent !== "function") {
           return;
         }
@@ -11901,20 +12235,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           const remote = await cloudClient.loadLogicRecent(user.uid);
           const merged = [];
           const seen = /* @__PURE__ */ new Set();
-          [...remote, ...state40.recent].forEach((expr) => {
+          [...remote, ...state41.recent].forEach((expr) => {
             if (typeof expr !== "string") return;
             if (seen.has(expr)) return;
             seen.add(expr);
             merged.push(expr);
           });
           const next = merged.slice(0, RECENT_LIMIT);
-          const changed = next.length !== state40.recent.length || next.some((v, i) => v !== state40.recent[i]);
-          state40.recent = next;
-          saveRecent(state40.recent);
+          const changed = next.length !== state41.recent.length || next.some((v, i) => v !== state41.recent[i]);
+          state41.recent = next;
+          saveRecent(state41.recent);
           if (next.length !== remote.length || next.some((v, i) => v !== remote[i])) {
-            pushRecentToCloud(state40.recent);
+            pushRecentToCloud(state41.recent);
           }
-          if (changed) render40();
+          if (changed) render41();
         } catch {
         }
       });
@@ -11997,7 +12331,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
       }
     }
-    function render40() {
+    function render41() {
       root41.className = "testing-flow";
       root41.dataset.testid = "testing-flow";
       root41.innerHTML = `
@@ -12078,7 +12412,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
     }
     restartTimer();
-    render40();
+    render41();
     root41.cleanup = () => {
       if (timerId) {
         clearInterval(timerId);
@@ -12175,7 +12509,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     let uploadCount = 0;
     const uploadedResultIds = /* @__PURE__ */ new Set();
-    function render40() {
+    function render41() {
       var _a2, _b, _c, _d;
       root41.className = "cloud-storage";
       root41.dataset.testid = "cloud-storage-panel";
@@ -12305,10 +12639,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           user = result.user;
           status = result.hasDriveToken ? t("cloud.signedInOk") : t("cloud.signedInNoDrive");
           ;
-          render40();
+          render41();
         } catch (error) {
           status = error.message;
-          render40();
+          render41();
         }
       });
       root41.querySelector('[data-testid="cloud-signout-btn"]').addEventListener("click", async () => {
@@ -12318,10 +12652,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           selectedFile = null;
           status = t("cloud.signedOut");
           ;
-          render40();
+          render41();
         } catch (error) {
           status = error.message;
-          render40();
+          render41();
         }
       });
       root41.querySelector('[data-testid="cloud-criterion-select"]').addEventListener("change", (event) => {
@@ -12335,7 +12669,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
       root41.querySelector('[data-testid="cloud-file-input"]').addEventListener("change", (event) => {
         [selectedFile] = event.target.files || [];
-        render40();
+        render41();
       });
       root41.querySelector('[data-testid="cloud-load-settings-btn"]').addEventListener("click", async () => {
         try {
@@ -12350,10 +12684,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           } else {
             status = t("cloud.noSavedSettings");
           }
-          render40();
+          render41();
         } catch (error) {
           status = error.message;
-          render40();
+          render41();
         }
       });
       root41.querySelector('[data-testid="cloud-save-settings-btn"]').addEventListener("click", async () => {
@@ -12362,10 +12696,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           settings.extras = extras;
           await client.saveSettings(user.uid, settings);
           status = t("cloud.savedOk");
-          render40();
+          render41();
         } catch (error) {
           status = error.message.includes("JSON") ? t("cloud.extrasJsonError") : error.message;
-          render40();
+          render41();
         }
       });
       root41.querySelector('[data-testid="cloud-upload-btn"]').addEventListener("click", async () => {
@@ -12390,10 +12724,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           uploadedFiles = [{ ...uploaded, content, fileName: fileToUpload.name, file: fileToUpload }, ...uploadedFiles].slice(0, 8);
           status = t("cloud.uploadedOk", { name: uploaded.name });
           selectedFile = null;
-          render40();
+          render41();
         } catch (error) {
           status = error.message;
-          render40();
+          render41();
         }
       });
       root41.querySelectorAll("[data-use-target]").forEach((btn) => {
@@ -12415,13 +12749,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               item.content = content;
             } catch (err) {
               status = t("cloud.readError", { msg: (err == null ? void 0 : err.message) || err });
-              render40();
+              render41();
               return;
             }
           }
           if (content == null) {
             status = t("cloud.noContent");
-            render40();
+            render41();
             return;
           }
           const sectionId = target === "graph" ? "section-graph" : "section-syntax";
@@ -12431,7 +12765,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             detail: { target, name: item.fileName || item.name, content }
           }));
           status = target === "mutation" ? t("cloud.sentToMutation", { name: item.name }) : target === "grammar" ? t("cloud.sentToGrammar", { name: item.name }) : t("cloud.sentToGraph", { name: item.name });
-          render40();
+          render41();
         });
       });
       (_b = root41.querySelector('[data-testid="cloud-class-save"]')) == null ? void 0 : _b.addEventListener("click", () => {
@@ -12442,7 +12776,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(CLASS_CODE_KEY, classCode);
         } catch {
         }
-        render40();
+        render41();
       });
       (_c = root41.querySelector('[data-testid="cloud-view-results"]')) == null ? void 0 : _c.addEventListener("click", () => {
         var _a3;
@@ -12454,7 +12788,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         if (!user || typeof client.listDriveFiles !== "function") return;
         driveFilesLoading = true;
         status = t("cloud.refreshing");
-        render40();
+        render41();
         try {
           driveFiles = await client.listDriveFiles();
           status = t("cloud.driveListed", { count: driveFiles.length });
@@ -12462,7 +12796,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           status = t("cloud.driveListError", { msg: (err == null ? void 0 : err.message) || err });
         } finally {
           driveFilesLoading = false;
-          render40();
+          render41();
         }
       });
       root41.querySelectorAll("[data-drive-target]").forEach((btn) => {
@@ -12474,7 +12808,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           if (!f) return;
           try {
             status = t("cloud.downloading", { name: f.name });
-            render40();
+            render41();
             const content = await client.downloadDriveFile(f.id);
             const sectionId = target === "graph" ? "section-graph" : "section-syntax";
             const targetSection = (_a3 = globalThis.document) == null ? void 0 : _a3.querySelector(`[data-testid="${sectionId}"]`);
@@ -12486,7 +12820,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           } catch (err) {
             status = t("cloud.readError", { msg: (err == null ? void 0 : err.message) || err });
           }
-          render40();
+          render41();
         });
       });
     }
@@ -12517,9 +12851,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         } catch {
         }
       }
-      render40();
+      render41();
     });
-    render40();
+    render41();
     return root41;
   }
 
@@ -13208,8 +13542,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     });
     return out;
   }
-  function compileFunction(params, body) {
-    return new Function(...params, body);
+  function compileFunction(params, body3) {
+    return new Function(...params, body3);
   }
   function deepEqual(a, b) {
     if (a === b) return true;
@@ -13234,32 +13568,32 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       return { ok: false, error: (err == null ? void 0 : err.message) || String(err) };
     }
   }
-  function runTestSuite(params, body, tests) {
-    const fn = compileFunction(params, body);
-    return tests.map((t2) => {
-      const outcome = runOnce(fn, t2.args);
-      const expected = t2.expected;
+  function runTestSuite(params, body3, tests) {
+    const fn = compileFunction(params, body3);
+    return tests.map((t4) => {
+      const outcome = runOnce(fn, t4.args);
+      const expected = t4.expected;
       const passed = outcome.ok && deepEqual(outcome.value, expected);
-      return { id: t2.id, passed, outcome };
+      return { id: t4.id, passed, outcome };
     });
   }
-  function evaluateMutants(params, body, tests, mutants) {
-    const baseFn = compileFunction(params, body);
-    const baseOutcomes = tests.map((t2) => runOnce(baseFn, t2.args));
+  function evaluateMutants(params, body3, tests, mutants) {
+    const baseFn = compileFunction(params, body3);
+    const baseOutcomes = tests.map((t4) => runOnce(baseFn, t4.args));
     return mutants.map((m) => {
       let mutantFn;
       try {
         mutantFn = compileFunction(params, m.source);
       } catch (err) {
-        return { ...m, status: "killed", killedBy: tests.map((t2) => t2.id), compileError: err == null ? void 0 : err.message };
+        return { ...m, status: "killed", killedBy: tests.map((t4) => t4.id), compileError: err == null ? void 0 : err.message };
       }
       const killedBy = [];
-      tests.forEach((t2, i) => {
+      tests.forEach((t4, i) => {
         const base = baseOutcomes[i];
-        const mut = runOnce(mutantFn, t2.args);
+        const mut = runOnce(mutantFn, t4.args);
         const sameOk = base.ok === mut.ok;
         const sameValue = sameOk && (base.ok ? deepEqual(base.value, mut.value) : true);
-        if (!sameOk || !sameValue) killedBy.push(t2.id);
+        if (!sameOk || !sameValue) killedBy.push(t4.id);
       });
       return {
         ...m,
@@ -13304,10 +13638,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return {
       params: ex.params.join(", "),
       body: ex.body,
-      tests: ex.tests.map((t2) => ({
-        id: t2.id,
-        argsText: t2.args.map((a) => JSON.stringify(a)).join(", "),
-        expectedText: JSON.stringify(t2.expected)
+      tests: ex.tests.map((t4) => ({
+        id: t4.id,
+        argsText: t4.args.map((a) => JSON.stringify(a)).join(", "),
+        expectedText: JSON.stringify(t4.expected)
       }))
     };
   }
@@ -13367,12 +13701,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const initial = programExamples[0];
     const localPrograms = loadLocalPrograms();
     const initialSnapshot = localPrograms[initial.id] || defaultProgramSnapshot(initial);
-    const state40 = {
+    const state41 = {
       exampleId: initial.id,
       params: initialSnapshot.params,
       body: initialSnapshot.body,
       operators: new Set(DEFAULT_OPERATORS),
-      tests: initialSnapshot.tests.map((t2) => ({ ...t2 })),
+      tests: initialSnapshot.tests.map((t4) => ({ ...t4 })),
       programs: localPrograms,
       mutants: [],
       suiteResults: [],
@@ -13395,38 +13729,38 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     function snapshotCurrent() {
       return {
-        params: state40.params,
-        body: state40.body,
-        tests: state40.tests.map((t2) => ({
-          id: t2.id,
-          argsText: t2.argsText,
-          expectedText: t2.expectedText
+        params: state41.params,
+        body: state41.body,
+        tests: state41.tests.map((t4) => ({
+          id: t4.id,
+          argsText: t4.argsText,
+          expectedText: t4.expectedText
         }))
       };
     }
     function persistCurrent() {
-      state40.programs[state40.exampleId] = snapshotCurrent();
-      saveLocalPrograms(state40.programs);
+      state41.programs[state41.exampleId] = snapshotCurrent();
+      saveLocalPrograms(state41.programs);
       pushToCloud();
     }
     const syntaxQuiz = { active: false, phase: "question", answer: "", result: null };
     function renderSyntaxQuizPanel() {
       if (!syntaxQuiz.active) return "";
       if (syntaxQuiz.phase === "graded") {
-        const correct = state40.score.killed;
+        const correct = state41.score.killed;
         const userAns = parseInt(syntaxQuiz.answer, 10);
         const ok = userAns === correct;
-        const shareEncoded = encodeResult({ v: 1, explorer: "syntax", explorerLabel: t("quiz.syntax.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.syntax.prompt", { program: state40.exampleId }), a: String(syntaxQuiz.answer), expected: String(correct), ok }] });
+        const shareEncoded = encodeResult({ v: 1, explorer: "syntax", explorerLabel: t("quiz.syntax.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.syntax.prompt", { program: state41.exampleId }), a: String(syntaxQuiz.answer), expected: String(correct), ok }] });
         return `
         <div class="quiz-panel" data-testid="syntax-quiz-panel">
           <div class="quiz-header">
             <span>${t("quiz.syntax.title")}</span>
             <button type="button" class="quiz-close-btn" data-testid="syntax-quiz-close">\u2715</button>
           </div>
-          <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state40.exampleId) })}</p>
+          <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state41.exampleId) })}</p>
           <p class="quiz-score ${ok ? "quiz-score--perfect" : "quiz-score--wrong"}">
             ${ok ? t("quiz.graph.perfect") : ""}
-            ${t("quiz.syntax.answer", { killed: correct, total: state40.score.total })}
+            ${t("quiz.syntax.answer", { killed: correct, total: state41.score.total })}
           </p>
           <button type="button" class="quiz-share-btn" data-share-payload="${shareEncoded}" data-testid="syntax-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
           <button type="button" class="quiz-start-btn" data-testid="syntax-quiz-reset">${t("quiz.retry")}</button>
@@ -13439,7 +13773,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <span>${t("quiz.syntax.title")}</span>
           <button type="button" class="quiz-close-btn" data-testid="syntax-quiz-close">\u2715</button>
         </div>
-        <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state40.exampleId) })}</p>
+        <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state41.exampleId) })}</p>
         <div class="quiz-bva-inputs">
           <label class="quiz-bva-field">
             ${t("quiz.syntax.label")}
@@ -13453,21 +13787,21 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     let saveTimer = null;
     let pendingSave = null;
     function pushToCloud() {
-      if (!cloudClient || !state40.cloudUser || typeof cloudClient.saveSyntaxTests !== "function") return;
+      if (!cloudClient || !state41.cloudUser || typeof cloudClient.saveSyntaxTests !== "function") return;
       if (saveTimer) clearTimeout(saveTimer);
-      state40.cloudStatus = "syncing";
-      state40.cloudMessage = "";
+      state41.cloudStatus = "syncing";
+      state41.cloudMessage = "";
       updateCloudIndicator();
       pendingSave = new Promise((resolve) => {
         saveTimer = setTimeout(async () => {
           saveTimer = null;
           try {
-            await cloudClient.saveSyntaxTests(state40.cloudUser.uid, state40.programs);
-            state40.cloudStatus = "synced";
-            state40.cloudMessage = t("syntax.cloud.synced");
+            await cloudClient.saveSyntaxTests(state41.cloudUser.uid, state41.programs);
+            state41.cloudStatus = "synced";
+            state41.cloudMessage = t("syntax.cloud.synced");
           } catch (err) {
-            state40.cloudStatus = "error";
-            state40.cloudMessage = t("syntax.cloud.saveError", { msg: (err == null ? void 0 : err.message) || err });
+            state41.cloudStatus = "error";
+            state41.cloudMessage = t("syntax.cloud.saveError", { msg: (err == null ? void 0 : err.message) || err });
           }
           updateCloudIndicator();
           resolve();
@@ -13481,7 +13815,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         clearTimeout(saveTimer);
         saveTimer = null;
         try {
-          await cloudClient.saveSyntaxTests(state40.cloudUser.uid, state40.programs);
+          await cloudClient.saveSyntaxTests(state41.cloudUser.uid, state41.programs);
         } catch {
         }
       } else {
@@ -13492,150 +13826,150 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     function updateCloudIndicator() {
       const node = root41.querySelector('[data-testid="syntax-cloud-indicator"]');
       if (!node) return;
-      node.dataset.status = state40.cloudStatus;
+      node.dataset.status = state41.cloudStatus;
       node.textContent = cloudIndicatorText();
     }
     function cloudIndicatorText() {
-      if (!state40.cloudUser) return t("syntax.cloud.notSignedIn");
-      switch (state40.cloudStatus) {
+      if (!state41.cloudUser) return t("syntax.cloud.notSignedIn");
+      switch (state41.cloudStatus) {
         case "syncing":
           return t("syntax.cloud.syncing");
         case "synced":
-          return `\u2601 ${state40.cloudMessage || t("syntax.cloud.synced")}`;
+          return `\u2601 ${state41.cloudMessage || t("syntax.cloud.synced")}`;
         case "error":
-          return `\u2601 ${state40.cloudMessage || t("syntax.cloud.failed")}`;
+          return `\u2601 ${state41.cloudMessage || t("syntax.cloud.failed")}`;
         default:
-          return `\u2601 ${t("syntax.cloud.linked", { name: state40.cloudUser.email || state40.cloudUser.uid })}`;
+          return `\u2601 ${t("syntax.cloud.linked", { name: state41.cloudUser.email || state41.cloudUser.uid })}`;
       }
     }
     async function reloadFromCloud({ force = false } = {}) {
       var _a2, _b;
-      if (!cloudClient || !state40.cloudUser) return;
+      if (!cloudClient || !state41.cloudUser) return;
       if (typeof cloudClient.loadSyntaxTests !== "function") return;
       await flushPendingSave();
-      state40.cloudStatus = "syncing";
-      state40.cloudMessage = force ? t("syntax.cloud.reloading") : "";
+      state41.cloudStatus = "syncing";
+      state41.cloudMessage = force ? t("syntax.cloud.reloading") : "";
       updateCloudIndicator();
       try {
-        const remote = await cloudClient.loadSyntaxTests(state40.cloudUser.uid);
+        const remote = await cloudClient.loadSyntaxTests(state41.cloudUser.uid);
         const remoteObj = remote && typeof remote === "object" ? remote : {};
-        const localOnly = Object.keys(state40.programs).filter((k) => !(k in remoteObj));
+        const localOnly = Object.keys(state41.programs).filter((k) => !(k in remoteObj));
         const merged = { ...remoteObj };
         localOnly.forEach((k) => {
-          merged[k] = state40.programs[k];
+          merged[k] = state41.programs[k];
         });
-        state40.programs = merged;
-        saveLocalPrograms(state40.programs);
-        const current2 = state40.programs[state40.exampleId];
+        state41.programs = merged;
+        saveLocalPrograms(state41.programs);
+        const current2 = state41.programs[state41.exampleId];
         if (current2) {
-          state40.params = (_a2 = current2.params) != null ? _a2 : state40.params;
-          state40.body = (_b = current2.body) != null ? _b : state40.body;
-          state40.tests = Array.isArray(current2.tests) ? current2.tests.map((t2) => ({ ...t2 })) : state40.tests;
-          state40.selectedMutantId = null;
+          state41.params = (_a2 = current2.params) != null ? _a2 : state41.params;
+          state41.body = (_b = current2.body) != null ? _b : state41.body;
+          state41.tests = Array.isArray(current2.tests) ? current2.tests.map((t4) => ({ ...t4 })) : state41.tests;
+          state41.selectedMutantId = null;
         }
-        state40.cloudStatus = "synced";
-        state40.cloudMessage = t("syntax.cloud.loaded");
-        render40();
+        state41.cloudStatus = "synced";
+        state41.cloudMessage = t("syntax.cloud.loaded");
+        render41();
         if (localOnly.length > 0) pushToCloud();
       } catch (err) {
-        state40.cloudStatus = "error";
-        state40.cloudMessage = t("syntax.cloud.loadError", { msg: (err == null ? void 0 : err.message) || err });
+        state41.cloudStatus = "error";
+        state41.cloudMessage = t("syntax.cloud.loadError", { msg: (err == null ? void 0 : err.message) || err });
         updateCloudIndicator();
       }
     }
     function recompute() {
       var _a2;
-      state40.error = null;
+      state41.error = null;
       let params;
       try {
-        params = state40.params.split(",").map((s) => s.trim()).filter(Boolean);
+        params = state41.params.split(",").map((s) => s.trim()).filter(Boolean);
       } catch (err) {
-        state40.error = t("syntax.err.argsParse", { msg: err.message });
+        state41.error = t("syntax.err.argsParse", { msg: err.message });
         return;
       }
       let parsedTests;
       try {
-        parsedTests = state40.tests.map((t2) => ({
-          id: t2.id,
-          args: parseTestArgs(t2.argsText),
-          expected: parseExpected(t2.expectedText)
+        parsedTests = state41.tests.map((t4) => ({
+          id: t4.id,
+          args: parseTestArgs(t4.argsText),
+          expected: parseExpected(t4.expectedText)
         }));
       } catch (err) {
-        state40.error = err.message;
+        state41.error = err.message;
         return;
       }
       let suiteResults;
       try {
-        suiteResults = runTestSuite(params, state40.body, parsedTests);
+        suiteResults = runTestSuite(params, state41.body, parsedTests);
       } catch (err) {
-        state40.error = t("syntax.err.compile", { msg: err.message });
+        state41.error = t("syntax.err.compile", { msg: err.message });
         return;
       }
-      const operators = [...state40.operators];
-      const generated = generateMutants(state40.body, operators);
-      const evaluated = evaluateMutants(params, state40.body, parsedTests, generated);
+      const operators = [...state41.operators];
+      const generated = generateMutants(state41.body, operators);
+      const evaluated = evaluateMutants(params, state41.body, parsedTests, generated);
       const prevEquivalent = new Set(
-        state40.mutants.filter((m) => m.status === "equivalent").map((m) => m.id)
+        state41.mutants.filter((m) => m.status === "equivalent").map((m) => m.id)
       );
       const finalMutants = evaluated.map(
         (m) => prevEquivalent.has(m.id) ? { ...m, status: "equivalent", killedBy: [] } : m
       );
-      state40.suiteResults = suiteResults;
-      state40.parsedTests = parsedTests;
-      state40.parsedParams = params;
-      state40.mutants = finalMutants;
-      state40.score = computeMutationScore(finalMutants);
-      if (!state40.mutants.find((m) => m.id === state40.selectedMutantId)) {
-        state40.selectedMutantId = ((_a2 = finalMutants[0]) == null ? void 0 : _a2.id) || null;
+      state41.suiteResults = suiteResults;
+      state41.parsedTests = parsedTests;
+      state41.parsedParams = params;
+      state41.mutants = finalMutants;
+      state41.score = computeMutationScore(finalMutants);
+      if (!state41.mutants.find((m) => m.id === state41.selectedMutantId)) {
+        state41.selectedMutantId = ((_a2 = finalMutants[0]) == null ? void 0 : _a2.id) || null;
       }
     }
     function loadExample(id) {
-      const ex = programExamples.find((e) => e.id === id) || state40.customExamples.find((e) => e.id === id);
+      const ex = programExamples.find((e) => e.id === id) || state41.customExamples.find((e) => e.id === id);
       if (!ex) return;
-      state40.exampleId = id;
-      const snap = state40.programs[id] || defaultProgramSnapshot(ex);
-      state40.params = snap.params;
-      state40.body = snap.body;
-      state40.tests = snap.tests.map((t2) => ({ ...t2 }));
-      state40.selectedMutantId = null;
+      state41.exampleId = id;
+      const snap = state41.programs[id] || defaultProgramSnapshot(ex);
+      state41.params = snap.params;
+      state41.body = snap.body;
+      state41.tests = snap.tests.map((t4) => ({ ...t4 }));
+      state41.selectedMutantId = null;
     }
-    function render40() {
+    function render41() {
       recompute();
-      const allExamples = [...programExamples, ...state40.customExamples];
+      const allExamples = [...programExamples, ...state41.customExamples];
       const exampleButtons = allExamples.map((ex) => `
       <button
         type="button"
-        class="syntax-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+        class="syntax-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-example="${ex.id}"
         title="${escapeHtml3(getLocale() === "en" ? ex.descriptionEn || ex.description : ex.description)}"
         data-testid="syntax-example-${ex.id}"
       >${escapeHtml3(ex.name)}</button>
     `).join("");
       const operatorButtons = mutationOperators.map((op) => `
-      <label class="syntax-op-btn${state40.operators.has(op.id) ? " active" : ""}" title="${escapeHtml3(getLocale() === "en" ? op.descEn || op.desc : op.desc)}">
-        <input type="checkbox" data-operator="${op.id}" ${state40.operators.has(op.id) ? "checked" : ""} />
+      <label class="syntax-op-btn${state41.operators.has(op.id) ? " active" : ""}" title="${escapeHtml3(getLocale() === "en" ? op.descEn || op.desc : op.desc)}">
+        <input type="checkbox" data-operator="${op.id}" ${state41.operators.has(op.id) ? "checked" : ""} />
         <span>${escapeHtml3(op.id)}</span>
       </label>
     `).join("");
-      const selectedMutant = state40.mutants.find((m) => m.id === state40.selectedMutantId) || null;
+      const selectedMutant = state41.mutants.find((m) => m.id === state41.selectedMutantId) || null;
       let mutantSuiteResults = null;
       if (selectedMutant) {
         try {
           mutantSuiteResults = runTestSuite(
-            state40.parsedParams,
+            state41.parsedParams,
             selectedMutant.source,
-            state40.parsedTests
+            state41.parsedTests
           );
         } catch {
-          mutantSuiteResults = state40.parsedTests.map(() => ({
+          mutantSuiteResults = state41.parsedTests.map(() => ({
             outcome: { ok: false, error: "compile error" }
           }));
         }
       }
       const showMutantCol = !!selectedMutant;
       const killedByIds = selectedMutant ? new Set(selectedMutant.killedBy) : /* @__PURE__ */ new Set();
-      const testRows = state40.tests.map((tc, i) => {
-        const result = state40.suiteResults[i];
+      const testRows = state41.tests.map((tc, i) => {
+        const result = state41.suiteResults[i];
         const passClass = (result == null ? void 0 : result.passed) ? "pass" : result ? "fail" : "";
         const actual = (result == null ? void 0 : result.outcome.ok) ? formatValue(result.outcome.value) : `\u26A0 ${(result == null ? void 0 : result.outcome.error) || ""}`;
         let mutantCell = "";
@@ -13662,13 +13996,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }).join("");
       const mutantHeaderCol = showMutantCol ? `<th class="syntax-test-mutant-head">mutant actual${selectedMutant ? `<br><small>(${escapeHtml3(selectedMutant.id)})</small>` : ""}</th>` : "";
       const grouped = /* @__PURE__ */ new Map();
-      state40.mutants.forEach((m) => {
+      state41.mutants.forEach((m) => {
         if (!grouped.has(m.operator)) grouped.set(m.operator, []);
         grouped.get(m.operator).push(m);
       });
       const mutantList = [...grouped.entries()].map(([op, list]) => {
         const items = list.map((m) => `
-        <li class="syntax-mutant-item ${m.status}${state40.selectedMutantId === m.id ? " selected" : ""}" data-mutant-id="${m.id}" data-testid="syntax-mutant-${m.id}">
+        <li class="syntax-mutant-item ${m.status}${state41.selectedMutantId === m.id ? " selected" : ""}" data-mutant-id="${m.id}" data-testid="syntax-mutant-${m.id}">
           <span class="syntax-mutant-id">${escapeHtml3(m.id)}</span>
           <span class="syntax-mutant-loc">L${m.line}:${m.col}</span>
           <span class="syntax-mutant-diff"><code>${escapeHtml3(m.original)}</code> \u2192 <code>${escapeHtml3(m.mutated)}</code></span>
@@ -13698,7 +14032,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </div>
       </div>
     ` : `<p class="syntax-mutant-empty">${t("syntax.mutant.empty")}</p>`;
-      const scorePct = Math.round(state40.score.score * 100);
+      const scorePct = Math.round(state41.score.score * 100);
       const SYNTAX_THRESHOLD = 75;
       const syntaxMetricEncoded = encodeResult({
         v: 1,
@@ -13720,10 +14054,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <span
           class="syntax-cloud-indicator"
           data-testid="syntax-cloud-indicator"
-          data-status="${state40.cloudStatus}"
+          data-status="${state41.cloudStatus}"
         >${escapeHtml3(cloudIndicatorText())}</span>
         <span class="syntax-cloud-actions">
-          ${state40.cloudUser ? `<button type="button" class="syntax-reload-btn" data-testid="syntax-cloud-reload">\u21BB ${t("syntax.cloud.reload")}</button>` : ""}
+          ${state41.cloudUser ? `<button type="button" class="syntax-reload-btn" data-testid="syntax-cloud-reload">\u21BB ${t("syntax.cloud.reload")}</button>` : ""}
           <button type="button" class="syntax-reset-btn" data-testid="syntax-reset-program">\u21BA ${t("syntax.reset")}</button>
         </span>
       </div>
@@ -13731,9 +14065,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       <div class="syntax-grid">
         <section class="syntax-program">
           <label class="syntax-label">${t("syntax.params")}</label>
-          <input type="text" class="syntax-params" data-testid="syntax-params" value="${escapeHtml3(state40.params)}" />
+          <input type="text" class="syntax-params" data-testid="syntax-params" value="${escapeHtml3(state41.params)}" />
           <label class="syntax-label">${t("syntax.body")}</label>
-          <textarea class="syntax-body" rows="8" data-testid="syntax-body">${escapeHtml3(state40.body)}</textarea>
+          <textarea class="syntax-body" rows="8" data-testid="syntax-body">${escapeHtml3(state41.body)}</textarea>
         </section>
 
         <section class="syntax-tests">
@@ -13757,7 +14091,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </section>
       </div>
 
-      ${state40.error ? `<p class="syntax-error" data-testid="syntax-error">${escapeHtml3(state40.error)}</p>` : ""}
+      ${state41.error ? `<p class="syntax-error" data-testid="syntax-error">${escapeHtml3(state41.error)}</p>` : ""}
 
       <section class="syntax-score-section">
         <div class="syntax-score-bar">
@@ -13766,13 +14100,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <p class="syntax-score-stats" data-testid="syntax-score-stats">
           ${t("syntax.score")}: <strong>${scorePct}%</strong>
           <span class="syntax-divider">\xB7</span>
-          ${t("syntax.totalLabel")} ${state40.score.total}
+          ${t("syntax.totalLabel")} ${state41.score.total}
           <span class="syntax-divider">\xB7</span>
-          killed <strong>${state40.score.killed}</strong>
+          killed <strong>${state41.score.killed}</strong>
           <span class="syntax-divider">\xB7</span>
-          live <strong>${state40.score.live}</strong>
+          live <strong>${state41.score.live}</strong>
           <span class="syntax-divider">\xB7</span>
-          equivalent <strong>${state40.score.equivalent}</strong>
+          equivalent <strong>${state41.score.equivalent}</strong>
           <span class="syntax-divider">\xB7</span>
           ${!syntaxQuiz.active ? `<button type="button" class="quiz-start-btn" data-testid="syntax-quiz-start">${t("quiz.start")}</button>` : ""}
           <button type="button" class="quiz-share-btn" data-share-payload="${syntaxMetricEncoded}" data-testid="syntax-lab-metric">\u{1F4CA} ${t("lab.metric.record")}</button>
@@ -13791,21 +14125,21 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       root41.querySelectorAll("[data-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           loadExample(btn.dataset.example);
-          render40();
+          render41();
         });
       });
       const resetBtn = root41.querySelector('[data-testid="syntax-reset-program"]');
       if (resetBtn) {
         resetBtn.addEventListener("click", () => {
-          const ex = programExamples.find((e) => e.id === state40.exampleId);
+          const ex = programExamples.find((e) => e.id === state41.exampleId);
           if (!ex) return;
           const snap = defaultProgramSnapshot(ex);
-          state40.params = snap.params;
-          state40.body = snap.body;
-          state40.tests = snap.tests.map((t2) => ({ ...t2 }));
-          state40.selectedMutantId = null;
+          state41.params = snap.params;
+          state41.body = snap.body;
+          state41.tests = snap.tests.map((t4) => ({ ...t4 }));
+          state41.selectedMutantId = null;
           persistCurrent();
-          render40();
+          render41();
         });
       }
       const reloadBtn = root41.querySelector('[data-testid="syntax-cloud-reload"]');
@@ -13817,94 +14151,94 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       root41.querySelectorAll("[data-operator]").forEach((cb) => {
         cb.addEventListener("change", () => {
           const op = cb.dataset.operator;
-          if (cb.checked) state40.operators.add(op);
-          else state40.operators.delete(op);
-          render40();
+          if (cb.checked) state41.operators.add(op);
+          else state41.operators.delete(op);
+          render41();
         });
       });
       const params = root41.querySelector('[data-testid="syntax-params"]');
       if (params) {
         params.addEventListener("input", (e) => {
-          state40.params = e.target.value;
+          state41.params = e.target.value;
           persistCurrent();
         });
         params.addEventListener("change", (e) => {
-          state40.params = e.target.value;
+          state41.params = e.target.value;
           persistCurrent();
-          render40();
+          render41();
         });
       }
-      const body = root41.querySelector('[data-testid="syntax-body"]');
-      if (body) {
-        body.addEventListener("input", (e) => {
-          state40.body = e.target.value;
+      const body3 = root41.querySelector('[data-testid="syntax-body"]');
+      if (body3) {
+        body3.addEventListener("input", (e) => {
+          state41.body = e.target.value;
           persistCurrent();
         });
-        body.addEventListener("change", (e) => {
-          state40.body = e.target.value;
+        body3.addEventListener("change", (e) => {
+          state41.body = e.target.value;
           persistCurrent();
-          render40();
+          render41();
         });
       }
       root41.querySelectorAll("[data-test-args]").forEach((input) => {
         input.addEventListener("input", (e) => {
           const id = input.dataset.testArgs;
-          const t2 = state40.tests.find((x) => x.id === id);
-          if (t2) t2.argsText = e.target.value;
+          const t4 = state41.tests.find((x) => x.id === id);
+          if (t4) t4.argsText = e.target.value;
           persistCurrent();
         });
         input.addEventListener("change", (e) => {
           const id = input.dataset.testArgs;
-          const t2 = state40.tests.find((x) => x.id === id);
-          if (t2) t2.argsText = e.target.value;
+          const t4 = state41.tests.find((x) => x.id === id);
+          if (t4) t4.argsText = e.target.value;
           persistCurrent();
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-test-expected]").forEach((input) => {
         input.addEventListener("input", (e) => {
           const id = input.dataset.testExpected;
-          const t2 = state40.tests.find((x) => x.id === id);
-          if (t2) t2.expectedText = e.target.value;
+          const t4 = state41.tests.find((x) => x.id === id);
+          if (t4) t4.expectedText = e.target.value;
           persistCurrent();
         });
         input.addEventListener("change", (e) => {
           const id = input.dataset.testExpected;
-          const t2 = state40.tests.find((x) => x.id === id);
-          if (t2) t2.expectedText = e.target.value;
+          const t4 = state41.tests.find((x) => x.id === id);
+          if (t4) t4.expectedText = e.target.value;
           persistCurrent();
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-remove-test]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.tests = state40.tests.filter((t2) => t2.id !== btn.dataset.removeTest);
+          state41.tests = state41.tests.filter((t4) => t4.id !== btn.dataset.removeTest);
           persistCurrent();
-          render40();
+          render41();
         });
       });
       const addBtn = root41.querySelector('[data-testid="syntax-test-add"]');
       if (addBtn) {
         addBtn.addEventListener("click", () => {
-          const next = `t${state40.tests.length + 1}`;
-          state40.tests.push({ id: next, argsText: "", expectedText: "" });
+          const next = `t${state41.tests.length + 1}`;
+          state41.tests.push({ id: next, argsText: "", expectedText: "" });
           persistCurrent();
-          render40();
+          render41();
         });
       }
       root41.querySelectorAll("[data-mutant-id]").forEach((li) => {
         li.addEventListener("click", () => {
-          state40.selectedMutantId = li.dataset.mutantId;
-          render40();
+          state41.selectedMutantId = li.dataset.mutantId;
+          render41();
         });
       });
       root41.querySelectorAll("[data-toggle-equivalent]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const m = state40.mutants.find((x) => x.id === btn.dataset.toggleEquivalent);
+          const m = state41.mutants.find((x) => x.id === btn.dataset.toggleEquivalent);
           if (!m) return;
           m.status = m.status === "equivalent" ? m.killedBy.length ? "killed" : "live" : "equivalent";
-          state40.score = computeMutationScore(state40.mutants);
-          render40();
+          state41.score = computeMutationScore(state41.mutants);
+          render41();
         });
       });
       const sqStart = root41.querySelector('[data-testid="syntax-quiz-start"]');
@@ -13914,14 +14248,14 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           syntaxQuiz.phase = "question";
           syntaxQuiz.answer = "";
           syntaxQuiz.result = null;
-          render40();
+          render41();
         });
       }
       const sqClose = root41.querySelector('[data-testid="syntax-quiz-close"]');
       if (sqClose) {
         sqClose.addEventListener("click", () => {
           syntaxQuiz.active = false;
-          render40();
+          render41();
         });
       }
       const sqCheck = root41.querySelector('[data-testid="syntax-quiz-check"]');
@@ -13930,7 +14264,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           const inp = root41.querySelector('[data-testid="syntax-quiz-input"]');
           syntaxQuiz.answer = inp ? inp.value : "";
           syntaxQuiz.phase = "graded";
-          render40();
+          render41();
         });
       }
       const sqReset = root41.querySelector('[data-testid="syntax-quiz-reset"]');
@@ -13939,25 +14273,25 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           syntaxQuiz.phase = "question";
           syntaxQuiz.answer = "";
           syntaxQuiz.result = null;
-          render40();
+          render41();
         });
       }
     }
-    render40();
+    render41();
     if (cloudClient && typeof cloudClient.subscribeAuthState === "function") {
       cloudClient.subscribeAuthState(async (user) => {
-        state40.cloudUser = user || null;
+        state41.cloudUser = user || null;
         if (!user) {
-          state40.cloudStatus = "idle";
-          state40.cloudMessage = "";
-          render40();
+          state41.cloudStatus = "idle";
+          state41.cloudMessage = "";
+          render41();
           return;
         }
         await reloadFromCloud();
       });
       if (typeof ((_a = globalThis.document) == null ? void 0 : _a.addEventListener) === "function") {
         globalThis.document.addEventListener("visibilitychange", () => {
-          if (globalThis.document.visibilityState === "visible" && state40.cloudUser) {
+          if (globalThis.document.visibilityState === "visible" && state41.cloudUser) {
             reloadFromCloud();
           }
         });
@@ -13982,7 +14316,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         const baseName = (detail.name || "uploaded").replace(/\.[^.]+$/, "") || "uploaded";
         const id = `uploaded-${Date.now().toString(36)}`;
         const params = parsed ? parsed.params : "";
-        const body = parsed ? parsed.body : content;
+        const body3 = parsed ? parsed.body : content;
         const newExample = {
           id,
           name: baseName,
@@ -13990,18 +14324,18 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           description: `Uploaded from cloud: ${detail.name || baseName}`,
           descriptionEn: `Uploaded from cloud: ${detail.name || baseName}`,
           params: params ? params.split(",").map((s) => s.trim()).filter(Boolean) : [],
-          body,
+          body: body3,
           tests: []
         };
-        state40.customExamples = [...state40.customExamples, newExample];
-        state40.programs[id] = { params, body, tests: [] };
-        state40.exampleId = id;
-        state40.params = params;
-        state40.body = body;
-        state40.tests = [];
-        state40.selectedMutantId = null;
+        state41.customExamples = [...state41.customExamples, newExample];
+        state41.programs[id] = { params, body: body3, tests: [] };
+        state41.exampleId = id;
+        state41.params = params;
+        state41.body = body3;
+        state41.tests = [];
+        state41.selectedMutantId = null;
         persistCurrent();
-        render40();
+        render41();
       });
     }
     return root41;
@@ -14324,8 +14658,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const memo = /* @__PURE__ */ new Map();
     function tryNT(name, pos, depth) {
       if (depth > maxDepth) return [];
-      const key = `${name}@${pos}@${depth}`;
-      if (memo.has(key)) return memo.get(key);
+      const key2 = `${name}@${pos}@${depth}`;
+      if (memo.has(key2)) return memo.get(key2);
       const matches = [];
       for (const prod of grammar.productions) {
         if (prod.lhs !== name) continue;
@@ -14333,7 +14667,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         for (const e of ends) matches.push(e);
       }
       const dedup = [...new Set(matches)];
-      memo.set(key, dedup);
+      memo.set(key2, dedup);
       return dedup;
     }
     function trySequence(seq, idx, pos, depth) {
@@ -14378,8 +14712,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   function deriveAlphabet(grammar, seedStrings = []) {
     const set = /* @__PURE__ */ new Set();
     if (grammar == null ? void 0 : grammar.terminals) {
-      for (const t2 of grammar.terminals) {
-        for (const ch of String(t2)) set.add(ch);
+      for (const t4 of grammar.terminals) {
+        for (const ch of String(t4)) set.add(ch);
       }
     }
     for (const s of seedStrings) {
@@ -14397,9 +14731,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const seen = /* @__PURE__ */ new Set();
     const push = (operator, mutated, description) => {
       if (mutated === seed) return;
-      const key = `${operator}|${mutated}`;
-      if (seen.has(key)) return;
-      seen.add(key);
+      const key2 = `${operator}|${mutated}`;
+      if (seen.has(key2)) return;
+      seen.add(key2);
       out.push({
         id: `${operator}:${out.length}`,
         operator,
@@ -14512,7 +14846,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     var _a;
     try {
       const v = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(TAB_STORAGE_KEY);
-      return GRAMMAR_TABS.find((t2) => t2.id === v) ? v : DEFAULT_TAB;
+      return GRAMMAR_TABS.find((t4) => t4.id === v) ? v : DEFAULT_TAB;
     } catch {
       return DEFAULT_TAB;
     }
@@ -14562,7 +14896,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const initial = grammarExamples[0];
     const localPrograms = loadLocalGrammars();
     const initialText = localPrograms[initial.id] || initial.text;
-    const state40 = {
+    const state41 = {
       exampleId: initial.id,
       text: initialText,
       programs: localPrograms,
@@ -14587,98 +14921,98 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       activeTab: loadActiveTab()
     };
     function persistCurrent() {
-      state40.programs[state40.exampleId] = state40.text;
-      saveLocalGrammars(state40.programs);
+      state41.programs[state41.exampleId] = state41.text;
+      saveLocalGrammars(state41.programs);
     }
     function recompute() {
       var _a, _b;
-      state40.parseError = null;
-      state40.grammar = null;
-      state40.derivations = [];
-      state40.coverage = null;
-      state40.mutants = [];
+      state41.parseError = null;
+      state41.grammar = null;
+      state41.derivations = [];
+      state41.coverage = null;
+      state41.mutants = [];
       try {
-        const g = parseGrammar(state40.text);
-        state40.grammar = g;
-        state40.derivations = generateDerivations(g, {
-          maxStrings: state40.maxStrings,
-          maxDepth: state40.maxDepth
+        const g = parseGrammar(state41.text);
+        state41.grammar = g;
+        state41.derivations = generateDerivations(g, {
+          maxStrings: state41.maxStrings,
+          maxDepth: state41.maxDepth
         });
-        state40.coverage = computeCoverage(state40.derivations, g);
-        const ops = [...state40.operators];
+        state41.coverage = computeCoverage(state41.derivations, g);
+        const ops = [...state41.operators];
         if (ops.length > 0) {
           const generated = generateGrammarMutants(g, ops);
           const allTestStrings = [
-            ...state40.derivations.map((d) => d.string),
-            ...state40.extraTests.split("\n").map((s) => s).filter((_, idx, arr) => arr.indexOf(arr[idx]) === idx)
+            ...state41.derivations.map((d) => d.string),
+            ...state41.extraTests.split("\n").map((s) => s).filter((_, idx, arr) => arr.indexOf(arr[idx]) === idx)
           ];
-          state40.mutants = evaluateMutantsAgainstStrings(g, generated, allTestStrings);
+          state41.mutants = evaluateMutantsAgainstStrings(g, generated, allTestStrings);
         }
-        if (!state40.mutants.find((m) => m.id === state40.selectedMutantId)) {
-          state40.selectedMutantId = ((_a = state40.mutants[0]) == null ? void 0 : _a.id) || null;
+        if (!state41.mutants.find((m) => m.id === state41.selectedMutantId)) {
+          state41.selectedMutantId = ((_a = state41.mutants[0]) == null ? void 0 : _a.id) || null;
         }
-        state40.stringMutants = [];
-        if (state40.derivations.length > 0 && state40.stringOperators.size > 0) {
-          const idx = Math.min(state40.seedIndex, state40.derivations.length - 1);
-          const seed = state40.derivations[idx].string;
-          const alphabet = deriveAlphabet(g, state40.derivations.map((d) => d.string));
-          const raw = generateStringMutants(seed, [...state40.stringOperators], {
+        state41.stringMutants = [];
+        if (state41.derivations.length > 0 && state41.stringOperators.size > 0) {
+          const idx = Math.min(state41.seedIndex, state41.derivations.length - 1);
+          const seed = state41.derivations[idx].string;
+          const alphabet = deriveAlphabet(g, state41.derivations.map((d) => d.string));
+          const raw = generateStringMutants(seed, [...state41.stringOperators], {
             alphabet,
-            maxPerOp: state40.maxPerStringOp
+            maxPerOp: state41.maxPerStringOp
           });
-          state40.stringMutants = classifyStringMutants(g, raw);
+          state41.stringMutants = classifyStringMutants(g, raw);
         }
-        if (!state40.stringMutants.find((m) => m.id === state40.selectedStringMutantId)) {
-          state40.selectedStringMutantId = ((_b = state40.stringMutants[0]) == null ? void 0 : _b.id) || null;
+        if (!state41.stringMutants.find((m) => m.id === state41.selectedStringMutantId)) {
+          state41.selectedStringMutantId = ((_b = state41.stringMutants[0]) == null ? void 0 : _b.id) || null;
         }
       } catch (err) {
-        state40.parseError = err.message || String(err);
+        state41.parseError = err.message || String(err);
       }
     }
     function loadExample(id) {
-      const ex = grammarExamples.find((e) => e.id === id) || state40.customExamples.find((e) => e.id === id);
+      const ex = grammarExamples.find((e) => e.id === id) || state41.customExamples.find((e) => e.id === id);
       if (!ex) return;
-      state40.exampleId = id;
-      state40.text = state40.programs[id] || ex.text;
-      state40.selectedMutantId = null;
+      state41.exampleId = id;
+      state41.text = state41.programs[id] || ex.text;
+      state41.selectedMutantId = null;
     }
-    function render40() {
+    function render41() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
       recompute();
-      const allExamples = [...grammarExamples, ...state40.customExamples];
+      const allExamples = [...grammarExamples, ...state41.customExamples];
       const exampleButtons = allExamples.map((ex) => `
       <button
         type="button"
-        class="grammar-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+        class="grammar-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-grammar-example="${ex.id}"
         title="${escapeHtml4(getLocale() === "en" ? ex.descriptionEn || ex.description : ex.description)}"
       >${escapeHtml4(pickField(ex, "name"))}</button>
     `).join("");
       const operatorButtons = GRAMMAR_OPERATORS.map((op) => `
-      <label class="grammar-op-btn${state40.operators.has(op) ? " active" : ""}">
-        <input type="checkbox" data-grammar-op="${op}" ${state40.operators.has(op) ? "checked" : ""} />
+      <label class="grammar-op-btn${state41.operators.has(op) ? " active" : ""}">
+        <input type="checkbox" data-grammar-op="${op}" ${state41.operators.has(op) ? "checked" : ""} />
         <span>${op}</span>
       </label>
     `).join("");
-      const productionsHtml = state40.grammar ? state40.grammar.productions.map((p) => {
+      const productionsHtml = state41.grammar ? state41.grammar.productions.map((p) => {
         var _a2;
-        return formatProductionHtml(p, (_a2 = state40.coverage) == null ? void 0 : _a2.pdc.covered.has(p.id));
+        return formatProductionHtml(p, (_a2 = state41.coverage) == null ? void 0 : _a2.pdc.covered.has(p.id));
       }).join("") : "";
-      const derivationsHtml = state40.derivations.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noDerivations"))}</p>` : `<ol class="grammar-derivations">
-          ${state40.derivations.map((d) => `<li><code>${escapeHtml4(d.string === "" ? "\u2205" : d.string)}</code>
+      const derivationsHtml = state41.derivations.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noDerivations"))}</p>` : `<ol class="grammar-derivations">
+          ${state41.derivations.map((d) => `<li><code>${escapeHtml4(d.string === "" ? "\u2205" : d.string)}</code>
             <span class="grammar-derivation-meta">depth ${d.depth} \xB7 p[${d.productionsUsed.join(", ")}]</span></li>`).join("")}
          </ol>`;
-      const pdcRatio = state40.coverage ? Math.round(state40.coverage.pdc.ratio * 100) : 0;
-      const tscRatio = state40.coverage ? Math.round(state40.coverage.tsc.ratio * 100) : 0;
-      const terminalsHtml = state40.grammar ? [...state40.grammar.terminals].map((tm) => {
+      const pdcRatio = state41.coverage ? Math.round(state41.coverage.pdc.ratio * 100) : 0;
+      const tscRatio = state41.coverage ? Math.round(state41.coverage.tsc.ratio * 100) : 0;
+      const terminalsHtml = state41.grammar ? [...state41.grammar.terminals].map((tm) => {
         var _a2;
-        const covered = (_a2 = state40.coverage) == null ? void 0 : _a2.tsc.covered.has(tm);
+        const covered = (_a2 = state41.coverage) == null ? void 0 : _a2.tsc.covered.has(tm);
         return `<span class="grammar-terminal-chip${covered ? " covered" : ""}">"${escapeHtml4(tm)}"</span>`;
       }).join("") : "";
-      const mutantsHtml = state40.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noMutants"))}</p>` : `<ul class="grammar-mutant-list">
-          ${state40.mutants.map((m) => `<li>
+      const mutantsHtml = state41.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noMutants"))}</p>` : `<ul class="grammar-mutant-list">
+          ${state41.mutants.map((m) => `<li>
             <button type="button"
-              class="grammar-mutant-btn${state40.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
+              class="grammar-mutant-btn${state41.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
               data-grammar-mutant="${escapeHtml4(m.id)}">
               <span class="grammar-mutant-op">${m.operator}</span>
               <span class="grammar-mutant-status">${m.killed ? t("grammar.killed") : t("grammar.live")}</span>
@@ -14686,33 +15020,33 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             </button>
           </li>`).join("")}
          </ul>`;
-      const selectedMutant = state40.mutants.find((m) => m.id === state40.selectedMutantId) || null;
+      const selectedMutant = state41.mutants.find((m) => m.id === state41.selectedMutantId) || null;
       const selectedMutantDetailHtml = selectedMutant ? `<div class="grammar-mutant-detail">
           <h5>${escapeHtml4(selectedMutant.id)}</h5>
           <p>${escapeHtml4(selectedMutant.description)}</p>
           ${selectedMutant.killed ? `<p class="grammar-mutant-killers"><strong>${escapeHtml4(t("grammar.killedBy"))}</strong></p>
                <ul class="grammar-killer-list">${selectedMutant.killers.slice(0, 8).map((k) => `<li><code>${escapeHtml4(k.string === "" ? "\u2205" : k.string)}</code> \xB7 ${k.origAccepts ? t("grammar.origAccepts") : t("grammar.origRejects")} \xB7 ${k.mutAccepts ? t("grammar.mutAccepts") : t("grammar.mutRejects")}</li>`).join("")}</ul>` : `<p class="grammar-mutant-live">${escapeHtml4(t("grammar.liveHint"))}</p>`}
         </div>` : `<p class="grammar-empty">${escapeHtml4(t("grammar.selectMutantHint"))}</p>`;
-      const score = state40.mutants.length === 0 ? null : { killed: state40.mutants.filter((m) => m.killed).length, total: state40.mutants.length };
-      const seedOptionsHtml = state40.derivations.map((d, idx) => `
-      <option value="${idx}" ${idx === Math.min(state40.seedIndex, state40.derivations.length - 1) ? "selected" : ""}>
+      const score = state41.mutants.length === 0 ? null : { killed: state41.mutants.filter((m) => m.killed).length, total: state41.mutants.length };
+      const seedOptionsHtml = state41.derivations.map((d, idx) => `
+      <option value="${idx}" ${idx === Math.min(state41.seedIndex, state41.derivations.length - 1) ? "selected" : ""}>
         #${idx + 1}: ${escapeHtml4(d.string === "" ? "\u2205" : d.string)}
       </option>`).join("");
       const stringOpButtons = STRING_MUTATION_OPERATORS.map((op) => `
-      <label class="grammar-op-btn${state40.stringOperators.has(op) ? " active" : ""}">
-        <input type="checkbox" data-grammar-string-op="${op}" ${state40.stringOperators.has(op) ? "checked" : ""} />
+      <label class="grammar-op-btn${state41.stringOperators.has(op) ? " active" : ""}">
+        <input type="checkbox" data-grammar-string-op="${op}" ${state41.stringOperators.has(op) ? "checked" : ""} />
         <span>${op}</span>
       </label>
     `).join("");
-      const stringMutantsHtml = state40.stringMutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.string.empty"))}</p>` : `<table class="grammar-string-mutant-table" data-testid="grammar-string-mutant-table">
+      const stringMutantsHtml = state41.stringMutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.string.empty"))}</p>` : `<table class="grammar-string-mutant-table" data-testid="grammar-string-mutant-table">
           <thead><tr>
             <th>Op</th>
             <th>${escapeHtml4(t("grammar.string.colMutated"))}</th>
             <th>${escapeHtml4(t("grammar.string.colKind"))}</th>
           </tr></thead>
           <tbody>
-            ${state40.stringMutants.map((m) => `<tr
-                class="grammar-string-row ${m.kind === "positive" ? "positive" : "negative"}${state40.selectedStringMutantId === m.id ? " active" : ""}"
+            ${state41.stringMutants.map((m) => `<tr
+                class="grammar-string-row ${m.kind === "positive" ? "positive" : "negative"}${state41.selectedStringMutantId === m.id ? " active" : ""}"
                 data-grammar-string-mutant="${escapeHtml4(m.id)}">
                 <td><span class="grammar-op-tag">${m.operator}</span></td>
                 <td><code>${escapeHtml4(m.mutated === "" ? "\u2205" : m.mutated)}</code></td>
@@ -14720,12 +15054,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               </tr>`).join("")}
           </tbody>
          </table>`;
-      const positives = state40.stringMutants.filter((m) => m.kind === "positive").length;
-      const negatives = state40.stringMutants.length - positives;
-      const stringStats = state40.stringMutants.length === 0 ? null : `<span class="grammar-string-stats" data-testid="grammar-string-stats">
+      const positives = state41.stringMutants.filter((m) => m.kind === "positive").length;
+      const negatives = state41.stringMutants.length - positives;
+      const stringStats = state41.stringMutants.length === 0 ? null : `<span class="grammar-string-stats" data-testid="grammar-string-stats">
           ${escapeHtml4(t("grammar.string.statsPositive"))}: ${positives} \xB7 ${escapeHtml4(t("grammar.string.statsNegative"))}: ${negatives}
         </span>`;
-      const selectedStringMutant = state40.stringMutants.find((m) => m.id === state40.selectedStringMutantId) || null;
+      const selectedStringMutant = state41.stringMutants.find((m) => m.id === state41.selectedStringMutantId) || null;
       const selectedStringDetailHtml = selectedStringMutant ? `<div class="grammar-string-detail">
           <p><strong>${escapeHtml4(selectedStringMutant.operator)}</strong> \xB7 ${escapeHtml4(selectedStringMutant.description)}</p>
           <p>${escapeHtml4(t("grammar.string.original"))}: <code>${escapeHtml4(selectedStringMutant.original === "" ? "\u2205" : selectedStringMutant.original)}</code></p>
@@ -14748,20 +15082,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <div class="grammar-editor-col">
             <label class="grammar-editor-label">
               ${escapeHtml4(t("grammar.bnfEditor"))}
-              <textarea data-testid="grammar-text" rows="8" spellcheck="false">${escapeHtml4(state40.text)}</textarea>
+              <textarea data-testid="grammar-text" rows="8" spellcheck="false">${escapeHtml4(state41.text)}</textarea>
             </label>
-            ${state40.parseError ? `<p class="grammar-error" data-testid="grammar-parse-error">${escapeHtml4(state40.parseError)}</p>` : ""}
+            ${state41.parseError ? `<p class="grammar-error" data-testid="grammar-parse-error">${escapeHtml4(state41.parseError)}</p>` : ""}
             <div class="grammar-controls-row">
               <label>${escapeHtml4(t("grammar.maxStrings"))}
-                <input type="number" min="1" max="40" value="${state40.maxStrings}" data-grammar-max-strings />
+                <input type="number" min="1" max="40" value="${state41.maxStrings}" data-grammar-max-strings />
               </label>
               <label>${escapeHtml4(t("grammar.maxDepth"))}
-                <input type="number" min="1" max="40" value="${state40.maxDepth}" data-grammar-max-depth />
+                <input type="number" min="1" max="40" value="${state41.maxDepth}" data-grammar-max-depth />
               </label>
             </div>
             <label class="grammar-editor-label">
               ${escapeHtml4(t("grammar.extraTests"))}
-              <textarea data-testid="grammar-extra-tests" rows="3" spellcheck="false" placeholder="${escapeHtml4(t("grammar.extraTestsHint"))}">${escapeHtml4(state40.extraTests)}</textarea>
+              <textarea data-testid="grammar-extra-tests" rows="3" spellcheck="false" placeholder="${escapeHtml4(t("grammar.extraTestsHint"))}">${escapeHtml4(state41.extraTests)}</textarea>
             </label>
           </div>
 
@@ -14771,11 +15105,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             <div class="grammar-coverage-summary">
               <div class="grammar-metric">
                 <span class="grammar-metric-label">PDC</span>
-                <span class="grammar-metric-value" data-testid="grammar-pdc">${((_a = state40.coverage) == null ? void 0 : _a.pdc.covered.size) || 0} / ${((_b = state40.coverage) == null ? void 0 : _b.pdc.all.size) || 0} (${pdcRatio}%)</span>
+                <span class="grammar-metric-value" data-testid="grammar-pdc">${((_a = state41.coverage) == null ? void 0 : _a.pdc.covered.size) || 0} / ${((_b = state41.coverage) == null ? void 0 : _b.pdc.all.size) || 0} (${pdcRatio}%)</span>
               </div>
               <div class="grammar-metric">
                 <span class="grammar-metric-label">TSC</span>
-                <span class="grammar-metric-value" data-testid="grammar-tsc">${((_c = state40.coverage) == null ? void 0 : _c.tsc.covered.size) || 0} / ${((_d = state40.coverage) == null ? void 0 : _d.tsc.all.size) || 0} (${tscRatio}%)</span>
+                <span class="grammar-metric-value" data-testid="grammar-tsc">${((_c = state41.coverage) == null ? void 0 : _c.tsc.covered.size) || 0} / ${((_d = state41.coverage) == null ? void 0 : _d.tsc.all.size) || 0} (${tscRatio}%)</span>
               </div>
             </div>
             <div class="grammar-terminals">${terminalsHtml}</div>
@@ -14785,20 +15119,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <nav class="grammar-subtab-row" data-testid="grammar-subtab-row" role="tablist">
           ${GRAMMAR_TABS.map((tab) => `
             <button type="button"
-              class="grammar-subtab-btn${state40.activeTab === tab.id ? " active" : ""}"
+              class="grammar-subtab-btn${state41.activeTab === tab.id ? " active" : ""}"
               data-grammar-subtab="${tab.id}"
               role="tab"
-              aria-selected="${state40.activeTab === tab.id ? "true" : "false"}"
+              aria-selected="${state41.activeTab === tab.id ? "true" : "false"}"
             >${escapeHtml4(t(tab.labelKey))}</button>
           `).join("")}
         </nav>
 
-        <div class="grammar-derivation-block" data-grammar-panel="derivations" style="display:${state40.activeTab === "derivations" ? "" : "none"}">
+        <div class="grammar-derivation-block" data-grammar-panel="derivations" style="display:${state41.activeTab === "derivations" ? "" : "none"}">
           <h4>${escapeHtml4(t("grammar.derivations"))}</h4>
           ${derivationsHtml}
         </div>
 
-        <div class="grammar-mutation-block" data-grammar-panel="mutation" style="display:${state40.activeTab === "mutation" ? "" : "none"}">
+        <div class="grammar-mutation-block" data-grammar-panel="mutation" style="display:${state41.activeTab === "mutation" ? "" : "none"}">
           <div class="grammar-mutation-header">
             <h4>${escapeHtml4(t("grammar.mutations"))}</h4>
             ${score ? `<span class="grammar-score" data-testid="grammar-mutation-score">${t("grammar.scoreLabel")}: ${score.killed} / ${score.total} (${Math.round(score.killed / score.total * 100)}%)</span>` : ""}
@@ -14810,7 +15144,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           </div>
         </div>
 
-        <div class="grammar-string-block" data-testid="grammar-string-block" data-grammar-panel="string" style="display:${state40.activeTab === "string" ? "" : "none"}">
+        <div class="grammar-string-block" data-testid="grammar-string-block" data-grammar-panel="string" style="display:${state41.activeTab === "string" ? "" : "none"}">
           <div class="grammar-mutation-header">
             <h4>${escapeHtml4(t("grammar.string.title"))}</h4>
             ${stringStats || ""}
@@ -14818,10 +15152,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <p class="grammar-string-subtitle">${escapeHtml4(t("grammar.string.subtitle"))}</p>
           <div class="grammar-string-controls">
             <label>${escapeHtml4(t("grammar.string.seed"))}
-              <select data-grammar-seed-select ${state40.derivations.length === 0 ? "disabled" : ""}>${seedOptionsHtml}</select>
+              <select data-grammar-seed-select ${state41.derivations.length === 0 ? "disabled" : ""}>${seedOptionsHtml}</select>
             </label>
             <label>${escapeHtml4(t("grammar.string.maxPerOp"))}
-              <input type="number" min="1" max="50" value="${state40.maxPerStringOp}" data-grammar-max-per-string-op />
+              <input type="number" min="1" max="50" value="${state41.maxPerStringOp}" data-grammar-max-per-string-op />
             </label>
           </div>
           <div class="grammar-op-row">${stringOpButtons}</div>
@@ -14835,75 +15169,75 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       root41.querySelectorAll("[data-grammar-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           loadExample(btn.dataset.grammarExample);
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-grammar-subtab]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.activeTab = btn.dataset.grammarSubtab;
-          saveActiveTab(state40.activeTab);
-          render40();
+          state41.activeTab = btn.dataset.grammarSubtab;
+          saveActiveTab(state41.activeTab);
+          render41();
         });
       });
       const ta = root41.querySelector('[data-testid="grammar-text"]');
       ta == null ? void 0 : ta.addEventListener("input", (e) => {
-        state40.text = e.target.value;
+        state41.text = e.target.value;
         persistCurrent();
       });
       ta == null ? void 0 : ta.addEventListener("change", () => {
-        render40();
+        render41();
       });
       (_e = root41.querySelector('[data-testid="grammar-extra-tests"]')) == null ? void 0 : _e.addEventListener("input", (e) => {
-        state40.extraTests = e.target.value;
+        state41.extraTests = e.target.value;
       });
-      (_f = root41.querySelector('[data-testid="grammar-extra-tests"]')) == null ? void 0 : _f.addEventListener("change", () => render40());
+      (_f = root41.querySelector('[data-testid="grammar-extra-tests"]')) == null ? void 0 : _f.addEventListener("change", () => render41());
       (_g = root41.querySelector("[data-grammar-max-strings]")) == null ? void 0 : _g.addEventListener("change", (e) => {
-        state40.maxStrings = Math.max(1, Math.min(40, Number(e.target.value) || 1));
-        render40();
+        state41.maxStrings = Math.max(1, Math.min(40, Number(e.target.value) || 1));
+        render41();
       });
       (_h = root41.querySelector("[data-grammar-max-depth]")) == null ? void 0 : _h.addEventListener("change", (e) => {
-        state40.maxDepth = Math.max(1, Math.min(40, Number(e.target.value) || 1));
-        render40();
+        state41.maxDepth = Math.max(1, Math.min(40, Number(e.target.value) || 1));
+        render41();
       });
       root41.querySelectorAll("[data-grammar-op]").forEach((cb) => {
         cb.addEventListener("change", (e) => {
           const op = e.target.dataset.grammarOp;
-          if (e.target.checked) state40.operators.add(op);
-          else state40.operators.delete(op);
-          render40();
+          if (e.target.checked) state41.operators.add(op);
+          else state41.operators.delete(op);
+          render41();
         });
       });
       root41.querySelectorAll("[data-grammar-mutant]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.selectedMutantId = btn.dataset.grammarMutant;
-          render40();
+          state41.selectedMutantId = btn.dataset.grammarMutant;
+          render41();
         });
       });
       (_i = root41.querySelector("[data-grammar-seed-select]")) == null ? void 0 : _i.addEventListener("change", (e) => {
-        state40.seedIndex = Math.max(0, Number(e.target.value) || 0);
-        state40.selectedStringMutantId = null;
-        render40();
+        state41.seedIndex = Math.max(0, Number(e.target.value) || 0);
+        state41.selectedStringMutantId = null;
+        render41();
       });
       (_j = root41.querySelector("[data-grammar-max-per-string-op]")) == null ? void 0 : _j.addEventListener("change", (e) => {
-        state40.maxPerStringOp = Math.max(1, Math.min(50, Number(e.target.value) || 1));
-        render40();
+        state41.maxPerStringOp = Math.max(1, Math.min(50, Number(e.target.value) || 1));
+        render41();
       });
       root41.querySelectorAll("[data-grammar-string-op]").forEach((cb) => {
         cb.addEventListener("change", (e) => {
           const op = e.target.dataset.grammarStringOp;
-          if (e.target.checked) state40.stringOperators.add(op);
-          else state40.stringOperators.delete(op);
-          render40();
+          if (e.target.checked) state41.stringOperators.add(op);
+          else state41.stringOperators.delete(op);
+          render41();
         });
       });
       root41.querySelectorAll("[data-grammar-string-mutant]").forEach((row) => {
         row.addEventListener("click", () => {
-          state40.selectedStringMutantId = row.dataset.grammarStringMutant;
-          render40();
+          state41.selectedStringMutantId = row.dataset.grammarStringMutant;
+          render41();
         });
       });
     }
-    render40();
+    render41();
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
         var _a;
@@ -14921,13 +15255,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           descriptionEn: `Uploaded from cloud: ${detail.name || baseName}`,
           text: content
         };
-        state40.customExamples = [...state40.customExamples, newExample];
-        state40.programs[id] = content;
-        state40.exampleId = id;
-        state40.text = content;
-        state40.selectedMutantId = null;
+        state41.customExamples = [...state41.customExamples, newExample];
+        state41.programs[id] = content;
+        state41.exampleId = id;
+        state41.text = content;
+        state41.selectedMutantId = null;
         persistCurrent();
-        render40();
+        render41();
       });
     }
     return root41;
@@ -15029,9 +15363,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const push = (operator, ast, description) => {
       const text = astToString(ast);
       if (text === originalStr) return;
-      const key = `${operator}|${text}`;
-      if (seenStrings.has(key)) return;
-      seenStrings.add(key);
+      const key2 = `${operator}|${text}`;
+      if (seenStrings.has(key2)) return;
+      seenStrings.add(key2);
       mutants.push({
         id: `${operator}:${mutants.length}`,
         operator,
@@ -15069,7 +15403,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return mutants;
   }
   function evaluateSpecMutants(parsed, mutants, tests) {
-    const originalValues = tests.map((t2) => evaluateAst2(parsed.ast, t2));
+    const originalValues = tests.map((t4) => evaluateAst2(parsed.ast, t4));
     return mutants.map((m) => {
       const killers = [];
       for (let i = 0; i < tests.length; i++) {
@@ -15507,14 +15841,14 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist(state40) {
+  function persist(state41) {
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY4, JSON.stringify({
-        text: state40.text,
-        operators: [...state40.operators],
-        activeCategory: state40.activeCategory,
-        tests: state40.tests
+        text: state41.text,
+        operators: [...state41.operators],
+        activeCategory: state41.activeCategory,
+        tests: state41.tests
       }));
     } catch {
     }
@@ -15527,7 +15861,7 @@ INVARSPEC !(x & y)`
     root41.className = "spec-mutation";
     root41.dataset.testid = "spec-mutation";
     const saved = loadSaved();
-    const state40 = {
+    const state41 = {
       text: (saved == null ? void 0 : saved.text) || DEFAULT_PREDICATE,
       operators: new Set((saved == null ? void 0 : saved.operators) || DEFAULT_OPS2),
       activeCategory: (saved == null ? void 0 : saved.activeCategory) || DEFAULT_CATEGORY,
@@ -15542,59 +15876,59 @@ INVARSPEC !(x & y)`
     };
     function recompute() {
       var _a;
-      state40.parseError = null;
-      state40.parsed = null;
-      state40.mutants = [];
+      state41.parseError = null;
+      state41.parsed = null;
+      state41.mutants = [];
       try {
-        const parsed = parsePredicate(state40.text);
-        state40.parsed = parsed;
-        const ops = [...state40.operators];
+        const parsed = parsePredicate(state41.text);
+        state41.parsed = parsed;
+        const ops = [...state41.operators];
         const generated = ops.length > 0 ? generateSpecMutants(parsed, ops) : [];
         let tests;
-        if (state40.useFullTable) {
+        if (state41.useFullTable) {
           tests = buildAssignmentSpace(parsed.clauses);
         } else {
-          tests = (state40.tests || []).map((t2) => {
+          tests = (state41.tests || []).map((t4) => {
             var _a2;
             const v = {};
-            for (const c of parsed.clauses) v[c] = !!((_a2 = t2.values) == null ? void 0 : _a2[c]);
+            for (const c of parsed.clauses) v[c] = !!((_a2 = t4.values) == null ? void 0 : _a2[c]);
             return v;
           });
         }
-        state40.mutants = evaluateSpecMutants(parsed, generated, tests);
-        if (!state40.mutants.find((m) => m.id === state40.selectedMutantId)) {
-          state40.selectedMutantId = ((_a = state40.mutants[0]) == null ? void 0 : _a.id) || null;
+        state41.mutants = evaluateSpecMutants(parsed, generated, tests);
+        if (!state41.mutants.find((m) => m.id === state41.selectedMutantId)) {
+          state41.selectedMutantId = ((_a = state41.mutants[0]) == null ? void 0 : _a.id) || null;
         }
       } catch (err) {
-        state40.parseError = err.message || String(err);
+        state41.parseError = err.message || String(err);
       }
-      persist(state40);
+      persist(state41);
     }
-    function render40() {
+    function render41() {
       var _a, _b, _c;
       recompute();
-      const currentExample7 = SPEC_EXAMPLES.find((ex) => state40.text.trim() === ex.text) || null;
+      const currentExample7 = SPEC_EXAMPLES.find((ex) => state41.text.trim() === ex.text) || null;
       const categoryButtons = SPEC_CATEGORIES.map((cat) => `
       <button type="button"
-        class="spec-category-btn${state40.activeCategory === cat.id ? " active" : ""}"
+        class="spec-category-btn${state41.activeCategory === cat.id ? " active" : ""}"
         data-spec-category="${cat.id}">${escapeHtml5(t(cat.labelKey))}</button>
     `).join("");
-      const visibleExamples = SPEC_EXAMPLES.filter((ex) => ex.category === state40.activeCategory);
+      const visibleExamples = SPEC_EXAMPLES.filter((ex) => ex.category === state41.activeCategory);
       const exampleButtons = visibleExamples.map((ex) => `
-      <button type="button" class="spec-example-btn${state40.text.trim() === ex.text ? " active" : ""}"
+      <button type="button" class="spec-example-btn${state41.text.trim() === ex.text ? " active" : ""}"
         data-spec-example="${ex.id}" title="${escapeHtml5(ex.description || "")}">${escapeHtml5(ex.name)}</button>
     `).join("");
       const operatorButtons = SPEC_MUTATION_OPERATORS.map((op) => `
-      <label class="grammar-op-btn${state40.operators.has(op) ? " active" : ""}" title="${escapeHtml5(t(`spec.op.${op}`))}">
-        <input type="checkbox" data-spec-op="${op}" ${state40.operators.has(op) ? "checked" : ""} />
+      <label class="grammar-op-btn${state41.operators.has(op) ? " active" : ""}" title="${escapeHtml5(t(`spec.op.${op}`))}">
+        <input type="checkbox" data-spec-op="${op}" ${state41.operators.has(op) ? "checked" : ""} />
         <span>${op}</span>
       </label>
     `).join("");
-      const score = state40.mutants.length === 0 ? null : { killed: state40.mutants.filter((m) => m.killed).length, total: state40.mutants.length };
-      const mutantsHtml = state40.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml5(t("spec.noMutants"))}</p>` : `<ul class="grammar-mutant-list" data-testid="spec-mutant-list">
-          ${state40.mutants.map((m) => `<li>
+      const score = state41.mutants.length === 0 ? null : { killed: state41.mutants.filter((m) => m.killed).length, total: state41.mutants.length };
+      const mutantsHtml = state41.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml5(t("spec.noMutants"))}</p>` : `<ul class="grammar-mutant-list" data-testid="spec-mutant-list">
+          ${state41.mutants.map((m) => `<li>
             <button type="button"
-              class="grammar-mutant-btn${state40.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
+              class="grammar-mutant-btn${state41.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
               data-spec-mutant="${escapeHtml5(m.id)}">
               <span class="grammar-mutant-op">${m.operator}</span>
               <span class="grammar-mutant-status">${m.killed ? t("grammar.killed") : t("grammar.live")}</span>
@@ -15605,19 +15939,19 @@ INVARSPEC !(x & y)`
             </button>
           </li>`).join("")}
          </ul>`;
-      const selected = state40.mutants.find((m) => m.id === state40.selectedMutantId) || null;
-      const flippedSet = selected ? flippedKeysFromKillers(selected.killers, ((_a = state40.parsed) == null ? void 0 : _a.clauses) || []) : null;
-      const fsmHtml = state40.parsed ? `<div class="spec-fsm-grid" data-testid="spec-fsm-grid">
+      const selected = state41.mutants.find((m) => m.id === state41.selectedMutantId) || null;
+      const flippedSet = selected ? flippedKeysFromKillers(selected.killers, ((_a = state41.parsed) == null ? void 0 : _a.clauses) || []) : null;
+      const fsmHtml = state41.parsed ? `<div class="spec-fsm-grid" data-testid="spec-fsm-grid">
           ${renderMonitorSvg({
-        ast: state40.parsed.ast,
-        clauses: state40.parsed.clauses,
+        ast: state41.parsed.ast,
+        clauses: state41.parsed.clauses,
         title: t("spec.fsm.original"),
         flippedSet: null,
         testId: "spec-fsm-original"
       })}
           ${renderMonitorSvg({
-        ast: selected ? selected.ast : state40.parsed.ast,
-        clauses: state40.parsed.clauses,
+        ast: selected ? selected.ast : state41.parsed.ast,
+        clauses: state41.parsed.clauses,
         title: selected ? `${t("spec.fsm.mutant")}: ${selected.id}` : t("spec.fsm.pickMutant"),
         flippedSet,
         testId: "spec-fsm-mutant"
@@ -15653,12 +15987,12 @@ INVARSPEC !(x & y)`
         <div class="spec-editor-row">
           <label class="grammar-editor-label">
             ${escapeHtml5(t("spec.predicateLabel"))}
-            <input type="text" data-testid="spec-text" value="${escapeHtml5(state40.text)}" spellcheck="false" />
+            <input type="text" data-testid="spec-text" value="${escapeHtml5(state41.text)}" spellcheck="false" />
           </label>
-          ${state40.parseError ? `<p class="grammar-error" data-testid="spec-parse-error">${escapeHtml5(state40.parseError)}</p>` : ""}
-          ${state40.parsed ? `<p class="spec-clauses">
-            <strong>${escapeHtml5(t("spec.clauses"))}:</strong> ${state40.parsed.clauses.map((c) => `<code>${escapeHtml5(c)}</code>`).join(", ") || "\u2014"}
-            \xB7 <strong>${escapeHtml5(t("spec.canonical"))}:</strong> <code>${escapeHtml5(astToString(state40.parsed.ast))}</code>
+          ${state41.parseError ? `<p class="grammar-error" data-testid="spec-parse-error">${escapeHtml5(state41.parseError)}</p>` : ""}
+          ${state41.parsed ? `<p class="spec-clauses">
+            <strong>${escapeHtml5(t("spec.clauses"))}:</strong> ${state41.parsed.clauses.map((c) => `<code>${escapeHtml5(c)}</code>`).join(", ") || "\u2014"}
+            \xB7 <strong>${escapeHtml5(t("spec.canonical"))}:</strong> <code>${escapeHtml5(astToString(state41.parsed.ast))}</code>
           </p>` : ""}
         </div>
 
@@ -15679,43 +16013,43 @@ INVARSPEC !(x & y)`
     `;
       root41.querySelectorAll("[data-spec-category]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.activeCategory = btn.dataset.specCategory;
-          render40();
+          state41.activeCategory = btn.dataset.specCategory;
+          render41();
         });
       });
       root41.querySelectorAll("[data-spec-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = SPEC_EXAMPLES.find((e) => e.id === btn.dataset.specExample);
           if (!ex) return;
-          state40.text = ex.text;
-          state40.activeCategory = ex.category || state40.activeCategory;
-          state40.selectedMutantId = null;
-          render40();
+          state41.text = ex.text;
+          state41.activeCategory = ex.category || state41.activeCategory;
+          state41.selectedMutantId = null;
+          render41();
         });
       });
       (_b = root41.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _b.addEventListener("input", (e) => {
-        state40.text = e.target.value;
+        state41.text = e.target.value;
       });
       (_c = root41.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _c.addEventListener("change", () => {
-        state40.selectedMutantId = null;
-        render40();
+        state41.selectedMutantId = null;
+        render41();
       });
       root41.querySelectorAll("[data-spec-op]").forEach((cb) => {
         cb.addEventListener("change", (e) => {
           const op = e.target.dataset.specOp;
-          if (e.target.checked) state40.operators.add(op);
-          else state40.operators.delete(op);
-          render40();
+          if (e.target.checked) state41.operators.add(op);
+          else state41.operators.delete(op);
+          render41();
         });
       });
       root41.querySelectorAll("[data-spec-mutant]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.selectedMutantId = btn.dataset.specMutant;
-          render40();
+          state41.selectedMutantId = btn.dataset.specMutant;
+          render41();
         });
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -15810,15 +16144,15 @@ INVARSPEC !(x & y)`
     let pos = 0;
     const peek = (n = 0) => tokens[pos + n];
     const eat = (type) => {
-      const t2 = tokens[pos];
-      if (t2.type !== type) {
+      const t4 = tokens[pos];
+      if (t4.type !== type) {
         throw new Error(L2(
-          `Expected "${type}" but got "${t2.type}" at line ${t2.line}`,
-          `\u9810\u671F\u300C${type}\u300D\u4F46\u53D6\u5F97\u300C${t2.type}\u300D\u65BC\u7B2C ${t2.line} \u884C`
+          `Expected "${type}" but got "${t4.type}" at line ${t4.line}`,
+          `\u9810\u671F\u300C${type}\u300D\u4F46\u53D6\u5F97\u300C${t4.type}\u300D\u65BC\u7B2C ${t4.line} \u884C`
         ));
       }
       pos += 1;
-      return t2;
+      return t4;
     };
     function parseFunction() {
       eat("function");
@@ -15833,8 +16167,8 @@ INVARSPEC !(x & y)`
         }
       }
       eat(")");
-      const body = parseBlock();
-      return { kind: "function", name, params, body };
+      const body3 = parseBlock();
+      return { kind: "function", name, params, body: body3 };
     }
     function parseBlock() {
       eat("{");
@@ -15846,16 +16180,16 @@ INVARSPEC !(x & y)`
       return { kind: "block", statements };
     }
     function parseStatement() {
-      const t2 = peek();
-      if (t2.type === "{") return parseBlock();
-      if (t2.type === "if") return parseIf();
-      if (t2.type === "while") return parseWhile();
-      if (t2.type === "return") return parseReturn();
-      if (t2.type === "let" || t2.type === "var" || t2.type === "const") return parseDeclaration();
-      if (t2.type === "ident") return parseAssignment();
+      const t4 = peek();
+      if (t4.type === "{") return parseBlock();
+      if (t4.type === "if") return parseIf();
+      if (t4.type === "while") return parseWhile();
+      if (t4.type === "return") return parseReturn();
+      if (t4.type === "let" || t4.type === "var" || t4.type === "const") return parseDeclaration();
+      if (t4.type === "ident") return parseAssignment();
       throw new Error(L2(
-        `Unexpected token "${t2.type}" at line ${t2.line}`,
-        `\u975E\u9810\u671F token\u300C${t2.type}\u300D\u65BC\u7B2C ${t2.line} \u884C`
+        `Unexpected token "${t4.type}" at line ${t4.line}`,
+        `\u975E\u9810\u671F token\u300C${t4.type}\u300D\u65BC\u7B2C ${t4.line} \u884C`
       ));
     }
     function parseDeclaration() {
@@ -15894,8 +16228,8 @@ INVARSPEC !(x & y)`
       eat("(");
       const test = parseExpression2();
       eat(")");
-      const body = parseBranchBody();
-      return { kind: "while", test, body };
+      const body3 = parseBranchBody();
+      return { kind: "while", test, body: body3 };
     }
     function parseReturn() {
       eat("return");
@@ -15972,32 +16306,32 @@ INVARSPEC !(x & y)`
       return parseAtom();
     }
     function parseAtom() {
-      const t2 = peek();
-      if (t2.type === "num") {
+      const t4 = peek();
+      if (t4.type === "num") {
         eat("num");
-        return { kind: "num", value: t2.value };
+        return { kind: "num", value: t4.value };
       }
-      if (t2.type === "true") {
+      if (t4.type === "true") {
         eat("true");
         return { kind: "bool", value: true };
       }
-      if (t2.type === "false") {
+      if (t4.type === "false") {
         eat("false");
         return { kind: "bool", value: false };
       }
-      if (t2.type === "ident") {
+      if (t4.type === "ident") {
         eat("ident");
-        return { kind: "var", name: t2.value };
+        return { kind: "var", name: t4.value };
       }
-      if (t2.type === "(") {
+      if (t4.type === "(") {
         eat("(");
         const e = parseExpression2();
         eat(")");
         return e;
       }
       throw new Error(L2(
-        `Unexpected token "${t2.type}" in expression at line ${t2.line}`,
-        `\u904B\u7B97\u5F0F\u4E2D\u975E\u9810\u671F token\u300C${t2.type}\u300D\u65BC\u7B2C ${t2.line} \u884C`
+        `Unexpected token "${t4.type}" in expression at line ${t4.line}`,
+        `\u904B\u7B97\u5F0F\u4E2D\u975E\u9810\u671F token\u300C${t4.type}\u300D\u65BC\u7B2C ${t4.line} \u884C`
       ));
     }
     const fn = parseFunction();
@@ -16134,7 +16468,7 @@ INVARSPEC !(x & y)`
         return;
       }
       if (idx >= stmts.length) {
-        record(env, pc, branches, null);
+        record2(env, pc, branches, null);
         return;
       }
       const s = stmts[idx];
@@ -16149,7 +16483,7 @@ INVARSPEC !(x & y)`
       }
       if (s.kind === "return") {
         const ret = s.argument ? substitute(s.argument, env) : { kind: "bool", value: true };
-        record(env, pc, branches, ret);
+        record2(env, pc, branches, ret);
         return;
       }
       if (s.kind === "if") {
@@ -16230,7 +16564,7 @@ INVARSPEC !(x & y)`
         }
         if (s.kind === "return") {
           const ret = s.argument ? substitute(s.argument, env_) : { kind: "bool", value: true };
-          record(env_, pc_, br_, ret);
+          record2(env_, pc_, br_, ret);
           return;
         }
         if (s.kind === "if") {
@@ -16263,7 +16597,7 @@ INVARSPEC !(x & y)`
     function describeBranch(node) {
       return exprToString(node);
     }
-    function record(env, pc, branches, returnExpr) {
+    function record2(env, pc, branches, returnExpr) {
       const id = `path-${pathIdSeq}`;
       pathIdSeq += 1;
       const witness = findWitness(pc, params, opts.searchDomain);
@@ -16509,14 +16843,14 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist2(state40) {
+  function persist2(state41) {
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY5, JSON.stringify({
-        sourceCode: state40.sourceCode,
-        exampleId: state40.exampleId,
-        maxLoopUnroll: state40.maxLoopUnroll,
-        cfgZoom: state40.cfgZoom
+        sourceCode: state41.sourceCode,
+        exampleId: state41.exampleId,
+        maxLoopUnroll: state41.maxLoopUnroll,
+        cfgZoom: state41.cfgZoom
       }));
     } catch {
     }
@@ -16527,7 +16861,7 @@ INVARSPEC !(x & y)`
     root41.dataset.testid = "symbex-explorer";
     const saved = loadSaved2();
     const defaultExample = symbolicExecutionExamples[0];
-    const state40 = {
+    const state41 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       maxLoopUnroll: typeof (saved == null ? void 0 : saved.maxLoopUnroll) === "number" ? saved.maxLoopUnroll : 3,
@@ -16565,7 +16899,7 @@ INVARSPEC !(x & y)`
     function renderSymbexQuizPanel() {
       if (!symbexQuiz.active) return "";
       if (symbexQuiz.phase === "graded") {
-        const correct = state40.result ? state40.result.paths.filter((p) => p.feasible).length : 0;
+        const correct = state41.result ? state41.result.paths.filter((p) => p.feasible).length : 0;
         const userAns = parseInt(symbexQuiz.answer, 10);
         const ok = userAns === correct;
         const shareEncoded = encodeResult({ v: 1, explorer: "symbex", explorerLabel: t("quiz.symbex.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.symbex.prompt"), a: String(symbexQuiz.answer), expected: String(correct), ok }] });
@@ -16604,51 +16938,51 @@ INVARSPEC !(x & y)`
     }
     function recompute() {
       var _a, _b;
-      state40.result = null;
-      state40.error = null;
-      state40.cfg = null;
-      state40.cfgError = null;
+      state41.result = null;
+      state41.error = null;
+      state41.cfg = null;
+      state41.cfgError = null;
       try {
-        state40.result = symbolicExecute(state40.sourceCode, { maxLoopUnroll: state40.maxLoopUnroll });
+        state41.result = symbolicExecute(state41.sourceCode, { maxLoopUnroll: state41.maxLoopUnroll });
       } catch (err) {
-        state40.error = err.message || String(err);
+        state41.error = err.message || String(err);
       }
       try {
-        state40.cfg = generateControlFlowGraphFromProgram({
-          sourceCode: state40.sourceCode,
+        state41.cfg = generateControlFlowGraphFromProgram({
+          sourceCode: state41.sourceCode,
           language: "javascript",
           title: "Symbolic Execution CFG"
         });
       } catch (err) {
-        state40.cfgError = err.message || String(err);
+        state41.cfgError = err.message || String(err);
       }
-      if ((_b = (_a = state40.result) == null ? void 0 : _a.paths) == null ? void 0 : _b.length) {
-        const stillExists = state40.result.paths.some((p) => p.id === state40.selectedPathId);
+      if ((_b = (_a = state41.result) == null ? void 0 : _a.paths) == null ? void 0 : _b.length) {
+        const stillExists = state41.result.paths.some((p) => p.id === state41.selectedPathId);
         if (!stillExists) {
-          const firstFeasible = state40.result.paths.find((p) => p.feasible) || state40.result.paths[0];
-          state40.selectedPathId = firstFeasible.id;
+          const firstFeasible = state41.result.paths.find((p) => p.feasible) || state41.result.paths[0];
+          state41.selectedPathId = firstFeasible.id;
         }
       } else {
-        state40.selectedPathId = null;
+        state41.selectedPathId = null;
       }
-      persist2(state40);
+      persist2(state41);
     }
-    function render40() {
+    function render41() {
       recompute();
       const exampleButtons = symbolicExecutionExamples.map((ex) => `
       <button type="button"
-        class="symbex-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+        class="symbex-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-symbex-example="${ex.id}"
         data-testid="symbex-example-${ex.id}"
         title="${escapeHtml6(pickField(ex, "description") || "")}">
         ${escapeHtml6(pickField(ex, "name") || ex.name)}
       </button>
     `).join("");
-      const pathsMarkup = state40.error ? `<div class="symbex-error" data-testid="symbex-error">${escapeHtml6(state40.error)}</div>` : renderPaths2(state40.result);
-      const summary = state40.result ? `${t("symbex.summary.paths")}<strong data-testid="symbex-path-count">${state40.result.paths.length}</strong>
+      const pathsMarkup = state41.error ? `<div class="symbex-error" data-testid="symbex-error">${escapeHtml6(state41.error)}</div>` : renderPaths2(state41.result);
+      const summary = state41.result ? `${t("symbex.summary.paths")}<strong data-testid="symbex-path-count">${state41.result.paths.length}</strong>
          <span class="symbex-divider">\xB7</span>
-         ${t("symbex.summary.feasible")}<strong data-testid="symbex-feasible-count">${state40.result.paths.filter((p) => p.feasible).length}</strong>
-         ${state40.result.truncated ? `<span class="symbex-divider">\xB7</span><span class="symbex-truncated">${t("symbex.summary.truncated")}</span>` : ""}` : "";
+         ${t("symbex.summary.feasible")}<strong data-testid="symbex-feasible-count">${state41.result.paths.filter((p) => p.feasible).length}</strong>
+         ${state41.result.truncated ? `<span class="symbex-divider">\xB7</span><span class="symbex-truncated">${t("symbex.summary.truncated")}</span>` : ""}` : "";
       root41.innerHTML = `
       <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="symbex-mobile-nav">
         <a href="#symbex-input-panel">${t("explorer.panel.input")}</a>
@@ -16666,7 +17000,7 @@ INVARSPEC !(x & y)`
             <label class="symbex-control">
               <span>${t("symbex.maxUnroll")}</span>
               <input type="number" min="0" max="6" step="1"
-                value="${state40.maxLoopUnroll}"
+                value="${state41.maxLoopUnroll}"
                 data-testid="symbex-max-unroll" />
             </label>
           </div>
@@ -16678,7 +17012,7 @@ INVARSPEC !(x & y)`
             data-testid="symbex-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml6(state40.sourceCode)}</textarea>
+            rows="14">${escapeHtml6(state41.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -16710,20 +17044,20 @@ INVARSPEC !(x & y)`
     }
     function renderCfgPane() {
       var _a, _b;
-      if (state40.cfgError) {
+      if (state41.cfgError) {
         return `<div class="symbex-cfg" data-testid="symbex-cfg">
-        <p class="symbex-cfg-error">${escapeHtml6(state40.cfgError)}</p>
+        <p class="symbex-cfg-error">${escapeHtml6(state41.cfgError)}</p>
       </div>`;
       }
-      if (!state40.cfg) return "";
-      const selected = (_b = (_a = state40.result) == null ? void 0 : _a.paths) == null ? void 0 : _b.find((p) => p.id === state40.selectedPathId);
-      const mapping = selected ? mapBranchesToCfg(state40.cfg, selected.branches) : { nodes: [], edges: [] };
-      const svg = renderCfgSvg(state40.cfg, mapping, {
+      if (!state41.cfg) return "";
+      const selected = (_b = (_a = state41.result) == null ? void 0 : _a.paths) == null ? void 0 : _b.find((p) => p.id === state41.selectedPathId);
+      const mapping = selected ? mapBranchesToCfg(state41.cfg, selected.branches) : { nodes: [], edges: [] };
+      const svg = renderCfgSvg(state41.cfg, mapping, {
         idPrefix: "symbex-cfg",
         ariaLabel: "Symbolic execution CFG",
-        zoom: state40.cfgZoom
+        zoom: state41.cfgZoom
       });
-      const zoomPct = Math.round(state40.cfgZoom * 100);
+      const zoomPct = Math.round(state41.cfgZoom * 100);
       return `
       <div class="symbex-cfg" data-testid="symbex-cfg">
         <div class="symbex-cfg-header">
@@ -16752,7 +17086,7 @@ INVARSPEC !(x & y)`
              <dd><code>${escapeHtml6(formatReturn(p.returnExpression, p.concreteReturn))}</code></dd>
            </dl>` : `<p class="symbex-infeasible">${t("symbex.infeasible")}</p>`;
         return `
-        <li class="symbex-path${p.feasible ? "" : " infeasible"}${state40.selectedPathId === p.id ? " selected" : ""}"
+        <li class="symbex-path${p.feasible ? "" : " infeasible"}${state41.selectedPathId === p.id ? " selected" : ""}"
           data-testid="symbex-${p.id}"
           data-symbex-path="${p.id}"
           tabindex="0"
@@ -16784,17 +17118,17 @@ INVARSPEC !(x & y)`
           const id = btn.dataset.symbexExample;
           const ex = symbolicExecutionExamples.find((x) => x.id === id);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.sourceCode = ex.sourceCode;
-          state40.selectedPathId = null;
+          state41.exampleId = ex.id;
+          state41.sourceCode = ex.sourceCode;
+          state41.selectedPathId = null;
           symbexQuiz.active = false;
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-symbex-path]").forEach((el) => {
         const select = () => {
-          state40.selectedPathId = el.dataset.symbexPath;
-          render40();
+          state41.selectedPathId = el.dataset.symbexPath;
+          render41();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -16808,7 +17142,7 @@ INVARSPEC !(x & y)`
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state40.sourceCode = editor.value;
+          state41.sourceCode = editor.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
             renderPreservingFocus("symbex-source");
@@ -16820,18 +17154,18 @@ INVARSPEC !(x & y)`
         unroll.addEventListener("change", () => {
           const n = Number(unroll.value);
           if (Number.isFinite(n) && n >= 0 && n <= 12) {
-            state40.maxLoopUnroll = n;
-            render40();
+            state41.maxLoopUnroll = n;
+            render41();
           }
         });
       }
       root41.querySelectorAll("[data-symbex-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.symbexZoom;
-          if (action === "in") state40.cfgZoom = Math.min(4, +(state40.cfgZoom + 0.25).toFixed(2));
-          else if (action === "out") state40.cfgZoom = Math.max(0.25, +(state40.cfgZoom - 0.25).toFixed(2));
-          else state40.cfgZoom = 1;
-          render40();
+          if (action === "in") state41.cfgZoom = Math.min(4, +(state41.cfgZoom + 0.25).toFixed(2));
+          else if (action === "out") state41.cfgZoom = Math.max(0.25, +(state41.cfgZoom - 0.25).toFixed(2));
+          else state41.cfgZoom = 1;
+          render41();
         });
       });
       const sqStart = root41.querySelector('[data-testid="symbex-quiz-start"]');
@@ -16840,14 +17174,14 @@ INVARSPEC !(x & y)`
           symbexQuiz.active = true;
           symbexQuiz.phase = "question";
           symbexQuiz.answer = "";
-          render40();
+          render41();
         });
       }
       const sqClose = root41.querySelector('[data-testid="symbex-quiz-close"]');
       if (sqClose) {
         sqClose.addEventListener("click", () => {
           symbexQuiz.active = false;
-          render40();
+          render41();
         });
       }
       const sqCheck = root41.querySelector('[data-testid="symbex-quiz-check"]');
@@ -16856,7 +17190,7 @@ INVARSPEC !(x & y)`
           const inp = root41.querySelector('[data-testid="symbex-quiz-input"]');
           symbexQuiz.answer = inp ? inp.value : "";
           symbexQuiz.phase = "graded";
-          render40();
+          render41();
         });
       }
       const sqReset = root41.querySelector('[data-testid="symbex-quiz-reset"]');
@@ -16864,19 +17198,19 @@ INVARSPEC !(x & y)`
         sqReset.addEventListener("click", () => {
           symbexQuiz.phase = "question";
           symbexQuiz.answer = "";
-          render40();
+          render41();
         });
       }
       (_a = root41.querySelector('[data-testid="symbex-lab-reflect-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
         symbexLabReflect.active = true;
-        render40();
+        render41();
       });
       (_b = root41.querySelector('[data-testid="symbex-lab-reflect-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
         var _a2, _b2;
         symbexLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || symbexLabReflect.a1;
         symbexLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || symbexLabReflect.a2;
         symbexLabReflect.active = false;
-        render40();
+        render41();
       });
       (_c = root41.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _c.addEventListener("input", (e) => {
         symbexLabReflect.a1 = e.target.value;
@@ -16928,7 +17262,7 @@ INVARSPEC !(x & y)`
       const previously = root41.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render40();
+      render41();
       const next = root41.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
@@ -16937,7 +17271,7 @@ INVARSPEC !(x & y)`
         }
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -17132,15 +17466,15 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist3(state40) {
+  function persist3(state41) {
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY6, JSON.stringify({
-        sourceCode: state40.sourceCode,
-        exampleId: state40.exampleId,
-        seedText: state40.seedText,
-        maxIterations: state40.maxIterations,
-        cfgZoom: state40.cfgZoom
+        sourceCode: state41.sourceCode,
+        exampleId: state41.exampleId,
+        seedText: state41.seedText,
+        maxIterations: state41.maxIterations,
+        cfgZoom: state41.cfgZoom
       }));
     } catch {
     }
@@ -17164,7 +17498,7 @@ INVARSPEC !(x & y)`
     root41.dataset.testid = "concolic-explorer";
     const saved = loadSaved3();
     const defaultExample = concolicExecutionExamples[0];
-    const state40 = {
+    const state41 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       seedText: (saved == null ? void 0 : saved.seedText) || defaultExample.seed || "",
@@ -17180,7 +17514,7 @@ INVARSPEC !(x & y)`
     function renderConcolicQuizPanel() {
       if (!concolicQuiz.active) return "";
       if (concolicQuiz.phase === "graded") {
-        const correct = state40.result ? state40.result.uniquePathCount : 0;
+        const correct = state41.result ? state41.result.uniquePathCount : 0;
         const userAns = parseInt(concolicQuiz.answer, 10);
         const ok = userAns === correct;
         const shareEncoded = encodeResult({ v: 1, explorer: "concolic", explorerLabel: t("quiz.concolic.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.concolic.prompt"), a: String(concolicQuiz.answer), expected: String(correct), ok }] });
@@ -17219,56 +17553,56 @@ INVARSPEC !(x & y)`
     }
     function recompute() {
       var _a, _b;
-      state40.result = null;
-      state40.error = null;
-      state40.cfg = null;
-      state40.cfgError = null;
+      state41.result = null;
+      state41.error = null;
+      state41.cfg = null;
+      state41.cfgError = null;
       try {
-        const initialInputs = parseSeed(state40.seedText);
-        state40.result = concolicExecute(state40.sourceCode, {
+        const initialInputs = parseSeed(state41.seedText);
+        state41.result = concolicExecute(state41.sourceCode, {
           initialInputs,
-          maxIterations: state40.maxIterations
+          maxIterations: state41.maxIterations
         });
       } catch (err) {
-        state40.error = err.message || String(err);
+        state41.error = err.message || String(err);
       }
       try {
-        state40.cfg = generateControlFlowGraphFromProgram({
-          sourceCode: state40.sourceCode,
+        state41.cfg = generateControlFlowGraphFromProgram({
+          sourceCode: state41.sourceCode,
           language: "javascript",
           title: "Concolic Execution CFG"
         });
       } catch (err) {
-        state40.cfgError = err.message || String(err);
+        state41.cfgError = err.message || String(err);
       }
-      if ((_b = (_a = state40.result) == null ? void 0 : _a.iterations) == null ? void 0 : _b.length) {
-        const stillExists = state40.result.iterations.some((it) => it.id === state40.selectedIterId);
+      if ((_b = (_a = state41.result) == null ? void 0 : _a.iterations) == null ? void 0 : _b.length) {
+        const stillExists = state41.result.iterations.some((it) => it.id === state41.selectedIterId);
         if (!stillExists) {
-          state40.selectedIterId = state40.result.iterations[0].id;
+          state41.selectedIterId = state41.result.iterations[0].id;
         }
       } else {
-        state40.selectedIterId = null;
+        state41.selectedIterId = null;
       }
-      persist3(state40);
+      persist3(state41);
     }
-    function render40() {
+    function render41() {
       recompute();
       const exampleButtons = concolicExecutionExamples.map((ex) => `
       <button type="button"
-        class="concolic-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+        class="concolic-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-concolic-example="${ex.id}"
         data-testid="concolic-example-${ex.id}"
         title="${escapeHtml7(pickField(ex, "description") || "")}">
         ${escapeHtml7(pickField(ex, "name") || ex.name)}
       </button>
     `).join("");
-      const body = state40.error ? `<div class="concolic-error" data-testid="concolic-error">${escapeHtml7(state40.error)}</div>` : renderIterations(state40.result);
-      const summary = state40.result ? `${t("concolic.summary.iterations")}<strong data-testid="concolic-iter-count">${state40.result.iterations.length}</strong>
+      const body3 = state41.error ? `<div class="concolic-error" data-testid="concolic-error">${escapeHtml7(state41.error)}</div>` : renderIterations(state41.result);
+      const summary = state41.result ? `${t("concolic.summary.iterations")}<strong data-testid="concolic-iter-count">${state41.result.iterations.length}</strong>
          <span class="concolic-divider">\xB7</span>
-         ${t("concolic.summary.uniquePaths")}<strong data-testid="concolic-path-count">${state40.result.uniquePathCount}</strong>
+         ${t("concolic.summary.uniquePaths")}<strong data-testid="concolic-path-count">${state41.result.uniquePathCount}</strong>
          <span class="concolic-divider">\xB7</span>
-         ${t("concolic.summary.uniqueInputs")}<strong>${state40.result.uniqueInputCount}</strong>
-         ${state40.result.truncated ? `<span class="concolic-divider">\xB7</span><span class="concolic-truncated">${t("concolic.summary.truncated")}</span>` : ""}` : "";
+         ${t("concolic.summary.uniqueInputs")}<strong>${state41.result.uniqueInputCount}</strong>
+         ${state41.result.truncated ? `<span class="concolic-divider">\xB7</span><span class="concolic-truncated">${t("concolic.summary.truncated")}</span>` : ""}` : "";
       root41.innerHTML = `
       <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="concolic-mobile-nav">
         <a href="#concolic-input-panel">${t("explorer.panel.input")}</a>
@@ -17285,14 +17619,14 @@ INVARSPEC !(x & y)`
           <div class="concolic-controls">
             <label class="concolic-control">
               <span>${t("concolic.seed")}</span>
-              <input type="text" value="${escapeHtml7(state40.seedText)}"
+              <input type="text" value="${escapeHtml7(state41.seedText)}"
                 data-testid="concolic-seed"
                 placeholder="a=1, b=1, c=1" />
             </label>
             <label class="concolic-control">
               <span>${t("concolic.maxIterations")}</span>
               <input type="number" min="1" max="64" step="1"
-                value="${state40.maxIterations}"
+                value="${state41.maxIterations}"
                 data-testid="concolic-max-iter" />
             </label>
           </div>
@@ -17304,7 +17638,7 @@ INVARSPEC !(x & y)`
             data-testid="concolic-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml7(state40.sourceCode)}</textarea>
+            rows="14">${escapeHtml7(state41.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -17324,7 +17658,7 @@ INVARSPEC !(x & y)`
             ${!concolicQuiz.active ? `<button type="button" class="quiz-start-btn" data-testid="concolic-quiz-start" style="margin-left:0.5rem">${t("quiz.start")}</button>` : ""}
           </p>
           ${renderConcolicQuizPanel()}
-          ${body}
+          ${body3}
         </section>
       </div>
 
@@ -17334,20 +17668,20 @@ INVARSPEC !(x & y)`
     }
     function renderCfgPane() {
       var _a, _b;
-      if (state40.cfgError) {
+      if (state41.cfgError) {
         return `<div class="concolic-cfg" data-testid="concolic-cfg">
-        <p class="concolic-cfg-error">${escapeHtml7(state40.cfgError)}</p>
+        <p class="concolic-cfg-error">${escapeHtml7(state41.cfgError)}</p>
       </div>`;
       }
-      if (!state40.cfg) return "";
-      const selected = (_b = (_a = state40.result) == null ? void 0 : _a.iterations) == null ? void 0 : _b.find((it) => it.id === state40.selectedIterId);
-      const mapping = selected ? mapBranchesToCfg(state40.cfg, selected.branches) : { nodes: [], edges: [] };
-      const svg = renderCfgSvg(state40.cfg, mapping, {
+      if (!state41.cfg) return "";
+      const selected = (_b = (_a = state41.result) == null ? void 0 : _a.iterations) == null ? void 0 : _b.find((it) => it.id === state41.selectedIterId);
+      const mapping = selected ? mapBranchesToCfg(state41.cfg, selected.branches) : { nodes: [], edges: [] };
+      const svg = renderCfgSvg(state41.cfg, mapping, {
         idPrefix: "concolic-cfg",
         ariaLabel: "Concolic execution CFG",
-        zoom: state40.cfgZoom
+        zoom: state41.cfgZoom
       });
-      const zoomPct = Math.round(state40.cfgZoom * 100);
+      const zoomPct = Math.round(state41.cfgZoom * 100);
       return `
       <div class="concolic-cfg" data-testid="concolic-cfg">
         <div class="concolic-cfg-header">
@@ -17394,7 +17728,7 @@ INVARSPEC !(x & y)`
             `}
           </dl>`;
         return `
-        <li class="concolic-iter${state40.selectedIterId === it.id ? " selected" : ""}"
+        <li class="concolic-iter${state41.selectedIterId === it.id ? " selected" : ""}"
           data-testid="concolic-${it.id}"
           data-concolic-iter="${it.id}"
           tabindex="0"
@@ -17429,18 +17763,18 @@ INVARSPEC !(x & y)`
           const id = btn.dataset.concolicExample;
           const ex = concolicExecutionExamples.find((x) => x.id === id);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.sourceCode = ex.sourceCode;
-          state40.seedText = ex.seed || "";
-          state40.selectedIterId = null;
+          state41.exampleId = ex.id;
+          state41.sourceCode = ex.sourceCode;
+          state41.seedText = ex.seed || "";
+          state41.selectedIterId = null;
           concolicQuiz.active = false;
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-concolic-iter]").forEach((el) => {
         const select = () => {
-          state40.selectedIterId = el.dataset.concolicIter;
-          render40();
+          state41.selectedIterId = el.dataset.concolicIter;
+          render41();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -17454,7 +17788,7 @@ INVARSPEC !(x & y)`
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state40.sourceCode = editor.value;
+          state41.sourceCode = editor.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => renderPreservingFocus("concolic-source"), 220);
         });
@@ -17463,7 +17797,7 @@ INVARSPEC !(x & y)`
       if (seed) {
         let timer = null;
         seed.addEventListener("input", () => {
-          state40.seedText = seed.value;
+          state41.seedText = seed.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => renderPreservingFocus("concolic-seed"), 220);
         });
@@ -17473,18 +17807,18 @@ INVARSPEC !(x & y)`
         iter.addEventListener("change", () => {
           const n = Number(iter.value);
           if (Number.isFinite(n) && n >= 1 && n <= 128) {
-            state40.maxIterations = n;
-            render40();
+            state41.maxIterations = n;
+            render41();
           }
         });
       }
       root41.querySelectorAll("[data-concolic-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.concolicZoom;
-          if (action === "in") state40.cfgZoom = Math.min(4, +(state40.cfgZoom + 0.25).toFixed(2));
-          else if (action === "out") state40.cfgZoom = Math.max(0.25, +(state40.cfgZoom - 0.25).toFixed(2));
-          else state40.cfgZoom = 1;
-          render40();
+          if (action === "in") state41.cfgZoom = Math.min(4, +(state41.cfgZoom + 0.25).toFixed(2));
+          else if (action === "out") state41.cfgZoom = Math.max(0.25, +(state41.cfgZoom - 0.25).toFixed(2));
+          else state41.cfgZoom = 1;
+          render41();
         });
       });
       const cqStart = root41.querySelector('[data-testid="concolic-quiz-start"]');
@@ -17493,14 +17827,14 @@ INVARSPEC !(x & y)`
           concolicQuiz.active = true;
           concolicQuiz.phase = "question";
           concolicQuiz.answer = "";
-          render40();
+          render41();
         });
       }
       const cqClose = root41.querySelector('[data-testid="concolic-quiz-close"]');
       if (cqClose) {
         cqClose.addEventListener("click", () => {
           concolicQuiz.active = false;
-          render40();
+          render41();
         });
       }
       const cqCheck = root41.querySelector('[data-testid="concolic-quiz-check"]');
@@ -17509,7 +17843,7 @@ INVARSPEC !(x & y)`
           const inp = root41.querySelector('[data-testid="concolic-quiz-input"]');
           concolicQuiz.answer = inp ? inp.value : "";
           concolicQuiz.phase = "graded";
-          render40();
+          render41();
         });
       }
       const cqReset = root41.querySelector('[data-testid="concolic-quiz-reset"]');
@@ -17517,7 +17851,7 @@ INVARSPEC !(x & y)`
         cqReset.addEventListener("click", () => {
           concolicQuiz.phase = "question";
           concolicQuiz.answer = "";
-          render40();
+          render41();
         });
       }
     }
@@ -17525,7 +17859,7 @@ INVARSPEC !(x & y)`
       const previously = root41.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render40();
+      render41();
       const next = root41.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
@@ -17534,7 +17868,7 @@ INVARSPEC !(x & y)`
         }
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -17542,24 +17876,24 @@ INVARSPEC !(x & y)`
   var MAX_TEST_CASES = 200;
   var MAX_INT_VALUE = 100;
   var MAX_LOOP_ITERATIONS = 1e4;
-  function instrumentBranches(body) {
+  function instrumentBranches(body3) {
     const result = [];
     let pos = 0;
     let loopId = 0;
     const re = /\b(if|while)\s*\(/g;
     let match;
-    while ((match = re.exec(body)) !== null) {
-      result.push(body.slice(pos, match.index));
+    while ((match = re.exec(body3)) !== null) {
+      result.push(body3.slice(pos, match.index));
       const keyword = match[1];
       const condStart = match.index + match[0].length;
       let depth = 1;
       let i = condStart;
-      while (i < body.length && depth > 0) {
-        if (body[i] === "(") depth++;
-        else if (body[i] === ")") depth--;
+      while (i < body3.length && depth > 0) {
+        if (body3[i] === "(") depth++;
+        else if (body3[i] === ")") depth--;
         if (depth > 0) i++;
       }
-      const cond = body.slice(condStart, i);
+      const cond = body3.slice(condStart, i);
       if (keyword === "while") {
         const guard = `__lc${loopId}__`;
         result.push(
@@ -17574,7 +17908,7 @@ INVARSPEC !(x & y)`
       pos = i + 1;
       re.lastIndex = pos;
     }
-    result.push(body.slice(pos));
+    result.push(body3.slice(pos));
     return result.join("");
   }
   function parseFunctionSignature(sourceCode) {
@@ -17584,11 +17918,11 @@ INVARSPEC !(x & y)`
     }
     const paramStr = match[1].trim();
     const paramNames = paramStr ? paramStr.split(/\s*,\s*/).map((p) => p.trim()) : [];
-    const body = match[2];
-    const instrumented = instrumentBranches(body);
+    const body3 = match[2];
+    const instrumented = instrumentBranches(body3);
     try {
       const func = new Function("__b__", ...paramNames, instrumented);
-      return { paramNames, body, func };
+      return { paramNames, body: body3, func };
     } catch (err) {
       throw new Error(`Failed to parse function: ${err instanceof Error ? err.message : String(err)}`);
     }
@@ -17622,9 +17956,9 @@ INVARSPEC !(x & y)`
   function mutateInput(input) {
     const keys = Object.keys(input);
     if (!keys.length) return { ...input };
-    const key = keys[Math.floor(Math.random() * keys.length)];
+    const key2 = keys[Math.floor(Math.random() * keys.length)];
     const mut = MUTATIONS[Math.floor(Math.random() * MUTATIONS.length)];
-    return { ...input, [key]: mut(input[key]) };
+    return { ...input, [key2]: mut(input[key2]) };
   }
   function branchKey(branches) {
     return branches.map((b) => b.taken ? "1" : "0").join("");
@@ -17705,7 +18039,7 @@ INVARSPEC !(x & y)`
     };
   }
   function formatInput(input) {
-    return Object.entries(input).map(([key, value]) => `${key}=${JSON.stringify(value)}`).join(", ");
+    return Object.entries(input).map(([key2, value]) => `${key2}=${JSON.stringify(value)}`).join(", ");
   }
   function formatOutput(output) {
     if (output === null || output === void 0) {
@@ -17737,16 +18071,16 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist4(state40) {
+  function persist4(state41) {
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(
         STORAGE_KEY7,
         JSON.stringify({
-          sourceCode: state40.sourceCode,
-          exampleId: state40.exampleId,
-          testCount: state40.testCount,
-          cfgZoom: state40.cfgZoom
+          sourceCode: state41.sourceCode,
+          exampleId: state41.exampleId,
+          testCount: state41.testCount,
+          cfgZoom: state41.cfgZoom
         })
       );
     } catch {
@@ -17758,7 +18092,7 @@ INVARSPEC !(x & y)`
     root41.dataset.testid = "fuzz-explorer";
     const saved = loadSaved4();
     const defaultExample = fuzzTestingExamples[0];
-    const state40 = {
+    const state41 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       testCount: typeof (saved == null ? void 0 : saved.testCount) === "number" ? saved.testCount : 50,
@@ -17799,7 +18133,7 @@ INVARSPEC !(x & y)`
     }
     function renderFuzzQuizPanel() {
       if (!fuzzQuiz.active) return "";
-      const nodeCov = state40.totalNodes > 0 ? Math.round(state40.coveredNodes.length / state40.totalNodes * 100) : 0;
+      const nodeCov = state41.totalNodes > 0 ? Math.round(state41.coveredNodes.length / state41.totalNodes * 100) : 0;
       if (fuzzQuiz.phase === "graded") {
         const userAns = parseInt(fuzzQuiz.answer, 10);
         const ok = userAns === nodeCov;
@@ -17839,33 +18173,33 @@ INVARSPEC !(x & y)`
     }
     function recompute() {
       var _a;
-      state40.result = null;
-      state40.cfg = null;
-      state40.cfgError = null;
-      state40.error = null;
-      state40.coveredNodes = [];
-      state40.coveredEdges = [];
-      state40.totalNodes = 0;
-      state40.totalEdges = 0;
+      state41.result = null;
+      state41.cfg = null;
+      state41.cfgError = null;
+      state41.error = null;
+      state41.coveredNodes = [];
+      state41.coveredEdges = [];
+      state41.totalNodes = 0;
+      state41.totalEdges = 0;
       try {
-        state40.result = fuzzTest(state40.sourceCode, state40.testCount);
+        state41.result = fuzzTest(state41.sourceCode, state41.testCount);
       } catch (err) {
-        state40.error = err instanceof Error ? err.message : String(err);
+        state41.error = err instanceof Error ? err.message : String(err);
       }
       try {
-        state40.cfg = generateControlFlowGraphFromProgram({
-          sourceCode: state40.sourceCode,
+        state41.cfg = generateControlFlowGraphFromProgram({
+          sourceCode: state41.sourceCode,
           language: "javascript",
           title: "Fuzz Testing CFG"
         });
       } catch (err) {
-        state40.cfgError = err instanceof Error ? err.message : String(err);
+        state41.cfgError = err instanceof Error ? err.message : String(err);
       }
-      const cfg = state40.cfg;
-      const result = state40.result;
+      const cfg = state41.cfg;
+      const result = state41.result;
       if (cfg && result) {
-        state40.totalNodes = cfg.nodes.length;
-        state40.totalEdges = cfg.edges.length;
+        state41.totalNodes = cfg.nodes.length;
+        state41.totalEdges = cfg.edges.length;
         const allNodes = /* @__PURE__ */ new Set();
         const allEdges = /* @__PURE__ */ new Set();
         for (const tc of result.testCases) {
@@ -17873,23 +18207,23 @@ INVARSPEC !(x & y)`
           for (const n of mapping.nodes) allNodes.add(n);
           for (const e of mapping.edges) allEdges.add(e);
         }
-        state40.coveredNodes = [...allNodes];
-        state40.coveredEdges = [...allEdges];
+        state41.coveredNodes = [...allNodes];
+        state41.coveredEdges = [...allEdges];
       }
       if ((_a = result == null ? void 0 : result.testCases) == null ? void 0 : _a.length) {
-        const stillExists = result.testCases.some((tc) => tc.id === state40.selectedCaseId);
-        if (!stillExists) state40.selectedCaseId = null;
+        const stillExists = result.testCases.some((tc) => tc.id === state41.selectedCaseId);
+        if (!stillExists) state41.selectedCaseId = null;
       } else {
-        state40.selectedCaseId = null;
+        state41.selectedCaseId = null;
       }
-      persist4(state40);
+      persist4(state41);
     }
-    function render40() {
+    function render41() {
       recompute();
       const exampleButtons = fuzzTestingExamples.map(
         (ex) => `
       <button type="button"
-        class="fuzz-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+        class="fuzz-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-fuzz-example="${ex.id}"
         data-testid="fuzz-example-${ex.id}"
         title="${escapeHtml8(pickField(ex, "description"))}">
@@ -17897,12 +18231,12 @@ INVARSPEC !(x & y)`
       </button>
     `
       ).join("");
-      const result = state40.result;
-      const error = state40.error;
+      const result = state41.result;
+      const error = state41.error;
       const crashCount = (result == null ? void 0 : result.crashes) || 0;
-      const nodeCov = state40.totalNodes > 0 ? Math.round(state40.coveredNodes.length / state40.totalNodes * 100) : 0;
-      const edgeCov = state40.totalEdges > 0 ? Math.round(state40.coveredEdges.length / state40.totalEdges * 100) : 0;
-      const coverageMarkup = result && state40.cfg ? `<span class="fuzz-divider">\xB7</span>
+      const nodeCov = state41.totalNodes > 0 ? Math.round(state41.coveredNodes.length / state41.totalNodes * 100) : 0;
+      const edgeCov = state41.totalEdges > 0 ? Math.round(state41.coveredEdges.length / state41.totalEdges * 100) : 0;
+      const coverageMarkup = result && state41.cfg ? `<span class="fuzz-divider">\xB7</span>
          <span class="fuzz-coverage-badge" data-testid="fuzz-node-cov" title="Node coverage">N ${nodeCov}%</span>
          <span class="fuzz-coverage-badge" data-testid="fuzz-edge-cov" title="Edge coverage">E ${edgeCov}%</span>` : "";
       const summary = result ? `${t("fuzz.summary.tests")}<strong data-testid="fuzz-test-count">${result.totalTests}</strong>
@@ -17914,7 +18248,7 @@ INVARSPEC !(x & y)`
          ${result.truncated ? `<span class="fuzz-divider">\xB7</span><span class="fuzz-truncated">${t("fuzz.summary.truncated")}</span>` : ""}` : "";
       const testCasesMarkup = error ? `<div class="fuzz-error" data-testid="fuzz-error">${escapeHtml8(error)}</div>` : renderTestCases3(result);
       const FUZZ_THRESHOLD = 80;
-      const fuzzMetricEncoded = state40.result ? encodeResult({
+      const fuzzMetricEncoded = state41.result ? encodeResult({
         v: 1,
         explorer: "fuzz",
         explorerLabel: t("section.fuzz"),
@@ -17942,7 +18276,7 @@ INVARSPEC !(x & y)`
             <label class="fuzz-control">
               <span>${t("fuzz.testCount")}</span>
               <input type="number" min="10" max="500" step="10"
-                value="${state40.testCount}"
+                value="${state41.testCount}"
                 data-testid="fuzz-test-count-input" />
             </label>
             <button type="button"
@@ -17960,7 +18294,7 @@ INVARSPEC !(x & y)`
             data-testid="fuzz-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml8(state40.sourceCode)}</textarea>
+            rows="14">${escapeHtml8(state41.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -17978,8 +18312,8 @@ INVARSPEC !(x & y)`
           </header>
           <p class="fuzz-summary" data-testid="fuzz-summary">
             ${summary}
-            ${!fuzzQuiz.active && state40.result ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-quiz-start" style="margin-left:0.5rem">${t("quiz.start")}</button>` : ""}
-            ${state40.result && !fuzzLabReflect.active ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-lab-reflect-start" style="margin-left:0.5rem">${t("lab.reflect.start")}</button>` : ""}
+            ${!fuzzQuiz.active && state41.result ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-quiz-start" style="margin-left:0.5rem">${t("quiz.start")}</button>` : ""}
+            ${state41.result && !fuzzLabReflect.active ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-lab-reflect-start" style="margin-left:0.5rem">${t("lab.reflect.start")}</button>` : ""}
             ${fuzzMetricEncoded ? `<button type="button" class="quiz-share-btn" data-share-payload="${fuzzMetricEncoded}" data-testid="fuzz-lab-metric" style="margin-left:0.5rem">\u{1F4CA} ${t("lab.metric.record")}</button>` : ""}
           </p>
           ${renderFuzzQuizPanel()}
@@ -17993,17 +18327,17 @@ INVARSPEC !(x & y)`
       bindEvents40();
     }
     function renderCfgPane() {
-      if (state40.cfgError) {
+      if (state41.cfgError) {
         return `<div class="fuzz-cfg" data-testid="fuzz-cfg">
-        <p class="fuzz-cfg-error">${escapeHtml8(state40.cfgError)}</p>
+        <p class="fuzz-cfg-error">${escapeHtml8(state41.cfgError)}</p>
       </div>`;
       }
-      if (!state40.cfg) {
+      if (!state41.cfg) {
         return `<div class="fuzz-cfg" data-testid="fuzz-cfg"></div>`;
       }
-      const cfg = state40.cfg;
-      const result = state40.result;
-      const selectedCase = state40.selectedCaseId ? result == null ? void 0 : result.testCases.find((tc) => tc.id === state40.selectedCaseId) : null;
+      const cfg = state41.cfg;
+      const result = state41.result;
+      const selectedCase = state41.selectedCaseId ? result == null ? void 0 : result.testCases.find((tc) => tc.id === state41.selectedCaseId) : null;
       let highlight;
       let cfgSubtitle;
       if (selectedCase) {
@@ -18012,19 +18346,19 @@ INVARSPEC !(x & y)`
         cfgSubtitle = `<span class="fuzz-cfg-selected" data-testid="fuzz-cfg-selected">${escapeHtml8(selectedCase.id)}</span>`;
       } else {
         highlight = {
-          nodes: state40.coveredNodes,
-          edges: state40.coveredEdges
+          nodes: state41.coveredNodes,
+          edges: state41.coveredEdges
         };
-        const nodeCov = cfg.nodes.length > 0 ? Math.round(state40.coveredNodes.length / cfg.nodes.length * 100) : 0;
-        const edgeCov = cfg.edges.length > 0 ? Math.round(state40.coveredEdges.length / cfg.edges.length * 100) : 0;
+        const nodeCov = cfg.nodes.length > 0 ? Math.round(state41.coveredNodes.length / cfg.nodes.length * 100) : 0;
+        const edgeCov = cfg.edges.length > 0 ? Math.round(state41.coveredEdges.length / cfg.edges.length * 100) : 0;
         cfgSubtitle = result ? `<span class="fuzz-cfg-metric">N ${nodeCov}%  E ${edgeCov}%</span>` : "";
       }
       const svg = renderCfgSvg(cfg, highlight, {
         idPrefix: "fuzz-cfg",
         ariaLabel: "Fuzz testing CFG",
-        zoom: state40.cfgZoom
+        zoom: state41.cfgZoom
       });
-      const zoomPct = Math.round(state40.cfgZoom * 100);
+      const zoomPct = Math.round(state41.cfgZoom * 100);
       return `
       <div class="fuzz-cfg" data-testid="fuzz-cfg">
         <div class="fuzz-cfg-header">
@@ -18046,7 +18380,7 @@ INVARSPEC !(x & y)`
       }
       const items = result.testCases.slice(0, 50).map((tc) => {
         const statusClass = tc.crashed ? "crash" : "pass";
-        const isSelected = state40.selectedCaseId === tc.id;
+        const isSelected = state41.selectedCaseId === tc.id;
         const statusLabel = tc.crashed ? t("fuzz.crash") : t("fuzz.pass");
         const mutBadge = tc.mutated ? `<span class="fuzz-case-mut" title="${t("fuzz.mutated.title")}">${t("fuzz.mutated")}</span>` : "";
         return `
@@ -18081,17 +18415,17 @@ INVARSPEC !(x & y)`
           const id = btn.dataset.fuzzExample;
           const ex = fuzzTestingExamples.find((x) => x.id === id);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.sourceCode = ex.sourceCode;
-          state40.selectedCaseId = null;
+          state41.exampleId = ex.id;
+          state41.sourceCode = ex.sourceCode;
+          state41.selectedCaseId = null;
           fuzzQuiz.active = false;
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-fuzz-case]").forEach((el) => {
         const selectCase = () => {
           const id = el.dataset.fuzzCase;
-          state40.selectedCaseId = state40.selectedCaseId === id ? null : id;
+          state41.selectedCaseId = state41.selectedCaseId === id ? null : id;
           renderLight();
         };
         el.addEventListener("click", selectCase);
@@ -18106,7 +18440,7 @@ INVARSPEC !(x & y)`
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state40.sourceCode = editor.value;
+          state41.sourceCode = editor.value;
           if (timer) {
             globalThis.clearTimeout(timer);
           }
@@ -18120,25 +18454,25 @@ INVARSPEC !(x & y)`
         countInput.addEventListener("change", () => {
           const n = Number(countInput.value);
           if (Number.isFinite(n) && n >= 10 && n <= 500) {
-            state40.testCount = n;
-            render40();
+            state41.testCount = n;
+            render41();
           }
         });
       }
       const runBtn = root41.querySelector('[data-testid="fuzz-run-btn"]');
       if (runBtn) {
         runBtn.addEventListener("click", () => {
-          render40();
+          render41();
         });
       }
       root41.querySelectorAll("[data-fuzz-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.fuzzZoom;
-          const zoom = state40.cfgZoom;
-          if (action === "in") state40.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
-          else if (action === "out") state40.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
-          else state40.cfgZoom = 1;
-          render40();
+          const zoom = state41.cfgZoom;
+          if (action === "in") state41.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
+          else if (action === "out") state41.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
+          else state41.cfgZoom = 1;
+          render41();
         });
       });
       const fqStart = root41.querySelector('[data-testid="fuzz-quiz-start"]');
@@ -18147,14 +18481,14 @@ INVARSPEC !(x & y)`
           fuzzQuiz.active = true;
           fuzzQuiz.phase = "question";
           fuzzQuiz.answer = "";
-          render40();
+          render41();
         });
       }
       const fqClose = root41.querySelector('[data-testid="fuzz-quiz-close"]');
       if (fqClose) {
         fqClose.addEventListener("click", () => {
           fuzzQuiz.active = false;
-          render40();
+          render41();
         });
       }
       const fqCheck = root41.querySelector('[data-testid="fuzz-quiz-check"]');
@@ -18163,7 +18497,7 @@ INVARSPEC !(x & y)`
           const inp = root41.querySelector('[data-testid="fuzz-quiz-input"]');
           fuzzQuiz.answer = inp ? inp.value : "";
           fuzzQuiz.phase = "graded";
-          render40();
+          render41();
         });
       }
       const fqReset = root41.querySelector('[data-testid="fuzz-quiz-reset"]');
@@ -18171,19 +18505,19 @@ INVARSPEC !(x & y)`
         fqReset.addEventListener("click", () => {
           fuzzQuiz.phase = "question";
           fuzzQuiz.answer = "";
-          render40();
+          render41();
         });
       }
       (_a = root41.querySelector('[data-testid="fuzz-lab-reflect-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
         fuzzLabReflect.active = true;
-        render40();
+        render41();
       });
       (_b = root41.querySelector('[data-testid="fuzz-lab-reflect-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
         var _a2, _b2;
         fuzzLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || fuzzLabReflect.a1;
         fuzzLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || fuzzLabReflect.a2;
         fuzzLabReflect.active = false;
-        render40();
+        render41();
       });
       (_c = root41.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _c.addEventListener("input", (e) => {
         fuzzLabReflect.a1 = e.target.value;
@@ -18235,7 +18569,7 @@ INVARSPEC !(x & y)`
       const previously = root41.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render40();
+      render41();
       const next = root41.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
@@ -18251,7 +18585,7 @@ INVARSPEC !(x & y)`
       }
       root41.querySelectorAll("[data-fuzz-case]").forEach((el) => {
         const id = el.dataset.fuzzCase;
-        if (id === state40.selectedCaseId) {
+        if (id === state41.selectedCaseId) {
           el.classList.add("selected");
         } else {
           el.classList.remove("selected");
@@ -18260,15 +18594,15 @@ INVARSPEC !(x & y)`
       root41.querySelectorAll("[data-fuzz-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.fuzzZoom;
-          const zoom = state40.cfgZoom;
-          if (action === "in") state40.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
-          else if (action === "out") state40.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
-          else state40.cfgZoom = 1;
+          const zoom = state41.cfgZoom;
+          if (action === "in") state41.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
+          else if (action === "out") state41.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
+          else state41.cfgZoom = 1;
           renderLight();
         });
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -18352,8 +18686,8 @@ INVARSPEC !(x & y)`
     let representative = null;
     for (const wp of witnessedPaths) {
       if (!wp.feasible) continue;
-      const record = { path: wp.cfgNodes, edgeIds: wp.cfgEdges };
-      if (!requirementCoveredByRecord(requirement, record)) continue;
+      const record2 = { path: wp.cfgNodes, edgeIds: wp.cfgEdges };
+      if (!requirementCoveredByRecord(requirement, record2)) continue;
       coveringIds.push(wp.id);
       if (!representative) representative = wp;
     }
@@ -18371,10 +18705,10 @@ INVARSPEC !(x & y)`
     const feasiblePaths = witnessedPaths.filter((wp) => wp.feasible);
     const pathCovers = /* @__PURE__ */ new Map();
     for (const wp of feasiblePaths) {
-      const record = { path: wp.cfgNodes, edgeIds: wp.cfgEdges };
+      const record2 = { path: wp.cfgNodes, edgeIds: wp.cfgEdges };
       const covered = /* @__PURE__ */ new Set();
       for (const req of requirements) {
-        if (requirementCoveredByRecord(req, record)) covered.add(req.id);
+        if (requirementCoveredByRecord(req, record2)) covered.add(req.id);
       }
       pathCovers.set(wp.id, covered);
     }
@@ -18499,14 +18833,14 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist5(state40) {
+  function persist5(state41) {
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY8, JSON.stringify({
-        exampleId: state40.exampleId,
-        sourceCode: state40.sourceCode,
-        criterion: state40.criterion,
-        cfgZoom: state40.cfgZoom
+        exampleId: state41.exampleId,
+        sourceCode: state41.sourceCode,
+        criterion: state41.criterion,
+        cfgZoom: state41.cfgZoom
       }));
     } catch {
     }
@@ -18517,7 +18851,7 @@ INVARSPEC !(x & y)`
     root41.dataset.testid = "testgen-explorer";
     const saved = loadSaved5();
     const defaultExample = symbolicExecutionExamples[0];
-    const state40 = {
+    const state41 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       criterion: (saved == null ? void 0 : saved.criterion) || DEFAULT_CRITERION,
@@ -18528,29 +18862,29 @@ INVARSPEC !(x & y)`
     };
     function recompute() {
       var _a, _b, _c, _d;
-      state40.result = generateTestsFromCoverage({
-        sourceCode: state40.sourceCode,
-        criterion: state40.criterion
+      state41.result = generateTestsFromCoverage({
+        sourceCode: state41.sourceCode,
+        criterion: state41.criterion
       });
-      if ((_b = (_a = state40.result) == null ? void 0 : _a.requirements) == null ? void 0 : _b.length) {
-        const exists = state40.result.requirements.some((r) => r.id === state40.selectedRequirementId);
-        if (!exists) state40.selectedRequirementId = state40.result.requirements[0].id;
+      if ((_b = (_a = state41.result) == null ? void 0 : _a.requirements) == null ? void 0 : _b.length) {
+        const exists = state41.result.requirements.some((r) => r.id === state41.selectedRequirementId);
+        if (!exists) state41.selectedRequirementId = state41.result.requirements[0].id;
       } else {
-        state40.selectedRequirementId = null;
+        state41.selectedRequirementId = null;
       }
-      if ((_d = (_c = state40.result) == null ? void 0 : _c.selectedTests) == null ? void 0 : _d.length) {
-        const exists = state40.result.selectedTests.some((t2) => t2.pathId === state40.selectedTestPathId);
-        if (!exists) state40.selectedTestPathId = state40.result.selectedTests[0].pathId;
+      if ((_d = (_c = state41.result) == null ? void 0 : _c.selectedTests) == null ? void 0 : _d.length) {
+        const exists = state41.result.selectedTests.some((t4) => t4.pathId === state41.selectedTestPathId);
+        if (!exists) state41.selectedTestPathId = state41.result.selectedTests[0].pathId;
       } else {
-        state40.selectedTestPathId = null;
+        state41.selectedTestPathId = null;
       }
-      persist5(state40);
+      persist5(state41);
     }
-    function render40() {
+    function render41() {
       recompute();
       const exampleButtons = symbolicExecutionExamples.map((ex) => `
       <button type="button"
-        class="testgen-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+        class="testgen-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-testgen-example="${ex.id}"
         data-testid="testgen-example-${ex.id}"
         title="${escapeHtml9(pickField(ex, "description") || "")}">
@@ -18558,7 +18892,7 @@ INVARSPEC !(x & y)`
       </button>
     `).join("");
       const criterionOptions = CRITERIA.map((c) => `
-      <option value="${c.id}"${state40.criterion === c.id ? " selected" : ""}>
+      <option value="${c.id}"${state41.criterion === c.id ? " selected" : ""}>
         ${escapeHtml9(t(c.labelKey))}
       </option>
     `).join("");
@@ -18589,7 +18923,7 @@ INVARSPEC !(x & y)`
             data-testid="testgen-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml9(state40.sourceCode)}</textarea>
+            rows="14">${escapeHtml9(state41.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -18604,7 +18938,7 @@ INVARSPEC !(x & y)`
           <header class="testgen-panel-header">
             <h3>${t("explorer.panel.results")}</h3>
           </header>
-          ${renderSummary2()}
+          ${renderSummary3()}
           ${renderError()}
           <div class="testgen-results-grid">
             <div class="testgen-requirements-card" data-testid="testgen-requirements-card">
@@ -18623,8 +18957,8 @@ INVARSPEC !(x & y)`
     `;
       bindEvents40();
     }
-    function renderSummary2() {
-      const r = state40.result;
+    function renderSummary3() {
+      const r = state41.result;
       if (!r || r.error) return "";
       return `
       <p class="testgen-summary" data-testid="testgen-summary">
@@ -18638,19 +18972,19 @@ INVARSPEC !(x & y)`
     `;
     }
     function renderError() {
-      const r = state40.result;
+      const r = state41.result;
       if (!(r == null ? void 0 : r.error)) return "";
       return `<div class="testgen-error" data-testid="testgen-error">${escapeHtml9(r.error)}</div>`;
     }
     function renderRequirements() {
-      const r = state40.result;
+      const r = state41.result;
       if (!r || r.error) return "";
       if (!r.requirementCoverage.length) {
         return `<p class="testgen-empty">${t("testgen.empty")}</p>`;
       }
       const items = r.requirementCoverage.map((rc) => {
         const cls = rc.feasible ? "feasible" : "infeasible";
-        const active = state40.selectedRequirementId === rc.requirementId ? " selected" : "";
+        const active = state41.selectedRequirementId === rc.requirementId ? " selected" : "";
         const witness = rc.feasible && rc.representativeWitness ? formatConcreteCall(r.function.name, r.function.params, rc.representativeWitness) : `<span class="testgen-no-witness">${t("testgen.requirements.noWitness")}</span>`;
         return `
         <li class="testgen-req ${cls}${active}"
@@ -18671,7 +19005,7 @@ INVARSPEC !(x & y)`
     }
     function buildVitestFile() {
       var _a, _b;
-      const r = state40.result;
+      const r = state41.result;
       if (!r || r.error || !r.selectedTests.length) return null;
       const fn = ((_a = r.function) == null ? void 0 : _a.name) || "fn";
       const params = ((_b = r.function) == null ? void 0 : _b.params) || [];
@@ -18691,14 +19025,14 @@ INVARSPEC !(x & y)`
 import { ${fn} } from './${fn}.js';
 
 // Generated by stvisual TestGenerationExplorer
-// criterion: ${state40.criterion}
+// criterion: ${state41.criterion}
 describe('${fn} \u2013 generated tests', () => {
 ${cases}
 });
 `;
     }
     function renderSelectedTests() {
-      const r = state40.result;
+      const r = state41.result;
       if (!r || r.error) return "";
       if (!r.selectedTests.length) {
         return `<p class="testgen-empty">${t("testgen.tests.empty")}</p>`;
@@ -18708,7 +19042,7 @@ ${cases}
       const items = r.selectedTests.map((tc, i) => {
         const call = formatConcreteCall(r.function.name, r.function.params, tc.witness);
         const ret = formatExpectedReturn(tc.concreteReturn);
-        const active = state40.selectedTestPathId === tc.pathId ? " selected" : "";
+        const active = state41.selectedTestPathId === tc.pathId ? " selected" : "";
         const covers = tc.coveredRequirementIds.join(", ");
         return `
         <li class="testgen-test${active}"
@@ -18728,7 +19062,7 @@ ${cases}
       return `${downloadBtn}<ol class="testgen-test-list" data-testid="testgen-test-list">${items}</ol>`;
     }
     function renderCfgPane() {
-      const r = state40.result;
+      const r = state41.result;
       if (!r) return "";
       if (r.error && !r.cfg) {
         return `<div class="testgen-cfg" data-testid="testgen-cfg">
@@ -18738,13 +19072,13 @@ ${cases}
       if (!r.cfg) return "";
       let mapping = { nodes: [], edges: [] };
       let selectedLabel = t("testgen.cfg.none");
-      const selectedTest = r.selectedTests.find((tc) => tc.pathId === state40.selectedTestPathId);
+      const selectedTest = r.selectedTests.find((tc) => tc.pathId === state41.selectedTestPathId);
       if (selectedTest) {
         const wp = r.witnessedPaths.find((w) => w.id === selectedTest.pathId);
         if (wp) mapping = { nodes: wp.cfgNodes, edges: wp.cfgEdges };
         selectedLabel = `T${r.selectedTests.indexOf(selectedTest) + 1} (${selectedTest.pathId})`;
-      } else if (state40.selectedRequirementId) {
-        const req = r.requirements.find((q) => q.id === state40.selectedRequirementId);
+      } else if (state41.selectedRequirementId) {
+        const req = r.requirements.find((q) => q.id === state41.selectedRequirementId);
         if (req) {
           mapping = {
             nodes: req.nodes || (req.path ? [...new Set(req.path)] : []),
@@ -18756,9 +19090,9 @@ ${cases}
       const svg = renderCfgSvg(r.cfg, mapping, {
         idPrefix: "testgen-cfg",
         ariaLabel: "Test generation CFG",
-        zoom: state40.cfgZoom
+        zoom: state41.cfgZoom
       });
-      const zoomPct = Math.round(state40.cfgZoom * 100);
+      const zoomPct = Math.round(state41.cfgZoom * 100);
       return `
       <div class="testgen-cfg" data-testid="testgen-cfg">
         <div class="testgen-cfg-header">
@@ -18780,27 +19114,27 @@ ${cases}
           const id = btn.dataset.testgenExample;
           const ex = symbolicExecutionExamples.find((x) => x.id === id);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.sourceCode = ex.sourceCode;
-          state40.selectedRequirementId = null;
-          state40.selectedTestPathId = null;
-          render40();
+          state41.exampleId = ex.id;
+          state41.sourceCode = ex.sourceCode;
+          state41.selectedRequirementId = null;
+          state41.selectedTestPathId = null;
+          render41();
         });
       });
       const criterionSelect = root41.querySelector('[data-testid="testgen-criterion"]');
       if (criterionSelect) {
         criterionSelect.addEventListener("change", () => {
-          state40.criterion = criterionSelect.value;
-          state40.selectedRequirementId = null;
-          state40.selectedTestPathId = null;
-          render40();
+          state41.criterion = criterionSelect.value;
+          state41.selectedRequirementId = null;
+          state41.selectedTestPathId = null;
+          render41();
         });
       }
       root41.querySelectorAll("[data-testgen-req]").forEach((el) => {
         const select = () => {
-          state40.selectedRequirementId = el.dataset.testgenReq;
-          state40.selectedTestPathId = null;
-          render40();
+          state41.selectedRequirementId = el.dataset.testgenReq;
+          state41.selectedTestPathId = null;
+          render41();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -18812,8 +19146,8 @@ ${cases}
       });
       root41.querySelectorAll("[data-testgen-test]").forEach((el) => {
         const select = () => {
-          state40.selectedTestPathId = el.dataset.testgenTest;
-          render40();
+          state41.selectedTestPathId = el.dataset.testgenTest;
+          render41();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -18827,7 +19161,7 @@ ${cases}
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state40.sourceCode = editor.value;
+          state41.sourceCode = editor.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
             renderPreservingFocus("testgen-source");
@@ -18840,7 +19174,7 @@ ${cases}
           var _a, _b;
           const content = buildVitestFile();
           if (!content) return;
-          const fn = ((_b = (_a = state40.result) == null ? void 0 : _a.function) == null ? void 0 : _b.name) || "generated";
+          const fn = ((_b = (_a = state41.result) == null ? void 0 : _a.function) == null ? void 0 : _b.name) || "generated";
           const blob = new Blob([content], { type: "text/javascript" });
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
@@ -18855,10 +19189,10 @@ ${cases}
       root41.querySelectorAll("[data-testgen-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.testgenZoom;
-          if (action === "in") state40.cfgZoom = Math.min(4, +(state40.cfgZoom + 0.25).toFixed(2));
-          else if (action === "out") state40.cfgZoom = Math.max(0.25, +(state40.cfgZoom - 0.25).toFixed(2));
-          else state40.cfgZoom = 1;
-          render40();
+          if (action === "in") state41.cfgZoom = Math.min(4, +(state41.cfgZoom + 0.25).toFixed(2));
+          else if (action === "out") state41.cfgZoom = Math.max(0.25, +(state41.cfgZoom - 0.25).toFixed(2));
+          else state41.cfgZoom = 1;
+          render41();
         });
       });
     }
@@ -18866,7 +19200,7 @@ ${cases}
       const previously = root41.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render40();
+      render41();
       const next = root41.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
@@ -18875,7 +19209,7 @@ ${cases}
         }
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -19148,13 +19482,13 @@ ${cases}
       return null;
     }
   }
-  function persist6(state40) {
+  function persist6(state41) {
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY9, JSON.stringify({
-        exampleId: state40.exampleId,
-        params: state40.params,
-        robust: state40.robust
+        exampleId: state41.exampleId,
+        params: state41.params,
+        robust: state41.robust
       }));
     } catch {
     }
@@ -19171,19 +19505,19 @@ ${cases}
     root41.dataset.testid = "bva-explorer";
     const saved = loadSaved6();
     const defaultEx = EXAMPLES[0];
-    const state40 = {
+    const state41 = {
       exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
       params: (_b = saved == null ? void 0 : saved.params) != null ? _b : defaultEx.params.map((p) => ({ ...p })),
       robust: (_c = saved == null ? void 0 : saved.robust) != null ? _c : false
     };
     const quiz = { active: false, paramIdx: 0, answers: ["", "", "", "", ""], phase: "question", result: null };
     function getTests() {
-      const valid = state40.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
+      const valid = state41.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
       if (!valid.length) return [];
-      return state40.robust ? generateRobustBvaTests(valid) : generateBvaTests(valid);
+      return state41.robust ? generateRobustBvaTests(valid) : generateBvaTests(valid);
     }
     function validParams() {
-      return state40.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
+      return state41.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
     }
     function pickQuizParam() {
       const vp = validParams();
@@ -19202,7 +19536,7 @@ ${cases}
       const correct = expected.map((e, i) => userNums[i] === e);
       quiz.result = { expected, correct, score: correct.filter(Boolean).length };
       quiz.phase = "graded";
-      render40();
+      render41();
     }
     function renderQuizPanel() {
       var _a2;
@@ -19249,7 +19583,7 @@ ${cases}
     </div>`;
     }
     function renderParamRows() {
-      return state40.params.map((p, i) => `
+      return state41.params.map((p, i) => `
       <tr>
         <td><input class="bva-param-name" data-idx="${i}" value="${escapeHtml10(p.name)}"
             placeholder="param" aria-label="${t("bva.param.name")}" data-testid="bva-param-name-${i}"/></td>
@@ -19258,7 +19592,7 @@ ${cases}
         <td><input class="bva-param-num" type="number" data-idx="${i}" data-field="max"
             value="${p.max}" aria-label="${t("bva.param.max")}" data-testid="bva-param-max-${i}"/></td>
         <td><button class="bva-del-btn" data-del="${i}" aria-label="${t("common.remove")}"
-            data-testid="bva-del-${i}" ${state40.params.length <= 1 ? "disabled" : ""}>\xD7</button></td>
+            data-testid="bva-del-${i}" ${state41.params.length <= 1 ? "disabled" : ""}>\xD7</button></td>
       </tr>
     `).join("");
     }
@@ -19266,7 +19600,7 @@ ${cases}
       if (!tests.length) {
         return `<p class="bva-empty" data-testid="bva-empty">${t("bva.empty")}</p>`;
       }
-      const paramNames = state40.params.filter((p) => p.name).map((p) => p.name);
+      const paramNames = state41.params.filter((p) => p.name).map((p) => p.name);
       const headerCols = paramNames.map((n) => `<th>${escapeHtml10(n)}</th>`).join("");
       const rows = tests.map((tc) => {
         const valCells = paramNames.map((n) => {
@@ -19287,9 +19621,9 @@ ${cases}
       </table>
     `;
     }
-    function render40() {
+    function render41() {
       const exBtns = EXAMPLES.map((ex) => `
-      <button type="button" class="bva-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="bva-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-bva-example="${ex.id}" data-testid="bva-example-${ex.id}">${escapeHtml10(ex.name)}</button>
     `).join("");
       const tests = getTests();
@@ -19299,7 +19633,7 @@ ${cases}
           <div class="bva-examples" data-testid="bva-examples">${exBtns}</div>
           <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
             <label class="bva-robust-label">
-              <input type="checkbox" data-testid="bva-robust-toggle" ${state40.robust ? "checked" : ""}/>
+              <input type="checkbox" data-testid="bva-robust-toggle" ${state41.robust ? "checked" : ""}/>
               ${t("bva.robust")}
             </label>
             <button type="button" class="quiz-start-btn" data-testid="bva-quiz-start">${t("quiz.start")}</button>
@@ -19319,7 +19653,7 @@ ${cases}
               <tbody>${renderParamRows()}</tbody>
             </table>
             <button type="button" class="bva-add-btn" data-testid="bva-add-param"
-              ${state40.params.length >= PARAM_LIMIT ? "disabled" : ""}>
+              ${state41.params.length >= PARAM_LIMIT ? "disabled" : ""}>
               + ${t("bva.param.add")}
             </button>
             <p class="bva-hint">${t("bva.hint")}</p>
@@ -19337,7 +19671,7 @@ ${cases}
       </div>
     `;
       bindEvents40();
-      persist6(state40);
+      persist6(state41);
     }
     function bindEvents40() {
       var _a2, _b2, _c2, _d, _e, _f;
@@ -19345,19 +19679,19 @@ ${cases}
         btn.addEventListener("click", () => {
           const ex = EXAMPLES.find((e) => e.id === btn.dataset.bvaExample);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.params = ex.params.map((p) => ({ ...p }));
-          render40();
+          state41.exampleId = ex.id;
+          state41.params = ex.params.map((p) => ({ ...p }));
+          render41();
         });
       });
       (_a2 = root41.querySelector('[data-testid="bva-robust-toggle"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
-        state40.robust = e.target.checked;
-        render40();
+        state41.robust = e.target.checked;
+        render41();
       });
       root41.querySelectorAll(".bva-param-name").forEach((input) => {
         input.addEventListener("input", (e) => {
           const idx = Number(e.target.dataset.idx);
-          state40.params[idx].name = e.target.value;
+          state41.params[idx].name = e.target.value;
           const tests = getTests();
           const resultsPane = root41.querySelector('[data-testid="bva-results"]');
           if (resultsPane) {
@@ -19365,14 +19699,14 @@ ${cases}
             <span class="bva-count">${tests.length} ${t("bva.results.count")}</span>
           </h3>${renderTestTable(tests)}`;
           }
-          persist6(state40);
+          persist6(state41);
         });
       });
       root41.querySelectorAll(".bva-param-num").forEach((input) => {
         input.addEventListener("change", (e) => {
           const idx = Number(e.target.dataset.idx);
           const field = e.target.dataset.field;
-          state40.params[idx][field] = Number(e.target.value);
+          state41.params[idx][field] = Number(e.target.value);
           const tests = getTests();
           const resultsPane = root41.querySelector('[data-testid="bva-results"]');
           if (resultsPane) {
@@ -19380,29 +19714,29 @@ ${cases}
             <span class="bva-count">${tests.length} ${t("bva.results.count")}</span>
           </h3>${renderTestTable(tests)}`;
           }
-          persist6(state40);
+          persist6(state41);
         });
       });
       root41.querySelectorAll("[data-del]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.del);
-          state40.params.splice(idx, 1);
-          render40();
+          state41.params.splice(idx, 1);
+          render41();
         });
       });
       (_b2 = root41.querySelector('[data-testid="bva-add-param"]')) == null ? void 0 : _b2.addEventListener("click", () => {
-        if (state40.params.length >= PARAM_LIMIT) return;
-        state40.params.push({ name: `p${state40.params.length + 1}`, min: 0, max: 100 });
-        render40();
+        if (state41.params.length >= PARAM_LIMIT) return;
+        state41.params.push({ name: `p${state41.params.length + 1}`, min: 0, max: 100 });
+        render41();
       });
       (_c2 = root41.querySelector('[data-testid="bva-quiz-start"]')) == null ? void 0 : _c2.addEventListener("click", () => {
         quiz.active = true;
         pickQuizParam();
-        render40();
+        render41();
       });
       (_d = root41.querySelector('[data-testid="bva-quiz-close"]')) == null ? void 0 : _d.addEventListener("click", () => {
         quiz.active = false;
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-qi]").forEach((input) => {
         input.addEventListener("input", (e) => {
@@ -19414,10 +19748,10 @@ ${cases}
       });
       (_f = root41.querySelector('[data-testid="bva-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
         pickQuizParam();
-        render40();
+        render41();
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -19512,13 +19846,13 @@ ${cases}
       return null;
     }
   }
-  function persist7(state40) {
+  function persist7(state41) {
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY10, JSON.stringify({
-        exampleId: state40.exampleId,
-        params: state40.params,
-        mode: state40.mode
+        exampleId: state41.exampleId,
+        params: state41.params,
+        mode: state41.mode
       }));
     } catch {
     }
@@ -19530,7 +19864,7 @@ ${cases}
     root41.dataset.testid = "ec-explorer";
     const saved = loadSaved7();
     const defaultEx = EXAMPLES2[0];
-    const state40 = {
+    const state41 = {
       exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
       params: (_b = saved == null ? void 0 : saved.params) != null ? _b : defaultEx.params.map((p) => ({ ...p, classes: p.classes.map((c) => ({ ...c })) })),
       mode: (_c = saved == null ? void 0 : saved.mode) != null ? _c : "wect"
@@ -19538,12 +19872,12 @@ ${cases}
     };
     const quiz = { active: false, wectAnswer: "", sectAnswer: "", phase: "question", result: null };
     function getTests() {
-      const valid = state40.params.filter((p) => p.name && p.classes.length);
+      const valid = state41.params.filter((p) => p.name && p.classes.length);
       if (!valid.length) return [];
-      return state40.mode === "sect" ? generateSectTests(valid) : generateWectTests(valid);
+      return state41.mode === "sect" ? generateSectTests(valid) : generateWectTests(valid);
     }
     function gradeEcQuiz() {
-      const valid = state40.params.filter((p) => p.name && p.classes.length);
+      const valid = state41.params.filter((p) => p.name && p.classes.length);
       const wectCount = generateWectTests(valid).length;
       const sectCount = generateSectTests(valid).length;
       const wectUser = Number(quiz.wectAnswer);
@@ -19555,7 +19889,7 @@ ${cases}
         sectCorrect: sectUser === sectCount
       };
       quiz.phase = "graded";
-      render40();
+      render41();
     }
     function renderQuizPanel() {
       if (!quiz.active) return "";
@@ -19625,13 +19959,13 @@ ${cases}
     `;
     }
     function renderParams() {
-      return state40.params.map((p, i) => `
+      return state41.params.map((p, i) => `
       <div class="ec-param-block" data-testid="ec-param-${i}">
         <div class="ec-param-header">
           <input class="ec-param-name-input" data-pidx="${i}" value="${escapeHtml11(p.name)}"
               placeholder="${t("ec.param.name")}" data-testid="ec-param-name-${i}"/>
           <button class="ec-del-param-btn" data-del-param="${i}" aria-label="${t("common.remove")}"
-              data-testid="ec-del-param-${i}" ${state40.params.length <= 1 ? "disabled" : ""}>\xD7</button>
+              data-testid="ec-del-param-${i}" ${state41.params.length <= 1 ? "disabled" : ""}>\xD7</button>
         </div>
         ${renderClassTable(i, p.classes)}
       </div>
@@ -19641,7 +19975,7 @@ ${cases}
       if (!tests.length) {
         return `<p class="ec-empty" data-testid="ec-empty">${t("ec.empty")}</p>`;
       }
-      const paramNames = state40.params.map((p) => p.name);
+      const paramNames = state41.params.map((p) => p.name);
       const headerCols = paramNames.map((n) => `<th>${escapeHtml11(n)}</th>`).join("");
       const rows = tests.map((tc) => {
         const valCells = paramNames.map((n) => {
@@ -19665,10 +19999,10 @@ ${cases}
       </table>
     `;
     }
-    function render40() {
+    function render41() {
       const tests = getTests();
       const exBtns = EXAMPLES2.map((ex) => `
-      <button type="button" class="ec-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="ec-example-btn${state41.exampleId === ex.id ? " active" : ""}"
           data-ec-example="${ex.id}" data-testid="ec-example-${ex.id}">${escapeHtml11(ex.name)}</button>
     `).join("");
       root41.innerHTML = `
@@ -19677,9 +20011,9 @@ ${cases}
           <div class="ec-examples" data-testid="ec-examples">${exBtns}</div>
           <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
             <div class="ec-mode-toggle" role="group">
-              <button type="button" class="ec-mode-btn${state40.mode === "wect" ? " active" : ""}"
+              <button type="button" class="ec-mode-btn${state41.mode === "wect" ? " active" : ""}"
                   data-mode="wect" data-testid="ec-mode-wect">WECT</button>
-              <button type="button" class="ec-mode-btn${state40.mode === "sect" ? " active" : ""}"
+              <button type="button" class="ec-mode-btn${state41.mode === "sect" ? " active" : ""}"
                   data-mode="sect" data-testid="ec-mode-sect">SECT</button>
             </div>
             <button type="button" class="quiz-start-btn" data-testid="ec-quiz-start">${t("quiz.start")}</button>
@@ -19691,7 +20025,7 @@ ${cases}
             <h3>${t("ec.params.title")}</h3>
             <div class="ec-params-list">${renderParams()}</div>
             <button class="ec-add-param-btn" data-testid="ec-add-param"
-                ${state40.params.length >= 5 ? "disabled" : ""}>
+                ${state41.params.length >= 5 ? "disabled" : ""}>
               + ${t("ec.param.add")}
             </button>
             <p class="ec-hint">${t("ec.hint")}</p>
@@ -19709,7 +20043,7 @@ ${cases}
       </div>
     `;
       bindEvents40();
-      persist7(state40);
+      persist7(state41);
     }
     function bindEvents40() {
       var _a2, _b2, _c2, _d, _e, _f, _g;
@@ -19717,82 +20051,82 @@ ${cases}
         btn.addEventListener("click", () => {
           const ex = EXAMPLES2.find((e) => e.id === btn.dataset.ecExample);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.params = ex.params.map((p) => ({
+          state41.exampleId = ex.id;
+          state41.params = ex.params.map((p) => ({
             ...p,
             classes: p.classes.map((c) => ({ ...c }))
           }));
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-mode]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.mode = btn.dataset.mode;
-          render40();
+          state41.mode = btn.dataset.mode;
+          render41();
         });
       });
       root41.querySelectorAll(".ec-param-name-input").forEach((input) => {
         input.addEventListener("input", (e) => {
-          state40.params[Number(e.target.dataset.pidx)].name = e.target.value;
+          state41.params[Number(e.target.dataset.pidx)].name = e.target.value;
           refreshResults();
-          persist7(state40);
+          persist7(state41);
         });
       });
       root41.querySelectorAll(".ec-class-name").forEach((input) => {
         input.addEventListener("input", (e) => {
           const pi = Number(e.target.dataset.pidx), ci = Number(e.target.dataset.cidx);
-          state40.params[pi].classes[ci].name = e.target.value;
+          state41.params[pi].classes[ci].name = e.target.value;
           refreshResults();
-          persist7(state40);
+          persist7(state41);
         });
       });
       root41.querySelectorAll(".ec-class-rep").forEach((input) => {
         input.addEventListener("change", (e) => {
           const pi = Number(e.target.dataset.pidx), ci = Number(e.target.dataset.cidx);
           const v = e.target.value;
-          state40.params[pi].classes[ci].representative = isNaN(Number(v)) ? v : Number(v);
+          state41.params[pi].classes[ci].representative = isNaN(Number(v)) ? v : Number(v);
           refreshResults();
-          persist7(state40);
+          persist7(state41);
         });
       });
       root41.querySelectorAll(".ec-class-kind").forEach((sel) => {
         sel.addEventListener("change", (e) => {
           const pi = Number(e.target.dataset.pidx), ci = Number(e.target.dataset.cidx);
-          state40.params[pi].classes[ci].kind = e.target.value;
+          state41.params[pi].classes[ci].kind = e.target.value;
           refreshResults();
-          persist7(state40);
+          persist7(state41);
         });
       });
       root41.querySelectorAll("[data-del-class]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const pi = Number(btn.dataset.pidx), ci = Number(btn.dataset.cidx);
-          state40.params[pi].classes.splice(ci, 1);
-          render40();
+          state41.params[pi].classes.splice(ci, 1);
+          render41();
         });
       });
       root41.querySelectorAll("[data-add-class]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const pi = Number(btn.dataset.pidx);
-          state40.params[pi].classes.push({ name: "new class", kind: "valid", representative: 0 });
-          render40();
+          state41.params[pi].classes.push({ name: "new class", kind: "valid", representative: 0 });
+          render41();
         });
       });
       root41.querySelectorAll("[data-del-param]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.params.splice(Number(btn.dataset.delParam), 1);
-          render40();
+          state41.params.splice(Number(btn.dataset.delParam), 1);
+          render41();
         });
       });
       (_a2 = root41.querySelector('[data-testid="ec-add-param"]')) == null ? void 0 : _a2.addEventListener("click", () => {
-        if (state40.params.length >= 5) return;
-        state40.params.push({
-          name: `param${state40.params.length + 1}`,
+        if (state41.params.length >= 5) return;
+        state41.params.push({
+          name: `param${state41.params.length + 1}`,
           classes: [
             { name: "valid", kind: "valid", representative: 1 },
             { name: "invalid", kind: "invalid", representative: -1 }
           ]
         });
-        render40();
+        render41();
       });
       (_b2 = root41.querySelector('[data-testid="ec-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         quiz.active = true;
@@ -19800,11 +20134,11 @@ ${cases}
         quiz.sectAnswer = "";
         quiz.phase = "question";
         quiz.result = null;
-        render40();
+        render41();
       });
       (_c2 = root41.querySelector('[data-testid="ec-quiz-close"]')) == null ? void 0 : _c2.addEventListener("click", () => {
         quiz.active = false;
-        render40();
+        render41();
       });
       (_d = root41.querySelector('[data-testid="ec-quiz-wect"]')) == null ? void 0 : _d.addEventListener("input", (e) => {
         quiz.wectAnswer = e.target.value;
@@ -19820,7 +20154,7 @@ ${cases}
         quiz.sectAnswer = "";
         quiz.phase = "question";
         quiz.result = null;
-        render40();
+        render41();
       });
     }
     function refreshResults() {
@@ -19832,7 +20166,7 @@ ${cases}
       </h3>${renderResultTable(tests)}`;
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -19917,10 +20251,10 @@ ${cases}
       let guard = 0;
       while (guard++ < 1e3) {
         let target = null;
-        for (const key of uncovered) {
-          const parts2 = key.split("\0");
+        for (const key2 of uncovered) {
+          const parts2 = key2.split("\0");
           if (parseInt(parts2[0]) === k || parseInt(parts2[2]) === k) {
-            target = key;
+            target = key2;
             break;
           }
         }
@@ -20032,10 +20366,10 @@ ${cases}
     }));
     return generatePairwise(params);
   }
-  function tWise(characteristics, t2) {
+  function tWise(characteristics, t4) {
     const n = characteristics.length;
     if (n === 0) return [];
-    const tt = Math.max(2, Math.min(t2, n));
+    const tt = Math.max(2, Math.min(t4, n));
     if (tt >= n) return allCombinations(characteristics);
     if (tt === 2) return pairWise(characteristics);
     const indexCombos = combinations([...Array(n).keys()], tt);
@@ -20061,8 +20395,8 @@ ${cases}
           let gain = 0;
           for (const combo of indexCombos) {
             if (!combo.every((idx) => trial[characteristics[idx].id] !== void 0)) continue;
-            const key = tupleKey(combo, combo.map((idx) => trial[characteristics[idx].id]));
-            if (uncovered.has(key)) gain += 1;
+            const key2 = tupleKey(combo, combo.map((idx) => trial[characteristics[idx].id]));
+            if (uncovered.has(key2)) gain += 1;
           }
           if (gain > bestGain) {
             bestGain = gain;
@@ -20319,7 +20653,7 @@ ${cases}
       <button type="button" data-testid="isp-quiz-submit" ${!quiz.answer ? "disabled" : ""}>${esc(t("quiz.submit"))}</button>
     </div>`;
     }
-    function render40() {
+    function render41() {
       root41.innerHTML = `
       <div class="isp-wrap">
         ${renderExampleChips5()}
@@ -20348,26 +20682,26 @@ ${cases}
           if (!ex || ex.id === exampleId) return;
           exampleId = ex.id;
           idm = idmFromExample(ex);
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-isp-criterion]").forEach((btn) => {
         btn.addEventListener("click", () => {
           criterion = btn.dataset.ispCriterion;
-          render40();
+          render41();
         });
       });
       (_a = root41.querySelector("[data-isp-twise-t]")) == null ? void 0 : _a.addEventListener("change", (e) => {
         const v = parseInt(e.target.value, 10);
         twiseTVal = Number.isFinite(v) ? Math.max(2, Math.min(v, idm.length)) : 2;
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-isp-char-name]").forEach((inp) => {
         inp.addEventListener("change", () => {
           const c = findChar(inp.dataset.ispCharName);
           if (c) {
             c.name = inp.value;
-            render40();
+            render41();
           }
         });
       });
@@ -20375,12 +20709,12 @@ ${cases}
         const b1 = { id: uid(), label: "block 1" };
         const b2 = { id: uid(), label: "block 2" };
         idm.push({ id: uid(), name: "new characteristic", blocks: [b1, b2], baseBlockIds: [b1.id] });
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-isp-char-remove]").forEach((btn) => {
         btn.addEventListener("click", () => {
           idm = idm.filter((c) => c.id !== btn.dataset.ispCharRemove);
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-isp-add-block]").forEach((inp) => {
@@ -20394,7 +20728,7 @@ ${cases}
           } else {
             blockDraft[cid] = inp.value;
           }
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-isp-block-remove]").forEach((btn) => {
@@ -20406,7 +20740,7 @@ ${cases}
           c.blocks = c.blocks.filter((b) => b.id !== bid);
           c.baseBlockIds = c.baseBlockIds.filter((id) => id !== bid);
           if (c.baseBlockIds.length === 0) c.baseBlockIds = [c.blocks[0].id];
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll(".isp-block--base-interactive").forEach((span) => {
@@ -20420,34 +20754,34 @@ ${cases}
             c.baseBlockIds = c.baseBlockIds.includes(bid) ? c.baseBlockIds.filter((id) => id !== bid) : [...c.baseBlockIds, bid];
             if (c.baseBlockIds.length === 0) c.baseBlockIds = [bid];
           }
-          render40();
+          render41();
         });
       });
       (_c = root41.querySelector('[data-testid="isp-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
         quiz.active = true;
         quiz.phase = "question";
         quiz.answer = "";
-        render40();
+        render41();
       });
       root41.querySelectorAll('input[name="isp-quiz"]').forEach((inp) => {
         inp.addEventListener("change", () => {
           quiz.answer = inp.value;
-          render40();
+          render41();
         });
       });
       (_d = root41.querySelector('[data-testid="isp-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
         quiz.phase = "done";
-        render40();
+        render41();
       });
       (_e = root41.querySelector('[data-testid="isp-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
         quiz.active = false;
         quiz.phase = "idle";
         quiz.answer = "";
-        render40();
+        render41();
       });
     }
-    onLocaleChange(() => render40());
-    render40();
+    onLocaleChange(() => render41());
+    render41();
     return root41;
   }
 
@@ -20537,10 +20871,10 @@ ${cases}
       return null;
     }
   }
-  function persist8(state40) {
+  function persist8(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY11, JSON.stringify({ exampleId: state40.exampleId, conditions: state40.conditions, actions: state40.actions, rules: state40.rules }));
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY11, JSON.stringify({ exampleId: state41.exampleId, conditions: state41.conditions, actions: state41.actions, rules: state41.rules }));
     } catch {
     }
   }
@@ -20551,7 +20885,7 @@ ${cases}
     root41.dataset.testid = "dt-explorer";
     const saved = loadSaved8();
     const defaultEx = EXAMPLES3[0];
-    const state40 = {
+    const state41 = {
       exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
       conditions: (saved == null ? void 0 : saved.conditions) ? deepClone(saved.conditions) : deepClone(defaultEx.conditions),
       actions: (saved == null ? void 0 : saved.actions) ? deepClone(saved.actions) : deepClone(defaultEx.actions),
@@ -20563,7 +20897,7 @@ ${cases}
     const dtQuiz = { active: false, phase: "question", ansCovered: "", ansDup: "", result: null };
     function renderDtQuizPanel() {
       if (!dtQuiz.active) return "";
-      const validation = validateDecisionTable(state40.conditions, state40.rules);
+      const validation = validateDecisionTable(state41.conditions, state41.rules);
       const isGraded = dtQuiz.phase === "graded";
       const covCorrect = isGraded && parseInt(dtQuiz.ansCovered, 10) === validation.covered;
       const dupCorrect = isGraded && parseInt(dtQuiz.ansDup, 10) === validation.duplicate.length;
@@ -20602,19 +20936,19 @@ ${cases}
     `;
     }
     function renderTable() {
-      const tests = generateDecisionTableTests(state40.conditions, state40.actions, state40.rules);
-      const validation = validateDecisionTable(state40.conditions, state40.rules);
-      const condHead = state40.conditions.map((c) => `<th class="dt-cond-head">${esc2(c.name)}</th>`).join("");
-      const actHead = state40.actions.map((a) => `<th class="dt-act-head">${esc2(a.name)}</th>`).join("");
+      const tests = generateDecisionTableTests(state41.conditions, state41.actions, state41.rules);
+      const validation = validateDecisionTable(state41.conditions, state41.rules);
+      const condHead = state41.conditions.map((c) => `<th class="dt-cond-head">${esc2(c.name)}</th>`).join("");
+      const actHead = state41.actions.map((a) => `<th class="dt-act-head">${esc2(a.name)}</th>`).join("");
       const rows = tests.map((tc, i) => {
-        const rule = state40.rules[i];
-        const condCells = state40.conditions.map((c) => {
+        const rule = state41.rules[i];
+        const condCells = state41.conditions.map((c) => {
           var _a2;
           const val = (_a2 = tc.conditions[c.id]) != null ? _a2 : "\u2013";
           const cls = val === "T" || val === "Y" ? " dt-val-true" : val === "F" || val === "N" ? " dt-val-false" : " dt-val-dc";
           return `<td class="dt-cell${cls}">${esc2(val)}</td>`;
         }).join("");
-        const actCells = state40.actions.map((a) => {
+        const actCells = state41.actions.map((a) => {
           const fires = tc.actions.includes(a.id);
           return `<td class="dt-cell${fires ? " dt-act-fire" : ""}">${fires ? "\u2713" : ""}</td>`;
         }).join("");
@@ -20625,7 +20959,7 @@ ${cases}
         ${actCells}
         <td>
           <button class="dt-del-rule-btn" data-del-rule="${i}" aria-label="${t("common.remove")}"
-            ${state40.rules.length <= 1 ? "disabled" : ""}>\xD7</button>
+            ${state41.rules.length <= 1 ? "disabled" : ""}>\xD7</button>
         </td>
       </tr>`;
       }).join("");
@@ -20652,28 +20986,28 @@ ${cases}
     </div>`;
     }
     function renderConditions() {
-      return state40.conditions.map((c, i) => `
+      return state41.conditions.map((c, i) => `
       <div class="dt-cond-block" data-testid="dt-cond-${i}">
         <input class="dt-cond-name" data-cidx="${i}" value="${esc2(c.name)}"
           placeholder="${t("dt.condition.name")}" data-testid="dt-cond-name-${i}"/>
         <button class="dt-del-cond-btn" data-del-cond="${i}" aria-label="${t("common.remove")}"
-          ${state40.conditions.length <= 1 ? "disabled" : ""} data-testid="dt-del-cond-${i}">\xD7</button>
+          ${state41.conditions.length <= 1 ? "disabled" : ""} data-testid="dt-del-cond-${i}">\xD7</button>
       </div>
     `).join("");
     }
     function renderActions() {
-      return state40.actions.map((a, i) => `
+      return state41.actions.map((a, i) => `
       <div class="dt-act-block" data-testid="dt-action-${i}">
         <input class="dt-act-name" data-aidx="${i}" value="${esc2(a.name)}"
           placeholder="${t("dt.action.name")}" data-testid="dt-act-name-${i}"/>
         <button class="dt-del-act-btn" data-del-act="${i}" aria-label="${t("common.remove")}"
-          ${state40.actions.length <= 1 ? "disabled" : ""} data-testid="dt-del-act-${i}">\xD7</button>
+          ${state41.actions.length <= 1 ? "disabled" : ""} data-testid="dt-del-act-${i}">\xD7</button>
       </div>
     `).join("");
     }
-    function render40() {
+    function render41() {
       const exBtns = EXAMPLES3.map((ex) => `
-      <button type="button" class="dt-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="dt-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-dt-example="${ex.id}" data-testid="dt-example-${ex.id}">${esc2(ex.name)}</button>
     `).join("");
       root41.innerHTML = `
@@ -20688,7 +21022,7 @@ ${cases}
               <h4>${t("dt.conditions.title")}</h4>
               <div class="dt-cond-list">${renderConditions()}</div>
               <button class="dt-add-cond-btn" data-testid="dt-add-cond"
-                ${state40.conditions.length >= 6 ? "disabled" : ""}>
+                ${state41.conditions.length >= 6 ? "disabled" : ""}>
                 + ${t("dt.condition.add")}
               </button>
             </div>
@@ -20696,7 +21030,7 @@ ${cases}
               <h4>${t("dt.actions.title")}</h4>
               <div class="dt-act-list">${renderActions()}</div>
               <button class="dt-add-act-btn" data-testid="dt-add-act"
-                ${state40.actions.length >= 6 ? "disabled" : ""}>
+                ${state41.actions.length >= 6 ? "disabled" : ""}>
                 + ${t("dt.action.add")}
               </button>
             </div>
@@ -20705,7 +21039,7 @@ ${cases}
 
           <div class="dt-results-pane" data-testid="dt-results">
             <h3>${t("dt.results.title")}
-              <span class="dt-count">${state40.rules.length} ${t("dt.results.count")}</span>
+              <span class="dt-count">${state41.rules.length} ${t("dt.results.count")}</span>
             </h3>
             ${renderTable()}
             ${renderDtQuizPanel()}
@@ -20714,12 +21048,12 @@ ${cases}
       </div>
     `;
       bindEvents40();
-      persist8(state40);
+      persist8(state41);
     }
     function addDefaultRule() {
       const conditions = {};
-      for (const c of state40.conditions) conditions[c.id] = "T";
-      state40.rules.push({ id: `r${nextRuleId++}`, conditions, actions: [] });
+      for (const c of state41.conditions) conditions[c.id] = "T";
+      state41.rules.push({ id: `r${nextRuleId++}`, conditions, actions: [] });
     }
     function bindEvents40() {
       var _a2, _b, _c, _d, _e, _f, _g;
@@ -20727,66 +21061,66 @@ ${cases}
         btn.addEventListener("click", () => {
           const ex = EXAMPLES3.find((e) => e.id === btn.dataset.dtExample);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.conditions = deepClone(ex.conditions);
-          state40.actions = deepClone(ex.actions);
-          state40.rules = deepClone(ex.rules);
-          render40();
+          state41.exampleId = ex.id;
+          state41.conditions = deepClone(ex.conditions);
+          state41.actions = deepClone(ex.actions);
+          state41.rules = deepClone(ex.rules);
+          render41();
         });
       });
       root41.querySelectorAll(".dt-cond-name").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state40.conditions[Number(e.target.dataset.cidx)].name = e.target.value;
+          state41.conditions[Number(e.target.dataset.cidx)].name = e.target.value;
           refreshResults();
-          persist8(state40);
+          persist8(state41);
         });
       });
       root41.querySelectorAll(".dt-act-name").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state40.actions[Number(e.target.dataset.aidx)].name = e.target.value;
+          state41.actions[Number(e.target.dataset.aidx)].name = e.target.value;
           refreshResults();
-          persist8(state40);
+          persist8(state41);
         });
       });
       root41.querySelectorAll("[data-del-cond]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.delCond);
-          const cid = state40.conditions[idx].id;
-          state40.conditions.splice(idx, 1);
-          for (const r of state40.rules) delete r.conditions[cid];
-          render40();
+          const cid = state41.conditions[idx].id;
+          state41.conditions.splice(idx, 1);
+          for (const r of state41.rules) delete r.conditions[cid];
+          render41();
         });
       });
       root41.querySelectorAll("[data-del-act]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.delAct);
-          const aid = state40.actions[idx].id;
-          state40.actions.splice(idx, 1);
-          for (const r of state40.rules) r.actions = r.actions.filter((a) => a !== aid);
-          render40();
+          const aid = state41.actions[idx].id;
+          state41.actions.splice(idx, 1);
+          for (const r of state41.rules) r.actions = r.actions.filter((a) => a !== aid);
+          render41();
         });
       });
       (_a2 = root41.querySelector('[data-testid="dt-add-cond"]')) == null ? void 0 : _a2.addEventListener("click", () => {
-        if (state40.conditions.length >= 6) return;
+        if (state41.conditions.length >= 6) return;
         const id = `c${nextCondId++}`;
-        state40.conditions.push({ id, name: `Condition ${state40.conditions.length + 1}`, values: ["T", "F"] });
-        for (const r of state40.rules) r.conditions[id] = "T";
-        render40();
+        state41.conditions.push({ id, name: `Condition ${state41.conditions.length + 1}`, values: ["T", "F"] });
+        for (const r of state41.rules) r.conditions[id] = "T";
+        render41();
       });
       (_b = root41.querySelector('[data-testid="dt-add-act"]')) == null ? void 0 : _b.addEventListener("click", () => {
-        if (state40.actions.length >= 6) return;
+        if (state41.actions.length >= 6) return;
         const id = `a${nextActId++}`;
-        state40.actions.push({ id, name: `Action ${state40.actions.length + 1}` });
-        render40();
+        state41.actions.push({ id, name: `Action ${state41.actions.length + 1}` });
+        render41();
       });
       (_c = root41.querySelector('[data-testid="dt-add-rule"]')) == null ? void 0 : _c.addEventListener("click", () => {
         addDefaultRule();
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-del-rule]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.rules.splice(Number(btn.dataset.delRule), 1);
-          render40();
+          state41.rules.splice(Number(btn.dataset.delRule), 1);
+          render41();
         });
       });
       root41.querySelectorAll(".dt-cell.dt-val-true, .dt-cell.dt-val-false, .dt-cell.dt-val-dc").forEach((td) => {
@@ -20798,13 +21132,13 @@ ${cases}
           const allCells = [...row.querySelectorAll('.dt-cell[class*="dt-val"]')];
           const colIdx = allCells.indexOf(td);
           if (ruleIdx < 0 || colIdx < 0) return;
-          const cid = (_a3 = state40.conditions[colIdx]) == null ? void 0 : _a3.id;
+          const cid = (_a3 = state41.conditions[colIdx]) == null ? void 0 : _a3.id;
           if (!cid) return;
-          const cur = state40.rules[ruleIdx].conditions[cid];
+          const cur = state41.rules[ruleIdx].conditions[cid];
           const cycle = { "T": "F", "F": "\u2013", "\u2013": "T" };
-          state40.rules[ruleIdx].conditions[cid] = (_b2 = cycle[cur]) != null ? _b2 : "T";
+          state41.rules[ruleIdx].conditions[cid] = (_b2 = cycle[cur]) != null ? _b2 : "T";
           refreshResults();
-          persist8(state40);
+          persist8(state41);
         });
       });
       root41.querySelectorAll('.dt-cell.dt-act-fire, .dt-cell:not([class*="dt-val"]):not(.dt-separator):not(.dt-rule-label)').forEach((td) => {
@@ -20818,38 +21152,38 @@ ${cases}
         const allTds = [...row.querySelectorAll("td")];
         const tdIdx = allTds.indexOf(td);
         const actColIdx = tdIdx - condCells - 2;
-        if (actColIdx < 0 || actColIdx >= state40.actions.length) return;
-        const aid = (_a3 = state40.actions[actColIdx]) == null ? void 0 : _a3.id;
+        if (actColIdx < 0 || actColIdx >= state41.actions.length) return;
+        const aid = (_a3 = state41.actions[actColIdx]) == null ? void 0 : _a3.id;
         if (!aid) return;
-        const r = state40.rules[ruleIdx];
+        const r = state41.rules[ruleIdx];
         if (r.actions.includes(aid)) r.actions = r.actions.filter((a) => a !== aid);
         else r.actions.push(aid);
         refreshResults();
-        persist8(state40);
+        persist8(state41);
       });
       (_d = root41.querySelector('[data-testid="dt-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
         dtQuiz.active = true;
         dtQuiz.phase = "question";
         dtQuiz.ansCovered = "";
         dtQuiz.ansDup = "";
-        render40();
+        render41();
       });
       (_e = root41.querySelector('[data-testid="dt-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
         dtQuiz.active = false;
-        render40();
+        render41();
       });
       (_f = root41.querySelector('[data-testid="dt-quiz-check"]')) == null ? void 0 : _f.addEventListener("click", () => {
         var _a3, _b2, _c2, _d2;
         dtQuiz.ansCovered = (_b2 = (_a3 = root41.querySelector('[data-testid="dt-quiz-covered"]')) == null ? void 0 : _a3.value) != null ? _b2 : "";
         dtQuiz.ansDup = (_d2 = (_c2 = root41.querySelector('[data-testid="dt-quiz-dup"]')) == null ? void 0 : _c2.value) != null ? _d2 : "";
         dtQuiz.phase = "graded";
-        render40();
+        render41();
       });
       (_g = root41.querySelector('[data-testid="dt-quiz-reset"]')) == null ? void 0 : _g.addEventListener("click", () => {
         dtQuiz.phase = "question";
         dtQuiz.ansCovered = "";
         dtQuiz.ansDup = "";
-        render40();
+        render41();
       });
     }
     function refreshResults() {
@@ -20857,17 +21191,17 @@ ${cases}
       const pane = root41.querySelector('[data-testid="dt-results"]');
       if (pane) {
         pane.innerHTML = `<h3>${t("dt.results.title")}
-        <span class="dt-count">${state40.rules.length} ${t("dt.results.count")}</span>
+        <span class="dt-count">${state41.rules.length} ${t("dt.results.count")}</span>
       </h3>${renderTable()}`;
         pane.querySelectorAll("[data-del-rule]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            state40.rules.splice(Number(btn.dataset.delRule), 1);
-            render40();
+            state41.rules.splice(Number(btn.dataset.delRule), 1);
+            render41();
           });
         });
         (_a2 = pane.querySelector('[data-testid="dt-add-rule"]')) == null ? void 0 : _a2.addEventListener("click", () => {
           addDefaultRule();
-          render40();
+          render41();
         });
         pane.querySelectorAll(".dt-cell.dt-val-true, .dt-cell.dt-val-false, .dt-cell.dt-val-dc").forEach((td) => {
           td.addEventListener("click", () => {
@@ -20877,18 +21211,18 @@ ${cases}
             const ruleIdx = [...pane.querySelectorAll("tbody tr")].indexOf(row);
             const colIdx = [...row.querySelectorAll('.dt-cell[class*="dt-val"]')].indexOf(td);
             if (ruleIdx < 0 || colIdx < 0) return;
-            const cid = (_a3 = state40.conditions[colIdx]) == null ? void 0 : _a3.id;
+            const cid = (_a3 = state41.conditions[colIdx]) == null ? void 0 : _a3.id;
             if (!cid) return;
-            const cur = state40.rules[ruleIdx].conditions[cid];
+            const cur = state41.rules[ruleIdx].conditions[cid];
             const cycle = { "T": "F", "F": "\u2013", "\u2013": "T" };
-            state40.rules[ruleIdx].conditions[cid] = (_b = cycle[cur]) != null ? _b : "T";
+            state41.rules[ruleIdx].conditions[cid] = (_b = cycle[cur]) != null ? _b : "T";
             refreshResults();
-            persist8(state40);
+            persist8(state41);
           });
         });
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -20978,7 +21312,7 @@ ${cases}
     root41.dataset.testid = "st-explorer";
     const saved = loadSaved9();
     const defaultEx = EXAMPLES4[0];
-    const state40 = {
+    const state41 = {
       exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
       states: (saved == null ? void 0 : saved.states) ? deepClone2(saved.states) : deepClone2(defaultEx.states),
       transitions: (saved == null ? void 0 : saved.transitions) ? deepClone2(saved.transitions) : deepClone2(defaultEx.transitions),
@@ -20992,7 +21326,7 @@ ${cases}
       if (!stQuiz.active) return "";
       const tests = getTests();
       const count = tests.length;
-      const modeLabel = state40.mode === "sequence" ? t("st.mode.sequence") : t("st.mode.transition");
+      const modeLabel2 = state41.mode === "sequence" ? t("st.mode.sequence") : t("st.mode.transition");
       const isGraded = stQuiz.phase === "graded";
       const correct = isGraded && parseInt(stQuiz.answer, 10) === count;
       return `
@@ -21001,7 +21335,7 @@ ${cases}
           <h4>${t("quiz.st.title")}</h4>
           <button type="button" class="quiz-close-btn" data-testid="st-quiz-close">${t("quiz.close")}</button>
         </div>
-        <p class="quiz-prompt">${t("quiz.st.prompt").replace("{mode}", esc3(modeLabel))}</p>
+        <p class="quiz-prompt">${t("quiz.st.prompt").replace("{mode}", esc3(modeLabel2))}</p>
         <div class="quiz-bva-inputs">
           <label class="quiz-bva-field">
             <span>${t("quiz.st.label")}</span>
@@ -21014,7 +21348,7 @@ ${cases}
           <p class="quiz-score" data-testid="st-quiz-score">
             ${correct ? `<strong>${t("quiz.bva.perfect")}</strong>` : `${t("quiz.ec.wrong")} ${t("quiz.ec.answer").replace("{count}", count)}`}
           </p>
-          <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "st", explorerLabel: t("quiz.st.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: correct ? 1 : 0, total: 1, items: [{ q: t("quiz.st.prompt").replace("{mode}", modeLabel), a: String(stQuiz.answer), expected: String(count), ok: correct }] })}" data-testid="st-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
+          <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "st", explorerLabel: t("quiz.st.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: correct ? 1 : 0, total: 1, items: [{ q: t("quiz.st.prompt").replace("{mode}", modeLabel2), a: String(stQuiz.answer), expected: String(count), ok: correct }] })}" data-testid="st-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
           <button type="button" class="quiz-start-btn" data-testid="st-quiz-reset">${t("quiz.reset")}</button>
         ` : `
           <button type="button" class="quiz-start-btn" data-testid="st-quiz-check">${t("quiz.check")}</button>
@@ -21023,15 +21357,15 @@ ${cases}
     `;
     }
     function getTests() {
-      if (!state40.states.length || !state40.transitions.length) return [];
-      return state40.mode === "sequence" ? generateStSequenceTests(state40.states, state40.transitions) : generateStTransitionTests(state40.states, state40.transitions);
+      if (!state41.states.length || !state41.transitions.length) return [];
+      return state41.mode === "sequence" ? generateStSequenceTests(state41.states, state41.transitions) : generateStTransitionTests(state41.states, state41.transitions);
     }
     function renderDiagram() {
       const W = 520, H = 220, R = 28;
-      const n = state40.states.length;
+      const n = state41.states.length;
       if (!n) return "";
       const cx = W / 2, cy = H / 2, radius = Math.min(W, H) / 2 - R - 16;
-      const positions = state40.states.map((s, i) => {
+      const positions = state41.states.map((s, i) => {
         const angle = 2 * Math.PI * i / n - Math.PI / 2;
         return { id: s.id, x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) };
       });
@@ -21040,7 +21374,7 @@ ${cases}
       let defs = `<defs><marker id="${arrowId}" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
       <path d="M0,0 L0,6 L8,3 z" fill="#6366f1"/>
     </marker></defs>`;
-      const edges = state40.transitions.map((tr, i) => {
+      const edges = state41.transitions.map((tr, i) => {
         const from = pos[tr.from];
         const to = pos[tr.to];
         if (!from || !to) return "";
@@ -21062,7 +21396,7 @@ ${cases}
         fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#${arrowId})"/>
         <text x="${mx2}" y="${my2 - 4}" text-anchor="middle" font-size="10" fill="#374151">${esc3(tr.event)}</text>`;
       }).join("");
-      const nodes = state40.states.map((s) => {
+      const nodes = state41.states.map((s) => {
         const p = pos[s.id];
         if (!p) return "";
         const stroke = s.initial ? "#0f4c81" : "#9ca3af";
@@ -21076,21 +21410,21 @@ ${cases}
     </svg>`;
     }
     function renderStateList() {
-      return state40.states.map((s, i) => `
+      return state41.states.map((s, i) => `
       <div class="st-state-row" data-testid="st-state-${i}">
         ${s.initial ? `<span class="st-initial-dot" title="${t("st.initial")}">\u25CF</span>` : `<span class="st-initial-dot st-initial-dot--empty" title="${t("st.set.initial")}" data-set-initial="${i}">\u25CB</span>`}
         <input class="st-state-name" data-sidx="${i}" value="${esc3(s.name)}"
           placeholder="${t("st.state.name")}" data-testid="st-state-name-${i}"/>
         <button class="st-del-btn" data-del-state="${i}" aria-label="${t("common.remove")}"
-          ${state40.states.length <= 1 ? "disabled" : ""} data-testid="st-del-state-${i}">\xD7</button>
+          ${state41.states.length <= 1 ? "disabled" : ""} data-testid="st-del-state-${i}">\xD7</button>
       </div>
     `).join("");
     }
     function renderTransitionList() {
-      return state40.transitions.map((tr, i) => {
+      return state41.transitions.map((tr, i) => {
         var _a2;
-        const fromNames = state40.states.map((s) => `<option value="${esc3(s.id)}"${tr.from === s.id ? " selected" : ""}>${esc3(s.name)}</option>`).join("");
-        const toNames = state40.states.map((s) => `<option value="${esc3(s.id)}"${tr.to === s.id ? " selected" : ""}>${esc3(s.name)}</option>`).join("");
+        const fromNames = state41.states.map((s) => `<option value="${esc3(s.id)}"${tr.from === s.id ? " selected" : ""}>${esc3(s.name)}</option>`).join("");
+        const toNames = state41.states.map((s) => `<option value="${esc3(s.id)}"${tr.to === s.id ? " selected" : ""}>${esc3(s.name)}</option>`).join("");
         return `<tr class="st-tr-row" data-testid="st-transition-${i}">
         <td><select class="st-from-sel" data-tidx="${i}" data-testid="st-from-${i}">${fromNames}</select></td>
         <td>\u2192</td>
@@ -21100,13 +21434,13 @@ ${cases}
         <td><input class="st-action-inp" data-tidx="${i}" value="${esc3((_a2 = tr.action) != null ? _a2 : "")}"
           placeholder="${t("st.transition.action")}" data-testid="st-action-${i}"/></td>
         <td><button class="st-del-btn" data-del-tr="${i}" aria-label="${t("common.remove")}"
-          ${state40.transitions.length <= 1 ? "disabled" : ""} data-testid="st-del-tr-${i}">\xD7</button></td>
+          ${state41.transitions.length <= 1 ? "disabled" : ""} data-testid="st-del-tr-${i}">\xD7</button></td>
       </tr>`;
       }).join("");
     }
     function renderTestTable(tests) {
       if (!tests.length) return `<p class="st-empty" data-testid="st-empty">${t("st.empty")}</p>`;
-      if (state40.mode === "sequence") {
+      if (state41.mode === "sequence") {
         const rows2 = tests.map((tc) => `
         <tr class="st-test-row" data-testid="st-test-${tc.id}">
           <td class="st-test-label">${esc3(tc.label)}</td>
@@ -21143,10 +21477,10 @@ ${cases}
       <tbody>${rows}</tbody>
     </table>`;
     }
-    function render40() {
+    function render41() {
       const tests = getTests();
       const exBtns = EXAMPLES4.map((ex) => `
-      <button type="button" class="st-example-btn${state40.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="st-example-btn${state41.exampleId === ex.id ? " active" : ""}"
         data-st-example="${ex.id}" data-testid="st-example-${ex.id}">${esc3(ex.name)}</button>
     `).join("");
       root41.innerHTML = `
@@ -21154,9 +21488,9 @@ ${cases}
         <div class="st-toolbar">
           <div class="st-examples" data-testid="st-examples">${exBtns}</div>
           <div class="st-mode-toggle" role="group">
-            <button type="button" class="st-mode-btn${state40.mode === "transition" ? " active" : ""}"
+            <button type="button" class="st-mode-btn${state41.mode === "transition" ? " active" : ""}"
               data-mode="transition" data-testid="st-mode-transition">${t("st.mode.transition")}</button>
-            <button type="button" class="st-mode-btn${state40.mode === "sequence" ? " active" : ""}"
+            <button type="button" class="st-mode-btn${state41.mode === "sequence" ? " active" : ""}"
               data-mode="sequence" data-testid="st-mode-sequence">${t("st.mode.sequence")}</button>
             <button type="button" class="quiz-start-btn" data-testid="st-quiz-start">${t("quiz.start")}</button>
           </div>
@@ -21172,7 +21506,7 @@ ${cases}
               <h4>${t("st.states.title")}</h4>
               <div class="st-state-list">${renderStateList()}</div>
               <button class="st-add-state-btn" data-testid="st-add-state"
-                ${state40.states.length >= 8 ? "disabled" : ""}>
+                ${state41.states.length >= 8 ? "disabled" : ""}>
                 + ${t("st.state.add")}
               </button>
             </div>
@@ -21181,7 +21515,7 @@ ${cases}
               <h4>${t("st.transitions.title")}</h4>
               <table class="st-tr-table"><tbody>${renderTransitionList()}</tbody></table>
               <button class="st-add-tr-btn" data-testid="st-add-transition"
-                ${state40.transitions.length >= 16 ? "disabled" : ""}>
+                ${state41.transitions.length >= 16 ? "disabled" : ""}>
                 + ${t("st.transition.add")}
               </button>
             </div>
@@ -21198,7 +21532,7 @@ ${cases}
       </div>
     `;
       bindEvents40();
-      persist9(state40);
+      persist9(state41);
     }
     function bindEvents40() {
       var _a2, _b2, _c, _d, _e, _f;
@@ -21206,106 +21540,106 @@ ${cases}
         btn.addEventListener("click", () => {
           const ex = EXAMPLES4.find((e) => e.id === btn.dataset.stExample);
           if (!ex) return;
-          state40.exampleId = ex.id;
-          state40.states = deepClone2(ex.states);
-          state40.transitions = deepClone2(ex.transitions);
-          render40();
+          state41.exampleId = ex.id;
+          state41.states = deepClone2(ex.states);
+          state41.transitions = deepClone2(ex.transitions);
+          render41();
         });
       });
       root41.querySelectorAll("[data-mode]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.mode = btn.dataset.mode;
-          render40();
+          state41.mode = btn.dataset.mode;
+          render41();
         });
       });
       root41.querySelectorAll(".st-state-name").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state40.states[Number(e.target.dataset.sidx)].name = e.target.value;
+          state41.states[Number(e.target.dataset.sidx)].name = e.target.value;
           refreshResults();
-          persist9(state40);
+          persist9(state41);
         });
       });
       root41.querySelectorAll("[data-set-initial]").forEach((dot) => {
         dot.addEventListener("click", () => {
           const idx = Number(dot.dataset.setInitial);
-          state40.states.forEach((s, i) => {
+          state41.states.forEach((s, i) => {
             s.initial = i === idx;
           });
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-del-state]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.delState);
-          const sid = state40.states[idx].id;
-          state40.states.splice(idx, 1);
-          state40.transitions = state40.transitions.filter((tr) => tr.from !== sid && tr.to !== sid);
-          if (state40.states.length && !state40.states.some((s) => s.initial)) state40.states[0].initial = true;
-          render40();
+          const sid = state41.states[idx].id;
+          state41.states.splice(idx, 1);
+          state41.transitions = state41.transitions.filter((tr) => tr.from !== sid && tr.to !== sid);
+          if (state41.states.length && !state41.states.some((s) => s.initial)) state41.states[0].initial = true;
+          render41();
         });
       });
       (_a2 = root41.querySelector('[data-testid="st-add-state"]')) == null ? void 0 : _a2.addEventListener("click", () => {
-        if (state40.states.length >= 8) return;
-        state40.states.push({ id: `s${nextSId++}`, name: `State ${state40.states.length + 1}` });
-        render40();
+        if (state41.states.length >= 8) return;
+        state41.states.push({ id: `s${nextSId++}`, name: `State ${state41.states.length + 1}` });
+        render41();
       });
       root41.querySelectorAll(".st-from-sel, .st-to-sel").forEach((sel) => {
         sel.addEventListener("change", (e) => {
           const idx = Number(e.target.dataset.tidx);
           const field = e.target.classList.contains("st-from-sel") ? "from" : "to";
-          state40.transitions[idx][field] = e.target.value;
+          state41.transitions[idx][field] = e.target.value;
           refreshResults();
-          persist9(state40);
+          persist9(state41);
         });
       });
       root41.querySelectorAll(".st-event-inp").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state40.transitions[Number(e.target.dataset.tidx)].event = e.target.value;
+          state41.transitions[Number(e.target.dataset.tidx)].event = e.target.value;
           refreshResults();
-          persist9(state40);
+          persist9(state41);
         });
       });
       root41.querySelectorAll(".st-action-inp").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state40.transitions[Number(e.target.dataset.tidx)].action = e.target.value;
+          state41.transitions[Number(e.target.dataset.tidx)].action = e.target.value;
           refreshResults();
-          persist9(state40);
+          persist9(state41);
         });
       });
       root41.querySelectorAll("[data-del-tr]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.transitions.splice(Number(btn.dataset.delTr), 1);
-          render40();
+          state41.transitions.splice(Number(btn.dataset.delTr), 1);
+          render41();
         });
       });
       (_b2 = root41.querySelector('[data-testid="st-add-transition"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         var _a3, _b3, _c2, _d2;
-        if (state40.transitions.length >= 16) return;
-        const from = (_b3 = (_a3 = state40.states[0]) == null ? void 0 : _a3.id) != null ? _b3 : "";
-        const to = (_d2 = (_c2 = state40.states[1]) == null ? void 0 : _c2.id) != null ? _d2 : from;
-        state40.transitions.push({ id: `t${nextTId++}`, from, to, event: "event", action: "" });
-        render40();
+        if (state41.transitions.length >= 16) return;
+        const from = (_b3 = (_a3 = state41.states[0]) == null ? void 0 : _a3.id) != null ? _b3 : "";
+        const to = (_d2 = (_c2 = state41.states[1]) == null ? void 0 : _c2.id) != null ? _d2 : from;
+        state41.transitions.push({ id: `t${nextTId++}`, from, to, event: "event", action: "" });
+        render41();
       });
       (_c = root41.querySelector('[data-testid="st-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
         stQuiz.active = true;
         stQuiz.phase = "question";
         stQuiz.answer = "";
-        render40();
+        render41();
       });
       (_d = root41.querySelector('[data-testid="st-quiz-close"]')) == null ? void 0 : _d.addEventListener("click", () => {
         stQuiz.active = false;
-        render40();
+        render41();
       });
       (_e = root41.querySelector('[data-testid="st-quiz-check"]')) == null ? void 0 : _e.addEventListener("click", () => {
         var _a3, _b3;
         stQuiz.answer = (_b3 = (_a3 = root41.querySelector('[data-testid="st-quiz-answer"]')) == null ? void 0 : _a3.value) != null ? _b3 : "";
         stQuiz.phase = "graded";
-        render40();
+        render41();
       });
       (_f = root41.querySelector('[data-testid="st-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
         stQuiz.phase = "question";
         stQuiz.answer = "";
-        render40();
+        render41();
       });
     }
     function refreshResults() {
@@ -21317,7 +21651,7 @@ ${cases}
       </h3>${renderTestTable(tests)}`;
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -21794,7 +22128,7 @@ function linearSearch(arr, target) {
   function createMetamorphicTestingExplorer() {
     const root41 = document.createElement("div");
     root41.dataset.testid = "mt-explorer";
-    let state40 = {
+    let state41 = {
       exampleId: metamorphicExamples[0].id,
       relationId: metamorphicExamples[0].relations[0].id,
       results: null
@@ -21845,14 +22179,14 @@ function linearSearch(arr, target) {
     }
     function getExample() {
       var _a;
-      return (_a = metamorphicExamples.find((e) => e.id === state40.exampleId)) != null ? _a : metamorphicExamples[0];
+      return (_a = metamorphicExamples.find((e) => e.id === state41.exampleId)) != null ? _a : metamorphicExamples[0];
     }
     function getRelation() {
       var _a;
       const ex = getExample();
-      return (_a = ex.relations.find((r) => r.id === state40.relationId)) != null ? _a : ex.relations[0];
+      return (_a = ex.relations.find((r) => r.id === state41.relationId)) != null ? _a : ex.relations[0];
     }
-    function render40() {
+    function render41() {
       const ex = getExample();
       const rel = getRelation();
       const isZh = getLocale() === "zh";
@@ -21863,7 +22197,7 @@ function linearSearch(arr, target) {
           <div class="mt-example-btns" data-testid="mt-examples">
             ${metamorphicExamples.map((e) => `
               <button type="button"
-                class="mt-example-btn${e.id === state40.exampleId ? " active" : ""}"
+                class="mt-example-btn${e.id === state41.exampleId ? " active" : ""}"
                 data-testid="mt-example-${e.id}"
                 data-example="${e.id}"
               >${e.name}</button>
@@ -21874,7 +22208,7 @@ function linearSearch(arr, target) {
           <div class="mt-relation-list" data-testid="mt-relations">
             ${ex.relations.map((r) => `
               <button type="button"
-                class="mt-rel-btn${r.id === state40.relationId ? " active" : ""}"
+                class="mt-rel-btn${r.id === state41.relationId ? " active" : ""}"
                 data-testid="mt-rel-${r.id}"
                 data-rel="${r.id}"
               >
@@ -21911,7 +22245,7 @@ function linearSearch(arr, target) {
           ${renderMtQuizPanel()}
 
           <div class="mt-results" data-testid="mt-results">
-            ${state40.results ? renderResults(state40.results) : `<p class="mt-hint">${t("mt.hint")}</p>`}
+            ${state41.results ? renderResults(state41.results) : `<p class="mt-hint">${t("mt.hint")}</p>`}
           </div>
         </div>
       </div>
@@ -21961,20 +22295,20 @@ function linearSearch(arr, target) {
       var _a;
       root41.querySelectorAll("[data-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.exampleId = btn.dataset.example;
+          state41.exampleId = btn.dataset.example;
           const ex = getExample();
-          state40.relationId = ex.relations[0].id;
-          state40.results = null;
+          state41.relationId = ex.relations[0].id;
+          state41.results = null;
           mtQuiz.active = false;
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-rel]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.relationId = btn.dataset.rel;
-          state40.results = null;
+          state41.relationId = btn.dataset.rel;
+          state41.results = null;
           mtQuiz.active = false;
-          render40();
+          render41();
         });
       });
       const generateBtn = root41.querySelector('[data-testid="mt-generate"]');
@@ -21982,9 +22316,9 @@ function linearSearch(arr, target) {
         generateBtn.addEventListener("click", () => {
           const ex = getExample();
           const rel = getRelation();
-          state40.results = generateMrTests(ex, rel, 8);
+          state41.results = generateMrTests(ex, rel, 8);
           const resultsEl = root41.querySelector('[data-testid="mt-results"]');
-          if (resultsEl) resultsEl.innerHTML = renderResults(state40.results);
+          if (resultsEl) resultsEl.innerHTML = renderResults(state41.results);
         });
       }
       (_a = root41.querySelector('[data-testid="mt-bridge-groupth"]')) == null ? void 0 : _a.addEventListener("click", () => {
@@ -21999,14 +22333,14 @@ function linearSearch(arr, target) {
           mtQuiz.active = true;
           mtQuiz.phase = "question";
           mtQuiz.answer = "";
-          render40();
+          render41();
         });
       }
       const mqClose = root41.querySelector('[data-testid="mt-quiz-close"]');
       if (mqClose) {
         mqClose.addEventListener("click", () => {
           mtQuiz.active = false;
-          render40();
+          render41();
         });
       }
       const mqCheck = root41.querySelector('[data-testid="mt-quiz-check"]');
@@ -22015,7 +22349,7 @@ function linearSearch(arr, target) {
           const inp = root41.querySelector('[data-testid="mt-quiz-input"]');
           mtQuiz.answer = inp ? inp.value : "";
           mtQuiz.phase = "graded";
-          render40();
+          render41();
         });
       }
       const mqReset = root41.querySelector('[data-testid="mt-quiz-reset"]');
@@ -22026,11 +22360,11 @@ function linearSearch(arr, target) {
           mtQuiz.autoResults = generateMrTests(ex, rel, 8);
           mtQuiz.phase = "question";
           mtQuiz.answer = "";
-          render40();
+          render41();
         });
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -22079,7 +22413,7 @@ function linearSearch(arr, target) {
     const root41 = document.createElement("div");
     root41.dataset.testid = "et-explorer";
     const saved = loadSaved10();
-    let state40 = saved != null ? saved : {
+    let state41 = saved != null ? saved : {
       charter: "",
       timebox: 60,
       sfdipot: [],
@@ -22088,20 +22422,20 @@ function linearSearch(arr, target) {
       timerRemaining: 60 * 60,
       timerEnd: null
     };
-    state40.timerRunning = false;
-    state40.timerEnd = null;
-    if (!state40.timerRemaining || state40.timerRemaining <= 0) {
-      state40.timerRemaining = (state40.timebox || 60) * 60;
+    state41.timerRunning = false;
+    state41.timerEnd = null;
+    if (!state41.timerRemaining || state41.timerRemaining <= 0) {
+      state41.timerRemaining = (state41.timebox || 60) * 60;
     }
     let timerInterval = null;
     function save() {
       persist10({
-        charter: state40.charter,
-        timebox: state40.timebox,
-        sfdipot: state40.sfdipot,
-        notes: state40.notes,
+        charter: state41.charter,
+        timebox: state41.timebox,
+        sfdipot: state41.sfdipot,
+        notes: state41.notes,
         timerRunning: false,
-        timerRemaining: state40.timerRemaining,
+        timerRemaining: state41.timerRemaining,
         timerEnd: null
       });
     }
@@ -22111,28 +22445,28 @@ function linearSearch(arr, target) {
       return `${m}:${s}`;
     }
     function tickTimer() {
-      if (!state40.timerRunning) return;
+      if (!state41.timerRunning) return;
       const now = Date.now();
-      state40.timerRemaining = Math.max(0, Math.round((state40.timerEnd - now) / 1e3));
+      state41.timerRemaining = Math.max(0, Math.round((state41.timerEnd - now) / 1e3));
       const display = root41.querySelector('[data-testid="et-timer-display"]');
-      if (display) display.textContent = formatTime(state40.timerRemaining);
+      if (display) display.textContent = formatTime(state41.timerRemaining);
       const bar = root41.querySelector('[data-testid="et-timer-bar"]');
       if (bar) {
-        const total = (state40.timebox || 60) * 60;
-        bar.style.width = `${state40.timerRemaining / total * 100}%`;
-        bar.className = `et-timer-bar${state40.timerRemaining < 60 ? " et-timer-bar--warn" : ""}`;
+        const total = (state41.timebox || 60) * 60;
+        bar.style.width = `${state41.timerRemaining / total * 100}%`;
+        bar.className = `et-timer-bar${state41.timerRemaining < 60 ? " et-timer-bar--warn" : ""}`;
       }
-      if (state40.timerRemaining <= 0) {
+      if (state41.timerRemaining <= 0) {
         stopTimer();
         const display2 = root41.querySelector('[data-testid="et-timer-display"]');
         if (display2) display2.textContent = t("et.timer.done");
       }
     }
     function startTimer() {
-      if (state40.timerRunning) return;
-      if (state40.timerRemaining <= 0) state40.timerRemaining = (state40.timebox || 60) * 60;
-      state40.timerRunning = true;
-      state40.timerEnd = Date.now() + state40.timerRemaining * 1e3;
+      if (state41.timerRunning) return;
+      if (state41.timerRemaining <= 0) state41.timerRemaining = (state41.timebox || 60) * 60;
+      state41.timerRunning = true;
+      state41.timerEnd = Date.now() + state41.timerRemaining * 1e3;
       const startBtn = root41.querySelector('[data-testid="et-timer-start"]');
       const stopBtn = root41.querySelector('[data-testid="et-timer-stop"]');
       if (startBtn) startBtn.disabled = true;
@@ -22140,8 +22474,8 @@ function linearSearch(arr, target) {
       timerInterval = setInterval(tickTimer, 500);
     }
     function stopTimer() {
-      state40.timerRunning = false;
-      state40.timerEnd = null;
+      state41.timerRunning = false;
+      state41.timerEnd = null;
       if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
@@ -22153,9 +22487,9 @@ function linearSearch(arr, target) {
     }
     function resetTimer() {
       stopTimer();
-      state40.timerRemaining = (state40.timebox || 60) * 60;
+      state41.timerRemaining = (state41.timebox || 60) * 60;
       const display = root41.querySelector('[data-testid="et-timer-display"]');
-      if (display) display.textContent = formatTime(state40.timerRemaining);
+      if (display) display.textContent = formatTime(state41.timerRemaining);
       const bar = root41.querySelector('[data-testid="et-timer-bar"]');
       if (bar) {
         bar.style.width = "100%";
@@ -22163,11 +22497,11 @@ function linearSearch(arr, target) {
       }
       save();
     }
-    function render40() {
+    function render41() {
       const isZh = getLocale() === "zh";
-      const total = (state40.timebox || 60) * 60;
-      const barPct = state40.timerRemaining / total * 100;
-      const notesByType = (type) => state40.notes.filter((n) => n.type === type);
+      const total = (state41.timebox || 60) * 60;
+      const barPct = state41.timerRemaining / total * 100;
+      const notesByType = (type) => state41.notes.filter((n) => n.type === type);
       root41.innerHTML = `
       <div class="et-layout">
 
@@ -22181,7 +22515,7 @@ function linearSearch(arr, target) {
               data-testid="et-charter"
               rows="4"
               placeholder="${t("et.charter.placeholder")}"
-            >${escapeHtml13(state40.charter)}</textarea>
+            >${escapeHtml13(state41.charter)}</textarea>
           </section>
 
           <section class="et-card" data-testid="et-sfdipot-section">
@@ -22189,10 +22523,10 @@ function linearSearch(arr, target) {
             <p class="et-card-hint">${t("et.sfdipot.hint")}</p>
             <div class="et-sfdipot-list">
               ${SFDIPOT_ITEMS.map((item) => `
-                <label class="et-sfdipot-item${state40.sfdipot.includes(item.id) ? " checked" : ""}"
+                <label class="et-sfdipot-item${state41.sfdipot.includes(item.id) ? " checked" : ""}"
                   data-testid="et-sfdipot-${item.id}">
                   <input type="checkbox" value="${item.id}"
-                    ${state40.sfdipot.includes(item.id) ? "checked" : ""}
+                    ${state41.sfdipot.includes(item.id) ? "checked" : ""}
                     data-sfdipot="${item.id}">
                   <span class="et-sfdipot-letter">${item.id.replace("2", "")}</span>
                   <span class="et-sfdipot-desc">
@@ -22223,16 +22557,16 @@ function linearSearch(arr, target) {
             <h3 class="et-card-title">${t("et.timer.title")}</h3>
             <div class="et-timebox-row">
               <label for="et-timebox">${t("et.timer.timebox")}</label>
-              <input id="et-timebox" type="number" min="1" max="240" value="${state40.timebox}"
+              <input id="et-timebox" type="number" min="1" max="240" value="${state41.timebox}"
                 class="et-timebox-input" data-testid="et-timebox-input">
               <span>${t("et.timer.minutes")}</span>
             </div>
             <div class="et-timer-track">
-              <div class="et-timer-bar${state40.timerRemaining < 60 ? " et-timer-bar--warn" : ""}"
+              <div class="et-timer-bar${state41.timerRemaining < 60 ? " et-timer-bar--warn" : ""}"
                 data-testid="et-timer-bar"
                 style="width:${barPct}%"></div>
             </div>
-            <div class="et-timer-display" data-testid="et-timer-display">${formatTime(state40.timerRemaining)}</div>
+            <div class="et-timer-display" data-testid="et-timer-display">${formatTime(state41.timerRemaining)}</div>
             <div class="et-timer-btns">
               <button type="button" class="et-timer-btn et-timer-btn--start"
                 data-testid="et-timer-start">${t("et.timer.start")}</button>
@@ -22265,7 +22599,7 @@ function linearSearch(arr, target) {
             </div>
 
             <div class="et-notes-list" data-testid="et-notes-list">
-              ${state40.notes.length === 0 ? `<p class="et-notes-empty">${t("et.notes.empty")}</p>` : state40.notes.map((note, i) => `
+              ${state41.notes.length === 0 ? `<p class="et-notes-empty">${t("et.notes.empty")}</p>` : state41.notes.map((note, i) => `
                   <div class="et-note-item et-note-item--${note.type}" data-testid="et-note-${i}">
                     <span class="et-note-badge et-note-badge--${note.type}">${t(`et.note.${note.type}`)}</span>
                     <span class="et-note-body">${escapeHtml13(note.text)}</span>
@@ -22276,7 +22610,7 @@ function linearSearch(arr, target) {
                 `).join("")}
             </div>
 
-            ${state40.notes.length > 0 ? `
+            ${state41.notes.length > 0 ? `
               <div class="et-notes-actions">
                 <button type="button" class="et-clear-btn" data-testid="et-clear-notes">
                   ${t("et.notes.clear")}
@@ -22301,16 +22635,16 @@ function linearSearch(arr, target) {
       if (!text) return;
       const now = /* @__PURE__ */ new Date();
       const time = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
-      state40.notes.unshift({ type: typeEl.value, text, time });
+      state41.notes.unshift({ type: typeEl.value, text, time });
       save();
-      render40();
+      render41();
       const newText = root41.querySelector('[data-testid="et-note-text"]');
       if (newText) newText.focus();
     }
     function exportNotes() {
-      const lines = [`# Exploratory Test Session`, `Charter: ${state40.charter}`, ""];
+      const lines = [`# Exploratory Test Session`, `Charter: ${state41.charter}`, ""];
       for (const ty of NOTE_TYPES) {
-        const items = state40.notes.filter((n) => n.type === ty);
+        const items = state41.notes.filter((n) => n.type === ty);
         if (items.length) {
           lines.push(`## ${ty.toUpperCase()}`);
           items.forEach((n) => lines.push(`- [${n.time}] ${n.text}`));
@@ -22327,16 +22661,16 @@ function linearSearch(arr, target) {
       const charterEl = root41.querySelector('[data-testid="et-charter"]');
       if (charterEl) {
         charterEl.addEventListener("input", () => {
-          state40.charter = charterEl.value;
+          state41.charter = charterEl.value;
           save();
         });
       }
       root41.querySelectorAll("[data-sfdipot]").forEach((cb) => {
         cb.addEventListener("change", () => {
           if (cb.checked) {
-            if (!state40.sfdipot.includes(cb.value)) state40.sfdipot.push(cb.value);
+            if (!state41.sfdipot.includes(cb.value)) state41.sfdipot.push(cb.value);
           } else {
-            state40.sfdipot = state40.sfdipot.filter((v) => v !== cb.value);
+            state41.sfdipot = state41.sfdipot.filter((v) => v !== cb.value);
           }
           const label = cb.closest("label");
           if (label) label.classList.toggle("checked", cb.checked);
@@ -22348,7 +22682,7 @@ function linearSearch(arr, target) {
         timeboxInput.addEventListener("change", () => {
           const v = parseInt(timeboxInput.value, 10);
           if (v > 0) {
-            state40.timebox = v;
+            state41.timebox = v;
             resetTimer();
           }
         });
@@ -22373,25 +22707,25 @@ function linearSearch(arr, target) {
       root41.querySelectorAll("[data-delete]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = parseInt(btn.dataset.delete, 10);
-          state40.notes.splice(idx, 1);
+          state41.notes.splice(idx, 1);
           save();
-          render40();
+          render41();
         });
       });
       const clearBtn = root41.querySelector('[data-testid="et-clear-notes"]');
       if (clearBtn) {
         clearBtn.addEventListener("click", () => {
           if (window.confirm(t("et.notes.confirm.clear"))) {
-            state40.notes = [];
+            state41.notes = [];
             save();
-            render40();
+            render41();
           }
         });
       }
       const exportBtn = root41.querySelector('[data-testid="et-export-notes"]');
       if (exportBtn) exportBtn.addEventListener("click", exportNotes);
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -22485,9 +22819,9 @@ function linearSearch(arr, target) {
           run() {
             const callLog = [];
             const stubEmail = {
-              send(to, subject, body) {
+              send(to, subject, body3) {
                 const result = { ok: true, messageId: "stub-msg-001" };
-                callLog.push({ method: "send", args: [to, subject, body], result });
+                callLog.push({ method: "send", args: [to, subject, body3], result });
                 return result;
               }
             };
@@ -22555,16 +22889,16 @@ function linearSearch(arr, target) {
                 this._data = {};
                 this._ttl = {};
               }
-              set(key, value, ttlMs = 6e4) {
-                this._data[key] = value;
-                this._ttl[key] = Date.now() + ttlMs;
-                callLog.push({ method: "set", args: [key, value], result: void 0 });
+              set(key2, value, ttlMs = 6e4) {
+                this._data[key2] = value;
+                this._ttl[key2] = Date.now() + ttlMs;
+                callLog.push({ method: "set", args: [key2, value], result: void 0 });
               }
-              get(key) {
+              get(key2) {
                 var _a, _b;
-                const expired = Date.now() > ((_a = this._ttl[key]) != null ? _a : 0);
-                const result = expired ? null : (_b = this._data[key]) != null ? _b : null;
-                callLog.push({ method: "get", args: [key], result });
+                const expired = Date.now() > ((_a = this._ttl[key2]) != null ? _a : 0);
+                const result = expired ? null : (_b = this._data[key2]) != null ? _b : null;
+                callLog.push({ method: "get", args: [key2], result });
                 return result;
               }
             }
@@ -22970,7 +23304,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
   function createTestDoublesExplorer() {
     const root41 = document.createElement("div");
     root41.dataset.testid = "td-explorer";
-    let state40 = {
+    let state41 = {
       typeId: "dummy",
       scenarioId: "order",
       result: null
@@ -23026,16 +23360,16 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     }
     function getType() {
       var _a;
-      return (_a = DOUBLE_TYPES.find((d) => d.id === state40.typeId)) != null ? _a : DOUBLE_TYPES[0];
+      return (_a = DOUBLE_TYPES.find((d) => d.id === state41.typeId)) != null ? _a : DOUBLE_TYPES[0];
     }
     function getScenario() {
       var _a;
       const ty = getType();
-      return (_a = ty.scenarios.find((s) => s.id === state40.scenarioId)) != null ? _a : ty.scenarios[0];
+      return (_a = ty.scenarios.find((s) => s.id === state41.scenarioId)) != null ? _a : ty.scenarios[0];
     }
     function getCode() {
       var _a;
-      return (_a = SCENARIO_CODE[`${state40.typeId}/${state40.scenarioId}`]) != null ? _a : {};
+      return (_a = SCENARIO_CODE[`${state41.typeId}/${state41.scenarioId}`]) != null ? _a : {};
     }
     function formatArg(v) {
       if (v === null || v === void 0) return String(v);
@@ -23091,7 +23425,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       </div>
     `;
     }
-    function render40() {
+    function render41() {
       var _a, _b, _c;
       const isZh = getLocale() === "zh";
       const ty = getType();
@@ -23105,7 +23439,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           <div class="td-type-list" data-testid="td-types">
             ${DOUBLE_TYPES.map((d) => `
               <button type="button"
-                class="td-type-btn${d.id === state40.typeId ? " active" : ""}"
+                class="td-type-btn${d.id === state41.typeId ? " active" : ""}"
                 data-testid="td-type-${d.id}"
                 data-type="${d.id}"
                 style="--td-color:${d.color}"
@@ -23117,14 +23451,14 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           </div>
 
           <div class="td-type-info" data-testid="td-type-info">
-            <p class="td-type-def">${t(`td.def.${state40.typeId}`)}</p>
-            <p class="td-type-when"><strong>${t("td.whenToUse")}</strong> ${t(`td.when.${state40.typeId}`)}</p>
+            <p class="td-type-def">${t(`td.def.${state41.typeId}`)}</p>
+            <p class="td-type-when"><strong>${t("td.whenToUse")}</strong> ${t(`td.when.${state41.typeId}`)}</p>
           </div>
 
           <div class="td-comparison">
             <h4 class="td-comparison-title">${t("td.comparison.title")}</h4>
             ${DOUBLE_TYPES.map((d) => `
-              <div class="td-comparison-row${d.id === state40.typeId ? " active" : ""}">
+              <div class="td-comparison-row${d.id === state41.typeId ? " active" : ""}">
                 <span class="td-comparison-dot" style="background:${d.color}"></span>
                 <span class="td-comparison-name">${t(`td.type.${d.id}`)}</span>
                 <span class="td-comparison-trait">${t(`td.trait.${d.id}`)}</span>
@@ -23140,10 +23474,10 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
             <span class="td-scenario-label">${t("td.scenarios.label")}</span>
             ${ty.scenarios.map((s) => `
               <button type="button"
-                class="td-scenario-btn${s.id === state40.scenarioId ? " active" : ""}"
+                class="td-scenario-btn${s.id === state41.scenarioId ? " active" : ""}"
                 data-testid="td-scenario-${s.id}"
                 data-scenario="${s.id}"
-              >${t(`td.scenario.${state40.typeId}.${s.id}`)}</button>
+              >${t(`td.scenario.${state41.typeId}.${s.id}`)}</button>
             `).join("")}
           </div>
 
@@ -23154,7 +23488,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
               <pre class="td-pre"><code>${escapeHtml14((_a = code.sutCode) != null ? _a : "")}</code></pre>
             </div>
             <div class="td-code-panel">
-              <div class="td-code-header td-code-header--double">${t(`td.type.${state40.typeId}`)}</div>
+              <div class="td-code-header td-code-header--double">${t(`td.type.${state41.typeId}`)}</div>
               <pre class="td-pre"><code>${escapeHtml14((_b = code.doubleCode) != null ? _b : "")}</code></pre>
             </div>
             <div class="td-code-panel">
@@ -23175,7 +23509,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
 
           <!-- Results -->
           <div class="td-result-panel" data-testid="td-result">
-            ${state40.result ? renderResult3(state40.result) : `<p class="td-hint">${t("td.hint")}</p>`}
+            ${state41.result ? renderResult3(state41.result) : `<p class="td-hint">${t("td.hint")}</p>`}
           </div>
         </div>
       </div>
@@ -23185,33 +23519,33 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     function bindEvents40() {
       root41.querySelectorAll("[data-type]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.typeId = btn.dataset.type;
+          state41.typeId = btn.dataset.type;
           const ty = getType();
-          state40.scenarioId = ty.scenarios[0].id;
-          state40.result = null;
-          render40();
+          state41.scenarioId = ty.scenarios[0].id;
+          state41.result = null;
+          render41();
         });
       });
       root41.querySelectorAll("[data-scenario]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state40.scenarioId = btn.dataset.scenario;
-          state40.result = null;
-          render40();
+          state41.scenarioId = btn.dataset.scenario;
+          state41.result = null;
+          render41();
         });
       });
       const runBtn = root41.querySelector('[data-testid="td-run"]');
       if (runBtn) {
         runBtn.addEventListener("click", () => {
           try {
-            state40.result = getScenario().run();
+            state41.result = getScenario().run();
           } catch (e) {
-            state40.result = {
+            state41.result = {
               callLog: [],
               assertions: [{ desc: `Error: ${e.message}`, passed: false }]
             };
           }
           const panel = root41.querySelector('[data-testid="td-result"]');
-          if (panel) panel.innerHTML = renderResult3(state40.result);
+          if (panel) panel.innerHTML = renderResult3(state41.result);
         });
       }
       const tqStart = root41.querySelector('[data-testid="td-quiz-start"]');
@@ -23222,14 +23556,14 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           tdQuiz.phase = "question";
           tdQuiz.selected = "";
           tdQuiz.result = null;
-          render40();
+          render41();
         });
       }
       const tqClose = root41.querySelector('[data-testid="td-quiz-close"]');
       if (tqClose) {
         tqClose.addEventListener("click", () => {
           tdQuiz.active = false;
-          render40();
+          render41();
         });
       }
       root41.querySelectorAll("[data-quiz-choice]").forEach((btn) => {
@@ -23247,7 +23581,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       if (tqCheck) {
         tqCheck.addEventListener("click", () => {
           tdQuiz.phase = "graded";
-          render40();
+          render41();
         });
       }
       const tqReset = root41.querySelector('[data-testid="td-quiz-reset"]');
@@ -23257,11 +23591,11 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           tdQuiz.phase = "question";
           tdQuiz.selected = "";
           tdQuiz.result = null;
-          render40();
+          render41();
         });
       }
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -23326,7 +23660,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     root41.className = "dce-root";
     root41.dataset.testid = "defect-cost-explorer";
     let selectedId = null;
-    function render40() {
+    function render41() {
       const isZh = getLocale() === "zh";
       const selected = PHASES.find((p) => p.id === selectedId) || null;
       const bars = PHASES.map((phase, i) => {
@@ -23382,7 +23716,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       root41.querySelectorAll("[data-dce-phase]").forEach((el) => {
         const select = () => {
           selectedId = selectedId === el.dataset.dcePhase ? null : el.dataset.dcePhase;
-          render40();
+          render41();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (e) => {
@@ -23393,7 +23727,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         });
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -23441,7 +23775,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     root41.className = "vme-root";
     root41.dataset.testid = "vmodel-explorer";
     let selectedId = null;
-    function render40() {
+    function render41() {
       const isZh = getLocale() === "zh";
       const selected = V_PAIRS.find((p) => p.id === selectedId) || (selectedId === "implementation" ? IMPL : null);
       const rows = V_PAIRS.map((pair, i) => {
@@ -23535,11 +23869,11 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       root41.querySelectorAll("[data-vme-id]").forEach((btn) => {
         btn.addEventListener("click", () => {
           selectedId = selectedId === btn.dataset.vmeId ? null : btn.dataset.vmeId;
-          render40();
+          render41();
         });
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -23611,7 +23945,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       const sum = unit + integration + e2e;
       if (sum !== 100) unit += 100 - sum;
     }
-    function render40() {
+    function render41() {
       const isZh = getLocale() === "zh";
       const traits = computeTraits(unit, integration, e2e);
       const pyramidLayers = LAYERS.map((layer) => {
@@ -23688,7 +24022,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       root41.querySelectorAll("[data-pya-layer]").forEach((input) => {
         input.addEventListener("input", () => {
           adjustRatios(input.dataset.pyaLayer, Number(input.value));
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-pya-preset]").forEach((btn) => {
@@ -23698,11 +24032,11 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           unit = p.unit;
           integration = p.integration;
           e2e = p.e2e;
-          render40();
+          render41();
         });
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -23808,7 +24142,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         <button type="button" class="quiz-start-btn" data-testid="pairwise-quiz-check">${t("quiz.check")}</button>
       </div>`;
     }
-    function render40() {
+    function render41() {
       const { tests, exhaustive, pairCount, pairCoverage } = computeResults();
       const vp = validParams();
       const reductionPct = exhaustive > 0 && tests.length < exhaustive ? Math.round((1 - tests.length / exhaustive) * 100) : 0;
@@ -23910,17 +24244,17 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         btn.addEventListener("click", () => {
           params = freshParams(PRESETS2[parseInt(btn.dataset.preset)]);
           newValueDraft = {};
-          render40();
+          render41();
         });
       });
       root41.querySelector('[data-testid="pairwise-add-param"]').addEventListener("click", () => {
         params.push({ id: uid2(), name: "", values: ["A", "B"] });
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-remove-param]").forEach((btn) => {
         btn.addEventListener("click", () => {
           params = params.filter((p) => p.id !== btn.dataset.removeParam);
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-param-name]").forEach((input) => {
@@ -23928,7 +24262,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           const p = params.find((x) => x.id === input.dataset.paramName);
           if (p) {
             p.name = input.value;
-            render40();
+            render41();
           }
         });
       });
@@ -23937,7 +24271,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           const p = params.find((x) => x.id === btn.dataset.removeVal);
           if (p) {
             p.values.splice(parseInt(btn.dataset.valIdx), 1);
-            render40();
+            render41();
           }
         });
       });
@@ -23963,25 +24297,25 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         pairwiseQuiz.active = true;
         pairwiseQuiz.phase = "question";
         pairwiseQuiz.answer = "";
-        render40();
+        render41();
       });
       const qClose = root41.querySelector('[data-testid="pairwise-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         pairwiseQuiz.active = false;
-        render40();
+        render41();
       });
       const qCheck = root41.querySelector('[data-testid="pairwise-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
         const inp = root41.querySelector('[data-testid="pairwise-quiz-input"]');
         pairwiseQuiz.answer = inp ? inp.value : "";
         pairwiseQuiz.phase = "graded";
-        render40();
+        render41();
       });
       const qReset = root41.querySelector('[data-testid="pairwise-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         pairwiseQuiz.phase = "question";
         pairwiseQuiz.answer = "";
-        render40();
+        render41();
       });
     }
     function addValue(paramId, raw) {
@@ -23992,9 +24326,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         p.values.push(val);
       }
       delete newValueDraft[paramId];
-      render40();
+      render41();
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -24159,7 +24493,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         </div>
       </div>`;
     }
-    function render40() {
+    function render41() {
       const { validCauses, validEffects, rows } = buildTable();
       const activeCount = rows.filter((r) => r.active).length;
       const causeRows = causes.map((c, i) => `
@@ -24275,12 +24609,12 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       root41.querySelector('[data-testid="ceg-cause-add"]').addEventListener("click", () => {
         const n = causes.length + 1;
         causes.push({ id: uid3(), name: `C${n}`, label: "" });
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-remove-cause]").forEach((btn) => {
         btn.addEventListener("click", () => {
           causes = causes.filter((c) => c.id !== btn.dataset.removeCause);
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-cause-label]").forEach((input) => {
@@ -24288,19 +24622,19 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           const c = causes.find((x) => x.id === input.dataset.causeLabel);
           if (c) {
             c.label = input.value;
-            render40();
+            render41();
           }
         });
       });
       root41.querySelector('[data-testid="ceg-effect-add"]').addEventListener("click", () => {
         const n = effects.length + 1;
         effects.push({ id: uid3(), name: `E${n}`, label: "", formula: "" });
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-remove-effect]").forEach((btn) => {
         btn.addEventListener("click", () => {
           effects = effects.filter((e) => e.id !== btn.dataset.removeEffect);
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-effect-label]").forEach((input) => {
@@ -24308,7 +24642,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           const e = effects.find((x) => x.id === input.dataset.effectLabel);
           if (e) {
             e.label = input.value;
-            render40();
+            render41();
           }
         });
       });
@@ -24317,7 +24651,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           const e = effects.find((x) => x.id === input.dataset.effectFormula);
           if (e) {
             e.formula = input.value;
-            render40();
+            render41();
           }
         });
       });
@@ -24326,30 +24660,30 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         cegQuiz.active = true;
         cegQuiz.phase = "question";
         cegQuiz.answer = "";
-        render40();
+        render41();
       });
       const qClose = root41.querySelector('[data-testid="ceg-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         cegQuiz.active = false;
-        render40();
+        render41();
       });
       const qCheck = root41.querySelector('[data-testid="ceg-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
         const inp = root41.querySelector('[data-testid="ceg-quiz-input"]');
         cegQuiz.answer = inp ? inp.value : "";
         cegQuiz.phase = "graded";
-        render40();
+        render41();
       });
       const qReset = root41.querySelector('[data-testid="ceg-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         cegQuiz.phase = "question";
         cegQuiz.answer = "";
-        render40();
+        render41();
       });
       const lrStart = root41.querySelector('[data-testid="ceg-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         cegLabReflect.active = true;
-        render40();
+        render41();
       });
       const lrClose = root41.querySelector('[data-testid="ceg-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
@@ -24358,7 +24692,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         if (a1el) cegLabReflect.a1 = a1el.value;
         if (a2el) cegLabReflect.a2 = a2el.value;
         cegLabReflect.active = false;
-        render40();
+        render41();
       });
       const lrA1 = root41.querySelector('[data-testid="ceg-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
@@ -24395,7 +24729,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         }, 1800);
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -24785,13 +25119,13 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       if (!codecovQuiz.active) return "";
       const opts = ["none", "stmt", "branch", "cond", "mcdc"];
       const optHtml = opts.map((o) => {
-        const key = `quiz.codecov.options.${o}`;
+        const key2 = `quiz.codecov.options.${o}`;
         if (codecovQuiz.phase === "graded") {
           const isCorrect = o === strongest;
           const isUser = o === codecovQuiz.answer;
-          return `<span class="quiz-option ${isCorrect ? "quiz-option--correct" : ""} ${isUser && !isCorrect ? "quiz-option--wrong" : ""}">${t(key)}</span>`;
+          return `<span class="quiz-option ${isCorrect ? "quiz-option--correct" : ""} ${isUser && !isCorrect ? "quiz-option--wrong" : ""}">${t(key2)}</span>`;
         }
-        return `<label class="quiz-option-label"><input type="radio" name="codecov-quiz" value="${o}" ${codecovQuiz.answer === o ? "checked" : ""}> ${t(key)}</label>`;
+        return `<label class="quiz-option-label"><input type="radio" name="codecov-quiz" value="${o}" ${codecovQuiz.answer === o ? "checked" : ""}> ${t(key2)}</label>`;
       }).join("");
       if (codecovQuiz.phase === "graded") {
         const ok = codecovQuiz.answer === strongest;
@@ -24854,7 +25188,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         </div>
       </div>`;
     }
-    function render40() {
+    function render41() {
       const p = preset();
       const { results, stmt, branch, cond, mcdc } = computeCoverage3();
       const strongest = strongestCriterion(stmt, branch, cond, mcdc);
@@ -24978,7 +25312,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           testCases = (DEFAULT_TESTS_BY_PRESET[activePresetId] || [["0"]]).map((args) => ({ id: uid4(), args: [...args], active: true }));
           codecovQuiz.active = false;
           codecovLabReflect.active = false;
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-tc][data-arg]").forEach((input) => {
@@ -24986,50 +25320,50 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           const tc = testCases.find((x) => x.id === input.dataset.tc);
           if (tc) {
             tc.args[parseInt(input.dataset.arg)] = input.value;
-            render40();
+            render41();
           }
         });
       });
       root41.querySelectorAll("[data-remove-tc]").forEach((btn) => {
         btn.addEventListener("click", () => {
           testCases = testCases.filter((tc) => tc.id !== btn.dataset.removeTc);
-          render40();
+          render41();
         });
       });
       root41.querySelector('[data-testid="codecov-add-test"]').addEventListener("click", () => {
         const p = preset();
         testCases.push({ id: uid4(), args: p.params.map(() => "0"), active: true });
-        render40();
+        render41();
       });
       const qStart = root41.querySelector('[data-testid="codecov-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         codecovQuiz.active = true;
         codecovQuiz.phase = "question";
         codecovQuiz.answer = "";
-        render40();
+        render41();
       });
       const qClose = root41.querySelector('[data-testid="codecov-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         codecovQuiz.active = false;
-        render40();
+        render41();
       });
       const qCheck = root41.querySelector('[data-testid="codecov-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
         const sel = root41.querySelector('[name="codecov-quiz"]:checked');
         codecovQuiz.answer = sel ? sel.value : "";
         codecovQuiz.phase = "graded";
-        render40();
+        render41();
       });
       const qReset = root41.querySelector('[data-testid="codecov-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         codecovQuiz.phase = "question";
         codecovQuiz.answer = "";
-        render40();
+        render41();
       });
       const lrStart = root41.querySelector('[data-testid="codecov-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         codecovLabReflect.active = true;
-        render40();
+        render41();
       });
       const lrClose = root41.querySelector('[data-testid="codecov-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
@@ -25038,7 +25372,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         if (a1el) codecovLabReflect.a1 = a1el.value;
         if (a2el) codecovLabReflect.a2 = a2el.value;
         codecovLabReflect.active = false;
-        render40();
+        render41();
       });
       const lrA1 = root41.querySelector('[data-testid="codecov-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
@@ -25075,7 +25409,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         }, 1800);
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -25347,7 +25681,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         </div>
       </div>`;
     }
-    function render40() {
+    function render41() {
       const strategy = STRATEGIES[activeStrategy];
       const step2 = strategy.steps[activeStep];
       const locale = getLocale();
@@ -25459,14 +25793,14 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         btn.addEventListener("click", () => {
           activeStrategy = btn.dataset.strategy;
           activeStep = 0;
-          render40();
+          render41();
         });
       });
       const prevBtn = root41.querySelector('[data-testid="inttest-prev"]');
       if (prevBtn) prevBtn.addEventListener("click", () => {
         if (activeStep > 0) {
           activeStep--;
-          render40();
+          render41();
         }
       });
       const nextBtn = root41.querySelector('[data-testid="inttest-next"]');
@@ -25474,7 +25808,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         const s = STRATEGIES[activeStrategy];
         if (activeStep < s.steps.length - 1) {
           activeStep++;
-          render40();
+          render41();
         }
       });
       const qStart = root41.querySelector('[data-testid="inttest-quiz-start"]');
@@ -25482,30 +25816,30 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         inttestQuiz.active = true;
         inttestQuiz.phase = "question";
         inttestQuiz.answer = "";
-        render40();
+        render41();
       });
       const qClose = root41.querySelector('[data-testid="inttest-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         inttestQuiz.active = false;
-        render40();
+        render41();
       });
       const qCheck = root41.querySelector('[data-testid="inttest-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
         const inp = root41.querySelector('[data-testid="inttest-quiz-input"]');
         inttestQuiz.answer = inp ? inp.value : "";
         inttestQuiz.phase = "graded";
-        render40();
+        render41();
       });
       const qReset = root41.querySelector('[data-testid="inttest-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         inttestQuiz.phase = "question";
         inttestQuiz.answer = "";
-        render40();
+        render41();
       });
       const lrStart = root41.querySelector('[data-testid="inttest-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         inttestLabReflect.active = true;
-        render40();
+        render41();
       });
       const lrClose = root41.querySelector('[data-testid="inttest-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
@@ -25514,7 +25848,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         if (a1el) inttestLabReflect.a1 = a1el.value;
         if (a2el) inttestLabReflect.a2 = a2el.value;
         inttestLabReflect.active = false;
-        render40();
+        render41();
       });
       const lrA1 = root41.querySelector('[data-testid="inttest-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
@@ -25551,7 +25885,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         }, 1800);
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -25927,7 +26261,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         </div>
       </div>`;
     }
-    function render40() {
+    function render41() {
       const p = preset();
       const presetBtns = PBT_PRESETS.map((pr) => {
         const isBug = pr.expectsCounterexample;
@@ -26046,20 +26380,20 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         btn.addEventListener("click", () => {
           activePresetId = btn.dataset.preset;
           lastResult = null;
-          render40();
+          render41();
         });
       });
       const numInput = root41.querySelector('[data-testid="pbt-numtests-input"]');
       if (numInput) numInput.addEventListener("change", () => {
         const v = parseInt(numInput.value, 10);
         if (v >= 10 && v <= 500) numTests = v;
-        render40();
+        render41();
       });
       const runBtn = root41.querySelector('[data-testid="pbt-run-btn"]');
       if (runBtn) runBtn.addEventListener("click", () => {
         const p = preset();
         lastResult = runPropertyTests(p, numTests);
-        render40();
+        render41();
       });
       const qStart = root41.querySelector('[data-testid="pbt-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
@@ -26067,12 +26401,12 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         pbtQuiz.phase = "question";
         pbtQuiz.gotAnswer = "";
         pbtQuiz.expectedAnswer = "";
-        render40();
+        render41();
       });
       const qClose = root41.querySelector('[data-testid="pbt-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         pbtQuiz.active = false;
-        render40();
+        render41();
       });
       const qCheck = root41.querySelector('[data-testid="pbt-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
@@ -26081,19 +26415,19 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         pbtQuiz.gotAnswer = gotEl ? gotEl.value : "";
         pbtQuiz.expectedAnswer = expEl ? expEl.value : "";
         pbtQuiz.phase = "graded";
-        render40();
+        render41();
       });
       const qReset = root41.querySelector('[data-testid="pbt-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         pbtQuiz.phase = "question";
         pbtQuiz.gotAnswer = "";
         pbtQuiz.expectedAnswer = "";
-        render40();
+        render41();
       });
       const lrStart = root41.querySelector('[data-testid="pbt-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         pbtLabReflect.active = true;
-        render40();
+        render41();
       });
       const lrClose = root41.querySelector('[data-testid="pbt-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
@@ -26102,7 +26436,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         if (a1el) pbtLabReflect.a1 = a1el.value;
         if (a2el) pbtLabReflect.a2 = a2el.value;
         pbtLabReflect.active = false;
-        render40();
+        render41();
       });
       const lrA1 = root41.querySelector('[data-testid="pbt-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
@@ -26139,7 +26473,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         }, 1800);
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -26282,7 +26616,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         </div>
       </div>`;
     }
-    function render40() {
+    function render41() {
       const moduleRows = modules.map((m, i) => `
       <div class="rbt-module-row" data-module-id="${m.id}">
         <input type="text" class="rbt-module-name-input" value="${escapeHtml23(m.name)}"
@@ -26379,12 +26713,12 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     function bindEvents40() {
       root41.querySelector('[data-testid="rbt-add-module"]').addEventListener("click", () => {
         modules.push({ id: uid5(), name: `Module${modules.length + 1}`, likelihood: 3, impact: 3 });
-        render40();
+        render41();
       });
       root41.querySelectorAll("[data-remove-module]").forEach((btn) => {
         btn.addEventListener("click", () => {
           modules = modules.filter((m) => m.id !== btn.dataset.removeModule);
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-module-name]").forEach((input) => {
@@ -26392,7 +26726,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
           const m = modules.find((x) => x.id === input.dataset.moduleName);
           if (m) {
             m.name = input.value;
-            render40();
+            render41();
           }
         });
       });
@@ -26401,7 +26735,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
           const m = modules.find((x) => x.id === slider.dataset.moduleLikelihood);
           if (m) {
             m.likelihood = parseInt(slider.value);
-            render40();
+            render41();
           }
         });
       });
@@ -26410,44 +26744,44 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
           const m = modules.find((x) => x.id === slider.dataset.moduleImpact);
           if (m) {
             m.impact = parseInt(slider.value);
-            render40();
+            render41();
           }
         });
       });
       const filterSel = root41.querySelector('[data-testid="rbt-filter"]');
       if (filterSel) filterSel.addEventListener("change", () => {
         filter = filterSel.value;
-        render40();
+        render41();
       });
       const qStart = root41.querySelector('[data-testid="rbt-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         rbtQuiz.active = true;
         rbtQuiz.phase = "question";
         rbtQuiz.answer = "";
-        render40();
+        render41();
       });
       const qClose = root41.querySelector('[data-testid="rbt-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         rbtQuiz.active = false;
-        render40();
+        render41();
       });
       const qCheck = root41.querySelector('[data-testid="rbt-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
         const inp = root41.querySelector('[data-testid="rbt-quiz-input"]');
         rbtQuiz.answer = inp ? inp.value : "";
         rbtQuiz.phase = "graded";
-        render40();
+        render41();
       });
       const qReset = root41.querySelector('[data-testid="rbt-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         rbtQuiz.phase = "question";
         rbtQuiz.answer = "";
-        render40();
+        render41();
       });
       const lrStart = root41.querySelector('[data-testid="rbt-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         rbtLabReflect.active = true;
-        render40();
+        render41();
       });
       const lrClose = root41.querySelector('[data-testid="rbt-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
@@ -26456,7 +26790,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         if (a1el) rbtLabReflect.a1 = a1el.value;
         if (a2el) rbtLabReflect.a2 = a2el.value;
         rbtLabReflect.active = false;
-        render40();
+        render41();
       });
       const lrA1 = root41.querySelector('[data-testid="rbt-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
@@ -26493,7 +26827,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         }, 1800);
       });
     }
-    render40();
+    render41();
     return root41;
   }
 
@@ -26665,9 +26999,9 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     }
     const COV_CELL_COLORS = ["#dbeafe", "#dcfce7", "#fef9c3", "#fce7f3", "#ede9fe"];
     const COV_CELL_FG = ["#1e40af", "#166534", "#92400e", "#9d174d", "#5b21b6"];
-    function countCoverage(ca, k, t2, p) {
+    function countCoverage(ca, k, t4, p) {
       const covered = /* @__PURE__ */ new Set();
-      if (t2 === 1) {
+      if (t4 === 1) {
         for (let col = 0; col < k; col++)
           for (const row of ca) covered.add(`${col}:${row[col]}`);
         return { covered: covered.size, total: k * p };
@@ -26839,7 +27173,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         <button type="button" class="quiz-share-btn" data-share-payload="${reflectEncoded}" data-testid="gth-lab-reflect-share">\u{1F4CB} ${t("lab.reflect.record")}</button>
       </div>`;
     }
-    function render40() {
+    function render41() {
       const result = computeOrbits();
       const { vars, valid } = parseDNF(formula);
       let orbitContent = "";
@@ -26922,19 +27256,19 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       if (inp) {
         inp.addEventListener("change", () => {
           formula = inp.value;
-          render40();
+          render41();
         });
       }
       root41.querySelectorAll(".gth-example-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           formula = btn.dataset.formula;
-          render40();
+          render41();
         });
       });
       root41.querySelectorAll("[data-tab]").forEach((btn) => {
         btn.addEventListener("click", () => {
           activeTab = btn.dataset.tab;
-          render40();
+          render41();
         });
       });
       const copyBtn = root41.querySelector('[data-testid="gth-copy"]');
@@ -26967,7 +27301,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       });
       (_b = root41.querySelector('[data-testid="gth-cov-p"]')) == null ? void 0 : _b.addEventListener("change", (e) => {
         covP = Number(e.target.value);
-        render40();
+        render41();
       });
       const covKSlider = root41.querySelector('[data-testid="gth-cov-k"]');
       if (covKSlider) {
@@ -26976,42 +27310,42 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
           const val = root41.querySelector('[data-testid="gth-cov-k-val"]');
           if (val) val.textContent = covK;
         });
-        covKSlider.addEventListener("change", () => render40());
+        covKSlider.addEventListener("change", () => render41());
       }
       (_c = root41.querySelector('[data-testid="gth-cov-t"]')) == null ? void 0 : _c.addEventListener("change", (e) => {
         covT = Number(e.target.value);
-        render40();
+        render41();
       });
       (_d = root41.querySelector('[data-testid="gth-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", (e) => {
         gthQuiz.tab = e.currentTarget.dataset.quizTab || activeTab;
         gthQuiz.active = true;
         gthQuiz.phase = "question";
         gthQuiz.answer = "";
-        render40();
+        render41();
       });
       (_e = root41.querySelector('[data-testid="gth-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
         gthQuiz.active = false;
-        render40();
+        render41();
       });
       (_f = root41.querySelector('[data-testid="gth-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
         gthQuiz.phase = "question";
         gthQuiz.answer = "";
-        render40();
+        render41();
       });
       (_g = root41.querySelector('[data-testid="gth-quiz-input"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
         gthQuiz.answer = e.target.value;
       });
       (_h = root41.querySelector('[data-testid="gth-quiz-submit"]')) == null ? void 0 : _h.addEventListener("click", () => {
         gthQuiz.phase = "graded";
-        render40();
+        render41();
       });
       (_i = root41.querySelector('[data-testid="gth-lab-reflect-start"]')) == null ? void 0 : _i.addEventListener("click", () => {
         gthLabReflect.active = true;
-        render40();
+        render41();
       });
       (_j = root41.querySelector('[data-testid="gth-lab-reflect-close"]')) == null ? void 0 : _j.addEventListener("click", () => {
         gthLabReflect.active = false;
-        render40();
+        render41();
       });
       (_k = root41.querySelector('[data-testid="gth-lab-reflect-text"]')) == null ? void 0 : _k.addEventListener("input", (e) => {
         gthLabReflect.text = e.target.value;
@@ -27027,7 +27361,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         });
       });
     }
-    render40();
+    render41();
     return root41;
   }
   function _evalFormula(formula, env) {
@@ -27070,17 +27404,17 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     const peek = () => tokens[pos];
     const consume = () => tokens[pos++];
     function primary() {
-      const t2 = peek();
-      if (!t2) throw new Error("EOF");
-      if (t2.type === "LP") {
+      const t4 = peek();
+      if (!t4) throw new Error("EOF");
+      if (t4.type === "LP") {
         consume();
         const n = expr();
         consume();
         return n;
       }
-      if (t2.type === "ATOM") {
+      if (t4.type === "ATOM") {
         consume();
-        return { type: "ATOM", v: t2.value };
+        return { type: "ATOM", v: t4.value };
       }
       throw new Error("bad token");
     }
@@ -29371,8 +29705,8 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
       }
       if (/^(Given|When|Then|And|But) /.test(line)) {
         const [, keyword] = line.match(/^(\S+) /);
-        const body = line.slice(keyword.length + 1);
-        const step2 = { keyword, body };
+        const body3 = line.slice(keyword.length + 1);
+        const step2 = { keyword, body: body3 };
         if (mode === "background") out.background.push(step2);
         else if (current2) current2.steps.push(step2);
         continue;
@@ -29394,9 +29728,9 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     pushCurrent();
     return out;
   }
-  function substitute2(body, header, row) {
+  function substitute2(body3, header, row) {
     var _a;
-    let out = body;
+    let out = body3;
     for (let i = 0; i < header.length; i++) {
       out = out.replaceAll(`<${header[i]}>`, (_a = row[i]) != null ? _a : "");
     }
@@ -29422,8 +29756,8 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     }
     return cases;
   }
-  function isStepBound(body) {
-    return STEP_DEFINITIONS.some(({ re }) => re.test(body));
+  function isStepBound(body3) {
+    return STEP_DEFINITIONS.some(({ re }) => re.test(body3));
   }
   var state7 = {
     presetIdx: 0,
@@ -30054,10 +30388,10 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     return journey.steps.reduce((p, s) => p * stepPassProbability(s), 1);
   }
   function simulateRuns(journey, runs, seed = 1) {
-    let state40 = seed;
+    let state41 = seed;
     function rand() {
-      state40 = state40 * 1103515245 + 12345 & 2147483647;
-      return state40 / 2147483647;
+      state41 = state41 * 1103515245 + 12345 & 2147483647;
+      return state41 / 2147483647;
     }
     const reached = journey.steps.map(() => 0);
     let fullPasses = 0;
@@ -30840,8 +31174,8 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     });
     root11.querySelectorAll("[data-ll-input]").forEach((input) => {
       input.addEventListener("input", () => {
-        const key = input.dataset.llInput;
-        state11.ll[key] = Number(input.value);
+        const key2 = input.dataset.llInput;
+        state11.ll[key2] = Number(input.value);
         render11();
       });
     });
@@ -31308,7 +31642,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
   function renderStageDetail() {
     const stage = STAGES[state13.stageIdx];
     const meta = STAGE_META[stage];
-    const body = STAGE_BODY[stage];
+    const body3 = STAGE_BODY[stage];
     return `
     <div class="atdd-detail" data-testid="atdd-detail">
       <header>
@@ -31320,7 +31654,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
         </div>
       </header>
       <ul class="atdd-detail__list">
-        ${body.map((b) => `<li>${t(b)}</li>`).join("")}
+        ${body3.map((b) => `<li>${t(b)}</li>`).join("")}
       </ul>
       ${stage === "develop" ? renderTddInner() : ""}
       ${renderBridges3(stage)}
@@ -32162,9 +32496,9 @@ VERDICT: pass  (conformance holds)`,
     const seen = /* @__PURE__ */ new Set();
     const out = [];
     for (const test of tests) {
-      const key = test.map((tr) => tr.id).join(",");
-      if (!seen.has(key)) {
-        seen.add(key);
+      const key2 = test.map((tr) => tr.id).join(",");
+      if (!seen.has(key2)) {
+        seen.add(key2);
         out.push(test);
       }
     }
@@ -32701,11 +33035,11 @@ VERDICT: pass  (conformance holds)`,
     }
     return out;
   }
-  function distinguishingSeq(fsm, s, t2) {
+  function distinguishingSeq(fsm, s, t4) {
     for (let len = 1; len <= fsm.states.length; len++) {
       for (const seq of seqsOfLength(fsm.alphabet, len)) {
         const os = runMealy(fsm, s, seq).outputs.join("");
-        const ot = runMealy(fsm, t2, seq).outputs.join("");
+        const ot = runMealy(fsm, t4, seq).outputs.join("");
         if (os !== ot) return seq;
       }
     }
@@ -32718,9 +33052,9 @@ VERDICT: pass  (conformance holds)`,
       for (let j = i + 1; j < fsm.states.length; j++) {
         const seq = distinguishingSeq(fsm, fsm.states[i].id, fsm.states[j].id);
         if (seq) {
-          const key = seq.join("");
-          if (!seen.has(key)) {
-            seen.add(key);
+          const key2 = seq.join("");
+          if (!seen.has(key2)) {
+            seen.add(key2);
             W.push(seq);
           }
         }
@@ -32732,9 +33066,9 @@ VERDICT: pass  (conformance holds)`,
     const seen = /* @__PURE__ */ new Set();
     const out = [];
     for (const seq of seqs) {
-      const key = seq.join("");
-      if (!seen.has(key)) {
-        seen.add(key);
+      const key2 = seq.join("");
+      if (!seen.has(key2)) {
+        seen.add(key2);
         out.push(seq);
       }
     }
@@ -32791,11 +33125,11 @@ VERDICT: pass  (conformance holds)`,
     </div>`;
   }
   var SET_TABS = ["P", "W", "tc", "suite"];
-  function setSequences(key) {
+  function setSequences(key2) {
     const { P, transitionCover, W, suite } = wMethodSuite(SPEC, state17.m);
-    if (key === "P") return P;
-    if (key === "W") return W;
-    if (key === "tc") return transitionCover;
+    if (key2 === "P") return P;
+    if (key2 === "W") return W;
+    if (key2 === "tc") return transitionCover;
     return suite;
   }
   function renderSets() {
@@ -32830,10 +33164,10 @@ VERDICT: pass  (conformance holds)`,
   function renderDistinguish() {
     const s = state17.distinguishS;
     const tt = state17.distinguishT;
-    const opts = (sel) => SPEC.states.map((st) => `<option value="${st.id}" ${sel === st.id ? "selected" : ""}>${st.name}</option>`).join("");
-    let body;
+    const opts = (sel) => SPEC.states.map((st2) => `<option value="${st2.id}" ${sel === st2.id ? "selected" : ""}>${st2.name}</option>`).join("");
+    let body3;
     if (s === tt) {
-      body = `<p class="wmethod-dist-same">${t("wmethod.dist.same")}</p>`;
+      body3 = `<p class="wmethod-dist-same">${t("wmethod.dist.same")}</p>`;
     } else {
       const seq = distinguishingSeq(SPEC, s, tt);
       const os = runMealy(SPEC, s, seq).outputs;
@@ -32847,7 +33181,7 @@ VERDICT: pass  (conformance holds)`,
             <small>${inp}</small><b>${outs[i]}</b>
           </span>`).join("")}
       </div>`;
-      body = `
+      body3 = `
       <p class="wmethod-dist-seq">${t("wmethod.dist.seq")}: <code>${fmt(seq)}</code></p>
       ${trace2(os, s)}
       ${trace2(ot, tt)}
@@ -32861,7 +33195,7 @@ VERDICT: pass  (conformance holds)`,
         <span>vs</span>
         <select data-dist="t" data-testid="wmethod-dist-t">${opts(tt)}</select>
       </div>
-      ${body}
+      ${body3}
     </div>`;
   }
   function renderMutant() {
@@ -33697,7 +34031,7 @@ VERDICT: pass  (conformance holds)`,
     let cur = fsm.initial;
     let out = "";
     for (const inp of inputs) {
-      const tr = fsm.transitions.find((t2) => t2.from === cur && t2.input === inp);
+      const tr = fsm.transitions.find((t4) => t4.from === cur && t4.input === inp);
       if (!tr) return out + "\u22A5";
       out += tr.output;
       cur = tr.to;
@@ -34748,13 +35082,13 @@ ${items.join("\n")}
     const lastDef = /* @__PURE__ */ new Map();
     const live = /* @__PURE__ */ new Set();
     for (const sid of trace2.steps) {
-      const st = stmtById.get(sid);
-      if (!st) continue;
-      for (const v of st.uses || []) {
+      const st2 = stmtById.get(sid);
+      if (!st2) continue;
+      for (const v of st2.uses || []) {
         const d = lastDef.get(v);
         if (d !== void 0) live.add(`${d}|${sid}|${v}`);
       }
-      for (const v of st.defs || []) lastDef.set(v, sid);
+      for (const v of st2.defs || []) lastDef.set(v, sid);
     }
     return live;
   }
@@ -34992,13 +35326,13 @@ ${items.join("\n")}
   function renderSliceList(sliceSet) {
     const ex = currentExample();
     const inSlice = ex.statements.filter((s) => sliceSet.has(s.id));
-    let body;
+    let body3;
     if (!hasCriterion()) {
-      body = `<p class="pse-slice-empty">${t("slicing.sliceEmpty")}</p>`;
+      body3 = `<p class="pse-slice-empty">${t("slicing.sliceEmpty")}</p>`;
     } else if (!inSlice.length) {
-      body = `<p class="pse-slice-empty">${t("slicing.sliceNone")}</p>`;
+      body3 = `<p class="pse-slice-empty">${t("slicing.sliceNone")}</p>`;
     } else {
-      body = `<ul class="pse-slice-items">
+      body3 = `<ul class="pse-slice-items">
       ${inSlice.map((s) => `
         <li class="pse-slice-item" data-testid="slicing-slice-item-${s.id}">
           <code class="pse-slice-id">${esc10(s.id)}</code>
@@ -35011,7 +35345,7 @@ ${items.join("\n")}
     return `<div class="pse-slice-list" data-testid="slicing-slice-list">
     ${varBlock}
     <h3 class="pse-col-title">${t("slicing.stmtsInSlice")} <span class="pse-slice-count">(${inSlice.length})</span></h3>
-    ${body}
+    ${body3}
   </div>`;
   }
   function renderDetail2(sliceSet) {
@@ -35434,11 +35768,11 @@ ${items.join("\n")}
   }
   function renderDicePanel(scenario, dice) {
     const inDice = scenario.statements.filter((s) => dice.dice.has(s.id));
-    let body;
+    let body3;
     if (!inDice.length) {
-      body = `<p class="sde-slice-empty">${t("dicing.emptyDice")}</p>`;
+      body3 = `<p class="sde-slice-empty">${t("dicing.emptyDice")}</p>`;
     } else {
-      body = `<ul class="sde-slice-items">
+      body3 = `<ul class="sde-slice-items">
       ${inDice.map((s) => `
         <li class="sde-slice-item">
           <code class="sde-slice-id">${esc11(s.id)}</code>
@@ -35448,7 +35782,7 @@ ${items.join("\n")}
     }
     return `<div class="sde-slice-list" data-testid="dicing-dice-panel">
     <h3 class="sde-col-title">${t("dicing.diceTitle")} <span class="sde-slice-count">(${inDice.length})</span></h3>
-    ${body}
+    ${body3}
   </div>`;
   }
   function renderDetail3(scenario, dice) {
@@ -35935,11 +36269,11 @@ ${items.join("\n")}
   </div>`;
   }
   function renderTestPanel(example5, affected, safe) {
-    let body;
+    let body3;
     if (!state26.changedStmtId) {
-      body = `<p class="sre-pick-prompt">${t("regression.pickPrompt")}</p>`;
+      body3 = `<p class="sre-pick-prompt">${t("regression.pickPrompt")}</p>`;
     } else {
-      body = `<ul class="sre-test-list">
+      body3 = `<ul class="sre-test-list">
       ${example5.traces.map((tr) => {
         const label = esc13(tr.inputLabel || tr.label || tr.id);
         let badge = "";
@@ -35957,7 +36291,7 @@ ${items.join("\n")}
     }
     return `<div class="sre-tests" data-testid="regression-tests">
     <h3 class="sre-col-title">${t("regression.testSuiteTitle")}</h3>
-    ${body}
+    ${body3}
   </div>`;
   }
   function renderMetric(example5, affected, safe) {
@@ -36532,49 +36866,49 @@ ${items.join("\n")}
   function initialTddState() {
     return { phase: "start", hasFailingTest: false, allGreen: true, cycleCount: 0 };
   }
-  function isLegal(state40, action) {
-    if (action === "write-failing-test") return !state40.hasFailingTest;
-    if (action === "write-production-code") return state40.hasFailingTest;
+  function isLegal(state41, action) {
+    if (action === "write-failing-test") return !state41.hasFailingTest;
+    if (action === "write-production-code") return state41.hasFailingTest;
     if (action === "refactor") {
-      return state40.allGreen && !state40.hasFailingTest && state40.cycleCount > 0;
+      return state41.allGreen && !state41.hasFailingTest && state41.cycleCount > 0;
     }
     return false;
   }
-  function legalActions(state40) {
-    return new Set(ACTIONS.filter((a) => isLegal(state40, a)));
+  function legalActions(state41) {
+    return new Set(ACTIONS.filter((a) => isLegal(state41, a)));
   }
-  function reasonKey(state40, action) {
+  function reasonKey(state41, action) {
     if (action === "write-failing-test") return "tdd.rules.reason.alreadyRed";
     if (action === "write-production-code") return "tdd.rules.reason.noRed";
-    if (state40.hasFailingTest) return "tdd.rules.reason.notGreen";
+    if (state41.hasFailingTest) return "tdd.rules.reason.notGreen";
     return "tdd.rules.reason.nothingYet";
   }
-  function applyAction(state40, action) {
+  function applyAction(state41, action) {
     if (!ACTIONS.includes(action)) {
-      return { state: state40, blocked: true, reasonKey: "tdd.rules.reason.unknown" };
+      return { state: state41, blocked: true, reasonKey: "tdd.rules.reason.unknown" };
     }
-    if (!isLegal(state40, action)) {
-      return { state: state40, blocked: true, reasonKey: reasonKey(state40, action) };
+    if (!isLegal(state41, action)) {
+      return { state: state41, blocked: true, reasonKey: reasonKey(state41, action) };
     }
     if (action === "write-failing-test") {
       return {
-        state: { ...state40, phase: "red", hasFailingTest: true, allGreen: false },
+        state: { ...state41, phase: "red", hasFailingTest: true, allGreen: false },
         blocked: false
       };
     }
     if (action === "write-production-code") {
       return {
         state: {
-          ...state40,
+          ...state41,
           phase: "green",
           hasFailingTest: false,
           allGreen: true,
-          cycleCount: state40.cycleCount + 1
+          cycleCount: state41.cycleCount + 1
         },
         blocked: false
       };
     }
-    return { state: { ...state40, phase: "refactor" }, blocked: false };
+    return { state: { ...state41, phase: "refactor" }, blocked: false };
   }
 
   // src/components/TddRulesExplorer.js
@@ -38104,9 +38438,9 @@ ${items.join("\n")}
     let s = seed >>> 0;
     return function next() {
       s = s + 1831565813 | 0;
-      let t2 = Math.imul(s ^ s >>> 15, 1 | s);
-      t2 = t2 + Math.imul(t2 ^ t2 >>> 7, 61 | t2) ^ t2;
-      return ((t2 ^ t2 >>> 14) >>> 0) / 4294967296;
+      let t4 = Math.imul(s ^ s >>> 15, 1 | s);
+      t4 = t4 + Math.imul(t4 ^ t4 >>> 7, 61 | t4) ^ t4;
+      return ((t4 ^ t4 >>> 14) >>> 0) / 4294967296;
     };
   }
   function rngInt(rng, lo, hi) {
@@ -38329,7 +38663,7 @@ ${items.join("\n")}
   }
   function minimiseSuite(example5, suite) {
     const goals = coverageGoals(example5);
-    const covers = (s) => goals.filter((g) => s.some((t2) => costForGoal(example5, t2, g) === 0)).length;
+    const covers = (s) => goals.filter((g) => s.some((t4) => costForGoal(example5, t4, g) === 0)).length;
     const full = covers(suite);
     const kept = suite.slice();
     for (let i = kept.length - 1; i >= 0; i--) {
@@ -38699,9 +39033,9 @@ ${items.join("\n")}
     const c = result.bestCost;
     return isFinite(c) ? esc20(c.toFixed(4)) : "\u221E";
   }
-  function renderStrategyPanel(key, testid, nameKey) {
-    const result = state34.results[key];
-    const stuckBadge = key === "hillClimb" && result && result.stuck ? `<span class="sbst-compare-stuck-badge">${esc20(t("sbst.compare.stuck"))}</span>` : "";
+  function renderStrategyPanel(key2, testid, nameKey) {
+    const result = state34.results[key2];
+    const stuckBadge = key2 === "hillClimb" && result && result.stuck ? `<span class="sbst-compare-stuck-badge">${esc20(t("sbst.compare.stuck"))}</span>` : "";
     return `<div class="sbst-compare-panel" data-testid="${esc20(testid)}">
     <h3 class="sbst-compare-panel-title">${esc20(t(nameKey))} ${stuckBadge}</h3>
     <p class="sbst-compare-panel-status">${formatCoverage(result)}</p>
@@ -39387,12 +39721,12 @@ ${items.join("\n")}
     </div>`;
   }
   function renderReadiness() {
-    const open = openQuestionCount();
-    const ready = open === 0;
+    const open3 = openQuestionCount();
+    const ready = open3 === 0;
     return `
     <div class="emap-readiness ${ready ? "emap-readiness--ready" : "emap-readiness--blocked"}"
          data-testid="emap-readiness">
-      ${ready ? "\u2705 " + t("emap.ready") : "\u{1F6A7} " + t("emap.notready", { n: open })}
+      ${ready ? "\u2705 " + t("emap.ready") : "\u{1F6A7} " + t("emap.notready", { n: open3 })}
     </div>`;
   }
   function renderGherkin() {
@@ -39621,16 +39955,16 @@ ${items.join("\n")}
     return `
     <div class="ctp-pipeline" data-testid="ctp-pipeline">
       ${TIERS.map((tier, i) => {
-      const st = tierStats(tier);
+      const st2 = tierStats(tier);
       let verdict = "ok";
-      if (tier === "commit") verdict = st.seconds <= COMMIT_BUDGET ? "fast" : "slow";
-      else if (tier === "pr") verdict = st.seconds <= COMMIT_BUDGET * 5 ? "ok" : "slow";
+      if (tier === "commit") verdict = st2.seconds <= COMMIT_BUDGET ? "fast" : "slow";
+      else if (tier === "pr") verdict = st2.seconds <= COMMIT_BUDGET * 5 ? "ok" : "slow";
       return `
           ${i > 0 ? '<div class="ctp-arrow" aria-hidden="true">\u2192</div>' : ""}
           <div class="ctp-tier ctp-tier--${verdict}" data-testid="ctp-tier-card-${tier}">
             <div class="ctp-tier-name">${t("ctp.tier." + tier)}</div>
-            <div class="ctp-tier-time" data-testid="ctp-time-${tier}">${fmtTime(st.seconds)}</div>
-            <div class="ctp-tier-tests">${t("ctp.tier.tests", { n: st.tests })}</div>
+            <div class="ctp-tier-time" data-testid="ctp-time-${tier}">${fmtTime(st2.seconds)}</div>
+            <div class="ctp-tier-tests">${t("ctp.tier.tests", { n: st2.tests })}</div>
             <div class="ctp-tier-verdict">${t("ctp.verdict." + verdict)}</div>
           </div>`;
     }).join("")}
@@ -39888,7 +40222,7 @@ ${items.join("\n")}
     const max = Math.max(...rows.map((r) => Math.max(r.cost, r.value))) * 1.1 || 1;
     const x = (i) => padL + i / (rows.length - 1) * (W - padL - padR);
     const y = (v) => padT + (1 - v / max) * (H - padT - padB);
-    const line = (key) => rows.map((r, i) => `${x(i).toFixed(1)},${y(r[key]).toFixed(1)}`).join(" ");
+    const line = (key2) => rows.map((r, i) => `${x(i).toFixed(1)},${y(r[key2]).toFixed(1)}`).join(" ");
     const cross = crossoverSprint(rows);
     return `
     <div class="rdebt-chart-wrap" data-testid="rdebt-chart">
@@ -41284,12 +41618,12 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   var DOLLAR = "\uE001";
   function renderInline(text) {
     const math = [];
-    let t2 = text.replace(/\$(?!\s)([^$\n]*?)(?<!\s)\$/g, (_, expr) => {
+    let t4 = text.replace(/\$(?!\s)([^$\n]*?)(?<!\s)\$/g, (_, expr) => {
       math.push(`<span class="slide-math">${texToHtml(expr)}</span>`);
       return `${MATH_OPEN}${math.length - 1}${MATH_OPEN}`;
     });
-    t2 = t2.replace(/\\\$/g, DOLLAR);
-    let h = escapeHtml26(t2);
+    t4 = t4.replace(/\\\$/g, DOLLAR);
+    let h = escapeHtml26(t4);
     h = h.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => `<img alt="${alt}" src="${src}">`);
     h = h.replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
@@ -41306,8 +41640,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return line.replace(/^\s*\|?/, "").replace(/\|?\s*$/, "").split("|").map((c) => c.trim());
   }
   function isSingleLineDisplayMath(line) {
-    const t2 = line.trim();
-    return t2.length > 4 && t2.startsWith("$$") && t2.endsWith("$$");
+    const t4 = line.trim();
+    return t4.length > 4 && t4.startsWith("$$") && t4.endsWith("$$");
   }
   function isBlockStart(line) {
     return /^(#{1,6}\s|>|\s*([-*+]|\d+\.)\s|```)/.test(line) || line.includes("|") || line.trim() === "$$" || isSingleLineDisplayMath(line) || line.trimStart().startsWith("<svg");
@@ -41420,15 +41754,15 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return out.join("");
   }
   function parseDeck(raw) {
-    let body = raw;
-    if (body.startsWith("---")) {
-      const close = body.indexOf("\n---", 3);
-      if (close !== -1) {
-        const nl = body.indexOf("\n", close + 1);
-        body = nl !== -1 ? body.slice(nl + 1) : "";
+    let body3 = raw;
+    if (body3.startsWith("---")) {
+      const close3 = body3.indexOf("\n---", 3);
+      if (close3 !== -1) {
+        const nl = body3.indexOf("\n", close3 + 1);
+        body3 = nl !== -1 ? body3.slice(nl + 1) : "";
       }
     }
-    const slides = body.split(/\n---\n/).map((chunk) => {
+    const slides = body3.split(/\n---\n/).map((chunk) => {
       const notes = [];
       const content = chunk.replace(/<!--([\s\S]*?)-->/g, (_, n) => {
         notes.push(n.trim());
@@ -42398,8 +42732,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     for (const dim of ["level", "technique", "series", "difficulty", "source"]) {
       const wanted = filter[dim];
       if (!Array.isArray(wanted) || wanted.length === 0) continue;
-      const has = tags[dim];
-      const hit = wanted.some((v) => has.has(v));
+      const has3 = tags[dim];
+      const hit = wanted.some((v) => has3.has(v));
       if (!hit) return false;
     }
     return true;
@@ -42414,7 +42748,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   ];
   var EMPTY_FILTER = () => ({ level: [], technique: [], series: [], difficulty: [] });
   function createTagFilterBar({ initial, onChange } = {}) {
-    const state40 = {
+    const state41 = {
       filter: normalizeFilter(initial),
       listener: typeof onChange === "function" ? onChange : () => {
       }
@@ -42422,9 +42756,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const root41 = document.createElement("div");
     root41.className = "tag-filter-bar";
     root41.dataset.testid = "tag-filter-bar";
-    function render40() {
+    function render41() {
       var _a;
-      const totalActive = Object.values(state40.filter).reduce((n, arr) => n + arr.length, 0);
+      const totalActive = Object.values(state41.filter).reduce((n, arr) => n + arr.length, 0);
       root41.innerHTML = `
       <div class="tag-filter-bar__header">
         <span class="tag-filter-bar__title">${t("filter.title")}</span>
@@ -42439,7 +42773,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           <span class="tag-filter-row__label">${t("filter.dim." + dim.id)}</span>
           <div class="tag-filter-row__chips">
             ${dim.values.map((v) => {
-        const active = state40.filter[dim.id].includes(v);
+        const active = state41.filter[dim.id].includes(v);
         return `
                 <button type="button"
                   class="tag-chip${active ? " tag-chip--active" : ""}"
@@ -42459,32 +42793,32 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     }
     function toggle(dim, value) {
       var _a;
-      const arr = (_a = state40.filter[dim]) != null ? _a : [];
+      const arr = (_a = state41.filter[dim]) != null ? _a : [];
       const i = arr.indexOf(value);
       if (i === -1) arr.push(value);
       else arr.splice(i, 1);
-      state40.filter[dim] = arr;
-      render40();
-      state40.listener(getFilter());
+      state41.filter[dim] = arr;
+      render41();
+      state41.listener(getFilter());
     }
     function clear() {
-      state40.filter = EMPTY_FILTER();
-      render40();
-      state40.listener(getFilter());
+      state41.filter = EMPTY_FILTER();
+      render41();
+      state41.listener(getFilter());
     }
     function getFilter() {
       return {
-        level: [...state40.filter.level],
-        technique: [...state40.filter.technique],
-        series: [...state40.filter.series],
-        difficulty: [...state40.filter.difficulty]
+        level: [...state41.filter.level],
+        technique: [...state41.filter.technique],
+        series: [...state41.filter.series],
+        difficulty: [...state41.filter.difficulty]
       };
     }
     function setFilter(next) {
-      state40.filter = normalizeFilter(next);
-      render40();
+      state41.filter = normalizeFilter(next);
+      render41();
     }
-    render40();
+    render41();
     return { element: root41, getFilter, setFilter, clear };
   }
   function normalizeFilter(input) {
@@ -42503,9 +42837,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     for (const dim of ["level", "technique", "series", "difficulty", "source"]) {
       const wanted = filter[dim];
       if (!Array.isArray(wanted) || wanted.length === 0) continue;
-      const has = tags[dim];
-      if (has === void 0) return false;
-      const arr = Array.isArray(has) ? has : [has];
+      const has3 = tags[dim];
+      if (has3 === void 0) return false;
+      const arr = Array.isArray(has3) ? has3 : [has3];
       if (!wanted.some((v) => arr.includes(v))) return false;
     }
     return true;
@@ -42585,176 +42919,6 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return (_b = (_a = getCoursePack(id)) == null ? void 0 : _a.filter) != null ? _b : null;
   }
 
-  // src/utils/urlRouter.js
-  var TAB_SECTIONS = {
-    syntax: { tabs: ["mutation", "grammar", "spec"], default: "mutation" },
-    blackbox: { tabs: ["bva", "ec", "isp", "dt", "st", "mt", "et", "td", "pairwise", "ceg"], default: "bva" },
-    advanced: { tabs: ["equivmutant", "mutationscore", "llmpipeline", "testquality", "faultdirected", "sailor"], default: "equivmutant" },
-    flow: { tabs: ["flow", "defectCost", "vmodel"], default: "flow" },
-    types: { tabs: ["pyramid", "adjuster"], default: "pyramid" },
-    // J-series acceptance tabs grow as J2-J8 land; J1 ships 'gherkin'.
-    acceptance: { tabs: ["gherkin", "usecase", "e2ejourney", "contract", "perfload", "chaos", "atdd", "flaky"], default: "gherkin" },
-    // L-series model-based tabs — L1-L6 complete.
-    mbt: { tabs: ["workflow", "fsmgen", "wmethod", "efsm", "usage", "modelmut"], default: "workflow" },
-    // M-series agile tabs — M1-M6 complete.
-    agile: { tabs: ["quadrants", "cadence", "gates", "examplemap", "pipeline", "regression"], default: "quadrants" },
-    // Section N — slice-based testing. N1 ships 'program'; N2-N4 tabs are
-    // added to this list as their plans land.
-    slicing: { tabs: ["program", "dicing", "coverage", "regression"], default: "program" },
-    // Section O — TDD. O1 ships 'cycle'; O2 ships 'rules'.
-    tdd: { tabs: ["cycle", "rules"], default: "cycle" },
-    // Section P — Exploit Generation. P1 ships 'overflow'; P2-P3 will add 'sqli', 'cmdi'.
-    exploit: { tabs: ["overflow", "sqli", "cmdi", "path"], default: "overflow" },
-    // Section — Search-Based Software Testing.
-    sbst: { tabs: ["branch", "compare", "suite"], default: "branch" }
-  };
-  var EXPLORER_TO_LOCATION = {
-    TestingMethodTree: { section: "methods" },
-    TestingFlow: { section: "flow", tab: "flow" },
-    DefectCostExplorer: { section: "flow", tab: "defectCost" },
-    VModelExplorer: { section: "flow", tab: "vmodel" },
-    TestingTypesTable: { section: "types", tab: "pyramid" },
-    PyramidAdjusterExplorer: { section: "types", tab: "adjuster" },
-    GraphCoverageExplorer: { section: "graph" },
-    LogicCoverageExplorer: { section: "logic" },
-    CodeCoverageExplorer: { section: "codecov" },
-    SyntaxCoverageExplorer: { section: "syntax", tab: "mutation" },
-    GrammarCoverageExplorer: { section: "syntax", tab: "grammar" },
-    SpecMutationExplorer: { section: "syntax", tab: "spec" },
-    SymbolicExecutionExplorer: { section: "symbex" },
-    ConcolicExecutionExplorer: { section: "concolic" },
-    FuzzTestingExplorer: { section: "fuzz" },
-    TestGenerationExplorer: { section: "testgen" },
-    IntegrationTestingExplorer: { section: "inttest" },
-    PropertyBasedTestingExplorer: { section: "pbt" },
-    RiskBasedTestingExplorer: { section: "rbt" },
-    BoundaryValueExplorer: { section: "blackbox", tab: "bva" },
-    EquivalenceClassExplorer: { section: "blackbox", tab: "ec" },
-    InputSpacePartitioningExplorer: { section: "blackbox", tab: "isp" },
-    DecisionTableExplorer: { section: "blackbox", tab: "dt" },
-    StateTransitionExplorer: { section: "blackbox", tab: "st" },
-    PairwiseExplorer: { section: "blackbox", tab: "pairwise" },
-    CauseEffectExplorer: { section: "blackbox", tab: "ceg" },
-    MetamorphicTestingExplorer: { section: "blackbox", tab: "mt" },
-    ExploratoryTestingExplorer: { section: "blackbox", tab: "et" },
-    TestDoublesExplorer: { section: "blackbox", tab: "td" },
-    GroupTheoryExplorer: { section: "groupth" },
-    EquivalentMutantExplorer: { section: "advanced", tab: "equivmutant" },
-    MutationScoreExplorer: { section: "advanced", tab: "mutationscore" },
-    LLMPipelineExplorer: { section: "advanced", tab: "llmpipeline" },
-    TestQualityExplorer: { section: "advanced", tab: "testquality" },
-    FaultDirectedTestingExplorer: { section: "advanced", tab: "faultdirected" },
-    SAILORPipelineExplorer: { section: "advanced", tab: "sailor" },
-    BDDGherkinExplorer: { section: "acceptance", tab: "gherkin" },
-    UseCaseDerivationExplorer: { section: "acceptance", tab: "usecase" },
-    E2EUserJourneyExplorer: { section: "acceptance", tab: "e2ejourney" },
-    ContractTestingExplorer: { section: "acceptance", tab: "contract" },
-    PerformanceLoadProfileExplorer: { section: "acceptance", tab: "perfload" },
-    ChaosEngineeringExplorer: { section: "acceptance", tab: "chaos" },
-    ATDDCycleExplorer: { section: "acceptance", tab: "atdd" },
-    FlakyDiagnosisExplorer: { section: "acceptance", tab: "flaky" },
-    MBTWorkflowExplorer: { section: "mbt", tab: "workflow" },
-    FSMTestGenerationExplorer: { section: "mbt", tab: "fsmgen" },
-    WMethodConformanceExplorer: { section: "mbt", tab: "wmethod" },
-    EFSMGuardedTransitionExplorer: { section: "mbt", tab: "efsm" },
-    UsageModelStatisticalExplorer: { section: "mbt", tab: "usage" },
-    ModelMutationExplorer: { section: "mbt", tab: "modelmut" },
-    AgileQuadrantsExplorer: { section: "agile", tab: "quadrants" },
-    SprintCadenceExplorer: { section: "agile", tab: "cadence" },
-    DefinitionGatesExplorer: { section: "agile", tab: "gates" },
-    ExampleMappingExplorer: { section: "agile", tab: "examplemap" },
-    ContinuousTestingPipelineExplorer: { section: "agile", tab: "pipeline" },
-    RegressionDebtExplorer: { section: "agile", tab: "regression" },
-    ProgramSlicingExplorer: { section: "slicing", tab: "program" },
-    SliceDicingExplorer: { section: "slicing", tab: "dicing" },
-    SliceCoverageExplorer: { section: "slicing", tab: "coverage" },
-    SliceRegressionExplorer: { section: "slicing", tab: "regression" },
-    TddCycleExplorer: { section: "tdd", tab: "cycle" },
-    TddRulesExplorer: { section: "tdd", tab: "rules" },
-    ExploitOverflowExplorer: { section: "exploit", tab: "overflow" },
-    ExploitSqliExplorer: { section: "exploit", tab: "sqli" },
-    ExploitCmdiExplorer: { section: "exploit", tab: "cmdi" },
-    ExploitPathExplorer: { section: "exploit", tab: "path" },
-    SbstBranchExplorer: { section: "sbst", tab: "branch" },
-    SbstCompareExplorer: { section: "sbst", tab: "compare" },
-    SbstSuiteExplorer: { section: "sbst", tab: "suite" }
-  };
-  var FILTER_DIMS = ["level", "technique", "series", "difficulty"];
-  function parseAppLocation(search, hash) {
-    var _a;
-    const params = new URLSearchParams(search != null ? search : "");
-    const out = {};
-    const explorer = params.get("explorer");
-    if (explorer && EXPLORER_TO_LOCATION[explorer]) {
-      const loc = EXPLORER_TO_LOCATION[explorer];
-      out.explorer = explorer;
-      out.section = loc.section;
-      if (loc.tab) out.tab = loc.tab;
-    } else {
-      const sec = params.get("section");
-      if (sec) out.section = sec;
-      const tab = params.get("tab");
-      if (tab && out.section && ((_a = TAB_SECTIONS[out.section]) == null ? void 0 : _a.tabs.includes(tab))) {
-        out.tab = tab;
-      }
-    }
-    const pack = params.get("pack");
-    if (pack) out.pack = pack;
-    const filter = { level: [], technique: [], series: [], difficulty: [] };
-    let anyFilter = false;
-    for (const dim of FILTER_DIMS) {
-      const raw = params.get(dim);
-      if (raw) {
-        filter[dim] = raw.split(",").filter(Boolean);
-        anyFilter = true;
-      }
-    }
-    if (anyFilter) out.filter = filter;
-    const lang = params.get("lang");
-    if (lang === "en" || lang === "zh") out.lang = lang;
-    if (!out.section && typeof hash === "string") {
-      const m = /^#section-([a-z0-9-]+)$/.exec(hash);
-      if (m) out.section = m[1];
-    }
-    return out;
-  }
-  function serializeLocation(state40) {
-    if (!state40) return "";
-    const params = new URLSearchParams();
-    if (state40.lang === "en" || state40.lang === "zh") params.set("lang", state40.lang);
-    if (state40.section && state40.section !== "all") {
-      params.set("section", state40.section);
-      const sectionInfo = TAB_SECTIONS[state40.section];
-      if (sectionInfo && state40.tab && sectionInfo.tabs.includes(state40.tab)) {
-        params.set("tab", state40.tab);
-      }
-    }
-    if (state40.pack) {
-      params.set("pack", state40.pack);
-    } else if (state40.filter) {
-      for (const dim of FILTER_DIMS) {
-        const arr = state40.filter[dim];
-        if (Array.isArray(arr) && arr.length > 0) params.set(dim, arr.join(","));
-      }
-    }
-    const s = params.toString();
-    return s ? `?${s}` : "";
-  }
-  function explorerToUrl(componentName, baseUrl = "") {
-    const loc = EXPLORER_TO_LOCATION[componentName];
-    if (!loc) return baseUrl || "";
-    const url = new URL(baseUrl || "https://example.invalid");
-    url.searchParams.set("explorer", componentName);
-    return baseUrl ? url.toString() : `?${url.searchParams.toString()}`;
-  }
-  function resolveInitialTab({ sectionId, urlSection, urlTab, saved }) {
-    const info = TAB_SECTIONS[sectionId];
-    if (!info) return null;
-    if (urlSection === sectionId && urlTab && info.tabs.includes(urlTab)) return urlTab;
-    if (saved && info.tabs.includes(saved)) return saved;
-    return info.default;
-  }
-
   // src/utils/coursePackExporter.js
   var DEMO_URL = "https://skhuang.github.io/stvisual/";
   function explorerDisplayName(id) {
@@ -42768,9 +42932,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `tqx.title`,
       `fdx.title`
     ];
-    for (const key of candidates) {
-      const v = t(key);
-      if (v && v !== key) return v;
+    for (const key2 of candidates) {
+      const v = t(key2);
+      if (v && v !== key2) return v;
     }
     return stripped.replace(/([a-z])([A-Z])/g, "$1 $2");
   }
@@ -42838,16 +43002,16 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   // src/components/CoursePackBar.js
   function createCoursePackBar({ initial, onApplyFilter } = {}) {
     const validInitial = COURSE_PACKS.some((p) => p.id === initial);
-    const state40 = { activeId: validInitial ? initial : null };
+    const state41 = { activeId: validInitial ? initial : null };
     const root41 = document.createElement("div");
     root41.className = "course-pack-bar";
     root41.dataset.testid = "course-pack-bar";
-    function render40() {
+    function render41() {
       var _a;
       root41.innerHTML = `
       <div class="course-pack-bar__header">
         <span class="course-pack-bar__title">${t("pack.title")}</span>
-        ${state40.activeId ? `
+        ${state41.activeId ? `
           <button type="button"
             class="course-pack-bar__export"
             data-testid="course-pack-export">
@@ -42857,7 +43021,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       <div class="course-pack-bar__chips">
         ${COURSE_PACKS.map((pack) => {
         const count = getCoursePackExplorers(pack.id).length;
-        const active = state40.activeId === pack.id;
+        const active = state41.activeId === pack.id;
         return `
             <button type="button"
               class="course-pack-chip${active ? " course-pack-chip--active" : ""}"
@@ -42870,36 +43034,50 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             </button>`;
       }).join("")}
       </div>
-      ${state40.activeId ? `
+      ${state41.activeId ? `
         <p class="course-pack-bar__desc" data-testid="course-pack-desc">
-          ${t(COURSE_PACKS.find((p) => p.id === state40.activeId).descKey)}
+          ${t(COURSE_PACKS.find((p) => p.id === state41.activeId).descKey)}
         </p>` : ""}`;
       root41.querySelectorAll("[data-pack]").forEach((btn) => {
         btn.addEventListener("click", () => choose(btn.dataset.pack));
       });
       (_a = root41.querySelector('[data-testid="course-pack-export"]')) == null ? void 0 : _a.addEventListener("click", () => {
-        if (state40.activeId) downloadCoursePackMarkdown(state40.activeId);
+        if (state41.activeId) downloadCoursePackMarkdown(state41.activeId);
       });
     }
     function choose(packId) {
-      if (state40.activeId === packId) {
-        state40.activeId = null;
+      if (state41.activeId === packId) {
+        state41.activeId = null;
         onApplyFilter == null ? void 0 : onApplyFilter(null);
       } else {
-        state40.activeId = packId;
+        state41.activeId = packId;
         onApplyFilter == null ? void 0 : onApplyFilter(getCoursePackFilter(packId));
       }
-      render40();
+      render41();
     }
     function clear() {
-      state40.activeId = null;
-      render40();
+      state41.activeId = null;
+      render41();
     }
     function getActiveId() {
-      return state40.activeId;
+      return state41.activeId;
     }
-    render40();
+    render41();
     return { element: root41, choose, clear, getActiveId };
+  }
+
+  // src/utils/unitTitles.js
+  function unitTitle(unit) {
+    const loc = locationForUnit(unit);
+    if (!loc) return unit.id;
+    if (loc.tab) {
+      const key2 = `${loc.section}.tab.${loc.tab}`;
+      const label = t(key2);
+      if (label !== key2) return label;
+    }
+    const sKey = `section.${loc.section}.title`;
+    const sTitle = t(sKey);
+    return sTitle !== sKey ? sTitle : t(`section.${loc.section}`);
   }
 
   // src/components/ResultViewer.js
@@ -42922,9 +43100,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       history.replaceState(null, "", url.pathname + (url.search || ""));
     } catch {
     }
-    const overlay2 = document.createElement("div");
-    overlay2.className = "rv-overlay";
-    overlay2.dataset.testid = "result-viewer";
+    const overlay4 = document.createElement("div");
+    overlay4.className = "rv-overlay";
+    overlay4.dataset.testid = "result-viewer";
     const scoreClass = result.total > 0 && result.score / result.total >= 0.8 ? "rv-score--pass" : result.total > 0 && result.score / result.total >= 0.5 ? "rv-score--partial" : "rv-score--fail";
     const modeBadge = result.mode === "quiz" ? t("rv.mode.quiz") : result.mode === "lab-reflect" ? t("rv.mode.labReflect") : t("rv.mode.labMetric");
     const itemsHtml = result.items && result.items.length > 0 ? `<table class="rv-items">
@@ -42949,7 +43127,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     }).join("")}
         </tbody>
       </table>` : "";
-    overlay2.innerHTML = `
+    overlay4.innerHTML = `
     <div class="rv-card" role="dialog" aria-modal="true" aria-labelledby="rv-title">
       <div class="rv-header">
         <div>
@@ -42993,16 +43171,16 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       </div>
     </div>
   `;
-    function close() {
-      overlay2.remove();
+    function close3() {
+      overlay4.remove();
       if (typeof onClose === "function") onClose();
     }
-    overlay2.querySelector("[data-rv-close]").addEventListener("click", close);
-    overlay2.querySelector(".rv-close").addEventListener("click", close);
-    overlay2.addEventListener("click", (e) => {
-      if (e.target === overlay2) close();
+    overlay4.querySelector("[data-rv-close]").addEventListener("click", close3);
+    overlay4.querySelector(".rv-close").addEventListener("click", close3);
+    overlay4.addEventListener("click", (e) => {
+      if (e.target === overlay4) close3();
     });
-    return overlay2;
+    return overlay4;
   }
 
   // src/components/TeacherDashboard.js
@@ -43039,7 +43217,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       if (!filterExplorer) return results;
       return results.filter((r) => r.explorer === filterExplorer);
     }
-    function render40() {
+    function render41() {
       const filtered = filteredResults();
       const explorerOpts = explorerOptions();
       root41.innerHTML = `
@@ -43127,13 +43305,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         classCode = ((inp == null ? void 0 : inp.value) || "").trim().toUpperCase();
         if (!classCode) {
           errorMsg = t("td.err.noCode");
-          render40();
+          render41();
           return;
         }
         loading = true;
         errorMsg = "";
         results = [];
-        render40();
+        render41();
         try {
           results = await client.loadCourseResults(classCode);
           filterExplorer = "";
@@ -43141,19 +43319,19 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           errorMsg = err.message || t("td.err.loadFailed");
         }
         loading = false;
-        render40();
+        render41();
       });
       (_a = root41.querySelector('[data-testid="td-filter-explorer"]')) == null ? void 0 : _a.addEventListener("change", (e) => {
         filterExplorer = e.target.value;
-        render40();
+        render41();
       });
     }
-    render40();
+    render41();
     window.addEventListener("stvisual:open-teacher-dashboard", (e) => {
       var _a;
       classCode = ((_a = e.detail) == null ? void 0 : _a.classCode) || classCode;
       root41.hidden = false;
-      render40();
+      render41();
     });
     return root41;
   }
@@ -43203,7 +43381,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   ];
   var SECTION_ORDER = SECTION_TAXONOMY.flatMap((c) => c.sectionIds);
 
-  // src/app.js
+  // src/views/integratedView.js
   var learningSectionsConfig = [
     { id: "all", key: "section.all" },
     ...SECTION_ORDER.map((id) => ({ id, key: `section.${id}` }))
@@ -43235,7 +43413,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     } catch {
     }
   }
-  function renderApp(container) {
+  function renderIntegratedApp(container) {
     var _a, _b, _c, _d, _e, _f, _g, _h;
     let initialDeeplinkHandled = false;
     let langInUrl = false;
@@ -44350,14 +44528,14 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       function syncUrl(mode = "replace") {
         var _a3, _b3, _c3, _d3, _e3;
         try {
-          const state40 = {
+          const state41 = {
             section: activeSection,
             tab: getCurrentTabForSection(activeSection),
             pack: (_a3 = packBar == null ? void 0 : packBar.getActiveId()) != null ? _a3 : null,
             filter: activeFilter,
             lang: langInUrl ? getLocale() : void 0
           };
-          const qs = serializeLocation(state40);
+          const qs = serializeLocation(state41);
           const rawHash = globalThis.location.hash || "";
           const hash = /^#section-[a-z0-9-]+$/.test(rawHash) ? "" : rawHash;
           const url = `${globalThis.location.pathname}${qs}${hash}`;
@@ -44480,17 +44658,29 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               </button>
               <div class="nav-category-panel" role="menu" aria-label="${t(cat.labelKey)}">
                 ${cat.sectionIds.map((sectionId) => `
-                  <button
-                    class="nav-btn${activeSection === sectionId ? " active" : ""}"
-                    data-testid="nav-btn-${sectionId}"
-                    data-section="${sectionId}"
-                    type="button"
-                    role="menuitem"
-                    aria-current="${activeSection === sectionId ? "page" : "false"}"
-                  >
-                    ${t(`section.${sectionId}`)}
-                  </button>
-                `).join("")}
+                  <div class="nav-section-group">
+                    <button
+                      class="nav-btn${activeSection === sectionId ? " active" : ""}"
+                      data-testid="nav-btn-${sectionId}"
+                      data-section="${sectionId}"
+                      type="button"
+                      role="menuitem"
+                      aria-current="${activeSection === sectionId ? "page" : "false"}"
+                    >
+                      ${t(`section.${sectionId}`)}
+                    </button>
+                    ${unitsForSection(sectionId).length > 1 ? `
+                      <div class="nav-unit-list" role="group">
+                        ${unitsForSection(sectionId).map((u) => `
+                          <a class="nav-unit-link" role="menuitem"
+                             data-testid="nav-unit-${u.id}"
+                             href="?explorer=${u.componentName}">${unitTitle(u)}</a>`).join("")}
+                      </div>` : unitsForSection(sectionId).map((u) => `
+                        <a class="nav-unit-link nav-unit-link--single" role="menuitem"
+                           data-testid="nav-unit-${u.id}"
+                           aria-label="${unitTitle(u)}"
+                           href="?explorer=${u.componentName}">\u26F6</a>`).join("")}
+                  </div>`).join("")}
               </div>
             </div>`;
         }).join("")}
@@ -44682,8 +44872,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       var _a2, _b2, _c2, _d2, _e2, _f2;
       const hash = (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.hash) != null ? _b2 : "";
       if (/^#section-[a-z0-9-]+$/.test(hash)) {
-        const lang = new URLSearchParams((_d2 = (_c2 = globalThis.location) == null ? void 0 : _c2.search) != null ? _d2 : "").get("lang");
-        const qs = lang === "en" || lang === "zh" ? `?lang=${lang}` : "";
+        const lang2 = new URLSearchParams((_d2 = (_c2 = globalThis.location) == null ? void 0 : _c2.search) != null ? _d2 : "").get("lang");
+        const qs = lang2 === "en" || lang2 === "zh" ? `?lang=${lang2}` : "";
         (_f2 = (_e2 = globalThis.location) == null ? void 0 : _e2.replace) == null ? void 0 : _f2.call(_e2, `${globalThis.location.pathname}${qs}${hash}`);
       }
     });
@@ -44714,6 +44904,2453 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         btn.classList.remove("quiz-share-btn--copied");
       }, 2e3);
     });
+  }
+
+  // src/data/explorerFactories.js
+  var FACTORY_BY_COMPONENT = {
+    TestingMethodTree: createTestingMethodTree,
+    GraphCoverageExplorer: createGraphCoverageExplorer,
+    LogicCoverageExplorer: createLogicCoverageExplorer,
+    TestingFlow: createTestingFlow,
+    TestingTypesTable: createTestingTypesTable,
+    SyntaxCoverageExplorer: createSyntaxCoverageExplorer,
+    GrammarCoverageExplorer: createGrammarCoverageExplorer,
+    SpecMutationExplorer: createSpecMutationExplorer,
+    SymbolicExecutionExplorer: createSymbolicExecutionExplorer,
+    ConcolicExecutionExplorer: createConcolicExecutionExplorer,
+    FuzzTestingExplorer: createFuzzTestingExplorer,
+    TestGenerationExplorer: createTestGenerationExplorer,
+    BoundaryValueExplorer: createBoundaryValueExplorer,
+    EquivalenceClassExplorer: createEquivalenceClassExplorer,
+    InputSpacePartitioningExplorer: createInputSpacePartitioningExplorer,
+    DecisionTableExplorer: createDecisionTableExplorer,
+    StateTransitionExplorer: createStateTransitionExplorer,
+    MetamorphicTestingExplorer: createMetamorphicTestingExplorer,
+    ExploratoryTestingExplorer: createExploratoryTestingExplorer,
+    TestDoublesExplorer: createTestDoublesExplorer,
+    DefectCostExplorer: createDefectCostExplorer,
+    VModelExplorer: createVModelExplorer,
+    PyramidAdjusterExplorer: createPyramidAdjusterExplorer,
+    PairwiseExplorer: createPairwiseExplorer,
+    CauseEffectExplorer: createCauseEffectExplorer,
+    CodeCoverageExplorer: createCodeCoverageExplorer,
+    IntegrationTestingExplorer: createIntegrationTestingExplorer,
+    PropertyBasedTestingExplorer: createPropertyBasedTestingExplorer,
+    RiskBasedTestingExplorer: createRiskBasedTestingExplorer,
+    GroupTheoryExplorer: createGroupTheoryExplorer,
+    EquivalentMutantExplorer: createEquivalentMutantExplorer,
+    MutationScoreExplorer: createMutationScoreExplorer,
+    LLMPipelineExplorer: createLLMPipelineExplorer,
+    TestQualityExplorer: createTestQualityExplorer,
+    FaultDirectedTestingExplorer: createFaultDirectedTestingExplorer,
+    SAILORPipelineExplorer: createSAILORPipelineExplorer,
+    BDDGherkinExplorer: createBDDGherkinExplorer,
+    UseCaseDerivationExplorer: createUseCaseDerivationExplorer,
+    E2EUserJourneyExplorer: createE2EUserJourneyExplorer,
+    ContractTestingExplorer: createContractTestingExplorer,
+    PerformanceLoadProfileExplorer: createPerformanceLoadProfileExplorer,
+    ChaosEngineeringExplorer: createChaosEngineeringExplorer,
+    ATDDCycleExplorer: createATDDCycleExplorer,
+    FlakyDiagnosisExplorer: createFlakyDiagnosisExplorer,
+    MBTWorkflowExplorer: createMBTWorkflowExplorer,
+    FSMTestGenerationExplorer: createFSMTestGenerationExplorer,
+    WMethodConformanceExplorer: createWMethodConformanceExplorer,
+    EFSMGuardedTransitionExplorer: createEFSMGuardedTransitionExplorer,
+    UsageModelStatisticalExplorer: createUsageModelStatisticalExplorer,
+    ModelMutationExplorer: createModelMutationExplorer,
+    AgileQuadrantsExplorer: createAgileQuadrantsExplorer,
+    SprintCadenceExplorer: createSprintCadenceExplorer,
+    DefinitionGatesExplorer: createDefinitionGatesExplorer,
+    ExampleMappingExplorer: createExampleMappingExplorer,
+    ContinuousTestingPipelineExplorer: createContinuousTestingPipelineExplorer,
+    RegressionDebtExplorer: createRegressionDebtExplorer,
+    ProgramSlicingExplorer: createProgramSlicingExplorer,
+    SliceDicingExplorer: createSliceDicingExplorer,
+    SliceCoverageExplorer: createSliceCoverageExplorer,
+    SliceRegressionExplorer: createSliceRegressionExplorer,
+    TddCycleExplorer: createTddCycleExplorer,
+    TddRulesExplorer: createTddRulesExplorer,
+    ExploitOverflowExplorer: createExploitOverflowExplorer,
+    ExploitSqliExplorer: createExploitSqliExplorer,
+    ExploitCmdiExplorer: createExploitCmdiExplorer,
+    ExploitPathExplorer: createExploitPathExplorer,
+    SbstBranchExplorer: createSbstBranchExplorer,
+    SbstCompareExplorer: createSbstCompareExplorer,
+    SbstSuiteExplorer: createSbstSuiteExplorer
+  };
+
+  // src/utils/vizFocus.js
+  var fsElement = () => document.fullscreenElement || document.webkitFullscreenElement || null;
+  var fsExit = () => {
+    const fn = document.exitFullscreen || document.webkitExitFullscreen;
+    if (fn) fn.call(document);
+  };
+  var fullscreenListenersWired = false;
+  var latestExitFocus = () => {
+  };
+  function initVizFocus({ root: root41 = document } = {}) {
+    const body3 = document.body;
+    let exitBtn = document.getElementById("viz-focus-exit");
+    if (body3.dataset.vizFocusWired === "1" && exitBtn) return;
+    body3.dataset.vizFocusWired = "1";
+    if (!exitBtn) {
+      exitBtn = document.createElement("button");
+      exitBtn.type = "button";
+      exitBtn.id = "viz-focus-exit";
+      exitBtn.className = "viz-focus-exit";
+      exitBtn.hidden = true;
+      exitBtn.textContent = "\u2715";
+      document.body.appendChild(exitBtn);
+    }
+    const fsRequest = (el) => {
+      const fn = el.requestFullscreen || el.webkitRequestFullscreen;
+      return fn ? fn.call(el) : null;
+    };
+    const setPressed = (on) => {
+      document.querySelectorAll(".viz-focus-toggle").forEach((b) => b.setAttribute("aria-pressed", on ? "true" : "false"));
+    };
+    const onKeydown = (e) => {
+      if (e.key === "Escape") exitFocus();
+    };
+    function enterFocus() {
+      if (body3.classList.contains("viz-focus")) return;
+      body3.classList.add("viz-focus");
+      exitBtn.hidden = false;
+      exitBtn.style.left = "";
+      exitBtn.style.top = "";
+      exitBtn.style.right = "";
+      exitBtn.style.bottom = "";
+      setPressed(true);
+      document.addEventListener("keydown", onKeydown);
+      requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+      try {
+        const p = fsRequest(document.documentElement);
+        if (p && p.then) p.then(() => {
+          if (!body3.classList.contains("viz-focus") && fsElement()) {
+            try {
+              fsExit();
+            } catch {
+            }
+          }
+        }, () => {
+        });
+      } catch {
+      }
+    }
+    function exitFocus() {
+      if (!body3.classList.contains("viz-focus")) return;
+      body3.classList.remove("viz-focus");
+      exitBtn.hidden = true;
+      setPressed(false);
+      document.removeEventListener("keydown", onKeydown);
+      requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+      if (fsElement()) {
+        try {
+          fsExit();
+        } catch {
+        }
+      }
+    }
+    latestExitFocus = exitFocus;
+    root41.addEventListener("click", (e) => {
+      var _a, _b;
+      if ((_b = (_a = e.target) == null ? void 0 : _a.closest) == null ? void 0 : _b.call(_a, ".viz-focus-toggle")) {
+        body3.classList.contains("viz-focus") ? exitFocus() : enterFocus();
+      }
+    });
+    exitBtn.addEventListener("click", () => {
+      if (exitBtn.dataset.dragged === "1") {
+        delete exitBtn.dataset.dragged;
+        return;
+      }
+      exitFocus();
+    });
+    if (!fullscreenListenersWired) {
+      fullscreenListenersWired = true;
+      document.addEventListener("fullscreenchange", () => {
+        if (!fsElement() && document.body.classList.contains("viz-focus")) latestExitFocus();
+      });
+      document.addEventListener("webkitfullscreenchange", () => {
+        if (!fsElement() && document.body.classList.contains("viz-focus")) latestExitFocus();
+      });
+    }
+    makeExitDraggable(exitBtn);
+  }
+  function makeExitDraggable(el) {
+    let dragging = false, moved = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    el.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      dragging = true;
+      moved = false;
+      const r = el.getBoundingClientRect();
+      ox = r.left;
+      oy = r.top;
+      sx = e.clientX;
+      sy = e.clientY;
+      try {
+        el.setPointerCapture(e.pointerId);
+      } catch {
+      }
+    });
+    el.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+      moved = true;
+      const nx = Math.max(0, Math.min(window.innerWidth - el.offsetWidth, ox + dx));
+      const ny = Math.max(0, Math.min(window.innerHeight - el.offsetHeight, oy + dy));
+      el.style.left = `${nx}px`;
+      el.style.top = `${ny}px`;
+      el.style.right = "auto";
+      el.style.bottom = "auto";
+    });
+    const end = () => {
+      if (dragging && moved) el.dataset.dragged = "1";
+      dragging = false;
+    };
+    el.addEventListener("pointerup", end);
+    el.addEventListener("pointercancel", end);
+  }
+
+  // src/data/quizRendered.js
+  var QUIZ_RENDERED = {
+    "boundary-value-equivalence": {
+      "en": [
+        {
+          "type": "multichoice",
+          "name": "Equivalence classes for a range",
+          "text": "<p>For an input defined as an integer in the range 1..100, how many equivalence classes does standard equivalence-class partitioning define, and which?</p>",
+          "answers": [
+            {
+              "text": "Three: one valid class [1,100], plus two invalid classes (<1 and >100)",
+              "fraction": 100,
+              "feedback": "Correct \u2014 one class for accepted values, two for input that's too small or too large."
+            },
+            {
+              "text": "Two: one valid class and one invalid class covering everything outside it",
+              "fraction": 0,
+              "feedback": "Values below and above the range fail for different reasons and are typically kept as separate invalid classes."
+            },
+            {
+              "text": "One hundred: one class per accepted integer value",
+              "fraction": 0,
+              "feedback": "Equivalence partitioning groups values with the same expected behavior into one class, not one class per value."
+            },
+            {
+              "text": "Two valid classes split at the midpoint, and no invalid classes",
+              "fraction": 0,
+              "feedback": "A single contiguous valid range doesn't need splitting, and out-of-range input still needs invalid classes."
+            }
+          ],
+          "generalFeedback": "Standard equivalence-class partitioning for a bounded range [1,100] yields three classes: the valid class [1,100], and two invalid classes for values below the minimum and above the maximum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BVA test values",
+          "text": "<p>What are the six standard Boundary Value Analysis (BVA) test values for an input range of [1,100]?</p>",
+          "answers": [
+            {
+              "text": "0, 1, 2, 99, 100, 101",
+              "fraction": 100,
+              "feedback": "Correct \u2014 min&#8722;1, min, min+1, max&#8722;1, max, max+1."
+            },
+            {
+              "text": "1, 100",
+              "fraction": 0,
+              "feedback": "That covers only the two on-points, missing all four neighboring off-points."
+            },
+            {
+              "text": "0, 1, 100, 101",
+              "fraction": 0,
+              "feedback": "This omits the min+1 and max&#8722;1 near-boundary points (2 and 99)."
+            },
+            {
+              "text": "1, 50, 100",
+              "fraction": 0,
+              "feedback": "50 is a midpoint value, not a boundary \u2014 BVA targets the edges of the domain, not its center."
+            }
+          ],
+          "generalFeedback": `Standard BVA takes the minimum and maximum (the "on-points") plus their immediate neighbors just inside and just outside the domain (the "off-points"): for [1,100] that's 0, 1, 2, 99, 100, 101.`,
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Uniformity hypothesis",
+          "text": "<p>Why does equivalence-class testing consider it sufficient to test just one representative value from each class?</p>",
+          "answers": [
+            {
+              "text": "The uniformity hypothesis \u2014 all values in a class are assumed to trigger the same program behavior",
+              "fraction": 100,
+              "feedback": "Correct \u2014 the whole technique rests on that assumption."
+            },
+            {
+              "text": "The exhaustiveness hypothesis \u2014 one value is assumed to prove correctness for all values",
+              "fraction": 0,
+              "feedback": "No such formal hypothesis exists; equivalence testing isn't exhaustive."
+            },
+            {
+              "text": "Test values are assumed to be selected at random, so any one will do",
+              "fraction": 0,
+              "feedback": "Representative values are deliberately chosen (e.g., boundaries), not random."
+            },
+            {
+              "text": "The independence hypothesis \u2014 each class is assumed unrelated to the others",
+              "fraction": 0,
+              "feedback": "Relationships between classes/variables matter for strong vs. weak testing; that's not why one value suffices per class."
+            }
+          ],
+          "generalFeedback": "Equivalence-class testing relies on the uniformity hypothesis: the assumption that the program treats every value within a given class identically, so exercising any single representative value is as informative as exercising all of them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Weak vs strong equivalence testing",
+          "text": "<p>What distinguishes weak from strong equivalence-class testing when a program has several input variables?</p>",
+          "answers": [
+            {
+              "text": "Weak testing covers each class at least once; strong testing covers the full cross-product of classes across all variables",
+              "fraction": 100,
+              "feedback": "Correct \u2014 strong is the combinatorially exhaustive version of weak."
+            },
+            {
+              "text": "Weak testing covers the full cross-product; strong testing covers each class only once",
+              "fraction": 0,
+              "feedback": "This reverses the definitions."
+            },
+            {
+              "text": "Weak testing applies only to Boundary Value Analysis; strong testing applies only to equivalence classes",
+              "fraction": 0,
+              "feedback": "Weak/strong is a distinction within equivalence-class testing itself, not a BVA-vs-ECT split."
+            },
+            {
+              "text": "Weak testing tests only invalid classes; strong testing tests only valid classes",
+              "fraction": 0,
+              "feedback": "Both weak and strong testing normally cover valid and invalid classes; the difference is combination coverage, not validity."
+            }
+          ],
+          "generalFeedback": "Weak equivalence-class testing needs only enough tests so each individual class (per variable) is hit at least once. Strong equivalence-class testing requires the cross-product of all classes across all variables, giving combinatorially more test cases.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Off-points on a closed boundary",
+          "text": "<p>For a closed boundary (the boundary value itself is included in the domain), the off-point lies just outside the domain.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct \u2014 since the on-point (the boundary value) is already inside a closed domain, its neighboring off-point sits just past the edge, outside the domain."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "For a closed boundary the on-point is inside the domain, so its paired off-point is the adjacent value just outside it."
+            }
+          ],
+          "generalFeedback": "A closed boundary includes the extreme value in the domain (the on-point). Its associated off-point is the nearest neighboring value on the other side of that edge \u2014 just outside the domain. (For an open boundary the roles swap: the on-point sits just outside and the off-point is the included extreme.)"
+        },
+        {
+          "type": "shortanswer",
+          "name": "Fault type targeted by BVA",
+          "text": "<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>",
+          "answers": [
+            {
+              "text": "boundary*",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "off-by-one*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "BVA targets boundary faults \u2014 the off-by-one style errors (e.g., using < instead of <=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.",
+          "usecase": false
+        }
+      ],
+      "zh": [
+        {
+          "type": "multichoice",
+          "name": "\u7BC4\u570D\u8F38\u5165\u7684\u7B49\u50F9\u985E\u5225",
+          "text": "<p>\u5C0D\u65BC\u4E00\u500B\u5B9A\u7FA9\u57DF\u70BA 1..100 \u7684\u6574\u6578\u8F38\u5165\uFF0C\u6A19\u6E96\u7B49\u50F9\u985E\u5225\u5283\u5206\uFF08equivalence-class partitioning\uFF09\u6703\u5B9A\u7FA9\u591A\u5C11\u500B\u7B49\u50F9\u985E\u5225\uFF1F\u5206\u5225\u662F\u54EA\u4E9B\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u4E09\u500B\uFF1A\u4E00\u500B\u6709\u6548\u985E\u5225 [1,100]\uFF0C\u52A0\u4E0A\u5169\u500B\u7121\u6548\u985E\u5225\uFF08<1 \u8207 >100\uFF09",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u985E\u5225\u5C0D\u61C9\u5408\u6CD5\u8F38\u5165\uFF0C\u53E6\u5916\u5169\u500B\u5206\u5225\u5C0D\u61C9\u592A\u5C0F\u8207\u592A\u5927\u7684\u8F38\u5165\u3002"
+            },
+            {
+              "text": "\u5169\u500B\uFF1A\u4E00\u500B\u6709\u6548\u985E\u5225\uFF0C\u4EE5\u53CA\u4E00\u500B\u6DB5\u84CB\u5176\u5916\u6240\u6709\u60C5\u6CC1\u7684\u7121\u6548\u985E\u5225",
+              "fraction": 0,
+              "feedback": "\u4F4E\u65BC\u7BC4\u570D\u8207\u9AD8\u65BC\u7BC4\u570D\u7684\u503C\u5931\u6557\u539F\u56E0\u4E0D\u540C\uFF0C\u901A\u5E38\u6703\u5206\u6210\u5169\u500B\u7368\u7ACB\u7684\u7121\u6548\u985E\u5225\u3002"
+            },
+            {
+              "text": "\u4E00\u767E\u500B\uFF1A\u6BCF\u500B\u5408\u6CD5\u6574\u6578\u503C\u5404\u81EA\u4E00\u500B\u985E\u5225",
+              "fraction": 0,
+              "feedback": "\u7B49\u50F9\u985E\u5225\u5283\u5206\u662F\u628A\u9810\u671F\u884C\u70BA\u76F8\u540C\u7684\u503C\u6B78\u70BA\u540C\u4E00\u985E\u5225\uFF0C\u800C\u4E0D\u662F\u6BCF\u500B\u503C\u5404\u81EA\u6210\u4E00\u985E\u3002"
+            },
+            {
+              "text": "\u4EE5\u4E2D\u9EDE\u5206\u6210\u5169\u500B\u6709\u6548\u985E\u5225\uFF0C\u4E14\u6C92\u6709\u7121\u6548\u985E\u5225",
+              "fraction": 0,
+              "feedback": "\u55AE\u4E00\u9023\u7E8C\u7684\u6709\u6548\u7BC4\u570D\u4E0D\u9700\u8981\u518D\u5207\u5206\uFF0C\u800C\u8D85\u51FA\u7BC4\u570D\u7684\u8F38\u5165\u4ECD\u7136\u9700\u8981\u7121\u6548\u985E\u5225\u4F86\u6DB5\u84CB\u3002"
+            }
+          ],
+          "generalFeedback": "\u5C0D\u65BC\u6709\u754C\u7BC4\u570D [1,100]\uFF0C\u6A19\u6E96\u7B49\u50F9\u985E\u5225\u5283\u5206\u6703\u7522\u751F\u4E09\u500B\u985E\u5225\uFF1A\u6709\u6548\u985E\u5225 [1,100]\uFF0C\u4EE5\u53CA\u5206\u5225\u4EE3\u8868\u4F4E\u65BC\u6700\u5C0F\u503C\u8207\u9AD8\u65BC\u6700\u5927\u503C\u7684\u5169\u500B\u7121\u6548\u985E\u5225\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BVA \u6E2C\u8A66\u503C",
+          "text": "<p>\u5C0D\u65BC\u8F38\u5165\u7BC4\u570D [1,100]\uFF0C\u6A19\u6E96\u908A\u754C\u503C\u5206\u6790\uFF08Boundary Value Analysis, BVA\uFF09\u7684\u516D\u500B\u6E2C\u8A66\u503C\u662F\u4EC0\u9EBC\uFF1F</p>",
+          "answers": [
+            {
+              "text": "0\u30011\u30012\u300199\u3001100\u3001101",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u5225\u662F min&#8722;1\u3001min\u3001min+1\u3001max&#8722;1\u3001max\u3001max+1\u3002"
+            },
+            {
+              "text": "1\u3001100",
+              "fraction": 0,
+              "feedback": "\u9019\u53EA\u6DB5\u84CB\u4E86\u5169\u500B on-point\uFF0C\u6F0F\u6389\u4E86\u5168\u90E8\u56DB\u500B\u76F8\u9130\u7684 off-point\u3002"
+            },
+            {
+              "text": "0\u30011\u3001100\u3001101",
+              "fraction": 0,
+              "feedback": "\u9019\u907A\u6F0F\u4E86\u7DCA\u9130\u908A\u754C\u7684 min+1 \u8207 max&#8722;1\uFF08\u5373 2 \u8207 99\uFF09\u3002"
+            },
+            {
+              "text": "1\u300150\u3001100",
+              "fraction": 0,
+              "feedback": "50 \u662F\u4E2D\u9EDE\u503C\uFF0C\u4E26\u975E\u908A\u754C\u2014\u2014BVA \u91DD\u5C0D\u7684\u662F\u5B9A\u7FA9\u57DF\u7684\u908A\u7DE3\uFF0C\u800C\u975E\u5176\u4E2D\u5FC3\u3002"
+            }
+          ],
+          "generalFeedback": "\u6A19\u6E96 BVA \u6703\u53D6\u6700\u5C0F\u503C\u8207\u6700\u5927\u503C\uFF08\u5373\u300Con-point\u300D\uFF09\uFF0C\u518D\u52A0\u4E0A\u5B83\u5011\u7DCA\u9130\u7684\u5167\u5074\u8207\u5916\u5074\u9130\u5C45\uFF08\u5373\u300Coff-point\u300D\uFF09\uFF1A\u5C0D [1,100] \u800C\u8A00\u5373\u70BA 0\u30011\u30012\u300199\u3001100\u3001101\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u4E00\u81F4\u6027\u5047\u8AAA",
+          "text": "<p>\u70BA\u4EC0\u9EBC\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u8A8D\u70BA\uFF0C\u6BCF\u500B\u985E\u5225\u53EA\u9700\u6E2C\u8A66\u4E00\u500B\u4EE3\u8868\u503C\u5C31\u8DB3\u5920\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u4E00\u81F4\u6027\u5047\u8AAA\uFF08uniformity hypothesis\uFF09\u2014\u2014\u5047\u8A2D\u540C\u4E00\u985E\u5225\u4E2D\u7684\u6240\u6709\u503C\u90FD\u6703\u89F8\u767C\u76F8\u540C\u7684\u7A0B\u5F0F\u884C\u70BA",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u6574\u500B\u6280\u5DE7\u90FD\u5EFA\u7ACB\u5728\u9019\u500B\u5047\u8A2D\u4E4B\u4E0A\u3002"
+            },
+            {
+              "text": "\u7AAE\u8209\u5047\u8AAA\u2014\u2014\u5047\u8A2D\u4E00\u500B\u503C\u5C31\u80FD\u8B49\u660E\u6240\u6709\u503C\u90FD\u6B63\u78BA",
+              "fraction": 0,
+              "feedback": "\u4E26\u4E0D\u5B58\u5728\u9019\u6A23\u7684\u6B63\u5F0F\u5047\u8AAA\uFF1B\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u672C\u8CEA\u4E0A\u4E26\u975E\u7AAE\u8209\u5F0F\u7684\u3002"
+            },
+            {
+              "text": "\u5047\u8A2D\u6E2C\u8A66\u503C\u662F\u96A8\u6A5F\u9078\u53D6\u7684\uFF0C\u56E0\u6B64\u96A8\u4FBF\u9078\u4E00\u500B\u90FD\u53EF\u4EE5",
+              "fraction": 0,
+              "feedback": "\u4EE3\u8868\u503C\u662F\u523B\u610F\u6311\u9078\u7684\uFF08\u4F8B\u5982\u908A\u754C\u503C\uFF09\uFF0C\u800C\u975E\u96A8\u6A5F\u6C7A\u5B9A\u3002"
+            },
+            {
+              "text": "\u7368\u7ACB\u6027\u5047\u8AAA\u2014\u2014\u5047\u8A2D\u6BCF\u500B\u985E\u5225\u5F7C\u6B64\u7121\u95DC",
+              "fraction": 0,
+              "feedback": "\u985E\u5225\uFF0F\u8B8A\u6578\u4E4B\u9593\u7684\u95DC\u4FC2\u6703\u5F71\u97FF\u5F37\u3001\u5F31\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u7684\u5DEE\u7570\uFF0C\u4F46\u9019\u4E26\u4E0D\u662F\u300C\u6BCF\u985E\u53EA\u9700\u4E00\u500B\u503C\u300D\u7684\u539F\u56E0\u3002"
+            }
+          ],
+          "generalFeedback": "\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u4F9D\u8CF4\u4E00\u81F4\u6027\u5047\u8AAA\uFF1A\u5047\u8A2D\u7A0B\u5F0F\u5C0D\u540C\u4E00\u985E\u5225\u4E2D\u7684\u6BCF\u500B\u503C\u90FD\u8868\u73FE\u51FA\u76F8\u540C\u7684\u884C\u70BA\uFF0C\u56E0\u6B64\u6E2C\u8A66\u4EFB\u4E00\u500B\u4EE3\u8868\u503C\uFF0C\u6240\u63D0\u4F9B\u7684\u8CC7\u8A0A\u7B49\u540C\u65BC\u6E2C\u8A66\u8A72\u985E\u5225\u4E2D\u7684\u6240\u6709\u503C\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u5F31\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u8207\u5F37\u7B49\u50F9\u985E\u5225\u6E2C\u8A66",
+          "text": "<p>\u7576\u7A0B\u5F0F\u6709\u591A\u500B\u8F38\u5165\u8B8A\u6578\u6642\uFF0C\u5F31\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u8207\u5F37\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u7684\u5DEE\u7570\u662F\u4EC0\u9EBC\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u5F31\u6E2C\u8A66\u53EA\u8981\u6C42\u6BCF\u500B\u985E\u5225\u81F3\u5C11\u88AB\u6DB5\u84CB\u4E00\u6B21\uFF1B\u5F37\u6E2C\u8A66\u8981\u6C42\u6DB5\u84CB\u6240\u6709\u8B8A\u6578\u4E4B\u9593\u985E\u5225\u7684\u5B8C\u6574\u4EA4\u53C9\u7D44\u5408",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u5F37\u6E2C\u8A66\u662F\u5F31\u6E2C\u8A66\u5728\u7D44\u5408\u610F\u7FA9\u4E0A\u7684\u7AAE\u8209\u7248\u672C\u3002"
+            },
+            {
+              "text": "\u5F31\u6E2C\u8A66\u6DB5\u84CB\u5B8C\u6574\u4EA4\u53C9\u7D44\u5408\uFF1B\u5F37\u6E2C\u8A66\u53EA\u8981\u6C42\u6BCF\u500B\u985E\u5225\u5404\u4E00\u6B21",
+              "fraction": 0,
+              "feedback": "\u9019\u525B\u597D\u628A\u5169\u8005\u7684\u5B9A\u7FA9\u8AAA\u53CD\u4E86\u3002"
+            },
+            {
+              "text": "\u5F31\u6E2C\u8A66\u53EA\u9069\u7528\u65BC\u908A\u754C\u503C\u5206\u6790\uFF1B\u5F37\u6E2C\u8A66\u53EA\u9069\u7528\u65BC\u7B49\u50F9\u985E\u5225",
+              "fraction": 0,
+              "feedback": "\u5F37\uFF0F\u5F31\u662F\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u5167\u90E8\u7684\u5340\u5225\uFF0C\u4E26\u4E0D\u662F\u908A\u754C\u503C\u5206\u6790\u8207\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u4E4B\u9593\u7684\u5340\u5206\u3002"
+            },
+            {
+              "text": "\u5F31\u6E2C\u8A66\u53EA\u6E2C\u8A66\u7121\u6548\u985E\u5225\uFF1B\u5F37\u6E2C\u8A66\u53EA\u6E2C\u8A66\u6709\u6548\u985E\u5225",
+              "fraction": 0,
+              "feedback": "\u5F31\u6E2C\u8A66\u8207\u5F37\u6E2C\u8A66\u901A\u5E38\u90FD\u540C\u6642\u6DB5\u84CB\u6709\u6548\u8207\u7121\u6548\u985E\u5225\uFF1B\u5169\u8005\u7684\u5DEE\u7570\u5728\u65BC\u7D44\u5408\u6DB5\u84CB\u7A0B\u5EA6\uFF0C\u800C\u975E\u6709\u6548\u6027\u3002"
+            }
+          ],
+          "generalFeedback": "\u5F31\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u53EA\u9700\u8981\u8DB3\u5920\u7684\u6E2C\u8A66\uFF0C\u4F7F\u6BCF\u500B\u8B8A\u6578\u7684\u6BCF\u500B\u985E\u5225\u81F3\u5C11\u88AB\u6DB5\u84CB\u4E00\u6B21\u3002\u5F37\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u5247\u8981\u6C42\u6DB5\u84CB\u6240\u6709\u8B8A\u6578\u4E4B\u9593\u985E\u5225\u7684\u5B8C\u6574\u4EA4\u53C9\u7D44\u5408\uFF0C\u56E0\u6B64\u6E2C\u8A66\u6848\u4F8B\u6578\u6703\u5448\u7D44\u5408\u5F0F\u589E\u9577\u3002",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "\u5C01\u9589\u908A\u754C\u7684 off-point",
+          "text": "<p>\u5C0D\u65BC\u5C01\u9589\u908A\u754C\uFF08boundary \u503C\u672C\u8EAB\u5305\u542B\u5728\u5B9A\u7FA9\u57DF\u5167\uFF09\uFF0C\u5176 off-point \u6703\u843D\u5728\u5B9A\u7FA9\u57DF\u4E4B\u5916\u3002</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u65BC on-point\uFF08\u908A\u754C\u503C\u672C\u8EAB\uFF09\u5DF2\u7D93\u5728\u5C01\u9589\u5B9A\u7FA9\u57DF\u4E4B\u5167\uFF0C\u5176\u76F8\u9130\u7684 off-point \u6703\u6070\u597D\u843D\u5728\u908A\u754C\u4E4B\u5916\u3002"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "\u5C0D\u5C01\u9589\u908A\u754C\u800C\u8A00\uFF0Con-point \u4F4D\u65BC\u5B9A\u7FA9\u57DF\u5167\uFF0C\u56E0\u6B64\u8207\u5176\u914D\u5C0D\u7684 off-point \u5C31\u662F\u7DCA\u9130\u5728\u5176\u5916\u5074\u7684\u503C\u3002"
+            }
+          ],
+          "generalFeedback": "\u5C01\u9589\u908A\u754C\u6703\u628A\u8A72\u6975\u7AEF\u503C\uFF08on-point\uFF09\u7D0D\u5165\u5B9A\u7FA9\u57DF\u3002\u8207\u5176\u914D\u5C0D\u7684 off-point \u5247\u662F\u5728\u908A\u754C\u53E6\u4E00\u5074\u6700\u9130\u8FD1\u7684\u503C\u2014\u2014\u843D\u5728\u5B9A\u7FA9\u57DF\u4E4B\u5916\u3002\uFF08\u82E5\u70BA\u958B\u653E\u908A\u754C\uFF0C\u5169\u8005\u89D2\u8272\u6703\u4E92\u63DB\uFF1Aon-point \u843D\u5728\u57DF\u5916\uFF0C\u800C off-point \u5247\u662F\u88AB\u7D0D\u5165\u5B9A\u7FA9\u57DF\u7684\u6975\u7AEF\u503C\u3002\uFF09"
+        },
+        {
+          "type": "shortanswer",
+          "name": "BVA \u9396\u5B9A\u7684\u932F\u8AA4\u985E\u578B",
+          "text": "<p>\u908A\u754C\u503C\u5206\u6790\u7279\u5225\u91DD\u5C0D\u7684\u662F\u54EA\u4E00\u985E\u932F\u8AA4\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u56DE\u7B54\uFF09</p>",
+          "answers": [
+            {
+              "text": "boundary*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            },
+            {
+              "text": "off-by-one*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            }
+          ],
+          "generalFeedback": "BVA \u91DD\u5C0D\u7684\u662F\u908A\u754C\u932F\u8AA4\uFF08boundary faults\uFF09\u2014\u2014\u4E5F\u5C31\u662F\u8AF8\u5982\u4EE5 < \u8AA4\u7528\u53D6\u4EE3 <= \u4E4B\u985E\u3001\u6070\u597D\u767C\u751F\u5728\u8F38\u5165\u5B9A\u7FA9\u57DF\u908A\u7DE3\u7684\u5DEE\u4E00\uFF08off-by-one\uFF09\u932F\u8AA4\uFF0C\u9019\u6B63\u662F\u5B83\u628A\u6E2C\u8A66\u503C\u96C6\u4E2D\u5728\u908A\u754C\u9644\u8FD1\u7684\u539F\u56E0\u3002",
+          "usecase": false
+        }
+      ]
+    },
+    "graph-coverage": {
+      "en": [
+        {
+          "type": "multichoice",
+          "name": "Node vs edge coverage",
+          "text": "<p>A test path set satisfies Node Coverage but not Edge Coverage. What must be true?</p>",
+          "answers": [
+            {
+              "text": "Every node is visited, but some edge is never traversed",
+              "fraction": 100,
+              "feedback": "Correct \u2014 edge coverage subsumes node coverage, not vice versa."
+            },
+            {
+              "text": "Some node is never visited",
+              "fraction": 0,
+              "feedback": "Then node coverage would already fail."
+            },
+            {
+              "text": "Every prime path is toured",
+              "fraction": 0,
+              "feedback": "Prime path coverage would imply edge coverage."
+            },
+            {
+              "text": "The graph has no branches",
+              "fraction": 0,
+              "feedback": "With no branches, node coverage implies edge coverage."
+            }
+          ],
+          "generalFeedback": "Edge coverage requires every edge; a branch can be skipped even when both its endpoints are visited via other paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path definition",
+          "text": "<p>A prime path is a simple path that:</p>",
+          "answers": [
+            {
+              "text": "Is not a proper subpath of any other simple path",
+              "fraction": 100,
+              "feedback": "Correct \u2014 maximal simple paths."
+            },
+            {
+              "text": "Starts at the entry node and ends at the exit node",
+              "fraction": 0,
+              "feedback": "That describes a complete test path, not a prime path."
+            },
+            {
+              "text": "Visits every node exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path."
+            },
+            {
+              "text": "Contains no loops at all",
+              "fraction": 0,
+              "feedback": "A prime path may begin and end at the same node (a loop boundary)."
+            }
+          ],
+          "generalFeedback": "Prime paths are simple paths (no repeated nodes except possibly first = last) that are maximal \u2014 not proper subpaths of any other simple path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subsumption",
+          "text": "<p>Which criterion subsumes Edge Coverage on a graph with at least one edge?</p>",
+          "answers": [
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 100,
+              "feedback": "Correct \u2014 covering every path of length \u2264 2 covers every length-1 path."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node coverage is weaker than edge coverage."
+            },
+            {
+              "text": "Statement Coverage",
+              "fraction": 0,
+              "feedback": "Statement coverage corresponds to node coverage."
+            },
+            {
+              "text": "No criterion subsumes it",
+              "fraction": 0,
+              "feedback": "Edge-pair, prime path and complete path all do."
+            }
+          ],
+          "generalFeedback": "Edge-pair coverage requires all length-\u22642 paths, which includes every single edge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DU pair",
+          "text": "<p>In data-flow coverage, a DU pair for variable x is:</p>",
+          "answers": [
+            {
+              "text": "A definition of x and a use of x reachable by a def-clear path",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "Any two statements that mention x",
+              "fraction": 0,
+              "feedback": "Mentions alone don't form a DU pair."
+            },
+            {
+              "text": "Two consecutive assignments to x",
+              "fraction": 0,
+              "feedback": "The second assignment kills the first definition."
+            },
+            {
+              "text": "A use of x followed by its definition",
+              "fraction": 0,
+              "feedback": "Order is definition first, then use."
+            }
+          ],
+          "generalFeedback": "A DU pair (d, u) needs a path from d to u with no intervening redefinition of x \u2014 a def-clear path.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Complete path coverage feasibility",
+          "text": "<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct \u2014 a loop yields infinitely many paths."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied."
+            }
+          ],
+          "generalFeedback": "A loop lets a path revisit the same node arbitrarily many times, so the set of simple-to-complete test paths is unbounded \u2014 Complete Path Coverage can never be finitely satisfied whenever the graph has a loop."
+        },
+        {
+          "type": "shortanswer",
+          "name": "Set-cover reduction",
+          "text": "<p>stvisual reduces the selected test-path set with a greedy approximation of which classic problem? (two words)</p>",
+          "answers": [
+            {
+              "text": "set cover*",
+              "fraction": 100,
+              "feedback": "Correct \u2014 greedy set cover."
+            },
+            {
+              "text": "set-cover*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "Choosing a minimal set of test paths covering all requirements is the (NP-hard) set-cover problem; the tool uses the greedy approximation.",
+          "usecase": false
+        }
+      ],
+      "zh": [
+        {
+          "type": "multichoice",
+          "name": "\u7BC0\u9EDE\u8986\u84CB\u8207\u908A\u8986\u84CB",
+          "text": "<p>\u67D0\u6E2C\u8A66\u8DEF\u5F91\u96C6\u5408\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09\uFF0C\u4F46\u4E0D\u6EFF\u8DB3\u908A\u8986\u84CB\uFF08Edge Coverage\uFF09\u3002\u4EE5\u4E0B\u4F55\u8005\u5FC5\u70BA\u771F\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u6BCF\u500B\u7BC0\u9EDE\u90FD\u88AB\u8D70\u8A2A\u904E\uFF0C\u4F46\u6709\u67D0\u689D\u908A\u5F9E\u672A\u88AB\u7D93\u904E",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u8986\u84CB\u6DB5\u84CB\uFF08subsumes\uFF09\u7BC0\u9EDE\u8986\u84CB\uFF0C\u53CD\u4E4B\u5247\u4E0D\u6210\u7ACB\u3002"
+            },
+            {
+              "text": "\u6709\u67D0\u500B\u7BC0\u9EDE\u5F9E\u672A\u88AB\u8D70\u8A2A",
+              "fraction": 0,
+              "feedback": "\u5982\u6B64\u4E00\u4F86\u7BC0\u9EDE\u8986\u84CB\u672C\u8EAB\u5C31\u5DF2\u7D93\u4E0D\u6210\u7ACB\u3002"
+            },
+            {
+              "text": "\u6BCF\u689D\u8CEA\u8DEF\u5F91\uFF08prime path\uFF09\u90FD\u88AB\u8D70\u904E",
+              "fraction": 0,
+              "feedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u6703\u860A\u542B\u908A\u8986\u84CB\u3002"
+            },
+            {
+              "text": "\u6B64\u5716\u6C92\u6709\u4EFB\u4F55\u5206\u652F",
+              "fraction": 0,
+              "feedback": "\u7576\u5716\u5F62\u6C92\u6709\u5206\u652F\u6642\uFF0C\u7BC0\u9EDE\u8986\u84CB\u5C31\u6703\u860A\u542B\u908A\u8986\u84CB\u3002"
+            }
+          ],
+          "generalFeedback": "\u908A\u8986\u84CB\u8981\u6C42\u8D70\u904E\u6BCF\u4E00\u689D\u908A\uFF1B\u5373\u4F7F\u67D0\u689D\u908A\u7684\u5169\u7AEF\u7BC0\u9EDE\u90FD\u7D93\u7531\u5176\u4ED6\u8DEF\u5F91\u88AB\u8D70\u8A2A\u904E\uFF0C\u9019\u689D\u908A\u672C\u8EAB\u4ECD\u53EF\u80FD\u88AB\u8DF3\u904E\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u8CEA\u8DEF\u5F91\u7684\u5B9A\u7FA9",
+          "text": "<p>\u8CEA\u8DEF\u5F91\uFF08prime path\uFF09\u662F\u4E00\u689D\u6EFF\u8DB3\u4E0B\u5217\u689D\u4EF6\u7684\u7C21\u55AE\u8DEF\u5F91\uFF1A</p>",
+          "answers": [
+            {
+              "text": "\u4E0D\u662F\u4EFB\u4F55\u5176\u4ED6\u7C21\u55AE\u8DEF\u5F91\u7684\u771F\u5B50\u8DEF\u5F91",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u3002"
+            },
+            {
+              "text": "\u5F9E\u5165\u53E3\u7BC0\u9EDE\u958B\u59CB\uFF0C\u4E26\u5728\u51FA\u53E3\u7BC0\u9EDE\u7D50\u675F",
+              "fraction": 0,
+              "feedback": "\u9019\u63CF\u8FF0\u7684\u662F\u5B8C\u6574\u6E2C\u8A66\u8DEF\u5F91\uFF0C\u800C\u975E\u8CEA\u8DEF\u5F91\u3002"
+            },
+            {
+              "text": "\u6070\u597D\u8D70\u8A2A\u6BCF\u500B\u7BC0\u9EDE\u4E00\u6B21",
+              "fraction": 0,
+              "feedback": "\u90A3\u662F\u6F22\u5F4C\u723E\u9813\u8DEF\u5F91\uFF08Hamiltonian path\uFF09\u3002"
+            },
+            {
+              "text": "\u5B8C\u5168\u4E0D\u5305\u542B\u4EFB\u4F55\u8FF4\u5708",
+              "fraction": 0,
+              "feedback": "\u8CEA\u8DEF\u5F91\u53EF\u4EE5\u5728\u540C\u4E00\u7BC0\u9EDE\u958B\u59CB\u8207\u7D50\u675F\uFF08\u5373\u8FF4\u5708\u908A\u754C\uFF09\u3002"
+            }
+          ],
+          "generalFeedback": "\u8CEA\u8DEF\u5F91\u662F\u7C21\u55AE\u8DEF\u5F91\uFF08\u9664\u4E86\u8D77\u9EDE\u8207\u7D42\u9EDE\u53EF\u80FD\u76F8\u540C\u5916\uFF0C\u4E0D\u91CD\u8907\u7D93\u904E\u4EFB\u4F55\u7BC0\u9EDE\uFF09\uFF0C\u4E14\u5FC5\u9808\u662F\u6975\u5927\u7684\u2014\u2014\u4E0D\u6703\u662F\u5176\u4ED6\u7C21\u55AE\u8DEF\u5F91\u7684\u771F\u5B50\u8DEF\u5F91\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u6DB5\u84CB\u95DC\u4FC2",
+          "text": "<p>\u5728\u81F3\u5C11\u542B\u6709\u4E00\u689D\u908A\u7684\u5716\u4E0A\uFF0C\u4E0B\u5217\u54EA\u500B\u6E96\u5247\u6DB5\u84CB\uFF08subsumes\uFF09\u908A\u8986\u84CB\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u6240\u6709\u9577\u5EA6 \u2264 2 \u7684\u8DEF\u5F91\uFF0C\u81EA\u7136\u6DB5\u84CB\u6240\u6709\u9577\u5EA6\u70BA 1 \u7684\u8DEF\u5F91\u3002"
+            },
+            {
+              "text": "\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09",
+              "fraction": 0,
+              "feedback": "\u7BC0\u9EDE\u8986\u84CB\u6BD4\u908A\u8986\u84CB\u5F31\u3002"
+            },
+            {
+              "text": "\u6558\u8FF0\u8986\u84CB\uFF08Statement Coverage\uFF09",
+              "fraction": 0,
+              "feedback": "\u6558\u8FF0\u8986\u84CB\u5C0D\u61C9\u7684\u662F\u7BC0\u9EDE\u8986\u84CB\u3002"
+            },
+            {
+              "text": "\u6C92\u6709\u4EFB\u4F55\u6E96\u5247\u80FD\u6DB5\u84CB\u5B83",
+              "fraction": 0,
+              "feedback": "\u908A\u5C0D\u8986\u84CB\u3001\u8CEA\u8DEF\u5F91\u8986\u84CB\u8207\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u90FD\u80FD\u6DB5\u84CB\u5B83\u3002"
+            }
+          ],
+          "generalFeedback": "\u908A\u5C0D\u8986\u84CB\u8981\u6C42\u6DB5\u84CB\u6240\u6709\u9577\u5EA6 \u2264 2 \u7684\u8DEF\u5F91\uFF0C\u5176\u4E2D\u81EA\u7136\u5305\u542B\u6BCF\u4E00\u689D\u55AE\u7368\u7684\u908A\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u5B9A\u7FA9-\u4F7F\u7528\u5C0D",
+          "text": "<p>\u5728\u8CC7\u6599\u6D41\u8986\u84CB\uFF08data-flow coverage\uFF09\u4E2D\uFF0C\u8B8A\u6578 x \u7684\u5B9A\u7FA9-\u4F7F\u7528\u5C0D\uFF08DU pair\uFF09\u662F\u6307\uFF1A</p>",
+          "answers": [
+            {
+              "text": "x \u7684\u4E00\u500B\u5B9A\u7FA9\u8207\u4E00\u500B\u4F7F\u7528\uFF0C\u5169\u8005\u4E4B\u9593\u5B58\u5728\u4E00\u689D\u7121\u91CD\u65B0\u5B9A\u7FA9\uFF08def-clear\uFF09\u7684\u8DEF\u5F91\u53EF\u9054",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            },
+            {
+              "text": "\u4EFB\u4F55\u5169\u500B\u63D0\u5230 x \u7684\u6558\u8FF0",
+              "fraction": 0,
+              "feedback": "\u50C5\u50C5\u63D0\u5230\u8B8A\u6578\u4E26\u4E0D\u80FD\u69CB\u6210\u5B9A\u7FA9-\u4F7F\u7528\u5C0D\u3002"
+            },
+            {
+              "text": "\u5C0D x \u9023\u7E8C\u9032\u884C\u7684\u5169\u6B21\u6307\u6D3E",
+              "fraction": 0,
+              "feedback": "\u7B2C\u4E8C\u6B21\u6307\u6D3E\u6703\u8986\u84CB\uFF08kill\uFF09\u7B2C\u4E00\u6B21\u7684\u5B9A\u7FA9\u3002"
+            },
+            {
+              "text": "\u5148\u4F7F\u7528 x\uFF0C\u4E4B\u5F8C\u624D\u5C0D\u5176\u5B9A\u7FA9",
+              "fraction": 0,
+              "feedback": "\u6B63\u78BA\u9806\u5E8F\u61C9\u662F\u5148\u5B9A\u7FA9\u3001\u5F8C\u4F7F\u7528\u3002"
+            }
+          ],
+          "generalFeedback": "\u5B9A\u7FA9-\u4F7F\u7528\u5C0D (d, u) \u9700\u8981\u4E00\u689D\u5F9E d \u5230 u\u3001\u9014\u4E2D\u4E0D\u518D\u91CD\u65B0\u5B9A\u7FA9 x \u7684\u8DEF\u5F91\u2014\u2014\u5373\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91\uFF08def-clear path\uFF09\u3002",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u7684\u53EF\u884C\u6027",
+          "text": "<p>\u53EA\u8981\u63A7\u5236\u6D41\u7A0B\u5716\uFF08control-flow graph\uFF09\u4E2D\u542B\u6709\u8FF4\u5708\uFF0C\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF08Complete Path Coverage\uFF09\u5C31\u4E0D\u53EF\u884C\u3002</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u5708\u6703\u7522\u751F\u7121\u7AAE\u591A\u689D\u8DEF\u5F91\u3002"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "\u8FF4\u5708\u6703\u9020\u6210\u8DEF\u5F91\u6578\u91CF\u7121\u4E0A\u9650\uFF0C\u56E0\u6B64\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u7121\u6CD5\u5728\u6709\u9650\u6B65\u9A5F\u5167\u88AB\u6EFF\u8DB3\u3002"
+            }
+          ],
+          "generalFeedback": "\u53EA\u8981\u5716\u4E2D\u542B\u6709\u8FF4\u5708\uFF0C\u8DEF\u5F91\u5C31\u80FD\u4EFB\u610F\u6B21\u6578\u5730\u91CD\u8907\u7D93\u904E\u540C\u4E00\u7BC0\u9EDE\uFF0C\u4F7F\u5F97\u300C\u7C21\u55AE\u4E14\u5B8C\u6574\u300D\u7684\u6E2C\u8A66\u8DEF\u5F91\u96C6\u5408\u8B8A\u6210\u7121\u7AAE\u591A\u2014\u2014\u56E0\u6B64\u53EA\u8981\u5716\u4E2D\u6709\u8FF4\u5708\uFF0C\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u5C31\u6C38\u9060\u7121\u6CD5\u5728\u6709\u9650\u6B65\u9A5F\u5167\u88AB\u6EFF\u8DB3\u3002"
+        },
+        {
+          "type": "shortanswer",
+          "name": "\u96C6\u5408\u8986\u84CB\u5316\u7D04",
+          "text": "<p>stvisual \u4EE5\u8CAA\u5A6A\u6F14\u7B97\u6CD5\uFF08greedy approximation\uFF09\u6311\u9078\u6E2C\u8A66\u8DEF\u5F91\u96C6\u5408\u6642\uFF0C\u5176\u5BE6\u662F\u5728\u8FD1\u4F3C\u6C42\u89E3\u54EA\u4E00\u500B\u7D93\u5178\u554F\u984C\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u5169\u500B\u55AE\u5B57\u56DE\u7B54\uFF09</p>",
+          "answers": [
+            {
+              "text": "set cover*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u8CAA\u5A6A\u96C6\u5408\u8986\u84CB\u3002"
+            },
+            {
+              "text": "set-cover*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            }
+          ],
+          "generalFeedback": "\u9078\u64C7\u4E00\u500B\u80FD\u6DB5\u84CB\u6240\u6709\u9700\u6C42\u7684\u6700\u5C0F\u6E2C\u8A66\u8DEF\u5F91\u96C6\u5408\uFF0C\u6B63\u662F\uFF08NP-\u56F0\u96E3\u7684\uFF09\u96C6\u5408\u8986\u84CB\u554F\u984C\uFF08set-cover problem\uFF09\uFF1B\u672C\u5DE5\u5177\u63A1\u7528\u8CAA\u5A6A\u8FD1\u4F3C\u6F14\u7B97\u6CD5\u6C42\u89E3\u3002",
+          "usecase": false
+        }
+      ]
+    },
+    "logic-coverage": {
+      "en": [
+        {
+          "type": "multichoice",
+          "name": "Predicate coverage",
+          "text": "<p>Predicate Coverage (PC) requires that:</p>",
+          "answers": [
+            {
+              "text": "Each predicate in the program evaluates to both true and false",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "Each clause within a predicate evaluates to both true and false",
+              "fraction": 0,
+              "feedback": "That's Clause Coverage (CC)."
+            },
+            {
+              "text": "All combinations of clause truth values are exercised for each predicate",
+              "fraction": 0,
+              "feedback": "That's Combinatorial Coverage (CoC)."
+            },
+            {
+              "text": "Every path through the predicate's decision structure is exercised",
+              "fraction": 0,
+              "feedback": "That describes Path Coverage, not Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "Predicate Coverage (PC) only requires the whole predicate to take both truth values at least once; it says nothing about the individual clauses inside it \u2014 that finer-grained requirement is Clause Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clause determination",
+          "text": "<p>For predicate p = a &#8743; b, clause a <em>determines</em> p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is true",
+              "fraction": 100,
+              "feedback": "Correct \u2014 with b true, p's value is exactly a's value, so toggling a toggles p."
+            },
+            {
+              "text": "b is false",
+              "fraction": 0,
+              "feedback": "When b is false, p is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "Always, regardless of b",
+              "fraction": 0,
+              "feedback": "Determination is a per-clause, per-assignment condition, not a constant."
+            },
+            {
+              "text": "Never, for a conjunction",
+              "fraction": 0,
+              "feedback": "Conjunctions do have determining assignments \u2014 just not when b is false."
+            }
+          ],
+          "generalFeedback": "A clause c determines predicate p when changing only c's truth value changes p's truth value while the other clauses stay fixed. For p = a &#8743; b, that happens exactly when b = true: p then mirrors a exactly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC vs RACC",
+          "text": "<p>How does Restricted Active Clause Coverage (RACC) differ from Correlated Active Clause Coverage (CACC)?</p>",
+          "answers": [
+            {
+              "text": "RACC additionally requires the minor clauses to hold identical values in the true/false test pair for the major clause",
+              "fraction": 100,
+              "feedback": 'Correct \u2014 RACC is the stricter, "same minor-clause values" version of CACC.'
+            },
+            {
+              "text": "RACC drops the requirement that the major clause determines the predicate",
+              "fraction": 0,
+              "feedback": "That describes General Active Clause Coverage (GACC), not RACC."
+            },
+            {
+              "text": "RACC only counts inactive clauses, not active ones",
+              "fraction": 0,
+              "feedback": "That describes the inactive-clause family (GICC/CICC), not RACC."
+            },
+            {
+              "text": "RACC requires covering all combinations of clause values",
+              "fraction": 0,
+              "feedback": "That's Combinatorial Coverage (CoC)."
+            }
+          ],
+          "generalFeedback": "Both criteria require, for each major clause ci, a pair of tests where ci determines predicate p once true and once false. CACC allows the other (minor) clauses to differ between that pair; RACC additionally pins the minor clauses to the same values across the pair, making it strictly stronger.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial coverage count",
+          "text": "<p>A predicate has 3 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct \u2014 2^3 combinations of true/false."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "That's roughly the size of Clause Coverage (one flip per clause), not every combination."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Too few \u2014 4 tests can't realize all 8 truth-value combinations."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 falls short of the full 2^3 = 8 combinations."
+            }
+          ],
+          "generalFeedback": "Combinatorial Coverage requires every one of the 2^n truth-value combinations of n clauses to be exercised (subject to feasibility); with 3 independent clauses that is 2^3 = 8 tests.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CACC infeasibility",
+          "text": "<p>CACC (and RACC) is infeasible for a clause that can never determine its predicate.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct \u2014 if no assignment of the other clauses ever lets that clause determine the predicate, no test can satisfy the active-clause requirement for it."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Determination is a precondition for active-clause coverage; without it the criterion's test requirement for that clause has no test that can satisfy it, so it is infeasible."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria (CACC, RACC, GACC) require a test pair where the clause determines the predicate. If some clause structurally never determines the predicate (e.g., it is masked out or redundant), that test requirement can never be satisfied \u2014 it is infeasible."
+        },
+        {
+          "type": "shortanswer",
+          "name": "Unique true point coverage",
+          "text": "<p>Which DNF-based logic-coverage criterion requires every unique true point of the predicate to be covered? (acronym)</p>",
+          "answers": [
+            {
+              "text": "UTPC",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "unique true point*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": `Unique True Point Coverage (UTPC) requires, for each term in the predicate's DNF representation, a test that makes exactly that term true (and all others false) \u2014 the "unique" true point for that term.`,
+          "usecase": false
+        }
+      ],
+      "zh": [
+        {
+          "type": "multichoice",
+          "name": "\u8FF0\u8A5E\u8986\u84CB",
+          "text": "<p>\u8FF0\u8A5E\u8986\u84CB\uFF08Predicate Coverage, PC\uFF09\u8981\u6C42\uFF1A</p>",
+          "answers": [
+            {
+              "text": "\u7A0B\u5F0F\u4E2D\u6BCF\u500B\u8FF0\u8A5E\uFF08predicate\uFF09\u90FD\u81F3\u5C11\u5404\u53D6\u4E00\u6B21 true \u8207 false",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            },
+            {
+              "text": "\u8FF0\u8A5E\u5167\u7684\u6BCF\u500B\u5B50\u53E5\uFF08clause\uFF09\u90FD\u81F3\u5C11\u5404\u53D6\u4E00\u6B21 true \u8207 false",
+              "fraction": 0,
+              "feedback": "\u90A3\u662F\u5B50\u53E5\u8986\u84CB\uFF08Clause Coverage, CC\uFF09\u3002"
+            },
+            {
+              "text": "\u5C0D\u6BCF\u500B\u8FF0\u8A5E\uFF0C\u6DB5\u84CB\u5B50\u53E5\u771F\u503C\u7684\u6240\u6709\u7D44\u5408",
+              "fraction": 0,
+              "feedback": "\u90A3\u662F\u7D44\u5408\u8986\u84CB\uFF08Combinatorial Coverage, CoC\uFF09\u3002"
+            },
+            {
+              "text": "\u8D70\u904E\u8A72\u8FF0\u8A5E\u6C7A\u7B56\u7D50\u69CB\u4E2D\u7684\u6BCF\u4E00\u689D\u8DEF\u5F91",
+              "fraction": 0,
+              "feedback": "\u9019\u63CF\u8FF0\u7684\u662F\u8DEF\u5F91\u8986\u84CB\uFF08Path Coverage\uFF09\uFF0C\u800C\u975E\u8FF0\u8A5E\u8986\u84CB\u3002"
+            }
+          ],
+          "generalFeedback": "\u8FF0\u8A5E\u8986\u84CB\uFF08PC\uFF09\u50C5\u8981\u6C42\u6574\u500B\u8FF0\u8A5E\u81F3\u5C11\u5404\u51FA\u73FE\u4E00\u6B21 true \u8207 false\uFF0C\u4E26\u672A\u898F\u7BC4\u5176\u5167\u90E8\u5B50\u53E5\u7684\u500B\u5225\u53D6\u503C\u2014\u2014\u66F4\u7D30\u7DFB\u7684\u8981\u6C42\u5C6C\u65BC\u5B50\u53E5\u8986\u84CB\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u5B50\u53E5\u7684\u6C7A\u5B9A\u6027",
+          "text": "<p>\u5C0D\u8FF0\u8A5E p = a &#8743; b \u800C\u8A00\uFF0C\u5B50\u53E5 a <em>\u6C7A\u5B9A\uFF08determines\uFF09</em> p \u6070\u597D\u767C\u751F\u65BC\uFF1A</p>",
+          "answers": [
+            {
+              "text": "b \u70BA true \u6642",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u7576 b \u70BA true \u6642\uFF0Cp \u7684\u503C\u6070\u597D\u7B49\u65BC a \u7684\u503C\uFF0C\u56E0\u6B64\u5207\u63DB a \u5C31\u6703\u5207\u63DB p\u3002"
+            },
+            {
+              "text": "b \u70BA false \u6642",
+              "fraction": 0,
+              "feedback": "\u7576 b \u70BA false \u6642\uFF0C\u7121\u8AD6 a \u70BA\u4F55 p \u90FD\u662F false\uFF0C\u56E0\u6B64 a \u7121\u6CD5\u6C7A\u5B9A p\u3002"
+            },
+            {
+              "text": "\u7121\u8AD6 b \u70BA\u4F55\uFF0C\u6046\u6210\u7ACB",
+              "fraction": 0,
+              "feedback": "\u6C7A\u5B9A\u6027\u662F\u91DD\u5C0D\u7279\u5B9A\u5B50\u53E5\u3001\u7279\u5B9A\u6307\u6D3E\u7684\u689D\u4EF6\uFF0C\u4E26\u975E\u6046\u5B9A\u4E0D\u8B8A\u3002"
+            },
+            {
+              "text": "\u5C0D\u65BC\u908F\u8F2F\u8207\uFF08conjunction\uFF09\u800C\u8A00\uFF0C\u6C38\u9060\u4E0D\u6210\u7ACB",
+              "fraction": 0,
+              "feedback": "\u908F\u8F2F\u8207\u78BA\u5BE6\u5B58\u5728\u80FD\u6C7A\u5B9A p \u7684\u6307\u6D3E\u2014\u2014\u53EA\u662F\u4E0D\u5728 b \u70BA false \u7684\u60C5\u6CC1\u4E0B\u3002"
+            }
+          ],
+          "generalFeedback": "\u7576\u50C5\u6539\u8B8A\u5B50\u53E5 c \u7684\u771F\u503C\u3001\u800C\u5176\u4ED6\u5B50\u53E5\u4FDD\u6301\u4E0D\u8B8A\u6642\uFF0C\u82E5\u8FF0\u8A5E p \u7684\u771F\u503C\u4E5F\u96A8\u4E4B\u6539\u8B8A\uFF0C\u5247\u7A31 c \u6C7A\u5B9A\u4E86 p\u3002\u5C0D p = a &#8743; b \u800C\u8A00\uFF0C\u9019\u6070\u597D\u767C\u751F\u5728 b = true \u6642\uFF1A\u6B64\u6642 p \u5B8C\u5168\u8DDF\u96A8 a\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC \u8207 RACC \u7684\u5DEE\u7570",
+          "text": "<p>\u53D7\u9650\u4E3B\u52D5\u5B50\u53E5\u8986\u84CB\uFF08Restricted Active Clause Coverage, RACC\uFF09\u8207\u76F8\u95DC\u4E3B\u52D5\u5B50\u53E5\u8986\u84CB\uFF08Correlated Active Clause Coverage, CACC\uFF09\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+          "answers": [
+            {
+              "text": "RACC \u984D\u5916\u8981\u6C42\uFF1A\u5728\u4F7F\u4E3B\u8981\u5B50\u53E5\u5206\u5225\u70BA true\uFF0Ffalse \u7684\u90A3\u5C0D\u6E2C\u8A66\u4E2D\uFF0C\u5176\u9918\uFF08\u6B21\u8981\uFF09\u5B50\u53E5\u5FC5\u9808\u7DAD\u6301\u76F8\u540C\u7684\u503C",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014RACC \u662F CACC \u66F4\u56B4\u683C\u7684\u7248\u672C\uFF0C\u8981\u6C42\u300C\u6B21\u8981\u5B50\u53E5\u503C\u76F8\u540C\u300D\u3002"
+            },
+            {
+              "text": "RACC \u53D6\u6D88\u4E86\u300C\u4E3B\u8981\u5B50\u53E5\u5FC5\u9808\u6C7A\u5B9A\u8FF0\u8A5E\u300D\u7684\u8981\u6C42",
+              "fraction": 0,
+              "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u4E00\u822C\u4E3B\u52D5\u5B50\u53E5\u8986\u84CB\uFF08General Active Clause Coverage, GACC\uFF09\uFF0C\u800C\u975E RACC\u3002"
+            },
+            {
+              "text": "RACC \u53EA\u8A08\u7B97\u975E\u4E3B\u52D5\u5B50\u53E5\uFF0C\u4E0D\u8A08\u7B97\u4E3B\u52D5\u5B50\u53E5",
+              "fraction": 0,
+              "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u975E\u4E3B\u52D5\u5B50\u53E5\u5BB6\u65CF\uFF08GICC\uFF0FCICC\uFF09\uFF0C\u800C\u975E RACC\u3002"
+            },
+            {
+              "text": "RACC \u8981\u6C42\u6DB5\u84CB\u6240\u6709\u5B50\u53E5\u503C\u7684\u7D44\u5408",
+              "fraction": 0,
+              "feedback": "\u90A3\u662F\u7D44\u5408\u8986\u84CB\uFF08Combinatorial Coverage, CoC\uFF09\u3002"
+            }
+          ],
+          "generalFeedback": "\u5169\u7A2E\u6E96\u5247\u90FD\u8981\u6C42\uFF1A\u5C0D\u6BCF\u500B\u4E3B\u8981\u5B50\u53E5 ci\uFF0C\u5B58\u5728\u4E00\u5C0D\u6E2C\u8A66\uFF0C\u4F7F ci \u5206\u5225\u5728 p \u70BA true \u8207 p \u70BA false \u6642\u6C7A\u5B9A p\u3002CACC \u5141\u8A31\u9019\u5C0D\u6E2C\u8A66\u4E2D\u7684\u5176\u4ED6\uFF08\u6B21\u8981\uFF09\u5B50\u53E5\u53D6\u503C\u4E0D\u540C\uFF1BRACC \u5247\u984D\u5916\u8981\u6C42\u9019\u5C0D\u6E2C\u8A66\u4E2D\u7684\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u5FC5\u9808\u76F8\u540C\uFF0C\u56E0\u6B64\u56B4\u683C\u66F4\u5F37\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u7D44\u5408\u8986\u84CB\u7684\u6E2C\u8A66\u6578",
+          "text": "<p>\u67D0\u8FF0\u8A5E\u542B\u6709 3 \u500B\u7368\u7ACB\u5B50\u53E5\u3002\u7D44\u5408\u8986\u84CB\uFF08Combinatorial Coverage, CoC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u20142^3 \u7A2E true/false \u7D44\u5408\u3002"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "\u9019\u5927\u81F4\u662F\u5B50\u53E5\u8986\u84CB\uFF08\u6BCF\u500B\u5B50\u53E5\u7FFB\u8F49\u4E00\u6B21\uFF09\u7684\u898F\u6A21\uFF0C\u4E26\u975E\u6240\u6709\u7D44\u5408\u3002"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "\u592A\u5C11\u4E86\u2014\u20144 \u500B\u6E2C\u8A66\u7121\u6CD5\u6DB5\u84CB\u5168\u90E8 8 \u7A2E\u771F\u503C\u7D44\u5408\u3002"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 \u500B\u6E2C\u8A66\u4ECD\u4E0D\u8DB3\u4EE5\u6DB5\u84CB\u5B8C\u6574\u7684 2^3 = 8 \u7A2E\u7D44\u5408\u3002"
+            }
+          ],
+          "generalFeedback": "\u7D44\u5408\u8986\u84CB\u8981\u6C42\u6DB5\u84CB n \u500B\u5B50\u53E5\u7684\u6BCF\u4E00\u7A2E 2^n \u771F\u503C\u7D44\u5408\uFF08\u5728\u53EF\u884C\u7684\u524D\u63D0\u4E0B\uFF09\uFF1B\u7576\u6709 3 \u500B\u7368\u7ACB\u5B50\u53E5\u6642\u5373\u70BA 2^3 = 8 \u500B\u6E2C\u8A66\u3002",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CACC \u7684\u4E0D\u53EF\u884C\u6027",
+          "text": "<p>\u5C0D\u65BC\u4E00\u500B\u6C38\u9060\u7121\u6CD5\u6C7A\u5B9A\u5176\u8FF0\u8A5E\u7684\u5B50\u53E5\uFF0CCACC\uFF08\u4EE5\u53CA RACC\uFF09\u662F\u4E0D\u53EF\u884C\u7684\u3002</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u5982\u679C\u5176\u4ED6\u5B50\u53E5\u7121\u8AD6\u5982\u4F55\u6307\u6D3E\uFF0C\u90FD\u7121\u6CD5\u8B93\u8A72\u5B50\u53E5\u6C7A\u5B9A\u8FF0\u8A5E\uFF0C\u90A3\u9EBC\u5C31\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6EFF\u8DB3\u8A72\u5B50\u53E5\u7684\u4E3B\u52D5\u5B50\u53E5\u8981\u6C42\u3002"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "\u6C7A\u5B9A\u6027\u662F\u4E3B\u52D5\u5B50\u53E5\u8986\u84CB\u7684\u524D\u63D0\u689D\u4EF6\uFF1B\u82E5\u4E0D\u6210\u7ACB\uFF0C\u8A72\u5B50\u53E5\u7684\u6E2C\u8A66\u8981\u6C42\u5C31\u627E\u4E0D\u5230\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6EFF\u8DB3\u5B83\uFF0C\u56E0\u6B64\u662F\u4E0D\u53EF\u884C\u7684\u3002"
+            }
+          ],
+          "generalFeedback": "\u4E3B\u52D5\u5B50\u53E5\u6E96\u5247\uFF08CACC\u3001RACC\u3001GACC\uFF09\u90FD\u8981\u6C42\u5B58\u5728\u4E00\u5C0D\u6E2C\u8A66\uFF0C\u4F7F\u8A72\u5B50\u53E5\u80FD\u6C7A\u5B9A\u8FF0\u8A5E\u3002\u82E5\u67D0\u5B50\u53E5\u5728\u7D50\u69CB\u4E0A\u6C38\u9060\u7121\u6CD5\u6C7A\u5B9A\u8FF0\u8A5E\uFF08\u4F8B\u5982\u88AB\u906E\u853D\u6216\u672C\u8EAB\u662F\u5197\u9918\u7684\uFF09\uFF0C\u8A72\u6E2C\u8A66\u8981\u6C42\u5C31\u6C38\u9060\u7121\u6CD5\u88AB\u6EFF\u8DB3\u2014\u2014\u5373\u70BA\u4E0D\u53EF\u884C\u3002"
+        },
+        {
+          "type": "shortanswer",
+          "name": "\u552F\u4E00\u771F\u503C\u9EDE\u8986\u84CB",
+          "text": "<p>\u54EA\u4E00\u500B\u4EE5 DNF\uFF08\u6790\u53D6\u7BC4\u5F0F\uFF09\u70BA\u57FA\u790E\u7684\u908F\u8F2F\u8986\u84CB\u6E96\u5247\uFF0C\u8981\u6C42\u6DB5\u84CB\u8FF0\u8A5E\u7684\u6BCF\u4E00\u500B\u552F\u4E00\u771F\u503C\u9EDE\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u7E2E\u5BEB\u56DE\u7B54\uFF09</p>",
+          "answers": [
+            {
+              "text": "UTPC",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            },
+            {
+              "text": "unique true point*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            }
+          ],
+          "generalFeedback": "\u552F\u4E00\u771F\u503C\u9EDE\u8986\u84CB\uFF08Unique True Point Coverage, UTPC\uFF09\u8981\u6C42\uFF1A\u5C0D\u8FF0\u8A5E DNF \u8868\u793A\u5F0F\u4E2D\u7684\u6BCF\u4E00\u9805\uFF0C\u90FD\u5B58\u5728\u4E00\u500B\u6E2C\u8A66\u6070\u597D\u4F7F\u8A72\u9805\u70BA true\uFF08\u800C\u6240\u6709\u5176\u4ED6\u9805\u7686\u70BA false\uFF09\u2014\u2014\u5373\u8A72\u9805\u5C08\u5C6C\u7684\u300C\u552F\u4E00\u771F\u503C\u9EDE\u300D\u3002",
+          "usecase": false
+        }
+      ]
+    },
+    "mutation-testing": {
+      "en": [
+        {
+          "type": "multichoice",
+          "name": "Mutant killed",
+          "text": "<p>A mutant is considered <em>killed</em> when:</p>",
+          "answers": [
+            {
+              "text": "Some test case produces a different result on the mutant than on the original program",
+              "fraction": 100,
+              "feedback": 'Correct \u2014 that observable difference is what "kills" it.'
+            },
+            {
+              "text": "The mutant fails to compile",
+              "fraction": 0,
+              "feedback": `A mutant that won't compile is usually discarded, not "killed" by a test.`
+            },
+            {
+              "text": "The mutant crashes at runtime",
+              "fraction": 0,
+              "feedback": "A crash can kill a mutant only if it differs from the original's behavior \u2014 the definition is about differing output, not crashing itself."
+            },
+            {
+              "text": "The mutant is equivalent to the original",
+              "fraction": 0,
+              "feedback": "An equivalent mutant, by definition, can never be killed by any test."
+            }
+          ],
+          "generalFeedback": "A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and running it on the original program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation score formula",
+          "text": "<p>The mutation score is computed as:</p>",
+          "answers": [
+            {
+              "text": "killed mutants / (total mutants &#8722; equivalent mutants)",
+              "fraction": 100,
+              "feedback": "Correct \u2014 equivalent mutants are excluded because no test can ever kill them."
+            },
+            {
+              "text": "killed mutants / total mutants",
+              "fraction": 0,
+              "feedback": "This treats equivalent mutants as killable, unfairly penalizing the test suite."
+            },
+            {
+              "text": "killed mutants / (total mutants + equivalent mutants)",
+              "fraction": 0,
+              "feedback": "Adding, not subtracting, equivalents makes the score worse without justification."
+            },
+            {
+              "text": "(total mutants &#8722; killed mutants) / total mutants",
+              "fraction": 0,
+              "feedback": `That's closer to a "surviving-mutant rate", not the mutation score.`
+            }
+          ],
+          "generalFeedback": "Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent mutant",
+          "text": "<p>An <em>equivalent mutant</em> is a mutant that is:</p>",
+          "answers": [
+            {
+              "text": "Syntactically different from the original but semantically identical on every input",
+              "fraction": 100,
+              "feedback": "Correct \u2014 same input/output behavior for all inputs, so no test can distinguish it."
+            },
+            {
+              "text": "Textually identical to the original program",
+              "fraction": 0,
+              "feedback": "Mutation operators always introduce a syntactic change; identical text isn't a mutant at all."
+            },
+            {
+              "text": "A mutant located in dead/unreachable code",
+              "fraction": 0,
+              "feedback": "An unreachable mutant fails on reachability, but might still be non-equivalent were the code reached."
+            },
+            {
+              "text": "A mutant that crashes on every input",
+              "fraction": 0,
+              "feedback": "A mutant that reliably crashes differently from the original is trivially killed, not equivalent."
+            }
+          ],
+          "generalFeedback": "An equivalent mutant differs in source code from the original program but computes exactly the same function \u2014 identical output for every possible input \u2014 so it is logically impossible for any test to kill it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP model \u2014 infection failure",
+          "text": "<p>Under the Reachability&#8211;Infection&#8211;Propagation (RIP) model, which condition has failed if the mutated statement executes but the program's state is never different afterward?</p>",
+          "answers": [
+            {
+              "text": "Infection",
+              "fraction": 100,
+              "feedback": "Correct \u2014 reachability held (the statement ran) but the mutation never corrupted the state."
+            },
+            {
+              "text": "Reachability",
+              "fraction": 0,
+              "feedback": "Reachability already succeeded since the statement executed."
+            },
+            {
+              "text": "Propagation",
+              "fraction": 0,
+              "feedback": "Propagation only matters once the state has actually been infected; here it never was."
+            },
+            {
+              "text": "The oracle",
+              "fraction": 0,
+              "feedback": `The RIP model doesn't include an "oracle" condition \u2014 oracle problems live in the test-verification step.`
+            }
+          ],
+          "generalFeedback": "RIP requires the mutated statement to be Reached, to Infect the program state (make it differ from the original), and for that infected state to Propagate to the output. Execution without any state difference means infection failed.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Statement coverage and mutants",
+          "text": "<p>A test suite that achieves 100% statement coverage is guaranteed to kill every non-equivalent mutant.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Statement coverage only guarantees reachability, not that the mutation infects the state or that the infection propagates to an observable output."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct \u2014 statement coverage guarantees the mutated statement executes (reachability), but says nothing about infection or propagation, so non-equivalent mutants can still survive."
+            }
+          ],
+          "generalFeedback": '100% statement coverage satisfies only the "Reachability" leg of the RIP model. A mutant can still survive if infection never occurs or the infected state never propagates to a checked output \u2014 so full statement coverage does not guarantee killing every non-equivalent mutant.'
+        },
+        {
+          "type": "shortanswer",
+          "name": "RIP \u2014 propagation",
+          "text": "<p>In the Reachability&#8211;Infection&#8211;Propagation model, which term names the condition that the corrupted state must reach and change the program's observable output? (one word)</p>",
+          "answers": [
+            {
+              "text": "propagation",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "propagat*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "Propagation is the third RIP condition: the infected (corrupted) state must flow forward through execution until it changes something the test oracle actually observes.",
+          "usecase": false
+        }
+      ],
+      "zh": [
+        {
+          "type": "multichoice",
+          "name": "\u7A81\u8B8A\u9AD4\u88AB\u6BBA\u6B7B",
+          "text": "<p>\u4E00\u500B\u7A81\u8B8A\u9AD4\uFF08mutant\uFF09\u88AB\u8996\u70BA<em>\u88AB\u6BBA\u6B7B\uFF08killed\uFF09</em>\uFF0C\u662F\u6307\uFF1A</p>",
+          "answers": [
+            {
+              "text": "\u67D0\u500B\u6E2C\u8A66\u6848\u4F8B\u5728\u7A81\u8B8A\u9AD4\u4E0A\u7522\u751F\u7684\u7D50\u679C\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u7A2E\u53EF\u89C0\u5BDF\u5230\u7684\u5DEE\u7570\u6B63\u662F\u300C\u6BBA\u6B7B\u300D\u7684\u5B9A\u7FA9\u3002"
+            },
+            {
+              "text": "\u8A72\u7A81\u8B8A\u9AD4\u7121\u6CD5\u7DE8\u8B6F",
+              "fraction": 0,
+              "feedback": "\u7121\u6CD5\u7DE8\u8B6F\u7684\u7A81\u8B8A\u9AD4\u901A\u5E38\u6703\u88AB\u76F4\u63A5\u6368\u68C4\uFF0C\u800C\u4E0D\u662F\u88AB\u6E2C\u8A66\u300C\u6BBA\u6B7B\u300D\u3002"
+            },
+            {
+              "text": "\u8A72\u7A81\u8B8A\u9AD4\u5728\u57F7\u884C\u6642\u7576\u6389\uFF08crash\uFF09",
+              "fraction": 0,
+              "feedback": "\u7576\u6389\u53EA\u6709\u5728\u5176\u884C\u70BA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\u6642\u624D\u7B97\u6BBA\u6B7B\uFF1B\u5B9A\u7FA9\u7684\u6838\u5FC3\u5728\u65BC\u8F38\u51FA\u4E0D\u540C\uFF0C\u800C\u975E\u7576\u6389\u672C\u8EAB\u3002"
+            },
+            {
+              "text": "\u8A72\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u7A0B\u5F0F\u7B49\u50F9",
+              "fraction": 0,
+              "feedback": "\u4F9D\u5B9A\u7FA9\uFF0C\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6C38\u9060\u4E0D\u53EF\u80FD\u88AB\u4EFB\u4F55\u6E2C\u8A66\u6BBA\u6B7B\u3002"
+            }
+          ],
+          "generalFeedback": "\u7576\u6E2C\u8A66\u5957\u4EF6\u4E2D\u81F3\u5C11\u6709\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\uFF0C\u5728\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0A\u57F7\u884C\u6642\u7522\u751F\u53EF\u89C0\u5BDF\u5230\u7684\u5DEE\u7570\uFF08\u8F38\u51FA\u3001\u72C0\u614B\uFF0C\u6216\u662F\u7576\u6389\u8207\u5426\uFF09\uFF0C\u8A72\u7A81\u8B8A\u9AD4\u5373\u88AB\u8996\u70BA\u5DF2\u88AB\u6BBA\u6B7B\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u7A81\u8B8A\u5206\u6578\u516C\u5F0F",
+          "text": "<p>\u7A81\u8B8A\u5206\u6578\uFF08mutation score\uFF09\u7684\u8A08\u7B97\u65B9\u5F0F\u70BA\uFF1A</p>",
+          "answers": [
+            {
+              "text": "\u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u6578 / (\u7A81\u8B8A\u9AD4\u7E3D\u6578 &#8722; \u7B49\u50F9\u7A81\u8B8A\u9AD4\u6578)",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u7B49\u50F9\u7A81\u8B8A\u9AD4\u88AB\u6392\u9664\uFF0C\u56E0\u70BA\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83\u5011\u3002"
+            },
+            {
+              "text": "\u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u6578 / \u7A81\u8B8A\u9AD4\u7E3D\u6578",
+              "fraction": 0,
+              "feedback": "\u9019\u628A\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7576\u4F5C\u53EF\u88AB\u6BBA\u6B7B\u4F86\u8A08\u7B97\uFF0C\u6703\u4E0D\u516C\u5E73\u5730\u62C9\u4F4E\u6E2C\u8A66\u5957\u4EF6\u7684\u5206\u6578\u3002"
+            },
+            {
+              "text": "\u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u6578 / (\u7A81\u8B8A\u9AD4\u7E3D\u6578 + \u7B49\u50F9\u7A81\u8B8A\u9AD4\u6578)",
+              "fraction": 0,
+              "feedback": "\u628A\u7B49\u50F9\u7A81\u8B8A\u9AD4\u52A0\u9032\u5206\u6BCD\u800C\u975E\u6E1B\u53BB\uFF0C\u6703\u5728\u6C92\u6709\u4F9D\u64DA\u7684\u60C5\u6CC1\u4E0B\u8B93\u5206\u6578\u8B8A\u5DEE\u3002"
+            },
+            {
+              "text": "(\u7A81\u8B8A\u9AD4\u7E3D\u6578 &#8722; \u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u6578) / \u7A81\u8B8A\u9AD4\u7E3D\u6578",
+              "fraction": 0,
+              "feedback": "\u9019\u6BD4\u8F03\u63A5\u8FD1\u300C\u5B58\u6D3B\u7A81\u8B8A\u9AD4\u6BD4\u4F8B\u300D\uFF0C\u800C\u4E0D\u662F\u7A81\u8B8A\u5206\u6578\u3002"
+            }
+          ],
+          "generalFeedback": "\u7A81\u8B8A\u5206\u6578 = \u88AB\u6BBA\u6B7B\u6578 / (\u7E3D\u6578 &#8722; \u7B49\u50F9\u6578)\u3002\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5F9E\u5206\u6BCD\u4E2D\u88AB\u79FB\u9664\uFF0C\u56E0\u70BA\u5B83\u5011\u5728\u8A9E\u610F\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u5B8C\u5168\u76F8\u540C\uFF0C\u4EFB\u4F55\u6E2C\u8A66\u90FD\u4E0D\u53EF\u80FD\u6BBA\u6B7B\u5B83\u5011\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+          "text": "<p><em>\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08equivalent mutant\uFF09</em>\u662F\u6307\u9019\u6A23\u7684\u7A81\u8B8A\u9AD4\uFF1A</p>",
+          "answers": [
+            {
+              "text": "\u8A9E\u6CD5\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF0C\u4F46\u5728\u6240\u6709\u8F38\u5165\u4E0B\u8A9E\u610F\u5B8C\u5168\u76F8\u540C",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6240\u6709\u8F38\u5165\u800C\u8A00\uFF0C\u8F38\u5165\u8F38\u51FA\u884C\u70BA\u90FD\u76F8\u540C\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u5340\u5206\u5B83\u3002"
+            },
+            {
+              "text": "\u8207\u539F\u59CB\u7A0B\u5F0F\u6587\u5B57\u5B8C\u5168\u76F8\u540C",
+              "fraction": 0,
+              "feedback": "\u7A81\u8B8A\u904B\u7B97\u5B50\u4E00\u5B9A\u6703\u5F15\u5165\u8A9E\u6CD5\u4E0A\u7684\u8B8A\u5316\uFF1B\u6587\u5B57\u5B8C\u5168\u76F8\u540C\u6839\u672C\u4E0D\u7B97\u662F\u7A81\u8B8A\u9AD4\u3002"
+            },
+            {
+              "text": "\u4F4D\u65BC\u7121\u6CD5\u57F7\u884C\u5230\u7684\u6B7B\u78BC\uFF08dead code\uFF09\u4E2D\u7684\u7A81\u8B8A\u9AD4",
+              "fraction": 0,
+              "feedback": "\u7121\u6CD5\u5230\u9054\u7684\u7A81\u8B8A\u9AD4\u662F\u5728\u53EF\u5230\u9054\u6027\uFF08reachability\uFF09\u4E0A\u5931\u6557\uFF0C\u4F46\u82E5\u771F\u7684\u57F7\u884C\u5230\u8A72\u8655\uFF0C\u5B83\u4ECD\u53EF\u80FD\u4E0D\u662F\u7B49\u50F9\u7684\u3002"
+            },
+            {
+              "text": "\u5728\u6240\u6709\u8F38\u5165\u4E0B\u90FD\u6703\u7576\u6389\u7684\u7A81\u8B8A\u9AD4",
+              "fraction": 0,
+              "feedback": "\u4E00\u500B\u7A69\u5B9A\u5730\u4EE5\u4E0D\u540C\u65B9\u5F0F\u7576\u6389\u7684\u7A81\u8B8A\u9AD4\u6703\u88AB\u8F15\u6613\u6BBA\u6B7B\uFF0C\u800C\u975E\u7B49\u50F9\u3002"
+            }
+          ],
+          "generalFeedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5728\u539F\u59CB\u78BC\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF0C\u4F46\u8A08\u7B97\u51FA\u7684\u51FD\u5F0F\u5B8C\u5168\u76F8\u540C\u2014\u2014\u5C0D\u6BCF\u4E00\u500B\u53EF\u80FD\u7684\u8F38\u5165\u90FD\u7D66\u51FA\u76F8\u540C\u8F38\u51FA\u2014\u2014\u56E0\u6B64\u5728\u908F\u8F2F\u4E0A\u4E0D\u53EF\u80FD\u88AB\u4EFB\u4F55\u6E2C\u8A66\u6BBA\u6B7B\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP \u6A21\u578B\u2014\u2014\u611F\u67D3\u5931\u6557",
+          "text": "<p>\u5728\u53EF\u5230\u9054\u6027&#8211;\u611F\u67D3&#8211;\u50B3\u64AD\uFF08Reachability&#8211;Infection&#8211;Propagation, RIP\uFF09\u6A21\u578B\u4E2D\uFF0C\u82E5\u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u6709\u57F7\u884C\u5230\uFF0C\u4F46\u7A0B\u5F0F\u72C0\u614B\u4E8B\u5F8C\u5F9E\u672A\u51FA\u73FE\u5DEE\u7570\uFF0C\u9019\u4EE3\u8868\u54EA\u500B\u689D\u4EF6\u5931\u6557\u4E86\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u611F\u67D3\uFF08Infection\uFF09",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u5230\u9054\u6027\u5DF2\u7D93\u6210\u7ACB\uFF08\u8A72\u6558\u8FF0\u6709\u57F7\u884C\uFF09\uFF0C\u4F46\u7A81\u8B8A\u4E26\u672A\u771F\u6B63\u7834\u58DE\u7A0B\u5F0F\u72C0\u614B\u3002"
+            },
+            {
+              "text": "\u53EF\u5230\u9054\u6027\uFF08Reachability\uFF09",
+              "fraction": 0,
+              "feedback": "\u53EF\u5230\u9054\u6027\u5DF2\u7D93\u6210\u7ACB\uFF0C\u56E0\u70BA\u8A72\u6558\u8FF0\u78BA\u5BE6\u6709\u88AB\u57F7\u884C\u3002"
+            },
+            {
+              "text": "\u50B3\u64AD\uFF08Propagation\uFF09",
+              "fraction": 0,
+              "feedback": "\u50B3\u64AD\u53EA\u6709\u5728\u72C0\u614B\u771F\u7684\u88AB\u611F\u67D3\u4E4B\u5F8C\u624D\u6709\u610F\u7FA9\uFF1B\u6B64\u8655\u72C0\u614B\u5F9E\u672A\u88AB\u611F\u67D3\u3002"
+            },
+            {
+              "text": "\u6E2C\u8A66\u8AED\u793A\uFF08oracle\uFF09",
+              "fraction": 0,
+              "feedback": "RIP \u6A21\u578B\u4E26\u4E0D\u5305\u542B\u300Coracle\u300D\u9019\u500B\u689D\u4EF6\u2014\u2014\u6E2C\u8A66\u8AED\u793A\u7684\u554F\u984C\u5C6C\u65BC\u7D50\u679C\u9A57\u8B49\u968E\u6BB5\u3002"
+            }
+          ],
+          "generalFeedback": "RIP \u8981\u6C42\u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u9808\u88AB\u5230\u9054\uFF08Reached\uFF09\u3001\u9808\u611F\u67D3\uFF08Infect\uFF09\u7A0B\u5F0F\u72C0\u614B\uFF08\u4F7F\u5176\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09\uFF0C\u4E14\u88AB\u611F\u67D3\u7684\u72C0\u614B\u9808\u50B3\u64AD\uFF08Propagate\uFF09\u81F3\u8F38\u51FA\u3002\u82E5\u6709\u57F7\u884C\u537B\u59CB\u7D42\u6C92\u6709\u4EFB\u4F55\u72C0\u614B\u5DEE\u7570\uFF0C\u4EE3\u8868\u611F\u67D3\u5931\u6557\u3002",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "\u6558\u8FF0\u8986\u84CB\u8207\u7A81\u8B8A\u9AD4",
+          "text": "<p>\u9054\u5230 100% \u6558\u8FF0\u8986\u84CB\u7387\u7684\u6E2C\u8A66\u5957\u4EF6\uFF0C\u4FDD\u8B49\u80FD\u6BBA\u6B7B\u6240\u6709\u975E\u7B49\u50F9\u7684\u7A81\u8B8A\u9AD4\u3002</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "\u6558\u8FF0\u8986\u84CB\u53EA\u80FD\u4FDD\u8B49\u53EF\u5230\u9054\u6027\uFF0C\u4E26\u4E0D\u4FDD\u8B49\u8A72\u7A81\u8B8A\u6703\u611F\u67D3\u72C0\u614B\uFF0C\u4E5F\u4E0D\u4FDD\u8B49\u611F\u67D3\u5F8C\u7684\u72C0\u614B\u6703\u50B3\u64AD\u5230\u53EF\u89C0\u5BDF\u7684\u8F38\u51FA\u3002"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u6558\u8FF0\u8986\u84CB\u53EA\u4FDD\u8B49\u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u6709\u57F7\u884C\u5230\uFF08\u53EF\u5230\u9054\u6027\uFF09\uFF0C\u5C0D\u611F\u67D3\u8207\u50B3\u64AD\u6BEB\u7121\u4FDD\u8B49\uFF0C\u56E0\u6B64\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u4ECD\u53EF\u80FD\u5B58\u6D3B\u3002"
+            }
+          ],
+          "generalFeedback": "100% \u6558\u8FF0\u8986\u84CB\u53EA\u6EFF\u8DB3\u4E86 RIP \u6A21\u578B\u4E2D\u300C\u53EF\u5230\u9054\u6027\u300D\u9019\u4E00\u74B0\u3002\u82E5\u611F\u67D3\u5F9E\u672A\u767C\u751F\uFF0C\u6216\u88AB\u611F\u67D3\u7684\u72C0\u614B\u5F9E\u672A\u50B3\u64AD\u5230\u53D7\u6AA2\u67E5\u7684\u8F38\u51FA\uFF0C\u7A81\u8B8A\u9AD4\u4ECD\u53EF\u80FD\u5B58\u6D3B\u2014\u2014\u56E0\u6B64\u5B8C\u6574\u7684\u6558\u8FF0\u8986\u84CB\u4E26\u4E0D\u4FDD\u8B49\u6BBA\u6B7B\u6240\u6709\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002"
+        },
+        {
+          "type": "shortanswer",
+          "name": "RIP\u2014\u2014\u50B3\u64AD",
+          "text": "<p>\u5728\u53EF\u5230\u9054\u6027&#8211;\u611F\u67D3&#8211;\u50B3\u64AD\u6A21\u578B\u4E2D\uFF0C\u54EA\u500B\u8A5E\u4EE3\u8868\u300C\u53D7\u7834\u58DE\u7684\u72C0\u614B\u5FC5\u9808\u5230\u9054\u4E26\u6539\u8B8A\u7A0B\u5F0F\u53EF\u89C0\u5BDF\u8F38\u51FA\u300D\u7684\u689D\u4EF6\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u4E00\u500B\u55AE\u5B57\u56DE\u7B54\uFF09</p>",
+          "answers": [
+            {
+              "text": "propagation",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            },
+            {
+              "text": "propagat*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            }
+          ],
+          "generalFeedback": "\u50B3\u64AD\uFF08propagation\uFF09\u662F RIP \u7684\u7B2C\u4E09\u500B\u689D\u4EF6\uFF1A\u88AB\u611F\u67D3\uFF08\u7834\u58DE\uFF09\u7684\u72C0\u614B\u5FC5\u9808\u5728\u57F7\u884C\u904E\u7A0B\u4E2D\u6301\u7E8C\u5411\u524D\u5F71\u97FF\uFF0C\u76F4\u5230\u6539\u8B8A\u6E2C\u8A66\u8AED\u793A\u5BE6\u969B\u89C0\u5BDF\u5230\u7684\u7D50\u679C\u70BA\u6B62\u3002",
+          "usecase": false
+        }
+      ]
+    },
+    "symbolic-execution": {
+      "en": [
+        {
+          "type": "multichoice",
+          "name": "Path condition",
+          "text": "<p>A path condition, as built by a symbolic execution engine, is:</p>",
+          "answers": [
+            {
+              "text": "The conjunction of the branch constraints accumulated along one execution path, expressed over symbolic input variables",
+              "fraction": 100,
+              "feedback": "Correct \u2014 it's a formula, not a value, describing which concrete inputs would follow that path."
+            },
+            {
+              "text": "A single concrete execution trace recorded by running the program once",
+              "fraction": 0,
+              "feedback": "That's what concolic/dynamic execution records; symbolic execution reasons about formulas, not one concrete run."
+            },
+            {
+              "text": "A code-coverage metric reporting the percentage of branches exercised",
+              "fraction": 0,
+              "feedback": "Coverage is a summary statistic; a path condition is a logical formula tied to one specific path."
+            },
+            {
+              "text": "A representation of the program's control-flow graph",
+              "fraction": 0,
+              "feedback": "The CFG is the static structure being explored; the path condition is the accumulated constraint along one traversal of it."
+            }
+          ],
+          "generalFeedback": "As symbolic execution follows a path, it conjoins the constraint from each branch decision (in terms of symbolic inputs) into a single formula \u2014 the path condition \u2014 that characterizes exactly which concrete inputs would take that path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Detecting infeasible paths",
+          "text": "<p>A path explored by a symbolic execution engine is identified as infeasible when:</p>",
+          "answers": [
+            {
+              "text": "Its path condition is unsatisfiable (UNSAT) \u2014 no input assignment satisfies all the accumulated constraints",
+              "fraction": 100,
+              "feedback": "Correct \u2014 UNSAT means no concrete execution can ever take that path."
+            },
+            {
+              "text": "The engine hits its configured loop-unrolling bound",
+              "fraction": 0,
+              "feedback": "Hitting a bound just stops exploration there; it doesn't by itself prove the path is infeasible."
+            },
+            {
+              "text": "The solver times out before returning an answer",
+              "fraction": 0,
+              "feedback": "A timeout is inconclusive \u2014 the path might still be feasible, just unresolved."
+            },
+            {
+              "text": "The path performs a division by zero",
+              "fraction": 0,
+              "feedback": "That's a runtime fault the engine may flag along a feasible path, not a sign of infeasibility."
+            }
+          ],
+          "generalFeedback": "A path's condition is a logical formula; the constraint solver deems the path infeasible precisely when that formula is UNSAT, meaning no assignment of the symbolic inputs could ever drive execution down that path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scalability bottleneck",
+          "text": "<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>",
+          "answers": [
+            {
+              "text": "Path explosion \u2014 the number of distinct paths grows exponentially with branches and loops",
+              "fraction": 100,
+              "feedback": "Correct \u2014 this is the classic scalability wall for symbolic execution."
+            },
+            {
+              "text": "Memory leaks in the instrumented program",
+              "fraction": 0,
+              "feedback": "Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling."
+            },
+            {
+              "text": "The oracle problem \u2014 not knowing the correct expected output",
+              "fraction": 0,
+              "feedback": "The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles."
+            },
+            {
+              "text": "Flaky, non-deterministic tests",
+              "fraction": 0,
+              "feedback": "Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number."
+            }
+          ],
+          "generalFeedback": "Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially \u2014 path explosion \u2014 making exhaustive symbolic execution intractable for large or loop-heavy programs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Role of the constraint solver",
+          "text": "<p>What role does an SMT/constraint solver play in symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "Given a path condition, it produces a concrete input assignment that satisfies it (or reports UNSAT)",
+              "fraction": 100,
+              "feedback": "Correct \u2014 solving the path condition is exactly how symbolic execution turns a path into a runnable test input."
+            },
+            {
+              "text": "It runs the generated test cases against the program",
+              "fraction": 0,
+              "feedback": "Executing tests is a separate step after input generation, not the solver's job."
+            },
+            {
+              "text": "It mutates the program's source code to create test variants",
+              "fraction": 0,
+              "feedback": "That describes a mutation-testing tool, not a constraint solver."
+            },
+            {
+              "text": "It measures how much of the code the test suite covers",
+              "fraction": 0,
+              "feedback": "Coverage measurement is typically done by separate instrumentation/tracking tools, not the solver."
+            }
+          ],
+          "generalFeedback": "The constraint solver is handed the accumulated path condition and determines whether it is satisfiable; if so, it returns a concrete assignment of the symbolic inputs, which becomes the actual test input driving execution down that path.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concolic execution",
+          "text": '<p>Concolic ("concrete + symbolic") execution combines a concrete run with symbolic reasoning to simplify constraints that pure symbolic execution cannot solve.</p>',
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct \u2014 concolic execution substitutes concrete values from an actual run wherever the symbolic constraints become too complex (e.g., calls into external/native code), letting exploration proceed past terms a pure symbolic solver would get stuck on."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is precisely the motivation for concolic (dynamic symbolic) execution \u2014 it uses a concrete run alongside symbolic tracking so hard-to-solve expressions can be simplified using the concrete values actually observed."
+            }
+          ],
+          "generalFeedback": "Concolic execution runs the program on concrete inputs while simultaneously tracking symbolic constraints; when a constraint becomes too complex (e.g., involves opaque library calls) it substitutes in the concrete value observed at runtime, sidestepping expressions pure symbolic execution's solver cannot handle."
+        },
+        {
+          "type": "shortanswer",
+          "name": "Deciding path-condition satisfiability",
+          "text": "<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>",
+          "answers": [
+            {
+              "text": "solver",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "SMT*",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "constraint solver*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "An SMT (Satisfiability Modulo Theories) solver \u2014 generically, the constraint solver \u2014 takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.",
+          "usecase": false
+        }
+      ],
+      "zh": [
+        {
+          "type": "multichoice",
+          "name": "\u8DEF\u5F91\u689D\u4EF6",
+          "text": "<p>\u7B26\u865F\u57F7\u884C\uFF08symbolic execution\uFF09\u5F15\u64CE\u6240\u5EFA\u7ACB\u7684\u8DEF\u5F91\u689D\u4EF6\uFF08path condition\uFF09\u662F\u6307\uFF1A</p>",
+          "answers": [
+            {
+              "text": "\u6CBF\u8457\u4E00\u689D\u57F7\u884C\u8DEF\u5F91\u7D2F\u7A4D\u7684\u6240\u6709\u5206\u652F\u9650\u5236\u5F0F\uFF08branch constraints\uFF09\u7684\u5408\u53D6\uFF08conjunction\uFF09\uFF0C\u4EE5\u7B26\u865F\u5316\u8F38\u5165\u8B8A\u6578\u8868\u793A",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u4E00\u689D\u516C\u5F0F\uFF0C\u800C\u975E\u6578\u503C\uFF0C\u7528\u4F86\u63CF\u8FF0\u54EA\u4E9B\u5177\u9AD4\u8F38\u5165\u6703\u8D70\u4E0A\u9019\u689D\u8DEF\u5F91\u3002"
+            },
+            {
+              "text": "\u57F7\u884C\u7A0B\u5F0F\u4E00\u6B21\u6240\u8A18\u9304\u4E0B\u4F86\u7684\u55AE\u4E00\u5177\u9AD4\u57F7\u884C\u8ECC\u8DE1",
+              "fraction": 0,
+              "feedback": "\u90A3\u662F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\uFF08concolic\uFF09\uFF0F\u52D5\u614B\u57F7\u884C\u6240\u8A18\u9304\u7684\u5167\u5BB9\uFF1B\u7B26\u865F\u57F7\u884C\u63A8\u7406\u7684\u662F\u516C\u5F0F\uFF0C\u800C\u975E\u55AE\u4E00\u5177\u9AD4\u57F7\u884C\u3002"
+            },
+            {
+              "text": "\u56DE\u5831\u5206\u652F\u88AB\u57F7\u884C\u767E\u5206\u6BD4\u7684\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u6307\u6A19",
+              "fraction": 0,
+              "feedback": "\u8986\u84CB\u7387\u662F\u4E00\u9805\u6458\u8981\u7D71\u8A08\u6578\u5B57\uFF1B\u8DEF\u5F91\u689D\u4EF6\u5247\u662F\u8207\u67D0\u689D\u7279\u5B9A\u8DEF\u5F91\u7D81\u5B9A\u7684\u908F\u8F2F\u516C\u5F0F\u3002"
+            },
+            {
+              "text": "\u7A0B\u5F0F\u63A7\u5236\u6D41\u7A0B\u5716\uFF08control-flow graph\uFF09\u7684\u8868\u793A\u6CD5",
+              "fraction": 0,
+              "feedback": "\u63A7\u5236\u6D41\u7A0B\u5716\u662F\u88AB\u63A2\u7D22\u7684\u975C\u614B\u7D50\u69CB\u672C\u8EAB\uFF1B\u8DEF\u5F91\u689D\u4EF6\u5247\u662F\u6CBF\u8457\u5176\u4E2D\u4E00\u689D\u8D70\u8A2A\u8DEF\u5F91\u6240\u7D2F\u7A4D\u51FA\u7684\u9650\u5236\u5F0F\u3002"
+            }
+          ],
+          "generalFeedback": "\u7B26\u865F\u57F7\u884C\u6CBF\u8457\u4E00\u689D\u8DEF\u5F91\u524D\u9032\u6642\uFF0C\u6703\u628A\u6BCF\u500B\u5206\u652F\u6C7A\u7B56\uFF08\u4EE5\u7B26\u865F\u5316\u8F38\u5165\u8868\u793A\uFF09\u7684\u9650\u5236\u5F0F\u5408\u53D6\u6210\u4E00\u689D\u516C\u5F0F\u2014\u2014\u5373\u8DEF\u5F91\u689D\u4EF6\u2014\u2014\u7CBE\u78BA\u5730\u63CF\u8FF0\u54EA\u4E9B\u5177\u9AD4\u8F38\u5165\u6703\u8D70\u4E0A\u9019\u689D\u8DEF\u5F91\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u5075\u6E2C\u4E0D\u53EF\u884C\u8DEF\u5F91",
+          "text": "<p>\u7B26\u865F\u57F7\u884C\u5F15\u64CE\u6240\u63A2\u7D22\u7684\u4E00\u689D\u8DEF\u5F91\uFF0C\u4F55\u6642\u6703\u88AB\u5224\u5B9A\u70BA\u4E0D\u53EF\u884C\uFF08infeasible\uFF09\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u5176\u8DEF\u5F91\u689D\u4EF6\u4E0D\u53EF\u6EFF\u8DB3\uFF08UNSAT\uFF09\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u6307\u6D3E\u80FD\u540C\u6642\u6EFF\u8DB3\u6240\u6709\u7D2F\u7A4D\u7684\u9650\u5236\u5F0F",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014UNSAT \u4EE3\u8868\u4E0D\u5B58\u5728\u4EFB\u4F55\u5177\u9AD4\u57F7\u884C\u80FD\u8D70\u4E0A\u9019\u689D\u8DEF\u5F91\u3002"
+            },
+            {
+              "text": "\u5F15\u64CE\u9054\u5230\u4E86\u8A2D\u5B9A\u7684\u8FF4\u5708\u5C55\u958B\uFF08loop-unrolling\uFF09\u4E0A\u9650",
+              "fraction": 0,
+              "feedback": "\u9054\u5230\u4E0A\u9650\u53EA\u662F\u8B93\u63A2\u7D22\u5728\u8A72\u8655\u505C\u6B62\uFF0C\u672C\u8EAB\u4E26\u4E0D\u80FD\u8B49\u660E\u8A72\u8DEF\u5F91\u4E0D\u53EF\u884C\u3002"
+            },
+            {
+              "text": "\u6C42\u89E3\u5668\u5728\u7D66\u51FA\u7B54\u6848\u524D\u903E\u6642",
+              "fraction": 0,
+              "feedback": "\u903E\u6642\u4EE3\u8868\u7D50\u679C\u672A\u5B9A\u2014\u2014\u8A72\u8DEF\u5F91\u4ECD\u53EF\u80FD\u662F\u53EF\u884C\u7684\uFF0C\u53EA\u662F\u5C1A\u672A\u88AB\u89E3\u51FA\u3002"
+            },
+            {
+              "text": "\u8A72\u8DEF\u5F91\u767C\u751F\u4E86\u9664\u4EE5\u96F6\u7684\u932F\u8AA4",
+              "fraction": 0,
+              "feedback": "\u90A3\u662F\u5F15\u64CE\u5728\u67D0\u689D\u53EF\u884C\u8DEF\u5F91\u4E0A\u53EF\u80FD\u6A19\u8A18\u51FA\u7684\u57F7\u884C\u671F\u932F\u8AA4\uFF0C\u4E26\u975E\u4E0D\u53EF\u884C\u7684\u8DE1\u8C61\u3002"
+            }
+          ],
+          "generalFeedback": "\u8DEF\u5F91\u689D\u4EF6\u662F\u4E00\u689D\u908F\u8F2F\u516C\u5F0F\uFF1B\u7576\u6C42\u89E3\u5668\u5224\u5B9A\u8A72\u516C\u5F0F\u70BA UNSAT \u6642\uFF0C\u5C31\u4EE3\u8868\u9019\u689D\u8DEF\u5F91\u4E0D\u53EF\u884C\u2014\u2014\u4E5F\u5C31\u662F\u8AAA\uFF0C\u7B26\u865F\u5316\u8F38\u5165\u7121\u8AD6\u5982\u4F55\u6307\u6D3E\uFF0C\u90FD\u4E0D\u53EF\u80FD\u8B93\u57F7\u884C\u8D70\u4E0A\u9019\u689D\u8DEF\u5F91\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u53EF\u64F4\u5C55\u6027\u74F6\u9838",
+          "text": "<p>\u7B26\u865F\u57F7\u884C\u64F4\u5C55\u5230\u5927\u578B\u7A0B\u5F0F\u6642\uFF0C\u4E3B\u8981\u7684\u969C\u7919\u662F\u4EC0\u9EBC\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u8DEF\u5F91\u7206\u70B8\uFF08path explosion\uFF09\u2014\u2014\u76F8\u7570\u8DEF\u5F91\u7684\u6578\u91CF\u96A8\u8457\u5206\u652F\u8207\u8FF4\u5708\u5448\u6307\u6578\u6210\u9577",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u7B26\u865F\u57F7\u884C\u6700\u5178\u578B\u7684\u53EF\u64F4\u5C55\u6027\u74F6\u9838\u3002"
+            },
+            {
+              "text": "\u88AB\u63D2\u6A01\uFF08instrumented\uFF09\u7A0B\u5F0F\u7684\u8A18\u61B6\u9AD4\u6D29\u6F0F",
+              "fraction": 0,
+              "feedback": "\u9019\u4E0D\u662F\u5178\u578B\u74F6\u9838\uFF1B\u8A18\u61B6\u9AD4\u6D29\u6F0F\u662F\u4E00\u822C\u7A0B\u5F0F\u5206\u6790\u666E\u904D\u6703\u9047\u5230\u7684\u554F\u984C\uFF0C\u4E26\u975E\u7B26\u865F\u57F7\u884C\u64F4\u5C55\u6027\u7684\u7279\u6709\u8B70\u984C\u3002"
+            },
+            {
+              "text": "\u6E2C\u8A66\u8AED\u793A\u554F\u984C\uFF08oracle problem\uFF09\u2014\u2014\u4E0D\u77E5\u9053\u6B63\u78BA\u7684\u9810\u671F\u8F38\u51FA",
+              "fraction": 0,
+              "feedback": "\u6E2C\u8A66\u8AED\u793A\u554F\u984C\u5EE3\u6CDB\u5F71\u97FF\u6E2C\u8A66\u7D50\u679C\u7684\u9A57\u8B49\uFF1B\u7B26\u865F\u57F7\u884C\u672C\u8EAB\u7684\u6838\u5FC3\u64F4\u5C55\u6027\u74F6\u9838\u5728\u65BC\u8DEF\u5F91\u6578\u91CF\uFF0C\u800C\u975E\u8AED\u793A\u3002"
+            },
+            {
+              "text": "\u4E0D\u7A69\u5B9A\u3001\u4E0D\u78BA\u5B9A\u6027\u7684\u6E2C\u8A66\uFF08flaky tests\uFF09",
+              "fraction": 0,
+              "feedback": "\u6E2C\u8A66\u4E0D\u7A69\u5B9A\u5C6C\u65BC\u52D5\u614B\u6E2C\u8A66\u7684\u8B70\u984C\uFF1B\u7B26\u865F\u57F7\u884C\u662F\u91DD\u5C0D\u8DEF\u5F91\u505A\u975C\u614B\u63A8\u7406\uFF0C\u5176\u74F6\u9838\u5728\u65BC\u8DEF\u5F91\u6578\u91CF\u672C\u8EAB\u3002"
+            }
+          ],
+          "generalFeedback": "\u7531\u65BC\u6BCF\u500B\u5206\u652F\u90FD\u53EF\u80FD\u4F7F\u5F85\u63A2\u7D22\u7684\u8DEF\u5F91\u6578\u91CF\u52A0\u500D\uFF0C\u800C\u8FF4\u5708\u66F4\u6703\u8CA2\u737B\u5927\u91CF\u984D\u5916\u8DEF\u5F91\uFF0C\u8DEF\u5F91\u6578\u91CF\u6703\u5448\u6307\u6578\u6210\u9577\u2014\u2014\u5373\u8DEF\u5F91\u7206\u70B8\u2014\u2014\u4F7F\u5F97\u5C0D\u5927\u578B\u6216\u8FF4\u5708\u5BC6\u96C6\u7A0B\u5F0F\u9032\u884C\u7AAE\u8209\u5F0F\u7B26\u865F\u57F7\u884C\u8B8A\u5F97\u4E0D\u53EF\u884C\u3002",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "\u9650\u5236\u5F0F\u6C42\u89E3\u5668\u7684\u89D2\u8272",
+          "text": "<p>SMT\uFF0F\u9650\u5236\u5F0F\u6C42\u89E3\u5668\uFF08constraint solver\uFF09\u5728\u7B26\u865F\u57F7\u884C\u4E2D\u626E\u6F14\u4EC0\u9EBC\u89D2\u8272\uFF1F</p>",
+          "answers": [
+            {
+              "text": "\u7D66\u5B9A\u4E00\u689D\u8DEF\u5F91\u689D\u4EF6\uFF0C\u6C42\u89E3\u5668\u6703\u7522\u751F\u6EFF\u8DB3\u8A72\u689D\u4EF6\u7684\u5177\u9AD4\u8F38\u5165\u6307\u6D3E\uFF08\u6216\u56DE\u5831 UNSAT\uFF09",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\u6B63\u662F\u7B26\u865F\u57F7\u884C\u628A\u4E00\u689D\u8DEF\u5F91\u8F49\u63DB\u6210\u53EF\u57F7\u884C\u6E2C\u8A66\u8F38\u5165\u7684\u65B9\u5F0F\u3002"
+            },
+            {
+              "text": "\u5B83\u8CA0\u8CAC\u5C0D\u7A0B\u5F0F\u57F7\u884C\u5DF2\u7522\u751F\u7684\u6E2C\u8A66\u6848\u4F8B",
+              "fraction": 0,
+              "feedback": "\u57F7\u884C\u6E2C\u8A66\u662F\u7522\u751F\u8F38\u5165\u4E4B\u5F8C\u7684\u53E6\u4E00\u500B\u7368\u7ACB\u6B65\u9A5F\uFF0C\u4E26\u975E\u6C42\u89E3\u5668\u7684\u5DE5\u4F5C\u3002"
+            },
+            {
+              "text": "\u5B83\u8CA0\u8CAC\u8B8A\u7570\u7A0B\u5F0F\u539F\u59CB\u78BC\u4EE5\u7522\u751F\u6E2C\u8A66\u8B8A\u9AD4",
+              "fraction": 0,
+              "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7A81\u8B8A\u6E2C\u8A66\u5DE5\u5177\uFF0C\u800C\u975E\u9650\u5236\u5F0F\u6C42\u89E3\u5668\u3002"
+            },
+            {
+              "text": "\u5B83\u8CA0\u8CAC\u91CF\u6E2C\u6E2C\u8A66\u5957\u4EF6\u6DB5\u84CB\u4E86\u591A\u5C11\u7A0B\u5F0F\u78BC",
+              "fraction": 0,
+              "feedback": "\u8986\u84CB\u7387\u91CF\u6E2C\u901A\u5E38\u7531\u53E6\u5916\u7684\u63D2\u6A01\uFF0F\u8FFD\u8E64\u5DE5\u5177\u5B8C\u6210\uFF0C\u800C\u975E\u6C42\u89E3\u5668\u3002"
+            }
+          ],
+          "generalFeedback": "\u9650\u5236\u5F0F\u6C42\u89E3\u5668\u6703\u63A5\u6536\u7D2F\u7A4D\u51FA\u7684\u8DEF\u5F91\u689D\u4EF6\uFF0C\u5224\u65B7\u5176\u662F\u5426\u53EF\u6EFF\u8DB3\uFF1B\u82E5\u53EF\u6EFF\u8DB3\uFF0C\u4FBF\u56DE\u50B3\u4E00\u7D44\u7B26\u865F\u5316\u8F38\u5165\u7684\u5177\u9AD4\u6307\u6D3E\uFF0C\u6210\u70BA\u9A45\u52D5\u57F7\u884C\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u5BE6\u969B\u6E2C\u8A66\u8F38\u5165\u3002",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "\u5177\u9AD4\u7B26\u865F\u57F7\u884C\uFF08concolic execution\uFF09",
+          "text": "<p>\u5177\u9AD4\u7B26\u865F\u57F7\u884C\uFF08concolic execution\uFF0C\u300Cconcrete + symbolic\u300D\uFF09\u7D50\u5408\u5177\u9AD4\u57F7\u884C\u8207\u7B26\u865F\u63A8\u7406\uFF0C\u7528\u4EE5\u7C21\u5316\u7D14\u7B26\u865F\u57F7\u884C\u7121\u6CD5\u6C42\u89E3\u7684\u9650\u5236\u5F0F\u3002</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u7B26\u865F\u9650\u5236\u5F0F\u8B8A\u5F97\u904E\u65BC\u8907\u96DC\u6642\uFF08\u4F8B\u5982\u547C\u53EB\u5230\u5916\u90E8\u6216\u539F\u751F\u7A0B\u5F0F\u78BC\uFF09\uFF0C\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u6703\u4EE5\u5BE6\u969B\u57F7\u884C\u6240\u5F97\u7684\u5177\u9AD4\u503C\u4F86\u53D6\u4EE3\uFF0C\u4F7F\u63A2\u7D22\u5F97\u4EE5\u8DE8\u8D8A\u7D14\u7B26\u865F\u6C42\u89E3\u5668\u6703\u5361\u4F4F\u7684\u90E8\u5206\u3002"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "\u9019\u6B63\u662F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\uFF08\u52D5\u614B\u7B26\u865F\u57F7\u884C\uFF09\u7684\u6838\u5FC3\u52D5\u6A5F\u2014\u2014\u5B83\u5728\u8FFD\u8E64\u7B26\u865F\u9650\u5236\u5F0F\u7684\u540C\u6642\u642D\u914D\u5177\u9AD4\u57F7\u884C\uFF0C\u4F7F\u96E3\u4EE5\u6C42\u89E3\u7684\u904B\u7B97\u5F0F\u80FD\u501F\u52A9\u5BE6\u969B\u89C0\u5BDF\u5230\u7684\u5177\u9AD4\u503C\u52A0\u4EE5\u7C21\u5316\u3002"
+            }
+          ],
+          "generalFeedback": "\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u5728\u5177\u9AD4\u8F38\u5165\u4E0A\u57F7\u884C\u7A0B\u5F0F\uFF0C\u540C\u6642\u8FFD\u8E64\u7B26\u865F\u9650\u5236\u5F0F\uFF1B\u7576\u67D0\u500B\u9650\u5236\u5F0F\u904E\u65BC\u8907\u96DC\u6642\uFF08\u4F8B\u5982\u6D89\u53CA\u4E0D\u900F\u660E\u7684\u51FD\u5F0F\u5EAB\u547C\u53EB\uFF09\uFF0C\u4FBF\u4EE5\u57F7\u884C\u671F\u5BE6\u969B\u89C0\u5BDF\u5230\u7684\u5177\u9AD4\u503C\u53D6\u4EE3\uFF0C\u7E5E\u904E\u7D14\u7B26\u865F\u57F7\u884C\u7684\u6C42\u89E3\u5668\u7121\u6CD5\u8655\u7406\u7684\u904B\u7B97\u5F0F\u3002"
+        },
+        {
+          "type": "shortanswer",
+          "name": "\u5224\u5B9A\u8DEF\u5F91\u689D\u4EF6\u53EF\u6EFF\u8DB3\u6027\u7684\u5143\u4EF6",
+          "text": "<p>\u8CA0\u8CAC\u5224\u5B9A\u8DEF\u5F91\u689D\u4EF6\u662F\u5426\u53EF\u6EFF\u8DB3\u7684\u5143\u4EF6\u53EB\u505A\u4EC0\u9EBC\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u8853\u8A9E\u6216\u7E2E\u5BEB\u56DE\u7B54\uFF09</p>",
+          "answers": [
+            {
+              "text": "solver",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            },
+            {
+              "text": "SMT*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            },
+            {
+              "text": "constraint solver*",
+              "fraction": 100,
+              "feedback": "\u6B63\u78BA\u3002"
+            }
+          ],
+          "generalFeedback": "SMT\uFF08Satisfiability Modulo Theories\uFF09\u6C42\u89E3\u5668\u2014\u2014\u6CDB\u7A31\u9650\u5236\u5F0F\u6C42\u89E3\u5668\u2014\u2014\u6703\u63A5\u6536\u8DEF\u5F91\u689D\u4EF6\u7684\u516C\u5F0F\u4E26\u5224\u65B7\u5176\u53EF\u6EFF\u8DB3\u6027\uFF0C\u82E5\u5B58\u5728\u6EFF\u8DB3\u89E3\uFF0C\u4FBF\u56DE\u50B3\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\uFF08\u4E5F\u5C31\u662F\u5177\u9AD4\u7684\u6E2C\u8A66\u8F38\u5165\uFF09\u3002",
+          "usecase": false
+        }
+      ]
+    }
+  };
+
+  // src/utils/quizGrade.js
+  function escRe(s) {
+    return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+  function saMatch(given, answer, usecase) {
+    let g = String(given == null ? "" : given).trim();
+    let a = String(answer.text == null ? "" : answer.text).trim();
+    if (g === "") return false;
+    if (!usecase) {
+      g = g.toLowerCase();
+      a = a.toLowerCase();
+    }
+    const rx = new RegExp("^" + a.split("*").map(escRe).join(".*") + "$");
+    return rx.test(g);
+  }
+  function bestIndex(answers) {
+    let bi = -1, bf = 0;
+    answers.forEach((a, i) => {
+      if (a.fraction > bf) {
+        bf = a.fraction;
+        bi = i;
+      }
+    });
+    return bi;
+  }
+  function gradeQuestion(q, given) {
+    if (q.type === "shortanswer") {
+      const isCorrect2 = q.answers.some((a) => a.fraction > 0 && saMatch(given, a, q.usecase));
+      return {
+        isCorrect: isCorrect2,
+        correctAnswers: q.answers.filter((a) => a.fraction > 0).map((a) => a.text),
+        feedback: q.generalFeedback
+      };
+    }
+    if (q.type === "truefalse" || q.type === "multichoice" && q.single) {
+      const ci = bestIndex(q.answers);
+      const isCorrect2 = given === ci;
+      const fb = given != null && q.answers[given] && q.answers[given].feedback || q.generalFeedback;
+      return { isCorrect: isCorrect2, correctAnswers: [ci], feedback: fb };
+    }
+    const sel = Array.isArray(given) ? [...given].sort((a, b) => a - b) : [];
+    const correct = q.answers.map((a, i) => ({ i, f: a.fraction })).filter((x) => x.f > 0).map((x) => x.i).sort((a, b) => a - b);
+    const anyNeg = sel.some((i) => q.answers[i] && q.answers[i].fraction < 0);
+    const isCorrect = !anyNeg && sel.length === correct.length && sel.every((v, k) => v === correct[k]);
+    return { isCorrect, correctAnswers: correct, feedback: q.generalFeedback };
+  }
+
+  // src/utils/quizAttempts.js
+  function key(quizId) {
+    return "stvisual:quiz:attempts:" + quizId;
+  }
+  function recentFor(storage, quizId, limit) {
+    try {
+      const raw = storage.getItem(key(quizId));
+      const arr = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(arr)) return [];
+      return arr.slice(0, limit || 10);
+    } catch {
+      return [];
+    }
+  }
+  function record(storage, quizId, attempt) {
+    try {
+      const arr = recentFor(storage, quizId, 100);
+      arr.unshift(attempt);
+      storage.setItem(key(quizId), JSON.stringify(arr.slice(0, 10)));
+    } catch {
+    }
+  }
+  function upsert(storage, quizId, attempt) {
+    try {
+      const arr = recentFor(storage, quizId, 100);
+      const i = arr.findIndex((a) => a && a.id === attempt.id);
+      if (i >= 0) arr[i] = attempt;
+      else arr.unshift(attempt);
+      storage.setItem(key(quizId), JSON.stringify(arr.slice(0, 10)));
+    } catch {
+    }
+  }
+  function clearFor(storage, quizId) {
+    try {
+      storage.removeItem(key(quizId));
+    } catch {
+    }
+  }
+  var QuizAttempts = { key, record, upsert, recentFor, clearFor };
+
+  // src/components/QuizViewer.js
+  var overlay2 = null;
+  var body = null;
+  var titleEl = null;
+  var langToggle = null;
+  var lastFocus = null;
+  var st = null;
+  function t2(k, fb) {
+    const v = t(k);
+    return v !== k ? v : fb || k;
+  }
+  function esc22(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function deckFor(id, lg) {
+    const d = QUIZ_RENDERED[id];
+    if (!d) return [];
+    return d[lg] && d[lg].length ? d[lg] : d.en || [];
+  }
+  function has(id) {
+    return deckFor(id, "en").length > 0 || deckFor(id, "zh").length > 0;
+  }
+  function modeLabel(m) {
+    return m === "test" ? t2("quiz.test", "Test") : t2("quiz.practice", "Practice");
+  }
+  function fmtTime3(ms) {
+    try {
+      const d = new Date(ms);
+      return d.toLocaleDateString() + " " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    } catch {
+      return "";
+    }
+  }
+  function isDone(a) {
+    return a.status === "completed" || a.status == null && a.finishedAt;
+  }
+  function ensureRefs() {
+    if (overlay2) return;
+    overlay2 = document.createElement("div");
+    overlay2.id = "quiz-viewer";
+    overlay2.className = "quizviewer-overlay";
+    overlay2.hidden = true;
+    overlay2.innerHTML = `
+    <div class="quizviewer-panel" role="dialog" aria-modal="true" aria-labelledby="quiz-viewer-title" tabindex="-1">
+      <header class="quizviewer-head">
+        <h2 id="quiz-viewer-title"></h2>
+        <div class="quizviewer-head-tools">
+          <button type="button" id="quiz-lang-toggle" class="btn secondary" data-testid="quiz-lang-toggle"></button>
+          <button type="button" class="btn secondary" data-quiz-close data-testid="quiz-close" aria-label="${esc22(t2("common.close", "Close"))}">\xD7</button>
+        </div>
+      </header>
+      <div id="quiz-viewer-body" class="quizviewer-body"></div>
+    </div>`;
+    document.body.appendChild(overlay2);
+    body = overlay2.querySelector("#quiz-viewer-body");
+    titleEl = overlay2.querySelector("#quiz-viewer-title");
+    langToggle = overlay2.querySelector("#quiz-lang-toggle");
+    overlay2.addEventListener("click", (e) => {
+      var _a, _b;
+      if (e.target === overlay2 || ((_b = (_a = e.target).closest) == null ? void 0 : _b.call(_a, "[data-quiz-close]"))) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (overlay2 && !overlay2.hidden && e.key === "Escape") close();
+    });
+    body.addEventListener("click", onBodyClick);
+    langToggle.addEventListener("click", () => {
+      if (!st) return;
+      st.lang = st.lang === "zh" ? "en" : "zh";
+      const qs = deckFor(st.quizId, st.lang);
+      if (qs.length) st.questions = qs;
+      langToggle.textContent = st.lang === "zh" ? "\u4E2D" : "EN";
+      rerender();
+    });
+  }
+  function open(quizId) {
+    ensureRefs();
+    const lg = getLocale() === "zh" ? "zh" : "en";
+    const qs = deckFor(quizId, lg);
+    if (!qs.length) return;
+    lastFocus = document.activeElement;
+    st = {
+      quizId,
+      id: null,
+      status: null,
+      lang: lg,
+      mode: "practice",
+      questions: qs,
+      idx: 0,
+      given: new Array(qs.length).fill(null),
+      checked: new Array(qs.length).fill(false),
+      startedAt: Date.now(),
+      phase: "start",
+      readonly: false,
+      result: null
+    };
+    titleEl.textContent = t2("btn.quiz", "Quiz");
+    langToggle.textContent = st.lang === "zh" ? "\u4E2D" : "EN";
+    overlay2.hidden = false;
+    document.body.style.overflow = "hidden";
+    rerender();
+    overlay2.querySelector(".quizviewer-panel").focus();
+  }
+  function close() {
+    if (!overlay2) return;
+    if (st && st.phase === "quiz" && st.status === "in-progress") autosave();
+    overlay2.hidden = true;
+    document.body.style.overflow = "";
+    st = null;
+    if (lastFocus == null ? void 0 : lastFocus.focus) lastFocus.focus();
+  }
+  function gradeAll() {
+    let correct = 0;
+    const per = st.questions.map((q, idx) => {
+      const r = gradeQuestion(q, st.given[idx]);
+      if (r.isCorrect) correct++;
+      return { qIndex: idx, type: q.type, isCorrect: r.isCorrect };
+    });
+    return { correct, per };
+  }
+  function autosave() {
+    if (!st || !st.id) return;
+    const g = gradeAll();
+    QuizAttempts.upsert(localStorage, st.quizId, {
+      id: st.id,
+      quizId: st.quizId,
+      mode: st.mode,
+      lang: st.lang,
+      status: "in-progress",
+      idx: st.idx,
+      given: st.given,
+      checked: st.checked,
+      startedAt: st.startedAt,
+      finishedAt: null,
+      total: st.questions.length,
+      correct: g.correct,
+      perQuestion: g.per
+    });
+  }
+  function rerender() {
+    if (!st) return;
+    if (st.phase === "start") renderStart();
+    else if (st.phase === "summary") renderSummary2();
+    else renderQuestion();
+  }
+  function recentRow(a) {
+    const done = isDone(a);
+    const stale = !done && (!a.given || a.given.length !== st.questions.length);
+    const meta = done ? `${a.correct}/${a.total}` : `${t2("quiz.question", "Q")} ${(a.idx || 0) + 1}/${a.total}`;
+    const badge = done ? t2("quiz.review", "Review") : stale ? t2("quiz.inprogress", "In progress") : t2("quiz.resume", "Resume");
+    const inner = `<span class="qr-mode">${esc22(modeLabel(a.mode))}</span> <span class="qr-score">${esc22(meta)}</span> <span class="qr-time">${esc22(fmtTime3(a.finishedAt || a.startedAt))}</span> <span class="qr-act">${esc22(badge)}</span>`;
+    if (done) return `<li><button type="button" class="quiz-recent-row" data-act="review" data-id="${a.id}" data-testid="quiz-recent-review">${inner}</button></li>`;
+    if (stale) return `<li><span class="quiz-recent-row stale">${inner}</span></li>`;
+    return `<li><button type="button" class="quiz-recent-row" data-act="resume" data-id="${a.id}" data-testid="quiz-recent-resume">${inner}</button></li>`;
+  }
+  function renderStart() {
+    const recent = QuizAttempts.recentFor(localStorage, st.quizId, 10);
+    body.innerHTML = `<div class="quiz-start">
+      <p class="quiz-count">${st.questions.length} ${t2("quiz.questions", "questions")}</p>
+      <div class="quiz-mode" role="radiogroup" aria-label="${esc22(t2("quiz.mode", "Mode"))}">
+        <label class="quiz-mode-opt"><input type="radio" name="qmode" value="practice"${st.mode === "practice" ? " checked" : ""}> ${t2("quiz.practice", "Practice")}</label>
+        <label class="quiz-mode-opt"><input type="radio" name="qmode" value="test"${st.mode === "test" ? " checked" : ""}> ${t2("quiz.test", "Test")}</label>
+      </div>
+      <button type="button" class="btn primary" data-act="begin" data-testid="quiz-begin">${t2("quiz.begin", "Begin")}</button>
+      <div class="quiz-recent" data-testid="quiz-recent"><h4>${t2("quiz.recent", "Recent attempts")}</h4>
+        ${recent.length ? `<ul>${recent.map(recentRow).join("")}</ul>` : `<p class="quiz-recent-empty">${t2("quiz.recent.empty", "No attempts yet")}</p>`}
+      </div>
+    </div>`;
+  }
+  function renderAnswers(q, given, disabled, res) {
+    if (q.type === "shortanswer") {
+      return `<input type="text" class="quiz-sa" data-testid="quiz-sa" value="${esc22(given || "")}"${disabled ? " disabled" : ""}>`;
+    }
+    const multi = q.type === "multichoice" && !q.single;
+    return q.answers.map((a, idx) => {
+      const sel = multi ? Array.isArray(given) && given.includes(idx) : given === idx;
+      let cls = "quiz-ans";
+      if (res) {
+        if (a.fraction > 0) cls += " correct";
+        if (sel && a.fraction <= 0) cls += " wrong";
+      }
+      return `<label class="${cls}"><input type="${multi ? "checkbox" : "radio"}" name="qa" value="${idx}"${sel ? " checked" : ""}${disabled ? " disabled" : ""}> <span>${a.text}</span></label>`;
+    }).join("");
+  }
+  function footButtons(i, checked) {
+    const last = i === st.questions.length - 1;
+    if (st.mode === "practice") {
+      if (!checked) return `<button type="button" class="btn primary" data-act="check" data-testid="quiz-check">${t2("quiz.check", "Check")}</button>`;
+      return `<button type="button" class="btn primary" data-act="next" data-testid="quiz-next">${last ? t2("quiz.finish", "Finish") : t2("quiz.next", "Next")}</button>`;
+    }
+    let h = "";
+    if (i > 0) h += `<button type="button" class="btn secondary" data-act="prev">${t2("quiz.prev", "Previous")}</button>`;
+    if (!last) h += `<button type="button" class="btn primary" data-act="next">${t2("quiz.next", "Next")}</button>`;
+    else h += `<button type="button" class="btn primary" data-act="submit" data-testid="quiz-submit">${t2("quiz.submit", "Submit")}</button>`;
+    return h;
+  }
+  function renderQuestion() {
+    const i = st.idx, q = st.questions[i], checked = st.checked[i], given = st.given[i];
+    const res = checked && st.mode === "practice" ? gradeQuestion(q, given) : null;
+    let html = `<div class="quiz-q" data-testid="quiz-q">
+    <div class="quiz-q-head">${t2("quiz.question", "Question")} ${i + 1} / ${st.questions.length}</div>
+    <div class="quiz-q-text">${q.text}</div>
+    <div class="quiz-answers">${renderAnswers(q, given, checked && st.mode === "practice", res)}</div>`;
+    if (res) {
+      html += `<div class="quiz-feedback ${res.isCorrect ? "ok" : "bad"}" data-testid="quiz-feedback">
+      <strong>${res.isCorrect ? t2("quiz.correct", "Correct") : t2("quiz.incorrect", "Incorrect")}</strong>
+      ${res.feedback ? `<div class="quiz-fb-text">${res.feedback}</div>` : ""}</div>`;
+    }
+    html += `<div class="quiz-foot">${footButtons(i, checked)}</div></div>`;
+    body.innerHTML = html;
+  }
+  function collectAnswer() {
+    const q = st.questions[st.idx];
+    if (q.type === "shortanswer") {
+      const el = body.querySelector(".quiz-sa");
+      st.given[st.idx] = el ? el.value : "";
+      return;
+    }
+    const multi = q.type === "multichoice" && !q.single;
+    const inputs = [...body.querySelectorAll('input[name="qa"]')];
+    if (multi) st.given[st.idx] = inputs.filter((c) => c.checked).map((c) => +c.value);
+    else {
+      const sel = inputs.find((c) => c.checked);
+      st.given[st.idx] = sel ? +sel.value : null;
+    }
+  }
+  function finish() {
+    const g = gradeAll();
+    st.result = { total: st.questions.length, correct: g.correct };
+    st.phase = "summary";
+    QuizAttempts.upsert(localStorage, st.quizId, {
+      id: st.id || Date.now(),
+      quizId: st.quizId,
+      mode: st.mode,
+      lang: st.lang,
+      status: "completed",
+      idx: st.idx,
+      given: st.given,
+      checked: st.checked,
+      startedAt: st.startedAt,
+      finishedAt: Date.now(),
+      total: st.questions.length,
+      correct: g.correct,
+      perQuestion: g.per
+    });
+    renderSummary2();
+  }
+  function renderSummary2() {
+    const r = st.result;
+    let html = `<div class="quiz-summary" data-testid="quiz-summary">
+    <h3>${t2("quiz.score", "Score")}: <span data-testid="quiz-score">${r.correct} / ${r.total}</span></h3>`;
+    if (st.mode === "test" && st.given.length === st.questions.length) {
+      html += `<ol class="quiz-review">${st.questions.map((q, idx) => {
+        const res = gradeQuestion(q, st.given[idx]);
+        return `<li class="${res.isCorrect ? "ok" : "bad"}"><div class="quiz-q-text">${q.text}</div>
+        <div class="quiz-review-line">${res.isCorrect ? t2("quiz.correct", "Correct") : t2("quiz.incorrect", "Incorrect")}</div>
+        ${q.generalFeedback ? `<div class="quiz-fb-general">${q.generalFeedback}</div>` : ""}</li>`;
+      }).join("")}</ol>`;
+    }
+    html += `<div class="quiz-foot">
+    <button type="button" class="btn secondary" data-act="home">${t2("quiz.home", "Back")}</button>
+    <button type="button" class="btn primary" data-act="retry" data-testid="quiz-retry">${t2("quiz.retry", "Retry")}</button>
+  </div></div>`;
+    body.innerHTML = html;
+  }
+  function resume(a) {
+    const qs = deckFor(st.quizId, a.lang);
+    const given = a.given || [];
+    if (!qs.length || given.length !== qs.length) return;
+    st = {
+      quizId: st.quizId,
+      id: a.id,
+      status: "in-progress",
+      lang: a.lang,
+      mode: a.mode,
+      questions: qs,
+      idx: Math.min(a.idx || 0, qs.length - 1),
+      given: [...given],
+      checked: [...a.checked || new Array(qs.length).fill(false)],
+      startedAt: a.startedAt || Date.now(),
+      phase: "quiz",
+      readonly: false,
+      result: null
+    };
+    langToggle.textContent = st.lang === "zh" ? "\u4E2D" : "EN";
+    renderQuestion();
+  }
+  function review(a) {
+    const qs = deckFor(st.quizId, a.lang);
+    st = {
+      quizId: st.quizId,
+      id: a.id,
+      status: "completed",
+      lang: a.lang,
+      mode: a.mode,
+      questions: qs,
+      idx: 0,
+      given: [...a.given || []],
+      checked: [...a.checked || []],
+      startedAt: a.startedAt,
+      phase: "summary",
+      readonly: true,
+      result: { total: a.total, correct: a.correct }
+    };
+    langToggle.textContent = st.lang === "zh" ? "\u4E2D" : "EN";
+    renderSummary2();
+  }
+  function findAttempt(id) {
+    var _a;
+    return (_a = QuizAttempts.recentFor(localStorage, st.quizId, 10).find((a) => String(a.id) === String(id))) != null ? _a : null;
+  }
+  function onBodyClick(e) {
+    var _a, _b;
+    const b = (_b = (_a = e.target).closest) == null ? void 0 : _b.call(_a, "[data-act]");
+    if (!b || !st) return;
+    const act = b.getAttribute("data-act");
+    if (act === "resume") {
+      const a = findAttempt(b.getAttribute("data-id"));
+      if (a) resume(a);
+      return;
+    }
+    if (act === "review") {
+      const a = findAttempt(b.getAttribute("data-id"));
+      if (a) review(a);
+      return;
+    }
+    if (act === "begin") {
+      const m = body.querySelector('input[name="qmode"]:checked');
+      st.mode = m ? m.value : "practice";
+      st.phase = "quiz";
+      st.idx = 0;
+      st.given = new Array(st.questions.length).fill(null);
+      st.checked = new Array(st.questions.length).fill(false);
+      st.startedAt = Date.now();
+      st.id = Date.now();
+      st.status = "in-progress";
+      renderQuestion();
+      autosave();
+      return;
+    }
+    if (act === "check") {
+      collectAnswer();
+      st.checked[st.idx] = true;
+      renderQuestion();
+      autosave();
+      return;
+    }
+    if (act === "prev") {
+      collectAnswer();
+      st.idx = Math.max(0, st.idx - 1);
+      renderQuestion();
+      autosave();
+      return;
+    }
+    if (act === "next") {
+      collectAnswer();
+      if (st.idx < st.questions.length - 1) {
+        st.idx++;
+        renderQuestion();
+        autosave();
+      } else finish();
+      return;
+    }
+    if (act === "submit") {
+      collectAnswer();
+      finish();
+      return;
+    }
+    if (act === "retry" || act === "home") {
+      open(st.quizId);
+    }
+  }
+  var QuizViewer = { open, close, has };
+
+  // src/data/labRendered.js
+  var LAB_RENDERED = {
+    "graph-coverage": [
+      {
+        "slug": "graph-coverage-paths",
+        "titleZh": "\u8CEA\u6578\u8DEF\u5F91\u679A\u8209",
+        "titleEn": "Prime path enumeration",
+        "topic": "graph-coverage",
+        "week": 4,
+        "difficulty": 2,
+        "tags": [
+          "graph",
+          "coverage",
+          "prime-path"
+        ],
+        "repoUrl": null,
+        "judgeUrl": null,
+        "statementHtml": {
+          "zh": "<h1>\u8CEA\u6578\u8DEF\u5F91\u679A\u8209</h1>\n<p>\u7D66\u5B9A\u4E00\u500B\u63A7\u5236\u6D41\u7A0B\u5716\uFF08CFG\uFF09\uFF0C\u8F38\u51FA\u5176\u6240\u6709 <strong>\u8CEA\u6578\u8DEF\u5F91</strong>\uFF08prime paths\uFF09\u3002</p>\n<h2>\u8F38\u5165\u683C\u5F0F</h2>\n<ul><li>\u7B2C\u4E00\u884C\u5169\u500B\u6574\u6578 <code>n m</code>\uFF1A\u7BC0\u9EDE\u6578\u8207\u908A\u6578\uFF08\u7BC0\u9EDE\u7DE8\u865F 0..n-1\uFF0C0 \u70BA\u5165\u53E3\uFF0Cn-1 \u70BA\u51FA\u53E3\uFF09</li><li>\u63A5\u4E0B\u4F86 <code>m</code> \u884C\uFF0C\u6BCF\u884C\u5169\u500B\u6574\u6578 <code>u v</code> \u8868\u793A\u908A u\u2192v</li></ul>\n<h2>\u8F38\u51FA\u683C\u5F0F</h2>\n<p>\u6BCF\u884C\u4E00\u689D\u8CEA\u6578\u8DEF\u5F91\uFF0C\u4EE5\u7A7A\u767D\u5206\u9694\u7BC0\u9EDE\u7DE8\u865F\uFF1B\u8DEF\u5F91\u4F9D\u300C\u9577\u5EA6\u905E\u6E1B\u3001\u518D\u5B57\u5178\u5E8F\u300D\u6392\u5E8F\u3002</p>\n<h2>\u63D0\u793A</h2>\n<ul><li>\u8CEA\u6578\u8DEF\u5F91\u662F\u300C\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u300D\uFF1A\u672C\u8EAB\u662F\u7C21\u55AE\u8DEF\u5F91\uFF0C\u4E14\u4E0D\u662F\u4EFB\u4F55\u5176\u4ED6\u7C21\u55AE\u8DEF\u5F91\u7684\u771F\u5B50\u8DEF\u5F91\u3002</li><li>\u5141\u8A31\u9996\u5C3E\u70BA\u540C\u4E00\u7BC0\u9EDE\uFF08\u8FF4\u5708\u908A\u754C\uFF09\u3002</li></ul>",
+          "en": "<h1>Prime path enumeration</h1>\n<p>Given a control-flow graph (CFG), output all of its <strong>prime paths</strong>.</p>\n<h2>Input</h2>\n<ul><li>Line 1: two integers <code>n m</code> \u2014 node and edge counts (nodes 0..n-1; 0 is the entry, n-1 the exit)</li><li>Next <code>m</code> lines: two integers <code>u v</code> for edge u\u2192v</li></ul>\n<h2>Output</h2>\n<p>One prime path per line as space-separated node ids, sorted by decreasing length, then lexicographically.</p>\n<h2>Hints</h2>\n<ul><li>A prime path is a <em>maximal simple path</em>: simple, and not a proper subpath of any other simple path.</li><li>The first and last node may coincide (a loop boundary).</li></ul>"
+        },
+        "samples": [
+          {
+            "in": "4 4\n0 1\n0 2\n1 3\n2 3\n",
+            "out": "0 1 3\n0 2 3\n"
+          },
+          {
+            "in": "3 3\n0 1\n1 1\n1 2\n",
+            "out": "0 1 2\n1 1\n"
+          }
+        ]
+      }
+    ]
+  };
+
+  // src/components/LabViewer.js
+  var overlay3 = null;
+  var body2 = null;
+  var lang = "en";
+  var state40 = null;
+  function t3(k, fb) {
+    const v = t(k);
+    return v !== k ? v : fb || k;
+  }
+  function esc23(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function has2(unitId) {
+    var _a;
+    return Boolean((_a = LAB_RENDERED[unitId]) == null ? void 0 : _a.length);
+  }
+  function ensureRefs2() {
+    if (overlay3) return;
+    overlay3 = document.createElement("div");
+    overlay3.id = "lab-viewer";
+    overlay3.className = "quizviewer-overlay";
+    overlay3.hidden = true;
+    overlay3.innerHTML = `
+    <div class="quizviewer-panel labviewer-panel" role="dialog" aria-modal="true" tabindex="-1">
+      <header class="quizviewer-head">
+        <h2>${esc23(t3("btn.lab", "Lab"))}</h2>
+        <div class="quizviewer-head-tools">
+          <button type="button" id="lab-lang-toggle" class="btn secondary" data-testid="lab-lang-toggle"></button>
+          <button type="button" class="btn secondary" data-lab-close data-testid="lab-close" aria-label="${esc23(t3("common.close", "Close"))}">\xD7</button>
+        </div>
+      </header>
+      <div id="lab-viewer-body"></div>
+    </div>`;
+    document.body.appendChild(overlay3);
+    body2 = overlay3.querySelector("#lab-viewer-body");
+    overlay3.addEventListener("click", (e) => {
+      var _a, _b;
+      if (e.target === overlay3 || ((_b = (_a = e.target).closest) == null ? void 0 : _b.call(_a, "[data-lab-close]"))) close2();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (overlay3 && !overlay3.hidden && e.key === "Escape") close2();
+    });
+    overlay3.querySelector("#lab-lang-toggle").addEventListener("click", () => {
+      lang = lang === "zh" ? "en" : "zh";
+      render40();
+    });
+  }
+  function sampleBlock(s, i) {
+    return `<div class="lab-sample">
+    <div class="lab-sample-col"><strong>#${i + 1} in</strong><pre><code>${esc23(s.in)}</code></pre></div>
+    <div class="lab-sample-col"><strong>out</strong><pre><code>${esc23(s.out)}</code></pre></div>
+  </div>`;
+  }
+  function render40() {
+    if (!state40) return;
+    const lab = state40.lab;
+    const title = lang === "zh" ? lab.titleZh : lab.titleEn;
+    const stmt = lab.statementHtml[lang] || lab.statementHtml.en;
+    const meta = [];
+    if (lab.difficulty) meta.push(t3("lab.difficulty", "Difficulty") + " " + "\u2605".repeat(lab.difficulty));
+    if (lab.week) meta.push(t3("lab.week", "Week") + " " + lab.week);
+    const repoBtn = lab.repoUrl ? `<a class="btn primary" data-testid="lab-open-repo" href="${lab.repoUrl}" target="_blank" rel="noopener">${t3("lab.openRepo", "Open practice repo")} \u2197</a>` : "";
+    const judgeBtn = `<button type="button" class="btn secondary" data-testid="lab-judge" aria-disabled="true" disabled>${t3("lab.judgeSoon", "Practice on judge (coming soon)")}</button>`;
+    body2.innerHTML = `<div class="lab-head"><h3>${esc23(title)}</h3><div class="lab-meta">${meta.map(esc23).join(" \xB7 ")}</div></div>
+     <div class="lab-statement" data-testid="lab-statement">${stmt}</div>
+     <h4>${t3("lab.samples", "Samples")}</h4>
+     <div class="lab-samples" data-testid="lab-samples">${lab.samples.map(sampleBlock).join("")}</div>
+     <div class="lab-actions">${repoBtn} ${judgeBtn}</div>`;
+    overlay3.querySelector("#lab-lang-toggle").textContent = lang === "zh" ? "EN" : "\u4E2D";
+  }
+  function open2(unitId) {
+    const arr = LAB_RENDERED[unitId];
+    if (!(arr == null ? void 0 : arr.length)) return;
+    ensureRefs2();
+    lang = getLocale() === "zh" ? "zh" : "en";
+    state40 = { unitId, lab: arr[0] };
+    render40();
+    overlay3.hidden = false;
+    document.body.style.overflow = "hidden";
+    overlay3.querySelector(".quizviewer-panel").focus();
+  }
+  function close2() {
+    if (overlay3) {
+      overlay3.hidden = true;
+      document.body.style.overflow = "";
+    }
+    state40 = null;
+  }
+  var LabViewer = { open: open2, close: close2, has: has2 };
+
+  // src/views/unitView.js
+  function renderUnitView(container, urlState) {
+    const unit = UNIT_BY_COMPONENT.get(urlState.explorer);
+    if (!unit) return;
+    function paint2() {
+      var _a, _b, _c;
+      const title = unitTitle(unit);
+      document.title = `${title} \xB7 ${t("app.title")}`;
+      container.innerHTML = `
+      <div class="app unit-app" data-testid="unit-app">
+        <header class="unit-header">
+          <a class="unit-back" href="./">\u2190 ${t("unit.back")}</a>
+          <h1 class="unit-title">${title}</h1>
+          <div class="unit-tools">
+            <div class="app-lang" role="group" aria-label="${t("app.lang.label")}">
+              ${getSupportedLocales().map((loc) => `
+                <button type="button" class="app-lang__btn${getLocale() === loc ? " active" : ""}"
+                        data-unit-lang="${loc}">${t(`app.lang.${loc}`)}</button>`).join("")}
+            </div>
+            <button type="button" class="btn secondary viz-focus-toggle"
+                    data-testid="viz-focus-toggle" aria-pressed="false">
+              \u26F6 ${t("unit.fullscreen")}
+            </button>
+            ${QuizViewer.has((_a = unit.quizId) != null ? _a : unit.id) ? `
+              <button type="button" class="btn secondary" data-testid="unit-quiz-btn">
+                ${t("btn.quiz")}
+              </button>` : ""}
+            ${LabViewer.has(unit.id) ? `
+              <button type="button" class="btn secondary" data-testid="unit-lab-btn">
+                ${t("btn.lab")}
+              </button>` : ""}
+          </div>
+        </header>
+        <main class="unit-main" data-testid="unit-main"></main>
+      </div>`;
+      const factory = FACTORY_BY_COMPONENT[unit.componentName];
+      container.querySelector(".unit-main").appendChild(factory());
+      container.querySelectorAll("[data-unit-lang]").forEach((btn) => btn.addEventListener("click", () => setLocale(btn.dataset.unitLang)));
+      (_b = container.querySelector('[data-testid="unit-quiz-btn"]')) == null ? void 0 : _b.addEventListener("click", () => {
+        var _a2;
+        return QuizViewer.open((_a2 = unit.quizId) != null ? _a2 : unit.id);
+      });
+      (_c = container.querySelector('[data-testid="unit-lab-btn"]')) == null ? void 0 : _c.addEventListener("click", () => LabViewer.open(unit.id));
+    }
+    paint2();
+    onLocaleChange(() => paint2());
+    initVizFocus({ root: container });
+    const exitBtn = document.getElementById("viz-focus-exit");
+    if (exitBtn) exitBtn.textContent = `\u2715 ${t("unit.exitFullscreen")}`;
+  }
+
+  // src/app.js
+  function showUnitNotFound(rawId) {
+    const notice = document.createElement("div");
+    notice.className = "unit-not-found";
+    notice.dataset.testid = "unit-not-found";
+    notice.setAttribute("role", "status");
+    const msg = document.createElement("span");
+    msg.textContent = t("unit.notFound", { id: rawId });
+    const dismiss = document.createElement("button");
+    dismiss.type = "button";
+    dismiss.textContent = "\xD7";
+    dismiss.setAttribute("aria-label", t("common.close"));
+    dismiss.addEventListener("click", () => notice.remove());
+    notice.append(msg, dismiss);
+    document.body.prepend(notice);
+  }
+  function renderApp(container) {
+    var _a, _b, _c, _d;
+    const state41 = parseAppLocation(
+      (_b = (_a = globalThis.location) == null ? void 0 : _a.search) != null ? _b : "",
+      (_d = (_c = globalThis.location) == null ? void 0 : _c.hash) != null ? _d : ""
+    );
+    if (state41.lang) setLocale(state41.lang, { persist: false });
+    if (state41.unknownExplorer) showUnitNotFound(state41.unknownExplorer);
+    if (state41.explorer && state41.view !== "all") {
+      renderUnitView(container, state41);
+      return;
+    }
+    renderIntegratedApp(container);
   }
 
   // src/main.js

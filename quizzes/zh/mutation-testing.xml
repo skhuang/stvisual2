@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Mutation Testing</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>突變體被殺死</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個突變體（mutant）被視為<em>被殺死（killed）</em>，是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>某個測試案例在突變體上產生的結果與原始程式不同</text><feedback><text>正確——這種可觀察到的差異正是「殺死」的定義。</text></feedback></answer>
+    <answer fraction="0"><text>該突變體無法編譯</text><feedback><text>無法編譯的突變體通常會被直接捨棄，而不是被測試「殺死」。</text></feedback></answer>
+    <answer fraction="0"><text>該突變體在執行時當掉（crash）</text><feedback><text>當掉只有在其行為與原始程式不同時才算殺死；定義的核心在於輸出不同，而非當掉本身。</text></feedback></answer>
+    <answer fraction="0"><text>該突變體與原始程式等價</text><feedback><text>依定義，等價突變體永遠不可能被任何測試殺死。</text></feedback></answer>
+    <generalfeedback><text>當測試套件中至少有一個測試案例，在突變體與原始程式上執行時產生可觀察到的差異（輸出、狀態，或是當掉與否），該突變體即被視為已被殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>突變分數公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>突變分數（mutation score）的計算方式為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被殺死的突變體數 / (突變體總數 &#8722; 等價突變體數)</text><feedback><text>正確——等價突變體被排除，因為沒有任何測試能殺死它們。</text></feedback></answer>
+    <answer fraction="0"><text>被殺死的突變體數 / 突變體總數</text><feedback><text>這把等價突變體當作可被殺死來計算，會不公平地拉低測試套件的分數。</text></feedback></answer>
+    <answer fraction="0"><text>被殺死的突變體數 / (突變體總數 + 等價突變體數)</text><feedback><text>把等價突變體加進分母而非減去，會在沒有依據的情況下讓分數變差。</text></feedback></answer>
+    <answer fraction="0"><text>(突變體總數 &#8722; 被殺死的突變體數) / 突變體總數</text><feedback><text>這比較接近「存活突變體比例」，而不是突變分數。</text></feedback></answer>
+    <generalfeedback><text>突變分數 = 被殺死數 / (總數 &#8722; 等價數)。等價突變體從分母中被移除，因為它們在語意上與原始程式完全相同，任何測試都不可能殺死它們。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>等價突變體（equivalent mutant）</em>是指這樣的突變體：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>語法上與原始程式不同，但在所有輸入下語意完全相同</text><feedback><text>正確——對所有輸入而言，輸入輸出行為都相同，因此沒有任何測試能區分它。</text></feedback></answer>
+    <answer fraction="0"><text>與原始程式文字完全相同</text><feedback><text>突變運算子一定會引入語法上的變化；文字完全相同根本不算是突變體。</text></feedback></answer>
+    <answer fraction="0"><text>位於無法執行到的死碼（dead code）中的突變體</text><feedback><text>無法到達的突變體是在可到達性（reachability）上失敗，但若真的執行到該處，它仍可能不是等價的。</text></feedback></answer>
+    <answer fraction="0"><text>在所有輸入下都會當掉的突變體</text><feedback><text>一個穩定地以不同方式當掉的突變體會被輕易殺死，而非等價。</text></feedback></answer>
+    <generalfeedback><text>等價突變體在原始碼上與原始程式不同，但計算出的函式完全相同——對每一個可能的輸入都給出相同輸出——因此在邏輯上不可能被任何測試殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RIP 模型——感染失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在可到達性&#8211;感染&#8211;傳播（Reachability&#8211;Infection&#8211;Propagation, RIP）模型中，若被突變的敘述有執行到，但程式狀態事後從未出現差異，這代表哪個條件失敗了？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>感染（Infection）</text><feedback><text>正確——可到達性已經成立（該敘述有執行），但突變並未真正破壞程式狀態。</text></feedback></answer>
+    <answer fraction="0"><text>可到達性（Reachability）</text><feedback><text>可到達性已經成立，因為該敘述確實有被執行。</text></feedback></answer>
+    <answer fraction="0"><text>傳播（Propagation）</text><feedback><text>傳播只有在狀態真的被感染之後才有意義；此處狀態從未被感染。</text></feedback></answer>
+    <answer fraction="0"><text>測試諭示（oracle）</text><feedback><text>RIP 模型並不包含「oracle」這個條件——測試諭示的問題屬於結果驗證階段。</text></feedback></answer>
+    <generalfeedback><text>RIP 要求被突變的敘述須被到達（Reached）、須感染（Infect）程式狀態（使其與原始程式不同），且被感染的狀態須傳播（Propagate）至輸出。若有執行卻始終沒有任何狀態差異，代表感染失敗。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>敘述覆蓋與突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>達到 100% 敘述覆蓋率的測試套件，保證能殺死所有非等價的突變體。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>敘述覆蓋只能保證可到達性，並不保證該突變會感染狀態，也不保證感染後的狀態會傳播到可觀察的輸出。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——敘述覆蓋只保證被突變的敘述有執行到（可到達性），對感染與傳播毫無保證，因此非等價突變體仍可能存活。</text></feedback></answer>
+    <generalfeedback><text>100% 敘述覆蓋只滿足了 RIP 模型中「可到達性」這一環。若感染從未發生，或被感染的狀態從未傳播到受檢查的輸出，突變體仍可能存活——因此完整的敘述覆蓋並不保證殺死所有非等價突變體。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>RIP——傳播</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在可到達性&#8211;感染&#8211;傳播模型中，哪個詞代表「受破壞的狀態必須到達並改變程式可觀察輸出」的條件？（請以英文一個單字回答）</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>propagation</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>propagat*</text><feedback><text>正確。</text></feedback></answer>
+    <generalfeedback><text>傳播（propagation）是 RIP 的第三個條件：被感染（破壞）的狀態必須在執行過程中持續向前影響，直到改變測試諭示實際觀察到的結果為止。</text></generalfeedback>
+  </question>
+</quiz>

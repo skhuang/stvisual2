@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Graph Coverage</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>節點覆蓋與邊覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試路徑集合滿足節點覆蓋（Node Coverage），但不滿足邊覆蓋（Edge Coverage）。以下何者必為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>每個節點都被走訪過，但有某條邊從未被經過</text><feedback><text>正確——邊覆蓋涵蓋（subsumes）節點覆蓋，反之則不成立。</text></feedback></answer>
+    <answer fraction="0"><text>有某個節點從未被走訪</text><feedback><text>如此一來節點覆蓋本身就已經不成立。</text></feedback></answer>
+    <answer fraction="0"><text>每條質路徑（prime path）都被走過</text><feedback><text>質路徑覆蓋會蘊含邊覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>此圖沒有任何分支</text><feedback><text>當圖形沒有分支時，節點覆蓋就會蘊含邊覆蓋。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋要求走過每一條邊；即使某條邊的兩端節點都經由其他路徑被走訪過，這條邊本身仍可能被跳過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>質路徑的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>質路徑（prime path）是一條滿足下列條件的簡單路徑：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不是任何其他簡單路徑的真子路徑</text><feedback><text>正確——即極大簡單路徑。</text></feedback></answer>
+    <answer fraction="0"><text>從入口節點開始，並在出口節點結束</text><feedback><text>這描述的是完整測試路徑，而非質路徑。</text></feedback></answer>
+    <answer fraction="0"><text>恰好走訪每個節點一次</text><feedback><text>那是漢彌爾頓路徑（Hamiltonian path）。</text></feedback></answer>
+    <answer fraction="0"><text>完全不包含任何迴圈</text><feedback><text>質路徑可以在同一節點開始與結束（即迴圈邊界）。</text></feedback></answer>
+    <generalfeedback><text>質路徑是簡單路徑（除了起點與終點可能相同外，不重複經過任何節點），且必須是極大的——不會是其他簡單路徑的真子路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>涵蓋關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在至少含有一條邊的圖上，下列哪個準則涵蓋（subsumes）邊覆蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊對覆蓋（Edge-Pair Coverage）</text><feedback><text>正確——涵蓋所有長度 ≤ 2 的路徑，自然涵蓋所有長度為 1 的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>節點覆蓋（Node Coverage）</text><feedback><text>節點覆蓋比邊覆蓋弱。</text></feedback></answer>
+    <answer fraction="0"><text>敘述覆蓋（Statement Coverage）</text><feedback><text>敘述覆蓋對應的是節點覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何準則能涵蓋它</text><feedback><text>邊對覆蓋、質路徑覆蓋與完整路徑覆蓋都能涵蓋它。</text></feedback></answer>
+    <generalfeedback><text>邊對覆蓋要求涵蓋所有長度 ≤ 2 的路徑，其中自然包含每一條單獨的邊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>定義-使用對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在資料流覆蓋（data-flow coverage）中，變數 x 的定義-使用對（DU pair）是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x 的一個定義與一個使用，兩者之間存在一條無重新定義（def-clear）的路徑可達</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="0"><text>任何兩個提到 x 的敘述</text><feedback><text>僅僅提到變數並不能構成定義-使用對。</text></feedback></answer>
+    <answer fraction="0"><text>對 x 連續進行的兩次指派</text><feedback><text>第二次指派會覆蓋（kill）第一次的定義。</text></feedback></answer>
+    <answer fraction="0"><text>先使用 x，之後才對其定義</text><feedback><text>正確順序應是先定義、後使用。</text></feedback></answer>
+    <generalfeedback><text>定義-使用對 (d, u) 需要一條從 d 到 u、途中不再重新定義 x 的路徑——即無重新定義路徑（def-clear path）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>完整路徑覆蓋的可行性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>只要控制流程圖（control-flow graph）中含有迴圈，完整路徑覆蓋（Complete Path Coverage）就不可行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——迴圈會產生無窮多條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>迴圈會造成路徑數量無上限，因此完整路徑覆蓋無法在有限步驟內被滿足。</text></feedback></answer>
+    <generalfeedback><text>只要圖中含有迴圈，路徑就能任意次數地重複經過同一節點，使得「簡單且完整」的測試路徑集合變成無窮多——因此只要圖中有迴圈，完整路徑覆蓋就永遠無法在有限步驟內被滿足。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>集合覆蓋化約</text></name>
+    <questiontext format="html"><text><![CDATA[<p>stvisual 以貪婪演算法（greedy approximation）挑選測試路徑集合時，其實是在近似求解哪一個經典問題？（請以英文兩個單字回答）</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>set cover*</text><feedback><text>正確——貪婪集合覆蓋。</text></feedback></answer>
+    <answer fraction="100"><text>set-cover*</text><feedback><text>正確。</text></feedback></answer>
+    <generalfeedback><text>選擇一個能涵蓋所有需求的最小測試路徑集合，正是（NP-困難的）集合覆蓋問題（set-cover problem）；本工具採用貪婪近似演算法求解。</text></generalfeedback>
+  </question>
+</quiz>

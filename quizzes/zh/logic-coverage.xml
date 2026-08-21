@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Logic Coverage</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>述詞覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>述詞覆蓋（Predicate Coverage, PC）要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>程式中每個述詞（predicate）都至少各取一次 true 與 false</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="0"><text>述詞內的每個子句（clause）都至少各取一次 true 與 false</text><feedback><text>那是子句覆蓋（Clause Coverage, CC）。</text></feedback></answer>
+    <answer fraction="0"><text>對每個述詞，涵蓋子句真值的所有組合</text><feedback><text>那是組合覆蓋（Combinatorial Coverage, CoC）。</text></feedback></answer>
+    <answer fraction="0"><text>走過該述詞決策結構中的每一條路徑</text><feedback><text>這描述的是路徑覆蓋（Path Coverage），而非述詞覆蓋。</text></feedback></answer>
+    <generalfeedback><text>述詞覆蓋（PC）僅要求整個述詞至少各出現一次 true 與 false，並未規範其內部子句的個別取值——更細緻的要求屬於子句覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>子句的決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = a &#8743; b 而言，子句 a <em>決定（determines）</em> p 恰好發生於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b 為 true 時</text><feedback><text>正確——當 b 為 true 時，p 的值恰好等於 a 的值，因此切換 a 就會切換 p。</text></feedback></answer>
+    <answer fraction="0"><text>b 為 false 時</text><feedback><text>當 b 為 false 時，無論 a 為何 p 都是 false，因此 a 無法決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>無論 b 為何，恆成立</text><feedback><text>決定性是針對特定子句、特定指派的條件，並非恆定不變。</text></feedback></answer>
+    <answer fraction="0"><text>對於邏輯與（conjunction）而言，永遠不成立</text><feedback><text>邏輯與確實存在能決定 p 的指派——只是不在 b 為 false 的情況下。</text></feedback></answer>
+    <generalfeedback><text>當僅改變子句 c 的真值、而其他子句保持不變時，若述詞 p 的真值也隨之改變，則稱 c 決定了 p。對 p = a &#8743; b 而言，這恰好發生在 b = true 時：此時 p 完全跟隨 a。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CACC 與 RACC 的差異</text></name>
+    <questiontext format="html"><text><![CDATA[<p>受限主動子句覆蓋（Restricted Active Clause Coverage, RACC）與相關主動子句覆蓋（Correlated Active Clause Coverage, CACC）有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RACC 額外要求：在使主要子句分別為 true／false 的那對測試中，其餘（次要）子句必須維持相同的值</text><feedback><text>正確——RACC 是 CACC 更嚴格的版本，要求「次要子句值相同」。</text></feedback></answer>
+    <answer fraction="0"><text>RACC 取消了「主要子句必須決定述詞」的要求</text><feedback><text>那描述的是一般主動子句覆蓋（General Active Clause Coverage, GACC），而非 RACC。</text></feedback></answer>
+    <answer fraction="0"><text>RACC 只計算非主動子句，不計算主動子句</text><feedback><text>那描述的是非主動子句家族（GICC／CICC），而非 RACC。</text></feedback></answer>
+    <answer fraction="0"><text>RACC 要求涵蓋所有子句值的組合</text><feedback><text>那是組合覆蓋（Combinatorial Coverage, CoC）。</text></feedback></answer>
+    <generalfeedback><text>兩種準則都要求：對每個主要子句 ci，存在一對測試，使 ci 分別在 p 為 true 與 p 為 false 時決定 p。CACC 允許這對測試中的其他（次要）子句取值不同；RACC 則額外要求這對測試中的次要子句取值必須相同，因此嚴格更強。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合覆蓋的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞含有 3 個獨立子句。組合覆蓋（Combinatorial Coverage, CoC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——2^3 種 true/false 組合。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>這大致是子句覆蓋（每個子句翻轉一次）的規模，並非所有組合。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>太少了——4 個測試無法涵蓋全部 8 種真值組合。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 個測試仍不足以涵蓋完整的 2^3 = 8 種組合。</text></feedback></answer>
+    <generalfeedback><text>組合覆蓋要求涵蓋 n 個子句的每一種 2^n 真值組合（在可行的前提下）；當有 3 個獨立子句時即為 2^3 = 8 個測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CACC 的不可行性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於一個永遠無法決定其述詞的子句，CACC（以及 RACC）是不可行的。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——如果其他子句無論如何指派，都無法讓該子句決定述詞，那麼就沒有任何測試能滿足該子句的主動子句要求。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>決定性是主動子句覆蓋的前提條件；若不成立，該子句的測試要求就找不到任何測試能滿足它，因此是不可行的。</text></feedback></answer>
+    <generalfeedback><text>主動子句準則（CACC、RACC、GACC）都要求存在一對測試，使該子句能決定述詞。若某子句在結構上永遠無法決定述詞（例如被遮蔽或本身是冗餘的），該測試要求就永遠無法被滿足——即為不可行。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>唯一真值點覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個以 DNF（析取範式）為基礎的邏輯覆蓋準則，要求涵蓋述詞的每一個唯一真值點？（請以英文縮寫回答）</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>UTPC</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>unique true point*</text><feedback><text>正確。</text></feedback></answer>
+    <generalfeedback><text>唯一真值點覆蓋（Unique True Point Coverage, UTPC）要求：對述詞 DNF 表示式中的每一項，都存在一個測試恰好使該項為 true（而所有其他項皆為 false）——即該項專屬的「唯一真值點」。</text></generalfeedback>
+  </question>
+</quiz>

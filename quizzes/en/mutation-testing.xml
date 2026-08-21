@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Mutation Testing</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutant killed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A mutant is considered <em>killed</em> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>Some test case produces a different result on the mutant than on the original program</text><feedback><text>Correct — that observable difference is what "kills" it.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant fails to compile</text><feedback><text>A mutant that won't compile is usually discarded, not "killed" by a test.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant crashes at runtime</text><feedback><text>A crash can kill a mutant only if it differs from the original's behavior — the definition is about differing output, not crashing itself.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant is equivalent to the original</text><feedback><text>An equivalent mutant, by definition, can never be killed by any test.</text></feedback></answer>
+    <generalfeedback><text>A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and running it on the original program.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation score formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The mutation score is computed as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>killed mutants / (total mutants &#8722; equivalent mutants)</text><feedback><text>Correct — equivalent mutants are excluded because no test can ever kill them.</text></feedback></answer>
+    <answer fraction="0"><text>killed mutants / total mutants</text><feedback><text>This treats equivalent mutants as killable, unfairly penalizing the test suite.</text></feedback></answer>
+    <answer fraction="0"><text>killed mutants / (total mutants + equivalent mutants)</text><feedback><text>Adding, not subtracting, equivalents makes the score worse without justification.</text></feedback></answer>
+    <answer fraction="0"><text>(total mutants &#8722; killed mutants) / total mutants</text><feedback><text>That's closer to a "surviving-mutant rate", not the mutation score.</text></feedback></answer>
+    <generalfeedback><text>Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>equivalent mutant</em> is a mutant that is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Syntactically different from the original but semantically identical on every input</text><feedback><text>Correct — same input/output behavior for all inputs, so no test can distinguish it.</text></feedback></answer>
+    <answer fraction="0"><text>Textually identical to the original program</text><feedback><text>Mutation operators always introduce a syntactic change; identical text isn't a mutant at all.</text></feedback></answer>
+    <answer fraction="0"><text>A mutant located in dead/unreachable code</text><feedback><text>An unreachable mutant fails on reachability, but might still be non-equivalent were the code reached.</text></feedback></answer>
+    <answer fraction="0"><text>A mutant that crashes on every input</text><feedback><text>A mutant that reliably crashes differently from the original is trivially killed, not equivalent.</text></feedback></answer>
+    <generalfeedback><text>An equivalent mutant differs in source code from the original program but computes exactly the same function — identical output for every possible input — so it is logically impossible for any test to kill it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RIP model — infection failure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under the Reachability&#8211;Infection&#8211;Propagation (RIP) model, which condition has failed if the mutated statement executes but the program's state is never different afterward?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Infection</text><feedback><text>Correct — reachability held (the statement ran) but the mutation never corrupted the state.</text></feedback></answer>
+    <answer fraction="0"><text>Reachability</text><feedback><text>Reachability already succeeded since the statement executed.</text></feedback></answer>
+    <answer fraction="0"><text>Propagation</text><feedback><text>Propagation only matters once the state has actually been infected; here it never was.</text></feedback></answer>
+    <answer fraction="0"><text>The oracle</text><feedback><text>The RIP model doesn't include an "oracle" condition — oracle problems live in the test-verification step.</text></feedback></answer>
+    <generalfeedback><text>RIP requires the mutated statement to be Reached, to Infect the program state (make it differ from the original), and for that infected state to Propagate to the output. Execution without any state difference means infection failed.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Statement coverage and mutants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test suite that achieves 100% statement coverage is guaranteed to kill every non-equivalent mutant.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Statement coverage only guarantees reachability, not that the mutation infects the state or that the infection propagates to an observable output.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — statement coverage guarantees the mutated statement executes (reachability), but says nothing about infection or propagation, so non-equivalent mutants can still survive.</text></feedback></answer>
+    <generalfeedback><text>100% statement coverage satisfies only the "Reachability" leg of the RIP model. A mutant can still survive if infection never occurs or the infected state never propagates to a checked output — so full statement coverage does not guarantee killing every non-equivalent mutant.</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>RIP — propagation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Reachability&#8211;Infection&#8211;Propagation model, which term names the condition that the corrupted state must reach and change the program's observable output? (one word)</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>propagation</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="100"><text>propagat*</text><feedback><text>Correct.</text></feedback></answer>
+    <generalfeedback><text>Propagation is the third RIP condition: the infected (corrupted) state must flow forward through execution until it changes something the test oracle actually observes.</text></generalfeedback>
+  </question>
+</quiz>

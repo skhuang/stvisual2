@@ -16,5 +16,11 @@ if (typeof globalThis.localStorage?.setItem !== 'function') {
   };
 }
 
+// jsdom doesn't implement scrollIntoView; the integrated view calls it from
+// a requestAnimationFrame callback during its deep-link scroll bookkeeping.
+if (typeof globalThis.Element?.prototype.scrollIntoView !== 'function') {
+  globalThis.Element.prototype.scrollIntoView = () => {};
+}
+
 // Existing component tests assume Chinese strings; pin locale for tests.
 setLocale('zh');
