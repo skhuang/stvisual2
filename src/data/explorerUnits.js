@@ -1,0 +1,85 @@
+// One entry per Explorer unit. `id` is the stable kebab-case key used by
+// unit-view deeplinks (?explorer=graph-coverage), quiz banks
+// (quizzes/{en,zh}/<id>.xml) and labs (labs/labs.json). `quizId` (optional)
+// redirects the unit's Quiz button to a shared bank.
+// The companion test asserts 1:1 coverage of EXPLORER_TO_LOCATION.
+export const EXPLORER_UNITS = [
+  { id: 'testing-method-tree',    componentName: 'TestingMethodTree' },
+  { id: 'testing-flow',           componentName: 'TestingFlow' },
+  { id: 'defect-cost',            componentName: 'DefectCostExplorer' },
+  { id: 'v-model',                componentName: 'VModelExplorer' },
+  { id: 'testing-types-table',    componentName: 'TestingTypesTable' },
+  { id: 'pyramid-adjuster',       componentName: 'PyramidAdjusterExplorer' },
+  { id: 'graph-coverage',         componentName: 'GraphCoverageExplorer' },
+  { id: 'logic-coverage',         componentName: 'LogicCoverageExplorer' },
+  { id: 'code-coverage',          componentName: 'CodeCoverageExplorer' },
+  { id: 'syntax-coverage',        componentName: 'SyntaxCoverageExplorer', quizId: 'mutation-testing' },
+  { id: 'grammar-coverage',       componentName: 'GrammarCoverageExplorer' },
+  { id: 'spec-mutation',          componentName: 'SpecMutationExplorer' },
+  { id: 'symbolic-execution',     componentName: 'SymbolicExecutionExplorer' },
+  { id: 'concolic-execution',     componentName: 'ConcolicExecutionExplorer' },
+  { id: 'fuzz-testing',           componentName: 'FuzzTestingExplorer' },
+  { id: 'test-generation',        componentName: 'TestGenerationExplorer' },
+  { id: 'integration-testing',    componentName: 'IntegrationTestingExplorer' },
+  { id: 'property-based-testing', componentName: 'PropertyBasedTestingExplorer' },
+  { id: 'risk-based-testing',     componentName: 'RiskBasedTestingExplorer' },
+  { id: 'boundary-value',         componentName: 'BoundaryValueExplorer', quizId: 'boundary-value-equivalence' },
+  { id: 'equivalence-class',      componentName: 'EquivalenceClassExplorer', quizId: 'boundary-value-equivalence' },
+  { id: 'input-space-partitioning', componentName: 'InputSpacePartitioningExplorer' },
+  { id: 'decision-table',         componentName: 'DecisionTableExplorer' },
+  { id: 'state-transition',       componentName: 'StateTransitionExplorer' },
+  { id: 'pairwise',               componentName: 'PairwiseExplorer' },
+  { id: 'cause-effect',           componentName: 'CauseEffectExplorer' },
+  { id: 'metamorphic-testing',    componentName: 'MetamorphicTestingExplorer' },
+  { id: 'exploratory-testing',    componentName: 'ExploratoryTestingExplorer' },
+  { id: 'test-doubles',           componentName: 'TestDoublesExplorer' },
+  { id: 'group-theory',           componentName: 'GroupTheoryExplorer' },
+  { id: 'equivalent-mutant',      componentName: 'EquivalentMutantExplorer', quizId: 'mutation-testing' },
+  { id: 'mutation-score',         componentName: 'MutationScoreExplorer', quizId: 'mutation-testing' },
+  { id: 'llm-pipeline',           componentName: 'LLMPipelineExplorer' },
+  { id: 'test-quality',           componentName: 'TestQualityExplorer' },
+  { id: 'fault-directed-testing', componentName: 'FaultDirectedTestingExplorer' },
+  { id: 'sailor-pipeline',        componentName: 'SAILORPipelineExplorer' },
+  { id: 'bdd-gherkin',            componentName: 'BDDGherkinExplorer' },
+  { id: 'use-case-derivation',    componentName: 'UseCaseDerivationExplorer' },
+  { id: 'e2e-user-journey',       componentName: 'E2EUserJourneyExplorer' },
+  { id: 'contract-testing',       componentName: 'ContractTestingExplorer' },
+  { id: 'performance-load-profile', componentName: 'PerformanceLoadProfileExplorer' },
+  { id: 'chaos-engineering',      componentName: 'ChaosEngineeringExplorer' },
+  { id: 'atdd-cycle',             componentName: 'ATDDCycleExplorer' },
+  { id: 'flaky-diagnosis',        componentName: 'FlakyDiagnosisExplorer' },
+  { id: 'mbt-workflow',           componentName: 'MBTWorkflowExplorer' },
+  { id: 'fsm-test-generation',    componentName: 'FSMTestGenerationExplorer' },
+  { id: 'w-method-conformance',   componentName: 'WMethodConformanceExplorer' },
+  { id: 'efsm-guarded-transition', componentName: 'EFSMGuardedTransitionExplorer' },
+  { id: 'usage-model-statistical', componentName: 'UsageModelStatisticalExplorer' },
+  { id: 'model-mutation',         componentName: 'ModelMutationExplorer' },
+  { id: 'agile-quadrants',        componentName: 'AgileQuadrantsExplorer' },
+  { id: 'sprint-cadence',         componentName: 'SprintCadenceExplorer' },
+  { id: 'definition-gates',       componentName: 'DefinitionGatesExplorer' },
+  { id: 'example-mapping',        componentName: 'ExampleMappingExplorer' },
+  { id: 'continuous-testing-pipeline', componentName: 'ContinuousTestingPipelineExplorer' },
+  { id: 'regression-debt',        componentName: 'RegressionDebtExplorer' },
+  { id: 'program-slicing',        componentName: 'ProgramSlicingExplorer' },
+  { id: 'slice-dicing',           componentName: 'SliceDicingExplorer' },
+  { id: 'slice-coverage',         componentName: 'SliceCoverageExplorer' },
+  { id: 'slice-regression',       componentName: 'SliceRegressionExplorer' },
+  { id: 'tdd-cycle',              componentName: 'TddCycleExplorer' },
+  { id: 'tdd-rules',              componentName: 'TddRulesExplorer' },
+  { id: 'exploit-overflow',       componentName: 'ExploitOverflowExplorer' },
+  { id: 'exploit-sqli',           componentName: 'ExploitSqliExplorer' },
+  { id: 'exploit-cmdi',           componentName: 'ExploitCmdiExplorer' },
+  { id: 'exploit-path',           componentName: 'ExploitPathExplorer' },
+  { id: 'sbst-branch',            componentName: 'SbstBranchExplorer' },
+  { id: 'sbst-compare',           componentName: 'SbstCompareExplorer' },
+  { id: 'sbst-suite',             componentName: 'SbstSuiteExplorer' },
+];
+
+export const UNIT_BY_ID = new Map(EXPLORER_UNITS.map((u) => [u.id, u]));
+export const UNIT_BY_COMPONENT = new Map(EXPLORER_UNITS.map((u) => [u.componentName, u]));
+
+// Accepts a kebab id OR a ComponentName; null when unknown.
+export function resolveUnit(param) {
+  if (!param) return null;
+  return UNIT_BY_ID.get(param) ?? UNIT_BY_COMPONENT.get(param) ?? null;
+}
