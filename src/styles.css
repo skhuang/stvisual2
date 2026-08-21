@@ -142,3 +142,14 @@ body.viz-focus .unit-main {
   font-size: 0.9rem;
 }
 .viz-focus-exit:active { cursor: grabbing; }
+
+/* ── Nav dropdown unit links ─────────────────────────────────────────── */
+.nav-section-group { position: relative; display: flex; flex-direction: column; }
+.nav-section-group > .nav-unit-link--single { position: absolute; right: 0.5rem; top: 0.25rem; }
+.nav-unit-list { display: flex; flex-direction: column; padding-left: 1rem; }
+.nav-unit-link {
+  display: block; padding: 0.25rem 0.75rem; font-size: 0.85rem;
+  color: var(--app-text-muted); text-decoration: none;
+  border-radius: var(--app-radius-sm);
+}
+.nav-unit-link:hover { background: var(--app-surface-hover); color: var(--app-primary-strong); }

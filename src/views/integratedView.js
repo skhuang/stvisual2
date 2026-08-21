@@ -78,7 +78,9 @@ import {
   parseAppLocation,
   serializeLocation,
   resolveInitialTab,
+  unitsForSection,
 } from '../utils/urlRouter.js';
+import { unitTitle } from '../utils/unitTitles.js';
 import { createResultViewer } from '../components/ResultViewer.js';
 import { createTeacherDashboard } from '../components/TeacherDashboard.js';
 import { buildShareUrl } from '../utils/resultExporter.js';
@@ -1377,17 +1379,28 @@ export function renderIntegratedApp(container) {
               </button>
               <div class="nav-category-panel" role="menu" aria-label="${t(cat.labelKey)}">
                 ${cat.sectionIds.map((sectionId) => `
-                  <button
-                    class="nav-btn${activeSection === sectionId ? ' active' : ''}"
-                    data-testid="nav-btn-${sectionId}"
-                    data-section="${sectionId}"
-                    type="button"
-                    role="menuitem"
-                    aria-current="${activeSection === sectionId ? 'page' : 'false'}"
-                  >
-                    ${t(`section.${sectionId}`)}
-                  </button>
-                `).join('')}
+                  <div class="nav-section-group">
+                    <button
+                      class="nav-btn${activeSection === sectionId ? ' active' : ''}"
+                      data-testid="nav-btn-${sectionId}"
+                      data-section="${sectionId}"
+                      type="button"
+                      role="menuitem"
+                      aria-current="${activeSection === sectionId ? 'page' : 'false'}"
+                    >
+                      ${t(`section.${sectionId}`)}
+                    </button>
+                    ${unitsForSection(sectionId).length > 1 ? `
+                      <div class="nav-unit-list" role="group">
+                        ${unitsForSection(sectionId).map((u) => `
+                          <a class="nav-unit-link" role="menuitem"
+                             data-testid="nav-unit-${u.id}"
+                             href="?explorer=${u.componentName}">${unitTitle(u)}</a>`).join('')}
+                      </div>` : unitsForSection(sectionId).map((u) => `
+                        <a class="nav-unit-link nav-unit-link--single" role="menuitem"
+                           data-testid="nav-unit-${u.id}"
+                           href="?explorer=${u.componentName}">⛶</a>`).join('')}
+                  </div>`).join('')}
               </div>
             </div>`;
           }).join('')}
