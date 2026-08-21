@@ -34,46 +34,46 @@ describe('K4 — urlRouter parse', () => {
 
   it('?explorer= resolves to section + tab and wins over ?section/?tab', () => {
     const state = parseAppLocation('?explorer=PairwiseExplorer&section=graph');
-    expect(state).toEqual({ explorer: 'PairwiseExplorer', section: 'blackbox', tab: 'pairwise' });
+    expect(state).toEqual({ explorer: 'PairwiseExplorer', section: 'blackbox', tab: 'pairwise', unitId: 'pairwise' });
   });
 
   it('?explorer= for a non-tabbed section returns only section', () => {
     expect(parseAppLocation('?explorer=GraphCoverageExplorer'))
-      .toEqual({ explorer: 'GraphCoverageExplorer', section: 'graph' });
+      .toEqual({ explorer: 'GraphCoverageExplorer', section: 'graph', unitId: 'graph-coverage' });
   });
 
   it('unknown ?explorer= is ignored, falls through to other params', () => {
-    expect(parseAppLocation('?explorer=NoSuch&section=fuzz')).toEqual({ section: 'fuzz' });
+    expect(parseAppLocation('?explorer=NoSuch&section=fuzz')).toEqual({ section: 'fuzz', unknownExplorer: 'NoSuch' });
   });
 
   it('?explorer=ProgramSlicingExplorer resolves to slicing section, program tab', () => {
     expect(parseAppLocation('?explorer=ProgramSlicingExplorer'))
-      .toEqual({ explorer: 'ProgramSlicingExplorer', section: 'slicing', tab: 'program' });
+      .toEqual({ explorer: 'ProgramSlicingExplorer', section: 'slicing', tab: 'program', unitId: 'program-slicing' });
   });
 
   it('?explorer=SliceDicingExplorer resolves to slicing section, dicing tab', () => {
     expect(parseAppLocation('?explorer=SliceDicingExplorer'))
-      .toEqual({ explorer: 'SliceDicingExplorer', section: 'slicing', tab: 'dicing' });
+      .toEqual({ explorer: 'SliceDicingExplorer', section: 'slicing', tab: 'dicing', unitId: 'slice-dicing' });
   });
 
   it('?explorer=SliceCoverageExplorer resolves to slicing section, coverage tab', () => {
     expect(parseAppLocation('?explorer=SliceCoverageExplorer'))
-      .toEqual({ explorer: 'SliceCoverageExplorer', section: 'slicing', tab: 'coverage' });
+      .toEqual({ explorer: 'SliceCoverageExplorer', section: 'slicing', tab: 'coverage', unitId: 'slice-coverage' });
   });
 
   it('?explorer=SliceRegressionExplorer resolves to slicing section, regression tab', () => {
     expect(parseAppLocation('?explorer=SliceRegressionExplorer'))
-      .toEqual({ explorer: 'SliceRegressionExplorer', section: 'slicing', tab: 'regression' });
+      .toEqual({ explorer: 'SliceRegressionExplorer', section: 'slicing', tab: 'regression', unitId: 'slice-regression' });
   });
 
   it('?explorer=TddCycleExplorer resolves to tdd section, cycle tab', () => {
     expect(parseAppLocation('?explorer=TddCycleExplorer'))
-      .toEqual({ explorer: 'TddCycleExplorer', section: 'tdd', tab: 'cycle' });
+      .toEqual({ explorer: 'TddCycleExplorer', section: 'tdd', tab: 'cycle', unitId: 'tdd-cycle' });
   });
 
   it('?explorer=TddRulesExplorer resolves to tdd section, rules tab', () => {
     expect(parseAppLocation('?explorer=TddRulesExplorer'))
-      .toEqual({ explorer: 'TddRulesExplorer', section: 'tdd', tab: 'rules' });
+      .toEqual({ explorer: 'TddRulesExplorer', section: 'tdd', tab: 'rules', unitId: 'tdd-rules' });
   });
 
   it('routes ?explorer=ExploitOverflowExplorer to section=exploit tab=overflow', () => {
