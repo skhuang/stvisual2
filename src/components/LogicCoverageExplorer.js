@@ -13,6 +13,20 @@ import { encodeResult, buildShareUrl } from '../utils/resultExporter.js';
 import { createCloudIntegrationClient } from '../utils/cloudIntegration.js';
 import { solveBinding, formatWitnessStr, extractVarsFromBindings, buildConstraintStr } from '../utils/logicBinding.js';
 import { computeAutGroupFromTable, determinationPairsFromTable } from '../utils/groupTheory.js';
+import { createExampleControls } from './ExampleControls.js';
+import * as logicRandom from '../data/logicCoverageRandom.js';
+import { getInputDifficulty, onInputDifficultyChange } from '../utils/inputDifficulty.js';
+import { save as saveExample } from '../utils/examplesStore.js';
+
+// Preset "focus mode" configs consumed by createLogicCoverageExplorer({ preset }).
+// Each preset narrows the criterion switcher to a themed subset and controls
+// whether the K-map region is shown (only the DNF-based criteria need it).
+export const LOGIC_PRESETS = {
+  basic:    { criteria: ['pc', 'cc', 'coc'], view: 'truth' },
+  active:   { criteria: ['gacc', 'cacc', 'racc'], view: 'truth' },
+  inactive: { criteria: ['gicc', 'ricc'], view: 'truth' },
+  dnf:      { criteria: ['ic', 'utpc', 'mutpc', 'nfpc', 'mnfpc', 'cutpnfp'], view: 'kmap' },
+};
 
 const RECENT_KEY = 'stvisual.logic.recentPredicates';
 const RECENT_LIMIT = 8;
@@ -189,18 +203,27 @@ function buildImplicantGroups(rows, terms, target, paletteOffset = 0, testsForPo
   });
 }
 
-export function createLogicCoverageExplorer() {
+export function createLogicCoverageExplorer(opts = {}) {
   const root = document.createElement('div');
   root.className = 'logic-coverage';
   root.dataset.testid = 'logic-coverage';
 
+  const presetCfg = opts.preset && LOGIC_PRESETS[opts.preset] ? LOGIC_PRESETS[opts.preset] : null;
+  if (opts.preset && !presetCfg) console.warn('LogicCoverageExplorer: unknown preset', opts.preset);
+  const focus = Boolean(presetCfg);
+  let userEdited = false;
+
+  // In focus mode, seed the explorer from a per-difficulty generated
+  // predicate instead of the fixed default example.
+  const initialPreset = focus ? logicRandom.presetForDifficulty(getInputDifficulty()) : null;
+
   const state = {
-    expression: logicCoveragePredicates[0].expression,
-    selectedCriterion: 'pc',
+    expression: focus ? initialPreset.expression : logicCoveragePredicates[0].expression,
+    selectedCriterion: presetCfg ? presetCfg.criteria[0] : 'pc',
     error: null,
     parsed: null,
     analysis: null,
-    bindings: {},           // clauseName → JS expression string
+    bindings: focus ? { ...(initialPreset.bindings || {}) } : {},           // clauseName → JS expression string
     bindingRange: [-10, 10], // [min, max] for brute-force search
     recent: loadRecent(),
     cloudUser: null,
@@ -355,6 +378,40 @@ export function createLogicCoverageExplorer() {
     return new Set(set.tests.map((t) => `r${t.row.index}`));
   }
 
+  // Shared "set expression + reparse + re-render" path, reused by the
+  // ExampleControls row (onLoad/onRandom) and the input-difficulty
+  // subscription in focus mode.
+  function applyExpression(text) {
+    state.expression = text;
+    recompute();
+    render();
+  }
+
+  const exampleControls = focus ? createExampleControls({
+    methodId: 'logic',
+    getDefaultText: () => logicRandom.presetForDifficulty(getInputDifficulty()).expression,
+    presets: logicCoveragePredicates.map((p) => ({ value: p.expression, label: p.name })),
+    onLoad: (text) => {
+      applyExpression(text);
+      userEdited = true;
+      saveExample(localStorage, 'logic', text, logicRandom.presetForDifficulty(getInputDifficulty()).expression, 10);
+      exampleControls.refresh();
+    },
+    onRandom: () => {
+      const { expression } = logicRandom.randomPredicate(getInputDifficulty());
+      applyExpression(expression);
+      userEdited = true;
+    },
+  }) : null;
+
+  if (focus) {
+    onInputDifficultyChange(() => {
+      if (!userEdited) {
+        applyExpression(logicRandom.presetForDifficulty(getInputDifficulty()).expression);
+      }
+    });
+  }
+
   function render() {
     const examplesMarkup = logicCoveragePredicates
       .map((p) => `
@@ -397,7 +454,7 @@ export function createLogicCoverageExplorer() {
       `
       : '';
 
-    const criteriaMarkup = logicCoverageCriteria
+    const criteriaMarkup = (presetCfg ? logicCoverageCriteria.filter((c) => presetCfg.criteria.includes(c.id)) : logicCoverageCriteria)
       .map((c) => `
         <button
           type="button"
@@ -415,6 +472,7 @@ export function createLogicCoverageExplorer() {
     const summaryMarkup = renderSummary();
 
     root.innerHTML = `
+      ${focus ? `<div class="logic-toolbar" data-testid="logic-toolbar"></div>` : `
       <div class="logic-toolbar">
         <label class="logic-input-label" for="logic-expression-input">Predicate</label>
         <input
@@ -430,13 +488,14 @@ export function createLogicCoverageExplorer() {
         <div class="logic-examples">${examplesMarkup}</div>
         ${recentMarkup}
       </div>
+      `}
 
       ${state.error ? `<div class="logic-error" data-testid="logic-error">${escapeHtml(state.error)}</div>` : ''}
 
       <div class="logic-criteria" role="tablist" aria-label="${t('logic.aria.criteria')}">
         <div class="graph-criterion-row">
           ${criteriaMarkup}
-          ${!state.error && state.analysis ? `
+          ${!focus && !state.error && state.analysis ? `
             <button type="button" class="quiz-start-btn" data-testid="logic-quiz-start">
               ${t('quiz.start')}
             </button>
@@ -456,6 +515,10 @@ export function createLogicCoverageExplorer() {
 
       <div class="logic-truth-table-wrap">${truthTableMarkup}</div>
     `;
+
+    if (focus && exampleControls) {
+      root.querySelector('.logic-toolbar')?.prepend(exampleControls.element);
+    }
 
     bindEvents();
   }
@@ -571,7 +634,7 @@ export function createLogicCoverageExplorer() {
         }`
       : '';
 
-    const kmapMarkup = state.parsed && (set.id === 'ic' || set.id === 'utpc' || set.id === 'mutpc' || set.id === 'nfpc' || set.id === 'mnfpc' || set.id === 'cutpnfp')
+    const kmapMarkup = state.parsed && (!focus || presetCfg.view === 'kmap') && (set.id === 'ic' || set.id === 'utpc' || set.id === 'mutpc' || set.id === 'nfpc' || set.id === 'mnfpc' || set.id === 'cutpnfp')
       ? (set.id === 'ic'
           ? (() => {
               const posTests = set.tests.filter((t) => t.polarity === 'pos');
