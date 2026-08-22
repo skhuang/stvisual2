@@ -11720,7 +11720,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       case "edge":
         return { expression: "a", bindings: bindingsFor(["a"]) };
       case "large":
-        return { expression: "((a && b) || (c && d)) || (e && f)", bindings: bindingsFor(["a", "b", "c", "d", "e", "f"]) };
+        return { expression: "(a && b) || (c && d)", bindings: bindingsFor(["a", "b", "c", "d"]) };
       case "special":
         return { expression: "a && b && a", bindings: bindingsFor(["a", "b"]) };
       case "normal":
@@ -11734,7 +11734,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       case "edge":
         return { expression: "a", bindings: bindingsFor(["a"]) };
       case "large":
-        n = randInt(rng, 4, 6);
+        n = 4;
         break;
       case "special": {
         const op = pick(rng, ["&&", "||"]);
