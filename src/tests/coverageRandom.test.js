@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { makeRng } from '../utils/randomInput.js';
 import * as G from '../data/graphCoverageRandom.js';
 import * as Lg from '../data/logicCoverageRandom.js';
+import { parsePredicate } from '../utils/logicCoverage.js';
 
 const TIERS = ['normal', 'special', 'edge', 'large'];
 
@@ -45,12 +46,6 @@ describe('graphCoverageRandom', () => {
 
 function clauseSet(expr) { return new Set((expr.match(/[a-z]/g) || [])); }
 
-function isBalanced(expr) {
-  const opens = (expr.match(/\(/g) || []).length;
-  const closes = (expr.match(/\)/g) || []).length;
-  return opens === closes;
-}
-
 describe('logicCoverageRandom', () => {
   const TIERS = ['normal', 'special', 'edge', 'large'];
   it('presetForDifficulty yields a parseable predicate per tier', () => {
@@ -67,11 +62,20 @@ describe('logicCoverageRandom', () => {
     expect(normal).toBeGreaterThanOrEqual(2); expect(normal).toBeLessThanOrEqual(3);
     expect(clauseSet(Lg.randomPredicate('large', makeRng(1)).expression).size).toBeGreaterThanOrEqual(4);
   });
-  it('every tier expression (preset + random, multiple seeds) has balanced parentheses', () => {
+  it('every tier expression (preset + random, multiple seeds) round-trips through the Logic explorer parser', () => {
     for (const tier of TIERS) {
-      expect(isBalanced(Lg.presetForDifficulty(tier).expression)).toBe(true);
+      const { expression: presetExpr } = Lg.presetForDifficulty(tier);
+      const expectedPreset = clauseSet(presetExpr);
+      let parsed;
+      expect(() => { parsed = parsePredicate(presetExpr); }).not.toThrow();
+      expect(new Set(parsed.clauses)).toEqual(expectedPreset);
+
       for (let seed = 1; seed <= 20; seed++) {
-        expect(isBalanced(Lg.randomPredicate(tier, makeRng(seed)).expression)).toBe(true);
+        const { expression } = Lg.randomPredicate(tier, makeRng(seed));
+        const expectedClauses = clauseSet(expression);
+        let parsedRandom;
+        expect(() => { parsedRandom = parsePredicate(expression); }).not.toThrow();
+        expect(new Set(parsedRandom.clauses)).toEqual(expectedClauses);
       }
     }
   });
