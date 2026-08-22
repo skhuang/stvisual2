@@ -252,6 +252,16 @@ flowchart LR
   K -->|inject-env + build| L[GitHub Pages]
 ```
 
+## Performance
+
+The app renders 69 explorers, so three measures keep load and interaction fast — each fixes a distinct cost (network vs. main-thread execution):
+
+- **Production is a Vite bundle, not raw modules.** GitHub Pages serves a few hashed chunks (~11 requests) instead of the ~235-file unbundled ES-module waterfall. This mainly helps cold load and repeat navigation. (Dev/e2e still serve raw `src/`; the `file://` path uses `src/standalone.js`.)
+- **Graph/Logic family-unit tabs are lazy-constructed.** The integrated view builds a preset explorer only when its tab is first clicked, not at page load. Because a preset's first render runs coverage computation that grows with input size, eager construction previously blocked the main thread for seconds at "Large" difficulty (which is persisted in `localStorage`). See `graphTabs`/`logicTabs` in `src/views/integratedView.js`.
+- **The "Large" logic predicate is bounded to 4 clauses.** Logic render cost scales with the truth-table row count (2ⁿ), and the criterion tables (especially inactive-clause) are DOM-heavy. Capping at 4 clauses (16 rows, the K-map maximum) keeps every logic tab render well under a frame. Difficulty presets live in `src/data/{graphCoverageRandom,logicCoverageRandom}.js`.
+
+**Rule of thumb when adding explorers:** anything whose construction/first render does work that grows with input (path enumeration, 2ⁿ truth tables) should be lazy-constructed if it sits in an eager list, and its difficulty presets kept small enough to render within a frame.
+
 ## Quick Start
 
 ### 1. Install dependencies
@@ -284,7 +294,7 @@ The app detects `file://` and switches to a pre-built `src/standalone.js` bundle
 npm run test:run
 ```
 
-656 tests across 57 files — covering every explorer, coverage algorithms, mutation engine, concolic/symbolic execution, group-theory utilities, the five Advanced Testing explorers, the URL router, the tag/course-pack metadata layer, and the eight Acceptance & E2E explorers.
+1187 tests across 121 files — covering every explorer, coverage algorithms, mutation engine, concolic/symbolic execution, group-theory utilities, the five Advanced Testing explorers, the URL router, the tag/course-pack metadata layer, the eight Acceptance & E2E explorers, the family-unit registry, and the example-input/difficulty system.
 
 ### Browser E2E tests (Playwright / Chromium)
 
@@ -360,45 +370,25 @@ The live site is built and deployed automatically on every push to `main` via th
 
 ```
 push to main
-  └─ test job (ubuntu-latest, Node 20)
+  └─ test job (ubuntu-latest, Node 24)
        ├─ npm ci --legacy-peer-deps
-       ├─ npm run test:run              ← 656 unit tests must pass
-       ├─ inject-env                    ← reads GitHub Secrets, writes cloudConfig.js
-       ├─ build:standalone              ← esbuild bundles src/ → standalone.js
-       └─ prepare-pages                 ← copies src tree → site/
+       ├─ npm run test:run              ← full unit suite must pass
+       └─ npm run pages:build           ← builds the production bundle → dist/
   └─ deploy job
-       └─ actions/deploy-pages@v4       ← uploads site/ to GitHub Pages
+       └─ actions/deploy-pages@v4       ← uploads dist/ to GitHub Pages
 ```
 
-#### What `pages:prepare` produces
+#### What `pages:build` produces
 
-`npm run pages:prepare` runs three scripts in sequence:
+`npm run pages:build` runs, in sequence:
 
 | Step | Script | What it does |
 |------|--------|--------------|
-| 1 | `inject-env.mjs` | Reads env vars (CI Secrets or `.env`), replaces `__PLACEHOLDER__` tokens in `cloudConfig.js` |
-| 2 | `build-standalone.mjs` | Uses esbuild to bundle the full app into `src/standalone.js` |
-| 3 | `prepare-pages.mjs` | Copies `src/` tree, `index.html`, and writes `site/.nojekyll` |
+| 1 | `build:quiz` / `build:labs` / `build:slide-decks` | Regenerate the committed `src/data/*.generated.js` (quiz banks, labs, slide decks) |
+| 2 | `inject-env.mjs` | Reads env vars (CI Secrets or `.env.local`), replaces `__PLACEHOLDER__` tokens in `cloudConfig.js` |
+| 3 | `vite build` | Bundles the whole app into a few hashed chunks under `dist/` with `base: /stvisual2/` |
 
-The resulting `site/` directory:
-
-```
-site/
-├── index.html
-├── .nojekyll
-└── src/
-    ├── bootstrap.js      ← detects http vs file:// and picks entry point
-    ├── main.js           ← ES-module entry (used over http/https)
-    ├── standalone.js     ← esbuild bundle (used from file://)
-    ├── app.js
-    ├── styles.css
-    ├── App.css
-    ├── components/       ← all explorer JS + CSS files
-    ├── data/
-    ├── config/           ← cloudConfig.js with real credentials injected
-    ├── utils/
-    └── i18n/
-```
+The resulting `dist/` is a **bundled** production site (one JS chunk + one CSS chunk + `slide-assets/` + `.nojekyll`), not the raw `src/` tree — this is the performance-critical difference (see [Performance](#performance)). The `file://` path is unaffected: opening the repo `index.html` directly still uses the committed `src/standalone.js` esbuild bundle.
 
 #### One-time GitHub repository setup
 
@@ -431,16 +421,16 @@ Or go to **Actions → Deploy GitHub Pages → Run workflow** in the GitHub UI.
 
 ### Self-hosted / other static hosts
 
-The `site/` directory is a plain static site with no server-side requirements. It can be served from Nginx, Caddy, S3, Netlify, or any CDN:
+`npm run pages:build` produces a `dist/` directory — a bundled static site with no server-side requirements. It can be served from Nginx, Caddy, S3, Netlify, or any CDN:
 
 ```bash
 # build locally
-cp .env.example .env && vim .env
-npm run pages:prepare        # → site/
-rsync -av site/ user@host:/var/www/stvisual/
+cp .env.example .env.local && vim .env.local
+npm run pages:build          # → dist/ (Vite production bundle)
+rsync -av dist/ user@host:/var/www/stvisual/
 ```
 
-If the app is served under a non-root path (e.g. `https://example.com/stvisual/`), set `GITHUB_PAGES_BASE_PATH=/stvisual` in `.env` before running `pages:prepare`.
+If the app is served under a non-root path (e.g. `https://example.com/stvisual/`), set `GITHUB_PAGES_BASE_PATH=/stvisual` in `.env.local` before running `pages:build`. (The older `npm run pages:prepare` still emits an unbundled `site/` tree for `file://` use, but the bundled `dist/` is preferred for hosting — see [Performance](#performance).)
 
 ## GitHub Actions Workflows
 
@@ -556,7 +546,7 @@ Both workflows use **Node.js 24** and `npm ci --legacy-peer-deps`.
 │   │   ├── urlRouter.js         # K4 — ?section / ?tab / ?explorer / ?pack parsing
 │   │   ├── coursePackExporter.js # K3+K5 — Markdown handout w/ per-row deeplinks
 │   │   └── cloudIntegration.js  # Firebase Auth + Firestore + Drive + class results
-│   └── tests/                   # 57 test files, 656 tests (Vitest + jsdom)
+│   └── tests/                   # unit tests (Vitest + jsdom); 1187 tests total across the repo
 ├── e2e/                         # Playwright browser tests
 ├── site/                        # generated GitHub Pages output (gitignored)
 └── .github/workflows/
