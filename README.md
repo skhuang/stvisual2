@@ -30,11 +30,41 @@ Screenshots above are from the original Foundations + Coverage sections; newer e
 
 ### Unit View (classroom mode)
 
-Every Explorer now has a single-window unit view for projection:
+Every Explorer has a single-window unit view for projection:
 `?explorer=graph-coverage` (kebab id) or `?explorer=GraphCoverageExplorer`.
 The ⛶ button enters a fullscreen focus mode (Esc or the floating ✕ exits).
 The classic integrated page is still available via the Overview and
 `?view=all&section=…` links; category-nav dropdowns list every unit.
+
+### Classroom family units (Graph & Logic)
+
+The two densest explorers are split into per-concept **family units** so a
+single idea can be projected without the surrounding chrome (editor,
+upload, optimization, lab/quiz). Each family is both an integrated-page tab
+and its own `?explorer=` unit; the complete explorer is preserved as the
+"Complete" tab.
+
+- **Graph** — `graph-structural` (Node, Edge) · `graph-path` (Prime Path,
+  Edge-Pair, Complete Path) · `graph-dataflow` (All-Defs, All-Uses,
+  All-DU-Paths, with the DFG) · `graph-coverage` (Complete — all 8 + editor/upload/optimization).
+- **Logic** — `logic-basic` (PC, CC, CoC) · `logic-active-clause`
+  (GACC, CACC, RACC) · `logic-inactive-clause` (GICC, RICC) · `logic-dnf`
+  (IC, UTPC, MUTPC, NFPC, MNFPC, CUTPNFP, with K-maps) · `logic-coverage`
+  (Complete — all 14).
+
+Family units reuse the full explorers via an additive `preset` mode, so the
+complete explorers' behavior is unchanged.
+
+### Example inputs & difficulty (dsvisual-style)
+
+Focus units carry a compact input row — a **`範例 ▾` dropdown** (named
+presets + the current-difficulty default + your last 10 inputs, in
+localStorage) and a **🎲 random** button. A global **difficulty selector**
+(Normal / Special / Edge case / Large) in the unit and integrated headers
+drives both the default example and the random generator. Shared modules:
+`src/utils/examplesStore.js`, `inputDifficulty.js`, `randomInput.js`, the
+per-domain `src/data/{graphCoverageRandom,logicCoverageRandom}.js`
+generators, and the `src/components/ExampleControls.js` row.
 
 ### Quiz banks and labs
 
@@ -62,6 +92,7 @@ The classic integrated page is still available via the Overview and
 - Lets users edit the graph structure live or upload JSON graph specs / source code
 - Supports multiple languages (JavaScript, Python, C, Java)
 - Self-test (quiz) mode: select a minimal covering path set and check your answer
+- Split into classroom family units: Structural / Path / Data-flow / Complete (see *Classroom family units* above)
 
 ### Logic Coverage
 - Predicate Coverage (PC), Clause Coverage (CC), Combinatorial Coverage (CoC)
@@ -73,6 +104,7 @@ The classic integrated page is still available via the Overview and
 - Per-implicant coloring, UTP / NFP badges, and paired UTP↔NFP for CUTPNFP
 - Supports textbook predicate notation: adjacency for AND (`ab`) and `+` for OR (`a+b`)
 - Built-in predicates: triangle classifier, leap year, calendar days, GCD, binary search
+- Split into classroom family units: Basic / Active-clause / Inactive-clause / DNF-K-map / Complete (see *Classroom family units* above)
 
 ### Syntax-Based Testing (Program Mutation)
 - 6 mutation operators (AOR / ROR / LOR / COR / UOI / ABS) over JavaScript expressions
