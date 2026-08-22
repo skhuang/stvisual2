@@ -371,10 +371,17 @@ export function renderIntegratedApp(container) {
     container.querySelector('[data-slot="groupth"]').appendChild(components.groupth);
 
     // --- Graph-Based Testing: family-unit tabs + Complete ---
+    // Preset explorers are LAZY-constructed (factory, built on first tab
+    // activation) — not eagerly, because a preset's first render runs
+    // coverage path-enumeration that is expensive on a large/looping CFG
+    // (difficulty is persisted, so "Large" would otherwise block the whole
+    // page for seconds at load even when the user only wants the overview).
+    // The "full" tab reuses the already-built, difficulty-independent
+    // components.graph.
     const graphTabs = [
-      { id: 'structural', key: 'graph.tab.structural', component: createGraphCoverageExplorer({ preset: 'structural' }) },
-      { id: 'path',       key: 'graph.tab.path',       component: createGraphCoverageExplorer({ preset: 'path' }) },
-      { id: 'dataflow',   key: 'graph.tab.dataflow',   component: createGraphCoverageExplorer({ preset: 'dataflow' }) },
+      { id: 'structural', key: 'graph.tab.structural', factory: () => createGraphCoverageExplorer({ preset: 'structural' }) },
+      { id: 'path',       key: 'graph.tab.path',       factory: () => createGraphCoverageExplorer({ preset: 'path' }) },
+      { id: 'dataflow',   key: 'graph.tab.dataflow',   factory: () => createGraphCoverageExplorer({ preset: 'dataflow' }) },
       { id: 'full',       key: 'graph.tab.full',       component: components.graph },
     ];
     const graphSlot = container.querySelector('[data-slot="graph"]');
@@ -434,8 +441,9 @@ export function renderIntegratedApp(container) {
         const isActive = panel.dataset.graphPanel === activeGraphTab;
         panel.style.display = isActive ? '' : 'none';
         if (isActive) {
+          if (!tab.component) tab.component = tab.factory(); // lazy-build on first activation
           if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
-        } else if (tab.component.parentNode === panel) {
+        } else if (tab.component && tab.component.parentNode === panel) {
           panel.removeChild(tab.component);
         }
       });
@@ -444,11 +452,12 @@ export function renderIntegratedApp(container) {
     updateGraphPanels();
 
     // --- Logic-Based Testing: family-unit tabs + Complete ---
+    // Lazy-constructed preset explorers (see graphTabs rationale above).
     const logicTabs = [
-      { id: 'basic',    key: 'logic.tab.basic',    component: createLogicCoverageExplorer({ preset: 'basic' }) },
-      { id: 'active',   key: 'logic.tab.active',   component: createLogicCoverageExplorer({ preset: 'active' }) },
-      { id: 'inactive', key: 'logic.tab.inactive', component: createLogicCoverageExplorer({ preset: 'inactive' }) },
-      { id: 'dnf',      key: 'logic.tab.dnf',      component: createLogicCoverageExplorer({ preset: 'dnf' }) },
+      { id: 'basic',    key: 'logic.tab.basic',    factory: () => createLogicCoverageExplorer({ preset: 'basic' }) },
+      { id: 'active',   key: 'logic.tab.active',   factory: () => createLogicCoverageExplorer({ preset: 'active' }) },
+      { id: 'inactive', key: 'logic.tab.inactive', factory: () => createLogicCoverageExplorer({ preset: 'inactive' }) },
+      { id: 'dnf',      key: 'logic.tab.dnf',      factory: () => createLogicCoverageExplorer({ preset: 'dnf' }) },
       { id: 'full',     key: 'logic.tab.full',     component: components.logic },
     ];
     const logicSlot = container.querySelector('[data-slot="logic"]');
@@ -503,8 +512,9 @@ export function renderIntegratedApp(container) {
         const isActive = panel.dataset.logicPanel === activeLogicTab;
         panel.style.display = isActive ? '' : 'none';
         if (isActive) {
+          if (!tab.component) tab.component = tab.factory(); // lazy-build on first activation
           if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
-        } else if (tab.component.parentNode === panel) {
+        } else if (tab.component && tab.component.parentNode === panel) {
           panel.removeChild(tab.component);
         }
       });
