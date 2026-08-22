@@ -16,6 +16,7 @@ describe('GraphCoverageExplorer presets', () => {
     expect(el.querySelector('[data-testid="graph-source-card"]')).toBeNull();
     expect(el.querySelector('[data-testid="graph-editor-card"]')).toBeNull();
     expect(el.querySelector('[data-testid="ex-select"]')).toBeTruthy(); // example controls present
+    expect(el.querySelector('[data-testid="test-path-metrics"]')).toBeNull();
   });
   it('dataflow preset keeps the DFG card; path preset hides it', () => {
     expect(createGraphCoverageExplorer({ preset: 'dataflow' }).querySelector('[data-testid="graph-dfg-card"]')).toBeTruthy();
@@ -25,5 +26,6 @@ describe('GraphCoverageExplorer presets', () => {
     const el = createGraphCoverageExplorer();
     expect(el.querySelectorAll('[data-testid^="criterion-"]').length).toBe(8);
     expect(el.querySelector('[data-testid="graph-editor-card"]')).toBeTruthy();
+    expect(el.querySelector('[data-testid="test-path-metrics"]')).toBeTruthy();
   });
 });

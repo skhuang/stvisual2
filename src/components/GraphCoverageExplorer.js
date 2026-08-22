@@ -919,6 +919,7 @@ export function createGraphCoverageExplorer(opts = {}) {
           <div class="graph-test-path-card" data-testid="graph-test-path-card">
             <h4>Generated Test Path Set</h4>
             <p class="sidebar-text">${t('graph.path.help')}</p>
+            ${focus ? '' : `
             <div class="test-path-metrics" data-testid="test-path-metrics">
               <div class="test-path-metric">
                 <span class="detail-label">${t('graph.path.before')}</span>
@@ -933,6 +934,7 @@ export function createGraphCoverageExplorer(opts = {}) {
                 <strong data-testid="saved-path-count">${pathPlan.optimizationMetrics.savedPathCount}</strong>
               </div>
             </div>
+            `}
             <ul class="test-path-list" data-testid="test-path-list">
               ${pathPlan.selectedPaths.map((path, index) => `
                 <li data-testid="test-path-${index + 1}">T${index + 1}: ${path.join(' -> ')}</li>
