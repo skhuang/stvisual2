@@ -358,13 +358,153 @@ export function renderIntegratedApp(container) {
     };
 
     container.querySelector('[data-slot="methods"]').appendChild(components.methods);
-    container.querySelector('[data-slot="graph"]').appendChild(components.graph);
-    container.querySelector('[data-slot="logic"]').appendChild(components.logic);
     container.querySelector('[data-slot="codecov"]').appendChild(components.codecov);
     container.querySelector('[data-slot="inttest"]').appendChild(components.inttest);
     container.querySelector('[data-slot="pbt"]').appendChild(components.pbt);
     container.querySelector('[data-slot="rbt"]').appendChild(components.rbt);
     container.querySelector('[data-slot="groupth"]').appendChild(components.groupth);
+
+    // --- Graph-Based Testing: family-unit tabs + Complete ---
+    const graphTabs = [
+      { id: 'structural', key: 'graph.tab.structural', component: createGraphCoverageExplorer({ preset: 'structural' }) },
+      { id: 'path',       key: 'graph.tab.path',       component: createGraphCoverageExplorer({ preset: 'path' }) },
+      { id: 'dataflow',   key: 'graph.tab.dataflow',   component: createGraphCoverageExplorer({ preset: 'dataflow' }) },
+      { id: 'full',       key: 'graph.tab.full',       component: components.graph },
+    ];
+    const graphSlot = container.querySelector('[data-slot="graph"]');
+    const graphTabBar = document.createElement('nav');
+    graphTabBar.className = 'syntax-tab-row';
+    graphTabBar.dataset.testid = 'graph-tab-row';
+    graphTabBar.setAttribute('role', 'tablist');
+    graphSlot.appendChild(graphTabBar);
+    const graphPanels = document.createElement('div');
+    graphPanels.className = 'syntax-tab-panels';
+    graphSlot.appendChild(graphPanels);
+    for (const tab of graphTabs) {
+      const panel = document.createElement('div');
+      panel.className = 'syntax-tab-panel';
+      panel.dataset.graphPanel = tab.id;
+      // Note: unlike the blackbox tab block, we do NOT eagerly append every
+      // tab's component here. The preset explorers and the "full" explorer
+      // are the same underlying component and share overlapping
+      // data-testid values (e.g. criterion-edge-pair appears in both the
+      // "path" preset and "full"), so mounting all of them at once — even
+      // ones hidden via display:none — creates duplicate testids in the
+      // DOM and breaks Playwright's strict-mode locators. Instead, only the
+      // active tab's component is ever attached; see updateGraphPanels().
+      graphPanels.appendChild(panel);
+    }
+    const GRAPH_TAB_KEY = 'stvisual.graphActiveTab';
+    let savedGraphTab = null;
+    try { savedGraphTab = globalThis.localStorage?.getItem(GRAPH_TAB_KEY); } catch {}
+    let activeGraphTab = resolveInitialTab({
+      sectionId: 'graph',
+      urlSection: urlState.section,
+      urlTab: urlState.tab,
+      saved: savedGraphTab,
+    });
+    function renderGraphTabs() {
+      graphTabBar.innerHTML = graphTabs.map((tab) => `
+        <button type="button"
+          class="syntax-tab-btn${activeGraphTab === tab.id ? ' active' : ''}"
+          data-graph-tab="${tab.id}"
+          role="tab"
+          aria-selected="${activeGraphTab === tab.id ? 'true' : 'false'}"
+        >${t(tab.key)}</button>
+      `).join('');
+      graphTabBar.querySelectorAll('[data-graph-tab]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeGraphTab = btn.dataset.graphTab;
+          try { globalThis.localStorage?.setItem(GRAPH_TAB_KEY, activeGraphTab); } catch {}
+          renderGraphTabs();
+          updateGraphPanels();
+          if (activeSection === 'graph') syncUrl();
+        });
+      });
+    }
+    function updateGraphPanels() {
+      graphPanels.querySelectorAll('[data-graph-panel]').forEach((panel) => {
+        const tab = graphTabs.find((tb) => tb.id === panel.dataset.graphPanel);
+        const isActive = panel.dataset.graphPanel === activeGraphTab;
+        panel.style.display = isActive ? '' : 'none';
+        if (isActive) {
+          if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
+        } else if (tab.component.parentNode === panel) {
+          panel.removeChild(tab.component);
+        }
+      });
+    }
+    renderGraphTabs();
+    updateGraphPanels();
+
+    // --- Logic-Based Testing: family-unit tabs + Complete ---
+    const logicTabs = [
+      { id: 'basic',    key: 'logic.tab.basic',    component: createLogicCoverageExplorer({ preset: 'basic' }) },
+      { id: 'active',   key: 'logic.tab.active',   component: createLogicCoverageExplorer({ preset: 'active' }) },
+      { id: 'inactive', key: 'logic.tab.inactive', component: createLogicCoverageExplorer({ preset: 'inactive' }) },
+      { id: 'dnf',      key: 'logic.tab.dnf',      component: createLogicCoverageExplorer({ preset: 'dnf' }) },
+      { id: 'full',     key: 'logic.tab.full',     component: components.logic },
+    ];
+    const logicSlot = container.querySelector('[data-slot="logic"]');
+    const logicTabBar = document.createElement('nav');
+    logicTabBar.className = 'syntax-tab-row';
+    logicTabBar.dataset.testid = 'logic-tab-row';
+    logicTabBar.setAttribute('role', 'tablist');
+    logicSlot.appendChild(logicTabBar);
+    const logicPanels = document.createElement('div');
+    logicPanels.className = 'syntax-tab-panels';
+    logicSlot.appendChild(logicPanels);
+    for (const tab of logicTabs) {
+      const panel = document.createElement('div');
+      panel.className = 'syntax-tab-panel';
+      panel.dataset.logicPanel = tab.id;
+      // Same rationale as graphTabs above: preset explorers and "full"
+      // share overlapping data-testid values (e.g. logic-criterion-ic), so
+      // only the active tab's component is attached at any time.
+      logicPanels.appendChild(panel);
+    }
+    const LOGIC_TAB_KEY = 'stvisual.logicActiveTab';
+    let savedLogicTab = null;
+    try { savedLogicTab = globalThis.localStorage?.getItem(LOGIC_TAB_KEY); } catch {}
+    let activeLogicTab = resolveInitialTab({
+      sectionId: 'logic',
+      urlSection: urlState.section,
+      urlTab: urlState.tab,
+      saved: savedLogicTab,
+    });
+    function renderLogicTabs() {
+      logicTabBar.innerHTML = logicTabs.map((tab) => `
+        <button type="button"
+          class="syntax-tab-btn${activeLogicTab === tab.id ? ' active' : ''}"
+          data-logic-tab="${tab.id}"
+          role="tab"
+          aria-selected="${activeLogicTab === tab.id ? 'true' : 'false'}"
+        >${t(tab.key)}</button>
+      `).join('');
+      logicTabBar.querySelectorAll('[data-logic-tab]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeLogicTab = btn.dataset.logicTab;
+          try { globalThis.localStorage?.setItem(LOGIC_TAB_KEY, activeLogicTab); } catch {}
+          renderLogicTabs();
+          updateLogicPanels();
+          if (activeSection === 'logic') syncUrl();
+        });
+      });
+    }
+    function updateLogicPanels() {
+      logicPanels.querySelectorAll('[data-logic-panel]').forEach((panel) => {
+        const tab = logicTabs.find((tb) => tb.id === panel.dataset.logicPanel);
+        const isActive = panel.dataset.logicPanel === activeLogicTab;
+        panel.style.display = isActive ? '' : 'none';
+        if (isActive) {
+          if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
+        } else if (tab.component.parentNode === panel) {
+          panel.removeChild(tab.component);
+        }
+      });
+    }
+    renderLogicTabs();
+    updateLogicPanels();
 
     // --- Advanced Testing: two-level nav — paper selector → that paper's tabs ---
     // Each research paper groups its Explorers; the leaf tab id stays the URL
