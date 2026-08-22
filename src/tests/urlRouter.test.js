@@ -38,8 +38,8 @@ describe('K4 — urlRouter parse', () => {
   });
 
   it('?explorer= for a non-tabbed section returns only section', () => {
-    expect(parseAppLocation('?explorer=GraphCoverageExplorer'))
-      .toEqual({ explorer: 'GraphCoverageExplorer', section: 'graph', unitId: 'graph-coverage' });
+    expect(parseAppLocation('?explorer=SymbolicExecutionExplorer'))
+      .toEqual({ explorer: 'SymbolicExecutionExplorer', section: 'symbex', unitId: 'symbolic-execution' });
   });
 
   it('unknown ?explorer= is ignored, falls through to other params', () => {
@@ -260,8 +260,8 @@ describe('K4 — resolveInitialTab', () => {
 
   it('returns null for sections without tabs', () => {
     const tab = resolveInitialTab({
-      sectionId: 'graph',
-      urlSection: 'graph',
+      sectionId: 'symbex',
+      urlSection: 'symbex',
       urlTab: 'whatever',
       saved: null,
     });
@@ -271,7 +271,8 @@ describe('K4 — resolveInitialTab', () => {
   it('sectionHasTabs reports correctly', () => {
     expect(sectionHasTabs('blackbox')).toBe(true);
     expect(sectionHasTabs('advanced')).toBe(true);
-    expect(sectionHasTabs('graph')).toBe(false);
+    expect(sectionHasTabs('graph')).toBe(true);
+    expect(sectionHasTabs('symbex')).toBe(false);
     expect(sectionHasTabs('all')).toBe(false);
   });
 });

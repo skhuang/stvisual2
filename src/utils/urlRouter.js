@@ -55,6 +55,8 @@ export const TAB_SECTIONS = {
   exploit: { tabs: ['overflow', 'sqli', 'cmdi', 'path'], default: 'overflow' },
   // Section — Search-Based Software Testing.
   sbst: { tabs: ['branch', 'compare', 'suite'], default: 'branch' },
+  graph: { tabs: ['structural', 'path', 'dataflow', 'full'], default: 'full' },
+  logic: { tabs: ['basic', 'active', 'inactive', 'dnf', 'full'], default: 'full' },
 };
 
 // ── ComponentName → { section, tab? } ────────────────────────────────
@@ -67,8 +69,15 @@ export const EXPLORER_TO_LOCATION = {
   VModelExplorer:              { section: 'flow', tab: 'vmodel' },
   TestingTypesTable:           { section: 'types', tab: 'pyramid' },
   PyramidAdjusterExplorer:     { section: 'types', tab: 'adjuster' },
-  GraphCoverageExplorer:       { section: 'graph' },
-  LogicCoverageExplorer:       { section: 'logic' },
+  GraphCoverageExplorer:       { section: 'graph', tab: 'full' },
+  LogicCoverageExplorer:       { section: 'logic', tab: 'full' },
+  GraphStructuralExplorer: { section: 'graph', tab: 'structural' },
+  GraphPathExplorer:       { section: 'graph', tab: 'path' },
+  GraphDataflowExplorer:   { section: 'graph', tab: 'dataflow' },
+  LogicBasicExplorer:          { section: 'logic', tab: 'basic' },
+  LogicActiveClauseExplorer:   { section: 'logic', tab: 'active' },
+  LogicInactiveClauseExplorer: { section: 'logic', tab: 'inactive' },
+  LogicDnfExplorer:            { section: 'logic', tab: 'dnf' },
   CodeCoverageExplorer:        { section: 'codecov' },
   SyntaxCoverageExplorer:      { section: 'syntax', tab: 'mutation' },
   GrammarCoverageExplorer:     { section: 'syntax', tab: 'grammar' },

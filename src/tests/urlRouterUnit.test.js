@@ -33,7 +33,11 @@ describe('parseAppLocation unit-view semantics', () => {
   it('unitsForSection returns units in tab order', () => {
     const ids = unitsForSection('syntax').map((u) => u.id);
     expect(ids).toEqual(['syntax-coverage', 'grammar-coverage', 'spec-mutation']);
-    expect(unitsForSection('graph').map((u) => u.id)).toEqual(['graph-coverage']);
     expect(unitsForSection('no-such-section')).toEqual([]);
+  });
+
+  it('unitsForSection returns graph/logic family tabs in order', () => {
+    expect(unitsForSection('graph').map((u) => u.id)).toEqual(['graph-structural','graph-path','graph-dataflow','graph-coverage']);
+    expect(unitsForSection('logic').map((u) => u.id)).toEqual(['logic-basic','logic-active-clause','logic-inactive-clause','logic-dnf','logic-coverage']);
   });
 });

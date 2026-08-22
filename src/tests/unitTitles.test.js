@@ -15,6 +15,8 @@ describe('unitTitle', () => {
     expect(unitTitle(UNIT_BY_ID.get('mbt-workflow'))).toBe('MBT Workflow');
     expect(unitTitle(UNIT_BY_ID.get('equivalent-mutant'))).toBe('Equivalent Mutants');
     expect(unitTitle(UNIT_BY_ID.get('program-slicing'))).toBe('Program Slicing');
+    expect(unitTitle(UNIT_BY_ID.get('graph-structural'))).toBe('Structural Coverage');
+    expect(unitTitle(UNIT_BY_ID.get('logic-dnf'))).toBe('DNF / K-map (IC … CUTPNFP)');
   });
 
   it('translates tab labels to Traditional Chinese', () => {

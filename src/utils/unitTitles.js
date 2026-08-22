@@ -21,6 +21,8 @@ const TAB_LABEL_PREFIX = {
   tdd:        'tdd.tab',
   exploit:    'exploit.tab',
   sbst:       'sbst.tab',
+  graph:      'graph.tab',
+  logic:      'logic.tab',
 };
 
 // Best available human title for a unit: the tab label (recovered via
