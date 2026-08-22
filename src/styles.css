@@ -78,6 +78,7 @@
 @import url('./components/quiz.css');
 @import url('./components/QuizViewer.css');
 @import url('./components/LabViewer.css');
+@import url('./components/ExampleControls.css');
 
 .section-slides-btn {
   flex: 0 0 auto;

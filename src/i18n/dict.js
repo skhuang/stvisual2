@@ -2918,6 +2918,12 @@ export const messages = {
     'syntax.err.argsParse': 'Failed to parse args: {msg}',
     'syntax.err.compile': 'Original program failed to compile/run: {msg}',
 
+    'example.pick': 'Examples…',
+    'example.currentDefault': 'Current-difficulty default',
+    'example.random': 'Random input',
+    'settings.difficulty': 'Random-input difficulty',
+    'difficulty.normal': 'Normal', 'difficulty.special': 'Special',
+    'difficulty.edge': 'Edge case', 'difficulty.large': 'Large',
   },
 
   zh: {
@@ -5818,5 +5824,11 @@ export const messages = {
     'syntax.err.argsParse': '參數解析失敗：{msg}',
     'syntax.err.compile': '原程式編譯/執行失敗：{msg}',
 
+    'example.pick': '範例…',
+    'example.currentDefault': '目前難度預設',
+    'example.random': '隨機輸入',
+    'settings.difficulty': '隨機輸入難度',
+    'difficulty.normal': '一般', 'difficulty.special': '特殊',
+    'difficulty.edge': '邊界', 'difficulty.large': '大型',
   },
 };

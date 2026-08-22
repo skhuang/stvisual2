@@ -1,0 +1,10 @@
+.example-controls { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem; }
+.example-controls .ex-select {
+  padding: 0.4rem 0.6rem; border: 1px solid var(--app-border); border-radius: var(--app-radius-md);
+  background: var(--app-surface); color: var(--app-text); max-width: 22rem;
+}
+.example-controls .ex-random {
+  padding: 0.4rem 0.6rem; border: 1px solid var(--app-border); border-radius: var(--app-radius-md);
+  background: var(--app-surface); cursor: pointer; font-size: 1rem; line-height: 1;
+}
+.example-controls .ex-random:hover { background: var(--app-surface-hover); }
