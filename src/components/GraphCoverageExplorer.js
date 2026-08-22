@@ -9,6 +9,19 @@ import { generateControlFlowGraphFromProgram } from '../utils/programToGraph.js'
 import { buildDataFlowGraph } from '../utils/dataFlow.js';
 import { t, getLocale, pickField } from '../i18n/index.js';
 import { encodeResult, buildShareUrl } from '../utils/resultExporter.js';
+import { createExampleControls } from './ExampleControls.js';
+import * as graphRandom from '../data/graphCoverageRandom.js';
+import { getInputDifficulty, onInputDifficultyChange } from '../utils/inputDifficulty.js';
+import { save as saveExample } from '../utils/examplesStore.js';
+
+// Preset "focus mode" configs consumed by createGraphCoverageExplorer({ preset }).
+// Each preset narrows the criterion switcher to a themed subset and controls
+// whether the (heuristic) data-flow-graph card is shown.
+export const GRAPH_PRESETS = {
+  structural: { criteria: ['node', 'edge'], showDfg: false },
+  path:       { criteria: ['prime-path', 'edge-pair', 'complete-path'], showDfg: false },
+  dataflow:   { criteria: ['all-defs', 'all-uses', 'all-du-paths'], showDfg: true },
+};
 
 function cloneGraph(graph) {
   return {
@@ -150,6 +163,131 @@ function parseGraphDraft({ nodesText, edgesText, startNodeId, endNodeId }) {
     edges,
     startNodeId,
     endNodeId,
+  };
+}
+
+// Build a full graph object from an edges-only text blob (the format
+// ExampleControls exchanges via graphCoverageRandom.graphToEdgesText). Nodes
+// are synthesized from the ids referenced by the edges (id doubles as
+// label); start/end are inferred as the nodes with no incoming / no
+// outgoing edge respectively (true for every spine-based CFG this app
+// generates). Reuses the real `parseEdgesText` validator so malformed rows
+// still raise the same errors as the Graph Editor textarea.
+export function graphFromEdgesText(edgesText) {
+  const rows = edgesText.split('\n').map((row) => row.trim()).filter(Boolean);
+
+  if (!rows.length) {
+    throw new Error(t('graph.err.edgesEmpty'));
+  }
+
+  const idsInOrder = [];
+  const seen = new Set();
+  const froms = new Set();
+  const tos = new Set();
+  const adjacency = new Map();
+
+  rows.forEach((row) => {
+    const cols = row.split(',').map((item) => item.trim());
+    const [from, to] = cols.length === 2 ? cols : [cols[1], cols[2]];
+
+    if (from) froms.add(from);
+    if (to) tos.add(to);
+    for (const id of [from, to]) {
+      if (id && !seen.has(id)) {
+        seen.add(id);
+        idsInOrder.push(id);
+      }
+    }
+    if (from && to) {
+      if (!adjacency.has(from)) adjacency.set(from, []);
+      adjacency.get(from).push(to);
+    }
+  });
+
+  const startNodeId = idsInOrder.find((id) => !tos.has(id)) || idsInOrder[0];
+  const endNodeId = [...idsInOrder].reverse().find((id) => !froms.has(id)) || idsInOrder[idsInOrder.length - 1];
+
+  // Layer nodes left→right by BFS distance from start (back-edges do not
+  // deepen a node); nodes unreachable from start fall after the deepest
+  // reached layer. Within a layer, siblings spread vertically around y=170.
+  // This keeps synthesized graphs (dropdown presets, recent inputs, the
+  // difficulty default) from collapsing onto a single flat row.
+  const depthById = new Map([[startNodeId, 0]]);
+  const queue = [startNodeId];
+  while (queue.length) {
+    const current = queue.shift();
+    for (const next of adjacency.get(current) || []) {
+      if (!depthById.has(next)) {
+        depthById.set(next, depthById.get(current) + 1);
+        queue.push(next);
+      }
+    }
+  }
+  let maxReachedDepth = 0;
+  depthById.forEach((depth) => { if (depth > maxReachedDepth) maxReachedDepth = depth; });
+  idsInOrder.forEach((id) => {
+    if (!depthById.has(id)) depthById.set(id, ++maxReachedDepth);
+  });
+  // Pull the end node to the last column for a clean terminal read.
+  const lastColumn = Math.max(...idsInOrder.map((id) => depthById.get(id)));
+  if (depthById.get(endNodeId) < lastColumn) depthById.set(endNodeId, lastColumn);
+
+  const layerMembers = new Map();
+  idsInOrder.forEach((id) => {
+    const depth = depthById.get(id);
+    if (!layerMembers.has(depth)) layerMembers.set(depth, []);
+    layerMembers.get(depth).push(id);
+  });
+  const positionById = new Map();
+  for (const [depth, members] of layerMembers) {
+    members.forEach((id, indexInLayer) => {
+      positionById.set(id, {
+        x: 80 + depth * 140,
+        y: 170 + (indexInLayer - (members.length - 1) / 2) * 90,
+      });
+    });
+  }
+
+  const nodes = idsInOrder.map((id) => ({
+    id,
+    label: id,
+    x: positionById.get(id).x,
+    y: positionById.get(id).y,
+    kind: id === startNodeId ? 'start' : id === endNodeId ? 'end' : 'node',
+  }));
+  const nodeIds = new Set(idsInOrder);
+  const edges = parseEdgesText(edgesText, nodeIds);
+
+  return {
+    id: 'edges-input',
+    title: t('graph.customTitle'),
+    nodes,
+    edges,
+    startNodeId,
+    endNodeId,
+  };
+}
+
+// Validate+normalize an already-structured graph object the same way
+// parseUploadedGraphSpec does for uploaded specs: round-trip it through the
+// existing draft parser, then re-tag the id/title so the original identity
+// survives validation.
+function validateGraphObject(graphObject) {
+  const validated = parseGraphDraft(createDraftFromGraph(graphObject));
+  return {
+    ...validated,
+    id: graphObject.id || validated.id,
+    title: pickField(graphObject, 'title') || validated.title,
+  };
+}
+
+function focusProgramFor(graphObject) {
+  const title = pickField(graphObject, 'title') || 'Random CFG';
+  return {
+    id: graphObject.id || 'random-cfg',
+    name: title,
+    description: '',
+    sourceCode: '',
   };
 }
 
@@ -422,7 +560,7 @@ function createDataFlowCanvas(graph) {
   `;
 }
 
-export function createGraphCoverageExplorer() {
+export function createGraphCoverageExplorer(opts = {}) {
   const root = document.createElement('div');
   const defaultGraph = cloneGraph(graphCoverageGraph);
   const defaultProgram = {
@@ -432,20 +570,90 @@ export function createGraphCoverageExplorer() {
     sourceCode: '',
   };
 
-  let graph = defaultGraph;
-  let baseGraph = cloneGraph(defaultGraph);
-  let criterionId = 'node';
+  const presetCfg = opts.preset && GRAPH_PRESETS[opts.preset] ? GRAPH_PRESETS[opts.preset] : null;
+  if (opts.preset && !presetCfg) console.warn('GraphCoverageExplorer: unknown preset', opts.preset);
+  const focus = Boolean(presetCfg);
+  let userEdited = false;
+
+  // In focus mode, seed the explorer from a per-difficulty generated CFG
+  // instead of the fixed default sample, validated the same way an
+  // uploaded graph spec is (parseGraphDraft round-trip via validateGraphObject).
+  const initialGraph = focus ? validateGraphObject(graphRandom.presetForDifficulty(getInputDifficulty())) : defaultGraph;
+  const initialProgram = focus ? focusProgramFor(initialGraph) : defaultProgram;
+
+  let graph = initialGraph;
+  let baseGraph = cloneGraph(initialGraph);
+  let criterionId = presetCfg ? presetCfg.criteria[0] : 'node';
   let selectedRequirementId = null;
   let parseError = '';
-  let sourceStatus = t('graph.status.initial');
-  let activeProgram = defaultProgram;
-  let selectedProgramId = defaultProgram.id;
+  let sourceStatus = focus ? t('graph.status.exampleLoaded', { name: initialProgram.name }) : t('graph.status.initial');
+  let activeProgram = initialProgram;
+  let selectedProgramId = initialProgram.id;
   let selectedCodeLanguage = 'javascript';
   let autoApplyTimer = null;
-  let draft = createDraftFromGraph(defaultGraph);
+  let draft = createDraftFromGraph(initialGraph);
 
   const graphQuiz = { active: false, selectedPaths: new Set(), phase: 'question', result: null };
   const graphLabReflect = { active: false, a1: '', a2: '' };
+
+  function exampleDefault() {
+    return graphRandom.graphToEdgesText(graphRandom.presetForDifficulty(getInputDifficulty()));
+  }
+
+  function applyEdgesText(edgesText) {
+    try {
+      const nextGraph = graphFromEdgesText(edgesText);
+      loadGraphSource(focusProgramFor(nextGraph), nextGraph, t('graph.status.exampleLoaded', { name: focusProgramFor(nextGraph).name }));
+    } catch (error) {
+      parseError = error.message;
+      render();
+    }
+  }
+
+  function applyGraphObject(graphObject) {
+    try {
+      const nextGraph = validateGraphObject(graphObject);
+      loadGraphSource(focusProgramFor(nextGraph), nextGraph, t('graph.status.exampleLoaded', { name: focusProgramFor(nextGraph).name }));
+    } catch (error) {
+      parseError = error.message;
+      render();
+    }
+  }
+
+  // The dropdown's preset options are the real per-program CFGs (converted
+  // to edges-text), reusing the module-level resolveProgramGraph the
+  // "Program Example" select already uses. Falls back to skipping an
+  // example if its source fails to parse rather than blocking the row.
+  const exampleControls = focus ? createExampleControls({
+    methodId: 'graph',
+    getDefaultText: exampleDefault,
+    presets: graphCoverageProgramExamples.map((program) => {
+      try {
+        return { value: graphRandom.graphToEdgesText(resolveProgramGraph(program)), label: program.name };
+      } catch {
+        return null;
+      }
+    }).filter(Boolean),
+    onLoad: (text) => {
+      applyEdgesText(text);
+      userEdited = true;
+      saveExample(localStorage, 'graph', text, exampleDefault(), 10);
+      exampleControls.refresh();
+    },
+    onRandom: () => {
+      const nextGraph = graphRandom.randomGraph(getInputDifficulty());
+      applyGraphObject(nextGraph);
+      userEdited = true;
+    },
+  }) : null;
+
+  if (focus) {
+    onInputDifficultyChange(() => {
+      if (!userEdited) {
+        applyGraphObject(graphRandom.presetForDifficulty(getInputDifficulty()));
+      }
+    });
+  }
 
   function getQuizCandidates(pathPlan) {
     const seen = new Set();
@@ -629,6 +837,7 @@ export function createGraphCoverageExplorer() {
     root.className = 'graph-coverage';
     root.dataset.testid = 'graph-coverage-explorer';
     root.innerHTML = `
+      ${focus ? '' : `
       <div class="graph-source-card" data-testid="graph-source-card">
         <div class="graph-source-toolbar">
           <label>
@@ -706,6 +915,7 @@ export function createGraphCoverageExplorer() {
           ${parseError || t('graph.editor.synced')}
         </p>
       </div>
+      `}
 
       <div class="graph-coverage-header">
         <div>
@@ -722,7 +932,7 @@ export function createGraphCoverageExplorer() {
 
       <div class="graph-criterion-row">
         <div class="graph-criterion-switcher" role="tablist" aria-label="${t('graph.aria.switcher')}">
-          ${graphCoverageCriteria.map((criterion) => `
+          ${(presetCfg ? graphCoverageCriteria.filter((c) => presetCfg.criteria.includes(c.id)) : graphCoverageCriteria).map((criterion) => `
             <button
               class="criterion-chip${criterionId === criterion.id ? ' active' : ''}"
               type="button"
@@ -736,15 +946,17 @@ export function createGraphCoverageExplorer() {
             </button>
           `).join('')}
         </div>
+        ${focus ? '' : `
         <button type="button" class="quiz-start-btn" data-testid="graph-quiz-start">${t('quiz.start')}</button>
         ${!graphLabReflect.active ? `<button type="button" class="quiz-start-btn" data-testid="graph-lab-reflect-start">${t('lab.reflect.start')}</button>` : ''}
         <button type="button" class="quiz-share-btn" data-share-payload="${metricEncoded}" data-testid="graph-lab-metric">📊 ${t('lab.metric.record')}</button>
+        `}
       </div>
 
       <div class="graph-coverage-layout">
         <div class="graph-main-panel">
           ${createGraphCanvas(graph, selectedRequirement)}
-          ${createDataFlowCanvas(graph)}
+          ${(!focus || presetCfg.showDfg) ? createDataFlowCanvas(graph) : ''}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t('graph.summary.current')}</span>
             <strong>${selectedRequirement?.label || t('common.none')}</strong>
@@ -754,6 +966,7 @@ export function createGraphCoverageExplorer() {
           <div class="graph-test-path-card" data-testid="graph-test-path-card">
             <h4>Generated Test Path Set</h4>
             <p class="sidebar-text">${t('graph.path.help')}</p>
+            ${focus ? '' : `
             <div class="test-path-metrics" data-testid="test-path-metrics">
               <div class="test-path-metric">
                 <span class="detail-label">${t('graph.path.before')}</span>
@@ -768,6 +981,7 @@ export function createGraphCoverageExplorer() {
                 <strong data-testid="saved-path-count">${pathPlan.optimizationMetrics.savedPathCount}</strong>
               </div>
             </div>
+            `}
             <ul class="test-path-list" data-testid="test-path-list">
               ${pathPlan.selectedPaths.map((path, index) => `
                 <li data-testid="test-path-${index + 1}">T${index + 1}: ${path.join(' -> ')}</li>
@@ -831,15 +1045,18 @@ export function createGraphCoverageExplorer() {
         </aside>
       </div>
 
-      ${quizPanel}
-      ${labReflectPanel}
+      ${focus ? '' : `${quizPanel}${labReflectPanel}`}
     `;
 
-    root.querySelector('[data-testid="graph-reset-btn"]').addEventListener('click', () => {
+    if (focus && exampleControls) {
+      root.querySelector('.graph-criterion-row')?.prepend(exampleControls.element);
+    }
+
+    root.querySelector('[data-testid="graph-reset-btn"]')?.addEventListener('click', () => {
       resetGraph();
     });
 
-    root.querySelector('[data-testid="program-example-select"]').addEventListener('change', (event) => {
+    root.querySelector('[data-testid="program-example-select"]')?.addEventListener('change', (event) => {
       const nextProgramId = event.target.value;
 
       if (nextProgramId === defaultProgram.id) {
@@ -869,19 +1086,19 @@ export function createGraphCoverageExplorer() {
       }
     });
 
-    root.querySelector('[data-testid="program-language-select"]').addEventListener('change', (event) => {
+    root.querySelector('[data-testid="program-language-select"]')?.addEventListener('change', (event) => {
       selectedCodeLanguage = event.target.value;
     });
 
-    root.querySelector('[data-testid="graph-upload-btn"]').addEventListener('click', () => {
+    root.querySelector('[data-testid="graph-upload-btn"]')?.addEventListener('click', () => {
       root.querySelector('[data-testid="graph-upload-input"]').click();
     });
 
-    root.querySelector('[data-testid="code-upload-btn"]').addEventListener('click', () => {
+    root.querySelector('[data-testid="code-upload-btn"]')?.addEventListener('click', () => {
       root.querySelector('[data-testid="code-upload-input"]').click();
     });
 
-    root.querySelector('[data-testid="graph-upload-input"]').addEventListener('change', async (event) => {
+    root.querySelector('[data-testid="graph-upload-input"]')?.addEventListener('change', async (event) => {
       const [file] = event.target.files || [];
 
       if (!file) {
@@ -902,7 +1119,7 @@ export function createGraphCoverageExplorer() {
       }
     });
 
-    root.querySelector('[data-testid="code-upload-input"]').addEventListener('change', async (event) => {
+    root.querySelector('[data-testid="code-upload-input"]')?.addEventListener('change', async (event) => {
       const [file] = event.target.files || [];
 
       if (!file) {

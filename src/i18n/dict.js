@@ -817,6 +817,11 @@ export const messages = {
     'sbst.tab.branch': 'GA Branch Search',
     'sbst.tab.compare': 'Metaheuristic Comparison',
     'sbst.tab.suite': 'Whole-Suite Evolution',
+    'graph.tab.structural': 'Structural Coverage', 'graph.tab.path': 'Path Coverage',
+    'graph.tab.dataflow': 'Data-Flow Coverage', 'graph.tab.full': 'Complete (all criteria)',
+    'logic.tab.basic': 'Basic (PC / CC / CoC)', 'logic.tab.active': 'Active Clause (GACC / CACC / RACC)',
+    'logic.tab.inactive': 'Inactive Clause (GICC / RICC)', 'logic.tab.dnf': 'DNF / K-map (IC … CUTPNFP)',
+    'logic.tab.full': 'Complete (all criteria)',
     'sbst.example.nestedGuard': 'Nested guard',
     'sbst.example.triangle': 'Triangle classifier',
     'sbst.example.multimodal': 'Multimodal (mod 20)',
@@ -2918,6 +2923,12 @@ export const messages = {
     'syntax.err.argsParse': 'Failed to parse args: {msg}',
     'syntax.err.compile': 'Original program failed to compile/run: {msg}',
 
+    'example.pick': 'Examples…',
+    'example.currentDefault': 'Current-difficulty default',
+    'example.random': 'Random input',
+    'settings.difficulty': 'Random-input difficulty',
+    'difficulty.normal': 'Normal', 'difficulty.special': 'Special',
+    'difficulty.edge': 'Edge case', 'difficulty.large': 'Large',
   },
 
   zh: {
@@ -4019,6 +4030,11 @@ export const messages = {
     'sbst.tab.branch': 'GA 分支搜尋',
     'sbst.tab.compare': '元啟發式比較',
     'sbst.tab.suite': '整體測試套件演化',
+    'graph.tab.structural': '結構覆蓋', 'graph.tab.path': '路徑覆蓋',
+    'graph.tab.dataflow': '資料流覆蓋', 'graph.tab.full': '完整（所有準則）',
+    'logic.tab.basic': '基本（PC / CC / CoC）', 'logic.tab.active': '主動子句（GACC / CACC / RACC）',
+    'logic.tab.inactive': '非主動子句（GICC / RICC）', 'logic.tab.dnf': 'DNF / K-map（IC … CUTPNFP）',
+    'logic.tab.full': '完整（所有準則）',
     'sbst.example.nestedGuard': '巢狀條件守衛',
     'sbst.example.triangle': '三角形分類器',
     'sbst.example.multimodal': '多峰函數（mod 20）',
@@ -5818,5 +5834,11 @@ export const messages = {
     'syntax.err.argsParse': '參數解析失敗：{msg}',
     'syntax.err.compile': '原程式編譯/執行失敗：{msg}',
 
+    'example.pick': '範例…',
+    'example.currentDefault': '目前難度預設',
+    'example.random': '隨機輸入',
+    'settings.difficulty': '隨機輸入難度',
+    'difficulty.normal': '一般', 'difficulty.special': '特殊',
+    'difficulty.edge': '邊界', 'difficulty.large': '大型',
   },
 };

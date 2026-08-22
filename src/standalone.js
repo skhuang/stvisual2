@@ -10,6 +10,13 @@
     { id: "pyramid-adjuster", componentName: "PyramidAdjusterExplorer" },
     { id: "graph-coverage", componentName: "GraphCoverageExplorer" },
     { id: "logic-coverage", componentName: "LogicCoverageExplorer" },
+    { id: "graph-structural", componentName: "GraphStructuralExplorer" },
+    { id: "graph-path", componentName: "GraphPathExplorer" },
+    { id: "graph-dataflow", componentName: "GraphDataflowExplorer" },
+    { id: "logic-basic", componentName: "LogicBasicExplorer" },
+    { id: "logic-active-clause", componentName: "LogicActiveClauseExplorer" },
+    { id: "logic-inactive-clause", componentName: "LogicInactiveClauseExplorer" },
+    { id: "logic-dnf", componentName: "LogicDnfExplorer" },
     { id: "code-coverage", componentName: "CodeCoverageExplorer" },
     { id: "syntax-coverage", componentName: "SyntaxCoverageExplorer", quizId: "mutation-testing" },
     { id: "grammar-coverage", componentName: "GrammarCoverageExplorer" },
@@ -101,7 +108,9 @@
     // Section P — Exploit Generation. P1 ships 'overflow'; P2-P3 will add 'sqli', 'cmdi'.
     exploit: { tabs: ["overflow", "sqli", "cmdi", "path"], default: "overflow" },
     // Section — Search-Based Software Testing.
-    sbst: { tabs: ["branch", "compare", "suite"], default: "branch" }
+    sbst: { tabs: ["branch", "compare", "suite"], default: "branch" },
+    graph: { tabs: ["structural", "path", "dataflow", "full"], default: "full" },
+    logic: { tabs: ["basic", "active", "inactive", "dnf", "full"], default: "full" }
   };
   var EXPLORER_TO_LOCATION = {
     TestingMethodTree: { section: "methods" },
@@ -110,8 +119,15 @@
     VModelExplorer: { section: "flow", tab: "vmodel" },
     TestingTypesTable: { section: "types", tab: "pyramid" },
     PyramidAdjusterExplorer: { section: "types", tab: "adjuster" },
-    GraphCoverageExplorer: { section: "graph" },
-    LogicCoverageExplorer: { section: "logic" },
+    GraphCoverageExplorer: { section: "graph", tab: "full" },
+    LogicCoverageExplorer: { section: "logic", tab: "full" },
+    GraphStructuralExplorer: { section: "graph", tab: "structural" },
+    GraphPathExplorer: { section: "graph", tab: "path" },
+    GraphDataflowExplorer: { section: "graph", tab: "dataflow" },
+    LogicBasicExplorer: { section: "logic", tab: "basic" },
+    LogicActiveClauseExplorer: { section: "logic", tab: "active" },
+    LogicInactiveClauseExplorer: { section: "logic", tab: "inactive" },
+    LogicDnfExplorer: { section: "logic", tab: "dnf" },
     CodeCoverageExplorer: { section: "codecov" },
     SyntaxCoverageExplorer: { section: "syntax", tab: "mutation" },
     GrammarCoverageExplorer: { section: "syntax", tab: "grammar" },
@@ -1067,6 +1083,15 @@
       "sbst.tab.branch": "GA Branch Search",
       "sbst.tab.compare": "Metaheuristic Comparison",
       "sbst.tab.suite": "Whole-Suite Evolution",
+      "graph.tab.structural": "Structural Coverage",
+      "graph.tab.path": "Path Coverage",
+      "graph.tab.dataflow": "Data-Flow Coverage",
+      "graph.tab.full": "Complete (all criteria)",
+      "logic.tab.basic": "Basic (PC / CC / CoC)",
+      "logic.tab.active": "Active Clause (GACC / CACC / RACC)",
+      "logic.tab.inactive": "Inactive Clause (GICC / RICC)",
+      "logic.tab.dnf": "DNF / K-map (IC \u2026 CUTPNFP)",
+      "logic.tab.full": "Complete (all criteria)",
       "sbst.example.nestedGuard": "Nested guard",
       "sbst.example.triangle": "Triangle classifier",
       "sbst.example.multimodal": "Multimodal (mod 20)",
@@ -3106,7 +3131,15 @@
       "syntax.totalLabel": "Total",
       "syntax.noMutants": "No mutants (please select at least one operator).",
       "syntax.err.argsParse": "Failed to parse args: {msg}",
-      "syntax.err.compile": "Original program failed to compile/run: {msg}"
+      "syntax.err.compile": "Original program failed to compile/run: {msg}",
+      "example.pick": "Examples\u2026",
+      "example.currentDefault": "Current-difficulty default",
+      "example.random": "Random input",
+      "settings.difficulty": "Random-input difficulty",
+      "difficulty.normal": "Normal",
+      "difficulty.special": "Special",
+      "difficulty.edge": "Edge case",
+      "difficulty.large": "Large"
     },
     zh: {
       "app.title": "\u8EDF\u9AD4\u6E2C\u8A66\u65B9\u6CD5\u8996\u89BA\u5316",
@@ -4176,6 +4209,15 @@
       "sbst.tab.branch": "GA \u5206\u652F\u641C\u5C0B",
       "sbst.tab.compare": "\u5143\u555F\u767C\u5F0F\u6BD4\u8F03",
       "sbst.tab.suite": "\u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u6F14\u5316",
+      "graph.tab.structural": "\u7D50\u69CB\u8986\u84CB",
+      "graph.tab.path": "\u8DEF\u5F91\u8986\u84CB",
+      "graph.tab.dataflow": "\u8CC7\u6599\u6D41\u8986\u84CB",
+      "graph.tab.full": "\u5B8C\u6574\uFF08\u6240\u6709\u6E96\u5247\uFF09",
+      "logic.tab.basic": "\u57FA\u672C\uFF08PC / CC / CoC\uFF09",
+      "logic.tab.active": "\u4E3B\u52D5\u5B50\u53E5\uFF08GACC / CACC / RACC\uFF09",
+      "logic.tab.inactive": "\u975E\u4E3B\u52D5\u5B50\u53E5\uFF08GICC / RICC\uFF09",
+      "logic.tab.dnf": "DNF / K-map\uFF08IC \u2026 CUTPNFP\uFF09",
+      "logic.tab.full": "\u5B8C\u6574\uFF08\u6240\u6709\u6E96\u5247\uFF09",
       "sbst.example.nestedGuard": "\u5DE2\u72C0\u689D\u4EF6\u5B88\u885B",
       "sbst.example.triangle": "\u4E09\u89D2\u5F62\u5206\u985E\u5668",
       "sbst.example.multimodal": "\u591A\u5CF0\u51FD\u6578\uFF08mod 20\uFF09",
@@ -5919,7 +5961,15 @@
       "syntax.totalLabel": "\u7E3D\u6578",
       "syntax.noMutants": "\u7121 mutants\uFF08\u8ACB\u9078\u64C7\u81F3\u5C11\u4E00\u500B operator\uFF09\u3002",
       "syntax.err.argsParse": "\u53C3\u6578\u89E3\u6790\u5931\u6557\uFF1A{msg}",
-      "syntax.err.compile": "\u539F\u7A0B\u5F0F\u7DE8\u8B6F/\u57F7\u884C\u5931\u6557\uFF1A{msg}"
+      "syntax.err.compile": "\u539F\u7A0B\u5F0F\u7DE8\u8B6F/\u57F7\u884C\u5931\u6557\uFF1A{msg}",
+      "example.pick": "\u7BC4\u4F8B\u2026",
+      "example.currentDefault": "\u76EE\u524D\u96E3\u5EA6\u9810\u8A2D",
+      "example.random": "\u96A8\u6A5F\u8F38\u5165",
+      "settings.difficulty": "\u96A8\u6A5F\u8F38\u5165\u96E3\u5EA6",
+      "difficulty.normal": "\u4E00\u822C",
+      "difficulty.special": "\u7279\u6B8A",
+      "difficulty.edge": "\u908A\u754C",
+      "difficulty.large": "\u5927\u578B"
     }
   };
 
@@ -5968,14 +6018,14 @@
     listeners.add(callback);
     return () => listeners.delete(callback);
   }
-  function t(key2, params) {
+  function t(key3, params) {
     const table = messages[current] || messages[DEFAULT_LOCALE];
-    let value = table[key2];
+    let value = table[key3];
     if (value === void 0) {
-      value = messages[DEFAULT_LOCALE][key2];
+      value = messages[DEFAULT_LOCALE][key3];
     }
     if (value === void 0) {
-      return key2;
+      return key3;
     }
     if (params) {
       return String(value).replace(/\{(\w+)\}/g, (m, name) => Object.prototype.hasOwnProperty.call(params, name) ? String(params[name]) : m);
@@ -7046,11 +7096,11 @@
   function stripStringsAndComments(text) {
     return String(text).replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\/\/.*$/g, " ").replace(/"(?:[^"\\]|\\.)*"/g, ' ""').replace(/'(?:[^'\\]|\\.)*'/g, " ''").replace(/`(?:[^`\\]|\\.)*`/g, " ``");
   }
-  function extractDefUse(node) {
+  function extractDefUse(node2) {
     const defs = /* @__PURE__ */ new Set();
     const uses = /* @__PURE__ */ new Set();
-    if (!node) return { defs, uses };
-    const raw = node.sourceText || node.label || "";
+    if (!node2) return { defs, uses };
+    const raw = node2.sourceText || node2.label || "";
     const text = stripStringsAndComments(raw);
     const fn = text.match(/function\s+[A-Za-z_][\w]*\s*\(([^)]*)\)/) || text.match(/\(([^)]*)\)\s*=>/);
     if (fn) {
@@ -7146,8 +7196,8 @@
   // src/utils/graphCoverage.js
   function buildAdjacency(graph) {
     const adjacency = /* @__PURE__ */ new Map();
-    graph.nodes.forEach((node) => {
-      adjacency.set(node.id, []);
+    graph.nodes.forEach((node2) => {
+      adjacency.set(node2.id, []);
     });
     graph.edges.forEach((edge) => {
       adjacency.get(edge.from).push(edge);
@@ -7165,8 +7215,8 @@
   }
   function buildReverseAdjacency(graph) {
     const reverseAdjacency = /* @__PURE__ */ new Map();
-    graph.nodes.forEach((node) => {
-      reverseAdjacency.set(node.id, []);
+    graph.nodes.forEach((node2) => {
+      reverseAdjacency.set(node2.id, []);
     });
     graph.edges.forEach((edge) => {
       reverseAdjacency.get(edge.to).push(edge);
@@ -7240,8 +7290,8 @@
   }
   function buildDefUseMap(graph) {
     const map = /* @__PURE__ */ new Map();
-    graph.nodes.forEach((node) => {
-      map.set(node.id, extractDefUse(node));
+    graph.nodes.forEach((node2) => {
+      map.set(node2.id, extractDefUse(node2));
     });
     return map;
   }
@@ -7327,10 +7377,10 @@
     const pairs = collectDefUsePairs(normalizedGraph, defUseMap);
     const byDef = /* @__PURE__ */ new Map();
     pairs.forEach((p) => {
-      const key2 = `${p.defNodeId}|${p.variable}`;
-      const existing = byDef.get(key2);
+      const key3 = `${p.defNodeId}|${p.variable}`;
+      const existing = byDef.get(key3);
       if (!existing || p.samplePath.length < existing.samplePath.length) {
-        byDef.set(key2, p);
+        byDef.set(key3, p);
       }
     });
     return Array.from(byDef.values()).map((p, index) => ({
@@ -7430,9 +7480,9 @@
       if (path.length < 2) {
         return;
       }
-      const key2 = isCycle(path) ? canonicalCycleKey(path) : path.join("->");
-      if (!uniquePaths.has(key2)) {
-        uniquePaths.set(key2, path);
+      const key3 = isCycle(path) ? canonicalCycleKey(path) : path.join("->");
+      if (!uniquePaths.has(key3)) {
+        uniquePaths.set(key3, path);
       }
     }
     function dfs(startNodeId, path, visited) {
@@ -7453,8 +7503,8 @@
         }
       });
     }
-    normalizedGraph.nodes.forEach((node) => {
-      dfs(node.id, [node.id], /* @__PURE__ */ new Set([node.id]));
+    normalizedGraph.nodes.forEach((node2) => {
+      dfs(node2.id, [node2.id], /* @__PURE__ */ new Set([node2.id]));
     });
     return Array.from(uniquePaths.values());
   }
@@ -7493,12 +7543,12 @@
   }
   function getNodeRequirements(graph) {
     const normalizedGraph = normalizeGraph(graph);
-    return normalizedGraph.nodes.map((node) => ({
-      id: `node-${node.id}`,
+    return normalizedGraph.nodes.map((node2) => ({
+      id: `node-${node2.id}`,
       type: "node",
-      label: `Node ${node.label}`,
-      displayText: node.label,
-      nodes: [node.id],
+      label: `Node ${node2.label}`,
+      displayText: node2.label,
+      nodes: [node2.id],
       edges: []
     }));
   }
@@ -7576,9 +7626,9 @@
         return;
       }
       if (currentNodeId === normalizedGraph.endNodeId) {
-        const key2 = path.join("->");
-        if (!uniquePaths.has(key2)) {
-          uniquePaths.set(key2, [...path]);
+        const key3 = path.join("->");
+        if (!uniquePaths.has(key3)) {
+          uniquePaths.set(key3, [...path]);
         }
         return;
       }
@@ -7987,12 +8037,12 @@
   function addNode(builder, label, kind = "node", source = null) {
     builder.sequence += 1;
     const id = `N${builder.sequence}`;
-    const node = { id, label: summarizeText(label), kind };
+    const node2 = { id, label: summarizeText(label), kind };
     if (source == null ? void 0 : source.sourceLine) {
-      node.sourceLine = source.sourceLine;
-      node.sourceText = source.sourceText || "";
+      node2.sourceLine = source.sourceLine;
+      node2.sourceText = source.sourceText || "";
     }
-    builder.nodes.push(node);
+    builder.nodes.push(node2);
     return id;
   }
   function addEdge(builder, from, to) {
@@ -8167,7 +8217,7 @@
     };
   }
   function computeDepths(nodes, edges) {
-    const adjacency = new Map(nodes.map((node) => [node.id, []]));
+    const adjacency = new Map(nodes.map((node2) => [node2.id, []]));
     const depths = /* @__PURE__ */ new Map([["S", 0]]);
     const queue = ["S"];
     edges.forEach((edge) => {
@@ -8175,9 +8225,9 @@
       (_a = adjacency.get(edge.from)) == null ? void 0 : _a.push(edge.to);
     });
     while (queue.length) {
-      const current2 = queue.shift();
-      const currentDepth = depths.get(current2) || 0;
-      (adjacency.get(current2) || []).forEach((next) => {
+      const current3 = queue.shift();
+      const currentDepth = depths.get(current3) || 0;
+      (adjacency.get(current3) || []).forEach((next) => {
         if (!depths.has(next)) {
           depths.set(next, currentDepth + 1);
           queue.push(next);
@@ -8195,11 +8245,11 @@
       if (outgoing3.has(e.from)) outgoing3.get(e.from).push(e.to);
     });
     const layers = /* @__PURE__ */ new Map();
-    nodes.forEach((node) => {
+    nodes.forEach((node2) => {
       var _a;
-      const depth = (_a = depths.get(node.id)) != null ? _a : 0;
+      const depth = (_a = depths.get(node2.id)) != null ? _a : 0;
       if (!layers.has(depth)) layers.set(depth, []);
-      layers.get(depth).push(node);
+      layers.get(depth).push(node2);
     });
     const NODE_SPACING_X = 170;
     const LAYER_SPACING_Y = 130;
@@ -8209,47 +8259,47 @@
     const placed = /* @__PURE__ */ new Map();
     for (const depth of sortedDepths) {
       const layer = layers.get(depth);
-      layer.forEach((node) => {
-        node.y = MARGIN_Y + depth * LAYER_SPACING_Y;
+      layer.forEach((node2) => {
+        node2.y = MARGIN_Y + depth * LAYER_SPACING_Y;
       });
-      layer.forEach((node, idx) => {
-        const preds = (incoming.get(node.id) || []).filter((p) => placed.has(p));
+      layer.forEach((node2, idx) => {
+        const preds = (incoming.get(node2.id) || []).filter((p) => placed.has(p));
         if (preds.length > 0) {
           const avg = preds.reduce((sum, p) => sum + placed.get(p), 0) / preds.length;
-          node.x = avg;
+          node2.x = avg;
         } else {
-          node.x = MARGIN_X + idx * NODE_SPACING_X;
+          node2.x = MARGIN_X + idx * NODE_SPACING_X;
         }
       });
       spreadLayer(layer, NODE_SPACING_X);
-      layer.forEach((node) => {
-        placed.set(node.id, node.x);
+      layer.forEach((node2) => {
+        placed.set(node2.id, node2.x);
       });
     }
     const SWEEPS = 4;
     for (let s = 0; s < SWEEPS; s++) {
       for (const depth of sortedDepths) {
         const layer = layers.get(depth);
-        layer.forEach((node) => {
-          const preds = (incoming.get(node.id) || []).map((p) => placed.get(p)).filter((v) => v !== void 0);
-          if (preds.length > 0) node.x = preds.reduce((a, b) => a + b, 0) / preds.length;
+        layer.forEach((node2) => {
+          const preds = (incoming.get(node2.id) || []).map((p) => placed.get(p)).filter((v) => v !== void 0);
+          if (preds.length > 0) node2.x = preds.reduce((a, b) => a + b, 0) / preds.length;
         });
         layer.sort((a, b) => a.x - b.x);
         spreadLayer(layer, NODE_SPACING_X);
-        layer.forEach((node) => {
-          placed.set(node.id, node.x);
+        layer.forEach((node2) => {
+          placed.set(node2.id, node2.x);
         });
       }
       for (let i = sortedDepths.length - 1; i >= 0; i--) {
         const layer = layers.get(sortedDepths[i]);
-        layer.forEach((node) => {
-          const succ = (outgoing3.get(node.id) || []).map((q) => placed.get(q)).filter((v) => v !== void 0);
-          if (succ.length > 0) node.x = succ.reduce((a, b) => a + b, 0) / succ.length;
+        layer.forEach((node2) => {
+          const succ = (outgoing3.get(node2.id) || []).map((q) => placed.get(q)).filter((v) => v !== void 0);
+          if (succ.length > 0) node2.x = succ.reduce((a, b) => a + b, 0) / succ.length;
         });
         layer.sort((a, b) => a.x - b.x);
         spreadLayer(layer, NODE_SPACING_X);
-        layer.forEach((node) => {
-          placed.set(node.id, node.x);
+        layer.forEach((node2) => {
+          placed.set(node2.id, node2.x);
         });
       }
     }
@@ -8258,7 +8308,7 @@
     nodes.forEach((n) => {
       n.x = Math.round(n.x + shift);
     });
-    const coordinates = new Map(nodes.map((node) => [node.id, node]));
+    const coordinates = new Map(nodes.map((node2) => [node2.id, node2]));
     const fanOutCounters = /* @__PURE__ */ new Map();
     const allXs = nodes.map((n) => n.x);
     const layoutMinX = Math.min(...allXs);
@@ -8395,11 +8445,206 @@
     return decodeResult(b64);
   }
 
+  // src/utils/examplesStore.js
+  function key(methodId) {
+    return "stvisual:examples:" + methodId;
+  }
+  function load(storage, methodId) {
+    try {
+      const raw = storage.getItem(key(methodId));
+      const arr = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(arr)) return [];
+      return arr.filter((e) => e && typeof e.text === "string");
+    } catch {
+      return [];
+    }
+  }
+  function save(storage, methodId, text, defaultText, cap = 10) {
+    try {
+      if (text == null) return;
+      text = String(text);
+      if (text === "" || text === defaultText) return;
+      const arr = load(storage, methodId).filter((e) => e.text !== text);
+      arr.unshift({ text });
+      storage.setItem(key(methodId), JSON.stringify(arr.slice(0, cap)));
+    } catch {
+    }
+  }
+
+  // src/components/ExampleControls.js
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  var truncate = (s) => String(s).length > 28 ? String(s).slice(0, 28) + "\u2026" : String(s);
+  function createExampleControls({ methodId, getDefaultText, presets = [], onLoad, onRandom }) {
+    const element = document.createElement("div");
+    element.className = "example-controls";
+    function optionsHtml() {
+      const def = getDefaultText();
+      let html = `<option value="">${esc(t("example.pick"))}</option>`;
+      html += `<option value="${esc(def)}">${esc(t("example.currentDefault"))}</option>`;
+      for (const p of presets) {
+        if (p.value === def) continue;
+        html += `<option value="${esc(p.value)}">${esc(p.label)}</option>`;
+      }
+      for (const entry of load(localStorage, methodId)) {
+        if (entry.text === def) continue;
+        html += `<option value="${esc(entry.text)}">${esc(truncate(entry.text))}</option>`;
+      }
+      return html;
+    }
+    function paint2() {
+      element.innerHTML = `
+      <select class="ex-select" data-testid="ex-select" aria-label="${esc(t("example.pick"))}">${optionsHtml()}</select>
+      <button type="button" class="ex-random" data-testid="ex-random" title="${esc(t("example.random"))}" aria-label="${esc(t("example.random"))}">\u{1F3B2}</button>`;
+      element.querySelector(".ex-select").addEventListener("change", (e) => {
+        const v = e.target.value;
+        if (v) onLoad == null ? void 0 : onLoad(v);
+      });
+      element.querySelector(".ex-random").addEventListener("click", () => onRandom == null ? void 0 : onRandom());
+    }
+    paint2();
+    return { element, refresh: paint2 };
+  }
+
+  // src/utils/randomInput.js
+  function makeRng(seed) {
+    let a = seed == null ? Math.random() * 2 ** 32 >>> 0 : seed >>> 0;
+    return function() {
+      a |= 0;
+      a = a + 1831565813 | 0;
+      let t4 = Math.imul(a ^ a >>> 15, 1 | a);
+      t4 = t4 + Math.imul(t4 ^ t4 >>> 7, 61 | t4) ^ t4;
+      return ((t4 ^ t4 >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function randInt(rng, lo, hi) {
+    return lo + Math.floor(rng() * (hi - lo + 1));
+  }
+  function pick(rng, arr) {
+    return arr[Math.floor(rng() * arr.length)];
+  }
+
+  // src/data/graphCoverageRandom.js
+  var LETTERS = "ABCDEFGHIJKLMNOPQR".split("");
+  function node(id, depth, row, kind) {
+    return { id, label: id === "S" ? "Start" : id === "T" ? "End" : id, x: 80 + depth * 140, y: 170 + row * 90, kind: kind || "node" };
+  }
+  function graphFrom(nodes, edges) {
+    return {
+      id: "random-cfg",
+      title: "\u96A8\u6A5F\u63A7\u5236\u6D41\u7A0B\u5716",
+      titleEn: "Random CFG",
+      startNodeId: "S",
+      endNodeId: "T",
+      nodes,
+      edges: edges.map((e) => ({ id: `${e.from}-${e.to}`, from: e.from, to: e.to, ...e.control ? { control: e.control } : {} }))
+    };
+  }
+  function build(midCount, branchCount, loopCount) {
+    const mids = LETTERS.slice(0, midCount);
+    const chain = ["S", ...mids, "T"];
+    const nodes = chain.map((id, i) => node(id, i, 0, id === "S" ? "start" : id === "T" ? "end" : "node"));
+    const edges = [];
+    for (let i = 0; i < chain.length - 1; i++) edges.push({ from: chain[i], to: chain[i + 1] });
+    let sib = 0;
+    for (let b = 0; b < branchCount && b + 1 < mids.length; b++) {
+      const at = 1 + b;
+      const from = chain[at - 1], rejoin = chain[at + 1];
+      const sibId = `X${sib++}`;
+      nodes.push(node(sibId, at, 1));
+      const forkNode = nodes.find((n) => n.id === from);
+      if (forkNode && forkNode.kind === "node") forkNode.kind = "decision";
+      edges.push({ from, to: sibId }, { from: sibId, to: rejoin });
+    }
+    for (let l = 0; l < loopCount && mids.length >= 2; l++) {
+      const hi = 1 + Math.min(mids.length - 1, 2 + l), lo = 1 + Math.min(mids.length - 2, l);
+      if (hi > lo) edges.push({ from: chain[hi], to: chain[lo], control: { x: 80 + lo * 140, y: 40 } });
+    }
+    return graphFrom(nodes, edges);
+  }
+  function presetForDifficulty(tier) {
+    switch (tier) {
+      case "edge":
+        return build(1, 0, 0);
+      // S -> A -> T
+      case "large":
+        return build(8, 3, 2);
+      case "special":
+        return build(4, 2, 2);
+      // loops + branches
+      case "normal":
+      default:
+        return build(3, 1, 1);
+    }
+  }
+  function randomGraph(tier, rng = makeRng()) {
+    switch (tier) {
+      case "edge":
+        return build(randInt(rng, 1, 2), 0, 0);
+      case "large":
+        return build(randInt(rng, 8, 12), randInt(rng, 2, 3), randInt(rng, 1, 2));
+      case "special":
+        return build(randInt(rng, 4, 6), randInt(rng, 1, 2), 2);
+      case "normal":
+      default:
+        return build(randInt(rng, 3, 5), randInt(rng, 1, 2), pick(rng, [0, 1]));
+    }
+  }
+  function graphToEdgesText(graph) {
+    return graph.edges.map((e) => `${e.id || `${e.from}-${e.to}`},${e.from},${e.to}`).join("\n");
+  }
+
+  // src/utils/inputDifficulty.js
+  var STORAGE_KEY2 = "stvisual:input-difficulty";
+  var INPUT_DIFFICULTIES = ["normal", "special", "edge", "large"];
+  var DEFAULT = "normal";
+  var current2 = (() => {
+    var _a;
+    try {
+      const saved = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY2);
+      if (saved && INPUT_DIFFICULTIES.includes(saved)) return saved;
+    } catch {
+    }
+    return DEFAULT;
+  })();
+  var listeners2 = /* @__PURE__ */ new Set();
+  function getInputDifficulty() {
+    return current2;
+  }
+  function setInputDifficulty(tier, { persist: persist11 = true } = {}) {
+    var _a;
+    if (!INPUT_DIFFICULTIES.includes(tier) || tier === current2) return;
+    current2 = tier;
+    if (persist11) {
+      try {
+        (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY2, tier);
+      } catch {
+      }
+    }
+    listeners2.forEach((cb) => {
+      try {
+        cb(tier);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  }
+  function onInputDifficultyChange(cb) {
+    listeners2.add(cb);
+    return () => listeners2.delete(cb);
+  }
+
   // src/components/GraphCoverageExplorer.js
+  var GRAPH_PRESETS = {
+    structural: { criteria: ["node", "edge"], showDfg: false },
+    path: { criteria: ["prime-path", "edge-pair", "complete-path"], showDfg: false },
+    dataflow: { criteria: ["all-defs", "all-uses", "all-du-paths"], showDfg: true }
+  };
   function cloneGraph(graph) {
     return {
       ...graph,
-      nodes: graph.nodes.map((node) => ({ ...node })),
+      nodes: graph.nodes.map((node2) => ({ ...node2 })),
       edges: graph.edges.map((edge) => ({
         ...edge,
         control: edge.control ? { ...edge.control } : void 0
@@ -8418,7 +8663,7 @@
     };
   }
   function serializeNodes(nodes) {
-    return nodes.map((node) => `${node.id},${node.label},${node.x},${node.y}`).join("\n");
+    return nodes.map((node2) => `${node2.id},${node2.label},${node2.x},${node2.y}`).join("\n");
   }
   function serializeEdges(edges) {
     return edges.map((edge) => {
@@ -8488,7 +8733,7 @@
   }
   function parseGraphDraft({ nodesText, edgesText, startNodeId, endNodeId }) {
     const nodes = parseNodesText(nodesText);
-    const nodeIds = new Set(nodes.map((node) => node.id));
+    const nodeIds = new Set(nodes.map((node2) => node2.id));
     const edges = parseEdgesText(edgesText, nodeIds);
     if (!nodeIds.has(startNodeId)) {
       throw new Error(t("graph.err.startMissing"));
@@ -8503,6 +8748,104 @@
       edges,
       startNodeId,
       endNodeId
+    };
+  }
+  function graphFromEdgesText(edgesText) {
+    const rows = edgesText.split("\n").map((row) => row.trim()).filter(Boolean);
+    if (!rows.length) {
+      throw new Error(t("graph.err.edgesEmpty"));
+    }
+    const idsInOrder = [];
+    const seen = /* @__PURE__ */ new Set();
+    const froms = /* @__PURE__ */ new Set();
+    const tos = /* @__PURE__ */ new Set();
+    const adjacency = /* @__PURE__ */ new Map();
+    rows.forEach((row) => {
+      const cols = row.split(",").map((item) => item.trim());
+      const [from, to] = cols.length === 2 ? cols : [cols[1], cols[2]];
+      if (from) froms.add(from);
+      if (to) tos.add(to);
+      for (const id of [from, to]) {
+        if (id && !seen.has(id)) {
+          seen.add(id);
+          idsInOrder.push(id);
+        }
+      }
+      if (from && to) {
+        if (!adjacency.has(from)) adjacency.set(from, []);
+        adjacency.get(from).push(to);
+      }
+    });
+    const startNodeId = idsInOrder.find((id) => !tos.has(id)) || idsInOrder[0];
+    const endNodeId = [...idsInOrder].reverse().find((id) => !froms.has(id)) || idsInOrder[idsInOrder.length - 1];
+    const depthById = /* @__PURE__ */ new Map([[startNodeId, 0]]);
+    const queue = [startNodeId];
+    while (queue.length) {
+      const current3 = queue.shift();
+      for (const next of adjacency.get(current3) || []) {
+        if (!depthById.has(next)) {
+          depthById.set(next, depthById.get(current3) + 1);
+          queue.push(next);
+        }
+      }
+    }
+    let maxReachedDepth = 0;
+    depthById.forEach((depth) => {
+      if (depth > maxReachedDepth) maxReachedDepth = depth;
+    });
+    idsInOrder.forEach((id) => {
+      if (!depthById.has(id)) depthById.set(id, ++maxReachedDepth);
+    });
+    const lastColumn = Math.max(...idsInOrder.map((id) => depthById.get(id)));
+    if (depthById.get(endNodeId) < lastColumn) depthById.set(endNodeId, lastColumn);
+    const layerMembers = /* @__PURE__ */ new Map();
+    idsInOrder.forEach((id) => {
+      const depth = depthById.get(id);
+      if (!layerMembers.has(depth)) layerMembers.set(depth, []);
+      layerMembers.get(depth).push(id);
+    });
+    const positionById = /* @__PURE__ */ new Map();
+    for (const [depth, members] of layerMembers) {
+      members.forEach((id, indexInLayer) => {
+        positionById.set(id, {
+          x: 80 + depth * 140,
+          y: 170 + (indexInLayer - (members.length - 1) / 2) * 90
+        });
+      });
+    }
+    const nodes = idsInOrder.map((id) => ({
+      id,
+      label: id,
+      x: positionById.get(id).x,
+      y: positionById.get(id).y,
+      kind: id === startNodeId ? "start" : id === endNodeId ? "end" : "node"
+    }));
+    const nodeIds = new Set(idsInOrder);
+    const edges = parseEdgesText(edgesText, nodeIds);
+    return {
+      id: "edges-input",
+      title: t("graph.customTitle"),
+      nodes,
+      edges,
+      startNodeId,
+      endNodeId
+    };
+  }
+  function validateGraphObject(graphObject) {
+    const validated = parseGraphDraft(createDraftFromGraph(graphObject));
+    return {
+      ...validated,
+      id: graphObject.id || validated.id,
+      title: pickField(graphObject, "title") || validated.title
+    };
+  }
+  function focusProgramFor(graphObject) {
+    const title = pickField(graphObject, "title") || "Random CFG";
+    return {
+      id: graphObject.id || "random-cfg",
+      name: title,
+      description: "",
+      sourceCode: ""
     };
   }
   function parseUploadedGraphSpec(rawText) {
@@ -8552,13 +8895,13 @@
     if (!requirement) {
       return [];
     }
-    return requirement.nodes.map((nodeId) => graph.nodes.find((node) => node.id === nodeId)).filter((node) => node == null ? void 0 : node.sourceLine).filter((node, index, nodes) => nodes.findIndex((item) => item.id === node.id) === index);
+    return requirement.nodes.map((nodeId) => graph.nodes.find((node2) => node2.id === nodeId)).filter((node2) => node2 == null ? void 0 : node2.sourceLine).filter((node2, index, nodes) => nodes.findIndex((item) => item.id === node2.id) === index);
   }
   function renderSourceCode(sourceCode, selectedSourceNodes) {
     if (!sourceCode) {
       return `<p class="graph-source-empty" data-testid="program-source-empty">${t("graph.source.empty")}</p>`;
     }
-    const highlightedLines = new Set(selectedSourceNodes.map((node) => node.sourceLine));
+    const highlightedLines = new Set(selectedSourceNodes.map((node2) => node2.sourceLine));
     return `
     <pre class="graph-source-code" data-testid="program-source-code"><code>
       ${sourceCode.split("\n").map((line, index) => `
@@ -8595,9 +8938,9 @@
   function computeGraphBounds(graph, edgeList = graph.edges, padding = 60) {
     const xs = [];
     const ys = [];
-    for (const node of graph.nodes) {
-      xs.push(node.x - 32, node.x + 32);
-      ys.push(node.y - 32, node.y + 32);
+    for (const node2 of graph.nodes) {
+      xs.push(node2.x - 32, node2.x + 32);
+      ys.push(node2.y - 32, node2.y + 32);
     }
     for (const edge of edgeList) {
       if (edge == null ? void 0 : edge.control) {
@@ -8633,8 +8976,8 @@
           </marker>
         </defs>
         ${graph.edges.map((edge) => {
-      const fromNode = graph.nodes.find((node) => node.id === edge.from);
-      const toNode = graph.nodes.find((node) => node.id === edge.to);
+      const fromNode = graph.nodes.find((node2) => node2.id === edge.from);
+      const toNode = graph.nodes.find((node2) => node2.id === edge.to);
       const active = highlightedEdges.has(edge.id);
       const NODE_R3 = 28;
       const ARROW_GAP = 4;
@@ -8664,11 +9007,11 @@
             ></line>
           `;
     }).join("")}
-        ${graph.nodes.map((node) => `
-          <g class="graph-node${highlightedNodes.has(node.id) ? " graph-node--active" : ""}" data-testid="graph-node-${node.id}">
-            ${node.sourceLine ? `<title>Line ${node.sourceLine}: ${escapeHtml(node.sourceText || node.label)}</title>` : ""}
-            <circle cx="${node.x}" cy="${node.y}" r="28"></circle>
-            <text x="${node.x}" y="${node.y + 5}" text-anchor="middle">${node.label}</text>
+        ${graph.nodes.map((node2) => `
+          <g class="graph-node${highlightedNodes.has(node2.id) ? " graph-node--active" : ""}" data-testid="graph-node-${node2.id}">
+            ${node2.sourceLine ? `<title>Line ${node2.sourceLine}: ${escapeHtml(node2.sourceText || node2.label)}</title>` : ""}
+            <circle cx="${node2.x}" cy="${node2.y}" r="28"></circle>
+            <text x="${node2.x}" y="${node2.y + 5}" text-anchor="middle">${node2.label}</text>
           </g>
         `).join("")}
       </svg>
@@ -8681,11 +9024,11 @@
     const { minX, minY, width, height } = computeGraphBounds(graph, dfg.edges);
     const grouped = /* @__PURE__ */ new Map();
     for (const e of dfg.edges) {
-      const key2 = `${e.from}->${e.to}`;
-      if (!grouped.has(key2)) grouped.set(key2, []);
-      grouped.get(key2).push(e);
+      const key3 = `${e.from}->${e.to}`;
+      if (!grouped.has(key3)) grouped.set(key3, []);
+      grouped.get(key3).push(e);
     }
-    const edgeMarkup = [...grouped.entries()].map(([key2, group]) => {
+    const edgeMarkup = [...grouped.entries()].map(([key3, group]) => {
       const sample = group[0];
       const a = nodeById.get(sample.from);
       const b = nodeById.get(sample.to);
@@ -8703,7 +9046,7 @@
       const start = trimToCircle({ x: cx, y: cy }, a, DFG_R);
       const end = trimToCircle({ x: cx, y: cy }, b, DFG_R + ARROW_GAP);
       return `
-      <g class="graph-dfg-edge" data-testid="dfg-edge-${escapeHtml(key2)}">
+      <g class="graph-dfg-edge" data-testid="dfg-edge-${escapeHtml(key3)}">
         <path d="M ${start.x} ${start.y} Q ${cx} ${cy} ${end.x} ${end.y}"
               marker-end="url(#dfg-arrow)"></path>
         <text x="${cx}" y="${cy}" text-anchor="middle">${escapeHtml(labels)}</text>
@@ -8725,10 +9068,10 @@
             </marker>
           </defs>
           ${edgeMarkup}
-          ${graph.nodes.map((node) => `
-            <g class="graph-node graph-dfg-node" data-testid="dfg-node-${node.id}">
-              <circle cx="${node.x}" cy="${node.y}" r="24"></circle>
-              <text x="${node.x}" y="${node.y + 5}" text-anchor="middle">${node.label}</text>
+          ${graph.nodes.map((node2) => `
+            <g class="graph-node graph-dfg-node" data-testid="dfg-node-${node2.id}">
+              <circle cx="${node2.x}" cy="${node2.y}" r="24"></circle>
+              <text x="${node2.x}" y="${node2.y + 5}" text-anchor="middle">${node2.label}</text>
             </g>
           `).join("")}
         </svg>
@@ -8737,7 +9080,7 @@
     </div>
   `;
   }
-  function createGraphCoverageExplorer() {
+  function createGraphCoverageExplorer(opts = {}) {
     const root41 = document.createElement("div");
     const defaultGraph = cloneGraph(graphCoverageGraph);
     const defaultProgram = {
@@ -8746,27 +9089,83 @@
       description: "A generic control flow graph used to compare graph coverage criteria on the same structure.",
       sourceCode: ""
     };
-    let graph = defaultGraph;
-    let baseGraph = cloneGraph(defaultGraph);
-    let criterionId = "node";
+    const presetCfg = opts.preset && GRAPH_PRESETS[opts.preset] ? GRAPH_PRESETS[opts.preset] : null;
+    if (opts.preset && !presetCfg) console.warn("GraphCoverageExplorer: unknown preset", opts.preset);
+    const focus = Boolean(presetCfg);
+    let userEdited = false;
+    const initialGraph = focus ? validateGraphObject(presetForDifficulty(getInputDifficulty())) : defaultGraph;
+    const initialProgram = focus ? focusProgramFor(initialGraph) : defaultProgram;
+    let graph = initialGraph;
+    let baseGraph = cloneGraph(initialGraph);
+    let criterionId = presetCfg ? presetCfg.criteria[0] : "node";
     let selectedRequirementId = null;
     let parseError = "";
-    let sourceStatus = t("graph.status.initial");
-    let activeProgram = defaultProgram;
-    let selectedProgramId = defaultProgram.id;
+    let sourceStatus = focus ? t("graph.status.exampleLoaded", { name: initialProgram.name }) : t("graph.status.initial");
+    let activeProgram = initialProgram;
+    let selectedProgramId = initialProgram.id;
     let selectedCodeLanguage = "javascript";
     let autoApplyTimer = null;
-    let draft = createDraftFromGraph(defaultGraph);
+    let draft = createDraftFromGraph(initialGraph);
     const graphQuiz = { active: false, selectedPaths: /* @__PURE__ */ new Set(), phase: "question", result: null };
     const graphLabReflect = { active: false, a1: "", a2: "" };
+    function exampleDefault() {
+      return graphToEdgesText(presetForDifficulty(getInputDifficulty()));
+    }
+    function applyEdgesText(edgesText) {
+      try {
+        const nextGraph = graphFromEdgesText(edgesText);
+        loadGraphSource(focusProgramFor(nextGraph), nextGraph, t("graph.status.exampleLoaded", { name: focusProgramFor(nextGraph).name }));
+      } catch (error) {
+        parseError = error.message;
+        render41();
+      }
+    }
+    function applyGraphObject(graphObject) {
+      try {
+        const nextGraph = validateGraphObject(graphObject);
+        loadGraphSource(focusProgramFor(nextGraph), nextGraph, t("graph.status.exampleLoaded", { name: focusProgramFor(nextGraph).name }));
+      } catch (error) {
+        parseError = error.message;
+        render41();
+      }
+    }
+    const exampleControls = focus ? createExampleControls({
+      methodId: "graph",
+      getDefaultText: exampleDefault,
+      presets: graphCoverageProgramExamples.map((program) => {
+        try {
+          return { value: graphToEdgesText(resolveProgramGraph(program)), label: program.name };
+        } catch {
+          return null;
+        }
+      }).filter(Boolean),
+      onLoad: (text) => {
+        applyEdgesText(text);
+        userEdited = true;
+        save(localStorage, "graph", text, exampleDefault(), 10);
+        exampleControls.refresh();
+      },
+      onRandom: () => {
+        const nextGraph = randomGraph(getInputDifficulty());
+        applyGraphObject(nextGraph);
+        userEdited = true;
+      }
+    }) : null;
+    if (focus) {
+      onInputDifficultyChange(() => {
+        if (!userEdited) {
+          applyGraphObject(presetForDifficulty(getInputDifficulty()));
+        }
+      });
+    }
     function getQuizCandidates(pathPlan) {
       const seen = /* @__PURE__ */ new Set();
       const candidates = [];
       for (const rp of pathPlan.requirementPaths) {
         if (!rp.path) continue;
-        const key2 = rp.path.join("->");
-        if (!seen.has(key2)) {
-          seen.add(key2);
+        const key3 = rp.path.join("->");
+        if (!seen.has(key3)) {
+          seen.add(key3);
           candidates.push(rp.path);
         }
       }
@@ -8820,14 +9219,14 @@
       const isGraded = graphQuiz.phase === "graded";
       const optimalKeys = new Set(pathPlan.selectedPaths.map((p) => p.join("->")));
       const pathItems = candidates.map((path, idx) => {
-        const key2 = path.join("->");
-        const checked = graphQuiz.selectedPaths.has(key2) ? " checked" : "";
-        const isOptimal = optimalKeys.has(key2);
+        const key3 = path.join("->");
+        const checked = graphQuiz.selectedPaths.has(key3) ? " checked" : "";
+        const isOptimal = optimalKeys.has(key3);
         const optLabel = isGraded && isOptimal ? ' <span class="quiz-optimal-badge">\u2713 optimal</span>' : "";
         return `<label class="quiz-path-item">
-        <input type="checkbox" data-quiz-path="${escapeHtml(key2)}"${checked}
+        <input type="checkbox" data-quiz-path="${escapeHtml(key3)}"${checked}
           ${isGraded ? "disabled" : ""} data-testid="graph-quiz-path-${idx}"/>
-        <span class="quiz-path-text">${escapeHtml(key2.replaceAll("->", " \u2192 "))}</span>
+        <span class="quiz-path-text">${escapeHtml(key3.replaceAll("->", " \u2192 "))}</span>
         ${optLabel}
       </label>`;
       }).join("");
@@ -8836,10 +9235,10 @@
       ${graphQuiz.result.covered === graphQuiz.result.total && graphQuiz.result.userCount === graphQuiz.result.optimal ? ` <strong>${t("quiz.graph.perfect")}</strong>` : graphQuiz.result.covered < graphQuiz.result.total ? ` <em>${t("quiz.graph.incomplete")}</em>` : ""}
     </p>
     <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "graph", explorerLabel: t("quiz.graph.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: graphQuiz.result.covered, total: graphQuiz.result.total, items: candidates.map((path) => {
-        const key2 = path.join("->");
-        const isOpt = optimalKeys.has(key2);
-        const checked = graphQuiz.selectedPaths.has(key2);
-        return { q: key2.replaceAll("->", " \u2192 "), a: checked ? "\u2713" : "\u2014", expected: isOpt ? "\u2713" : "\u2014", ok: checked === isOpt };
+        const key3 = path.join("->");
+        const isOpt = optimalKeys.has(key3);
+        const checked = graphQuiz.selectedPaths.has(key3);
+        return { q: key3.replaceAll("->", " \u2192 "), a: checked ? "\u2713" : "\u2014", expected: isOpt ? "\u2713" : "\u2014", ok: checked === isOpt };
       }) })}" data-testid="graph-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>` : "";
       const prompt = t("quiz.graph.prompt").replace("{criterion}", escapeHtml(selectedCriterion ? selectedCriterion.label : criterionId)).replace("{program}", escapeHtml(activeProgram.name));
       return `<div class="quiz-panel quiz-panel--graph" data-testid="graph-quiz">
@@ -8911,7 +9310,7 @@
       };
     }
     function render41() {
-      var _a, _b, _c, _d, _e, _f, _g, _h;
+      var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p;
       const { requirements, selectedRequirement, selectedCriterion, pathPlan } = getState();
       const selectedSourceNodes = getSelectedSourceNodes(graph, selectedRequirement);
       const quizPanel = renderGraphQuizPanel(pathPlan, selectedCriterion);
@@ -8930,6 +9329,7 @@
       root41.className = "graph-coverage";
       root41.dataset.testid = "graph-coverage-explorer";
       root41.innerHTML = `
+      ${focus ? "" : `
       <div class="graph-source-card" data-testid="graph-source-card">
         <div class="graph-source-toolbar">
           <label>
@@ -9007,6 +9407,7 @@
           ${parseError || t("graph.editor.synced")}
         </p>
       </div>
+      `}
 
       <div class="graph-coverage-header">
         <div>
@@ -9023,7 +9424,7 @@
 
       <div class="graph-criterion-row">
         <div class="graph-criterion-switcher" role="tablist" aria-label="${t("graph.aria.switcher")}">
-          ${graphCoverageCriteria.map((criterion) => `
+          ${(presetCfg ? graphCoverageCriteria.filter((c) => presetCfg.criteria.includes(c.id)) : graphCoverageCriteria).map((criterion) => `
             <button
               class="criterion-chip${criterionId === criterion.id ? " active" : ""}"
               type="button"
@@ -9037,15 +9438,17 @@
             </button>
           `).join("")}
         </div>
+        ${focus ? "" : `
         <button type="button" class="quiz-start-btn" data-testid="graph-quiz-start">${t("quiz.start")}</button>
         ${!graphLabReflect.active ? `<button type="button" class="quiz-start-btn" data-testid="graph-lab-reflect-start">${t("lab.reflect.start")}</button>` : ""}
         <button type="button" class="quiz-share-btn" data-share-payload="${metricEncoded}" data-testid="graph-lab-metric">\u{1F4CA} ${t("lab.metric.record")}</button>
+        `}
       </div>
 
       <div class="graph-coverage-layout">
         <div class="graph-main-panel">
           ${createGraphCanvas(graph, selectedRequirement)}
-          ${createDataFlowCanvas(graph)}
+          ${!focus || presetCfg.showDfg ? createDataFlowCanvas(graph) : ""}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t("graph.summary.current")}</span>
             <strong>${(selectedRequirement == null ? void 0 : selectedRequirement.label) || t("common.none")}</strong>
@@ -9055,6 +9458,7 @@
           <div class="graph-test-path-card" data-testid="graph-test-path-card">
             <h4>Generated Test Path Set</h4>
             <p class="sidebar-text">${t("graph.path.help")}</p>
+            ${focus ? "" : `
             <div class="test-path-metrics" data-testid="test-path-metrics">
               <div class="test-path-metric">
                 <span class="detail-label">${t("graph.path.before")}</span>
@@ -9069,6 +9473,7 @@
                 <strong data-testid="saved-path-count">${pathPlan.optimizationMetrics.savedPathCount}</strong>
               </div>
             </div>
+            `}
             <ul class="test-path-list" data-testid="test-path-list">
               ${pathPlan.selectedPaths.map((path, index) => `
                 <li data-testid="test-path-${index + 1}">T${index + 1}: ${path.join(" -> ")}</li>
@@ -9120,7 +9525,7 @@
               <div>
                 <span class="detail-label">Source Mapping</span>
                 <ul class="source-mapping-list" data-testid="detail-source-mapping">
-                  ${selectedSourceNodes.length ? selectedSourceNodes.map((node) => `<li>${node.label} -> L${node.sourceLine}: ${escapeHtml(node.sourceText || "")}</li>`).join("") : `<li>${t("graph.detail.noSourceMap")}</li>`}
+                  ${selectedSourceNodes.length ? selectedSourceNodes.map((node2) => `<li>${node2.label} -> L${node2.sourceLine}: ${escapeHtml(node2.sourceText || "")}</li>`).join("") : `<li>${t("graph.detail.noSourceMap")}</li>`}
                 </ul>
               </div>
             </div>
@@ -9128,13 +9533,15 @@
         </aside>
       </div>
 
-      ${quizPanel}
-      ${labReflectPanel}
+      ${focus ? "" : `${quizPanel}${labReflectPanel}`}
     `;
-      root41.querySelector('[data-testid="graph-reset-btn"]').addEventListener("click", () => {
+      if (focus && exampleControls) {
+        (_a = root41.querySelector(".graph-criterion-row")) == null ? void 0 : _a.prepend(exampleControls.element);
+      }
+      (_b = root41.querySelector('[data-testid="graph-reset-btn"]')) == null ? void 0 : _b.addEventListener("click", () => {
         resetGraph();
       });
-      root41.querySelector('[data-testid="program-example-select"]').addEventListener("change", (event) => {
+      (_c = root41.querySelector('[data-testid="program-example-select"]')) == null ? void 0 : _c.addEventListener("change", (event) => {
         const nextProgramId = event.target.value;
         if (nextProgramId === defaultProgram.id) {
           loadGraphSource(defaultProgram, defaultGraph, t("graph.status.defaultLoaded"));
@@ -9159,16 +9566,16 @@
           loadGraphSource(example5, nextGraph, t("graph.status.exampleLoaded", { name: example5.name }));
         }
       });
-      root41.querySelector('[data-testid="program-language-select"]').addEventListener("change", (event) => {
+      (_d = root41.querySelector('[data-testid="program-language-select"]')) == null ? void 0 : _d.addEventListener("change", (event) => {
         selectedCodeLanguage = event.target.value;
       });
-      root41.querySelector('[data-testid="graph-upload-btn"]').addEventListener("click", () => {
+      (_e = root41.querySelector('[data-testid="graph-upload-btn"]')) == null ? void 0 : _e.addEventListener("click", () => {
         root41.querySelector('[data-testid="graph-upload-input"]').click();
       });
-      root41.querySelector('[data-testid="code-upload-btn"]').addEventListener("click", () => {
+      (_f = root41.querySelector('[data-testid="code-upload-btn"]')) == null ? void 0 : _f.addEventListener("click", () => {
         root41.querySelector('[data-testid="code-upload-input"]').click();
       });
-      root41.querySelector('[data-testid="graph-upload-input"]').addEventListener("change", async (event) => {
+      (_g = root41.querySelector('[data-testid="graph-upload-input"]')) == null ? void 0 : _g.addEventListener("change", async (event) => {
         const [file] = event.target.files || [];
         if (!file) {
           return;
@@ -9186,7 +9593,7 @@
           render41();
         }
       });
-      root41.querySelector('[data-testid="code-upload-input"]').addEventListener("change", async (event) => {
+      (_h = root41.querySelector('[data-testid="code-upload-input"]')) == null ? void 0 : _h.addEventListener("change", async (event) => {
         const [file] = event.target.files || [];
         if (!file) {
           return;
@@ -9231,49 +9638,49 @@
           render41();
         });
       });
-      (_a = root41.querySelector('[data-testid="graph-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+      (_i = root41.querySelector('[data-testid="graph-quiz-start"]')) == null ? void 0 : _i.addEventListener("click", () => {
         graphQuiz.active = true;
         graphQuiz.selectedPaths = /* @__PURE__ */ new Set();
         graphQuiz.phase = "question";
         graphQuiz.result = null;
         render41();
       });
-      (_b = root41.querySelector('[data-testid="graph-quiz-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
+      (_j = root41.querySelector('[data-testid="graph-quiz-close"]')) == null ? void 0 : _j.addEventListener("click", () => {
         graphQuiz.active = false;
         render41();
       });
       root41.querySelectorAll("[data-quiz-path]").forEach((cb) => {
         cb.addEventListener("change", () => {
-          const key2 = cb.dataset.quizPath;
-          if (cb.checked) graphQuiz.selectedPaths.add(key2);
-          else graphQuiz.selectedPaths.delete(key2);
+          const key3 = cb.dataset.quizPath;
+          if (cb.checked) graphQuiz.selectedPaths.add(key3);
+          else graphQuiz.selectedPaths.delete(key3);
         });
       });
-      (_c = root41.querySelector('[data-testid="graph-quiz-check"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      (_k = root41.querySelector('[data-testid="graph-quiz-check"]')) == null ? void 0 : _k.addEventListener("click", () => {
         const { pathPlan: pathPlan2 } = getState();
         gradeGraphQuiz(pathPlan2);
       });
-      (_d = root41.querySelector('[data-testid="graph-quiz-reset"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      (_l = root41.querySelector('[data-testid="graph-quiz-reset"]')) == null ? void 0 : _l.addEventListener("click", () => {
         graphQuiz.selectedPaths = /* @__PURE__ */ new Set();
         graphQuiz.phase = "question";
         graphQuiz.result = null;
         render41();
       });
-      (_e = root41.querySelector('[data-testid="graph-lab-reflect-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      (_m = root41.querySelector('[data-testid="graph-lab-reflect-start"]')) == null ? void 0 : _m.addEventListener("click", () => {
         graphLabReflect.active = true;
         render41();
       });
-      (_f = root41.querySelector('[data-testid="graph-lab-reflect-close"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      (_n = root41.querySelector('[data-testid="graph-lab-reflect-close"]')) == null ? void 0 : _n.addEventListener("click", () => {
         var _a2, _b2;
         graphLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || graphLabReflect.a1;
         graphLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || graphLabReflect.a2;
         graphLabReflect.active = false;
         render41();
       });
-      (_g = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
+      (_o = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _o.addEventListener("input", (e) => {
         graphLabReflect.a1 = e.target.value;
       });
-      (_h = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _h.addEventListener("input", (e) => {
+      (_p = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _p.addEventListener("input", (e) => {
         graphLabReflect.a2 = e.target.value;
       });
       const lrShare = root41.querySelector('[data-testid="graph-lab-reflect-share"]');
@@ -9389,28 +9796,28 @@
     }
     function parseOr() {
       var _a;
-      let node = parseAnd();
+      let node2 = parseAnd();
       while (((_a = peek()) == null ? void 0 : _a.type) === "or") {
         consume("or");
-        node = { type: "or", left: node, right: parseAnd() };
+        node2 = { type: "or", left: node2, right: parseAnd() };
       }
-      return node;
+      return node2;
     }
     function parseAnd() {
-      let node = parseNot();
+      let node2 = parseNot();
       while (true) {
         const next = peek();
         if (!next) break;
         if (next.type === "and") {
           consume("and");
-          node = { type: "and", left: node, right: parseNot() };
+          node2 = { type: "and", left: node2, right: parseNot() };
         } else if (next.type === "lparen" || next.type === "not" || next.type === "ident") {
-          node = { type: "and", left: node, right: parseNot() };
+          node2 = { type: "and", left: node2, right: parseNot() };
         } else {
           break;
         }
       }
-      return node;
+      return node2;
     }
     function parseNot() {
       var _a;
@@ -9425,9 +9832,9 @@
       if (!token) throw new Error(L("Syntax error: unexpected end of input.", "\u8A9E\u6CD5\u932F\u8AA4\uFF1A\u672A\u9810\u671F\u7684\u7D50\u5C3E\u3002"));
       if (token.type === "lparen") {
         consume("lparen");
-        const node = parseOr();
+        const node2 = parseOr();
         consume("rparen");
-        return node;
+        return node2;
       }
       if (token.type === "ident") {
         consume("ident");
@@ -9774,16 +10181,16 @@
     const onSet = rows.filter((r) => r.predicate === target).map((r) => r.index);
     if (!onSet.length) return [];
     if (onSet.length === 1 << n) return [[]];
-    let current2 = onSet.map((i) => ({ bits: i, dash: 0, covers: /* @__PURE__ */ new Set([i]) }));
+    let current3 = onSet.map((i) => ({ bits: i, dash: 0, covers: /* @__PURE__ */ new Set([i]) }));
     const primes = [];
-    while (current2.length) {
-      const used = new Array(current2.length).fill(false);
+    while (current3.length) {
+      const used = new Array(current3.length).fill(false);
       const seen = /* @__PURE__ */ new Map();
       const next = [];
-      for (let i = 0; i < current2.length; i += 1) {
-        for (let j = i + 1; j < current2.length; j += 1) {
-          const a = current2[i];
-          const b = current2[j];
+      for (let i = 0; i < current3.length; i += 1) {
+        for (let j = i + 1; j < current3.length; j += 1) {
+          const a = current3[i];
+          const b = current3[j];
           if (a.dash !== b.dash) continue;
           const diff = a.bits ^ b.bits;
           if (diff && (diff & diff - 1) === 0 && (diff & a.dash) === 0) {
@@ -9791,24 +10198,24 @@
             used[j] = true;
             const newDash = a.dash | diff;
             const newBits = a.bits & ~diff;
-            const key2 = `${newBits}|${newDash}`;
-            if (!seen.has(key2)) {
+            const key3 = `${newBits}|${newDash}`;
+            if (!seen.has(key3)) {
               const covers = /* @__PURE__ */ new Set([...a.covers, ...b.covers]);
               const entry = { bits: newBits, dash: newDash, covers };
-              seen.set(key2, entry);
+              seen.set(key3, entry);
               next.push(entry);
             } else {
-              const ex = seen.get(key2);
+              const ex = seen.get(key3);
               a.covers.forEach((v) => ex.covers.add(v));
               b.covers.forEach((v) => ex.covers.add(v));
             }
           }
         }
       }
-      current2.forEach((imp, idx) => {
+      current3.forEach((imp, idx) => {
         if (!used[idx]) primes.push(imp);
       });
-      current2 = next;
+      current3 = next;
     }
     const remaining = new Set(onSet);
     const chargeMap = /* @__PURE__ */ new Map();
@@ -9962,11 +10369,11 @@
         return;
       }
       utps.forEach((row) => {
-        const key2 = `r${row.index}-utp${index}`;
-        if (seen.has(key2)) return;
-        seen.add(key2);
+        const key3 = `r${row.index}-utp${index}`;
+        if (seen.has(key3)) return;
+        seen.add(key3);
         tests.push({
-          id: key2,
+          id: key3,
           row,
           label: `UTP for {${termLabel(term)}}`,
           implicantIndex: index
@@ -10001,11 +10408,11 @@
       }
       if (!minorClauses.length) {
         const row = utps[0];
-        const key2 = `r${row.index}-mutp${index}`;
-        if (!seen.has(key2)) {
-          seen.add(key2);
+        const key3 = `r${row.index}-mutp${index}`;
+        if (!seen.has(key3)) {
+          seen.add(key3);
           tests.push({
-            id: key2,
+            id: key3,
             row,
             label: `MUTP {${termLabel(term)}}`,
             implicantIndex: index
@@ -10052,11 +10459,11 @@
       chosen.forEach((i) => {
         const row = utps[i];
         const covered = [...utpReqs[i]].join(", ");
-        const key2 = `r${row.index}-mutp${index}`;
-        if (seen.has(key2)) return;
-        seen.add(key2);
+        const key3 = `r${row.index}-mutp${index}`;
+        if (seen.has(key3)) return;
+        seen.add(key3);
         tests.push({
-          id: key2,
+          id: key3,
           row,
           label: `MUTP {${termLabel(term)}} (${covered})`,
           implicantIndex: index
@@ -10097,9 +10504,9 @@
           return;
         }
         const row = nfps[0];
-        const key2 = `r${row.index}-nfp${index}-${literalIndex}`;
-        if (seen.has(key2)) return;
-        seen.add(key2);
+        const key3 = `r${row.index}-nfp${index}-${literalIndex}`;
+        if (seen.has(key3)) return;
+        seen.add(key3);
         const pairedTruePoint = rows.find(
           (candidate) => termSatisfiedBy(term, candidate.values) && Object.keys(candidate.values).every((name) => {
             if (name === literal.name) return candidate.values[name] !== row.values[name];
@@ -10107,7 +10514,7 @@
           })
         );
         tests.push({
-          id: key2,
+          id: key3,
           row,
           label: L(`NFP {${termLabel(term)}} flip ${literalKey(literal)}`, `NFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`),
           implicantIndex: index,
@@ -10149,11 +10556,11 @@
         }
         if (!minorClauses.length) {
           const row = nfps[0];
-          const key2 = `r${row.index}-mnfp${index}-${literalIndex}`;
-          if (!seen.has(key2)) {
-            seen.add(key2);
+          const key3 = `r${row.index}-mnfp${index}-${literalIndex}`;
+          if (!seen.has(key3)) {
+            seen.add(key3);
             tests.push({
-              id: key2,
+              id: key3,
               row,
               label: L(`MNFP {${termLabel(term)}} flip ${literalKey(literal)}`, `MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`),
               implicantIndex: index,
@@ -10201,11 +10608,11 @@
         chosen.forEach((i) => {
           const row = nfps[i];
           const covered = [...reqsPerNfp[i]].join(", ");
-          const key2 = `r${row.index}-mnfp${index}-${literalIndex}`;
-          if (seen.has(key2)) return;
-          seen.add(key2);
+          const key3 = `r${row.index}-mnfp${index}-${literalIndex}`;
+          if (seen.has(key3)) return;
+          seen.add(key3);
           tests.push({
-            id: key2,
+            id: key3,
             row,
             label: L(`MNFP {${termLabel(term)}} flip ${literalKey(literal)} (${covered})`, `MNFP {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}\uFF08${covered}\uFF09`),
             implicantIndex: index,
@@ -10251,11 +10658,11 @@
           return;
         }
         pair.forEach((row, role) => {
-          const key2 = `r${row.index}-cutp${index}-${literalIndex}-${role}`;
-          if (seen.has(key2)) return;
-          seen.add(key2);
+          const key3 = `r${row.index}-cutp${index}-${literalIndex}-${role}`;
+          if (seen.has(key3)) return;
+          seen.add(key3);
           tests.push({
-            id: key2,
+            id: key3,
             row,
             label: L(`${role === 0 ? "UTP" : "NFP"} pair {${termLabel(term)}} flip ${literalKey(literal)}`, `${role === 0 ? "UTP" : "NFP"} pair {${termLabel(term)}} \u7FFB\u8F49 ${literalKey(literal)}`),
             implicantIndex: index,
@@ -10414,7 +10821,7 @@
   ];
   var cachedClient = null;
   function getMissingFirebaseKeys(firebaseConfig) {
-    return REQUIRED_FIREBASE_KEYS.filter((key2) => !(firebaseConfig == null ? void 0 : firebaseConfig[key2]));
+    return REQUIRED_FIREBASE_KEYS.filter((key3) => !(firebaseConfig == null ? void 0 : firebaseConfig[key3]));
   }
   function createMultipartBody(file, metadata) {
     const boundary = `stvisual-${Date.now()}`;
@@ -10929,15 +11336,15 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
   }
   function* cartesian(vars, range) {
-    function* gen(depth, current2) {
+    function* gen(depth, current3) {
       if (depth === vars.length) {
-        yield [...current2];
+        yield [...current3];
         return;
       }
       for (const v of smallAbsFirst(range[0], range[1])) {
-        current2.push(v);
-        yield* gen(depth + 1, current2);
-        current2.pop();
+        current3.push(v);
+        yield* gen(depth + 1, current3);
+        current3.pop();
       }
     }
     yield* gen(0, []);
@@ -11023,10 +11430,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       if (!t4) throw new Error("Unexpected end of expression");
       if (t4.type === "LPAREN") {
         consume();
-        const node = expr();
+        const node2 = expr();
         if (((_a = peek()) == null ? void 0 : _a.type) !== "RPAREN") throw new Error("Expected )");
         consume();
-        return node;
+        return node2;
       }
       if (t4.type === "ATOM") {
         consume();
@@ -11062,11 +11469,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     return expr();
   }
-  function evalNode(node, env) {
-    if (node.type === "ATOM") return !!env[node.value];
-    if (node.type === "NOT") return !evalNode(node.child, env);
-    if (node.type === "AND") return evalNode(node.left, env) && evalNode(node.right, env);
-    if (node.type === "OR") return evalNode(node.left, env) || evalNode(node.right, env);
+  function evalNode(node2, env) {
+    if (node2.type === "ATOM") return !!env[node2.value];
+    if (node2.type === "NOT") return !evalNode(node2.child, env);
+    if (node2.type === "AND") return evalNode(node2.left, env) && evalNode(node2.right, env);
+    if (node2.type === "OR") return evalNode(node2.left, env) || evalNode(node2.right, env);
     return false;
   }
   function evaluateFormula(formula, causeValues) {
@@ -11212,8 +11619,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       return {
         varName: v,
         pairs: rawPairs.map(([r1, r2]) => {
-          const key2 = `${r1},${r2}`;
-          if (canonical.has(key2)) return { row1: r1, row2: r2, derived: true };
+          const key3 = `${r1},${r2}`;
+          if (canonical.has(key3)) return { row1: r1, row2: r2, derived: true };
           for (const perm of autGroup) {
             const ir1 = maskForPerm(r1, vars, perm);
             const ir2 = maskForPerm(r2, vars, perm);
@@ -11254,8 +11661,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       return {
         varName: v,
         pairs: rawPairs.map(([r1, r2]) => {
-          const key2 = `${r1},${r2}`;
-          if (canonical.has(key2)) return { row1: r1, row2: r2, derived: true };
+          const key3 = `${r1},${r2}`;
+          if (canonical.has(key3)) return { row1: r1, row2: r2, derived: true };
           for (const perm of autGroup) {
             const ir1 = maskForPerm(r1, vars, perm);
             const ir2 = maskForPerm(r2, vars, perm);
@@ -11291,7 +11698,65 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return orbit.map(fmt2).join(" = ");
   }
 
+  // src/data/logicCoverageRandom.js
+  var CLAUSES = "abcdef".split("");
+  var PARAMS = { a: "x > 0", b: "y > 0", c: "z === 0", d: "w < 10", e: "p !== q", f: "r >= 0" };
+  function bindingsFor(letters) {
+    const out = {};
+    letters.forEach((c) => {
+      out[c] = PARAMS[c];
+    });
+    return out;
+  }
+  function buildExpr(letters, ops) {
+    if (letters.length === 1) return letters[0];
+    let expr = letters[0];
+    for (let i = 1; i < letters.length; i++) expr += ` ${ops[(i - 1) % ops.length]} ${letters[i]}`;
+    if (letters.length >= 3) expr = `(${letters[0]} ${ops[0]} ${letters[1]})` + expr.slice((letters[0] + ` ${ops[0]} ` + letters[1]).length);
+    return expr;
+  }
+  function presetForDifficulty2(tier) {
+    switch (tier) {
+      case "edge":
+        return { expression: "a", bindings: bindingsFor(["a"]) };
+      case "large":
+        return { expression: "((a && b) || (c && d)) || (e && f)", bindings: bindingsFor(["a", "b", "c", "d", "e", "f"]) };
+      case "special":
+        return { expression: "a && b && a", bindings: bindingsFor(["a", "b"]) };
+      case "normal":
+      default:
+        return { expression: "(a && b) || c", bindings: bindingsFor(["a", "b", "c"]) };
+    }
+  }
+  function randomPredicate(tier, rng = makeRng()) {
+    let n;
+    switch (tier) {
+      case "edge":
+        return { expression: "a", bindings: bindingsFor(["a"]) };
+      case "large":
+        n = randInt(rng, 4, 6);
+        break;
+      case "special": {
+        const op = pick(rng, ["&&", "||"]);
+        const letters2 = CLAUSES.slice(0, randInt(rng, 2, 3));
+        return { expression: letters2.join(` ${op} `), bindings: bindingsFor(letters2) };
+      }
+      case "normal":
+      default:
+        n = randInt(rng, 2, 3);
+    }
+    const letters = CLAUSES.slice(0, n);
+    const ops = [pick(rng, ["&&", "||"]), pick(rng, ["&&", "||"])];
+    return { expression: buildExpr(letters, ops), bindings: bindingsFor(letters) };
+  }
+
   // src/components/LogicCoverageExplorer.js
+  var LOGIC_PRESETS = {
+    basic: { criteria: ["pc", "cc", "coc"], view: "truth" },
+    active: { criteria: ["gacc", "cacc", "racc"], view: "truth" },
+    inactive: { criteria: ["gicc", "ricc"], view: "truth" },
+    dnf: { criteria: ["ic", "utpc", "mutpc", "nfpc", "mnfpc", "cutpnfp"], view: "kmap" }
+  };
   var RECENT_KEY = "stvisual.logic.recentPredicates";
   var RECENT_LIMIT = 8;
   function loadRecent() {
@@ -11431,17 +11896,22 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       };
     });
   }
-  function createLogicCoverageExplorer() {
+  function createLogicCoverageExplorer(opts = {}) {
     const root41 = document.createElement("div");
     root41.className = "logic-coverage";
     root41.dataset.testid = "logic-coverage";
+    const presetCfg = opts.preset && LOGIC_PRESETS[opts.preset] ? LOGIC_PRESETS[opts.preset] : null;
+    if (opts.preset && !presetCfg) console.warn("LogicCoverageExplorer: unknown preset", opts.preset);
+    const focus = Boolean(presetCfg);
+    let userEdited = false;
+    const initialPreset = focus ? presetForDifficulty2(getInputDifficulty()) : null;
     const state41 = {
-      expression: logicCoveragePredicates[0].expression,
-      selectedCriterion: "pc",
+      expression: focus ? initialPreset.expression : logicCoveragePredicates[0].expression,
+      selectedCriterion: presetCfg ? presetCfg.criteria[0] : "pc",
       error: null,
       parsed: null,
       analysis: null,
-      bindings: {},
+      bindings: focus ? { ...initialPreset.bindings || {} } : {},
       // clauseName → JS expression string
       bindingRange: [-10, 10],
       // [min, max] for brute-force search
@@ -11579,7 +12049,36 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       if (!set) return /* @__PURE__ */ new Set();
       return new Set(set.tests.map((t4) => `r${t4.row.index}`));
     }
+    function applyExpression(text) {
+      state41.expression = text;
+      recompute();
+      render41();
+    }
+    const exampleControls = focus ? createExampleControls({
+      methodId: "logic",
+      getDefaultText: () => presetForDifficulty2(getInputDifficulty()).expression,
+      presets: logicCoveragePredicates.map((p) => ({ value: p.expression, label: p.name })),
+      onLoad: (text) => {
+        applyExpression(text);
+        userEdited = true;
+        save(localStorage, "logic", text, presetForDifficulty2(getInputDifficulty()).expression, 10);
+        exampleControls.refresh();
+      },
+      onRandom: () => {
+        const { expression } = randomPredicate(getInputDifficulty());
+        applyExpression(expression);
+        userEdited = true;
+      }
+    }) : null;
+    if (focus) {
+      onInputDifficultyChange(() => {
+        if (!userEdited) {
+          applyExpression(presetForDifficulty2(getInputDifficulty()).expression);
+        }
+      });
+    }
     function render41() {
+      var _a;
       const examplesMarkup = logicCoveragePredicates.map((p) => `
         <button
           type="button"
@@ -11613,7 +12112,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             `).join("")}
         </div>
       ` : "";
-      const criteriaMarkup = logicCoverageCriteria.map((c) => `
+      const criteriaMarkup = (presetCfg ? logicCoverageCriteria.filter((c) => presetCfg.criteria.includes(c.id)) : logicCoverageCriteria).map((c) => `
         <button
           type="button"
           class="logic-criterion-btn${state41.selectedCriterion === c.id ? " active" : ""}"
@@ -11627,6 +12126,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const truthTableMarkup = renderTruthTable();
       const summaryMarkup = renderSummary3();
       root41.innerHTML = `
+      ${focus ? `<div class="logic-toolbar" data-testid="logic-toolbar"></div>` : `
       <div class="logic-toolbar">
         <label class="logic-input-label" for="logic-expression-input">Predicate</label>
         <input
@@ -11642,13 +12142,14 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <div class="logic-examples">${examplesMarkup}</div>
         ${recentMarkup}
       </div>
+      `}
 
       ${state41.error ? `<div class="logic-error" data-testid="logic-error">${escapeHtml2(state41.error)}</div>` : ""}
 
       <div class="logic-criteria" role="tablist" aria-label="${t("logic.aria.criteria")}">
         <div class="graph-criterion-row">
           ${criteriaMarkup}
-          ${!state41.error && state41.analysis ? `
+          ${!focus && !state41.error && state41.analysis ? `
             <button type="button" class="quiz-start-btn" data-testid="logic-quiz-start">
               ${t("quiz.start")}
             </button>
@@ -11668,6 +12169,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
 
       <div class="logic-truth-table-wrap">${truthTableMarkup}</div>
     `;
+      if (focus && exampleControls) {
+        (_a = root41.querySelector(".logic-toolbar")) == null ? void 0 : _a.prepend(exampleControls.element);
+      }
       bindEvents40();
     }
     function renderTruthTable() {
@@ -11680,11 +12184,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const majorByRow = /* @__PURE__ */ new Map();
       if (activeSet && ["gacc", "cacc", "racc", "gicc", "ricc"].includes(activeSet.id)) {
         activeSet.tests.forEach((test) => {
-          const key2 = `r${test.row.index}`;
-          if (!majorByRow.has(key2)) {
-            majorByRow.set(key2, /* @__PURE__ */ new Set());
+          const key3 = `r${test.row.index}`;
+          if (!majorByRow.has(key3)) {
+            majorByRow.set(key3, /* @__PURE__ */ new Set());
           }
-          majorByRow.get(key2).add(test.majorClause);
+          majorByRow.get(key3).add(test.majorClause);
         });
       }
       const headerCells = clauses.map((c) => `<th scope="col">${escapeHtml2(c)}</th>`).join("");
@@ -11731,9 +12235,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       if (!set) return "";
       const seenRows = /* @__PURE__ */ new Set();
       const annotated = set.tests.map((t4) => {
-        const key2 = `r${t4.row.index}`;
-        const isDuplicate = seenRows.has(key2);
-        if (!isDuplicate) seenRows.add(key2);
+        const key3 = `r${t4.row.index}`;
+        const isDuplicate = seenRows.has(key3);
+        if (!isDuplicate) seenRows.add(key3);
         return { test: t4, isDuplicate };
       });
       const totalCount = annotated.length;
@@ -11754,7 +12258,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </p>${set.id === "ic" && state41.analysis.negDnf ? `<p class="logic-dnf" data-testid="logic-dnf-neg">${t("logic.dnfNegPrefix")}${dnfToHtml(state41.analysis.negDnf)}
                 <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state41.analysis.negDnf)}${t("logic.textbookClose")}</span>
               </p>` : ""}` : "";
-      const kmapMarkup = state41.parsed && (set.id === "ic" || set.id === "utpc" || set.id === "mutpc" || set.id === "nfpc" || set.id === "mnfpc" || set.id === "cutpnfp") ? set.id === "ic" ? (() => {
+      const kmapMarkup = state41.parsed && (!focus || presetCfg.view === "kmap") && (set.id === "ic" || set.id === "utpc" || set.id === "mutpc" || set.id === "nfpc" || set.id === "mnfpc" || set.id === "cutpnfp") ? set.id === "ic" ? (() => {
         const posTests = set.tests.filter((t4) => t4.polarity === "pos");
         const negTests = set.tests.filter((t4) => t4.polarity === "neg");
         const posGroups = buildImplicantGroups(
@@ -11905,9 +12409,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       if (!activeSet) return "";
       const seenRows = /* @__PURE__ */ new Set();
       const uniqueTests = activeSet.tests.filter((test) => {
-        const key2 = `r${test.row.index}`;
-        if (seenRows.has(key2)) return false;
-        seenRows.add(key2);
+        const key3 = `r${test.row.index}`;
+        if (seenRows.has(key3)) return false;
+        seenRows.add(key3);
         return true;
       });
       const rows = uniqueTests.map((test) => {
@@ -13614,12 +14118,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
 
   // src/components/SyntaxCoverageExplorer.js
   var DEFAULT_OPERATORS = ["AOR", "ROR", "LOR", "UOI"];
-  var STORAGE_KEY2 = "stvisual.syntaxTests.v1";
+  var STORAGE_KEY3 = "stvisual.syntaxTests.v1";
   var SAVE_DEBOUNCE_MS = 600;
   function loadLocalPrograms() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY2);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY3);
       if (!raw) return {};
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : {};
@@ -13630,7 +14134,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   function saveLocalPrograms(programs) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY2, JSON.stringify(programs));
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY3, JSON.stringify(programs));
     } catch {
     }
   }
@@ -13824,10 +14328,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       pendingSave = null;
     }
     function updateCloudIndicator() {
-      const node = root41.querySelector('[data-testid="syntax-cloud-indicator"]');
-      if (!node) return;
-      node.dataset.status = state41.cloudStatus;
-      node.textContent = cloudIndicatorText();
+      const node2 = root41.querySelector('[data-testid="syntax-cloud-indicator"]');
+      if (!node2) return;
+      node2.dataset.status = state41.cloudStatus;
+      node2.textContent = cloudIndicatorText();
     }
     function cloudIndicatorText() {
       if (!state41.cloudUser) return t("syntax.cloud.notSignedIn");
@@ -13860,11 +14364,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
         state41.programs = merged;
         saveLocalPrograms(state41.programs);
-        const current2 = state41.programs[state41.exampleId];
-        if (current2) {
-          state41.params = (_a2 = current2.params) != null ? _a2 : state41.params;
-          state41.body = (_b = current2.body) != null ? _b : state41.body;
-          state41.tests = Array.isArray(current2.tests) ? current2.tests.map((t4) => ({ ...t4 })) : state41.tests;
+        const current3 = state41.programs[state41.exampleId];
+        if (current3) {
+          state41.params = (_a2 = current3.params) != null ? _a2 : state41.params;
+          state41.body = (_b = current3.body) != null ? _b : state41.body;
+          state41.tests = Array.isArray(current3.tests) ? current3.tests.map((t4) => ({ ...t4 })) : state41.tests;
           state41.selectedMutantId = null;
         }
         state41.cloudStatus = "synced";
@@ -14457,27 +14961,27 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   }
   function splitAlternatives(rhsText) {
     const parts = [];
-    let current2 = "";
+    let current3 = "";
     let inString = false;
     for (let i = 0; i < rhsText.length; i++) {
       const ch = rhsText[i];
       if (ch === '"') {
         inString = !inString;
-        current2 += ch;
+        current3 += ch;
         continue;
       }
       if (ch === "\\" && inString) {
-        current2 += ch + (rhsText[++i] || "");
+        current3 += ch + (rhsText[++i] || "");
         continue;
       }
       if (ch === "|" && !inString) {
-        parts.push(current2);
-        current2 = "";
+        parts.push(current3);
+        current3 = "";
         continue;
       }
-      current2 += ch;
+      current3 += ch;
     }
-    parts.push(current2);
+    parts.push(current3);
     return parts.map((p) => p.trim());
   }
   function generateDerivations(grammar, options = {}) {
@@ -14498,35 +15002,35 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const iterationCap = 5e4;
     while (queue.length > 0 && results.length < maxStrings && iterations < iterationCap) {
       iterations++;
-      const node = queue.shift();
-      const firstNT = node.sentential.findIndex((s) => s.kind === "NT");
+      const node2 = queue.shift();
+      const firstNT = node2.sentential.findIndex((s) => s.kind === "NT");
       if (firstNT === -1) {
-        const stringValue = node.sentential.map((s) => s.value).join("");
+        const stringValue = node2.sentential.map((s) => s.value).join("");
         if (!seenStrings.has(stringValue)) {
           seenStrings.add(stringValue);
           results.push({
             string: stringValue,
-            productionsUsed: node.productionsUsed,
-            depth: node.depth
+            productionsUsed: node2.productionsUsed,
+            depth: node2.depth
           });
         }
         continue;
       }
-      if (node.depth >= maxDepth) continue;
-      const sym = node.sentential[firstNT];
+      if (node2.depth >= maxDepth) continue;
+      const sym = node2.sentential[firstNT];
       const matching = grammar.productions.filter((p) => p.lhs === sym.value);
       for (const prod of matching) {
         const next = [
-          ...node.sentential.slice(0, firstNT),
+          ...node2.sentential.slice(0, firstNT),
           ...prod.rhs,
-          ...node.sentential.slice(firstNT + 1)
+          ...node2.sentential.slice(firstNT + 1)
         ];
         const currentTermLen = next.filter((s) => s.kind === "T").reduce((sum, s) => sum + s.value.length, 0);
         if (currentTermLen > maxStringLen) continue;
         queue.push({
           sentential: next,
-          productionsUsed: [...node.productionsUsed, prod.id],
-          depth: node.depth + 1
+          productionsUsed: [...node2.productionsUsed, prod.id],
+          depth: node2.depth + 1
         });
       }
     }
@@ -14658,8 +15162,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const memo = /* @__PURE__ */ new Map();
     function tryNT(name, pos, depth) {
       if (depth > maxDepth) return [];
-      const key2 = `${name}@${pos}@${depth}`;
-      if (memo.has(key2)) return memo.get(key2);
+      const key3 = `${name}@${pos}@${depth}`;
+      if (memo.has(key3)) return memo.get(key3);
       const matches = [];
       for (const prod of grammar.productions) {
         if (prod.lhs !== name) continue;
@@ -14667,7 +15171,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         for (const e of ends) matches.push(e);
       }
       const dedup = [...new Set(matches)];
-      memo.set(key2, dedup);
+      memo.set(key3, dedup);
       return dedup;
     }
     function trySequence(seq, idx, pos, depth) {
@@ -14731,9 +15235,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const seen = /* @__PURE__ */ new Set();
     const push = (operator, mutated, description) => {
       if (mutated === seed) return;
-      const key2 = `${operator}|${mutated}`;
-      if (seen.has(key2)) return;
-      seen.add(key2);
+      const key3 = `${operator}|${mutated}`;
+      if (seen.has(key3)) return;
+      seen.add(key3);
       out.push({
         id: `${operator}:${out.length}`,
         operator,
@@ -14832,7 +15336,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   }
 
   // src/components/GrammarCoverageExplorer.js
-  var STORAGE_KEY3 = "stvisual.grammarPrograms.v1";
+  var STORAGE_KEY4 = "stvisual.grammarPrograms.v1";
   var TAB_STORAGE_KEY = "stvisual.grammarActiveTab.v1";
   var DEFAULT_OPS = ["TR", "SD"];
   var DEFAULT_STRING_OPS = ["REP", "DEL"];
@@ -14864,7 +15368,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   function loadLocalGrammars() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY3);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY4);
       if (!raw) return {};
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : {};
@@ -14875,7 +15379,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   function saveLocalGrammars(programs) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY3, JSON.stringify(programs));
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY4, JSON.stringify(programs));
     } catch {
     }
   }
@@ -15271,80 +15775,80 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   var SPEC_MUTATION_OPERATORS = ["ENF", "BCR", "CRR", "LRO", "UOI", "MCR"];
   var TRUE_NODE = { type: "const", value: true };
   var FALSE_NODE = { type: "const", value: false };
-  function cloneAst(node) {
-    switch (node.type) {
+  function cloneAst(node2) {
+    switch (node2.type) {
       case "clause":
-        return { type: "clause", name: node.name };
+        return { type: "clause", name: node2.name };
       case "const":
-        return { type: "const", value: node.value };
+        return { type: "const", value: node2.value };
       case "not":
-        return { type: "not", operand: cloneAst(node.operand) };
+        return { type: "not", operand: cloneAst(node2.operand) };
       case "and":
       case "or":
-        return { type: node.type, left: cloneAst(node.left), right: cloneAst(node.right) };
+        return { type: node2.type, left: cloneAst(node2.left), right: cloneAst(node2.right) };
       default:
-        throw new Error(`Unknown AST node: ${node.type}`);
+        throw new Error(`Unknown AST node: ${node2.type}`);
     }
   }
-  function evaluateAst2(node, values) {
-    switch (node.type) {
+  function evaluateAst2(node2, values) {
+    switch (node2.type) {
       case "const":
-        return Boolean(node.value);
+        return Boolean(node2.value);
       case "clause": {
-        if (!(node.name in values)) throw new Error(`Missing clause value: ${node.name}`);
-        return Boolean(values[node.name]);
+        if (!(node2.name in values)) throw new Error(`Missing clause value: ${node2.name}`);
+        return Boolean(values[node2.name]);
       }
       case "not":
-        return !evaluateAst2(node.operand, values);
+        return !evaluateAst2(node2.operand, values);
       case "and":
-        return evaluateAst2(node.left, values) && evaluateAst2(node.right, values);
+        return evaluateAst2(node2.left, values) && evaluateAst2(node2.right, values);
       case "or":
-        return evaluateAst2(node.left, values) || evaluateAst2(node.right, values);
+        return evaluateAst2(node2.left, values) || evaluateAst2(node2.right, values);
       default:
-        throw new Error(`Unknown AST node: ${node.type}`);
+        throw new Error(`Unknown AST node: ${node2.type}`);
     }
   }
-  function astToString(node) {
-    switch (node.type) {
+  function astToString(node2) {
+    switch (node2.type) {
       case "const":
-        return node.value ? "true" : "false";
+        return node2.value ? "true" : "false";
       case "clause":
-        return node.name;
+        return node2.name;
       case "not": {
-        const inner = node.operand;
+        const inner = node2.operand;
         const innerStr = astToString(inner);
         const needParen = inner.type === "and" || inner.type === "or";
         return `!${needParen ? `(${innerStr})` : innerStr}`;
       }
       case "and":
       case "or": {
-        const op = node.type === "and" ? "&&" : "||";
+        const op = node2.type === "and" ? "&&" : "||";
         const wrap = (child) => {
           const s = astToString(child);
           if (child.type === "and" || child.type === "or") return `(${s})`;
           return s;
         };
-        return `${wrap(node.left)} ${op} ${wrap(node.right)}`;
+        return `${wrap(node2.left)} ${op} ${wrap(node2.right)}`;
       }
       default:
-        throw new Error(`Unknown AST node: ${node.type}`);
+        throw new Error(`Unknown AST node: ${node2.type}`);
     }
   }
   function* walkWithReplacers(root41) {
-    function* walk(node, replaceInParent) {
-      yield [node, replaceInParent];
-      if (node.type === "not") {
-        yield* walk(node.operand, (newOperand) => {
-          const replaced = { ...node, operand: newOperand };
+    function* walk(node2, replaceInParent) {
+      yield [node2, replaceInParent];
+      if (node2.type === "not") {
+        yield* walk(node2.operand, (newOperand) => {
+          const replaced = { ...node2, operand: newOperand };
           return replaceInParent(replaced);
         });
-      } else if (node.type === "and" || node.type === "or") {
-        yield* walk(node.left, (newLeft) => {
-          const replaced = { ...node, left: newLeft };
+      } else if (node2.type === "and" || node2.type === "or") {
+        yield* walk(node2.left, (newLeft) => {
+          const replaced = { ...node2, left: newLeft };
           return replaceInParent(replaced);
         });
-        yield* walk(node.right, (newRight) => {
-          const replaced = { ...node, right: newRight };
+        yield* walk(node2.right, (newRight) => {
+          const replaced = { ...node2, right: newRight };
           return replaceInParent(replaced);
         });
       }
@@ -15363,9 +15867,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const push = (operator, ast, description) => {
       const text = astToString(ast);
       if (text === originalStr) return;
-      const key2 = `${operator}|${text}`;
-      if (seenStrings.has(key2)) return;
-      seenStrings.add(key2);
+      const key3 = `${operator}|${text}`;
+      if (seenStrings.has(key3)) return;
+      seenStrings.add(key3);
       mutants.push({
         id: `${operator}:${mutants.length}`,
         operator,
@@ -15377,27 +15881,27 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     if (ops.has("ENF")) {
       push("ENF", { type: "not", operand: cloneAst(parsed.ast) }, "Negate the entire predicate");
     }
-    for (const [node, replace] of walkWithReplacers(parsed.ast)) {
-      if (ops.has("BCR") && node.type === "clause") {
-        push("BCR", replace(TRUE_NODE), `Replace clause '${node.name}' with true`);
-        push("BCR", replace(FALSE_NODE), `Replace clause '${node.name}' with false`);
+    for (const [node2, replace] of walkWithReplacers(parsed.ast)) {
+      if (ops.has("BCR") && node2.type === "clause") {
+        push("BCR", replace(TRUE_NODE), `Replace clause '${node2.name}' with true`);
+        push("BCR", replace(FALSE_NODE), `Replace clause '${node2.name}' with false`);
       }
-      if (ops.has("CRR") && node.type === "clause") {
+      if (ops.has("CRR") && node2.type === "clause") {
         for (const other of parsed.clauses) {
-          if (other === node.name) continue;
-          push("CRR", replace({ type: "clause", name: other }), `Replace clause '${node.name}' with '${other}'`);
+          if (other === node2.name) continue;
+          push("CRR", replace({ type: "clause", name: other }), `Replace clause '${node2.name}' with '${other}'`);
         }
       }
-      if (ops.has("LRO") && (node.type === "and" || node.type === "or")) {
-        const swapped = node.type === "and" ? "or" : "and";
-        push("LRO", replace({ ...node, type: swapped }), `Replace ${node.type.toUpperCase()} with ${swapped.toUpperCase()}`);
+      if (ops.has("LRO") && (node2.type === "and" || node2.type === "or")) {
+        const swapped = node2.type === "and" ? "or" : "and";
+        push("LRO", replace({ ...node2, type: swapped }), `Replace ${node2.type.toUpperCase()} with ${swapped.toUpperCase()}`);
       }
-      if (ops.has("UOI") && node.type === "clause") {
-        push("UOI", replace({ type: "not", operand: { type: "clause", name: node.name } }), `Insert NOT around clause '${node.name}'`);
+      if (ops.has("UOI") && node2.type === "clause") {
+        push("UOI", replace({ type: "not", operand: { type: "clause", name: node2.name } }), `Insert NOT around clause '${node2.name}'`);
       }
-      if (ops.has("MCR") && (node.type === "and" || node.type === "or")) {
-        push("MCR", replace(cloneAst(node.left)), `Drop right operand of ${node.type.toUpperCase()} (keep left)`);
-        push("MCR", replace(cloneAst(node.right)), `Drop left operand of ${node.type.toUpperCase()} (keep right)`);
+      if (ops.has("MCR") && (node2.type === "and" || node2.type === "or")) {
+        push("MCR", replace(cloneAst(node2.left)), `Drop right operand of ${node2.type.toUpperCase()} (keep left)`);
+        push("MCR", replace(cloneAst(node2.right)), `Drop left operand of ${node2.type.toUpperCase()} (keep right)`);
       }
     }
     return mutants;
@@ -15542,7 +16046,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   }
 
   // src/components/SpecMutationExplorer.js
-  var STORAGE_KEY4 = "stvisual.specMutation.v1";
+  var STORAGE_KEY5 = "stvisual.specMutation.v1";
   var DEFAULT_PREDICATE = "(a || b) && c";
   var DEFAULT_OPS2 = ["ENF", "BCR", "LRO", "UOI"];
   var SPEC_CATEGORIES = [
@@ -15833,7 +16337,7 @@ INVARSPEC !(x & y)`
   function loadSaved() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY4);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY5);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -15844,7 +16348,7 @@ INVARSPEC !(x & y)`
   function persist(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY4, JSON.stringify({
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY5, JSON.stringify({
         text: state41.text,
         operators: [...state41.operators],
         activeCategory: state41.activeCategory,
@@ -16355,41 +16859,41 @@ INVARSPEC !(x & y)`
     "/": 6,
     "%": 6
   };
-  function exprToString(node, parentPrec = 0) {
-    if (!node) return "";
-    if (node.kind === "num") return String(node.value);
-    if (node.kind === "bool") return node.value ? "true" : "false";
-    if (node.kind === "var") return node.name;
-    if (node.kind === "unary") {
-      const inner = exprToString(node.operand, 7);
-      const text = `${node.op}${inner}`;
+  function exprToString(node2, parentPrec = 0) {
+    if (!node2) return "";
+    if (node2.kind === "num") return String(node2.value);
+    if (node2.kind === "bool") return node2.value ? "true" : "false";
+    if (node2.kind === "var") return node2.name;
+    if (node2.kind === "unary") {
+      const inner = exprToString(node2.operand, 7);
+      const text = `${node2.op}${inner}`;
       return parentPrec > 7 ? `(${text})` : text;
     }
-    if (node.kind === "binary") {
-      const prec = PRECEDENCE[node.op] || 0;
-      const text = `${exprToString(node.left, prec)} ${node.op} ${exprToString(node.right, prec + 1)}`;
+    if (node2.kind === "binary") {
+      const prec = PRECEDENCE[node2.op] || 0;
+      const text = `${exprToString(node2.left, prec)} ${node2.op} ${exprToString(node2.right, prec + 1)}`;
       return parentPrec > prec ? `(${text})` : text;
     }
     return "?";
   }
-  function evalExpr(node, env) {
-    if (node.kind === "num") return node.value;
-    if (node.kind === "bool") return node.value;
-    if (node.kind === "var") {
-      if (!(node.name in env)) {
-        throw new Error(L2(`Unbound variable: ${node.name}`, `\u672A\u5B9A\u7FA9\u8B8A\u6578\uFF1A${node.name}`));
+  function evalExpr(node2, env) {
+    if (node2.kind === "num") return node2.value;
+    if (node2.kind === "bool") return node2.value;
+    if (node2.kind === "var") {
+      if (!(node2.name in env)) {
+        throw new Error(L2(`Unbound variable: ${node2.name}`, `\u672A\u5B9A\u7FA9\u8B8A\u6578\uFF1A${node2.name}`));
       }
-      return env[node.name];
+      return env[node2.name];
     }
-    if (node.kind === "unary") {
-      const v = evalExpr(node.operand, env);
-      if (node.op === "!") return !v;
-      if (node.op === "-") return -v;
+    if (node2.kind === "unary") {
+      const v = evalExpr(node2.operand, env);
+      if (node2.op === "!") return !v;
+      if (node2.op === "-") return -v;
     }
-    if (node.kind === "binary") {
-      const L_ = evalExpr(node.left, env);
-      const R_ = evalExpr(node.right, env);
-      switch (node.op) {
+    if (node2.kind === "binary") {
+      const L_ = evalExpr(node2.left, env);
+      const R_ = evalExpr(node2.right, env);
+      switch (node2.op) {
         case "+":
           return L_ + R_;
         case "-":
@@ -16417,29 +16921,29 @@ INVARSPEC !(x & y)`
         case "||":
           return Boolean(L_) || Boolean(R_);
         default:
-          throw new Error(`Unknown op ${node.op}`);
+          throw new Error(`Unknown op ${node2.op}`);
       }
     }
-    throw new Error(`Unknown node ${node.kind}`);
+    throw new Error(`Unknown node ${node2.kind}`);
   }
-  function substitute(node, env) {
-    if (node.kind === "num" || node.kind === "bool") return node;
-    if (node.kind === "var") return env[node.name] ? cloneExpr(env[node.name]) : node;
-    if (node.kind === "unary") return { kind: "unary", op: node.op, operand: substitute(node.operand, env) };
-    if (node.kind === "binary") {
-      return { kind: "binary", op: node.op, left: substitute(node.left, env), right: substitute(node.right, env) };
+  function substitute(node2, env) {
+    if (node2.kind === "num" || node2.kind === "bool") return node2;
+    if (node2.kind === "var") return env[node2.name] ? cloneExpr(env[node2.name]) : node2;
+    if (node2.kind === "unary") return { kind: "unary", op: node2.op, operand: substitute(node2.operand, env) };
+    if (node2.kind === "binary") {
+      return { kind: "binary", op: node2.op, left: substitute(node2.left, env), right: substitute(node2.right, env) };
     }
-    return node;
+    return node2;
   }
-  function cloneExpr(node) {
-    if (!node) return node;
-    if (node.kind === "num" || node.kind === "bool") return { ...node };
-    if (node.kind === "var") return { ...node };
-    if (node.kind === "unary") return { kind: "unary", op: node.op, operand: cloneExpr(node.operand) };
-    if (node.kind === "binary") {
-      return { kind: "binary", op: node.op, left: cloneExpr(node.left), right: cloneExpr(node.right) };
+  function cloneExpr(node2) {
+    if (!node2) return node2;
+    if (node2.kind === "num" || node2.kind === "bool") return { ...node2 };
+    if (node2.kind === "var") return { ...node2 };
+    if (node2.kind === "unary") return { kind: "unary", op: node2.op, operand: cloneExpr(node2.operand) };
+    if (node2.kind === "binary") {
+      return { kind: "binary", op: node2.op, left: cloneExpr(node2.left), right: cloneExpr(node2.right) };
     }
-    return node;
+    return node2;
   }
   function negate(expr) {
     if (expr.kind === "unary" && expr.op === "!") return expr.operand;
@@ -16594,8 +17098,8 @@ INVARSPEC !(x & y)`
       }
       step2([block], 0, env, pc, branches);
     }
-    function describeBranch(node) {
-      return exprToString(node);
+    function describeBranch(node2) {
+      return exprToString(node2);
     }
     function record2(env, pc, branches, returnExpr) {
       const id = `path-${pathIdSeq}`;
@@ -16703,23 +17207,23 @@ INVARSPEC !(x & y)`
     const decisions = [];
     const seenNodes = /* @__PURE__ */ new Set();
     const seenEdges = /* @__PURE__ */ new Set();
-    let current2 = cfg.startNodeId || "S";
+    let current3 = cfg.startNodeId || "S";
     let branchIdx = 0;
     let unresolved = 0;
     const HARD_CAP = 4096;
     for (let step2 = 0; step2 < HARD_CAP; step2 += 1) {
-      const node = nodeById.get(current2);
-      if (!node) break;
-      if (!seenNodes.has(current2)) {
-        seenNodes.add(current2);
-        visitedNodes.push(current2);
+      const node2 = nodeById.get(current3);
+      if (!node2) break;
+      if (!seenNodes.has(current3)) {
+        seenNodes.add(current3);
+        visitedNodes.push(current3);
       }
-      if (current2 === (cfg.endNodeId || "T")) break;
-      const outs = outgoing3.get(current2) || [];
+      if (current3 === (cfg.endNodeId || "T")) break;
+      const outs = outgoing3.get(current3) || [];
       if (outs.length === 0) break;
       let chosen;
-      if (node.kind === "decision" && outs.length >= 2) {
-        const isLoop = loopHeads.has(current2);
+      if (node2.kind === "decision" && outs.length >= 2) {
+        const isLoop = loopHeads.has(current3);
         const branch = branches[branchIdx];
         if (!branch) {
           unresolved += 1;
@@ -16729,7 +17233,7 @@ INVARSPEC !(x & y)`
           const taken = Boolean(branch.taken);
           const idx = isLoop ? taken ? 1 : 0 : taken ? 0 : 1;
           chosen = outs[Math.min(idx, outs.length - 1)];
-          decisions.push({ nodeId: current2, edgeId: chosen.id, taken, loop: isLoop });
+          decisions.push({ nodeId: current3, edgeId: chosen.id, taken, loop: isLoop });
         }
       } else {
         chosen = outs[0];
@@ -16739,7 +17243,7 @@ INVARSPEC !(x & y)`
         seenEdges.add(chosen.id);
         visitedEdges.push(chosen.id);
       }
-      current2 = chosen.to;
+      current3 = chosen.to;
     }
     return {
       nodes: visitedNodes,
@@ -16805,11 +17309,11 @@ INVARSPEC !(x & y)`
       const start = trimToCircle2(toNode, fromNode, NODE_R3);
       return `<line class="${cls}" x1="${start.x}" y1="${start.y}" x2="${end.x}" y2="${end.y}" marker-end="url(#${marker})" data-testid="${idPrefix}-edge-${edge.id}"></line>`;
     }).join("");
-    const nodes = cfg.nodes.map((node) => {
-      const active = activeNodes.has(node.id);
+    const nodes = cfg.nodes.map((node2) => {
+      const active = activeNodes.has(node2.id);
       const cls = `graph-node${active ? " graph-node--active" : ""}`;
-      const title = node.sourceLine ? `<title>Line ${node.sourceLine}: ${escapeXml2(node.sourceText || node.label)}</title>` : "";
-      return `<g class="${cls}" data-testid="${idPrefix}-node-${node.id}">${title}<circle cx="${node.x}" cy="${node.y}" r="${NODE_R3}"></circle><text x="${node.x}" y="${node.y + 5}" text-anchor="middle">${escapeXml2(node.label)}</text></g>`;
+      const title = node2.sourceLine ? `<title>Line ${node2.sourceLine}: ${escapeXml2(node2.sourceText || node2.label)}</title>` : "";
+      return `<g class="${cls}" data-testid="${idPrefix}-node-${node2.id}">${title}<circle cx="${node2.x}" cy="${node2.y}" r="${NODE_R3}"></circle><text x="${node2.x}" y="${node2.y + 5}" text-anchor="middle">${escapeXml2(node2.label)}</text></g>`;
     }).join("");
     return `
     <svg viewBox="${minX} ${minY} ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${escapeXml2(ariaLabel)}" style="${widthStyle}">
@@ -16828,14 +17332,14 @@ INVARSPEC !(x & y)`
   }
 
   // src/components/SymbolicExecutionExplorer.js
-  var STORAGE_KEY5 = "stvisual.symbex.v1";
+  var STORAGE_KEY6 = "stvisual.symbex.v1";
   function escapeHtml6(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadSaved2() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY5);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY6);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -16846,7 +17350,7 @@ INVARSPEC !(x & y)`
   function persist2(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY5, JSON.stringify({
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY6, JSON.stringify({
         sourceCode: state41.sourceCode,
         exampleId: state41.exampleId,
         maxLoopUnroll: state41.maxLoopUnroll,
@@ -17451,14 +17955,14 @@ INVARSPEC !(x & y)`
   }
 
   // src/components/ConcolicExecutionExplorer.js
-  var STORAGE_KEY6 = "stvisual.concolic.v1";
+  var STORAGE_KEY7 = "stvisual.concolic.v1";
   function escapeHtml7(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadSaved3() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY6);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY7);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -17469,7 +17973,7 @@ INVARSPEC !(x & y)`
   function persist3(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY6, JSON.stringify({
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY7, JSON.stringify({
         sourceCode: state41.sourceCode,
         exampleId: state41.exampleId,
         seedText: state41.seedText,
@@ -17956,9 +18460,9 @@ INVARSPEC !(x & y)`
   function mutateInput(input) {
     const keys = Object.keys(input);
     if (!keys.length) return { ...input };
-    const key2 = keys[Math.floor(Math.random() * keys.length)];
+    const key3 = keys[Math.floor(Math.random() * keys.length)];
     const mut = MUTATIONS[Math.floor(Math.random() * MUTATIONS.length)];
-    return { ...input, [key2]: mut(input[key2]) };
+    return { ...input, [key3]: mut(input[key3]) };
   }
   function branchKey(branches) {
     return branches.map((b) => b.taken ? "1" : "0").join("");
@@ -18039,7 +18543,7 @@ INVARSPEC !(x & y)`
     };
   }
   function formatInput(input) {
-    return Object.entries(input).map(([key2, value]) => `${key2}=${JSON.stringify(value)}`).join(", ");
+    return Object.entries(input).map(([key3, value]) => `${key3}=${JSON.stringify(value)}`).join(", ");
   }
   function formatOutput(output) {
     if (output === null || output === void 0) {
@@ -18056,14 +18560,14 @@ INVARSPEC !(x & y)`
   }
 
   // src/components/FuzzTestingExplorer.js
-  var STORAGE_KEY7 = "stvisual.fuzz.v1";
+  var STORAGE_KEY8 = "stvisual.fuzz.v1";
   function escapeHtml8(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadSaved4() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY7);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY8);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -18075,7 +18579,7 @@ INVARSPEC !(x & y)`
     var _a;
     try {
       (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(
-        STORAGE_KEY7,
+        STORAGE_KEY8,
         JSON.stringify({
           sourceCode: state41.sourceCode,
           exampleId: state41.exampleId,
@@ -18807,7 +19311,7 @@ INVARSPEC !(x & y)`
   }
 
   // src/components/TestGenerationExplorer.js
-  var STORAGE_KEY8 = "stvisual.testgen.v1";
+  var STORAGE_KEY9 = "stvisual.testgen.v1";
   var DEFAULT_CRITERION = "edge";
   var CRITERIA = [
     { id: "node", group: "structural", labelKey: "graph.coverage.node" },
@@ -18825,7 +19329,7 @@ INVARSPEC !(x & y)`
   function loadSaved5() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY8);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY9);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -18836,7 +19340,7 @@ INVARSPEC !(x & y)`
   function persist5(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY8, JSON.stringify({
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY9, JSON.stringify({
         exampleId: state41.exampleId,
         sourceCode: state41.sourceCode,
         criterion: state41.criterion,
@@ -19435,7 +19939,7 @@ ${cases}
   }
 
   // src/components/BoundaryValueExplorer.js
-  var STORAGE_KEY9 = "stvisual.bva.v1";
+  var STORAGE_KEY10 = "stvisual.bva.v1";
   var PARAM_LIMIT = 5;
   var EXAMPLES = [
     {
@@ -19476,7 +19980,7 @@ ${cases}
   function loadSaved6() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY9);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY10);
       return raw ? JSON.parse(raw) : null;
     } catch {
       return null;
@@ -19485,7 +19989,7 @@ ${cases}
   function persist6(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY9, JSON.stringify({
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY10, JSON.stringify({
         exampleId: state41.exampleId,
         params: state41.params,
         robust: state41.robust
@@ -19756,7 +20260,7 @@ ${cases}
   }
 
   // src/components/EquivalenceClassExplorer.js
-  var STORAGE_KEY10 = "stvisual.ec.v1";
+  var STORAGE_KEY11 = "stvisual.ec.v1";
   var EXAMPLES2 = [
     {
       id: "nextDate",
@@ -19840,7 +20344,7 @@ ${cases}
   function loadSaved7() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY10);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY11);
       return raw ? JSON.parse(raw) : null;
     } catch {
       return null;
@@ -19849,7 +20353,7 @@ ${cases}
   function persist7(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY10, JSON.stringify({
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY11, JSON.stringify({
         exampleId: state41.exampleId,
         params: state41.params,
         mode: state41.mode
@@ -20251,10 +20755,10 @@ ${cases}
       let guard = 0;
       while (guard++ < 1e3) {
         let target = null;
-        for (const key2 of uncovered) {
-          const parts2 = key2.split("\0");
+        for (const key3 of uncovered) {
+          const parts2 = key3.split("\0");
           if (parseInt(parts2[0]) === k || parseInt(parts2[2]) === k) {
-            target = key2;
+            target = key3;
             break;
           }
         }
@@ -20395,8 +20899,8 @@ ${cases}
           let gain = 0;
           for (const combo of indexCombos) {
             if (!combo.every((idx) => trial[characteristics[idx].id] !== void 0)) continue;
-            const key2 = tupleKey(combo, combo.map((idx) => trial[characteristics[idx].id]));
-            if (uncovered.has(key2)) gain += 1;
+            const key3 = tupleKey(combo, combo.map((idx) => trial[characteristics[idx].id]));
+            if (uncovered.has(key3)) gain += 1;
           }
           if (gain > bestGain) {
             bestGain = gain;
@@ -20466,7 +20970,7 @@ ${cases}
     _uid += 1;
     return `i${_uid}`;
   }
-  function esc(value = "") {
+  function esc2(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function idmFromExample(ex) {
@@ -20520,8 +21024,8 @@ ${cases}
       ${ISP_EXAMPLES.map((ex) => `
         <button type="button"
           class="isp-chip${exampleId === ex.id ? " isp-chip--active" : ""}"
-          data-testid="isp-example-${esc(ex.id)}" data-isp-example="${esc(ex.id)}">
-          ${esc(t(ex.nameKey))}
+          data-testid="isp-example-${esc2(ex.id)}" data-isp-example="${esc2(ex.id)}">
+          ${esc2(t(ex.nameKey))}
         </button>`).join("")}
     </div>`;
     }
@@ -20529,30 +21033,30 @@ ${cases}
       const baseInteractive = criterion === "bcc" || criterion === "mbcc";
       const rows = idm.map((c, ci) => `
       <div class="isp-char-row" data-testid="isp-characteristic-${ci}">
-        <input class="isp-char-name" data-isp-char-name="${esc(c.id)}" value="${esc(c.name)}" />
+        <input class="isp-char-name" data-isp-char-name="${esc2(c.id)}" value="${esc2(c.name)}" />
         <div class="isp-block-bar">
           ${c.blocks.map((b) => `
             <span class="isp-block${c.baseBlockIds.includes(b.id) ? " isp-block--base" : ""}${baseInteractive ? " isp-block--base-interactive" : ""}"
-              data-testid="isp-block-${esc(c.id)}-${esc(b.id)}"
-              data-isp-block="${esc(c.id)}:${esc(b.id)}">
-              ${esc(b.label)}
-              <button type="button" class="isp-block-x" data-isp-block-remove="${esc(c.id)}:${esc(b.id)}">\xD7</button>
+              data-testid="isp-block-${esc2(c.id)}-${esc2(b.id)}"
+              data-isp-block="${esc2(c.id)}:${esc2(b.id)}">
+              ${esc2(b.label)}
+              <button type="button" class="isp-block-x" data-isp-block-remove="${esc2(c.id)}:${esc2(b.id)}">\xD7</button>
             </span>`).join("")}
-          <input class="isp-add-block" data-testid="isp-add-block-${ci}" data-isp-add-block="${esc(c.id)}"
-            placeholder="${esc(t("isp.addBlock"))}" value="${esc(blockDraft[c.id] || "")}" />
+          <input class="isp-add-block" data-testid="isp-add-block-${ci}" data-isp-add-block="${esc2(c.id)}"
+            placeholder="${esc2(t("isp.addBlock"))}" value="${esc2(blockDraft[c.id] || "")}" />
         </div>
-        <button type="button" class="isp-char-x" data-isp-char-remove="${esc(c.id)}"
-          title="${esc(t("isp.removeCharacteristic"))}">\xD7</button>
+        <button type="button" class="isp-char-x" data-isp-char-remove="${esc2(c.id)}"
+          title="${esc2(t("isp.removeCharacteristic"))}">\xD7</button>
       </div>`).join("");
       return `<div class="isp-idm" data-testid="isp-idm">
       <div class="isp-idm-head">
-        <h3>${esc(t("isp.idmTitle"))}</h3>
+        <h3>${esc2(t("isp.idmTitle"))}</h3>
         <button type="button" class="isp-add-char" data-testid="isp-add-characteristic" data-isp-add-char>
-          ${esc(t("isp.addCharacteristic"))}
+          ${esc2(t("isp.addCharacteristic"))}
         </button>
       </div>
       ${rows}
-      ${baseInteractive ? `<p class="isp-hint">${esc(t("isp.baseHint"))}</p>` : ""}
+      ${baseInteractive ? `<p class="isp-hint">${esc2(t("isp.baseHint"))}</p>` : ""}
     </div>`;
     }
     function renderCriterionSelector() {
@@ -20560,15 +21064,15 @@ ${cases}
       <button type="button"
         class="isp-criterion-btn${criterion === c ? " isp-criterion-btn--active" : ""}"
         data-testid="isp-criterion-${c}" data-isp-criterion="${c}">
-        ${esc(t(`isp.criterion.${c}`))}
+        ${esc2(t(`isp.criterion.${c}`))}
       </button>`).join("");
       const tStep = criterion === "twc" ? `
-      <label class="isp-twise-t">${esc(t("isp.twiseT"))}
+      <label class="isp-twise-t">${esc2(t("isp.twiseT"))}
         <input type="number" min="2" max="${idm.length}" value="${twiseTVal}"
           data-testid="isp-twise-t" data-isp-twise-t />
       </label>` : "";
       return `<div class="isp-criterion-bar">
-      <span class="isp-criterion-title">${esc(t("isp.criterionTitle"))}</span>
+      <span class="isp-criterion-title">${esc2(t("isp.criterionTitle"))}</span>
       ${btns}${tStep}
     </div>`;
     }
@@ -20576,30 +21080,30 @@ ${cases}
       const err = idmError();
       if (err) {
         return `<div class="isp-test-set" data-testid="isp-test-set">
-        <p class="isp-invalid">${esc(t(err))}</p></div>`;
+        <p class="isp-invalid">${esc2(t(err))}</p></div>`;
       }
       if (criterion === "acoc") {
         const acocCount = countFor("acoc");
         if (acocCount > MAX_ENUMERATE) {
           return `<div class="isp-test-set" data-testid="isp-test-set">
-          <h3>${esc(t("isp.testSetTitle"))} \u2014 ${acocCount} ${esc(t("isp.testCountUnit"))}</h3>
-          <p class="isp-invalid">${esc(t("isp.tooLarge"))}</p></div>`;
+          <h3>${esc2(t("isp.testSetTitle"))} \u2014 ${acocCount} ${esc2(t("isp.testCountUnit"))}</h3>
+          <p class="isp-invalid">${esc2(t("isp.tooLarge"))}</p></div>`;
         }
       }
       const tests = generate(criterion);
       const shown = tests.slice(0, MAX_ROWS);
-      const header = idm.map((c) => `<th>${esc(c.name)}</th>`).join("");
+      const header = idm.map((c) => `<th>${esc2(c.name)}</th>`).join("");
       const rows = shown.map((test, ri) => `
       <tr data-testid="isp-test-row-${ri}">
         <td>${ri + 1}</td>
         ${idm.map((c) => {
         const block = c.blocks.find((b) => b.id === test[c.id]);
-        return `<td>${esc(block ? block.label : "")}</td>`;
+        return `<td>${esc2(block ? block.label : "")}</td>`;
       }).join("")}
       </tr>`).join("");
-      const capNote = tests.length > MAX_ROWS ? `<p class="isp-cap-note">${esc(t("isp.capNote"))}</p>` : "";
+      const capNote = tests.length > MAX_ROWS ? `<p class="isp-cap-note">${esc2(t("isp.capNote"))}</p>` : "";
       return `<div class="isp-test-set" data-testid="isp-test-set">
-      <h3>${esc(t("isp.testSetTitle"))} \u2014 ${tests.length} ${esc(t("isp.testCountUnit"))}</h3>
+      <h3>${esc2(t("isp.testSetTitle"))} \u2014 ${tests.length} ${esc2(t("isp.testCountUnit"))}</h3>
       <table class="isp-test-table">
         <thead><tr><th>#</th>${header}</tr></thead>
         <tbody>${rows}</tbody>
@@ -20611,10 +21115,10 @@ ${cases}
       const counts = CRITERIA2.map((c) => ({ c, n: countFor(c) }));
       const max = Math.max(1, ...counts.map((x) => x.n));
       return `<div class="isp-count" data-testid="isp-count">
-      <h3>${esc(t("isp.countComparison"))}</h3>
+      <h3>${esc2(t("isp.countComparison"))}</h3>
       ${counts.map(({ c, n }) => `
         <div class="isp-count-row${criterion === c ? " isp-count-row--active" : ""}">
-          <span class="isp-count-label">${esc(t(`isp.criterion.${c}`))}</span>
+          <span class="isp-count-label">${esc2(t(`isp.criterion.${c}`))}</span>
           <span class="isp-count-bar" data-testid="isp-count-bar-${c}"
             style="width:${Math.round(n / max * 100)}%"></span>
           <span class="isp-count-n">${n}</span>
@@ -20623,34 +21127,34 @@ ${cases}
     }
     function renderLattice() {
       return `<div class="isp-lattice" data-testid="isp-lattice">
-      <h3>${esc(t("isp.subsumption"))}</h3>
+      <h3>${esc2(t("isp.subsumption"))}</h3>
       <div class="isp-lattice-graph">
         ${CRITERIA2.map((c) => `
           <span class="isp-lattice-node isp-lattice-node--${c}${criterion === c ? " isp-lattice-node--active" : ""}"
-            data-testid="isp-lattice-node-${c}">${esc(t(`isp.criterion.${c}`))}</span>`).join("")}
+            data-testid="isp-lattice-node-${c}">${esc2(t(`isp.criterion.${c}`))}</span>`).join("")}
       </div>
-      <p class="isp-hint">${esc(t("isp.subsumptionHint"))}</p>
+      <p class="isp-hint">${esc2(t("isp.subsumptionHint"))}</p>
     </div>`;
     }
     function renderQuiz40() {
       if (!quiz.active) {
-        return `<button type="button" class="isp-quiz-start" data-testid="isp-quiz-start">${esc(t("quiz.start"))}</button>`;
+        return `<button type="button" class="isp-quiz-start" data-testid="isp-quiz-start">${esc2(t("quiz.start"))}</button>`;
       }
       if (quiz.phase === "done") {
         const correct = quiz.answer === "c";
         return `<div class="isp-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="isp-quiz-result">
-        <p>${correct ? esc(t("quiz.correct")) : esc(t("quiz.wrong"))}</p>
-        <button type="button" data-testid="isp-quiz-close">${esc(t("quiz.close"))}</button>
+        <p>${correct ? esc2(t("quiz.correct")) : esc2(t("quiz.wrong"))}</p>
+        <button type="button" data-testid="isp-quiz-close">${esc2(t("quiz.close"))}</button>
       </div>`;
       }
       return `<div class="isp-quiz" data-testid="isp-quiz">
-      <p>${esc(t("isp.quiz.prompt"))}</p>
+      <p>${esc2(t("isp.quiz.prompt"))}</p>
       ${["a", "b", "c", "d"].map((k) => `
         <label class="isp-quiz-option">
           <input type="radio" name="isp-quiz" value="${k}" ${quiz.answer === k ? "checked" : ""} />
-          ${esc(t(`isp.quiz.${k}`))}
+          ${esc2(t(`isp.quiz.${k}`))}
         </label>`).join("")}
-      <button type="button" data-testid="isp-quiz-submit" ${!quiz.answer ? "disabled" : ""}>${esc(t("quiz.submit"))}</button>
+      <button type="button" data-testid="isp-quiz-submit" ${!quiz.answer ? "disabled" : ""}>${esc2(t("quiz.submit"))}</button>
     </div>`;
     }
     function render41() {
@@ -20665,7 +21169,7 @@ ${cases}
         </div>
         ${renderLattice()}
         <section class="isp-self-test">
-          <h3>${esc(t("quiz.title"))}</h3>
+          <h3>${esc2(t("quiz.title"))}</h3>
           ${renderQuiz40()}
         </section>
       </div>`;
@@ -20786,7 +21290,7 @@ ${cases}
   }
 
   // src/components/DecisionTableExplorer.js
-  var STORAGE_KEY11 = "stvisual.dt.v1";
+  var STORAGE_KEY12 = "stvisual.dt.v1";
   var EXAMPLES3 = [
     {
       id: "login",
@@ -20857,7 +21361,7 @@ ${cases}
       ]
     }
   ];
-  function esc2(v = "") {
+  function esc3(v = "") {
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function deepClone(obj) {
@@ -20866,7 +21370,7 @@ ${cases}
   function loadSaved8() {
     var _a, _b;
     try {
-      return JSON.parse((_b = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY11)) != null ? _b : "null");
+      return JSON.parse((_b = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY12)) != null ? _b : "null");
     } catch {
       return null;
     }
@@ -20874,7 +21378,7 @@ ${cases}
   function persist8(state41) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY11, JSON.stringify({ exampleId: state41.exampleId, conditions: state41.conditions, actions: state41.actions, rules: state41.rules }));
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY12, JSON.stringify({ exampleId: state41.exampleId, conditions: state41.conditions, actions: state41.actions, rules: state41.rules }));
     } catch {
     }
   }
@@ -20914,13 +21418,13 @@ ${cases}
             <span>${t("quiz.dt.label.covered")}</span>
             <input type="number" min="0"
               class="quiz-bva-input${isGraded ? covCorrect ? " quiz-input-correct" : " quiz-input-wrong" : ""}"
-              data-testid="dt-quiz-covered" value="${esc2(dtQuiz.ansCovered)}" ${isGraded ? "readonly" : ""}>
+              data-testid="dt-quiz-covered" value="${esc3(dtQuiz.ansCovered)}" ${isGraded ? "readonly" : ""}>
           </label>
           <label class="quiz-bva-field">
             <span>${t("quiz.dt.label.dup")}</span>
             <input type="number" min="0"
               class="quiz-bva-input${isGraded ? dupCorrect ? " quiz-input-correct" : " quiz-input-wrong" : ""}"
-              data-testid="dt-quiz-dup" value="${esc2(dtQuiz.ansDup)}" ${isGraded ? "readonly" : ""}>
+              data-testid="dt-quiz-dup" value="${esc3(dtQuiz.ansDup)}" ${isGraded ? "readonly" : ""}>
           </label>
         </div>
         ${isGraded ? `
@@ -20938,22 +21442,22 @@ ${cases}
     function renderTable() {
       const tests = generateDecisionTableTests(state41.conditions, state41.actions, state41.rules);
       const validation = validateDecisionTable(state41.conditions, state41.rules);
-      const condHead = state41.conditions.map((c) => `<th class="dt-cond-head">${esc2(c.name)}</th>`).join("");
-      const actHead = state41.actions.map((a) => `<th class="dt-act-head">${esc2(a.name)}</th>`).join("");
+      const condHead = state41.conditions.map((c) => `<th class="dt-cond-head">${esc3(c.name)}</th>`).join("");
+      const actHead = state41.actions.map((a) => `<th class="dt-act-head">${esc3(a.name)}</th>`).join("");
       const rows = tests.map((tc, i) => {
         const rule = state41.rules[i];
         const condCells = state41.conditions.map((c) => {
           var _a2;
           const val = (_a2 = tc.conditions[c.id]) != null ? _a2 : "\u2013";
           const cls = val === "T" || val === "Y" ? " dt-val-true" : val === "F" || val === "N" ? " dt-val-false" : " dt-val-dc";
-          return `<td class="dt-cell${cls}">${esc2(val)}</td>`;
+          return `<td class="dt-cell${cls}">${esc3(val)}</td>`;
         }).join("");
         const actCells = state41.actions.map((a) => {
           const fires = tc.actions.includes(a.id);
           return `<td class="dt-cell${fires ? " dt-act-fire" : ""}">${fires ? "\u2713" : ""}</td>`;
         }).join("");
         return `<tr class="dt-row" data-testid="dt-row-${i}">
-        <td class="dt-rule-label">${esc2(tc.label)}</td>
+        <td class="dt-rule-label">${esc3(tc.label)}</td>
         ${condCells}
         <td class="dt-separator"></td>
         ${actCells}
@@ -20988,7 +21492,7 @@ ${cases}
     function renderConditions() {
       return state41.conditions.map((c, i) => `
       <div class="dt-cond-block" data-testid="dt-cond-${i}">
-        <input class="dt-cond-name" data-cidx="${i}" value="${esc2(c.name)}"
+        <input class="dt-cond-name" data-cidx="${i}" value="${esc3(c.name)}"
           placeholder="${t("dt.condition.name")}" data-testid="dt-cond-name-${i}"/>
         <button class="dt-del-cond-btn" data-del-cond="${i}" aria-label="${t("common.remove")}"
           ${state41.conditions.length <= 1 ? "disabled" : ""} data-testid="dt-del-cond-${i}">\xD7</button>
@@ -20998,7 +21502,7 @@ ${cases}
     function renderActions() {
       return state41.actions.map((a, i) => `
       <div class="dt-act-block" data-testid="dt-action-${i}">
-        <input class="dt-act-name" data-aidx="${i}" value="${esc2(a.name)}"
+        <input class="dt-act-name" data-aidx="${i}" value="${esc3(a.name)}"
           placeholder="${t("dt.action.name")}" data-testid="dt-act-name-${i}"/>
         <button class="dt-del-act-btn" data-del-act="${i}" aria-label="${t("common.remove")}"
           ${state41.actions.length <= 1 ? "disabled" : ""} data-testid="dt-del-act-${i}">\xD7</button>
@@ -21008,7 +21512,7 @@ ${cases}
     function render41() {
       const exBtns = EXAMPLES3.map((ex) => `
       <button type="button" class="dt-example-btn${state41.exampleId === ex.id ? " active" : ""}"
-        data-dt-example="${ex.id}" data-testid="dt-example-${ex.id}">${esc2(ex.name)}</button>
+        data-dt-example="${ex.id}" data-testid="dt-example-${ex.id}">${esc3(ex.name)}</button>
     `).join("");
       root41.innerHTML = `
       <div class="dt-panel">
@@ -21227,7 +21731,7 @@ ${cases}
   }
 
   // src/components/StateTransitionExplorer.js
-  var STORAGE_KEY12 = "stvisual.st.v1";
+  var STORAGE_KEY13 = "stvisual.st.v1";
   var EXAMPLES4 = [
     {
       id: "traffic-light",
@@ -21284,7 +21788,7 @@ ${cases}
       ]
     }
   ];
-  function esc3(v = "") {
+  function esc4(v = "") {
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function deepClone2(o) {
@@ -21293,7 +21797,7 @@ ${cases}
   function loadSaved9() {
     var _a, _b;
     try {
-      return JSON.parse((_b = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY12)) != null ? _b : "null");
+      return JSON.parse((_b = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY13)) != null ? _b : "null");
     } catch {
       return null;
     }
@@ -21301,7 +21805,7 @@ ${cases}
   function persist9(s) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY12, JSON.stringify({ exampleId: s.exampleId, states: s.states, transitions: s.transitions, mode: s.mode }));
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY13, JSON.stringify({ exampleId: s.exampleId, states: s.states, transitions: s.transitions, mode: s.mode }));
     } catch {
     }
   }
@@ -21335,13 +21839,13 @@ ${cases}
           <h4>${t("quiz.st.title")}</h4>
           <button type="button" class="quiz-close-btn" data-testid="st-quiz-close">${t("quiz.close")}</button>
         </div>
-        <p class="quiz-prompt">${t("quiz.st.prompt").replace("{mode}", esc3(modeLabel2))}</p>
+        <p class="quiz-prompt">${t("quiz.st.prompt").replace("{mode}", esc4(modeLabel2))}</p>
         <div class="quiz-bva-inputs">
           <label class="quiz-bva-field">
             <span>${t("quiz.st.label")}</span>
             <input type="number" min="0"
               class="quiz-bva-input${isGraded ? correct ? " quiz-input-correct" : " quiz-input-wrong" : ""}"
-              data-testid="st-quiz-answer" value="${esc3(stQuiz.answer)}" ${isGraded ? "readonly" : ""}>
+              data-testid="st-quiz-answer" value="${esc4(stQuiz.answer)}" ${isGraded ? "readonly" : ""}>
           </label>
         </div>
         ${isGraded ? `
@@ -21383,7 +21887,7 @@ ${cases}
           const mx = from.x, my = from.y - R - 20;
           return `<path d="M${from.x - 12},${from.y - R} Q${mx - 30},${my - 30} ${from.x + 12},${from.y - R}"
           fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#${arrowId})"/>
-          <text x="${mx}" y="${my - 12}" text-anchor="middle" font-size="10" fill="#374151">${esc3(tr.event)}</text>`;
+          <text x="${mx}" y="${my - 12}" text-anchor="middle" font-size="10" fill="#374151">${esc4(tr.event)}</text>`;
         }
         const dx = to.x - from.x, dy = to.y - from.y;
         const len = Math.sqrt(dx * dx + dy * dy) || 1;
@@ -21394,7 +21898,7 @@ ${cases}
         const mx2 = (x1 + x2) / 2 + perpX, my2 = (y1 + y2) / 2 + perpY;
         return `<path d="M${x1},${y1} Q${mx2},${my2} ${x2},${y2}"
         fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#${arrowId})"/>
-        <text x="${mx2}" y="${my2 - 4}" text-anchor="middle" font-size="10" fill="#374151">${esc3(tr.event)}</text>`;
+        <text x="${mx2}" y="${my2 - 4}" text-anchor="middle" font-size="10" fill="#374151">${esc4(tr.event)}</text>`;
       }).join("");
       const nodes = state41.states.map((s) => {
         const p = pos[s.id];
@@ -21402,7 +21906,7 @@ ${cases}
         const stroke = s.initial ? "#0f4c81" : "#9ca3af";
         const sw = s.initial ? 2.5 : 1.5;
         return `<circle cx="${p.x}" cy="${p.y}" r="${R}" fill="#f8fafc" stroke="${stroke}" stroke-width="${sw}"/>
-        <text x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-size="11" fill="#1f2a44" font-weight="600">${esc3(s.name)}</text>`;
+        <text x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-size="11" fill="#1f2a44" font-weight="600">${esc4(s.name)}</text>`;
       }).join("");
       return `<svg viewBox="0 0 ${W} ${H}" class="st-diagram" data-testid="st-diagram"
       xmlns="http://www.w3.org/2000/svg" aria-label="${t("st.diagram.aria")}">
@@ -21413,7 +21917,7 @@ ${cases}
       return state41.states.map((s, i) => `
       <div class="st-state-row" data-testid="st-state-${i}">
         ${s.initial ? `<span class="st-initial-dot" title="${t("st.initial")}">\u25CF</span>` : `<span class="st-initial-dot st-initial-dot--empty" title="${t("st.set.initial")}" data-set-initial="${i}">\u25CB</span>`}
-        <input class="st-state-name" data-sidx="${i}" value="${esc3(s.name)}"
+        <input class="st-state-name" data-sidx="${i}" value="${esc4(s.name)}"
           placeholder="${t("st.state.name")}" data-testid="st-state-name-${i}"/>
         <button class="st-del-btn" data-del-state="${i}" aria-label="${t("common.remove")}"
           ${state41.states.length <= 1 ? "disabled" : ""} data-testid="st-del-state-${i}">\xD7</button>
@@ -21423,15 +21927,15 @@ ${cases}
     function renderTransitionList() {
       return state41.transitions.map((tr, i) => {
         var _a2;
-        const fromNames = state41.states.map((s) => `<option value="${esc3(s.id)}"${tr.from === s.id ? " selected" : ""}>${esc3(s.name)}</option>`).join("");
-        const toNames = state41.states.map((s) => `<option value="${esc3(s.id)}"${tr.to === s.id ? " selected" : ""}>${esc3(s.name)}</option>`).join("");
+        const fromNames = state41.states.map((s) => `<option value="${esc4(s.id)}"${tr.from === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
+        const toNames = state41.states.map((s) => `<option value="${esc4(s.id)}"${tr.to === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
         return `<tr class="st-tr-row" data-testid="st-transition-${i}">
         <td><select class="st-from-sel" data-tidx="${i}" data-testid="st-from-${i}">${fromNames}</select></td>
         <td>\u2192</td>
         <td><select class="st-to-sel" data-tidx="${i}" data-testid="st-to-${i}">${toNames}</select></td>
-        <td><input class="st-event-inp" data-tidx="${i}" value="${esc3(tr.event)}"
+        <td><input class="st-event-inp" data-tidx="${i}" value="${esc4(tr.event)}"
           placeholder="${t("st.transition.event")}" data-testid="st-event-${i}"/></td>
-        <td><input class="st-action-inp" data-tidx="${i}" value="${esc3((_a2 = tr.action) != null ? _a2 : "")}"
+        <td><input class="st-action-inp" data-tidx="${i}" value="${esc4((_a2 = tr.action) != null ? _a2 : "")}"
           placeholder="${t("st.transition.action")}" data-testid="st-action-${i}"/></td>
         <td><button class="st-del-btn" data-del-tr="${i}" aria-label="${t("common.remove")}"
           ${state41.transitions.length <= 1 ? "disabled" : ""} data-testid="st-del-tr-${i}">\xD7</button></td>
@@ -21443,9 +21947,9 @@ ${cases}
       if (state41.mode === "sequence") {
         const rows2 = tests.map((tc) => `
         <tr class="st-test-row" data-testid="st-test-${tc.id}">
-          <td class="st-test-label">${esc3(tc.label)}</td>
-          <td class="st-test-seq">${tc.sequence.map(esc3).join(" \u2192 ")}</td>
-          <td class="st-test-events">${tc.events.map((e) => `<span class="st-event-chip">${esc3(e)}</span>`).join("")}</td>
+          <td class="st-test-label">${esc4(tc.label)}</td>
+          <td class="st-test-seq">${tc.sequence.map(esc4).join(" \u2192 ")}</td>
+          <td class="st-test-events">${tc.events.map((e) => `<span class="st-event-chip">${esc4(e)}</span>`).join("")}</td>
         </tr>
       `).join("");
         return `<table class="st-table" data-testid="st-table">
@@ -21459,11 +21963,11 @@ ${cases}
       }
       const rows = tests.map((tc) => `
       <tr class="st-test-row" data-testid="st-test-${tc.id}">
-        <td class="st-test-label">${esc3(tc.label)}</td>
-        <td>${esc3(tc.from)}</td>
-        <td class="st-event-col"><span class="st-event-chip">${esc3(tc.event)}</span></td>
-        <td>${esc3(tc.to)}</td>
-        <td class="st-action-col">${tc.action ? `<em>${esc3(tc.action)}</em>` : ""}</td>
+        <td class="st-test-label">${esc4(tc.label)}</td>
+        <td>${esc4(tc.from)}</td>
+        <td class="st-event-col"><span class="st-event-chip">${esc4(tc.event)}</span></td>
+        <td>${esc4(tc.to)}</td>
+        <td class="st-action-col">${tc.action ? `<em>${esc4(tc.action)}</em>` : ""}</td>
       </tr>
     `).join("");
       return `<table class="st-table" data-testid="st-table">
@@ -21481,7 +21985,7 @@ ${cases}
       const tests = getTests();
       const exBtns = EXAMPLES4.map((ex) => `
       <button type="button" class="st-example-btn${state41.exampleId === ex.id ? " active" : ""}"
-        data-st-example="${ex.id}" data-testid="st-example-${ex.id}">${esc3(ex.name)}</button>
+        data-st-example="${ex.id}" data-testid="st-example-${ex.id}">${esc4(ex.name)}</button>
     `).join("");
       root41.innerHTML = `
       <div class="st-panel">
@@ -21664,15 +22168,15 @@ ${cases}
     }
     return a;
   }
-  function randInt(lo, hi) {
+  function randInt2(lo, hi) {
     return Math.floor(Math.random() * (hi - lo + 1)) + lo;
   }
   function randArr(len, lo = 1, hi = 20) {
-    return Array.from({ length: len }, () => randInt(lo, hi));
+    return Array.from({ length: len }, () => randInt2(lo, hi));
   }
-  function randStr(len = randInt(3, 10)) {
+  function randStr(len = randInt2(3, 10)) {
     const chars = "abcdefghijklmnopqrstuvwxyz";
-    return Array.from({ length: len }, () => chars[randInt(0, 25)]).join("");
+    return Array.from({ length: len }, () => chars[randInt2(0, 25)]).join("");
   }
   function makeRunner(src, callExpr) {
     try {
@@ -21756,7 +22260,7 @@ function linearSearch(arr, target) {
           formula: "sort(shuffle(A)) == sort(A)",
           desc: "The sorted result should be the same regardless of the input order.",
           descZh: "\u8F38\u5165\u9806\u5E8F\u4E0D\u5F71\u97FF\u6392\u5E8F\u7D50\u679C\u3002",
-          generateInput: () => randArr(randInt(3, 6)),
+          generateInput: () => randArr(randInt2(3, 6)),
           transform: (arr) => shuffle(arr),
           transformLabel: (arr) => `shuffle([${arr}])`,
           check: (o1, o2) => JSON.stringify(o1.value) === JSON.stringify(o2.value),
@@ -21770,7 +22274,7 @@ function linearSearch(arr, target) {
           formula: "sort(reverse(A)) == sort(A)",
           desc: "Reversing the input before sorting gives the same result.",
           descZh: "\u5148\u53CD\u8F49\u518D\u6392\u5E8F\uFF0C\u7D50\u679C\u8207\u76F4\u63A5\u6392\u5E8F\u76F8\u540C\u3002",
-          generateInput: () => randArr(randInt(3, 6)),
+          generateInput: () => randArr(randInt2(3, 6)),
           transform: (arr) => [...arr].reverse(),
           transformLabel: (arr) => `reverse([${arr}])`,
           check: (o1, o2) => JSON.stringify(o1.value) === JSON.stringify(o2.value),
@@ -21784,7 +22288,7 @@ function linearSearch(arr, target) {
           formula: "sort(A\xD7k)[i] == sort(A)[i] \xD7 k",
           desc: "Multiplying all elements by k>0 should scale the sorted output by the same factor.",
           descZh: "\u6240\u6709\u5143\u7D20\u4E58\u4EE5\u6B63\u6574\u6578 k\uFF0C\u6392\u5E8F\u5F8C\u7684\u6BCF\u500B\u5143\u7D20\u4E5F\u6703\u4E58\u4EE5 k\u3002",
-          generateInput: () => randArr(randInt(3, 5), 1, 10),
+          generateInput: () => randArr(randInt2(3, 5), 1, 10),
           transform: (arr) => arr.map((x) => x * 2),
           transformLabel: (arr) => `[${arr}].map(x=>x*2)`,
           check: (o1, o2) => {
@@ -21851,7 +22355,7 @@ function linearSearch(arr, target) {
           formula: "reverse(a+b) == reverse(b)+reverse(a)",
           desc: "The reverse of a concatenation equals the concatenation of the reverses in swapped order.",
           descZh: "\u5169\u500B\u5B57\u4E32\u4E32\u63A5\u5F8C\u53CD\u8F49 = \u5404\u81EA\u53CD\u8F49\u5F8C\u4EE5\u53CD\u5E8F\u4E32\u63A5\u3002",
-          generateInput: () => [randStr(randInt(2, 5)), randStr(randInt(2, 5))],
+          generateInput: () => [randStr(randInt2(2, 5)), randStr(randInt2(2, 5))],
           isConcat: true
         }
       ],
@@ -21872,9 +22376,9 @@ function linearSearch(arr, target) {
           desc: "The triangle type does not depend on the order of the three sides.",
           descZh: "\u4E09\u89D2\u5F62\u985E\u578B\u4E0D\u53D7\u908A\u9577\u8F38\u5165\u9806\u5E8F\u5F71\u97FF\u3002",
           generateInput: () => {
-            const v = randInt(1, 15);
-            const w = randInt(1, 15);
-            const u = randInt(Math.abs(v - w) + 1, v + w - 1) || 1;
+            const v = randInt2(1, 15);
+            const w = randInt2(1, 15);
+            const u = randInt2(Math.abs(v - w) + 1, v + w - 1) || 1;
             return [v, w, u];
           },
           transform: ([a, b, c]) => [c, a, b],
@@ -21891,9 +22395,9 @@ function linearSearch(arr, target) {
           desc: "Scaling all sides by a positive constant k does not change the triangle type.",
           descZh: "\u6240\u6709\u908A\u9577\u540C\u4E58\u4EE5\u6B63\u5E38\u6578\u4E0D\u6539\u8B8A\u4E09\u89D2\u5F62\u985E\u578B\u3002",
           generateInput: () => {
-            const v = randInt(1, 10);
-            const w = randInt(1, 10);
-            const u = randInt(Math.abs(v - w) + 1, v + w - 1) || 1;
+            const v = randInt2(1, 10);
+            const w = randInt2(1, 10);
+            const u = randInt2(Math.abs(v - w) + 1, v + w - 1) || 1;
             return [v, w, u];
           },
           transform: ([a, b, c]) => [a * 2, b * 2, c * 2],
@@ -21919,7 +22423,7 @@ function linearSearch(arr, target) {
           formula: "max(A + k) == max(A) + k",
           desc: "Adding k to every element increases the maximum by exactly k.",
           descZh: "\u6240\u6709\u5143\u7D20\u52A0 k\uFF0C\u6700\u5927\u503C\u4E5F\u52A0 k\u3002",
-          generateInput: () => randArr(randInt(2, 6)),
+          generateInput: () => randArr(randInt2(2, 6)),
           transform: (arr) => arr.map((x) => x + 5),
           transformLabel: (arr) => `[${arr}].map(x=>x+5)`,
           check: (o1, o2) => o1.ok && o2.ok && o2.value === o1.value + 5,
@@ -21933,7 +22437,7 @@ function linearSearch(arr, target) {
           formula: "max(-A) == -min(A)",
           desc: "The maximum of negated elements equals the negation of the minimum.",
           descZh: "\u6240\u6709\u5143\u7D20\u53D6\u8CA0\u5F8C\u7684\u6700\u5927\u503C\u7B49\u65BC\u539F\u9663\u5217\u6700\u5C0F\u503C\u7684\u8CA0\u6578\u3002",
-          generateInput: () => randArr(randInt(2, 5)),
+          generateInput: () => randArr(randInt2(2, 5)),
           transform: (arr) => arr.map((x) => -x),
           transformLabel: (arr) => `[${arr}].map(x=>-x)`,
           check: (o1, o2) => {
@@ -21964,13 +22468,13 @@ function linearSearch(arr, target) {
           desc: "Appending an element that is not the target does not change the search result.",
           descZh: "\u5728\u9663\u5217\u672B\u5C3E\u9644\u52A0\u4E00\u500B\u975E\u76EE\u6A19\u5143\u7D20\uFF0C\u641C\u5C0B\u7D50\u679C\u4E0D\u8B8A\u3002",
           generateInput: () => {
-            const arr = randArr(randInt(2, 5));
-            const idx = randInt(0, arr.length - 1);
+            const arr = randArr(randInt2(2, 5));
+            const idx = randInt2(0, arr.length - 1);
             return [arr, arr[idx]];
           },
           transformInput: ([arr, target]) => {
-            let extra = randInt(1, 30);
-            while (extra === target) extra = randInt(1, 30);
+            let extra = randInt2(1, 30);
+            while (extra === target) extra = randInt2(1, 30);
             return [[...arr, extra], target];
           },
           transformLabel: ([arr, target]) => `([${arr}, <y\u2260${target}>], ${target})`,
@@ -21986,8 +22490,8 @@ function linearSearch(arr, target) {
           desc: "Appending another copy of the target at the end does not change the first occurrence index.",
           descZh: "\u5728\u672B\u5C3E\u518D\u52A0\u4E00\u500B\u76EE\u6A19\u5143\u7D20\uFF0C\u4E0D\u6539\u8B8A\u7B2C\u4E00\u500B\u51FA\u73FE\u7684\u7D22\u5F15\u503C\u3002",
           generateInput: () => {
-            const arr = randArr(randInt(2, 5));
-            const idx = randInt(0, arr.length - 1);
+            const arr = randArr(randInt2(2, 5));
+            const idx = randInt2(0, arr.length - 1);
             return [arr, arr[idx]];
           },
           transformInput: ([arr, target]) => [[...arr, target], target],
@@ -22369,7 +22873,7 @@ function linearSearch(arr, target) {
   }
 
   // src/components/ExploratoryTestingExplorer.js
-  var STORAGE_KEY13 = "stvisual.et.v1";
+  var STORAGE_KEY14 = "stvisual.et.v1";
   var SFDIPOT_ITEMS = [
     { id: "S", key: "et.sfdipot.S", descKey: "et.sfdipot.S.desc" },
     { id: "F", key: "et.sfdipot.F", descKey: "et.sfdipot.F.desc" },
@@ -22396,7 +22900,7 @@ function linearSearch(arr, target) {
   function loadSaved10() {
     var _a;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY13);
+      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY14);
       return raw ? JSON.parse(raw) : null;
     } catch {
       return null;
@@ -22405,7 +22909,7 @@ function linearSearch(arr, target) {
   function persist10(data) {
     var _a;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY13, JSON.stringify(data));
+      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY14, JSON.stringify(data));
     } catch {
     }
   }
@@ -22428,7 +22932,7 @@ function linearSearch(arr, target) {
       state41.timerRemaining = (state41.timebox || 60) * 60;
     }
     let timerInterval = null;
-    function save() {
+    function save2() {
       persist10({
         charter: state41.charter,
         timebox: state41.timebox,
@@ -22495,7 +22999,7 @@ function linearSearch(arr, target) {
         bar.style.width = "100%";
         bar.className = "et-timer-bar";
       }
-      save();
+      save2();
     }
     function render41() {
       const isZh = getLocale() === "zh";
@@ -22636,7 +23140,7 @@ function linearSearch(arr, target) {
       const now = /* @__PURE__ */ new Date();
       const time = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
       state41.notes.unshift({ type: typeEl.value, text, time });
-      save();
+      save2();
       render41();
       const newText = root41.querySelector('[data-testid="et-note-text"]');
       if (newText) newText.focus();
@@ -22662,7 +23166,7 @@ function linearSearch(arr, target) {
       if (charterEl) {
         charterEl.addEventListener("input", () => {
           state41.charter = charterEl.value;
-          save();
+          save2();
         });
       }
       root41.querySelectorAll("[data-sfdipot]").forEach((cb) => {
@@ -22674,7 +23178,7 @@ function linearSearch(arr, target) {
           }
           const label = cb.closest("label");
           if (label) label.classList.toggle("checked", cb.checked);
-          save();
+          save2();
         });
       });
       const timeboxInput = root41.querySelector('[data-testid="et-timebox-input"]');
@@ -22708,7 +23212,7 @@ function linearSearch(arr, target) {
         btn.addEventListener("click", () => {
           const idx = parseInt(btn.dataset.delete, 10);
           state41.notes.splice(idx, 1);
-          save();
+          save2();
           render41();
         });
       });
@@ -22717,7 +23221,7 @@ function linearSearch(arr, target) {
         clearBtn.addEventListener("click", () => {
           if (window.confirm(t("et.notes.confirm.clear"))) {
             state41.notes = [];
-            save();
+            save2();
             render41();
           }
         });
@@ -22889,16 +23393,16 @@ function linearSearch(arr, target) {
                 this._data = {};
                 this._ttl = {};
               }
-              set(key2, value, ttlMs = 6e4) {
-                this._data[key2] = value;
-                this._ttl[key2] = Date.now() + ttlMs;
-                callLog.push({ method: "set", args: [key2, value], result: void 0 });
+              set(key3, value, ttlMs = 6e4) {
+                this._data[key3] = value;
+                this._ttl[key3] = Date.now() + ttlMs;
+                callLog.push({ method: "set", args: [key3, value], result: void 0 });
               }
-              get(key2) {
+              get(key3) {
                 var _a, _b;
-                const expired = Date.now() > ((_a = this._ttl[key2]) != null ? _a : 0);
-                const result = expired ? null : (_b = this._data[key2]) != null ? _b : null;
-                callLog.push({ method: "get", args: [key2], result });
+                const expired = Date.now() > ((_a = this._ttl[key3]) != null ? _a : 0);
+                const result = expired ? null : (_b = this._data[key3]) != null ? _b : null;
+                callLog.push({ method: "get", args: [key3], result });
                 return result;
               }
             }
@@ -25119,13 +25623,13 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       if (!codecovQuiz.active) return "";
       const opts = ["none", "stmt", "branch", "cond", "mcdc"];
       const optHtml = opts.map((o) => {
-        const key2 = `quiz.codecov.options.${o}`;
+        const key3 = `quiz.codecov.options.${o}`;
         if (codecovQuiz.phase === "graded") {
           const isCorrect = o === strongest;
           const isUser = o === codecovQuiz.answer;
-          return `<span class="quiz-option ${isCorrect ? "quiz-option--correct" : ""} ${isUser && !isCorrect ? "quiz-option--wrong" : ""}">${t(key2)}</span>`;
+          return `<span class="quiz-option ${isCorrect ? "quiz-option--correct" : ""} ${isUser && !isCorrect ? "quiz-option--wrong" : ""}">${t(key3)}</span>`;
         }
-        return `<label class="quiz-option-label"><input type="radio" name="codecov-quiz" value="${o}" ${codecovQuiz.answer === o ? "checked" : ""}> ${t(key2)}</label>`;
+        return `<label class="quiz-option-label"><input type="radio" name="codecov-quiz" value="${o}" ${codecovQuiz.answer === o ? "checked" : ""}> ${t(key3)}</label>`;
       }).join("");
       if (codecovQuiz.phase === "graded") {
         const ok = codecovQuiz.answer === strongest;
@@ -25891,12 +26395,12 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
 
   // src/utils/propertyTesting.js
   var MAX_SHRINK_STEPS = 500;
-  function randInt2(min, max) {
+  function randInt3(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   function genIntArray(minLen, maxLen, min, max) {
-    const len = randInt2(minLen, maxLen);
-    return Array.from({ length: len }, () => randInt2(min, max));
+    const len = randInt3(minLen, maxLen);
+    return Array.from({ length: len }, () => randInt3(min, max));
   }
   function shrinkInt(n) {
     if (n === 0) return [];
@@ -26002,7 +26506,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       }
     ];
     function generate() {
-      return [randInt2(-10, 10), randInt2(-10, 10)];
+      return [randInt3(-10, 10), randInt3(-10, 10)];
     }
     function shrink(args) {
       return shrinkPair(args[0], args[1]);
@@ -26043,7 +26547,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       }
     ];
     function generate() {
-      return [randInt2(-50, 50)];
+      return [randInt3(-50, 50)];
     }
     function shrink(args) {
       return shrinkInt(args[0]).map((v) => [v]);
@@ -26098,10 +26602,10 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       }
     ];
     function generateInner() {
-      return randInt2(0, 1) === 0 ? randInt2(-5, 5) : [randInt2(-5, 5), randInt2(-5, 5)];
+      return randInt3(0, 1) === 0 ? randInt3(-5, 5) : [randInt3(-5, 5), randInt3(-5, 5)];
     }
     function generate() {
-      return [Array.from({ length: randInt2(1, 3) }, generateInner)];
+      return [Array.from({ length: randInt3(1, 3) }, generateInner)];
     }
     function shrink(args) {
       const arr = args[0];
@@ -26147,10 +26651,10 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     }
     let minimal = counterexample;
     if (counterexample) {
-      let current2 = counterexample.args;
+      let current3 = counterexample.args;
       let steps = 0;
       while (steps++ < MAX_SHRINK_STEPS) {
-        const candidates = preset.shrink(current2);
+        const candidates = preset.shrink(current3);
         let shrunk = false;
         for (const candidate of candidates) {
           const prop = preset.properties.find((p) => p.id === counterexample.propId);
@@ -26162,7 +26666,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
             stillFails = true;
           }
           if (stillFails) {
-            current2 = candidate;
+            current3 = candidate;
             minimal = { ...counterexample, args: candidate };
             shrunk = true;
             break;
@@ -27446,11 +27950,11 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     }
     return expr();
   }
-  function _eval(node, env) {
-    if (node.type === "ATOM") return !!env[node.v];
-    if (node.type === "NOT") return !_eval(node.c, env);
-    if (node.type === "AND") return _eval(node.l, env) && _eval(node.r, env);
-    if (node.type === "OR") return _eval(node.l, env) || _eval(node.r, env);
+  function _eval(node2, env) {
+    if (node2.type === "ATOM") return !!env[node2.v];
+    if (node2.type === "NOT") return !_eval(node2.c, env);
+    if (node2.type === "AND") return _eval(node2.l, env) && _eval(node2.r, env);
+    if (node2.type === "OR") return _eval(node2.l, env) || _eval(node2.r, env);
     return false;
   }
 
@@ -27603,7 +28107,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     const recall = tp + fn > 0 ? (tp / (tp + fn)).toFixed(2) : "\u2014";
     return { tp, fp, fn, tn, precision, recall };
   }
-  function esc4(s) {
+  function esc5(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function renderPaperCite() {
@@ -27676,7 +28180,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       <div class="emx-code-diff" data-testid="emx-code-diff">
         <div class="emx-diff-label">${t("emx.diff.label")}</div>
         <pre class="emx-diff-pre">${diff.map((line) => {
-      const text = esc4(line.text);
+      const text = esc5(line.text);
       if (line.type === "add") return `<span class="emx-diff-add">+ ${text}</span>`;
       if (line.type === "del") return `<span class="emx-diff-del">- ${text}</span>`;
       return `<span class="emx-diff-ctx">  ${text}</span>`;
@@ -29662,11 +30166,11 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     const lines = text.split("\n");
     const out = { feature: "", description: "", background: [], scenarios: [] };
     let mode = "feature";
-    let current2 = null;
+    let current3 = null;
     let exampleHeader = null;
     function pushCurrent() {
-      if (current2) out.scenarios.push(current2);
-      current2 = null;
+      if (current3) out.scenarios.push(current3);
+      current3 = null;
     }
     for (const rawLine of lines) {
       const line = rawLine.trim();
@@ -29683,7 +30187,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
       }
       if (/^Scenario Outline:/i.test(line)) {
         pushCurrent();
-        current2 = {
+        current3 = {
           title: line.replace(/^Scenario Outline:\s*/i, ""),
           kind: "outline",
           steps: [],
@@ -29694,7 +30198,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
       }
       if (/^Scenario:/i.test(line)) {
         pushCurrent();
-        current2 = { title: line.replace(/^Scenario:\s*/i, ""), kind: "scenario", steps: [] };
+        current3 = { title: line.replace(/^Scenario:\s*/i, ""), kind: "scenario", steps: [] };
         mode = "scenario";
         continue;
       }
@@ -29708,16 +30212,16 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
         const body3 = line.slice(keyword.length + 1);
         const step2 = { keyword, body: body3 };
         if (mode === "background") out.background.push(step2);
-        else if (current2) current2.steps.push(step2);
+        else if (current3) current3.steps.push(step2);
         continue;
       }
       if (mode === "examples" && /^\|/.test(line)) {
         const cells = line.split("|").slice(1, -1).map((c) => c.trim());
         if (!exampleHeader) {
           exampleHeader = cells;
-          if (current2 == null ? void 0 : current2.examples) current2.examples.header = cells;
+          if (current3 == null ? void 0 : current3.examples) current3.examples.header = cells;
         } else {
-          if (current2 == null ? void 0 : current2.examples) current2.examples.rows.push(cells);
+          if (current3 == null ? void 0 : current3.examples) current3.examples.rows.push(cells);
         }
         continue;
       }
@@ -31174,8 +31678,8 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     });
     root11.querySelectorAll("[data-ll-input]").forEach((input) => {
       input.addEventListener("input", () => {
-        const key2 = input.dataset.llInput;
-        state11.ll[key2] = Number(input.value);
+        const key3 = input.dataset.llInput;
+        state11.ll[key3] = Number(input.value);
         render11();
       });
     });
@@ -32496,9 +33000,9 @@ VERDICT: pass  (conformance holds)`,
     const seen = /* @__PURE__ */ new Set();
     const out = [];
     for (const test of tests) {
-      const key2 = test.map((tr) => tr.id).join(",");
-      if (!seen.has(key2)) {
-        seen.add(key2);
+      const key3 = test.map((tr) => tr.id).join(",");
+      if (!seen.has(key3)) {
+        seen.add(key3);
         out.push(test);
       }
     }
@@ -32726,11 +33230,11 @@ VERDICT: pass  (conformance holds)`,
   function currentFsm() {
     return FSMS.find((f) => f.id === state16.fsmId) || FSMS[0];
   }
-  function esc5(v = "") {
+  function esc6(v = "") {
     return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function eventSeq(fsm, test) {
-    return test.map((tr) => esc5(tr.event)).join(" \xB7 ") || "\u2205";
+    return test.map((tr) => esc6(tr.event)).join(" \xB7 ") || "\u2205";
   }
   function renderFsmPicker() {
     return `
@@ -32750,7 +33254,7 @@ VERDICT: pass  (conformance holds)`,
       <div class="fsmgen-states">
         ${fsm.states.map((s) => `
           <span class="fsmgen-state-chip ${s.initial ? "fsmgen-state-chip--init" : ""}">
-            ${esc5(s.name)}${s.initial ? " \u25B6" : ""}
+            ${esc6(s.name)}${s.initial ? " \u25B6" : ""}
           </span>`).join("")}
       </div>
       <table class="fsmgen-trans-table">
@@ -32761,9 +33265,9 @@ VERDICT: pass  (conformance holds)`,
           ${fsm.transitions.map((tr, i) => `
             <tr>
               <td>${i + 1}</td>
-              <td>${esc5(stateName(fsm, tr.from))}</td>
-              <td class="fsmgen-evt">${esc5(tr.event)}</td>
-              <td>${esc5(stateName(fsm, tr.to))}</td>
+              <td>${esc6(stateName(fsm, tr.from))}</td>
+              <td class="fsmgen-evt">${esc6(tr.event)}</td>
+              <td>${esc6(stateName(fsm, tr.to))}</td>
             </tr>`).join("")}
         </tbody>
       </table>
@@ -32896,7 +33400,7 @@ VERDICT: pass  (conformance holds)`,
     <div class="fsmgen-lab" data-testid="fsmgen-lab">
       <p class="fsmgen-lab-prompt">${t("fsmgen.lab.prompt")}</p>
       <textarea class="fsmgen-lab-textarea" data-testid="fsmgen-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${esc5(state16.lab.text)}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${esc6(state16.lab.text)}</textarea>
     </div>`;
   }
   function render16() {
@@ -33052,9 +33556,9 @@ VERDICT: pass  (conformance holds)`,
       for (let j = i + 1; j < fsm.states.length; j++) {
         const seq = distinguishingSeq(fsm, fsm.states[i].id, fsm.states[j].id);
         if (seq) {
-          const key2 = seq.join("");
-          if (!seen.has(key2)) {
-            seen.add(key2);
+          const key3 = seq.join("");
+          if (!seen.has(key3)) {
+            seen.add(key3);
             W.push(seq);
           }
         }
@@ -33066,9 +33570,9 @@ VERDICT: pass  (conformance holds)`,
     const seen = /* @__PURE__ */ new Set();
     const out = [];
     for (const seq of seqs) {
-      const key2 = seq.join("");
-      if (!seen.has(key2)) {
-        seen.add(key2);
+      const key3 = seq.join("");
+      if (!seen.has(key3)) {
+        seen.add(key3);
         out.push(seq);
       }
     }
@@ -33125,11 +33629,11 @@ VERDICT: pass  (conformance holds)`,
     </div>`;
   }
   var SET_TABS = ["P", "W", "tc", "suite"];
-  function setSequences(key2) {
+  function setSequences(key3) {
     const { P, transitionCover, W, suite } = wMethodSuite(SPEC, state17.m);
-    if (key2 === "P") return P;
-    if (key2 === "W") return W;
-    if (key2 === "tc") return transitionCover;
+    if (key3 === "P") return P;
+    if (key3 === "W") return W;
+    if (key3 === "tc") return transitionCover;
     return suite;
   }
   function renderSets() {
@@ -33433,14 +33937,14 @@ VERDICT: pass  (conformance holds)`,
     lab: { active: false, text: "" }
   };
   var root18;
-  function esc6(v = "") {
+  function esc7(v = "") {
     return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function stateName2(id) {
     return (EFSM.states.find((s) => s.id === id) || {}).name || id;
   }
   function eventSeq2(path) {
-    return path.trans.map((id) => esc6(transById(id).event)).join(" \xB7 ");
+    return path.trans.map((id) => esc7(transById(id).event)).join(" \xB7 ");
   }
   function renderModel() {
     return `
@@ -33454,10 +33958,10 @@ VERDICT: pass  (conformance holds)`,
         <tbody>
           ${EFSM.transitions.map((tr) => `
             <tr>
-              <td>${esc6(stateName2(tr.from))}</td>
-              <td class="efsm-evt">${esc6(tr.event)}</td>
-              <td class="efsm-guard">${tr.guard === "true" ? "\u2014" : esc6(tr.guard)}</td>
-              <td>${esc6(stateName2(tr.to))}</td>
+              <td>${esc7(stateName2(tr.from))}</td>
+              <td class="efsm-evt">${esc7(tr.event)}</td>
+              <td class="efsm-guard">${tr.guard === "true" ? "\u2014" : esc7(tr.guard)}</td>
+              <td>${esc7(stateName2(tr.to))}</td>
             </tr>`).join("")}
         </tbody>
       </table>
@@ -33491,12 +33995,12 @@ VERDICT: pass  (conformance holds)`,
         ${path.trans.map((id) => {
       const tr = transById(id);
       return `<li>
-            <span class="efsm-gl-evt">${esc6(tr.event)}</span>
-            <span class="efsm-gl-guard">${tr.guard === "true" ? t("efsm.guard.none") : esc6(tr.guard)}</span>
+            <span class="efsm-gl-evt">${esc7(tr.event)}</span>
+            <span class="efsm-gl-guard">${tr.guard === "true" ? t("efsm.guard.none") : esc7(tr.guard)}</span>
           </li>`;
     }).join("")}
       </ol>
-      <p class="efsm-conjunction">${t("efsm.conjunction")}: <code>${esc6(res.conjunction)}</code></p>
+      <p class="efsm-conjunction">${t("efsm.conjunction")}: <code>${esc7(res.conjunction)}</code></p>
       ${res.feasible ? `<p class="efsm-verdict efsm-verdict--feasible" data-testid="efsm-verdict">
              \u2705 ${t("efsm.feasible")} \u2014 ${t("efsm.solved", { val: (_a = res.witness.amount) != null ? _a : "\u2014" })}
            </p>` : `<p class="efsm-verdict efsm-verdict--infeasible" data-testid="efsm-verdict">
@@ -33579,7 +34083,7 @@ VERDICT: pass  (conformance holds)`,
     <div class="efsm-lab" data-testid="efsm-lab">
       <p class="efsm-lab-prompt">${t("efsm.lab.prompt")}</p>
       <textarea class="efsm-lab-textarea" data-testid="efsm-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${esc6(state18.lab.text)}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${esc7(state18.lab.text)}</textarea>
     </div>`;
   }
   function render18() {
@@ -33764,14 +34268,14 @@ VERDICT: pass  (conformance holds)`,
     lab: { active: false, text: "" }
   };
   var root19;
-  function esc7(v = "") {
+  function esc8(v = "") {
     return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function pct(x) {
     return (x * 100).toFixed(1) + "%";
   }
   function walkEvents(walk) {
-    return walk.map((tr) => esc7(tr.event)).join(" \xB7 ") || "\u2205";
+    return walk.map((tr) => esc8(tr.event)).join(" \xB7 ") || "\u2205";
   }
   function renderModel2() {
     return `
@@ -33784,10 +34288,10 @@ VERDICT: pass  (conformance holds)`,
         <tbody>
           ${USAGE_MODEL.transitions.map((tr) => `
             <tr class="${tr.p < RARE_THRESHOLD ? "usage-row--rare" : ""}">
-              <td>${esc7(stateName3(USAGE_MODEL, tr.from))}</td>
-              <td class="usage-evt">${esc7(tr.event)}</td>
+              <td>${esc8(stateName3(USAGE_MODEL, tr.from))}</td>
+              <td class="usage-evt">${esc8(tr.event)}</td>
               <td class="usage-prob">${tr.p.toFixed(2)}${tr.p < RARE_THRESHOLD ? " \u26A0" : ""}</td>
-              <td>${esc7(stateName3(USAGE_MODEL, tr.to))}</td>
+              <td>${esc8(stateName3(USAGE_MODEL, tr.to))}</td>
             </tr>`).join("")}
         </tbody>
       </table>
@@ -33826,7 +34330,7 @@ VERDICT: pass  (conformance holds)`,
       return `
             <div class="usage-cov-row">
               <span class="usage-cov-label ${tr.id === BUGGY_TRANSITION ? "usage-cov-label--bug" : ""}">
-                ${esc7(tr.event)}${tr.id === BUGGY_TRANSITION ? " \u{1F41E}" : ""}
+                ${esc8(tr.event)}${tr.id === BUGGY_TRANSITION ? " \u{1F41E}" : ""}
               </span>
               <span class="usage-cov-bar-wrap">
                 <span class="usage-cov-bar" style="width:${c / maxCount * 100}%"></span>
@@ -33849,9 +34353,9 @@ VERDICT: pass  (conformance holds)`,
       <p class="usage-rare-desc">${t("usage.rare.desc")}</p>
       <ul class="usage-rare-list">
         ${rare.map((tr) => `
-          <li><code>${esc7(tr.event)}</code> (p = ${tr.p.toFixed(2)}) \u2014 ${t("usage.rare.item", {
-      from: esc7(stateName3(USAGE_MODEL, tr.from)),
-      to: esc7(stateName3(USAGE_MODEL, tr.to))
+          <li><code>${esc8(tr.event)}</code> (p = ${tr.p.toFixed(2)}) \u2014 ${t("usage.rare.item", {
+      from: esc8(stateName3(USAGE_MODEL, tr.from)),
+      to: esc8(stateName3(USAGE_MODEL, tr.to))
     })}</li>`).join("")}
       </ul>
     </div>`;
@@ -33912,7 +34416,7 @@ VERDICT: pass  (conformance holds)`,
     <div class="usage-lab" data-testid="usage-lab">
       <p class="usage-lab-prompt">${t("usage.lab.prompt")}</p>
       <textarea class="usage-lab-textarea" data-testid="usage-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${esc7(state19.lab.text)}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${esc8(state19.lab.text)}</textarea>
     </div>`;
   }
   function render19() {
@@ -34069,7 +34573,7 @@ VERDICT: pass  (conformance holds)`,
     lab: { active: false, text: "" }
   };
   var root20;
-  function esc8(v = "") {
+  function esc9(v = "") {
     return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function mutantDesc(m) {
@@ -34094,7 +34598,7 @@ VERDICT: pass  (conformance holds)`,
         </tbody>
       </table>
       <p class="modelmut-suite">${t("modelmut.suite.label")}:
-        ${SUITE.map((s) => `<code>${esc8(s)}</code>`).join(" ")}</p>
+        ${SUITE.map((s) => `<code>${esc9(s)}</code>`).join(" ")}</p>
     </div>`;
   }
   function renderMutants() {
@@ -34119,8 +34623,8 @@ VERDICT: pass  (conformance holds)`,
       <p class="modelmut-detail-op"><b>${mutant.id}</b> \u2014 ${mutantDesc(mutant)}</p>
       ${res.killed ? `<p class="modelmut-verdict modelmut-verdict--killed" data-testid="modelmut-verdict">
              \u{1F480} ${t("modelmut.killed.by", { test: res.killedBy })}<br>
-             <span class="modelmut-trace">${t("modelmut.trace.base")}: <code>${esc8(res.baseTrace)}</code>
-             \xB7 ${t("modelmut.trace.mut")}: <code>${esc8(res.mutTrace)}</code></span>
+             <span class="modelmut-trace">${t("modelmut.trace.base")}: <code>${esc9(res.baseTrace)}</code>
+             \xB7 ${t("modelmut.trace.mut")}: <code>${esc9(res.mutTrace)}</code></span>
            </p>` : `<p class="modelmut-verdict modelmut-verdict--survived" data-testid="modelmut-verdict">
              \u{1F7E2} ${t("modelmut.survived.note")}
            </p>`}
@@ -34199,7 +34703,7 @@ VERDICT: pass  (conformance holds)`,
     <div class="modelmut-lab" data-testid="modelmut-lab">
       <p class="modelmut-lab-prompt">${t("modelmut.lab.prompt")}</p>
       <textarea class="modelmut-lab-textarea" data-testid="modelmut-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${esc8(state20.lab.text)}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${esc9(state20.lab.text)}</textarea>
     </div>`;
   }
   function render20() {
@@ -34515,7 +35019,7 @@ VERDICT: pass  (conformance holds)`,
     lab: { active: false, text: "" }
   };
   var root22;
-  function esc9(v = "") {
+  function esc10(v = "") {
     return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   var TESTED_ICON = { full: "\u{1F7E2}", meta: "\u{1F501}", none: "\u26AA" };
@@ -34641,7 +35145,7 @@ VERDICT: pass  (conformance holds)`,
     <div class="cadence-lab" data-testid="cadence-lab">
       <p class="cadence-lab-prompt">${t("cadence.lab.prompt")}</p>
       <textarea class="cadence-lab-textarea" data-testid="cadence-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${esc9(state22.lab.text)}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${esc10(state22.lab.text)}</textarea>
     </div>`;
   }
   function render22() {
@@ -35196,7 +35700,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root23;
-  function esc10(value = "") {
+  function esc11(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function currentExample() {
@@ -35299,7 +35803,7 @@ ${items.join("\n")}
         class="pse-chip${state23.selectedVar === v ? " pse-chip--active" : ""}"
         data-testid="slicing-var-${v}"
         data-var-name="${v}">
-        ${esc10(v)}
+        ${esc11(v)}
       </button>`).join("")}
   </div>`;
   }
@@ -35335,8 +35839,8 @@ ${items.join("\n")}
       body3 = `<ul class="pse-slice-items">
       ${inSlice.map((s) => `
         <li class="pse-slice-item" data-testid="slicing-slice-item-${s.id}">
-          <code class="pse-slice-id">${esc10(s.id)}</code>
-          <span class="pse-slice-text">${esc10(s.text)}</span>
+          <code class="pse-slice-id">${esc11(s.id)}</code>
+          <span class="pse-slice-text">${esc11(s.text)}</span>
         </li>`).join("")}
     </ul>`;
     }
@@ -35659,7 +36163,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root24;
-  function esc11(value = "") {
+  function esc12(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function scenariosForMode(mode) {
@@ -35729,7 +36233,7 @@ ${items.join("\n")}
         class="sde-chip${activeVar === o.variable ? " sde-chip--active sde-chip--wrong" : ""}"
         data-testid="dicing-output-${o.variable}"
         data-output-var="${o.variable}">
-        ${esc11(o.variable)}
+        ${esc12(o.variable)}
       </button>`).join("")}
   </div>`;
   }
@@ -35739,7 +36243,7 @@ ${items.join("\n")}
     <span class="sde-toggle-label">${t("dicing.tracesLabel")}</span>
     ${scenario.traces.map((tr) => `
       <div class="sde-trace-row" data-testid="dicing-trace-${tr.id}">
-        <span class="sde-trace-label">${esc11(tr.inputLabel || tr.id)}</span>
+        <span class="sde-trace-label">${esc12(tr.inputLabel || tr.id)}</span>
         <span class="sde-outcome-badge sde-outcome-badge--${tr.outcome}">
           ${t(tr.outcome === "fail" ? "dicing.fail" : "dicing.pass")}
           ${tr.outcome === "fail" ? ` (${t("dicing.expected")}: ${tr.expected}, ${t("dicing.actual")}: ${tr.actual})` : ""}
@@ -35775,8 +36279,8 @@ ${items.join("\n")}
       body3 = `<ul class="sde-slice-items">
       ${inDice.map((s) => `
         <li class="sde-slice-item">
-          <code class="sde-slice-id">${esc11(s.id)}</code>
-          <span class="sde-slice-text">${esc11(s.text)}</span>
+          <code class="sde-slice-id">${esc12(s.id)}</code>
+          <span class="sde-slice-text">${esc12(s.text)}</span>
         </li>`).join("")}
     </ul>`;
     }
@@ -35790,7 +36294,7 @@ ${items.join("\n")}
     const bugInDice = dice.dice.has(scenario.bug.stmtId);
     let content = `<span>${t("dicing.diceCount")}: <b>${count}</b></span>`;
     if (bugInDice) {
-      content += ` <span class="sde-bug-caught">${t("dicing.bugCaught")} (${esc11(scenario.bug.stmtId)}: ${esc11(scenario.bug.note)})</span>`;
+      content += ` <span class="sde-bug-caught">${t("dicing.bugCaught")} (${esc12(scenario.bug.stmtId)}: ${esc12(scenario.bug.note)})</span>`;
     }
     if (scenario.mode === "dynamic") {
       content += ` <span class="sde-dicing-note">${t("dicing.dynamicNote")}</span>`;
@@ -35934,7 +36438,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root25;
-  function esc12(value = "") {
+  function esc13(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function currentExample2() {
@@ -35984,7 +36488,7 @@ ${items.join("\n")}
     <span class="sce-toggle-label">${t("coverage.traceLabel")}</span>
     ${example5.traces.map((tr) => {
       const active = state25.activeTraceIds.has(tr.id);
-      const label = esc12(tr.inputLabel || tr.label || tr.id);
+      const label = esc13(tr.inputLabel || tr.label || tr.id);
       return `<button type="button"
         class="sce-chip${active ? " sce-chip--active" : ""}"
         data-testid="coverage-trace-${tr.id}"
@@ -36027,8 +36531,8 @@ ${items.join("\n")}
       gapBody = `<ul class="sce-gap-items">
       ${uncoveredStmts.map((s) => `
         <li class="sce-gap-item">
-          <code class="sce-gap-id">${esc12(s.id)}</code>
-          <span class="sce-gap-text">${esc12(s.text)}</span>
+          <code class="sce-gap-id">${esc13(s.id)}</code>
+          <span class="sce-gap-text">${esc13(s.text)}</span>
         </li>`).join("")}
     </ul>`;
     }
@@ -36036,7 +36540,7 @@ ${items.join("\n")}
     if (outsideSlice.length) {
       outsideBody = `<div class="sce-outside">
       <span class="sce-outside-label">${t("coverage.outsideSlice")}</span>
-      ${outsideSlice.map((s) => `<code class="sce-outside-id">${esc12(s.id)}</code>`).join(" ")}
+      ${outsideSlice.map((s) => `<code class="sce-outside-id">${esc13(s.id)}</code>`).join(" ")}
     </div>`;
     }
     return `<div class="sce-gaps" data-testid="coverage-gaps">
@@ -36195,7 +36699,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root26;
-  function esc13(value = "") {
+  function esc14(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function currentExample3() {
@@ -36244,9 +36748,9 @@ ${items.join("\n")}
     if (!criterion) return "";
     return `<div class="sre-criterion">
     <span class="sre-criterion-label">${t("regression.criterionLabel")}</span>
-    <code class="sre-criterion-val">${esc13(criterion.stmtId)}</code>
+    <code class="sre-criterion-val">${esc14(criterion.stmtId)}</code>
     <span class="sre-criterion-sep">&rarr;</span>
-    <code class="sre-criterion-val">${esc13(criterion.variable)}</code>
+    <code class="sre-criterion-val">${esc14(criterion.variable)}</code>
   </div>`;
   }
   function renderGraphPanel4(example5, sliceSet, impact) {
@@ -36275,14 +36779,14 @@ ${items.join("\n")}
     } else {
       body3 = `<ul class="sre-test-list">
       ${example5.traces.map((tr) => {
-        const label = esc13(tr.inputLabel || tr.label || tr.id);
+        const label = esc14(tr.inputLabel || tr.label || tr.id);
         let badge = "";
         if (affected.has(tr.id)) {
           badge = `<span class="sre-badge sre-badge--rerun">${t("regression.mustRerun")}</span>`;
         } else if (safe.has(tr.id)) {
           badge = `<span class="sre-badge sre-badge--safe">${t("regression.safe")}</span>`;
         }
-        return `<li class="sre-test-row" data-testid="regression-test-${esc13(tr.id)}">
+        return `<li class="sre-test-row" data-testid="regression-test-${esc14(tr.id)}">
           <span class="sre-test-label">${label}</span>
           ${badge}
         </li>`;
@@ -36640,7 +37144,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root27;
-  function esc14(value = "") {
+  function esc15(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function currentKata() {
@@ -36651,8 +37155,8 @@ ${items.join("\n")}
     ${TDD_KATAS.map((kata) => `
       <button type="button"
         class="tdc-chip${state27.kataId === kata.id ? " tdc-chip--active" : ""}"
-        data-testid="tdd-kata-${esc14(kata.id)}"
-        data-tdc-kata-id="${esc14(kata.id)}">
+        data-testid="tdd-kata-${esc15(kata.id)}"
+        data-tdc-kata-id="${esc15(kata.id)}">
         ${t(kata.titleKey)}
       </button>`).join("")}
   </div>`;
@@ -36663,15 +37167,15 @@ ${items.join("\n")}
     ${phases.map((ph) => `
       <div class="tdc-phase-node tdc-phase-node--${ph}${step2.phase === ph ? " tdc-phase-node--active" : ""}"
         data-testid="tdd-phase-${ph}">
-        ${esc14(ph)}
+        ${esc15(ph)}
       </div>`).join("")}
   </div>`;
   }
   function renderTestList2(step2) {
     const rows = step2.testList.map((test) => `
-    <div class="tdc-test-row tdc-test-row--${esc14(test.status)}">
-      <span class="tdc-test-name">${esc14(test.name)}</span>
-      <span class="tdc-test-status tdc-test-status--${esc14(test.status)}">${esc14(test.status)}</span>
+    <div class="tdc-test-row tdc-test-row--${esc15(test.status)}">
+      <span class="tdc-test-name">${esc15(test.name)}</span>
+      <span class="tdc-test-status tdc-test-status--${esc15(test.status)}">${esc15(test.status)}</span>
     </div>`).join("");
     return `<div class="tdc-test-list" data-testid="tdd-test-list">
     <h3 class="tdc-col-title">${t("tdd.testList")}</h3>
@@ -36681,7 +37185,7 @@ ${items.join("\n")}
   function renderCodePanel(step2) {
     return `<div class="tdc-code-panel" data-testid="tdd-code">
     <h3 class="tdc-col-title">${t("tdd.code")}</h3>
-    <pre class="tdc-code-pre">${esc14(step2.code) || '<em class="tdc-code-empty">' + esc14(t("tdd.noCode")) + "</em>"}</pre>
+    <pre class="tdc-code-pre">${esc15(step2.code) || '<em class="tdc-code-empty">' + esc15(t("tdd.noCode")) + "</em>"}</pre>
   </div>`;
   }
   function renderSuiteBar(step2) {
@@ -36709,11 +37213,11 @@ ${items.join("\n")}
           class="tdc-predict-btn tdc-predict-btn--${ph}${state27.prediction === ph ? " tdc-predict-btn--selected" : ""}"
           data-testid="tdd-predict-${ph}"
           data-tdc-predict="${ph}">
-          ${esc14(ph)}
+          ${esc15(ph)}
         </button>`).join("")}
     </div>` : "";
     const predictResult = state27.predictResult ? `
-    <div class="tdc-predict-result tdc-predict-result--${esc14(state27.predictResult)}"
+    <div class="tdc-predict-result tdc-predict-result--${esc15(state27.predictResult)}"
       data-testid="tdd-predict-result">
       ${state27.predictResult === "correct" ? t("tdd.correct") : t("tdd.incorrect")}
     </div>` : "";
@@ -37184,7 +37688,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root29;
-  function esc15(value = "") {
+  function esc16(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function example() {
@@ -37209,7 +37713,7 @@ ${items.join("\n")}
     ${PHASES3.map((ph) => `
       <div class="eog-phase-node eog-phase-node--${ph}${cur === ph ? " eog-phase-node--active" : ""}"
         data-testid="exploit-phase-${ph}">
-        ${esc15(t(`exploit.phase.${ph}`))}
+        ${esc16(t(`exploit.phase.${ph}`))}
       </div>`).join("")}
   </div>`;
   }
@@ -37218,10 +37722,10 @@ ${items.join("\n")}
     const lines = ex.code.split("\n").map((line, i) => {
       const n = i + 1;
       const cls = n === ex.buggyLine ? "eog-code-line eog-code-line--bug" : "eog-code-line";
-      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc15(line)}</span>`;
+      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc16(line)}</span>`;
     }).join("\n");
     return `<div class="eog-code-panel" data-testid="exploit-code">
-    <h3 class="eog-col-title">${esc15(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc15(t(ex.cweKey))}</span></h3>
+    <h3 class="eog-col-title">${esc16(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc16(t(ex.cweKey))}</span></h3>
     <pre class="eog-code-pre">${lines}</pre>
   </div>`;
   }
@@ -37229,30 +37733,30 @@ ${items.join("\n")}
     const ex = example();
     if (!phaseShown("payload")) {
       return `<div class="eog-stack-panel" data-testid="exploit-stack">
-      <h3 class="eog-col-title">${esc15(t("exploit.stackTitle"))}</h3>
+      <h3 class="eog-col-title">${esc16(t("exploit.stackTitle"))}</h3>
       ${ex.stack.map((slot) => `
-        <div class="eog-stack-slot" data-stack-slot="${esc15(slot.id)}">
-          <span class="eog-stack-slot__bytes">${esc15(String(slot.bytes))}B</span>
-          <span class="eog-stack-slot__label">${esc15(slot.label)}</span>
+        <div class="eog-stack-slot" data-stack-slot="${esc16(slot.id)}">
+          <span class="eog-stack-slot__bytes">${esc16(String(slot.bytes))}B</span>
+          <span class="eog-stack-slot__label">${esc16(slot.label)}</span>
         </div>`).join("")}
     </div>`;
     }
     const regions = ex.payload.regions;
     const slotsByKind = { padding: "buf", savedBp: "savedBp", retAddr: "retAddr" };
     return `<div class="eog-stack-panel eog-stack-panel--colored" data-testid="exploit-stack">
-    <h3 class="eog-col-title">${esc15(t("exploit.payloadTitle"))}</h3>
+    <h3 class="eog-col-title">${esc16(t("exploit.payloadTitle"))}</h3>
     ${ex.stack.map((slot) => {
       const region = regions.find((r) => slotsByKind[r.kind] === slot.id);
-      const kindClass = region ? ` eog-stack-slot--${esc15(region.kind)}` : "";
-      const annotation = region ? `<span class="eog-stack-slot__payload">${esc15(region.label)}</span>` : "";
-      return `<div class="eog-stack-slot${kindClass}" data-stack-slot="${esc15(slot.id)}">
-        <span class="eog-stack-slot__bytes">${esc15(String(slot.bytes))}B</span>
-        <span class="eog-stack-slot__label">${esc15(slot.label)}</span>
+      const kindClass = region ? ` eog-stack-slot--${esc16(region.kind)}` : "";
+      const annotation = region ? `<span class="eog-stack-slot__payload">${esc16(region.label)}</span>` : "";
+      return `<div class="eog-stack-slot${kindClass}" data-stack-slot="${esc16(slot.id)}">
+        <span class="eog-stack-slot__bytes">${esc16(String(slot.bytes))}B</span>
+        <span class="eog-stack-slot__label">${esc16(slot.label)}</span>
         ${annotation}
       </div>`;
     }).join("")}
     <div class="eog-shellcode" data-testid="exploit-shellcode">
-      ${esc15(regions.find((r) => r.kind === "shellcode").label)}
+      ${esc16(regions.find((r) => r.kind === "shellcode").label)}
     </div>
   </div>`;
   }
@@ -37260,25 +37764,25 @@ ${items.join("\n")}
     if (!phaseShown("constraint")) return "";
     const ex = example();
     return `<div class="eog-constraint" data-testid="exploit-constraint">
-    <h3 class="eog-col-title">${esc15(t("exploit.constraintTitle"))}</h3>
-    <p class="eog-constraint__math"><code>${esc15(ex.constraint.math)}</code></p>
-    <p class="eog-constraint__text">${esc15(t(ex.constraint.textKey))}</p>
+    <h3 class="eog-col-title">${esc16(t("exploit.constraintTitle"))}</h3>
+    <p class="eog-constraint__math"><code>${esc16(ex.constraint.math)}</code></p>
+    <p class="eog-constraint__text">${esc16(t(ex.constraint.textKey))}</p>
   </div>`;
   }
   function renderDefensePanel() {
     if (!phaseShown("defense")) return "";
     const ex = example();
     return `<div class="eog-defense" data-testid="exploit-defense">
-    <h3 class="eog-col-title">${esc15(t("exploit.defenseTitle"))}</h3>
+    <h3 class="eog-col-title">${esc16(t("exploit.defenseTitle"))}</h3>
     ${ex.defenses.map((d) => `
       <label class="eog-defense-row${d.id === ex.primaryDefenseId ? " eog-defense-row--primary" : ""}">
-        <input type="checkbox" data-testid="exploit-mit-${esc15(d.id)}"
-          data-eog-defense-id="${esc15(d.id)}"
+        <input type="checkbox" data-testid="exploit-mit-${esc16(d.id)}"
+          data-eog-defense-id="${esc16(d.id)}"
           ${state29.defenses[d.id] ? "checked" : ""}>
-        <span class="eog-defense-label">${esc15(t(d.labelKey))}</span>
+        <span class="eog-defense-label">${esc16(t(d.labelKey))}</span>
       </label>`).join("")}
     <div class="eog-payload-status" data-testid="exploit-payload-status">
-      ${esc15(t(payloadStatusKey()))}
+      ${esc16(t(payloadStatusKey()))}
     </div>
   </div>`;
   }
@@ -37287,29 +37791,29 @@ ${items.join("\n")}
     const showButtons = state29.predict && state29.phaseIndex === PREDICT_PHASE_INDEX;
     const buttons = showButtons ? `
     <div class="eog-predict-btns" data-testid="exploit-predict-buttons">
-      <span class="eog-predict-label">${esc15(t("exploit.predictPrompt"))}</span>
+      <span class="eog-predict-label">${esc16(t("exploit.predictPrompt"))}</span>
       ${ex.defenses.map((d) => `
         <button type="button"
           class="eog-predict-btn${state29.prediction === d.id ? " eog-predict-btn--selected" : ""}"
-          data-testid="exploit-predict-${esc15(d.id)}"
-          data-eog-predict="${esc15(d.id)}">
-          ${esc15(t(d.labelKey))}
+          data-testid="exploit-predict-${esc16(d.id)}"
+          data-eog-predict="${esc16(d.id)}">
+          ${esc16(t(d.labelKey))}
         </button>`).join("")}
     </div>` : "";
     const result = state29.predictResult ? `
-    <div class="eog-predict-result eog-predict-result--${esc15(state29.predictResult)}"
+    <div class="eog-predict-result eog-predict-result--${esc16(state29.predictResult)}"
       data-testid="exploit-predict-result">
-      ${state29.predictResult === "correct" ? esc15(t("exploit.predictCorrect")) : esc15(t("exploit.predictIncorrect"))}
+      ${state29.predictResult === "correct" ? esc16(t("exploit.predictCorrect")) : esc16(t("exploit.predictIncorrect"))}
     </div>` : "";
     const isLast = state29.phaseIndex >= PHASES3.length - 1;
     return `<div class="eog-step-controls">
     <span class="eog-step-counter">${state29.phaseIndex + 1} / ${PHASES3.length}</span>
-    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc15(t("exploit.reset"))}</button>
+    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc16(t("exploit.reset"))}</button>
     <button type="button" class="eog-btn eog-btn--next" data-testid="exploit-next-phase"
-      ${isLast ? "disabled" : ""}>${esc15(t("exploit.nextPhase"))}</button>
+      ${isLast ? "disabled" : ""}>${esc16(t("exploit.nextPhase"))}</button>
     <label class="eog-predict-toggle-label">
       <input type="checkbox" data-testid="exploit-predict-toggle" ${state29.predict ? "checked" : ""}>
-      ${esc15(t("exploit.predictMode"))}
+      ${esc16(t("exploit.predictMode"))}
     </label>
     ${buttons}
     ${result}
@@ -37318,30 +37822,30 @@ ${items.join("\n")}
   function renderQuiz29() {
     const ex = example();
     if (!state29.quiz.active) {
-      return `<button type="button" class="eog-quiz-start" data-testid="exploit-${FAMILY}-quiz-start">${esc15(t("quiz.start"))}</button>`;
+      return `<button type="button" class="eog-quiz-start" data-testid="exploit-${FAMILY}-quiz-start">${esc16(t("quiz.start"))}</button>`;
     }
     if (state29.quiz.phase === "done") {
       const correct = state29.quiz.answer === ex.quiz.answer;
       return `<div class="eog-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="exploit-${FAMILY}-quiz-result">
-      <p>${correct ? esc15(t("quiz.correct")) : esc15(t("quiz.wrong"))}</p>
-      <button type="button" data-testid="exploit-${FAMILY}-quiz-close">${esc15(t("quiz.close"))}</button>
+      <p>${correct ? esc16(t("quiz.correct")) : esc16(t("quiz.wrong"))}</p>
+      <button type="button" data-testid="exploit-${FAMILY}-quiz-close">${esc16(t("quiz.close"))}</button>
     </div>`;
     }
     return `<div class="eog-quiz" data-testid="exploit-${FAMILY}-quiz">
-    <p class="eog-quiz-prompt">${esc15(t(ex.quiz.promptKey))}</p>
+    <p class="eog-quiz-prompt">${esc16(t(ex.quiz.promptKey))}</p>
     ${ex.quiz.optionKeys.map((k) => `
       <label class="eog-quiz-option">
-        <input type="radio" name="eog-quiz" value="${esc15(k)}" ${state29.quiz.answer === k ? "checked" : ""}>
-        ${esc15(t(`exploit.${FAMILY}.quiz.${k}`))}
+        <input type="radio" name="eog-quiz" value="${esc16(k)}" ${state29.quiz.answer === k ? "checked" : ""}>
+        ${esc16(t(`exploit.${FAMILY}.quiz.${k}`))}
       </label>`).join("")}
     <button type="button" data-testid="exploit-${FAMILY}-quiz-submit"
-      ${!state29.quiz.answer ? "disabled" : ""}>${esc15(t("quiz.submit"))}</button>
+      ${!state29.quiz.answer ? "disabled" : ""}>${esc16(t("quiz.submit"))}</button>
   </div>`;
   }
   function render29() {
     root29.innerHTML = `
     <div class="eog-wrap">
-      <h2 class="eog-title">${esc15(t("section.exploit.title"))}</h2>
+      <h2 class="eog-title">${esc16(t("section.exploit.title"))}</h2>
       ${renderPhaseRing3()}
       <div class="eog-panels-row">
         ${renderCodePanel2()}
@@ -37351,7 +37855,7 @@ ${items.join("\n")}
       ${renderDefensePanel()}
       ${renderPredictControls2()}
       <section class="eog-self-test">
-        <h3>${esc15(t("quiz.title"))}</h3>
+        <h3>${esc16(t("quiz.title"))}</h3>
         ${renderQuiz29()}
       </section>
     </div>`;
@@ -37440,7 +37944,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root30;
-  function esc16(value = "") {
+  function esc17(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function example2() {
@@ -37465,7 +37969,7 @@ ${items.join("\n")}
     ${PHASES4.map((ph) => `
       <div class="eog-phase-node eog-phase-node--${ph}${cur === ph ? " eog-phase-node--active" : ""}"
         data-testid="exploit-phase-${ph}">
-        ${esc16(t(`exploit.phase.${ph}`))}
+        ${esc17(t(`exploit.phase.${ph}`))}
       </div>`).join("")}
   </div>`;
   }
@@ -37474,10 +37978,10 @@ ${items.join("\n")}
     const lines = ex.code.split("\n").map((line, i) => {
       const n = i + 1;
       const cls = n === ex.buggyLine ? "eog-code-line eog-code-line--bug" : "eog-code-line";
-      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc16(line)}</span>`;
+      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc17(line)}</span>`;
     }).join("\n");
     return `<div class="eog-code-panel" data-testid="exploit-code">
-    <h3 class="eog-col-title">${esc16(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc16(t(ex.cweKey))}</span></h3>
+    <h3 class="eog-col-title">${esc17(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc17(t(ex.cweKey))}</span></h3>
     <pre class="eog-code-pre">${lines}</pre>
   </div>`;
   }
@@ -37485,8 +37989,8 @@ ${items.join("\n")}
     const ex = example2();
     if (!phaseShown2("payload")) {
       return `<div class="eog-sql-panel" data-testid="exploit-query">
-      <h3 class="eog-col-title">${esc16(t("exploit.queryTitle"))}</h3>
-      <pre class="eog-sql-pre">${esc16(ex.query)}</pre>
+      <h3 class="eog-col-title">${esc17(t("exploit.queryTitle"))}</h3>
+      <pre class="eog-sql-pre">${esc17(ex.query)}</pre>
     </div>`;
     }
     const payload = ex.payload.string;
@@ -37494,15 +37998,15 @@ ${items.join("\n")}
     const before = ex.query.split("<input>")[0];
     const after = ex.query.split("<input>")[1] || "";
     const payloadHtml = regions.map(
-      (r) => `<span class="eog-sql-region eog-sql-region--${esc16(r.kind)}"
-       data-testid="exploit-payload-region-${esc16(r.kind)}"
-       title="${esc16(r.label)}">${esc16(payload.slice(r.range[0], r.range[1]))}</span>`
+      (r) => `<span class="eog-sql-region eog-sql-region--${esc17(r.kind)}"
+       data-testid="exploit-payload-region-${esc17(r.kind)}"
+       title="${esc17(r.label)}">${esc17(payload.slice(r.range[0], r.range[1]))}</span>`
     ).join("");
     return `<div class="eog-sql-panel eog-sql-panel--substituted" data-testid="exploit-query">
-    <h3 class="eog-col-title">${esc16(t("exploit.payloadTitle"))}</h3>
-    <pre class="eog-sql-pre">${esc16(before)}<span class="eog-sql-payload">${payloadHtml}</span>${esc16(after)}</pre>
+    <h3 class="eog-col-title">${esc17(t("exploit.payloadTitle"))}</h3>
+    <pre class="eog-sql-pre">${esc17(before)}<span class="eog-sql-payload">${payloadHtml}</span>${esc17(after)}</pre>
     <ul class="eog-sql-legend">
-      ${regions.map((r) => `<li class="eog-sql-legend-item eog-sql-legend-item--${esc16(r.kind)}">${esc16(r.label)}</li>`).join("")}
+      ${regions.map((r) => `<li class="eog-sql-legend-item eog-sql-legend-item--${esc17(r.kind)}">${esc17(r.label)}</li>`).join("")}
     </ul>
   </div>`;
   }
@@ -37510,25 +38014,25 @@ ${items.join("\n")}
     if (!phaseShown2("constraint")) return "";
     const ex = example2();
     return `<div class="eog-constraint" data-testid="exploit-constraint">
-    <h3 class="eog-col-title">${esc16(t("exploit.constraintTitle"))}</h3>
-    <p class="eog-constraint__math"><code>${esc16(ex.constraint.math)}</code></p>
-    <p class="eog-constraint__text">${esc16(t(ex.constraint.textKey))}</p>
+    <h3 class="eog-col-title">${esc17(t("exploit.constraintTitle"))}</h3>
+    <p class="eog-constraint__math"><code>${esc17(ex.constraint.math)}</code></p>
+    <p class="eog-constraint__text">${esc17(t(ex.constraint.textKey))}</p>
   </div>`;
   }
   function renderDefensePanel2() {
     if (!phaseShown2("defense")) return "";
     const ex = example2();
     return `<div class="eog-defense" data-testid="exploit-defense">
-    <h3 class="eog-col-title">${esc16(t("exploit.defenseTitle"))}</h3>
+    <h3 class="eog-col-title">${esc17(t("exploit.defenseTitle"))}</h3>
     ${ex.defenses.map((d) => `
       <label class="eog-defense-row${d.id === ex.primaryDefenseId ? " eog-defense-row--primary" : ""}">
-        <input type="checkbox" data-testid="exploit-mit-${esc16(d.id)}"
-          data-eog-defense-id="${esc16(d.id)}"
+        <input type="checkbox" data-testid="exploit-mit-${esc17(d.id)}"
+          data-eog-defense-id="${esc17(d.id)}"
           ${state30.defenses[d.id] ? "checked" : ""}>
-        <span class="eog-defense-label">${esc16(t(d.labelKey))}</span>
+        <span class="eog-defense-label">${esc17(t(d.labelKey))}</span>
       </label>`).join("")}
     <div class="eog-payload-status" data-testid="exploit-payload-status">
-      ${esc16(t(payloadStatusKey2()))}
+      ${esc17(t(payloadStatusKey2()))}
     </div>
   </div>`;
   }
@@ -37537,29 +38041,29 @@ ${items.join("\n")}
     const showButtons = state30.predict && state30.phaseIndex === PREDICT_PHASE_INDEX2;
     const buttons = showButtons ? `
     <div class="eog-predict-btns" data-testid="exploit-predict-buttons">
-      <span class="eog-predict-label">${esc16(t("exploit.predictPrompt"))}</span>
+      <span class="eog-predict-label">${esc17(t("exploit.predictPrompt"))}</span>
       ${ex.defenses.map((d) => `
         <button type="button"
           class="eog-predict-btn${state30.prediction === d.id ? " eog-predict-btn--selected" : ""}"
-          data-testid="exploit-predict-${esc16(d.id)}"
-          data-eog-predict="${esc16(d.id)}">
-          ${esc16(t(d.labelKey))}
+          data-testid="exploit-predict-${esc17(d.id)}"
+          data-eog-predict="${esc17(d.id)}">
+          ${esc17(t(d.labelKey))}
         </button>`).join("")}
     </div>` : "";
     const result = state30.predictResult ? `
-    <div class="eog-predict-result eog-predict-result--${esc16(state30.predictResult)}"
+    <div class="eog-predict-result eog-predict-result--${esc17(state30.predictResult)}"
       data-testid="exploit-predict-result">
-      ${state30.predictResult === "correct" ? esc16(t("exploit.predictCorrect")) : esc16(t("exploit.predictIncorrect"))}
+      ${state30.predictResult === "correct" ? esc17(t("exploit.predictCorrect")) : esc17(t("exploit.predictIncorrect"))}
     </div>` : "";
     const isLast = state30.phaseIndex >= PHASES4.length - 1;
     return `<div class="eog-step-controls">
     <span class="eog-step-counter">${state30.phaseIndex + 1} / ${PHASES4.length}</span>
-    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc16(t("exploit.reset"))}</button>
+    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc17(t("exploit.reset"))}</button>
     <button type="button" class="eog-btn eog-btn--next" data-testid="exploit-next-phase"
-      ${isLast ? "disabled" : ""}>${esc16(t("exploit.nextPhase"))}</button>
+      ${isLast ? "disabled" : ""}>${esc17(t("exploit.nextPhase"))}</button>
     <label class="eog-predict-toggle-label">
       <input type="checkbox" data-testid="exploit-predict-toggle" ${state30.predict ? "checked" : ""}>
-      ${esc16(t("exploit.predictMode"))}
+      ${esc17(t("exploit.predictMode"))}
     </label>
     ${buttons}
     ${result}
@@ -37568,30 +38072,30 @@ ${items.join("\n")}
   function renderQuiz30() {
     const ex = example2();
     if (!state30.quiz.active) {
-      return `<button type="button" class="eog-quiz-start" data-testid="exploit-${FAMILY2}-quiz-start">${esc16(t("quiz.start"))}</button>`;
+      return `<button type="button" class="eog-quiz-start" data-testid="exploit-${FAMILY2}-quiz-start">${esc17(t("quiz.start"))}</button>`;
     }
     if (state30.quiz.phase === "done") {
       const correct = state30.quiz.answer === ex.quiz.answer;
       return `<div class="eog-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="exploit-${FAMILY2}-quiz-result">
-      <p>${correct ? esc16(t("quiz.correct")) : esc16(t("quiz.wrong"))}</p>
-      <button type="button" data-testid="exploit-${FAMILY2}-quiz-close">${esc16(t("quiz.close"))}</button>
+      <p>${correct ? esc17(t("quiz.correct")) : esc17(t("quiz.wrong"))}</p>
+      <button type="button" data-testid="exploit-${FAMILY2}-quiz-close">${esc17(t("quiz.close"))}</button>
     </div>`;
     }
     return `<div class="eog-quiz" data-testid="exploit-${FAMILY2}-quiz">
-    <p class="eog-quiz-prompt">${esc16(t(ex.quiz.promptKey))}</p>
+    <p class="eog-quiz-prompt">${esc17(t(ex.quiz.promptKey))}</p>
     ${ex.quiz.optionKeys.map((k) => `
       <label class="eog-quiz-option">
-        <input type="radio" name="eog-quiz" value="${esc16(k)}" ${state30.quiz.answer === k ? "checked" : ""}>
-        ${esc16(t(`exploit.${FAMILY2}.quiz.${k}`))}
+        <input type="radio" name="eog-quiz" value="${esc17(k)}" ${state30.quiz.answer === k ? "checked" : ""}>
+        ${esc17(t(`exploit.${FAMILY2}.quiz.${k}`))}
       </label>`).join("")}
     <button type="button" data-testid="exploit-${FAMILY2}-quiz-submit"
-      ${!state30.quiz.answer ? "disabled" : ""}>${esc16(t("quiz.submit"))}</button>
+      ${!state30.quiz.answer ? "disabled" : ""}>${esc17(t("quiz.submit"))}</button>
   </div>`;
   }
   function render30() {
     root30.innerHTML = `
     <div class="eog-wrap">
-      <h2 class="eog-title">${esc16(t("section.exploit.title"))}</h2>
+      <h2 class="eog-title">${esc17(t("section.exploit.title"))}</h2>
       ${renderPhaseRing4()}
       <div class="eog-panels-row">
         ${renderCodePanel3()}
@@ -37601,7 +38105,7 @@ ${items.join("\n")}
       ${renderDefensePanel2()}
       ${renderPredictControls3()}
       <section class="eog-self-test">
-        <h3>${esc16(t("quiz.title"))}</h3>
+        <h3>${esc17(t("quiz.title"))}</h3>
         ${renderQuiz30()}
       </section>
     </div>`;
@@ -37690,7 +38194,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root31;
-  function esc17(value = "") {
+  function esc18(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function example3() {
@@ -37715,7 +38219,7 @@ ${items.join("\n")}
     ${PHASES5.map((ph) => `
       <div class="eog-phase-node eog-phase-node--${ph}${cur === ph ? " eog-phase-node--active" : ""}"
         data-testid="exploit-phase-${ph}">
-        ${esc17(t(`exploit.phase.${ph}`))}
+        ${esc18(t(`exploit.phase.${ph}`))}
       </div>`).join("")}
   </div>`;
   }
@@ -37724,10 +38228,10 @@ ${items.join("\n")}
     const lines = ex.code.split("\n").map((line, i) => {
       const n = i + 1;
       const cls = n === ex.buggyLine ? "eog-code-line eog-code-line--bug" : "eog-code-line";
-      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc17(line)}</span>`;
+      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc18(line)}</span>`;
     }).join("\n");
     return `<div class="eog-code-panel" data-testid="exploit-code">
-    <h3 class="eog-col-title">${esc17(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc17(t(ex.cweKey))}</span></h3>
+    <h3 class="eog-col-title">${esc18(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc18(t(ex.cweKey))}</span></h3>
     <pre class="eog-code-pre">${lines}</pre>
   </div>`;
   }
@@ -37735,8 +38239,8 @@ ${items.join("\n")}
     const ex = example3();
     if (!phaseShown3("payload")) {
       return `<div class="eog-shell-panel" data-testid="exploit-command">
-      <h3 class="eog-col-title">${esc17(t("exploit.commandTitle"))}</h3>
-      <pre class="eog-shell-pre">${esc17(ex.command)}</pre>
+      <h3 class="eog-col-title">${esc18(t("exploit.commandTitle"))}</h3>
+      <pre class="eog-shell-pre">${esc18(ex.command)}</pre>
     </div>`;
     }
     const payload = ex.payload.string;
@@ -37744,15 +38248,15 @@ ${items.join("\n")}
     const before = ex.command.split("<input>")[0];
     const after = ex.command.split("<input>")[1] || "";
     const payloadHtml = regions.map(
-      (r) => `<span class="eog-shell-region eog-shell-region--${esc17(r.kind)}"
-       data-testid="exploit-payload-region-${esc17(r.kind)}"
-       title="${esc17(r.label)}">${esc17(payload.slice(r.range[0], r.range[1]))}</span>`
+      (r) => `<span class="eog-shell-region eog-shell-region--${esc18(r.kind)}"
+       data-testid="exploit-payload-region-${esc18(r.kind)}"
+       title="${esc18(r.label)}">${esc18(payload.slice(r.range[0], r.range[1]))}</span>`
     ).join("");
     return `<div class="eog-shell-panel eog-shell-panel--substituted" data-testid="exploit-command">
-    <h3 class="eog-col-title">${esc17(t("exploit.payloadTitle"))}</h3>
-    <pre class="eog-shell-pre">${esc17(before)}<span class="eog-shell-payload">${payloadHtml}</span>${esc17(after)}</pre>
+    <h3 class="eog-col-title">${esc18(t("exploit.payloadTitle"))}</h3>
+    <pre class="eog-shell-pre">${esc18(before)}<span class="eog-shell-payload">${payloadHtml}</span>${esc18(after)}</pre>
     <ul class="eog-shell-legend">
-      ${regions.map((r) => `<li class="eog-shell-legend-item eog-shell-legend-item--${esc17(r.kind)}">${esc17(r.label)}</li>`).join("")}
+      ${regions.map((r) => `<li class="eog-shell-legend-item eog-shell-legend-item--${esc18(r.kind)}">${esc18(r.label)}</li>`).join("")}
     </ul>
   </div>`;
   }
@@ -37760,25 +38264,25 @@ ${items.join("\n")}
     if (!phaseShown3("constraint")) return "";
     const ex = example3();
     return `<div class="eog-constraint" data-testid="exploit-constraint">
-    <h3 class="eog-col-title">${esc17(t("exploit.constraintTitle"))}</h3>
-    <p class="eog-constraint__math"><code>${esc17(ex.constraint.math)}</code></p>
-    <p class="eog-constraint__text">${esc17(t(ex.constraint.textKey))}</p>
+    <h3 class="eog-col-title">${esc18(t("exploit.constraintTitle"))}</h3>
+    <p class="eog-constraint__math"><code>${esc18(ex.constraint.math)}</code></p>
+    <p class="eog-constraint__text">${esc18(t(ex.constraint.textKey))}</p>
   </div>`;
   }
   function renderDefensePanel3() {
     if (!phaseShown3("defense")) return "";
     const ex = example3();
     return `<div class="eog-defense" data-testid="exploit-defense">
-    <h3 class="eog-col-title">${esc17(t("exploit.defenseTitle"))}</h3>
+    <h3 class="eog-col-title">${esc18(t("exploit.defenseTitle"))}</h3>
     ${ex.defenses.map((d) => `
       <label class="eog-defense-row${d.id === ex.primaryDefenseId ? " eog-defense-row--primary" : ""}">
-        <input type="checkbox" data-testid="exploit-mit-${esc17(d.id)}"
-          data-eog-defense-id="${esc17(d.id)}"
+        <input type="checkbox" data-testid="exploit-mit-${esc18(d.id)}"
+          data-eog-defense-id="${esc18(d.id)}"
           ${state31.defenses[d.id] ? "checked" : ""}>
-        <span class="eog-defense-label">${esc17(t(d.labelKey))}</span>
+        <span class="eog-defense-label">${esc18(t(d.labelKey))}</span>
       </label>`).join("")}
     <div class="eog-payload-status" data-testid="exploit-payload-status">
-      ${esc17(t(payloadStatusKey3()))}
+      ${esc18(t(payloadStatusKey3()))}
     </div>
   </div>`;
   }
@@ -37787,29 +38291,29 @@ ${items.join("\n")}
     const showButtons = state31.predict && state31.phaseIndex === PREDICT_PHASE_INDEX3;
     const buttons = showButtons ? `
     <div class="eog-predict-btns" data-testid="exploit-predict-buttons">
-      <span class="eog-predict-label">${esc17(t("exploit.predictPrompt"))}</span>
+      <span class="eog-predict-label">${esc18(t("exploit.predictPrompt"))}</span>
       ${ex.defenses.map((d) => `
         <button type="button"
           class="eog-predict-btn${state31.prediction === d.id ? " eog-predict-btn--selected" : ""}"
-          data-testid="exploit-predict-${esc17(d.id)}"
-          data-eog-predict="${esc17(d.id)}">
-          ${esc17(t(d.labelKey))}
+          data-testid="exploit-predict-${esc18(d.id)}"
+          data-eog-predict="${esc18(d.id)}">
+          ${esc18(t(d.labelKey))}
         </button>`).join("")}
     </div>` : "";
     const result = state31.predictResult ? `
-    <div class="eog-predict-result eog-predict-result--${esc17(state31.predictResult)}"
+    <div class="eog-predict-result eog-predict-result--${esc18(state31.predictResult)}"
       data-testid="exploit-predict-result">
-      ${state31.predictResult === "correct" ? esc17(t("exploit.predictCorrect")) : esc17(t("exploit.predictIncorrect"))}
+      ${state31.predictResult === "correct" ? esc18(t("exploit.predictCorrect")) : esc18(t("exploit.predictIncorrect"))}
     </div>` : "";
     const isLast = state31.phaseIndex >= PHASES5.length - 1;
     return `<div class="eog-step-controls">
     <span class="eog-step-counter">${state31.phaseIndex + 1} / ${PHASES5.length}</span>
-    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc17(t("exploit.reset"))}</button>
+    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc18(t("exploit.reset"))}</button>
     <button type="button" class="eog-btn eog-btn--next" data-testid="exploit-next-phase"
-      ${isLast ? "disabled" : ""}>${esc17(t("exploit.nextPhase"))}</button>
+      ${isLast ? "disabled" : ""}>${esc18(t("exploit.nextPhase"))}</button>
     <label class="eog-predict-toggle-label">
       <input type="checkbox" data-testid="exploit-predict-toggle" ${state31.predict ? "checked" : ""}>
-      ${esc17(t("exploit.predictMode"))}
+      ${esc18(t("exploit.predictMode"))}
     </label>
     ${buttons}
     ${result}
@@ -37818,30 +38322,30 @@ ${items.join("\n")}
   function renderQuiz31() {
     const ex = example3();
     if (!state31.quiz.active) {
-      return `<button type="button" class="eog-quiz-start" data-testid="exploit-${FAMILY3}-quiz-start">${esc17(t("quiz.start"))}</button>`;
+      return `<button type="button" class="eog-quiz-start" data-testid="exploit-${FAMILY3}-quiz-start">${esc18(t("quiz.start"))}</button>`;
     }
     if (state31.quiz.phase === "done") {
       const correct = state31.quiz.answer === ex.quiz.answer;
       return `<div class="eog-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="exploit-${FAMILY3}-quiz-result">
-      <p>${correct ? esc17(t("quiz.correct")) : esc17(t("quiz.wrong"))}</p>
-      <button type="button" data-testid="exploit-${FAMILY3}-quiz-close">${esc17(t("quiz.close"))}</button>
+      <p>${correct ? esc18(t("quiz.correct")) : esc18(t("quiz.wrong"))}</p>
+      <button type="button" data-testid="exploit-${FAMILY3}-quiz-close">${esc18(t("quiz.close"))}</button>
     </div>`;
     }
     return `<div class="eog-quiz" data-testid="exploit-${FAMILY3}-quiz">
-    <p class="eog-quiz-prompt">${esc17(t(ex.quiz.promptKey))}</p>
+    <p class="eog-quiz-prompt">${esc18(t(ex.quiz.promptKey))}</p>
     ${ex.quiz.optionKeys.map((k) => `
       <label class="eog-quiz-option">
-        <input type="radio" name="eog-quiz" value="${esc17(k)}" ${state31.quiz.answer === k ? "checked" : ""}>
-        ${esc17(t(`exploit.${FAMILY3}.quiz.${k}`))}
+        <input type="radio" name="eog-quiz" value="${esc18(k)}" ${state31.quiz.answer === k ? "checked" : ""}>
+        ${esc18(t(`exploit.${FAMILY3}.quiz.${k}`))}
       </label>`).join("")}
     <button type="button" data-testid="exploit-${FAMILY3}-quiz-submit"
-      ${!state31.quiz.answer ? "disabled" : ""}>${esc17(t("quiz.submit"))}</button>
+      ${!state31.quiz.answer ? "disabled" : ""}>${esc18(t("quiz.submit"))}</button>
   </div>`;
   }
   function render31() {
     root31.innerHTML = `
     <div class="eog-wrap">
-      <h2 class="eog-title">${esc17(t("section.exploit.title"))}</h2>
+      <h2 class="eog-title">${esc18(t("section.exploit.title"))}</h2>
       ${renderPhaseRing5()}
       <div class="eog-panels-row">
         ${renderCodePanel4()}
@@ -37851,7 +38355,7 @@ ${items.join("\n")}
       ${renderDefensePanel3()}
       ${renderPredictControls4()}
       <section class="eog-self-test">
-        <h3>${esc17(t("quiz.title"))}</h3>
+        <h3>${esc18(t("quiz.title"))}</h3>
         ${renderQuiz31()}
       </section>
     </div>`;
@@ -38052,7 +38556,7 @@ ${items.join("\n")}
     // exampleId -> concolicExecute result, cached
   };
   var root32;
-  function esc18(value = "") {
+  function esc19(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function example4() {
@@ -38091,9 +38595,9 @@ ${items.join("\n")}
     ${EXAMPLE_IDS.map((id) => `
       <button type="button"
         class="eog-chip${state32.exampleId === id ? " eog-chip--active" : ""}"
-        data-testid="exploit-path-example-${esc18(id)}"
-        data-eog-example="${esc18(id)}">
-        ${esc18(t(EXPLOIT_PATH_EXAMPLES[id].titleKey))}
+        data-testid="exploit-path-example-${esc19(id)}"
+        data-eog-example="${esc19(id)}">
+        ${esc19(t(EXPLOIT_PATH_EXAMPLES[id].titleKey))}
       </button>`).join("")}
   </div>`;
   }
@@ -38103,7 +38607,7 @@ ${items.join("\n")}
     ${PHASES6.map((ph) => `
       <div class="eog-phase-node eog-phase-node--${ph}${cur === ph ? " eog-phase-node--active" : ""}"
         data-testid="exploit-phase-${ph}">
-        ${esc18(t(`exploit.phase.${ph}`))}
+        ${esc19(t(`exploit.phase.${ph}`))}
       </div>`).join("")}
   </div>`;
   }
@@ -38112,10 +38616,10 @@ ${items.join("\n")}
     const lines = ex.source.split("\n").map((line, i) => {
       const n = i + 1;
       const cls = n === ex.buggyLine ? "eog-code-line eog-code-line--bug" : "eog-code-line";
-      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc18(line)}</span>`;
+      return `<span class="${cls}"><span class="eog-code-lineno">${n}</span>${esc19(line)}</span>`;
     }).join("\n");
     return `<div class="eog-code-panel" data-testid="exploit-code">
-    <h3 class="eog-col-title">${esc18(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc18(t(ex.cweKey))}</span></h3>
+    <h3 class="eog-col-title">${esc19(t("exploit.codeTitle"))} \xB7 <span class="eog-cwe">${esc19(t(ex.cweKey))}</span></h3>
     <pre class="eog-code-pre">${lines}</pre>
   </div>`;
   }
@@ -38129,24 +38633,24 @@ ${items.join("\n")}
       const inputStr = Object.entries(it.inputs).map(([k, v]) => `${k}=${v}`).join(", ");
       return `<tr class="eog-path-row${isVuln ? " eog-path-row--vuln" : ""}" data-testid="exploit-path-iteration-${idx}">
       <td>${idx + 1}</td>
-      <td><code>${esc18(inputStr)}</code></td>
-      <td><code>${esc18(String(it.returnValue))}</code></td>
-      <td>${isVuln ? esc18(t("exploit.path.exploitPathLabel")) : ""}</td>
+      <td><code>${esc19(inputStr)}</code></td>
+      <td><code>${esc19(String(it.returnValue))}</code></td>
+      <td>${isVuln ? esc19(t("exploit.path.exploitPathLabel")) : ""}</td>
     </tr>`;
     }).join("");
     const constraint = vuln ? vuln.pathCondition.join("  \u2227  ") : "";
     return `<div class="eog-path-panel" data-testid="exploit-path">
-    <h3 class="eog-col-title">${esc18(t("exploit.path.iterationsTitle"))}</h3>
+    <h3 class="eog-col-title">${esc19(t("exploit.path.iterationsTitle"))}</h3>
     <table class="eog-path-table">
       <thead><tr>
-        <th>#</th><th>${esc18(t("exploit.path.colInput"))}</th>
-        <th>${esc18(t("exploit.path.colReturn"))}</th><th></th>
+        <th>#</th><th>${esc19(t("exploit.path.colInput"))}</th>
+        <th>${esc19(t("exploit.path.colReturn"))}</th><th></th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>
     <div class="eog-path-constraint" data-testid="exploit-path-constraint">
-      <span class="eog-path-constraint__label">${esc18(t("exploit.path.constraintLabel"))}</span>
-      <code>${esc18(constraint)}</code>
+      <span class="eog-path-constraint__label">${esc19(t("exploit.path.constraintLabel"))}</span>
+      <code>${esc19(constraint)}</code>
     </div>
   </div>`;
   }
@@ -38154,11 +38658,11 @@ ${items.join("\n")}
     if (!phaseShown4("payload")) return "";
     const ex = example4();
     return `<div class="eog-payload-panel" data-testid="exploit-path-payload">
-    <h3 class="eog-col-title">${esc18(t("exploit.payloadTitle"))}</h3>
-    <p class="eog-payload-note">${esc18(t(ex.payloadNoteKey))}</p>
+    <h3 class="eog-col-title">${esc19(t("exploit.payloadTitle"))}</h3>
+    <p class="eog-payload-note">${esc19(t(ex.payloadNoteKey))}</p>
     <div class="eog-exploit-input">
-      <span class="eog-exploit-input__label">${esc18(t("exploit.path.exploitInputLabel"))}</span>
-      <code>${esc18(ex.exploitInput)}</code>
+      <span class="eog-exploit-input__label">${esc19(t("exploit.path.exploitInputLabel"))}</span>
+      <code>${esc19(ex.exploitInput)}</code>
     </div>
   </div>`;
   }
@@ -38166,16 +38670,16 @@ ${items.join("\n")}
     if (!phaseShown4("defense")) return "";
     const ex = example4();
     return `<div class="eog-defense" data-testid="exploit-defense">
-    <h3 class="eog-col-title">${esc18(t("exploit.defenseTitle"))}</h3>
+    <h3 class="eog-col-title">${esc19(t("exploit.defenseTitle"))}</h3>
     ${ex.defenses.map((d) => `
       <label class="eog-defense-row${d.id === ex.primaryDefenseId ? " eog-defense-row--primary" : ""}">
-        <input type="checkbox" data-testid="exploit-mit-${esc18(d.id)}"
-          data-eog-defense-id="${esc18(d.id)}"
+        <input type="checkbox" data-testid="exploit-mit-${esc19(d.id)}"
+          data-eog-defense-id="${esc19(d.id)}"
           ${state32.defenses[d.id] ? "checked" : ""}>
-        <span class="eog-defense-label">${esc18(t(d.labelKey))}</span>
+        <span class="eog-defense-label">${esc19(t(d.labelKey))}</span>
       </label>`).join("")}
     <div class="eog-payload-status" data-testid="exploit-payload-status">
-      ${esc18(t(payloadStatusKey4()))}
+      ${esc19(t(payloadStatusKey4()))}
     </div>
   </div>`;
   }
@@ -38184,29 +38688,29 @@ ${items.join("\n")}
     const showButtons = state32.predict && state32.phaseIndex === PREDICT_PHASE_INDEX4;
     const buttons = showButtons ? `
     <div class="eog-predict-btns" data-testid="exploit-predict-buttons">
-      <span class="eog-predict-label">${esc18(t("exploit.predictPrompt"))}</span>
+      <span class="eog-predict-label">${esc19(t("exploit.predictPrompt"))}</span>
       ${ex.defenses.map((d) => `
         <button type="button"
           class="eog-predict-btn${state32.prediction === d.id ? " eog-predict-btn--selected" : ""}"
-          data-testid="exploit-predict-${esc18(d.id)}"
-          data-eog-predict="${esc18(d.id)}">
-          ${esc18(t(d.labelKey))}
+          data-testid="exploit-predict-${esc19(d.id)}"
+          data-eog-predict="${esc19(d.id)}">
+          ${esc19(t(d.labelKey))}
         </button>`).join("")}
     </div>` : "";
     const result = state32.predictResult ? `
-    <div class="eog-predict-result eog-predict-result--${esc18(state32.predictResult)}"
+    <div class="eog-predict-result eog-predict-result--${esc19(state32.predictResult)}"
       data-testid="exploit-predict-result">
-      ${state32.predictResult === "correct" ? esc18(t("exploit.predictCorrect")) : esc18(t("exploit.predictIncorrect"))}
+      ${state32.predictResult === "correct" ? esc19(t("exploit.predictCorrect")) : esc19(t("exploit.predictIncorrect"))}
     </div>` : "";
     const isLast = state32.phaseIndex >= PHASES6.length - 1;
     return `<div class="eog-step-controls">
     <span class="eog-step-counter">${state32.phaseIndex + 1} / ${PHASES6.length}</span>
-    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc18(t("exploit.reset"))}</button>
+    <button type="button" class="eog-btn eog-btn--reset" data-testid="exploit-reset">${esc19(t("exploit.reset"))}</button>
     <button type="button" class="eog-btn eog-btn--next" data-testid="exploit-next-phase"
-      ${isLast ? "disabled" : ""}>${esc18(t("exploit.nextPhase"))}</button>
+      ${isLast ? "disabled" : ""}>${esc19(t("exploit.nextPhase"))}</button>
     <label class="eog-predict-toggle-label">
       <input type="checkbox" data-testid="exploit-predict-toggle" ${state32.predict ? "checked" : ""}>
-      ${esc18(t("exploit.predictMode"))}
+      ${esc19(t("exploit.predictMode"))}
     </label>
     ${buttons}
     ${result}
@@ -38215,30 +38719,30 @@ ${items.join("\n")}
   function renderQuiz32() {
     const ex = example4();
     if (!state32.quiz.active) {
-      return `<button type="button" class="eog-quiz-start" data-testid="exploit-path-quiz-start">${esc18(t("quiz.start"))}</button>`;
+      return `<button type="button" class="eog-quiz-start" data-testid="exploit-path-quiz-start">${esc19(t("quiz.start"))}</button>`;
     }
     if (state32.quiz.phase === "done") {
       const correct = state32.quiz.answer === ex.quiz.answer;
       return `<div class="eog-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="exploit-path-quiz-result">
-      <p>${correct ? esc18(t("quiz.correct")) : esc18(t("quiz.wrong"))}</p>
-      <button type="button" data-testid="exploit-path-quiz-close">${esc18(t("quiz.close"))}</button>
+      <p>${correct ? esc19(t("quiz.correct")) : esc19(t("quiz.wrong"))}</p>
+      <button type="button" data-testid="exploit-path-quiz-close">${esc19(t("quiz.close"))}</button>
     </div>`;
     }
     return `<div class="eog-quiz" data-testid="exploit-path-quiz">
-    <p class="eog-quiz-prompt">${esc18(t(ex.quiz.promptKey))}</p>
+    <p class="eog-quiz-prompt">${esc19(t(ex.quiz.promptKey))}</p>
     ${ex.quiz.optionKeys.map((k) => `
       <label class="eog-quiz-option">
-        <input type="radio" name="eog-quiz" value="${esc18(k)}" ${state32.quiz.answer === k ? "checked" : ""}>
-        ${esc18(t(`exploit.path.${state32.exampleId}.quiz.${k}`))}
+        <input type="radio" name="eog-quiz" value="${esc19(k)}" ${state32.quiz.answer === k ? "checked" : ""}>
+        ${esc19(t(`exploit.path.${state32.exampleId}.quiz.${k}`))}
       </label>`).join("")}
     <button type="button" data-testid="exploit-path-quiz-submit"
-      ${!state32.quiz.answer ? "disabled" : ""}>${esc18(t("quiz.submit"))}</button>
+      ${!state32.quiz.answer ? "disabled" : ""}>${esc19(t("quiz.submit"))}</button>
   </div>`;
   }
   function render32() {
     root32.innerHTML = `
     <div class="eog-wrap">
-      <h2 class="eog-title">${esc18(t("section.exploit.title"))}</h2>
+      <h2 class="eog-title">${esc19(t("section.exploit.title"))}</h2>
       ${renderExampleChips4()}
       ${renderPhaseRing6()}
       ${renderCodePanel5()}
@@ -38247,7 +38751,7 @@ ${items.join("\n")}
       ${renderDefensePanel4()}
       ${renderPredictControls5()}
       <section class="eog-self-test">
-        <h3>${esc18(t("quiz.title"))}</h3>
+        <h3>${esc19(t("quiz.title"))}</h3>
         ${renderQuiz32()}
       </section>
     </div>`;
@@ -38434,7 +38938,7 @@ ${items.join("\n")}
   ];
 
   // src/utils/searchBasedTesting.js
-  function makeRng(seed) {
+  function makeRng2(seed) {
     let s = seed >>> 0;
     return function next() {
       s = s + 1831565813 | 0;
@@ -38502,7 +39006,7 @@ ${items.join("\n")}
     return schema.map((s) => rngInt(rng, s.min, s.max));
   }
   function randomSearch(example5, { seed, budget }) {
-    const rng = makeRng(seed);
+    const rng = makeRng2(seed);
     const history2 = [];
     let bestCost = Infinity, bestIndividual = null;
     for (let i = 0; i < budget; i++) {
@@ -38518,18 +39022,18 @@ ${items.join("\n")}
     return { strategy: "random", history: history2, covered: bestCost === 0, bestIndividual, bestCost };
   }
   function hillClimb(example5, { seed, budget }) {
-    const rng = makeRng(seed);
+    const rng = makeRng2(seed);
     const schema = example5.inputSchema;
-    let current2 = randomIndividual(rng, schema);
-    let currentCost = evaluate(example5, current2).cost;
-    const history2 = [{ evaluation: 1, bestCost: currentCost, bestIndividual: current2, covered: currentCost === 0 }];
+    let current3 = randomIndividual(rng, schema);
+    let currentCost = evaluate(example5, current3).cost;
+    const history2 = [{ evaluation: 1, bestCost: currentCost, bestIndividual: current3, covered: currentCost === 0 }];
     let evals = 1;
     while (evals < budget && currentCost > 0) {
       let bestNeighbour = null, bestNeighbourCost = currentCost;
       for (let d = 0; d < schema.length; d++) {
         for (const delta of [-1, 1]) {
           if (evals >= budget) break;
-          const n = current2.slice();
+          const n = current3.slice();
           n[d] = clamp(n[d] + delta, schema[d].min, schema[d].max);
           const cost = evaluate(example5, n).cost;
           evals++;
@@ -38537,7 +39041,7 @@ ${items.join("\n")}
           history2.push({
             evaluation: evals,
             bestCost: entryBest,
-            bestIndividual: cost < bestNeighbourCost ? n : bestNeighbour || current2,
+            bestIndividual: cost < bestNeighbourCost ? n : bestNeighbour || current3,
             covered: entryBest === 0
           });
           if (cost < bestNeighbourCost) {
@@ -38547,7 +39051,7 @@ ${items.join("\n")}
         }
       }
       if (bestNeighbour && bestNeighbourCost < currentCost) {
-        current2 = bestNeighbour;
+        current3 = bestNeighbour;
         currentCost = bestNeighbourCost;
       } else {
         break;
@@ -38557,13 +39061,13 @@ ${items.join("\n")}
       strategy: "hillClimb",
       history: history2,
       covered: currentCost === 0,
-      bestIndividual: current2,
+      bestIndividual: current3,
       bestCost: currentCost,
       stuck: currentCost > 0
     };
   }
   function geneticAlgorithm(example5, { seed, budget, populationSize = 20 }) {
-    const rng = makeRng(seed);
+    const rng = makeRng2(seed);
     const schema = example5.inputSchema;
     const history2 = [];
     let evals = 0;
@@ -38673,7 +39177,7 @@ ${items.join("\n")}
     return kept;
   }
   function wholeSuiteGA(example5, { seed, budget, populationSize = 16, suiteSize = 4 }) {
-    const rng = makeRng(seed);
+    const rng = makeRng2(seed);
     const schema = example5.inputSchema;
     const history2 = [];
     let evals = 0;
@@ -38736,7 +39240,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root33;
-  function esc19(value = "") {
+  function esc20(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function currentExample4() {
@@ -38786,9 +39290,9 @@ ${items.join("\n")}
     ${SBST_EXAMPLES.map((ex) => `
       <button type="button"
         class="sbst-branch-chip${state33.exampleId === ex.id ? " sbst-branch-chip--active" : ""}"
-        data-testid="sbst-branch-example-${esc19(ex.id)}"
-        data-sbst-example-id="${esc19(ex.id)}">
-        ${esc19(t(ex.nameKey))}
+        data-testid="sbst-branch-example-${esc20(ex.id)}"
+        data-sbst-example-id="${esc20(ex.id)}">
+        ${esc20(t(ex.nameKey))}
       </button>`).join("")}
   </div>`;
   }
@@ -38798,10 +39302,10 @@ ${items.join("\n")}
       const isTarget = line.includes("\u2190 target");
       const cls = isTarget ? "sbst-branch-code-line sbst-branch-code-line--target" : "sbst-branch-code-line";
       const n = i + 1;
-      return `<span class="${cls}"><span class="sbst-branch-code-lineno">${n}</span>${esc19(line)}</span>`;
+      return `<span class="${cls}"><span class="sbst-branch-code-lineno">${n}</span>${esc20(line)}</span>`;
     }).join("\n");
     return `<div class="sbst-branch-code-panel" data-testid="sbst-branch-code">
-    <h3 class="eog-col-title">${esc19(t("sbst.branch.codeTitle"))}</h3>
+    <h3 class="eog-col-title">${esc20(t("sbst.branch.codeTitle"))}</h3>
     <pre class="sbst-branch-code-pre">${lines}</pre>
   </div>`;
   }
@@ -38814,18 +39318,18 @@ ${items.join("\n")}
     }
     const minCost = Math.min(...entries.map((e) => e.cost));
     const covered = entries[entries.length - 1].bestCost === 0;
-    const coveredBanner = covered ? `<div class="sbst-branch-covered" data-testid="sbst-branch-covered">${esc19(t("sbst.branch.covered"))}</div>` : "";
+    const coveredBanner = covered ? `<div class="sbst-branch-covered" data-testid="sbst-branch-covered">${esc20(t("sbst.branch.covered"))}</div>` : "";
     const rows = entries.map((entry) => {
       const isBest = entry.cost === minCost;
-      const inputsDisplay = schema.map((s, i) => `${esc19(s.name)}=${esc19(String(entry.individual[i]))}`).join(", ");
+      const inputsDisplay = schema.map((s, i) => `${esc20(s.name)}=${esc20(String(entry.individual[i]))}`).join(", ");
       const costDisplay = isFinite(entry.cost) ? entry.cost.toFixed(4) : "\u221E";
       return `<div class="sbst-branch-pop-row${isBest ? " sbst-branch-pop-row--best" : ""}">
       <span class="sbst-branch-pop-inputs">${inputsDisplay}</span>
-      <span class="sbst-branch-pop-cost">${esc19(t("sbst.branch.cost"))}: ${esc19(costDisplay)}</span>
+      <span class="sbst-branch-pop-cost">${esc20(t("sbst.branch.cost"))}: ${esc20(costDisplay)}</span>
     </div>`;
     }).join("");
     return `<div class="sbst-branch-pop-panel" data-testid="sbst-branch-population">
-    <h3 class="eog-col-title">${esc19(t("sbst.branch.populationTitle"))}</h3>
+    <h3 class="eog-col-title">${esc20(t("sbst.branch.populationTitle"))}</h3>
     ${coveredBanner}
     <div class="sbst-branch-pop-list">${rows}</div>
   </div>`;
@@ -38849,7 +39353,7 @@ ${items.join("\n")}
     const curNorm = isFinite(curEntry) ? (curEntry - minVal) / range : 1;
     const curY = pad + curNorm * (H - pad * 2);
     return `<div class="sbst-branch-sparkline-wrap" data-testid="sbst-branch-sparkline">
-    <h3 class="eog-col-title">${esc19(t("sbst.branch.sparklineTitle"))}</h3>
+    <h3 class="eog-col-title">${esc20(t("sbst.branch.sparklineTitle"))}</h3>
     <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" class="sbst-branch-svg">
       <polyline points="${points}" fill="none" stroke="var(--app-primary-strong, #4f46e5)" stroke-width="1.5"/>
       <circle cx="${curX.toFixed(1)}" cy="${curY.toFixed(1)}" r="4"
@@ -38863,9 +39367,9 @@ ${items.join("\n")}
     const costDisplay = isFinite(r.bestCost) ? r.bestCost.toFixed(4) : "\u221E";
     const statusKey = r.covered ? "sbst.branch.randomCovered" : "sbst.branch.randomNotCovered";
     return `<div class="sbst-branch-random-panel" data-testid="sbst-branch-random">
-    <h3 class="eog-col-title">${esc19(t("sbst.branch.randomTitle"))}</h3>
-    <p class="sbst-branch-random-cost">${esc19(t("sbst.branch.bestCost"))}: ${esc19(costDisplay)}</p>
-    <p class="sbst-branch-random-status">${esc19(t(statusKey))}</p>
+    <h3 class="eog-col-title">${esc20(t("sbst.branch.randomTitle"))}</h3>
+    <p class="sbst-branch-random-cost">${esc20(t("sbst.branch.bestCost"))}: ${esc20(costDisplay)}</p>
+    <p class="sbst-branch-random-status">${esc20(t(statusKey))}</p>
   </div>`;
   }
   function renderStepControls() {
@@ -38873,11 +39377,11 @@ ${items.join("\n")}
     const isLast = state33.genIndex >= total - 1;
     return `<div class="eog-step-controls">
     <span class="eog-step-counter">${state33.genIndex + 1} / ${total}</span>
-    <button type="button" class="eog-btn" data-testid="sbst-branch-reset">${esc19(t("sbst.branch.reset"))}</button>
+    <button type="button" class="eog-btn" data-testid="sbst-branch-reset">${esc20(t("sbst.branch.reset"))}</button>
     <button type="button" class="eog-btn eog-btn--next" data-testid="sbst-branch-next"
-      ${isLast ? "disabled" : ""}>${esc19(t("sbst.branch.next"))}</button>
+      ${isLast ? "disabled" : ""}>${esc20(t("sbst.branch.next"))}</button>
     <button type="button" class="eog-btn eog-btn--run" data-testid="sbst-branch-run"
-      ${isLast ? "disabled" : ""}>${esc19(t("sbst.branch.run"))}</button>
+      ${isLast ? "disabled" : ""}>${esc20(t("sbst.branch.run"))}</button>
   </div>`;
   }
   var QUIZ_PROMPT_KEY = "sbst.branch.quiz.prompt";
@@ -38885,30 +39389,30 @@ ${items.join("\n")}
   var QUIZ_ANSWER = "option.gradient";
   function renderQuiz33() {
     if (!state33.quiz.active) {
-      return `<button type="button" class="eog-quiz-start" data-testid="sbst-branch-quiz-start">${esc19(t("quiz.start"))}</button>`;
+      return `<button type="button" class="eog-quiz-start" data-testid="sbst-branch-quiz-start">${esc20(t("quiz.start"))}</button>`;
     }
     if (state33.quiz.phase === "done") {
       const correct = state33.quiz.answer === QUIZ_ANSWER;
       return `<div class="eog-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="sbst-branch-quiz-result">
-      <p>${correct ? esc19(t("quiz.correct")) : esc19(t("quiz.wrong"))}</p>
-      <button type="button" data-testid="sbst-branch-quiz-close">${esc19(t("quiz.close"))}</button>
+      <p>${correct ? esc20(t("quiz.correct")) : esc20(t("quiz.wrong"))}</p>
+      <button type="button" data-testid="sbst-branch-quiz-close">${esc20(t("quiz.close"))}</button>
     </div>`;
     }
     return `<div class="eog-quiz" data-testid="sbst-branch-quiz">
-    <p class="eog-quiz-prompt">${esc19(t(QUIZ_PROMPT_KEY))}</p>
+    <p class="eog-quiz-prompt">${esc20(t(QUIZ_PROMPT_KEY))}</p>
     ${QUIZ_OPTIONS.map((k) => `
       <label class="eog-quiz-option">
-        <input type="radio" name="sbst-branch-quiz" value="${esc19(k)}" ${state33.quiz.answer === k ? "checked" : ""}>
-        ${esc19(t(`sbst.branch.quiz.${k}`))}
+        <input type="radio" name="sbst-branch-quiz" value="${esc20(k)}" ${state33.quiz.answer === k ? "checked" : ""}>
+        ${esc20(t(`sbst.branch.quiz.${k}`))}
       </label>`).join("")}
     <button type="button" data-testid="sbst-branch-quiz-submit"
-      ${!state33.quiz.answer ? "disabled" : ""}>${esc19(t("quiz.submit"))}</button>
+      ${!state33.quiz.answer ? "disabled" : ""}>${esc20(t("quiz.submit"))}</button>
   </div>`;
   }
   function render33() {
     root33.innerHTML = `
     <div class="sbst-branch-wrap">
-      <h2 class="eog-title">${esc19(t("section.sbst.title"))}</h2>
+      <h2 class="eog-title">${esc20(t("section.sbst.title"))}</h2>
       ${renderExamplePicker()}
       <div class="sbst-branch-panels-row">
         ${renderCodePanel6()}
@@ -38918,7 +39422,7 @@ ${items.join("\n")}
       ${renderRandomPanel()}
       ${renderStepControls()}
       <section class="eog-self-test">
-        <h3>${esc19(t("quiz.title"))}</h3>
+        <h3>${esc20(t("quiz.title"))}</h3>
         ${renderQuiz33()}
       </section>
     </div>`;
@@ -38988,7 +39492,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root34;
-  function esc20(value = "") {
+  function esc21(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function currentExample5() {
@@ -39014,32 +39518,32 @@ ${items.join("\n")}
     ${SBST_EXAMPLES.map((ex) => `
       <button type="button"
         class="sbst-compare-chip${state34.exampleId === ex.id ? " sbst-compare-chip--active" : ""}"
-        data-testid="sbst-compare-example-${esc20(ex.id)}"
-        data-sbst-compare-example-id="${esc20(ex.id)}">
-        ${esc20(t(ex.nameKey))}
+        data-testid="sbst-compare-example-${esc21(ex.id)}"
+        data-sbst-compare-example-id="${esc21(ex.id)}">
+        ${esc21(t(ex.nameKey))}
       </button>`).join("")}
   </div>`;
   }
   function formatCoverage(result) {
-    if (!result) return esc20(t("sbst.compare.noResult"));
+    if (!result) return esc21(t("sbst.compare.noResult"));
     if (result.covered) {
       const evalCount = result.history.length;
-      return `${esc20(t("sbst.compare.covered"))} (${esc20(String(evalCount))} ${esc20(t("sbst.compare.evaluations"))})`;
+      return `${esc21(t("sbst.compare.covered"))} (${esc21(String(evalCount))} ${esc21(t("sbst.compare.evaluations"))})`;
     }
-    return esc20(t("sbst.compare.budgetExhausted"));
+    return esc21(t("sbst.compare.budgetExhausted"));
   }
   function formatCost(result) {
     if (!result) return "\u2014";
     const c = result.bestCost;
-    return isFinite(c) ? esc20(c.toFixed(4)) : "\u221E";
+    return isFinite(c) ? esc21(c.toFixed(4)) : "\u221E";
   }
-  function renderStrategyPanel(key2, testid, nameKey) {
-    const result = state34.results[key2];
-    const stuckBadge = key2 === "hillClimb" && result && result.stuck ? `<span class="sbst-compare-stuck-badge">${esc20(t("sbst.compare.stuck"))}</span>` : "";
-    return `<div class="sbst-compare-panel" data-testid="${esc20(testid)}">
-    <h3 class="sbst-compare-panel-title">${esc20(t(nameKey))} ${stuckBadge}</h3>
+  function renderStrategyPanel(key3, testid, nameKey) {
+    const result = state34.results[key3];
+    const stuckBadge = key3 === "hillClimb" && result && result.stuck ? `<span class="sbst-compare-stuck-badge">${esc21(t("sbst.compare.stuck"))}</span>` : "";
+    return `<div class="sbst-compare-panel" data-testid="${esc21(testid)}">
+    <h3 class="sbst-compare-panel-title">${esc21(t(nameKey))} ${stuckBadge}</h3>
     <p class="sbst-compare-panel-status">${formatCoverage(result)}</p>
-    <p class="sbst-compare-panel-cost">${esc20(t("sbst.compare.bestCost"))}: ${formatCost(result)}</p>
+    <p class="sbst-compare-panel-cost">${esc21(t("sbst.compare.bestCost"))}: ${formatCost(result)}</p>
   </div>`;
   }
   function renderChart() {
@@ -39077,28 +39581,28 @@ ${items.join("\n")}
     const ptsHC = toPoints(seriesHC);
     const ptsGA = toPoints(seriesGA);
     return `<div class="sbst-compare-chart-wrap" data-testid="sbst-compare-chart">
-    <h3 class="eog-col-title">${esc20(t("sbst.compare.chartTitle"))}</h3>
+    <h3 class="eog-col-title">${esc21(t("sbst.compare.chartTitle"))}</h3>
     <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" class="sbst-compare-svg">
       <polyline points="${ptsR}"  fill="none" stroke="#94a3b8" stroke-width="1.5" opacity="0.85"/>
       <polyline points="${ptsHC}" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.85"/>
       <polyline points="${ptsGA}" fill="none" stroke="#22c55e" stroke-width="2"/>
     </svg>
     <div class="sbst-compare-chart-legend">
-      <span class="sbst-compare-legend-item sbst-compare-legend-item--random">${esc20(t("sbst.compare.legendRandom"))}</span>
-      <span class="sbst-compare-legend-item sbst-compare-legend-item--hillclimb">${esc20(t("sbst.compare.legendHillClimb"))}</span>
-      <span class="sbst-compare-legend-item sbst-compare-legend-item--genetic">${esc20(t("sbst.compare.legendGenetic"))}</span>
+      <span class="sbst-compare-legend-item sbst-compare-legend-item--random">${esc21(t("sbst.compare.legendRandom"))}</span>
+      <span class="sbst-compare-legend-item sbst-compare-legend-item--hillclimb">${esc21(t("sbst.compare.legendHillClimb"))}</span>
+      <span class="sbst-compare-legend-item sbst-compare-legend-item--genetic">${esc21(t("sbst.compare.legendGenetic"))}</span>
     </div>
   </div>`;
   }
   function renderTakeaway() {
     return `<p class="sbst-compare-takeaway" data-testid="sbst-compare-takeaway">
-    ${esc20(t("sbst.compare.takeaway"))}
+    ${esc21(t("sbst.compare.takeaway"))}
   </p>`;
   }
   function renderControls() {
     return `<div class="eog-step-controls">
-    <button type="button" class="eog-btn eog-btn--run" data-testid="sbst-compare-run">${esc20(t("sbst.compare.run"))}</button>
-    <button type="button" class="eog-btn eog-btn--reset" data-testid="sbst-compare-reset">${esc20(t("sbst.compare.reset"))}</button>
+    <button type="button" class="eog-btn eog-btn--run" data-testid="sbst-compare-run">${esc21(t("sbst.compare.run"))}</button>
+    <button type="button" class="eog-btn eog-btn--reset" data-testid="sbst-compare-reset">${esc21(t("sbst.compare.reset"))}</button>
   </div>`;
   }
   var QUIZ_PROMPT_KEY2 = "sbst.compare.quiz.prompt";
@@ -39106,30 +39610,30 @@ ${items.join("\n")}
   var QUIZ_ANSWER2 = "option.localOpt";
   function renderQuiz34() {
     if (!state34.quiz.active) {
-      return `<button type="button" class="eog-quiz-start" data-testid="sbst-compare-quiz-start">${esc20(t("quiz.start"))}</button>`;
+      return `<button type="button" class="eog-quiz-start" data-testid="sbst-compare-quiz-start">${esc21(t("quiz.start"))}</button>`;
     }
     if (state34.quiz.phase === "done") {
       const correct = state34.quiz.answer === QUIZ_ANSWER2;
       return `<div class="eog-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="sbst-compare-quiz-result">
-      <p>${correct ? esc20(t("quiz.correct")) : esc20(t("quiz.wrong"))}</p>
-      <button type="button" data-testid="sbst-compare-quiz-close">${esc20(t("quiz.close"))}</button>
+      <p>${correct ? esc21(t("quiz.correct")) : esc21(t("quiz.wrong"))}</p>
+      <button type="button" data-testid="sbst-compare-quiz-close">${esc21(t("quiz.close"))}</button>
     </div>`;
     }
     return `<div class="eog-quiz" data-testid="sbst-compare-quiz">
-    <p class="eog-quiz-prompt">${esc20(t(QUIZ_PROMPT_KEY2))}</p>
+    <p class="eog-quiz-prompt">${esc21(t(QUIZ_PROMPT_KEY2))}</p>
     ${QUIZ_OPTIONS2.map((k) => `
       <label class="eog-quiz-option">
-        <input type="radio" name="sbst-compare-quiz" value="${esc20(k)}" ${state34.quiz.answer === k ? "checked" : ""}>
-        ${esc20(t(`sbst.compare.quiz.${k}`))}
+        <input type="radio" name="sbst-compare-quiz" value="${esc21(k)}" ${state34.quiz.answer === k ? "checked" : ""}>
+        ${esc21(t(`sbst.compare.quiz.${k}`))}
       </label>`).join("")}
     <button type="button" data-testid="sbst-compare-quiz-submit"
-      ${!state34.quiz.answer ? "disabled" : ""}>${esc20(t("quiz.submit"))}</button>
+      ${!state34.quiz.answer ? "disabled" : ""}>${esc21(t("quiz.submit"))}</button>
   </div>`;
   }
   function render34() {
     root34.innerHTML = `
     <div class="sbst-compare-wrap">
-      <h2 class="eog-title">${esc20(t("section.sbst.title"))}</h2>
+      <h2 class="eog-title">${esc21(t("section.sbst.title"))}</h2>
       ${renderExamplePicker2()}
       <div class="sbst-compare-panels-row">
         ${renderStrategyPanel("random", "sbst-compare-random", "sbst.compare.strategyRandom")}
@@ -39140,7 +39644,7 @@ ${items.join("\n")}
       ${renderTakeaway()}
       ${renderControls()}
       <section class="eog-self-test">
-        <h3>${esc20(t("quiz.title"))}</h3>
+        <h3>${esc21(t("quiz.title"))}</h3>
         ${renderQuiz34()}
       </section>
     </div>`;
@@ -39204,7 +39708,7 @@ ${items.join("\n")}
     quiz: { active: false, phase: "idle", answer: "" }
   };
   var root35;
-  function esc21(value = "") {
+  function esc22(value = "") {
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
   }
   function currentExample6() {
@@ -39248,9 +39752,9 @@ ${items.join("\n")}
     ${SBST_EXAMPLES.map((ex) => `
       <button type="button"
         class="sbst-suite-chip${state35.exampleId === ex.id ? " sbst-suite-chip--active" : ""}"
-        data-testid="sbst-suite-example-${esc21(ex.id)}"
-        data-sbst-suite-example-id="${esc21(ex.id)}">
-        ${esc21(t(ex.nameKey))}
+        data-testid="sbst-suite-example-${esc22(ex.id)}"
+        data-sbst-suite-example-id="${esc22(ex.id)}">
+        ${esc22(t(ex.nameKey))}
       </button>`).join("")}
   </div>`;
   }
@@ -39258,10 +39762,10 @@ ${items.join("\n")}
     const example5 = currentExample6();
     const lines = example5.source.split("\n").map((line, i) => {
       const n = i + 1;
-      return `<span class="sbst-suite-code-line"><span class="sbst-suite-code-lineno">${n}</span>${esc21(line)}</span>`;
+      return `<span class="sbst-suite-code-line"><span class="sbst-suite-code-lineno">${n}</span>${esc22(line)}</span>`;
     }).join("\n");
     return `<div class="sbst-suite-code-panel" data-testid="sbst-suite-code">
-    <h3 class="eog-col-title">${esc21(t("sbst.suite.codeTitle"))}</h3>
+    <h3 class="eog-col-title">${esc22(t("sbst.suite.codeTitle"))}</h3>
     <pre class="sbst-suite-code-pre">${lines}</pre>
   </div>`;
   }
@@ -39270,7 +39774,7 @@ ${items.join("\n")}
     const coverage = entry ? entry.coverage : 0;
     const pct2 = Math.round(coverage * 100);
     return `<div class="sbst-suite-coverage-panel" data-testid="sbst-suite-coverage">
-    <div class="sbst-suite-coverage-label">${esc21(t("sbst.suite.coverage"))}: <strong>${pct2}%</strong></div>
+    <div class="sbst-suite-coverage-label">${esc22(t("sbst.suite.coverage"))}: <strong>${pct2}%</strong></div>
     <div class="sbst-suite-coverage-bar-bg">
       <div class="sbst-suite-coverage-bar-fill" style="width: ${pct2}%"></div>
     </div>
@@ -39287,17 +39791,17 @@ ${items.join("\n")}
     const coveredCount = entry ? Math.round(entry.coverage * (example5.branches ? example5.branches.length * 2 : 0)) : 0;
     const totalGoals = state35.result ? Math.round(entry.coverage > 0 ? coveredCount / entry.coverage : example5.branches ? example5.branches.length * 2 : 0) : 0;
     const rows = suite.map((test, idx) => {
-      const inputs = schema.map((s, i) => `${esc21(s.name)}=${esc21(String(test[i]))}`).join(", ");
+      const inputs = schema.map((s, i) => `${esc22(s.name)}=${esc22(String(test[i]))}`).join(", ");
       return `<div class="sbst-suite-test-row">
-      <span class="sbst-suite-test-label">${esc21(t("sbst.suite.test"))} ${idx + 1}</span>
+      <span class="sbst-suite-test-label">${esc22(t("sbst.suite.test"))} ${idx + 1}</span>
       <span class="sbst-suite-test-inputs">${inputs}</span>
     </div>`;
     }).join("");
     const coveredInfo = `<div class="sbst-suite-tests-meta">
-    ${esc21(t("sbst.suite.covered"))}: ${esc21(String(Math.round(entry.coverage * totalGoals)))} / ${esc21(String(totalGoals))} ${esc21(t("sbst.suite.goals"))}
+    ${esc22(t("sbst.suite.covered"))}: ${esc22(String(Math.round(entry.coverage * totalGoals)))} / ${esc22(String(totalGoals))} ${esc22(t("sbst.suite.goals"))}
   </div>`;
     return `<div class="sbst-suite-tests-panel" data-testid="sbst-suite-tests">
-    <h3 class="eog-col-title">${esc21(t("sbst.suite.suiteTitle"))}</h3>
+    <h3 class="eog-col-title">${esc22(t("sbst.suite.suiteTitle"))}</h3>
     ${coveredInfo}
     <div class="sbst-suite-tests-list">${rows}</div>
   </div>`;
@@ -39306,7 +39810,7 @@ ${items.join("\n")}
     const entry = currentGenLastEntry();
     if (!entry || entry.coverage < 1) return "";
     return `<div class="sbst-suite-success-banner" data-testid="sbst-suite-covered">
-    ${esc21(t("sbst.suite.fullCoverage"))}
+    ${esc22(t("sbst.suite.fullCoverage"))}
   </div>`;
   }
   function renderMinimisedSuite() {
@@ -39317,15 +39821,15 @@ ${items.join("\n")}
     const miniSuite = state35.result.minimisedSuite;
     if (!miniSuite || !miniSuite.length) return "";
     const rows = miniSuite.map((test, idx) => {
-      const inputs = schema.map((s, i) => `${esc21(s.name)}=${esc21(String(test[i]))}`).join(", ");
+      const inputs = schema.map((s, i) => `${esc22(s.name)}=${esc22(String(test[i]))}`).join(", ");
       return `<div class="sbst-suite-mini-row">
-      <span class="sbst-suite-mini-label">${esc21(t("sbst.suite.test"))} ${idx + 1}</span>
+      <span class="sbst-suite-mini-label">${esc22(t("sbst.suite.test"))} ${idx + 1}</span>
       <span class="sbst-suite-mini-inputs">${inputs}</span>
     </div>`;
     }).join("");
     return `<div class="sbst-suite-mini-panel" data-testid="sbst-suite-minimised">
-    <h3 class="eog-col-title">${esc21(t("sbst.suite.minimisedTitle"))}</h3>
-    <p class="sbst-suite-mini-meta">${esc21(t("sbst.suite.minimisedDesc"))} (${esc21(String(miniSuite.length))} ${esc21(t("sbst.suite.tests"))})</p>
+    <h3 class="eog-col-title">${esc22(t("sbst.suite.minimisedTitle"))}</h3>
+    <p class="sbst-suite-mini-meta">${esc22(t("sbst.suite.minimisedDesc"))} (${esc22(String(miniSuite.length))} ${esc22(t("sbst.suite.tests"))})</p>
     <div class="sbst-suite-mini-list">${rows}</div>
   </div>`;
   }
@@ -39334,10 +39838,10 @@ ${items.join("\n")}
     const isLast = state35.genIndex >= total - 1;
     return `<div class="eog-step-controls">
     <span class="eog-step-counter">${state35.genIndex + 1} / ${total}</span>
-    <button type="button" class="eog-btn" data-testid="sbst-suite-reset">${esc21(t("sbst.suite.reset"))}</button>
+    <button type="button" class="eog-btn" data-testid="sbst-suite-reset">${esc22(t("sbst.suite.reset"))}</button>
     <button type="button" class="eog-btn eog-btn--next" data-testid="sbst-suite-next"
-      ${isLast ? "disabled" : ""}>${esc21(t("sbst.suite.next"))}</button>
-    <button type="button" class="eog-btn eog-btn--run" data-testid="sbst-suite-run">${esc21(t("sbst.suite.run"))}</button>
+      ${isLast ? "disabled" : ""}>${esc22(t("sbst.suite.next"))}</button>
+    <button type="button" class="eog-btn eog-btn--run" data-testid="sbst-suite-run">${esc22(t("sbst.suite.run"))}</button>
   </div>`;
   }
   var QUIZ_PROMPT_KEY3 = "sbst.suite.quiz.prompt";
@@ -39345,30 +39849,30 @@ ${items.join("\n")}
   var QUIZ_ANSWER3 = "option.allGoals";
   function renderQuiz35() {
     if (!state35.quiz.active) {
-      return `<button type="button" class="eog-quiz-start" data-testid="sbst-suite-quiz-start">${esc21(t("quiz.start"))}</button>`;
+      return `<button type="button" class="eog-quiz-start" data-testid="sbst-suite-quiz-start">${esc22(t("quiz.start"))}</button>`;
     }
     if (state35.quiz.phase === "done") {
       const correct = state35.quiz.answer === QUIZ_ANSWER3;
       return `<div class="eog-quiz-result ${correct ? "quiz-correct" : "quiz-wrong"}" data-testid="sbst-suite-quiz-result">
-      <p>${correct ? esc21(t("quiz.correct")) : esc21(t("quiz.wrong"))}</p>
-      <button type="button" data-testid="sbst-suite-quiz-close">${esc21(t("quiz.close"))}</button>
+      <p>${correct ? esc22(t("quiz.correct")) : esc22(t("quiz.wrong"))}</p>
+      <button type="button" data-testid="sbst-suite-quiz-close">${esc22(t("quiz.close"))}</button>
     </div>`;
     }
     return `<div class="eog-quiz" data-testid="sbst-suite-quiz">
-    <p class="eog-quiz-prompt">${esc21(t(QUIZ_PROMPT_KEY3))}</p>
+    <p class="eog-quiz-prompt">${esc22(t(QUIZ_PROMPT_KEY3))}</p>
     ${QUIZ_OPTIONS3.map((k) => `
       <label class="eog-quiz-option">
-        <input type="radio" name="sbst-suite-quiz" value="${esc21(k)}" ${state35.quiz.answer === k ? "checked" : ""}>
-        ${esc21(t(`sbst.suite.quiz.${k}`))}
+        <input type="radio" name="sbst-suite-quiz" value="${esc22(k)}" ${state35.quiz.answer === k ? "checked" : ""}>
+        ${esc22(t(`sbst.suite.quiz.${k}`))}
       </label>`).join("")}
     <button type="button" data-testid="sbst-suite-quiz-submit"
-      ${!state35.quiz.answer ? "disabled" : ""}>${esc21(t("quiz.submit"))}</button>
+      ${!state35.quiz.answer ? "disabled" : ""}>${esc22(t("quiz.submit"))}</button>
   </div>`;
   }
   function render35() {
     root35.innerHTML = `
     <div class="sbst-suite-wrap">
-      <h2 class="eog-title">${esc21(t("section.sbst.title"))}</h2>
+      <h2 class="eog-title">${esc22(t("section.sbst.title"))}</h2>
       ${renderExamplePicker3()}
       <div class="sbst-suite-panels-row">
         ${renderCodePanel7()}
@@ -39381,7 +39885,7 @@ ${items.join("\n")}
       ${renderMinimisedSuite()}
       ${renderStepControls2()}
       <section class="eog-self-test">
-        <h3>${esc21(t("quiz.title"))}</h3>
+        <h3>${esc22(t("quiz.title"))}</h3>
         ${renderQuiz35()}
       </section>
     </div>`;
@@ -40222,7 +40726,7 @@ ${items.join("\n")}
     const max = Math.max(...rows.map((r) => Math.max(r.cost, r.value))) * 1.1 || 1;
     const x = (i) => padL + i / (rows.length - 1) * (W - padL - padR);
     const y = (v) => padT + (1 - v / max) * (H - padT - padB);
-    const line = (key2) => rows.map((r, i) => `${x(i).toFixed(1)},${y(r[key2]).toFixed(1)}`).join(" ");
+    const line = (key3) => rows.map((r, i) => `${x(i).toFixed(1)},${y(r[key3]).toFixed(1)}`).join(" ");
     const cross = crossoverSprint(rows);
     return `
     <div class="rdebt-chart-wrap" data-testid="rdebt-chart">
@@ -41939,7 +42443,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   }
   function trapFocus(e) {
     var _a;
-    const focusable = [...overlay.querySelectorAll(FOCUSABLE_SELECTOR)].filter((node) => !node.disabled && !node.closest("[hidden]"));
+    const focusable = [...overlay.querySelectorAll(FOCUSABLE_SELECTOR)].filter((node2) => !node2.disabled && !node2.closest("[hidden]"));
     if (!focusable.length) {
       e.preventDefault();
       (_a = overlay.querySelector(".slideviewer-panel")) == null ? void 0 : _a.focus();
@@ -42932,9 +43436,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `tqx.title`,
       `fdx.title`
     ];
-    for (const key2 of candidates) {
-      const v = t(key2);
-      if (v && v !== key2) return v;
+    for (const key3 of candidates) {
+      const v = t(key3);
+      if (v && v !== key3) return v;
     }
     return stripped.replace(/([a-z])([A-Z])/g, "$1 $2");
   }
@@ -43079,7 +43583,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     slicing: "slicing.tab",
     tdd: "tdd.tab",
     exploit: "exploit.tab",
-    sbst: "sbst.tab"
+    sbst: "sbst.tab",
+    graph: "graph.tab",
+    logic: "logic.tab"
   };
   function unitTitle(unit) {
     const loc = locationForUnit(unit);
@@ -43087,9 +43593,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     if (loc.tab) {
       const prefix = TAB_LABEL_PREFIX[loc.section];
       if (prefix) {
-        const key2 = `${prefix}.${loc.tab}`;
-        const label = t(key2);
-        if (label !== key2) return label;
+        const key3 = `${prefix}.${loc.tab}`;
+        const label = t(key3);
+        if (label !== key3) return label;
       }
     }
     const sKey = `section.${loc.section}.title`;
@@ -43436,7 +43942,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     let langInUrl = false;
     let lastSearchSnapshot = (_b = (_a = globalThis.location) == null ? void 0 : _a.search) != null ? _b : "";
     function paint2() {
-      var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i, _j, _k, _l, _m, _n, _o, _p;
+      var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s;
       const urlState = parseAppLocation(
         (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "",
         (_d2 = (_c2 = globalThis.location) == null ? void 0 : _c2.hash) != null ? _d2 : ""
@@ -43453,6 +43959,11 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             <button class="app-cloud-link" type="button" data-app-cloud data-testid="app-cloud-link">
               ${t("section.cloud")}
             </button>
+            <label class="unit-difficulty">
+              <select data-testid="input-difficulty" aria-label="${t("settings.difficulty")}">
+                ${INPUT_DIFFICULTIES.map((d) => `<option value="${d}"${getInputDifficulty() === d ? " selected" : ""}>${t("difficulty." + d)}</option>`).join("")}
+              </select>
+            </label>
             <div class="app-lang" role="group" aria-label="${t("app.lang.label")}">
               <span class="app-lang__label" id="app-lang-label">${t("app.lang.label")}</span>
               <div class="app-lang-menu">
@@ -43557,8 +44068,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       }
       const sectionsWithDecks = [...new Set(SLIDE_DECKS.map((d) => d.section))];
       for (const sectionId of sectionsWithDecks) {
-        const node = sections[sectionId];
-        const heading = node == null ? void 0 : node.querySelector("h2");
+        const node2 = sections[sectionId];
+        const heading = node2 == null ? void 0 : node2.querySelector("h2");
         if (!heading) continue;
         const headingRow = document.createElement("div");
         headingRow.className = "section-heading-row";
@@ -43645,13 +44156,152 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         pyramid: createPyramidAdjusterExplorer()
       };
       container.querySelector('[data-slot="methods"]').appendChild(components.methods);
-      container.querySelector('[data-slot="graph"]').appendChild(components.graph);
-      container.querySelector('[data-slot="logic"]').appendChild(components.logic);
       container.querySelector('[data-slot="codecov"]').appendChild(components.codecov);
       container.querySelector('[data-slot="inttest"]').appendChild(components.inttest);
       container.querySelector('[data-slot="pbt"]').appendChild(components.pbt);
       container.querySelector('[data-slot="rbt"]').appendChild(components.rbt);
       container.querySelector('[data-slot="groupth"]').appendChild(components.groupth);
+      const graphTabs = [
+        { id: "structural", key: "graph.tab.structural", component: createGraphCoverageExplorer({ preset: "structural" }) },
+        { id: "path", key: "graph.tab.path", component: createGraphCoverageExplorer({ preset: "path" }) },
+        { id: "dataflow", key: "graph.tab.dataflow", component: createGraphCoverageExplorer({ preset: "dataflow" }) },
+        { id: "full", key: "graph.tab.full", component: components.graph }
+      ];
+      const graphSlot = container.querySelector('[data-slot="graph"]');
+      const graphTabBar = document.createElement("nav");
+      graphTabBar.className = "syntax-tab-row";
+      graphTabBar.dataset.testid = "graph-tab-row";
+      graphTabBar.setAttribute("role", "tablist");
+      graphSlot.appendChild(graphTabBar);
+      const graphPanels = document.createElement("div");
+      graphPanels.className = "syntax-tab-panels";
+      graphSlot.appendChild(graphPanels);
+      for (const tab of graphTabs) {
+        const panel = document.createElement("div");
+        panel.className = "syntax-tab-panel";
+        panel.dataset.graphPanel = tab.id;
+        graphPanels.appendChild(panel);
+      }
+      const GRAPH_TAB_KEY = "stvisual.graphActiveTab";
+      let savedGraphTab = null;
+      try {
+        savedGraphTab = (_e2 = globalThis.localStorage) == null ? void 0 : _e2.getItem(GRAPH_TAB_KEY);
+      } catch {
+      }
+      let activeGraphTab = resolveInitialTab({
+        sectionId: "graph",
+        urlSection: urlState.section,
+        urlTab: urlState.tab,
+        saved: savedGraphTab
+      });
+      function renderGraphTabs() {
+        graphTabBar.innerHTML = graphTabs.map((tab) => `
+        <button type="button"
+          class="syntax-tab-btn${activeGraphTab === tab.id ? " active" : ""}"
+          data-graph-tab="${tab.id}"
+          role="tab"
+          aria-selected="${activeGraphTab === tab.id ? "true" : "false"}"
+        >${t(tab.key)}</button>
+      `).join("");
+        graphTabBar.querySelectorAll("[data-graph-tab]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            var _a3;
+            activeGraphTab = btn.dataset.graphTab;
+            try {
+              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(GRAPH_TAB_KEY, activeGraphTab);
+            } catch {
+            }
+            renderGraphTabs();
+            updateGraphPanels();
+            if (activeSection === "graph") syncUrl();
+          });
+        });
+      }
+      function updateGraphPanels() {
+        graphPanels.querySelectorAll("[data-graph-panel]").forEach((panel) => {
+          const tab = graphTabs.find((tb) => tb.id === panel.dataset.graphPanel);
+          const isActive = panel.dataset.graphPanel === activeGraphTab;
+          panel.style.display = isActive ? "" : "none";
+          if (isActive) {
+            if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
+          } else if (tab.component.parentNode === panel) {
+            panel.removeChild(tab.component);
+          }
+        });
+      }
+      renderGraphTabs();
+      updateGraphPanels();
+      const logicTabs = [
+        { id: "basic", key: "logic.tab.basic", component: createLogicCoverageExplorer({ preset: "basic" }) },
+        { id: "active", key: "logic.tab.active", component: createLogicCoverageExplorer({ preset: "active" }) },
+        { id: "inactive", key: "logic.tab.inactive", component: createLogicCoverageExplorer({ preset: "inactive" }) },
+        { id: "dnf", key: "logic.tab.dnf", component: createLogicCoverageExplorer({ preset: "dnf" }) },
+        { id: "full", key: "logic.tab.full", component: components.logic }
+      ];
+      const logicSlot = container.querySelector('[data-slot="logic"]');
+      const logicTabBar = document.createElement("nav");
+      logicTabBar.className = "syntax-tab-row";
+      logicTabBar.dataset.testid = "logic-tab-row";
+      logicTabBar.setAttribute("role", "tablist");
+      logicSlot.appendChild(logicTabBar);
+      const logicPanels = document.createElement("div");
+      logicPanels.className = "syntax-tab-panels";
+      logicSlot.appendChild(logicPanels);
+      for (const tab of logicTabs) {
+        const panel = document.createElement("div");
+        panel.className = "syntax-tab-panel";
+        panel.dataset.logicPanel = tab.id;
+        logicPanels.appendChild(panel);
+      }
+      const LOGIC_TAB_KEY = "stvisual.logicActiveTab";
+      let savedLogicTab = null;
+      try {
+        savedLogicTab = (_f2 = globalThis.localStorage) == null ? void 0 : _f2.getItem(LOGIC_TAB_KEY);
+      } catch {
+      }
+      let activeLogicTab = resolveInitialTab({
+        sectionId: "logic",
+        urlSection: urlState.section,
+        urlTab: urlState.tab,
+        saved: savedLogicTab
+      });
+      function renderLogicTabs() {
+        logicTabBar.innerHTML = logicTabs.map((tab) => `
+        <button type="button"
+          class="syntax-tab-btn${activeLogicTab === tab.id ? " active" : ""}"
+          data-logic-tab="${tab.id}"
+          role="tab"
+          aria-selected="${activeLogicTab === tab.id ? "true" : "false"}"
+        >${t(tab.key)}</button>
+      `).join("");
+        logicTabBar.querySelectorAll("[data-logic-tab]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            var _a3;
+            activeLogicTab = btn.dataset.logicTab;
+            try {
+              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(LOGIC_TAB_KEY, activeLogicTab);
+            } catch {
+            }
+            renderLogicTabs();
+            updateLogicPanels();
+            if (activeSection === "logic") syncUrl();
+          });
+        });
+      }
+      function updateLogicPanels() {
+        logicPanels.querySelectorAll("[data-logic-panel]").forEach((panel) => {
+          const tab = logicTabs.find((tb) => tb.id === panel.dataset.logicPanel);
+          const isActive = panel.dataset.logicPanel === activeLogicTab;
+          panel.style.display = isActive ? "" : "none";
+          if (isActive) {
+            if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
+          } else if (tab.component.parentNode === panel) {
+            panel.removeChild(tab.component);
+          }
+        });
+      }
+      renderLogicTabs();
+      updateLogicPanels();
       const advancedPapers = [
         {
           id: "ach",
@@ -43698,7 +44348,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const ADVANCED_TAB_KEY = "stvisual.advancedActiveTab";
       let savedAdvancedTab = null;
       try {
-        savedAdvancedTab = (_e2 = globalThis.localStorage) == null ? void 0 : _e2.getItem(ADVANCED_TAB_KEY);
+        savedAdvancedTab = (_g2 = globalThis.localStorage) == null ? void 0 : _g2.getItem(ADVANCED_TAB_KEY);
       } catch {
       }
       let activeAdvancedTab = resolveInitialTab({
@@ -43798,7 +44448,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const ACCEPTANCE_TAB_KEY = "stvisual.acceptanceActiveTab";
       let savedAcceptanceTab = null;
       try {
-        savedAcceptanceTab = (_f2 = globalThis.localStorage) == null ? void 0 : _f2.getItem(ACCEPTANCE_TAB_KEY);
+        savedAcceptanceTab = (_h2 = globalThis.localStorage) == null ? void 0 : _h2.getItem(ACCEPTANCE_TAB_KEY);
       } catch {
       }
       let activeAcceptanceTab = resolveInitialTab({
@@ -43864,7 +44514,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const MBT_TAB_KEY = "stvisual.mbtActiveTab";
       let savedMbtTab = null;
       try {
-        savedMbtTab = (_g2 = globalThis.localStorage) == null ? void 0 : _g2.getItem(MBT_TAB_KEY);
+        savedMbtTab = (_i = globalThis.localStorage) == null ? void 0 : _i.getItem(MBT_TAB_KEY);
       } catch {
       }
       let activeMbtTab = resolveInitialTab({
@@ -43930,7 +44580,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const AGILE_TAB_KEY = "stvisual.agileActiveTab";
       let savedAgileTab = null;
       try {
-        savedAgileTab = (_h2 = globalThis.localStorage) == null ? void 0 : _h2.getItem(AGILE_TAB_KEY);
+        savedAgileTab = (_j = globalThis.localStorage) == null ? void 0 : _j.getItem(AGILE_TAB_KEY);
       } catch {
       }
       let activeAgileTab = resolveInitialTab({
@@ -44001,7 +44651,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const SLICING_TAB_KEY = "stvisual.slicingActiveTab";
       let savedSlicingTab = null;
       try {
-        savedSlicingTab = (_i = globalThis.localStorage) == null ? void 0 : _i.getItem(SLICING_TAB_KEY);
+        savedSlicingTab = (_k = globalThis.localStorage) == null ? void 0 : _k.getItem(SLICING_TAB_KEY);
       } catch {
       }
       let activeSlicingTab = resolveInitialTab({
@@ -44074,7 +44724,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const EXPLOIT_TAB_KEY = "stvisual.exploitActiveTab";
       let savedExploitTab = null;
       try {
-        savedExploitTab = (_j = globalThis.localStorage) == null ? void 0 : _j.getItem(EXPLOIT_TAB_KEY);
+        savedExploitTab = (_l = globalThis.localStorage) == null ? void 0 : _l.getItem(EXPLOIT_TAB_KEY);
       } catch {
       }
       let activeExploitTab = resolveInitialTab({
@@ -44145,7 +44795,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const SBST_TAB_KEY = "stvisual.sbstActiveTab";
       let savedSbstTab = null;
       try {
-        savedSbstTab = (_k = globalThis.localStorage) == null ? void 0 : _k.getItem(SBST_TAB_KEY);
+        savedSbstTab = (_m = globalThis.localStorage) == null ? void 0 : _m.getItem(SBST_TAB_KEY);
       } catch {
       }
       let activeSbstTab = resolveInitialTab({
@@ -44213,7 +44863,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const TDD_TAB_KEY = "stvisual.tddActiveTab";
       let savedTddTab = null;
       try {
-        savedTddTab = (_l = globalThis.localStorage) == null ? void 0 : _l.getItem(TDD_TAB_KEY);
+        savedTddTab = (_n = globalThis.localStorage) == null ? void 0 : _n.getItem(TDD_TAB_KEY);
       } catch {
       }
       let activeTddTab = resolveInitialTab({
@@ -44280,7 +44930,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const SYNTAX_TAB_KEY = "stvisual.syntaxActiveTab";
       let savedSyntaxTab = null;
       try {
-        savedSyntaxTab = (_m = globalThis.localStorage) == null ? void 0 : _m.getItem(SYNTAX_TAB_KEY);
+        savedSyntaxTab = (_o = globalThis.localStorage) == null ? void 0 : _o.getItem(SYNTAX_TAB_KEY);
       } catch {
       }
       let activeSyntaxTab = resolveInitialTab({
@@ -44350,7 +45000,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const BLACKBOX_TAB_KEY = "stvisual.blackboxActiveTab";
       let savedBlackboxTab = null;
       try {
-        savedBlackboxTab = (_n = globalThis.localStorage) == null ? void 0 : _n.getItem(BLACKBOX_TAB_KEY);
+        savedBlackboxTab = (_p = globalThis.localStorage) == null ? void 0 : _p.getItem(BLACKBOX_TAB_KEY);
       } catch {
       }
       let activeBlackboxTab = resolveInitialTab({
@@ -44418,7 +45068,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const FLOW_TAB_KEY = "stvisual.flowActiveTab";
       let savedFlowTab = null;
       try {
-        savedFlowTab = (_o = globalThis.localStorage) == null ? void 0 : _o.getItem(FLOW_TAB_KEY);
+        savedFlowTab = (_q = globalThis.localStorage) == null ? void 0 : _q.getItem(FLOW_TAB_KEY);
       } catch {
       }
       let activeFlowTab = resolveInitialTab({
@@ -44532,7 +45182,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       });
       overviewFilterHost.appendChild(filterBar.element);
       const packBar = createCoursePackBar({
-        initial: (_p = urlState.pack) != null ? _p : null,
+        initial: (_r = urlState.pack) != null ? _r : null,
         onApplyFilter: (filter) => {
           const next = filter != null ? filter : { level: [], technique: [], series: [], difficulty: [] };
           activeFilter = { level: [], technique: [], series: [], difficulty: [], ...next };
@@ -44708,10 +45358,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           button.addEventListener("click", (event) => {
             event.stopPropagation();
             const nextOpen = !menu.classList.contains("open");
-            nav.querySelectorAll("[data-nav-category]").forEach((node) => {
+            nav.querySelectorAll("[data-nav-category]").forEach((node2) => {
               var _a3;
-              node.classList.remove("open");
-              (_a3 = node.querySelector("[data-nav-category-trigger]")) == null ? void 0 : _a3.setAttribute("aria-expanded", "false");
+              node2.classList.remove("open");
+              (_a3 = node2.querySelector("[data-nav-category-trigger]")) == null ? void 0 : _a3.setAttribute("aria-expanded", "false");
             });
             menu.classList.toggle("open", nextOpen);
             button.setAttribute("aria-expanded", nextOpen ? "true" : "false");
@@ -44823,6 +45473,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       container.querySelector(".app").addEventListener("click", () => {
         setLangMenuOpen(false);
       });
+      (_s = container.querySelector('[data-testid="input-difficulty"]')) == null ? void 0 : _s.addEventListener("change", (e) => setInputDifficulty(e.target.value));
       cloudTrigger.addEventListener("click", () => {
         openCloudDrawer();
       });
@@ -44879,9 +45530,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     onLocaleChange(() => paint2());
     (_g = globalThis.addEventListener) == null ? void 0 : _g.call(globalThis, "popstate", () => {
       var _a2, _b2, _c2, _d2;
-      const current2 = (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "";
-      if (current2 !== lastSearchSnapshot) {
-        lastSearchSnapshot = current2;
+      const current3 = (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "";
+      if (current3 !== lastSearchSnapshot) {
+        lastSearchSnapshot = current3;
         (_d2 = (_c2 = globalThis.location) == null ? void 0 : _c2.reload) == null ? void 0 : _d2.call(_c2);
       }
     });
@@ -44928,6 +45579,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     TestingMethodTree: createTestingMethodTree,
     GraphCoverageExplorer: createGraphCoverageExplorer,
     LogicCoverageExplorer: createLogicCoverageExplorer,
+    GraphStructuralExplorer: () => createGraphCoverageExplorer({ preset: "structural" }),
+    GraphPathExplorer: () => createGraphCoverageExplorer({ preset: "path" }),
+    GraphDataflowExplorer: () => createGraphCoverageExplorer({ preset: "dataflow" }),
+    LogicBasicExplorer: () => createLogicCoverageExplorer({ preset: "basic" }),
+    LogicActiveClauseExplorer: () => createLogicCoverageExplorer({ preset: "active" }),
+    LogicInactiveClauseExplorer: () => createLogicCoverageExplorer({ preset: "inactive" }),
+    LogicDnfExplorer: () => createLogicCoverageExplorer({ preset: "dnf" }),
     TestingFlow: createTestingFlow,
     TestingTypesTable: createTestingTypesTable,
     SyntaxCoverageExplorer: createSyntaxCoverageExplorer,
@@ -46751,12 +47409,12 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   }
 
   // src/utils/quizAttempts.js
-  function key(quizId) {
+  function key2(quizId) {
     return "stvisual:quiz:attempts:" + quizId;
   }
   function recentFor(storage, quizId, limit) {
     try {
-      const raw = storage.getItem(key(quizId));
+      const raw = storage.getItem(key2(quizId));
       const arr = raw ? JSON.parse(raw) : [];
       if (!Array.isArray(arr)) return [];
       return arr.slice(0, limit || 10);
@@ -46768,7 +47426,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     try {
       const arr = recentFor(storage, quizId, 100);
       arr.unshift(attempt);
-      storage.setItem(key(quizId), JSON.stringify(arr.slice(0, 10)));
+      storage.setItem(key2(quizId), JSON.stringify(arr.slice(0, 10)));
     } catch {
     }
   }
@@ -46778,17 +47436,17 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const i = arr.findIndex((a) => a && a.id === attempt.id);
       if (i >= 0) arr[i] = attempt;
       else arr.unshift(attempt);
-      storage.setItem(key(quizId), JSON.stringify(arr.slice(0, 10)));
+      storage.setItem(key2(quizId), JSON.stringify(arr.slice(0, 10)));
     } catch {
     }
   }
   function clearFor(storage, quizId) {
     try {
-      storage.removeItem(key(quizId));
+      storage.removeItem(key2(quizId));
     } catch {
     }
   }
-  var QuizAttempts = { key, record, upsert, recentFor, clearFor };
+  var QuizAttempts = { key: key2, record, upsert, recentFor, clearFor };
 
   // src/components/QuizViewer.js
   var overlay2 = null;
@@ -46801,7 +47459,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const v = t(k);
     return v !== k ? v : fb || k;
   }
-  function esc22(s) {
+  function esc23(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function deckFor(id, lg) {
@@ -46838,7 +47496,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         <h2 id="quiz-viewer-title"></h2>
         <div class="quizviewer-head-tools">
           <button type="button" id="quiz-lang-toggle" class="btn secondary" data-testid="quiz-lang-toggle"></button>
-          <button type="button" class="btn secondary" data-quiz-close data-testid="quiz-close" aria-label="${esc22(t2("common.close", "Close"))}">\xD7</button>
+          <button type="button" class="btn secondary" data-quiz-close data-testid="quiz-close" aria-label="${esc23(t2("common.close", "Close"))}">\xD7</button>
         </div>
       </header>
       <div id="quiz-viewer-body" class="quizviewer-body"></div>
@@ -46939,7 +47597,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const stale = !done && (!a.given || a.given.length !== st.questions.length);
     const meta = done ? `${a.correct}/${a.total}` : `${t2("quiz.question", "Q")} ${(a.idx || 0) + 1}/${a.total}`;
     const badge = done ? t2("quiz.review", "Review") : stale ? t2("quiz.inprogress", "In progress") : t2("quiz.resume", "Resume");
-    const inner = `<span class="qr-mode">${esc22(modeLabel(a.mode))}</span> <span class="qr-score">${esc22(meta)}</span> <span class="qr-time">${esc22(fmtTime3(a.finishedAt || a.startedAt))}</span> <span class="qr-act">${esc22(badge)}</span>`;
+    const inner = `<span class="qr-mode">${esc23(modeLabel(a.mode))}</span> <span class="qr-score">${esc23(meta)}</span> <span class="qr-time">${esc23(fmtTime3(a.finishedAt || a.startedAt))}</span> <span class="qr-act">${esc23(badge)}</span>`;
     if (done) return `<li><button type="button" class="quiz-recent-row" data-act="review" data-id="${a.id}" data-testid="quiz-recent-review">${inner}</button></li>`;
     if (stale) return `<li><span class="quiz-recent-row stale">${inner}</span></li>`;
     return `<li><button type="button" class="quiz-recent-row" data-act="resume" data-id="${a.id}" data-testid="quiz-recent-resume">${inner}</button></li>`;
@@ -46948,7 +47606,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const recent = QuizAttempts.recentFor(localStorage, st.quizId, 10);
     body.innerHTML = `<div class="quiz-start">
       <p class="quiz-count">${st.questions.length} ${t2("quiz.questions", "questions")}</p>
-      <div class="quiz-mode" role="radiogroup" aria-label="${esc22(t2("quiz.mode", "Mode"))}">
+      <div class="quiz-mode" role="radiogroup" aria-label="${esc23(t2("quiz.mode", "Mode"))}">
         <label class="quiz-mode-opt"><input type="radio" name="qmode" value="practice"${st.mode === "practice" ? " checked" : ""}> ${t2("quiz.practice", "Practice")}</label>
         <label class="quiz-mode-opt"><input type="radio" name="qmode" value="test"${st.mode === "test" ? " checked" : ""}> ${t2("quiz.test", "Test")}</label>
       </div>
@@ -46960,7 +47618,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   }
   function renderAnswers(q, given, disabled, res) {
     if (q.type === "shortanswer") {
-      return `<input type="text" class="quiz-sa" data-testid="quiz-sa" value="${esc22(given || "")}"${disabled ? " disabled" : ""}>`;
+      return `<input type="text" class="quiz-sa" data-testid="quiz-sa" value="${esc23(given || "")}"${disabled ? " disabled" : ""}>`;
     }
     const multi = q.type === "multichoice" && !q.single;
     return q.answers.map((a, idx) => {
@@ -47207,7 +47865,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const v = t(k);
     return v !== k ? v : fb || k;
   }
-  function esc23(s) {
+  function esc24(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function has2(unitId) {
@@ -47223,10 +47881,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     overlay3.innerHTML = `
     <div class="quizviewer-panel labviewer-panel" role="dialog" aria-modal="true" tabindex="-1">
       <header class="quizviewer-head">
-        <h2>${esc23(t3("btn.lab", "Lab"))}</h2>
+        <h2>${esc24(t3("btn.lab", "Lab"))}</h2>
         <div class="quizviewer-head-tools">
           <button type="button" id="lab-lang-toggle" class="btn secondary" data-testid="lab-lang-toggle"></button>
-          <button type="button" class="btn secondary" data-lab-close data-testid="lab-close" aria-label="${esc23(t3("common.close", "Close"))}">\xD7</button>
+          <button type="button" class="btn secondary" data-lab-close data-testid="lab-close" aria-label="${esc24(t3("common.close", "Close"))}">\xD7</button>
         </div>
       </header>
       <div id="lab-viewer-body"></div>
@@ -47247,8 +47905,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   }
   function sampleBlock(s, i) {
     return `<div class="lab-sample">
-    <div class="lab-sample-col"><strong>#${i + 1} in</strong><pre><code>${esc23(s.in)}</code></pre></div>
-    <div class="lab-sample-col"><strong>out</strong><pre><code>${esc23(s.out)}</code></pre></div>
+    <div class="lab-sample-col"><strong>#${i + 1} in</strong><pre><code>${esc24(s.in)}</code></pre></div>
+    <div class="lab-sample-col"><strong>out</strong><pre><code>${esc24(s.out)}</code></pre></div>
   </div>`;
   }
   function render40() {
@@ -47261,7 +47919,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     if (lab.week) meta.push(t3("lab.week", "Week") + " " + lab.week);
     const repoBtn = lab.repoUrl ? `<a class="btn primary" data-testid="lab-open-repo" href="${lab.repoUrl}" target="_blank" rel="noopener">${t3("lab.openRepo", "Open practice repo")} \u2197</a>` : "";
     const judgeBtn = `<button type="button" class="btn secondary" data-testid="lab-judge" aria-disabled="true" disabled>${t3("lab.judgeSoon", "Practice on judge (coming soon)")}</button>`;
-    body2.innerHTML = `<div class="lab-head"><h3>${esc23(title)}</h3><div class="lab-meta">${meta.map(esc23).join(" \xB7 ")}</div></div>
+    body2.innerHTML = `<div class="lab-head"><h3>${esc24(title)}</h3><div class="lab-meta">${meta.map(esc24).join(" \xB7 ")}</div></div>
      <div class="lab-statement" data-testid="lab-statement">${stmt}</div>
      <h4>${t3("lab.samples", "Samples")}</h4>
      <div class="lab-samples" data-testid="lab-samples">${lab.samples.map(sampleBlock).join("")}</div>
@@ -47293,7 +47951,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const unit = UNIT_BY_COMPONENT.get(urlState.explorer);
     if (!unit) return;
     function paint2() {
-      var _a, _b, _c;
+      var _a, _b, _c, _d;
       const title = unitTitle(unit);
       document.title = `${title} \xB7 ${t("app.title")}`;
       container.innerHTML = `
@@ -47307,6 +47965,11 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 <button type="button" class="app-lang__btn${getLocale() === loc ? " active" : ""}"
                         data-unit-lang="${loc}">${t(`app.lang.${loc}`)}</button>`).join("")}
             </div>
+            <label class="unit-difficulty">
+              <select data-testid="input-difficulty" aria-label="${t("settings.difficulty")}">
+                ${INPUT_DIFFICULTIES.map((d) => `<option value="${d}"${getInputDifficulty() === d ? " selected" : ""}>${t("difficulty." + d)}</option>`).join("")}
+              </select>
+            </label>
             <button type="button" class="btn secondary viz-focus-toggle"
                     data-testid="viz-focus-toggle" aria-pressed="false">
               \u26F6 ${t("unit.fullscreen")}
@@ -47326,11 +47989,12 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const factory = FACTORY_BY_COMPONENT[unit.componentName];
       container.querySelector(".unit-main").appendChild(factory());
       container.querySelectorAll("[data-unit-lang]").forEach((btn) => btn.addEventListener("click", () => setLocale(btn.dataset.unitLang)));
-      (_b = container.querySelector('[data-testid="unit-quiz-btn"]')) == null ? void 0 : _b.addEventListener("click", () => {
+      (_b = container.querySelector('[data-testid="input-difficulty"]')) == null ? void 0 : _b.addEventListener("change", (e) => setInputDifficulty(e.target.value));
+      (_c = container.querySelector('[data-testid="unit-quiz-btn"]')) == null ? void 0 : _c.addEventListener("click", () => {
         var _a2;
         return QuizViewer.open((_a2 = unit.quizId) != null ? _a2 : unit.id);
       });
-      (_c = container.querySelector('[data-testid="unit-lab-btn"]')) == null ? void 0 : _c.addEventListener("click", () => LabViewer.open(unit.id));
+      (_d = container.querySelector('[data-testid="unit-lab-btn"]')) == null ? void 0 : _d.addEventListener("click", () => LabViewer.open(unit.id));
     }
     paint2();
     onLocaleChange(() => paint2());
