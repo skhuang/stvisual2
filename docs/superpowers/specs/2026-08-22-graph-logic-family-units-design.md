@@ -60,6 +60,7 @@ When `opts.preset` names a valid config, the component runs in **focus mode**:
 - The criterion switcher renders only `config.criteria`; `criterionId` initializes to `config.criteria[0]`.
 - The DFG card renders only when `config.showDfg` (dataflow), and is hidden otherwise. (In the full explorer the DFG always renders — unchanged.)
 - These render blocks are **hidden**: `graph-source-card` (example/upload), `graph-editor-card` (Graph Editor), and the lab/quiz start controls (`graph-quiz-start`, `graph-lab-reflect-start`, `graph-lab-metric`) plus their panels. The greedy set-cover optimization *metrics* panel is hidden; the requirement/path list stays (it is the concept being taught).
+  - **Focus-mode input:** the hidden editor/upload chrome is replaced by the compact example controls row (dropdown + 🎲, bound to the global difficulty) from the companion spec `2026-08-22-example-input-system-design.md`. That spec supersedes the "hide the input entirely" reading here — focus units still switch inputs, just through the clean control row.
 - No `opts.preset` (or an unknown value) → the current full explorer, byte-for-byte behavior. Unknown preset falls back to full with a `console.warn`.
 
 Logic mirrors this:
@@ -75,7 +76,7 @@ const LOGIC_PRESETS = {
 ```
 
 - Switcher limited to `config.criteria`; initial criterion = first of the subset.
-- `view: 'truth'` presets hide the K-map region; the `view: 'kmap'` preset (dnf) keeps the K-maps and de-emphasizes the raw truth table — the K-map is the teaching surface there. The predicate input control is replaced by a read-only predicate display in focus mode (the example predicate is fixed for a clean demo); lab/quiz controls hidden.
+- `view: 'truth'` presets hide the K-map region; the `view: 'kmap'` preset (dnf) keeps the K-maps and de-emphasizes the raw truth table — the K-map is the teaching surface there. In focus mode the predicate input is the example controls row (dropdown + 🎲) from the companion spec `2026-08-22-example-input-system-design.md` rather than the full free-text editor; lab/quiz controls hidden.
 
 Family-unit factories are thin thunks, defined in `explorerFactories.js`:
 
