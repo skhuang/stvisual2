@@ -23,7 +23,7 @@ function buildExpr(letters, ops) {
 export function presetForDifficulty(tier) {
   switch (tier) {
     case 'edge':    return { expression: 'a', bindings: bindingsFor(['a']) };
-    case 'large':   return { expression: '((a && b) || (c && d)) || (e && f)', bindings: bindingsFor(['a','b','c','d','e','f']) };
+    case 'large':   return { expression: '(a && b) || (c && d)', bindings: bindingsFor(['a','b','c','d']) };
     case 'special': return { expression: 'a && b && a', bindings: bindingsFor(['a','b']) };
     case 'normal':
     default:        return { expression: '(a && b) || c', bindings: bindingsFor(['a','b','c']) };
@@ -34,7 +34,7 @@ export function randomPredicate(tier, rng = makeRng()) {
   let n;
   switch (tier) {
     case 'edge': return { expression: 'a', bindings: bindingsFor(['a']) };
-    case 'large': n = randInt(rng, 4, 6); break;
+    case 'large': n = 4; break;
     case 'special': {
       const op = pick(rng, ['&&', '||']);
       const letters = CLAUSES.slice(0, randInt(rng, 2, 3));
