@@ -173,7 +173,7 @@ function parseGraphDraft({ nodesText, edgesText, startNodeId, endNodeId }) {
 // outgoing edge respectively (true for every spine-based CFG this app
 // generates). Reuses the real `parseEdgesText` validator so malformed rows
 // still raise the same errors as the Graph Editor textarea.
-function graphFromEdgesText(edgesText) {
+export function graphFromEdgesText(edgesText) {
   const rows = edgesText.split('\n').map((row) => row.trim()).filter(Boolean);
 
   if (!rows.length) {
@@ -184,6 +184,7 @@ function graphFromEdgesText(edgesText) {
   const seen = new Set();
   const froms = new Set();
   const tos = new Set();
+  const adjacency = new Map();
 
   rows.forEach((row) => {
     const cols = row.split(',').map((item) => item.trim());
@@ -197,15 +198,61 @@ function graphFromEdgesText(edgesText) {
         idsInOrder.push(id);
       }
     }
+    if (from && to) {
+      if (!adjacency.has(from)) adjacency.set(from, []);
+      adjacency.get(from).push(to);
+    }
   });
 
   const startNodeId = idsInOrder.find((id) => !tos.has(id)) || idsInOrder[0];
   const endNodeId = [...idsInOrder].reverse().find((id) => !froms.has(id)) || idsInOrder[idsInOrder.length - 1];
-  const nodes = idsInOrder.map((id, index) => ({
+
+  // Layer nodes left→right by BFS distance from start (back-edges do not
+  // deepen a node); nodes unreachable from start fall after the deepest
+  // reached layer. Within a layer, siblings spread vertically around y=170.
+  // This keeps synthesized graphs (dropdown presets, recent inputs, the
+  // difficulty default) from collapsing onto a single flat row.
+  const depthById = new Map([[startNodeId, 0]]);
+  const queue = [startNodeId];
+  while (queue.length) {
+    const current = queue.shift();
+    for (const next of adjacency.get(current) || []) {
+      if (!depthById.has(next)) {
+        depthById.set(next, depthById.get(current) + 1);
+        queue.push(next);
+      }
+    }
+  }
+  let maxReachedDepth = 0;
+  depthById.forEach((depth) => { if (depth > maxReachedDepth) maxReachedDepth = depth; });
+  idsInOrder.forEach((id) => {
+    if (!depthById.has(id)) depthById.set(id, ++maxReachedDepth);
+  });
+  // Pull the end node to the last column for a clean terminal read.
+  const lastColumn = Math.max(...idsInOrder.map((id) => depthById.get(id)));
+  if (depthById.get(endNodeId) < lastColumn) depthById.set(endNodeId, lastColumn);
+
+  const layerMembers = new Map();
+  idsInOrder.forEach((id) => {
+    const depth = depthById.get(id);
+    if (!layerMembers.has(depth)) layerMembers.set(depth, []);
+    layerMembers.get(depth).push(id);
+  });
+  const positionById = new Map();
+  for (const [depth, members] of layerMembers) {
+    members.forEach((id, indexInLayer) => {
+      positionById.set(id, {
+        x: 80 + depth * 140,
+        y: 170 + (indexInLayer - (members.length - 1) / 2) * 90,
+      });
+    });
+  }
+
+  const nodes = idsInOrder.map((id) => ({
     id,
     label: id,
-    x: 80 + index * 140,
-    y: 170,
+    x: positionById.get(id).x,
+    y: positionById.get(id).y,
     kind: id === startNodeId ? 'start' : id === endNodeId ? 'end' : 'node',
   }));
   const nodeIds = new Set(idsInOrder);
