@@ -5,6 +5,7 @@ import { unitTitle } from '../utils/unitTitles.js';
 import { initVizFocus } from '../utils/vizFocus.js';
 import { QuizViewer } from '../components/QuizViewer.js';
 import { LabViewer } from '../components/LabViewer.js';
+import { INPUT_DIFFICULTIES, getInputDifficulty, setInputDifficulty } from '../utils/inputDifficulty.js';
 
 // Single-Explorer classroom view: minimal header, one mounted explorer,
 // fullscreen focus mode. Quiz/Lab buttons are appended by later features.
@@ -26,6 +27,11 @@ export function renderUnitView(container, urlState) {
                 <button type="button" class="app-lang__btn${getLocale() === loc ? ' active' : ''}"
                         data-unit-lang="${loc}">${t(`app.lang.${loc}`)}</button>`).join('')}
             </div>
+            <label class="unit-difficulty">
+              <select data-testid="input-difficulty" aria-label="${t('settings.difficulty')}">
+                ${INPUT_DIFFICULTIES.map((d) => `<option value="${d}"${getInputDifficulty() === d ? ' selected' : ''}>${t('difficulty.' + d)}</option>`).join('')}
+              </select>
+            </label>
             <button type="button" class="btn secondary viz-focus-toggle"
                     data-testid="viz-focus-toggle" aria-pressed="false">
               ⛶ ${t('unit.fullscreen')}
@@ -46,6 +52,8 @@ export function renderUnitView(container, urlState) {
     container.querySelector('.unit-main').appendChild(factory());
     container.querySelectorAll('[data-unit-lang]').forEach((btn) =>
       btn.addEventListener('click', () => setLocale(btn.dataset.unitLang)));
+    container.querySelector('[data-testid="input-difficulty"]')
+      ?.addEventListener('change', (e) => setInputDifficulty(e.target.value));
     container.querySelector('[data-testid="unit-quiz-btn"]')
       ?.addEventListener('click', () => QuizViewer.open(unit.quizId ?? unit.id));
     container.querySelector('[data-testid="unit-lab-btn"]')

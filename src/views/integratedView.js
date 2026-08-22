@@ -86,6 +86,7 @@ import { createTeacherDashboard } from '../components/TeacherDashboard.js';
 import { buildShareUrl } from '../utils/resultExporter.js';
 import { t, getLocale, setLocale, onLocaleChange } from '../i18n/index.js';
 import { SECTION_TAXONOMY, SECTION_ORDER } from '../data/sectionTaxonomy.js';
+import { INPUT_DIFFICULTIES, getInputDifficulty, setInputDifficulty } from '../utils/inputDifficulty.js';
 
 const learningSectionsConfig = [
   { id: 'all', key: 'section.all' },
@@ -159,6 +160,11 @@ export function renderIntegratedApp(container) {
             <button class="app-cloud-link" type="button" data-app-cloud data-testid="app-cloud-link">
               ${t('section.cloud')}
             </button>
+            <label class="unit-difficulty">
+              <select data-testid="input-difficulty" aria-label="${t('settings.difficulty')}">
+                ${INPUT_DIFFICULTIES.map((d) => `<option value="${d}"${getInputDifficulty() === d ? ' selected' : ''}>${t('difficulty.' + d)}</option>`).join('')}
+              </select>
+            </label>
             <div class="app-lang" role="group" aria-label="${t('app.lang.label')}">
               <span class="app-lang__label" id="app-lang-label">${t('app.lang.label')}</span>
               <div class="app-lang-menu">
@@ -1682,6 +1688,9 @@ export function renderIntegratedApp(container) {
     container.querySelector('.app').addEventListener('click', () => {
       setLangMenuOpen(false);
     });
+
+    container.querySelector('[data-testid="input-difficulty"]')
+      ?.addEventListener('change', (e) => setInputDifficulty(e.target.value));
 
     cloudTrigger.addEventListener('click', () => {
       openCloudDrawer();
