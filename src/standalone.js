@@ -44162,9 +44162,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       container.querySelector('[data-slot="rbt"]').appendChild(components.rbt);
       container.querySelector('[data-slot="groupth"]').appendChild(components.groupth);
       const graphTabs = [
-        { id: "structural", key: "graph.tab.structural", component: createGraphCoverageExplorer({ preset: "structural" }) },
-        { id: "path", key: "graph.tab.path", component: createGraphCoverageExplorer({ preset: "path" }) },
-        { id: "dataflow", key: "graph.tab.dataflow", component: createGraphCoverageExplorer({ preset: "dataflow" }) },
+        { id: "structural", key: "graph.tab.structural", factory: () => createGraphCoverageExplorer({ preset: "structural" }) },
+        { id: "path", key: "graph.tab.path", factory: () => createGraphCoverageExplorer({ preset: "path" }) },
+        { id: "dataflow", key: "graph.tab.dataflow", factory: () => createGraphCoverageExplorer({ preset: "dataflow" }) },
         { id: "full", key: "graph.tab.full", component: components.graph }
       ];
       const graphSlot = container.querySelector('[data-slot="graph"]');
@@ -44223,8 +44223,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           const isActive = panel.dataset.graphPanel === activeGraphTab;
           panel.style.display = isActive ? "" : "none";
           if (isActive) {
+            if (!tab.component) tab.component = tab.factory();
             if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
-          } else if (tab.component.parentNode === panel) {
+          } else if (tab.component && tab.component.parentNode === panel) {
             panel.removeChild(tab.component);
           }
         });
@@ -44232,10 +44233,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       renderGraphTabs();
       updateGraphPanels();
       const logicTabs = [
-        { id: "basic", key: "logic.tab.basic", component: createLogicCoverageExplorer({ preset: "basic" }) },
-        { id: "active", key: "logic.tab.active", component: createLogicCoverageExplorer({ preset: "active" }) },
-        { id: "inactive", key: "logic.tab.inactive", component: createLogicCoverageExplorer({ preset: "inactive" }) },
-        { id: "dnf", key: "logic.tab.dnf", component: createLogicCoverageExplorer({ preset: "dnf" }) },
+        { id: "basic", key: "logic.tab.basic", factory: () => createLogicCoverageExplorer({ preset: "basic" }) },
+        { id: "active", key: "logic.tab.active", factory: () => createLogicCoverageExplorer({ preset: "active" }) },
+        { id: "inactive", key: "logic.tab.inactive", factory: () => createLogicCoverageExplorer({ preset: "inactive" }) },
+        { id: "dnf", key: "logic.tab.dnf", factory: () => createLogicCoverageExplorer({ preset: "dnf" }) },
         { id: "full", key: "logic.tab.full", component: components.logic }
       ];
       const logicSlot = container.querySelector('[data-slot="logic"]');
@@ -44294,8 +44295,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           const isActive = panel.dataset.logicPanel === activeLogicTab;
           panel.style.display = isActive ? "" : "none";
           if (isActive) {
+            if (!tab.component) tab.component = tab.factory();
             if (tab.component.parentNode !== panel) panel.appendChild(tab.component);
-          } else if (tab.component.parentNode === panel) {
+          } else if (tab.component && tab.component.parentNode === panel) {
             panel.removeChild(tab.component);
           }
         });
