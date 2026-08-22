@@ -24,8 +24,16 @@ function loadEnv() {
 
 const env = loadEnv();
 
-export default defineConfig({
+// GitHub Pages serves this repo under /stvisual2/, so production asset URLs
+// must be prefixed with that base. Dev/preview stay at '/'. Overridable via
+// GITHUB_PAGES_BASE_PATH in .env.local (e.g. a custom host root).
+const PAGES_BASE = env.GITHUB_PAGES_BASE_PATH
+  ? (env.GITHUB_PAGES_BASE_PATH.endsWith('/') ? env.GITHUB_PAGES_BASE_PATH : `${env.GITHUB_PAGES_BASE_PATH}/`)
+  : '/stvisual2/';
+
+export default defineConfig(({ command }) => ({
   root: '.',
+  base: command === 'build' ? PAGES_BASE : '/',
   server: {
     port: 4173,
     open: true,
@@ -49,4 +57,4 @@ export default defineConfig({
     __GOOGLE_DRIVE_CLIENT_ID__: JSON.stringify(env.GOOGLE_DRIVE_CLIENT_ID || ''),
     __GITHUB_PAGES_BASE_PATH__: JSON.stringify(env.GITHUB_PAGES_BASE_PATH || ''),
   },
-});
+}));
