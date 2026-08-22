@@ -4,7 +4,7 @@
 [![Deploy GitHub Pages](https://github.com/skhuang/stvisual2/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/skhuang/stvisual2/actions/workflows/deploy-pages.yml)
 [![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0a7ea4)](https://skhuang.github.io/stvisual2/)
 
-An interactive visualization project for software testing — **43 explorers across 7 sections**: foundations, coverage criteria, execution & test generation, black-box design, group-theory testing, AI-assisted research methods (based on the **Meta ACH** paper at FSE 2025, [arXiv 2501.12862](https://arxiv.org/abs/2501.12862)), and system / E2E / acceptance testing.
+An interactive visualization project for software testing — **69 explorers across 7 sections**: foundations, coverage criteria, execution & test generation, black-box design, group-theory testing, AI-assisted research methods (based on the **Meta ACH** paper at FSE 2025, [arXiv 2501.12862](https://arxiv.org/abs/2501.12862)), and system / E2E / acceptance testing.
 
 Live demo: <https://skhuang.github.io/stvisual2/>
 
