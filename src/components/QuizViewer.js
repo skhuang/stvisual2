@@ -127,7 +127,8 @@ function rerender() {
 
 function recentRow(a) {
   const done = isDone(a);
-  const stale = !done && (!a.given || a.given.length !== st.questions.length);
+  const deck = deckFor(st.quizId, a.lang, a.difficulty ?? st.difficulty, a.seed);
+  const stale = !done && (!a.given || a.given.length !== deck.length);
   const meta = done ? `${a.correct}/${a.total}` : `${t('quiz.question', 'Q')} ${(a.idx || 0) + 1}/${a.total}`;
   const badge = done ? t('quiz.review', 'Review') : (stale ? t('quiz.inprogress', 'In progress') : t('quiz.resume', 'Resume'));
   const inner = `<span class="qr-mode">${esc(modeLabel(a.mode))}</span> <span class="qr-score">${esc(meta)}</span> <span class="qr-time">${esc(fmtTime(a.finishedAt || a.startedAt))}</span> <span class="qr-act">${esc(badge)}</span>`;
@@ -145,7 +146,7 @@ function renderStart() {
   const diffs = ['easy', 'medium', 'hard', 'mixed'];
   const recent = QuizAttempts.recentFor(localStorage, st.quizId, 10, st.difficulty);
   const legacy = QuizAttempts.recentFor(localStorage, st.quizId, 10); // old flat key
-  const count = deckFor(st.quizId, st.lang, st.difficulty, st.difficulty === 'mixed' ? 0 : undefined).length;
+  const count = bucketCount(st.difficulty);
   const ready = count >= 15 || (st.difficulty !== 'mixed' && count > 0);
   body.innerHTML =
     `<div class="quiz-start">
