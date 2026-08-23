@@ -3,6 +3,7 @@ import { XMLParser } from 'fast-xml-parser';
 import { generate as boundary } from '../../scripts/quiz-templates/boundary.mjs';
 import { generate as logic } from '../../scripts/quiz-templates/logic.mjs';
 import { generate as graph } from '../../scripts/quiz-templates/graph.mjs';
+import { generate as mutation, OUTCOMES } from '../../scripts/quiz-templates/mutation.mjs';
 
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '@_', cdataPropName: '__cdata', isArray: (n) => n === 'answer' });
 const parseOne = (xml) => parser.parse(`<quiz>${xml}</quiz>`).quiz.question;
@@ -214,5 +215,80 @@ describe('graph template', () => {
         }
       });
     });
+  });
+});
+
+const MUTATION_OUTCOMES = Object.values(OUTCOMES);
+
+describe('mutation template', () => {
+  it('produces the requested count of parseable multichoice questions', () => {
+    const qs = mutation('easy', 1, 5);
+    expect(qs).toHaveLength(5);
+    qs.forEach((x) => expect(parseOne(x)['@_type']).toBe('multichoice'));
+  });
+
+  it('has exactly one correct answer per question', () => {
+    mutation('medium', 2, 12).forEach((x) => {
+      const correct = parseOne(x).answer.filter((a) => a['@_fraction'] === '100');
+      expect(correct).toHaveLength(1);
+    });
+  });
+
+  it('is deterministic for a fixed seed', () => {
+    expect(mutation('hard', 3, 12)).toEqual(mutation('hard', 3, 12));
+  });
+
+  it('CORRECTNESS: every answer is one of the three allowed outcomes, and both KILLED and EQUIVALENT appear in a hard batch', () => {
+    const qs = mutation('hard', 42, 16);
+    const seen = new Set();
+    qs.forEach((x) => {
+      const q = parseOne(x);
+      // exactly 3 options (correct + 2 distractors), every one from the fixed outcome set
+      expect(q.answer).toHaveLength(3);
+      q.answer.forEach((a) => {
+        const text = a.text.__cdata ?? a.text;
+        expect(MUTATION_OUTCOMES).toContain(text);
+      });
+      const correctAnswer = q.answer.find((a) => a['@_fraction'] === '100');
+      const text = correctAnswer.text.__cdata ?? correctAnswer.text;
+      seen.add(text);
+    });
+    expect(seen.has(OUTCOMES.KILLED)).toBe(true);
+    expect(seen.has(OUTCOMES.EQUIVALENT)).toBe(true);
+  });
+
+  it('HAND-VERIFIED: the loop off-by-one case is genuinely killed by every generated test input (independent recomputation)', () => {
+    let checked = 0;
+    mutation('hard', 7, 24).forEach((x) => {
+      const q = parseOne(x);
+      const promptText = q.questiontext.text.__cdata;
+      const decoded = decodeEntities(promptText);
+      const m = decoded.match(/arr = \[([^\]]+)\], n = (\d+)/);
+      if (!m) return; // not a loop-boundary question
+      checked++;
+      const arr = m[1].split(',').map((s) => Number(s.trim()));
+      const n = Number(m[2]);
+      const originalSum = arr.slice(0, n).reduce((s, v) => s + v, 0);
+      const mutantSum = arr.slice(0, n + 1).reduce((s, v) => s + v, 0);
+      expect(originalSum).not.toBe(mutantSum); // independently confirms a real behavior difference
+      const correctAnswer = q.answer.find((a) => a['@_fraction'] === '100');
+      const text = correctAnswer.text.__cdata ?? correctAnswer.text;
+      expect(text).toBe(OUTCOMES.KILLED);
+    });
+    expect(checked).toBeGreaterThan(0);
+  });
+
+  it('HAND-VERIFIED: the dead-store and non-negative-length cases are always classified EQUIVALENT', () => {
+    let checked = 0;
+    mutation('hard', 11, 24).forEach((x) => {
+      const q = parseOne(x);
+      const name = q.name.text;
+      if (!/dead store|non-negative array length/.test(name)) return;
+      checked++;
+      const correctAnswer = q.answer.find((a) => a['@_fraction'] === '100');
+      const text = correctAnswer.text.__cdata ?? correctAnswer.text;
+      expect(text).toBe(OUTCOMES.EQUIVALENT);
+    });
+    expect(checked).toBeGreaterThan(0);
   });
 });
