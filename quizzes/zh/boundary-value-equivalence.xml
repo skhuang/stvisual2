@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing</text></category>
+    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>範圍輸入的等價類別</text></name>

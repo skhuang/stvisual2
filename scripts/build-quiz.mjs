@@ -17,6 +17,15 @@ const parser = new XMLParser({
   isArray: (name) => name === 'question' || name === 'answer',
 });
 
+export const LEVELS = ['easy', 'medium', 'hard'];
+
+function categoryLevel(q) {
+  // q is a <question type="category">; return its last path segment.
+  const text = rawText(q.category);          // e.g. "$course$/top/Graph Coverage/easy"
+  const seg = String(text).split('/').map((s) => s.trim()).filter(Boolean).pop();
+  return seg || '';
+}
+
 function rawText(node) {
   if (node == null) return '';
   if (typeof node === 'string') return node;
@@ -60,7 +69,27 @@ function normQuestion(q) {
 export function parseQuizXml(xml) {
   const doc = parser.parse(xml);
   const questions = doc?.quiz?.question ?? [];
-  return questions.map(normQuestion).filter(Boolean);
+  const groups = {};
+  let current = null;
+  const seen = new Set();
+  for (const q of questions) {
+    if (q['@_type'] === 'category') {
+      const level = categoryLevel(q);
+      if (!LEVELS.includes(level)) {
+        throw new Error(`quiz: unknown difficulty level "${level}" (expected ${LEVELS.join('/')})`);
+      }
+      if (seen.has(level)) throw new Error(`quiz: duplicate "${level}" category marker`);
+      seen.add(level);
+      current = level;
+      groups[level] = groups[level] || [];
+      continue;
+    }
+    const norm = normQuestion(q);
+    if (!norm) continue;                       // unsupported type — skip silently as before
+    if (!current) throw new Error('quiz: question appears before any category marker');
+    groups[current].push(norm);
+  }
+  return groups;
 }
 
 function buildLang(dir) {
@@ -68,9 +97,10 @@ function buildLang(dir) {
   if (!fs.existsSync(dir)) return out;
   for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.xml')).sort()) {
     const id = f.replace(/\.xml$/, '');
-    const qs = parseQuizXml(fs.readFileSync(path.join(dir, f), 'utf8'));
-    if (!qs.length) throw new Error(`quiz: no supported questions in ${dir}/${f}`);
-    out[id] = qs;
+    const groups = parseQuizXml(fs.readFileSync(path.join(dir, f), 'utf8'));
+    const total = LEVELS.reduce((n, lv) => n + (groups[lv]?.length || 0), 0);
+    if (!total) throw new Error(`quiz: no supported questions in ${dir}/${f}`);
+    out[id] = groups;
   }
   return out;
 }
@@ -80,7 +110,7 @@ export function buildAll() {
   const zh = buildLang(path.join(ROOT, 'quizzes', 'zh'));
   const rendered = {};
   for (const id of [...new Set([...Object.keys(en), ...Object.keys(zh)])].sort()) {
-    rendered[id] = { en: en[id] || [], zh: zh[id] || [] };
+    rendered[id] = { en: en[id] || {}, zh: zh[id] || {} };
   }
   return rendered;
 }

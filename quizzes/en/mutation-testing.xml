@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Mutation Testing</text></category>
+    <category><text>$course$/top/Mutation Testing/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>Mutant killed</text></name>

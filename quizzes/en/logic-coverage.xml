@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Logic Coverage</text></category>
+    <category><text>$course$/top/Logic Coverage/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>Predicate coverage</text></name>

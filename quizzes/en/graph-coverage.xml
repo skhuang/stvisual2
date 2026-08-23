@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Graph Coverage</text></category>
+    <category><text>$course$/top/Graph Coverage/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>Node vs edge coverage</text></name>
