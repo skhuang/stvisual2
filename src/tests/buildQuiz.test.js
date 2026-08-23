@@ -101,4 +101,28 @@ describe('quiz validate', () => {
     const r = { t: { en: { easy: bucket(15) }, zh: { easy: bucket(14) } } };
     expect(() => validate(r, { strict: false })).toThrow(/en\/zh length mismatch/i);
   });
+
+  it('does not throw under strict for an in-progress topic (warns instead)', () => {
+    const r = { wip: { en: { easy: bucket(15) }, zh: { easy: bucket(15) } } };
+    expect(() => validate(r, { strict: true, inProgress: ['wip'] })).not.toThrow();
+    const { warnings } = validate(r, { strict: true, inProgress: ['wip'] });
+    expect(warnings.join('\n')).toMatch(/wip/);
+  });
+
+  it('still throws under strict for a NON-listed incomplete topic', () => {
+    const r = { done: { en: { easy: bucket(15) }, zh: { easy: bucket(15) } } };
+    expect(() => validate(r, { strict: true, inProgress: ['other'] })).toThrow(/medium|hard|15/i);
+  });
+
+  it('downgrades en/zh parity/length mismatch to a warning for an in-progress topic', () => {
+    const r = { wip: { en: { easy: bucket(15), medium: bucket(15) }, zh: { easy: bucket(6) } } };
+    expect(() => validate(r, { strict: false, inProgress: ['wip'] })).not.toThrow();
+    const { warnings } = validate(r, { strict: false, inProgress: ['wip'] });
+    expect(warnings.join('\n')).toMatch(/wip/);
+  });
+
+  it('enforces parity/length hard for a non-in-progress topic even when others are listed', () => {
+    const r = { done: { en: { easy: bucket(15) }, zh: { easy: bucket(14) } } };
+    expect(() => validate(r, { strict: false, inProgress: ['wip'] })).toThrow(/en\/zh length mismatch/i);
+  });
 });

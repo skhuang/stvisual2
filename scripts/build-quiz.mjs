@@ -115,34 +115,39 @@ export function buildAll() {
   return rendered;
 }
 
-export function validate(rendered, { strict } = {}) {
+// `inProgress` is a list of topic ids still being authored: every check
+// for those topics is downgraded from a hard error to a warning, so an
+// incomplete/uneven new bank can be committed without failing the build
+// (or CI's --strict gate). Everything not listed is validated strictly.
+export function validate(rendered, { strict, inProgress = [] } = {}) {
+  const wip = new Set(inProgress);
   const warnings = [];
   for (const [id, langs] of Object.entries(rendered)) {
+    const lenient = wip.has(id);
+    // For in-progress topics, record the problem as a warning instead of throwing.
+    const fail = (msg) => {
+      if (lenient) warnings.push('IN-PROGRESS ' + msg);
+      else throw new Error(msg);
+    };
     const enB = Object.keys(langs.en || {}).sort();
     const zhB = Object.keys(langs.zh || {}).sort();
     if (enB.join(',') !== zhB.join(',')) {
-      throw new Error(`quiz: ${id} en/zh bucket parity mismatch (en=${enB} zh=${zhB})`);
+      fail(`quiz: ${id} en/zh bucket parity mismatch (en=${enB} zh=${zhB})`);
     }
     for (const lv of LEVELS) {
       const enLen = langs.en?.[lv]?.length || 0;
       const zhLen = langs.zh?.[lv]?.length || 0;
       if (enLen > 0 && zhLen > 0 && enLen !== zhLen) {
-        throw new Error(`quiz: ${id} ${lv} en/zh length mismatch (en=${enLen} zh=${zhLen})`);
+        fail(`quiz: ${id} ${lv} en/zh length mismatch (en=${enLen} zh=${zhLen})`);
       }
     }
     for (const lang of ['en', 'zh']) {
       for (const lv of LEVELS) {
         const n = langs[lang]?.[lv]?.length || 0;
-        if (n !== 15) {
-          const msg = `quiz: ${id} ${lang}/${lv} has ${n}/15`;
-          if (strict) throw new Error(msg);
-          if (n > 0 && n < 15) warnings.push(msg);
-        }
-      }
-      if (strict) {
-        for (const lv of LEVELS) {
-          if (!(langs[lang]?.[lv]?.length)) throw new Error(`quiz: ${id} ${lang} missing ${lv} bucket`);
-        }
+        if (n === 15) continue;
+        const msg = `quiz: ${id} ${lang}/${lv} has ${n}/15`;
+        if (strict) fail(msg);            // strict: any non-15 bucket is an error (0 = missing)
+        else if (n > 0) warnings.push(msg); // non-strict: only warn on a partially-filled bucket
       }
     }
   }
@@ -152,7 +157,11 @@ export function validate(rendered, { strict } = {}) {
 if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
   const rendered = buildAll();
   const strict = process.argv.includes('--strict');
-  const { warnings } = validate(rendered, { strict });
+  let inProgress = [];
+  try {
+    inProgress = JSON.parse(fs.readFileSync(path.join(ROOT, 'quizzes', 'in-progress.json'), 'utf8'));
+  } catch { /* no in-progress list — validate every topic strictly */ }
+  const { warnings } = validate(rendered, { strict, inProgress });
   warnings.forEach((w) => console.warn('WARN', w));
   const file = path.join(ROOT, 'src', 'data', 'quizRendered.js');
   fs.writeFileSync(file,
