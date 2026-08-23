@@ -123,6 +123,13 @@ export function validate(rendered, { strict } = {}) {
     if (enB.join(',') !== zhB.join(',')) {
       throw new Error(`quiz: ${id} en/zh bucket parity mismatch (en=${enB} zh=${zhB})`);
     }
+    for (const lv of LEVELS) {
+      const enLen = langs.en?.[lv]?.length || 0;
+      const zhLen = langs.zh?.[lv]?.length || 0;
+      if (enLen > 0 && zhLen > 0 && enLen !== zhLen) {
+        throw new Error(`quiz: ${id} ${lv} en/zh length mismatch (en=${enLen} zh=${zhLen})`);
+      }
+    }
     for (const lang of ['en', 'zh']) {
       for (const lv of LEVELS) {
         const n = langs[lang]?.[lv]?.length || 0;

@@ -96,4 +96,9 @@ describe('quiz validate', () => {
     const full = { easy: bucket(15), medium: bucket(15), hard: bucket(15) };
     expect(() => validate({ t: { en: full, zh: full } }, { strict: true })).not.toThrow();
   });
+
+  it('throws (even without strict) when en/zh share a level but lengths differ', () => {
+    const r = { t: { en: { easy: bucket(15) }, zh: { easy: bucket(14) } } };
+    expect(() => validate(r, { strict: false })).toThrow(/t.*easy|easy.*t/i);
+  });
 });

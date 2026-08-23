@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "serve": "python3 -m http.server 4174 --protocol HTTP/1.1",
     "inject-env": "node scripts/inject-env.mjs",
-    "build:quiz": "node scripts/build-quiz.mjs",
+    "build:quiz": "node scripts/build-quiz.mjs --strict",
     "build:labs": "node scripts/build-labs.mjs",
     "build:slide-decks": "node scripts/build-slide-decks.mjs",
     "build:standalone": "node scripts/build-standalone.mjs",
