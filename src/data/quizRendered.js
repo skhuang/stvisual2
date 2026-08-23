@@ -41,17 +41,17 @@ export const QUIZ_RENDERED = {
             {
               "text": "0, 1, 2, 99, 100, 101",
               "fraction": 100,
-              "feedback": "Correct — min&#8722;1, min, min+1, max&#8722;1, max, max+1."
+              "feedback": "Correct — min-1, min, min+1, max-1, max, max+1."
             },
             {
               "text": "1, 100",
               "fraction": 0,
-              "feedback": "That covers only the two on-points, missing all four neighboring off-points."
+              "feedback": "That covers only the two on-points, missing all four neighboring off/near-boundary points."
             },
             {
               "text": "0, 1, 100, 101",
               "fraction": 0,
-              "feedback": "This omits the min+1 and max&#8722;1 near-boundary points (2 and 99)."
+              "feedback": "This omits the min+1 and max-1 near-boundary points (2 and 99)."
             },
             {
               "text": "1, 50, 100",
@@ -59,7 +59,7 @@ export const QUIZ_RENDERED = {
               "feedback": "50 is a midpoint value, not a boundary — BVA targets the edges of the domain, not its center."
             }
           ],
-          "generalFeedback": "Standard BVA takes the minimum and maximum (the \"on-points\") plus their immediate neighbors just inside and just outside the domain (the \"off-points\"): for [1,100] that's 0, 1, 2, 99, 100, 101.",
+          "generalFeedback": "Standard BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.",
           "single": true
         },
         {
@@ -92,6 +92,346 @@ export const QUIZ_RENDERED = {
           "single": true
         },
         {
+          "type": "shortanswer",
+          "name": "Fault type targeted by BVA",
+          "text": "<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>",
+          "answers": [
+            {
+              "text": "boundary*",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "off-by-one*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "BVA targets boundary faults — the off-by-one style errors (e.g., using < instead of <=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "What equivalence partitioning does",
+          "text": "<p>What is the core idea of equivalence partitioning as a test-design technique?</p>",
+          "answers": [
+            {
+              "text": "Divide the input domain into classes whose members are expected to be processed the same way, then test one value per class",
+              "fraction": 100,
+              "feedback": "Correct — it reduces the near-infinite input space to a small set of representatives."
+            },
+            {
+              "text": "Test every possible input value exhaustively",
+              "fraction": 0,
+              "feedback": "Exhaustive testing is what partitioning is designed to avoid."
+            },
+            {
+              "text": "Randomly sample inputs until a defect is found",
+              "fraction": 0,
+              "feedback": "That is random testing; partitioning deliberately structures the domain into classes."
+            },
+            {
+              "text": "Measure how many statements each input executes",
+              "fraction": 0,
+              "feedback": "That is structural (code) coverage, not input-domain partitioning."
+            }
+          ],
+          "generalFeedback": "Equivalence partitioning is a black-box technique that splits the input domain into equivalence classes (valid and invalid) and picks one representative per class, cutting the number of tests while keeping behavioral coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why test at boundaries",
+          "text": "<p>Why does Boundary Value Analysis concentrate test cases at the edges of an input range rather than in its middle?</p>",
+          "answers": [
+            {
+              "text": "Programmers make off-by-one errors (e.g. < vs <=) most often at boundaries, so defects cluster there",
+              "fraction": 100,
+              "feedback": "Correct — boundaries are where relational operators are easiest to get wrong."
+            },
+            {
+              "text": "Boundary values are faster for the program to compute",
+              "fraction": 0,
+              "feedback": "Execution speed is unrelated to why boundaries are chosen."
+            },
+            {
+              "text": "Values in the middle of a range are never processed by the program",
+              "fraction": 0,
+              "feedback": "Middle values are processed; they're just less error-prone, so a single representative suffices."
+            },
+            {
+              "text": "Boundaries are the only values users ever enter",
+              "fraction": 0,
+              "feedback": "Users enter all kinds of values; BVA targets boundaries because that's where faults concentrate."
+            }
+          ],
+          "generalFeedback": "Faults cluster at boundaries because relational and loop conditions (<, <=, off-by-one) are most error-prone there; middle values are covered by a single equivalence-class representative.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of x <= 20",
+          "text": "<p>For the predicate <code>x &lt;= 20</code>, which value is the <strong>on point</strong> (the boundary value that lies inside the domain and satisfies the predicate)?</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "Correct — 20 satisfies x <= 20 and sits exactly on the boundary."
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 fails x <= 20; it is the off point just outside the domain."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 satisfies the predicate but is an interior point, not on the boundary."
+            },
+            {
+              "text": "22",
+              "fraction": 0,
+              "feedback": "22 is an exterior point that fails the predicate, not the boundary value."
+            }
+          ],
+          "generalFeedback": "The on point is the value on the boundary that lies in the domain. For x <= 20 the boundary value 20 satisfies the predicate, so 20 is the on point; 21 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of x <= 10",
+          "text": "<p>For the predicate <code>x &lt;= 10</code>, which value is the <strong>off point</strong> (the nearest value just outside the domain, which fails the predicate)?</p>",
+          "answers": [
+            {
+              "text": "11",
+              "fraction": 100,
+              "feedback": "Correct — 11 is the nearest integer that fails x <= 10."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 satisfies the predicate; it is the on point, not the off point."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 fails the predicate but is one step too far to be the off point."
+            }
+          ],
+          "generalFeedback": "The off point is the nearest value on the other side of the boundary — just outside the domain. For x <= 10 the on point is 10 and the off point is 11.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of x <= 46",
+          "text": "<p>For the predicate <code>x &lt;= 46</code>, which value is the <strong>on point</strong>?</p>",
+          "answers": [
+            {
+              "text": "46",
+              "fraction": 100,
+              "feedback": "Correct — 46 sits on the boundary and satisfies x <= 46."
+            },
+            {
+              "text": "47",
+              "fraction": 0,
+              "feedback": "47 fails the predicate; it is the off point just outside."
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "45 satisfies the predicate but is an interior point."
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 is an exterior point that fails the predicate."
+            }
+          ],
+          "generalFeedback": "For x <= 46 the boundary value 46 lies in the domain, so it is the on point; 47 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of x <= 37",
+          "text": "<p>For the predicate <code>x &lt;= 37</code>, which value is the <strong>off point</strong>?</p>",
+          "answers": [
+            {
+              "text": "38",
+              "fraction": 100,
+              "feedback": "Correct — 38 is the nearest value that fails x <= 37."
+            },
+            {
+              "text": "37",
+              "fraction": 0,
+              "feedback": "37 satisfies the predicate; it is the on point."
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "39",
+              "fraction": 0,
+              "feedback": "39 fails the predicate but is one step too far to be the off point."
+            }
+          ],
+          "generalFeedback": "For x <= 37 the on point is 37 and the off point is the adjacent failing value 38.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of x <= 14",
+          "text": "<p>For the predicate <code>x &lt;= 14</code>, which value is the <strong>on point</strong>?</p>",
+          "answers": [
+            {
+              "text": "14",
+              "fraction": 100,
+              "feedback": "Correct — 14 satisfies x <= 14 and lies on the boundary."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 fails the predicate; it is the off point."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 satisfies the predicate but is an interior point."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is an exterior point that fails the predicate."
+            }
+          ],
+          "generalFeedback": "For x <= 14 the boundary value 14 is in the domain, so it is the on point; 15 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of x <= 21",
+          "text": "<p>For the predicate <code>x &lt;= 21</code>, which value is the <strong>off point</strong>?</p>",
+          "answers": [
+            {
+              "text": "22",
+              "fraction": 100,
+              "feedback": "Correct — 22 is the nearest value that fails x <= 21."
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 satisfies the predicate; it is the on point."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 fails the predicate but is one step too far to be the off point."
+            }
+          ],
+          "generalFeedback": "For x <= 21 the on point is 21 and the off point is the adjacent failing value 22.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which value is in an invalid class",
+          "text": "<p>An input field accepts an integer in the valid range 1..100. Which of these values belongs to an <strong>invalid</strong> equivalence class?</p>",
+          "answers": [
+            {
+              "text": "0",
+              "fraction": 100,
+              "feedback": "Correct — 0 is below the minimum, so it falls in the \"too small\" invalid class."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 is the minimum accepted value, so it is in the valid class."
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 is inside 1..100, so it is a valid-class value."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 is the maximum accepted value, so it is in the valid class."
+            }
+          ],
+          "generalFeedback": "The valid class is [1,100]; anything below 1 or above 100 is invalid. Only 0 lies outside the accepted range here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of age >= 18",
+          "text": "<p>A site admits users whose age satisfies <code>age &gt;= 18</code>. Which value is the <strong>on point</strong> of this boundary?</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "Correct — 18 satisfies age >= 18 and sits exactly on the boundary."
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 fails age >= 18; it is the off point just outside the accepted domain."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 satisfies the predicate but is an interior point, not the boundary."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is an exterior point that fails the predicate."
+            }
+          ],
+          "generalFeedback": "For age >= 18 the boundary value 18 lies in the accepted domain, so it is the on point; 17 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Largest integer satisfying a strict bound",
+          "text": "<p>For the strict predicate <code>x &lt; 50</code> over the integers, which value is the largest one that satisfies it?</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "Correct — with a strict <, the largest satisfying integer is 49, not 50."
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 does not satisfy x < 50 because the bound is strict."
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 satisfies the predicate but is not the largest such value."
+            },
+            {
+              "text": "51",
+              "fraction": 0,
+              "feedback": "51 is greater than 50, so it clearly fails the predicate."
+            }
+          ],
+          "generalFeedback": "A strict inequality excludes the bound itself: for x < 50 the value 50 fails, so the largest satisfying integer is 49. This min/max +/-1 reasoning is exactly what BVA exercises.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
           "type": "multichoice",
           "name": "Weak vs strong equivalence testing",
           "text": "<p>What distinguishes weak from strong equivalence-class testing when a program has several input variables?</p>",
@@ -122,40 +462,835 @@ export const QUIZ_RENDERED = {
         },
         {
           "type": "truefalse",
-          "name": "Off-points on a closed boundary",
-          "text": "<p>For a closed boundary (the boundary value itself is included in the domain), the off-point lies just outside the domain.</p>",
+          "name": "Off-point on a closed boundary",
+          "text": "<p>For a closed boundary (the boundary value itself is included in the domain), the off point lies just outside the domain.</p>",
           "answers": [
             {
               "text": "true",
               "fraction": 100,
-              "feedback": "Correct — since the on-point (the boundary value) is already inside a closed domain, its neighboring off-point sits just past the edge, outside the domain."
+              "feedback": "Correct — the on point (the included boundary value) is inside the domain, so its paired off point is the adjacent value just outside."
             },
             {
               "text": "false",
               "fraction": 0,
-              "feedback": "For a closed boundary the on-point is inside the domain, so its paired off-point is the adjacent value just outside it."
+              "feedback": "For a closed boundary the on point is inside the domain, so its paired off point is the adjacent value just outside it."
             }
           ],
-          "generalFeedback": "A closed boundary includes the extreme value in the domain (the on-point). Its associated off-point is the nearest neighboring value on the other side of that edge — just outside the domain. (For an open boundary the roles swap: the on-point sits just outside and the off-point is the included extreme.)"
+          "generalFeedback": "Using the convention where the on point is the boundary value that lies in the domain (satisfies the predicate) and the off point is the nearest value just outside it: a closed boundary such as x <= b puts the on point (b) inside the domain and the off point (b+1) just outside. For an open boundary such as a < x, the smallest value inside the domain is a+1 (the on point) and the off point is the excluded boundary value a, still just outside the domain."
         },
         {
-          "type": "shortanswer",
-          "name": "Fault type targeted by BVA",
-          "text": "<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>",
+          "type": "multichoice",
+          "name": "Five standard BVA values",
+          "text": "<p>In standard (non-robust) Boundary Value Analysis, which five values are selected for a single variable with range [min, max]?</p>",
           "answers": [
             {
-              "text": "boundary*",
+              "text": "min, min+1, a nominal value, max-1, max",
               "fraction": 100,
-              "feedback": "Correct."
+              "feedback": "Correct — the two boundaries, their inside neighbours, and one nominal value."
             },
             {
-              "text": "off-by-one*",
-              "fraction": 100,
-              "feedback": "Correct."
+              "text": "min-1, min, nominal, max, max+1",
+              "fraction": 0,
+              "feedback": "min-1 and max+1 are the robustness extensions, not part of standard BVA."
+            },
+            {
+              "text": "min, nominal, max",
+              "fraction": 0,
+              "feedback": "This drops the min+1 and max-1 inside-neighbour values that standard BVA includes."
+            },
+            {
+              "text": "min-1, min, min+1, max-1, max, max+1",
+              "fraction": 0,
+              "feedback": "That is the six-value robust set, not the five-value standard set."
             }
           ],
-          "generalFeedback": "BVA targets boundary faults — the off-by-one style errors (e.g., using < instead of <=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.",
-          "usecase": false
+          "generalFeedback": "Standard BVA selects min, min+1, a nominal (typical interior) value, max-1, and max. Robustness testing later adds min-1 and max+1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Standard BVA test count (n=3)",
+          "text": "<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 3 input variables?</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "Correct — 4×3 + 1 = 13."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "That is 4n; it forgets the single all-nominal test (+1)."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 does not match 4n+1 for n=3."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 is the robust count 6n+1 for n=3, not the standard count."
+            }
+          ],
+          "generalFeedback": "Standard BVA varies one variable at a time through its 4 non-nominal boundary values while holding the others at nominal, plus one all-nominal test: 4n+1. For n=3 that is 13.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What robustness testing adds",
+          "text": "<p>Robustness testing extends standard BVA by adding which extra values for each variable?</p>",
+          "answers": [
+            {
+              "text": "min-1 and max+1 (values just outside the valid range)",
+              "fraction": 100,
+              "feedback": "Correct — robustness testing probes just beyond both boundaries."
+            },
+            {
+              "text": "min+1 and max-1 (values just inside the valid range)",
+              "fraction": 0,
+              "feedback": "Those inside-neighbour values are already part of standard BVA."
+            },
+            {
+              "text": "Two additional nominal values",
+              "fraction": 0,
+              "feedback": "Robustness testing adds out-of-range values, not more nominal ones."
+            },
+            {
+              "text": "The midpoint and the mean of the range",
+              "fraction": 0,
+              "feedback": "Robustness testing is about out-of-range inputs, not central statistics."
+            }
+          ],
+          "generalFeedback": "Robustness testing adds min-1 and max+1 to see how the program handles inputs just outside the valid range, giving seven values per variable and the 6n+1 count.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Robust BVA test count (n=2)",
+          "text": "<p>Using the robust 6n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "Correct — 6×2 + 1 = 13."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "That is 6n; it forgets the single all-nominal test (+1)."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the standard count 4n+1 for n=2, not the robust count."
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 does not match 6n+1 for n=2."
+            }
+          ],
+          "generalFeedback": "Robust BVA uses 6 non-nominal values per variable (adding min-1 and max+1) varied one at a time, plus one all-nominal test: 6n+1. For n=2 that is 13.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of an open lower boundary",
+          "text": "<p>For the predicate <code>19 &lt; x &lt;= 25</code>, which value is the <strong>on point at the lower boundary</strong> (the smallest value that lies inside the domain)?</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "Correct — with a strict lower bound, 20 is the smallest value that satisfies 19 < x."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 fails 19 < x; it is the off point just outside the lower boundary."
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 satisfies the predicate but is an interior point, not on the lower boundary."
+            },
+            {
+              "text": "26",
+              "fraction": 0,
+              "feedback": "26 fails the upper bound; it is an off point at the upper boundary."
+            }
+          ],
+          "generalFeedback": "For an open (strict) lower boundary 19 < x, the value 19 is excluded, so the on point inside the domain is 20 and the off point just outside is 19.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of an open lower boundary",
+          "text": "<p>For the predicate <code>27 &lt; x &lt;= 30</code>, which value is the <strong>off point at the lower boundary</strong> (the nearest value just outside the domain)?</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "Correct — 27 is excluded by the strict <, so it is the off point just outside the lower boundary."
+            },
+            {
+              "text": "28",
+              "fraction": 0,
+              "feedback": "28 satisfies 27 < x; it is the on point at the lower boundary."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 satisfies the predicate; it is the on point at the upper boundary."
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 is an interior point that satisfies the predicate."
+            }
+          ],
+          "generalFeedback": "For the open lower boundary 27 < x, the smallest value inside the domain is 28 (the on point) and the excluded boundary value 27 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of a closed interval",
+          "text": "<p>For the predicate <code>24 &lt;= x &lt;= 41</code>, which value is the <strong>on point at the lower boundary</strong>?</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "Correct — 24 satisfies 24 <= x and sits on the lower boundary."
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 fails the predicate; it is the off point just outside the lower boundary."
+            },
+            {
+              "text": "42",
+              "fraction": 0,
+              "feedback": "42 fails the upper bound; it is the off point at the upper boundary."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 satisfies the predicate but is an interior point."
+            }
+          ],
+          "generalFeedback": "For the closed interval [24,41] the lower boundary value 24 is included, so it is the on point; 23 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of a closed interval",
+          "text": "<p>For the predicate <code>11 &lt;= x &lt;= 29</code>, which value is the <strong>off point at the lower boundary</strong>?</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — 10 is the nearest value below the included minimum 11, just outside the domain."
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "11 satisfies the predicate; it is the on point at the lower boundary."
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 satisfies the predicate; it is the on point at the upper boundary."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is an interior point that satisfies the predicate."
+            }
+          ],
+          "generalFeedback": "For the closed interval [11,29] the on point at the lower boundary is 11 and the off point just outside is 10.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On/off points for an open interval",
+          "text": "<p>For the strict predicate <code>x &gt; 5</code>, which pair correctly gives the on point and off point at that boundary?</p>",
+          "answers": [
+            {
+              "text": "On point 6, off point 5",
+              "fraction": 100,
+              "feedback": "Correct — 6 is the smallest value inside the domain; 5 is excluded and lies just outside."
+            },
+            {
+              "text": "On point 5, off point 6",
+              "fraction": 0,
+              "feedback": "5 fails x > 5, so it cannot be the on point (the value inside the domain)."
+            },
+            {
+              "text": "On point 5, off point 4",
+              "fraction": 0,
+              "feedback": "Both 5 and 4 fail the predicate; neither is inside the domain."
+            },
+            {
+              "text": "On point 7, off point 6",
+              "fraction": 0,
+              "feedback": "7 satisfies the predicate but is interior, and 6 also satisfies it, so neither is an off point."
+            }
+          ],
+          "generalFeedback": "For an open boundary x > 5, the boundary value 5 is excluded, so the on point (nearest value inside the domain) is 6 and the off point (nearest value outside) is 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Single-fault assumption behind 4n+1",
+          "text": "<p>Why does standard BVA vary only one variable at a time (holding the others at nominal), giving 4n+1 tests?</p>",
+          "answers": [
+            {
+              "text": "It assumes the single-fault hypothesis — failures are usually caused by one variable at an extreme, not several simultaneously",
+              "fraction": 100,
+              "feedback": "Correct — that assumption is what keeps the count linear in n."
+            },
+            {
+              "text": "It assumes variables are always independent and never interact at all",
+              "fraction": 0,
+              "feedback": "BVA does not claim variables never interact; it just bets that single-variable extremes catch most boundary faults."
+            },
+            {
+              "text": "It assumes the program has exactly one input variable",
+              "fraction": 0,
+              "feedback": "The 4n+1 formula is explicitly for n variables, not one."
+            },
+            {
+              "text": "It assumes all boundary values are equally likely to be entered",
+              "fraction": 0,
+              "feedback": "Likelihood of entry is not the basis; the single-fault hypothesis is."
+            }
+          ],
+          "generalFeedback": "Standard BVA rests on the single-fault (critical-fault) assumption: most failures stem from one variable at a boundary while the rest sit at nominal. Worst-case testing drops this assumption and combines boundaries, which is far more expensive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Standard BVA test count (n=2)",
+          "text": "<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — 4×2 + 1 = 9."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That is 4n; it forgets the single all-nominal test (+1)."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 is the robust count 6n+1 for n=2, not the standard count."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the standard count for a single variable (n=1), not two."
+            }
+          ],
+          "generalFeedback": "Standard BVA needs 4n+1 tests; for n=2 that is 4×2 + 1 = 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point at an upper boundary",
+          "text": "<p>For the predicate <code>5 &lt;= x &lt;= 17</code>, which value is the <strong>off point at the upper boundary</strong>?</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "Correct — 18 is the nearest value above the included maximum 17, just outside the domain."
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 satisfies the predicate; it is the on point at the upper boundary."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the off point at the lower boundary, not the upper one."
+            }
+          ],
+          "generalFeedback": "For the closed interval [5,17] the upper on point is 17 and the off point just outside the upper boundary is 18.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Values per variable in robustness testing",
+          "text": "<p>How many distinct test values does robustness testing exercise for a single variable with range [min, max]?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — min-1, min, min+1, nominal, max-1, max, max+1."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the standard BVA count; robustness adds min-1 and max+1, giving 7."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 forgets one value: the robust set has seven (two boundaries, two inside neighbours, two outside neighbours, and one nominal)."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the standard BVA test count for two variables (4n+1), not values for one variable."
+            }
+          ],
+          "generalFeedback": "Robustness testing uses seven values per variable — the five standard BVA values plus min-1 and max+1 — which is why the robust test count is 6n+1.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Worst-case boundary test count",
+          "text": "<p>Worst-case boundary testing takes the Cartesian product of each variable's five boundary values. For a function with 2 input variables, how many test cases does it produce?</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "Correct — 5^2 = 25, the full product of the five values per variable."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is 5×n; worst-case testing multiplies the value sets (5^n), it does not add them."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the standard single-fault count 4n+1 for n=2, not the worst-case count."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 does not match 5^n for n=2."
+            }
+          ],
+          "generalFeedback": "Worst-case boundary testing drops the single-fault assumption and combines every variable's boundary values: 5^n tests. For n=2 that is 5^2 = 25.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Robust worst-case test count",
+          "text": "<p>Robust worst-case boundary testing uses each variable's seven values (adding min-1 and max+1) in full combination. For 2 variables, how many test cases result?</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "Correct — 7^2 = 49."
+            },
+            {
+              "text": "25",
+              "fraction": 0,
+              "feedback": "25 is 5^2, the non-robust worst-case count."
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 is 7×n; robust worst-case multiplies the value sets (7^n)."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 is the robust single-fault count 6n+1 for n=2, not the worst-case count."
+            }
+          ],
+          "generalFeedback": "Robust worst-case testing combines all seven robust values per variable: 7^n. For n=2 that is 7^2 = 49.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Worst-case vs standard BVA",
+          "text": "<p>How does worst-case boundary testing differ fundamentally from standard (4n+1) BVA?</p>",
+          "answers": [
+            {
+              "text": "It abandons the single-fault assumption and combines the boundary values of all variables, growing exponentially (5^n)",
+              "fraction": 100,
+              "feedback": "Correct — combinations replace one-at-a-time variation."
+            },
+            {
+              "text": "It uses fewer values per variable but more variables",
+              "fraction": 0,
+              "feedback": "It uses the same values per variable; the difference is combining them across variables."
+            },
+            {
+              "text": "It tests only nominal values, never boundaries",
+              "fraction": 0,
+              "feedback": "Worst-case testing is entirely about combining boundary values, not avoiding them."
+            },
+            {
+              "text": "It is always cheaper than standard BVA",
+              "fraction": 0,
+              "feedback": "It is far more expensive: 5^n grows exponentially versus the linear 4n+1."
+            }
+          ],
+          "generalFeedback": "Standard BVA varies one variable at a time (single-fault assumption), giving 4n+1 tests. Worst-case testing combines every variable's boundary values, giving 5^n tests — exhaustive over boundaries but exponentially costly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Characteristic in input-space partitioning",
+          "text": "<p>In Ammann &amp; Offutt's Input Space Partitioning (ISP), what is a <strong>characteristic</strong>?</p>",
+          "answers": [
+            {
+              "text": "A feature of the input domain that is used to partition the domain into blocks",
+              "fraction": 100,
+              "feedback": "Correct — each characteristic induces one partition of the input domain."
+            },
+            {
+              "text": "A single concrete test input value",
+              "fraction": 0,
+              "feedback": "That is a test value; a characteristic is the dimension along which values are partitioned."
+            },
+            {
+              "text": "The expected output of the program",
+              "fraction": 0,
+              "feedback": "That is an oracle, not an ISP characteristic."
+            },
+            {
+              "text": "A line of source code under test",
+              "fraction": 0,
+              "feedback": "ISP is black-box; a characteristic describes the input domain, not code."
+            }
+          ],
+          "generalFeedback": "In ISP each characteristic partitions the input domain into blocks (for example \"sign of x: negative / zero / positive\"). Choosing good characteristics is the key design step.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Blocks of a partition",
+          "text": "<p>The blocks a characteristic splits the input domain into must satisfy which property?</p>",
+          "answers": [
+            {
+              "text": "They must be complete (cover the whole domain) and disjoint (no value in two blocks)",
+              "fraction": 100,
+              "feedback": "Correct — completeness plus disjointness is exactly what makes the blocks a partition."
+            },
+            {
+              "text": "They must overlap so every value appears in at least two blocks",
+              "fraction": 0,
+              "feedback": "Overlap violates disjointness; blocks of a partition are mutually exclusive."
+            },
+            {
+              "text": "They must all contain the same number of values",
+              "fraction": 0,
+              "feedback": "Blocks need not be equal in size; they need only be complete and disjoint."
+            },
+            {
+              "text": "There must be exactly two blocks per characteristic",
+              "fraction": 0,
+              "feedback": "A characteristic may have any number of blocks, as long as they partition the domain."
+            }
+          ],
+          "generalFeedback": "For each characteristic the blocks must form a partition of the domain: complete (their union is the whole domain) and disjoint (mutually exclusive). Otherwise a value could be unclassifiable or ambiguous.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All Combinations Coverage count",
+          "text": "<p>An ISP model has three characteristics with 3, 2, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 × 2 = 12, the product of the block counts."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum 3+2+2; ACoC multiplies the block counts."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 does not match the product of the block counts."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 ignores one characteristic; the product over all three is 12."
+            }
+          ],
+          "generalFeedback": "ACoC requires every combination of blocks across all characteristics, so the count is the product of the block counts: 3 × 2 × 2 = 12.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Each Choice Coverage count",
+          "text": "<p>An ISP model has three characteristics with 3, 2, and 4 blocks. What is the minimum number of tests needed for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least as many tests as the largest number of blocks in any one characteristic (here 4)."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum of the block counts; ECC can reuse blocks across characteristics in the same test."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is the product (All Combinations), far more than ECC requires."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is not enough to cover the characteristic that has 4 blocks."
+            }
+          ],
+          "generalFeedback": "ECC requires each block of each characteristic to appear in at least one test. Because a single test picks one block from every characteristic, the minimum number of tests equals the largest block count — here max(3,2,4) = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Base Choice Coverage count",
+          "text": "<p>An ISP model has three characteristics with 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1 base test + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the sum of the block counts; BCC counts one base test plus the non-base blocks."
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 is the product (All Combinations), not the Base Choice count."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 forgets the +1 base test: the total is 1 + sum of (blocks-1)."
+            }
+          ],
+          "generalFeedback": "BCC picks one base choice per characteristic (the base test), then varies one characteristic at a time through its remaining blocks: 1 + Σ(B_i - 1) = 1 + 2 + 2 + 1 = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage definition",
+          "text": "<p>What does Pair-Wise Coverage (PWC) require?</p>",
+          "answers": [
+            {
+              "text": "Every pair of blocks from each pair of characteristics must appear together in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — PWC covers all two-way block interactions."
+            },
+            {
+              "text": "Every combination of blocks across all characteristics must appear",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage; PWC only requires pairs."
+            },
+            {
+              "text": "Each block of each characteristic must appear once, with no interaction requirement",
+              "fraction": 0,
+              "feedback": "That is Each Choice Coverage, which is weaker than PWC."
+            },
+            {
+              "text": "Exactly two tests per characteristic must be run",
+              "fraction": 0,
+              "feedback": "PWC constrains block pairings, not a fixed number of tests per characteristic."
+            }
+          ],
+          "generalFeedback": "PWC (2-wise) requires that for every two characteristics, every pair of their blocks is covered together in some test. It catches two-way interaction faults without the full ACoC explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage lower bound",
+          "text": "<p>An ISP model has three characteristics with 3, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — at least the product of the two largest block counts, 3 × 3 = 9."
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 is the full All Combinations product; PWC needs far fewer than that."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 (the largest single block count) satisfies Each Choice, not Pair-Wise."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is below the pairwise lower bound of 3 × 3 = 9."
+            }
+          ],
+          "generalFeedback": "To cover every pair from the two 3-block characteristics you already need all 3 × 3 = 9 of their combinations, so any PWC test set has at least 9 tests — the product of the two largest block counts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest ISP criterion",
+          "text": "<p>Among ACoC, ECC, PWC, and BCC, which criterion subsumes all of the others?</p>",
+          "answers": [
+            {
+              "text": "All Combinations Coverage (ACoC)",
+              "fraction": 100,
+              "feedback": "Correct — covering every block combination covers every pair, every base variation, and every choice."
+            },
+            {
+              "text": "Each Choice Coverage (ECC)",
+              "fraction": 0,
+              "feedback": "ECC is the weakest of the four; it is subsumed by the others."
+            },
+            {
+              "text": "Pair-Wise Coverage (PWC)",
+              "fraction": 0,
+              "feedback": "PWC subsumes ECC but not ACoC or (in general) BCC."
+            },
+            {
+              "text": "Base Choice Coverage (BCC)",
+              "fraction": 0,
+              "feedback": "BCC subsumes ECC but is itself subsumed by ACoC."
+            }
+          ],
+          "generalFeedback": "ACoC requires every combination of blocks, so it necessarily satisfies pair coverage, base-choice variation, and each-choice — it sits at the top of the ISP subsumption hierarchy (and is usually the most expensive).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ISP subsumption chain",
+          "text": "<p>Which subsumption chain among the ISP criteria is correct (each criterion subsumes the next)?</p>",
+          "answers": [
+            {
+              "text": "MBCC → BCC → ECC",
+              "fraction": 100,
+              "feedback": "Correct — Multiple Base Choice subsumes Base Choice, which subsumes Each Choice."
+            },
+            {
+              "text": "ECC → BCC → MBCC",
+              "fraction": 0,
+              "feedback": "This reverses the direction; ECC is the weakest, so it cannot subsume the others."
+            },
+            {
+              "text": "BCC → MBCC → ECC",
+              "fraction": 0,
+              "feedback": "MBCC subsumes BCC, not the other way around."
+            },
+            {
+              "text": "ECC → PWC → BCC",
+              "fraction": 0,
+              "feedback": "ECC does not subsume PWC, and PWC does not subsume BCC (they are incomparable)."
+            }
+          ],
+          "generalFeedback": "Multiple Base Choice Coverage subsumes Base Choice Coverage, which subsumes Each Choice Coverage. Note that BCC and PWC are incomparable — neither subsumes the other.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Base choice in BCC",
+          "text": "<p>In Base Choice Coverage, how is the test set constructed?</p>",
+          "answers": [
+            {
+              "text": "Pick one base block per characteristic to form a base test, then vary one characteristic at a time through its other blocks",
+              "fraction": 100,
+              "feedback": "Correct — that yields 1 + Σ(blocks-1) tests."
+            },
+            {
+              "text": "Combine every block of every characteristic with every other",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage, not Base Choice."
+            },
+            {
+              "text": "Randomly select one block per characteristic for each test",
+              "fraction": 0,
+              "feedback": "BCC is systematic: a fixed base test plus one-at-a-time variations, not random selection."
+            },
+            {
+              "text": "Use only the base test and nothing else",
+              "fraction": 0,
+              "feedback": "The base test alone does not exercise the non-base blocks; each must be varied in."
+            }
+          ],
+          "generalFeedback": "BCC designates a base choice (e.g. the most common or important block) per characteristic, runs that base test, then changes one characteristic at a time to each of its non-base blocks while the rest stay at their base values.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combining equivalence and boundary",
+          "text": "<p>How are equivalence partitioning and boundary value analysis usually combined in practice?</p>",
+          "answers": [
+            {
+              "text": "Partition the domain into equivalence classes, then add boundary values at the edges of each class",
+              "fraction": 100,
+              "feedback": "Correct — partitioning finds the classes; BVA hardens the tests at their edges."
+            },
+            {
+              "text": "Replace equivalence classes entirely with random boundary values",
+              "fraction": 0,
+              "feedback": "The two are complementary; BVA supplements, not replaces, partitioning."
+            },
+            {
+              "text": "Use boundary values only for the invalid classes and ignore valid ones",
+              "fraction": 0,
+              "feedback": "Boundaries of valid classes are tested too; that is where most off-by-one faults live."
+            },
+            {
+              "text": "Test only the midpoint of each equivalence class",
+              "fraction": 0,
+              "feedback": "That is plain equivalence partitioning without BVA; it misses boundary faults."
+            }
+          ],
+          "generalFeedback": "The standard practice is to derive equivalence classes first, take one nominal representative from each, then apply BVA at the boundaries between classes — combining broad coverage with edge sensitivity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of a compound predicate",
+          "text": "<p>Consider the compound predicate <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>. Which single value is an <strong>off point</strong> of this predicate?</p>",
+          "answers": [
+            {
+              "text": "21",
+              "fraction": 100,
+              "feedback": "Correct — 21 fails the upper clause and lies just outside the domain, so it is an off point."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 satisfies both clauses; it is the on point at the lower boundary."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 satisfies both clauses; it is the on point at the upper boundary."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 satisfies the predicate and is an interior point."
+            }
+          ],
+          "generalFeedback": "The conjunction is equivalent to the closed interval [10,20]. Its on points are 10 and 20; the off points just outside are 9 and 21. Of the choices, only 21 is an off point.",
+          "single": true
         }
       ]
     },
@@ -198,17 +1333,17 @@ export const QUIZ_RENDERED = {
             {
               "text": "0、1、2、99、100、101",
               "fraction": 100,
-              "feedback": "正確——分別是 min&#8722;1、min、min+1、max&#8722;1、max、max+1。"
+              "feedback": "正確——分別是 min-1、min、min+1、max-1、max、max+1。"
             },
             {
               "text": "1、100",
               "fraction": 0,
-              "feedback": "這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的 off-point。"
+              "feedback": "這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的邊界鄰近點。"
             },
             {
               "text": "0、1、100、101",
               "fraction": 0,
-              "feedback": "這遺漏了緊鄰邊界的 min+1 與 max&#8722;1（即 2 與 99）。"
+              "feedback": "這遺漏了緊鄰邊界的 min+1 與 max-1（即 2 與 99）。"
             },
             {
               "text": "1、50、100",
@@ -216,7 +1351,7 @@ export const QUIZ_RENDERED = {
               "feedback": "50 是中點值，並非邊界——BVA 針對的是定義域的邊緣，而非其中心。"
             }
           ],
-          "generalFeedback": "標準 BVA 會取最小值與最大值（即「on-point」），再加上它們緊鄰的內側與外側鄰居（即「off-point」）：對 [1,100] 而言即為 0、1、2、99、100、101。",
+          "generalFeedback": "標準 BVA 會取最小值與最大值，再加上它們緊鄰的內側與外側鄰居：對 [1,100] 而言即為 0、1、2、99、100、101。",
           "single": true
         },
         {
@@ -249,6 +1384,346 @@ export const QUIZ_RENDERED = {
           "single": true
         },
         {
+          "type": "shortanswer",
+          "name": "BVA 鎖定的錯誤類型",
+          "text": "<p>邊界值分析特別針對的是哪一類錯誤？（請以英文回答）</p>",
+          "answers": [
+            {
+              "text": "boundary*",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "off-by-one*",
+              "fraction": 100,
+              "feedback": "正確。"
+            }
+          ],
+          "generalFeedback": "BVA 針對的是邊界錯誤（boundary faults）——也就是諸如以 < 誤用取代 <= 之類、恰好發生在輸入定義域邊緣的差一（off-by-one）錯誤，這正是它把測試值集中在邊界附近的原因。",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "等價類別劃分的作用",
+          "text": "<p>作為一種測試設計技巧，等價類別劃分的核心概念是什麼？</p>",
+          "answers": [
+            {
+              "text": "把輸入定義域切分成「預期會被相同方式處理」的類別，然後每個類別測試一個值",
+              "fraction": 100,
+              "feedback": "正確——它把幾乎無限的輸入空間縮減成一小組代表值。"
+            },
+            {
+              "text": "窮舉地測試每一個可能的輸入值",
+              "fraction": 0,
+              "feedback": "窮舉測試正是劃分技巧想要避免的。"
+            },
+            {
+              "text": "隨機抽樣輸入，直到找到缺陷為止",
+              "fraction": 0,
+              "feedback": "那是隨機測試；劃分是刻意把定義域結構化成類別。"
+            },
+            {
+              "text": "量測每個輸入執行了多少行程式碼",
+              "fraction": 0,
+              "feedback": "那是結構化（程式碼）涵蓋，而非輸入定義域的劃分。"
+            }
+          ],
+          "generalFeedback": "等價類別劃分是一種黑箱技巧：把輸入定義域切分成（有效與無效）等價類別，每個類別取一個代表值，在維持行為涵蓋的同時減少測試數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為什麼要在邊界測試",
+          "text": "<p>為什麼邊界值分析要把測試案例集中在輸入範圍的邊緣，而非其中間？</p>",
+          "answers": [
+            {
+              "text": "程式設計師最常在邊界處犯差一錯誤（例如 < 與 <= 用錯），因此缺陷會聚集在那裡",
+              "fraction": 100,
+              "feedback": "正確——邊界正是關係運算子最容易寫錯的地方。"
+            },
+            {
+              "text": "邊界值讓程式計算得比較快",
+              "fraction": 0,
+              "feedback": "執行速度與為何選擇邊界無關。"
+            },
+            {
+              "text": "範圍中間的值永遠不會被程式處理",
+              "fraction": 0,
+              "feedback": "中間值仍會被處理，只是比較不易出錯，因此一個代表值就足夠。"
+            },
+            {
+              "text": "使用者只會輸入邊界值",
+              "fraction": 0,
+              "feedback": "使用者會輸入各式各樣的值；BVA 選擇邊界是因為缺陷聚集於此。"
+            }
+          ],
+          "generalFeedback": "缺陷聚集在邊界，因為關係與迴圈條件（<、<=、差一）在此最容易出錯；中間值則由單一等價類別代表值涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 20 的 on point",
+          "text": "<p>對於述語 <code>x &lt;= 20</code>，哪一個值是 <strong>on point</strong>（位於邊界上、落在定義域內且滿足述語的值）？</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "正確——20 滿足 x <= 20，且恰好落在邊界上。"
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 不滿足 x <= 20；它是落在定義域外的 off point。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 滿足述語，但屬於內部點，並不在邊界上。"
+            },
+            {
+              "text": "22",
+              "fraction": 0,
+              "feedback": "22 是不滿足述語的外部點，並非邊界值。"
+            }
+          ],
+          "generalFeedback": "on point 是位於邊界上、落在定義域內的值。對 x <= 20 而言，邊界值 20 滿足述語，所以 20 是 on point；21 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 10 的 off point",
+          "text": "<p>對於述語 <code>x &lt;= 10</code>，哪一個值是 <strong>off point</strong>（剛好落在定義域外、不滿足述語的最近鄰值）？</p>",
+          "answers": [
+            {
+              "text": "11",
+              "fraction": 100,
+              "feedback": "正確——11 是最接近、且不滿足 x <= 10 的整數。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 滿足述語；它是 on point，而非 off point。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 不滿足述語，但距離邊界多了一步，不是 off point。"
+            }
+          ],
+          "generalFeedback": "off point 是位於邊界另一側最近的值——剛好落在定義域外。對 x <= 10 而言，on point 是 10，off point 是 11。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 46 的 on point",
+          "text": "<p>對於述語 <code>x &lt;= 46</code>，哪一個值是 <strong>on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "46",
+              "fraction": 100,
+              "feedback": "正確——46 落在邊界上且滿足 x <= 46。"
+            },
+            {
+              "text": "47",
+              "fraction": 0,
+              "feedback": "47 不滿足述語；它是剛好落在域外的 off point。"
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "45 滿足述語，但屬於內部點。"
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 是不滿足述語的外部點。"
+            }
+          ],
+          "generalFeedback": "對 x <= 46 而言，邊界值 46 落在定義域內，所以它是 on point；47 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 37 的 off point",
+          "text": "<p>對於述語 <code>x &lt;= 37</code>，哪一個值是 <strong>off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "38",
+              "fraction": 100,
+              "feedback": "正確——38 是最接近、且不滿足 x <= 37 的值。"
+            },
+            {
+              "text": "37",
+              "fraction": 0,
+              "feedback": "37 滿足述語；它是 on point。"
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "39",
+              "fraction": 0,
+              "feedback": "39 不滿足述語，但距離邊界多了一步，不是 off point。"
+            }
+          ],
+          "generalFeedback": "對 x <= 37 而言，on point 是 37，off point 是相鄰、不滿足述語的值 38。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 14 的 on point",
+          "text": "<p>對於述語 <code>x &lt;= 14</code>，哪一個值是 <strong>on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "14",
+              "fraction": 100,
+              "feedback": "正確——14 滿足 x <= 14，且落在邊界上。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 不滿足述語；它是 off point。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 滿足述語，但屬於內部點。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是不滿足述語的外部點。"
+            }
+          ],
+          "generalFeedback": "對 x <= 14 而言，邊界值 14 落在定義域內，所以它是 on point；15 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 21 的 off point",
+          "text": "<p>對於述語 <code>x &lt;= 21</code>，哪一個值是 <strong>off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "22",
+              "fraction": 100,
+              "feedback": "正確——22 是最接近、且不滿足 x <= 21 的值。"
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 滿足述語；它是 on point。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 不滿足述語，但距離邊界多了一步，不是 off point。"
+            }
+          ],
+          "generalFeedback": "對 x <= 21 而言，on point 是 21，off point 是相鄰、不滿足述語的值 22。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個值屬於無效類別",
+          "text": "<p>某輸入欄位接受有效範圍 1..100 的整數。下列哪一個值屬於<strong>無效</strong>等價類別？</p>",
+          "answers": [
+            {
+              "text": "0",
+              "fraction": 100,
+              "feedback": "正確——0 低於最小值，落在「太小」的無效類別。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是接受的最小值，屬於有效類別。"
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 落在 1..100 之內，是有效類別的值。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 是接受的最大值，屬於有效類別。"
+            }
+          ],
+          "generalFeedback": "有效類別是 [1,100]；任何低於 1 或高於 100 的值都是無效的。這裡只有 0 落在接受範圍之外。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "age >= 18 的 on point",
+          "text": "<p>某網站只允許年齡滿足 <code>age &gt;= 18</code> 的使用者。哪一個值是這個邊界的 <strong>on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "正確——18 滿足 age >= 18，且恰好落在邊界上。"
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 不滿足 age >= 18；它是剛好落在接受域外的 off point。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 滿足述語，但屬於內部點，不在邊界上。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是不滿足述語的外部點。"
+            }
+          ],
+          "generalFeedback": "對 age >= 18 而言，邊界值 18 落在接受域內，所以它是 on point；17 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "嚴格邊界下最大的滿足整數",
+          "text": "<p>對於嚴格述語 <code>x &lt; 50</code>（在整數上），哪一個值是滿足它的最大整數？</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "正確——因為是嚴格的 <，最大的滿足整數是 49，而非 50。"
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "因為邊界是嚴格的，50 並不滿足 x < 50。"
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 滿足述語，但不是其中最大的。"
+            },
+            {
+              "text": "51",
+              "fraction": 0,
+              "feedback": "51 大於 50，顯然不滿足述語。"
+            }
+          ],
+          "generalFeedback": "嚴格不等式會排除邊界本身：對 x < 50 而言，50 不滿足，因此最大的滿足整數是 49。這種 min/max ±1 的推理正是 BVA 所要演練的。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
           "type": "multichoice",
           "name": "弱等價類別測試與強等價類別測試",
           "text": "<p>當程式有多個輸入變數時，弱等價類別測試與強等價類別測試的差異是什麼？</p>",
@@ -279,40 +1754,835 @@ export const QUIZ_RENDERED = {
         },
         {
           "type": "truefalse",
-          "name": "封閉邊界的 off-point",
-          "text": "<p>對於封閉邊界（boundary 值本身包含在定義域內），其 off-point 會落在定義域之外。</p>",
+          "name": "封閉邊界的 off point",
+          "text": "<p>對於封閉邊界（boundary 值本身包含在定義域內），其 off point 會落在定義域之外。</p>",
           "answers": [
             {
               "text": "true",
               "fraction": 100,
-              "feedback": "正確——由於 on-point（邊界值本身）已經在封閉定義域之內，其相鄰的 off-point 會恰好落在邊界之外。"
+              "feedback": "正確——on point（被納入的邊界值）位於定義域內，因此與其配對的 off point 就是緊鄰在其外側的值。"
             },
             {
               "text": "false",
               "fraction": 0,
-              "feedback": "對封閉邊界而言，on-point 位於定義域內，因此與其配對的 off-point 就是緊鄰在其外側的值。"
+              "feedback": "對封閉邊界而言，on point 位於定義域內，因此與其配對的 off point 就是緊鄰在其外側的值。"
             }
           ],
-          "generalFeedback": "封閉邊界會把該極端值（on-point）納入定義域。與其配對的 off-point 則是在邊界另一側最鄰近的值——落在定義域之外。（若為開放邊界，兩者角色會互換：on-point 落在域外，而 off-point 則是被納入定義域的極端值。）"
+          "generalFeedback": "採用以下慣例：on point 是位於邊界上、落在定義域內（滿足述語）的值；off point 則是緊鄰其外側的最近值。對封閉邊界（例如 x <= b）而言，on point（b）落在域內，off point（b+1）剛好落在域外。對開放邊界（例如 a < x）而言，落在域內最小的值是 a+1（即 on point），而 off point 則是被排除的邊界值 a，一樣落在域外。"
         },
         {
-          "type": "shortanswer",
-          "name": "BVA 鎖定的錯誤類型",
-          "text": "<p>邊界值分析特別針對的是哪一類錯誤？（請以英文回答）</p>",
+          "type": "multichoice",
+          "name": "標準 BVA 的五個值",
+          "text": "<p>在標準（非強健性）邊界值分析中，對於範圍 [min, max] 的單一變數，會挑選哪五個值？</p>",
           "answers": [
             {
-              "text": "boundary*",
+              "text": "min、min+1、一個 nominal 值、max-1、max",
               "fraction": 100,
-              "feedback": "正確。"
+              "feedback": "正確——兩個邊界、它們的內側鄰居，以及一個 nominal 值。"
             },
             {
-              "text": "off-by-one*",
-              "fraction": 100,
-              "feedback": "正確。"
+              "text": "min-1、min、nominal、max、max+1",
+              "fraction": 0,
+              "feedback": "min-1 與 max+1 是強健性測試的延伸，並不屬於標準 BVA。"
+            },
+            {
+              "text": "min、nominal、max",
+              "fraction": 0,
+              "feedback": "這漏掉了標準 BVA 會納入的 min+1 與 max-1 內側鄰居值。"
+            },
+            {
+              "text": "min-1、min、min+1、max-1、max、max+1",
+              "fraction": 0,
+              "feedback": "那是六個值的強健性集合，而非五個值的標準集合。"
             }
           ],
-          "generalFeedback": "BVA 針對的是邊界錯誤（boundary faults）——也就是諸如以 < 誤用取代 <= 之類、恰好發生在輸入定義域邊緣的差一（off-by-one）錯誤，這正是它把測試值集中在邊界附近的原因。",
-          "usecase": false
+          "generalFeedback": "標準 BVA 挑選 min、min+1、一個 nominal（典型內部）值、max-1 與 max。強健性測試之後再加上 min-1 與 max+1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "標準 BVA 測試數（n=3）",
+          "text": "<p>使用標準的 4n+1 公式，對一個具有 3 個輸入變數的函式，需要多少個 BVA 測試案例？</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "正確——4×3 + 1 = 13。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "那是 4n；遺漏了那一個全為 nominal 的測試（+1）。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 不符合 n=3 時的 4n+1。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 是 n=3 時的強健性測試數 6n+1，而非標準測試數。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 一次只改變一個變數，讓它取 4 個非 nominal 的邊界值，其餘保持 nominal，再加上一個全 nominal 的測試：4n+1。n=3 時為 13。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健性測試新增了什麼",
+          "text": "<p>強健性測試在標準 BVA 之上，為每個變數額外加入哪些值？</p>",
+          "answers": [
+            {
+              "text": "min-1 與 max+1（剛好落在有效範圍之外的值）",
+              "fraction": 100,
+              "feedback": "正確——強健性測試探測兩個邊界外側緊鄰的值。"
+            },
+            {
+              "text": "min+1 與 max-1（剛好落在有效範圍之內的值）",
+              "fraction": 0,
+              "feedback": "那些內側鄰居值已經屬於標準 BVA。"
+            },
+            {
+              "text": "兩個額外的 nominal 值",
+              "fraction": 0,
+              "feedback": "強健性測試加入的是超出範圍的值，而非更多 nominal 值。"
+            },
+            {
+              "text": "範圍的中點與平均值",
+              "fraction": 0,
+              "feedback": "強健性測試針對的是超出範圍的輸入，而非中央統計量。"
+            }
+          ],
+          "generalFeedback": "強健性測試加入 min-1 與 max+1，用來觀察程式如何處理剛好超出有效範圍的輸入，因此每個變數有七個值，對應 6n+1 的測試數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健性 BVA 測試數（n=2）",
+          "text": "<p>使用強健性的 6n+1 公式，對一個具有 2 個輸入變數的函式，需要多少個 BVA 測試案例？</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "正確——6×2 + 1 = 13。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "那是 6n；遺漏了那一個全為 nominal 的測試（+1）。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 n=2 時的標準測試數 4n+1，而非強健性測試數。"
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 不符合 n=2 時的 6n+1。"
+            }
+          ],
+          "generalFeedback": "強健性 BVA 每個變數有 6 個非 nominal 值（加入 min-1 與 max+1），一次改變一個，再加一個全 nominal 測試：6n+1。n=2 時為 13。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "開放下邊界的 on point",
+          "text": "<p>對於述語 <code>19 &lt; x &lt;= 25</code>，哪一個值是<strong>下邊界的 on point</strong>（落在定義域內、最小的值）？</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "正確——因為下界是嚴格的，20 是滿足 19 < x 的最小值。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 不滿足 19 < x；它是下邊界外側的 off point。"
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 滿足述語，但屬於內部點，不在下邊界上。"
+            },
+            {
+              "text": "26",
+              "fraction": 0,
+              "feedback": "26 不滿足上界；它是上邊界的 off point。"
+            }
+          ],
+          "generalFeedback": "對開放（嚴格）下邊界 19 < x 而言，19 被排除，因此落在域內的 on point 是 20，而域外的 off point 是 19。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "開放下邊界的 off point",
+          "text": "<p>對於述語 <code>27 &lt; x &lt;= 30</code>，哪一個值是<strong>下邊界的 off point</strong>（剛好落在定義域外、最近的值）？</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "正確——27 因嚴格的 < 而被排除，所以它是下邊界外側的 off point。"
+            },
+            {
+              "text": "28",
+              "fraction": 0,
+              "feedback": "28 滿足 27 < x；它是下邊界的 on point。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 滿足述語；它是上邊界的 on point。"
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 是滿足述語的內部點。"
+            }
+          ],
+          "generalFeedback": "對開放下邊界 27 < x 而言，落在域內最小的值是 28（on point），而被排除的邊界值 27 是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "封閉區間的 on point",
+          "text": "<p>對於述語 <code>24 &lt;= x &lt;= 41</code>，哪一個值是<strong>下邊界的 on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "正確——24 滿足 24 <= x，且落在下邊界上。"
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 不滿足述語；它是下邊界外側的 off point。"
+            },
+            {
+              "text": "42",
+              "fraction": 0,
+              "feedback": "42 不滿足上界；它是上邊界的 off point。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 滿足述語，但屬於內部點。"
+            }
+          ],
+          "generalFeedback": "對封閉區間 [24,41] 而言，下邊界值 24 被納入，所以它是 on point；23 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "封閉區間的 off point",
+          "text": "<p>對於述語 <code>11 &lt;= x &lt;= 29</code>，哪一個值是<strong>下邊界的 off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——10 是被納入的最小值 11 之下最近的值，剛好落在域外。"
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "11 滿足述語；它是下邊界的 on point。"
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 滿足述語；它是上邊界的 on point。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是滿足述語的內部點。"
+            }
+          ],
+          "generalFeedback": "對封閉區間 [11,29] 而言，下邊界的 on point 是 11，剛好落在域外的 off point 是 10。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "開放區間的 on/off point",
+          "text": "<p>對於嚴格述語 <code>x &gt; 5</code>，哪一組正確給出該邊界的 on point 與 off point？</p>",
+          "answers": [
+            {
+              "text": "on point 為 6，off point 為 5",
+              "fraction": 100,
+              "feedback": "正確——6 是落在域內最小的值；5 被排除，剛好落在域外。"
+            },
+            {
+              "text": "on point 為 5，off point 為 6",
+              "fraction": 0,
+              "feedback": "5 不滿足 x > 5，因此不可能是 on point（落在域內的值）。"
+            },
+            {
+              "text": "on point 為 5，off point 為 4",
+              "fraction": 0,
+              "feedback": "5 與 4 都不滿足述語；兩者都不在域內。"
+            },
+            {
+              "text": "on point 為 7，off point 為 6",
+              "fraction": 0,
+              "feedback": "7 滿足述語但屬於內部點，而 6 也滿足述語，因此都不是 off point。"
+            }
+          ],
+          "generalFeedback": "對開放邊界 x > 5 而言，邊界值 5 被排除，因此 on point（域內最近的值）是 6，off point（域外最近的值）是 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4n+1 背後的單一錯誤假設",
+          "text": "<p>為什麼標準 BVA 一次只改變一個變數（其餘保持 nominal），得到 4n+1 個測試？</p>",
+          "answers": [
+            {
+              "text": "它假設「單一錯誤假設」——失敗通常是由單一變數處於極值造成，而非多個變數同時",
+              "fraction": 100,
+              "feedback": "正確——正是這個假設讓測試數對 n 保持線性。"
+            },
+            {
+              "text": "它假設變數永遠彼此獨立、完全不會互動",
+              "fraction": 0,
+              "feedback": "BVA 並不主張變數永不互動；它只是賭「單一變數的極值」能抓到大多數邊界錯誤。"
+            },
+            {
+              "text": "它假設程式剛好只有一個輸入變數",
+              "fraction": 0,
+              "feedback": "4n+1 公式明確是針對 n 個變數，而非一個。"
+            },
+            {
+              "text": "它假設所有邊界值被輸入的機率都相同",
+              "fraction": 0,
+              "feedback": "依據並非輸入機率，而是單一錯誤假設。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 建立在單一錯誤（關鍵錯誤）假設之上：大多數失敗源自單一變數處於邊界，其餘保持 nominal。最壞情況測試放棄此假設並組合各邊界，成本高出許多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "標準 BVA 測試數（n=2）",
+          "text": "<p>使用標準的 4n+1 公式，對一個具有 2 個輸入變數的函式，需要多少個 BVA 測試案例？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——4×2 + 1 = 9。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那是 4n；遺漏了那一個全為 nominal 的測試（+1）。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 是 n=2 時的強健性測試數 6n+1，而非標準測試數。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是單一變數（n=1）的標準測試數，而非兩個變數。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 需要 4n+1 個測試；n=2 時為 4×2 + 1 = 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "上邊界的 off point",
+          "text": "<p>對於述語 <code>5 &lt;= x &lt;= 17</code>，哪一個值是<strong>上邊界的 off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "正確——18 是被納入的最大值 17 之上最近的值，剛好落在域外。"
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 滿足述語；它是上邊界的 on point。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是下邊界的 off point，而非上邊界。"
+            }
+          ],
+          "generalFeedback": "對封閉區間 [5,17] 而言，上邊界的 on point 是 17，剛好落在上邊界外側的 off point 是 18。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健性測試每個變數的值數",
+          "text": "<p>對於範圍 [min, max] 的單一變數，強健性測試會演練多少個不同的測試值？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——min-1、min、min+1、nominal、max-1、max、max+1。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是標準 BVA 的值數；強健性再加入 min-1 與 max+1，共 7 個。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 少算了一個：強健性集合有七個（兩個邊界、兩個內側鄰居、兩個外側鄰居，以及一個 nominal）。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是兩個變數的標準 BVA 測試數（4n+1），而非單一變數的值數。"
+            }
+          ],
+          "generalFeedback": "強健性測試每個變數使用七個值——五個標準 BVA 值再加上 min-1 與 max+1——這正是強健性測試數為 6n+1 的原因。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "最壞情況邊界測試數",
+          "text": "<p>最壞情況（worst-case）邊界測試會取每個變數五個邊界值的笛卡兒積。對一個具有 2 個輸入變數的函式，會產生多少個測試案例？</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "正確——5^2 = 25，每個變數五個值的完整乘積。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是 5×n；最壞情況測試是把各值集合相乘（5^n），而非相加。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 n=2 時的標準單一錯誤測試數 4n+1，而非最壞情況測試數。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 不符合 n=2 時的 5^n。"
+            }
+          ],
+          "generalFeedback": "最壞情況邊界測試放棄單一錯誤假設，把每個變數的邊界值全部組合：5^n 個測試。n=2 時為 5^2 = 25。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健最壞情況測試數",
+          "text": "<p>強健最壞情況（robust worst-case）邊界測試會把每個變數的七個值（加入 min-1 與 max+1）完整組合。對 2 個變數而言，會產生多少個測試案例？</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "正確——7^2 = 49。"
+            },
+            {
+              "text": "25",
+              "fraction": 0,
+              "feedback": "25 是 5^2，是非強健的最壞情況測試數。"
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 是 7×n；強健最壞情況是把各值集合相乘（7^n）。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 是 n=2 時的強健單一錯誤測試數 6n+1，而非最壞情況測試數。"
+            }
+          ],
+          "generalFeedback": "強健最壞情況測試會把每個變數的七個強健值全部組合：7^n。n=2 時為 7^2 = 49。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最壞情況與標準 BVA",
+          "text": "<p>最壞情況邊界測試與標準（4n+1）BVA 最根本的差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "它放棄單一錯誤假設，把所有變數的邊界值加以組合，因而呈指數成長（5^n）",
+              "fraction": 100,
+              "feedback": "正確——以組合取代了一次改變一個的做法。"
+            },
+            {
+              "text": "它每個變數用較少的值，但變數較多",
+              "fraction": 0,
+              "feedback": "它每個變數用的值相同；差別在於把它們跨變數組合起來。"
+            },
+            {
+              "text": "它只測試 nominal 值，從不測邊界",
+              "fraction": 0,
+              "feedback": "最壞情況測試完全是在組合邊界值，而非避開它們。"
+            },
+            {
+              "text": "它總是比標準 BVA 更便宜",
+              "fraction": 0,
+              "feedback": "它昂貴得多：5^n 呈指數成長，而 4n+1 是線性的。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 一次改變一個變數（單一錯誤假設），得到 4n+1 個測試。最壞情況測試把每個變數的邊界值全部組合，得到 5^n 個測試——對邊界而言窮舉，但成本呈指數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "輸入空間劃分中的 characteristic",
+          "text": "<p>在 Ammann &amp; Offutt 的輸入空間劃分（Input Space Partitioning, ISP）中，<strong>characteristic（特徵）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "輸入定義域的某個特徵，用來把定義域劃分成若干 block（區塊）",
+              "fraction": 100,
+              "feedback": "正確——每個 characteristic 會導出對輸入定義域的一種劃分。"
+            },
+            {
+              "text": "單一個具體的測試輸入值",
+              "fraction": 0,
+              "feedback": "那是測試值；characteristic 是用來劃分值的維度。"
+            },
+            {
+              "text": "程式的預期輸出",
+              "fraction": 0,
+              "feedback": "那是 oracle，而非 ISP 的 characteristic。"
+            },
+            {
+              "text": "受測的一行原始碼",
+              "fraction": 0,
+              "feedback": "ISP 是黑箱的；characteristic 描述的是輸入定義域，而非程式碼。"
+            }
+          ],
+          "generalFeedback": "在 ISP 中，每個 characteristic 會把輸入定義域劃分成若干 block（例如「x 的正負號：負／零／正」）。挑選好的 characteristic 是關鍵的設計步驟。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "劃分的 block",
+          "text": "<p>一個 characteristic 把輸入定義域切分成的各個 block，必須滿足什麼性質？</p>",
+          "answers": [
+            {
+              "text": "必須是完備的（涵蓋整個定義域）且互斥的（沒有值同時屬於兩個 block）",
+              "fraction": 100,
+              "feedback": "正確——完備加上互斥，正是「劃分」的定義。"
+            },
+            {
+              "text": "必須彼此重疊，使每個值至少屬於兩個 block",
+              "fraction": 0,
+              "feedback": "重疊違反互斥性；劃分的各 block 是互斥的。"
+            },
+            {
+              "text": "每個 block 必須含有相同數量的值",
+              "fraction": 0,
+              "feedback": "各 block 大小不必相同；只需完備且互斥。"
+            },
+            {
+              "text": "每個 characteristic 必須剛好有兩個 block",
+              "fraction": 0,
+              "feedback": "只要能劃分定義域，一個 characteristic 可以有任意數量的 block。"
+            }
+          ],
+          "generalFeedback": "對每個 characteristic 而言，其 block 必須構成定義域的一個劃分：完備（聯集為整個定義域）且互斥。否則某個值可能無法分類或產生歧義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All Combinations Coverage 測試數",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、2、2 個 block。All Combinations Coverage（ACoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——3 × 2 × 2 = 12，各 block 數的乘積。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是總和 3+2+2；ACoC 是把各 block 數相乘。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 不符合各 block 數的乘積。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 忽略了一個 characteristic；三者的乘積為 12。"
+            }
+          ],
+          "generalFeedback": "ACoC 要求涵蓋所有 characteristic 之間 block 的每一種組合，因此測試數是各 block 數的乘積：3 × 2 × 2 = 12。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Each Choice Coverage 測試數",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、2、4 個 block。Each Choice Coverage（ECC）最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要與「單一 characteristic 中最多的 block 數」一樣多的測試（此處為 4）。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是各 block 數的總和；ECC 在同一個測試中可跨 characteristic 重用 block。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 是乘積（All Combinations），遠多於 ECC 所需。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 不足以涵蓋那個有 4 個 block 的 characteristic。"
+            }
+          ],
+          "generalFeedback": "ECC 要求每個 characteristic 的每個 block 至少出現在一個測試中。由於單一測試會從每個 characteristic 各取一個 block，最少測試數等於最大的 block 數——此處 max(3,2,4) = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Base Choice Coverage 測試數",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、3、2 個 block。Base Choice Coverage（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1 個 base 測試 + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是各 block 數的總和；BCC 計為一個 base 測試加上各非 base 的 block。"
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 是乘積（All Combinations），而非 Base Choice 的測試數。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 遺漏了 +1 的 base 測試：總數是 1 + Σ(block-1)。"
+            }
+          ],
+          "generalFeedback": "BCC 為每個 characteristic 挑一個 base choice（即 base 測試），再一次改變一個 characteristic 到其餘 block：1 + Σ(B_i - 1) = 1 + 2 + 2 + 1 = 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage 定義",
+          "text": "<p>Pair-Wise Coverage（PWC）要求什麼？</p>",
+          "answers": [
+            {
+              "text": "任兩個 characteristic 之間，其 block 的每一組配對都必須在至少一個測試中同時出現",
+              "fraction": 100,
+              "feedback": "正確——PWC 涵蓋所有兩兩之間的 block 互動。"
+            },
+            {
+              "text": "所有 characteristic 之間 block 的每一種組合都必須出現",
+              "fraction": 0,
+              "feedback": "那是 All Combinations Coverage；PWC 只要求配對。"
+            },
+            {
+              "text": "每個 characteristic 的每個 block 各出現一次，且無互動要求",
+              "fraction": 0,
+              "feedback": "那是 Each Choice Coverage，比 PWC 弱。"
+            },
+            {
+              "text": "每個 characteristic 必須剛好跑兩個測試",
+              "fraction": 0,
+              "feedback": "PWC 約束的是 block 的配對，而非每個 characteristic 固定的測試數。"
+            }
+          ],
+          "generalFeedback": "PWC（2-wise）要求對任兩個 characteristic，它們的每一組 block 配對都在某個測試中被涵蓋。它能抓到兩兩互動錯誤，又不至於像 ACoC 那樣爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage 下界",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、3、2 個 block。任何 Pair-Wise Coverage 測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——至少是最大的兩個 block 數的乘積，3 × 3 = 9。"
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 是完整的 All Combinations 乘積；PWC 所需遠少於此。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3（最大的單一 block 數）滿足的是 Each Choice，而非 Pair-Wise。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 低於 pairwise 下界 3 × 3 = 9。"
+            }
+          ],
+          "generalFeedback": "要涵蓋兩個各有 3 個 block 的 characteristic 之間的每一組配對，就已經需要它們全部 3 × 3 = 9 種組合，因此任何 PWC 測試集至少有 9 個測試——即最大的兩個 block 數的乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最強的 ISP 準則",
+          "text": "<p>在 ACoC、ECC、PWC、BCC 之中，哪一個準則涵蓋（subsume）其餘所有準則？</p>",
+          "answers": [
+            {
+              "text": "All Combinations Coverage（ACoC）",
+              "fraction": 100,
+              "feedback": "正確——涵蓋每一種 block 組合，就必然涵蓋每一組配對、每一次 base 變化與每一個 choice。"
+            },
+            {
+              "text": "Each Choice Coverage（ECC）",
+              "fraction": 0,
+              "feedback": "ECC 是四者中最弱的；它被其餘準則涵蓋。"
+            },
+            {
+              "text": "Pair-Wise Coverage（PWC）",
+              "fraction": 0,
+              "feedback": "PWC 涵蓋 ECC，但一般不涵蓋 ACoC 或 BCC。"
+            },
+            {
+              "text": "Base Choice Coverage（BCC）",
+              "fraction": 0,
+              "feedback": "BCC 涵蓋 ECC，但本身被 ACoC 涵蓋。"
+            }
+          ],
+          "generalFeedback": "ACoC 要求每一種 block 組合，因此必然滿足配對涵蓋、base choice 變化與 each choice——它位於 ISP 涵蓋階層的頂端（通常也最昂貴）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ISP 涵蓋鏈",
+          "text": "<p>下列哪一條 ISP 準則的涵蓋鏈是正確的（每一個準則涵蓋下一個）？</p>",
+          "answers": [
+            {
+              "text": "MBCC → BCC → ECC",
+              "fraction": 100,
+              "feedback": "正確——Multiple Base Choice 涵蓋 Base Choice，Base Choice 又涵蓋 Each Choice。"
+            },
+            {
+              "text": "ECC → BCC → MBCC",
+              "fraction": 0,
+              "feedback": "這把方向弄反了；ECC 最弱，不可能涵蓋其他準則。"
+            },
+            {
+              "text": "BCC → MBCC → ECC",
+              "fraction": 0,
+              "feedback": "是 MBCC 涵蓋 BCC，而非相反。"
+            },
+            {
+              "text": "ECC → PWC → BCC",
+              "fraction": 0,
+              "feedback": "ECC 不涵蓋 PWC，而 PWC 也不涵蓋 BCC（兩者無法比較）。"
+            }
+          ],
+          "generalFeedback": "Multiple Base Choice Coverage 涵蓋 Base Choice Coverage，Base Choice 又涵蓋 Each Choice Coverage。注意 BCC 與 PWC 無法互相比較——兩者互不涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC 中的 base choice",
+          "text": "<p>在 Base Choice Coverage 中，測試集是如何建構的？</p>",
+          "answers": [
+            {
+              "text": "為每個 characteristic 各挑一個 base block 組成 base 測試，再一次改變一個 characteristic 到其餘 block",
+              "fraction": 100,
+              "feedback": "正確——這會得到 1 + Σ(block-1) 個測試。"
+            },
+            {
+              "text": "把每個 characteristic 的每個 block 與其他所有的組合起來",
+              "fraction": 0,
+              "feedback": "那是 All Combinations Coverage，而非 Base Choice。"
+            },
+            {
+              "text": "每個測試都隨機為每個 characteristic 挑一個 block",
+              "fraction": 0,
+              "feedback": "BCC 是有系統的：一個固定的 base 測試加上一次一個的變化，而非隨機挑選。"
+            },
+            {
+              "text": "只用 base 測試，別無其他",
+              "fraction": 0,
+              "feedback": "光靠 base 測試無法演練非 base 的 block；每個都必須被變化進來。"
+            }
+          ],
+          "generalFeedback": "BCC 為每個 characteristic 指定一個 base choice（例如最常見或最重要的 block），跑該 base 測試，再一次改變一個 characteristic 到它的每個非 base block，其餘保持 base 值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結合等價類別與邊界",
+          "text": "<p>實務上，等價類別劃分與邊界值分析通常如何結合？</p>",
+          "answers": [
+            {
+              "text": "先把定義域劃分成等價類別，再在每個類別的邊緣加上邊界值",
+              "fraction": 100,
+              "feedback": "正確——劃分找出類別，BVA 則在其邊緣強化測試。"
+            },
+            {
+              "text": "完全用隨機的邊界值取代等價類別",
+              "fraction": 0,
+              "feedback": "兩者是互補的；BVA 是補強而非取代劃分。"
+            },
+            {
+              "text": "只對無效類別使用邊界值，忽略有效類別",
+              "fraction": 0,
+              "feedback": "有效類別的邊界也要測——那正是大多數差一錯誤所在。"
+            },
+            {
+              "text": "只測試每個等價類別的中點",
+              "fraction": 0,
+              "feedback": "那是沒有搭配 BVA 的純等價類別劃分，會漏掉邊界錯誤。"
+            }
+          ],
+          "generalFeedback": "標準做法是先導出等價類別，從每個類別各取一個 nominal 代表值，再在類別之間的邊界套用 BVA——把廣泛涵蓋與邊緣敏感度結合起來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "複合述語的 off point",
+          "text": "<p>考慮複合述語 <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>。下列哪一個值是此述語的一個 <strong>off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "21",
+              "fraction": 100,
+              "feedback": "正確——21 不滿足上界子句，且剛好落在定義域外，所以它是一個 off point。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 同時滿足兩個子句；它是下邊界的 on point。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 同時滿足兩個子句；它是上邊界的 on point。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 滿足述語，屬於內部點。"
+            }
+          ],
+          "generalFeedback": "此合取等價於封閉區間 [10,20]。其 on point 為 10 與 20；剛好落在域外的 off point 為 9 與 21。在這些選項中，只有 21 是 off point。",
+          "single": true
         }
       ]
     }

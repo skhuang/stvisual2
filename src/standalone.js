@@ -45853,17 +45853,17 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "0, 1, 2, 99, 100, 101",
                 "fraction": 100,
-                "feedback": "Correct \u2014 min&#8722;1, min, min+1, max&#8722;1, max, max+1."
+                "feedback": "Correct \u2014 min-1, min, min+1, max-1, max, max+1."
               },
               {
                 "text": "1, 100",
                 "fraction": 0,
-                "feedback": "That covers only the two on-points, missing all four neighboring off-points."
+                "feedback": "That covers only the two on-points, missing all four neighboring off/near-boundary points."
               },
               {
                 "text": "0, 1, 100, 101",
                 "fraction": 0,
-                "feedback": "This omits the min+1 and max&#8722;1 near-boundary points (2 and 99)."
+                "feedback": "This omits the min+1 and max-1 near-boundary points (2 and 99)."
               },
               {
                 "text": "1, 50, 100",
@@ -45871,7 +45871,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "50 is a midpoint value, not a boundary \u2014 BVA targets the edges of the domain, not its center."
               }
             ],
-            "generalFeedback": `Standard BVA takes the minimum and maximum (the "on-points") plus their immediate neighbors just inside and just outside the domain (the "off-points"): for [1,100] that's 0, 1, 2, 99, 100, 101.`,
+            "generalFeedback": "Standard BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.",
             "single": true
           },
           {
@@ -45904,6 +45904,346 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "single": true
           },
           {
+            "type": "shortanswer",
+            "name": "Fault type targeted by BVA",
+            "text": "<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>",
+            "answers": [
+              {
+                "text": "boundary*",
+                "fraction": 100,
+                "feedback": "Correct."
+              },
+              {
+                "text": "off-by-one*",
+                "fraction": 100,
+                "feedback": "Correct."
+              }
+            ],
+            "generalFeedback": "BVA targets boundary faults \u2014 the off-by-one style errors (e.g., using < instead of <=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.",
+            "usecase": false
+          },
+          {
+            "type": "multichoice",
+            "name": "What equivalence partitioning does",
+            "text": "<p>What is the core idea of equivalence partitioning as a test-design technique?</p>",
+            "answers": [
+              {
+                "text": "Divide the input domain into classes whose members are expected to be processed the same way, then test one value per class",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it reduces the near-infinite input space to a small set of representatives."
+              },
+              {
+                "text": "Test every possible input value exhaustively",
+                "fraction": 0,
+                "feedback": "Exhaustive testing is what partitioning is designed to avoid."
+              },
+              {
+                "text": "Randomly sample inputs until a defect is found",
+                "fraction": 0,
+                "feedback": "That is random testing; partitioning deliberately structures the domain into classes."
+              },
+              {
+                "text": "Measure how many statements each input executes",
+                "fraction": 0,
+                "feedback": "That is structural (code) coverage, not input-domain partitioning."
+              }
+            ],
+            "generalFeedback": "Equivalence partitioning is a black-box technique that splits the input domain into equivalence classes (valid and invalid) and picks one representative per class, cutting the number of tests while keeping behavioral coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why test at boundaries",
+            "text": "<p>Why does Boundary Value Analysis concentrate test cases at the edges of an input range rather than in its middle?</p>",
+            "answers": [
+              {
+                "text": "Programmers make off-by-one errors (e.g. < vs <=) most often at boundaries, so defects cluster there",
+                "fraction": 100,
+                "feedback": "Correct \u2014 boundaries are where relational operators are easiest to get wrong."
+              },
+              {
+                "text": "Boundary values are faster for the program to compute",
+                "fraction": 0,
+                "feedback": "Execution speed is unrelated to why boundaries are chosen."
+              },
+              {
+                "text": "Values in the middle of a range are never processed by the program",
+                "fraction": 0,
+                "feedback": "Middle values are processed; they're just less error-prone, so a single representative suffices."
+              },
+              {
+                "text": "Boundaries are the only values users ever enter",
+                "fraction": 0,
+                "feedback": "Users enter all kinds of values; BVA targets boundaries because that's where faults concentrate."
+              }
+            ],
+            "generalFeedback": "Faults cluster at boundaries because relational and loop conditions (<, <=, off-by-one) are most error-prone there; middle values are covered by a single equivalence-class representative.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "On point of x <= 20",
+            "text": "<p>For the predicate <code>x &lt;= 20</code>, which value is the <strong>on point</strong> (the boundary value that lies inside the domain and satisfies the predicate)?</p>",
+            "answers": [
+              {
+                "text": "20",
+                "fraction": 100,
+                "feedback": "Correct \u2014 20 satisfies x <= 20 and sits exactly on the boundary."
+              },
+              {
+                "text": "21",
+                "fraction": 0,
+                "feedback": "21 fails x <= 20; it is the off point just outside the domain."
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 satisfies the predicate but is an interior point, not on the boundary."
+              },
+              {
+                "text": "22",
+                "fraction": 0,
+                "feedback": "22 is an exterior point that fails the predicate, not the boundary value."
+              }
+            ],
+            "generalFeedback": "The on point is the value on the boundary that lies in the domain. For x <= 20 the boundary value 20 satisfies the predicate, so 20 is the on point; 21 is the off point just outside.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off point of x <= 10",
+            "text": "<p>For the predicate <code>x &lt;= 10</code>, which value is the <strong>off point</strong> (the nearest value just outside the domain, which fails the predicate)?</p>",
+            "answers": [
+              {
+                "text": "11",
+                "fraction": 100,
+                "feedback": "Correct \u2014 11 is the nearest integer that fails x <= 10."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 satisfies the predicate; it is the on point, not the off point."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 satisfies the predicate and is an interior point."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 fails the predicate but is one step too far to be the off point."
+              }
+            ],
+            "generalFeedback": "The off point is the nearest value on the other side of the boundary \u2014 just outside the domain. For x <= 10 the on point is 10 and the off point is 11.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "On point of x <= 46",
+            "text": "<p>For the predicate <code>x &lt;= 46</code>, which value is the <strong>on point</strong>?</p>",
+            "answers": [
+              {
+                "text": "46",
+                "fraction": 100,
+                "feedback": "Correct \u2014 46 sits on the boundary and satisfies x <= 46."
+              },
+              {
+                "text": "47",
+                "fraction": 0,
+                "feedback": "47 fails the predicate; it is the off point just outside."
+              },
+              {
+                "text": "45",
+                "fraction": 0,
+                "feedback": "45 satisfies the predicate but is an interior point."
+              },
+              {
+                "text": "48",
+                "fraction": 0,
+                "feedback": "48 is an exterior point that fails the predicate."
+              }
+            ],
+            "generalFeedback": "For x <= 46 the boundary value 46 lies in the domain, so it is the on point; 47 is the off point just outside.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off point of x <= 37",
+            "text": "<p>For the predicate <code>x &lt;= 37</code>, which value is the <strong>off point</strong>?</p>",
+            "answers": [
+              {
+                "text": "38",
+                "fraction": 100,
+                "feedback": "Correct \u2014 38 is the nearest value that fails x <= 37."
+              },
+              {
+                "text": "37",
+                "fraction": 0,
+                "feedback": "37 satisfies the predicate; it is the on point."
+              },
+              {
+                "text": "36",
+                "fraction": 0,
+                "feedback": "36 satisfies the predicate and is an interior point."
+              },
+              {
+                "text": "39",
+                "fraction": 0,
+                "feedback": "39 fails the predicate but is one step too far to be the off point."
+              }
+            ],
+            "generalFeedback": "For x <= 37 the on point is 37 and the off point is the adjacent failing value 38.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "On point of x <= 14",
+            "text": "<p>For the predicate <code>x &lt;= 14</code>, which value is the <strong>on point</strong>?</p>",
+            "answers": [
+              {
+                "text": "14",
+                "fraction": 100,
+                "feedback": "Correct \u2014 14 satisfies x <= 14 and lies on the boundary."
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 fails the predicate; it is the off point."
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 satisfies the predicate but is an interior point."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 is an exterior point that fails the predicate."
+              }
+            ],
+            "generalFeedback": "For x <= 14 the boundary value 14 is in the domain, so it is the on point; 15 is the off point just outside.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off point of x <= 21",
+            "text": "<p>For the predicate <code>x &lt;= 21</code>, which value is the <strong>off point</strong>?</p>",
+            "answers": [
+              {
+                "text": "22",
+                "fraction": 100,
+                "feedback": "Correct \u2014 22 is the nearest value that fails x <= 21."
+              },
+              {
+                "text": "21",
+                "fraction": 0,
+                "feedback": "21 satisfies the predicate; it is the on point."
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 satisfies the predicate and is an interior point."
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "23 fails the predicate but is one step too far to be the off point."
+              }
+            ],
+            "generalFeedback": "For x <= 21 the on point is 21 and the off point is the adjacent failing value 22.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which value is in an invalid class",
+            "text": "<p>An input field accepts an integer in the valid range 1..100. Which of these values belongs to an <strong>invalid</strong> equivalence class?</p>",
+            "answers": [
+              {
+                "text": "0",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 0 is below the minimum, so it falls in the "too small" invalid class.'
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "1 is the minimum accepted value, so it is in the valid class."
+              },
+              {
+                "text": "50",
+                "fraction": 0,
+                "feedback": "50 is inside 1..100, so it is a valid-class value."
+              },
+              {
+                "text": "100",
+                "fraction": 0,
+                "feedback": "100 is the maximum accepted value, so it is in the valid class."
+              }
+            ],
+            "generalFeedback": "The valid class is [1,100]; anything below 1 or above 100 is invalid. Only 0 lies outside the accepted range here.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "On point of age >= 18",
+            "text": "<p>A site admits users whose age satisfies <code>age &gt;= 18</code>. Which value is the <strong>on point</strong> of this boundary?</p>",
+            "answers": [
+              {
+                "text": "18",
+                "fraction": 100,
+                "feedback": "Correct \u2014 18 satisfies age >= 18 and sits exactly on the boundary."
+              },
+              {
+                "text": "17",
+                "fraction": 0,
+                "feedback": "17 fails age >= 18; it is the off point just outside the accepted domain."
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 satisfies the predicate but is an interior point, not the boundary."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 is an exterior point that fails the predicate."
+              }
+            ],
+            "generalFeedback": "For age >= 18 the boundary value 18 lies in the accepted domain, so it is the on point; 17 is the off point just outside.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Largest integer satisfying a strict bound",
+            "text": "<p>For the strict predicate <code>x &lt; 50</code> over the integers, which value is the largest one that satisfies it?</p>",
+            "answers": [
+              {
+                "text": "49",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with a strict <, the largest satisfying integer is 49, not 50."
+              },
+              {
+                "text": "50",
+                "fraction": 0,
+                "feedback": "50 does not satisfy x < 50 because the bound is strict."
+              },
+              {
+                "text": "48",
+                "fraction": 0,
+                "feedback": "48 satisfies the predicate but is not the largest such value."
+              },
+              {
+                "text": "51",
+                "fraction": 0,
+                "feedback": "51 is greater than 50, so it clearly fails the predicate."
+              }
+            ],
+            "generalFeedback": "A strict inequality excludes the bound itself: for x < 50 the value 50 fails, so the largest satisfying integer is 49. This min/max +/-1 reasoning is exactly what BVA exercises.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
             "type": "multichoice",
             "name": "Weak vs strong equivalence testing",
             "text": "<p>What distinguishes weak from strong equivalence-class testing when a program has several input variables?</p>",
@@ -45934,40 +46274,835 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "truefalse",
-            "name": "Off-points on a closed boundary",
-            "text": "<p>For a closed boundary (the boundary value itself is included in the domain), the off-point lies just outside the domain.</p>",
+            "name": "Off-point on a closed boundary",
+            "text": "<p>For a closed boundary (the boundary value itself is included in the domain), the off point lies just outside the domain.</p>",
             "answers": [
               {
                 "text": "true",
                 "fraction": 100,
-                "feedback": "Correct \u2014 since the on-point (the boundary value) is already inside a closed domain, its neighboring off-point sits just past the edge, outside the domain."
+                "feedback": "Correct \u2014 the on point (the included boundary value) is inside the domain, so its paired off point is the adjacent value just outside."
               },
               {
                 "text": "false",
                 "fraction": 0,
-                "feedback": "For a closed boundary the on-point is inside the domain, so its paired off-point is the adjacent value just outside it."
+                "feedback": "For a closed boundary the on point is inside the domain, so its paired off point is the adjacent value just outside it."
               }
             ],
-            "generalFeedback": "A closed boundary includes the extreme value in the domain (the on-point). Its associated off-point is the nearest neighboring value on the other side of that edge \u2014 just outside the domain. (For an open boundary the roles swap: the on-point sits just outside and the off-point is the included extreme.)"
+            "generalFeedback": "Using the convention where the on point is the boundary value that lies in the domain (satisfies the predicate) and the off point is the nearest value just outside it: a closed boundary such as x <= b puts the on point (b) inside the domain and the off point (b+1) just outside. For an open boundary such as a < x, the smallest value inside the domain is a+1 (the on point) and the off point is the excluded boundary value a, still just outside the domain."
           },
           {
-            "type": "shortanswer",
-            "name": "Fault type targeted by BVA",
-            "text": "<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>",
+            "type": "multichoice",
+            "name": "Five standard BVA values",
+            "text": "<p>In standard (non-robust) Boundary Value Analysis, which five values are selected for a single variable with range [min, max]?</p>",
             "answers": [
               {
-                "text": "boundary*",
+                "text": "min, min+1, a nominal value, max-1, max",
                 "fraction": 100,
-                "feedback": "Correct."
+                "feedback": "Correct \u2014 the two boundaries, their inside neighbours, and one nominal value."
               },
               {
-                "text": "off-by-one*",
-                "fraction": 100,
-                "feedback": "Correct."
+                "text": "min-1, min, nominal, max, max+1",
+                "fraction": 0,
+                "feedback": "min-1 and max+1 are the robustness extensions, not part of standard BVA."
+              },
+              {
+                "text": "min, nominal, max",
+                "fraction": 0,
+                "feedback": "This drops the min+1 and max-1 inside-neighbour values that standard BVA includes."
+              },
+              {
+                "text": "min-1, min, min+1, max-1, max, max+1",
+                "fraction": 0,
+                "feedback": "That is the six-value robust set, not the five-value standard set."
               }
             ],
-            "generalFeedback": "BVA targets boundary faults \u2014 the off-by-one style errors (e.g., using < instead of <=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.",
-            "usecase": false
+            "generalFeedback": "Standard BVA selects min, min+1, a nominal (typical interior) value, max-1, and max. Robustness testing later adds min-1 and max+1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Standard BVA test count (n=3)",
+            "text": "<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 3 input variables?</p>",
+            "answers": [
+              {
+                "text": "13",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4\xD73 + 1 = 13."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "That is 4n; it forgets the single all-nominal test (+1)."
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 does not match 4n+1 for n=3."
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 is the robust count 6n+1 for n=3, not the standard count."
+              }
+            ],
+            "generalFeedback": "Standard BVA varies one variable at a time through its 4 non-nominal boundary values while holding the others at nominal, plus one all-nominal test: 4n+1. For n=3 that is 13.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What robustness testing adds",
+            "text": "<p>Robustness testing extends standard BVA by adding which extra values for each variable?</p>",
+            "answers": [
+              {
+                "text": "min-1 and max+1 (values just outside the valid range)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 robustness testing probes just beyond both boundaries."
+              },
+              {
+                "text": "min+1 and max-1 (values just inside the valid range)",
+                "fraction": 0,
+                "feedback": "Those inside-neighbour values are already part of standard BVA."
+              },
+              {
+                "text": "Two additional nominal values",
+                "fraction": 0,
+                "feedback": "Robustness testing adds out-of-range values, not more nominal ones."
+              },
+              {
+                "text": "The midpoint and the mean of the range",
+                "fraction": 0,
+                "feedback": "Robustness testing is about out-of-range inputs, not central statistics."
+              }
+            ],
+            "generalFeedback": "Robustness testing adds min-1 and max+1 to see how the program handles inputs just outside the valid range, giving seven values per variable and the 6n+1 count.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Robust BVA test count (n=2)",
+            "text": "<p>Using the robust 6n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>",
+            "answers": [
+              {
+                "text": "13",
+                "fraction": 100,
+                "feedback": "Correct \u2014 6\xD72 + 1 = 13."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "That is 6n; it forgets the single all-nominal test (+1)."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the standard count 4n+1 for n=2, not the robust count."
+              },
+              {
+                "text": "14",
+                "fraction": 0,
+                "feedback": "14 does not match 6n+1 for n=2."
+              }
+            ],
+            "generalFeedback": "Robust BVA uses 6 non-nominal values per variable (adding min-1 and max+1) varied one at a time, plus one all-nominal test: 6n+1. For n=2 that is 13.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "On point of an open lower boundary",
+            "text": "<p>For the predicate <code>19 &lt; x &lt;= 25</code>, which value is the <strong>on point at the lower boundary</strong> (the smallest value that lies inside the domain)?</p>",
+            "answers": [
+              {
+                "text": "20",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with a strict lower bound, 20 is the smallest value that satisfies 19 < x."
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 fails 19 < x; it is the off point just outside the lower boundary."
+              },
+              {
+                "text": "21",
+                "fraction": 0,
+                "feedback": "21 satisfies the predicate but is an interior point, not on the lower boundary."
+              },
+              {
+                "text": "26",
+                "fraction": 0,
+                "feedback": "26 fails the upper bound; it is an off point at the upper boundary."
+              }
+            ],
+            "generalFeedback": "For an open (strict) lower boundary 19 < x, the value 19 is excluded, so the on point inside the domain is 20 and the off point just outside is 19.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off point of an open lower boundary",
+            "text": "<p>For the predicate <code>27 &lt; x &lt;= 30</code>, which value is the <strong>off point at the lower boundary</strong> (the nearest value just outside the domain)?</p>",
+            "answers": [
+              {
+                "text": "27",
+                "fraction": 100,
+                "feedback": "Correct \u2014 27 is excluded by the strict <, so it is the off point just outside the lower boundary."
+              },
+              {
+                "text": "28",
+                "fraction": 0,
+                "feedback": "28 satisfies 27 < x; it is the on point at the lower boundary."
+              },
+              {
+                "text": "30",
+                "fraction": 0,
+                "feedback": "30 satisfies the predicate; it is the on point at the upper boundary."
+              },
+              {
+                "text": "29",
+                "fraction": 0,
+                "feedback": "29 is an interior point that satisfies the predicate."
+              }
+            ],
+            "generalFeedback": "For the open lower boundary 27 < x, the smallest value inside the domain is 28 (the on point) and the excluded boundary value 27 is the off point just outside.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "On point of a closed interval",
+            "text": "<p>For the predicate <code>24 &lt;= x &lt;= 41</code>, which value is the <strong>on point at the lower boundary</strong>?</p>",
+            "answers": [
+              {
+                "text": "24",
+                "fraction": 100,
+                "feedback": "Correct \u2014 24 satisfies 24 <= x and sits on the lower boundary."
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "23 fails the predicate; it is the off point just outside the lower boundary."
+              },
+              {
+                "text": "42",
+                "fraction": 0,
+                "feedback": "42 fails the upper bound; it is the off point at the upper boundary."
+              },
+              {
+                "text": "30",
+                "fraction": 0,
+                "feedback": "30 satisfies the predicate but is an interior point."
+              }
+            ],
+            "generalFeedback": "For the closed interval [24,41] the lower boundary value 24 is included, so it is the on point; 23 is the off point just outside.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off point of a closed interval",
+            "text": "<p>For the predicate <code>11 &lt;= x &lt;= 29</code>, which value is the <strong>off point at the lower boundary</strong>?</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "Correct \u2014 10 is the nearest value below the included minimum 11, just outside the domain."
+              },
+              {
+                "text": "11",
+                "fraction": 0,
+                "feedback": "11 satisfies the predicate; it is the on point at the lower boundary."
+              },
+              {
+                "text": "29",
+                "fraction": 0,
+                "feedback": "29 satisfies the predicate; it is the on point at the upper boundary."
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 is an interior point that satisfies the predicate."
+              }
+            ],
+            "generalFeedback": "For the closed interval [11,29] the on point at the lower boundary is 11 and the off point just outside is 10.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "On/off points for an open interval",
+            "text": "<p>For the strict predicate <code>x &gt; 5</code>, which pair correctly gives the on point and off point at that boundary?</p>",
+            "answers": [
+              {
+                "text": "On point 6, off point 5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 6 is the smallest value inside the domain; 5 is excluded and lies just outside."
+              },
+              {
+                "text": "On point 5, off point 6",
+                "fraction": 0,
+                "feedback": "5 fails x > 5, so it cannot be the on point (the value inside the domain)."
+              },
+              {
+                "text": "On point 5, off point 4",
+                "fraction": 0,
+                "feedback": "Both 5 and 4 fail the predicate; neither is inside the domain."
+              },
+              {
+                "text": "On point 7, off point 6",
+                "fraction": 0,
+                "feedback": "7 satisfies the predicate but is interior, and 6 also satisfies it, so neither is an off point."
+              }
+            ],
+            "generalFeedback": "For an open boundary x > 5, the boundary value 5 is excluded, so the on point (nearest value inside the domain) is 6 and the off point (nearest value outside) is 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Single-fault assumption behind 4n+1",
+            "text": "<p>Why does standard BVA vary only one variable at a time (holding the others at nominal), giving 4n+1 tests?</p>",
+            "answers": [
+              {
+                "text": "It assumes the single-fault hypothesis \u2014 failures are usually caused by one variable at an extreme, not several simultaneously",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that assumption is what keeps the count linear in n."
+              },
+              {
+                "text": "It assumes variables are always independent and never interact at all",
+                "fraction": 0,
+                "feedback": "BVA does not claim variables never interact; it just bets that single-variable extremes catch most boundary faults."
+              },
+              {
+                "text": "It assumes the program has exactly one input variable",
+                "fraction": 0,
+                "feedback": "The 4n+1 formula is explicitly for n variables, not one."
+              },
+              {
+                "text": "It assumes all boundary values are equally likely to be entered",
+                "fraction": 0,
+                "feedback": "Likelihood of entry is not the basis; the single-fault hypothesis is."
+              }
+            ],
+            "generalFeedback": "Standard BVA rests on the single-fault (critical-fault) assumption: most failures stem from one variable at a boundary while the rest sit at nominal. Worst-case testing drops this assumption and combines boundaries, which is far more expensive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Standard BVA test count (n=2)",
+            "text": "<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4\xD72 + 1 = 9."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "That is 4n; it forgets the single all-nominal test (+1)."
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 is the robust count 6n+1 for n=2, not the standard count."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the standard count for a single variable (n=1), not two."
+              }
+            ],
+            "generalFeedback": "Standard BVA needs 4n+1 tests; for n=2 that is 4\xD72 + 1 = 9.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off point at an upper boundary",
+            "text": "<p>For the predicate <code>5 &lt;= x &lt;= 17</code>, which value is the <strong>off point at the upper boundary</strong>?</p>",
+            "answers": [
+              {
+                "text": "18",
+                "fraction": 100,
+                "feedback": "Correct \u2014 18 is the nearest value above the included maximum 17, just outside the domain."
+              },
+              {
+                "text": "17",
+                "fraction": 0,
+                "feedback": "17 satisfies the predicate; it is the on point at the upper boundary."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 satisfies the predicate and is an interior point."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the off point at the lower boundary, not the upper one."
+              }
+            ],
+            "generalFeedback": "For the closed interval [5,17] the upper on point is 17 and the off point just outside the upper boundary is 18.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Values per variable in robustness testing",
+            "text": "<p>How many distinct test values does robustness testing exercise for a single variable with range [min, max]?</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "Correct \u2014 min-1, min, min+1, nominal, max-1, max, max+1."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the standard BVA count; robustness adds min-1 and max+1, giving 7."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 forgets one value: the robust set has seven (two boundaries, two inside neighbours, two outside neighbours, and one nominal)."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the standard BVA test count for two variables (4n+1), not values for one variable."
+              }
+            ],
+            "generalFeedback": "Robustness testing uses seven values per variable \u2014 the five standard BVA values plus min-1 and max+1 \u2014 which is why the robust test count is 6n+1.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Worst-case boundary test count",
+            "text": "<p>Worst-case boundary testing takes the Cartesian product of each variable's five boundary values. For a function with 2 input variables, how many test cases does it produce?</p>",
+            "answers": [
+              {
+                "text": "25",
+                "fraction": 100,
+                "feedback": "Correct \u2014 5^2 = 25, the full product of the five values per variable."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 is 5\xD7n; worst-case testing multiplies the value sets (5^n), it does not add them."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the standard single-fault count 4n+1 for n=2, not the worst-case count."
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 does not match 5^n for n=2."
+              }
+            ],
+            "generalFeedback": "Worst-case boundary testing drops the single-fault assumption and combines every variable's boundary values: 5^n tests. For n=2 that is 5^2 = 25.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Robust worst-case test count",
+            "text": "<p>Robust worst-case boundary testing uses each variable's seven values (adding min-1 and max+1) in full combination. For 2 variables, how many test cases result?</p>",
+            "answers": [
+              {
+                "text": "49",
+                "fraction": 100,
+                "feedback": "Correct \u2014 7^2 = 49."
+              },
+              {
+                "text": "25",
+                "fraction": 0,
+                "feedback": "25 is 5^2, the non-robust worst-case count."
+              },
+              {
+                "text": "14",
+                "fraction": 0,
+                "feedback": "14 is 7\xD7n; robust worst-case multiplies the value sets (7^n)."
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 is the robust single-fault count 6n+1 for n=2, not the worst-case count."
+              }
+            ],
+            "generalFeedback": "Robust worst-case testing combines all seven robust values per variable: 7^n. For n=2 that is 7^2 = 49.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Worst-case vs standard BVA",
+            "text": "<p>How does worst-case boundary testing differ fundamentally from standard (4n+1) BVA?</p>",
+            "answers": [
+              {
+                "text": "It abandons the single-fault assumption and combines the boundary values of all variables, growing exponentially (5^n)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 combinations replace one-at-a-time variation."
+              },
+              {
+                "text": "It uses fewer values per variable but more variables",
+                "fraction": 0,
+                "feedback": "It uses the same values per variable; the difference is combining them across variables."
+              },
+              {
+                "text": "It tests only nominal values, never boundaries",
+                "fraction": 0,
+                "feedback": "Worst-case testing is entirely about combining boundary values, not avoiding them."
+              },
+              {
+                "text": "It is always cheaper than standard BVA",
+                "fraction": 0,
+                "feedback": "It is far more expensive: 5^n grows exponentially versus the linear 4n+1."
+              }
+            ],
+            "generalFeedback": "Standard BVA varies one variable at a time (single-fault assumption), giving 4n+1 tests. Worst-case testing combines every variable's boundary values, giving 5^n tests \u2014 exhaustive over boundaries but exponentially costly.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Characteristic in input-space partitioning",
+            "text": "<p>In Ammann &amp; Offutt's Input Space Partitioning (ISP), what is a <strong>characteristic</strong>?</p>",
+            "answers": [
+              {
+                "text": "A feature of the input domain that is used to partition the domain into blocks",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each characteristic induces one partition of the input domain."
+              },
+              {
+                "text": "A single concrete test input value",
+                "fraction": 0,
+                "feedback": "That is a test value; a characteristic is the dimension along which values are partitioned."
+              },
+              {
+                "text": "The expected output of the program",
+                "fraction": 0,
+                "feedback": "That is an oracle, not an ISP characteristic."
+              },
+              {
+                "text": "A line of source code under test",
+                "fraction": 0,
+                "feedback": "ISP is black-box; a characteristic describes the input domain, not code."
+              }
+            ],
+            "generalFeedback": 'In ISP each characteristic partitions the input domain into blocks (for example "sign of x: negative / zero / positive"). Choosing good characteristics is the key design step.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Blocks of a partition",
+            "text": "<p>The blocks a characteristic splits the input domain into must satisfy which property?</p>",
+            "answers": [
+              {
+                "text": "They must be complete (cover the whole domain) and disjoint (no value in two blocks)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 completeness plus disjointness is exactly what makes the blocks a partition."
+              },
+              {
+                "text": "They must overlap so every value appears in at least two blocks",
+                "fraction": 0,
+                "feedback": "Overlap violates disjointness; blocks of a partition are mutually exclusive."
+              },
+              {
+                "text": "They must all contain the same number of values",
+                "fraction": 0,
+                "feedback": "Blocks need not be equal in size; they need only be complete and disjoint."
+              },
+              {
+                "text": "There must be exactly two blocks per characteristic",
+                "fraction": 0,
+                "feedback": "A characteristic may have any number of blocks, as long as they partition the domain."
+              }
+            ],
+            "generalFeedback": "For each characteristic the blocks must form a partition of the domain: complete (their union is the whole domain) and disjoint (mutually exclusive). Otherwise a value could be unclassifiable or ambiguous.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All Combinations Coverage count",
+            "text": "<p>An ISP model has three characteristics with 3, 2, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 \xD7 2 \xD7 2 = 12, the product of the block counts."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the sum 3+2+2; ACoC multiplies the block counts."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 does not match the product of the block counts."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 ignores one characteristic; the product over all three is 12."
+              }
+            ],
+            "generalFeedback": "ACoC requires every combination of blocks across all characteristics, so the count is the product of the block counts: 3 \xD7 2 \xD7 2 = 12.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Each Choice Coverage count",
+            "text": "<p>An ISP model has three characteristics with 3, 2, and 4 blocks. What is the minimum number of tests needed for Each Choice Coverage (ECC)?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ECC needs at least as many tests as the largest number of blocks in any one characteristic (here 4)."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the sum of the block counts; ECC can reuse blocks across characteristics in the same test."
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 is the product (All Combinations), far more than ECC requires."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is not enough to cover the characteristic that has 4 blocks."
+              }
+            ],
+            "generalFeedback": "ECC requires each block of each characteristic to appear in at least one test. Because a single test picks one block from every characteristic, the minimum number of tests equals the largest block count \u2014 here max(3,2,4) = 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Base Choice Coverage count",
+            "text": "<p>An ISP model has three characteristics with 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 base test + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is the sum of the block counts; BCC counts one base test plus the non-base blocks."
+              },
+              {
+                "text": "18",
+                "fraction": 0,
+                "feedback": "18 is the product (All Combinations), not the Base Choice count."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 forgets the +1 base test: the total is 1 + sum of (blocks-1)."
+              }
+            ],
+            "generalFeedback": "BCC picks one base choice per characteristic (the base test), then varies one characteristic at a time through its remaining blocks: 1 + \u03A3(B_i - 1) = 1 + 2 + 2 + 1 = 6.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pair-Wise Coverage definition",
+            "text": "<p>What does Pair-Wise Coverage (PWC) require?</p>",
+            "answers": [
+              {
+                "text": "Every pair of blocks from each pair of characteristics must appear together in at least one test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 PWC covers all two-way block interactions."
+              },
+              {
+                "text": "Every combination of blocks across all characteristics must appear",
+                "fraction": 0,
+                "feedback": "That is All Combinations Coverage; PWC only requires pairs."
+              },
+              {
+                "text": "Each block of each characteristic must appear once, with no interaction requirement",
+                "fraction": 0,
+                "feedback": "That is Each Choice Coverage, which is weaker than PWC."
+              },
+              {
+                "text": "Exactly two tests per characteristic must be run",
+                "fraction": 0,
+                "feedback": "PWC constrains block pairings, not a fixed number of tests per characteristic."
+              }
+            ],
+            "generalFeedback": "PWC (2-wise) requires that for every two characteristics, every pair of their blocks is covered together in some test. It catches two-way interaction faults without the full ACoC explosion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pair-Wise Coverage lower bound",
+            "text": "<p>An ISP model has three characteristics with 3, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at least the product of the two largest block counts, 3 \xD7 3 = 9."
+              },
+              {
+                "text": "18",
+                "fraction": 0,
+                "feedback": "18 is the full All Combinations product; PWC needs far fewer than that."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 (the largest single block count) satisfies Each Choice, not Pair-Wise."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is below the pairwise lower bound of 3 \xD7 3 = 9."
+              }
+            ],
+            "generalFeedback": "To cover every pair from the two 3-block characteristics you already need all 3 \xD7 3 = 9 of their combinations, so any PWC test set has at least 9 tests \u2014 the product of the two largest block counts.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Strongest ISP criterion",
+            "text": "<p>Among ACoC, ECC, PWC, and BCC, which criterion subsumes all of the others?</p>",
+            "answers": [
+              {
+                "text": "All Combinations Coverage (ACoC)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 covering every block combination covers every pair, every base variation, and every choice."
+              },
+              {
+                "text": "Each Choice Coverage (ECC)",
+                "fraction": 0,
+                "feedback": "ECC is the weakest of the four; it is subsumed by the others."
+              },
+              {
+                "text": "Pair-Wise Coverage (PWC)",
+                "fraction": 0,
+                "feedback": "PWC subsumes ECC but not ACoC or (in general) BCC."
+              },
+              {
+                "text": "Base Choice Coverage (BCC)",
+                "fraction": 0,
+                "feedback": "BCC subsumes ECC but is itself subsumed by ACoC."
+              }
+            ],
+            "generalFeedback": "ACoC requires every combination of blocks, so it necessarily satisfies pair coverage, base-choice variation, and each-choice \u2014 it sits at the top of the ISP subsumption hierarchy (and is usually the most expensive).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ISP subsumption chain",
+            "text": "<p>Which subsumption chain among the ISP criteria is correct (each criterion subsumes the next)?</p>",
+            "answers": [
+              {
+                "text": "MBCC \u2192 BCC \u2192 ECC",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Multiple Base Choice subsumes Base Choice, which subsumes Each Choice."
+              },
+              {
+                "text": "ECC \u2192 BCC \u2192 MBCC",
+                "fraction": 0,
+                "feedback": "This reverses the direction; ECC is the weakest, so it cannot subsume the others."
+              },
+              {
+                "text": "BCC \u2192 MBCC \u2192 ECC",
+                "fraction": 0,
+                "feedback": "MBCC subsumes BCC, not the other way around."
+              },
+              {
+                "text": "ECC \u2192 PWC \u2192 BCC",
+                "fraction": 0,
+                "feedback": "ECC does not subsume PWC, and PWC does not subsume BCC (they are incomparable)."
+              }
+            ],
+            "generalFeedback": "Multiple Base Choice Coverage subsumes Base Choice Coverage, which subsumes Each Choice Coverage. Note that BCC and PWC are incomparable \u2014 neither subsumes the other.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Base choice in BCC",
+            "text": "<p>In Base Choice Coverage, how is the test set constructed?</p>",
+            "answers": [
+              {
+                "text": "Pick one base block per characteristic to form a base test, then vary one characteristic at a time through its other blocks",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that yields 1 + \u03A3(blocks-1) tests."
+              },
+              {
+                "text": "Combine every block of every characteristic with every other",
+                "fraction": 0,
+                "feedback": "That is All Combinations Coverage, not Base Choice."
+              },
+              {
+                "text": "Randomly select one block per characteristic for each test",
+                "fraction": 0,
+                "feedback": "BCC is systematic: a fixed base test plus one-at-a-time variations, not random selection."
+              },
+              {
+                "text": "Use only the base test and nothing else",
+                "fraction": 0,
+                "feedback": "The base test alone does not exercise the non-base blocks; each must be varied in."
+              }
+            ],
+            "generalFeedback": "BCC designates a base choice (e.g. the most common or important block) per characteristic, runs that base test, then changes one characteristic at a time to each of its non-base blocks while the rest stay at their base values.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Combining equivalence and boundary",
+            "text": "<p>How are equivalence partitioning and boundary value analysis usually combined in practice?</p>",
+            "answers": [
+              {
+                "text": "Partition the domain into equivalence classes, then add boundary values at the edges of each class",
+                "fraction": 100,
+                "feedback": "Correct \u2014 partitioning finds the classes; BVA hardens the tests at their edges."
+              },
+              {
+                "text": "Replace equivalence classes entirely with random boundary values",
+                "fraction": 0,
+                "feedback": "The two are complementary; BVA supplements, not replaces, partitioning."
+              },
+              {
+                "text": "Use boundary values only for the invalid classes and ignore valid ones",
+                "fraction": 0,
+                "feedback": "Boundaries of valid classes are tested too; that is where most off-by-one faults live."
+              },
+              {
+                "text": "Test only the midpoint of each equivalence class",
+                "fraction": 0,
+                "feedback": "That is plain equivalence partitioning without BVA; it misses boundary faults."
+              }
+            ],
+            "generalFeedback": "The standard practice is to derive equivalence classes first, take one nominal representative from each, then apply BVA at the boundaries between classes \u2014 combining broad coverage with edge sensitivity.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off point of a compound predicate",
+            "text": "<p>Consider the compound predicate <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>. Which single value is an <strong>off point</strong> of this predicate?</p>",
+            "answers": [
+              {
+                "text": "21",
+                "fraction": 100,
+                "feedback": "Correct \u2014 21 fails the upper clause and lies just outside the domain, so it is an off point."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 satisfies both clauses; it is the on point at the lower boundary."
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 satisfies both clauses; it is the on point at the upper boundary."
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 satisfies the predicate and is an interior point."
+              }
+            ],
+            "generalFeedback": "The conjunction is equivalent to the closed interval [10,20]. Its on points are 10 and 20; the off points just outside are 9 and 21. Of the choices, only 21 is an off point.",
+            "single": true
           }
         ]
       },
@@ -46010,17 +47145,17 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "0\u30011\u30012\u300199\u3001100\u3001101",
                 "fraction": 100,
-                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u5225\u662F min&#8722;1\u3001min\u3001min+1\u3001max&#8722;1\u3001max\u3001max+1\u3002"
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u5225\u662F min-1\u3001min\u3001min+1\u3001max-1\u3001max\u3001max+1\u3002"
               },
               {
                 "text": "1\u3001100",
                 "fraction": 0,
-                "feedback": "\u9019\u53EA\u6DB5\u84CB\u4E86\u5169\u500B on-point\uFF0C\u6F0F\u6389\u4E86\u5168\u90E8\u56DB\u500B\u76F8\u9130\u7684 off-point\u3002"
+                "feedback": "\u9019\u53EA\u6DB5\u84CB\u4E86\u5169\u500B on-point\uFF0C\u6F0F\u6389\u4E86\u5168\u90E8\u56DB\u500B\u76F8\u9130\u7684\u908A\u754C\u9130\u8FD1\u9EDE\u3002"
               },
               {
                 "text": "0\u30011\u3001100\u3001101",
                 "fraction": 0,
-                "feedback": "\u9019\u907A\u6F0F\u4E86\u7DCA\u9130\u908A\u754C\u7684 min+1 \u8207 max&#8722;1\uFF08\u5373 2 \u8207 99\uFF09\u3002"
+                "feedback": "\u9019\u907A\u6F0F\u4E86\u7DCA\u9130\u908A\u754C\u7684 min+1 \u8207 max-1\uFF08\u5373 2 \u8207 99\uFF09\u3002"
               },
               {
                 "text": "1\u300150\u3001100",
@@ -46028,7 +47163,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "50 \u662F\u4E2D\u9EDE\u503C\uFF0C\u4E26\u975E\u908A\u754C\u2014\u2014BVA \u91DD\u5C0D\u7684\u662F\u5B9A\u7FA9\u57DF\u7684\u908A\u7DE3\uFF0C\u800C\u975E\u5176\u4E2D\u5FC3\u3002"
               }
             ],
-            "generalFeedback": "\u6A19\u6E96 BVA \u6703\u53D6\u6700\u5C0F\u503C\u8207\u6700\u5927\u503C\uFF08\u5373\u300Con-point\u300D\uFF09\uFF0C\u518D\u52A0\u4E0A\u5B83\u5011\u7DCA\u9130\u7684\u5167\u5074\u8207\u5916\u5074\u9130\u5C45\uFF08\u5373\u300Coff-point\u300D\uFF09\uFF1A\u5C0D [1,100] \u800C\u8A00\u5373\u70BA 0\u30011\u30012\u300199\u3001100\u3001101\u3002",
+            "generalFeedback": "\u6A19\u6E96 BVA \u6703\u53D6\u6700\u5C0F\u503C\u8207\u6700\u5927\u503C\uFF0C\u518D\u52A0\u4E0A\u5B83\u5011\u7DCA\u9130\u7684\u5167\u5074\u8207\u5916\u5074\u9130\u5C45\uFF1A\u5C0D [1,100] \u800C\u8A00\u5373\u70BA 0\u30011\u30012\u300199\u3001100\u3001101\u3002",
             "single": true
           },
           {
@@ -46061,6 +47196,346 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "single": true
           },
           {
+            "type": "shortanswer",
+            "name": "BVA \u9396\u5B9A\u7684\u932F\u8AA4\u985E\u578B",
+            "text": "<p>\u908A\u754C\u503C\u5206\u6790\u7279\u5225\u91DD\u5C0D\u7684\u662F\u54EA\u4E00\u985E\u932F\u8AA4\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u56DE\u7B54\uFF09</p>",
+            "answers": [
+              {
+                "text": "boundary*",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "off-by-one*",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u3002"
+              }
+            ],
+            "generalFeedback": "BVA \u91DD\u5C0D\u7684\u662F\u908A\u754C\u932F\u8AA4\uFF08boundary faults\uFF09\u2014\u2014\u4E5F\u5C31\u662F\u8AF8\u5982\u4EE5 < \u8AA4\u7528\u53D6\u4EE3 <= \u4E4B\u985E\u3001\u6070\u597D\u767C\u751F\u5728\u8F38\u5165\u5B9A\u7FA9\u57DF\u908A\u7DE3\u7684\u5DEE\u4E00\uFF08off-by-one\uFF09\u932F\u8AA4\uFF0C\u9019\u6B63\u662F\u5B83\u628A\u6E2C\u8A66\u503C\u96C6\u4E2D\u5728\u908A\u754C\u9644\u8FD1\u7684\u539F\u56E0\u3002",
+            "usecase": false
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\u985E\u5225\u5283\u5206\u7684\u4F5C\u7528",
+            "text": "<p>\u4F5C\u70BA\u4E00\u7A2E\u6E2C\u8A66\u8A2D\u8A08\u6280\u5DE7\uFF0C\u7B49\u50F9\u985E\u5225\u5283\u5206\u7684\u6838\u5FC3\u6982\u5FF5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u8F38\u5165\u5B9A\u7FA9\u57DF\u5207\u5206\u6210\u300C\u9810\u671F\u6703\u88AB\u76F8\u540C\u65B9\u5F0F\u8655\u7406\u300D\u7684\u985E\u5225\uFF0C\u7136\u5F8C\u6BCF\u500B\u985E\u5225\u6E2C\u8A66\u4E00\u500B\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u628A\u5E7E\u4E4E\u7121\u9650\u7684\u8F38\u5165\u7A7A\u9593\u7E2E\u6E1B\u6210\u4E00\u5C0F\u7D44\u4EE3\u8868\u503C\u3002"
+              },
+              {
+                "text": "\u7AAE\u8209\u5730\u6E2C\u8A66\u6BCF\u4E00\u500B\u53EF\u80FD\u7684\u8F38\u5165\u503C",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u6E2C\u8A66\u6B63\u662F\u5283\u5206\u6280\u5DE7\u60F3\u8981\u907F\u514D\u7684\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u62BD\u6A23\u8F38\u5165\uFF0C\u76F4\u5230\u627E\u5230\u7F3A\u9677\u70BA\u6B62",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u96A8\u6A5F\u6E2C\u8A66\uFF1B\u5283\u5206\u662F\u523B\u610F\u628A\u5B9A\u7FA9\u57DF\u7D50\u69CB\u5316\u6210\u985E\u5225\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u6BCF\u500B\u8F38\u5165\u57F7\u884C\u4E86\u591A\u5C11\u884C\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D50\u69CB\u5316\uFF08\u7A0B\u5F0F\u78BC\uFF09\u6DB5\u84CB\uFF0C\u800C\u975E\u8F38\u5165\u5B9A\u7FA9\u57DF\u7684\u5283\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u985E\u5225\u5283\u5206\u662F\u4E00\u7A2E\u9ED1\u7BB1\u6280\u5DE7\uFF1A\u628A\u8F38\u5165\u5B9A\u7FA9\u57DF\u5207\u5206\u6210\uFF08\u6709\u6548\u8207\u7121\u6548\uFF09\u7B49\u50F9\u985E\u5225\uFF0C\u6BCF\u500B\u985E\u5225\u53D6\u4E00\u500B\u4EE3\u8868\u503C\uFF0C\u5728\u7DAD\u6301\u884C\u70BA\u6DB5\u84CB\u7684\u540C\u6642\u6E1B\u5C11\u6E2C\u8A66\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4EC0\u9EBC\u8981\u5728\u908A\u754C\u6E2C\u8A66",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u908A\u754C\u503C\u5206\u6790\u8981\u628A\u6E2C\u8A66\u6848\u4F8B\u96C6\u4E2D\u5728\u8F38\u5165\u7BC4\u570D\u7684\u908A\u7DE3\uFF0C\u800C\u975E\u5176\u4E2D\u9593\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u6700\u5E38\u5728\u908A\u754C\u8655\u72AF\u5DEE\u4E00\u932F\u8AA4\uFF08\u4F8B\u5982 < \u8207 <= \u7528\u932F\uFF09\uFF0C\u56E0\u6B64\u7F3A\u9677\u6703\u805A\u96C6\u5728\u90A3\u88E1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u754C\u6B63\u662F\u95DC\u4FC2\u904B\u7B97\u5B50\u6700\u5BB9\u6613\u5BEB\u932F\u7684\u5730\u65B9\u3002"
+              },
+              {
+                "text": "\u908A\u754C\u503C\u8B93\u7A0B\u5F0F\u8A08\u7B97\u5F97\u6BD4\u8F03\u5FEB",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u901F\u5EA6\u8207\u70BA\u4F55\u9078\u64C7\u908A\u754C\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u7BC4\u570D\u4E2D\u9593\u7684\u503C\u6C38\u9060\u4E0D\u6703\u88AB\u7A0B\u5F0F\u8655\u7406",
+                "fraction": 0,
+                "feedback": "\u4E2D\u9593\u503C\u4ECD\u6703\u88AB\u8655\u7406\uFF0C\u53EA\u662F\u6BD4\u8F03\u4E0D\u6613\u51FA\u932F\uFF0C\u56E0\u6B64\u4E00\u500B\u4EE3\u8868\u503C\u5C31\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u53EA\u6703\u8F38\u5165\u908A\u754C\u503C",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u8005\u6703\u8F38\u5165\u5404\u5F0F\u5404\u6A23\u7684\u503C\uFF1BBVA \u9078\u64C7\u908A\u754C\u662F\u56E0\u70BA\u7F3A\u9677\u805A\u96C6\u65BC\u6B64\u3002"
+              }
+            ],
+            "generalFeedback": "\u7F3A\u9677\u805A\u96C6\u5728\u908A\u754C\uFF0C\u56E0\u70BA\u95DC\u4FC2\u8207\u8FF4\u5708\u689D\u4EF6\uFF08<\u3001<=\u3001\u5DEE\u4E00\uFF09\u5728\u6B64\u6700\u5BB9\u6613\u51FA\u932F\uFF1B\u4E2D\u9593\u503C\u5247\u7531\u55AE\u4E00\u7B49\u50F9\u985E\u5225\u4EE3\u8868\u503C\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "x <= 20 \u7684 on point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>x &lt;= 20</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F <strong>on point</strong>\uFF08\u4F4D\u65BC\u908A\u754C\u4E0A\u3001\u843D\u5728\u5B9A\u7FA9\u57DF\u5167\u4E14\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u503C\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "20",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201420 \u6EFF\u8DB3 x <= 20\uFF0C\u4E14\u6070\u597D\u843D\u5728\u908A\u754C\u4E0A\u3002"
+              },
+              {
+                "text": "21",
+                "fraction": 0,
+                "feedback": "21 \u4E0D\u6EFF\u8DB3 x <= 20\uFF1B\u5B83\u662F\u843D\u5728\u5B9A\u7FA9\u57DF\u5916\u7684 off point\u3002"
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u5C6C\u65BC\u5167\u90E8\u9EDE\uFF0C\u4E26\u4E0D\u5728\u908A\u754C\u4E0A\u3002"
+              },
+              {
+                "text": "22",
+                "fraction": 0,
+                "feedback": "22 \u662F\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u5916\u90E8\u9EDE\uFF0C\u4E26\u975E\u908A\u754C\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "on point \u662F\u4F4D\u65BC\u908A\u754C\u4E0A\u3001\u843D\u5728\u5B9A\u7FA9\u57DF\u5167\u7684\u503C\u3002\u5C0D x <= 20 \u800C\u8A00\uFF0C\u908A\u754C\u503C 20 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u6240\u4EE5 20 \u662F on point\uFF1B21 \u5247\u662F\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "x <= 10 \u7684 off point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>x &lt;= 10</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F <strong>off point</strong>\uFF08\u525B\u597D\u843D\u5728\u5B9A\u7FA9\u57DF\u5916\u3001\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u6700\u8FD1\u9130\u503C\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "11",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201411 \u662F\u6700\u63A5\u8FD1\u3001\u4E14\u4E0D\u6EFF\u8DB3 x <= 10 \u7684\u6574\u6578\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 \u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F on point\uFF0C\u800C\u975E off point\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u8DDD\u96E2\u908A\u754C\u591A\u4E86\u4E00\u6B65\uFF0C\u4E0D\u662F off point\u3002"
+              }
+            ],
+            "generalFeedback": "off point \u662F\u4F4D\u65BC\u908A\u754C\u53E6\u4E00\u5074\u6700\u8FD1\u7684\u503C\u2014\u2014\u525B\u597D\u843D\u5728\u5B9A\u7FA9\u57DF\u5916\u3002\u5C0D x <= 10 \u800C\u8A00\uFF0Con point \u662F 10\uFF0Coff point \u662F 11\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "x <= 46 \u7684 on point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>x &lt;= 46</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F <strong>on point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "46",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201446 \u843D\u5728\u908A\u754C\u4E0A\u4E14\u6EFF\u8DB3 x <= 46\u3002"
+              },
+              {
+                "text": "47",
+                "fraction": 0,
+                "feedback": "47 \u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point\u3002"
+              },
+              {
+                "text": "45",
+                "fraction": 0,
+                "feedback": "45 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              },
+              {
+                "text": "48",
+                "fraction": 0,
+                "feedback": "48 \u662F\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u5916\u90E8\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D x <= 46 \u800C\u8A00\uFF0C\u908A\u754C\u503C 46 \u843D\u5728\u5B9A\u7FA9\u57DF\u5167\uFF0C\u6240\u4EE5\u5B83\u662F on point\uFF1B47 \u5247\u662F\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "x <= 37 \u7684 off point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>x &lt;= 37</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F <strong>off point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "38",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201438 \u662F\u6700\u63A5\u8FD1\u3001\u4E14\u4E0D\u6EFF\u8DB3 x <= 37 \u7684\u503C\u3002"
+              },
+              {
+                "text": "37",
+                "fraction": 0,
+                "feedback": "37 \u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F on point\u3002"
+              },
+              {
+                "text": "36",
+                "fraction": 0,
+                "feedback": "36 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              },
+              {
+                "text": "39",
+                "fraction": 0,
+                "feedback": "39 \u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u8DDD\u96E2\u908A\u754C\u591A\u4E86\u4E00\u6B65\uFF0C\u4E0D\u662F off point\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D x <= 37 \u800C\u8A00\uFF0Con point \u662F 37\uFF0Coff point \u662F\u76F8\u9130\u3001\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u503C 38\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "x <= 14 \u7684 on point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>x &lt;= 14</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F <strong>on point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "14",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201414 \u6EFF\u8DB3 x <= 14\uFF0C\u4E14\u843D\u5728\u908A\u754C\u4E0A\u3002"
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 \u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F off point\u3002"
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u662F\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u5916\u90E8\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D x <= 14 \u800C\u8A00\uFF0C\u908A\u754C\u503C 14 \u843D\u5728\u5B9A\u7FA9\u57DF\u5167\uFF0C\u6240\u4EE5\u5B83\u662F on point\uFF1B15 \u5247\u662F\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "x <= 21 \u7684 off point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>x &lt;= 21</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F <strong>off point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "22",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201422 \u662F\u6700\u63A5\u8FD1\u3001\u4E14\u4E0D\u6EFF\u8DB3 x <= 21 \u7684\u503C\u3002"
+              },
+              {
+                "text": "21",
+                "fraction": 0,
+                "feedback": "21 \u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F on point\u3002"
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "23 \u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u8DDD\u96E2\u908A\u754C\u591A\u4E86\u4E00\u6B65\uFF0C\u4E0D\u662F off point\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D x <= 21 \u800C\u8A00\uFF0Con point \u662F 21\uFF0Coff point \u662F\u76F8\u9130\u3001\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u503C 22\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u500B\u503C\u5C6C\u65BC\u7121\u6548\u985E\u5225",
+            "text": "<p>\u67D0\u8F38\u5165\u6B04\u4F4D\u63A5\u53D7\u6709\u6548\u7BC4\u570D 1..100 \u7684\u6574\u6578\u3002\u4E0B\u5217\u54EA\u4E00\u500B\u503C\u5C6C\u65BC<strong>\u7121\u6548</strong>\u7B49\u50F9\u985E\u5225\uFF1F</p>",
+            "answers": [
+              {
+                "text": "0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20140 \u4F4E\u65BC\u6700\u5C0F\u503C\uFF0C\u843D\u5728\u300C\u592A\u5C0F\u300D\u7684\u7121\u6548\u985E\u5225\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "1 \u662F\u63A5\u53D7\u7684\u6700\u5C0F\u503C\uFF0C\u5C6C\u65BC\u6709\u6548\u985E\u5225\u3002"
+              },
+              {
+                "text": "50",
+                "fraction": 0,
+                "feedback": "50 \u843D\u5728 1..100 \u4E4B\u5167\uFF0C\u662F\u6709\u6548\u985E\u5225\u7684\u503C\u3002"
+              },
+              {
+                "text": "100",
+                "fraction": 0,
+                "feedback": "100 \u662F\u63A5\u53D7\u7684\u6700\u5927\u503C\uFF0C\u5C6C\u65BC\u6709\u6548\u985E\u5225\u3002"
+              }
+            ],
+            "generalFeedback": "\u6709\u6548\u985E\u5225\u662F [1,100]\uFF1B\u4EFB\u4F55\u4F4E\u65BC 1 \u6216\u9AD8\u65BC 100 \u7684\u503C\u90FD\u662F\u7121\u6548\u7684\u3002\u9019\u88E1\u53EA\u6709 0 \u843D\u5728\u63A5\u53D7\u7BC4\u570D\u4E4B\u5916\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "age >= 18 \u7684 on point",
+            "text": "<p>\u67D0\u7DB2\u7AD9\u53EA\u5141\u8A31\u5E74\u9F61\u6EFF\u8DB3 <code>age &gt;= 18</code> \u7684\u4F7F\u7528\u8005\u3002\u54EA\u4E00\u500B\u503C\u662F\u9019\u500B\u908A\u754C\u7684 <strong>on point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "18",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201418 \u6EFF\u8DB3 age >= 18\uFF0C\u4E14\u6070\u597D\u843D\u5728\u908A\u754C\u4E0A\u3002"
+              },
+              {
+                "text": "17",
+                "fraction": 0,
+                "feedback": "17 \u4E0D\u6EFF\u8DB3 age >= 18\uFF1B\u5B83\u662F\u525B\u597D\u843D\u5728\u63A5\u53D7\u57DF\u5916\u7684 off point\u3002"
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u5C6C\u65BC\u5167\u90E8\u9EDE\uFF0C\u4E0D\u5728\u908A\u754C\u4E0A\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u662F\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u5916\u90E8\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D age >= 18 \u800C\u8A00\uFF0C\u908A\u754C\u503C 18 \u843D\u5728\u63A5\u53D7\u57DF\u5167\uFF0C\u6240\u4EE5\u5B83\u662F on point\uFF1B17 \u5247\u662F\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56B4\u683C\u908A\u754C\u4E0B\u6700\u5927\u7684\u6EFF\u8DB3\u6574\u6578",
+            "text": "<p>\u5C0D\u65BC\u56B4\u683C\u8FF0\u8A9E <code>x &lt; 50</code>\uFF08\u5728\u6574\u6578\u4E0A\uFF09\uFF0C\u54EA\u4E00\u500B\u503C\u662F\u6EFF\u8DB3\u5B83\u7684\u6700\u5927\u6574\u6578\uFF1F</p>",
+            "answers": [
+              {
+                "text": "49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA\u662F\u56B4\u683C\u7684 <\uFF0C\u6700\u5927\u7684\u6EFF\u8DB3\u6574\u6578\u662F 49\uFF0C\u800C\u975E 50\u3002"
+              },
+              {
+                "text": "50",
+                "fraction": 0,
+                "feedback": "\u56E0\u70BA\u908A\u754C\u662F\u56B4\u683C\u7684\uFF0C50 \u4E26\u4E0D\u6EFF\u8DB3 x < 50\u3002"
+              },
+              {
+                "text": "48",
+                "fraction": 0,
+                "feedback": "48 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u4E0D\u662F\u5176\u4E2D\u6700\u5927\u7684\u3002"
+              },
+              {
+                "text": "51",
+                "fraction": 0,
+                "feedback": "51 \u5927\u65BC 50\uFF0C\u986F\u7136\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\u3002"
+              }
+            ],
+            "generalFeedback": "\u56B4\u683C\u4E0D\u7B49\u5F0F\u6703\u6392\u9664\u908A\u754C\u672C\u8EAB\uFF1A\u5C0D x < 50 \u800C\u8A00\uFF0C50 \u4E0D\u6EFF\u8DB3\uFF0C\u56E0\u6B64\u6700\u5927\u7684\u6EFF\u8DB3\u6574\u6578\u662F 49\u3002\u9019\u7A2E min/max \xB11 \u7684\u63A8\u7406\u6B63\u662F BVA \u6240\u8981\u6F14\u7DF4\u7684\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
             "type": "multichoice",
             "name": "\u5F31\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u8207\u5F37\u7B49\u50F9\u985E\u5225\u6E2C\u8A66",
             "text": "<p>\u7576\u7A0B\u5F0F\u6709\u591A\u500B\u8F38\u5165\u8B8A\u6578\u6642\uFF0C\u5F31\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u8207\u5F37\u7B49\u50F9\u985E\u5225\u6E2C\u8A66\u7684\u5DEE\u7570\u662F\u4EC0\u9EBC\uFF1F</p>",
@@ -46091,40 +47566,835 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "truefalse",
-            "name": "\u5C01\u9589\u908A\u754C\u7684 off-point",
-            "text": "<p>\u5C0D\u65BC\u5C01\u9589\u908A\u754C\uFF08boundary \u503C\u672C\u8EAB\u5305\u542B\u5728\u5B9A\u7FA9\u57DF\u5167\uFF09\uFF0C\u5176 off-point \u6703\u843D\u5728\u5B9A\u7FA9\u57DF\u4E4B\u5916\u3002</p>",
+            "name": "\u5C01\u9589\u908A\u754C\u7684 off point",
+            "text": "<p>\u5C0D\u65BC\u5C01\u9589\u908A\u754C\uFF08boundary \u503C\u672C\u8EAB\u5305\u542B\u5728\u5B9A\u7FA9\u57DF\u5167\uFF09\uFF0C\u5176 off point \u6703\u843D\u5728\u5B9A\u7FA9\u57DF\u4E4B\u5916\u3002</p>",
             "answers": [
               {
                 "text": "true",
                 "fraction": 100,
-                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u65BC on-point\uFF08\u908A\u754C\u503C\u672C\u8EAB\uFF09\u5DF2\u7D93\u5728\u5C01\u9589\u5B9A\u7FA9\u57DF\u4E4B\u5167\uFF0C\u5176\u76F8\u9130\u7684 off-point \u6703\u6070\u597D\u843D\u5728\u908A\u754C\u4E4B\u5916\u3002"
+                "feedback": "\u6B63\u78BA\u2014\u2014on point\uFF08\u88AB\u7D0D\u5165\u7684\u908A\u754C\u503C\uFF09\u4F4D\u65BC\u5B9A\u7FA9\u57DF\u5167\uFF0C\u56E0\u6B64\u8207\u5176\u914D\u5C0D\u7684 off point \u5C31\u662F\u7DCA\u9130\u5728\u5176\u5916\u5074\u7684\u503C\u3002"
               },
               {
                 "text": "false",
                 "fraction": 0,
-                "feedback": "\u5C0D\u5C01\u9589\u908A\u754C\u800C\u8A00\uFF0Con-point \u4F4D\u65BC\u5B9A\u7FA9\u57DF\u5167\uFF0C\u56E0\u6B64\u8207\u5176\u914D\u5C0D\u7684 off-point \u5C31\u662F\u7DCA\u9130\u5728\u5176\u5916\u5074\u7684\u503C\u3002"
+                "feedback": "\u5C0D\u5C01\u9589\u908A\u754C\u800C\u8A00\uFF0Con point \u4F4D\u65BC\u5B9A\u7FA9\u57DF\u5167\uFF0C\u56E0\u6B64\u8207\u5176\u914D\u5C0D\u7684 off point \u5C31\u662F\u7DCA\u9130\u5728\u5176\u5916\u5074\u7684\u503C\u3002"
               }
             ],
-            "generalFeedback": "\u5C01\u9589\u908A\u754C\u6703\u628A\u8A72\u6975\u7AEF\u503C\uFF08on-point\uFF09\u7D0D\u5165\u5B9A\u7FA9\u57DF\u3002\u8207\u5176\u914D\u5C0D\u7684 off-point \u5247\u662F\u5728\u908A\u754C\u53E6\u4E00\u5074\u6700\u9130\u8FD1\u7684\u503C\u2014\u2014\u843D\u5728\u5B9A\u7FA9\u57DF\u4E4B\u5916\u3002\uFF08\u82E5\u70BA\u958B\u653E\u908A\u754C\uFF0C\u5169\u8005\u89D2\u8272\u6703\u4E92\u63DB\uFF1Aon-point \u843D\u5728\u57DF\u5916\uFF0C\u800C off-point \u5247\u662F\u88AB\u7D0D\u5165\u5B9A\u7FA9\u57DF\u7684\u6975\u7AEF\u503C\u3002\uFF09"
+            "generalFeedback": "\u63A1\u7528\u4EE5\u4E0B\u6163\u4F8B\uFF1Aon point \u662F\u4F4D\u65BC\u908A\u754C\u4E0A\u3001\u843D\u5728\u5B9A\u7FA9\u57DF\u5167\uFF08\u6EFF\u8DB3\u8FF0\u8A9E\uFF09\u7684\u503C\uFF1Boff point \u5247\u662F\u7DCA\u9130\u5176\u5916\u5074\u7684\u6700\u8FD1\u503C\u3002\u5C0D\u5C01\u9589\u908A\u754C\uFF08\u4F8B\u5982 x <= b\uFF09\u800C\u8A00\uFF0Con point\uFF08b\uFF09\u843D\u5728\u57DF\u5167\uFF0Coff point\uFF08b+1\uFF09\u525B\u597D\u843D\u5728\u57DF\u5916\u3002\u5C0D\u958B\u653E\u908A\u754C\uFF08\u4F8B\u5982 a < x\uFF09\u800C\u8A00\uFF0C\u843D\u5728\u57DF\u5167\u6700\u5C0F\u7684\u503C\u662F a+1\uFF08\u5373 on point\uFF09\uFF0C\u800C off point \u5247\u662F\u88AB\u6392\u9664\u7684\u908A\u754C\u503C a\uFF0C\u4E00\u6A23\u843D\u5728\u57DF\u5916\u3002"
           },
           {
-            "type": "shortanswer",
-            "name": "BVA \u9396\u5B9A\u7684\u932F\u8AA4\u985E\u578B",
-            "text": "<p>\u908A\u754C\u503C\u5206\u6790\u7279\u5225\u91DD\u5C0D\u7684\u662F\u54EA\u4E00\u985E\u932F\u8AA4\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u56DE\u7B54\uFF09</p>",
+            "type": "multichoice",
+            "name": "\u6A19\u6E96 BVA \u7684\u4E94\u500B\u503C",
+            "text": "<p>\u5728\u6A19\u6E96\uFF08\u975E\u5F37\u5065\u6027\uFF09\u908A\u754C\u503C\u5206\u6790\u4E2D\uFF0C\u5C0D\u65BC\u7BC4\u570D [min, max] \u7684\u55AE\u4E00\u8B8A\u6578\uFF0C\u6703\u6311\u9078\u54EA\u4E94\u500B\u503C\uFF1F</p>",
             "answers": [
               {
-                "text": "boundary*",
+                "text": "min\u3001min+1\u3001\u4E00\u500B nominal \u503C\u3001max-1\u3001max",
                 "fraction": 100,
-                "feedback": "\u6B63\u78BA\u3002"
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u908A\u754C\u3001\u5B83\u5011\u7684\u5167\u5074\u9130\u5C45\uFF0C\u4EE5\u53CA\u4E00\u500B nominal \u503C\u3002"
               },
               {
-                "text": "off-by-one*",
-                "fraction": 100,
-                "feedback": "\u6B63\u78BA\u3002"
+                "text": "min-1\u3001min\u3001nominal\u3001max\u3001max+1",
+                "fraction": 0,
+                "feedback": "min-1 \u8207 max+1 \u662F\u5F37\u5065\u6027\u6E2C\u8A66\u7684\u5EF6\u4F38\uFF0C\u4E26\u4E0D\u5C6C\u65BC\u6A19\u6E96 BVA\u3002"
+              },
+              {
+                "text": "min\u3001nominal\u3001max",
+                "fraction": 0,
+                "feedback": "\u9019\u6F0F\u6389\u4E86\u6A19\u6E96 BVA \u6703\u7D0D\u5165\u7684 min+1 \u8207 max-1 \u5167\u5074\u9130\u5C45\u503C\u3002"
+              },
+              {
+                "text": "min-1\u3001min\u3001min+1\u3001max-1\u3001max\u3001max+1",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u516D\u500B\u503C\u7684\u5F37\u5065\u6027\u96C6\u5408\uFF0C\u800C\u975E\u4E94\u500B\u503C\u7684\u6A19\u6E96\u96C6\u5408\u3002"
               }
             ],
-            "generalFeedback": "BVA \u91DD\u5C0D\u7684\u662F\u908A\u754C\u932F\u8AA4\uFF08boundary faults\uFF09\u2014\u2014\u4E5F\u5C31\u662F\u8AF8\u5982\u4EE5 < \u8AA4\u7528\u53D6\u4EE3 <= \u4E4B\u985E\u3001\u6070\u597D\u767C\u751F\u5728\u8F38\u5165\u5B9A\u7FA9\u57DF\u908A\u7DE3\u7684\u5DEE\u4E00\uFF08off-by-one\uFF09\u932F\u8AA4\uFF0C\u9019\u6B63\u662F\u5B83\u628A\u6E2C\u8A66\u503C\u96C6\u4E2D\u5728\u908A\u754C\u9644\u8FD1\u7684\u539F\u56E0\u3002",
-            "usecase": false
+            "generalFeedback": "\u6A19\u6E96 BVA \u6311\u9078 min\u3001min+1\u3001\u4E00\u500B nominal\uFF08\u5178\u578B\u5167\u90E8\uFF09\u503C\u3001max-1 \u8207 max\u3002\u5F37\u5065\u6027\u6E2C\u8A66\u4E4B\u5F8C\u518D\u52A0\u4E0A min-1 \u8207 max+1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A19\u6E96 BVA \u6E2C\u8A66\u6578\uFF08n=3\uFF09",
+            "text": "<p>\u4F7F\u7528\u6A19\u6E96\u7684 4n+1 \u516C\u5F0F\uFF0C\u5C0D\u4E00\u500B\u5177\u6709 3 \u500B\u8F38\u5165\u8B8A\u6578\u7684\u51FD\u5F0F\uFF0C\u9700\u8981\u591A\u5C11\u500B BVA \u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "13",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144\xD73 + 1 = 13\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 4n\uFF1B\u907A\u6F0F\u4E86\u90A3\u4E00\u500B\u5168\u70BA nominal \u7684\u6E2C\u8A66\uFF08+1\uFF09\u3002"
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 \u4E0D\u7B26\u5408 n=3 \u6642\u7684 4n+1\u3002"
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 \u662F n=3 \u6642\u7684\u5F37\u5065\u6027\u6E2C\u8A66\u6578 6n+1\uFF0C\u800C\u975E\u6A19\u6E96\u6E2C\u8A66\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A19\u6E96 BVA \u4E00\u6B21\u53EA\u6539\u8B8A\u4E00\u500B\u8B8A\u6578\uFF0C\u8B93\u5B83\u53D6 4 \u500B\u975E nominal \u7684\u908A\u754C\u503C\uFF0C\u5176\u9918\u4FDD\u6301 nominal\uFF0C\u518D\u52A0\u4E0A\u4E00\u500B\u5168 nominal \u7684\u6E2C\u8A66\uFF1A4n+1\u3002n=3 \u6642\u70BA 13\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F37\u5065\u6027\u6E2C\u8A66\u65B0\u589E\u4E86\u4EC0\u9EBC",
+            "text": "<p>\u5F37\u5065\u6027\u6E2C\u8A66\u5728\u6A19\u6E96 BVA \u4E4B\u4E0A\uFF0C\u70BA\u6BCF\u500B\u8B8A\u6578\u984D\u5916\u52A0\u5165\u54EA\u4E9B\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "min-1 \u8207 max+1\uFF08\u525B\u597D\u843D\u5728\u6709\u6548\u7BC4\u570D\u4E4B\u5916\u7684\u503C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F37\u5065\u6027\u6E2C\u8A66\u63A2\u6E2C\u5169\u500B\u908A\u754C\u5916\u5074\u7DCA\u9130\u7684\u503C\u3002"
+              },
+              {
+                "text": "min+1 \u8207 max-1\uFF08\u525B\u597D\u843D\u5728\u6709\u6548\u7BC4\u570D\u4E4B\u5167\u7684\u503C\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u5167\u5074\u9130\u5C45\u503C\u5DF2\u7D93\u5C6C\u65BC\u6A19\u6E96 BVA\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u984D\u5916\u7684 nominal \u503C",
+                "fraction": 0,
+                "feedback": "\u5F37\u5065\u6027\u6E2C\u8A66\u52A0\u5165\u7684\u662F\u8D85\u51FA\u7BC4\u570D\u7684\u503C\uFF0C\u800C\u975E\u66F4\u591A nominal \u503C\u3002"
+              },
+              {
+                "text": "\u7BC4\u570D\u7684\u4E2D\u9EDE\u8207\u5E73\u5747\u503C",
+                "fraction": 0,
+                "feedback": "\u5F37\u5065\u6027\u6E2C\u8A66\u91DD\u5C0D\u7684\u662F\u8D85\u51FA\u7BC4\u570D\u7684\u8F38\u5165\uFF0C\u800C\u975E\u4E2D\u592E\u7D71\u8A08\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F37\u5065\u6027\u6E2C\u8A66\u52A0\u5165 min-1 \u8207 max+1\uFF0C\u7528\u4F86\u89C0\u5BDF\u7A0B\u5F0F\u5982\u4F55\u8655\u7406\u525B\u597D\u8D85\u51FA\u6709\u6548\u7BC4\u570D\u7684\u8F38\u5165\uFF0C\u56E0\u6B64\u6BCF\u500B\u8B8A\u6578\u6709\u4E03\u500B\u503C\uFF0C\u5C0D\u61C9 6n+1 \u7684\u6E2C\u8A66\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F37\u5065\u6027 BVA \u6E2C\u8A66\u6578\uFF08n=2\uFF09",
+            "text": "<p>\u4F7F\u7528\u5F37\u5065\u6027\u7684 6n+1 \u516C\u5F0F\uFF0C\u5C0D\u4E00\u500B\u5177\u6709 2 \u500B\u8F38\u5165\u8B8A\u6578\u7684\u51FD\u5F0F\uFF0C\u9700\u8981\u591A\u5C11\u500B BVA \u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "13",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20146\xD72 + 1 = 13\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 6n\uFF1B\u907A\u6F0F\u4E86\u90A3\u4E00\u500B\u5168\u70BA nominal \u7684\u6E2C\u8A66\uFF08+1\uFF09\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F n=2 \u6642\u7684\u6A19\u6E96\u6E2C\u8A66\u6578 4n+1\uFF0C\u800C\u975E\u5F37\u5065\u6027\u6E2C\u8A66\u6578\u3002"
+              },
+              {
+                "text": "14",
+                "fraction": 0,
+                "feedback": "14 \u4E0D\u7B26\u5408 n=2 \u6642\u7684 6n+1\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F37\u5065\u6027 BVA \u6BCF\u500B\u8B8A\u6578\u6709 6 \u500B\u975E nominal \u503C\uFF08\u52A0\u5165 min-1 \u8207 max+1\uFF09\uFF0C\u4E00\u6B21\u6539\u8B8A\u4E00\u500B\uFF0C\u518D\u52A0\u4E00\u500B\u5168 nominal \u6E2C\u8A66\uFF1A6n+1\u3002n=2 \u6642\u70BA 13\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u958B\u653E\u4E0B\u908A\u754C\u7684 on point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>19 &lt; x &lt;= 25</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F<strong>\u4E0B\u908A\u754C\u7684 on point</strong>\uFF08\u843D\u5728\u5B9A\u7FA9\u57DF\u5167\u3001\u6700\u5C0F\u7684\u503C\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "20",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA\u4E0B\u754C\u662F\u56B4\u683C\u7684\uFF0C20 \u662F\u6EFF\u8DB3 19 < x \u7684\u6700\u5C0F\u503C\u3002"
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "19 \u4E0D\u6EFF\u8DB3 19 < x\uFF1B\u5B83\u662F\u4E0B\u908A\u754C\u5916\u5074\u7684 off point\u3002"
+              },
+              {
+                "text": "21",
+                "fraction": 0,
+                "feedback": "21 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u5C6C\u65BC\u5167\u90E8\u9EDE\uFF0C\u4E0D\u5728\u4E0B\u908A\u754C\u4E0A\u3002"
+              },
+              {
+                "text": "26",
+                "fraction": 0,
+                "feedback": "26 \u4E0D\u6EFF\u8DB3\u4E0A\u754C\uFF1B\u5B83\u662F\u4E0A\u908A\u754C\u7684 off point\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u958B\u653E\uFF08\u56B4\u683C\uFF09\u4E0B\u908A\u754C 19 < x \u800C\u8A00\uFF0C19 \u88AB\u6392\u9664\uFF0C\u56E0\u6B64\u843D\u5728\u57DF\u5167\u7684 on point \u662F 20\uFF0C\u800C\u57DF\u5916\u7684 off point \u662F 19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u958B\u653E\u4E0B\u908A\u754C\u7684 off point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>27 &lt; x &lt;= 30</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F<strong>\u4E0B\u908A\u754C\u7684 off point</strong>\uFF08\u525B\u597D\u843D\u5728\u5B9A\u7FA9\u57DF\u5916\u3001\u6700\u8FD1\u7684\u503C\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "27",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201427 \u56E0\u56B4\u683C\u7684 < \u800C\u88AB\u6392\u9664\uFF0C\u6240\u4EE5\u5B83\u662F\u4E0B\u908A\u754C\u5916\u5074\u7684 off point\u3002"
+              },
+              {
+                "text": "28",
+                "fraction": 0,
+                "feedback": "28 \u6EFF\u8DB3 27 < x\uFF1B\u5B83\u662F\u4E0B\u908A\u754C\u7684 on point\u3002"
+              },
+              {
+                "text": "30",
+                "fraction": 0,
+                "feedback": "30 \u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F\u4E0A\u908A\u754C\u7684 on point\u3002"
+              },
+              {
+                "text": "29",
+                "fraction": 0,
+                "feedback": "29 \u662F\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u5167\u90E8\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u958B\u653E\u4E0B\u908A\u754C 27 < x \u800C\u8A00\uFF0C\u843D\u5728\u57DF\u5167\u6700\u5C0F\u7684\u503C\u662F 28\uFF08on point\uFF09\uFF0C\u800C\u88AB\u6392\u9664\u7684\u908A\u754C\u503C 27 \u662F\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C01\u9589\u5340\u9593\u7684 on point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>24 &lt;= x &lt;= 41</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F<strong>\u4E0B\u908A\u754C\u7684 on point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "24",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201424 \u6EFF\u8DB3 24 <= x\uFF0C\u4E14\u843D\u5728\u4E0B\u908A\u754C\u4E0A\u3002"
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "23 \u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F\u4E0B\u908A\u754C\u5916\u5074\u7684 off point\u3002"
+              },
+              {
+                "text": "42",
+                "fraction": 0,
+                "feedback": "42 \u4E0D\u6EFF\u8DB3\u4E0A\u754C\uFF1B\u5B83\u662F\u4E0A\u908A\u754C\u7684 off point\u3002"
+              },
+              {
+                "text": "30",
+                "fraction": 0,
+                "feedback": "30 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u4F46\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u5C01\u9589\u5340\u9593 [24,41] \u800C\u8A00\uFF0C\u4E0B\u908A\u754C\u503C 24 \u88AB\u7D0D\u5165\uFF0C\u6240\u4EE5\u5B83\u662F on point\uFF1B23 \u5247\u662F\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C01\u9589\u5340\u9593\u7684 off point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>11 &lt;= x &lt;= 29</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F<strong>\u4E0B\u908A\u754C\u7684 off point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201410 \u662F\u88AB\u7D0D\u5165\u7684\u6700\u5C0F\u503C 11 \u4E4B\u4E0B\u6700\u8FD1\u7684\u503C\uFF0C\u525B\u597D\u843D\u5728\u57DF\u5916\u3002"
+              },
+              {
+                "text": "11",
+                "fraction": 0,
+                "feedback": "11 \u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F\u4E0B\u908A\u754C\u7684 on point\u3002"
+              },
+              {
+                "text": "29",
+                "fraction": 0,
+                "feedback": "29 \u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F\u4E0A\u908A\u754C\u7684 on point\u3002"
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 \u662F\u6EFF\u8DB3\u8FF0\u8A9E\u7684\u5167\u90E8\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u5C01\u9589\u5340\u9593 [11,29] \u800C\u8A00\uFF0C\u4E0B\u908A\u754C\u7684 on point \u662F 11\uFF0C\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point \u662F 10\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u958B\u653E\u5340\u9593\u7684 on/off point",
+            "text": "<p>\u5C0D\u65BC\u56B4\u683C\u8FF0\u8A9E <code>x &gt; 5</code>\uFF0C\u54EA\u4E00\u7D44\u6B63\u78BA\u7D66\u51FA\u8A72\u908A\u754C\u7684 on point \u8207 off point\uFF1F</p>",
+            "answers": [
+              {
+                "text": "on point \u70BA 6\uFF0Coff point \u70BA 5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20146 \u662F\u843D\u5728\u57DF\u5167\u6700\u5C0F\u7684\u503C\uFF1B5 \u88AB\u6392\u9664\uFF0C\u525B\u597D\u843D\u5728\u57DF\u5916\u3002"
+              },
+              {
+                "text": "on point \u70BA 5\uFF0Coff point \u70BA 6",
+                "fraction": 0,
+                "feedback": "5 \u4E0D\u6EFF\u8DB3 x > 5\uFF0C\u56E0\u6B64\u4E0D\u53EF\u80FD\u662F on point\uFF08\u843D\u5728\u57DF\u5167\u7684\u503C\uFF09\u3002"
+              },
+              {
+                "text": "on point \u70BA 5\uFF0Coff point \u70BA 4",
+                "fraction": 0,
+                "feedback": "5 \u8207 4 \u90FD\u4E0D\u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5169\u8005\u90FD\u4E0D\u5728\u57DF\u5167\u3002"
+              },
+              {
+                "text": "on point \u70BA 7\uFF0Coff point \u70BA 6",
+                "fraction": 0,
+                "feedback": "7 \u6EFF\u8DB3\u8FF0\u8A9E\u4F46\u5C6C\u65BC\u5167\u90E8\u9EDE\uFF0C\u800C 6 \u4E5F\u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u56E0\u6B64\u90FD\u4E0D\u662F off point\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u958B\u653E\u908A\u754C x > 5 \u800C\u8A00\uFF0C\u908A\u754C\u503C 5 \u88AB\u6392\u9664\uFF0C\u56E0\u6B64 on point\uFF08\u57DF\u5167\u6700\u8FD1\u7684\u503C\uFF09\u662F 6\uFF0Coff point\uFF08\u57DF\u5916\u6700\u8FD1\u7684\u503C\uFF09\u662F 5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "4n+1 \u80CC\u5F8C\u7684\u55AE\u4E00\u932F\u8AA4\u5047\u8A2D",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6A19\u6E96 BVA \u4E00\u6B21\u53EA\u6539\u8B8A\u4E00\u500B\u8B8A\u6578\uFF08\u5176\u9918\u4FDD\u6301 nominal\uFF09\uFF0C\u5F97\u5230 4n+1 \u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5047\u8A2D\u300C\u55AE\u4E00\u932F\u8AA4\u5047\u8A2D\u300D\u2014\u2014\u5931\u6557\u901A\u5E38\u662F\u7531\u55AE\u4E00\u8B8A\u6578\u8655\u65BC\u6975\u503C\u9020\u6210\uFF0C\u800C\u975E\u591A\u500B\u8B8A\u6578\u540C\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u662F\u9019\u500B\u5047\u8A2D\u8B93\u6E2C\u8A66\u6578\u5C0D n \u4FDD\u6301\u7DDA\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u5047\u8A2D\u8B8A\u6578\u6C38\u9060\u5F7C\u6B64\u7368\u7ACB\u3001\u5B8C\u5168\u4E0D\u6703\u4E92\u52D5",
+                "fraction": 0,
+                "feedback": "BVA \u4E26\u4E0D\u4E3B\u5F35\u8B8A\u6578\u6C38\u4E0D\u4E92\u52D5\uFF1B\u5B83\u53EA\u662F\u8CED\u300C\u55AE\u4E00\u8B8A\u6578\u7684\u6975\u503C\u300D\u80FD\u6293\u5230\u5927\u591A\u6578\u908A\u754C\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u5B83\u5047\u8A2D\u7A0B\u5F0F\u525B\u597D\u53EA\u6709\u4E00\u500B\u8F38\u5165\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "4n+1 \u516C\u5F0F\u660E\u78BA\u662F\u91DD\u5C0D n \u500B\u8B8A\u6578\uFF0C\u800C\u975E\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u5B83\u5047\u8A2D\u6240\u6709\u908A\u754C\u503C\u88AB\u8F38\u5165\u7684\u6A5F\u7387\u90FD\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u4F9D\u64DA\u4E26\u975E\u8F38\u5165\u6A5F\u7387\uFF0C\u800C\u662F\u55AE\u4E00\u932F\u8AA4\u5047\u8A2D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A19\u6E96 BVA \u5EFA\u7ACB\u5728\u55AE\u4E00\u932F\u8AA4\uFF08\u95DC\u9375\u932F\u8AA4\uFF09\u5047\u8A2D\u4E4B\u4E0A\uFF1A\u5927\u591A\u6578\u5931\u6557\u6E90\u81EA\u55AE\u4E00\u8B8A\u6578\u8655\u65BC\u908A\u754C\uFF0C\u5176\u9918\u4FDD\u6301 nominal\u3002\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u653E\u68C4\u6B64\u5047\u8A2D\u4E26\u7D44\u5408\u5404\u908A\u754C\uFF0C\u6210\u672C\u9AD8\u51FA\u8A31\u591A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A19\u6E96 BVA \u6E2C\u8A66\u6578\uFF08n=2\uFF09",
+            "text": "<p>\u4F7F\u7528\u6A19\u6E96\u7684 4n+1 \u516C\u5F0F\uFF0C\u5C0D\u4E00\u500B\u5177\u6709 2 \u500B\u8F38\u5165\u8B8A\u6578\u7684\u51FD\u5F0F\uFF0C\u9700\u8981\u591A\u5C11\u500B BVA \u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144\xD72 + 1 = 9\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 4n\uFF1B\u907A\u6F0F\u4E86\u90A3\u4E00\u500B\u5168\u70BA nominal \u7684\u6E2C\u8A66\uFF08+1\uFF09\u3002"
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 \u662F n=2 \u6642\u7684\u5F37\u5065\u6027\u6E2C\u8A66\u6578 6n+1\uFF0C\u800C\u975E\u6A19\u6E96\u6E2C\u8A66\u6578\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u55AE\u4E00\u8B8A\u6578\uFF08n=1\uFF09\u7684\u6A19\u6E96\u6E2C\u8A66\u6578\uFF0C\u800C\u975E\u5169\u500B\u8B8A\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A19\u6E96 BVA \u9700\u8981 4n+1 \u500B\u6E2C\u8A66\uFF1Bn=2 \u6642\u70BA 4\xD72 + 1 = 9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0A\u908A\u754C\u7684 off point",
+            "text": "<p>\u5C0D\u65BC\u8FF0\u8A9E <code>5 &lt;= x &lt;= 17</code>\uFF0C\u54EA\u4E00\u500B\u503C\u662F<strong>\u4E0A\u908A\u754C\u7684 off point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "18",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201418 \u662F\u88AB\u7D0D\u5165\u7684\u6700\u5927\u503C 17 \u4E4B\u4E0A\u6700\u8FD1\u7684\u503C\uFF0C\u525B\u597D\u843D\u5728\u57DF\u5916\u3002"
+              },
+              {
+                "text": "17",
+                "fraction": 0,
+                "feedback": "17 \u6EFF\u8DB3\u8FF0\u8A9E\uFF1B\u5B83\u662F\u4E0A\u908A\u754C\u7684 on point\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u4E0B\u908A\u754C\u7684 off point\uFF0C\u800C\u975E\u4E0A\u908A\u754C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u5C01\u9589\u5340\u9593 [5,17] \u800C\u8A00\uFF0C\u4E0A\u908A\u754C\u7684 on point \u662F 17\uFF0C\u525B\u597D\u843D\u5728\u4E0A\u908A\u754C\u5916\u5074\u7684 off point \u662F 18\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F37\u5065\u6027\u6E2C\u8A66\u6BCF\u500B\u8B8A\u6578\u7684\u503C\u6578",
+            "text": "<p>\u5C0D\u65BC\u7BC4\u570D [min, max] \u7684\u55AE\u4E00\u8B8A\u6578\uFF0C\u5F37\u5065\u6027\u6E2C\u8A66\u6703\u6F14\u7DF4\u591A\u5C11\u500B\u4E0D\u540C\u7684\u6E2C\u8A66\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014min-1\u3001min\u3001min+1\u3001nominal\u3001max-1\u3001max\u3001max+1\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u6A19\u6E96 BVA \u7684\u503C\u6578\uFF1B\u5F37\u5065\u6027\u518D\u52A0\u5165 min-1 \u8207 max+1\uFF0C\u5171 7 \u500B\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u5C11\u7B97\u4E86\u4E00\u500B\uFF1A\u5F37\u5065\u6027\u96C6\u5408\u6709\u4E03\u500B\uFF08\u5169\u500B\u908A\u754C\u3001\u5169\u500B\u5167\u5074\u9130\u5C45\u3001\u5169\u500B\u5916\u5074\u9130\u5C45\uFF0C\u4EE5\u53CA\u4E00\u500B nominal\uFF09\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F\u5169\u500B\u8B8A\u6578\u7684\u6A19\u6E96 BVA \u6E2C\u8A66\u6578\uFF084n+1\uFF09\uFF0C\u800C\u975E\u55AE\u4E00\u8B8A\u6578\u7684\u503C\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F37\u5065\u6027\u6E2C\u8A66\u6BCF\u500B\u8B8A\u6578\u4F7F\u7528\u4E03\u500B\u503C\u2014\u2014\u4E94\u500B\u6A19\u6E96 BVA \u503C\u518D\u52A0\u4E0A min-1 \u8207 max+1\u2014\u2014\u9019\u6B63\u662F\u5F37\u5065\u6027\u6E2C\u8A66\u6578\u70BA 6n+1 \u7684\u539F\u56E0\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u6700\u58DE\u60C5\u6CC1\u908A\u754C\u6E2C\u8A66\u6578",
+            "text": "<p>\u6700\u58DE\u60C5\u6CC1\uFF08worst-case\uFF09\u908A\u754C\u6E2C\u8A66\u6703\u53D6\u6BCF\u500B\u8B8A\u6578\u4E94\u500B\u908A\u754C\u503C\u7684\u7B1B\u5361\u5152\u7A4D\u3002\u5C0D\u4E00\u500B\u5177\u6709 2 \u500B\u8F38\u5165\u8B8A\u6578\u7684\u51FD\u5F0F\uFF0C\u6703\u7522\u751F\u591A\u5C11\u500B\u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "25",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145^2 = 25\uFF0C\u6BCF\u500B\u8B8A\u6578\u4E94\u500B\u503C\u7684\u5B8C\u6574\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 \u662F 5\xD7n\uFF1B\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u662F\u628A\u5404\u503C\u96C6\u5408\u76F8\u4E58\uFF085^n\uFF09\uFF0C\u800C\u975E\u76F8\u52A0\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F n=2 \u6642\u7684\u6A19\u6E96\u55AE\u4E00\u932F\u8AA4\u6E2C\u8A66\u6578 4n+1\uFF0C\u800C\u975E\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u6578\u3002"
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 \u4E0D\u7B26\u5408 n=2 \u6642\u7684 5^n\u3002"
+              }
+            ],
+            "generalFeedback": "\u6700\u58DE\u60C5\u6CC1\u908A\u754C\u6E2C\u8A66\u653E\u68C4\u55AE\u4E00\u932F\u8AA4\u5047\u8A2D\uFF0C\u628A\u6BCF\u500B\u8B8A\u6578\u7684\u908A\u754C\u503C\u5168\u90E8\u7D44\u5408\uFF1A5^n \u500B\u6E2C\u8A66\u3002n=2 \u6642\u70BA 5^2 = 25\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F37\u5065\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u6578",
+            "text": "<p>\u5F37\u5065\u6700\u58DE\u60C5\u6CC1\uFF08robust worst-case\uFF09\u908A\u754C\u6E2C\u8A66\u6703\u628A\u6BCF\u500B\u8B8A\u6578\u7684\u4E03\u500B\u503C\uFF08\u52A0\u5165 min-1 \u8207 max+1\uFF09\u5B8C\u6574\u7D44\u5408\u3002\u5C0D 2 \u500B\u8B8A\u6578\u800C\u8A00\uFF0C\u6703\u7522\u751F\u591A\u5C11\u500B\u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20147^2 = 49\u3002"
+              },
+              {
+                "text": "25",
+                "fraction": 0,
+                "feedback": "25 \u662F 5^2\uFF0C\u662F\u975E\u5F37\u5065\u7684\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u6578\u3002"
+              },
+              {
+                "text": "14",
+                "fraction": 0,
+                "feedback": "14 \u662F 7\xD7n\uFF1B\u5F37\u5065\u6700\u58DE\u60C5\u6CC1\u662F\u628A\u5404\u503C\u96C6\u5408\u76F8\u4E58\uFF087^n\uFF09\u3002"
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 \u662F n=2 \u6642\u7684\u5F37\u5065\u55AE\u4E00\u932F\u8AA4\u6E2C\u8A66\u6578 6n+1\uFF0C\u800C\u975E\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F37\u5065\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u6703\u628A\u6BCF\u500B\u8B8A\u6578\u7684\u4E03\u500B\u5F37\u5065\u503C\u5168\u90E8\u7D44\u5408\uFF1A7^n\u3002n=2 \u6642\u70BA 7^2 = 49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u58DE\u60C5\u6CC1\u8207\u6A19\u6E96 BVA",
+            "text": "<p>\u6700\u58DE\u60C5\u6CC1\u908A\u754C\u6E2C\u8A66\u8207\u6A19\u6E96\uFF084n+1\uFF09BVA \u6700\u6839\u672C\u7684\u5DEE\u7570\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u653E\u68C4\u55AE\u4E00\u932F\u8AA4\u5047\u8A2D\uFF0C\u628A\u6240\u6709\u8B8A\u6578\u7684\u908A\u754C\u503C\u52A0\u4EE5\u7D44\u5408\uFF0C\u56E0\u800C\u5448\u6307\u6578\u6210\u9577\uFF085^n\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE5\u7D44\u5408\u53D6\u4EE3\u4E86\u4E00\u6B21\u6539\u8B8A\u4E00\u500B\u7684\u505A\u6CD5\u3002"
+              },
+              {
+                "text": "\u5B83\u6BCF\u500B\u8B8A\u6578\u7528\u8F03\u5C11\u7684\u503C\uFF0C\u4F46\u8B8A\u6578\u8F03\u591A",
+                "fraction": 0,
+                "feedback": "\u5B83\u6BCF\u500B\u8B8A\u6578\u7528\u7684\u503C\u76F8\u540C\uFF1B\u5DEE\u5225\u5728\u65BC\u628A\u5B83\u5011\u8DE8\u8B8A\u6578\u7D44\u5408\u8D77\u4F86\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u6E2C\u8A66 nominal \u503C\uFF0C\u5F9E\u4E0D\u6E2C\u908A\u754C",
+                "fraction": 0,
+                "feedback": "\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u5B8C\u5168\u662F\u5728\u7D44\u5408\u908A\u754C\u503C\uFF0C\u800C\u975E\u907F\u958B\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5B83\u7E3D\u662F\u6BD4\u6A19\u6E96 BVA \u66F4\u4FBF\u5B9C",
+                "fraction": 0,
+                "feedback": "\u5B83\u6602\u8CB4\u5F97\u591A\uFF1A5^n \u5448\u6307\u6578\u6210\u9577\uFF0C\u800C 4n+1 \u662F\u7DDA\u6027\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A19\u6E96 BVA \u4E00\u6B21\u6539\u8B8A\u4E00\u500B\u8B8A\u6578\uFF08\u55AE\u4E00\u932F\u8AA4\u5047\u8A2D\uFF09\uFF0C\u5F97\u5230 4n+1 \u500B\u6E2C\u8A66\u3002\u6700\u58DE\u60C5\u6CC1\u6E2C\u8A66\u628A\u6BCF\u500B\u8B8A\u6578\u7684\u908A\u754C\u503C\u5168\u90E8\u7D44\u5408\uFF0C\u5F97\u5230 5^n \u500B\u6E2C\u8A66\u2014\u2014\u5C0D\u908A\u754C\u800C\u8A00\u7AAE\u8209\uFF0C\u4F46\u6210\u672C\u5448\u6307\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8F38\u5165\u7A7A\u9593\u5283\u5206\u4E2D\u7684 characteristic",
+            "text": "<p>\u5728 Ammann &amp; Offutt \u7684\u8F38\u5165\u7A7A\u9593\u5283\u5206\uFF08Input Space Partitioning, ISP\uFF09\u4E2D\uFF0C<strong>characteristic\uFF08\u7279\u5FB5\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8F38\u5165\u5B9A\u7FA9\u57DF\u7684\u67D0\u500B\u7279\u5FB5\uFF0C\u7528\u4F86\u628A\u5B9A\u7FA9\u57DF\u5283\u5206\u6210\u82E5\u5E72 block\uFF08\u5340\u584A\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B characteristic \u6703\u5C0E\u51FA\u5C0D\u8F38\u5165\u5B9A\u7FA9\u57DF\u7684\u4E00\u7A2E\u5283\u5206\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u500B\u5177\u9AD4\u7684\u6E2C\u8A66\u8F38\u5165\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u503C\uFF1Bcharacteristic \u662F\u7528\u4F86\u5283\u5206\u503C\u7684\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7684\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F oracle\uFF0C\u800C\u975E ISP \u7684 characteristic\u3002"
+              },
+              {
+                "text": "\u53D7\u6E2C\u7684\u4E00\u884C\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "ISP \u662F\u9ED1\u7BB1\u7684\uFF1Bcharacteristic \u63CF\u8FF0\u7684\u662F\u8F38\u5165\u5B9A\u7FA9\u57DF\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 ISP \u4E2D\uFF0C\u6BCF\u500B characteristic \u6703\u628A\u8F38\u5165\u5B9A\u7FA9\u57DF\u5283\u5206\u6210\u82E5\u5E72 block\uFF08\u4F8B\u5982\u300Cx \u7684\u6B63\u8CA0\u865F\uFF1A\u8CA0\uFF0F\u96F6\uFF0F\u6B63\u300D\uFF09\u3002\u6311\u9078\u597D\u7684 characteristic \u662F\u95DC\u9375\u7684\u8A2D\u8A08\u6B65\u9A5F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5283\u5206\u7684 block",
+            "text": "<p>\u4E00\u500B characteristic \u628A\u8F38\u5165\u5B9A\u7FA9\u57DF\u5207\u5206\u6210\u7684\u5404\u500B block\uFF0C\u5FC5\u9808\u6EFF\u8DB3\u4EC0\u9EBC\u6027\u8CEA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5FC5\u9808\u662F\u5B8C\u5099\u7684\uFF08\u6DB5\u84CB\u6574\u500B\u5B9A\u7FA9\u57DF\uFF09\u4E14\u4E92\u65A5\u7684\uFF08\u6C92\u6709\u503C\u540C\u6642\u5C6C\u65BC\u5169\u500B block\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u5099\u52A0\u4E0A\u4E92\u65A5\uFF0C\u6B63\u662F\u300C\u5283\u5206\u300D\u7684\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u5F7C\u6B64\u91CD\u758A\uFF0C\u4F7F\u6BCF\u500B\u503C\u81F3\u5C11\u5C6C\u65BC\u5169\u500B block",
+                "fraction": 0,
+                "feedback": "\u91CD\u758A\u9055\u53CD\u4E92\u65A5\u6027\uFF1B\u5283\u5206\u7684\u5404 block \u662F\u4E92\u65A5\u7684\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B block \u5FC5\u9808\u542B\u6709\u76F8\u540C\u6578\u91CF\u7684\u503C",
+                "fraction": 0,
+                "feedback": "\u5404 block \u5927\u5C0F\u4E0D\u5FC5\u76F8\u540C\uFF1B\u53EA\u9700\u5B8C\u5099\u4E14\u4E92\u65A5\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B characteristic \u5FC5\u9808\u525B\u597D\u6709\u5169\u500B block",
+                "fraction": 0,
+                "feedback": "\u53EA\u8981\u80FD\u5283\u5206\u5B9A\u7FA9\u57DF\uFF0C\u4E00\u500B characteristic \u53EF\u4EE5\u6709\u4EFB\u610F\u6578\u91CF\u7684 block\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u500B characteristic \u800C\u8A00\uFF0C\u5176 block \u5FC5\u9808\u69CB\u6210\u5B9A\u7FA9\u57DF\u7684\u4E00\u500B\u5283\u5206\uFF1A\u5B8C\u5099\uFF08\u806F\u96C6\u70BA\u6574\u500B\u5B9A\u7FA9\u57DF\uFF09\u4E14\u4E92\u65A5\u3002\u5426\u5247\u67D0\u500B\u503C\u53EF\u80FD\u7121\u6CD5\u5206\u985E\u6216\u7522\u751F\u6B67\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All Combinations Coverage \u6E2C\u8A66\u6578",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B characteristic\uFF0C\u5404\u6709 3\u30012\u30012 \u500B block\u3002All Combinations Coverage\uFF08ACoC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 \xD7 2 \xD7 2 = 12\uFF0C\u5404 block \u6578\u7684\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u7E3D\u548C 3+2+2\uFF1BACoC \u662F\u628A\u5404 block \u6578\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u4E0D\u7B26\u5408\u5404 block \u6578\u7684\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u5FFD\u7565\u4E86\u4E00\u500B characteristic\uFF1B\u4E09\u8005\u7684\u4E58\u7A4D\u70BA 12\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC \u8981\u6C42\u6DB5\u84CB\u6240\u6709 characteristic \u4E4B\u9593 block \u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\uFF0C\u56E0\u6B64\u6E2C\u8A66\u6578\u662F\u5404 block \u6578\u7684\u4E58\u7A4D\uFF1A3 \xD7 2 \xD7 2 = 12\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Each Choice Coverage \u6E2C\u8A66\u6578",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B characteristic\uFF0C\u5404\u6709 3\u30012\u30014 \u500B block\u3002Each Choice Coverage\uFF08ECC\uFF09\u6700\u5C11\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ECC \u81F3\u5C11\u9700\u8981\u8207\u300C\u55AE\u4E00 characteristic \u4E2D\u6700\u591A\u7684 block \u6578\u300D\u4E00\u6A23\u591A\u7684\u6E2C\u8A66\uFF08\u6B64\u8655\u70BA 4\uFF09\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F\u5404 block \u6578\u7684\u7E3D\u548C\uFF1BECC \u5728\u540C\u4E00\u500B\u6E2C\u8A66\u4E2D\u53EF\u8DE8 characteristic \u91CD\u7528 block\u3002"
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 \u662F\u4E58\u7A4D\uFF08All Combinations\uFF09\uFF0C\u9060\u591A\u65BC ECC \u6240\u9700\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u4E0D\u8DB3\u4EE5\u6DB5\u84CB\u90A3\u500B\u6709 4 \u500B block \u7684 characteristic\u3002"
+              }
+            ],
+            "generalFeedback": "ECC \u8981\u6C42\u6BCF\u500B characteristic \u7684\u6BCF\u500B block \u81F3\u5C11\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u4E2D\u3002\u7531\u65BC\u55AE\u4E00\u6E2C\u8A66\u6703\u5F9E\u6BCF\u500B characteristic \u5404\u53D6\u4E00\u500B block\uFF0C\u6700\u5C11\u6E2C\u8A66\u6578\u7B49\u65BC\u6700\u5927\u7684 block \u6578\u2014\u2014\u6B64\u8655 max(3,2,4) = 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Base Choice Coverage \u6E2C\u8A66\u6578",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B characteristic\uFF0C\u5404\u6709 3\u30013\u30012 \u500B block\u3002Base Choice Coverage\uFF08BCC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 \u500B base \u6E2C\u8A66 + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F\u5404 block \u6578\u7684\u7E3D\u548C\uFF1BBCC \u8A08\u70BA\u4E00\u500B base \u6E2C\u8A66\u52A0\u4E0A\u5404\u975E base \u7684 block\u3002"
+              },
+              {
+                "text": "18",
+                "fraction": 0,
+                "feedback": "18 \u662F\u4E58\u7A4D\uFF08All Combinations\uFF09\uFF0C\u800C\u975E Base Choice \u7684\u6E2C\u8A66\u6578\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u907A\u6F0F\u4E86 +1 \u7684 base \u6E2C\u8A66\uFF1A\u7E3D\u6578\u662F 1 + \u03A3(block-1)\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \u70BA\u6BCF\u500B characteristic \u6311\u4E00\u500B base choice\uFF08\u5373 base \u6E2C\u8A66\uFF09\uFF0C\u518D\u4E00\u6B21\u6539\u8B8A\u4E00\u500B characteristic \u5230\u5176\u9918 block\uFF1A1 + \u03A3(B_i - 1) = 1 + 2 + 2 + 1 = 6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pair-Wise Coverage \u5B9A\u7FA9",
+            "text": "<p>Pair-Wise Coverage\uFF08PWC\uFF09\u8981\u6C42\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EFB\u5169\u500B characteristic \u4E4B\u9593\uFF0C\u5176 block \u7684\u6BCF\u4E00\u7D44\u914D\u5C0D\u90FD\u5FC5\u9808\u5728\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u4E2D\u540C\u6642\u51FA\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014PWC \u6DB5\u84CB\u6240\u6709\u5169\u5169\u4E4B\u9593\u7684 block \u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u6240\u6709 characteristic \u4E4B\u9593 block \u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\u90FD\u5FC5\u9808\u51FA\u73FE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All Combinations Coverage\uFF1BPWC \u53EA\u8981\u6C42\u914D\u5C0D\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B characteristic \u7684\u6BCF\u500B block \u5404\u51FA\u73FE\u4E00\u6B21\uFF0C\u4E14\u7121\u4E92\u52D5\u8981\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Each Choice Coverage\uFF0C\u6BD4 PWC \u5F31\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B characteristic \u5FC5\u9808\u525B\u597D\u8DD1\u5169\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "PWC \u7D04\u675F\u7684\u662F block \u7684\u914D\u5C0D\uFF0C\u800C\u975E\u6BCF\u500B characteristic \u56FA\u5B9A\u7684\u6E2C\u8A66\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "PWC\uFF082-wise\uFF09\u8981\u6C42\u5C0D\u4EFB\u5169\u500B characteristic\uFF0C\u5B83\u5011\u7684\u6BCF\u4E00\u7D44 block \u914D\u5C0D\u90FD\u5728\u67D0\u500B\u6E2C\u8A66\u4E2D\u88AB\u6DB5\u84CB\u3002\u5B83\u80FD\u6293\u5230\u5169\u5169\u4E92\u52D5\u932F\u8AA4\uFF0C\u53C8\u4E0D\u81F3\u65BC\u50CF ACoC \u90A3\u6A23\u7206\u70B8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pair-Wise Coverage \u4E0B\u754C",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B characteristic\uFF0C\u5404\u6709 3\u30013\u30012 \u500B block\u3002\u4EFB\u4F55 Pair-Wise Coverage \u6E2C\u8A66\u96C6\u81F3\u5C11\u5FC5\u9808\u5305\u542B\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81F3\u5C11\u662F\u6700\u5927\u7684\u5169\u500B block \u6578\u7684\u4E58\u7A4D\uFF0C3 \xD7 3 = 9\u3002"
+              },
+              {
+                "text": "18",
+                "fraction": 0,
+                "feedback": "18 \u662F\u5B8C\u6574\u7684 All Combinations \u4E58\u7A4D\uFF1BPWC \u6240\u9700\u9060\u5C11\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3\uFF08\u6700\u5927\u7684\u55AE\u4E00 block \u6578\uFF09\u6EFF\u8DB3\u7684\u662F Each Choice\uFF0C\u800C\u975E Pair-Wise\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u4F4E\u65BC pairwise \u4E0B\u754C 3 \xD7 3 = 9\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u6DB5\u84CB\u5169\u500B\u5404\u6709 3 \u500B block \u7684 characteristic \u4E4B\u9593\u7684\u6BCF\u4E00\u7D44\u914D\u5C0D\uFF0C\u5C31\u5DF2\u7D93\u9700\u8981\u5B83\u5011\u5168\u90E8 3 \xD7 3 = 9 \u7A2E\u7D44\u5408\uFF0C\u56E0\u6B64\u4EFB\u4F55 PWC \u6E2C\u8A66\u96C6\u81F3\u5C11\u6709 9 \u500B\u6E2C\u8A66\u2014\u2014\u5373\u6700\u5927\u7684\u5169\u500B block \u6578\u7684\u4E58\u7A4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u5F37\u7684 ISP \u6E96\u5247",
+            "text": "<p>\u5728 ACoC\u3001ECC\u3001PWC\u3001BCC \u4E4B\u4E2D\uFF0C\u54EA\u4E00\u500B\u6E96\u5247\u6DB5\u84CB\uFF08subsume\uFF09\u5176\u9918\u6240\u6709\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "All Combinations Coverage\uFF08ACoC\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u6BCF\u4E00\u7A2E block \u7D44\u5408\uFF0C\u5C31\u5FC5\u7136\u6DB5\u84CB\u6BCF\u4E00\u7D44\u914D\u5C0D\u3001\u6BCF\u4E00\u6B21 base \u8B8A\u5316\u8207\u6BCF\u4E00\u500B choice\u3002"
+              },
+              {
+                "text": "Each Choice Coverage\uFF08ECC\uFF09",
+                "fraction": 0,
+                "feedback": "ECC \u662F\u56DB\u8005\u4E2D\u6700\u5F31\u7684\uFF1B\u5B83\u88AB\u5176\u9918\u6E96\u5247\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "Pair-Wise Coverage\uFF08PWC\uFF09",
+                "fraction": 0,
+                "feedback": "PWC \u6DB5\u84CB ECC\uFF0C\u4F46\u4E00\u822C\u4E0D\u6DB5\u84CB ACoC \u6216 BCC\u3002"
+              },
+              {
+                "text": "Base Choice Coverage\uFF08BCC\uFF09",
+                "fraction": 0,
+                "feedback": "BCC \u6DB5\u84CB ECC\uFF0C\u4F46\u672C\u8EAB\u88AB ACoC \u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC \u8981\u6C42\u6BCF\u4E00\u7A2E block \u7D44\u5408\uFF0C\u56E0\u6B64\u5FC5\u7136\u6EFF\u8DB3\u914D\u5C0D\u6DB5\u84CB\u3001base choice \u8B8A\u5316\u8207 each choice\u2014\u2014\u5B83\u4F4D\u65BC ISP \u6DB5\u84CB\u968E\u5C64\u7684\u9802\u7AEF\uFF08\u901A\u5E38\u4E5F\u6700\u6602\u8CB4\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ISP \u6DB5\u84CB\u93C8",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u689D ISP \u6E96\u5247\u7684\u6DB5\u84CB\u93C8\u662F\u6B63\u78BA\u7684\uFF08\u6BCF\u4E00\u500B\u6E96\u5247\u6DB5\u84CB\u4E0B\u4E00\u500B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "MBCC \u2192 BCC \u2192 ECC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Multiple Base Choice \u6DB5\u84CB Base Choice\uFF0CBase Choice \u53C8\u6DB5\u84CB Each Choice\u3002"
+              },
+              {
+                "text": "ECC \u2192 BCC \u2192 MBCC",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u65B9\u5411\u5F04\u53CD\u4E86\uFF1BECC \u6700\u5F31\uFF0C\u4E0D\u53EF\u80FD\u6DB5\u84CB\u5176\u4ED6\u6E96\u5247\u3002"
+              },
+              {
+                "text": "BCC \u2192 MBCC \u2192 ECC",
+                "fraction": 0,
+                "feedback": "\u662F MBCC \u6DB5\u84CB BCC\uFF0C\u800C\u975E\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "ECC \u2192 PWC \u2192 BCC",
+                "fraction": 0,
+                "feedback": "ECC \u4E0D\u6DB5\u84CB PWC\uFF0C\u800C PWC \u4E5F\u4E0D\u6DB5\u84CB BCC\uFF08\u5169\u8005\u7121\u6CD5\u6BD4\u8F03\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "Multiple Base Choice Coverage \u6DB5\u84CB Base Choice Coverage\uFF0CBase Choice \u53C8\u6DB5\u84CB Each Choice Coverage\u3002\u6CE8\u610F BCC \u8207 PWC \u7121\u6CD5\u4E92\u76F8\u6BD4\u8F03\u2014\u2014\u5169\u8005\u4E92\u4E0D\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "BCC \u4E2D\u7684 base choice",
+            "text": "<p>\u5728 Base Choice Coverage \u4E2D\uFF0C\u6E2C\u8A66\u96C6\u662F\u5982\u4F55\u5EFA\u69CB\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u70BA\u6BCF\u500B characteristic \u5404\u6311\u4E00\u500B base block \u7D44\u6210 base \u6E2C\u8A66\uFF0C\u518D\u4E00\u6B21\u6539\u8B8A\u4E00\u500B characteristic \u5230\u5176\u9918 block",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6703\u5F97\u5230 1 + \u03A3(block-1) \u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B characteristic \u7684\u6BCF\u500B block \u8207\u5176\u4ED6\u6240\u6709\u7684\u7D44\u5408\u8D77\u4F86",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All Combinations Coverage\uFF0C\u800C\u975E Base Choice\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6E2C\u8A66\u90FD\u96A8\u6A5F\u70BA\u6BCF\u500B characteristic \u6311\u4E00\u500B block",
+                "fraction": 0,
+                "feedback": "BCC \u662F\u6709\u7CFB\u7D71\u7684\uFF1A\u4E00\u500B\u56FA\u5B9A\u7684 base \u6E2C\u8A66\u52A0\u4E0A\u4E00\u6B21\u4E00\u500B\u7684\u8B8A\u5316\uFF0C\u800C\u975E\u96A8\u6A5F\u6311\u9078\u3002"
+              },
+              {
+                "text": "\u53EA\u7528 base \u6E2C\u8A66\uFF0C\u5225\u7121\u5176\u4ED6",
+                "fraction": 0,
+                "feedback": "\u5149\u9760 base \u6E2C\u8A66\u7121\u6CD5\u6F14\u7DF4\u975E base \u7684 block\uFF1B\u6BCF\u500B\u90FD\u5FC5\u9808\u88AB\u8B8A\u5316\u9032\u4F86\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \u70BA\u6BCF\u500B characteristic \u6307\u5B9A\u4E00\u500B base choice\uFF08\u4F8B\u5982\u6700\u5E38\u898B\u6216\u6700\u91CD\u8981\u7684 block\uFF09\uFF0C\u8DD1\u8A72 base \u6E2C\u8A66\uFF0C\u518D\u4E00\u6B21\u6539\u8B8A\u4E00\u500B characteristic \u5230\u5B83\u7684\u6BCF\u500B\u975E base block\uFF0C\u5176\u9918\u4FDD\u6301 base \u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u5408\u7B49\u50F9\u985E\u5225\u8207\u908A\u754C",
+            "text": "<p>\u5BE6\u52D9\u4E0A\uFF0C\u7B49\u50F9\u985E\u5225\u5283\u5206\u8207\u908A\u754C\u503C\u5206\u6790\u901A\u5E38\u5982\u4F55\u7D50\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5148\u628A\u5B9A\u7FA9\u57DF\u5283\u5206\u6210\u7B49\u50F9\u985E\u5225\uFF0C\u518D\u5728\u6BCF\u500B\u985E\u5225\u7684\u908A\u7DE3\u52A0\u4E0A\u908A\u754C\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5283\u5206\u627E\u51FA\u985E\u5225\uFF0CBVA \u5247\u5728\u5176\u908A\u7DE3\u5F37\u5316\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u7528\u96A8\u6A5F\u7684\u908A\u754C\u503C\u53D6\u4EE3\u7B49\u50F9\u985E\u5225",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u662F\u4E92\u88DC\u7684\uFF1BBVA \u662F\u88DC\u5F37\u800C\u975E\u53D6\u4EE3\u5283\u5206\u3002"
+              },
+              {
+                "text": "\u53EA\u5C0D\u7121\u6548\u985E\u5225\u4F7F\u7528\u908A\u754C\u503C\uFF0C\u5FFD\u7565\u6709\u6548\u985E\u5225",
+                "fraction": 0,
+                "feedback": "\u6709\u6548\u985E\u5225\u7684\u908A\u754C\u4E5F\u8981\u6E2C\u2014\u2014\u90A3\u6B63\u662F\u5927\u591A\u6578\u5DEE\u4E00\u932F\u8AA4\u6240\u5728\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u8A66\u6BCF\u500B\u7B49\u50F9\u985E\u5225\u7684\u4E2D\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6C92\u6709\u642D\u914D BVA \u7684\u7D14\u7B49\u50F9\u985E\u5225\u5283\u5206\uFF0C\u6703\u6F0F\u6389\u908A\u754C\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A19\u6E96\u505A\u6CD5\u662F\u5148\u5C0E\u51FA\u7B49\u50F9\u985E\u5225\uFF0C\u5F9E\u6BCF\u500B\u985E\u5225\u5404\u53D6\u4E00\u500B nominal \u4EE3\u8868\u503C\uFF0C\u518D\u5728\u985E\u5225\u4E4B\u9593\u7684\u908A\u754C\u5957\u7528 BVA\u2014\u2014\u628A\u5EE3\u6CDB\u6DB5\u84CB\u8207\u908A\u7DE3\u654F\u611F\u5EA6\u7D50\u5408\u8D77\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8907\u5408\u8FF0\u8A9E\u7684 off point",
+            "text": "<p>\u8003\u616E\u8907\u5408\u8FF0\u8A9E <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>\u3002\u4E0B\u5217\u54EA\u4E00\u500B\u503C\u662F\u6B64\u8FF0\u8A9E\u7684\u4E00\u500B <strong>off point</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201421 \u4E0D\u6EFF\u8DB3\u4E0A\u754C\u5B50\u53E5\uFF0C\u4E14\u525B\u597D\u843D\u5728\u5B9A\u7FA9\u57DF\u5916\uFF0C\u6240\u4EE5\u5B83\u662F\u4E00\u500B off point\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 \u540C\u6642\u6EFF\u8DB3\u5169\u500B\u5B50\u53E5\uFF1B\u5B83\u662F\u4E0B\u908A\u754C\u7684 on point\u3002"
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 \u540C\u6642\u6EFF\u8DB3\u5169\u500B\u5B50\u53E5\uFF1B\u5B83\u662F\u4E0A\u908A\u754C\u7684 on point\u3002"
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 \u6EFF\u8DB3\u8FF0\u8A9E\uFF0C\u5C6C\u65BC\u5167\u90E8\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u5408\u53D6\u7B49\u50F9\u65BC\u5C01\u9589\u5340\u9593 [10,20]\u3002\u5176 on point \u70BA 10 \u8207 20\uFF1B\u525B\u597D\u843D\u5728\u57DF\u5916\u7684 off point \u70BA 9 \u8207 21\u3002\u5728\u9019\u4E9B\u9078\u9805\u4E2D\uFF0C\u53EA\u6709 21 \u662F off point\u3002",
+            "single": true
           }
         ]
       }

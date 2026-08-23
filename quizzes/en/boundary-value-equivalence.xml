@@ -7,7 +7,6 @@
     <name><text>Equivalence classes for a range</text></name>
     <questiontext format="html"><text><![CDATA[<p>For an input defined as an integer in the range 1..100, how many equivalence classes does standard equivalence-class partitioning define, and which?</p>]]></text></questiontext>
     <single>true</single>
-    <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>Three: one valid class [1,100], plus two invalid classes (&lt;1 and &gt;100)</text><feedback><text>Correct — one class for accepted values, two for input that's too small or too large.</text></feedback></answer>
     <answer fraction="0"><text>Two: one valid class and one invalid class covering everything outside it</text><feedback><text>Values below and above the range fail for different reasons and are typically kept as separate invalid classes.</text></feedback></answer>
     <answer fraction="0"><text>One hundred: one class per accepted integer value</text><feedback><text>Equivalence partitioning groups values with the same expected behavior into one class, not one class per value.</text></feedback></answer>
@@ -18,11 +17,11 @@
     <name><text>BVA test values</text></name>
     <questiontext format="html"><text><![CDATA[<p>What are the six standard Boundary Value Analysis (BVA) test values for an input range of [1,100]?</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>0, 1, 2, 99, 100, 101</text><feedback><text>Correct — min&#8722;1, min, min+1, max&#8722;1, max, max+1.</text></feedback></answer>
-    <answer fraction="0"><text>1, 100</text><feedback><text>That covers only the two on-points, missing all four neighboring off-points.</text></feedback></answer>
-    <answer fraction="0"><text>0, 1, 100, 101</text><feedback><text>This omits the min+1 and max&#8722;1 near-boundary points (2 and 99).</text></feedback></answer>
+    <answer fraction="100"><text>0, 1, 2, 99, 100, 101</text><feedback><text>Correct — min-1, min, min+1, max-1, max, max+1.</text></feedback></answer>
+    <answer fraction="0"><text>1, 100</text><feedback><text>That covers only the two on-points, missing all four neighboring off/near-boundary points.</text></feedback></answer>
+    <answer fraction="0"><text>0, 1, 100, 101</text><feedback><text>This omits the min+1 and max-1 near-boundary points (2 and 99).</text></feedback></answer>
     <answer fraction="0"><text>1, 50, 100</text><feedback><text>50 is a midpoint value, not a boundary — BVA targets the edges of the domain, not its center.</text></feedback></answer>
-    <generalfeedback><text>Standard BVA takes the minimum and maximum (the "on-points") plus their immediate neighbors just inside and just outside the domain (the "off-points"): for [1,100] that's 0, 1, 2, 99, 100, 101.</text></generalfeedback>
+    <generalfeedback><text>Standard BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>Uniformity hypothesis</text></name>
@@ -33,6 +32,127 @@
     <answer fraction="0"><text>Test values are assumed to be selected at random, so any one will do</text><feedback><text>Representative values are deliberately chosen (e.g., boundaries), not random.</text></feedback></answer>
     <answer fraction="0"><text>The independence hypothesis — each class is assumed unrelated to the others</text><feedback><text>Relationships between classes/variables matter for strong vs. weak testing; that's not why one value suffices per class.</text></feedback></answer>
     <generalfeedback><text>Equivalence-class testing relies on the uniformity hypothesis: the assumption that the program treats every value within a given class identically, so exercising any single representative value is as informative as exercising all of them.</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>Fault type targeted by BVA</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>boundary*</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="100"><text>off-by-one*</text><feedback><text>Correct.</text></feedback></answer>
+    <generalfeedback><text>BVA targets boundary faults — the off-by-one style errors (e.g., using &lt; instead of &lt;=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What equivalence partitioning does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the core idea of equivalence partitioning as a test-design technique?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Divide the input domain into classes whose members are expected to be processed the same way, then test one value per class</text><feedback><text>Correct — it reduces the near-infinite input space to a small set of representatives.</text></feedback></answer>
+    <answer fraction="0"><text>Test every possible input value exhaustively</text><feedback><text>Exhaustive testing is what partitioning is designed to avoid.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly sample inputs until a defect is found</text><feedback><text>That is random testing; partitioning deliberately structures the domain into classes.</text></feedback></answer>
+    <answer fraction="0"><text>Measure how many statements each input executes</text><feedback><text>That is structural (code) coverage, not input-domain partitioning.</text></feedback></answer>
+    <generalfeedback><text>Equivalence partitioning is a black-box technique that splits the input domain into equivalence classes (valid and invalid) and picks one representative per class, cutting the number of tests while keeping behavioral coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why test at boundaries</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does Boundary Value Analysis concentrate test cases at the edges of an input range rather than in its middle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Programmers make off-by-one errors (e.g. &lt; vs &lt;=) most often at boundaries, so defects cluster there</text><feedback><text>Correct — boundaries are where relational operators are easiest to get wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Boundary values are faster for the program to compute</text><feedback><text>Execution speed is unrelated to why boundaries are chosen.</text></feedback></answer>
+    <answer fraction="0"><text>Values in the middle of a range are never processed by the program</text><feedback><text>Middle values are processed; they're just less error-prone, so a single representative suffices.</text></feedback></answer>
+    <answer fraction="0"><text>Boundaries are the only values users ever enter</text><feedback><text>Users enter all kinds of values; BVA targets boundaries because that's where faults concentrate.</text></feedback></answer>
+    <generalfeedback><text>Faults cluster at boundaries because relational and loop conditions (&lt;, &lt;=, off-by-one) are most error-prone there; middle values are covered by a single equivalence-class representative.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>On point of x &lt;= 20</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>x &lt;= 20</code>, which value is the <strong>on point</strong> (the boundary value that lies inside the domain and satisfies the predicate)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20</text><feedback><text>Correct — 20 satisfies x &lt;= 20 and sits exactly on the boundary.</text></feedback></answer>
+    <answer fraction="0"><text>21</text><feedback><text>21 fails x &lt;= 20; it is the off point just outside the domain.</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 satisfies the predicate but is an interior point, not on the boundary.</text></feedback></answer>
+    <answer fraction="0"><text>22</text><feedback><text>22 is an exterior point that fails the predicate, not the boundary value.</text></feedback></answer>
+    <generalfeedback><text>The on point is the value on the boundary that lies in the domain. For x &lt;= 20 the boundary value 20 satisfies the predicate, so 20 is the on point; 21 is the off point just outside.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off point of x &lt;= 10</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>x &lt;= 10</code>, which value is the <strong>off point</strong> (the nearest value just outside the domain, which fails the predicate)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>11</text><feedback><text>Correct — 11 is the nearest integer that fails x &lt;= 10.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 satisfies the predicate; it is the on point, not the off point.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 satisfies the predicate and is an interior point.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 fails the predicate but is one step too far to be the off point.</text></feedback></answer>
+    <generalfeedback><text>The off point is the nearest value on the other side of the boundary — just outside the domain. For x &lt;= 10 the on point is 10 and the off point is 11.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>On point of x &lt;= 46</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>x &lt;= 46</code>, which value is the <strong>on point</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>46</text><feedback><text>Correct — 46 sits on the boundary and satisfies x &lt;= 46.</text></feedback></answer>
+    <answer fraction="0"><text>47</text><feedback><text>47 fails the predicate; it is the off point just outside.</text></feedback></answer>
+    <answer fraction="0"><text>45</text><feedback><text>45 satisfies the predicate but is an interior point.</text></feedback></answer>
+    <answer fraction="0"><text>48</text><feedback><text>48 is an exterior point that fails the predicate.</text></feedback></answer>
+    <generalfeedback><text>For x &lt;= 46 the boundary value 46 lies in the domain, so it is the on point; 47 is the off point just outside.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off point of x &lt;= 37</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>x &lt;= 37</code>, which value is the <strong>off point</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>38</text><feedback><text>Correct — 38 is the nearest value that fails x &lt;= 37.</text></feedback></answer>
+    <answer fraction="0"><text>37</text><feedback><text>37 satisfies the predicate; it is the on point.</text></feedback></answer>
+    <answer fraction="0"><text>36</text><feedback><text>36 satisfies the predicate and is an interior point.</text></feedback></answer>
+    <answer fraction="0"><text>39</text><feedback><text>39 fails the predicate but is one step too far to be the off point.</text></feedback></answer>
+    <generalfeedback><text>For x &lt;= 37 the on point is 37 and the off point is the adjacent failing value 38.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>On point of x &lt;= 14</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>x &lt;= 14</code>, which value is the <strong>on point</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>14</text><feedback><text>Correct — 14 satisfies x &lt;= 14 and lies on the boundary.</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 fails the predicate; it is the off point.</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 satisfies the predicate but is an interior point.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 is an exterior point that fails the predicate.</text></feedback></answer>
+    <generalfeedback><text>For x &lt;= 14 the boundary value 14 is in the domain, so it is the on point; 15 is the off point just outside.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off point of x &lt;= 21</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>x &lt;= 21</code>, which value is the <strong>off point</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>22</text><feedback><text>Correct — 22 is the nearest value that fails x &lt;= 21.</text></feedback></answer>
+    <answer fraction="0"><text>21</text><feedback><text>21 satisfies the predicate; it is the on point.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 satisfies the predicate and is an interior point.</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 fails the predicate but is one step too far to be the off point.</text></feedback></answer>
+    <generalfeedback><text>For x &lt;= 21 the on point is 21 and the off point is the adjacent failing value 22.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which value is in an invalid class</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An input field accepts an integer in the valid range 1..100. Which of these values belongs to an <strong>invalid</strong> equivalence class?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0</text><feedback><text>Correct — 0 is below the minimum, so it falls in the "too small" invalid class.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 is the minimum accepted value, so it is in the valid class.</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 is inside 1..100, so it is a valid-class value.</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 is the maximum accepted value, so it is in the valid class.</text></feedback></answer>
+    <generalfeedback><text>The valid class is [1,100]; anything below 1 or above 100 is invalid. Only 0 lies outside the accepted range here.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>On point of age &gt;= 18</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A site admits users whose age satisfies <code>age &gt;= 18</code>. Which value is the <strong>on point</strong> of this boundary?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>18</text><feedback><text>Correct — 18 satisfies age &gt;= 18 and sits exactly on the boundary.</text></feedback></answer>
+    <answer fraction="0"><text>17</text><feedback><text>17 fails age &gt;= 18; it is the off point just outside the accepted domain.</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 satisfies the predicate but is an interior point, not the boundary.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 is an exterior point that fails the predicate.</text></feedback></answer>
+    <generalfeedback><text>For age &gt;= 18 the boundary value 18 lies in the accepted domain, so it is the on point; 17 is the off point just outside.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Largest integer satisfying a strict bound</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the strict predicate <code>x &lt; 50</code> over the integers, which value is the largest one that satisfies it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>49</text><feedback><text>Correct — with a strict &lt;, the largest satisfying integer is 49, not 50.</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 does not satisfy x &lt; 50 because the bound is strict.</text></feedback></answer>
+    <answer fraction="0"><text>48</text><feedback><text>48 satisfies the predicate but is not the largest such value.</text></feedback></answer>
+    <answer fraction="0"><text>51</text><feedback><text>51 is greater than 50, so it clearly fails the predicate.</text></feedback></answer>
+    <generalfeedback><text>A strict inequality excludes the bound itself: for x &lt; 50 the value 50 fails, so the largest satisfying integer is 49. This min/max +/-1 reasoning is exactly what BVA exercises.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing/medium</text></category>
   </question>
   <question type="multichoice">
     <name><text>Weak vs strong equivalence testing</text></name>
@@ -45,18 +165,293 @@
     <generalfeedback><text>Weak equivalence-class testing needs only enough tests so each individual class (per variable) is hit at least once. Strong equivalence-class testing requires the cross-product of all classes across all variables, giving combinatorially more test cases.</text></generalfeedback>
   </question>
   <question type="truefalse">
-    <name><text>Off-points on a closed boundary</text></name>
-    <questiontext format="html"><text><![CDATA[<p>For a closed boundary (the boundary value itself is included in the domain), the off-point lies just outside the domain.</p>]]></text></questiontext>
-    <answer fraction="100"><text>true</text><feedback><text>Correct — since the on-point (the boundary value) is already inside a closed domain, its neighboring off-point sits just past the edge, outside the domain.</text></feedback></answer>
-    <answer fraction="0"><text>false</text><feedback><text>For a closed boundary the on-point is inside the domain, so its paired off-point is the adjacent value just outside it.</text></feedback></answer>
-    <generalfeedback><text>A closed boundary includes the extreme value in the domain (the on-point). Its associated off-point is the nearest neighboring value on the other side of that edge — just outside the domain. (For an open boundary the roles swap: the on-point sits just outside and the off-point is the included extreme.)</text></generalfeedback>
+    <name><text>Off-point on a closed boundary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a closed boundary (the boundary value itself is included in the domain), the off point lies just outside the domain.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the on point (the included boundary value) is inside the domain, so its paired off point is the adjacent value just outside.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>For a closed boundary the on point is inside the domain, so its paired off point is the adjacent value just outside it.</text></feedback></answer>
+    <generalfeedback><text>Using the convention where the on point is the boundary value that lies in the domain (satisfies the predicate) and the off point is the nearest value just outside it: a closed boundary such as x &lt;= b puts the on point (b) inside the domain and the off point (b+1) just outside. For an open boundary such as a &lt; x, the smallest value inside the domain is a+1 (the on point) and the off point is the excluded boundary value a, still just outside the domain.</text></generalfeedback>
   </question>
-  <question type="shortanswer">
-    <name><text>Fault type targeted by BVA</text></name>
-    <questiontext format="html"><text><![CDATA[<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>]]></text></questiontext>
-    <usecase>0</usecase>
-    <answer fraction="100"><text>boundary*</text><feedback><text>Correct.</text></feedback></answer>
-    <answer fraction="100"><text>off-by-one*</text><feedback><text>Correct.</text></feedback></answer>
-    <generalfeedback><text>BVA targets boundary faults — the off-by-one style errors (e.g., using &lt; instead of &lt;=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.</text></generalfeedback>
+  <question type="multichoice">
+    <name><text>Five standard BVA values</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In standard (non-robust) Boundary Value Analysis, which five values are selected for a single variable with range [min, max]?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>min, min+1, a nominal value, max-1, max</text><feedback><text>Correct — the two boundaries, their inside neighbours, and one nominal value.</text></feedback></answer>
+    <answer fraction="0"><text>min-1, min, nominal, max, max+1</text><feedback><text>min-1 and max+1 are the robustness extensions, not part of standard BVA.</text></feedback></answer>
+    <answer fraction="0"><text>min, nominal, max</text><feedback><text>This drops the min+1 and max-1 inside-neighbour values that standard BVA includes.</text></feedback></answer>
+    <answer fraction="0"><text>min-1, min, min+1, max-1, max, max+1</text><feedback><text>That is the six-value robust set, not the five-value standard set.</text></feedback></answer>
+    <generalfeedback><text>Standard BVA selects min, min+1, a nominal (typical interior) value, max-1, and max. Robustness testing later adds min-1 and max+1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Standard BVA test count (n=3)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 3 input variables?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>13</text><feedback><text>Correct — 4×3 + 1 = 13.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>That is 4n; it forgets the single all-nominal test (+1).</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 does not match 4n+1 for n=3.</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 is the robust count 6n+1 for n=3, not the standard count.</text></feedback></answer>
+    <generalfeedback><text>Standard BVA varies one variable at a time through its 4 non-nominal boundary values while holding the others at nominal, plus one all-nominal test: 4n+1. For n=3 that is 13.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What robustness testing adds</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Robustness testing extends standard BVA by adding which extra values for each variable?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>min-1 and max+1 (values just outside the valid range)</text><feedback><text>Correct — robustness testing probes just beyond both boundaries.</text></feedback></answer>
+    <answer fraction="0"><text>min+1 and max-1 (values just inside the valid range)</text><feedback><text>Those inside-neighbour values are already part of standard BVA.</text></feedback></answer>
+    <answer fraction="0"><text>Two additional nominal values</text><feedback><text>Robustness testing adds out-of-range values, not more nominal ones.</text></feedback></answer>
+    <answer fraction="0"><text>The midpoint and the mean of the range</text><feedback><text>Robustness testing is about out-of-range inputs, not central statistics.</text></feedback></answer>
+    <generalfeedback><text>Robustness testing adds min-1 and max+1 to see how the program handles inputs just outside the valid range, giving seven values per variable and the 6n+1 count.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Robust BVA test count (n=2)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using the robust 6n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>13</text><feedback><text>Correct — 6×2 + 1 = 13.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>That is 6n; it forgets the single all-nominal test (+1).</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the standard count 4n+1 for n=2, not the robust count.</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 does not match 6n+1 for n=2.</text></feedback></answer>
+    <generalfeedback><text>Robust BVA uses 6 non-nominal values per variable (adding min-1 and max+1) varied one at a time, plus one all-nominal test: 6n+1. For n=2 that is 13.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>On point of an open lower boundary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>19 &lt; x &lt;= 25</code>, which value is the <strong>on point at the lower boundary</strong> (the smallest value that lies inside the domain)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20</text><feedback><text>Correct — with a strict lower bound, 20 is the smallest value that satisfies 19 &lt; x.</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 fails 19 &lt; x; it is the off point just outside the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>21</text><feedback><text>21 satisfies the predicate but is an interior point, not on the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>26</text><feedback><text>26 fails the upper bound; it is an off point at the upper boundary.</text></feedback></answer>
+    <generalfeedback><text>For an open (strict) lower boundary 19 &lt; x, the value 19 is excluded, so the on point inside the domain is 20 and the off point just outside is 19.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off point of an open lower boundary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>27 &lt; x &lt;= 30</code>, which value is the <strong>off point at the lower boundary</strong> (the nearest value just outside the domain)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>27</text><feedback><text>Correct — 27 is excluded by the strict &lt;, so it is the off point just outside the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>28</text><feedback><text>28 satisfies 27 &lt; x; it is the on point at the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 satisfies the predicate; it is the on point at the upper boundary.</text></feedback></answer>
+    <answer fraction="0"><text>29</text><feedback><text>29 is an interior point that satisfies the predicate.</text></feedback></answer>
+    <generalfeedback><text>For the open lower boundary 27 &lt; x, the smallest value inside the domain is 28 (the on point) and the excluded boundary value 27 is the off point just outside.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>On point of a closed interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>24 &lt;= x &lt;= 41</code>, which value is the <strong>on point at the lower boundary</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>24</text><feedback><text>Correct — 24 satisfies 24 &lt;= x and sits on the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 fails the predicate; it is the off point just outside the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>42</text><feedback><text>42 fails the upper bound; it is the off point at the upper boundary.</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 satisfies the predicate but is an interior point.</text></feedback></answer>
+    <generalfeedback><text>For the closed interval [24,41] the lower boundary value 24 is included, so it is the on point; 23 is the off point just outside.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off point of a closed interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>11 &lt;= x &lt;= 29</code>, which value is the <strong>off point at the lower boundary</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>Correct — 10 is the nearest value below the included minimum 11, just outside the domain.</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>11 satisfies the predicate; it is the on point at the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>29</text><feedback><text>29 satisfies the predicate; it is the on point at the upper boundary.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 is an interior point that satisfies the predicate.</text></feedback></answer>
+    <generalfeedback><text>For the closed interval [11,29] the on point at the lower boundary is 11 and the off point just outside is 10.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>On/off points for an open interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the strict predicate <code>x &gt; 5</code>, which pair correctly gives the on point and off point at that boundary?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>On point 6, off point 5</text><feedback><text>Correct — 6 is the smallest value inside the domain; 5 is excluded and lies just outside.</text></feedback></answer>
+    <answer fraction="0"><text>On point 5, off point 6</text><feedback><text>5 fails x &gt; 5, so it cannot be the on point (the value inside the domain).</text></feedback></answer>
+    <answer fraction="0"><text>On point 5, off point 4</text><feedback><text>Both 5 and 4 fail the predicate; neither is inside the domain.</text></feedback></answer>
+    <answer fraction="0"><text>On point 7, off point 6</text><feedback><text>7 satisfies the predicate but is interior, and 6 also satisfies it, so neither is an off point.</text></feedback></answer>
+    <generalfeedback><text>For an open boundary x &gt; 5, the boundary value 5 is excluded, so the on point (nearest value inside the domain) is 6 and the off point (nearest value outside) is 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Single-fault assumption behind 4n+1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does standard BVA vary only one variable at a time (holding the others at nominal), giving 4n+1 tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It assumes the single-fault hypothesis — failures are usually caused by one variable at an extreme, not several simultaneously</text><feedback><text>Correct — that assumption is what keeps the count linear in n.</text></feedback></answer>
+    <answer fraction="0"><text>It assumes variables are always independent and never interact at all</text><feedback><text>BVA does not claim variables never interact; it just bets that single-variable extremes catch most boundary faults.</text></feedback></answer>
+    <answer fraction="0"><text>It assumes the program has exactly one input variable</text><feedback><text>The 4n+1 formula is explicitly for n variables, not one.</text></feedback></answer>
+    <answer fraction="0"><text>It assumes all boundary values are equally likely to be entered</text><feedback><text>Likelihood of entry is not the basis; the single-fault hypothesis is.</text></feedback></answer>
+    <generalfeedback><text>Standard BVA rests on the single-fault (critical-fault) assumption: most failures stem from one variable at a boundary while the rest sit at nominal. Worst-case testing drops this assumption and combines boundaries, which is far more expensive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Standard BVA test count (n=2)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — 4×2 + 1 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>That is 4n; it forgets the single all-nominal test (+1).</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 is the robust count 6n+1 for n=2, not the standard count.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the standard count for a single variable (n=1), not two.</text></feedback></answer>
+    <generalfeedback><text>Standard BVA needs 4n+1 tests; for n=2 that is 4×2 + 1 = 9.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off point at an upper boundary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>5 &lt;= x &lt;= 17</code>, which value is the <strong>off point at the upper boundary</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>18</text><feedback><text>Correct — 18 is the nearest value above the included maximum 17, just outside the domain.</text></feedback></answer>
+    <answer fraction="0"><text>17</text><feedback><text>17 satisfies the predicate; it is the on point at the upper boundary.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 satisfies the predicate and is an interior point.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the off point at the lower boundary, not the upper one.</text></feedback></answer>
+    <generalfeedback><text>For the closed interval [5,17] the upper on point is 17 and the off point just outside the upper boundary is 18.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Values per variable in robustness testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many distinct test values does robustness testing exercise for a single variable with range [min, max]?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — min-1, min, min+1, nominal, max-1, max, max+1.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the standard BVA count; robustness adds min-1 and max+1, giving 7.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 forgets one value: the robust set has seven (two boundaries, two inside neighbours, two outside neighbours, and one nominal).</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the standard BVA test count for two variables (4n+1), not values for one variable.</text></feedback></answer>
+    <generalfeedback><text>Robustness testing uses seven values per variable — the five standard BVA values plus min-1 and max+1 — which is why the robust test count is 6n+1.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Worst-case boundary test count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Worst-case boundary testing takes the Cartesian product of each variable's five boundary values. For a function with 2 input variables, how many test cases does it produce?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>25</text><feedback><text>Correct — 5^2 = 25, the full product of the five values per variable.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 is 5×n; worst-case testing multiplies the value sets (5^n), it does not add them.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the standard single-fault count 4n+1 for n=2, not the worst-case count.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 does not match 5^n for n=2.</text></feedback></answer>
+    <generalfeedback><text>Worst-case boundary testing drops the single-fault assumption and combines every variable's boundary values: 5^n tests. For n=2 that is 5^2 = 25.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Robust worst-case test count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Robust worst-case boundary testing uses each variable's seven values (adding min-1 and max+1) in full combination. For 2 variables, how many test cases result?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>49</text><feedback><text>Correct — 7^2 = 49.</text></feedback></answer>
+    <answer fraction="0"><text>25</text><feedback><text>25 is 5^2, the non-robust worst-case count.</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 is 7×n; robust worst-case multiplies the value sets (7^n).</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 is the robust single-fault count 6n+1 for n=2, not the worst-case count.</text></feedback></answer>
+    <generalfeedback><text>Robust worst-case testing combines all seven robust values per variable: 7^n. For n=2 that is 7^2 = 49.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Worst-case vs standard BVA</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does worst-case boundary testing differ fundamentally from standard (4n+1) BVA?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It abandons the single-fault assumption and combines the boundary values of all variables, growing exponentially (5^n)</text><feedback><text>Correct — combinations replace one-at-a-time variation.</text></feedback></answer>
+    <answer fraction="0"><text>It uses fewer values per variable but more variables</text><feedback><text>It uses the same values per variable; the difference is combining them across variables.</text></feedback></answer>
+    <answer fraction="0"><text>It tests only nominal values, never boundaries</text><feedback><text>Worst-case testing is entirely about combining boundary values, not avoiding them.</text></feedback></answer>
+    <answer fraction="0"><text>It is always cheaper than standard BVA</text><feedback><text>It is far more expensive: 5^n grows exponentially versus the linear 4n+1.</text></feedback></answer>
+    <generalfeedback><text>Standard BVA varies one variable at a time (single-fault assumption), giving 4n+1 tests. Worst-case testing combines every variable's boundary values, giving 5^n tests — exhaustive over boundaries but exponentially costly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Characteristic in input-space partitioning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Ammann &amp; Offutt's Input Space Partitioning (ISP), what is a <strong>characteristic</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A feature of the input domain that is used to partition the domain into blocks</text><feedback><text>Correct — each characteristic induces one partition of the input domain.</text></feedback></answer>
+    <answer fraction="0"><text>A single concrete test input value</text><feedback><text>That is a test value; a characteristic is the dimension along which values are partitioned.</text></feedback></answer>
+    <answer fraction="0"><text>The expected output of the program</text><feedback><text>That is an oracle, not an ISP characteristic.</text></feedback></answer>
+    <answer fraction="0"><text>A line of source code under test</text><feedback><text>ISP is black-box; a characteristic describes the input domain, not code.</text></feedback></answer>
+    <generalfeedback><text>In ISP each characteristic partitions the input domain into blocks (for example "sign of x: negative / zero / positive"). Choosing good characteristics is the key design step.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Blocks of a partition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The blocks a characteristic splits the input domain into must satisfy which property?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They must be complete (cover the whole domain) and disjoint (no value in two blocks)</text><feedback><text>Correct — completeness plus disjointness is exactly what makes the blocks a partition.</text></feedback></answer>
+    <answer fraction="0"><text>They must overlap so every value appears in at least two blocks</text><feedback><text>Overlap violates disjointness; blocks of a partition are mutually exclusive.</text></feedback></answer>
+    <answer fraction="0"><text>They must all contain the same number of values</text><feedback><text>Blocks need not be equal in size; they need only be complete and disjoint.</text></feedback></answer>
+    <answer fraction="0"><text>There must be exactly two blocks per characteristic</text><feedback><text>A characteristic may have any number of blocks, as long as they partition the domain.</text></feedback></answer>
+    <generalfeedback><text>For each characteristic the blocks must form a partition of the domain: complete (their union is the whole domain) and disjoint (mutually exclusive). Otherwise a value could be unclassifiable or ambiguous.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All Combinations Coverage count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 3, 2, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>Correct — 3 × 2 × 2 = 12, the product of the block counts.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the sum 3+2+2; ACoC multiplies the block counts.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 does not match the product of the block counts.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 ignores one characteristic; the product over all three is 12.</text></feedback></answer>
+    <generalfeedback><text>ACoC requires every combination of blocks across all characteristics, so the count is the product of the block counts: 3 × 2 × 2 = 12.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Each Choice Coverage count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 3, 2, and 4 blocks. What is the minimum number of tests needed for Each Choice Coverage (ECC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — ECC needs at least as many tests as the largest number of blocks in any one characteristic (here 4).</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the sum of the block counts; ECC can reuse blocks across characteristics in the same test.</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 is the product (All Combinations), far more than ECC requires.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is not enough to cover the characteristic that has 4 blocks.</text></feedback></answer>
+    <generalfeedback><text>ECC requires each block of each characteristic to appear in at least one test. Because a single test picks one block from every characteristic, the minimum number of tests equals the largest block count — here max(3,2,4) = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Base Choice Coverage count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 1 base test + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the sum of the block counts; BCC counts one base test plus the non-base blocks.</text></feedback></answer>
+    <answer fraction="0"><text>18</text><feedback><text>18 is the product (All Combinations), not the Base Choice count.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 forgets the +1 base test: the total is 1 + sum of (blocks-1).</text></feedback></answer>
+    <generalfeedback><text>BCC picks one base choice per characteristic (the base test), then varies one characteristic at a time through its remaining blocks: 1 + Σ(B_i - 1) = 1 + 2 + 2 + 1 = 6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pair-Wise Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does Pair-Wise Coverage (PWC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every pair of blocks from each pair of characteristics must appear together in at least one test</text><feedback><text>Correct — PWC covers all two-way block interactions.</text></feedback></answer>
+    <answer fraction="0"><text>Every combination of blocks across all characteristics must appear</text><feedback><text>That is All Combinations Coverage; PWC only requires pairs.</text></feedback></answer>
+    <answer fraction="0"><text>Each block of each characteristic must appear once, with no interaction requirement</text><feedback><text>That is Each Choice Coverage, which is weaker than PWC.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly two tests per characteristic must be run</text><feedback><text>PWC constrains block pairings, not a fixed number of tests per characteristic.</text></feedback></answer>
+    <generalfeedback><text>PWC (2-wise) requires that for every two characteristics, every pair of their blocks is covered together in some test. It catches two-way interaction faults without the full ACoC explosion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pair-Wise Coverage lower bound</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 3, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — at least the product of the two largest block counts, 3 × 3 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>18</text><feedback><text>18 is the full All Combinations product; PWC needs far fewer than that.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 (the largest single block count) satisfies Each Choice, not Pair-Wise.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is below the pairwise lower bound of 3 × 3 = 9.</text></feedback></answer>
+    <generalfeedback><text>To cover every pair from the two 3-block characteristics you already need all 3 × 3 = 9 of their combinations, so any PWC test set has at least 9 tests — the product of the two largest block counts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Strongest ISP criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among ACoC, ECC, PWC, and BCC, which criterion subsumes all of the others?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All Combinations Coverage (ACoC)</text><feedback><text>Correct — covering every block combination covers every pair, every base variation, and every choice.</text></feedback></answer>
+    <answer fraction="0"><text>Each Choice Coverage (ECC)</text><feedback><text>ECC is the weakest of the four; it is subsumed by the others.</text></feedback></answer>
+    <answer fraction="0"><text>Pair-Wise Coverage (PWC)</text><feedback><text>PWC subsumes ECC but not ACoC or (in general) BCC.</text></feedback></answer>
+    <answer fraction="0"><text>Base Choice Coverage (BCC)</text><feedback><text>BCC subsumes ECC but is itself subsumed by ACoC.</text></feedback></answer>
+    <generalfeedback><text>ACoC requires every combination of blocks, so it necessarily satisfies pair coverage, base-choice variation, and each-choice — it sits at the top of the ISP subsumption hierarchy (and is usually the most expensive).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ISP subsumption chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which subsumption chain among the ISP criteria is correct (each criterion subsumes the next)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>MBCC → BCC → ECC</text><feedback><text>Correct — Multiple Base Choice subsumes Base Choice, which subsumes Each Choice.</text></feedback></answer>
+    <answer fraction="0"><text>ECC → BCC → MBCC</text><feedback><text>This reverses the direction; ECC is the weakest, so it cannot subsume the others.</text></feedback></answer>
+    <answer fraction="0"><text>BCC → MBCC → ECC</text><feedback><text>MBCC subsumes BCC, not the other way around.</text></feedback></answer>
+    <answer fraction="0"><text>ECC → PWC → BCC</text><feedback><text>ECC does not subsume PWC, and PWC does not subsume BCC (they are incomparable).</text></feedback></answer>
+    <generalfeedback><text>Multiple Base Choice Coverage subsumes Base Choice Coverage, which subsumes Each Choice Coverage. Note that BCC and PWC are incomparable — neither subsumes the other.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Base choice in BCC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Base Choice Coverage, how is the test set constructed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Pick one base block per characteristic to form a base test, then vary one characteristic at a time through its other blocks</text><feedback><text>Correct — that yields 1 + Σ(blocks-1) tests.</text></feedback></answer>
+    <answer fraction="0"><text>Combine every block of every characteristic with every other</text><feedback><text>That is All Combinations Coverage, not Base Choice.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly select one block per characteristic for each test</text><feedback><text>BCC is systematic: a fixed base test plus one-at-a-time variations, not random selection.</text></feedback></answer>
+    <answer fraction="0"><text>Use only the base test and nothing else</text><feedback><text>The base test alone does not exercise the non-base blocks; each must be varied in.</text></feedback></answer>
+    <generalfeedback><text>BCC designates a base choice (e.g. the most common or important block) per characteristic, runs that base test, then changes one characteristic at a time to each of its non-base blocks while the rest stay at their base values.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combining equivalence and boundary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How are equivalence partitioning and boundary value analysis usually combined in practice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Partition the domain into equivalence classes, then add boundary values at the edges of each class</text><feedback><text>Correct — partitioning finds the classes; BVA hardens the tests at their edges.</text></feedback></answer>
+    <answer fraction="0"><text>Replace equivalence classes entirely with random boundary values</text><feedback><text>The two are complementary; BVA supplements, not replaces, partitioning.</text></feedback></answer>
+    <answer fraction="0"><text>Use boundary values only for the invalid classes and ignore valid ones</text><feedback><text>Boundaries of valid classes are tested too; that is where most off-by-one faults live.</text></feedback></answer>
+    <answer fraction="0"><text>Test only the midpoint of each equivalence class</text><feedback><text>That is plain equivalence partitioning without BVA; it misses boundary faults.</text></feedback></answer>
+    <generalfeedback><text>The standard practice is to derive equivalence classes first, take one nominal representative from each, then apply BVA at the boundaries between classes — combining broad coverage with edge sensitivity.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off point of a compound predicate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider the compound predicate <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>. Which single value is an <strong>off point</strong> of this predicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>21</text><feedback><text>Correct — 21 fails the upper clause and lies just outside the domain, so it is an off point.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 satisfies both clauses; it is the on point at the lower boundary.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 satisfies both clauses; it is the on point at the upper boundary.</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 satisfies the predicate and is an interior point.</text></feedback></answer>
+    <generalfeedback><text>The conjunction is equivalent to the closed interval [10,20]. Its on points are 10 and 20; the off points just outside are 9 and 21. Of the choices, only 21 is an off point.</text></generalfeedback>
   </question>
 </quiz>
