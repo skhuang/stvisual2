@@ -5,7 +5,7 @@ import { t as tApp, getLocale } from '../i18n/index.js';
 import { QUIZ_RENDERED } from '../data/quizRendered.js';
 import { gradeQuestion } from '../utils/quizGrade.js';
 import { QuizAttempts } from '../utils/quizAttempts.js';
-import { pickDeck, mixSeed } from '../utils/quizDeck.js';
+import { pickDeck, mixSeed, difficultyReady } from '../utils/quizDeck.js';
 
 let overlay = null, body = null, titleEl = null, langToggle = null, lastFocus = null;
 let st = null;
@@ -147,7 +147,7 @@ function renderStart() {
   const recent = QuizAttempts.recentFor(localStorage, st.quizId, 10, st.difficulty);
   const legacy = QuizAttempts.recentFor(localStorage, st.quizId, 10); // old flat key
   const count = bucketCount(st.difficulty);
-  const ready = count >= 15 || (st.difficulty !== 'mixed' && count > 0);
+  const ready = difficultyReady(QUIZ_RENDERED, st.quizId, st.lang, st.difficulty, st.difficulty === 'mixed' ? 0 : undefined);
   body.innerHTML =
     `<div class="quiz-start">
       <div class="quiz-diff" role="radiogroup" aria-label="${esc(t('quiz.difficulty', 'Difficulty'))}" data-testid="quiz-diff">

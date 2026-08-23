@@ -29,3 +29,10 @@ export function pickDeck(rendered, id, lang, difficulty, seed) {
   }
   return out.length === 15 ? out : [];
 }
+
+// A difficulty is "ready" (Begin shown) when its deck can be built:
+// mixed needs a full 15 (5/5/5); a fixed level needs at least one question.
+export function difficultyReady(rendered, id, lang, difficulty, seed) {
+  const n = pickDeck(rendered, id, lang, difficulty, seed).length;
+  return difficulty === 'mixed' ? n >= 15 : n > 0;
+}

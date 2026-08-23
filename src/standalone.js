@@ -58421,6 +58421,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     }
     return out.length === 15 ? out : [];
   }
+  function difficultyReady(rendered, id, lang2, difficulty, seed) {
+    const n = pickDeck(rendered, id, lang2, difficulty, seed).length;
+    return difficulty === "mixed" ? n >= 15 : n > 0;
+  }
 
   // src/components/QuizViewer.js
   var overlay2 = null;
@@ -58600,7 +58604,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const recent = QuizAttempts.recentFor(localStorage, st.quizId, 10, st.difficulty);
     const legacy = QuizAttempts.recentFor(localStorage, st.quizId, 10);
     const count = bucketCount(st.difficulty);
-    const ready = count >= 15 || st.difficulty !== "mixed" && count > 0;
+    const ready = difficultyReady(QUIZ_RENDERED, st.quizId, st.lang, st.difficulty, st.difficulty === "mixed" ? 0 : void 0);
     body.innerHTML = `<div class="quiz-start">
       <div class="quiz-diff" role="radiogroup" aria-label="${esc23(t2("quiz.difficulty", "Difficulty"))}" data-testid="quiz-diff">
         ${diffs.map((d) => `<label class="quiz-diff-opt"><input type="radio" name="qdiff" value="${d}"${st.difficulty === d ? " checked" : ""}> ${esc23(t2("quiz.diff." + d, d))}</label>`).join("")}

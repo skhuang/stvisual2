@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { pickDeck } from '../utils/quizDeck.js';
+import { pickDeck, difficultyReady } from '../utils/quizDeck.js';
 
 const bucket = (lang, lv) => Array.from({ length: 15 }, (_, i) => ({ name: `${lang}-${lv}-${i}`, type: 'multichoice', answers: [] }));
 const rendered = {
@@ -38,5 +38,26 @@ describe('pickDeck', () => {
     const partial = { t: { en: { easy: bucket('en', 'easy') }, zh: { easy: bucket('zh', 'easy') } } };
     expect(pickDeck(partial, 't', 'en', 'mixed', 1)).toEqual([]);
     expect(pickDeck(partial, 't', 'en', 'hard')).toEqual([]);
+  });
+});
+
+describe('difficultyReady', () => {
+  it('is false for a fixed level with 0 questions', () => {
+    const empty = { t: { en: { easy: [] }, zh: { easy: [] } } };
+    expect(difficultyReady(empty, 't', 'en', 'easy')).toBe(false);
+  });
+
+  it('is true for a fixed level with at least 1 question', () => {
+    const oneQ = { t: { en: { easy: bucket('en', 'easy').slice(0, 1) }, zh: { easy: bucket('zh', 'easy').slice(0, 1) } } };
+    expect(difficultyReady(oneQ, 't', 'en', 'easy')).toBe(true);
+  });
+
+  it('is true for mixed when every level has >= 5 (pickDeck returns 15)', () => {
+    expect(difficultyReady(rendered, 't', 'en', 'mixed', 0)).toBe(true);
+  });
+
+  it('is false for mixed when a level is empty (pickDeck returns [])', () => {
+    const partial = { t: { en: { easy: bucket('en', 'easy') }, zh: { easy: bucket('zh', 'easy') } } };
+    expect(difficultyReady(partial, 't', 'en', 'mixed', 1)).toBe(false);
   });
 });

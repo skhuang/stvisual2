@@ -99,6 +99,6 @@ describe('quiz validate', () => {
 
   it('throws (even without strict) when en/zh share a level but lengths differ', () => {
     const r = { t: { en: { easy: bucket(15) }, zh: { easy: bucket(14) } } };
-    expect(() => validate(r, { strict: false })).toThrow(/t.*easy|easy.*t/i);
+    expect(() => validate(r, { strict: false })).toThrow(/en\/zh length mismatch/i);
   });
 });
