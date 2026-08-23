@@ -53,3 +53,21 @@ test('shared quizId: equivalence-class opens boundary-value-equivalence bank', a
   await page.getByTestId('unit-quiz-btn').click();
   await expect(page.getByTestId('quiz-begin')).toBeVisible();
 });
+
+test('difficulty selector: easy is default and begins a quiz', async ({ page }) => {
+  await page.goto('/?explorer=graph-coverage');
+  await page.getByTestId('unit-quiz-btn').click();
+  await expect(page.getByTestId('quiz-diff')).toBeVisible();
+  await expect(page.locator('input[name="qdiff"][value="easy"]')).toBeChecked();
+  await expect(page.getByTestId('quiz-begin')).toBeVisible();
+  await page.getByTestId('quiz-begin').click();
+  await expect(page.getByTestId('quiz-q')).toBeVisible();
+});
+
+test('difficulty selector: empty bucket shows coming-soon and hides begin', async ({ page }) => {
+  await page.goto('/?explorer=graph-coverage');
+  await page.getByTestId('unit-quiz-btn').click();
+  await page.locator('input[name="qdiff"][value="medium"]').check();
+  await expect(page.getByTestId('quiz-comingsoon')).toBeVisible();
+  await expect(page.getByTestId('quiz-begin')).toHaveCount(0);
+});
