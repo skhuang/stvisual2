@@ -260,7 +260,7 @@ function renderSummary() {
 }
 
 function resume(a) {
-  const qs = deckFor(st.quizId, a.lang, a.difficulty, a.seed);
+  const qs = deckFor(st.quizId, a.lang, a.difficulty ?? st.difficulty, a.seed);
   const given = a.given || [];
   if (!qs.length || given.length !== qs.length) return; // stale — ignore
   st = { quizId: st.quizId, id: a.id, status: 'in-progress', lang: a.lang, mode: a.mode,
@@ -273,7 +273,7 @@ function resume(a) {
 }
 
 function review(a) {
-  const qs = deckFor(st.quizId, a.lang, a.difficulty, a.seed);
+  const qs = deckFor(st.quizId, a.lang, a.difficulty ?? st.difficulty, a.seed);
   st = { quizId: st.quizId, id: a.id, status: 'completed', lang: a.lang, mode: a.mode,
     difficulty: a.difficulty, seed: a.seed,
     questions: qs, idx: 0, given: [...(a.given || [])], checked: [...(a.checked || [])],
