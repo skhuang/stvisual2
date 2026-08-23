@@ -46163,6 +46163,381 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
+            "name": "Test path definition",
+            "text": "<p>In graph-based testing, a <strong>test path</strong> is a path that:</p>",
+            "answers": [
+              {
+                "text": "Starts at an initial node and ends at a final node of the graph",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test path represents one complete execution from entry to exit."
+              },
+              {
+                "text": "Visits every node of the graph exactly once",
+                "fraction": 0,
+                "feedback": "That is a Hamiltonian path, not a test path."
+              },
+              {
+                "text": "Is any single edge of the graph",
+                "fraction": 0,
+                "feedback": "A single edge is a path of length 1, but a test path must run from an initial to a final node."
+              },
+              {
+                "text": "Never repeats any node",
+                "fraction": 0,
+                "feedback": "A test path may repeat nodes (e.g. loop iterations); only simple paths forbid repeats."
+              }
+            ],
+            "generalFeedback": "A test path is a path from an initial node to a final node; running a test case executes exactly one test path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Statement coverage maps to",
+            "text": "<p>Classic <strong>statement coverage</strong> corresponds to which graph-coverage criterion on the control-flow graph?</p>",
+            "answers": [
+              {
+                "text": "Node Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 executing every statement means visiting every node."
+              },
+              {
+                "text": "Edge Coverage",
+                "fraction": 0,
+                "feedback": "Edge coverage corresponds to branch coverage, which is stronger."
+              },
+              {
+                "text": "Prime Path Coverage",
+                "fraction": 0,
+                "feedback": "Prime path coverage is much stronger than statement coverage."
+              },
+              {
+                "text": "Complete Path Coverage",
+                "fraction": 0,
+                "feedback": "Complete path coverage is generally infeasible and far stronger."
+              }
+            ],
+            "generalFeedback": "Nodes model basic blocks/statements, so statement coverage is exactly node coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage maps to",
+            "text": "<p>Classic <strong>branch coverage</strong> corresponds to which graph-coverage criterion?</p>",
+            "answers": [
+              {
+                "text": "Edge Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every branch outcome is an edge that must be traversed."
+              },
+              {
+                "text": "Node Coverage",
+                "fraction": 0,
+                "feedback": "Node coverage corresponds to statement coverage, which is weaker."
+              },
+              {
+                "text": "Edge-Pair Coverage",
+                "fraction": 0,
+                "feedback": "Edge-pair coverage requires paths of length up to 2, which is stronger than branch coverage."
+              },
+              {
+                "text": "All-Uses Coverage",
+                "fraction": 0,
+                "feedback": "All-uses is a data-flow criterion, not the same as branch coverage."
+              }
+            ],
+            "generalFeedback": "Each decision outcome is an outgoing edge, so branch coverage is exactly edge coverage.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Edge subsumes node",
+            "text": "<p>On any graph, a test set that satisfies Edge Coverage also satisfies Node Coverage.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 traversing every edge visits every node that has an incident edge."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Edge coverage subsumes node coverage: covering all edges necessarily visits all reachable nodes."
+              }
+            ],
+            "generalFeedback": "Edge Coverage subsumes Node Coverage; the converse does not hold."
+          },
+          {
+            "type": "truefalse",
+            "name": "Complete path coverage feasibility",
+            "text": "<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a loop yields infinitely many paths."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied."
+              }
+            ],
+            "generalFeedback": "A loop lets a path revisit the same node arbitrarily many times, so the set of complete test paths is unbounded \u2014 Complete Path Coverage can never be finitely satisfied whenever the graph has a loop."
+          },
+          {
+            "type": "multichoice",
+            "name": "Simple path definition",
+            "text": "<p>A <strong>simple path</strong> is a path in which:</p>",
+            "answers": [
+              {
+                "text": "No node appears more than once, except that the first and last nodes may be the same",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this allows a loop to close but forbids all other repeats."
+              },
+              {
+                "text": "No node ever repeats under any circumstances",
+                "fraction": 0,
+                "feedback": "Simple paths may begin and end at the same node (a round trip)."
+              },
+              {
+                "text": "Every node of the graph is visited",
+                "fraction": 0,
+                "feedback": "That describes a spanning path, not a simple path."
+              },
+              {
+                "text": "Every edge is used at most once",
+                "fraction": 0,
+                "feedback": "That is a trail; simple paths constrain node repeats, not edge repeats."
+              }
+            ],
+            "generalFeedback": "A simple path has no repeated nodes, with the single exception that the first and last node may coincide.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Node coverage and branches",
+            "text": "<p>Satisfying Node Coverage guarantees that every branch (decision outcome) has been exercised.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 node coverage can be met while an edge (branch outcome) is never taken."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Node coverage only requires visiting nodes; an untaken branch can still leave every node visited via other paths."
+              }
+            ],
+            "generalFeedback": "Node coverage does not imply edge coverage, so some branch outcomes may go untested."
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge count A",
+            "text": "<p>A control-flow graph on nodes 1..4 has directed edges <code>1\u21922, 2\u21923, 3\u21924, 2\u21924</code>. How many directed edges does it have?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the edge list contains exactly four edges."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are four edges listed."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are only four edges listed."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are only four edges listed."
+              }
+            ],
+            "generalFeedback": "Edge Coverage needs one test requirement per edge; here that is 4 edges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge count B",
+            "text": "<p>A control-flow graph on nodes 1..5 has directed edges <code>1\u21922, 2\u21923, 3\u21924, 4\u21925, 2\u21925</code>. How many directed edges does it have?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 five edges are listed."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are five edges listed."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are only five edges listed."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are only five edges listed."
+              }
+            ],
+            "generalFeedback": "Count each directed edge once; the list is the complete edge set.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Node coverage requirements",
+            "text": "<p>A control-flow graph has nodes 1..5 and edges <code>1\u21922, 2\u21923, 2\u21924, 3\u21925, 4\u21925</code>. How many test requirements does Node Coverage impose?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one requirement per node, and there are 5 nodes."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Node coverage counts nodes (5), not edges."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "That counts branch points, not all nodes."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "Node coverage has one requirement per node, so 5, not the number of node pairs."
+              }
+            ],
+            "generalFeedback": "Node Coverage requires visiting each node, so the number of requirements equals the number of nodes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge-pair count A",
+            "text": "<p>A graph has edges <code>1\u21922, 2\u21923, 2\u21924</code>. How many length-2 paths u\u2192v\u2192w (pairs of edges sharing a middle node v) exist?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21923 and 1\u21922\u21924."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "There are two: 1\u21922\u21923 and 1\u21922\u21924."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only edges sharing a middle node count; there are two such pairs."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "Node 2 is the middle of two length-2 paths."
+              }
+            ],
+            "generalFeedback": "For each edge u\u2192v, count each edge v\u2192w; here node 2 feeds two outgoing edges, giving 2 length-2 paths.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge-pair count B",
+            "text": "<p>A graph has edges <code>1\u21922, 2\u21923, 3\u21924, 2\u21924</code>. How many length-2 paths u\u2192v\u2192w exist?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21923, 1\u21922\u21924, and 2\u21923\u21924."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "There are three: 1\u21922\u21923, 1\u21922\u21924, 2\u21923\u21924."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount \u2014 only three edge pairs share a middle node."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Nodes 2 and 3 each serve as a middle node, giving three pairs total."
+              }
+            ],
+            "generalFeedback": "Middle node 2 gives 1\u21922\u21923 and 1\u21922\u21924; middle node 3 gives 2\u21923\u21924; total 3.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge coverage requirements",
+            "text": "<p>A control-flow graph has edges <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>. How many test requirements does Edge Coverage impose?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one requirement per edge, and there are 4 edges."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Edge coverage counts edges (4), not nodes."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "That counts the number of complete paths, not edges."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "There are only 4 edges to cover."
+              }
+            ],
+            "generalFeedback": "Edge Coverage requires traversing each edge, so the number of requirements equals the number of edges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Weakest structural criterion",
+            "text": "<p>Which of the following structural criteria is the <strong>weakest</strong> (least demanding)?</p>",
+            "answers": [
+              {
+                "text": "Node Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 node coverage is subsumed by all the others."
+              },
+              {
+                "text": "Edge Coverage",
+                "fraction": 0,
+                "feedback": "Edge coverage subsumes node coverage, so it is stronger."
+              },
+              {
+                "text": "Edge-Pair Coverage",
+                "fraction": 0,
+                "feedback": "Edge-pair coverage subsumes edge and node coverage."
+              },
+              {
+                "text": "Prime Path Coverage",
+                "fraction": 0,
+                "feedback": "Prime path coverage is one of the strongest structural criteria."
+              }
+            ],
+            "generalFeedback": "The structural chain is Prime Path \u2192 Edge-Pair \u2192 Edge \u2192 Node, so Node Coverage is the weakest.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
             "name": "Prime path definition",
             "text": "<p>A prime path is a simple path that:</p>",
             "answers": [
@@ -46192,7 +46567,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
-            "name": "Subsumption",
+            "name": "Subsumption of edge coverage",
             "text": "<p>Which criterion subsumes Edge Coverage on a graph with at least one edge?</p>",
             "answers": [
               {
@@ -46249,24 +46624,6 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "single": true
           },
           {
-            "type": "truefalse",
-            "name": "Complete path coverage feasibility",
-            "text": "<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>",
-            "answers": [
-              {
-                "text": "true",
-                "fraction": 100,
-                "feedback": "Correct \u2014 a loop yields infinitely many paths."
-              },
-              {
-                "text": "false",
-                "fraction": 0,
-                "feedback": "Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied."
-              }
-            ],
-            "generalFeedback": "A loop lets a path revisit the same node arbitrarily many times, so the set of simple-to-complete test paths is unbounded \u2014 Complete Path Coverage can never be finitely satisfied whenever the graph has a loop."
-          },
-          {
             "type": "shortanswer",
             "name": "Set-cover reduction",
             "text": "<p>stvisual reduces the selected test-path set with a greedy approximation of which classic problem? (two words)</p>",
@@ -46284,6 +46641,718 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             ],
             "generalFeedback": "Choosing a minimal set of test paths covering all requirements is the (NP-hard) set-cover problem; the tool uses the greedy approximation.",
             "usecase": false
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify a prime path",
+            "text": "<p>A CFG has edges <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code> (node 1 initial, node 4 final). Which of the following is a prime path?</p>",
+            "answers": [
+              {
+                "text": "1\u21922\u21924",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is a maximal simple path (not a subpath of any longer simple path)."
+              },
+              {
+                "text": "2\u21924",
+                "fraction": 0,
+                "feedback": "2\u21924 is a proper subpath of the simple path 1\u21922\u21924, so it is not prime."
+              },
+              {
+                "text": "1\u21922",
+                "fraction": 0,
+                "feedback": "1\u21922 is a proper subpath of 1\u21922\u21924, so it is not prime."
+              },
+              {
+                "text": "1\u21922\u21924\u21923",
+                "fraction": 0,
+                "feedback": "There is no edge 4\u21923, so this is not even a valid path."
+              }
+            ],
+            "generalFeedback": "The prime paths of this graph are 1\u21922\u21924 and 1\u21923\u21924; shorter simple paths are subpaths of these.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Round-trip path",
+            "text": "<p>A <strong>round-trip path</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A prime path of nonzero length whose first and last nodes are the same",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it captures one traversal of a loop."
+              },
+              {
+                "text": "Any path from the initial node to a final node",
+                "fraction": 0,
+                "feedback": "That is a general test path, not specifically a round trip."
+              },
+              {
+                "text": "A path that visits every node twice",
+                "fraction": 0,
+                "feedback": "Round trips are simple paths; nodes are not visited twice except the shared endpoint."
+              },
+              {
+                "text": "Any pair of edges u\u2192v and v\u2192u",
+                "fraction": 0,
+                "feedback": "A round trip is a prime path returning to its start, not merely a back-and-forth edge pair."
+              }
+            ],
+            "generalFeedback": "A round-trip path is a prime path with nonzero length that starts and ends at the same node; Simple/Complete Round Trip Coverage are built on these.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Def-clear path",
+            "text": "<p>A path from a definition of x to a use of x is <strong>def-clear</strong> (with respect to x) when:</p>",
+            "answers": [
+              {
+                "text": "No node on the path between the def and the use redefines x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the original definition still reaches the use."
+              },
+              {
+                "text": "The path contains no branches",
+                "fraction": 0,
+                "feedback": "Branches are irrelevant; what matters is no intervening redefinition of x."
+              },
+              {
+                "text": "x is used at every node on the path",
+                "fraction": 0,
+                "feedback": "Def-clear concerns redefinitions, not uses along the way."
+              },
+              {
+                "text": "The path is a prime path",
+                "fraction": 0,
+                "feedback": "Def-clear is about redefinitions, unrelated to whether the path is prime."
+              }
+            ],
+            "generalFeedback": "A def-clear path w.r.t. x has no redefinition of x strictly between the def and the use, so the def reaches the use.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prime path subsumes",
+            "text": "<p>Which criterion does Prime Path Coverage subsume?</p>",
+            "answers": [
+              {
+                "text": "Edge-Pair Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 prime paths of length \u2265 2 cover all length-\u22642 subpaths."
+              },
+              {
+                "text": "All-DU-Paths Coverage",
+                "fraction": 0,
+                "feedback": "Structural prime-path coverage does not subsume data-flow criteria."
+              },
+              {
+                "text": "Complete Path Coverage",
+                "fraction": 0,
+                "feedback": "Complete path coverage is stronger and subsumes prime path coverage, not the reverse."
+              },
+              {
+                "text": "All-Uses Coverage",
+                "fraction": 0,
+                "feedback": "All-uses is a data-flow criterion; prime-path coverage does not subsume it."
+              }
+            ],
+            "generalFeedback": "Prime Path Coverage subsumes Edge-Pair, Edge, and Node coverage, but not the data-flow criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses vs All-Defs",
+            "text": "<p>Which statement about the data-flow criteria All-Defs and All-Uses is correct?</p>",
+            "answers": [
+              {
+                "text": "All-Uses subsumes All-Defs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reaching every use of every def implies reaching at least one use of every def."
+              },
+              {
+                "text": "All-Defs subsumes All-Uses",
+                "fraction": 0,
+                "feedback": "The subsumption runs the other way: All-Uses is stronger."
+              },
+              {
+                "text": "They are equivalent",
+                "fraction": 0,
+                "feedback": "All-Uses is strictly stronger when a def reaches more than one use."
+              },
+              {
+                "text": "Neither subsumes the other",
+                "fraction": 0,
+                "feedback": "All-Uses does subsume All-Defs."
+              }
+            ],
+            "generalFeedback": "All-Defs requires each def to reach at least one use; All-Uses requires each def to reach every one of its uses \u2014 so All-Uses subsumes All-Defs.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Edge-pair path length",
+            "text": "<p>Edge-Pair Coverage requires touring every reachable path of length up to 2 (i.e. every single edge and every pair of adjacent edges).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 edge-pair coverage is defined over paths of length \u2264 2."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Edge-pair coverage is exactly the set of reachable paths of length up to 2."
+              }
+            ],
+            "generalFeedback": "Edge-Pair Coverage tours all reachable length-\u22642 paths, which is why it subsumes Edge Coverage (length-1 paths)."
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge-pair count (5 nodes)",
+            "text": "<p>A CFG on nodes 1..5 has edges <code>1\u21922, 1\u21923, 2\u21923, 2\u21924, 3\u21924, 4\u21925</code>. How many length-2 paths u\u2192v\u2192w exist?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21923, 1\u21922\u21924, 1\u21923\u21924, 2\u21923\u21924, 2\u21924\u21925, 3\u21924\u21925."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are six length-2 paths."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "Recount \u2014 only six edge pairs share a middle node."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Middle nodes 2, 3, and 4 together yield six length-2 paths."
+              }
+            ],
+            "generalFeedback": "Per middle node, multiply in-degree by out-degree: node 2 = 1\xD72 = 2, node 3 = 2\xD71 = 2, node 4 = 2\xD71 = 2; total 6.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge-pair count (branchy)",
+            "text": "<p>A CFG on nodes 1..5 has edges <code>1\u21922, 1\u21923, 1\u21925, 2\u21923, 2\u21924, 4\u21925</code>. How many length-2 paths u\u2192v\u2192w exist?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21923, 1\u21922\u21924, and 2\u21924\u21925."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount \u2014 only three edge pairs share a middle node."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Node 2 alone yields two, and node 4 yields a third."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "That counts edges, not length-2 paths."
+              }
+            ],
+            "generalFeedback": "Only middle nodes with both an incoming and an outgoing edge count: node 2 gives 1\u21922\u21923 and 1\u21922\u21924, node 4 gives 2\u21924\u21925.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test requirement",
+            "text": "<p>In graph-based testing, a <strong>test requirement</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A specific structural element (e.g. a node, edge, or prime path) that a test path must tour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a criterion defines a set of test requirements."
+              },
+              {
+                "text": "A single test case with its input values",
+                "fraction": 0,
+                "feedback": "That is a test case; a requirement is what the case must satisfy."
+              },
+              {
+                "text": "The expected output of the program",
+                "fraction": 0,
+                "feedback": "That is an oracle, not a coverage requirement."
+              },
+              {
+                "text": "A complete path from entry to exit",
+                "fraction": 0,
+                "feedback": "A complete path may satisfy several requirements, but a requirement is the element to be toured."
+              }
+            ],
+            "generalFeedback": "A coverage criterion is a rule that yields a set of test requirements; each requirement is a structure that some test path must tour.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Best-effort touring",
+            "text": "<p>When a required prime path cannot be toured directly by any complete test path, a common practice is to:</p>",
+            "answers": [
+              {
+                "text": "Tour it with a sidetrip/detour if possible (best-effort touring)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 best-effort touring allows sidetrips to reach otherwise hard requirements."
+              },
+              {
+                "text": "Delete the prime path from the graph",
+                "fraction": 0,
+                "feedback": "Requirements are not removed from the graph; touring is relaxed instead."
+              },
+              {
+                "text": "Declare the whole criterion unsatisfiable",
+                "fraction": 0,
+                "feedback": "A single hard requirement does not make the criterion unusable; best-effort touring is used."
+              },
+              {
+                "text": "Add a new edge so the path becomes direct",
+                "fraction": 0,
+                "feedback": "The graph models the program and is not altered to satisfy a requirement."
+              }
+            ],
+            "generalFeedback": "Best-effort touring permits sidetrips (detours) so requirements that cannot be toured directly can still be covered where feasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Defs meaning",
+            "text": "<p>All-Defs Coverage requires that, for each definition of a variable:</p>",
+            "answers": [
+              {
+                "text": "At least one def-clear path from that definition to some use is toured",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each def must reach at least one use."
+              },
+              {
+                "text": "A def-clear path to every use is toured",
+                "fraction": 0,
+                "feedback": "That is All-Uses, which is stronger than All-Defs."
+              },
+              {
+                "text": "Every simple path from the definition is toured",
+                "fraction": 0,
+                "feedback": "That resembles All-DU-Paths, not All-Defs."
+              },
+              {
+                "text": "The definition is executed at least once",
+                "fraction": 0,
+                "feedback": "That is only node coverage of the def; All-Defs also requires reaching a use."
+              }
+            ],
+            "generalFeedback": "All-Defs requires each def to reach at least one use via a def-clear path; All-Uses strengthens this to every use.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Prime path subsumption",
+            "text": "<p>On a graph with at least one edge, which criterion is subsumed by Prime Path Coverage?</p>",
+            "answers": [
+              {
+                "text": "Edge-Pair Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 prime paths of length \u2265 2 cover all length-\u22642 subpaths."
+              },
+              {
+                "text": "Complete Path Coverage",
+                "fraction": 0,
+                "feedback": "Complete path coverage is generally infeasible and is not subsumed."
+              },
+              {
+                "text": "All-DU-Paths",
+                "fraction": 0,
+                "feedback": "Data-flow criteria are not subsumed by structural prime-path coverage."
+              },
+              {
+                "text": "None",
+                "fraction": 0,
+                "feedback": "Prime path coverage does subsume edge and edge-pair coverage."
+              }
+            ],
+            "generalFeedback": "Prime path coverage subsumes edge-pair and edge coverage; it does not subsume data-flow or complete-path criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Data-flow subsumption chain",
+            "text": "<p>Which chain correctly orders the data-flow criteria from strongest (subsumes) to weakest?</p>",
+            "answers": [
+              {
+                "text": "All-DU-Paths \u2192 All-Uses \u2192 All-Defs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each subsumes the next."
+              },
+              {
+                "text": "All-Defs \u2192 All-Uses \u2192 All-DU-Paths",
+                "fraction": 0,
+                "feedback": "This reverses the order; All-DU-Paths is the strongest."
+              },
+              {
+                "text": "All-Uses \u2192 All-DU-Paths \u2192 All-Defs",
+                "fraction": 0,
+                "feedback": "All-DU-Paths subsumes All-Uses, so it must come first."
+              },
+              {
+                "text": "All-Defs \u2192 All-DU-Paths \u2192 All-Uses",
+                "fraction": 0,
+                "feedback": "All-Defs is the weakest, so it cannot lead the chain."
+              }
+            ],
+            "generalFeedback": "All-DU-Paths subsumes All-Uses, which subsumes All-Defs.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Prime path and data flow",
+            "text": "<p>Prime Path Coverage subsumes All-DU-Paths Coverage.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 structural prime-path coverage does not subsume data-flow criteria."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Prime path coverage subsumes edge-pair/edge/node coverage, but not the data-flow criteria."
+              }
+            ],
+            "generalFeedback": "Data-flow criteria depend on def-use relationships that structural prime-path coverage does not guarantee, so there is no subsumption."
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible test requirement",
+            "text": "<p>A test requirement is <strong>infeasible</strong> when:</p>",
+            "answers": [
+              {
+                "text": "No test path that satisfies the program's semantics can tour it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 infeasibility is about semantics, not graph structure."
+              },
+              {
+                "text": "It requires more than one test case",
+                "fraction": 0,
+                "feedback": "Needing several cases does not make a requirement infeasible."
+              },
+              {
+                "text": "It is a prime path longer than the number of nodes",
+                "fraction": 0,
+                "feedback": "Prime paths are simple, so their length is bounded; length alone is not infeasibility."
+              },
+              {
+                "text": "The graph has a loop",
+                "fraction": 0,
+                "feedback": "Loops make complete path coverage infinite, but do not by themselves make a requirement infeasible."
+              }
+            ],
+            "generalFeedback": "An infeasible requirement cannot be toured by any semantically valid execution (e.g. contradictory branch conditions); coverage is measured against feasible requirements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count prime paths (if-else)",
+            "text": "<p>A CFG has nodes 1..4 and edges <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>. How many prime paths does it have?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21924 and 1\u21923\u21924 are the only maximal simple paths."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "The four edges are not all prime; each is a subpath of a longer simple path."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "There are exactly two maximal simple paths."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "That over-counts; shorter simple paths are subpaths of the two prime paths."
+              }
+            ],
+            "generalFeedback": "Prime paths are maximal simple paths. Here they are 1\u21922\u21924 and 1\u21923\u21924; every shorter simple path is a subpath of one of these.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge-pair count (7 nodes)",
+            "text": "<p>A CFG on nodes 1..7 has edges <code>1\u21922, 1\u21923, 1\u21924, 2\u21923, 2\u21924, 2\u21925, 2\u21926, 3\u21924, 5\u21927</code>. How many length-2 paths u\u2192v\u2192w exist?</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "Correct \u2014 enumerate edges out of each middle node."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are seven length-2 paths."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "That counts edges (9), not length-2 paths."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "Recount \u2014 only seven edge pairs share a middle node."
+              }
+            ],
+            "generalFeedback": "Per middle node, multiply in-degree by out-degree: node 2 = 1\xD74 = 4, node 3 = 2\xD71 = 2, node 5 = 1\xD71 = 1; total 4 + 2 + 1 = 7 length-2 paths.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "All-Uses converse",
+            "text": "<p>All-Uses subsumes All-Defs, but All-Defs does not subsume All-Uses.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the subsumption holds in one direction only."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "All-Uses is strictly stronger: satisfying All-Defs need not reach every use."
+              }
+            ],
+            "generalFeedback": "Reaching one use per def (All-Defs) does not imply reaching every use per def (All-Uses), so the subsumption is one-directional."
+          },
+          {
+            "type": "multichoice",
+            "name": "Simple vs complete round trip",
+            "text": "<p>How do Simple Round Trip Coverage and Complete Round Trip Coverage differ?</p>",
+            "answers": [
+              {
+                "text": "Simple requires at least one round-trip path per reachable node that begins one; Complete requires all round-trip paths",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Complete is the stronger of the two."
+              },
+              {
+                "text": "Simple requires all round-trip paths; Complete requires just one",
+                "fraction": 0,
+                "feedback": "This reverses them \u2014 Complete requires all."
+              },
+              {
+                "text": "They are identical",
+                "fraction": 0,
+                "feedback": "They differ: one asks for at least one, the other for all round trips."
+              },
+              {
+                "text": "Simple ignores loops; Complete counts them once",
+                "fraction": 0,
+                "feedback": "Both are about round-trip (loop) paths; the difference is one vs all."
+              }
+            ],
+            "generalFeedback": "Simple Round Trip Coverage needs one round-trip path for each node that starts one; Complete Round Trip Coverage needs every round-trip path, so it subsumes Simple.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top of the structural hierarchy",
+            "text": "<p>Among the structural criteria Node, Edge, Edge-Pair, Prime Path, and Complete Path Coverage, which subsumes all the others?</p>",
+            "answers": [
+              {
+                "text": "Complete Path Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 touring every path covers every node, edge, edge-pair and prime path (though it is usually infeasible)."
+              },
+              {
+                "text": "Prime Path Coverage",
+                "fraction": 0,
+                "feedback": "Prime path coverage is subsumed by complete path coverage."
+              },
+              {
+                "text": "Edge-Pair Coverage",
+                "fraction": 0,
+                "feedback": "Edge-pair coverage is well below the top of the hierarchy."
+              },
+              {
+                "text": "Node Coverage",
+                "fraction": 0,
+                "feedback": "Node coverage is the weakest of these criteria."
+              }
+            ],
+            "generalFeedback": "Complete Path Coverage is the strongest structural criterion (Complete Path \u2192 Prime Path \u2192 Edge-Pair \u2192 Edge \u2192 Node), but is infeasible whenever loops are present.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Def with two uses",
+            "text": "<p>A single definition of x reaches two distinct uses u1 and u2 via def-clear paths. To satisfy All-Uses for this definition, a test set must:</p>",
+            "answers": [
+              {
+                "text": "Tour a def-clear path to both u1 and u2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-Uses requires reaching every reachable use of the definition."
+              },
+              {
+                "text": "Tour a def-clear path to either u1 or u2",
+                "fraction": 0,
+                "feedback": "Reaching just one use satisfies All-Defs, not All-Uses."
+              },
+              {
+                "text": "Tour every simple path to u1 and u2",
+                "fraction": 0,
+                "feedback": "That is All-DU-Paths, which is even stronger than All-Uses."
+              },
+              {
+                "text": "Only execute the definition once",
+                "fraction": 0,
+                "feedback": "Executing the def alone does not reach its uses."
+              }
+            ],
+            "generalFeedback": "All-Uses requires a def-clear path from the def to each of its reachable uses; here that means reaching both u1 and u2.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sidetrip vs detour",
+            "text": "<p>When a path tours a subpath q with a <strong>sidetrip</strong>, it means:</p>",
+            "answers": [
+              {
+                "text": "The path covers every edge of q in order, possibly leaving and rejoining q in between",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a sidetrip covers all edges of q but may wander off and return."
+              },
+              {
+                "text": "The path covers q with no extra edges at all",
+                "fraction": 0,
+                "feedback": "That is touring q directly, not with a sidetrip."
+              },
+              {
+                "text": "The path skips some edges of q",
+                "fraction": 0,
+                "feedback": "A sidetrip still covers every edge of q; it only adds detours between them."
+              },
+              {
+                "text": "The path reverses the direction of q",
+                "fraction": 0,
+                "feedback": "Sidetrips preserve q's edges and direction; they only insert extra excursions."
+              }
+            ],
+            "generalFeedback": "Touring with a sidetrip covers all of q's edges in order while allowing detours away from and back onto q; direct touring uses no detours.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count prime paths (loop)",
+            "text": "<p>A CFG has nodes 1..4 and edges <code>1\u21922, 2\u21923, 3\u21922, 2\u21924</code> (a while-loop shape). How many prime paths does it have?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21923, 1\u21922\u21924, 2\u21923\u21922, 3\u21922\u21923, and 3\u21922\u21924."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount \u2014 the loop contributes the round trips 2\u21923\u21922 and 3\u21922\u21923 as well."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The two round-trip prime paths through the loop are easy to miss."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "That over-counts; there are exactly five maximal simple paths."
+              }
+            ],
+            "generalFeedback": "The prime paths are 1\u21922\u21923, 1\u21922\u21924, 3\u21922\u21924, and the two loop round trips 2\u21923\u21922 and 3\u21922\u21923 \u2014 five in total.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Redefinition kills a DU pair",
+            "text": "<p>On the path from a definition d of x to a use u of x, node m redefines x. What is the effect on the DU pair (d, u) along this path?</p>",
+            "answers": [
+              {
+                "text": "This path is not def-clear for (d, u); d's value no longer reaches u here",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the redefinition at m kills d before u."
+              },
+              {
+                "text": "The DU pair (d, u) is still covered by this path",
+                "fraction": 0,
+                "feedback": "The redefinition means d's value does not reach u along this path."
+              },
+              {
+                "text": "m becomes part of the same DU pair",
+                "fraction": 0,
+                "feedback": "m starts a new definition; it does not join (d, u)."
+              },
+              {
+                "text": "The use u is no longer a use of x",
+                "fraction": 0,
+                "feedback": "u is still a use of x; it is just reached by m's definition, not d's."
+              }
+            ],
+            "generalFeedback": "A redefinition between d and u kills d, so the path is not def-clear w.r.t. x for (d, u); another def-clear path is needed to cover that pair.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge-pair does not subsume",
+            "text": "<p>Which criterion is NOT subsumed by Edge-Pair Coverage?</p>",
+            "answers": [
+              {
+                "text": "Prime Path Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 prime path coverage is stronger, so edge-pair coverage does not subsume it."
+              },
+              {
+                "text": "Edge Coverage",
+                "fraction": 0,
+                "feedback": "Edge-pair coverage does subsume edge coverage."
+              },
+              {
+                "text": "Node Coverage",
+                "fraction": 0,
+                "feedback": "Edge-pair coverage subsumes node coverage (via edge coverage)."
+              },
+              {
+                "text": "Statement Coverage",
+                "fraction": 0,
+                "feedback": "Statement coverage equals node coverage, which edge-pair coverage subsumes."
+              }
+            ],
+            "generalFeedback": "Subsumption goes Prime Path \u2192 Edge-Pair \u2192 Edge \u2192 Node; edge-pair coverage subsumes weaker criteria but not the stronger prime-path coverage.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Prime path subsumes node",
+            "text": "<p>On a graph where every node has an incident edge, Prime Path Coverage subsumes Node Coverage.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 by transitivity through edge-pair and edge coverage."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Prime Path \u2192 Edge-Pair \u2192 Edge \u2192 Node, so prime-path coverage subsumes node coverage."
+              }
+            ],
+            "generalFeedback": "Subsumption is transitive: Prime Path subsumes Edge-Pair, which subsumes Edge, which subsumes Node."
           }
         ]
       },
@@ -46320,6 +47389,381 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8DEF\u5F91\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u4EE5\u5716\u70BA\u57FA\u790E\u7684\u6E2C\u8A66\u4E2D\uFF0C<strong>\u6E2C\u8A66\u8DEF\u5F91\uFF08test path\uFF09</strong>\u662F\u4E00\u689D\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u5716\u7684\u8D77\u59CB\u7BC0\u9EDE\u958B\u59CB\u3001\u4E26\u5728\u7D50\u675F\u7BC0\u9EDE\u7D50\u675F\u7684\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8DEF\u5F91\u4EE3\u8868\u4E00\u6B21\u5F9E\u5165\u53E3\u5230\u51FA\u53E3\u7684\u5B8C\u6574\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u6070\u597D\u8D70\u8A2A\u5716\u4E2D\u6BCF\u500B\u7BC0\u9EDE\u5404\u4E00\u6B21\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6F22\u5F4C\u723E\u9813\u8DEF\u5F91\uFF08Hamiltonian path\uFF09\uFF0C\u4E0D\u662F\u6E2C\u8A66\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u4EFB\u4E00\u689D\u55AE\u7368\u7684\u908A",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u689D\u908A\u662F\u9577\u5EA6\u70BA 1 \u7684\u8DEF\u5F91\uFF0C\u4F46\u6E2C\u8A66\u8DEF\u5F91\u5FC5\u9808\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u8D70\u5230\u7D50\u675F\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u4E0D\u91CD\u8907\u7D93\u904E\u4EFB\u4F55\u7BC0\u9EDE\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8DEF\u5F91\u53EF\u4EE5\u91CD\u8907\u7D93\u904E\u7BC0\u9EDE\uFF08\u4F8B\u5982\u8FF4\u5708\u7684\u591A\u6B21\u8FED\u4EE3\uFF09\uFF1B\u53EA\u6709\u7C21\u55AE\u8DEF\u5F91\u624D\u7981\u6B62\u91CD\u8907\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u8DEF\u5F91\u662F\u4E00\u689D\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u5230\u7D50\u675F\u7BC0\u9EDE\u7684\u8DEF\u5F91\uFF1B\u57F7\u884C\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\u6070\u597D\u6703\u8D70\u904E\u4E00\u689D\u6E2C\u8A66\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6558\u8FF0\u8986\u84CB\u5C0D\u61C9\u5230",
+            "text": "<p>\u50B3\u7D71\u7684<strong>\u6558\u8FF0\u8986\u84CB\uFF08statement coverage\uFF09</strong>\u5728\u63A7\u5236\u6D41\u7A0B\u5716\u4E0A\u5C0D\u61C9\u5230\u54EA\u4E00\u500B\u5716\u8986\u84CB\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u6BCF\u4E00\u689D\u6558\u8FF0\u5373\u7B49\u65BC\u8D70\u8A2A\u6BCF\u4E00\u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u908A\u8986\u84CB\uFF08Edge Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u8986\u84CB\u5C0D\u61C9\u7684\u662F\u5206\u652F\u8986\u84CB\uFF0C\u6BD4\u6558\u8FF0\u8986\u84CB\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u9060\u6BD4\u6558\u8FF0\u8986\u84CB\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF08Complete Path Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u901A\u5E38\u4E0D\u53EF\u884C\uFF0C\u4E14\u5F37\u5EA6\u9060\u9AD8\u65BC\u6558\u8FF0\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u7528\u4F86\u8868\u793A\u57FA\u672C\u5340\u584A\uFF0F\u6558\u8FF0\uFF0C\u56E0\u6B64\u6558\u8FF0\u8986\u84CB\u6070\u597D\u5C31\u662F\u7BC0\u9EDE\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u8986\u84CB\u5C0D\u61C9\u5230",
+            "text": "<p>\u50B3\u7D71\u7684<strong>\u5206\u652F\u8986\u84CB\uFF08branch coverage\uFF09</strong>\u5C0D\u61C9\u5230\u54EA\u4E00\u500B\u5716\u8986\u84CB\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u908A\u8986\u84CB\uFF08Edge Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u4E00\u500B\u5206\u652F\u7684\u7D50\u679C\u90FD\u662F\u4E00\u689D\u5FC5\u9808\u88AB\u8D70\u904E\u7684\u908A\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u5C0D\u61C9\u7684\u662F\u6558\u8FF0\u8986\u84CB\uFF0C\u5F37\u5EA6\u8F03\u5F31\u3002"
+              },
+              {
+                "text": "\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u5C0D\u8986\u84CB\u8981\u6C42\u9577\u5EA6\u6700\u591A\u70BA 2 \u7684\u8DEF\u5F91\uFF0C\u5F37\u5EA6\u9AD8\u65BC\u5206\u652F\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u5168\u4F7F\u7528\u8986\u84CB\uFF08All-Uses Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u5168\u4F7F\u7528\u662F\u8CC7\u6599\u6D41\u6E96\u5247\uFF0C\u8207\u5206\u652F\u8986\u84CB\u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5224\u65B7\u7D50\u679C\u90FD\u662F\u4E00\u689D\u5916\u5411\u908A\uFF0C\u56E0\u6B64\u5206\u652F\u8986\u84CB\u6070\u597D\u5C31\u662F\u908A\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u908A\u8986\u84CB\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB",
+            "text": "<p>\u5728\u4EFB\u4F55\u5716\u4E0A\uFF0C\u6EFF\u8DB3\u908A\u8986\u84CB\uFF08Edge Coverage\uFF09\u7684\u6E2C\u8A66\u96C6\u5408\u4E5F\u4E00\u5B9A\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8D70\u904E\u6BCF\u4E00\u689D\u908A\uFF0C\u5C31\u6703\u8D70\u8A2A\u6BCF\u4E00\u500B\u6709\u76F8\u9023\u908A\u7684\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u908A\u8986\u84CB\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\uFF1A\u8986\u84CB\u6240\u6709\u908A\u5FC5\u7136\u6703\u8D70\u8A2A\u6240\u6709\u53EF\u9054\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u6DB5\u84CB\uFF08subsumes\uFF09\u7BC0\u9EDE\u8986\u84CB\uFF1B\u53CD\u4E4B\u5247\u4E0D\u6210\u7ACB\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u7684\u53EF\u884C\u6027",
+            "text": "<p>\u53EA\u8981\u63A7\u5236\u6D41\u7A0B\u5716\uFF08control-flow graph\uFF09\u4E2D\u542B\u6709\u8FF4\u5708\uFF0C\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF08Complete Path Coverage\uFF09\u5C31\u4E0D\u53EF\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u5708\u6703\u7522\u751F\u7121\u7AAE\u591A\u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u8FF4\u5708\u6703\u9020\u6210\u8DEF\u5F91\u6578\u91CF\u7121\u4E0A\u9650\uFF0C\u56E0\u6B64\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u7121\u6CD5\u5728\u6709\u9650\u6B65\u9A5F\u5167\u88AB\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u8981\u5716\u4E2D\u542B\u6709\u8FF4\u5708\uFF0C\u8DEF\u5F91\u5C31\u80FD\u4EFB\u610F\u6B21\u6578\u5730\u91CD\u8907\u7D93\u904E\u540C\u4E00\u7BC0\u9EDE\uFF0C\u4F7F\u5F97\u5B8C\u6574\u6E2C\u8A66\u8DEF\u5F91\u7684\u96C6\u5408\u8B8A\u6210\u7121\u7AAE\u591A\u2014\u2014\u56E0\u6B64\u53EA\u8981\u5716\u4E2D\u6709\u8FF4\u5708\uFF0C\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u5C31\u6C38\u9060\u7121\u6CD5\u5728\u6709\u9650\u6B65\u9A5F\u5167\u88AB\u6EFF\u8DB3\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7C21\u55AE\u8DEF\u5F91\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u7C21\u55AE\u8DEF\u5F91\uFF08simple path\uFF09</strong>\u662F\u6307\u4E00\u689D\u6EFF\u8DB3\u4E0B\u5217\u689D\u4EF6\u7684\u8DEF\u5F91\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u7BC0\u9EDE\u51FA\u73FE\u8D85\u904E\u4E00\u6B21\uFF0C\u4F46\u8D77\u9EDE\u8207\u7D42\u9EDE\u53EF\u4EE5\u662F\u540C\u4E00\u500B\u7BC0\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u5141\u8A31\u8FF4\u5708\u9589\u5408\uFF0C\u4F46\u7981\u6B62\u5176\u4ED6\u4EFB\u4F55\u91CD\u8907\u3002"
+              },
+              {
+                "text": "\u5728\u4EFB\u4F55\u60C5\u6CC1\u4E0B\u90FD\u4E0D\u91CD\u8907\u7D93\u904E\u4EFB\u4F55\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u7C21\u55AE\u8DEF\u5F91\u53EF\u4EE5\u5728\u540C\u4E00\u7BC0\u9EDE\u958B\u59CB\u8207\u7D50\u675F\uFF08\u5373\u5F80\u8FD4\u8DEF\u5F91\uFF09\u3002"
+              },
+              {
+                "text": "\u8D70\u8A2A\u5716\u4E2D\u7684\u6BCF\u4E00\u500B\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u751F\u6210\u8DEF\u5F91\uFF08spanning path\uFF09\uFF0C\u4E0D\u662F\u7C21\u55AE\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u6BCF\u689D\u908A\u6700\u591A\u53EA\u4F7F\u7528\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8DE1\uFF08trail\uFF09\uFF1B\u7C21\u55AE\u8DEF\u5F91\u9650\u5236\u7684\u662F\u7BC0\u9EDE\u91CD\u8907\uFF0C\u800C\u975E\u908A\u7684\u91CD\u8907\u3002"
+              }
+            ],
+            "generalFeedback": "\u7C21\u55AE\u8DEF\u5F91\u4E0D\u91CD\u8907\u7D93\u904E\u4EFB\u4F55\u7BC0\u9EDE\uFF0C\u552F\u4E00\u7684\u4F8B\u5916\u662F\u8D77\u9EDE\u8207\u7D42\u9EDE\u53EF\u4EE5\u76F8\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7BC0\u9EDE\u8986\u84CB\u8207\u5206\u652F",
+            "text": "<p>\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09\u5C31\u4FDD\u8B49\u6BCF\u4E00\u500B\u5206\u652F\uFF08\u5224\u65B7\u7D50\u679C\uFF09\u90FD\u5DF2\u88AB\u57F7\u884C\u904E\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC0\u9EDE\u8986\u84CB\u53EF\u4EE5\u5728\u67D0\u689D\u908A\uFF08\u5206\u652F\u7D50\u679C\uFF09\u5F9E\u672A\u88AB\u8D70\u904E\u7684\u60C5\u6CC1\u4E0B\u4ECD\u88AB\u6EFF\u8DB3\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u53EA\u8981\u6C42\u8D70\u8A2A\u7BC0\u9EDE\uFF1B\u67D0\u500B\u672A\u88AB\u8D70\u7684\u5206\u652F\u4ECD\u53EF\u80FD\u8B93\u6240\u6709\u7BC0\u9EDE\u90FD\u7D93\u7531\u5176\u4ED6\u8DEF\u5F91\u88AB\u8D70\u8A2A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u8986\u84CB\u4E26\u4E0D\u860A\u542B\u908A\u8986\u84CB\uFF0C\u56E0\u6B64\u67D0\u4E9B\u5206\u652F\u7D50\u679C\u53EF\u80FD\u672A\u88AB\u6E2C\u8A66\u5230\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u6578\u8A08\u7B97 A",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..4\uFF0C\u6709\u5411\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21924, 2\u21924</code>\u3002\u6B64\u5716\u5171\u6709\u5E7E\u689D\u6709\u5411\u908A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u5217\u8868\u4E2D\u6070\u597D\u6709\u56DB\u689D\u908A\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5217\u8868\u4E2D\u6709\u56DB\u689D\u908A\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5217\u8868\u4E2D\u53EA\u6709\u56DB\u689D\u908A\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5217\u8868\u4E2D\u53EA\u6709\u56DB\u689D\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u6BCF\u689D\u908A\u9700\u8981\u4E00\u500B\u6E2C\u8A66\u9700\u6C42\uFF1B\u6B64\u8655\u70BA 4 \u689D\u908A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u6578\u8A08\u7B97 B",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..5\uFF0C\u6709\u5411\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21924, 4\u21925, 2\u21925</code>\u3002\u6B64\u5716\u5171\u6709\u5E7E\u689D\u6709\u5411\u908A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5217\u8868\u4E2D\u6709\u4E94\u689D\u908A\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5217\u8868\u4E2D\u6709\u4E94\u689D\u908A\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5217\u8868\u4E2D\u53EA\u6709\u4E94\u689D\u908A\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5217\u8868\u4E2D\u53EA\u6709\u4E94\u689D\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u689D\u6709\u5411\u908A\u53EA\u7B97\u4E00\u6B21\uFF1B\u6B64\u5217\u8868\u5373\u70BA\u5B8C\u6574\u7684\u908A\u96C6\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC0\u9EDE\u8986\u84CB\u7684\u6E2C\u8A66\u9700\u6C42\u6578",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..5\uFF0C\u908A\u70BA <code>1\u21922, 2\u21923, 2\u21924, 3\u21925, 4\u21925</code>\u3002\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09\u6703\u7522\u751F\u5E7E\u500B\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u7BC0\u9EDE\u4E00\u500B\u9700\u6C42\uFF0C\u5171\u6709 5 \u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u8A08\u7B97\u7684\u662F\u7BC0\u9EDE\u6578\uFF085\uFF09\uFF0C\u4E0D\u662F\u908A\u6578\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u90A3\u8A08\u7B97\u7684\u662F\u5206\u652F\u9EDE\u7684\u6578\u91CF\uFF0C\u800C\u975E\u6240\u6709\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u6BCF\u500B\u7BC0\u9EDE\u4E00\u500B\u9700\u6C42\uFF0C\u6240\u4EE5\u662F 5\uFF0C\u800C\u975E\u7BC0\u9EDE\u914D\u5C0D\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u8986\u84CB\u8981\u6C42\u8D70\u8A2A\u6BCF\u500B\u7BC0\u9EDE\uFF0C\u56E0\u6B64\u9700\u6C42\u6578\u7B49\u65BC\u7BC0\u9EDE\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u5C0D\u8A08\u7B97 A",
+            "text": "<p>\u67D0\u5716\u7684\u908A\u70BA <code>1\u21922, 2\u21923, 2\u21924</code>\u3002\u5171\u6709\u5E7E\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91 u\u2192v\u2192w\uFF08\u5171\u7528\u4E2D\u9593\u7BC0\u9EDE v \u7684\u5169\u689D\u908A\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21923 \u8207 1\u21922\u21924\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5171\u6709\u5169\u689D\uFF1A1\u21922\u21923 \u8207 1\u21922\u21924\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u5171\u7528\u4E2D\u9593\u7BC0\u9EDE\u7684\u908A\u914D\u5C0D\u624D\u7B97\uFF1B\u6B64\u8655\u6709\u5169\u5C0D\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE 2 \u662F\u5169\u689D\u9577\u5EA6\u70BA 2 \u8DEF\u5F91\u7684\u4E2D\u9593\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u4E00\u689D\u908A u\u2192v\uFF0C\u8A08\u7B97\u6BCF\u4E00\u689D\u908A v\u2192w\uFF1B\u6B64\u8655\u7BC0\u9EDE 2 \u6709\u5169\u689D\u5916\u5411\u908A\uFF0C\u7522\u751F 2 \u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u5C0D\u8A08\u7B97 B",
+            "text": "<p>\u67D0\u5716\u7684\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21924, 2\u21924</code>\u3002\u5171\u6709\u5E7E\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91 u\u2192v\u2192w\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21923\u30011\u21922\u21924 \u8207 2\u21923\u21924\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u5171\u6709\u4E09\u689D\uFF1A1\u21922\u21923\u30011\u21922\u21924\u30012\u21923\u21924\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u53EA\u6709\u4E09\u5C0D\u908A\u5171\u7528\u4E2D\u9593\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE 2 \u8207\u7BC0\u9EDE 3 \u5404\u81EA\u4F5C\u70BA\u4E2D\u9593\u7BC0\u9EDE\uFF0C\u5408\u8A08\u4E09\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E2D\u9593\u7BC0\u9EDE 2 \u7522\u751F 1\u21922\u21923 \u8207 1\u21922\u21924\uFF1B\u4E2D\u9593\u7BC0\u9EDE 3 \u7522\u751F 2\u21923\u21924\uFF1B\u5408\u8A08 3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u8986\u84CB\u7684\u6E2C\u8A66\u9700\u6C42\u6578",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>\u3002\u908A\u8986\u84CB\uFF08Edge Coverage\uFF09\u6703\u7522\u751F\u5E7E\u500B\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u689D\u908A\u4E00\u500B\u9700\u6C42\uFF0C\u5171\u6709 4 \u689D\u908A\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u908A\u8986\u84CB\u8A08\u7B97\u7684\u662F\u908A\u6578\uFF084\uFF09\uFF0C\u4E0D\u662F\u7BC0\u9EDE\u6578\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u90A3\u8A08\u7B97\u7684\u662F\u5B8C\u6574\u8DEF\u5F91\u7684\u6578\u91CF\uFF0C\u800C\u975E\u908A\u6578\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 4 \u689D\u908A\u9700\u8981\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u8981\u6C42\u8D70\u904E\u6BCF\u4E00\u689D\u908A\uFF0C\u56E0\u6B64\u9700\u6C42\u6578\u7B49\u65BC\u908A\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u5F31\u7684\u7D50\u69CB\u6E96\u5247",
+            "text": "<p>\u4E0B\u5217\u7D50\u69CB\u6E96\u5247\u4E2D\uFF0C\u54EA\u4E00\u500B<strong>\u6700\u5F31</strong>\uFF08\u8981\u6C42\u6700\u4F4E\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC0\u9EDE\u8986\u84CB\u88AB\u5176\u4ED6\u6240\u6709\u6E96\u5247\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u908A\u8986\u84CB\uFF08Edge Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u8986\u84CB\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\uFF0C\u56E0\u6B64\u8F03\u5F37\u3002"
+              },
+              {
+                "text": "\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u5C0D\u8986\u84CB\u6DB5\u84CB\u908A\u8986\u84CB\u8207\u7BC0\u9EDE\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u662F\u6700\u5F37\u7684\u7D50\u69CB\u6E96\u5247\u4E4B\u4E00\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D50\u69CB\u6E96\u5247\u7684\u93C8\u70BA \u8CEA\u8DEF\u5F91 \u2192 \u908A\u5C0D \u2192 \u908A \u2192 \u7BC0\u9EDE\uFF0C\u56E0\u6B64\u7BC0\u9EDE\u8986\u84CB\u6700\u5F31\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
             "name": "\u8CEA\u8DEF\u5F91\u7684\u5B9A\u7FA9",
             "text": "<p>\u8CEA\u8DEF\u5F91\uFF08prime path\uFF09\u662F\u4E00\u689D\u6EFF\u8DB3\u4E0B\u5217\u689D\u4EF6\u7684\u7C21\u55AE\u8DEF\u5F91\uFF1A</p>",
             "answers": [
@@ -46349,7 +47793,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
-            "name": "\u6DB5\u84CB\u95DC\u4FC2",
+            "name": "\u908A\u8986\u84CB\u7684\u6DB5\u84CB\u95DC\u4FC2",
             "text": "<p>\u5728\u81F3\u5C11\u542B\u6709\u4E00\u689D\u908A\u7684\u5716\u4E0A\uFF0C\u4E0B\u5217\u54EA\u500B\u6E96\u5247\u6DB5\u84CB\uFF08subsumes\uFF09\u908A\u8986\u84CB\uFF1F</p>",
             "answers": [
               {
@@ -46406,24 +47850,6 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "single": true
           },
           {
-            "type": "truefalse",
-            "name": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u7684\u53EF\u884C\u6027",
-            "text": "<p>\u53EA\u8981\u63A7\u5236\u6D41\u7A0B\u5716\uFF08control-flow graph\uFF09\u4E2D\u542B\u6709\u8FF4\u5708\uFF0C\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF08Complete Path Coverage\uFF09\u5C31\u4E0D\u53EF\u884C\u3002</p>",
-            "answers": [
-              {
-                "text": "true",
-                "fraction": 100,
-                "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u5708\u6703\u7522\u751F\u7121\u7AAE\u591A\u689D\u8DEF\u5F91\u3002"
-              },
-              {
-                "text": "false",
-                "fraction": 0,
-                "feedback": "\u8FF4\u5708\u6703\u9020\u6210\u8DEF\u5F91\u6578\u91CF\u7121\u4E0A\u9650\uFF0C\u56E0\u6B64\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u7121\u6CD5\u5728\u6709\u9650\u6B65\u9A5F\u5167\u88AB\u6EFF\u8DB3\u3002"
-              }
-            ],
-            "generalFeedback": "\u53EA\u8981\u5716\u4E2D\u542B\u6709\u8FF4\u5708\uFF0C\u8DEF\u5F91\u5C31\u80FD\u4EFB\u610F\u6B21\u6578\u5730\u91CD\u8907\u7D93\u904E\u540C\u4E00\u7BC0\u9EDE\uFF0C\u4F7F\u5F97\u300C\u7C21\u55AE\u4E14\u5B8C\u6574\u300D\u7684\u6E2C\u8A66\u8DEF\u5F91\u96C6\u5408\u8B8A\u6210\u7121\u7AAE\u591A\u2014\u2014\u56E0\u6B64\u53EA\u8981\u5716\u4E2D\u6709\u8FF4\u5708\uFF0C\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u5C31\u6C38\u9060\u7121\u6CD5\u5728\u6709\u9650\u6B65\u9A5F\u5167\u88AB\u6EFF\u8DB3\u3002"
-          },
-          {
             "type": "shortanswer",
             "name": "\u96C6\u5408\u8986\u84CB\u5316\u7D04",
             "text": "<p>stvisual \u4EE5\u8CAA\u5A6A\u6F14\u7B97\u6CD5\uFF08greedy approximation\uFF09\u6311\u9078\u6E2C\u8A66\u8DEF\u5F91\u96C6\u5408\u6642\uFF0C\u5176\u5BE6\u662F\u5728\u8FD1\u4F3C\u6C42\u89E3\u54EA\u4E00\u500B\u7D93\u5178\u554F\u984C\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u5169\u500B\u55AE\u5B57\u56DE\u7B54\uFF09</p>",
@@ -46441,6 +47867,718 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             ],
             "generalFeedback": "\u9078\u64C7\u4E00\u500B\u80FD\u6DB5\u84CB\u6240\u6709\u9700\u6C42\u7684\u6700\u5C0F\u6E2C\u8A66\u8DEF\u5F91\u96C6\u5408\uFF0C\u6B63\u662F\uFF08NP-\u56F0\u96E3\u7684\uFF09\u96C6\u5408\u8986\u84CB\u554F\u984C\uFF08set-cover problem\uFF09\uFF1B\u672C\u5DE5\u5177\u63A1\u7528\u8CAA\u5A6A\u8FD1\u4F3C\u6F14\u7B97\u6CD5\u6C42\u89E3\u3002",
             "usecase": false
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8A8D\u8CEA\u8DEF\u5F91",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>\uFF08\u7BC0\u9EDE 1 \u70BA\u8D77\u59CB\u3001\u7BC0\u9EDE 4 \u70BA\u7D50\u675F\uFF09\u3002\u4E0B\u5217\u4F55\u8005\u662F\u4E00\u689D\u8CEA\u8DEF\u5F91\uFF08prime path\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1\u21922\u21924",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u4E00\u689D\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\uFF08\u4E0D\u662F\u4EFB\u4F55\u66F4\u9577\u7C21\u55AE\u8DEF\u5F91\u7684\u5B50\u8DEF\u5F91\uFF09\u3002"
+              },
+              {
+                "text": "2\u21924",
+                "fraction": 0,
+                "feedback": "2\u21924 \u662F\u7C21\u55AE\u8DEF\u5F91 1\u21922\u21924 \u7684\u771F\u5B50\u8DEF\u5F91\uFF0C\u56E0\u6B64\u4E0D\u662F\u8CEA\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "1\u21922",
+                "fraction": 0,
+                "feedback": "1\u21922 \u662F 1\u21922\u21924 \u7684\u771F\u5B50\u8DEF\u5F91\uFF0C\u56E0\u6B64\u4E0D\u662F\u8CEA\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "1\u21922\u21924\u21923",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5B58\u5728\u908A 4\u21923\uFF0C\u56E0\u6B64\u9019\u751A\u81F3\u4E0D\u662F\u4E00\u689D\u5408\u6CD5\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u5716\u7684\u8CEA\u8DEF\u5F91\u70BA 1\u21922\u21924 \u8207 1\u21923\u21924\uFF1B\u8F03\u77ED\u7684\u7C21\u55AE\u8DEF\u5F91\u90FD\u662F\u9019\u5169\u689D\u7684\u5B50\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F80\u8FD4\u8DEF\u5F91",
+            "text": "<p><strong>\u5F80\u8FD4\u8DEF\u5F91\uFF08round-trip path\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u689D\u9577\u5EA6\u4E0D\u70BA\u96F6\u3001\u4E14\u8D77\u9EDE\u8207\u7D42\u9EDE\u76F8\u540C\u7684\u8CEA\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6355\u6349\u8FF4\u5708\u7684\u4E00\u6B21\u8D70\u8A2A\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u4E00\u689D\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u5230\u7D50\u675F\u7BC0\u9EDE\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u822C\u7684\u6E2C\u8A66\u8DEF\u5F91\uFF0C\u800C\u975E\u7279\u6307\u5F80\u8FD4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u8D70\u8A2A\u6BCF\u500B\u7BC0\u9EDE\u5169\u6B21\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u5F80\u8FD4\u8DEF\u5F91\u662F\u7C21\u55AE\u8DEF\u5F91\uFF1B\u9664\u4E86\u5171\u7528\u7684\u7AEF\u9EDE\u5916\uFF0C\u7BC0\u9EDE\u4E0D\u6703\u88AB\u8D70\u8A2A\u5169\u6B21\u3002"
+              },
+              {
+                "text": "\u4EFB\u4E00\u5C0D\u908A u\u2192v \u8207 v\u2192u",
+                "fraction": 0,
+                "feedback": "\u5F80\u8FD4\u8DEF\u5F91\u662F\u4E00\u689D\u56DE\u5230\u8D77\u9EDE\u7684\u8CEA\u8DEF\u5F91\uFF0C\u800C\u975E\u55AE\u7D14\u7684\u4F86\u56DE\u908A\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F80\u8FD4\u8DEF\u5F91\u662F\u4E00\u689D\u9577\u5EA6\u4E0D\u70BA\u96F6\u3001\u8D77\u9EDE\u8207\u7D42\u9EDE\u76F8\u540C\u7684\u8CEA\u8DEF\u5F91\uFF1B\u7C21\u55AE\u5F80\u8FD4\u8986\u84CB\u8207\u5B8C\u6574\u5F80\u8FD4\u8986\u84CB\u7686\u5EFA\u7ACB\u65BC\u6B64\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91",
+            "text": "<p>\u4E00\u689D\u5F9E x \u7684\u5B9A\u7FA9\u5230 x \u7684\u4F7F\u7528\u7684\u8DEF\u5F91\uFF0C\u5728\u4F55\u7A2E\u60C5\u6CC1\u4E0B\u5C0D x \u800C\u8A00\u662F<strong>\u7121\u91CD\u65B0\u5B9A\u7FA9\u7684\uFF08def-clear\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8A72\u5B9A\u7FA9\u8207\u4F7F\u7528\u4E4B\u9593\uFF0C\u8DEF\u5F91\u4E0A\u6C92\u6709\u4EFB\u4F55\u7BC0\u9EDE\u91CD\u65B0\u5B9A\u7FA9 x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u539F\u672C\u7684\u5B9A\u7FA9\u56E0\u6B64\u4ECD\u80FD\u5230\u9054\u8A72\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91\u4E0A\u4E0D\u542B\u4EFB\u4F55\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u662F\u5426\u6709\u5206\u652F\u7121\u95DC\uFF1B\u91CD\u9EDE\u662F\u9014\u4E2D\u4E0D\u5F97\u91CD\u65B0\u5B9A\u7FA9 x\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91\u4E0A\u6BCF\u500B\u7BC0\u9EDE\u90FD\u4F7F\u7528\u4E86 x",
+                "fraction": 0,
+                "feedback": "\u7121\u91CD\u65B0\u5B9A\u7FA9\u95DC\u5FC3\u7684\u662F\u91CD\u65B0\u5B9A\u7FA9\uFF0C\u800C\u975E\u9014\u4E2D\u7684\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "\u8A72\u8DEF\u5F91\u662F\u4E00\u689D\u8CEA\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7121\u91CD\u65B0\u5B9A\u7FA9\u95DC\u4E4E\u91CD\u65B0\u5B9A\u7FA9\uFF0C\u8207\u662F\u5426\u70BA\u8CEA\u8DEF\u5F91\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D x \u800C\u8A00\u7684\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91\uFF0C\u5728\u5B9A\u7FA9\u8207\u4F7F\u7528\u4E4B\u9593\u4E0D\u542B\u4EFB\u4F55\u5C0D x \u7684\u91CD\u65B0\u5B9A\u7FA9\uFF0C\u56E0\u6B64\u8A72\u5B9A\u7FA9\u80FD\u5230\u9054\u8A72\u4F7F\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u6DB5\u84CB",
+            "text": "<p>\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09\u6DB5\u84CB\uFF08subsumes\uFF09\u4E0B\u5217\u54EA\u4E00\u500B\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9577\u5EA6 \u2265 2 \u7684\u8CEA\u8DEF\u5F91\u6DB5\u84CB\u6240\u6709\u9577\u5EA6 \u2264 2 \u7684\u5B50\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\u8986\u84CB\uFF08All-DU-Paths\uFF09",
+                "fraction": 0,
+                "feedback": "\u7D50\u69CB\u6027\u7684\u8CEA\u8DEF\u5F91\u8986\u84CB\u4E26\u4E0D\u6DB5\u84CB\u8CC7\u6599\u6D41\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF08Complete Path Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u66F4\u5F37\uFF0C\u662F\u5B83\u6DB5\u84CB\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF0C\u800C\u975E\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5168\u4F7F\u7528\u8986\u84CB\uFF08All-Uses\uFF09",
+                "fraction": 0,
+                "feedback": "\u5168\u4F7F\u7528\u662F\u8CC7\u6599\u6D41\u6E96\u5247\uFF1B\u8CEA\u8DEF\u5F91\u8986\u84CB\u4E26\u4E0D\u6DB5\u84CB\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u6DB5\u84CB\u908A\u5C0D\u3001\u908A\u8207\u7BC0\u9EDE\u8986\u84CB\uFF0C\u4F46\u4E0D\u6DB5\u84CB\u8CC7\u6599\u6D41\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5168\u4F7F\u7528\u8207\u5168\u5B9A\u7FA9",
+            "text": "<p>\u95DC\u65BC\u8CC7\u6599\u6D41\u6E96\u5247\u300C\u5168\u5B9A\u7FA9\uFF08All-Defs\uFF09\u300D\u8207\u300C\u5168\u4F7F\u7528\uFF08All-Uses\uFF09\u300D\uFF0C\u4E0B\u5217\u6558\u8FF0\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5168\u4F7F\u7528\u6DB5\u84CB\u5168\u5B9A\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5230\u9054\u6BCF\u500B\u5B9A\u7FA9\u7684\u6240\u6709\u4F7F\u7528\uFF0C\u860A\u542B\u5230\u9054\u6BCF\u500B\u5B9A\u7FA9\u7684\u81F3\u5C11\u4E00\u500B\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "\u5168\u5B9A\u7FA9\u6DB5\u84CB\u5168\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u65B9\u5411\u76F8\u53CD\uFF1A\u5168\u4F7F\u7528\u8F03\u5F37\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u7576\u67D0\u500B\u5B9A\u7FA9\u80FD\u5230\u9054\u8D85\u904E\u4E00\u500B\u4F7F\u7528\u6642\uFF0C\u5168\u4F7F\u7528\u56B4\u683C\u8F03\u5F37\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E92\u4E0D\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u5168\u4F7F\u7528\u78BA\u5BE6\u6DB5\u84CB\u5168\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5168\u5B9A\u7FA9\u8981\u6C42\u6BCF\u500B\u5B9A\u7FA9\u81F3\u5C11\u5230\u9054\u4E00\u500B\u4F7F\u7528\uFF1B\u5168\u4F7F\u7528\u8981\u6C42\u6BCF\u500B\u5B9A\u7FA9\u5230\u9054\u5176\u6240\u6709\u4F7F\u7528\u2014\u2014\u56E0\u6B64\u5168\u4F7F\u7528\u6DB5\u84CB\u5168\u5B9A\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u908A\u5C0D\u7684\u8DEF\u5F91\u9577\u5EA6",
+            "text": "<p>\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09\u8981\u6C42\u8D70\u8A2A\u6BCF\u4E00\u689D\u9577\u5EA6\u6700\u591A\u70BA 2 \u7684\u53EF\u9054\u8DEF\u5F91\uFF08\u4EA6\u5373\u6BCF\u4E00\u689D\u55AE\u7368\u7684\u908A\uFF0C\u4EE5\u53CA\u6BCF\u4E00\u5C0D\u76F8\u9130\u7684\u908A\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u5C0D\u8986\u84CB\u662F\u5B9A\u7FA9\u5728\u9577\u5EA6 \u2264 2 \u7684\u8DEF\u5F91\u4E0A\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u908A\u5C0D\u8986\u84CB\u6070\u597D\u5C31\u662F\u6240\u6709\u9577\u5EA6\u6700\u591A\u70BA 2 \u7684\u53EF\u9054\u8DEF\u5F91\u4E4B\u96C6\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u5C0D\u8986\u84CB\u8D70\u8A2A\u6240\u6709\u9577\u5EA6 \u2264 2 \u7684\u53EF\u9054\u8DEF\u5F91\uFF0C\u9019\u4E5F\u662F\u5B83\u6DB5\u84CB\u908A\u8986\u84CB\uFF08\u9577\u5EA6\u70BA 1 \u7684\u8DEF\u5F91\uFF09\u7684\u539F\u56E0\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u5C0D\u8A08\u7B97\uFF085 \u7BC0\u9EDE\uFF09",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..5\uFF0C\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21923, 2\u21924, 3\u21924, 4\u21925</code>\u3002\u5171\u6709\u5E7E\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91 u\u2192v\u2192w\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21923\u30011\u21922\u21924\u30011\u21923\u21924\u30012\u21923\u21924\u30012\u21924\u21925\u30013\u21924\u21925\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5171\u6709\u516D\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u53EA\u6709\u516D\u5C0D\u908A\u5171\u7528\u4E2D\u9593\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u4E2D\u9593\u7BC0\u9EDE 2\u30013\u30014 \u5408\u8A08\u7522\u751F\u516D\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u500B\u4E2D\u9593\u7BC0\u9EDE\uFF0C\u5C07\u5165\u5EA6\u4E58\u4EE5\u51FA\u5EA6\uFF1A\u7BC0\u9EDE 2 = 1\xD72 = 2\u3001\u7BC0\u9EDE 3 = 2\xD71 = 2\u3001\u7BC0\u9EDE 4 = 2\xD71 = 2\uFF1B\u5408\u8A08 6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u5C0D\u8A08\u7B97\uFF08\u591A\u5206\u652F\uFF09",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..5\uFF0C\u908A\u70BA <code>1\u21922, 1\u21923, 1\u21925, 2\u21923, 2\u21924, 4\u21925</code>\u3002\u5171\u6709\u5E7E\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91 u\u2192v\u2192w\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21923\u30011\u21922\u21924 \u8207 2\u21924\u21925\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u53EA\u6709\u4E09\u5C0D\u908A\u5171\u7528\u4E2D\u9593\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE 2 \u7522\u751F\u5169\u689D\uFF0C\u7BC0\u9EDE 4 \u518D\u7522\u751F\u7B2C\u4E09\u689D\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u90A3\u8A08\u7B97\u7684\u662F\u908A\u6578\uFF0C\u800C\u975E\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u540C\u6642\u5177\u5099\u5165\u5411\u8207\u5916\u5411\u908A\u7684\u4E2D\u9593\u7BC0\u9EDE\u624D\u7B97\uFF1A\u7BC0\u9EDE 2 \u7522\u751F 1\u21922\u21923 \u8207 1\u21922\u21924\uFF0C\u7BC0\u9EDE 4 \u7522\u751F 2\u21924\u21925\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u9700\u6C42",
+            "text": "<p>\u5728\u4EE5\u5716\u70BA\u57FA\u790E\u7684\u6E2C\u8A66\u4E2D\uFF0C<strong>\u6E2C\u8A66\u9700\u6C42\uFF08test requirement\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u8DEF\u5F91\u5FC5\u9808\u8D70\u8A2A\u7684\u67D0\u500B\u7279\u5B9A\u7D50\u69CB\u5143\u7D20\uFF08\u4F8B\u5982\u4E00\u500B\u7BC0\u9EDE\u3001\u908A\u6216\u8CEA\u8DEF\u5F91\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u6E96\u5247\u6703\u5B9A\u7FA9\u51FA\u4E00\u7D44\u6E2C\u8A66\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5E36\u6709\u8F38\u5165\u503C\u7684\u55AE\u4E00\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u6848\u4F8B\uFF1B\u9700\u6C42\u662F\u8A72\u6848\u4F8B\u5FC5\u9808\u6EFF\u8DB3\u7684\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7684\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5224\u5B9A\u6E96\u5247\uFF08oracle\uFF09\uFF0C\u800C\u975E\u8986\u84CB\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u4E00\u689D\u5F9E\u5165\u53E3\u5230\u51FA\u53E3\u7684\u5B8C\u6574\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u5B8C\u6574\u8DEF\u5F91\u53EF\u80FD\u6EFF\u8DB3\u591A\u500B\u9700\u6C42\uFF0C\u4F46\u9700\u6C42\u6307\u7684\u662F\u8981\u88AB\u8D70\u8A2A\u7684\u5143\u7D20\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u6E96\u5247\u662F\u4E00\u689D\u7522\u751F\u4E00\u7D44\u6E2C\u8A66\u9700\u6C42\u7684\u898F\u5247\uFF1B\u6BCF\u500B\u9700\u6C42\u90FD\u662F\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u5FC5\u9808\u8D70\u8A2A\u7684\u7D50\u69CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76E1\u529B\u8D70\u8A2A",
+            "text": "<p>\u7576\u67D0\u689D\u8981\u6C42\u7684\u8CEA\u8DEF\u5F91\u7121\u6CD5\u88AB\u4EFB\u4F55\u5B8C\u6574\u6E2C\u8A66\u8DEF\u5F91\u76F4\u63A5\u8D70\u8A2A\u6642\uFF0C\u5E38\u898B\u7684\u505A\u6CD5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u82E5\u53EF\u884C\uFF0C\u5C31\u4EE5\u652F\u8DEF\uFF0F\u7E5E\u9053\uFF08sidetrip/detour\uFF09\u65B9\u5F0F\u8D70\u8A2A\u5B83\uFF08\u76E1\u529B\u8D70\u8A2A\uFF0Cbest-effort touring\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76E1\u529B\u8D70\u8A2A\u5141\u8A31\u4EE5\u652F\u8DEF\u4F86\u9054\u6210\u539F\u672C\u96E3\u4EE5\u8D70\u8A2A\u7684\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u5F9E\u5716\u4E2D\u522A\u9664\u8A72\u8CEA\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6703\u5F9E\u5716\u4E2D\u79FB\u9664\u9700\u6C42\uFF0C\u800C\u662F\u653E\u5BEC\u8D70\u8A2A\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "\u5BA3\u544A\u6574\u500B\u6E96\u5247\u4E0D\u53EF\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u500B\u96E3\u4EE5\u8D70\u8A2A\u7684\u9700\u6C42\u4E0D\u6703\u8B93\u6574\u500B\u6E96\u5247\u7121\u6CD5\u4F7F\u7528\uFF1B\u6539\u7528\u76E1\u529B\u8D70\u8A2A\u5373\u53EF\u3002"
+              },
+              {
+                "text": "\u65B0\u589E\u4E00\u689D\u908A\u8B93\u8A72\u8DEF\u5F91\u8B8A\u5F97\u53EF\u76F4\u63A5\u8D70\u8A2A",
+                "fraction": 0,
+                "feedback": "\u5716\u5F62\u6A21\u64EC\u7684\u662F\u7A0B\u5F0F\u672C\u8EAB\uFF0C\u4E0D\u6703\u70BA\u4E86\u6EFF\u8DB3\u9700\u6C42\u800C\u66F4\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u76E1\u529B\u8D70\u8A2A\u5141\u8A31\u652F\u8DEF\uFF08\u7E5E\u9053\uFF09\uFF0C\u4F7F\u5F97\u7121\u6CD5\u76F4\u63A5\u8D70\u8A2A\u7684\u9700\u6C42\uFF0C\u5728\u53EF\u884C\u6642\u4ECD\u80FD\u88AB\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5168\u5B9A\u7FA9\u7684\u610F\u7FA9",
+            "text": "<p>\u5168\u5B9A\u7FA9\u8986\u84CB\uFF08All-Defs Coverage\uFF09\u5C0D\u65BC\u67D0\u8B8A\u6578\u7684\u6BCF\u4E00\u500B\u5B9A\u7FA9\uFF0C\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u81F3\u5C11\u8D70\u8A2A\u4E00\u689D\u5F9E\u8A72\u5B9A\u7FA9\u5230\u67D0\u500B\u4F7F\u7528\u7684\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u5B9A\u7FA9\u5FC5\u9808\u81F3\u5C11\u5230\u9054\u4E00\u500B\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "\u8D70\u8A2A\u5F9E\u8A72\u5B9A\u7FA9\u5230\u6BCF\u4E00\u500B\u4F7F\u7528\u7684\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5168\u4F7F\u7528\uFF08All-Uses\uFF09\uFF0C\u5F37\u5EA6\u9AD8\u65BC\u5168\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u8D70\u8A2A\u5F9E\u8A72\u5B9A\u7FA9\u51FA\u767C\u7684\u6BCF\u4E00\u689D\u7C21\u55AE\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\uFF08All-DU-Paths\uFF09\uFF0C\u800C\u975E\u5168\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u8A72\u5B9A\u7FA9\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u662F\u5C0D\u8A72\u5B9A\u7FA9\u7684\u7BC0\u9EDE\u8986\u84CB\uFF1B\u5168\u5B9A\u7FA9\u9084\u8981\u6C42\u5230\u9054\u67D0\u500B\u4F7F\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5168\u5B9A\u7FA9\u8981\u6C42\u6BCF\u500B\u5B9A\u7FA9\u7D93\u7531\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91\u81F3\u5C11\u5230\u9054\u4E00\u500B\u4F7F\u7528\uFF1B\u5168\u4F7F\u7528\u5247\u5F37\u5316\u70BA\u5230\u9054\u6BCF\u4E00\u500B\u4F7F\u7528\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8CEA\u8DEF\u5F91\u7684\u6DB5\u84CB\u95DC\u4FC2",
+            "text": "<p>\u5728\u81F3\u5C11\u542B\u6709\u4E00\u689D\u908A\u7684\u5716\u4E0A\uFF0C\u4E0B\u5217\u54EA\u500B\u6E96\u5247\u88AB\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09\u6240\u6DB5\u84CB\uFF08subsumed\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9577\u5EA6 \u2265 2 \u7684\u8CEA\u8DEF\u5F91\u6DB5\u84CB\u6240\u6709\u9577\u5EA6 \u2264 2 \u7684\u5B50\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF08Complete Path Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u901A\u5E38\u4E0D\u53EF\u884C\uFF0C\u4E14\u4E0D\u88AB\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\u8986\u84CB\uFF08All-DU-Paths\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CC7\u6599\u6D41\u6E96\u5247\u4E0D\u88AB\u7D50\u69CB\u6027\u7684\u8CEA\u8DEF\u5F91\u8986\u84CB\u6240\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u78BA\u5BE6\u6DB5\u84CB\u908A\u8986\u84CB\u8207\u908A\u5C0D\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u6DB5\u84CB\u908A\u5C0D\u8986\u84CB\u8207\u908A\u8986\u84CB\uFF1B\u4F46\u4E0D\u6DB5\u84CB\u8CC7\u6599\u6D41\u6216\u5B8C\u6574\u8DEF\u5F91\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8CC7\u6599\u6D41\u7684\u6DB5\u84CB\u93C8",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u689D\u93C8\u6B63\u78BA\u5730\u7531\u6700\u5F37\uFF08\u6DB5\u84CB\uFF09\u6392\u5230\u6700\u5F31\u5730\u5217\u51FA\u8CC7\u6599\u6D41\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91 \u2192 \u5168\u4F7F\u7528 \u2192 \u5168\u5B9A\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u90FD\u6DB5\u84CB\u4E0B\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u5168\u5B9A\u7FA9 \u2192 \u5168\u4F7F\u7528 \u2192 \u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u9019\u9806\u5E8F\u76F8\u53CD\uFF1B\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\u6700\u5F37\u3002"
+              },
+              {
+                "text": "\u5168\u4F7F\u7528 \u2192 \u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91 \u2192 \u5168\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\u6DB5\u84CB\u5168\u4F7F\u7528\uFF0C\u56E0\u6B64\u5FC5\u9808\u6392\u5728\u524D\u9762\u3002"
+              },
+              {
+                "text": "\u5168\u5B9A\u7FA9 \u2192 \u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91 \u2192 \u5168\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "\u5168\u5B9A\u7FA9\u6700\u5F31\uFF0C\u4E0D\u53EF\u80FD\u9818\u982D\u3002"
+              }
+            ],
+            "generalFeedback": "\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\u6DB5\u84CB\u5168\u4F7F\u7528\uFF0C\u5168\u4F7F\u7528\u53C8\u6DB5\u84CB\u5168\u5B9A\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8CEA\u8DEF\u5F91\u8207\u8CC7\u6599\u6D41",
+            "text": "<p>\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09\u6DB5\u84CB\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\u8986\u84CB\uFF08All-DU-Paths Coverage\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D50\u69CB\u6027\u7684\u8CEA\u8DEF\u5F91\u8986\u84CB\u4E26\u4E0D\u6DB5\u84CB\u8CC7\u6599\u6D41\u6E96\u5247\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u6DB5\u84CB\u908A\u5C0D\uFF0F\u908A\uFF0F\u7BC0\u9EDE\u8986\u84CB\uFF0C\u4F46\u4E0D\u6DB5\u84CB\u8CC7\u6599\u6D41\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CC7\u6599\u6D41\u6E96\u5247\u53D6\u6C7A\u65BC\u5B9A\u7FA9-\u4F7F\u7528\u95DC\u4FC2\uFF0C\u800C\u9019\u662F\u7D50\u69CB\u6027\u7684\u8CEA\u8DEF\u5F91\u8986\u84CB\u6240\u7121\u6CD5\u4FDD\u8B49\u7684\uFF0C\u56E0\u6B64\u5169\u8005\u4E0D\u5B58\u5728\u6DB5\u84CB\u95DC\u4FC2\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u53EF\u884C\u7684\u6E2C\u8A66\u9700\u6C42",
+            "text": "<p>\u67D0\u6E2C\u8A66\u9700\u6C42\u70BA<strong>\u4E0D\u53EF\u884C\uFF08infeasible\uFF09</strong>\uFF0C\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u7B26\u5408\u7A0B\u5F0F\u8A9E\u610F\u7684\u6E2C\u8A66\u8DEF\u5F91\u80FD\u5920\u8D70\u8A2A\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u53EF\u884C\u6027\u95DC\u4E4E\u8A9E\u610F\uFF0C\u800C\u975E\u5716\u7684\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u5B83\u9700\u8981\u8D85\u904E\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u9700\u8981\u591A\u500B\u6848\u4F8B\u4E26\u4E0D\u6703\u4F7F\u9700\u6C42\u8B8A\u5F97\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u4E00\u689D\u6BD4\u7BC0\u9EDE\u6578\u9084\u9577\u7684\u8CEA\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91\u662F\u7C21\u55AE\u8DEF\u5F91\uFF0C\u9577\u5EA6\u6709\u4E0A\u9650\uFF1B\u55AE\u6191\u9577\u5EA6\u4E0D\u4EE3\u8868\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u542B\u6709\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u8FF4\u5708\u6703\u8B93\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u8B8A\u6210\u7121\u7AAE\uFF0C\u4F46\u672C\u8EAB\u4E26\u4E0D\u6703\u8B93\u67D0\u500B\u9700\u6C42\u4E0D\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u884C\u7684\u9700\u6C42\u7121\u6CD5\u88AB\u4EFB\u4F55\u8A9E\u610F\u4E0A\u5408\u6CD5\u7684\u57F7\u884C\u8D70\u8A2A\uFF08\u4F8B\u5982\u4E92\u76F8\u77DB\u76FE\u7684\u5206\u652F\u689D\u4EF6\uFF09\uFF1B\u8986\u84CB\u7387\u662F\u76F8\u5C0D\u65BC\u53EF\u884C\u9700\u6C42\u4F86\u8861\u91CF\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u8CEA\u8DEF\u5F91\u6578\uFF08if-else\uFF09",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..4\uFF0C\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>\u3002\u5B83\u6709\u5E7E\u689D\u8CEA\u8DEF\u5F91\uFF08prime path\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21924 \u8207 1\u21923\u21924 \u662F\u50C5\u6709\u7684\u5169\u689D\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u90A3\u56DB\u689D\u908A\u4E26\u975E\u90FD\u662F\u8CEA\u8DEF\u5F91\uFF1B\u6BCF\u4E00\u689D\u90FD\u662F\u67D0\u689D\u66F4\u9577\u7C21\u55AE\u8DEF\u5F91\u7684\u5B50\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u53EA\u6709\u5169\u689D\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u9019\u9AD8\u4F30\u4E86\uFF1B\u8F03\u77ED\u7684\u7C21\u55AE\u8DEF\u5F91\u90FD\u662F\u90A3\u5169\u689D\u8CEA\u8DEF\u5F91\u7684\u5B50\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CEA\u8DEF\u5F91\u662F\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u3002\u6B64\u8655\u70BA 1\u21922\u21924 \u8207 1\u21923\u21924\uFF1B\u6BCF\u4E00\u689D\u8F03\u77ED\u7684\u7C21\u55AE\u8DEF\u5F91\u90FD\u662F\u5176\u4E2D\u4E4B\u4E00\u7684\u5B50\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u5C0D\u8A08\u7B97\uFF087 \u7BC0\u9EDE\uFF09",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..7\uFF0C\u908A\u70BA <code>1\u21922, 1\u21923, 1\u21924, 2\u21923, 2\u21924, 2\u21925, 2\u21926, 3\u21924, 5\u21927</code>\u3002\u5171\u6709\u5E7E\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91 u\u2192v\u2192w\uFF1F</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5217\u8209\u6BCF\u500B\u4E2D\u9593\u7BC0\u9EDE\u7684\u5916\u5411\u908A\u5373\u53EF\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u5171\u6709\u4E03\u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "\u90A3\u8A08\u7B97\u7684\u662F\u908A\u6578\uFF089\uFF09\uFF0C\u800C\u975E\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u53EA\u6709\u4E03\u5C0D\u908A\u5171\u7528\u4E2D\u9593\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u500B\u4E2D\u9593\u7BC0\u9EDE\uFF0C\u5C07\u5165\u5EA6\u4E58\u4EE5\u51FA\u5EA6\uFF1A\u7BC0\u9EDE 2 = 1\xD74 = 4\u3001\u7BC0\u9EDE 3 = 2\xD71 = 2\u3001\u7BC0\u9EDE 5 = 1\xD71 = 1\uFF1B\u5408\u8A08 4 + 2 + 1 = 7 \u689D\u9577\u5EA6\u70BA 2 \u7684\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5168\u4F7F\u7528\u7684\u53CD\u5411\u95DC\u4FC2",
+            "text": "<p>\u5168\u4F7F\u7528\uFF08All-Uses\uFF09\u6DB5\u84CB\u5168\u5B9A\u7FA9\uFF08All-Defs\uFF09\uFF0C\u4F46\u5168\u5B9A\u7FA9\u4E26\u4E0D\u6DB5\u84CB\u5168\u4F7F\u7528\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u95DC\u4FC2\u53EA\u6210\u7ACB\u65BC\u55AE\u4E00\u65B9\u5411\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5168\u4F7F\u7528\u56B4\u683C\u8F03\u5F37\uFF1A\u6EFF\u8DB3\u5168\u5B9A\u7FA9\u672A\u5FC5\u80FD\u5230\u9054\u6BCF\u4E00\u500B\u4F7F\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5B9A\u7FA9\u53EA\u5230\u9054\u4E00\u500B\u4F7F\u7528\uFF08\u5168\u5B9A\u7FA9\uFF09\u4E26\u4E0D\u860A\u542B\u5230\u9054\u6BCF\u500B\u5B9A\u7FA9\u7684\u6240\u6709\u4F7F\u7528\uFF08\u5168\u4F7F\u7528\uFF09\uFF0C\u56E0\u6B64\u6DB5\u84CB\u95DC\u4FC2\u662F\u55AE\u5411\u7684\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7C21\u55AE\u5F80\u8FD4\u8207\u5B8C\u6574\u5F80\u8FD4",
+            "text": "<p>\u7C21\u55AE\u5F80\u8FD4\u8986\u84CB\uFF08Simple Round Trip Coverage\uFF09\u8207\u5B8C\u6574\u5F80\u8FD4\u8986\u84CB\uFF08Complete Round Trip Coverage\uFF09\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7C21\u55AE\u5F80\u8FD4\u8981\u6C42\u6BCF\u500B\u80FD\u8D77\u59CB\u5F80\u8FD4\u7684\u53EF\u9054\u7BC0\u9EDE\u81F3\u5C11\u4E00\u689D\u5F80\u8FD4\u8DEF\u5F91\uFF1B\u5B8C\u6574\u5F80\u8FD4\u8981\u6C42\u6240\u6709\u5F80\u8FD4\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6574\u5F80\u8FD4\u662F\u5169\u8005\u4E2D\u8F03\u5F37\u7684\u3002"
+              },
+              {
+                "text": "\u7C21\u55AE\u5F80\u8FD4\u8981\u6C42\u6240\u6709\u5F80\u8FD4\u8DEF\u5F91\uFF1B\u5B8C\u6574\u5F80\u8FD4\u53EA\u8981\u6C42\u4E00\u689D",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u985B\u5012\u4E86\u2014\u2014\u5B8C\u6574\u5F80\u8FD4\u624D\u8981\u6C42\u5168\u90E8\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4E0D\u540C\uFF1A\u4E00\u500B\u8981\u6C42\u81F3\u5C11\u4E00\u689D\uFF0C\u53E6\u4E00\u500B\u8981\u6C42\u5168\u90E8\u5F80\u8FD4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u7C21\u55AE\u5F80\u8FD4\u5FFD\u7565\u8FF4\u5708\uFF1B\u5B8C\u6574\u5F80\u8FD4\u5C07\u8FF4\u5708\u8A08\u7B97\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u5728\u8655\u7406\u5F80\u8FD4\uFF08\u8FF4\u5708\uFF09\u8DEF\u5F91\uFF1B\u5DEE\u5225\u5728\u65BC\u300C\u4E00\u689D\u300D\u8207\u300C\u5168\u90E8\u300D\u3002"
+              }
+            ],
+            "generalFeedback": "\u7C21\u55AE\u5F80\u8FD4\u8986\u84CB\u8981\u6C42\u6BCF\u500B\u80FD\u8D77\u59CB\u5F80\u8FD4\u7684\u7BC0\u9EDE\u5404\u4E00\u689D\u5F80\u8FD4\u8DEF\u5F91\uFF1B\u5B8C\u6574\u5F80\u8FD4\u8986\u84CB\u8981\u6C42\u6BCF\u4E00\u689D\u5F80\u8FD4\u8DEF\u5F91\uFF0C\u56E0\u6B64\u6DB5\u84CB\u7C21\u55AE\u5F80\u8FD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u69CB\u5C64\u7D1A\u7684\u9802\u7AEF",
+            "text": "<p>\u5728\u7D50\u69CB\u6E96\u5247 \u7BC0\u9EDE\u3001\u908A\u3001\u908A\u5C0D\u3001\u8CEA\u8DEF\u5F91\u3001\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB \u4E4B\u4E2D\uFF0C\u54EA\u4E00\u500B\u6DB5\u84CB\u6240\u6709\u5176\u4ED6\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF08Complete Path Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8D70\u8A2A\u6BCF\u4E00\u689D\u8DEF\u5F91\u5C31\u6DB5\u84CB\u4E86\u6BCF\u500B\u7BC0\u9EDE\u3001\u908A\u3001\u908A\u5C0D\u8207\u8CEA\u8DEF\u5F91\uFF08\u5118\u7BA1\u5B83\u901A\u5E38\u4E0D\u53EF\u884C\uFF09\u3002"
+              },
+              {
+                "text": "\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u88AB\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u6240\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u5C0D\u8986\u84CB\u96E2\u5C64\u7D1A\u9802\u7AEF\u9084\u5F88\u9060\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u662F\u9019\u4E9B\u6E96\u5247\u4E2D\u6700\u5F31\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u662F\u6700\u5F37\u7684\u7D50\u69CB\u6E96\u5247\uFF08\u5B8C\u6574\u8DEF\u5F91 \u2192 \u8CEA\u8DEF\u5F91 \u2192 \u908A\u5C0D \u2192 \u908A \u2192 \u7BC0\u9EDE\uFF09\uFF0C\u4F46\u53EA\u8981\u6709\u8FF4\u5708\u5C31\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u500B\u5B9A\u7FA9\u5169\u500B\u4F7F\u7528",
+            "text": "<p>x \u7684\u67D0\u4E00\u500B\u5B9A\u7FA9\u7D93\u7531\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91\u80FD\u5230\u9054\u5169\u500B\u4E0D\u540C\u7684\u4F7F\u7528 u1 \u8207 u2\u3002\u8981\u5C0D\u9019\u500B\u5B9A\u7FA9\u6EFF\u8DB3\u5168\u4F7F\u7528\uFF08All-Uses\uFF09\uFF0C\u6E2C\u8A66\u96C6\u5408\u5FC5\u9808\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8D70\u8A2A\u4E00\u689D\u5230 u1 \u4EE5\u53CA\u4E00\u689D\u5230 u2 \u7684\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5168\u4F7F\u7528\u8981\u6C42\u5230\u9054\u8A72\u5B9A\u7FA9\u6BCF\u4E00\u500B\u53EF\u9054\u7684\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "\u8D70\u8A2A\u4E00\u689D\u5230 u1 \u6216 u2 \u5176\u4E2D\u4E4B\u4E00\u7684\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u53EA\u5230\u9054\u4E00\u500B\u4F7F\u7528\u6EFF\u8DB3\u7684\u662F\u5168\u5B9A\u7FA9\uFF0C\u800C\u975E\u5168\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "\u8D70\u8A2A\u5230 u1 \u8207 u2 \u7684\u6BCF\u4E00\u689D\u7C21\u55AE\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\uFF08All-DU-Paths\uFF09\uFF0C\u6BD4\u5168\u4F7F\u7528\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u53EA\u9700\u57F7\u884C\u8A72\u5B9A\u7FA9\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u53EA\u57F7\u884C\u5B9A\u7FA9\u4E26\u4E0D\u6703\u5230\u9054\u5B83\u7684\u4F7F\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5168\u4F7F\u7528\u8981\u6C42\u5F9E\u5B9A\u7FA9\u5230\u5176\u6BCF\u4E00\u500B\u53EF\u9054\u4F7F\u7528\u90FD\u6709\u4E00\u689D\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91\uFF1B\u6B64\u8655\u5373\u5FC5\u9808\u540C\u6642\u5230\u9054 u1 \u8207 u2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u652F\u8DEF\u8207\u7E5E\u9053",
+            "text": "<p>\u7576\u4E00\u689D\u8DEF\u5F91\u4EE5<strong>\u652F\u8DEF\uFF08sidetrip\uFF09</strong>\u8D70\u8A2A\u5B50\u8DEF\u5F91 q \u6642\uFF0C\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u8DEF\u5F91\u4F9D\u5E8F\u8986\u84CB q \u7684\u6BCF\u4E00\u689D\u908A\uFF0C\u904E\u7A0B\u4E2D\u53EF\u80FD\u96E2\u958B q \u518D\u91CD\u65B0\u56DE\u5230 q",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u652F\u8DEF\u8986\u84CB q \u7684\u6240\u6709\u908A\uFF0C\u4F46\u53EF\u80FD\u4E2D\u9014\u7E5E\u958B\u518D\u8FD4\u56DE\u3002"
+              },
+              {
+                "text": "\u8A72\u8DEF\u5F91\u8986\u84CB q \u4E14\u5B8C\u5168\u4E0D\u542B\u4EFB\u4F55\u984D\u5916\u7684\u908A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76F4\u63A5\u8D70\u8A2A q\uFF0C\u800C\u975E\u4EE5\u652F\u8DEF\u8D70\u8A2A\u3002"
+              },
+              {
+                "text": "\u8A72\u8DEF\u5F91\u8DF3\u904E q \u7684\u67D0\u4E9B\u908A",
+                "fraction": 0,
+                "feedback": "\u652F\u8DEF\u4ECD\u8986\u84CB q \u7684\u6BCF\u4E00\u689D\u908A\uFF1B\u53EA\u662F\u5728\u908A\u4E4B\u9593\u52A0\u5165\u7E5E\u9053\u3002"
+              },
+              {
+                "text": "\u8A72\u8DEF\u5F91\u53CD\u8F49 q \u7684\u65B9\u5411",
+                "fraction": 0,
+                "feedback": "\u652F\u8DEF\u4FDD\u7559 q \u7684\u908A\u8207\u65B9\u5411\uFF0C\u53EA\u662F\u63D2\u5165\u984D\u5916\u7684\u7E5E\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u652F\u8DEF\u8D70\u8A2A\u6703\u4F9D\u5E8F\u8986\u84CB q \u7684\u6240\u6709\u908A\uFF0C\u4E26\u5141\u8A31\u96E2\u958B q \u518D\u8FD4\u56DE\u7684\u7E5E\u9053\uFF1B\u76F4\u63A5\u8D70\u8A2A\u5247\u4E0D\u542B\u4EFB\u4F55\u7E5E\u9053\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u8CEA\u8DEF\u5F91\u6578\uFF08\u8FF4\u5708\uFF09",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u7BC0\u9EDE\u70BA 1..4\uFF0C\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21922, 2\u21924</code>\uFF08while \u8FF4\u5708\u5F62\u72C0\uFF09\u3002\u5B83\u6709\u5E7E\u689D\u8CEA\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21923\u30011\u21922\u21924\u30012\u21923\u21922\u30013\u21922\u21923 \u8207 3\u21922\u21924\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u8ACB\u91CD\u6578\u2014\u2014\u8FF4\u5708\u9084\u8CA2\u737B\u4E86\u5F80\u8FD4\u8DEF\u5F91 2\u21923\u21922 \u8207 3\u21922\u21923\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u901A\u904E\u8FF4\u5708\u7684\u5169\u689D\u5F80\u8FD4\u8CEA\u8DEF\u5F91\u5F88\u5BB9\u6613\u88AB\u6F0F\u6389\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u9019\u9AD8\u4F30\u4E86\uFF1B\u6070\u597D\u6709\u4E94\u689D\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CEA\u8DEF\u5F91\u70BA 1\u21922\u21923\u30011\u21922\u21924\u30013\u21922\u21924\uFF0C\u4EE5\u53CA\u5169\u689D\u8FF4\u5708\u5F80\u8FD4 2\u21923\u21922 \u8207 3\u21922\u21923\u2014\u2014\u5408\u8A08\u4E94\u689D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u91CD\u65B0\u5B9A\u7FA9\u4F7F\u5B9A\u7FA9-\u4F7F\u7528\u5C0D\u5931\u6548",
+            "text": "<p>\u5728\u4E00\u689D\u5F9E x \u7684\u5B9A\u7FA9 d \u5230 x \u7684\u4F7F\u7528 u \u7684\u8DEF\u5F91\u4E0A\uFF0C\u7BC0\u9EDE m \u91CD\u65B0\u5B9A\u7FA9\u4E86 x\u3002\u5C0D\u65BC\u9019\u689D\u8DEF\u5F91\u4E0A\u7684\u5B9A\u7FA9-\u4F7F\u7528\u5C0D (d, u)\uFF0C\u5176\u6548\u679C\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u689D\u8DEF\u5F91\u5C0D (d, u) \u800C\u8A00\u4E0D\u662F\u7121\u91CD\u65B0\u5B9A\u7FA9\u7684\uFF1Bd \u7684\u503C\u5728\u6B64\u8DEF\u5F91\u4E0A\u4E0D\u518D\u80FD\u5230\u9054 u",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014m \u8655\u7684\u91CD\u65B0\u5B9A\u7FA9\u5728 u \u4E4B\u524D\u5C31\u8986\u84CB\uFF08kill\uFF09\u4E86 d\u3002"
+              },
+              {
+                "text": "\u9019\u689D\u8DEF\u5F91\u4ECD\u80FD\u8986\u84CB\u5B9A\u7FA9-\u4F7F\u7528\u5C0D (d, u)",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u5B9A\u7FA9\u610F\u5473\u8457 d \u7684\u503C\u6CBF\u6B64\u8DEF\u5F91\u7121\u6CD5\u5230\u9054 u\u3002"
+              },
+              {
+                "text": "m \u6703\u6210\u70BA\u540C\u4E00\u500B\u5B9A\u7FA9-\u4F7F\u7528\u5C0D\u7684\u4E00\u90E8\u5206",
+                "fraction": 0,
+                "feedback": "m \u958B\u555F\u7684\u662F\u4E00\u500B\u65B0\u7684\u5B9A\u7FA9\uFF1B\u5B83\u4E0D\u6703\u4F75\u5165 (d, u)\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528 u \u4E0D\u518D\u662F x \u7684\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "u \u4ECD\u7136\u662F x \u7684\u4F7F\u7528\uFF1B\u53EA\u662F\u5B83\u88AB m \u7684\u5B9A\u7FA9\u6240\u5230\u9054\uFF0C\u800C\u975E d\u3002"
+              }
+            ],
+            "generalFeedback": "d \u8207 u \u4E4B\u9593\u7684\u91CD\u65B0\u5B9A\u7FA9\u6703\u8986\u84CB d\uFF0C\u56E0\u6B64\u5C0D (d, u) \u800C\u8A00\u9019\u689D\u8DEF\u5F91\u4E0D\u662F\u7121\u91CD\u65B0\u5B9A\u7FA9\u7684\uFF1B\u9700\u8981\u53E6\u4E00\u689D\u7121\u91CD\u65B0\u5B9A\u7FA9\u8DEF\u5F91\u624D\u80FD\u8986\u84CB\u8A72\u5C0D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u5C0D\u4E0D\u6DB5\u84CB",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u500B\u6E96\u5247<strong>\u4E0D</strong>\u88AB\u908A\u5C0D\u8986\u84CB\uFF08Edge-Pair Coverage\uFF09\u6240\u6DB5\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8CEA\u8DEF\u5F91\u8986\u84CB\u8F03\u5F37\uFF0C\u56E0\u6B64\u908A\u5C0D\u8986\u84CB\u4E0D\u6DB5\u84CB\u5B83\u3002"
+              },
+              {
+                "text": "\u908A\u8986\u84CB\uFF08Edge Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u5C0D\u8986\u84CB\u78BA\u5BE6\u6DB5\u84CB\u908A\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u5C0D\u8986\u84CB\uFF08\u7D93\u7531\u908A\u8986\u84CB\uFF09\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8986\u84CB\uFF08Statement Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u8986\u84CB\u7B49\u65BC\u7BC0\u9EDE\u8986\u84CB\uFF0C\u6703\u88AB\u908A\u5C0D\u8986\u84CB\u6240\u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u65B9\u5411\u70BA \u8CEA\u8DEF\u5F91 \u2192 \u908A\u5C0D \u2192 \u908A \u2192 \u7BC0\u9EDE\uFF1B\u908A\u5C0D\u8986\u84CB\u6DB5\u84CB\u8F03\u5F31\u7684\u6E96\u5247\uFF0C\u4F46\u4E0D\u6DB5\u84CB\u8F03\u5F37\u7684\u8CEA\u8DEF\u5F91\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8CEA\u8DEF\u5F91\u6DB5\u84CB\u7BC0\u9EDE",
+            "text": "<p>\u5728\u6BCF\u500B\u7BC0\u9EDE\u90FD\u6709\u76F8\u9023\u908A\u7684\u5716\u4E0A\uFF0C\u8CEA\u8DEF\u5F91\u8986\u84CB\uFF08Prime Path Coverage\uFF09\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D93\u7531\u908A\u5C0D\u8986\u84CB\u8207\u908A\u8986\u84CB\u7684\u905E\u79FB\u6027\u53EF\u5F97\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91 \u2192 \u908A\u5C0D \u2192 \u908A \u2192 \u7BC0\u9EDE\uFF0C\u56E0\u6B64\u8CEA\u8DEF\u5F91\u8986\u84CB\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u95DC\u4FC2\u5177\u905E\u79FB\u6027\uFF1A\u8CEA\u8DEF\u5F91\u6DB5\u84CB\u908A\u5C0D\uFF0C\u908A\u5C0D\u6DB5\u84CB\u908A\uFF0C\u908A\u53C8\u6DB5\u84CB\u7BC0\u9EDE\u3002"
           }
         ]
       }
