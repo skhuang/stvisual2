@@ -4,35 +4,212 @@
     <category><text>$course$/top/Mutation Testing/easy</text></category>
   </question>
   <question type="multichoice">
+    <name><text>What is a mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In mutation testing, a <em>mutant</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A copy of the program with one small syntactic change applied by a mutation operator</text><feedback><text>Correct — a mutant is the original program seeded with one deliberate, small fault.</text></feedback></answer>
+    <answer fraction="0"><text>A test case that exposes a defect in the program</text><feedback><text>That is a failing test case, not a mutant — the mutant is the altered program.</text></feedback></answer>
+    <answer fraction="0"><text>A bug reported by a user in production</text><feedback><text>Mutants are artificial faults injected on purpose, not field-reported defects.</text></feedback></answer>
+    <answer fraction="0"><text>An input value that maximises code coverage</text><feedback><text>Coverage-maximising inputs are a testing concern, unrelated to what a mutant is.</text></feedback></answer>
+    <generalfeedback><text>A mutant is a variant of the program produced by applying a mutation operator that makes one small syntactic change (e.g. + becomes -). Running tests against mutants measures how good the tests are at detecting such faults.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a mutation operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>mutation operator</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A rule that systematically transforms the program to produce mutants (e.g. replace + with -)</text><feedback><text>Correct — each operator encodes a class of small syntactic changes.</text></feedback></answer>
+    <answer fraction="0"><text>An arithmetic operator such as + or * in the source code</text><feedback><text>That is an operator in the program; a mutation operator is a rule that changes such tokens.</text></feedback></answer>
+    <answer fraction="0"><text>The test oracle that decides pass or fail</text><feedback><text>The oracle judges outputs; it does not generate mutants.</text></feedback></answer>
+    <answer fraction="0"><text>A metric describing how many tests pass</text><feedback><text>That is closer to a test result, not a mutation operator.</text></feedback></answer>
+    <generalfeedback><text>A mutation operator is a transformation rule (ROR, AOR, LOR, statement deletion, etc.) applied to the source to systematically generate mutants, each carrying one small change.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of mutation testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The primary purpose of mutation testing is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Measure the fault-detecting adequacy of a test suite</text><feedback><text>Correct — it asks "how many injected faults do these tests catch?"</text></feedback></answer>
+    <answer fraction="0"><text>Automatically repair bugs in the program</text><feedback><text>Mutation testing evaluates tests; it does not fix code.</text></feedback></answer>
+    <answer fraction="0"><text>Prove the program has no defects</text><feedback><text>No testing technique proves the absence of all defects.</text></feedback></answer>
+    <answer fraction="0"><text>Generate program inputs at random</text><feedback><text>Random input generation is a different technique; mutation testing seeds faults, not inputs.</text></feedback></answer>
+    <generalfeedback><text>Mutation testing evaluates how good a test suite is by seeding artificial faults (mutants) and measuring the fraction the suite detects — a stronger adequacy criterion than structural coverage alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
     <name><text>Mutant killed</text></name>
     <questiontext format="html"><text><![CDATA[<p>A mutant is considered <em>killed</em> when:</p>]]></text></questiontext>
     <single>true</single>
-    <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>Some test case produces a different result on the mutant than on the original program</text><feedback><text>Correct — that observable difference is what "kills" it.</text></feedback></answer>
-    <answer fraction="0"><text>The mutant fails to compile</text><feedback><text>A mutant that won't compile is usually discarded, not "killed" by a test.</text></feedback></answer>
-    <answer fraction="0"><text>The mutant crashes at runtime</text><feedback><text>A crash can kill a mutant only if it differs from the original's behavior — the definition is about differing output, not crashing itself.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant fails to compile</text><feedback><text>A mutant that won't compile is usually discarded (a stillborn mutant), not "killed" by a test.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant crashes at runtime</text><feedback><text>A crash kills a mutant only if it differs from the original's behaviour — the definition is about differing output, not crashing itself.</text></feedback></answer>
     <answer fraction="0"><text>The mutant is equivalent to the original</text><feedback><text>An equivalent mutant, by definition, can never be killed by any test.</text></feedback></answer>
-    <generalfeedback><text>A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and running it on the original program.</text></generalfeedback>
+    <generalfeedback><text>A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and on the original program.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Live mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A mutant that <em>lives</em> (survives) against a test suite is one that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Produces the same result as the original on every test in the suite</text><feedback><text>Correct — no test in the suite distinguishes it, so it survives.</text></feedback></answer>
+    <answer fraction="0"><text>Produces a different result on at least one test</text><feedback><text>That describes a killed mutant, not a surviving one.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot be compiled or executed</text><feedback><text>That is a stillborn mutant, a separate category from live mutants.</text></feedback></answer>
+    <answer fraction="0"><text>Is always an equivalent mutant</text><feedback><text>A live mutant may be equivalent, but it may instead be non-equivalent and simply not yet killed by a weak suite.</text></feedback></answer>
+    <generalfeedback><text>A live (surviving) mutant gives the same output as the original on every test in the suite. It signals either a weakness in the tests (a non-equivalent mutant that a better test would kill) or an equivalent mutant that no test can kill.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>equivalent mutant</em> is a mutant that is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Syntactically different from the original but semantically identical on every input</text><feedback><text>Correct — same input/output behaviour for all inputs, so no test can distinguish it.</text></feedback></answer>
+    <answer fraction="0"><text>Textually identical to the original program</text><feedback><text>Mutation operators always introduce a syntactic change; identical text isn't a mutant at all.</text></feedback></answer>
+    <answer fraction="0"><text>A mutant located in dead/unreachable code</text><feedback><text>An unreachable mutant fails on reachability, but might still be non-equivalent were the code reached.</text></feedback></answer>
+    <answer fraction="0"><text>A mutant that crashes on every input</text><feedback><text>A mutant that reliably crashes differently from the original is trivially killed, not equivalent.</text></feedback></answer>
+    <generalfeedback><text>An equivalent mutant differs in source code from the original but computes exactly the same function — identical output for every possible input — so it is logically impossible for any test to kill it.</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>Mutation score formula</text></name>
     <questiontext format="html"><text><![CDATA[<p>The mutation score is computed as:</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>killed mutants / (total mutants &#8722; equivalent mutants)</text><feedback><text>Correct — equivalent mutants are excluded because no test can ever kill them.</text></feedback></answer>
-    <answer fraction="0"><text>killed mutants / total mutants</text><feedback><text>This treats equivalent mutants as killable, unfairly penalizing the test suite.</text></feedback></answer>
+    <answer fraction="0"><text>killed mutants / total mutants</text><feedback><text>This treats equivalent mutants as killable, unfairly penalising the test suite.</text></feedback></answer>
     <answer fraction="0"><text>killed mutants / (total mutants + equivalent mutants)</text><feedback><text>Adding, not subtracting, equivalents makes the score worse without justification.</text></feedback></answer>
     <answer fraction="0"><text>(total mutants &#8722; killed mutants) / total mutants</text><feedback><text>That's closer to a "surviving-mutant rate", not the mutation score.</text></feedback></answer>
     <generalfeedback><text>Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.</text></generalfeedback>
   </question>
   <question type="multichoice">
-    <name><text>Equivalent mutant</text></name>
-    <questiontext format="html"><text><![CDATA[<p>An <em>equivalent mutant</em> is a mutant that is:</p>]]></text></questiontext>
+    <name><text>Perfect mutation score</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test suite achieves a mutation score of 100% (with equivalents excluded). This means:</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>Syntactically different from the original but semantically identical on every input</text><feedback><text>Correct — same input/output behavior for all inputs, so no test can distinguish it.</text></feedback></answer>
-    <answer fraction="0"><text>Textually identical to the original program</text><feedback><text>Mutation operators always introduce a syntactic change; identical text isn't a mutant at all.</text></feedback></answer>
-    <answer fraction="0"><text>A mutant located in dead/unreachable code</text><feedback><text>An unreachable mutant fails on reachability, but might still be non-equivalent were the code reached.</text></feedback></answer>
-    <answer fraction="0"><text>A mutant that crashes on every input</text><feedback><text>A mutant that reliably crashes differently from the original is trivially killed, not equivalent.</text></feedback></answer>
-    <generalfeedback><text>An equivalent mutant differs in source code from the original program but computes exactly the same function — identical output for every possible input — so it is logically impossible for any test to kill it.</text></generalfeedback>
+    <answer fraction="100"><text>Every non-equivalent mutant was killed by some test in the suite</text><feedback><text>Correct — a perfect score means all killable mutants were detected.</text></feedback></answer>
+    <answer fraction="0"><text>The program is proven correct</text><feedback><text>Killing all mutants shows the tests catch these seeded faults, not that the program is bug-free.</text></feedback></answer>
+    <answer fraction="0"><text>There were no equivalent mutants</text><feedback><text>Equivalent mutants are excluded from the denominator; a 100% score says nothing about how many there were.</text></feedback></answer>
+    <answer fraction="0"><text>The suite achieves 100% branch coverage</text><feedback><text>A high mutation score usually implies strong coverage, but 100% is defined by killed mutants, not branches directly.</text></feedback></answer>
+    <generalfeedback><text>A 100% mutation score means the suite killed every non-equivalent mutant. It is a strong adequacy signal but is not a proof of program correctness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Competent programmer hypothesis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>competent programmer hypothesis</em> underlying mutation testing states that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Programmers write code that is close to correct, so real faults are small deviations from the correct program</text><feedback><text>Correct — this justifies modelling faults as small single mutations.</text></feedback></answer>
+    <answer fraction="0"><text>Programmers never introduce faults into their code</text><feedback><text>If that were true there would be nothing to test; the hypothesis is about faults being small, not absent.</text></feedback></answer>
+    <answer fraction="0"><text>Every fault requires many simultaneous changes to fix</text><feedback><text>The hypothesis assumes the opposite — faults are typically small deviations.</text></feedback></answer>
+    <answer fraction="0"><text>Compilers can detect all programmer mistakes</text><feedback><text>That is unrelated; the hypothesis concerns the size of human faults, not compiler capability.</text></feedback></answer>
+    <generalfeedback><text>The competent programmer hypothesis says developers produce nearly-correct programs, so faults are small. This justifies using small, single-change mutants to model realistic faults.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coupling effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>coupling effect</em> hypothesis claims that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests that detect all simple (single-change) faults also detect most complex (multiple-change) faults</text><feedback><text>Correct — this is why testing against simple mutants is worthwhile.</text></feedback></answer>
+    <answer fraction="0"><text>Complex faults are completely independent of simple faults</text><feedback><text>The coupling effect claims the opposite — complex faults are coupled to simple ones.</text></feedback></answer>
+    <answer fraction="0"><text>Two modules that share data must be tested together</text><feedback><text>That is module coupling in design, not the mutation-testing coupling effect.</text></feedback></answer>
+    <answer fraction="0"><text>Every mutant is coupled to exactly one test case</text><feedback><text>The coupling effect relates simple and complex faults, not mutants to individual tests.</text></feedback></answer>
+    <generalfeedback><text>The coupling effect holds that a test set killing all simple one-change mutants will also detect the great majority of complex, higher-order faults — so first-order mutants are a good adequacy target.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill outcome: sign classify (&gt; to &gt;=)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>if (x &gt; 0) return "positive"; else return "non-positive";</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives the mutant <code>if (x &gt;= 0) ...</code>. For the test input <code>x = 0</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>Correct — at x=0 the original returns "non-positive" but the mutant returns "positive".</text></feedback></answer>
+    <answer fraction="0"><text>Lives — the test does not detect it, though another input would</text><feedback><text>x=0 is exactly the boundary where the two operators disagree, so the test does detect it.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is clearly non-equivalent: x=0 distinguishes it.</text></feedback></answer>
+    <generalfeedback><text>At x=0 the original's "x&gt;0" is false (returns "non-positive"), but the mutant's "x&gt;=0" is true (returns "positive"). The outputs differ, so this test kills the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill outcome: voting age (&gt;= to &gt;)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>return age &gt;= 18;</code>. The operator <strong>&gt;= &#8594; &gt;</strong> gives the mutant <code>return age &gt; 18;</code>. For the test input <code>age = 18</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>Correct — at age=18 the original returns true but the mutant returns false.</text></feedback></answer>
+    <answer fraction="0"><text>Lives — the test does not detect it, though another input would</text><feedback><text>age=18 is the boundary where "&gt;=18" and "&gt;18" disagree, so this test does detect it.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is non-equivalent: age=18 distinguishes the two.</text></feedback></answer>
+    <generalfeedback><text>At age=18 the original's "age&gt;=18" is true, but the mutant's "age&gt;18" is false. The results differ, so this test kills the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill outcome: statement deletion (abs)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>if (x &lt; 0) { x = -x; } return x;</code>. Statement deletion removes <code>x = -x;</code>, giving <code>if (x &lt; 0) { } return x;</code>. For the test input <code>x = -5</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>Correct — the original returns 5 but the mutant returns -5.</text></feedback></answer>
+    <answer fraction="0"><text>Lives — the test does not detect it, though another input would</text><feedback><text>With x=-5 the deleted statement would have run, so its removal is observable here.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is non-equivalent: any negative input distinguishes it.</text></feedback></answer>
+    <generalfeedback><text>At x=-5 the original negates and returns 5, but the mutant's empty if-body leaves x as -5. Different outputs, so this test kills the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill outcome: arithmetic operator (+ to -)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>return a + b;</code>. The operator <strong>+ &#8594; -</strong> gives the mutant <code>return a - b;</code>. For the test input <code>a = 3, b = 7</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>Correct — 3+7=10 but 3-7=-4.</text></feedback></answer>
+    <answer fraction="0"><text>Lives — the test does not detect it, though another input would</text><feedback><text>Because b=7≠0, a+b and a-b differ, so the test does detect the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is non-equivalent: any b≠0 distinguishes + from -.</text></feedback></answer>
+    <generalfeedback><text>Here a+b=10 but a-b=-4; since b≠0 the two differ (by 2b), so this test kills the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Live outcome: sign classify at x = 7</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>if (x &gt; 0) return "positive"; else return "non-positive";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = 7</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lives — the test does not detect it, though another input would</text><feedback><text>Correct — at x=7 both versions return "positive"; only x=0 would reveal the difference.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>At x=7 both "x&gt;0" and "x&gt;=0" are true, so outputs match — the test does not kill it.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is not equivalent: x=0 kills it; this particular test just happens to miss it.</text></feedback></answer>
+    <generalfeedback><text>At x=7 both "x&gt;0" and "x&gt;=0" evaluate to true, so both return "positive" and the mutant survives this test. It is not equivalent, though — x=0 would kill it.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Mutation Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>ROR operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which change is an instance of the <strong>ROR</strong> (Relational Operator Replacement) operator?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[Replacing <code>a &lt; b</code> with <code>a &lt;= b</code>]]></text><feedback><text>Correct — ROR replaces one relational operator with another (&lt;, &lt;=, &gt;, &gt;=, ==, !=).</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Replacing <code>a + b</code> with <code>a - b</code>]]></text><feedback><text>That is AOR (arithmetic operator replacement), not ROR.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Replacing <code>a &amp;&amp; b</code> with <code>a || b</code>]]></text><feedback><text>That is LOR/COR (logical/conditional operator replacement).</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Deleting the statement <code>a = b;</code>]]></text><feedback><text>That is SDL (statement deletion).</text></feedback></answer>
+    <generalfeedback><text>ROR replaces a relational operator with each of the other relational operators (and sometimes with true/false), e.g. &lt; becomes &lt;=, &gt;, &gt;=, ==, or !=.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>AOR operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>AOR</strong> (Arithmetic Operator Replacement) operator would transform <code>x * y</code> into which of the following?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[<code>x + y</code>]]></text><feedback><text>Correct — AOR swaps one binary arithmetic operator for another (+, -, *, /, %).</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>x &gt; y</code>]]></text><feedback><text>Turning arithmetic into a relation is ROR-style, not AOR.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>x &amp;&amp; y</code>]]></text><feedback><text>That introduces a logical operator (LOR), not an arithmetic one.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>-x * y</code>]]></text><feedback><text>Inserting a unary minus is UOI, not AOR.</text></feedback></answer>
+    <generalfeedback><text>AOR replaces one binary arithmetic operator with another from {+, -, *, /, %}, e.g. * becomes +.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>LOR operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>LOR</strong> / conditional operator replacement operator applied to <code>a &amp;&amp; b</code> most directly produces:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[<code>a || b</code>]]></text><feedback><text>Correct — it replaces one logical connective with another.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>a == b</code>]]></text><feedback><text>That is a relational operator (ROR), not a logical connective.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>a + b</code>]]></text><feedback><text>That is arithmetic (AOR).</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>!a &amp;&amp; b</code>]]></text><feedback><text>Inserting a negation is UOI; LOR replaces the connective itself.</text></feedback></answer>
+    <generalfeedback><text>LOR (logical/conditional operator replacement) swaps one logical connective for another, e.g. &amp;&amp; becomes ||.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ABS operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>ABS</strong> (Absolute Value Insertion) operator mutates an arithmetic expression <code>e</code> into which family of variants?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[<code>abs(e)</code>, <code>-abs(e)</code>, and a fail-on-zero variant]]></text><feedback><text>Correct — ABS forces e to be tested as non-negative, non-positive, and zero.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>e + 1</code> and <code>e - 1</code>]]></text><feedback><text>Off-by-one tweaks are not ABS; ABS is about the sign/zero of the expression.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>e &gt; 0</code> and <code>e &lt; 0</code>]]></text><feedback><text>Those are relational tests, not the ABS value-insertion family.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>e</code> replaced by a constant literal]]></text><feedback><text>Constant replacement is a different operator; ABS wraps e in absolute-value forms.</text></feedback></answer>
+    <generalfeedback><text>ABS replaces an expression e with abs(e), -abs(e), and failOnZero(e), forcing tests that exercise e as positive, negative, and zero.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UOI operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which change is an example of the <strong>UOI</strong> (Unary Operator Insertion) operator?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[Replacing <code>return x;</code> with <code>return -x;</code>]]></text><feedback><text>Correct — UOI inserts a unary operator (here arithmetic negation).</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Replacing <code>x + y</code> with <code>x - y</code>]]></text><feedback><text>That swaps a binary operator (AOR), not inserts a unary one.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Replacing <code>x &lt; y</code> with <code>x &gt; y</code>]]></text><feedback><text>That is ROR.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Deleting <code>x = 0;</code>]]></text><feedback><text>That is statement deletion (SDL).</text></feedback></answer>
+    <generalfeedback><text>UOI inserts a unary operator into an expression, e.g. x becomes -x, or a boolean b becomes !b, or x becomes ++x.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SDL operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>SDL</strong> (Statement Deletion) operator produces a mutant by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Removing a single statement from the program</text><feedback><text>Correct — SDL deletes one statement to check whether any test relies on its effect.</text></feedback></answer>
+    <answer fraction="0"><text>Replacing a variable reference with a constant</text><feedback><text>That is a constant/variable replacement operator, not SDL.</text></feedback></answer>
+    <answer fraction="0"><text>Swapping two adjacent statements</text><feedback><text>Reordering is a different mutation; SDL removes a statement.</text></feedback></answer>
+    <answer fraction="0"><text>Negating a boolean condition</text><feedback><text>That is closer to UOI/COR; SDL deletes rather than negates.</text></feedback></answer>
+    <generalfeedback><text>SDL deletes one statement (often replacing it with a no-op). If no test detects the deletion, that statement's effect is untested.</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>RIP model — infection failure</text></name>
@@ -58,5 +235,208 @@
     <answer fraction="100"><text>propagation</text><feedback><text>Correct.</text></feedback></answer>
     <answer fraction="100"><text>propagat*</text><feedback><text>Correct.</text></feedback></answer>
     <generalfeedback><text>Propagation is the third RIP condition: the infected (corrupted) state must flow forward through execution until it changes something the test oracle actually observes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Weak vs strong mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What distinguishes <strong>weak mutation</strong> from <strong>strong mutation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Weak mutation checks for a state difference right after the mutated component executes; strong mutation requires the difference to propagate to the program output</text><feedback><text>Correct — weak mutation only needs infection; strong mutation needs infection to propagate.</text></feedback></answer>
+    <answer fraction="0"><text>Weak mutation uses fewer mutation operators than strong mutation</text><feedback><text>The distinction is about where the difference is observed, not how many operators are used.</text></feedback></answer>
+    <answer fraction="0"><text>Weak mutation only applies to equivalent mutants</text><feedback><text>Both apply to ordinary mutants; the difference is the point of comparison.</text></feedback></answer>
+    <answer fraction="0"><text>Strong mutation runs faster because it stops at the mutated statement</text><feedback><text>It is weak mutation that can stop early at the component; strong mutation runs to output.</text></feedback></answer>
+    <generalfeedback><text>Weak mutation compares internal state immediately after the mutated component (reachability + infection). Strong mutation requires the infected state to propagate all the way to the observable output (reachability + infection + propagation).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation score computation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program has 30 mutants; 6 of them are equivalent, and the test suite kills 21. What is the mutation score?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>87.5%</text><feedback><text>Correct — 21 / (30 &#8722; 6) = 21/24 = 0.875.</text></feedback></answer>
+    <answer fraction="0"><text>70%</text><feedback><text>That is 21/30 — it wrongly counts equivalent mutants in the denominator.</text></feedback></answer>
+    <answer fraction="0"><text>58.3%</text><feedback><text>That is 21/(30+6) — equivalents must be subtracted, not added.</text></feedback></answer>
+    <answer fraction="0"><text>30%</text><feedback><text>That is the surviving-mutant rate 9/30, not the mutation score.</text></feedback></answer>
+    <generalfeedback><text>Mutation score = killed / (total &#8722; equivalent) = 21 / (30 &#8722; 6) = 21/24 = 87.5%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Selective mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Selective mutation</strong> reduces cost by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Using only a small, carefully chosen subset of mutation operators that still yields nearly the same adequacy</text><feedback><text>Correct — a few key operators approximate testing with the full set.</text></feedback></answer>
+    <answer fraction="0"><text>Testing only the mutants that happen to be equivalent</text><feedback><text>Equivalent mutants can never be killed, so testing them alone is pointless.</text></feedback></answer>
+    <answer fraction="0"><text>Selecting only the test cases that already pass</text><feedback><text>Selective mutation reduces operators, not tests, and does not filter by pass/fail.</text></feedback></answer>
+    <answer fraction="0"><text>Running each mutant against exactly one test</text><feedback><text>That would weaken detection; selective mutation instead prunes the operator set.</text></feedback></answer>
+    <generalfeedback><text>Selective mutation applies only a small subset of operators (e.g. the "sufficient" set) that empirically produces almost the same mutation score as the full operator set, greatly cutting the number of mutants.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill outcome: &amp;&amp; to || with differing operands</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = false</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>Correct — here the two operands differ in truth value (true and false), so AND and OR disagree.</text></feedback></answer>
+    <answer fraction="0"><text>Lives — the test does not detect it, though another input would</text><feedback><text>AND gives false while OR gives true here, so the test does detect the difference.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>&amp;&amp; and || are not equivalent whenever the operands differ, as they do here.</text></feedback></answer>
+    <generalfeedback><text>With age=30 (so age&gt;=18 is true) and citizen=false, the original computes true &amp;&amp; false = false, but the mutant computes true || false = true. The outputs differ, so this test kills the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Live outcome: &amp;&amp; to || with equal operands</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = true</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lives — the test does not detect it, though another input would</text><feedback><text>Correct — both operands are true, so AND and OR both yield true; a test with differing operands would kill it.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>true &amp;&amp; true and true || true both equal true, so the outputs match here.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is not equivalent: age=30, citizen=false would kill it.</text></feedback></answer>
+    <generalfeedback><text>With both operands true, true &amp;&amp; true = true and true || true = true, so the mutant survives this test. It is not equivalent — an input where the operands differ (e.g. citizen=false) would kill it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Live outcome: + to - at b = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>return a + b;</code> with the mutant <code>return a - b;</code> (operator <strong>+ &#8594; -</strong>). For the test input <code>a = 9, b = 0</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lives — the test does not detect it, though another input would</text><feedback><text>Correct — a+0 and a-0 are both 9, so this test misses the mutant; any b≠0 would kill it.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>With b=0, a+b and a-b are equal (both 9), so the outputs match — no kill.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is not equivalent: any b≠0 makes + and - differ, killing it.</text></feedback></answer>
+    <generalfeedback><text>At b=0, a+b = a-b = 9, so the mutant survives this particular test. It is not equivalent, though: any test with b≠0 (where a+b and a-b differ by 2b) would kill it. This shows a poorly-chosen test input can let a killable mutant live.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Mutation Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why equivalent mutants cannot be killed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is it impossible for any test case to kill an equivalent mutant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It computes the same function as the original, so no input can ever make their outputs differ</text><feedback><text>Correct — killing requires an observable output difference, which an equivalent mutant can never produce.</text></feedback></answer>
+    <answer fraction="0"><text>Its mutated statement is always unreachable</text><feedback><text>Equivalence is about identical behaviour, not reachability; the statement may well execute.</text></feedback></answer>
+    <answer fraction="0"><text>It always throws an exception before returning</text><feedback><text>An exception that differs from the original would actually kill it; equivalence means no difference at all.</text></feedback></answer>
+    <answer fraction="0"><text>Test tools automatically skip it</text><feedback><text>Tools cannot even reliably detect equivalence; the impossibility is inherent, not a tool choice.</text></feedback></answer>
+    <generalfeedback><text>A mutant is killed only when some test yields a different observable result from the original. An equivalent mutant computes exactly the same function for every input, so that difference can never arise — no test can kill it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent: dead-store deletion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>int unused = x * 2; return x * x;</code>. Statement deletion removes <code>int unused = x * 2;</code>, giving <code>return x * x;</code>. The outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>Correct — <code>unused</code> is written but never read and <code>x * 2</code> has no side effects, so deleting it cannot change any output.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — some test detects it</text><feedback><text>No test can detect it: the return value <code>x * x</code> is unaffected by the deleted dead store.</text></feedback></answer>
+    <answer fraction="0"><text>Lives on this test but a better test would kill it</text><feedback><text>No input exists that could kill it, so it is equivalent, not merely surviving.</text></feedback></answer>
+    <generalfeedback><text><code>unused</code> is assigned but never read, and <code>x * 2</code> has no side effects, so deleting that statement cannot change the value returned for ANY x. The mutant is equivalent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent: relational op on a length</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given <code>n = arr.length</code> (so <code>n &gt;= 0</code> always), consider <code>if (n &gt; -1) return true; else return false;</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives <code>if (n &gt;= -1) ...</code>. The outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>Correct — for every reachable n (n≥0), both "n&gt;-1" and "n&gt;=-1" are true, so the versions never disagree.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — some test detects it</text><feedback><text>The two conditions differ only at n = -1, which an array length can never take, so no test kills it.</text></feedback></answer>
+    <answer fraction="0"><text>Lives on this test but a better test would kill it</text><feedback><text>There is no reachable input that distinguishes them, so it is equivalent, not merely surviving.</text></feedback></answer>
+    <generalfeedback><text>"n&gt;-1" and "n&gt;=-1" differ only at n = -1. Because n is an array length (n≥0 by construction), that value is unreachable, so the two versions agree on every possible input — the mutant is equivalent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Recognise the equivalent loop mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Here <code>n</code> is a list length (so <code>n &gt;= 0</code>). Consider <code>for (int i = 0; i &lt; n; i++) sum += a[i];</code> mutated by <strong>&lt; &#8594; !=</strong> to <code>for (int i = 0; i != n; i++) sum += a[i];</code>. This mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — i increases from 0 and reaches n exactly, so i!=n stops at the same iteration as i&lt;n for every n≥0</text><feedback><text>Correct — the two loop conditions terminate identically for all non-negative n.</text></feedback></answer>
+    <answer fraction="0"><text>Killed by any test with n &gt; 0</text><feedback><text>For n&gt;0 both loops run exactly n times, producing the same sum, so such a test does not kill it.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent because i != n may skip the last element</text><feedback><text>It does not: i takes 0,1,…,n-1 and then equals n, ending the loop at the same point as i&lt;n.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent because the loop never terminates</text><feedback><text>Since i increments by 1 from 0 and n≥0, i eventually equals n and the loop terminates.</text></feedback></answer>
+    <generalfeedback><text>Because i starts at 0 and increments by 1, it hits n exactly; for any n≥0, "i!=n" becomes false at the same iteration "i&lt;n" does. The behaviours are identical on every reachable input, so this is an equivalent mutant. (It would differ only if n could be negative — impossible for a length.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RIP: propagation failure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>int y = x * 2; return (y &gt; 0) ? 1 : 0;</code> mutated by <strong>* &#8594; +</strong> to <code>int y = x + 2; ...</code>. For the test input <code>x = 5</code>, the mutated statement runs and y differs (10 vs 7), yet both return 1. Which RIP condition failed on this test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Propagation — the infected state (y) did not change the observable output</text><feedback><text>Correct — y was infected (10 vs 7), but since both are &gt; 0 the output stays 1, so infection did not propagate.</text></feedback></answer>
+    <answer fraction="0"><text>Reachability — the mutated statement never executed</text><feedback><text>It did execute; y was computed, so reachability held.</text></feedback></answer>
+    <answer fraction="0"><text>Infection — the state was never corrupted</text><feedback><text>Infection did occur: y was 10 in the original and 7 in the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant is equivalent</text><feedback><text>It is not equivalent — x=-1 or x=0 makes the outputs differ (0 vs 1), killing it.</text></feedback></answer>
+    <generalfeedback><text>At x=5, reachability and infection both hold (y = 10 vs 7), but both values are positive so the ternary returns 1 in each version — the difference does not propagate to the output. A test like x=0 (0 vs 2, giving outputs 0 vs 1) would propagate and kill the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Weak vs strong: distinguishing a mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>int t = x + 1; return t * 0;</code> mutated by <strong>+ &#8594; -</strong> to <code>int t = x - 1; return t * 0;</code>. How do weak and strong mutation classify this mutant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Killable under weak mutation (t is infected) but equivalent under strong mutation (the output is always 0)</text><feedback><text>Correct — t differs immediately after the mutated statement, but t * 0 is 0 for every x, so no output difference ever propagates.</text></feedback></answer>
+    <answer fraction="0"><text>Killable under both weak and strong mutation</text><feedback><text>Strong mutation compares outputs, and the output is always 0, so it cannot be killed strongly.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent under both weak and strong mutation</text><feedback><text>Weak mutation compares state at t, which does differ (x+1 vs x-1), so it is killable weakly.</text></feedback></answer>
+    <answer fraction="0"><text>Killable under strong mutation but equivalent under weak mutation</text><feedback><text>This is backwards: infection happens at t (weak kill), but the output never differs (strong equivalent).</text></feedback></answer>
+    <generalfeedback><text>Weak mutation checks the state right after the mutated component: t is x+1 vs x-1, so it is infected and can be killed weakly. Strong mutation checks the output: t * 0 = 0 for every x, so no test can produce an output difference — strongly, the mutant is equivalent. The same mutant can thus be "killed" weakly yet be equivalent strongly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PIE model</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The PIE (Propagation, Infection, Execution) model relates to the RIP model how?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They describe the same three conditions — Execution/Reachability, Infection, and Propagation must all hold to reveal a fault</text><feedback><text>Correct — PIE and RIP name the same necessary conditions for a fault to be observed.</text></feedback></answer>
+    <answer fraction="0"><text>PIE adds a fourth condition absent from RIP</text><feedback><text>Both models use the same three conditions; only the naming/order differs.</text></feedback></answer>
+    <answer fraction="0"><text>PIE applies only to equivalent mutants</text><feedback><text>PIE describes when any fault is revealed, not specifically equivalent mutants.</text></feedback></answer>
+    <answer fraction="0"><text>PIE replaces propagation with an oracle-strength condition</text><feedback><text>Propagation is retained; PIE is just RIP with Execution named for Reachability.</text></feedback></answer>
+    <generalfeedback><text>PIE (Propagation–Infection–Execution) and RIP (Reachability–Infection–Propagation) are the same idea: the faulty location must be Executed/Reached, must Infect the state, and that infection must Propagate to an observable output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation subsumes coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a test set kills every mutant produced by the statement-deletion (SDL) operator on a program, what structural criterion must that test set at least satisfy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Statement (node) coverage — each statement must be executed, since deleting it is detected</text><feedback><text>Correct — a deletion can only be detected if the statement runs, so every statement is covered (and its effect observed).</text></feedback></answer>
+    <answer fraction="0"><text>Complete path coverage</text><feedback><text>Killing SDL mutants does not require touring every path; complete path coverage is far stronger.</text></feedback></answer>
+    <answer fraction="0"><text>All-DU-paths coverage</text><feedback><text>SDL relates to executing statements, not to touring every def-use path.</text></feedback></answer>
+    <answer fraction="0"><text>No coverage criterion is implied</text><feedback><text>Detecting a statement's deletion necessarily requires executing that statement.</text></feedback></answer>
+    <generalfeedback><text>To kill a statement-deletion mutant, a test must execute the statement (else the deletion is invisible) and observe its effect. Killing all such mutants therefore implies at least statement coverage — one sense in which mutation adequacy subsumes structural coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dominator (minimal) mutants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the theory of minimal/dominator mutants, a mutant M1 <em>dominates</em> M2 (for a program) when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every test that kills M1 also kills M2, so covering M1 makes M2 redundant</text><feedback><text>Correct — dominated mutants add no new test requirements once the dominator is killed.</text></feedback></answer>
+    <answer fraction="0"><text>M1 and M2 are killed by exactly the same single test only</text><feedback><text>Domination is about set inclusion of killing tests, not a unique shared test.</text></feedback></answer>
+    <answer fraction="0"><text>M1 is equivalent and M2 is not</text><feedback><text>Domination concerns killing-test sets among non-equivalent mutants, not equivalence.</text></feedback></answer>
+    <answer fraction="0"><text>M1 has more mutated statements than M2</text><feedback><text>Domination is about which tests kill them, not how many changes each contains.</text></feedback></answer>
+    <generalfeedback><text>A minimal (dominator) mutant set keeps only mutants that are not dominated: M1 dominates M2 if the set of tests killing M1 is a subset of those killing M2, making M2 redundant. Reporting a mutation score over the dominator set avoids inflation from many easy, redundant mutants.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Score with equivalents excluded</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program has 40 mutants. The suite kills 18; of the 22 survivors, 4 are later confirmed equivalent. What is the mutation score (equivalents excluded)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%</text><feedback><text>Correct — 18 / (40 &#8722; 4) = 18/36 = 0.5.</text></feedback></answer>
+    <answer fraction="0"><text>45%</text><feedback><text>That is 18/40 — the naive score that wrongly counts the 4 equivalents as killable.</text></feedback></answer>
+    <answer fraction="0"><text>41%</text><feedback><text>That is 18/(40+4) — equivalents must be subtracted, not added.</text></feedback></answer>
+    <answer fraction="0"><text>55%</text><feedback><text>That is the survivor rate 22/40, not the mutation score.</text></feedback></answer>
+    <generalfeedback><text>Excluding equivalents, mutation score = killed / (total &#8722; equivalent) = 18 / (40 &#8722; 4) = 18/36 = 50%. Confirming equivalents raises the score from the naive 45% because unkillable mutants leave the denominator.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Higher-order mutants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>higher-order mutant</em> is one that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Contains two or more mutation operators applied together</text><feedback><text>Correct — first-order mutants have one change; higher-order mutants combine several.</text></feedback></answer>
+    <answer fraction="0"><text>Is generated by a higher-priority operator</text><feedback><text>Order refers to the number of seeded changes, not operator priority.</text></feedback></answer>
+    <answer fraction="0"><text>Is always equivalent to the original</text><feedback><text>Higher-order mutants are usually non-equivalent; some are "subtle" but not by definition equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>Can only be killed by higher-order test cases</text><feedback><text>There is no such thing as a higher-order test case; ordinary tests kill them.</text></feedback></answer>
+    <generalfeedback><text>A higher-order mutant applies two or more changes at once. Some combine to form "subtle" faults harder to kill than their constituent first-order mutants, which is why higher-order mutation is studied despite the coupling effect.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Equivalent-mutant detection is undecidable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Determining whether an arbitrary mutant is equivalent to the original program is, in general, undecidable.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — deciding functional equivalence of two programs reduces from undecidable problems, so no algorithm solves it in general.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Equivalence of arbitrary programs is undecidable; that is why equivalent mutants must usually be judged by hand or approximated heuristically.</text></feedback></answer>
+    <generalfeedback><text>Detecting equivalent mutants means deciding whether two programs compute the same function, which is undecidable in general. In practice teams use heuristics (e.g. compiler-optimisation or constraint-based checks) and manual analysis, and the equivalent-mutant problem is a major cost of mutation testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting a perfect score</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite kills 100% of the non-equivalent mutants. Which conclusion is justified?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The suite is adequate with respect to this operator set, but the program may still contain faults no operator modelled</text><feedback><text>Correct — mutation adequacy is relative to the mutants generated, not a proof of correctness.</text></feedback></answer>
+    <answer fraction="0"><text>The program is proven free of all defects</text><feedback><text>Mutation testing evaluates tests against seeded faults; it cannot prove global correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Every possible mutant, including higher-order ones, is killed</text><feedback><text>A 100% first-order score says nothing certain about untested higher-order mutants.</text></feedback></answer>
+    <answer fraction="0"><text>The suite must also have 100% path coverage</text><feedback><text>High mutation scores correlate with coverage but do not guarantee complete path coverage.</text></feedback></answer>
+    <generalfeedback><text>A perfect mutation score means the tests detect every fault the chosen operators can seed — strong evidence of adequacy, but faults outside the operator set (or in the specification) can remain. Mutation adequacy is always relative to the operators used.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Live: sign classify at x = -3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>if (x &gt; 0) return "positive"; else return "non-positive";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = -3</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lives — the test does not detect it, though another input would</text><feedback><text>Correct — at x=-3 both "x&gt;0" and "x&gt;=0" are false, so both return "non-positive"; only x=0 reveals the difference.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>At x=-3 both conditions are false, so both versions return "non-positive" — no difference.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is not equivalent: x=0 kills it; this test merely misses it.</text></feedback></answer>
+    <generalfeedback><text>At x=-3, "x&gt;0" and "x&gt;=0" are both false, so both versions return "non-positive" and the mutant survives this test. The single killing input is x=0, so the mutant is non-equivalent — a reminder that reaching the boundary matters.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Live: &amp;&amp; to || with both operands false</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 10, citizen = false</code>, the outcome is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lives — the test does not detect it, though another input would</text><feedback><text>Correct — both operands are false, so AND and OR both yield false; the mutant survives this test.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — the test detects the mutant (its output differs from the original)</text><feedback><text>false &amp;&amp; false and false || false are both false, so the outputs match here.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — no test input could ever detect the mutant</text><feedback><text>The mutant is not equivalent: e.g. age=30, citizen=false (true vs false operands) would kill it.</text></feedback></answer>
+    <generalfeedback><text>With age=10 (age&gt;=18 is false) and citizen=false, the original computes false &amp;&amp; false = false and the mutant false || false = false — identical, so it survives. &amp;&amp; and || agree exactly when both operands share a truth value; an input where they differ would kill this non-equivalent mutant.</text></generalfeedback>
   </question>
 </quiz>

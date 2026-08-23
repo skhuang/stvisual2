@@ -5296,6 +5296,93 @@ export const QUIZ_RENDERED = {
       "easy": [
         {
           "type": "multichoice",
+          "name": "What is a mutant",
+          "text": "<p>In mutation testing, a <em>mutant</em> is:</p>",
+          "answers": [
+            {
+              "text": "A copy of the program with one small syntactic change applied by a mutation operator",
+              "fraction": 100,
+              "feedback": "Correct — a mutant is the original program seeded with one deliberate, small fault."
+            },
+            {
+              "text": "A test case that exposes a defect in the program",
+              "fraction": 0,
+              "feedback": "That is a failing test case, not a mutant — the mutant is the altered program."
+            },
+            {
+              "text": "A bug reported by a user in production",
+              "fraction": 0,
+              "feedback": "Mutants are artificial faults injected on purpose, not field-reported defects."
+            },
+            {
+              "text": "An input value that maximises code coverage",
+              "fraction": 0,
+              "feedback": "Coverage-maximising inputs are a testing concern, unrelated to what a mutant is."
+            }
+          ],
+          "generalFeedback": "A mutant is a variant of the program produced by applying a mutation operator that makes one small syntactic change (e.g. + becomes -). Running tests against mutants measures how good the tests are at detecting such faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a mutation operator",
+          "text": "<p>A <em>mutation operator</em> is:</p>",
+          "answers": [
+            {
+              "text": "A rule that systematically transforms the program to produce mutants (e.g. replace + with -)",
+              "fraction": 100,
+              "feedback": "Correct — each operator encodes a class of small syntactic changes."
+            },
+            {
+              "text": "An arithmetic operator such as + or * in the source code",
+              "fraction": 0,
+              "feedback": "That is an operator in the program; a mutation operator is a rule that changes such tokens."
+            },
+            {
+              "text": "The test oracle that decides pass or fail",
+              "fraction": 0,
+              "feedback": "The oracle judges outputs; it does not generate mutants."
+            },
+            {
+              "text": "A metric describing how many tests pass",
+              "fraction": 0,
+              "feedback": "That is closer to a test result, not a mutation operator."
+            }
+          ],
+          "generalFeedback": "A mutation operator is a transformation rule (ROR, AOR, LOR, statement deletion, etc.) applied to the source to systematically generate mutants, each carrying one small change.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of mutation testing",
+          "text": "<p>The primary purpose of mutation testing is to:</p>",
+          "answers": [
+            {
+              "text": "Measure the fault-detecting adequacy of a test suite",
+              "fraction": 100,
+              "feedback": "Correct — it asks \"how many injected faults do these tests catch?\""
+            },
+            {
+              "text": "Automatically repair bugs in the program",
+              "fraction": 0,
+              "feedback": "Mutation testing evaluates tests; it does not fix code."
+            },
+            {
+              "text": "Prove the program has no defects",
+              "fraction": 0,
+              "feedback": "No testing technique proves the absence of all defects."
+            },
+            {
+              "text": "Generate program inputs at random",
+              "fraction": 0,
+              "feedback": "Random input generation is a different technique; mutation testing seeds faults, not inputs."
+            }
+          ],
+          "generalFeedback": "Mutation testing evaluates how good a test suite is by seeding artificial faults (mutants) and measuring the fraction the suite detects — a stronger adequacy criterion than structural coverage alone.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
           "name": "Mutant killed",
           "text": "<p>A mutant is considered <em>killed</em> when:</p>",
           "answers": [
@@ -5307,12 +5394,12 @@ export const QUIZ_RENDERED = {
             {
               "text": "The mutant fails to compile",
               "fraction": 0,
-              "feedback": "A mutant that won't compile is usually discarded, not \"killed\" by a test."
+              "feedback": "A mutant that won't compile is usually discarded (a stillborn mutant), not \"killed\" by a test."
             },
             {
               "text": "The mutant crashes at runtime",
               "fraction": 0,
-              "feedback": "A crash can kill a mutant only if it differs from the original's behavior — the definition is about differing output, not crashing itself."
+              "feedback": "A crash kills a mutant only if it differs from the original's behaviour — the definition is about differing output, not crashing itself."
             },
             {
               "text": "The mutant is equivalent to the original",
@@ -5320,36 +5407,36 @@ export const QUIZ_RENDERED = {
               "feedback": "An equivalent mutant, by definition, can never be killed by any test."
             }
           ],
-          "generalFeedback": "A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and running it on the original program.",
+          "generalFeedback": "A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and on the original program.",
           "single": true
         },
         {
           "type": "multichoice",
-          "name": "Mutation score formula",
-          "text": "<p>The mutation score is computed as:</p>",
+          "name": "Live mutant",
+          "text": "<p>A mutant that <em>lives</em> (survives) against a test suite is one that:</p>",
           "answers": [
             {
-              "text": "killed mutants / (total mutants &#8722; equivalent mutants)",
+              "text": "Produces the same result as the original on every test in the suite",
               "fraction": 100,
-              "feedback": "Correct — equivalent mutants are excluded because no test can ever kill them."
+              "feedback": "Correct — no test in the suite distinguishes it, so it survives."
             },
             {
-              "text": "killed mutants / total mutants",
+              "text": "Produces a different result on at least one test",
               "fraction": 0,
-              "feedback": "This treats equivalent mutants as killable, unfairly penalizing the test suite."
+              "feedback": "That describes a killed mutant, not a surviving one."
             },
             {
-              "text": "killed mutants / (total mutants + equivalent mutants)",
+              "text": "Cannot be compiled or executed",
               "fraction": 0,
-              "feedback": "Adding, not subtracting, equivalents makes the score worse without justification."
+              "feedback": "That is a stillborn mutant, a separate category from live mutants."
             },
             {
-              "text": "(total mutants &#8722; killed mutants) / total mutants",
+              "text": "Is always an equivalent mutant",
               "fraction": 0,
-              "feedback": "That's closer to a \"surviving-mutant rate\", not the mutation score."
+              "feedback": "A live mutant may be equivalent, but it may instead be non-equivalent and simply not yet killed by a weak suite."
             }
           ],
-          "generalFeedback": "Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.",
+          "generalFeedback": "A live (surviving) mutant gives the same output as the original on every test in the suite. It signals either a weakness in the tests (a non-equivalent mutant that a better test would kill) or an equivalent mutant that no test can kill.",
           "single": true
         },
         {
@@ -5360,7 +5447,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "Syntactically different from the original but semantically identical on every input",
               "fraction": 100,
-              "feedback": "Correct — same input/output behavior for all inputs, so no test can distinguish it."
+              "feedback": "Correct — same input/output behaviour for all inputs, so no test can distinguish it."
             },
             {
               "text": "Textually identical to the original program",
@@ -5378,7 +5465,419 @@ export const QUIZ_RENDERED = {
               "feedback": "A mutant that reliably crashes differently from the original is trivially killed, not equivalent."
             }
           ],
-          "generalFeedback": "An equivalent mutant differs in source code from the original program but computes exactly the same function — identical output for every possible input — so it is logically impossible for any test to kill it.",
+          "generalFeedback": "An equivalent mutant differs in source code from the original but computes exactly the same function — identical output for every possible input — so it is logically impossible for any test to kill it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation score formula",
+          "text": "<p>The mutation score is computed as:</p>",
+          "answers": [
+            {
+              "text": "killed mutants / (total mutants &#8722; equivalent mutants)",
+              "fraction": 100,
+              "feedback": "Correct — equivalent mutants are excluded because no test can ever kill them."
+            },
+            {
+              "text": "killed mutants / total mutants",
+              "fraction": 0,
+              "feedback": "This treats equivalent mutants as killable, unfairly penalising the test suite."
+            },
+            {
+              "text": "killed mutants / (total mutants + equivalent mutants)",
+              "fraction": 0,
+              "feedback": "Adding, not subtracting, equivalents makes the score worse without justification."
+            },
+            {
+              "text": "(total mutants &#8722; killed mutants) / total mutants",
+              "fraction": 0,
+              "feedback": "That's closer to a \"surviving-mutant rate\", not the mutation score."
+            }
+          ],
+          "generalFeedback": "Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Perfect mutation score",
+          "text": "<p>A test suite achieves a mutation score of 100% (with equivalents excluded). This means:</p>",
+          "answers": [
+            {
+              "text": "Every non-equivalent mutant was killed by some test in the suite",
+              "fraction": 100,
+              "feedback": "Correct — a perfect score means all killable mutants were detected."
+            },
+            {
+              "text": "The program is proven correct",
+              "fraction": 0,
+              "feedback": "Killing all mutants shows the tests catch these seeded faults, not that the program is bug-free."
+            },
+            {
+              "text": "There were no equivalent mutants",
+              "fraction": 0,
+              "feedback": "Equivalent mutants are excluded from the denominator; a 100% score says nothing about how many there were."
+            },
+            {
+              "text": "The suite achieves 100% branch coverage",
+              "fraction": 0,
+              "feedback": "A high mutation score usually implies strong coverage, but 100% is defined by killed mutants, not branches directly."
+            }
+          ],
+          "generalFeedback": "A 100% mutation score means the suite killed every non-equivalent mutant. It is a strong adequacy signal but is not a proof of program correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Competent programmer hypothesis",
+          "text": "<p>The <em>competent programmer hypothesis</em> underlying mutation testing states that:</p>",
+          "answers": [
+            {
+              "text": "Programmers write code that is close to correct, so real faults are small deviations from the correct program",
+              "fraction": 100,
+              "feedback": "Correct — this justifies modelling faults as small single mutations."
+            },
+            {
+              "text": "Programmers never introduce faults into their code",
+              "fraction": 0,
+              "feedback": "If that were true there would be nothing to test; the hypothesis is about faults being small, not absent."
+            },
+            {
+              "text": "Every fault requires many simultaneous changes to fix",
+              "fraction": 0,
+              "feedback": "The hypothesis assumes the opposite — faults are typically small deviations."
+            },
+            {
+              "text": "Compilers can detect all programmer mistakes",
+              "fraction": 0,
+              "feedback": "That is unrelated; the hypothesis concerns the size of human faults, not compiler capability."
+            }
+          ],
+          "generalFeedback": "The competent programmer hypothesis says developers produce nearly-correct programs, so faults are small. This justifies using small, single-change mutants to model realistic faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coupling effect",
+          "text": "<p>The <em>coupling effect</em> hypothesis claims that:</p>",
+          "answers": [
+            {
+              "text": "Tests that detect all simple (single-change) faults also detect most complex (multiple-change) faults",
+              "fraction": 100,
+              "feedback": "Correct — this is why testing against simple mutants is worthwhile."
+            },
+            {
+              "text": "Complex faults are completely independent of simple faults",
+              "fraction": 0,
+              "feedback": "The coupling effect claims the opposite — complex faults are coupled to simple ones."
+            },
+            {
+              "text": "Two modules that share data must be tested together",
+              "fraction": 0,
+              "feedback": "That is module coupling in design, not the mutation-testing coupling effect."
+            },
+            {
+              "text": "Every mutant is coupled to exactly one test case",
+              "fraction": 0,
+              "feedback": "The coupling effect relates simple and complex faults, not mutants to individual tests."
+            }
+          ],
+          "generalFeedback": "The coupling effect holds that a test set killing all simple one-change mutants will also detect the great majority of complex, higher-order faults — so first-order mutants are a good adequacy target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: sign classify (> to >=)",
+          "text": "<p>Consider <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives the mutant <code>if (x &gt;= 0) ...</code>. For the test input <code>x = 0</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — at x=0 the original returns \"non-positive\" but the mutant returns \"positive\"."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "x=0 is exactly the boundary where the two operators disagree, so the test does detect it."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is clearly non-equivalent: x=0 distinguishes it."
+            }
+          ],
+          "generalFeedback": "At x=0 the original's \"x>0\" is false (returns \"non-positive\"), but the mutant's \"x>=0\" is true (returns \"positive\"). The outputs differ, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: voting age (>= to >)",
+          "text": "<p>Consider <code>return age &gt;= 18;</code>. The operator <strong>&gt;= &#8594; &gt;</strong> gives the mutant <code>return age &gt; 18;</code>. For the test input <code>age = 18</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — at age=18 the original returns true but the mutant returns false."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "age=18 is the boundary where \">=18\" and \">18\" disagree, so this test does detect it."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is non-equivalent: age=18 distinguishes the two."
+            }
+          ],
+          "generalFeedback": "At age=18 the original's \"age>=18\" is true, but the mutant's \"age>18\" is false. The results differ, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: statement deletion (abs)",
+          "text": "<p>Consider <code>if (x &lt; 0) { x = -x; } return x;</code>. Statement deletion removes <code>x = -x;</code>, giving <code>if (x &lt; 0) { } return x;</code>. For the test input <code>x = -5</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — the original returns 5 but the mutant returns -5."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "With x=-5 the deleted statement would have run, so its removal is observable here."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is non-equivalent: any negative input distinguishes it."
+            }
+          ],
+          "generalFeedback": "At x=-5 the original negates and returns 5, but the mutant's empty if-body leaves x as -5. Different outputs, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: arithmetic operator (+ to -)",
+          "text": "<p>Consider <code>return a + b;</code>. The operator <strong>+ &#8594; -</strong> gives the mutant <code>return a - b;</code>. For the test input <code>a = 3, b = 7</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — 3+7=10 but 3-7=-4."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "Because b=7≠0, a+b and a-b differ, so the test does detect the mutant."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is non-equivalent: any b≠0 distinguishes + from -."
+            }
+          ],
+          "generalFeedback": "Here a+b=10 but a-b=-4; since b≠0 the two differ (by 2b), so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live outcome: sign classify at x = 7",
+          "text": "<p>Consider <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = 7</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — at x=7 both versions return \"positive\"; only x=0 would reveal the difference."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "At x=7 both \"x>0\" and \"x>=0\" are true, so outputs match — the test does not kill it."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: x=0 kills it; this particular test just happens to miss it."
+            }
+          ],
+          "generalFeedback": "At x=7 both \"x>0\" and \"x>=0\" evaluate to true, so both return \"positive\" and the mutant survives this test. It is not equivalent, though — x=0 would kill it.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "ROR operator",
+          "text": "<p>Which change is an instance of the <strong>ROR</strong> (Relational Operator Replacement) operator?</p>",
+          "answers": [
+            {
+              "text": "Replacing <code>a &lt; b</code> with <code>a &lt;= b</code>",
+              "fraction": 100,
+              "feedback": "Correct — ROR replaces one relational operator with another (<, <=, >, >=, ==, !=)."
+            },
+            {
+              "text": "Replacing <code>a + b</code> with <code>a - b</code>",
+              "fraction": 0,
+              "feedback": "That is AOR (arithmetic operator replacement), not ROR."
+            },
+            {
+              "text": "Replacing <code>a &amp;&amp; b</code> with <code>a || b</code>",
+              "fraction": 0,
+              "feedback": "That is LOR/COR (logical/conditional operator replacement)."
+            },
+            {
+              "text": "Deleting the statement <code>a = b;</code>",
+              "fraction": 0,
+              "feedback": "That is SDL (statement deletion)."
+            }
+          ],
+          "generalFeedback": "ROR replaces a relational operator with each of the other relational operators (and sometimes with true/false), e.g. < becomes <=, >, >=, ==, or !=.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AOR operator",
+          "text": "<p>The <strong>AOR</strong> (Arithmetic Operator Replacement) operator would transform <code>x * y</code> into which of the following?</p>",
+          "answers": [
+            {
+              "text": "<code>x + y</code>",
+              "fraction": 100,
+              "feedback": "Correct — AOR swaps one binary arithmetic operator for another (+, -, *, /, %)."
+            },
+            {
+              "text": "<code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "Turning arithmetic into a relation is ROR-style, not AOR."
+            },
+            {
+              "text": "<code>x &amp;&amp; y</code>",
+              "fraction": 0,
+              "feedback": "That introduces a logical operator (LOR), not an arithmetic one."
+            },
+            {
+              "text": "<code>-x * y</code>",
+              "fraction": 0,
+              "feedback": "Inserting a unary minus is UOI, not AOR."
+            }
+          ],
+          "generalFeedback": "AOR replaces one binary arithmetic operator with another from {+, -, *, /, %}, e.g. * becomes +.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LOR operator",
+          "text": "<p>The <strong>LOR</strong> / conditional operator replacement operator applied to <code>a &amp;&amp; b</code> most directly produces:</p>",
+          "answers": [
+            {
+              "text": "<code>a || b</code>",
+              "fraction": 100,
+              "feedback": "Correct — it replaces one logical connective with another."
+            },
+            {
+              "text": "<code>a == b</code>",
+              "fraction": 0,
+              "feedback": "That is a relational operator (ROR), not a logical connective."
+            },
+            {
+              "text": "<code>a + b</code>",
+              "fraction": 0,
+              "feedback": "That is arithmetic (AOR)."
+            },
+            {
+              "text": "<code>!a &amp;&amp; b</code>",
+              "fraction": 0,
+              "feedback": "Inserting a negation is UOI; LOR replaces the connective itself."
+            }
+          ],
+          "generalFeedback": "LOR (logical/conditional operator replacement) swaps one logical connective for another, e.g. && becomes ||.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ABS operator",
+          "text": "<p>The <strong>ABS</strong> (Absolute Value Insertion) operator mutates an arithmetic expression <code>e</code> into which family of variants?</p>",
+          "answers": [
+            {
+              "text": "<code>abs(e)</code>, <code>-abs(e)</code>, and a fail-on-zero variant",
+              "fraction": 100,
+              "feedback": "Correct — ABS forces e to be tested as non-negative, non-positive, and zero."
+            },
+            {
+              "text": "<code>e + 1</code> and <code>e - 1</code>",
+              "fraction": 0,
+              "feedback": "Off-by-one tweaks are not ABS; ABS is about the sign/zero of the expression."
+            },
+            {
+              "text": "<code>e &gt; 0</code> and <code>e &lt; 0</code>",
+              "fraction": 0,
+              "feedback": "Those are relational tests, not the ABS value-insertion family."
+            },
+            {
+              "text": "<code>e</code> replaced by a constant literal",
+              "fraction": 0,
+              "feedback": "Constant replacement is a different operator; ABS wraps e in absolute-value forms."
+            }
+          ],
+          "generalFeedback": "ABS replaces an expression e with abs(e), -abs(e), and failOnZero(e), forcing tests that exercise e as positive, negative, and zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UOI operator",
+          "text": "<p>Which change is an example of the <strong>UOI</strong> (Unary Operator Insertion) operator?</p>",
+          "answers": [
+            {
+              "text": "Replacing <code>return x;</code> with <code>return -x;</code>",
+              "fraction": 100,
+              "feedback": "Correct — UOI inserts a unary operator (here arithmetic negation)."
+            },
+            {
+              "text": "Replacing <code>x + y</code> with <code>x - y</code>",
+              "fraction": 0,
+              "feedback": "That swaps a binary operator (AOR), not inserts a unary one."
+            },
+            {
+              "text": "Replacing <code>x &lt; y</code> with <code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "That is ROR."
+            },
+            {
+              "text": "Deleting <code>x = 0;</code>",
+              "fraction": 0,
+              "feedback": "That is statement deletion (SDL)."
+            }
+          ],
+          "generalFeedback": "UOI inserts a unary operator into an expression, e.g. x becomes -x, or a boolean b becomes !b, or x becomes ++x.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SDL operator",
+          "text": "<p>The <strong>SDL</strong> (Statement Deletion) operator produces a mutant by:</p>",
+          "answers": [
+            {
+              "text": "Removing a single statement from the program",
+              "fraction": 100,
+              "feedback": "Correct — SDL deletes one statement to check whether any test relies on its effect."
+            },
+            {
+              "text": "Replacing a variable reference with a constant",
+              "fraction": 0,
+              "feedback": "That is a constant/variable replacement operator, not SDL."
+            },
+            {
+              "text": "Swapping two adjacent statements",
+              "fraction": 0,
+              "feedback": "Reordering is a different mutation; SDL removes a statement."
+            },
+            {
+              "text": "Negating a boolean condition",
+              "fraction": 0,
+              "feedback": "That is closer to UOI/COR; SDL deletes rather than negates."
+            }
+          ],
+          "generalFeedback": "SDL deletes one statement (often replacing it with a no-op). If no test detects the deletion, that statement's effect is untested.",
           "single": true
         },
         {
@@ -5446,6 +5945,571 @@ export const QUIZ_RENDERED = {
           ],
           "generalFeedback": "Propagation is the third RIP condition: the infected (corrupted) state must flow forward through execution until it changes something the test oracle actually observes.",
           "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "Weak vs strong mutation",
+          "text": "<p>What distinguishes <strong>weak mutation</strong> from <strong>strong mutation</strong>?</p>",
+          "answers": [
+            {
+              "text": "Weak mutation checks for a state difference right after the mutated component executes; strong mutation requires the difference to propagate to the program output",
+              "fraction": 100,
+              "feedback": "Correct — weak mutation only needs infection; strong mutation needs infection to propagate."
+            },
+            {
+              "text": "Weak mutation uses fewer mutation operators than strong mutation",
+              "fraction": 0,
+              "feedback": "The distinction is about where the difference is observed, not how many operators are used."
+            },
+            {
+              "text": "Weak mutation only applies to equivalent mutants",
+              "fraction": 0,
+              "feedback": "Both apply to ordinary mutants; the difference is the point of comparison."
+            },
+            {
+              "text": "Strong mutation runs faster because it stops at the mutated statement",
+              "fraction": 0,
+              "feedback": "It is weak mutation that can stop early at the component; strong mutation runs to output."
+            }
+          ],
+          "generalFeedback": "Weak mutation compares internal state immediately after the mutated component (reachability + infection). Strong mutation requires the infected state to propagate all the way to the observable output (reachability + infection + propagation).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation score computation",
+          "text": "<p>A program has 30 mutants; 6 of them are equivalent, and the test suite kills 21. What is the mutation score?</p>",
+          "answers": [
+            {
+              "text": "87.5%",
+              "fraction": 100,
+              "feedback": "Correct — 21 / (30 &#8722; 6) = 21/24 = 0.875."
+            },
+            {
+              "text": "70%",
+              "fraction": 0,
+              "feedback": "That is 21/30 — it wrongly counts equivalent mutants in the denominator."
+            },
+            {
+              "text": "58.3%",
+              "fraction": 0,
+              "feedback": "That is 21/(30+6) — equivalents must be subtracted, not added."
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "That is the surviving-mutant rate 9/30, not the mutation score."
+            }
+          ],
+          "generalFeedback": "Mutation score = killed / (total &#8722; equivalent) = 21 / (30 &#8722; 6) = 21/24 = 87.5%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Selective mutation",
+          "text": "<p><strong>Selective mutation</strong> reduces cost by:</p>",
+          "answers": [
+            {
+              "text": "Using only a small, carefully chosen subset of mutation operators that still yields nearly the same adequacy",
+              "fraction": 100,
+              "feedback": "Correct — a few key operators approximate testing with the full set."
+            },
+            {
+              "text": "Testing only the mutants that happen to be equivalent",
+              "fraction": 0,
+              "feedback": "Equivalent mutants can never be killed, so testing them alone is pointless."
+            },
+            {
+              "text": "Selecting only the test cases that already pass",
+              "fraction": 0,
+              "feedback": "Selective mutation reduces operators, not tests, and does not filter by pass/fail."
+            },
+            {
+              "text": "Running each mutant against exactly one test",
+              "fraction": 0,
+              "feedback": "That would weaken detection; selective mutation instead prunes the operator set."
+            }
+          ],
+          "generalFeedback": "Selective mutation applies only a small subset of operators (e.g. the \"sufficient\" set) that empirically produces almost the same mutation score as the full operator set, greatly cutting the number of mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: && to || with differing operands",
+          "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = false</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — here the two operands differ in truth value (true and false), so AND and OR disagree."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "AND gives false while OR gives true here, so the test does detect the difference."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "&& and || are not equivalent whenever the operands differ, as they do here."
+            }
+          ],
+          "generalFeedback": "With age=30 (so age>=18 is true) and citizen=false, the original computes true && false = false, but the mutant computes true || false = true. The outputs differ, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live outcome: && to || with equal operands",
+          "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = true</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — both operands are true, so AND and OR both yield true; a test with differing operands would kill it."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "true && true and true || true both equal true, so the outputs match here."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: age=30, citizen=false would kill it."
+            }
+          ],
+          "generalFeedback": "With both operands true, true && true = true and true || true = true, so the mutant survives this test. It is not equivalent — an input where the operands differ (e.g. citizen=false) would kill it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live outcome: + to - at b = 0",
+          "text": "<p>Consider <code>return a + b;</code> with the mutant <code>return a - b;</code> (operator <strong>+ &#8594; -</strong>). For the test input <code>a = 9, b = 0</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — a+0 and a-0 are both 9, so this test misses the mutant; any b≠0 would kill it."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "With b=0, a+b and a-b are equal (both 9), so the outputs match — no kill."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: any b≠0 makes + and - differ, killing it."
+            }
+          ],
+          "generalFeedback": "At b=0, a+b = a-b = 9, so the mutant survives this particular test. It is not equivalent, though: any test with b≠0 (where a+b and a-b differ by 2b) would kill it. This shows a poorly-chosen test input can let a killable mutant live.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why equivalent mutants cannot be killed",
+          "text": "<p>Why is it impossible for any test case to kill an equivalent mutant?</p>",
+          "answers": [
+            {
+              "text": "It computes the same function as the original, so no input can ever make their outputs differ",
+              "fraction": 100,
+              "feedback": "Correct — killing requires an observable output difference, which an equivalent mutant can never produce."
+            },
+            {
+              "text": "Its mutated statement is always unreachable",
+              "fraction": 0,
+              "feedback": "Equivalence is about identical behaviour, not reachability; the statement may well execute."
+            },
+            {
+              "text": "It always throws an exception before returning",
+              "fraction": 0,
+              "feedback": "An exception that differs from the original would actually kill it; equivalence means no difference at all."
+            },
+            {
+              "text": "Test tools automatically skip it",
+              "fraction": 0,
+              "feedback": "Tools cannot even reliably detect equivalence; the impossibility is inherent, not a tool choice."
+            }
+          ],
+          "generalFeedback": "A mutant is killed only when some test yields a different observable result from the original. An equivalent mutant computes exactly the same function for every input, so that difference can never arise — no test can kill it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent: dead-store deletion",
+          "text": "<p>Consider <code>int unused = x * 2; return x * x;</code>. Statement deletion removes <code>int unused = x * 2;</code>, giving <code>return x * x;</code>. The outcome is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 100,
+              "feedback": "Correct —is written but never read andhas no side effects, so deleting it cannot change any output."
+            },
+            {
+              "text": "Killed — some test detects it",
+              "fraction": 0,
+              "feedback": "No test can detect it: the return valueis unaffected by the deleted dead store."
+            },
+            {
+              "text": "Lives on this test but a better test would kill it",
+              "fraction": 0,
+              "feedback": "No input exists that could kill it, so it is equivalent, not merely surviving."
+            }
+          ],
+          "generalFeedback": "is assigned but never read, andhas no side effects, so deleting that statement cannot change the value returned for ANY x. The mutant is equivalent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent: relational op on a length",
+          "text": "<p>Given <code>n = arr.length</code> (so <code>n &gt;= 0</code> always), consider <code>if (n &gt; -1) return true; else return false;</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives <code>if (n &gt;= -1) ...</code>. The outcome is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 100,
+              "feedback": "Correct — for every reachable n (n≥0), both \"n>-1\" and \"n>=-1\" are true, so the versions never disagree."
+            },
+            {
+              "text": "Killed — some test detects it",
+              "fraction": 0,
+              "feedback": "The two conditions differ only at n = -1, which an array length can never take, so no test kills it."
+            },
+            {
+              "text": "Lives on this test but a better test would kill it",
+              "fraction": 0,
+              "feedback": "There is no reachable input that distinguishes them, so it is equivalent, not merely surviving."
+            }
+          ],
+          "generalFeedback": "\"n>-1\" and \"n>=-1\" differ only at n = -1. Because n is an array length (n≥0 by construction), that value is unreachable, so the two versions agree on every possible input — the mutant is equivalent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Recognise the equivalent loop mutant",
+          "text": "<p>Here <code>n</code> is a list length (so <code>n &gt;= 0</code>). Consider <code>for (int i = 0; i &lt; n; i++) sum += a[i];</code> mutated by <strong>&lt; &#8594; !=</strong> to <code>for (int i = 0; i != n; i++) sum += a[i];</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — i increases from 0 and reaches n exactly, so i!=n stops at the same iteration as i<n for every n≥0",
+              "fraction": 100,
+              "feedback": "Correct — the two loop conditions terminate identically for all non-negative n."
+            },
+            {
+              "text": "Killed by any test with n > 0",
+              "fraction": 0,
+              "feedback": "For n>0 both loops run exactly n times, producing the same sum, so such a test does not kill it."
+            },
+            {
+              "text": "Non-equivalent because i != n may skip the last element",
+              "fraction": 0,
+              "feedback": "It does not: i takes 0,1,…,n-1 and then equals n, ending the loop at the same point as i<n."
+            },
+            {
+              "text": "Non-equivalent because the loop never terminates",
+              "fraction": 0,
+              "feedback": "Since i increments by 1 from 0 and n≥0, i eventually equals n and the loop terminates."
+            }
+          ],
+          "generalFeedback": "Because i starts at 0 and increments by 1, it hits n exactly; for any n≥0, \"i!=n\" becomes false at the same iteration \"i<n\" does. The behaviours are identical on every reachable input, so this is an equivalent mutant. (It would differ only if n could be negative — impossible for a length.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP: propagation failure",
+          "text": "<p>Consider <code>int y = x * 2; return (y &gt; 0) ? 1 : 0;</code> mutated by <strong>* &#8594; +</strong> to <code>int y = x + 2; ...</code>. For the test input <code>x = 5</code>, the mutated statement runs and y differs (10 vs 7), yet both return 1. Which RIP condition failed on this test?</p>",
+          "answers": [
+            {
+              "text": "Propagation — the infected state (y) did not change the observable output",
+              "fraction": 100,
+              "feedback": "Correct — y was infected (10 vs 7), but since both are > 0 the output stays 1, so infection did not propagate."
+            },
+            {
+              "text": "Reachability — the mutated statement never executed",
+              "fraction": 0,
+              "feedback": "It did execute; y was computed, so reachability held."
+            },
+            {
+              "text": "Infection — the state was never corrupted",
+              "fraction": 0,
+              "feedback": "Infection did occur: y was 10 in the original and 7 in the mutant."
+            },
+            {
+              "text": "The mutant is equivalent",
+              "fraction": 0,
+              "feedback": "It is not equivalent — x=-1 or x=0 makes the outputs differ (0 vs 1), killing it."
+            }
+          ],
+          "generalFeedback": "At x=5, reachability and infection both hold (y = 10 vs 7), but both values are positive so the ternary returns 1 in each version — the difference does not propagate to the output. A test like x=0 (0 vs 2, giving outputs 0 vs 1) would propagate and kill the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Weak vs strong: distinguishing a mutant",
+          "text": "<p>Consider <code>int t = x + 1; return t * 0;</code> mutated by <strong>+ &#8594; -</strong> to <code>int t = x - 1; return t * 0;</code>. How do weak and strong mutation classify this mutant?</p>",
+          "answers": [
+            {
+              "text": "Killable under weak mutation (t is infected) but equivalent under strong mutation (the output is always 0)",
+              "fraction": 100,
+              "feedback": "Correct — t differs immediately after the mutated statement, but t * 0 is 0 for every x, so no output difference ever propagates."
+            },
+            {
+              "text": "Killable under both weak and strong mutation",
+              "fraction": 0,
+              "feedback": "Strong mutation compares outputs, and the output is always 0, so it cannot be killed strongly."
+            },
+            {
+              "text": "Equivalent under both weak and strong mutation",
+              "fraction": 0,
+              "feedback": "Weak mutation compares state at t, which does differ (x+1 vs x-1), so it is killable weakly."
+            },
+            {
+              "text": "Killable under strong mutation but equivalent under weak mutation",
+              "fraction": 0,
+              "feedback": "This is backwards: infection happens at t (weak kill), but the output never differs (strong equivalent)."
+            }
+          ],
+          "generalFeedback": "Weak mutation checks the state right after the mutated component: t is x+1 vs x-1, so it is infected and can be killed weakly. Strong mutation checks the output: t * 0 = 0 for every x, so no test can produce an output difference — strongly, the mutant is equivalent. The same mutant can thus be \"killed\" weakly yet be equivalent strongly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PIE model",
+          "text": "<p>The PIE (Propagation, Infection, Execution) model relates to the RIP model how?</p>",
+          "answers": [
+            {
+              "text": "They describe the same three conditions — Execution/Reachability, Infection, and Propagation must all hold to reveal a fault",
+              "fraction": 100,
+              "feedback": "Correct — PIE and RIP name the same necessary conditions for a fault to be observed."
+            },
+            {
+              "text": "PIE adds a fourth condition absent from RIP",
+              "fraction": 0,
+              "feedback": "Both models use the same three conditions; only the naming/order differs."
+            },
+            {
+              "text": "PIE applies only to equivalent mutants",
+              "fraction": 0,
+              "feedback": "PIE describes when any fault is revealed, not specifically equivalent mutants."
+            },
+            {
+              "text": "PIE replaces propagation with an oracle-strength condition",
+              "fraction": 0,
+              "feedback": "Propagation is retained; PIE is just RIP with Execution named for Reachability."
+            }
+          ],
+          "generalFeedback": "PIE (Propagation–Infection–Execution) and RIP (Reachability–Infection–Propagation) are the same idea: the faulty location must be Executed/Reached, must Infect the state, and that infection must Propagate to an observable output.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation subsumes coverage",
+          "text": "<p>If a test set kills every mutant produced by the statement-deletion (SDL) operator on a program, what structural criterion must that test set at least satisfy?</p>",
+          "answers": [
+            {
+              "text": "Statement (node) coverage — each statement must be executed, since deleting it is detected",
+              "fraction": 100,
+              "feedback": "Correct — a deletion can only be detected if the statement runs, so every statement is covered (and its effect observed)."
+            },
+            {
+              "text": "Complete path coverage",
+              "fraction": 0,
+              "feedback": "Killing SDL mutants does not require touring every path; complete path coverage is far stronger."
+            },
+            {
+              "text": "All-DU-paths coverage",
+              "fraction": 0,
+              "feedback": "SDL relates to executing statements, not to touring every def-use path."
+            },
+            {
+              "text": "No coverage criterion is implied",
+              "fraction": 0,
+              "feedback": "Detecting a statement's deletion necessarily requires executing that statement."
+            }
+          ],
+          "generalFeedback": "To kill a statement-deletion mutant, a test must execute the statement (else the deletion is invisible) and observe its effect. Killing all such mutants therefore implies at least statement coverage — one sense in which mutation adequacy subsumes structural coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Dominator (minimal) mutants",
+          "text": "<p>In the theory of minimal/dominator mutants, a mutant M1 <em>dominates</em> M2 (for a program) when:</p>",
+          "answers": [
+            {
+              "text": "Every test that kills M1 also kills M2, so covering M1 makes M2 redundant",
+              "fraction": 100,
+              "feedback": "Correct — dominated mutants add no new test requirements once the dominator is killed."
+            },
+            {
+              "text": "M1 and M2 are killed by exactly the same single test only",
+              "fraction": 0,
+              "feedback": "Domination is about set inclusion of killing tests, not a unique shared test."
+            },
+            {
+              "text": "M1 is equivalent and M2 is not",
+              "fraction": 0,
+              "feedback": "Domination concerns killing-test sets among non-equivalent mutants, not equivalence."
+            },
+            {
+              "text": "M1 has more mutated statements than M2",
+              "fraction": 0,
+              "feedback": "Domination is about which tests kill them, not how many changes each contains."
+            }
+          ],
+          "generalFeedback": "A minimal (dominator) mutant set keeps only mutants that are not dominated: M1 dominates M2 if the set of tests killing M1 is a subset of those killing M2, making M2 redundant. Reporting a mutation score over the dominator set avoids inflation from many easy, redundant mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Score with equivalents excluded",
+          "text": "<p>A program has 40 mutants. The suite kills 18; of the 22 survivors, 4 are later confirmed equivalent. What is the mutation score (equivalents excluded)?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — 18 / (40 &#8722; 4) = 18/36 = 0.5."
+            },
+            {
+              "text": "45%",
+              "fraction": 0,
+              "feedback": "That is 18/40 — the naive score that wrongly counts the 4 equivalents as killable."
+            },
+            {
+              "text": "41%",
+              "fraction": 0,
+              "feedback": "That is 18/(40+4) — equivalents must be subtracted, not added."
+            },
+            {
+              "text": "55%",
+              "fraction": 0,
+              "feedback": "That is the survivor rate 22/40, not the mutation score."
+            }
+          ],
+          "generalFeedback": "Excluding equivalents, mutation score = killed / (total &#8722; equivalent) = 18 / (40 &#8722; 4) = 18/36 = 50%. Confirming equivalents raises the score from the naive 45% because unkillable mutants leave the denominator.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Higher-order mutants",
+          "text": "<p>A <em>higher-order mutant</em> is one that:</p>",
+          "answers": [
+            {
+              "text": "Contains two or more mutation operators applied together",
+              "fraction": 100,
+              "feedback": "Correct — first-order mutants have one change; higher-order mutants combine several."
+            },
+            {
+              "text": "Is generated by a higher-priority operator",
+              "fraction": 0,
+              "feedback": "Order refers to the number of seeded changes, not operator priority."
+            },
+            {
+              "text": "Is always equivalent to the original",
+              "fraction": 0,
+              "feedback": "Higher-order mutants are usually non-equivalent; some are \"subtle\" but not by definition equivalent."
+            },
+            {
+              "text": "Can only be killed by higher-order test cases",
+              "fraction": 0,
+              "feedback": "There is no such thing as a higher-order test case; ordinary tests kill them."
+            }
+          ],
+          "generalFeedback": "A higher-order mutant applies two or more changes at once. Some combine to form \"subtle\" faults harder to kill than their constituent first-order mutants, which is why higher-order mutation is studied despite the coupling effect.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Equivalent-mutant detection is undecidable",
+          "text": "<p>Determining whether an arbitrary mutant is equivalent to the original program is, in general, undecidable.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — deciding functional equivalence of two programs reduces from undecidable problems, so no algorithm solves it in general."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Equivalence of arbitrary programs is undecidable; that is why equivalent mutants must usually be judged by hand or approximated heuristically."
+            }
+          ],
+          "generalFeedback": "Detecting equivalent mutants means deciding whether two programs compute the same function, which is undecidable in general. In practice teams use heuristics (e.g. compiler-optimisation or constraint-based checks) and manual analysis, and the equivalent-mutant problem is a major cost of mutation testing."
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting a perfect score",
+          "text": "<p>A suite kills 100% of the non-equivalent mutants. Which conclusion is justified?</p>",
+          "answers": [
+            {
+              "text": "The suite is adequate with respect to this operator set, but the program may still contain faults no operator modelled",
+              "fraction": 100,
+              "feedback": "Correct — mutation adequacy is relative to the mutants generated, not a proof of correctness."
+            },
+            {
+              "text": "The program is proven free of all defects",
+              "fraction": 0,
+              "feedback": "Mutation testing evaluates tests against seeded faults; it cannot prove global correctness."
+            },
+            {
+              "text": "Every possible mutant, including higher-order ones, is killed",
+              "fraction": 0,
+              "feedback": "A 100% first-order score says nothing certain about untested higher-order mutants."
+            },
+            {
+              "text": "The suite must also have 100% path coverage",
+              "fraction": 0,
+              "feedback": "High mutation scores correlate with coverage but do not guarantee complete path coverage."
+            }
+          ],
+          "generalFeedback": "A perfect mutation score means the tests detect every fault the chosen operators can seed — strong evidence of adequacy, but faults outside the operator set (or in the specification) can remain. Mutation adequacy is always relative to the operators used.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live: sign classify at x = -3",
+          "text": "<p>Consider <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = -3</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — at x=-3 both \"x>0\" and \"x>=0\" are false, so both return \"non-positive\"; only x=0 reveals the difference."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "At x=-3 both conditions are false, so both versions return \"non-positive\" — no difference."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: x=0 kills it; this test merely misses it."
+            }
+          ],
+          "generalFeedback": "At x=-3, \"x>0\" and \"x>=0\" are both false, so both versions return \"non-positive\" and the mutant survives this test. The single killing input is x=0, so the mutant is non-equivalent — a reminder that reaching the boundary matters.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live: && to || with both operands false",
+          "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 10, citizen = false</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — both operands are false, so AND and OR both yield false; the mutant survives this test."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "false && false and false || false are both false, so the outputs match here."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: e.g. age=30, citizen=false (true vs false operands) would kill it."
+            }
+          ],
+          "generalFeedback": "With age=10 (age>=18 is false) and citizen=false, the original computes false && false = false and the mutant false || false = false — identical, so it survives. && and || agree exactly when both operands share a truth value; an input where they differ would kill this non-equivalent mutant.",
+          "single": true
         }
       ]
     },
@@ -5453,8 +6517,95 @@ export const QUIZ_RENDERED = {
       "easy": [
         {
           "type": "multichoice",
+          "name": "什麼是突變體",
+          "text": "<p>在突變測試（mutation testing）中，<em>突變體（mutant）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "由突變運算子對程式做一個微小語法變更後產生的程式副本",
+              "fraction": 100,
+              "feedback": "正確——突變體就是被刻意植入一個微小錯誤的原始程式。"
+            },
+            {
+              "text": "能揭露程式缺陷的測試案例",
+              "fraction": 0,
+              "feedback": "那是會失敗的測試案例，不是突變體；突變體是被更動過的程式。"
+            },
+            {
+              "text": "使用者在正式環境回報的錯誤",
+              "fraction": 0,
+              "feedback": "突變體是刻意注入的人工錯誤，並非現場回報的缺陷。"
+            },
+            {
+              "text": "能讓程式碼覆蓋率最大化的輸入值",
+              "fraction": 0,
+              "feedback": "那是測試層面的考量，與突變體的定義無關。"
+            }
+          ],
+          "generalFeedback": "突變體是對程式套用突變運算子、做出一個微小語法變更（例如把 + 改成 -）後產生的變體。以測試去執行突變體，可衡量測試偵測此類錯誤的能力。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是突變運算子",
+          "text": "<p><em>突變運算子（mutation operator）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "一條系統化改寫程式以產生突變體的規則（例如把 + 換成 -）",
+              "fraction": 100,
+              "feedback": "正確——每個運算子都定義了一類微小的語法變更。"
+            },
+            {
+              "text": "原始碼中的算術運算子，如 + 或 *",
+              "fraction": 0,
+              "feedback": "那是程式中的運算子；突變運算子是改變這類符記的規則。"
+            },
+            {
+              "text": "判定通過或失敗的測試諭示（oracle）",
+              "fraction": 0,
+              "feedback": "諭示負責判斷輸出，並不產生突變體。"
+            },
+            {
+              "text": "描述有多少測試通過的度量",
+              "fraction": 0,
+              "feedback": "那比較接近測試結果，而非突變運算子。"
+            }
+          ],
+          "generalFeedback": "突變運算子是套用在原始碼上的轉換規則（ROR、AOR、LOR、敘述刪除等），用來系統化地產生突變體，每個突變體帶有一個微小變更。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變測試的目的",
+          "text": "<p>突變測試最主要的目的是：</p>",
+          "answers": [
+            {
+              "text": "衡量測試套件偵測錯誤的適切性（adequacy）",
+              "fraction": 100,
+              "feedback": "正確——它問的是「這些測試能抓到多少注入的錯誤？」"
+            },
+            {
+              "text": "自動修復程式中的錯誤",
+              "fraction": 0,
+              "feedback": "突變測試評估的是測試，而不是修改程式碼。"
+            },
+            {
+              "text": "證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何測試技術能證明所有缺陷都不存在。"
+            },
+            {
+              "text": "隨機產生程式輸入",
+              "fraction": 0,
+              "feedback": "隨機輸入產生是另一種技術；突變測試注入的是錯誤，而非輸入。"
+            }
+          ],
+          "generalFeedback": "突變測試透過注入人工錯誤（突變體）並衡量測試套件偵測到的比例，來評估測試品質——這是比單純結構覆蓋更強的適切性準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
           "name": "突變體被殺死",
-          "text": "<p>一個突變體（mutant）被視為<em>被殺死（killed）</em>，是指：</p>",
+          "text": "<p>一個突變體被視為<em>被殺死（killed）</em>，是指：</p>",
           "answers": [
             {
               "text": "某個測試案例在突變體上產生的結果與原始程式不同",
@@ -5464,7 +6615,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "該突變體無法編譯",
               "fraction": 0,
-              "feedback": "無法編譯的突變體通常會被直接捨棄，而不是被測試「殺死」。"
+              "feedback": "無法編譯的突變體通常會被直接捨棄（死產突變體），而不是被測試「殺死」。"
             },
             {
               "text": "該突變體在執行時當掉（crash）",
@@ -5478,6 +6629,64 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "當測試套件中至少有一個測試案例，在突變體與原始程式上執行時產生可觀察到的差異（輸出、狀態，或是當掉與否），該突變體即被視為已被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活的突變體",
+          "text": "<p>面對某個測試套件時，一個<em>存活（lives／survives）</em>的突變體是指：</p>",
+          "answers": [
+            {
+              "text": "對套件中的每一個測試，都產生與原始程式相同的結果",
+              "fraction": 100,
+              "feedback": "正確——套件中沒有任何測試能區分它，因此它存活下來。"
+            },
+            {
+              "text": "在至少一個測試上產生不同的結果",
+              "fraction": 0,
+              "feedback": "那描述的是被殺死的突變體，而不是存活的。"
+            },
+            {
+              "text": "無法被編譯或執行",
+              "fraction": 0,
+              "feedback": "那是死產（stillborn）突變體，與存活突變體是不同的類別。"
+            },
+            {
+              "text": "一定是等價突變體",
+              "fraction": 0,
+              "feedback": "存活的突變體可能是等價的，但也可能是非等價、只是尚未被較弱的套件殺死。"
+            }
+          ],
+          "generalFeedback": "存活（survive）的突變體對套件中每個測試都給出與原始程式相同的輸出。它代表測試的弱點（一個更好的測試能殺死的非等價突變體），或是一個沒有任何測試能殺死的等價突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價突變體",
+          "text": "<p><em>等價突變體（equivalent mutant）</em>是指這樣的突變體：</p>",
+          "answers": [
+            {
+              "text": "語法上與原始程式不同，但在所有輸入下語意完全相同",
+              "fraction": 100,
+              "feedback": "正確——對所有輸入而言，輸入輸出行為都相同，因此沒有任何測試能區分它。"
+            },
+            {
+              "text": "與原始程式文字完全相同",
+              "fraction": 0,
+              "feedback": "突變運算子一定會引入語法上的變化；文字完全相同根本不算是突變體。"
+            },
+            {
+              "text": "位於無法執行到的死碼（dead code）中的突變體",
+              "fraction": 0,
+              "feedback": "無法到達的突變體是在可到達性（reachability）上失敗，但若真的執行到該處，它仍可能不是等價的。"
+            },
+            {
+              "text": "在所有輸入下都會當掉的突變體",
+              "fraction": 0,
+              "feedback": "一個穩定地以不同方式當掉的突變體會被輕易殺死，而非等價。"
+            }
+          ],
+          "generalFeedback": "等價突變體在原始碼上與原始程式不同，但計算出的函式完全相同——對每一個可能的輸入都給出相同輸出——因此在邏輯上不可能被任何測試殺死。",
           "single": true
         },
         {
@@ -5511,31 +6720,385 @@ export const QUIZ_RENDERED = {
         },
         {
           "type": "multichoice",
-          "name": "等價突變體",
-          "text": "<p><em>等價突變體（equivalent mutant）</em>是指這樣的突變體：</p>",
+          "name": "滿分的突變分數",
+          "text": "<p>某測試套件達到 100% 的突變分數（已排除等價突變體）。這代表：</p>",
           "answers": [
             {
-              "text": "語法上與原始程式不同，但在所有輸入下語意完全相同",
+              "text": "套件中的某個測試殺死了每一個非等價突變體",
               "fraction": 100,
-              "feedback": "正確——對所有輸入而言，輸入輸出行為都相同，因此沒有任何測試能區分它。"
+              "feedback": "正確——滿分表示所有可被殺死的突變體都被偵測到了。"
             },
             {
-              "text": "與原始程式文字完全相同",
+              "text": "程式已被證明是正確的",
               "fraction": 0,
-              "feedback": "突變運算子一定會引入語法上的變化；文字完全相同根本不算是突變體。"
+              "feedback": "殺死所有突變體只說明測試能抓到這些注入的錯誤，並不代表程式沒有錯誤。"
             },
             {
-              "text": "位於無法執行到的死碼（dead code）中的突變體",
+              "text": "沒有任何等價突變體",
               "fraction": 0,
-              "feedback": "無法到達的突變體是在可到達性（reachability）上失敗，但若真的執行到該處，它仍可能不是等價的。"
+              "feedback": "等價突變體被排除在分母之外；100% 的分數並未說明它們有多少個。"
             },
             {
-              "text": "在所有輸入下都會當掉的突變體",
+              "text": "套件達到 100% 的分支覆蓋率",
               "fraction": 0,
-              "feedback": "一個穩定地以不同方式當掉的突變體會被輕易殺死，而非等價。"
+              "feedback": "高突變分數通常意味著強覆蓋，但 100% 是由被殺死的突變體定義，而非直接由分支定義。"
             }
           ],
-          "generalFeedback": "等價突變體在原始碼上與原始程式不同，但計算出的函式完全相同——對每一個可能的輸入都給出相同輸出——因此在邏輯上不可能被任何測試殺死。",
+          "generalFeedback": "100% 的突變分數表示套件殺死了每一個非等價突變體。這是很強的適切性訊號，但並非程式正確性的證明。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "稱職程式設計師假說",
+          "text": "<p>突變測試背後的<em>稱職程式設計師假說（competent programmer hypothesis）</em>主張：</p>",
+          "answers": [
+            {
+              "text": "程式設計師寫出的程式已接近正確，因此真實錯誤是與正確程式僅有微小差異",
+              "fraction": 100,
+              "feedback": "正確——這正當化了以微小的單一突變來模擬錯誤。"
+            },
+            {
+              "text": "程式設計師從不在程式中引入錯誤",
+              "fraction": 0,
+              "feedback": "若真如此就沒有東西需要測試了；假說講的是錯誤微小，而非不存在。"
+            },
+            {
+              "text": "每個錯誤都需要同時做多處變更才能修正",
+              "fraction": 0,
+              "feedback": "假說主張的正好相反——錯誤通常是微小的偏差。"
+            },
+            {
+              "text": "編譯器能偵測程式設計師的所有錯誤",
+              "fraction": 0,
+              "feedback": "這與假說無關；假說談的是人為錯誤的規模，而非編譯器的能力。"
+            }
+          ],
+          "generalFeedback": "稱職程式設計師假說認為開發者寫出的程式已接近正確，因此錯誤是微小的。這正當化了以微小的單一變更突變體來模擬真實錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "耦合效應",
+          "text": "<p><em>耦合效應（coupling effect）</em>假說主張：</p>",
+          "answers": [
+            {
+              "text": "能偵測所有簡單（單一變更）錯誤的測試，也能偵測大多數複雜（多重變更）錯誤",
+              "fraction": 100,
+              "feedback": "正確——這正是以簡單突變體來測試之所以有價值的原因。"
+            },
+            {
+              "text": "複雜錯誤與簡單錯誤完全獨立無關",
+              "fraction": 0,
+              "feedback": "耦合效應主張的正好相反——複雜錯誤與簡單錯誤是耦合的。"
+            },
+            {
+              "text": "兩個共享資料的模組必須一起測試",
+              "fraction": 0,
+              "feedback": "那是設計上的模組耦合，不是突變測試的耦合效應。"
+            },
+            {
+              "text": "每個突變體都恰好與一個測試案例耦合",
+              "fraction": 0,
+              "feedback": "耦合效應講的是簡單與複雜錯誤之間的關係，而非突變體與個別測試的關係。"
+            }
+          ],
+          "generalFeedback": "耦合效應主張：能殺死所有簡單單一變更突變體的測試集，也能偵測絕大多數複雜的高階錯誤——因此一階突變體是良好的適切性目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：正負號分類（> 改為 >=）",
+          "text": "<p>考慮 <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>。運算子 <strong>&gt; &#8594; &gt;=</strong> 產生突變體 <code>if (x &gt;= 0) ...</code>。對測試輸入 <code>x = 0</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——在 x=0 時原始程式回傳 \"non-positive\"，但突變體回傳 \"positive\"。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "x=0 正是兩個運算子產生歧異的邊界，因此此測試偵測得到。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體顯然非等價：x=0 就能區分它。"
+            }
+          ],
+          "generalFeedback": "在 x=0 時，原始程式的 \"x>0\" 為假（回傳 \"non-positive\"），但突變體的 \"x>=0\" 為真（回傳 \"positive\"）。輸出不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：投票年齡（>= 改為 >）",
+          "text": "<p>考慮 <code>return age &gt;= 18;</code>。運算子 <strong>&gt;= &#8594; &gt;</strong> 產生突變體 <code>return age &gt; 18;</code>。對測試輸入 <code>age = 18</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——在 age=18 時原始程式回傳 true，但突變體回傳 false。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "age=18 正是 \">=18\" 與 \">18\" 產生歧異的邊界，因此此測試偵測得到。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：age=18 就能區分兩者。"
+            }
+          ],
+          "generalFeedback": "在 age=18 時，原始程式的 \"age>=18\" 為真，但突變體的 \"age>18\" 為假。結果不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：敘述刪除（絕對值）",
+          "text": "<p>考慮 <code>if (x &lt; 0) { x = -x; } return x;</code>。敘述刪除移除 <code>x = -x;</code>，得到 <code>if (x &lt; 0) { } return x;</code>。對測試輸入 <code>x = -5</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——原始程式回傳 5，但突變體回傳 -5。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "當 x=-5 時被刪除的敘述本來會執行，因此在此處它的移除是可觀察到的。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：任何負數輸入都能區分它。"
+            }
+          ],
+          "generalFeedback": "在 x=-5 時，原始程式取負後回傳 5，但突變體的空 if 主體讓 x 維持 -5。輸出不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：算術運算子（+ 改為 -）",
+          "text": "<p>考慮 <code>return a + b;</code>。運算子 <strong>+ &#8594; -</strong> 產生突變體 <code>return a - b;</code>。對測試輸入 <code>a = 3, b = 7</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——3+7=10，但 3-7=-4。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "因為 b=7≠0，a+b 與 a-b 不同，因此此測試偵測得到。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：任何 b≠0 都能區分 + 與 -。"
+            }
+          ],
+          "generalFeedback": "此處 a+b=10，但 a-b=-4；由於 b≠0，兩者相差（2b），因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活結果：正負號分類於 x = 7",
+          "text": "<p>考慮 <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>，突變體為 <code>if (x &gt;= 0) ...</code>（運算子 <strong>&gt; &#8594; &gt;=</strong>）。對測試輸入 <code>x = 7</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——在 x=7 時兩個版本都回傳 \"positive\"；只有 x=0 才會顯露差異。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "在 x=7 時 \"x>0\" 與 \"x>=0\" 都為真，因此輸出相同——此測試殺不死它。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：x=0 能殺死它；只是這個測試恰好漏掉。"
+            }
+          ],
+          "generalFeedback": "在 x=7 時 \"x>0\" 與 \"x>=0\" 都為真，因此都回傳 \"positive\"，突變體在此測試下存活。但它並非等價——x=0 就能殺死它。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "ROR 運算子",
+          "text": "<p>下列哪一項是 <strong>ROR</strong>（Relational Operator Replacement，關係運算子替換）運算子的實例？</p>",
+          "answers": [
+            {
+              "text": "把 <code>a &lt; b</code> 改成 <code>a &lt;= b</code>",
+              "fraction": 100,
+              "feedback": "正確——ROR 把一個關係運算子換成另一個（<、<=、>、>=、==、!=）。"
+            },
+            {
+              "text": "把 <code>a + b</code> 改成 <code>a - b</code>",
+              "fraction": 0,
+              "feedback": "那是 AOR（算術運算子替換），不是 ROR。"
+            },
+            {
+              "text": "把 <code>a &amp;&amp; b</code> 改成 <code>a || b</code>",
+              "fraction": 0,
+              "feedback": "那是 LOR/COR（邏輯／條件運算子替換）。"
+            },
+            {
+              "text": "刪除敘述 <code>a = b;</code>",
+              "fraction": 0,
+              "feedback": "那是 SDL（敘述刪除）。"
+            }
+          ],
+          "generalFeedback": "ROR 把一個關係運算子換成其他各個關係運算子（有時也換成 true/false），例如把 < 換成 <=、>、>=、== 或 !=。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AOR 運算子",
+          "text": "<p><strong>AOR</strong>（Arithmetic Operator Replacement，算術運算子替換）運算子會把 <code>x * y</code> 轉換成下列何者？</p>",
+          "answers": [
+            {
+              "text": "<code>x + y</code>",
+              "fraction": 100,
+              "feedback": "正確——AOR 把一個二元算術運算子換成另一個（+、-、*、/、%）。"
+            },
+            {
+              "text": "<code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "把算術改成關係屬於 ROR 類，不是 AOR。"
+            },
+            {
+              "text": "<code>x &amp;&amp; y</code>",
+              "fraction": 0,
+              "feedback": "那是引入邏輯運算子（LOR），不是算術運算子。"
+            },
+            {
+              "text": "<code>-x * y</code>",
+              "fraction": 0,
+              "feedback": "插入一元負號是 UOI，不是 AOR。"
+            }
+          ],
+          "generalFeedback": "AOR 把一個二元算術運算子換成 {+, -, *, /, %} 中的另一個，例如把 * 換成 +。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LOR 運算子",
+          "text": "<p>把 <strong>LOR</strong>／條件運算子替換運算子套用在 <code>a &amp;&amp; b</code> 上，最直接會產生：</p>",
+          "answers": [
+            {
+              "text": "<code>a || b</code>",
+              "fraction": 100,
+              "feedback": "正確——它把一個邏輯連接詞換成另一個。"
+            },
+            {
+              "text": "<code>a == b</code>",
+              "fraction": 0,
+              "feedback": "那是關係運算子（ROR），不是邏輯連接詞。"
+            },
+            {
+              "text": "<code>a + b</code>",
+              "fraction": 0,
+              "feedback": "那是算術（AOR）。"
+            },
+            {
+              "text": "<code>!a &amp;&amp; b</code>",
+              "fraction": 0,
+              "feedback": "插入一個否定是 UOI；LOR 替換的是連接詞本身。"
+            }
+          ],
+          "generalFeedback": "LOR（邏輯／條件運算子替換）把一個邏輯連接詞換成另一個，例如把 && 換成 ||。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ABS 運算子",
+          "text": "<p><strong>ABS</strong>（Absolute Value Insertion，絕對值插入）運算子會把算術運算式 <code>e</code> 突變成哪一族變體？</p>",
+          "answers": [
+            {
+              "text": "<code>abs(e)</code>、<code>-abs(e)</code>，以及一個遇零即失敗（fail-on-zero）的變體",
+              "fraction": 100,
+              "feedback": "正確——ABS 強迫以非負、非正與零三種情況來測試 e。"
+            },
+            {
+              "text": "<code>e + 1</code> 與 <code>e - 1</code>",
+              "fraction": 0,
+              "feedback": "差一調整不是 ABS；ABS 關注的是運算式的正負號／零。"
+            },
+            {
+              "text": "<code>e &gt; 0</code> 與 <code>e &lt; 0</code>",
+              "fraction": 0,
+              "feedback": "那些是關係判斷，不是 ABS 的數值插入族。"
+            },
+            {
+              "text": "把 <code>e</code> 換成一個常數字面值",
+              "fraction": 0,
+              "feedback": "常數替換是另一種運算子；ABS 是把 e 包成絕對值形式。"
+            }
+          ],
+          "generalFeedback": "ABS 把運算式 e 換成 abs(e)、-abs(e) 與 failOnZero(e)，藉此強迫測試以正、負與零三種情況來執行 e。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UOI 運算子",
+          "text": "<p>下列哪一項是 <strong>UOI</strong>（Unary Operator Insertion，一元運算子插入）運算子的例子？</p>",
+          "answers": [
+            {
+              "text": "把 <code>return x;</code> 改成 <code>return -x;</code>",
+              "fraction": 100,
+              "feedback": "正確——UOI 插入一個一元運算子（此處為算術取負）。"
+            },
+            {
+              "text": "把 <code>x + y</code> 改成 <code>x - y</code>",
+              "fraction": 0,
+              "feedback": "那是替換二元運算子（AOR），而非插入一元運算子。"
+            },
+            {
+              "text": "把 <code>x &lt; y</code> 改成 <code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "那是 ROR。"
+            },
+            {
+              "text": "刪除 <code>x = 0;</code>",
+              "fraction": 0,
+              "feedback": "那是敘述刪除（SDL）。"
+            }
+          ],
+          "generalFeedback": "UOI 在運算式中插入一個一元運算子，例如把 x 變成 -x、把布林 b 變成 !b，或把 x 變成 ++x。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SDL 運算子",
+          "text": "<p><strong>SDL</strong>（Statement Deletion，敘述刪除）運算子產生突變體的方式是：</p>",
+          "answers": [
+            {
+              "text": "從程式中移除一整個敘述",
+              "fraction": 100,
+              "feedback": "正確——SDL 刪除一個敘述，以檢查是否有任何測試依賴它的作用。"
+            },
+            {
+              "text": "把變數參照換成一個常數",
+              "fraction": 0,
+              "feedback": "那是常數／變數替換運算子，不是 SDL。"
+            },
+            {
+              "text": "交換兩個相鄰的敘述",
+              "fraction": 0,
+              "feedback": "重新排序是另一種突變；SDL 是移除一個敘述。"
+            },
+            {
+              "text": "把布林條件取否定",
+              "fraction": 0,
+              "feedback": "那比較接近 UOI/COR；SDL 是刪除而非取否定。"
+            }
+          ],
+          "generalFeedback": "SDL 刪除一個敘述（通常以 no-op 取代）。若沒有任何測試偵測到此刪除，代表該敘述的作用未被測試到。",
           "single": true
         },
         {
@@ -5603,6 +7166,571 @@ export const QUIZ_RENDERED = {
           ],
           "generalFeedback": "傳播（propagation）是 RIP 的第三個條件：被感染（破壞）的狀態必須在執行過程中持續向前影響，直到改變測試諭示實際觀察到的結果為止。",
           "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "弱突變與強突變",
+          "text": "<p><strong>弱突變（weak mutation）</strong>與<strong>強突變（strong mutation）</strong>的區別在於？</p>",
+          "answers": [
+            {
+              "text": "弱突變在被突變的元件執行後立即檢查是否有狀態差異；強突變則要求該差異必須傳播到程式輸出",
+              "fraction": 100,
+              "feedback": "正確——弱突變只需感染；強突變需要感染再傳播。"
+            },
+            {
+              "text": "弱突變使用的突變運算子比強突變少",
+              "fraction": 0,
+              "feedback": "區別在於在何處觀察差異，而非使用多少運算子。"
+            },
+            {
+              "text": "弱突變只適用於等價突變體",
+              "fraction": 0,
+              "feedback": "兩者都適用於一般突變體；差別在於比較的時點。"
+            },
+            {
+              "text": "強突變因為在被突變的敘述就停止，所以跑得比較快",
+              "fraction": 0,
+              "feedback": "能在元件處提早停止的是弱突變；強突變會一路執行到輸出。"
+            }
+          ],
+          "generalFeedback": "弱突變在被突變元件執行後立即比較內部狀態（可到達性＋感染）。強突變則要求被感染的狀態一路傳播到可觀察的輸出（可到達性＋感染＋傳播）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變分數計算",
+          "text": "<p>某程式有 30 個突變體，其中 6 個為等價突變體，測試套件殺死了 21 個。突變分數是多少？</p>",
+          "answers": [
+            {
+              "text": "87.5%",
+              "fraction": 100,
+              "feedback": "正確——21 / (30 &#8722; 6) = 21/24 = 0.875。"
+            },
+            {
+              "text": "70%",
+              "fraction": 0,
+              "feedback": "那是 21/30——錯把等價突變體算進分母。"
+            },
+            {
+              "text": "58.3%",
+              "fraction": 0,
+              "feedback": "那是 21/(30+6)——等價突變體應該減去，而不是加上。"
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "那是存活突變體比例 9/30，不是突變分數。"
+            }
+          ],
+          "generalFeedback": "突變分數 = 被殺死數 / (總數 &#8722; 等價數) = 21 / (30 &#8722; 6) = 21/24 = 87.5%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "選擇性突變",
+          "text": "<p><strong>選擇性突變（selective mutation）</strong>降低成本的方式是：</p>",
+          "answers": [
+            {
+              "text": "只使用一小組精心挑選的突變運算子，卻仍能得到幾乎相同的適切性",
+              "fraction": 100,
+              "feedback": "正確——少數關鍵運算子即可逼近使用完整運算子集的效果。"
+            },
+            {
+              "text": "只測試那些恰好是等價的突變體",
+              "fraction": 0,
+              "feedback": "等價突變體永遠殺不死，單獨測試它們毫無意義。"
+            },
+            {
+              "text": "只挑選那些已經通過的測試案例",
+              "fraction": 0,
+              "feedback": "選擇性突變減少的是運算子，而非測試，也不以通過／失敗來篩選。"
+            },
+            {
+              "text": "讓每個突變體只對一個測試執行",
+              "fraction": 0,
+              "feedback": "那會削弱偵測能力；選擇性突變是精簡運算子集。"
+            }
+          ],
+          "generalFeedback": "選擇性突變只套用一小組運算子（例如「充分」運算子集），其產生的突變分數在經驗上與完整運算子集幾乎相同，卻大幅減少突變體數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：&& 改為 || 且運算元不同",
+          "text": "<p>考慮 <code>return (age &gt;= 18) &amp;&amp; citizen;</code>，突變體為 <code>return (age &gt;= 18) || citizen;</code>（運算子 <strong>&amp;&amp; &#8594; ||</strong>）。對測試輸入 <code>age = 30, citizen = false</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——此處兩個運算元真值不同（true 與 false），因此 AND 與 OR 產生歧異。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "此處 AND 得 false 而 OR 得 true，因此此測試偵測得到差異。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "只要運算元真值不同（如此處），&& 與 || 就不等價。"
+            }
+          ],
+          "generalFeedback": "當 age=30（故 age>=18 為真）且 citizen=false 時，原始程式計算 true && false = false，但突變體計算 true || false = true。輸出不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活結果：&& 改為 || 且運算元相同",
+          "text": "<p>考慮 <code>return (age &gt;= 18) &amp;&amp; citizen;</code>，突變體為 <code>return (age &gt;= 18) || citizen;</code>（運算子 <strong>&amp;&amp; &#8594; ||</strong>）。對測試輸入 <code>age = 30, citizen = true</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——兩個運算元都為真，因此 AND 與 OR 都得 true；運算元不同的測試才能殺死它。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "true && true 與 true || true 都等於 true，因此此處輸出相同。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：age=30、citizen=false 就能殺死它。"
+            }
+          ],
+          "generalFeedback": "當兩個運算元都為真時，true && true = true 而 true || true = true，因此突變體在此測試下存活。它並非等價——運算元真值不同的輸入（例如 citizen=false）就能殺死它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活結果：+ 改為 - 於 b = 0",
+          "text": "<p>考慮 <code>return a + b;</code>，突變體為 <code>return a - b;</code>（運算子 <strong>+ &#8594; -</strong>）。對測試輸入 <code>a = 9, b = 0</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——a+0 與 a-0 都是 9，因此此測試漏掉了突變體；任何 b≠0 都能殺死它。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "當 b=0 時，a+b 與 a-b 相等（都是 9），因此輸出相同——殺不死。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：任何 b≠0 都會讓 + 與 - 不同而殺死它。"
+            }
+          ],
+          "generalFeedback": "在 b=0 時，a+b = a-b = 9，因此突變體在此特定測試下存活。但它並非等價：任何 b≠0 的測試（此時 a+b 與 a-b 相差 2b）都能殺死它。這說明選得不好的測試輸入可能讓一個可殺死的突變體存活。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何等價突變體殺不死",
+          "text": "<p>為什麼沒有任何測試案例能殺死等價突變體？</p>",
+          "answers": [
+            {
+              "text": "它與原始程式計算相同的函式，因此沒有任何輸入能使兩者輸出不同",
+              "fraction": 100,
+              "feedback": "正確——殺死需要可觀察的輸出差異，而等價突變體永遠無法產生這種差異。"
+            },
+            {
+              "text": "它被突變的敘述永遠無法到達",
+              "fraction": 0,
+              "feedback": "等價性談的是行為相同，而非可到達性；該敘述其實很可能會執行。"
+            },
+            {
+              "text": "它在回傳前一定會拋出例外",
+              "fraction": 0,
+              "feedback": "與原始程式不同的例外反而會殺死它；等價代表完全沒有差異。"
+            },
+            {
+              "text": "測試工具會自動略過它",
+              "fraction": 0,
+              "feedback": "工具連可靠地偵測等價性都做不到；這種不可能性是本質使然，而非工具的選擇。"
+            }
+          ],
+          "generalFeedback": "突變體只有在某個測試產生與原始程式不同的可觀察結果時才會被殺死。等價突變體對每個輸入都計算完全相同的函式，因此那種差異永遠不會出現——沒有任何測試能殺死它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價：死存放刪除",
+          "text": "<p>考慮 <code>int unused = x * 2; return x * x;</code>。敘述刪除移除 <code>int unused = x * 2;</code>，得到 <code>return x * x;</code>。結果是：</p>",
+          "answers": [
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 100,
+              "feedback": "正確——被寫入卻從未被讀取，且沒有副作用，因此刪除它不會改變任何輸出。"
+            },
+            {
+              "text": "被殺死——某個測試偵測到它",
+              "fraction": 0,
+              "feedback": "沒有任何測試能偵測它：回傳值不受被刪除的死存放影響。"
+            },
+            {
+              "text": "此測試下存活，但更好的測試能殺死它",
+              "fraction": 0,
+              "feedback": "不存在能殺死它的輸入，因此它是等價，而非只是存活。"
+            }
+          ],
+          "generalFeedback": "被指派卻從未被讀取，且沒有副作用，因此對任何 x 而言，刪除該敘述都不會改變回傳值。此突變體是等價的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價：對長度的關係運算子",
+          "text": "<p>已知 <code>n = arr.length</code>（故恆有 <code>n &gt;= 0</code>），考慮 <code>if (n &gt; -1) return true; else return false;</code>。運算子 <strong>&gt; &#8594; &gt;=</strong> 產生 <code>if (n &gt;= -1) ...</code>。結果是：</p>",
+          "answers": [
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 100,
+              "feedback": "正確——對每個可到達的 n（n≥0），\"n>-1\" 與 \"n>=-1\" 都為真，兩版本永不歧異。"
+            },
+            {
+              "text": "被殺死——某個測試偵測到它",
+              "fraction": 0,
+              "feedback": "兩個條件只有在 n = -1 時才不同，而陣列長度不可能是 -1，因此沒有任何測試能殺死它。"
+            },
+            {
+              "text": "此測試下存活，但更好的測試能殺死它",
+              "fraction": 0,
+              "feedback": "不存在能區分兩者的可到達輸入，因此它是等價，而非只是存活。"
+            }
+          ],
+          "generalFeedback": "\"n>-1\" 與 \"n>=-1\" 只有在 n = -1 時才不同。由於 n 是陣列長度（依建構恆有 n≥0），該值無法到達，因此兩版本對每個可能的輸入都一致——此突變體是等價的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識等價迴圈突變體",
+          "text": "<p>此處 <code>n</code> 是串列長度（故 <code>n &gt;= 0</code>）。考慮 <code>for (int i = 0; i &lt; n; i++) sum += a[i];</code>，經 <strong>&lt; &#8594; !=</strong> 突變為 <code>for (int i = 0; i != n; i++) sum += a[i];</code>。此突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——i 從 0 遞增並恰好到達 n，故對每個 n≥0，i!=n 與 i<n 都在同一次迭代停止",
+              "fraction": 100,
+              "feedback": "正確——對所有非負的 n，兩個迴圈條件都在相同時點終止。"
+            },
+            {
+              "text": "任何 n > 0 的測試都能殺死它",
+              "fraction": 0,
+              "feedback": "對 n>0，兩個迴圈都恰好跑 n 次、產生相同的 sum，因此這種測試殺不死它。"
+            },
+            {
+              "text": "非等價，因為 i != n 可能會跳過最後一個元素",
+              "fraction": 0,
+              "feedback": "並不會：i 取 0,1,…,n-1 然後等於 n，與 i<n 在同一時點結束迴圈。"
+            },
+            {
+              "text": "非等價，因為迴圈永遠不會終止",
+              "fraction": 0,
+              "feedback": "由於 i 從 0 每次加 1 且 n≥0，i 終究會等於 n，迴圈會終止。"
+            }
+          ],
+          "generalFeedback": "由於 i 從 0 開始每次加 1，它會恰好碰到 n；對任何 n≥0，\"i!=n\" 與 \"i<n\" 都在同一次迭代變為假。兩者在每個可到達輸入上行為相同，因此這是等價突變體。（只有在 n 可能為負時才會不同——但長度不可能為負。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP：傳播失敗",
+          "text": "<p>考慮 <code>int y = x * 2; return (y &gt; 0) ? 1 : 0;</code>，經 <strong>* &#8594; +</strong> 突變為 <code>int y = x + 2; ...</code>。對測試輸入 <code>x = 5</code>，被突變的敘述有執行且 y 不同（10 對 7），但兩者都回傳 1。此測試中哪個 RIP 條件失敗了？</p>",
+          "answers": [
+            {
+              "text": "傳播（Propagation）——被感染的狀態（y）並未改變可觀察的輸出",
+              "fraction": 100,
+              "feedback": "正確——y 已被感染（10 對 7），但由於兩者皆 > 0，輸出維持 1，故感染未傳播。"
+            },
+            {
+              "text": "可到達性（Reachability）——被突變的敘述從未執行",
+              "fraction": 0,
+              "feedback": "它有執行；y 已被計算，故可到達性成立。"
+            },
+            {
+              "text": "感染（Infection）——狀態從未被破壞",
+              "fraction": 0,
+              "feedback": "感染確有發生：y 在原始程式為 10，在突變體為 7。"
+            },
+            {
+              "text": "此突變體是等價的",
+              "fraction": 0,
+              "feedback": "它並非等價——x=-1 或 x=0 會使輸出不同（0 對 1）而殺死它。"
+            }
+          ],
+          "generalFeedback": "在 x=5 時，可到達性與感染皆成立（y = 10 對 7），但兩個值都為正，故三元運算式在兩版本都回傳 1——差異未傳播到輸出。像 x=0（0 對 2，輸出 0 對 1）這樣的測試就會傳播並殺死此突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "弱突變對強突變：區分突變體",
+          "text": "<p>考慮 <code>int t = x + 1; return t * 0;</code>，經 <strong>+ &#8594; -</strong> 突變為 <code>int t = x - 1; return t * 0;</code>。弱突變與強突變如何分類此突變體？</p>",
+          "answers": [
+            {
+              "text": "在弱突變下可被殺死（t 被感染），但在強突變下為等價（輸出恆為 0）",
+              "fraction": 100,
+              "feedback": "正確——t 在被突變敘述後立即不同，但 t * 0 對每個 x 都是 0，因此永遠沒有輸出差異傳播出去。"
+            },
+            {
+              "text": "在弱突變與強突變下都可被殺死",
+              "fraction": 0,
+              "feedback": "強突變比較輸出，而輸出恆為 0，因此無法在強突變下被殺死。"
+            },
+            {
+              "text": "在弱突變與強突變下都是等價",
+              "fraction": 0,
+              "feedback": "弱突變比較 t 處的狀態，而它確實不同（x+1 對 x-1），因此在弱突變下可被殺死。"
+            },
+            {
+              "text": "在強突變下可被殺死，但在弱突變下為等價",
+              "fraction": 0,
+              "feedback": "這說反了：感染發生在 t（弱突變殺死），但輸出永不改變（強突變等價）。"
+            }
+          ],
+          "generalFeedback": "弱突變檢查被突變元件執行後的狀態：t 為 x+1 對 x-1，因此已被感染、可在弱突變下被殺死。強突變檢查輸出：t * 0 對每個 x 都是 0，故沒有測試能產生輸出差異——在強突變下此突變體是等價的。同一個突變體可以在弱突變下被「殺死」，卻在強突變下等價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PIE 模型",
+          "text": "<p>PIE（Propagation, Infection, Execution）模型與 RIP 模型的關係為何？</p>",
+          "answers": [
+            {
+              "text": "兩者描述相同的三個條件——執行／可到達、感染與傳播都必須成立才能顯露錯誤",
+              "fraction": 100,
+              "feedback": "正確——PIE 與 RIP 命名的是同一組讓錯誤被觀察到的必要條件。"
+            },
+            {
+              "text": "PIE 比 RIP 多了一個 RIP 沒有的第四個條件",
+              "fraction": 0,
+              "feedback": "兩個模型使用相同的三個條件；只是命名／順序不同。"
+            },
+            {
+              "text": "PIE 只適用於等價突變體",
+              "fraction": 0,
+              "feedback": "PIE 描述的是任何錯誤何時被顯露，並非專指等價突變體。"
+            },
+            {
+              "text": "PIE 以一個諭示強度條件取代傳播",
+              "fraction": 0,
+              "feedback": "傳播仍被保留；PIE 只是把 RIP 的「可到達」改稱為「執行」。"
+            }
+          ],
+          "generalFeedback": "PIE（傳播–感染–執行）與 RIP（可到達–感染–傳播）是同一個概念：錯誤位置必須被執行／到達、必須感染狀態，且該感染必須傳播到可觀察的輸出。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變包含覆蓋準則",
+          "text": "<p>若某測試集能殺死某程式上由敘述刪除（SDL）運算子所產生的每一個突變體，那麼該測試集至少必須滿足哪個結構準則？</p>",
+          "answers": [
+            {
+              "text": "敘述（節點）覆蓋——每個敘述都必須被執行，因為刪除它會被偵測到",
+              "fraction": 100,
+              "feedback": "正確——刪除只有在敘述執行時才可能被偵測，因此每個敘述都被覆蓋（且其作用被觀察到）。"
+            },
+            {
+              "text": "完整路徑覆蓋",
+              "fraction": 0,
+              "feedback": "殺死 SDL 突變體不需走遍每條路徑；完整路徑覆蓋強得多。"
+            },
+            {
+              "text": "所有 DU 路徑覆蓋",
+              "fraction": 0,
+              "feedback": "SDL 關乎執行敘述，而非走遍每條定義-使用路徑。"
+            },
+            {
+              "text": "不蘊含任何覆蓋準則",
+              "fraction": 0,
+              "feedback": "要偵測一個敘述被刪除，必然需要執行該敘述。"
+            }
+          ],
+          "generalFeedback": "要殺死一個敘述刪除突變體，測試必須執行該敘述（否則刪除不可見）並觀察其作用。殺死所有這類突變體因而至少蘊含敘述覆蓋——這是突變適切性包含結構覆蓋的一種體現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "支配（最小）突變體",
+          "text": "<p>在最小／支配突變體（minimal/dominator mutants）的理論中，突變體 M1 <em>支配（dominates）</em> M2（就某程式而言）是指：</p>",
+          "answers": [
+            {
+              "text": "每個殺死 M1 的測試也都會殺死 M2，因此涵蓋 M1 就使 M2 變得多餘",
+              "fraction": 100,
+              "feedback": "正確——一旦支配者被殺死，被支配的突變體便不再帶來新的測試需求。"
+            },
+            {
+              "text": "M1 與 M2 只由完全相同的單一測試殺死",
+              "fraction": 0,
+              "feedback": "支配關乎殺死測試集合的包含關係，而非某個唯一共享的測試。"
+            },
+            {
+              "text": "M1 是等價的而 M2 不是",
+              "fraction": 0,
+              "feedback": "支配討論的是非等價突變體之間殺死測試集的關係，而非等價性。"
+            },
+            {
+              "text": "M1 被突變的敘述比 M2 多",
+              "fraction": 0,
+              "feedback": "支配關乎哪些測試能殺死它們，而非各自含有多少變更。"
+            }
+          ],
+          "generalFeedback": "最小（支配）突變體集只保留未被支配的突變體：若殺死 M1 的測試集是殺死 M2 的測試集的子集，則 M1 支配 M2，使 M2 變得多餘。以支配集來計算突變分數，可避免大量簡單、多餘的突變體造成分數膨脹。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排除等價後的分數",
+          "text": "<p>某程式有 40 個突變體。套件殺死了 18 個；在 22 個存活者中，後來確認有 4 個為等價。突變分數（排除等價）是多少？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——18 / (40 &#8722; 4) = 18/36 = 0.5。"
+            },
+            {
+              "text": "45%",
+              "fraction": 0,
+              "feedback": "那是 18/40——錯把那 4 個等價突變體當作可殺死的天真分數。"
+            },
+            {
+              "text": "41%",
+              "fraction": 0,
+              "feedback": "那是 18/(40+4)——等價突變體應該減去，而不是加上。"
+            },
+            {
+              "text": "55%",
+              "fraction": 0,
+              "feedback": "那是存活者比例 22/40，不是突變分數。"
+            }
+          ],
+          "generalFeedback": "排除等價後，突變分數 = 被殺死數 / (總數 &#8722; 等價數) = 18 / (40 &#8722; 4) = 18/36 = 50%。確認等價突變體會讓分數從天真的 45% 上升，因為不可殺死的突變體離開了分母。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "高階突變體",
+          "text": "<p><em>高階突變體（higher-order mutant）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "同時套用了兩個或更多突變運算子的突變體",
+              "fraction": 100,
+              "feedback": "正確——一階突變體只有一個變更；高階突變體結合了數個。"
+            },
+            {
+              "text": "由較高優先權的運算子所產生的突變體",
+              "fraction": 0,
+              "feedback": "「階」指的是植入變更的數量，而非運算子的優先權。"
+            },
+            {
+              "text": "一定與原始程式等價",
+              "fraction": 0,
+              "feedback": "高階突變體通常非等價；有些是「難以察覺」的，但並非依定義就是等價。"
+            },
+            {
+              "text": "只能被高階測試案例殺死",
+              "fraction": 0,
+              "feedback": "並沒有所謂高階測試案例；一般測試就能殺死它們。"
+            }
+          ],
+          "generalFeedback": "高階突變體一次套用兩個或更多變更。有些會結合成比其組成的一階突變體更難殺死的「難以察覺」錯誤，這正是儘管有耦合效應，仍要研究高階突變的原因。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "等價突變體偵測不可判定",
+          "text": "<p>判定任意一個突變體是否與原始程式等價，一般而言是不可判定（undecidable）的。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——判定兩程式的函式等價性可由不可判定問題歸約而來，因此一般沒有演算法能解。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "任意程式的等價性是不可判定的；這正是等價突變體通常須以人工判斷或啟發式近似的原因。"
+            }
+          ],
+          "generalFeedback": "偵測等價突變體等於判定兩個程式是否計算相同函式，一般而言是不可判定的。實務上團隊使用啟發式（如編譯器最佳化或約束式檢查）與人工分析，而等價突變體問題是突變測試的一大成本。"
+        },
+        {
+          "type": "multichoice",
+          "name": "詮釋滿分",
+          "text": "<p>某套件殺死了 100% 的非等價突變體。哪個結論是站得住腳的？</p>",
+          "answers": [
+            {
+              "text": "就此運算子集而言套件是適切的，但程式仍可能含有沒有任何運算子模擬到的錯誤",
+              "fraction": 100,
+              "feedback": "正確——突變適切性是相對於所產生的突變體，而非正確性的證明。"
+            },
+            {
+              "text": "程式已被證明沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "突變測試以注入的錯誤來評估測試，無法證明整體正確性。"
+            },
+            {
+              "text": "每個可能的突變體（包含高階者）都被殺死了",
+              "fraction": 0,
+              "feedback": "一階的 100% 分數對未測試的高階突變體不能提供任何確定結論。"
+            },
+            {
+              "text": "套件也必定有 100% 的路徑覆蓋",
+              "fraction": 0,
+              "feedback": "高突變分數與覆蓋相關，但不保證完整的路徑覆蓋。"
+            }
+          ],
+          "generalFeedback": "滿分的突變分數表示測試能偵測所選運算子所能植入的每個錯誤——是很強的適切性證據，但運算子集之外（或規格中）的錯誤仍可能殘留。突變適切性永遠是相對於所使用的運算子而言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活：正負號分類於 x = -3",
+          "text": "<p>考慮 <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>，突變體為 <code>if (x &gt;= 0) ...</code>（運算子 <strong>&gt; &#8594; &gt;=</strong>）。對測試輸入 <code>x = -3</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——在 x=-3 時 \"x>0\" 與 \"x>=0\" 都為假，因此都回傳 \"non-positive\"；只有 x=0 才顯露差異。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "在 x=-3 時兩個條件都為假，因此兩版本都回傳 \"non-positive\"——沒有差異。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：x=0 能殺死它；此測試只是漏掉。"
+            }
+          ],
+          "generalFeedback": "在 x=-3 時，\"x>0\" 與 \"x>=0\" 都為假，因此兩版本都回傳 \"non-positive\"，突變體在此測試下存活。唯一能殺死它的輸入是 x=0，因此此突變體非等價——提醒我們到達邊界很重要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活：&& 改為 || 且兩運算元皆為假",
+          "text": "<p>考慮 <code>return (age &gt;= 18) &amp;&amp; citizen;</code>，突變體為 <code>return (age &gt;= 18) || citizen;</code>（運算子 <strong>&amp;&amp; &#8594; ||</strong>）。對測試輸入 <code>age = 10, citizen = false</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——兩個運算元都為假，因此 AND 與 OR 都得 false；突變體在此測試下存活。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "false && false 與 false || false 都是 false，因此此處輸出相同。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：例如 age=30、citizen=false（運算元真值不同）就能殺死它。"
+            }
+          ],
+          "generalFeedback": "當 age=10（age>=18 為假）且 citizen=false 時，原始程式計算 false && false = false，突變體計算 false || false = false——完全相同，故它存活。&& 與 || 恰在兩運算元真值相同時一致；運算元真值不同的輸入就能殺死這個非等價突變體。",
+          "single": true
         }
       ]
     }

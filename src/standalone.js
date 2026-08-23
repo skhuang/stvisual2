@@ -51108,6 +51108,93 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         "easy": [
           {
             "type": "multichoice",
+            "name": "What is a mutant",
+            "text": "<p>In mutation testing, a <em>mutant</em> is:</p>",
+            "answers": [
+              {
+                "text": "A copy of the program with one small syntactic change applied by a mutation operator",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a mutant is the original program seeded with one deliberate, small fault."
+              },
+              {
+                "text": "A test case that exposes a defect in the program",
+                "fraction": 0,
+                "feedback": "That is a failing test case, not a mutant \u2014 the mutant is the altered program."
+              },
+              {
+                "text": "A bug reported by a user in production",
+                "fraction": 0,
+                "feedback": "Mutants are artificial faults injected on purpose, not field-reported defects."
+              },
+              {
+                "text": "An input value that maximises code coverage",
+                "fraction": 0,
+                "feedback": "Coverage-maximising inputs are a testing concern, unrelated to what a mutant is."
+              }
+            ],
+            "generalFeedback": "A mutant is a variant of the program produced by applying a mutation operator that makes one small syntactic change (e.g. + becomes -). Running tests against mutants measures how good the tests are at detecting such faults.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a mutation operator",
+            "text": "<p>A <em>mutation operator</em> is:</p>",
+            "answers": [
+              {
+                "text": "A rule that systematically transforms the program to produce mutants (e.g. replace + with -)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each operator encodes a class of small syntactic changes."
+              },
+              {
+                "text": "An arithmetic operator such as + or * in the source code",
+                "fraction": 0,
+                "feedback": "That is an operator in the program; a mutation operator is a rule that changes such tokens."
+              },
+              {
+                "text": "The test oracle that decides pass or fail",
+                "fraction": 0,
+                "feedback": "The oracle judges outputs; it does not generate mutants."
+              },
+              {
+                "text": "A metric describing how many tests pass",
+                "fraction": 0,
+                "feedback": "That is closer to a test result, not a mutation operator."
+              }
+            ],
+            "generalFeedback": "A mutation operator is a transformation rule (ROR, AOR, LOR, statement deletion, etc.) applied to the source to systematically generate mutants, each carrying one small change.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of mutation testing",
+            "text": "<p>The primary purpose of mutation testing is to:</p>",
+            "answers": [
+              {
+                "text": "Measure the fault-detecting adequacy of a test suite",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 it asks "how many injected faults do these tests catch?"'
+              },
+              {
+                "text": "Automatically repair bugs in the program",
+                "fraction": 0,
+                "feedback": "Mutation testing evaluates tests; it does not fix code."
+              },
+              {
+                "text": "Prove the program has no defects",
+                "fraction": 0,
+                "feedback": "No testing technique proves the absence of all defects."
+              },
+              {
+                "text": "Generate program inputs at random",
+                "fraction": 0,
+                "feedback": "Random input generation is a different technique; mutation testing seeds faults, not inputs."
+              }
+            ],
+            "generalFeedback": "Mutation testing evaluates how good a test suite is by seeding artificial faults (mutants) and measuring the fraction the suite detects \u2014 a stronger adequacy criterion than structural coverage alone.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
             "name": "Mutant killed",
             "text": "<p>A mutant is considered <em>killed</em> when:</p>",
             "answers": [
@@ -51119,12 +51206,12 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "The mutant fails to compile",
                 "fraction": 0,
-                "feedback": `A mutant that won't compile is usually discarded, not "killed" by a test.`
+                "feedback": `A mutant that won't compile is usually discarded (a stillborn mutant), not "killed" by a test.`
               },
               {
                 "text": "The mutant crashes at runtime",
                 "fraction": 0,
-                "feedback": "A crash can kill a mutant only if it differs from the original's behavior \u2014 the definition is about differing output, not crashing itself."
+                "feedback": "A crash kills a mutant only if it differs from the original's behaviour \u2014 the definition is about differing output, not crashing itself."
               },
               {
                 "text": "The mutant is equivalent to the original",
@@ -51132,36 +51219,36 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "An equivalent mutant, by definition, can never be killed by any test."
               }
             ],
-            "generalFeedback": "A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and running it on the original program.",
+            "generalFeedback": "A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and on the original program.",
             "single": true
           },
           {
             "type": "multichoice",
-            "name": "Mutation score formula",
-            "text": "<p>The mutation score is computed as:</p>",
+            "name": "Live mutant",
+            "text": "<p>A mutant that <em>lives</em> (survives) against a test suite is one that:</p>",
             "answers": [
               {
-                "text": "killed mutants / (total mutants &#8722; equivalent mutants)",
+                "text": "Produces the same result as the original on every test in the suite",
                 "fraction": 100,
-                "feedback": "Correct \u2014 equivalent mutants are excluded because no test can ever kill them."
+                "feedback": "Correct \u2014 no test in the suite distinguishes it, so it survives."
               },
               {
-                "text": "killed mutants / total mutants",
+                "text": "Produces a different result on at least one test",
                 "fraction": 0,
-                "feedback": "This treats equivalent mutants as killable, unfairly penalizing the test suite."
+                "feedback": "That describes a killed mutant, not a surviving one."
               },
               {
-                "text": "killed mutants / (total mutants + equivalent mutants)",
+                "text": "Cannot be compiled or executed",
                 "fraction": 0,
-                "feedback": "Adding, not subtracting, equivalents makes the score worse without justification."
+                "feedback": "That is a stillborn mutant, a separate category from live mutants."
               },
               {
-                "text": "(total mutants &#8722; killed mutants) / total mutants",
+                "text": "Is always an equivalent mutant",
                 "fraction": 0,
-                "feedback": `That's closer to a "surviving-mutant rate", not the mutation score.`
+                "feedback": "A live mutant may be equivalent, but it may instead be non-equivalent and simply not yet killed by a weak suite."
               }
             ],
-            "generalFeedback": "Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.",
+            "generalFeedback": "A live (surviving) mutant gives the same output as the original on every test in the suite. It signals either a weakness in the tests (a non-equivalent mutant that a better test would kill) or an equivalent mutant that no test can kill.",
             "single": true
           },
           {
@@ -51172,7 +51259,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "Syntactically different from the original but semantically identical on every input",
                 "fraction": 100,
-                "feedback": "Correct \u2014 same input/output behavior for all inputs, so no test can distinguish it."
+                "feedback": "Correct \u2014 same input/output behaviour for all inputs, so no test can distinguish it."
               },
               {
                 "text": "Textually identical to the original program",
@@ -51190,7 +51277,419 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "A mutant that reliably crashes differently from the original is trivially killed, not equivalent."
               }
             ],
-            "generalFeedback": "An equivalent mutant differs in source code from the original program but computes exactly the same function \u2014 identical output for every possible input \u2014 so it is logically impossible for any test to kill it.",
+            "generalFeedback": "An equivalent mutant differs in source code from the original but computes exactly the same function \u2014 identical output for every possible input \u2014 so it is logically impossible for any test to kill it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutation score formula",
+            "text": "<p>The mutation score is computed as:</p>",
+            "answers": [
+              {
+                "text": "killed mutants / (total mutants &#8722; equivalent mutants)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 equivalent mutants are excluded because no test can ever kill them."
+              },
+              {
+                "text": "killed mutants / total mutants",
+                "fraction": 0,
+                "feedback": "This treats equivalent mutants as killable, unfairly penalising the test suite."
+              },
+              {
+                "text": "killed mutants / (total mutants + equivalent mutants)",
+                "fraction": 0,
+                "feedback": "Adding, not subtracting, equivalents makes the score worse without justification."
+              },
+              {
+                "text": "(total mutants &#8722; killed mutants) / total mutants",
+                "fraction": 0,
+                "feedback": `That's closer to a "surviving-mutant rate", not the mutation score.`
+              }
+            ],
+            "generalFeedback": "Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Perfect mutation score",
+            "text": "<p>A test suite achieves a mutation score of 100% (with equivalents excluded). This means:</p>",
+            "answers": [
+              {
+                "text": "Every non-equivalent mutant was killed by some test in the suite",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a perfect score means all killable mutants were detected."
+              },
+              {
+                "text": "The program is proven correct",
+                "fraction": 0,
+                "feedback": "Killing all mutants shows the tests catch these seeded faults, not that the program is bug-free."
+              },
+              {
+                "text": "There were no equivalent mutants",
+                "fraction": 0,
+                "feedback": "Equivalent mutants are excluded from the denominator; a 100% score says nothing about how many there were."
+              },
+              {
+                "text": "The suite achieves 100% branch coverage",
+                "fraction": 0,
+                "feedback": "A high mutation score usually implies strong coverage, but 100% is defined by killed mutants, not branches directly."
+              }
+            ],
+            "generalFeedback": "A 100% mutation score means the suite killed every non-equivalent mutant. It is a strong adequacy signal but is not a proof of program correctness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Competent programmer hypothesis",
+            "text": "<p>The <em>competent programmer hypothesis</em> underlying mutation testing states that:</p>",
+            "answers": [
+              {
+                "text": "Programmers write code that is close to correct, so real faults are small deviations from the correct program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this justifies modelling faults as small single mutations."
+              },
+              {
+                "text": "Programmers never introduce faults into their code",
+                "fraction": 0,
+                "feedback": "If that were true there would be nothing to test; the hypothesis is about faults being small, not absent."
+              },
+              {
+                "text": "Every fault requires many simultaneous changes to fix",
+                "fraction": 0,
+                "feedback": "The hypothesis assumes the opposite \u2014 faults are typically small deviations."
+              },
+              {
+                "text": "Compilers can detect all programmer mistakes",
+                "fraction": 0,
+                "feedback": "That is unrelated; the hypothesis concerns the size of human faults, not compiler capability."
+              }
+            ],
+            "generalFeedback": "The competent programmer hypothesis says developers produce nearly-correct programs, so faults are small. This justifies using small, single-change mutants to model realistic faults.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Coupling effect",
+            "text": "<p>The <em>coupling effect</em> hypothesis claims that:</p>",
+            "answers": [
+              {
+                "text": "Tests that detect all simple (single-change) faults also detect most complex (multiple-change) faults",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is why testing against simple mutants is worthwhile."
+              },
+              {
+                "text": "Complex faults are completely independent of simple faults",
+                "fraction": 0,
+                "feedback": "The coupling effect claims the opposite \u2014 complex faults are coupled to simple ones."
+              },
+              {
+                "text": "Two modules that share data must be tested together",
+                "fraction": 0,
+                "feedback": "That is module coupling in design, not the mutation-testing coupling effect."
+              },
+              {
+                "text": "Every mutant is coupled to exactly one test case",
+                "fraction": 0,
+                "feedback": "The coupling effect relates simple and complex faults, not mutants to individual tests."
+              }
+            ],
+            "generalFeedback": "The coupling effect holds that a test set killing all simple one-change mutants will also detect the great majority of complex, higher-order faults \u2014 so first-order mutants are a good adequacy target.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill outcome: sign classify (> to >=)",
+            "text": '<p>Consider <code>if (x &gt; 0) return "positive"; else return "non-positive";</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives the mutant <code>if (x &gt;= 0) ...</code>. For the test input <code>x = 0</code>, the outcome is:</p>',
+            "answers": [
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 at x=0 the original returns "non-positive" but the mutant returns "positive".'
+              },
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 0,
+                "feedback": "x=0 is exactly the boundary where the two operators disagree, so the test does detect it."
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is clearly non-equivalent: x=0 distinguishes it."
+              }
+            ],
+            "generalFeedback": `At x=0 the original's "x>0" is false (returns "non-positive"), but the mutant's "x>=0" is true (returns "positive"). The outputs differ, so this test kills the mutant.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill outcome: voting age (>= to >)",
+            "text": "<p>Consider <code>return age &gt;= 18;</code>. The operator <strong>&gt;= &#8594; &gt;</strong> gives the mutant <code>return age &gt; 18;</code>. For the test input <code>age = 18</code>, the outcome is:</p>",
+            "answers": [
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at age=18 the original returns true but the mutant returns false."
+              },
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 0,
+                "feedback": 'age=18 is the boundary where ">=18" and ">18" disagree, so this test does detect it.'
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is non-equivalent: age=18 distinguishes the two."
+              }
+            ],
+            "generalFeedback": `At age=18 the original's "age>=18" is true, but the mutant's "age>18" is false. The results differ, so this test kills the mutant.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill outcome: statement deletion (abs)",
+            "text": "<p>Consider <code>if (x &lt; 0) { x = -x; } return x;</code>. Statement deletion removes <code>x = -x;</code>, giving <code>if (x &lt; 0) { } return x;</code>. For the test input <code>x = -5</code>, the outcome is:</p>",
+            "answers": [
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the original returns 5 but the mutant returns -5."
+              },
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 0,
+                "feedback": "With x=-5 the deleted statement would have run, so its removal is observable here."
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is non-equivalent: any negative input distinguishes it."
+              }
+            ],
+            "generalFeedback": "At x=-5 the original negates and returns 5, but the mutant's empty if-body leaves x as -5. Different outputs, so this test kills the mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill outcome: arithmetic operator (+ to -)",
+            "text": "<p>Consider <code>return a + b;</code>. The operator <strong>+ &#8594; -</strong> gives the mutant <code>return a - b;</code>. For the test input <code>a = 3, b = 7</code>, the outcome is:</p>",
+            "answers": [
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3+7=10 but 3-7=-4."
+              },
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 0,
+                "feedback": "Because b=7\u22600, a+b and a-b differ, so the test does detect the mutant."
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is non-equivalent: any b\u22600 distinguishes + from -."
+              }
+            ],
+            "generalFeedback": "Here a+b=10 but a-b=-4; since b\u22600 the two differ (by 2b), so this test kills the mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Live outcome: sign classify at x = 7",
+            "text": '<p>Consider <code>if (x &gt; 0) return "positive"; else return "non-positive";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = 7</code>, the outcome is:</p>',
+            "answers": [
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 at x=7 both versions return "positive"; only x=0 would reveal the difference.'
+              },
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 0,
+                "feedback": 'At x=7 both "x>0" and "x>=0" are true, so outputs match \u2014 the test does not kill it.'
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is not equivalent: x=0 kills it; this particular test just happens to miss it."
+              }
+            ],
+            "generalFeedback": 'At x=7 both "x>0" and "x>=0" evaluate to true, so both return "positive" and the mutant survives this test. It is not equivalent, though \u2014 x=0 would kill it.',
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "ROR operator",
+            "text": "<p>Which change is an instance of the <strong>ROR</strong> (Relational Operator Replacement) operator?</p>",
+            "answers": [
+              {
+                "text": "Replacing <code>a &lt; b</code> with <code>a &lt;= b</code>",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ROR replaces one relational operator with another (<, <=, >, >=, ==, !=)."
+              },
+              {
+                "text": "Replacing <code>a + b</code> with <code>a - b</code>",
+                "fraction": 0,
+                "feedback": "That is AOR (arithmetic operator replacement), not ROR."
+              },
+              {
+                "text": "Replacing <code>a &amp;&amp; b</code> with <code>a || b</code>",
+                "fraction": 0,
+                "feedback": "That is LOR/COR (logical/conditional operator replacement)."
+              },
+              {
+                "text": "Deleting the statement <code>a = b;</code>",
+                "fraction": 0,
+                "feedback": "That is SDL (statement deletion)."
+              }
+            ],
+            "generalFeedback": "ROR replaces a relational operator with each of the other relational operators (and sometimes with true/false), e.g. < becomes <=, >, >=, ==, or !=.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AOR operator",
+            "text": "<p>The <strong>AOR</strong> (Arithmetic Operator Replacement) operator would transform <code>x * y</code> into which of the following?</p>",
+            "answers": [
+              {
+                "text": "<code>x + y</code>",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AOR swaps one binary arithmetic operator for another (+, -, *, /, %)."
+              },
+              {
+                "text": "<code>x &gt; y</code>",
+                "fraction": 0,
+                "feedback": "Turning arithmetic into a relation is ROR-style, not AOR."
+              },
+              {
+                "text": "<code>x &amp;&amp; y</code>",
+                "fraction": 0,
+                "feedback": "That introduces a logical operator (LOR), not an arithmetic one."
+              },
+              {
+                "text": "<code>-x * y</code>",
+                "fraction": 0,
+                "feedback": "Inserting a unary minus is UOI, not AOR."
+              }
+            ],
+            "generalFeedback": "AOR replaces one binary arithmetic operator with another from {+, -, *, /, %}, e.g. * becomes +.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "LOR operator",
+            "text": "<p>The <strong>LOR</strong> / conditional operator replacement operator applied to <code>a &amp;&amp; b</code> most directly produces:</p>",
+            "answers": [
+              {
+                "text": "<code>a || b</code>",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it replaces one logical connective with another."
+              },
+              {
+                "text": "<code>a == b</code>",
+                "fraction": 0,
+                "feedback": "That is a relational operator (ROR), not a logical connective."
+              },
+              {
+                "text": "<code>a + b</code>",
+                "fraction": 0,
+                "feedback": "That is arithmetic (AOR)."
+              },
+              {
+                "text": "<code>!a &amp;&amp; b</code>",
+                "fraction": 0,
+                "feedback": "Inserting a negation is UOI; LOR replaces the connective itself."
+              }
+            ],
+            "generalFeedback": "LOR (logical/conditional operator replacement) swaps one logical connective for another, e.g. && becomes ||.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ABS operator",
+            "text": "<p>The <strong>ABS</strong> (Absolute Value Insertion) operator mutates an arithmetic expression <code>e</code> into which family of variants?</p>",
+            "answers": [
+              {
+                "text": "<code>abs(e)</code>, <code>-abs(e)</code>, and a fail-on-zero variant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ABS forces e to be tested as non-negative, non-positive, and zero."
+              },
+              {
+                "text": "<code>e + 1</code> and <code>e - 1</code>",
+                "fraction": 0,
+                "feedback": "Off-by-one tweaks are not ABS; ABS is about the sign/zero of the expression."
+              },
+              {
+                "text": "<code>e &gt; 0</code> and <code>e &lt; 0</code>",
+                "fraction": 0,
+                "feedback": "Those are relational tests, not the ABS value-insertion family."
+              },
+              {
+                "text": "<code>e</code> replaced by a constant literal",
+                "fraction": 0,
+                "feedback": "Constant replacement is a different operator; ABS wraps e in absolute-value forms."
+              }
+            ],
+            "generalFeedback": "ABS replaces an expression e with abs(e), -abs(e), and failOnZero(e), forcing tests that exercise e as positive, negative, and zero.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UOI operator",
+            "text": "<p>Which change is an example of the <strong>UOI</strong> (Unary Operator Insertion) operator?</p>",
+            "answers": [
+              {
+                "text": "Replacing <code>return x;</code> with <code>return -x;</code>",
+                "fraction": 100,
+                "feedback": "Correct \u2014 UOI inserts a unary operator (here arithmetic negation)."
+              },
+              {
+                "text": "Replacing <code>x + y</code> with <code>x - y</code>",
+                "fraction": 0,
+                "feedback": "That swaps a binary operator (AOR), not inserts a unary one."
+              },
+              {
+                "text": "Replacing <code>x &lt; y</code> with <code>x &gt; y</code>",
+                "fraction": 0,
+                "feedback": "That is ROR."
+              },
+              {
+                "text": "Deleting <code>x = 0;</code>",
+                "fraction": 0,
+                "feedback": "That is statement deletion (SDL)."
+              }
+            ],
+            "generalFeedback": "UOI inserts a unary operator into an expression, e.g. x becomes -x, or a boolean b becomes !b, or x becomes ++x.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SDL operator",
+            "text": "<p>The <strong>SDL</strong> (Statement Deletion) operator produces a mutant by:</p>",
+            "answers": [
+              {
+                "text": "Removing a single statement from the program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 SDL deletes one statement to check whether any test relies on its effect."
+              },
+              {
+                "text": "Replacing a variable reference with a constant",
+                "fraction": 0,
+                "feedback": "That is a constant/variable replacement operator, not SDL."
+              },
+              {
+                "text": "Swapping two adjacent statements",
+                "fraction": 0,
+                "feedback": "Reordering is a different mutation; SDL removes a statement."
+              },
+              {
+                "text": "Negating a boolean condition",
+                "fraction": 0,
+                "feedback": "That is closer to UOI/COR; SDL deletes rather than negates."
+              }
+            ],
+            "generalFeedback": "SDL deletes one statement (often replacing it with a no-op). If no test detects the deletion, that statement's effect is untested.",
             "single": true
           },
           {
@@ -51258,6 +51757,571 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             ],
             "generalFeedback": "Propagation is the third RIP condition: the infected (corrupted) state must flow forward through execution until it changes something the test oracle actually observes.",
             "usecase": false
+          },
+          {
+            "type": "multichoice",
+            "name": "Weak vs strong mutation",
+            "text": "<p>What distinguishes <strong>weak mutation</strong> from <strong>strong mutation</strong>?</p>",
+            "answers": [
+              {
+                "text": "Weak mutation checks for a state difference right after the mutated component executes; strong mutation requires the difference to propagate to the program output",
+                "fraction": 100,
+                "feedback": "Correct \u2014 weak mutation only needs infection; strong mutation needs infection to propagate."
+              },
+              {
+                "text": "Weak mutation uses fewer mutation operators than strong mutation",
+                "fraction": 0,
+                "feedback": "The distinction is about where the difference is observed, not how many operators are used."
+              },
+              {
+                "text": "Weak mutation only applies to equivalent mutants",
+                "fraction": 0,
+                "feedback": "Both apply to ordinary mutants; the difference is the point of comparison."
+              },
+              {
+                "text": "Strong mutation runs faster because it stops at the mutated statement",
+                "fraction": 0,
+                "feedback": "It is weak mutation that can stop early at the component; strong mutation runs to output."
+              }
+            ],
+            "generalFeedback": "Weak mutation compares internal state immediately after the mutated component (reachability + infection). Strong mutation requires the infected state to propagate all the way to the observable output (reachability + infection + propagation).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutation score computation",
+            "text": "<p>A program has 30 mutants; 6 of them are equivalent, and the test suite kills 21. What is the mutation score?</p>",
+            "answers": [
+              {
+                "text": "87.5%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 21 / (30 &#8722; 6) = 21/24 = 0.875."
+              },
+              {
+                "text": "70%",
+                "fraction": 0,
+                "feedback": "That is 21/30 \u2014 it wrongly counts equivalent mutants in the denominator."
+              },
+              {
+                "text": "58.3%",
+                "fraction": 0,
+                "feedback": "That is 21/(30+6) \u2014 equivalents must be subtracted, not added."
+              },
+              {
+                "text": "30%",
+                "fraction": 0,
+                "feedback": "That is the surviving-mutant rate 9/30, not the mutation score."
+              }
+            ],
+            "generalFeedback": "Mutation score = killed / (total &#8722; equivalent) = 21 / (30 &#8722; 6) = 21/24 = 87.5%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Selective mutation",
+            "text": "<p><strong>Selective mutation</strong> reduces cost by:</p>",
+            "answers": [
+              {
+                "text": "Using only a small, carefully chosen subset of mutation operators that still yields nearly the same adequacy",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a few key operators approximate testing with the full set."
+              },
+              {
+                "text": "Testing only the mutants that happen to be equivalent",
+                "fraction": 0,
+                "feedback": "Equivalent mutants can never be killed, so testing them alone is pointless."
+              },
+              {
+                "text": "Selecting only the test cases that already pass",
+                "fraction": 0,
+                "feedback": "Selective mutation reduces operators, not tests, and does not filter by pass/fail."
+              },
+              {
+                "text": "Running each mutant against exactly one test",
+                "fraction": 0,
+                "feedback": "That would weaken detection; selective mutation instead prunes the operator set."
+              }
+            ],
+            "generalFeedback": 'Selective mutation applies only a small subset of operators (e.g. the "sufficient" set) that empirically produces almost the same mutation score as the full operator set, greatly cutting the number of mutants.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill outcome: && to || with differing operands",
+            "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = false</code>, the outcome is:</p>",
+            "answers": [
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 here the two operands differ in truth value (true and false), so AND and OR disagree."
+              },
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 0,
+                "feedback": "AND gives false while OR gives true here, so the test does detect the difference."
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "&& and || are not equivalent whenever the operands differ, as they do here."
+              }
+            ],
+            "generalFeedback": "With age=30 (so age>=18 is true) and citizen=false, the original computes true && false = false, but the mutant computes true || false = true. The outputs differ, so this test kills the mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Live outcome: && to || with equal operands",
+            "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = true</code>, the outcome is:</p>",
+            "answers": [
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both operands are true, so AND and OR both yield true; a test with differing operands would kill it."
+              },
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 0,
+                "feedback": "true && true and true || true both equal true, so the outputs match here."
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is not equivalent: age=30, citizen=false would kill it."
+              }
+            ],
+            "generalFeedback": "With both operands true, true && true = true and true || true = true, so the mutant survives this test. It is not equivalent \u2014 an input where the operands differ (e.g. citizen=false) would kill it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Live outcome: + to - at b = 0",
+            "text": "<p>Consider <code>return a + b;</code> with the mutant <code>return a - b;</code> (operator <strong>+ &#8594; -</strong>). For the test input <code>a = 9, b = 0</code>, the outcome is:</p>",
+            "answers": [
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a+0 and a-0 are both 9, so this test misses the mutant; any b\u22600 would kill it."
+              },
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 0,
+                "feedback": "With b=0, a+b and a-b are equal (both 9), so the outputs match \u2014 no kill."
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is not equivalent: any b\u22600 makes + and - differ, killing it."
+              }
+            ],
+            "generalFeedback": "At b=0, a+b = a-b = 9, so the mutant survives this particular test. It is not equivalent, though: any test with b\u22600 (where a+b and a-b differ by 2b) would kill it. This shows a poorly-chosen test input can let a killable mutant live.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Why equivalent mutants cannot be killed",
+            "text": "<p>Why is it impossible for any test case to kill an equivalent mutant?</p>",
+            "answers": [
+              {
+                "text": "It computes the same function as the original, so no input can ever make their outputs differ",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killing requires an observable output difference, which an equivalent mutant can never produce."
+              },
+              {
+                "text": "Its mutated statement is always unreachable",
+                "fraction": 0,
+                "feedback": "Equivalence is about identical behaviour, not reachability; the statement may well execute."
+              },
+              {
+                "text": "It always throws an exception before returning",
+                "fraction": 0,
+                "feedback": "An exception that differs from the original would actually kill it; equivalence means no difference at all."
+              },
+              {
+                "text": "Test tools automatically skip it",
+                "fraction": 0,
+                "feedback": "Tools cannot even reliably detect equivalence; the impossibility is inherent, not a tool choice."
+              }
+            ],
+            "generalFeedback": "A mutant is killed only when some test yields a different observable result from the original. An equivalent mutant computes exactly the same function for every input, so that difference can never arise \u2014 no test can kill it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Equivalent: dead-store deletion",
+            "text": "<p>Consider <code>int unused = x * 2; return x * x;</code>. Statement deletion removes <code>int unused = x * 2;</code>, giving <code>return x * x;</code>. The outcome is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 100,
+                "feedback": "Correct \u2014is written but never read andhas no side effects, so deleting it cannot change any output."
+              },
+              {
+                "text": "Killed \u2014 some test detects it",
+                "fraction": 0,
+                "feedback": "No test can detect it: the return valueis unaffected by the deleted dead store."
+              },
+              {
+                "text": "Lives on this test but a better test would kill it",
+                "fraction": 0,
+                "feedback": "No input exists that could kill it, so it is equivalent, not merely surviving."
+              }
+            ],
+            "generalFeedback": "is assigned but never read, andhas no side effects, so deleting that statement cannot change the value returned for ANY x. The mutant is equivalent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Equivalent: relational op on a length",
+            "text": "<p>Given <code>n = arr.length</code> (so <code>n &gt;= 0</code> always), consider <code>if (n &gt; -1) return true; else return false;</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives <code>if (n &gt;= -1) ...</code>. The outcome is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 for every reachable n (n\u22650), both "n>-1" and "n>=-1" are true, so the versions never disagree.'
+              },
+              {
+                "text": "Killed \u2014 some test detects it",
+                "fraction": 0,
+                "feedback": "The two conditions differ only at n = -1, which an array length can never take, so no test kills it."
+              },
+              {
+                "text": "Lives on this test but a better test would kill it",
+                "fraction": 0,
+                "feedback": "There is no reachable input that distinguishes them, so it is equivalent, not merely surviving."
+              }
+            ],
+            "generalFeedback": '"n>-1" and "n>=-1" differ only at n = -1. Because n is an array length (n\u22650 by construction), that value is unreachable, so the two versions agree on every possible input \u2014 the mutant is equivalent.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Recognise the equivalent loop mutant",
+            "text": "<p>Here <code>n</code> is a list length (so <code>n &gt;= 0</code>). Consider <code>for (int i = 0; i &lt; n; i++) sum += a[i];</code> mutated by <strong>&lt; &#8594; !=</strong> to <code>for (int i = 0; i != n; i++) sum += a[i];</code>. This mutant is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent \u2014 i increases from 0 and reaches n exactly, so i!=n stops at the same iteration as i<n for every n\u22650",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two loop conditions terminate identically for all non-negative n."
+              },
+              {
+                "text": "Killed by any test with n > 0",
+                "fraction": 0,
+                "feedback": "For n>0 both loops run exactly n times, producing the same sum, so such a test does not kill it."
+              },
+              {
+                "text": "Non-equivalent because i != n may skip the last element",
+                "fraction": 0,
+                "feedback": "It does not: i takes 0,1,\u2026,n-1 and then equals n, ending the loop at the same point as i<n."
+              },
+              {
+                "text": "Non-equivalent because the loop never terminates",
+                "fraction": 0,
+                "feedback": "Since i increments by 1 from 0 and n\u22650, i eventually equals n and the loop terminates."
+              }
+            ],
+            "generalFeedback": 'Because i starts at 0 and increments by 1, it hits n exactly; for any n\u22650, "i!=n" becomes false at the same iteration "i<n" does. The behaviours are identical on every reachable input, so this is an equivalent mutant. (It would differ only if n could be negative \u2014 impossible for a length.)',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RIP: propagation failure",
+            "text": "<p>Consider <code>int y = x * 2; return (y &gt; 0) ? 1 : 0;</code> mutated by <strong>* &#8594; +</strong> to <code>int y = x + 2; ...</code>. For the test input <code>x = 5</code>, the mutated statement runs and y differs (10 vs 7), yet both return 1. Which RIP condition failed on this test?</p>",
+            "answers": [
+              {
+                "text": "Propagation \u2014 the infected state (y) did not change the observable output",
+                "fraction": 100,
+                "feedback": "Correct \u2014 y was infected (10 vs 7), but since both are > 0 the output stays 1, so infection did not propagate."
+              },
+              {
+                "text": "Reachability \u2014 the mutated statement never executed",
+                "fraction": 0,
+                "feedback": "It did execute; y was computed, so reachability held."
+              },
+              {
+                "text": "Infection \u2014 the state was never corrupted",
+                "fraction": 0,
+                "feedback": "Infection did occur: y was 10 in the original and 7 in the mutant."
+              },
+              {
+                "text": "The mutant is equivalent",
+                "fraction": 0,
+                "feedback": "It is not equivalent \u2014 x=-1 or x=0 makes the outputs differ (0 vs 1), killing it."
+              }
+            ],
+            "generalFeedback": "At x=5, reachability and infection both hold (y = 10 vs 7), but both values are positive so the ternary returns 1 in each version \u2014 the difference does not propagate to the output. A test like x=0 (0 vs 2, giving outputs 0 vs 1) would propagate and kill the mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Weak vs strong: distinguishing a mutant",
+            "text": "<p>Consider <code>int t = x + 1; return t * 0;</code> mutated by <strong>+ &#8594; -</strong> to <code>int t = x - 1; return t * 0;</code>. How do weak and strong mutation classify this mutant?</p>",
+            "answers": [
+              {
+                "text": "Killable under weak mutation (t is infected) but equivalent under strong mutation (the output is always 0)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 t differs immediately after the mutated statement, but t * 0 is 0 for every x, so no output difference ever propagates."
+              },
+              {
+                "text": "Killable under both weak and strong mutation",
+                "fraction": 0,
+                "feedback": "Strong mutation compares outputs, and the output is always 0, so it cannot be killed strongly."
+              },
+              {
+                "text": "Equivalent under both weak and strong mutation",
+                "fraction": 0,
+                "feedback": "Weak mutation compares state at t, which does differ (x+1 vs x-1), so it is killable weakly."
+              },
+              {
+                "text": "Killable under strong mutation but equivalent under weak mutation",
+                "fraction": 0,
+                "feedback": "This is backwards: infection happens at t (weak kill), but the output never differs (strong equivalent)."
+              }
+            ],
+            "generalFeedback": 'Weak mutation checks the state right after the mutated component: t is x+1 vs x-1, so it is infected and can be killed weakly. Strong mutation checks the output: t * 0 = 0 for every x, so no test can produce an output difference \u2014 strongly, the mutant is equivalent. The same mutant can thus be "killed" weakly yet be equivalent strongly.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PIE model",
+            "text": "<p>The PIE (Propagation, Infection, Execution) model relates to the RIP model how?</p>",
+            "answers": [
+              {
+                "text": "They describe the same three conditions \u2014 Execution/Reachability, Infection, and Propagation must all hold to reveal a fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 PIE and RIP name the same necessary conditions for a fault to be observed."
+              },
+              {
+                "text": "PIE adds a fourth condition absent from RIP",
+                "fraction": 0,
+                "feedback": "Both models use the same three conditions; only the naming/order differs."
+              },
+              {
+                "text": "PIE applies only to equivalent mutants",
+                "fraction": 0,
+                "feedback": "PIE describes when any fault is revealed, not specifically equivalent mutants."
+              },
+              {
+                "text": "PIE replaces propagation with an oracle-strength condition",
+                "fraction": 0,
+                "feedback": "Propagation is retained; PIE is just RIP with Execution named for Reachability."
+              }
+            ],
+            "generalFeedback": "PIE (Propagation\u2013Infection\u2013Execution) and RIP (Reachability\u2013Infection\u2013Propagation) are the same idea: the faulty location must be Executed/Reached, must Infect the state, and that infection must Propagate to an observable output.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutation subsumes coverage",
+            "text": "<p>If a test set kills every mutant produced by the statement-deletion (SDL) operator on a program, what structural criterion must that test set at least satisfy?</p>",
+            "answers": [
+              {
+                "text": "Statement (node) coverage \u2014 each statement must be executed, since deleting it is detected",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a deletion can only be detected if the statement runs, so every statement is covered (and its effect observed)."
+              },
+              {
+                "text": "Complete path coverage",
+                "fraction": 0,
+                "feedback": "Killing SDL mutants does not require touring every path; complete path coverage is far stronger."
+              },
+              {
+                "text": "All-DU-paths coverage",
+                "fraction": 0,
+                "feedback": "SDL relates to executing statements, not to touring every def-use path."
+              },
+              {
+                "text": "No coverage criterion is implied",
+                "fraction": 0,
+                "feedback": "Detecting a statement's deletion necessarily requires executing that statement."
+              }
+            ],
+            "generalFeedback": "To kill a statement-deletion mutant, a test must execute the statement (else the deletion is invisible) and observe its effect. Killing all such mutants therefore implies at least statement coverage \u2014 one sense in which mutation adequacy subsumes structural coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Dominator (minimal) mutants",
+            "text": "<p>In the theory of minimal/dominator mutants, a mutant M1 <em>dominates</em> M2 (for a program) when:</p>",
+            "answers": [
+              {
+                "text": "Every test that kills M1 also kills M2, so covering M1 makes M2 redundant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 dominated mutants add no new test requirements once the dominator is killed."
+              },
+              {
+                "text": "M1 and M2 are killed by exactly the same single test only",
+                "fraction": 0,
+                "feedback": "Domination is about set inclusion of killing tests, not a unique shared test."
+              },
+              {
+                "text": "M1 is equivalent and M2 is not",
+                "fraction": 0,
+                "feedback": "Domination concerns killing-test sets among non-equivalent mutants, not equivalence."
+              },
+              {
+                "text": "M1 has more mutated statements than M2",
+                "fraction": 0,
+                "feedback": "Domination is about which tests kill them, not how many changes each contains."
+              }
+            ],
+            "generalFeedback": "A minimal (dominator) mutant set keeps only mutants that are not dominated: M1 dominates M2 if the set of tests killing M1 is a subset of those killing M2, making M2 redundant. Reporting a mutation score over the dominator set avoids inflation from many easy, redundant mutants.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Score with equivalents excluded",
+            "text": "<p>A program has 40 mutants. The suite kills 18; of the 22 survivors, 4 are later confirmed equivalent. What is the mutation score (equivalents excluded)?</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 18 / (40 &#8722; 4) = 18/36 = 0.5."
+              },
+              {
+                "text": "45%",
+                "fraction": 0,
+                "feedback": "That is 18/40 \u2014 the naive score that wrongly counts the 4 equivalents as killable."
+              },
+              {
+                "text": "41%",
+                "fraction": 0,
+                "feedback": "That is 18/(40+4) \u2014 equivalents must be subtracted, not added."
+              },
+              {
+                "text": "55%",
+                "fraction": 0,
+                "feedback": "That is the survivor rate 22/40, not the mutation score."
+              }
+            ],
+            "generalFeedback": "Excluding equivalents, mutation score = killed / (total &#8722; equivalent) = 18 / (40 &#8722; 4) = 18/36 = 50%. Confirming equivalents raises the score from the naive 45% because unkillable mutants leave the denominator.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Higher-order mutants",
+            "text": "<p>A <em>higher-order mutant</em> is one that:</p>",
+            "answers": [
+              {
+                "text": "Contains two or more mutation operators applied together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 first-order mutants have one change; higher-order mutants combine several."
+              },
+              {
+                "text": "Is generated by a higher-priority operator",
+                "fraction": 0,
+                "feedback": "Order refers to the number of seeded changes, not operator priority."
+              },
+              {
+                "text": "Is always equivalent to the original",
+                "fraction": 0,
+                "feedback": 'Higher-order mutants are usually non-equivalent; some are "subtle" but not by definition equivalent.'
+              },
+              {
+                "text": "Can only be killed by higher-order test cases",
+                "fraction": 0,
+                "feedback": "There is no such thing as a higher-order test case; ordinary tests kill them."
+              }
+            ],
+            "generalFeedback": 'A higher-order mutant applies two or more changes at once. Some combine to form "subtle" faults harder to kill than their constituent first-order mutants, which is why higher-order mutation is studied despite the coupling effect.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Equivalent-mutant detection is undecidable",
+            "text": "<p>Determining whether an arbitrary mutant is equivalent to the original program is, in general, undecidable.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 deciding functional equivalence of two programs reduces from undecidable problems, so no algorithm solves it in general."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Equivalence of arbitrary programs is undecidable; that is why equivalent mutants must usually be judged by hand or approximated heuristically."
+              }
+            ],
+            "generalFeedback": "Detecting equivalent mutants means deciding whether two programs compute the same function, which is undecidable in general. In practice teams use heuristics (e.g. compiler-optimisation or constraint-based checks) and manual analysis, and the equivalent-mutant problem is a major cost of mutation testing."
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpreting a perfect score",
+            "text": "<p>A suite kills 100% of the non-equivalent mutants. Which conclusion is justified?</p>",
+            "answers": [
+              {
+                "text": "The suite is adequate with respect to this operator set, but the program may still contain faults no operator modelled",
+                "fraction": 100,
+                "feedback": "Correct \u2014 mutation adequacy is relative to the mutants generated, not a proof of correctness."
+              },
+              {
+                "text": "The program is proven free of all defects",
+                "fraction": 0,
+                "feedback": "Mutation testing evaluates tests against seeded faults; it cannot prove global correctness."
+              },
+              {
+                "text": "Every possible mutant, including higher-order ones, is killed",
+                "fraction": 0,
+                "feedback": "A 100% first-order score says nothing certain about untested higher-order mutants."
+              },
+              {
+                "text": "The suite must also have 100% path coverage",
+                "fraction": 0,
+                "feedback": "High mutation scores correlate with coverage but do not guarantee complete path coverage."
+              }
+            ],
+            "generalFeedback": "A perfect mutation score means the tests detect every fault the chosen operators can seed \u2014 strong evidence of adequacy, but faults outside the operator set (or in the specification) can remain. Mutation adequacy is always relative to the operators used.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Live: sign classify at x = -3",
+            "text": '<p>Consider <code>if (x &gt; 0) return "positive"; else return "non-positive";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = -3</code>, the outcome is:</p>',
+            "answers": [
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 at x=-3 both "x>0" and "x>=0" are false, so both return "non-positive"; only x=0 reveals the difference.'
+              },
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 0,
+                "feedback": 'At x=-3 both conditions are false, so both versions return "non-positive" \u2014 no difference.'
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is not equivalent: x=0 kills it; this test merely misses it."
+              }
+            ],
+            "generalFeedback": 'At x=-3, "x>0" and "x>=0" are both false, so both versions return "non-positive" and the mutant survives this test. The single killing input is x=0, so the mutant is non-equivalent \u2014 a reminder that reaching the boundary matters.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Live: && to || with both operands false",
+            "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 10, citizen = false</code>, the outcome is:</p>",
+            "answers": [
+              {
+                "text": "Lives \u2014 the test does not detect it, though another input would",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both operands are false, so AND and OR both yield false; the mutant survives this test."
+              },
+              {
+                "text": "Killed \u2014 the test detects the mutant (its output differs from the original)",
+                "fraction": 0,
+                "feedback": "false && false and false || false are both false, so the outputs match here."
+              },
+              {
+                "text": "Equivalent \u2014 no test input could ever detect the mutant",
+                "fraction": 0,
+                "feedback": "The mutant is not equivalent: e.g. age=30, citizen=false (true vs false operands) would kill it."
+              }
+            ],
+            "generalFeedback": "With age=10 (age>=18 is false) and citizen=false, the original computes false && false = false and the mutant false || false = false \u2014 identical, so it survives. && and || agree exactly when both operands share a truth value; an input where they differ would kill this non-equivalent mutant.",
+            "single": true
           }
         ]
       },
@@ -51265,8 +52329,95 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         "easy": [
           {
             "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u5728\u7A81\u8B8A\u6E2C\u8A66\uFF08mutation testing\uFF09\u4E2D\uFF0C<em>\u7A81\u8B8A\u9AD4\uFF08mutant\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7531\u7A81\u8B8A\u904B\u7B97\u5B50\u5C0D\u7A0B\u5F0F\u505A\u4E00\u500B\u5FAE\u5C0F\u8A9E\u6CD5\u8B8A\u66F4\u5F8C\u7522\u751F\u7684\u7A0B\u5F0F\u526F\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u9AD4\u5C31\u662F\u88AB\u523B\u610F\u690D\u5165\u4E00\u500B\u5FAE\u5C0F\u932F\u8AA4\u7684\u539F\u59CB\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u80FD\u63ED\u9732\u7A0B\u5F0F\u7F3A\u9677\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6703\u5931\u6557\u7684\u6E2C\u8A66\u6848\u4F8B\uFF0C\u4E0D\u662F\u7A81\u8B8A\u9AD4\uFF1B\u7A81\u8B8A\u9AD4\u662F\u88AB\u66F4\u52D5\u904E\u7684\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u5728\u6B63\u5F0F\u74B0\u5883\u56DE\u5831\u7684\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u9AD4\u662F\u523B\u610F\u6CE8\u5165\u7684\u4EBA\u5DE5\u932F\u8AA4\uFF0C\u4E26\u975E\u73FE\u5834\u56DE\u5831\u7684\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u80FD\u8B93\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u6700\u5927\u5316\u7684\u8F38\u5165\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5C64\u9762\u7684\u8003\u91CF\uFF0C\u8207\u7A81\u8B8A\u9AD4\u7684\u5B9A\u7FA9\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u9AD4\u662F\u5C0D\u7A0B\u5F0F\u5957\u7528\u7A81\u8B8A\u904B\u7B97\u5B50\u3001\u505A\u51FA\u4E00\u500B\u5FAE\u5C0F\u8A9E\u6CD5\u8B8A\u66F4\uFF08\u4F8B\u5982\u628A + \u6539\u6210 -\uFF09\u5F8C\u7522\u751F\u7684\u8B8A\u9AD4\u3002\u4EE5\u6E2C\u8A66\u53BB\u57F7\u884C\u7A81\u8B8A\u9AD4\uFF0C\u53EF\u8861\u91CF\u6E2C\u8A66\u5075\u6E2C\u6B64\u985E\u932F\u8AA4\u7684\u80FD\u529B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7A81\u8B8A\u904B\u7B97\u5B50",
+            "text": "<p><em>\u7A81\u8B8A\u904B\u7B97\u5B50\uFF08mutation operator\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u689D\u7CFB\u7D71\u5316\u6539\u5BEB\u7A0B\u5F0F\u4EE5\u7522\u751F\u7A81\u8B8A\u9AD4\u7684\u898F\u5247\uFF08\u4F8B\u5982\u628A + \u63DB\u6210 -\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u904B\u7B97\u5B50\u90FD\u5B9A\u7FA9\u4E86\u4E00\u985E\u5FAE\u5C0F\u7684\u8A9E\u6CD5\u8B8A\u66F4\u3002"
+              },
+              {
+                "text": "\u539F\u59CB\u78BC\u4E2D\u7684\u7B97\u8853\u904B\u7B97\u5B50\uFF0C\u5982 + \u6216 *",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u4E2D\u7684\u904B\u7B97\u5B50\uFF1B\u7A81\u8B8A\u904B\u7B97\u5B50\u662F\u6539\u8B8A\u9019\u985E\u7B26\u8A18\u7684\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u5224\u5B9A\u901A\u904E\u6216\u5931\u6557\u7684\u6E2C\u8A66\u8AED\u793A\uFF08oracle\uFF09",
+                "fraction": 0,
+                "feedback": "\u8AED\u793A\u8CA0\u8CAC\u5224\u65B7\u8F38\u51FA\uFF0C\u4E26\u4E0D\u7522\u751F\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u63CF\u8FF0\u6709\u591A\u5C11\u6E2C\u8A66\u901A\u904E\u7684\u5EA6\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u6BD4\u8F03\u63A5\u8FD1\u6E2C\u8A66\u7D50\u679C\uFF0C\u800C\u975E\u7A81\u8B8A\u904B\u7B97\u5B50\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u904B\u7B97\u5B50\u662F\u5957\u7528\u5728\u539F\u59CB\u78BC\u4E0A\u7684\u8F49\u63DB\u898F\u5247\uFF08ROR\u3001AOR\u3001LOR\u3001\u6558\u8FF0\u522A\u9664\u7B49\uFF09\uFF0C\u7528\u4F86\u7CFB\u7D71\u5316\u5730\u7522\u751F\u7A81\u8B8A\u9AD4\uFF0C\u6BCF\u500B\u7A81\u8B8A\u9AD4\u5E36\u6709\u4E00\u500B\u5FAE\u5C0F\u8B8A\u66F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A81\u8B8A\u6E2C\u8A66\u7684\u76EE\u7684",
+            "text": "<p>\u7A81\u8B8A\u6E2C\u8A66\u6700\u4E3B\u8981\u7684\u76EE\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8861\u91CF\u6E2C\u8A66\u5957\u4EF6\u5075\u6E2C\u932F\u8AA4\u7684\u9069\u5207\u6027\uFF08adequacy\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u554F\u7684\u662F\u300C\u9019\u4E9B\u6E2C\u8A66\u80FD\u6293\u5230\u591A\u5C11\u6CE8\u5165\u7684\u932F\u8AA4\uFF1F\u300D"
+              },
+              {
+                "text": "\u81EA\u52D5\u4FEE\u5FA9\u7A0B\u5F0F\u4E2D\u7684\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u6E2C\u8A66\u8A55\u4F30\u7684\u662F\u6E2C\u8A66\uFF0C\u800C\u4E0D\u662F\u4FEE\u6539\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u6280\u8853\u80FD\u8B49\u660E\u6240\u6709\u7F3A\u9677\u90FD\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u7522\u751F\u7A0B\u5F0F\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u8F38\u5165\u7522\u751F\u662F\u53E6\u4E00\u7A2E\u6280\u8853\uFF1B\u7A81\u8B8A\u6E2C\u8A66\u6CE8\u5165\u7684\u662F\u932F\u8AA4\uFF0C\u800C\u975E\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u6E2C\u8A66\u900F\u904E\u6CE8\u5165\u4EBA\u5DE5\u932F\u8AA4\uFF08\u7A81\u8B8A\u9AD4\uFF09\u4E26\u8861\u91CF\u6E2C\u8A66\u5957\u4EF6\u5075\u6E2C\u5230\u7684\u6BD4\u4F8B\uFF0C\u4F86\u8A55\u4F30\u6E2C\u8A66\u54C1\u8CEA\u2014\u2014\u9019\u662F\u6BD4\u55AE\u7D14\u7D50\u69CB\u8986\u84CB\u66F4\u5F37\u7684\u9069\u5207\u6027\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
             "name": "\u7A81\u8B8A\u9AD4\u88AB\u6BBA\u6B7B",
-            "text": "<p>\u4E00\u500B\u7A81\u8B8A\u9AD4\uFF08mutant\uFF09\u88AB\u8996\u70BA<em>\u88AB\u6BBA\u6B7B\uFF08killed\uFF09</em>\uFF0C\u662F\u6307\uFF1A</p>",
+            "text": "<p>\u4E00\u500B\u7A81\u8B8A\u9AD4\u88AB\u8996\u70BA<em>\u88AB\u6BBA\u6B7B\uFF08killed\uFF09</em>\uFF0C\u662F\u6307\uFF1A</p>",
             "answers": [
               {
                 "text": "\u67D0\u500B\u6E2C\u8A66\u6848\u4F8B\u5728\u7A81\u8B8A\u9AD4\u4E0A\u7522\u751F\u7684\u7D50\u679C\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C",
@@ -51276,7 +52427,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "\u8A72\u7A81\u8B8A\u9AD4\u7121\u6CD5\u7DE8\u8B6F",
                 "fraction": 0,
-                "feedback": "\u7121\u6CD5\u7DE8\u8B6F\u7684\u7A81\u8B8A\u9AD4\u901A\u5E38\u6703\u88AB\u76F4\u63A5\u6368\u68C4\uFF0C\u800C\u4E0D\u662F\u88AB\u6E2C\u8A66\u300C\u6BBA\u6B7B\u300D\u3002"
+                "feedback": "\u7121\u6CD5\u7DE8\u8B6F\u7684\u7A81\u8B8A\u9AD4\u901A\u5E38\u6703\u88AB\u76F4\u63A5\u6368\u68C4\uFF08\u6B7B\u7522\u7A81\u8B8A\u9AD4\uFF09\uFF0C\u800C\u4E0D\u662F\u88AB\u6E2C\u8A66\u300C\u6BBA\u6B7B\u300D\u3002"
               },
               {
                 "text": "\u8A72\u7A81\u8B8A\u9AD4\u5728\u57F7\u884C\u6642\u7576\u6389\uFF08crash\uFF09",
@@ -51290,6 +52441,64 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               }
             ],
             "generalFeedback": "\u7576\u6E2C\u8A66\u5957\u4EF6\u4E2D\u81F3\u5C11\u6709\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\uFF0C\u5728\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0A\u57F7\u884C\u6642\u7522\u751F\u53EF\u89C0\u5BDF\u5230\u7684\u5DEE\u7570\uFF08\u8F38\u51FA\u3001\u72C0\u614B\uFF0C\u6216\u662F\u7576\u6389\u8207\u5426\uFF09\uFF0C\u8A72\u7A81\u8B8A\u9AD4\u5373\u88AB\u8996\u70BA\u5DF2\u88AB\u6BBA\u6B7B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B58\u6D3B\u7684\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u9762\u5C0D\u67D0\u500B\u6E2C\u8A66\u5957\u4EF6\u6642\uFF0C\u4E00\u500B<em>\u5B58\u6D3B\uFF08lives\uFF0Fsurvives\uFF09</em>\u7684\u7A81\u8B8A\u9AD4\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u5957\u4EF6\u4E2D\u7684\u6BCF\u4E00\u500B\u6E2C\u8A66\uFF0C\u90FD\u7522\u751F\u8207\u539F\u59CB\u7A0B\u5F0F\u76F8\u540C\u7684\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5957\u4EF6\u4E2D\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u5340\u5206\u5B83\uFF0C\u56E0\u6B64\u5B83\u5B58\u6D3B\u4E0B\u4F86\u3002"
+              },
+              {
+                "text": "\u5728\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u4E0A\u7522\u751F\u4E0D\u540C\u7684\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\uFF0C\u800C\u4E0D\u662F\u5B58\u6D3B\u7684\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u88AB\u7DE8\u8B6F\u6216\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6B7B\u7522\uFF08stillborn\uFF09\u7A81\u8B8A\u9AD4\uFF0C\u8207\u5B58\u6D3B\u7A81\u8B8A\u9AD4\u662F\u4E0D\u540C\u7684\u985E\u5225\u3002"
+              },
+              {
+                "text": "\u4E00\u5B9A\u662F\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u5B58\u6D3B\u7684\u7A81\u8B8A\u9AD4\u53EF\u80FD\u662F\u7B49\u50F9\u7684\uFF0C\u4F46\u4E5F\u53EF\u80FD\u662F\u975E\u7B49\u50F9\u3001\u53EA\u662F\u5C1A\u672A\u88AB\u8F03\u5F31\u7684\u5957\u4EF6\u6BBA\u6B7B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B58\u6D3B\uFF08survive\uFF09\u7684\u7A81\u8B8A\u9AD4\u5C0D\u5957\u4EF6\u4E2D\u6BCF\u500B\u6E2C\u8A66\u90FD\u7D66\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u76F8\u540C\u7684\u8F38\u51FA\u3002\u5B83\u4EE3\u8868\u6E2C\u8A66\u7684\u5F31\u9EDE\uFF08\u4E00\u500B\u66F4\u597D\u7684\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u7684\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF09\uFF0C\u6216\u662F\u4E00\u500B\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+            "text": "<p><em>\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08equivalent mutant\uFF09</em>\u662F\u6307\u9019\u6A23\u7684\u7A81\u8B8A\u9AD4\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A9E\u6CD5\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF0C\u4F46\u5728\u6240\u6709\u8F38\u5165\u4E0B\u8A9E\u610F\u5B8C\u5168\u76F8\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6240\u6709\u8F38\u5165\u800C\u8A00\uFF0C\u8F38\u5165\u8F38\u51FA\u884C\u70BA\u90FD\u76F8\u540C\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u5340\u5206\u5B83\u3002"
+              },
+              {
+                "text": "\u8207\u539F\u59CB\u7A0B\u5F0F\u6587\u5B57\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u904B\u7B97\u5B50\u4E00\u5B9A\u6703\u5F15\u5165\u8A9E\u6CD5\u4E0A\u7684\u8B8A\u5316\uFF1B\u6587\u5B57\u5B8C\u5168\u76F8\u540C\u6839\u672C\u4E0D\u7B97\u662F\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u4F4D\u65BC\u7121\u6CD5\u57F7\u884C\u5230\u7684\u6B7B\u78BC\uFF08dead code\uFF09\u4E2D\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7121\u6CD5\u5230\u9054\u7684\u7A81\u8B8A\u9AD4\u662F\u5728\u53EF\u5230\u9054\u6027\uFF08reachability\uFF09\u4E0A\u5931\u6557\uFF0C\u4F46\u82E5\u771F\u7684\u57F7\u884C\u5230\u8A72\u8655\uFF0C\u5B83\u4ECD\u53EF\u80FD\u4E0D\u662F\u7B49\u50F9\u7684\u3002"
+              },
+              {
+                "text": "\u5728\u6240\u6709\u8F38\u5165\u4E0B\u90FD\u6703\u7576\u6389\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u7A69\u5B9A\u5730\u4EE5\u4E0D\u540C\u65B9\u5F0F\u7576\u6389\u7684\u7A81\u8B8A\u9AD4\u6703\u88AB\u8F15\u6613\u6BBA\u6B7B\uFF0C\u800C\u975E\u7B49\u50F9\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5728\u539F\u59CB\u78BC\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF0C\u4F46\u8A08\u7B97\u51FA\u7684\u51FD\u5F0F\u5B8C\u5168\u76F8\u540C\u2014\u2014\u5C0D\u6BCF\u4E00\u500B\u53EF\u80FD\u7684\u8F38\u5165\u90FD\u7D66\u51FA\u76F8\u540C\u8F38\u51FA\u2014\u2014\u56E0\u6B64\u5728\u908F\u8F2F\u4E0A\u4E0D\u53EF\u80FD\u88AB\u4EFB\u4F55\u6E2C\u8A66\u6BBA\u6B7B\u3002",
             "single": true
           },
           {
@@ -51323,31 +52532,385 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
-            "name": "\u7B49\u50F9\u7A81\u8B8A\u9AD4",
-            "text": "<p><em>\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08equivalent mutant\uFF09</em>\u662F\u6307\u9019\u6A23\u7684\u7A81\u8B8A\u9AD4\uFF1A</p>",
+            "name": "\u6EFF\u5206\u7684\u7A81\u8B8A\u5206\u6578",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5957\u4EF6\u9054\u5230 100% \u7684\u7A81\u8B8A\u5206\u6578\uFF08\u5DF2\u6392\u9664\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF09\u3002\u9019\u4EE3\u8868\uFF1A</p>",
             "answers": [
               {
-                "text": "\u8A9E\u6CD5\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF0C\u4F46\u5728\u6240\u6709\u8F38\u5165\u4E0B\u8A9E\u610F\u5B8C\u5168\u76F8\u540C",
+                "text": "\u5957\u4EF6\u4E2D\u7684\u67D0\u500B\u6E2C\u8A66\u6BBA\u6B7B\u4E86\u6BCF\u4E00\u500B\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4",
                 "fraction": 100,
-                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6240\u6709\u8F38\u5165\u800C\u8A00\uFF0C\u8F38\u5165\u8F38\u51FA\u884C\u70BA\u90FD\u76F8\u540C\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u5340\u5206\u5B83\u3002"
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6EFF\u5206\u8868\u793A\u6240\u6709\u53EF\u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u90FD\u88AB\u5075\u6E2C\u5230\u4E86\u3002"
               },
               {
-                "text": "\u8207\u539F\u59CB\u7A0B\u5F0F\u6587\u5B57\u5B8C\u5168\u76F8\u540C",
+                "text": "\u7A0B\u5F0F\u5DF2\u88AB\u8B49\u660E\u662F\u6B63\u78BA\u7684",
                 "fraction": 0,
-                "feedback": "\u7A81\u8B8A\u904B\u7B97\u5B50\u4E00\u5B9A\u6703\u5F15\u5165\u8A9E\u6CD5\u4E0A\u7684\u8B8A\u5316\uFF1B\u6587\u5B57\u5B8C\u5168\u76F8\u540C\u6839\u672C\u4E0D\u7B97\u662F\u7A81\u8B8A\u9AD4\u3002"
+                "feedback": "\u6BBA\u6B7B\u6240\u6709\u7A81\u8B8A\u9AD4\u53EA\u8AAA\u660E\u6E2C\u8A66\u80FD\u6293\u5230\u9019\u4E9B\u6CE8\u5165\u7684\u932F\u8AA4\uFF0C\u4E26\u4E0D\u4EE3\u8868\u7A0B\u5F0F\u6C92\u6709\u932F\u8AA4\u3002"
               },
               {
-                "text": "\u4F4D\u65BC\u7121\u6CD5\u57F7\u884C\u5230\u7684\u6B7B\u78BC\uFF08dead code\uFF09\u4E2D\u7684\u7A81\u8B8A\u9AD4",
+                "text": "\u6C92\u6709\u4EFB\u4F55\u7B49\u50F9\u7A81\u8B8A\u9AD4",
                 "fraction": 0,
-                "feedback": "\u7121\u6CD5\u5230\u9054\u7684\u7A81\u8B8A\u9AD4\u662F\u5728\u53EF\u5230\u9054\u6027\uFF08reachability\uFF09\u4E0A\u5931\u6557\uFF0C\u4F46\u82E5\u771F\u7684\u57F7\u884C\u5230\u8A72\u8655\uFF0C\u5B83\u4ECD\u53EF\u80FD\u4E0D\u662F\u7B49\u50F9\u7684\u3002"
+                "feedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u88AB\u6392\u9664\u5728\u5206\u6BCD\u4E4B\u5916\uFF1B100% \u7684\u5206\u6578\u4E26\u672A\u8AAA\u660E\u5B83\u5011\u6709\u591A\u5C11\u500B\u3002"
               },
               {
-                "text": "\u5728\u6240\u6709\u8F38\u5165\u4E0B\u90FD\u6703\u7576\u6389\u7684\u7A81\u8B8A\u9AD4",
+                "text": "\u5957\u4EF6\u9054\u5230 100% \u7684\u5206\u652F\u8986\u84CB\u7387",
                 "fraction": 0,
-                "feedback": "\u4E00\u500B\u7A69\u5B9A\u5730\u4EE5\u4E0D\u540C\u65B9\u5F0F\u7576\u6389\u7684\u7A81\u8B8A\u9AD4\u6703\u88AB\u8F15\u6613\u6BBA\u6B7B\uFF0C\u800C\u975E\u7B49\u50F9\u3002"
+                "feedback": "\u9AD8\u7A81\u8B8A\u5206\u6578\u901A\u5E38\u610F\u5473\u8457\u5F37\u8986\u84CB\uFF0C\u4F46 100% \u662F\u7531\u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u5B9A\u7FA9\uFF0C\u800C\u975E\u76F4\u63A5\u7531\u5206\u652F\u5B9A\u7FA9\u3002"
               }
             ],
-            "generalFeedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5728\u539F\u59CB\u78BC\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF0C\u4F46\u8A08\u7B97\u51FA\u7684\u51FD\u5F0F\u5B8C\u5168\u76F8\u540C\u2014\u2014\u5C0D\u6BCF\u4E00\u500B\u53EF\u80FD\u7684\u8F38\u5165\u90FD\u7D66\u51FA\u76F8\u540C\u8F38\u51FA\u2014\u2014\u56E0\u6B64\u5728\u908F\u8F2F\u4E0A\u4E0D\u53EF\u80FD\u88AB\u4EFB\u4F55\u6E2C\u8A66\u6BBA\u6B7B\u3002",
+            "generalFeedback": "100% \u7684\u7A81\u8B8A\u5206\u6578\u8868\u793A\u5957\u4EF6\u6BBA\u6B7B\u4E86\u6BCF\u4E00\u500B\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002\u9019\u662F\u5F88\u5F37\u7684\u9069\u5207\u6027\u8A0A\u865F\uFF0C\u4F46\u4E26\u975E\u7A0B\u5F0F\u6B63\u78BA\u6027\u7684\u8B49\u660E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A31\u8077\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u5047\u8AAA",
+            "text": "<p>\u7A81\u8B8A\u6E2C\u8A66\u80CC\u5F8C\u7684<em>\u7A31\u8077\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u5047\u8AAA\uFF08competent programmer hypothesis\uFF09</em>\u4E3B\u5F35\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u5BEB\u51FA\u7684\u7A0B\u5F0F\u5DF2\u63A5\u8FD1\u6B63\u78BA\uFF0C\u56E0\u6B64\u771F\u5BE6\u932F\u8AA4\u662F\u8207\u6B63\u78BA\u7A0B\u5F0F\u50C5\u6709\u5FAE\u5C0F\u5DEE\u7570",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u7576\u5316\u4E86\u4EE5\u5FAE\u5C0F\u7684\u55AE\u4E00\u7A81\u8B8A\u4F86\u6A21\u64EC\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u5F9E\u4E0D\u5728\u7A0B\u5F0F\u4E2D\u5F15\u5165\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u82E5\u771F\u5982\u6B64\u5C31\u6C92\u6709\u6771\u897F\u9700\u8981\u6E2C\u8A66\u4E86\uFF1B\u5047\u8AAA\u8B1B\u7684\u662F\u932F\u8AA4\u5FAE\u5C0F\uFF0C\u800C\u975E\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u932F\u8AA4\u90FD\u9700\u8981\u540C\u6642\u505A\u591A\u8655\u8B8A\u66F4\u624D\u80FD\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u5047\u8AAA\u4E3B\u5F35\u7684\u6B63\u597D\u76F8\u53CD\u2014\u2014\u932F\u8AA4\u901A\u5E38\u662F\u5FAE\u5C0F\u7684\u504F\u5DEE\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u5668\u80FD\u5075\u6E2C\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u7684\u6240\u6709\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u9019\u8207\u5047\u8AAA\u7121\u95DC\uFF1B\u5047\u8AAA\u8AC7\u7684\u662F\u4EBA\u70BA\u932F\u8AA4\u7684\u898F\u6A21\uFF0C\u800C\u975E\u7DE8\u8B6F\u5668\u7684\u80FD\u529B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A31\u8077\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u5047\u8AAA\u8A8D\u70BA\u958B\u767C\u8005\u5BEB\u51FA\u7684\u7A0B\u5F0F\u5DF2\u63A5\u8FD1\u6B63\u78BA\uFF0C\u56E0\u6B64\u932F\u8AA4\u662F\u5FAE\u5C0F\u7684\u3002\u9019\u6B63\u7576\u5316\u4E86\u4EE5\u5FAE\u5C0F\u7684\u55AE\u4E00\u8B8A\u66F4\u7A81\u8B8A\u9AD4\u4F86\u6A21\u64EC\u771F\u5BE6\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8026\u5408\u6548\u61C9",
+            "text": "<p><em>\u8026\u5408\u6548\u61C9\uFF08coupling effect\uFF09</em>\u5047\u8AAA\u4E3B\u5F35\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u80FD\u5075\u6E2C\u6240\u6709\u7C21\u55AE\uFF08\u55AE\u4E00\u8B8A\u66F4\uFF09\u932F\u8AA4\u7684\u6E2C\u8A66\uFF0C\u4E5F\u80FD\u5075\u6E2C\u5927\u591A\u6578\u8907\u96DC\uFF08\u591A\u91CD\u8B8A\u66F4\uFF09\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u4EE5\u7C21\u55AE\u7A81\u8B8A\u9AD4\u4F86\u6E2C\u8A66\u4E4B\u6240\u4EE5\u6709\u50F9\u503C\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u8907\u96DC\u932F\u8AA4\u8207\u7C21\u55AE\u932F\u8AA4\u5B8C\u5168\u7368\u7ACB\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u8026\u5408\u6548\u61C9\u4E3B\u5F35\u7684\u6B63\u597D\u76F8\u53CD\u2014\u2014\u8907\u96DC\u932F\u8AA4\u8207\u7C21\u55AE\u932F\u8AA4\u662F\u8026\u5408\u7684\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u5171\u4EAB\u8CC7\u6599\u7684\u6A21\u7D44\u5FC5\u9808\u4E00\u8D77\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8A2D\u8A08\u4E0A\u7684\u6A21\u7D44\u8026\u5408\uFF0C\u4E0D\u662F\u7A81\u8B8A\u6E2C\u8A66\u7684\u8026\u5408\u6548\u61C9\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u7A81\u8B8A\u9AD4\u90FD\u6070\u597D\u8207\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\u8026\u5408",
+                "fraction": 0,
+                "feedback": "\u8026\u5408\u6548\u61C9\u8B1B\u7684\u662F\u7C21\u55AE\u8207\u8907\u96DC\u932F\u8AA4\u4E4B\u9593\u7684\u95DC\u4FC2\uFF0C\u800C\u975E\u7A81\u8B8A\u9AD4\u8207\u500B\u5225\u6E2C\u8A66\u7684\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "\u8026\u5408\u6548\u61C9\u4E3B\u5F35\uFF1A\u80FD\u6BBA\u6B7B\u6240\u6709\u7C21\u55AE\u55AE\u4E00\u8B8A\u66F4\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u96C6\uFF0C\u4E5F\u80FD\u5075\u6E2C\u7D55\u5927\u591A\u6578\u8907\u96DC\u7684\u9AD8\u968E\u932F\u8AA4\u2014\u2014\u56E0\u6B64\u4E00\u968E\u7A81\u8B8A\u9AD4\u662F\u826F\u597D\u7684\u9069\u5207\u6027\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6B7B\u7D50\u679C\uFF1A\u6B63\u8CA0\u865F\u5206\u985E\uFF08> \u6539\u70BA >=\uFF09",
+            "text": '<p>\u8003\u616E <code>if (x &gt; 0) return "positive"; else return "non-positive";</code>\u3002\u904B\u7B97\u5B50 <strong>&gt; &#8594; &gt;=</strong> \u7522\u751F\u7A81\u8B8A\u9AD4 <code>if (x &gt;= 0) ...</code>\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>x = 0</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>',
+            "answers": [
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 100,
+                "feedback": '\u6B63\u78BA\u2014\u2014\u5728 x=0 \u6642\u539F\u59CB\u7A0B\u5F0F\u56DE\u50B3 "non-positive"\uFF0C\u4F46\u7A81\u8B8A\u9AD4\u56DE\u50B3 "positive"\u3002'
+              },
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 0,
+                "feedback": "x=0 \u6B63\u662F\u5169\u500B\u904B\u7B97\u5B50\u7522\u751F\u6B67\u7570\u7684\u908A\u754C\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u5075\u6E2C\u5F97\u5230\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u986F\u7136\u975E\u7B49\u50F9\uFF1Ax=0 \u5C31\u80FD\u5340\u5206\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": '\u5728 x=0 \u6642\uFF0C\u539F\u59CB\u7A0B\u5F0F\u7684 "x>0" \u70BA\u5047\uFF08\u56DE\u50B3 "non-positive"\uFF09\uFF0C\u4F46\u7A81\u8B8A\u9AD4\u7684 "x>=0" \u70BA\u771F\uFF08\u56DE\u50B3 "positive"\uFF09\u3002\u8F38\u51FA\u4E0D\u540C\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u6BBA\u6B7B\u4E86\u7A81\u8B8A\u9AD4\u3002',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6B7B\u7D50\u679C\uFF1A\u6295\u7968\u5E74\u9F61\uFF08>= \u6539\u70BA >\uFF09",
+            "text": "<p>\u8003\u616E <code>return age &gt;= 18;</code>\u3002\u904B\u7B97\u5B50 <strong>&gt;= &#8594; &gt;</strong> \u7522\u751F\u7A81\u8B8A\u9AD4 <code>return age &gt; 18;</code>\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>age = 18</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728 age=18 \u6642\u539F\u59CB\u7A0B\u5F0F\u56DE\u50B3 true\uFF0C\u4F46\u7A81\u8B8A\u9AD4\u56DE\u50B3 false\u3002"
+              },
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 0,
+                "feedback": 'age=18 \u6B63\u662F ">=18" \u8207 ">18" \u7522\u751F\u6B67\u7570\u7684\u908A\u754C\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u5075\u6E2C\u5F97\u5230\u3002'
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1Aage=18 \u5C31\u80FD\u5340\u5206\u5169\u8005\u3002"
+              }
+            ],
+            "generalFeedback": '\u5728 age=18 \u6642\uFF0C\u539F\u59CB\u7A0B\u5F0F\u7684 "age>=18" \u70BA\u771F\uFF0C\u4F46\u7A81\u8B8A\u9AD4\u7684 "age>18" \u70BA\u5047\u3002\u7D50\u679C\u4E0D\u540C\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u6BBA\u6B7B\u4E86\u7A81\u8B8A\u9AD4\u3002',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6B7B\u7D50\u679C\uFF1A\u6558\u8FF0\u522A\u9664\uFF08\u7D55\u5C0D\u503C\uFF09",
+            "text": "<p>\u8003\u616E <code>if (x &lt; 0) { x = -x; } return x;</code>\u3002\u6558\u8FF0\u522A\u9664\u79FB\u9664 <code>x = -x;</code>\uFF0C\u5F97\u5230 <code>if (x &lt; 0) { } return x;</code>\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>x = -5</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u539F\u59CB\u7A0B\u5F0F\u56DE\u50B3 5\uFF0C\u4F46\u7A81\u8B8A\u9AD4\u56DE\u50B3 -5\u3002"
+              },
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 0,
+                "feedback": "\u7576 x=-5 \u6642\u88AB\u522A\u9664\u7684\u6558\u8FF0\u672C\u4F86\u6703\u57F7\u884C\uFF0C\u56E0\u6B64\u5728\u6B64\u8655\u5B83\u7684\u79FB\u9664\u662F\u53EF\u89C0\u5BDF\u5230\u7684\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1A\u4EFB\u4F55\u8CA0\u6578\u8F38\u5165\u90FD\u80FD\u5340\u5206\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 x=-5 \u6642\uFF0C\u539F\u59CB\u7A0B\u5F0F\u53D6\u8CA0\u5F8C\u56DE\u50B3 5\uFF0C\u4F46\u7A81\u8B8A\u9AD4\u7684\u7A7A if \u4E3B\u9AD4\u8B93 x \u7DAD\u6301 -5\u3002\u8F38\u51FA\u4E0D\u540C\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u6BBA\u6B7B\u4E86\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6B7B\u7D50\u679C\uFF1A\u7B97\u8853\u904B\u7B97\u5B50\uFF08+ \u6539\u70BA -\uFF09",
+            "text": "<p>\u8003\u616E <code>return a + b;</code>\u3002\u904B\u7B97\u5B50 <strong>+ &#8594; -</strong> \u7522\u751F\u7A81\u8B8A\u9AD4 <code>return a - b;</code>\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>a = 3, b = 7</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143+7=10\uFF0C\u4F46 3-7=-4\u3002"
+              },
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 0,
+                "feedback": "\u56E0\u70BA b=7\u22600\uFF0Ca+b \u8207 a-b \u4E0D\u540C\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u5075\u6E2C\u5F97\u5230\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1A\u4EFB\u4F55 b\u22600 \u90FD\u80FD\u5340\u5206 + \u8207 -\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8655 a+b=10\uFF0C\u4F46 a-b=-4\uFF1B\u7531\u65BC b\u22600\uFF0C\u5169\u8005\u76F8\u5DEE\uFF082b\uFF09\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u6BBA\u6B7B\u4E86\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B58\u6D3B\u7D50\u679C\uFF1A\u6B63\u8CA0\u865F\u5206\u985E\u65BC x = 7",
+            "text": '<p>\u8003\u616E <code>if (x &gt; 0) return "positive"; else return "non-positive";</code>\uFF0C\u7A81\u8B8A\u9AD4\u70BA <code>if (x &gt;= 0) ...</code>\uFF08\u904B\u7B97\u5B50 <strong>&gt; &#8594; &gt;=</strong>\uFF09\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>x = 7</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>',
+            "answers": [
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 100,
+                "feedback": '\u6B63\u78BA\u2014\u2014\u5728 x=7 \u6642\u5169\u500B\u7248\u672C\u90FD\u56DE\u50B3 "positive"\uFF1B\u53EA\u6709 x=0 \u624D\u6703\u986F\u9732\u5DEE\u7570\u3002'
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 0,
+                "feedback": '\u5728 x=7 \u6642 "x>0" \u8207 "x>=0" \u90FD\u70BA\u771F\uFF0C\u56E0\u6B64\u8F38\u51FA\u76F8\u540C\u2014\u2014\u6B64\u6E2C\u8A66\u6BBA\u4E0D\u6B7B\u5B83\u3002'
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1Ax=0 \u80FD\u6BBA\u6B7B\u5B83\uFF1B\u53EA\u662F\u9019\u500B\u6E2C\u8A66\u6070\u597D\u6F0F\u6389\u3002"
+              }
+            ],
+            "generalFeedback": '\u5728 x=7 \u6642 "x>0" \u8207 "x>=0" \u90FD\u70BA\u771F\uFF0C\u56E0\u6B64\u90FD\u56DE\u50B3 "positive"\uFF0C\u7A81\u8B8A\u9AD4\u5728\u6B64\u6E2C\u8A66\u4E0B\u5B58\u6D3B\u3002\u4F46\u5B83\u4E26\u975E\u7B49\u50F9\u2014\u2014x=0 \u5C31\u80FD\u6BBA\u6B7B\u5B83\u3002',
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "ROR \u904B\u7B97\u5B50",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u662F <strong>ROR</strong>\uFF08Relational Operator Replacement\uFF0C\u95DC\u4FC2\u904B\u7B97\u5B50\u66FF\u63DB\uFF09\u904B\u7B97\u5B50\u7684\u5BE6\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A <code>a &lt; b</code> \u6539\u6210 <code>a &lt;= b</code>",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ROR \u628A\u4E00\u500B\u95DC\u4FC2\u904B\u7B97\u5B50\u63DB\u6210\u53E6\u4E00\u500B\uFF08<\u3001<=\u3001>\u3001>=\u3001==\u3001!=\uFF09\u3002"
+              },
+              {
+                "text": "\u628A <code>a + b</code> \u6539\u6210 <code>a - b</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F AOR\uFF08\u7B97\u8853\u904B\u7B97\u5B50\u66FF\u63DB\uFF09\uFF0C\u4E0D\u662F ROR\u3002"
+              },
+              {
+                "text": "\u628A <code>a &amp;&amp; b</code> \u6539\u6210 <code>a || b</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F LOR/COR\uFF08\u908F\u8F2F\uFF0F\u689D\u4EF6\u904B\u7B97\u5B50\u66FF\u63DB\uFF09\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u6558\u8FF0 <code>a = b;</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F SDL\uFF08\u6558\u8FF0\u522A\u9664\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "ROR \u628A\u4E00\u500B\u95DC\u4FC2\u904B\u7B97\u5B50\u63DB\u6210\u5176\u4ED6\u5404\u500B\u95DC\u4FC2\u904B\u7B97\u5B50\uFF08\u6709\u6642\u4E5F\u63DB\u6210 true/false\uFF09\uFF0C\u4F8B\u5982\u628A < \u63DB\u6210 <=\u3001>\u3001>=\u3001== \u6216 !=\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AOR \u904B\u7B97\u5B50",
+            "text": "<p><strong>AOR</strong>\uFF08Arithmetic Operator Replacement\uFF0C\u7B97\u8853\u904B\u7B97\u5B50\u66FF\u63DB\uFF09\u904B\u7B97\u5B50\u6703\u628A <code>x * y</code> \u8F49\u63DB\u6210\u4E0B\u5217\u4F55\u8005\uFF1F</p>",
+            "answers": [
+              {
+                "text": "<code>x + y</code>",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AOR \u628A\u4E00\u500B\u4E8C\u5143\u7B97\u8853\u904B\u7B97\u5B50\u63DB\u6210\u53E6\u4E00\u500B\uFF08+\u3001-\u3001*\u3001/\u3001%\uFF09\u3002"
+              },
+              {
+                "text": "<code>x &gt; y</code>",
+                "fraction": 0,
+                "feedback": "\u628A\u7B97\u8853\u6539\u6210\u95DC\u4FC2\u5C6C\u65BC ROR \u985E\uFF0C\u4E0D\u662F AOR\u3002"
+              },
+              {
+                "text": "<code>x &amp;&amp; y</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F15\u5165\u908F\u8F2F\u904B\u7B97\u5B50\uFF08LOR\uFF09\uFF0C\u4E0D\u662F\u7B97\u8853\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "<code>-x * y</code>",
+                "fraction": 0,
+                "feedback": "\u63D2\u5165\u4E00\u5143\u8CA0\u865F\u662F UOI\uFF0C\u4E0D\u662F AOR\u3002"
+              }
+            ],
+            "generalFeedback": "AOR \u628A\u4E00\u500B\u4E8C\u5143\u7B97\u8853\u904B\u7B97\u5B50\u63DB\u6210 {+, -, *, /, %} \u4E2D\u7684\u53E6\u4E00\u500B\uFF0C\u4F8B\u5982\u628A * \u63DB\u6210 +\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "LOR \u904B\u7B97\u5B50",
+            "text": "<p>\u628A <strong>LOR</strong>\uFF0F\u689D\u4EF6\u904B\u7B97\u5B50\u66FF\u63DB\u904B\u7B97\u5B50\u5957\u7528\u5728 <code>a &amp;&amp; b</code> \u4E0A\uFF0C\u6700\u76F4\u63A5\u6703\u7522\u751F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "<code>a || b</code>",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u628A\u4E00\u500B\u908F\u8F2F\u9023\u63A5\u8A5E\u63DB\u6210\u53E6\u4E00\u500B\u3002"
+              },
+              {
+                "text": "<code>a == b</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u95DC\u4FC2\u904B\u7B97\u5B50\uFF08ROR\uFF09\uFF0C\u4E0D\u662F\u908F\u8F2F\u9023\u63A5\u8A5E\u3002"
+              },
+              {
+                "text": "<code>a + b</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B97\u8853\uFF08AOR\uFF09\u3002"
+              },
+              {
+                "text": "<code>!a &amp;&amp; b</code>",
+                "fraction": 0,
+                "feedback": "\u63D2\u5165\u4E00\u500B\u5426\u5B9A\u662F UOI\uFF1BLOR \u66FF\u63DB\u7684\u662F\u9023\u63A5\u8A5E\u672C\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "LOR\uFF08\u908F\u8F2F\uFF0F\u689D\u4EF6\u904B\u7B97\u5B50\u66FF\u63DB\uFF09\u628A\u4E00\u500B\u908F\u8F2F\u9023\u63A5\u8A5E\u63DB\u6210\u53E6\u4E00\u500B\uFF0C\u4F8B\u5982\u628A && \u63DB\u6210 ||\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ABS \u904B\u7B97\u5B50",
+            "text": "<p><strong>ABS</strong>\uFF08Absolute Value Insertion\uFF0C\u7D55\u5C0D\u503C\u63D2\u5165\uFF09\u904B\u7B97\u5B50\u6703\u628A\u7B97\u8853\u904B\u7B97\u5F0F <code>e</code> \u7A81\u8B8A\u6210\u54EA\u4E00\u65CF\u8B8A\u9AD4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "<code>abs(e)</code>\u3001<code>-abs(e)</code>\uFF0C\u4EE5\u53CA\u4E00\u500B\u9047\u96F6\u5373\u5931\u6557\uFF08fail-on-zero\uFF09\u7684\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ABS \u5F37\u8FEB\u4EE5\u975E\u8CA0\u3001\u975E\u6B63\u8207\u96F6\u4E09\u7A2E\u60C5\u6CC1\u4F86\u6E2C\u8A66 e\u3002"
+              },
+              {
+                "text": "<code>e + 1</code> \u8207 <code>e - 1</code>",
+                "fraction": 0,
+                "feedback": "\u5DEE\u4E00\u8ABF\u6574\u4E0D\u662F ABS\uFF1BABS \u95DC\u6CE8\u7684\u662F\u904B\u7B97\u5F0F\u7684\u6B63\u8CA0\u865F\uFF0F\u96F6\u3002"
+              },
+              {
+                "text": "<code>e &gt; 0</code> \u8207 <code>e &lt; 0</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u95DC\u4FC2\u5224\u65B7\uFF0C\u4E0D\u662F ABS \u7684\u6578\u503C\u63D2\u5165\u65CF\u3002"
+              },
+              {
+                "text": "\u628A <code>e</code> \u63DB\u6210\u4E00\u500B\u5E38\u6578\u5B57\u9762\u503C",
+                "fraction": 0,
+                "feedback": "\u5E38\u6578\u66FF\u63DB\u662F\u53E6\u4E00\u7A2E\u904B\u7B97\u5B50\uFF1BABS \u662F\u628A e \u5305\u6210\u7D55\u5C0D\u503C\u5F62\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "ABS \u628A\u904B\u7B97\u5F0F e \u63DB\u6210 abs(e)\u3001-abs(e) \u8207 failOnZero(e)\uFF0C\u85C9\u6B64\u5F37\u8FEB\u6E2C\u8A66\u4EE5\u6B63\u3001\u8CA0\u8207\u96F6\u4E09\u7A2E\u60C5\u6CC1\u4F86\u57F7\u884C e\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UOI \u904B\u7B97\u5B50",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u662F <strong>UOI</strong>\uFF08Unary Operator Insertion\uFF0C\u4E00\u5143\u904B\u7B97\u5B50\u63D2\u5165\uFF09\u904B\u7B97\u5B50\u7684\u4F8B\u5B50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A <code>return x;</code> \u6539\u6210 <code>return -x;</code>",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014UOI \u63D2\u5165\u4E00\u500B\u4E00\u5143\u904B\u7B97\u5B50\uFF08\u6B64\u8655\u70BA\u7B97\u8853\u53D6\u8CA0\uFF09\u3002"
+              },
+              {
+                "text": "\u628A <code>x + y</code> \u6539\u6210 <code>x - y</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u66FF\u63DB\u4E8C\u5143\u904B\u7B97\u5B50\uFF08AOR\uFF09\uFF0C\u800C\u975E\u63D2\u5165\u4E00\u5143\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "\u628A <code>x &lt; y</code> \u6539\u6210 <code>x &gt; y</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F ROR\u3002"
+              },
+              {
+                "text": "\u522A\u9664 <code>x = 0;</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u522A\u9664\uFF08SDL\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "UOI \u5728\u904B\u7B97\u5F0F\u4E2D\u63D2\u5165\u4E00\u500B\u4E00\u5143\u904B\u7B97\u5B50\uFF0C\u4F8B\u5982\u628A x \u8B8A\u6210 -x\u3001\u628A\u5E03\u6797 b \u8B8A\u6210 !b\uFF0C\u6216\u628A x \u8B8A\u6210 ++x\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SDL \u904B\u7B97\u5B50",
+            "text": "<p><strong>SDL</strong>\uFF08Statement Deletion\uFF0C\u6558\u8FF0\u522A\u9664\uFF09\u904B\u7B97\u5B50\u7522\u751F\u7A81\u8B8A\u9AD4\u7684\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u7A0B\u5F0F\u4E2D\u79FB\u9664\u4E00\u6574\u500B\u6558\u8FF0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014SDL \u522A\u9664\u4E00\u500B\u6558\u8FF0\uFF0C\u4EE5\u6AA2\u67E5\u662F\u5426\u6709\u4EFB\u4F55\u6E2C\u8A66\u4F9D\u8CF4\u5B83\u7684\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u628A\u8B8A\u6578\u53C3\u7167\u63DB\u6210\u4E00\u500B\u5E38\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5E38\u6578\uFF0F\u8B8A\u6578\u66FF\u63DB\u904B\u7B97\u5B50\uFF0C\u4E0D\u662F SDL\u3002"
+              },
+              {
+                "text": "\u4EA4\u63DB\u5169\u500B\u76F8\u9130\u7684\u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u6392\u5E8F\u662F\u53E6\u4E00\u7A2E\u7A81\u8B8A\uFF1BSDL \u662F\u79FB\u9664\u4E00\u500B\u6558\u8FF0\u3002"
+              },
+              {
+                "text": "\u628A\u5E03\u6797\u689D\u4EF6\u53D6\u5426\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6BD4\u8F03\u63A5\u8FD1 UOI/COR\uFF1BSDL \u662F\u522A\u9664\u800C\u975E\u53D6\u5426\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "SDL \u522A\u9664\u4E00\u500B\u6558\u8FF0\uFF08\u901A\u5E38\u4EE5 no-op \u53D6\u4EE3\uFF09\u3002\u82E5\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u5075\u6E2C\u5230\u6B64\u522A\u9664\uFF0C\u4EE3\u8868\u8A72\u6558\u8FF0\u7684\u4F5C\u7528\u672A\u88AB\u6E2C\u8A66\u5230\u3002",
             "single": true
           },
           {
@@ -51415,6 +52978,571 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             ],
             "generalFeedback": "\u50B3\u64AD\uFF08propagation\uFF09\u662F RIP \u7684\u7B2C\u4E09\u500B\u689D\u4EF6\uFF1A\u88AB\u611F\u67D3\uFF08\u7834\u58DE\uFF09\u7684\u72C0\u614B\u5FC5\u9808\u5728\u57F7\u884C\u904E\u7A0B\u4E2D\u6301\u7E8C\u5411\u524D\u5F71\u97FF\uFF0C\u76F4\u5230\u6539\u8B8A\u6E2C\u8A66\u8AED\u793A\u5BE6\u969B\u89C0\u5BDF\u5230\u7684\u7D50\u679C\u70BA\u6B62\u3002",
             "usecase": false
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F31\u7A81\u8B8A\u8207\u5F37\u7A81\u8B8A",
+            "text": "<p><strong>\u5F31\u7A81\u8B8A\uFF08weak mutation\uFF09</strong>\u8207<strong>\u5F37\u7A81\u8B8A\uFF08strong mutation\uFF09</strong>\u7684\u5340\u5225\u5728\u65BC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F31\u7A81\u8B8A\u5728\u88AB\u7A81\u8B8A\u7684\u5143\u4EF6\u57F7\u884C\u5F8C\u7ACB\u5373\u6AA2\u67E5\u662F\u5426\u6709\u72C0\u614B\u5DEE\u7570\uFF1B\u5F37\u7A81\u8B8A\u5247\u8981\u6C42\u8A72\u5DEE\u7570\u5FC5\u9808\u50B3\u64AD\u5230\u7A0B\u5F0F\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F31\u7A81\u8B8A\u53EA\u9700\u611F\u67D3\uFF1B\u5F37\u7A81\u8B8A\u9700\u8981\u611F\u67D3\u518D\u50B3\u64AD\u3002"
+              },
+              {
+                "text": "\u5F31\u7A81\u8B8A\u4F7F\u7528\u7684\u7A81\u8B8A\u904B\u7B97\u5B50\u6BD4\u5F37\u7A81\u8B8A\u5C11",
+                "fraction": 0,
+                "feedback": "\u5340\u5225\u5728\u65BC\u5728\u4F55\u8655\u89C0\u5BDF\u5DEE\u7570\uFF0C\u800C\u975E\u4F7F\u7528\u591A\u5C11\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "\u5F31\u7A81\u8B8A\u53EA\u9069\u7528\u65BC\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u9069\u7528\u65BC\u4E00\u822C\u7A81\u8B8A\u9AD4\uFF1B\u5DEE\u5225\u5728\u65BC\u6BD4\u8F03\u7684\u6642\u9EDE\u3002"
+              },
+              {
+                "text": "\u5F37\u7A81\u8B8A\u56E0\u70BA\u5728\u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u5C31\u505C\u6B62\uFF0C\u6240\u4EE5\u8DD1\u5F97\u6BD4\u8F03\u5FEB",
+                "fraction": 0,
+                "feedback": "\u80FD\u5728\u5143\u4EF6\u8655\u63D0\u65E9\u505C\u6B62\u7684\u662F\u5F31\u7A81\u8B8A\uFF1B\u5F37\u7A81\u8B8A\u6703\u4E00\u8DEF\u57F7\u884C\u5230\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F31\u7A81\u8B8A\u5728\u88AB\u7A81\u8B8A\u5143\u4EF6\u57F7\u884C\u5F8C\u7ACB\u5373\u6BD4\u8F03\u5167\u90E8\u72C0\u614B\uFF08\u53EF\u5230\u9054\u6027\uFF0B\u611F\u67D3\uFF09\u3002\u5F37\u7A81\u8B8A\u5247\u8981\u6C42\u88AB\u611F\u67D3\u7684\u72C0\u614B\u4E00\u8DEF\u50B3\u64AD\u5230\u53EF\u89C0\u5BDF\u7684\u8F38\u51FA\uFF08\u53EF\u5230\u9054\u6027\uFF0B\u611F\u67D3\uFF0B\u50B3\u64AD\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A81\u8B8A\u5206\u6578\u8A08\u7B97",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u6709 30 \u500B\u7A81\u8B8A\u9AD4\uFF0C\u5176\u4E2D 6 \u500B\u70BA\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u6E2C\u8A66\u5957\u4EF6\u6BBA\u6B7B\u4E86 21 \u500B\u3002\u7A81\u8B8A\u5206\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "87.5%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201421 / (30 &#8722; 6) = 21/24 = 0.875\u3002"
+              },
+              {
+                "text": "70%",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 21/30\u2014\u2014\u932F\u628A\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7B97\u9032\u5206\u6BCD\u3002"
+              },
+              {
+                "text": "58.3%",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 21/(30+6)\u2014\u2014\u7B49\u50F9\u7A81\u8B8A\u9AD4\u61C9\u8A72\u6E1B\u53BB\uFF0C\u800C\u4E0D\u662F\u52A0\u4E0A\u3002"
+              },
+              {
+                "text": "30%",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5B58\u6D3B\u7A81\u8B8A\u9AD4\u6BD4\u4F8B 9/30\uFF0C\u4E0D\u662F\u7A81\u8B8A\u5206\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u5206\u6578 = \u88AB\u6BBA\u6B7B\u6578 / (\u7E3D\u6578 &#8722; \u7B49\u50F9\u6578) = 21 / (30 &#8722; 6) = 21/24 = 87.5%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9078\u64C7\u6027\u7A81\u8B8A",
+            "text": "<p><strong>\u9078\u64C7\u6027\u7A81\u8B8A\uFF08selective mutation\uFF09</strong>\u964D\u4F4E\u6210\u672C\u7684\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u4F7F\u7528\u4E00\u5C0F\u7D44\u7CBE\u5FC3\u6311\u9078\u7684\u7A81\u8B8A\u904B\u7B97\u5B50\uFF0C\u537B\u4ECD\u80FD\u5F97\u5230\u5E7E\u4E4E\u76F8\u540C\u7684\u9069\u5207\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C11\u6578\u95DC\u9375\u904B\u7B97\u5B50\u5373\u53EF\u903C\u8FD1\u4F7F\u7528\u5B8C\u6574\u904B\u7B97\u5B50\u96C6\u7684\u6548\u679C\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u8A66\u90A3\u4E9B\u6070\u597D\u662F\u7B49\u50F9\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6C38\u9060\u6BBA\u4E0D\u6B7B\uFF0C\u55AE\u7368\u6E2C\u8A66\u5B83\u5011\u6BEB\u7121\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u53EA\u6311\u9078\u90A3\u4E9B\u5DF2\u7D93\u901A\u904E\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u9078\u64C7\u6027\u7A81\u8B8A\u6E1B\u5C11\u7684\u662F\u904B\u7B97\u5B50\uFF0C\u800C\u975E\u6E2C\u8A66\uFF0C\u4E5F\u4E0D\u4EE5\u901A\u904E\uFF0F\u5931\u6557\u4F86\u7BE9\u9078\u3002"
+              },
+              {
+                "text": "\u8B93\u6BCF\u500B\u7A81\u8B8A\u9AD4\u53EA\u5C0D\u4E00\u500B\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u524A\u5F31\u5075\u6E2C\u80FD\u529B\uFF1B\u9078\u64C7\u6027\u7A81\u8B8A\u662F\u7CBE\u7C21\u904B\u7B97\u5B50\u96C6\u3002"
+              }
+            ],
+            "generalFeedback": "\u9078\u64C7\u6027\u7A81\u8B8A\u53EA\u5957\u7528\u4E00\u5C0F\u7D44\u904B\u7B97\u5B50\uFF08\u4F8B\u5982\u300C\u5145\u5206\u300D\u904B\u7B97\u5B50\u96C6\uFF09\uFF0C\u5176\u7522\u751F\u7684\u7A81\u8B8A\u5206\u6578\u5728\u7D93\u9A57\u4E0A\u8207\u5B8C\u6574\u904B\u7B97\u5B50\u96C6\u5E7E\u4E4E\u76F8\u540C\uFF0C\u537B\u5927\u5E45\u6E1B\u5C11\u7A81\u8B8A\u9AD4\u6578\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6B7B\u7D50\u679C\uFF1A&& \u6539\u70BA || \u4E14\u904B\u7B97\u5143\u4E0D\u540C",
+            "text": "<p>\u8003\u616E <code>return (age &gt;= 18) &amp;&amp; citizen;</code>\uFF0C\u7A81\u8B8A\u9AD4\u70BA <code>return (age &gt;= 18) || citizen;</code>\uFF08\u904B\u7B97\u5B50 <strong>&amp;&amp; &#8594; ||</strong>\uFF09\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>age = 30, citizen = false</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u8655\u5169\u500B\u904B\u7B97\u5143\u771F\u503C\u4E0D\u540C\uFF08true \u8207 false\uFF09\uFF0C\u56E0\u6B64 AND \u8207 OR \u7522\u751F\u6B67\u7570\u3002"
+              },
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 AND \u5F97 false \u800C OR \u5F97 true\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u5075\u6E2C\u5F97\u5230\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u53EA\u8981\u904B\u7B97\u5143\u771F\u503C\u4E0D\u540C\uFF08\u5982\u6B64\u8655\uFF09\uFF0C&& \u8207 || \u5C31\u4E0D\u7B49\u50F9\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576 age=30\uFF08\u6545 age>=18 \u70BA\u771F\uFF09\u4E14 citizen=false \u6642\uFF0C\u539F\u59CB\u7A0B\u5F0F\u8A08\u7B97 true && false = false\uFF0C\u4F46\u7A81\u8B8A\u9AD4\u8A08\u7B97 true || false = true\u3002\u8F38\u51FA\u4E0D\u540C\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u6BBA\u6B7B\u4E86\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B58\u6D3B\u7D50\u679C\uFF1A&& \u6539\u70BA || \u4E14\u904B\u7B97\u5143\u76F8\u540C",
+            "text": "<p>\u8003\u616E <code>return (age &gt;= 18) &amp;&amp; citizen;</code>\uFF0C\u7A81\u8B8A\u9AD4\u70BA <code>return (age &gt;= 18) || citizen;</code>\uFF08\u904B\u7B97\u5B50 <strong>&amp;&amp; &#8594; ||</strong>\uFF09\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>age = 30, citizen = true</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u904B\u7B97\u5143\u90FD\u70BA\u771F\uFF0C\u56E0\u6B64 AND \u8207 OR \u90FD\u5F97 true\uFF1B\u904B\u7B97\u5143\u4E0D\u540C\u7684\u6E2C\u8A66\u624D\u80FD\u6BBA\u6B7B\u5B83\u3002"
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 0,
+                "feedback": "true && true \u8207 true || true \u90FD\u7B49\u65BC true\uFF0C\u56E0\u6B64\u6B64\u8655\u8F38\u51FA\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1Aage=30\u3001citizen=false \u5C31\u80FD\u6BBA\u6B7B\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5169\u500B\u904B\u7B97\u5143\u90FD\u70BA\u771F\u6642\uFF0Ctrue && true = true \u800C true || true = true\uFF0C\u56E0\u6B64\u7A81\u8B8A\u9AD4\u5728\u6B64\u6E2C\u8A66\u4E0B\u5B58\u6D3B\u3002\u5B83\u4E26\u975E\u7B49\u50F9\u2014\u2014\u904B\u7B97\u5143\u771F\u503C\u4E0D\u540C\u7684\u8F38\u5165\uFF08\u4F8B\u5982 citizen=false\uFF09\u5C31\u80FD\u6BBA\u6B7B\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B58\u6D3B\u7D50\u679C\uFF1A+ \u6539\u70BA - \u65BC b = 0",
+            "text": "<p>\u8003\u616E <code>return a + b;</code>\uFF0C\u7A81\u8B8A\u9AD4\u70BA <code>return a - b;</code>\uFF08\u904B\u7B97\u5B50 <strong>+ &#8594; -</strong>\uFF09\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>a = 9, b = 0</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a+0 \u8207 a-0 \u90FD\u662F 9\uFF0C\u56E0\u6B64\u6B64\u6E2C\u8A66\u6F0F\u6389\u4E86\u7A81\u8B8A\u9AD4\uFF1B\u4EFB\u4F55 b\u22600 \u90FD\u80FD\u6BBA\u6B7B\u5B83\u3002"
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 0,
+                "feedback": "\u7576 b=0 \u6642\uFF0Ca+b \u8207 a-b \u76F8\u7B49\uFF08\u90FD\u662F 9\uFF09\uFF0C\u56E0\u6B64\u8F38\u51FA\u76F8\u540C\u2014\u2014\u6BBA\u4E0D\u6B7B\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1A\u4EFB\u4F55 b\u22600 \u90FD\u6703\u8B93 + \u8207 - \u4E0D\u540C\u800C\u6BBA\u6B7B\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 b=0 \u6642\uFF0Ca+b = a-b = 9\uFF0C\u56E0\u6B64\u7A81\u8B8A\u9AD4\u5728\u6B64\u7279\u5B9A\u6E2C\u8A66\u4E0B\u5B58\u6D3B\u3002\u4F46\u5B83\u4E26\u975E\u7B49\u50F9\uFF1A\u4EFB\u4F55 b\u22600 \u7684\u6E2C\u8A66\uFF08\u6B64\u6642 a+b \u8207 a-b \u76F8\u5DEE 2b\uFF09\u90FD\u80FD\u6BBA\u6B7B\u5B83\u3002\u9019\u8AAA\u660E\u9078\u5F97\u4E0D\u597D\u7684\u6E2C\u8A66\u8F38\u5165\u53EF\u80FD\u8B93\u4E00\u500B\u53EF\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u5B58\u6D3B\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6BBA\u4E0D\u6B7B",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u6848\u4F8B\u80FD\u6BBA\u6B7B\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u8207\u539F\u59CB\u7A0B\u5F0F\u8A08\u7B97\u76F8\u540C\u7684\u51FD\u5F0F\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u80FD\u4F7F\u5169\u8005\u8F38\u51FA\u4E0D\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6B7B\u9700\u8981\u53EF\u89C0\u5BDF\u7684\u8F38\u51FA\u5DEE\u7570\uFF0C\u800C\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6C38\u9060\u7121\u6CD5\u7522\u751F\u9019\u7A2E\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u6C38\u9060\u7121\u6CD5\u5230\u9054",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u6027\u8AC7\u7684\u662F\u884C\u70BA\u76F8\u540C\uFF0C\u800C\u975E\u53EF\u5230\u9054\u6027\uFF1B\u8A72\u6558\u8FF0\u5176\u5BE6\u5F88\u53EF\u80FD\u6703\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u56DE\u50B3\u524D\u4E00\u5B9A\u6703\u62CB\u51FA\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\u7684\u4F8B\u5916\u53CD\u800C\u6703\u6BBA\u6B7B\u5B83\uFF1B\u7B49\u50F9\u4EE3\u8868\u5B8C\u5168\u6C92\u6709\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5DE5\u5177\u6703\u81EA\u52D5\u7565\u904E\u5B83",
+                "fraction": 0,
+                "feedback": "\u5DE5\u5177\u9023\u53EF\u9760\u5730\u5075\u6E2C\u7B49\u50F9\u6027\u90FD\u505A\u4E0D\u5230\uFF1B\u9019\u7A2E\u4E0D\u53EF\u80FD\u6027\u662F\u672C\u8CEA\u4F7F\u7136\uFF0C\u800C\u975E\u5DE5\u5177\u7684\u9078\u64C7\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u9AD4\u53EA\u6709\u5728\u67D0\u500B\u6E2C\u8A66\u7522\u751F\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\u7684\u53EF\u89C0\u5BDF\u7D50\u679C\u6642\u624D\u6703\u88AB\u6BBA\u6B7B\u3002\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5C0D\u6BCF\u500B\u8F38\u5165\u90FD\u8A08\u7B97\u5B8C\u5168\u76F8\u540C\u7684\u51FD\u5F0F\uFF0C\u56E0\u6B64\u90A3\u7A2E\u5DEE\u7570\u6C38\u9060\u4E0D\u6703\u51FA\u73FE\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\uFF1A\u6B7B\u5B58\u653E\u522A\u9664",
+            "text": "<p>\u8003\u616E <code>int unused = x * 2; return x * x;</code>\u3002\u6558\u8FF0\u522A\u9664\u79FB\u9664 <code>int unused = x * 2;</code>\uFF0C\u5F97\u5230 <code>return x * x;</code>\u3002\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u5BEB\u5165\u537B\u5F9E\u672A\u88AB\u8B80\u53D6\uFF0C\u4E14\u6C92\u6709\u526F\u4F5C\u7528\uFF0C\u56E0\u6B64\u522A\u9664\u5B83\u4E0D\u6703\u6539\u8B8A\u4EFB\u4F55\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u67D0\u500B\u6E2C\u8A66\u5075\u6E2C\u5230\u5B83",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u5075\u6E2C\u5B83\uFF1A\u56DE\u50B3\u503C\u4E0D\u53D7\u88AB\u522A\u9664\u7684\u6B7B\u5B58\u653E\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u6B64\u6E2C\u8A66\u4E0B\u5B58\u6D3B\uFF0C\u4F46\u66F4\u597D\u7684\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5B58\u5728\u80FD\u6BBA\u6B7B\u5B83\u7684\u8F38\u5165\uFF0C\u56E0\u6B64\u5B83\u662F\u7B49\u50F9\uFF0C\u800C\u975E\u53EA\u662F\u5B58\u6D3B\u3002"
+              }
+            ],
+            "generalFeedback": "\u88AB\u6307\u6D3E\u537B\u5F9E\u672A\u88AB\u8B80\u53D6\uFF0C\u4E14\u6C92\u6709\u526F\u4F5C\u7528\uFF0C\u56E0\u6B64\u5C0D\u4EFB\u4F55 x \u800C\u8A00\uFF0C\u522A\u9664\u8A72\u6558\u8FF0\u90FD\u4E0D\u6703\u6539\u8B8A\u56DE\u50B3\u503C\u3002\u6B64\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\uFF1A\u5C0D\u9577\u5EA6\u7684\u95DC\u4FC2\u904B\u7B97\u5B50",
+            "text": "<p>\u5DF2\u77E5 <code>n = arr.length</code>\uFF08\u6545\u6046\u6709 <code>n &gt;= 0</code>\uFF09\uFF0C\u8003\u616E <code>if (n &gt; -1) return true; else return false;</code>\u3002\u904B\u7B97\u5B50 <strong>&gt; &#8594; &gt;=</strong> \u7522\u751F <code>if (n &gt;= -1) ...</code>\u3002\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": '\u6B63\u78BA\u2014\u2014\u5C0D\u6BCF\u500B\u53EF\u5230\u9054\u7684 n\uFF08n\u22650\uFF09\uFF0C"n>-1" \u8207 "n>=-1" \u90FD\u70BA\u771F\uFF0C\u5169\u7248\u672C\u6C38\u4E0D\u6B67\u7570\u3002'
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u67D0\u500B\u6E2C\u8A66\u5075\u6E2C\u5230\u5B83",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u689D\u4EF6\u53EA\u6709\u5728 n = -1 \u6642\u624D\u4E0D\u540C\uFF0C\u800C\u9663\u5217\u9577\u5EA6\u4E0D\u53EF\u80FD\u662F -1\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83\u3002"
+              },
+              {
+                "text": "\u6B64\u6E2C\u8A66\u4E0B\u5B58\u6D3B\uFF0C\u4F46\u66F4\u597D\u7684\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5B58\u5728\u80FD\u5340\u5206\u5169\u8005\u7684\u53EF\u5230\u9054\u8F38\u5165\uFF0C\u56E0\u6B64\u5B83\u662F\u7B49\u50F9\uFF0C\u800C\u975E\u53EA\u662F\u5B58\u6D3B\u3002"
+              }
+            ],
+            "generalFeedback": '"n>-1" \u8207 "n>=-1" \u53EA\u6709\u5728 n = -1 \u6642\u624D\u4E0D\u540C\u3002\u7531\u65BC n \u662F\u9663\u5217\u9577\u5EA6\uFF08\u4F9D\u5EFA\u69CB\u6046\u6709 n\u22650\uFF09\uFF0C\u8A72\u503C\u7121\u6CD5\u5230\u9054\uFF0C\u56E0\u6B64\u5169\u7248\u672C\u5C0D\u6BCF\u500B\u53EF\u80FD\u7684\u8F38\u5165\u90FD\u4E00\u81F4\u2014\u2014\u6B64\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\u7684\u3002',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u7B49\u50F9\u8FF4\u5708\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u6B64\u8655 <code>n</code> \u662F\u4E32\u5217\u9577\u5EA6\uFF08\u6545 <code>n &gt;= 0</code>\uFF09\u3002\u8003\u616E <code>for (int i = 0; i &lt; n; i++) sum += a[i];</code>\uFF0C\u7D93 <strong>&lt; &#8594; !=</strong> \u7A81\u8B8A\u70BA <code>for (int i = 0; i != n; i++) sum += a[i];</code>\u3002\u6B64\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014i \u5F9E 0 \u905E\u589E\u4E26\u6070\u597D\u5230\u9054 n\uFF0C\u6545\u5C0D\u6BCF\u500B n\u22650\uFF0Ci!=n \u8207 i<n \u90FD\u5728\u540C\u4E00\u6B21\u8FED\u4EE3\u505C\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6240\u6709\u975E\u8CA0\u7684 n\uFF0C\u5169\u500B\u8FF4\u5708\u689D\u4EF6\u90FD\u5728\u76F8\u540C\u6642\u9EDE\u7D42\u6B62\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55 n > 0 \u7684\u6E2C\u8A66\u90FD\u80FD\u6BBA\u6B7B\u5B83",
+                "fraction": 0,
+                "feedback": "\u5C0D n>0\uFF0C\u5169\u500B\u8FF4\u5708\u90FD\u6070\u597D\u8DD1 n \u6B21\u3001\u7522\u751F\u76F8\u540C\u7684 sum\uFF0C\u56E0\u6B64\u9019\u7A2E\u6E2C\u8A66\u6BBA\u4E0D\u6B7B\u5B83\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\uFF0C\u56E0\u70BA i != n \u53EF\u80FD\u6703\u8DF3\u904E\u6700\u5F8C\u4E00\u500B\u5143\u7D20",
+                "fraction": 0,
+                "feedback": "\u4E26\u4E0D\u6703\uFF1Ai \u53D6 0,1,\u2026,n-1 \u7136\u5F8C\u7B49\u65BC n\uFF0C\u8207 i<n \u5728\u540C\u4E00\u6642\u9EDE\u7D50\u675F\u8FF4\u5708\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\uFF0C\u56E0\u70BA\u8FF4\u5708\u6C38\u9060\u4E0D\u6703\u7D42\u6B62",
+                "fraction": 0,
+                "feedback": "\u7531\u65BC i \u5F9E 0 \u6BCF\u6B21\u52A0 1 \u4E14 n\u22650\uFF0Ci \u7D42\u7A76\u6703\u7B49\u65BC n\uFF0C\u8FF4\u5708\u6703\u7D42\u6B62\u3002"
+              }
+            ],
+            "generalFeedback": '\u7531\u65BC i \u5F9E 0 \u958B\u59CB\u6BCF\u6B21\u52A0 1\uFF0C\u5B83\u6703\u6070\u597D\u78B0\u5230 n\uFF1B\u5C0D\u4EFB\u4F55 n\u22650\uFF0C"i!=n" \u8207 "i<n" \u90FD\u5728\u540C\u4E00\u6B21\u8FED\u4EE3\u8B8A\u70BA\u5047\u3002\u5169\u8005\u5728\u6BCF\u500B\u53EF\u5230\u9054\u8F38\u5165\u4E0A\u884C\u70BA\u76F8\u540C\uFF0C\u56E0\u6B64\u9019\u662F\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002\uFF08\u53EA\u6709\u5728 n \u53EF\u80FD\u70BA\u8CA0\u6642\u624D\u6703\u4E0D\u540C\u2014\u2014\u4F46\u9577\u5EA6\u4E0D\u53EF\u80FD\u70BA\u8CA0\u3002\uFF09',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RIP\uFF1A\u50B3\u64AD\u5931\u6557",
+            "text": "<p>\u8003\u616E <code>int y = x * 2; return (y &gt; 0) ? 1 : 0;</code>\uFF0C\u7D93 <strong>* &#8594; +</strong> \u7A81\u8B8A\u70BA <code>int y = x + 2; ...</code>\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>x = 5</code>\uFF0C\u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u6709\u57F7\u884C\u4E14 y \u4E0D\u540C\uFF0810 \u5C0D 7\uFF09\uFF0C\u4F46\u5169\u8005\u90FD\u56DE\u50B3 1\u3002\u6B64\u6E2C\u8A66\u4E2D\u54EA\u500B RIP \u689D\u4EF6\u5931\u6557\u4E86\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u50B3\u64AD\uFF08Propagation\uFF09\u2014\u2014\u88AB\u611F\u67D3\u7684\u72C0\u614B\uFF08y\uFF09\u4E26\u672A\u6539\u8B8A\u53EF\u89C0\u5BDF\u7684\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014y \u5DF2\u88AB\u611F\u67D3\uFF0810 \u5C0D 7\uFF09\uFF0C\u4F46\u7531\u65BC\u5169\u8005\u7686 > 0\uFF0C\u8F38\u51FA\u7DAD\u6301 1\uFF0C\u6545\u611F\u67D3\u672A\u50B3\u64AD\u3002"
+              },
+              {
+                "text": "\u53EF\u5230\u9054\u6027\uFF08Reachability\uFF09\u2014\u2014\u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u5F9E\u672A\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u6709\u57F7\u884C\uFF1By \u5DF2\u88AB\u8A08\u7B97\uFF0C\u6545\u53EF\u5230\u9054\u6027\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u611F\u67D3\uFF08Infection\uFF09\u2014\u2014\u72C0\u614B\u5F9E\u672A\u88AB\u7834\u58DE",
+                "fraction": 0,
+                "feedback": "\u611F\u67D3\u78BA\u6709\u767C\u751F\uFF1Ay \u5728\u539F\u59CB\u7A0B\u5F0F\u70BA 10\uFF0C\u5728\u7A81\u8B8A\u9AD4\u70BA 7\u3002"
+              },
+              {
+                "text": "\u6B64\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E26\u975E\u7B49\u50F9\u2014\u2014x=-1 \u6216 x=0 \u6703\u4F7F\u8F38\u51FA\u4E0D\u540C\uFF080 \u5C0D 1\uFF09\u800C\u6BBA\u6B7B\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 x=5 \u6642\uFF0C\u53EF\u5230\u9054\u6027\u8207\u611F\u67D3\u7686\u6210\u7ACB\uFF08y = 10 \u5C0D 7\uFF09\uFF0C\u4F46\u5169\u500B\u503C\u90FD\u70BA\u6B63\uFF0C\u6545\u4E09\u5143\u904B\u7B97\u5F0F\u5728\u5169\u7248\u672C\u90FD\u56DE\u50B3 1\u2014\u2014\u5DEE\u7570\u672A\u50B3\u64AD\u5230\u8F38\u51FA\u3002\u50CF x=0\uFF080 \u5C0D 2\uFF0C\u8F38\u51FA 0 \u5C0D 1\uFF09\u9019\u6A23\u7684\u6E2C\u8A66\u5C31\u6703\u50B3\u64AD\u4E26\u6BBA\u6B7B\u6B64\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F31\u7A81\u8B8A\u5C0D\u5F37\u7A81\u8B8A\uFF1A\u5340\u5206\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u8003\u616E <code>int t = x + 1; return t * 0;</code>\uFF0C\u7D93 <strong>+ &#8594; -</strong> \u7A81\u8B8A\u70BA <code>int t = x - 1; return t * 0;</code>\u3002\u5F31\u7A81\u8B8A\u8207\u5F37\u7A81\u8B8A\u5982\u4F55\u5206\u985E\u6B64\u7A81\u8B8A\u9AD4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5F31\u7A81\u8B8A\u4E0B\u53EF\u88AB\u6BBA\u6B7B\uFF08t \u88AB\u611F\u67D3\uFF09\uFF0C\u4F46\u5728\u5F37\u7A81\u8B8A\u4E0B\u70BA\u7B49\u50F9\uFF08\u8F38\u51FA\u6046\u70BA 0\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014t \u5728\u88AB\u7A81\u8B8A\u6558\u8FF0\u5F8C\u7ACB\u5373\u4E0D\u540C\uFF0C\u4F46 t * 0 \u5C0D\u6BCF\u500B x \u90FD\u662F 0\uFF0C\u56E0\u6B64\u6C38\u9060\u6C92\u6709\u8F38\u51FA\u5DEE\u7570\u50B3\u64AD\u51FA\u53BB\u3002"
+              },
+              {
+                "text": "\u5728\u5F31\u7A81\u8B8A\u8207\u5F37\u7A81\u8B8A\u4E0B\u90FD\u53EF\u88AB\u6BBA\u6B7B",
+                "fraction": 0,
+                "feedback": "\u5F37\u7A81\u8B8A\u6BD4\u8F03\u8F38\u51FA\uFF0C\u800C\u8F38\u51FA\u6046\u70BA 0\uFF0C\u56E0\u6B64\u7121\u6CD5\u5728\u5F37\u7A81\u8B8A\u4E0B\u88AB\u6BBA\u6B7B\u3002"
+              },
+              {
+                "text": "\u5728\u5F31\u7A81\u8B8A\u8207\u5F37\u7A81\u8B8A\u4E0B\u90FD\u662F\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u5F31\u7A81\u8B8A\u6BD4\u8F03 t \u8655\u7684\u72C0\u614B\uFF0C\u800C\u5B83\u78BA\u5BE6\u4E0D\u540C\uFF08x+1 \u5C0D x-1\uFF09\uFF0C\u56E0\u6B64\u5728\u5F31\u7A81\u8B8A\u4E0B\u53EF\u88AB\u6BBA\u6B7B\u3002"
+              },
+              {
+                "text": "\u5728\u5F37\u7A81\u8B8A\u4E0B\u53EF\u88AB\u6BBA\u6B7B\uFF0C\u4F46\u5728\u5F31\u7A81\u8B8A\u4E0B\u70BA\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u9019\u8AAA\u53CD\u4E86\uFF1A\u611F\u67D3\u767C\u751F\u5728 t\uFF08\u5F31\u7A81\u8B8A\u6BBA\u6B7B\uFF09\uFF0C\u4F46\u8F38\u51FA\u6C38\u4E0D\u6539\u8B8A\uFF08\u5F37\u7A81\u8B8A\u7B49\u50F9\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F31\u7A81\u8B8A\u6AA2\u67E5\u88AB\u7A81\u8B8A\u5143\u4EF6\u57F7\u884C\u5F8C\u7684\u72C0\u614B\uFF1At \u70BA x+1 \u5C0D x-1\uFF0C\u56E0\u6B64\u5DF2\u88AB\u611F\u67D3\u3001\u53EF\u5728\u5F31\u7A81\u8B8A\u4E0B\u88AB\u6BBA\u6B7B\u3002\u5F37\u7A81\u8B8A\u6AA2\u67E5\u8F38\u51FA\uFF1At * 0 \u5C0D\u6BCF\u500B x \u90FD\u662F 0\uFF0C\u6545\u6C92\u6709\u6E2C\u8A66\u80FD\u7522\u751F\u8F38\u51FA\u5DEE\u7570\u2014\u2014\u5728\u5F37\u7A81\u8B8A\u4E0B\u6B64\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\u7684\u3002\u540C\u4E00\u500B\u7A81\u8B8A\u9AD4\u53EF\u4EE5\u5728\u5F31\u7A81\u8B8A\u4E0B\u88AB\u300C\u6BBA\u6B7B\u300D\uFF0C\u537B\u5728\u5F37\u7A81\u8B8A\u4E0B\u7B49\u50F9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PIE \u6A21\u578B",
+            "text": "<p>PIE\uFF08Propagation, Infection, Execution\uFF09\u6A21\u578B\u8207 RIP \u6A21\u578B\u7684\u95DC\u4FC2\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u8005\u63CF\u8FF0\u76F8\u540C\u7684\u4E09\u500B\u689D\u4EF6\u2014\u2014\u57F7\u884C\uFF0F\u53EF\u5230\u9054\u3001\u611F\u67D3\u8207\u50B3\u64AD\u90FD\u5FC5\u9808\u6210\u7ACB\u624D\u80FD\u986F\u9732\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014PIE \u8207 RIP \u547D\u540D\u7684\u662F\u540C\u4E00\u7D44\u8B93\u932F\u8AA4\u88AB\u89C0\u5BDF\u5230\u7684\u5FC5\u8981\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "PIE \u6BD4 RIP \u591A\u4E86\u4E00\u500B RIP \u6C92\u6709\u7684\u7B2C\u56DB\u500B\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u6A21\u578B\u4F7F\u7528\u76F8\u540C\u7684\u4E09\u500B\u689D\u4EF6\uFF1B\u53EA\u662F\u547D\u540D\uFF0F\u9806\u5E8F\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "PIE \u53EA\u9069\u7528\u65BC\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "PIE \u63CF\u8FF0\u7684\u662F\u4EFB\u4F55\u932F\u8AA4\u4F55\u6642\u88AB\u986F\u9732\uFF0C\u4E26\u975E\u5C08\u6307\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "PIE \u4EE5\u4E00\u500B\u8AED\u793A\u5F37\u5EA6\u689D\u4EF6\u53D6\u4EE3\u50B3\u64AD",
+                "fraction": 0,
+                "feedback": "\u50B3\u64AD\u4ECD\u88AB\u4FDD\u7559\uFF1BPIE \u53EA\u662F\u628A RIP \u7684\u300C\u53EF\u5230\u9054\u300D\u6539\u7A31\u70BA\u300C\u57F7\u884C\u300D\u3002"
+              }
+            ],
+            "generalFeedback": "PIE\uFF08\u50B3\u64AD\u2013\u611F\u67D3\u2013\u57F7\u884C\uFF09\u8207 RIP\uFF08\u53EF\u5230\u9054\u2013\u611F\u67D3\u2013\u50B3\u64AD\uFF09\u662F\u540C\u4E00\u500B\u6982\u5FF5\uFF1A\u932F\u8AA4\u4F4D\u7F6E\u5FC5\u9808\u88AB\u57F7\u884C\uFF0F\u5230\u9054\u3001\u5FC5\u9808\u611F\u67D3\u72C0\u614B\uFF0C\u4E14\u8A72\u611F\u67D3\u5FC5\u9808\u50B3\u64AD\u5230\u53EF\u89C0\u5BDF\u7684\u8F38\u51FA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A81\u8B8A\u5305\u542B\u8986\u84CB\u6E96\u5247",
+            "text": "<p>\u82E5\u67D0\u6E2C\u8A66\u96C6\u80FD\u6BBA\u6B7B\u67D0\u7A0B\u5F0F\u4E0A\u7531\u6558\u8FF0\u522A\u9664\uFF08SDL\uFF09\u904B\u7B97\u5B50\u6240\u7522\u751F\u7684\u6BCF\u4E00\u500B\u7A81\u8B8A\u9AD4\uFF0C\u90A3\u9EBC\u8A72\u6E2C\u8A66\u96C6\u81F3\u5C11\u5FC5\u9808\u6EFF\u8DB3\u54EA\u500B\u7D50\u69CB\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6558\u8FF0\uFF08\u7BC0\u9EDE\uFF09\u8986\u84CB\u2014\u2014\u6BCF\u500B\u6558\u8FF0\u90FD\u5FC5\u9808\u88AB\u57F7\u884C\uFF0C\u56E0\u70BA\u522A\u9664\u5B83\u6703\u88AB\u5075\u6E2C\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u522A\u9664\u53EA\u6709\u5728\u6558\u8FF0\u57F7\u884C\u6642\u624D\u53EF\u80FD\u88AB\u5075\u6E2C\uFF0C\u56E0\u6B64\u6BCF\u500B\u6558\u8FF0\u90FD\u88AB\u8986\u84CB\uFF08\u4E14\u5176\u4F5C\u7528\u88AB\u89C0\u5BDF\u5230\uFF09\u3002"
+              },
+              {
+                "text": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6B7B SDL \u7A81\u8B8A\u9AD4\u4E0D\u9700\u8D70\u904D\u6BCF\u689D\u8DEF\u5F91\uFF1B\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u5F37\u5F97\u591A\u3002"
+              },
+              {
+                "text": "\u6240\u6709 DU \u8DEF\u5F91\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "SDL \u95DC\u4E4E\u57F7\u884C\u6558\u8FF0\uFF0C\u800C\u975E\u8D70\u904D\u6BCF\u689D\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4E0D\u860A\u542B\u4EFB\u4F55\u8986\u84CB\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u8981\u5075\u6E2C\u4E00\u500B\u6558\u8FF0\u88AB\u522A\u9664\uFF0C\u5FC5\u7136\u9700\u8981\u57F7\u884C\u8A72\u6558\u8FF0\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u6BBA\u6B7B\u4E00\u500B\u6558\u8FF0\u522A\u9664\u7A81\u8B8A\u9AD4\uFF0C\u6E2C\u8A66\u5FC5\u9808\u57F7\u884C\u8A72\u6558\u8FF0\uFF08\u5426\u5247\u522A\u9664\u4E0D\u53EF\u898B\uFF09\u4E26\u89C0\u5BDF\u5176\u4F5C\u7528\u3002\u6BBA\u6B7B\u6240\u6709\u9019\u985E\u7A81\u8B8A\u9AD4\u56E0\u800C\u81F3\u5C11\u860A\u542B\u6558\u8FF0\u8986\u84CB\u2014\u2014\u9019\u662F\u7A81\u8B8A\u9069\u5207\u6027\u5305\u542B\u7D50\u69CB\u8986\u84CB\u7684\u4E00\u7A2E\u9AD4\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u652F\u914D\uFF08\u6700\u5C0F\uFF09\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u5728\u6700\u5C0F\uFF0F\u652F\u914D\u7A81\u8B8A\u9AD4\uFF08minimal/dominator mutants\uFF09\u7684\u7406\u8AD6\u4E2D\uFF0C\u7A81\u8B8A\u9AD4 M1 <em>\u652F\u914D\uFF08dominates\uFF09</em> M2\uFF08\u5C31\u67D0\u7A0B\u5F0F\u800C\u8A00\uFF09\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u6BBA\u6B7B M1 \u7684\u6E2C\u8A66\u4E5F\u90FD\u6703\u6BBA\u6B7B M2\uFF0C\u56E0\u6B64\u6DB5\u84CB M1 \u5C31\u4F7F M2 \u8B8A\u5F97\u591A\u9918",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u65E6\u652F\u914D\u8005\u88AB\u6BBA\u6B7B\uFF0C\u88AB\u652F\u914D\u7684\u7A81\u8B8A\u9AD4\u4FBF\u4E0D\u518D\u5E36\u4F86\u65B0\u7684\u6E2C\u8A66\u9700\u6C42\u3002"
+              },
+              {
+                "text": "M1 \u8207 M2 \u53EA\u7531\u5B8C\u5168\u76F8\u540C\u7684\u55AE\u4E00\u6E2C\u8A66\u6BBA\u6B7B",
+                "fraction": 0,
+                "feedback": "\u652F\u914D\u95DC\u4E4E\u6BBA\u6B7B\u6E2C\u8A66\u96C6\u5408\u7684\u5305\u542B\u95DC\u4FC2\uFF0C\u800C\u975E\u67D0\u500B\u552F\u4E00\u5171\u4EAB\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "M1 \u662F\u7B49\u50F9\u7684\u800C M2 \u4E0D\u662F",
+                "fraction": 0,
+                "feedback": "\u652F\u914D\u8A0E\u8AD6\u7684\u662F\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u4E4B\u9593\u6BBA\u6B7B\u6E2C\u8A66\u96C6\u7684\u95DC\u4FC2\uFF0C\u800C\u975E\u7B49\u50F9\u6027\u3002"
+              },
+              {
+                "text": "M1 \u88AB\u7A81\u8B8A\u7684\u6558\u8FF0\u6BD4 M2 \u591A",
+                "fraction": 0,
+                "feedback": "\u652F\u914D\u95DC\u4E4E\u54EA\u4E9B\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83\u5011\uFF0C\u800C\u975E\u5404\u81EA\u542B\u6709\u591A\u5C11\u8B8A\u66F4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6700\u5C0F\uFF08\u652F\u914D\uFF09\u7A81\u8B8A\u9AD4\u96C6\u53EA\u4FDD\u7559\u672A\u88AB\u652F\u914D\u7684\u7A81\u8B8A\u9AD4\uFF1A\u82E5\u6BBA\u6B7B M1 \u7684\u6E2C\u8A66\u96C6\u662F\u6BBA\u6B7B M2 \u7684\u6E2C\u8A66\u96C6\u7684\u5B50\u96C6\uFF0C\u5247 M1 \u652F\u914D M2\uFF0C\u4F7F M2 \u8B8A\u5F97\u591A\u9918\u3002\u4EE5\u652F\u914D\u96C6\u4F86\u8A08\u7B97\u7A81\u8B8A\u5206\u6578\uFF0C\u53EF\u907F\u514D\u5927\u91CF\u7C21\u55AE\u3001\u591A\u9918\u7684\u7A81\u8B8A\u9AD4\u9020\u6210\u5206\u6578\u81A8\u8139\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u9664\u7B49\u50F9\u5F8C\u7684\u5206\u6578",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u6709 40 \u500B\u7A81\u8B8A\u9AD4\u3002\u5957\u4EF6\u6BBA\u6B7B\u4E86 18 \u500B\uFF1B\u5728 22 \u500B\u5B58\u6D3B\u8005\u4E2D\uFF0C\u5F8C\u4F86\u78BA\u8A8D\u6709 4 \u500B\u70BA\u7B49\u50F9\u3002\u7A81\u8B8A\u5206\u6578\uFF08\u6392\u9664\u7B49\u50F9\uFF09\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201418 / (40 &#8722; 4) = 18/36 = 0.5\u3002"
+              },
+              {
+                "text": "45%",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 18/40\u2014\u2014\u932F\u628A\u90A3 4 \u500B\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7576\u4F5C\u53EF\u6BBA\u6B7B\u7684\u5929\u771F\u5206\u6578\u3002"
+              },
+              {
+                "text": "41%",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 18/(40+4)\u2014\u2014\u7B49\u50F9\u7A81\u8B8A\u9AD4\u61C9\u8A72\u6E1B\u53BB\uFF0C\u800C\u4E0D\u662F\u52A0\u4E0A\u3002"
+              },
+              {
+                "text": "55%",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5B58\u6D3B\u8005\u6BD4\u4F8B 22/40\uFF0C\u4E0D\u662F\u7A81\u8B8A\u5206\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6392\u9664\u7B49\u50F9\u5F8C\uFF0C\u7A81\u8B8A\u5206\u6578 = \u88AB\u6BBA\u6B7B\u6578 / (\u7E3D\u6578 &#8722; \u7B49\u50F9\u6578) = 18 / (40 &#8722; 4) = 18/36 = 50%\u3002\u78BA\u8A8D\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6703\u8B93\u5206\u6578\u5F9E\u5929\u771F\u7684 45% \u4E0A\u5347\uFF0C\u56E0\u70BA\u4E0D\u53EF\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u96E2\u958B\u4E86\u5206\u6BCD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9AD8\u968E\u7A81\u8B8A\u9AD4",
+            "text": "<p><em>\u9AD8\u968E\u7A81\u8B8A\u9AD4\uFF08higher-order mutant\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u540C\u6642\u5957\u7528\u4E86\u5169\u500B\u6216\u66F4\u591A\u7A81\u8B8A\u904B\u7B97\u5B50\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u968E\u7A81\u8B8A\u9AD4\u53EA\u6709\u4E00\u500B\u8B8A\u66F4\uFF1B\u9AD8\u968E\u7A81\u8B8A\u9AD4\u7D50\u5408\u4E86\u6578\u500B\u3002"
+              },
+              {
+                "text": "\u7531\u8F03\u9AD8\u512A\u5148\u6B0A\u7684\u904B\u7B97\u5B50\u6240\u7522\u751F\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u300C\u968E\u300D\u6307\u7684\u662F\u690D\u5165\u8B8A\u66F4\u7684\u6578\u91CF\uFF0C\u800C\u975E\u904B\u7B97\u5B50\u7684\u512A\u5148\u6B0A\u3002"
+              },
+              {
+                "text": "\u4E00\u5B9A\u8207\u539F\u59CB\u7A0B\u5F0F\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u9AD8\u968E\u7A81\u8B8A\u9AD4\u901A\u5E38\u975E\u7B49\u50F9\uFF1B\u6709\u4E9B\u662F\u300C\u96E3\u4EE5\u5BDF\u89BA\u300D\u7684\uFF0C\u4F46\u4E26\u975E\u4F9D\u5B9A\u7FA9\u5C31\u662F\u7B49\u50F9\u3002"
+              },
+              {
+                "text": "\u53EA\u80FD\u88AB\u9AD8\u968E\u6E2C\u8A66\u6848\u4F8B\u6BBA\u6B7B",
+                "fraction": 0,
+                "feedback": "\u4E26\u6C92\u6709\u6240\u8B02\u9AD8\u968E\u6E2C\u8A66\u6848\u4F8B\uFF1B\u4E00\u822C\u6E2C\u8A66\u5C31\u80FD\u6BBA\u6B7B\u5B83\u5011\u3002"
+              }
+            ],
+            "generalFeedback": "\u9AD8\u968E\u7A81\u8B8A\u9AD4\u4E00\u6B21\u5957\u7528\u5169\u500B\u6216\u66F4\u591A\u8B8A\u66F4\u3002\u6709\u4E9B\u6703\u7D50\u5408\u6210\u6BD4\u5176\u7D44\u6210\u7684\u4E00\u968E\u7A81\u8B8A\u9AD4\u66F4\u96E3\u6BBA\u6B7B\u7684\u300C\u96E3\u4EE5\u5BDF\u89BA\u300D\u932F\u8AA4\uFF0C\u9019\u6B63\u662F\u5118\u7BA1\u6709\u8026\u5408\u6548\u61C9\uFF0C\u4ECD\u8981\u7814\u7A76\u9AD8\u968E\u7A81\u8B8A\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5075\u6E2C\u4E0D\u53EF\u5224\u5B9A",
+            "text": "<p>\u5224\u5B9A\u4EFB\u610F\u4E00\u500B\u7A81\u8B8A\u9AD4\u662F\u5426\u8207\u539F\u59CB\u7A0B\u5F0F\u7B49\u50F9\uFF0C\u4E00\u822C\u800C\u8A00\u662F\u4E0D\u53EF\u5224\u5B9A\uFF08undecidable\uFF09\u7684\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5224\u5B9A\u5169\u7A0B\u5F0F\u7684\u51FD\u5F0F\u7B49\u50F9\u6027\u53EF\u7531\u4E0D\u53EF\u5224\u5B9A\u554F\u984C\u6B78\u7D04\u800C\u4F86\uFF0C\u56E0\u6B64\u4E00\u822C\u6C92\u6709\u6F14\u7B97\u6CD5\u80FD\u89E3\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4EFB\u610F\u7A0B\u5F0F\u7684\u7B49\u50F9\u6027\u662F\u4E0D\u53EF\u5224\u5B9A\u7684\uFF1B\u9019\u6B63\u662F\u7B49\u50F9\u7A81\u8B8A\u9AD4\u901A\u5E38\u9808\u4EE5\u4EBA\u5DE5\u5224\u65B7\u6216\u555F\u767C\u5F0F\u8FD1\u4F3C\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5075\u6E2C\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7B49\u65BC\u5224\u5B9A\u5169\u500B\u7A0B\u5F0F\u662F\u5426\u8A08\u7B97\u76F8\u540C\u51FD\u5F0F\uFF0C\u4E00\u822C\u800C\u8A00\u662F\u4E0D\u53EF\u5224\u5B9A\u7684\u3002\u5BE6\u52D9\u4E0A\u5718\u968A\u4F7F\u7528\u555F\u767C\u5F0F\uFF08\u5982\u7DE8\u8B6F\u5668\u6700\u4F73\u5316\u6216\u7D04\u675F\u5F0F\u6AA2\u67E5\uFF09\u8207\u4EBA\u5DE5\u5206\u6790\uFF0C\u800C\u7B49\u50F9\u7A81\u8B8A\u9AD4\u554F\u984C\u662F\u7A81\u8B8A\u6E2C\u8A66\u7684\u4E00\u5927\u6210\u672C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A6E\u91CB\u6EFF\u5206",
+            "text": "<p>\u67D0\u5957\u4EF6\u6BBA\u6B7B\u4E86 100% \u7684\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002\u54EA\u500B\u7D50\u8AD6\u662F\u7AD9\u5F97\u4F4F\u8173\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u6B64\u904B\u7B97\u5B50\u96C6\u800C\u8A00\u5957\u4EF6\u662F\u9069\u5207\u7684\uFF0C\u4F46\u7A0B\u5F0F\u4ECD\u53EF\u80FD\u542B\u6709\u6C92\u6709\u4EFB\u4F55\u904B\u7B97\u5B50\u6A21\u64EC\u5230\u7684\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u9069\u5207\u6027\u662F\u76F8\u5C0D\u65BC\u6240\u7522\u751F\u7684\u7A81\u8B8A\u9AD4\uFF0C\u800C\u975E\u6B63\u78BA\u6027\u7684\u8B49\u660E\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u5DF2\u88AB\u8B49\u660E\u6C92\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u6E2C\u8A66\u4EE5\u6CE8\u5165\u7684\u932F\u8AA4\u4F86\u8A55\u4F30\u6E2C\u8A66\uFF0C\u7121\u6CD5\u8B49\u660E\u6574\u9AD4\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u53EF\u80FD\u7684\u7A81\u8B8A\u9AD4\uFF08\u5305\u542B\u9AD8\u968E\u8005\uFF09\u90FD\u88AB\u6BBA\u6B7B\u4E86",
+                "fraction": 0,
+                "feedback": "\u4E00\u968E\u7684 100% \u5206\u6578\u5C0D\u672A\u6E2C\u8A66\u7684\u9AD8\u968E\u7A81\u8B8A\u9AD4\u4E0D\u80FD\u63D0\u4F9B\u4EFB\u4F55\u78BA\u5B9A\u7D50\u8AD6\u3002"
+              },
+              {
+                "text": "\u5957\u4EF6\u4E5F\u5FC5\u5B9A\u6709 100% \u7684\u8DEF\u5F91\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u9AD8\u7A81\u8B8A\u5206\u6578\u8207\u8986\u84CB\u76F8\u95DC\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u5B8C\u6574\u7684\u8DEF\u5F91\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6EFF\u5206\u7684\u7A81\u8B8A\u5206\u6578\u8868\u793A\u6E2C\u8A66\u80FD\u5075\u6E2C\u6240\u9078\u904B\u7B97\u5B50\u6240\u80FD\u690D\u5165\u7684\u6BCF\u500B\u932F\u8AA4\u2014\u2014\u662F\u5F88\u5F37\u7684\u9069\u5207\u6027\u8B49\u64DA\uFF0C\u4F46\u904B\u7B97\u5B50\u96C6\u4E4B\u5916\uFF08\u6216\u898F\u683C\u4E2D\uFF09\u7684\u932F\u8AA4\u4ECD\u53EF\u80FD\u6B98\u7559\u3002\u7A81\u8B8A\u9069\u5207\u6027\u6C38\u9060\u662F\u76F8\u5C0D\u65BC\u6240\u4F7F\u7528\u7684\u904B\u7B97\u5B50\u800C\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B58\u6D3B\uFF1A\u6B63\u8CA0\u865F\u5206\u985E\u65BC x = -3",
+            "text": '<p>\u8003\u616E <code>if (x &gt; 0) return "positive"; else return "non-positive";</code>\uFF0C\u7A81\u8B8A\u9AD4\u70BA <code>if (x &gt;= 0) ...</code>\uFF08\u904B\u7B97\u5B50 <strong>&gt; &#8594; &gt;=</strong>\uFF09\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>x = -3</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>',
+            "answers": [
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 100,
+                "feedback": '\u6B63\u78BA\u2014\u2014\u5728 x=-3 \u6642 "x>0" \u8207 "x>=0" \u90FD\u70BA\u5047\uFF0C\u56E0\u6B64\u90FD\u56DE\u50B3 "non-positive"\uFF1B\u53EA\u6709 x=0 \u624D\u986F\u9732\u5DEE\u7570\u3002'
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 0,
+                "feedback": '\u5728 x=-3 \u6642\u5169\u500B\u689D\u4EF6\u90FD\u70BA\u5047\uFF0C\u56E0\u6B64\u5169\u7248\u672C\u90FD\u56DE\u50B3 "non-positive"\u2014\u2014\u6C92\u6709\u5DEE\u7570\u3002'
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1Ax=0 \u80FD\u6BBA\u6B7B\u5B83\uFF1B\u6B64\u6E2C\u8A66\u53EA\u662F\u6F0F\u6389\u3002"
+              }
+            ],
+            "generalFeedback": '\u5728 x=-3 \u6642\uFF0C"x>0" \u8207 "x>=0" \u90FD\u70BA\u5047\uFF0C\u56E0\u6B64\u5169\u7248\u672C\u90FD\u56DE\u50B3 "non-positive"\uFF0C\u7A81\u8B8A\u9AD4\u5728\u6B64\u6E2C\u8A66\u4E0B\u5B58\u6D3B\u3002\u552F\u4E00\u80FD\u6BBA\u6B7B\u5B83\u7684\u8F38\u5165\u662F x=0\uFF0C\u56E0\u6B64\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\u2014\u2014\u63D0\u9192\u6211\u5011\u5230\u9054\u908A\u754C\u5F88\u91CD\u8981\u3002',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B58\u6D3B\uFF1A&& \u6539\u70BA || \u4E14\u5169\u904B\u7B97\u5143\u7686\u70BA\u5047",
+            "text": "<p>\u8003\u616E <code>return (age &gt;= 18) &amp;&amp; citizen;</code>\uFF0C\u7A81\u8B8A\u9AD4\u70BA <code>return (age &gt;= 18) || citizen;</code>\uFF08\u904B\u7B97\u5B50 <strong>&amp;&amp; &#8594; ||</strong>\uFF09\u3002\u5C0D\u6E2C\u8A66\u8F38\u5165 <code>age = 10, citizen = false</code>\uFF0C\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B58\u6D3B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u4E0D\u5230\uFF0C\u4F46\u5176\u4ED6\u8F38\u5165\u53EF\u4EE5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u904B\u7B97\u5143\u90FD\u70BA\u5047\uFF0C\u56E0\u6B64 AND \u8207 OR \u90FD\u5F97 false\uFF1B\u7A81\u8B8A\u9AD4\u5728\u6B64\u6E2C\u8A66\u4E0B\u5B58\u6D3B\u3002"
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6B64\u6E2C\u8A66\u5075\u6E2C\u5230\u7A81\u8B8A\u9AD4\uFF08\u5176\u8F38\u51FA\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\uFF09",
+                "fraction": 0,
+                "feedback": "false && false \u8207 false || false \u90FD\u662F false\uFF0C\u56E0\u6B64\u6B64\u8655\u8F38\u51FA\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u80FD\u5075\u6E2C\u5230\u6B64\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6B64\u7A81\u8B8A\u9AD4\u975E\u7B49\u50F9\uFF1A\u4F8B\u5982 age=30\u3001citizen=false\uFF08\u904B\u7B97\u5143\u771F\u503C\u4E0D\u540C\uFF09\u5C31\u80FD\u6BBA\u6B7B\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576 age=10\uFF08age>=18 \u70BA\u5047\uFF09\u4E14 citizen=false \u6642\uFF0C\u539F\u59CB\u7A0B\u5F0F\u8A08\u7B97 false && false = false\uFF0C\u7A81\u8B8A\u9AD4\u8A08\u7B97 false || false = false\u2014\u2014\u5B8C\u5168\u76F8\u540C\uFF0C\u6545\u5B83\u5B58\u6D3B\u3002&& \u8207 || \u6070\u5728\u5169\u904B\u7B97\u5143\u771F\u503C\u76F8\u540C\u6642\u4E00\u81F4\uFF1B\u904B\u7B97\u5143\u771F\u503C\u4E0D\u540C\u7684\u8F38\u5165\u5C31\u80FD\u6BBA\u6B7B\u9019\u500B\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
           }
         ]
       }
