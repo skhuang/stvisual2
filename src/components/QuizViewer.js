@@ -58,10 +58,14 @@ function ensureRefs() {
     if (overlay && !overlay.hidden && e.key === 'Escape') close();
   });
   body.addEventListener('click', onBodyClick);
+  body.addEventListener('change', (e) => {
+    if (!st || st.phase !== 'start') return;
+    if (e.target?.name === 'qdiff') { st.difficulty = e.target.value; st.seed = null; renderStart(); }
+  });
   langToggle.addEventListener('click', () => {
     if (!st) return;
     st.lang = st.lang === 'zh' ? 'en' : 'zh';
-    const qs = deckFor(st.quizId, st.lang);
+    const qs = deckFor(st.quizId, st.lang, st.difficulty, st.seed);
     if (qs.length) st.questions = qs;
     langToggle.textContent = st.lang === 'zh' ? '中' : 'EN';
     rerender();
@@ -71,11 +75,10 @@ function ensureRefs() {
 function open(quizId) {
   ensureRefs();
   const lg = getLocale() === 'zh' ? 'zh' : 'en';
-  const qs = deckFor(quizId, lg);
-  if (!qs.length) return;
+  if (!has(quizId)) return;
   lastFocus = document.activeElement;
-  st = { quizId, id: null, status: null, lang: lg, mode: 'practice', questions: qs, idx: 0,
-    given: new Array(qs.length).fill(null), checked: new Array(qs.length).fill(false),
+  st = { quizId, id: null, status: null, lang: lg, mode: 'practice', difficulty: 'easy', seed: null,
+    questions: [], idx: 0, given: [], checked: [],
     startedAt: Date.now(), phase: 'start', readonly: false, result: null };
   titleEl.textContent = t('btn.quiz', 'Quiz');
   langToggle.textContent = st.lang === 'zh' ? '中' : 'EN';
@@ -109,9 +112,10 @@ function autosave() {
   const g = gradeAll();
   QuizAttempts.upsert(localStorage, st.quizId, {
     id: st.id, quizId: st.quizId, mode: st.mode, lang: st.lang, status: 'in-progress',
+    difficulty: st.difficulty, seed: st.seed,
     idx: st.idx, given: st.given, checked: st.checked, startedAt: st.startedAt,
     finishedAt: null, total: st.questions.length, correct: g.correct, perQuestion: g.per,
-  });
+  }, st.difficulty);
 }
 
 function rerender() {
@@ -132,19 +136,34 @@ function recentRow(a) {
   return `<li><button type="button" class="quiz-recent-row" data-act="resume" data-id="${a.id}" data-testid="quiz-recent-resume">${inner}</button></li>`;
 }
 
+function bucketCount(difficulty) {
+  const seed = difficulty === 'mixed' ? (st.seed ?? 0) : undefined;
+  return deckFor(st.quizId, st.lang, difficulty, seed).length;
+}
+
 function renderStart() {
-  const recent = QuizAttempts.recentFor(localStorage, st.quizId, 10);
+  const diffs = ['easy', 'medium', 'hard', 'mixed'];
+  const recent = QuizAttempts.recentFor(localStorage, st.quizId, 10, st.difficulty);
+  const legacy = QuizAttempts.recentFor(localStorage, st.quizId, 10); // old flat key
+  const count = deckFor(st.quizId, st.lang, st.difficulty, st.difficulty === 'mixed' ? 0 : undefined).length;
+  const ready = count >= 15 || (st.difficulty !== 'mixed' && count > 0);
   body.innerHTML =
     `<div class="quiz-start">
-      <p class="quiz-count">${st.questions.length} ${t('quiz.questions', 'questions')}</p>
+      <div class="quiz-diff" role="radiogroup" aria-label="${esc(t('quiz.difficulty', 'Difficulty'))}" data-testid="quiz-diff">
+        ${diffs.map((d) => `<label class="quiz-diff-opt"><input type="radio" name="qdiff" value="${d}"${st.difficulty === d ? ' checked' : ''}> ${esc(t('quiz.diff.' + d, d))}</label>`).join('')}
+      </div>
+      <p class="quiz-count">${count} ${t('quiz.questions', 'questions')}</p>
       <div class="quiz-mode" role="radiogroup" aria-label="${esc(t('quiz.mode', 'Mode'))}">
         <label class="quiz-mode-opt"><input type="radio" name="qmode" value="practice"${st.mode === 'practice' ? ' checked' : ''}> ${t('quiz.practice', 'Practice')}</label>
         <label class="quiz-mode-opt"><input type="radio" name="qmode" value="test"${st.mode === 'test' ? ' checked' : ''}> ${t('quiz.test', 'Test')}</label>
       </div>
-      <button type="button" class="btn primary" data-act="begin" data-testid="quiz-begin">${t('quiz.begin', 'Begin')}</button>
+      ${ready
+        ? `<button type="button" class="btn primary" data-act="begin" data-testid="quiz-begin">${t('quiz.begin', 'Begin')}</button>`
+        : `<p class="quiz-comingsoon" data-testid="quiz-comingsoon">${t('quiz.comingSoon', 'More questions coming soon for this set.')}</p>`}
       <div class="quiz-recent" data-testid="quiz-recent"><h4>${t('quiz.recent', 'Recent attempts')}</h4>
         ${recent.length ? `<ul>${recent.map(recentRow).join('')}</ul>` : `<p class="quiz-recent-empty">${t('quiz.recent.empty', 'No attempts yet')}</p>`}
       </div>
+      ${legacy.length ? `<div class="quiz-recent quiz-recent-legacy"><h4>${t('quiz.unclassified', 'Earlier attempts')}</h4><ul>${legacy.map(recentRow).join('')}</ul></div>` : ''}
     </div>`;
 }
 
@@ -212,10 +231,11 @@ function finish() {
   st.phase = 'summary';
   QuizAttempts.upsert(localStorage, st.quizId, {
     id: st.id || Date.now(), quizId: st.quizId, mode: st.mode, lang: st.lang,
-    status: 'completed', idx: st.idx, given: st.given, checked: st.checked,
+    status: 'completed', difficulty: st.difficulty, seed: st.seed,
+    idx: st.idx, given: st.given, checked: st.checked,
     startedAt: st.startedAt, finishedAt: Date.now(),
     total: st.questions.length, correct: g.correct, perQuestion: g.per,
-  });
+  }, st.difficulty);
   renderSummary();
 }
 
@@ -239,10 +259,11 @@ function renderSummary() {
 }
 
 function resume(a) {
-  const qs = deckFor(st.quizId, a.lang);
+  const qs = deckFor(st.quizId, a.lang, a.difficulty, a.seed);
   const given = a.given || [];
   if (!qs.length || given.length !== qs.length) return; // stale — ignore
   st = { quizId: st.quizId, id: a.id, status: 'in-progress', lang: a.lang, mode: a.mode,
+    difficulty: a.difficulty, seed: a.seed,
     questions: qs, idx: Math.min(a.idx || 0, qs.length - 1), given: [...given],
     checked: [...(a.checked || new Array(qs.length).fill(false))],
     startedAt: a.startedAt || Date.now(), phase: 'quiz', readonly: false, result: null };
@@ -251,8 +272,9 @@ function resume(a) {
 }
 
 function review(a) {
-  const qs = deckFor(st.quizId, a.lang);
+  const qs = deckFor(st.quizId, a.lang, a.difficulty, a.seed);
   st = { quizId: st.quizId, id: a.id, status: 'completed', lang: a.lang, mode: a.mode,
+    difficulty: a.difficulty, seed: a.seed,
     questions: qs, idx: 0, given: [...(a.given || [])], checked: [...(a.checked || [])],
     startedAt: a.startedAt, phase: 'summary', readonly: true,
     result: { total: a.total, correct: a.correct } };
@@ -261,8 +283,9 @@ function review(a) {
 }
 
 function findAttempt(id) {
-  return QuizAttempts.recentFor(localStorage, st.quizId, 10)
-    .find((a) => String(a.id) === String(id)) ?? null;
+  const scoped = QuizAttempts.recentFor(localStorage, st.quizId, 10, st.difficulty);
+  const legacy = QuizAttempts.recentFor(localStorage, st.quizId, 10);
+  return [...scoped, ...legacy].find((a) => String(a.id) === String(id)) ?? null;
 }
 
 function onBodyClick(e) {
@@ -273,7 +296,12 @@ function onBodyClick(e) {
   if (act === 'review') { const a = findAttempt(b.getAttribute('data-id')); if (a) review(a); return; }
   if (act === 'begin') {
     const m = body.querySelector('input[name="qmode"]:checked');
+    const d = body.querySelector('input[name="qdiff"]:checked');
     st.mode = m ? m.value : 'practice';
+    st.difficulty = d ? d.value : 'easy';
+    st.seed = st.difficulty === 'mixed' ? mixSeed() : null;
+    st.questions = deckFor(st.quizId, st.lang, st.difficulty, st.seed);
+    if (!st.questions.length) { renderStart(); return; }
     st.phase = 'quiz'; st.idx = 0;
     st.given = new Array(st.questions.length).fill(null);
     st.checked = new Array(st.questions.length).fill(false);
