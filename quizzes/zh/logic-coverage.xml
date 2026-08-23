@@ -7,12 +7,151 @@
     <name><text>述詞覆蓋</text></name>
     <questiontext format="html"><text><![CDATA[<p>述詞覆蓋（Predicate Coverage, PC）要求：</p>]]></text></questiontext>
     <single>true</single>
-    <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>程式中每個述詞（predicate）都至少各取一次 true 與 false</text><feedback><text>正確。</text></feedback></answer>
     <answer fraction="0"><text>述詞內的每個子句（clause）都至少各取一次 true 與 false</text><feedback><text>那是子句覆蓋（Clause Coverage, CC）。</text></feedback></answer>
     <answer fraction="0"><text>對每個述詞，涵蓋子句真值的所有組合</text><feedback><text>那是組合覆蓋（Combinatorial Coverage, CoC）。</text></feedback></answer>
     <answer fraction="0"><text>走過該述詞決策結構中的每一條路徑</text><feedback><text>這描述的是路徑覆蓋（Path Coverage），而非述詞覆蓋。</text></feedback></answer>
     <generalfeedback><text>述詞覆蓋（PC）僅要求整個述詞至少各出現一次 true 與 false，並未規範其內部子句的個別取值——更細緻的要求屬於子句覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂子句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在邏輯覆蓋中，<strong>子句（clause）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不含任何布林運算子的布林運算式</text><feedback><text>正確——子句是原子條件，例如 <code>x &gt; 0</code> 或一個布林變數。</text></feedback></answer>
+    <answer fraction="0"><text>任何以運算子組合而成的布林運算式</text><feedback><text>那是述詞；子句是不含布林運算子的原子單元。</text></feedback></answer>
+    <answer fraction="0"><text>原始碼中一個完整的 if 敘述</text><feedback><text>子句是一個條件，而非整個敘述。</text></feedback></answer>
+    <answer fraction="0"><text>用來測試某一分支的測試案例</text><feedback><text>那是測試，不是子句。</text></feedback></answer>
+    <generalfeedback><text>子句（condition）是不含布林運算子（&amp;&amp;、||、!）的布林運算式。以布林運算子連接子句便構成述詞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂述詞</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一個是由恰好三個子句構成的<strong>述詞</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[(a && b) || c]]></text><feedback><text>正確——子句為 a、b、c，並以布林運算子連接。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a > 0]]></text><feedback><text>那是單一子句，並非由三個子句構成的述詞。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a && b]]></text><feedback><text>該述詞只有兩個子句。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[x + y + z]]></text><feedback><text>那是算術運算式，不是布林述詞。</text></feedback></answer>
+    <generalfeedback><text>述詞是由子句以布林運算子連接而成的布林運算式。<code>(a &amp;&amp; b) || c</code> 含三個子句（a、b、c）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>子句覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>子句覆蓋（Clause Coverage, CC）要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個述詞中的每個子句都至少各取一次 true 與 false</text><feedback><text>正確——每個個別子句都必須取到兩種真值。</text></feedback></answer>
+    <answer fraction="0"><text>每個述詞都至少各取一次 true 與 false</text><feedback><text>那是述詞覆蓋（PC），針對的是整個述詞。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋子句取值的所有組合</text><feedback><text>那是組合覆蓋（CoC）。</text></feedback></answer>
+    <answer fraction="0"><text>每個子句至少決定其述詞一次</text><feedback><text>那是主動子句（ACC）的概念，比單純的子句覆蓋更強。</text></feedback></answer>
+    <generalfeedback><text>子句覆蓋要求每個子句至少各取一次 true 與 false，與其所在述詞的取值無關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合覆蓋的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞含有 3 個獨立子句。組合覆蓋（Combinatorial Coverage, CoC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——2^3 種 true/false 組合。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>這大致是子句覆蓋（每個子句翻轉一次）的規模，並非所有組合。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>太少了——4 個測試無法涵蓋全部 8 種真值組合。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 個測試仍不足以涵蓋完整的 2^3 = 8 種組合。</text></feedback></answer>
+    <generalfeedback><text>組合覆蓋要求涵蓋 n 個子句的每一種 2^n 真值組合（在可行的前提下）；當有 3 個獨立子句時即為 2^3 = 8 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合覆蓋（2 子句）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個含 2 個子句的述詞，其完整真值表有多少列（即組合覆蓋所要求的數量）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——2^2 = 4 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是述詞覆蓋或子句覆蓋的數量，並非所有組合。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>2^2 = 4，不是 3。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 是三個子句，不是兩個。</text></feedback></answer>
+    <generalfeedback><text>含 n 個子句的述詞有 2^n 列真值表；n = 2 時為 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合覆蓋（4 子句）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞含有 4 個獨立子句。組合覆蓋（CoC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>正確——2^4 = 16 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 是三個子句。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 = n+1 是 CACC／MC-DC 的最少測試數，而非 CoC。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是子句的數量，並非組合的數量。</text></feedback></answer>
+    <generalfeedback><text>組合覆蓋需要全部 2^n 列；n = 4 時為 2^4 = 16 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND b 的滿足列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 <code>a && b</code> 而言，4 種可能的指派中有多少種使其為 <strong>true</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——只有 a=T、b=T 能使邏輯與成立。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只有全 true 這一列能使 a &amp;&amp; b 成立。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是 a || b 的數量，而非 a &amp;&amp; b。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>只要任一子句為 false，邏輯與即為 false，故並非全部 4 列都成立。</text></feedback></answer>
+    <generalfeedback><text>邏輯與只有在每個子句都為 true 時才成立，因此 <code>a &amp;&amp; b</code> 的 4 列中恰有 1 列成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b 的滿足列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 <code>a || b</code> 而言，4 種可能的指派中有多少種使其為 <strong>true</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——只有 a=F、b=F 不成立，其餘 3 列皆成立。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 是 a &amp;&amp; b 的數量，而非 a || b。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>邏輯或只有在全 false 那一列才失敗，故 3 列成立。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>全 false 這一列（a=F、b=F）不使 a || b 成立。</text></feedback></answer>
+    <generalfeedback><text>邏輯或只有在每個子句都為 false 時才不成立，因此 <code>a || b</code> 的 4 列中有 3 列成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a AND b) OR c 的滿足列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對含 3 個子句的述詞 <code>(a && b) || c</code> 而言，8 種可能的指派中有多少種使其為 <strong>true</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——c=T 的 4 列，加上 a=T,b=T,c=F 這 1 列。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>c=T 的 4 列都成立，但 a=T,b=T,c=F 那一列也成立，共 5 列。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>重新計算——8 列中恰有 5 列為 true。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>太少了——光是 c=T 就已有 4 列為 true。</text></feedback></answer>
+    <generalfeedback><text>只要 c=T 述詞即為 true（4 列）；當 c=F 時需 a=T 且 b=T（再 1 列）。合計 8 列中 5 列成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b OR c 的滿足列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 <code>a || b || c</code> 而言，8 種可能的指派中有多少種使其為 <strong>true</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——只有全 false 那一列不成立，其餘 7 列皆成立。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>全 false 這一列 a=F,b=F,c=F 不使其成立。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>只有一列（全 false）失敗，故 7 列成立。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 會是邏輯與；三項邏輯或在 8 列中有 7 列成立。</text></feedback></answer>
+    <generalfeedback><text>三項邏輯或只有在唯一的全 false 列才不成立，因此 <code>a || b || c</code> 的 8 列中有 7 列成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>述詞覆蓋的最少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要對單一述詞滿足述詞覆蓋，最少需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——一個使述詞為 true、一個使其為 false。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>一個測試只能得到一種真值；PC 需要兩種。</text></feedback></answer>
+    <answer fraction="0"><text>n + 1（n 為子句數）</text><feedback><text>n+1 是 CACC／MC-DC 的最少數，而非述詞覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>2^n（n 為子句數）</text><feedback><text>2^n 是組合覆蓋，遠多於 PC 所需。</text></feedback></answer>
+    <generalfeedback><text>述詞覆蓋要求述詞各為 true 一次、false 一次——最少 2 個測試，與子句數無關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>子句覆蓋的最少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞含 3 個獨立子句。滿足子句覆蓋最少需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——一個全 true 測試與一個全 false 測試即可讓每個子句各取兩種值。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>不需要每個子句各一個測試；2 個測試即可一起翻轉所有子句。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>子句覆蓋要求每個子句取到兩種值，用 2 個測試即可達成。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 是組合覆蓋，而非子句覆蓋。</text></feedback></answer>
+    <generalfeedback><text>一個測試把所有子句設為 true、另一個全設為 false，即可讓每個子句各取兩種值；因此（對獨立子句）子句覆蓋僅需 2 個測試，與子句數無關。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>子句不含運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依定義，子句不含任何布林運算子（例如 &amp;&amp;、|| 或 !）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——子句是不含布林運算子的原子布林運算式。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>子句正是定義為不含布林運算子的布林運算式；加上運算子便成為述詞。</text></feedback></answer>
+    <generalfeedback><text>子句（condition）是不含布林運算子的布林運算式。以 &amp;&amp;／||／! 連接子句便產生述詞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND b AND c 的滿足列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 <code>a && b && c</code> 而言，8 種可能的指派中有多少種使其為 <strong>true</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——只有全 true 那一列能使三項邏輯與成立。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>邏輯與只有在每個子句都為 true 時才成立——僅 1 列。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是 a || b || c（邏輯或）的數量。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>全 true 那一列（a=T,b=T,c=T）確實使其成立。</text></feedback></answer>
+    <generalfeedback><text>邏輯與只有在所有子句皆為 true 時才成立，因此 <code>a &amp;&amp; b &amp;&amp; c</code> 的 8 列中恰有 1 列成立。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Coverage/medium</text></category>
   </question>
   <question type="multichoice">
     <name><text>子句的決定性</text></name>
@@ -30,19 +169,136 @@
     <single>true</single>
     <answer fraction="100"><text>RACC 額外要求：在使主要子句分別為 true／false 的那對測試中，其餘（次要）子句必須維持相同的值</text><feedback><text>正確——RACC 是 CACC 更嚴格的版本，要求「次要子句值相同」。</text></feedback></answer>
     <answer fraction="0"><text>RACC 取消了「主要子句必須決定述詞」的要求</text><feedback><text>那描述的是一般主動子句覆蓋（General Active Clause Coverage, GACC），而非 RACC。</text></feedback></answer>
-    <answer fraction="0"><text>RACC 只計算非主動子句，不計算主動子句</text><feedback><text>那描述的是非主動子句家族（GICC／CICC），而非 RACC。</text></feedback></answer>
+    <answer fraction="0"><text>RACC 只計算非主動子句，不計算主動子句</text><feedback><text>那描述的是非主動子句家族（GICC／RICC），而非 RACC。</text></feedback></answer>
     <answer fraction="0"><text>RACC 要求涵蓋所有子句值的組合</text><feedback><text>那是組合覆蓋（Combinatorial Coverage, CoC）。</text></feedback></answer>
     <generalfeedback><text>兩種準則都要求：對每個主要子句 ci，存在一對測試，使 ci 分別在 p 為 true 與 p 為 false 時決定 p。CACC 允許這對測試中的其他（次要）子句取值不同；RACC 則額外要求這對測試中的次要子句取值必須相同，因此嚴格更強。</text></generalfeedback>
   </question>
   <question type="multichoice">
-    <name><text>組合覆蓋的測試數</text></name>
-    <questiontext format="html"><text><![CDATA[<p>某述詞含有 3 個獨立子句。組合覆蓋（Combinatorial Coverage, CoC）需要多少個測試？</p>]]></text></questiontext>
+    <name><text>「決定」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在給定其他子句某一指派的前提下，子句 c <strong>決定（determines）</strong>述詞 p 的意思是：</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>8</text><feedback><text>正確——2^3 種 true/false 組合。</text></feedback></answer>
-    <answer fraction="0"><text>3</text><feedback><text>這大致是子句覆蓋（每個子句翻轉一次）的規模，並非所有組合。</text></feedback></answer>
-    <answer fraction="0"><text>4</text><feedback><text>太少了——4 個測試無法涵蓋全部 8 種真值組合。</text></feedback></answer>
-    <answer fraction="0"><text>6</text><feedback><text>6 個測試仍不足以涵蓋完整的 2^3 = 8 種組合。</text></feedback></answer>
-    <generalfeedback><text>組合覆蓋要求涵蓋 n 個子句的每一種 2^n 真值組合（在可行的前提下）；當有 3 個獨立子句時即為 2^3 = 8 個測試。</text></generalfeedback>
+    <answer fraction="100"><text>固定其他子句、只切換 c，會改變 p 的值</text><feedback><text>正確——在次要子句固定下，c 主宰了 p 的結果。</text></feedback></answer>
+    <answer fraction="0"><text>c 與 p 的真值恆相同</text><feedback><text>決定性指的是切換 c 能主宰 p，並非兩者取值相等。</text></feedback></answer>
+    <answer fraction="0"><text>c 在語法上出現於 p 之中</text><feedback><text>出現於 p 是必要而非充分條件；c 還必須真正主宰結果。</text></feedback></answer>
+    <answer fraction="0"><text>只要 c 為 true，p 就為 true</text><feedback><text>那只是某一特例，並非決定性的一般定義。</text></feedback></answer>
+    <generalfeedback><text>在次要子句某一固定指派下，若翻轉 c（且僅翻轉 c）會翻轉 p，即稱 c 決定 p。這是主動子句準則的關鍵前提。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一般主動子句覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一般主動子句覆蓋（General Active Clause Coverage, GACC）對每個主要子句 ci 要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>存在兩個測試，使 ci 分別為 true 與 false 且 ci 決定 p；次要子句可取任意值</text><feedback><text>正確——GACC 對次要子句的限制最寬鬆。</text></feedback></answer>
+    <answer fraction="0"><text>存在兩個測試，其中次要子句取值相同</text><feedback><text>那個額外限制是 RACC，而非 GACC。</text></feedback></answer>
+    <answer fraction="0"><text>存在兩個測試，使 p 分別為 true 與 false</text><feedback><text>要求 p 必須不同是 CACC；GACC 並不要求。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋全部 2^n 種子句值組合</text><feedback><text>那是組合覆蓋。</text></feedback></answer>
+    <generalfeedback><text>GACC 要求對每個主要子句都有一個 true 測試與一個 false 測試，且該子句在其中決定述詞。它對次要子句不加任何限制，也不要求 p 在該對測試中取值不同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b 的決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = a &#8744; b 而言，子句 a <em>決定</em> p 恰好發生於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b 為 false 時</text><feedback><text>正確——當 b 為 false 時，p 等於 a，故切換 a 會切換 p。</text></feedback></answer>
+    <answer fraction="0"><text>b 為 true 時</text><feedback><text>當 b 為 true 時，無論 a 為何 p 都是 true，因此 a 無法決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>無論 b 為何，恆成立</text><feedback><text>當 b 為 true 時，a 無法決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>對於邏輯或（disjunction）而言，永遠不成立</text><feedback><text>邏輯或確實存在能決定的指派——即另一子句為 false 時。</text></feedback></answer>
+    <generalfeedback><text>對 p = a &#8744; b，a 決定 p 恰好在 b = false 時：此時 p 跟隨 a。b 為 true 時 p 固定為 true，a 無關緊要。（對偶地，對 a &#8743; b，a 在 b = true 時決定 p。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CACC 與 GACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相關主動子句覆蓋（CACC）比一般主動子句覆蓋（GACC）多要求了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>述詞 p 必須在該對測試中一個為 true、另一個為 false</text><feedback><text>正確——CACC 將主要子句的翻轉與 p 的改變相關聯。</text></feedback></answer>
+    <answer fraction="0"><text>次要子句在該對測試中必須相同</text><feedback><text>那個額外要求定義的是 RACC，而非 CACC。</text></feedback></answer>
+    <answer fraction="0"><text>必須測試每一種子句組合</text><feedback><text>那是組合覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>主要子句不必決定 p</text><feedback><text>所有主動子句準則都要求決定性。</text></feedback></answer>
+    <generalfeedback><text>GACC 只要求主要子句在決定 p 的同時取到 true 與 false；CACC 額外要求 p 本身在該對測試中取到兩種值。因此 CACC 涵蓋（subsumes）述詞覆蓋，GACC 則不然。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC 的最少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對含 n 個獨立子句的述詞，滿足 CACC（MC/DC）最少需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n + 1</text><feedback><text>正確——MC/DC 最少可用 n+1 個精心挑選的測試滿足。</text></feedback></answer>
+    <answer fraction="0"><text>2n</text><feedback><text>2n 是上界（每個子句一對），並非可達成的最小值。</text></feedback></answer>
+    <answer fraction="0"><text>2^n</text><feedback><text>2^n 是組合覆蓋，遠多於 MC/DC 所需。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 足以滿足述詞覆蓋，但 MC/DC 需獨立地測試每個子句。</text></feedback></answer>
+    <generalfeedback><text>藉由在子句間共用測試，含 n 個獨立子句的 CACC／MC-DC 最少可用 n+1 個測試滿足（最多 2n）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主要與次要子句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在主動子句覆蓋中，當我們測試子句 ci 是否決定述詞時，ci 稱為<strong>主要子句（major clause）</strong>，其餘子句則稱為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>次要子句（minor clauses）</text><feedback><text>正確——其餘子句在該項要求中即為次要子句。</text></feedback></answer>
+    <answer fraction="0"><text>非主動述詞</text><feedback><text>它們是子句而非述詞，且這也不是標準用語。</text></feedback></answer>
+    <answer fraction="0"><text>決定性子句</text><feedback><text>決定性是被測試的性質；被固定的子句稱為次要子句。</text></feedback></answer>
+    <answer fraction="0"><text>相依子句</text><feedback><text>標準用語是主要／次要子句。</text></feedback></answer>
+    <generalfeedback><text>主動子句準則選一個子句作為主要子句（測試其決定性），其餘為次要子句，並設定其值使主要子句能決定述詞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>述詞覆蓋與子句覆蓋的涵蓋關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>述詞覆蓋（PC）與子句覆蓋（CC）之間的涵蓋（subsumption）關係為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者互不涵蓋</text><feedback><text>正確——CC 可能使述詞只取一種值，PC 也可能使某子句只取一種值。</text></feedback></answer>
+    <answer fraction="0"><text>CC 涵蓋 PC</text><feedback><text>使每個子句各取兩種值，未必使整個述詞取到兩種值。</text></feedback></answer>
+    <answer fraction="0"><text>PC 涵蓋 CC</text><feedback><text>使述詞取到兩種值，未必翻轉每個個別子句。</text></feedback></answer>
+    <answer fraction="0"><text>兩者等價</text><feedback><text>它們互不可比，並非等價。</text></feedback></answer>
+    <generalfeedback><text>PC 與 CC 互不可比：彼此都不涵蓋對方。（例如 p = a &#8743; b，測試 a=T,b=T 與 a=F,b=T 滿足 PC，但 b 永遠不為 false；另有測試集滿足 CC，卻不使 p 取到兩種值。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>c 在 (a AND b) OR c 中的決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = (a &#8743; b) &#8744; c 而言，子句 c 決定 p 恰好發生於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a &#8743; b 為 false 時</text><feedback><text>正確——當 (a &#8743; b) 為 false 時，p 等於 c；為 true 時 p 恆為 true 與 c 無關。</text></feedback></answer>
+    <answer fraction="0"><text>a &#8743; b 為 true 時</text><feedback><text>此時無論 c 為何 p 都是 true，故 c 無法決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>a 為 true 時</text><feedback><text>單看 a 無法決定 c 是否有影響；條件在於整個項 a &#8743; b。</text></feedback></answer>
+    <answer fraction="0"><text>恆成立</text><feedback><text>當 a &#8743; b 已為 true 時，c 無法決定 p。</text></feedback></answer>
+    <generalfeedback><text>對邏輯或 p = X &#8744; c，c 決定 p 恰好在另一運算元 X 為 false 時。此處 X = a &#8743; b，故 c 在 a &#8743; b 為 false 時決定 p。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>某列的主動子句數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 <code>(a || b) && c</code>，在 a=T、b=F、c=T 時，3 個子句中有幾個是<strong>主動的</strong>（單獨翻轉該子句會改變述詞的值）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——翻轉 a（T&#8594;F 使 a||b 為 false）或 c（T&#8594;F）會改變 p；翻轉 b 則不會。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>此處 a 與 c 皆為主動；b 不是。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>翻轉 b（F&#8594;T）後 a||b 仍為 true，p 不變；b 並非主動。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>至少 a 與 c 在翻轉後會改變結果。</text></feedback></answer>
+    <generalfeedback><text>在 a=T,b=F,c=T 時，p = (T||F)&amp;&amp;T = T。翻轉 a &#8594; (F||F)&amp;&amp;T = F（主動）；翻轉 c &#8594; (T||F)&amp;&amp;F = F（主動）；翻轉 b &#8594; (T||T)&amp;&amp;T = T（非主動）。故有 2 個主動子句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非主動子句覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>非主動（inactive）</em>子句覆蓋準則（GICC/RICC）要求什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對每個子句，測試它<em>不</em>決定述詞的情形，並涵蓋它為 true 與 false 兩種情況</text><feedback><text>正確——非主動子句覆蓋檢查子句被遮蔽時的行為。</text></feedback></answer>
+    <answer fraction="0"><text>對每個子句，測試它<em>確實</em>決定述詞的情形</text><feedback><text>那是主動子句家族（GACC/CACC/RACC）。</text></feedback></answer>
+    <answer fraction="0"><text>所有子句值的組合</text><feedback><text>那是組合覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>只要述詞取到兩種值</text><feedback><text>那是述詞覆蓋。</text></feedback></answer>
+    <generalfeedback><text>非主動子句覆蓋要求對每個子句，測試它不決定述詞（被「遮蔽」）的情形，並涵蓋該子句為 true 與為 false 的狀況——與主動子句概念互補。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>RACC 涵蓋 CACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>受限主動子句覆蓋（RACC）涵蓋（subsumes）相關主動子句覆蓋（CACC）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——將次要子句固定相同（RACC）且主要子句決定 p，會迫使 p 取值不同，故 CACC 被滿足。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>RACC 嚴格更強：RACC &#8594; CACC &#8594; GACC。</text></feedback></answer>
+    <generalfeedback><text>主動子句階層為 RACC 涵蓋 CACC 涵蓋 GACC。RACC 的「次要子句相同」要求，蘊含 CACC 對「p 在該對測試中取值不同」的要求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a 在 (a AND b) OR c 中的決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = (a &#8743; b) &#8744; c 而言，子句 a 決定 p 恰好發生於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b 為 true 且 c 為 false</text><feedback><text>正確——唯有此時 p 才化簡為 a。</text></feedback></answer>
+    <answer fraction="0"><text>b 為 true 且 c 為 true</text><feedback><text>c 為 true 時，無論 a 為何 p 都是 true，故 a 不決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>b 為 false 且 c 為 false</text><feedback><text>b 為 false 時，無論 a 為何 a &#8743; b 都是 false，故 a 不決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>b 為 false 且 c 為 true</text><feedback><text>c 為 true 固定 p 為 true；且 b 為 false 遮蔽了 a。a 不決定 p。</text></feedback></answer>
+    <generalfeedback><text>a 只有在 a &#8743; b 這一項傳遞 a 的值（需 b = true）且邏輯或未遮蔽它（需 c = false）時才決定 p。故 a 決定 p 恰好在 b = true 且 c = false 時。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>主動子句覆蓋涵蓋子句覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一般主動子句覆蓋（GACC）涵蓋（subsumes）子句覆蓋（CC）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——GACC 使每個子句（作為其測試對的主要子句時）各取 true 與 false，正是子句覆蓋所要求的。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>GACC 對每個子句都要求一個 true 測試與一個 false 測試，故每個子句都取到兩種值——子句覆蓋被滿足。</text></feedback></answer>
+    <generalfeedback><text>每個主動子句準則都要求每個子句在作為主要子句時取到 true 與 false，故 GACC/CACC/RACC 都涵蓋子句覆蓋。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Coverage/hard</text></category>
   </question>
   <question type="truefalse">
     <name><text>CACC 的不可行性</text></name>
@@ -58,5 +314,135 @@
     <answer fraction="100"><text>UTPC</text><feedback><text>正確。</text></feedback></answer>
     <answer fraction="100"><text>unique true point*</text><feedback><text>正確。</text></feedback></answer>
     <generalfeedback><text>唯一真值點覆蓋（Unique True Point Coverage, UTPC）要求：對述詞 DNF 表示式中的每一項，都存在一個測試恰好使該項為 true（而所有其他項皆為 false）——即該項專屬的「唯一真值點」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC 對應於</text></name>
+    <questiontext format="html"><text><![CDATA[<p>DO-178C 所要求的修正條件／決策覆蓋（MC/DC），本質上等同於下列哪一個邏輯覆蓋準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關主動子句覆蓋（CACC）</text><feedback><text>正確——MC/DC 要求每個子句能獨立影響決策結果，即 CACC。</text></feedback></answer>
+    <answer fraction="0"><text>述詞覆蓋（PC）</text><feedback><text>PC 只要求整個決策取到兩種值；MC/DC 強得多。</text></feedback></answer>
+    <answer fraction="0"><text>組合覆蓋（CoC）</text><feedback><text>CoC 要求全部 2^n 種組合；MC/DC 所需少得多（n+1）。</text></feedback></answer>
+    <answer fraction="0"><text>子句覆蓋（CC）</text><feedback><text>CC 並不要求每個子句能獨立決定結果。</text></feedback></answer>
+    <generalfeedback><text>MC/DC 要求證明每個子句都能獨立影響決策結果——正是 CACC 所捕捉的主動子句／決定性概念。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>4 子句的 CACC 最少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某決策含 4 個獨立子句。滿足 CACC（MC/DC）最少需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——n+1 = 4+1 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2n 是上界，並非最小值。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 = 2^4 是組合覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>至少需 n+1 = 5 個測試，才能證明四個子句都能獨立影響結果。</text></feedback></answer>
+    <generalfeedback><text>含 n 個獨立子句的 CACC／MC-DC 最少可用 n+1 個測試達成；n = 4 時為 5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>c 決定述詞的指派數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = (a &#8743; b) &#8744; c，在 8 種指派中有多少種使子句 c <strong>決定</strong> p？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——c 在 a &#8743; b 為 false 時決定 p，共 8 列中的 6 列。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>a &#8743; b 只在 2 列為 true；c 在其餘 6 列決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>重新計算——a &#8743; b 在 8 列中有 6 列為 false，c 在每一列都決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>當 a=T 且 b=T（2 列）時，無論 c 為何 p 都是 true，故 c 在該處不決定 p。</text></feedback></answer>
+    <generalfeedback><text>c 決定 p = (a &#8743; b) &#8744; c 恰好在 a &#8743; b 為 false 時。a &#8743; b 在 2 列為 true（a=T,b=T）、6 列為 false，故 c 在 6 種指派中決定 p。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行的子句組合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞使用子句 c1：<code>x &gt; 5</code> 與 c2：<code>x &lt; 0</code>。任何需要 c1 與 c2 同時為 true 的測試要求是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不可行——沒有任何單一 x 值能同時使兩子句為 true</text><feedback><text>正確——兩子句互相矛盾，該組合無法出現。</text></feedback></answer>
+    <answer fraction="0"><text>只要 x 取值得當即可行</text><feedback><text>不存在同時大於 5 又小於 0 的 x。</text></feedback></answer>
+    <answer fraction="0"><text>只有在組合覆蓋下才可行</text><feedback><text>任何準則都無法實現語意上不可能的組合。</text></feedback></answer>
+    <answer fraction="0"><text>等同於述詞覆蓋</text><feedback><text>可行性關乎是否存在合適輸入，與採用哪個準則無關。</text></feedback></answer>
+    <generalfeedback><text>子句之間可能在邏輯上相依。此處 c1 與 c2 互斥，故任何要求兩者同時成立的要求皆不可行，計算覆蓋率時須予以排除。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>蘊含項（implicant）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在述詞的 DNF（積之和）觀點中，<strong>蘊含項（implicant）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個積項（literals 的合取），只要它為 true 就使述詞為 true</text><feedback><text>正確——蘊含項會蘊含（imply）述詞。</text></feedback></answer>
+    <answer fraction="0"><text>述詞的任一個別子句</text><feedback><text>蘊含項是 literals 的積項，未必是單一子句。</text></feedback></answer>
+    <answer fraction="0"><text>使述詞為 false 的指派</text><feedback><text>蘊含項使述詞為 true，而非 false。</text></feedback></answer>
+    <answer fraction="0"><text>所有積項的析取</text><feedback><text>那是整個 DNF；蘊含項是其中一項（或任何蘊含 f 的項）。</text></feedback></answer>
+    <generalfeedback><text>蘊含項是 literals 的合取，其為真即保證述詞為真（蘊含 f）。DNF 將 f 表為蘊含項的析取；質蘊含項（prime implicant）則是無法再刪去任何 literal 的蘊含項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>唯一真值點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>述詞 f 的蘊含項 i 的<strong>唯一真值點（unique true point）</strong>是一個指派，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使蘊含項 i 為 true，且使 f 的所有其他蘊含項皆為 false</text><feedback><text>正確——該處只有 i 使 f 為真。</text></feedback></answer>
+    <answer fraction="0"><text>使 f 的每個蘊含項皆為 true</text><feedback><text>那樣該點就不「唯一」屬於 i。</text></feedback></answer>
+    <answer fraction="0"><text>使 f 為 false</text><feedback><text>真值點使 f（與 i）為 true。</text></feedback></answer>
+    <answer fraction="0"><text>是唯一使 f 為 true 的指派</text><feedback><text>唯一性指的是哪個蘊含項為真，而非 f 只有一列滿足。</text></feedback></answer>
+    <generalfeedback><text>蘊含項 i 的唯一真值點是使 i 為真、其他所有蘊含項皆為假的指派，故只有 i 使 f 為真——這是唯一真值點覆蓋的基礎。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>近偽點（near false point）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對蘊含項 i 中的子句 c，CUTPNFP 所用的<strong>近偽點（near false point）</strong>是一個指派，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使 f 為 false，且與 i 的某唯一真值點恰好只在子句 c 上不同</text><feedback><text>正確——在該對中只翻轉 c 就翻轉 f，證明 c 的獨立影響。</text></feedback></answer>
+    <answer fraction="0"><text>以蘊含項 i 使 f 為 true</text><feedback><text>近偽點使 f 為 false，而非 true。</text></feedback></answer>
+    <answer fraction="0"><text>使 i 的每個子句皆為 false</text><feedback><text>與真值點相比只有子句 c 不同，i 的其他 literals 維持原值。</text></feedback></answer>
+    <answer fraction="0"><text>與某真值點在所有子句上都不同</text><feedback><text>它只在單一子句 c 上不同，故稱「近」。</text></feedback></answer>
+    <generalfeedback><text>蘊含項 i 中子句 c 的近偽點使 f 為 false，且與 i 的某唯一真值點僅在 c 上不同。將兩者配對即顯示：單獨翻轉 c 會改變 f——即 DNF 版的獨立影響。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CUTPNFP 的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>DNF 準則 CUTPNFP（對應唯一真值點與近偽點配對覆蓋）的設計目的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以 DNF 形式模擬 MC/DC：配對一個唯一真值點與一個僅差一個子句的近偽點</text><feedback><text>正確——該配對顯示每個子句對 f 的獨立影響。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋全部 2^n 種子句值組合</text><feedback><text>那是組合覆蓋，而非 CUTPNFP。</text></feedback></answer>
+    <answer fraction="0"><text>僅保證述詞取到兩種值</text><feedback><text>那只是述詞覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>只測試非主動子句</text><feedback><text>CUTPNFP 是要顯示每個子句的主動（獨立）影響，而非非主動性。</text></feedback></answer>
+    <generalfeedback><text>CUTPNFP 對每個蘊含項 i 的每個子句 c，配對 i 的一個唯一真值點與一個僅在 c 上不同的近偽點。翻轉 c 會翻轉 f，即 MC/DC 獨立影響要求的 DNF 等價版。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最強的邏輯準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在子句／述詞邏輯準則中，哪一個最<strong>強</strong>（涵蓋其他）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>組合覆蓋（CoC）</text><feedback><text>正確——實現全部 2^n 種組合，涵蓋 PC、CC 以及每個主動／非主動子句準則。</text></feedback></answer>
+    <answer fraction="0"><text>相關主動子句覆蓋（CACC）</text><feedback><text>CACC 雖強，但被組合覆蓋涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>述詞覆蓋（PC）</text><feedback><text>PC 是最弱的邏輯準則之一。</text></feedback></answer>
+    <answer fraction="0"><text>子句覆蓋（CC）</text><feedback><text>CC 很弱，甚至不涵蓋 PC。</text></feedback></answer>
+    <generalfeedback><text>組合覆蓋要求每一種真值組合，故涵蓋所有其他子句／述詞準則（代價是測試數呈指數成長）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主動子句覆蓋的排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列主動子句準則由最強（涵蓋）到最弱的排序，何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RACC &#8594; CACC &#8594; GACC</text><feedback><text>正確——RACC 最嚴格，GACC 最寬鬆。</text></feedback></answer>
+    <answer fraction="0"><text>GACC &#8594; CACC &#8594; RACC</text><feedback><text>此為相反順序；RACC 最強。</text></feedback></answer>
+    <answer fraction="0"><text>CACC &#8594; RACC &#8594; GACC</text><feedback><text>RACC 涵蓋 CACC，故 RACC 應在最前。</text></feedback></answer>
+    <answer fraction="0"><text>GACC &#8594; RACC &#8594; CACC</text><feedback><text>GACC 最弱，不能居首。</text></feedback></answer>
+    <generalfeedback><text>RACC（次要子句相同）涵蓋 CACC（p 須不同）涵蓋 GACC（次要子句自由）。RACC 與 CACC 皆涵蓋述詞覆蓋；GACC 則不然。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GACC 與述詞覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於主動子句準則是否涵蓋述詞覆蓋（PC），下列何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CACC 涵蓋 PC，但 GACC 不涵蓋</text><feedback><text>正確——CACC 迫使 p 取到兩種值；GACC 可能使 p 在某子句的測試對中維持單一值。</text></feedback></answer>
+    <answer fraction="0"><text>CACC 與 GACC 都涵蓋 PC</text><feedback><text>GACC 不要求 p 在該對測試中取值不同，故未必滿足 PC。</text></feedback></answer>
+    <answer fraction="0"><text>CACC 與 GACC 都不涵蓋 PC</text><feedback><text>CACC 因要求 p 取到兩種值，確實涵蓋 PC。</text></feedback></answer>
+    <answer fraction="0"><text>GACC 涵蓋 PC，但 CACC 不涵蓋</text><feedback><text>恰好相反。</text></feedback></answer>
+    <generalfeedback><text>CACC 要求 p 在每對測試中一個為 true、另一個為 false，故涵蓋述詞覆蓋。GACC 允許次要子句不同，使述詞可維持單一值；一個微妙的反例顯示 GACC 不涵蓋 PC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>蘊含項覆蓋（Implicant Coverage）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對以 DNF 表示的述詞，蘊含項覆蓋（Implicant Coverage, IC）要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個蘊含項至少被某個測試使其為 true</text><feedback><text>正確——每個積項都須被實現為 true。</text></feedback></answer>
+    <answer fraction="0"><text>每個蘊含項在某個「其他蘊含項皆為 false」的點被使為 true</text><feedback><text>那個更強的要求是唯一真值點覆蓋，而非單純的蘊含項覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>每個子句都取到兩種真值</text><feedback><text>那是子句覆蓋，並非以蘊含項為基礎的準則。</text></feedback></answer>
+    <answer fraction="0"><text>測試全部 2^n 種指派</text><feedback><text>那是組合覆蓋。</text></feedback></answer>
+    <generalfeedback><text>蘊含項覆蓋要求 DNF 的每個蘊含項（積項）在某個測試中為 true。UTPC 則加強為要求該點唯一屬於該蘊含項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a 決定 4 子句述詞的指派數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = (a &#8743; b) &#8744; (c &#8743; d)，在 16 種指派中有多少種使子句 a <strong>決定</strong> p？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——a 在 b 為 true 且 (c &#8743; d) 為 false 時決定 p：1（b=T）&#215; 3（c &#8743; d 於 4 中為 false）&#215; 2（a 自由）= 6。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>b=T 給出 8 列，但須扣除 c &#8743; d 亦為 true 的 2 列，剩 6。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>重新計算——有 6 種指派使 a 決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>b 為 false 時（半數列）a 無法決定 p，故遠低於 12。</text></feedback></answer>
+    <generalfeedback><text>a 只有在其項傳遞 a（b = true）且另一項未遮蔽它（c &#8743; d 為 false）時才決定 p。即 16 種指派中的 1 &#215; 3 &#215; 2 = 6 種。</text></generalfeedback>
   </question>
 </quiz>
