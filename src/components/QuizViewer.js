@@ -5,6 +5,7 @@ import { t as tApp, getLocale } from '../i18n/index.js';
 import { QUIZ_RENDERED } from '../data/quizRendered.js';
 import { gradeQuestion } from '../utils/quizGrade.js';
 import { QuizAttempts } from '../utils/quizAttempts.js';
+import { pickDeck, mixSeed } from '../utils/quizDeck.js';
 
 let overlay = null, body = null, titleEl = null, langToggle = null, lastFocus = null;
 let st = null;
@@ -14,12 +15,12 @@ function esc(s) {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
-function deckFor(id, lg) {
-  const d = QUIZ_RENDERED[id];
-  if (!d) return [];
-  return (d[lg] && d[lg].length) ? d[lg] : (d.en || []);
+function deckFor(id, lg, difficulty, seed) { return pickDeck(QUIZ_RENDERED, id, lg, difficulty, seed); }
+function has(id) {
+  const t = QUIZ_RENDERED[id];
+  if (!t) return false;
+  return ['en', 'zh'].some((lg) => t[lg] && Object.values(t[lg]).some((b) => b && b.length));
 }
-function has(id) { return deckFor(id, 'en').length > 0 || deckFor(id, 'zh').length > 0; }
 function modeLabel(m) { return m === 'test' ? t('quiz.test', 'Test') : t('quiz.practice', 'Practice'); }
 function fmtTime(ms) {
   try {
