@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseQuizXml, sanitize, LEVELS } from '../../scripts/build-quiz.mjs';
+import { parseQuizXml, sanitize, LEVELS, validate } from '../../scripts/build-quiz.mjs';
 
 const cat = (path) => `<question type="category"><category><text>${path}</text></category></question>`;
 const mc = (name) => `<question type="multichoice"><name><text>${name}</text></name>`
@@ -69,5 +69,31 @@ describe('parseQuizXml category grouping', () => {
 
   it('exports canonical levels', () => {
     expect(LEVELS).toEqual(['easy', 'medium', 'hard']);
+  });
+});
+
+describe('quiz validate', () => {
+  const q = { type: 'multichoice', name: 'x', text: '', answers: [{ text: 'a', fraction: 100 }], generalFeedback: '' };
+  const bucket = (n) => Array.from({ length: n }, () => q);
+
+  it('throws when en and zh expose different buckets', () => {
+    const r = { t: { en: { easy: bucket(1) }, zh: { easy: bucket(1), hard: bucket(1) } } };
+    expect(() => validate(r, { strict: false })).toThrow(/parity|en.*zh/i);
+  });
+
+  it('warns (not throws) on <15 without strict', () => {
+    const r = { t: { en: { easy: bucket(3) }, zh: { easy: bucket(3) } } };
+    const { warnings } = validate(r, { strict: false });
+    expect(warnings.join('\n')).toMatch(/easy.*3\/15|15/);
+  });
+
+  it('throws on incomplete buckets under strict', () => {
+    const r = { t: { en: { easy: bucket(15) }, zh: { easy: bucket(15) } } };
+    expect(() => validate(r, { strict: true })).toThrow(/medium|hard|15/i);
+  });
+
+  it('passes a complete topic under strict', () => {
+    const full = { easy: bucket(15), medium: bucket(15), hard: bucket(15) };
+    expect(() => validate({ t: { en: full, zh: full } }, { strict: true })).not.toThrow();
   });
 });
