@@ -1,18 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Logic Coverage</text></category>
+    <category><text>$course$/top/Logic Coverage/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>Predicate coverage</text></name>
     <questiontext format="html"><text><![CDATA[<p>Predicate Coverage (PC) requires that:</p>]]></text></questiontext>
     <single>true</single>
-    <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>Each predicate in the program evaluates to both true and false</text><feedback><text>Correct.</text></feedback></answer>
     <answer fraction="0"><text>Each clause within a predicate evaluates to both true and false</text><feedback><text>That's Clause Coverage (CC).</text></feedback></answer>
     <answer fraction="0"><text>All combinations of clause truth values are exercised for each predicate</text><feedback><text>That's Combinatorial Coverage (CoC).</text></feedback></answer>
     <answer fraction="0"><text>Every path through the predicate's decision structure is exercised</text><feedback><text>That describes Path Coverage, not Predicate Coverage.</text></feedback></answer>
     <generalfeedback><text>Predicate Coverage (PC) only requires the whole predicate to take both truth values at least once; it says nothing about the individual clauses inside it — that finer-grained requirement is Clause Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In logic coverage, a <strong>clause</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A boolean expression that contains no boolean operators</text><feedback><text>Correct — a clause is an atomic condition such as <code>x &gt; 0</code> or a boolean variable.</text></feedback></answer>
+    <answer fraction="0"><text>Any boolean expression, however it is built from operators</text><feedback><text>That is a predicate; a clause is the atomic building block with no boolean operators.</text></feedback></answer>
+    <answer fraction="0"><text>A complete if-statement in the source code</text><feedback><text>A clause is a condition, not a whole statement.</text></feedback></answer>
+    <answer fraction="0"><text>A test case that exercises one branch</text><feedback><text>That is a test, not a clause.</text></feedback></answer>
+    <generalfeedback><text>A clause (or condition) is a boolean expression containing no boolean operators (&amp;&amp;, ||, !). Predicates are built by connecting clauses with boolean operators.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a predicate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which expression is a <strong>predicate</strong> built from exactly three clauses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[(a && b) || c]]></text><feedback><text>Correct — the clauses are a, b, and c, joined by boolean operators.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a > 0]]></text><feedback><text>That is a single clause, not a predicate over three clauses.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a && b]]></text><feedback><text>That predicate has only two clauses.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[x + y + z]]></text><feedback><text>That is an arithmetic expression, not a boolean predicate.</text></feedback></answer>
+    <generalfeedback><text>A predicate is a boolean expression built from clauses connected by boolean operators. <code>(a &amp;&amp; b) || c</code> has three clauses (a, b, c).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Clause coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Clause Coverage (CC) requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each clause in each predicate evaluates to both true and false</text><feedback><text>Correct — every individual clause must take on both truth values.</text></feedback></answer>
+    <answer fraction="0"><text>Each predicate evaluates to both true and false</text><feedback><text>That is Predicate Coverage (PC), which looks at the whole predicate.</text></feedback></answer>
+    <answer fraction="0"><text>All combinations of clause values are exercised</text><feedback><text>That is Combinatorial Coverage (CoC).</text></feedback></answer>
+    <answer fraction="0"><text>Each clause determines its predicate at least once</text><feedback><text>That is the active-clause idea (ACC), stronger than plain Clause Coverage.</text></feedback></answer>
+    <generalfeedback><text>Clause Coverage requires each clause to be both true and false at least once, independently of what the enclosing predicate does.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combinatorial coverage count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate has 3 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 2^3 combinations of true/false.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>That's roughly the size of Clause Coverage (one flip per clause), not every combination.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Too few — 4 tests can't realize all 8 truth-value combinations.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 falls short of the full 2^3 = 8 combinations.</text></feedback></answer>
+    <generalfeedback><text>Combinatorial Coverage requires every one of the 2^n truth-value combinations of n clauses to be exercised (subject to feasibility); with 3 independent clauses that is 2^3 = 8 tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combinatorial coverage (2 clauses)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many rows are in the full truth table of a predicate with 2 clauses (the number Combinatorial Coverage requires)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 2^2 = 4 combinations.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the count for Predicate or Clause Coverage, not every combination.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>2^2 = 4, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 would be three clauses, not two.</text></feedback></answer>
+    <generalfeedback><text>A predicate with n clauses has 2^n truth-table rows; for n = 2 that is 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combinatorial coverage (4 clauses)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate has 4 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>Correct — 2^4 = 16 combinations.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 would be three clauses.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 = n+1 is the minimal count for CACC/MC-DC, not CoC.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of clauses, not the number of combinations.</text></feedback></answer>
+    <generalfeedback><text>Combinatorial Coverage needs all 2^n rows; for n = 4 that is 2^4 = 16 tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a AND b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>a && b</code>, how many of the 4 possible assignments make it <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — only a=T, b=T satisfies a conjunction.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only the all-true row satisfies a &amp;&amp; b.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the count for a || b, not a &amp;&amp; b.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>A conjunction is false whenever any clause is false, so not all 4 rows satisfy it.</text></feedback></answer>
+    <generalfeedback><text>A conjunction is true only when every clause is true, so exactly 1 of the 4 rows satisfies <code>a &amp;&amp; b</code>.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a OR b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>a || b</code>, how many of the 4 possible assignments make it <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — only a=F, b=F fails, leaving 3 satisfying rows.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 is the count for a &amp;&amp; b, not a || b.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>A disjunction fails only on the all-false row, so 3 rows satisfy it.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The all-false row (a=F, b=F) does not satisfy a || b.</text></feedback></answer>
+    <generalfeedback><text>A disjunction is false only when every clause is false, so 3 of the 4 rows satisfy <code>a || b</code>.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>(a && b) || c</code> over 3 clauses, how many of the 8 possible assignments make it <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 4 rows with c=T, plus the single row a=T,b=T,c=F.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The 4 rows with c=T all satisfy it, but the row a=T,b=T,c=F does too, giving 5.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — exactly 5 of the 8 rows are true.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Too few — c=T alone already gives 4 true rows.</text></feedback></answer>
+    <generalfeedback><text>Whenever c=T the predicate is true (4 rows); when c=F it needs a=T and b=T (1 more row). Total = 5 of 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a OR b OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>a || b || c</code>, how many of the 8 possible assignments make it <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — only the all-false row fails, leaving 7.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>The all-false row a=F,b=F,c=F does not satisfy it.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Only one row (all false) fails, so 7 satisfy it.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 would be a conjunction; a disjunction is true on 7 of 8 rows.</text></feedback></answer>
+    <generalfeedback><text>A three-way disjunction is false only on the single all-false row, so 7 of 8 rows satisfy <code>a || b || c</code>.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate coverage minimum tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the minimum number of tests needed to satisfy Predicate Coverage for a single predicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one test making the predicate true and one making it false.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One test can only give one truth value; PC needs both.</text></feedback></answer>
+    <answer fraction="0"><text>n + 1 (for n clauses)</text><feedback><text>n+1 is the minimum for CACC/MC-DC, not Predicate Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>2^n (for n clauses)</text><feedback><text>2^n is Combinatorial Coverage, far more than PC needs.</text></feedback></answer>
+    <generalfeedback><text>Predicate Coverage needs the predicate to be true once and false once — a minimum of 2 tests, regardless of how many clauses it has.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Clause coverage minimum tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate has 3 independent clauses. What is the minimum number of tests that can satisfy Clause Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one all-true test and one all-false test make every clause both true and false.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>You do not need one test per clause; 2 tests can flip all clauses together.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Clause Coverage is about each clause taking both values, achievable in 2 tests.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 is Combinatorial Coverage, not Clause Coverage.</text></feedback></answer>
+    <generalfeedback><text>Setting all clauses true in one test and all false in another gives every clause both values, so Clause Coverage needs only 2 tests (for independent clauses), independent of clause count.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Clause has no operators</text></name>
+    <questiontext format="html"><text><![CDATA[<p>By definition, a clause contains no boolean operators (such as &amp;&amp;, ||, or !).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a clause is an atomic boolean expression with no boolean operators.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A clause is defined precisely as a boolean expression with no boolean operators; adding operators makes it a predicate.</text></feedback></answer>
+    <generalfeedback><text>A clause (condition) is a boolean expression containing no boolean operators. Connecting clauses with &amp;&amp;/||/! produces a predicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a AND b AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>a && b && c</code>, how many of the 8 possible assignments make it <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — only the all-true row satisfies a three-way conjunction.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>A conjunction is true only when every clause is true — just 1 row.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the count for a || b || c, the disjunction.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>The all-true row (a=T,b=T,c=T) does satisfy it.</text></feedback></answer>
+    <generalfeedback><text>A conjunction is true only when all clauses are true, so exactly 1 of the 8 rows satisfies <code>a &amp;&amp; b &amp;&amp; c</code>.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Coverage/medium</text></category>
   </question>
   <question type="multichoice">
     <name><text>Clause determination</text></name>
@@ -30,19 +169,136 @@
     <single>true</single>
     <answer fraction="100"><text>RACC additionally requires the minor clauses to hold identical values in the true/false test pair for the major clause</text><feedback><text>Correct — RACC is the stricter, "same minor-clause values" version of CACC.</text></feedback></answer>
     <answer fraction="0"><text>RACC drops the requirement that the major clause determines the predicate</text><feedback><text>That describes General Active Clause Coverage (GACC), not RACC.</text></feedback></answer>
-    <answer fraction="0"><text>RACC only counts inactive clauses, not active ones</text><feedback><text>That describes the inactive-clause family (GICC/CICC), not RACC.</text></feedback></answer>
+    <answer fraction="0"><text>RACC only counts inactive clauses, not active ones</text><feedback><text>That describes the inactive-clause family (GICC/RICC), not RACC.</text></feedback></answer>
     <answer fraction="0"><text>RACC requires covering all combinations of clause values</text><feedback><text>That's Combinatorial Coverage (CoC).</text></feedback></answer>
     <generalfeedback><text>Both criteria require, for each major clause ci, a pair of tests where ci determines predicate p once true and once false. CACC allows the other (minor) clauses to differ between that pair; RACC additionally pins the minor clauses to the same values across the pair, making it strictly stronger.</text></generalfeedback>
   </question>
   <question type="multichoice">
-    <name><text>Combinatorial coverage count</text></name>
-    <questiontext format="html"><text><![CDATA[<p>A predicate has 3 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>]]></text></questiontext>
+    <name><text>Meaning of "determines"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A clause c <strong>determines</strong> a predicate p (for a given assignment of the other clauses) when:</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>8</text><feedback><text>Correct — 2^3 combinations of true/false.</text></feedback></answer>
-    <answer fraction="0"><text>3</text><feedback><text>That's roughly the size of Clause Coverage (one flip per clause), not every combination.</text></feedback></answer>
-    <answer fraction="0"><text>4</text><feedback><text>Too few — 4 tests can't realize all 8 truth-value combinations.</text></feedback></answer>
-    <answer fraction="0"><text>6</text><feedback><text>6 falls short of the full 2^3 = 8 combinations.</text></feedback></answer>
-    <generalfeedback><text>Combinatorial Coverage requires every one of the 2^n truth-value combinations of n clauses to be exercised (subject to feasibility); with 3 independent clauses that is 2^3 = 8 tests.</text></generalfeedback>
+    <answer fraction="100"><text>Toggling only c, with the other clauses fixed, changes the value of p</text><feedback><text>Correct — c controls p's outcome given the fixed minor clauses.</text></feedback></answer>
+    <answer fraction="0"><text>c and p always have the same truth value</text><feedback><text>Determination is about c controlling p when toggled, not about them being equal.</text></feedback></answer>
+    <answer fraction="0"><text>c appears syntactically in p</text><feedback><text>Appearing in p is necessary but not sufficient; c must actually control the outcome.</text></feedback></answer>
+    <answer fraction="0"><text>p is true whenever c is true</text><feedback><text>That is one special case, not the general definition of determination.</text></feedback></answer>
+    <generalfeedback><text>c determines p under a fixed assignment of the minor clauses if flipping c (and nothing else) flips p. This is the key precondition for active-clause criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>General Active Clause Coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>General Active Clause Coverage (GACC) requires, for each major clause ci:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Two tests in which ci is true and false while ci determines p; the minor clauses may take any values</text><feedback><text>Correct — GACC is the most permissive active-clause criterion about minor clauses.</text></feedback></answer>
+    <answer fraction="0"><text>Two tests in which the minor clauses hold identical values</text><feedback><text>That extra restriction is RACC, not GACC.</text></feedback></answer>
+    <answer fraction="0"><text>Two tests in which p is true and false</text><feedback><text>Requiring p to differ is CACC; GACC does not require it.</text></feedback></answer>
+    <answer fraction="0"><text>All 2^n combinations of clause values</text><feedback><text>That is Combinatorial Coverage.</text></feedback></answer>
+    <generalfeedback><text>GACC requires, for each major clause, a true test and a false test in which that clause determines the predicate. It places no constraint on the minor clauses and does not require p itself to differ across the pair.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination in a OR b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8744; b, clause a <em>determines</em> p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b is false</text><feedback><text>Correct — with b false, p equals a, so toggling a toggles p.</text></feedback></answer>
+    <answer fraction="0"><text>b is true</text><feedback><text>When b is true, p is true regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>Always, regardless of b</text><feedback><text>a fails to determine p when b is true.</text></feedback></answer>
+    <answer fraction="0"><text>Never, for a disjunction</text><feedback><text>Disjunctions do have determining assignments — when the other clause is false.</text></feedback></answer>
+    <generalfeedback><text>For p = a &#8744; b, a determines p exactly when b = false: then p mirrors a. When b is true, p is fixed true and a is irrelevant. (Dually for a &#8743; b, a determines p when b is true.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CACC vs GACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does Correlated Active Clause Coverage (CACC) require that General Active Clause Coverage (GACC) does not?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The predicate p must be true in one test of the pair and false in the other</text><feedback><text>Correct — CACC correlates the major clause's flip with a change in p.</text></feedback></answer>
+    <answer fraction="0"><text>The minor clauses must be identical across the pair</text><feedback><text>That extra requirement defines RACC, not CACC.</text></feedback></answer>
+    <answer fraction="0"><text>Every clause combination must be tested</text><feedback><text>That is Combinatorial Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The major clause need not determine p</text><feedback><text>All active-clause criteria require determination.</text></feedback></answer>
+    <generalfeedback><text>GACC only requires the major clause to be true and false while determining p; CACC additionally requires p itself to take both values across the pair. Because of this, CACC subsumes Predicate Coverage while GACC does not.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal MC/DC test count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a predicate with n independent clauses, what is the minimum number of tests that can satisfy CACC (MC/DC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n + 1</text><feedback><text>Correct — MC/DC can be satisfied with as few as n+1 well-chosen tests.</text></feedback></answer>
+    <answer fraction="0"><text>2n</text><feedback><text>2n is an upper bound (a pair per clause), not the achievable minimum.</text></feedback></answer>
+    <answer fraction="0"><text>2^n</text><feedback><text>2^n is Combinatorial Coverage, far more than MC/DC needs.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 suffices for Predicate Coverage, but MC/DC needs to exercise each clause independently.</text></feedback></answer>
+    <generalfeedback><text>By sharing tests across clauses, CACC/MC-DC for n independent clauses can be met with a minimum of n+1 tests (and at most 2n).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Major and minor clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In active clause coverage, when we test whether clause ci determines the predicate, ci is called the <strong>major clause</strong> and the others are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The minor clauses</text><feedback><text>Correct — the remaining clauses are the minor clauses for that requirement.</text></feedback></answer>
+    <answer fraction="0"><text>The inactive predicates</text><feedback><text>They are clauses, not predicates, and this is not the standard term.</text></feedback></answer>
+    <answer fraction="0"><text>The determining clauses</text><feedback><text>Determination is the property being tested; the fixed clauses are the minor clauses.</text></feedback></answer>
+    <answer fraction="0"><text>The dependent clauses</text><feedback><text>The standard terminology is major/minor clauses.</text></feedback></answer>
+    <generalfeedback><text>Active-clause criteria pick one clause as the major clause (whose determination is tested) and treat the rest as minor clauses, whose values are set to let the major clause determine the predicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate vs clause coverage subsumption</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the subsumption relationship between Predicate Coverage (PC) and Clause Coverage (CC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Neither subsumes the other</text><feedback><text>Correct — CC can leave the predicate one-valued, and PC can leave a clause one-valued.</text></feedback></answer>
+    <answer fraction="0"><text>CC subsumes PC</text><feedback><text>Making each clause both values need not make the whole predicate take both values.</text></feedback></answer>
+    <answer fraction="0"><text>PC subsumes CC</text><feedback><text>Making the predicate both values need not flip every individual clause.</text></feedback></answer>
+    <answer fraction="0"><text>They are equivalent</text><feedback><text>They are incomparable, not equivalent.</text></feedback></answer>
+    <generalfeedback><text>PC and CC are incomparable: neither subsumes the other. (For example, with p = a &#8743; b, tests a=T,b=T and a=F,b=T satisfy PC but never make b false; other test sets satisfy CC without making p both values.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination of c in (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8743; b) &#8744; c, clause c determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a &#8743; b is false</text><feedback><text>Correct — when (a &#8743; b) is false, p equals c; when it is true, p is true regardless of c.</text></feedback></answer>
+    <answer fraction="0"><text>a &#8743; b is true</text><feedback><text>Then p is true no matter what c is, so c does not determine p.</text></feedback></answer>
+    <answer fraction="0"><text>a is true</text><feedback><text>a alone does not fix whether c matters; the condition is on the whole term a &#8743; b.</text></feedback></answer>
+    <answer fraction="0"><text>Always</text><feedback><text>c cannot determine p when a &#8743; b is already true.</text></feedback></answer>
+    <generalfeedback><text>For a disjunction p = X &#8744; c, clause c determines p exactly when the other operand X is false. Here X = a &#8743; b, so c determines p when a &#8743; b is false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Active clause count at a row</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the predicate <code>(a || b) && c</code> evaluated at a=T, b=F, c=T, how many of the 3 clauses are <strong>active</strong> (flipping that clause alone changes the predicate's value)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — flipping a (T&#8594;F makes a||b false) or c (T&#8594;F) changes p; flipping b does not.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both a and c are active here; b is not.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Flipping b (F&#8594;T) leaves a||b true, so p is unchanged; b is not active.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>At least a and c change the outcome when flipped.</text></feedback></answer>
+    <generalfeedback><text>At a=T,b=F,c=T, p = (T||F)&amp;&amp;T = T. Flipping a &#8594; (F||F)&amp;&amp;T = F (active); flipping c &#8594; (T||F)&amp;&amp;F = F (active); flipping b &#8594; (T||T)&amp;&amp;T = T (not active). So 2 clauses are active.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inactive clause coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What do the <em>inactive</em> clause coverage criteria (GICC/RICC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For each clause, tests where it does NOT determine the predicate, covering the cases it is true and false</text><feedback><text>Correct — inactive-clause coverage checks behaviour when the clause is masked out.</text></feedback></answer>
+    <answer fraction="0"><text>For each clause, tests where it DOES determine the predicate</text><feedback><text>That is the active-clause family (GACC/CACC/RACC).</text></feedback></answer>
+    <answer fraction="0"><text>All combinations of clause values</text><feedback><text>That is Combinatorial Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Only that the predicate takes both values</text><feedback><text>That is Predicate Coverage.</text></feedback></answer>
+    <generalfeedback><text>Inactive Clause Coverage requires, for each clause, tests in which it does not determine the predicate (it is "masked"), covering the situations where the clause is true and where it is false — the complement of the active-clause idea.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>RACC subsumes CACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Restricted Active Clause Coverage (RACC) subsumes Correlated Active Clause Coverage (CACC).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — pinning the minor clauses equal (RACC) and having the major clause determine p forces p to differ, so CACC is satisfied.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>RACC is strictly stronger: RACC &#8594; CACC &#8594; GACC.</text></feedback></answer>
+    <generalfeedback><text>The active-clause hierarchy is RACC subsumes CACC subsumes GACC. RACC's identical-minor-clause requirement implies CACC's requirement that p differ across the test pair.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination of a in (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8743; b) &#8744; c, clause a determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b is true and c is false</text><feedback><text>Correct — only then does p reduce to a.</text></feedback></answer>
+    <answer fraction="0"><text>b is true and c is true</text><feedback><text>With c true, p is true regardless of a, so a does not determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b is false and c is false</text><feedback><text>With b false, a &#8743; b is false regardless of a, so a does not determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b is false and c is true</text><feedback><text>c true fixes p true; also b false masks a. a does not determine p.</text></feedback></answer>
+    <generalfeedback><text>a determines p only when the term a &#8743; b passes a's value through (needs b = true) and the disjunction does not mask it (needs c = false). So a determines p exactly when b = true and c = false.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Active clause coverage subsumes clause coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>General Active Clause Coverage (GACC) subsumes Clause Coverage (CC).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — GACC makes each clause both true and false (as the major clause of its pair), which is exactly what Clause Coverage requires.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>GACC requires, for every clause, a true test and a false test, so every clause takes both values — Clause Coverage is satisfied.</text></feedback></answer>
+    <generalfeedback><text>Every active-clause criterion requires each clause to be both true and false when it is the major clause, so all of GACC/CACC/RACC subsume Clause Coverage.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Coverage/hard</text></category>
   </question>
   <question type="truefalse">
     <name><text>CACC infeasibility</text></name>
@@ -58,5 +314,135 @@
     <answer fraction="100"><text>UTPC</text><feedback><text>Correct.</text></feedback></answer>
     <answer fraction="100"><text>unique true point*</text><feedback><text>Correct.</text></feedback></answer>
     <generalfeedback><text>Unique True Point Coverage (UTPC) requires, for each term in the predicate's DNF representation, a test that makes exactly that term true (and all others false) — the "unique" true point for that term.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC corresponds to</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Modified Condition/Decision Coverage (MC/DC), as required by DO-178C, is essentially the same as which logic-coverage criterion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Correlated Active Clause Coverage (CACC)</text><feedback><text>Correct — MC/DC requires each clause to independently affect the decision outcome, which is CACC.</text></feedback></answer>
+    <answer fraction="0"><text>Predicate Coverage (PC)</text><feedback><text>PC only requires the whole decision to take both values; MC/DC is much stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Combinatorial Coverage (CoC)</text><feedback><text>CoC requires all 2^n combinations; MC/DC needs far fewer (n+1).</text></feedback></answer>
+    <answer fraction="0"><text>Clause Coverage (CC)</text><feedback><text>CC does not require each clause to independently determine the outcome.</text></feedback></answer>
+    <generalfeedback><text>MC/DC demands that each clause be shown to independently affect the decision's outcome — exactly the active-clause / determination idea captured by CACC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal CACC tests for 4 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A decision has 4 independent clauses. What is the minimum number of tests that can satisfy CACC (MC/DC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — n+1 = 4+1 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2n is the upper bound, not the minimum.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 = 2^4 is Combinatorial Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>You need at least n+1 = 5 to show all four clauses independently affect the outcome.</text></feedback></answer>
+    <generalfeedback><text>CACC/MC-DC for n independent clauses is achievable with a minimum of n+1 tests; for n = 4 that is 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Assignments where c determines the predicate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8743; b) &#8744; c, in how many of the 8 assignments does clause c <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — c determines p whenever a &#8743; b is false, which is 6 of the 8 rows.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>a &#8743; b is true in only 2 rows; c determines p in the other 6.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — a &#8743; b is false in 6 of 8 rows, and c determines p in each of those.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>When a=T and b=T (2 rows), p is true regardless of c, so c does not determine p there.</text></feedback></answer>
+    <generalfeedback><text>c determines p = (a &#8743; b) &#8744; c exactly when a &#8743; b is false. a &#8743; b is true in 2 rows (a=T,b=T) and false in 6, so c determines p in 6 assignments.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible clause combination</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate uses clauses c1: <code>x &gt; 5</code> and c2: <code>x &lt; 0</code>. Any test requirement needing c1 and c2 both true is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Infeasible — no single value of x makes both clauses true</text><feedback><text>Correct — the clauses are contradictory, so that combination cannot occur.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible with the right value of x</text><feedback><text>No x is both greater than 5 and less than 0.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible only under Combinatorial Coverage</text><feedback><text>No criterion can realise a semantically impossible combination.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent to Predicate Coverage</text><feedback><text>Feasibility is about whether inputs exist, not about which criterion is used.</text></feedback></answer>
+    <generalfeedback><text>Clauses can be logically dependent. Here c1 and c2 are mutually exclusive, so any requirement that both hold simultaneously is infeasible and must be excluded when measuring coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Implicant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the DNF (sum-of-products) view of a predicate, an <strong>implicant</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A product term (conjunction of literals) that, when true, makes the predicate true</text><feedback><text>Correct — an implicant implies the predicate.</text></feedback></answer>
+    <answer fraction="0"><text>Any single clause of the predicate</text><feedback><text>An implicant is a product term of literals, not necessarily one clause.</text></feedback></answer>
+    <answer fraction="0"><text>An assignment that makes the predicate false</text><feedback><text>An implicant makes the predicate true, not false.</text></feedback></answer>
+    <answer fraction="0"><text>The disjunction of all product terms</text><feedback><text>That is the whole DNF; an implicant is one of its terms (or any term that implies f).</text></feedback></answer>
+    <generalfeedback><text>An implicant is a conjunction of literals whose truth guarantees the predicate is true (it implies f). A DNF expresses f as a disjunction of implicants; a prime implicant is one from which no literal can be dropped.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Unique true point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>unique true point</strong> for an implicant i of predicate f is an assignment that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Makes implicant i true and every other implicant of f false</text><feedback><text>Correct — only i is responsible for f being true there.</text></feedback></answer>
+    <answer fraction="0"><text>Makes every implicant of f true</text><feedback><text>Then the point is not "unique" to i.</text></feedback></answer>
+    <answer fraction="0"><text>Makes f false</text><feedback><text>A true point makes f (and i) true.</text></feedback></answer>
+    <answer fraction="0"><text>Is the only assignment that makes f true</text><feedback><text>Uniqueness is about which implicant is true, not about f having a single satisfying row.</text></feedback></answer>
+    <generalfeedback><text>A unique true point for implicant i is an assignment where i is true and all other implicants are false, so i alone accounts for f being true — the basis of Unique True Point Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Near false point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a clause c in implicant i, a <strong>near false point</strong> (used by CUTPNFP) is an assignment that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Makes f false and differs from a unique true point of i in exactly clause c</text><feedback><text>Correct — flipping c alone across the pair flips f, showing c's independent effect.</text></feedback></answer>
+    <answer fraction="0"><text>Makes f true using implicant i</text><feedback><text>A near false point makes f false, not true.</text></feedback></answer>
+    <answer fraction="0"><text>Makes every clause of i false</text><feedback><text>Only clause c differs from the true point; the other literals of i stay as they were.</text></feedback></answer>
+    <answer fraction="0"><text>Differs from a true point in all clauses</text><feedback><text>It differs in exactly one clause, c, so it is "near".</text></feedback></answer>
+    <generalfeedback><text>A near false point for clause c in implicant i makes f false while differing from a unique true point of i only in c. Pairing the two shows that toggling c alone changes f — the DNF analog of independent effect.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of CUTPNFP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The DNF criterion CUTPNFP (Corresponding Unique True Point and Near False Point Pair Coverage) is designed to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Emulate MC/DC in DNF form by pairing a unique true point with a near false point differing in one clause</text><feedback><text>Correct — the pair demonstrates each clause's independent effect on f.</text></feedback></answer>
+    <answer fraction="0"><text>Cover all 2^n combinations of clause values</text><feedback><text>That is Combinatorial Coverage, not CUTPNFP.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantee only that the predicate takes both values</text><feedback><text>That is merely Predicate Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Test inactive clauses only</text><feedback><text>CUTPNFP is about showing each clause's active (independent) effect, not inactivity.</text></feedback></answer>
+    <generalfeedback><text>CUTPNFP pairs, for each clause c of each implicant i, a unique true point of i with a near false point that differs only in c. Toggling c flips f, giving the DNF equivalent of MC/DC's independent-effect requirement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Strongest logic criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among the clause/predicate logic criteria, which is the <strong>strongest</strong> (subsumes the others)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Combinatorial Coverage (CoC)</text><feedback><text>Correct — exercising all 2^n combinations subsumes PC, CC, and every active/inactive-clause criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Correlated Active Clause Coverage (CACC)</text><feedback><text>CACC is strong but is subsumed by Combinatorial Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Predicate Coverage (PC)</text><feedback><text>PC is one of the weakest logic criteria.</text></feedback></answer>
+    <answer fraction="0"><text>Clause Coverage (CC)</text><feedback><text>CC is weak and does not even subsume PC.</text></feedback></answer>
+    <generalfeedback><text>Combinatorial Coverage requires every truth-value combination, so it subsumes all the other clause/predicate criteria (at the cost of exponential test count).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Active clause coverage ordering</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ordering of the active-clause criteria is correct, from strongest (subsumes) to weakest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RACC &#8594; CACC &#8594; GACC</text><feedback><text>Correct — RACC is the most restrictive, GACC the most permissive.</text></feedback></answer>
+    <answer fraction="0"><text>GACC &#8594; CACC &#8594; RACC</text><feedback><text>This reverses the order; RACC is the strongest.</text></feedback></answer>
+    <answer fraction="0"><text>CACC &#8594; RACC &#8594; GACC</text><feedback><text>RACC subsumes CACC, so RACC must come first.</text></feedback></answer>
+    <answer fraction="0"><text>GACC &#8594; RACC &#8594; CACC</text><feedback><text>GACC is the weakest, so it cannot lead the chain.</text></feedback></answer>
+    <generalfeedback><text>RACC (identical minor clauses) subsumes CACC (p must differ) subsumes GACC (minor clauses free). Both RACC and CACC subsume Predicate Coverage; GACC does not.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GACC and Predicate Coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about subsumption of Predicate Coverage (PC) by the active-clause criteria is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CACC subsumes PC, but GACC does not</text><feedback><text>Correct — CACC forces p to take both values; GACC can leave p one-valued across a clause's test pair.</text></feedback></answer>
+    <answer fraction="0"><text>Both CACC and GACC subsume PC</text><feedback><text>GACC does not require p to differ across the pair, so it need not satisfy PC.</text></feedback></answer>
+    <answer fraction="0"><text>Neither CACC nor GACC subsumes PC</text><feedback><text>CACC does subsume PC because it requires p to take both values.</text></feedback></answer>
+    <answer fraction="0"><text>GACC subsumes PC, but CACC does not</text><feedback><text>It is the other way around.</text></feedback></answer>
+    <generalfeedback><text>CACC requires the predicate to be true in one test and false in the other of each pair, so it subsumes Predicate Coverage. GACC allows the minor clauses to differ so that the predicate can stay one-valued; a subtle counterexample shows GACC does not subsume PC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Implicant Coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Implicant Coverage (IC) for a predicate in DNF requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each implicant is made true by at least one test</text><feedback><text>Correct — every product term must be exercised as true.</text></feedback></answer>
+    <answer fraction="0"><text>Each implicant is made true by a point where no other implicant is true</text><feedback><text>That stronger requirement is Unique True Point Coverage, not plain Implicant Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every clause takes both truth values</text><feedback><text>That is Clause Coverage, not an implicant-based criterion.</text></feedback></answer>
+    <answer fraction="0"><text>All 2^n assignments are tested</text><feedback><text>That is Combinatorial Coverage.</text></feedback></answer>
+    <generalfeedback><text>Implicant Coverage requires each implicant (product term) of the DNF to be true in some test. UTPC strengthens this by demanding the point be unique to that implicant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Assignments where a determines a 4-clause predicate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8743; b) &#8744; (c &#8743; d), in how many of the 16 assignments does clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — a determines p when b is true and (c &#8743; d) is false: 1 (b=T) &#215; 3 (c &#8743; d false of 4) &#215; 2 (a free) = 6.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>b=T gives 8 rows, but the 2 rows with c &#8743; d also true must be removed, leaving 6.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — there are 6 assignments where a determines p.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>a cannot determine p when b is false (half the rows), so the count is well under 12.</text></feedback></answer>
+    <generalfeedback><text>a determines p only when its term passes a through (b = true) and the other term does not mask it (c &#8743; d false). That is 1 &#215; 3 &#215; 2 = 6 of the 16 assignments.</text></generalfeedback>
   </question>
 </quiz>

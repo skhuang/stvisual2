@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing</text></category>
+    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>範圍輸入的等價類別</text></name>
     <questiontext format="html"><text><![CDATA[<p>對於一個定義域為 1..100 的整數輸入，標準等價類別劃分（equivalence-class partitioning）會定義多少個等價類別？分別是哪些？</p>]]></text></questiontext>
     <single>true</single>
-    <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>三個：一個有效類別 [1,100]，加上兩個無效類別（&lt;1 與 &gt;100）</text><feedback><text>正確——一個類別對應合法輸入，另外兩個分別對應太小與太大的輸入。</text></feedback></answer>
     <answer fraction="0"><text>兩個：一個有效類別，以及一個涵蓋其外所有情況的無效類別</text><feedback><text>低於範圍與高於範圍的值失敗原因不同，通常會分成兩個獨立的無效類別。</text></feedback></answer>
     <answer fraction="0"><text>一百個：每個合法整數值各自一個類別</text><feedback><text>等價類別劃分是把預期行為相同的值歸為同一類別，而不是每個值各自成一類。</text></feedback></answer>
@@ -16,13 +15,13 @@
   </question>
   <question type="multichoice">
     <name><text>BVA 測試值</text></name>
-    <questiontext format="html"><text><![CDATA[<p>對於輸入範圍 [1,100]，標準邊界值分析（Boundary Value Analysis, BVA）的六個測試值是什麼？</p>]]></text></questiontext>
+    <questiontext format="html"><text><![CDATA[<p>對於輸入範圍 [1,100]，邊界值分析（Boundary Value Analysis, BVA）中「緊鄰內側、邊界上、緊鄰外側」的六個測試值是什麼？</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>0、1、2、99、100、101</text><feedback><text>正確——分別是 min&#8722;1、min、min+1、max&#8722;1、max、max+1。</text></feedback></answer>
-    <answer fraction="0"><text>1、100</text><feedback><text>這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的 off-point。</text></feedback></answer>
-    <answer fraction="0"><text>0、1、100、101</text><feedback><text>這遺漏了緊鄰邊界的 min+1 與 max&#8722;1（即 2 與 99）。</text></feedback></answer>
+    <answer fraction="100"><text>0、1、2、99、100、101</text><feedback><text>正確——分別是 min-1、min、min+1、max-1、max、max+1。</text></feedback></answer>
+    <answer fraction="0"><text>1、100</text><feedback><text>這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的邊界鄰近點。</text></feedback></answer>
+    <answer fraction="0"><text>0、1、100、101</text><feedback><text>這遺漏了緊鄰邊界的 min+1 與 max-1（即 2 與 99）。</text></feedback></answer>
     <answer fraction="0"><text>1、50、100</text><feedback><text>50 是中點值，並非邊界——BVA 針對的是定義域的邊緣，而非其中心。</text></feedback></answer>
-    <generalfeedback><text>標準 BVA 會取最小值與最大值（即「on-point」），再加上它們緊鄰的內側與外側鄰居（即「off-point」）：對 [1,100] 而言即為 0、1、2、99、100、101。</text></generalfeedback>
+    <generalfeedback><text>BVA 會取最小值與最大值，再加上它們緊鄰的內側與外側鄰居：對 [1,100] 而言即為 0、1、2、99、100、101。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>一致性假說</text></name>
@@ -33,6 +32,127 @@
     <answer fraction="0"><text>假設測試值是隨機選取的，因此隨便選一個都可以</text><feedback><text>代表值是刻意挑選的（例如邊界值），而非隨機決定。</text></feedback></answer>
     <answer fraction="0"><text>獨立性假說——假設每個類別彼此無關</text><feedback><text>類別／變數之間的關係會影響強、弱等價類別測試的差異，但這並不是「每類只需一個值」的原因。</text></feedback></answer>
     <generalfeedback><text>等價類別測試依賴一致性假說：假設程式對同一類別中的每個值都表現出相同的行為，因此測試任一個代表值，所提供的資訊等同於測試該類別中的所有值。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>BVA 鎖定的錯誤類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>邊界值分析特別針對的是哪一類錯誤？（請以英文回答）</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>boundary*</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>off-by-one*</text><feedback><text>正確。</text></feedback></answer>
+    <generalfeedback><text>BVA 針對的是邊界錯誤（boundary faults）——也就是諸如以 &lt; 誤用取代 &lt;= 之類、恰好發生在輸入定義域邊緣的差一（off-by-one）錯誤，這正是它把測試值集中在邊界附近的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價類別劃分的作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>作為一種測試設計技巧，等價類別劃分的核心概念是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把輸入定義域切分成「預期會被相同方式處理」的類別，然後每個類別測試一個值</text><feedback><text>正確——它把幾乎無限的輸入空間縮減成一小組代表值。</text></feedback></answer>
+    <answer fraction="0"><text>窮舉地測試每一個可能的輸入值</text><feedback><text>窮舉測試正是劃分技巧想要避免的。</text></feedback></answer>
+    <answer fraction="0"><text>隨機抽樣輸入，直到找到缺陷為止</text><feedback><text>那是隨機測試；劃分是刻意把定義域結構化成類別。</text></feedback></answer>
+    <answer fraction="0"><text>量測每個輸入執行了多少行程式碼</text><feedback><text>那是結構化（程式碼）涵蓋，而非輸入定義域的劃分。</text></feedback></answer>
+    <generalfeedback><text>等價類別劃分是一種黑箱技巧：把輸入定義域切分成（有效與無效）等價類別，每個類別取一個代表值，在維持行為涵蓋的同時減少測試數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為什麼要在邊界測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼邊界值分析要把測試案例集中在輸入範圍的邊緣，而非其中間？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>程式設計師最常在邊界處犯差一錯誤（例如 &lt; 與 &lt;= 用錯），因此缺陷會聚集在那裡</text><feedback><text>正確——邊界正是關係運算子最容易寫錯的地方。</text></feedback></answer>
+    <answer fraction="0"><text>邊界值讓程式計算得比較快</text><feedback><text>執行速度與為何選擇邊界無關。</text></feedback></answer>
+    <answer fraction="0"><text>範圍中間的值永遠不會被程式處理</text><feedback><text>中間值仍會被處理，只是比較不易出錯，因此一個代表值就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>使用者只會輸入邊界值</text><feedback><text>使用者會輸入各式各樣的值；BVA 選擇邊界是因為缺陷聚集於此。</text></feedback></answer>
+    <generalfeedback><text>缺陷聚集在邊界，因為關係與迴圈條件（&lt;、&lt;=、差一）在此最容易出錯；中間值則由單一等價類別代表值涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>x &lt;= 20 的 on point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>x &lt;= 20</code>，哪一個值是 <strong>on point</strong>（位於邊界上、落在定義域內且滿足述語的值）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20</text><feedback><text>正確——20 滿足 x &lt;= 20，且恰好落在邊界上。</text></feedback></answer>
+    <answer fraction="0"><text>21</text><feedback><text>21 不滿足 x &lt;= 20；它是落在定義域外的 off point。</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 滿足述語，但屬於內部點，並不在邊界上。</text></feedback></answer>
+    <answer fraction="0"><text>22</text><feedback><text>22 是不滿足述語的外部點，並非邊界值。</text></feedback></answer>
+    <generalfeedback><text>on point 是位於邊界上、落在定義域內的值。對 x &lt;= 20 而言，邊界值 20 滿足述語，所以 20 是 on point；21 則是剛好落在域外的 off point。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>x &lt;= 10 的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>x &lt;= 10</code>，哪一個值是 <strong>off point</strong>（剛好落在定義域外、不滿足述語的最近鄰值）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>11</text><feedback><text>正確——11 是最接近、且不滿足 x &lt;= 10 的整數。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 滿足述語；它是 on point，而非 off point。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 滿足述語，屬於內部點。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 不滿足述語，但距離邊界多了一步，不是 off point。</text></feedback></answer>
+    <generalfeedback><text>off point 是位於邊界另一側最近的值——剛好落在定義域外。對 x &lt;= 10 而言，on point 是 10，off point 是 11。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>x &lt;= 46 的 on point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>x &lt;= 46</code>，哪一個值是 <strong>on point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>46</text><feedback><text>正確——46 落在邊界上且滿足 x &lt;= 46。</text></feedback></answer>
+    <answer fraction="0"><text>47</text><feedback><text>47 不滿足述語；它是剛好落在域外的 off point。</text></feedback></answer>
+    <answer fraction="0"><text>45</text><feedback><text>45 滿足述語，但屬於內部點。</text></feedback></answer>
+    <answer fraction="0"><text>48</text><feedback><text>48 是不滿足述語的外部點。</text></feedback></answer>
+    <generalfeedback><text>對 x &lt;= 46 而言，邊界值 46 落在定義域內，所以它是 on point；47 則是剛好落在域外的 off point。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>x &lt;= 37 的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>x &lt;= 37</code>，哪一個值是 <strong>off point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>38</text><feedback><text>正確——38 是最接近、且不滿足 x &lt;= 37 的值。</text></feedback></answer>
+    <answer fraction="0"><text>37</text><feedback><text>37 滿足述語；它是 on point。</text></feedback></answer>
+    <answer fraction="0"><text>36</text><feedback><text>36 滿足述語，屬於內部點。</text></feedback></answer>
+    <answer fraction="0"><text>39</text><feedback><text>39 不滿足述語，但距離邊界多了一步，不是 off point。</text></feedback></answer>
+    <generalfeedback><text>對 x &lt;= 37 而言，on point 是 37，off point 是相鄰、不滿足述語的值 38。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>x &lt;= 14 的 on point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>x &lt;= 14</code>，哪一個值是 <strong>on point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>14</text><feedback><text>正確——14 滿足 x &lt;= 14，且落在邊界上。</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 不滿足述語；它是 off point。</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 滿足述語，但屬於內部點。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 是不滿足述語的外部點。</text></feedback></answer>
+    <generalfeedback><text>對 x &lt;= 14 而言，邊界值 14 落在定義域內，所以它是 on point；15 則是剛好落在域外的 off point。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>x &lt;= 21 的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>x &lt;= 21</code>，哪一個值是 <strong>off point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>22</text><feedback><text>正確——22 是最接近、且不滿足 x &lt;= 21 的值。</text></feedback></answer>
+    <answer fraction="0"><text>21</text><feedback><text>21 滿足述語；它是 on point。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 滿足述語，屬於內部點。</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 不滿足述語，但距離邊界多了一步，不是 off point。</text></feedback></answer>
+    <generalfeedback><text>對 x &lt;= 21 而言，on point 是 21，off point 是相鄰、不滿足述語的值 22。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪一個值屬於無效類別</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某輸入欄位接受有效範圍 1..100 的整數。下列哪一個值屬於<strong>無效</strong>等價類別？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0</text><feedback><text>正確——0 低於最小值，落在「太小」的無效類別。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 是接受的最小值，屬於有效類別。</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 落在 1..100 之內，是有效類別的值。</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 是接受的最大值，屬於有效類別。</text></feedback></answer>
+    <generalfeedback><text>有效類別是 [1,100]；任何低於 1 或高於 100 的值都是無效的。這裡只有 0 落在接受範圍之外。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>age &gt;= 18 的 on point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某網站只允許年齡滿足 <code>age &gt;= 18</code> 的使用者。哪一個值是這個邊界的 <strong>on point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>18</text><feedback><text>正確——18 滿足 age &gt;= 18，且恰好落在邊界上。</text></feedback></answer>
+    <answer fraction="0"><text>17</text><feedback><text>17 不滿足 age &gt;= 18；它是剛好落在接受域外的 off point。</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 滿足述語，但屬於內部點，不在邊界上。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 是不滿足述語的外部點。</text></feedback></answer>
+    <generalfeedback><text>對 age &gt;= 18 而言，邊界值 18 落在接受域內，所以它是 on point；17 則是剛好落在域外的 off point。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>嚴格邊界下最大的滿足整數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於嚴格述語 <code>x &lt; 50</code>（在整數上），哪一個值是滿足它的最大整數？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>49</text><feedback><text>正確——因為是嚴格的 &lt;，最大的滿足整數是 49，而非 50。</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>因為邊界是嚴格的，50 並不滿足 x &lt; 50。</text></feedback></answer>
+    <answer fraction="0"><text>48</text><feedback><text>48 滿足述語，但不是其中最大的。</text></feedback></answer>
+    <answer fraction="0"><text>51</text><feedback><text>51 大於 50，顯然不滿足述語。</text></feedback></answer>
+    <generalfeedback><text>嚴格不等式會排除邊界本身：對 x &lt; 50 而言，50 不滿足，因此最大的滿足整數是 49。這種 min/max ±1 的推理正是 BVA 所要演練的。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing/medium</text></category>
   </question>
   <question type="multichoice">
     <name><text>弱等價類別測試與強等價類別測試</text></name>
@@ -45,18 +165,293 @@
     <generalfeedback><text>弱等價類別測試只需要足夠的測試，使每個變數的每個類別至少被涵蓋一次。強等價類別測試則要求涵蓋所有變數之間類別的完整交叉組合，因此測試案例數會呈組合式增長。</text></generalfeedback>
   </question>
   <question type="truefalse">
-    <name><text>封閉邊界的 off-point</text></name>
-    <questiontext format="html"><text><![CDATA[<p>對於封閉邊界（boundary 值本身包含在定義域內），其 off-point 會落在定義域之外。</p>]]></text></questiontext>
-    <answer fraction="100"><text>true</text><feedback><text>正確——由於 on-point（邊界值本身）已經在封閉定義域之內，其相鄰的 off-point 會恰好落在邊界之外。</text></feedback></answer>
-    <answer fraction="0"><text>false</text><feedback><text>對封閉邊界而言，on-point 位於定義域內，因此與其配對的 off-point 就是緊鄰在其外側的值。</text></feedback></answer>
-    <generalfeedback><text>封閉邊界會把該極端值（on-point）納入定義域。與其配對的 off-point 則是在邊界另一側最鄰近的值——落在定義域之外。（若為開放邊界，兩者角色會互換：on-point 落在域外，而 off-point 則是被納入定義域的極端值。）</text></generalfeedback>
+    <name><text>封閉邊界的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於封閉邊界（boundary 值本身包含在定義域內），其 off point 會落在定義域之外。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——on point（被納入的邊界值）位於定義域內，因此與其配對的 off point 就是緊鄰在其外側的值。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>對封閉邊界而言，on point 位於定義域內，因此與其配對的 off point 就是緊鄰在其外側的值。</text></feedback></answer>
+    <generalfeedback><text>採用以下慣例：on point 是位於邊界上、落在定義域內（滿足述語）的值；off point 則是緊鄰其外側的最近值。對封閉邊界（例如 x &lt;= b）而言，on point（b）落在域內，off point（b+1）剛好落在域外。對開放邊界（例如 a &lt; x）而言，落在域內最小的值是 a+1（即 on point），而 off point 則是被排除的邊界值 a，一樣落在域外。</text></generalfeedback>
   </question>
-  <question type="shortanswer">
-    <name><text>BVA 鎖定的錯誤類型</text></name>
-    <questiontext format="html"><text><![CDATA[<p>邊界值分析特別針對的是哪一類錯誤？（請以英文回答）</p>]]></text></questiontext>
-    <usecase>0</usecase>
-    <answer fraction="100"><text>boundary*</text><feedback><text>正確。</text></feedback></answer>
-    <answer fraction="100"><text>off-by-one*</text><feedback><text>正確。</text></feedback></answer>
-    <generalfeedback><text>BVA 針對的是邊界錯誤（boundary faults）——也就是諸如以 &lt; 誤用取代 &lt;= 之類、恰好發生在輸入定義域邊緣的差一（off-by-one）錯誤，這正是它把測試值集中在邊界附近的原因。</text></generalfeedback>
+  <question type="multichoice">
+    <name><text>標準 BVA 的五個值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在標準（非強健性）邊界值分析中，對於範圍 [min, max] 的單一變數，會挑選哪五個值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>min、min+1、一個 nominal 值、max-1、max</text><feedback><text>正確——兩個邊界、它們的內側鄰居，以及一個 nominal 值。</text></feedback></answer>
+    <answer fraction="0"><text>min-1、min、nominal、max、max+1</text><feedback><text>min-1 與 max+1 是強健性測試的延伸，並不屬於標準 BVA。</text></feedback></answer>
+    <answer fraction="0"><text>min、nominal、max</text><feedback><text>這漏掉了標準 BVA 會納入的 min+1 與 max-1 內側鄰居值。</text></feedback></answer>
+    <answer fraction="0"><text>min-1、min、min+1、max-1、max、max+1</text><feedback><text>那是六個值的強健性集合，而非五個值的標準集合。</text></feedback></answer>
+    <generalfeedback><text>標準 BVA 挑選 min、min+1、一個 nominal（典型內部）值、max-1 與 max。強健性測試之後再加上 min-1 與 max+1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>標準 BVA 測試數（n=3）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用標準的 4n+1 公式，對一個具有 3 個輸入變數的函式，需要多少個 BVA 測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>13</text><feedback><text>正確——4×3 + 1 = 13。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>那是 4n；遺漏了那一個全為 nominal 的測試（+1）。</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 不符合 n=3 時的 4n+1。</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 是 n=3 時的強健性測試數 6n+1，而非標準測試數。</text></feedback></answer>
+    <generalfeedback><text>標準 BVA 一次只改變一個變數，讓它取 4 個非 nominal 的邊界值，其餘保持 nominal，再加上一個全 nominal 的測試：4n+1。n=3 時為 13。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>強健性測試新增了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>強健性測試在標準 BVA 之上，為每個變數額外加入哪些值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>min-1 與 max+1（剛好落在有效範圍之外的值）</text><feedback><text>正確——強健性測試探測兩個邊界外側緊鄰的值。</text></feedback></answer>
+    <answer fraction="0"><text>min+1 與 max-1（剛好落在有效範圍之內的值）</text><feedback><text>那些內側鄰居值已經屬於標準 BVA。</text></feedback></answer>
+    <answer fraction="0"><text>兩個額外的 nominal 值</text><feedback><text>強健性測試加入的是超出範圍的值，而非更多 nominal 值。</text></feedback></answer>
+    <answer fraction="0"><text>範圍的中點與平均值</text><feedback><text>強健性測試針對的是超出範圍的輸入，而非中央統計量。</text></feedback></answer>
+    <generalfeedback><text>強健性測試加入 min-1 與 max+1，用來觀察程式如何處理剛好超出有效範圍的輸入，因此每個變數有七個值，對應 6n+1 的測試數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>強健性 BVA 測試數（n=2）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用強健性的 6n+1 公式，對一個具有 2 個輸入變數的函式，需要多少個 BVA 測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>13</text><feedback><text>正確——6×2 + 1 = 13。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>那是 6n；遺漏了那一個全為 nominal 的測試（+1）。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是 n=2 時的標準測試數 4n+1，而非強健性測試數。</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 不符合 n=2 時的 6n+1。</text></feedback></answer>
+    <generalfeedback><text>強健性 BVA 每個變數有 6 個非 nominal 值（加入 min-1 與 max+1），一次改變一個，再加一個全 nominal 測試：6n+1。n=2 時為 13。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>開放下邊界的 on point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>19 &lt; x &lt;= 25</code>，哪一個值是<strong>下邊界的 on point</strong>（落在定義域內、最小的值）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20</text><feedback><text>正確——因為下界是嚴格的，20 是滿足 19 &lt; x 的最小值。</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>19 不滿足 19 &lt; x；它是下邊界外側的 off point。</text></feedback></answer>
+    <answer fraction="0"><text>21</text><feedback><text>21 滿足述語，但屬於內部點，不在下邊界上。</text></feedback></answer>
+    <answer fraction="0"><text>26</text><feedback><text>26 不滿足上界；它是上邊界的 off point。</text></feedback></answer>
+    <generalfeedback><text>對開放（嚴格）下邊界 19 &lt; x 而言，19 被排除，因此落在域內的 on point 是 20，而域外的 off point 是 19。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>開放下邊界的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>27 &lt; x &lt;= 30</code>，哪一個值是<strong>下邊界的 off point</strong>（剛好落在定義域外、最近的值）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>27</text><feedback><text>正確——27 因嚴格的 &lt; 而被排除，所以它是下邊界外側的 off point。</text></feedback></answer>
+    <answer fraction="0"><text>28</text><feedback><text>28 滿足 27 &lt; x；它是下邊界的 on point。</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 滿足述語；它是上邊界的 on point。</text></feedback></answer>
+    <answer fraction="0"><text>29</text><feedback><text>29 是滿足述語的內部點。</text></feedback></answer>
+    <generalfeedback><text>對開放下邊界 27 &lt; x 而言，落在域內最小的值是 28（on point），而被排除的邊界值 27 是剛好落在域外的 off point。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>封閉區間的 on point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>24 &lt;= x &lt;= 41</code>，哪一個值是<strong>下邊界的 on point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>24</text><feedback><text>正確——24 滿足 24 &lt;= x，且落在下邊界上。</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 不滿足述語；它是下邊界外側的 off point。</text></feedback></answer>
+    <answer fraction="0"><text>42</text><feedback><text>42 不滿足上界；它是上邊界的 off point。</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 滿足述語，但屬於內部點。</text></feedback></answer>
+    <generalfeedback><text>對封閉區間 [24,41] 而言，下邊界值 24 被納入，所以它是 on point；23 則是剛好落在域外的 off point。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>封閉區間的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>11 &lt;= x &lt;= 29</code>，哪一個值是<strong>下邊界的 off point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>正確——10 是被納入的最小值 11 之下最近的值，剛好落在域外。</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>11 滿足述語；它是下邊界的 on point。</text></feedback></answer>
+    <answer fraction="0"><text>29</text><feedback><text>29 滿足述語；它是上邊界的 on point。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 是滿足述語的內部點。</text></feedback></answer>
+    <generalfeedback><text>對封閉區間 [11,29] 而言，下邊界的 on point 是 11，剛好落在域外的 off point 是 10。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>開放區間的 on/off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於嚴格述語 <code>x &gt; 5</code>，哪一組正確給出該邊界的 on point 與 off point？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>on point 為 6，off point 為 5</text><feedback><text>正確——6 是落在域內最小的值；5 被排除，剛好落在域外。</text></feedback></answer>
+    <answer fraction="0"><text>on point 為 5，off point 為 6</text><feedback><text>5 不滿足 x &gt; 5，因此不可能是 on point（落在域內的值）。</text></feedback></answer>
+    <answer fraction="0"><text>on point 為 5，off point 為 4</text><feedback><text>5 與 4 都不滿足述語；兩者都不在域內。</text></feedback></answer>
+    <answer fraction="0"><text>on point 為 7，off point 為 6</text><feedback><text>7 滿足述語但屬於內部點，而 6 也滿足述語，因此都不是 off point。</text></feedback></answer>
+    <generalfeedback><text>對開放邊界 x &gt; 5 而言，邊界值 5 被排除，因此 on point（域內最近的值）是 6，off point（域外最近的值）是 5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>4n+1 背後的單一錯誤假設</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼標準 BVA 一次只改變一個變數（其餘保持 nominal），得到 4n+1 個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它假設「單一錯誤假設」——失敗通常是由單一變數處於極值造成，而非多個變數同時</text><feedback><text>正確——正是這個假設讓測試數對 n 保持線性。</text></feedback></answer>
+    <answer fraction="0"><text>它假設變數永遠彼此獨立、完全不會互動</text><feedback><text>BVA 並不主張變數永不互動；它只是賭「單一變數的極值」能抓到大多數邊界錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>它假設程式剛好只有一個輸入變數</text><feedback><text>4n+1 公式明確是針對 n 個變數，而非一個。</text></feedback></answer>
+    <answer fraction="0"><text>它假設所有邊界值被輸入的機率都相同</text><feedback><text>依據並非輸入機率，而是單一錯誤假設。</text></feedback></answer>
+    <generalfeedback><text>標準 BVA 建立在單一錯誤（關鍵錯誤）假設之上：大多數失敗源自單一變數處於邊界，其餘保持 nominal。最壞情況測試放棄此假設並組合各邊界，成本高出許多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>標準 BVA 測試數（n=2）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用標準的 4n+1 公式，對一個具有 2 個輸入變數的函式，需要多少個 BVA 測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——4×2 + 1 = 9。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>那是 4n；遺漏了那一個全為 nominal 的測試（+1）。</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 是 n=2 時的強健性測試數 6n+1，而非標準測試數。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是單一變數（n=1）的標準測試數，而非兩個變數。</text></feedback></answer>
+    <generalfeedback><text>標準 BVA 需要 4n+1 個測試；n=2 時為 4×2 + 1 = 9。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>上邊界的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於述語 <code>5 &lt;= x &lt;= 17</code>，哪一個值是<strong>上邊界的 off point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>18</text><feedback><text>正確——18 是被納入的最大值 17 之上最近的值，剛好落在域外。</text></feedback></answer>
+    <answer fraction="0"><text>17</text><feedback><text>17 滿足述語；它是上邊界的 on point。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 滿足述語，屬於內部點。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是下邊界的 off point，而非上邊界。</text></feedback></answer>
+    <generalfeedback><text>對封閉區間 [5,17] 而言，上邊界的 on point 是 17，剛好落在上邊界外側的 off point 是 18。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>強健性測試每個變數的值數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於範圍 [min, max] 的單一變數，強健性測試會演練多少個不同的測試值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——min-1、min、min+1、nominal、max-1、max、max+1。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是標準 BVA 的值數；強健性再加入 min-1 與 max+1，共 7 個。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 少算了一個：強健性集合有七個（兩個邊界、兩個內側鄰居、兩個外側鄰居，以及一個 nominal）。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是兩個變數的標準 BVA 測試數（4n+1），而非單一變數的值數。</text></feedback></answer>
+    <generalfeedback><text>強健性測試每個變數使用七個值——五個標準 BVA 值再加上 min-1 與 max+1——這正是強健性測試數為 6n+1 的原因。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Boundary Value &amp; Equivalence Class Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>最壞情況邊界測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>最壞情況（worst-case）邊界測試會取每個變數五個邊界值的笛卡兒積。對一個具有 2 個輸入變數的函式，會產生多少個測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>25</text><feedback><text>正確——5^2 = 25，每個變數五個值的完整乘積。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 是 5×n；最壞情況測試是把各值集合相乘（5^n），而非相加。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是 n=2 時的標準單一錯誤測試數 4n+1，而非最壞情況測試數。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 不符合 n=2 時的 5^n。</text></feedback></answer>
+    <generalfeedback><text>最壞情況邊界測試放棄單一錯誤假設，把每個變數的邊界值全部組合：5^n 個測試。n=2 時為 5^2 = 25。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>強健最壞情況測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>強健最壞情況（robust worst-case）邊界測試會把每個變數的七個值（加入 min-1 與 max+1）完整組合。對 2 個變數而言，會產生多少個測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>49</text><feedback><text>正確——7^2 = 49。</text></feedback></answer>
+    <answer fraction="0"><text>25</text><feedback><text>25 是 5^2，是非強健的最壞情況測試數。</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 是 7×n；強健最壞情況是把各值集合相乘（7^n）。</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 是 n=2 時的強健單一錯誤測試數 6n+1，而非最壞情況測試數。</text></feedback></answer>
+    <generalfeedback><text>強健最壞情況測試會把每個變數的七個強健值全部組合：7^n。n=2 時為 7^2 = 49。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最壞情況與標準 BVA</text></name>
+    <questiontext format="html"><text><![CDATA[<p>最壞情況邊界測試與標準（4n+1）BVA 最根本的差異是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它放棄單一錯誤假設，把所有變數的邊界值加以組合，因而呈指數成長（5^n）</text><feedback><text>正確——以組合取代了一次改變一個的做法。</text></feedback></answer>
+    <answer fraction="0"><text>它每個變數用較少的值，但變數較多</text><feedback><text>它每個變數用的值相同；差別在於把它們跨變數組合起來。</text></feedback></answer>
+    <answer fraction="0"><text>它只測試 nominal 值，從不測邊界</text><feedback><text>最壞情況測試完全是在組合邊界值，而非避開它們。</text></feedback></answer>
+    <answer fraction="0"><text>它總是比標準 BVA 更便宜</text><feedback><text>它昂貴得多：5^n 呈指數成長，而 4n+1 是線性的。</text></feedback></answer>
+    <generalfeedback><text>標準 BVA 一次改變一個變數（單一錯誤假設），得到 4n+1 個測試。最壞情況測試把每個變數的邊界值全部組合，得到 5^n 個測試——對邊界而言窮舉，但成本呈指數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>輸入空間劃分中的 characteristic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Ammann &amp; Offutt 的輸入空間劃分（Input Space Partitioning, ISP）中，<strong>characteristic（特徵）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>輸入定義域的某個特徵，用來把定義域劃分成若干 block（區塊）</text><feedback><text>正確——每個 characteristic 會導出對輸入定義域的一種劃分。</text></feedback></answer>
+    <answer fraction="0"><text>單一個具體的測試輸入值</text><feedback><text>那是測試值；characteristic 是用來劃分值的維度。</text></feedback></answer>
+    <answer fraction="0"><text>程式的預期輸出</text><feedback><text>那是 oracle，而非 ISP 的 characteristic。</text></feedback></answer>
+    <answer fraction="0"><text>受測的一行原始碼</text><feedback><text>ISP 是黑箱的；characteristic 描述的是輸入定義域，而非程式碼。</text></feedback></answer>
+    <generalfeedback><text>在 ISP 中，每個 characteristic 會把輸入定義域劃分成若干 block（例如「x 的正負號：負／零／正」）。挑選好的 characteristic 是關鍵的設計步驟。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>劃分的 block</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個 characteristic 把輸入定義域切分成的各個 block，必須滿足什麼性質？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>必須是完備的（涵蓋整個定義域）且互斥的（沒有值同時屬於兩個 block）</text><feedback><text>正確——完備加上互斥，正是「劃分」的定義。</text></feedback></answer>
+    <answer fraction="0"><text>必須彼此重疊，使每個值至少屬於兩個 block</text><feedback><text>重疊違反互斥性；劃分的各 block 是互斥的。</text></feedback></answer>
+    <answer fraction="0"><text>每個 block 必須含有相同數量的值</text><feedback><text>各 block 大小不必相同；只需完備且互斥。</text></feedback></answer>
+    <answer fraction="0"><text>每個 characteristic 必須剛好有兩個 block</text><feedback><text>只要能劃分定義域，一個 characteristic 可以有任意數量的 block。</text></feedback></answer>
+    <generalfeedback><text>對每個 characteristic 而言，其 block 必須構成定義域的一個劃分：完備（聯集為整個定義域）且互斥。否則某個值可能無法分類或產生歧義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All Combinations Coverage 測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個 characteristic，各有 3、2、2 個 block。All Combinations Coverage（ACoC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>正確——3 × 2 × 2 = 12，各 block 數的乘積。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是總和 3+2+2；ACoC 是把各 block 數相乘。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 不符合各 block 數的乘積。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 忽略了一個 characteristic；三者的乘積為 12。</text></feedback></answer>
+    <generalfeedback><text>ACoC 要求涵蓋所有 characteristic 之間 block 的每一種組合，因此測試數是各 block 數的乘積：3 × 2 × 2 = 12。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Each Choice Coverage 測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個 characteristic，各有 3、2、4 個 block。Each Choice Coverage（ECC）最少需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——ECC 至少需要與「單一 characteristic 中最多的 block 數」一樣多的測試（此處為 4）。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是各 block 數的總和；ECC 在同一個測試中可跨 characteristic 重用 block。</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 是乘積（All Combinations），遠多於 ECC 所需。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 不足以涵蓋那個有 4 個 block 的 characteristic。</text></feedback></answer>
+    <generalfeedback><text>ECC 要求每個 characteristic 的每個 block 至少出現在一個測試中。由於單一測試會從每個 characteristic 各取一個 block，最少測試數等於最大的 block 數——此處 max(3,2,4) = 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Base Choice Coverage 測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個 characteristic，各有 3、3、2 個 block。Base Choice Coverage（BCC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——1 個 base 測試 + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是各 block 數的總和；BCC 計為一個 base 測試加上各非 base 的 block。</text></feedback></answer>
+    <answer fraction="0"><text>18</text><feedback><text>18 是乘積（All Combinations），而非 Base Choice 的測試數。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 遺漏了 +1 的 base 測試：總數是 1 + Σ(block-1)。</text></feedback></answer>
+    <generalfeedback><text>BCC 為每個 characteristic 挑一個 base choice（即 base 測試），再一次改變一個 characteristic 到其餘 block：1 + Σ(B_i - 1) = 1 + 2 + 2 + 1 = 6。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pair-Wise Coverage 定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Pair-Wise Coverage（PWC）要求什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>任兩個 characteristic 之間，其 block 的每一組配對都必須在至少一個測試中同時出現</text><feedback><text>正確——PWC 涵蓋所有兩兩之間的 block 互動。</text></feedback></answer>
+    <answer fraction="0"><text>所有 characteristic 之間 block 的每一種組合都必須出現</text><feedback><text>那是 All Combinations Coverage；PWC 只要求配對。</text></feedback></answer>
+    <answer fraction="0"><text>每個 characteristic 的每個 block 各出現一次，且無互動要求</text><feedback><text>那是 Each Choice Coverage，比 PWC 弱。</text></feedback></answer>
+    <answer fraction="0"><text>每個 characteristic 必須剛好跑兩個測試</text><feedback><text>PWC 約束的是 block 的配對，而非每個 characteristic 固定的測試數。</text></feedback></answer>
+    <generalfeedback><text>PWC（2-wise）要求對任兩個 characteristic，它們的每一組 block 配對都在某個測試中被涵蓋。它能抓到兩兩互動錯誤，又不至於像 ACoC 那樣爆炸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pair-Wise Coverage 下界</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個 characteristic，各有 3、3、2 個 block。任何 Pair-Wise Coverage 測試集至少必須包含多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——至少是最大的兩個 block 數的乘積，3 × 3 = 9。</text></feedback></answer>
+    <answer fraction="0"><text>18</text><feedback><text>18 是完整的 All Combinations 乘積；PWC 所需遠少於此。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3（最大的單一 block 數）滿足的是 Each Choice，而非 Pair-Wise。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 低於 pairwise 下界 3 × 3 = 9。</text></feedback></answer>
+    <generalfeedback><text>要涵蓋兩個各有 3 個 block 的 characteristic 之間的每一組配對，就已經需要它們全部 3 × 3 = 9 種組合，因此任何 PWC 測試集至少有 9 個測試——即最大的兩個 block 數的乘積。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最強的 ISP 準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ACoC、ECC、PWC、BCC 之中，哪一個準則涵蓋（subsume）其餘所有準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All Combinations Coverage（ACoC）</text><feedback><text>正確——涵蓋每一種 block 組合，就必然涵蓋每一組配對、每一次 base 變化與每一個 choice。</text></feedback></answer>
+    <answer fraction="0"><text>Each Choice Coverage（ECC）</text><feedback><text>ECC 是四者中最弱的；它被其餘準則涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>Pair-Wise Coverage（PWC）</text><feedback><text>PWC 涵蓋 ECC，但一般不涵蓋 ACoC 或 BCC。</text></feedback></answer>
+    <answer fraction="0"><text>Base Choice Coverage（BCC）</text><feedback><text>BCC 涵蓋 ECC，但本身被 ACoC 涵蓋。</text></feedback></answer>
+    <generalfeedback><text>ACoC 要求每一種 block 組合，因此必然滿足配對涵蓋、base choice 變化與 each choice——它位於 ISP 涵蓋階層的頂端（通常也最昂貴）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ISP 涵蓋鏈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一條 ISP 準則的涵蓋鏈是正確的（每一個準則涵蓋下一個）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>MBCC → BCC → ECC</text><feedback><text>正確——Multiple Base Choice 涵蓋 Base Choice，Base Choice 又涵蓋 Each Choice。</text></feedback></answer>
+    <answer fraction="0"><text>ECC → BCC → MBCC</text><feedback><text>這把方向弄反了；ECC 最弱，不可能涵蓋其他準則。</text></feedback></answer>
+    <answer fraction="0"><text>BCC → MBCC → ECC</text><feedback><text>是 MBCC 涵蓋 BCC，而非相反。</text></feedback></answer>
+    <answer fraction="0"><text>ECC → PWC → BCC</text><feedback><text>ECC 不涵蓋 PWC，而 PWC 也不涵蓋 BCC（兩者無法比較）。</text></feedback></answer>
+    <generalfeedback><text>Multiple Base Choice Coverage 涵蓋 Base Choice Coverage，Base Choice 又涵蓋 Each Choice Coverage。注意 BCC 與 PWC 無法互相比較——兩者互不涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>BCC 中的 base choice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Base Choice Coverage 中，測試集是如何建構的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>為每個 characteristic 各挑一個 base block 組成 base 測試，再一次改變一個 characteristic 到其餘 block</text><feedback><text>正確——這會得到 1 + Σ(block-1) 個測試。</text></feedback></answer>
+    <answer fraction="0"><text>把每個 characteristic 的每個 block 與其他所有的組合起來</text><feedback><text>那是 All Combinations Coverage，而非 Base Choice。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試都隨機為每個 characteristic 挑一個 block</text><feedback><text>BCC 是有系統的：一個固定的 base 測試加上一次一個的變化，而非隨機挑選。</text></feedback></answer>
+    <answer fraction="0"><text>只用 base 測試，別無其他</text><feedback><text>光靠 base 測試無法演練非 base 的 block；每個都必須被變化進來。</text></feedback></answer>
+    <generalfeedback><text>BCC 為每個 characteristic 指定一個 base choice（例如最常見或最重要的 block），跑該 base 測試，再一次改變一個 characteristic 到它的每個非 base block，其餘保持 base 值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結合等價類別與邊界</text></name>
+    <questiontext format="html"><text><![CDATA[<p>實務上，等價類別劃分與邊界值分析通常如何結合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>先把定義域劃分成等價類別，再在每個類別的邊緣加上邊界值</text><feedback><text>正確——劃分找出類別，BVA 則在其邊緣強化測試。</text></feedback></answer>
+    <answer fraction="0"><text>完全用隨機的邊界值取代等價類別</text><feedback><text>兩者是互補的；BVA 是補強而非取代劃分。</text></feedback></answer>
+    <answer fraction="0"><text>只對無效類別使用邊界值，忽略有效類別</text><feedback><text>有效類別的邊界也要測——那正是大多數差一錯誤所在。</text></feedback></answer>
+    <answer fraction="0"><text>只測試每個等價類別的中點</text><feedback><text>那是沒有搭配 BVA 的純等價類別劃分，會漏掉邊界錯誤。</text></feedback></answer>
+    <generalfeedback><text>標準做法是先導出等價類別，從每個類別各取一個 nominal 代表值，再在類別之間的邊界套用 BVA——把廣泛涵蓋與邊緣敏感度結合起來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>複合述語的 off point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮複合述語 <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>。下列哪一個值是此述語的一個 <strong>off point</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>21</text><feedback><text>正確——21 不滿足上界子句，且剛好落在定義域外，所以它是一個 off point。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 同時滿足兩個子句；它是下邊界的 on point。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 同時滿足兩個子句；它是上邊界的 on point。</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 滿足述語，屬於內部點。</text></feedback></answer>
+    <generalfeedback><text>此合取等價於封閉區間 [10,20]。其 on point 為 10 與 20；剛好落在域外的 off point 為 9 與 21。在這些選項中，只有 21 是 off point。</text></generalfeedback>
   </question>
 </quiz>

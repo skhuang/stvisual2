@@ -1,18 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Graph Coverage</text></category>
+    <category><text>$course$/top/Graph Coverage/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>節點覆蓋與邊覆蓋</text></name>
     <questiontext format="html"><text><![CDATA[<p>某測試路徑集合滿足節點覆蓋（Node Coverage），但不滿足邊覆蓋（Edge Coverage）。以下何者必為真？</p>]]></text></questiontext>
     <single>true</single>
-    <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>每個節點都被走訪過，但有某條邊從未被經過</text><feedback><text>正確——邊覆蓋涵蓋（subsumes）節點覆蓋，反之則不成立。</text></feedback></answer>
     <answer fraction="0"><text>有某個節點從未被走訪</text><feedback><text>如此一來節點覆蓋本身就已經不成立。</text></feedback></answer>
     <answer fraction="0"><text>每條質路徑（prime path）都被走過</text><feedback><text>質路徑覆蓋會蘊含邊覆蓋。</text></feedback></answer>
     <answer fraction="0"><text>此圖沒有任何分支</text><feedback><text>當圖形沒有分支時，節點覆蓋就會蘊含邊覆蓋。</text></feedback></answer>
     <generalfeedback><text>邊覆蓋要求走過每一條邊；即使某條邊的兩端節點都經由其他路徑被走訪過，這條邊本身仍可能被跳過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試路徑的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以圖為基礎的測試中，<strong>測試路徑（test path）</strong>是一條：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從圖的起始節點開始、並在結束節點結束的路徑</text><feedback><text>正確——測試路徑代表一次從入口到出口的完整執行。</text></feedback></answer>
+    <answer fraction="0"><text>恰好走訪圖中每個節點各一次的路徑</text><feedback><text>那是漢彌爾頓路徑（Hamiltonian path），不是測試路徑。</text></feedback></answer>
+    <answer fraction="0"><text>圖中任一條單獨的邊</text><feedback><text>單一條邊是長度為 1 的路徑，但測試路徑必須從起始節點走到結束節點。</text></feedback></answer>
+    <answer fraction="0"><text>不重複經過任何節點的路徑</text><feedback><text>測試路徑可以重複經過節點（例如迴圈的多次迭代）；只有簡單路徑才禁止重複。</text></feedback></answer>
+    <generalfeedback><text>測試路徑是一條從起始節點到結束節點的路徑；執行一個測試案例恰好會走過一條測試路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>敘述覆蓋對應到</text></name>
+    <questiontext format="html"><text><![CDATA[<p>傳統的<strong>敘述覆蓋（statement coverage）</strong>在控制流程圖上對應到哪一個圖覆蓋準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>節點覆蓋（Node Coverage）</text><feedback><text>正確——執行每一條敘述即等於走訪每一個節點。</text></feedback></answer>
+    <answer fraction="0"><text>邊覆蓋（Edge Coverage）</text><feedback><text>邊覆蓋對應的是分支覆蓋，比敘述覆蓋更強。</text></feedback></answer>
+    <answer fraction="0"><text>質路徑覆蓋（Prime Path Coverage）</text><feedback><text>質路徑覆蓋遠比敘述覆蓋更強。</text></feedback></answer>
+    <answer fraction="0"><text>完整路徑覆蓋（Complete Path Coverage）</text><feedback><text>完整路徑覆蓋通常不可行，且強度遠高於敘述覆蓋。</text></feedback></answer>
+    <generalfeedback><text>節點用來表示基本區塊／敘述，因此敘述覆蓋恰好就是節點覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分支覆蓋對應到</text></name>
+    <questiontext format="html"><text><![CDATA[<p>傳統的<strong>分支覆蓋（branch coverage）</strong>對應到哪一個圖覆蓋準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊覆蓋（Edge Coverage）</text><feedback><text>正確——每一個分支的結果都是一條必須被走過的邊。</text></feedback></answer>
+    <answer fraction="0"><text>節點覆蓋（Node Coverage）</text><feedback><text>節點覆蓋對應的是敘述覆蓋，強度較弱。</text></feedback></answer>
+    <answer fraction="0"><text>邊對覆蓋（Edge-Pair Coverage）</text><feedback><text>邊對覆蓋要求長度最多為 2 的路徑，強度高於分支覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>全使用覆蓋（All-Uses Coverage）</text><feedback><text>全使用是資料流準則，與分支覆蓋不同。</text></feedback></answer>
+    <generalfeedback><text>每個判斷結果都是一條外向邊，因此分支覆蓋恰好就是邊覆蓋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>邊覆蓋涵蓋節點覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在任何圖上，滿足邊覆蓋（Edge Coverage）的測試集合也一定滿足節點覆蓋（Node Coverage）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——走過每一條邊，就會走訪每一個有相連邊的節點。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>邊覆蓋涵蓋節點覆蓋：覆蓋所有邊必然會走訪所有可達節點。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋涵蓋（subsumes）節點覆蓋；反之則不成立。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>完整路徑覆蓋的可行性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>只要控制流程圖（control-flow graph）中含有迴圈，完整路徑覆蓋（Complete Path Coverage）就不可行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——迴圈會產生無窮多條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>迴圈會造成路徑數量無上限，因此完整路徑覆蓋無法在有限步驟內被滿足。</text></feedback></answer>
+    <generalfeedback><text>只要圖中含有迴圈，路徑就能任意次數地重複經過同一節點，使得完整測試路徑的集合變成無窮多——因此只要圖中有迴圈，完整路徑覆蓋就永遠無法在有限步驟內被滿足。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>簡單路徑的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>簡單路徑（simple path）</strong>是指一條滿足下列條件的路徑：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有任何節點出現超過一次，但起點與終點可以是同一個節點</text><feedback><text>正確——這允許迴圈閉合，但禁止其他任何重複。</text></feedback></answer>
+    <answer fraction="0"><text>在任何情況下都不重複經過任何節點</text><feedback><text>簡單路徑可以在同一節點開始與結束（即往返路徑）。</text></feedback></answer>
+    <answer fraction="0"><text>走訪圖中的每一個節點</text><feedback><text>那描述的是生成路徑（spanning path），不是簡單路徑。</text></feedback></answer>
+    <answer fraction="0"><text>每條邊最多只使用一次</text><feedback><text>那是跡（trail）；簡單路徑限制的是節點重複，而非邊的重複。</text></feedback></answer>
+    <generalfeedback><text>簡單路徑不重複經過任何節點，唯一的例外是起點與終點可以相同。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>節點覆蓋與分支</text></name>
+    <questiontext format="html"><text><![CDATA[<p>滿足節點覆蓋（Node Coverage）就保證每一個分支（判斷結果）都已被執行過。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——節點覆蓋可以在某條邊（分支結果）從未被走過的情況下仍被滿足。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>節點覆蓋只要求走訪節點；某個未被走的分支仍可能讓所有節點都經由其他路徑被走訪。</text></feedback></answer>
+    <generalfeedback><text>節點覆蓋並不蘊含邊覆蓋，因此某些分支結果可能未被測試到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊數計算 A</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..4，有向邊為 <code>1→2, 2→3, 3→4, 2→4</code>。此圖共有幾條有向邊？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——邊列表中恰好有四條邊。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>請重數——列表中有四條邊。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>請重數——列表中只有四條邊。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>請重數——列表中只有四條邊。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋每條邊需要一個測試需求；此處為 4 條邊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊數計算 B</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..5，有向邊為 <code>1→2, 2→3, 3→4, 4→5, 2→5</code>。此圖共有幾條有向邊？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——列表中有五條邊。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>請重數——列表中有五條邊。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>請重數——列表中只有五條邊。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>請重數——列表中只有五條邊。</text></feedback></answer>
+    <generalfeedback><text>每條有向邊只算一次；此列表即為完整的邊集合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>節點覆蓋的測試需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..5，邊為 <code>1→2, 2→3, 2→4, 3→5, 4→5</code>。節點覆蓋（Node Coverage）會產生幾個測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——每個節點一個需求，共有 5 個節點。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>節點覆蓋計算的是節點數（5），不是邊數。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>那計算的是分支點的數量，而非所有節點。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>節點覆蓋每個節點一個需求，所以是 5，而非節點配對數。</text></feedback></answer>
+    <generalfeedback><text>節點覆蓋要求走訪每個節點，因此需求數等於節點數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊對計算 A</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某圖的邊為 <code>1→2, 2→3, 2→4</code>。共有幾條長度為 2 的路徑 u→v→w（共用中間節點 v 的兩條邊）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——1→2→3 與 1→2→4。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>共有兩條：1→2→3 與 1→2→4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>只有共用中間節點的邊配對才算；此處有兩對。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>節點 2 是兩條長度為 2 路徑的中間節點。</text></feedback></answer>
+    <generalfeedback><text>對每一條邊 u→v，計算每一條邊 v→w；此處節點 2 有兩條外向邊，產生 2 條長度為 2 的路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊對計算 B</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某圖的邊為 <code>1→2, 2→3, 3→4, 2→4</code>。共有幾條長度為 2 的路徑 u→v→w？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——1→2→3、1→2→4 與 2→3→4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>共有三條：1→2→3、1→2→4、2→3→4。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>請重數——只有三對邊共用中間節點。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>節點 2 與節點 3 各自作為中間節點，合計三對。</text></feedback></answer>
+    <generalfeedback><text>中間節點 2 產生 1→2→3 與 1→2→4；中間節點 3 產生 2→3→4；合計 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊覆蓋的測試需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>。邊覆蓋（Edge Coverage）會產生幾個測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——每條邊一個需求，共有 4 條邊。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>邊覆蓋計算的是邊數（4），不是節點數。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>那計算的是完整路徑的數量，而非邊數。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>只有 4 條邊需要覆蓋。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋要求走過每一條邊，因此需求數等於邊數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最弱的結構準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列結構準則中，哪一個<strong>最弱</strong>（要求最低）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>節點覆蓋（Node Coverage）</text><feedback><text>正確——節點覆蓋被其他所有準則涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>邊覆蓋（Edge Coverage）</text><feedback><text>邊覆蓋涵蓋節點覆蓋，因此較強。</text></feedback></answer>
+    <answer fraction="0"><text>邊對覆蓋（Edge-Pair Coverage）</text><feedback><text>邊對覆蓋涵蓋邊覆蓋與節點覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>質路徑覆蓋（Prime Path Coverage）</text><feedback><text>質路徑覆蓋是最強的結構準則之一。</text></feedback></answer>
+    <generalfeedback><text>結構準則的鏈為 質路徑 → 邊對 → 邊 → 節點，因此節點覆蓋最弱。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Coverage/medium</text></category>
   </question>
   <question type="multichoice">
     <name><text>質路徑的定義</text></name>
@@ -25,7 +158,7 @@
     <generalfeedback><text>質路徑是簡單路徑（除了起點與終點可能相同外，不重複經過任何節點），且必須是極大的——不會是其他簡單路徑的真子路徑。</text></generalfeedback>
   </question>
   <question type="multichoice">
-    <name><text>涵蓋關係</text></name>
+    <name><text>邊覆蓋的涵蓋關係</text></name>
     <questiontext format="html"><text><![CDATA[<p>在至少含有一條邊的圖上，下列哪個準則涵蓋（subsumes）邊覆蓋？</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>邊對覆蓋（Edge-Pair Coverage）</text><feedback><text>正確——涵蓋所有長度 ≤ 2 的路徑，自然涵蓋所有長度為 1 的路徑。</text></feedback></answer>
@@ -44,13 +177,6 @@
     <answer fraction="0"><text>先使用 x，之後才對其定義</text><feedback><text>正確順序應是先定義、後使用。</text></feedback></answer>
     <generalfeedback><text>定義-使用對 (d, u) 需要一條從 d 到 u、途中不再重新定義 x 的路徑——即無重新定義路徑（def-clear path）。</text></generalfeedback>
   </question>
-  <question type="truefalse">
-    <name><text>完整路徑覆蓋的可行性</text></name>
-    <questiontext format="html"><text><![CDATA[<p>只要控制流程圖（control-flow graph）中含有迴圈，完整路徑覆蓋（Complete Path Coverage）就不可行。</p>]]></text></questiontext>
-    <answer fraction="100"><text>true</text><feedback><text>正確——迴圈會產生無窮多條路徑。</text></feedback></answer>
-    <answer fraction="0"><text>false</text><feedback><text>迴圈會造成路徑數量無上限，因此完整路徑覆蓋無法在有限步驟內被滿足。</text></feedback></answer>
-    <generalfeedback><text>只要圖中含有迴圈，路徑就能任意次數地重複經過同一節點，使得「簡單且完整」的測試路徑集合變成無窮多——因此只要圖中有迴圈，完整路徑覆蓋就永遠無法在有限步驟內被滿足。</text></generalfeedback>
-  </question>
   <question type="shortanswer">
     <name><text>集合覆蓋化約</text></name>
     <questiontext format="html"><text><![CDATA[<p>stvisual 以貪婪演算法（greedy approximation）挑選測試路徑集合時，其實是在近似求解哪一個經典問題？（請以英文兩個單字回答）</p>]]></text></questiontext>
@@ -58,5 +184,256 @@
     <answer fraction="100"><text>set cover*</text><feedback><text>正確——貪婪集合覆蓋。</text></feedback></answer>
     <answer fraction="100"><text>set-cover*</text><feedback><text>正確。</text></feedback></answer>
     <generalfeedback><text>選擇一個能涵蓋所有需求的最小測試路徑集合，正是（NP-困難的）集合覆蓋問題（set-cover problem）；本工具採用貪婪近似演算法求解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨認質路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>（節點 1 為起始、節點 4 為結束）。下列何者是一條質路徑（prime path）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1→2→4</text><feedback><text>正確——它是一條極大簡單路徑（不是任何更長簡單路徑的子路徑）。</text></feedback></answer>
+    <answer fraction="0"><text>2→4</text><feedback><text>2→4 是簡單路徑 1→2→4 的真子路徑，因此不是質路徑。</text></feedback></answer>
+    <answer fraction="0"><text>1→2</text><feedback><text>1→2 是 1→2→4 的真子路徑，因此不是質路徑。</text></feedback></answer>
+    <answer fraction="0"><text>1→2→4→3</text><feedback><text>不存在邊 4→3，因此這甚至不是一條合法路徑。</text></feedback></answer>
+    <generalfeedback><text>此圖的質路徑為 1→2→4 與 1→3→4；較短的簡單路徑都是這兩條的子路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>往返路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>往返路徑（round-trip path）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一條長度不為零、且起點與終點相同的質路徑</text><feedback><text>正確——它捕捉迴圈的一次走訪。</text></feedback></answer>
+    <answer fraction="0"><text>任何一條從起始節點到結束節點的路徑</text><feedback><text>那是一般的測試路徑，而非特指往返路徑。</text></feedback></answer>
+    <answer fraction="0"><text>走訪每個節點兩次的路徑</text><feedback><text>往返路徑是簡單路徑；除了共用的端點外，節點不會被走訪兩次。</text></feedback></answer>
+    <answer fraction="0"><text>任一對邊 u→v 與 v→u</text><feedback><text>往返路徑是一條回到起點的質路徑，而非單純的來回邊對。</text></feedback></answer>
+    <generalfeedback><text>往返路徑是一條長度不為零、起點與終點相同的質路徑；簡單往返覆蓋與完整往返覆蓋皆建立於此。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無重新定義路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一條從 x 的定義到 x 的使用的路徑，在何種情況下對 x 而言是<strong>無重新定義的（def-clear）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在該定義與使用之間，路徑上沒有任何節點重新定義 x</text><feedback><text>正確——原本的定義因此仍能到達該使用。</text></feedback></answer>
+    <answer fraction="0"><text>路徑上不含任何分支</text><feedback><text>是否有分支無關；重點是途中不得重新定義 x。</text></feedback></answer>
+    <answer fraction="0"><text>路徑上每個節點都使用了 x</text><feedback><text>無重新定義關心的是重新定義，而非途中的使用。</text></feedback></answer>
+    <answer fraction="0"><text>該路徑是一條質路徑</text><feedback><text>無重新定義關乎重新定義，與是否為質路徑無關。</text></feedback></answer>
+    <generalfeedback><text>對 x 而言的無重新定義路徑，在定義與使用之間不含任何對 x 的重新定義，因此該定義能到達該使用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>質路徑覆蓋涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>質路徑覆蓋（Prime Path Coverage）涵蓋（subsumes）下列哪一個準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊對覆蓋（Edge-Pair Coverage）</text><feedback><text>正確——長度 ≥ 2 的質路徑涵蓋所有長度 ≤ 2 的子路徑。</text></feedback></answer>
+    <answer fraction="0"><text>全定義-使用路徑覆蓋（All-DU-Paths）</text><feedback><text>結構性的質路徑覆蓋並不涵蓋資料流準則。</text></feedback></answer>
+    <answer fraction="0"><text>完整路徑覆蓋（Complete Path Coverage）</text><feedback><text>完整路徑覆蓋更強，是它涵蓋質路徑覆蓋，而非相反。</text></feedback></answer>
+    <answer fraction="0"><text>全使用覆蓋（All-Uses）</text><feedback><text>全使用是資料流準則；質路徑覆蓋並不涵蓋它。</text></feedback></answer>
+    <generalfeedback><text>質路徑覆蓋涵蓋邊對、邊與節點覆蓋，但不涵蓋資料流準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>全使用與全定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於資料流準則「全定義（All-Defs）」與「全使用（All-Uses）」，下列敘述何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>全使用涵蓋全定義</text><feedback><text>正確——到達每個定義的所有使用，蘊含到達每個定義的至少一個使用。</text></feedback></answer>
+    <answer fraction="0"><text>全定義涵蓋全使用</text><feedback><text>涵蓋方向相反：全使用較強。</text></feedback></answer>
+    <answer fraction="0"><text>兩者等價</text><feedback><text>當某個定義能到達超過一個使用時，全使用嚴格較強。</text></feedback></answer>
+    <answer fraction="0"><text>兩者互不涵蓋</text><feedback><text>全使用確實涵蓋全定義。</text></feedback></answer>
+    <generalfeedback><text>全定義要求每個定義至少到達一個使用；全使用要求每個定義到達其所有使用——因此全使用涵蓋全定義。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>邊對的路徑長度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>邊對覆蓋（Edge-Pair Coverage）要求走訪每一條長度最多為 2 的可達路徑（亦即每一條單獨的邊，以及每一對相鄰的邊）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——邊對覆蓋是定義在長度 ≤ 2 的路徑上。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>邊對覆蓋恰好就是所有長度最多為 2 的可達路徑之集合。</text></feedback></answer>
+    <generalfeedback><text>邊對覆蓋走訪所有長度 ≤ 2 的可達路徑，這也是它涵蓋邊覆蓋（長度為 1 的路徑）的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊對計算（5 節點）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..5，邊為 <code>1→2, 1→3, 2→3, 2→4, 3→4, 4→5</code>。共有幾條長度為 2 的路徑 u→v→w？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——1→2→3、1→2→4、1→3→4、2→3→4、2→4→5、3→4→5。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>請重數——共有六條長度為 2 的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>請重數——只有六對邊共用中間節點。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>中間節點 2、3、4 合計產生六條長度為 2 的路徑。</text></feedback></answer>
+    <generalfeedback><text>對每個中間節點，將入度乘以出度：節點 2 = 1×2 = 2、節點 3 = 2×1 = 2、節點 4 = 2×1 = 2；合計 6。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊對計算（多分支）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..5，邊為 <code>1→2, 1→3, 1→5, 2→3, 2→4, 4→5</code>。共有幾條長度為 2 的路徑 u→v→w？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——1→2→3、1→2→4 與 2→4→5。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>請重數——只有三對邊共用中間節點。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>節點 2 產生兩條，節點 4 再產生第三條。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>那計算的是邊數，而非長度為 2 的路徑。</text></feedback></answer>
+    <generalfeedback><text>只有同時具備入向與外向邊的中間節點才算：節點 2 產生 1→2→3 與 1→2→4，節點 4 產生 2→4→5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試需求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以圖為基礎的測試中，<strong>測試需求（test requirement）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試路徑必須走訪的某個特定結構元素（例如一個節點、邊或質路徑）</text><feedback><text>正確——一個準則會定義出一組測試需求。</text></feedback></answer>
+    <answer fraction="0"><text>一個帶有輸入值的單一測試案例</text><feedback><text>那是測試案例；需求是該案例必須滿足的目標。</text></feedback></answer>
+    <answer fraction="0"><text>程式的預期輸出</text><feedback><text>那是判定準則（oracle），而非覆蓋需求。</text></feedback></answer>
+    <answer fraction="0"><text>一條從入口到出口的完整路徑</text><feedback><text>一條完整路徑可能滿足多個需求，但需求指的是要被走訪的元素。</text></feedback></answer>
+    <generalfeedback><text>覆蓋準則是一條產生一組測試需求的規則；每個需求都是某條測試路徑必須走訪的結構。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>盡力走訪</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當某條要求的質路徑無法被任何完整測試路徑直接走訪時，常見的做法是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>若可行，就以支路／繞道（sidetrip/detour）方式走訪它（盡力走訪，best-effort touring）</text><feedback><text>正確——盡力走訪允許以支路來達成原本難以走訪的需求。</text></feedback></answer>
+    <answer fraction="0"><text>從圖中刪除該質路徑</text><feedback><text>不會從圖中移除需求，而是放寬走訪方式。</text></feedback></answer>
+    <answer fraction="0"><text>宣告整個準則不可滿足</text><feedback><text>單一個難以走訪的需求不會讓整個準則無法使用；改用盡力走訪即可。</text></feedback></answer>
+    <answer fraction="0"><text>新增一條邊讓該路徑變得可直接走訪</text><feedback><text>圖形模擬的是程式本身，不會為了滿足需求而更動。</text></feedback></answer>
+    <generalfeedback><text>盡力走訪允許支路（繞道），使得無法直接走訪的需求，在可行時仍能被覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>全定義的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>全定義覆蓋（All-Defs Coverage）對於某變數的每一個定義，要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>至少走訪一條從該定義到某個使用的無重新定義路徑</text><feedback><text>正確——每個定義必須至少到達一個使用。</text></feedback></answer>
+    <answer fraction="0"><text>走訪從該定義到每一個使用的無重新定義路徑</text><feedback><text>那是全使用（All-Uses），強度高於全定義。</text></feedback></answer>
+    <answer fraction="0"><text>走訪從該定義出發的每一條簡單路徑</text><feedback><text>那較接近全定義-使用路徑（All-DU-Paths），而非全定義。</text></feedback></answer>
+    <answer fraction="0"><text>該定義至少被執行一次</text><feedback><text>那只是對該定義的節點覆蓋；全定義還要求到達某個使用。</text></feedback></answer>
+    <generalfeedback><text>全定義要求每個定義經由無重新定義路徑至少到達一個使用；全使用則強化為到達每一個使用。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>質路徑的涵蓋關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在至少含有一條邊的圖上，下列哪個準則被質路徑覆蓋（Prime Path Coverage）所涵蓋（subsumed）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊對覆蓋（Edge-Pair Coverage）</text><feedback><text>正確——長度 ≥ 2 的質路徑涵蓋所有長度 ≤ 2 的子路徑。</text></feedback></answer>
+    <answer fraction="0"><text>完整路徑覆蓋（Complete Path Coverage）</text><feedback><text>完整路徑覆蓋通常不可行，且不被涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>全定義-使用路徑覆蓋（All-DU-Paths）</text><feedback><text>資料流準則不被結構性的質路徑覆蓋所涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何準則</text><feedback><text>質路徑覆蓋確實涵蓋邊覆蓋與邊對覆蓋。</text></feedback></answer>
+    <generalfeedback><text>質路徑覆蓋涵蓋邊對覆蓋與邊覆蓋；但不涵蓋資料流或完整路徑準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>資料流的涵蓋鏈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一條鏈正確地由最強（涵蓋）排到最弱地列出資料流準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>全定義-使用路徑 → 全使用 → 全定義</text><feedback><text>正確——每個都涵蓋下一個。</text></feedback></answer>
+    <answer fraction="0"><text>全定義 → 全使用 → 全定義-使用路徑</text><feedback><text>這順序相反；全定義-使用路徑最強。</text></feedback></answer>
+    <answer fraction="0"><text>全使用 → 全定義-使用路徑 → 全定義</text><feedback><text>全定義-使用路徑涵蓋全使用，因此必須排在前面。</text></feedback></answer>
+    <answer fraction="0"><text>全定義 → 全定義-使用路徑 → 全使用</text><feedback><text>全定義最弱，不可能領頭。</text></feedback></answer>
+    <generalfeedback><text>全定義-使用路徑涵蓋全使用，全使用又涵蓋全定義。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>質路徑與資料流</text></name>
+    <questiontext format="html"><text><![CDATA[<p>質路徑覆蓋（Prime Path Coverage）涵蓋全定義-使用路徑覆蓋（All-DU-Paths Coverage）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——結構性的質路徑覆蓋並不涵蓋資料流準則。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>質路徑覆蓋涵蓋邊對／邊／節點覆蓋，但不涵蓋資料流準則。</text></feedback></answer>
+    <generalfeedback><text>資料流準則取決於定義-使用關係，而這是結構性的質路徑覆蓋所無法保證的，因此兩者不存在涵蓋關係。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行的測試需求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試需求為<strong>不可行（infeasible）</strong>，是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有任何符合程式語意的測試路徑能夠走訪它</text><feedback><text>正確——不可行性關乎語意，而非圖的結構。</text></feedback></answer>
+    <answer fraction="0"><text>它需要超過一個測試案例</text><feedback><text>需要多個案例並不會使需求變得不可行。</text></feedback></answer>
+    <answer fraction="0"><text>它是一條比節點數還長的質路徑</text><feedback><text>質路徑是簡單路徑，長度有上限；單憑長度不代表不可行。</text></feedback></answer>
+    <answer fraction="0"><text>圖中含有迴圈</text><feedback><text>迴圈會讓完整路徑覆蓋變成無窮，但本身並不會讓某個需求不可行。</text></feedback></answer>
+    <generalfeedback><text>不可行的需求無法被任何語意上合法的執行走訪（例如互相矛盾的分支條件）；覆蓋率是相對於可行需求來衡量的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算質路徑數（if-else）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..4，邊為 <code>1→2, 1→3, 2→4, 3→4</code>。它有幾條質路徑（prime path）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——1→2→4 與 1→3→4 是僅有的兩條極大簡單路徑。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>那四條邊並非都是質路徑；每一條都是某條更長簡單路徑的子路徑。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>恰好只有兩條極大簡單路徑。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>這高估了；較短的簡單路徑都是那兩條質路徑的子路徑。</text></feedback></answer>
+    <generalfeedback><text>質路徑是極大簡單路徑。此處為 1→2→4 與 1→3→4；每一條較短的簡單路徑都是其中之一的子路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊對計算（7 節點）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..7，邊為 <code>1→2, 1→3, 1→4, 2→3, 2→4, 2→5, 2→6, 3→4, 5→7</code>。共有幾條長度為 2 的路徑 u→v→w？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——列舉每個中間節點的外向邊即可。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>請重數——共有七條長度為 2 的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>那計算的是邊數（9），而非長度為 2 的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>請重數——只有七對邊共用中間節點。</text></feedback></answer>
+    <generalfeedback><text>對每個中間節點，將入度乘以出度：節點 2 = 1×4 = 4、節點 3 = 2×1 = 2、節點 5 = 1×1 = 1；合計 4 + 2 + 1 = 7 條長度為 2 的路徑。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>全使用的反向關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>全使用（All-Uses）涵蓋全定義（All-Defs），但全定義並不涵蓋全使用。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——涵蓋關係只成立於單一方向。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>全使用嚴格較強：滿足全定義未必能到達每一個使用。</text></feedback></answer>
+    <generalfeedback><text>每個定義只到達一個使用（全定義）並不蘊含到達每個定義的所有使用（全使用），因此涵蓋關係是單向的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>簡單往返與完整往返</text></name>
+    <questiontext format="html"><text><![CDATA[<p>簡單往返覆蓋（Simple Round Trip Coverage）與完整往返覆蓋（Complete Round Trip Coverage）有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>簡單往返要求每個能起始往返的可達節點至少一條往返路徑；完整往返要求所有往返路徑</text><feedback><text>正確——完整往返是兩者中較強的。</text></feedback></answer>
+    <answer fraction="0"><text>簡單往返要求所有往返路徑；完整往返只要求一條</text><feedback><text>這把兩者顛倒了——完整往返才要求全部。</text></feedback></answer>
+    <answer fraction="0"><text>兩者完全相同</text><feedback><text>兩者不同：一個要求至少一條，另一個要求全部往返路徑。</text></feedback></answer>
+    <answer fraction="0"><text>簡單往返忽略迴圈；完整往返將迴圈計算一次</text><feedback><text>兩者都在處理往返（迴圈）路徑；差別在於「一條」與「全部」。</text></feedback></answer>
+    <generalfeedback><text>簡單往返覆蓋要求每個能起始往返的節點各一條往返路徑；完整往返覆蓋要求每一條往返路徑，因此涵蓋簡單往返。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結構層級的頂端</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在結構準則 節點、邊、邊對、質路徑、完整路徑覆蓋 之中，哪一個涵蓋所有其他準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完整路徑覆蓋（Complete Path Coverage）</text><feedback><text>正確——走訪每一條路徑就涵蓋了每個節點、邊、邊對與質路徑（儘管它通常不可行）。</text></feedback></answer>
+    <answer fraction="0"><text>質路徑覆蓋（Prime Path Coverage）</text><feedback><text>質路徑覆蓋被完整路徑覆蓋所涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>邊對覆蓋（Edge-Pair Coverage）</text><feedback><text>邊對覆蓋離層級頂端還很遠。</text></feedback></answer>
+    <answer fraction="0"><text>節點覆蓋（Node Coverage）</text><feedback><text>節點覆蓋是這些準則中最弱的。</text></feedback></answer>
+    <generalfeedback><text>完整路徑覆蓋是最強的結構準則（完整路徑 → 質路徑 → 邊對 → 邊 → 節點），但只要有迴圈就不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一個定義兩個使用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>x 的某一個定義經由無重新定義路徑能到達兩個不同的使用 u1 與 u2。要對這個定義滿足全使用（All-Uses），測試集合必須：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>走訪一條到 u1 以及一條到 u2 的無重新定義路徑</text><feedback><text>正確——全使用要求到達該定義每一個可達的使用。</text></feedback></answer>
+    <answer fraction="0"><text>走訪一條到 u1 或 u2 其中之一的無重新定義路徑</text><feedback><text>只到達一個使用滿足的是全定義，而非全使用。</text></feedback></answer>
+    <answer fraction="0"><text>走訪到 u1 與 u2 的每一條簡單路徑</text><feedback><text>那是全定義-使用路徑（All-DU-Paths），比全使用更強。</text></feedback></answer>
+    <answer fraction="0"><text>只需執行該定義一次</text><feedback><text>只執行定義並不會到達它的使用。</text></feedback></answer>
+    <generalfeedback><text>全使用要求從定義到其每一個可達使用都有一條無重新定義路徑；此處即必須同時到達 u1 與 u2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>支路與繞道</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當一條路徑以<strong>支路（sidetrip）</strong>走訪子路徑 q 時，意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該路徑依序覆蓋 q 的每一條邊，過程中可能離開 q 再重新回到 q</text><feedback><text>正確——支路覆蓋 q 的所有邊，但可能中途繞開再返回。</text></feedback></answer>
+    <answer fraction="0"><text>該路徑覆蓋 q 且完全不含任何額外的邊</text><feedback><text>那是直接走訪 q，而非以支路走訪。</text></feedback></answer>
+    <answer fraction="0"><text>該路徑跳過 q 的某些邊</text><feedback><text>支路仍覆蓋 q 的每一條邊；只是在邊之間加入繞道。</text></feedback></answer>
+    <answer fraction="0"><text>該路徑反轉 q 的方向</text><feedback><text>支路保留 q 的邊與方向，只是插入額外的繞行。</text></feedback></answer>
+    <generalfeedback><text>以支路走訪會依序覆蓋 q 的所有邊，並允許離開 q 再返回的繞道；直接走訪則不含任何繞道。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算質路徑數（迴圈）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的節點為 1..4，邊為 <code>1→2, 2→3, 3→2, 2→4</code>（while 迴圈形狀）。它有幾條質路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——1→2→3、1→2→4、2→3→2、3→2→3 與 3→2→4。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>請重數——迴圈還貢獻了往返路徑 2→3→2 與 3→2→3。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>通過迴圈的兩條往返質路徑很容易被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>這高估了；恰好有五條極大簡單路徑。</text></feedback></answer>
+    <generalfeedback><text>質路徑為 1→2→3、1→2→4、3→2→4，以及兩條迴圈往返 2→3→2 與 3→2→3——合計五條。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>重新定義使定義-使用對失效</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一條從 x 的定義 d 到 x 的使用 u 的路徑上，節點 m 重新定義了 x。對於這條路徑上的定義-使用對 (d, u)，其效果為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>這條路徑對 (d, u) 而言不是無重新定義的；d 的值在此路徑上不再能到達 u</text><feedback><text>正確——m 處的重新定義在 u 之前就覆蓋（kill）了 d。</text></feedback></answer>
+    <answer fraction="0"><text>這條路徑仍能覆蓋定義-使用對 (d, u)</text><feedback><text>重新定義意味著 d 的值沿此路徑無法到達 u。</text></feedback></answer>
+    <answer fraction="0"><text>m 會成為同一個定義-使用對的一部分</text><feedback><text>m 開啟的是一個新的定義；它不會併入 (d, u)。</text></feedback></answer>
+    <answer fraction="0"><text>使用 u 不再是 x 的使用</text><feedback><text>u 仍然是 x 的使用；只是它被 m 的定義所到達，而非 d。</text></feedback></answer>
+    <generalfeedback><text>d 與 u 之間的重新定義會覆蓋 d，因此對 (d, u) 而言這條路徑不是無重新定義的；需要另一條無重新定義路徑才能覆蓋該對。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊對不涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一個準則<strong>不</strong>被邊對覆蓋（Edge-Pair Coverage）所涵蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>質路徑覆蓋（Prime Path Coverage）</text><feedback><text>正確——質路徑覆蓋較強，因此邊對覆蓋不涵蓋它。</text></feedback></answer>
+    <answer fraction="0"><text>邊覆蓋（Edge Coverage）</text><feedback><text>邊對覆蓋確實涵蓋邊覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>節點覆蓋（Node Coverage）</text><feedback><text>邊對覆蓋（經由邊覆蓋）涵蓋節點覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>敘述覆蓋（Statement Coverage）</text><feedback><text>敘述覆蓋等於節點覆蓋，會被邊對覆蓋所涵蓋。</text></feedback></answer>
+    <generalfeedback><text>涵蓋方向為 質路徑 → 邊對 → 邊 → 節點；邊對覆蓋涵蓋較弱的準則，但不涵蓋較強的質路徑覆蓋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>質路徑涵蓋節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在每個節點都有相連邊的圖上，質路徑覆蓋（Prime Path Coverage）涵蓋節點覆蓋（Node Coverage）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——經由邊對覆蓋與邊覆蓋的遞移性可得。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>質路徑 → 邊對 → 邊 → 節點，因此質路徑覆蓋涵蓋節點覆蓋。</text></feedback></answer>
+    <generalfeedback><text>涵蓋關係具遞移性：質路徑涵蓋邊對，邊對涵蓋邊，邊又涵蓋節點。</text></generalfeedback>
   </question>
 </quiz>

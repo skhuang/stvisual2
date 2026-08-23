@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Symbolic Execution</text></category>
+    <category><text>$course$/top/Symbolic Execution/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What symbolic execution is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>symbolic execution</strong> do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It runs a program on symbolic (unknown) inputs instead of concrete values, tracking constraints on those inputs along each path</text><feedback><text>Correct — inputs are symbols, and the engine reasons about the constraints they must satisfy.</text></feedback></answer>
+    <answer fraction="0"><text>It runs the program many times on random concrete inputs and records failures</text><feedback><text>That is random/fuzz testing; symbolic execution reasons about symbols, not fixed random values.</text></feedback></answer>
+    <answer fraction="0"><text>It statically counts the lines of code covered by an existing test suite</text><feedback><text>That is coverage measurement, not symbolic execution.</text></feedback></answer>
+    <answer fraction="0"><text>It translates the program into a faster machine-code representation</text><feedback><text>That describes a compiler/optimizer, not symbolic execution.</text></feedback></answer>
+    <generalfeedback><text>Symbolic execution treats program inputs as symbolic variables and, as it follows each path, accumulates the constraints those symbols must satisfy — letting it reason about whole classes of inputs at once rather than one concrete run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symbolic vs concrete values</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does a <strong>symbolic value</strong> differ from a <strong>concrete value</strong> during execution?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete value is one fixed value (e.g. 7); a symbolic value is an unknown standing for any value its constraints allow</text><feedback><text>Correct — a symbol like x represents a whole set of possible values.</text></feedback></answer>
+    <answer fraction="0"><text>A symbolic value is always larger than a concrete value</text><feedback><text>Magnitude is irrelevant; the difference is fixed value vs unknown-with-constraints.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical; "symbolic" is just another word for "concrete"</text><feedback><text>They are not the same — a concrete value is fixed, a symbolic one is an unknown.</text></feedback></answer>
+    <answer fraction="0"><text>A concrete value can be a formula, a symbolic value cannot</text><feedback><text>It is the reverse: symbolic values are expressions/formulas, concrete values are fixed data.</text></feedback></answer>
+    <generalfeedback><text>Concrete execution computes with fixed data (x = 7). Symbolic execution computes with symbols (x), building expressions and constraints over them so one analysis covers many concrete inputs.</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>Path condition</text></name>
@@ -15,6 +35,119 @@
     <generalfeedback><text>As symbolic execution follows a path, it conjoins the constraint from each branch decision (in terms of symbolic inputs) into a single formula — the path condition — that characterizes exactly which concrete inputs would take that path.</text></generalfeedback>
   </question>
   <question type="multichoice">
+    <name><text>What a symbolic state is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At a point during symbolic execution, the <strong>symbolic state</strong> mainly consists of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A symbolic expression for each program variable together with the current path condition</text><feedback><text>Correct — variables map to expressions over the symbols, plus the constraints accumulated so far.</text></feedback></answer>
+    <answer fraction="0"><text>Only the concrete numeric contents of every variable</text><feedback><text>That is a concrete state; a symbolic state maps variables to symbolic expressions.</text></feedback></answer>
+    <answer fraction="0"><text>The list of test cases already generated</text><feedback><text>Generated tests are an output; the symbolic state is the current variable-to-expression map plus the path condition.</text></feedback></answer>
+    <answer fraction="0"><text>The source code of the program being analyzed</text><feedback><text>The source is the program; the symbolic state is the runtime abstraction the engine maintains as it executes it.</text></feedback></answer>
+    <generalfeedback><text>A symbolic state binds each variable to a symbolic expression (over the input symbols) and carries the path condition — the constraints that must hold for execution to have reached this point.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why it explores paths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does symbolic execution explore different program paths separately?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because each path corresponds to a distinct set of input constraints, and solving them yields inputs that exercise that specific behavior</text><feedback><text>Correct — separate paths give separate path conditions, each solvable for a test input.</text></feedback></answer>
+    <answer fraction="0"><text>Because the program can only be compiled one path at a time</text><feedback><text>Compilation is unrelated; path exploration is about reasoning over distinct branch outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>Because paths must be run in alphabetical order of their code</text><feedback><text>There is no such ordering requirement; the point is that each path has its own constraints.</text></feedback></answer>
+    <answer fraction="0"><text>Because only one path can ever be feasible in any program</text><feedback><text>Many paths are typically feasible; that is exactly why they are explored individually.</text></feedback></answer>
+    <generalfeedback><text>Different branch outcomes lead to different path conditions; by exploring each path, the engine can solve its condition to produce an input that drives the program down precisely that behavior.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Solving a PC to get a test input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Once a path condition has been built, how does symbolic execution turn it into a concrete test input?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It asks a solver for an assignment of the symbolic inputs that satisfies the path condition</text><feedback><text>Correct — a satisfying assignment is exactly a concrete input that follows that path.</text></feedback></answer>
+    <answer fraction="0"><text>It picks a random value for each input and hopes it matches</text><feedback><text>No guessing is needed; the solver computes a satisfying assignment directly from the constraints.</text></feedback></answer>
+    <answer fraction="0"><text>It recompiles the program with the path condition embedded</text><feedback><text>Recompilation is not involved; the path condition is handed to a constraint solver.</text></feedback></answer>
+    <answer fraction="0"><text>It counts how many branches the path contains</text><feedback><text>Counting branches does not produce input values; solving the constraints does.</text></feedback></answer>
+    <generalfeedback><text>A satisfying assignment of the path condition is a concrete input that, when run, drives the program down that path — that is how symbolic execution generates test inputs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How inputs are treated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When symbolic execution begins, program inputs are treated as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fresh symbolic variables with no fixed value yet</text><feedback><text>Correct — inputs start as unconstrained symbols.</text></feedback></answer>
+    <answer fraction="0"><text>Zero, until the program assigns them</text><feedback><text>Inputs are not pre-set to zero; they become symbols whose values are constrained as branches are taken.</text></feedback></answer>
+    <answer fraction="0"><text>A single randomly chosen constant</text><feedback><text>That would be concrete testing; symbolic execution keeps inputs symbolic.</text></feedback></answer>
+    <answer fraction="0"><text>The largest value the type can hold</text><feedback><text>No such default; inputs are symbolic variables.</text></feedback></answer>
+    <generalfeedback><text>Each input becomes a fresh symbol. As the program branches, constraints on those symbols accumulate into the path condition.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Reasoning about many inputs at once</text></name>
+    <questiontext format="html"><text><![CDATA[<p>By keeping inputs symbolic, a single symbolic path can characterize many concrete inputs at once.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a path condition describes the whole set of concrete inputs that follow that path, not just one.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A symbolic path's condition captures every concrete input that would take that path, so one path stands for many inputs.</text></feedback></answer>
+    <generalfeedback><text>Because a path condition is a constraint over symbols, it represents the entire set of concrete inputs satisfying it — one symbolic path summarizes many concrete runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the engine tracks per variable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After the statements <code>a = x + 1; b = a * 2;</code> (with x a symbolic input), what does the engine record for <code>b</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The symbolic expression (x + 1) * 2</text><feedback><text>Correct — b holds an expression over the symbol x, not a number.</text></feedback></answer>
+    <answer fraction="0"><text>A single concrete number</text><feedback><text>x has no concrete value, so b cannot be a fixed number; it is an expression.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing, because b was not read from input</text><feedback><text>Assignments update the symbolic state even when they derive from other variables.</text></feedback></answer>
+    <answer fraction="0"><text>The path condition x + 1 &gt; 0</text><feedback><text>No branch was taken here, so the path condition is unchanged; b just gets an expression.</text></feedback></answer>
+    <generalfeedback><text>Symbolic execution updates each assigned variable with a symbolic expression built from the inputs; here b becomes (x + 1) * 2, with the path condition left unchanged because no branch occurred.</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>Deciding path-condition satisfiability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>solver</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="100"><text>SMT*</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="100"><text>constraint solver*</text><feedback><text>Correct.</text></feedback></answer>
+    <generalfeedback><text>An SMT (Satisfiability Modulo Theories) solver — generically, the constraint solver — takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A symbolic value represents a set</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A symbolic value can be understood as representing the set of all concrete values it might take, subject to the current constraints.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — that is precisely why one symbolic run generalizes over many concrete inputs.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A symbol stands for any value its constraints allow, i.e. a whole set of possible concrete values.</text></feedback></answer>
+    <generalfeedback><text>A symbol constrained by the path condition denotes the set of concrete values satisfying those constraints, which is the source of symbolic execution's generality.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose in testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A common practical goal of symbolic execution in software testing is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Automatically generate inputs that reach specific paths or trigger bugs</text><feedback><text>Correct — solving path conditions yields targeted test inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically write the program's documentation</text><feedback><text>That is unrelated to symbolic execution.</text></feedback></answer>
+    <answer fraction="0"><text>Replace the need for a compiler</text><feedback><text>Symbolic execution analyzes programs; it does not replace compilation.</text></feedback></answer>
+    <answer fraction="0"><text>Measure network latency</text><feedback><text>That is a performance concern, not what symbolic execution addresses.</text></feedback></answer>
+    <generalfeedback><text>By computing inputs that follow chosen paths, symbolic execution supports automated test generation and high-coverage bug finding.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reaching a branch on a symbol</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When execution reaches a branch whose condition depends on a symbolic input, a symbolic execution engine typically:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Considers both outcomes, continuing along each feasible one with the condition added to its path condition</text><feedback><text>Correct — the engine forks to explore both the true and false directions where feasible.</text></feedback></answer>
+    <answer fraction="0"><text>Always takes the true branch and ignores the false branch</text><feedback><text>Both directions matter; the engine does not arbitrarily fix one outcome.</text></feedback></answer>
+    <answer fraction="0"><text>Stops execution immediately</text><feedback><text>A symbolic branch is where exploration multiplies, not where it halts.</text></feedback></answer>
+    <answer fraction="0"><text>Picks whichever branch the last test case took</text><feedback><text>There is no prior test case dictating this; the engine explores both feasible outcomes.</text></feedback></answer>
+    <generalfeedback><text>At a symbolic branch the engine forks: one state adds the condition, the other adds its negation, and each feasible state continues its own exploration.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concrete vs symbolic run</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best contrasts a concrete run with a symbolic run of the same program?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete run follows exactly one path for its fixed inputs; a symbolic run reasons about many paths via constraints on symbolic inputs</text><feedback><text>Correct — concrete = one path per input; symbolic = constraint-based exploration.</text></feedback></answer>
+    <answer fraction="0"><text>A concrete run explores every path, a symbolic run explores only one</text><feedback><text>It is the other way around: a concrete run takes exactly one path.</text></feedback></answer>
+    <answer fraction="0"><text>Both always explore exactly the same single path</text><feedback><text>A symbolic run generally reasons about multiple paths, unlike a single concrete run.</text></feedback></answer>
+    <answer fraction="0"><text>Neither run depends on the inputs</text><feedback><text>Concrete runs depend on their fixed inputs; symbolic runs constrain symbolic inputs.</text></feedback></answer>
+    <generalfeedback><text>Running with concrete inputs deterministically follows one path; symbolic execution instead builds path conditions to characterize and explore many paths at once.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Path condition is a boolean formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The path condition is a boolean formula over the symbolic input variables.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — it is a conjunction of branch constraints, i.e. a boolean formula over the input symbols.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The path condition is exactly a boolean formula (a conjunction of constraints) over the symbolic inputs.</text></feedback></answer>
+    <generalfeedback><text>Each branch contributes a constraint; conjoined, they form a boolean formula over the input symbols — the path condition — which a solver can test for satisfiability.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Symbolic Execution/medium</text></category>
+  </question>
+  <question type="multichoice">
     <name><text>Detecting infeasible paths</text></name>
     <questiontext format="html"><text><![CDATA[<p>A path explored by a symbolic execution engine is identified as infeasible when:</p>]]></text></questiontext>
     <single>true</single>
@@ -23,16 +156,6 @@
     <answer fraction="0"><text>The solver times out before returning an answer</text><feedback><text>A timeout is inconclusive — the path might still be feasible, just unresolved.</text></feedback></answer>
     <answer fraction="0"><text>The path performs a division by zero</text><feedback><text>That's a runtime fault the engine may flag along a feasible path, not a sign of infeasibility.</text></feedback></answer>
     <generalfeedback><text>A path's condition is a logical formula; the constraint solver deems the path infeasible precisely when that formula is UNSAT, meaning no assignment of the symbolic inputs could ever drive execution down that path.</text></generalfeedback>
-  </question>
-  <question type="multichoice">
-    <name><text>Scalability bottleneck</text></name>
-    <questiontext format="html"><text><![CDATA[<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>]]></text></questiontext>
-    <single>true</single>
-    <answer fraction="100"><text>Path explosion — the number of distinct paths grows exponentially with branches and loops</text><feedback><text>Correct — this is the classic scalability wall for symbolic execution.</text></feedback></answer>
-    <answer fraction="0"><text>Memory leaks in the instrumented program</text><feedback><text>Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling.</text></feedback></answer>
-    <answer fraction="0"><text>The oracle problem — not knowing the correct expected output</text><feedback><text>The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles.</text></feedback></answer>
-    <answer fraction="0"><text>Flaky, non-deterministic tests</text><feedback><text>Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number.</text></feedback></answer>
-    <generalfeedback><text>Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially — path explosion — making exhaustive symbolic execution intractable for large or loop-heavy programs.</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>Role of the constraint solver</text></name>
@@ -44,6 +167,146 @@
     <answer fraction="0"><text>It measures how much of the code the test suite covers</text><feedback><text>Coverage measurement is typically done by separate instrumentation/tracking tools, not the solver.</text></feedback></answer>
     <generalfeedback><text>The constraint solver is handed the accumulated path condition and determines whether it is satisfiable; if so, it returns a concrete assignment of the symbolic inputs, which becomes the actual test input driving execution down that path.</text></generalfeedback>
   </question>
+  <question type="multichoice">
+    <name><text>Feasibility means satisfiable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path is <strong>feasible</strong> exactly when its path condition is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Satisfiable — at least one assignment of the symbolic inputs makes it true</text><feedback><text>Correct — a satisfying assignment is a concrete input that follows the path.</text></feedback></answer>
+    <answer fraction="0"><text>Unsatisfiable</text><feedback><text>Unsatisfiable is the definition of an infeasible path, the opposite.</text></feedback></answer>
+    <answer fraction="0"><text>A tautology (true for every assignment)</text><feedback><text>Feasibility only needs one satisfying assignment, not that all assignments satisfy it.</text></feedback></answer>
+    <answer fraction="0"><text>Free of any branch constraints</text><feedback><text>Feasible paths can carry many constraints; what matters is that they are jointly satisfiable.</text></feedback></answer>
+    <generalfeedback><text>Feasibility and satisfiability coincide: a path can actually be executed iff some input satisfies its path condition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Forking at a branch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reaching <code>if (c)</code> with current path condition <code>PC</code> on a symbolic value, the engine forks into two states whose path conditions are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>PC ∧ c for the then-branch and PC ∧ ¬c for the else-branch</text><feedback><text>Correct — each successor conjoins the branch outcome onto the existing PC.</text></feedback></answer>
+    <answer fraction="0"><text>c for one branch and ¬c for the other, discarding PC</text><feedback><text>The prior constraints in PC must be kept; the new outcome is conjoined, not substituted.</text></feedback></answer>
+    <answer fraction="0"><text>PC ∨ c and PC ∨ ¬c</text><feedback><text>Branch outcomes are conjoined (∧), not disjoined (∨); PC ∨ ¬c would weaken the constraint.</text></feedback></answer>
+    <answer fraction="0"><text>PC ∧ c for both branches</text><feedback><text>The else-branch must add ¬c, not c.</text></feedback></answer>
+    <generalfeedback><text>Forking preserves the accumulated PC and adds the branch outcome: the then-state gets PC ∧ c, the else-state gets PC ∧ ¬c. Each is then checked for satisfiability.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC for a single if</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>read x; if (x &gt; 0) y = x; else y = -x;</code>, what is the path condition of the path that takes the <em>true</em> branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x &gt; 0</text><feedback><text>Correct — taking the true branch adds exactly the constraint x &gt; 0.</text></feedback></answer>
+    <answer fraction="0"><text>x ≤ 0</text><feedback><text>That is the condition for the else-branch, not the true branch.</text></feedback></answer>
+    <answer fraction="0"><text>y = x</text><feedback><text>That is an assignment (a symbolic-state update), not a branch constraint in the path condition.</text></feedback></answer>
+    <answer fraction="0"><text>x &gt; 0 ∧ x ≤ 0</text><feedback><text>Only one branch outcome is taken on this path; conjoining both makes it unsatisfiable.</text></feedback></answer>
+    <generalfeedback><text>The only branch on this path is x &gt; 0, taken as true, so the path condition is simply x &gt; 0.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Deriving a test input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path has path condition <code>(x &gt; 0) ∧ (x &lt; 10)</code>. Which concrete input is a valid test input that follows this path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 5</text><feedback><text>Correct — 5 &gt; 0 and 5 &lt; 10, so it satisfies the whole path condition.</text></feedback></answer>
+    <answer fraction="0"><text>x = 0</text><feedback><text>0 is not &gt; 0, so the first constraint fails.</text></feedback></answer>
+    <answer fraction="0"><text>x = 10</text><feedback><text>10 is not &lt; 10, so the second constraint fails.</text></feedback></answer>
+    <answer fraction="0"><text>x = -3</text><feedback><text>-3 is not &gt; 0, so the first constraint fails.</text></feedback></answer>
+    <generalfeedback><text>A test input is any assignment satisfying the whole path condition. Only x = 5 lies strictly between 0 and 10.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path count: two sequential ifs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many execution paths does this snippet have? <code>if (a) {...} if (b) {...}</code> (two independent if-statements in sequence, a and b independent symbolic conditions)</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — each if has 2 outcomes and they are independent: 2 × 2 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 counts only one if; two independent ifs multiply to 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The outcomes multiply (2 × 2 = 4), they do not add to 3.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>With symbolic conditions both ifs branch, giving more than one path.</text></feedback></answer>
+    <generalfeedback><text>Independent branches multiply: two if-statements each with true/false give 2 × 2 = 4 paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC for nested true/true</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>, what is the path condition to reach the innermost block (both branches true)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(x &gt; 0) ∧ (y &lt; 5)</text><feedback><text>Correct — both branch outcomes are conjoined along the path.</text></feedback></answer>
+    <answer fraction="0"><text>(x &gt; 0) ∨ (y &lt; 5)</text><feedback><text>Reaching the inner block requires both conditions, so they are conjoined, not disjoined.</text></feedback></answer>
+    <answer fraction="0"><text>(x &gt; 0) ∧ (y ≥ 5)</text><feedback><text>The inner true branch needs y &lt; 5, not y ≥ 5.</text></feedback></answer>
+    <answer fraction="0"><text>(y &lt; 5) only</text><feedback><text>The outer condition x &gt; 0 must also hold to reach the inner if.</text></feedback></answer>
+    <generalfeedback><text>Each nested true branch adds its condition; reaching the inner block requires (x &gt; 0) ∧ (y &lt; 5).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>An infeasible nested path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code>, the path reaching <code>BUG</code> has which status?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Infeasible — its path condition (x &gt; 0) ∧ (x &lt; 0) is unsatisfiable</text><feedback><text>Correct — no x is both positive and negative, so BUG is unreachable.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible for x = 0</text><feedback><text>x = 0 satisfies neither x &gt; 0 nor x &lt; 0, and both are required.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible for any large x</text><feedback><text>A large x satisfies x &gt; 0 but violates x &lt; 0; no value satisfies both.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible only for negative x</text><feedback><text>A negative x fails the outer x &gt; 0, so the inner block is never reached.</text></feedback></answer>
+    <generalfeedback><text>The path condition (x &gt; 0) ∧ (x &lt; 0) is UNSAT, so this path is infeasible and BUG is dead code along it — a false alarm any test generator will (correctly) fail to reach.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Satisfiable PC implies an input exists</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a path condition is satisfiable, then there exists at least one concrete input that drives execution down that path.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a satisfying assignment is precisely such a concrete input.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Satisfiability guarantees a satisfying assignment, which is an input that follows the path.</text></feedback></answer>
+    <generalfeedback><text>Satisfiability of the path condition is equivalent to feasibility of the path: the solver's model is a concrete input that exercises it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path count: one if-else</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many execution paths does a single <code>if (c) {...} else {...}</code> (with symbolic c and no nested branches) have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one path for c true, one for c false.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A symbolic condition splits into two feasible directions, not one.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>An if-else has exactly two outcomes, not three.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 would require two independent branches; a single if-else has 2.</text></feedback></answer>
+    <generalfeedback><text>A single branch on a symbolic condition yields two paths: the then-branch (c) and the else-branch (¬c).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Input for a compound PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path has path condition <code>(a ≥ 2) ∧ (b == a + 1)</code>. Which input satisfies it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 2, b = 3</text><feedback><text>Correct — 2 ≥ 2 and 3 == 2 + 1.</text></feedback></answer>
+    <answer fraction="0"><text>a = 2, b = 2</text><feedback><text>b must equal a + 1 = 3, not 2.</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 2</text><feedback><text>a = 1 violates a ≥ 2 even though b == a + 1 holds.</text></feedback></answer>
+    <answer fraction="0"><text>a = 3, b = 3</text><feedback><text>b must equal a + 1 = 4, not 3.</text></feedback></answer>
+    <generalfeedback><text>Both conjuncts must hold: a ≥ 2 and b = a + 1. Only a = 2, b = 3 satisfies both.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC after an assignment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>y = x + 1; if (y == 5) { ... }</code> with symbolic input x, the path condition to enter the block — expressed over x — is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x + 1 == 5</text><feedback><text>Correct — y holds the expression x + 1, so the branch constraint over x is x + 1 == 5 (i.e. x == 4).</text></feedback></answer>
+    <answer fraction="0"><text>y == 5 (left as a fresh unknown y)</text><feedback><text>y is not an independent input; it was assigned x + 1, which must be substituted.</text></feedback></answer>
+    <answer fraction="0"><text>x == 5</text><feedback><text>That ignores the +1; the constraint is x + 1 == 5, giving x == 4.</text></feedback></answer>
+    <answer fraction="0"><text>x + 1 == 4</text><feedback><text>The branch tests y == 5, so the constraint is x + 1 == 5, not == 4.</text></feedback></answer>
+    <generalfeedback><text>Symbolic execution substitutes the assigned expression: y = x + 1, so the branch y == 5 becomes the constraint x + 1 == 5 over the input x (solved: x == 4).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting a SAT model</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The solver returns SAT with model <code>{x = 4}</code> for a path's condition. What does this tell you?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The path is feasible, and running the program with x = 4 drives execution down it</text><feedback><text>Correct — the model is a concrete test input that follows the path.</text></feedback></answer>
+    <answer fraction="0"><text>The path is infeasible and x = 4 is a counterexample</text><feedback><text>SAT means feasible; the model is a witnessing input, not a counterexample.</text></feedback></answer>
+    <answer fraction="0"><text>x must equal 4 on every path in the program</text><feedback><text>The model applies to this one path's condition, not to all paths.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing until the program is recompiled</text><feedback><text>No recompilation is needed; x = 4 is directly usable as a test input.</text></feedback></answer>
+    <generalfeedback><text>A SAT result with a model means the path condition is satisfiable (the path is feasible) and the returned assignment is a concrete input that exercises that path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path count: nested if</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many execution paths does <code>if (a) { if (b) {...} else {...} } else {...}</code> have (a, b symbolic)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — a-false gives 1 path; a-true splits on b into 2; total 3.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The inner if only exists on the a-true side, so it is 2 + 1 = 3, not 2 × 2.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>The a-true side splits further on b, adding a third path.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>There are only three feasible combinations of outcomes here.</text></feedback></answer>
+    <generalfeedback><text>The else of the outer if is one path; the then side contains an if-else giving two more. Since the inner branch is not reached when a is false, the total is 2 + 1 = 3.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Symbolic Execution/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Scalability bottleneck</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Path explosion — the number of distinct paths grows exponentially with branches and loops</text><feedback><text>Correct — this is the classic scalability wall for symbolic execution.</text></feedback></answer>
+    <answer fraction="0"><text>Memory leaks in the instrumented program</text><feedback><text>Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling.</text></feedback></answer>
+    <answer fraction="0"><text>The oracle problem — not knowing the correct expected output</text><feedback><text>The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles.</text></feedback></answer>
+    <answer fraction="0"><text>Flaky, non-deterministic tests</text><feedback><text>Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number.</text></feedback></answer>
+    <generalfeedback><text>Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially — path explosion — making exhaustive symbolic execution intractable for large or loop-heavy programs.</text></generalfeedback>
+  </question>
   <question type="truefalse">
     <name><text>Concolic execution</text></name>
     <questiontext format="html"><text><![CDATA[<p>Concolic ("concrete + symbolic") execution combines a concrete run with symbolic reasoning to simplify constraints that pure symbolic execution cannot solve.</p>]]></text></questiontext>
@@ -51,13 +314,131 @@
     <answer fraction="0"><text>false</text><feedback><text>This is precisely the motivation for concolic (dynamic symbolic) execution — it uses a concrete run alongside symbolic tracking so hard-to-solve expressions can be simplified using the concrete values actually observed.</text></feedback></answer>
     <generalfeedback><text>Concolic execution runs the program on concrete inputs while simultaneously tracking symbolic constraints; when a constraint becomes too complex (e.g., involves opaque library calls) it substitutes in the concrete value observed at runtime, sidestepping expressions pure symbolic execution's solver cannot handle.</text></generalfeedback>
   </question>
-  <question type="shortanswer">
-    <name><text>Deciding path-condition satisfiability</text></name>
-    <questiontext format="html"><text><![CDATA[<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>]]></text></questiontext>
-    <usecase>0</usecase>
-    <answer fraction="100"><text>solver</text><feedback><text>Correct.</text></feedback></answer>
-    <answer fraction="100"><text>SMT*</text><feedback><text>Correct.</text></feedback></answer>
-    <answer fraction="100"><text>constraint solver*</text><feedback><text>Correct.</text></feedback></answer>
-    <generalfeedback><text>An SMT (Satisfiability Modulo Theories) solver — generically, the constraint solver — takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.</text></generalfeedback>
+  <question type="multichoice">
+    <name><text>Reaching a new path in DSE</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In dynamic symbolic execution (DSE/concolic), how does the engine typically steer execution toward a not-yet-covered path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It negates one branch condition on the current path, then solves the modified path condition to obtain inputs that take the other direction</text><feedback><text>Correct — flipping a branch and re-solving yields inputs for the alternative outcome.</text></feedback></answer>
+    <answer fraction="0"><text>It randomly perturbs the current inputs until a new path happens to occur</text><feedback><text>That is closer to fuzzing; DSE deliberately negates a branch and solves for inputs.</text></feedback></answer>
+    <answer fraction="0"><text>It deletes the branch from the program so both sides merge</text><feedback><text>DSE does not modify the program; it modifies the path condition and re-solves.</text></feedback></answer>
+    <answer fraction="0"><text>It increases the loop-unrolling bound until coverage improves</text><feedback><text>Raising a bound addresses loops, not the systematic flipping of a branch to reach its other side.</text></feedback></answer>
+    <generalfeedback><text>DSE records the branch conditions taken on a concrete run, then negates one (usually the last unexplored) and asks the solver for inputs satisfying the prefix plus the negated condition — driving execution down the sibling path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mitigating path explosion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a recognized technique for mitigating path explosion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>State merging — combining multiple symbolic states at join points into one (with a disjunctive path condition)</text><feedback><text>Correct — merging reduces the number of states carried forward.</text></feedback></answer>
+    <answer fraction="0"><text>Disabling the constraint solver entirely</text><feedback><text>Without a solver you cannot test feasibility at all; this does not address path counts.</text></feedback></answer>
+    <answer fraction="0"><text>Adding more branches to the program</text><feedback><text>More branches increase, not reduce, the number of paths.</text></feedback></answer>
+    <answer fraction="0"><text>Raising every solver timeout to infinity</text><feedback><text>That affects individual queries, not the exponential growth in the number of paths.</text></feedback></answer>
+    <generalfeedback><text>Common mitigations include state merging, function/path summaries, search heuristics, and bounded exploration — all aimed at controlling the exponential number of states rather than solving each faster.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Handling loops</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To keep exploration finite, a loop whose iteration count depends on symbolic input is commonly handled by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Bounded unrolling — exploring the loop body up to a fixed number of iterations</text><feedback><text>Correct — a bound caps the otherwise unbounded set of loop paths.</text></feedback></answer>
+    <answer fraction="0"><text>Enumerating all possible iteration counts exhaustively</text><feedback><text>With a symbolic bound this can be unbounded, which is exactly what causes path explosion.</text></feedback></answer>
+    <answer fraction="0"><text>Ignoring the loop and skipping its body</text><feedback><text>Skipping the body would miss the behavior under test and misrepresent the program.</text></feedback></answer>
+    <answer fraction="0"><text>Rewriting the loop as unreachable code</text><feedback><text>The loop is part of the program's semantics and cannot simply be discarded.</text></feedback></answer>
+    <generalfeedback><text>Because a symbolic loop can spawn unboundedly many paths, engines typically unroll it up to a chosen depth (or use loop summaries/invariants) to keep the exploration finite, accepting incompleteness beyond the bound.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why UNSAT means dead</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a path's condition is unsatisfiable, why is that path "dead" (needs no test)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No concrete input can satisfy the constraints, so no execution can ever follow that path</text><feedback><text>Correct — UNSAT means the path is unreachable, so it needs no test.</text></feedback></answer>
+    <answer fraction="0"><text>The path is reachable but too slow to test</text><feedback><text>UNSAT is about reachability, not performance; the path cannot be taken at all.</text></feedback></answer>
+    <answer fraction="0"><text>The solver is broken and should be replaced</text><feedback><text>UNSAT is a valid, informative result, not a solver failure.</text></feedback></answer>
+    <answer fraction="0"><text>Any input will follow the path, so it is trivially covered</text><feedback><text>That would be a tautology (always SAT); UNSAT is the opposite — no input follows it.</text></feedback></answer>
+    <generalfeedback><text>An unsatisfiable path condition has no satisfying assignment, so there is no input that drives execution down it — the path is infeasible/dead and correctly generates no test case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Limitation: nonlinear constraints</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can nonlinear integer constraints (e.g. <code>x * y == 30</code> with x, y symbolic) limit symbolic execution?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Such constraints are hard or undecidable for solvers, so the solver may fail or time out on the path condition</text><feedback><text>Correct — nonlinear integer arithmetic is notoriously difficult (undecidable in general).</text></feedback></answer>
+    <answer fraction="0"><text>Nonlinear constraints always have infinitely many solutions, so they cannot be tested</text><feedback><text>Number of solutions is not the issue; the difficulty is that the solver may not decide them.</text></feedback></answer>
+    <answer fraction="0"><text>Solvers reject any constraint containing a multiplication</text><feedback><text>Solvers handle multiplication by constants easily; the hard case is symbol × symbol, and it is difficulty, not outright rejection.</text></feedback></answer>
+    <answer fraction="0"><text>Nonlinear constraints turn every path infeasible</text><feedback><text>They do not make paths infeasible; they make the feasibility question hard to answer.</text></feedback></answer>
+    <generalfeedback><text>Linear arithmetic is decidable and efficient, but nonlinear integer arithmetic is undecidable in general; when a path condition contains symbol-by-symbol products, the solver may be unable to resolve it, limiting the engine's precision.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Limitation: external calls</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A pure symbolic execution engine struggles when the code calls an external/native function (e.g. a system call) whose source it cannot analyze because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The call's effect on the symbolic state is opaque, so constraints cannot be propagated through it</text><feedback><text>Correct — this is a key motivation for concolic execution, which uses the concrete return value.</text></feedback></answer>
+    <answer fraction="0"><text>External functions always crash the engine</text><feedback><text>They do not necessarily crash it; the problem is that their symbolic effect is unknown.</text></feedback></answer>
+    <answer fraction="0"><text>External calls make every path condition a tautology</text><feedback><text>They do not trivialize constraints; they leave the engine unable to track them precisely.</text></feedback></answer>
+    <answer fraction="0"><text>The solver refuses to run whenever I/O is present</text><feedback><text>The solver is unaffected; the issue is missing symbolic semantics for the external call.</text></feedback></answer>
+    <generalfeedback><text>Without a model of the external function, the engine cannot express its output as a symbolic expression of the inputs, so it loses precision — concolic execution sidesteps this by plugging in the concrete value observed at runtime.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Limitation: pointer aliasing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does pointer aliasing complicate symbolic execution?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When two pointers may reference the same location, the engine cannot statically tell which symbolic memory a read/write affects, forcing case splits or imprecision</text><feedback><text>Correct — unresolved aliasing multiplies cases or loses precision.</text></feedback></answer>
+    <answer fraction="0"><text>Pointers cannot be represented symbolically at all</text><feedback><text>Pointers can be modeled; the difficulty is resolving which location they refer to.</text></feedback></answer>
+    <answer fraction="0"><text>Aliasing makes the path condition always satisfiable</text><feedback><text>Aliasing affects memory modeling, not the trivial satisfiability of constraints.</text></feedback></answer>
+    <answer fraction="0"><text>Aliasing only matters for concrete execution, never symbolic</text><feedback><text>It is especially problematic for symbolic execution, which must reason about all possible aliasing.</text></feedback></answer>
+    <generalfeedback><text>If p and q might alias, a write through p may or may not change what q reads; the engine must either split into cases (p == q vs p ≠ q) or approximate, both of which cost precision or add paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symbolic execution vs random testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A branch <code>if (x == 987654321)</code> depends on a 32-bit symbolic input x. Compared with random testing, symbolic execution:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Solves x == 987654321 directly and hits the branch immediately, whereas random testing has about a 1-in-2³² chance per try</text><feedback><text>Correct — the solver computes the exact value; random guessing almost never lands it.</text></feedback></answer>
+    <answer fraction="0"><text>Has the same tiny probability of reaching the branch as random testing</text><feedback><text>Symbolic execution does not guess; it solves the equality exactly.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot reach the branch because equalities are unsolvable</text><feedback><text>A linear equality like this is trivially solvable; the solver returns x = 987654321.</text></feedback></answer>
+    <answer fraction="0"><text>Must enumerate all 2³² inputs first</text><feedback><text>No enumeration is needed; the solver derives the satisfying value directly.</text></feedback></answer>
+    <generalfeedback><text>Narrow equality guards are the classic case where symbolic execution shines: it solves the constraint for the exact value, while random/fuzz testing is astronomically unlikely to hit it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exact PC through nested branches (UNSAT)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code> (a, b symbolic), is the path reaching <code>T</code> feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — its path condition (a + b &gt; 10) ∧ (a &lt; 3) ∧ (b &lt; 3) is unsatisfiable</text><feedback><text>Correct — a &lt; 3 and b &lt; 3 force a + b &lt; 6, contradicting a + b &gt; 10.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — for example a = 2, b = 2</text><feedback><text>a = 2, b = 2 gives a + b = 4, which is not &gt; 10.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — for example a = 8, b = 8</text><feedback><text>a = 8 violates a &lt; 3, so the second branch is not taken.</text></feedback></answer>
+    <answer fraction="0"><text>Only for negative a and b</text><feedback><text>Negative values make a + b even smaller, so a + b &gt; 10 still fails.</text></feedback></answer>
+    <generalfeedback><text>Conjoin the three branch outcomes: a &lt; 3 and b &lt; 3 imply a + b &lt; 6, which cannot also satisfy a + b &gt; 10. The path condition is UNSAT, so T is unreachable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exact PC through nested branches (SAT)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code> (x, y symbolic), which input reaches <code>T</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 1, y = 2</text><feedback><text>Correct — 1 &gt; 0, 2 == 1 + 1, and 2 &lt; 10 all hold.</text></feedback></answer>
+    <answer fraction="0"><text>x = 1, y = 1</text><feedback><text>y must equal x + 1 = 2, not 1.</text></feedback></answer>
+    <answer fraction="0"><text>x = 0, y = 1</text><feedback><text>x = 0 fails x &gt; 0, so the outer branch is not taken.</text></feedback></answer>
+    <answer fraction="0"><text>x = 10, y = 11</text><feedback><text>y = 11 fails y &lt; 10, so the innermost branch is not taken.</text></feedback></answer>
+    <generalfeedback><text>The path condition is (x &gt; 0) ∧ (y == x + 1) ∧ (y &lt; 10). x = 1, y = 2 satisfies all three, so it reaches T.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compositional summaries</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A technique that symbolically analyzes a function once and reuses the result at each call site, instead of re-exploring the callee's paths every time, is called a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Function (path) summary</text><feedback><text>Correct — compositional symbolic execution reuses per-function summaries to curb path explosion.</text></feedback></answer>
+    <answer fraction="0"><text>Loop invariant</text><feedback><text>An invariant characterizes a loop, not a reusable summary of a function's input/output constraints.</text></feedback></answer>
+    <answer fraction="0"><text>Test oracle</text><feedback><text>An oracle decides pass/fail; it is not a reusable analysis of a function.</text></feedback></answer>
+    <answer fraction="0"><text>Control-flow graph</text><feedback><text>The CFG is static structure, not a reusable symbolic result for a function.</text></feedback></answer>
+    <generalfeedback><text>Compositional (summary-based) symbolic execution records a function's behavior as a set of (precondition ⇒ effect) constraints and reuses it at every call, avoiding repeated exploration of the callee — a key path-explosion mitigation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State-merging trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>State merging reduces the number of symbolic states, but what is its main trade-off?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The merged path condition contains disjunctions/if-then-else terms, which can make solver queries harder</text><feedback><text>Correct — fewer states, but more complex constraints to solve.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the analysis unsound, missing real paths</text><feedback><text>No — merging is sound; the cost is harder solver queries, not lost paths.</text></feedback></answer>
+    <answer fraction="0"><text>It requires abandoning the constraint solver</text><feedback><text>Merging still relies on the solver — indeed on harder queries.</text></feedback></answer>
+    <answer fraction="0"><text>It doubles the number of states instead of reducing them</text><feedback><text>Merging combines states, reducing their count; the downside is constraint complexity.</text></feedback></answer>
+    <generalfeedback><text>Merging two states at a join point replaces two simpler path conditions with one that encodes both via disjunction (or ite-terms). This lowers state count but shifts the burden onto the solver, which now faces more complex formulas.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Loops cause unbounded paths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A loop whose iteration count depends on symbolic input can generate an unbounded number of paths, which is a direct source of path explosion.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — each additional iteration forks a new set of paths, so the count can grow without bound, hence bounded unrolling is used.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A symbolic loop bound lets the loop take arbitrarily many iterations, each spawning more paths — a classic cause of path explosion.</text></feedback></answer>
+    <generalfeedback><text>When the number of iterations is symbolic, exploring 0, 1, 2, … iterations yields ever more paths with no finite ceiling, so engines cap exploration with bounded unrolling (or loop summaries).</text></generalfeedback>
   </question>
 </quiz>

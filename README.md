@@ -72,6 +72,10 @@ generators, and the `src/components/ExampleControls.js` row.
   `npm run build:quiz` regenerates `src/data/quizRendered.js` (committed).
   Units with a bank show a Quiz button (practice / test modes, recent
   attempts in localStorage).
+- Each topic bank ships easy / medium / hard difficulty tiers (15 questions
+  each, en+zh) plus a 混和 (mixed) mode that samples 5 from each tier for a
+  15-question quiz; `build:quiz` runs `--strict` and fails the build if any
+  topic/level is incomplete or en/zh lengths disagree.
 - `labs/labs.json` + `labs/<slug>/` define practice labs;
   `npm run build:labs` regenerates `src/data/labRendered.js`. The judge
   button is a "coming soon" placeholder until a judge URL is wired up.

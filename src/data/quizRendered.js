@@ -2,1573 +2,12493 @@
 // Source of truth: quizzes/{en,zh}/*.xml
 export const QUIZ_RENDERED = {
   "boundary-value-equivalence": {
-    "en": [
-      {
-        "type": "multichoice",
-        "name": "Equivalence classes for a range",
-        "text": "<p>For an input defined as an integer in the range 1..100, how many equivalence classes does standard equivalence-class partitioning define, and which?</p>",
-        "answers": [
-          {
-            "text": "Three: one valid class [1,100], plus two invalid classes (<1 and >100)",
-            "fraction": 100,
-            "feedback": "Correct — one class for accepted values, two for input that's too small or too large."
-          },
-          {
-            "text": "Two: one valid class and one invalid class covering everything outside it",
-            "fraction": 0,
-            "feedback": "Values below and above the range fail for different reasons and are typically kept as separate invalid classes."
-          },
-          {
-            "text": "One hundred: one class per accepted integer value",
-            "fraction": 0,
-            "feedback": "Equivalence partitioning groups values with the same expected behavior into one class, not one class per value."
-          },
-          {
-            "text": "Two valid classes split at the midpoint, and no invalid classes",
-            "fraction": 0,
-            "feedback": "A single contiguous valid range doesn't need splitting, and out-of-range input still needs invalid classes."
-          }
-        ],
-        "generalFeedback": "Standard equivalence-class partitioning for a bounded range [1,100] yields three classes: the valid class [1,100], and two invalid classes for values below the minimum and above the maximum.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "BVA test values",
-        "text": "<p>What are the six standard Boundary Value Analysis (BVA) test values for an input range of [1,100]?</p>",
-        "answers": [
-          {
-            "text": "0, 1, 2, 99, 100, 101",
-            "fraction": 100,
-            "feedback": "Correct — min&#8722;1, min, min+1, max&#8722;1, max, max+1."
-          },
-          {
-            "text": "1, 100",
-            "fraction": 0,
-            "feedback": "That covers only the two on-points, missing all four neighboring off-points."
-          },
-          {
-            "text": "0, 1, 100, 101",
-            "fraction": 0,
-            "feedback": "This omits the min+1 and max&#8722;1 near-boundary points (2 and 99)."
-          },
-          {
-            "text": "1, 50, 100",
-            "fraction": 0,
-            "feedback": "50 is a midpoint value, not a boundary — BVA targets the edges of the domain, not its center."
-          }
-        ],
-        "generalFeedback": "Standard BVA takes the minimum and maximum (the \"on-points\") plus their immediate neighbors just inside and just outside the domain (the \"off-points\"): for [1,100] that's 0, 1, 2, 99, 100, 101.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Uniformity hypothesis",
-        "text": "<p>Why does equivalence-class testing consider it sufficient to test just one representative value from each class?</p>",
-        "answers": [
-          {
-            "text": "The uniformity hypothesis — all values in a class are assumed to trigger the same program behavior",
-            "fraction": 100,
-            "feedback": "Correct — the whole technique rests on that assumption."
-          },
-          {
-            "text": "The exhaustiveness hypothesis — one value is assumed to prove correctness for all values",
-            "fraction": 0,
-            "feedback": "No such formal hypothesis exists; equivalence testing isn't exhaustive."
-          },
-          {
-            "text": "Test values are assumed to be selected at random, so any one will do",
-            "fraction": 0,
-            "feedback": "Representative values are deliberately chosen (e.g., boundaries), not random."
-          },
-          {
-            "text": "The independence hypothesis — each class is assumed unrelated to the others",
-            "fraction": 0,
-            "feedback": "Relationships between classes/variables matter for strong vs. weak testing; that's not why one value suffices per class."
-          }
-        ],
-        "generalFeedback": "Equivalence-class testing relies on the uniformity hypothesis: the assumption that the program treats every value within a given class identically, so exercising any single representative value is as informative as exercising all of them.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Weak vs strong equivalence testing",
-        "text": "<p>What distinguishes weak from strong equivalence-class testing when a program has several input variables?</p>",
-        "answers": [
-          {
-            "text": "Weak testing covers each class at least once; strong testing covers the full cross-product of classes across all variables",
-            "fraction": 100,
-            "feedback": "Correct — strong is the combinatorially exhaustive version of weak."
-          },
-          {
-            "text": "Weak testing covers the full cross-product; strong testing covers each class only once",
-            "fraction": 0,
-            "feedback": "This reverses the definitions."
-          },
-          {
-            "text": "Weak testing applies only to Boundary Value Analysis; strong testing applies only to equivalence classes",
-            "fraction": 0,
-            "feedback": "Weak/strong is a distinction within equivalence-class testing itself, not a BVA-vs-ECT split."
-          },
-          {
-            "text": "Weak testing tests only invalid classes; strong testing tests only valid classes",
-            "fraction": 0,
-            "feedback": "Both weak and strong testing normally cover valid and invalid classes; the difference is combination coverage, not validity."
-          }
-        ],
-        "generalFeedback": "Weak equivalence-class testing needs only enough tests so each individual class (per variable) is hit at least once. Strong equivalence-class testing requires the cross-product of all classes across all variables, giving combinatorially more test cases.",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "Off-points on a closed boundary",
-        "text": "<p>For a closed boundary (the boundary value itself is included in the domain), the off-point lies just outside the domain.</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "Correct — since the on-point (the boundary value) is already inside a closed domain, its neighboring off-point sits just past the edge, outside the domain."
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "For a closed boundary the on-point is inside the domain, so its paired off-point is the adjacent value just outside it."
-          }
-        ],
-        "generalFeedback": "A closed boundary includes the extreme value in the domain (the on-point). Its associated off-point is the nearest neighboring value on the other side of that edge — just outside the domain. (For an open boundary the roles swap: the on-point sits just outside and the off-point is the included extreme.)"
-      },
-      {
-        "type": "shortanswer",
-        "name": "Fault type targeted by BVA",
-        "text": "<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>",
-        "answers": [
-          {
-            "text": "boundary*",
-            "fraction": 100,
-            "feedback": "Correct."
-          },
-          {
-            "text": "off-by-one*",
-            "fraction": 100,
-            "feedback": "Correct."
-          }
-        ],
-        "generalFeedback": "BVA targets boundary faults — the off-by-one style errors (e.g., using < instead of <=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.",
-        "usecase": false
-      }
-    ],
-    "zh": [
-      {
-        "type": "multichoice",
-        "name": "範圍輸入的等價類別",
-        "text": "<p>對於一個定義域為 1..100 的整數輸入，標準等價類別劃分（equivalence-class partitioning）會定義多少個等價類別？分別是哪些？</p>",
-        "answers": [
-          {
-            "text": "三個：一個有效類別 [1,100]，加上兩個無效類別（<1 與 >100）",
-            "fraction": 100,
-            "feedback": "正確——一個類別對應合法輸入，另外兩個分別對應太小與太大的輸入。"
-          },
-          {
-            "text": "兩個：一個有效類別，以及一個涵蓋其外所有情況的無效類別",
-            "fraction": 0,
-            "feedback": "低於範圍與高於範圍的值失敗原因不同，通常會分成兩個獨立的無效類別。"
-          },
-          {
-            "text": "一百個：每個合法整數值各自一個類別",
-            "fraction": 0,
-            "feedback": "等價類別劃分是把預期行為相同的值歸為同一類別，而不是每個值各自成一類。"
-          },
-          {
-            "text": "以中點分成兩個有效類別，且沒有無效類別",
-            "fraction": 0,
-            "feedback": "單一連續的有效範圍不需要再切分，而超出範圍的輸入仍然需要無效類別來涵蓋。"
-          }
-        ],
-        "generalFeedback": "對於有界範圍 [1,100]，標準等價類別劃分會產生三個類別：有效類別 [1,100]，以及分別代表低於最小值與高於最大值的兩個無效類別。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "BVA 測試值",
-        "text": "<p>對於輸入範圍 [1,100]，標準邊界值分析（Boundary Value Analysis, BVA）的六個測試值是什麼？</p>",
-        "answers": [
-          {
-            "text": "0、1、2、99、100、101",
-            "fraction": 100,
-            "feedback": "正確——分別是 min&#8722;1、min、min+1、max&#8722;1、max、max+1。"
-          },
-          {
-            "text": "1、100",
-            "fraction": 0,
-            "feedback": "這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的 off-point。"
-          },
-          {
-            "text": "0、1、100、101",
-            "fraction": 0,
-            "feedback": "這遺漏了緊鄰邊界的 min+1 與 max&#8722;1（即 2 與 99）。"
-          },
-          {
-            "text": "1、50、100",
-            "fraction": 0,
-            "feedback": "50 是中點值，並非邊界——BVA 針對的是定義域的邊緣，而非其中心。"
-          }
-        ],
-        "generalFeedback": "標準 BVA 會取最小值與最大值（即「on-point」），再加上它們緊鄰的內側與外側鄰居（即「off-point」）：對 [1,100] 而言即為 0、1、2、99、100、101。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "一致性假說",
-        "text": "<p>為什麼等價類別測試認為，每個類別只需測試一個代表值就足夠？</p>",
-        "answers": [
-          {
-            "text": "一致性假說（uniformity hypothesis）——假設同一類別中的所有值都會觸發相同的程式行為",
-            "fraction": 100,
-            "feedback": "正確——整個技巧都建立在這個假設之上。"
-          },
-          {
-            "text": "窮舉假說——假設一個值就能證明所有值都正確",
-            "fraction": 0,
-            "feedback": "並不存在這樣的正式假說；等價類別測試本質上並非窮舉式的。"
-          },
-          {
-            "text": "假設測試值是隨機選取的，因此隨便選一個都可以",
-            "fraction": 0,
-            "feedback": "代表值是刻意挑選的（例如邊界值），而非隨機決定。"
-          },
-          {
-            "text": "獨立性假說——假設每個類別彼此無關",
-            "fraction": 0,
-            "feedback": "類別／變數之間的關係會影響強、弱等價類別測試的差異，但這並不是「每類只需一個值」的原因。"
-          }
-        ],
-        "generalFeedback": "等價類別測試依賴一致性假說：假設程式對同一類別中的每個值都表現出相同的行為，因此測試任一個代表值，所提供的資訊等同於測試該類別中的所有值。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "弱等價類別測試與強等價類別測試",
-        "text": "<p>當程式有多個輸入變數時，弱等價類別測試與強等價類別測試的差異是什麼？</p>",
-        "answers": [
-          {
-            "text": "弱測試只要求每個類別至少被涵蓋一次；強測試要求涵蓋所有變數之間類別的完整交叉組合",
-            "fraction": 100,
-            "feedback": "正確——強測試是弱測試在組合意義上的窮舉版本。"
-          },
-          {
-            "text": "弱測試涵蓋完整交叉組合；強測試只要求每個類別各一次",
-            "fraction": 0,
-            "feedback": "這剛好把兩者的定義說反了。"
-          },
-          {
-            "text": "弱測試只適用於邊界值分析；強測試只適用於等價類別",
-            "fraction": 0,
-            "feedback": "強／弱是等價類別測試內部的區別，並不是邊界值分析與等價類別測試之間的區分。"
-          },
-          {
-            "text": "弱測試只測試無效類別；強測試只測試有效類別",
-            "fraction": 0,
-            "feedback": "弱測試與強測試通常都同時涵蓋有效與無效類別；兩者的差異在於組合涵蓋程度，而非有效性。"
-          }
-        ],
-        "generalFeedback": "弱等價類別測試只需要足夠的測試，使每個變數的每個類別至少被涵蓋一次。強等價類別測試則要求涵蓋所有變數之間類別的完整交叉組合，因此測試案例數會呈組合式增長。",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "封閉邊界的 off-point",
-        "text": "<p>對於封閉邊界（boundary 值本身包含在定義域內），其 off-point 會落在定義域之外。</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "正確——由於 on-point（邊界值本身）已經在封閉定義域之內，其相鄰的 off-point 會恰好落在邊界之外。"
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "對封閉邊界而言，on-point 位於定義域內，因此與其配對的 off-point 就是緊鄰在其外側的值。"
-          }
-        ],
-        "generalFeedback": "封閉邊界會把該極端值（on-point）納入定義域。與其配對的 off-point 則是在邊界另一側最鄰近的值——落在定義域之外。（若為開放邊界，兩者角色會互換：on-point 落在域外，而 off-point 則是被納入定義域的極端值。）"
-      },
-      {
-        "type": "shortanswer",
-        "name": "BVA 鎖定的錯誤類型",
-        "text": "<p>邊界值分析特別針對的是哪一類錯誤？（請以英文回答）</p>",
-        "answers": [
-          {
-            "text": "boundary*",
-            "fraction": 100,
-            "feedback": "正確。"
-          },
-          {
-            "text": "off-by-one*",
-            "fraction": 100,
-            "feedback": "正確。"
-          }
-        ],
-        "generalFeedback": "BVA 針對的是邊界錯誤（boundary faults）——也就是諸如以 < 誤用取代 <= 之類、恰好發生在輸入定義域邊緣的差一（off-by-one）錯誤，這正是它把測試值集中在邊界附近的原因。",
-        "usecase": false
-      }
-    ]
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Equivalence classes for a range",
+          "text": "<p>For an input defined as an integer in the range 1..100, how many equivalence classes does standard equivalence-class partitioning define, and which?</p>",
+          "answers": [
+            {
+              "text": "Three: one valid class [1,100], plus two invalid classes (<1 and >100)",
+              "fraction": 100,
+              "feedback": "Correct — one class for accepted values, two for input that's too small or too large."
+            },
+            {
+              "text": "Two: one valid class and one invalid class covering everything outside it",
+              "fraction": 0,
+              "feedback": "Values below and above the range fail for different reasons and are typically kept as separate invalid classes."
+            },
+            {
+              "text": "One hundred: one class per accepted integer value",
+              "fraction": 0,
+              "feedback": "Equivalence partitioning groups values with the same expected behavior into one class, not one class per value."
+            },
+            {
+              "text": "Two valid classes split at the midpoint, and no invalid classes",
+              "fraction": 0,
+              "feedback": "A single contiguous valid range doesn't need splitting, and out-of-range input still needs invalid classes."
+            }
+          ],
+          "generalFeedback": "Standard equivalence-class partitioning for a bounded range [1,100] yields three classes: the valid class [1,100], and two invalid classes for values below the minimum and above the maximum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BVA test values",
+          "text": "<p>What are the six boundary values just inside, on, and just outside each end of an input range of [1,100], as used in Boundary Value Analysis (BVA)?</p>",
+          "answers": [
+            {
+              "text": "0, 1, 2, 99, 100, 101",
+              "fraction": 100,
+              "feedback": "Correct — min-1, min, min+1, max-1, max, max+1."
+            },
+            {
+              "text": "1, 100",
+              "fraction": 0,
+              "feedback": "That covers only the two on-points, missing all four neighboring off/near-boundary points."
+            },
+            {
+              "text": "0, 1, 100, 101",
+              "fraction": 0,
+              "feedback": "This omits the min+1 and max-1 near-boundary points (2 and 99)."
+            },
+            {
+              "text": "1, 50, 100",
+              "fraction": 0,
+              "feedback": "50 is a midpoint value, not a boundary — BVA targets the edges of the domain, not its center."
+            }
+          ],
+          "generalFeedback": "BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Uniformity hypothesis",
+          "text": "<p>Why does equivalence-class testing consider it sufficient to test just one representative value from each class?</p>",
+          "answers": [
+            {
+              "text": "The uniformity hypothesis — all values in a class are assumed to trigger the same program behavior",
+              "fraction": 100,
+              "feedback": "Correct — the whole technique rests on that assumption."
+            },
+            {
+              "text": "The exhaustiveness hypothesis — one value is assumed to prove correctness for all values",
+              "fraction": 0,
+              "feedback": "No such formal hypothesis exists; equivalence testing isn't exhaustive."
+            },
+            {
+              "text": "Test values are assumed to be selected at random, so any one will do",
+              "fraction": 0,
+              "feedback": "Representative values are deliberately chosen (e.g., boundaries), not random."
+            },
+            {
+              "text": "The independence hypothesis — each class is assumed unrelated to the others",
+              "fraction": 0,
+              "feedback": "Relationships between classes/variables matter for strong vs. weak testing; that's not why one value suffices per class."
+            }
+          ],
+          "generalFeedback": "Equivalence-class testing relies on the uniformity hypothesis: the assumption that the program treats every value within a given class identically, so exercising any single representative value is as informative as exercising all of them.",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "Fault type targeted by BVA",
+          "text": "<p>What class of fault does Boundary Value Analysis specifically target? (English term)</p>",
+          "answers": [
+            {
+              "text": "boundary*",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "off-by-one*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "BVA targets boundary faults — the off-by-one style errors (e.g., using < instead of <=) that occur precisely at the edges of an input domain, which is why it concentrates test values there.",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "What equivalence partitioning does",
+          "text": "<p>What is the core idea of equivalence partitioning as a test-design technique?</p>",
+          "answers": [
+            {
+              "text": "Divide the input domain into classes whose members are expected to be processed the same way, then test one value per class",
+              "fraction": 100,
+              "feedback": "Correct — it reduces the near-infinite input space to a small set of representatives."
+            },
+            {
+              "text": "Test every possible input value exhaustively",
+              "fraction": 0,
+              "feedback": "Exhaustive testing is what partitioning is designed to avoid."
+            },
+            {
+              "text": "Randomly sample inputs until a defect is found",
+              "fraction": 0,
+              "feedback": "That is random testing; partitioning deliberately structures the domain into classes."
+            },
+            {
+              "text": "Measure how many statements each input executes",
+              "fraction": 0,
+              "feedback": "That is structural (code) coverage, not input-domain partitioning."
+            }
+          ],
+          "generalFeedback": "Equivalence partitioning is a black-box technique that splits the input domain into equivalence classes (valid and invalid) and picks one representative per class, cutting the number of tests while keeping behavioral coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why test at boundaries",
+          "text": "<p>Why does Boundary Value Analysis concentrate test cases at the edges of an input range rather than in its middle?</p>",
+          "answers": [
+            {
+              "text": "Programmers make off-by-one errors (e.g. < vs <=) most often at boundaries, so defects cluster there",
+              "fraction": 100,
+              "feedback": "Correct — boundaries are where relational operators are easiest to get wrong."
+            },
+            {
+              "text": "Boundary values are faster for the program to compute",
+              "fraction": 0,
+              "feedback": "Execution speed is unrelated to why boundaries are chosen."
+            },
+            {
+              "text": "Values in the middle of a range are never processed by the program",
+              "fraction": 0,
+              "feedback": "Middle values are processed; they're just less error-prone, so a single representative suffices."
+            },
+            {
+              "text": "Boundaries are the only values users ever enter",
+              "fraction": 0,
+              "feedback": "Users enter all kinds of values; BVA targets boundaries because that's where faults concentrate."
+            }
+          ],
+          "generalFeedback": "Faults cluster at boundaries because relational and loop conditions (<, <=, off-by-one) are most error-prone there; middle values are covered by a single equivalence-class representative.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of x <= 20",
+          "text": "<p>For the predicate <code>x &lt;= 20</code>, which value is the <strong>on point</strong> (the boundary value that lies inside the domain and satisfies the predicate)?</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "Correct — 20 satisfies x <= 20 and sits exactly on the boundary."
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 fails x <= 20; it is the off point just outside the domain."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 satisfies the predicate but is an interior point, not on the boundary."
+            },
+            {
+              "text": "22",
+              "fraction": 0,
+              "feedback": "22 is an exterior point that fails the predicate, not the boundary value."
+            }
+          ],
+          "generalFeedback": "The on point is the value on the boundary that lies in the domain. For x <= 20 the boundary value 20 satisfies the predicate, so 20 is the on point; 21 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of x <= 10",
+          "text": "<p>For the predicate <code>x &lt;= 10</code>, which value is the <strong>off point</strong> (the nearest value just outside the domain, which fails the predicate)?</p>",
+          "answers": [
+            {
+              "text": "11",
+              "fraction": 100,
+              "feedback": "Correct — 11 is the nearest integer that fails x <= 10."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 satisfies the predicate; it is the on point, not the off point."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 fails the predicate but is one step too far to be the off point."
+            }
+          ],
+          "generalFeedback": "The off point is the nearest value on the other side of the boundary — just outside the domain. For x <= 10 the on point is 10 and the off point is 11.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of x <= 46",
+          "text": "<p>For the predicate <code>x &lt;= 46</code>, which value is the <strong>on point</strong>?</p>",
+          "answers": [
+            {
+              "text": "46",
+              "fraction": 100,
+              "feedback": "Correct — 46 sits on the boundary and satisfies x <= 46."
+            },
+            {
+              "text": "47",
+              "fraction": 0,
+              "feedback": "47 fails the predicate; it is the off point just outside."
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "45 satisfies the predicate but is an interior point."
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 is an exterior point that fails the predicate."
+            }
+          ],
+          "generalFeedback": "For x <= 46 the boundary value 46 lies in the domain, so it is the on point; 47 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of x <= 37",
+          "text": "<p>For the predicate <code>x &lt;= 37</code>, which value is the <strong>off point</strong>?</p>",
+          "answers": [
+            {
+              "text": "38",
+              "fraction": 100,
+              "feedback": "Correct — 38 is the nearest value that fails x <= 37."
+            },
+            {
+              "text": "37",
+              "fraction": 0,
+              "feedback": "37 satisfies the predicate; it is the on point."
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "39",
+              "fraction": 0,
+              "feedback": "39 fails the predicate but is one step too far to be the off point."
+            }
+          ],
+          "generalFeedback": "For x <= 37 the on point is 37 and the off point is the adjacent failing value 38.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of x <= 14",
+          "text": "<p>For the predicate <code>x &lt;= 14</code>, which value is the <strong>on point</strong>?</p>",
+          "answers": [
+            {
+              "text": "14",
+              "fraction": 100,
+              "feedback": "Correct — 14 satisfies x <= 14 and lies on the boundary."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 fails the predicate; it is the off point."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 satisfies the predicate but is an interior point."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is an exterior point that fails the predicate."
+            }
+          ],
+          "generalFeedback": "For x <= 14 the boundary value 14 is in the domain, so it is the on point; 15 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of x <= 21",
+          "text": "<p>For the predicate <code>x &lt;= 21</code>, which value is the <strong>off point</strong>?</p>",
+          "answers": [
+            {
+              "text": "22",
+              "fraction": 100,
+              "feedback": "Correct — 22 is the nearest value that fails x <= 21."
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 satisfies the predicate; it is the on point."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 fails the predicate but is one step too far to be the off point."
+            }
+          ],
+          "generalFeedback": "For x <= 21 the on point is 21 and the off point is the adjacent failing value 22.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which value is in an invalid class",
+          "text": "<p>An input field accepts an integer in the valid range 1..100. Which of these values belongs to an <strong>invalid</strong> equivalence class?</p>",
+          "answers": [
+            {
+              "text": "0",
+              "fraction": 100,
+              "feedback": "Correct — 0 is below the minimum, so it falls in the \"too small\" invalid class."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 is the minimum accepted value, so it is in the valid class."
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 is inside 1..100, so it is a valid-class value."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 is the maximum accepted value, so it is in the valid class."
+            }
+          ],
+          "generalFeedback": "The valid class is [1,100]; anything below 1 or above 100 is invalid. Only 0 lies outside the accepted range here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of age >= 18",
+          "text": "<p>A site admits users whose age satisfies <code>age &gt;= 18</code>. Which value is the <strong>on point</strong> of this boundary?</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "Correct — 18 satisfies age >= 18 and sits exactly on the boundary."
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 fails age >= 18; it is the off point just outside the accepted domain."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 satisfies the predicate but is an interior point, not the boundary."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is an exterior point that fails the predicate."
+            }
+          ],
+          "generalFeedback": "For age >= 18 the boundary value 18 lies in the accepted domain, so it is the on point; 17 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Largest integer satisfying a strict bound",
+          "text": "<p>For the strict predicate <code>x &lt; 50</code> over the integers, which value is the largest one that satisfies it?</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "Correct — with a strict <, the largest satisfying integer is 49, not 50."
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 does not satisfy x < 50 because the bound is strict."
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 satisfies the predicate but is not the largest such value."
+            },
+            {
+              "text": "51",
+              "fraction": 0,
+              "feedback": "51 is greater than 50, so it clearly fails the predicate."
+            }
+          ],
+          "generalFeedback": "A strict inequality excludes the bound itself: for x < 50 the value 50 fails, so the largest satisfying integer is 49. This min/max +/-1 reasoning is exactly what BVA exercises.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Weak vs strong equivalence testing",
+          "text": "<p>What distinguishes weak from strong equivalence-class testing when a program has several input variables?</p>",
+          "answers": [
+            {
+              "text": "Weak testing covers each class at least once; strong testing covers the full cross-product of classes across all variables",
+              "fraction": 100,
+              "feedback": "Correct — strong is the combinatorially exhaustive version of weak."
+            },
+            {
+              "text": "Weak testing covers the full cross-product; strong testing covers each class only once",
+              "fraction": 0,
+              "feedback": "This reverses the definitions."
+            },
+            {
+              "text": "Weak testing applies only to Boundary Value Analysis; strong testing applies only to equivalence classes",
+              "fraction": 0,
+              "feedback": "Weak/strong is a distinction within equivalence-class testing itself, not a BVA-vs-ECT split."
+            },
+            {
+              "text": "Weak testing tests only invalid classes; strong testing tests only valid classes",
+              "fraction": 0,
+              "feedback": "Both weak and strong testing normally cover valid and invalid classes; the difference is combination coverage, not validity."
+            }
+          ],
+          "generalFeedback": "Weak equivalence-class testing needs only enough tests so each individual class (per variable) is hit at least once. Strong equivalence-class testing requires the cross-product of all classes across all variables, giving combinatorially more test cases.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Off-point on a closed boundary",
+          "text": "<p>For a closed boundary (the boundary value itself is included in the domain), the off point lies just outside the domain.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the on point (the included boundary value) is inside the domain, so its paired off point is the adjacent value just outside."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "For a closed boundary the on point is inside the domain, so its paired off point is the adjacent value just outside it."
+            }
+          ],
+          "generalFeedback": "Using the convention where the on point is the boundary value that lies in the domain (satisfies the predicate) and the off point is the nearest value just outside it: a closed boundary such as x <= b puts the on point (b) inside the domain and the off point (b+1) just outside. For an open boundary such as a < x, the smallest value inside the domain is a+1 (the on point) and the off point is the excluded boundary value a, still just outside the domain."
+        },
+        {
+          "type": "multichoice",
+          "name": "Five standard BVA values",
+          "text": "<p>In standard (non-robust) Boundary Value Analysis, which five values are selected for a single variable with range [min, max]?</p>",
+          "answers": [
+            {
+              "text": "min, min+1, a nominal value, max-1, max",
+              "fraction": 100,
+              "feedback": "Correct — the two boundaries, their inside neighbours, and one nominal value."
+            },
+            {
+              "text": "min-1, min, nominal, max, max+1",
+              "fraction": 0,
+              "feedback": "min-1 and max+1 are the robustness extensions, not part of standard BVA."
+            },
+            {
+              "text": "min, nominal, max",
+              "fraction": 0,
+              "feedback": "This drops the min+1 and max-1 inside-neighbour values that standard BVA includes."
+            },
+            {
+              "text": "min-1, min, min+1, max-1, max, max+1",
+              "fraction": 0,
+              "feedback": "That is the six-value robust set, not the five-value standard set."
+            }
+          ],
+          "generalFeedback": "Standard BVA selects min, min+1, a nominal (typical interior) value, max-1, and max. Robustness testing later adds min-1 and max+1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Standard BVA test count (n=3)",
+          "text": "<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 3 input variables?</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "Correct — 4×3 + 1 = 13."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "That is 4n; it forgets the single all-nominal test (+1)."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 does not match 4n+1 for n=3."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 is the robust count 6n+1 for n=3, not the standard count."
+            }
+          ],
+          "generalFeedback": "Standard BVA varies one variable at a time through its 4 non-nominal boundary values while holding the others at nominal, plus one all-nominal test: 4n+1. For n=3 that is 13.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What robustness testing adds",
+          "text": "<p>Robustness testing extends standard BVA by adding which extra values for each variable?</p>",
+          "answers": [
+            {
+              "text": "min-1 and max+1 (values just outside the valid range)",
+              "fraction": 100,
+              "feedback": "Correct — robustness testing probes just beyond both boundaries."
+            },
+            {
+              "text": "min+1 and max-1 (values just inside the valid range)",
+              "fraction": 0,
+              "feedback": "Those inside-neighbour values are already part of standard BVA."
+            },
+            {
+              "text": "Two additional nominal values",
+              "fraction": 0,
+              "feedback": "Robustness testing adds out-of-range values, not more nominal ones."
+            },
+            {
+              "text": "The midpoint and the mean of the range",
+              "fraction": 0,
+              "feedback": "Robustness testing is about out-of-range inputs, not central statistics."
+            }
+          ],
+          "generalFeedback": "Robustness testing adds min-1 and max+1 to see how the program handles inputs just outside the valid range, giving seven values per variable and the 6n+1 count.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Robust BVA test count (n=2)",
+          "text": "<p>Using the robust 6n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "Correct — 6×2 + 1 = 13."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "That is 6n; it forgets the single all-nominal test (+1)."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the standard count 4n+1 for n=2, not the robust count."
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 does not match 6n+1 for n=2."
+            }
+          ],
+          "generalFeedback": "Robust BVA uses 6 non-nominal values per variable (adding min-1 and max+1) varied one at a time, plus one all-nominal test: 6n+1. For n=2 that is 13.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of an open lower boundary",
+          "text": "<p>For the predicate <code>19 &lt; x &lt;= 25</code>, which value is the <strong>on point at the lower boundary</strong> (the smallest value that lies inside the domain)?</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "Correct — with a strict lower bound, 20 is the smallest value that satisfies 19 < x."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 fails 19 < x; it is the off point just outside the lower boundary."
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 satisfies the predicate but is an interior point, not on the lower boundary."
+            },
+            {
+              "text": "26",
+              "fraction": 0,
+              "feedback": "26 fails the upper bound; it is an off point at the upper boundary."
+            }
+          ],
+          "generalFeedback": "For an open (strict) lower boundary 19 < x, the value 19 is excluded, so the on point inside the domain is 20 and the off point just outside is 19.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of an open lower boundary",
+          "text": "<p>For the predicate <code>27 &lt; x &lt;= 30</code>, which value is the <strong>off point at the lower boundary</strong> (the nearest value just outside the domain)?</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "Correct — 27 is excluded by the strict <, so it is the off point just outside the lower boundary."
+            },
+            {
+              "text": "28",
+              "fraction": 0,
+              "feedback": "28 satisfies 27 < x; it is the on point at the lower boundary."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 satisfies the predicate; it is the on point at the upper boundary."
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 is an interior point that satisfies the predicate."
+            }
+          ],
+          "generalFeedback": "For the open lower boundary 27 < x, the smallest value inside the domain is 28 (the on point) and the excluded boundary value 27 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On point of a closed interval",
+          "text": "<p>For the predicate <code>24 &lt;= x &lt;= 41</code>, which value is the <strong>on point at the lower boundary</strong>?</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "Correct — 24 satisfies 24 <= x and sits on the lower boundary."
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 fails the predicate; it is the off point just outside the lower boundary."
+            },
+            {
+              "text": "42",
+              "fraction": 0,
+              "feedback": "42 fails the upper bound; it is the off point at the upper boundary."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 satisfies the predicate but is an interior point."
+            }
+          ],
+          "generalFeedback": "For the closed interval [24,41] the lower boundary value 24 is included, so it is the on point; 23 is the off point just outside.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of a closed interval",
+          "text": "<p>For the predicate <code>11 &lt;= x &lt;= 29</code>, which value is the <strong>off point at the lower boundary</strong>?</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — 10 is the nearest value below the included minimum 11, just outside the domain."
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "11 satisfies the predicate; it is the on point at the lower boundary."
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 satisfies the predicate; it is the on point at the upper boundary."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is an interior point that satisfies the predicate."
+            }
+          ],
+          "generalFeedback": "For the closed interval [11,29] the on point at the lower boundary is 11 and the off point just outside is 10.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "On/off points for an open interval",
+          "text": "<p>For the strict predicate <code>x &gt; 5</code>, which pair correctly gives the on point and off point at that boundary?</p>",
+          "answers": [
+            {
+              "text": "On point 6, off point 5",
+              "fraction": 100,
+              "feedback": "Correct — 6 is the smallest value inside the domain; 5 is excluded and lies just outside."
+            },
+            {
+              "text": "On point 5, off point 6",
+              "fraction": 0,
+              "feedback": "5 fails x > 5, so it cannot be the on point (the value inside the domain)."
+            },
+            {
+              "text": "On point 5, off point 4",
+              "fraction": 0,
+              "feedback": "Both 5 and 4 fail the predicate; neither is inside the domain."
+            },
+            {
+              "text": "On point 7, off point 6",
+              "fraction": 0,
+              "feedback": "7 satisfies the predicate but is interior, and 6 also satisfies it, so neither is an off point."
+            }
+          ],
+          "generalFeedback": "For an open boundary x > 5, the boundary value 5 is excluded, so the on point (nearest value inside the domain) is 6 and the off point (nearest value outside) is 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Single-fault assumption behind 4n+1",
+          "text": "<p>Why does standard BVA vary only one variable at a time (holding the others at nominal), giving 4n+1 tests?</p>",
+          "answers": [
+            {
+              "text": "It assumes the single-fault hypothesis — failures are usually caused by one variable at an extreme, not several simultaneously",
+              "fraction": 100,
+              "feedback": "Correct — that assumption is what keeps the count linear in n."
+            },
+            {
+              "text": "It assumes variables are always independent and never interact at all",
+              "fraction": 0,
+              "feedback": "BVA does not claim variables never interact; it just bets that single-variable extremes catch most boundary faults."
+            },
+            {
+              "text": "It assumes the program has exactly one input variable",
+              "fraction": 0,
+              "feedback": "The 4n+1 formula is explicitly for n variables, not one."
+            },
+            {
+              "text": "It assumes all boundary values are equally likely to be entered",
+              "fraction": 0,
+              "feedback": "Likelihood of entry is not the basis; the single-fault hypothesis is."
+            }
+          ],
+          "generalFeedback": "Standard BVA rests on the single-fault (critical-fault) assumption: most failures stem from one variable at a boundary while the rest sit at nominal. Worst-case testing drops this assumption and combines boundaries, which is far more expensive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Standard BVA test count (n=2)",
+          "text": "<p>Using the standard 4n+1 formula, how many BVA test cases are needed for a function with 2 input variables?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — 4×2 + 1 = 9."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That is 4n; it forgets the single all-nominal test (+1)."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 is the robust count 6n+1 for n=2, not the standard count."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the standard count for a single variable (n=1), not two."
+            }
+          ],
+          "generalFeedback": "Standard BVA needs 4n+1 tests; for n=2 that is 4×2 + 1 = 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point at an upper boundary",
+          "text": "<p>For the predicate <code>5 &lt;= x &lt;= 17</code>, which value is the <strong>off point at the upper boundary</strong>?</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "Correct — 18 is the nearest value above the included maximum 17, just outside the domain."
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 satisfies the predicate; it is the on point at the upper boundary."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 satisfies the predicate and is an interior point."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the off point at the lower boundary, not the upper one."
+            }
+          ],
+          "generalFeedback": "For the closed interval [5,17] the upper on point is 17 and the off point just outside the upper boundary is 18.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Values per variable in robustness testing",
+          "text": "<p>How many distinct test values does robustness testing exercise for a single variable with range [min, max]?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — min-1, min, min+1, nominal, max-1, max, max+1."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the standard BVA count; robustness adds min-1 and max+1, giving 7."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 forgets one value: the robust set has seven (two boundaries, two inside neighbours, two outside neighbours, and one nominal)."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the standard BVA test count for two variables (4n+1), not values for one variable."
+            }
+          ],
+          "generalFeedback": "Robustness testing uses seven values per variable — the five standard BVA values plus min-1 and max+1 — which is why the robust test count is 6n+1.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Worst-case boundary test count",
+          "text": "<p>Worst-case boundary testing takes the Cartesian product of each variable's five boundary values. For a function with 2 input variables, how many test cases does it produce?</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "Correct — 5^2 = 25, the full product of the five values per variable."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is 5×n; worst-case testing multiplies the value sets (5^n), it does not add them."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the standard single-fault count 4n+1 for n=2, not the worst-case count."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 does not match 5^n for n=2."
+            }
+          ],
+          "generalFeedback": "Worst-case boundary testing drops the single-fault assumption and combines every variable's boundary values: 5^n tests. For n=2 that is 5^2 = 25.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Robust worst-case test count",
+          "text": "<p>Robust worst-case boundary testing uses each variable's seven values (adding min-1 and max+1) in full combination. For 2 variables, how many test cases result?</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "Correct — 7^2 = 49."
+            },
+            {
+              "text": "25",
+              "fraction": 0,
+              "feedback": "25 is 5^2, the non-robust worst-case count."
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 is 7×n; robust worst-case multiplies the value sets (7^n)."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 is the robust single-fault count 6n+1 for n=2, not the worst-case count."
+            }
+          ],
+          "generalFeedback": "Robust worst-case testing combines all seven robust values per variable: 7^n. For n=2 that is 7^2 = 49.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Worst-case vs standard BVA",
+          "text": "<p>How does worst-case boundary testing differ fundamentally from standard (4n+1) BVA?</p>",
+          "answers": [
+            {
+              "text": "It abandons the single-fault assumption and combines the boundary values of all variables, growing exponentially (5^n)",
+              "fraction": 100,
+              "feedback": "Correct — combinations replace one-at-a-time variation."
+            },
+            {
+              "text": "It uses fewer values per variable but more variables",
+              "fraction": 0,
+              "feedback": "It uses the same values per variable; the difference is combining them across variables."
+            },
+            {
+              "text": "It tests only nominal values, never boundaries",
+              "fraction": 0,
+              "feedback": "Worst-case testing is entirely about combining boundary values, not avoiding them."
+            },
+            {
+              "text": "It is always cheaper than standard BVA",
+              "fraction": 0,
+              "feedback": "It is far more expensive: 5^n grows exponentially versus the linear 4n+1."
+            }
+          ],
+          "generalFeedback": "Standard BVA varies one variable at a time (single-fault assumption), giving 4n+1 tests. Worst-case testing combines every variable's boundary values, giving 5^n tests — exhaustive over boundaries but exponentially costly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Characteristic in input-space partitioning",
+          "text": "<p>In Ammann &amp; Offutt's Input Space Partitioning (ISP), what is a <strong>characteristic</strong>?</p>",
+          "answers": [
+            {
+              "text": "A feature of the input domain that is used to partition the domain into blocks",
+              "fraction": 100,
+              "feedback": "Correct — each characteristic induces one partition of the input domain."
+            },
+            {
+              "text": "A single concrete test input value",
+              "fraction": 0,
+              "feedback": "That is a test value; a characteristic is the dimension along which values are partitioned."
+            },
+            {
+              "text": "The expected output of the program",
+              "fraction": 0,
+              "feedback": "That is an oracle, not an ISP characteristic."
+            },
+            {
+              "text": "A line of source code under test",
+              "fraction": 0,
+              "feedback": "ISP is black-box; a characteristic describes the input domain, not code."
+            }
+          ],
+          "generalFeedback": "In ISP each characteristic partitions the input domain into blocks (for example \"sign of x: negative / zero / positive\"). Choosing good characteristics is the key design step.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Blocks of a partition",
+          "text": "<p>The blocks a characteristic splits the input domain into must satisfy which property?</p>",
+          "answers": [
+            {
+              "text": "They must be complete (cover the whole domain) and disjoint (no value in two blocks)",
+              "fraction": 100,
+              "feedback": "Correct — completeness plus disjointness is exactly what makes the blocks a partition."
+            },
+            {
+              "text": "They must overlap so every value appears in at least two blocks",
+              "fraction": 0,
+              "feedback": "Overlap violates disjointness; blocks of a partition are mutually exclusive."
+            },
+            {
+              "text": "They must all contain the same number of values",
+              "fraction": 0,
+              "feedback": "Blocks need not be equal in size; they need only be complete and disjoint."
+            },
+            {
+              "text": "There must be exactly two blocks per characteristic",
+              "fraction": 0,
+              "feedback": "A characteristic may have any number of blocks, as long as they partition the domain."
+            }
+          ],
+          "generalFeedback": "For each characteristic the blocks must form a partition of the domain: complete (their union is the whole domain) and disjoint (mutually exclusive). Otherwise a value could be unclassifiable or ambiguous.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All Combinations Coverage count",
+          "text": "<p>An ISP model has three characteristics with 3, 2, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 × 2 = 12, the product of the block counts."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum 3+2+2; ACoC multiplies the block counts."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 does not match the product of the block counts."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 ignores one characteristic; the product over all three is 12."
+            }
+          ],
+          "generalFeedback": "ACoC requires every combination of blocks across all characteristics, so the count is the product of the block counts: 3 × 2 × 2 = 12.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Each Choice Coverage count",
+          "text": "<p>An ISP model has three characteristics with 3, 2, and 4 blocks. What is the minimum number of tests needed for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least as many tests as the largest number of blocks in any one characteristic (here 4)."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum of the block counts; ECC can reuse blocks across characteristics in the same test."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is the product (All Combinations), far more than ECC requires."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is not enough to cover the characteristic that has 4 blocks."
+            }
+          ],
+          "generalFeedback": "ECC requires each block of each characteristic to appear in at least one test. Because a single test picks one block from every characteristic, the minimum number of tests equals the largest block count — here max(3,2,4) = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Base Choice Coverage count",
+          "text": "<p>An ISP model has three characteristics with 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1 base test + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the sum of the block counts; BCC counts one base test plus the non-base blocks."
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 is the product (All Combinations), not the Base Choice count."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 forgets the +1 base test: the total is 1 + sum of (blocks-1)."
+            }
+          ],
+          "generalFeedback": "BCC picks one base choice per characteristic (the base test), then varies one characteristic at a time through its remaining blocks: 1 + Σ(B_i - 1) = 1 + 2 + 2 + 1 = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage definition",
+          "text": "<p>What does Pair-Wise Coverage (PWC) require?</p>",
+          "answers": [
+            {
+              "text": "Every pair of blocks from each pair of characteristics must appear together in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — PWC covers all two-way block interactions."
+            },
+            {
+              "text": "Every combination of blocks across all characteristics must appear",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage; PWC only requires pairs."
+            },
+            {
+              "text": "Each block of each characteristic must appear once, with no interaction requirement",
+              "fraction": 0,
+              "feedback": "That is Each Choice Coverage, which is weaker than PWC."
+            },
+            {
+              "text": "Exactly two tests per characteristic must be run",
+              "fraction": 0,
+              "feedback": "PWC constrains block pairings, not a fixed number of tests per characteristic."
+            }
+          ],
+          "generalFeedback": "PWC (2-wise) requires that for every two characteristics, every pair of their blocks is covered together in some test. It catches two-way interaction faults without the full ACoC explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage lower bound",
+          "text": "<p>An ISP model has three characteristics with 3, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — at least the product of the two largest block counts, 3 × 3 = 9."
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 is the full All Combinations product; PWC needs far fewer than that."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 (the largest single block count) satisfies Each Choice, not Pair-Wise."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is below the pairwise lower bound of 3 × 3 = 9."
+            }
+          ],
+          "generalFeedback": "To cover every pair from the two 3-block characteristics you already need all 3 × 3 = 9 of their combinations, so any PWC test set has at least 9 tests — the product of the two largest block counts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest ISP criterion",
+          "text": "<p>Among ACoC, ECC, PWC, and BCC, which criterion subsumes all of the others?</p>",
+          "answers": [
+            {
+              "text": "All Combinations Coverage (ACoC)",
+              "fraction": 100,
+              "feedback": "Correct — covering every block combination covers every pair, every base variation, and every choice."
+            },
+            {
+              "text": "Each Choice Coverage (ECC)",
+              "fraction": 0,
+              "feedback": "ECC is the weakest of the four; it is subsumed by the others."
+            },
+            {
+              "text": "Pair-Wise Coverage (PWC)",
+              "fraction": 0,
+              "feedback": "PWC subsumes ECC but not ACoC or (in general) BCC."
+            },
+            {
+              "text": "Base Choice Coverage (BCC)",
+              "fraction": 0,
+              "feedback": "BCC subsumes ECC but is itself subsumed by ACoC."
+            }
+          ],
+          "generalFeedback": "ACoC requires every combination of blocks, so it necessarily satisfies pair coverage, base-choice variation, and each-choice — it sits at the top of the ISP subsumption hierarchy (and is usually the most expensive).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ISP subsumption chain",
+          "text": "<p>Which subsumption chain among the ISP criteria is correct (each criterion subsumes the next)?</p>",
+          "answers": [
+            {
+              "text": "MBCC → BCC → ECC",
+              "fraction": 100,
+              "feedback": "Correct — Multiple Base Choice subsumes Base Choice, which subsumes Each Choice."
+            },
+            {
+              "text": "ECC → BCC → MBCC",
+              "fraction": 0,
+              "feedback": "This reverses the direction; ECC is the weakest, so it cannot subsume the others."
+            },
+            {
+              "text": "BCC → MBCC → ECC",
+              "fraction": 0,
+              "feedback": "MBCC subsumes BCC, not the other way around."
+            },
+            {
+              "text": "ECC → PWC → BCC",
+              "fraction": 0,
+              "feedback": "ECC does not subsume PWC, and PWC does not subsume BCC (they are incomparable)."
+            }
+          ],
+          "generalFeedback": "Multiple Base Choice Coverage subsumes Base Choice Coverage, which subsumes Each Choice Coverage. Note that BCC and PWC are incomparable — neither subsumes the other.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Base choice in BCC",
+          "text": "<p>In Base Choice Coverage, how is the test set constructed?</p>",
+          "answers": [
+            {
+              "text": "Pick one base block per characteristic to form a base test, then vary one characteristic at a time through its other blocks",
+              "fraction": 100,
+              "feedback": "Correct — that yields 1 + Σ(blocks-1) tests."
+            },
+            {
+              "text": "Combine every block of every characteristic with every other",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage, not Base Choice."
+            },
+            {
+              "text": "Randomly select one block per characteristic for each test",
+              "fraction": 0,
+              "feedback": "BCC is systematic: a fixed base test plus one-at-a-time variations, not random selection."
+            },
+            {
+              "text": "Use only the base test and nothing else",
+              "fraction": 0,
+              "feedback": "The base test alone does not exercise the non-base blocks; each must be varied in."
+            }
+          ],
+          "generalFeedback": "BCC designates a base choice (e.g. the most common or important block) per characteristic, runs that base test, then changes one characteristic at a time to each of its non-base blocks while the rest stay at their base values.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combining equivalence and boundary",
+          "text": "<p>How are equivalence partitioning and boundary value analysis usually combined in practice?</p>",
+          "answers": [
+            {
+              "text": "Partition the domain into equivalence classes, then add boundary values at the edges of each class",
+              "fraction": 100,
+              "feedback": "Correct — partitioning finds the classes; BVA hardens the tests at their edges."
+            },
+            {
+              "text": "Replace equivalence classes entirely with random boundary values",
+              "fraction": 0,
+              "feedback": "The two are complementary; BVA supplements, not replaces, partitioning."
+            },
+            {
+              "text": "Use boundary values only for the invalid classes and ignore valid ones",
+              "fraction": 0,
+              "feedback": "Boundaries of valid classes are tested too; that is where most off-by-one faults live."
+            },
+            {
+              "text": "Test only the midpoint of each equivalence class",
+              "fraction": 0,
+              "feedback": "That is plain equivalence partitioning without BVA; it misses boundary faults."
+            }
+          ],
+          "generalFeedback": "The standard practice is to derive equivalence classes first, take one nominal representative from each, then apply BVA at the boundaries between classes — combining broad coverage with edge sensitivity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off point of a compound predicate",
+          "text": "<p>Consider the compound predicate <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>. Which single value is an <strong>off point</strong> of this predicate?</p>",
+          "answers": [
+            {
+              "text": "21",
+              "fraction": 100,
+              "feedback": "Correct — 21 fails the upper clause and lies just outside the domain, so it is an off point."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 satisfies both clauses; it is the on point at the lower boundary."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 satisfies both clauses; it is the on point at the upper boundary."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 satisfies the predicate and is an interior point."
+            }
+          ],
+          "generalFeedback": "The conjunction is equivalent to the closed interval [10,20]. Its on points are 10 and 20; the off points just outside are 9 and 21. Of the choices, only 21 is an off point.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "範圍輸入的等價類別",
+          "text": "<p>對於一個定義域為 1..100 的整數輸入，標準等價類別劃分（equivalence-class partitioning）會定義多少個等價類別？分別是哪些？</p>",
+          "answers": [
+            {
+              "text": "三個：一個有效類別 [1,100]，加上兩個無效類別（<1 與 >100）",
+              "fraction": 100,
+              "feedback": "正確——一個類別對應合法輸入，另外兩個分別對應太小與太大的輸入。"
+            },
+            {
+              "text": "兩個：一個有效類別，以及一個涵蓋其外所有情況的無效類別",
+              "fraction": 0,
+              "feedback": "低於範圍與高於範圍的值失敗原因不同，通常會分成兩個獨立的無效類別。"
+            },
+            {
+              "text": "一百個：每個合法整數值各自一個類別",
+              "fraction": 0,
+              "feedback": "等價類別劃分是把預期行為相同的值歸為同一類別，而不是每個值各自成一類。"
+            },
+            {
+              "text": "以中點分成兩個有效類別，且沒有無效類別",
+              "fraction": 0,
+              "feedback": "單一連續的有效範圍不需要再切分，而超出範圍的輸入仍然需要無效類別來涵蓋。"
+            }
+          ],
+          "generalFeedback": "對於有界範圍 [1,100]，標準等價類別劃分會產生三個類別：有效類別 [1,100]，以及分別代表低於最小值與高於最大值的兩個無效類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BVA 測試值",
+          "text": "<p>對於輸入範圍 [1,100]，邊界值分析（Boundary Value Analysis, BVA）中「緊鄰內側、邊界上、緊鄰外側」的六個測試值是什麼？</p>",
+          "answers": [
+            {
+              "text": "0、1、2、99、100、101",
+              "fraction": 100,
+              "feedback": "正確——分別是 min-1、min、min+1、max-1、max、max+1。"
+            },
+            {
+              "text": "1、100",
+              "fraction": 0,
+              "feedback": "這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的邊界鄰近點。"
+            },
+            {
+              "text": "0、1、100、101",
+              "fraction": 0,
+              "feedback": "這遺漏了緊鄰邊界的 min+1 與 max-1（即 2 與 99）。"
+            },
+            {
+              "text": "1、50、100",
+              "fraction": 0,
+              "feedback": "50 是中點值，並非邊界——BVA 針對的是定義域的邊緣，而非其中心。"
+            }
+          ],
+          "generalFeedback": "BVA 會取最小值與最大值，再加上它們緊鄰的內側與外側鄰居：對 [1,100] 而言即為 0、1、2、99、100、101。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一致性假說",
+          "text": "<p>為什麼等價類別測試認為，每個類別只需測試一個代表值就足夠？</p>",
+          "answers": [
+            {
+              "text": "一致性假說（uniformity hypothesis）——假設同一類別中的所有值都會觸發相同的程式行為",
+              "fraction": 100,
+              "feedback": "正確——整個技巧都建立在這個假設之上。"
+            },
+            {
+              "text": "窮舉假說——假設一個值就能證明所有值都正確",
+              "fraction": 0,
+              "feedback": "並不存在這樣的正式假說；等價類別測試本質上並非窮舉式的。"
+            },
+            {
+              "text": "假設測試值是隨機選取的，因此隨便選一個都可以",
+              "fraction": 0,
+              "feedback": "代表值是刻意挑選的（例如邊界值），而非隨機決定。"
+            },
+            {
+              "text": "獨立性假說——假設每個類別彼此無關",
+              "fraction": 0,
+              "feedback": "類別／變數之間的關係會影響強、弱等價類別測試的差異，但這並不是「每類只需一個值」的原因。"
+            }
+          ],
+          "generalFeedback": "等價類別測試依賴一致性假說：假設程式對同一類別中的每個值都表現出相同的行為，因此測試任一個代表值，所提供的資訊等同於測試該類別中的所有值。",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "BVA 鎖定的錯誤類型",
+          "text": "<p>邊界值分析特別針對的是哪一類錯誤？（請以英文回答）</p>",
+          "answers": [
+            {
+              "text": "boundary*",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "off-by-one*",
+              "fraction": 100,
+              "feedback": "正確。"
+            }
+          ],
+          "generalFeedback": "BVA 針對的是邊界錯誤（boundary faults）——也就是諸如以 < 誤用取代 <= 之類、恰好發生在輸入定義域邊緣的差一（off-by-one）錯誤，這正是它把測試值集中在邊界附近的原因。",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "等價類別劃分的作用",
+          "text": "<p>作為一種測試設計技巧，等價類別劃分的核心概念是什麼？</p>",
+          "answers": [
+            {
+              "text": "把輸入定義域切分成「預期會被相同方式處理」的類別，然後每個類別測試一個值",
+              "fraction": 100,
+              "feedback": "正確——它把幾乎無限的輸入空間縮減成一小組代表值。"
+            },
+            {
+              "text": "窮舉地測試每一個可能的輸入值",
+              "fraction": 0,
+              "feedback": "窮舉測試正是劃分技巧想要避免的。"
+            },
+            {
+              "text": "隨機抽樣輸入，直到找到缺陷為止",
+              "fraction": 0,
+              "feedback": "那是隨機測試；劃分是刻意把定義域結構化成類別。"
+            },
+            {
+              "text": "量測每個輸入執行了多少行程式碼",
+              "fraction": 0,
+              "feedback": "那是結構化（程式碼）涵蓋，而非輸入定義域的劃分。"
+            }
+          ],
+          "generalFeedback": "等價類別劃分是一種黑箱技巧：把輸入定義域切分成（有效與無效）等價類別，每個類別取一個代表值，在維持行為涵蓋的同時減少測試數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為什麼要在邊界測試",
+          "text": "<p>為什麼邊界值分析要把測試案例集中在輸入範圍的邊緣，而非其中間？</p>",
+          "answers": [
+            {
+              "text": "程式設計師最常在邊界處犯差一錯誤（例如 < 與 <= 用錯），因此缺陷會聚集在那裡",
+              "fraction": 100,
+              "feedback": "正確——邊界正是關係運算子最容易寫錯的地方。"
+            },
+            {
+              "text": "邊界值讓程式計算得比較快",
+              "fraction": 0,
+              "feedback": "執行速度與為何選擇邊界無關。"
+            },
+            {
+              "text": "範圍中間的值永遠不會被程式處理",
+              "fraction": 0,
+              "feedback": "中間值仍會被處理，只是比較不易出錯，因此一個代表值就足夠。"
+            },
+            {
+              "text": "使用者只會輸入邊界值",
+              "fraction": 0,
+              "feedback": "使用者會輸入各式各樣的值；BVA 選擇邊界是因為缺陷聚集於此。"
+            }
+          ],
+          "generalFeedback": "缺陷聚集在邊界，因為關係與迴圈條件（<、<=、差一）在此最容易出錯；中間值則由單一等價類別代表值涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 20 的 on point",
+          "text": "<p>對於述語 <code>x &lt;= 20</code>，哪一個值是 <strong>on point</strong>（位於邊界上、落在定義域內且滿足述語的值）？</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "正確——20 滿足 x <= 20，且恰好落在邊界上。"
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 不滿足 x <= 20；它是落在定義域外的 off point。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 滿足述語，但屬於內部點，並不在邊界上。"
+            },
+            {
+              "text": "22",
+              "fraction": 0,
+              "feedback": "22 是不滿足述語的外部點，並非邊界值。"
+            }
+          ],
+          "generalFeedback": "on point 是位於邊界上、落在定義域內的值。對 x <= 20 而言，邊界值 20 滿足述語，所以 20 是 on point；21 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 10 的 off point",
+          "text": "<p>對於述語 <code>x &lt;= 10</code>，哪一個值是 <strong>off point</strong>（剛好落在定義域外、不滿足述語的最近鄰值）？</p>",
+          "answers": [
+            {
+              "text": "11",
+              "fraction": 100,
+              "feedback": "正確——11 是最接近、且不滿足 x <= 10 的整數。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 滿足述語；它是 on point，而非 off point。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 不滿足述語，但距離邊界多了一步，不是 off point。"
+            }
+          ],
+          "generalFeedback": "off point 是位於邊界另一側最近的值——剛好落在定義域外。對 x <= 10 而言，on point 是 10，off point 是 11。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 46 的 on point",
+          "text": "<p>對於述語 <code>x &lt;= 46</code>，哪一個值是 <strong>on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "46",
+              "fraction": 100,
+              "feedback": "正確——46 落在邊界上且滿足 x <= 46。"
+            },
+            {
+              "text": "47",
+              "fraction": 0,
+              "feedback": "47 不滿足述語；它是剛好落在域外的 off point。"
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "45 滿足述語，但屬於內部點。"
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 是不滿足述語的外部點。"
+            }
+          ],
+          "generalFeedback": "對 x <= 46 而言，邊界值 46 落在定義域內，所以它是 on point；47 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 37 的 off point",
+          "text": "<p>對於述語 <code>x &lt;= 37</code>，哪一個值是 <strong>off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "38",
+              "fraction": 100,
+              "feedback": "正確——38 是最接近、且不滿足 x <= 37 的值。"
+            },
+            {
+              "text": "37",
+              "fraction": 0,
+              "feedback": "37 滿足述語；它是 on point。"
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "39",
+              "fraction": 0,
+              "feedback": "39 不滿足述語，但距離邊界多了一步，不是 off point。"
+            }
+          ],
+          "generalFeedback": "對 x <= 37 而言，on point 是 37，off point 是相鄰、不滿足述語的值 38。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 14 的 on point",
+          "text": "<p>對於述語 <code>x &lt;= 14</code>，哪一個值是 <strong>on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "14",
+              "fraction": 100,
+              "feedback": "正確——14 滿足 x <= 14，且落在邊界上。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 不滿足述語；它是 off point。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 滿足述語，但屬於內部點。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是不滿足述語的外部點。"
+            }
+          ],
+          "generalFeedback": "對 x <= 14 而言，邊界值 14 落在定義域內，所以它是 on point；15 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "x <= 21 的 off point",
+          "text": "<p>對於述語 <code>x &lt;= 21</code>，哪一個值是 <strong>off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "22",
+              "fraction": 100,
+              "feedback": "正確——22 是最接近、且不滿足 x <= 21 的值。"
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 滿足述語；它是 on point。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 不滿足述語，但距離邊界多了一步，不是 off point。"
+            }
+          ],
+          "generalFeedback": "對 x <= 21 而言，on point 是 21，off point 是相鄰、不滿足述語的值 22。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個值屬於無效類別",
+          "text": "<p>某輸入欄位接受有效範圍 1..100 的整數。下列哪一個值屬於<strong>無效</strong>等價類別？</p>",
+          "answers": [
+            {
+              "text": "0",
+              "fraction": 100,
+              "feedback": "正確——0 低於最小值，落在「太小」的無效類別。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是接受的最小值，屬於有效類別。"
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 落在 1..100 之內，是有效類別的值。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 是接受的最大值，屬於有效類別。"
+            }
+          ],
+          "generalFeedback": "有效類別是 [1,100]；任何低於 1 或高於 100 的值都是無效的。這裡只有 0 落在接受範圍之外。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "age >= 18 的 on point",
+          "text": "<p>某網站只允許年齡滿足 <code>age &gt;= 18</code> 的使用者。哪一個值是這個邊界的 <strong>on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "正確——18 滿足 age >= 18，且恰好落在邊界上。"
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 不滿足 age >= 18；它是剛好落在接受域外的 off point。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 滿足述語，但屬於內部點，不在邊界上。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是不滿足述語的外部點。"
+            }
+          ],
+          "generalFeedback": "對 age >= 18 而言，邊界值 18 落在接受域內，所以它是 on point；17 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "嚴格邊界下最大的滿足整數",
+          "text": "<p>對於嚴格述語 <code>x &lt; 50</code>（在整數上），哪一個值是滿足它的最大整數？</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "正確——因為是嚴格的 <，最大的滿足整數是 49，而非 50。"
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "因為邊界是嚴格的，50 並不滿足 x < 50。"
+            },
+            {
+              "text": "48",
+              "fraction": 0,
+              "feedback": "48 滿足述語，但不是其中最大的。"
+            },
+            {
+              "text": "51",
+              "fraction": 0,
+              "feedback": "51 大於 50，顯然不滿足述語。"
+            }
+          ],
+          "generalFeedback": "嚴格不等式會排除邊界本身：對 x < 50 而言，50 不滿足，因此最大的滿足整數是 49。這種 min/max ±1 的推理正是 BVA 所要演練的。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "弱等價類別測試與強等價類別測試",
+          "text": "<p>當程式有多個輸入變數時，弱等價類別測試與強等價類別測試的差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "弱測試只要求每個類別至少被涵蓋一次；強測試要求涵蓋所有變數之間類別的完整交叉組合",
+              "fraction": 100,
+              "feedback": "正確——強測試是弱測試在組合意義上的窮舉版本。"
+            },
+            {
+              "text": "弱測試涵蓋完整交叉組合；強測試只要求每個類別各一次",
+              "fraction": 0,
+              "feedback": "這剛好把兩者的定義說反了。"
+            },
+            {
+              "text": "弱測試只適用於邊界值分析；強測試只適用於等價類別",
+              "fraction": 0,
+              "feedback": "強／弱是等價類別測試內部的區別，並不是邊界值分析與等價類別測試之間的區分。"
+            },
+            {
+              "text": "弱測試只測試無效類別；強測試只測試有效類別",
+              "fraction": 0,
+              "feedback": "弱測試與強測試通常都同時涵蓋有效與無效類別；兩者的差異在於組合涵蓋程度，而非有效性。"
+            }
+          ],
+          "generalFeedback": "弱等價類別測試只需要足夠的測試，使每個變數的每個類別至少被涵蓋一次。強等價類別測試則要求涵蓋所有變數之間類別的完整交叉組合，因此測試案例數會呈組合式增長。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "封閉邊界的 off point",
+          "text": "<p>對於封閉邊界（boundary 值本身包含在定義域內），其 off point 會落在定義域之外。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——on point（被納入的邊界值）位於定義域內，因此與其配對的 off point 就是緊鄰在其外側的值。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "對封閉邊界而言，on point 位於定義域內，因此與其配對的 off point 就是緊鄰在其外側的值。"
+            }
+          ],
+          "generalFeedback": "採用以下慣例：on point 是位於邊界上、落在定義域內（滿足述語）的值；off point 則是緊鄰其外側的最近值。對封閉邊界（例如 x <= b）而言，on point（b）落在域內，off point（b+1）剛好落在域外。對開放邊界（例如 a < x）而言，落在域內最小的值是 a+1（即 on point），而 off point 則是被排除的邊界值 a，一樣落在域外。"
+        },
+        {
+          "type": "multichoice",
+          "name": "標準 BVA 的五個值",
+          "text": "<p>在標準（非強健性）邊界值分析中，對於範圍 [min, max] 的單一變數，會挑選哪五個值？</p>",
+          "answers": [
+            {
+              "text": "min、min+1、一個 nominal 值、max-1、max",
+              "fraction": 100,
+              "feedback": "正確——兩個邊界、它們的內側鄰居，以及一個 nominal 值。"
+            },
+            {
+              "text": "min-1、min、nominal、max、max+1",
+              "fraction": 0,
+              "feedback": "min-1 與 max+1 是強健性測試的延伸，並不屬於標準 BVA。"
+            },
+            {
+              "text": "min、nominal、max",
+              "fraction": 0,
+              "feedback": "這漏掉了標準 BVA 會納入的 min+1 與 max-1 內側鄰居值。"
+            },
+            {
+              "text": "min-1、min、min+1、max-1、max、max+1",
+              "fraction": 0,
+              "feedback": "那是六個值的強健性集合，而非五個值的標準集合。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 挑選 min、min+1、一個 nominal（典型內部）值、max-1 與 max。強健性測試之後再加上 min-1 與 max+1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "標準 BVA 測試數（n=3）",
+          "text": "<p>使用標準的 4n+1 公式，對一個具有 3 個輸入變數的函式，需要多少個 BVA 測試案例？</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "正確——4×3 + 1 = 13。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "那是 4n；遺漏了那一個全為 nominal 的測試（+1）。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 不符合 n=3 時的 4n+1。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 是 n=3 時的強健性測試數 6n+1，而非標準測試數。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 一次只改變一個變數，讓它取 4 個非 nominal 的邊界值，其餘保持 nominal，再加上一個全 nominal 的測試：4n+1。n=3 時為 13。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健性測試新增了什麼",
+          "text": "<p>強健性測試在標準 BVA 之上，為每個變數額外加入哪些值？</p>",
+          "answers": [
+            {
+              "text": "min-1 與 max+1（剛好落在有效範圍之外的值）",
+              "fraction": 100,
+              "feedback": "正確——強健性測試探測兩個邊界外側緊鄰的值。"
+            },
+            {
+              "text": "min+1 與 max-1（剛好落在有效範圍之內的值）",
+              "fraction": 0,
+              "feedback": "那些內側鄰居值已經屬於標準 BVA。"
+            },
+            {
+              "text": "兩個額外的 nominal 值",
+              "fraction": 0,
+              "feedback": "強健性測試加入的是超出範圍的值，而非更多 nominal 值。"
+            },
+            {
+              "text": "範圍的中點與平均值",
+              "fraction": 0,
+              "feedback": "強健性測試針對的是超出範圍的輸入，而非中央統計量。"
+            }
+          ],
+          "generalFeedback": "強健性測試加入 min-1 與 max+1，用來觀察程式如何處理剛好超出有效範圍的輸入，因此每個變數有七個值，對應 6n+1 的測試數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健性 BVA 測試數（n=2）",
+          "text": "<p>使用強健性的 6n+1 公式，對一個具有 2 個輸入變數的函式，需要多少個 BVA 測試案例？</p>",
+          "answers": [
+            {
+              "text": "13",
+              "fraction": 100,
+              "feedback": "正確——6×2 + 1 = 13。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "那是 6n；遺漏了那一個全為 nominal 的測試（+1）。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 n=2 時的標準測試數 4n+1，而非強健性測試數。"
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 不符合 n=2 時的 6n+1。"
+            }
+          ],
+          "generalFeedback": "強健性 BVA 每個變數有 6 個非 nominal 值（加入 min-1 與 max+1），一次改變一個，再加一個全 nominal 測試：6n+1。n=2 時為 13。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "開放下邊界的 on point",
+          "text": "<p>對於述語 <code>19 &lt; x &lt;= 25</code>，哪一個值是<strong>下邊界的 on point</strong>（落在定義域內、最小的值）？</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "正確——因為下界是嚴格的，20 是滿足 19 < x 的最小值。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "19 不滿足 19 < x；它是下邊界外側的 off point。"
+            },
+            {
+              "text": "21",
+              "fraction": 0,
+              "feedback": "21 滿足述語，但屬於內部點，不在下邊界上。"
+            },
+            {
+              "text": "26",
+              "fraction": 0,
+              "feedback": "26 不滿足上界；它是上邊界的 off point。"
+            }
+          ],
+          "generalFeedback": "對開放（嚴格）下邊界 19 < x 而言，19 被排除，因此落在域內的 on point 是 20，而域外的 off point 是 19。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "開放下邊界的 off point",
+          "text": "<p>對於述語 <code>27 &lt; x &lt;= 30</code>，哪一個值是<strong>下邊界的 off point</strong>（剛好落在定義域外、最近的值）？</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "正確——27 因嚴格的 < 而被排除，所以它是下邊界外側的 off point。"
+            },
+            {
+              "text": "28",
+              "fraction": 0,
+              "feedback": "28 滿足 27 < x；它是下邊界的 on point。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 滿足述語；它是上邊界的 on point。"
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 是滿足述語的內部點。"
+            }
+          ],
+          "generalFeedback": "對開放下邊界 27 < x 而言，落在域內最小的值是 28（on point），而被排除的邊界值 27 是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "封閉區間的 on point",
+          "text": "<p>對於述語 <code>24 &lt;= x &lt;= 41</code>，哪一個值是<strong>下邊界的 on point</strong>？</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "正確——24 滿足 24 <= x，且落在下邊界上。"
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 不滿足述語；它是下邊界外側的 off point。"
+            },
+            {
+              "text": "42",
+              "fraction": 0,
+              "feedback": "42 不滿足上界；它是上邊界的 off point。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 滿足述語，但屬於內部點。"
+            }
+          ],
+          "generalFeedback": "對封閉區間 [24,41] 而言，下邊界值 24 被納入，所以它是 on point；23 則是剛好落在域外的 off point。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "封閉區間的 off point",
+          "text": "<p>對於述語 <code>11 &lt;= x &lt;= 29</code>，哪一個值是<strong>下邊界的 off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——10 是被納入的最小值 11 之下最近的值，剛好落在域外。"
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "11 滿足述語；它是下邊界的 on point。"
+            },
+            {
+              "text": "29",
+              "fraction": 0,
+              "feedback": "29 滿足述語；它是上邊界的 on point。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是滿足述語的內部點。"
+            }
+          ],
+          "generalFeedback": "對封閉區間 [11,29] 而言，下邊界的 on point 是 11，剛好落在域外的 off point 是 10。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "開放區間的 on/off point",
+          "text": "<p>對於嚴格述語 <code>x &gt; 5</code>，哪一組正確給出該邊界的 on point 與 off point？</p>",
+          "answers": [
+            {
+              "text": "on point 為 6，off point 為 5",
+              "fraction": 100,
+              "feedback": "正確——6 是落在域內最小的值；5 被排除，剛好落在域外。"
+            },
+            {
+              "text": "on point 為 5，off point 為 6",
+              "fraction": 0,
+              "feedback": "5 不滿足 x > 5，因此不可能是 on point（落在域內的值）。"
+            },
+            {
+              "text": "on point 為 5，off point 為 4",
+              "fraction": 0,
+              "feedback": "5 與 4 都不滿足述語；兩者都不在域內。"
+            },
+            {
+              "text": "on point 為 7，off point 為 6",
+              "fraction": 0,
+              "feedback": "7 滿足述語但屬於內部點，而 6 也滿足述語，因此都不是 off point。"
+            }
+          ],
+          "generalFeedback": "對開放邊界 x > 5 而言，邊界值 5 被排除，因此 on point（域內最近的值）是 6，off point（域外最近的值）是 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4n+1 背後的單一錯誤假設",
+          "text": "<p>為什麼標準 BVA 一次只改變一個變數（其餘保持 nominal），得到 4n+1 個測試？</p>",
+          "answers": [
+            {
+              "text": "它假設「單一錯誤假設」——失敗通常是由單一變數處於極值造成，而非多個變數同時",
+              "fraction": 100,
+              "feedback": "正確——正是這個假設讓測試數對 n 保持線性。"
+            },
+            {
+              "text": "它假設變數永遠彼此獨立、完全不會互動",
+              "fraction": 0,
+              "feedback": "BVA 並不主張變數永不互動；它只是賭「單一變數的極值」能抓到大多數邊界錯誤。"
+            },
+            {
+              "text": "它假設程式剛好只有一個輸入變數",
+              "fraction": 0,
+              "feedback": "4n+1 公式明確是針對 n 個變數，而非一個。"
+            },
+            {
+              "text": "它假設所有邊界值被輸入的機率都相同",
+              "fraction": 0,
+              "feedback": "依據並非輸入機率，而是單一錯誤假設。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 建立在單一錯誤（關鍵錯誤）假設之上：大多數失敗源自單一變數處於邊界，其餘保持 nominal。最壞情況測試放棄此假設並組合各邊界，成本高出許多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "標準 BVA 測試數（n=2）",
+          "text": "<p>使用標準的 4n+1 公式，對一個具有 2 個輸入變數的函式，需要多少個 BVA 測試案例？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——4×2 + 1 = 9。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那是 4n；遺漏了那一個全為 nominal 的測試（+1）。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 是 n=2 時的強健性測試數 6n+1，而非標準測試數。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是單一變數（n=1）的標準測試數，而非兩個變數。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 需要 4n+1 個測試；n=2 時為 4×2 + 1 = 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "上邊界的 off point",
+          "text": "<p>對於述語 <code>5 &lt;= x &lt;= 17</code>，哪一個值是<strong>上邊界的 off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "18",
+              "fraction": 100,
+              "feedback": "正確——18 是被納入的最大值 17 之上最近的值，剛好落在域外。"
+            },
+            {
+              "text": "17",
+              "fraction": 0,
+              "feedback": "17 滿足述語；它是上邊界的 on point。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 滿足述語，屬於內部點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是下邊界的 off point，而非上邊界。"
+            }
+          ],
+          "generalFeedback": "對封閉區間 [5,17] 而言，上邊界的 on point 是 17，剛好落在上邊界外側的 off point 是 18。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健性測試每個變數的值數",
+          "text": "<p>對於範圍 [min, max] 的單一變數，強健性測試會演練多少個不同的測試值？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——min-1、min、min+1、nominal、max-1、max、max+1。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是標準 BVA 的值數；強健性再加入 min-1 與 max+1，共 7 個。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 少算了一個：強健性集合有七個（兩個邊界、兩個內側鄰居、兩個外側鄰居，以及一個 nominal）。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是兩個變數的標準 BVA 測試數（4n+1），而非單一變數的值數。"
+            }
+          ],
+          "generalFeedback": "強健性測試每個變數使用七個值——五個標準 BVA 值再加上 min-1 與 max+1——這正是強健性測試數為 6n+1 的原因。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "最壞情況邊界測試數",
+          "text": "<p>最壞情況（worst-case）邊界測試會取每個變數五個邊界值的笛卡兒積。對一個具有 2 個輸入變數的函式，會產生多少個測試案例？</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "正確——5^2 = 25，每個變數五個值的完整乘積。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是 5×n；最壞情況測試是把各值集合相乘（5^n），而非相加。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 n=2 時的標準單一錯誤測試數 4n+1，而非最壞情況測試數。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 不符合 n=2 時的 5^n。"
+            }
+          ],
+          "generalFeedback": "最壞情況邊界測試放棄單一錯誤假設，把每個變數的邊界值全部組合：5^n 個測試。n=2 時為 5^2 = 25。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強健最壞情況測試數",
+          "text": "<p>強健最壞情況（robust worst-case）邊界測試會把每個變數的七個值（加入 min-1 與 max+1）完整組合。對 2 個變數而言，會產生多少個測試案例？</p>",
+          "answers": [
+            {
+              "text": "49",
+              "fraction": 100,
+              "feedback": "正確——7^2 = 49。"
+            },
+            {
+              "text": "25",
+              "fraction": 0,
+              "feedback": "25 是 5^2，是非強健的最壞情況測試數。"
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "14 是 7×n；強健最壞情況是把各值集合相乘（7^n）。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 是 n=2 時的強健單一錯誤測試數 6n+1，而非最壞情況測試數。"
+            }
+          ],
+          "generalFeedback": "強健最壞情況測試會把每個變數的七個強健值全部組合：7^n。n=2 時為 7^2 = 49。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最壞情況與標準 BVA",
+          "text": "<p>最壞情況邊界測試與標準（4n+1）BVA 最根本的差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "它放棄單一錯誤假設，把所有變數的邊界值加以組合，因而呈指數成長（5^n）",
+              "fraction": 100,
+              "feedback": "正確——以組合取代了一次改變一個的做法。"
+            },
+            {
+              "text": "它每個變數用較少的值，但變數較多",
+              "fraction": 0,
+              "feedback": "它每個變數用的值相同；差別在於把它們跨變數組合起來。"
+            },
+            {
+              "text": "它只測試 nominal 值，從不測邊界",
+              "fraction": 0,
+              "feedback": "最壞情況測試完全是在組合邊界值，而非避開它們。"
+            },
+            {
+              "text": "它總是比標準 BVA 更便宜",
+              "fraction": 0,
+              "feedback": "它昂貴得多：5^n 呈指數成長，而 4n+1 是線性的。"
+            }
+          ],
+          "generalFeedback": "標準 BVA 一次改變一個變數（單一錯誤假設），得到 4n+1 個測試。最壞情況測試把每個變數的邊界值全部組合，得到 5^n 個測試——對邊界而言窮舉，但成本呈指數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "輸入空間劃分中的 characteristic",
+          "text": "<p>在 Ammann &amp; Offutt 的輸入空間劃分（Input Space Partitioning, ISP）中，<strong>characteristic（特徵）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "輸入定義域的某個特徵，用來把定義域劃分成若干 block（區塊）",
+              "fraction": 100,
+              "feedback": "正確——每個 characteristic 會導出對輸入定義域的一種劃分。"
+            },
+            {
+              "text": "單一個具體的測試輸入值",
+              "fraction": 0,
+              "feedback": "那是測試值；characteristic 是用來劃分值的維度。"
+            },
+            {
+              "text": "程式的預期輸出",
+              "fraction": 0,
+              "feedback": "那是 oracle，而非 ISP 的 characteristic。"
+            },
+            {
+              "text": "受測的一行原始碼",
+              "fraction": 0,
+              "feedback": "ISP 是黑箱的；characteristic 描述的是輸入定義域，而非程式碼。"
+            }
+          ],
+          "generalFeedback": "在 ISP 中，每個 characteristic 會把輸入定義域劃分成若干 block（例如「x 的正負號：負／零／正」）。挑選好的 characteristic 是關鍵的設計步驟。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "劃分的 block",
+          "text": "<p>一個 characteristic 把輸入定義域切分成的各個 block，必須滿足什麼性質？</p>",
+          "answers": [
+            {
+              "text": "必須是完備的（涵蓋整個定義域）且互斥的（沒有值同時屬於兩個 block）",
+              "fraction": 100,
+              "feedback": "正確——完備加上互斥，正是「劃分」的定義。"
+            },
+            {
+              "text": "必須彼此重疊，使每個值至少屬於兩個 block",
+              "fraction": 0,
+              "feedback": "重疊違反互斥性；劃分的各 block 是互斥的。"
+            },
+            {
+              "text": "每個 block 必須含有相同數量的值",
+              "fraction": 0,
+              "feedback": "各 block 大小不必相同；只需完備且互斥。"
+            },
+            {
+              "text": "每個 characteristic 必須剛好有兩個 block",
+              "fraction": 0,
+              "feedback": "只要能劃分定義域，一個 characteristic 可以有任意數量的 block。"
+            }
+          ],
+          "generalFeedback": "對每個 characteristic 而言，其 block 必須構成定義域的一個劃分：完備（聯集為整個定義域）且互斥。否則某個值可能無法分類或產生歧義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All Combinations Coverage 測試數",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、2、2 個 block。All Combinations Coverage（ACoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——3 × 2 × 2 = 12，各 block 數的乘積。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是總和 3+2+2；ACoC 是把各 block 數相乘。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 不符合各 block 數的乘積。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 忽略了一個 characteristic；三者的乘積為 12。"
+            }
+          ],
+          "generalFeedback": "ACoC 要求涵蓋所有 characteristic 之間 block 的每一種組合，因此測試數是各 block 數的乘積：3 × 2 × 2 = 12。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Each Choice Coverage 測試數",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、2、4 個 block。Each Choice Coverage（ECC）最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要與「單一 characteristic 中最多的 block 數」一樣多的測試（此處為 4）。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是各 block 數的總和；ECC 在同一個測試中可跨 characteristic 重用 block。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 是乘積（All Combinations），遠多於 ECC 所需。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 不足以涵蓋那個有 4 個 block 的 characteristic。"
+            }
+          ],
+          "generalFeedback": "ECC 要求每個 characteristic 的每個 block 至少出現在一個測試中。由於單一測試會從每個 characteristic 各取一個 block，最少測試數等於最大的 block 數——此處 max(3,2,4) = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Base Choice Coverage 測試數",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、3、2 個 block。Base Choice Coverage（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1 個 base 測試 + (3-1) + (3-1) + (2-1) = 1 + 2 + 2 + 1 = 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是各 block 數的總和；BCC 計為一個 base 測試加上各非 base 的 block。"
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 是乘積（All Combinations），而非 Base Choice 的測試數。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 遺漏了 +1 的 base 測試：總數是 1 + Σ(block-1)。"
+            }
+          ],
+          "generalFeedback": "BCC 為每個 characteristic 挑一個 base choice（即 base 測試），再一次改變一個 characteristic 到其餘 block：1 + Σ(B_i - 1) = 1 + 2 + 2 + 1 = 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage 定義",
+          "text": "<p>Pair-Wise Coverage（PWC）要求什麼？</p>",
+          "answers": [
+            {
+              "text": "任兩個 characteristic 之間，其 block 的每一組配對都必須在至少一個測試中同時出現",
+              "fraction": 100,
+              "feedback": "正確——PWC 涵蓋所有兩兩之間的 block 互動。"
+            },
+            {
+              "text": "所有 characteristic 之間 block 的每一種組合都必須出現",
+              "fraction": 0,
+              "feedback": "那是 All Combinations Coverage；PWC 只要求配對。"
+            },
+            {
+              "text": "每個 characteristic 的每個 block 各出現一次，且無互動要求",
+              "fraction": 0,
+              "feedback": "那是 Each Choice Coverage，比 PWC 弱。"
+            },
+            {
+              "text": "每個 characteristic 必須剛好跑兩個測試",
+              "fraction": 0,
+              "feedback": "PWC 約束的是 block 的配對，而非每個 characteristic 固定的測試數。"
+            }
+          ],
+          "generalFeedback": "PWC（2-wise）要求對任兩個 characteristic，它們的每一組 block 配對都在某個測試中被涵蓋。它能抓到兩兩互動錯誤，又不至於像 ACoC 那樣爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pair-Wise Coverage 下界",
+          "text": "<p>某 ISP 模型有三個 characteristic，各有 3、3、2 個 block。任何 Pair-Wise Coverage 測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——至少是最大的兩個 block 數的乘積，3 × 3 = 9。"
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 是完整的 All Combinations 乘積；PWC 所需遠少於此。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3（最大的單一 block 數）滿足的是 Each Choice，而非 Pair-Wise。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 低於 pairwise 下界 3 × 3 = 9。"
+            }
+          ],
+          "generalFeedback": "要涵蓋兩個各有 3 個 block 的 characteristic 之間的每一組配對，就已經需要它們全部 3 × 3 = 9 種組合，因此任何 PWC 測試集至少有 9 個測試——即最大的兩個 block 數的乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最強的 ISP 準則",
+          "text": "<p>在 ACoC、ECC、PWC、BCC 之中，哪一個準則涵蓋（subsume）其餘所有準則？</p>",
+          "answers": [
+            {
+              "text": "All Combinations Coverage（ACoC）",
+              "fraction": 100,
+              "feedback": "正確——涵蓋每一種 block 組合，就必然涵蓋每一組配對、每一次 base 變化與每一個 choice。"
+            },
+            {
+              "text": "Each Choice Coverage（ECC）",
+              "fraction": 0,
+              "feedback": "ECC 是四者中最弱的；它被其餘準則涵蓋。"
+            },
+            {
+              "text": "Pair-Wise Coverage（PWC）",
+              "fraction": 0,
+              "feedback": "PWC 涵蓋 ECC，但一般不涵蓋 ACoC 或 BCC。"
+            },
+            {
+              "text": "Base Choice Coverage（BCC）",
+              "fraction": 0,
+              "feedback": "BCC 涵蓋 ECC，但本身被 ACoC 涵蓋。"
+            }
+          ],
+          "generalFeedback": "ACoC 要求每一種 block 組合，因此必然滿足配對涵蓋、base choice 變化與 each choice——它位於 ISP 涵蓋階層的頂端（通常也最昂貴）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ISP 涵蓋鏈",
+          "text": "<p>下列哪一條 ISP 準則的涵蓋鏈是正確的（每一個準則涵蓋下一個）？</p>",
+          "answers": [
+            {
+              "text": "MBCC → BCC → ECC",
+              "fraction": 100,
+              "feedback": "正確——Multiple Base Choice 涵蓋 Base Choice，Base Choice 又涵蓋 Each Choice。"
+            },
+            {
+              "text": "ECC → BCC → MBCC",
+              "fraction": 0,
+              "feedback": "這把方向弄反了；ECC 最弱，不可能涵蓋其他準則。"
+            },
+            {
+              "text": "BCC → MBCC → ECC",
+              "fraction": 0,
+              "feedback": "是 MBCC 涵蓋 BCC，而非相反。"
+            },
+            {
+              "text": "ECC → PWC → BCC",
+              "fraction": 0,
+              "feedback": "ECC 不涵蓋 PWC，而 PWC 也不涵蓋 BCC（兩者無法比較）。"
+            }
+          ],
+          "generalFeedback": "Multiple Base Choice Coverage 涵蓋 Base Choice Coverage，Base Choice 又涵蓋 Each Choice Coverage。注意 BCC 與 PWC 無法互相比較——兩者互不涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC 中的 base choice",
+          "text": "<p>在 Base Choice Coverage 中，測試集是如何建構的？</p>",
+          "answers": [
+            {
+              "text": "為每個 characteristic 各挑一個 base block 組成 base 測試，再一次改變一個 characteristic 到其餘 block",
+              "fraction": 100,
+              "feedback": "正確——這會得到 1 + Σ(block-1) 個測試。"
+            },
+            {
+              "text": "把每個 characteristic 的每個 block 與其他所有的組合起來",
+              "fraction": 0,
+              "feedback": "那是 All Combinations Coverage，而非 Base Choice。"
+            },
+            {
+              "text": "每個測試都隨機為每個 characteristic 挑一個 block",
+              "fraction": 0,
+              "feedback": "BCC 是有系統的：一個固定的 base 測試加上一次一個的變化，而非隨機挑選。"
+            },
+            {
+              "text": "只用 base 測試，別無其他",
+              "fraction": 0,
+              "feedback": "光靠 base 測試無法演練非 base 的 block；每個都必須被變化進來。"
+            }
+          ],
+          "generalFeedback": "BCC 為每個 characteristic 指定一個 base choice（例如最常見或最重要的 block），跑該 base 測試，再一次改變一個 characteristic 到它的每個非 base block，其餘保持 base 值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結合等價類別與邊界",
+          "text": "<p>實務上，等價類別劃分與邊界值分析通常如何結合？</p>",
+          "answers": [
+            {
+              "text": "先把定義域劃分成等價類別，再在每個類別的邊緣加上邊界值",
+              "fraction": 100,
+              "feedback": "正確——劃分找出類別，BVA 則在其邊緣強化測試。"
+            },
+            {
+              "text": "完全用隨機的邊界值取代等價類別",
+              "fraction": 0,
+              "feedback": "兩者是互補的；BVA 是補強而非取代劃分。"
+            },
+            {
+              "text": "只對無效類別使用邊界值，忽略有效類別",
+              "fraction": 0,
+              "feedback": "有效類別的邊界也要測——那正是大多數差一錯誤所在。"
+            },
+            {
+              "text": "只測試每個等價類別的中點",
+              "fraction": 0,
+              "feedback": "那是沒有搭配 BVA 的純等價類別劃分，會漏掉邊界錯誤。"
+            }
+          ],
+          "generalFeedback": "標準做法是先導出等價類別，從每個類別各取一個 nominal 代表值，再在類別之間的邊界套用 BVA——把廣泛涵蓋與邊緣敏感度結合起來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "複合述語的 off point",
+          "text": "<p>考慮複合述語 <code>(x &gt;= 10) &amp;&amp; (x &lt;= 20)</code>。下列哪一個值是此述語的一個 <strong>off point</strong>？</p>",
+          "answers": [
+            {
+              "text": "21",
+              "fraction": 100,
+              "feedback": "正確——21 不滿足上界子句，且剛好落在定義域外，所以它是一個 off point。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 同時滿足兩個子句；它是下邊界的 on point。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 同時滿足兩個子句；它是上邊界的 on point。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 滿足述語，屬於內部點。"
+            }
+          ],
+          "generalFeedback": "此合取等價於封閉區間 [10,20]。其 on point 為 10 與 20；剛好落在域外的 off point 為 9 與 21。在這些選項中，只有 21 是 off point。",
+          "single": true
+        }
+      ]
+    }
   },
   "graph-coverage": {
-    "en": [
-      {
-        "type": "multichoice",
-        "name": "Node vs edge coverage",
-        "text": "<p>A test path set satisfies Node Coverage but not Edge Coverage. What must be true?</p>",
-        "answers": [
-          {
-            "text": "Every node is visited, but some edge is never traversed",
-            "fraction": 100,
-            "feedback": "Correct — edge coverage subsumes node coverage, not vice versa."
-          },
-          {
-            "text": "Some node is never visited",
-            "fraction": 0,
-            "feedback": "Then node coverage would already fail."
-          },
-          {
-            "text": "Every prime path is toured",
-            "fraction": 0,
-            "feedback": "Prime path coverage would imply edge coverage."
-          },
-          {
-            "text": "The graph has no branches",
-            "fraction": 0,
-            "feedback": "With no branches, node coverage implies edge coverage."
-          }
-        ],
-        "generalFeedback": "Edge coverage requires every edge; a branch can be skipped even when both its endpoints are visited via other paths.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Prime path definition",
-        "text": "<p>A prime path is a simple path that:</p>",
-        "answers": [
-          {
-            "text": "Is not a proper subpath of any other simple path",
-            "fraction": 100,
-            "feedback": "Correct — maximal simple paths."
-          },
-          {
-            "text": "Starts at the entry node and ends at the exit node",
-            "fraction": 0,
-            "feedback": "That describes a complete test path, not a prime path."
-          },
-          {
-            "text": "Visits every node exactly once",
-            "fraction": 0,
-            "feedback": "That is a Hamiltonian path."
-          },
-          {
-            "text": "Contains no loops at all",
-            "fraction": 0,
-            "feedback": "A prime path may begin and end at the same node (a loop boundary)."
-          }
-        ],
-        "generalFeedback": "Prime paths are simple paths (no repeated nodes except possibly first = last) that are maximal — not proper subpaths of any other simple path.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Subsumption",
-        "text": "<p>Which criterion subsumes Edge Coverage on a graph with at least one edge?</p>",
-        "answers": [
-          {
-            "text": "Edge-Pair Coverage",
-            "fraction": 100,
-            "feedback": "Correct — covering every path of length ≤ 2 covers every length-1 path."
-          },
-          {
-            "text": "Node Coverage",
-            "fraction": 0,
-            "feedback": "Node coverage is weaker than edge coverage."
-          },
-          {
-            "text": "Statement Coverage",
-            "fraction": 0,
-            "feedback": "Statement coverage corresponds to node coverage."
-          },
-          {
-            "text": "No criterion subsumes it",
-            "fraction": 0,
-            "feedback": "Edge-pair, prime path and complete path all do."
-          }
-        ],
-        "generalFeedback": "Edge-pair coverage requires all length-≤2 paths, which includes every single edge.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "DU pair",
-        "text": "<p>In data-flow coverage, a DU pair for variable x is:</p>",
-        "answers": [
-          {
-            "text": "A definition of x and a use of x reachable by a def-clear path",
-            "fraction": 100,
-            "feedback": "Correct."
-          },
-          {
-            "text": "Any two statements that mention x",
-            "fraction": 0,
-            "feedback": "Mentions alone don't form a DU pair."
-          },
-          {
-            "text": "Two consecutive assignments to x",
-            "fraction": 0,
-            "feedback": "The second assignment kills the first definition."
-          },
-          {
-            "text": "A use of x followed by its definition",
-            "fraction": 0,
-            "feedback": "Order is definition first, then use."
-          }
-        ],
-        "generalFeedback": "A DU pair (d, u) needs a path from d to u with no intervening redefinition of x — a def-clear path.",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "Complete path coverage feasibility",
-        "text": "<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "Correct — a loop yields infinitely many paths."
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied."
-          }
-        ],
-        "generalFeedback": "A loop lets a path revisit the same node arbitrarily many times, so the set of simple-to-complete test paths is unbounded — Complete Path Coverage can never be finitely satisfied whenever the graph has a loop."
-      },
-      {
-        "type": "shortanswer",
-        "name": "Set-cover reduction",
-        "text": "<p>stvisual reduces the selected test-path set with a greedy approximation of which classic problem? (two words)</p>",
-        "answers": [
-          {
-            "text": "set cover*",
-            "fraction": 100,
-            "feedback": "Correct — greedy set cover."
-          },
-          {
-            "text": "set-cover*",
-            "fraction": 100,
-            "feedback": "Correct."
-          }
-        ],
-        "generalFeedback": "Choosing a minimal set of test paths covering all requirements is the (NP-hard) set-cover problem; the tool uses the greedy approximation.",
-        "usecase": false
-      }
-    ],
-    "zh": [
-      {
-        "type": "multichoice",
-        "name": "節點覆蓋與邊覆蓋",
-        "text": "<p>某測試路徑集合滿足節點覆蓋（Node Coverage），但不滿足邊覆蓋（Edge Coverage）。以下何者必為真？</p>",
-        "answers": [
-          {
-            "text": "每個節點都被走訪過，但有某條邊從未被經過",
-            "fraction": 100,
-            "feedback": "正確——邊覆蓋涵蓋（subsumes）節點覆蓋，反之則不成立。"
-          },
-          {
-            "text": "有某個節點從未被走訪",
-            "fraction": 0,
-            "feedback": "如此一來節點覆蓋本身就已經不成立。"
-          },
-          {
-            "text": "每條質路徑（prime path）都被走過",
-            "fraction": 0,
-            "feedback": "質路徑覆蓋會蘊含邊覆蓋。"
-          },
-          {
-            "text": "此圖沒有任何分支",
-            "fraction": 0,
-            "feedback": "當圖形沒有分支時，節點覆蓋就會蘊含邊覆蓋。"
-          }
-        ],
-        "generalFeedback": "邊覆蓋要求走過每一條邊；即使某條邊的兩端節點都經由其他路徑被走訪過，這條邊本身仍可能被跳過。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "質路徑的定義",
-        "text": "<p>質路徑（prime path）是一條滿足下列條件的簡單路徑：</p>",
-        "answers": [
-          {
-            "text": "不是任何其他簡單路徑的真子路徑",
-            "fraction": 100,
-            "feedback": "正確——即極大簡單路徑。"
-          },
-          {
-            "text": "從入口節點開始，並在出口節點結束",
-            "fraction": 0,
-            "feedback": "這描述的是完整測試路徑，而非質路徑。"
-          },
-          {
-            "text": "恰好走訪每個節點一次",
-            "fraction": 0,
-            "feedback": "那是漢彌爾頓路徑（Hamiltonian path）。"
-          },
-          {
-            "text": "完全不包含任何迴圈",
-            "fraction": 0,
-            "feedback": "質路徑可以在同一節點開始與結束（即迴圈邊界）。"
-          }
-        ],
-        "generalFeedback": "質路徑是簡單路徑（除了起點與終點可能相同外，不重複經過任何節點），且必須是極大的——不會是其他簡單路徑的真子路徑。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "涵蓋關係",
-        "text": "<p>在至少含有一條邊的圖上，下列哪個準則涵蓋（subsumes）邊覆蓋？</p>",
-        "answers": [
-          {
-            "text": "邊對覆蓋（Edge-Pair Coverage）",
-            "fraction": 100,
-            "feedback": "正確——涵蓋所有長度 ≤ 2 的路徑，自然涵蓋所有長度為 1 的路徑。"
-          },
-          {
-            "text": "節點覆蓋（Node Coverage）",
-            "fraction": 0,
-            "feedback": "節點覆蓋比邊覆蓋弱。"
-          },
-          {
-            "text": "敘述覆蓋（Statement Coverage）",
-            "fraction": 0,
-            "feedback": "敘述覆蓋對應的是節點覆蓋。"
-          },
-          {
-            "text": "沒有任何準則能涵蓋它",
-            "fraction": 0,
-            "feedback": "邊對覆蓋、質路徑覆蓋與完整路徑覆蓋都能涵蓋它。"
-          }
-        ],
-        "generalFeedback": "邊對覆蓋要求涵蓋所有長度 ≤ 2 的路徑，其中自然包含每一條單獨的邊。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "定義-使用對",
-        "text": "<p>在資料流覆蓋（data-flow coverage）中，變數 x 的定義-使用對（DU pair）是指：</p>",
-        "answers": [
-          {
-            "text": "x 的一個定義與一個使用，兩者之間存在一條無重新定義（def-clear）的路徑可達",
-            "fraction": 100,
-            "feedback": "正確。"
-          },
-          {
-            "text": "任何兩個提到 x 的敘述",
-            "fraction": 0,
-            "feedback": "僅僅提到變數並不能構成定義-使用對。"
-          },
-          {
-            "text": "對 x 連續進行的兩次指派",
-            "fraction": 0,
-            "feedback": "第二次指派會覆蓋（kill）第一次的定義。"
-          },
-          {
-            "text": "先使用 x，之後才對其定義",
-            "fraction": 0,
-            "feedback": "正確順序應是先定義、後使用。"
-          }
-        ],
-        "generalFeedback": "定義-使用對 (d, u) 需要一條從 d 到 u、途中不再重新定義 x 的路徑——即無重新定義路徑（def-clear path）。",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "完整路徑覆蓋的可行性",
-        "text": "<p>只要控制流程圖（control-flow graph）中含有迴圈，完整路徑覆蓋（Complete Path Coverage）就不可行。</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "正確——迴圈會產生無窮多條路徑。"
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "迴圈會造成路徑數量無上限，因此完整路徑覆蓋無法在有限步驟內被滿足。"
-          }
-        ],
-        "generalFeedback": "只要圖中含有迴圈，路徑就能任意次數地重複經過同一節點，使得「簡單且完整」的測試路徑集合變成無窮多——因此只要圖中有迴圈，完整路徑覆蓋就永遠無法在有限步驟內被滿足。"
-      },
-      {
-        "type": "shortanswer",
-        "name": "集合覆蓋化約",
-        "text": "<p>stvisual 以貪婪演算法（greedy approximation）挑選測試路徑集合時，其實是在近似求解哪一個經典問題？（請以英文兩個單字回答）</p>",
-        "answers": [
-          {
-            "text": "set cover*",
-            "fraction": 100,
-            "feedback": "正確——貪婪集合覆蓋。"
-          },
-          {
-            "text": "set-cover*",
-            "fraction": 100,
-            "feedback": "正確。"
-          }
-        ],
-        "generalFeedback": "選擇一個能涵蓋所有需求的最小測試路徑集合，正是（NP-困難的）集合覆蓋問題（set-cover problem）；本工具採用貪婪近似演算法求解。",
-        "usecase": false
-      }
-    ]
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Node vs edge coverage",
+          "text": "<p>A test path set satisfies Node Coverage but not Edge Coverage. What must be true?</p>",
+          "answers": [
+            {
+              "text": "Every node is visited, but some edge is never traversed",
+              "fraction": 100,
+              "feedback": "Correct — edge coverage subsumes node coverage, not vice versa."
+            },
+            {
+              "text": "Some node is never visited",
+              "fraction": 0,
+              "feedback": "Then node coverage would already fail."
+            },
+            {
+              "text": "Every prime path is toured",
+              "fraction": 0,
+              "feedback": "Prime path coverage would imply edge coverage."
+            },
+            {
+              "text": "The graph has no branches",
+              "fraction": 0,
+              "feedback": "With no branches, node coverage implies edge coverage."
+            }
+          ],
+          "generalFeedback": "Edge coverage requires every edge; a branch can be skipped even when both its endpoints are visited via other paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test path definition",
+          "text": "<p>In graph-based testing, a <strong>test path</strong> is a path that:</p>",
+          "answers": [
+            {
+              "text": "Starts at an initial node and ends at a final node of the graph",
+              "fraction": 100,
+              "feedback": "Correct — a test path represents one complete execution from entry to exit."
+            },
+            {
+              "text": "Visits every node of the graph exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path, not a test path."
+            },
+            {
+              "text": "Is any single edge of the graph",
+              "fraction": 0,
+              "feedback": "A single edge is a path of length 1, but a test path must run from an initial to a final node."
+            },
+            {
+              "text": "Never repeats any node",
+              "fraction": 0,
+              "feedback": "A test path may repeat nodes (e.g. loop iterations); only simple paths forbid repeats."
+            }
+          ],
+          "generalFeedback": "A test path is a path from an initial node to a final node; running a test case executes exactly one test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statement coverage maps to",
+          "text": "<p>Classic <strong>statement coverage</strong> corresponds to which graph-coverage criterion on the control-flow graph?</p>",
+          "answers": [
+            {
+              "text": "Node Coverage",
+              "fraction": 100,
+              "feedback": "Correct — executing every statement means visiting every node."
+            },
+            {
+              "text": "Edge Coverage",
+              "fraction": 0,
+              "feedback": "Edge coverage corresponds to branch coverage, which is stronger."
+            },
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "Prime path coverage is much stronger than statement coverage."
+            },
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 0,
+              "feedback": "Complete path coverage is generally infeasible and far stronger."
+            }
+          ],
+          "generalFeedback": "Nodes model basic blocks/statements, so statement coverage is exactly node coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage maps to",
+          "text": "<p>Classic <strong>branch coverage</strong> corresponds to which graph-coverage criterion?</p>",
+          "answers": [
+            {
+              "text": "Edge Coverage",
+              "fraction": 100,
+              "feedback": "Correct — every branch outcome is an edge that must be traversed."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node coverage corresponds to statement coverage, which is weaker."
+            },
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage requires paths of length up to 2, which is stronger than branch coverage."
+            },
+            {
+              "text": "All-Uses Coverage",
+              "fraction": 0,
+              "feedback": "All-uses is a data-flow criterion, not the same as branch coverage."
+            }
+          ],
+          "generalFeedback": "Each decision outcome is an outgoing edge, so branch coverage is exactly edge coverage.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Edge subsumes node",
+          "text": "<p>On any graph, a test set that satisfies Edge Coverage also satisfies Node Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — traversing every edge visits every node that has an incident edge."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Edge coverage subsumes node coverage: covering all edges necessarily visits all reachable nodes."
+            }
+          ],
+          "generalFeedback": "Edge Coverage subsumes Node Coverage; the converse does not hold."
+        },
+        {
+          "type": "truefalse",
+          "name": "Complete path coverage feasibility",
+          "text": "<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a loop yields infinitely many paths."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied."
+            }
+          ],
+          "generalFeedback": "A loop lets a path revisit the same node arbitrarily many times, so the set of complete test paths is unbounded — Complete Path Coverage can never be finitely satisfied whenever the graph has a loop."
+        },
+        {
+          "type": "multichoice",
+          "name": "Simple path definition",
+          "text": "<p>A <strong>simple path</strong> is a path in which:</p>",
+          "answers": [
+            {
+              "text": "No node appears more than once, except that the first and last nodes may be the same",
+              "fraction": 100,
+              "feedback": "Correct — this allows a loop to close but forbids all other repeats."
+            },
+            {
+              "text": "No node ever repeats under any circumstances",
+              "fraction": 0,
+              "feedback": "Simple paths may begin and end at the same node (a round trip)."
+            },
+            {
+              "text": "Every node of the graph is visited",
+              "fraction": 0,
+              "feedback": "That describes a spanning path, not a simple path."
+            },
+            {
+              "text": "Every edge is used at most once",
+              "fraction": 0,
+              "feedback": "That is a trail; simple paths constrain node repeats, not edge repeats."
+            }
+          ],
+          "generalFeedback": "A simple path has no repeated nodes, with the single exception that the first and last node may coincide.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Node coverage and branches",
+          "text": "<p>Satisfying Node Coverage guarantees that every branch (decision outcome) has been exercised.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — node coverage can be met while an edge (branch outcome) is never taken."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Node coverage only requires visiting nodes; an untaken branch can still leave every node visited via other paths."
+            }
+          ],
+          "generalFeedback": "Node coverage does not imply edge coverage, so some branch outcomes may go untested."
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge count A",
+          "text": "<p>A control-flow graph on nodes 1..4 has directed edges <code>1→2, 2→3, 3→4, 2→4</code>. How many directed edges does it have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the edge list contains exactly four edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — there are four edges listed."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — there are only four edges listed."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — there are only four edges listed."
+            }
+          ],
+          "generalFeedback": "Edge Coverage needs one test requirement per edge; here that is 4 edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge count B",
+          "text": "<p>A control-flow graph on nodes 1..5 has directed edges <code>1→2, 2→3, 3→4, 4→5, 2→5</code>. How many directed edges does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — five edges are listed."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — there are five edges listed."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — there are only five edges listed."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Recount — there are only five edges listed."
+            }
+          ],
+          "generalFeedback": "Count each directed edge once; the list is the complete edge set.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Node coverage requirements",
+          "text": "<p>A control-flow graph has nodes 1..5 and edges <code>1→2, 2→3, 2→4, 3→5, 4→5</code>. How many test requirements does Node Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per node, and there are 5 nodes."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Node coverage counts nodes (5), not edges."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "That counts branch points, not all nodes."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "Node coverage has one requirement per node, so 5, not the number of node pairs."
+            }
+          ],
+          "generalFeedback": "Node Coverage requires visiting each node, so the number of requirements equals the number of nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair count A",
+          "text": "<p>A graph has edges <code>1→2, 2→3, 2→4</code>. How many length-2 paths u→v→w (pairs of edges sharing a middle node v) exist?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3 and 1→2→4."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "There are two: 1→2→3 and 1→2→4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only edges sharing a middle node count; there are two such pairs."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Node 2 is the middle of two length-2 paths."
+            }
+          ],
+          "generalFeedback": "For each edge u→v, count each edge v→w; here node 2 feeds two outgoing edges, giving 2 length-2 paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair count B",
+          "text": "<p>A graph has edges <code>1→2, 2→3, 3→4, 2→4</code>. How many length-2 paths u→v→w exist?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, and 2→3→4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three: 1→2→3, 1→2→4, 2→3→4."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — only three edge pairs share a middle node."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Nodes 2 and 3 each serve as a middle node, giving three pairs total."
+            }
+          ],
+          "generalFeedback": "Middle node 2 gives 1→2→3 and 1→2→4; middle node 3 gives 2→3→4; total 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge coverage requirements",
+          "text": "<p>A control-flow graph has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many test requirements does Edge Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per edge, and there are 4 edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Edge coverage counts edges (4), not nodes."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "That counts the number of complete paths, not edges."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "There are only 4 edges to cover."
+            }
+          ],
+          "generalFeedback": "Edge Coverage requires traversing each edge, so the number of requirements equals the number of edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Weakest structural criterion",
+          "text": "<p>Which of the following structural criteria is the <strong>weakest</strong> (least demanding)?</p>",
+          "answers": [
+            {
+              "text": "Node Coverage",
+              "fraction": 100,
+              "feedback": "Correct — node coverage is subsumed by all the others."
+            },
+            {
+              "text": "Edge Coverage",
+              "fraction": 0,
+              "feedback": "Edge coverage subsumes node coverage, so it is stronger."
+            },
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage subsumes edge and node coverage."
+            },
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "Prime path coverage is one of the strongest structural criteria."
+            }
+          ],
+          "generalFeedback": "The structural chain is Prime Path → Edge-Pair → Edge → Node, so Node Coverage is the weakest.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Prime path definition",
+          "text": "<p>A prime path is a simple path that:</p>",
+          "answers": [
+            {
+              "text": "Is not a proper subpath of any other simple path",
+              "fraction": 100,
+              "feedback": "Correct — maximal simple paths."
+            },
+            {
+              "text": "Starts at the entry node and ends at the exit node",
+              "fraction": 0,
+              "feedback": "That describes a complete test path, not a prime path."
+            },
+            {
+              "text": "Visits every node exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path."
+            },
+            {
+              "text": "Contains no loops at all",
+              "fraction": 0,
+              "feedback": "A prime path may begin and end at the same node (a loop boundary)."
+            }
+          ],
+          "generalFeedback": "Prime paths are simple paths (no repeated nodes except possibly first = last) that are maximal — not proper subpaths of any other simple path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subsumption of edge coverage",
+          "text": "<p>Which criterion subsumes Edge Coverage on a graph with at least one edge?</p>",
+          "answers": [
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 100,
+              "feedback": "Correct — covering every path of length ≤ 2 covers every length-1 path."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node coverage is weaker than edge coverage."
+            },
+            {
+              "text": "Statement Coverage",
+              "fraction": 0,
+              "feedback": "Statement coverage corresponds to node coverage."
+            },
+            {
+              "text": "No criterion subsumes it",
+              "fraction": 0,
+              "feedback": "Edge-pair, prime path and complete path all do."
+            }
+          ],
+          "generalFeedback": "Edge-pair coverage requires all length-≤2 paths, which includes every single edge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DU pair",
+          "text": "<p>In data-flow coverage, a DU pair for variable x is:</p>",
+          "answers": [
+            {
+              "text": "A definition of x and a use of x reachable by a def-clear path",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "Any two statements that mention x",
+              "fraction": 0,
+              "feedback": "Mentions alone don't form a DU pair."
+            },
+            {
+              "text": "Two consecutive assignments to x",
+              "fraction": 0,
+              "feedback": "The second assignment kills the first definition."
+            },
+            {
+              "text": "A use of x followed by its definition",
+              "fraction": 0,
+              "feedback": "Order is definition first, then use."
+            }
+          ],
+          "generalFeedback": "A DU pair (d, u) needs a path from d to u with no intervening redefinition of x — a def-clear path.",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "Set-cover reduction",
+          "text": "<p>stvisual reduces the selected test-path set with a greedy approximation of which classic problem? (two words)</p>",
+          "answers": [
+            {
+              "text": "set cover*",
+              "fraction": 100,
+              "feedback": "Correct — greedy set cover."
+            },
+            {
+              "text": "set-cover*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "Choosing a minimal set of test paths covering all requirements is the (NP-hard) set-cover problem; the tool uses the greedy approximation.",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a prime path",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). Which of the following is a prime path?</p>",
+          "answers": [
+            {
+              "text": "1→2→4",
+              "fraction": 100,
+              "feedback": "Correct — it is a maximal simple path (not a subpath of any longer simple path)."
+            },
+            {
+              "text": "2→4",
+              "fraction": 0,
+              "feedback": "2→4 is a proper subpath of the simple path 1→2→4, so it is not prime."
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "1→2 is a proper subpath of 1→2→4, so it is not prime."
+            },
+            {
+              "text": "1→2→4→3",
+              "fraction": 0,
+              "feedback": "There is no edge 4→3, so this is not even a valid path."
+            }
+          ],
+          "generalFeedback": "The prime paths of this graph are 1→2→4 and 1→3→4; shorter simple paths are subpaths of these.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Round-trip path",
+          "text": "<p>A <strong>round-trip path</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A prime path of nonzero length whose first and last nodes are the same",
+              "fraction": 100,
+              "feedback": "Correct — it captures one traversal of a loop."
+            },
+            {
+              "text": "Any path from the initial node to a final node",
+              "fraction": 0,
+              "feedback": "That is a general test path, not specifically a round trip."
+            },
+            {
+              "text": "A path that visits every node twice",
+              "fraction": 0,
+              "feedback": "Round trips are simple paths; nodes are not visited twice except the shared endpoint."
+            },
+            {
+              "text": "Any pair of edges u→v and v→u",
+              "fraction": 0,
+              "feedback": "A round trip is a prime path returning to its start, not merely a back-and-forth edge pair."
+            }
+          ],
+          "generalFeedback": "A round-trip path is a prime path with nonzero length that starts and ends at the same node; Simple/Complete Round Trip Coverage are built on these.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Def-clear path",
+          "text": "<p>A path from a definition of x to a use of x is <strong>def-clear</strong> (with respect to x) when:</p>",
+          "answers": [
+            {
+              "text": "No node on the path between the def and the use redefines x",
+              "fraction": 100,
+              "feedback": "Correct — the original definition still reaches the use."
+            },
+            {
+              "text": "The path contains no branches",
+              "fraction": 0,
+              "feedback": "Branches are irrelevant; what matters is no intervening redefinition of x."
+            },
+            {
+              "text": "x is used at every node on the path",
+              "fraction": 0,
+              "feedback": "Def-clear concerns redefinitions, not uses along the way."
+            },
+            {
+              "text": "The path is a prime path",
+              "fraction": 0,
+              "feedback": "Def-clear is about redefinitions, unrelated to whether the path is prime."
+            }
+          ],
+          "generalFeedback": "A def-clear path w.r.t. x has no redefinition of x strictly between the def and the use, so the def reaches the use.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path subsumes",
+          "text": "<p>Which criterion does Prime Path Coverage subsume?</p>",
+          "answers": [
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 100,
+              "feedback": "Correct — prime paths of length ≥ 2 cover all length-≤2 subpaths."
+            },
+            {
+              "text": "All-DU-Paths Coverage",
+              "fraction": 0,
+              "feedback": "Structural prime-path coverage does not subsume data-flow criteria."
+            },
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 0,
+              "feedback": "Complete path coverage is stronger and subsumes prime path coverage, not the reverse."
+            },
+            {
+              "text": "All-Uses Coverage",
+              "fraction": 0,
+              "feedback": "All-uses is a data-flow criterion; prime-path coverage does not subsume it."
+            }
+          ],
+          "generalFeedback": "Prime Path Coverage subsumes Edge-Pair, Edge, and Node coverage, but not the data-flow criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses vs All-Defs",
+          "text": "<p>Which statement about the data-flow criteria All-Defs and All-Uses is correct?</p>",
+          "answers": [
+            {
+              "text": "All-Uses subsumes All-Defs",
+              "fraction": 100,
+              "feedback": "Correct — reaching every use of every def implies reaching at least one use of every def."
+            },
+            {
+              "text": "All-Defs subsumes All-Uses",
+              "fraction": 0,
+              "feedback": "The subsumption runs the other way: All-Uses is stronger."
+            },
+            {
+              "text": "They are equivalent",
+              "fraction": 0,
+              "feedback": "All-Uses is strictly stronger when a def reaches more than one use."
+            },
+            {
+              "text": "Neither subsumes the other",
+              "fraction": 0,
+              "feedback": "All-Uses does subsume All-Defs."
+            }
+          ],
+          "generalFeedback": "All-Defs requires each def to reach at least one use; All-Uses requires each def to reach every one of its uses — so All-Uses subsumes All-Defs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Edge-pair path length",
+          "text": "<p>Edge-Pair Coverage requires touring every reachable path of length up to 2 (i.e. every single edge and every pair of adjacent edges).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — edge-pair coverage is defined over paths of length ≤ 2."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage is exactly the set of reachable paths of length up to 2."
+            }
+          ],
+          "generalFeedback": "Edge-Pair Coverage tours all reachable length-≤2 paths, which is why it subsumes Edge Coverage (length-1 paths)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair count (5 nodes)",
+          "text": "<p>A CFG on nodes 1..5 has edges <code>1→2, 1→3, 2→3, 2→4, 3→4, 4→5</code>. How many length-2 paths u→v→w exist?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, 1→3→4, 2→3→4, 2→4→5, 3→4→5."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — there are six length-2 paths."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Recount — only six edge pairs share a middle node."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Middle nodes 2, 3, and 4 together yield six length-2 paths."
+            }
+          ],
+          "generalFeedback": "Per middle node, multiply in-degree by out-degree: node 2 = 1×2 = 2, node 3 = 2×1 = 2, node 4 = 2×1 = 2; total 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair count (branchy)",
+          "text": "<p>A CFG on nodes 1..5 has edges <code>1→2, 1→3, 1→5, 2→3, 2→4, 4→5</code>. How many length-2 paths u→v→w exist?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, and 2→4→5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — only three edge pairs share a middle node."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Node 2 alone yields two, and node 4 yields a third."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "That counts edges, not length-2 paths."
+            }
+          ],
+          "generalFeedback": "Only middle nodes with both an incoming and an outgoing edge count: node 2 gives 1→2→3 and 1→2→4, node 4 gives 2→4→5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test requirement",
+          "text": "<p>In graph-based testing, a <strong>test requirement</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A specific structural element (e.g. a node, edge, or prime path) that a test path must tour",
+              "fraction": 100,
+              "feedback": "Correct — a criterion defines a set of test requirements."
+            },
+            {
+              "text": "A single test case with its input values",
+              "fraction": 0,
+              "feedback": "That is a test case; a requirement is what the case must satisfy."
+            },
+            {
+              "text": "The expected output of the program",
+              "fraction": 0,
+              "feedback": "That is an oracle, not a coverage requirement."
+            },
+            {
+              "text": "A complete path from entry to exit",
+              "fraction": 0,
+              "feedback": "A complete path may satisfy several requirements, but a requirement is the element to be toured."
+            }
+          ],
+          "generalFeedback": "A coverage criterion is a rule that yields a set of test requirements; each requirement is a structure that some test path must tour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Best-effort touring",
+          "text": "<p>When a required prime path cannot be toured directly by any complete test path, a common practice is to:</p>",
+          "answers": [
+            {
+              "text": "Tour it with a sidetrip/detour if possible (best-effort touring)",
+              "fraction": 100,
+              "feedback": "Correct — best-effort touring allows sidetrips to reach otherwise hard requirements."
+            },
+            {
+              "text": "Delete the prime path from the graph",
+              "fraction": 0,
+              "feedback": "Requirements are not removed from the graph; touring is relaxed instead."
+            },
+            {
+              "text": "Declare the whole criterion unsatisfiable",
+              "fraction": 0,
+              "feedback": "A single hard requirement does not make the criterion unusable; best-effort touring is used."
+            },
+            {
+              "text": "Add a new edge so the path becomes direct",
+              "fraction": 0,
+              "feedback": "The graph models the program and is not altered to satisfy a requirement."
+            }
+          ],
+          "generalFeedback": "Best-effort touring permits sidetrips (detours) so requirements that cannot be toured directly can still be covered where feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs meaning",
+          "text": "<p>All-Defs Coverage requires that, for each definition of a variable:</p>",
+          "answers": [
+            {
+              "text": "At least one def-clear path from that definition to some use is toured",
+              "fraction": 100,
+              "feedback": "Correct — each def must reach at least one use."
+            },
+            {
+              "text": "A def-clear path to every use is toured",
+              "fraction": 0,
+              "feedback": "That is All-Uses, which is stronger than All-Defs."
+            },
+            {
+              "text": "Every simple path from the definition is toured",
+              "fraction": 0,
+              "feedback": "That resembles All-DU-Paths, not All-Defs."
+            },
+            {
+              "text": "The definition is executed at least once",
+              "fraction": 0,
+              "feedback": "That is only node coverage of the def; All-Defs also requires reaching a use."
+            }
+          ],
+          "generalFeedback": "All-Defs requires each def to reach at least one use via a def-clear path; All-Uses strengthens this to every use.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Prime path subsumption",
+          "text": "<p>On a graph with at least one edge, which criterion is subsumed by Prime Path Coverage?</p>",
+          "answers": [
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 100,
+              "feedback": "Correct — prime paths of length ≥ 2 cover all length-≤2 subpaths."
+            },
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 0,
+              "feedback": "Complete path coverage is generally infeasible and is not subsumed."
+            },
+            {
+              "text": "All-DU-Paths",
+              "fraction": 0,
+              "feedback": "Data-flow criteria are not subsumed by structural prime-path coverage."
+            },
+            {
+              "text": "None",
+              "fraction": 0,
+              "feedback": "Prime path coverage does subsume edge and edge-pair coverage."
+            }
+          ],
+          "generalFeedback": "Prime path coverage subsumes edge-pair and edge coverage; it does not subsume data-flow or complete-path criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Data-flow subsumption chain",
+          "text": "<p>Which chain correctly orders the data-flow criteria from strongest (subsumes) to weakest?</p>",
+          "answers": [
+            {
+              "text": "All-DU-Paths → All-Uses → All-Defs",
+              "fraction": 100,
+              "feedback": "Correct — each subsumes the next."
+            },
+            {
+              "text": "All-Defs → All-Uses → All-DU-Paths",
+              "fraction": 0,
+              "feedback": "This reverses the order; All-DU-Paths is the strongest."
+            },
+            {
+              "text": "All-Uses → All-DU-Paths → All-Defs",
+              "fraction": 0,
+              "feedback": "All-DU-Paths subsumes All-Uses, so it must come first."
+            },
+            {
+              "text": "All-Defs → All-DU-Paths → All-Uses",
+              "fraction": 0,
+              "feedback": "All-Defs is the weakest, so it cannot lead the chain."
+            }
+          ],
+          "generalFeedback": "All-DU-Paths subsumes All-Uses, which subsumes All-Defs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Prime path and data flow",
+          "text": "<p>Prime Path Coverage subsumes All-DU-Paths Coverage.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — structural prime-path coverage does not subsume data-flow criteria."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Prime path coverage subsumes edge-pair/edge/node coverage, but not the data-flow criteria."
+            }
+          ],
+          "generalFeedback": "Data-flow criteria depend on def-use relationships that structural prime-path coverage does not guarantee, so there is no subsumption."
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible test requirement",
+          "text": "<p>A test requirement is <strong>infeasible</strong> when:</p>",
+          "answers": [
+            {
+              "text": "No test path that satisfies the program's semantics can tour it",
+              "fraction": 100,
+              "feedback": "Correct — infeasibility is about semantics, not graph structure."
+            },
+            {
+              "text": "It requires more than one test case",
+              "fraction": 0,
+              "feedback": "Needing several cases does not make a requirement infeasible."
+            },
+            {
+              "text": "It is a prime path longer than the number of nodes",
+              "fraction": 0,
+              "feedback": "Prime paths are simple, so their length is bounded; length alone is not infeasibility."
+            },
+            {
+              "text": "The graph has a loop",
+              "fraction": 0,
+              "feedback": "Loops make complete path coverage infinite, but do not by themselves make a requirement infeasible."
+            }
+          ],
+          "generalFeedback": "An infeasible requirement cannot be toured by any semantically valid execution (e.g. contradictory branch conditions); coverage is measured against feasible requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count prime paths (if-else)",
+          "text": "<p>A CFG has nodes 1..4 and edges <code>1→2, 1→3, 2→4, 3→4</code>. How many prime paths does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4 and 1→3→4 are the only maximal simple paths."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The four edges are not all prime; each is a subpath of a longer simple path."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There are exactly two maximal simple paths."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "That over-counts; shorter simple paths are subpaths of the two prime paths."
+            }
+          ],
+          "generalFeedback": "Prime paths are maximal simple paths. Here they are 1→2→4 and 1→3→4; every shorter simple path is a subpath of one of these.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair count (7 nodes)",
+          "text": "<p>A CFG on nodes 1..7 has edges <code>1→2, 1→3, 1→4, 2→3, 2→4, 2→5, 2→6, 3→4, 5→7</code>. How many length-2 paths u→v→w exist?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — enumerate edges out of each middle node."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — there are seven length-2 paths."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "That counts edges (9), not length-2 paths."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Recount — only seven edge pairs share a middle node."
+            }
+          ],
+          "generalFeedback": "Per middle node, multiply in-degree by out-degree: node 2 = 1×4 = 4, node 3 = 2×1 = 2, node 5 = 1×1 = 1; total 4 + 2 + 1 = 7 length-2 paths.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "All-Uses converse",
+          "text": "<p>All-Uses subsumes All-Defs, but All-Defs does not subsume All-Uses.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the subsumption holds in one direction only."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "All-Uses is strictly stronger: satisfying All-Defs need not reach every use."
+            }
+          ],
+          "generalFeedback": "Reaching one use per def (All-Defs) does not imply reaching every use per def (All-Uses), so the subsumption is one-directional."
+        },
+        {
+          "type": "multichoice",
+          "name": "Simple vs complete round trip",
+          "text": "<p>How do Simple Round Trip Coverage and Complete Round Trip Coverage differ?</p>",
+          "answers": [
+            {
+              "text": "Simple requires at least one round-trip path per reachable node that begins one; Complete requires all round-trip paths",
+              "fraction": 100,
+              "feedback": "Correct — Complete is the stronger of the two."
+            },
+            {
+              "text": "Simple requires all round-trip paths; Complete requires just one",
+              "fraction": 0,
+              "feedback": "This reverses them — Complete requires all."
+            },
+            {
+              "text": "They are identical",
+              "fraction": 0,
+              "feedback": "They differ: one asks for at least one, the other for all round trips."
+            },
+            {
+              "text": "Simple ignores loops; Complete counts them once",
+              "fraction": 0,
+              "feedback": "Both are about round-trip (loop) paths; the difference is one vs all."
+            }
+          ],
+          "generalFeedback": "Simple Round Trip Coverage needs one round-trip path for each node that starts one; Complete Round Trip Coverage needs every round-trip path, so it subsumes Simple.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top of the structural hierarchy",
+          "text": "<p>Among the structural criteria Node, Edge, Edge-Pair, Prime Path, and Complete Path Coverage, which subsumes all the others?</p>",
+          "answers": [
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 100,
+              "feedback": "Correct — touring every path covers every node, edge, edge-pair and prime path (though it is usually infeasible)."
+            },
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "Prime path coverage is subsumed by complete path coverage."
+            },
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage is well below the top of the hierarchy."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node coverage is the weakest of these criteria."
+            }
+          ],
+          "generalFeedback": "Complete Path Coverage is the strongest structural criterion (Complete Path → Prime Path → Edge-Pair → Edge → Node), but is infeasible whenever loops are present.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Def with two uses",
+          "text": "<p>A single definition of x reaches two distinct uses u1 and u2 via def-clear paths. To satisfy All-Uses for this definition, a test set must:</p>",
+          "answers": [
+            {
+              "text": "Tour a def-clear path to both u1 and u2",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses requires reaching every reachable use of the definition."
+            },
+            {
+              "text": "Tour a def-clear path to either u1 or u2",
+              "fraction": 0,
+              "feedback": "Reaching just one use satisfies All-Defs, not All-Uses."
+            },
+            {
+              "text": "Tour every simple path to u1 and u2",
+              "fraction": 0,
+              "feedback": "That is All-DU-Paths, which is even stronger than All-Uses."
+            },
+            {
+              "text": "Only execute the definition once",
+              "fraction": 0,
+              "feedback": "Executing the def alone does not reach its uses."
+            }
+          ],
+          "generalFeedback": "All-Uses requires a def-clear path from the def to each of its reachable uses; here that means reaching both u1 and u2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sidetrip vs detour",
+          "text": "<p>When a path tours a subpath q with a <strong>sidetrip</strong>, it means:</p>",
+          "answers": [
+            {
+              "text": "The path covers every edge of q in order, possibly leaving and rejoining q in between",
+              "fraction": 100,
+              "feedback": "Correct — a sidetrip covers all edges of q but may wander off and return."
+            },
+            {
+              "text": "The path covers q with no extra edges at all",
+              "fraction": 0,
+              "feedback": "That is touring q directly, not with a sidetrip."
+            },
+            {
+              "text": "The path skips some edges of q",
+              "fraction": 0,
+              "feedback": "A sidetrip still covers every edge of q; it only adds detours between them."
+            },
+            {
+              "text": "The path reverses the direction of q",
+              "fraction": 0,
+              "feedback": "Sidetrips preserve q's edges and direction; they only insert extra excursions."
+            }
+          ],
+          "generalFeedback": "Touring with a sidetrip covers all of q's edges in order while allowing detours away from and back onto q; direct touring uses no detours.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count prime paths (loop)",
+          "text": "<p>A CFG has nodes 1..4 and edges <code>1→2, 2→3, 3→2, 2→4</code> (a while-loop shape). How many prime paths does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, 2→3→2, 3→2→3, and 3→2→4."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — the loop contributes the round trips 2→3→2 and 3→2→3 as well."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The two round-trip prime paths through the loop are easy to miss."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "That over-counts; there are exactly five maximal simple paths."
+            }
+          ],
+          "generalFeedback": "The prime paths are 1→2→3, 1→2→4, 3→2→4, and the two loop round trips 2→3→2 and 3→2→3 — five in total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Redefinition kills a DU pair",
+          "text": "<p>On the path from a definition d of x to a use u of x, node m redefines x. What is the effect on the DU pair (d, u) along this path?</p>",
+          "answers": [
+            {
+              "text": "This path is not def-clear for (d, u); d's value no longer reaches u here",
+              "fraction": 100,
+              "feedback": "Correct — the redefinition at m kills d before u."
+            },
+            {
+              "text": "The DU pair (d, u) is still covered by this path",
+              "fraction": 0,
+              "feedback": "The redefinition means d's value does not reach u along this path."
+            },
+            {
+              "text": "m becomes part of the same DU pair",
+              "fraction": 0,
+              "feedback": "m starts a new definition; it does not join (d, u)."
+            },
+            {
+              "text": "The use u is no longer a use of x",
+              "fraction": 0,
+              "feedback": "u is still a use of x; it is just reached by m's definition, not d's."
+            }
+          ],
+          "generalFeedback": "A redefinition between d and u kills d, so the path is not def-clear w.r.t. x for (d, u); another def-clear path is needed to cover that pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair does not subsume",
+          "text": "<p>Which criterion is NOT subsumed by Edge-Pair Coverage?</p>",
+          "answers": [
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 100,
+              "feedback": "Correct — prime path coverage is stronger, so edge-pair coverage does not subsume it."
+            },
+            {
+              "text": "Edge Coverage",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage does subsume edge coverage."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage subsumes node coverage (via edge coverage)."
+            },
+            {
+              "text": "Statement Coverage",
+              "fraction": 0,
+              "feedback": "Statement coverage equals node coverage, which edge-pair coverage subsumes."
+            }
+          ],
+          "generalFeedback": "Subsumption goes Prime Path → Edge-Pair → Edge → Node; edge-pair coverage subsumes weaker criteria but not the stronger prime-path coverage.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Prime path subsumes node",
+          "text": "<p>On a graph where every node has an incident edge, Prime Path Coverage subsumes Node Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — by transitivity through edge-pair and edge coverage."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Prime Path → Edge-Pair → Edge → Node, so prime-path coverage subsumes node coverage."
+            }
+          ],
+          "generalFeedback": "Subsumption is transitive: Prime Path subsumes Edge-Pair, which subsumes Edge, which subsumes Node."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋與邊覆蓋",
+          "text": "<p>某測試路徑集合滿足節點覆蓋（Node Coverage），但不滿足邊覆蓋（Edge Coverage）。以下何者必為真？</p>",
+          "answers": [
+            {
+              "text": "每個節點都被走訪過，但有某條邊從未被經過",
+              "fraction": 100,
+              "feedback": "正確——邊覆蓋涵蓋（subsumes）節點覆蓋，反之則不成立。"
+            },
+            {
+              "text": "有某個節點從未被走訪",
+              "fraction": 0,
+              "feedback": "如此一來節點覆蓋本身就已經不成立。"
+            },
+            {
+              "text": "每條質路徑（prime path）都被走過",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋會蘊含邊覆蓋。"
+            },
+            {
+              "text": "此圖沒有任何分支",
+              "fraction": 0,
+              "feedback": "當圖形沒有分支時，節點覆蓋就會蘊含邊覆蓋。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋要求走過每一條邊；即使某條邊的兩端節點都經由其他路徑被走訪過，這條邊本身仍可能被跳過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試路徑的定義",
+          "text": "<p>在以圖為基礎的測試中，<strong>測試路徑（test path）</strong>是一條：</p>",
+          "answers": [
+            {
+              "text": "從圖的起始節點開始、並在結束節點結束的路徑",
+              "fraction": 100,
+              "feedback": "正確——測試路徑代表一次從入口到出口的完整執行。"
+            },
+            {
+              "text": "恰好走訪圖中每個節點各一次的路徑",
+              "fraction": 0,
+              "feedback": "那是漢彌爾頓路徑（Hamiltonian path），不是測試路徑。"
+            },
+            {
+              "text": "圖中任一條單獨的邊",
+              "fraction": 0,
+              "feedback": "單一條邊是長度為 1 的路徑，但測試路徑必須從起始節點走到結束節點。"
+            },
+            {
+              "text": "不重複經過任何節點的路徑",
+              "fraction": 0,
+              "feedback": "測試路徑可以重複經過節點（例如迴圈的多次迭代）；只有簡單路徑才禁止重複。"
+            }
+          ],
+          "generalFeedback": "測試路徑是一條從起始節點到結束節點的路徑；執行一個測試案例恰好會走過一條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "敘述覆蓋對應到",
+          "text": "<p>傳統的<strong>敘述覆蓋（statement coverage）</strong>在控制流程圖上對應到哪一個圖覆蓋準則？</p>",
+          "answers": [
+            {
+              "text": "節點覆蓋（Node Coverage）",
+              "fraction": 100,
+              "feedback": "正確——執行每一條敘述即等於走訪每一個節點。"
+            },
+            {
+              "text": "邊覆蓋（Edge Coverage）",
+              "fraction": 0,
+              "feedback": "邊覆蓋對應的是分支覆蓋，比敘述覆蓋更強。"
+            },
+            {
+              "text": "質路徑覆蓋（Prime Path Coverage）",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋遠比敘述覆蓋更強。"
+            },
+            {
+              "text": "完整路徑覆蓋（Complete Path Coverage）",
+              "fraction": 0,
+              "feedback": "完整路徑覆蓋通常不可行，且強度遠高於敘述覆蓋。"
+            }
+          ],
+          "generalFeedback": "節點用來表示基本區塊／敘述，因此敘述覆蓋恰好就是節點覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支覆蓋對應到",
+          "text": "<p>傳統的<strong>分支覆蓋（branch coverage）</strong>對應到哪一個圖覆蓋準則？</p>",
+          "answers": [
+            {
+              "text": "邊覆蓋（Edge Coverage）",
+              "fraction": 100,
+              "feedback": "正確——每一個分支的結果都是一條必須被走過的邊。"
+            },
+            {
+              "text": "節點覆蓋（Node Coverage）",
+              "fraction": 0,
+              "feedback": "節點覆蓋對應的是敘述覆蓋，強度較弱。"
+            },
+            {
+              "text": "邊對覆蓋（Edge-Pair Coverage）",
+              "fraction": 0,
+              "feedback": "邊對覆蓋要求長度最多為 2 的路徑，強度高於分支覆蓋。"
+            },
+            {
+              "text": "全使用覆蓋（All-Uses Coverage）",
+              "fraction": 0,
+              "feedback": "全使用是資料流準則，與分支覆蓋不同。"
+            }
+          ],
+          "generalFeedback": "每個判斷結果都是一條外向邊，因此分支覆蓋恰好就是邊覆蓋。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "邊覆蓋涵蓋節點覆蓋",
+          "text": "<p>在任何圖上，滿足邊覆蓋（Edge Coverage）的測試集合也一定滿足節點覆蓋（Node Coverage）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——走過每一條邊，就會走訪每一個有相連邊的節點。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "邊覆蓋涵蓋節點覆蓋：覆蓋所有邊必然會走訪所有可達節點。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋涵蓋（subsumes）節點覆蓋；反之則不成立。"
+        },
+        {
+          "type": "truefalse",
+          "name": "完整路徑覆蓋的可行性",
+          "text": "<p>只要控制流程圖（control-flow graph）中含有迴圈，完整路徑覆蓋（Complete Path Coverage）就不可行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——迴圈會產生無窮多條路徑。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "迴圈會造成路徑數量無上限，因此完整路徑覆蓋無法在有限步驟內被滿足。"
+            }
+          ],
+          "generalFeedback": "只要圖中含有迴圈，路徑就能任意次數地重複經過同一節點，使得完整測試路徑的集合變成無窮多——因此只要圖中有迴圈，完整路徑覆蓋就永遠無法在有限步驟內被滿足。"
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單路徑的定義",
+          "text": "<p><strong>簡單路徑（simple path）</strong>是指一條滿足下列條件的路徑：</p>",
+          "answers": [
+            {
+              "text": "沒有任何節點出現超過一次，但起點與終點可以是同一個節點",
+              "fraction": 100,
+              "feedback": "正確——這允許迴圈閉合，但禁止其他任何重複。"
+            },
+            {
+              "text": "在任何情況下都不重複經過任何節點",
+              "fraction": 0,
+              "feedback": "簡單路徑可以在同一節點開始與結束（即往返路徑）。"
+            },
+            {
+              "text": "走訪圖中的每一個節點",
+              "fraction": 0,
+              "feedback": "那描述的是生成路徑（spanning path），不是簡單路徑。"
+            },
+            {
+              "text": "每條邊最多只使用一次",
+              "fraction": 0,
+              "feedback": "那是跡（trail）；簡單路徑限制的是節點重複，而非邊的重複。"
+            }
+          ],
+          "generalFeedback": "簡單路徑不重複經過任何節點，唯一的例外是起點與終點可以相同。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "節點覆蓋與分支",
+          "text": "<p>滿足節點覆蓋（Node Coverage）就保證每一個分支（判斷結果）都已被執行過。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——節點覆蓋可以在某條邊（分支結果）從未被走過的情況下仍被滿足。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "節點覆蓋只要求走訪節點；某個未被走的分支仍可能讓所有節點都經由其他路徑被走訪。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋並不蘊含邊覆蓋，因此某些分支結果可能未被測試到。"
+        },
+        {
+          "type": "multichoice",
+          "name": "邊數計算 A",
+          "text": "<p>某控制流程圖的節點為 1..4，有向邊為 <code>1→2, 2→3, 3→4, 2→4</code>。此圖共有幾條有向邊？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——邊列表中恰好有四條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "請重數——列表中有四條邊。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "請重數——列表中只有四條邊。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "請重數——列表中只有四條邊。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋每條邊需要一個測試需求；此處為 4 條邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊數計算 B",
+          "text": "<p>某控制流程圖的節點為 1..5，有向邊為 <code>1→2, 2→3, 3→4, 4→5, 2→5</code>。此圖共有幾條有向邊？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——列表中有五條邊。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "請重數——列表中有五條邊。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "請重數——列表中只有五條邊。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "請重數——列表中只有五條邊。"
+            }
+          ],
+          "generalFeedback": "每條有向邊只算一次；此列表即為完整的邊集合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋的測試需求數",
+          "text": "<p>某控制流程圖的節點為 1..5，邊為 <code>1→2, 2→3, 2→4, 3→5, 4→5</code>。節點覆蓋（Node Coverage）會產生幾個測試需求？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——每個節點一個需求，共有 5 個節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "節點覆蓋計算的是節點數（5），不是邊數。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "那計算的是分支點的數量，而非所有節點。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "節點覆蓋每個節點一個需求，所以是 5，而非節點配對數。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋要求走訪每個節點，因此需求數等於節點數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對計算 A",
+          "text": "<p>某圖的邊為 <code>1→2, 2→3, 2→4</code>。共有幾條長度為 2 的路徑 u→v→w（共用中間節點 v 的兩條邊）？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→3 與 1→2→4。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "共有兩條：1→2→3 與 1→2→4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有共用中間節點的邊配對才算；此處有兩對。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "節點 2 是兩條長度為 2 路徑的中間節點。"
+            }
+          ],
+          "generalFeedback": "對每一條邊 u→v，計算每一條邊 v→w；此處節點 2 有兩條外向邊，產生 2 條長度為 2 的路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對計算 B",
+          "text": "<p>某圖的邊為 <code>1→2, 2→3, 3→4, 2→4</code>。共有幾條長度為 2 的路徑 u→v→w？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4 與 2→3→4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "共有三條：1→2→3、1→2→4、2→3→4。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "請重數——只有三對邊共用中間節點。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "節點 2 與節點 3 各自作為中間節點，合計三對。"
+            }
+          ],
+          "generalFeedback": "中間節點 2 產生 1→2→3 與 1→2→4；中間節點 3 產生 2→3→4；合計 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋的測試需求數",
+          "text": "<p>某控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>。邊覆蓋（Edge Coverage）會產生幾個測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每條邊一個需求，共有 4 條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "邊覆蓋計算的是邊數（4），不是節點數。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "那計算的是完整路徑的數量，而非邊數。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "只有 4 條邊需要覆蓋。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋要求走過每一條邊，因此需求數等於邊數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最弱的結構準則",
+          "text": "<p>下列結構準則中，哪一個<strong>最弱</strong>（要求最低）？</p>",
+          "answers": [
+            {
+              "text": "節點覆蓋（Node Coverage）",
+              "fraction": 100,
+              "feedback": "正確——節點覆蓋被其他所有準則涵蓋。"
+            },
+            {
+              "text": "邊覆蓋（Edge Coverage）",
+              "fraction": 0,
+              "feedback": "邊覆蓋涵蓋節點覆蓋，因此較強。"
+            },
+            {
+              "text": "邊對覆蓋（Edge-Pair Coverage）",
+              "fraction": 0,
+              "feedback": "邊對覆蓋涵蓋邊覆蓋與節點覆蓋。"
+            },
+            {
+              "text": "質路徑覆蓋（Prime Path Coverage）",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋是最強的結構準則之一。"
+            }
+          ],
+          "generalFeedback": "結構準則的鏈為 質路徑 → 邊對 → 邊 → 節點，因此節點覆蓋最弱。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "質路徑的定義",
+          "text": "<p>質路徑（prime path）是一條滿足下列條件的簡單路徑：</p>",
+          "answers": [
+            {
+              "text": "不是任何其他簡單路徑的真子路徑",
+              "fraction": 100,
+              "feedback": "正確——即極大簡單路徑。"
+            },
+            {
+              "text": "從入口節點開始，並在出口節點結束",
+              "fraction": 0,
+              "feedback": "這描述的是完整測試路徑，而非質路徑。"
+            },
+            {
+              "text": "恰好走訪每個節點一次",
+              "fraction": 0,
+              "feedback": "那是漢彌爾頓路徑（Hamiltonian path）。"
+            },
+            {
+              "text": "完全不包含任何迴圈",
+              "fraction": 0,
+              "feedback": "質路徑可以在同一節點開始與結束（即迴圈邊界）。"
+            }
+          ],
+          "generalFeedback": "質路徑是簡單路徑（除了起點與終點可能相同外，不重複經過任何節點），且必須是極大的——不會是其他簡單路徑的真子路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋的涵蓋關係",
+          "text": "<p>在至少含有一條邊的圖上，下列哪個準則涵蓋（subsumes）邊覆蓋？</p>",
+          "answers": [
+            {
+              "text": "邊對覆蓋（Edge-Pair Coverage）",
+              "fraction": 100,
+              "feedback": "正確——涵蓋所有長度 ≤ 2 的路徑，自然涵蓋所有長度為 1 的路徑。"
+            },
+            {
+              "text": "節點覆蓋（Node Coverage）",
+              "fraction": 0,
+              "feedback": "節點覆蓋比邊覆蓋弱。"
+            },
+            {
+              "text": "敘述覆蓋（Statement Coverage）",
+              "fraction": 0,
+              "feedback": "敘述覆蓋對應的是節點覆蓋。"
+            },
+            {
+              "text": "沒有任何準則能涵蓋它",
+              "fraction": 0,
+              "feedback": "邊對覆蓋、質路徑覆蓋與完整路徑覆蓋都能涵蓋它。"
+            }
+          ],
+          "generalFeedback": "邊對覆蓋要求涵蓋所有長度 ≤ 2 的路徑，其中自然包含每一條單獨的邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "定義-使用對",
+          "text": "<p>在資料流覆蓋（data-flow coverage）中，變數 x 的定義-使用對（DU pair）是指：</p>",
+          "answers": [
+            {
+              "text": "x 的一個定義與一個使用，兩者之間存在一條無重新定義（def-clear）的路徑可達",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "任何兩個提到 x 的敘述",
+              "fraction": 0,
+              "feedback": "僅僅提到變數並不能構成定義-使用對。"
+            },
+            {
+              "text": "對 x 連續進行的兩次指派",
+              "fraction": 0,
+              "feedback": "第二次指派會覆蓋（kill）第一次的定義。"
+            },
+            {
+              "text": "先使用 x，之後才對其定義",
+              "fraction": 0,
+              "feedback": "正確順序應是先定義、後使用。"
+            }
+          ],
+          "generalFeedback": "定義-使用對 (d, u) 需要一條從 d 到 u、途中不再重新定義 x 的路徑——即無重新定義路徑（def-clear path）。",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "集合覆蓋化約",
+          "text": "<p>stvisual 以貪婪演算法（greedy approximation）挑選測試路徑集合時，其實是在近似求解哪一個經典問題？（請以英文兩個單字回答）</p>",
+          "answers": [
+            {
+              "text": "set cover*",
+              "fraction": 100,
+              "feedback": "正確——貪婪集合覆蓋。"
+            },
+            {
+              "text": "set-cover*",
+              "fraction": 100,
+              "feedback": "正確。"
+            }
+          ],
+          "generalFeedback": "選擇一個能涵蓋所有需求的最小測試路徑集合，正是（NP-困難的）集合覆蓋問題（set-cover problem）；本工具採用貪婪近似演算法求解。",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "辨認質路徑",
+          "text": "<p>某控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>（節點 1 為起始、節點 4 為結束）。下列何者是一條質路徑（prime path）？</p>",
+          "answers": [
+            {
+              "text": "1→2→4",
+              "fraction": 100,
+              "feedback": "正確——它是一條極大簡單路徑（不是任何更長簡單路徑的子路徑）。"
+            },
+            {
+              "text": "2→4",
+              "fraction": 0,
+              "feedback": "2→4 是簡單路徑 1→2→4 的真子路徑，因此不是質路徑。"
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "1→2 是 1→2→4 的真子路徑，因此不是質路徑。"
+            },
+            {
+              "text": "1→2→4→3",
+              "fraction": 0,
+              "feedback": "不存在邊 4→3，因此這甚至不是一條合法路徑。"
+            }
+          ],
+          "generalFeedback": "此圖的質路徑為 1→2→4 與 1→3→4；較短的簡單路徑都是這兩條的子路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "往返路徑",
+          "text": "<p><strong>往返路徑（round-trip path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條長度不為零、且起點與終點相同的質路徑",
+              "fraction": 100,
+              "feedback": "正確——它捕捉迴圈的一次走訪。"
+            },
+            {
+              "text": "任何一條從起始節點到結束節點的路徑",
+              "fraction": 0,
+              "feedback": "那是一般的測試路徑，而非特指往返路徑。"
+            },
+            {
+              "text": "走訪每個節點兩次的路徑",
+              "fraction": 0,
+              "feedback": "往返路徑是簡單路徑；除了共用的端點外，節點不會被走訪兩次。"
+            },
+            {
+              "text": "任一對邊 u→v 與 v→u",
+              "fraction": 0,
+              "feedback": "往返路徑是一條回到起點的質路徑，而非單純的來回邊對。"
+            }
+          ],
+          "generalFeedback": "往返路徑是一條長度不為零、起點與終點相同的質路徑；簡單往返覆蓋與完整往返覆蓋皆建立於此。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無重新定義路徑",
+          "text": "<p>一條從 x 的定義到 x 的使用的路徑，在何種情況下對 x 而言是<strong>無重新定義的（def-clear）</strong>？</p>",
+          "answers": [
+            {
+              "text": "在該定義與使用之間，路徑上沒有任何節點重新定義 x",
+              "fraction": 100,
+              "feedback": "正確——原本的定義因此仍能到達該使用。"
+            },
+            {
+              "text": "路徑上不含任何分支",
+              "fraction": 0,
+              "feedback": "是否有分支無關；重點是途中不得重新定義 x。"
+            },
+            {
+              "text": "路徑上每個節點都使用了 x",
+              "fraction": 0,
+              "feedback": "無重新定義關心的是重新定義，而非途中的使用。"
+            },
+            {
+              "text": "該路徑是一條質路徑",
+              "fraction": 0,
+              "feedback": "無重新定義關乎重新定義，與是否為質路徑無關。"
+            }
+          ],
+          "generalFeedback": "對 x 而言的無重新定義路徑，在定義與使用之間不含任何對 x 的重新定義，因此該定義能到達該使用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑覆蓋涵蓋",
+          "text": "<p>質路徑覆蓋（Prime Path Coverage）涵蓋（subsumes）下列哪一個準則？</p>",
+          "answers": [
+            {
+              "text": "邊對覆蓋（Edge-Pair Coverage）",
+              "fraction": 100,
+              "feedback": "正確——長度 ≥ 2 的質路徑涵蓋所有長度 ≤ 2 的子路徑。"
+            },
+            {
+              "text": "全定義-使用路徑覆蓋（All-DU-Paths）",
+              "fraction": 0,
+              "feedback": "結構性的質路徑覆蓋並不涵蓋資料流準則。"
+            },
+            {
+              "text": "完整路徑覆蓋（Complete Path Coverage）",
+              "fraction": 0,
+              "feedback": "完整路徑覆蓋更強，是它涵蓋質路徑覆蓋，而非相反。"
+            },
+            {
+              "text": "全使用覆蓋（All-Uses）",
+              "fraction": 0,
+              "feedback": "全使用是資料流準則；質路徑覆蓋並不涵蓋它。"
+            }
+          ],
+          "generalFeedback": "質路徑覆蓋涵蓋邊對、邊與節點覆蓋，但不涵蓋資料流準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "全使用與全定義",
+          "text": "<p>關於資料流準則「全定義（All-Defs）」與「全使用（All-Uses）」，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "全使用涵蓋全定義",
+              "fraction": 100,
+              "feedback": "正確——到達每個定義的所有使用，蘊含到達每個定義的至少一個使用。"
+            },
+            {
+              "text": "全定義涵蓋全使用",
+              "fraction": 0,
+              "feedback": "涵蓋方向相反：全使用較強。"
+            },
+            {
+              "text": "兩者等價",
+              "fraction": 0,
+              "feedback": "當某個定義能到達超過一個使用時，全使用嚴格較強。"
+            },
+            {
+              "text": "兩者互不涵蓋",
+              "fraction": 0,
+              "feedback": "全使用確實涵蓋全定義。"
+            }
+          ],
+          "generalFeedback": "全定義要求每個定義至少到達一個使用；全使用要求每個定義到達其所有使用——因此全使用涵蓋全定義。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "邊對的路徑長度",
+          "text": "<p>邊對覆蓋（Edge-Pair Coverage）要求走訪每一條長度最多為 2 的可達路徑（亦即每一條單獨的邊，以及每一對相鄰的邊）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——邊對覆蓋是定義在長度 ≤ 2 的路徑上。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "邊對覆蓋恰好就是所有長度最多為 2 的可達路徑之集合。"
+            }
+          ],
+          "generalFeedback": "邊對覆蓋走訪所有長度 ≤ 2 的可達路徑，這也是它涵蓋邊覆蓋（長度為 1 的路徑）的原因。"
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對計算（5 節點）",
+          "text": "<p>某控制流程圖的節點為 1..5，邊為 <code>1→2, 1→3, 2→3, 2→4, 3→4, 4→5</code>。共有幾條長度為 2 的路徑 u→v→w？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、1→3→4、2→3→4、2→4→5、3→4→5。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "請重數——共有六條長度為 2 的路徑。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "請重數——只有六對邊共用中間節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "中間節點 2、3、4 合計產生六條長度為 2 的路徑。"
+            }
+          ],
+          "generalFeedback": "對每個中間節點，將入度乘以出度：節點 2 = 1×2 = 2、節點 3 = 2×1 = 2、節點 4 = 2×1 = 2；合計 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對計算（多分支）",
+          "text": "<p>某控制流程圖的節點為 1..5，邊為 <code>1→2, 1→3, 1→5, 2→3, 2→4, 4→5</code>。共有幾條長度為 2 的路徑 u→v→w？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4 與 2→4→5。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "請重數——只有三對邊共用中間節點。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "節點 2 產生兩條，節點 4 再產生第三條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "那計算的是邊數，而非長度為 2 的路徑。"
+            }
+          ],
+          "generalFeedback": "只有同時具備入向與外向邊的中間節點才算：節點 2 產生 1→2→3 與 1→2→4，節點 4 產生 2→4→5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試需求",
+          "text": "<p>在以圖為基礎的測試中，<strong>測試需求（test requirement）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "測試路徑必須走訪的某個特定結構元素（例如一個節點、邊或質路徑）",
+              "fraction": 100,
+              "feedback": "正確——一個準則會定義出一組測試需求。"
+            },
+            {
+              "text": "一個帶有輸入值的單一測試案例",
+              "fraction": 0,
+              "feedback": "那是測試案例；需求是該案例必須滿足的目標。"
+            },
+            {
+              "text": "程式的預期輸出",
+              "fraction": 0,
+              "feedback": "那是判定準則（oracle），而非覆蓋需求。"
+            },
+            {
+              "text": "一條從入口到出口的完整路徑",
+              "fraction": 0,
+              "feedback": "一條完整路徑可能滿足多個需求，但需求指的是要被走訪的元素。"
+            }
+          ],
+          "generalFeedback": "覆蓋準則是一條產生一組測試需求的規則；每個需求都是某條測試路徑必須走訪的結構。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "盡力走訪",
+          "text": "<p>當某條要求的質路徑無法被任何完整測試路徑直接走訪時，常見的做法是：</p>",
+          "answers": [
+            {
+              "text": "若可行，就以支路／繞道（sidetrip/detour）方式走訪它（盡力走訪，best-effort touring）",
+              "fraction": 100,
+              "feedback": "正確——盡力走訪允許以支路來達成原本難以走訪的需求。"
+            },
+            {
+              "text": "從圖中刪除該質路徑",
+              "fraction": 0,
+              "feedback": "不會從圖中移除需求，而是放寬走訪方式。"
+            },
+            {
+              "text": "宣告整個準則不可滿足",
+              "fraction": 0,
+              "feedback": "單一個難以走訪的需求不會讓整個準則無法使用；改用盡力走訪即可。"
+            },
+            {
+              "text": "新增一條邊讓該路徑變得可直接走訪",
+              "fraction": 0,
+              "feedback": "圖形模擬的是程式本身，不會為了滿足需求而更動。"
+            }
+          ],
+          "generalFeedback": "盡力走訪允許支路（繞道），使得無法直接走訪的需求，在可行時仍能被覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "全定義的意義",
+          "text": "<p>全定義覆蓋（All-Defs Coverage）對於某變數的每一個定義，要求：</p>",
+          "answers": [
+            {
+              "text": "至少走訪一條從該定義到某個使用的無重新定義路徑",
+              "fraction": 100,
+              "feedback": "正確——每個定義必須至少到達一個使用。"
+            },
+            {
+              "text": "走訪從該定義到每一個使用的無重新定義路徑",
+              "fraction": 0,
+              "feedback": "那是全使用（All-Uses），強度高於全定義。"
+            },
+            {
+              "text": "走訪從該定義出發的每一條簡單路徑",
+              "fraction": 0,
+              "feedback": "那較接近全定義-使用路徑（All-DU-Paths），而非全定義。"
+            },
+            {
+              "text": "該定義至少被執行一次",
+              "fraction": 0,
+              "feedback": "那只是對該定義的節點覆蓋；全定義還要求到達某個使用。"
+            }
+          ],
+          "generalFeedback": "全定義要求每個定義經由無重新定義路徑至少到達一個使用；全使用則強化為到達每一個使用。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "質路徑的涵蓋關係",
+          "text": "<p>在至少含有一條邊的圖上，下列哪個準則被質路徑覆蓋（Prime Path Coverage）所涵蓋（subsumed）？</p>",
+          "answers": [
+            {
+              "text": "邊對覆蓋（Edge-Pair Coverage）",
+              "fraction": 100,
+              "feedback": "正確——長度 ≥ 2 的質路徑涵蓋所有長度 ≤ 2 的子路徑。"
+            },
+            {
+              "text": "完整路徑覆蓋（Complete Path Coverage）",
+              "fraction": 0,
+              "feedback": "完整路徑覆蓋通常不可行，且不被涵蓋。"
+            },
+            {
+              "text": "全定義-使用路徑覆蓋（All-DU-Paths）",
+              "fraction": 0,
+              "feedback": "資料流準則不被結構性的質路徑覆蓋所涵蓋。"
+            },
+            {
+              "text": "沒有任何準則",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋確實涵蓋邊覆蓋與邊對覆蓋。"
+            }
+          ],
+          "generalFeedback": "質路徑覆蓋涵蓋邊對覆蓋與邊覆蓋；但不涵蓋資料流或完整路徑準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "資料流的涵蓋鏈",
+          "text": "<p>下列哪一條鏈正確地由最強（涵蓋）排到最弱地列出資料流準則？</p>",
+          "answers": [
+            {
+              "text": "全定義-使用路徑 → 全使用 → 全定義",
+              "fraction": 100,
+              "feedback": "正確——每個都涵蓋下一個。"
+            },
+            {
+              "text": "全定義 → 全使用 → 全定義-使用路徑",
+              "fraction": 0,
+              "feedback": "這順序相反；全定義-使用路徑最強。"
+            },
+            {
+              "text": "全使用 → 全定義-使用路徑 → 全定義",
+              "fraction": 0,
+              "feedback": "全定義-使用路徑涵蓋全使用，因此必須排在前面。"
+            },
+            {
+              "text": "全定義 → 全定義-使用路徑 → 全使用",
+              "fraction": 0,
+              "feedback": "全定義最弱，不可能領頭。"
+            }
+          ],
+          "generalFeedback": "全定義-使用路徑涵蓋全使用，全使用又涵蓋全定義。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "質路徑與資料流",
+          "text": "<p>質路徑覆蓋（Prime Path Coverage）涵蓋全定義-使用路徑覆蓋（All-DU-Paths Coverage）。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——結構性的質路徑覆蓋並不涵蓋資料流準則。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋涵蓋邊對／邊／節點覆蓋，但不涵蓋資料流準則。"
+            }
+          ],
+          "generalFeedback": "資料流準則取決於定義-使用關係，而這是結構性的質路徑覆蓋所無法保證的，因此兩者不存在涵蓋關係。"
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的測試需求",
+          "text": "<p>某測試需求為<strong>不可行（infeasible）</strong>，是指：</p>",
+          "answers": [
+            {
+              "text": "沒有任何符合程式語意的測試路徑能夠走訪它",
+              "fraction": 100,
+              "feedback": "正確——不可行性關乎語意，而非圖的結構。"
+            },
+            {
+              "text": "它需要超過一個測試案例",
+              "fraction": 0,
+              "feedback": "需要多個案例並不會使需求變得不可行。"
+            },
+            {
+              "text": "它是一條比節點數還長的質路徑",
+              "fraction": 0,
+              "feedback": "質路徑是簡單路徑，長度有上限；單憑長度不代表不可行。"
+            },
+            {
+              "text": "圖中含有迴圈",
+              "fraction": 0,
+              "feedback": "迴圈會讓完整路徑覆蓋變成無窮，但本身並不會讓某個需求不可行。"
+            }
+          ],
+          "generalFeedback": "不可行的需求無法被任何語意上合法的執行走訪（例如互相矛盾的分支條件）；覆蓋率是相對於可行需求來衡量的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算質路徑數（if-else）",
+          "text": "<p>某控制流程圖的節點為 1..4，邊為 <code>1→2, 1→3, 2→4, 3→4</code>。它有幾條質路徑（prime path）？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→4 與 1→3→4 是僅有的兩條極大簡單路徑。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "那四條邊並非都是質路徑；每一條都是某條更長簡單路徑的子路徑。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "恰好只有兩條極大簡單路徑。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "這高估了；較短的簡單路徑都是那兩條質路徑的子路徑。"
+            }
+          ],
+          "generalFeedback": "質路徑是極大簡單路徑。此處為 1→2→4 與 1→3→4；每一條較短的簡單路徑都是其中之一的子路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對計算（7 節點）",
+          "text": "<p>某控制流程圖的節點為 1..7，邊為 <code>1→2, 1→3, 1→4, 2→3, 2→4, 2→5, 2→6, 3→4, 5→7</code>。共有幾條長度為 2 的路徑 u→v→w？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——列舉每個中間節點的外向邊即可。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "請重數——共有七條長度為 2 的路徑。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "那計算的是邊數（9），而非長度為 2 的路徑。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "請重數——只有七對邊共用中間節點。"
+            }
+          ],
+          "generalFeedback": "對每個中間節點，將入度乘以出度：節點 2 = 1×4 = 4、節點 3 = 2×1 = 2、節點 5 = 1×1 = 1；合計 4 + 2 + 1 = 7 條長度為 2 的路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "全使用的反向關係",
+          "text": "<p>全使用（All-Uses）涵蓋全定義（All-Defs），但全定義並不涵蓋全使用。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——涵蓋關係只成立於單一方向。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "全使用嚴格較強：滿足全定義未必能到達每一個使用。"
+            }
+          ],
+          "generalFeedback": "每個定義只到達一個使用（全定義）並不蘊含到達每個定義的所有使用（全使用），因此涵蓋關係是單向的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單往返與完整往返",
+          "text": "<p>簡單往返覆蓋（Simple Round Trip Coverage）與完整往返覆蓋（Complete Round Trip Coverage）有何不同？</p>",
+          "answers": [
+            {
+              "text": "簡單往返要求每個能起始往返的可達節點至少一條往返路徑；完整往返要求所有往返路徑",
+              "fraction": 100,
+              "feedback": "正確——完整往返是兩者中較強的。"
+            },
+            {
+              "text": "簡單往返要求所有往返路徑；完整往返只要求一條",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了——完整往返才要求全部。"
+            },
+            {
+              "text": "兩者完全相同",
+              "fraction": 0,
+              "feedback": "兩者不同：一個要求至少一條，另一個要求全部往返路徑。"
+            },
+            {
+              "text": "簡單往返忽略迴圈；完整往返將迴圈計算一次",
+              "fraction": 0,
+              "feedback": "兩者都在處理往返（迴圈）路徑；差別在於「一條」與「全部」。"
+            }
+          ],
+          "generalFeedback": "簡單往返覆蓋要求每個能起始往返的節點各一條往返路徑；完整往返覆蓋要求每一條往返路徑，因此涵蓋簡單往返。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結構層級的頂端",
+          "text": "<p>在結構準則 節點、邊、邊對、質路徑、完整路徑覆蓋 之中，哪一個涵蓋所有其他準則？</p>",
+          "answers": [
+            {
+              "text": "完整路徑覆蓋（Complete Path Coverage）",
+              "fraction": 100,
+              "feedback": "正確——走訪每一條路徑就涵蓋了每個節點、邊、邊對與質路徑（儘管它通常不可行）。"
+            },
+            {
+              "text": "質路徑覆蓋（Prime Path Coverage）",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋被完整路徑覆蓋所涵蓋。"
+            },
+            {
+              "text": "邊對覆蓋（Edge-Pair Coverage）",
+              "fraction": 0,
+              "feedback": "邊對覆蓋離層級頂端還很遠。"
+            },
+            {
+              "text": "節點覆蓋（Node Coverage）",
+              "fraction": 0,
+              "feedback": "節點覆蓋是這些準則中最弱的。"
+            }
+          ],
+          "generalFeedback": "完整路徑覆蓋是最強的結構準則（完整路徑 → 質路徑 → 邊對 → 邊 → 節點），但只要有迴圈就不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個定義兩個使用",
+          "text": "<p>x 的某一個定義經由無重新定義路徑能到達兩個不同的使用 u1 與 u2。要對這個定義滿足全使用（All-Uses），測試集合必須：</p>",
+          "answers": [
+            {
+              "text": "走訪一條到 u1 以及一條到 u2 的無重新定義路徑",
+              "fraction": 100,
+              "feedback": "正確——全使用要求到達該定義每一個可達的使用。"
+            },
+            {
+              "text": "走訪一條到 u1 或 u2 其中之一的無重新定義路徑",
+              "fraction": 0,
+              "feedback": "只到達一個使用滿足的是全定義，而非全使用。"
+            },
+            {
+              "text": "走訪到 u1 與 u2 的每一條簡單路徑",
+              "fraction": 0,
+              "feedback": "那是全定義-使用路徑（All-DU-Paths），比全使用更強。"
+            },
+            {
+              "text": "只需執行該定義一次",
+              "fraction": 0,
+              "feedback": "只執行定義並不會到達它的使用。"
+            }
+          ],
+          "generalFeedback": "全使用要求從定義到其每一個可達使用都有一條無重新定義路徑；此處即必須同時到達 u1 與 u2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "支路與繞道",
+          "text": "<p>當一條路徑以<strong>支路（sidetrip）</strong>走訪子路徑 q 時，意思是：</p>",
+          "answers": [
+            {
+              "text": "該路徑依序覆蓋 q 的每一條邊，過程中可能離開 q 再重新回到 q",
+              "fraction": 100,
+              "feedback": "正確——支路覆蓋 q 的所有邊，但可能中途繞開再返回。"
+            },
+            {
+              "text": "該路徑覆蓋 q 且完全不含任何額外的邊",
+              "fraction": 0,
+              "feedback": "那是直接走訪 q，而非以支路走訪。"
+            },
+            {
+              "text": "該路徑跳過 q 的某些邊",
+              "fraction": 0,
+              "feedback": "支路仍覆蓋 q 的每一條邊；只是在邊之間加入繞道。"
+            },
+            {
+              "text": "該路徑反轉 q 的方向",
+              "fraction": 0,
+              "feedback": "支路保留 q 的邊與方向，只是插入額外的繞行。"
+            }
+          ],
+          "generalFeedback": "以支路走訪會依序覆蓋 q 的所有邊，並允許離開 q 再返回的繞道；直接走訪則不含任何繞道。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算質路徑數（迴圈）",
+          "text": "<p>某控制流程圖的節點為 1..4，邊為 <code>1→2, 2→3, 3→2, 2→4</code>（while 迴圈形狀）。它有幾條質路徑？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、2→3→2、3→2→3 與 3→2→4。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "請重數——迴圈還貢獻了往返路徑 2→3→2 與 3→2→3。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "通過迴圈的兩條往返質路徑很容易被漏掉。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "這高估了；恰好有五條極大簡單路徑。"
+            }
+          ],
+          "generalFeedback": "質路徑為 1→2→3、1→2→4、3→2→4，以及兩條迴圈往返 2→3→2 與 3→2→3——合計五條。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "重新定義使定義-使用對失效",
+          "text": "<p>在一條從 x 的定義 d 到 x 的使用 u 的路徑上，節點 m 重新定義了 x。對於這條路徑上的定義-使用對 (d, u)，其效果為何？</p>",
+          "answers": [
+            {
+              "text": "這條路徑對 (d, u) 而言不是無重新定義的；d 的值在此路徑上不再能到達 u",
+              "fraction": 100,
+              "feedback": "正確——m 處的重新定義在 u 之前就覆蓋（kill）了 d。"
+            },
+            {
+              "text": "這條路徑仍能覆蓋定義-使用對 (d, u)",
+              "fraction": 0,
+              "feedback": "重新定義意味著 d 的值沿此路徑無法到達 u。"
+            },
+            {
+              "text": "m 會成為同一個定義-使用對的一部分",
+              "fraction": 0,
+              "feedback": "m 開啟的是一個新的定義；它不會併入 (d, u)。"
+            },
+            {
+              "text": "使用 u 不再是 x 的使用",
+              "fraction": 0,
+              "feedback": "u 仍然是 x 的使用；只是它被 m 的定義所到達，而非 d。"
+            }
+          ],
+          "generalFeedback": "d 與 u 之間的重新定義會覆蓋 d，因此對 (d, u) 而言這條路徑不是無重新定義的；需要另一條無重新定義路徑才能覆蓋該對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對不涵蓋",
+          "text": "<p>下列哪一個準則<strong>不</strong>被邊對覆蓋（Edge-Pair Coverage）所涵蓋？</p>",
+          "answers": [
+            {
+              "text": "質路徑覆蓋（Prime Path Coverage）",
+              "fraction": 100,
+              "feedback": "正確——質路徑覆蓋較強，因此邊對覆蓋不涵蓋它。"
+            },
+            {
+              "text": "邊覆蓋（Edge Coverage）",
+              "fraction": 0,
+              "feedback": "邊對覆蓋確實涵蓋邊覆蓋。"
+            },
+            {
+              "text": "節點覆蓋（Node Coverage）",
+              "fraction": 0,
+              "feedback": "邊對覆蓋（經由邊覆蓋）涵蓋節點覆蓋。"
+            },
+            {
+              "text": "敘述覆蓋（Statement Coverage）",
+              "fraction": 0,
+              "feedback": "敘述覆蓋等於節點覆蓋，會被邊對覆蓋所涵蓋。"
+            }
+          ],
+          "generalFeedback": "涵蓋方向為 質路徑 → 邊對 → 邊 → 節點；邊對覆蓋涵蓋較弱的準則，但不涵蓋較強的質路徑覆蓋。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "質路徑涵蓋節點",
+          "text": "<p>在每個節點都有相連邊的圖上，質路徑覆蓋（Prime Path Coverage）涵蓋節點覆蓋（Node Coverage）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——經由邊對覆蓋與邊覆蓋的遞移性可得。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "質路徑 → 邊對 → 邊 → 節點，因此質路徑覆蓋涵蓋節點覆蓋。"
+            }
+          ],
+          "generalFeedback": "涵蓋關係具遞移性：質路徑涵蓋邊對，邊對涵蓋邊，邊又涵蓋節點。"
+        }
+      ]
+    }
   },
   "logic-coverage": {
-    "en": [
-      {
-        "type": "multichoice",
-        "name": "Predicate coverage",
-        "text": "<p>Predicate Coverage (PC) requires that:</p>",
-        "answers": [
-          {
-            "text": "Each predicate in the program evaluates to both true and false",
-            "fraction": 100,
-            "feedback": "Correct."
-          },
-          {
-            "text": "Each clause within a predicate evaluates to both true and false",
-            "fraction": 0,
-            "feedback": "That's Clause Coverage (CC)."
-          },
-          {
-            "text": "All combinations of clause truth values are exercised for each predicate",
-            "fraction": 0,
-            "feedback": "That's Combinatorial Coverage (CoC)."
-          },
-          {
-            "text": "Every path through the predicate's decision structure is exercised",
-            "fraction": 0,
-            "feedback": "That describes Path Coverage, not Predicate Coverage."
-          }
-        ],
-        "generalFeedback": "Predicate Coverage (PC) only requires the whole predicate to take both truth values at least once; it says nothing about the individual clauses inside it — that finer-grained requirement is Clause Coverage.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Clause determination",
-        "text": "<p>For predicate p = a &#8743; b, clause a <em>determines</em> p exactly when:</p>",
-        "answers": [
-          {
-            "text": "b is true",
-            "fraction": 100,
-            "feedback": "Correct — with b true, p's value is exactly a's value, so toggling a toggles p."
-          },
-          {
-            "text": "b is false",
-            "fraction": 0,
-            "feedback": "When b is false, p is false regardless of a, so a cannot determine p."
-          },
-          {
-            "text": "Always, regardless of b",
-            "fraction": 0,
-            "feedback": "Determination is a per-clause, per-assignment condition, not a constant."
-          },
-          {
-            "text": "Never, for a conjunction",
-            "fraction": 0,
-            "feedback": "Conjunctions do have determining assignments — just not when b is false."
-          }
-        ],
-        "generalFeedback": "A clause c determines predicate p when changing only c's truth value changes p's truth value while the other clauses stay fixed. For p = a &#8743; b, that happens exactly when b = true: p then mirrors a exactly.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "CACC vs RACC",
-        "text": "<p>How does Restricted Active Clause Coverage (RACC) differ from Correlated Active Clause Coverage (CACC)?</p>",
-        "answers": [
-          {
-            "text": "RACC additionally requires the minor clauses to hold identical values in the true/false test pair for the major clause",
-            "fraction": 100,
-            "feedback": "Correct — RACC is the stricter, \"same minor-clause values\" version of CACC."
-          },
-          {
-            "text": "RACC drops the requirement that the major clause determines the predicate",
-            "fraction": 0,
-            "feedback": "That describes General Active Clause Coverage (GACC), not RACC."
-          },
-          {
-            "text": "RACC only counts inactive clauses, not active ones",
-            "fraction": 0,
-            "feedback": "That describes the inactive-clause family (GICC/CICC), not RACC."
-          },
-          {
-            "text": "RACC requires covering all combinations of clause values",
-            "fraction": 0,
-            "feedback": "That's Combinatorial Coverage (CoC)."
-          }
-        ],
-        "generalFeedback": "Both criteria require, for each major clause ci, a pair of tests where ci determines predicate p once true and once false. CACC allows the other (minor) clauses to differ between that pair; RACC additionally pins the minor clauses to the same values across the pair, making it strictly stronger.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Combinatorial coverage count",
-        "text": "<p>A predicate has 3 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>",
-        "answers": [
-          {
-            "text": "8",
-            "fraction": 100,
-            "feedback": "Correct — 2^3 combinations of true/false."
-          },
-          {
-            "text": "3",
-            "fraction": 0,
-            "feedback": "That's roughly the size of Clause Coverage (one flip per clause), not every combination."
-          },
-          {
-            "text": "4",
-            "fraction": 0,
-            "feedback": "Too few — 4 tests can't realize all 8 truth-value combinations."
-          },
-          {
-            "text": "6",
-            "fraction": 0,
-            "feedback": "6 falls short of the full 2^3 = 8 combinations."
-          }
-        ],
-        "generalFeedback": "Combinatorial Coverage requires every one of the 2^n truth-value combinations of n clauses to be exercised (subject to feasibility); with 3 independent clauses that is 2^3 = 8 tests.",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "CACC infeasibility",
-        "text": "<p>CACC (and RACC) is infeasible for a clause that can never determine its predicate.</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "Correct — if no assignment of the other clauses ever lets that clause determine the predicate, no test can satisfy the active-clause requirement for it."
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "Determination is a precondition for active-clause coverage; without it the criterion's test requirement for that clause has no test that can satisfy it, so it is infeasible."
-          }
-        ],
-        "generalFeedback": "Active-clause criteria (CACC, RACC, GACC) require a test pair where the clause determines the predicate. If some clause structurally never determines the predicate (e.g., it is masked out or redundant), that test requirement can never be satisfied — it is infeasible."
-      },
-      {
-        "type": "shortanswer",
-        "name": "Unique true point coverage",
-        "text": "<p>Which DNF-based logic-coverage criterion requires every unique true point of the predicate to be covered? (acronym)</p>",
-        "answers": [
-          {
-            "text": "UTPC",
-            "fraction": 100,
-            "feedback": "Correct."
-          },
-          {
-            "text": "unique true point*",
-            "fraction": 100,
-            "feedback": "Correct."
-          }
-        ],
-        "generalFeedback": "Unique True Point Coverage (UTPC) requires, for each term in the predicate's DNF representation, a test that makes exactly that term true (and all others false) — the \"unique\" true point for that term.",
-        "usecase": false
-      }
-    ],
-    "zh": [
-      {
-        "type": "multichoice",
-        "name": "述詞覆蓋",
-        "text": "<p>述詞覆蓋（Predicate Coverage, PC）要求：</p>",
-        "answers": [
-          {
-            "text": "程式中每個述詞（predicate）都至少各取一次 true 與 false",
-            "fraction": 100,
-            "feedback": "正確。"
-          },
-          {
-            "text": "述詞內的每個子句（clause）都至少各取一次 true 與 false",
-            "fraction": 0,
-            "feedback": "那是子句覆蓋（Clause Coverage, CC）。"
-          },
-          {
-            "text": "對每個述詞，涵蓋子句真值的所有組合",
-            "fraction": 0,
-            "feedback": "那是組合覆蓋（Combinatorial Coverage, CoC）。"
-          },
-          {
-            "text": "走過該述詞決策結構中的每一條路徑",
-            "fraction": 0,
-            "feedback": "這描述的是路徑覆蓋（Path Coverage），而非述詞覆蓋。"
-          }
-        ],
-        "generalFeedback": "述詞覆蓋（PC）僅要求整個述詞至少各出現一次 true 與 false，並未規範其內部子句的個別取值——更細緻的要求屬於子句覆蓋。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "子句的決定性",
-        "text": "<p>對述詞 p = a &#8743; b 而言，子句 a <em>決定（determines）</em> p 恰好發生於：</p>",
-        "answers": [
-          {
-            "text": "b 為 true 時",
-            "fraction": 100,
-            "feedback": "正確——當 b 為 true 時，p 的值恰好等於 a 的值，因此切換 a 就會切換 p。"
-          },
-          {
-            "text": "b 為 false 時",
-            "fraction": 0,
-            "feedback": "當 b 為 false 時，無論 a 為何 p 都是 false，因此 a 無法決定 p。"
-          },
-          {
-            "text": "無論 b 為何，恆成立",
-            "fraction": 0,
-            "feedback": "決定性是針對特定子句、特定指派的條件，並非恆定不變。"
-          },
-          {
-            "text": "對於邏輯與（conjunction）而言，永遠不成立",
-            "fraction": 0,
-            "feedback": "邏輯與確實存在能決定 p 的指派——只是不在 b 為 false 的情況下。"
-          }
-        ],
-        "generalFeedback": "當僅改變子句 c 的真值、而其他子句保持不變時，若述詞 p 的真值也隨之改變，則稱 c 決定了 p。對 p = a &#8743; b 而言，這恰好發生在 b = true 時：此時 p 完全跟隨 a。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "CACC 與 RACC 的差異",
-        "text": "<p>受限主動子句覆蓋（Restricted Active Clause Coverage, RACC）與相關主動子句覆蓋（Correlated Active Clause Coverage, CACC）有何不同？</p>",
-        "answers": [
-          {
-            "text": "RACC 額外要求：在使主要子句分別為 true／false 的那對測試中，其餘（次要）子句必須維持相同的值",
-            "fraction": 100,
-            "feedback": "正確——RACC 是 CACC 更嚴格的版本，要求「次要子句值相同」。"
-          },
-          {
-            "text": "RACC 取消了「主要子句必須決定述詞」的要求",
-            "fraction": 0,
-            "feedback": "那描述的是一般主動子句覆蓋（General Active Clause Coverage, GACC），而非 RACC。"
-          },
-          {
-            "text": "RACC 只計算非主動子句，不計算主動子句",
-            "fraction": 0,
-            "feedback": "那描述的是非主動子句家族（GICC／CICC），而非 RACC。"
-          },
-          {
-            "text": "RACC 要求涵蓋所有子句值的組合",
-            "fraction": 0,
-            "feedback": "那是組合覆蓋（Combinatorial Coverage, CoC）。"
-          }
-        ],
-        "generalFeedback": "兩種準則都要求：對每個主要子句 ci，存在一對測試，使 ci 分別在 p 為 true 與 p 為 false 時決定 p。CACC 允許這對測試中的其他（次要）子句取值不同；RACC 則額外要求這對測試中的次要子句取值必須相同，因此嚴格更強。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "組合覆蓋的測試數",
-        "text": "<p>某述詞含有 3 個獨立子句。組合覆蓋（Combinatorial Coverage, CoC）需要多少個測試？</p>",
-        "answers": [
-          {
-            "text": "8",
-            "fraction": 100,
-            "feedback": "正確——2^3 種 true/false 組合。"
-          },
-          {
-            "text": "3",
-            "fraction": 0,
-            "feedback": "這大致是子句覆蓋（每個子句翻轉一次）的規模，並非所有組合。"
-          },
-          {
-            "text": "4",
-            "fraction": 0,
-            "feedback": "太少了——4 個測試無法涵蓋全部 8 種真值組合。"
-          },
-          {
-            "text": "6",
-            "fraction": 0,
-            "feedback": "6 個測試仍不足以涵蓋完整的 2^3 = 8 種組合。"
-          }
-        ],
-        "generalFeedback": "組合覆蓋要求涵蓋 n 個子句的每一種 2^n 真值組合（在可行的前提下）；當有 3 個獨立子句時即為 2^3 = 8 個測試。",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "CACC 的不可行性",
-        "text": "<p>對於一個永遠無法決定其述詞的子句，CACC（以及 RACC）是不可行的。</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "正確——如果其他子句無論如何指派，都無法讓該子句決定述詞，那麼就沒有任何測試能滿足該子句的主動子句要求。"
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "決定性是主動子句覆蓋的前提條件；若不成立，該子句的測試要求就找不到任何測試能滿足它，因此是不可行的。"
-          }
-        ],
-        "generalFeedback": "主動子句準則（CACC、RACC、GACC）都要求存在一對測試，使該子句能決定述詞。若某子句在結構上永遠無法決定述詞（例如被遮蔽或本身是冗餘的），該測試要求就永遠無法被滿足——即為不可行。"
-      },
-      {
-        "type": "shortanswer",
-        "name": "唯一真值點覆蓋",
-        "text": "<p>哪一個以 DNF（析取範式）為基礎的邏輯覆蓋準則，要求涵蓋述詞的每一個唯一真值點？（請以英文縮寫回答）</p>",
-        "answers": [
-          {
-            "text": "UTPC",
-            "fraction": 100,
-            "feedback": "正確。"
-          },
-          {
-            "text": "unique true point*",
-            "fraction": 100,
-            "feedback": "正確。"
-          }
-        ],
-        "generalFeedback": "唯一真值點覆蓋（Unique True Point Coverage, UTPC）要求：對述詞 DNF 表示式中的每一項，都存在一個測試恰好使該項為 true（而所有其他項皆為 false）——即該項專屬的「唯一真值點」。",
-        "usecase": false
-      }
-    ]
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Predicate coverage",
+          "text": "<p>Predicate Coverage (PC) requires that:</p>",
+          "answers": [
+            {
+              "text": "Each predicate in the program evaluates to both true and false",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "Each clause within a predicate evaluates to both true and false",
+              "fraction": 0,
+              "feedback": "That's Clause Coverage (CC)."
+            },
+            {
+              "text": "All combinations of clause truth values are exercised for each predicate",
+              "fraction": 0,
+              "feedback": "That's Combinatorial Coverage (CoC)."
+            },
+            {
+              "text": "Every path through the predicate's decision structure is exercised",
+              "fraction": 0,
+              "feedback": "That describes Path Coverage, not Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "Predicate Coverage (PC) only requires the whole predicate to take both truth values at least once; it says nothing about the individual clauses inside it — that finer-grained requirement is Clause Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a clause",
+          "text": "<p>In logic coverage, a <strong>clause</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A boolean expression that contains no boolean operators",
+              "fraction": 100,
+              "feedback": "Correct — a clause is an atomic condition such asor a boolean variable."
+            },
+            {
+              "text": "Any boolean expression, however it is built from operators",
+              "fraction": 0,
+              "feedback": "That is a predicate; a clause is the atomic building block with no boolean operators."
+            },
+            {
+              "text": "A complete if-statement in the source code",
+              "fraction": 0,
+              "feedback": "A clause is a condition, not a whole statement."
+            },
+            {
+              "text": "A test case that exercises one branch",
+              "fraction": 0,
+              "feedback": "That is a test, not a clause."
+            }
+          ],
+          "generalFeedback": "A clause (or condition) is a boolean expression containing no boolean operators (&&, ||, !). Predicates are built by connecting clauses with boolean operators.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a predicate",
+          "text": "<p>Which expression is a <strong>predicate</strong> built from exactly three clauses?</p>",
+          "answers": [
+            {
+              "text": "(a && b) || c",
+              "fraction": 100,
+              "feedback": "Correct — the clauses are a, b, and c, joined by boolean operators."
+            },
+            {
+              "text": "a > 0",
+              "fraction": 0,
+              "feedback": "That is a single clause, not a predicate over three clauses."
+            },
+            {
+              "text": "a && b",
+              "fraction": 0,
+              "feedback": "That predicate has only two clauses."
+            },
+            {
+              "text": "x + y + z",
+              "fraction": 0,
+              "feedback": "That is an arithmetic expression, not a boolean predicate."
+            }
+          ],
+          "generalFeedback": "A predicate is a boolean expression built from clauses connected by boolean operators.has three clauses (a, b, c).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clause coverage",
+          "text": "<p>Clause Coverage (CC) requires that:</p>",
+          "answers": [
+            {
+              "text": "Each clause in each predicate evaluates to both true and false",
+              "fraction": 100,
+              "feedback": "Correct — every individual clause must take on both truth values."
+            },
+            {
+              "text": "Each predicate evaluates to both true and false",
+              "fraction": 0,
+              "feedback": "That is Predicate Coverage (PC), which looks at the whole predicate."
+            },
+            {
+              "text": "All combinations of clause values are exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage (CoC)."
+            },
+            {
+              "text": "Each clause determines its predicate at least once",
+              "fraction": 0,
+              "feedback": "That is the active-clause idea (ACC), stronger than plain Clause Coverage."
+            }
+          ],
+          "generalFeedback": "Clause Coverage requires each clause to be both true and false at least once, independently of what the enclosing predicate does.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial coverage count",
+          "text": "<p>A predicate has 3 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2^3 combinations of true/false."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "That's roughly the size of Clause Coverage (one flip per clause), not every combination."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Too few — 4 tests can't realize all 8 truth-value combinations."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 falls short of the full 2^3 = 8 combinations."
+            }
+          ],
+          "generalFeedback": "Combinatorial Coverage requires every one of the 2^n truth-value combinations of n clauses to be exercised (subject to feasibility); with 3 independent clauses that is 2^3 = 8 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial coverage (2 clauses)",
+          "text": "<p>How many rows are in the full truth table of a predicate with 2 clauses (the number Combinatorial Coverage requires)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 2^2 = 4 combinations."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the count for Predicate or Clause Coverage, not every combination."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "2^2 = 4, not 3."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 would be three clauses, not two."
+            }
+          ],
+          "generalFeedback": "A predicate with n clauses has 2^n truth-table rows; for n = 2 that is 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial coverage (4 clauses)",
+          "text": "<p>A predicate has 4 independent clauses. How many tests does Combinatorial Coverage (CoC) require?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 2^4 = 16 combinations."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 would be three clauses."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 = n+1 is the minimal count for CACC/MC-DC, not CoC."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of clauses, not the number of combinations."
+            }
+          ],
+          "generalFeedback": "Combinatorial Coverage needs all 2^n rows; for n = 4 that is 2^4 = 16 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND b",
+          "text": "<p>For the predicate <code>a && b</code>, how many of the 4 possible assignments make it <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only a=T, b=T satisfies a conjunction."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only the all-true row satisfies a && b."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the count for a || b, not a && b."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "A conjunction is false whenever any clause is false, so not all 4 rows satisfy it."
+            }
+          ],
+          "generalFeedback": "A conjunction is true only when every clause is true, so exactly 1 of the 4 rows satisfies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a OR b",
+          "text": "<p>For the predicate <code>a || b</code>, how many of the 4 possible assignments make it <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — only a=F, b=F fails, leaving 3 satisfying rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 is the count for a && b, not a || b."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "A disjunction fails only on the all-false row, so 3 rows satisfy it."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The all-false row (a=F, b=F) does not satisfy a || b."
+            }
+          ],
+          "generalFeedback": "A disjunction is false only when every clause is false, so 3 of the 4 rows satisfy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a AND b) OR c",
+          "text": "<p>For the predicate <code>(a && b) || c</code> over 3 clauses, how many of the 8 possible assignments make it <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 4 rows with c=T, plus the single row a=T,b=T,c=F."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The 4 rows with c=T all satisfy it, but the row a=T,b=T,c=F does too, giving 5."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — exactly 5 of the 8 rows are true."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Too few — c=T alone already gives 4 true rows."
+            }
+          ],
+          "generalFeedback": "Whenever c=T the predicate is true (4 rows); when c=F it needs a=T and b=T (1 more row). Total = 5 of 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a OR b OR c",
+          "text": "<p>For the predicate <code>a || b || c</code>, how many of the 8 possible assignments make it <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — only the all-false row fails, leaving 7."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "The all-false row a=F,b=F,c=F does not satisfy it."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Only one row (all false) fails, so 7 satisfy it."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 would be a conjunction; a disjunction is true on 7 of 8 rows."
+            }
+          ],
+          "generalFeedback": "A three-way disjunction is false only on the single all-false row, so 7 of 8 rows satisfy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate coverage minimum tests",
+          "text": "<p>What is the minimum number of tests needed to satisfy Predicate Coverage for a single predicate?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one test making the predicate true and one making it false."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test can only give one truth value; PC needs both."
+            },
+            {
+              "text": "n + 1 (for n clauses)",
+              "fraction": 0,
+              "feedback": "n+1 is the minimum for CACC/MC-DC, not Predicate Coverage."
+            },
+            {
+              "text": "2^n (for n clauses)",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, far more than PC needs."
+            }
+          ],
+          "generalFeedback": "Predicate Coverage needs the predicate to be true once and false once — a minimum of 2 tests, regardless of how many clauses it has.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clause coverage minimum tests",
+          "text": "<p>A predicate has 3 independent clauses. What is the minimum number of tests that can satisfy Clause Coverage?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one all-true test and one all-false test make every clause both true and false."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "You do not need one test per clause; 2 tests can flip all clauses together."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Clause Coverage is about each clause taking both values, achievable in 2 tests."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 is Combinatorial Coverage, not Clause Coverage."
+            }
+          ],
+          "generalFeedback": "Setting all clauses true in one test and all false in another gives every clause both values, so Clause Coverage needs only 2 tests (for independent clauses), independent of clause count.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Clause has no operators",
+          "text": "<p>By definition, a clause contains no boolean operators (such as &amp;&amp;, ||, or !).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a clause is an atomic boolean expression with no boolean operators."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A clause is defined precisely as a boolean expression with no boolean operators; adding operators makes it a predicate."
+            }
+          ],
+          "generalFeedback": "A clause (condition) is a boolean expression containing no boolean operators. Connecting clauses with &&/||/! produces a predicate."
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND b AND c",
+          "text": "<p>For the predicate <code>a && b && c</code>, how many of the 8 possible assignments make it <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only the all-true row satisfies a three-way conjunction."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "A conjunction is true only when every clause is true — just 1 row."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the count for a || b || c, the disjunction."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "The all-true row (a=T,b=T,c=T) does satisfy it."
+            }
+          ],
+          "generalFeedback": "A conjunction is true only when all clauses are true, so exactly 1 of the 8 rows satisfies.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Clause determination",
+          "text": "<p>For predicate p = a &#8743; b, clause a <em>determines</em> p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is true",
+              "fraction": 100,
+              "feedback": "Correct — with b true, p's value is exactly a's value, so toggling a toggles p."
+            },
+            {
+              "text": "b is false",
+              "fraction": 0,
+              "feedback": "When b is false, p is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "Always, regardless of b",
+              "fraction": 0,
+              "feedback": "Determination is a per-clause, per-assignment condition, not a constant."
+            },
+            {
+              "text": "Never, for a conjunction",
+              "fraction": 0,
+              "feedback": "Conjunctions do have determining assignments — just not when b is false."
+            }
+          ],
+          "generalFeedback": "A clause c determines predicate p when changing only c's truth value changes p's truth value while the other clauses stay fixed. For p = a &#8743; b, that happens exactly when b = true: p then mirrors a exactly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC vs RACC",
+          "text": "<p>How does Restricted Active Clause Coverage (RACC) differ from Correlated Active Clause Coverage (CACC)?</p>",
+          "answers": [
+            {
+              "text": "RACC additionally requires the minor clauses to hold identical values in the true/false test pair for the major clause",
+              "fraction": 100,
+              "feedback": "Correct — RACC is the stricter, \"same minor-clause values\" version of CACC."
+            },
+            {
+              "text": "RACC drops the requirement that the major clause determines the predicate",
+              "fraction": 0,
+              "feedback": "That describes General Active Clause Coverage (GACC), not RACC."
+            },
+            {
+              "text": "RACC only counts inactive clauses, not active ones",
+              "fraction": 0,
+              "feedback": "That describes the inactive-clause family (GICC/RICC), not RACC."
+            },
+            {
+              "text": "RACC requires covering all combinations of clause values",
+              "fraction": 0,
+              "feedback": "That's Combinatorial Coverage (CoC)."
+            }
+          ],
+          "generalFeedback": "Both criteria require, for each major clause ci, a pair of tests where ci determines predicate p once true and once false. CACC allows the other (minor) clauses to differ between that pair; RACC additionally pins the minor clauses to the same values across the pair, making it strictly stronger.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of \"determines\"",
+          "text": "<p>A clause c <strong>determines</strong> a predicate p (for a given assignment of the other clauses) when:</p>",
+          "answers": [
+            {
+              "text": "Toggling only c, with the other clauses fixed, changes the value of p",
+              "fraction": 100,
+              "feedback": "Correct — c controls p's outcome given the fixed minor clauses."
+            },
+            {
+              "text": "c and p always have the same truth value",
+              "fraction": 0,
+              "feedback": "Determination is about c controlling p when toggled, not about them being equal."
+            },
+            {
+              "text": "c appears syntactically in p",
+              "fraction": 0,
+              "feedback": "Appearing in p is necessary but not sufficient; c must actually control the outcome."
+            },
+            {
+              "text": "p is true whenever c is true",
+              "fraction": 0,
+              "feedback": "That is one special case, not the general definition of determination."
+            }
+          ],
+          "generalFeedback": "c determines p under a fixed assignment of the minor clauses if flipping c (and nothing else) flips p. This is the key precondition for active-clause criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "General Active Clause Coverage",
+          "text": "<p>General Active Clause Coverage (GACC) requires, for each major clause ci:</p>",
+          "answers": [
+            {
+              "text": "Two tests in which ci is true and false while ci determines p; the minor clauses may take any values",
+              "fraction": 100,
+              "feedback": "Correct — GACC is the most permissive active-clause criterion about minor clauses."
+            },
+            {
+              "text": "Two tests in which the minor clauses hold identical values",
+              "fraction": 0,
+              "feedback": "That extra restriction is RACC, not GACC."
+            },
+            {
+              "text": "Two tests in which p is true and false",
+              "fraction": 0,
+              "feedback": "Requiring p to differ is CACC; GACC does not require it."
+            },
+            {
+              "text": "All 2^n combinations of clause values",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            }
+          ],
+          "generalFeedback": "GACC requires, for each major clause, a true test and a false test in which that clause determines the predicate. It places no constraint on the minor clauses and does not require p itself to differ across the pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination in a OR b",
+          "text": "<p>For predicate p = a &#8744; b, clause a <em>determines</em> p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is false",
+              "fraction": 100,
+              "feedback": "Correct — with b false, p equals a, so toggling a toggles p."
+            },
+            {
+              "text": "b is true",
+              "fraction": 0,
+              "feedback": "When b is true, p is true regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "Always, regardless of b",
+              "fraction": 0,
+              "feedback": "a fails to determine p when b is true."
+            },
+            {
+              "text": "Never, for a disjunction",
+              "fraction": 0,
+              "feedback": "Disjunctions do have determining assignments — when the other clause is false."
+            }
+          ],
+          "generalFeedback": "For p = a &#8744; b, a determines p exactly when b = false: then p mirrors a. When b is true, p is fixed true and a is irrelevant. (Dually for a &#8743; b, a determines p when b is true.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC vs GACC",
+          "text": "<p>What does Correlated Active Clause Coverage (CACC) require that General Active Clause Coverage (GACC) does not?</p>",
+          "answers": [
+            {
+              "text": "The predicate p must be true in one test of the pair and false in the other",
+              "fraction": 100,
+              "feedback": "Correct — CACC correlates the major clause's flip with a change in p."
+            },
+            {
+              "text": "The minor clauses must be identical across the pair",
+              "fraction": 0,
+              "feedback": "That extra requirement defines RACC, not CACC."
+            },
+            {
+              "text": "Every clause combination must be tested",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            },
+            {
+              "text": "The major clause need not determine p",
+              "fraction": 0,
+              "feedback": "All active-clause criteria require determination."
+            }
+          ],
+          "generalFeedback": "GACC only requires the major clause to be true and false while determining p; CACC additionally requires p itself to take both values across the pair. Because of this, CACC subsumes Predicate Coverage while GACC does not.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal MC/DC test count",
+          "text": "<p>For a predicate with n independent clauses, what is the minimum number of tests that can satisfy CACC (MC/DC)?</p>",
+          "answers": [
+            {
+              "text": "n + 1",
+              "fraction": 100,
+              "feedback": "Correct — MC/DC can be satisfied with as few as n+1 well-chosen tests."
+            },
+            {
+              "text": "2n",
+              "fraction": 0,
+              "feedback": "2n is an upper bound (a pair per clause), not the achievable minimum."
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, far more than MC/DC needs."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 suffices for Predicate Coverage, but MC/DC needs to exercise each clause independently."
+            }
+          ],
+          "generalFeedback": "By sharing tests across clauses, CACC/MC-DC for n independent clauses can be met with a minimum of n+1 tests (and at most 2n).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Major and minor clauses",
+          "text": "<p>In active clause coverage, when we test whether clause ci determines the predicate, ci is called the <strong>major clause</strong> and the others are:</p>",
+          "answers": [
+            {
+              "text": "The minor clauses",
+              "fraction": 100,
+              "feedback": "Correct — the remaining clauses are the minor clauses for that requirement."
+            },
+            {
+              "text": "The inactive predicates",
+              "fraction": 0,
+              "feedback": "They are clauses, not predicates, and this is not the standard term."
+            },
+            {
+              "text": "The determining clauses",
+              "fraction": 0,
+              "feedback": "Determination is the property being tested; the fixed clauses are the minor clauses."
+            },
+            {
+              "text": "The dependent clauses",
+              "fraction": 0,
+              "feedback": "The standard terminology is major/minor clauses."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria pick one clause as the major clause (whose determination is tested) and treat the rest as minor clauses, whose values are set to let the major clause determine the predicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate vs clause coverage subsumption",
+          "text": "<p>What is the subsumption relationship between Predicate Coverage (PC) and Clause Coverage (CC)?</p>",
+          "answers": [
+            {
+              "text": "Neither subsumes the other",
+              "fraction": 100,
+              "feedback": "Correct — CC can leave the predicate one-valued, and PC can leave a clause one-valued."
+            },
+            {
+              "text": "CC subsumes PC",
+              "fraction": 0,
+              "feedback": "Making each clause both values need not make the whole predicate take both values."
+            },
+            {
+              "text": "PC subsumes CC",
+              "fraction": 0,
+              "feedback": "Making the predicate both values need not flip every individual clause."
+            },
+            {
+              "text": "They are equivalent",
+              "fraction": 0,
+              "feedback": "They are incomparable, not equivalent."
+            }
+          ],
+          "generalFeedback": "PC and CC are incomparable: neither subsumes the other. (For example, with p = a &#8743; b, tests a=T,b=T and a=F,b=T satisfy PC but never make b false; other test sets satisfy CC without making p both values.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination of c in (a AND b) OR c",
+          "text": "<p>For predicate p = (a &#8743; b) &#8744; c, clause c determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "a &#8743; b is false",
+              "fraction": 100,
+              "feedback": "Correct — when (a &#8743; b) is false, p equals c; when it is true, p is true regardless of c."
+            },
+            {
+              "text": "a &#8743; b is true",
+              "fraction": 0,
+              "feedback": "Then p is true no matter what c is, so c does not determine p."
+            },
+            {
+              "text": "a is true",
+              "fraction": 0,
+              "feedback": "a alone does not fix whether c matters; the condition is on the whole term a &#8743; b."
+            },
+            {
+              "text": "Always",
+              "fraction": 0,
+              "feedback": "c cannot determine p when a &#8743; b is already true."
+            }
+          ],
+          "generalFeedback": "For a disjunction p = X &#8744; c, clause c determines p exactly when the other operand X is false. Here X = a &#8743; b, so c determines p when a &#8743; b is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active clause count at a row",
+          "text": "<p>For the predicate <code>(a || b) && c</code> evaluated at a=T, b=F, c=T, how many of the 3 clauses are <strong>active</strong> (flipping that clause alone changes the predicate's value)?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — flipping a (T&#8594;F makes a||b false) or c (T&#8594;F) changes p; flipping b does not."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a and c are active here; b is not."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Flipping b (F&#8594;T) leaves a||b true, so p is unchanged; b is not active."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "At least a and c change the outcome when flipped."
+            }
+          ],
+          "generalFeedback": "At a=T,b=F,c=T, p = (T||F)&&T = T. Flipping a &#8594; (F||F)&&T = F (active); flipping c &#8594; (T||F)&&F = F (active); flipping b &#8594; (T||T)&&T = T (not active). So 2 clauses are active.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inactive clause coverage",
+          "text": "<p>What do the <em>inactive</em> clause coverage criteria (GICC/RICC) require?</p>",
+          "answers": [
+            {
+              "text": "For each clause, tests where it does NOT determine the predicate, covering the cases it is true and false",
+              "fraction": 100,
+              "feedback": "Correct — inactive-clause coverage checks behaviour when the clause is masked out."
+            },
+            {
+              "text": "For each clause, tests where it DOES determine the predicate",
+              "fraction": 0,
+              "feedback": "That is the active-clause family (GACC/CACC/RACC)."
+            },
+            {
+              "text": "All combinations of clause values",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            },
+            {
+              "text": "Only that the predicate takes both values",
+              "fraction": 0,
+              "feedback": "That is Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "Inactive Clause Coverage requires, for each clause, tests in which it does not determine the predicate (it is \"masked\"), covering the situations where the clause is true and where it is false — the complement of the active-clause idea.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "RACC subsumes CACC",
+          "text": "<p>Restricted Active Clause Coverage (RACC) subsumes Correlated Active Clause Coverage (CACC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — pinning the minor clauses equal (RACC) and having the major clause determine p forces p to differ, so CACC is satisfied."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "RACC is strictly stronger: RACC &#8594; CACC &#8594; GACC."
+            }
+          ],
+          "generalFeedback": "The active-clause hierarchy is RACC subsumes CACC subsumes GACC. RACC's identical-minor-clause requirement implies CACC's requirement that p differ across the test pair."
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination of a in (a AND b) OR c",
+          "text": "<p>For predicate p = (a &#8743; b) &#8744; c, clause a determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is true and c is false",
+              "fraction": 100,
+              "feedback": "Correct — only then does p reduce to a."
+            },
+            {
+              "text": "b is true and c is true",
+              "fraction": 0,
+              "feedback": "With c true, p is true regardless of a, so a does not determine p."
+            },
+            {
+              "text": "b is false and c is false",
+              "fraction": 0,
+              "feedback": "With b false, a &#8743; b is false regardless of a, so a does not determine p."
+            },
+            {
+              "text": "b is false and c is true",
+              "fraction": 0,
+              "feedback": "c true fixes p true; also b false masks a. a does not determine p."
+            }
+          ],
+          "generalFeedback": "a determines p only when the term a &#8743; b passes a's value through (needs b = true) and the disjunction does not mask it (needs c = false). So a determines p exactly when b = true and c = false.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Active clause coverage subsumes clause coverage",
+          "text": "<p>General Active Clause Coverage (GACC) subsumes Clause Coverage (CC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — GACC makes each clause both true and false (as the major clause of its pair), which is exactly what Clause Coverage requires."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "GACC requires, for every clause, a true test and a false test, so every clause takes both values — Clause Coverage is satisfied."
+            }
+          ],
+          "generalFeedback": "Every active-clause criterion requires each clause to be both true and false when it is the major clause, so all of GACC/CACC/RACC subsume Clause Coverage."
+        }
+      ],
+      "hard": [
+        {
+          "type": "truefalse",
+          "name": "CACC infeasibility",
+          "text": "<p>CACC (and RACC) is infeasible for a clause that can never determine its predicate.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — if no assignment of the other clauses ever lets that clause determine the predicate, no test can satisfy the active-clause requirement for it."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Determination is a precondition for active-clause coverage; without it the criterion's test requirement for that clause has no test that can satisfy it, so it is infeasible."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria (CACC, RACC, GACC) require a test pair where the clause determines the predicate. If some clause structurally never determines the predicate (e.g., it is masked out or redundant), that test requirement can never be satisfied — it is infeasible."
+        },
+        {
+          "type": "shortanswer",
+          "name": "Unique true point coverage",
+          "text": "<p>Which DNF-based logic-coverage criterion requires every unique true point of the predicate to be covered? (acronym)</p>",
+          "answers": [
+            {
+              "text": "UTPC",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "unique true point*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "Unique True Point Coverage (UTPC) requires, for each term in the predicate's DNF representation, a test that makes exactly that term true (and all others false) — the \"unique\" true point for that term.",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC corresponds to",
+          "text": "<p>Modified Condition/Decision Coverage (MC/DC), as required by DO-178C, is essentially the same as which logic-coverage criterion?</p>",
+          "answers": [
+            {
+              "text": "Correlated Active Clause Coverage (CACC)",
+              "fraction": 100,
+              "feedback": "Correct — MC/DC requires each clause to independently affect the decision outcome, which is CACC."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC only requires the whole decision to take both values; MC/DC is much stronger."
+            },
+            {
+              "text": "Combinatorial Coverage (CoC)",
+              "fraction": 0,
+              "feedback": "CoC requires all 2^n combinations; MC/DC needs far fewer (n+1)."
+            },
+            {
+              "text": "Clause Coverage (CC)",
+              "fraction": 0,
+              "feedback": "CC does not require each clause to independently determine the outcome."
+            }
+          ],
+          "generalFeedback": "MC/DC demands that each clause be shown to independently affect the decision's outcome — exactly the active-clause / determination idea captured by CACC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal CACC tests for 4 clauses",
+          "text": "<p>A decision has 4 independent clauses. What is the minimum number of tests that can satisfy CACC (MC/DC)?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — n+1 = 4+1 = 5."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2n is the upper bound, not the minimum."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 is Combinatorial Coverage."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "You need at least n+1 = 5 to show all four clauses independently affect the outcome."
+            }
+          ],
+          "generalFeedback": "CACC/MC-DC for n independent clauses is achievable with a minimum of n+1 tests; for n = 4 that is 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Assignments where c determines the predicate",
+          "text": "<p>For predicate p = (a &#8743; b) &#8744; c, in how many of the 8 assignments does clause c <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — c determines p whenever a &#8743; b is false, which is 6 of the 8 rows."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a &#8743; b is true in only 2 rows; c determines p in the other 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — a &#8743; b is false in 6 of 8 rows, and c determines p in each of those."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "When a=T and b=T (2 rows), p is true regardless of c, so c does not determine p there."
+            }
+          ],
+          "generalFeedback": "c determines p = (a &#8743; b) &#8744; c exactly when a &#8743; b is false. a &#8743; b is true in 2 rows (a=T,b=T) and false in 6, so c determines p in 6 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible clause combination",
+          "text": "<p>A predicate uses clauses c1: <code>x &gt; 5</code> and c2: <code>x &lt; 0</code>. Any test requirement needing c1 and c2 both true is:</p>",
+          "answers": [
+            {
+              "text": "Infeasible — no single value of x makes both clauses true",
+              "fraction": 100,
+              "feedback": "Correct — the clauses are contradictory, so that combination cannot occur."
+            },
+            {
+              "text": "Feasible with the right value of x",
+              "fraction": 0,
+              "feedback": "No x is both greater than 5 and less than 0."
+            },
+            {
+              "text": "Feasible only under Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "No criterion can realise a semantically impossible combination."
+            },
+            {
+              "text": "Equivalent to Predicate Coverage",
+              "fraction": 0,
+              "feedback": "Feasibility is about whether inputs exist, not about which criterion is used."
+            }
+          ],
+          "generalFeedback": "Clauses can be logically dependent. Here c1 and c2 are mutually exclusive, so any requirement that both hold simultaneously is infeasible and must be excluded when measuring coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Implicant",
+          "text": "<p>In the DNF (sum-of-products) view of a predicate, an <strong>implicant</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A product term (conjunction of literals) that, when true, makes the predicate true",
+              "fraction": 100,
+              "feedback": "Correct — an implicant implies the predicate."
+            },
+            {
+              "text": "Any single clause of the predicate",
+              "fraction": 0,
+              "feedback": "An implicant is a product term of literals, not necessarily one clause."
+            },
+            {
+              "text": "An assignment that makes the predicate false",
+              "fraction": 0,
+              "feedback": "An implicant makes the predicate true, not false."
+            },
+            {
+              "text": "The disjunction of all product terms",
+              "fraction": 0,
+              "feedback": "That is the whole DNF; an implicant is one of its terms (or any term that implies f)."
+            }
+          ],
+          "generalFeedback": "An implicant is a conjunction of literals whose truth guarantees the predicate is true (it implies f). A DNF expresses f as a disjunction of implicants; a prime implicant is one from which no literal can be dropped.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unique true point",
+          "text": "<p>A <strong>unique true point</strong> for an implicant i of predicate f is an assignment that:</p>",
+          "answers": [
+            {
+              "text": "Makes implicant i true and every other implicant of f false",
+              "fraction": 100,
+              "feedback": "Correct — only i is responsible for f being true there."
+            },
+            {
+              "text": "Makes every implicant of f true",
+              "fraction": 0,
+              "feedback": "Then the point is not \"unique\" to i."
+            },
+            {
+              "text": "Makes f false",
+              "fraction": 0,
+              "feedback": "A true point makes f (and i) true."
+            },
+            {
+              "text": "Is the only assignment that makes f true",
+              "fraction": 0,
+              "feedback": "Uniqueness is about which implicant is true, not about f having a single satisfying row."
+            }
+          ],
+          "generalFeedback": "A unique true point for implicant i is an assignment where i is true and all other implicants are false, so i alone accounts for f being true — the basis of Unique True Point Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Near false point",
+          "text": "<p>For a clause c in implicant i, a <strong>near false point</strong> (used by CUTPNFP) is an assignment that:</p>",
+          "answers": [
+            {
+              "text": "Makes f false and differs from a unique true point of i in exactly clause c",
+              "fraction": 100,
+              "feedback": "Correct — flipping c alone across the pair flips f, showing c's independent effect."
+            },
+            {
+              "text": "Makes f true using implicant i",
+              "fraction": 0,
+              "feedback": "A near false point makes f false, not true."
+            },
+            {
+              "text": "Makes every clause of i false",
+              "fraction": 0,
+              "feedback": "Only clause c differs from the true point; the other literals of i stay as they were."
+            },
+            {
+              "text": "Differs from a true point in all clauses",
+              "fraction": 0,
+              "feedback": "It differs in exactly one clause, c, so it is \"near\"."
+            }
+          ],
+          "generalFeedback": "A near false point for clause c in implicant i makes f false while differing from a unique true point of i only in c. Pairing the two shows that toggling c alone changes f — the DNF analog of independent effect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of CUTPNFP",
+          "text": "<p>The DNF criterion CUTPNFP (Corresponding Unique True Point and Near False Point Pair Coverage) is designed to:</p>",
+          "answers": [
+            {
+              "text": "Emulate MC/DC in DNF form by pairing a unique true point with a near false point differing in one clause",
+              "fraction": 100,
+              "feedback": "Correct — the pair demonstrates each clause's independent effect on f."
+            },
+            {
+              "text": "Cover all 2^n combinations of clause values",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, not CUTPNFP."
+            },
+            {
+              "text": "Guarantee only that the predicate takes both values",
+              "fraction": 0,
+              "feedback": "That is merely Predicate Coverage."
+            },
+            {
+              "text": "Test inactive clauses only",
+              "fraction": 0,
+              "feedback": "CUTPNFP is about showing each clause's active (independent) effect, not inactivity."
+            }
+          ],
+          "generalFeedback": "CUTPNFP pairs, for each clause c of each implicant i, a unique true point of i with a near false point that differs only in c. Toggling c flips f, giving the DNF equivalent of MC/DC's independent-effect requirement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest logic criterion",
+          "text": "<p>Among the clause/predicate logic criteria, which is the <strong>strongest</strong> (subsumes the others)?</p>",
+          "answers": [
+            {
+              "text": "Combinatorial Coverage (CoC)",
+              "fraction": 100,
+              "feedback": "Correct — exercising all 2^n combinations subsumes PC, CC, and every active/inactive-clause criterion."
+            },
+            {
+              "text": "Correlated Active Clause Coverage (CACC)",
+              "fraction": 0,
+              "feedback": "CACC is strong but is subsumed by Combinatorial Coverage."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC is one of the weakest logic criteria."
+            },
+            {
+              "text": "Clause Coverage (CC)",
+              "fraction": 0,
+              "feedback": "CC is weak and does not even subsume PC."
+            }
+          ],
+          "generalFeedback": "Combinatorial Coverage requires every truth-value combination, so it subsumes all the other clause/predicate criteria (at the cost of exponential test count).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active clause coverage ordering",
+          "text": "<p>Which ordering of the active-clause criteria is correct, from strongest (subsumes) to weakest?</p>",
+          "answers": [
+            {
+              "text": "RACC &#8594; CACC &#8594; GACC",
+              "fraction": 100,
+              "feedback": "Correct — RACC is the most restrictive, GACC the most permissive."
+            },
+            {
+              "text": "GACC &#8594; CACC &#8594; RACC",
+              "fraction": 0,
+              "feedback": "This reverses the order; RACC is the strongest."
+            },
+            {
+              "text": "CACC &#8594; RACC &#8594; GACC",
+              "fraction": 0,
+              "feedback": "RACC subsumes CACC, so RACC must come first."
+            },
+            {
+              "text": "GACC &#8594; RACC &#8594; CACC",
+              "fraction": 0,
+              "feedback": "GACC is the weakest, so it cannot lead the chain."
+            }
+          ],
+          "generalFeedback": "RACC (identical minor clauses) subsumes CACC (p must differ) subsumes GACC (minor clauses free). Both RACC and CACC subsume Predicate Coverage; GACC does not.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC and Predicate Coverage",
+          "text": "<p>Which statement about subsumption of Predicate Coverage (PC) by the active-clause criteria is correct?</p>",
+          "answers": [
+            {
+              "text": "CACC subsumes PC, but GACC does not",
+              "fraction": 100,
+              "feedback": "Correct — CACC forces p to take both values; GACC can leave p one-valued across a clause's test pair."
+            },
+            {
+              "text": "Both CACC and GACC subsume PC",
+              "fraction": 0,
+              "feedback": "GACC does not require p to differ across the pair, so it need not satisfy PC."
+            },
+            {
+              "text": "Neither CACC nor GACC subsumes PC",
+              "fraction": 0,
+              "feedback": "CACC does subsume PC because it requires p to take both values."
+            },
+            {
+              "text": "GACC subsumes PC, but CACC does not",
+              "fraction": 0,
+              "feedback": "It is the other way around."
+            }
+          ],
+          "generalFeedback": "CACC requires the predicate to be true in one test and false in the other of each pair, so it subsumes Predicate Coverage. GACC allows the minor clauses to differ so that the predicate can stay one-valued; a subtle counterexample shows GACC does not subsume PC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Implicant Coverage",
+          "text": "<p>Implicant Coverage (IC) for a predicate in DNF requires that:</p>",
+          "answers": [
+            {
+              "text": "Each implicant is made true by at least one test",
+              "fraction": 100,
+              "feedback": "Correct — every product term must be exercised as true."
+            },
+            {
+              "text": "Each implicant is made true by a point where no other implicant is true",
+              "fraction": 0,
+              "feedback": "That stronger requirement is Unique True Point Coverage, not plain Implicant Coverage."
+            },
+            {
+              "text": "Every clause takes both truth values",
+              "fraction": 0,
+              "feedback": "That is Clause Coverage, not an implicant-based criterion."
+            },
+            {
+              "text": "All 2^n assignments are tested",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            }
+          ],
+          "generalFeedback": "Implicant Coverage requires each implicant (product term) of the DNF to be true in some test. UTPC strengthens this by demanding the point be unique to that implicant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Assignments where a determines a 4-clause predicate",
+          "text": "<p>For predicate p = (a &#8743; b) &#8744; (c &#8743; d), in how many of the 16 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — a determines p when b is true and (c &#8743; d) is false: 1 (b=T) &#215; 3 (c &#8743; d false of 4) &#215; 2 (a free) = 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "b=T gives 8 rows, but the 2 rows with c &#8743; d also true must be removed, leaving 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — there are 6 assignments where a determines p."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "a cannot determine p when b is false (half the rows), so the count is well under 12."
+            }
+          ],
+          "generalFeedback": "a determines p only when its term passes a through (b = true) and the other term does not mask it (c &#8743; d false). That is 1 &#215; 3 &#215; 2 = 6 of the 16 assignments.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "述詞覆蓋",
+          "text": "<p>述詞覆蓋（Predicate Coverage, PC）要求：</p>",
+          "answers": [
+            {
+              "text": "程式中每個述詞（predicate）都至少各取一次 true 與 false",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "述詞內的每個子句（clause）都至少各取一次 true 與 false",
+              "fraction": 0,
+              "feedback": "那是子句覆蓋（Clause Coverage, CC）。"
+            },
+            {
+              "text": "對每個述詞，涵蓋子句真值的所有組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（Combinatorial Coverage, CoC）。"
+            },
+            {
+              "text": "走過該述詞決策結構中的每一條路徑",
+              "fraction": 0,
+              "feedback": "這描述的是路徑覆蓋（Path Coverage），而非述詞覆蓋。"
+            }
+          ],
+          "generalFeedback": "述詞覆蓋（PC）僅要求整個述詞至少各出現一次 true 與 false，並未規範其內部子句的個別取值——更細緻的要求屬於子句覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂子句",
+          "text": "<p>在邏輯覆蓋中，<strong>子句（clause）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "不含任何布林運算子的布林運算式",
+              "fraction": 100,
+              "feedback": "正確——子句是原子條件，例如或一個布林變數。"
+            },
+            {
+              "text": "任何以運算子組合而成的布林運算式",
+              "fraction": 0,
+              "feedback": "那是述詞；子句是不含布林運算子的原子單元。"
+            },
+            {
+              "text": "原始碼中一個完整的 if 敘述",
+              "fraction": 0,
+              "feedback": "子句是一個條件，而非整個敘述。"
+            },
+            {
+              "text": "用來測試某一分支的測試案例",
+              "fraction": 0,
+              "feedback": "那是測試，不是子句。"
+            }
+          ],
+          "generalFeedback": "子句（condition）是不含布林運算子（&&、||、!）的布林運算式。以布林運算子連接子句便構成述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂述詞",
+          "text": "<p>下列哪一個是由恰好三個子句構成的<strong>述詞</strong>？</p>",
+          "answers": [
+            {
+              "text": "(a && b) || c",
+              "fraction": 100,
+              "feedback": "正確——子句為 a、b、c，並以布林運算子連接。"
+            },
+            {
+              "text": "a > 0",
+              "fraction": 0,
+              "feedback": "那是單一子句，並非由三個子句構成的述詞。"
+            },
+            {
+              "text": "a && b",
+              "fraction": 0,
+              "feedback": "該述詞只有兩個子句。"
+            },
+            {
+              "text": "x + y + z",
+              "fraction": 0,
+              "feedback": "那是算術運算式，不是布林述詞。"
+            }
+          ],
+          "generalFeedback": "述詞是由子句以布林運算子連接而成的布林運算式。含三個子句（a、b、c）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "子句覆蓋",
+          "text": "<p>子句覆蓋（Clause Coverage, CC）要求：</p>",
+          "answers": [
+            {
+              "text": "每個述詞中的每個子句都至少各取一次 true 與 false",
+              "fraction": 100,
+              "feedback": "正確——每個個別子句都必須取到兩種真值。"
+            },
+            {
+              "text": "每個述詞都至少各取一次 true 與 false",
+              "fraction": 0,
+              "feedback": "那是述詞覆蓋（PC），針對的是整個述詞。"
+            },
+            {
+              "text": "涵蓋子句取值的所有組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（CoC）。"
+            },
+            {
+              "text": "每個子句至少決定其述詞一次",
+              "fraction": 0,
+              "feedback": "那是主動子句（ACC）的概念，比單純的子句覆蓋更強。"
+            }
+          ],
+          "generalFeedback": "子句覆蓋要求每個子句至少各取一次 true 與 false，與其所在述詞的取值無關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合覆蓋的測試數",
+          "text": "<p>某述詞含有 3 個獨立子句。組合覆蓋（Combinatorial Coverage, CoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2^3 種 true/false 組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "這大致是子句覆蓋（每個子句翻轉一次）的規模，並非所有組合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "太少了——4 個測試無法涵蓋全部 8 種真值組合。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 個測試仍不足以涵蓋完整的 2^3 = 8 種組合。"
+            }
+          ],
+          "generalFeedback": "組合覆蓋要求涵蓋 n 個子句的每一種 2^n 真值組合（在可行的前提下）；當有 3 個獨立子句時即為 2^3 = 8 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合覆蓋（2 子句）",
+          "text": "<p>一個含 2 個子句的述詞，其完整真值表有多少列（即組合覆蓋所要求的數量）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——2^2 = 4 種組合。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是述詞覆蓋或子句覆蓋的數量，並非所有組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "2^2 = 4，不是 3。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 是三個子句，不是兩個。"
+            }
+          ],
+          "generalFeedback": "含 n 個子句的述詞有 2^n 列真值表；n = 2 時為 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合覆蓋（4 子句）",
+          "text": "<p>某述詞含有 4 個獨立子句。組合覆蓋（CoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——2^4 = 16 種組合。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 是三個子句。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 = n+1 是 CACC／MC-DC 的最少測試數，而非 CoC。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是子句的數量，並非組合的數量。"
+            }
+          ],
+          "generalFeedback": "組合覆蓋需要全部 2^n 列；n = 4 時為 2^4 = 16 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 的滿足列數",
+          "text": "<p>對述詞 <code>a && b</code> 而言，4 種可能的指派中有多少種使其為 <strong>true</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有 a=T、b=T 能使邏輯與成立。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有全 true 這一列能使 a && b 成立。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是 a || b 的數量，而非 a && b。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要任一子句為 false，邏輯與即為 false，故並非全部 4 列都成立。"
+            }
+          ],
+          "generalFeedback": "邏輯與只有在每個子句都為 true 時才成立，因此的 4 列中恰有 1 列成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 的滿足列數",
+          "text": "<p>對述詞 <code>a || b</code> 而言，4 種可能的指派中有多少種使其為 <strong>true</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——只有 a=F、b=F 不成立，其餘 3 列皆成立。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是 a && b 的數量，而非 a || b。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "邏輯或只有在全 false 那一列才失敗，故 3 列成立。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "全 false 這一列（a=F、b=F）不使 a || b 成立。"
+            }
+          ],
+          "generalFeedback": "邏輯或只有在每個子句都為 false 時才不成立，因此的 4 列中有 3 列成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 的滿足列數",
+          "text": "<p>對含 3 個子句的述詞 <code>(a && b) || c</code> 而言，8 種可能的指派中有多少種使其為 <strong>true</strong>？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——c=T 的 4 列，加上 a=T,b=T,c=F 這 1 列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=T 的 4 列都成立，但 a=T,b=T,c=F 那一列也成立，共 5 列。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重新計算——8 列中恰有 5 列為 true。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "太少了——光是 c=T 就已有 4 列為 true。"
+            }
+          ],
+          "generalFeedback": "只要 c=T 述詞即為 true（4 列）；當 c=F 時需 a=T 且 b=T（再 1 列）。合計 8 列中 5 列成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c 的滿足列數",
+          "text": "<p>對述詞 <code>a || b || c</code> 而言，8 種可能的指派中有多少種使其為 <strong>true</strong>？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——只有全 false 那一列不成立，其餘 7 列皆成立。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "全 false 這一列 a=F,b=F,c=F 不使其成立。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "只有一列（全 false）失敗，故 7 列成立。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 會是邏輯與；三項邏輯或在 8 列中有 7 列成立。"
+            }
+          ],
+          "generalFeedback": "三項邏輯或只有在唯一的全 false 列才不成立，因此的 8 列中有 7 列成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "述詞覆蓋的最少測試數",
+          "text": "<p>要對單一述詞滿足述詞覆蓋，最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個使述詞為 true、一個使其為 false。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只能得到一種真值；PC 需要兩種。"
+            },
+            {
+              "text": "n + 1（n 為子句數）",
+              "fraction": 0,
+              "feedback": "n+1 是 CACC／MC-DC 的最少數，而非述詞覆蓋。"
+            },
+            {
+              "text": "2^n（n 為子句數）",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，遠多於 PC 所需。"
+            }
+          ],
+          "generalFeedback": "述詞覆蓋要求述詞各為 true 一次、false 一次——最少 2 個測試，與子句數無關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "子句覆蓋的最少測試數",
+          "text": "<p>某述詞含 3 個獨立子句。滿足子句覆蓋最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個全 true 測試與一個全 false 測試即可讓每個子句各取兩種值。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "不需要每個子句各一個測試；2 個測試即可一起翻轉所有子句。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "子句覆蓋要求每個子句取到兩種值，用 2 個測試即可達成。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 是組合覆蓋，而非子句覆蓋。"
+            }
+          ],
+          "generalFeedback": "一個測試把所有子句設為 true、另一個全設為 false，即可讓每個子句各取兩種值；因此（對獨立子句）子句覆蓋僅需 2 個測試，與子句數無關。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "子句不含運算子",
+          "text": "<p>依定義，子句不含任何布林運算子（例如 &amp;&amp;、|| 或 !）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——子句是不含布林運算子的原子布林運算式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "子句正是定義為不含布林運算子的布林運算式；加上運算子便成為述詞。"
+            }
+          ],
+          "generalFeedback": "子句（condition）是不含布林運算子的布林運算式。以 &&／||／! 連接子句便產生述詞。"
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c 的滿足列數",
+          "text": "<p>對述詞 <code>a && b && c</code> 而言，8 種可能的指派中有多少種使其為 <strong>true</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有全 true 那一列能使三項邏輯與成立。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "邏輯與只有在每個子句都為 true 時才成立——僅 1 列。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 a || b || c（邏輯或）的數量。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "全 true 那一列（a=T,b=T,c=T）確實使其成立。"
+            }
+          ],
+          "generalFeedback": "邏輯與只有在所有子句皆為 true 時才成立，因此的 8 列中恰有 1 列成立。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "子句的決定性",
+          "text": "<p>對述詞 p = a &#8743; b 而言，子句 a <em>決定（determines）</em> p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b 為 true 時",
+              "fraction": 100,
+              "feedback": "正確——當 b 為 true 時，p 的值恰好等於 a 的值，因此切換 a 就會切換 p。"
+            },
+            {
+              "text": "b 為 false 時",
+              "fraction": 0,
+              "feedback": "當 b 為 false 時，無論 a 為何 p 都是 false，因此 a 無法決定 p。"
+            },
+            {
+              "text": "無論 b 為何，恆成立",
+              "fraction": 0,
+              "feedback": "決定性是針對特定子句、特定指派的條件，並非恆定不變。"
+            },
+            {
+              "text": "對於邏輯與（conjunction）而言，永遠不成立",
+              "fraction": 0,
+              "feedback": "邏輯與確實存在能決定 p 的指派——只是不在 b 為 false 的情況下。"
+            }
+          ],
+          "generalFeedback": "當僅改變子句 c 的真值、而其他子句保持不變時，若述詞 p 的真值也隨之改變，則稱 c 決定了 p。對 p = a &#8743; b 而言，這恰好發生在 b = true 時：此時 p 完全跟隨 a。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC 與 RACC 的差異",
+          "text": "<p>受限主動子句覆蓋（Restricted Active Clause Coverage, RACC）與相關主動子句覆蓋（Correlated Active Clause Coverage, CACC）有何不同？</p>",
+          "answers": [
+            {
+              "text": "RACC 額外要求：在使主要子句分別為 true／false 的那對測試中，其餘（次要）子句必須維持相同的值",
+              "fraction": 100,
+              "feedback": "正確——RACC 是 CACC 更嚴格的版本，要求「次要子句值相同」。"
+            },
+            {
+              "text": "RACC 取消了「主要子句必須決定述詞」的要求",
+              "fraction": 0,
+              "feedback": "那描述的是一般主動子句覆蓋（General Active Clause Coverage, GACC），而非 RACC。"
+            },
+            {
+              "text": "RACC 只計算非主動子句，不計算主動子句",
+              "fraction": 0,
+              "feedback": "那描述的是非主動子句家族（GICC／RICC），而非 RACC。"
+            },
+            {
+              "text": "RACC 要求涵蓋所有子句值的組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（Combinatorial Coverage, CoC）。"
+            }
+          ],
+          "generalFeedback": "兩種準則都要求：對每個主要子句 ci，存在一對測試，使 ci 分別在 p 為 true 與 p 為 false 時決定 p。CACC 允許這對測試中的其他（次要）子句取值不同；RACC 則額外要求這對測試中的次要子句取值必須相同，因此嚴格更強。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「決定」的意義",
+          "text": "<p>在給定其他子句某一指派的前提下，子句 c <strong>決定（determines）</strong>述詞 p 的意思是：</p>",
+          "answers": [
+            {
+              "text": "固定其他子句、只切換 c，會改變 p 的值",
+              "fraction": 100,
+              "feedback": "正確——在次要子句固定下，c 主宰了 p 的結果。"
+            },
+            {
+              "text": "c 與 p 的真值恆相同",
+              "fraction": 0,
+              "feedback": "決定性指的是切換 c 能主宰 p，並非兩者取值相等。"
+            },
+            {
+              "text": "c 在語法上出現於 p 之中",
+              "fraction": 0,
+              "feedback": "出現於 p 是必要而非充分條件；c 還必須真正主宰結果。"
+            },
+            {
+              "text": "只要 c 為 true，p 就為 true",
+              "fraction": 0,
+              "feedback": "那只是某一特例，並非決定性的一般定義。"
+            }
+          ],
+          "generalFeedback": "在次要子句某一固定指派下，若翻轉 c（且僅翻轉 c）會翻轉 p，即稱 c 決定 p。這是主動子句準則的關鍵前提。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一般主動子句覆蓋",
+          "text": "<p>一般主動子句覆蓋（General Active Clause Coverage, GACC）對每個主要子句 ci 要求：</p>",
+          "answers": [
+            {
+              "text": "存在兩個測試，使 ci 分別為 true 與 false 且 ci 決定 p；次要子句可取任意值",
+              "fraction": 100,
+              "feedback": "正確——GACC 對次要子句的限制最寬鬆。"
+            },
+            {
+              "text": "存在兩個測試，其中次要子句取值相同",
+              "fraction": 0,
+              "feedback": "那個額外限制是 RACC，而非 GACC。"
+            },
+            {
+              "text": "存在兩個測試，使 p 分別為 true 與 false",
+              "fraction": 0,
+              "feedback": "要求 p 必須不同是 CACC；GACC 並不要求。"
+            },
+            {
+              "text": "涵蓋全部 2^n 種子句值組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "GACC 要求對每個主要子句都有一個 true 測試與一個 false 測試，且該子句在其中決定述詞。它對次要子句不加任何限制，也不要求 p 在該對測試中取值不同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 的決定性",
+          "text": "<p>對述詞 p = a &#8744; b 而言，子句 a <em>決定</em> p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b 為 false 時",
+              "fraction": 100,
+              "feedback": "正確——當 b 為 false 時，p 等於 a，故切換 a 會切換 p。"
+            },
+            {
+              "text": "b 為 true 時",
+              "fraction": 0,
+              "feedback": "當 b 為 true 時，無論 a 為何 p 都是 true，因此 a 無法決定 p。"
+            },
+            {
+              "text": "無論 b 為何，恆成立",
+              "fraction": 0,
+              "feedback": "當 b 為 true 時，a 無法決定 p。"
+            },
+            {
+              "text": "對於邏輯或（disjunction）而言，永遠不成立",
+              "fraction": 0,
+              "feedback": "邏輯或確實存在能決定的指派——即另一子句為 false 時。"
+            }
+          ],
+          "generalFeedback": "對 p = a &#8744; b，a 決定 p 恰好在 b = false 時：此時 p 跟隨 a。b 為 true 時 p 固定為 true，a 無關緊要。（對偶地，對 a &#8743; b，a 在 b = true 時決定 p。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC 與 GACC",
+          "text": "<p>相關主動子句覆蓋（CACC）比一般主動子句覆蓋（GACC）多要求了什麼？</p>",
+          "answers": [
+            {
+              "text": "述詞 p 必須在該對測試中一個為 true、另一個為 false",
+              "fraction": 100,
+              "feedback": "正確——CACC 將主要子句的翻轉與 p 的改變相關聯。"
+            },
+            {
+              "text": "次要子句在該對測試中必須相同",
+              "fraction": 0,
+              "feedback": "那個額外要求定義的是 RACC，而非 CACC。"
+            },
+            {
+              "text": "必須測試每一種子句組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            },
+            {
+              "text": "主要子句不必決定 p",
+              "fraction": 0,
+              "feedback": "所有主動子句準則都要求決定性。"
+            }
+          ],
+          "generalFeedback": "GACC 只要求主要子句在決定 p 的同時取到 true 與 false；CACC 額外要求 p 本身在該對測試中取到兩種值。因此 CACC 涵蓋（subsumes）述詞覆蓋，GACC 則不然。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 的最少測試數",
+          "text": "<p>對含 n 個獨立子句的述詞，滿足 CACC（MC/DC）最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "n + 1",
+              "fraction": 100,
+              "feedback": "正確——MC/DC 最少可用 n+1 個精心挑選的測試滿足。"
+            },
+            {
+              "text": "2n",
+              "fraction": 0,
+              "feedback": "2n 是上界（每個子句一對），並非可達成的最小值。"
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，遠多於 MC/DC 所需。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 足以滿足述詞覆蓋，但 MC/DC 需獨立地測試每個子句。"
+            }
+          ],
+          "generalFeedback": "藉由在子句間共用測試，含 n 個獨立子句的 CACC／MC-DC 最少可用 n+1 個測試滿足（最多 2n）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要與次要子句",
+          "text": "<p>在主動子句覆蓋中，當我們測試子句 ci 是否決定述詞時，ci 稱為<strong>主要子句（major clause）</strong>，其餘子句則稱為：</p>",
+          "answers": [
+            {
+              "text": "次要子句（minor clauses）",
+              "fraction": 100,
+              "feedback": "正確——其餘子句在該項要求中即為次要子句。"
+            },
+            {
+              "text": "非主動述詞",
+              "fraction": 0,
+              "feedback": "它們是子句而非述詞，且這也不是標準用語。"
+            },
+            {
+              "text": "決定性子句",
+              "fraction": 0,
+              "feedback": "決定性是被測試的性質；被固定的子句稱為次要子句。"
+            },
+            {
+              "text": "相依子句",
+              "fraction": 0,
+              "feedback": "標準用語是主要／次要子句。"
+            }
+          ],
+          "generalFeedback": "主動子句準則選一個子句作為主要子句（測試其決定性），其餘為次要子句，並設定其值使主要子句能決定述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "述詞覆蓋與子句覆蓋的涵蓋關係",
+          "text": "<p>述詞覆蓋（PC）與子句覆蓋（CC）之間的涵蓋（subsumption）關係為何？</p>",
+          "answers": [
+            {
+              "text": "兩者互不涵蓋",
+              "fraction": 100,
+              "feedback": "正確——CC 可能使述詞只取一種值，PC 也可能使某子句只取一種值。"
+            },
+            {
+              "text": "CC 涵蓋 PC",
+              "fraction": 0,
+              "feedback": "使每個子句各取兩種值，未必使整個述詞取到兩種值。"
+            },
+            {
+              "text": "PC 涵蓋 CC",
+              "fraction": 0,
+              "feedback": "使述詞取到兩種值，未必翻轉每個個別子句。"
+            },
+            {
+              "text": "兩者等價",
+              "fraction": 0,
+              "feedback": "它們互不可比，並非等價。"
+            }
+          ],
+          "generalFeedback": "PC 與 CC 互不可比：彼此都不涵蓋對方。（例如 p = a &#8743; b，測試 a=T,b=T 與 a=F,b=T 滿足 PC，但 b 永遠不為 false；另有測試集滿足 CC，卻不使 p 取到兩種值。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "c 在 (a AND b) OR c 中的決定性",
+          "text": "<p>對述詞 p = (a &#8743; b) &#8744; c 而言，子句 c 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "a &#8743; b 為 false 時",
+              "fraction": 100,
+              "feedback": "正確——當 (a &#8743; b) 為 false 時，p 等於 c；為 true 時 p 恆為 true 與 c 無關。"
+            },
+            {
+              "text": "a &#8743; b 為 true 時",
+              "fraction": 0,
+              "feedback": "此時無論 c 為何 p 都是 true，故 c 無法決定 p。"
+            },
+            {
+              "text": "a 為 true 時",
+              "fraction": 0,
+              "feedback": "單看 a 無法決定 c 是否有影響；條件在於整個項 a &#8743; b。"
+            },
+            {
+              "text": "恆成立",
+              "fraction": 0,
+              "feedback": "當 a &#8743; b 已為 true 時，c 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "對邏輯或 p = X &#8744; c，c 決定 p 恰好在另一運算元 X 為 false 時。此處 X = a &#8743; b，故 c 在 a &#8743; b 為 false 時決定 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某列的主動子句數",
+          "text": "<p>對述詞 <code>(a || b) && c</code>，在 a=T、b=F、c=T 時，3 個子句中有幾個是<strong>主動的</strong>（單獨翻轉該子句會改變述詞的值）？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——翻轉 a（T&#8594;F 使 a||b 為 false）或 c（T&#8594;F）會改變 p；翻轉 b 則不會。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "此處 a 與 c 皆為主動；b 不是。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "翻轉 b（F&#8594;T）後 a||b 仍為 true，p 不變；b 並非主動。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "至少 a 與 c 在翻轉後會改變結果。"
+            }
+          ],
+          "generalFeedback": "在 a=T,b=F,c=T 時，p = (T||F)&&T = T。翻轉 a &#8594; (F||F)&&T = F（主動）；翻轉 c &#8594; (T||F)&&F = F（主動）；翻轉 b &#8594; (T||T)&&T = T（非主動）。故有 2 個主動子句。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非主動子句覆蓋",
+          "text": "<p><em>非主動（inactive）</em>子句覆蓋準則（GICC/RICC）要求什麼？</p>",
+          "answers": [
+            {
+              "text": "對每個子句，測試它決定述詞的情形，並涵蓋它為 true 與 false 兩種情況",
+              "fraction": 100,
+              "feedback": "正確——非主動子句覆蓋檢查子句被遮蔽時的行為。"
+            },
+            {
+              "text": "對每個子句，測試它決定述詞的情形",
+              "fraction": 0,
+              "feedback": "那是主動子句家族（GACC/CACC/RACC）。"
+            },
+            {
+              "text": "所有子句值的組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            },
+            {
+              "text": "只要述詞取到兩種值",
+              "fraction": 0,
+              "feedback": "那是述詞覆蓋。"
+            }
+          ],
+          "generalFeedback": "非主動子句覆蓋要求對每個子句，測試它不決定述詞（被「遮蔽」）的情形，並涵蓋該子句為 true 與為 false 的狀況——與主動子句概念互補。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "RACC 涵蓋 CACC",
+          "text": "<p>受限主動子句覆蓋（RACC）涵蓋（subsumes）相關主動子句覆蓋（CACC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——將次要子句固定相同（RACC）且主要子句決定 p，會迫使 p 取值不同，故 CACC 被滿足。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "RACC 嚴格更強：RACC &#8594; CACC &#8594; GACC。"
+            }
+          ],
+          "generalFeedback": "主動子句階層為 RACC 涵蓋 CACC 涵蓋 GACC。RACC 的「次要子句相同」要求，蘊含 CACC 對「p 在該對測試中取值不同」的要求。"
+        },
+        {
+          "type": "multichoice",
+          "name": "a 在 (a AND b) OR c 中的決定性",
+          "text": "<p>對述詞 p = (a &#8743; b) &#8744; c 而言，子句 a 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b 為 true 且 c 為 false",
+              "fraction": 100,
+              "feedback": "正確——唯有此時 p 才化簡為 a。"
+            },
+            {
+              "text": "b 為 true 且 c 為 true",
+              "fraction": 0,
+              "feedback": "c 為 true 時，無論 a 為何 p 都是 true，故 a 不決定 p。"
+            },
+            {
+              "text": "b 為 false 且 c 為 false",
+              "fraction": 0,
+              "feedback": "b 為 false 時，無論 a 為何 a &#8743; b 都是 false，故 a 不決定 p。"
+            },
+            {
+              "text": "b 為 false 且 c 為 true",
+              "fraction": 0,
+              "feedback": "c 為 true 固定 p 為 true；且 b 為 false 遮蔽了 a。a 不決定 p。"
+            }
+          ],
+          "generalFeedback": "a 只有在 a &#8743; b 這一項傳遞 a 的值（需 b = true）且邏輯或未遮蔽它（需 c = false）時才決定 p。故 a 決定 p 恰好在 b = true 且 c = false 時。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "主動子句覆蓋涵蓋子句覆蓋",
+          "text": "<p>一般主動子句覆蓋（GACC）涵蓋（subsumes）子句覆蓋（CC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——GACC 使每個子句（作為其測試對的主要子句時）各取 true 與 false，正是子句覆蓋所要求的。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "GACC 對每個子句都要求一個 true 測試與一個 false 測試，故每個子句都取到兩種值——子句覆蓋被滿足。"
+            }
+          ],
+          "generalFeedback": "每個主動子句準則都要求每個子句在作為主要子句時取到 true 與 false，故 GACC/CACC/RACC 都涵蓋子句覆蓋。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "truefalse",
+          "name": "CACC 的不可行性",
+          "text": "<p>對於一個永遠無法決定其述詞的子句，CACC（以及 RACC）是不可行的。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——如果其他子句無論如何指派，都無法讓該子句決定述詞，那麼就沒有任何測試能滿足該子句的主動子句要求。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "決定性是主動子句覆蓋的前提條件；若不成立，該子句的測試要求就找不到任何測試能滿足它，因此是不可行的。"
+            }
+          ],
+          "generalFeedback": "主動子句準則（CACC、RACC、GACC）都要求存在一對測試，使該子句能決定述詞。若某子句在結構上永遠無法決定述詞（例如被遮蔽或本身是冗餘的），該測試要求就永遠無法被滿足——即為不可行。"
+        },
+        {
+          "type": "shortanswer",
+          "name": "唯一真值點覆蓋",
+          "text": "<p>哪一個以 DNF（析取範式）為基礎的邏輯覆蓋準則，要求涵蓋述詞的每一個唯一真值點？（請以英文縮寫回答）</p>",
+          "answers": [
+            {
+              "text": "UTPC",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "unique true point*",
+              "fraction": 100,
+              "feedback": "正確。"
+            }
+          ],
+          "generalFeedback": "唯一真值點覆蓋（Unique True Point Coverage, UTPC）要求：對述詞 DNF 表示式中的每一項，都存在一個測試恰好使該項為 true（而所有其他項皆為 false）——即該項專屬的「唯一真值點」。",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 對應於",
+          "text": "<p>DO-178C 所要求的修正條件／決策覆蓋（MC/DC），本質上等同於下列哪一個邏輯覆蓋準則？</p>",
+          "answers": [
+            {
+              "text": "相關主動子句覆蓋（CACC）",
+              "fraction": 100,
+              "feedback": "正確——MC/DC 要求每個子句能獨立影響決策結果，即 CACC。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 只要求整個決策取到兩種值；MC/DC 強得多。"
+            },
+            {
+              "text": "組合覆蓋（CoC）",
+              "fraction": 0,
+              "feedback": "CoC 要求全部 2^n 種組合；MC/DC 所需少得多（n+1）。"
+            },
+            {
+              "text": "子句覆蓋（CC）",
+              "fraction": 0,
+              "feedback": "CC 並不要求每個子句能獨立決定結果。"
+            }
+          ],
+          "generalFeedback": "MC/DC 要求證明每個子句都能獨立影響決策結果——正是 CACC 所捕捉的主動子句／決定性概念。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 子句的 CACC 最少測試數",
+          "text": "<p>某決策含 4 個獨立子句。滿足 CACC（MC/DC）最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——n+1 = 4+1 = 5。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2n 是上界，並非最小值。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 是組合覆蓋。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "至少需 n+1 = 5 個測試，才能證明四個子句都能獨立影響結果。"
+            }
+          ],
+          "generalFeedback": "含 n 個獨立子句的 CACC／MC-DC 最少可用 n+1 個測試達成；n = 4 時為 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "c 決定述詞的指派數",
+          "text": "<p>對述詞 p = (a &#8743; b) &#8744; c，在 8 種指派中有多少種使子句 c <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——c 在 a &#8743; b 為 false 時決定 p，共 8 列中的 6 列。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a &#8743; b 只在 2 列為 true；c 在其餘 6 列決定 p。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新計算——a &#8743; b 在 8 列中有 6 列為 false，c 在每一列都決定 p。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "當 a=T 且 b=T（2 列）時，無論 c 為何 p 都是 true，故 c 在該處不決定 p。"
+            }
+          ],
+          "generalFeedback": "c 決定 p = (a &#8743; b) &#8744; c 恰好在 a &#8743; b 為 false 時。a &#8743; b 在 2 列為 true（a=T,b=T）、6 列為 false，故 c 在 6 種指派中決定 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的子句組合",
+          "text": "<p>某述詞使用子句 c1：<code>x &gt; 5</code> 與 c2：<code>x &lt; 0</code>。任何需要 c1 與 c2 同時為 true 的測試要求是：</p>",
+          "answers": [
+            {
+              "text": "不可行——沒有任何單一 x 值能同時使兩子句為 true",
+              "fraction": 100,
+              "feedback": "正確——兩子句互相矛盾，該組合無法出現。"
+            },
+            {
+              "text": "只要 x 取值得當即可行",
+              "fraction": 0,
+              "feedback": "不存在同時大於 5 又小於 0 的 x。"
+            },
+            {
+              "text": "只有在組合覆蓋下才可行",
+              "fraction": 0,
+              "feedback": "任何準則都無法實現語意上不可能的組合。"
+            },
+            {
+              "text": "等同於述詞覆蓋",
+              "fraction": 0,
+              "feedback": "可行性關乎是否存在合適輸入，與採用哪個準則無關。"
+            }
+          ],
+          "generalFeedback": "子句之間可能在邏輯上相依。此處 c1 與 c2 互斥，故任何要求兩者同時成立的要求皆不可行，計算覆蓋率時須予以排除。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "蘊含項（implicant）",
+          "text": "<p>在述詞的 DNF（積之和）觀點中，<strong>蘊含項（implicant）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個積項（literals 的合取），只要它為 true 就使述詞為 true",
+              "fraction": 100,
+              "feedback": "正確——蘊含項會蘊含（imply）述詞。"
+            },
+            {
+              "text": "述詞的任一個別子句",
+              "fraction": 0,
+              "feedback": "蘊含項是 literals 的積項，未必是單一子句。"
+            },
+            {
+              "text": "使述詞為 false 的指派",
+              "fraction": 0,
+              "feedback": "蘊含項使述詞為 true，而非 false。"
+            },
+            {
+              "text": "所有積項的析取",
+              "fraction": 0,
+              "feedback": "那是整個 DNF；蘊含項是其中一項（或任何蘊含 f 的項）。"
+            }
+          ],
+          "generalFeedback": "蘊含項是 literals 的合取，其為真即保證述詞為真（蘊含 f）。DNF 將 f 表為蘊含項的析取；質蘊含項（prime implicant）則是無法再刪去任何 literal 的蘊含項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "唯一真值點",
+          "text": "<p>述詞 f 的蘊含項 i 的<strong>唯一真值點（unique true point）</strong>是一個指派，它：</p>",
+          "answers": [
+            {
+              "text": "使蘊含項 i 為 true，且使 f 的所有其他蘊含項皆為 false",
+              "fraction": 100,
+              "feedback": "正確——該處只有 i 使 f 為真。"
+            },
+            {
+              "text": "使 f 的每個蘊含項皆為 true",
+              "fraction": 0,
+              "feedback": "那樣該點就不「唯一」屬於 i。"
+            },
+            {
+              "text": "使 f 為 false",
+              "fraction": 0,
+              "feedback": "真值點使 f（與 i）為 true。"
+            },
+            {
+              "text": "是唯一使 f 為 true 的指派",
+              "fraction": 0,
+              "feedback": "唯一性指的是哪個蘊含項為真，而非 f 只有一列滿足。"
+            }
+          ],
+          "generalFeedback": "蘊含項 i 的唯一真值點是使 i 為真、其他所有蘊含項皆為假的指派，故只有 i 使 f 為真——這是唯一真值點覆蓋的基礎。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "近偽點（near false point）",
+          "text": "<p>對蘊含項 i 中的子句 c，CUTPNFP 所用的<strong>近偽點（near false point）</strong>是一個指派，它：</p>",
+          "answers": [
+            {
+              "text": "使 f 為 false，且與 i 的某唯一真值點恰好只在子句 c 上不同",
+              "fraction": 100,
+              "feedback": "正確——在該對中只翻轉 c 就翻轉 f，證明 c 的獨立影響。"
+            },
+            {
+              "text": "以蘊含項 i 使 f 為 true",
+              "fraction": 0,
+              "feedback": "近偽點使 f 為 false，而非 true。"
+            },
+            {
+              "text": "使 i 的每個子句皆為 false",
+              "fraction": 0,
+              "feedback": "與真值點相比只有子句 c 不同，i 的其他 literals 維持原值。"
+            },
+            {
+              "text": "與某真值點在所有子句上都不同",
+              "fraction": 0,
+              "feedback": "它只在單一子句 c 上不同，故稱「近」。"
+            }
+          ],
+          "generalFeedback": "蘊含項 i 中子句 c 的近偽點使 f 為 false，且與 i 的某唯一真值點僅在 c 上不同。將兩者配對即顯示：單獨翻轉 c 會改變 f——即 DNF 版的獨立影響。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTPNFP 的目的",
+          "text": "<p>DNF 準則 CUTPNFP（對應唯一真值點與近偽點配對覆蓋）的設計目的是：</p>",
+          "answers": [
+            {
+              "text": "以 DNF 形式模擬 MC/DC：配對一個唯一真值點與一個僅差一個子句的近偽點",
+              "fraction": 100,
+              "feedback": "正確——該配對顯示每個子句對 f 的獨立影響。"
+            },
+            {
+              "text": "涵蓋全部 2^n 種子句值組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，而非 CUTPNFP。"
+            },
+            {
+              "text": "僅保證述詞取到兩種值",
+              "fraction": 0,
+              "feedback": "那只是述詞覆蓋。"
+            },
+            {
+              "text": "只測試非主動子句",
+              "fraction": 0,
+              "feedback": "CUTPNFP 是要顯示每個子句的主動（獨立）影響，而非非主動性。"
+            }
+          ],
+          "generalFeedback": "CUTPNFP 對每個蘊含項 i 的每個子句 c，配對 i 的一個唯一真值點與一個僅在 c 上不同的近偽點。翻轉 c 會翻轉 f，即 MC/DC 獨立影響要求的 DNF 等價版。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最強的邏輯準則",
+          "text": "<p>在子句／述詞邏輯準則中，哪一個最<strong>強</strong>（涵蓋其他）？</p>",
+          "answers": [
+            {
+              "text": "組合覆蓋（CoC）",
+              "fraction": 100,
+              "feedback": "正確——實現全部 2^n 種組合，涵蓋 PC、CC 以及每個主動／非主動子句準則。"
+            },
+            {
+              "text": "相關主動子句覆蓋（CACC）",
+              "fraction": 0,
+              "feedback": "CACC 雖強，但被組合覆蓋涵蓋。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 是最弱的邏輯準則之一。"
+            },
+            {
+              "text": "子句覆蓋（CC）",
+              "fraction": 0,
+              "feedback": "CC 很弱，甚至不涵蓋 PC。"
+            }
+          ],
+          "generalFeedback": "組合覆蓋要求每一種真值組合，故涵蓋所有其他子句／述詞準則（代價是測試數呈指數成長）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主動子句覆蓋的排序",
+          "text": "<p>下列主動子句準則由最強（涵蓋）到最弱的排序，何者正確？</p>",
+          "answers": [
+            {
+              "text": "RACC &#8594; CACC &#8594; GACC",
+              "fraction": 100,
+              "feedback": "正確——RACC 最嚴格，GACC 最寬鬆。"
+            },
+            {
+              "text": "GACC &#8594; CACC &#8594; RACC",
+              "fraction": 0,
+              "feedback": "此為相反順序；RACC 最強。"
+            },
+            {
+              "text": "CACC &#8594; RACC &#8594; GACC",
+              "fraction": 0,
+              "feedback": "RACC 涵蓋 CACC，故 RACC 應在最前。"
+            },
+            {
+              "text": "GACC &#8594; RACC &#8594; CACC",
+              "fraction": 0,
+              "feedback": "GACC 最弱，不能居首。"
+            }
+          ],
+          "generalFeedback": "RACC（次要子句相同）涵蓋 CACC（p 須不同）涵蓋 GACC（次要子句自由）。RACC 與 CACC 皆涵蓋述詞覆蓋；GACC 則不然。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC 與述詞覆蓋",
+          "text": "<p>關於主動子句準則是否涵蓋述詞覆蓋（PC），下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "CACC 涵蓋 PC，但 GACC 不涵蓋",
+              "fraction": 100,
+              "feedback": "正確——CACC 迫使 p 取到兩種值；GACC 可能使 p 在某子句的測試對中維持單一值。"
+            },
+            {
+              "text": "CACC 與 GACC 都涵蓋 PC",
+              "fraction": 0,
+              "feedback": "GACC 不要求 p 在該對測試中取值不同，故未必滿足 PC。"
+            },
+            {
+              "text": "CACC 與 GACC 都不涵蓋 PC",
+              "fraction": 0,
+              "feedback": "CACC 因要求 p 取到兩種值，確實涵蓋 PC。"
+            },
+            {
+              "text": "GACC 涵蓋 PC，但 CACC 不涵蓋",
+              "fraction": 0,
+              "feedback": "恰好相反。"
+            }
+          ],
+          "generalFeedback": "CACC 要求 p 在每對測試中一個為 true、另一個為 false，故涵蓋述詞覆蓋。GACC 允許次要子句不同，使述詞可維持單一值；一個微妙的反例顯示 GACC 不涵蓋 PC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "蘊含項覆蓋（Implicant Coverage）",
+          "text": "<p>對以 DNF 表示的述詞，蘊含項覆蓋（Implicant Coverage, IC）要求：</p>",
+          "answers": [
+            {
+              "text": "每個蘊含項至少被某個測試使其為 true",
+              "fraction": 100,
+              "feedback": "正確——每個積項都須被實現為 true。"
+            },
+            {
+              "text": "每個蘊含項在某個「其他蘊含項皆為 false」的點被使為 true",
+              "fraction": 0,
+              "feedback": "那個更強的要求是唯一真值點覆蓋，而非單純的蘊含項覆蓋。"
+            },
+            {
+              "text": "每個子句都取到兩種真值",
+              "fraction": 0,
+              "feedback": "那是子句覆蓋，並非以蘊含項為基礎的準則。"
+            },
+            {
+              "text": "測試全部 2^n 種指派",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "蘊含項覆蓋要求 DNF 的每個蘊含項（積項）在某個測試中為 true。UTPC 則加強為要求該點唯一屬於該蘊含項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a 決定 4 子句述詞的指派數",
+          "text": "<p>對述詞 p = (a &#8743; b) &#8744; (c &#8743; d)，在 16 種指派中有多少種使子句 a <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——a 在 b 為 true 且 (c &#8743; d) 為 false 時決定 p：1（b=T）&#215; 3（c &#8743; d 於 4 中為 false）&#215; 2（a 自由）= 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "b=T 給出 8 列，但須扣除 c &#8743; d 亦為 true 的 2 列，剩 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新計算——有 6 種指派使 a 決定 p。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "b 為 false 時（半數列）a 無法決定 p，故遠低於 12。"
+            }
+          ],
+          "generalFeedback": "a 只有在其項傳遞 a（b = true）且另一項未遮蔽它（c &#8743; d 為 false）時才決定 p。即 16 種指派中的 1 &#215; 3 &#215; 2 = 6 種。",
+          "single": true
+        }
+      ]
+    }
   },
   "mutation-testing": {
-    "en": [
-      {
-        "type": "multichoice",
-        "name": "Mutant killed",
-        "text": "<p>A mutant is considered <em>killed</em> when:</p>",
-        "answers": [
-          {
-            "text": "Some test case produces a different result on the mutant than on the original program",
-            "fraction": 100,
-            "feedback": "Correct — that observable difference is what \"kills\" it."
-          },
-          {
-            "text": "The mutant fails to compile",
-            "fraction": 0,
-            "feedback": "A mutant that won't compile is usually discarded, not \"killed\" by a test."
-          },
-          {
-            "text": "The mutant crashes at runtime",
-            "fraction": 0,
-            "feedback": "A crash can kill a mutant only if it differs from the original's behavior — the definition is about differing output, not crashing itself."
-          },
-          {
-            "text": "The mutant is equivalent to the original",
-            "fraction": 0,
-            "feedback": "An equivalent mutant, by definition, can never be killed by any test."
-          }
-        ],
-        "generalFeedback": "A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and running it on the original program.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Mutation score formula",
-        "text": "<p>The mutation score is computed as:</p>",
-        "answers": [
-          {
-            "text": "killed mutants / (total mutants &#8722; equivalent mutants)",
-            "fraction": 100,
-            "feedback": "Correct — equivalent mutants are excluded because no test can ever kill them."
-          },
-          {
-            "text": "killed mutants / total mutants",
-            "fraction": 0,
-            "feedback": "This treats equivalent mutants as killable, unfairly penalizing the test suite."
-          },
-          {
-            "text": "killed mutants / (total mutants + equivalent mutants)",
-            "fraction": 0,
-            "feedback": "Adding, not subtracting, equivalents makes the score worse without justification."
-          },
-          {
-            "text": "(total mutants &#8722; killed mutants) / total mutants",
-            "fraction": 0,
-            "feedback": "That's closer to a \"surviving-mutant rate\", not the mutation score."
-          }
-        ],
-        "generalFeedback": "Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Equivalent mutant",
-        "text": "<p>An <em>equivalent mutant</em> is a mutant that is:</p>",
-        "answers": [
-          {
-            "text": "Syntactically different from the original but semantically identical on every input",
-            "fraction": 100,
-            "feedback": "Correct — same input/output behavior for all inputs, so no test can distinguish it."
-          },
-          {
-            "text": "Textually identical to the original program",
-            "fraction": 0,
-            "feedback": "Mutation operators always introduce a syntactic change; identical text isn't a mutant at all."
-          },
-          {
-            "text": "A mutant located in dead/unreachable code",
-            "fraction": 0,
-            "feedback": "An unreachable mutant fails on reachability, but might still be non-equivalent were the code reached."
-          },
-          {
-            "text": "A mutant that crashes on every input",
-            "fraction": 0,
-            "feedback": "A mutant that reliably crashes differently from the original is trivially killed, not equivalent."
-          }
-        ],
-        "generalFeedback": "An equivalent mutant differs in source code from the original program but computes exactly the same function — identical output for every possible input — so it is logically impossible for any test to kill it.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "RIP model — infection failure",
-        "text": "<p>Under the Reachability&#8211;Infection&#8211;Propagation (RIP) model, which condition has failed if the mutated statement executes but the program's state is never different afterward?</p>",
-        "answers": [
-          {
-            "text": "Infection",
-            "fraction": 100,
-            "feedback": "Correct — reachability held (the statement ran) but the mutation never corrupted the state."
-          },
-          {
-            "text": "Reachability",
-            "fraction": 0,
-            "feedback": "Reachability already succeeded since the statement executed."
-          },
-          {
-            "text": "Propagation",
-            "fraction": 0,
-            "feedback": "Propagation only matters once the state has actually been infected; here it never was."
-          },
-          {
-            "text": "The oracle",
-            "fraction": 0,
-            "feedback": "The RIP model doesn't include an \"oracle\" condition — oracle problems live in the test-verification step."
-          }
-        ],
-        "generalFeedback": "RIP requires the mutated statement to be Reached, to Infect the program state (make it differ from the original), and for that infected state to Propagate to the output. Execution without any state difference means infection failed.",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "Statement coverage and mutants",
-        "text": "<p>A test suite that achieves 100% statement coverage is guaranteed to kill every non-equivalent mutant.</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 0,
-            "feedback": "Statement coverage only guarantees reachability, not that the mutation infects the state or that the infection propagates to an observable output."
-          },
-          {
-            "text": "false",
-            "fraction": 100,
-            "feedback": "Correct — statement coverage guarantees the mutated statement executes (reachability), but says nothing about infection or propagation, so non-equivalent mutants can still survive."
-          }
-        ],
-        "generalFeedback": "100% statement coverage satisfies only the \"Reachability\" leg of the RIP model. A mutant can still survive if infection never occurs or the infected state never propagates to a checked output — so full statement coverage does not guarantee killing every non-equivalent mutant."
-      },
-      {
-        "type": "shortanswer",
-        "name": "RIP — propagation",
-        "text": "<p>In the Reachability&#8211;Infection&#8211;Propagation model, which term names the condition that the corrupted state must reach and change the program's observable output? (one word)</p>",
-        "answers": [
-          {
-            "text": "propagation",
-            "fraction": 100,
-            "feedback": "Correct."
-          },
-          {
-            "text": "propagat*",
-            "fraction": 100,
-            "feedback": "Correct."
-          }
-        ],
-        "generalFeedback": "Propagation is the third RIP condition: the infected (corrupted) state must flow forward through execution until it changes something the test oracle actually observes.",
-        "usecase": false
-      }
-    ],
-    "zh": [
-      {
-        "type": "multichoice",
-        "name": "突變體被殺死",
-        "text": "<p>一個突變體（mutant）被視為<em>被殺死（killed）</em>，是指：</p>",
-        "answers": [
-          {
-            "text": "某個測試案例在突變體上產生的結果與原始程式不同",
-            "fraction": 100,
-            "feedback": "正確——這種可觀察到的差異正是「殺死」的定義。"
-          },
-          {
-            "text": "該突變體無法編譯",
-            "fraction": 0,
-            "feedback": "無法編譯的突變體通常會被直接捨棄，而不是被測試「殺死」。"
-          },
-          {
-            "text": "該突變體在執行時當掉（crash）",
-            "fraction": 0,
-            "feedback": "當掉只有在其行為與原始程式不同時才算殺死；定義的核心在於輸出不同，而非當掉本身。"
-          },
-          {
-            "text": "該突變體與原始程式等價",
-            "fraction": 0,
-            "feedback": "依定義，等價突變體永遠不可能被任何測試殺死。"
-          }
-        ],
-        "generalFeedback": "當測試套件中至少有一個測試案例，在突變體與原始程式上執行時產生可觀察到的差異（輸出、狀態，或是當掉與否），該突變體即被視為已被殺死。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "突變分數公式",
-        "text": "<p>突變分數（mutation score）的計算方式為：</p>",
-        "answers": [
-          {
-            "text": "被殺死的突變體數 / (突變體總數 &#8722; 等價突變體數)",
-            "fraction": 100,
-            "feedback": "正確——等價突變體被排除，因為沒有任何測試能殺死它們。"
-          },
-          {
-            "text": "被殺死的突變體數 / 突變體總數",
-            "fraction": 0,
-            "feedback": "這把等價突變體當作可被殺死來計算，會不公平地拉低測試套件的分數。"
-          },
-          {
-            "text": "被殺死的突變體數 / (突變體總數 + 等價突變體數)",
-            "fraction": 0,
-            "feedback": "把等價突變體加進分母而非減去，會在沒有依據的情況下讓分數變差。"
-          },
-          {
-            "text": "(突變體總數 &#8722; 被殺死的突變體數) / 突變體總數",
-            "fraction": 0,
-            "feedback": "這比較接近「存活突變體比例」，而不是突變分數。"
-          }
-        ],
-        "generalFeedback": "突變分數 = 被殺死數 / (總數 &#8722; 等價數)。等價突變體從分母中被移除，因為它們在語意上與原始程式完全相同，任何測試都不可能殺死它們。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "等價突變體",
-        "text": "<p><em>等價突變體（equivalent mutant）</em>是指這樣的突變體：</p>",
-        "answers": [
-          {
-            "text": "語法上與原始程式不同，但在所有輸入下語意完全相同",
-            "fraction": 100,
-            "feedback": "正確——對所有輸入而言，輸入輸出行為都相同，因此沒有任何測試能區分它。"
-          },
-          {
-            "text": "與原始程式文字完全相同",
-            "fraction": 0,
-            "feedback": "突變運算子一定會引入語法上的變化；文字完全相同根本不算是突變體。"
-          },
-          {
-            "text": "位於無法執行到的死碼（dead code）中的突變體",
-            "fraction": 0,
-            "feedback": "無法到達的突變體是在可到達性（reachability）上失敗，但若真的執行到該處，它仍可能不是等價的。"
-          },
-          {
-            "text": "在所有輸入下都會當掉的突變體",
-            "fraction": 0,
-            "feedback": "一個穩定地以不同方式當掉的突變體會被輕易殺死，而非等價。"
-          }
-        ],
-        "generalFeedback": "等價突變體在原始碼上與原始程式不同，但計算出的函式完全相同——對每一個可能的輸入都給出相同輸出——因此在邏輯上不可能被任何測試殺死。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "RIP 模型——感染失敗",
-        "text": "<p>在可到達性&#8211;感染&#8211;傳播（Reachability&#8211;Infection&#8211;Propagation, RIP）模型中，若被突變的敘述有執行到，但程式狀態事後從未出現差異，這代表哪個條件失敗了？</p>",
-        "answers": [
-          {
-            "text": "感染（Infection）",
-            "fraction": 100,
-            "feedback": "正確——可到達性已經成立（該敘述有執行），但突變並未真正破壞程式狀態。"
-          },
-          {
-            "text": "可到達性（Reachability）",
-            "fraction": 0,
-            "feedback": "可到達性已經成立，因為該敘述確實有被執行。"
-          },
-          {
-            "text": "傳播（Propagation）",
-            "fraction": 0,
-            "feedback": "傳播只有在狀態真的被感染之後才有意義；此處狀態從未被感染。"
-          },
-          {
-            "text": "測試諭示（oracle）",
-            "fraction": 0,
-            "feedback": "RIP 模型並不包含「oracle」這個條件——測試諭示的問題屬於結果驗證階段。"
-          }
-        ],
-        "generalFeedback": "RIP 要求被突變的敘述須被到達（Reached）、須感染（Infect）程式狀態（使其與原始程式不同），且被感染的狀態須傳播（Propagate）至輸出。若有執行卻始終沒有任何狀態差異，代表感染失敗。",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "敘述覆蓋與突變體",
-        "text": "<p>達到 100% 敘述覆蓋率的測試套件，保證能殺死所有非等價的突變體。</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 0,
-            "feedback": "敘述覆蓋只能保證可到達性，並不保證該突變會感染狀態，也不保證感染後的狀態會傳播到可觀察的輸出。"
-          },
-          {
-            "text": "false",
-            "fraction": 100,
-            "feedback": "正確——敘述覆蓋只保證被突變的敘述有執行到（可到達性），對感染與傳播毫無保證，因此非等價突變體仍可能存活。"
-          }
-        ],
-        "generalFeedback": "100% 敘述覆蓋只滿足了 RIP 模型中「可到達性」這一環。若感染從未發生，或被感染的狀態從未傳播到受檢查的輸出，突變體仍可能存活——因此完整的敘述覆蓋並不保證殺死所有非等價突變體。"
-      },
-      {
-        "type": "shortanswer",
-        "name": "RIP——傳播",
-        "text": "<p>在可到達性&#8211;感染&#8211;傳播模型中，哪個詞代表「受破壞的狀態必須到達並改變程式可觀察輸出」的條件？（請以英文一個單字回答）</p>",
-        "answers": [
-          {
-            "text": "propagation",
-            "fraction": 100,
-            "feedback": "正確。"
-          },
-          {
-            "text": "propagat*",
-            "fraction": 100,
-            "feedback": "正確。"
-          }
-        ],
-        "generalFeedback": "傳播（propagation）是 RIP 的第三個條件：被感染（破壞）的狀態必須在執行過程中持續向前影響，直到改變測試諭示實際觀察到的結果為止。",
-        "usecase": false
-      }
-    ]
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is a mutant",
+          "text": "<p>In mutation testing, a <em>mutant</em> is:</p>",
+          "answers": [
+            {
+              "text": "A copy of the program with one small syntactic change applied by a mutation operator",
+              "fraction": 100,
+              "feedback": "Correct — a mutant is the original program seeded with one deliberate, small fault."
+            },
+            {
+              "text": "A test case that exposes a defect in the program",
+              "fraction": 0,
+              "feedback": "That is a failing test case, not a mutant — the mutant is the altered program."
+            },
+            {
+              "text": "A bug reported by a user in production",
+              "fraction": 0,
+              "feedback": "Mutants are artificial faults injected on purpose, not field-reported defects."
+            },
+            {
+              "text": "An input value that maximises code coverage",
+              "fraction": 0,
+              "feedback": "Coverage-maximising inputs are a testing concern, unrelated to what a mutant is."
+            }
+          ],
+          "generalFeedback": "A mutant is a variant of the program produced by applying a mutation operator that makes one small syntactic change (e.g. + becomes -). Running tests against mutants measures how good the tests are at detecting such faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a mutation operator",
+          "text": "<p>A <em>mutation operator</em> is:</p>",
+          "answers": [
+            {
+              "text": "A rule that systematically transforms the program to produce mutants (e.g. replace + with -)",
+              "fraction": 100,
+              "feedback": "Correct — each operator encodes a class of small syntactic changes."
+            },
+            {
+              "text": "An arithmetic operator such as + or * in the source code",
+              "fraction": 0,
+              "feedback": "That is an operator in the program; a mutation operator is a rule that changes such tokens."
+            },
+            {
+              "text": "The test oracle that decides pass or fail",
+              "fraction": 0,
+              "feedback": "The oracle judges outputs; it does not generate mutants."
+            },
+            {
+              "text": "A metric describing how many tests pass",
+              "fraction": 0,
+              "feedback": "That is closer to a test result, not a mutation operator."
+            }
+          ],
+          "generalFeedback": "A mutation operator is a transformation rule (ROR, AOR, LOR, statement deletion, etc.) applied to the source to systematically generate mutants, each carrying one small change.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of mutation testing",
+          "text": "<p>The primary purpose of mutation testing is to:</p>",
+          "answers": [
+            {
+              "text": "Measure the fault-detecting adequacy of a test suite",
+              "fraction": 100,
+              "feedback": "Correct — it asks \"how many injected faults do these tests catch?\""
+            },
+            {
+              "text": "Automatically repair bugs in the program",
+              "fraction": 0,
+              "feedback": "Mutation testing evaluates tests; it does not fix code."
+            },
+            {
+              "text": "Prove the program has no defects",
+              "fraction": 0,
+              "feedback": "No testing technique proves the absence of all defects."
+            },
+            {
+              "text": "Generate program inputs at random",
+              "fraction": 0,
+              "feedback": "Random input generation is a different technique; mutation testing seeds faults, not inputs."
+            }
+          ],
+          "generalFeedback": "Mutation testing evaluates how good a test suite is by seeding artificial faults (mutants) and measuring the fraction the suite detects — a stronger adequacy criterion than structural coverage alone.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutant killed",
+          "text": "<p>A mutant is considered <em>killed</em> when:</p>",
+          "answers": [
+            {
+              "text": "Some test case produces a different result on the mutant than on the original program",
+              "fraction": 100,
+              "feedback": "Correct — that observable difference is what \"kills\" it."
+            },
+            {
+              "text": "The mutant fails to compile",
+              "fraction": 0,
+              "feedback": "A mutant that won't compile is usually discarded (a stillborn mutant), not \"killed\" by a test."
+            },
+            {
+              "text": "The mutant crashes at runtime",
+              "fraction": 0,
+              "feedback": "A crash kills a mutant only if it differs from the original's behaviour — the definition is about differing output, not crashing itself."
+            },
+            {
+              "text": "The mutant is equivalent to the original",
+              "fraction": 0,
+              "feedback": "An equivalent mutant, by definition, can never be killed by any test."
+            }
+          ],
+          "generalFeedback": "A mutant is killed when at least one test case in the suite yields an observable difference (output, state, or crash vs. no crash) between running that test on the mutant and on the original program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live mutant",
+          "text": "<p>A mutant that <em>lives</em> (survives) against a test suite is one that:</p>",
+          "answers": [
+            {
+              "text": "Produces the same result as the original on every test in the suite",
+              "fraction": 100,
+              "feedback": "Correct — no test in the suite distinguishes it, so it survives."
+            },
+            {
+              "text": "Produces a different result on at least one test",
+              "fraction": 0,
+              "feedback": "That describes a killed mutant, not a surviving one."
+            },
+            {
+              "text": "Cannot be compiled or executed",
+              "fraction": 0,
+              "feedback": "That is a stillborn mutant, a separate category from live mutants."
+            },
+            {
+              "text": "Is always an equivalent mutant",
+              "fraction": 0,
+              "feedback": "A live mutant may be equivalent, but it may instead be non-equivalent and simply not yet killed by a weak suite."
+            }
+          ],
+          "generalFeedback": "A live (surviving) mutant gives the same output as the original on every test in the suite. It signals either a weakness in the tests (a non-equivalent mutant that a better test would kill) or an equivalent mutant that no test can kill.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent mutant",
+          "text": "<p>An <em>equivalent mutant</em> is a mutant that is:</p>",
+          "answers": [
+            {
+              "text": "Syntactically different from the original but semantically identical on every input",
+              "fraction": 100,
+              "feedback": "Correct — same input/output behaviour for all inputs, so no test can distinguish it."
+            },
+            {
+              "text": "Textually identical to the original program",
+              "fraction": 0,
+              "feedback": "Mutation operators always introduce a syntactic change; identical text isn't a mutant at all."
+            },
+            {
+              "text": "A mutant located in dead/unreachable code",
+              "fraction": 0,
+              "feedback": "An unreachable mutant fails on reachability, but might still be non-equivalent were the code reached."
+            },
+            {
+              "text": "A mutant that crashes on every input",
+              "fraction": 0,
+              "feedback": "A mutant that reliably crashes differently from the original is trivially killed, not equivalent."
+            }
+          ],
+          "generalFeedback": "An equivalent mutant differs in source code from the original but computes exactly the same function — identical output for every possible input — so it is logically impossible for any test to kill it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation score formula",
+          "text": "<p>The mutation score is computed as:</p>",
+          "answers": [
+            {
+              "text": "killed mutants / (total mutants &#8722; equivalent mutants)",
+              "fraction": 100,
+              "feedback": "Correct — equivalent mutants are excluded because no test can ever kill them."
+            },
+            {
+              "text": "killed mutants / total mutants",
+              "fraction": 0,
+              "feedback": "This treats equivalent mutants as killable, unfairly penalising the test suite."
+            },
+            {
+              "text": "killed mutants / (total mutants + equivalent mutants)",
+              "fraction": 0,
+              "feedback": "Adding, not subtracting, equivalents makes the score worse without justification."
+            },
+            {
+              "text": "(total mutants &#8722; killed mutants) / total mutants",
+              "fraction": 0,
+              "feedback": "That's closer to a \"surviving-mutant rate\", not the mutation score."
+            }
+          ],
+          "generalFeedback": "Mutation score = killed / (total &#8722; equivalent). Equivalent mutants are removed from the denominator because, being semantically identical to the original, no test could ever kill them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Perfect mutation score",
+          "text": "<p>A test suite achieves a mutation score of 100% (with equivalents excluded). This means:</p>",
+          "answers": [
+            {
+              "text": "Every non-equivalent mutant was killed by some test in the suite",
+              "fraction": 100,
+              "feedback": "Correct — a perfect score means all killable mutants were detected."
+            },
+            {
+              "text": "The program is proven correct",
+              "fraction": 0,
+              "feedback": "Killing all mutants shows the tests catch these seeded faults, not that the program is bug-free."
+            },
+            {
+              "text": "There were no equivalent mutants",
+              "fraction": 0,
+              "feedback": "Equivalent mutants are excluded from the denominator; a 100% score says nothing about how many there were."
+            },
+            {
+              "text": "The suite achieves 100% branch coverage",
+              "fraction": 0,
+              "feedback": "A high mutation score usually implies strong coverage, but 100% is defined by killed mutants, not branches directly."
+            }
+          ],
+          "generalFeedback": "A 100% mutation score means the suite killed every non-equivalent mutant. It is a strong adequacy signal but is not a proof of program correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Competent programmer hypothesis",
+          "text": "<p>The <em>competent programmer hypothesis</em> underlying mutation testing states that:</p>",
+          "answers": [
+            {
+              "text": "Programmers write code that is close to correct, so real faults are small deviations from the correct program",
+              "fraction": 100,
+              "feedback": "Correct — this justifies modelling faults as small single mutations."
+            },
+            {
+              "text": "Programmers never introduce faults into their code",
+              "fraction": 0,
+              "feedback": "If that were true there would be nothing to test; the hypothesis is about faults being small, not absent."
+            },
+            {
+              "text": "Every fault requires many simultaneous changes to fix",
+              "fraction": 0,
+              "feedback": "The hypothesis assumes the opposite — faults are typically small deviations."
+            },
+            {
+              "text": "Compilers can detect all programmer mistakes",
+              "fraction": 0,
+              "feedback": "That is unrelated; the hypothesis concerns the size of human faults, not compiler capability."
+            }
+          ],
+          "generalFeedback": "The competent programmer hypothesis says developers produce nearly-correct programs, so faults are small. This justifies using small, single-change mutants to model realistic faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coupling effect",
+          "text": "<p>The <em>coupling effect</em> hypothesis claims that:</p>",
+          "answers": [
+            {
+              "text": "Tests that detect all simple (single-change) faults also detect most complex (multiple-change) faults",
+              "fraction": 100,
+              "feedback": "Correct — this is why testing against simple mutants is worthwhile."
+            },
+            {
+              "text": "Complex faults are completely independent of simple faults",
+              "fraction": 0,
+              "feedback": "The coupling effect claims the opposite — complex faults are coupled to simple ones."
+            },
+            {
+              "text": "Two modules that share data must be tested together",
+              "fraction": 0,
+              "feedback": "That is module coupling in design, not the mutation-testing coupling effect."
+            },
+            {
+              "text": "Every mutant is coupled to exactly one test case",
+              "fraction": 0,
+              "feedback": "The coupling effect relates simple and complex faults, not mutants to individual tests."
+            }
+          ],
+          "generalFeedback": "The coupling effect holds that a test set killing all simple one-change mutants will also detect the great majority of complex, higher-order faults — so first-order mutants are a good adequacy target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: sign classify (> to >=)",
+          "text": "<p>Consider <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives the mutant <code>if (x &gt;= 0) ...</code>. For the test input <code>x = 0</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — at x=0 the original returns \"non-positive\" but the mutant returns \"positive\"."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "x=0 is exactly the boundary where the two operators disagree, so the test does detect it."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is clearly non-equivalent: x=0 distinguishes it."
+            }
+          ],
+          "generalFeedback": "At x=0 the original's \"x>0\" is false (returns \"non-positive\"), but the mutant's \"x>=0\" is true (returns \"positive\"). The outputs differ, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: voting age (>= to >)",
+          "text": "<p>Consider <code>return age &gt;= 18;</code>. The operator <strong>&gt;= &#8594; &gt;</strong> gives the mutant <code>return age &gt; 18;</code>. For the test input <code>age = 18</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — at age=18 the original returns true but the mutant returns false."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "age=18 is the boundary where \">=18\" and \">18\" disagree, so this test does detect it."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is non-equivalent: age=18 distinguishes the two."
+            }
+          ],
+          "generalFeedback": "At age=18 the original's \"age>=18\" is true, but the mutant's \"age>18\" is false. The results differ, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: statement deletion (abs)",
+          "text": "<p>Consider <code>if (x &lt; 0) { x = -x; } return x;</code>. Statement deletion removes <code>x = -x;</code>, giving <code>if (x &lt; 0) { } return x;</code>. For the test input <code>x = -5</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — the original returns 5 but the mutant returns -5."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "With x=-5 the deleted statement would have run, so its removal is observable here."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is non-equivalent: any negative input distinguishes it."
+            }
+          ],
+          "generalFeedback": "At x=-5 the original negates and returns 5, but the mutant's empty if-body leaves x as -5. Different outputs, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: arithmetic operator (+ to -)",
+          "text": "<p>Consider <code>return a + b;</code>. The operator <strong>+ &#8594; -</strong> gives the mutant <code>return a - b;</code>. For the test input <code>a = 3, b = 7</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — 3+7=10 but 3-7=-4."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "Because b=7≠0, a+b and a-b differ, so the test does detect the mutant."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is non-equivalent: any b≠0 distinguishes + from -."
+            }
+          ],
+          "generalFeedback": "Here a+b=10 but a-b=-4; since b≠0 the two differ (by 2b), so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live outcome: sign classify at x = 7",
+          "text": "<p>Consider <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = 7</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — at x=7 both versions return \"positive\"; only x=0 would reveal the difference."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "At x=7 both \"x>0\" and \"x>=0\" are true, so outputs match — the test does not kill it."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: x=0 kills it; this particular test just happens to miss it."
+            }
+          ],
+          "generalFeedback": "At x=7 both \"x>0\" and \"x>=0\" evaluate to true, so both return \"positive\" and the mutant survives this test. It is not equivalent, though — x=0 would kill it.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "ROR operator",
+          "text": "<p>Which change is an instance of the <strong>ROR</strong> (Relational Operator Replacement) operator?</p>",
+          "answers": [
+            {
+              "text": "Replacing <code>a &lt; b</code> with <code>a &lt;= b</code>",
+              "fraction": 100,
+              "feedback": "Correct — ROR replaces one relational operator with another (<, <=, >, >=, ==, !=)."
+            },
+            {
+              "text": "Replacing <code>a + b</code> with <code>a - b</code>",
+              "fraction": 0,
+              "feedback": "That is AOR (arithmetic operator replacement), not ROR."
+            },
+            {
+              "text": "Replacing <code>a &amp;&amp; b</code> with <code>a || b</code>",
+              "fraction": 0,
+              "feedback": "That is LOR/COR (logical/conditional operator replacement)."
+            },
+            {
+              "text": "Deleting the statement <code>a = b;</code>",
+              "fraction": 0,
+              "feedback": "That is SDL (statement deletion)."
+            }
+          ],
+          "generalFeedback": "ROR replaces a relational operator with each of the other relational operators (and sometimes with true/false), e.g. < becomes <=, >, >=, ==, or !=.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AOR operator",
+          "text": "<p>The <strong>AOR</strong> (Arithmetic Operator Replacement) operator would transform <code>x * y</code> into which of the following?</p>",
+          "answers": [
+            {
+              "text": "<code>x + y</code>",
+              "fraction": 100,
+              "feedback": "Correct — AOR swaps one binary arithmetic operator for another (+, -, *, /, %)."
+            },
+            {
+              "text": "<code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "Turning arithmetic into a relation is ROR-style, not AOR."
+            },
+            {
+              "text": "<code>x &amp;&amp; y</code>",
+              "fraction": 0,
+              "feedback": "That introduces a logical operator (LOR), not an arithmetic one."
+            },
+            {
+              "text": "<code>-x * y</code>",
+              "fraction": 0,
+              "feedback": "Inserting a unary minus is UOI, not AOR."
+            }
+          ],
+          "generalFeedback": "AOR replaces one binary arithmetic operator with another from {+, -, *, /, %}, e.g. * becomes +.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LOR operator",
+          "text": "<p>The <strong>LOR</strong> / conditional operator replacement operator applied to <code>a &amp;&amp; b</code> most directly produces:</p>",
+          "answers": [
+            {
+              "text": "<code>a || b</code>",
+              "fraction": 100,
+              "feedback": "Correct — it replaces one logical connective with another."
+            },
+            {
+              "text": "<code>a == b</code>",
+              "fraction": 0,
+              "feedback": "That is a relational operator (ROR), not a logical connective."
+            },
+            {
+              "text": "<code>a + b</code>",
+              "fraction": 0,
+              "feedback": "That is arithmetic (AOR)."
+            },
+            {
+              "text": "<code>!a &amp;&amp; b</code>",
+              "fraction": 0,
+              "feedback": "Inserting a negation is UOI; LOR replaces the connective itself."
+            }
+          ],
+          "generalFeedback": "LOR (logical/conditional operator replacement) swaps one logical connective for another, e.g. && becomes ||.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ABS operator",
+          "text": "<p>The <strong>ABS</strong> (Absolute Value Insertion) operator mutates an arithmetic expression <code>e</code> into which family of variants?</p>",
+          "answers": [
+            {
+              "text": "<code>abs(e)</code>, <code>-abs(e)</code>, and a fail-on-zero variant",
+              "fraction": 100,
+              "feedback": "Correct — ABS forces e to be tested as non-negative, non-positive, and zero."
+            },
+            {
+              "text": "<code>e + 1</code> and <code>e - 1</code>",
+              "fraction": 0,
+              "feedback": "Off-by-one tweaks are not ABS; ABS is about the sign/zero of the expression."
+            },
+            {
+              "text": "<code>e &gt; 0</code> and <code>e &lt; 0</code>",
+              "fraction": 0,
+              "feedback": "Those are relational tests, not the ABS value-insertion family."
+            },
+            {
+              "text": "<code>e</code> replaced by a constant literal",
+              "fraction": 0,
+              "feedback": "Constant replacement is a different operator; ABS wraps e in absolute-value forms."
+            }
+          ],
+          "generalFeedback": "ABS replaces an expression e with abs(e), -abs(e), and failOnZero(e), forcing tests that exercise e as positive, negative, and zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UOI operator",
+          "text": "<p>Which change is an example of the <strong>UOI</strong> (Unary Operator Insertion) operator?</p>",
+          "answers": [
+            {
+              "text": "Replacing <code>return x;</code> with <code>return -x;</code>",
+              "fraction": 100,
+              "feedback": "Correct — UOI inserts a unary operator (here arithmetic negation)."
+            },
+            {
+              "text": "Replacing <code>x + y</code> with <code>x - y</code>",
+              "fraction": 0,
+              "feedback": "That swaps a binary operator (AOR), not inserts a unary one."
+            },
+            {
+              "text": "Replacing <code>x &lt; y</code> with <code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "That is ROR."
+            },
+            {
+              "text": "Deleting <code>x = 0;</code>",
+              "fraction": 0,
+              "feedback": "That is statement deletion (SDL)."
+            }
+          ],
+          "generalFeedback": "UOI inserts a unary operator into an expression, e.g. x becomes -x, or a boolean b becomes !b, or x becomes ++x.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SDL operator",
+          "text": "<p>The <strong>SDL</strong> (Statement Deletion) operator produces a mutant by:</p>",
+          "answers": [
+            {
+              "text": "Removing a single statement from the program",
+              "fraction": 100,
+              "feedback": "Correct — SDL deletes one statement to check whether any test relies on its effect."
+            },
+            {
+              "text": "Replacing a variable reference with a constant",
+              "fraction": 0,
+              "feedback": "That is a constant/variable replacement operator, not SDL."
+            },
+            {
+              "text": "Swapping two adjacent statements",
+              "fraction": 0,
+              "feedback": "Reordering is a different mutation; SDL removes a statement."
+            },
+            {
+              "text": "Negating a boolean condition",
+              "fraction": 0,
+              "feedback": "That is closer to UOI/COR; SDL deletes rather than negates."
+            }
+          ],
+          "generalFeedback": "SDL deletes one statement (often replacing it with a no-op). If no test detects the deletion, that statement's effect is untested.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP model — infection failure",
+          "text": "<p>Under the Reachability&#8211;Infection&#8211;Propagation (RIP) model, which condition has failed if the mutated statement executes but the program's state is never different afterward?</p>",
+          "answers": [
+            {
+              "text": "Infection",
+              "fraction": 100,
+              "feedback": "Correct — reachability held (the statement ran) but the mutation never corrupted the state."
+            },
+            {
+              "text": "Reachability",
+              "fraction": 0,
+              "feedback": "Reachability already succeeded since the statement executed."
+            },
+            {
+              "text": "Propagation",
+              "fraction": 0,
+              "feedback": "Propagation only matters once the state has actually been infected; here it never was."
+            },
+            {
+              "text": "The oracle",
+              "fraction": 0,
+              "feedback": "The RIP model doesn't include an \"oracle\" condition — oracle problems live in the test-verification step."
+            }
+          ],
+          "generalFeedback": "RIP requires the mutated statement to be Reached, to Infect the program state (make it differ from the original), and for that infected state to Propagate to the output. Execution without any state difference means infection failed.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Statement coverage and mutants",
+          "text": "<p>A test suite that achieves 100% statement coverage is guaranteed to kill every non-equivalent mutant.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Statement coverage only guarantees reachability, not that the mutation infects the state or that the infection propagates to an observable output."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — statement coverage guarantees the mutated statement executes (reachability), but says nothing about infection or propagation, so non-equivalent mutants can still survive."
+            }
+          ],
+          "generalFeedback": "100% statement coverage satisfies only the \"Reachability\" leg of the RIP model. A mutant can still survive if infection never occurs or the infected state never propagates to a checked output — so full statement coverage does not guarantee killing every non-equivalent mutant."
+        },
+        {
+          "type": "shortanswer",
+          "name": "RIP — propagation",
+          "text": "<p>In the Reachability&#8211;Infection&#8211;Propagation model, which term names the condition that the corrupted state must reach and change the program's observable output? (one word)</p>",
+          "answers": [
+            {
+              "text": "propagation",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "propagat*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "Propagation is the third RIP condition: the infected (corrupted) state must flow forward through execution until it changes something the test oracle actually observes.",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "Weak vs strong mutation",
+          "text": "<p>What distinguishes <strong>weak mutation</strong> from <strong>strong mutation</strong>?</p>",
+          "answers": [
+            {
+              "text": "Weak mutation checks for a state difference right after the mutated component executes; strong mutation requires the difference to propagate to the program output",
+              "fraction": 100,
+              "feedback": "Correct — weak mutation only needs infection; strong mutation needs infection to propagate."
+            },
+            {
+              "text": "Weak mutation uses fewer mutation operators than strong mutation",
+              "fraction": 0,
+              "feedback": "The distinction is about where the difference is observed, not how many operators are used."
+            },
+            {
+              "text": "Weak mutation only applies to equivalent mutants",
+              "fraction": 0,
+              "feedback": "Both apply to ordinary mutants; the difference is the point of comparison."
+            },
+            {
+              "text": "Strong mutation runs faster because it stops at the mutated statement",
+              "fraction": 0,
+              "feedback": "It is weak mutation that can stop early at the component; strong mutation runs to output."
+            }
+          ],
+          "generalFeedback": "Weak mutation compares internal state immediately after the mutated component (reachability + infection). Strong mutation requires the infected state to propagate all the way to the observable output (reachability + infection + propagation).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation score computation",
+          "text": "<p>A program has 30 mutants; 6 of them are equivalent, and the test suite kills 21. What is the mutation score?</p>",
+          "answers": [
+            {
+              "text": "87.5%",
+              "fraction": 100,
+              "feedback": "Correct — 21 / (30 &#8722; 6) = 21/24 = 0.875."
+            },
+            {
+              "text": "70%",
+              "fraction": 0,
+              "feedback": "That is 21/30 — it wrongly counts equivalent mutants in the denominator."
+            },
+            {
+              "text": "58.3%",
+              "fraction": 0,
+              "feedback": "That is 21/(30+6) — equivalents must be subtracted, not added."
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "That is the surviving-mutant rate 9/30, not the mutation score."
+            }
+          ],
+          "generalFeedback": "Mutation score = killed / (total &#8722; equivalent) = 21 / (30 &#8722; 6) = 21/24 = 87.5%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Selective mutation",
+          "text": "<p><strong>Selective mutation</strong> reduces cost by:</p>",
+          "answers": [
+            {
+              "text": "Using only a small, carefully chosen subset of mutation operators that still yields nearly the same adequacy",
+              "fraction": 100,
+              "feedback": "Correct — a few key operators approximate testing with the full set."
+            },
+            {
+              "text": "Testing only the mutants that happen to be equivalent",
+              "fraction": 0,
+              "feedback": "Equivalent mutants can never be killed, so testing them alone is pointless."
+            },
+            {
+              "text": "Selecting only the test cases that already pass",
+              "fraction": 0,
+              "feedback": "Selective mutation reduces operators, not tests, and does not filter by pass/fail."
+            },
+            {
+              "text": "Running each mutant against exactly one test",
+              "fraction": 0,
+              "feedback": "That would weaken detection; selective mutation instead prunes the operator set."
+            }
+          ],
+          "generalFeedback": "Selective mutation applies only a small subset of operators (e.g. the \"sufficient\" set) that empirically produces almost the same mutation score as the full operator set, greatly cutting the number of mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill outcome: && to || with differing operands",
+          "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = false</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 100,
+              "feedback": "Correct — here the two operands differ in truth value (true and false), so AND and OR disagree."
+            },
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 0,
+              "feedback": "AND gives false while OR gives true here, so the test does detect the difference."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "&& and || are not equivalent whenever the operands differ, as they do here."
+            }
+          ],
+          "generalFeedback": "With age=30 (so age>=18 is true) and citizen=false, the original computes true && false = false, but the mutant computes true || false = true. The outputs differ, so this test kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live outcome: && to || with equal operands",
+          "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 30, citizen = true</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — both operands are true, so AND and OR both yield true; a test with differing operands would kill it."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "true && true and true || true both equal true, so the outputs match here."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: age=30, citizen=false would kill it."
+            }
+          ],
+          "generalFeedback": "With both operands true, true && true = true and true || true = true, so the mutant survives this test. It is not equivalent — an input where the operands differ (e.g. citizen=false) would kill it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live outcome: + to - at b = 0",
+          "text": "<p>Consider <code>return a + b;</code> with the mutant <code>return a - b;</code> (operator <strong>+ &#8594; -</strong>). For the test input <code>a = 9, b = 0</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — a+0 and a-0 are both 9, so this test misses the mutant; any b≠0 would kill it."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "With b=0, a+b and a-b are equal (both 9), so the outputs match — no kill."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: any b≠0 makes + and - differ, killing it."
+            }
+          ],
+          "generalFeedback": "At b=0, a+b = a-b = 9, so the mutant survives this particular test. It is not equivalent, though: any test with b≠0 (where a+b and a-b differ by 2b) would kill it. This shows a poorly-chosen test input can let a killable mutant live.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why equivalent mutants cannot be killed",
+          "text": "<p>Why is it impossible for any test case to kill an equivalent mutant?</p>",
+          "answers": [
+            {
+              "text": "It computes the same function as the original, so no input can ever make their outputs differ",
+              "fraction": 100,
+              "feedback": "Correct — killing requires an observable output difference, which an equivalent mutant can never produce."
+            },
+            {
+              "text": "Its mutated statement is always unreachable",
+              "fraction": 0,
+              "feedback": "Equivalence is about identical behaviour, not reachability; the statement may well execute."
+            },
+            {
+              "text": "It always throws an exception before returning",
+              "fraction": 0,
+              "feedback": "An exception that differs from the original would actually kill it; equivalence means no difference at all."
+            },
+            {
+              "text": "Test tools automatically skip it",
+              "fraction": 0,
+              "feedback": "Tools cannot even reliably detect equivalence; the impossibility is inherent, not a tool choice."
+            }
+          ],
+          "generalFeedback": "A mutant is killed only when some test yields a different observable result from the original. An equivalent mutant computes exactly the same function for every input, so that difference can never arise — no test can kill it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent: dead-store deletion",
+          "text": "<p>Consider <code>int unused = x * 2; return x * x;</code>. Statement deletion removes <code>int unused = x * 2;</code>, giving <code>return x * x;</code>. The outcome is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 100,
+              "feedback": "Correct —is written but never read andhas no side effects, so deleting it cannot change any output."
+            },
+            {
+              "text": "Killed — some test detects it",
+              "fraction": 0,
+              "feedback": "No test can detect it: the return valueis unaffected by the deleted dead store."
+            },
+            {
+              "text": "Lives on this test but a better test would kill it",
+              "fraction": 0,
+              "feedback": "No input exists that could kill it, so it is equivalent, not merely surviving."
+            }
+          ],
+          "generalFeedback": "is assigned but never read, andhas no side effects, so deleting that statement cannot change the value returned for ANY x. The mutant is equivalent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent: relational op on a length",
+          "text": "<p>Given <code>n = arr.length</code> (so <code>n &gt;= 0</code> always), consider <code>if (n &gt; -1) return true; else return false;</code>. The operator <strong>&gt; &#8594; &gt;=</strong> gives <code>if (n &gt;= -1) ...</code>. The outcome is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 100,
+              "feedback": "Correct — for every reachable n (n≥0), both \"n>-1\" and \"n>=-1\" are true, so the versions never disagree."
+            },
+            {
+              "text": "Killed — some test detects it",
+              "fraction": 0,
+              "feedback": "The two conditions differ only at n = -1, which an array length can never take, so no test kills it."
+            },
+            {
+              "text": "Lives on this test but a better test would kill it",
+              "fraction": 0,
+              "feedback": "There is no reachable input that distinguishes them, so it is equivalent, not merely surviving."
+            }
+          ],
+          "generalFeedback": "\"n>-1\" and \"n>=-1\" differ only at n = -1. Because n is an array length (n≥0 by construction), that value is unreachable, so the two versions agree on every possible input — the mutant is equivalent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Recognise the equivalent loop mutant",
+          "text": "<p>Here <code>n</code> is a list length (so <code>n &gt;= 0</code>). Consider <code>for (int i = 0; i &lt; n; i++) sum += a[i];</code> mutated by <strong>&lt; &#8594; !=</strong> to <code>for (int i = 0; i != n; i++) sum += a[i];</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — i increases from 0 and reaches n exactly, so i!=n stops at the same iteration as i<n for every n≥0",
+              "fraction": 100,
+              "feedback": "Correct — the two loop conditions terminate identically for all non-negative n."
+            },
+            {
+              "text": "Killed by any test with n > 0",
+              "fraction": 0,
+              "feedback": "For n>0 both loops run exactly n times, producing the same sum, so such a test does not kill it."
+            },
+            {
+              "text": "Non-equivalent because i != n may skip the last element",
+              "fraction": 0,
+              "feedback": "It does not: i takes 0,1,…,n-1 and then equals n, ending the loop at the same point as i<n."
+            },
+            {
+              "text": "Non-equivalent because the loop never terminates",
+              "fraction": 0,
+              "feedback": "Since i increments by 1 from 0 and n≥0, i eventually equals n and the loop terminates."
+            }
+          ],
+          "generalFeedback": "Because i starts at 0 and increments by 1, it hits n exactly; for any n≥0, \"i!=n\" becomes false at the same iteration \"i<n\" does. The behaviours are identical on every reachable input, so this is an equivalent mutant. (It would differ only if n could be negative — impossible for a length.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP: propagation failure",
+          "text": "<p>Consider <code>int y = x * 2; return (y &gt; 0) ? 1 : 0;</code> mutated by <strong>* &#8594; +</strong> to <code>int y = x + 2; ...</code>. For the test input <code>x = 5</code>, the mutated statement runs and y differs (10 vs 7), yet both return 1. Which RIP condition failed on this test?</p>",
+          "answers": [
+            {
+              "text": "Propagation — the infected state (y) did not change the observable output",
+              "fraction": 100,
+              "feedback": "Correct — y was infected (10 vs 7), but since both are > 0 the output stays 1, so infection did not propagate."
+            },
+            {
+              "text": "Reachability — the mutated statement never executed",
+              "fraction": 0,
+              "feedback": "It did execute; y was computed, so reachability held."
+            },
+            {
+              "text": "Infection — the state was never corrupted",
+              "fraction": 0,
+              "feedback": "Infection did occur: y was 10 in the original and 7 in the mutant."
+            },
+            {
+              "text": "The mutant is equivalent",
+              "fraction": 0,
+              "feedback": "It is not equivalent — x=-1 or x=0 makes the outputs differ (0 vs 1), killing it."
+            }
+          ],
+          "generalFeedback": "At x=5, reachability and infection both hold (y = 10 vs 7), but both values are positive so the ternary returns 1 in each version — the difference does not propagate to the output. A test like x=0 (0 vs 2, giving outputs 0 vs 1) would propagate and kill the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Weak vs strong: distinguishing a mutant",
+          "text": "<p>Consider <code>int t = x + 1; return t * 0;</code> mutated by <strong>+ &#8594; -</strong> to <code>int t = x - 1; return t * 0;</code>. How do weak and strong mutation classify this mutant?</p>",
+          "answers": [
+            {
+              "text": "Killable under weak mutation (t is infected) but equivalent under strong mutation (the output is always 0)",
+              "fraction": 100,
+              "feedback": "Correct — t differs immediately after the mutated statement, but t * 0 is 0 for every x, so no output difference ever propagates."
+            },
+            {
+              "text": "Killable under both weak and strong mutation",
+              "fraction": 0,
+              "feedback": "Strong mutation compares outputs, and the output is always 0, so it cannot be killed strongly."
+            },
+            {
+              "text": "Equivalent under both weak and strong mutation",
+              "fraction": 0,
+              "feedback": "Weak mutation compares state at t, which does differ (x+1 vs x-1), so it is killable weakly."
+            },
+            {
+              "text": "Killable under strong mutation but equivalent under weak mutation",
+              "fraction": 0,
+              "feedback": "This is backwards: infection happens at t (weak kill), but the output never differs (strong equivalent)."
+            }
+          ],
+          "generalFeedback": "Weak mutation checks the state right after the mutated component: t is x+1 vs x-1, so it is infected and can be killed weakly. Strong mutation checks the output: t * 0 = 0 for every x, so no test can produce an output difference — strongly, the mutant is equivalent. The same mutant can thus be \"killed\" weakly yet be equivalent strongly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PIE model",
+          "text": "<p>The PIE (Propagation, Infection, Execution) model relates to the RIP model how?</p>",
+          "answers": [
+            {
+              "text": "They describe the same three conditions — Execution/Reachability, Infection, and Propagation must all hold to reveal a fault",
+              "fraction": 100,
+              "feedback": "Correct — PIE and RIP name the same necessary conditions for a fault to be observed."
+            },
+            {
+              "text": "PIE adds a fourth condition absent from RIP",
+              "fraction": 0,
+              "feedback": "Both models use the same three conditions; only the naming/order differs."
+            },
+            {
+              "text": "PIE applies only to equivalent mutants",
+              "fraction": 0,
+              "feedback": "PIE describes when any fault is revealed, not specifically equivalent mutants."
+            },
+            {
+              "text": "PIE replaces propagation with an oracle-strength condition",
+              "fraction": 0,
+              "feedback": "Propagation is retained; PIE is just RIP with Execution named for Reachability."
+            }
+          ],
+          "generalFeedback": "PIE (Propagation–Infection–Execution) and RIP (Reachability–Infection–Propagation) are the same idea: the faulty location must be Executed/Reached, must Infect the state, and that infection must Propagate to an observable output.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation subsumes coverage",
+          "text": "<p>If a test set kills every mutant produced by the statement-deletion (SDL) operator on a program, what structural criterion must that test set at least satisfy?</p>",
+          "answers": [
+            {
+              "text": "Statement (node) coverage — each statement must be executed, since deleting it is detected",
+              "fraction": 100,
+              "feedback": "Correct — a deletion can only be detected if the statement runs, so every statement is covered (and its effect observed)."
+            },
+            {
+              "text": "Complete path coverage",
+              "fraction": 0,
+              "feedback": "Killing SDL mutants does not require touring every path; complete path coverage is far stronger."
+            },
+            {
+              "text": "All-DU-paths coverage",
+              "fraction": 0,
+              "feedback": "SDL relates to executing statements, not to touring every def-use path."
+            },
+            {
+              "text": "No coverage criterion is implied",
+              "fraction": 0,
+              "feedback": "Detecting a statement's deletion necessarily requires executing that statement."
+            }
+          ],
+          "generalFeedback": "To kill a statement-deletion mutant, a test must execute the statement (else the deletion is invisible) and observe its effect. Killing all such mutants therefore implies at least statement coverage — one sense in which mutation adequacy subsumes structural coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Dominator (minimal) mutants",
+          "text": "<p>In the theory of minimal/dominator mutants, a mutant M1 <em>dominates</em> M2 (for a program) when:</p>",
+          "answers": [
+            {
+              "text": "Every test that kills M1 also kills M2, so covering M1 makes M2 redundant",
+              "fraction": 100,
+              "feedback": "Correct — dominated mutants add no new test requirements once the dominator is killed."
+            },
+            {
+              "text": "M1 and M2 are killed by exactly the same single test only",
+              "fraction": 0,
+              "feedback": "Domination is about set inclusion of killing tests, not a unique shared test."
+            },
+            {
+              "text": "M1 is equivalent and M2 is not",
+              "fraction": 0,
+              "feedback": "Domination concerns killing-test sets among non-equivalent mutants, not equivalence."
+            },
+            {
+              "text": "M1 has more mutated statements than M2",
+              "fraction": 0,
+              "feedback": "Domination is about which tests kill them, not how many changes each contains."
+            }
+          ],
+          "generalFeedback": "A minimal (dominator) mutant set keeps only mutants that are not dominated: M1 dominates M2 if the set of tests killing M1 is a subset of those killing M2, making M2 redundant. Reporting a mutation score over the dominator set avoids inflation from many easy, redundant mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Score with equivalents excluded",
+          "text": "<p>A program has 40 mutants. The suite kills 18; of the 22 survivors, 4 are later confirmed equivalent. What is the mutation score (equivalents excluded)?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — 18 / (40 &#8722; 4) = 18/36 = 0.5."
+            },
+            {
+              "text": "45%",
+              "fraction": 0,
+              "feedback": "That is 18/40 — the naive score that wrongly counts the 4 equivalents as killable."
+            },
+            {
+              "text": "41%",
+              "fraction": 0,
+              "feedback": "That is 18/(40+4) — equivalents must be subtracted, not added."
+            },
+            {
+              "text": "55%",
+              "fraction": 0,
+              "feedback": "That is the survivor rate 22/40, not the mutation score."
+            }
+          ],
+          "generalFeedback": "Excluding equivalents, mutation score = killed / (total &#8722; equivalent) = 18 / (40 &#8722; 4) = 18/36 = 50%. Confirming equivalents raises the score from the naive 45% because unkillable mutants leave the denominator.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Higher-order mutants",
+          "text": "<p>A <em>higher-order mutant</em> is one that:</p>",
+          "answers": [
+            {
+              "text": "Contains two or more mutation operators applied together",
+              "fraction": 100,
+              "feedback": "Correct — first-order mutants have one change; higher-order mutants combine several."
+            },
+            {
+              "text": "Is generated by a higher-priority operator",
+              "fraction": 0,
+              "feedback": "Order refers to the number of seeded changes, not operator priority."
+            },
+            {
+              "text": "Is always equivalent to the original",
+              "fraction": 0,
+              "feedback": "Higher-order mutants are usually non-equivalent; some are \"subtle\" but not by definition equivalent."
+            },
+            {
+              "text": "Can only be killed by higher-order test cases",
+              "fraction": 0,
+              "feedback": "There is no such thing as a higher-order test case; ordinary tests kill them."
+            }
+          ],
+          "generalFeedback": "A higher-order mutant applies two or more changes at once. Some combine to form \"subtle\" faults harder to kill than their constituent first-order mutants, which is why higher-order mutation is studied despite the coupling effect.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Equivalent-mutant detection is undecidable",
+          "text": "<p>Determining whether an arbitrary mutant is equivalent to the original program is, in general, undecidable.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — deciding functional equivalence of two programs reduces from undecidable problems, so no algorithm solves it in general."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Equivalence of arbitrary programs is undecidable; that is why equivalent mutants must usually be judged by hand or approximated heuristically."
+            }
+          ],
+          "generalFeedback": "Detecting equivalent mutants means deciding whether two programs compute the same function, which is undecidable in general. In practice teams use heuristics (e.g. compiler-optimisation or constraint-based checks) and manual analysis, and the equivalent-mutant problem is a major cost of mutation testing."
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting a perfect score",
+          "text": "<p>A suite kills 100% of the non-equivalent mutants. Which conclusion is justified?</p>",
+          "answers": [
+            {
+              "text": "The suite is adequate with respect to this operator set, but the program may still contain faults no operator modelled",
+              "fraction": 100,
+              "feedback": "Correct — mutation adequacy is relative to the mutants generated, not a proof of correctness."
+            },
+            {
+              "text": "The program is proven free of all defects",
+              "fraction": 0,
+              "feedback": "Mutation testing evaluates tests against seeded faults; it cannot prove global correctness."
+            },
+            {
+              "text": "Every possible mutant, including higher-order ones, is killed",
+              "fraction": 0,
+              "feedback": "A 100% first-order score says nothing certain about untested higher-order mutants."
+            },
+            {
+              "text": "The suite must also have 100% path coverage",
+              "fraction": 0,
+              "feedback": "High mutation scores correlate with coverage but do not guarantee complete path coverage."
+            }
+          ],
+          "generalFeedback": "A perfect mutation score means the tests detect every fault the chosen operators can seed — strong evidence of adequacy, but faults outside the operator set (or in the specification) can remain. Mutation adequacy is always relative to the operators used.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live: sign classify at x = -3",
+          "text": "<p>Consider <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code> with the mutant <code>if (x &gt;= 0) ...</code> (operator <strong>&gt; &#8594; &gt;=</strong>). For the test input <code>x = -3</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — at x=-3 both \"x>0\" and \"x>=0\" are false, so both return \"non-positive\"; only x=0 reveals the difference."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "At x=-3 both conditions are false, so both versions return \"non-positive\" — no difference."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: x=0 kills it; this test merely misses it."
+            }
+          ],
+          "generalFeedback": "At x=-3, \"x>0\" and \"x>=0\" are both false, so both versions return \"non-positive\" and the mutant survives this test. The single killing input is x=0, so the mutant is non-equivalent — a reminder that reaching the boundary matters.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Live: && to || with both operands false",
+          "text": "<p>Consider <code>return (age &gt;= 18) &amp;&amp; citizen;</code> with the mutant <code>return (age &gt;= 18) || citizen;</code> (operator <strong>&amp;&amp; &#8594; ||</strong>). For the test input <code>age = 10, citizen = false</code>, the outcome is:</p>",
+          "answers": [
+            {
+              "text": "Lives — the test does not detect it, though another input would",
+              "fraction": 100,
+              "feedback": "Correct — both operands are false, so AND and OR both yield false; the mutant survives this test."
+            },
+            {
+              "text": "Killed — the test detects the mutant (its output differs from the original)",
+              "fraction": 0,
+              "feedback": "false && false and false || false are both false, so the outputs match here."
+            },
+            {
+              "text": "Equivalent — no test input could ever detect the mutant",
+              "fraction": 0,
+              "feedback": "The mutant is not equivalent: e.g. age=30, citizen=false (true vs false operands) would kill it."
+            }
+          ],
+          "generalFeedback": "With age=10 (age>=18 is false) and citizen=false, the original computes false && false = false and the mutant false || false = false — identical, so it survives. && and || agree exactly when both operands share a truth value; an input where they differ would kill this non-equivalent mutant.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是突變體",
+          "text": "<p>在突變測試（mutation testing）中，<em>突變體（mutant）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "由突變運算子對程式做一個微小語法變更後產生的程式副本",
+              "fraction": 100,
+              "feedback": "正確——突變體就是被刻意植入一個微小錯誤的原始程式。"
+            },
+            {
+              "text": "能揭露程式缺陷的測試案例",
+              "fraction": 0,
+              "feedback": "那是會失敗的測試案例，不是突變體；突變體是被更動過的程式。"
+            },
+            {
+              "text": "使用者在正式環境回報的錯誤",
+              "fraction": 0,
+              "feedback": "突變體是刻意注入的人工錯誤，並非現場回報的缺陷。"
+            },
+            {
+              "text": "能讓程式碼覆蓋率最大化的輸入值",
+              "fraction": 0,
+              "feedback": "那是測試層面的考量，與突變體的定義無關。"
+            }
+          ],
+          "generalFeedback": "突變體是對程式套用突變運算子、做出一個微小語法變更（例如把 + 改成 -）後產生的變體。以測試去執行突變體，可衡量測試偵測此類錯誤的能力。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是突變運算子",
+          "text": "<p><em>突變運算子（mutation operator）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "一條系統化改寫程式以產生突變體的規則（例如把 + 換成 -）",
+              "fraction": 100,
+              "feedback": "正確——每個運算子都定義了一類微小的語法變更。"
+            },
+            {
+              "text": "原始碼中的算術運算子，如 + 或 *",
+              "fraction": 0,
+              "feedback": "那是程式中的運算子；突變運算子是改變這類符記的規則。"
+            },
+            {
+              "text": "判定通過或失敗的測試諭示（oracle）",
+              "fraction": 0,
+              "feedback": "諭示負責判斷輸出，並不產生突變體。"
+            },
+            {
+              "text": "描述有多少測試通過的度量",
+              "fraction": 0,
+              "feedback": "那比較接近測試結果，而非突變運算子。"
+            }
+          ],
+          "generalFeedback": "突變運算子是套用在原始碼上的轉換規則（ROR、AOR、LOR、敘述刪除等），用來系統化地產生突變體，每個突變體帶有一個微小變更。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變測試的目的",
+          "text": "<p>突變測試最主要的目的是：</p>",
+          "answers": [
+            {
+              "text": "衡量測試套件偵測錯誤的適切性（adequacy）",
+              "fraction": 100,
+              "feedback": "正確——它問的是「這些測試能抓到多少注入的錯誤？」"
+            },
+            {
+              "text": "自動修復程式中的錯誤",
+              "fraction": 0,
+              "feedback": "突變測試評估的是測試，而不是修改程式碼。"
+            },
+            {
+              "text": "證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何測試技術能證明所有缺陷都不存在。"
+            },
+            {
+              "text": "隨機產生程式輸入",
+              "fraction": 0,
+              "feedback": "隨機輸入產生是另一種技術；突變測試注入的是錯誤，而非輸入。"
+            }
+          ],
+          "generalFeedback": "突變測試透過注入人工錯誤（突變體）並衡量測試套件偵測到的比例，來評估測試品質——這是比單純結構覆蓋更強的適切性準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變體被殺死",
+          "text": "<p>一個突變體被視為<em>被殺死（killed）</em>，是指：</p>",
+          "answers": [
+            {
+              "text": "某個測試案例在突變體上產生的結果與原始程式不同",
+              "fraction": 100,
+              "feedback": "正確——這種可觀察到的差異正是「殺死」的定義。"
+            },
+            {
+              "text": "該突變體無法編譯",
+              "fraction": 0,
+              "feedback": "無法編譯的突變體通常會被直接捨棄（死產突變體），而不是被測試「殺死」。"
+            },
+            {
+              "text": "該突變體在執行時當掉（crash）",
+              "fraction": 0,
+              "feedback": "當掉只有在其行為與原始程式不同時才算殺死；定義的核心在於輸出不同，而非當掉本身。"
+            },
+            {
+              "text": "該突變體與原始程式等價",
+              "fraction": 0,
+              "feedback": "依定義，等價突變體永遠不可能被任何測試殺死。"
+            }
+          ],
+          "generalFeedback": "當測試套件中至少有一個測試案例，在突變體與原始程式上執行時產生可觀察到的差異（輸出、狀態，或是當掉與否），該突變體即被視為已被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活的突變體",
+          "text": "<p>面對某個測試套件時，一個<em>存活（lives／survives）</em>的突變體是指：</p>",
+          "answers": [
+            {
+              "text": "對套件中的每一個測試，都產生與原始程式相同的結果",
+              "fraction": 100,
+              "feedback": "正確——套件中沒有任何測試能區分它，因此它存活下來。"
+            },
+            {
+              "text": "在至少一個測試上產生不同的結果",
+              "fraction": 0,
+              "feedback": "那描述的是被殺死的突變體，而不是存活的。"
+            },
+            {
+              "text": "無法被編譯或執行",
+              "fraction": 0,
+              "feedback": "那是死產（stillborn）突變體，與存活突變體是不同的類別。"
+            },
+            {
+              "text": "一定是等價突變體",
+              "fraction": 0,
+              "feedback": "存活的突變體可能是等價的，但也可能是非等價、只是尚未被較弱的套件殺死。"
+            }
+          ],
+          "generalFeedback": "存活（survive）的突變體對套件中每個測試都給出與原始程式相同的輸出。它代表測試的弱點（一個更好的測試能殺死的非等價突變體），或是一個沒有任何測試能殺死的等價突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價突變體",
+          "text": "<p><em>等價突變體（equivalent mutant）</em>是指這樣的突變體：</p>",
+          "answers": [
+            {
+              "text": "語法上與原始程式不同，但在所有輸入下語意完全相同",
+              "fraction": 100,
+              "feedback": "正確——對所有輸入而言，輸入輸出行為都相同，因此沒有任何測試能區分它。"
+            },
+            {
+              "text": "與原始程式文字完全相同",
+              "fraction": 0,
+              "feedback": "突變運算子一定會引入語法上的變化；文字完全相同根本不算是突變體。"
+            },
+            {
+              "text": "位於無法執行到的死碼（dead code）中的突變體",
+              "fraction": 0,
+              "feedback": "無法到達的突變體是在可到達性（reachability）上失敗，但若真的執行到該處，它仍可能不是等價的。"
+            },
+            {
+              "text": "在所有輸入下都會當掉的突變體",
+              "fraction": 0,
+              "feedback": "一個穩定地以不同方式當掉的突變體會被輕易殺死，而非等價。"
+            }
+          ],
+          "generalFeedback": "等價突變體在原始碼上與原始程式不同，但計算出的函式完全相同——對每一個可能的輸入都給出相同輸出——因此在邏輯上不可能被任何測試殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變分數公式",
+          "text": "<p>突變分數（mutation score）的計算方式為：</p>",
+          "answers": [
+            {
+              "text": "被殺死的突變體數 / (突變體總數 &#8722; 等價突變體數)",
+              "fraction": 100,
+              "feedback": "正確——等價突變體被排除，因為沒有任何測試能殺死它們。"
+            },
+            {
+              "text": "被殺死的突變體數 / 突變體總數",
+              "fraction": 0,
+              "feedback": "這把等價突變體當作可被殺死來計算，會不公平地拉低測試套件的分數。"
+            },
+            {
+              "text": "被殺死的突變體數 / (突變體總數 + 等價突變體數)",
+              "fraction": 0,
+              "feedback": "把等價突變體加進分母而非減去，會在沒有依據的情況下讓分數變差。"
+            },
+            {
+              "text": "(突變體總數 &#8722; 被殺死的突變體數) / 突變體總數",
+              "fraction": 0,
+              "feedback": "這比較接近「存活突變體比例」，而不是突變分數。"
+            }
+          ],
+          "generalFeedback": "突變分數 = 被殺死數 / (總數 &#8722; 等價數)。等價突變體從分母中被移除，因為它們在語意上與原始程式完全相同，任何測試都不可能殺死它們。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿分的突變分數",
+          "text": "<p>某測試套件達到 100% 的突變分數（已排除等價突變體）。這代表：</p>",
+          "answers": [
+            {
+              "text": "套件中的某個測試殺死了每一個非等價突變體",
+              "fraction": 100,
+              "feedback": "正確——滿分表示所有可被殺死的突變體都被偵測到了。"
+            },
+            {
+              "text": "程式已被證明是正確的",
+              "fraction": 0,
+              "feedback": "殺死所有突變體只說明測試能抓到這些注入的錯誤，並不代表程式沒有錯誤。"
+            },
+            {
+              "text": "沒有任何等價突變體",
+              "fraction": 0,
+              "feedback": "等價突變體被排除在分母之外；100% 的分數並未說明它們有多少個。"
+            },
+            {
+              "text": "套件達到 100% 的分支覆蓋率",
+              "fraction": 0,
+              "feedback": "高突變分數通常意味著強覆蓋，但 100% 是由被殺死的突變體定義，而非直接由分支定義。"
+            }
+          ],
+          "generalFeedback": "100% 的突變分數表示套件殺死了每一個非等價突變體。這是很強的適切性訊號，但並非程式正確性的證明。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "稱職程式設計師假說",
+          "text": "<p>突變測試背後的<em>稱職程式設計師假說（competent programmer hypothesis）</em>主張：</p>",
+          "answers": [
+            {
+              "text": "程式設計師寫出的程式已接近正確，因此真實錯誤是與正確程式僅有微小差異",
+              "fraction": 100,
+              "feedback": "正確——這正當化了以微小的單一突變來模擬錯誤。"
+            },
+            {
+              "text": "程式設計師從不在程式中引入錯誤",
+              "fraction": 0,
+              "feedback": "若真如此就沒有東西需要測試了；假說講的是錯誤微小，而非不存在。"
+            },
+            {
+              "text": "每個錯誤都需要同時做多處變更才能修正",
+              "fraction": 0,
+              "feedback": "假說主張的正好相反——錯誤通常是微小的偏差。"
+            },
+            {
+              "text": "編譯器能偵測程式設計師的所有錯誤",
+              "fraction": 0,
+              "feedback": "這與假說無關；假說談的是人為錯誤的規模，而非編譯器的能力。"
+            }
+          ],
+          "generalFeedback": "稱職程式設計師假說認為開發者寫出的程式已接近正確，因此錯誤是微小的。這正當化了以微小的單一變更突變體來模擬真實錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "耦合效應",
+          "text": "<p><em>耦合效應（coupling effect）</em>假說主張：</p>",
+          "answers": [
+            {
+              "text": "能偵測所有簡單（單一變更）錯誤的測試，也能偵測大多數複雜（多重變更）錯誤",
+              "fraction": 100,
+              "feedback": "正確——這正是以簡單突變體來測試之所以有價值的原因。"
+            },
+            {
+              "text": "複雜錯誤與簡單錯誤完全獨立無關",
+              "fraction": 0,
+              "feedback": "耦合效應主張的正好相反——複雜錯誤與簡單錯誤是耦合的。"
+            },
+            {
+              "text": "兩個共享資料的模組必須一起測試",
+              "fraction": 0,
+              "feedback": "那是設計上的模組耦合，不是突變測試的耦合效應。"
+            },
+            {
+              "text": "每個突變體都恰好與一個測試案例耦合",
+              "fraction": 0,
+              "feedback": "耦合效應講的是簡單與複雜錯誤之間的關係，而非突變體與個別測試的關係。"
+            }
+          ],
+          "generalFeedback": "耦合效應主張：能殺死所有簡單單一變更突變體的測試集，也能偵測絕大多數複雜的高階錯誤——因此一階突變體是良好的適切性目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：正負號分類（> 改為 >=）",
+          "text": "<p>考慮 <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>。運算子 <strong>&gt; &#8594; &gt;=</strong> 產生突變體 <code>if (x &gt;= 0) ...</code>。對測試輸入 <code>x = 0</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——在 x=0 時原始程式回傳 \"non-positive\"，但突變體回傳 \"positive\"。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "x=0 正是兩個運算子產生歧異的邊界，因此此測試偵測得到。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體顯然非等價：x=0 就能區分它。"
+            }
+          ],
+          "generalFeedback": "在 x=0 時，原始程式的 \"x>0\" 為假（回傳 \"non-positive\"），但突變體的 \"x>=0\" 為真（回傳 \"positive\"）。輸出不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：投票年齡（>= 改為 >）",
+          "text": "<p>考慮 <code>return age &gt;= 18;</code>。運算子 <strong>&gt;= &#8594; &gt;</strong> 產生突變體 <code>return age &gt; 18;</code>。對測試輸入 <code>age = 18</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——在 age=18 時原始程式回傳 true，但突變體回傳 false。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "age=18 正是 \">=18\" 與 \">18\" 產生歧異的邊界，因此此測試偵測得到。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：age=18 就能區分兩者。"
+            }
+          ],
+          "generalFeedback": "在 age=18 時，原始程式的 \"age>=18\" 為真，但突變體的 \"age>18\" 為假。結果不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：敘述刪除（絕對值）",
+          "text": "<p>考慮 <code>if (x &lt; 0) { x = -x; } return x;</code>。敘述刪除移除 <code>x = -x;</code>，得到 <code>if (x &lt; 0) { } return x;</code>。對測試輸入 <code>x = -5</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——原始程式回傳 5，但突變體回傳 -5。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "當 x=-5 時被刪除的敘述本來會執行，因此在此處它的移除是可觀察到的。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：任何負數輸入都能區分它。"
+            }
+          ],
+          "generalFeedback": "在 x=-5 時，原始程式取負後回傳 5，但突變體的空 if 主體讓 x 維持 -5。輸出不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：算術運算子（+ 改為 -）",
+          "text": "<p>考慮 <code>return a + b;</code>。運算子 <strong>+ &#8594; -</strong> 產生突變體 <code>return a - b;</code>。對測試輸入 <code>a = 3, b = 7</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——3+7=10，但 3-7=-4。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "因為 b=7≠0，a+b 與 a-b 不同，因此此測試偵測得到。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：任何 b≠0 都能區分 + 與 -。"
+            }
+          ],
+          "generalFeedback": "此處 a+b=10，但 a-b=-4；由於 b≠0，兩者相差（2b），因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活結果：正負號分類於 x = 7",
+          "text": "<p>考慮 <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>，突變體為 <code>if (x &gt;= 0) ...</code>（運算子 <strong>&gt; &#8594; &gt;=</strong>）。對測試輸入 <code>x = 7</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——在 x=7 時兩個版本都回傳 \"positive\"；只有 x=0 才會顯露差異。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "在 x=7 時 \"x>0\" 與 \"x>=0\" 都為真，因此輸出相同——此測試殺不死它。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：x=0 能殺死它；只是這個測試恰好漏掉。"
+            }
+          ],
+          "generalFeedback": "在 x=7 時 \"x>0\" 與 \"x>=0\" 都為真，因此都回傳 \"positive\"，突變體在此測試下存活。但它並非等價——x=0 就能殺死它。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "ROR 運算子",
+          "text": "<p>下列哪一項是 <strong>ROR</strong>（Relational Operator Replacement，關係運算子替換）運算子的實例？</p>",
+          "answers": [
+            {
+              "text": "把 <code>a &lt; b</code> 改成 <code>a &lt;= b</code>",
+              "fraction": 100,
+              "feedback": "正確——ROR 把一個關係運算子換成另一個（<、<=、>、>=、==、!=）。"
+            },
+            {
+              "text": "把 <code>a + b</code> 改成 <code>a - b</code>",
+              "fraction": 0,
+              "feedback": "那是 AOR（算術運算子替換），不是 ROR。"
+            },
+            {
+              "text": "把 <code>a &amp;&amp; b</code> 改成 <code>a || b</code>",
+              "fraction": 0,
+              "feedback": "那是 LOR/COR（邏輯／條件運算子替換）。"
+            },
+            {
+              "text": "刪除敘述 <code>a = b;</code>",
+              "fraction": 0,
+              "feedback": "那是 SDL（敘述刪除）。"
+            }
+          ],
+          "generalFeedback": "ROR 把一個關係運算子換成其他各個關係運算子（有時也換成 true/false），例如把 < 換成 <=、>、>=、== 或 !=。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AOR 運算子",
+          "text": "<p><strong>AOR</strong>（Arithmetic Operator Replacement，算術運算子替換）運算子會把 <code>x * y</code> 轉換成下列何者？</p>",
+          "answers": [
+            {
+              "text": "<code>x + y</code>",
+              "fraction": 100,
+              "feedback": "正確——AOR 把一個二元算術運算子換成另一個（+、-、*、/、%）。"
+            },
+            {
+              "text": "<code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "把算術改成關係屬於 ROR 類，不是 AOR。"
+            },
+            {
+              "text": "<code>x &amp;&amp; y</code>",
+              "fraction": 0,
+              "feedback": "那是引入邏輯運算子（LOR），不是算術運算子。"
+            },
+            {
+              "text": "<code>-x * y</code>",
+              "fraction": 0,
+              "feedback": "插入一元負號是 UOI，不是 AOR。"
+            }
+          ],
+          "generalFeedback": "AOR 把一個二元算術運算子換成 {+, -, *, /, %} 中的另一個，例如把 * 換成 +。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LOR 運算子",
+          "text": "<p>把 <strong>LOR</strong>／條件運算子替換運算子套用在 <code>a &amp;&amp; b</code> 上，最直接會產生：</p>",
+          "answers": [
+            {
+              "text": "<code>a || b</code>",
+              "fraction": 100,
+              "feedback": "正確——它把一個邏輯連接詞換成另一個。"
+            },
+            {
+              "text": "<code>a == b</code>",
+              "fraction": 0,
+              "feedback": "那是關係運算子（ROR），不是邏輯連接詞。"
+            },
+            {
+              "text": "<code>a + b</code>",
+              "fraction": 0,
+              "feedback": "那是算術（AOR）。"
+            },
+            {
+              "text": "<code>!a &amp;&amp; b</code>",
+              "fraction": 0,
+              "feedback": "插入一個否定是 UOI；LOR 替換的是連接詞本身。"
+            }
+          ],
+          "generalFeedback": "LOR（邏輯／條件運算子替換）把一個邏輯連接詞換成另一個，例如把 && 換成 ||。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ABS 運算子",
+          "text": "<p><strong>ABS</strong>（Absolute Value Insertion，絕對值插入）運算子會把算術運算式 <code>e</code> 突變成哪一族變體？</p>",
+          "answers": [
+            {
+              "text": "<code>abs(e)</code>、<code>-abs(e)</code>，以及一個遇零即失敗（fail-on-zero）的變體",
+              "fraction": 100,
+              "feedback": "正確——ABS 強迫以非負、非正與零三種情況來測試 e。"
+            },
+            {
+              "text": "<code>e + 1</code> 與 <code>e - 1</code>",
+              "fraction": 0,
+              "feedback": "差一調整不是 ABS；ABS 關注的是運算式的正負號／零。"
+            },
+            {
+              "text": "<code>e &gt; 0</code> 與 <code>e &lt; 0</code>",
+              "fraction": 0,
+              "feedback": "那些是關係判斷，不是 ABS 的數值插入族。"
+            },
+            {
+              "text": "把 <code>e</code> 換成一個常數字面值",
+              "fraction": 0,
+              "feedback": "常數替換是另一種運算子；ABS 是把 e 包成絕對值形式。"
+            }
+          ],
+          "generalFeedback": "ABS 把運算式 e 換成 abs(e)、-abs(e) 與 failOnZero(e)，藉此強迫測試以正、負與零三種情況來執行 e。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UOI 運算子",
+          "text": "<p>下列哪一項是 <strong>UOI</strong>（Unary Operator Insertion，一元運算子插入）運算子的例子？</p>",
+          "answers": [
+            {
+              "text": "把 <code>return x;</code> 改成 <code>return -x;</code>",
+              "fraction": 100,
+              "feedback": "正確——UOI 插入一個一元運算子（此處為算術取負）。"
+            },
+            {
+              "text": "把 <code>x + y</code> 改成 <code>x - y</code>",
+              "fraction": 0,
+              "feedback": "那是替換二元運算子（AOR），而非插入一元運算子。"
+            },
+            {
+              "text": "把 <code>x &lt; y</code> 改成 <code>x &gt; y</code>",
+              "fraction": 0,
+              "feedback": "那是 ROR。"
+            },
+            {
+              "text": "刪除 <code>x = 0;</code>",
+              "fraction": 0,
+              "feedback": "那是敘述刪除（SDL）。"
+            }
+          ],
+          "generalFeedback": "UOI 在運算式中插入一個一元運算子，例如把 x 變成 -x、把布林 b 變成 !b，或把 x 變成 ++x。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SDL 運算子",
+          "text": "<p><strong>SDL</strong>（Statement Deletion，敘述刪除）運算子產生突變體的方式是：</p>",
+          "answers": [
+            {
+              "text": "從程式中移除一整個敘述",
+              "fraction": 100,
+              "feedback": "正確——SDL 刪除一個敘述，以檢查是否有任何測試依賴它的作用。"
+            },
+            {
+              "text": "把變數參照換成一個常數",
+              "fraction": 0,
+              "feedback": "那是常數／變數替換運算子，不是 SDL。"
+            },
+            {
+              "text": "交換兩個相鄰的敘述",
+              "fraction": 0,
+              "feedback": "重新排序是另一種突變；SDL 是移除一個敘述。"
+            },
+            {
+              "text": "把布林條件取否定",
+              "fraction": 0,
+              "feedback": "那比較接近 UOI/COR；SDL 是刪除而非取否定。"
+            }
+          ],
+          "generalFeedback": "SDL 刪除一個敘述（通常以 no-op 取代）。若沒有任何測試偵測到此刪除，代表該敘述的作用未被測試到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP 模型——感染失敗",
+          "text": "<p>在可到達性&#8211;感染&#8211;傳播（Reachability&#8211;Infection&#8211;Propagation, RIP）模型中，若被突變的敘述有執行到，但程式狀態事後從未出現差異，這代表哪個條件失敗了？</p>",
+          "answers": [
+            {
+              "text": "感染（Infection）",
+              "fraction": 100,
+              "feedback": "正確——可到達性已經成立（該敘述有執行），但突變並未真正破壞程式狀態。"
+            },
+            {
+              "text": "可到達性（Reachability）",
+              "fraction": 0,
+              "feedback": "可到達性已經成立，因為該敘述確實有被執行。"
+            },
+            {
+              "text": "傳播（Propagation）",
+              "fraction": 0,
+              "feedback": "傳播只有在狀態真的被感染之後才有意義；此處狀態從未被感染。"
+            },
+            {
+              "text": "測試諭示（oracle）",
+              "fraction": 0,
+              "feedback": "RIP 模型並不包含「oracle」這個條件——測試諭示的問題屬於結果驗證階段。"
+            }
+          ],
+          "generalFeedback": "RIP 要求被突變的敘述須被到達（Reached）、須感染（Infect）程式狀態（使其與原始程式不同），且被感染的狀態須傳播（Propagate）至輸出。若有執行卻始終沒有任何狀態差異，代表感染失敗。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "敘述覆蓋與突變體",
+          "text": "<p>達到 100% 敘述覆蓋率的測試套件，保證能殺死所有非等價的突變體。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "敘述覆蓋只能保證可到達性，並不保證該突變會感染狀態，也不保證感染後的狀態會傳播到可觀察的輸出。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——敘述覆蓋只保證被突變的敘述有執行到（可到達性），對感染與傳播毫無保證，因此非等價突變體仍可能存活。"
+            }
+          ],
+          "generalFeedback": "100% 敘述覆蓋只滿足了 RIP 模型中「可到達性」這一環。若感染從未發生，或被感染的狀態從未傳播到受檢查的輸出，突變體仍可能存活——因此完整的敘述覆蓋並不保證殺死所有非等價突變體。"
+        },
+        {
+          "type": "shortanswer",
+          "name": "RIP——傳播",
+          "text": "<p>在可到達性&#8211;感染&#8211;傳播模型中，哪個詞代表「受破壞的狀態必須到達並改變程式可觀察輸出」的條件？（請以英文一個單字回答）</p>",
+          "answers": [
+            {
+              "text": "propagation",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "propagat*",
+              "fraction": 100,
+              "feedback": "正確。"
+            }
+          ],
+          "generalFeedback": "傳播（propagation）是 RIP 的第三個條件：被感染（破壞）的狀態必須在執行過程中持續向前影響，直到改變測試諭示實際觀察到的結果為止。",
+          "usecase": false
+        },
+        {
+          "type": "multichoice",
+          "name": "弱突變與強突變",
+          "text": "<p><strong>弱突變（weak mutation）</strong>與<strong>強突變（strong mutation）</strong>的區別在於？</p>",
+          "answers": [
+            {
+              "text": "弱突變在被突變的元件執行後立即檢查是否有狀態差異；強突變則要求該差異必須傳播到程式輸出",
+              "fraction": 100,
+              "feedback": "正確——弱突變只需感染；強突變需要感染再傳播。"
+            },
+            {
+              "text": "弱突變使用的突變運算子比強突變少",
+              "fraction": 0,
+              "feedback": "區別在於在何處觀察差異，而非使用多少運算子。"
+            },
+            {
+              "text": "弱突變只適用於等價突變體",
+              "fraction": 0,
+              "feedback": "兩者都適用於一般突變體；差別在於比較的時點。"
+            },
+            {
+              "text": "強突變因為在被突變的敘述就停止，所以跑得比較快",
+              "fraction": 0,
+              "feedback": "能在元件處提早停止的是弱突變；強突變會一路執行到輸出。"
+            }
+          ],
+          "generalFeedback": "弱突變在被突變元件執行後立即比較內部狀態（可到達性＋感染）。強突變則要求被感染的狀態一路傳播到可觀察的輸出（可到達性＋感染＋傳播）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變分數計算",
+          "text": "<p>某程式有 30 個突變體，其中 6 個為等價突變體，測試套件殺死了 21 個。突變分數是多少？</p>",
+          "answers": [
+            {
+              "text": "87.5%",
+              "fraction": 100,
+              "feedback": "正確——21 / (30 &#8722; 6) = 21/24 = 0.875。"
+            },
+            {
+              "text": "70%",
+              "fraction": 0,
+              "feedback": "那是 21/30——錯把等價突變體算進分母。"
+            },
+            {
+              "text": "58.3%",
+              "fraction": 0,
+              "feedback": "那是 21/(30+6)——等價突變體應該減去，而不是加上。"
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "那是存活突變體比例 9/30，不是突變分數。"
+            }
+          ],
+          "generalFeedback": "突變分數 = 被殺死數 / (總數 &#8722; 等價數) = 21 / (30 &#8722; 6) = 21/24 = 87.5%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "選擇性突變",
+          "text": "<p><strong>選擇性突變（selective mutation）</strong>降低成本的方式是：</p>",
+          "answers": [
+            {
+              "text": "只使用一小組精心挑選的突變運算子，卻仍能得到幾乎相同的適切性",
+              "fraction": 100,
+              "feedback": "正確——少數關鍵運算子即可逼近使用完整運算子集的效果。"
+            },
+            {
+              "text": "只測試那些恰好是等價的突變體",
+              "fraction": 0,
+              "feedback": "等價突變體永遠殺不死，單獨測試它們毫無意義。"
+            },
+            {
+              "text": "只挑選那些已經通過的測試案例",
+              "fraction": 0,
+              "feedback": "選擇性突變減少的是運算子，而非測試，也不以通過／失敗來篩選。"
+            },
+            {
+              "text": "讓每個突變體只對一個測試執行",
+              "fraction": 0,
+              "feedback": "那會削弱偵測能力；選擇性突變是精簡運算子集。"
+            }
+          ],
+          "generalFeedback": "選擇性突變只套用一小組運算子（例如「充分」運算子集），其產生的突變分數在經驗上與完整運算子集幾乎相同，卻大幅減少突變體數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死結果：&& 改為 || 且運算元不同",
+          "text": "<p>考慮 <code>return (age &gt;= 18) &amp;&amp; citizen;</code>，突變體為 <code>return (age &gt;= 18) || citizen;</code>（運算子 <strong>&amp;&amp; &#8594; ||</strong>）。對測試輸入 <code>age = 30, citizen = false</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 100,
+              "feedback": "正確——此處兩個運算元真值不同（true 與 false），因此 AND 與 OR 產生歧異。"
+            },
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 0,
+              "feedback": "此處 AND 得 false 而 OR 得 true，因此此測試偵測得到差異。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "只要運算元真值不同（如此處），&& 與 || 就不等價。"
+            }
+          ],
+          "generalFeedback": "當 age=30（故 age>=18 為真）且 citizen=false 時，原始程式計算 true && false = false，但突變體計算 true || false = true。輸出不同，因此此測試殺死了突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活結果：&& 改為 || 且運算元相同",
+          "text": "<p>考慮 <code>return (age &gt;= 18) &amp;&amp; citizen;</code>，突變體為 <code>return (age &gt;= 18) || citizen;</code>（運算子 <strong>&amp;&amp; &#8594; ||</strong>）。對測試輸入 <code>age = 30, citizen = true</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——兩個運算元都為真，因此 AND 與 OR 都得 true；運算元不同的測試才能殺死它。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "true && true 與 true || true 都等於 true，因此此處輸出相同。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：age=30、citizen=false 就能殺死它。"
+            }
+          ],
+          "generalFeedback": "當兩個運算元都為真時，true && true = true 而 true || true = true，因此突變體在此測試下存活。它並非等價——運算元真值不同的輸入（例如 citizen=false）就能殺死它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活結果：+ 改為 - 於 b = 0",
+          "text": "<p>考慮 <code>return a + b;</code>，突變體為 <code>return a - b;</code>（運算子 <strong>+ &#8594; -</strong>）。對測試輸入 <code>a = 9, b = 0</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——a+0 與 a-0 都是 9，因此此測試漏掉了突變體；任何 b≠0 都能殺死它。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "當 b=0 時，a+b 與 a-b 相等（都是 9），因此輸出相同——殺不死。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：任何 b≠0 都會讓 + 與 - 不同而殺死它。"
+            }
+          ],
+          "generalFeedback": "在 b=0 時，a+b = a-b = 9，因此突變體在此特定測試下存活。但它並非等價：任何 b≠0 的測試（此時 a+b 與 a-b 相差 2b）都能殺死它。這說明選得不好的測試輸入可能讓一個可殺死的突變體存活。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何等價突變體殺不死",
+          "text": "<p>為什麼沒有任何測試案例能殺死等價突變體？</p>",
+          "answers": [
+            {
+              "text": "它與原始程式計算相同的函式，因此沒有任何輸入能使兩者輸出不同",
+              "fraction": 100,
+              "feedback": "正確——殺死需要可觀察的輸出差異，而等價突變體永遠無法產生這種差異。"
+            },
+            {
+              "text": "它被突變的敘述永遠無法到達",
+              "fraction": 0,
+              "feedback": "等價性談的是行為相同，而非可到達性；該敘述其實很可能會執行。"
+            },
+            {
+              "text": "它在回傳前一定會拋出例外",
+              "fraction": 0,
+              "feedback": "與原始程式不同的例外反而會殺死它；等價代表完全沒有差異。"
+            },
+            {
+              "text": "測試工具會自動略過它",
+              "fraction": 0,
+              "feedback": "工具連可靠地偵測等價性都做不到；這種不可能性是本質使然，而非工具的選擇。"
+            }
+          ],
+          "generalFeedback": "突變體只有在某個測試產生與原始程式不同的可觀察結果時才會被殺死。等價突變體對每個輸入都計算完全相同的函式，因此那種差異永遠不會出現——沒有任何測試能殺死它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價：死存放刪除",
+          "text": "<p>考慮 <code>int unused = x * 2; return x * x;</code>。敘述刪除移除 <code>int unused = x * 2;</code>，得到 <code>return x * x;</code>。結果是：</p>",
+          "answers": [
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 100,
+              "feedback": "正確——被寫入卻從未被讀取，且沒有副作用，因此刪除它不會改變任何輸出。"
+            },
+            {
+              "text": "被殺死——某個測試偵測到它",
+              "fraction": 0,
+              "feedback": "沒有任何測試能偵測它：回傳值不受被刪除的死存放影響。"
+            },
+            {
+              "text": "此測試下存活，但更好的測試能殺死它",
+              "fraction": 0,
+              "feedback": "不存在能殺死它的輸入，因此它是等價，而非只是存活。"
+            }
+          ],
+          "generalFeedback": "被指派卻從未被讀取，且沒有副作用，因此對任何 x 而言，刪除該敘述都不會改變回傳值。此突變體是等價的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價：對長度的關係運算子",
+          "text": "<p>已知 <code>n = arr.length</code>（故恆有 <code>n &gt;= 0</code>），考慮 <code>if (n &gt; -1) return true; else return false;</code>。運算子 <strong>&gt; &#8594; &gt;=</strong> 產生 <code>if (n &gt;= -1) ...</code>。結果是：</p>",
+          "answers": [
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 100,
+              "feedback": "正確——對每個可到達的 n（n≥0），\"n>-1\" 與 \"n>=-1\" 都為真，兩版本永不歧異。"
+            },
+            {
+              "text": "被殺死——某個測試偵測到它",
+              "fraction": 0,
+              "feedback": "兩個條件只有在 n = -1 時才不同，而陣列長度不可能是 -1，因此沒有任何測試能殺死它。"
+            },
+            {
+              "text": "此測試下存活，但更好的測試能殺死它",
+              "fraction": 0,
+              "feedback": "不存在能區分兩者的可到達輸入，因此它是等價，而非只是存活。"
+            }
+          ],
+          "generalFeedback": "\"n>-1\" 與 \"n>=-1\" 只有在 n = -1 時才不同。由於 n 是陣列長度（依建構恆有 n≥0），該值無法到達，因此兩版本對每個可能的輸入都一致——此突變體是等價的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識等價迴圈突變體",
+          "text": "<p>此處 <code>n</code> 是串列長度（故 <code>n &gt;= 0</code>）。考慮 <code>for (int i = 0; i &lt; n; i++) sum += a[i];</code>，經 <strong>&lt; &#8594; !=</strong> 突變為 <code>for (int i = 0; i != n; i++) sum += a[i];</code>。此突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——i 從 0 遞增並恰好到達 n，故對每個 n≥0，i!=n 與 i<n 都在同一次迭代停止",
+              "fraction": 100,
+              "feedback": "正確——對所有非負的 n，兩個迴圈條件都在相同時點終止。"
+            },
+            {
+              "text": "任何 n > 0 的測試都能殺死它",
+              "fraction": 0,
+              "feedback": "對 n>0，兩個迴圈都恰好跑 n 次、產生相同的 sum，因此這種測試殺不死它。"
+            },
+            {
+              "text": "非等價，因為 i != n 可能會跳過最後一個元素",
+              "fraction": 0,
+              "feedback": "並不會：i 取 0,1,…,n-1 然後等於 n，與 i<n 在同一時點結束迴圈。"
+            },
+            {
+              "text": "非等價，因為迴圈永遠不會終止",
+              "fraction": 0,
+              "feedback": "由於 i 從 0 每次加 1 且 n≥0，i 終究會等於 n，迴圈會終止。"
+            }
+          ],
+          "generalFeedback": "由於 i 從 0 開始每次加 1，它會恰好碰到 n；對任何 n≥0，\"i!=n\" 與 \"i<n\" 都在同一次迭代變為假。兩者在每個可到達輸入上行為相同，因此這是等價突變體。（只有在 n 可能為負時才會不同——但長度不可能為負。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RIP：傳播失敗",
+          "text": "<p>考慮 <code>int y = x * 2; return (y &gt; 0) ? 1 : 0;</code>，經 <strong>* &#8594; +</strong> 突變為 <code>int y = x + 2; ...</code>。對測試輸入 <code>x = 5</code>，被突變的敘述有執行且 y 不同（10 對 7），但兩者都回傳 1。此測試中哪個 RIP 條件失敗了？</p>",
+          "answers": [
+            {
+              "text": "傳播（Propagation）——被感染的狀態（y）並未改變可觀察的輸出",
+              "fraction": 100,
+              "feedback": "正確——y 已被感染（10 對 7），但由於兩者皆 > 0，輸出維持 1，故感染未傳播。"
+            },
+            {
+              "text": "可到達性（Reachability）——被突變的敘述從未執行",
+              "fraction": 0,
+              "feedback": "它有執行；y 已被計算，故可到達性成立。"
+            },
+            {
+              "text": "感染（Infection）——狀態從未被破壞",
+              "fraction": 0,
+              "feedback": "感染確有發生：y 在原始程式為 10，在突變體為 7。"
+            },
+            {
+              "text": "此突變體是等價的",
+              "fraction": 0,
+              "feedback": "它並非等價——x=-1 或 x=0 會使輸出不同（0 對 1）而殺死它。"
+            }
+          ],
+          "generalFeedback": "在 x=5 時，可到達性與感染皆成立（y = 10 對 7），但兩個值都為正，故三元運算式在兩版本都回傳 1——差異未傳播到輸出。像 x=0（0 對 2，輸出 0 對 1）這樣的測試就會傳播並殺死此突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "弱突變對強突變：區分突變體",
+          "text": "<p>考慮 <code>int t = x + 1; return t * 0;</code>，經 <strong>+ &#8594; -</strong> 突變為 <code>int t = x - 1; return t * 0;</code>。弱突變與強突變如何分類此突變體？</p>",
+          "answers": [
+            {
+              "text": "在弱突變下可被殺死（t 被感染），但在強突變下為等價（輸出恆為 0）",
+              "fraction": 100,
+              "feedback": "正確——t 在被突變敘述後立即不同，但 t * 0 對每個 x 都是 0，因此永遠沒有輸出差異傳播出去。"
+            },
+            {
+              "text": "在弱突變與強突變下都可被殺死",
+              "fraction": 0,
+              "feedback": "強突變比較輸出，而輸出恆為 0，因此無法在強突變下被殺死。"
+            },
+            {
+              "text": "在弱突變與強突變下都是等價",
+              "fraction": 0,
+              "feedback": "弱突變比較 t 處的狀態，而它確實不同（x+1 對 x-1），因此在弱突變下可被殺死。"
+            },
+            {
+              "text": "在強突變下可被殺死，但在弱突變下為等價",
+              "fraction": 0,
+              "feedback": "這說反了：感染發生在 t（弱突變殺死），但輸出永不改變（強突變等價）。"
+            }
+          ],
+          "generalFeedback": "弱突變檢查被突變元件執行後的狀態：t 為 x+1 對 x-1，因此已被感染、可在弱突變下被殺死。強突變檢查輸出：t * 0 對每個 x 都是 0，故沒有測試能產生輸出差異——在強突變下此突變體是等價的。同一個突變體可以在弱突變下被「殺死」，卻在強突變下等價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PIE 模型",
+          "text": "<p>PIE（Propagation, Infection, Execution）模型與 RIP 模型的關係為何？</p>",
+          "answers": [
+            {
+              "text": "兩者描述相同的三個條件——執行／可到達、感染與傳播都必須成立才能顯露錯誤",
+              "fraction": 100,
+              "feedback": "正確——PIE 與 RIP 命名的是同一組讓錯誤被觀察到的必要條件。"
+            },
+            {
+              "text": "PIE 比 RIP 多了一個 RIP 沒有的第四個條件",
+              "fraction": 0,
+              "feedback": "兩個模型使用相同的三個條件；只是命名／順序不同。"
+            },
+            {
+              "text": "PIE 只適用於等價突變體",
+              "fraction": 0,
+              "feedback": "PIE 描述的是任何錯誤何時被顯露，並非專指等價突變體。"
+            },
+            {
+              "text": "PIE 以一個諭示強度條件取代傳播",
+              "fraction": 0,
+              "feedback": "傳播仍被保留；PIE 只是把 RIP 的「可到達」改稱為「執行」。"
+            }
+          ],
+          "generalFeedback": "PIE（傳播–感染–執行）與 RIP（可到達–感染–傳播）是同一個概念：錯誤位置必須被執行／到達、必須感染狀態，且該感染必須傳播到可觀察的輸出。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變包含覆蓋準則",
+          "text": "<p>若某測試集能殺死某程式上由敘述刪除（SDL）運算子所產生的每一個突變體，那麼該測試集至少必須滿足哪個結構準則？</p>",
+          "answers": [
+            {
+              "text": "敘述（節點）覆蓋——每個敘述都必須被執行，因為刪除它會被偵測到",
+              "fraction": 100,
+              "feedback": "正確——刪除只有在敘述執行時才可能被偵測，因此每個敘述都被覆蓋（且其作用被觀察到）。"
+            },
+            {
+              "text": "完整路徑覆蓋",
+              "fraction": 0,
+              "feedback": "殺死 SDL 突變體不需走遍每條路徑；完整路徑覆蓋強得多。"
+            },
+            {
+              "text": "所有 DU 路徑覆蓋",
+              "fraction": 0,
+              "feedback": "SDL 關乎執行敘述，而非走遍每條定義-使用路徑。"
+            },
+            {
+              "text": "不蘊含任何覆蓋準則",
+              "fraction": 0,
+              "feedback": "要偵測一個敘述被刪除，必然需要執行該敘述。"
+            }
+          ],
+          "generalFeedback": "要殺死一個敘述刪除突變體，測試必須執行該敘述（否則刪除不可見）並觀察其作用。殺死所有這類突變體因而至少蘊含敘述覆蓋——這是突變適切性包含結構覆蓋的一種體現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "支配（最小）突變體",
+          "text": "<p>在最小／支配突變體（minimal/dominator mutants）的理論中，突變體 M1 <em>支配（dominates）</em> M2（就某程式而言）是指：</p>",
+          "answers": [
+            {
+              "text": "每個殺死 M1 的測試也都會殺死 M2，因此涵蓋 M1 就使 M2 變得多餘",
+              "fraction": 100,
+              "feedback": "正確——一旦支配者被殺死，被支配的突變體便不再帶來新的測試需求。"
+            },
+            {
+              "text": "M1 與 M2 只由完全相同的單一測試殺死",
+              "fraction": 0,
+              "feedback": "支配關乎殺死測試集合的包含關係，而非某個唯一共享的測試。"
+            },
+            {
+              "text": "M1 是等價的而 M2 不是",
+              "fraction": 0,
+              "feedback": "支配討論的是非等價突變體之間殺死測試集的關係，而非等價性。"
+            },
+            {
+              "text": "M1 被突變的敘述比 M2 多",
+              "fraction": 0,
+              "feedback": "支配關乎哪些測試能殺死它們，而非各自含有多少變更。"
+            }
+          ],
+          "generalFeedback": "最小（支配）突變體集只保留未被支配的突變體：若殺死 M1 的測試集是殺死 M2 的測試集的子集，則 M1 支配 M2，使 M2 變得多餘。以支配集來計算突變分數，可避免大量簡單、多餘的突變體造成分數膨脹。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排除等價後的分數",
+          "text": "<p>某程式有 40 個突變體。套件殺死了 18 個；在 22 個存活者中，後來確認有 4 個為等價。突變分數（排除等價）是多少？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——18 / (40 &#8722; 4) = 18/36 = 0.5。"
+            },
+            {
+              "text": "45%",
+              "fraction": 0,
+              "feedback": "那是 18/40——錯把那 4 個等價突變體當作可殺死的天真分數。"
+            },
+            {
+              "text": "41%",
+              "fraction": 0,
+              "feedback": "那是 18/(40+4)——等價突變體應該減去，而不是加上。"
+            },
+            {
+              "text": "55%",
+              "fraction": 0,
+              "feedback": "那是存活者比例 22/40，不是突變分數。"
+            }
+          ],
+          "generalFeedback": "排除等價後，突變分數 = 被殺死數 / (總數 &#8722; 等價數) = 18 / (40 &#8722; 4) = 18/36 = 50%。確認等價突變體會讓分數從天真的 45% 上升，因為不可殺死的突變體離開了分母。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "高階突變體",
+          "text": "<p><em>高階突變體（higher-order mutant）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "同時套用了兩個或更多突變運算子的突變體",
+              "fraction": 100,
+              "feedback": "正確——一階突變體只有一個變更；高階突變體結合了數個。"
+            },
+            {
+              "text": "由較高優先權的運算子所產生的突變體",
+              "fraction": 0,
+              "feedback": "「階」指的是植入變更的數量，而非運算子的優先權。"
+            },
+            {
+              "text": "一定與原始程式等價",
+              "fraction": 0,
+              "feedback": "高階突變體通常非等價；有些是「難以察覺」的，但並非依定義就是等價。"
+            },
+            {
+              "text": "只能被高階測試案例殺死",
+              "fraction": 0,
+              "feedback": "並沒有所謂高階測試案例；一般測試就能殺死它們。"
+            }
+          ],
+          "generalFeedback": "高階突變體一次套用兩個或更多變更。有些會結合成比其組成的一階突變體更難殺死的「難以察覺」錯誤，這正是儘管有耦合效應，仍要研究高階突變的原因。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "等價突變體偵測不可判定",
+          "text": "<p>判定任意一個突變體是否與原始程式等價，一般而言是不可判定（undecidable）的。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——判定兩程式的函式等價性可由不可判定問題歸約而來，因此一般沒有演算法能解。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "任意程式的等價性是不可判定的；這正是等價突變體通常須以人工判斷或啟發式近似的原因。"
+            }
+          ],
+          "generalFeedback": "偵測等價突變體等於判定兩個程式是否計算相同函式，一般而言是不可判定的。實務上團隊使用啟發式（如編譯器最佳化或約束式檢查）與人工分析，而等價突變體問題是突變測試的一大成本。"
+        },
+        {
+          "type": "multichoice",
+          "name": "詮釋滿分",
+          "text": "<p>某套件殺死了 100% 的非等價突變體。哪個結論是站得住腳的？</p>",
+          "answers": [
+            {
+              "text": "就此運算子集而言套件是適切的，但程式仍可能含有沒有任何運算子模擬到的錯誤",
+              "fraction": 100,
+              "feedback": "正確——突變適切性是相對於所產生的突變體，而非正確性的證明。"
+            },
+            {
+              "text": "程式已被證明沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "突變測試以注入的錯誤來評估測試，無法證明整體正確性。"
+            },
+            {
+              "text": "每個可能的突變體（包含高階者）都被殺死了",
+              "fraction": 0,
+              "feedback": "一階的 100% 分數對未測試的高階突變體不能提供任何確定結論。"
+            },
+            {
+              "text": "套件也必定有 100% 的路徑覆蓋",
+              "fraction": 0,
+              "feedback": "高突變分數與覆蓋相關，但不保證完整的路徑覆蓋。"
+            }
+          ],
+          "generalFeedback": "滿分的突變分數表示測試能偵測所選運算子所能植入的每個錯誤——是很強的適切性證據，但運算子集之外（或規格中）的錯誤仍可能殘留。突變適切性永遠是相對於所使用的運算子而言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活：正負號分類於 x = -3",
+          "text": "<p>考慮 <code>if (x &gt; 0) return \"positive\"; else return \"non-positive\";</code>，突變體為 <code>if (x &gt;= 0) ...</code>（運算子 <strong>&gt; &#8594; &gt;=</strong>）。對測試輸入 <code>x = -3</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——在 x=-3 時 \"x>0\" 與 \"x>=0\" 都為假，因此都回傳 \"non-positive\"；只有 x=0 才顯露差異。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "在 x=-3 時兩個條件都為假，因此兩版本都回傳 \"non-positive\"——沒有差異。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：x=0 能殺死它；此測試只是漏掉。"
+            }
+          ],
+          "generalFeedback": "在 x=-3 時，\"x>0\" 與 \"x>=0\" 都為假，因此兩版本都回傳 \"non-positive\"，突變體在此測試下存活。唯一能殺死它的輸入是 x=0，因此此突變體非等價——提醒我們到達邊界很重要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存活：&& 改為 || 且兩運算元皆為假",
+          "text": "<p>考慮 <code>return (age &gt;= 18) &amp;&amp; citizen;</code>，突變體為 <code>return (age &gt;= 18) || citizen;</code>（運算子 <strong>&amp;&amp; &#8594; ||</strong>）。對測試輸入 <code>age = 10, citizen = false</code>，結果是：</p>",
+          "answers": [
+            {
+              "text": "存活——此測試偵測不到，但其他輸入可以",
+              "fraction": 100,
+              "feedback": "正確——兩個運算元都為假，因此 AND 與 OR 都得 false；突變體在此測試下存活。"
+            },
+            {
+              "text": "被殺死——此測試偵測到突變體（其輸出與原始程式不同）",
+              "fraction": 0,
+              "feedback": "false && false 與 false || false 都是 false，因此此處輸出相同。"
+            },
+            {
+              "text": "等價——沒有任何測試輸入能偵測到此突變體",
+              "fraction": 0,
+              "feedback": "此突變體非等價：例如 age=30、citizen=false（運算元真值不同）就能殺死它。"
+            }
+          ],
+          "generalFeedback": "當 age=10（age>=18 為假）且 citizen=false 時，原始程式計算 false && false = false，突變體計算 false || false = false——完全相同，故它存活。&& 與 || 恰在兩運算元真值相同時一致；運算元真值不同的輸入就能殺死這個非等價突變體。",
+          "single": true
+        }
+      ]
+    }
   },
   "symbolic-execution": {
-    "en": [
-      {
-        "type": "multichoice",
-        "name": "Path condition",
-        "text": "<p>A path condition, as built by a symbolic execution engine, is:</p>",
-        "answers": [
-          {
-            "text": "The conjunction of the branch constraints accumulated along one execution path, expressed over symbolic input variables",
-            "fraction": 100,
-            "feedback": "Correct — it's a formula, not a value, describing which concrete inputs would follow that path."
-          },
-          {
-            "text": "A single concrete execution trace recorded by running the program once",
-            "fraction": 0,
-            "feedback": "That's what concolic/dynamic execution records; symbolic execution reasons about formulas, not one concrete run."
-          },
-          {
-            "text": "A code-coverage metric reporting the percentage of branches exercised",
-            "fraction": 0,
-            "feedback": "Coverage is a summary statistic; a path condition is a logical formula tied to one specific path."
-          },
-          {
-            "text": "A representation of the program's control-flow graph",
-            "fraction": 0,
-            "feedback": "The CFG is the static structure being explored; the path condition is the accumulated constraint along one traversal of it."
-          }
-        ],
-        "generalFeedback": "As symbolic execution follows a path, it conjoins the constraint from each branch decision (in terms of symbolic inputs) into a single formula — the path condition — that characterizes exactly which concrete inputs would take that path.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Detecting infeasible paths",
-        "text": "<p>A path explored by a symbolic execution engine is identified as infeasible when:</p>",
-        "answers": [
-          {
-            "text": "Its path condition is unsatisfiable (UNSAT) — no input assignment satisfies all the accumulated constraints",
-            "fraction": 100,
-            "feedback": "Correct — UNSAT means no concrete execution can ever take that path."
-          },
-          {
-            "text": "The engine hits its configured loop-unrolling bound",
-            "fraction": 0,
-            "feedback": "Hitting a bound just stops exploration there; it doesn't by itself prove the path is infeasible."
-          },
-          {
-            "text": "The solver times out before returning an answer",
-            "fraction": 0,
-            "feedback": "A timeout is inconclusive — the path might still be feasible, just unresolved."
-          },
-          {
-            "text": "The path performs a division by zero",
-            "fraction": 0,
-            "feedback": "That's a runtime fault the engine may flag along a feasible path, not a sign of infeasibility."
-          }
-        ],
-        "generalFeedback": "A path's condition is a logical formula; the constraint solver deems the path infeasible precisely when that formula is UNSAT, meaning no assignment of the symbolic inputs could ever drive execution down that path.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Scalability bottleneck",
-        "text": "<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>",
-        "answers": [
-          {
-            "text": "Path explosion — the number of distinct paths grows exponentially with branches and loops",
-            "fraction": 100,
-            "feedback": "Correct — this is the classic scalability wall for symbolic execution."
-          },
-          {
-            "text": "Memory leaks in the instrumented program",
-            "fraction": 0,
-            "feedback": "Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling."
-          },
-          {
-            "text": "The oracle problem — not knowing the correct expected output",
-            "fraction": 0,
-            "feedback": "The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles."
-          },
-          {
-            "text": "Flaky, non-deterministic tests",
-            "fraction": 0,
-            "feedback": "Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number."
-          }
-        ],
-        "generalFeedback": "Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially — path explosion — making exhaustive symbolic execution intractable for large or loop-heavy programs.",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "Role of the constraint solver",
-        "text": "<p>What role does an SMT/constraint solver play in symbolic execution?</p>",
-        "answers": [
-          {
-            "text": "Given a path condition, it produces a concrete input assignment that satisfies it (or reports UNSAT)",
-            "fraction": 100,
-            "feedback": "Correct — solving the path condition is exactly how symbolic execution turns a path into a runnable test input."
-          },
-          {
-            "text": "It runs the generated test cases against the program",
-            "fraction": 0,
-            "feedback": "Executing tests is a separate step after input generation, not the solver's job."
-          },
-          {
-            "text": "It mutates the program's source code to create test variants",
-            "fraction": 0,
-            "feedback": "That describes a mutation-testing tool, not a constraint solver."
-          },
-          {
-            "text": "It measures how much of the code the test suite covers",
-            "fraction": 0,
-            "feedback": "Coverage measurement is typically done by separate instrumentation/tracking tools, not the solver."
-          }
-        ],
-        "generalFeedback": "The constraint solver is handed the accumulated path condition and determines whether it is satisfiable; if so, it returns a concrete assignment of the symbolic inputs, which becomes the actual test input driving execution down that path.",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "Concolic execution",
-        "text": "<p>Concolic (\"concrete + symbolic\") execution combines a concrete run with symbolic reasoning to simplify constraints that pure symbolic execution cannot solve.</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "Correct — concolic execution substitutes concrete values from an actual run wherever the symbolic constraints become too complex (e.g., calls into external/native code), letting exploration proceed past terms a pure symbolic solver would get stuck on."
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "This is precisely the motivation for concolic (dynamic symbolic) execution — it uses a concrete run alongside symbolic tracking so hard-to-solve expressions can be simplified using the concrete values actually observed."
-          }
-        ],
-        "generalFeedback": "Concolic execution runs the program on concrete inputs while simultaneously tracking symbolic constraints; when a constraint becomes too complex (e.g., involves opaque library calls) it substitutes in the concrete value observed at runtime, sidestepping expressions pure symbolic execution's solver cannot handle."
-      },
-      {
-        "type": "shortanswer",
-        "name": "Deciding path-condition satisfiability",
-        "text": "<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>",
-        "answers": [
-          {
-            "text": "solver",
-            "fraction": 100,
-            "feedback": "Correct."
-          },
-          {
-            "text": "SMT*",
-            "fraction": 100,
-            "feedback": "Correct."
-          },
-          {
-            "text": "constraint solver*",
-            "fraction": 100,
-            "feedback": "Correct."
-          }
-        ],
-        "generalFeedback": "An SMT (Satisfiability Modulo Theories) solver — generically, the constraint solver — takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.",
-        "usecase": false
-      }
-    ],
-    "zh": [
-      {
-        "type": "multichoice",
-        "name": "路徑條件",
-        "text": "<p>符號執行（symbolic execution）引擎所建立的路徑條件（path condition）是指：</p>",
-        "answers": [
-          {
-            "text": "沿著一條執行路徑累積的所有分支限制式（branch constraints）的合取（conjunction），以符號化輸入變數表示",
-            "fraction": 100,
-            "feedback": "正確——這是一條公式，而非數值，用來描述哪些具體輸入會走上這條路徑。"
-          },
-          {
-            "text": "執行程式一次所記錄下來的單一具體執行軌跡",
-            "fraction": 0,
-            "feedback": "那是具體符號執行（concolic）／動態執行所記錄的內容；符號執行推理的是公式，而非單一具體執行。"
-          },
-          {
-            "text": "回報分支被執行百分比的程式碼覆蓋率指標",
-            "fraction": 0,
-            "feedback": "覆蓋率是一項摘要統計數字；路徑條件則是與某條特定路徑綁定的邏輯公式。"
-          },
-          {
-            "text": "程式控制流程圖（control-flow graph）的表示法",
-            "fraction": 0,
-            "feedback": "控制流程圖是被探索的靜態結構本身；路徑條件則是沿著其中一條走訪路徑所累積出的限制式。"
-          }
-        ],
-        "generalFeedback": "符號執行沿著一條路徑前進時，會把每個分支決策（以符號化輸入表示）的限制式合取成一條公式——即路徑條件——精確地描述哪些具體輸入會走上這條路徑。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "偵測不可行路徑",
-        "text": "<p>符號執行引擎所探索的一條路徑，何時會被判定為不可行（infeasible）？</p>",
-        "answers": [
-          {
-            "text": "其路徑條件不可滿足（UNSAT）——沒有任何輸入指派能同時滿足所有累積的限制式",
-            "fraction": 100,
-            "feedback": "正確——UNSAT 代表不存在任何具體執行能走上這條路徑。"
-          },
-          {
-            "text": "引擎達到了設定的迴圈展開（loop-unrolling）上限",
-            "fraction": 0,
-            "feedback": "達到上限只是讓探索在該處停止，本身並不能證明該路徑不可行。"
-          },
-          {
-            "text": "求解器在給出答案前逾時",
-            "fraction": 0,
-            "feedback": "逾時代表結果未定——該路徑仍可能是可行的，只是尚未被解出。"
-          },
-          {
-            "text": "該路徑發生了除以零的錯誤",
-            "fraction": 0,
-            "feedback": "那是引擎在某條可行路徑上可能標記出的執行期錯誤，並非不可行的跡象。"
-          }
-        ],
-        "generalFeedback": "路徑條件是一條邏輯公式；當求解器判定該公式為 UNSAT 時，就代表這條路徑不可行——也就是說，符號化輸入無論如何指派，都不可能讓執行走上這條路徑。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "可擴展性瓶頸",
-        "text": "<p>符號執行擴展到大型程式時，主要的障礙是什麼？</p>",
-        "answers": [
-          {
-            "text": "路徑爆炸（path explosion）——相異路徑的數量隨著分支與迴圈呈指數成長",
-            "fraction": 100,
-            "feedback": "正確——這是符號執行最典型的可擴展性瓶頸。"
-          },
-          {
-            "text": "被插樁（instrumented）程式的記憶體洩漏",
-            "fraction": 0,
-            "feedback": "這不是典型瓶頸；記憶體洩漏是一般程式分析普遍會遇到的問題，並非符號執行擴展性的特有議題。"
-          },
-          {
-            "text": "測試諭示問題（oracle problem）——不知道正確的預期輸出",
-            "fraction": 0,
-            "feedback": "測試諭示問題廣泛影響測試結果的驗證；符號執行本身的核心擴展性瓶頸在於路徑數量，而非諭示。"
-          },
-          {
-            "text": "不穩定、不確定性的測試（flaky tests）",
-            "fraction": 0,
-            "feedback": "測試不穩定屬於動態測試的議題；符號執行是針對路徑做靜態推理，其瓶頸在於路徑數量本身。"
-          }
-        ],
-        "generalFeedback": "由於每個分支都可能使待探索的路徑數量加倍，而迴圈更會貢獻大量額外路徑，路徑數量會呈指數成長——即路徑爆炸——使得對大型或迴圈密集程式進行窮舉式符號執行變得不可行。",
-        "single": true
-      },
-      {
-        "type": "multichoice",
-        "name": "限制式求解器的角色",
-        "text": "<p>SMT／限制式求解器（constraint solver）在符號執行中扮演什麼角色？</p>",
-        "answers": [
-          {
-            "text": "給定一條路徑條件，求解器會產生滿足該條件的具體輸入指派（或回報 UNSAT）",
-            "fraction": 100,
-            "feedback": "正確——求解路徑條件正是符號執行把一條路徑轉換成可執行測試輸入的方式。"
-          },
-          {
-            "text": "它負責對程式執行已產生的測試案例",
-            "fraction": 0,
-            "feedback": "執行測試是產生輸入之後的另一個獨立步驟，並非求解器的工作。"
-          },
-          {
-            "text": "它負責變異程式原始碼以產生測試變體",
-            "fraction": 0,
-            "feedback": "那描述的是突變測試工具，而非限制式求解器。"
-          },
-          {
-            "text": "它負責量測測試套件涵蓋了多少程式碼",
-            "fraction": 0,
-            "feedback": "覆蓋率量測通常由另外的插樁／追蹤工具完成，而非求解器。"
-          }
-        ],
-        "generalFeedback": "限制式求解器會接收累積出的路徑條件，判斷其是否可滿足；若可滿足，便回傳一組符號化輸入的具體指派，成為驅動執行走上該路徑的實際測試輸入。",
-        "single": true
-      },
-      {
-        "type": "truefalse",
-        "name": "具體符號執行（concolic execution）",
-        "text": "<p>具體符號執行（concolic execution，「concrete + symbolic」）結合具體執行與符號推理，用以簡化純符號執行無法求解的限制式。</p>",
-        "answers": [
-          {
-            "text": "true",
-            "fraction": 100,
-            "feedback": "正確——當符號限制式變得過於複雜時（例如呼叫到外部或原生程式碼），具體符號執行會以實際執行所得的具體值來取代，使探索得以跨越純符號求解器會卡住的部分。"
-          },
-          {
-            "text": "false",
-            "fraction": 0,
-            "feedback": "這正是具體符號執行（動態符號執行）的核心動機——它在追蹤符號限制式的同時搭配具體執行，使難以求解的運算式能借助實際觀察到的具體值加以簡化。"
-          }
-        ],
-        "generalFeedback": "具體符號執行在具體輸入上執行程式，同時追蹤符號限制式；當某個限制式過於複雜時（例如涉及不透明的函式庫呼叫），便以執行期實際觀察到的具體值取代，繞過純符號執行的求解器無法處理的運算式。"
-      },
-      {
-        "type": "shortanswer",
-        "name": "判定路徑條件可滿足性的元件",
-        "text": "<p>負責判定路徑條件是否可滿足的元件叫做什麼？（請以英文術語或縮寫回答）</p>",
-        "answers": [
-          {
-            "text": "solver",
-            "fraction": 100,
-            "feedback": "正確。"
-          },
-          {
-            "text": "SMT*",
-            "fraction": 100,
-            "feedback": "正確。"
-          },
-          {
-            "text": "constraint solver*",
-            "fraction": 100,
-            "feedback": "正確。"
-          }
-        ],
-        "generalFeedback": "SMT（Satisfiability Modulo Theories）求解器——泛稱限制式求解器——會接收路徑條件的公式並判斷其可滿足性，若存在滿足解，便回傳一組滿足指派（也就是具體的測試輸入）。",
-        "usecase": false
-      }
-    ]
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What symbolic execution is",
+          "text": "<p>What does <strong>symbolic execution</strong> do?</p>",
+          "answers": [
+            {
+              "text": "It runs a program on symbolic (unknown) inputs instead of concrete values, tracking constraints on those inputs along each path",
+              "fraction": 100,
+              "feedback": "Correct — inputs are symbols, and the engine reasons about the constraints they must satisfy."
+            },
+            {
+              "text": "It runs the program many times on random concrete inputs and records failures",
+              "fraction": 0,
+              "feedback": "That is random/fuzz testing; symbolic execution reasons about symbols, not fixed random values."
+            },
+            {
+              "text": "It statically counts the lines of code covered by an existing test suite",
+              "fraction": 0,
+              "feedback": "That is coverage measurement, not symbolic execution."
+            },
+            {
+              "text": "It translates the program into a faster machine-code representation",
+              "fraction": 0,
+              "feedback": "That describes a compiler/optimizer, not symbolic execution."
+            }
+          ],
+          "generalFeedback": "Symbolic execution treats program inputs as symbolic variables and, as it follows each path, accumulates the constraints those symbols must satisfy — letting it reason about whole classes of inputs at once rather than one concrete run.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic vs concrete values",
+          "text": "<p>How does a <strong>symbolic value</strong> differ from a <strong>concrete value</strong> during execution?</p>",
+          "answers": [
+            {
+              "text": "A concrete value is one fixed value (e.g. 7); a symbolic value is an unknown standing for any value its constraints allow",
+              "fraction": 100,
+              "feedback": "Correct — a symbol like x represents a whole set of possible values."
+            },
+            {
+              "text": "A symbolic value is always larger than a concrete value",
+              "fraction": 0,
+              "feedback": "Magnitude is irrelevant; the difference is fixed value vs unknown-with-constraints."
+            },
+            {
+              "text": "They are identical; \"symbolic\" is just another word for \"concrete\"",
+              "fraction": 0,
+              "feedback": "They are not the same — a concrete value is fixed, a symbolic one is an unknown."
+            },
+            {
+              "text": "A concrete value can be a formula, a symbolic value cannot",
+              "fraction": 0,
+              "feedback": "It is the reverse: symbolic values are expressions/formulas, concrete values are fixed data."
+            }
+          ],
+          "generalFeedback": "Concrete execution computes with fixed data (x = 7). Symbolic execution computes with symbols (x), building expressions and constraints over them so one analysis covers many concrete inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path condition",
+          "text": "<p>A path condition, as built by a symbolic execution engine, is:</p>",
+          "answers": [
+            {
+              "text": "The conjunction of the branch constraints accumulated along one execution path, expressed over symbolic input variables",
+              "fraction": 100,
+              "feedback": "Correct — it's a formula, not a value, describing which concrete inputs would follow that path."
+            },
+            {
+              "text": "A single concrete execution trace recorded by running the program once",
+              "fraction": 0,
+              "feedback": "That's what concolic/dynamic execution records; symbolic execution reasons about formulas, not one concrete run."
+            },
+            {
+              "text": "A code-coverage metric reporting the percentage of branches exercised",
+              "fraction": 0,
+              "feedback": "Coverage is a summary statistic; a path condition is a logical formula tied to one specific path."
+            },
+            {
+              "text": "A representation of the program's control-flow graph",
+              "fraction": 0,
+              "feedback": "The CFG is the static structure being explored; the path condition is the accumulated constraint along one traversal of it."
+            }
+          ],
+          "generalFeedback": "As symbolic execution follows a path, it conjoins the constraint from each branch decision (in terms of symbolic inputs) into a single formula — the path condition — that characterizes exactly which concrete inputs would take that path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a symbolic state is",
+          "text": "<p>At a point during symbolic execution, the <strong>symbolic state</strong> mainly consists of:</p>",
+          "answers": [
+            {
+              "text": "A symbolic expression for each program variable together with the current path condition",
+              "fraction": 100,
+              "feedback": "Correct — variables map to expressions over the symbols, plus the constraints accumulated so far."
+            },
+            {
+              "text": "Only the concrete numeric contents of every variable",
+              "fraction": 0,
+              "feedback": "That is a concrete state; a symbolic state maps variables to symbolic expressions."
+            },
+            {
+              "text": "The list of test cases already generated",
+              "fraction": 0,
+              "feedback": "Generated tests are an output; the symbolic state is the current variable-to-expression map plus the path condition."
+            },
+            {
+              "text": "The source code of the program being analyzed",
+              "fraction": 0,
+              "feedback": "The source is the program; the symbolic state is the runtime abstraction the engine maintains as it executes it."
+            }
+          ],
+          "generalFeedback": "A symbolic state binds each variable to a symbolic expression (over the input symbols) and carries the path condition — the constraints that must hold for execution to have reached this point.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why it explores paths",
+          "text": "<p>Why does symbolic execution explore different program paths separately?</p>",
+          "answers": [
+            {
+              "text": "Because each path corresponds to a distinct set of input constraints, and solving them yields inputs that exercise that specific behavior",
+              "fraction": 100,
+              "feedback": "Correct — separate paths give separate path conditions, each solvable for a test input."
+            },
+            {
+              "text": "Because the program can only be compiled one path at a time",
+              "fraction": 0,
+              "feedback": "Compilation is unrelated; path exploration is about reasoning over distinct branch outcomes."
+            },
+            {
+              "text": "Because paths must be run in alphabetical order of their code",
+              "fraction": 0,
+              "feedback": "There is no such ordering requirement; the point is that each path has its own constraints."
+            },
+            {
+              "text": "Because only one path can ever be feasible in any program",
+              "fraction": 0,
+              "feedback": "Many paths are typically feasible; that is exactly why they are explored individually."
+            }
+          ],
+          "generalFeedback": "Different branch outcomes lead to different path conditions; by exploring each path, the engine can solve its condition to produce an input that drives the program down precisely that behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Solving a PC to get a test input",
+          "text": "<p>Once a path condition has been built, how does symbolic execution turn it into a concrete test input?</p>",
+          "answers": [
+            {
+              "text": "It asks a solver for an assignment of the symbolic inputs that satisfies the path condition",
+              "fraction": 100,
+              "feedback": "Correct — a satisfying assignment is exactly a concrete input that follows that path."
+            },
+            {
+              "text": "It picks a random value for each input and hopes it matches",
+              "fraction": 0,
+              "feedback": "No guessing is needed; the solver computes a satisfying assignment directly from the constraints."
+            },
+            {
+              "text": "It recompiles the program with the path condition embedded",
+              "fraction": 0,
+              "feedback": "Recompilation is not involved; the path condition is handed to a constraint solver."
+            },
+            {
+              "text": "It counts how many branches the path contains",
+              "fraction": 0,
+              "feedback": "Counting branches does not produce input values; solving the constraints does."
+            }
+          ],
+          "generalFeedback": "A satisfying assignment of the path condition is a concrete input that, when run, drives the program down that path — that is how symbolic execution generates test inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How inputs are treated",
+          "text": "<p>When symbolic execution begins, program inputs are treated as:</p>",
+          "answers": [
+            {
+              "text": "Fresh symbolic variables with no fixed value yet",
+              "fraction": 100,
+              "feedback": "Correct — inputs start as unconstrained symbols."
+            },
+            {
+              "text": "Zero, until the program assigns them",
+              "fraction": 0,
+              "feedback": "Inputs are not pre-set to zero; they become symbols whose values are constrained as branches are taken."
+            },
+            {
+              "text": "A single randomly chosen constant",
+              "fraction": 0,
+              "feedback": "That would be concrete testing; symbolic execution keeps inputs symbolic."
+            },
+            {
+              "text": "The largest value the type can hold",
+              "fraction": 0,
+              "feedback": "No such default; inputs are symbolic variables."
+            }
+          ],
+          "generalFeedback": "Each input becomes a fresh symbol. As the program branches, constraints on those symbols accumulate into the path condition.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Reasoning about many inputs at once",
+          "text": "<p>By keeping inputs symbolic, a single symbolic path can characterize many concrete inputs at once.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a path condition describes the whole set of concrete inputs that follow that path, not just one."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A symbolic path's condition captures every concrete input that would take that path, so one path stands for many inputs."
+            }
+          ],
+          "generalFeedback": "Because a path condition is a constraint over symbols, it represents the entire set of concrete inputs satisfying it — one symbolic path summarizes many concrete runs."
+        },
+        {
+          "type": "multichoice",
+          "name": "What the engine tracks per variable",
+          "text": "<p>After the statements <code>a = x + 1; b = a * 2;</code> (with x a symbolic input), what does the engine record for <code>b</code>?</p>",
+          "answers": [
+            {
+              "text": "The symbolic expression (x + 1) * 2",
+              "fraction": 100,
+              "feedback": "Correct — b holds an expression over the symbol x, not a number."
+            },
+            {
+              "text": "A single concrete number",
+              "fraction": 0,
+              "feedback": "x has no concrete value, so b cannot be a fixed number; it is an expression."
+            },
+            {
+              "text": "Nothing, because b was not read from input",
+              "fraction": 0,
+              "feedback": "Assignments update the symbolic state even when they derive from other variables."
+            },
+            {
+              "text": "The path condition x + 1 > 0",
+              "fraction": 0,
+              "feedback": "No branch was taken here, so the path condition is unchanged; b just gets an expression."
+            }
+          ],
+          "generalFeedback": "Symbolic execution updates each assigned variable with a symbolic expression built from the inputs; here b becomes (x + 1) * 2, with the path condition left unchanged because no branch occurred.",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "Deciding path-condition satisfiability",
+          "text": "<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>",
+          "answers": [
+            {
+              "text": "solver",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "SMT*",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "constraint solver*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "An SMT (Satisfiability Modulo Theories) solver — generically, the constraint solver — takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.",
+          "usecase": false
+        },
+        {
+          "type": "truefalse",
+          "name": "A symbolic value represents a set",
+          "text": "<p>A symbolic value can be understood as representing the set of all concrete values it might take, subject to the current constraints.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — that is precisely why one symbolic run generalizes over many concrete inputs."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A symbol stands for any value its constraints allow, i.e. a whole set of possible concrete values."
+            }
+          ],
+          "generalFeedback": "A symbol constrained by the path condition denotes the set of concrete values satisfying those constraints, which is the source of symbolic execution's generality."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose in testing",
+          "text": "<p>A common practical goal of symbolic execution in software testing is to:</p>",
+          "answers": [
+            {
+              "text": "Automatically generate inputs that reach specific paths or trigger bugs",
+              "fraction": 100,
+              "feedback": "Correct — solving path conditions yields targeted test inputs."
+            },
+            {
+              "text": "Automatically write the program's documentation",
+              "fraction": 0,
+              "feedback": "That is unrelated to symbolic execution."
+            },
+            {
+              "text": "Replace the need for a compiler",
+              "fraction": 0,
+              "feedback": "Symbolic execution analyzes programs; it does not replace compilation."
+            },
+            {
+              "text": "Measure network latency",
+              "fraction": 0,
+              "feedback": "That is a performance concern, not what symbolic execution addresses."
+            }
+          ],
+          "generalFeedback": "By computing inputs that follow chosen paths, symbolic execution supports automated test generation and high-coverage bug finding.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reaching a branch on a symbol",
+          "text": "<p>When execution reaches a branch whose condition depends on a symbolic input, a symbolic execution engine typically:</p>",
+          "answers": [
+            {
+              "text": "Considers both outcomes, continuing along each feasible one with the condition added to its path condition",
+              "fraction": 100,
+              "feedback": "Correct — the engine forks to explore both the true and false directions where feasible."
+            },
+            {
+              "text": "Always takes the true branch and ignores the false branch",
+              "fraction": 0,
+              "feedback": "Both directions matter; the engine does not arbitrarily fix one outcome."
+            },
+            {
+              "text": "Stops execution immediately",
+              "fraction": 0,
+              "feedback": "A symbolic branch is where exploration multiplies, not where it halts."
+            },
+            {
+              "text": "Picks whichever branch the last test case took",
+              "fraction": 0,
+              "feedback": "There is no prior test case dictating this; the engine explores both feasible outcomes."
+            }
+          ],
+          "generalFeedback": "At a symbolic branch the engine forks: one state adds the condition, the other adds its negation, and each feasible state continues its own exploration.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concrete vs symbolic run",
+          "text": "<p>Which statement best contrasts a concrete run with a symbolic run of the same program?</p>",
+          "answers": [
+            {
+              "text": "A concrete run follows exactly one path for its fixed inputs; a symbolic run reasons about many paths via constraints on symbolic inputs",
+              "fraction": 100,
+              "feedback": "Correct — concrete = one path per input; symbolic = constraint-based exploration."
+            },
+            {
+              "text": "A concrete run explores every path, a symbolic run explores only one",
+              "fraction": 0,
+              "feedback": "It is the other way around: a concrete run takes exactly one path."
+            },
+            {
+              "text": "Both always explore exactly the same single path",
+              "fraction": 0,
+              "feedback": "A symbolic run generally reasons about multiple paths, unlike a single concrete run."
+            },
+            {
+              "text": "Neither run depends on the inputs",
+              "fraction": 0,
+              "feedback": "Concrete runs depend on their fixed inputs; symbolic runs constrain symbolic inputs."
+            }
+          ],
+          "generalFeedback": "Running with concrete inputs deterministically follows one path; symbolic execution instead builds path conditions to characterize and explore many paths at once.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Path condition is a boolean formula",
+          "text": "<p>The path condition is a boolean formula over the symbolic input variables.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — it is a conjunction of branch constraints, i.e. a boolean formula over the input symbols."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The path condition is exactly a boolean formula (a conjunction of constraints) over the symbolic inputs."
+            }
+          ],
+          "generalFeedback": "Each branch contributes a constraint; conjoined, they form a boolean formula over the input symbols — the path condition — which a solver can test for satisfiability."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Detecting infeasible paths",
+          "text": "<p>A path explored by a symbolic execution engine is identified as infeasible when:</p>",
+          "answers": [
+            {
+              "text": "Its path condition is unsatisfiable (UNSAT) — no input assignment satisfies all the accumulated constraints",
+              "fraction": 100,
+              "feedback": "Correct — UNSAT means no concrete execution can ever take that path."
+            },
+            {
+              "text": "The engine hits its configured loop-unrolling bound",
+              "fraction": 0,
+              "feedback": "Hitting a bound just stops exploration there; it doesn't by itself prove the path is infeasible."
+            },
+            {
+              "text": "The solver times out before returning an answer",
+              "fraction": 0,
+              "feedback": "A timeout is inconclusive — the path might still be feasible, just unresolved."
+            },
+            {
+              "text": "The path performs a division by zero",
+              "fraction": 0,
+              "feedback": "That's a runtime fault the engine may flag along a feasible path, not a sign of infeasibility."
+            }
+          ],
+          "generalFeedback": "A path's condition is a logical formula; the constraint solver deems the path infeasible precisely when that formula is UNSAT, meaning no assignment of the symbolic inputs could ever drive execution down that path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Role of the constraint solver",
+          "text": "<p>What role does an SMT/constraint solver play in symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "Given a path condition, it produces a concrete input assignment that satisfies it (or reports UNSAT)",
+              "fraction": 100,
+              "feedback": "Correct — solving the path condition is exactly how symbolic execution turns a path into a runnable test input."
+            },
+            {
+              "text": "It runs the generated test cases against the program",
+              "fraction": 0,
+              "feedback": "Executing tests is a separate step after input generation, not the solver's job."
+            },
+            {
+              "text": "It mutates the program's source code to create test variants",
+              "fraction": 0,
+              "feedback": "That describes a mutation-testing tool, not a constraint solver."
+            },
+            {
+              "text": "It measures how much of the code the test suite covers",
+              "fraction": 0,
+              "feedback": "Coverage measurement is typically done by separate instrumentation/tracking tools, not the solver."
+            }
+          ],
+          "generalFeedback": "The constraint solver is handed the accumulated path condition and determines whether it is satisfiable; if so, it returns a concrete assignment of the symbolic inputs, which becomes the actual test input driving execution down that path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasibility means satisfiable",
+          "text": "<p>A path is <strong>feasible</strong> exactly when its path condition is:</p>",
+          "answers": [
+            {
+              "text": "Satisfiable — at least one assignment of the symbolic inputs makes it true",
+              "fraction": 100,
+              "feedback": "Correct — a satisfying assignment is a concrete input that follows the path."
+            },
+            {
+              "text": "Unsatisfiable",
+              "fraction": 0,
+              "feedback": "Unsatisfiable is the definition of an infeasible path, the opposite."
+            },
+            {
+              "text": "A tautology (true for every assignment)",
+              "fraction": 0,
+              "feedback": "Feasibility only needs one satisfying assignment, not that all assignments satisfy it."
+            },
+            {
+              "text": "Free of any branch constraints",
+              "fraction": 0,
+              "feedback": "Feasible paths can carry many constraints; what matters is that they are jointly satisfiable."
+            }
+          ],
+          "generalFeedback": "Feasibility and satisfiability coincide: a path can actually be executed iff some input satisfies its path condition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Forking at a branch",
+          "text": "<p>Reaching <code>if (c)</code> with current path condition <code>PC</code> on a symbolic value, the engine forks into two states whose path conditions are:</p>",
+          "answers": [
+            {
+              "text": "PC ∧ c for the then-branch and PC ∧ ¬c for the else-branch",
+              "fraction": 100,
+              "feedback": "Correct — each successor conjoins the branch outcome onto the existing PC."
+            },
+            {
+              "text": "c for one branch and ¬c for the other, discarding PC",
+              "fraction": 0,
+              "feedback": "The prior constraints in PC must be kept; the new outcome is conjoined, not substituted."
+            },
+            {
+              "text": "PC ∨ c and PC ∨ ¬c",
+              "fraction": 0,
+              "feedback": "Branch outcomes are conjoined (∧), not disjoined (∨); PC ∨ ¬c would weaken the constraint."
+            },
+            {
+              "text": "PC ∧ c for both branches",
+              "fraction": 0,
+              "feedback": "The else-branch must add ¬c, not c."
+            }
+          ],
+          "generalFeedback": "Forking preserves the accumulated PC and adds the branch outcome: the then-state gets PC ∧ c, the else-state gets PC ∧ ¬c. Each is then checked for satisfiability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC for a single if",
+          "text": "<p>For <code>read x; if (x &gt; 0) y = x; else y = -x;</code>, what is the path condition of the path that takes the <em>true</em> branch?</p>",
+          "answers": [
+            {
+              "text": "x > 0",
+              "fraction": 100,
+              "feedback": "Correct — taking the true branch adds exactly the constraint x > 0."
+            },
+            {
+              "text": "x ≤ 0",
+              "fraction": 0,
+              "feedback": "That is the condition for the else-branch, not the true branch."
+            },
+            {
+              "text": "y = x",
+              "fraction": 0,
+              "feedback": "That is an assignment (a symbolic-state update), not a branch constraint in the path condition."
+            },
+            {
+              "text": "x > 0 ∧ x ≤ 0",
+              "fraction": 0,
+              "feedback": "Only one branch outcome is taken on this path; conjoining both makes it unsatisfiable."
+            }
+          ],
+          "generalFeedback": "The only branch on this path is x > 0, taken as true, so the path condition is simply x > 0.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Deriving a test input",
+          "text": "<p>A path has path condition <code>(x &gt; 0) ∧ (x &lt; 10)</code>. Which concrete input is a valid test input that follows this path?</p>",
+          "answers": [
+            {
+              "text": "x = 5",
+              "fraction": 100,
+              "feedback": "Correct — 5 > 0 and 5 < 10, so it satisfies the whole path condition."
+            },
+            {
+              "text": "x = 0",
+              "fraction": 0,
+              "feedback": "0 is not > 0, so the first constraint fails."
+            },
+            {
+              "text": "x = 10",
+              "fraction": 0,
+              "feedback": "10 is not < 10, so the second constraint fails."
+            },
+            {
+              "text": "x = -3",
+              "fraction": 0,
+              "feedback": "-3 is not > 0, so the first constraint fails."
+            }
+          ],
+          "generalFeedback": "A test input is any assignment satisfying the whole path condition. Only x = 5 lies strictly between 0 and 10.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count: two sequential ifs",
+          "text": "<p>How many execution paths does this snippet have? <code>if (a) {...} if (b) {...}</code> (two independent if-statements in sequence, a and b independent symbolic conditions)</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — each if has 2 outcomes and they are independent: 2 × 2 = 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 counts only one if; two independent ifs multiply to 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The outcomes multiply (2 × 2 = 4), they do not add to 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "With symbolic conditions both ifs branch, giving more than one path."
+            }
+          ],
+          "generalFeedback": "Independent branches multiply: two if-statements each with true/false give 2 × 2 = 4 paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC for nested true/true",
+          "text": "<p>For <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>, what is the path condition to reach the innermost block (both branches true)?</p>",
+          "answers": [
+            {
+              "text": "(x > 0) ∧ (y < 5)",
+              "fraction": 100,
+              "feedback": "Correct — both branch outcomes are conjoined along the path."
+            },
+            {
+              "text": "(x > 0) ∨ (y < 5)",
+              "fraction": 0,
+              "feedback": "Reaching the inner block requires both conditions, so they are conjoined, not disjoined."
+            },
+            {
+              "text": "(x > 0) ∧ (y ≥ 5)",
+              "fraction": 0,
+              "feedback": "The inner true branch needs y < 5, not y ≥ 5."
+            },
+            {
+              "text": "(y < 5) only",
+              "fraction": 0,
+              "feedback": "The outer condition x > 0 must also hold to reach the inner if."
+            }
+          ],
+          "generalFeedback": "Each nested true branch adds its condition; reaching the inner block requires (x > 0) ∧ (y < 5).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "An infeasible nested path",
+          "text": "<p>In <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code>, the path reaching <code>BUG</code> has which status?</p>",
+          "answers": [
+            {
+              "text": "Infeasible — its path condition (x > 0) ∧ (x < 0) is unsatisfiable",
+              "fraction": 100,
+              "feedback": "Correct — no x is both positive and negative, so BUG is unreachable."
+            },
+            {
+              "text": "Feasible for x = 0",
+              "fraction": 0,
+              "feedback": "x = 0 satisfies neither x > 0 nor x < 0, and both are required."
+            },
+            {
+              "text": "Feasible for any large x",
+              "fraction": 0,
+              "feedback": "A large x satisfies x > 0 but violates x < 0; no value satisfies both."
+            },
+            {
+              "text": "Feasible only for negative x",
+              "fraction": 0,
+              "feedback": "A negative x fails the outer x > 0, so the inner block is never reached."
+            }
+          ],
+          "generalFeedback": "The path condition (x > 0) ∧ (x < 0) is UNSAT, so this path is infeasible and BUG is dead code along it — a false alarm any test generator will (correctly) fail to reach.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Satisfiable PC implies an input exists",
+          "text": "<p>If a path condition is satisfiable, then there exists at least one concrete input that drives execution down that path.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a satisfying assignment is precisely such a concrete input."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Satisfiability guarantees a satisfying assignment, which is an input that follows the path."
+            }
+          ],
+          "generalFeedback": "Satisfiability of the path condition is equivalent to feasibility of the path: the solver's model is a concrete input that exercises it."
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count: one if-else",
+          "text": "<p>How many execution paths does a single <code>if (c) {...} else {...}</code> (with symbolic c and no nested branches) have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one path for c true, one for c false."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A symbolic condition splits into two feasible directions, not one."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "An if-else has exactly two outcomes, not three."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 would require two independent branches; a single if-else has 2."
+            }
+          ],
+          "generalFeedback": "A single branch on a symbolic condition yields two paths: the then-branch (c) and the else-branch (¬c).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Input for a compound PC",
+          "text": "<p>A path has path condition <code>(a ≥ 2) ∧ (b == a + 1)</code>. Which input satisfies it?</p>",
+          "answers": [
+            {
+              "text": "a = 2, b = 3",
+              "fraction": 100,
+              "feedback": "Correct — 2 ≥ 2 and 3 == 2 + 1."
+            },
+            {
+              "text": "a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "b must equal a + 1 = 3, not 2."
+            },
+            {
+              "text": "a = 1, b = 2",
+              "fraction": 0,
+              "feedback": "a = 1 violates a ≥ 2 even though b == a + 1 holds."
+            },
+            {
+              "text": "a = 3, b = 3",
+              "fraction": 0,
+              "feedback": "b must equal a + 1 = 4, not 3."
+            }
+          ],
+          "generalFeedback": "Both conjuncts must hold: a ≥ 2 and b = a + 1. Only a = 2, b = 3 satisfies both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC after an assignment",
+          "text": "<p>For <code>y = x + 1; if (y == 5) { ... }</code> with symbolic input x, the path condition to enter the block — expressed over x — is:</p>",
+          "answers": [
+            {
+              "text": "x + 1 == 5",
+              "fraction": 100,
+              "feedback": "Correct — y holds the expression x + 1, so the branch constraint over x is x + 1 == 5 (i.e. x == 4)."
+            },
+            {
+              "text": "y == 5 (left as a fresh unknown y)",
+              "fraction": 0,
+              "feedback": "y is not an independent input; it was assigned x + 1, which must be substituted."
+            },
+            {
+              "text": "x == 5",
+              "fraction": 0,
+              "feedback": "That ignores the +1; the constraint is x + 1 == 5, giving x == 4."
+            },
+            {
+              "text": "x + 1 == 4",
+              "fraction": 0,
+              "feedback": "The branch tests y == 5, so the constraint is x + 1 == 5, not == 4."
+            }
+          ],
+          "generalFeedback": "Symbolic execution substitutes the assigned expression: y = x + 1, so the branch y == 5 becomes the constraint x + 1 == 5 over the input x (solved: x == 4).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting a SAT model",
+          "text": "<p>The solver returns SAT with model <code>{x = 4}</code> for a path's condition. What does this tell you?</p>",
+          "answers": [
+            {
+              "text": "The path is feasible, and running the program with x = 4 drives execution down it",
+              "fraction": 100,
+              "feedback": "Correct — the model is a concrete test input that follows the path."
+            },
+            {
+              "text": "The path is infeasible and x = 4 is a counterexample",
+              "fraction": 0,
+              "feedback": "SAT means feasible; the model is a witnessing input, not a counterexample."
+            },
+            {
+              "text": "x must equal 4 on every path in the program",
+              "fraction": 0,
+              "feedback": "The model applies to this one path's condition, not to all paths."
+            },
+            {
+              "text": "Nothing until the program is recompiled",
+              "fraction": 0,
+              "feedback": "No recompilation is needed; x = 4 is directly usable as a test input."
+            }
+          ],
+          "generalFeedback": "A SAT result with a model means the path condition is satisfiable (the path is feasible) and the returned assignment is a concrete input that exercises that path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count: nested if",
+          "text": "<p>How many execution paths does <code>if (a) { if (b) {...} else {...} } else {...}</code> have (a, b symbolic)?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — a-false gives 1 path; a-true splits on b into 2; total 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The inner if only exists on the a-true side, so it is 2 + 1 = 3, not 2 × 2."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "The a-true side splits further on b, adding a third path."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "There are only three feasible combinations of outcomes here."
+            }
+          ],
+          "generalFeedback": "The else of the outer if is one path; the then side contains an if-else giving two more. Since the inner branch is not reached when a is false, the total is 2 + 1 = 3.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Scalability bottleneck",
+          "text": "<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>",
+          "answers": [
+            {
+              "text": "Path explosion — the number of distinct paths grows exponentially with branches and loops",
+              "fraction": 100,
+              "feedback": "Correct — this is the classic scalability wall for symbolic execution."
+            },
+            {
+              "text": "Memory leaks in the instrumented program",
+              "fraction": 0,
+              "feedback": "Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling."
+            },
+            {
+              "text": "The oracle problem — not knowing the correct expected output",
+              "fraction": 0,
+              "feedback": "The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles."
+            },
+            {
+              "text": "Flaky, non-deterministic tests",
+              "fraction": 0,
+              "feedback": "Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number."
+            }
+          ],
+          "generalFeedback": "Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially — path explosion — making exhaustive symbolic execution intractable for large or loop-heavy programs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concolic execution",
+          "text": "<p>Concolic (\"concrete + symbolic\") execution combines a concrete run with symbolic reasoning to simplify constraints that pure symbolic execution cannot solve.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — concolic execution substitutes concrete values from an actual run wherever the symbolic constraints become too complex (e.g., calls into external/native code), letting exploration proceed past terms a pure symbolic solver would get stuck on."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is precisely the motivation for concolic (dynamic symbolic) execution — it uses a concrete run alongside symbolic tracking so hard-to-solve expressions can be simplified using the concrete values actually observed."
+            }
+          ],
+          "generalFeedback": "Concolic execution runs the program on concrete inputs while simultaneously tracking symbolic constraints; when a constraint becomes too complex (e.g., involves opaque library calls) it substitutes in the concrete value observed at runtime, sidestepping expressions pure symbolic execution's solver cannot handle."
+        },
+        {
+          "type": "multichoice",
+          "name": "Reaching a new path in DSE",
+          "text": "<p>In dynamic symbolic execution (DSE/concolic), how does the engine typically steer execution toward a not-yet-covered path?</p>",
+          "answers": [
+            {
+              "text": "It negates one branch condition on the current path, then solves the modified path condition to obtain inputs that take the other direction",
+              "fraction": 100,
+              "feedback": "Correct — flipping a branch and re-solving yields inputs for the alternative outcome."
+            },
+            {
+              "text": "It randomly perturbs the current inputs until a new path happens to occur",
+              "fraction": 0,
+              "feedback": "That is closer to fuzzing; DSE deliberately negates a branch and solves for inputs."
+            },
+            {
+              "text": "It deletes the branch from the program so both sides merge",
+              "fraction": 0,
+              "feedback": "DSE does not modify the program; it modifies the path condition and re-solves."
+            },
+            {
+              "text": "It increases the loop-unrolling bound until coverage improves",
+              "fraction": 0,
+              "feedback": "Raising a bound addresses loops, not the systematic flipping of a branch to reach its other side."
+            }
+          ],
+          "generalFeedback": "DSE records the branch conditions taken on a concrete run, then negates one (usually the last unexplored) and asks the solver for inputs satisfying the prefix plus the negated condition — driving execution down the sibling path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mitigating path explosion",
+          "text": "<p>Which of the following is a recognized technique for mitigating path explosion?</p>",
+          "answers": [
+            {
+              "text": "State merging — combining multiple symbolic states at join points into one (with a disjunctive path condition)",
+              "fraction": 100,
+              "feedback": "Correct — merging reduces the number of states carried forward."
+            },
+            {
+              "text": "Disabling the constraint solver entirely",
+              "fraction": 0,
+              "feedback": "Without a solver you cannot test feasibility at all; this does not address path counts."
+            },
+            {
+              "text": "Adding more branches to the program",
+              "fraction": 0,
+              "feedback": "More branches increase, not reduce, the number of paths."
+            },
+            {
+              "text": "Raising every solver timeout to infinity",
+              "fraction": 0,
+              "feedback": "That affects individual queries, not the exponential growth in the number of paths."
+            }
+          ],
+          "generalFeedback": "Common mitigations include state merging, function/path summaries, search heuristics, and bounded exploration — all aimed at controlling the exponential number of states rather than solving each faster.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Handling loops",
+          "text": "<p>To keep exploration finite, a loop whose iteration count depends on symbolic input is commonly handled by:</p>",
+          "answers": [
+            {
+              "text": "Bounded unrolling — exploring the loop body up to a fixed number of iterations",
+              "fraction": 100,
+              "feedback": "Correct — a bound caps the otherwise unbounded set of loop paths."
+            },
+            {
+              "text": "Enumerating all possible iteration counts exhaustively",
+              "fraction": 0,
+              "feedback": "With a symbolic bound this can be unbounded, which is exactly what causes path explosion."
+            },
+            {
+              "text": "Ignoring the loop and skipping its body",
+              "fraction": 0,
+              "feedback": "Skipping the body would miss the behavior under test and misrepresent the program."
+            },
+            {
+              "text": "Rewriting the loop as unreachable code",
+              "fraction": 0,
+              "feedback": "The loop is part of the program's semantics and cannot simply be discarded."
+            }
+          ],
+          "generalFeedback": "Because a symbolic loop can spawn unboundedly many paths, engines typically unroll it up to a chosen depth (or use loop summaries/invariants) to keep the exploration finite, accepting incompleteness beyond the bound.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why UNSAT means dead",
+          "text": "<p>If a path's condition is unsatisfiable, why is that path \"dead\" (needs no test)?</p>",
+          "answers": [
+            {
+              "text": "No concrete input can satisfy the constraints, so no execution can ever follow that path",
+              "fraction": 100,
+              "feedback": "Correct — UNSAT means the path is unreachable, so it needs no test."
+            },
+            {
+              "text": "The path is reachable but too slow to test",
+              "fraction": 0,
+              "feedback": "UNSAT is about reachability, not performance; the path cannot be taken at all."
+            },
+            {
+              "text": "The solver is broken and should be replaced",
+              "fraction": 0,
+              "feedback": "UNSAT is a valid, informative result, not a solver failure."
+            },
+            {
+              "text": "Any input will follow the path, so it is trivially covered",
+              "fraction": 0,
+              "feedback": "That would be a tautology (always SAT); UNSAT is the opposite — no input follows it."
+            }
+          ],
+          "generalFeedback": "An unsatisfiable path condition has no satisfying assignment, so there is no input that drives execution down it — the path is infeasible/dead and correctly generates no test case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limitation: nonlinear constraints",
+          "text": "<p>Why can nonlinear integer constraints (e.g. <code>x * y == 30</code> with x, y symbolic) limit symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "Such constraints are hard or undecidable for solvers, so the solver may fail or time out on the path condition",
+              "fraction": 100,
+              "feedback": "Correct — nonlinear integer arithmetic is notoriously difficult (undecidable in general)."
+            },
+            {
+              "text": "Nonlinear constraints always have infinitely many solutions, so they cannot be tested",
+              "fraction": 0,
+              "feedback": "Number of solutions is not the issue; the difficulty is that the solver may not decide them."
+            },
+            {
+              "text": "Solvers reject any constraint containing a multiplication",
+              "fraction": 0,
+              "feedback": "Solvers handle multiplication by constants easily; the hard case is symbol × symbol, and it is difficulty, not outright rejection."
+            },
+            {
+              "text": "Nonlinear constraints turn every path infeasible",
+              "fraction": 0,
+              "feedback": "They do not make paths infeasible; they make the feasibility question hard to answer."
+            }
+          ],
+          "generalFeedback": "Linear arithmetic is decidable and efficient, but nonlinear integer arithmetic is undecidable in general; when a path condition contains symbol-by-symbol products, the solver may be unable to resolve it, limiting the engine's precision.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limitation: external calls",
+          "text": "<p>A pure symbolic execution engine struggles when the code calls an external/native function (e.g. a system call) whose source it cannot analyze because:</p>",
+          "answers": [
+            {
+              "text": "The call's effect on the symbolic state is opaque, so constraints cannot be propagated through it",
+              "fraction": 100,
+              "feedback": "Correct — this is a key motivation for concolic execution, which uses the concrete return value."
+            },
+            {
+              "text": "External functions always crash the engine",
+              "fraction": 0,
+              "feedback": "They do not necessarily crash it; the problem is that their symbolic effect is unknown."
+            },
+            {
+              "text": "External calls make every path condition a tautology",
+              "fraction": 0,
+              "feedback": "They do not trivialize constraints; they leave the engine unable to track them precisely."
+            },
+            {
+              "text": "The solver refuses to run whenever I/O is present",
+              "fraction": 0,
+              "feedback": "The solver is unaffected; the issue is missing symbolic semantics for the external call."
+            }
+          ],
+          "generalFeedback": "Without a model of the external function, the engine cannot express its output as a symbolic expression of the inputs, so it loses precision — concolic execution sidesteps this by plugging in the concrete value observed at runtime.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limitation: pointer aliasing",
+          "text": "<p>Why does pointer aliasing complicate symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "When two pointers may reference the same location, the engine cannot statically tell which symbolic memory a read/write affects, forcing case splits or imprecision",
+              "fraction": 100,
+              "feedback": "Correct — unresolved aliasing multiplies cases or loses precision."
+            },
+            {
+              "text": "Pointers cannot be represented symbolically at all",
+              "fraction": 0,
+              "feedback": "Pointers can be modeled; the difficulty is resolving which location they refer to."
+            },
+            {
+              "text": "Aliasing makes the path condition always satisfiable",
+              "fraction": 0,
+              "feedback": "Aliasing affects memory modeling, not the trivial satisfiability of constraints."
+            },
+            {
+              "text": "Aliasing only matters for concrete execution, never symbolic",
+              "fraction": 0,
+              "feedback": "It is especially problematic for symbolic execution, which must reason about all possible aliasing."
+            }
+          ],
+          "generalFeedback": "If p and q might alias, a write through p may or may not change what q reads; the engine must either split into cases (p == q vs p ≠ q) or approximate, both of which cost precision or add paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic execution vs random testing",
+          "text": "<p>A branch <code>if (x == 987654321)</code> depends on a 32-bit symbolic input x. Compared with random testing, symbolic execution:</p>",
+          "answers": [
+            {
+              "text": "Solves x == 987654321 directly and hits the branch immediately, whereas random testing has about a 1-in-2³² chance per try",
+              "fraction": 100,
+              "feedback": "Correct — the solver computes the exact value; random guessing almost never lands it."
+            },
+            {
+              "text": "Has the same tiny probability of reaching the branch as random testing",
+              "fraction": 0,
+              "feedback": "Symbolic execution does not guess; it solves the equality exactly."
+            },
+            {
+              "text": "Cannot reach the branch because equalities are unsolvable",
+              "fraction": 0,
+              "feedback": "A linear equality like this is trivially solvable; the solver returns x = 987654321."
+            },
+            {
+              "text": "Must enumerate all 2³² inputs first",
+              "fraction": 0,
+              "feedback": "No enumeration is needed; the solver derives the satisfying value directly."
+            }
+          ],
+          "generalFeedback": "Narrow equality guards are the classic case where symbolic execution shines: it solves the constraint for the exact value, while random/fuzz testing is astronomically unlikely to hit it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exact PC through nested branches (UNSAT)",
+          "text": "<p>For <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code> (a, b symbolic), is the path reaching <code>T</code> feasible?</p>",
+          "answers": [
+            {
+              "text": "No — its path condition (a + b > 10) ∧ (a < 3) ∧ (b < 3) is unsatisfiable",
+              "fraction": 100,
+              "feedback": "Correct — a < 3 and b < 3 force a + b < 6, contradicting a + b > 10."
+            },
+            {
+              "text": "Yes — for example a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "a = 2, b = 2 gives a + b = 4, which is not > 10."
+            },
+            {
+              "text": "Yes — for example a = 8, b = 8",
+              "fraction": 0,
+              "feedback": "a = 8 violates a < 3, so the second branch is not taken."
+            },
+            {
+              "text": "Only for negative a and b",
+              "fraction": 0,
+              "feedback": "Negative values make a + b even smaller, so a + b > 10 still fails."
+            }
+          ],
+          "generalFeedback": "Conjoin the three branch outcomes: a < 3 and b < 3 imply a + b < 6, which cannot also satisfy a + b > 10. The path condition is UNSAT, so T is unreachable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exact PC through nested branches (SAT)",
+          "text": "<p>For <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code> (x, y symbolic), which input reaches <code>T</code>?</p>",
+          "answers": [
+            {
+              "text": "x = 1, y = 2",
+              "fraction": 100,
+              "feedback": "Correct — 1 > 0, 2 == 1 + 1, and 2 < 10 all hold."
+            },
+            {
+              "text": "x = 1, y = 1",
+              "fraction": 0,
+              "feedback": "y must equal x + 1 = 2, not 1."
+            },
+            {
+              "text": "x = 0, y = 1",
+              "fraction": 0,
+              "feedback": "x = 0 fails x > 0, so the outer branch is not taken."
+            },
+            {
+              "text": "x = 10, y = 11",
+              "fraction": 0,
+              "feedback": "y = 11 fails y < 10, so the innermost branch is not taken."
+            }
+          ],
+          "generalFeedback": "The path condition is (x > 0) ∧ (y == x + 1) ∧ (y < 10). x = 1, y = 2 satisfies all three, so it reaches T.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compositional summaries",
+          "text": "<p>A technique that symbolically analyzes a function once and reuses the result at each call site, instead of re-exploring the callee's paths every time, is called a:</p>",
+          "answers": [
+            {
+              "text": "Function (path) summary",
+              "fraction": 100,
+              "feedback": "Correct — compositional symbolic execution reuses per-function summaries to curb path explosion."
+            },
+            {
+              "text": "Loop invariant",
+              "fraction": 0,
+              "feedback": "An invariant characterizes a loop, not a reusable summary of a function's input/output constraints."
+            },
+            {
+              "text": "Test oracle",
+              "fraction": 0,
+              "feedback": "An oracle decides pass/fail; it is not a reusable analysis of a function."
+            },
+            {
+              "text": "Control-flow graph",
+              "fraction": 0,
+              "feedback": "The CFG is static structure, not a reusable symbolic result for a function."
+            }
+          ],
+          "generalFeedback": "Compositional (summary-based) symbolic execution records a function's behavior as a set of (precondition ⇒ effect) constraints and reuses it at every call, avoiding repeated exploration of the callee — a key path-explosion mitigation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "State-merging trade-off",
+          "text": "<p>State merging reduces the number of symbolic states, but what is its main trade-off?</p>",
+          "answers": [
+            {
+              "text": "The merged path condition contains disjunctions/if-then-else terms, which can make solver queries harder",
+              "fraction": 100,
+              "feedback": "Correct — fewer states, but more complex constraints to solve."
+            },
+            {
+              "text": "It makes the analysis unsound, missing real paths",
+              "fraction": 0,
+              "feedback": "No — merging is sound; the cost is harder solver queries, not lost paths."
+            },
+            {
+              "text": "It requires abandoning the constraint solver",
+              "fraction": 0,
+              "feedback": "Merging still relies on the solver — indeed on harder queries."
+            },
+            {
+              "text": "It doubles the number of states instead of reducing them",
+              "fraction": 0,
+              "feedback": "Merging combines states, reducing their count; the downside is constraint complexity."
+            }
+          ],
+          "generalFeedback": "Merging two states at a join point replaces two simpler path conditions with one that encodes both via disjunction (or ite-terms). This lowers state count but shifts the burden onto the solver, which now faces more complex formulas.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Loops cause unbounded paths",
+          "text": "<p>A loop whose iteration count depends on symbolic input can generate an unbounded number of paths, which is a direct source of path explosion.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each additional iteration forks a new set of paths, so the count can grow without bound, hence bounded unrolling is used."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A symbolic loop bound lets the loop take arbitrarily many iterations, each spawning more paths — a classic cause of path explosion."
+            }
+          ],
+          "generalFeedback": "When the number of iterations is symbolic, exploring 0, 1, 2, … iterations yields ever more paths with no finite ceiling, so engines cap exploration with bounded unrolling (or loop summaries)."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是符號執行",
+          "text": "<p><strong>符號執行（symbolic execution）</strong>在做什麼？</p>",
+          "answers": [
+            {
+              "text": "它以符號化（未知的）輸入來執行程式，而非具體數值，並沿著每條路徑追蹤這些輸入所需滿足的限制式",
+              "fraction": 100,
+              "feedback": "正確——輸入是符號，引擎推理的是這些符號必須滿足的限制式。"
+            },
+            {
+              "text": "它以大量隨機的具體輸入反覆執行程式，並記錄失敗",
+              "fraction": 0,
+              "feedback": "那是隨機／模糊測試；符號執行推理的是符號，而非固定的隨機值。"
+            },
+            {
+              "text": "它靜態地計算既有測試套件所涵蓋的程式行數",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測，並非符號執行。"
+            },
+            {
+              "text": "它把程式翻譯成更快的機器碼表示",
+              "fraction": 0,
+              "feedback": "那描述的是編譯器／最佳化工具，而非符號執行。"
+            }
+          ],
+          "generalFeedback": "符號執行把程式輸入視為符號變數，並在走訪每條路徑時累積這些符號必須滿足的限制式——因此能一次推理整類輸入，而不只是單一具體執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號值與具體值",
+          "text": "<p>執行期間，<strong>符號值（symbolic value）</strong>與<strong>具體值（concrete value）</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "具體值是單一固定值（例如 7）；符號值則是一個未知數，代表其限制式所允許的任何值",
+              "fraction": 100,
+              "feedback": "正確——像 x 這樣的符號代表一整組可能的值。"
+            },
+            {
+              "text": "符號值一定比具體值更大",
+              "fraction": 0,
+              "feedback": "大小無關緊要；差別在於「固定值」與「帶限制式的未知數」。"
+            },
+            {
+              "text": "兩者相同，「符號」只是「具體」的另一種說法",
+              "fraction": 0,
+              "feedback": "兩者並不相同——具體值是固定的，符號值是未知數。"
+            },
+            {
+              "text": "具體值可以是一條公式，符號值不行",
+              "fraction": 0,
+              "feedback": "恰好相反：符號值是運算式／公式，具體值則是固定資料。"
+            }
+          ],
+          "generalFeedback": "具體執行以固定資料計算（x = 7）；符號執行以符號（x）計算，建立其上的運算式與限制式，使一次分析涵蓋許多具體輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑條件",
+          "text": "<p>符號執行引擎所建立的路徑條件（path condition）是指：</p>",
+          "answers": [
+            {
+              "text": "沿著一條執行路徑累積的所有分支限制式（branch constraints）的合取（conjunction），以符號化輸入變數表示",
+              "fraction": 100,
+              "feedback": "正確——這是一條公式，而非數值，用來描述哪些具體輸入會走上這條路徑。"
+            },
+            {
+              "text": "執行程式一次所記錄下來的單一具體執行軌跡",
+              "fraction": 0,
+              "feedback": "那是具體符號執行（concolic）／動態執行所記錄的內容；符號執行推理的是公式，而非單一具體執行。"
+            },
+            {
+              "text": "回報分支被執行百分比的程式碼覆蓋率指標",
+              "fraction": 0,
+              "feedback": "覆蓋率是一項摘要統計數字；路徑條件則是與某條特定路徑綁定的邏輯公式。"
+            },
+            {
+              "text": "程式控制流程圖（control-flow graph）的表示法",
+              "fraction": 0,
+              "feedback": "控制流程圖是被探索的靜態結構本身；路徑條件則是沿著其中一條走訪路徑所累積出的限制式。"
+            }
+          ],
+          "generalFeedback": "符號執行沿著一條路徑前進時，會把每個分支決策（以符號化輸入表示）的限制式合取成一條公式——即路徑條件——精確地描述哪些具體輸入會走上這條路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是符號狀態",
+          "text": "<p>在符號執行的某個時點，<strong>符號狀態（symbolic state）</strong>主要由什麼構成？</p>",
+          "answers": [
+            {
+              "text": "每個程式變數對應的符號運算式，連同當前的路徑條件",
+              "fraction": 100,
+              "feedback": "正確——變數對應到以符號表示的運算式，再加上目前累積的限制式。"
+            },
+            {
+              "text": "只有每個變數的具體數值內容",
+              "fraction": 0,
+              "feedback": "那是具體狀態；符號狀態把變數對應到符號運算式。"
+            },
+            {
+              "text": "已經產生的測試案例清單",
+              "fraction": 0,
+              "feedback": "產生的測試是輸出；符號狀態是當前「變數對運算式」的對應加上路徑條件。"
+            },
+            {
+              "text": "被分析程式的原始碼",
+              "fraction": 0,
+              "feedback": "原始碼是程式本身；符號狀態是引擎執行程式時所維護的執行期抽象。"
+            }
+          ],
+          "generalFeedback": "符號狀態把每個變數綁定到一條符號運算式（以輸入符號表示），並攜帶路徑條件——即執行要抵達此處所必須成立的限制式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要探索路徑",
+          "text": "<p>符號執行為何要分別探索不同的程式路徑？</p>",
+          "answers": [
+            {
+              "text": "因為每條路徑對應一組不同的輸入限制式，求解它們就能得到能觸發該特定行為的輸入",
+              "fraction": 100,
+              "feedback": "正確——不同路徑給出不同的路徑條件，各自都可求解出一個測試輸入。"
+            },
+            {
+              "text": "因為程式一次只能編譯一條路徑",
+              "fraction": 0,
+              "feedback": "編譯與此無關；路徑探索是為了推理不同的分支結果。"
+            },
+            {
+              "text": "因為路徑必須依其程式碼的字母順序執行",
+              "fraction": 0,
+              "feedback": "並無此排序要求；重點在於每條路徑各有其限制式。"
+            },
+            {
+              "text": "因為任何程式中永遠只有一條路徑可行",
+              "fraction": 0,
+              "feedback": "通常有許多條路徑可行，這正是要逐一探索它們的原因。"
+            }
+          ],
+          "generalFeedback": "不同的分支結果導致不同的路徑條件；藉由探索每條路徑，引擎可求解其條件，產生正好驅動程式走向該行為的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "求解路徑條件以取得測試輸入",
+          "text": "<p>一旦建立好路徑條件，符號執行如何把它轉換成具體的測試輸入？</p>",
+          "answers": [
+            {
+              "text": "向求解器請求一組能滿足該路徑條件的符號化輸入指派",
+              "fraction": 100,
+              "feedback": "正確——一組滿足指派正是能走上該路徑的具體輸入。"
+            },
+            {
+              "text": "為每個輸入隨機挑一個值，並期望剛好符合",
+              "fraction": 0,
+              "feedback": "不需要猜測；求解器會直接從限制式算出滿足指派。"
+            },
+            {
+              "text": "把路徑條件嵌進程式後重新編譯",
+              "fraction": 0,
+              "feedback": "不涉及重新編譯；路徑條件是交給限制式求解器。"
+            },
+            {
+              "text": "計算該路徑包含多少個分支",
+              "fraction": 0,
+              "feedback": "計算分支數不會產生輸入值；求解限制式才會。"
+            }
+          ],
+          "generalFeedback": "路徑條件的一組滿足指派，就是一個在執行時會驅動程式走上該路徑的具體輸入——這就是符號執行產生測試輸入的方式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "輸入如何被處理",
+          "text": "<p>符號執行開始時，程式輸入被視為什麼？</p>",
+          "answers": [
+            {
+              "text": "全新的符號變數，尚無固定值",
+              "fraction": 100,
+              "feedback": "正確——輸入一開始是未受限制的符號。"
+            },
+            {
+              "text": "在程式指派前一律為零",
+              "fraction": 0,
+              "feedback": "輸入並非預設為零；它們成為符號，其值隨著分支被走訪而受到限制。"
+            },
+            {
+              "text": "單一個隨機挑選的常數",
+              "fraction": 0,
+              "feedback": "那會是具體測試；符號執行讓輸入維持符號化。"
+            },
+            {
+              "text": "該型別所能容納的最大值",
+              "fraction": 0,
+              "feedback": "並無此預設；輸入是符號變數。"
+            }
+          ],
+          "generalFeedback": "每個輸入都成為一個全新的符號。程式分支時，這些符號上的限制式便累積進路徑條件。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "一次推理許多輸入",
+          "text": "<p>藉由讓輸入維持符號化，單一條符號路徑就能一次刻劃出許多具體輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——路徑條件描述的是走上該路徑的整組具體輸入，而不只是單一個。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "一條符號路徑的條件涵蓋了所有會走上該路徑的具體輸入，因此一條路徑代表許多輸入。"
+            }
+          ],
+          "generalFeedback": "由於路徑條件是符號上的限制式，它代表所有滿足它的具體輸入所成的集合——一條符號路徑總結了許多具體執行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "引擎為每個變數追蹤什麼",
+          "text": "<p>執行 <code>a = x + 1; b = a * 2;</code>（x 為符號化輸入）之後，引擎為 <code>b</code> 記錄什麼？</p>",
+          "answers": [
+            {
+              "text": "符號運算式 (x + 1) * 2",
+              "fraction": 100,
+              "feedback": "正確——b 存的是以符號 x 表示的運算式，而非一個數字。"
+            },
+            {
+              "text": "單一個具體數字",
+              "fraction": 0,
+              "feedback": "x 沒有具體值，因此 b 不可能是固定數字；它是一條運算式。"
+            },
+            {
+              "text": "什麼都沒有，因為 b 不是從輸入讀入的",
+              "fraction": 0,
+              "feedback": "即使是由其他變數推導而來，指派仍會更新符號狀態。"
+            },
+            {
+              "text": "路徑條件 x + 1 > 0",
+              "fraction": 0,
+              "feedback": "這裡沒有走任何分支，路徑條件不變；b 只是取得一條運算式。"
+            }
+          ],
+          "generalFeedback": "符號執行以由輸入建構的符號運算式更新每個被指派的變數；此處 b 成為 (x + 1) * 2，而因為沒有分支發生，路徑條件維持不變。",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "判定路徑條件可滿足性的元件",
+          "text": "<p>負責判定路徑條件是否可滿足的元件叫做什麼？（請以英文術語或縮寫回答）</p>",
+          "answers": [
+            {
+              "text": "solver",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "SMT*",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "constraint solver*",
+              "fraction": 100,
+              "feedback": "正確。"
+            }
+          ],
+          "generalFeedback": "SMT（Satisfiability Modulo Theories）求解器——泛稱限制式求解器——會接收路徑條件的公式並判斷其可滿足性，若存在滿足解，便回傳一組滿足指派（也就是具體的測試輸入）。",
+          "usecase": false
+        },
+        {
+          "type": "truefalse",
+          "name": "符號值代表一個集合",
+          "text": "<p>符號值可理解為代表在當前限制式下，它所有可能取到的具體值所成的集合。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這正是為何一次符號執行能推廣到許多具體輸入。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "符號代表其限制式所允許的任何值，也就是一整組可能的具體值。"
+            }
+          ],
+          "generalFeedback": "受路徑條件限制的符號，代表滿足這些限制式的具體值所成的集合，這正是符號執行普遍性的來源。"
+        },
+        {
+          "type": "multichoice",
+          "name": "在測試中的用途",
+          "text": "<p>符號執行在軟體測試中一個常見的實務目標是：</p>",
+          "answers": [
+            {
+              "text": "自動產生能抵達特定路徑或觸發錯誤的輸入",
+              "fraction": 100,
+              "feedback": "正確——求解路徑條件能得到有針對性的測試輸入。"
+            },
+            {
+              "text": "自動撰寫程式的說明文件",
+              "fraction": 0,
+              "feedback": "那與符號執行無關。"
+            },
+            {
+              "text": "取代對編譯器的需求",
+              "fraction": 0,
+              "feedback": "符號執行分析程式，並不取代編譯。"
+            },
+            {
+              "text": "量測網路延遲",
+              "fraction": 0,
+              "feedback": "那是效能議題，並非符號執行所處理的問題。"
+            }
+          ],
+          "generalFeedback": "藉由算出能走上選定路徑的輸入，符號執行支援自動化測試產生與高覆蓋率的錯誤搜尋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "遇到以符號為條件的分支",
+          "text": "<p>當執行抵達一個條件取決於符號化輸入的分支時，符號執行引擎通常會：</p>",
+          "answers": [
+            {
+              "text": "同時考慮兩種結果，沿著每個可行的方向繼續，並把該條件加入其路徑條件",
+              "fraction": 100,
+              "feedback": "正確——引擎會分岔，在可行處同時探索 true 與 false 兩個方向。"
+            },
+            {
+              "text": "永遠走 true 分支，忽略 false 分支",
+              "fraction": 0,
+              "feedback": "兩個方向都重要；引擎不會任意固定某一種結果。"
+            },
+            {
+              "text": "立即停止執行",
+              "fraction": 0,
+              "feedback": "符號分支是探索倍增之處，而非停止之處。"
+            },
+            {
+              "text": "沿用上一個測試案例所走的分支",
+              "fraction": 0,
+              "feedback": "並無先前的測試案例決定這件事；引擎會探索兩個可行結果。"
+            }
+          ],
+          "generalFeedback": "在符號分支處引擎會分岔：一個狀態加入該條件，另一個加入其否定，各個可行狀態再繼續自己的探索。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體執行 vs 符號執行",
+          "text": "<p>對同一支程式，下列哪一項最能對比「具體執行」與「符號執行」？</p>",
+          "answers": [
+            {
+              "text": "具體執行對其固定輸入只會走恰好一條路徑；符號執行則透過符號化輸入上的限制式推理許多條路徑",
+              "fraction": 100,
+              "feedback": "正確——具體＝每組輸入一條路徑；符號＝以限制式為基礎的探索。"
+            },
+            {
+              "text": "具體執行會探索每一條路徑，符號執行只探索一條",
+              "fraction": 0,
+              "feedback": "恰好相反：具體執行只走恰好一條路徑。"
+            },
+            {
+              "text": "兩者永遠都只探索同一條路徑",
+              "fraction": 0,
+              "feedback": "符號執行通常推理多條路徑，與單一具體執行不同。"
+            },
+            {
+              "text": "兩種執行都不取決於輸入",
+              "fraction": 0,
+              "feedback": "具體執行取決於其固定輸入；符號執行則對符號化輸入加以限制。"
+            }
+          ],
+          "generalFeedback": "以具體輸入執行會確定地走一條路徑；符號執行則建立路徑條件，一次刻劃並探索許多路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "路徑條件是布林公式",
+          "text": "<p>路徑條件是一條定義在符號化輸入變數上的布林公式。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它是分支限制式的合取，也就是定義在輸入符號上的布林公式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "路徑條件正是定義在符號化輸入上的一條布林公式（限制式的合取）。"
+            }
+          ],
+          "generalFeedback": "每個分支貢獻一條限制式；合取起來，它們構成定義在輸入符號上的布林公式——即路徑條件——求解器可據以檢查可滿足性。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "偵測不可行路徑",
+          "text": "<p>符號執行引擎所探索的一條路徑，何時會被判定為不可行（infeasible）？</p>",
+          "answers": [
+            {
+              "text": "其路徑條件不可滿足（UNSAT）——沒有任何輸入指派能同時滿足所有累積的限制式",
+              "fraction": 100,
+              "feedback": "正確——UNSAT 代表不存在任何具體執行能走上這條路徑。"
+            },
+            {
+              "text": "引擎達到了設定的迴圈展開（loop-unrolling）上限",
+              "fraction": 0,
+              "feedback": "達到上限只是讓探索在該處停止，本身並不能證明該路徑不可行。"
+            },
+            {
+              "text": "求解器在給出答案前逾時",
+              "fraction": 0,
+              "feedback": "逾時代表結果未定——該路徑仍可能是可行的，只是尚未被解出。"
+            },
+            {
+              "text": "該路徑發生了除以零的錯誤",
+              "fraction": 0,
+              "feedback": "那是引擎在某條可行路徑上可能標記出的執行期錯誤，並非不可行的跡象。"
+            }
+          ],
+          "generalFeedback": "路徑條件是一條邏輯公式；當求解器判定該公式為 UNSAT 時，就代表這條路徑不可行——也就是說，符號化輸入無論如何指派，都不可能讓執行走上這條路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "限制式求解器的角色",
+          "text": "<p>SMT／限制式求解器（constraint solver）在符號執行中扮演什麼角色？</p>",
+          "answers": [
+            {
+              "text": "給定一條路徑條件，求解器會產生滿足該條件的具體輸入指派（或回報 UNSAT）",
+              "fraction": 100,
+              "feedback": "正確——求解路徑條件正是符號執行把一條路徑轉換成可執行測試輸入的方式。"
+            },
+            {
+              "text": "它負責對程式執行已產生的測試案例",
+              "fraction": 0,
+              "feedback": "執行測試是產生輸入之後的另一個獨立步驟，並非求解器的工作。"
+            },
+            {
+              "text": "它負責變異程式原始碼以產生測試變體",
+              "fraction": 0,
+              "feedback": "那描述的是突變測試工具，而非限制式求解器。"
+            },
+            {
+              "text": "它負責量測測試套件涵蓋了多少程式碼",
+              "fraction": 0,
+              "feedback": "覆蓋率量測通常由另外的插樁／追蹤工具完成，而非求解器。"
+            }
+          ],
+          "generalFeedback": "限制式求解器會接收累積出的路徑條件，判斷其是否可滿足；若可滿足，便回傳一組符號化輸入的具體指派，成為驅動執行走上該路徑的實際測試輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可行等於可滿足",
+          "text": "<p>一條路徑<strong>可行（feasible）</strong>，恰好當其路徑條件為：</p>",
+          "answers": [
+            {
+              "text": "可滿足（satisfiable）——至少存在一組符號化輸入的指派使其為真",
+              "fraction": 100,
+              "feedback": "正確——一組滿足指派就是一個能走上該路徑的具體輸入。"
+            },
+            {
+              "text": "不可滿足（unsatisfiable）",
+              "fraction": 0,
+              "feedback": "不可滿足是不可行路徑的定義，恰好相反。"
+            },
+            {
+              "text": "恆真式（對每一組指派都為真）",
+              "fraction": 0,
+              "feedback": "可行只需一組滿足指派，並不要求所有指派都滿足它。"
+            },
+            {
+              "text": "不含任何分支限制式",
+              "fraction": 0,
+              "feedback": "可行路徑可帶有許多限制式；重點是它們共同可滿足。"
+            }
+          ],
+          "generalFeedback": "可行性與可滿足性一致：一條路徑能被實際執行，若且唯若有某輸入滿足其路徑條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在分支處分岔",
+          "text": "<p>在符號值上遇到 <code>if (c)</code>、且當前路徑條件為 <code>PC</code> 時，引擎會分岔成兩個狀態，其路徑條件為：</p>",
+          "answers": [
+            {
+              "text": "then 分支為 PC ∧ c，else 分支為 PC ∧ ¬c",
+              "fraction": 100,
+              "feedback": "正確——每個後繼都把分支結果合取到既有的 PC 上。"
+            },
+            {
+              "text": "一個分支為 c，另一個為 ¬c，捨棄 PC",
+              "fraction": 0,
+              "feedback": "PC 中先前的限制式必須保留；新結果是被合取，而非取代。"
+            },
+            {
+              "text": "PC ∨ c 與 PC ∨ ¬c",
+              "fraction": 0,
+              "feedback": "分支結果是合取（∧），而非析取（∨）；PC ∨ ¬c 會削弱限制式。"
+            },
+            {
+              "text": "兩個分支都是 PC ∧ c",
+              "fraction": 0,
+              "feedback": "else 分支必須加入 ¬c，而非 c。"
+            }
+          ],
+          "generalFeedback": "分岔會保留累積的 PC 並加入分支結果：then 狀態得到 PC ∧ c，else 狀態得到 PC ∧ ¬c，接著各自檢查可滿足性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單一 if 的路徑條件",
+          "text": "<p>對於 <code>read x; if (x &gt; 0) y = x; else y = -x;</code>，走 <em>true</em> 分支那條路徑的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "x > 0",
+              "fraction": 100,
+              "feedback": "正確——走 true 分支恰好加入限制式 x > 0。"
+            },
+            {
+              "text": "x ≤ 0",
+              "fraction": 0,
+              "feedback": "那是 else 分支的條件，而非 true 分支。"
+            },
+            {
+              "text": "y = x",
+              "fraction": 0,
+              "feedback": "那是一個指派（符號狀態的更新），並非路徑條件中的分支限制式。"
+            },
+            {
+              "text": "x > 0 ∧ x ≤ 0",
+              "fraction": 0,
+              "feedback": "這條路徑只走了一個分支結果；把兩者合取會使其不可滿足。"
+            }
+          ],
+          "generalFeedback": "這條路徑上唯一的分支是 x > 0，取為真，因此路徑條件就是 x > 0。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "推導測試輸入",
+          "text": "<p>某條路徑的路徑條件為 <code>(x &gt; 0) ∧ (x &lt; 10)</code>。下列哪個具體輸入是能走上這條路徑的有效測試輸入？</p>",
+          "answers": [
+            {
+              "text": "x = 5",
+              "fraction": 100,
+              "feedback": "正確——5 > 0 且 5 < 10，滿足整條路徑條件。"
+            },
+            {
+              "text": "x = 0",
+              "fraction": 0,
+              "feedback": "0 不 > 0，第一個限制式不成立。"
+            },
+            {
+              "text": "x = 10",
+              "fraction": 0,
+              "feedback": "10 不 < 10，第二個限制式不成立。"
+            },
+            {
+              "text": "x = -3",
+              "fraction": 0,
+              "feedback": "-3 不 > 0，第一個限制式不成立。"
+            }
+          ],
+          "generalFeedback": "測試輸入是任何滿足整條路徑條件的指派。只有 x = 5 嚴格落在 0 與 10 之間。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑數：兩個接續的 if",
+          "text": "<p>下列片段有幾條執行路徑？<code>if (a) {...} if (b) {...}</code>（兩個接續、彼此獨立的 if；a 與 b 為獨立的符號條件）</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每個 if 有 2 種結果且彼此獨立：2 × 2 = 4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只算了一個 if；兩個獨立的 if 相乘為 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "結果是相乘（2 × 2 = 4），而非相加為 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "符號條件下兩個 if 都會分岔，路徑不只一條。"
+            }
+          ],
+          "generalFeedback": "獨立分支相乘：兩個各有 true/false 的 if 給出 2 × 2 = 4 條路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 true/true 的路徑條件",
+          "text": "<p>對於 <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>，要抵達最內層區塊（兩個分支皆為真）的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "(x > 0) ∧ (y < 5)",
+              "fraction": 100,
+              "feedback": "正確——沿路徑把兩個分支結果合取起來。"
+            },
+            {
+              "text": "(x > 0) ∨ (y < 5)",
+              "fraction": 0,
+              "feedback": "抵達內層區塊需要兩個條件同時成立，故為合取而非析取。"
+            },
+            {
+              "text": "(x > 0) ∧ (y ≥ 5)",
+              "fraction": 0,
+              "feedback": "內層 true 分支需要 y < 5，而非 y ≥ 5。"
+            },
+            {
+              "text": "只有 (y < 5)",
+              "fraction": 0,
+              "feedback": "要抵達內層 if，外層條件 x > 0 也必須成立。"
+            }
+          ],
+          "generalFeedback": "每個巢狀 true 分支都加入其條件；要抵達內層區塊需要 (x > 0) ∧ (y < 5)。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一條不可行的巢狀路徑",
+          "text": "<p>在 <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code> 中，抵達 <code>BUG</code> 的路徑其狀態為何？</p>",
+          "answers": [
+            {
+              "text": "不可行——其路徑條件 (x > 0) ∧ (x < 0) 不可滿足",
+              "fraction": 100,
+              "feedback": "正確——沒有 x 同時為正又為負，故 BUG 無法抵達。"
+            },
+            {
+              "text": "當 x = 0 時可行",
+              "fraction": 0,
+              "feedback": "x = 0 既不滿足 x > 0 也不滿足 x < 0，而兩者都需要。"
+            },
+            {
+              "text": "當 x 為任意大值時可行",
+              "fraction": 0,
+              "feedback": "大的 x 滿足 x > 0 卻違反 x < 0；沒有值能同時滿足兩者。"
+            },
+            {
+              "text": "只有當 x 為負時可行",
+              "fraction": 0,
+              "feedback": "負的 x 使外層 x > 0 不成立，因此永遠抵達不了內層區塊。"
+            }
+          ],
+          "generalFeedback": "路徑條件 (x > 0) ∧ (x < 0) 為 UNSAT，故這條路徑不可行，BUG 在此路徑上是死碼——任何測試產生器都會（正確地）無法抵達它。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "可滿足的 PC 蘊含存在輸入",
+          "text": "<p>若一條路徑條件可滿足，則存在至少一個具體輸入能驅動執行走上該路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——一組滿足指派正是這樣的一個具體輸入。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "可滿足性保證存在一組滿足指派，也就是一個會走上該路徑的輸入。"
+            }
+          ],
+          "generalFeedback": "路徑條件的可滿足性等同於路徑的可行性：求解器給出的模型就是一個能走上該路徑的具體輸入。"
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑數：單一 if-else",
+          "text": "<p>單一個 <code>if (c) {...} else {...}</code>（c 為符號，且無巢狀分支）有幾條執行路徑？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——c 為真一條、c 為假一條。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "符號條件會分裂成兩個可行方向，而非一個。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "if-else 恰有兩種結果，而非三種。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 需要兩個獨立分支；單一 if-else 是 2。"
+            }
+          ],
+          "generalFeedback": "對符號條件的單一分支給出兩條路徑：then 分支（c）與 else 分支（¬c）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "複合 PC 的輸入",
+          "text": "<p>某條路徑的路徑條件為 <code>(a ≥ 2) ∧ (b == a + 1)</code>。哪個輸入滿足它？</p>",
+          "answers": [
+            {
+              "text": "a = 2, b = 3",
+              "fraction": 100,
+              "feedback": "正確——2 ≥ 2 且 3 == 2 + 1。"
+            },
+            {
+              "text": "a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "b 必須等於 a + 1 = 3，而非 2。"
+            },
+            {
+              "text": "a = 1, b = 2",
+              "fraction": 0,
+              "feedback": "雖然 b == a + 1 成立，但 a = 1 違反 a ≥ 2。"
+            },
+            {
+              "text": "a = 3, b = 3",
+              "fraction": 0,
+              "feedback": "b 必須等於 a + 1 = 4，而非 3。"
+            }
+          ],
+          "generalFeedback": "兩個合取項都必須成立：a ≥ 2 且 b = a + 1。只有 a = 2, b = 3 同時滿足兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "指派之後的路徑條件",
+          "text": "<p>對於 <code>y = x + 1; if (y == 5) { ... }</code>（x 為符號化輸入），進入該區塊、以 x 表示的路徑條件是：</p>",
+          "answers": [
+            {
+              "text": "x + 1 == 5",
+              "fraction": 100,
+              "feedback": "正確——y 存的是運算式 x + 1，故以 x 表示的分支限制式為 x + 1 == 5（即 x == 4）。"
+            },
+            {
+              "text": "y == 5（把 y 當作一個全新的未知數保留）",
+              "fraction": 0,
+              "feedback": "y 並非獨立輸入；它被指派為 x + 1，必須代入。"
+            },
+            {
+              "text": "x == 5",
+              "fraction": 0,
+              "feedback": "那忽略了 +1；限制式是 x + 1 == 5，得 x == 4。"
+            },
+            {
+              "text": "x + 1 == 4",
+              "fraction": 0,
+              "feedback": "分支測試的是 y == 5，故限制式是 x + 1 == 5，而非 == 4。"
+            }
+          ],
+          "generalFeedback": "符號執行會代入被指派的運算式：y = x + 1，故分支 y == 5 化為以輸入 x 表示的限制式 x + 1 == 5（求解得 x == 4）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀 SAT 模型",
+          "text": "<p>求解器對某路徑的條件回傳 SAT，並附上模型 <code>{x = 4}</code>。這告訴你什麼？</p>",
+          "answers": [
+            {
+              "text": "該路徑可行，且以 x = 4 執行程式會驅動執行走上它",
+              "fraction": 100,
+              "feedback": "正確——這個模型就是一個會走上該路徑的具體測試輸入。"
+            },
+            {
+              "text": "該路徑不可行，且 x = 4 是一個反例",
+              "fraction": 0,
+              "feedback": "SAT 代表可行；模型是見證輸入，而非反例。"
+            },
+            {
+              "text": "在程式的每一條路徑上 x 都必須等於 4",
+              "fraction": 0,
+              "feedback": "該模型只適用於這一條路徑的條件，並非所有路徑。"
+            },
+            {
+              "text": "在程式重新編譯前什麼都不代表",
+              "fraction": 0,
+              "feedback": "不需重新編譯；x = 4 可直接作為測試輸入使用。"
+            }
+          ],
+          "generalFeedback": "帶模型的 SAT 結果代表路徑條件可滿足（路徑可行），且回傳的指派是一個能執行到該路徑的具體輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑數：巢狀 if",
+          "text": "<p><code>if (a) { if (b) {...} else {...} } else {...}</code>（a、b 為符號）有幾條執行路徑？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——a 為假給 1 條；a 為真時依 b 分裂成 2 條；共 3 條。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "內層 if 只存在於 a 為真那一側，故為 2 + 1 = 3，而非 2 × 2。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a 為真那一側會再依 b 分裂，多出第三條路徑。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "此處各種結果的可行組合只有三種。"
+            }
+          ],
+          "generalFeedback": "外層 if 的 else 是一條路徑；then 那側含一個 if-else 再給兩條。由於 a 為假時抵達不了內層分支，總數為 2 + 1 = 3。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "可擴展性瓶頸",
+          "text": "<p>符號執行擴展到大型程式時，主要的障礙是什麼？</p>",
+          "answers": [
+            {
+              "text": "路徑爆炸（path explosion）——相異路徑的數量隨著分支與迴圈呈指數成長",
+              "fraction": 100,
+              "feedback": "正確——這是符號執行最典型的可擴展性瓶頸。"
+            },
+            {
+              "text": "被插樁（instrumented）程式的記憶體洩漏",
+              "fraction": 0,
+              "feedback": "這不是典型瓶頸；記憶體洩漏是一般程式分析普遍會遇到的問題，並非符號執行擴展性的特有議題。"
+            },
+            {
+              "text": "測試諭示問題（oracle problem）——不知道正確的預期輸出",
+              "fraction": 0,
+              "feedback": "測試諭示問題廣泛影響測試結果的驗證；符號執行本身的核心擴展性瓶頸在於路徑數量，而非諭示。"
+            },
+            {
+              "text": "不穩定、不確定性的測試（flaky tests）",
+              "fraction": 0,
+              "feedback": "測試不穩定屬於動態測試的議題；符號執行是針對路徑做靜態推理，其瓶頸在於路徑數量本身。"
+            }
+          ],
+          "generalFeedback": "由於每個分支都可能使待探索的路徑數量加倍，而迴圈更會貢獻大量額外路徑，路徑數量會呈指數成長——即路徑爆炸——使得對大型或迴圈密集程式進行窮舉式符號執行變得不可行。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "具體符號執行（concolic execution）",
+          "text": "<p>具體符號執行（concolic execution，「concrete + symbolic」）結合具體執行與符號推理，用以簡化純符號執行無法求解的限制式。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——當符號限制式變得過於複雜時（例如呼叫到外部或原生程式碼），具體符號執行會以實際執行所得的具體值來取代，使探索得以跨越純符號求解器會卡住的部分。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這正是具體符號執行（動態符號執行）的核心動機——它在追蹤符號限制式的同時搭配具體執行，使難以求解的運算式能借助實際觀察到的具體值加以簡化。"
+            }
+          ],
+          "generalFeedback": "具體符號執行在具體輸入上執行程式，同時追蹤符號限制式；當某個限制式過於複雜時（例如涉及不透明的函式庫呼叫），便以執行期實際觀察到的具體值取代，繞過純符號執行的求解器無法處理的運算式。"
+        },
+        {
+          "type": "multichoice",
+          "name": "在 DSE 中抵達新路徑",
+          "text": "<p>在動態符號執行（DSE／concolic）中，引擎通常如何導引執行走向尚未涵蓋的路徑？</p>",
+          "answers": [
+            {
+              "text": "它否定當前路徑上的某個分支條件，再求解修改後的路徑條件，得到走向另一方向的輸入",
+              "fraction": 100,
+              "feedback": "正確——翻轉一個分支並重新求解，就能得到走另一結果的輸入。"
+            },
+            {
+              "text": "它隨機擾動當前輸入，直到剛好出現新路徑",
+              "fraction": 0,
+              "feedback": "那較接近模糊測試；DSE 是刻意否定某分支並求解輸入。"
+            },
+            {
+              "text": "它從程式中刪除該分支，讓兩側合併",
+              "fraction": 0,
+              "feedback": "DSE 不會修改程式；它修改路徑條件並重新求解。"
+            },
+            {
+              "text": "它不斷提高迴圈展開上限，直到覆蓋率改善",
+              "fraction": 0,
+              "feedback": "提高上限處理的是迴圈，而非為抵達另一側而系統性地翻轉某個分支。"
+            }
+          ],
+          "generalFeedback": "DSE 會記錄一次具體執行所走的分支條件，然後否定其中一個（通常是最後一個未探索的），並向求解器索取滿足「前綴＋被否定條件」的輸入——藉此驅動執行走上兄弟路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "緩解路徑爆炸",
+          "text": "<p>下列何者是公認可緩解路徑爆炸的技術？</p>",
+          "answers": [
+            {
+              "text": "狀態合併（state merging）——在匯合點把多個符號狀態合併為一個（其路徑條件帶析取）",
+              "fraction": 100,
+              "feedback": "正確——合併能減少往後攜帶的狀態數量。"
+            },
+            {
+              "text": "完全停用限制式求解器",
+              "fraction": 0,
+              "feedback": "沒有求解器就完全無法檢查可行性；這並不能解決路徑數量的問題。"
+            },
+            {
+              "text": "在程式中加入更多分支",
+              "fraction": 0,
+              "feedback": "更多分支會增加而非減少路徑數量。"
+            },
+            {
+              "text": "把每個求解器逾時上限都調到無限大",
+              "fraction": 0,
+              "feedback": "那影響的是個別查詢，而非路徑數量的指數成長。"
+            }
+          ],
+          "generalFeedback": "常見的緩解手段包括狀態合併、函式／路徑摘要、搜尋啟發式與有界探索——都是為了控制狀態數的指數成長，而非讓每次求解更快。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "處理迴圈",
+          "text": "<p>為使探索維持有限，對於迭代次數取決於符號化輸入的迴圈，常見的處理方式是：</p>",
+          "answers": [
+            {
+              "text": "有界展開（bounded unrolling）——只探索迴圈本體達固定的迭代次數上限",
+              "fraction": 100,
+              "feedback": "正確——上限能封住原本無界的迴圈路徑集合。"
+            },
+            {
+              "text": "窮舉列出所有可能的迭代次數",
+              "fraction": 0,
+              "feedback": "在符號化上限下這可能是無界的，而這正是造成路徑爆炸的原因。"
+            },
+            {
+              "text": "忽略該迴圈並跳過其本體",
+              "fraction": 0,
+              "feedback": "跳過本體會漏掉被測行為，並錯誤呈現程式。"
+            },
+            {
+              "text": "把迴圈改寫成不可達的程式碼",
+              "fraction": 0,
+              "feedback": "迴圈是程式語意的一部分，不能就這樣丟棄。"
+            }
+          ],
+          "generalFeedback": "由於符號化的迴圈可能衍生無界多條路徑，引擎通常把它展開到某個選定深度（或使用迴圈摘要／不變量），以使探索維持有限，並接受在該上限之外的不完整性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 UNSAT 代表死路",
+          "text": "<p>若一條路徑的條件不可滿足，為何這條路徑是「死路」（無需測試）？</p>",
+          "answers": [
+            {
+              "text": "沒有任何具體輸入能滿足其限制式，因此不會有任何執行走上那條路徑",
+              "fraction": 100,
+              "feedback": "正確——UNSAT 代表該路徑不可達，故無需測試。"
+            },
+            {
+              "text": "該路徑可達，只是測起來太慢",
+              "fraction": 0,
+              "feedback": "UNSAT 談的是可達性，而非效能；該路徑根本走不上去。"
+            },
+            {
+              "text": "求解器壞了，應該更換",
+              "fraction": 0,
+              "feedback": "UNSAT 是有效且有資訊量的結果，並非求解器故障。"
+            },
+            {
+              "text": "任何輸入都會走上該路徑，所以已被輕易涵蓋",
+              "fraction": 0,
+              "feedback": "那會是恆真式（永遠 SAT）；UNSAT 恰好相反——沒有任何輸入走上它。"
+            }
+          ],
+          "generalFeedback": "不可滿足的路徑條件沒有任何滿足指派，故沒有輸入能驅動執行走上它——該路徑不可行／已死，正確地不會產生任何測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "限制：非線性限制式",
+          "text": "<p>為何非線性整數限制式（例如 x、y 為符號時的 <code>x * y == 30</code>）會限制符號執行？</p>",
+          "answers": [
+            {
+              "text": "這類限制式對求解器而言困難或不可判定，故求解器在該路徑條件上可能失敗或逾時",
+              "fraction": 100,
+              "feedback": "正確——非線性整數算術眾所皆知地困難（一般而言不可判定）。"
+            },
+            {
+              "text": "非線性限制式永遠有無限多解，因此無法測試",
+              "fraction": 0,
+              "feedback": "問題不在解的數量；困難在於求解器可能無法判定它們。"
+            },
+            {
+              "text": "求解器會拒絕任何含有乘法的限制式",
+              "fraction": 0,
+              "feedback": "求解器能輕鬆處理與常數的乘法；困難的是「符號 × 符號」，而且是難度問題，並非直接拒絕。"
+            },
+            {
+              "text": "非線性限制式會讓每條路徑都不可行",
+              "fraction": 0,
+              "feedback": "它們不會使路徑不可行；而是讓可行性問題難以回答。"
+            }
+          ],
+          "generalFeedback": "線性算術可判定且有效率，但非線性整數算術一般而言不可判定；當路徑條件含有「符號乘符號」時，求解器可能無法解出，限制了引擎的精確度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "限制：外部呼叫",
+          "text": "<p>當程式碼呼叫一個無法分析其原始碼的外部／原生函式（例如系統呼叫）時，純符號執行引擎會遇到困難，原因是：</p>",
+          "answers": [
+            {
+              "text": "該呼叫對符號狀態的影響是不透明的，因此限制式無法穿過它傳遞",
+              "fraction": 100,
+              "feedback": "正確——這正是具體符號執行的一大動機，它會改用具體回傳值。"
+            },
+            {
+              "text": "外部函式一定會使引擎當掉",
+              "fraction": 0,
+              "feedback": "不一定會當掉；問題在於其符號效果未知。"
+            },
+            {
+              "text": "外部呼叫會讓每條路徑條件都變成恆真式",
+              "fraction": 0,
+              "feedback": "它們不會讓限制式變得瑣碎；而是讓引擎無法精確追蹤它們。"
+            },
+            {
+              "text": "只要存在 I/O，求解器就拒絕執行",
+              "fraction": 0,
+              "feedback": "求解器不受影響；問題在於缺少該外部呼叫的符號語意。"
+            }
+          ],
+          "generalFeedback": "若缺少外部函式的模型，引擎就無法把其輸出表示為輸入的符號運算式，因而喪失精確度——具體符號執行藉由代入執行期觀察到的具體值來繞過此問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "限制：指標別名",
+          "text": "<p>為何指標別名（pointer aliasing）會使符號執行複雜化？</p>",
+          "answers": [
+            {
+              "text": "當兩個指標可能指向同一位置時，引擎無法靜態判定某次讀／寫影響的是哪塊符號記憶體，只好做案例分裂或犧牲精確度",
+              "fraction": 100,
+              "feedback": "正確——未解決的別名會使案例倍增或喪失精確度。"
+            },
+            {
+              "text": "指標根本無法被符號化表示",
+              "fraction": 0,
+              "feedback": "指標可以被建模；困難在於判定它們指向哪個位置。"
+            },
+            {
+              "text": "別名會讓路徑條件永遠可滿足",
+              "fraction": 0,
+              "feedback": "別名影響的是記憶體建模，而非限制式的瑣碎可滿足性。"
+            },
+            {
+              "text": "別名只對具體執行有影響，對符號執行從無影響",
+              "fraction": 0,
+              "feedback": "它對符號執行尤其棘手，因為符號執行必須推理所有可能的別名情形。"
+            }
+          ],
+          "generalFeedback": "若 p 與 q 可能別名，透過 p 的寫入可能改變、也可能不改變 q 所讀到的內容；引擎必須分裂成案例（p == q 對 p ≠ q）或做近似，兩者都會付出精確度或增加路徑的代價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號執行 vs 隨機測試",
+          "text": "<p>分支 <code>if (x == 987654321)</code> 取決於一個 32 位元的符號化輸入 x。與隨機測試相比，符號執行：</p>",
+          "answers": [
+            {
+              "text": "直接求解 x == 987654321 並立刻打中該分支；隨機測試則每次約只有 1/2³² 的機會",
+              "fraction": 100,
+              "feedback": "正確——求解器算出確切值；隨機猜測幾乎永遠打不中。"
+            },
+            {
+              "text": "抵達該分支的機率與隨機測試一樣微小",
+              "fraction": 0,
+              "feedback": "符號執行不靠猜測；它會精確地求解該等式。"
+            },
+            {
+              "text": "無法抵達該分支，因為等式無法求解",
+              "fraction": 0,
+              "feedback": "這樣的線性等式輕易可解；求解器會回傳 x = 987654321。"
+            },
+            {
+              "text": "必須先窮舉所有 2³² 種輸入",
+              "fraction": 0,
+              "feedback": "不需窮舉；求解器會直接推導出滿足值。"
+            }
+          ],
+          "generalFeedback": "狹窄的等式守衛正是符號執行大顯身手的經典情形：它會針對限制式求出確切值，而隨機／模糊測試打中它的機率微乎其微。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀分支的精確 PC（UNSAT）",
+          "text": "<p>對於 <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code>（a、b 為符號），抵達 <code>T</code> 的路徑可行嗎？</p>",
+          "answers": [
+            {
+              "text": "不可行——其路徑條件 (a + b > 10) ∧ (a < 3) ∧ (b < 3) 不可滿足",
+              "fraction": 100,
+              "feedback": "正確——a < 3 且 b < 3 迫使 a + b < 6，與 a + b > 10 矛盾。"
+            },
+            {
+              "text": "可行——例如 a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "a = 2, b = 2 給出 a + b = 4，並不 > 10。"
+            },
+            {
+              "text": "可行——例如 a = 8, b = 8",
+              "fraction": 0,
+              "feedback": "a = 8 違反 a < 3，故第二個分支不會被走。"
+            },
+            {
+              "text": "只有當 a 與 b 為負時可行",
+              "fraction": 0,
+              "feedback": "負值會讓 a + b 更小，故 a + b > 10 仍不成立。"
+            }
+          ],
+          "generalFeedback": "把三個分支結果合取：a < 3 且 b < 3 蘊含 a + b < 6，無法同時滿足 a + b > 10。路徑條件為 UNSAT，故 T 不可達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀分支的精確 PC（SAT）",
+          "text": "<p>對於 <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code>（x、y 為符號），哪個輸入能抵達 <code>T</code>？</p>",
+          "answers": [
+            {
+              "text": "x = 1, y = 2",
+              "fraction": 100,
+              "feedback": "正確——1 > 0、2 == 1 + 1、2 < 10 皆成立。"
+            },
+            {
+              "text": "x = 1, y = 1",
+              "fraction": 0,
+              "feedback": "y 必須等於 x + 1 = 2，而非 1。"
+            },
+            {
+              "text": "x = 0, y = 1",
+              "fraction": 0,
+              "feedback": "x = 0 使 x > 0 不成立，故外層分支不會被走。"
+            },
+            {
+              "text": "x = 10, y = 11",
+              "fraction": 0,
+              "feedback": "y = 11 使 y < 10 不成立，故最內層分支不會被走。"
+            }
+          ],
+          "generalFeedback": "路徑條件為 (x > 0) ∧ (y == x + 1) ∧ (y < 10)。x = 1, y = 2 同時滿足三者，故能抵達 T。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合式摘要",
+          "text": "<p>一種只對函式做一次符號分析，並在每個呼叫點重用其結果、而不必每次都重新探索被呼叫函式路徑的技術，稱為：</p>",
+          "answers": [
+            {
+              "text": "函式（路徑）摘要（function/path summary）",
+              "fraction": 100,
+              "feedback": "正確——組合式符號執行重用各函式的摘要以抑制路徑爆炸。"
+            },
+            {
+              "text": "迴圈不變量（loop invariant）",
+              "fraction": 0,
+              "feedback": "不變量刻劃的是迴圈，並非可重用的「函式輸入／輸出限制式摘要」。"
+            },
+            {
+              "text": "測試諭示（test oracle）",
+              "fraction": 0,
+              "feedback": "諭示決定通過／失敗，並非對函式的可重用分析。"
+            },
+            {
+              "text": "控制流程圖（control-flow graph）",
+              "fraction": 0,
+              "feedback": "控制流程圖是靜態結構，並非函式的可重用符號結果。"
+            }
+          ],
+          "generalFeedback": "組合式（以摘要為基礎的）符號執行把函式的行為記錄成一組（前置條件 ⇒ 效果）限制式，並在每次呼叫時重用它，避免重複探索被呼叫函式——是抑制路徑爆炸的關鍵手段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "狀態合併的取捨",
+          "text": "<p>狀態合併能減少符號狀態的數量，但其主要取捨是什麼？</p>",
+          "answers": [
+            {
+              "text": "合併後的路徑條件含有析取／if-then-else 項，可能使求解器的查詢更難",
+              "fraction": 100,
+              "feedback": "正確——狀態變少，但要求解的限制式變複雜。"
+            },
+            {
+              "text": "它會使分析不健全（unsound），漏掉真實路徑",
+              "fraction": 0,
+              "feedback": "並非如此——合併是健全的；代價是查詢更難，而非漏掉路徑。"
+            },
+            {
+              "text": "它要求放棄限制式求解器",
+              "fraction": 0,
+              "feedback": "合併仍仰賴求解器——而且是更難的查詢。"
+            },
+            {
+              "text": "它會讓狀態數加倍而非減少",
+              "fraction": 0,
+              "feedback": "合併會結合狀態、減少其數量；缺點在於限制式的複雜度。"
+            }
+          ],
+          "generalFeedback": "在匯合點合併兩個狀態，會把兩條較簡單的路徑條件換成一條以析取（或 ite 項）同時編碼兩者的條件。這降低了狀態數，卻把負擔轉嫁給求解器，使其面對更複雜的公式。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴圈造成無界路徑",
+          "text": "<p>迭代次數取決於符號化輸入的迴圈，可能產生無界多條路徑，這是路徑爆炸的直接來源之一。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每多一次迭代就分岔出一組新路徑，數量可無界成長，因此才要採用有界展開。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "符號化的迴圈上限允許迴圈進行任意多次迭代，每次都衍生更多路徑——這是路徑爆炸的經典成因。"
+            }
+          ],
+          "generalFeedback": "當迭代次數為符號化時，探索 0、1、2、… 次迭代會產生越來越多路徑且無有限上限，故引擎以有界展開（或迴圈摘要）封住探索。"
+        }
+      ]
+    }
   }
 };

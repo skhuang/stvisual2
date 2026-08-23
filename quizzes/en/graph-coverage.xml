@@ -1,18 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Graph Coverage</text></category>
+    <category><text>$course$/top/Graph Coverage/easy</text></category>
   </question>
   <question type="multichoice">
     <name><text>Node vs edge coverage</text></name>
     <questiontext format="html"><text><![CDATA[<p>A test path set satisfies Node Coverage but not Edge Coverage. What must be true?</p>]]></text></questiontext>
     <single>true</single>
-    <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>Every node is visited, but some edge is never traversed</text><feedback><text>Correct — edge coverage subsumes node coverage, not vice versa.</text></feedback></answer>
     <answer fraction="0"><text>Some node is never visited</text><feedback><text>Then node coverage would already fail.</text></feedback></answer>
     <answer fraction="0"><text>Every prime path is toured</text><feedback><text>Prime path coverage would imply edge coverage.</text></feedback></answer>
     <answer fraction="0"><text>The graph has no branches</text><feedback><text>With no branches, node coverage implies edge coverage.</text></feedback></answer>
     <generalfeedback><text>Edge coverage requires every edge; a branch can be skipped even when both its endpoints are visited via other paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In graph-based testing, a <strong>test path</strong> is a path that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Starts at an initial node and ends at a final node of the graph</text><feedback><text>Correct — a test path represents one complete execution from entry to exit.</text></feedback></answer>
+    <answer fraction="0"><text>Visits every node of the graph exactly once</text><feedback><text>That is a Hamiltonian path, not a test path.</text></feedback></answer>
+    <answer fraction="0"><text>Is any single edge of the graph</text><feedback><text>A single edge is a path of length 1, but a test path must run from an initial to a final node.</text></feedback></answer>
+    <answer fraction="0"><text>Never repeats any node</text><feedback><text>A test path may repeat nodes (e.g. loop iterations); only simple paths forbid repeats.</text></feedback></answer>
+    <generalfeedback><text>A test path is a path from an initial node to a final node; running a test case executes exactly one test path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement coverage maps to</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Classic <strong>statement coverage</strong> corresponds to which graph-coverage criterion on the control-flow graph?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Node Coverage</text><feedback><text>Correct — executing every statement means visiting every node.</text></feedback></answer>
+    <answer fraction="0"><text>Edge Coverage</text><feedback><text>Edge coverage corresponds to branch coverage, which is stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Prime Path Coverage</text><feedback><text>Prime path coverage is much stronger than statement coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Complete Path Coverage</text><feedback><text>Complete path coverage is generally infeasible and far stronger.</text></feedback></answer>
+    <generalfeedback><text>Nodes model basic blocks/statements, so statement coverage is exactly node coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch coverage maps to</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Classic <strong>branch coverage</strong> corresponds to which graph-coverage criterion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Edge Coverage</text><feedback><text>Correct — every branch outcome is an edge that must be traversed.</text></feedback></answer>
+    <answer fraction="0"><text>Node Coverage</text><feedback><text>Node coverage corresponds to statement coverage, which is weaker.</text></feedback></answer>
+    <answer fraction="0"><text>Edge-Pair Coverage</text><feedback><text>Edge-pair coverage requires paths of length up to 2, which is stronger than branch coverage.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses Coverage</text><feedback><text>All-uses is a data-flow criterion, not the same as branch coverage.</text></feedback></answer>
+    <generalfeedback><text>Each decision outcome is an outgoing edge, so branch coverage is exactly edge coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Edge subsumes node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On any graph, a test set that satisfies Edge Coverage also satisfies Node Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — traversing every edge visits every node that has an incident edge.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Edge coverage subsumes node coverage: covering all edges necessarily visits all reachable nodes.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage subsumes Node Coverage; the converse does not hold.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Complete path coverage feasibility</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a loop yields infinitely many paths.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied.</text></feedback></answer>
+    <generalfeedback><text>A loop lets a path revisit the same node arbitrarily many times, so the set of complete test paths is unbounded — Complete Path Coverage can never be finitely satisfied whenever the graph has a loop.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Simple path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>simple path</strong> is a path in which:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No node appears more than once, except that the first and last nodes may be the same</text><feedback><text>Correct — this allows a loop to close but forbids all other repeats.</text></feedback></answer>
+    <answer fraction="0"><text>No node ever repeats under any circumstances</text><feedback><text>Simple paths may begin and end at the same node (a round trip).</text></feedback></answer>
+    <answer fraction="0"><text>Every node of the graph is visited</text><feedback><text>That describes a spanning path, not a simple path.</text></feedback></answer>
+    <answer fraction="0"><text>Every edge is used at most once</text><feedback><text>That is a trail; simple paths constrain node repeats, not edge repeats.</text></feedback></answer>
+    <generalfeedback><text>A simple path has no repeated nodes, with the single exception that the first and last node may coincide.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Node coverage and branches</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Satisfying Node Coverage guarantees that every branch (decision outcome) has been exercised.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — node coverage can be met while an edge (branch outcome) is never taken.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Node coverage only requires visiting nodes; an untaken branch can still leave every node visited via other paths.</text></feedback></answer>
+    <generalfeedback><text>Node coverage does not imply edge coverage, so some branch outcomes may go untested.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge count A</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph on nodes 1..4 has directed edges <code>1→2, 2→3, 3→4, 2→4</code>. How many directed edges does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the edge list contains exactly four edges.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — there are four edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Recount — there are only four edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — there are only four edges listed.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage needs one test requirement per edge; here that is 4 edges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge count B</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph on nodes 1..5 has directed edges <code>1→2, 2→3, 3→4, 4→5, 2→5</code>. How many directed edges does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — five edges are listed.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — there are five edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — there are only five edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>Recount — there are only five edges listed.</text></feedback></answer>
+    <generalfeedback><text>Count each directed edge once; the list is the complete edge set.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Node coverage requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph has nodes 1..5 and edges <code>1→2, 2→3, 2→4, 3→5, 4→5</code>. How many test requirements does Node Coverage impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — one requirement per node, and there are 5 nodes.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Node coverage counts nodes (5), not edges.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>That counts branch points, not all nodes.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>Node coverage has one requirement per node, so 5, not the number of node pairs.</text></feedback></answer>
+    <generalfeedback><text>Node Coverage requires visiting each node, so the number of requirements equals the number of nodes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-pair count A</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A graph has edges <code>1→2, 2→3, 2→4</code>. How many length-2 paths u→v→w (pairs of edges sharing a middle node v) exist?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — 1→2→3 and 1→2→4.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>There are two: 1→2→3 and 1→2→4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only edges sharing a middle node count; there are two such pairs.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Node 2 is the middle of two length-2 paths.</text></feedback></answer>
+    <generalfeedback><text>For each edge u→v, count each edge v→w; here node 2 feeds two outgoing edges, giving 2 length-2 paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-pair count B</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A graph has edges <code>1→2, 2→3, 3→4, 2→4</code>. How many length-2 paths u→v→w exist?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — 1→2→3, 1→2→4, and 2→3→4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There are three: 1→2→3, 1→2→4, 2→3→4.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — only three edge pairs share a middle node.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Nodes 2 and 3 each serve as a middle node, giving three pairs total.</text></feedback></answer>
+    <generalfeedback><text>Middle node 2 gives 1→2→3 and 1→2→4; middle node 3 gives 2→3→4; total 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge coverage requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many test requirements does Edge Coverage impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — one requirement per edge, and there are 4 edges.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Edge coverage counts edges (4), not nodes.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>That counts the number of complete paths, not edges.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>There are only 4 edges to cover.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage requires traversing each edge, so the number of requirements equals the number of edges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Weakest structural criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following structural criteria is the <strong>weakest</strong> (least demanding)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Node Coverage</text><feedback><text>Correct — node coverage is subsumed by all the others.</text></feedback></answer>
+    <answer fraction="0"><text>Edge Coverage</text><feedback><text>Edge coverage subsumes node coverage, so it is stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Edge-Pair Coverage</text><feedback><text>Edge-pair coverage subsumes edge and node coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Prime Path Coverage</text><feedback><text>Prime path coverage is one of the strongest structural criteria.</text></feedback></answer>
+    <generalfeedback><text>The structural chain is Prime Path → Edge-Pair → Edge → Node, so Node Coverage is the weakest.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Coverage/medium</text></category>
   </question>
   <question type="multichoice">
     <name><text>Prime path definition</text></name>
@@ -25,7 +158,7 @@
     <generalfeedback><text>Prime paths are simple paths (no repeated nodes except possibly first = last) that are maximal — not proper subpaths of any other simple path.</text></generalfeedback>
   </question>
   <question type="multichoice">
-    <name><text>Subsumption</text></name>
+    <name><text>Subsumption of edge coverage</text></name>
     <questiontext format="html"><text><![CDATA[<p>Which criterion subsumes Edge Coverage on a graph with at least one edge?</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>Edge-Pair Coverage</text><feedback><text>Correct — covering every path of length ≤ 2 covers every length-1 path.</text></feedback></answer>
@@ -44,13 +177,6 @@
     <answer fraction="0"><text>A use of x followed by its definition</text><feedback><text>Order is definition first, then use.</text></feedback></answer>
     <generalfeedback><text>A DU pair (d, u) needs a path from d to u with no intervening redefinition of x — a def-clear path.</text></generalfeedback>
   </question>
-  <question type="truefalse">
-    <name><text>Complete path coverage feasibility</text></name>
-    <questiontext format="html"><text><![CDATA[<p>Complete Path Coverage is infeasible on any control-flow graph that contains a loop.</p>]]></text></questiontext>
-    <answer fraction="100"><text>true</text><feedback><text>Correct — a loop yields infinitely many paths.</text></feedback></answer>
-    <answer fraction="0"><text>false</text><feedback><text>Loops create unbounded path counts, so complete path coverage cannot be finitely satisfied.</text></feedback></answer>
-    <generalfeedback><text>A loop lets a path revisit the same node arbitrarily many times, so the set of simple-to-complete test paths is unbounded — Complete Path Coverage can never be finitely satisfied whenever the graph has a loop.</text></generalfeedback>
-  </question>
   <question type="shortanswer">
     <name><text>Set-cover reduction</text></name>
     <questiontext format="html"><text><![CDATA[<p>stvisual reduces the selected test-path set with a greedy approximation of which classic problem? (two words)</p>]]></text></questiontext>
@@ -58,5 +184,256 @@
     <answer fraction="100"><text>set cover*</text><feedback><text>Correct — greedy set cover.</text></feedback></answer>
     <answer fraction="100"><text>set-cover*</text><feedback><text>Correct.</text></feedback></answer>
     <generalfeedback><text>Choosing a minimal set of test paths covering all requirements is the (NP-hard) set-cover problem; the tool uses the greedy approximation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a prime path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). Which of the following is a prime path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1→2→4</text><feedback><text>Correct — it is a maximal simple path (not a subpath of any longer simple path).</text></feedback></answer>
+    <answer fraction="0"><text>2→4</text><feedback><text>2→4 is a proper subpath of the simple path 1→2→4, so it is not prime.</text></feedback></answer>
+    <answer fraction="0"><text>1→2</text><feedback><text>1→2 is a proper subpath of 1→2→4, so it is not prime.</text></feedback></answer>
+    <answer fraction="0"><text>1→2→4→3</text><feedback><text>There is no edge 4→3, so this is not even a valid path.</text></feedback></answer>
+    <generalfeedback><text>The prime paths of this graph are 1→2→4 and 1→3→4; shorter simple paths are subpaths of these.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Round-trip path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>round-trip path</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A prime path of nonzero length whose first and last nodes are the same</text><feedback><text>Correct — it captures one traversal of a loop.</text></feedback></answer>
+    <answer fraction="0"><text>Any path from the initial node to a final node</text><feedback><text>That is a general test path, not specifically a round trip.</text></feedback></answer>
+    <answer fraction="0"><text>A path that visits every node twice</text><feedback><text>Round trips are simple paths; nodes are not visited twice except the shared endpoint.</text></feedback></answer>
+    <answer fraction="0"><text>Any pair of edges u→v and v→u</text><feedback><text>A round trip is a prime path returning to its start, not merely a back-and-forth edge pair.</text></feedback></answer>
+    <generalfeedback><text>A round-trip path is a prime path with nonzero length that starts and ends at the same node; Simple/Complete Round Trip Coverage are built on these.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Def-clear path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path from a definition of x to a use of x is <strong>def-clear</strong> (with respect to x) when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No node on the path between the def and the use redefines x</text><feedback><text>Correct — the original definition still reaches the use.</text></feedback></answer>
+    <answer fraction="0"><text>The path contains no branches</text><feedback><text>Branches are irrelevant; what matters is no intervening redefinition of x.</text></feedback></answer>
+    <answer fraction="0"><text>x is used at every node on the path</text><feedback><text>Def-clear concerns redefinitions, not uses along the way.</text></feedback></answer>
+    <answer fraction="0"><text>The path is a prime path</text><feedback><text>Def-clear is about redefinitions, unrelated to whether the path is prime.</text></feedback></answer>
+    <generalfeedback><text>A def-clear path w.r.t. x has no redefinition of x strictly between the def and the use, so the def reaches the use.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime path subsumes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which criterion does Prime Path Coverage subsume?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Edge-Pair Coverage</text><feedback><text>Correct — prime paths of length ≥ 2 cover all length-≤2 subpaths.</text></feedback></answer>
+    <answer fraction="0"><text>All-DU-Paths Coverage</text><feedback><text>Structural prime-path coverage does not subsume data-flow criteria.</text></feedback></answer>
+    <answer fraction="0"><text>Complete Path Coverage</text><feedback><text>Complete path coverage is stronger and subsumes prime path coverage, not the reverse.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses Coverage</text><feedback><text>All-uses is a data-flow criterion; prime-path coverage does not subsume it.</text></feedback></answer>
+    <generalfeedback><text>Prime Path Coverage subsumes Edge-Pair, Edge, and Node coverage, but not the data-flow criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Uses vs All-Defs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about the data-flow criteria All-Defs and All-Uses is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-Uses subsumes All-Defs</text><feedback><text>Correct — reaching every use of every def implies reaching at least one use of every def.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs subsumes All-Uses</text><feedback><text>The subsumption runs the other way: All-Uses is stronger.</text></feedback></answer>
+    <answer fraction="0"><text>They are equivalent</text><feedback><text>All-Uses is strictly stronger when a def reaches more than one use.</text></feedback></answer>
+    <answer fraction="0"><text>Neither subsumes the other</text><feedback><text>All-Uses does subsume All-Defs.</text></feedback></answer>
+    <generalfeedback><text>All-Defs requires each def to reach at least one use; All-Uses requires each def to reach every one of its uses — so All-Uses subsumes All-Defs.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Edge-pair path length</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Edge-Pair Coverage requires touring every reachable path of length up to 2 (i.e. every single edge and every pair of adjacent edges).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — edge-pair coverage is defined over paths of length ≤ 2.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Edge-pair coverage is exactly the set of reachable paths of length up to 2.</text></feedback></answer>
+    <generalfeedback><text>Edge-Pair Coverage tours all reachable length-≤2 paths, which is why it subsumes Edge Coverage (length-1 paths).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-pair count (5 nodes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG on nodes 1..5 has edges <code>1→2, 1→3, 2→3, 2→4, 3→4, 4→5</code>. How many length-2 paths u→v→w exist?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 1→2→3, 1→2→4, 1→3→4, 2→3→4, 2→4→5, 3→4→5.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Recount — there are six length-2 paths.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>Recount — only six edge pairs share a middle node.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Middle nodes 2, 3, and 4 together yield six length-2 paths.</text></feedback></answer>
+    <generalfeedback><text>Per middle node, multiply in-degree by out-degree: node 2 = 1×2 = 2, node 3 = 2×1 = 2, node 4 = 2×1 = 2; total 6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-pair count (branchy)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG on nodes 1..5 has edges <code>1→2, 1→3, 1→5, 2→3, 2→4, 4→5</code>. How many length-2 paths u→v→w exist?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — 1→2→3, 1→2→4, and 2→4→5.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — only three edge pairs share a middle node.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Node 2 alone yields two, and node 4 yields a third.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>That counts edges, not length-2 paths.</text></feedback></answer>
+    <generalfeedback><text>Only middle nodes with both an incoming and an outgoing edge count: node 2 gives 1→2→3 and 1→2→4, node 4 gives 2→4→5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test requirement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In graph-based testing, a <strong>test requirement</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A specific structural element (e.g. a node, edge, or prime path) that a test path must tour</text><feedback><text>Correct — a criterion defines a set of test requirements.</text></feedback></answer>
+    <answer fraction="0"><text>A single test case with its input values</text><feedback><text>That is a test case; a requirement is what the case must satisfy.</text></feedback></answer>
+    <answer fraction="0"><text>The expected output of the program</text><feedback><text>That is an oracle, not a coverage requirement.</text></feedback></answer>
+    <answer fraction="0"><text>A complete path from entry to exit</text><feedback><text>A complete path may satisfy several requirements, but a requirement is the element to be toured.</text></feedback></answer>
+    <generalfeedback><text>A coverage criterion is a rule that yields a set of test requirements; each requirement is a structure that some test path must tour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Best-effort touring</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a required prime path cannot be toured directly by any complete test path, a common practice is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tour it with a sidetrip/detour if possible (best-effort touring)</text><feedback><text>Correct — best-effort touring allows sidetrips to reach otherwise hard requirements.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the prime path from the graph</text><feedback><text>Requirements are not removed from the graph; touring is relaxed instead.</text></feedback></answer>
+    <answer fraction="0"><text>Declare the whole criterion unsatisfiable</text><feedback><text>A single hard requirement does not make the criterion unusable; best-effort touring is used.</text></feedback></answer>
+    <answer fraction="0"><text>Add a new edge so the path becomes direct</text><feedback><text>The graph models the program and is not altered to satisfy a requirement.</text></feedback></answer>
+    <generalfeedback><text>Best-effort touring permits sidetrips (detours) so requirements that cannot be toured directly can still be covered where feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Defs meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All-Defs Coverage requires that, for each definition of a variable:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At least one def-clear path from that definition to some use is toured</text><feedback><text>Correct — each def must reach at least one use.</text></feedback></answer>
+    <answer fraction="0"><text>A def-clear path to every use is toured</text><feedback><text>That is All-Uses, which is stronger than All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>Every simple path from the definition is toured</text><feedback><text>That resembles All-DU-Paths, not All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>The definition is executed at least once</text><feedback><text>That is only node coverage of the def; All-Defs also requires reaching a use.</text></feedback></answer>
+    <generalfeedback><text>All-Defs requires each def to reach at least one use via a def-clear path; All-Uses strengthens this to every use.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime path subsumption</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a graph with at least one edge, which criterion is subsumed by Prime Path Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Edge-Pair Coverage</text><feedback><text>Correct — prime paths of length ≥ 2 cover all length-≤2 subpaths.</text></feedback></answer>
+    <answer fraction="0"><text>Complete Path Coverage</text><feedback><text>Complete path coverage is generally infeasible and is not subsumed.</text></feedback></answer>
+    <answer fraction="0"><text>All-DU-Paths</text><feedback><text>Data-flow criteria are not subsumed by structural prime-path coverage.</text></feedback></answer>
+    <answer fraction="0"><text>None</text><feedback><text>Prime path coverage does subsume edge and edge-pair coverage.</text></feedback></answer>
+    <generalfeedback><text>Prime path coverage subsumes edge-pair and edge coverage; it does not subsume data-flow or complete-path criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Data-flow subsumption chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which chain correctly orders the data-flow criteria from strongest (subsumes) to weakest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-DU-Paths → All-Uses → All-Defs</text><feedback><text>Correct — each subsumes the next.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs → All-Uses → All-DU-Paths</text><feedback><text>This reverses the order; All-DU-Paths is the strongest.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses → All-DU-Paths → All-Defs</text><feedback><text>All-DU-Paths subsumes All-Uses, so it must come first.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs → All-DU-Paths → All-Uses</text><feedback><text>All-Defs is the weakest, so it cannot lead the chain.</text></feedback></answer>
+    <generalfeedback><text>All-DU-Paths subsumes All-Uses, which subsumes All-Defs.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Prime path and data flow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Prime Path Coverage subsumes All-DU-Paths Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — structural prime-path coverage does not subsume data-flow criteria.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Prime path coverage subsumes edge-pair/edge/node coverage, but not the data-flow criteria.</text></feedback></answer>
+    <generalfeedback><text>Data-flow criteria depend on def-use relationships that structural prime-path coverage does not guarantee, so there is no subsumption.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible test requirement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test requirement is <strong>infeasible</strong> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No test path that satisfies the program's semantics can tour it</text><feedback><text>Correct — infeasibility is about semantics, not graph structure.</text></feedback></answer>
+    <answer fraction="0"><text>It requires more than one test case</text><feedback><text>Needing several cases does not make a requirement infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>It is a prime path longer than the number of nodes</text><feedback><text>Prime paths are simple, so their length is bounded; length alone is not infeasibility.</text></feedback></answer>
+    <answer fraction="0"><text>The graph has a loop</text><feedback><text>Loops make complete path coverage infinite, but do not by themselves make a requirement infeasible.</text></feedback></answer>
+    <generalfeedback><text>An infeasible requirement cannot be toured by any semantically valid execution (e.g. contradictory branch conditions); coverage is measured against feasible requirements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count prime paths (if-else)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has nodes 1..4 and edges <code>1→2, 1→3, 2→4, 3→4</code>. How many prime paths does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — 1→2→4 and 1→3→4 are the only maximal simple paths.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The four edges are not all prime; each is a subpath of a longer simple path.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>There are exactly two maximal simple paths.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>That over-counts; shorter simple paths are subpaths of the two prime paths.</text></feedback></answer>
+    <generalfeedback><text>Prime paths are maximal simple paths. Here they are 1→2→4 and 1→3→4; every shorter simple path is a subpath of one of these.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-pair count (7 nodes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG on nodes 1..7 has edges <code>1→2, 1→3, 1→4, 2→3, 2→4, 2→5, 2→6, 3→4, 5→7</code>. How many length-2 paths u→v→w exist?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — enumerate edges out of each middle node.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — there are seven length-2 paths.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>That counts edges (9), not length-2 paths.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>Recount — only seven edge pairs share a middle node.</text></feedback></answer>
+    <generalfeedback><text>Per middle node, multiply in-degree by out-degree: node 2 = 1×4 = 4, node 3 = 2×1 = 2, node 5 = 1×1 = 1; total 4 + 2 + 1 = 7 length-2 paths.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>All-Uses converse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All-Uses subsumes All-Defs, but All-Defs does not subsume All-Uses.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the subsumption holds in one direction only.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>All-Uses is strictly stronger: satisfying All-Defs need not reach every use.</text></feedback></answer>
+    <generalfeedback><text>Reaching one use per def (All-Defs) does not imply reaching every use per def (All-Uses), so the subsumption is one-directional.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Simple vs complete round trip</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do Simple Round Trip Coverage and Complete Round Trip Coverage differ?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Simple requires at least one round-trip path per reachable node that begins one; Complete requires all round-trip paths</text><feedback><text>Correct — Complete is the stronger of the two.</text></feedback></answer>
+    <answer fraction="0"><text>Simple requires all round-trip paths; Complete requires just one</text><feedback><text>This reverses them — Complete requires all.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical</text><feedback><text>They differ: one asks for at least one, the other for all round trips.</text></feedback></answer>
+    <answer fraction="0"><text>Simple ignores loops; Complete counts them once</text><feedback><text>Both are about round-trip (loop) paths; the difference is one vs all.</text></feedback></answer>
+    <generalfeedback><text>Simple Round Trip Coverage needs one round-trip path for each node that starts one; Complete Round Trip Coverage needs every round-trip path, so it subsumes Simple.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top of the structural hierarchy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among the structural criteria Node, Edge, Edge-Pair, Prime Path, and Complete Path Coverage, which subsumes all the others?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Complete Path Coverage</text><feedback><text>Correct — touring every path covers every node, edge, edge-pair and prime path (though it is usually infeasible).</text></feedback></answer>
+    <answer fraction="0"><text>Prime Path Coverage</text><feedback><text>Prime path coverage is subsumed by complete path coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Edge-Pair Coverage</text><feedback><text>Edge-pair coverage is well below the top of the hierarchy.</text></feedback></answer>
+    <answer fraction="0"><text>Node Coverage</text><feedback><text>Node coverage is the weakest of these criteria.</text></feedback></answer>
+    <generalfeedback><text>Complete Path Coverage is the strongest structural criterion (Complete Path → Prime Path → Edge-Pair → Edge → Node), but is infeasible whenever loops are present.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Def with two uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A single definition of x reaches two distinct uses u1 and u2 via def-clear paths. To satisfy All-Uses for this definition, a test set must:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tour a def-clear path to both u1 and u2</text><feedback><text>Correct — All-Uses requires reaching every reachable use of the definition.</text></feedback></answer>
+    <answer fraction="0"><text>Tour a def-clear path to either u1 or u2</text><feedback><text>Reaching just one use satisfies All-Defs, not All-Uses.</text></feedback></answer>
+    <answer fraction="0"><text>Tour every simple path to u1 and u2</text><feedback><text>That is All-DU-Paths, which is even stronger than All-Uses.</text></feedback></answer>
+    <answer fraction="0"><text>Only execute the definition once</text><feedback><text>Executing the def alone does not reach its uses.</text></feedback></answer>
+    <generalfeedback><text>All-Uses requires a def-clear path from the def to each of its reachable uses; here that means reaching both u1 and u2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sidetrip vs detour</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a path tours a subpath q with a <strong>sidetrip</strong>, it means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The path covers every edge of q in order, possibly leaving and rejoining q in between</text><feedback><text>Correct — a sidetrip covers all edges of q but may wander off and return.</text></feedback></answer>
+    <answer fraction="0"><text>The path covers q with no extra edges at all</text><feedback><text>That is touring q directly, not with a sidetrip.</text></feedback></answer>
+    <answer fraction="0"><text>The path skips some edges of q</text><feedback><text>A sidetrip still covers every edge of q; it only adds detours between them.</text></feedback></answer>
+    <answer fraction="0"><text>The path reverses the direction of q</text><feedback><text>Sidetrips preserve q's edges and direction; they only insert extra excursions.</text></feedback></answer>
+    <generalfeedback><text>Touring with a sidetrip covers all of q's edges in order while allowing detours away from and back onto q; direct touring uses no detours.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count prime paths (loop)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has nodes 1..4 and edges <code>1→2, 2→3, 3→2, 2→4</code> (a while-loop shape). How many prime paths does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 1→2→3, 1→2→4, 2→3→2, 3→2→3, and 3→2→4.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — the loop contributes the round trips 2→3→2 and 3→2→3 as well.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The two round-trip prime paths through the loop are easy to miss.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>That over-counts; there are exactly five maximal simple paths.</text></feedback></answer>
+    <generalfeedback><text>The prime paths are 1→2→3, 1→2→4, 3→2→4, and the two loop round trips 2→3→2 and 3→2→3 — five in total.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Redefinition kills a DU pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the path from a definition d of x to a use u of x, node m redefines x. What is the effect on the DU pair (d, u) along this path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>This path is not def-clear for (d, u); d's value no longer reaches u here</text><feedback><text>Correct — the redefinition at m kills d before u.</text></feedback></answer>
+    <answer fraction="0"><text>The DU pair (d, u) is still covered by this path</text><feedback><text>The redefinition means d's value does not reach u along this path.</text></feedback></answer>
+    <answer fraction="0"><text>m becomes part of the same DU pair</text><feedback><text>m starts a new definition; it does not join (d, u).</text></feedback></answer>
+    <answer fraction="0"><text>The use u is no longer a use of x</text><feedback><text>u is still a use of x; it is just reached by m's definition, not d's.</text></feedback></answer>
+    <generalfeedback><text>A redefinition between d and u kills d, so the path is not def-clear w.r.t. x for (d, u); another def-clear path is needed to cover that pair.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-pair does not subsume</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which criterion is NOT subsumed by Edge-Pair Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prime Path Coverage</text><feedback><text>Correct — prime path coverage is stronger, so edge-pair coverage does not subsume it.</text></feedback></answer>
+    <answer fraction="0"><text>Edge Coverage</text><feedback><text>Edge-pair coverage does subsume edge coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Node Coverage</text><feedback><text>Edge-pair coverage subsumes node coverage (via edge coverage).</text></feedback></answer>
+    <answer fraction="0"><text>Statement Coverage</text><feedback><text>Statement coverage equals node coverage, which edge-pair coverage subsumes.</text></feedback></answer>
+    <generalfeedback><text>Subsumption goes Prime Path → Edge-Pair → Edge → Node; edge-pair coverage subsumes weaker criteria but not the stronger prime-path coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Prime path subsumes node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a graph where every node has an incident edge, Prime Path Coverage subsumes Node Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — by transitivity through edge-pair and edge coverage.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Prime Path → Edge-Pair → Edge → Node, so prime-path coverage subsumes node coverage.</text></feedback></answer>
+    <generalfeedback><text>Subsumption is transitive: Prime Path subsumes Edge-Pair, which subsumes Edge, which subsumes Node.</text></generalfeedback>
   </question>
 </quiz>

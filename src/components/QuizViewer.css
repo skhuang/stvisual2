@@ -13,7 +13,9 @@
 .quizviewer-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.75rem; }
 .quizviewer-head-tools { display: flex; gap: 0.5rem; }
 .quiz-count { color: var(--app-text-muted); margin-bottom: 0.5rem; }
+.quiz-diff { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
 .quiz-mode { display: flex; gap: 1rem; margin-bottom: 0.75rem; }
+.quiz-comingsoon { color: var(--app-text-muted); font-style: italic; margin: 0.5rem 0; }
 .quiz-q-head { font-weight: 600; color: var(--app-text-muted); margin-bottom: 0.5rem; }
 .quiz-q-text { margin-bottom: 0.75rem; }
 .quiz-answers { display: flex; flex-direction: column; gap: 0.4rem; }

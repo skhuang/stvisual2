@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
   <question type="category">
-    <category><text>$course$/top/Symbolic Execution</text></category>
+    <category><text>$course$/top/Symbolic Execution/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是符號執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>符號執行（symbolic execution）</strong>在做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它以符號化（未知的）輸入來執行程式，而非具體數值，並沿著每條路徑追蹤這些輸入所需滿足的限制式</text><feedback><text>正確——輸入是符號，引擎推理的是這些符號必須滿足的限制式。</text></feedback></answer>
+    <answer fraction="0"><text>它以大量隨機的具體輸入反覆執行程式，並記錄失敗</text><feedback><text>那是隨機／模糊測試；符號執行推理的是符號，而非固定的隨機值。</text></feedback></answer>
+    <answer fraction="0"><text>它靜態地計算既有測試套件所涵蓋的程式行數</text><feedback><text>那是覆蓋率量測，並非符號執行。</text></feedback></answer>
+    <answer fraction="0"><text>它把程式翻譯成更快的機器碼表示</text><feedback><text>那描述的是編譯器／最佳化工具，而非符號執行。</text></feedback></answer>
+    <generalfeedback><text>符號執行把程式輸入視為符號變數，並在走訪每條路徑時累積這些符號必須滿足的限制式——因此能一次推理整類輸入，而不只是單一具體執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符號值與具體值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>執行期間，<strong>符號值（symbolic value）</strong>與<strong>具體值（concrete value）</strong>有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具體值是單一固定值（例如 7）；符號值則是一個未知數，代表其限制式所允許的任何值</text><feedback><text>正確——像 x 這樣的符號代表一整組可能的值。</text></feedback></answer>
+    <answer fraction="0"><text>符號值一定比具體值更大</text><feedback><text>大小無關緊要；差別在於「固定值」與「帶限制式的未知數」。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相同，「符號」只是「具體」的另一種說法</text><feedback><text>兩者並不相同——具體值是固定的，符號值是未知數。</text></feedback></answer>
+    <answer fraction="0"><text>具體值可以是一條公式，符號值不行</text><feedback><text>恰好相反：符號值是運算式／公式，具體值則是固定資料。</text></feedback></answer>
+    <generalfeedback><text>具體執行以固定資料計算（x = 7）；符號執行以符號（x）計算，建立其上的運算式與限制式，使一次分析涵蓋許多具體輸入。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>路徑條件</text></name>
-    <questiontext format="html"><text><![CDATA[<p>符號執行（symbolic execution）引擎所建立的路徑條件（path condition）是指：</p>]]></text></questiontext>
+    <questiontext format="html"><text><![CDATA[<p>符號執行引擎所建立的路徑條件（path condition）是指：</p>]]></text></questiontext>
     <single>true</single>
     <shuffleanswers>1</shuffleanswers>
     <answer fraction="100"><text>沿著一條執行路徑累積的所有分支限制式（branch constraints）的合取（conjunction），以符號化輸入變數表示</text><feedback><text>正確——這是一條公式，而非數值，用來描述哪些具體輸入會走上這條路徑。</text></feedback></answer>
@@ -13,6 +33,119 @@
     <answer fraction="0"><text>回報分支被執行百分比的程式碼覆蓋率指標</text><feedback><text>覆蓋率是一項摘要統計數字；路徑條件則是與某條特定路徑綁定的邏輯公式。</text></feedback></answer>
     <answer fraction="0"><text>程式控制流程圖（control-flow graph）的表示法</text><feedback><text>控制流程圖是被探索的靜態結構本身；路徑條件則是沿著其中一條走訪路徑所累積出的限制式。</text></feedback></answer>
     <generalfeedback><text>符號執行沿著一條路徑前進時，會把每個分支決策（以符號化輸入表示）的限制式合取成一條公式——即路徑條件——精確地描述哪些具體輸入會走上這條路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是符號狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在符號執行的某個時點，<strong>符號狀態（symbolic state）</strong>主要由什麼構成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個程式變數對應的符號運算式，連同當前的路徑條件</text><feedback><text>正確——變數對應到以符號表示的運算式，再加上目前累積的限制式。</text></feedback></answer>
+    <answer fraction="0"><text>只有每個變數的具體數值內容</text><feedback><text>那是具體狀態；符號狀態把變數對應到符號運算式。</text></feedback></answer>
+    <answer fraction="0"><text>已經產生的測試案例清單</text><feedback><text>產生的測試是輸出；符號狀態是當前「變數對運算式」的對應加上路徑條件。</text></feedback></answer>
+    <answer fraction="0"><text>被分析程式的原始碼</text><feedback><text>原始碼是程式本身；符號狀態是引擎執行程式時所維護的執行期抽象。</text></feedback></answer>
+    <generalfeedback><text>符號狀態把每個變數綁定到一條符號運算式（以輸入符號表示），並攜帶路徑條件——即執行要抵達此處所必須成立的限制式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何要探索路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號執行為何要分別探索不同的程式路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為每條路徑對應一組不同的輸入限制式，求解它們就能得到能觸發該特定行為的輸入</text><feedback><text>正確——不同路徑給出不同的路徑條件，各自都可求解出一個測試輸入。</text></feedback></answer>
+    <answer fraction="0"><text>因為程式一次只能編譯一條路徑</text><feedback><text>編譯與此無關；路徑探索是為了推理不同的分支結果。</text></feedback></answer>
+    <answer fraction="0"><text>因為路徑必須依其程式碼的字母順序執行</text><feedback><text>並無此排序要求；重點在於每條路徑各有其限制式。</text></feedback></answer>
+    <answer fraction="0"><text>因為任何程式中永遠只有一條路徑可行</text><feedback><text>通常有許多條路徑可行，這正是要逐一探索它們的原因。</text></feedback></answer>
+    <generalfeedback><text>不同的分支結果導致不同的路徑條件；藉由探索每條路徑，引擎可求解其條件，產生正好驅動程式走向該行為的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>求解路徑條件以取得測試輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一旦建立好路徑條件，符號執行如何把它轉換成具體的測試輸入？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>向求解器請求一組能滿足該路徑條件的符號化輸入指派</text><feedback><text>正確——一組滿足指派正是能走上該路徑的具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>為每個輸入隨機挑一個值，並期望剛好符合</text><feedback><text>不需要猜測；求解器會直接從限制式算出滿足指派。</text></feedback></answer>
+    <answer fraction="0"><text>把路徑條件嵌進程式後重新編譯</text><feedback><text>不涉及重新編譯；路徑條件是交給限制式求解器。</text></feedback></answer>
+    <answer fraction="0"><text>計算該路徑包含多少個分支</text><feedback><text>計算分支數不會產生輸入值；求解限制式才會。</text></feedback></answer>
+    <generalfeedback><text>路徑條件的一組滿足指派，就是一個在執行時會驅動程式走上該路徑的具體輸入——這就是符號執行產生測試輸入的方式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>輸入如何被處理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號執行開始時，程式輸入被視為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>全新的符號變數，尚無固定值</text><feedback><text>正確——輸入一開始是未受限制的符號。</text></feedback></answer>
+    <answer fraction="0"><text>在程式指派前一律為零</text><feedback><text>輸入並非預設為零；它們成為符號，其值隨著分支被走訪而受到限制。</text></feedback></answer>
+    <answer fraction="0"><text>單一個隨機挑選的常數</text><feedback><text>那會是具體測試；符號執行讓輸入維持符號化。</text></feedback></answer>
+    <answer fraction="0"><text>該型別所能容納的最大值</text><feedback><text>並無此預設；輸入是符號變數。</text></feedback></answer>
+    <generalfeedback><text>每個輸入都成為一個全新的符號。程式分支時，這些符號上的限制式便累積進路徑條件。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>一次推理許多輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>藉由讓輸入維持符號化，單一條符號路徑就能一次刻劃出許多具體輸入。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——路徑條件描述的是走上該路徑的整組具體輸入，而不只是單一個。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>一條符號路徑的條件涵蓋了所有會走上該路徑的具體輸入，因此一條路徑代表許多輸入。</text></feedback></answer>
+    <generalfeedback><text>由於路徑條件是符號上的限制式，它代表所有滿足它的具體輸入所成的集合——一條符號路徑總結了許多具體執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>引擎為每個變數追蹤什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>執行 <code>a = x + 1; b = a * 2;</code>（x 為符號化輸入）之後，引擎為 <code>b</code> 記錄什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>符號運算式 (x + 1) * 2</text><feedback><text>正確——b 存的是以符號 x 表示的運算式，而非一個數字。</text></feedback></answer>
+    <answer fraction="0"><text>單一個具體數字</text><feedback><text>x 沒有具體值，因此 b 不可能是固定數字；它是一條運算式。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都沒有，因為 b 不是從輸入讀入的</text><feedback><text>即使是由其他變數推導而來，指派仍會更新符號狀態。</text></feedback></answer>
+    <answer fraction="0"><text>路徑條件 x + 1 &gt; 0</text><feedback><text>這裡沒有走任何分支，路徑條件不變；b 只是取得一條運算式。</text></feedback></answer>
+    <generalfeedback><text>符號執行以由輸入建構的符號運算式更新每個被指派的變數；此處 b 成為 (x + 1) * 2，而因為沒有分支發生，路徑條件維持不變。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>判定路徑條件可滿足性的元件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>負責判定路徑條件是否可滿足的元件叫做什麼？（請以英文術語或縮寫回答）</p>]]></text></questiontext>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>solver</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>SMT*</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="100"><text>constraint solver*</text><feedback><text>正確。</text></feedback></answer>
+    <generalfeedback><text>SMT（Satisfiability Modulo Theories）求解器——泛稱限制式求解器——會接收路徑條件的公式並判斷其可滿足性，若存在滿足解，便回傳一組滿足指派（也就是具體的測試輸入）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>符號值代表一個集合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號值可理解為代表在當前限制式下，它所有可能取到的具體值所成的集合。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——這正是為何一次符號執行能推廣到許多具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>符號代表其限制式所允許的任何值，也就是一整組可能的具體值。</text></feedback></answer>
+    <generalfeedback><text>受路徑條件限制的符號，代表滿足這些限制式的具體值所成的集合，這正是符號執行普遍性的來源。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在測試中的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號執行在軟體測試中一個常見的實務目標是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>自動產生能抵達特定路徑或觸發錯誤的輸入</text><feedback><text>正確——求解路徑條件能得到有針對性的測試輸入。</text></feedback></answer>
+    <answer fraction="0"><text>自動撰寫程式的說明文件</text><feedback><text>那與符號執行無關。</text></feedback></answer>
+    <answer fraction="0"><text>取代對編譯器的需求</text><feedback><text>符號執行分析程式，並不取代編譯。</text></feedback></answer>
+    <answer fraction="0"><text>量測網路延遲</text><feedback><text>那是效能議題，並非符號執行所處理的問題。</text></feedback></answer>
+    <generalfeedback><text>藉由算出能走上選定路徑的輸入，符號執行支援自動化測試產生與高覆蓋率的錯誤搜尋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>遇到以符號為條件的分支</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當執行抵達一個條件取決於符號化輸入的分支時，符號執行引擎通常會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>同時考慮兩種結果，沿著每個可行的方向繼續，並把該條件加入其路徑條件</text><feedback><text>正確——引擎會分岔，在可行處同時探索 true 與 false 兩個方向。</text></feedback></answer>
+    <answer fraction="0"><text>永遠走 true 分支，忽略 false 分支</text><feedback><text>兩個方向都重要；引擎不會任意固定某一種結果。</text></feedback></answer>
+    <answer fraction="0"><text>立即停止執行</text><feedback><text>符號分支是探索倍增之處，而非停止之處。</text></feedback></answer>
+    <answer fraction="0"><text>沿用上一個測試案例所走的分支</text><feedback><text>並無先前的測試案例決定這件事；引擎會探索兩個可行結果。</text></feedback></answer>
+    <generalfeedback><text>在符號分支處引擎會分岔：一個狀態加入該條件，另一個加入其否定，各個可行狀態再繼續自己的探索。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具體執行 vs 符號執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對同一支程式，下列哪一項最能對比「具體執行」與「符號執行」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具體執行對其固定輸入只會走恰好一條路徑；符號執行則透過符號化輸入上的限制式推理許多條路徑</text><feedback><text>正確——具體＝每組輸入一條路徑；符號＝以限制式為基礎的探索。</text></feedback></answer>
+    <answer fraction="0"><text>具體執行會探索每一條路徑，符號執行只探索一條</text><feedback><text>恰好相反：具體執行只走恰好一條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>兩者永遠都只探索同一條路徑</text><feedback><text>符號執行通常推理多條路徑，與單一具體執行不同。</text></feedback></answer>
+    <answer fraction="0"><text>兩種執行都不取決於輸入</text><feedback><text>具體執行取決於其固定輸入；符號執行則對符號化輸入加以限制。</text></feedback></answer>
+    <generalfeedback><text>以具體輸入執行會確定地走一條路徑；符號執行則建立路徑條件，一次刻劃並探索許多路徑。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>路徑條件是布林公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>路徑條件是一條定義在符號化輸入變數上的布林公式。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——它是分支限制式的合取，也就是定義在輸入符號上的布林公式。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>路徑條件正是定義在符號化輸入上的一條布林公式（限制式的合取）。</text></feedback></answer>
+    <generalfeedback><text>每個分支貢獻一條限制式；合取起來，它們構成定義在輸入符號上的布林公式——即路徑條件——求解器可據以檢查可滿足性。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Symbolic Execution/medium</text></category>
   </question>
   <question type="multichoice">
     <name><text>偵測不可行路徑</text></name>
@@ -25,16 +158,6 @@
     <generalfeedback><text>路徑條件是一條邏輯公式；當求解器判定該公式為 UNSAT 時，就代表這條路徑不可行——也就是說，符號化輸入無論如何指派，都不可能讓執行走上這條路徑。</text></generalfeedback>
   </question>
   <question type="multichoice">
-    <name><text>可擴展性瓶頸</text></name>
-    <questiontext format="html"><text><![CDATA[<p>符號執行擴展到大型程式時，主要的障礙是什麼？</p>]]></text></questiontext>
-    <single>true</single>
-    <answer fraction="100"><text>路徑爆炸（path explosion）——相異路徑的數量隨著分支與迴圈呈指數成長</text><feedback><text>正確——這是符號執行最典型的可擴展性瓶頸。</text></feedback></answer>
-    <answer fraction="0"><text>被插樁（instrumented）程式的記憶體洩漏</text><feedback><text>這不是典型瓶頸；記憶體洩漏是一般程式分析普遍會遇到的問題，並非符號執行擴展性的特有議題。</text></feedback></answer>
-    <answer fraction="0"><text>測試諭示問題（oracle problem）——不知道正確的預期輸出</text><feedback><text>測試諭示問題廣泛影響測試結果的驗證；符號執行本身的核心擴展性瓶頸在於路徑數量，而非諭示。</text></feedback></answer>
-    <answer fraction="0"><text>不穩定、不確定性的測試（flaky tests）</text><feedback><text>測試不穩定屬於動態測試的議題；符號執行是針對路徑做靜態推理，其瓶頸在於路徑數量本身。</text></feedback></answer>
-    <generalfeedback><text>由於每個分支都可能使待探索的路徑數量加倍，而迴圈更會貢獻大量額外路徑，路徑數量會呈指數成長——即路徑爆炸——使得對大型或迴圈密集程式進行窮舉式符號執行變得不可行。</text></generalfeedback>
-  </question>
-  <question type="multichoice">
     <name><text>限制式求解器的角色</text></name>
     <questiontext format="html"><text><![CDATA[<p>SMT／限制式求解器（constraint solver）在符號執行中扮演什麼角色？</p>]]></text></questiontext>
     <single>true</single>
@@ -44,6 +167,146 @@
     <answer fraction="0"><text>它負責量測測試套件涵蓋了多少程式碼</text><feedback><text>覆蓋率量測通常由另外的插樁／追蹤工具完成，而非求解器。</text></feedback></answer>
     <generalfeedback><text>限制式求解器會接收累積出的路徑條件，判斷其是否可滿足；若可滿足，便回傳一組符號化輸入的具體指派，成為驅動執行走上該路徑的實際測試輸入。</text></generalfeedback>
   </question>
+  <question type="multichoice">
+    <name><text>可行等於可滿足</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一條路徑<strong>可行（feasible）</strong>，恰好當其路徑條件為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可滿足（satisfiable）——至少存在一組符號化輸入的指派使其為真</text><feedback><text>正確——一組滿足指派就是一個能走上該路徑的具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>不可滿足（unsatisfiable）</text><feedback><text>不可滿足是不可行路徑的定義，恰好相反。</text></feedback></answer>
+    <answer fraction="0"><text>恆真式（對每一組指派都為真）</text><feedback><text>可行只需一組滿足指派，並不要求所有指派都滿足它。</text></feedback></answer>
+    <answer fraction="0"><text>不含任何分支限制式</text><feedback><text>可行路徑可帶有許多限制式；重點是它們共同可滿足。</text></feedback></answer>
+    <generalfeedback><text>可行性與可滿足性一致：一條路徑能被實際執行，若且唯若有某輸入滿足其路徑條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在分支處分岔</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在符號值上遇到 <code>if (c)</code>、且當前路徑條件為 <code>PC</code> 時，引擎會分岔成兩個狀態，其路徑條件為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>then 分支為 PC ∧ c，else 分支為 PC ∧ ¬c</text><feedback><text>正確——每個後繼都把分支結果合取到既有的 PC 上。</text></feedback></answer>
+    <answer fraction="0"><text>一個分支為 c，另一個為 ¬c，捨棄 PC</text><feedback><text>PC 中先前的限制式必須保留；新結果是被合取，而非取代。</text></feedback></answer>
+    <answer fraction="0"><text>PC ∨ c 與 PC ∨ ¬c</text><feedback><text>分支結果是合取（∧），而非析取（∨）；PC ∨ ¬c 會削弱限制式。</text></feedback></answer>
+    <answer fraction="0"><text>兩個分支都是 PC ∧ c</text><feedback><text>else 分支必須加入 ¬c，而非 c。</text></feedback></answer>
+    <generalfeedback><text>分岔會保留累積的 PC 並加入分支結果：then 狀態得到 PC ∧ c，else 狀態得到 PC ∧ ¬c，接著各自檢查可滿足性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單一 if 的路徑條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>read x; if (x &gt; 0) y = x; else y = -x;</code>，走 <em>true</em> 分支那條路徑的路徑條件是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x &gt; 0</text><feedback><text>正確——走 true 分支恰好加入限制式 x &gt; 0。</text></feedback></answer>
+    <answer fraction="0"><text>x ≤ 0</text><feedback><text>那是 else 分支的條件，而非 true 分支。</text></feedback></answer>
+    <answer fraction="0"><text>y = x</text><feedback><text>那是一個指派（符號狀態的更新），並非路徑條件中的分支限制式。</text></feedback></answer>
+    <answer fraction="0"><text>x &gt; 0 ∧ x ≤ 0</text><feedback><text>這條路徑只走了一個分支結果；把兩者合取會使其不可滿足。</text></feedback></answer>
+    <generalfeedback><text>這條路徑上唯一的分支是 x &gt; 0，取為真，因此路徑條件就是 x &gt; 0。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推導測試輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某條路徑的路徑條件為 <code>(x &gt; 0) ∧ (x &lt; 10)</code>。下列哪個具體輸入是能走上這條路徑的有效測試輸入？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 5</text><feedback><text>正確——5 &gt; 0 且 5 &lt; 10，滿足整條路徑條件。</text></feedback></answer>
+    <answer fraction="0"><text>x = 0</text><feedback><text>0 不 &gt; 0，第一個限制式不成立。</text></feedback></answer>
+    <answer fraction="0"><text>x = 10</text><feedback><text>10 不 &lt; 10，第二個限制式不成立。</text></feedback></answer>
+    <answer fraction="0"><text>x = -3</text><feedback><text>-3 不 &gt; 0，第一個限制式不成立。</text></feedback></answer>
+    <generalfeedback><text>測試輸入是任何滿足整條路徑條件的指派。只有 x = 5 嚴格落在 0 與 10 之間。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑數：兩個接續的 if</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列片段有幾條執行路徑？<code>if (a) {...} if (b) {...}</code>（兩個接續、彼此獨立的 if；a 與 b 為獨立的符號條件）</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——每個 if 有 2 種結果且彼此獨立：2 × 2 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 只算了一個 if；兩個獨立的 if 相乘為 4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>結果是相乘（2 × 2 = 4），而非相加為 3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>符號條件下兩個 if 都會分岔，路徑不只一條。</text></feedback></answer>
+    <generalfeedback><text>獨立分支相乘：兩個各有 true/false 的 if 給出 2 × 2 = 4 條路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀 true/true 的路徑條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>，要抵達最內層區塊（兩個分支皆為真）的路徑條件是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(x &gt; 0) ∧ (y &lt; 5)</text><feedback><text>正確——沿路徑把兩個分支結果合取起來。</text></feedback></answer>
+    <answer fraction="0"><text>(x &gt; 0) ∨ (y &lt; 5)</text><feedback><text>抵達內層區塊需要兩個條件同時成立，故為合取而非析取。</text></feedback></answer>
+    <answer fraction="0"><text>(x &gt; 0) ∧ (y ≥ 5)</text><feedback><text>內層 true 分支需要 y &lt; 5，而非 y ≥ 5。</text></feedback></answer>
+    <answer fraction="0"><text>只有 (y &lt; 5)</text><feedback><text>要抵達內層 if，外層條件 x &gt; 0 也必須成立。</text></feedback></answer>
+    <generalfeedback><text>每個巢狀 true 分支都加入其條件；要抵達內層區塊需要 (x &gt; 0) ∧ (y &lt; 5)。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一條不可行的巢狀路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code> 中，抵達 <code>BUG</code> 的路徑其狀態為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不可行——其路徑條件 (x &gt; 0) ∧ (x &lt; 0) 不可滿足</text><feedback><text>正確——沒有 x 同時為正又為負，故 BUG 無法抵達。</text></feedback></answer>
+    <answer fraction="0"><text>當 x = 0 時可行</text><feedback><text>x = 0 既不滿足 x &gt; 0 也不滿足 x &lt; 0，而兩者都需要。</text></feedback></answer>
+    <answer fraction="0"><text>當 x 為任意大值時可行</text><feedback><text>大的 x 滿足 x &gt; 0 卻違反 x &lt; 0；沒有值能同時滿足兩者。</text></feedback></answer>
+    <answer fraction="0"><text>只有當 x 為負時可行</text><feedback><text>負的 x 使外層 x &gt; 0 不成立，因此永遠抵達不了內層區塊。</text></feedback></answer>
+    <generalfeedback><text>路徑條件 (x &gt; 0) ∧ (x &lt; 0) 為 UNSAT，故這條路徑不可行，BUG 在此路徑上是死碼——任何測試產生器都會（正確地）無法抵達它。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>可滿足的 PC 蘊含存在輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若一條路徑條件可滿足，則存在至少一個具體輸入能驅動執行走上該路徑。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——一組滿足指派正是這樣的一個具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>可滿足性保證存在一組滿足指派，也就是一個會走上該路徑的輸入。</text></feedback></answer>
+    <generalfeedback><text>路徑條件的可滿足性等同於路徑的可行性：求解器給出的模型就是一個能走上該路徑的具體輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑數：單一 if-else</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單一個 <code>if (c) {...} else {...}</code>（c 為符號，且無巢狀分支）有幾條執行路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——c 為真一條、c 為假一條。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>符號條件會分裂成兩個可行方向，而非一個。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>if-else 恰有兩種結果，而非三種。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 需要兩個獨立分支；單一 if-else 是 2。</text></feedback></answer>
+    <generalfeedback><text>對符號條件的單一分支給出兩條路徑：then 分支（c）與 else 分支（¬c）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>複合 PC 的輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某條路徑的路徑條件為 <code>(a ≥ 2) ∧ (b == a + 1)</code>。哪個輸入滿足它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 2, b = 3</text><feedback><text>正確——2 ≥ 2 且 3 == 2 + 1。</text></feedback></answer>
+    <answer fraction="0"><text>a = 2, b = 2</text><feedback><text>b 必須等於 a + 1 = 3，而非 2。</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 2</text><feedback><text>雖然 b == a + 1 成立，但 a = 1 違反 a ≥ 2。</text></feedback></answer>
+    <answer fraction="0"><text>a = 3, b = 3</text><feedback><text>b 必須等於 a + 1 = 4，而非 3。</text></feedback></answer>
+    <generalfeedback><text>兩個合取項都必須成立：a ≥ 2 且 b = a + 1。只有 a = 2, b = 3 同時滿足兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>指派之後的路徑條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>y = x + 1; if (y == 5) { ... }</code>（x 為符號化輸入），進入該區塊、以 x 表示的路徑條件是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x + 1 == 5</text><feedback><text>正確——y 存的是運算式 x + 1，故以 x 表示的分支限制式為 x + 1 == 5（即 x == 4）。</text></feedback></answer>
+    <answer fraction="0"><text>y == 5（把 y 當作一個全新的未知數保留）</text><feedback><text>y 並非獨立輸入；它被指派為 x + 1，必須代入。</text></feedback></answer>
+    <answer fraction="0"><text>x == 5</text><feedback><text>那忽略了 +1；限制式是 x + 1 == 5，得 x == 4。</text></feedback></answer>
+    <answer fraction="0"><text>x + 1 == 4</text><feedback><text>分支測試的是 y == 5，故限制式是 x + 1 == 5，而非 == 4。</text></feedback></answer>
+    <generalfeedback><text>符號執行會代入被指派的運算式：y = x + 1，故分支 y == 5 化為以輸入 x 表示的限制式 x + 1 == 5（求解得 x == 4）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 SAT 模型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>求解器對某路徑的條件回傳 SAT，並附上模型 <code>{x = 4}</code>。這告訴你什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該路徑可行，且以 x = 4 執行程式會驅動執行走上它</text><feedback><text>正確——這個模型就是一個會走上該路徑的具體測試輸入。</text></feedback></answer>
+    <answer fraction="0"><text>該路徑不可行，且 x = 4 是一個反例</text><feedback><text>SAT 代表可行；模型是見證輸入，而非反例。</text></feedback></answer>
+    <answer fraction="0"><text>在程式的每一條路徑上 x 都必須等於 4</text><feedback><text>該模型只適用於這一條路徑的條件，並非所有路徑。</text></feedback></answer>
+    <answer fraction="0"><text>在程式重新編譯前什麼都不代表</text><feedback><text>不需重新編譯；x = 4 可直接作為測試輸入使用。</text></feedback></answer>
+    <generalfeedback><text>帶模型的 SAT 結果代表路徑條件可滿足（路徑可行），且回傳的指派是一個能執行到該路徑的具體輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑數：巢狀 if</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>if (a) { if (b) {...} else {...} } else {...}</code>（a、b 為符號）有幾條執行路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——a 為假給 1 條；a 為真時依 b 分裂成 2 條；共 3 條。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>內層 if 只存在於 a 為真那一側，故為 2 + 1 = 3，而非 2 × 2。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>a 為真那一側會再依 b 分裂，多出第三條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>此處各種結果的可行組合只有三種。</text></feedback></answer>
+    <generalfeedback><text>外層 if 的 else 是一條路徑；then 那側含一個 if-else 再給兩條。由於 a 為假時抵達不了內層分支，總數為 2 + 1 = 3。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Symbolic Execution/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>可擴展性瓶頸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>符號執行擴展到大型程式時，主要的障礙是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>路徑爆炸（path explosion）——相異路徑的數量隨著分支與迴圈呈指數成長</text><feedback><text>正確——這是符號執行最典型的可擴展性瓶頸。</text></feedback></answer>
+    <answer fraction="0"><text>被插樁（instrumented）程式的記憶體洩漏</text><feedback><text>這不是典型瓶頸；記憶體洩漏是一般程式分析普遍會遇到的問題，並非符號執行擴展性的特有議題。</text></feedback></answer>
+    <answer fraction="0"><text>測試諭示問題（oracle problem）——不知道正確的預期輸出</text><feedback><text>測試諭示問題廣泛影響測試結果的驗證；符號執行本身的核心擴展性瓶頸在於路徑數量，而非諭示。</text></feedback></answer>
+    <answer fraction="0"><text>不穩定、不確定性的測試（flaky tests）</text><feedback><text>測試不穩定屬於動態測試的議題；符號執行是針對路徑做靜態推理，其瓶頸在於路徑數量本身。</text></feedback></answer>
+    <generalfeedback><text>由於每個分支都可能使待探索的路徑數量加倍，而迴圈更會貢獻大量額外路徑，路徑數量會呈指數成長——即路徑爆炸——使得對大型或迴圈密集程式進行窮舉式符號執行變得不可行。</text></generalfeedback>
+  </question>
   <question type="truefalse">
     <name><text>具體符號執行（concolic execution）</text></name>
     <questiontext format="html"><text><![CDATA[<p>具體符號執行（concolic execution，「concrete + symbolic」）結合具體執行與符號推理，用以簡化純符號執行無法求解的限制式。</p>]]></text></questiontext>
@@ -51,13 +314,131 @@
     <answer fraction="0"><text>false</text><feedback><text>這正是具體符號執行（動態符號執行）的核心動機——它在追蹤符號限制式的同時搭配具體執行，使難以求解的運算式能借助實際觀察到的具體值加以簡化。</text></feedback></answer>
     <generalfeedback><text>具體符號執行在具體輸入上執行程式，同時追蹤符號限制式；當某個限制式過於複雜時（例如涉及不透明的函式庫呼叫），便以執行期實際觀察到的具體值取代，繞過純符號執行的求解器無法處理的運算式。</text></generalfeedback>
   </question>
-  <question type="shortanswer">
-    <name><text>判定路徑條件可滿足性的元件</text></name>
-    <questiontext format="html"><text><![CDATA[<p>負責判定路徑條件是否可滿足的元件叫做什麼？（請以英文術語或縮寫回答）</p>]]></text></questiontext>
-    <usecase>0</usecase>
-    <answer fraction="100"><text>solver</text><feedback><text>正確。</text></feedback></answer>
-    <answer fraction="100"><text>SMT*</text><feedback><text>正確。</text></feedback></answer>
-    <answer fraction="100"><text>constraint solver*</text><feedback><text>正確。</text></feedback></answer>
-    <generalfeedback><text>SMT（Satisfiability Modulo Theories）求解器——泛稱限制式求解器——會接收路徑條件的公式並判斷其可滿足性，若存在滿足解，便回傳一組滿足指派（也就是具體的測試輸入）。</text></generalfeedback>
+  <question type="multichoice">
+    <name><text>在 DSE 中抵達新路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態符號執行（DSE／concolic）中，引擎通常如何導引執行走向尚未涵蓋的路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它否定當前路徑上的某個分支條件，再求解修改後的路徑條件，得到走向另一方向的輸入</text><feedback><text>正確——翻轉一個分支並重新求解，就能得到走另一結果的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>它隨機擾動當前輸入，直到剛好出現新路徑</text><feedback><text>那較接近模糊測試；DSE 是刻意否定某分支並求解輸入。</text></feedback></answer>
+    <answer fraction="0"><text>它從程式中刪除該分支，讓兩側合併</text><feedback><text>DSE 不會修改程式；它修改路徑條件並重新求解。</text></feedback></answer>
+    <answer fraction="0"><text>它不斷提高迴圈展開上限，直到覆蓋率改善</text><feedback><text>提高上限處理的是迴圈，而非為抵達另一側而系統性地翻轉某個分支。</text></feedback></answer>
+    <generalfeedback><text>DSE 會記錄一次具體執行所走的分支條件，然後否定其中一個（通常是最後一個未探索的），並向求解器索取滿足「前綴＋被否定條件」的輸入——藉此驅動執行走上兄弟路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>緩解路徑爆炸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是公認可緩解路徑爆炸的技術？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>狀態合併（state merging）——在匯合點把多個符號狀態合併為一個（其路徑條件帶析取）</text><feedback><text>正確——合併能減少往後攜帶的狀態數量。</text></feedback></answer>
+    <answer fraction="0"><text>完全停用限制式求解器</text><feedback><text>沒有求解器就完全無法檢查可行性；這並不能解決路徑數量的問題。</text></feedback></answer>
+    <answer fraction="0"><text>在程式中加入更多分支</text><feedback><text>更多分支會增加而非減少路徑數量。</text></feedback></answer>
+    <answer fraction="0"><text>把每個求解器逾時上限都調到無限大</text><feedback><text>那影響的是個別查詢，而非路徑數量的指數成長。</text></feedback></answer>
+    <generalfeedback><text>常見的緩解手段包括狀態合併、函式／路徑摘要、搜尋啟發式與有界探索——都是為了控制狀態數的指數成長，而非讓每次求解更快。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>處理迴圈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為使探索維持有限，對於迭代次數取決於符號化輸入的迴圈，常見的處理方式是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有界展開（bounded unrolling）——只探索迴圈本體達固定的迭代次數上限</text><feedback><text>正確——上限能封住原本無界的迴圈路徑集合。</text></feedback></answer>
+    <answer fraction="0"><text>窮舉列出所有可能的迭代次數</text><feedback><text>在符號化上限下這可能是無界的，而這正是造成路徑爆炸的原因。</text></feedback></answer>
+    <answer fraction="0"><text>忽略該迴圈並跳過其本體</text><feedback><text>跳過本體會漏掉被測行為，並錯誤呈現程式。</text></feedback></answer>
+    <answer fraction="0"><text>把迴圈改寫成不可達的程式碼</text><feedback><text>迴圈是程式語意的一部分，不能就這樣丟棄。</text></feedback></answer>
+    <generalfeedback><text>由於符號化的迴圈可能衍生無界多條路徑，引擎通常把它展開到某個選定深度（或使用迴圈摘要／不變量），以使探索維持有限，並接受在該上限之外的不完整性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 UNSAT 代表死路</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若一條路徑的條件不可滿足，為何這條路徑是「死路」（無需測試）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有任何具體輸入能滿足其限制式，因此不會有任何執行走上那條路徑</text><feedback><text>正確——UNSAT 代表該路徑不可達，故無需測試。</text></feedback></answer>
+    <answer fraction="0"><text>該路徑可達，只是測起來太慢</text><feedback><text>UNSAT 談的是可達性，而非效能；該路徑根本走不上去。</text></feedback></answer>
+    <answer fraction="0"><text>求解器壞了，應該更換</text><feedback><text>UNSAT 是有效且有資訊量的結果，並非求解器故障。</text></feedback></answer>
+    <answer fraction="0"><text>任何輸入都會走上該路徑，所以已被輕易涵蓋</text><feedback><text>那會是恆真式（永遠 SAT）；UNSAT 恰好相反——沒有任何輸入走上它。</text></feedback></answer>
+    <generalfeedback><text>不可滿足的路徑條件沒有任何滿足指派，故沒有輸入能驅動執行走上它——該路徑不可行／已死，正確地不會產生任何測試案例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>限制：非線性限制式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何非線性整數限制式（例如 x、y 為符號時的 <code>x * y == 30</code>）會限制符號執行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>這類限制式對求解器而言困難或不可判定，故求解器在該路徑條件上可能失敗或逾時</text><feedback><text>正確——非線性整數算術眾所皆知地困難（一般而言不可判定）。</text></feedback></answer>
+    <answer fraction="0"><text>非線性限制式永遠有無限多解，因此無法測試</text><feedback><text>問題不在解的數量；困難在於求解器可能無法判定它們。</text></feedback></answer>
+    <answer fraction="0"><text>求解器會拒絕任何含有乘法的限制式</text><feedback><text>求解器能輕鬆處理與常數的乘法；困難的是「符號 × 符號」，而且是難度問題，並非直接拒絕。</text></feedback></answer>
+    <answer fraction="0"><text>非線性限制式會讓每條路徑都不可行</text><feedback><text>它們不會使路徑不可行；而是讓可行性問題難以回答。</text></feedback></answer>
+    <generalfeedback><text>線性算術可判定且有效率，但非線性整數算術一般而言不可判定；當路徑條件含有「符號乘符號」時，求解器可能無法解出，限制了引擎的精確度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>限制：外部呼叫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當程式碼呼叫一個無法分析其原始碼的外部／原生函式（例如系統呼叫）時，純符號執行引擎會遇到困難，原因是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該呼叫對符號狀態的影響是不透明的，因此限制式無法穿過它傳遞</text><feedback><text>正確——這正是具體符號執行的一大動機，它會改用具體回傳值。</text></feedback></answer>
+    <answer fraction="0"><text>外部函式一定會使引擎當掉</text><feedback><text>不一定會當掉；問題在於其符號效果未知。</text></feedback></answer>
+    <answer fraction="0"><text>外部呼叫會讓每條路徑條件都變成恆真式</text><feedback><text>它們不會讓限制式變得瑣碎；而是讓引擎無法精確追蹤它們。</text></feedback></answer>
+    <answer fraction="0"><text>只要存在 I/O，求解器就拒絕執行</text><feedback><text>求解器不受影響；問題在於缺少該外部呼叫的符號語意。</text></feedback></answer>
+    <generalfeedback><text>若缺少外部函式的模型，引擎就無法把其輸出表示為輸入的符號運算式，因而喪失精確度——具體符號執行藉由代入執行期觀察到的具體值來繞過此問題。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>限制：指標別名</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何指標別名（pointer aliasing）會使符號執行複雜化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當兩個指標可能指向同一位置時，引擎無法靜態判定某次讀／寫影響的是哪塊符號記憶體，只好做案例分裂或犧牲精確度</text><feedback><text>正確——未解決的別名會使案例倍增或喪失精確度。</text></feedback></answer>
+    <answer fraction="0"><text>指標根本無法被符號化表示</text><feedback><text>指標可以被建模；困難在於判定它們指向哪個位置。</text></feedback></answer>
+    <answer fraction="0"><text>別名會讓路徑條件永遠可滿足</text><feedback><text>別名影響的是記憶體建模，而非限制式的瑣碎可滿足性。</text></feedback></answer>
+    <answer fraction="0"><text>別名只對具體執行有影響，對符號執行從無影響</text><feedback><text>它對符號執行尤其棘手，因為符號執行必須推理所有可能的別名情形。</text></feedback></answer>
+    <generalfeedback><text>若 p 與 q 可能別名，透過 p 的寫入可能改變、也可能不改變 q 所讀到的內容；引擎必須分裂成案例（p == q 對 p ≠ q）或做近似，兩者都會付出精確度或增加路徑的代價。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符號執行 vs 隨機測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>分支 <code>if (x == 987654321)</code> 取決於一個 32 位元的符號化輸入 x。與隨機測試相比，符號執行：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>直接求解 x == 987654321 並立刻打中該分支；隨機測試則每次約只有 1/2³² 的機會</text><feedback><text>正確——求解器算出確切值；隨機猜測幾乎永遠打不中。</text></feedback></answer>
+    <answer fraction="0"><text>抵達該分支的機率與隨機測試一樣微小</text><feedback><text>符號執行不靠猜測；它會精確地求解該等式。</text></feedback></answer>
+    <answer fraction="0"><text>無法抵達該分支，因為等式無法求解</text><feedback><text>這樣的線性等式輕易可解；求解器會回傳 x = 987654321。</text></feedback></answer>
+    <answer fraction="0"><text>必須先窮舉所有 2³² 種輸入</text><feedback><text>不需窮舉；求解器會直接推導出滿足值。</text></feedback></answer>
+    <generalfeedback><text>狹窄的等式守衛正是符號執行大顯身手的經典情形：它會針對限制式求出確切值，而隨機／模糊測試打中它的機率微乎其微。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀分支的精確 PC（UNSAT）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code>（a、b 為符號），抵達 <code>T</code> 的路徑可行嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不可行——其路徑條件 (a + b &gt; 10) ∧ (a &lt; 3) ∧ (b &lt; 3) 不可滿足</text><feedback><text>正確——a &lt; 3 且 b &lt; 3 迫使 a + b &lt; 6，與 a + b &gt; 10 矛盾。</text></feedback></answer>
+    <answer fraction="0"><text>可行——例如 a = 2, b = 2</text><feedback><text>a = 2, b = 2 給出 a + b = 4，並不 &gt; 10。</text></feedback></answer>
+    <answer fraction="0"><text>可行——例如 a = 8, b = 8</text><feedback><text>a = 8 違反 a &lt; 3，故第二個分支不會被走。</text></feedback></answer>
+    <answer fraction="0"><text>只有當 a 與 b 為負時可行</text><feedback><text>負值會讓 a + b 更小，故 a + b &gt; 10 仍不成立。</text></feedback></answer>
+    <generalfeedback><text>把三個分支結果合取：a &lt; 3 且 b &lt; 3 蘊含 a + b &lt; 6，無法同時滿足 a + b &gt; 10。路徑條件為 UNSAT，故 T 不可達。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀分支的精確 PC（SAT）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code>（x、y 為符號），哪個輸入能抵達 <code>T</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 1, y = 2</text><feedback><text>正確——1 &gt; 0、2 == 1 + 1、2 &lt; 10 皆成立。</text></feedback></answer>
+    <answer fraction="0"><text>x = 1, y = 1</text><feedback><text>y 必須等於 x + 1 = 2，而非 1。</text></feedback></answer>
+    <answer fraction="0"><text>x = 0, y = 1</text><feedback><text>x = 0 使 x &gt; 0 不成立，故外層分支不會被走。</text></feedback></answer>
+    <answer fraction="0"><text>x = 10, y = 11</text><feedback><text>y = 11 使 y &lt; 10 不成立，故最內層分支不會被走。</text></feedback></answer>
+    <generalfeedback><text>路徑條件為 (x &gt; 0) ∧ (y == x + 1) ∧ (y &lt; 10)。x = 1, y = 2 同時滿足三者，故能抵達 T。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合式摘要</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一種只對函式做一次符號分析，並在每個呼叫點重用其結果、而不必每次都重新探索被呼叫函式路徑的技術，稱為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>函式（路徑）摘要（function/path summary）</text><feedback><text>正確——組合式符號執行重用各函式的摘要以抑制路徑爆炸。</text></feedback></answer>
+    <answer fraction="0"><text>迴圈不變量（loop invariant）</text><feedback><text>不變量刻劃的是迴圈，並非可重用的「函式輸入／輸出限制式摘要」。</text></feedback></answer>
+    <answer fraction="0"><text>測試諭示（test oracle）</text><feedback><text>諭示決定通過／失敗，並非對函式的可重用分析。</text></feedback></answer>
+    <answer fraction="0"><text>控制流程圖（control-flow graph）</text><feedback><text>控制流程圖是靜態結構，並非函式的可重用符號結果。</text></feedback></answer>
+    <generalfeedback><text>組合式（以摘要為基礎的）符號執行把函式的行為記錄成一組（前置條件 ⇒ 效果）限制式，並在每次呼叫時重用它，避免重複探索被呼叫函式——是抑制路徑爆炸的關鍵手段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>狀態合併的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>狀態合併能減少符號狀態的數量，但其主要取捨是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>合併後的路徑條件含有析取／if-then-else 項，可能使求解器的查詢更難</text><feedback><text>正確——狀態變少，但要求解的限制式變複雜。</text></feedback></answer>
+    <answer fraction="0"><text>它會使分析不健全（unsound），漏掉真實路徑</text><feedback><text>並非如此——合併是健全的；代價是查詢更難，而非漏掉路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它要求放棄限制式求解器</text><feedback><text>合併仍仰賴求解器——而且是更難的查詢。</text></feedback></answer>
+    <answer fraction="0"><text>它會讓狀態數加倍而非減少</text><feedback><text>合併會結合狀態、減少其數量；缺點在於限制式的複雜度。</text></feedback></answer>
+    <generalfeedback><text>在匯合點合併兩個狀態，會把兩條較簡單的路徑條件換成一條以析取（或 ite 項）同時編碼兩者的條件。這降低了狀態數，卻把負擔轉嫁給求解器，使其面對更複雜的公式。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>迴圈造成無界路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>迭代次數取決於符號化輸入的迴圈，可能產生無界多條路徑，這是路徑爆炸的直接來源之一。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每多一次迭代就分岔出一組新路徑，數量可無界成長，因此才要採用有界展開。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>符號化的迴圈上限允許迴圈進行任意多次迭代，每次都衍生更多路徑——這是路徑爆炸的經典成因。</text></feedback></answer>
+    <generalfeedback><text>當迭代次數為符號化時，探索 0、1、2、… 次迭代會產生越來越多路徑且無有限上限，故引擎以有界展開（或迴圈摘要）封住探索。</text></generalfeedback>
   </question>
 </quiz>
