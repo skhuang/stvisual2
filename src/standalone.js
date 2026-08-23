@@ -55822,6 +55822,64 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         "easy": [
           {
             "type": "multichoice",
+            "name": "What symbolic execution is",
+            "text": "<p>What does <strong>symbolic execution</strong> do?</p>",
+            "answers": [
+              {
+                "text": "It runs a program on symbolic (unknown) inputs instead of concrete values, tracking constraints on those inputs along each path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 inputs are symbols, and the engine reasons about the constraints they must satisfy."
+              },
+              {
+                "text": "It runs the program many times on random concrete inputs and records failures",
+                "fraction": 0,
+                "feedback": "That is random/fuzz testing; symbolic execution reasons about symbols, not fixed random values."
+              },
+              {
+                "text": "It statically counts the lines of code covered by an existing test suite",
+                "fraction": 0,
+                "feedback": "That is coverage measurement, not symbolic execution."
+              },
+              {
+                "text": "It translates the program into a faster machine-code representation",
+                "fraction": 0,
+                "feedback": "That describes a compiler/optimizer, not symbolic execution."
+              }
+            ],
+            "generalFeedback": "Symbolic execution treats program inputs as symbolic variables and, as it follows each path, accumulates the constraints those symbols must satisfy \u2014 letting it reason about whole classes of inputs at once rather than one concrete run.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symbolic vs concrete values",
+            "text": "<p>How does a <strong>symbolic value</strong> differ from a <strong>concrete value</strong> during execution?</p>",
+            "answers": [
+              {
+                "text": "A concrete value is one fixed value (e.g. 7); a symbolic value is an unknown standing for any value its constraints allow",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a symbol like x represents a whole set of possible values."
+              },
+              {
+                "text": "A symbolic value is always larger than a concrete value",
+                "fraction": 0,
+                "feedback": "Magnitude is irrelevant; the difference is fixed value vs unknown-with-constraints."
+              },
+              {
+                "text": 'They are identical; "symbolic" is just another word for "concrete"',
+                "fraction": 0,
+                "feedback": "They are not the same \u2014 a concrete value is fixed, a symbolic one is an unknown."
+              },
+              {
+                "text": "A concrete value can be a formula, a symbolic value cannot",
+                "fraction": 0,
+                "feedback": "It is the reverse: symbolic values are expressions/formulas, concrete values are fixed data."
+              }
+            ],
+            "generalFeedback": "Concrete execution computes with fixed data (x = 7). Symbolic execution computes with symbols (x), building expressions and constraints over them so one analysis covers many concrete inputs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
             "name": "Path condition",
             "text": "<p>A path condition, as built by a symbolic execution engine, is:</p>",
             "answers": [
@@ -55851,6 +55909,318 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
+            "name": "What a symbolic state is",
+            "text": "<p>At a point during symbolic execution, the <strong>symbolic state</strong> mainly consists of:</p>",
+            "answers": [
+              {
+                "text": "A symbolic expression for each program variable together with the current path condition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 variables map to expressions over the symbols, plus the constraints accumulated so far."
+              },
+              {
+                "text": "Only the concrete numeric contents of every variable",
+                "fraction": 0,
+                "feedback": "That is a concrete state; a symbolic state maps variables to symbolic expressions."
+              },
+              {
+                "text": "The list of test cases already generated",
+                "fraction": 0,
+                "feedback": "Generated tests are an output; the symbolic state is the current variable-to-expression map plus the path condition."
+              },
+              {
+                "text": "The source code of the program being analyzed",
+                "fraction": 0,
+                "feedback": "The source is the program; the symbolic state is the runtime abstraction the engine maintains as it executes it."
+              }
+            ],
+            "generalFeedback": "A symbolic state binds each variable to a symbolic expression (over the input symbols) and carries the path condition \u2014 the constraints that must hold for execution to have reached this point.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why it explores paths",
+            "text": "<p>Why does symbolic execution explore different program paths separately?</p>",
+            "answers": [
+              {
+                "text": "Because each path corresponds to a distinct set of input constraints, and solving them yields inputs that exercise that specific behavior",
+                "fraction": 100,
+                "feedback": "Correct \u2014 separate paths give separate path conditions, each solvable for a test input."
+              },
+              {
+                "text": "Because the program can only be compiled one path at a time",
+                "fraction": 0,
+                "feedback": "Compilation is unrelated; path exploration is about reasoning over distinct branch outcomes."
+              },
+              {
+                "text": "Because paths must be run in alphabetical order of their code",
+                "fraction": 0,
+                "feedback": "There is no such ordering requirement; the point is that each path has its own constraints."
+              },
+              {
+                "text": "Because only one path can ever be feasible in any program",
+                "fraction": 0,
+                "feedback": "Many paths are typically feasible; that is exactly why they are explored individually."
+              }
+            ],
+            "generalFeedback": "Different branch outcomes lead to different path conditions; by exploring each path, the engine can solve its condition to produce an input that drives the program down precisely that behavior.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Solving a PC to get a test input",
+            "text": "<p>Once a path condition has been built, how does symbolic execution turn it into a concrete test input?</p>",
+            "answers": [
+              {
+                "text": "It asks a solver for an assignment of the symbolic inputs that satisfies the path condition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a satisfying assignment is exactly a concrete input that follows that path."
+              },
+              {
+                "text": "It picks a random value for each input and hopes it matches",
+                "fraction": 0,
+                "feedback": "No guessing is needed; the solver computes a satisfying assignment directly from the constraints."
+              },
+              {
+                "text": "It recompiles the program with the path condition embedded",
+                "fraction": 0,
+                "feedback": "Recompilation is not involved; the path condition is handed to a constraint solver."
+              },
+              {
+                "text": "It counts how many branches the path contains",
+                "fraction": 0,
+                "feedback": "Counting branches does not produce input values; solving the constraints does."
+              }
+            ],
+            "generalFeedback": "A satisfying assignment of the path condition is a concrete input that, when run, drives the program down that path \u2014 that is how symbolic execution generates test inputs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How inputs are treated",
+            "text": "<p>When symbolic execution begins, program inputs are treated as:</p>",
+            "answers": [
+              {
+                "text": "Fresh symbolic variables with no fixed value yet",
+                "fraction": 100,
+                "feedback": "Correct \u2014 inputs start as unconstrained symbols."
+              },
+              {
+                "text": "Zero, until the program assigns them",
+                "fraction": 0,
+                "feedback": "Inputs are not pre-set to zero; they become symbols whose values are constrained as branches are taken."
+              },
+              {
+                "text": "A single randomly chosen constant",
+                "fraction": 0,
+                "feedback": "That would be concrete testing; symbolic execution keeps inputs symbolic."
+              },
+              {
+                "text": "The largest value the type can hold",
+                "fraction": 0,
+                "feedback": "No such default; inputs are symbolic variables."
+              }
+            ],
+            "generalFeedback": "Each input becomes a fresh symbol. As the program branches, constraints on those symbols accumulate into the path condition.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Reasoning about many inputs at once",
+            "text": "<p>By keeping inputs symbolic, a single symbolic path can characterize many concrete inputs at once.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a path condition describes the whole set of concrete inputs that follow that path, not just one."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A symbolic path's condition captures every concrete input that would take that path, so one path stands for many inputs."
+              }
+            ],
+            "generalFeedback": "Because a path condition is a constraint over symbols, it represents the entire set of concrete inputs satisfying it \u2014 one symbolic path summarizes many concrete runs."
+          },
+          {
+            "type": "multichoice",
+            "name": "What the engine tracks per variable",
+            "text": "<p>After the statements <code>a = x + 1; b = a * 2;</code> (with x a symbolic input), what does the engine record for <code>b</code>?</p>",
+            "answers": [
+              {
+                "text": "The symbolic expression (x + 1) * 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 b holds an expression over the symbol x, not a number."
+              },
+              {
+                "text": "A single concrete number",
+                "fraction": 0,
+                "feedback": "x has no concrete value, so b cannot be a fixed number; it is an expression."
+              },
+              {
+                "text": "Nothing, because b was not read from input",
+                "fraction": 0,
+                "feedback": "Assignments update the symbolic state even when they derive from other variables."
+              },
+              {
+                "text": "The path condition x + 1 > 0",
+                "fraction": 0,
+                "feedback": "No branch was taken here, so the path condition is unchanged; b just gets an expression."
+              }
+            ],
+            "generalFeedback": "Symbolic execution updates each assigned variable with a symbolic expression built from the inputs; here b becomes (x + 1) * 2, with the path condition left unchanged because no branch occurred.",
+            "single": true
+          },
+          {
+            "type": "shortanswer",
+            "name": "Deciding path-condition satisfiability",
+            "text": "<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>",
+            "answers": [
+              {
+                "text": "solver",
+                "fraction": 100,
+                "feedback": "Correct."
+              },
+              {
+                "text": "SMT*",
+                "fraction": 100,
+                "feedback": "Correct."
+              },
+              {
+                "text": "constraint solver*",
+                "fraction": 100,
+                "feedback": "Correct."
+              }
+            ],
+            "generalFeedback": "An SMT (Satisfiability Modulo Theories) solver \u2014 generically, the constraint solver \u2014 takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.",
+            "usecase": false
+          },
+          {
+            "type": "truefalse",
+            "name": "A symbolic value represents a set",
+            "text": "<p>A symbolic value can be understood as representing the set of all concrete values it might take, subject to the current constraints.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is precisely why one symbolic run generalizes over many concrete inputs."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A symbol stands for any value its constraints allow, i.e. a whole set of possible concrete values."
+              }
+            ],
+            "generalFeedback": "A symbol constrained by the path condition denotes the set of concrete values satisfying those constraints, which is the source of symbolic execution's generality."
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose in testing",
+            "text": "<p>A common practical goal of symbolic execution in software testing is to:</p>",
+            "answers": [
+              {
+                "text": "Automatically generate inputs that reach specific paths or trigger bugs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 solving path conditions yields targeted test inputs."
+              },
+              {
+                "text": "Automatically write the program's documentation",
+                "fraction": 0,
+                "feedback": "That is unrelated to symbolic execution."
+              },
+              {
+                "text": "Replace the need for a compiler",
+                "fraction": 0,
+                "feedback": "Symbolic execution analyzes programs; it does not replace compilation."
+              },
+              {
+                "text": "Measure network latency",
+                "fraction": 0,
+                "feedback": "That is a performance concern, not what symbolic execution addresses."
+              }
+            ],
+            "generalFeedback": "By computing inputs that follow chosen paths, symbolic execution supports automated test generation and high-coverage bug finding.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reaching a branch on a symbol",
+            "text": "<p>When execution reaches a branch whose condition depends on a symbolic input, a symbolic execution engine typically:</p>",
+            "answers": [
+              {
+                "text": "Considers both outcomes, continuing along each feasible one with the condition added to its path condition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the engine forks to explore both the true and false directions where feasible."
+              },
+              {
+                "text": "Always takes the true branch and ignores the false branch",
+                "fraction": 0,
+                "feedback": "Both directions matter; the engine does not arbitrarily fix one outcome."
+              },
+              {
+                "text": "Stops execution immediately",
+                "fraction": 0,
+                "feedback": "A symbolic branch is where exploration multiplies, not where it halts."
+              },
+              {
+                "text": "Picks whichever branch the last test case took",
+                "fraction": 0,
+                "feedback": "There is no prior test case dictating this; the engine explores both feasible outcomes."
+              }
+            ],
+            "generalFeedback": "At a symbolic branch the engine forks: one state adds the condition, the other adds its negation, and each feasible state continues its own exploration.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concrete vs symbolic run",
+            "text": "<p>Which statement best contrasts a concrete run with a symbolic run of the same program?</p>",
+            "answers": [
+              {
+                "text": "A concrete run follows exactly one path for its fixed inputs; a symbolic run reasons about many paths via constraints on symbolic inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concrete = one path per input; symbolic = constraint-based exploration."
+              },
+              {
+                "text": "A concrete run explores every path, a symbolic run explores only one",
+                "fraction": 0,
+                "feedback": "It is the other way around: a concrete run takes exactly one path."
+              },
+              {
+                "text": "Both always explore exactly the same single path",
+                "fraction": 0,
+                "feedback": "A symbolic run generally reasons about multiple paths, unlike a single concrete run."
+              },
+              {
+                "text": "Neither run depends on the inputs",
+                "fraction": 0,
+                "feedback": "Concrete runs depend on their fixed inputs; symbolic runs constrain symbolic inputs."
+              }
+            ],
+            "generalFeedback": "Running with concrete inputs deterministically follows one path; symbolic execution instead builds path conditions to characterize and explore many paths at once.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Path condition is a boolean formula",
+            "text": "<p>The path condition is a boolean formula over the symbolic input variables.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is a conjunction of branch constraints, i.e. a boolean formula over the input symbols."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The path condition is exactly a boolean formula (a conjunction of constraints) over the symbolic inputs."
+              }
+            ],
+            "generalFeedback": "Each branch contributes a constraint; conjoined, they form a boolean formula over the input symbols \u2014 the path condition \u2014 which a solver can test for satisfiability."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
             "name": "Detecting infeasible paths",
             "text": "<p>A path explored by a symbolic execution engine is identified as infeasible when:</p>",
             "answers": [
@@ -55876,35 +56246,6 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               }
             ],
             "generalFeedback": "A path's condition is a logical formula; the constraint solver deems the path infeasible precisely when that formula is UNSAT, meaning no assignment of the symbolic inputs could ever drive execution down that path.",
-            "single": true
-          },
-          {
-            "type": "multichoice",
-            "name": "Scalability bottleneck",
-            "text": "<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>",
-            "answers": [
-              {
-                "text": "Path explosion \u2014 the number of distinct paths grows exponentially with branches and loops",
-                "fraction": 100,
-                "feedback": "Correct \u2014 this is the classic scalability wall for symbolic execution."
-              },
-              {
-                "text": "Memory leaks in the instrumented program",
-                "fraction": 0,
-                "feedback": "Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling."
-              },
-              {
-                "text": "The oracle problem \u2014 not knowing the correct expected output",
-                "fraction": 0,
-                "feedback": "The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles."
-              },
-              {
-                "text": "Flaky, non-deterministic tests",
-                "fraction": 0,
-                "feedback": "Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number."
-              }
-            ],
-            "generalFeedback": "Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially \u2014 path explosion \u2014 making exhaustive symbolic execution intractable for large or loop-heavy programs.",
             "single": true
           },
           {
@@ -55937,6 +56278,403 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "single": true
           },
           {
+            "type": "multichoice",
+            "name": "Feasibility means satisfiable",
+            "text": "<p>A path is <strong>feasible</strong> exactly when its path condition is:</p>",
+            "answers": [
+              {
+                "text": "Satisfiable \u2014 at least one assignment of the symbolic inputs makes it true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a satisfying assignment is a concrete input that follows the path."
+              },
+              {
+                "text": "Unsatisfiable",
+                "fraction": 0,
+                "feedback": "Unsatisfiable is the definition of an infeasible path, the opposite."
+              },
+              {
+                "text": "A tautology (true for every assignment)",
+                "fraction": 0,
+                "feedback": "Feasibility only needs one satisfying assignment, not that all assignments satisfy it."
+              },
+              {
+                "text": "Free of any branch constraints",
+                "fraction": 0,
+                "feedback": "Feasible paths can carry many constraints; what matters is that they are jointly satisfiable."
+              }
+            ],
+            "generalFeedback": "Feasibility and satisfiability coincide: a path can actually be executed iff some input satisfies its path condition.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Forking at a branch",
+            "text": "<p>Reaching <code>if (c)</code> with current path condition <code>PC</code> on a symbolic value, the engine forks into two states whose path conditions are:</p>",
+            "answers": [
+              {
+                "text": "PC \u2227 c for the then-branch and PC \u2227 \xACc for the else-branch",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each successor conjoins the branch outcome onto the existing PC."
+              },
+              {
+                "text": "c for one branch and \xACc for the other, discarding PC",
+                "fraction": 0,
+                "feedback": "The prior constraints in PC must be kept; the new outcome is conjoined, not substituted."
+              },
+              {
+                "text": "PC \u2228 c and PC \u2228 \xACc",
+                "fraction": 0,
+                "feedback": "Branch outcomes are conjoined (\u2227), not disjoined (\u2228); PC \u2228 \xACc would weaken the constraint."
+              },
+              {
+                "text": "PC \u2227 c for both branches",
+                "fraction": 0,
+                "feedback": "The else-branch must add \xACc, not c."
+              }
+            ],
+            "generalFeedback": "Forking preserves the accumulated PC and adds the branch outcome: the then-state gets PC \u2227 c, the else-state gets PC \u2227 \xACc. Each is then checked for satisfiability.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PC for a single if",
+            "text": "<p>For <code>read x; if (x &gt; 0) y = x; else y = -x;</code>, what is the path condition of the path that takes the <em>true</em> branch?</p>",
+            "answers": [
+              {
+                "text": "x > 0",
+                "fraction": 100,
+                "feedback": "Correct \u2014 taking the true branch adds exactly the constraint x > 0."
+              },
+              {
+                "text": "x \u2264 0",
+                "fraction": 0,
+                "feedback": "That is the condition for the else-branch, not the true branch."
+              },
+              {
+                "text": "y = x",
+                "fraction": 0,
+                "feedback": "That is an assignment (a symbolic-state update), not a branch constraint in the path condition."
+              },
+              {
+                "text": "x > 0 \u2227 x \u2264 0",
+                "fraction": 0,
+                "feedback": "Only one branch outcome is taken on this path; conjoining both makes it unsatisfiable."
+              }
+            ],
+            "generalFeedback": "The only branch on this path is x > 0, taken as true, so the path condition is simply x > 0.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Deriving a test input",
+            "text": "<p>A path has path condition <code>(x &gt; 0) \u2227 (x &lt; 10)</code>. Which concrete input is a valid test input that follows this path?</p>",
+            "answers": [
+              {
+                "text": "x = 5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 5 > 0 and 5 < 10, so it satisfies the whole path condition."
+              },
+              {
+                "text": "x = 0",
+                "fraction": 0,
+                "feedback": "0 is not > 0, so the first constraint fails."
+              },
+              {
+                "text": "x = 10",
+                "fraction": 0,
+                "feedback": "10 is not < 10, so the second constraint fails."
+              },
+              {
+                "text": "x = -3",
+                "fraction": 0,
+                "feedback": "-3 is not > 0, so the first constraint fails."
+              }
+            ],
+            "generalFeedback": "A test input is any assignment satisfying the whole path condition. Only x = 5 lies strictly between 0 and 10.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path count: two sequential ifs",
+            "text": "<p>How many execution paths does this snippet have? <code>if (a) {...} if (b) {...}</code> (two independent if-statements in sequence, a and b independent symbolic conditions)</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each if has 2 outcomes and they are independent: 2 \xD7 2 = 4."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 counts only one if; two independent ifs multiply to 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The outcomes multiply (2 \xD7 2 = 4), they do not add to 3."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "With symbolic conditions both ifs branch, giving more than one path."
+              }
+            ],
+            "generalFeedback": "Independent branches multiply: two if-statements each with true/false give 2 \xD7 2 = 4 paths.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PC for nested true/true",
+            "text": "<p>For <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>, what is the path condition to reach the innermost block (both branches true)?</p>",
+            "answers": [
+              {
+                "text": "(x > 0) \u2227 (y < 5)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both branch outcomes are conjoined along the path."
+              },
+              {
+                "text": "(x > 0) \u2228 (y < 5)",
+                "fraction": 0,
+                "feedback": "Reaching the inner block requires both conditions, so they are conjoined, not disjoined."
+              },
+              {
+                "text": "(x > 0) \u2227 (y \u2265 5)",
+                "fraction": 0,
+                "feedback": "The inner true branch needs y < 5, not y \u2265 5."
+              },
+              {
+                "text": "(y < 5) only",
+                "fraction": 0,
+                "feedback": "The outer condition x > 0 must also hold to reach the inner if."
+              }
+            ],
+            "generalFeedback": "Each nested true branch adds its condition; reaching the inner block requires (x > 0) \u2227 (y < 5).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "An infeasible nested path",
+            "text": "<p>In <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code>, the path reaching <code>BUG</code> has which status?</p>",
+            "answers": [
+              {
+                "text": "Infeasible \u2014 its path condition (x > 0) \u2227 (x < 0) is unsatisfiable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no x is both positive and negative, so BUG is unreachable."
+              },
+              {
+                "text": "Feasible for x = 0",
+                "fraction": 0,
+                "feedback": "x = 0 satisfies neither x > 0 nor x < 0, and both are required."
+              },
+              {
+                "text": "Feasible for any large x",
+                "fraction": 0,
+                "feedback": "A large x satisfies x > 0 but violates x < 0; no value satisfies both."
+              },
+              {
+                "text": "Feasible only for negative x",
+                "fraction": 0,
+                "feedback": "A negative x fails the outer x > 0, so the inner block is never reached."
+              }
+            ],
+            "generalFeedback": "The path condition (x > 0) \u2227 (x < 0) is UNSAT, so this path is infeasible and BUG is dead code along it \u2014 a false alarm any test generator will (correctly) fail to reach.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Satisfiable PC implies an input exists",
+            "text": "<p>If a path condition is satisfiable, then there exists at least one concrete input that drives execution down that path.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a satisfying assignment is precisely such a concrete input."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Satisfiability guarantees a satisfying assignment, which is an input that follows the path."
+              }
+            ],
+            "generalFeedback": "Satisfiability of the path condition is equivalent to feasibility of the path: the solver's model is a concrete input that exercises it."
+          },
+          {
+            "type": "multichoice",
+            "name": "Path count: one if-else",
+            "text": "<p>How many execution paths does a single <code>if (c) {...} else {...}</code> (with symbolic c and no nested branches) have?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one path for c true, one for c false."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A symbolic condition splits into two feasible directions, not one."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "An if-else has exactly two outcomes, not three."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 would require two independent branches; a single if-else has 2."
+              }
+            ],
+            "generalFeedback": "A single branch on a symbolic condition yields two paths: the then-branch (c) and the else-branch (\xACc).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Input for a compound PC",
+            "text": "<p>A path has path condition <code>(a \u2265 2) \u2227 (b == a + 1)</code>. Which input satisfies it?</p>",
+            "answers": [
+              {
+                "text": "a = 2, b = 3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2 \u2265 2 and 3 == 2 + 1."
+              },
+              {
+                "text": "a = 2, b = 2",
+                "fraction": 0,
+                "feedback": "b must equal a + 1 = 3, not 2."
+              },
+              {
+                "text": "a = 1, b = 2",
+                "fraction": 0,
+                "feedback": "a = 1 violates a \u2265 2 even though b == a + 1 holds."
+              },
+              {
+                "text": "a = 3, b = 3",
+                "fraction": 0,
+                "feedback": "b must equal a + 1 = 4, not 3."
+              }
+            ],
+            "generalFeedback": "Both conjuncts must hold: a \u2265 2 and b = a + 1. Only a = 2, b = 3 satisfies both.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PC after an assignment",
+            "text": "<p>For <code>y = x + 1; if (y == 5) { ... }</code> with symbolic input x, the path condition to enter the block \u2014 expressed over x \u2014 is:</p>",
+            "answers": [
+              {
+                "text": "x + 1 == 5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 y holds the expression x + 1, so the branch constraint over x is x + 1 == 5 (i.e. x == 4)."
+              },
+              {
+                "text": "y == 5 (left as a fresh unknown y)",
+                "fraction": 0,
+                "feedback": "y is not an independent input; it was assigned x + 1, which must be substituted."
+              },
+              {
+                "text": "x == 5",
+                "fraction": 0,
+                "feedback": "That ignores the +1; the constraint is x + 1 == 5, giving x == 4."
+              },
+              {
+                "text": "x + 1 == 4",
+                "fraction": 0,
+                "feedback": "The branch tests y == 5, so the constraint is x + 1 == 5, not == 4."
+              }
+            ],
+            "generalFeedback": "Symbolic execution substitutes the assigned expression: y = x + 1, so the branch y == 5 becomes the constraint x + 1 == 5 over the input x (solved: x == 4).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpreting a SAT model",
+            "text": "<p>The solver returns SAT with model <code>{x = 4}</code> for a path's condition. What does this tell you?</p>",
+            "answers": [
+              {
+                "text": "The path is feasible, and running the program with x = 4 drives execution down it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the model is a concrete test input that follows the path."
+              },
+              {
+                "text": "The path is infeasible and x = 4 is a counterexample",
+                "fraction": 0,
+                "feedback": "SAT means feasible; the model is a witnessing input, not a counterexample."
+              },
+              {
+                "text": "x must equal 4 on every path in the program",
+                "fraction": 0,
+                "feedback": "The model applies to this one path's condition, not to all paths."
+              },
+              {
+                "text": "Nothing until the program is recompiled",
+                "fraction": 0,
+                "feedback": "No recompilation is needed; x = 4 is directly usable as a test input."
+              }
+            ],
+            "generalFeedback": "A SAT result with a model means the path condition is satisfiable (the path is feasible) and the returned assignment is a concrete input that exercises that path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path count: nested if",
+            "text": "<p>How many execution paths does <code>if (a) { if (b) {...} else {...} } else {...}</code> have (a, b symbolic)?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a-false gives 1 path; a-true splits on b into 2; total 3."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "The inner if only exists on the a-true side, so it is 2 + 1 = 3, not 2 \xD7 2."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "The a-true side splits further on b, adding a third path."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "There are only three feasible combinations of outcomes here."
+              }
+            ],
+            "generalFeedback": "The else of the outer if is one path; the then side contains an if-else giving two more. Since the inner branch is not reached when a is false, the total is 2 + 1 = 3.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Scalability bottleneck",
+            "text": "<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>",
+            "answers": [
+              {
+                "text": "Path explosion \u2014 the number of distinct paths grows exponentially with branches and loops",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the classic scalability wall for symbolic execution."
+              },
+              {
+                "text": "Memory leaks in the instrumented program",
+                "fraction": 0,
+                "feedback": "Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling."
+              },
+              {
+                "text": "The oracle problem \u2014 not knowing the correct expected output",
+                "fraction": 0,
+                "feedback": "The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles."
+              },
+              {
+                "text": "Flaky, non-deterministic tests",
+                "fraction": 0,
+                "feedback": "Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number."
+              }
+            ],
+            "generalFeedback": "Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially \u2014 path explosion \u2014 making exhaustive symbolic execution intractable for large or loop-heavy programs.",
+            "single": true
+          },
+          {
             "type": "truefalse",
             "name": "Concolic execution",
             "text": '<p>Concolic ("concrete + symbolic") execution combines a concrete run with symbolic reasoning to simplify constraints that pure symbolic execution cannot solve.</p>',
@@ -55955,28 +56693,370 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "generalFeedback": "Concolic execution runs the program on concrete inputs while simultaneously tracking symbolic constraints; when a constraint becomes too complex (e.g., involves opaque library calls) it substitutes in the concrete value observed at runtime, sidestepping expressions pure symbolic execution's solver cannot handle."
           },
           {
-            "type": "shortanswer",
-            "name": "Deciding path-condition satisfiability",
-            "text": "<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>",
+            "type": "multichoice",
+            "name": "Reaching a new path in DSE",
+            "text": "<p>In dynamic symbolic execution (DSE/concolic), how does the engine typically steer execution toward a not-yet-covered path?</p>",
             "answers": [
               {
-                "text": "solver",
+                "text": "It negates one branch condition on the current path, then solves the modified path condition to obtain inputs that take the other direction",
                 "fraction": 100,
-                "feedback": "Correct."
+                "feedback": "Correct \u2014 flipping a branch and re-solving yields inputs for the alternative outcome."
               },
               {
-                "text": "SMT*",
-                "fraction": 100,
-                "feedback": "Correct."
+                "text": "It randomly perturbs the current inputs until a new path happens to occur",
+                "fraction": 0,
+                "feedback": "That is closer to fuzzing; DSE deliberately negates a branch and solves for inputs."
               },
               {
-                "text": "constraint solver*",
-                "fraction": 100,
-                "feedback": "Correct."
+                "text": "It deletes the branch from the program so both sides merge",
+                "fraction": 0,
+                "feedback": "DSE does not modify the program; it modifies the path condition and re-solves."
+              },
+              {
+                "text": "It increases the loop-unrolling bound until coverage improves",
+                "fraction": 0,
+                "feedback": "Raising a bound addresses loops, not the systematic flipping of a branch to reach its other side."
               }
             ],
-            "generalFeedback": "An SMT (Satisfiability Modulo Theories) solver \u2014 generically, the constraint solver \u2014 takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.",
-            "usecase": false
+            "generalFeedback": "DSE records the branch conditions taken on a concrete run, then negates one (usually the last unexplored) and asks the solver for inputs satisfying the prefix plus the negated condition \u2014 driving execution down the sibling path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mitigating path explosion",
+            "text": "<p>Which of the following is a recognized technique for mitigating path explosion?</p>",
+            "answers": [
+              {
+                "text": "State merging \u2014 combining multiple symbolic states at join points into one (with a disjunctive path condition)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 merging reduces the number of states carried forward."
+              },
+              {
+                "text": "Disabling the constraint solver entirely",
+                "fraction": 0,
+                "feedback": "Without a solver you cannot test feasibility at all; this does not address path counts."
+              },
+              {
+                "text": "Adding more branches to the program",
+                "fraction": 0,
+                "feedback": "More branches increase, not reduce, the number of paths."
+              },
+              {
+                "text": "Raising every solver timeout to infinity",
+                "fraction": 0,
+                "feedback": "That affects individual queries, not the exponential growth in the number of paths."
+              }
+            ],
+            "generalFeedback": "Common mitigations include state merging, function/path summaries, search heuristics, and bounded exploration \u2014 all aimed at controlling the exponential number of states rather than solving each faster.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Handling loops",
+            "text": "<p>To keep exploration finite, a loop whose iteration count depends on symbolic input is commonly handled by:</p>",
+            "answers": [
+              {
+                "text": "Bounded unrolling \u2014 exploring the loop body up to a fixed number of iterations",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a bound caps the otherwise unbounded set of loop paths."
+              },
+              {
+                "text": "Enumerating all possible iteration counts exhaustively",
+                "fraction": 0,
+                "feedback": "With a symbolic bound this can be unbounded, which is exactly what causes path explosion."
+              },
+              {
+                "text": "Ignoring the loop and skipping its body",
+                "fraction": 0,
+                "feedback": "Skipping the body would miss the behavior under test and misrepresent the program."
+              },
+              {
+                "text": "Rewriting the loop as unreachable code",
+                "fraction": 0,
+                "feedback": "The loop is part of the program's semantics and cannot simply be discarded."
+              }
+            ],
+            "generalFeedback": "Because a symbolic loop can spawn unboundedly many paths, engines typically unroll it up to a chosen depth (or use loop summaries/invariants) to keep the exploration finite, accepting incompleteness beyond the bound.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why UNSAT means dead",
+            "text": `<p>If a path's condition is unsatisfiable, why is that path "dead" (needs no test)?</p>`,
+            "answers": [
+              {
+                "text": "No concrete input can satisfy the constraints, so no execution can ever follow that path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 UNSAT means the path is unreachable, so it needs no test."
+              },
+              {
+                "text": "The path is reachable but too slow to test",
+                "fraction": 0,
+                "feedback": "UNSAT is about reachability, not performance; the path cannot be taken at all."
+              },
+              {
+                "text": "The solver is broken and should be replaced",
+                "fraction": 0,
+                "feedback": "UNSAT is a valid, informative result, not a solver failure."
+              },
+              {
+                "text": "Any input will follow the path, so it is trivially covered",
+                "fraction": 0,
+                "feedback": "That would be a tautology (always SAT); UNSAT is the opposite \u2014 no input follows it."
+              }
+            ],
+            "generalFeedback": "An unsatisfiable path condition has no satisfying assignment, so there is no input that drives execution down it \u2014 the path is infeasible/dead and correctly generates no test case.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Limitation: nonlinear constraints",
+            "text": "<p>Why can nonlinear integer constraints (e.g. <code>x * y == 30</code> with x, y symbolic) limit symbolic execution?</p>",
+            "answers": [
+              {
+                "text": "Such constraints are hard or undecidable for solvers, so the solver may fail or time out on the path condition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 nonlinear integer arithmetic is notoriously difficult (undecidable in general)."
+              },
+              {
+                "text": "Nonlinear constraints always have infinitely many solutions, so they cannot be tested",
+                "fraction": 0,
+                "feedback": "Number of solutions is not the issue; the difficulty is that the solver may not decide them."
+              },
+              {
+                "text": "Solvers reject any constraint containing a multiplication",
+                "fraction": 0,
+                "feedback": "Solvers handle multiplication by constants easily; the hard case is symbol \xD7 symbol, and it is difficulty, not outright rejection."
+              },
+              {
+                "text": "Nonlinear constraints turn every path infeasible",
+                "fraction": 0,
+                "feedback": "They do not make paths infeasible; they make the feasibility question hard to answer."
+              }
+            ],
+            "generalFeedback": "Linear arithmetic is decidable and efficient, but nonlinear integer arithmetic is undecidable in general; when a path condition contains symbol-by-symbol products, the solver may be unable to resolve it, limiting the engine's precision.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Limitation: external calls",
+            "text": "<p>A pure symbolic execution engine struggles when the code calls an external/native function (e.g. a system call) whose source it cannot analyze because:</p>",
+            "answers": [
+              {
+                "text": "The call's effect on the symbolic state is opaque, so constraints cannot be propagated through it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is a key motivation for concolic execution, which uses the concrete return value."
+              },
+              {
+                "text": "External functions always crash the engine",
+                "fraction": 0,
+                "feedback": "They do not necessarily crash it; the problem is that their symbolic effect is unknown."
+              },
+              {
+                "text": "External calls make every path condition a tautology",
+                "fraction": 0,
+                "feedback": "They do not trivialize constraints; they leave the engine unable to track them precisely."
+              },
+              {
+                "text": "The solver refuses to run whenever I/O is present",
+                "fraction": 0,
+                "feedback": "The solver is unaffected; the issue is missing symbolic semantics for the external call."
+              }
+            ],
+            "generalFeedback": "Without a model of the external function, the engine cannot express its output as a symbolic expression of the inputs, so it loses precision \u2014 concolic execution sidesteps this by plugging in the concrete value observed at runtime.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Limitation: pointer aliasing",
+            "text": "<p>Why does pointer aliasing complicate symbolic execution?</p>",
+            "answers": [
+              {
+                "text": "When two pointers may reference the same location, the engine cannot statically tell which symbolic memory a read/write affects, forcing case splits or imprecision",
+                "fraction": 100,
+                "feedback": "Correct \u2014 unresolved aliasing multiplies cases or loses precision."
+              },
+              {
+                "text": "Pointers cannot be represented symbolically at all",
+                "fraction": 0,
+                "feedback": "Pointers can be modeled; the difficulty is resolving which location they refer to."
+              },
+              {
+                "text": "Aliasing makes the path condition always satisfiable",
+                "fraction": 0,
+                "feedback": "Aliasing affects memory modeling, not the trivial satisfiability of constraints."
+              },
+              {
+                "text": "Aliasing only matters for concrete execution, never symbolic",
+                "fraction": 0,
+                "feedback": "It is especially problematic for symbolic execution, which must reason about all possible aliasing."
+              }
+            ],
+            "generalFeedback": "If p and q might alias, a write through p may or may not change what q reads; the engine must either split into cases (p == q vs p \u2260 q) or approximate, both of which cost precision or add paths.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symbolic execution vs random testing",
+            "text": "<p>A branch <code>if (x == 987654321)</code> depends on a 32-bit symbolic input x. Compared with random testing, symbolic execution:</p>",
+            "answers": [
+              {
+                "text": "Solves x == 987654321 directly and hits the branch immediately, whereas random testing has about a 1-in-2\xB3\xB2 chance per try",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the solver computes the exact value; random guessing almost never lands it."
+              },
+              {
+                "text": "Has the same tiny probability of reaching the branch as random testing",
+                "fraction": 0,
+                "feedback": "Symbolic execution does not guess; it solves the equality exactly."
+              },
+              {
+                "text": "Cannot reach the branch because equalities are unsolvable",
+                "fraction": 0,
+                "feedback": "A linear equality like this is trivially solvable; the solver returns x = 987654321."
+              },
+              {
+                "text": "Must enumerate all 2\xB3\xB2 inputs first",
+                "fraction": 0,
+                "feedback": "No enumeration is needed; the solver derives the satisfying value directly."
+              }
+            ],
+            "generalFeedback": "Narrow equality guards are the classic case where symbolic execution shines: it solves the constraint for the exact value, while random/fuzz testing is astronomically unlikely to hit it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Exact PC through nested branches (UNSAT)",
+            "text": "<p>For <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code> (a, b symbolic), is the path reaching <code>T</code> feasible?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 its path condition (a + b > 10) \u2227 (a < 3) \u2227 (b < 3) is unsatisfiable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a < 3 and b < 3 force a + b < 6, contradicting a + b > 10."
+              },
+              {
+                "text": "Yes \u2014 for example a = 2, b = 2",
+                "fraction": 0,
+                "feedback": "a = 2, b = 2 gives a + b = 4, which is not > 10."
+              },
+              {
+                "text": "Yes \u2014 for example a = 8, b = 8",
+                "fraction": 0,
+                "feedback": "a = 8 violates a < 3, so the second branch is not taken."
+              },
+              {
+                "text": "Only for negative a and b",
+                "fraction": 0,
+                "feedback": "Negative values make a + b even smaller, so a + b > 10 still fails."
+              }
+            ],
+            "generalFeedback": "Conjoin the three branch outcomes: a < 3 and b < 3 imply a + b < 6, which cannot also satisfy a + b > 10. The path condition is UNSAT, so T is unreachable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Exact PC through nested branches (SAT)",
+            "text": "<p>For <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code> (x, y symbolic), which input reaches <code>T</code>?</p>",
+            "answers": [
+              {
+                "text": "x = 1, y = 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 > 0, 2 == 1 + 1, and 2 < 10 all hold."
+              },
+              {
+                "text": "x = 1, y = 1",
+                "fraction": 0,
+                "feedback": "y must equal x + 1 = 2, not 1."
+              },
+              {
+                "text": "x = 0, y = 1",
+                "fraction": 0,
+                "feedback": "x = 0 fails x > 0, so the outer branch is not taken."
+              },
+              {
+                "text": "x = 10, y = 11",
+                "fraction": 0,
+                "feedback": "y = 11 fails y < 10, so the innermost branch is not taken."
+              }
+            ],
+            "generalFeedback": "The path condition is (x > 0) \u2227 (y == x + 1) \u2227 (y < 10). x = 1, y = 2 satisfies all three, so it reaches T.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compositional summaries",
+            "text": "<p>A technique that symbolically analyzes a function once and reuses the result at each call site, instead of re-exploring the callee's paths every time, is called a:</p>",
+            "answers": [
+              {
+                "text": "Function (path) summary",
+                "fraction": 100,
+                "feedback": "Correct \u2014 compositional symbolic execution reuses per-function summaries to curb path explosion."
+              },
+              {
+                "text": "Loop invariant",
+                "fraction": 0,
+                "feedback": "An invariant characterizes a loop, not a reusable summary of a function's input/output constraints."
+              },
+              {
+                "text": "Test oracle",
+                "fraction": 0,
+                "feedback": "An oracle decides pass/fail; it is not a reusable analysis of a function."
+              },
+              {
+                "text": "Control-flow graph",
+                "fraction": 0,
+                "feedback": "The CFG is static structure, not a reusable symbolic result for a function."
+              }
+            ],
+            "generalFeedback": "Compositional (summary-based) symbolic execution records a function's behavior as a set of (precondition \u21D2 effect) constraints and reuses it at every call, avoiding repeated exploration of the callee \u2014 a key path-explosion mitigation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "State-merging trade-off",
+            "text": "<p>State merging reduces the number of symbolic states, but what is its main trade-off?</p>",
+            "answers": [
+              {
+                "text": "The merged path condition contains disjunctions/if-then-else terms, which can make solver queries harder",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fewer states, but more complex constraints to solve."
+              },
+              {
+                "text": "It makes the analysis unsound, missing real paths",
+                "fraction": 0,
+                "feedback": "Correct merging is sound; the cost is harder solver queries, not lost paths."
+              },
+              {
+                "text": "It requires abandoning the constraint solver",
+                "fraction": 0,
+                "feedback": "Merging still relies on the solver \u2014 indeed on harder queries."
+              },
+              {
+                "text": "It doubles the number of states instead of reducing them",
+                "fraction": 0,
+                "feedback": "Merging combines states, reducing their count; the downside is constraint complexity."
+              }
+            ],
+            "generalFeedback": "Merging two states at a join point replaces two simpler path conditions with one that encodes both via disjunction (or ite-terms). This lowers state count but shifts the burden onto the solver, which now faces more complex formulas.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Loops cause unbounded paths",
+            "text": "<p>A loop whose iteration count depends on symbolic input can generate an unbounded number of paths, which is a direct source of path explosion.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each additional iteration forks a new set of paths, so the count can grow without bound, hence bounded unrolling is used."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A symbolic loop bound lets the loop take arbitrarily many iterations, each spawning more paths \u2014 a classic cause of path explosion."
+              }
+            ],
+            "generalFeedback": "When the number of iterations is symbolic, exploring 0, 1, 2, \u2026 iterations yields ever more paths with no finite ceiling, so engines cap exploration with bounded unrolling (or loop summaries)."
           }
         ]
       },
@@ -55984,8 +57064,66 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         "easy": [
           {
             "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7B26\u865F\u57F7\u884C",
+            "text": "<p><strong>\u7B26\u865F\u57F7\u884C\uFF08symbolic execution\uFF09</strong>\u5728\u505A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4EE5\u7B26\u865F\u5316\uFF08\u672A\u77E5\u7684\uFF09\u8F38\u5165\u4F86\u57F7\u884C\u7A0B\u5F0F\uFF0C\u800C\u975E\u5177\u9AD4\u6578\u503C\uFF0C\u4E26\u6CBF\u8457\u6BCF\u689D\u8DEF\u5F91\u8FFD\u8E64\u9019\u4E9B\u8F38\u5165\u6240\u9700\u6EFF\u8DB3\u7684\u9650\u5236\u5F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F38\u5165\u662F\u7B26\u865F\uFF0C\u5F15\u64CE\u63A8\u7406\u7684\u662F\u9019\u4E9B\u7B26\u865F\u5FC5\u9808\u6EFF\u8DB3\u7684\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "\u5B83\u4EE5\u5927\u91CF\u96A8\u6A5F\u7684\u5177\u9AD4\u8F38\u5165\u53CD\u8986\u57F7\u884C\u7A0B\u5F0F\uFF0C\u4E26\u8A18\u9304\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u96A8\u6A5F\uFF0F\u6A21\u7CCA\u6E2C\u8A66\uFF1B\u7B26\u865F\u57F7\u884C\u63A8\u7406\u7684\u662F\u7B26\u865F\uFF0C\u800C\u975E\u56FA\u5B9A\u7684\u96A8\u6A5F\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u975C\u614B\u5730\u8A08\u7B97\u65E2\u6709\u6E2C\u8A66\u5957\u4EF6\u6240\u6DB5\u84CB\u7684\u7A0B\u5F0F\u884C\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u91CF\u6E2C\uFF0C\u4E26\u975E\u7B26\u865F\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u7A0B\u5F0F\u7FFB\u8B6F\u6210\u66F4\u5FEB\u7684\u6A5F\u5668\u78BC\u8868\u793A",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7DE8\u8B6F\u5668\uFF0F\u6700\u4F73\u5316\u5DE5\u5177\uFF0C\u800C\u975E\u7B26\u865F\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u57F7\u884C\u628A\u7A0B\u5F0F\u8F38\u5165\u8996\u70BA\u7B26\u865F\u8B8A\u6578\uFF0C\u4E26\u5728\u8D70\u8A2A\u6BCF\u689D\u8DEF\u5F91\u6642\u7D2F\u7A4D\u9019\u4E9B\u7B26\u865F\u5FC5\u9808\u6EFF\u8DB3\u7684\u9650\u5236\u5F0F\u2014\u2014\u56E0\u6B64\u80FD\u4E00\u6B21\u63A8\u7406\u6574\u985E\u8F38\u5165\uFF0C\u800C\u4E0D\u53EA\u662F\u55AE\u4E00\u5177\u9AD4\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u865F\u503C\u8207\u5177\u9AD4\u503C",
+            "text": "<p>\u57F7\u884C\u671F\u9593\uFF0C<strong>\u7B26\u865F\u503C\uFF08symbolic value\uFF09</strong>\u8207<strong>\u5177\u9AD4\u503C\uFF08concrete value\uFF09</strong>\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5177\u9AD4\u503C\u662F\u55AE\u4E00\u56FA\u5B9A\u503C\uFF08\u4F8B\u5982 7\uFF09\uFF1B\u7B26\u865F\u503C\u5247\u662F\u4E00\u500B\u672A\u77E5\u6578\uFF0C\u4EE3\u8868\u5176\u9650\u5236\u5F0F\u6240\u5141\u8A31\u7684\u4EFB\u4F55\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u50CF x \u9019\u6A23\u7684\u7B26\u865F\u4EE3\u8868\u4E00\u6574\u7D44\u53EF\u80FD\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u503C\u4E00\u5B9A\u6BD4\u5177\u9AD4\u503C\u66F4\u5927",
+                "fraction": 0,
+                "feedback": "\u5927\u5C0F\u7121\u95DC\u7DCA\u8981\uFF1B\u5DEE\u5225\u5728\u65BC\u300C\u56FA\u5B9A\u503C\u300D\u8207\u300C\u5E36\u9650\u5236\u5F0F\u7684\u672A\u77E5\u6578\u300D\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u76F8\u540C\uFF0C\u300C\u7B26\u865F\u300D\u53EA\u662F\u300C\u5177\u9AD4\u300D\u7684\u53E6\u4E00\u7A2E\u8AAA\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4E26\u4E0D\u76F8\u540C\u2014\u2014\u5177\u9AD4\u503C\u662F\u56FA\u5B9A\u7684\uFF0C\u7B26\u865F\u503C\u662F\u672A\u77E5\u6578\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u503C\u53EF\u4EE5\u662F\u4E00\u689D\u516C\u5F0F\uFF0C\u7B26\u865F\u503C\u4E0D\u884C",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF1A\u7B26\u865F\u503C\u662F\u904B\u7B97\u5F0F\uFF0F\u516C\u5F0F\uFF0C\u5177\u9AD4\u503C\u5247\u662F\u56FA\u5B9A\u8CC7\u6599\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u57F7\u884C\u4EE5\u56FA\u5B9A\u8CC7\u6599\u8A08\u7B97\uFF08x = 7\uFF09\uFF1B\u7B26\u865F\u57F7\u884C\u4EE5\u7B26\u865F\uFF08x\uFF09\u8A08\u7B97\uFF0C\u5EFA\u7ACB\u5176\u4E0A\u7684\u904B\u7B97\u5F0F\u8207\u9650\u5236\u5F0F\uFF0C\u4F7F\u4E00\u6B21\u5206\u6790\u6DB5\u84CB\u8A31\u591A\u5177\u9AD4\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
             "name": "\u8DEF\u5F91\u689D\u4EF6",
-            "text": "<p>\u7B26\u865F\u57F7\u884C\uFF08symbolic execution\uFF09\u5F15\u64CE\u6240\u5EFA\u7ACB\u7684\u8DEF\u5F91\u689D\u4EF6\uFF08path condition\uFF09\u662F\u6307\uFF1A</p>",
+            "text": "<p>\u7B26\u865F\u57F7\u884C\u5F15\u64CE\u6240\u5EFA\u7ACB\u7684\u8DEF\u5F91\u689D\u4EF6\uFF08path condition\uFF09\u662F\u6307\uFF1A</p>",
             "answers": [
               {
                 "text": "\u6CBF\u8457\u4E00\u689D\u57F7\u884C\u8DEF\u5F91\u7D2F\u7A4D\u7684\u6240\u6709\u5206\u652F\u9650\u5236\u5F0F\uFF08branch constraints\uFF09\u7684\u5408\u53D6\uFF08conjunction\uFF09\uFF0C\u4EE5\u7B26\u865F\u5316\u8F38\u5165\u8B8A\u6578\u8868\u793A",
@@ -56013,6 +57151,318 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7B26\u865F\u72C0\u614B",
+            "text": "<p>\u5728\u7B26\u865F\u57F7\u884C\u7684\u67D0\u500B\u6642\u9EDE\uFF0C<strong>\u7B26\u865F\u72C0\u614B\uFF08symbolic state\uFF09</strong>\u4E3B\u8981\u7531\u4EC0\u9EBC\u69CB\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u7A0B\u5F0F\u8B8A\u6578\u5C0D\u61C9\u7684\u7B26\u865F\u904B\u7B97\u5F0F\uFF0C\u9023\u540C\u7576\u524D\u7684\u8DEF\u5F91\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8B8A\u6578\u5C0D\u61C9\u5230\u4EE5\u7B26\u865F\u8868\u793A\u7684\u904B\u7B97\u5F0F\uFF0C\u518D\u52A0\u4E0A\u76EE\u524D\u7D2F\u7A4D\u7684\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u6BCF\u500B\u8B8A\u6578\u7684\u5177\u9AD4\u6578\u503C\u5167\u5BB9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5177\u9AD4\u72C0\u614B\uFF1B\u7B26\u865F\u72C0\u614B\u628A\u8B8A\u6578\u5C0D\u61C9\u5230\u7B26\u865F\u904B\u7B97\u5F0F\u3002"
+              },
+              {
+                "text": "\u5DF2\u7D93\u7522\u751F\u7684\u6E2C\u8A66\u6848\u4F8B\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u7684\u6E2C\u8A66\u662F\u8F38\u51FA\uFF1B\u7B26\u865F\u72C0\u614B\u662F\u7576\u524D\u300C\u8B8A\u6578\u5C0D\u904B\u7B97\u5F0F\u300D\u7684\u5C0D\u61C9\u52A0\u4E0A\u8DEF\u5F91\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u88AB\u5206\u6790\u7A0B\u5F0F\u7684\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u539F\u59CB\u78BC\u662F\u7A0B\u5F0F\u672C\u8EAB\uFF1B\u7B26\u865F\u72C0\u614B\u662F\u5F15\u64CE\u57F7\u884C\u7A0B\u5F0F\u6642\u6240\u7DAD\u8B77\u7684\u57F7\u884C\u671F\u62BD\u8C61\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u72C0\u614B\u628A\u6BCF\u500B\u8B8A\u6578\u7D81\u5B9A\u5230\u4E00\u689D\u7B26\u865F\u904B\u7B97\u5F0F\uFF08\u4EE5\u8F38\u5165\u7B26\u865F\u8868\u793A\uFF09\uFF0C\u4E26\u651C\u5E36\u8DEF\u5F91\u689D\u4EF6\u2014\u2014\u5373\u57F7\u884C\u8981\u62B5\u9054\u6B64\u8655\u6240\u5FC5\u9808\u6210\u7ACB\u7684\u9650\u5236\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8981\u63A2\u7D22\u8DEF\u5F91",
+            "text": "<p>\u7B26\u865F\u57F7\u884C\u70BA\u4F55\u8981\u5206\u5225\u63A2\u7D22\u4E0D\u540C\u7684\u7A0B\u5F0F\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u6BCF\u689D\u8DEF\u5F91\u5C0D\u61C9\u4E00\u7D44\u4E0D\u540C\u7684\u8F38\u5165\u9650\u5236\u5F0F\uFF0C\u6C42\u89E3\u5B83\u5011\u5C31\u80FD\u5F97\u5230\u80FD\u89F8\u767C\u8A72\u7279\u5B9A\u884C\u70BA\u7684\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u540C\u8DEF\u5F91\u7D66\u51FA\u4E0D\u540C\u7684\u8DEF\u5F91\u689D\u4EF6\uFF0C\u5404\u81EA\u90FD\u53EF\u6C42\u89E3\u51FA\u4E00\u500B\u6E2C\u8A66\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7A0B\u5F0F\u4E00\u6B21\u53EA\u80FD\u7DE8\u8B6F\u4E00\u689D\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u8207\u6B64\u7121\u95DC\uFF1B\u8DEF\u5F91\u63A2\u7D22\u662F\u70BA\u4E86\u63A8\u7406\u4E0D\u540C\u7684\u5206\u652F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u8DEF\u5F91\u5FC5\u9808\u4F9D\u5176\u7A0B\u5F0F\u78BC\u7684\u5B57\u6BCD\u9806\u5E8F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u6392\u5E8F\u8981\u6C42\uFF1B\u91CD\u9EDE\u5728\u65BC\u6BCF\u689D\u8DEF\u5F91\u5404\u6709\u5176\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4EFB\u4F55\u7A0B\u5F0F\u4E2D\u6C38\u9060\u53EA\u6709\u4E00\u689D\u8DEF\u5F91\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "\u901A\u5E38\u6709\u8A31\u591A\u689D\u8DEF\u5F91\u53EF\u884C\uFF0C\u9019\u6B63\u662F\u8981\u9010\u4E00\u63A2\u7D22\u5B83\u5011\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u540C\u7684\u5206\u652F\u7D50\u679C\u5C0E\u81F4\u4E0D\u540C\u7684\u8DEF\u5F91\u689D\u4EF6\uFF1B\u85C9\u7531\u63A2\u7D22\u6BCF\u689D\u8DEF\u5F91\uFF0C\u5F15\u64CE\u53EF\u6C42\u89E3\u5176\u689D\u4EF6\uFF0C\u7522\u751F\u6B63\u597D\u9A45\u52D5\u7A0B\u5F0F\u8D70\u5411\u8A72\u884C\u70BA\u7684\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\u4EE5\u53D6\u5F97\u6E2C\u8A66\u8F38\u5165",
+            "text": "<p>\u4E00\u65E6\u5EFA\u7ACB\u597D\u8DEF\u5F91\u689D\u4EF6\uFF0C\u7B26\u865F\u57F7\u884C\u5982\u4F55\u628A\u5B83\u8F49\u63DB\u6210\u5177\u9AD4\u7684\u6E2C\u8A66\u8F38\u5165\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5411\u6C42\u89E3\u5668\u8ACB\u6C42\u4E00\u7D44\u80FD\u6EFF\u8DB3\u8A72\u8DEF\u5F91\u689D\u4EF6\u7684\u7B26\u865F\u5316\u8F38\u5165\u6307\u6D3E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\u6B63\u662F\u80FD\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u8F38\u5165\u96A8\u6A5F\u6311\u4E00\u500B\u503C\uFF0C\u4E26\u671F\u671B\u525B\u597D\u7B26\u5408",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u8981\u731C\u6E2C\uFF1B\u6C42\u89E3\u5668\u6703\u76F4\u63A5\u5F9E\u9650\u5236\u5F0F\u7B97\u51FA\u6EFF\u8DB3\u6307\u6D3E\u3002"
+              },
+              {
+                "text": "\u628A\u8DEF\u5F91\u689D\u4EF6\u5D4C\u9032\u7A0B\u5F0F\u5F8C\u91CD\u65B0\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6D89\u53CA\u91CD\u65B0\u7DE8\u8B6F\uFF1B\u8DEF\u5F91\u689D\u4EF6\u662F\u4EA4\u7D66\u9650\u5236\u5F0F\u6C42\u89E3\u5668\u3002"
+              },
+              {
+                "text": "\u8A08\u7B97\u8A72\u8DEF\u5F91\u5305\u542B\u591A\u5C11\u500B\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u8A08\u7B97\u5206\u652F\u6578\u4E0D\u6703\u7522\u751F\u8F38\u5165\u503C\uFF1B\u6C42\u89E3\u9650\u5236\u5F0F\u624D\u6703\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91\u689D\u4EF6\u7684\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\uFF0C\u5C31\u662F\u4E00\u500B\u5728\u57F7\u884C\u6642\u6703\u9A45\u52D5\u7A0B\u5F0F\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\u2014\u2014\u9019\u5C31\u662F\u7B26\u865F\u57F7\u884C\u7522\u751F\u6E2C\u8A66\u8F38\u5165\u7684\u65B9\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8F38\u5165\u5982\u4F55\u88AB\u8655\u7406",
+            "text": "<p>\u7B26\u865F\u57F7\u884C\u958B\u59CB\u6642\uFF0C\u7A0B\u5F0F\u8F38\u5165\u88AB\u8996\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5168\u65B0\u7684\u7B26\u865F\u8B8A\u6578\uFF0C\u5C1A\u7121\u56FA\u5B9A\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F38\u5165\u4E00\u958B\u59CB\u662F\u672A\u53D7\u9650\u5236\u7684\u7B26\u865F\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u6307\u6D3E\u524D\u4E00\u5F8B\u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "\u8F38\u5165\u4E26\u975E\u9810\u8A2D\u70BA\u96F6\uFF1B\u5B83\u5011\u6210\u70BA\u7B26\u865F\uFF0C\u5176\u503C\u96A8\u8457\u5206\u652F\u88AB\u8D70\u8A2A\u800C\u53D7\u5230\u9650\u5236\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u500B\u96A8\u6A5F\u6311\u9078\u7684\u5E38\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u5177\u9AD4\u6E2C\u8A66\uFF1B\u7B26\u865F\u57F7\u884C\u8B93\u8F38\u5165\u7DAD\u6301\u7B26\u865F\u5316\u3002"
+              },
+              {
+                "text": "\u8A72\u578B\u5225\u6240\u80FD\u5BB9\u7D0D\u7684\u6700\u5927\u503C",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u9810\u8A2D\uFF1B\u8F38\u5165\u662F\u7B26\u865F\u8B8A\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u8F38\u5165\u90FD\u6210\u70BA\u4E00\u500B\u5168\u65B0\u7684\u7B26\u865F\u3002\u7A0B\u5F0F\u5206\u652F\u6642\uFF0C\u9019\u4E9B\u7B26\u865F\u4E0A\u7684\u9650\u5236\u5F0F\u4FBF\u7D2F\u7A4D\u9032\u8DEF\u5F91\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4E00\u6B21\u63A8\u7406\u8A31\u591A\u8F38\u5165",
+            "text": "<p>\u85C9\u7531\u8B93\u8F38\u5165\u7DAD\u6301\u7B26\u865F\u5316\uFF0C\u55AE\u4E00\u689D\u7B26\u865F\u8DEF\u5F91\u5C31\u80FD\u4E00\u6B21\u523B\u5283\u51FA\u8A31\u591A\u5177\u9AD4\u8F38\u5165\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DEF\u5F91\u689D\u4EF6\u63CF\u8FF0\u7684\u662F\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u6574\u7D44\u5177\u9AD4\u8F38\u5165\uFF0C\u800C\u4E0D\u53EA\u662F\u55AE\u4E00\u500B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u7B26\u865F\u8DEF\u5F91\u7684\u689D\u4EF6\u6DB5\u84CB\u4E86\u6240\u6709\u6703\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\uFF0C\u56E0\u6B64\u4E00\u689D\u8DEF\u5F91\u4EE3\u8868\u8A31\u591A\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u8DEF\u5F91\u689D\u4EF6\u662F\u7B26\u865F\u4E0A\u7684\u9650\u5236\u5F0F\uFF0C\u5B83\u4EE3\u8868\u6240\u6709\u6EFF\u8DB3\u5B83\u7684\u5177\u9AD4\u8F38\u5165\u6240\u6210\u7684\u96C6\u5408\u2014\u2014\u4E00\u689D\u7B26\u865F\u8DEF\u5F91\u7E3D\u7D50\u4E86\u8A31\u591A\u5177\u9AD4\u57F7\u884C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F15\u64CE\u70BA\u6BCF\u500B\u8B8A\u6578\u8FFD\u8E64\u4EC0\u9EBC",
+            "text": "<p>\u57F7\u884C <code>a = x + 1; b = a * 2;</code>\uFF08x \u70BA\u7B26\u865F\u5316\u8F38\u5165\uFF09\u4E4B\u5F8C\uFF0C\u5F15\u64CE\u70BA <code>b</code> \u8A18\u9304\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B26\u865F\u904B\u7B97\u5F0F (x + 1) * 2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u5B58\u7684\u662F\u4EE5\u7B26\u865F x \u8868\u793A\u7684\u904B\u7B97\u5F0F\uFF0C\u800C\u975E\u4E00\u500B\u6578\u5B57\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u500B\u5177\u9AD4\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "x \u6C92\u6709\u5177\u9AD4\u503C\uFF0C\u56E0\u6B64 b \u4E0D\u53EF\u80FD\u662F\u56FA\u5B9A\u6578\u5B57\uFF1B\u5B83\u662F\u4E00\u689D\u904B\u7B97\u5F0F\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u6C92\u6709\uFF0C\u56E0\u70BA b \u4E0D\u662F\u5F9E\u8F38\u5165\u8B80\u5165\u7684",
+                "fraction": 0,
+                "feedback": "\u5373\u4F7F\u662F\u7531\u5176\u4ED6\u8B8A\u6578\u63A8\u5C0E\u800C\u4F86\uFF0C\u6307\u6D3E\u4ECD\u6703\u66F4\u65B0\u7B26\u865F\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91\u689D\u4EF6 x + 1 > 0",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u6C92\u6709\u8D70\u4EFB\u4F55\u5206\u652F\uFF0C\u8DEF\u5F91\u689D\u4EF6\u4E0D\u8B8A\uFF1Bb \u53EA\u662F\u53D6\u5F97\u4E00\u689D\u904B\u7B97\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u57F7\u884C\u4EE5\u7531\u8F38\u5165\u5EFA\u69CB\u7684\u7B26\u865F\u904B\u7B97\u5F0F\u66F4\u65B0\u6BCF\u500B\u88AB\u6307\u6D3E\u7684\u8B8A\u6578\uFF1B\u6B64\u8655 b \u6210\u70BA (x + 1) * 2\uFF0C\u800C\u56E0\u70BA\u6C92\u6709\u5206\u652F\u767C\u751F\uFF0C\u8DEF\u5F91\u689D\u4EF6\u7DAD\u6301\u4E0D\u8B8A\u3002",
+            "single": true
+          },
+          {
+            "type": "shortanswer",
+            "name": "\u5224\u5B9A\u8DEF\u5F91\u689D\u4EF6\u53EF\u6EFF\u8DB3\u6027\u7684\u5143\u4EF6",
+            "text": "<p>\u8CA0\u8CAC\u5224\u5B9A\u8DEF\u5F91\u689D\u4EF6\u662F\u5426\u53EF\u6EFF\u8DB3\u7684\u5143\u4EF6\u53EB\u505A\u4EC0\u9EBC\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u8853\u8A9E\u6216\u7E2E\u5BEB\u56DE\u7B54\uFF09</p>",
+            "answers": [
+              {
+                "text": "solver",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "SMT*",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "constraint solver*",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u3002"
+              }
+            ],
+            "generalFeedback": "SMT\uFF08Satisfiability Modulo Theories\uFF09\u6C42\u89E3\u5668\u2014\u2014\u6CDB\u7A31\u9650\u5236\u5F0F\u6C42\u89E3\u5668\u2014\u2014\u6703\u63A5\u6536\u8DEF\u5F91\u689D\u4EF6\u7684\u516C\u5F0F\u4E26\u5224\u65B7\u5176\u53EF\u6EFF\u8DB3\u6027\uFF0C\u82E5\u5B58\u5728\u6EFF\u8DB3\u89E3\uFF0C\u4FBF\u56DE\u50B3\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\uFF08\u4E5F\u5C31\u662F\u5177\u9AD4\u7684\u6E2C\u8A66\u8F38\u5165\uFF09\u3002",
+            "usecase": false
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7B26\u865F\u503C\u4EE3\u8868\u4E00\u500B\u96C6\u5408",
+            "text": "<p>\u7B26\u865F\u503C\u53EF\u7406\u89E3\u70BA\u4EE3\u8868\u5728\u7576\u524D\u9650\u5236\u5F0F\u4E0B\uFF0C\u5B83\u6240\u6709\u53EF\u80FD\u53D6\u5230\u7684\u5177\u9AD4\u503C\u6240\u6210\u7684\u96C6\u5408\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u70BA\u4F55\u4E00\u6B21\u7B26\u865F\u57F7\u884C\u80FD\u63A8\u5EE3\u5230\u8A31\u591A\u5177\u9AD4\u8F38\u5165\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u4EE3\u8868\u5176\u9650\u5236\u5F0F\u6240\u5141\u8A31\u7684\u4EFB\u4F55\u503C\uFF0C\u4E5F\u5C31\u662F\u4E00\u6574\u7D44\u53EF\u80FD\u7684\u5177\u9AD4\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u53D7\u8DEF\u5F91\u689D\u4EF6\u9650\u5236\u7684\u7B26\u865F\uFF0C\u4EE3\u8868\u6EFF\u8DB3\u9019\u4E9B\u9650\u5236\u5F0F\u7684\u5177\u9AD4\u503C\u6240\u6210\u7684\u96C6\u5408\uFF0C\u9019\u6B63\u662F\u7B26\u865F\u57F7\u884C\u666E\u904D\u6027\u7684\u4F86\u6E90\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u6E2C\u8A66\u4E2D\u7684\u7528\u9014",
+            "text": "<p>\u7B26\u865F\u57F7\u884C\u5728\u8EDF\u9AD4\u6E2C\u8A66\u4E2D\u4E00\u500B\u5E38\u898B\u7684\u5BE6\u52D9\u76EE\u6A19\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u81EA\u52D5\u7522\u751F\u80FD\u62B5\u9054\u7279\u5B9A\u8DEF\u5F91\u6216\u89F8\u767C\u932F\u8AA4\u7684\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\u80FD\u5F97\u5230\u6709\u91DD\u5C0D\u6027\u7684\u6E2C\u8A66\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u64B0\u5BEB\u7A0B\u5F0F\u7684\u8AAA\u660E\u6587\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u7B26\u865F\u57F7\u884C\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u53D6\u4EE3\u5C0D\u7DE8\u8B6F\u5668\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u57F7\u884C\u5206\u6790\u7A0B\u5F0F\uFF0C\u4E26\u4E0D\u53D6\u4EE3\u7DE8\u8B6F\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u7DB2\u8DEF\u5EF6\u9072",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u8B70\u984C\uFF0C\u4E26\u975E\u7B26\u865F\u57F7\u884C\u6240\u8655\u7406\u7684\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u85C9\u7531\u7B97\u51FA\u80FD\u8D70\u4E0A\u9078\u5B9A\u8DEF\u5F91\u7684\u8F38\u5165\uFF0C\u7B26\u865F\u57F7\u884C\u652F\u63F4\u81EA\u52D5\u5316\u6E2C\u8A66\u7522\u751F\u8207\u9AD8\u8986\u84CB\u7387\u7684\u932F\u8AA4\u641C\u5C0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9047\u5230\u4EE5\u7B26\u865F\u70BA\u689D\u4EF6\u7684\u5206\u652F",
+            "text": "<p>\u7576\u57F7\u884C\u62B5\u9054\u4E00\u500B\u689D\u4EF6\u53D6\u6C7A\u65BC\u7B26\u865F\u5316\u8F38\u5165\u7684\u5206\u652F\u6642\uFF0C\u7B26\u865F\u57F7\u884C\u5F15\u64CE\u901A\u5E38\u6703\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u540C\u6642\u8003\u616E\u5169\u7A2E\u7D50\u679C\uFF0C\u6CBF\u8457\u6BCF\u500B\u53EF\u884C\u7684\u65B9\u5411\u7E7C\u7E8C\uFF0C\u4E26\u628A\u8A72\u689D\u4EF6\u52A0\u5165\u5176\u8DEF\u5F91\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F15\u64CE\u6703\u5206\u5C94\uFF0C\u5728\u53EF\u884C\u8655\u540C\u6642\u63A2\u7D22 true \u8207 false \u5169\u500B\u65B9\u5411\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u8D70 true \u5206\u652F\uFF0C\u5FFD\u7565 false \u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u65B9\u5411\u90FD\u91CD\u8981\uFF1B\u5F15\u64CE\u4E0D\u6703\u4EFB\u610F\u56FA\u5B9A\u67D0\u4E00\u7A2E\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u7ACB\u5373\u505C\u6B62\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u5206\u652F\u662F\u63A2\u7D22\u500D\u589E\u4E4B\u8655\uFF0C\u800C\u975E\u505C\u6B62\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u6CBF\u7528\u4E0A\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\u6240\u8D70\u7684\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u5148\u524D\u7684\u6E2C\u8A66\u6848\u4F8B\u6C7A\u5B9A\u9019\u4EF6\u4E8B\uFF1B\u5F15\u64CE\u6703\u63A2\u7D22\u5169\u500B\u53EF\u884C\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u7B26\u865F\u5206\u652F\u8655\u5F15\u64CE\u6703\u5206\u5C94\uFF1A\u4E00\u500B\u72C0\u614B\u52A0\u5165\u8A72\u689D\u4EF6\uFF0C\u53E6\u4E00\u500B\u52A0\u5165\u5176\u5426\u5B9A\uFF0C\u5404\u500B\u53EF\u884C\u72C0\u614B\u518D\u7E7C\u7E8C\u81EA\u5DF1\u7684\u63A2\u7D22\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u9AD4\u57F7\u884C vs \u7B26\u865F\u57F7\u884C",
+            "text": "<p>\u5C0D\u540C\u4E00\u652F\u7A0B\u5F0F\uFF0C\u4E0B\u5217\u54EA\u4E00\u9805\u6700\u80FD\u5C0D\u6BD4\u300C\u5177\u9AD4\u57F7\u884C\u300D\u8207\u300C\u7B26\u865F\u57F7\u884C\u300D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5177\u9AD4\u57F7\u884C\u5C0D\u5176\u56FA\u5B9A\u8F38\u5165\u53EA\u6703\u8D70\u6070\u597D\u4E00\u689D\u8DEF\u5F91\uFF1B\u7B26\u865F\u57F7\u884C\u5247\u900F\u904E\u7B26\u865F\u5316\u8F38\u5165\u4E0A\u7684\u9650\u5236\u5F0F\u63A8\u7406\u8A31\u591A\u689D\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\uFF1D\u6BCF\u7D44\u8F38\u5165\u4E00\u689D\u8DEF\u5F91\uFF1B\u7B26\u865F\uFF1D\u4EE5\u9650\u5236\u5F0F\u70BA\u57FA\u790E\u7684\u63A2\u7D22\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u57F7\u884C\u6703\u63A2\u7D22\u6BCF\u4E00\u689D\u8DEF\u5F91\uFF0C\u7B26\u865F\u57F7\u884C\u53EA\u63A2\u7D22\u4E00\u689D",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF1A\u5177\u9AD4\u57F7\u884C\u53EA\u8D70\u6070\u597D\u4E00\u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u6C38\u9060\u90FD\u53EA\u63A2\u7D22\u540C\u4E00\u689D\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u57F7\u884C\u901A\u5E38\u63A8\u7406\u591A\u689D\u8DEF\u5F91\uFF0C\u8207\u55AE\u4E00\u5177\u9AD4\u57F7\u884C\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u5169\u7A2E\u57F7\u884C\u90FD\u4E0D\u53D6\u6C7A\u65BC\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u57F7\u884C\u53D6\u6C7A\u65BC\u5176\u56FA\u5B9A\u8F38\u5165\uFF1B\u7B26\u865F\u57F7\u884C\u5247\u5C0D\u7B26\u865F\u5316\u8F38\u5165\u52A0\u4EE5\u9650\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u5177\u9AD4\u8F38\u5165\u57F7\u884C\u6703\u78BA\u5B9A\u5730\u8D70\u4E00\u689D\u8DEF\u5F91\uFF1B\u7B26\u865F\u57F7\u884C\u5247\u5EFA\u7ACB\u8DEF\u5F91\u689D\u4EF6\uFF0C\u4E00\u6B21\u523B\u5283\u4E26\u63A2\u7D22\u8A31\u591A\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8DEF\u5F91\u689D\u4EF6\u662F\u5E03\u6797\u516C\u5F0F",
+            "text": "<p>\u8DEF\u5F91\u689D\u4EF6\u662F\u4E00\u689D\u5B9A\u7FA9\u5728\u7B26\u865F\u5316\u8F38\u5165\u8B8A\u6578\u4E0A\u7684\u5E03\u6797\u516C\u5F0F\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u5206\u652F\u9650\u5236\u5F0F\u7684\u5408\u53D6\uFF0C\u4E5F\u5C31\u662F\u5B9A\u7FA9\u5728\u8F38\u5165\u7B26\u865F\u4E0A\u7684\u5E03\u6797\u516C\u5F0F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u689D\u4EF6\u6B63\u662F\u5B9A\u7FA9\u5728\u7B26\u865F\u5316\u8F38\u5165\u4E0A\u7684\u4E00\u689D\u5E03\u6797\u516C\u5F0F\uFF08\u9650\u5236\u5F0F\u7684\u5408\u53D6\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5206\u652F\u8CA2\u737B\u4E00\u689D\u9650\u5236\u5F0F\uFF1B\u5408\u53D6\u8D77\u4F86\uFF0C\u5B83\u5011\u69CB\u6210\u5B9A\u7FA9\u5728\u8F38\u5165\u7B26\u865F\u4E0A\u7684\u5E03\u6797\u516C\u5F0F\u2014\u2014\u5373\u8DEF\u5F91\u689D\u4EF6\u2014\u2014\u6C42\u89E3\u5668\u53EF\u64DA\u4EE5\u6AA2\u67E5\u53EF\u6EFF\u8DB3\u6027\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
             "name": "\u5075\u6E2C\u4E0D\u53EF\u884C\u8DEF\u5F91",
             "text": "<p>\u7B26\u865F\u57F7\u884C\u5F15\u64CE\u6240\u63A2\u7D22\u7684\u4E00\u689D\u8DEF\u5F91\uFF0C\u4F55\u6642\u6703\u88AB\u5224\u5B9A\u70BA\u4E0D\u53EF\u884C\uFF08infeasible\uFF09\uFF1F</p>",
             "answers": [
@@ -56038,35 +57488,6 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               }
             ],
             "generalFeedback": "\u8DEF\u5F91\u689D\u4EF6\u662F\u4E00\u689D\u908F\u8F2F\u516C\u5F0F\uFF1B\u7576\u6C42\u89E3\u5668\u5224\u5B9A\u8A72\u516C\u5F0F\u70BA UNSAT \u6642\uFF0C\u5C31\u4EE3\u8868\u9019\u689D\u8DEF\u5F91\u4E0D\u53EF\u884C\u2014\u2014\u4E5F\u5C31\u662F\u8AAA\uFF0C\u7B26\u865F\u5316\u8F38\u5165\u7121\u8AD6\u5982\u4F55\u6307\u6D3E\uFF0C\u90FD\u4E0D\u53EF\u80FD\u8B93\u57F7\u884C\u8D70\u4E0A\u9019\u689D\u8DEF\u5F91\u3002",
-            "single": true
-          },
-          {
-            "type": "multichoice",
-            "name": "\u53EF\u64F4\u5C55\u6027\u74F6\u9838",
-            "text": "<p>\u7B26\u865F\u57F7\u884C\u64F4\u5C55\u5230\u5927\u578B\u7A0B\u5F0F\u6642\uFF0C\u4E3B\u8981\u7684\u969C\u7919\u662F\u4EC0\u9EBC\uFF1F</p>",
-            "answers": [
-              {
-                "text": "\u8DEF\u5F91\u7206\u70B8\uFF08path explosion\uFF09\u2014\u2014\u76F8\u7570\u8DEF\u5F91\u7684\u6578\u91CF\u96A8\u8457\u5206\u652F\u8207\u8FF4\u5708\u5448\u6307\u6578\u6210\u9577",
-                "fraction": 100,
-                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u7B26\u865F\u57F7\u884C\u6700\u5178\u578B\u7684\u53EF\u64F4\u5C55\u6027\u74F6\u9838\u3002"
-              },
-              {
-                "text": "\u88AB\u63D2\u6A01\uFF08instrumented\uFF09\u7A0B\u5F0F\u7684\u8A18\u61B6\u9AD4\u6D29\u6F0F",
-                "fraction": 0,
-                "feedback": "\u9019\u4E0D\u662F\u5178\u578B\u74F6\u9838\uFF1B\u8A18\u61B6\u9AD4\u6D29\u6F0F\u662F\u4E00\u822C\u7A0B\u5F0F\u5206\u6790\u666E\u904D\u6703\u9047\u5230\u7684\u554F\u984C\uFF0C\u4E26\u975E\u7B26\u865F\u57F7\u884C\u64F4\u5C55\u6027\u7684\u7279\u6709\u8B70\u984C\u3002"
-              },
-              {
-                "text": "\u6E2C\u8A66\u8AED\u793A\u554F\u984C\uFF08oracle problem\uFF09\u2014\u2014\u4E0D\u77E5\u9053\u6B63\u78BA\u7684\u9810\u671F\u8F38\u51FA",
-                "fraction": 0,
-                "feedback": "\u6E2C\u8A66\u8AED\u793A\u554F\u984C\u5EE3\u6CDB\u5F71\u97FF\u6E2C\u8A66\u7D50\u679C\u7684\u9A57\u8B49\uFF1B\u7B26\u865F\u57F7\u884C\u672C\u8EAB\u7684\u6838\u5FC3\u64F4\u5C55\u6027\u74F6\u9838\u5728\u65BC\u8DEF\u5F91\u6578\u91CF\uFF0C\u800C\u975E\u8AED\u793A\u3002"
-              },
-              {
-                "text": "\u4E0D\u7A69\u5B9A\u3001\u4E0D\u78BA\u5B9A\u6027\u7684\u6E2C\u8A66\uFF08flaky tests\uFF09",
-                "fraction": 0,
-                "feedback": "\u6E2C\u8A66\u4E0D\u7A69\u5B9A\u5C6C\u65BC\u52D5\u614B\u6E2C\u8A66\u7684\u8B70\u984C\uFF1B\u7B26\u865F\u57F7\u884C\u662F\u91DD\u5C0D\u8DEF\u5F91\u505A\u975C\u614B\u63A8\u7406\uFF0C\u5176\u74F6\u9838\u5728\u65BC\u8DEF\u5F91\u6578\u91CF\u672C\u8EAB\u3002"
-              }
-            ],
-            "generalFeedback": "\u7531\u65BC\u6BCF\u500B\u5206\u652F\u90FD\u53EF\u80FD\u4F7F\u5F85\u63A2\u7D22\u7684\u8DEF\u5F91\u6578\u91CF\u52A0\u500D\uFF0C\u800C\u8FF4\u5708\u66F4\u6703\u8CA2\u737B\u5927\u91CF\u984D\u5916\u8DEF\u5F91\uFF0C\u8DEF\u5F91\u6578\u91CF\u6703\u5448\u6307\u6578\u6210\u9577\u2014\u2014\u5373\u8DEF\u5F91\u7206\u70B8\u2014\u2014\u4F7F\u5F97\u5C0D\u5927\u578B\u6216\u8FF4\u5708\u5BC6\u96C6\u7A0B\u5F0F\u9032\u884C\u7AAE\u8209\u5F0F\u7B26\u865F\u57F7\u884C\u8B8A\u5F97\u4E0D\u53EF\u884C\u3002",
             "single": true
           },
           {
@@ -56099,6 +57520,403 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "single": true
           },
           {
+            "type": "multichoice",
+            "name": "\u53EF\u884C\u7B49\u65BC\u53EF\u6EFF\u8DB3",
+            "text": "<p>\u4E00\u689D\u8DEF\u5F91<strong>\u53EF\u884C\uFF08feasible\uFF09</strong>\uFF0C\u6070\u597D\u7576\u5176\u8DEF\u5F91\u689D\u4EF6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u6EFF\u8DB3\uFF08satisfiable\uFF09\u2014\u2014\u81F3\u5C11\u5B58\u5728\u4E00\u7D44\u7B26\u865F\u5316\u8F38\u5165\u7684\u6307\u6D3E\u4F7F\u5176\u70BA\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\u5C31\u662F\u4E00\u500B\u80FD\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4E0D\u53EF\u6EFF\u8DB3\uFF08unsatisfiable\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E0D\u53EF\u6EFF\u8DB3\u662F\u4E0D\u53EF\u884C\u8DEF\u5F91\u7684\u5B9A\u7FA9\uFF0C\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u6046\u771F\u5F0F\uFF08\u5C0D\u6BCF\u4E00\u7D44\u6307\u6D3E\u90FD\u70BA\u771F\uFF09",
+                "fraction": 0,
+                "feedback": "\u53EF\u884C\u53EA\u9700\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\uFF0C\u4E26\u4E0D\u8981\u6C42\u6240\u6709\u6307\u6D3E\u90FD\u6EFF\u8DB3\u5B83\u3002"
+              },
+              {
+                "text": "\u4E0D\u542B\u4EFB\u4F55\u5206\u652F\u9650\u5236\u5F0F",
+                "fraction": 0,
+                "feedback": "\u53EF\u884C\u8DEF\u5F91\u53EF\u5E36\u6709\u8A31\u591A\u9650\u5236\u5F0F\uFF1B\u91CD\u9EDE\u662F\u5B83\u5011\u5171\u540C\u53EF\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u884C\u6027\u8207\u53EF\u6EFF\u8DB3\u6027\u4E00\u81F4\uFF1A\u4E00\u689D\u8DEF\u5F91\u80FD\u88AB\u5BE6\u969B\u57F7\u884C\uFF0C\u82E5\u4E14\u552F\u82E5\u6709\u67D0\u8F38\u5165\u6EFF\u8DB3\u5176\u8DEF\u5F91\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u5206\u652F\u8655\u5206\u5C94",
+            "text": "<p>\u5728\u7B26\u865F\u503C\u4E0A\u9047\u5230 <code>if (c)</code>\u3001\u4E14\u7576\u524D\u8DEF\u5F91\u689D\u4EF6\u70BA <code>PC</code> \u6642\uFF0C\u5F15\u64CE\u6703\u5206\u5C94\u6210\u5169\u500B\u72C0\u614B\uFF0C\u5176\u8DEF\u5F91\u689D\u4EF6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "then \u5206\u652F\u70BA PC \u2227 c\uFF0Celse \u5206\u652F\u70BA PC \u2227 \xACc",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u5F8C\u7E7C\u90FD\u628A\u5206\u652F\u7D50\u679C\u5408\u53D6\u5230\u65E2\u6709\u7684 PC \u4E0A\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5206\u652F\u70BA c\uFF0C\u53E6\u4E00\u500B\u70BA \xACc\uFF0C\u6368\u68C4 PC",
+                "fraction": 0,
+                "feedback": "PC \u4E2D\u5148\u524D\u7684\u9650\u5236\u5F0F\u5FC5\u9808\u4FDD\u7559\uFF1B\u65B0\u7D50\u679C\u662F\u88AB\u5408\u53D6\uFF0C\u800C\u975E\u53D6\u4EE3\u3002"
+              },
+              {
+                "text": "PC \u2228 c \u8207 PC \u2228 \xACc",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u7D50\u679C\u662F\u5408\u53D6\uFF08\u2227\uFF09\uFF0C\u800C\u975E\u6790\u53D6\uFF08\u2228\uFF09\uFF1BPC \u2228 \xACc \u6703\u524A\u5F31\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u5206\u652F\u90FD\u662F PC \u2227 c",
+                "fraction": 0,
+                "feedback": "else \u5206\u652F\u5FC5\u9808\u52A0\u5165 \xACc\uFF0C\u800C\u975E c\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u5C94\u6703\u4FDD\u7559\u7D2F\u7A4D\u7684 PC \u4E26\u52A0\u5165\u5206\u652F\u7D50\u679C\uFF1Athen \u72C0\u614B\u5F97\u5230 PC \u2227 c\uFF0Celse \u72C0\u614B\u5F97\u5230 PC \u2227 \xACc\uFF0C\u63A5\u8457\u5404\u81EA\u6AA2\u67E5\u53EF\u6EFF\u8DB3\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u55AE\u4E00 if \u7684\u8DEF\u5F91\u689D\u4EF6",
+            "text": "<p>\u5C0D\u65BC <code>read x; if (x &gt; 0) y = x; else y = -x;</code>\uFF0C\u8D70 <em>true</em> \u5206\u652F\u90A3\u689D\u8DEF\u5F91\u7684\u8DEF\u5F91\u689D\u4EF6\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x > 0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8D70 true \u5206\u652F\u6070\u597D\u52A0\u5165\u9650\u5236\u5F0F x > 0\u3002"
+              },
+              {
+                "text": "x \u2264 0",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F else \u5206\u652F\u7684\u689D\u4EF6\uFF0C\u800C\u975E true \u5206\u652F\u3002"
+              },
+              {
+                "text": "y = x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u500B\u6307\u6D3E\uFF08\u7B26\u865F\u72C0\u614B\u7684\u66F4\u65B0\uFF09\uFF0C\u4E26\u975E\u8DEF\u5F91\u689D\u4EF6\u4E2D\u7684\u5206\u652F\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "x > 0 \u2227 x \u2264 0",
+                "fraction": 0,
+                "feedback": "\u9019\u689D\u8DEF\u5F91\u53EA\u8D70\u4E86\u4E00\u500B\u5206\u652F\u7D50\u679C\uFF1B\u628A\u5169\u8005\u5408\u53D6\u6703\u4F7F\u5176\u4E0D\u53EF\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u689D\u8DEF\u5F91\u4E0A\u552F\u4E00\u7684\u5206\u652F\u662F x > 0\uFF0C\u53D6\u70BA\u771F\uFF0C\u56E0\u6B64\u8DEF\u5F91\u689D\u4EF6\u5C31\u662F x > 0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u5C0E\u6E2C\u8A66\u8F38\u5165",
+            "text": "<p>\u67D0\u689D\u8DEF\u5F91\u7684\u8DEF\u5F91\u689D\u4EF6\u70BA <code>(x &gt; 0) \u2227 (x &lt; 10)</code>\u3002\u4E0B\u5217\u54EA\u500B\u5177\u9AD4\u8F38\u5165\u662F\u80FD\u8D70\u4E0A\u9019\u689D\u8DEF\u5F91\u7684\u6709\u6548\u6E2C\u8A66\u8F38\u5165\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x = 5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 > 0 \u4E14 5 < 10\uFF0C\u6EFF\u8DB3\u6574\u689D\u8DEF\u5F91\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "x = 0",
+                "fraction": 0,
+                "feedback": "0 \u4E0D > 0\uFF0C\u7B2C\u4E00\u500B\u9650\u5236\u5F0F\u4E0D\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "x = 10",
+                "fraction": 0,
+                "feedback": "10 \u4E0D < 10\uFF0C\u7B2C\u4E8C\u500B\u9650\u5236\u5F0F\u4E0D\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "x = -3",
+                "fraction": 0,
+                "feedback": "-3 \u4E0D > 0\uFF0C\u7B2C\u4E00\u500B\u9650\u5236\u5F0F\u4E0D\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u8F38\u5165\u662F\u4EFB\u4F55\u6EFF\u8DB3\u6574\u689D\u8DEF\u5F91\u689D\u4EF6\u7684\u6307\u6D3E\u3002\u53EA\u6709 x = 5 \u56B4\u683C\u843D\u5728 0 \u8207 10 \u4E4B\u9593\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DEF\u5F91\u6578\uFF1A\u5169\u500B\u63A5\u7E8C\u7684 if",
+            "text": "<p>\u4E0B\u5217\u7247\u6BB5\u6709\u5E7E\u689D\u57F7\u884C\u8DEF\u5F91\uFF1F<code>if (a) {...} if (b) {...}</code>\uFF08\u5169\u500B\u63A5\u7E8C\u3001\u5F7C\u6B64\u7368\u7ACB\u7684 if\uFF1Ba \u8207 b \u70BA\u7368\u7ACB\u7684\u7B26\u865F\u689D\u4EF6\uFF09</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B if \u6709 2 \u7A2E\u7D50\u679C\u4E14\u5F7C\u6B64\u7368\u7ACB\uFF1A2 \xD7 2 = 4\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u53EA\u7B97\u4E86\u4E00\u500B if\uFF1B\u5169\u500B\u7368\u7ACB\u7684 if \u76F8\u4E58\u70BA 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u7D50\u679C\u662F\u76F8\u4E58\uFF082 \xD7 2 = 4\uFF09\uFF0C\u800C\u975E\u76F8\u52A0\u70BA 3\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u689D\u4EF6\u4E0B\u5169\u500B if \u90FD\u6703\u5206\u5C94\uFF0C\u8DEF\u5F91\u4E0D\u53EA\u4E00\u689D\u3002"
+              }
+            ],
+            "generalFeedback": "\u7368\u7ACB\u5206\u652F\u76F8\u4E58\uFF1A\u5169\u500B\u5404\u6709 true/false \u7684 if \u7D66\u51FA 2 \xD7 2 = 4 \u689D\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 true/true \u7684\u8DEF\u5F91\u689D\u4EF6",
+            "text": "<p>\u5C0D\u65BC <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>\uFF0C\u8981\u62B5\u9054\u6700\u5167\u5C64\u5340\u584A\uFF08\u5169\u500B\u5206\u652F\u7686\u70BA\u771F\uFF09\u7684\u8DEF\u5F91\u689D\u4EF6\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "(x > 0) \u2227 (y < 5)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6CBF\u8DEF\u5F91\u628A\u5169\u500B\u5206\u652F\u7D50\u679C\u5408\u53D6\u8D77\u4F86\u3002"
+              },
+              {
+                "text": "(x > 0) \u2228 (y < 5)",
+                "fraction": 0,
+                "feedback": "\u62B5\u9054\u5167\u5C64\u5340\u584A\u9700\u8981\u5169\u500B\u689D\u4EF6\u540C\u6642\u6210\u7ACB\uFF0C\u6545\u70BA\u5408\u53D6\u800C\u975E\u6790\u53D6\u3002"
+              },
+              {
+                "text": "(x > 0) \u2227 (y \u2265 5)",
+                "fraction": 0,
+                "feedback": "\u5167\u5C64 true \u5206\u652F\u9700\u8981 y < 5\uFF0C\u800C\u975E y \u2265 5\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 (y < 5)",
+                "fraction": 0,
+                "feedback": "\u8981\u62B5\u9054\u5167\u5C64 if\uFF0C\u5916\u5C64\u689D\u4EF6 x > 0 \u4E5F\u5FC5\u9808\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5DE2\u72C0 true \u5206\u652F\u90FD\u52A0\u5165\u5176\u689D\u4EF6\uFF1B\u8981\u62B5\u9054\u5167\u5C64\u5340\u584A\u9700\u8981 (x > 0) \u2227 (y < 5)\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u689D\u4E0D\u53EF\u884C\u7684\u5DE2\u72C0\u8DEF\u5F91",
+            "text": "<p>\u5728 <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code> \u4E2D\uFF0C\u62B5\u9054 <code>BUG</code> \u7684\u8DEF\u5F91\u5176\u72C0\u614B\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u53EF\u884C\u2014\u2014\u5176\u8DEF\u5F91\u689D\u4EF6 (x > 0) \u2227 (x < 0) \u4E0D\u53EF\u6EFF\u8DB3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709 x \u540C\u6642\u70BA\u6B63\u53C8\u70BA\u8CA0\uFF0C\u6545 BUG \u7121\u6CD5\u62B5\u9054\u3002"
+              },
+              {
+                "text": "\u7576 x = 0 \u6642\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "x = 0 \u65E2\u4E0D\u6EFF\u8DB3 x > 0 \u4E5F\u4E0D\u6EFF\u8DB3 x < 0\uFF0C\u800C\u5169\u8005\u90FD\u9700\u8981\u3002"
+              },
+              {
+                "text": "\u7576 x \u70BA\u4EFB\u610F\u5927\u503C\u6642\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "\u5927\u7684 x \u6EFF\u8DB3 x > 0 \u537B\u9055\u53CD x < 0\uFF1B\u6C92\u6709\u503C\u80FD\u540C\u6642\u6EFF\u8DB3\u5169\u8005\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576 x \u70BA\u8CA0\u6642\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "\u8CA0\u7684 x \u4F7F\u5916\u5C64 x > 0 \u4E0D\u6210\u7ACB\uFF0C\u56E0\u6B64\u6C38\u9060\u62B5\u9054\u4E0D\u4E86\u5167\u5C64\u5340\u584A\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91\u689D\u4EF6 (x > 0) \u2227 (x < 0) \u70BA UNSAT\uFF0C\u6545\u9019\u689D\u8DEF\u5F91\u4E0D\u53EF\u884C\uFF0CBUG \u5728\u6B64\u8DEF\u5F91\u4E0A\u662F\u6B7B\u78BC\u2014\u2014\u4EFB\u4F55\u6E2C\u8A66\u7522\u751F\u5668\u90FD\u6703\uFF08\u6B63\u78BA\u5730\uFF09\u7121\u6CD5\u62B5\u9054\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u53EF\u6EFF\u8DB3\u7684 PC \u860A\u542B\u5B58\u5728\u8F38\u5165",
+            "text": "<p>\u82E5\u4E00\u689D\u8DEF\u5F91\u689D\u4EF6\u53EF\u6EFF\u8DB3\uFF0C\u5247\u5B58\u5728\u81F3\u5C11\u4E00\u500B\u5177\u9AD4\u8F38\u5165\u80FD\u9A45\u52D5\u57F7\u884C\u8D70\u4E0A\u8A72\u8DEF\u5F91\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\u6B63\u662F\u9019\u6A23\u7684\u4E00\u500B\u5177\u9AD4\u8F38\u5165\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u53EF\u6EFF\u8DB3\u6027\u4FDD\u8B49\u5B58\u5728\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\uFF0C\u4E5F\u5C31\u662F\u4E00\u500B\u6703\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91\u689D\u4EF6\u7684\u53EF\u6EFF\u8DB3\u6027\u7B49\u540C\u65BC\u8DEF\u5F91\u7684\u53EF\u884C\u6027\uFF1A\u6C42\u89E3\u5668\u7D66\u51FA\u7684\u6A21\u578B\u5C31\u662F\u4E00\u500B\u80FD\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DEF\u5F91\u6578\uFF1A\u55AE\u4E00 if-else",
+            "text": "<p>\u55AE\u4E00\u500B <code>if (c) {...} else {...}</code>\uFF08c \u70BA\u7B26\u865F\uFF0C\u4E14\u7121\u5DE2\u72C0\u5206\u652F\uFF09\u6709\u5E7E\u689D\u57F7\u884C\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c \u70BA\u771F\u4E00\u689D\u3001c \u70BA\u5047\u4E00\u689D\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u689D\u4EF6\u6703\u5206\u88C2\u6210\u5169\u500B\u53EF\u884C\u65B9\u5411\uFF0C\u800C\u975E\u4E00\u500B\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "if-else \u6070\u6709\u5169\u7A2E\u7D50\u679C\uFF0C\u800C\u975E\u4E09\u7A2E\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u9700\u8981\u5169\u500B\u7368\u7ACB\u5206\u652F\uFF1B\u55AE\u4E00 if-else \u662F 2\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u7B26\u865F\u689D\u4EF6\u7684\u55AE\u4E00\u5206\u652F\u7D66\u51FA\u5169\u689D\u8DEF\u5F91\uFF1Athen \u5206\u652F\uFF08c\uFF09\u8207 else \u5206\u652F\uFF08\xACc\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8907\u5408 PC \u7684\u8F38\u5165",
+            "text": "<p>\u67D0\u689D\u8DEF\u5F91\u7684\u8DEF\u5F91\u689D\u4EF6\u70BA <code>(a \u2265 2) \u2227 (b == a + 1)</code>\u3002\u54EA\u500B\u8F38\u5165\u6EFF\u8DB3\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a = 2, b = 3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142 \u2265 2 \u4E14 3 == 2 + 1\u3002"
+              },
+              {
+                "text": "a = 2, b = 2",
+                "fraction": 0,
+                "feedback": "b \u5FC5\u9808\u7B49\u65BC a + 1 = 3\uFF0C\u800C\u975E 2\u3002"
+              },
+              {
+                "text": "a = 1, b = 2",
+                "fraction": 0,
+                "feedback": "\u96D6\u7136 b == a + 1 \u6210\u7ACB\uFF0C\u4F46 a = 1 \u9055\u53CD a \u2265 2\u3002"
+              },
+              {
+                "text": "a = 3, b = 3",
+                "fraction": 0,
+                "feedback": "b \u5FC5\u9808\u7B49\u65BC a + 1 = 4\uFF0C\u800C\u975E 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u5408\u53D6\u9805\u90FD\u5FC5\u9808\u6210\u7ACB\uFF1Aa \u2265 2 \u4E14 b = a + 1\u3002\u53EA\u6709 a = 2, b = 3 \u540C\u6642\u6EFF\u8DB3\u5169\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6307\u6D3E\u4E4B\u5F8C\u7684\u8DEF\u5F91\u689D\u4EF6",
+            "text": "<p>\u5C0D\u65BC <code>y = x + 1; if (y == 5) { ... }</code>\uFF08x \u70BA\u7B26\u865F\u5316\u8F38\u5165\uFF09\uFF0C\u9032\u5165\u8A72\u5340\u584A\u3001\u4EE5 x \u8868\u793A\u7684\u8DEF\u5F91\u689D\u4EF6\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "x + 1 == 5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014y \u5B58\u7684\u662F\u904B\u7B97\u5F0F x + 1\uFF0C\u6545\u4EE5 x \u8868\u793A\u7684\u5206\u652F\u9650\u5236\u5F0F\u70BA x + 1 == 5\uFF08\u5373 x == 4\uFF09\u3002"
+              },
+              {
+                "text": "y == 5\uFF08\u628A y \u7576\u4F5C\u4E00\u500B\u5168\u65B0\u7684\u672A\u77E5\u6578\u4FDD\u7559\uFF09",
+                "fraction": 0,
+                "feedback": "y \u4E26\u975E\u7368\u7ACB\u8F38\u5165\uFF1B\u5B83\u88AB\u6307\u6D3E\u70BA x + 1\uFF0C\u5FC5\u9808\u4EE3\u5165\u3002"
+              },
+              {
+                "text": "x == 5",
+                "fraction": 0,
+                "feedback": "\u90A3\u5FFD\u7565\u4E86 +1\uFF1B\u9650\u5236\u5F0F\u662F x + 1 == 5\uFF0C\u5F97 x == 4\u3002"
+              },
+              {
+                "text": "x + 1 == 4",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6E2C\u8A66\u7684\u662F y == 5\uFF0C\u6545\u9650\u5236\u5F0F\u662F x + 1 == 5\uFF0C\u800C\u975E == 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u57F7\u884C\u6703\u4EE3\u5165\u88AB\u6307\u6D3E\u7684\u904B\u7B97\u5F0F\uFF1Ay = x + 1\uFF0C\u6545\u5206\u652F y == 5 \u5316\u70BA\u4EE5\u8F38\u5165 x \u8868\u793A\u7684\u9650\u5236\u5F0F x + 1 == 5\uFF08\u6C42\u89E3\u5F97 x == 4\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80 SAT \u6A21\u578B",
+            "text": "<p>\u6C42\u89E3\u5668\u5C0D\u67D0\u8DEF\u5F91\u7684\u689D\u4EF6\u56DE\u50B3 SAT\uFF0C\u4E26\u9644\u4E0A\u6A21\u578B <code>{x = 4}</code>\u3002\u9019\u544A\u8A34\u4F60\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u8DEF\u5F91\u53EF\u884C\uFF0C\u4E14\u4EE5 x = 4 \u57F7\u884C\u7A0B\u5F0F\u6703\u9A45\u52D5\u57F7\u884C\u8D70\u4E0A\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u500B\u6A21\u578B\u5C31\u662F\u4E00\u500B\u6703\u8D70\u4E0A\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u6E2C\u8A66\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u8A72\u8DEF\u5F91\u4E0D\u53EF\u884C\uFF0C\u4E14 x = 4 \u662F\u4E00\u500B\u53CD\u4F8B",
+                "fraction": 0,
+                "feedback": "SAT \u4EE3\u8868\u53EF\u884C\uFF1B\u6A21\u578B\u662F\u898B\u8B49\u8F38\u5165\uFF0C\u800C\u975E\u53CD\u4F8B\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u7684\u6BCF\u4E00\u689D\u8DEF\u5F91\u4E0A x \u90FD\u5FC5\u9808\u7B49\u65BC 4",
+                "fraction": 0,
+                "feedback": "\u8A72\u6A21\u578B\u53EA\u9069\u7528\u65BC\u9019\u4E00\u689D\u8DEF\u5F91\u7684\u689D\u4EF6\uFF0C\u4E26\u975E\u6240\u6709\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u91CD\u65B0\u7DE8\u8B6F\u524D\u4EC0\u9EBC\u90FD\u4E0D\u4EE3\u8868",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u91CD\u65B0\u7DE8\u8B6F\uFF1Bx = 4 \u53EF\u76F4\u63A5\u4F5C\u70BA\u6E2C\u8A66\u8F38\u5165\u4F7F\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E36\u6A21\u578B\u7684 SAT \u7D50\u679C\u4EE3\u8868\u8DEF\u5F91\u689D\u4EF6\u53EF\u6EFF\u8DB3\uFF08\u8DEF\u5F91\u53EF\u884C\uFF09\uFF0C\u4E14\u56DE\u50B3\u7684\u6307\u6D3E\u662F\u4E00\u500B\u80FD\u57F7\u884C\u5230\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DEF\u5F91\u6578\uFF1A\u5DE2\u72C0 if",
+            "text": "<p><code>if (a) { if (b) {...} else {...} } else {...}</code>\uFF08a\u3001b \u70BA\u7B26\u865F\uFF09\u6709\u5E7E\u689D\u57F7\u884C\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u70BA\u5047\u7D66 1 \u689D\uFF1Ba \u70BA\u771F\u6642\u4F9D b \u5206\u88C2\u6210 2 \u689D\uFF1B\u5171 3 \u689D\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u5167\u5C64 if \u53EA\u5B58\u5728\u65BC a \u70BA\u771F\u90A3\u4E00\u5074\uFF0C\u6545\u70BA 2 + 1 = 3\uFF0C\u800C\u975E 2 \xD7 2\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "a \u70BA\u771F\u90A3\u4E00\u5074\u6703\u518D\u4F9D b \u5206\u88C2\uFF0C\u591A\u51FA\u7B2C\u4E09\u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u5404\u7A2E\u7D50\u679C\u7684\u53EF\u884C\u7D44\u5408\u53EA\u6709\u4E09\u7A2E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5916\u5C64 if \u7684 else \u662F\u4E00\u689D\u8DEF\u5F91\uFF1Bthen \u90A3\u5074\u542B\u4E00\u500B if-else \u518D\u7D66\u5169\u689D\u3002\u7531\u65BC a \u70BA\u5047\u6642\u62B5\u9054\u4E0D\u4E86\u5167\u5C64\u5206\u652F\uFF0C\u7E3D\u6578\u70BA 2 + 1 = 3\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u64F4\u5C55\u6027\u74F6\u9838",
+            "text": "<p>\u7B26\u865F\u57F7\u884C\u64F4\u5C55\u5230\u5927\u578B\u7A0B\u5F0F\u6642\uFF0C\u4E3B\u8981\u7684\u969C\u7919\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8DEF\u5F91\u7206\u70B8\uFF08path explosion\uFF09\u2014\u2014\u76F8\u7570\u8DEF\u5F91\u7684\u6578\u91CF\u96A8\u8457\u5206\u652F\u8207\u8FF4\u5708\u5448\u6307\u6578\u6210\u9577",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u7B26\u865F\u57F7\u884C\u6700\u5178\u578B\u7684\u53EF\u64F4\u5C55\u6027\u74F6\u9838\u3002"
+              },
+              {
+                "text": "\u88AB\u63D2\u6A01\uFF08instrumented\uFF09\u7A0B\u5F0F\u7684\u8A18\u61B6\u9AD4\u6D29\u6F0F",
+                "fraction": 0,
+                "feedback": "\u9019\u4E0D\u662F\u5178\u578B\u74F6\u9838\uFF1B\u8A18\u61B6\u9AD4\u6D29\u6F0F\u662F\u4E00\u822C\u7A0B\u5F0F\u5206\u6790\u666E\u904D\u6703\u9047\u5230\u7684\u554F\u984C\uFF0C\u4E26\u975E\u7B26\u865F\u57F7\u884C\u64F4\u5C55\u6027\u7684\u7279\u6709\u8B70\u984C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8AED\u793A\u554F\u984C\uFF08oracle problem\uFF09\u2014\u2014\u4E0D\u77E5\u9053\u6B63\u78BA\u7684\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8AED\u793A\u554F\u984C\u5EE3\u6CDB\u5F71\u97FF\u6E2C\u8A66\u7D50\u679C\u7684\u9A57\u8B49\uFF1B\u7B26\u865F\u57F7\u884C\u672C\u8EAB\u7684\u6838\u5FC3\u64F4\u5C55\u6027\u74F6\u9838\u5728\u65BC\u8DEF\u5F91\u6578\u91CF\uFF0C\u800C\u975E\u8AED\u793A\u3002"
+              },
+              {
+                "text": "\u4E0D\u7A69\u5B9A\u3001\u4E0D\u78BA\u5B9A\u6027\u7684\u6E2C\u8A66\uFF08flaky tests\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u4E0D\u7A69\u5B9A\u5C6C\u65BC\u52D5\u614B\u6E2C\u8A66\u7684\u8B70\u984C\uFF1B\u7B26\u865F\u57F7\u884C\u662F\u91DD\u5C0D\u8DEF\u5F91\u505A\u975C\u614B\u63A8\u7406\uFF0C\u5176\u74F6\u9838\u5728\u65BC\u8DEF\u5F91\u6578\u91CF\u672C\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u6BCF\u500B\u5206\u652F\u90FD\u53EF\u80FD\u4F7F\u5F85\u63A2\u7D22\u7684\u8DEF\u5F91\u6578\u91CF\u52A0\u500D\uFF0C\u800C\u8FF4\u5708\u66F4\u6703\u8CA2\u737B\u5927\u91CF\u984D\u5916\u8DEF\u5F91\uFF0C\u8DEF\u5F91\u6578\u91CF\u6703\u5448\u6307\u6578\u6210\u9577\u2014\u2014\u5373\u8DEF\u5F91\u7206\u70B8\u2014\u2014\u4F7F\u5F97\u5C0D\u5927\u578B\u6216\u8FF4\u5708\u5BC6\u96C6\u7A0B\u5F0F\u9032\u884C\u7AAE\u8209\u5F0F\u7B26\u865F\u57F7\u884C\u8B8A\u5F97\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
             "type": "truefalse",
             "name": "\u5177\u9AD4\u7B26\u865F\u57F7\u884C\uFF08concolic execution\uFF09",
             "text": "<p>\u5177\u9AD4\u7B26\u865F\u57F7\u884C\uFF08concolic execution\uFF0C\u300Cconcrete + symbolic\u300D\uFF09\u7D50\u5408\u5177\u9AD4\u57F7\u884C\u8207\u7B26\u865F\u63A8\u7406\uFF0C\u7528\u4EE5\u7C21\u5316\u7D14\u7B26\u865F\u57F7\u884C\u7121\u6CD5\u6C42\u89E3\u7684\u9650\u5236\u5F0F\u3002</p>",
@@ -56117,28 +57935,370 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "generalFeedback": "\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u5728\u5177\u9AD4\u8F38\u5165\u4E0A\u57F7\u884C\u7A0B\u5F0F\uFF0C\u540C\u6642\u8FFD\u8E64\u7B26\u865F\u9650\u5236\u5F0F\uFF1B\u7576\u67D0\u500B\u9650\u5236\u5F0F\u904E\u65BC\u8907\u96DC\u6642\uFF08\u4F8B\u5982\u6D89\u53CA\u4E0D\u900F\u660E\u7684\u51FD\u5F0F\u5EAB\u547C\u53EB\uFF09\uFF0C\u4FBF\u4EE5\u57F7\u884C\u671F\u5BE6\u969B\u89C0\u5BDF\u5230\u7684\u5177\u9AD4\u503C\u53D6\u4EE3\uFF0C\u7E5E\u904E\u7D14\u7B26\u865F\u57F7\u884C\u7684\u6C42\u89E3\u5668\u7121\u6CD5\u8655\u7406\u7684\u904B\u7B97\u5F0F\u3002"
           },
           {
-            "type": "shortanswer",
-            "name": "\u5224\u5B9A\u8DEF\u5F91\u689D\u4EF6\u53EF\u6EFF\u8DB3\u6027\u7684\u5143\u4EF6",
-            "text": "<p>\u8CA0\u8CAC\u5224\u5B9A\u8DEF\u5F91\u689D\u4EF6\u662F\u5426\u53EF\u6EFF\u8DB3\u7684\u5143\u4EF6\u53EB\u505A\u4EC0\u9EBC\uFF1F\uFF08\u8ACB\u4EE5\u82F1\u6587\u8853\u8A9E\u6216\u7E2E\u5BEB\u56DE\u7B54\uFF09</p>",
+            "type": "multichoice",
+            "name": "\u5728 DSE \u4E2D\u62B5\u9054\u65B0\u8DEF\u5F91",
+            "text": "<p>\u5728\u52D5\u614B\u7B26\u865F\u57F7\u884C\uFF08DSE\uFF0Fconcolic\uFF09\u4E2D\uFF0C\u5F15\u64CE\u901A\u5E38\u5982\u4F55\u5C0E\u5F15\u57F7\u884C\u8D70\u5411\u5C1A\u672A\u6DB5\u84CB\u7684\u8DEF\u5F91\uFF1F</p>",
             "answers": [
               {
-                "text": "solver",
+                "text": "\u5B83\u5426\u5B9A\u7576\u524D\u8DEF\u5F91\u4E0A\u7684\u67D0\u500B\u5206\u652F\u689D\u4EF6\uFF0C\u518D\u6C42\u89E3\u4FEE\u6539\u5F8C\u7684\u8DEF\u5F91\u689D\u4EF6\uFF0C\u5F97\u5230\u8D70\u5411\u53E6\u4E00\u65B9\u5411\u7684\u8F38\u5165",
                 "fraction": 100,
-                "feedback": "\u6B63\u78BA\u3002"
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7FFB\u8F49\u4E00\u500B\u5206\u652F\u4E26\u91CD\u65B0\u6C42\u89E3\uFF0C\u5C31\u80FD\u5F97\u5230\u8D70\u53E6\u4E00\u7D50\u679C\u7684\u8F38\u5165\u3002"
               },
               {
-                "text": "SMT*",
-                "fraction": 100,
-                "feedback": "\u6B63\u78BA\u3002"
+                "text": "\u5B83\u96A8\u6A5F\u64FE\u52D5\u7576\u524D\u8F38\u5165\uFF0C\u76F4\u5230\u525B\u597D\u51FA\u73FE\u65B0\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u6A21\u7CCA\u6E2C\u8A66\uFF1BDSE \u662F\u523B\u610F\u5426\u5B9A\u67D0\u5206\u652F\u4E26\u6C42\u89E3\u8F38\u5165\u3002"
               },
               {
-                "text": "constraint solver*",
-                "fraction": 100,
-                "feedback": "\u6B63\u78BA\u3002"
+                "text": "\u5B83\u5F9E\u7A0B\u5F0F\u4E2D\u522A\u9664\u8A72\u5206\u652F\uFF0C\u8B93\u5169\u5074\u5408\u4F75",
+                "fraction": 0,
+                "feedback": "DSE \u4E0D\u6703\u4FEE\u6539\u7A0B\u5F0F\uFF1B\u5B83\u4FEE\u6539\u8DEF\u5F91\u689D\u4EF6\u4E26\u91CD\u65B0\u6C42\u89E3\u3002"
+              },
+              {
+                "text": "\u5B83\u4E0D\u65B7\u63D0\u9AD8\u8FF4\u5708\u5C55\u958B\u4E0A\u9650\uFF0C\u76F4\u5230\u8986\u84CB\u7387\u6539\u5584",
+                "fraction": 0,
+                "feedback": "\u63D0\u9AD8\u4E0A\u9650\u8655\u7406\u7684\u662F\u8FF4\u5708\uFF0C\u800C\u975E\u70BA\u62B5\u9054\u53E6\u4E00\u5074\u800C\u7CFB\u7D71\u6027\u5730\u7FFB\u8F49\u67D0\u500B\u5206\u652F\u3002"
               }
             ],
-            "generalFeedback": "SMT\uFF08Satisfiability Modulo Theories\uFF09\u6C42\u89E3\u5668\u2014\u2014\u6CDB\u7A31\u9650\u5236\u5F0F\u6C42\u89E3\u5668\u2014\u2014\u6703\u63A5\u6536\u8DEF\u5F91\u689D\u4EF6\u7684\u516C\u5F0F\u4E26\u5224\u65B7\u5176\u53EF\u6EFF\u8DB3\u6027\uFF0C\u82E5\u5B58\u5728\u6EFF\u8DB3\u89E3\uFF0C\u4FBF\u56DE\u50B3\u4E00\u7D44\u6EFF\u8DB3\u6307\u6D3E\uFF08\u4E5F\u5C31\u662F\u5177\u9AD4\u7684\u6E2C\u8A66\u8F38\u5165\uFF09\u3002",
-            "usecase": false
+            "generalFeedback": "DSE \u6703\u8A18\u9304\u4E00\u6B21\u5177\u9AD4\u57F7\u884C\u6240\u8D70\u7684\u5206\u652F\u689D\u4EF6\uFF0C\u7136\u5F8C\u5426\u5B9A\u5176\u4E2D\u4E00\u500B\uFF08\u901A\u5E38\u662F\u6700\u5F8C\u4E00\u500B\u672A\u63A2\u7D22\u7684\uFF09\uFF0C\u4E26\u5411\u6C42\u89E3\u5668\u7D22\u53D6\u6EFF\u8DB3\u300C\u524D\u7DB4\uFF0B\u88AB\u5426\u5B9A\u689D\u4EF6\u300D\u7684\u8F38\u5165\u2014\u2014\u85C9\u6B64\u9A45\u52D5\u57F7\u884C\u8D70\u4E0A\u5144\u5F1F\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DE9\u89E3\u8DEF\u5F91\u7206\u70B8",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u516C\u8A8D\u53EF\u7DE9\u89E3\u8DEF\u5F91\u7206\u70B8\u7684\u6280\u8853\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u72C0\u614B\u5408\u4F75\uFF08state merging\uFF09\u2014\u2014\u5728\u532F\u5408\u9EDE\u628A\u591A\u500B\u7B26\u865F\u72C0\u614B\u5408\u4F75\u70BA\u4E00\u500B\uFF08\u5176\u8DEF\u5F91\u689D\u4EF6\u5E36\u6790\u53D6\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5408\u4F75\u80FD\u6E1B\u5C11\u5F80\u5F8C\u651C\u5E36\u7684\u72C0\u614B\u6578\u91CF\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u505C\u7528\u9650\u5236\u5F0F\u6C42\u89E3\u5668",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6C42\u89E3\u5668\u5C31\u5B8C\u5168\u7121\u6CD5\u6AA2\u67E5\u53EF\u884C\u6027\uFF1B\u9019\u4E26\u4E0D\u80FD\u89E3\u6C7A\u8DEF\u5F91\u6578\u91CF\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u4E2D\u52A0\u5165\u66F4\u591A\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u66F4\u591A\u5206\u652F\u6703\u589E\u52A0\u800C\u975E\u6E1B\u5C11\u8DEF\u5F91\u6578\u91CF\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u6C42\u89E3\u5668\u903E\u6642\u4E0A\u9650\u90FD\u8ABF\u5230\u7121\u9650\u5927",
+                "fraction": 0,
+                "feedback": "\u90A3\u5F71\u97FF\u7684\u662F\u500B\u5225\u67E5\u8A62\uFF0C\u800C\u975E\u8DEF\u5F91\u6578\u91CF\u7684\u6307\u6578\u6210\u9577\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E38\u898B\u7684\u7DE9\u89E3\u624B\u6BB5\u5305\u62EC\u72C0\u614B\u5408\u4F75\u3001\u51FD\u5F0F\uFF0F\u8DEF\u5F91\u6458\u8981\u3001\u641C\u5C0B\u555F\u767C\u5F0F\u8207\u6709\u754C\u63A2\u7D22\u2014\u2014\u90FD\u662F\u70BA\u4E86\u63A7\u5236\u72C0\u614B\u6578\u7684\u6307\u6578\u6210\u9577\uFF0C\u800C\u975E\u8B93\u6BCF\u6B21\u6C42\u89E3\u66F4\u5FEB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8655\u7406\u8FF4\u5708",
+            "text": "<p>\u70BA\u4F7F\u63A2\u7D22\u7DAD\u6301\u6709\u9650\uFF0C\u5C0D\u65BC\u8FED\u4EE3\u6B21\u6578\u53D6\u6C7A\u65BC\u7B26\u865F\u5316\u8F38\u5165\u7684\u8FF4\u5708\uFF0C\u5E38\u898B\u7684\u8655\u7406\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6709\u754C\u5C55\u958B\uFF08bounded unrolling\uFF09\u2014\u2014\u53EA\u63A2\u7D22\u8FF4\u5708\u672C\u9AD4\u9054\u56FA\u5B9A\u7684\u8FED\u4EE3\u6B21\u6578\u4E0A\u9650",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0A\u9650\u80FD\u5C01\u4F4F\u539F\u672C\u7121\u754C\u7684\u8FF4\u5708\u8DEF\u5F91\u96C6\u5408\u3002"
+              },
+              {
+                "text": "\u7AAE\u8209\u5217\u51FA\u6240\u6709\u53EF\u80FD\u7684\u8FED\u4EE3\u6B21\u6578",
+                "fraction": 0,
+                "feedback": "\u5728\u7B26\u865F\u5316\u4E0A\u9650\u4E0B\u9019\u53EF\u80FD\u662F\u7121\u754C\u7684\uFF0C\u800C\u9019\u6B63\u662F\u9020\u6210\u8DEF\u5F91\u7206\u70B8\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5FFD\u7565\u8A72\u8FF4\u5708\u4E26\u8DF3\u904E\u5176\u672C\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8DF3\u904E\u672C\u9AD4\u6703\u6F0F\u6389\u88AB\u6E2C\u884C\u70BA\uFF0C\u4E26\u932F\u8AA4\u5448\u73FE\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u628A\u8FF4\u5708\u6539\u5BEB\u6210\u4E0D\u53EF\u9054\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u8FF4\u5708\u662F\u7A0B\u5F0F\u8A9E\u610F\u7684\u4E00\u90E8\u5206\uFF0C\u4E0D\u80FD\u5C31\u9019\u6A23\u4E1F\u68C4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7B26\u865F\u5316\u7684\u8FF4\u5708\u53EF\u80FD\u884D\u751F\u7121\u754C\u591A\u689D\u8DEF\u5F91\uFF0C\u5F15\u64CE\u901A\u5E38\u628A\u5B83\u5C55\u958B\u5230\u67D0\u500B\u9078\u5B9A\u6DF1\u5EA6\uFF08\u6216\u4F7F\u7528\u8FF4\u5708\u6458\u8981\uFF0F\u4E0D\u8B8A\u91CF\uFF09\uFF0C\u4EE5\u4F7F\u63A2\u7D22\u7DAD\u6301\u6709\u9650\uFF0C\u4E26\u63A5\u53D7\u5728\u8A72\u4E0A\u9650\u4E4B\u5916\u7684\u4E0D\u5B8C\u6574\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 UNSAT \u4EE3\u8868\u6B7B\u8DEF",
+            "text": "<p>\u82E5\u4E00\u689D\u8DEF\u5F91\u7684\u689D\u4EF6\u4E0D\u53EF\u6EFF\u8DB3\uFF0C\u70BA\u4F55\u9019\u689D\u8DEF\u5F91\u662F\u300C\u6B7B\u8DEF\u300D\uFF08\u7121\u9700\u6E2C\u8A66\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u5177\u9AD4\u8F38\u5165\u80FD\u6EFF\u8DB3\u5176\u9650\u5236\u5F0F\uFF0C\u56E0\u6B64\u4E0D\u6703\u6709\u4EFB\u4F55\u57F7\u884C\u8D70\u4E0A\u90A3\u689D\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014UNSAT \u4EE3\u8868\u8A72\u8DEF\u5F91\u4E0D\u53EF\u9054\uFF0C\u6545\u7121\u9700\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u8A72\u8DEF\u5F91\u53EF\u9054\uFF0C\u53EA\u662F\u6E2C\u8D77\u4F86\u592A\u6162",
+                "fraction": 0,
+                "feedback": "UNSAT \u8AC7\u7684\u662F\u53EF\u9054\u6027\uFF0C\u800C\u975E\u6548\u80FD\uFF1B\u8A72\u8DEF\u5F91\u6839\u672C\u8D70\u4E0D\u4E0A\u53BB\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u5668\u58DE\u4E86\uFF0C\u61C9\u8A72\u66F4\u63DB",
+                "fraction": 0,
+                "feedback": "UNSAT \u662F\u6709\u6548\u4E14\u6709\u8CC7\u8A0A\u91CF\u7684\u7D50\u679C\uFF0C\u4E26\u975E\u6C42\u89E3\u5668\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u8F38\u5165\u90FD\u6703\u8D70\u4E0A\u8A72\u8DEF\u5F91\uFF0C\u6240\u4EE5\u5DF2\u88AB\u8F15\u6613\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u6046\u771F\u5F0F\uFF08\u6C38\u9060 SAT\uFF09\uFF1BUNSAT \u6070\u597D\u76F8\u53CD\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u8D70\u4E0A\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u6EFF\u8DB3\u7684\u8DEF\u5F91\u689D\u4EF6\u6C92\u6709\u4EFB\u4F55\u6EFF\u8DB3\u6307\u6D3E\uFF0C\u6545\u6C92\u6709\u8F38\u5165\u80FD\u9A45\u52D5\u57F7\u884C\u8D70\u4E0A\u5B83\u2014\u2014\u8A72\u8DEF\u5F91\u4E0D\u53EF\u884C\uFF0F\u5DF2\u6B7B\uFF0C\u6B63\u78BA\u5730\u4E0D\u6703\u7522\u751F\u4EFB\u4F55\u6E2C\u8A66\u6848\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9650\u5236\uFF1A\u975E\u7DDA\u6027\u9650\u5236\u5F0F",
+            "text": "<p>\u70BA\u4F55\u975E\u7DDA\u6027\u6574\u6578\u9650\u5236\u5F0F\uFF08\u4F8B\u5982 x\u3001y \u70BA\u7B26\u865F\u6642\u7684 <code>x * y == 30</code>\uFF09\u6703\u9650\u5236\u7B26\u865F\u57F7\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u985E\u9650\u5236\u5F0F\u5C0D\u6C42\u89E3\u5668\u800C\u8A00\u56F0\u96E3\u6216\u4E0D\u53EF\u5224\u5B9A\uFF0C\u6545\u6C42\u89E3\u5668\u5728\u8A72\u8DEF\u5F91\u689D\u4EF6\u4E0A\u53EF\u80FD\u5931\u6557\u6216\u903E\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u7DDA\u6027\u6574\u6578\u7B97\u8853\u773E\u6240\u7686\u77E5\u5730\u56F0\u96E3\uFF08\u4E00\u822C\u800C\u8A00\u4E0D\u53EF\u5224\u5B9A\uFF09\u3002"
+              },
+              {
+                "text": "\u975E\u7DDA\u6027\u9650\u5236\u5F0F\u6C38\u9060\u6709\u7121\u9650\u591A\u89E3\uFF0C\u56E0\u6B64\u7121\u6CD5\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u89E3\u7684\u6578\u91CF\uFF1B\u56F0\u96E3\u5728\u65BC\u6C42\u89E3\u5668\u53EF\u80FD\u7121\u6CD5\u5224\u5B9A\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u5668\u6703\u62D2\u7D55\u4EFB\u4F55\u542B\u6709\u4E58\u6CD5\u7684\u9650\u5236\u5F0F",
+                "fraction": 0,
+                "feedback": "\u6C42\u89E3\u5668\u80FD\u8F15\u9B06\u8655\u7406\u8207\u5E38\u6578\u7684\u4E58\u6CD5\uFF1B\u56F0\u96E3\u7684\u662F\u300C\u7B26\u865F \xD7 \u7B26\u865F\u300D\uFF0C\u800C\u4E14\u662F\u96E3\u5EA6\u554F\u984C\uFF0C\u4E26\u975E\u76F4\u63A5\u62D2\u7D55\u3002"
+              },
+              {
+                "text": "\u975E\u7DDA\u6027\u9650\u5236\u5F0F\u6703\u8B93\u6BCF\u689D\u8DEF\u5F91\u90FD\u4E0D\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u6703\u4F7F\u8DEF\u5F91\u4E0D\u53EF\u884C\uFF1B\u800C\u662F\u8B93\u53EF\u884C\u6027\u554F\u984C\u96E3\u4EE5\u56DE\u7B54\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DDA\u6027\u7B97\u8853\u53EF\u5224\u5B9A\u4E14\u6709\u6548\u7387\uFF0C\u4F46\u975E\u7DDA\u6027\u6574\u6578\u7B97\u8853\u4E00\u822C\u800C\u8A00\u4E0D\u53EF\u5224\u5B9A\uFF1B\u7576\u8DEF\u5F91\u689D\u4EF6\u542B\u6709\u300C\u7B26\u865F\u4E58\u7B26\u865F\u300D\u6642\uFF0C\u6C42\u89E3\u5668\u53EF\u80FD\u7121\u6CD5\u89E3\u51FA\uFF0C\u9650\u5236\u4E86\u5F15\u64CE\u7684\u7CBE\u78BA\u5EA6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9650\u5236\uFF1A\u5916\u90E8\u547C\u53EB",
+            "text": "<p>\u7576\u7A0B\u5F0F\u78BC\u547C\u53EB\u4E00\u500B\u7121\u6CD5\u5206\u6790\u5176\u539F\u59CB\u78BC\u7684\u5916\u90E8\uFF0F\u539F\u751F\u51FD\u5F0F\uFF08\u4F8B\u5982\u7CFB\u7D71\u547C\u53EB\uFF09\u6642\uFF0C\u7D14\u7B26\u865F\u57F7\u884C\u5F15\u64CE\u6703\u9047\u5230\u56F0\u96E3\uFF0C\u539F\u56E0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u547C\u53EB\u5C0D\u7B26\u865F\u72C0\u614B\u7684\u5F71\u97FF\u662F\u4E0D\u900F\u660E\u7684\uFF0C\u56E0\u6B64\u9650\u5236\u5F0F\u7121\u6CD5\u7A7F\u904E\u5B83\u50B3\u905E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u7684\u4E00\u5927\u52D5\u6A5F\uFF0C\u5B83\u6703\u6539\u7528\u5177\u9AD4\u56DE\u50B3\u503C\u3002"
+              },
+              {
+                "text": "\u5916\u90E8\u51FD\u5F0F\u4E00\u5B9A\u6703\u4F7F\u5F15\u64CE\u7576\u6389",
+                "fraction": 0,
+                "feedback": "\u4E0D\u4E00\u5B9A\u6703\u7576\u6389\uFF1B\u554F\u984C\u5728\u65BC\u5176\u7B26\u865F\u6548\u679C\u672A\u77E5\u3002"
+              },
+              {
+                "text": "\u5916\u90E8\u547C\u53EB\u6703\u8B93\u6BCF\u689D\u8DEF\u5F91\u689D\u4EF6\u90FD\u8B8A\u6210\u6046\u771F\u5F0F",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u6703\u8B93\u9650\u5236\u5F0F\u8B8A\u5F97\u7463\u788E\uFF1B\u800C\u662F\u8B93\u5F15\u64CE\u7121\u6CD5\u7CBE\u78BA\u8FFD\u8E64\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u5B58\u5728 I/O\uFF0C\u6C42\u89E3\u5668\u5C31\u62D2\u7D55\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u6C42\u89E3\u5668\u4E0D\u53D7\u5F71\u97FF\uFF1B\u554F\u984C\u5728\u65BC\u7F3A\u5C11\u8A72\u5916\u90E8\u547C\u53EB\u7684\u7B26\u865F\u8A9E\u610F\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u7F3A\u5C11\u5916\u90E8\u51FD\u5F0F\u7684\u6A21\u578B\uFF0C\u5F15\u64CE\u5C31\u7121\u6CD5\u628A\u5176\u8F38\u51FA\u8868\u793A\u70BA\u8F38\u5165\u7684\u7B26\u865F\u904B\u7B97\u5F0F\uFF0C\u56E0\u800C\u55AA\u5931\u7CBE\u78BA\u5EA6\u2014\u2014\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u85C9\u7531\u4EE3\u5165\u57F7\u884C\u671F\u89C0\u5BDF\u5230\u7684\u5177\u9AD4\u503C\u4F86\u7E5E\u904E\u6B64\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9650\u5236\uFF1A\u6307\u6A19\u5225\u540D",
+            "text": "<p>\u70BA\u4F55\u6307\u6A19\u5225\u540D\uFF08pointer aliasing\uFF09\u6703\u4F7F\u7B26\u865F\u57F7\u884C\u8907\u96DC\u5316\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u5169\u500B\u6307\u6A19\u53EF\u80FD\u6307\u5411\u540C\u4E00\u4F4D\u7F6E\u6642\uFF0C\u5F15\u64CE\u7121\u6CD5\u975C\u614B\u5224\u5B9A\u67D0\u6B21\u8B80\uFF0F\u5BEB\u5F71\u97FF\u7684\u662F\u54EA\u584A\u7B26\u865F\u8A18\u61B6\u9AD4\uFF0C\u53EA\u597D\u505A\u6848\u4F8B\u5206\u88C2\u6216\u72A7\u7272\u7CBE\u78BA\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u89E3\u6C7A\u7684\u5225\u540D\u6703\u4F7F\u6848\u4F8B\u500D\u589E\u6216\u55AA\u5931\u7CBE\u78BA\u5EA6\u3002"
+              },
+              {
+                "text": "\u6307\u6A19\u6839\u672C\u7121\u6CD5\u88AB\u7B26\u865F\u5316\u8868\u793A",
+                "fraction": 0,
+                "feedback": "\u6307\u6A19\u53EF\u4EE5\u88AB\u5EFA\u6A21\uFF1B\u56F0\u96E3\u5728\u65BC\u5224\u5B9A\u5B83\u5011\u6307\u5411\u54EA\u500B\u4F4D\u7F6E\u3002"
+              },
+              {
+                "text": "\u5225\u540D\u6703\u8B93\u8DEF\u5F91\u689D\u4EF6\u6C38\u9060\u53EF\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u5225\u540D\u5F71\u97FF\u7684\u662F\u8A18\u61B6\u9AD4\u5EFA\u6A21\uFF0C\u800C\u975E\u9650\u5236\u5F0F\u7684\u7463\u788E\u53EF\u6EFF\u8DB3\u6027\u3002"
+              },
+              {
+                "text": "\u5225\u540D\u53EA\u5C0D\u5177\u9AD4\u57F7\u884C\u6709\u5F71\u97FF\uFF0C\u5C0D\u7B26\u865F\u57F7\u884C\u5F9E\u7121\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u5B83\u5C0D\u7B26\u865F\u57F7\u884C\u5C24\u5176\u68D8\u624B\uFF0C\u56E0\u70BA\u7B26\u865F\u57F7\u884C\u5FC5\u9808\u63A8\u7406\u6240\u6709\u53EF\u80FD\u7684\u5225\u540D\u60C5\u5F62\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5 p \u8207 q \u53EF\u80FD\u5225\u540D\uFF0C\u900F\u904E p \u7684\u5BEB\u5165\u53EF\u80FD\u6539\u8B8A\u3001\u4E5F\u53EF\u80FD\u4E0D\u6539\u8B8A q \u6240\u8B80\u5230\u7684\u5167\u5BB9\uFF1B\u5F15\u64CE\u5FC5\u9808\u5206\u88C2\u6210\u6848\u4F8B\uFF08p == q \u5C0D p \u2260 q\uFF09\u6216\u505A\u8FD1\u4F3C\uFF0C\u5169\u8005\u90FD\u6703\u4ED8\u51FA\u7CBE\u78BA\u5EA6\u6216\u589E\u52A0\u8DEF\u5F91\u7684\u4EE3\u50F9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u865F\u57F7\u884C vs \u96A8\u6A5F\u6E2C\u8A66",
+            "text": "<p>\u5206\u652F <code>if (x == 987654321)</code> \u53D6\u6C7A\u65BC\u4E00\u500B 32 \u4F4D\u5143\u7684\u7B26\u865F\u5316\u8F38\u5165 x\u3002\u8207\u96A8\u6A5F\u6E2C\u8A66\u76F8\u6BD4\uFF0C\u7B26\u865F\u57F7\u884C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u76F4\u63A5\u6C42\u89E3 x == 987654321 \u4E26\u7ACB\u523B\u6253\u4E2D\u8A72\u5206\u652F\uFF1B\u96A8\u6A5F\u6E2C\u8A66\u5247\u6BCF\u6B21\u7D04\u53EA\u6709 1/2\xB3\xB2 \u7684\u6A5F\u6703",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C42\u89E3\u5668\u7B97\u51FA\u78BA\u5207\u503C\uFF1B\u96A8\u6A5F\u731C\u6E2C\u5E7E\u4E4E\u6C38\u9060\u6253\u4E0D\u4E2D\u3002"
+              },
+              {
+                "text": "\u62B5\u9054\u8A72\u5206\u652F\u7684\u6A5F\u7387\u8207\u96A8\u6A5F\u6E2C\u8A66\u4E00\u6A23\u5FAE\u5C0F",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u57F7\u884C\u4E0D\u9760\u731C\u6E2C\uFF1B\u5B83\u6703\u7CBE\u78BA\u5730\u6C42\u89E3\u8A72\u7B49\u5F0F\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u62B5\u9054\u8A72\u5206\u652F\uFF0C\u56E0\u70BA\u7B49\u5F0F\u7121\u6CD5\u6C42\u89E3",
+                "fraction": 0,
+                "feedback": "\u9019\u6A23\u7684\u7DDA\u6027\u7B49\u5F0F\u8F15\u6613\u53EF\u89E3\uFF1B\u6C42\u89E3\u5668\u6703\u56DE\u50B3 x = 987654321\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u5148\u7AAE\u8209\u6240\u6709 2\xB3\xB2 \u7A2E\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u7AAE\u8209\uFF1B\u6C42\u89E3\u5668\u6703\u76F4\u63A5\u63A8\u5C0E\u51FA\u6EFF\u8DB3\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u72F9\u7A84\u7684\u7B49\u5F0F\u5B88\u885B\u6B63\u662F\u7B26\u865F\u57F7\u884C\u5927\u986F\u8EAB\u624B\u7684\u7D93\u5178\u60C5\u5F62\uFF1A\u5B83\u6703\u91DD\u5C0D\u9650\u5236\u5F0F\u6C42\u51FA\u78BA\u5207\u503C\uFF0C\u800C\u96A8\u6A5F\uFF0F\u6A21\u7CCA\u6E2C\u8A66\u6253\u4E2D\u5B83\u7684\u6A5F\u7387\u5FAE\u4E4E\u5176\u5FAE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0\u5206\u652F\u7684\u7CBE\u78BA PC\uFF08UNSAT\uFF09",
+            "text": "<p>\u5C0D\u65BC <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code>\uFF08a\u3001b \u70BA\u7B26\u865F\uFF09\uFF0C\u62B5\u9054 <code>T</code> \u7684\u8DEF\u5F91\u53EF\u884C\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u53EF\u884C\u2014\u2014\u5176\u8DEF\u5F91\u689D\u4EF6 (a + b > 10) \u2227 (a < 3) \u2227 (b < 3) \u4E0D\u53EF\u6EFF\u8DB3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a < 3 \u4E14 b < 3 \u8FEB\u4F7F a + b < 6\uFF0C\u8207 a + b > 10 \u77DB\u76FE\u3002"
+              },
+              {
+                "text": "\u53EF\u884C\u2014\u2014\u4F8B\u5982 a = 2, b = 2",
+                "fraction": 0,
+                "feedback": "a = 2, b = 2 \u7D66\u51FA a + b = 4\uFF0C\u4E26\u4E0D > 10\u3002"
+              },
+              {
+                "text": "\u53EF\u884C\u2014\u2014\u4F8B\u5982 a = 8, b = 8",
+                "fraction": 0,
+                "feedback": "a = 8 \u9055\u53CD a < 3\uFF0C\u6545\u7B2C\u4E8C\u500B\u5206\u652F\u4E0D\u6703\u88AB\u8D70\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576 a \u8207 b \u70BA\u8CA0\u6642\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "\u8CA0\u503C\u6703\u8B93 a + b \u66F4\u5C0F\uFF0C\u6545 a + b > 10 \u4ECD\u4E0D\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u4E09\u500B\u5206\u652F\u7D50\u679C\u5408\u53D6\uFF1Aa < 3 \u4E14 b < 3 \u860A\u542B a + b < 6\uFF0C\u7121\u6CD5\u540C\u6642\u6EFF\u8DB3 a + b > 10\u3002\u8DEF\u5F91\u689D\u4EF6\u70BA UNSAT\uFF0C\u6545 T \u4E0D\u53EF\u9054\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0\u5206\u652F\u7684\u7CBE\u78BA PC\uFF08SAT\uFF09",
+            "text": "<p>\u5C0D\u65BC <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code>\uFF08x\u3001y \u70BA\u7B26\u865F\uFF09\uFF0C\u54EA\u500B\u8F38\u5165\u80FD\u62B5\u9054 <code>T</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x = 1, y = 2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 > 0\u30012 == 1 + 1\u30012 < 10 \u7686\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "x = 1, y = 1",
+                "fraction": 0,
+                "feedback": "y \u5FC5\u9808\u7B49\u65BC x + 1 = 2\uFF0C\u800C\u975E 1\u3002"
+              },
+              {
+                "text": "x = 0, y = 1",
+                "fraction": 0,
+                "feedback": "x = 0 \u4F7F x > 0 \u4E0D\u6210\u7ACB\uFF0C\u6545\u5916\u5C64\u5206\u652F\u4E0D\u6703\u88AB\u8D70\u3002"
+              },
+              {
+                "text": "x = 10, y = 11",
+                "fraction": 0,
+                "feedback": "y = 11 \u4F7F y < 10 \u4E0D\u6210\u7ACB\uFF0C\u6545\u6700\u5167\u5C64\u5206\u652F\u4E0D\u6703\u88AB\u8D70\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91\u689D\u4EF6\u70BA (x > 0) \u2227 (y == x + 1) \u2227 (y < 10)\u3002x = 1, y = 2 \u540C\u6642\u6EFF\u8DB3\u4E09\u8005\uFF0C\u6545\u80FD\u62B5\u9054 T\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D44\u5408\u5F0F\u6458\u8981",
+            "text": "<p>\u4E00\u7A2E\u53EA\u5C0D\u51FD\u5F0F\u505A\u4E00\u6B21\u7B26\u865F\u5206\u6790\uFF0C\u4E26\u5728\u6BCF\u500B\u547C\u53EB\u9EDE\u91CD\u7528\u5176\u7D50\u679C\u3001\u800C\u4E0D\u5FC5\u6BCF\u6B21\u90FD\u91CD\u65B0\u63A2\u7D22\u88AB\u547C\u53EB\u51FD\u5F0F\u8DEF\u5F91\u7684\u6280\u8853\uFF0C\u7A31\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u51FD\u5F0F\uFF08\u8DEF\u5F91\uFF09\u6458\u8981\uFF08function/path summary\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D44\u5408\u5F0F\u7B26\u865F\u57F7\u884C\u91CD\u7528\u5404\u51FD\u5F0F\u7684\u6458\u8981\u4EE5\u6291\u5236\u8DEF\u5F91\u7206\u70B8\u3002"
+              },
+              {
+                "text": "\u8FF4\u5708\u4E0D\u8B8A\u91CF\uFF08loop invariant\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E0D\u8B8A\u91CF\u523B\u5283\u7684\u662F\u8FF4\u5708\uFF0C\u4E26\u975E\u53EF\u91CD\u7528\u7684\u300C\u51FD\u5F0F\u8F38\u5165\uFF0F\u8F38\u51FA\u9650\u5236\u5F0F\u6458\u8981\u300D\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8AED\u793A\uFF08test oracle\uFF09",
+                "fraction": 0,
+                "feedback": "\u8AED\u793A\u6C7A\u5B9A\u901A\u904E\uFF0F\u5931\u6557\uFF0C\u4E26\u975E\u5C0D\u51FD\u5F0F\u7684\u53EF\u91CD\u7528\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u63A7\u5236\u6D41\u7A0B\u5716\uFF08control-flow graph\uFF09",
+                "fraction": 0,
+                "feedback": "\u63A7\u5236\u6D41\u7A0B\u5716\u662F\u975C\u614B\u7D50\u69CB\uFF0C\u4E26\u975E\u51FD\u5F0F\u7684\u53EF\u91CD\u7528\u7B26\u865F\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D44\u5408\u5F0F\uFF08\u4EE5\u6458\u8981\u70BA\u57FA\u790E\u7684\uFF09\u7B26\u865F\u57F7\u884C\u628A\u51FD\u5F0F\u7684\u884C\u70BA\u8A18\u9304\u6210\u4E00\u7D44\uFF08\u524D\u7F6E\u689D\u4EF6 \u21D2 \u6548\u679C\uFF09\u9650\u5236\u5F0F\uFF0C\u4E26\u5728\u6BCF\u6B21\u547C\u53EB\u6642\u91CD\u7528\u5B83\uFF0C\u907F\u514D\u91CD\u8907\u63A2\u7D22\u88AB\u547C\u53EB\u51FD\u5F0F\u2014\u2014\u662F\u6291\u5236\u8DEF\u5F91\u7206\u70B8\u7684\u95DC\u9375\u624B\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u72C0\u614B\u5408\u4F75\u7684\u53D6\u6368",
+            "text": "<p>\u72C0\u614B\u5408\u4F75\u80FD\u6E1B\u5C11\u7B26\u865F\u72C0\u614B\u7684\u6578\u91CF\uFF0C\u4F46\u5176\u4E3B\u8981\u53D6\u6368\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5408\u4F75\u5F8C\u7684\u8DEF\u5F91\u689D\u4EF6\u542B\u6709\u6790\u53D6\uFF0Fif-then-else \u9805\uFF0C\u53EF\u80FD\u4F7F\u6C42\u89E3\u5668\u7684\u67E5\u8A62\u66F4\u96E3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u72C0\u614B\u8B8A\u5C11\uFF0C\u4F46\u8981\u6C42\u89E3\u7684\u9650\u5236\u5F0F\u8B8A\u8907\u96DC\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u4F7F\u5206\u6790\u4E0D\u5065\u5168\uFF08unsound\uFF09\uFF0C\u6F0F\u6389\u771F\u5BE6\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u6B63\u78BA\u7684\u5408\u4F75\u662F\u5065\u5168\u7684\uFF1B\u4EE3\u50F9\u662F\u67E5\u8A62\u66F4\u96E3\uFF0C\u800C\u975E\u6F0F\u6389\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B83\u8981\u6C42\u653E\u68C4\u9650\u5236\u5F0F\u6C42\u89E3\u5668",
+                "fraction": 0,
+                "feedback": "\u5408\u4F75\u4ECD\u4EF0\u8CF4\u6C42\u89E3\u5668\u2014\u2014\u800C\u4E14\u662F\u66F4\u96E3\u7684\u67E5\u8A62\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u8B93\u72C0\u614B\u6578\u52A0\u500D\u800C\u975E\u6E1B\u5C11",
+                "fraction": 0,
+                "feedback": "\u5408\u4F75\u6703\u7D50\u5408\u72C0\u614B\u3001\u6E1B\u5C11\u5176\u6578\u91CF\uFF1B\u7F3A\u9EDE\u5728\u65BC\u9650\u5236\u5F0F\u7684\u8907\u96DC\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u532F\u5408\u9EDE\u5408\u4F75\u5169\u500B\u72C0\u614B\uFF0C\u6703\u628A\u5169\u689D\u8F03\u7C21\u55AE\u7684\u8DEF\u5F91\u689D\u4EF6\u63DB\u6210\u4E00\u689D\u4EE5\u6790\u53D6\uFF08\u6216 ite \u9805\uFF09\u540C\u6642\u7DE8\u78BC\u5169\u8005\u7684\u689D\u4EF6\u3002\u9019\u964D\u4F4E\u4E86\u72C0\u614B\u6578\uFF0C\u537B\u628A\u8CA0\u64D4\u8F49\u5AC1\u7D66\u6C42\u89E3\u5668\uFF0C\u4F7F\u5176\u9762\u5C0D\u66F4\u8907\u96DC\u7684\u516C\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8FF4\u5708\u9020\u6210\u7121\u754C\u8DEF\u5F91",
+            "text": "<p>\u8FED\u4EE3\u6B21\u6578\u53D6\u6C7A\u65BC\u7B26\u865F\u5316\u8F38\u5165\u7684\u8FF4\u5708\uFF0C\u53EF\u80FD\u7522\u751F\u7121\u754C\u591A\u689D\u8DEF\u5F91\uFF0C\u9019\u662F\u8DEF\u5F91\u7206\u70B8\u7684\u76F4\u63A5\u4F86\u6E90\u4E4B\u4E00\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u591A\u4E00\u6B21\u8FED\u4EE3\u5C31\u5206\u5C94\u51FA\u4E00\u7D44\u65B0\u8DEF\u5F91\uFF0C\u6578\u91CF\u53EF\u7121\u754C\u6210\u9577\uFF0C\u56E0\u6B64\u624D\u8981\u63A1\u7528\u6709\u754C\u5C55\u958B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u5316\u7684\u8FF4\u5708\u4E0A\u9650\u5141\u8A31\u8FF4\u5708\u9032\u884C\u4EFB\u610F\u591A\u6B21\u8FED\u4EE3\uFF0C\u6BCF\u6B21\u90FD\u884D\u751F\u66F4\u591A\u8DEF\u5F91\u2014\u2014\u9019\u662F\u8DEF\u5F91\u7206\u70B8\u7684\u7D93\u5178\u6210\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u8FED\u4EE3\u6B21\u6578\u70BA\u7B26\u865F\u5316\u6642\uFF0C\u63A2\u7D22 0\u30011\u30012\u3001\u2026 \u6B21\u8FED\u4EE3\u6703\u7522\u751F\u8D8A\u4F86\u8D8A\u591A\u8DEF\u5F91\u4E14\u7121\u6709\u9650\u4E0A\u9650\uFF0C\u6545\u5F15\u64CE\u4EE5\u6709\u754C\u5C55\u958B\uFF08\u6216\u8FF4\u5708\u6458\u8981\uFF09\u5C01\u4F4F\u63A2\u7D22\u3002"
           }
         ]
       }

@@ -10010,6 +10010,64 @@ export const QUIZ_RENDERED = {
       "easy": [
         {
           "type": "multichoice",
+          "name": "What symbolic execution is",
+          "text": "<p>What does <strong>symbolic execution</strong> do?</p>",
+          "answers": [
+            {
+              "text": "It runs a program on symbolic (unknown) inputs instead of concrete values, tracking constraints on those inputs along each path",
+              "fraction": 100,
+              "feedback": "Correct — inputs are symbols, and the engine reasons about the constraints they must satisfy."
+            },
+            {
+              "text": "It runs the program many times on random concrete inputs and records failures",
+              "fraction": 0,
+              "feedback": "That is random/fuzz testing; symbolic execution reasons about symbols, not fixed random values."
+            },
+            {
+              "text": "It statically counts the lines of code covered by an existing test suite",
+              "fraction": 0,
+              "feedback": "That is coverage measurement, not symbolic execution."
+            },
+            {
+              "text": "It translates the program into a faster machine-code representation",
+              "fraction": 0,
+              "feedback": "That describes a compiler/optimizer, not symbolic execution."
+            }
+          ],
+          "generalFeedback": "Symbolic execution treats program inputs as symbolic variables and, as it follows each path, accumulates the constraints those symbols must satisfy — letting it reason about whole classes of inputs at once rather than one concrete run.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic vs concrete values",
+          "text": "<p>How does a <strong>symbolic value</strong> differ from a <strong>concrete value</strong> during execution?</p>",
+          "answers": [
+            {
+              "text": "A concrete value is one fixed value (e.g. 7); a symbolic value is an unknown standing for any value its constraints allow",
+              "fraction": 100,
+              "feedback": "Correct — a symbol like x represents a whole set of possible values."
+            },
+            {
+              "text": "A symbolic value is always larger than a concrete value",
+              "fraction": 0,
+              "feedback": "Magnitude is irrelevant; the difference is fixed value vs unknown-with-constraints."
+            },
+            {
+              "text": "They are identical; \"symbolic\" is just another word for \"concrete\"",
+              "fraction": 0,
+              "feedback": "They are not the same — a concrete value is fixed, a symbolic one is an unknown."
+            },
+            {
+              "text": "A concrete value can be a formula, a symbolic value cannot",
+              "fraction": 0,
+              "feedback": "It is the reverse: symbolic values are expressions/formulas, concrete values are fixed data."
+            }
+          ],
+          "generalFeedback": "Concrete execution computes with fixed data (x = 7). Symbolic execution computes with symbols (x), building expressions and constraints over them so one analysis covers many concrete inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
           "name": "Path condition",
           "text": "<p>A path condition, as built by a symbolic execution engine, is:</p>",
           "answers": [
@@ -10039,6 +10097,318 @@ export const QUIZ_RENDERED = {
         },
         {
           "type": "multichoice",
+          "name": "What a symbolic state is",
+          "text": "<p>At a point during symbolic execution, the <strong>symbolic state</strong> mainly consists of:</p>",
+          "answers": [
+            {
+              "text": "A symbolic expression for each program variable together with the current path condition",
+              "fraction": 100,
+              "feedback": "Correct — variables map to expressions over the symbols, plus the constraints accumulated so far."
+            },
+            {
+              "text": "Only the concrete numeric contents of every variable",
+              "fraction": 0,
+              "feedback": "That is a concrete state; a symbolic state maps variables to symbolic expressions."
+            },
+            {
+              "text": "The list of test cases already generated",
+              "fraction": 0,
+              "feedback": "Generated tests are an output; the symbolic state is the current variable-to-expression map plus the path condition."
+            },
+            {
+              "text": "The source code of the program being analyzed",
+              "fraction": 0,
+              "feedback": "The source is the program; the symbolic state is the runtime abstraction the engine maintains as it executes it."
+            }
+          ],
+          "generalFeedback": "A symbolic state binds each variable to a symbolic expression (over the input symbols) and carries the path condition — the constraints that must hold for execution to have reached this point.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why it explores paths",
+          "text": "<p>Why does symbolic execution explore different program paths separately?</p>",
+          "answers": [
+            {
+              "text": "Because each path corresponds to a distinct set of input constraints, and solving them yields inputs that exercise that specific behavior",
+              "fraction": 100,
+              "feedback": "Correct — separate paths give separate path conditions, each solvable for a test input."
+            },
+            {
+              "text": "Because the program can only be compiled one path at a time",
+              "fraction": 0,
+              "feedback": "Compilation is unrelated; path exploration is about reasoning over distinct branch outcomes."
+            },
+            {
+              "text": "Because paths must be run in alphabetical order of their code",
+              "fraction": 0,
+              "feedback": "There is no such ordering requirement; the point is that each path has its own constraints."
+            },
+            {
+              "text": "Because only one path can ever be feasible in any program",
+              "fraction": 0,
+              "feedback": "Many paths are typically feasible; that is exactly why they are explored individually."
+            }
+          ],
+          "generalFeedback": "Different branch outcomes lead to different path conditions; by exploring each path, the engine can solve its condition to produce an input that drives the program down precisely that behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Solving a PC to get a test input",
+          "text": "<p>Once a path condition has been built, how does symbolic execution turn it into a concrete test input?</p>",
+          "answers": [
+            {
+              "text": "It asks a solver for an assignment of the symbolic inputs that satisfies the path condition",
+              "fraction": 100,
+              "feedback": "Correct — a satisfying assignment is exactly a concrete input that follows that path."
+            },
+            {
+              "text": "It picks a random value for each input and hopes it matches",
+              "fraction": 0,
+              "feedback": "No guessing is needed; the solver computes a satisfying assignment directly from the constraints."
+            },
+            {
+              "text": "It recompiles the program with the path condition embedded",
+              "fraction": 0,
+              "feedback": "Recompilation is not involved; the path condition is handed to a constraint solver."
+            },
+            {
+              "text": "It counts how many branches the path contains",
+              "fraction": 0,
+              "feedback": "Counting branches does not produce input values; solving the constraints does."
+            }
+          ],
+          "generalFeedback": "A satisfying assignment of the path condition is a concrete input that, when run, drives the program down that path — that is how symbolic execution generates test inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How inputs are treated",
+          "text": "<p>When symbolic execution begins, program inputs are treated as:</p>",
+          "answers": [
+            {
+              "text": "Fresh symbolic variables with no fixed value yet",
+              "fraction": 100,
+              "feedback": "Correct — inputs start as unconstrained symbols."
+            },
+            {
+              "text": "Zero, until the program assigns them",
+              "fraction": 0,
+              "feedback": "Inputs are not pre-set to zero; they become symbols whose values are constrained as branches are taken."
+            },
+            {
+              "text": "A single randomly chosen constant",
+              "fraction": 0,
+              "feedback": "That would be concrete testing; symbolic execution keeps inputs symbolic."
+            },
+            {
+              "text": "The largest value the type can hold",
+              "fraction": 0,
+              "feedback": "No such default; inputs are symbolic variables."
+            }
+          ],
+          "generalFeedback": "Each input becomes a fresh symbol. As the program branches, constraints on those symbols accumulate into the path condition.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Reasoning about many inputs at once",
+          "text": "<p>By keeping inputs symbolic, a single symbolic path can characterize many concrete inputs at once.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a path condition describes the whole set of concrete inputs that follow that path, not just one."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A symbolic path's condition captures every concrete input that would take that path, so one path stands for many inputs."
+            }
+          ],
+          "generalFeedback": "Because a path condition is a constraint over symbols, it represents the entire set of concrete inputs satisfying it — one symbolic path summarizes many concrete runs."
+        },
+        {
+          "type": "multichoice",
+          "name": "What the engine tracks per variable",
+          "text": "<p>After the statements <code>a = x + 1; b = a * 2;</code> (with x a symbolic input), what does the engine record for <code>b</code>?</p>",
+          "answers": [
+            {
+              "text": "The symbolic expression (x + 1) * 2",
+              "fraction": 100,
+              "feedback": "Correct — b holds an expression over the symbol x, not a number."
+            },
+            {
+              "text": "A single concrete number",
+              "fraction": 0,
+              "feedback": "x has no concrete value, so b cannot be a fixed number; it is an expression."
+            },
+            {
+              "text": "Nothing, because b was not read from input",
+              "fraction": 0,
+              "feedback": "Assignments update the symbolic state even when they derive from other variables."
+            },
+            {
+              "text": "The path condition x + 1 > 0",
+              "fraction": 0,
+              "feedback": "No branch was taken here, so the path condition is unchanged; b just gets an expression."
+            }
+          ],
+          "generalFeedback": "Symbolic execution updates each assigned variable with a symbolic expression built from the inputs; here b becomes (x + 1) * 2, with the path condition left unchanged because no branch occurred.",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "Deciding path-condition satisfiability",
+          "text": "<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>",
+          "answers": [
+            {
+              "text": "solver",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "SMT*",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "constraint solver*",
+              "fraction": 100,
+              "feedback": "Correct."
+            }
+          ],
+          "generalFeedback": "An SMT (Satisfiability Modulo Theories) solver — generically, the constraint solver — takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.",
+          "usecase": false
+        },
+        {
+          "type": "truefalse",
+          "name": "A symbolic value represents a set",
+          "text": "<p>A symbolic value can be understood as representing the set of all concrete values it might take, subject to the current constraints.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — that is precisely why one symbolic run generalizes over many concrete inputs."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A symbol stands for any value its constraints allow, i.e. a whole set of possible concrete values."
+            }
+          ],
+          "generalFeedback": "A symbol constrained by the path condition denotes the set of concrete values satisfying those constraints, which is the source of symbolic execution's generality."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose in testing",
+          "text": "<p>A common practical goal of symbolic execution in software testing is to:</p>",
+          "answers": [
+            {
+              "text": "Automatically generate inputs that reach specific paths or trigger bugs",
+              "fraction": 100,
+              "feedback": "Correct — solving path conditions yields targeted test inputs."
+            },
+            {
+              "text": "Automatically write the program's documentation",
+              "fraction": 0,
+              "feedback": "That is unrelated to symbolic execution."
+            },
+            {
+              "text": "Replace the need for a compiler",
+              "fraction": 0,
+              "feedback": "Symbolic execution analyzes programs; it does not replace compilation."
+            },
+            {
+              "text": "Measure network latency",
+              "fraction": 0,
+              "feedback": "That is a performance concern, not what symbolic execution addresses."
+            }
+          ],
+          "generalFeedback": "By computing inputs that follow chosen paths, symbolic execution supports automated test generation and high-coverage bug finding.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reaching a branch on a symbol",
+          "text": "<p>When execution reaches a branch whose condition depends on a symbolic input, a symbolic execution engine typically:</p>",
+          "answers": [
+            {
+              "text": "Considers both outcomes, continuing along each feasible one with the condition added to its path condition",
+              "fraction": 100,
+              "feedback": "Correct — the engine forks to explore both the true and false directions where feasible."
+            },
+            {
+              "text": "Always takes the true branch and ignores the false branch",
+              "fraction": 0,
+              "feedback": "Both directions matter; the engine does not arbitrarily fix one outcome."
+            },
+            {
+              "text": "Stops execution immediately",
+              "fraction": 0,
+              "feedback": "A symbolic branch is where exploration multiplies, not where it halts."
+            },
+            {
+              "text": "Picks whichever branch the last test case took",
+              "fraction": 0,
+              "feedback": "There is no prior test case dictating this; the engine explores both feasible outcomes."
+            }
+          ],
+          "generalFeedback": "At a symbolic branch the engine forks: one state adds the condition, the other adds its negation, and each feasible state continues its own exploration.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concrete vs symbolic run",
+          "text": "<p>Which statement best contrasts a concrete run with a symbolic run of the same program?</p>",
+          "answers": [
+            {
+              "text": "A concrete run follows exactly one path for its fixed inputs; a symbolic run reasons about many paths via constraints on symbolic inputs",
+              "fraction": 100,
+              "feedback": "Correct — concrete = one path per input; symbolic = constraint-based exploration."
+            },
+            {
+              "text": "A concrete run explores every path, a symbolic run explores only one",
+              "fraction": 0,
+              "feedback": "It is the other way around: a concrete run takes exactly one path."
+            },
+            {
+              "text": "Both always explore exactly the same single path",
+              "fraction": 0,
+              "feedback": "A symbolic run generally reasons about multiple paths, unlike a single concrete run."
+            },
+            {
+              "text": "Neither run depends on the inputs",
+              "fraction": 0,
+              "feedback": "Concrete runs depend on their fixed inputs; symbolic runs constrain symbolic inputs."
+            }
+          ],
+          "generalFeedback": "Running with concrete inputs deterministically follows one path; symbolic execution instead builds path conditions to characterize and explore many paths at once.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Path condition is a boolean formula",
+          "text": "<p>The path condition is a boolean formula over the symbolic input variables.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — it is a conjunction of branch constraints, i.e. a boolean formula over the input symbols."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The path condition is exactly a boolean formula (a conjunction of constraints) over the symbolic inputs."
+            }
+          ],
+          "generalFeedback": "Each branch contributes a constraint; conjoined, they form a boolean formula over the input symbols — the path condition — which a solver can test for satisfiability."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
           "name": "Detecting infeasible paths",
           "text": "<p>A path explored by a symbolic execution engine is identified as infeasible when:</p>",
           "answers": [
@@ -10064,35 +10434,6 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "A path's condition is a logical formula; the constraint solver deems the path infeasible precisely when that formula is UNSAT, meaning no assignment of the symbolic inputs could ever drive execution down that path.",
-          "single": true
-        },
-        {
-          "type": "multichoice",
-          "name": "Scalability bottleneck",
-          "text": "<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>",
-          "answers": [
-            {
-              "text": "Path explosion — the number of distinct paths grows exponentially with branches and loops",
-              "fraction": 100,
-              "feedback": "Correct — this is the classic scalability wall for symbolic execution."
-            },
-            {
-              "text": "Memory leaks in the instrumented program",
-              "fraction": 0,
-              "feedback": "Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling."
-            },
-            {
-              "text": "The oracle problem — not knowing the correct expected output",
-              "fraction": 0,
-              "feedback": "The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles."
-            },
-            {
-              "text": "Flaky, non-deterministic tests",
-              "fraction": 0,
-              "feedback": "Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number."
-            }
-          ],
-          "generalFeedback": "Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially — path explosion — making exhaustive symbolic execution intractable for large or loop-heavy programs.",
           "single": true
         },
         {
@@ -10125,6 +10466,403 @@ export const QUIZ_RENDERED = {
           "single": true
         },
         {
+          "type": "multichoice",
+          "name": "Feasibility means satisfiable",
+          "text": "<p>A path is <strong>feasible</strong> exactly when its path condition is:</p>",
+          "answers": [
+            {
+              "text": "Satisfiable — at least one assignment of the symbolic inputs makes it true",
+              "fraction": 100,
+              "feedback": "Correct — a satisfying assignment is a concrete input that follows the path."
+            },
+            {
+              "text": "Unsatisfiable",
+              "fraction": 0,
+              "feedback": "Unsatisfiable is the definition of an infeasible path, the opposite."
+            },
+            {
+              "text": "A tautology (true for every assignment)",
+              "fraction": 0,
+              "feedback": "Feasibility only needs one satisfying assignment, not that all assignments satisfy it."
+            },
+            {
+              "text": "Free of any branch constraints",
+              "fraction": 0,
+              "feedback": "Feasible paths can carry many constraints; what matters is that they are jointly satisfiable."
+            }
+          ],
+          "generalFeedback": "Feasibility and satisfiability coincide: a path can actually be executed iff some input satisfies its path condition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Forking at a branch",
+          "text": "<p>Reaching <code>if (c)</code> with current path condition <code>PC</code> on a symbolic value, the engine forks into two states whose path conditions are:</p>",
+          "answers": [
+            {
+              "text": "PC ∧ c for the then-branch and PC ∧ ¬c for the else-branch",
+              "fraction": 100,
+              "feedback": "Correct — each successor conjoins the branch outcome onto the existing PC."
+            },
+            {
+              "text": "c for one branch and ¬c for the other, discarding PC",
+              "fraction": 0,
+              "feedback": "The prior constraints in PC must be kept; the new outcome is conjoined, not substituted."
+            },
+            {
+              "text": "PC ∨ c and PC ∨ ¬c",
+              "fraction": 0,
+              "feedback": "Branch outcomes are conjoined (∧), not disjoined (∨); PC ∨ ¬c would weaken the constraint."
+            },
+            {
+              "text": "PC ∧ c for both branches",
+              "fraction": 0,
+              "feedback": "The else-branch must add ¬c, not c."
+            }
+          ],
+          "generalFeedback": "Forking preserves the accumulated PC and adds the branch outcome: the then-state gets PC ∧ c, the else-state gets PC ∧ ¬c. Each is then checked for satisfiability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC for a single if",
+          "text": "<p>For <code>read x; if (x &gt; 0) y = x; else y = -x;</code>, what is the path condition of the path that takes the <em>true</em> branch?</p>",
+          "answers": [
+            {
+              "text": "x > 0",
+              "fraction": 100,
+              "feedback": "Correct — taking the true branch adds exactly the constraint x > 0."
+            },
+            {
+              "text": "x ≤ 0",
+              "fraction": 0,
+              "feedback": "That is the condition for the else-branch, not the true branch."
+            },
+            {
+              "text": "y = x",
+              "fraction": 0,
+              "feedback": "That is an assignment (a symbolic-state update), not a branch constraint in the path condition."
+            },
+            {
+              "text": "x > 0 ∧ x ≤ 0",
+              "fraction": 0,
+              "feedback": "Only one branch outcome is taken on this path; conjoining both makes it unsatisfiable."
+            }
+          ],
+          "generalFeedback": "The only branch on this path is x > 0, taken as true, so the path condition is simply x > 0.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Deriving a test input",
+          "text": "<p>A path has path condition <code>(x &gt; 0) ∧ (x &lt; 10)</code>. Which concrete input is a valid test input that follows this path?</p>",
+          "answers": [
+            {
+              "text": "x = 5",
+              "fraction": 100,
+              "feedback": "Correct — 5 > 0 and 5 < 10, so it satisfies the whole path condition."
+            },
+            {
+              "text": "x = 0",
+              "fraction": 0,
+              "feedback": "0 is not > 0, so the first constraint fails."
+            },
+            {
+              "text": "x = 10",
+              "fraction": 0,
+              "feedback": "10 is not < 10, so the second constraint fails."
+            },
+            {
+              "text": "x = -3",
+              "fraction": 0,
+              "feedback": "-3 is not > 0, so the first constraint fails."
+            }
+          ],
+          "generalFeedback": "A test input is any assignment satisfying the whole path condition. Only x = 5 lies strictly between 0 and 10.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count: two sequential ifs",
+          "text": "<p>How many execution paths does this snippet have? <code>if (a) {...} if (b) {...}</code> (two independent if-statements in sequence, a and b independent symbolic conditions)</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — each if has 2 outcomes and they are independent: 2 × 2 = 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 counts only one if; two independent ifs multiply to 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The outcomes multiply (2 × 2 = 4), they do not add to 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "With symbolic conditions both ifs branch, giving more than one path."
+            }
+          ],
+          "generalFeedback": "Independent branches multiply: two if-statements each with true/false give 2 × 2 = 4 paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC for nested true/true",
+          "text": "<p>For <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>, what is the path condition to reach the innermost block (both branches true)?</p>",
+          "answers": [
+            {
+              "text": "(x > 0) ∧ (y < 5)",
+              "fraction": 100,
+              "feedback": "Correct — both branch outcomes are conjoined along the path."
+            },
+            {
+              "text": "(x > 0) ∨ (y < 5)",
+              "fraction": 0,
+              "feedback": "Reaching the inner block requires both conditions, so they are conjoined, not disjoined."
+            },
+            {
+              "text": "(x > 0) ∧ (y ≥ 5)",
+              "fraction": 0,
+              "feedback": "The inner true branch needs y < 5, not y ≥ 5."
+            },
+            {
+              "text": "(y < 5) only",
+              "fraction": 0,
+              "feedback": "The outer condition x > 0 must also hold to reach the inner if."
+            }
+          ],
+          "generalFeedback": "Each nested true branch adds its condition; reaching the inner block requires (x > 0) ∧ (y < 5).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "An infeasible nested path",
+          "text": "<p>In <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code>, the path reaching <code>BUG</code> has which status?</p>",
+          "answers": [
+            {
+              "text": "Infeasible — its path condition (x > 0) ∧ (x < 0) is unsatisfiable",
+              "fraction": 100,
+              "feedback": "Correct — no x is both positive and negative, so BUG is unreachable."
+            },
+            {
+              "text": "Feasible for x = 0",
+              "fraction": 0,
+              "feedback": "x = 0 satisfies neither x > 0 nor x < 0, and both are required."
+            },
+            {
+              "text": "Feasible for any large x",
+              "fraction": 0,
+              "feedback": "A large x satisfies x > 0 but violates x < 0; no value satisfies both."
+            },
+            {
+              "text": "Feasible only for negative x",
+              "fraction": 0,
+              "feedback": "A negative x fails the outer x > 0, so the inner block is never reached."
+            }
+          ],
+          "generalFeedback": "The path condition (x > 0) ∧ (x < 0) is UNSAT, so this path is infeasible and BUG is dead code along it — a false alarm any test generator will (correctly) fail to reach.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Satisfiable PC implies an input exists",
+          "text": "<p>If a path condition is satisfiable, then there exists at least one concrete input that drives execution down that path.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a satisfying assignment is precisely such a concrete input."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Satisfiability guarantees a satisfying assignment, which is an input that follows the path."
+            }
+          ],
+          "generalFeedback": "Satisfiability of the path condition is equivalent to feasibility of the path: the solver's model is a concrete input that exercises it."
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count: one if-else",
+          "text": "<p>How many execution paths does a single <code>if (c) {...} else {...}</code> (with symbolic c and no nested branches) have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one path for c true, one for c false."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A symbolic condition splits into two feasible directions, not one."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "An if-else has exactly two outcomes, not three."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 would require two independent branches; a single if-else has 2."
+            }
+          ],
+          "generalFeedback": "A single branch on a symbolic condition yields two paths: the then-branch (c) and the else-branch (¬c).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Input for a compound PC",
+          "text": "<p>A path has path condition <code>(a ≥ 2) ∧ (b == a + 1)</code>. Which input satisfies it?</p>",
+          "answers": [
+            {
+              "text": "a = 2, b = 3",
+              "fraction": 100,
+              "feedback": "Correct — 2 ≥ 2 and 3 == 2 + 1."
+            },
+            {
+              "text": "a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "b must equal a + 1 = 3, not 2."
+            },
+            {
+              "text": "a = 1, b = 2",
+              "fraction": 0,
+              "feedback": "a = 1 violates a ≥ 2 even though b == a + 1 holds."
+            },
+            {
+              "text": "a = 3, b = 3",
+              "fraction": 0,
+              "feedback": "b must equal a + 1 = 4, not 3."
+            }
+          ],
+          "generalFeedback": "Both conjuncts must hold: a ≥ 2 and b = a + 1. Only a = 2, b = 3 satisfies both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC after an assignment",
+          "text": "<p>For <code>y = x + 1; if (y == 5) { ... }</code> with symbolic input x, the path condition to enter the block — expressed over x — is:</p>",
+          "answers": [
+            {
+              "text": "x + 1 == 5",
+              "fraction": 100,
+              "feedback": "Correct — y holds the expression x + 1, so the branch constraint over x is x + 1 == 5 (i.e. x == 4)."
+            },
+            {
+              "text": "y == 5 (left as a fresh unknown y)",
+              "fraction": 0,
+              "feedback": "y is not an independent input; it was assigned x + 1, which must be substituted."
+            },
+            {
+              "text": "x == 5",
+              "fraction": 0,
+              "feedback": "That ignores the +1; the constraint is x + 1 == 5, giving x == 4."
+            },
+            {
+              "text": "x + 1 == 4",
+              "fraction": 0,
+              "feedback": "The branch tests y == 5, so the constraint is x + 1 == 5, not == 4."
+            }
+          ],
+          "generalFeedback": "Symbolic execution substitutes the assigned expression: y = x + 1, so the branch y == 5 becomes the constraint x + 1 == 5 over the input x (solved: x == 4).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting a SAT model",
+          "text": "<p>The solver returns SAT with model <code>{x = 4}</code> for a path's condition. What does this tell you?</p>",
+          "answers": [
+            {
+              "text": "The path is feasible, and running the program with x = 4 drives execution down it",
+              "fraction": 100,
+              "feedback": "Correct — the model is a concrete test input that follows the path."
+            },
+            {
+              "text": "The path is infeasible and x = 4 is a counterexample",
+              "fraction": 0,
+              "feedback": "SAT means feasible; the model is a witnessing input, not a counterexample."
+            },
+            {
+              "text": "x must equal 4 on every path in the program",
+              "fraction": 0,
+              "feedback": "The model applies to this one path's condition, not to all paths."
+            },
+            {
+              "text": "Nothing until the program is recompiled",
+              "fraction": 0,
+              "feedback": "No recompilation is needed; x = 4 is directly usable as a test input."
+            }
+          ],
+          "generalFeedback": "A SAT result with a model means the path condition is satisfiable (the path is feasible) and the returned assignment is a concrete input that exercises that path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count: nested if",
+          "text": "<p>How many execution paths does <code>if (a) { if (b) {...} else {...} } else {...}</code> have (a, b symbolic)?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — a-false gives 1 path; a-true splits on b into 2; total 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The inner if only exists on the a-true side, so it is 2 + 1 = 3, not 2 × 2."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "The a-true side splits further on b, adding a third path."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "There are only three feasible combinations of outcomes here."
+            }
+          ],
+          "generalFeedback": "The else of the outer if is one path; the then side contains an if-else giving two more. Since the inner branch is not reached when a is false, the total is 2 + 1 = 3.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Scalability bottleneck",
+          "text": "<p>What is the primary obstacle to scaling symbolic execution to large programs?</p>",
+          "answers": [
+            {
+              "text": "Path explosion — the number of distinct paths grows exponentially with branches and loops",
+              "fraction": 100,
+              "feedback": "Correct — this is the classic scalability wall for symbolic execution."
+            },
+            {
+              "text": "Memory leaks in the instrumented program",
+              "fraction": 0,
+              "feedback": "Not the characteristic bottleneck; leaks are a general program-analysis concern, not specific to symbolic execution's scaling."
+            },
+            {
+              "text": "The oracle problem — not knowing the correct expected output",
+              "fraction": 0,
+              "feedback": "The oracle problem affects test-result checking broadly; symbolic execution's core scaling issue is path count, not oracles."
+            },
+            {
+              "text": "Flaky, non-deterministic tests",
+              "fraction": 0,
+              "feedback": "Flakiness is a dynamic-testing concern; symbolic execution reasons statically over paths, and its bottleneck is their sheer number."
+            }
+          ],
+          "generalFeedback": "Because every branch can double the number of paths to explore, and loops can each contribute many more, the path count grows exponentially — path explosion — making exhaustive symbolic execution intractable for large or loop-heavy programs.",
+          "single": true
+        },
+        {
           "type": "truefalse",
           "name": "Concolic execution",
           "text": "<p>Concolic (\"concrete + symbolic\") execution combines a concrete run with symbolic reasoning to simplify constraints that pure symbolic execution cannot solve.</p>",
@@ -10143,28 +10881,370 @@ export const QUIZ_RENDERED = {
           "generalFeedback": "Concolic execution runs the program on concrete inputs while simultaneously tracking symbolic constraints; when a constraint becomes too complex (e.g., involves opaque library calls) it substitutes in the concrete value observed at runtime, sidestepping expressions pure symbolic execution's solver cannot handle."
         },
         {
-          "type": "shortanswer",
-          "name": "Deciding path-condition satisfiability",
-          "text": "<p>What is the name of the component that decides whether a path condition is satisfiable? (term or acronym)</p>",
+          "type": "multichoice",
+          "name": "Reaching a new path in DSE",
+          "text": "<p>In dynamic symbolic execution (DSE/concolic), how does the engine typically steer execution toward a not-yet-covered path?</p>",
           "answers": [
             {
-              "text": "solver",
+              "text": "It negates one branch condition on the current path, then solves the modified path condition to obtain inputs that take the other direction",
               "fraction": 100,
-              "feedback": "Correct."
+              "feedback": "Correct — flipping a branch and re-solving yields inputs for the alternative outcome."
             },
             {
-              "text": "SMT*",
-              "fraction": 100,
-              "feedback": "Correct."
+              "text": "It randomly perturbs the current inputs until a new path happens to occur",
+              "fraction": 0,
+              "feedback": "That is closer to fuzzing; DSE deliberately negates a branch and solves for inputs."
             },
             {
-              "text": "constraint solver*",
-              "fraction": 100,
-              "feedback": "Correct."
+              "text": "It deletes the branch from the program so both sides merge",
+              "fraction": 0,
+              "feedback": "DSE does not modify the program; it modifies the path condition and re-solves."
+            },
+            {
+              "text": "It increases the loop-unrolling bound until coverage improves",
+              "fraction": 0,
+              "feedback": "Raising a bound addresses loops, not the systematic flipping of a branch to reach its other side."
             }
           ],
-          "generalFeedback": "An SMT (Satisfiability Modulo Theories) solver — generically, the constraint solver — takes the path condition's formula and determines satisfiability, returning a satisfying assignment (a concrete test input) when one exists.",
-          "usecase": false
+          "generalFeedback": "DSE records the branch conditions taken on a concrete run, then negates one (usually the last unexplored) and asks the solver for inputs satisfying the prefix plus the negated condition — driving execution down the sibling path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mitigating path explosion",
+          "text": "<p>Which of the following is a recognized technique for mitigating path explosion?</p>",
+          "answers": [
+            {
+              "text": "State merging — combining multiple symbolic states at join points into one (with a disjunctive path condition)",
+              "fraction": 100,
+              "feedback": "Correct — merging reduces the number of states carried forward."
+            },
+            {
+              "text": "Disabling the constraint solver entirely",
+              "fraction": 0,
+              "feedback": "Without a solver you cannot test feasibility at all; this does not address path counts."
+            },
+            {
+              "text": "Adding more branches to the program",
+              "fraction": 0,
+              "feedback": "More branches increase, not reduce, the number of paths."
+            },
+            {
+              "text": "Raising every solver timeout to infinity",
+              "fraction": 0,
+              "feedback": "That affects individual queries, not the exponential growth in the number of paths."
+            }
+          ],
+          "generalFeedback": "Common mitigations include state merging, function/path summaries, search heuristics, and bounded exploration — all aimed at controlling the exponential number of states rather than solving each faster.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Handling loops",
+          "text": "<p>To keep exploration finite, a loop whose iteration count depends on symbolic input is commonly handled by:</p>",
+          "answers": [
+            {
+              "text": "Bounded unrolling — exploring the loop body up to a fixed number of iterations",
+              "fraction": 100,
+              "feedback": "Correct — a bound caps the otherwise unbounded set of loop paths."
+            },
+            {
+              "text": "Enumerating all possible iteration counts exhaustively",
+              "fraction": 0,
+              "feedback": "With a symbolic bound this can be unbounded, which is exactly what causes path explosion."
+            },
+            {
+              "text": "Ignoring the loop and skipping its body",
+              "fraction": 0,
+              "feedback": "Skipping the body would miss the behavior under test and misrepresent the program."
+            },
+            {
+              "text": "Rewriting the loop as unreachable code",
+              "fraction": 0,
+              "feedback": "The loop is part of the program's semantics and cannot simply be discarded."
+            }
+          ],
+          "generalFeedback": "Because a symbolic loop can spawn unboundedly many paths, engines typically unroll it up to a chosen depth (or use loop summaries/invariants) to keep the exploration finite, accepting incompleteness beyond the bound.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why UNSAT means dead",
+          "text": "<p>If a path's condition is unsatisfiable, why is that path \"dead\" (needs no test)?</p>",
+          "answers": [
+            {
+              "text": "No concrete input can satisfy the constraints, so no execution can ever follow that path",
+              "fraction": 100,
+              "feedback": "Correct — UNSAT means the path is unreachable, so it needs no test."
+            },
+            {
+              "text": "The path is reachable but too slow to test",
+              "fraction": 0,
+              "feedback": "UNSAT is about reachability, not performance; the path cannot be taken at all."
+            },
+            {
+              "text": "The solver is broken and should be replaced",
+              "fraction": 0,
+              "feedback": "UNSAT is a valid, informative result, not a solver failure."
+            },
+            {
+              "text": "Any input will follow the path, so it is trivially covered",
+              "fraction": 0,
+              "feedback": "That would be a tautology (always SAT); UNSAT is the opposite — no input follows it."
+            }
+          ],
+          "generalFeedback": "An unsatisfiable path condition has no satisfying assignment, so there is no input that drives execution down it — the path is infeasible/dead and correctly generates no test case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limitation: nonlinear constraints",
+          "text": "<p>Why can nonlinear integer constraints (e.g. <code>x * y == 30</code> with x, y symbolic) limit symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "Such constraints are hard or undecidable for solvers, so the solver may fail or time out on the path condition",
+              "fraction": 100,
+              "feedback": "Correct — nonlinear integer arithmetic is notoriously difficult (undecidable in general)."
+            },
+            {
+              "text": "Nonlinear constraints always have infinitely many solutions, so they cannot be tested",
+              "fraction": 0,
+              "feedback": "Number of solutions is not the issue; the difficulty is that the solver may not decide them."
+            },
+            {
+              "text": "Solvers reject any constraint containing a multiplication",
+              "fraction": 0,
+              "feedback": "Solvers handle multiplication by constants easily; the hard case is symbol × symbol, and it is difficulty, not outright rejection."
+            },
+            {
+              "text": "Nonlinear constraints turn every path infeasible",
+              "fraction": 0,
+              "feedback": "They do not make paths infeasible; they make the feasibility question hard to answer."
+            }
+          ],
+          "generalFeedback": "Linear arithmetic is decidable and efficient, but nonlinear integer arithmetic is undecidable in general; when a path condition contains symbol-by-symbol products, the solver may be unable to resolve it, limiting the engine's precision.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limitation: external calls",
+          "text": "<p>A pure symbolic execution engine struggles when the code calls an external/native function (e.g. a system call) whose source it cannot analyze because:</p>",
+          "answers": [
+            {
+              "text": "The call's effect on the symbolic state is opaque, so constraints cannot be propagated through it",
+              "fraction": 100,
+              "feedback": "Correct — this is a key motivation for concolic execution, which uses the concrete return value."
+            },
+            {
+              "text": "External functions always crash the engine",
+              "fraction": 0,
+              "feedback": "They do not necessarily crash it; the problem is that their symbolic effect is unknown."
+            },
+            {
+              "text": "External calls make every path condition a tautology",
+              "fraction": 0,
+              "feedback": "They do not trivialize constraints; they leave the engine unable to track them precisely."
+            },
+            {
+              "text": "The solver refuses to run whenever I/O is present",
+              "fraction": 0,
+              "feedback": "The solver is unaffected; the issue is missing symbolic semantics for the external call."
+            }
+          ],
+          "generalFeedback": "Without a model of the external function, the engine cannot express its output as a symbolic expression of the inputs, so it loses precision — concolic execution sidesteps this by plugging in the concrete value observed at runtime.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limitation: pointer aliasing",
+          "text": "<p>Why does pointer aliasing complicate symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "When two pointers may reference the same location, the engine cannot statically tell which symbolic memory a read/write affects, forcing case splits or imprecision",
+              "fraction": 100,
+              "feedback": "Correct — unresolved aliasing multiplies cases or loses precision."
+            },
+            {
+              "text": "Pointers cannot be represented symbolically at all",
+              "fraction": 0,
+              "feedback": "Pointers can be modeled; the difficulty is resolving which location they refer to."
+            },
+            {
+              "text": "Aliasing makes the path condition always satisfiable",
+              "fraction": 0,
+              "feedback": "Aliasing affects memory modeling, not the trivial satisfiability of constraints."
+            },
+            {
+              "text": "Aliasing only matters for concrete execution, never symbolic",
+              "fraction": 0,
+              "feedback": "It is especially problematic for symbolic execution, which must reason about all possible aliasing."
+            }
+          ],
+          "generalFeedback": "If p and q might alias, a write through p may or may not change what q reads; the engine must either split into cases (p == q vs p ≠ q) or approximate, both of which cost precision or add paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic execution vs random testing",
+          "text": "<p>A branch <code>if (x == 987654321)</code> depends on a 32-bit symbolic input x. Compared with random testing, symbolic execution:</p>",
+          "answers": [
+            {
+              "text": "Solves x == 987654321 directly and hits the branch immediately, whereas random testing has about a 1-in-2³² chance per try",
+              "fraction": 100,
+              "feedback": "Correct — the solver computes the exact value; random guessing almost never lands it."
+            },
+            {
+              "text": "Has the same tiny probability of reaching the branch as random testing",
+              "fraction": 0,
+              "feedback": "Symbolic execution does not guess; it solves the equality exactly."
+            },
+            {
+              "text": "Cannot reach the branch because equalities are unsolvable",
+              "fraction": 0,
+              "feedback": "A linear equality like this is trivially solvable; the solver returns x = 987654321."
+            },
+            {
+              "text": "Must enumerate all 2³² inputs first",
+              "fraction": 0,
+              "feedback": "No enumeration is needed; the solver derives the satisfying value directly."
+            }
+          ],
+          "generalFeedback": "Narrow equality guards are the classic case where symbolic execution shines: it solves the constraint for the exact value, while random/fuzz testing is astronomically unlikely to hit it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exact PC through nested branches (UNSAT)",
+          "text": "<p>For <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code> (a, b symbolic), is the path reaching <code>T</code> feasible?</p>",
+          "answers": [
+            {
+              "text": "No — its path condition (a + b > 10) ∧ (a < 3) ∧ (b < 3) is unsatisfiable",
+              "fraction": 100,
+              "feedback": "Correct — a < 3 and b < 3 force a + b < 6, contradicting a + b > 10."
+            },
+            {
+              "text": "Yes — for example a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "a = 2, b = 2 gives a + b = 4, which is not > 10."
+            },
+            {
+              "text": "Yes — for example a = 8, b = 8",
+              "fraction": 0,
+              "feedback": "a = 8 violates a < 3, so the second branch is not taken."
+            },
+            {
+              "text": "Only for negative a and b",
+              "fraction": 0,
+              "feedback": "Negative values make a + b even smaller, so a + b > 10 still fails."
+            }
+          ],
+          "generalFeedback": "Conjoin the three branch outcomes: a < 3 and b < 3 imply a + b < 6, which cannot also satisfy a + b > 10. The path condition is UNSAT, so T is unreachable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exact PC through nested branches (SAT)",
+          "text": "<p>For <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code> (x, y symbolic), which input reaches <code>T</code>?</p>",
+          "answers": [
+            {
+              "text": "x = 1, y = 2",
+              "fraction": 100,
+              "feedback": "Correct — 1 > 0, 2 == 1 + 1, and 2 < 10 all hold."
+            },
+            {
+              "text": "x = 1, y = 1",
+              "fraction": 0,
+              "feedback": "y must equal x + 1 = 2, not 1."
+            },
+            {
+              "text": "x = 0, y = 1",
+              "fraction": 0,
+              "feedback": "x = 0 fails x > 0, so the outer branch is not taken."
+            },
+            {
+              "text": "x = 10, y = 11",
+              "fraction": 0,
+              "feedback": "y = 11 fails y < 10, so the innermost branch is not taken."
+            }
+          ],
+          "generalFeedback": "The path condition is (x > 0) ∧ (y == x + 1) ∧ (y < 10). x = 1, y = 2 satisfies all three, so it reaches T.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compositional summaries",
+          "text": "<p>A technique that symbolically analyzes a function once and reuses the result at each call site, instead of re-exploring the callee's paths every time, is called a:</p>",
+          "answers": [
+            {
+              "text": "Function (path) summary",
+              "fraction": 100,
+              "feedback": "Correct — compositional symbolic execution reuses per-function summaries to curb path explosion."
+            },
+            {
+              "text": "Loop invariant",
+              "fraction": 0,
+              "feedback": "An invariant characterizes a loop, not a reusable summary of a function's input/output constraints."
+            },
+            {
+              "text": "Test oracle",
+              "fraction": 0,
+              "feedback": "An oracle decides pass/fail; it is not a reusable analysis of a function."
+            },
+            {
+              "text": "Control-flow graph",
+              "fraction": 0,
+              "feedback": "The CFG is static structure, not a reusable symbolic result for a function."
+            }
+          ],
+          "generalFeedback": "Compositional (summary-based) symbolic execution records a function's behavior as a set of (precondition ⇒ effect) constraints and reuses it at every call, avoiding repeated exploration of the callee — a key path-explosion mitigation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "State-merging trade-off",
+          "text": "<p>State merging reduces the number of symbolic states, but what is its main trade-off?</p>",
+          "answers": [
+            {
+              "text": "The merged path condition contains disjunctions/if-then-else terms, which can make solver queries harder",
+              "fraction": 100,
+              "feedback": "Correct — fewer states, but more complex constraints to solve."
+            },
+            {
+              "text": "It makes the analysis unsound, missing real paths",
+              "fraction": 0,
+              "feedback": "Correct merging is sound; the cost is harder solver queries, not lost paths."
+            },
+            {
+              "text": "It requires abandoning the constraint solver",
+              "fraction": 0,
+              "feedback": "Merging still relies on the solver — indeed on harder queries."
+            },
+            {
+              "text": "It doubles the number of states instead of reducing them",
+              "fraction": 0,
+              "feedback": "Merging combines states, reducing their count; the downside is constraint complexity."
+            }
+          ],
+          "generalFeedback": "Merging two states at a join point replaces two simpler path conditions with one that encodes both via disjunction (or ite-terms). This lowers state count but shifts the burden onto the solver, which now faces more complex formulas.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Loops cause unbounded paths",
+          "text": "<p>A loop whose iteration count depends on symbolic input can generate an unbounded number of paths, which is a direct source of path explosion.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each additional iteration forks a new set of paths, so the count can grow without bound, hence bounded unrolling is used."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A symbolic loop bound lets the loop take arbitrarily many iterations, each spawning more paths — a classic cause of path explosion."
+            }
+          ],
+          "generalFeedback": "When the number of iterations is symbolic, exploring 0, 1, 2, … iterations yields ever more paths with no finite ceiling, so engines cap exploration with bounded unrolling (or loop summaries)."
         }
       ]
     },
@@ -10172,8 +11252,66 @@ export const QUIZ_RENDERED = {
       "easy": [
         {
           "type": "multichoice",
+          "name": "什麼是符號執行",
+          "text": "<p><strong>符號執行（symbolic execution）</strong>在做什麼？</p>",
+          "answers": [
+            {
+              "text": "它以符號化（未知的）輸入來執行程式，而非具體數值，並沿著每條路徑追蹤這些輸入所需滿足的限制式",
+              "fraction": 100,
+              "feedback": "正確——輸入是符號，引擎推理的是這些符號必須滿足的限制式。"
+            },
+            {
+              "text": "它以大量隨機的具體輸入反覆執行程式，並記錄失敗",
+              "fraction": 0,
+              "feedback": "那是隨機／模糊測試；符號執行推理的是符號，而非固定的隨機值。"
+            },
+            {
+              "text": "它靜態地計算既有測試套件所涵蓋的程式行數",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測，並非符號執行。"
+            },
+            {
+              "text": "它把程式翻譯成更快的機器碼表示",
+              "fraction": 0,
+              "feedback": "那描述的是編譯器／最佳化工具，而非符號執行。"
+            }
+          ],
+          "generalFeedback": "符號執行把程式輸入視為符號變數，並在走訪每條路徑時累積這些符號必須滿足的限制式——因此能一次推理整類輸入，而不只是單一具體執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號值與具體值",
+          "text": "<p>執行期間，<strong>符號值（symbolic value）</strong>與<strong>具體值（concrete value）</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "具體值是單一固定值（例如 7）；符號值則是一個未知數，代表其限制式所允許的任何值",
+              "fraction": 100,
+              "feedback": "正確——像 x 這樣的符號代表一整組可能的值。"
+            },
+            {
+              "text": "符號值一定比具體值更大",
+              "fraction": 0,
+              "feedback": "大小無關緊要；差別在於「固定值」與「帶限制式的未知數」。"
+            },
+            {
+              "text": "兩者相同，「符號」只是「具體」的另一種說法",
+              "fraction": 0,
+              "feedback": "兩者並不相同——具體值是固定的，符號值是未知數。"
+            },
+            {
+              "text": "具體值可以是一條公式，符號值不行",
+              "fraction": 0,
+              "feedback": "恰好相反：符號值是運算式／公式，具體值則是固定資料。"
+            }
+          ],
+          "generalFeedback": "具體執行以固定資料計算（x = 7）；符號執行以符號（x）計算，建立其上的運算式與限制式，使一次分析涵蓋許多具體輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
           "name": "路徑條件",
-          "text": "<p>符號執行（symbolic execution）引擎所建立的路徑條件（path condition）是指：</p>",
+          "text": "<p>符號執行引擎所建立的路徑條件（path condition）是指：</p>",
           "answers": [
             {
               "text": "沿著一條執行路徑累積的所有分支限制式（branch constraints）的合取（conjunction），以符號化輸入變數表示",
@@ -10201,6 +11339,318 @@ export const QUIZ_RENDERED = {
         },
         {
           "type": "multichoice",
+          "name": "什麼是符號狀態",
+          "text": "<p>在符號執行的某個時點，<strong>符號狀態（symbolic state）</strong>主要由什麼構成？</p>",
+          "answers": [
+            {
+              "text": "每個程式變數對應的符號運算式，連同當前的路徑條件",
+              "fraction": 100,
+              "feedback": "正確——變數對應到以符號表示的運算式，再加上目前累積的限制式。"
+            },
+            {
+              "text": "只有每個變數的具體數值內容",
+              "fraction": 0,
+              "feedback": "那是具體狀態；符號狀態把變數對應到符號運算式。"
+            },
+            {
+              "text": "已經產生的測試案例清單",
+              "fraction": 0,
+              "feedback": "產生的測試是輸出；符號狀態是當前「變數對運算式」的對應加上路徑條件。"
+            },
+            {
+              "text": "被分析程式的原始碼",
+              "fraction": 0,
+              "feedback": "原始碼是程式本身；符號狀態是引擎執行程式時所維護的執行期抽象。"
+            }
+          ],
+          "generalFeedback": "符號狀態把每個變數綁定到一條符號運算式（以輸入符號表示），並攜帶路徑條件——即執行要抵達此處所必須成立的限制式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要探索路徑",
+          "text": "<p>符號執行為何要分別探索不同的程式路徑？</p>",
+          "answers": [
+            {
+              "text": "因為每條路徑對應一組不同的輸入限制式，求解它們就能得到能觸發該特定行為的輸入",
+              "fraction": 100,
+              "feedback": "正確——不同路徑給出不同的路徑條件，各自都可求解出一個測試輸入。"
+            },
+            {
+              "text": "因為程式一次只能編譯一條路徑",
+              "fraction": 0,
+              "feedback": "編譯與此無關；路徑探索是為了推理不同的分支結果。"
+            },
+            {
+              "text": "因為路徑必須依其程式碼的字母順序執行",
+              "fraction": 0,
+              "feedback": "並無此排序要求；重點在於每條路徑各有其限制式。"
+            },
+            {
+              "text": "因為任何程式中永遠只有一條路徑可行",
+              "fraction": 0,
+              "feedback": "通常有許多條路徑可行，這正是要逐一探索它們的原因。"
+            }
+          ],
+          "generalFeedback": "不同的分支結果導致不同的路徑條件；藉由探索每條路徑，引擎可求解其條件，產生正好驅動程式走向該行為的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "求解路徑條件以取得測試輸入",
+          "text": "<p>一旦建立好路徑條件，符號執行如何把它轉換成具體的測試輸入？</p>",
+          "answers": [
+            {
+              "text": "向求解器請求一組能滿足該路徑條件的符號化輸入指派",
+              "fraction": 100,
+              "feedback": "正確——一組滿足指派正是能走上該路徑的具體輸入。"
+            },
+            {
+              "text": "為每個輸入隨機挑一個值，並期望剛好符合",
+              "fraction": 0,
+              "feedback": "不需要猜測；求解器會直接從限制式算出滿足指派。"
+            },
+            {
+              "text": "把路徑條件嵌進程式後重新編譯",
+              "fraction": 0,
+              "feedback": "不涉及重新編譯；路徑條件是交給限制式求解器。"
+            },
+            {
+              "text": "計算該路徑包含多少個分支",
+              "fraction": 0,
+              "feedback": "計算分支數不會產生輸入值；求解限制式才會。"
+            }
+          ],
+          "generalFeedback": "路徑條件的一組滿足指派，就是一個在執行時會驅動程式走上該路徑的具體輸入——這就是符號執行產生測試輸入的方式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "輸入如何被處理",
+          "text": "<p>符號執行開始時，程式輸入被視為什麼？</p>",
+          "answers": [
+            {
+              "text": "全新的符號變數，尚無固定值",
+              "fraction": 100,
+              "feedback": "正確——輸入一開始是未受限制的符號。"
+            },
+            {
+              "text": "在程式指派前一律為零",
+              "fraction": 0,
+              "feedback": "輸入並非預設為零；它們成為符號，其值隨著分支被走訪而受到限制。"
+            },
+            {
+              "text": "單一個隨機挑選的常數",
+              "fraction": 0,
+              "feedback": "那會是具體測試；符號執行讓輸入維持符號化。"
+            },
+            {
+              "text": "該型別所能容納的最大值",
+              "fraction": 0,
+              "feedback": "並無此預設；輸入是符號變數。"
+            }
+          ],
+          "generalFeedback": "每個輸入都成為一個全新的符號。程式分支時，這些符號上的限制式便累積進路徑條件。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "一次推理許多輸入",
+          "text": "<p>藉由讓輸入維持符號化，單一條符號路徑就能一次刻劃出許多具體輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——路徑條件描述的是走上該路徑的整組具體輸入，而不只是單一個。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "一條符號路徑的條件涵蓋了所有會走上該路徑的具體輸入，因此一條路徑代表許多輸入。"
+            }
+          ],
+          "generalFeedback": "由於路徑條件是符號上的限制式，它代表所有滿足它的具體輸入所成的集合——一條符號路徑總結了許多具體執行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "引擎為每個變數追蹤什麼",
+          "text": "<p>執行 <code>a = x + 1; b = a * 2;</code>（x 為符號化輸入）之後，引擎為 <code>b</code> 記錄什麼？</p>",
+          "answers": [
+            {
+              "text": "符號運算式 (x + 1) * 2",
+              "fraction": 100,
+              "feedback": "正確——b 存的是以符號 x 表示的運算式，而非一個數字。"
+            },
+            {
+              "text": "單一個具體數字",
+              "fraction": 0,
+              "feedback": "x 沒有具體值，因此 b 不可能是固定數字；它是一條運算式。"
+            },
+            {
+              "text": "什麼都沒有，因為 b 不是從輸入讀入的",
+              "fraction": 0,
+              "feedback": "即使是由其他變數推導而來，指派仍會更新符號狀態。"
+            },
+            {
+              "text": "路徑條件 x + 1 > 0",
+              "fraction": 0,
+              "feedback": "這裡沒有走任何分支，路徑條件不變；b 只是取得一條運算式。"
+            }
+          ],
+          "generalFeedback": "符號執行以由輸入建構的符號運算式更新每個被指派的變數；此處 b 成為 (x + 1) * 2，而因為沒有分支發生，路徑條件維持不變。",
+          "single": true
+        },
+        {
+          "type": "shortanswer",
+          "name": "判定路徑條件可滿足性的元件",
+          "text": "<p>負責判定路徑條件是否可滿足的元件叫做什麼？（請以英文術語或縮寫回答）</p>",
+          "answers": [
+            {
+              "text": "solver",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "SMT*",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "constraint solver*",
+              "fraction": 100,
+              "feedback": "正確。"
+            }
+          ],
+          "generalFeedback": "SMT（Satisfiability Modulo Theories）求解器——泛稱限制式求解器——會接收路徑條件的公式並判斷其可滿足性，若存在滿足解，便回傳一組滿足指派（也就是具體的測試輸入）。",
+          "usecase": false
+        },
+        {
+          "type": "truefalse",
+          "name": "符號值代表一個集合",
+          "text": "<p>符號值可理解為代表在當前限制式下，它所有可能取到的具體值所成的集合。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這正是為何一次符號執行能推廣到許多具體輸入。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "符號代表其限制式所允許的任何值，也就是一整組可能的具體值。"
+            }
+          ],
+          "generalFeedback": "受路徑條件限制的符號，代表滿足這些限制式的具體值所成的集合，這正是符號執行普遍性的來源。"
+        },
+        {
+          "type": "multichoice",
+          "name": "在測試中的用途",
+          "text": "<p>符號執行在軟體測試中一個常見的實務目標是：</p>",
+          "answers": [
+            {
+              "text": "自動產生能抵達特定路徑或觸發錯誤的輸入",
+              "fraction": 100,
+              "feedback": "正確——求解路徑條件能得到有針對性的測試輸入。"
+            },
+            {
+              "text": "自動撰寫程式的說明文件",
+              "fraction": 0,
+              "feedback": "那與符號執行無關。"
+            },
+            {
+              "text": "取代對編譯器的需求",
+              "fraction": 0,
+              "feedback": "符號執行分析程式，並不取代編譯。"
+            },
+            {
+              "text": "量測網路延遲",
+              "fraction": 0,
+              "feedback": "那是效能議題，並非符號執行所處理的問題。"
+            }
+          ],
+          "generalFeedback": "藉由算出能走上選定路徑的輸入，符號執行支援自動化測試產生與高覆蓋率的錯誤搜尋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "遇到以符號為條件的分支",
+          "text": "<p>當執行抵達一個條件取決於符號化輸入的分支時，符號執行引擎通常會：</p>",
+          "answers": [
+            {
+              "text": "同時考慮兩種結果，沿著每個可行的方向繼續，並把該條件加入其路徑條件",
+              "fraction": 100,
+              "feedback": "正確——引擎會分岔，在可行處同時探索 true 與 false 兩個方向。"
+            },
+            {
+              "text": "永遠走 true 分支，忽略 false 分支",
+              "fraction": 0,
+              "feedback": "兩個方向都重要；引擎不會任意固定某一種結果。"
+            },
+            {
+              "text": "立即停止執行",
+              "fraction": 0,
+              "feedback": "符號分支是探索倍增之處，而非停止之處。"
+            },
+            {
+              "text": "沿用上一個測試案例所走的分支",
+              "fraction": 0,
+              "feedback": "並無先前的測試案例決定這件事；引擎會探索兩個可行結果。"
+            }
+          ],
+          "generalFeedback": "在符號分支處引擎會分岔：一個狀態加入該條件，另一個加入其否定，各個可行狀態再繼續自己的探索。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體執行 vs 符號執行",
+          "text": "<p>對同一支程式，下列哪一項最能對比「具體執行」與「符號執行」？</p>",
+          "answers": [
+            {
+              "text": "具體執行對其固定輸入只會走恰好一條路徑；符號執行則透過符號化輸入上的限制式推理許多條路徑",
+              "fraction": 100,
+              "feedback": "正確——具體＝每組輸入一條路徑；符號＝以限制式為基礎的探索。"
+            },
+            {
+              "text": "具體執行會探索每一條路徑，符號執行只探索一條",
+              "fraction": 0,
+              "feedback": "恰好相反：具體執行只走恰好一條路徑。"
+            },
+            {
+              "text": "兩者永遠都只探索同一條路徑",
+              "fraction": 0,
+              "feedback": "符號執行通常推理多條路徑，與單一具體執行不同。"
+            },
+            {
+              "text": "兩種執行都不取決於輸入",
+              "fraction": 0,
+              "feedback": "具體執行取決於其固定輸入；符號執行則對符號化輸入加以限制。"
+            }
+          ],
+          "generalFeedback": "以具體輸入執行會確定地走一條路徑；符號執行則建立路徑條件，一次刻劃並探索許多路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "路徑條件是布林公式",
+          "text": "<p>路徑條件是一條定義在符號化輸入變數上的布林公式。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它是分支限制式的合取，也就是定義在輸入符號上的布林公式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "路徑條件正是定義在符號化輸入上的一條布林公式（限制式的合取）。"
+            }
+          ],
+          "generalFeedback": "每個分支貢獻一條限制式；合取起來，它們構成定義在輸入符號上的布林公式——即路徑條件——求解器可據以檢查可滿足性。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
           "name": "偵測不可行路徑",
           "text": "<p>符號執行引擎所探索的一條路徑，何時會被判定為不可行（infeasible）？</p>",
           "answers": [
@@ -10226,35 +11676,6 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "路徑條件是一條邏輯公式；當求解器判定該公式為 UNSAT 時，就代表這條路徑不可行——也就是說，符號化輸入無論如何指派，都不可能讓執行走上這條路徑。",
-          "single": true
-        },
-        {
-          "type": "multichoice",
-          "name": "可擴展性瓶頸",
-          "text": "<p>符號執行擴展到大型程式時，主要的障礙是什麼？</p>",
-          "answers": [
-            {
-              "text": "路徑爆炸（path explosion）——相異路徑的數量隨著分支與迴圈呈指數成長",
-              "fraction": 100,
-              "feedback": "正確——這是符號執行最典型的可擴展性瓶頸。"
-            },
-            {
-              "text": "被插樁（instrumented）程式的記憶體洩漏",
-              "fraction": 0,
-              "feedback": "這不是典型瓶頸；記憶體洩漏是一般程式分析普遍會遇到的問題，並非符號執行擴展性的特有議題。"
-            },
-            {
-              "text": "測試諭示問題（oracle problem）——不知道正確的預期輸出",
-              "fraction": 0,
-              "feedback": "測試諭示問題廣泛影響測試結果的驗證；符號執行本身的核心擴展性瓶頸在於路徑數量，而非諭示。"
-            },
-            {
-              "text": "不穩定、不確定性的測試（flaky tests）",
-              "fraction": 0,
-              "feedback": "測試不穩定屬於動態測試的議題；符號執行是針對路徑做靜態推理，其瓶頸在於路徑數量本身。"
-            }
-          ],
-          "generalFeedback": "由於每個分支都可能使待探索的路徑數量加倍，而迴圈更會貢獻大量額外路徑，路徑數量會呈指數成長——即路徑爆炸——使得對大型或迴圈密集程式進行窮舉式符號執行變得不可行。",
           "single": true
         },
         {
@@ -10287,6 +11708,403 @@ export const QUIZ_RENDERED = {
           "single": true
         },
         {
+          "type": "multichoice",
+          "name": "可行等於可滿足",
+          "text": "<p>一條路徑<strong>可行（feasible）</strong>，恰好當其路徑條件為：</p>",
+          "answers": [
+            {
+              "text": "可滿足（satisfiable）——至少存在一組符號化輸入的指派使其為真",
+              "fraction": 100,
+              "feedback": "正確——一組滿足指派就是一個能走上該路徑的具體輸入。"
+            },
+            {
+              "text": "不可滿足（unsatisfiable）",
+              "fraction": 0,
+              "feedback": "不可滿足是不可行路徑的定義，恰好相反。"
+            },
+            {
+              "text": "恆真式（對每一組指派都為真）",
+              "fraction": 0,
+              "feedback": "可行只需一組滿足指派，並不要求所有指派都滿足它。"
+            },
+            {
+              "text": "不含任何分支限制式",
+              "fraction": 0,
+              "feedback": "可行路徑可帶有許多限制式；重點是它們共同可滿足。"
+            }
+          ],
+          "generalFeedback": "可行性與可滿足性一致：一條路徑能被實際執行，若且唯若有某輸入滿足其路徑條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在分支處分岔",
+          "text": "<p>在符號值上遇到 <code>if (c)</code>、且當前路徑條件為 <code>PC</code> 時，引擎會分岔成兩個狀態，其路徑條件為：</p>",
+          "answers": [
+            {
+              "text": "then 分支為 PC ∧ c，else 分支為 PC ∧ ¬c",
+              "fraction": 100,
+              "feedback": "正確——每個後繼都把分支結果合取到既有的 PC 上。"
+            },
+            {
+              "text": "一個分支為 c，另一個為 ¬c，捨棄 PC",
+              "fraction": 0,
+              "feedback": "PC 中先前的限制式必須保留；新結果是被合取，而非取代。"
+            },
+            {
+              "text": "PC ∨ c 與 PC ∨ ¬c",
+              "fraction": 0,
+              "feedback": "分支結果是合取（∧），而非析取（∨）；PC ∨ ¬c 會削弱限制式。"
+            },
+            {
+              "text": "兩個分支都是 PC ∧ c",
+              "fraction": 0,
+              "feedback": "else 分支必須加入 ¬c，而非 c。"
+            }
+          ],
+          "generalFeedback": "分岔會保留累積的 PC 並加入分支結果：then 狀態得到 PC ∧ c，else 狀態得到 PC ∧ ¬c，接著各自檢查可滿足性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單一 if 的路徑條件",
+          "text": "<p>對於 <code>read x; if (x &gt; 0) y = x; else y = -x;</code>，走 <em>true</em> 分支那條路徑的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "x > 0",
+              "fraction": 100,
+              "feedback": "正確——走 true 分支恰好加入限制式 x > 0。"
+            },
+            {
+              "text": "x ≤ 0",
+              "fraction": 0,
+              "feedback": "那是 else 分支的條件，而非 true 分支。"
+            },
+            {
+              "text": "y = x",
+              "fraction": 0,
+              "feedback": "那是一個指派（符號狀態的更新），並非路徑條件中的分支限制式。"
+            },
+            {
+              "text": "x > 0 ∧ x ≤ 0",
+              "fraction": 0,
+              "feedback": "這條路徑只走了一個分支結果；把兩者合取會使其不可滿足。"
+            }
+          ],
+          "generalFeedback": "這條路徑上唯一的分支是 x > 0，取為真，因此路徑條件就是 x > 0。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "推導測試輸入",
+          "text": "<p>某條路徑的路徑條件為 <code>(x &gt; 0) ∧ (x &lt; 10)</code>。下列哪個具體輸入是能走上這條路徑的有效測試輸入？</p>",
+          "answers": [
+            {
+              "text": "x = 5",
+              "fraction": 100,
+              "feedback": "正確——5 > 0 且 5 < 10，滿足整條路徑條件。"
+            },
+            {
+              "text": "x = 0",
+              "fraction": 0,
+              "feedback": "0 不 > 0，第一個限制式不成立。"
+            },
+            {
+              "text": "x = 10",
+              "fraction": 0,
+              "feedback": "10 不 < 10，第二個限制式不成立。"
+            },
+            {
+              "text": "x = -3",
+              "fraction": 0,
+              "feedback": "-3 不 > 0，第一個限制式不成立。"
+            }
+          ],
+          "generalFeedback": "測試輸入是任何滿足整條路徑條件的指派。只有 x = 5 嚴格落在 0 與 10 之間。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑數：兩個接續的 if",
+          "text": "<p>下列片段有幾條執行路徑？<code>if (a) {...} if (b) {...}</code>（兩個接續、彼此獨立的 if；a 與 b 為獨立的符號條件）</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每個 if 有 2 種結果且彼此獨立：2 × 2 = 4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只算了一個 if；兩個獨立的 if 相乘為 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "結果是相乘（2 × 2 = 4），而非相加為 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "符號條件下兩個 if 都會分岔，路徑不只一條。"
+            }
+          ],
+          "generalFeedback": "獨立分支相乘：兩個各有 true/false 的 if 給出 2 × 2 = 4 條路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 true/true 的路徑條件",
+          "text": "<p>對於 <code>if (x &gt; 0) { if (y &lt; 5) { ... } }</code>，要抵達最內層區塊（兩個分支皆為真）的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "(x > 0) ∧ (y < 5)",
+              "fraction": 100,
+              "feedback": "正確——沿路徑把兩個分支結果合取起來。"
+            },
+            {
+              "text": "(x > 0) ∨ (y < 5)",
+              "fraction": 0,
+              "feedback": "抵達內層區塊需要兩個條件同時成立，故為合取而非析取。"
+            },
+            {
+              "text": "(x > 0) ∧ (y ≥ 5)",
+              "fraction": 0,
+              "feedback": "內層 true 分支需要 y < 5，而非 y ≥ 5。"
+            },
+            {
+              "text": "只有 (y < 5)",
+              "fraction": 0,
+              "feedback": "要抵達內層 if，外層條件 x > 0 也必須成立。"
+            }
+          ],
+          "generalFeedback": "每個巢狀 true 分支都加入其條件；要抵達內層區塊需要 (x > 0) ∧ (y < 5)。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一條不可行的巢狀路徑",
+          "text": "<p>在 <code>if (x &gt; 0) { if (x &lt; 0) { BUG; } }</code> 中，抵達 <code>BUG</code> 的路徑其狀態為何？</p>",
+          "answers": [
+            {
+              "text": "不可行——其路徑條件 (x > 0) ∧ (x < 0) 不可滿足",
+              "fraction": 100,
+              "feedback": "正確——沒有 x 同時為正又為負，故 BUG 無法抵達。"
+            },
+            {
+              "text": "當 x = 0 時可行",
+              "fraction": 0,
+              "feedback": "x = 0 既不滿足 x > 0 也不滿足 x < 0，而兩者都需要。"
+            },
+            {
+              "text": "當 x 為任意大值時可行",
+              "fraction": 0,
+              "feedback": "大的 x 滿足 x > 0 卻違反 x < 0；沒有值能同時滿足兩者。"
+            },
+            {
+              "text": "只有當 x 為負時可行",
+              "fraction": 0,
+              "feedback": "負的 x 使外層 x > 0 不成立，因此永遠抵達不了內層區塊。"
+            }
+          ],
+          "generalFeedback": "路徑條件 (x > 0) ∧ (x < 0) 為 UNSAT，故這條路徑不可行，BUG 在此路徑上是死碼——任何測試產生器都會（正確地）無法抵達它。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "可滿足的 PC 蘊含存在輸入",
+          "text": "<p>若一條路徑條件可滿足，則存在至少一個具體輸入能驅動執行走上該路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——一組滿足指派正是這樣的一個具體輸入。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "可滿足性保證存在一組滿足指派，也就是一個會走上該路徑的輸入。"
+            }
+          ],
+          "generalFeedback": "路徑條件的可滿足性等同於路徑的可行性：求解器給出的模型就是一個能走上該路徑的具體輸入。"
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑數：單一 if-else",
+          "text": "<p>單一個 <code>if (c) {...} else {...}</code>（c 為符號，且無巢狀分支）有幾條執行路徑？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——c 為真一條、c 為假一條。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "符號條件會分裂成兩個可行方向，而非一個。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "if-else 恰有兩種結果，而非三種。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 需要兩個獨立分支；單一 if-else 是 2。"
+            }
+          ],
+          "generalFeedback": "對符號條件的單一分支給出兩條路徑：then 分支（c）與 else 分支（¬c）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "複合 PC 的輸入",
+          "text": "<p>某條路徑的路徑條件為 <code>(a ≥ 2) ∧ (b == a + 1)</code>。哪個輸入滿足它？</p>",
+          "answers": [
+            {
+              "text": "a = 2, b = 3",
+              "fraction": 100,
+              "feedback": "正確——2 ≥ 2 且 3 == 2 + 1。"
+            },
+            {
+              "text": "a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "b 必須等於 a + 1 = 3，而非 2。"
+            },
+            {
+              "text": "a = 1, b = 2",
+              "fraction": 0,
+              "feedback": "雖然 b == a + 1 成立，但 a = 1 違反 a ≥ 2。"
+            },
+            {
+              "text": "a = 3, b = 3",
+              "fraction": 0,
+              "feedback": "b 必須等於 a + 1 = 4，而非 3。"
+            }
+          ],
+          "generalFeedback": "兩個合取項都必須成立：a ≥ 2 且 b = a + 1。只有 a = 2, b = 3 同時滿足兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "指派之後的路徑條件",
+          "text": "<p>對於 <code>y = x + 1; if (y == 5) { ... }</code>（x 為符號化輸入），進入該區塊、以 x 表示的路徑條件是：</p>",
+          "answers": [
+            {
+              "text": "x + 1 == 5",
+              "fraction": 100,
+              "feedback": "正確——y 存的是運算式 x + 1，故以 x 表示的分支限制式為 x + 1 == 5（即 x == 4）。"
+            },
+            {
+              "text": "y == 5（把 y 當作一個全新的未知數保留）",
+              "fraction": 0,
+              "feedback": "y 並非獨立輸入；它被指派為 x + 1，必須代入。"
+            },
+            {
+              "text": "x == 5",
+              "fraction": 0,
+              "feedback": "那忽略了 +1；限制式是 x + 1 == 5，得 x == 4。"
+            },
+            {
+              "text": "x + 1 == 4",
+              "fraction": 0,
+              "feedback": "分支測試的是 y == 5，故限制式是 x + 1 == 5，而非 == 4。"
+            }
+          ],
+          "generalFeedback": "符號執行會代入被指派的運算式：y = x + 1，故分支 y == 5 化為以輸入 x 表示的限制式 x + 1 == 5（求解得 x == 4）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀 SAT 模型",
+          "text": "<p>求解器對某路徑的條件回傳 SAT，並附上模型 <code>{x = 4}</code>。這告訴你什麼？</p>",
+          "answers": [
+            {
+              "text": "該路徑可行，且以 x = 4 執行程式會驅動執行走上它",
+              "fraction": 100,
+              "feedback": "正確——這個模型就是一個會走上該路徑的具體測試輸入。"
+            },
+            {
+              "text": "該路徑不可行，且 x = 4 是一個反例",
+              "fraction": 0,
+              "feedback": "SAT 代表可行；模型是見證輸入，而非反例。"
+            },
+            {
+              "text": "在程式的每一條路徑上 x 都必須等於 4",
+              "fraction": 0,
+              "feedback": "該模型只適用於這一條路徑的條件，並非所有路徑。"
+            },
+            {
+              "text": "在程式重新編譯前什麼都不代表",
+              "fraction": 0,
+              "feedback": "不需重新編譯；x = 4 可直接作為測試輸入使用。"
+            }
+          ],
+          "generalFeedback": "帶模型的 SAT 結果代表路徑條件可滿足（路徑可行），且回傳的指派是一個能執行到該路徑的具體輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑數：巢狀 if",
+          "text": "<p><code>if (a) { if (b) {...} else {...} } else {...}</code>（a、b 為符號）有幾條執行路徑？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——a 為假給 1 條；a 為真時依 b 分裂成 2 條；共 3 條。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "內層 if 只存在於 a 為真那一側，故為 2 + 1 = 3，而非 2 × 2。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a 為真那一側會再依 b 分裂，多出第三條路徑。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "此處各種結果的可行組合只有三種。"
+            }
+          ],
+          "generalFeedback": "外層 if 的 else 是一條路徑；then 那側含一個 if-else 再給兩條。由於 a 為假時抵達不了內層分支，總數為 2 + 1 = 3。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "可擴展性瓶頸",
+          "text": "<p>符號執行擴展到大型程式時，主要的障礙是什麼？</p>",
+          "answers": [
+            {
+              "text": "路徑爆炸（path explosion）——相異路徑的數量隨著分支與迴圈呈指數成長",
+              "fraction": 100,
+              "feedback": "正確——這是符號執行最典型的可擴展性瓶頸。"
+            },
+            {
+              "text": "被插樁（instrumented）程式的記憶體洩漏",
+              "fraction": 0,
+              "feedback": "這不是典型瓶頸；記憶體洩漏是一般程式分析普遍會遇到的問題，並非符號執行擴展性的特有議題。"
+            },
+            {
+              "text": "測試諭示問題（oracle problem）——不知道正確的預期輸出",
+              "fraction": 0,
+              "feedback": "測試諭示問題廣泛影響測試結果的驗證；符號執行本身的核心擴展性瓶頸在於路徑數量，而非諭示。"
+            },
+            {
+              "text": "不穩定、不確定性的測試（flaky tests）",
+              "fraction": 0,
+              "feedback": "測試不穩定屬於動態測試的議題；符號執行是針對路徑做靜態推理，其瓶頸在於路徑數量本身。"
+            }
+          ],
+          "generalFeedback": "由於每個分支都可能使待探索的路徑數量加倍，而迴圈更會貢獻大量額外路徑，路徑數量會呈指數成長——即路徑爆炸——使得對大型或迴圈密集程式進行窮舉式符號執行變得不可行。",
+          "single": true
+        },
+        {
           "type": "truefalse",
           "name": "具體符號執行（concolic execution）",
           "text": "<p>具體符號執行（concolic execution，「concrete + symbolic」）結合具體執行與符號推理，用以簡化純符號執行無法求解的限制式。</p>",
@@ -10305,28 +12123,370 @@ export const QUIZ_RENDERED = {
           "generalFeedback": "具體符號執行在具體輸入上執行程式，同時追蹤符號限制式；當某個限制式過於複雜時（例如涉及不透明的函式庫呼叫），便以執行期實際觀察到的具體值取代，繞過純符號執行的求解器無法處理的運算式。"
         },
         {
-          "type": "shortanswer",
-          "name": "判定路徑條件可滿足性的元件",
-          "text": "<p>負責判定路徑條件是否可滿足的元件叫做什麼？（請以英文術語或縮寫回答）</p>",
+          "type": "multichoice",
+          "name": "在 DSE 中抵達新路徑",
+          "text": "<p>在動態符號執行（DSE／concolic）中，引擎通常如何導引執行走向尚未涵蓋的路徑？</p>",
           "answers": [
             {
-              "text": "solver",
+              "text": "它否定當前路徑上的某個分支條件，再求解修改後的路徑條件，得到走向另一方向的輸入",
               "fraction": 100,
-              "feedback": "正確。"
+              "feedback": "正確——翻轉一個分支並重新求解，就能得到走另一結果的輸入。"
             },
             {
-              "text": "SMT*",
-              "fraction": 100,
-              "feedback": "正確。"
+              "text": "它隨機擾動當前輸入，直到剛好出現新路徑",
+              "fraction": 0,
+              "feedback": "那較接近模糊測試；DSE 是刻意否定某分支並求解輸入。"
             },
             {
-              "text": "constraint solver*",
-              "fraction": 100,
-              "feedback": "正確。"
+              "text": "它從程式中刪除該分支，讓兩側合併",
+              "fraction": 0,
+              "feedback": "DSE 不會修改程式；它修改路徑條件並重新求解。"
+            },
+            {
+              "text": "它不斷提高迴圈展開上限，直到覆蓋率改善",
+              "fraction": 0,
+              "feedback": "提高上限處理的是迴圈，而非為抵達另一側而系統性地翻轉某個分支。"
             }
           ],
-          "generalFeedback": "SMT（Satisfiability Modulo Theories）求解器——泛稱限制式求解器——會接收路徑條件的公式並判斷其可滿足性，若存在滿足解，便回傳一組滿足指派（也就是具體的測試輸入）。",
-          "usecase": false
+          "generalFeedback": "DSE 會記錄一次具體執行所走的分支條件，然後否定其中一個（通常是最後一個未探索的），並向求解器索取滿足「前綴＋被否定條件」的輸入——藉此驅動執行走上兄弟路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "緩解路徑爆炸",
+          "text": "<p>下列何者是公認可緩解路徑爆炸的技術？</p>",
+          "answers": [
+            {
+              "text": "狀態合併（state merging）——在匯合點把多個符號狀態合併為一個（其路徑條件帶析取）",
+              "fraction": 100,
+              "feedback": "正確——合併能減少往後攜帶的狀態數量。"
+            },
+            {
+              "text": "完全停用限制式求解器",
+              "fraction": 0,
+              "feedback": "沒有求解器就完全無法檢查可行性；這並不能解決路徑數量的問題。"
+            },
+            {
+              "text": "在程式中加入更多分支",
+              "fraction": 0,
+              "feedback": "更多分支會增加而非減少路徑數量。"
+            },
+            {
+              "text": "把每個求解器逾時上限都調到無限大",
+              "fraction": 0,
+              "feedback": "那影響的是個別查詢，而非路徑數量的指數成長。"
+            }
+          ],
+          "generalFeedback": "常見的緩解手段包括狀態合併、函式／路徑摘要、搜尋啟發式與有界探索——都是為了控制狀態數的指數成長，而非讓每次求解更快。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "處理迴圈",
+          "text": "<p>為使探索維持有限，對於迭代次數取決於符號化輸入的迴圈，常見的處理方式是：</p>",
+          "answers": [
+            {
+              "text": "有界展開（bounded unrolling）——只探索迴圈本體達固定的迭代次數上限",
+              "fraction": 100,
+              "feedback": "正確——上限能封住原本無界的迴圈路徑集合。"
+            },
+            {
+              "text": "窮舉列出所有可能的迭代次數",
+              "fraction": 0,
+              "feedback": "在符號化上限下這可能是無界的，而這正是造成路徑爆炸的原因。"
+            },
+            {
+              "text": "忽略該迴圈並跳過其本體",
+              "fraction": 0,
+              "feedback": "跳過本體會漏掉被測行為，並錯誤呈現程式。"
+            },
+            {
+              "text": "把迴圈改寫成不可達的程式碼",
+              "fraction": 0,
+              "feedback": "迴圈是程式語意的一部分，不能就這樣丟棄。"
+            }
+          ],
+          "generalFeedback": "由於符號化的迴圈可能衍生無界多條路徑，引擎通常把它展開到某個選定深度（或使用迴圈摘要／不變量），以使探索維持有限，並接受在該上限之外的不完整性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 UNSAT 代表死路",
+          "text": "<p>若一條路徑的條件不可滿足，為何這條路徑是「死路」（無需測試）？</p>",
+          "answers": [
+            {
+              "text": "沒有任何具體輸入能滿足其限制式，因此不會有任何執行走上那條路徑",
+              "fraction": 100,
+              "feedback": "正確——UNSAT 代表該路徑不可達，故無需測試。"
+            },
+            {
+              "text": "該路徑可達，只是測起來太慢",
+              "fraction": 0,
+              "feedback": "UNSAT 談的是可達性，而非效能；該路徑根本走不上去。"
+            },
+            {
+              "text": "求解器壞了，應該更換",
+              "fraction": 0,
+              "feedback": "UNSAT 是有效且有資訊量的結果，並非求解器故障。"
+            },
+            {
+              "text": "任何輸入都會走上該路徑，所以已被輕易涵蓋",
+              "fraction": 0,
+              "feedback": "那會是恆真式（永遠 SAT）；UNSAT 恰好相反——沒有任何輸入走上它。"
+            }
+          ],
+          "generalFeedback": "不可滿足的路徑條件沒有任何滿足指派，故沒有輸入能驅動執行走上它——該路徑不可行／已死，正確地不會產生任何測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "限制：非線性限制式",
+          "text": "<p>為何非線性整數限制式（例如 x、y 為符號時的 <code>x * y == 30</code>）會限制符號執行？</p>",
+          "answers": [
+            {
+              "text": "這類限制式對求解器而言困難或不可判定，故求解器在該路徑條件上可能失敗或逾時",
+              "fraction": 100,
+              "feedback": "正確——非線性整數算術眾所皆知地困難（一般而言不可判定）。"
+            },
+            {
+              "text": "非線性限制式永遠有無限多解，因此無法測試",
+              "fraction": 0,
+              "feedback": "問題不在解的數量；困難在於求解器可能無法判定它們。"
+            },
+            {
+              "text": "求解器會拒絕任何含有乘法的限制式",
+              "fraction": 0,
+              "feedback": "求解器能輕鬆處理與常數的乘法；困難的是「符號 × 符號」，而且是難度問題，並非直接拒絕。"
+            },
+            {
+              "text": "非線性限制式會讓每條路徑都不可行",
+              "fraction": 0,
+              "feedback": "它們不會使路徑不可行；而是讓可行性問題難以回答。"
+            }
+          ],
+          "generalFeedback": "線性算術可判定且有效率，但非線性整數算術一般而言不可判定；當路徑條件含有「符號乘符號」時，求解器可能無法解出，限制了引擎的精確度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "限制：外部呼叫",
+          "text": "<p>當程式碼呼叫一個無法分析其原始碼的外部／原生函式（例如系統呼叫）時，純符號執行引擎會遇到困難，原因是：</p>",
+          "answers": [
+            {
+              "text": "該呼叫對符號狀態的影響是不透明的，因此限制式無法穿過它傳遞",
+              "fraction": 100,
+              "feedback": "正確——這正是具體符號執行的一大動機，它會改用具體回傳值。"
+            },
+            {
+              "text": "外部函式一定會使引擎當掉",
+              "fraction": 0,
+              "feedback": "不一定會當掉；問題在於其符號效果未知。"
+            },
+            {
+              "text": "外部呼叫會讓每條路徑條件都變成恆真式",
+              "fraction": 0,
+              "feedback": "它們不會讓限制式變得瑣碎；而是讓引擎無法精確追蹤它們。"
+            },
+            {
+              "text": "只要存在 I/O，求解器就拒絕執行",
+              "fraction": 0,
+              "feedback": "求解器不受影響；問題在於缺少該外部呼叫的符號語意。"
+            }
+          ],
+          "generalFeedback": "若缺少外部函式的模型，引擎就無法把其輸出表示為輸入的符號運算式，因而喪失精確度——具體符號執行藉由代入執行期觀察到的具體值來繞過此問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "限制：指標別名",
+          "text": "<p>為何指標別名（pointer aliasing）會使符號執行複雜化？</p>",
+          "answers": [
+            {
+              "text": "當兩個指標可能指向同一位置時，引擎無法靜態判定某次讀／寫影響的是哪塊符號記憶體，只好做案例分裂或犧牲精確度",
+              "fraction": 100,
+              "feedback": "正確——未解決的別名會使案例倍增或喪失精確度。"
+            },
+            {
+              "text": "指標根本無法被符號化表示",
+              "fraction": 0,
+              "feedback": "指標可以被建模；困難在於判定它們指向哪個位置。"
+            },
+            {
+              "text": "別名會讓路徑條件永遠可滿足",
+              "fraction": 0,
+              "feedback": "別名影響的是記憶體建模，而非限制式的瑣碎可滿足性。"
+            },
+            {
+              "text": "別名只對具體執行有影響，對符號執行從無影響",
+              "fraction": 0,
+              "feedback": "它對符號執行尤其棘手，因為符號執行必須推理所有可能的別名情形。"
+            }
+          ],
+          "generalFeedback": "若 p 與 q 可能別名，透過 p 的寫入可能改變、也可能不改變 q 所讀到的內容；引擎必須分裂成案例（p == q 對 p ≠ q）或做近似，兩者都會付出精確度或增加路徑的代價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號執行 vs 隨機測試",
+          "text": "<p>分支 <code>if (x == 987654321)</code> 取決於一個 32 位元的符號化輸入 x。與隨機測試相比，符號執行：</p>",
+          "answers": [
+            {
+              "text": "直接求解 x == 987654321 並立刻打中該分支；隨機測試則每次約只有 1/2³² 的機會",
+              "fraction": 100,
+              "feedback": "正確——求解器算出確切值；隨機猜測幾乎永遠打不中。"
+            },
+            {
+              "text": "抵達該分支的機率與隨機測試一樣微小",
+              "fraction": 0,
+              "feedback": "符號執行不靠猜測；它會精確地求解該等式。"
+            },
+            {
+              "text": "無法抵達該分支，因為等式無法求解",
+              "fraction": 0,
+              "feedback": "這樣的線性等式輕易可解；求解器會回傳 x = 987654321。"
+            },
+            {
+              "text": "必須先窮舉所有 2³² 種輸入",
+              "fraction": 0,
+              "feedback": "不需窮舉；求解器會直接推導出滿足值。"
+            }
+          ],
+          "generalFeedback": "狹窄的等式守衛正是符號執行大顯身手的經典情形：它會針對限制式求出確切值，而隨機／模糊測試打中它的機率微乎其微。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀分支的精確 PC（UNSAT）",
+          "text": "<p>對於 <code>if (a + b &gt; 10) { if (a &lt; 3) { if (b &lt; 3) { T; } } }</code>（a、b 為符號），抵達 <code>T</code> 的路徑可行嗎？</p>",
+          "answers": [
+            {
+              "text": "不可行——其路徑條件 (a + b > 10) ∧ (a < 3) ∧ (b < 3) 不可滿足",
+              "fraction": 100,
+              "feedback": "正確——a < 3 且 b < 3 迫使 a + b < 6，與 a + b > 10 矛盾。"
+            },
+            {
+              "text": "可行——例如 a = 2, b = 2",
+              "fraction": 0,
+              "feedback": "a = 2, b = 2 給出 a + b = 4，並不 > 10。"
+            },
+            {
+              "text": "可行——例如 a = 8, b = 8",
+              "fraction": 0,
+              "feedback": "a = 8 違反 a < 3，故第二個分支不會被走。"
+            },
+            {
+              "text": "只有當 a 與 b 為負時可行",
+              "fraction": 0,
+              "feedback": "負值會讓 a + b 更小，故 a + b > 10 仍不成立。"
+            }
+          ],
+          "generalFeedback": "把三個分支結果合取：a < 3 且 b < 3 蘊含 a + b < 6，無法同時滿足 a + b > 10。路徑條件為 UNSAT，故 T 不可達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀分支的精確 PC（SAT）",
+          "text": "<p>對於 <code>if (x &gt; 0) { if (y == x + 1) { if (y &lt; 10) { T; } } }</code>（x、y 為符號），哪個輸入能抵達 <code>T</code>？</p>",
+          "answers": [
+            {
+              "text": "x = 1, y = 2",
+              "fraction": 100,
+              "feedback": "正確——1 > 0、2 == 1 + 1、2 < 10 皆成立。"
+            },
+            {
+              "text": "x = 1, y = 1",
+              "fraction": 0,
+              "feedback": "y 必須等於 x + 1 = 2，而非 1。"
+            },
+            {
+              "text": "x = 0, y = 1",
+              "fraction": 0,
+              "feedback": "x = 0 使 x > 0 不成立，故外層分支不會被走。"
+            },
+            {
+              "text": "x = 10, y = 11",
+              "fraction": 0,
+              "feedback": "y = 11 使 y < 10 不成立，故最內層分支不會被走。"
+            }
+          ],
+          "generalFeedback": "路徑條件為 (x > 0) ∧ (y == x + 1) ∧ (y < 10)。x = 1, y = 2 同時滿足三者，故能抵達 T。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合式摘要",
+          "text": "<p>一種只對函式做一次符號分析，並在每個呼叫點重用其結果、而不必每次都重新探索被呼叫函式路徑的技術，稱為：</p>",
+          "answers": [
+            {
+              "text": "函式（路徑）摘要（function/path summary）",
+              "fraction": 100,
+              "feedback": "正確——組合式符號執行重用各函式的摘要以抑制路徑爆炸。"
+            },
+            {
+              "text": "迴圈不變量（loop invariant）",
+              "fraction": 0,
+              "feedback": "不變量刻劃的是迴圈，並非可重用的「函式輸入／輸出限制式摘要」。"
+            },
+            {
+              "text": "測試諭示（test oracle）",
+              "fraction": 0,
+              "feedback": "諭示決定通過／失敗，並非對函式的可重用分析。"
+            },
+            {
+              "text": "控制流程圖（control-flow graph）",
+              "fraction": 0,
+              "feedback": "控制流程圖是靜態結構，並非函式的可重用符號結果。"
+            }
+          ],
+          "generalFeedback": "組合式（以摘要為基礎的）符號執行把函式的行為記錄成一組（前置條件 ⇒ 效果）限制式，並在每次呼叫時重用它，避免重複探索被呼叫函式——是抑制路徑爆炸的關鍵手段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "狀態合併的取捨",
+          "text": "<p>狀態合併能減少符號狀態的數量，但其主要取捨是什麼？</p>",
+          "answers": [
+            {
+              "text": "合併後的路徑條件含有析取／if-then-else 項，可能使求解器的查詢更難",
+              "fraction": 100,
+              "feedback": "正確——狀態變少，但要求解的限制式變複雜。"
+            },
+            {
+              "text": "它會使分析不健全（unsound），漏掉真實路徑",
+              "fraction": 0,
+              "feedback": "正確的合併是健全的；代價是查詢更難，而非漏掉路徑。"
+            },
+            {
+              "text": "它要求放棄限制式求解器",
+              "fraction": 0,
+              "feedback": "合併仍仰賴求解器——而且是更難的查詢。"
+            },
+            {
+              "text": "它會讓狀態數加倍而非減少",
+              "fraction": 0,
+              "feedback": "合併會結合狀態、減少其數量；缺點在於限制式的複雜度。"
+            }
+          ],
+          "generalFeedback": "在匯合點合併兩個狀態，會把兩條較簡單的路徑條件換成一條以析取（或 ite 項）同時編碼兩者的條件。這降低了狀態數，卻把負擔轉嫁給求解器，使其面對更複雜的公式。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴圈造成無界路徑",
+          "text": "<p>迭代次數取決於符號化輸入的迴圈，可能產生無界多條路徑，這是路徑爆炸的直接來源之一。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每多一次迭代就分岔出一組新路徑，數量可無界成長，因此才要採用有界展開。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "符號化的迴圈上限允許迴圈進行任意多次迭代，每次都衍生更多路徑——這是路徑爆炸的經典成因。"
+            }
+          ],
+          "generalFeedback": "當迭代次數為符號化時，探索 0、1、2、… 次迭代會產生越來越多路徑且無有限上限，故引擎以有界展開（或迴圈摘要）封住探索。"
         }
       ]
     }
