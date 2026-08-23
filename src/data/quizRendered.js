@@ -36,7 +36,7 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "BVA test values",
-          "text": "<p>What are the six standard Boundary Value Analysis (BVA) test values for an input range of [1,100]?</p>",
+          "text": "<p>What are the six boundary values just inside, on, and just outside each end of an input range of [1,100], as used in Boundary Value Analysis (BVA)?</p>",
           "answers": [
             {
               "text": "0, 1, 2, 99, 100, 101",
@@ -59,7 +59,7 @@ export const QUIZ_RENDERED = {
               "feedback": "50 is a midpoint value, not a boundary — BVA targets the edges of the domain, not its center."
             }
           ],
-          "generalFeedback": "Standard BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.",
+          "generalFeedback": "BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.",
           "single": true
         },
         {
@@ -1328,7 +1328,7 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "BVA 測試值",
-          "text": "<p>對於輸入範圍 [1,100]，標準邊界值分析（Boundary Value Analysis, BVA）的六個測試值是什麼？</p>",
+          "text": "<p>對於輸入範圍 [1,100]，邊界值分析（Boundary Value Analysis, BVA）中「緊鄰內側、邊界上、緊鄰外側」的六個測試值是什麼？</p>",
           "answers": [
             {
               "text": "0、1、2、99、100、101",
@@ -1351,7 +1351,7 @@ export const QUIZ_RENDERED = {
               "feedback": "50 是中點值，並非邊界——BVA 針對的是定義域的邊緣，而非其中心。"
             }
           ],
-          "generalFeedback": "標準 BVA 會取最小值與最大值，再加上它們緊鄰的內側與外側鄰居：對 [1,100] 而言即為 0、1、2、99、100、101。",
+          "generalFeedback": "BVA 會取最小值與最大值，再加上它們緊鄰的內側與外側鄰居：對 [1,100] 而言即為 0、1、2、99、100、101。",
           "single": true
         },
         {
@@ -11212,7 +11212,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "It makes the analysis unsound, missing real paths",
               "fraction": 0,
-              "feedback": "Correct merging is sound; the cost is harder solver queries, not lost paths."
+              "feedback": "No — merging is sound; the cost is harder solver queries, not lost paths."
             },
             {
               "text": "It requires abandoning the constraint solver",
@@ -12454,7 +12454,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "它會使分析不健全（unsound），漏掉真實路徑",
               "fraction": 0,
-              "feedback": "正確的合併是健全的；代價是查詢更難，而非漏掉路徑。"
+              "feedback": "並非如此——合併是健全的；代價是查詢更難，而非漏掉路徑。"
             },
             {
               "text": "它要求放棄限制式求解器",

@@ -45848,7 +45848,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           {
             "type": "multichoice",
             "name": "BVA test values",
-            "text": "<p>What are the six standard Boundary Value Analysis (BVA) test values for an input range of [1,100]?</p>",
+            "text": "<p>What are the six boundary values just inside, on, and just outside each end of an input range of [1,100], as used in Boundary Value Analysis (BVA)?</p>",
             "answers": [
               {
                 "text": "0, 1, 2, 99, 100, 101",
@@ -45871,7 +45871,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "50 is a midpoint value, not a boundary \u2014 BVA targets the edges of the domain, not its center."
               }
             ],
-            "generalFeedback": "Standard BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.",
+            "generalFeedback": "BVA takes the minimum and maximum plus their immediate neighbors just inside and just outside the domain: for [1,100] that's 0, 1, 2, 99, 100, 101.",
             "single": true
           },
           {
@@ -47140,7 +47140,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           {
             "type": "multichoice",
             "name": "BVA \u6E2C\u8A66\u503C",
-            "text": "<p>\u5C0D\u65BC\u8F38\u5165\u7BC4\u570D [1,100]\uFF0C\u6A19\u6E96\u908A\u754C\u503C\u5206\u6790\uFF08Boundary Value Analysis, BVA\uFF09\u7684\u516D\u500B\u6E2C\u8A66\u503C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "text": "<p>\u5C0D\u65BC\u8F38\u5165\u7BC4\u570D [1,100]\uFF0C\u908A\u754C\u503C\u5206\u6790\uFF08Boundary Value Analysis, BVA\uFF09\u4E2D\u300C\u7DCA\u9130\u5167\u5074\u3001\u908A\u754C\u4E0A\u3001\u7DCA\u9130\u5916\u5074\u300D\u7684\u516D\u500B\u6E2C\u8A66\u503C\u662F\u4EC0\u9EBC\uFF1F</p>",
             "answers": [
               {
                 "text": "0\u30011\u30012\u300199\u3001100\u3001101",
@@ -47163,7 +47163,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "50 \u662F\u4E2D\u9EDE\u503C\uFF0C\u4E26\u975E\u908A\u754C\u2014\u2014BVA \u91DD\u5C0D\u7684\u662F\u5B9A\u7FA9\u57DF\u7684\u908A\u7DE3\uFF0C\u800C\u975E\u5176\u4E2D\u5FC3\u3002"
               }
             ],
-            "generalFeedback": "\u6A19\u6E96 BVA \u6703\u53D6\u6700\u5C0F\u503C\u8207\u6700\u5927\u503C\uFF0C\u518D\u52A0\u4E0A\u5B83\u5011\u7DCA\u9130\u7684\u5167\u5074\u8207\u5916\u5074\u9130\u5C45\uFF1A\u5C0D [1,100] \u800C\u8A00\u5373\u70BA 0\u30011\u30012\u300199\u3001100\u3001101\u3002",
+            "generalFeedback": "BVA \u6703\u53D6\u6700\u5C0F\u503C\u8207\u6700\u5927\u503C\uFF0C\u518D\u52A0\u4E0A\u5B83\u5011\u7DCA\u9130\u7684\u5167\u5074\u8207\u5916\u5074\u9130\u5C45\uFF1A\u5C0D [1,100] \u800C\u8A00\u5373\u70BA 0\u30011\u30012\u300199\u3001100\u3001101\u3002",
             "single": true
           },
           {
@@ -57024,7 +57024,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "It makes the analysis unsound, missing real paths",
                 "fraction": 0,
-                "feedback": "Correct merging is sound; the cost is harder solver queries, not lost paths."
+                "feedback": "No \u2014 merging is sound; the cost is harder solver queries, not lost paths."
               },
               {
                 "text": "It requires abandoning the constraint solver",
@@ -58266,7 +58266,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "\u5B83\u6703\u4F7F\u5206\u6790\u4E0D\u5065\u5168\uFF08unsound\uFF09\uFF0C\u6F0F\u6389\u771F\u5BE6\u8DEF\u5F91",
                 "fraction": 0,
-                "feedback": "\u6B63\u78BA\u7684\u5408\u4F75\u662F\u5065\u5168\u7684\uFF1B\u4EE3\u50F9\u662F\u67E5\u8A62\u66F4\u96E3\uFF0C\u800C\u975E\u6F0F\u6389\u8DEF\u5F91\u3002"
+                "feedback": "\u4E26\u975E\u5982\u6B64\u2014\u2014\u5408\u4F75\u662F\u5065\u5168\u7684\uFF1B\u4EE3\u50F9\u662F\u67E5\u8A62\u66F4\u96E3\uFF0C\u800C\u975E\u6F0F\u6389\u8DEF\u5F91\u3002"
               },
               {
                 "text": "\u5B83\u8981\u6C42\u653E\u68C4\u9650\u5236\u5F0F\u6C42\u89E3\u5668",

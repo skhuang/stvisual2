@@ -15,13 +15,13 @@
   </question>
   <question type="multichoice">
     <name><text>BVA 測試值</text></name>
-    <questiontext format="html"><text><![CDATA[<p>對於輸入範圍 [1,100]，標準邊界值分析（Boundary Value Analysis, BVA）的六個測試值是什麼？</p>]]></text></questiontext>
+    <questiontext format="html"><text><![CDATA[<p>對於輸入範圍 [1,100]，邊界值分析（Boundary Value Analysis, BVA）中「緊鄰內側、邊界上、緊鄰外側」的六個測試值是什麼？</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>0、1、2、99、100、101</text><feedback><text>正確——分別是 min-1、min、min+1、max-1、max、max+1。</text></feedback></answer>
     <answer fraction="0"><text>1、100</text><feedback><text>這只涵蓋了兩個 on-point，漏掉了全部四個相鄰的邊界鄰近點。</text></feedback></answer>
     <answer fraction="0"><text>0、1、100、101</text><feedback><text>這遺漏了緊鄰邊界的 min+1 與 max-1（即 2 與 99）。</text></feedback></answer>
     <answer fraction="0"><text>1、50、100</text><feedback><text>50 是中點值，並非邊界——BVA 針對的是定義域的邊緣，而非其中心。</text></feedback></answer>
-    <generalfeedback><text>標準 BVA 會取最小值與最大值，再加上它們緊鄰的內側與外側鄰居：對 [1,100] 而言即為 0、1、2、99、100、101。</text></generalfeedback>
+    <generalfeedback><text>BVA 會取最小值與最大值，再加上它們緊鄰的內側與外側鄰居：對 [1,100] 而言即為 0、1、2、99、100、101。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>一致性假說</text></name>

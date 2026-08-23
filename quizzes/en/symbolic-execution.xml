@@ -429,7 +429,7 @@
     <questiontext format="html"><text><![CDATA[<p>State merging reduces the number of symbolic states, but what is its main trade-off?</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>The merged path condition contains disjunctions/if-then-else terms, which can make solver queries harder</text><feedback><text>Correct — fewer states, but more complex constraints to solve.</text></feedback></answer>
-    <answer fraction="0"><text>It makes the analysis unsound, missing real paths</text><feedback><text>Correct merging is sound; the cost is harder solver queries, not lost paths.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the analysis unsound, missing real paths</text><feedback><text>No — merging is sound; the cost is harder solver queries, not lost paths.</text></feedback></answer>
     <answer fraction="0"><text>It requires abandoning the constraint solver</text><feedback><text>Merging still relies on the solver — indeed on harder queries.</text></feedback></answer>
     <answer fraction="0"><text>It doubles the number of states instead of reducing them</text><feedback><text>Merging combines states, reducing their count; the downside is constraint complexity.</text></feedback></answer>
     <generalfeedback><text>Merging two states at a join point replaces two simpler path conditions with one that encodes both via disjunction (or ite-terms). This lowers state count but shifts the burden onto the solver, which now faces more complex formulas.</text></generalfeedback>

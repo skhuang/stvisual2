@@ -429,7 +429,7 @@
     <questiontext format="html"><text><![CDATA[<p>狀態合併能減少符號狀態的數量，但其主要取捨是什麼？</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>合併後的路徑條件含有析取／if-then-else 項，可能使求解器的查詢更難</text><feedback><text>正確——狀態變少，但要求解的限制式變複雜。</text></feedback></answer>
-    <answer fraction="0"><text>它會使分析不健全（unsound），漏掉真實路徑</text><feedback><text>正確的合併是健全的；代價是查詢更難，而非漏掉路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它會使分析不健全（unsound），漏掉真實路徑</text><feedback><text>並非如此——合併是健全的；代價是查詢更難，而非漏掉路徑。</text></feedback></answer>
     <answer fraction="0"><text>它要求放棄限制式求解器</text><feedback><text>合併仍仰賴求解器——而且是更難的查詢。</text></feedback></answer>
     <answer fraction="0"><text>它會讓狀態數加倍而非減少</text><feedback><text>合併會結合狀態、減少其數量；缺點在於限制式的複雜度。</text></feedback></answer>
     <generalfeedback><text>在匯合點合併兩個狀態，會把兩條較簡單的路徑條件換成一條以析取（或 ite 項）同時編碼兩者的條件。這降低了狀態數，卻把負擔轉嫁給求解器，使其面對更複雜的公式。</text></generalfeedback>
