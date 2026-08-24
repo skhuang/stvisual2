@@ -12639,6 +12639,2546 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "logic-active-clause": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Determination as an XOR condition",
+          "text": "<p>Fix the minor clauses at some assignment. Major clause c <strong>determines</strong> predicate p exactly when:</p>",
+          "answers": [
+            {
+              "text": "p|<sub>c=T</sub> XOR p|<sub>c=F</sub> is true (evaluating with those minor values)",
+              "fraction": 100,
+              "feedback": "Correct — the two evaluations of p differ, so toggling c alone toggles p."
+            },
+            {
+              "text": "p|<sub>c=T</sub> AND p|<sub>c=F</sub> is true",
+              "fraction": 0,
+              "feedback": "That would require p true in both cases, meaning c does NOT change p."
+            },
+            {
+              "text": "p|<sub>c=T</sub> is true",
+              "fraction": 0,
+              "feedback": "Determination is about the two values differing, not about p being true when c is true."
+            },
+            {
+              "text": "c and p have the same truth value",
+              "fraction": 0,
+              "feedback": "That is not the definition; determination compares p at c=T versus c=F."
+            }
+          ],
+          "generalFeedback": "With the minor clauses held fixed, c determines p iff evaluating p with c=true and with c=false gives different results, i.e. p|&#8853; p|= true. This XOR test is the operational definition of determination.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is the major clause",
+          "text": "<p>In an active-clause coverage requirement, the <strong>major clause</strong> is:</p>",
+          "answers": [
+            {
+              "text": "The clause whose determination of the predicate is being tested",
+              "fraction": 100,
+              "feedback": "Correct — we focus on one clause at a time and require it to determine p."
+            },
+            {
+              "text": "The clause that appears first (leftmost) in the predicate",
+              "fraction": 0,
+              "feedback": "Position is irrelevant; the major clause is whichever one we are currently testing."
+            },
+            {
+              "text": "The clause with the most occurrences in the predicate",
+              "fraction": 0,
+              "feedback": "Frequency does not define the major clause."
+            },
+            {
+              "text": "Any clause that is always true",
+              "fraction": 0,
+              "feedback": "A constant clause could never determine p; the major clause is the one under test."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria pick one clause as the major clause (c_i) and require it to determine the predicate; every other clause is a minor clause whose value is chosen to enable that determination.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What are the minor clauses",
+          "text": "<p>When clause c_i is the major clause, the <strong>minor clauses</strong> are:</p>",
+          "answers": [
+            {
+              "text": "All the other clauses, whose values are chosen so that c_i determines the predicate",
+              "fraction": 100,
+              "feedback": "Correct — they are set to let the major clause control the outcome."
+            },
+            {
+              "text": "The clauses that also determine the predicate at the same time",
+              "fraction": 0,
+              "feedback": "Minor clauses are simply the non-major clauses; they need not determine p."
+            },
+            {
+              "text": "The clauses that are removed from the predicate",
+              "fraction": 0,
+              "feedback": "They stay in the predicate; only their values are fixed."
+            },
+            {
+              "text": "The clauses evaluated to false",
+              "fraction": 0,
+              "feedback": "Minor clauses may be true or false; the label has nothing to do with their value."
+            }
+          ],
+          "generalFeedback": "For each choice of major clause, the remaining clauses are the minor clauses. Their values are set (per the criterion's rules) so that toggling the major clause toggles the predicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active clause at an assignment",
+          "text": "<p>A clause is said to be <strong>active</strong> at a given test (assignment) when:</p>",
+          "answers": [
+            {
+              "text": "It determines the predicate there — flipping it alone would change the predicate's value",
+              "fraction": 100,
+              "feedback": "Correct — an active clause is one that determines p at that row."
+            },
+            {
+              "text": "It is evaluated to true at that test",
+              "fraction": 0,
+              "feedback": "Being true is unrelated to being active; an active clause can be true or false."
+            },
+            {
+              "text": "It is the only clause in the predicate",
+              "fraction": 0,
+              "feedback": "Predicates with many clauses still have active clauses at particular rows."
+            },
+            {
+              "text": "It is masked by the other clauses",
+              "fraction": 0,
+              "feedback": "A masked clause is the opposite of active — it does not determine p."
+            }
+          ],
+          "generalFeedback": "A clause is active at a test when it determines the predicate there; the active-clause criteria are named for requiring each clause to be active in the tests that exercise it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"General\" means in GACC",
+          "text": "<p>In <strong>General</strong> Active Clause Coverage (GACC), the word \"General\" refers to the fact that:</p>",
+          "answers": [
+            {
+              "text": "The minor-clause values may differ between the major-clause-true and major-clause-false tests",
+              "fraction": 100,
+              "feedback": "Correct — GACC is the most permissive about the minor clauses."
+            },
+            {
+              "text": "The minor-clause values must be identical across the pair",
+              "fraction": 0,
+              "feedback": "That restriction is RACC, not GACC."
+            },
+            {
+              "text": "The predicate must take both values across the pair",
+              "fraction": 0,
+              "feedback": "That extra correlation requirement is CACC."
+            },
+            {
+              "text": "All 2^n clause combinations are covered",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            }
+          ],
+          "generalFeedback": "GACC only requires that the major clause determine p and take both values; it places no constraint linking the minor clauses of the two tests, so they may take any (possibly different) values.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"Correlated\" means in CACC",
+          "text": "<p>In <strong>Correlated</strong> Active Clause Coverage (CACC), what is \"correlated\" with the major clause changing?</p>",
+          "answers": [
+            {
+              "text": "The value of the predicate p — it must take both true and false across the pair",
+              "fraction": 100,
+              "feedback": "Correct — the major clause's flip is correlated with a change in p."
+            },
+            {
+              "text": "The values of the minor clauses, which must stay identical",
+              "fraction": 0,
+              "feedback": "Requiring identical minor clauses is RACC."
+            },
+            {
+              "text": "The number of true clauses in the predicate",
+              "fraction": 0,
+              "feedback": "CACC says nothing about counting true clauses."
+            },
+            {
+              "text": "The execution time of the two tests",
+              "fraction": 0,
+              "feedback": "Correlation here is about truth values, not performance."
+            }
+          ],
+          "generalFeedback": "CACC requires that, in the pair of tests for each major clause, the predicate p be true in one and false in the other — the change in p is correlated with the flip of the major clause.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"Restricted\" means in RACC",
+          "text": "<p>In <strong>Restricted</strong> Active Clause Coverage (RACC), what is restricted?</p>",
+          "answers": [
+            {
+              "text": "The minor clauses must hold identical values in the major-clause-true and major-clause-false tests",
+              "fraction": 100,
+              "feedback": "Correct — RACC pins the minor clauses to the same values across the pair."
+            },
+            {
+              "text": "The number of clauses is restricted to at most three",
+              "fraction": 0,
+              "feedback": "RACC has no limit on the number of clauses."
+            },
+            {
+              "text": "Only the predicate value is restricted to true",
+              "fraction": 0,
+              "feedback": "RACC does not fix p to true; the major clause still determines p."
+            },
+            {
+              "text": "The major clause is restricted to being false",
+              "fraction": 0,
+              "feedback": "The major clause must take both values, not be restricted to false."
+            }
+          ],
+          "generalFeedback": "RACC restricts the minor clauses to identical values across the two tests of each major clause — the strictest of the three active-clause criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test requirements per clause under ACC",
+          "text": "<p>Active Clause Coverage generates, for each clause chosen as the major clause, how many test requirements?</p>",
+          "answers": [
+            {
+              "text": "2 — one with the major clause true and one with it false (both determining p)",
+              "fraction": 100,
+              "feedback": "Correct — each clause yields a true/false determining pair."
+            },
+            {
+              "text": "1 — a single test where the clause determines p",
+              "fraction": 0,
+              "feedback": "The clause must be tested both true and false while determining p, so two requirements."
+            },
+            {
+              "text": "2^n — all combinations of the other clauses",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, not ACC."
+            },
+            {
+              "text": "n — one per other clause",
+              "fraction": 0,
+              "feedback": "Each major clause gives exactly two requirements, regardless of n."
+            }
+          ],
+          "generalFeedback": "For each major clause, ACC requires two tests in which that clause determines the predicate: one with the clause true and one with it false. With n clauses that is 2n requirements (before merging shared tests).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination in a AND b",
+          "text": "<p>For predicate p = a &#8743; b, clause a determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b = true",
+              "fraction": 100,
+              "feedback": "Correct — with b true, p equals a, so flipping a flips p."
+            },
+            {
+              "text": "b = false",
+              "fraction": 0,
+              "feedback": "With b false, p is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "a = true",
+              "fraction": 0,
+              "feedback": "Determination for a depends on the minor clause b, not on a's own value."
+            },
+            {
+              "text": "Never, since it is a conjunction",
+              "fraction": 0,
+              "feedback": "a does determine p in a conjunction — precisely when the other clause is true."
+            }
+          ],
+          "generalFeedback": "For a conjunction p = a &#8743; b, clause a determines p exactly when the other clause b is true; then p mirrors a.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination in a OR b",
+          "text": "<p>For predicate p = a &#8744; b, clause a determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b = false",
+              "fraction": 100,
+              "feedback": "Correct — with b false, p equals a, so flipping a flips p."
+            },
+            {
+              "text": "b = true",
+              "fraction": 0,
+              "feedback": "With b true, p is true regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "a = false",
+              "fraction": 0,
+              "feedback": "Determination for a depends on the minor clause b, not on a's own value."
+            },
+            {
+              "text": "Always, for a disjunction",
+              "fraction": 0,
+              "feedback": "a fails to determine p when b is true."
+            }
+          ],
+          "generalFeedback": "For a disjunction p = a &#8744; b, clause a determines p exactly when the other clause b is false; then p mirrors a. (Dually, in a &#8743; b, a determines p when b is true.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum CACC test count formula",
+          "text": "<p>For a predicate with n independent clauses, the minimum number of tests that can satisfy CACC (MC/DC) is:</p>",
+          "answers": [
+            {
+              "text": "n + 1",
+              "fraction": 100,
+              "feedback": "Correct — well-chosen tests can be shared across clauses, giving a minimum of n+1."
+            },
+            {
+              "text": "2n",
+              "fraction": 0,
+              "feedback": "2n is the upper bound (a fresh pair per clause), not the minimum."
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, far more than CACC needs."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 suffices only for Predicate Coverage, not CACC."
+            }
+          ],
+          "generalFeedback": "Because a single test can serve as the determining test for several clauses at once, CACC/MC-DC for n independent clauses needs a minimum of n+1 tests (and at most 2n).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC equals which active-clause criterion",
+          "text": "<p>The industry criterion MC/DC (as in DO-178C) corresponds most closely to which active-clause criterion?</p>",
+          "answers": [
+            {
+              "text": "Correlated Active Clause Coverage (CACC)",
+              "fraction": 100,
+              "feedback": "Correct — generic MC/DC requires each clause to independently affect the outcome, i.e. CACC."
+            },
+            {
+              "text": "General Active Clause Coverage (GACC)",
+              "fraction": 0,
+              "feedback": "GACC does not require p to change with the clause, so it is weaker than MC/DC."
+            },
+            {
+              "text": "Combinatorial Coverage (CoC)",
+              "fraction": 0,
+              "feedback": "CoC requires all 2^n combinations; MC/DC needs only about n+1 tests."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC only checks the whole decision, far weaker than MC/DC."
+            }
+          ],
+          "generalFeedback": "Generic MC/DC is equivalent to CACC: each clause must be shown to independently affect the decision's outcome. (Strict \"unique-cause\" MC/DC corresponds to RACC.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ACC needs both determining values",
+          "text": "<p>Active Clause Coverage requires each clause, while it determines the predicate, to be tested both true and false.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each major clause gets a determining-true and a determining-false test."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ACC's whole point is a true/false pair for each clause while it is active (determining p)."
+            }
+          ],
+          "generalFeedback": "For every clause chosen as the major clause, ACC demands two tests in which the clause determines p: one with the clause true and one with it false."
+        },
+        {
+          "type": "multichoice",
+          "name": "Family of GACC, CACC, RACC",
+          "text": "<p>GACC, CACC, and RACC together form which family of logic-coverage criteria?</p>",
+          "answers": [
+            {
+              "text": "The active-clause criteria (each clause must determine the predicate)",
+              "fraction": 100,
+              "feedback": "Correct — all three require the major clause to be active (to determine p)."
+            },
+            {
+              "text": "The inactive-clause criteria (each clause must NOT determine the predicate)",
+              "fraction": 0,
+              "feedback": "That is the GICC/RICC family, the complement of these."
+            },
+            {
+              "text": "The DNF (implicant-based) criteria",
+              "fraction": 0,
+              "feedback": "Those are criteria such as UTPC and CUTPNFP, not the active-clause family."
+            },
+            {
+              "text": "The combinatorial criteria",
+              "fraction": 0,
+              "feedback": "Combinatorial Coverage is a single criterion, not this family."
+            }
+          ],
+          "generalFeedback": "GACC, CACC, and RACC are the three active-clause coverage criteria: each requires the major clause to determine (be active in) the predicate, differing only in how the minor clauses and p are constrained.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Determining clause is called active",
+          "text": "<p>A clause that determines the predicate at a given test is called an <em>active</em> clause at that test.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — \"active\" is exactly the term for a clause that determines p at that assignment."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A determining clause is active; a non-determining (masked) clause is inactive."
+            }
+          ],
+          "generalFeedback": "Determination and activeness are the same notion: a clause is active at a test precisely when it determines the predicate there. This is why GACC/CACC/RACC are the \"active-clause\" criteria."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Minor values for a in (a OR b) AND c",
+          "text": "<p>For predicate p = (a &#8744; b) &#8743; c, which minor-clause values make clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "b = false and c = true",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to a, so flipping a flips p."
+            },
+            {
+              "text": "b = true and c = true",
+              "fraction": 0,
+              "feedback": "With b true, a &#8744; b is true regardless of a, so a is masked."
+            },
+            {
+              "text": "b = false and c = false",
+              "fraction": 0,
+              "feedback": "With c false, p is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "Both conditions block a: c false forces p false and b true masks a."
+            }
+          ],
+          "generalFeedback": "a determines the disjunction a &#8744; b only when b = false, and the disjunction determines p = (&#8230;) &#8743; c only when c = true. So a determines p exactly when b = false and c = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for b in a AND (b OR c)",
+          "text": "<p>For predicate p = a &#8743; (b &#8744; c), which minor-clause values make clause b <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "a = true and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to b, so flipping b flips p."
+            },
+            {
+              "text": "a = true and c = true",
+              "fraction": 0,
+              "feedback": "With c true, b &#8744; c is true regardless of b, so b is masked."
+            },
+            {
+              "text": "a = false and c = false",
+              "fraction": 0,
+              "feedback": "With a false, p is false regardless of b, so b cannot determine p."
+            },
+            {
+              "text": "a = false and c = true",
+              "fraction": 0,
+              "feedback": "Both conditions block b: a false forces p false and c true masks b."
+            }
+          ],
+          "generalFeedback": "b determines the disjunction b &#8744; c only when c = false, and that disjunction determines p = a &#8743; (&#8230;) only when a = true. So b determines p exactly when a = true and c = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for b in (a AND b) OR c",
+          "text": "<p>For predicate p = (a &#8743; b) &#8744; c, which minor-clause values make clause b <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "a = true and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to b, so flipping b flips p."
+            },
+            {
+              "text": "a = false and c = false",
+              "fraction": 0,
+              "feedback": "With a false, a &#8743; b is false regardless of b, so b is masked."
+            },
+            {
+              "text": "a = true and c = true",
+              "fraction": 0,
+              "feedback": "With c true, p is true regardless of b, so b cannot determine p."
+            },
+            {
+              "text": "a = false and c = true",
+              "fraction": 0,
+              "feedback": "Both conditions block b: a false masks b and c true forces p true."
+            }
+          ],
+          "generalFeedback": "b passes through the term a &#8743; b only when a = true, and that term reaches p = (&#8230;) &#8744; c only when c = false. So b determines p exactly when a = true and c = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classifying a CACC-only pair",
+          "text": "<p>For p = a &#8743; (b &#8744; c) with major clause a, consider the test pair {(a=T, b=T, c=F), (a=F, b=F, c=T)}. Which is the <strong>strongest</strong> active-clause criterion this pair satisfies for a?</p>",
+          "answers": [
+            {
+              "text": "CACC (but not RACC)",
+              "fraction": 100,
+              "feedback": "Correct — a determines p in both rows and p differs (T then F), but the minor values (b,c) differ, so it is not RACC."
+            },
+            {
+              "text": "RACC",
+              "fraction": 0,
+              "feedback": "RACC needs identical minor values; here (b,c) is (T,F) then (F,T), so RACC fails."
+            },
+            {
+              "text": "Only GACC",
+              "fraction": 0,
+              "feedback": "It is at least CACC, because p takes both values across the pair."
+            },
+            {
+              "text": "Neither GACC, CACC, nor RACC",
+              "fraction": 0,
+              "feedback": "a determines p in both rows, so at least GACC and CACC are met."
+            }
+          ],
+          "generalFeedback": "In both rows b &#8744; c is true, so a determines p; p is true then false, satisfying CACC (and hence GACC). But the minor values differ ((T,F) vs (F,T)), so RACC is not satisfied. The strongest met is CACC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classifying a RACC pair",
+          "text": "<p>For p = a &#8743; (b &#8744; c) with major clause a, consider the test pair {(a=T, b=T, c=F), (a=F, b=T, c=F)}. Which is the <strong>strongest</strong> active-clause criterion this pair satisfies for a?</p>",
+          "answers": [
+            {
+              "text": "RACC",
+              "fraction": 100,
+              "feedback": "Correct — a determines p in both rows, p differs, and the minor values (b=T, c=F) are identical across the pair."
+            },
+            {
+              "text": "CACC but not RACC",
+              "fraction": 0,
+              "feedback": "The minor values ARE identical here, so RACC (the stronger criterion) is satisfied."
+            },
+            {
+              "text": "Only GACC",
+              "fraction": 0,
+              "feedback": "p also takes both values, so CACC and even RACC hold."
+            },
+            {
+              "text": "Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "A single pair cannot achieve Combinatorial Coverage of three clauses."
+            }
+          ],
+          "generalFeedback": "b &#8744; c = true in both rows so a determines p; p is true then false (CACC); and the minor values (b=T, c=F) match across the pair (RACC). RACC is the strongest satisfied, and RACC subsumes CACC and GACC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why CACC subsumes Predicate Coverage",
+          "text": "<p>Why does CACC subsume Predicate Coverage (PC)?</p>",
+          "answers": [
+            {
+              "text": "Each major clause's pair forces p to be true in one test and false in the other, so p takes both values",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly what PC requires."
+            },
+            {
+              "text": "Because CACC tests every combination of clause values",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage; CACC does not test all combinations."
+            },
+            {
+              "text": "Because CACC fixes the minor clauses to identical values",
+              "fraction": 0,
+              "feedback": "That describes RACC's extra restriction, not why PC is subsumed."
+            },
+            {
+              "text": "Because every clause is made both true and false",
+              "fraction": 0,
+              "feedback": "That gives Clause Coverage, not Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "CACC requires p to differ across each major clause's test pair, so p is driven to both true and false — which is precisely Predicate Coverage. (GACC lacks this guarantee, so GACC does not subsume PC.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination of c in (a OR b) AND c",
+          "text": "<p>For predicate p = (a &#8744; b) &#8743; c, clause c determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "a &#8744; b is true",
+              "fraction": 100,
+              "feedback": "Correct — when (a &#8744; b) is true, p equals c; when it is false, p is false regardless of c."
+            },
+            {
+              "text": "a &#8744; b is false",
+              "fraction": 0,
+              "feedback": "Then p is false no matter what c is, so c does not determine p."
+            },
+            {
+              "text": "a is true and b is true",
+              "fraction": 0,
+              "feedback": "c determines p whenever a &#8744; b is true, which includes rows where only one of a, b is true."
+            },
+            {
+              "text": "Always",
+              "fraction": 0,
+              "feedback": "c cannot determine p when a &#8744; b is false."
+            }
+          ],
+          "generalFeedback": "For a conjunction p = X &#8743; c, clause c determines p exactly when the other operand X is true. Here X = a &#8744; b, so c determines p when a &#8744; b is true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for c in (a OR b) AND c",
+          "text": "<p>For predicate p = (a &#8744; b) &#8743; c, which condition on the minor clauses makes c <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "At least one of a, b is true (a &#8744; b is true)",
+              "fraction": 100,
+              "feedback": "Correct — then p equals c."
+            },
+            {
+              "text": "Both a and b are false",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is false and p is false regardless of c."
+            },
+            {
+              "text": "Both a and b are true only",
+              "fraction": 0,
+              "feedback": "a=T,b=F (or a=F,b=T) also makes a &#8744; b true, so those rows work too."
+            },
+            {
+              "text": "Exactly one of a, b is true",
+              "fraction": 0,
+              "feedback": "a=T,b=T also enables c to determine p, so it is not \"exactly one\"."
+            }
+          ],
+          "generalFeedback": "c determines p = (a &#8744; b) &#8743; c whenever the other operand a &#8744; b is true, i.e. whenever at least one of a, b is true (three of the four (a,b) combinations).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of ACC requirements for 3 clauses",
+          "text": "<p>Before merging any shared tests, how many active-clause test requirements does a 3-clause predicate generate?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 2 requirements (true/false) for each of the 3 major clauses."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Each clause needs a true AND a false determining test, so 2 per clause."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 is Combinatorial Coverage, not the ACC requirement count."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n+1 is the minimum test count after merging, not the number of requirements."
+            }
+          ],
+          "generalFeedback": "ACC produces 2 requirements per clause (major-true and major-false, both determining p), so 2 &#215; 3 = 6 requirements. Sharing tests then reduces the actual test count to as few as n+1 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for a in a AND b AND c",
+          "text": "<p>For predicate p = a &#8743; b &#8743; c, which minor-clause values make clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "b = true and c = true",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to a, so flipping a flips p."
+            },
+            {
+              "text": "b = false and c = false",
+              "fraction": 0,
+              "feedback": "Any false clause forces the conjunction false regardless of a."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "c = false forces p false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = false and c = true",
+              "fraction": 0,
+              "feedback": "b = false forces p false regardless of a, so a cannot determine p."
+            }
+          ],
+          "generalFeedback": "In a conjunction, a clause determines the predicate only when every other clause is true. For a &#8743; b &#8743; c, a determines p exactly when b = true and c = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for a in a OR b OR c",
+          "text": "<p>For predicate p = a &#8744; b &#8744; c, which minor-clause values make clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "b = false and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to a, so flipping a flips p."
+            },
+            {
+              "text": "b = true and c = true",
+              "fraction": 0,
+              "feedback": "Any true clause forces the disjunction true regardless of a."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "b = true forces p true regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = false and c = true",
+              "fraction": 0,
+              "feedback": "c = true forces p true regardless of a, so a cannot determine p."
+            }
+          ],
+          "generalFeedback": "In a disjunction, a clause determines the predicate only when every other clause is false. For a &#8744; b &#8744; c, a determines p exactly when b = false and c = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active clauses at a row of (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c evaluated at a=T, b=F, c=F, which clauses are <strong>active</strong> (determine p there)?</p>",
+          "answers": [
+            {
+              "text": "b and c",
+              "fraction": 100,
+              "feedback": "Correct — flipping b (F&#8594;T) makes p true, and flipping c (F&#8594;T) makes p true; flipping a leaves p false."
+            },
+            {
+              "text": "a and c",
+              "fraction": 0,
+              "feedback": "Flipping a (T&#8594;F) leaves a &#8743; b false, so p stays false; a is not active."
+            },
+            {
+              "text": "a, b, and c",
+              "fraction": 0,
+              "feedback": "a is not active here: with b false, a &#8743; b is false whether a is T or F."
+            },
+            {
+              "text": "c only",
+              "fraction": 0,
+              "feedback": "b is also active: flipping b to true makes a &#8743; b true, hence p true."
+            }
+          ],
+          "generalFeedback": "At a=T,b=F,c=F, p = (T&#8743;F)&#8744;F = F. Flip a &#8594; (F&#8743;F)&#8744;F = F (not active). Flip b &#8594; (T&#8743;T)&#8744;F = T (active). Flip c &#8594; (T&#8743;F)&#8744;T = T (active). So b and c are active.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CACC subsumes GACC",
+          "text": "<p>Correlated Active Clause Coverage (CACC) subsumes General Active Clause Coverage (GACC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — CACC adds the requirement that p differ across the pair, keeping all of GACC's requirements, so it is at least as strong."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Every CACC-adequate test set is also GACC-adequate, so CACC subsumes GACC."
+            }
+          ],
+          "generalFeedback": "The active-clause hierarchy is RACC subsumes CACC subsumes GACC. CACC keeps GACC's determination requirements and merely adds the correlation that p change across each pair, so it subsumes GACC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination for X AND c",
+          "text": "<p>Let p = X &#8743; c, where X is any subexpression and c is a single clause. Clause c determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "X evaluates to true",
+              "fraction": 100,
+              "feedback": "Correct — with X true, p equals c, so flipping c flips p."
+            },
+            {
+              "text": "X evaluates to false",
+              "fraction": 0,
+              "feedback": "With X false, p is false regardless of c."
+            },
+            {
+              "text": "c evaluates to true",
+              "fraction": 0,
+              "feedback": "Determination for c depends on X, not on c's own value."
+            },
+            {
+              "text": "Always, since c is a top-level clause",
+              "fraction": 0,
+              "feedback": "c is masked whenever X is false."
+            }
+          ],
+          "generalFeedback": "For a top-level conjunction p = X &#8743; c, c determines p exactly when the other operand X is true. Dually, for p = X &#8744; c, c determines p exactly when X is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination for X OR c",
+          "text": "<p>Let p = X &#8744; c, where X is any subexpression and c is a single clause. Clause c determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "X evaluates to false",
+              "fraction": 100,
+              "feedback": "Correct — with X false, p equals c, so flipping c flips p."
+            },
+            {
+              "text": "X evaluates to true",
+              "fraction": 0,
+              "feedback": "With X true, p is true regardless of c."
+            },
+            {
+              "text": "c evaluates to false",
+              "fraction": 0,
+              "feedback": "Determination for c depends on X, not on c's own value."
+            },
+            {
+              "text": "Always, since c is a top-level clause",
+              "fraction": 0,
+              "feedback": "c is masked whenever X is true."
+            }
+          ],
+          "generalFeedback": "For a top-level disjunction p = X &#8744; c, c determines p exactly when the other operand X is false. Dually, for p = X &#8743; c, c determines p exactly when X is true.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why RACC subsumes CACC",
+          "text": "<p>Why does RACC subsume CACC?</p>",
+          "answers": [
+            {
+              "text": "Fixing the minor clauses identical while the major clause determines p forces p to take opposite values across the pair, which is exactly CACC's added requirement",
+              "fraction": 100,
+              "feedback": "Correct — RACC's constraint implies CACC's correlation, and RACC keeps all other ACC requirements."
+            },
+            {
+              "text": "RACC tests all 2^n combinations, which includes every CACC test",
+              "fraction": 0,
+              "feedback": "RACC does not require all combinations; it uses about n+1 tests, like CACC."
+            },
+            {
+              "text": "RACC drops the determination requirement, making it easier to satisfy",
+              "fraction": 0,
+              "feedback": "RACC keeps determination; dropping it would make it weaker, not stronger."
+            },
+            {
+              "text": "RACC only applies to two-clause predicates, where CACC is trivial",
+              "fraction": 0,
+              "feedback": "RACC applies to any predicate."
+            }
+          ],
+          "generalFeedback": "Under RACC the minor clauses are identical across the pair and the major clause determines p; determination then means flipping only the major clause flips p, so p is true in one test and false in the other — CACC's requirement. Thus every RACC-adequate set is CACC-adequate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC does not subsume PC — counterexample",
+          "text": "<p>Consider p = a &#8596; b (equivalence, true when a and b are equal). Which test set satisfies GACC yet fails Predicate Coverage, showing GACC does not subsume PC?</p>",
+          "answers": [
+            {
+              "text": "{(a=T, b=T), (a=F, b=F)}",
+              "fraction": 100,
+              "feedback": "Correct — both tests give p=true, so PC fails; yet each clause determines p in both, so GACC holds."
+            },
+            {
+              "text": "{(a=T, b=T), (a=F, b=T)}",
+              "fraction": 0,
+              "feedback": "Here p takes both values (T then F), so this satisfies PC — not a counterexample."
+            },
+            {
+              "text": "{(a=T, b=T), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "Here p takes both values (T then F), so this satisfies PC — not a counterexample."
+            },
+            {
+              "text": "{(a=F, b=F), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "Here p takes both values (T then F), so PC is satisfied — not a counterexample."
+            }
+          ],
+          "generalFeedback": "For p = a &#8596; b each clause always determines p. The set {(T,T),(F,F)} makes each clause both true and false while determining p (satisfying GACC), yet p = true in both rows, so Predicate Coverage is not met. This is the classic proof that GACC does not subsume PC.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Every CACC set satisfies PC",
+          "text": "<p>Every test set that satisfies CACC also satisfies Predicate Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — CACC forces p to be true in one test and false in another of each pair, so p takes both values."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CACC requires p to differ across each major clause's pair, which guarantees Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "CACC subsumes Predicate Coverage because it requires p to take both truth values across each pair. (By contrast, GACC does not, since GACC lets the minor clauses vary so p can stay constant.)"
+        },
+        {
+          "type": "multichoice",
+          "name": "Why RACC can be infeasible while CACC is feasible",
+          "text": "<p>Sometimes RACC is infeasible for a clause even though CACC is feasible. The best explanation is that:</p>",
+          "answers": [
+            {
+              "text": "RACC pins the minor clauses to one identical combination; a constraint among the clauses can forbid that specific combination, while CACC's freedom to use different minor values still allows a valid pair",
+              "fraction": 100,
+              "feedback": "Correct — the extra restriction of RACC can collide with clause constraints that CACC can sidestep."
+            },
+            {
+              "text": "RACC requires more tests than there are rows in the truth table",
+              "fraction": 0,
+              "feedback": "RACC needs about n+1 tests, well within the 2^n rows."
+            },
+            {
+              "text": "CACC does not require the major clause to determine p, so it is always feasible",
+              "fraction": 0,
+              "feedback": "CACC does require determination; that is not the reason."
+            },
+            {
+              "text": "RACC ignores infeasible rows automatically",
+              "fraction": 0,
+              "feedback": "Infeasible rows are precisely what can make RACC unsatisfiable, not something it ignores."
+            }
+          ],
+          "generalFeedback": "When clauses are logically coupled, the single identical minor-clause combination RACC demands may be unreachable, whereas CACC can pick two different (each individually reachable) minor assignments. Hence RACC can be infeasible where CACC is feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=true and c=false; a is free, giving 2 rows."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the count for c, not a."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b=false or c=true, leaving only 2 determining rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=true, c=false, giving 2 rows."
+            }
+          ],
+          "generalFeedback": "a determines p exactly when b=true and c=false (so the term a &#8743; b passes a through and the disjunction does not mask it). That fixes b and c and leaves a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for c in (a OR b) AND (c OR d)",
+          "text": "<p>For p = (a &#8744; b) &#8743; (c &#8744; d), in how many of the 16 assignments does clause c <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — c determines p when (a &#8744; b)=true (3 of 4) and d=false (1 of 2), c free (2): 3&#215;1&#215;2 = 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That would ignore the d=false condition; only half of those rows qualify."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — 3 (a &#8744; b true) &#215; 1 (d false) &#215; 2 (c free) = 6."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "c is masked whenever a &#8744; b is false or d is true, so far fewer than 12 rows qualify."
+            }
+          ],
+          "generalFeedback": "c determines c &#8744; d only when d=false, and that disjunction determines p only when a &#8744; b=true. So c determines p when a &#8744; b=true (3 of 4 (a,b)) and d=false, with c free: 3 &#215; 1 &#215; 2 = 6 of 16.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in a OR b OR c",
+          "text": "<p>For p = a &#8744; b &#8744; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=false and c=false; a is free, giving 2 rows."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of satisfying rows of a &#8744; b &#8744; c, not the determining rows for a."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b or c is true, leaving only 2 determining rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=false, c=false, giving 2 rows."
+            }
+          ],
+          "generalFeedback": "In a disjunction a determines p only when every other clause is false. b=false and c=false fixes the minors and leaves a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in a AND b AND c",
+          "text": "<p>For p = a &#8743; b &#8743; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=true and c=true; a is free, giving 2 rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=true, c=true, giving 2 rows."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b or c is false, leaving only 2 determining rows."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a determines p in only the 2 rows where b and c are both true."
+            }
+          ],
+          "generalFeedback": "In a conjunction a determines p only when every other clause is true. b=true and c=true fixes the minors and leaves a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination condition for a in (a AND b) OR (c AND d)",
+          "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), clause a determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b = true and (c &#8743; d) = false",
+              "fraction": 100,
+              "feedback": "Correct — b true passes a through the first term, and (c &#8743; d) false keeps the disjunction from masking it."
+            },
+            {
+              "text": "b = true and (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "With c &#8743; d true, p is true regardless of a, so a is masked."
+            },
+            {
+              "text": "b = false and (c &#8743; d) = false",
+              "fraction": 0,
+              "feedback": "With b false, a &#8743; b is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = false and (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "Both conditions block a: b false masks a and c &#8743; d true forces p true."
+            }
+          ],
+          "generalFeedback": "a passes through the term a &#8743; b only when b = true, and that term reaches p = (&#8230;) &#8744; (c &#8743; d) only when the other term c &#8743; d is false. So a determines p exactly when b = true and (c &#8743; d) = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible RACC pair under an implication constraint",
+          "text": "<p>A predicate uses clauses c1: <code>x &gt; 10</code> and c2: <code>x &gt; 0</code>. A test requirement that needs c1 = true while c2 = false is:</p>",
+          "answers": [
+            {
+              "text": "Infeasible — x > 10 implies x > 0, so c1 true with c2 false cannot occur",
+              "fraction": 100,
+              "feedback": "Correct — the clauses are logically coupled, so that combination is impossible."
+            },
+            {
+              "text": "Feasible for some value of x",
+              "fraction": 0,
+              "feedback": "No x exceeds 10 without also exceeding 0."
+            },
+            {
+              "text": "Feasible only under GACC",
+              "fraction": 0,
+              "feedback": "No criterion can realize a logically impossible clause combination."
+            },
+            {
+              "text": "Always feasible because the clauses are independent",
+              "fraction": 0,
+              "feedback": "These clauses are not independent; c1 implies c2."
+            }
+          ],
+          "generalFeedback": "Because x > 10 logically implies x > 0, the combination c1=true, c2=false is unreachable. Any active-clause requirement (including a RACC pair) that depends on that combination is infeasible and must be excluded.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum CACC tests for 3 clauses",
+          "text": "<p>A decision has 3 independent clauses. What is the minimum number of tests that can satisfy CACC (MC/DC)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — n + 1 = 3 + 1 = 4."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n is the upper bound, not the minimum."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 is Combinatorial Coverage."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "You need at least n + 1 = 4 tests to show all three clauses independently affect the outcome."
+            }
+          ],
+          "generalFeedback": "CACC/MC-DC for n independent clauses is achievable with a minimum of n + 1 tests; for n = 3 that is 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What GACC guarantees among PC and CC",
+          "text": "<p>Which statement about GACC and the basic criteria is correct?</p>",
+          "answers": [
+            {
+              "text": "GACC subsumes Clause Coverage but does not necessarily subsume Predicate Coverage",
+              "fraction": 100,
+              "feedback": "Correct — every clause is made both true and false (CC), but p may stay constant across a pair (so PC can fail)."
+            },
+            {
+              "text": "GACC subsumes both Clause Coverage and Predicate Coverage",
+              "fraction": 0,
+              "feedback": "GACC need not subsume PC; the equivalence predicate is a counterexample."
+            },
+            {
+              "text": "GACC subsumes Predicate Coverage but not Clause Coverage",
+              "fraction": 0,
+              "feedback": "It is the other way around: GACC gives CC but may miss PC."
+            },
+            {
+              "text": "GACC subsumes neither Clause nor Predicate Coverage",
+              "fraction": 0,
+              "feedback": "GACC does make each clause both true and false, so it subsumes CC."
+            }
+          ],
+          "generalFeedback": "Because each clause is the major clause of a true/false pair, GACC makes every clause take both values, subsuming Clause Coverage. But GACC allows p to remain constant across a pair (e.g. p = a &#8596; b), so it does not necessarily subsume Predicate Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in a EQUIV b",
+          "text": "<p>For p = a &#8596; b, in how many of the 4 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — for equivalence, flipping a always flips p, so a determines p in every row."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a determines p for both values of b, so all 4 rows qualify, not 2."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Determination for a &#8596; b does not depend on b, so it holds in all rows."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "a always determines p in an equivalence; the count is 4, not 0."
+            }
+          ],
+          "generalFeedback": "p = a &#8596; b equals true when a and b are equal. For any fixed b, flipping a flips p, so a determines p in all 4 assignments. This is why the equivalence gives the GACC-vs-PC counterexample: every row is determining, yet a GACC test set can leave p constant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in (a OR b) AND c",
+          "text": "<p>For p = (a &#8744; b) &#8743; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=false and c=true; a is free, giving 2 rows."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b=true (a &#8744; b already true) or c=false, leaving only 2 determining rows."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 would be c's count in a different predicate; here a determines p in just 2 rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=false, c=true, giving 2 rows."
+            }
+          ],
+          "generalFeedback": "a determines the disjunction a &#8744; b only when b=false, and that disjunction determines p only when c=true. So a determines p when b=false and c=true, with a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Full active-clause subsumption summary",
+          "text": "<p>Which summary of the active-clause subsumption relationships is completely correct?</p>",
+          "answers": [
+            {
+              "text": "RACC subsumes CACC subsumes GACC; CACC subsumes PC, but GACC does not necessarily subsume PC",
+              "fraction": 100,
+              "feedback": "Correct — this captures both the internal ordering and the PC relationship."
+            },
+            {
+              "text": "GACC subsumes CACC subsumes RACC; all three subsume PC",
+              "fraction": 0,
+              "feedback": "The ordering is reversed and GACC does not necessarily subsume PC."
+            },
+            {
+              "text": "RACC subsumes CACC subsumes GACC; none of them subsumes PC",
+              "fraction": 0,
+              "feedback": "CACC (and RACC) do subsume PC; only GACC may fail to."
+            },
+            {
+              "text": "All three are equivalent and each subsumes Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "They are strictly ordered, and Combinatorial Coverage subsumes them, not the reverse."
+            }
+          ],
+          "generalFeedback": "The correct picture: RACC &#8839; CACC &#8839; GACC (strongest to weakest). Both RACC and CACC subsume Predicate Coverage because they force p to take both values; GACC does not necessarily, since it can leave p constant across a pair.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "以 XOR 表述決定性",
+          "text": "<p>固定次要子句於某一指派。主要子句 c <strong>決定（determines）</strong>述詞 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "p|<sub>c=T</sub> XOR p|<sub>c=F</sub> 為 true（以該次要子句值計算）",
+              "fraction": 100,
+              "feedback": "正確——p 的兩次評估結果不同，故單獨切換 c 就會切換 p。"
+            },
+            {
+              "text": "p|<sub>c=T</sub> AND p|<sub>c=F</sub> 為 true",
+              "fraction": 0,
+              "feedback": "那需要兩種情況下 p 都為 true，意味著 c 並未改變 p。"
+            },
+            {
+              "text": "p|<sub>c=T</sub> 為 true",
+              "fraction": 0,
+              "feedback": "決定性在於兩個值不同，而非 c 為 true 時 p 為 true。"
+            },
+            {
+              "text": "c 與 p 的真值相同",
+              "fraction": 0,
+              "feedback": "那不是定義；決定性比較的是 c=T 與 c=F 時的 p。"
+            }
+          ],
+          "generalFeedback": "在次要子句固定下，c 決定 p 恰好在以 c=true 與 c=false 評估 p 得到不同結果時，即 p|&#8853; p|= true。這個 XOR 判準即決定性的操作型定義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是主要子句",
+          "text": "<p>在主動子句覆蓋的要求中，<strong>主要子句（major clause）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "當前正在測試其「是否決定述詞」的那個子句",
+              "fraction": 100,
+              "feedback": "正確——我們一次聚焦一個子句，並要求它決定 p。"
+            },
+            {
+              "text": "在述詞中出現在最前（最左）的子句",
+              "fraction": 0,
+              "feedback": "位置無關；主要子句是我們當前所測試的那個。"
+            },
+            {
+              "text": "在述詞中出現次數最多的子句",
+              "fraction": 0,
+              "feedback": "出現頻率並不定義主要子句。"
+            },
+            {
+              "text": "任何恆為 true 的子句",
+              "fraction": 0,
+              "feedback": "恆定子句永遠無法決定 p；主要子句是受測的那個。"
+            }
+          ],
+          "generalFeedback": "主動子句準則選一個子句作為主要子句（c_i）並要求它決定述詞；其餘每個子句都是次要子句，其值被設定以促成該決定性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是次要子句",
+          "text": "<p>當子句 c_i 為主要子句時，<strong>次要子句（minor clauses）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "其餘所有子句，其值被設定以使 c_i 決定述詞",
+              "fraction": 100,
+              "feedback": "正確——設定它們的值讓主要子句主宰結果。"
+            },
+            {
+              "text": "同時也決定述詞的那些子句",
+              "fraction": 0,
+              "feedback": "次要子句只是「非主要」的子句，它們不必決定 p。"
+            },
+            {
+              "text": "從述詞中被移除的子句",
+              "fraction": 0,
+              "feedback": "它們仍留在述詞中，只是其值被固定。"
+            },
+            {
+              "text": "被評估為 false 的子句",
+              "fraction": 0,
+              "feedback": "次要子句可為 true 或 false；此稱呼與其取值無關。"
+            }
+          ],
+          "generalFeedback": "對每個主要子句的選擇，其餘子句即為次要子句。依準則規則設定其值，使切換主要子句就會切換述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某指派下的主動子句",
+          "text": "<p>在某個測試（指派）下，稱一個子句是<strong>主動的（active）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "它在該處決定述詞——單獨翻轉它會改變述詞的值",
+              "fraction": 100,
+              "feedback": "正確——主動子句就是在該列決定 p 的子句。"
+            },
+            {
+              "text": "它在該測試被評估為 true",
+              "fraction": 0,
+              "feedback": "為 true 與是否主動無關；主動子句可為 true 或 false。"
+            },
+            {
+              "text": "它是述詞中唯一的子句",
+              "fraction": 0,
+              "feedback": "多子句的述詞在特定列仍有主動子句。"
+            },
+            {
+              "text": "它被其他子句遮蔽",
+              "fraction": 0,
+              "feedback": "被遮蔽的子句與主動相反——它不決定 p。"
+            }
+          ],
+          "generalFeedback": "子句在某測試為主動，是指它在該處決定述詞；主動子句準則之所以得名，正是因為要求每個子句在其相應測試中為主動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC 中「General」的意涵",
+          "text": "<p>在<strong>一般（General）</strong>主動子句覆蓋（GACC）中，「一般」指的是：</p>",
+          "answers": [
+            {
+              "text": "在主要子句為 true 與為 false 的兩個測試之間，次要子句的值可以不同",
+              "fraction": 100,
+              "feedback": "正確——GACC 對次要子句最為寬鬆。"
+            },
+            {
+              "text": "在該對測試之間，次要子句的值必須相同",
+              "fraction": 0,
+              "feedback": "那個限制是 RACC，而非 GACC。"
+            },
+            {
+              "text": "該對測試中述詞必須取到兩種值",
+              "fraction": 0,
+              "feedback": "那個額外的相關要求是 CACC。"
+            },
+            {
+              "text": "涵蓋全部 2^n 種子句組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "GACC 僅要求主要子句決定 p 並取到兩種值；它不對兩個測試的次要子句加任何連結限制，故次要子句可取任意（可能不同）的值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC 中「Correlated」的意涵",
+          "text": "<p>在<strong>相關（Correlated）</strong>主動子句覆蓋（CACC）中，什麼與主要子句的改變「相關」？</p>",
+          "answers": [
+            {
+              "text": "述詞 p 的值——在該對測試中必須取到 true 與 false",
+              "fraction": 100,
+              "feedback": "正確——主要子句的翻轉與 p 的改變相關聯。"
+            },
+            {
+              "text": "次要子句的值，必須維持相同",
+              "fraction": 0,
+              "feedback": "要求次要子句相同是 RACC。"
+            },
+            {
+              "text": "述詞中為 true 的子句數目",
+              "fraction": 0,
+              "feedback": "CACC 未提及計算 true 子句的數目。"
+            },
+            {
+              "text": "兩個測試的執行時間",
+              "fraction": 0,
+              "feedback": "此處的相關性是關於真值，而非效能。"
+            }
+          ],
+          "generalFeedback": "CACC 要求：在每個主要子句的那對測試中，p 一者為 true、另一者為 false——p 的改變與主要子句的翻轉相關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RACC 中「Restricted」的意涵",
+          "text": "<p>在<strong>受限（Restricted）</strong>主動子句覆蓋（RACC）中，受限的是什麼？</p>",
+          "answers": [
+            {
+              "text": "在主要子句為 true 與為 false 的兩個測試中，次要子句必須維持相同的值",
+              "fraction": 100,
+              "feedback": "正確——RACC 將次要子句固定為該對測試中相同的值。"
+            },
+            {
+              "text": "子句數目受限於至多三個",
+              "fraction": 0,
+              "feedback": "RACC 對子句數目沒有上限。"
+            },
+            {
+              "text": "只有述詞值被限制為 true",
+              "fraction": 0,
+              "feedback": "RACC 不將 p 固定為 true；主要子句仍需決定 p。"
+            },
+            {
+              "text": "主要子句被限制為 false",
+              "fraction": 0,
+              "feedback": "主要子句必須取到兩種值，而非被限制為 false。"
+            }
+          ],
+          "generalFeedback": "RACC 將次要子句限制為每個主要子句兩個測試中皆相同的值——是三個主動子句準則中最嚴格的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACC 每個子句的測試要求數",
+          "text": "<p>主動子句覆蓋對每個被選為主要子句的子句，會產生幾項測試要求？</p>",
+          "answers": [
+            {
+              "text": "2——一個使主要子句為 true、一個為 false（兩者都決定 p）",
+              "fraction": 100,
+              "feedback": "正確——每個子句產生一對「決定性的」true／false 測試。"
+            },
+            {
+              "text": "1——單一個使子句決定 p 的測試",
+              "fraction": 0,
+              "feedback": "該子句必須在決定 p 的同時被測試為 true 與 false，故有兩項要求。"
+            },
+            {
+              "text": "2^n——其餘子句的所有組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，而非 ACC。"
+            },
+            {
+              "text": "n——每個其他子句一項",
+              "fraction": 0,
+              "feedback": "不論 n 為何，每個主要子句恰產生兩項要求。"
+            }
+          ],
+          "generalFeedback": "對每個主要子句，ACC 要求兩個「該子句決定述詞」的測試：一個子句為 true、一個為 false。含 n 個子句時共 2n 項要求（在合併共用測試之前）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 的決定性",
+          "text": "<p>對述詞 p = a &#8743; b 而言，子句 a 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b = true",
+              "fraction": 100,
+              "feedback": "正確——當 b 為 true 時，p 等於 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = false",
+              "fraction": 0,
+              "feedback": "b 為 false 時，無論 a 為何 p 都是 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "a = true",
+              "fraction": 0,
+              "feedback": "a 的決定性取決於次要子句 b，而非 a 自身的值。"
+            },
+            {
+              "text": "永遠不成立，因為它是邏輯與",
+              "fraction": 0,
+              "feedback": "在邏輯與中 a 確實能決定 p——恰在另一子句為 true 時。"
+            }
+          ],
+          "generalFeedback": "對邏輯與 p = a &#8743; b，子句 a 決定 p 恰好在另一子句 b 為 true 時；此時 p 跟隨 a。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 的決定性",
+          "text": "<p>對述詞 p = a &#8744; b 而言，子句 a 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b = false",
+              "fraction": 100,
+              "feedback": "正確——當 b 為 false 時，p 等於 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = true",
+              "fraction": 0,
+              "feedback": "b 為 true 時，無論 a 為何 p 都是 true，故 a 無法決定 p。"
+            },
+            {
+              "text": "a = false",
+              "fraction": 0,
+              "feedback": "a 的決定性取決於次要子句 b，而非 a 自身的值。"
+            },
+            {
+              "text": "對邏輯或而言恆成立",
+              "fraction": 0,
+              "feedback": "當 b 為 true 時 a 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "對邏輯或 p = a &#8744; b，子句 a 決定 p 恰好在另一子句 b 為 false 時；此時 p 跟隨 a。（對偶地，對 a &#8743; b，a 在 b 為 true 時決定 p。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC 最少測試數公式",
+          "text": "<p>對含 n 個獨立子句的述詞，滿足 CACC（MC/DC）最少所需的測試數為：</p>",
+          "answers": [
+            {
+              "text": "n + 1",
+              "fraction": 100,
+              "feedback": "正確——精心挑選的測試可在子句間共用，故最小值為 n+1。"
+            },
+            {
+              "text": "2n",
+              "fraction": 0,
+              "feedback": "2n 是上界（每個子句一對全新測試），並非最小值。"
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，遠多於 CACC 所需。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只足以滿足述詞覆蓋，不足以滿足 CACC。"
+            }
+          ],
+          "generalFeedback": "由於單一測試可同時作為多個子句的決定性測試，含 n 個獨立子句的 CACC／MC-DC 最少需 n+1 個測試（最多 2n）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 對應哪個主動子句準則",
+          "text": "<p>業界準則 MC/DC（如 DO-178C）最貼近哪個主動子句準則？</p>",
+          "answers": [
+            {
+              "text": "相關主動子句覆蓋（CACC）",
+              "fraction": 100,
+              "feedback": "正確——一般 MC/DC 要求每個子句獨立影響結果，即 CACC。"
+            },
+            {
+              "text": "一般主動子句覆蓋（GACC）",
+              "fraction": 0,
+              "feedback": "GACC 不要求 p 隨子句改變，故弱於 MC/DC。"
+            },
+            {
+              "text": "組合覆蓋（CoC）",
+              "fraction": 0,
+              "feedback": "CoC 要求全部 2^n 組合；MC/DC 僅需約 n+1 個測試。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 只檢查整個判斷，遠弱於 MC/DC。"
+            }
+          ],
+          "generalFeedback": "一般 MC/DC 等價於 CACC：每個子句必須被證明能獨立影響判斷的結果。（嚴格的「唯一原因」MC/DC 則對應 RACC。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ACC 需取到兩種決定性的值",
+          "text": "<p>主動子句覆蓋要求每個子句在決定述詞的同時，被測試為 true 與 false 兩者。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個主要子句都取得一個決定性的 true 測試與一個決定性的 false 測試。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ACC 的核心正是：對每個子句在其主動（決定 p）時給出一對 true／false 測試。"
+            }
+          ],
+          "generalFeedback": "對每個被選為主要子句的子句，ACC 要求兩個該子句決定 p 的測試：一個子句為 true、一個為 false。"
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC、CACC、RACC 屬於哪個家族",
+          "text": "<p>GACC、CACC、RACC 三者共同構成哪一個邏輯覆蓋準則家族？</p>",
+          "answers": [
+            {
+              "text": "主動子句準則（每個子句必須決定述詞）",
+              "fraction": 100,
+              "feedback": "正確——三者都要求主要子句為主動（決定 p）。"
+            },
+            {
+              "text": "非主動子句準則（每個子句必須「不」決定述詞）",
+              "fraction": 0,
+              "feedback": "那是 GICC／RICC 家族，與此互補。"
+            },
+            {
+              "text": "DNF（含蘊項）準則",
+              "fraction": 0,
+              "feedback": "那些是 UTPC、CUTPNFP 之類的準則，非主動子句家族。"
+            },
+            {
+              "text": "組合準則",
+              "fraction": 0,
+              "feedback": "組合覆蓋是單一準則，並非此家族。"
+            }
+          ],
+          "generalFeedback": "GACC、CACC、RACC 是三個主動子句覆蓋準則：各自要求主要子句決定（在述詞中為主動），差別僅在於如何約束次要子句與 p。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "決定述詞的子句稱為主動",
+          "text": "<p>在某測試中決定述詞的子句，在該測試被稱為<em>主動（active）</em>子句。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——「主動」正是「在該指派決定 p 的子句」之稱呼。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "決定性的子句是主動的；不決定（被遮蔽）的子句是非主動的。"
+            }
+          ],
+          "generalFeedback": "決定性與主動性是同一概念：子句在某測試為主動，恰好等於它在該處決定述詞。這正是 GACC/CACC/RACC 稱為「主動子句」準則的原因。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 a 的次要子句值",
+          "text": "<p>對述詞 p = (a &#8744; b) &#8743; c，哪組次要子句值能使子句 a <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 0,
+              "feedback": "b 為 true 時，無論 a 為何 a &#8744; b 都為 true，故 a 被遮蔽。"
+            },
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 0,
+              "feedback": "c 為 false 時，無論 a 為何 p 都為 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 a：c 為 false 使 p 為 false，b 為 true 遮蔽 a。"
+            }
+          ],
+          "generalFeedback": "a 決定邏輯或 a &#8744; b 僅在 b = false 時，而該邏輯或決定 p = (&#8230;) &#8743; c 僅在 c = true 時。故 a 決定 p 恰在 b = false 且 c = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND (b OR c) 中 b 的次要子句值",
+          "text": "<p>對述詞 p = a &#8743; (b &#8744; c)，哪組次要子句值能使子句 b <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "a = true 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 b，故翻轉 b 會翻轉 p。"
+            },
+            {
+              "text": "a = true 且 c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 時，無論 b 為何 b &#8744; c 都為 true，故 b 被遮蔽。"
+            },
+            {
+              "text": "a = false 且 c = false",
+              "fraction": 0,
+              "feedback": "a 為 false 時，無論 b 為何 p 都為 false，故 b 無法決定 p。"
+            },
+            {
+              "text": "a = false 且 c = true",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 b：a 為 false 使 p 為 false，c 為 true 遮蔽 b。"
+            }
+          ],
+          "generalFeedback": "b 決定邏輯或 b &#8744; c 僅在 c = false 時，而該邏輯或決定 p = a &#8743; (&#8230;) 僅在 a = true 時。故 b 決定 p 恰在 a = true 且 c = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 b 的次要子句值",
+          "text": "<p>對述詞 p = (a &#8743; b) &#8744; c，哪組次要子句值能使子句 b <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "a = true 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 b，故翻轉 b 會翻轉 p。"
+            },
+            {
+              "text": "a = false 且 c = false",
+              "fraction": 0,
+              "feedback": "a 為 false 時，無論 b 為何 a &#8743; b 都為 false，故 b 被遮蔽。"
+            },
+            {
+              "text": "a = true 且 c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 時，無論 b 為何 p 都為 true，故 b 無法決定 p。"
+            },
+            {
+              "text": "a = false 且 c = true",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 b：a 為 false 遮蔽 b，c 為 true 使 p 為 true。"
+            }
+          ],
+          "generalFeedback": "b 只有在 a = true 時才能通過項 a &#8743; b，且該項只有在 c = false 時才傳達到 p = (&#8230;) &#8744; c。故 b 決定 p 恰在 a = true 且 c = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判別「只滿足 CACC」的測試對",
+          "text": "<p>對 p = a &#8743; (b &#8744; c)，以 a 為主要子句，考慮測試對 {(a=T, b=T, c=F), (a=F, b=F, c=T)}。此對針對 a 所滿足的<strong>最強</strong>主動子句準則為何？</p>",
+          "answers": [
+            {
+              "text": "CACC（但非 RACC）",
+              "fraction": 100,
+              "feedback": "正確——a 在兩列都決定 p 且 p 取值不同（先 T 後 F），但次要子句 (b,c) 不同，故非 RACC。"
+            },
+            {
+              "text": "RACC",
+              "fraction": 0,
+              "feedback": "RACC 需次要子句值相同；此處 (b,c) 為 (T,F) 與 (F,T)，故 RACC 不成立。"
+            },
+            {
+              "text": "只有 GACC",
+              "fraction": 0,
+              "feedback": "因 p 在該對測試取到兩種值，至少已達 CACC。"
+            },
+            {
+              "text": "GACC、CACC、RACC 皆不滿足",
+              "fraction": 0,
+              "feedback": "a 在兩列都決定 p，故至少滿足 GACC 與 CACC。"
+            }
+          ],
+          "generalFeedback": "兩列中 b &#8744; c 皆為 true，故 a 決定 p；p 先 true 後 false，滿足 CACC（因而滿足 GACC）。但次要子句不同（(T,F) 對 (F,T)），故不滿足 RACC。最強者為 CACC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判別 RACC 測試對",
+          "text": "<p>對 p = a &#8743; (b &#8744; c)，以 a 為主要子句，考慮測試對 {(a=T, b=T, c=F), (a=F, b=T, c=F)}。此對針對 a 所滿足的<strong>最強</strong>主動子句準則為何？</p>",
+          "answers": [
+            {
+              "text": "RACC",
+              "fraction": 100,
+              "feedback": "正確——a 在兩列都決定 p、p 取值不同，且次要子句值 (b=T, c=F) 在該對測試中相同。"
+            },
+            {
+              "text": "CACC 但非 RACC",
+              "fraction": 0,
+              "feedback": "此處次要子句值「相同」，故較強的 RACC 已被滿足。"
+            },
+            {
+              "text": "只有 GACC",
+              "fraction": 0,
+              "feedback": "p 也取到兩種值，故 CACC 乃至 RACC 皆成立。"
+            },
+            {
+              "text": "組合覆蓋",
+              "fraction": 0,
+              "feedback": "單一測試對無法達成三個子句的組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "兩列中 b &#8744; c = true 故 a 決定 p；p 先 true 後 false（CACC）；且次要子句值 (b=T, c=F) 在該對測試相同（RACC）。最強者為 RACC，而 RACC 涵蓋 CACC 與 GACC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 CACC 涵蓋述詞覆蓋",
+          "text": "<p>為何 CACC 涵蓋（subsumes）述詞覆蓋（PC）？</p>",
+          "answers": [
+            {
+              "text": "每個主要子句的測試對迫使 p 一者為 true、另一者為 false，故 p 取到兩種值",
+              "fraction": 100,
+              "feedback": "正確——這正是 PC 的要求。"
+            },
+            {
+              "text": "因為 CACC 測試每一種子句值組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋；CACC 並不測試所有組合。"
+            },
+            {
+              "text": "因為 CACC 將次要子句固定為相同的值",
+              "fraction": 0,
+              "feedback": "那描述的是 RACC 的額外限制，並非 PC 被涵蓋的原因。"
+            },
+            {
+              "text": "因為每個子句都被取到 true 與 false",
+              "fraction": 0,
+              "feedback": "那給出子句覆蓋，而非述詞覆蓋。"
+            }
+          ],
+          "generalFeedback": "CACC 要求 p 在每個主要子句的測試對中取值不同，故 p 被驅動到 true 與 false——這正是述詞覆蓋。（GACC 缺乏此保證，故 GACC 不涵蓋 PC。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 c 的決定性",
+          "text": "<p>對述詞 p = (a &#8744; b) &#8743; c，子句 c 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "a &#8744; b 為 true 時",
+              "fraction": 100,
+              "feedback": "正確——當 (a &#8744; b) 為 true 時 p 等於 c；為 false 時無論 c 為何 p 都為 false。"
+            },
+            {
+              "text": "a &#8744; b 為 false 時",
+              "fraction": 0,
+              "feedback": "此時無論 c 為何 p 都為 false，故 c 不決定 p。"
+            },
+            {
+              "text": "a 為 true 且 b 為 true 時",
+              "fraction": 0,
+              "feedback": "只要 a &#8744; b 為 true，c 就決定 p，這包含只有一個為 true 的列。"
+            },
+            {
+              "text": "恆成立",
+              "fraction": 0,
+              "feedback": "當 a &#8744; b 為 false 時 c 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "對邏輯與 p = X &#8743; c，子句 c 決定 p 恰在另一運算元 X 為 true 時。此處 X = a &#8744; b，故 c 在 a &#8744; b 為 true 時決定 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 c 的次要子句值",
+          "text": "<p>對述詞 p = (a &#8744; b) &#8743; c，次要子句滿足何種條件能使 c <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "a、b 至少一者為 true（a &#8744; b 為 true）",
+              "fraction": 100,
+              "feedback": "正確——此時 p 等於 c。"
+            },
+            {
+              "text": "a 與 b 皆為 false",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 false，無論 c 為何 p 都為 false。"
+            },
+            {
+              "text": "僅 a 與 b 皆為 true",
+              "fraction": 0,
+              "feedback": "a=T,b=F（或 a=F,b=T）也使 a &#8744; b 為 true，那些列同樣可行。"
+            },
+            {
+              "text": "a、b 恰有一者為 true",
+              "fraction": 0,
+              "feedback": "a=T,b=T 也能使 c 決定 p，故並非「恰有一者」。"
+            }
+          ],
+          "generalFeedback": "只要另一運算元 a &#8744; b 為 true，c 就決定 p = (a &#8744; b) &#8743; c，即 a、b 至少一者為 true（(a,b) 四種組合中的三種）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的 ACC 要求數",
+          "text": "<p>在合併任何共用測試之前，一個 3 子句述詞會產生多少項主動子句測試要求？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——3 個主要子句各 2 項（true／false）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "每個子句需要一個 true 與一個 false 的決定性測試，故每子句 2 項。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 是組合覆蓋，並非 ACC 的要求數。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n+1 是合併後的最少測試數，並非要求的數目。"
+            }
+          ],
+          "generalFeedback": "ACC 每子句產生 2 項要求（主要子句為 true 與為 false，兩者都決定 p），故 2 &#215; 3 = 6 項要求。共用測試後可將實際測試數降至 n+1 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c 中 a 的次要子句值",
+          "text": "<p>對述詞 p = a &#8743; b &#8743; c，哪組次要子句值能使子句 a <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 0,
+              "feedback": "任一子句為 false 都使邏輯與為 false，與 a 無關。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "c = false 使 p 為 false，與 a 無關，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 0,
+              "feedback": "b = false 使 p 為 false，與 a 無關，故 a 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "在邏輯與中，子句決定述詞僅在其餘每個子句皆為 true 時。對 a &#8743; b &#8743; c，a 決定 p 恰在 b = true 且 c = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c 中 a 的次要子句值",
+          "text": "<p>對述詞 p = a &#8744; b &#8744; c，哪組次要子句值能使子句 a <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 0,
+              "feedback": "任一子句為 true 都使邏輯或為 true，與 a 無關。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "b = true 使 p 為 true，與 a 無關，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 0,
+              "feedback": "c = true 使 p 為 true，與 a 無關，故 a 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "在邏輯或中，子句決定述詞僅在其餘每個子句皆為 false 時。對 a &#8744; b &#8744; c，a 決定 p 恰在 b = false 且 c = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 某列的主動子句",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 a=T、b=F、c=F 時，哪些子句是<strong>主動的</strong>（在該處決定 p）？</p>",
+          "answers": [
+            {
+              "text": "b 與 c",
+              "fraction": 100,
+              "feedback": "正確——翻轉 b（F&#8594;T）使 p 為 true，翻轉 c（F&#8594;T）使 p 為 true；翻轉 a 則 p 仍為 false。"
+            },
+            {
+              "text": "a 與 c",
+              "fraction": 0,
+              "feedback": "翻轉 a（T&#8594;F）後 a &#8743; b 仍為 false，p 保持 false；a 非主動。"
+            },
+            {
+              "text": "a、b、c",
+              "fraction": 0,
+              "feedback": "a 在此非主動：b 為 false 時，無論 a 為 T 或 F，a &#8743; b 都為 false。"
+            },
+            {
+              "text": "只有 c",
+              "fraction": 0,
+              "feedback": "b 也是主動：將 b 翻為 true 使 a &#8743; b 為 true，因而 p 為 true。"
+            }
+          ],
+          "generalFeedback": "在 a=T,b=F,c=F 時，p = (T&#8743;F)&#8744;F = F。翻轉 a &#8594; (F&#8743;F)&#8744;F = F（非主動）；翻轉 b &#8594; (T&#8743;T)&#8744;F = T（主動）；翻轉 c &#8594; (T&#8743;F)&#8744;T = T（主動）。故 b 與 c 為主動。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CACC 涵蓋 GACC",
+          "text": "<p>相關主動子句覆蓋（CACC）涵蓋（subsumes）一般主動子句覆蓋（GACC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——CACC 增加了「p 在該對測試取值不同」的要求，並保留 GACC 的所有要求，故至少一樣強。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個滿足 CACC 的測試集也滿足 GACC，故 CACC 涵蓋 GACC。"
+            }
+          ],
+          "generalFeedback": "主動子句階層為 RACC 涵蓋 CACC 涵蓋 GACC。CACC 保留 GACC 的決定性要求，僅額外要求 p 在每對測試中改變，故涵蓋 GACC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "X AND c 的決定性",
+          "text": "<p>設 p = X &#8743; c，其中 X 為任意子運算式、c 為單一子句。子句 c 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "X 評估為 true",
+              "fraction": 100,
+              "feedback": "正確——X 為 true 時 p 等於 c，故翻轉 c 會翻轉 p。"
+            },
+            {
+              "text": "X 評估為 false",
+              "fraction": 0,
+              "feedback": "X 為 false 時，無論 c 為何 p 都為 false。"
+            },
+            {
+              "text": "c 評估為 true",
+              "fraction": 0,
+              "feedback": "c 的決定性取決於 X，而非 c 自身的值。"
+            },
+            {
+              "text": "恆成立，因為 c 是頂層子句",
+              "fraction": 0,
+              "feedback": "只要 X 為 false，c 就被遮蔽。"
+            }
+          ],
+          "generalFeedback": "對頂層邏輯與 p = X &#8743; c，c 決定 p 恰在另一運算元 X 為 true 時。對偶地，對 p = X &#8744; c，c 決定 p 恰在 X 為 false 時。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "X OR c 的決定性",
+          "text": "<p>設 p = X &#8744; c，其中 X 為任意子運算式、c 為單一子句。子句 c 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "X 評估為 false",
+              "fraction": 100,
+              "feedback": "正確——X 為 false 時 p 等於 c，故翻轉 c 會翻轉 p。"
+            },
+            {
+              "text": "X 評估為 true",
+              "fraction": 0,
+              "feedback": "X 為 true 時，無論 c 為何 p 都為 true。"
+            },
+            {
+              "text": "c 評估為 false",
+              "fraction": 0,
+              "feedback": "c 的決定性取決於 X，而非 c 自身的值。"
+            },
+            {
+              "text": "恆成立，因為 c 是頂層子句",
+              "fraction": 0,
+              "feedback": "只要 X 為 true，c 就被遮蔽。"
+            }
+          ],
+          "generalFeedback": "對頂層邏輯或 p = X &#8744; c，c 決定 p 恰在另一運算元 X 為 false 時。對偶地，對 p = X &#8743; c，c 決定 p 恰在 X 為 true 時。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何 RACC 涵蓋 CACC",
+          "text": "<p>為何 RACC 涵蓋 CACC？</p>",
+          "answers": [
+            {
+              "text": "在主要子句決定 p 的同時將次要子句固定為相同值，會迫使 p 在該對測試取到相反值，這正是 CACC 額外要求的",
+              "fraction": 100,
+              "feedback": "正確——RACC 的限制蘊含 CACC 的相關性，且 RACC 保留所有其他 ACC 要求。"
+            },
+            {
+              "text": "RACC 測試全部 2^n 種組合，其中包含每個 CACC 測試",
+              "fraction": 0,
+              "feedback": "RACC 不需所有組合；它與 CACC 一樣約用 n+1 個測試。"
+            },
+            {
+              "text": "RACC 取消了決定性要求，使其更易滿足",
+              "fraction": 0,
+              "feedback": "RACC 保留決定性；取消它只會更弱而非更強。"
+            },
+            {
+              "text": "RACC 只適用於兩子句述詞，此時 CACC 為顯然成立",
+              "fraction": 0,
+              "feedback": "RACC 適用於任意述詞。"
+            }
+          ],
+          "generalFeedback": "在 RACC 下次要子句於該對測試相同且主要子句決定 p；決定性即「只翻轉主要子句就翻轉 p」，故 p 一者為 true、另一者為 false——即 CACC 的要求。因此每個滿足 RACC 的測試集也滿足 CACC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC 不涵蓋 PC 的反例",
+          "text": "<p>考慮 p = a &#8596; b（等價，於 a 與 b 相等時為 true）。哪個測試集滿足 GACC 卻不滿足述詞覆蓋，藉此顯示 GACC 不涵蓋 PC？</p>",
+          "answers": [
+            {
+              "text": "{(a=T, b=T), (a=F, b=F)}",
+              "fraction": 100,
+              "feedback": "正確——兩個測試皆使 p=true，故 PC 不成立；但每個子句在兩列都決定 p，故 GACC 成立。"
+            },
+            {
+              "text": "{(a=T, b=T), (a=F, b=T)}",
+              "fraction": 0,
+              "feedback": "此處 p 取到兩種值（先 T 後 F），故滿足 PC——並非反例。"
+            },
+            {
+              "text": "{(a=T, b=T), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "此處 p 取到兩種值（先 T 後 F），故滿足 PC——並非反例。"
+            },
+            {
+              "text": "{(a=F, b=F), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "此處 p 取到兩種值（先 T 後 F），故滿足 PC——並非反例。"
+            }
+          ],
+          "generalFeedback": "對 p = a &#8596; b，每個子句恆決定 p。集合 {(T,T),(F,F)} 使每個子句在決定 p 的同時取到 true 與 false（滿足 GACC），但兩列的 p = true，故不滿足述詞覆蓋。這是「GACC 不涵蓋 PC」的經典證明。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "每個 CACC 測試集都滿足 PC",
+          "text": "<p>每個滿足 CACC 的測試集也都滿足述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——CACC 迫使 p 在每對測試中一者為 true、另一者為 false，故 p 取到兩種值。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CACC 要求 p 在每個主要子句的測試對中取值不同，這保證了述詞覆蓋。"
+            }
+          ],
+          "generalFeedback": "CACC 涵蓋述詞覆蓋，因為它要求 p 在每對測試取到兩種真值。（相對地 GACC 不然，因為 GACC 允許次要子句變動，使 p 可保持不變。）"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 RACC 可能不可行而 CACC 可行",
+          "text": "<p>有時對某子句而言 RACC 不可行，即使 CACC 可行。最佳解釋是：</p>",
+          "answers": [
+            {
+              "text": "RACC 將次要子句固定為單一相同的組合；子句間的約束可能禁止該特定組合，而 CACC 可自由採用不同的次要子句值，仍能得到有效的測試對",
+              "fraction": 100,
+              "feedback": "正確——RACC 的額外限制可能與子句約束衝突，而 CACC 得以迴避。"
+            },
+            {
+              "text": "RACC 需要的測試數多於真值表的列數",
+              "fraction": 0,
+              "feedback": "RACC 約需 n+1 個測試，遠在 2^n 列之內。"
+            },
+            {
+              "text": "CACC 不要求主要子句決定 p，故恆可行",
+              "fraction": 0,
+              "feedback": "CACC 確實要求決定性；那不是原因。"
+            },
+            {
+              "text": "RACC 會自動忽略不可行的列",
+              "fraction": 0,
+              "feedback": "不可行的列正是可能使 RACC 無法滿足的原因，而非它會忽略的東西。"
+            }
+          ],
+          "generalFeedback": "當子句在邏輯上耦合時，RACC 要求的那個相同次要子句組合可能無法達到，而 CACC 可挑選兩個不同（各自可達）的次要子句指派。因此 RACC 可能不可行而 CACC 可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 a 的決定列數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=true 且 c=false；a 自由，故 2 列。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 c 的決定列數，而非 a。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b=false 或 c=true，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=true、c=false 時 a=T 與 a=F 都算，故 2 列。"
+            }
+          ],
+          "generalFeedback": "a 決定 p 恰在 b=true 且 c=false（使項 a &#8743; b 傳達 a 值，且邏輯或未遮蔽它）。此固定 b 與 c、a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND (c OR d) 中 c 的決定列數",
+          "text": "<p>對 p = (a &#8744; b) &#8743; (c &#8744; d)，在 16 種指派中，子句 c <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——c 決定 p 需 (a &#8744; b)=true（4 中之 3）且 d=false（2 中之 1），c 自由（2）：3&#215;1&#215;2 = 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那忽略了 d=false 的條件；那些列只有一半符合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重算——3（a &#8744; b 為 true）&#215; 1（d 為 false）&#215; 2（c 自由）= 6。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "只要 a &#8744; b 為 false 或 d 為 true，c 就被遮蔽，故符合的列遠少於 12。"
+            }
+          ],
+          "generalFeedback": "c 決定 c &#8744; d 僅在 d=false 時，而該邏輯或決定 p 僅在 a &#8744; b=true 時。故 c 決定 p 需 a &#8744; b=true（(a,b) 4 中之 3）且 d=false，c 自由：3 &#215; 1 &#215; 2 = 16 中之 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c 中 a 的決定列數",
+          "text": "<p>對 p = a &#8744; b &#8744; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=false 且 c=false；a 自由，故 2 列。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 a &#8744; b &#8744; c 的滿足列數，而非 a 的決定列數。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b 或 c 為 true，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=false、c=false 時 a=T 與 a=F 都算，故 2 列。"
+            }
+          ],
+          "generalFeedback": "在邏輯或中，a 決定 p 僅在其餘每個子句皆為 false 時。b=false 且 c=false 固定次要子句、a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c 中 a 的決定列數",
+          "text": "<p>對 p = a &#8743; b &#8743; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=true 且 c=true；a 自由，故 2 列。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=true、c=true 時 a=T 與 a=F 都算，故 2 列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b 或 c 為 false，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a 只在 b、c 皆為 true 的 2 列決定 p。"
+            }
+          ],
+          "generalFeedback": "在邏輯與中，a 決定 p 僅在其餘每個子句皆為 true 時。b=true 且 c=true 固定次要子句、a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR (c AND d) 中 a 的決定條件",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，子句 a 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b = true 且 (c &#8743; d) = false",
+              "fraction": 100,
+              "feedback": "正確——b 為 true 使 a 通過第一項，(c &#8743; d) 為 false 使邏輯或不遮蔽它。"
+            },
+            {
+              "text": "b = true 且 (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "c &#8743; d 為 true 時，無論 a 為何 p 都為 true，故 a 被遮蔽。"
+            },
+            {
+              "text": "b = false 且 (c &#8743; d) = false",
+              "fraction": 0,
+              "feedback": "b 為 false 時，無論 a 為何 a &#8743; b 都為 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = false 且 (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 a：b 為 false 遮蔽 a，c &#8743; d 為 true 使 p 為 true。"
+            }
+          ],
+          "generalFeedback": "a 只有在 b = true 時才能通過項 a &#8743; b，且該項只有在另一項 c &#8743; d 為 false 時才傳達到 p = (&#8230;) &#8744; (c &#8743; d)。故 a 決定 p 恰在 b = true 且 (c &#8743; d) = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "蘊含約束下不可行的 RACC 測試對",
+          "text": "<p>某述詞使用子句 c1：<code>x &gt; 10</code> 與 c2：<code>x &gt; 0</code>。一項需要 c1 = true 而 c2 = false 的測試要求是：</p>",
+          "answers": [
+            {
+              "text": "不可行——x > 10 蘊含 x > 0，故 c1 為 true 而 c2 為 false 不可能發生",
+              "fraction": 100,
+              "feedback": "正確——這兩個子句在邏輯上耦合，該組合不可能成立。"
+            },
+            {
+              "text": "對某個 x 值可行",
+              "fraction": 0,
+              "feedback": "沒有 x 大於 10 卻不大於 0。"
+            },
+            {
+              "text": "僅在 GACC 下可行",
+              "fraction": 0,
+              "feedback": "任何準則都無法實現邏輯上不可能的子句組合。"
+            },
+            {
+              "text": "恆可行，因為兩子句相互獨立",
+              "fraction": 0,
+              "feedback": "這兩個子句並不獨立；c1 蘊含 c2。"
+            }
+          ],
+          "generalFeedback": "因為 x > 10 邏輯上蘊含 x > 0，組合 c1=true、c2=false 無法達到。任何依賴該組合的主動子句要求（包含一對 RACC）都不可行，必須予以排除。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的 CACC 最少測試數",
+          "text": "<p>某判斷有 3 個獨立子句。滿足 CACC（MC/DC）最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——n + 1 = 3 + 1 = 4。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n 是上界，並非最小值。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 是組合覆蓋。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "需至少 n + 1 = 4 個測試才能顯示三個子句各自獨立影響結果。"
+            }
+          ],
+          "generalFeedback": "含 n 個獨立子句的 CACC／MC-DC 最少可用 n + 1 個測試達成；n = 3 時即 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC 對 PC 與 CC 的保證",
+          "text": "<p>關於 GACC 與基本準則，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "GACC 涵蓋子句覆蓋，但不必然涵蓋述詞覆蓋",
+              "fraction": 100,
+              "feedback": "正確——每個子句都被取到 true 與 false（CC），但 p 可能在一對測試中維持不變（故 PC 可能失敗）。"
+            },
+            {
+              "text": "GACC 同時涵蓋子句覆蓋與述詞覆蓋",
+              "fraction": 0,
+              "feedback": "GACC 不必然涵蓋 PC；等價述詞即為反例。"
+            },
+            {
+              "text": "GACC 涵蓋述詞覆蓋，但不涵蓋子句覆蓋",
+              "fraction": 0,
+              "feedback": "恰好相反：GACC 給出 CC，但可能遺漏 PC。"
+            },
+            {
+              "text": "GACC 既不涵蓋子句覆蓋，也不涵蓋述詞覆蓋",
+              "fraction": 0,
+              "feedback": "GACC 確實使每個子句取到 true 與 false，故涵蓋 CC。"
+            }
+          ],
+          "generalFeedback": "由於每個子句都是某對 true／false 測試的主要子句，GACC 使每個子句取到兩種值，故涵蓋子句覆蓋。但 GACC 允許 p 在一對測試中維持不變（例如 p = a &#8596; b），故不必然涵蓋述詞覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a EQUIV b 中 a 的決定列數",
+          "text": "<p>對 p = a &#8596; b，在 4 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——對等價而言，翻轉 a 恆翻轉 p，故 a 在每一列都決定 p。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a 對 b 的兩種值都決定 p，故 4 列皆符合，而非 2。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "a &#8596; b 中 a 的決定性與 b 無關，故在所有列都成立。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "在等價中 a 恆決定 p；計數為 4，而非 0。"
+            }
+          ],
+          "generalFeedback": "p = a &#8596; b 於 a 與 b 相等時為 true。對任意固定的 b，翻轉 a 都翻轉 p，故 a 在全部 4 種指派都決定 p。這正是等價給出 GACC-vs-PC 反例的原因：每一列都是決定性的，而 GACC 測試集卻可使 p 維持不變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 a 的決定列數",
+          "text": "<p>對 p = (a &#8744; b) &#8743; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=false 且 c=true；a 自由，故 2 列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b=true（a &#8744; b 已為 true）或 c=false，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是其他述詞中 c 的列數；此處 a 只在 2 列決定 p。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=false、c=true 時 a=T 與 a=F 都算，故 2 列。"
+            }
+          ],
+          "generalFeedback": "a 決定邏輯或 a &#8744; b 僅在 b=false 時，而該邏輯或決定 p 僅在 c=true 時。故 a 決定 p 需 b=false 且 c=true，a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主動子句涵蓋關係總整理",
+          "text": "<p>關於主動子句的涵蓋關係，下列哪一項總結完全正確？</p>",
+          "answers": [
+            {
+              "text": "RACC 涵蓋 CACC 涵蓋 GACC；CACC 涵蓋 PC，但 GACC 不必然涵蓋 PC",
+              "fraction": 100,
+              "feedback": "正確——這同時捕捉了內部次序與對 PC 的關係。"
+            },
+            {
+              "text": "GACC 涵蓋 CACC 涵蓋 RACC；三者都涵蓋 PC",
+              "fraction": 0,
+              "feedback": "次序顛倒，且 GACC 不必然涵蓋 PC。"
+            },
+            {
+              "text": "RACC 涵蓋 CACC 涵蓋 GACC；三者都不涵蓋 PC",
+              "fraction": 0,
+              "feedback": "CACC（與 RACC）確實涵蓋 PC；只有 GACC 可能不涵蓋。"
+            },
+            {
+              "text": "三者等價，且各自都涵蓋組合覆蓋",
+              "fraction": 0,
+              "feedback": "三者為嚴格排序，且是組合覆蓋涵蓋它們，而非反之。"
+            }
+          ],
+          "generalFeedback": "正確圖像：RACC &#8839; CACC &#8839; GACC（由強到弱）。RACC 與 CACC 都涵蓋述詞覆蓋，因為它們迫使 p 取到兩種值；GACC 則不必然，因為它可使 p 在一對測試中維持不變。",
+          "single": true
+        }
+      ]
+    }
+  },
   "logic-basic": {
     "en": {
       "easy": [
