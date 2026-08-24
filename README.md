@@ -75,7 +75,10 @@ generators, and the `src/components/ExampleControls.js` row.
 - Each topic bank ships easy / medium / hard difficulty tiers (15 questions
   each, en+zh) plus a 混和 (mixed) mode that samples 5 from each tier for a
   15-question quiz; `build:quiz` runs `--strict` and fails the build if any
-  topic/level is incomplete or en/zh lengths disagree.
+  topic/level is incomplete or en/zh lengths disagree. To grow a bank
+  progressively, list its id in `quizzes/in-progress.json` — those topics
+  are downgraded to warnings (never fail the build) so a partially-authored
+  bank can land; remove the id once it reaches 15/15/15 in both languages.
 - `labs/labs.json` + `labs/<slug>/` define practice labs;
   `npm run build:labs` regenerates `src/data/labRendered.js`. The judge
   button is a "coming soon" placeholder until a judge URL is wired up.
