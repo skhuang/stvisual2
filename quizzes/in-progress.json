@@ -1,1 +1,6 @@
-[]
+[
+  "logic-basic",
+  "logic-active-clause",
+  "logic-inactive-clause",
+  "logic-dnf"
+]
