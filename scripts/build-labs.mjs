@@ -70,6 +70,12 @@ export function buildLabs() {
         titleEn: h1Of(enMd) || meta.title || e.slug,
         topic: meta.topic, week: meta.week, difficulty: meta.difficulty, tags: meta.tags || [],
         repoUrl: e.repoUrl ?? null, judgeUrl: e.judgeUrl ?? null,
+        // Wiring for a dsjudge METRIC problem (the student submits a test
+        // suite, graded on measured coverage). Present => LabViewer shows the
+        // "Submit tests" upload; absent => the disabled "coming soon" button.
+        // Either the registry entry or the lab's own meta.json may carry it.
+        judgeProblemId: e.judgeProblemId ?? meta.dsjudge_problem_id ?? null,
+        judgeBase: e.judgeBase ?? meta.judge_base ?? null,
         statementHtml: { zh: mdToHtml(zhMd), en: mdToHtml(enMd) },
         samples: readSamples(e.slug),
       };
