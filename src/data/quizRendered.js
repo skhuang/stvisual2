@@ -10185,6 +10185,2502 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "fuzz-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What fuzzing is",
+          "text": "<p>What does a <strong>fuzzer</strong> fundamentally do?</p>",
+          "answers": [
+            {
+              "text": "It automatically feeds a program large volumes of generated or malformed inputs, watching for crashes and other failures",
+              "fraction": 100,
+              "feedback": "Correct — fuzzing is automated testing that bombards the program with many inputs and looks for observable failures."
+            },
+            {
+              "text": "It formally proves that the program has no bugs",
+              "fraction": 0,
+              "feedback": "Fuzzing finds bugs by trying inputs; it never proves the absence of bugs."
+            },
+            {
+              "text": "It statically measures how many lines a test suite covers",
+              "fraction": 0,
+              "feedback": "That is coverage measurement; a fuzzer actively runs the program on many generated inputs."
+            },
+            {
+              "text": "It translates source code into optimized machine code",
+              "fraction": 0,
+              "feedback": "That describes a compiler, not a fuzzer."
+            }
+          ],
+          "generalFeedback": "Fuzz testing (fuzzing) automatically generates many inputs — often random or malformed — runs the program on them, and reports the ones that trigger a detectable failure such as a crash. It is a bug-finding technique, not a correctness proof.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seed corpus",
+          "text": "<p>In fuzzing, a <strong>seed corpus</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A set of sample inputs the fuzzer starts from and mutates to produce new inputs",
+              "fraction": 100,
+              "feedback": "Correct — seeds are the starting examples that mutation-based fuzzers build on."
+            },
+            {
+              "text": "The list of crashes the fuzzer has already found",
+              "fraction": 0,
+              "feedback": "Crashes are outputs of a fuzzing run; the seed corpus is the set of starting inputs."
+            },
+            {
+              "text": "The random-number generator's initial seed value",
+              "fraction": 0,
+              "feedback": "A PRNG seed is a single number; the seed corpus is a collection of example inputs."
+            },
+            {
+              "text": "The source code of the program under test",
+              "fraction": 0,
+              "feedback": "The corpus is input data, not the program's code."
+            }
+          ],
+          "generalFeedback": "The seed corpus is the initial collection of valid or interesting example inputs a mutation-based fuzzer uses as a starting point; it mutates these seeds to explore new behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation-based vs generation-based",
+          "text": "<p>How does <strong>mutation-based</strong> fuzzing differ from <strong>generation-based</strong> fuzzing?</p>",
+          "answers": [
+            {
+              "text": "Mutation-based fuzzing modifies existing seed inputs, while generation-based fuzzing builds inputs from scratch using a model or grammar of the format",
+              "fraction": 100,
+              "feedback": "Correct — one mutates given samples, the other constructs inputs from a specification."
+            },
+            {
+              "text": "Mutation-based fuzzing needs a full grammar, while generation-based fuzzing just flips bits",
+              "fraction": 0,
+              "feedback": "It is the reverse: generation-based fuzzing uses a grammar/model; mutation-based typically flips bits and splices seeds."
+            },
+            {
+              "text": "Both require the program's source code to run",
+              "fraction": 0,
+              "feedback": "Neither necessarily needs source; the distinction is how inputs are produced (mutation vs generation)."
+            },
+            {
+              "text": "They are two names for the exact same technique",
+              "fraction": 0,
+              "feedback": "They are distinct strategies for producing inputs."
+            }
+          ],
+          "generalFeedback": "Mutation-based fuzzing takes a seed corpus and applies mutations (bit flips, byte replacements, splicing) to it. Generation-based fuzzing instead synthesizes inputs from a model or grammar that describes the expected format, so it can produce well-structured inputs from the start.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage-guided fuzzing",
+          "text": "<p>What defines a <strong>coverage-guided</strong> (greybox) fuzzer?</p>",
+          "answers": [
+            {
+              "text": "It instruments the program to observe code coverage and keeps inputs that reach new code, evolving its corpus toward deeper behavior",
+              "fraction": 100,
+              "feedback": "Correct — coverage feedback selects \"interesting\" inputs and drives the search."
+            },
+            {
+              "text": "It generates inputs purely at random and never looks at what the program does",
+              "fraction": 0,
+              "feedback": "That describes black-box fuzzing; coverage-guided fuzzing uses feedback."
+            },
+            {
+              "text": "It requires a full formal specification of the program",
+              "fraction": 0,
+              "feedback": "No specification is needed — just lightweight coverage instrumentation."
+            },
+            {
+              "text": "It only measures coverage after fuzzing finishes and never changes its inputs",
+              "fraction": 0,
+              "feedback": "Coverage is used online, during the run, to choose which inputs to keep and mutate further."
+            }
+          ],
+          "generalFeedback": "A coverage-guided fuzzer (e.g. AFL, libFuzzer) instruments the target to record which code edges each input exercises. Inputs that hit new coverage are saved to the corpus and mutated further, so the fuzzer gradually works its way into deeper code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The fuzzing oracle",
+          "text": "<p>When a fuzzer runs an input, what most commonly tells it that a bug was found (its <strong>oracle</strong>)?</p>",
+          "answers": [
+            {
+              "text": "A crash, a hang, a sanitizer violation, or a failed assertion during the run",
+              "fraction": 100,
+              "feedback": "Correct — these are the observable failure signals fuzzers rely on."
+            },
+            {
+              "text": "A human reads every generated input and judges it by hand",
+              "fraction": 0,
+              "feedback": "Fuzzers run millions of inputs; the oracle must be automatic, like a crash or sanitizer report."
+            },
+            {
+              "text": "The input's file size exceeding a threshold",
+              "fraction": 0,
+              "feedback": "File size does not indicate a bug; crashes, hangs, and sanitizer errors do."
+            },
+            {
+              "text": "The program producing any output at all",
+              "fraction": 0,
+              "feedback": "Normal output is expected; the oracle looks for failure signals, not ordinary output."
+            }
+          ],
+          "generalFeedback": "Because a fuzzer runs enormous numbers of inputs, its bug oracle must be automatic. The usual signals are a crash (e.g. SIGSEGV), a hang/timeout, a sanitizer-reported violation (ASan/UBSan), or a failed assertion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Black-box, grey-box, white-box",
+          "text": "<p>Which correctly orders <strong>black-box</strong>, <strong>grey-box</strong>, and <strong>white-box</strong> fuzzing by how much program internals they use?</p>",
+          "answers": [
+            {
+              "text": "Black-box uses no internal information; grey-box uses lightweight coverage feedback; white-box uses heavier program analysis such as symbolic execution",
+              "fraction": 100,
+              "feedback": "Correct — the three sit on a spectrum of increasing internal insight."
+            },
+            {
+              "text": "Black-box uses symbolic execution; grey-box uses none; white-box uses coverage",
+              "fraction": 0,
+              "feedback": "The labels are scrambled: white-box is the one that uses symbolic execution, black-box uses nothing."
+            },
+            {
+              "text": "All three use identical amounts of internal information",
+              "fraction": 0,
+              "feedback": "They differ precisely in how much internal insight they use."
+            },
+            {
+              "text": "Grey-box uses the most internal information of the three",
+              "fraction": 0,
+              "feedback": "White-box uses the most (program analysis); grey-box uses only lightweight coverage."
+            }
+          ],
+          "generalFeedback": "Black-box fuzzing treats the target as opaque (only inputs and observed crashes). Grey-box fuzzing adds lightweight instrumentation for coverage feedback. White-box fuzzing uses heavier analysis — e.g. symbolic/concolic execution — to reason about which inputs drive which paths.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Goal of fuzzing",
+          "text": "<p>A central goal of fuzzing is to automatically discover inputs that make the program crash or otherwise misbehave.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — fuzzing automates the search for failure-triggering inputs."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Finding crash- or fault-triggering inputs automatically is exactly what fuzzing is for."
+            }
+          ],
+          "generalFeedback": "Fuzzing generates many inputs and runs the program on each, aiming to find those that trigger a detectable failure — a crash, hang, sanitizer violation, or assertion failure."
+        },
+        {
+          "type": "multichoice",
+          "name": "Bit-flip mutation operator",
+          "text": "<p>A <strong>bit-flip</strong> mutation operator in a fuzzer:</p>",
+          "answers": [
+            {
+              "text": "Toggles one or more bits within a copy of an existing input",
+              "fraction": 100,
+              "feedback": "Correct — flipping bits is one of the simplest mutation operators."
+            },
+            {
+              "text": "Rewrites the program's source to invert a boolean",
+              "fraction": 0,
+              "feedback": "That would be source mutation (mutation testing); a fuzzer mutates inputs, not code."
+            },
+            {
+              "text": "Deletes the entire input and starts over from nothing",
+              "fraction": 0,
+              "feedback": "A bit flip modifies a few bits; it does not erase the whole input."
+            },
+            {
+              "text": "Recompiles the target with a different optimization level",
+              "fraction": 0,
+              "feedback": "Mutation operators change inputs, not the build configuration."
+            }
+          ],
+          "generalFeedback": "Mutation operators transform seed inputs. Common ones include bit flips (toggling bits), byte or integer replacement, insertion/deletion, and splicing two inputs together.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "AFL is coverage-guided greybox",
+          "text": "<p>AFL (American Fuzzy Lop) is a coverage-guided greybox fuzzer: it instruments the target and uses edge-coverage feedback to guide mutation.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — AFL is the canonical coverage-guided greybox fuzzer, using edge-coverage feedback."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "AFL is indeed coverage-guided and greybox; it records edge coverage via instrumentation and keeps inputs that reach new edges."
+            }
+          ],
+          "generalFeedback": "AFL popularized coverage-guided greybox fuzzing: compile-time (or QEMU-based) instrumentation records edge coverage, and inputs that hit new edges are added to the queue and mutated further."
+        },
+        {
+          "type": "multichoice",
+          "name": "libFuzzer's fuzz target",
+          "text": "<p>libFuzzer is an in-process, coverage-guided fuzzer. How do you tell it what to fuzz?</p>",
+          "answers": [
+            {
+              "text": "You write a fuzz-target function that receives a byte buffer and feeds it into the code under test",
+              "fraction": 100,
+              "feedback": "Correct — libFuzzer repeatedly calls your entry function (e.g. LLVMFuzzerTestOneInput) with generated bytes."
+            },
+            {
+              "text": "You supply a formal grammar and libFuzzer derives the target automatically",
+              "fraction": 0,
+              "feedback": "libFuzzer drives a byte buffer into a function you write; it does not require a grammar."
+            },
+            {
+              "text": "You give it only the compiled binary with no code changes",
+              "fraction": 0,
+              "feedback": "libFuzzer is in-process and links against a target function you provide."
+            },
+            {
+              "text": "You point it at the program's log files",
+              "fraction": 0,
+              "feedback": "It calls your fuzz-target function with generated input; logs are irrelevant."
+            }
+          ],
+          "generalFeedback": "libFuzzer runs in-process: you write a fuzz target (commonly) that turns the bytes into calls on the API under test. libFuzzer generates inputs, calls the target in a loop, and uses coverage feedback to guide mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AddressSanitizer",
+          "text": "<p>What does <strong>AddressSanitizer (ASan)</strong> contribute when fuzzing C/C++ code?</p>",
+          "answers": [
+            {
+              "text": "It detects memory errors — such as heap/stack buffer overflows and use-after-free — turning otherwise silent corruption into an immediate, visible failure",
+              "fraction": 100,
+              "feedback": "Correct — ASan makes many memory-safety bugs crash loudly so the fuzzer's oracle catches them."
+            },
+            {
+              "text": "It generates the fuzzing inputs",
+              "fraction": 0,
+              "feedback": "Input generation is the fuzzer's job; ASan is a bug detector, not a generator."
+            },
+            {
+              "text": "It proves the program is memory-safe",
+              "fraction": 0,
+              "feedback": "ASan reports errors it observes at runtime; it does not prove their absence."
+            },
+            {
+              "text": "It speeds the program up by removing bounds checks",
+              "fraction": 0,
+              "feedback": "ASan adds checks (with overhead); it does not remove them."
+            }
+          ],
+          "generalFeedback": "AddressSanitizer instruments memory accesses to detect errors like out-of-bounds reads/writes and use-after-free. Combined with fuzzing, it converts many silent memory-corruption bugs into observable crashes, strengthening the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a crash signals",
+          "text": "<p>When a fuzzer reports a \"crash,\" it usually means the run:</p>",
+          "answers": [
+            {
+              "text": "Terminated abnormally — e.g. a segmentation fault or an abort — indicating a fault worth investigating",
+              "fraction": 100,
+              "feedback": "Correct — abnormal termination is the classic fuzzing bug signal."
+            },
+            {
+              "text": "Produced output that differs from a reference implementation",
+              "fraction": 0,
+              "feedback": "That is a differential-testing signal, not what \"crash\" means here."
+            },
+            {
+              "text": "Finished normally but slowly",
+              "fraction": 0,
+              "feedback": "Slow-but-normal completion is not a crash; a hang/timeout would be a separate signal."
+            },
+            {
+              "text": "Was rejected by the fuzzer's input filter",
+              "fraction": 0,
+              "feedback": "A crash is abnormal termination of the target, not input filtering."
+            }
+          ],
+          "generalFeedback": "A crash is abnormal termination of the target process — for example a segmentation fault (SIGSEGV) or an abort (SIGABRT, often from a sanitizer or assertion). The fuzzer saves the triggering input for triage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Random/black-box fuzzing",
+          "text": "<p>The simplest, purely <strong>random black-box</strong> fuzzer works by:</p>",
+          "answers": [
+            {
+              "text": "Throwing randomly generated or randomly mutated inputs at the program without using any internal feedback",
+              "fraction": 100,
+              "feedback": "Correct — pure black-box random fuzzing ignores program internals entirely."
+            },
+            {
+              "text": "Solving path constraints with an SMT solver to choose inputs",
+              "fraction": 0,
+              "feedback": "That is white-box/symbolic fuzzing, not random black-box."
+            },
+            {
+              "text": "Selecting inputs based on measured edge coverage",
+              "fraction": 0,
+              "feedback": "Using coverage feedback makes it greybox, not black-box."
+            },
+            {
+              "text": "Requiring a complete grammar of the input format",
+              "fraction": 0,
+              "feedback": "A pure random fuzzer needs no grammar; it just generates or mutates bytes."
+            }
+          ],
+          "generalFeedback": "Random black-box fuzzing simply generates or mutates inputs and observes only external behavior (did it crash?). It is cheap and easy but, without feedback, tends to plateau once the easy-to-reach code has been exercised.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fuzzing dictionary",
+          "text": "<p>A fuzzing <strong>dictionary</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A set of tokens or magic values (keywords, headers, constants) the fuzzer can insert into inputs",
+              "fraction": 100,
+              "feedback": "Correct — dictionaries give the fuzzer meaningful building blocks it would rarely produce by chance."
+            },
+            {
+              "text": "A log of every crash mapped to its stack trace",
+              "fraction": 0,
+              "feedback": "That is crash triage output; a dictionary is a set of input tokens."
+            },
+            {
+              "text": "The mapping from source files to coverage counters",
+              "fraction": 0,
+              "feedback": "That is coverage bookkeeping, not a dictionary of tokens."
+            },
+            {
+              "text": "A grammar describing the entire input format",
+              "fraction": 0,
+              "feedback": "A dictionary is a flat list of useful tokens, not a full grammar."
+            }
+          ],
+          "generalFeedback": "A dictionary supplies interesting tokens — format keywords, magic bytes, or common constants — that the fuzzer can splice into inputs. This helps it get past checks that expect specific byte sequences it would almost never generate randomly.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Generation-based needs a model",
+          "text": "<p>Generation-based fuzzing requires a model or grammar of the input format in order to construct inputs.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — generation-based fuzzing builds inputs from a specification of the format, so it needs that model."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "By definition, generation-based fuzzing constructs inputs from a model/grammar; without one it would have nothing to generate from."
+            }
+          ],
+          "generalFeedback": "Generation-based (grammar-based) fuzzing synthesizes inputs from a description of the format. That model is what lets it produce structurally valid inputs, unlike mutation-based fuzzing which starts from existing seeds."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why coverage feedback helps",
+          "text": "<p>Why does keeping inputs that reach <em>new</em> code edges make a coverage-guided fuzzer more effective?</p>",
+          "answers": [
+            {
+              "text": "Such inputs are stepping stones: they exercise new behavior and, when mutated further, are more likely to reach still-deeper code than random inputs would",
+              "fraction": 100,
+              "feedback": "Correct — new-coverage inputs seed further exploration into the program."
+            },
+            {
+              "text": "Reaching new edges guarantees a crash on the next mutation",
+              "fraction": 0,
+              "feedback": "New coverage does not guarantee a crash; it just improves the odds of exploring deeper."
+            },
+            {
+              "text": "New-coverage inputs are always smaller, which speeds execution",
+              "fraction": 0,
+              "feedback": "They are kept for the new behavior they reach, not because they are smaller."
+            },
+            {
+              "text": "Coverage feedback lets the fuzzer skip running the program",
+              "fraction": 0,
+              "feedback": "The fuzzer must still run each input; feedback tells it which results to keep."
+            }
+          ],
+          "generalFeedback": "Coverage feedback turns fuzzing into a guided search. An input that unlocks a new edge is retained because mutating it is far more likely to push into adjacent, previously unreached code than mutating an input that adds nothing new — so the corpus evolves toward deeper coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation vs generation trade-off",
+          "text": "<p>Which best captures the trade-off between mutation-based and generation-based fuzzing?</p>",
+          "answers": [
+            {
+              "text": "Mutation-based is cheap and needs no format spec but struggles with highly structured inputs; generation-based needs a grammar to write but readily produces valid structured inputs",
+              "fraction": 100,
+              "feedback": "Correct — the trade-off is spec effort versus ability to produce valid structured inputs."
+            },
+            {
+              "text": "Mutation-based always finds more bugs than generation-based on every target",
+              "fraction": 0,
+              "feedback": "Neither dominates universally; each suits different input formats."
+            },
+            {
+              "text": "Generation-based is always cheaper to set up than mutation-based",
+              "fraction": 0,
+              "feedback": "Generation-based usually costs more up front because you must write the grammar/model."
+            },
+            {
+              "text": "Only generation-based fuzzing can use coverage feedback",
+              "fraction": 0,
+              "feedback": "Coverage feedback is orthogonal; mutation-based greybox fuzzers use it heavily."
+            }
+          ],
+          "generalFeedback": "Mutation-based fuzzing is quick to start (just supply seeds) but random mutations often break the structure of complex formats. Generation-based fuzzing invests in a grammar/model up front, which pays off for highly structured inputs (compilers, network protocols) by producing valid inputs consistently.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What makes a good seed",
+          "text": "<p>Which set of seed inputs is generally <em>best</em> for a mutation-based coverage-guided fuzzer?</p>",
+          "answers": [
+            {
+              "text": "Small, valid, diverse examples that together exercise many different features of the format",
+              "fraction": 100,
+              "feedback": "Correct — small-and-diverse valid seeds give broad, mutable starting coverage."
+            },
+            {
+              "text": "A single very large file that contains every feature at once",
+              "fraction": 0,
+              "feedback": "One huge file is slow to run and mutate; many small diverse seeds are better."
+            },
+            {
+              "text": "Random byte blobs with no relation to the format",
+              "fraction": 0,
+              "feedback": "Invalid blobs waste effort getting rejected early; valid seeds reach deeper code faster."
+            },
+            {
+              "text": "Only inputs already known to crash the program",
+              "fraction": 0,
+              "feedback": "Known crashes are for regression tests; seeds should broadly exercise valid behavior to explore from."
+            }
+          ],
+          "generalFeedback": "Good seeds are valid enough to get past early parsing, small so they run and mutate quickly, and diverse so the corpus starts with broad coverage. A pile of tiny, feature-varied valid inputs beats one giant file or random noise.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Greybox vs blackbox",
+          "text": "<p>The key practical advantage of greybox fuzzing over black-box fuzzing on the same target is that greybox:</p>",
+          "answers": [
+            {
+              "text": "Uses coverage feedback to recognize and retain inputs that reach new code, so it explores far more of the program over time",
+              "fraction": 100,
+              "feedback": "Correct — the feedback loop is exactly what greybox adds."
+            },
+            {
+              "text": "Needs no oracle because coverage replaces crash detection",
+              "fraction": 0,
+              "feedback": "Coverage guides the search but is not a bug oracle; you still need crash/sanitizer signals."
+            },
+            {
+              "text": "Guarantees full path coverage of the program",
+              "fraction": 0,
+              "feedback": "Greybox fuzzing improves coverage but guarantees nothing close to all paths."
+            },
+            {
+              "text": "Requires no instrumentation at all",
+              "fraction": 0,
+              "feedback": "The coverage feedback that defines greybox comes from lightweight instrumentation."
+            }
+          ],
+          "generalFeedback": "Black-box fuzzing sees only external behavior, so it cannot tell a \"boring\" input from one that unlocked new code. Greybox fuzzing adds lightweight coverage instrumentation, letting it keep and mutate inputs that reach new edges — a feedback loop that dramatically improves reach.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Dictionaries and magic values",
+          "text": "<p>How does supplying a dictionary help a fuzzer get past a check like <code>if (memcmp(hdr, \"PNG\", 3) == 0)</code>?</p>",
+          "answers": [
+            {
+              "text": "The dictionary contains the token \"PNG\", so the fuzzer can insert it directly instead of having to stumble onto those bytes at random",
+              "fraction": 100,
+              "feedback": "Correct — dictionaries hand the fuzzer the exact tokens the code checks for."
+            },
+            {
+              "text": "It disables the comparison so the check always passes",
+              "fraction": 0,
+              "feedback": "A dictionary supplies input tokens; it does not modify the program's checks."
+            },
+            {
+              "text": "It makes random mutation exponentially faster",
+              "fraction": 0,
+              "feedback": "It does not change mutation speed; it changes what tokens are available to insert."
+            },
+            {
+              "text": "It proves the header is correct without running the code",
+              "fraction": 0,
+              "feedback": "Dictionaries do not prove anything; they just provide useful byte sequences to try."
+            }
+          ],
+          "generalFeedback": "Randomly producing a specific multi-byte token (like \"PNG\") is unlikely. A dictionary lists such tokens so the fuzzer can splice them in directly, letting it satisfy magic-value checks and reach the code guarded behind them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Structure-aware fuzzing",
+          "text": "<p>What is the point of <strong>structure-aware</strong> fuzzing (e.g. mutating a parsed/typed representation rather than raw bytes)?</p>",
+          "answers": [
+            {
+              "text": "Mutations respect the input format, so most generated inputs stay structurally valid and reach deep logic instead of being rejected by the parser",
+              "fraction": 100,
+              "feedback": "Correct — mutating at the structural level keeps inputs valid enough to exercise deeper code."
+            },
+            {
+              "text": "It removes the need for any oracle",
+              "fraction": 0,
+              "feedback": "Structure awareness is about input validity, not bug detection; an oracle is still required."
+            },
+            {
+              "text": "It guarantees the fuzzer will find all bugs in the parser",
+              "fraction": 0,
+              "feedback": "No technique guarantees finding all bugs; it just keeps more inputs valid."
+            },
+            {
+              "text": "It works only on plain text and never on binary formats",
+              "fraction": 0,
+              "feedback": "Structure-aware fuzzing applies to binary formats too (e.g. protobuf-based fuzzers)."
+            }
+          ],
+          "generalFeedback": "For highly structured inputs, raw byte mutations are usually rejected early by the parser. Structure-aware fuzzing mutates a typed/parsed representation (or uses a grammar), so generated inputs remain well-formed and can drive the deeper semantic logic where interesting bugs live.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why keep a new-edge input",
+          "text": "<p>A coverage-guided fuzzer runs an input that reaches a brand-new edge but does not crash. What does it typically do?</p>",
+          "answers": [
+            {
+              "text": "Add it to the corpus/queue so it can be mutated further, since it may lead to still-deeper code",
+              "fraction": 100,
+              "feedback": "Correct — new coverage is valuable even without a crash, as a basis for further mutation."
+            },
+            {
+              "text": "Discard it, because only crashing inputs are worth keeping",
+              "fraction": 0,
+              "feedback": "New-coverage inputs are kept precisely because they open paths toward future crashes."
+            },
+            {
+              "text": "Immediately report it as a bug",
+              "fraction": 0,
+              "feedback": "New coverage is not a bug; only failure signals from the oracle are."
+            },
+            {
+              "text": "Stop the fuzzing campaign",
+              "fraction": 0,
+              "feedback": "Reaching new coverage is progress, not a reason to stop."
+            }
+          ],
+          "generalFeedback": "Inputs that unlock new coverage are saved and prioritized for further mutation. They act as stepping stones: mutating them is the most promising way to push execution into adjacent, not-yet-covered code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Splicing operator",
+          "text": "<p>The <strong>splicing</strong> mutation operator produces a new input by:</p>",
+          "answers": [
+            {
+              "text": "Combining a portion of one corpus input with a portion of another",
+              "fraction": 100,
+              "feedback": "Correct — splicing recombines fragments of two existing inputs."
+            },
+            {
+              "text": "Flipping a single bit in one input",
+              "fraction": 0,
+              "feedback": "That is a bit-flip, not splicing."
+            },
+            {
+              "text": "Replacing a 4-byte integer with a boundary value",
+              "fraction": 0,
+              "feedback": "That is an integer-replacement mutation, not splicing."
+            },
+            {
+              "text": "Sorting the bytes of an input in ascending order",
+              "fraction": 0,
+              "feedback": "Sorting bytes is not a standard mutation; splicing joins parts of two inputs."
+            }
+          ],
+          "generalFeedback": "Splicing (crossover) takes two inputs from the corpus and joins a prefix of one with a suffix of another, letting the fuzzer combine features discovered separately — a complement to local mutations like bit flips and byte replacement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Corpus evolution",
+          "text": "<p>In an AFL-style fuzzer, how does the corpus (queue) evolve during a run?</p>",
+          "answers": [
+            {
+              "text": "Inputs that trigger new coverage are appended to the queue and later mutated, so the corpus grows toward inputs reaching deeper code",
+              "fraction": 100,
+              "feedback": "Correct — the queue is continually extended with interesting inputs and re-mutated."
+            },
+            {
+              "text": "The corpus is fixed at startup and never changes",
+              "fraction": 0,
+              "feedback": "A coverage-guided fuzzer's corpus grows as new-coverage inputs are found."
+            },
+            {
+              "text": "Every generated input, coverage or not, is permanently stored",
+              "fraction": 0,
+              "feedback": "Only inputs that add new coverage (or crash) are retained; the rest are discarded."
+            },
+            {
+              "text": "The corpus shrinks by one input after every execution",
+              "fraction": 0,
+              "feedback": "The corpus grows with interesting finds; it is not decremented per run."
+            }
+          ],
+          "generalFeedback": "A coverage-guided fuzzer maintains a queue of interesting inputs. When a mutated input hits new coverage, it is added to the queue; the fuzzer then keeps cycling through the queue, mutating each entry, so the corpus evolves toward inputs that reach ever-deeper behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge vs block coverage",
+          "text": "<p>Why do many greybox fuzzers track <strong>edge</strong> (branch-transition) coverage rather than just <strong>basic-block</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "Edge coverage records which block-to-block transitions occur, so it distinguishes control-flow that block coverage alone would treat as identical",
+              "fraction": 100,
+              "feedback": "Correct — edges capture transitions, giving a finer signal than block hits."
+            },
+            {
+              "text": "Edge coverage requires no instrumentation while block coverage does",
+              "fraction": 0,
+              "feedback": "Both require instrumentation; edge coverage is simply more discriminating."
+            },
+            {
+              "text": "Block coverage can detect crashes but edge coverage cannot",
+              "fraction": 0,
+              "feedback": "Neither detects crashes; that is the oracle's role. The difference is granularity of the coverage signal."
+            },
+            {
+              "text": "Edge coverage is always exact while block coverage is random",
+              "fraction": 0,
+              "feedback": "Both are deterministic measurements; the point is edges are finer-grained."
+            }
+          ],
+          "generalFeedback": "Edge coverage records transitions between basic blocks, so two runs that visit the same blocks in different orders look different. This finer signal helps the fuzzer recognize more \"interesting\" inputs than block coverage, which only notes whether a block was reached.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "In-process vs fork-based fuzzing",
+          "text": "<p>Compared with a fork-based fuzzer, an in-process fuzzer like libFuzzer:</p>",
+          "answers": [
+            {
+              "text": "Runs each input by calling a target function in the same process, which is fast but requires the target to be free of state that leaks between runs",
+              "fraction": 100,
+              "feedback": "Correct — in-process execution is fast but sensitive to residual/global state."
+            },
+            {
+              "text": "Starts a fresh process for every input, giving stronger isolation but more overhead",
+              "fraction": 0,
+              "feedback": "That describes fork/exec-based fuzzing, the opposite of in-process."
+            },
+            {
+              "text": "Cannot use coverage feedback at all",
+              "fraction": 0,
+              "feedback": "libFuzzer is coverage-guided; in-process execution does not preclude feedback."
+            },
+            {
+              "text": "Requires a full input grammar to operate",
+              "fraction": 0,
+              "feedback": "libFuzzer needs no grammar; it drives a byte buffer into your fuzz target."
+            }
+          ],
+          "generalFeedback": "In-process fuzzing calls the target function repeatedly within one process, avoiding process-creation overhead and running very fast. The cost is that leftover global/static state between runs can cause non-reproducible behavior, so the target must reset cleanly each call.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sanitizers strengthen the oracle",
+          "text": "<p>Why does running a fuzzer against a sanitizer-instrumented build tend to find more bugs?</p>",
+          "answers": [
+            {
+              "text": "Sanitizers turn otherwise-silent errors (e.g. small out-of-bounds reads, integer overflow) into immediate visible failures the fuzzer's oracle can catch",
+              "fraction": 100,
+              "feedback": "Correct — sanitizers expose faults that would not crash on their own."
+            },
+            {
+              "text": "Sanitizers generate additional inputs for the fuzzer",
+              "fraction": 0,
+              "feedback": "Sanitizers detect faults; they do not generate inputs."
+            },
+            {
+              "text": "Sanitizers increase execution speed, allowing more runs",
+              "fraction": 0,
+              "feedback": "Sanitizers add overhead; the benefit is better detection, not speed."
+            },
+            {
+              "text": "Sanitizers replace the need for a corpus",
+              "fraction": 0,
+              "feedback": "A corpus is still needed; sanitizers only improve the failure signal."
+            }
+          ],
+          "generalFeedback": "Without a sanitizer, many bugs (a one-byte overread, a signed overflow) do not crash and slip past the fuzzer unnoticed. Sanitizers such as ASan and UBSan detect these at runtime and abort, so the fuzzer's crash oracle catches faults it otherwise would miss.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Hangs as an oracle signal",
+          "text": "<p>Besides crashes, a fuzzer can use a hang or timeout as a bug signal — for example to catch an input that drives the program into an infinite loop.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — excessive runtime (a hang/timeout) is a standard fuzzing signal, e.g. for potential denial-of-service loops."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Fuzzers routinely flag inputs that exceed a time limit, which can reveal infinite loops or algorithmic-complexity problems."
+            }
+          ],
+          "generalFeedback": "A hang/timeout is a legitimate oracle: if an input makes the program run far longer than a set limit, the fuzzer records it. Such inputs can expose infinite loops or worst-case algorithmic-complexity (denial-of-service) issues."
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage plateau",
+          "text": "<p>A coverage-guided fuzzer stops discovering new coverage for a long time (it plateaus). Which response is most reasonable?</p>",
+          "answers": [
+            {
+              "text": "Help it past the barrier — add better seeds, supply a dictionary, or bring in a solver/symbolic help — because random mutation alone is likely stuck on a hard check",
+              "fraction": 100,
+              "feedback": "Correct — a plateau usually means a hard-to-satisfy condition that needs extra help."
+            },
+            {
+              "text": "Conclude the program is now proven bug-free",
+              "fraction": 0,
+              "feedback": "A plateau means the fuzzer stopped making progress, not that the program is correct."
+            },
+            {
+              "text": "Delete the seed corpus to force pure randomness",
+              "fraction": 0,
+              "feedback": "Removing seeds usually hurts; the fuzzer needs better starting points, not fewer."
+            },
+            {
+              "text": "Disable the coverage instrumentation",
+              "fraction": 0,
+              "feedback": "Turning off feedback discards the very mechanism that guides exploration."
+            }
+          ],
+          "generalFeedback": "Plateaus typically mean the fuzzer is blocked by a check its mutations cannot satisfy (a magic value, checksum, or complex structure). Practical responses include richer seeds, a dictionary of expected tokens, structure-aware mutation, or hybrid fuzzing that uses a solver to get past the barrier — not treating the plateau as a proof of correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Integer/boundary replacement operator",
+          "text": "<p>Many fuzzers include a mutation operator that overwrites a multi-byte integer field with values like 0, -1, or INT_MAX. Why favor these particular values?</p>",
+          "answers": [
+            {
+              "text": "Boundary and extreme values disproportionately expose off-by-one, overflow, and sign-handling bugs, so trying them is more productive than purely random integers",
+              "fraction": 100,
+              "feedback": "Correct — boundary values target the edge cases where integer bugs cluster."
+            },
+            {
+              "text": "These values are guaranteed to satisfy any checksum",
+              "fraction": 0,
+              "feedback": "They have nothing to do with checksums; they target integer edge cases."
+            },
+            {
+              "text": "They make the input file smaller",
+              "fraction": 0,
+              "feedback": "Replacing an integer does not shrink the input; the point is bug-prone edge values."
+            },
+            {
+              "text": "They are the only values a coverage-guided fuzzer can generate",
+              "fraction": 0,
+              "feedback": "A fuzzer can produce many values; boundary values are just especially bug-revealing choices to try."
+            }
+          ],
+          "generalFeedback": "Integer-replacement mutations deliberately inject boundary and extreme values (0, 1, -1, max/min, powers of two nearby) because bugs — off-by-one errors, overflows, signed/unsigned confusion — tend to cluster at these edges. Trying them is far more productive than sampling integers uniformly at random.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why a checksum defeats naive mutation fuzzing",
+          "text": "<p>A parser first verifies a CRC checksum over the input and rejects the input immediately if it fails. Why does this defeat naive mutation-based fuzzing, and what actually helps?</p>",
+          "answers": [
+            {
+              "text": "Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; help comes from patching out the check in the harness, or from coverage-guided/dictionary/symbolic techniques that can satisfy it",
+              "fraction": 100,
+              "feedback": "Correct — the check is an all-or-nothing gate; the practical fix is often to disable it in the fuzzing build, or to use techniques that can produce a valid checksum."
+            },
+            {
+              "text": "The checksum makes the program run faster, so the fuzzer has less time — adding more CPU cores solves it",
+              "fraction": 0,
+              "feedback": "The problem is that mutated inputs fail the check, not runtime; more cores do not make random mutations satisfy a checksum."
+            },
+            {
+              "text": "Coverage-guided fuzzing alone trivially computes correct checksums for every input",
+              "fraction": 0,
+              "feedback": "Coverage guidance does not compute checksums; a single pass/fail check gives it almost no gradient to follow. That is an overstatement."
+            },
+            {
+              "text": "Nothing helps — such code simply cannot be fuzzed",
+              "fraction": 0,
+              "feedback": "It can be fuzzed: disabling the check in the harness, or using dictionaries/symbolic execution, are standard remedies."
+            }
+          ],
+          "generalFeedback": "A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it and coverage feedback gives little help (it is essentially all-or-nothing). Common remedies: remove or fix up the checksum inside the fuzzing harness so any input passes, supply the needed constant via a dictionary, or use symbolic/concolic execution to solve for a valid checksum. Coverage guidance alone does not magically satisfy it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Magic-bytes comparison and coverage gradient",
+          "text": "<p>For a guard <code>if (x == 0xDEADBEEF)</code> on a 32-bit input, why is plain edge coverage a weak guide, and what addresses it?</p>",
+          "answers": [
+            {
+              "text": "The comparison is all-or-nothing, so partial progress toward the constant earns no new coverage; comparison-tracking instrumentation (splitting the compare into bytes / value profiling) or a dictionary supplies the missing gradient",
+              "fraction": 100,
+              "feedback": "Correct — without a gradient the fuzzer is guessing 1-in-2³²; compare-coverage or dictionaries give it feedback."
+            },
+            {
+              "text": "Edge coverage already rewards each matching byte, so no extra help is needed",
+              "fraction": 0,
+              "feedback": "A singleyields one edge either way; plain edge coverage does not reward matching individual bytes."
+            },
+            {
+              "text": "The guard is impossible to satisfy, so fuzzing must skip it",
+              "fraction": 0,
+              "feedback": "It is satisfiable (x = 0xDEADBEEF); the issue is guiding the fuzzer there, which compare-coverage/dictionaries do."
+            },
+            {
+              "text": "Coverage feedback makes random guessing of the 4 bytes fast",
+              "fraction": 0,
+              "feedback": "Random guessing stays ~1-in-2³²; the fix is instrumentation that provides a gradient, not faster guessing."
+            }
+          ],
+          "generalFeedback": "A wide equality is a cliff: the input is either exactly right (new edge) or not (no signal), so the fuzzer has no gradient to climb and random search faces ~2³² odds. Compare-coverage instrumentation (e.g. laf-intel-style splitting into byte comparisons, or libFuzzer value profiling) rewards matching more bytes, and dictionaries supply the constant directly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Shallow reach vs deep conditions",
+          "text": "<p>Why is fuzzing strong at shallow bugs but weak at bugs guarded behind deep, specific conditions?</p>",
+          "answers": [
+            {
+              "text": "Random mutation easily exercises shallow code but is unlikely to satisfy long chains of specific conditions; symbolic/concolic execution can solve such constraints but faces path explosion",
+              "fraction": 100,
+              "feedback": "Correct — fuzzing reaches shallow code cheaply; deep specific guards need constraint solving, which has its own scaling cost."
+            },
+            {
+              "text": "Fuzzing explores all paths exhaustively, so depth is irrelevant",
+              "fraction": 0,
+              "feedback": "Fuzzing does not explore exhaustively; deep specific conditions are exactly where it struggles."
+            },
+            {
+              "text": "Deep conditions are always infeasible, so no technique can reach them",
+              "fraction": 0,
+              "feedback": "They are usually feasible; the difficulty is generating inputs that satisfy them."
+            },
+            {
+              "text": "Symbolic execution reaches deep conditions with no scaling limits",
+              "fraction": 0,
+              "feedback": "Symbolic execution helps but is limited by path explosion; that is an overstatement."
+            }
+          ],
+          "generalFeedback": "Fuzzing throws many inputs cheaply, so it readily hits shallow, easy-to-reach faults. But a bug behind several precise checks requires satisfying all of them at once, which random mutation rarely does. Symbolic/concolic execution can solve those constraints directly, at the cost of path explosion — which is why hybrid (fuzzing + symbolic) approaches exist.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Oracle limitation: silent logic bugs",
+          "text": "<p>A function returns a subtly wrong result but never crashes, hangs, or triggers a sanitizer. Why might a fuzzer miss this bug?</p>",
+          "answers": [
+            {
+              "text": "The fuzzer's oracle only detects observable failures; a wrong-but-not-crashing output passes unless a stronger oracle (assertions, a reference/differential check) is added",
+              "fraction": 100,
+              "feedback": "Correct — no failure signal means the bug is invisible to the default oracle."
+            },
+            {
+              "text": "Fuzzers automatically know the correct output for every input",
+              "fraction": 0,
+              "feedback": "They do not; that is precisely the oracle problem fuzzing faces for logic bugs."
+            },
+            {
+              "text": "Coverage feedback flags any incorrect result",
+              "fraction": 0,
+              "feedback": "Coverage measures which code ran, not whether the result was correct."
+            },
+            {
+              "text": "Sanitizers detect all incorrect return values",
+              "fraction": 0,
+              "feedback": "Sanitizers detect memory/UB errors, not general logic errors."
+            }
+          ],
+          "generalFeedback": "Fuzzing relies on an automatic oracle, which by default catches only crashes, hangs, and sanitizer/assertion failures. A logic bug that produces a wrong-but-well-formed result raises no such signal. To catch it you need a stronger oracle: inline assertions/invariants, or differential testing against a reference implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Corpus minimization",
+          "text": "<p>What is the goal of <strong>corpus minimization</strong> (e.g. afl-cmin)?</p>",
+          "answers": [
+            {
+              "text": "Reduce the corpus to a smaller subset of inputs that preserves the same overall coverage, so later fuzzing spends less time on redundant seeds",
+              "fraction": 100,
+              "feedback": "Correct — it prunes redundant seeds while keeping coverage."
+            },
+            {
+              "text": "Shrink a single crashing input to the smallest bytes that still crash",
+              "fraction": 0,
+              "feedback": "That is test-case minimization (afl-tmin), not corpus minimization."
+            },
+            {
+              "text": "Delete all seeds so the fuzzer starts from empty",
+              "fraction": 0,
+              "feedback": "Minimization keeps a coverage-preserving subset, not nothing."
+            },
+            {
+              "text": "Combine all seeds into one large file",
+              "fraction": 0,
+              "feedback": "It selects a minimal set of separate inputs; it does not merge them."
+            }
+          ],
+          "generalFeedback": "Corpus minimization selects the smallest subset of the corpus that still achieves the corpus's coverage, discarding inputs that add nothing new. A leaner corpus means the fuzzer cycles through it faster and wastes less effort on redundant seeds.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test-case minimization",
+          "text": "<p>After a crash is found, what does <strong>test-case minimization</strong> (e.g. afl-tmin) do?</p>",
+          "answers": [
+            {
+              "text": "Repeatedly trims the crashing input to the smallest/simplest form that still reproduces the crash, easing debugging",
+              "fraction": 100,
+              "feedback": "Correct — a minimized reproducer isolates what actually triggers the bug."
+            },
+            {
+              "text": "Removes redundant seeds from the whole corpus",
+              "fraction": 0,
+              "feedback": "That is corpus minimization; test-case minimization works on one crashing input."
+            },
+            {
+              "text": "Fixes the bug automatically",
+              "fraction": 0,
+              "feedback": "It shrinks the reproducer; it does not patch the code."
+            },
+            {
+              "text": "Expands the input with extra bytes to make the crash more reliable",
+              "fraction": 0,
+              "feedback": "Minimization removes bytes to simplify; it does not pad the input."
+            }
+          ],
+          "generalFeedback": "Test-case (crash) minimization takes a crashing input and iteratively removes or simplifies bytes as long as the crash still reproduces, yielding a small, focused reproducer that makes root-causing the bug far easier.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When generation-based beats mutation",
+          "text": "<p>For which target is generation-based (grammar-based) fuzzing most likely to outperform mutation-based fuzzing?</p>",
+          "answers": [
+            {
+              "text": "A compiler or protocol parser with a rigid, highly structured input format, where random mutations almost always produce invalid inputs rejected early",
+              "fraction": 100,
+              "feedback": "Correct — a grammar lets the fuzzer produce valid structured inputs that reach deep logic."
+            },
+            {
+              "text": "A routine that accepts an arbitrary blob of bytes with no structure",
+              "fraction": 0,
+              "feedback": "For unstructured input, mutation-based fuzzing works well and a grammar adds little."
+            },
+            {
+              "text": "Any target, since generation-based fuzzing is universally superior",
+              "fraction": 0,
+              "feedback": "Neither approach is universally best; generation-based shines specifically on structured formats."
+            },
+            {
+              "text": "A target with no oracle available",
+              "fraction": 0,
+              "feedback": "Oracle availability is orthogonal to the mutation-vs-generation choice."
+            }
+          ],
+          "generalFeedback": "When inputs must obey a strict grammar (source code for a compiler, messages for a protocol), random byte mutations are overwhelmingly rejected by the front end. A generation-based fuzzer builds inputs from the grammar, so it consistently produces valid inputs that exercise the deeper semantic logic where interesting bugs hide.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Hybrid (symbolic-assisted) fuzzing",
+          "text": "<p>In hybrid fuzzing (e.g. Driller-style), how does concolic/symbolic execution complement a greybox fuzzer?</p>",
+          "answers": [
+            {
+              "text": "When the fuzzer plateaus at a hard check, the solver computes an input that satisfies that specific branch; the new input is handed back so cheap fuzzing can continue exploring beyond it",
+              "fraction": 100,
+              "feedback": "Correct — the solver gets past narrow guards, then the fuzzer takes over again."
+            },
+            {
+              "text": "The solver replaces the fuzzer entirely and explores all paths symbolically",
+              "fraction": 0,
+              "feedback": "Symbolic execution suffers path explosion; hybrid fuzzing uses it selectively, not as a full replacement."
+            },
+            {
+              "text": "The solver generates the coverage instrumentation for the fuzzer",
+              "fraction": 0,
+              "feedback": "Instrumentation comes from the compiler/toolchain; the solver's role is satisfying hard constraints."
+            },
+            {
+              "text": "The solver acts as the bug oracle in place of sanitizers",
+              "fraction": 0,
+              "feedback": "The oracle is still crashes/sanitizers; the solver's job is producing inputs past hard branches."
+            }
+          ],
+          "generalFeedback": "Hybrid fuzzing plays to each technique's strength: the fuzzer explores cheaply and broadly, and when it gets stuck at a narrow condition (magic value, checksum), concolic execution solves that branch's constraint to produce a passing input. Control returns to the fuzzer, which explores the newly reached region — using the solver sparingly to avoid path explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ASan vs UBSan roles",
+          "text": "<p>How do the roles of <strong>AddressSanitizer (ASan)</strong> and <strong>UndefinedBehaviorSanitizer (UBSan)</strong> differ when fuzzing?</p>",
+          "answers": [
+            {
+              "text": "ASan targets memory-safety errors (out-of-bounds access, use-after-free); UBSan targets undefined behavior (e.g. signed integer overflow, invalid shifts, misaligned pointers)",
+              "fraction": 100,
+              "feedback": "Correct — they detect different, complementary fault classes."
+            },
+            {
+              "text": "They detect exactly the same errors, so running both is redundant",
+              "fraction": 0,
+              "feedback": "They cover different fault classes; using both broadens what the oracle catches."
+            },
+            {
+              "text": "ASan detects undefined behavior while UBSan detects memory errors",
+              "fraction": 0,
+              "feedback": "The roles are swapped: ASan is for memory errors, UBSan for undefined behavior."
+            },
+            {
+              "text": "Both generate fuzzing inputs rather than detect faults",
+              "fraction": 0,
+              "feedback": "Neither generates inputs; both are runtime fault detectors."
+            }
+          ],
+          "generalFeedback": "ASan instruments memory accesses to catch spatial/temporal memory-safety violations (buffer overflows, use-after-free). UBSan catches language-level undefined behavior such as signed overflow, out-of-range shifts, and misaligned or null pointer use. They target different fault classes, so fuzzing under both enlarges the set of detectable bugs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Fuzzing does not prove correctness",
+          "text": "<p>If a fuzzer runs for a long time and finds no crashes, that proves the program is bug-free.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — no crashes found only means none were found within the inputs tried; fuzzing cannot prove the absence of bugs."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Fuzzing samples the input space; finding no crashes is not a proof of correctness, since untried inputs (and silent logic bugs) may still fail."
+            }
+          ],
+          "generalFeedback": "Fuzzing is a testing technique: it can reveal bugs but never prove their absence. A clean run reflects only the inputs actually explored and the failures the oracle can see; it says nothing about untried inputs or silent logic errors."
+        },
+        {
+          "type": "multichoice",
+          "name": "Value profiling / compare coverage",
+          "text": "<p>Comparison-tracking instrumentation (splitting multi-byte comparisons, or \"value profiling\") helps a coverage-guided fuzzer because it:</p>",
+          "answers": [
+            {
+              "text": "Rewards inputs that get closer to satisfying a comparison (e.g. more matching bytes), giving the search a gradient it otherwise lacks",
+              "fraction": 100,
+              "feedback": "Correct — it converts an all-or-nothing compare into incremental feedback."
+            },
+            {
+              "text": "Removes all comparisons from the program so every branch is taken",
+              "fraction": 0,
+              "feedback": "It instruments comparisons for feedback; it does not delete them from the program's logic."
+            },
+            {
+              "text": "Guarantees the fuzzer solves every equality in constant time",
+              "fraction": 0,
+              "feedback": "It improves guidance but guarantees nothing; some constraints still need a solver."
+            },
+            {
+              "text": "Replaces the need for a seed corpus",
+              "fraction": 0,
+              "feedback": "Seeds are still valuable; compare-coverage only adds a finer feedback signal."
+            }
+          ],
+          "generalFeedback": "A wide comparison normally gives feedback only when fully matched. Comparison-tracking (e.g. laf-intel splitting a 4-byte compare into per-byte compares, or libFuzzer value profiling) rewards partial matches, so the fuzzer can climb toward the target value instead of guessing it all at once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Harness design and determinism",
+          "text": "<p>Why should a fuzz harness (fuzz target) map input bytes to program behavior <em>deterministically</em>?</p>",
+          "answers": [
+            {
+              "text": "Non-determinism (randomness, time, uninitialized state) makes crashes hard to reproduce and pollutes coverage feedback, so the same input should always behave the same way",
+              "fraction": 100,
+              "feedback": "Correct — determinism keeps coverage feedback meaningful and crashes reproducible."
+            },
+            {
+              "text": "Determinism lets the fuzzer skip running the target",
+              "fraction": 0,
+              "feedback": "The target must still run each input; determinism just makes results reliable."
+            },
+            {
+              "text": "Only deterministic targets can have bugs",
+              "fraction": 0,
+              "feedback": "Non-deterministic targets have bugs too; determinism makes them easier to find and reproduce."
+            },
+            {
+              "text": "Determinism removes the need for an oracle",
+              "fraction": 0,
+              "feedback": "An oracle is still required; determinism does not detect faults by itself."
+            }
+          ],
+          "generalFeedback": "Coverage-guided fuzzing assumes an input's behavior (and its coverage) is a function of the input. If the harness introduces randomness, wall-clock time, or leftover global state, the same bytes can behave differently — making coverage feedback noisy and crashes non-reproducible. Good harnesses derive all behavior deterministically from the input bytes.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Fuzzing needs a detectable failure signal",
+          "text": "<p>Without a detectable failure signal (crash, hang, sanitizer/assertion violation, or a reference check), a fuzzer can execute a bug-triggering input yet never report the bug.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with no observable signal, the fuzzer has no way to recognize that anything went wrong."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A fuzzer only reports a bug when its oracle observes a failure; a fault that produces no signal passes silently."
+            }
+          ],
+          "generalFeedback": "Fuzzing depends entirely on its oracle. If a triggering input causes no crash, hang, sanitizer violation, or assertion/reference-check failure, the fuzzer sees nothing wrong and moves on — which is why strengthening the oracle (sanitizers, assertions, differential checks) is as important as generating good inputs."
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential fuzzing as an oracle",
+          "text": "<p>How does <strong>differential fuzzing</strong> help catch silent logic bugs that crashes and sanitizers miss?</p>",
+          "answers": [
+            {
+              "text": "It runs the same input through two or more implementations that should agree, and flags a bug when their outputs differ",
+              "fraction": 100,
+              "feedback": "Correct — disagreement between implementations serves as an oracle for non-crashing bugs."
+            },
+            {
+              "text": "It measures which implementation runs faster and reports the slower one as buggy",
+              "fraction": 0,
+              "feedback": "Differential fuzzing compares outputs for correctness, not speed."
+            },
+            {
+              "text": "It doubles the coverage instrumentation to detect memory errors",
+              "fraction": 0,
+              "feedback": "It is an oracle technique based on output comparison, not extra memory instrumentation."
+            },
+            {
+              "text": "It proves both implementations are correct when they agree",
+              "fraction": 0,
+              "feedback": "Agreement is not proof of correctness — both could share the same bug; it only flags disagreements."
+            }
+          ],
+          "generalFeedback": "Differential fuzzing feeds one input to multiple implementations expected to behave identically (e.g. two parsers or a reference vs an optimized version) and treats any output mismatch as a bug. This provides an oracle for silent logic errors that produce no crash. Note that if both implementations share the same flaw, they can agree and still be wrong.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage as a fitness signal, not a proof",
+          "text": "<p>Which statement about the role of coverage in coverage-guided fuzzing is accurate?</p>",
+          "answers": [
+            {
+              "text": "Coverage is a heuristic fitness signal that steers the search toward new code; high coverage indicates thorough exercising, not correctness or bug-freedom",
+              "fraction": 100,
+              "feedback": "Correct — coverage guides exploration but is not a correctness guarantee."
+            },
+            {
+              "text": "Reaching 100% edge coverage proves the program has no bugs",
+              "fraction": 0,
+              "feedback": "Executing code is not the same as testing it correctly; full coverage can still miss bugs (e.g. wrong-but-non-crashing results)."
+            },
+            {
+              "text": "Coverage directly decides whether a run found a bug",
+              "fraction": 0,
+              "feedback": "Coverage guides the search; the bug decision comes from the oracle (crash/sanitizer/assertion)."
+            },
+            {
+              "text": "Coverage feedback removes the need to run inputs",
+              "fraction": 0,
+              "feedback": "Coverage is obtained by running instrumented inputs; it cannot replace execution."
+            }
+          ],
+          "generalFeedback": "In coverage-guided fuzzing, coverage is a fitness signal: inputs that reach new edges are kept and mutated, steering the search deeper. But covering a line only means it ran, not that it produced a correct result — so even 100% coverage does not prove bug-freedom, and the oracle, not coverage, decides whether a run failed.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是模糊測試",
+          "text": "<p><strong>模糊測試器（fuzzer）</strong>本質上在做什麼？</p>",
+          "answers": [
+            {
+              "text": "它自動對程式餵入大量生成或畸形的輸入，並觀察是否發生當機與其他失敗",
+              "fraction": 100,
+              "feedback": "正確——模糊測試是一種自動化測試，用大量輸入轟炸程式並尋找可觀察到的失敗。"
+            },
+            {
+              "text": "它形式化地證明程式沒有任何錯誤",
+              "fraction": 0,
+              "feedback": "模糊測試藉由嘗試輸入來找出錯誤；它永遠無法證明錯誤不存在。"
+            },
+            {
+              "text": "它靜態地量測測試套件所涵蓋的行數",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測；模糊測試器會主動以大量生成的輸入執行程式。"
+            },
+            {
+              "text": "它把原始碼翻譯成最佳化過的機器碼",
+              "fraction": 0,
+              "feedback": "那描述的是編譯器，而非模糊測試器。"
+            }
+          ],
+          "generalFeedback": "模糊測試（fuzzing）自動生成大量輸入——常是隨機或畸形的——以之執行程式，並回報觸發可偵測失敗（例如當機）的那些輸入。它是一種找錯技術，而非正確性證明。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "種子語料庫",
+          "text": "<p>在模糊測試中，<strong>種子語料庫（seed corpus）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一組樣本輸入，模糊測試器以它們為起點並加以變異來產生新輸入",
+              "fraction": 100,
+              "feedback": "正確——種子是變異式模糊測試器賴以出發的起始範例。"
+            },
+            {
+              "text": "模糊測試器已經找到的當機清單",
+              "fraction": 0,
+              "feedback": "當機是模糊測試執行的輸出；種子語料庫則是起始輸入的集合。"
+            },
+            {
+              "text": "亂數產生器的初始種子值",
+              "fraction": 0,
+              "feedback": "亂數種子是單一數字；種子語料庫則是一組範例輸入。"
+            },
+            {
+              "text": "受測程式的原始碼",
+              "fraction": 0,
+              "feedback": "語料庫是輸入資料，而非程式的程式碼。"
+            }
+          ],
+          "generalFeedback": "種子語料庫是變異式模糊測試器所用的初始一組有效或有趣的範例輸入；它變異這些種子以探索新行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "變異式與生成式",
+          "text": "<p><strong>變異式（mutation-based）</strong>模糊測試與<strong>生成式（generation-based）</strong>模糊測試有何不同？</p>",
+          "answers": [
+            {
+              "text": "變異式模糊測試修改既有的種子輸入，生成式模糊測試則依格式的模型或文法（grammar）從頭建構輸入",
+              "fraction": 100,
+              "feedback": "正確——一者變異既有樣本，另一者依規格建構輸入。"
+            },
+            {
+              "text": "變異式模糊測試需要完整文法，生成式模糊測試只是翻轉位元",
+              "fraction": 0,
+              "feedback": "恰好相反：生成式使用文法／模型；變異式通常翻轉位元並拼接種子。"
+            },
+            {
+              "text": "兩者都必須要有程式原始碼才能執行",
+              "fraction": 0,
+              "feedback": "兩者都不一定需要原始碼；差別在於如何產生輸入（變異或生成）。"
+            },
+            {
+              "text": "它們是同一種技術的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是產生輸入的兩種不同策略。"
+            }
+          ],
+          "generalFeedback": "變異式模糊測試取用種子語料庫並對其套用變異（位元翻轉、位元組替換、拼接）。生成式模糊測試則依描述預期格式的模型或文法合成輸入，因此一開始就能產生結構良好的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率導向模糊測試",
+          "text": "<p>什麼定義了<strong>覆蓋率導向（灰箱）</strong>模糊測試器？</p>",
+          "answers": [
+            {
+              "text": "它對程式插樁以觀察程式覆蓋率，保留能抵達新程式碼的輸入，並讓語料庫朝更深的行為演進",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率回饋挑選「有趣」的輸入並驅動搜尋。"
+            },
+            {
+              "text": "它純粹隨機生成輸入，從不觀察程式的行為",
+              "fraction": 0,
+              "feedback": "那描述的是黑箱模糊測試；覆蓋率導向會使用回饋。"
+            },
+            {
+              "text": "它需要程式的完整形式化規格",
+              "fraction": 0,
+              "feedback": "不需要規格——只需輕量的覆蓋率插樁。"
+            },
+            {
+              "text": "它只在模糊測試結束後才量測覆蓋率，且從不改變其輸入",
+              "fraction": 0,
+              "feedback": "覆蓋率是在執行過程中即時使用，用以決定保留與變異哪些輸入。"
+            }
+          ],
+          "generalFeedback": "覆蓋率導向模糊測試器（例如 AFL、libFuzzer）對目標插樁，記錄每個輸入所執行到的程式碼邊（edge）。命中新覆蓋率的輸入會被存入語料庫並進一步變異，因此模糊測試器會逐步深入更深的程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模糊測試的判定準則",
+          "text": "<p>當模糊測試器執行一個輸入時，什麼最常告訴它找到了錯誤（其<strong>判定準則／oracle</strong>）？</p>",
+          "answers": [
+            {
+              "text": "執行期間發生當機、卡死（hang）、消毒器（sanitizer）違規，或斷言（assertion）失敗",
+              "fraction": 100,
+              "feedback": "正確——這些是模糊測試器賴以判斷的可觀察失敗訊號。"
+            },
+            {
+              "text": "由人工逐一閱讀每個生成的輸入並親手判斷",
+              "fraction": 0,
+              "feedback": "模糊測試器會執行數百萬個輸入；判定準則必須是自動的，例如當機或消毒器報告。"
+            },
+            {
+              "text": "輸入的檔案大小超過某個門檻",
+              "fraction": 0,
+              "feedback": "檔案大小並不表示有錯誤；當機、卡死與消毒器錯誤才是。"
+            },
+            {
+              "text": "程式產生了任何輸出",
+              "fraction": 0,
+              "feedback": "正常輸出是預期中的；判定準則尋找的是失敗訊號，而非一般輸出。"
+            }
+          ],
+          "generalFeedback": "因為模糊測試器會執行極大量的輸入，它的錯誤判定準則必須是自動的。常見訊號包括當機（例如 SIGSEGV）、卡死／逾時、消毒器回報的違規（ASan／UBSan），或失敗的斷言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "黑箱、灰箱、白箱",
+          "text": "<p>下列何者正確地依「使用多少程式內部資訊」排序<strong>黑箱</strong>、<strong>灰箱</strong>與<strong>白箱</strong>模糊測試？</p>",
+          "answers": [
+            {
+              "text": "黑箱不使用任何內部資訊；灰箱使用輕量的覆蓋率回饋；白箱使用較重的程式分析，例如符號執行",
+              "fraction": 100,
+              "feedback": "正確——三者落在「內部洞察逐漸增加」的光譜上。"
+            },
+            {
+              "text": "黑箱使用符號執行；灰箱不使用任何；白箱使用覆蓋率",
+              "fraction": 0,
+              "feedback": "標籤被打亂了：使用符號執行的是白箱，黑箱什麼都不用。"
+            },
+            {
+              "text": "三者使用的內部資訊量完全相同",
+              "fraction": 0,
+              "feedback": "它們的差別正在於使用多少內部洞察。"
+            },
+            {
+              "text": "灰箱使用三者中最多的內部資訊",
+              "fraction": 0,
+              "feedback": "使用最多的是白箱（程式分析）；灰箱只用輕量的覆蓋率。"
+            }
+          ],
+          "generalFeedback": "黑箱模糊測試把目標當成不透明（只看輸入與觀察到的當機）。灰箱模糊測試加入輕量插樁以取得覆蓋率回饋。白箱模糊測試使用較重的分析——例如符號／具體符號執行——以推理哪些輸入驅動哪些路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "模糊測試的目標",
+          "text": "<p>模糊測試的一個核心目標，是自動找出會使程式當機或以其他方式出錯的輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——模糊測試把「尋找觸發失敗的輸入」自動化。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "自動找出觸發當機或故障的輸入，正是模糊測試的用途。"
+            }
+          ],
+          "generalFeedback": "模糊測試生成大量輸入並以之執行程式，目標是找出觸發可偵測失敗（當機、卡死、消毒器違規或斷言失敗）的輸入。"
+        },
+        {
+          "type": "multichoice",
+          "name": "位元翻轉變異運算子",
+          "text": "<p>模糊測試器中的<strong>位元翻轉（bit-flip）</strong>變異運算子會：</p>",
+          "answers": [
+            {
+              "text": "在既有輸入的副本中切換一個或多個位元",
+              "fraction": 100,
+              "feedback": "正確——翻轉位元是最簡單的變異運算子之一。"
+            },
+            {
+              "text": "改寫程式原始碼以反轉某個布林值",
+              "fraction": 0,
+              "feedback": "那會是原始碼變異（突變測試）；模糊測試器變異的是輸入，而非程式碼。"
+            },
+            {
+              "text": "刪除整個輸入並從零重新開始",
+              "fraction": 0,
+              "feedback": "位元翻轉修改的是少數位元；它不會抹除整個輸入。"
+            },
+            {
+              "text": "以不同的最佳化等級重新編譯目標",
+              "fraction": 0,
+              "feedback": "變異運算子改變的是輸入，而非建置設定。"
+            }
+          ],
+          "generalFeedback": "變異運算子轉換種子輸入。常見的包括位元翻轉（切換位元）、位元組或整數替換、插入／刪除，以及把兩個輸入拼接（splicing）在一起。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "AFL 是覆蓋率導向灰箱",
+          "text": "<p>AFL（American Fuzzy Lop）是一個覆蓋率導向的灰箱模糊測試器：它對目標插樁，並以邊覆蓋率（edge coverage）回饋來引導變異。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——AFL 是覆蓋率導向灰箱模糊測試的典型代表，使用邊覆蓋率回饋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "AFL 確實是覆蓋率導向且灰箱的；它透過插樁記錄邊覆蓋率，並保留能抵達新邊的輸入。"
+            }
+          ],
+          "generalFeedback": "AFL 使覆蓋率導向灰箱模糊測試普及：編譯期（或以 QEMU）插樁記錄邊覆蓋率，命中新邊的輸入會被加入佇列並進一步變異。"
+        },
+        {
+          "type": "multichoice",
+          "name": "libFuzzer 的模糊目標",
+          "text": "<p>libFuzzer 是一個行程內（in-process）、覆蓋率導向的模糊測試器。你如何告訴它要模糊測試什麼？</p>",
+          "answers": [
+            {
+              "text": "你撰寫一個模糊目標函式，它接收一段位元組緩衝區，並把它餵入受測程式碼",
+              "fraction": 100,
+              "feedback": "正確——libFuzzer 會反覆以生成的位元組呼叫你的進入函式（例如 LLVMFuzzerTestOneInput）。"
+            },
+            {
+              "text": "你提供一份形式化文法，libFuzzer 自動推導出目標",
+              "fraction": 0,
+              "feedback": "libFuzzer 把位元組緩衝區驅動進你所寫的函式；它不需要文法。"
+            },
+            {
+              "text": "你只給它編譯後的執行檔，不需修改任何程式碼",
+              "fraction": 0,
+              "feedback": "libFuzzer 是行程內的，會連結到你提供的目標函式。"
+            },
+            {
+              "text": "你把它指向程式的日誌檔",
+              "fraction": 0,
+              "feedback": "它以生成的輸入呼叫你的模糊目標函式；日誌與此無關。"
+            }
+          ],
+          "generalFeedback": "libFuzzer 在行程內執行：你撰寫一個模糊目標（通常是），把位元組轉成對受測 API 的呼叫。libFuzzer 生成輸入、在迴圈中呼叫該目標，並以覆蓋率回饋引導變異。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AddressSanitizer",
+          "text": "<p>在對 C/C++ 程式碼進行模糊測試時，<strong>AddressSanitizer（ASan）</strong>提供了什麼？</p>",
+          "answers": [
+            {
+              "text": "它偵測記憶體錯誤——例如堆積／堆疊緩衝區溢位與釋放後使用（use-after-free）——把原本無聲的破壞轉為立即可見的失敗",
+              "fraction": 100,
+              "feedback": "正確——ASan 使許多記憶體安全錯誤大聲當機，讓模糊測試器的判定準則得以捕捉。"
+            },
+            {
+              "text": "它負責產生模糊測試的輸入",
+              "fraction": 0,
+              "feedback": "產生輸入是模糊測試器的工作；ASan 是錯誤偵測器，而非產生器。"
+            },
+            {
+              "text": "它證明程式是記憶體安全的",
+              "fraction": 0,
+              "feedback": "ASan 回報它在執行期觀察到的錯誤；它不證明錯誤不存在。"
+            },
+            {
+              "text": "它移除邊界檢查以加速程式",
+              "fraction": 0,
+              "feedback": "ASan 會加入檢查（並帶有額外開銷）；它不會移除檢查。"
+            }
+          ],
+          "generalFeedback": "AddressSanitizer 對記憶體存取插樁，以偵測越界讀寫與釋放後使用等錯誤。與模糊測試搭配時，它把許多無聲的記憶體破壞錯誤轉為可觀察的當機，強化判定準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "當機代表什麼",
+          "text": "<p>當模糊測試器回報一個「當機（crash）」時，通常表示該次執行：</p>",
+          "answers": [
+            {
+              "text": "異常終止——例如區段錯誤（segmentation fault）或中止（abort）——代表一個值得調查的故障",
+              "fraction": 100,
+              "feedback": "正確——異常終止是典型的模糊測試錯誤訊號。"
+            },
+            {
+              "text": "產生了與參考實作不同的輸出",
+              "fraction": 0,
+              "feedback": "那是差分測試（differential testing）的訊號，並非此處「當機」的意思。"
+            },
+            {
+              "text": "正常結束，只是比較慢",
+              "fraction": 0,
+              "feedback": "緩慢但正常地完成不是當機；卡死／逾時會是另一種獨立訊號。"
+            },
+            {
+              "text": "被模糊測試器的輸入過濾器拒絕",
+              "fraction": 0,
+              "feedback": "當機是目標的異常終止，而非輸入過濾。"
+            }
+          ],
+          "generalFeedback": "當機是目標行程的異常終止——例如區段錯誤（SIGSEGV）或中止（SIGABRT，常由消毒器或斷言引發）。模糊測試器會保存觸發它的輸入以供分類分析。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨機／黑箱模糊測試",
+          "text": "<p>最簡單、純<strong>隨機黑箱</strong>模糊測試器的運作方式是：</p>",
+          "answers": [
+            {
+              "text": "把隨機生成或隨機變異的輸入丟給程式，完全不使用任何內部回饋",
+              "fraction": 100,
+              "feedback": "正確——純黑箱隨機模糊測試完全忽略程式內部。"
+            },
+            {
+              "text": "以 SMT 求解器求解路徑限制式來選擇輸入",
+              "fraction": 0,
+              "feedback": "那是白箱／符號模糊測試，並非隨機黑箱。"
+            },
+            {
+              "text": "依量測到的邊覆蓋率來挑選輸入",
+              "fraction": 0,
+              "feedback": "使用覆蓋率回饋會使它成為灰箱，而非黑箱。"
+            },
+            {
+              "text": "需要輸入格式的完整文法",
+              "fraction": 0,
+              "feedback": "純隨機模糊測試器不需要文法；它只是生成或變異位元組。"
+            }
+          ],
+          "generalFeedback": "隨機黑箱模糊測試單純生成或變異輸入，並只觀察外部行為（有沒有當機？）。它便宜又容易，但沒有回饋，一旦易於抵達的程式碼被執行過後往往就會停滯（plateau）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模糊測試字典",
+          "text": "<p>模糊測試的<strong>字典（dictionary）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一組符記（token）或魔術值（關鍵字、標頭、常數），模糊測試器可將其插入輸入中",
+              "fraction": 100,
+              "feedback": "正確——字典提供模糊測試器靠隨機幾乎產生不出的有意義建構區塊。"
+            },
+            {
+              "text": "把每個當機對應到其呼叫堆疊軌跡的日誌",
+              "fraction": 0,
+              "feedback": "那是當機分類的輸出；字典是一組輸入符記。"
+            },
+            {
+              "text": "從原始檔到覆蓋率計數器的對應表",
+              "fraction": 0,
+              "feedback": "那是覆蓋率的記錄，而非符記字典。"
+            },
+            {
+              "text": "描述整個輸入格式的文法",
+              "fraction": 0,
+              "feedback": "字典是一份扁平的有用符記清單，而非完整文法。"
+            }
+          ],
+          "generalFeedback": "字典提供有趣的符記——格式關鍵字、魔術位元組或常見常數——模糊測試器可把它們拼接進輸入。這有助於通過那些期待特定位元組序列（而它幾乎不可能隨機生成）的檢查。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "生成式需要模型",
+          "text": "<p>生成式模糊測試需要輸入格式的模型或文法，才能建構輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——生成式模糊測試依格式規格建構輸入，因此需要該模型。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "依定義，生成式模糊測試依模型／文法建構輸入；沒有它就無從生成。"
+            }
+          ],
+          "generalFeedback": "生成式（文法式）模糊測試依格式描述合成輸入。正是那個模型讓它能產生結構有效的輸入，不同於從既有種子出發的變異式模糊測試。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何覆蓋率回饋有幫助",
+          "text": "<p>為什麼保留能抵達<em>新</em>程式碼邊的輸入，會讓覆蓋率導向模糊測試器更有效？</p>",
+          "answers": [
+            {
+              "text": "這類輸入是墊腳石：它們執行到新行為，進一步變異後比隨機輸入更可能抵達更深的程式碼",
+              "fraction": 100,
+              "feedback": "正確——新覆蓋率的輸入是進一步深入程式的探索起點。"
+            },
+            {
+              "text": "抵達新邊保證下一次變異就會當機",
+              "fraction": 0,
+              "feedback": "新覆蓋率並不保證當機；它只是提高更深入探索的機會。"
+            },
+            {
+              "text": "新覆蓋率的輸入一定比較小，因此執行更快",
+              "fraction": 0,
+              "feedback": "保留它們是因為抵達了新行為，而非因為比較小。"
+            },
+            {
+              "text": "覆蓋率回饋讓模糊測試器可以略過執行程式",
+              "fraction": 0,
+              "feedback": "模糊測試器仍必須執行每個輸入；回饋只是告訴它該保留哪些結果。"
+            }
+          ],
+          "generalFeedback": "覆蓋率回饋把模糊測試變成一種有引導的搜尋。解鎖了新邊的輸入會被保留，因為變異它比變異毫無新意的輸入，更可能推進到相鄰、先前未抵達的程式碼——語料庫因而朝更深的覆蓋率演進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "變異與生成的取捨",
+          "text": "<p>下列何者最能概括變異式與生成式模糊測試之間的取捨？</p>",
+          "answers": [
+            {
+              "text": "變異式便宜且不需格式規格，但難以處理高度結構化的輸入；生成式需要撰寫文法，但能輕易產生有效的結構化輸入",
+              "fraction": 100,
+              "feedback": "正確——取捨在於「規格投入」對上「能否產生有效結構化輸入」。"
+            },
+            {
+              "text": "變異式在每一個目標上都一定比生成式找到更多錯誤",
+              "fraction": 0,
+              "feedback": "兩者皆非全面勝出；各自適合不同的輸入格式。"
+            },
+            {
+              "text": "生成式的建置成本總是比變異式更低",
+              "fraction": 0,
+              "feedback": "生成式通常前期成本更高，因為你必須撰寫文法／模型。"
+            },
+            {
+              "text": "只有生成式模糊測試能使用覆蓋率回饋",
+              "fraction": 0,
+              "feedback": "覆蓋率回饋是正交的；變異式灰箱模糊測試器大量使用它。"
+            }
+          ],
+          "generalFeedback": "變異式模糊測試容易上手（只需提供種子），但隨機變異常破壞複雜格式的結構。生成式模糊測試前期投入撰寫文法／模型，對高度結構化的輸入（編譯器、網路協定）而言，能持續產生有效輸入而回本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是好的種子",
+          "text": "<p>對變異式覆蓋率導向模糊測試器而言，哪一組種子輸入通常<em>最佳</em>？</p>",
+          "answers": [
+            {
+              "text": "小巧、有效、多樣的範例，合起來能執行到格式的許多不同特性",
+              "fraction": 100,
+              "feedback": "正確——小而多樣的有效種子提供了廣泛、可變異的起始覆蓋率。"
+            },
+            {
+              "text": "一個涵蓋所有特性的超大單一檔案",
+              "fraction": 0,
+              "feedback": "單一巨檔執行與變異都慢；許多小而多樣的種子更好。"
+            },
+            {
+              "text": "與格式無關的隨機位元組團",
+              "fraction": 0,
+              "feedback": "無效團塊會浪費在早期被拒；有效種子能更快抵達更深的程式碼。"
+            },
+            {
+              "text": "只用已知會使程式當機的輸入",
+              "fraction": 0,
+              "feedback": "已知當機用於回歸測試；種子應廣泛執行有效行為以供由此探索。"
+            }
+          ],
+          "generalFeedback": "好的種子要「有效到足以通過早期剖析」、「小到能快速執行與變異」，且「多樣到讓語料庫一開始就有廣泛覆蓋率」。一堆小巧、特性各異的有效輸入，勝過一個巨檔或隨機雜訊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "灰箱與黑箱",
+          "text": "<p>在相同目標上，灰箱模糊測試相對於黑箱模糊測試的關鍵實務優勢是灰箱：</p>",
+          "answers": [
+            {
+              "text": "使用覆蓋率回饋來辨識並保留能抵達新程式碼的輸入，因此隨時間能探索到程式中更多部分",
+              "fraction": 100,
+              "feedback": "正確——這個回饋迴路正是灰箱所增加的。"
+            },
+            {
+              "text": "不需要判定準則，因為覆蓋率取代了當機偵測",
+              "fraction": 0,
+              "feedback": "覆蓋率引導搜尋，但不是錯誤判定準則；你仍需當機／消毒器訊號。"
+            },
+            {
+              "text": "保證涵蓋程式的所有路徑",
+              "fraction": 0,
+              "feedback": "灰箱模糊測試改善覆蓋率，但遠不能保證所有路徑。"
+            },
+            {
+              "text": "完全不需要任何插樁",
+              "fraction": 0,
+              "feedback": "定義灰箱的覆蓋率回饋正是來自輕量插樁。"
+            }
+          ],
+          "generalFeedback": "黑箱模糊測試只看外部行為，因此無法分辨「無聊」輸入與「解鎖新程式碼」的輸入。灰箱模糊測試加入輕量覆蓋率插樁，得以保留並變異抵達新邊的輸入——這個回饋迴路大幅提升觸及範圍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "字典與魔術值",
+          "text": "<p>提供字典如何幫助模糊測試器通過像 <code>if (memcmp(hdr, \"PNG\", 3) == 0)</code> 這樣的檢查？</p>",
+          "answers": [
+            {
+              "text": "字典包含符記 \"PNG\"，因此模糊測試器可直接插入它，不必靠隨機碰巧湊出那些位元組",
+              "fraction": 100,
+              "feedback": "正確——字典把程式檢查所需的確切符記直接交給模糊測試器。"
+            },
+            {
+              "text": "它停用該比較，使檢查永遠通過",
+              "fraction": 0,
+              "feedback": "字典提供的是輸入符記；它不會修改程式的檢查。"
+            },
+            {
+              "text": "它讓隨機變異呈指數級加速",
+              "fraction": 0,
+              "feedback": "它不改變變異速度；它改變的是可供插入的符記。"
+            },
+            {
+              "text": "它不執行程式就證明標頭正確",
+              "fraction": 0,
+              "feedback": "字典不證明任何事；它只是提供有用的位元組序列供嘗試。"
+            }
+          ],
+          "generalFeedback": "隨機產生特定的多位元組符記（例如 \"PNG\"）機率很低。字典列出這類符記，讓模糊測試器可直接拼接進去，從而滿足魔術值檢查並抵達其後守護的程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結構感知模糊測試",
+          "text": "<p><strong>結構感知（structure-aware）</strong>模糊測試（例如變異已剖析／具型別的表示，而非原始位元組）的重點是什麼？</p>",
+          "answers": [
+            {
+              "text": "變異會遵守輸入格式，因此大多數生成的輸入仍結構有效，能抵達深層邏輯，而非被剖析器早早拒絕",
+              "fraction": 100,
+              "feedback": "正確——在結構層次變異能讓輸入維持足夠有效以執行更深的程式碼。"
+            },
+            {
+              "text": "它免除了對任何判定準則的需求",
+              "fraction": 0,
+              "feedback": "結構感知關乎輸入有效性，而非錯誤偵測；仍需判定準則。"
+            },
+            {
+              "text": "它保證模糊測試器會找到剖析器中所有的錯誤",
+              "fraction": 0,
+              "feedback": "沒有技術能保證找到所有錯誤；它只是讓更多輸入維持有效。"
+            },
+            {
+              "text": "它只適用於純文字，永遠不適用於二進位格式",
+              "fraction": 0,
+              "feedback": "結構感知模糊測試也適用於二進位格式（例如以 protobuf 為基礎的模糊測試器）。"
+            }
+          ],
+          "generalFeedback": "對高度結構化的輸入而言，原始位元組變異通常會被剖析器早早拒絕。結構感知模糊測試變異已具型別／已剖析的表示（或使用文法），因此生成的輸入維持良好形式，能驅動更深、藏有有趣錯誤的語意邏輯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何保留抵達新邊的輸入",
+          "text": "<p>覆蓋率導向模糊測試器執行了一個抵達全新邊、但沒有當機的輸入。它通常會怎麼做？</p>",
+          "answers": [
+            {
+              "text": "把它加入語料庫／佇列以供進一步變異，因為它可能通往更深的程式碼",
+              "fraction": 100,
+              "feedback": "正確——即使沒有當機，新覆蓋率作為進一步變異的基礎仍有價值。"
+            },
+            {
+              "text": "丟棄它，因為只有會當機的輸入才值得保留",
+              "fraction": 0,
+              "feedback": "正因新覆蓋率的輸入開啟了通往未來當機的路徑，才會被保留。"
+            },
+            {
+              "text": "立即把它回報為錯誤",
+              "fraction": 0,
+              "feedback": "新覆蓋率不是錯誤；只有判定準則發出的失敗訊號才是。"
+            },
+            {
+              "text": "停止整個模糊測試活動",
+              "fraction": 0,
+              "feedback": "抵達新覆蓋率是進展，而非停止的理由。"
+            }
+          ],
+          "generalFeedback": "解鎖新覆蓋率的輸入會被保存並優先進一步變異。它們作為墊腳石：變異它們是把執行推進到相鄰、尚未抵達的程式碼最有前景的方式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "拼接運算子",
+          "text": "<p><strong>拼接（splicing）</strong>變異運算子產生新輸入的方式是：</p>",
+          "answers": [
+            {
+              "text": "把某個語料庫輸入的一部分與另一個輸入的一部分組合起來",
+              "fraction": 100,
+              "feedback": "正確——拼接重組兩個既有輸入的片段。"
+            },
+            {
+              "text": "翻轉某個輸入中的單一位元",
+              "fraction": 0,
+              "feedback": "那是位元翻轉，而非拼接。"
+            },
+            {
+              "text": "把一個 4 位元組整數換成邊界值",
+              "fraction": 0,
+              "feedback": "那是整數替換變異，而非拼接。"
+            },
+            {
+              "text": "把輸入的位元組依遞增順序排序",
+              "fraction": 0,
+              "feedback": "排序位元組不是標準變異；拼接是把兩個輸入的片段接合。"
+            }
+          ],
+          "generalFeedback": "拼接（crossover）取用語料庫中兩個輸入，把其中一個的前綴與另一個的後綴接合，讓模糊測試器把個別發現的特性組合起來——這是對位元翻轉、位元組替換等區域變異的補充。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語料庫的演進",
+          "text": "<p>在 AFL 式模糊測試器中，語料庫（佇列）在執行過程中如何演進？</p>",
+          "answers": [
+            {
+              "text": "觸發新覆蓋率的輸入會被附加到佇列並稍後被變異，因此語料庫朝著抵達更深程式碼的輸入成長",
+              "fraction": 100,
+              "feedback": "正確——佇列持續被有趣的輸入擴充並再度變異。"
+            },
+            {
+              "text": "語料庫在啟動時固定，之後永不改變",
+              "fraction": 0,
+              "feedback": "覆蓋率導向模糊測試器的語料庫會隨著找到新覆蓋率的輸入而成長。"
+            },
+            {
+              "text": "每個生成的輸入，無論有無覆蓋率，都會被永久保存",
+              "fraction": 0,
+              "feedback": "只有增加新覆蓋率（或當機）的輸入才會被保留，其餘丟棄。"
+            },
+            {
+              "text": "每次執行後語料庫就減少一個輸入",
+              "fraction": 0,
+              "feedback": "語料庫隨有趣的發現成長，而非每次執行遞減。"
+            }
+          ],
+          "generalFeedback": "覆蓋率導向模糊測試器維護一個有趣輸入的佇列。當變異後的輸入命中新覆蓋率時，就會被加入佇列；模糊測試器接著不斷循環佇列、變異每一項，因此語料庫朝著抵達越來越深行為的輸入演進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋率與區塊覆蓋率",
+          "text": "<p>為什麼許多灰箱模糊測試器追蹤<strong>邊（分支轉移）覆蓋率</strong>，而不只是<strong>基本區塊（basic-block）覆蓋率</strong>？</p>",
+          "answers": [
+            {
+              "text": "邊覆蓋率記錄發生了哪些「區塊到區塊」的轉移，因此能區分區塊覆蓋率會視為相同的控制流",
+              "fraction": 100,
+              "feedback": "正確——邊捕捉轉移，提供比區塊命中更細緻的訊號。"
+            },
+            {
+              "text": "邊覆蓋率不需插樁，而區塊覆蓋率需要",
+              "fraction": 0,
+              "feedback": "兩者都需插樁；邊覆蓋率只是更具鑑別力。"
+            },
+            {
+              "text": "區塊覆蓋率能偵測當機，但邊覆蓋率不能",
+              "fraction": 0,
+              "feedback": "兩者都不偵測當機；那是判定準則的職責。差別在於覆蓋率訊號的細緻程度。"
+            },
+            {
+              "text": "邊覆蓋率總是精確，而區塊覆蓋率是隨機的",
+              "fraction": 0,
+              "feedback": "兩者都是確定性的量測；重點是邊更細緻。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋率記錄基本區塊之間的轉移，因此兩次以不同順序造訪相同區塊的執行看起來會不同。這個更細緻的訊號幫助模糊測試器辨識出比區塊覆蓋率更多的「有趣」輸入，後者只記錄某區塊是否被抵達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "行程內與 fork 式模糊測試",
+          "text": "<p>相較於 fork 式模糊測試器，像 libFuzzer 這樣的行程內模糊測試器：</p>",
+          "answers": [
+            {
+              "text": "在同一行程內呼叫目標函式來執行每個輸入，速度快，但要求目標不得有在多次執行間洩漏的狀態",
+              "fraction": 100,
+              "feedback": "正確——行程內執行速度快，但對殘留／全域狀態敏感。"
+            },
+            {
+              "text": "為每個輸入啟動一個全新行程，隔離更強但額外開銷更大",
+              "fraction": 0,
+              "feedback": "那描述的是 fork/exec 式模糊測試，與行程內相反。"
+            },
+            {
+              "text": "完全無法使用覆蓋率回饋",
+              "fraction": 0,
+              "feedback": "libFuzzer 是覆蓋率導向的；行程內執行並不排除回饋。"
+            },
+            {
+              "text": "需要完整的輸入文法才能運作",
+              "fraction": 0,
+              "feedback": "libFuzzer 不需文法；它把位元組緩衝區驅動進你的模糊目標。"
+            }
+          ],
+          "generalFeedback": "行程內模糊測試在單一行程內反覆呼叫目標函式，避免了建立行程的開銷，執行非常快。代價是多次執行間殘留的全域／靜態狀態可能導致無法重現的行為，因此目標必須在每次呼叫時乾淨地重置。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "消毒器強化判定準則",
+          "text": "<p>為什麼對「插入消毒器的建置」進行模糊測試往往能找到更多錯誤？</p>",
+          "answers": [
+            {
+              "text": "消毒器把原本無聲的錯誤（例如小範圍越界讀取、整數溢位）轉為立即可見的失敗，讓模糊測試器的判定準則得以捕捉",
+              "fraction": 100,
+              "feedback": "正確——消毒器暴露了那些本身不會當機的故障。"
+            },
+            {
+              "text": "消毒器為模糊測試器產生額外的輸入",
+              "fraction": 0,
+              "feedback": "消毒器偵測故障；它們不產生輸入。"
+            },
+            {
+              "text": "消毒器提升執行速度，因而能執行更多次",
+              "fraction": 0,
+              "feedback": "消毒器帶來額外開銷；好處在於更好的偵測，而非速度。"
+            },
+            {
+              "text": "消毒器取代了對語料庫的需求",
+              "fraction": 0,
+              "feedback": "仍需語料庫；消毒器只改善失敗訊號。"
+            }
+          ],
+          "generalFeedback": "沒有消毒器時，許多錯誤（一個位元組的越界讀取、有號溢位）不會當機而從模糊測試器眼前溜走。ASan、UBSan 等消毒器在執行期偵測到這些並中止，讓模糊測試器的當機判定準則捕捉到原本會漏掉的故障。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "卡死作為判定訊號",
+          "text": "<p>除了當機，模糊測試器也可以用卡死（hang）或逾時作為錯誤訊號——例如捕捉使程式陷入無窮迴圈的輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——過長的執行時間（卡死／逾時）是標準的模糊測試訊號，例如用於潛在的阻斷服務迴圈。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "模糊測試器常標記超過時限的輸入，這可揭露無窮迴圈或演算法複雜度問題。"
+            }
+          ],
+          "generalFeedback": "卡死／逾時是合理的判定準則：若某輸入使程式執行遠超過設定時限，模糊測試器就會記錄它。這類輸入可暴露無窮迴圈或最壞情況演算法複雜度（阻斷服務）問題。"
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率停滯",
+          "text": "<p>覆蓋率導向模糊測試器長時間不再發現新覆蓋率（陷入停滯／plateau）。下列哪個回應最合理？</p>",
+          "answers": [
+            {
+              "text": "幫它越過障礙——加入更好的種子、提供字典，或引入求解器／符號執行協助——因為單靠隨機變異很可能卡在某個難以滿足的檢查",
+              "fraction": 100,
+              "feedback": "正確——停滯通常代表某個難以滿足的條件，需要額外協助。"
+            },
+            {
+              "text": "斷定程式現在已被證明無錯誤",
+              "fraction": 0,
+              "feedback": "停滯代表模糊測試器不再取得進展，而非程式正確。"
+            },
+            {
+              "text": "刪除種子語料庫以強制回到純隨機",
+              "fraction": 0,
+              "feedback": "移除種子通常有害；模糊測試器需要更好的起點，而非更少。"
+            },
+            {
+              "text": "停用覆蓋率插樁",
+              "fraction": 0,
+              "feedback": "關掉回饋等於丟棄引導探索的核心機制。"
+            }
+          ],
+          "generalFeedback": "停滯通常意味著模糊測試器被某個變異無法滿足的檢查擋住（魔術值、校驗和或複雜結構）。實務回應包括更豐富的種子、期待符記的字典、結構感知變異，或用求解器越過障礙的混合式模糊測試——而不是把停滯當成正確性的證明。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整數／邊界替換運算子",
+          "text": "<p>許多模糊測試器包含一個變異運算子，會把多位元組整數欄位覆寫成像 0、-1 或 INT_MAX 這樣的值。為何偏好這些特定的值？</p>",
+          "answers": [
+            {
+              "text": "邊界值與極端值特別容易暴露差一（off-by-one）、溢位與正負號處理的錯誤，所以嘗試它們比純隨機整數更有成效",
+              "fraction": 100,
+              "feedback": "正確——邊界值瞄準整數錯誤群聚的邊緣情況。"
+            },
+            {
+              "text": "這些值保證能滿足任何校驗和",
+              "fraction": 0,
+              "feedback": "它們與校驗和無關；它們瞄準的是整數邊緣情況。"
+            },
+            {
+              "text": "它們使輸入檔案更小",
+              "fraction": 0,
+              "feedback": "替換整數不會縮小輸入；重點在於容易引發錯誤的邊緣值。"
+            },
+            {
+              "text": "它們是覆蓋率導向模糊測試器唯一能生成的值",
+              "fraction": 0,
+              "feedback": "模糊測試器能產生許多值；邊界值只是特別容易揭露錯誤而值得嘗試的選擇。"
+            }
+          ],
+          "generalFeedback": "整數替換變異刻意注入邊界與極端值（0、1、-1、最大／最小值、鄰近的 2 的冪次），因為錯誤——差一錯誤、溢位、有號／無號混淆——傾向群聚在這些邊緣。嘗試它們比均勻隨機取樣整數更有成效。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何校驗和能擊敗天真的變異式模糊測試",
+          "text": "<p>某剖析器會先驗證輸入的 CRC 校驗和，若失敗就立即拒絕該輸入。為什麼這會擊敗天真的變異式模糊測試，而真正有幫助的是什麼？</p>",
+          "answers": [
+            {
+              "text": "幾乎每個變異都會破壞校驗和，導致輸入在抵達更深程式碼前就被拒絕；有幫助的是在測試支架中移除該檢查，或用覆蓋率導向／字典／符號執行等能滿足它的技術",
+              "fraction": 100,
+              "feedback": "正確——該檢查是全有全無的關卡；實務作法常是在模糊測試建置中停用它，或用能產生有效校驗和的技術。"
+            },
+            {
+              "text": "校驗和使程式跑得更快，讓模糊測試器時間變少——增加 CPU 核心即可解決",
+              "fraction": 0,
+              "feedback": "問題在於變異後的輸入無法通過檢查，而非執行時間；更多核心無法讓隨機變異滿足校驗和。"
+            },
+            {
+              "text": "單靠覆蓋率導向模糊測試就能輕易為每個輸入算出正確的校驗和",
+              "fraction": 0,
+              "feedback": "覆蓋率導向並不會計算校驗和；單一通過／失敗的檢查幾乎不提供梯度可循。這是誇大之詞。"
+            },
+            {
+              "text": "沒有任何辦法有幫助——這類程式碼根本無法被模糊測試",
+              "fraction": 0,
+              "feedback": "它是可以被模糊測試的：在支架中停用該檢查，或使用字典／符號執行，都是標準的補救手段。"
+            }
+          ],
+          "generalFeedback": "校驗和關卡是一個單一分支，幾乎所有隨機變異都會失敗，因此模糊測試器永遠抵達不了其後的邏輯，覆蓋率回饋也幫助有限（本質上是全有全無）。常見補救：在模糊測試支架內移除或修正校驗和，使任何輸入都能通過；用字典提供所需常數；或用符號／具體符號執行求解出有效校驗和。單靠覆蓋率導向並不會神奇地滿足它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "魔術位元組比較與覆蓋率梯度",
+          "text": "<p>對於 32 位元輸入上的守衛 <code>if (x == 0xDEADBEEF)</code>，為什麼單純的邊覆蓋率是薄弱的引導，而什麼能改善它？</p>",
+          "answers": [
+            {
+              "text": "該比較是全有全無，因此朝常數逼近的部分進展得不到新覆蓋率；比較追蹤插樁（把比較拆成逐位元組／值剖析）或字典能補上缺失的梯度",
+              "fraction": 100,
+              "feedback": "正確——沒有梯度時模糊測試器等於在猜 2³² 分之一；比較覆蓋率或字典給它回饋。"
+            },
+            {
+              "text": "邊覆蓋率已經對每個相符的位元組給予獎勵，因此不需額外協助",
+              "fraction": 0,
+              "feedback": "單一無論如何只產生一條邊；單純的邊覆蓋率不會獎勵相符的個別位元組。"
+            },
+            {
+              "text": "該守衛無法被滿足，所以模糊測試必須略過它",
+              "fraction": 0,
+              "feedback": "它是可滿足的（x = 0xDEADBEEF）；問題在於引導模糊測試器抵達那裡，而比較覆蓋率／字典正是做這件事。"
+            },
+            {
+              "text": "覆蓋率回饋使隨機猜出這 4 個位元組變得很快",
+              "fraction": 0,
+              "feedback": "隨機猜測仍約為 2³² 分之一；解法是提供梯度的插樁，而非更快的猜測。"
+            }
+          ],
+          "generalFeedback": "寬比較是一道懸崖：輸入要嘛完全正確（新邊）、要嘛不對（無訊號），因此模糊測試器沒有梯度可攀爬，隨機搜尋面對約 2³² 的機率。比較追蹤插樁（例如 laf-intel 式把 4 位元組比較拆成逐位元組比較，或 libFuzzer 的值剖析 value profiling）會獎勵更多位元組相符，而字典則直接提供該常數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "淺層觸及與深層條件",
+          "text": "<p>為什麼模糊測試擅長淺層錯誤，卻不擅長藏在深層、特定條件之後的錯誤？</p>",
+          "answers": [
+            {
+              "text": "隨機變異容易執行到淺層程式碼，卻不太可能滿足一長串特定條件；符號／具體符號執行能求解這類限制式，但面臨路徑爆炸",
+              "fraction": 100,
+              "feedback": "正確——模糊測試便宜地抵達淺層程式碼；深層特定守衛需要限制式求解，而後者有其自身的擴充代價。"
+            },
+            {
+              "text": "模糊測試會窮舉探索所有路徑，因此深度無關緊要",
+              "fraction": 0,
+              "feedback": "模糊測試並非窮舉探索；深層特定條件正是它吃力之處。"
+            },
+            {
+              "text": "深層條件總是不可行，因此沒有技術能抵達它們",
+              "fraction": 0,
+              "feedback": "它們通常是可行的；難處在於產生滿足它們的輸入。"
+            },
+            {
+              "text": "符號執行能抵達深層條件且沒有任何擴充限制",
+              "fraction": 0,
+              "feedback": "符號執行有幫助，但受路徑爆炸限制；這是誇大之詞。"
+            }
+          ],
+          "generalFeedback": "模糊測試便宜地丟出大量輸入，因此容易命中淺層、易抵達的故障。但藏在數道精確檢查之後的錯誤需要同時滿足所有檢查，隨機變異鮮少做到。符號／具體符號執行能直接求解那些限制式，代價是路徑爆炸——這正是混合式（模糊測試＋符號）方法存在的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判定準則的限制：無聲的邏輯錯誤",
+          "text": "<p>某函式回傳一個細微錯誤的結果，但從不當機、卡死或觸發消毒器。為什麼模糊測試器可能漏掉這個錯誤？</p>",
+          "answers": [
+            {
+              "text": "模糊測試器的判定準則只偵測可觀察的失敗；除非加入更強的判定準則（斷言、參考／差分檢查），否則「錯誤但不當機」的輸出會被放行",
+              "fraction": 100,
+              "feedback": "正確——沒有失敗訊號，錯誤對預設判定準則就是隱形的。"
+            },
+            {
+              "text": "模糊測試器自動知道每個輸入的正確輸出",
+              "fraction": 0,
+              "feedback": "它並不知道；那正是模糊測試面對邏輯錯誤時的判定準則問題（oracle problem）。"
+            },
+            {
+              "text": "覆蓋率回饋會標記任何不正確的結果",
+              "fraction": 0,
+              "feedback": "覆蓋率量測的是哪些程式碼被執行，而非結果是否正確。"
+            },
+            {
+              "text": "消毒器會偵測所有不正確的回傳值",
+              "fraction": 0,
+              "feedback": "消毒器偵測的是記憶體／未定義行為錯誤，而非一般邏輯錯誤。"
+            }
+          ],
+          "generalFeedback": "模糊測試依賴自動判定準則，而它預設只捕捉當機、卡死與消毒器／斷言失敗。一個產生「錯誤但形式良好」結果的邏輯錯誤不會引發任何此類訊號。要捕捉它，你需要更強的判定準則：內嵌的斷言／不變式，或對參考實作進行差分測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語料庫最小化",
+          "text": "<p><strong>語料庫最小化（corpus minimization，例如 afl-cmin）</strong>的目標是什麼？</p>",
+          "answers": [
+            {
+              "text": "把語料庫縮減為一個較小、能保持相同整體覆蓋率的輸入子集，讓之後的模糊測試少花時間在冗餘種子上",
+              "fraction": 100,
+              "feedback": "正確——它在維持覆蓋率的同時修剪冗餘種子。"
+            },
+            {
+              "text": "把單一當機輸入縮到仍會當機的最小位元組",
+              "fraction": 0,
+              "feedback": "那是測試案例最小化（afl-tmin），而非語料庫最小化。"
+            },
+            {
+              "text": "刪除所有種子，讓模糊測試器從空的開始",
+              "fraction": 0,
+              "feedback": "最小化保留一個能維持覆蓋率的子集，而非什麼都不留。"
+            },
+            {
+              "text": "把所有種子合併成一個大檔案",
+              "fraction": 0,
+              "feedback": "它選出一個最小的獨立輸入集合；並不把它們合併。"
+            }
+          ],
+          "generalFeedback": "語料庫最小化選出仍能達成語料庫覆蓋率的最小子集，丟棄不增加新東西的輸入。更精簡的語料庫代表模糊測試器循環得更快，也少浪費心力在冗餘種子上。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試案例最小化",
+          "text": "<p>找到一個當機後，<strong>測試案例最小化（test-case minimization，例如 afl-tmin）</strong>會做什麼？</p>",
+          "answers": [
+            {
+              "text": "反覆修剪當機輸入，得到仍能重現當機的最小／最簡形式，以利除錯",
+              "fraction": 100,
+              "feedback": "正確——最小化後的重現案例能孤立出真正觸發錯誤的部分。"
+            },
+            {
+              "text": "從整個語料庫移除冗餘種子",
+              "fraction": 0,
+              "feedback": "那是語料庫最小化；測試案例最小化作用於單一當機輸入。"
+            },
+            {
+              "text": "自動修正該錯誤",
+              "fraction": 0,
+              "feedback": "它縮小重現案例；並不修補程式碼。"
+            },
+            {
+              "text": "在輸入中加入額外位元組使當機更可靠",
+              "fraction": 0,
+              "feedback": "最小化是移除位元組以簡化；並不為輸入加料。"
+            }
+          ],
+          "generalFeedback": "測試案例（當機）最小化取一個當機輸入，在當機仍能重現的前提下反覆移除或簡化位元組，得到一個小而聚焦的重現案例，使錯誤的根因分析容易許多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "生成式何時勝過變異式",
+          "text": "<p>對哪一種目標而言，生成式（文法式）模糊測試最可能勝過變異式模糊測試？</p>",
+          "answers": [
+            {
+              "text": "具有僵硬、高度結構化輸入格式的編譯器或協定剖析器，隨機變異幾乎總是產生會被早早拒絕的無效輸入",
+              "fraction": 100,
+              "feedback": "正確——文法讓模糊測試器能產生抵達深層邏輯的有效結構化輸入。"
+            },
+            {
+              "text": "一個接受任意、無結構位元組團的常式",
+              "fraction": 0,
+              "feedback": "對無結構輸入，變異式模糊測試表現良好，文法幫助不大。"
+            },
+            {
+              "text": "任何目標，因為生成式模糊測試全面優越",
+              "fraction": 0,
+              "feedback": "兩種方法皆非全面最佳；生成式專門在結構化格式上發光。"
+            },
+            {
+              "text": "沒有可用判定準則的目標",
+              "fraction": 0,
+              "feedback": "判定準則的可用性與「變異對生成」的選擇是正交的。"
+            }
+          ],
+          "generalFeedback": "當輸入必須遵守嚴格文法（供編譯器的原始碼、供協定的訊息）時，隨機位元組變異絕大多數會被前端拒絕。生成式模糊測試依文法建構輸入，因此能持續產生有效輸入，執行到藏有有趣錯誤的深層語意邏輯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混合式（符號協助）模糊測試",
+          "text": "<p>在混合式模糊測試（例如 Driller 式）中，具體符號／符號執行如何補足灰箱模糊測試器？</p>",
+          "answers": [
+            {
+              "text": "當模糊測試器在某個難關停滯時，求解器計算出滿足該特定分支的輸入；新輸入交回後，便宜的模糊測試便可繼續探索其後的區域",
+              "fraction": 100,
+              "feedback": "正確——求解器越過狹窄守衛，接著模糊測試器再度接手。"
+            },
+            {
+              "text": "求解器完全取代模糊測試器，並以符號方式探索所有路徑",
+              "fraction": 0,
+              "feedback": "符號執行受路徑爆炸所苦；混合式模糊測試選擇性地使用它，而非全面取代。"
+            },
+            {
+              "text": "求解器為模糊測試器產生覆蓋率插樁",
+              "fraction": 0,
+              "feedback": "插樁來自編譯器／工具鏈；求解器的角色是滿足困難限制式。"
+            },
+            {
+              "text": "求解器取代消毒器作為錯誤判定準則",
+              "fraction": 0,
+              "feedback": "判定準則仍是當機／消毒器；求解器的工作是產生越過困難分支的輸入。"
+            }
+          ],
+          "generalFeedback": "混合式模糊測試發揮各技術之長：模糊測試器便宜且廣泛地探索，當它卡在某個狹窄條件（魔術值、校驗和）時，具體符號執行求解該分支的限制式以產生通過的輸入。控制權交回模糊測試器，讓它探索新抵達的區域——並謹慎地使用求解器以避免路徑爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ASan 與 UBSan 的角色",
+          "text": "<p>在模糊測試時，<strong>AddressSanitizer（ASan）</strong>與<strong>UndefinedBehaviorSanitizer（UBSan）</strong>的角色有何不同？</p>",
+          "answers": [
+            {
+              "text": "ASan 針對記憶體安全錯誤（越界存取、釋放後使用）；UBSan 針對未定義行為（例如有號整數溢位、無效位移、未對齊指標）",
+              "fraction": 100,
+              "feedback": "正確——它們偵測不同、互補的故障類別。"
+            },
+            {
+              "text": "它們偵測完全相同的錯誤，因此兩個一起用是多餘的",
+              "fraction": 0,
+              "feedback": "它們涵蓋不同的故障類別；同時使用能擴大判定準則所能捕捉的範圍。"
+            },
+            {
+              "text": "ASan 偵測未定義行為，而 UBSan 偵測記憶體錯誤",
+              "fraction": 0,
+              "feedback": "角色顛倒了：ASan 用於記憶體錯誤，UBSan 用於未定義行為。"
+            },
+            {
+              "text": "兩者都是產生模糊測試輸入，而非偵測故障",
+              "fraction": 0,
+              "feedback": "兩者都不產生輸入；它們都是執行期故障偵測器。"
+            }
+          ],
+          "generalFeedback": "ASan 對記憶體存取插樁，捕捉空間／時間上的記憶體安全違規（緩衝區溢位、釋放後使用）。UBSan 捕捉語言層級的未定義行為，例如有號溢位、超範圍位移，以及未對齊或空指標的使用。它們針對不同的故障類別，因此在兩者之下進行模糊測試會擴大可偵測錯誤的集合。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "模糊測試不證明正確性",
+          "text": "<p>若模糊測試器長時間執行卻找不到任何當機，這就證明了程式沒有錯誤。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——找不到當機只代表在所嘗試的輸入中沒有找到；模糊測試無法證明錯誤不存在。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "模糊測試取樣輸入空間；找不到當機不是正確性的證明，因為未嘗試的輸入（以及無聲的邏輯錯誤）仍可能失敗。"
+            }
+          ],
+          "generalFeedback": "模糊測試是一種測試技術：它能揭露錯誤，卻永遠無法證明錯誤不存在。一次乾淨的執行只反映實際探索過的輸入，以及判定準則看得見的失敗；它對未嘗試的輸入或無聲的邏輯錯誤毫無保證。"
+        },
+        {
+          "type": "multichoice",
+          "name": "值剖析／比較覆蓋率",
+          "text": "<p>比較追蹤插樁（拆分多位元組比較，或「值剖析／value profiling」）能幫助覆蓋率導向模糊測試器，是因為它：</p>",
+          "answers": [
+            {
+              "text": "對更接近滿足某比較的輸入（例如更多位元組相符）給予獎勵，為搜尋提供原本欠缺的梯度",
+              "fraction": 100,
+              "feedback": "正確——它把全有全無的比較轉為漸進的回饋。"
+            },
+            {
+              "text": "移除程式中所有的比較，使每個分支都被走到",
+              "fraction": 0,
+              "feedback": "它對比較插樁以取得回饋；並不從程式邏輯中刪除它們。"
+            },
+            {
+              "text": "保證模糊測試器在常數時間內求解每一個相等式",
+              "fraction": 0,
+              "feedback": "它改善引導，但不保證任何事；有些限制式仍需求解器。"
+            },
+            {
+              "text": "取代對種子語料庫的需求",
+              "fraction": 0,
+              "feedback": "種子仍有價值；比較覆蓋率只是增添更細緻的回饋訊號。"
+            }
+          ],
+          "generalFeedback": "寬比較通常只在完全相符時才給回饋。比較追蹤（例如 laf-intel 把 4 位元組比較拆成逐位元組比較，或 libFuzzer 的值剖析）會獎勵部分相符，讓模糊測試器能朝目標值攀爬，而非一次全部猜對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "支架設計與確定性",
+          "text": "<p>為什麼模糊測試支架（fuzz target）應該<em>確定性地</em>把輸入位元組對應到程式行為？</p>",
+          "answers": [
+            {
+              "text": "非確定性（隨機、時間、未初始化狀態）會使當機難以重現並污染覆蓋率回饋，因此相同輸入應總是有相同行為",
+              "fraction": 100,
+              "feedback": "正確——確定性使覆蓋率回饋有意義且當機可重現。"
+            },
+            {
+              "text": "確定性讓模糊測試器能略過執行目標",
+              "fraction": 0,
+              "feedback": "目標仍必須執行每個輸入；確定性只是讓結果可靠。"
+            },
+            {
+              "text": "只有確定性的目標才會有錯誤",
+              "fraction": 0,
+              "feedback": "非確定性的目標也有錯誤；確定性只是讓它們更容易被找到與重現。"
+            },
+            {
+              "text": "確定性免除了對判定準則的需求",
+              "fraction": 0,
+              "feedback": "仍需判定準則；確定性本身並不偵測故障。"
+            }
+          ],
+          "generalFeedback": "覆蓋率導向模糊測試假設輸入的行為（及其覆蓋率）是輸入的函式。若支架引入隨機性、實際時鐘時間或殘留全域狀態，相同的位元組就可能有不同行為——使覆蓋率回饋充滿雜訊、當機無法重現。好的支架完全由輸入位元組確定性地推導出所有行為。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "模糊測試需要可偵測的失敗訊號",
+          "text": "<p>若沒有可偵測的失敗訊號（當機、卡死、消毒器／斷言違規，或參考檢查），模糊測試器可能執行了一個觸發錯誤的輸入，卻永遠不回報該錯誤。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——沒有可觀察的訊號，模糊測試器就無從得知出了問題。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "模糊測試器只有在其判定準則觀察到失敗時才回報錯誤；不產生訊號的故障會無聲地通過。"
+            }
+          ],
+          "generalFeedback": "模糊測試完全依賴其判定準則。若一個觸發錯誤的輸入不造成當機、卡死、消毒器違規或斷言／參考檢查失敗，模糊測試器就看不出任何異常而略過——這正是為何強化判定準則（消毒器、斷言、差分檢查）與生成好輸入同等重要。"
+        },
+        {
+          "type": "multichoice",
+          "name": "差分模糊測試作為判定準則",
+          "text": "<p><strong>差分模糊測試（differential fuzzing）</strong>如何幫助捕捉當機與消毒器漏掉的無聲邏輯錯誤？</p>",
+          "answers": [
+            {
+              "text": "它把相同輸入送進兩個或多個應該一致的實作，當它們的輸出不同時就標記為錯誤",
+              "fraction": 100,
+              "feedback": "正確——實作之間的分歧作為非當機錯誤的判定準則。"
+            },
+            {
+              "text": "它量測哪個實作跑得比較快，並把較慢的回報為有錯",
+              "fraction": 0,
+              "feedback": "差分模糊測試比較的是輸出的正確性，而非速度。"
+            },
+            {
+              "text": "它加倍覆蓋率插樁以偵測記憶體錯誤",
+              "fraction": 0,
+              "feedback": "它是基於輸出比較的判定準則技術，而非額外的記憶體插樁。"
+            },
+            {
+              "text": "當兩個實作一致時，它證明兩者都正確",
+              "fraction": 0,
+              "feedback": "一致並非正確性的證明——兩者可能共有相同錯誤；它只標記分歧。"
+            }
+          ],
+          "generalFeedback": "差分模糊測試把同一輸入餵給多個預期行為相同的實作（例如兩個剖析器，或參考版對最佳化版），把任何輸出不一致視為錯誤。這為不產生當機的無聲邏輯錯誤提供了判定準則。要注意：若兩個實作共有同一缺陷，它們可能一致卻仍是錯的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率是適應度訊號，而非證明",
+          "text": "<p>關於覆蓋率在覆蓋率導向模糊測試中的角色，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "覆蓋率是一種啟發式適應度訊號，用以把搜尋導向新程式碼；高覆蓋率代表執行得徹底，而非代表正確或無錯誤",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率引導探索，但不是正確性的保證。"
+            },
+            {
+              "text": "達到 100% 邊覆蓋率就證明程式沒有錯誤",
+              "fraction": 0,
+              "feedback": "執行到程式碼不等於正確測試它；完整覆蓋率仍可能漏掉錯誤（例如錯誤但不當機的結果）。"
+            },
+            {
+              "text": "覆蓋率直接決定某次執行是否找到錯誤",
+              "fraction": 0,
+              "feedback": "覆蓋率引導搜尋；錯誤的判定來自判定準則（當機／消毒器／斷言）。"
+            },
+            {
+              "text": "覆蓋率回饋免除了執行輸入的需要",
+              "fraction": 0,
+              "feedback": "覆蓋率是靠執行插樁過的輸入取得的；它無法取代執行。"
+            }
+          ],
+          "generalFeedback": "在覆蓋率導向模糊測試中，覆蓋率是一種適應度訊號：抵達新邊的輸入會被保留並變異，把搜尋導向更深處。但涵蓋某一行只代表它被執行，而非它產生了正確結果——因此即使 100% 覆蓋率也不證明無錯誤，而且判定「某次執行是否失敗」的是判定準則，而非覆蓋率。",
+          "single": true
+        }
+      ]
+    }
+  },
   "graph-coverage": {
     "en": {
       "easy": [

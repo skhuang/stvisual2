@@ -55997,6 +55997,2502 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "fuzz-testing": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What fuzzing is",
+            "text": "<p>What does a <strong>fuzzer</strong> fundamentally do?</p>",
+            "answers": [
+              {
+                "text": "It automatically feeds a program large volumes of generated or malformed inputs, watching for crashes and other failures",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fuzzing is automated testing that bombards the program with many inputs and looks for observable failures."
+              },
+              {
+                "text": "It formally proves that the program has no bugs",
+                "fraction": 0,
+                "feedback": "Fuzzing finds bugs by trying inputs; it never proves the absence of bugs."
+              },
+              {
+                "text": "It statically measures how many lines a test suite covers",
+                "fraction": 0,
+                "feedback": "That is coverage measurement; a fuzzer actively runs the program on many generated inputs."
+              },
+              {
+                "text": "It translates source code into optimized machine code",
+                "fraction": 0,
+                "feedback": "That describes a compiler, not a fuzzer."
+              }
+            ],
+            "generalFeedback": "Fuzz testing (fuzzing) automatically generates many inputs \u2014 often random or malformed \u2014 runs the program on them, and reports the ones that trigger a detectable failure such as a crash. It is a bug-finding technique, not a correctness proof.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seed corpus",
+            "text": "<p>In fuzzing, a <strong>seed corpus</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A set of sample inputs the fuzzer starts from and mutates to produce new inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 seeds are the starting examples that mutation-based fuzzers build on."
+              },
+              {
+                "text": "The list of crashes the fuzzer has already found",
+                "fraction": 0,
+                "feedback": "Crashes are outputs of a fuzzing run; the seed corpus is the set of starting inputs."
+              },
+              {
+                "text": "The random-number generator's initial seed value",
+                "fraction": 0,
+                "feedback": "A PRNG seed is a single number; the seed corpus is a collection of example inputs."
+              },
+              {
+                "text": "The source code of the program under test",
+                "fraction": 0,
+                "feedback": "The corpus is input data, not the program's code."
+              }
+            ],
+            "generalFeedback": "The seed corpus is the initial collection of valid or interesting example inputs a mutation-based fuzzer uses as a starting point; it mutates these seeds to explore new behavior.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutation-based vs generation-based",
+            "text": "<p>How does <strong>mutation-based</strong> fuzzing differ from <strong>generation-based</strong> fuzzing?</p>",
+            "answers": [
+              {
+                "text": "Mutation-based fuzzing modifies existing seed inputs, while generation-based fuzzing builds inputs from scratch using a model or grammar of the format",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one mutates given samples, the other constructs inputs from a specification."
+              },
+              {
+                "text": "Mutation-based fuzzing needs a full grammar, while generation-based fuzzing just flips bits",
+                "fraction": 0,
+                "feedback": "It is the reverse: generation-based fuzzing uses a grammar/model; mutation-based typically flips bits and splices seeds."
+              },
+              {
+                "text": "Both require the program's source code to run",
+                "fraction": 0,
+                "feedback": "Neither necessarily needs source; the distinction is how inputs are produced (mutation vs generation)."
+              },
+              {
+                "text": "They are two names for the exact same technique",
+                "fraction": 0,
+                "feedback": "They are distinct strategies for producing inputs."
+              }
+            ],
+            "generalFeedback": "Mutation-based fuzzing takes a seed corpus and applies mutations (bit flips, byte replacements, splicing) to it. Generation-based fuzzing instead synthesizes inputs from a model or grammar that describes the expected format, so it can produce well-structured inputs from the start.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Coverage-guided fuzzing",
+            "text": "<p>What defines a <strong>coverage-guided</strong> (greybox) fuzzer?</p>",
+            "answers": [
+              {
+                "text": "It instruments the program to observe code coverage and keeps inputs that reach new code, evolving its corpus toward deeper behavior",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 coverage feedback selects "interesting" inputs and drives the search.'
+              },
+              {
+                "text": "It generates inputs purely at random and never looks at what the program does",
+                "fraction": 0,
+                "feedback": "That describes black-box fuzzing; coverage-guided fuzzing uses feedback."
+              },
+              {
+                "text": "It requires a full formal specification of the program",
+                "fraction": 0,
+                "feedback": "No specification is needed \u2014 just lightweight coverage instrumentation."
+              },
+              {
+                "text": "It only measures coverage after fuzzing finishes and never changes its inputs",
+                "fraction": 0,
+                "feedback": "Coverage is used online, during the run, to choose which inputs to keep and mutate further."
+              }
+            ],
+            "generalFeedback": "A coverage-guided fuzzer (e.g. AFL, libFuzzer) instruments the target to record which code edges each input exercises. Inputs that hit new coverage are saved to the corpus and mutated further, so the fuzzer gradually works its way into deeper code.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The fuzzing oracle",
+            "text": "<p>When a fuzzer runs an input, what most commonly tells it that a bug was found (its <strong>oracle</strong>)?</p>",
+            "answers": [
+              {
+                "text": "A crash, a hang, a sanitizer violation, or a failed assertion during the run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 these are the observable failure signals fuzzers rely on."
+              },
+              {
+                "text": "A human reads every generated input and judges it by hand",
+                "fraction": 0,
+                "feedback": "Fuzzers run millions of inputs; the oracle must be automatic, like a crash or sanitizer report."
+              },
+              {
+                "text": "The input's file size exceeding a threshold",
+                "fraction": 0,
+                "feedback": "File size does not indicate a bug; crashes, hangs, and sanitizer errors do."
+              },
+              {
+                "text": "The program producing any output at all",
+                "fraction": 0,
+                "feedback": "Normal output is expected; the oracle looks for failure signals, not ordinary output."
+              }
+            ],
+            "generalFeedback": "Because a fuzzer runs enormous numbers of inputs, its bug oracle must be automatic. The usual signals are a crash (e.g. SIGSEGV), a hang/timeout, a sanitizer-reported violation (ASan/UBSan), or a failed assertion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Black-box, grey-box, white-box",
+            "text": "<p>Which correctly orders <strong>black-box</strong>, <strong>grey-box</strong>, and <strong>white-box</strong> fuzzing by how much program internals they use?</p>",
+            "answers": [
+              {
+                "text": "Black-box uses no internal information; grey-box uses lightweight coverage feedback; white-box uses heavier program analysis such as symbolic execution",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the three sit on a spectrum of increasing internal insight."
+              },
+              {
+                "text": "Black-box uses symbolic execution; grey-box uses none; white-box uses coverage",
+                "fraction": 0,
+                "feedback": "The labels are scrambled: white-box is the one that uses symbolic execution, black-box uses nothing."
+              },
+              {
+                "text": "All three use identical amounts of internal information",
+                "fraction": 0,
+                "feedback": "They differ precisely in how much internal insight they use."
+              },
+              {
+                "text": "Grey-box uses the most internal information of the three",
+                "fraction": 0,
+                "feedback": "White-box uses the most (program analysis); grey-box uses only lightweight coverage."
+              }
+            ],
+            "generalFeedback": "Black-box fuzzing treats the target as opaque (only inputs and observed crashes). Grey-box fuzzing adds lightweight instrumentation for coverage feedback. White-box fuzzing uses heavier analysis \u2014 e.g. symbolic/concolic execution \u2014 to reason about which inputs drive which paths.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Goal of fuzzing",
+            "text": "<p>A central goal of fuzzing is to automatically discover inputs that make the program crash or otherwise misbehave.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fuzzing automates the search for failure-triggering inputs."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Finding crash- or fault-triggering inputs automatically is exactly what fuzzing is for."
+              }
+            ],
+            "generalFeedback": "Fuzzing generates many inputs and runs the program on each, aiming to find those that trigger a detectable failure \u2014 a crash, hang, sanitizer violation, or assertion failure."
+          },
+          {
+            "type": "multichoice",
+            "name": "Bit-flip mutation operator",
+            "text": "<p>A <strong>bit-flip</strong> mutation operator in a fuzzer:</p>",
+            "answers": [
+              {
+                "text": "Toggles one or more bits within a copy of an existing input",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flipping bits is one of the simplest mutation operators."
+              },
+              {
+                "text": "Rewrites the program's source to invert a boolean",
+                "fraction": 0,
+                "feedback": "That would be source mutation (mutation testing); a fuzzer mutates inputs, not code."
+              },
+              {
+                "text": "Deletes the entire input and starts over from nothing",
+                "fraction": 0,
+                "feedback": "A bit flip modifies a few bits; it does not erase the whole input."
+              },
+              {
+                "text": "Recompiles the target with a different optimization level",
+                "fraction": 0,
+                "feedback": "Mutation operators change inputs, not the build configuration."
+              }
+            ],
+            "generalFeedback": "Mutation operators transform seed inputs. Common ones include bit flips (toggling bits), byte or integer replacement, insertion/deletion, and splicing two inputs together.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "AFL is coverage-guided greybox",
+            "text": "<p>AFL (American Fuzzy Lop) is a coverage-guided greybox fuzzer: it instruments the target and uses edge-coverage feedback to guide mutation.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AFL is the canonical coverage-guided greybox fuzzer, using edge-coverage feedback."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "AFL is indeed coverage-guided and greybox; it records edge coverage via instrumentation and keeps inputs that reach new edges."
+              }
+            ],
+            "generalFeedback": "AFL popularized coverage-guided greybox fuzzing: compile-time (or QEMU-based) instrumentation records edge coverage, and inputs that hit new edges are added to the queue and mutated further."
+          },
+          {
+            "type": "multichoice",
+            "name": "libFuzzer's fuzz target",
+            "text": "<p>libFuzzer is an in-process, coverage-guided fuzzer. How do you tell it what to fuzz?</p>",
+            "answers": [
+              {
+                "text": "You write a fuzz-target function that receives a byte buffer and feeds it into the code under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 libFuzzer repeatedly calls your entry function (e.g. LLVMFuzzerTestOneInput) with generated bytes."
+              },
+              {
+                "text": "You supply a formal grammar and libFuzzer derives the target automatically",
+                "fraction": 0,
+                "feedback": "libFuzzer drives a byte buffer into a function you write; it does not require a grammar."
+              },
+              {
+                "text": "You give it only the compiled binary with no code changes",
+                "fraction": 0,
+                "feedback": "libFuzzer is in-process and links against a target function you provide."
+              },
+              {
+                "text": "You point it at the program's log files",
+                "fraction": 0,
+                "feedback": "It calls your fuzz-target function with generated input; logs are irrelevant."
+              }
+            ],
+            "generalFeedback": "libFuzzer runs in-process: you write a fuzz target (commonly) that turns the bytes into calls on the API under test. libFuzzer generates inputs, calls the target in a loop, and uses coverage feedback to guide mutation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AddressSanitizer",
+            "text": "<p>What does <strong>AddressSanitizer (ASan)</strong> contribute when fuzzing C/C++ code?</p>",
+            "answers": [
+              {
+                "text": "It detects memory errors \u2014 such as heap/stack buffer overflows and use-after-free \u2014 turning otherwise silent corruption into an immediate, visible failure",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ASan makes many memory-safety bugs crash loudly so the fuzzer's oracle catches them."
+              },
+              {
+                "text": "It generates the fuzzing inputs",
+                "fraction": 0,
+                "feedback": "Input generation is the fuzzer's job; ASan is a bug detector, not a generator."
+              },
+              {
+                "text": "It proves the program is memory-safe",
+                "fraction": 0,
+                "feedback": "ASan reports errors it observes at runtime; it does not prove their absence."
+              },
+              {
+                "text": "It speeds the program up by removing bounds checks",
+                "fraction": 0,
+                "feedback": "ASan adds checks (with overhead); it does not remove them."
+              }
+            ],
+            "generalFeedback": "AddressSanitizer instruments memory accesses to detect errors like out-of-bounds reads/writes and use-after-free. Combined with fuzzing, it converts many silent memory-corruption bugs into observable crashes, strengthening the oracle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a crash signals",
+            "text": '<p>When a fuzzer reports a "crash," it usually means the run:</p>',
+            "answers": [
+              {
+                "text": "Terminated abnormally \u2014 e.g. a segmentation fault or an abort \u2014 indicating a fault worth investigating",
+                "fraction": 100,
+                "feedback": "Correct \u2014 abnormal termination is the classic fuzzing bug signal."
+              },
+              {
+                "text": "Produced output that differs from a reference implementation",
+                "fraction": 0,
+                "feedback": 'That is a differential-testing signal, not what "crash" means here.'
+              },
+              {
+                "text": "Finished normally but slowly",
+                "fraction": 0,
+                "feedback": "Slow-but-normal completion is not a crash; a hang/timeout would be a separate signal."
+              },
+              {
+                "text": "Was rejected by the fuzzer's input filter",
+                "fraction": 0,
+                "feedback": "A crash is abnormal termination of the target, not input filtering."
+              }
+            ],
+            "generalFeedback": "A crash is abnormal termination of the target process \u2014 for example a segmentation fault (SIGSEGV) or an abort (SIGABRT, often from a sanitizer or assertion). The fuzzer saves the triggering input for triage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Random/black-box fuzzing",
+            "text": "<p>The simplest, purely <strong>random black-box</strong> fuzzer works by:</p>",
+            "answers": [
+              {
+                "text": "Throwing randomly generated or randomly mutated inputs at the program without using any internal feedback",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pure black-box random fuzzing ignores program internals entirely."
+              },
+              {
+                "text": "Solving path constraints with an SMT solver to choose inputs",
+                "fraction": 0,
+                "feedback": "That is white-box/symbolic fuzzing, not random black-box."
+              },
+              {
+                "text": "Selecting inputs based on measured edge coverage",
+                "fraction": 0,
+                "feedback": "Using coverage feedback makes it greybox, not black-box."
+              },
+              {
+                "text": "Requiring a complete grammar of the input format",
+                "fraction": 0,
+                "feedback": "A pure random fuzzer needs no grammar; it just generates or mutates bytes."
+              }
+            ],
+            "generalFeedback": "Random black-box fuzzing simply generates or mutates inputs and observes only external behavior (did it crash?). It is cheap and easy but, without feedback, tends to plateau once the easy-to-reach code has been exercised.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fuzzing dictionary",
+            "text": "<p>A fuzzing <strong>dictionary</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A set of tokens or magic values (keywords, headers, constants) the fuzzer can insert into inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 dictionaries give the fuzzer meaningful building blocks it would rarely produce by chance."
+              },
+              {
+                "text": "A log of every crash mapped to its stack trace",
+                "fraction": 0,
+                "feedback": "That is crash triage output; a dictionary is a set of input tokens."
+              },
+              {
+                "text": "The mapping from source files to coverage counters",
+                "fraction": 0,
+                "feedback": "That is coverage bookkeeping, not a dictionary of tokens."
+              },
+              {
+                "text": "A grammar describing the entire input format",
+                "fraction": 0,
+                "feedback": "A dictionary is a flat list of useful tokens, not a full grammar."
+              }
+            ],
+            "generalFeedback": "A dictionary supplies interesting tokens \u2014 format keywords, magic bytes, or common constants \u2014 that the fuzzer can splice into inputs. This helps it get past checks that expect specific byte sequences it would almost never generate randomly.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Generation-based needs a model",
+            "text": "<p>Generation-based fuzzing requires a model or grammar of the input format in order to construct inputs.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 generation-based fuzzing builds inputs from a specification of the format, so it needs that model."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "By definition, generation-based fuzzing constructs inputs from a model/grammar; without one it would have nothing to generate from."
+              }
+            ],
+            "generalFeedback": "Generation-based (grammar-based) fuzzing synthesizes inputs from a description of the format. That model is what lets it produce structurally valid inputs, unlike mutation-based fuzzing which starts from existing seeds."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Why coverage feedback helps",
+            "text": "<p>Why does keeping inputs that reach <em>new</em> code edges make a coverage-guided fuzzer more effective?</p>",
+            "answers": [
+              {
+                "text": "Such inputs are stepping stones: they exercise new behavior and, when mutated further, are more likely to reach still-deeper code than random inputs would",
+                "fraction": 100,
+                "feedback": "Correct \u2014 new-coverage inputs seed further exploration into the program."
+              },
+              {
+                "text": "Reaching new edges guarantees a crash on the next mutation",
+                "fraction": 0,
+                "feedback": "New coverage does not guarantee a crash; it just improves the odds of exploring deeper."
+              },
+              {
+                "text": "New-coverage inputs are always smaller, which speeds execution",
+                "fraction": 0,
+                "feedback": "They are kept for the new behavior they reach, not because they are smaller."
+              },
+              {
+                "text": "Coverage feedback lets the fuzzer skip running the program",
+                "fraction": 0,
+                "feedback": "The fuzzer must still run each input; feedback tells it which results to keep."
+              }
+            ],
+            "generalFeedback": "Coverage feedback turns fuzzing into a guided search. An input that unlocks a new edge is retained because mutating it is far more likely to push into adjacent, previously unreached code than mutating an input that adds nothing new \u2014 so the corpus evolves toward deeper coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutation vs generation trade-off",
+            "text": "<p>Which best captures the trade-off between mutation-based and generation-based fuzzing?</p>",
+            "answers": [
+              {
+                "text": "Mutation-based is cheap and needs no format spec but struggles with highly structured inputs; generation-based needs a grammar to write but readily produces valid structured inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the trade-off is spec effort versus ability to produce valid structured inputs."
+              },
+              {
+                "text": "Mutation-based always finds more bugs than generation-based on every target",
+                "fraction": 0,
+                "feedback": "Neither dominates universally; each suits different input formats."
+              },
+              {
+                "text": "Generation-based is always cheaper to set up than mutation-based",
+                "fraction": 0,
+                "feedback": "Generation-based usually costs more up front because you must write the grammar/model."
+              },
+              {
+                "text": "Only generation-based fuzzing can use coverage feedback",
+                "fraction": 0,
+                "feedback": "Coverage feedback is orthogonal; mutation-based greybox fuzzers use it heavily."
+              }
+            ],
+            "generalFeedback": "Mutation-based fuzzing is quick to start (just supply seeds) but random mutations often break the structure of complex formats. Generation-based fuzzing invests in a grammar/model up front, which pays off for highly structured inputs (compilers, network protocols) by producing valid inputs consistently.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What makes a good seed",
+            "text": "<p>Which set of seed inputs is generally <em>best</em> for a mutation-based coverage-guided fuzzer?</p>",
+            "answers": [
+              {
+                "text": "Small, valid, diverse examples that together exercise many different features of the format",
+                "fraction": 100,
+                "feedback": "Correct \u2014 small-and-diverse valid seeds give broad, mutable starting coverage."
+              },
+              {
+                "text": "A single very large file that contains every feature at once",
+                "fraction": 0,
+                "feedback": "One huge file is slow to run and mutate; many small diverse seeds are better."
+              },
+              {
+                "text": "Random byte blobs with no relation to the format",
+                "fraction": 0,
+                "feedback": "Invalid blobs waste effort getting rejected early; valid seeds reach deeper code faster."
+              },
+              {
+                "text": "Only inputs already known to crash the program",
+                "fraction": 0,
+                "feedback": "Known crashes are for regression tests; seeds should broadly exercise valid behavior to explore from."
+              }
+            ],
+            "generalFeedback": "Good seeds are valid enough to get past early parsing, small so they run and mutate quickly, and diverse so the corpus starts with broad coverage. A pile of tiny, feature-varied valid inputs beats one giant file or random noise.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Greybox vs blackbox",
+            "text": "<p>The key practical advantage of greybox fuzzing over black-box fuzzing on the same target is that greybox:</p>",
+            "answers": [
+              {
+                "text": "Uses coverage feedback to recognize and retain inputs that reach new code, so it explores far more of the program over time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the feedback loop is exactly what greybox adds."
+              },
+              {
+                "text": "Needs no oracle because coverage replaces crash detection",
+                "fraction": 0,
+                "feedback": "Coverage guides the search but is not a bug oracle; you still need crash/sanitizer signals."
+              },
+              {
+                "text": "Guarantees full path coverage of the program",
+                "fraction": 0,
+                "feedback": "Greybox fuzzing improves coverage but guarantees nothing close to all paths."
+              },
+              {
+                "text": "Requires no instrumentation at all",
+                "fraction": 0,
+                "feedback": "The coverage feedback that defines greybox comes from lightweight instrumentation."
+              }
+            ],
+            "generalFeedback": 'Black-box fuzzing sees only external behavior, so it cannot tell a "boring" input from one that unlocked new code. Greybox fuzzing adds lightweight coverage instrumentation, letting it keep and mutate inputs that reach new edges \u2014 a feedback loop that dramatically improves reach.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Dictionaries and magic values",
+            "text": '<p>How does supplying a dictionary help a fuzzer get past a check like <code>if (memcmp(hdr, "PNG", 3) == 0)</code>?</p>',
+            "answers": [
+              {
+                "text": 'The dictionary contains the token "PNG", so the fuzzer can insert it directly instead of having to stumble onto those bytes at random',
+                "fraction": 100,
+                "feedback": "Correct \u2014 dictionaries hand the fuzzer the exact tokens the code checks for."
+              },
+              {
+                "text": "It disables the comparison so the check always passes",
+                "fraction": 0,
+                "feedback": "A dictionary supplies input tokens; it does not modify the program's checks."
+              },
+              {
+                "text": "It makes random mutation exponentially faster",
+                "fraction": 0,
+                "feedback": "It does not change mutation speed; it changes what tokens are available to insert."
+              },
+              {
+                "text": "It proves the header is correct without running the code",
+                "fraction": 0,
+                "feedback": "Dictionaries do not prove anything; they just provide useful byte sequences to try."
+              }
+            ],
+            "generalFeedback": 'Randomly producing a specific multi-byte token (like "PNG") is unlikely. A dictionary lists such tokens so the fuzzer can splice them in directly, letting it satisfy magic-value checks and reach the code guarded behind them.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Structure-aware fuzzing",
+            "text": "<p>What is the point of <strong>structure-aware</strong> fuzzing (e.g. mutating a parsed/typed representation rather than raw bytes)?</p>",
+            "answers": [
+              {
+                "text": "Mutations respect the input format, so most generated inputs stay structurally valid and reach deep logic instead of being rejected by the parser",
+                "fraction": 100,
+                "feedback": "Correct \u2014 mutating at the structural level keeps inputs valid enough to exercise deeper code."
+              },
+              {
+                "text": "It removes the need for any oracle",
+                "fraction": 0,
+                "feedback": "Structure awareness is about input validity, not bug detection; an oracle is still required."
+              },
+              {
+                "text": "It guarantees the fuzzer will find all bugs in the parser",
+                "fraction": 0,
+                "feedback": "No technique guarantees finding all bugs; it just keeps more inputs valid."
+              },
+              {
+                "text": "It works only on plain text and never on binary formats",
+                "fraction": 0,
+                "feedback": "Structure-aware fuzzing applies to binary formats too (e.g. protobuf-based fuzzers)."
+              }
+            ],
+            "generalFeedback": "For highly structured inputs, raw byte mutations are usually rejected early by the parser. Structure-aware fuzzing mutates a typed/parsed representation (or uses a grammar), so generated inputs remain well-formed and can drive the deeper semantic logic where interesting bugs live.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why keep a new-edge input",
+            "text": "<p>A coverage-guided fuzzer runs an input that reaches a brand-new edge but does not crash. What does it typically do?</p>",
+            "answers": [
+              {
+                "text": "Add it to the corpus/queue so it can be mutated further, since it may lead to still-deeper code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 new coverage is valuable even without a crash, as a basis for further mutation."
+              },
+              {
+                "text": "Discard it, because only crashing inputs are worth keeping",
+                "fraction": 0,
+                "feedback": "New-coverage inputs are kept precisely because they open paths toward future crashes."
+              },
+              {
+                "text": "Immediately report it as a bug",
+                "fraction": 0,
+                "feedback": "New coverage is not a bug; only failure signals from the oracle are."
+              },
+              {
+                "text": "Stop the fuzzing campaign",
+                "fraction": 0,
+                "feedback": "Reaching new coverage is progress, not a reason to stop."
+              }
+            ],
+            "generalFeedback": "Inputs that unlock new coverage are saved and prioritized for further mutation. They act as stepping stones: mutating them is the most promising way to push execution into adjacent, not-yet-covered code.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Splicing operator",
+            "text": "<p>The <strong>splicing</strong> mutation operator produces a new input by:</p>",
+            "answers": [
+              {
+                "text": "Combining a portion of one corpus input with a portion of another",
+                "fraction": 100,
+                "feedback": "Correct \u2014 splicing recombines fragments of two existing inputs."
+              },
+              {
+                "text": "Flipping a single bit in one input",
+                "fraction": 0,
+                "feedback": "That is a bit-flip, not splicing."
+              },
+              {
+                "text": "Replacing a 4-byte integer with a boundary value",
+                "fraction": 0,
+                "feedback": "That is an integer-replacement mutation, not splicing."
+              },
+              {
+                "text": "Sorting the bytes of an input in ascending order",
+                "fraction": 0,
+                "feedback": "Sorting bytes is not a standard mutation; splicing joins parts of two inputs."
+              }
+            ],
+            "generalFeedback": "Splicing (crossover) takes two inputs from the corpus and joins a prefix of one with a suffix of another, letting the fuzzer combine features discovered separately \u2014 a complement to local mutations like bit flips and byte replacement.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Corpus evolution",
+            "text": "<p>In an AFL-style fuzzer, how does the corpus (queue) evolve during a run?</p>",
+            "answers": [
+              {
+                "text": "Inputs that trigger new coverage are appended to the queue and later mutated, so the corpus grows toward inputs reaching deeper code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the queue is continually extended with interesting inputs and re-mutated."
+              },
+              {
+                "text": "The corpus is fixed at startup and never changes",
+                "fraction": 0,
+                "feedback": "A coverage-guided fuzzer's corpus grows as new-coverage inputs are found."
+              },
+              {
+                "text": "Every generated input, coverage or not, is permanently stored",
+                "fraction": 0,
+                "feedback": "Only inputs that add new coverage (or crash) are retained; the rest are discarded."
+              },
+              {
+                "text": "The corpus shrinks by one input after every execution",
+                "fraction": 0,
+                "feedback": "The corpus grows with interesting finds; it is not decremented per run."
+              }
+            ],
+            "generalFeedback": "A coverage-guided fuzzer maintains a queue of interesting inputs. When a mutated input hits new coverage, it is added to the queue; the fuzzer then keeps cycling through the queue, mutating each entry, so the corpus evolves toward inputs that reach ever-deeper behavior.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge vs block coverage",
+            "text": "<p>Why do many greybox fuzzers track <strong>edge</strong> (branch-transition) coverage rather than just <strong>basic-block</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "Edge coverage records which block-to-block transitions occur, so it distinguishes control-flow that block coverage alone would treat as identical",
+                "fraction": 100,
+                "feedback": "Correct \u2014 edges capture transitions, giving a finer signal than block hits."
+              },
+              {
+                "text": "Edge coverage requires no instrumentation while block coverage does",
+                "fraction": 0,
+                "feedback": "Both require instrumentation; edge coverage is simply more discriminating."
+              },
+              {
+                "text": "Block coverage can detect crashes but edge coverage cannot",
+                "fraction": 0,
+                "feedback": "Neither detects crashes; that is the oracle's role. The difference is granularity of the coverage signal."
+              },
+              {
+                "text": "Edge coverage is always exact while block coverage is random",
+                "fraction": 0,
+                "feedback": "Both are deterministic measurements; the point is edges are finer-grained."
+              }
+            ],
+            "generalFeedback": 'Edge coverage records transitions between basic blocks, so two runs that visit the same blocks in different orders look different. This finer signal helps the fuzzer recognize more "interesting" inputs than block coverage, which only notes whether a block was reached.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "In-process vs fork-based fuzzing",
+            "text": "<p>Compared with a fork-based fuzzer, an in-process fuzzer like libFuzzer:</p>",
+            "answers": [
+              {
+                "text": "Runs each input by calling a target function in the same process, which is fast but requires the target to be free of state that leaks between runs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 in-process execution is fast but sensitive to residual/global state."
+              },
+              {
+                "text": "Starts a fresh process for every input, giving stronger isolation but more overhead",
+                "fraction": 0,
+                "feedback": "That describes fork/exec-based fuzzing, the opposite of in-process."
+              },
+              {
+                "text": "Cannot use coverage feedback at all",
+                "fraction": 0,
+                "feedback": "libFuzzer is coverage-guided; in-process execution does not preclude feedback."
+              },
+              {
+                "text": "Requires a full input grammar to operate",
+                "fraction": 0,
+                "feedback": "libFuzzer needs no grammar; it drives a byte buffer into your fuzz target."
+              }
+            ],
+            "generalFeedback": "In-process fuzzing calls the target function repeatedly within one process, avoiding process-creation overhead and running very fast. The cost is that leftover global/static state between runs can cause non-reproducible behavior, so the target must reset cleanly each call.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sanitizers strengthen the oracle",
+            "text": "<p>Why does running a fuzzer against a sanitizer-instrumented build tend to find more bugs?</p>",
+            "answers": [
+              {
+                "text": "Sanitizers turn otherwise-silent errors (e.g. small out-of-bounds reads, integer overflow) into immediate visible failures the fuzzer's oracle can catch",
+                "fraction": 100,
+                "feedback": "Correct \u2014 sanitizers expose faults that would not crash on their own."
+              },
+              {
+                "text": "Sanitizers generate additional inputs for the fuzzer",
+                "fraction": 0,
+                "feedback": "Sanitizers detect faults; they do not generate inputs."
+              },
+              {
+                "text": "Sanitizers increase execution speed, allowing more runs",
+                "fraction": 0,
+                "feedback": "Sanitizers add overhead; the benefit is better detection, not speed."
+              },
+              {
+                "text": "Sanitizers replace the need for a corpus",
+                "fraction": 0,
+                "feedback": "A corpus is still needed; sanitizers only improve the failure signal."
+              }
+            ],
+            "generalFeedback": "Without a sanitizer, many bugs (a one-byte overread, a signed overflow) do not crash and slip past the fuzzer unnoticed. Sanitizers such as ASan and UBSan detect these at runtime and abort, so the fuzzer's crash oracle catches faults it otherwise would miss.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Hangs as an oracle signal",
+            "text": "<p>Besides crashes, a fuzzer can use a hang or timeout as a bug signal \u2014 for example to catch an input that drives the program into an infinite loop.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 excessive runtime (a hang/timeout) is a standard fuzzing signal, e.g. for potential denial-of-service loops."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Fuzzers routinely flag inputs that exceed a time limit, which can reveal infinite loops or algorithmic-complexity problems."
+              }
+            ],
+            "generalFeedback": "A hang/timeout is a legitimate oracle: if an input makes the program run far longer than a set limit, the fuzzer records it. Such inputs can expose infinite loops or worst-case algorithmic-complexity (denial-of-service) issues."
+          },
+          {
+            "type": "multichoice",
+            "name": "Coverage plateau",
+            "text": "<p>A coverage-guided fuzzer stops discovering new coverage for a long time (it plateaus). Which response is most reasonable?</p>",
+            "answers": [
+              {
+                "text": "Help it past the barrier \u2014 add better seeds, supply a dictionary, or bring in a solver/symbolic help \u2014 because random mutation alone is likely stuck on a hard check",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a plateau usually means a hard-to-satisfy condition that needs extra help."
+              },
+              {
+                "text": "Conclude the program is now proven bug-free",
+                "fraction": 0,
+                "feedback": "A plateau means the fuzzer stopped making progress, not that the program is correct."
+              },
+              {
+                "text": "Delete the seed corpus to force pure randomness",
+                "fraction": 0,
+                "feedback": "Removing seeds usually hurts; the fuzzer needs better starting points, not fewer."
+              },
+              {
+                "text": "Disable the coverage instrumentation",
+                "fraction": 0,
+                "feedback": "Turning off feedback discards the very mechanism that guides exploration."
+              }
+            ],
+            "generalFeedback": "Plateaus typically mean the fuzzer is blocked by a check its mutations cannot satisfy (a magic value, checksum, or complex structure). Practical responses include richer seeds, a dictionary of expected tokens, structure-aware mutation, or hybrid fuzzing that uses a solver to get past the barrier \u2014 not treating the plateau as a proof of correctness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Integer/boundary replacement operator",
+            "text": "<p>Many fuzzers include a mutation operator that overwrites a multi-byte integer field with values like 0, -1, or INT_MAX. Why favor these particular values?</p>",
+            "answers": [
+              {
+                "text": "Boundary and extreme values disproportionately expose off-by-one, overflow, and sign-handling bugs, so trying them is more productive than purely random integers",
+                "fraction": 100,
+                "feedback": "Correct \u2014 boundary values target the edge cases where integer bugs cluster."
+              },
+              {
+                "text": "These values are guaranteed to satisfy any checksum",
+                "fraction": 0,
+                "feedback": "They have nothing to do with checksums; they target integer edge cases."
+              },
+              {
+                "text": "They make the input file smaller",
+                "fraction": 0,
+                "feedback": "Replacing an integer does not shrink the input; the point is bug-prone edge values."
+              },
+              {
+                "text": "They are the only values a coverage-guided fuzzer can generate",
+                "fraction": 0,
+                "feedback": "A fuzzer can produce many values; boundary values are just especially bug-revealing choices to try."
+              }
+            ],
+            "generalFeedback": "Integer-replacement mutations deliberately inject boundary and extreme values (0, 1, -1, max/min, powers of two nearby) because bugs \u2014 off-by-one errors, overflows, signed/unsigned confusion \u2014 tend to cluster at these edges. Trying them is far more productive than sampling integers uniformly at random.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Why a checksum defeats naive mutation fuzzing",
+            "text": "<p>A parser first verifies a CRC checksum over the input and rejects the input immediately if it fails. Why does this defeat naive mutation-based fuzzing, and what actually helps?</p>",
+            "answers": [
+              {
+                "text": "Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; help comes from patching out the check in the harness, or from coverage-guided/dictionary/symbolic techniques that can satisfy it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the check is an all-or-nothing gate; the practical fix is often to disable it in the fuzzing build, or to use techniques that can produce a valid checksum."
+              },
+              {
+                "text": "The checksum makes the program run faster, so the fuzzer has less time \u2014 adding more CPU cores solves it",
+                "fraction": 0,
+                "feedback": "The problem is that mutated inputs fail the check, not runtime; more cores do not make random mutations satisfy a checksum."
+              },
+              {
+                "text": "Coverage-guided fuzzing alone trivially computes correct checksums for every input",
+                "fraction": 0,
+                "feedback": "Coverage guidance does not compute checksums; a single pass/fail check gives it almost no gradient to follow. That is an overstatement."
+              },
+              {
+                "text": "Nothing helps \u2014 such code simply cannot be fuzzed",
+                "fraction": 0,
+                "feedback": "It can be fuzzed: disabling the check in the harness, or using dictionaries/symbolic execution, are standard remedies."
+              }
+            ],
+            "generalFeedback": "A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it and coverage feedback gives little help (it is essentially all-or-nothing). Common remedies: remove or fix up the checksum inside the fuzzing harness so any input passes, supply the needed constant via a dictionary, or use symbolic/concolic execution to solve for a valid checksum. Coverage guidance alone does not magically satisfy it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Magic-bytes comparison and coverage gradient",
+            "text": "<p>For a guard <code>if (x == 0xDEADBEEF)</code> on a 32-bit input, why is plain edge coverage a weak guide, and what addresses it?</p>",
+            "answers": [
+              {
+                "text": "The comparison is all-or-nothing, so partial progress toward the constant earns no new coverage; comparison-tracking instrumentation (splitting the compare into bytes / value profiling) or a dictionary supplies the missing gradient",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without a gradient the fuzzer is guessing 1-in-2\xB3\xB2; compare-coverage or dictionaries give it feedback."
+              },
+              {
+                "text": "Edge coverage already rewards each matching byte, so no extra help is needed",
+                "fraction": 0,
+                "feedback": "A singleyields one edge either way; plain edge coverage does not reward matching individual bytes."
+              },
+              {
+                "text": "The guard is impossible to satisfy, so fuzzing must skip it",
+                "fraction": 0,
+                "feedback": "It is satisfiable (x = 0xDEADBEEF); the issue is guiding the fuzzer there, which compare-coverage/dictionaries do."
+              },
+              {
+                "text": "Coverage feedback makes random guessing of the 4 bytes fast",
+                "fraction": 0,
+                "feedback": "Random guessing stays ~1-in-2\xB3\xB2; the fix is instrumentation that provides a gradient, not faster guessing."
+              }
+            ],
+            "generalFeedback": "A wide equality is a cliff: the input is either exactly right (new edge) or not (no signal), so the fuzzer has no gradient to climb and random search faces ~2\xB3\xB2 odds. Compare-coverage instrumentation (e.g. laf-intel-style splitting into byte comparisons, or libFuzzer value profiling) rewards matching more bytes, and dictionaries supply the constant directly.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Shallow reach vs deep conditions",
+            "text": "<p>Why is fuzzing strong at shallow bugs but weak at bugs guarded behind deep, specific conditions?</p>",
+            "answers": [
+              {
+                "text": "Random mutation easily exercises shallow code but is unlikely to satisfy long chains of specific conditions; symbolic/concolic execution can solve such constraints but faces path explosion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fuzzing reaches shallow code cheaply; deep specific guards need constraint solving, which has its own scaling cost."
+              },
+              {
+                "text": "Fuzzing explores all paths exhaustively, so depth is irrelevant",
+                "fraction": 0,
+                "feedback": "Fuzzing does not explore exhaustively; deep specific conditions are exactly where it struggles."
+              },
+              {
+                "text": "Deep conditions are always infeasible, so no technique can reach them",
+                "fraction": 0,
+                "feedback": "They are usually feasible; the difficulty is generating inputs that satisfy them."
+              },
+              {
+                "text": "Symbolic execution reaches deep conditions with no scaling limits",
+                "fraction": 0,
+                "feedback": "Symbolic execution helps but is limited by path explosion; that is an overstatement."
+              }
+            ],
+            "generalFeedback": "Fuzzing throws many inputs cheaply, so it readily hits shallow, easy-to-reach faults. But a bug behind several precise checks requires satisfying all of them at once, which random mutation rarely does. Symbolic/concolic execution can solve those constraints directly, at the cost of path explosion \u2014 which is why hybrid (fuzzing + symbolic) approaches exist.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Oracle limitation: silent logic bugs",
+            "text": "<p>A function returns a subtly wrong result but never crashes, hangs, or triggers a sanitizer. Why might a fuzzer miss this bug?</p>",
+            "answers": [
+              {
+                "text": "The fuzzer's oracle only detects observable failures; a wrong-but-not-crashing output passes unless a stronger oracle (assertions, a reference/differential check) is added",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no failure signal means the bug is invisible to the default oracle."
+              },
+              {
+                "text": "Fuzzers automatically know the correct output for every input",
+                "fraction": 0,
+                "feedback": "They do not; that is precisely the oracle problem fuzzing faces for logic bugs."
+              },
+              {
+                "text": "Coverage feedback flags any incorrect result",
+                "fraction": 0,
+                "feedback": "Coverage measures which code ran, not whether the result was correct."
+              },
+              {
+                "text": "Sanitizers detect all incorrect return values",
+                "fraction": 0,
+                "feedback": "Sanitizers detect memory/UB errors, not general logic errors."
+              }
+            ],
+            "generalFeedback": "Fuzzing relies on an automatic oracle, which by default catches only crashes, hangs, and sanitizer/assertion failures. A logic bug that produces a wrong-but-well-formed result raises no such signal. To catch it you need a stronger oracle: inline assertions/invariants, or differential testing against a reference implementation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Corpus minimization",
+            "text": "<p>What is the goal of <strong>corpus minimization</strong> (e.g. afl-cmin)?</p>",
+            "answers": [
+              {
+                "text": "Reduce the corpus to a smaller subset of inputs that preserves the same overall coverage, so later fuzzing spends less time on redundant seeds",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it prunes redundant seeds while keeping coverage."
+              },
+              {
+                "text": "Shrink a single crashing input to the smallest bytes that still crash",
+                "fraction": 0,
+                "feedback": "That is test-case minimization (afl-tmin), not corpus minimization."
+              },
+              {
+                "text": "Delete all seeds so the fuzzer starts from empty",
+                "fraction": 0,
+                "feedback": "Minimization keeps a coverage-preserving subset, not nothing."
+              },
+              {
+                "text": "Combine all seeds into one large file",
+                "fraction": 0,
+                "feedback": "It selects a minimal set of separate inputs; it does not merge them."
+              }
+            ],
+            "generalFeedback": "Corpus minimization selects the smallest subset of the corpus that still achieves the corpus's coverage, discarding inputs that add nothing new. A leaner corpus means the fuzzer cycles through it faster and wastes less effort on redundant seeds.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test-case minimization",
+            "text": "<p>After a crash is found, what does <strong>test-case minimization</strong> (e.g. afl-tmin) do?</p>",
+            "answers": [
+              {
+                "text": "Repeatedly trims the crashing input to the smallest/simplest form that still reproduces the crash, easing debugging",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a minimized reproducer isolates what actually triggers the bug."
+              },
+              {
+                "text": "Removes redundant seeds from the whole corpus",
+                "fraction": 0,
+                "feedback": "That is corpus minimization; test-case minimization works on one crashing input."
+              },
+              {
+                "text": "Fixes the bug automatically",
+                "fraction": 0,
+                "feedback": "It shrinks the reproducer; it does not patch the code."
+              },
+              {
+                "text": "Expands the input with extra bytes to make the crash more reliable",
+                "fraction": 0,
+                "feedback": "Minimization removes bytes to simplify; it does not pad the input."
+              }
+            ],
+            "generalFeedback": "Test-case (crash) minimization takes a crashing input and iteratively removes or simplifies bytes as long as the crash still reproduces, yielding a small, focused reproducer that makes root-causing the bug far easier.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When generation-based beats mutation",
+            "text": "<p>For which target is generation-based (grammar-based) fuzzing most likely to outperform mutation-based fuzzing?</p>",
+            "answers": [
+              {
+                "text": "A compiler or protocol parser with a rigid, highly structured input format, where random mutations almost always produce invalid inputs rejected early",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a grammar lets the fuzzer produce valid structured inputs that reach deep logic."
+              },
+              {
+                "text": "A routine that accepts an arbitrary blob of bytes with no structure",
+                "fraction": 0,
+                "feedback": "For unstructured input, mutation-based fuzzing works well and a grammar adds little."
+              },
+              {
+                "text": "Any target, since generation-based fuzzing is universally superior",
+                "fraction": 0,
+                "feedback": "Neither approach is universally best; generation-based shines specifically on structured formats."
+              },
+              {
+                "text": "A target with no oracle available",
+                "fraction": 0,
+                "feedback": "Oracle availability is orthogonal to the mutation-vs-generation choice."
+              }
+            ],
+            "generalFeedback": "When inputs must obey a strict grammar (source code for a compiler, messages for a protocol), random byte mutations are overwhelmingly rejected by the front end. A generation-based fuzzer builds inputs from the grammar, so it consistently produces valid inputs that exercise the deeper semantic logic where interesting bugs hide.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Hybrid (symbolic-assisted) fuzzing",
+            "text": "<p>In hybrid fuzzing (e.g. Driller-style), how does concolic/symbolic execution complement a greybox fuzzer?</p>",
+            "answers": [
+              {
+                "text": "When the fuzzer plateaus at a hard check, the solver computes an input that satisfies that specific branch; the new input is handed back so cheap fuzzing can continue exploring beyond it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the solver gets past narrow guards, then the fuzzer takes over again."
+              },
+              {
+                "text": "The solver replaces the fuzzer entirely and explores all paths symbolically",
+                "fraction": 0,
+                "feedback": "Symbolic execution suffers path explosion; hybrid fuzzing uses it selectively, not as a full replacement."
+              },
+              {
+                "text": "The solver generates the coverage instrumentation for the fuzzer",
+                "fraction": 0,
+                "feedback": "Instrumentation comes from the compiler/toolchain; the solver's role is satisfying hard constraints."
+              },
+              {
+                "text": "The solver acts as the bug oracle in place of sanitizers",
+                "fraction": 0,
+                "feedback": "The oracle is still crashes/sanitizers; the solver's job is producing inputs past hard branches."
+              }
+            ],
+            "generalFeedback": "Hybrid fuzzing plays to each technique's strength: the fuzzer explores cheaply and broadly, and when it gets stuck at a narrow condition (magic value, checksum), concolic execution solves that branch's constraint to produce a passing input. Control returns to the fuzzer, which explores the newly reached region \u2014 using the solver sparingly to avoid path explosion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ASan vs UBSan roles",
+            "text": "<p>How do the roles of <strong>AddressSanitizer (ASan)</strong> and <strong>UndefinedBehaviorSanitizer (UBSan)</strong> differ when fuzzing?</p>",
+            "answers": [
+              {
+                "text": "ASan targets memory-safety errors (out-of-bounds access, use-after-free); UBSan targets undefined behavior (e.g. signed integer overflow, invalid shifts, misaligned pointers)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they detect different, complementary fault classes."
+              },
+              {
+                "text": "They detect exactly the same errors, so running both is redundant",
+                "fraction": 0,
+                "feedback": "They cover different fault classes; using both broadens what the oracle catches."
+              },
+              {
+                "text": "ASan detects undefined behavior while UBSan detects memory errors",
+                "fraction": 0,
+                "feedback": "The roles are swapped: ASan is for memory errors, UBSan for undefined behavior."
+              },
+              {
+                "text": "Both generate fuzzing inputs rather than detect faults",
+                "fraction": 0,
+                "feedback": "Neither generates inputs; both are runtime fault detectors."
+              }
+            ],
+            "generalFeedback": "ASan instruments memory accesses to catch spatial/temporal memory-safety violations (buffer overflows, use-after-free). UBSan catches language-level undefined behavior such as signed overflow, out-of-range shifts, and misaligned or null pointer use. They target different fault classes, so fuzzing under both enlarges the set of detectable bugs.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Fuzzing does not prove correctness",
+            "text": "<p>If a fuzzer runs for a long time and finds no crashes, that proves the program is bug-free.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no crashes found only means none were found within the inputs tried; fuzzing cannot prove the absence of bugs."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Fuzzing samples the input space; finding no crashes is not a proof of correctness, since untried inputs (and silent logic bugs) may still fail."
+              }
+            ],
+            "generalFeedback": "Fuzzing is a testing technique: it can reveal bugs but never prove their absence. A clean run reflects only the inputs actually explored and the failures the oracle can see; it says nothing about untried inputs or silent logic errors."
+          },
+          {
+            "type": "multichoice",
+            "name": "Value profiling / compare coverage",
+            "text": '<p>Comparison-tracking instrumentation (splitting multi-byte comparisons, or "value profiling") helps a coverage-guided fuzzer because it:</p>',
+            "answers": [
+              {
+                "text": "Rewards inputs that get closer to satisfying a comparison (e.g. more matching bytes), giving the search a gradient it otherwise lacks",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it converts an all-or-nothing compare into incremental feedback."
+              },
+              {
+                "text": "Removes all comparisons from the program so every branch is taken",
+                "fraction": 0,
+                "feedback": "It instruments comparisons for feedback; it does not delete them from the program's logic."
+              },
+              {
+                "text": "Guarantees the fuzzer solves every equality in constant time",
+                "fraction": 0,
+                "feedback": "It improves guidance but guarantees nothing; some constraints still need a solver."
+              },
+              {
+                "text": "Replaces the need for a seed corpus",
+                "fraction": 0,
+                "feedback": "Seeds are still valuable; compare-coverage only adds a finer feedback signal."
+              }
+            ],
+            "generalFeedback": "A wide comparison normally gives feedback only when fully matched. Comparison-tracking (e.g. laf-intel splitting a 4-byte compare into per-byte compares, or libFuzzer value profiling) rewards partial matches, so the fuzzer can climb toward the target value instead of guessing it all at once.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Harness design and determinism",
+            "text": "<p>Why should a fuzz harness (fuzz target) map input bytes to program behavior <em>deterministically</em>?</p>",
+            "answers": [
+              {
+                "text": "Non-determinism (randomness, time, uninitialized state) makes crashes hard to reproduce and pollutes coverage feedback, so the same input should always behave the same way",
+                "fraction": 100,
+                "feedback": "Correct \u2014 determinism keeps coverage feedback meaningful and crashes reproducible."
+              },
+              {
+                "text": "Determinism lets the fuzzer skip running the target",
+                "fraction": 0,
+                "feedback": "The target must still run each input; determinism just makes results reliable."
+              },
+              {
+                "text": "Only deterministic targets can have bugs",
+                "fraction": 0,
+                "feedback": "Non-deterministic targets have bugs too; determinism makes them easier to find and reproduce."
+              },
+              {
+                "text": "Determinism removes the need for an oracle",
+                "fraction": 0,
+                "feedback": "An oracle is still required; determinism does not detect faults by itself."
+              }
+            ],
+            "generalFeedback": "Coverage-guided fuzzing assumes an input's behavior (and its coverage) is a function of the input. If the harness introduces randomness, wall-clock time, or leftover global state, the same bytes can behave differently \u2014 making coverage feedback noisy and crashes non-reproducible. Good harnesses derive all behavior deterministically from the input bytes.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Fuzzing needs a detectable failure signal",
+            "text": "<p>Without a detectable failure signal (crash, hang, sanitizer/assertion violation, or a reference check), a fuzzer can execute a bug-triggering input yet never report the bug.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with no observable signal, the fuzzer has no way to recognize that anything went wrong."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A fuzzer only reports a bug when its oracle observes a failure; a fault that produces no signal passes silently."
+              }
+            ],
+            "generalFeedback": "Fuzzing depends entirely on its oracle. If a triggering input causes no crash, hang, sanitizer violation, or assertion/reference-check failure, the fuzzer sees nothing wrong and moves on \u2014 which is why strengthening the oracle (sanitizers, assertions, differential checks) is as important as generating good inputs."
+          },
+          {
+            "type": "multichoice",
+            "name": "Differential fuzzing as an oracle",
+            "text": "<p>How does <strong>differential fuzzing</strong> help catch silent logic bugs that crashes and sanitizers miss?</p>",
+            "answers": [
+              {
+                "text": "It runs the same input through two or more implementations that should agree, and flags a bug when their outputs differ",
+                "fraction": 100,
+                "feedback": "Correct \u2014 disagreement between implementations serves as an oracle for non-crashing bugs."
+              },
+              {
+                "text": "It measures which implementation runs faster and reports the slower one as buggy",
+                "fraction": 0,
+                "feedback": "Differential fuzzing compares outputs for correctness, not speed."
+              },
+              {
+                "text": "It doubles the coverage instrumentation to detect memory errors",
+                "fraction": 0,
+                "feedback": "It is an oracle technique based on output comparison, not extra memory instrumentation."
+              },
+              {
+                "text": "It proves both implementations are correct when they agree",
+                "fraction": 0,
+                "feedback": "Agreement is not proof of correctness \u2014 both could share the same bug; it only flags disagreements."
+              }
+            ],
+            "generalFeedback": "Differential fuzzing feeds one input to multiple implementations expected to behave identically (e.g. two parsers or a reference vs an optimized version) and treats any output mismatch as a bug. This provides an oracle for silent logic errors that produce no crash. Note that if both implementations share the same flaw, they can agree and still be wrong.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Coverage as a fitness signal, not a proof",
+            "text": "<p>Which statement about the role of coverage in coverage-guided fuzzing is accurate?</p>",
+            "answers": [
+              {
+                "text": "Coverage is a heuristic fitness signal that steers the search toward new code; high coverage indicates thorough exercising, not correctness or bug-freedom",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage guides exploration but is not a correctness guarantee."
+              },
+              {
+                "text": "Reaching 100% edge coverage proves the program has no bugs",
+                "fraction": 0,
+                "feedback": "Executing code is not the same as testing it correctly; full coverage can still miss bugs (e.g. wrong-but-non-crashing results)."
+              },
+              {
+                "text": "Coverage directly decides whether a run found a bug",
+                "fraction": 0,
+                "feedback": "Coverage guides the search; the bug decision comes from the oracle (crash/sanitizer/assertion)."
+              },
+              {
+                "text": "Coverage feedback removes the need to run inputs",
+                "fraction": 0,
+                "feedback": "Coverage is obtained by running instrumented inputs; it cannot replace execution."
+              }
+            ],
+            "generalFeedback": "In coverage-guided fuzzing, coverage is a fitness signal: inputs that reach new edges are kept and mutated, steering the search deeper. But covering a line only means it ran, not that it produced a correct result \u2014 so even 100% coverage does not prove bug-freedom, and the oracle, not coverage, decides whether a run failed.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6A21\u7CCA\u6E2C\u8A66",
+            "text": "<p><strong>\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF08fuzzer\uFF09</strong>\u672C\u8CEA\u4E0A\u5728\u505A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u81EA\u52D5\u5C0D\u7A0B\u5F0F\u9935\u5165\u5927\u91CF\u751F\u6210\u6216\u7578\u5F62\u7684\u8F38\u5165\uFF0C\u4E26\u89C0\u5BDF\u662F\u5426\u767C\u751F\u7576\u6A5F\u8207\u5176\u4ED6\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A21\u7CCA\u6E2C\u8A66\u662F\u4E00\u7A2E\u81EA\u52D5\u5316\u6E2C\u8A66\uFF0C\u7528\u5927\u91CF\u8F38\u5165\u8F5F\u70B8\u7A0B\u5F0F\u4E26\u5C0B\u627E\u53EF\u89C0\u5BDF\u5230\u7684\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5B83\u5F62\u5F0F\u5316\u5730\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u4EFB\u4F55\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u85C9\u7531\u5617\u8A66\u8F38\u5165\u4F86\u627E\u51FA\u932F\u8AA4\uFF1B\u5B83\u6C38\u9060\u7121\u6CD5\u8B49\u660E\u932F\u8AA4\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u5B83\u975C\u614B\u5730\u91CF\u6E2C\u6E2C\u8A66\u5957\u4EF6\u6240\u6DB5\u84CB\u7684\u884C\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u91CF\u6E2C\uFF1B\u6A21\u7CCA\u6E2C\u8A66\u5668\u6703\u4E3B\u52D5\u4EE5\u5927\u91CF\u751F\u6210\u7684\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u539F\u59CB\u78BC\u7FFB\u8B6F\u6210\u6700\u4F73\u5316\u904E\u7684\u6A5F\u5668\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7DE8\u8B6F\u5668\uFF0C\u800C\u975E\u6A21\u7CCA\u6E2C\u8A66\u5668\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u7CCA\u6E2C\u8A66\uFF08fuzzing\uFF09\u81EA\u52D5\u751F\u6210\u5927\u91CF\u8F38\u5165\u2014\u2014\u5E38\u662F\u96A8\u6A5F\u6216\u7578\u5F62\u7684\u2014\u2014\u4EE5\u4E4B\u57F7\u884C\u7A0B\u5F0F\uFF0C\u4E26\u56DE\u5831\u89F8\u767C\u53EF\u5075\u6E2C\u5931\u6557\uFF08\u4F8B\u5982\u7576\u6A5F\uFF09\u7684\u90A3\u4E9B\u8F38\u5165\u3002\u5B83\u662F\u4E00\u7A2E\u627E\u932F\u6280\u8853\uFF0C\u800C\u975E\u6B63\u78BA\u6027\u8B49\u660E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A2E\u5B50\u8A9E\u6599\u5EAB",
+            "text": "<p>\u5728\u6A21\u7CCA\u6E2C\u8A66\u4E2D\uFF0C<strong>\u7A2E\u5B50\u8A9E\u6599\u5EAB\uFF08seed corpus\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7D44\u6A23\u672C\u8F38\u5165\uFF0C\u6A21\u7CCA\u6E2C\u8A66\u5668\u4EE5\u5B83\u5011\u70BA\u8D77\u9EDE\u4E26\u52A0\u4EE5\u8B8A\u7570\u4F86\u7522\u751F\u65B0\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A2E\u5B50\u662F\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5668\u8CF4\u4EE5\u51FA\u767C\u7684\u8D77\u59CB\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u5DF2\u7D93\u627E\u5230\u7684\u7576\u6A5F\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u7576\u6A5F\u662F\u6A21\u7CCA\u6E2C\u8A66\u57F7\u884C\u7684\u8F38\u51FA\uFF1B\u7A2E\u5B50\u8A9E\u6599\u5EAB\u5247\u662F\u8D77\u59CB\u8F38\u5165\u7684\u96C6\u5408\u3002"
+              },
+              {
+                "text": "\u4E82\u6578\u7522\u751F\u5668\u7684\u521D\u59CB\u7A2E\u5B50\u503C",
+                "fraction": 0,
+                "feedback": "\u4E82\u6578\u7A2E\u5B50\u662F\u55AE\u4E00\u6578\u5B57\uFF1B\u7A2E\u5B50\u8A9E\u6599\u5EAB\u5247\u662F\u4E00\u7D44\u7BC4\u4F8B\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u53D7\u6E2C\u7A0B\u5F0F\u7684\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u8A9E\u6599\u5EAB\u662F\u8F38\u5165\u8CC7\u6599\uFF0C\u800C\u975E\u7A0B\u5F0F\u7684\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A2E\u5B50\u8A9E\u6599\u5EAB\u662F\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5668\u6240\u7528\u7684\u521D\u59CB\u4E00\u7D44\u6709\u6548\u6216\u6709\u8DA3\u7684\u7BC4\u4F8B\u8F38\u5165\uFF1B\u5B83\u8B8A\u7570\u9019\u4E9B\u7A2E\u5B50\u4EE5\u63A2\u7D22\u65B0\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B8A\u7570\u5F0F\u8207\u751F\u6210\u5F0F",
+            "text": "<p><strong>\u8B8A\u7570\u5F0F\uFF08mutation-based\uFF09</strong>\u6A21\u7CCA\u6E2C\u8A66\u8207<strong>\u751F\u6210\u5F0F\uFF08generation-based\uFF09</strong>\u6A21\u7CCA\u6E2C\u8A66\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u4FEE\u6539\u65E2\u6709\u7684\u7A2E\u5B50\u8F38\u5165\uFF0C\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5247\u4F9D\u683C\u5F0F\u7684\u6A21\u578B\u6216\u6587\u6CD5\uFF08grammar\uFF09\u5F9E\u982D\u5EFA\u69CB\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u8005\u8B8A\u7570\u65E2\u6709\u6A23\u672C\uFF0C\u53E6\u4E00\u8005\u4F9D\u898F\u683C\u5EFA\u69CB\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u9700\u8981\u5B8C\u6574\u6587\u6CD5\uFF0C\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u53EA\u662F\u7FFB\u8F49\u4F4D\u5143",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF1A\u751F\u6210\u5F0F\u4F7F\u7528\u6587\u6CD5\uFF0F\u6A21\u578B\uFF1B\u8B8A\u7570\u5F0F\u901A\u5E38\u7FFB\u8F49\u4F4D\u5143\u4E26\u62FC\u63A5\u7A2E\u5B50\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u5FC5\u9808\u8981\u6709\u7A0B\u5F0F\u539F\u59CB\u78BC\u624D\u80FD\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u4E00\u5B9A\u9700\u8981\u539F\u59CB\u78BC\uFF1B\u5DEE\u5225\u5728\u65BC\u5982\u4F55\u7522\u751F\u8F38\u5165\uFF08\u8B8A\u7570\u6216\u751F\u6210\uFF09\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u7A2E\u6280\u8853\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u7522\u751F\u8F38\u5165\u7684\u5169\u7A2E\u4E0D\u540C\u7B56\u7565\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u53D6\u7528\u7A2E\u5B50\u8A9E\u6599\u5EAB\u4E26\u5C0D\u5176\u5957\u7528\u8B8A\u7570\uFF08\u4F4D\u5143\u7FFB\u8F49\u3001\u4F4D\u5143\u7D44\u66FF\u63DB\u3001\u62FC\u63A5\uFF09\u3002\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5247\u4F9D\u63CF\u8FF0\u9810\u671F\u683C\u5F0F\u7684\u6A21\u578B\u6216\u6587\u6CD5\u5408\u6210\u8F38\u5165\uFF0C\u56E0\u6B64\u4E00\u958B\u59CB\u5C31\u80FD\u7522\u751F\u7D50\u69CB\u826F\u597D\u7684\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66",
+            "text": "<p>\u4EC0\u9EBC\u5B9A\u7FA9\u4E86<strong>\u8986\u84CB\u7387\u5C0E\u5411\uFF08\u7070\u7BB1\uFF09</strong>\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5C0D\u7A0B\u5F0F\u63D2\u6A01\u4EE5\u89C0\u5BDF\u7A0B\u5F0F\u8986\u84CB\u7387\uFF0C\u4FDD\u7559\u80FD\u62B5\u9054\u65B0\u7A0B\u5F0F\u78BC\u7684\u8F38\u5165\uFF0C\u4E26\u8B93\u8A9E\u6599\u5EAB\u671D\u66F4\u6DF1\u7684\u884C\u70BA\u6F14\u9032",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8986\u84CB\u7387\u56DE\u994B\u6311\u9078\u300C\u6709\u8DA3\u300D\u7684\u8F38\u5165\u4E26\u9A45\u52D5\u641C\u5C0B\u3002"
+              },
+              {
+                "text": "\u5B83\u7D14\u7CB9\u96A8\u6A5F\u751F\u6210\u8F38\u5165\uFF0C\u5F9E\u4E0D\u89C0\u5BDF\u7A0B\u5F0F\u7684\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u9ED1\u7BB1\u6A21\u7CCA\u6E2C\u8A66\uFF1B\u8986\u84CB\u7387\u5C0E\u5411\u6703\u4F7F\u7528\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u5B83\u9700\u8981\u7A0B\u5F0F\u7684\u5B8C\u6574\u5F62\u5F0F\u5316\u898F\u683C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u8981\u898F\u683C\u2014\u2014\u53EA\u9700\u8F15\u91CF\u7684\u8986\u84CB\u7387\u63D2\u6A01\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u5728\u6A21\u7CCA\u6E2C\u8A66\u7D50\u675F\u5F8C\u624D\u91CF\u6E2C\u8986\u84CB\u7387\uFF0C\u4E14\u5F9E\u4E0D\u6539\u8B8A\u5176\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u662F\u5728\u57F7\u884C\u904E\u7A0B\u4E2D\u5373\u6642\u4F7F\u7528\uFF0C\u7528\u4EE5\u6C7A\u5B9A\u4FDD\u7559\u8207\u8B8A\u7570\u54EA\u4E9B\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF08\u4F8B\u5982 AFL\u3001libFuzzer\uFF09\u5C0D\u76EE\u6A19\u63D2\u6A01\uFF0C\u8A18\u9304\u6BCF\u500B\u8F38\u5165\u6240\u57F7\u884C\u5230\u7684\u7A0B\u5F0F\u78BC\u908A\uFF08edge\uFF09\u3002\u547D\u4E2D\u65B0\u8986\u84CB\u7387\u7684\u8F38\u5165\u6703\u88AB\u5B58\u5165\u8A9E\u6599\u5EAB\u4E26\u9032\u4E00\u6B65\u8B8A\u7570\uFF0C\u56E0\u6B64\u6A21\u7CCA\u6E2C\u8A66\u5668\u6703\u9010\u6B65\u6DF1\u5165\u66F4\u6DF1\u7684\u7A0B\u5F0F\u78BC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A21\u7CCA\u6E2C\u8A66\u7684\u5224\u5B9A\u6E96\u5247",
+            "text": "<p>\u7576\u6A21\u7CCA\u6E2C\u8A66\u5668\u57F7\u884C\u4E00\u500B\u8F38\u5165\u6642\uFF0C\u4EC0\u9EBC\u6700\u5E38\u544A\u8A34\u5B83\u627E\u5230\u4E86\u932F\u8AA4\uFF08\u5176<strong>\u5224\u5B9A\u6E96\u5247\uFF0Foracle</strong>\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u57F7\u884C\u671F\u9593\u767C\u751F\u7576\u6A5F\u3001\u5361\u6B7B\uFF08hang\uFF09\u3001\u6D88\u6BD2\u5668\uFF08sanitizer\uFF09\u9055\u898F\uFF0C\u6216\u65B7\u8A00\uFF08assertion\uFF09\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E9B\u662F\u6A21\u7CCA\u6E2C\u8A66\u5668\u8CF4\u4EE5\u5224\u65B7\u7684\u53EF\u89C0\u5BDF\u5931\u6557\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u7531\u4EBA\u5DE5\u9010\u4E00\u95B1\u8B80\u6BCF\u500B\u751F\u6210\u7684\u8F38\u5165\u4E26\u89AA\u624B\u5224\u65B7",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u6703\u57F7\u884C\u6578\u767E\u842C\u500B\u8F38\u5165\uFF1B\u5224\u5B9A\u6E96\u5247\u5FC5\u9808\u662F\u81EA\u52D5\u7684\uFF0C\u4F8B\u5982\u7576\u6A5F\u6216\u6D88\u6BD2\u5668\u5831\u544A\u3002"
+              },
+              {
+                "text": "\u8F38\u5165\u7684\u6A94\u6848\u5927\u5C0F\u8D85\u904E\u67D0\u500B\u9580\u6ABB",
+                "fraction": 0,
+                "feedback": "\u6A94\u6848\u5927\u5C0F\u4E26\u4E0D\u8868\u793A\u6709\u932F\u8AA4\uFF1B\u7576\u6A5F\u3001\u5361\u6B7B\u8207\u6D88\u6BD2\u5668\u932F\u8AA4\u624D\u662F\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7522\u751F\u4E86\u4EFB\u4F55\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u6B63\u5E38\u8F38\u51FA\u662F\u9810\u671F\u4E2D\u7684\uFF1B\u5224\u5B9A\u6E96\u5247\u5C0B\u627E\u7684\u662F\u5931\u6557\u8A0A\u865F\uFF0C\u800C\u975E\u4E00\u822C\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u6A21\u7CCA\u6E2C\u8A66\u5668\u6703\u57F7\u884C\u6975\u5927\u91CF\u7684\u8F38\u5165\uFF0C\u5B83\u7684\u932F\u8AA4\u5224\u5B9A\u6E96\u5247\u5FC5\u9808\u662F\u81EA\u52D5\u7684\u3002\u5E38\u898B\u8A0A\u865F\u5305\u62EC\u7576\u6A5F\uFF08\u4F8B\u5982 SIGSEGV\uFF09\u3001\u5361\u6B7B\uFF0F\u903E\u6642\u3001\u6D88\u6BD2\u5668\u56DE\u5831\u7684\u9055\u898F\uFF08ASan\uFF0FUBSan\uFF09\uFF0C\u6216\u5931\u6557\u7684\u65B7\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9ED1\u7BB1\u3001\u7070\u7BB1\u3001\u767D\u7BB1",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\u5730\u4F9D\u300C\u4F7F\u7528\u591A\u5C11\u7A0B\u5F0F\u5167\u90E8\u8CC7\u8A0A\u300D\u6392\u5E8F<strong>\u9ED1\u7BB1</strong>\u3001<strong>\u7070\u7BB1</strong>\u8207<strong>\u767D\u7BB1</strong>\u6A21\u7CCA\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9ED1\u7BB1\u4E0D\u4F7F\u7528\u4EFB\u4F55\u5167\u90E8\u8CC7\u8A0A\uFF1B\u7070\u7BB1\u4F7F\u7528\u8F15\u91CF\u7684\u8986\u84CB\u7387\u56DE\u994B\uFF1B\u767D\u7BB1\u4F7F\u7528\u8F03\u91CD\u7684\u7A0B\u5F0F\u5206\u6790\uFF0C\u4F8B\u5982\u7B26\u865F\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u8005\u843D\u5728\u300C\u5167\u90E8\u6D1E\u5BDF\u9010\u6F38\u589E\u52A0\u300D\u7684\u5149\u8B5C\u4E0A\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u4F7F\u7528\u7B26\u865F\u57F7\u884C\uFF1B\u7070\u7BB1\u4E0D\u4F7F\u7528\u4EFB\u4F55\uFF1B\u767D\u7BB1\u4F7F\u7528\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u6A19\u7C64\u88AB\u6253\u4E82\u4E86\uFF1A\u4F7F\u7528\u7B26\u865F\u57F7\u884C\u7684\u662F\u767D\u7BB1\uFF0C\u9ED1\u7BB1\u4EC0\u9EBC\u90FD\u4E0D\u7528\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u4F7F\u7528\u7684\u5167\u90E8\u8CC7\u8A0A\u91CF\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u7684\u5DEE\u5225\u6B63\u5728\u65BC\u4F7F\u7528\u591A\u5C11\u5167\u90E8\u6D1E\u5BDF\u3002"
+              },
+              {
+                "text": "\u7070\u7BB1\u4F7F\u7528\u4E09\u8005\u4E2D\u6700\u591A\u7684\u5167\u90E8\u8CC7\u8A0A",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u6700\u591A\u7684\u662F\u767D\u7BB1\uFF08\u7A0B\u5F0F\u5206\u6790\uFF09\uFF1B\u7070\u7BB1\u53EA\u7528\u8F15\u91CF\u7684\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u9ED1\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u628A\u76EE\u6A19\u7576\u6210\u4E0D\u900F\u660E\uFF08\u53EA\u770B\u8F38\u5165\u8207\u89C0\u5BDF\u5230\u7684\u7576\u6A5F\uFF09\u3002\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u52A0\u5165\u8F15\u91CF\u63D2\u6A01\u4EE5\u53D6\u5F97\u8986\u84CB\u7387\u56DE\u994B\u3002\u767D\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u4F7F\u7528\u8F03\u91CD\u7684\u5206\u6790\u2014\u2014\u4F8B\u5982\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u2014\u2014\u4EE5\u63A8\u7406\u54EA\u4E9B\u8F38\u5165\u9A45\u52D5\u54EA\u4E9B\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6A21\u7CCA\u6E2C\u8A66\u7684\u76EE\u6A19",
+            "text": "<p>\u6A21\u7CCA\u6E2C\u8A66\u7684\u4E00\u500B\u6838\u5FC3\u76EE\u6A19\uFF0C\u662F\u81EA\u52D5\u627E\u51FA\u6703\u4F7F\u7A0B\u5F0F\u7576\u6A5F\u6216\u4EE5\u5176\u4ED6\u65B9\u5F0F\u51FA\u932F\u7684\u8F38\u5165\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A21\u7CCA\u6E2C\u8A66\u628A\u300C\u5C0B\u627E\u89F8\u767C\u5931\u6557\u7684\u8F38\u5165\u300D\u81EA\u52D5\u5316\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u627E\u51FA\u89F8\u767C\u7576\u6A5F\u6216\u6545\u969C\u7684\u8F38\u5165\uFF0C\u6B63\u662F\u6A21\u7CCA\u6E2C\u8A66\u7684\u7528\u9014\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u7CCA\u6E2C\u8A66\u751F\u6210\u5927\u91CF\u8F38\u5165\u4E26\u4EE5\u4E4B\u57F7\u884C\u7A0B\u5F0F\uFF0C\u76EE\u6A19\u662F\u627E\u51FA\u89F8\u767C\u53EF\u5075\u6E2C\u5931\u6557\uFF08\u7576\u6A5F\u3001\u5361\u6B7B\u3001\u6D88\u6BD2\u5668\u9055\u898F\u6216\u65B7\u8A00\u5931\u6557\uFF09\u7684\u8F38\u5165\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F4D\u5143\u7FFB\u8F49\u8B8A\u7570\u904B\u7B97\u5B50",
+            "text": "<p>\u6A21\u7CCA\u6E2C\u8A66\u5668\u4E2D\u7684<strong>\u4F4D\u5143\u7FFB\u8F49\uFF08bit-flip\uFF09</strong>\u8B8A\u7570\u904B\u7B97\u5B50\u6703\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u65E2\u6709\u8F38\u5165\u7684\u526F\u672C\u4E2D\u5207\u63DB\u4E00\u500B\u6216\u591A\u500B\u4F4D\u5143",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7FFB\u8F49\u4F4D\u5143\u662F\u6700\u7C21\u55AE\u7684\u8B8A\u7570\u904B\u7B97\u5B50\u4E4B\u4E00\u3002"
+              },
+              {
+                "text": "\u6539\u5BEB\u7A0B\u5F0F\u539F\u59CB\u78BC\u4EE5\u53CD\u8F49\u67D0\u500B\u5E03\u6797\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u539F\u59CB\u78BC\u8B8A\u7570\uFF08\u7A81\u8B8A\u6E2C\u8A66\uFF09\uFF1B\u6A21\u7CCA\u6E2C\u8A66\u5668\u8B8A\u7570\u7684\u662F\u8F38\u5165\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u6574\u500B\u8F38\u5165\u4E26\u5F9E\u96F6\u91CD\u65B0\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u4F4D\u5143\u7FFB\u8F49\u4FEE\u6539\u7684\u662F\u5C11\u6578\u4F4D\u5143\uFF1B\u5B83\u4E0D\u6703\u62B9\u9664\u6574\u500B\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4EE5\u4E0D\u540C\u7684\u6700\u4F73\u5316\u7B49\u7D1A\u91CD\u65B0\u7DE8\u8B6F\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "\u8B8A\u7570\u904B\u7B97\u5B50\u6539\u8B8A\u7684\u662F\u8F38\u5165\uFF0C\u800C\u975E\u5EFA\u7F6E\u8A2D\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u7570\u904B\u7B97\u5B50\u8F49\u63DB\u7A2E\u5B50\u8F38\u5165\u3002\u5E38\u898B\u7684\u5305\u62EC\u4F4D\u5143\u7FFB\u8F49\uFF08\u5207\u63DB\u4F4D\u5143\uFF09\u3001\u4F4D\u5143\u7D44\u6216\u6574\u6578\u66FF\u63DB\u3001\u63D2\u5165\uFF0F\u522A\u9664\uFF0C\u4EE5\u53CA\u628A\u5169\u500B\u8F38\u5165\u62FC\u63A5\uFF08splicing\uFF09\u5728\u4E00\u8D77\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "AFL \u662F\u8986\u84CB\u7387\u5C0E\u5411\u7070\u7BB1",
+            "text": "<p>AFL\uFF08American Fuzzy Lop\uFF09\u662F\u4E00\u500B\u8986\u84CB\u7387\u5C0E\u5411\u7684\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF1A\u5B83\u5C0D\u76EE\u6A19\u63D2\u6A01\uFF0C\u4E26\u4EE5\u908A\u8986\u84CB\u7387\uFF08edge coverage\uFF09\u56DE\u994B\u4F86\u5F15\u5C0E\u8B8A\u7570\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AFL \u662F\u8986\u84CB\u7387\u5C0E\u5411\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u7684\u5178\u578B\u4EE3\u8868\uFF0C\u4F7F\u7528\u908A\u8986\u84CB\u7387\u56DE\u994B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "AFL \u78BA\u5BE6\u662F\u8986\u84CB\u7387\u5C0E\u5411\u4E14\u7070\u7BB1\u7684\uFF1B\u5B83\u900F\u904E\u63D2\u6A01\u8A18\u9304\u908A\u8986\u84CB\u7387\uFF0C\u4E26\u4FDD\u7559\u80FD\u62B5\u9054\u65B0\u908A\u7684\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "AFL \u4F7F\u8986\u84CB\u7387\u5C0E\u5411\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u666E\u53CA\uFF1A\u7DE8\u8B6F\u671F\uFF08\u6216\u4EE5 QEMU\uFF09\u63D2\u6A01\u8A18\u9304\u908A\u8986\u84CB\u7387\uFF0C\u547D\u4E2D\u65B0\u908A\u7684\u8F38\u5165\u6703\u88AB\u52A0\u5165\u4F47\u5217\u4E26\u9032\u4E00\u6B65\u8B8A\u7570\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "libFuzzer \u7684\u6A21\u7CCA\u76EE\u6A19",
+            "text": "<p>libFuzzer \u662F\u4E00\u500B\u884C\u7A0B\u5167\uFF08in-process\uFF09\u3001\u8986\u84CB\u7387\u5C0E\u5411\u7684\u6A21\u7CCA\u6E2C\u8A66\u5668\u3002\u4F60\u5982\u4F55\u544A\u8A34\u5B83\u8981\u6A21\u7CCA\u6E2C\u8A66\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F60\u64B0\u5BEB\u4E00\u500B\u6A21\u7CCA\u76EE\u6A19\u51FD\u5F0F\uFF0C\u5B83\u63A5\u6536\u4E00\u6BB5\u4F4D\u5143\u7D44\u7DE9\u885D\u5340\uFF0C\u4E26\u628A\u5B83\u9935\u5165\u53D7\u6E2C\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014libFuzzer \u6703\u53CD\u8986\u4EE5\u751F\u6210\u7684\u4F4D\u5143\u7D44\u547C\u53EB\u4F60\u7684\u9032\u5165\u51FD\u5F0F\uFF08\u4F8B\u5982 LLVMFuzzerTestOneInput\uFF09\u3002"
+              },
+              {
+                "text": "\u4F60\u63D0\u4F9B\u4E00\u4EFD\u5F62\u5F0F\u5316\u6587\u6CD5\uFF0ClibFuzzer \u81EA\u52D5\u63A8\u5C0E\u51FA\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "libFuzzer \u628A\u4F4D\u5143\u7D44\u7DE9\u885D\u5340\u9A45\u52D5\u9032\u4F60\u6240\u5BEB\u7684\u51FD\u5F0F\uFF1B\u5B83\u4E0D\u9700\u8981\u6587\u6CD5\u3002"
+              },
+              {
+                "text": "\u4F60\u53EA\u7D66\u5B83\u7DE8\u8B6F\u5F8C\u7684\u57F7\u884C\u6A94\uFF0C\u4E0D\u9700\u4FEE\u6539\u4EFB\u4F55\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "libFuzzer \u662F\u884C\u7A0B\u5167\u7684\uFF0C\u6703\u9023\u7D50\u5230\u4F60\u63D0\u4F9B\u7684\u76EE\u6A19\u51FD\u5F0F\u3002"
+              },
+              {
+                "text": "\u4F60\u628A\u5B83\u6307\u5411\u7A0B\u5F0F\u7684\u65E5\u8A8C\u6A94",
+                "fraction": 0,
+                "feedback": "\u5B83\u4EE5\u751F\u6210\u7684\u8F38\u5165\u547C\u53EB\u4F60\u7684\u6A21\u7CCA\u76EE\u6A19\u51FD\u5F0F\uFF1B\u65E5\u8A8C\u8207\u6B64\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "libFuzzer \u5728\u884C\u7A0B\u5167\u57F7\u884C\uFF1A\u4F60\u64B0\u5BEB\u4E00\u500B\u6A21\u7CCA\u76EE\u6A19\uFF08\u901A\u5E38\u662F\uFF09\uFF0C\u628A\u4F4D\u5143\u7D44\u8F49\u6210\u5C0D\u53D7\u6E2C API \u7684\u547C\u53EB\u3002libFuzzer \u751F\u6210\u8F38\u5165\u3001\u5728\u8FF4\u5708\u4E2D\u547C\u53EB\u8A72\u76EE\u6A19\uFF0C\u4E26\u4EE5\u8986\u84CB\u7387\u56DE\u994B\u5F15\u5C0E\u8B8A\u7570\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AddressSanitizer",
+            "text": "<p>\u5728\u5C0D C/C++ \u7A0B\u5F0F\u78BC\u9032\u884C\u6A21\u7CCA\u6E2C\u8A66\u6642\uFF0C<strong>AddressSanitizer\uFF08ASan\uFF09</strong>\u63D0\u4F9B\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5075\u6E2C\u8A18\u61B6\u9AD4\u932F\u8AA4\u2014\u2014\u4F8B\u5982\u5806\u7A4D\uFF0F\u5806\u758A\u7DE9\u885D\u5340\u6EA2\u4F4D\u8207\u91CB\u653E\u5F8C\u4F7F\u7528\uFF08use-after-free\uFF09\u2014\u2014\u628A\u539F\u672C\u7121\u8072\u7684\u7834\u58DE\u8F49\u70BA\u7ACB\u5373\u53EF\u898B\u7684\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ASan \u4F7F\u8A31\u591A\u8A18\u61B6\u9AD4\u5B89\u5168\u932F\u8AA4\u5927\u8072\u7576\u6A5F\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u5224\u5B9A\u6E96\u5247\u5F97\u4EE5\u6355\u6349\u3002"
+              },
+              {
+                "text": "\u5B83\u8CA0\u8CAC\u7522\u751F\u6A21\u7CCA\u6E2C\u8A66\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u8F38\u5165\u662F\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u5DE5\u4F5C\uFF1BASan \u662F\u932F\u8AA4\u5075\u6E2C\u5668\uFF0C\u800C\u975E\u7522\u751F\u5668\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E\u7A0B\u5F0F\u662F\u8A18\u61B6\u9AD4\u5B89\u5168\u7684",
+                "fraction": 0,
+                "feedback": "ASan \u56DE\u5831\u5B83\u5728\u57F7\u884C\u671F\u89C0\u5BDF\u5230\u7684\u932F\u8AA4\uFF1B\u5B83\u4E0D\u8B49\u660E\u932F\u8AA4\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u5B83\u79FB\u9664\u908A\u754C\u6AA2\u67E5\u4EE5\u52A0\u901F\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "ASan \u6703\u52A0\u5165\u6AA2\u67E5\uFF08\u4E26\u5E36\u6709\u984D\u5916\u958B\u92B7\uFF09\uFF1B\u5B83\u4E0D\u6703\u79FB\u9664\u6AA2\u67E5\u3002"
+              }
+            ],
+            "generalFeedback": "AddressSanitizer \u5C0D\u8A18\u61B6\u9AD4\u5B58\u53D6\u63D2\u6A01\uFF0C\u4EE5\u5075\u6E2C\u8D8A\u754C\u8B80\u5BEB\u8207\u91CB\u653E\u5F8C\u4F7F\u7528\u7B49\u932F\u8AA4\u3002\u8207\u6A21\u7CCA\u6E2C\u8A66\u642D\u914D\u6642\uFF0C\u5B83\u628A\u8A31\u591A\u7121\u8072\u7684\u8A18\u61B6\u9AD4\u7834\u58DE\u932F\u8AA4\u8F49\u70BA\u53EF\u89C0\u5BDF\u7684\u7576\u6A5F\uFF0C\u5F37\u5316\u5224\u5B9A\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7576\u6A5F\u4EE3\u8868\u4EC0\u9EBC",
+            "text": "<p>\u7576\u6A21\u7CCA\u6E2C\u8A66\u5668\u56DE\u5831\u4E00\u500B\u300C\u7576\u6A5F\uFF08crash\uFF09\u300D\u6642\uFF0C\u901A\u5E38\u8868\u793A\u8A72\u6B21\u57F7\u884C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7570\u5E38\u7D42\u6B62\u2014\u2014\u4F8B\u5982\u5340\u6BB5\u932F\u8AA4\uFF08segmentation fault\uFF09\u6216\u4E2D\u6B62\uFF08abort\uFF09\u2014\u2014\u4EE3\u8868\u4E00\u500B\u503C\u5F97\u8ABF\u67E5\u7684\u6545\u969C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7570\u5E38\u7D42\u6B62\u662F\u5178\u578B\u7684\u6A21\u7CCA\u6E2C\u8A66\u932F\u8AA4\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u7522\u751F\u4E86\u8207\u53C3\u8003\u5BE6\u4F5C\u4E0D\u540C\u7684\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5DEE\u5206\u6E2C\u8A66\uFF08differential testing\uFF09\u7684\u8A0A\u865F\uFF0C\u4E26\u975E\u6B64\u8655\u300C\u7576\u6A5F\u300D\u7684\u610F\u601D\u3002"
+              },
+              {
+                "text": "\u6B63\u5E38\u7D50\u675F\uFF0C\u53EA\u662F\u6BD4\u8F03\u6162",
+                "fraction": 0,
+                "feedback": "\u7DE9\u6162\u4F46\u6B63\u5E38\u5730\u5B8C\u6210\u4E0D\u662F\u7576\u6A5F\uFF1B\u5361\u6B7B\uFF0F\u903E\u6642\u6703\u662F\u53E6\u4E00\u7A2E\u7368\u7ACB\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u88AB\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u8F38\u5165\u904E\u6FFE\u5668\u62D2\u7D55",
+                "fraction": 0,
+                "feedback": "\u7576\u6A5F\u662F\u76EE\u6A19\u7684\u7570\u5E38\u7D42\u6B62\uFF0C\u800C\u975E\u8F38\u5165\u904E\u6FFE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6A5F\u662F\u76EE\u6A19\u884C\u7A0B\u7684\u7570\u5E38\u7D42\u6B62\u2014\u2014\u4F8B\u5982\u5340\u6BB5\u932F\u8AA4\uFF08SIGSEGV\uFF09\u6216\u4E2D\u6B62\uFF08SIGABRT\uFF0C\u5E38\u7531\u6D88\u6BD2\u5668\u6216\u65B7\u8A00\u5F15\u767C\uFF09\u3002\u6A21\u7CCA\u6E2C\u8A66\u5668\u6703\u4FDD\u5B58\u89F8\u767C\u5B83\u7684\u8F38\u5165\u4EE5\u4F9B\u5206\u985E\u5206\u6790\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96A8\u6A5F\uFF0F\u9ED1\u7BB1\u6A21\u7CCA\u6E2C\u8A66",
+            "text": "<p>\u6700\u7C21\u55AE\u3001\u7D14<strong>\u96A8\u6A5F\u9ED1\u7BB1</strong>\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u904B\u4F5C\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u96A8\u6A5F\u751F\u6210\u6216\u96A8\u6A5F\u8B8A\u7570\u7684\u8F38\u5165\u4E1F\u7D66\u7A0B\u5F0F\uFF0C\u5B8C\u5168\u4E0D\u4F7F\u7528\u4EFB\u4F55\u5167\u90E8\u56DE\u994B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D14\u9ED1\u7BB1\u96A8\u6A5F\u6A21\u7CCA\u6E2C\u8A66\u5B8C\u5168\u5FFD\u7565\u7A0B\u5F0F\u5167\u90E8\u3002"
+              },
+              {
+                "text": "\u4EE5 SMT \u6C42\u89E3\u5668\u6C42\u89E3\u8DEF\u5F91\u9650\u5236\u5F0F\u4F86\u9078\u64C7\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u767D\u7BB1\uFF0F\u7B26\u865F\u6A21\u7CCA\u6E2C\u8A66\uFF0C\u4E26\u975E\u96A8\u6A5F\u9ED1\u7BB1\u3002"
+              },
+              {
+                "text": "\u4F9D\u91CF\u6E2C\u5230\u7684\u908A\u8986\u84CB\u7387\u4F86\u6311\u9078\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u8986\u84CB\u7387\u56DE\u994B\u6703\u4F7F\u5B83\u6210\u70BA\u7070\u7BB1\uFF0C\u800C\u975E\u9ED1\u7BB1\u3002"
+              },
+              {
+                "text": "\u9700\u8981\u8F38\u5165\u683C\u5F0F\u7684\u5B8C\u6574\u6587\u6CD5",
+                "fraction": 0,
+                "feedback": "\u7D14\u96A8\u6A5F\u6A21\u7CCA\u6E2C\u8A66\u5668\u4E0D\u9700\u8981\u6587\u6CD5\uFF1B\u5B83\u53EA\u662F\u751F\u6210\u6216\u8B8A\u7570\u4F4D\u5143\u7D44\u3002"
+              }
+            ],
+            "generalFeedback": "\u96A8\u6A5F\u9ED1\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u55AE\u7D14\u751F\u6210\u6216\u8B8A\u7570\u8F38\u5165\uFF0C\u4E26\u53EA\u89C0\u5BDF\u5916\u90E8\u884C\u70BA\uFF08\u6709\u6C92\u6709\u7576\u6A5F\uFF1F\uFF09\u3002\u5B83\u4FBF\u5B9C\u53C8\u5BB9\u6613\uFF0C\u4F46\u6C92\u6709\u56DE\u994B\uFF0C\u4E00\u65E6\u6613\u65BC\u62B5\u9054\u7684\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u904E\u5F8C\u5F80\u5F80\u5C31\u6703\u505C\u6EEF\uFF08plateau\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A21\u7CCA\u6E2C\u8A66\u5B57\u5178",
+            "text": "<p>\u6A21\u7CCA\u6E2C\u8A66\u7684<strong>\u5B57\u5178\uFF08dictionary\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7D44\u7B26\u8A18\uFF08token\uFF09\u6216\u9B54\u8853\u503C\uFF08\u95DC\u9375\u5B57\u3001\u6A19\u982D\u3001\u5E38\u6578\uFF09\uFF0C\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EF\u5C07\u5176\u63D2\u5165\u8F38\u5165\u4E2D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B57\u5178\u63D0\u4F9B\u6A21\u7CCA\u6E2C\u8A66\u5668\u9760\u96A8\u6A5F\u5E7E\u4E4E\u7522\u751F\u4E0D\u51FA\u7684\u6709\u610F\u7FA9\u5EFA\u69CB\u5340\u584A\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u7576\u6A5F\u5C0D\u61C9\u5230\u5176\u547C\u53EB\u5806\u758A\u8ECC\u8DE1\u7684\u65E5\u8A8C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7576\u6A5F\u5206\u985E\u7684\u8F38\u51FA\uFF1B\u5B57\u5178\u662F\u4E00\u7D44\u8F38\u5165\u7B26\u8A18\u3002"
+              },
+              {
+                "text": "\u5F9E\u539F\u59CB\u6A94\u5230\u8986\u84CB\u7387\u8A08\u6578\u5668\u7684\u5C0D\u61C9\u8868",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u7684\u8A18\u9304\uFF0C\u800C\u975E\u7B26\u8A18\u5B57\u5178\u3002"
+              },
+              {
+                "text": "\u63CF\u8FF0\u6574\u500B\u8F38\u5165\u683C\u5F0F\u7684\u6587\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5B57\u5178\u662F\u4E00\u4EFD\u6241\u5E73\u7684\u6709\u7528\u7B26\u8A18\u6E05\u55AE\uFF0C\u800C\u975E\u5B8C\u6574\u6587\u6CD5\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B57\u5178\u63D0\u4F9B\u6709\u8DA3\u7684\u7B26\u8A18\u2014\u2014\u683C\u5F0F\u95DC\u9375\u5B57\u3001\u9B54\u8853\u4F4D\u5143\u7D44\u6216\u5E38\u898B\u5E38\u6578\u2014\u2014\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EF\u628A\u5B83\u5011\u62FC\u63A5\u9032\u8F38\u5165\u3002\u9019\u6709\u52A9\u65BC\u901A\u904E\u90A3\u4E9B\u671F\u5F85\u7279\u5B9A\u4F4D\u5143\u7D44\u5E8F\u5217\uFF08\u800C\u5B83\u5E7E\u4E4E\u4E0D\u53EF\u80FD\u96A8\u6A5F\u751F\u6210\uFF09\u7684\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u751F\u6210\u5F0F\u9700\u8981\u6A21\u578B",
+            "text": "<p>\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u9700\u8981\u8F38\u5165\u683C\u5F0F\u7684\u6A21\u578B\u6216\u6587\u6CD5\uFF0C\u624D\u80FD\u5EFA\u69CB\u8F38\u5165\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u4F9D\u683C\u5F0F\u898F\u683C\u5EFA\u69CB\u8F38\u5165\uFF0C\u56E0\u6B64\u9700\u8981\u8A72\u6A21\u578B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4F9D\u5B9A\u7FA9\uFF0C\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u4F9D\u6A21\u578B\uFF0F\u6587\u6CD5\u5EFA\u69CB\u8F38\u5165\uFF1B\u6C92\u6709\u5B83\u5C31\u7121\u5F9E\u751F\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u751F\u6210\u5F0F\uFF08\u6587\u6CD5\u5F0F\uFF09\u6A21\u7CCA\u6E2C\u8A66\u4F9D\u683C\u5F0F\u63CF\u8FF0\u5408\u6210\u8F38\u5165\u3002\u6B63\u662F\u90A3\u500B\u6A21\u578B\u8B93\u5B83\u80FD\u7522\u751F\u7D50\u69CB\u6709\u6548\u7684\u8F38\u5165\uFF0C\u4E0D\u540C\u65BC\u5F9E\u65E2\u6709\u7A2E\u5B50\u51FA\u767C\u7684\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8986\u84CB\u7387\u56DE\u994B\u6709\u5E6B\u52A9",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4FDD\u7559\u80FD\u62B5\u9054<em>\u65B0</em>\u7A0B\u5F0F\u78BC\u908A\u7684\u8F38\u5165\uFF0C\u6703\u8B93\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\u66F4\u6709\u6548\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u985E\u8F38\u5165\u662F\u588A\u8173\u77F3\uFF1A\u5B83\u5011\u57F7\u884C\u5230\u65B0\u884C\u70BA\uFF0C\u9032\u4E00\u6B65\u8B8A\u7570\u5F8C\u6BD4\u96A8\u6A5F\u8F38\u5165\u66F4\u53EF\u80FD\u62B5\u9054\u66F4\u6DF1\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65B0\u8986\u84CB\u7387\u7684\u8F38\u5165\u662F\u9032\u4E00\u6B65\u6DF1\u5165\u7A0B\u5F0F\u7684\u63A2\u7D22\u8D77\u9EDE\u3002"
+              },
+              {
+                "text": "\u62B5\u9054\u65B0\u908A\u4FDD\u8B49\u4E0B\u4E00\u6B21\u8B8A\u7570\u5C31\u6703\u7576\u6A5F",
+                "fraction": 0,
+                "feedback": "\u65B0\u8986\u84CB\u7387\u4E26\u4E0D\u4FDD\u8B49\u7576\u6A5F\uFF1B\u5B83\u53EA\u662F\u63D0\u9AD8\u66F4\u6DF1\u5165\u63A2\u7D22\u7684\u6A5F\u6703\u3002"
+              },
+              {
+                "text": "\u65B0\u8986\u84CB\u7387\u7684\u8F38\u5165\u4E00\u5B9A\u6BD4\u8F03\u5C0F\uFF0C\u56E0\u6B64\u57F7\u884C\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u4FDD\u7559\u5B83\u5011\u662F\u56E0\u70BA\u62B5\u9054\u4E86\u65B0\u884C\u70BA\uFF0C\u800C\u975E\u56E0\u70BA\u6BD4\u8F03\u5C0F\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u7387\u56DE\u994B\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EF\u4EE5\u7565\u904E\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u4ECD\u5FC5\u9808\u57F7\u884C\u6BCF\u500B\u8F38\u5165\uFF1B\u56DE\u994B\u53EA\u662F\u544A\u8A34\u5B83\u8A72\u4FDD\u7559\u54EA\u4E9B\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u7387\u56DE\u994B\u628A\u6A21\u7CCA\u6E2C\u8A66\u8B8A\u6210\u4E00\u7A2E\u6709\u5F15\u5C0E\u7684\u641C\u5C0B\u3002\u89E3\u9396\u4E86\u65B0\u908A\u7684\u8F38\u5165\u6703\u88AB\u4FDD\u7559\uFF0C\u56E0\u70BA\u8B8A\u7570\u5B83\u6BD4\u8B8A\u7570\u6BEB\u7121\u65B0\u610F\u7684\u8F38\u5165\uFF0C\u66F4\u53EF\u80FD\u63A8\u9032\u5230\u76F8\u9130\u3001\u5148\u524D\u672A\u62B5\u9054\u7684\u7A0B\u5F0F\u78BC\u2014\u2014\u8A9E\u6599\u5EAB\u56E0\u800C\u671D\u66F4\u6DF1\u7684\u8986\u84CB\u7387\u6F14\u9032\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B8A\u7570\u8207\u751F\u6210\u7684\u53D6\u6368",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6700\u80FD\u6982\u62EC\u8B8A\u7570\u5F0F\u8207\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u4E4B\u9593\u7684\u53D6\u6368\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B8A\u7570\u5F0F\u4FBF\u5B9C\u4E14\u4E0D\u9700\u683C\u5F0F\u898F\u683C\uFF0C\u4F46\u96E3\u4EE5\u8655\u7406\u9AD8\u5EA6\u7D50\u69CB\u5316\u7684\u8F38\u5165\uFF1B\u751F\u6210\u5F0F\u9700\u8981\u64B0\u5BEB\u6587\u6CD5\uFF0C\u4F46\u80FD\u8F15\u6613\u7522\u751F\u6709\u6548\u7684\u7D50\u69CB\u5316\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53D6\u6368\u5728\u65BC\u300C\u898F\u683C\u6295\u5165\u300D\u5C0D\u4E0A\u300C\u80FD\u5426\u7522\u751F\u6709\u6548\u7D50\u69CB\u5316\u8F38\u5165\u300D\u3002"
+              },
+              {
+                "text": "\u8B8A\u7570\u5F0F\u5728\u6BCF\u4E00\u500B\u76EE\u6A19\u4E0A\u90FD\u4E00\u5B9A\u6BD4\u751F\u6210\u5F0F\u627E\u5230\u66F4\u591A\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7686\u975E\u5168\u9762\u52DD\u51FA\uFF1B\u5404\u81EA\u9069\u5408\u4E0D\u540C\u7684\u8F38\u5165\u683C\u5F0F\u3002"
+              },
+              {
+                "text": "\u751F\u6210\u5F0F\u7684\u5EFA\u7F6E\u6210\u672C\u7E3D\u662F\u6BD4\u8B8A\u7570\u5F0F\u66F4\u4F4E",
+                "fraction": 0,
+                "feedback": "\u751F\u6210\u5F0F\u901A\u5E38\u524D\u671F\u6210\u672C\u66F4\u9AD8\uFF0C\u56E0\u70BA\u4F60\u5FC5\u9808\u64B0\u5BEB\u6587\u6CD5\uFF0F\u6A21\u578B\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u80FD\u4F7F\u7528\u8986\u84CB\u7387\u56DE\u994B",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u56DE\u994B\u662F\u6B63\u4EA4\u7684\uFF1B\u8B8A\u7570\u5F0F\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u5668\u5927\u91CF\u4F7F\u7528\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5BB9\u6613\u4E0A\u624B\uFF08\u53EA\u9700\u63D0\u4F9B\u7A2E\u5B50\uFF09\uFF0C\u4F46\u96A8\u6A5F\u8B8A\u7570\u5E38\u7834\u58DE\u8907\u96DC\u683C\u5F0F\u7684\u7D50\u69CB\u3002\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u524D\u671F\u6295\u5165\u64B0\u5BEB\u6587\u6CD5\uFF0F\u6A21\u578B\uFF0C\u5C0D\u9AD8\u5EA6\u7D50\u69CB\u5316\u7684\u8F38\u5165\uFF08\u7DE8\u8B6F\u5668\u3001\u7DB2\u8DEF\u5354\u5B9A\uFF09\u800C\u8A00\uFF0C\u80FD\u6301\u7E8C\u7522\u751F\u6709\u6548\u8F38\u5165\u800C\u56DE\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u597D\u7684\u7A2E\u5B50",
+            "text": "<p>\u5C0D\u8B8A\u7570\u5F0F\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\u800C\u8A00\uFF0C\u54EA\u4E00\u7D44\u7A2E\u5B50\u8F38\u5165\u901A\u5E38<em>\u6700\u4F73</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0F\u5DE7\u3001\u6709\u6548\u3001\u591A\u6A23\u7684\u7BC4\u4F8B\uFF0C\u5408\u8D77\u4F86\u80FD\u57F7\u884C\u5230\u683C\u5F0F\u7684\u8A31\u591A\u4E0D\u540C\u7279\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0F\u800C\u591A\u6A23\u7684\u6709\u6548\u7A2E\u5B50\u63D0\u4F9B\u4E86\u5EE3\u6CDB\u3001\u53EF\u8B8A\u7570\u7684\u8D77\u59CB\u8986\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6DB5\u84CB\u6240\u6709\u7279\u6027\u7684\u8D85\u5927\u55AE\u4E00\u6A94\u6848",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5DE8\u6A94\u57F7\u884C\u8207\u8B8A\u7570\u90FD\u6162\uFF1B\u8A31\u591A\u5C0F\u800C\u591A\u6A23\u7684\u7A2E\u5B50\u66F4\u597D\u3002"
+              },
+              {
+                "text": "\u8207\u683C\u5F0F\u7121\u95DC\u7684\u96A8\u6A5F\u4F4D\u5143\u7D44\u5718",
+                "fraction": 0,
+                "feedback": "\u7121\u6548\u5718\u584A\u6703\u6D6A\u8CBB\u5728\u65E9\u671F\u88AB\u62D2\uFF1B\u6709\u6548\u7A2E\u5B50\u80FD\u66F4\u5FEB\u62B5\u9054\u66F4\u6DF1\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u53EA\u7528\u5DF2\u77E5\u6703\u4F7F\u7A0B\u5F0F\u7576\u6A5F\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u5DF2\u77E5\u7576\u6A5F\u7528\u65BC\u56DE\u6B78\u6E2C\u8A66\uFF1B\u7A2E\u5B50\u61C9\u5EE3\u6CDB\u57F7\u884C\u6709\u6548\u884C\u70BA\u4EE5\u4F9B\u7531\u6B64\u63A2\u7D22\u3002"
+              }
+            ],
+            "generalFeedback": "\u597D\u7684\u7A2E\u5B50\u8981\u300C\u6709\u6548\u5230\u8DB3\u4EE5\u901A\u904E\u65E9\u671F\u5256\u6790\u300D\u3001\u300C\u5C0F\u5230\u80FD\u5FEB\u901F\u57F7\u884C\u8207\u8B8A\u7570\u300D\uFF0C\u4E14\u300C\u591A\u6A23\u5230\u8B93\u8A9E\u6599\u5EAB\u4E00\u958B\u59CB\u5C31\u6709\u5EE3\u6CDB\u8986\u84CB\u7387\u300D\u3002\u4E00\u5806\u5C0F\u5DE7\u3001\u7279\u6027\u5404\u7570\u7684\u6709\u6548\u8F38\u5165\uFF0C\u52DD\u904E\u4E00\u500B\u5DE8\u6A94\u6216\u96A8\u6A5F\u96DC\u8A0A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7070\u7BB1\u8207\u9ED1\u7BB1",
+            "text": "<p>\u5728\u76F8\u540C\u76EE\u6A19\u4E0A\uFF0C\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u76F8\u5C0D\u65BC\u9ED1\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u7684\u95DC\u9375\u5BE6\u52D9\u512A\u52E2\u662F\u7070\u7BB1\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8986\u84CB\u7387\u56DE\u994B\u4F86\u8FA8\u8B58\u4E26\u4FDD\u7559\u80FD\u62B5\u9054\u65B0\u7A0B\u5F0F\u78BC\u7684\u8F38\u5165\uFF0C\u56E0\u6B64\u96A8\u6642\u9593\u80FD\u63A2\u7D22\u5230\u7A0B\u5F0F\u4E2D\u66F4\u591A\u90E8\u5206",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u500B\u56DE\u994B\u8FF4\u8DEF\u6B63\u662F\u7070\u7BB1\u6240\u589E\u52A0\u7684\u3002"
+              },
+              {
+                "text": "\u4E0D\u9700\u8981\u5224\u5B9A\u6E96\u5247\uFF0C\u56E0\u70BA\u8986\u84CB\u7387\u53D6\u4EE3\u4E86\u7576\u6A5F\u5075\u6E2C",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5F15\u5C0E\u641C\u5C0B\uFF0C\u4F46\u4E0D\u662F\u932F\u8AA4\u5224\u5B9A\u6E96\u5247\uFF1B\u4F60\u4ECD\u9700\u7576\u6A5F\uFF0F\u6D88\u6BD2\u5668\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u6DB5\u84CB\u7A0B\u5F0F\u7684\u6240\u6709\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u6539\u5584\u8986\u84CB\u7387\uFF0C\u4F46\u9060\u4E0D\u80FD\u4FDD\u8B49\u6240\u6709\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u4E0D\u9700\u8981\u4EFB\u4F55\u63D2\u6A01",
+                "fraction": 0,
+                "feedback": "\u5B9A\u7FA9\u7070\u7BB1\u7684\u8986\u84CB\u7387\u56DE\u994B\u6B63\u662F\u4F86\u81EA\u8F15\u91CF\u63D2\u6A01\u3002"
+              }
+            ],
+            "generalFeedback": "\u9ED1\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u53EA\u770B\u5916\u90E8\u884C\u70BA\uFF0C\u56E0\u6B64\u7121\u6CD5\u5206\u8FA8\u300C\u7121\u804A\u300D\u8F38\u5165\u8207\u300C\u89E3\u9396\u65B0\u7A0B\u5F0F\u78BC\u300D\u7684\u8F38\u5165\u3002\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u52A0\u5165\u8F15\u91CF\u8986\u84CB\u7387\u63D2\u6A01\uFF0C\u5F97\u4EE5\u4FDD\u7559\u4E26\u8B8A\u7570\u62B5\u9054\u65B0\u908A\u7684\u8F38\u5165\u2014\u2014\u9019\u500B\u56DE\u994B\u8FF4\u8DEF\u5927\u5E45\u63D0\u5347\u89F8\u53CA\u7BC4\u570D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B57\u5178\u8207\u9B54\u8853\u503C",
+            "text": '<p>\u63D0\u4F9B\u5B57\u5178\u5982\u4F55\u5E6B\u52A9\u6A21\u7CCA\u6E2C\u8A66\u5668\u901A\u904E\u50CF <code>if (memcmp(hdr, "PNG", 3) == 0)</code> \u9019\u6A23\u7684\u6AA2\u67E5\uFF1F</p>',
+            "answers": [
+              {
+                "text": '\u5B57\u5178\u5305\u542B\u7B26\u8A18 "PNG"\uFF0C\u56E0\u6B64\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EF\u76F4\u63A5\u63D2\u5165\u5B83\uFF0C\u4E0D\u5FC5\u9760\u96A8\u6A5F\u78B0\u5DE7\u6E4A\u51FA\u90A3\u4E9B\u4F4D\u5143\u7D44',
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B57\u5178\u628A\u7A0B\u5F0F\u6AA2\u67E5\u6240\u9700\u7684\u78BA\u5207\u7B26\u8A18\u76F4\u63A5\u4EA4\u7D66\u6A21\u7CCA\u6E2C\u8A66\u5668\u3002"
+              },
+              {
+                "text": "\u5B83\u505C\u7528\u8A72\u6BD4\u8F03\uFF0C\u4F7F\u6AA2\u67E5\u6C38\u9060\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u5B57\u5178\u63D0\u4F9B\u7684\u662F\u8F38\u5165\u7B26\u8A18\uFF1B\u5B83\u4E0D\u6703\u4FEE\u6539\u7A0B\u5F0F\u7684\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u96A8\u6A5F\u8B8A\u7570\u5448\u6307\u6578\u7D1A\u52A0\u901F",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u6539\u8B8A\u8B8A\u7570\u901F\u5EA6\uFF1B\u5B83\u6539\u8B8A\u7684\u662F\u53EF\u4F9B\u63D2\u5165\u7684\u7B26\u8A18\u3002"
+              },
+              {
+                "text": "\u5B83\u4E0D\u57F7\u884C\u7A0B\u5F0F\u5C31\u8B49\u660E\u6A19\u982D\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u5B57\u5178\u4E0D\u8B49\u660E\u4EFB\u4F55\u4E8B\uFF1B\u5B83\u53EA\u662F\u63D0\u4F9B\u6709\u7528\u7684\u4F4D\u5143\u7D44\u5E8F\u5217\u4F9B\u5617\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": '\u96A8\u6A5F\u7522\u751F\u7279\u5B9A\u7684\u591A\u4F4D\u5143\u7D44\u7B26\u8A18\uFF08\u4F8B\u5982 "PNG"\uFF09\u6A5F\u7387\u5F88\u4F4E\u3002\u5B57\u5178\u5217\u51FA\u9019\u985E\u7B26\u8A18\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EF\u76F4\u63A5\u62FC\u63A5\u9032\u53BB\uFF0C\u5F9E\u800C\u6EFF\u8DB3\u9B54\u8853\u503C\u6AA2\u67E5\u4E26\u62B5\u9054\u5176\u5F8C\u5B88\u8B77\u7684\u7A0B\u5F0F\u78BC\u3002',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u69CB\u611F\u77E5\u6A21\u7CCA\u6E2C\u8A66",
+            "text": "<p><strong>\u7D50\u69CB\u611F\u77E5\uFF08structure-aware\uFF09</strong>\u6A21\u7CCA\u6E2C\u8A66\uFF08\u4F8B\u5982\u8B8A\u7570\u5DF2\u5256\u6790\uFF0F\u5177\u578B\u5225\u7684\u8868\u793A\uFF0C\u800C\u975E\u539F\u59CB\u4F4D\u5143\u7D44\uFF09\u7684\u91CD\u9EDE\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B8A\u7570\u6703\u9075\u5B88\u8F38\u5165\u683C\u5F0F\uFF0C\u56E0\u6B64\u5927\u591A\u6578\u751F\u6210\u7684\u8F38\u5165\u4ECD\u7D50\u69CB\u6709\u6548\uFF0C\u80FD\u62B5\u9054\u6DF1\u5C64\u908F\u8F2F\uFF0C\u800C\u975E\u88AB\u5256\u6790\u5668\u65E9\u65E9\u62D2\u7D55",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u7D50\u69CB\u5C64\u6B21\u8B8A\u7570\u80FD\u8B93\u8F38\u5165\u7DAD\u6301\u8DB3\u5920\u6709\u6548\u4EE5\u57F7\u884C\u66F4\u6DF1\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5B83\u514D\u9664\u4E86\u5C0D\u4EFB\u4F55\u5224\u5B9A\u6E96\u5247\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u7D50\u69CB\u611F\u77E5\u95DC\u4E4E\u8F38\u5165\u6709\u6548\u6027\uFF0C\u800C\u975E\u932F\u8AA4\u5075\u6E2C\uFF1B\u4ECD\u9700\u5224\u5B9A\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u6A21\u7CCA\u6E2C\u8A66\u5668\u6703\u627E\u5230\u5256\u6790\u5668\u4E2D\u6240\u6709\u7684\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6280\u8853\u80FD\u4FDD\u8B49\u627E\u5230\u6240\u6709\u932F\u8AA4\uFF1B\u5B83\u53EA\u662F\u8B93\u66F4\u591A\u8F38\u5165\u7DAD\u6301\u6709\u6548\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u9069\u7528\u65BC\u7D14\u6587\u5B57\uFF0C\u6C38\u9060\u4E0D\u9069\u7528\u65BC\u4E8C\u9032\u4F4D\u683C\u5F0F",
+                "fraction": 0,
+                "feedback": "\u7D50\u69CB\u611F\u77E5\u6A21\u7CCA\u6E2C\u8A66\u4E5F\u9069\u7528\u65BC\u4E8C\u9032\u4F4D\u683C\u5F0F\uFF08\u4F8B\u5982\u4EE5 protobuf \u70BA\u57FA\u790E\u7684\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u9AD8\u5EA6\u7D50\u69CB\u5316\u7684\u8F38\u5165\u800C\u8A00\uFF0C\u539F\u59CB\u4F4D\u5143\u7D44\u8B8A\u7570\u901A\u5E38\u6703\u88AB\u5256\u6790\u5668\u65E9\u65E9\u62D2\u7D55\u3002\u7D50\u69CB\u611F\u77E5\u6A21\u7CCA\u6E2C\u8A66\u8B8A\u7570\u5DF2\u5177\u578B\u5225\uFF0F\u5DF2\u5256\u6790\u7684\u8868\u793A\uFF08\u6216\u4F7F\u7528\u6587\u6CD5\uFF09\uFF0C\u56E0\u6B64\u751F\u6210\u7684\u8F38\u5165\u7DAD\u6301\u826F\u597D\u5F62\u5F0F\uFF0C\u80FD\u9A45\u52D5\u66F4\u6DF1\u3001\u85CF\u6709\u6709\u8DA3\u932F\u8AA4\u7684\u8A9E\u610F\u908F\u8F2F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u4FDD\u7559\u62B5\u9054\u65B0\u908A\u7684\u8F38\u5165",
+            "text": "<p>\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\u57F7\u884C\u4E86\u4E00\u500B\u62B5\u9054\u5168\u65B0\u908A\u3001\u4F46\u6C92\u6709\u7576\u6A5F\u7684\u8F38\u5165\u3002\u5B83\u901A\u5E38\u6703\u600E\u9EBC\u505A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u5B83\u52A0\u5165\u8A9E\u6599\u5EAB\uFF0F\u4F47\u5217\u4EE5\u4F9B\u9032\u4E00\u6B65\u8B8A\u7570\uFF0C\u56E0\u70BA\u5B83\u53EF\u80FD\u901A\u5F80\u66F4\u6DF1\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u6C92\u6709\u7576\u6A5F\uFF0C\u65B0\u8986\u84CB\u7387\u4F5C\u70BA\u9032\u4E00\u6B65\u8B8A\u7570\u7684\u57FA\u790E\u4ECD\u6709\u50F9\u503C\u3002"
+              },
+              {
+                "text": "\u4E1F\u68C4\u5B83\uFF0C\u56E0\u70BA\u53EA\u6709\u6703\u7576\u6A5F\u7684\u8F38\u5165\u624D\u503C\u5F97\u4FDD\u7559",
+                "fraction": 0,
+                "feedback": "\u6B63\u56E0\u65B0\u8986\u84CB\u7387\u7684\u8F38\u5165\u958B\u555F\u4E86\u901A\u5F80\u672A\u4F86\u7576\u6A5F\u7684\u8DEF\u5F91\uFF0C\u624D\u6703\u88AB\u4FDD\u7559\u3002"
+              },
+              {
+                "text": "\u7ACB\u5373\u628A\u5B83\u56DE\u5831\u70BA\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u65B0\u8986\u84CB\u7387\u4E0D\u662F\u932F\u8AA4\uFF1B\u53EA\u6709\u5224\u5B9A\u6E96\u5247\u767C\u51FA\u7684\u5931\u6557\u8A0A\u865F\u624D\u662F\u3002"
+              },
+              {
+                "text": "\u505C\u6B62\u6574\u500B\u6A21\u7CCA\u6E2C\u8A66\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "\u62B5\u9054\u65B0\u8986\u84CB\u7387\u662F\u9032\u5C55\uFF0C\u800C\u975E\u505C\u6B62\u7684\u7406\u7531\u3002"
+              }
+            ],
+            "generalFeedback": "\u89E3\u9396\u65B0\u8986\u84CB\u7387\u7684\u8F38\u5165\u6703\u88AB\u4FDD\u5B58\u4E26\u512A\u5148\u9032\u4E00\u6B65\u8B8A\u7570\u3002\u5B83\u5011\u4F5C\u70BA\u588A\u8173\u77F3\uFF1A\u8B8A\u7570\u5B83\u5011\u662F\u628A\u57F7\u884C\u63A8\u9032\u5230\u76F8\u9130\u3001\u5C1A\u672A\u62B5\u9054\u7684\u7A0B\u5F0F\u78BC\u6700\u6709\u524D\u666F\u7684\u65B9\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u62FC\u63A5\u904B\u7B97\u5B50",
+            "text": "<p><strong>\u62FC\u63A5\uFF08splicing\uFF09</strong>\u8B8A\u7570\u904B\u7B97\u5B50\u7522\u751F\u65B0\u8F38\u5165\u7684\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u67D0\u500B\u8A9E\u6599\u5EAB\u8F38\u5165\u7684\u4E00\u90E8\u5206\u8207\u53E6\u4E00\u500B\u8F38\u5165\u7684\u4E00\u90E8\u5206\u7D44\u5408\u8D77\u4F86",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u62FC\u63A5\u91CD\u7D44\u5169\u500B\u65E2\u6709\u8F38\u5165\u7684\u7247\u6BB5\u3002"
+              },
+              {
+                "text": "\u7FFB\u8F49\u67D0\u500B\u8F38\u5165\u4E2D\u7684\u55AE\u4E00\u4F4D\u5143",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F4D\u5143\u7FFB\u8F49\uFF0C\u800C\u975E\u62FC\u63A5\u3002"
+              },
+              {
+                "text": "\u628A\u4E00\u500B 4 \u4F4D\u5143\u7D44\u6574\u6578\u63DB\u6210\u908A\u754C\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6574\u6578\u66FF\u63DB\u8B8A\u7570\uFF0C\u800C\u975E\u62FC\u63A5\u3002"
+              },
+              {
+                "text": "\u628A\u8F38\u5165\u7684\u4F4D\u5143\u7D44\u4F9D\u905E\u589E\u9806\u5E8F\u6392\u5E8F",
+                "fraction": 0,
+                "feedback": "\u6392\u5E8F\u4F4D\u5143\u7D44\u4E0D\u662F\u6A19\u6E96\u8B8A\u7570\uFF1B\u62FC\u63A5\u662F\u628A\u5169\u500B\u8F38\u5165\u7684\u7247\u6BB5\u63A5\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u62FC\u63A5\uFF08crossover\uFF09\u53D6\u7528\u8A9E\u6599\u5EAB\u4E2D\u5169\u500B\u8F38\u5165\uFF0C\u628A\u5176\u4E2D\u4E00\u500B\u7684\u524D\u7DB4\u8207\u53E6\u4E00\u500B\u7684\u5F8C\u7DB4\u63A5\u5408\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u628A\u500B\u5225\u767C\u73FE\u7684\u7279\u6027\u7D44\u5408\u8D77\u4F86\u2014\u2014\u9019\u662F\u5C0D\u4F4D\u5143\u7FFB\u8F49\u3001\u4F4D\u5143\u7D44\u66FF\u63DB\u7B49\u5340\u57DF\u8B8A\u7570\u7684\u88DC\u5145\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A9E\u6599\u5EAB\u7684\u6F14\u9032",
+            "text": "<p>\u5728 AFL \u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5668\u4E2D\uFF0C\u8A9E\u6599\u5EAB\uFF08\u4F47\u5217\uFF09\u5728\u57F7\u884C\u904E\u7A0B\u4E2D\u5982\u4F55\u6F14\u9032\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u89F8\u767C\u65B0\u8986\u84CB\u7387\u7684\u8F38\u5165\u6703\u88AB\u9644\u52A0\u5230\u4F47\u5217\u4E26\u7A0D\u5F8C\u88AB\u8B8A\u7570\uFF0C\u56E0\u6B64\u8A9E\u6599\u5EAB\u671D\u8457\u62B5\u9054\u66F4\u6DF1\u7A0B\u5F0F\u78BC\u7684\u8F38\u5165\u6210\u9577",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F47\u5217\u6301\u7E8C\u88AB\u6709\u8DA3\u7684\u8F38\u5165\u64F4\u5145\u4E26\u518D\u5EA6\u8B8A\u7570\u3002"
+              },
+              {
+                "text": "\u8A9E\u6599\u5EAB\u5728\u555F\u52D5\u6642\u56FA\u5B9A\uFF0C\u4E4B\u5F8C\u6C38\u4E0D\u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u8A9E\u6599\u5EAB\u6703\u96A8\u8457\u627E\u5230\u65B0\u8986\u84CB\u7387\u7684\u8F38\u5165\u800C\u6210\u9577\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u751F\u6210\u7684\u8F38\u5165\uFF0C\u7121\u8AD6\u6709\u7121\u8986\u84CB\u7387\uFF0C\u90FD\u6703\u88AB\u6C38\u4E45\u4FDD\u5B58",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u589E\u52A0\u65B0\u8986\u84CB\u7387\uFF08\u6216\u7576\u6A5F\uFF09\u7684\u8F38\u5165\u624D\u6703\u88AB\u4FDD\u7559\uFF0C\u5176\u9918\u4E1F\u68C4\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u57F7\u884C\u5F8C\u8A9E\u6599\u5EAB\u5C31\u6E1B\u5C11\u4E00\u500B\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u8A9E\u6599\u5EAB\u96A8\u6709\u8DA3\u7684\u767C\u73FE\u6210\u9577\uFF0C\u800C\u975E\u6BCF\u6B21\u57F7\u884C\u905E\u6E1B\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\u7DAD\u8B77\u4E00\u500B\u6709\u8DA3\u8F38\u5165\u7684\u4F47\u5217\u3002\u7576\u8B8A\u7570\u5F8C\u7684\u8F38\u5165\u547D\u4E2D\u65B0\u8986\u84CB\u7387\u6642\uFF0C\u5C31\u6703\u88AB\u52A0\u5165\u4F47\u5217\uFF1B\u6A21\u7CCA\u6E2C\u8A66\u5668\u63A5\u8457\u4E0D\u65B7\u5FAA\u74B0\u4F47\u5217\u3001\u8B8A\u7570\u6BCF\u4E00\u9805\uFF0C\u56E0\u6B64\u8A9E\u6599\u5EAB\u671D\u8457\u62B5\u9054\u8D8A\u4F86\u8D8A\u6DF1\u884C\u70BA\u7684\u8F38\u5165\u6F14\u9032\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u8986\u84CB\u7387\u8207\u5340\u584A\u8986\u84CB\u7387",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u8A31\u591A\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u5668\u8FFD\u8E64<strong>\u908A\uFF08\u5206\u652F\u8F49\u79FB\uFF09\u8986\u84CB\u7387</strong>\uFF0C\u800C\u4E0D\u53EA\u662F<strong>\u57FA\u672C\u5340\u584A\uFF08basic-block\uFF09\u8986\u84CB\u7387</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u908A\u8986\u84CB\u7387\u8A18\u9304\u767C\u751F\u4E86\u54EA\u4E9B\u300C\u5340\u584A\u5230\u5340\u584A\u300D\u7684\u8F49\u79FB\uFF0C\u56E0\u6B64\u80FD\u5340\u5206\u5340\u584A\u8986\u84CB\u7387\u6703\u8996\u70BA\u76F8\u540C\u7684\u63A7\u5236\u6D41",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u6355\u6349\u8F49\u79FB\uFF0C\u63D0\u4F9B\u6BD4\u5340\u584A\u547D\u4E2D\u66F4\u7D30\u7DFB\u7684\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u908A\u8986\u84CB\u7387\u4E0D\u9700\u63D2\u6A01\uFF0C\u800C\u5340\u584A\u8986\u84CB\u7387\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u9700\u63D2\u6A01\uFF1B\u908A\u8986\u84CB\u7387\u53EA\u662F\u66F4\u5177\u9451\u5225\u529B\u3002"
+              },
+              {
+                "text": "\u5340\u584A\u8986\u84CB\u7387\u80FD\u5075\u6E2C\u7576\u6A5F\uFF0C\u4F46\u908A\u8986\u84CB\u7387\u4E0D\u80FD",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u5075\u6E2C\u7576\u6A5F\uFF1B\u90A3\u662F\u5224\u5B9A\u6E96\u5247\u7684\u8077\u8CAC\u3002\u5DEE\u5225\u5728\u65BC\u8986\u84CB\u7387\u8A0A\u865F\u7684\u7D30\u7DFB\u7A0B\u5EA6\u3002"
+              },
+              {
+                "text": "\u908A\u8986\u84CB\u7387\u7E3D\u662F\u7CBE\u78BA\uFF0C\u800C\u5340\u584A\u8986\u84CB\u7387\u662F\u96A8\u6A5F\u7684",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u78BA\u5B9A\u6027\u7684\u91CF\u6E2C\uFF1B\u91CD\u9EDE\u662F\u908A\u66F4\u7D30\u7DFB\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u7387\u8A18\u9304\u57FA\u672C\u5340\u584A\u4E4B\u9593\u7684\u8F49\u79FB\uFF0C\u56E0\u6B64\u5169\u6B21\u4EE5\u4E0D\u540C\u9806\u5E8F\u9020\u8A2A\u76F8\u540C\u5340\u584A\u7684\u57F7\u884C\u770B\u8D77\u4F86\u6703\u4E0D\u540C\u3002\u9019\u500B\u66F4\u7D30\u7DFB\u7684\u8A0A\u865F\u5E6B\u52A9\u6A21\u7CCA\u6E2C\u8A66\u5668\u8FA8\u8B58\u51FA\u6BD4\u5340\u584A\u8986\u84CB\u7387\u66F4\u591A\u7684\u300C\u6709\u8DA3\u300D\u8F38\u5165\uFF0C\u5F8C\u8005\u53EA\u8A18\u9304\u67D0\u5340\u584A\u662F\u5426\u88AB\u62B5\u9054\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u884C\u7A0B\u5167\u8207 fork \u5F0F\u6A21\u7CCA\u6E2C\u8A66",
+            "text": "<p>\u76F8\u8F03\u65BC fork \u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF0C\u50CF libFuzzer \u9019\u6A23\u7684\u884C\u7A0B\u5167\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u540C\u4E00\u884C\u7A0B\u5167\u547C\u53EB\u76EE\u6A19\u51FD\u5F0F\u4F86\u57F7\u884C\u6BCF\u500B\u8F38\u5165\uFF0C\u901F\u5EA6\u5FEB\uFF0C\u4F46\u8981\u6C42\u76EE\u6A19\u4E0D\u5F97\u6709\u5728\u591A\u6B21\u57F7\u884C\u9593\u6D29\u6F0F\u7684\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u884C\u7A0B\u5167\u57F7\u884C\u901F\u5EA6\u5FEB\uFF0C\u4F46\u5C0D\u6B98\u7559\uFF0F\u5168\u57DF\u72C0\u614B\u654F\u611F\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u8F38\u5165\u555F\u52D5\u4E00\u500B\u5168\u65B0\u884C\u7A0B\uFF0C\u9694\u96E2\u66F4\u5F37\u4F46\u984D\u5916\u958B\u92B7\u66F4\u5927",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F fork/exec \u5F0F\u6A21\u7CCA\u6E2C\u8A66\uFF0C\u8207\u884C\u7A0B\u5167\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u7121\u6CD5\u4F7F\u7528\u8986\u84CB\u7387\u56DE\u994B",
+                "fraction": 0,
+                "feedback": "libFuzzer \u662F\u8986\u84CB\u7387\u5C0E\u5411\u7684\uFF1B\u884C\u7A0B\u5167\u57F7\u884C\u4E26\u4E0D\u6392\u9664\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u9700\u8981\u5B8C\u6574\u7684\u8F38\u5165\u6587\u6CD5\u624D\u80FD\u904B\u4F5C",
+                "fraction": 0,
+                "feedback": "libFuzzer \u4E0D\u9700\u6587\u6CD5\uFF1B\u5B83\u628A\u4F4D\u5143\u7D44\u7DE9\u885D\u5340\u9A45\u52D5\u9032\u4F60\u7684\u6A21\u7CCA\u76EE\u6A19\u3002"
+              }
+            ],
+            "generalFeedback": "\u884C\u7A0B\u5167\u6A21\u7CCA\u6E2C\u8A66\u5728\u55AE\u4E00\u884C\u7A0B\u5167\u53CD\u8986\u547C\u53EB\u76EE\u6A19\u51FD\u5F0F\uFF0C\u907F\u514D\u4E86\u5EFA\u7ACB\u884C\u7A0B\u7684\u958B\u92B7\uFF0C\u57F7\u884C\u975E\u5E38\u5FEB\u3002\u4EE3\u50F9\u662F\u591A\u6B21\u57F7\u884C\u9593\u6B98\u7559\u7684\u5168\u57DF\uFF0F\u975C\u614B\u72C0\u614B\u53EF\u80FD\u5C0E\u81F4\u7121\u6CD5\u91CD\u73FE\u7684\u884C\u70BA\uFF0C\u56E0\u6B64\u76EE\u6A19\u5FC5\u9808\u5728\u6BCF\u6B21\u547C\u53EB\u6642\u4E7E\u6DE8\u5730\u91CD\u7F6E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6D88\u6BD2\u5668\u5F37\u5316\u5224\u5B9A\u6E96\u5247",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5C0D\u300C\u63D2\u5165\u6D88\u6BD2\u5668\u7684\u5EFA\u7F6E\u300D\u9032\u884C\u6A21\u7CCA\u6E2C\u8A66\u5F80\u5F80\u80FD\u627E\u5230\u66F4\u591A\u932F\u8AA4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u6BD2\u5668\u628A\u539F\u672C\u7121\u8072\u7684\u932F\u8AA4\uFF08\u4F8B\u5982\u5C0F\u7BC4\u570D\u8D8A\u754C\u8B80\u53D6\u3001\u6574\u6578\u6EA2\u4F4D\uFF09\u8F49\u70BA\u7ACB\u5373\u53EF\u898B\u7684\u5931\u6557\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u5224\u5B9A\u6E96\u5247\u5F97\u4EE5\u6355\u6349",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u6BD2\u5668\u66B4\u9732\u4E86\u90A3\u4E9B\u672C\u8EAB\u4E0D\u6703\u7576\u6A5F\u7684\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u6D88\u6BD2\u5668\u70BA\u6A21\u7CCA\u6E2C\u8A66\u5668\u7522\u751F\u984D\u5916\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u6D88\u6BD2\u5668\u5075\u6E2C\u6545\u969C\uFF1B\u5B83\u5011\u4E0D\u7522\u751F\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u6D88\u6BD2\u5668\u63D0\u5347\u57F7\u884C\u901F\u5EA6\uFF0C\u56E0\u800C\u80FD\u57F7\u884C\u66F4\u591A\u6B21",
+                "fraction": 0,
+                "feedback": "\u6D88\u6BD2\u5668\u5E36\u4F86\u984D\u5916\u958B\u92B7\uFF1B\u597D\u8655\u5728\u65BC\u66F4\u597D\u7684\u5075\u6E2C\uFF0C\u800C\u975E\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u6D88\u6BD2\u5668\u53D6\u4EE3\u4E86\u5C0D\u8A9E\u6599\u5EAB\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u4ECD\u9700\u8A9E\u6599\u5EAB\uFF1B\u6D88\u6BD2\u5668\u53EA\u6539\u5584\u5931\u6557\u8A0A\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C92\u6709\u6D88\u6BD2\u5668\u6642\uFF0C\u8A31\u591A\u932F\u8AA4\uFF08\u4E00\u500B\u4F4D\u5143\u7D44\u7684\u8D8A\u754C\u8B80\u53D6\u3001\u6709\u865F\u6EA2\u4F4D\uFF09\u4E0D\u6703\u7576\u6A5F\u800C\u5F9E\u6A21\u7CCA\u6E2C\u8A66\u5668\u773C\u524D\u6E9C\u8D70\u3002ASan\u3001UBSan \u7B49\u6D88\u6BD2\u5668\u5728\u57F7\u884C\u671F\u5075\u6E2C\u5230\u9019\u4E9B\u4E26\u4E2D\u6B62\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u7576\u6A5F\u5224\u5B9A\u6E96\u5247\u6355\u6349\u5230\u539F\u672C\u6703\u6F0F\u6389\u7684\u6545\u969C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5361\u6B7B\u4F5C\u70BA\u5224\u5B9A\u8A0A\u865F",
+            "text": "<p>\u9664\u4E86\u7576\u6A5F\uFF0C\u6A21\u7CCA\u6E2C\u8A66\u5668\u4E5F\u53EF\u4EE5\u7528\u5361\u6B7B\uFF08hang\uFF09\u6216\u903E\u6642\u4F5C\u70BA\u932F\u8AA4\u8A0A\u865F\u2014\u2014\u4F8B\u5982\u6355\u6349\u4F7F\u7A0B\u5F0F\u9677\u5165\u7121\u7AAE\u8FF4\u5708\u7684\u8F38\u5165\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u904E\u9577\u7684\u57F7\u884C\u6642\u9593\uFF08\u5361\u6B7B\uFF0F\u903E\u6642\uFF09\u662F\u6A19\u6E96\u7684\u6A21\u7CCA\u6E2C\u8A66\u8A0A\u865F\uFF0C\u4F8B\u5982\u7528\u65BC\u6F5B\u5728\u7684\u963B\u65B7\u670D\u52D9\u8FF4\u5708\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u5E38\u6A19\u8A18\u8D85\u904E\u6642\u9650\u7684\u8F38\u5165\uFF0C\u9019\u53EF\u63ED\u9732\u7121\u7AAE\u8FF4\u5708\u6216\u6F14\u7B97\u6CD5\u8907\u96DC\u5EA6\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5361\u6B7B\uFF0F\u903E\u6642\u662F\u5408\u7406\u7684\u5224\u5B9A\u6E96\u5247\uFF1A\u82E5\u67D0\u8F38\u5165\u4F7F\u7A0B\u5F0F\u57F7\u884C\u9060\u8D85\u904E\u8A2D\u5B9A\u6642\u9650\uFF0C\u6A21\u7CCA\u6E2C\u8A66\u5668\u5C31\u6703\u8A18\u9304\u5B83\u3002\u9019\u985E\u8F38\u5165\u53EF\u66B4\u9732\u7121\u7AAE\u8FF4\u5708\u6216\u6700\u58DE\u60C5\u6CC1\u6F14\u7B97\u6CD5\u8907\u96DC\u5EA6\uFF08\u963B\u65B7\u670D\u52D9\uFF09\u554F\u984C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8986\u84CB\u7387\u505C\u6EEF",
+            "text": "<p>\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\u9577\u6642\u9593\u4E0D\u518D\u767C\u73FE\u65B0\u8986\u84CB\u7387\uFF08\u9677\u5165\u505C\u6EEF\uFF0Fplateau\uFF09\u3002\u4E0B\u5217\u54EA\u500B\u56DE\u61C9\u6700\u5408\u7406\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5E6B\u5B83\u8D8A\u904E\u969C\u7919\u2014\u2014\u52A0\u5165\u66F4\u597D\u7684\u7A2E\u5B50\u3001\u63D0\u4F9B\u5B57\u5178\uFF0C\u6216\u5F15\u5165\u6C42\u89E3\u5668\uFF0F\u7B26\u865F\u57F7\u884C\u5354\u52A9\u2014\u2014\u56E0\u70BA\u55AE\u9760\u96A8\u6A5F\u8B8A\u7570\u5F88\u53EF\u80FD\u5361\u5728\u67D0\u500B\u96E3\u4EE5\u6EFF\u8DB3\u7684\u6AA2\u67E5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u505C\u6EEF\u901A\u5E38\u4EE3\u8868\u67D0\u500B\u96E3\u4EE5\u6EFF\u8DB3\u7684\u689D\u4EF6\uFF0C\u9700\u8981\u984D\u5916\u5354\u52A9\u3002"
+              },
+              {
+                "text": "\u65B7\u5B9A\u7A0B\u5F0F\u73FE\u5728\u5DF2\u88AB\u8B49\u660E\u7121\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u505C\u6EEF\u4EE3\u8868\u6A21\u7CCA\u6E2C\u8A66\u5668\u4E0D\u518D\u53D6\u5F97\u9032\u5C55\uFF0C\u800C\u975E\u7A0B\u5F0F\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u7A2E\u5B50\u8A9E\u6599\u5EAB\u4EE5\u5F37\u5236\u56DE\u5230\u7D14\u96A8\u6A5F",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u7A2E\u5B50\u901A\u5E38\u6709\u5BB3\uFF1B\u6A21\u7CCA\u6E2C\u8A66\u5668\u9700\u8981\u66F4\u597D\u7684\u8D77\u9EDE\uFF0C\u800C\u975E\u66F4\u5C11\u3002"
+              },
+              {
+                "text": "\u505C\u7528\u8986\u84CB\u7387\u63D2\u6A01",
+                "fraction": 0,
+                "feedback": "\u95DC\u6389\u56DE\u994B\u7B49\u65BC\u4E1F\u68C4\u5F15\u5C0E\u63A2\u7D22\u7684\u6838\u5FC3\u6A5F\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "\u505C\u6EEF\u901A\u5E38\u610F\u5473\u8457\u6A21\u7CCA\u6E2C\u8A66\u5668\u88AB\u67D0\u500B\u8B8A\u7570\u7121\u6CD5\u6EFF\u8DB3\u7684\u6AA2\u67E5\u64CB\u4F4F\uFF08\u9B54\u8853\u503C\u3001\u6821\u9A57\u548C\u6216\u8907\u96DC\u7D50\u69CB\uFF09\u3002\u5BE6\u52D9\u56DE\u61C9\u5305\u62EC\u66F4\u8C50\u5BCC\u7684\u7A2E\u5B50\u3001\u671F\u5F85\u7B26\u8A18\u7684\u5B57\u5178\u3001\u7D50\u69CB\u611F\u77E5\u8B8A\u7570\uFF0C\u6216\u7528\u6C42\u89E3\u5668\u8D8A\u904E\u969C\u7919\u7684\u6DF7\u5408\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u2014\u2014\u800C\u4E0D\u662F\u628A\u505C\u6EEF\u7576\u6210\u6B63\u78BA\u6027\u7684\u8B49\u660E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6574\u6578\uFF0F\u908A\u754C\u66FF\u63DB\u904B\u7B97\u5B50",
+            "text": "<p>\u8A31\u591A\u6A21\u7CCA\u6E2C\u8A66\u5668\u5305\u542B\u4E00\u500B\u8B8A\u7570\u904B\u7B97\u5B50\uFF0C\u6703\u628A\u591A\u4F4D\u5143\u7D44\u6574\u6578\u6B04\u4F4D\u8986\u5BEB\u6210\u50CF 0\u3001-1 \u6216 INT_MAX \u9019\u6A23\u7684\u503C\u3002\u70BA\u4F55\u504F\u597D\u9019\u4E9B\u7279\u5B9A\u7684\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u908A\u754C\u503C\u8207\u6975\u7AEF\u503C\u7279\u5225\u5BB9\u6613\u66B4\u9732\u5DEE\u4E00\uFF08off-by-one\uFF09\u3001\u6EA2\u4F4D\u8207\u6B63\u8CA0\u865F\u8655\u7406\u7684\u932F\u8AA4\uFF0C\u6240\u4EE5\u5617\u8A66\u5B83\u5011\u6BD4\u7D14\u96A8\u6A5F\u6574\u6578\u66F4\u6709\u6210\u6548",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u754C\u503C\u7784\u6E96\u6574\u6578\u932F\u8AA4\u7FA4\u805A\u7684\u908A\u7DE3\u60C5\u6CC1\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u503C\u4FDD\u8B49\u80FD\u6EFF\u8DB3\u4EFB\u4F55\u6821\u9A57\u548C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u8207\u6821\u9A57\u548C\u7121\u95DC\uFF1B\u5B83\u5011\u7784\u6E96\u7684\u662F\u6574\u6578\u908A\u7DE3\u60C5\u6CC1\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u4F7F\u8F38\u5165\u6A94\u6848\u66F4\u5C0F",
+                "fraction": 0,
+                "feedback": "\u66FF\u63DB\u6574\u6578\u4E0D\u6703\u7E2E\u5C0F\u8F38\u5165\uFF1B\u91CD\u9EDE\u5728\u65BC\u5BB9\u6613\u5F15\u767C\u932F\u8AA4\u7684\u908A\u7DE3\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\u552F\u4E00\u80FD\u751F\u6210\u7684\u503C",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u80FD\u7522\u751F\u8A31\u591A\u503C\uFF1B\u908A\u754C\u503C\u53EA\u662F\u7279\u5225\u5BB9\u6613\u63ED\u9732\u932F\u8AA4\u800C\u503C\u5F97\u5617\u8A66\u7684\u9078\u64C7\u3002"
+              }
+            ],
+            "generalFeedback": "\u6574\u6578\u66FF\u63DB\u8B8A\u7570\u523B\u610F\u6CE8\u5165\u908A\u754C\u8207\u6975\u7AEF\u503C\uFF080\u30011\u3001-1\u3001\u6700\u5927\uFF0F\u6700\u5C0F\u503C\u3001\u9130\u8FD1\u7684 2 \u7684\u51AA\u6B21\uFF09\uFF0C\u56E0\u70BA\u932F\u8AA4\u2014\u2014\u5DEE\u4E00\u932F\u8AA4\u3001\u6EA2\u4F4D\u3001\u6709\u865F\uFF0F\u7121\u865F\u6DF7\u6DC6\u2014\u2014\u50BE\u5411\u7FA4\u805A\u5728\u9019\u4E9B\u908A\u7DE3\u3002\u5617\u8A66\u5B83\u5011\u6BD4\u5747\u52FB\u96A8\u6A5F\u53D6\u6A23\u6574\u6578\u66F4\u6709\u6210\u6548\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6821\u9A57\u548C\u80FD\u64CA\u6557\u5929\u771F\u7684\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66",
+            "text": "<p>\u67D0\u5256\u6790\u5668\u6703\u5148\u9A57\u8B49\u8F38\u5165\u7684 CRC \u6821\u9A57\u548C\uFF0C\u82E5\u5931\u6557\u5C31\u7ACB\u5373\u62D2\u7D55\u8A72\u8F38\u5165\u3002\u70BA\u4EC0\u9EBC\u9019\u6703\u64CA\u6557\u5929\u771F\u7684\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\uFF0C\u800C\u771F\u6B63\u6709\u5E6B\u52A9\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5E7E\u4E4E\u6BCF\u500B\u8B8A\u7570\u90FD\u6703\u7834\u58DE\u6821\u9A57\u548C\uFF0C\u5C0E\u81F4\u8F38\u5165\u5728\u62B5\u9054\u66F4\u6DF1\u7A0B\u5F0F\u78BC\u524D\u5C31\u88AB\u62D2\u7D55\uFF1B\u6709\u5E6B\u52A9\u7684\u662F\u5728\u6E2C\u8A66\u652F\u67B6\u4E2D\u79FB\u9664\u8A72\u6AA2\u67E5\uFF0C\u6216\u7528\u8986\u84CB\u7387\u5C0E\u5411\uFF0F\u5B57\u5178\uFF0F\u7B26\u865F\u57F7\u884C\u7B49\u80FD\u6EFF\u8DB3\u5B83\u7684\u6280\u8853",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u6AA2\u67E5\u662F\u5168\u6709\u5168\u7121\u7684\u95DC\u5361\uFF1B\u5BE6\u52D9\u4F5C\u6CD5\u5E38\u662F\u5728\u6A21\u7CCA\u6E2C\u8A66\u5EFA\u7F6E\u4E2D\u505C\u7528\u5B83\uFF0C\u6216\u7528\u80FD\u7522\u751F\u6709\u6548\u6821\u9A57\u548C\u7684\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u6821\u9A57\u548C\u4F7F\u7A0B\u5F0F\u8DD1\u5F97\u66F4\u5FEB\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u6642\u9593\u8B8A\u5C11\u2014\u2014\u589E\u52A0 CPU \u6838\u5FC3\u5373\u53EF\u89E3\u6C7A",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u8B8A\u7570\u5F8C\u7684\u8F38\u5165\u7121\u6CD5\u901A\u904E\u6AA2\u67E5\uFF0C\u800C\u975E\u57F7\u884C\u6642\u9593\uFF1B\u66F4\u591A\u6838\u5FC3\u7121\u6CD5\u8B93\u96A8\u6A5F\u8B8A\u7570\u6EFF\u8DB3\u6821\u9A57\u548C\u3002"
+              },
+              {
+                "text": "\u55AE\u9760\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5C31\u80FD\u8F15\u6613\u70BA\u6BCF\u500B\u8F38\u5165\u7B97\u51FA\u6B63\u78BA\u7684\u6821\u9A57\u548C",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5C0E\u5411\u4E26\u4E0D\u6703\u8A08\u7B97\u6821\u9A57\u548C\uFF1B\u55AE\u4E00\u901A\u904E\uFF0F\u5931\u6557\u7684\u6AA2\u67E5\u5E7E\u4E4E\u4E0D\u63D0\u4F9B\u68AF\u5EA6\u53EF\u5FAA\u3002\u9019\u662F\u8A87\u5927\u4E4B\u8A5E\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u8FA6\u6CD5\u6709\u5E6B\u52A9\u2014\u2014\u9019\u985E\u7A0B\u5F0F\u78BC\u6839\u672C\u7121\u6CD5\u88AB\u6A21\u7CCA\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u53EF\u4EE5\u88AB\u6A21\u7CCA\u6E2C\u8A66\u7684\uFF1A\u5728\u652F\u67B6\u4E2D\u505C\u7528\u8A72\u6AA2\u67E5\uFF0C\u6216\u4F7F\u7528\u5B57\u5178\uFF0F\u7B26\u865F\u57F7\u884C\uFF0C\u90FD\u662F\u6A19\u6E96\u7684\u88DC\u6551\u624B\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "\u6821\u9A57\u548C\u95DC\u5361\u662F\u4E00\u500B\u55AE\u4E00\u5206\u652F\uFF0C\u5E7E\u4E4E\u6240\u6709\u96A8\u6A5F\u8B8A\u7570\u90FD\u6703\u5931\u6557\uFF0C\u56E0\u6B64\u6A21\u7CCA\u6E2C\u8A66\u5668\u6C38\u9060\u62B5\u9054\u4E0D\u4E86\u5176\u5F8C\u7684\u908F\u8F2F\uFF0C\u8986\u84CB\u7387\u56DE\u994B\u4E5F\u5E6B\u52A9\u6709\u9650\uFF08\u672C\u8CEA\u4E0A\u662F\u5168\u6709\u5168\u7121\uFF09\u3002\u5E38\u898B\u88DC\u6551\uFF1A\u5728\u6A21\u7CCA\u6E2C\u8A66\u652F\u67B6\u5167\u79FB\u9664\u6216\u4FEE\u6B63\u6821\u9A57\u548C\uFF0C\u4F7F\u4EFB\u4F55\u8F38\u5165\u90FD\u80FD\u901A\u904E\uFF1B\u7528\u5B57\u5178\u63D0\u4F9B\u6240\u9700\u5E38\u6578\uFF1B\u6216\u7528\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u6C42\u89E3\u51FA\u6709\u6548\u6821\u9A57\u548C\u3002\u55AE\u9760\u8986\u84CB\u7387\u5C0E\u5411\u4E26\u4E0D\u6703\u795E\u5947\u5730\u6EFF\u8DB3\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9B54\u8853\u4F4D\u5143\u7D44\u6BD4\u8F03\u8207\u8986\u84CB\u7387\u68AF\u5EA6",
+            "text": "<p>\u5C0D\u65BC 32 \u4F4D\u5143\u8F38\u5165\u4E0A\u7684\u5B88\u885B <code>if (x == 0xDEADBEEF)</code>\uFF0C\u70BA\u4EC0\u9EBC\u55AE\u7D14\u7684\u908A\u8986\u84CB\u7387\u662F\u8584\u5F31\u7684\u5F15\u5C0E\uFF0C\u800C\u4EC0\u9EBC\u80FD\u6539\u5584\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u6BD4\u8F03\u662F\u5168\u6709\u5168\u7121\uFF0C\u56E0\u6B64\u671D\u5E38\u6578\u903C\u8FD1\u7684\u90E8\u5206\u9032\u5C55\u5F97\u4E0D\u5230\u65B0\u8986\u84CB\u7387\uFF1B\u6BD4\u8F03\u8FFD\u8E64\u63D2\u6A01\uFF08\u628A\u6BD4\u8F03\u62C6\u6210\u9010\u4F4D\u5143\u7D44\uFF0F\u503C\u5256\u6790\uFF09\u6216\u5B57\u5178\u80FD\u88DC\u4E0A\u7F3A\u5931\u7684\u68AF\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u68AF\u5EA6\u6642\u6A21\u7CCA\u6E2C\u8A66\u5668\u7B49\u65BC\u5728\u731C 2\xB3\xB2 \u5206\u4E4B\u4E00\uFF1B\u6BD4\u8F03\u8986\u84CB\u7387\u6216\u5B57\u5178\u7D66\u5B83\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u908A\u8986\u84CB\u7387\u5DF2\u7D93\u5C0D\u6BCF\u500B\u76F8\u7B26\u7684\u4F4D\u5143\u7D44\u7D66\u4E88\u734E\u52F5\uFF0C\u56E0\u6B64\u4E0D\u9700\u984D\u5916\u5354\u52A9",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u7121\u8AD6\u5982\u4F55\u53EA\u7522\u751F\u4E00\u689D\u908A\uFF1B\u55AE\u7D14\u7684\u908A\u8986\u84CB\u7387\u4E0D\u6703\u734E\u52F5\u76F8\u7B26\u7684\u500B\u5225\u4F4D\u5143\u7D44\u3002"
+              },
+              {
+                "text": "\u8A72\u5B88\u885B\u7121\u6CD5\u88AB\u6EFF\u8DB3\uFF0C\u6240\u4EE5\u6A21\u7CCA\u6E2C\u8A66\u5FC5\u9808\u7565\u904E\u5B83",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u53EF\u6EFF\u8DB3\u7684\uFF08x = 0xDEADBEEF\uFF09\uFF1B\u554F\u984C\u5728\u65BC\u5F15\u5C0E\u6A21\u7CCA\u6E2C\u8A66\u5668\u62B5\u9054\u90A3\u88E1\uFF0C\u800C\u6BD4\u8F03\u8986\u84CB\u7387\uFF0F\u5B57\u5178\u6B63\u662F\u505A\u9019\u4EF6\u4E8B\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u7387\u56DE\u994B\u4F7F\u96A8\u6A5F\u731C\u51FA\u9019 4 \u500B\u4F4D\u5143\u7D44\u8B8A\u5F97\u5F88\u5FEB",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u731C\u6E2C\u4ECD\u7D04\u70BA 2\xB3\xB2 \u5206\u4E4B\u4E00\uFF1B\u89E3\u6CD5\u662F\u63D0\u4F9B\u68AF\u5EA6\u7684\u63D2\u6A01\uFF0C\u800C\u975E\u66F4\u5FEB\u7684\u731C\u6E2C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BEC\u6BD4\u8F03\u662F\u4E00\u9053\u61F8\u5D16\uFF1A\u8F38\u5165\u8981\u561B\u5B8C\u5168\u6B63\u78BA\uFF08\u65B0\u908A\uFF09\u3001\u8981\u561B\u4E0D\u5C0D\uFF08\u7121\u8A0A\u865F\uFF09\uFF0C\u56E0\u6B64\u6A21\u7CCA\u6E2C\u8A66\u5668\u6C92\u6709\u68AF\u5EA6\u53EF\u6500\u722C\uFF0C\u96A8\u6A5F\u641C\u5C0B\u9762\u5C0D\u7D04 2\xB3\xB2 \u7684\u6A5F\u7387\u3002\u6BD4\u8F03\u8FFD\u8E64\u63D2\u6A01\uFF08\u4F8B\u5982 laf-intel \u5F0F\u628A 4 \u4F4D\u5143\u7D44\u6BD4\u8F03\u62C6\u6210\u9010\u4F4D\u5143\u7D44\u6BD4\u8F03\uFF0C\u6216 libFuzzer \u7684\u503C\u5256\u6790 value profiling\uFF09\u6703\u734E\u52F5\u66F4\u591A\u4F4D\u5143\u7D44\u76F8\u7B26\uFF0C\u800C\u5B57\u5178\u5247\u76F4\u63A5\u63D0\u4F9B\u8A72\u5E38\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DFA\u5C64\u89F8\u53CA\u8207\u6DF1\u5C64\u689D\u4EF6",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6A21\u7CCA\u6E2C\u8A66\u64C5\u9577\u6DFA\u5C64\u932F\u8AA4\uFF0C\u537B\u4E0D\u64C5\u9577\u85CF\u5728\u6DF1\u5C64\u3001\u7279\u5B9A\u689D\u4EF6\u4E4B\u5F8C\u7684\u932F\u8AA4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u96A8\u6A5F\u8B8A\u7570\u5BB9\u6613\u57F7\u884C\u5230\u6DFA\u5C64\u7A0B\u5F0F\u78BC\uFF0C\u537B\u4E0D\u592A\u53EF\u80FD\u6EFF\u8DB3\u4E00\u9577\u4E32\u7279\u5B9A\u689D\u4EF6\uFF1B\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u80FD\u6C42\u89E3\u9019\u985E\u9650\u5236\u5F0F\uFF0C\u4F46\u9762\u81E8\u8DEF\u5F91\u7206\u70B8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A21\u7CCA\u6E2C\u8A66\u4FBF\u5B9C\u5730\u62B5\u9054\u6DFA\u5C64\u7A0B\u5F0F\u78BC\uFF1B\u6DF1\u5C64\u7279\u5B9A\u5B88\u885B\u9700\u8981\u9650\u5236\u5F0F\u6C42\u89E3\uFF0C\u800C\u5F8C\u8005\u6709\u5176\u81EA\u8EAB\u7684\u64F4\u5145\u4EE3\u50F9\u3002"
+              },
+              {
+                "text": "\u6A21\u7CCA\u6E2C\u8A66\u6703\u7AAE\u8209\u63A2\u7D22\u6240\u6709\u8DEF\u5F91\uFF0C\u56E0\u6B64\u6DF1\u5EA6\u7121\u95DC\u7DCA\u8981",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u4E26\u975E\u7AAE\u8209\u63A2\u7D22\uFF1B\u6DF1\u5C64\u7279\u5B9A\u689D\u4EF6\u6B63\u662F\u5B83\u5403\u529B\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u6DF1\u5C64\u689D\u4EF6\u7E3D\u662F\u4E0D\u53EF\u884C\uFF0C\u56E0\u6B64\u6C92\u6709\u6280\u8853\u80FD\u62B5\u9054\u5B83\u5011",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u901A\u5E38\u662F\u53EF\u884C\u7684\uFF1B\u96E3\u8655\u5728\u65BC\u7522\u751F\u6EFF\u8DB3\u5B83\u5011\u7684\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u57F7\u884C\u80FD\u62B5\u9054\u6DF1\u5C64\u689D\u4EF6\u4E14\u6C92\u6709\u4EFB\u4F55\u64F4\u5145\u9650\u5236",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u57F7\u884C\u6709\u5E6B\u52A9\uFF0C\u4F46\u53D7\u8DEF\u5F91\u7206\u70B8\u9650\u5236\uFF1B\u9019\u662F\u8A87\u5927\u4E4B\u8A5E\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u7CCA\u6E2C\u8A66\u4FBF\u5B9C\u5730\u4E1F\u51FA\u5927\u91CF\u8F38\u5165\uFF0C\u56E0\u6B64\u5BB9\u6613\u547D\u4E2D\u6DFA\u5C64\u3001\u6613\u62B5\u9054\u7684\u6545\u969C\u3002\u4F46\u85CF\u5728\u6578\u9053\u7CBE\u78BA\u6AA2\u67E5\u4E4B\u5F8C\u7684\u932F\u8AA4\u9700\u8981\u540C\u6642\u6EFF\u8DB3\u6240\u6709\u6AA2\u67E5\uFF0C\u96A8\u6A5F\u8B8A\u7570\u9BAE\u5C11\u505A\u5230\u3002\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u80FD\u76F4\u63A5\u6C42\u89E3\u90A3\u4E9B\u9650\u5236\u5F0F\uFF0C\u4EE3\u50F9\u662F\u8DEF\u5F91\u7206\u70B8\u2014\u2014\u9019\u6B63\u662F\u6DF7\u5408\u5F0F\uFF08\u6A21\u7CCA\u6E2C\u8A66\uFF0B\u7B26\u865F\uFF09\u65B9\u6CD5\u5B58\u5728\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5B9A\u6E96\u5247\u7684\u9650\u5236\uFF1A\u7121\u8072\u7684\u908F\u8F2F\u932F\u8AA4",
+            "text": "<p>\u67D0\u51FD\u5F0F\u56DE\u50B3\u4E00\u500B\u7D30\u5FAE\u932F\u8AA4\u7684\u7D50\u679C\uFF0C\u4F46\u5F9E\u4E0D\u7576\u6A5F\u3001\u5361\u6B7B\u6216\u89F8\u767C\u6D88\u6BD2\u5668\u3002\u70BA\u4EC0\u9EBC\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EF\u80FD\u6F0F\u6389\u9019\u500B\u932F\u8AA4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u7684\u5224\u5B9A\u6E96\u5247\u53EA\u5075\u6E2C\u53EF\u89C0\u5BDF\u7684\u5931\u6557\uFF1B\u9664\u975E\u52A0\u5165\u66F4\u5F37\u7684\u5224\u5B9A\u6E96\u5247\uFF08\u65B7\u8A00\u3001\u53C3\u8003\uFF0F\u5DEE\u5206\u6AA2\u67E5\uFF09\uFF0C\u5426\u5247\u300C\u932F\u8AA4\u4F46\u4E0D\u7576\u6A5F\u300D\u7684\u8F38\u51FA\u6703\u88AB\u653E\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u5931\u6557\u8A0A\u865F\uFF0C\u932F\u8AA4\u5C0D\u9810\u8A2D\u5224\u5B9A\u6E96\u5247\u5C31\u662F\u96B1\u5F62\u7684\u3002"
+              },
+              {
+                "text": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u81EA\u52D5\u77E5\u9053\u6BCF\u500B\u8F38\u5165\u7684\u6B63\u78BA\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E26\u4E0D\u77E5\u9053\uFF1B\u90A3\u6B63\u662F\u6A21\u7CCA\u6E2C\u8A66\u9762\u5C0D\u908F\u8F2F\u932F\u8AA4\u6642\u7684\u5224\u5B9A\u6E96\u5247\u554F\u984C\uFF08oracle problem\uFF09\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u7387\u56DE\u994B\u6703\u6A19\u8A18\u4EFB\u4F55\u4E0D\u6B63\u78BA\u7684\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u91CF\u6E2C\u7684\u662F\u54EA\u4E9B\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\uFF0C\u800C\u975E\u7D50\u679C\u662F\u5426\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u6D88\u6BD2\u5668\u6703\u5075\u6E2C\u6240\u6709\u4E0D\u6B63\u78BA\u7684\u56DE\u50B3\u503C",
+                "fraction": 0,
+                "feedback": "\u6D88\u6BD2\u5668\u5075\u6E2C\u7684\u662F\u8A18\u61B6\u9AD4\uFF0F\u672A\u5B9A\u7FA9\u884C\u70BA\u932F\u8AA4\uFF0C\u800C\u975E\u4E00\u822C\u908F\u8F2F\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u7CCA\u6E2C\u8A66\u4F9D\u8CF4\u81EA\u52D5\u5224\u5B9A\u6E96\u5247\uFF0C\u800C\u5B83\u9810\u8A2D\u53EA\u6355\u6349\u7576\u6A5F\u3001\u5361\u6B7B\u8207\u6D88\u6BD2\u5668\uFF0F\u65B7\u8A00\u5931\u6557\u3002\u4E00\u500B\u7522\u751F\u300C\u932F\u8AA4\u4F46\u5F62\u5F0F\u826F\u597D\u300D\u7D50\u679C\u7684\u908F\u8F2F\u932F\u8AA4\u4E0D\u6703\u5F15\u767C\u4EFB\u4F55\u6B64\u985E\u8A0A\u865F\u3002\u8981\u6355\u6349\u5B83\uFF0C\u4F60\u9700\u8981\u66F4\u5F37\u7684\u5224\u5B9A\u6E96\u5247\uFF1A\u5167\u5D4C\u7684\u65B7\u8A00\uFF0F\u4E0D\u8B8A\u5F0F\uFF0C\u6216\u5C0D\u53C3\u8003\u5BE6\u4F5C\u9032\u884C\u5DEE\u5206\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A9E\u6599\u5EAB\u6700\u5C0F\u5316",
+            "text": "<p><strong>\u8A9E\u6599\u5EAB\u6700\u5C0F\u5316\uFF08corpus minimization\uFF0C\u4F8B\u5982 afl-cmin\uFF09</strong>\u7684\u76EE\u6A19\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u8A9E\u6599\u5EAB\u7E2E\u6E1B\u70BA\u4E00\u500B\u8F03\u5C0F\u3001\u80FD\u4FDD\u6301\u76F8\u540C\u6574\u9AD4\u8986\u84CB\u7387\u7684\u8F38\u5165\u5B50\u96C6\uFF0C\u8B93\u4E4B\u5F8C\u7684\u6A21\u7CCA\u6E2C\u8A66\u5C11\u82B1\u6642\u9593\u5728\u5197\u9918\u7A2E\u5B50\u4E0A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5728\u7DAD\u6301\u8986\u84CB\u7387\u7684\u540C\u6642\u4FEE\u526A\u5197\u9918\u7A2E\u5B50\u3002"
+              },
+              {
+                "text": "\u628A\u55AE\u4E00\u7576\u6A5F\u8F38\u5165\u7E2E\u5230\u4ECD\u6703\u7576\u6A5F\u7684\u6700\u5C0F\u4F4D\u5143\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u6848\u4F8B\u6700\u5C0F\u5316\uFF08afl-tmin\uFF09\uFF0C\u800C\u975E\u8A9E\u6599\u5EAB\u6700\u5C0F\u5316\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u6240\u6709\u7A2E\u5B50\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u5F9E\u7A7A\u7684\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u6700\u5C0F\u5316\u4FDD\u7559\u4E00\u500B\u80FD\u7DAD\u6301\u8986\u84CB\u7387\u7684\u5B50\u96C6\uFF0C\u800C\u975E\u4EC0\u9EBC\u90FD\u4E0D\u7559\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u7A2E\u5B50\u5408\u4F75\u6210\u4E00\u500B\u5927\u6A94\u6848",
+                "fraction": 0,
+                "feedback": "\u5B83\u9078\u51FA\u4E00\u500B\u6700\u5C0F\u7684\u7368\u7ACB\u8F38\u5165\u96C6\u5408\uFF1B\u4E26\u4E0D\u628A\u5B83\u5011\u5408\u4F75\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A9E\u6599\u5EAB\u6700\u5C0F\u5316\u9078\u51FA\u4ECD\u80FD\u9054\u6210\u8A9E\u6599\u5EAB\u8986\u84CB\u7387\u7684\u6700\u5C0F\u5B50\u96C6\uFF0C\u4E1F\u68C4\u4E0D\u589E\u52A0\u65B0\u6771\u897F\u7684\u8F38\u5165\u3002\u66F4\u7CBE\u7C21\u7684\u8A9E\u6599\u5EAB\u4EE3\u8868\u6A21\u7CCA\u6E2C\u8A66\u5668\u5FAA\u74B0\u5F97\u66F4\u5FEB\uFF0C\u4E5F\u5C11\u6D6A\u8CBB\u5FC3\u529B\u5728\u5197\u9918\u7A2E\u5B50\u4E0A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u6848\u4F8B\u6700\u5C0F\u5316",
+            "text": "<p>\u627E\u5230\u4E00\u500B\u7576\u6A5F\u5F8C\uFF0C<strong>\u6E2C\u8A66\u6848\u4F8B\u6700\u5C0F\u5316\uFF08test-case minimization\uFF0C\u4F8B\u5982 afl-tmin\uFF09</strong>\u6703\u505A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53CD\u8986\u4FEE\u526A\u7576\u6A5F\u8F38\u5165\uFF0C\u5F97\u5230\u4ECD\u80FD\u91CD\u73FE\u7576\u6A5F\u7684\u6700\u5C0F\uFF0F\u6700\u7C21\u5F62\u5F0F\uFF0C\u4EE5\u5229\u9664\u932F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5C0F\u5316\u5F8C\u7684\u91CD\u73FE\u6848\u4F8B\u80FD\u5B64\u7ACB\u51FA\u771F\u6B63\u89F8\u767C\u932F\u8AA4\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u5F9E\u6574\u500B\u8A9E\u6599\u5EAB\u79FB\u9664\u5197\u9918\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8A9E\u6599\u5EAB\u6700\u5C0F\u5316\uFF1B\u6E2C\u8A66\u6848\u4F8B\u6700\u5C0F\u5316\u4F5C\u7528\u65BC\u55AE\u4E00\u7576\u6A5F\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u4FEE\u6B63\u8A72\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u5B83\u7E2E\u5C0F\u91CD\u73FE\u6848\u4F8B\uFF1B\u4E26\u4E0D\u4FEE\u88DC\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5728\u8F38\u5165\u4E2D\u52A0\u5165\u984D\u5916\u4F4D\u5143\u7D44\u4F7F\u7576\u6A5F\u66F4\u53EF\u9760",
+                "fraction": 0,
+                "feedback": "\u6700\u5C0F\u5316\u662F\u79FB\u9664\u4F4D\u5143\u7D44\u4EE5\u7C21\u5316\uFF1B\u4E26\u4E0D\u70BA\u8F38\u5165\u52A0\u6599\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u6848\u4F8B\uFF08\u7576\u6A5F\uFF09\u6700\u5C0F\u5316\u53D6\u4E00\u500B\u7576\u6A5F\u8F38\u5165\uFF0C\u5728\u7576\u6A5F\u4ECD\u80FD\u91CD\u73FE\u7684\u524D\u63D0\u4E0B\u53CD\u8986\u79FB\u9664\u6216\u7C21\u5316\u4F4D\u5143\u7D44\uFF0C\u5F97\u5230\u4E00\u500B\u5C0F\u800C\u805A\u7126\u7684\u91CD\u73FE\u6848\u4F8B\uFF0C\u4F7F\u932F\u8AA4\u7684\u6839\u56E0\u5206\u6790\u5BB9\u6613\u8A31\u591A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u751F\u6210\u5F0F\u4F55\u6642\u52DD\u904E\u8B8A\u7570\u5F0F",
+            "text": "<p>\u5C0D\u54EA\u4E00\u7A2E\u76EE\u6A19\u800C\u8A00\uFF0C\u751F\u6210\u5F0F\uFF08\u6587\u6CD5\u5F0F\uFF09\u6A21\u7CCA\u6E2C\u8A66\u6700\u53EF\u80FD\u52DD\u904E\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5177\u6709\u50F5\u786C\u3001\u9AD8\u5EA6\u7D50\u69CB\u5316\u8F38\u5165\u683C\u5F0F\u7684\u7DE8\u8B6F\u5668\u6216\u5354\u5B9A\u5256\u6790\u5668\uFF0C\u96A8\u6A5F\u8B8A\u7570\u5E7E\u4E4E\u7E3D\u662F\u7522\u751F\u6703\u88AB\u65E9\u65E9\u62D2\u7D55\u7684\u7121\u6548\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6587\u6CD5\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u80FD\u7522\u751F\u62B5\u9054\u6DF1\u5C64\u908F\u8F2F\u7684\u6709\u6548\u7D50\u69CB\u5316\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u63A5\u53D7\u4EFB\u610F\u3001\u7121\u7D50\u69CB\u4F4D\u5143\u7D44\u5718\u7684\u5E38\u5F0F",
+                "fraction": 0,
+                "feedback": "\u5C0D\u7121\u7D50\u69CB\u8F38\u5165\uFF0C\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u8868\u73FE\u826F\u597D\uFF0C\u6587\u6CD5\u5E6B\u52A9\u4E0D\u5927\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u76EE\u6A19\uFF0C\u56E0\u70BA\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u5168\u9762\u512A\u8D8A",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u65B9\u6CD5\u7686\u975E\u5168\u9762\u6700\u4F73\uFF1B\u751F\u6210\u5F0F\u5C08\u9580\u5728\u7D50\u69CB\u5316\u683C\u5F0F\u4E0A\u767C\u5149\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u53EF\u7528\u5224\u5B9A\u6E96\u5247\u7684\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u6E96\u5247\u7684\u53EF\u7528\u6027\u8207\u300C\u8B8A\u7570\u5C0D\u751F\u6210\u300D\u7684\u9078\u64C7\u662F\u6B63\u4EA4\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u8F38\u5165\u5FC5\u9808\u9075\u5B88\u56B4\u683C\u6587\u6CD5\uFF08\u4F9B\u7DE8\u8B6F\u5668\u7684\u539F\u59CB\u78BC\u3001\u4F9B\u5354\u5B9A\u7684\u8A0A\u606F\uFF09\u6642\uFF0C\u96A8\u6A5F\u4F4D\u5143\u7D44\u8B8A\u7570\u7D55\u5927\u591A\u6578\u6703\u88AB\u524D\u7AEF\u62D2\u7D55\u3002\u751F\u6210\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u4F9D\u6587\u6CD5\u5EFA\u69CB\u8F38\u5165\uFF0C\u56E0\u6B64\u80FD\u6301\u7E8C\u7522\u751F\u6709\u6548\u8F38\u5165\uFF0C\u57F7\u884C\u5230\u85CF\u6709\u6709\u8DA3\u932F\u8AA4\u7684\u6DF1\u5C64\u8A9E\u610F\u908F\u8F2F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DF7\u5408\u5F0F\uFF08\u7B26\u865F\u5354\u52A9\uFF09\u6A21\u7CCA\u6E2C\u8A66",
+            "text": "<p>\u5728\u6DF7\u5408\u5F0F\u6A21\u7CCA\u6E2C\u8A66\uFF08\u4F8B\u5982 Driller \u5F0F\uFF09\u4E2D\uFF0C\u5177\u9AD4\u7B26\u865F\uFF0F\u7B26\u865F\u57F7\u884C\u5982\u4F55\u88DC\u8DB3\u7070\u7BB1\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u6A21\u7CCA\u6E2C\u8A66\u5668\u5728\u67D0\u500B\u96E3\u95DC\u505C\u6EEF\u6642\uFF0C\u6C42\u89E3\u5668\u8A08\u7B97\u51FA\u6EFF\u8DB3\u8A72\u7279\u5B9A\u5206\u652F\u7684\u8F38\u5165\uFF1B\u65B0\u8F38\u5165\u4EA4\u56DE\u5F8C\uFF0C\u4FBF\u5B9C\u7684\u6A21\u7CCA\u6E2C\u8A66\u4FBF\u53EF\u7E7C\u7E8C\u63A2\u7D22\u5176\u5F8C\u7684\u5340\u57DF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C42\u89E3\u5668\u8D8A\u904E\u72F9\u7A84\u5B88\u885B\uFF0C\u63A5\u8457\u6A21\u7CCA\u6E2C\u8A66\u5668\u518D\u5EA6\u63A5\u624B\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u5668\u5B8C\u5168\u53D6\u4EE3\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF0C\u4E26\u4EE5\u7B26\u865F\u65B9\u5F0F\u63A2\u7D22\u6240\u6709\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7B26\u865F\u57F7\u884C\u53D7\u8DEF\u5F91\u7206\u70B8\u6240\u82E6\uFF1B\u6DF7\u5408\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u9078\u64C7\u6027\u5730\u4F7F\u7528\u5B83\uFF0C\u800C\u975E\u5168\u9762\u53D6\u4EE3\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u5668\u70BA\u6A21\u7CCA\u6E2C\u8A66\u5668\u7522\u751F\u8986\u84CB\u7387\u63D2\u6A01",
+                "fraction": 0,
+                "feedback": "\u63D2\u6A01\u4F86\u81EA\u7DE8\u8B6F\u5668\uFF0F\u5DE5\u5177\u93C8\uFF1B\u6C42\u89E3\u5668\u7684\u89D2\u8272\u662F\u6EFF\u8DB3\u56F0\u96E3\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u5668\u53D6\u4EE3\u6D88\u6BD2\u5668\u4F5C\u70BA\u932F\u8AA4\u5224\u5B9A\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u6E96\u5247\u4ECD\u662F\u7576\u6A5F\uFF0F\u6D88\u6BD2\u5668\uFF1B\u6C42\u89E3\u5668\u7684\u5DE5\u4F5C\u662F\u7522\u751F\u8D8A\u904E\u56F0\u96E3\u5206\u652F\u7684\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u5408\u5F0F\u6A21\u7CCA\u6E2C\u8A66\u767C\u63EE\u5404\u6280\u8853\u4E4B\u9577\uFF1A\u6A21\u7CCA\u6E2C\u8A66\u5668\u4FBF\u5B9C\u4E14\u5EE3\u6CDB\u5730\u63A2\u7D22\uFF0C\u7576\u5B83\u5361\u5728\u67D0\u500B\u72F9\u7A84\u689D\u4EF6\uFF08\u9B54\u8853\u503C\u3001\u6821\u9A57\u548C\uFF09\u6642\uFF0C\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u6C42\u89E3\u8A72\u5206\u652F\u7684\u9650\u5236\u5F0F\u4EE5\u7522\u751F\u901A\u904E\u7684\u8F38\u5165\u3002\u63A7\u5236\u6B0A\u4EA4\u56DE\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF0C\u8B93\u5B83\u63A2\u7D22\u65B0\u62B5\u9054\u7684\u5340\u57DF\u2014\u2014\u4E26\u8B39\u614E\u5730\u4F7F\u7528\u6C42\u89E3\u5668\u4EE5\u907F\u514D\u8DEF\u5F91\u7206\u70B8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ASan \u8207 UBSan \u7684\u89D2\u8272",
+            "text": "<p>\u5728\u6A21\u7CCA\u6E2C\u8A66\u6642\uFF0C<strong>AddressSanitizer\uFF08ASan\uFF09</strong>\u8207<strong>UndefinedBehaviorSanitizer\uFF08UBSan\uFF09</strong>\u7684\u89D2\u8272\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "ASan \u91DD\u5C0D\u8A18\u61B6\u9AD4\u5B89\u5168\u932F\u8AA4\uFF08\u8D8A\u754C\u5B58\u53D6\u3001\u91CB\u653E\u5F8C\u4F7F\u7528\uFF09\uFF1BUBSan \u91DD\u5C0D\u672A\u5B9A\u7FA9\u884C\u70BA\uFF08\u4F8B\u5982\u6709\u865F\u6574\u6578\u6EA2\u4F4D\u3001\u7121\u6548\u4F4D\u79FB\u3001\u672A\u5C0D\u9F4A\u6307\u6A19\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5011\u5075\u6E2C\u4E0D\u540C\u3001\u4E92\u88DC\u7684\u6545\u969C\u985E\u5225\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5075\u6E2C\u5B8C\u5168\u76F8\u540C\u7684\u932F\u8AA4\uFF0C\u56E0\u6B64\u5169\u500B\u4E00\u8D77\u7528\u662F\u591A\u9918\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6DB5\u84CB\u4E0D\u540C\u7684\u6545\u969C\u985E\u5225\uFF1B\u540C\u6642\u4F7F\u7528\u80FD\u64F4\u5927\u5224\u5B9A\u6E96\u5247\u6240\u80FD\u6355\u6349\u7684\u7BC4\u570D\u3002"
+              },
+              {
+                "text": "ASan \u5075\u6E2C\u672A\u5B9A\u7FA9\u884C\u70BA\uFF0C\u800C UBSan \u5075\u6E2C\u8A18\u61B6\u9AD4\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u89D2\u8272\u985B\u5012\u4E86\uFF1AASan \u7528\u65BC\u8A18\u61B6\u9AD4\u932F\u8AA4\uFF0CUBSan \u7528\u65BC\u672A\u5B9A\u7FA9\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u7522\u751F\u6A21\u7CCA\u6E2C\u8A66\u8F38\u5165\uFF0C\u800C\u975E\u5075\u6E2C\u6545\u969C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u7522\u751F\u8F38\u5165\uFF1B\u5B83\u5011\u90FD\u662F\u57F7\u884C\u671F\u6545\u969C\u5075\u6E2C\u5668\u3002"
+              }
+            ],
+            "generalFeedback": "ASan \u5C0D\u8A18\u61B6\u9AD4\u5B58\u53D6\u63D2\u6A01\uFF0C\u6355\u6349\u7A7A\u9593\uFF0F\u6642\u9593\u4E0A\u7684\u8A18\u61B6\u9AD4\u5B89\u5168\u9055\u898F\uFF08\u7DE9\u885D\u5340\u6EA2\u4F4D\u3001\u91CB\u653E\u5F8C\u4F7F\u7528\uFF09\u3002UBSan \u6355\u6349\u8A9E\u8A00\u5C64\u7D1A\u7684\u672A\u5B9A\u7FA9\u884C\u70BA\uFF0C\u4F8B\u5982\u6709\u865F\u6EA2\u4F4D\u3001\u8D85\u7BC4\u570D\u4F4D\u79FB\uFF0C\u4EE5\u53CA\u672A\u5C0D\u9F4A\u6216\u7A7A\u6307\u6A19\u7684\u4F7F\u7528\u3002\u5B83\u5011\u91DD\u5C0D\u4E0D\u540C\u7684\u6545\u969C\u985E\u5225\uFF0C\u56E0\u6B64\u5728\u5169\u8005\u4E4B\u4E0B\u9032\u884C\u6A21\u7CCA\u6E2C\u8A66\u6703\u64F4\u5927\u53EF\u5075\u6E2C\u932F\u8AA4\u7684\u96C6\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6A21\u7CCA\u6E2C\u8A66\u4E0D\u8B49\u660E\u6B63\u78BA\u6027",
+            "text": "<p>\u82E5\u6A21\u7CCA\u6E2C\u8A66\u5668\u9577\u6642\u9593\u57F7\u884C\u537B\u627E\u4E0D\u5230\u4EFB\u4F55\u7576\u6A5F\uFF0C\u9019\u5C31\u8B49\u660E\u4E86\u7A0B\u5F0F\u6C92\u6709\u932F\u8AA4\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u627E\u4E0D\u5230\u7576\u6A5F\u53EA\u4EE3\u8868\u5728\u6240\u5617\u8A66\u7684\u8F38\u5165\u4E2D\u6C92\u6709\u627E\u5230\uFF1B\u6A21\u7CCA\u6E2C\u8A66\u7121\u6CD5\u8B49\u660E\u932F\u8AA4\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u53D6\u6A23\u8F38\u5165\u7A7A\u9593\uFF1B\u627E\u4E0D\u5230\u7576\u6A5F\u4E0D\u662F\u6B63\u78BA\u6027\u7684\u8B49\u660E\uFF0C\u56E0\u70BA\u672A\u5617\u8A66\u7684\u8F38\u5165\uFF08\u4EE5\u53CA\u7121\u8072\u7684\u908F\u8F2F\u932F\u8AA4\uFF09\u4ECD\u53EF\u80FD\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u7CCA\u6E2C\u8A66\u662F\u4E00\u7A2E\u6E2C\u8A66\u6280\u8853\uFF1A\u5B83\u80FD\u63ED\u9732\u932F\u8AA4\uFF0C\u537B\u6C38\u9060\u7121\u6CD5\u8B49\u660E\u932F\u8AA4\u4E0D\u5B58\u5728\u3002\u4E00\u6B21\u4E7E\u6DE8\u7684\u57F7\u884C\u53EA\u53CD\u6620\u5BE6\u969B\u63A2\u7D22\u904E\u7684\u8F38\u5165\uFF0C\u4EE5\u53CA\u5224\u5B9A\u6E96\u5247\u770B\u5F97\u898B\u7684\u5931\u6557\uFF1B\u5B83\u5C0D\u672A\u5617\u8A66\u7684\u8F38\u5165\u6216\u7121\u8072\u7684\u908F\u8F2F\u932F\u8AA4\u6BEB\u7121\u4FDD\u8B49\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u503C\u5256\u6790\uFF0F\u6BD4\u8F03\u8986\u84CB\u7387",
+            "text": "<p>\u6BD4\u8F03\u8FFD\u8E64\u63D2\u6A01\uFF08\u62C6\u5206\u591A\u4F4D\u5143\u7D44\u6BD4\u8F03\uFF0C\u6216\u300C\u503C\u5256\u6790\uFF0Fvalue profiling\u300D\uFF09\u80FD\u5E6B\u52A9\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF0C\u662F\u56E0\u70BA\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u66F4\u63A5\u8FD1\u6EFF\u8DB3\u67D0\u6BD4\u8F03\u7684\u8F38\u5165\uFF08\u4F8B\u5982\u66F4\u591A\u4F4D\u5143\u7D44\u76F8\u7B26\uFF09\u7D66\u4E88\u734E\u52F5\uFF0C\u70BA\u641C\u5C0B\u63D0\u4F9B\u539F\u672C\u6B20\u7F3A\u7684\u68AF\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u628A\u5168\u6709\u5168\u7121\u7684\u6BD4\u8F03\u8F49\u70BA\u6F38\u9032\u7684\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u7A0B\u5F0F\u4E2D\u6240\u6709\u7684\u6BD4\u8F03\uFF0C\u4F7F\u6BCF\u500B\u5206\u652F\u90FD\u88AB\u8D70\u5230",
+                "fraction": 0,
+                "feedback": "\u5B83\u5C0D\u6BD4\u8F03\u63D2\u6A01\u4EE5\u53D6\u5F97\u56DE\u994B\uFF1B\u4E26\u4E0D\u5F9E\u7A0B\u5F0F\u908F\u8F2F\u4E2D\u522A\u9664\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u6A21\u7CCA\u6E2C\u8A66\u5668\u5728\u5E38\u6578\u6642\u9593\u5167\u6C42\u89E3\u6BCF\u4E00\u500B\u76F8\u7B49\u5F0F",
+                "fraction": 0,
+                "feedback": "\u5B83\u6539\u5584\u5F15\u5C0E\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u4EFB\u4F55\u4E8B\uFF1B\u6709\u4E9B\u9650\u5236\u5F0F\u4ECD\u9700\u6C42\u89E3\u5668\u3002"
+              },
+              {
+                "text": "\u53D6\u4EE3\u5C0D\u7A2E\u5B50\u8A9E\u6599\u5EAB\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u7A2E\u5B50\u4ECD\u6709\u50F9\u503C\uFF1B\u6BD4\u8F03\u8986\u84CB\u7387\u53EA\u662F\u589E\u6DFB\u66F4\u7D30\u7DFB\u7684\u56DE\u994B\u8A0A\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BEC\u6BD4\u8F03\u901A\u5E38\u53EA\u5728\u5B8C\u5168\u76F8\u7B26\u6642\u624D\u7D66\u56DE\u994B\u3002\u6BD4\u8F03\u8FFD\u8E64\uFF08\u4F8B\u5982 laf-intel \u628A 4 \u4F4D\u5143\u7D44\u6BD4\u8F03\u62C6\u6210\u9010\u4F4D\u5143\u7D44\u6BD4\u8F03\uFF0C\u6216 libFuzzer \u7684\u503C\u5256\u6790\uFF09\u6703\u734E\u52F5\u90E8\u5206\u76F8\u7B26\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u80FD\u671D\u76EE\u6A19\u503C\u6500\u722C\uFF0C\u800C\u975E\u4E00\u6B21\u5168\u90E8\u731C\u5C0D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u652F\u67B6\u8A2D\u8A08\u8207\u78BA\u5B9A\u6027",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6A21\u7CCA\u6E2C\u8A66\u652F\u67B6\uFF08fuzz target\uFF09\u61C9\u8A72<em>\u78BA\u5B9A\u6027\u5730</em>\u628A\u8F38\u5165\u4F4D\u5143\u7D44\u5C0D\u61C9\u5230\u7A0B\u5F0F\u884C\u70BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u78BA\u5B9A\u6027\uFF08\u96A8\u6A5F\u3001\u6642\u9593\u3001\u672A\u521D\u59CB\u5316\u72C0\u614B\uFF09\u6703\u4F7F\u7576\u6A5F\u96E3\u4EE5\u91CD\u73FE\u4E26\u6C61\u67D3\u8986\u84CB\u7387\u56DE\u994B\uFF0C\u56E0\u6B64\u76F8\u540C\u8F38\u5165\u61C9\u7E3D\u662F\u6709\u76F8\u540C\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u78BA\u5B9A\u6027\u4F7F\u8986\u84CB\u7387\u56DE\u994B\u6709\u610F\u7FA9\u4E14\u7576\u6A5F\u53EF\u91CD\u73FE\u3002"
+              },
+              {
+                "text": "\u78BA\u5B9A\u6027\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u80FD\u7565\u904E\u57F7\u884C\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "\u76EE\u6A19\u4ECD\u5FC5\u9808\u57F7\u884C\u6BCF\u500B\u8F38\u5165\uFF1B\u78BA\u5B9A\u6027\u53EA\u662F\u8B93\u7D50\u679C\u53EF\u9760\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u78BA\u5B9A\u6027\u7684\u76EE\u6A19\u624D\u6703\u6709\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u975E\u78BA\u5B9A\u6027\u7684\u76EE\u6A19\u4E5F\u6709\u932F\u8AA4\uFF1B\u78BA\u5B9A\u6027\u53EA\u662F\u8B93\u5B83\u5011\u66F4\u5BB9\u6613\u88AB\u627E\u5230\u8207\u91CD\u73FE\u3002"
+              },
+              {
+                "text": "\u78BA\u5B9A\u6027\u514D\u9664\u4E86\u5C0D\u5224\u5B9A\u6E96\u5247\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u4ECD\u9700\u5224\u5B9A\u6E96\u5247\uFF1B\u78BA\u5B9A\u6027\u672C\u8EAB\u4E26\u4E0D\u5075\u6E2C\u6545\u969C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u5047\u8A2D\u8F38\u5165\u7684\u884C\u70BA\uFF08\u53CA\u5176\u8986\u84CB\u7387\uFF09\u662F\u8F38\u5165\u7684\u51FD\u5F0F\u3002\u82E5\u652F\u67B6\u5F15\u5165\u96A8\u6A5F\u6027\u3001\u5BE6\u969B\u6642\u9418\u6642\u9593\u6216\u6B98\u7559\u5168\u57DF\u72C0\u614B\uFF0C\u76F8\u540C\u7684\u4F4D\u5143\u7D44\u5C31\u53EF\u80FD\u6709\u4E0D\u540C\u884C\u70BA\u2014\u2014\u4F7F\u8986\u84CB\u7387\u56DE\u994B\u5145\u6EFF\u96DC\u8A0A\u3001\u7576\u6A5F\u7121\u6CD5\u91CD\u73FE\u3002\u597D\u7684\u652F\u67B6\u5B8C\u5168\u7531\u8F38\u5165\u4F4D\u5143\u7D44\u78BA\u5B9A\u6027\u5730\u63A8\u5C0E\u51FA\u6240\u6709\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6A21\u7CCA\u6E2C\u8A66\u9700\u8981\u53EF\u5075\u6E2C\u7684\u5931\u6557\u8A0A\u865F",
+            "text": "<p>\u82E5\u6C92\u6709\u53EF\u5075\u6E2C\u7684\u5931\u6557\u8A0A\u865F\uFF08\u7576\u6A5F\u3001\u5361\u6B7B\u3001\u6D88\u6BD2\u5668\uFF0F\u65B7\u8A00\u9055\u898F\uFF0C\u6216\u53C3\u8003\u6AA2\u67E5\uFF09\uFF0C\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EF\u80FD\u57F7\u884C\u4E86\u4E00\u500B\u89F8\u767C\u932F\u8AA4\u7684\u8F38\u5165\uFF0C\u537B\u6C38\u9060\u4E0D\u56DE\u5831\u8A72\u932F\u8AA4\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u53EF\u89C0\u5BDF\u7684\u8A0A\u865F\uFF0C\u6A21\u7CCA\u6E2C\u8A66\u5668\u5C31\u7121\u5F9E\u5F97\u77E5\u51FA\u4E86\u554F\u984C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u5668\u53EA\u6709\u5728\u5176\u5224\u5B9A\u6E96\u5247\u89C0\u5BDF\u5230\u5931\u6557\u6642\u624D\u56DE\u5831\u932F\u8AA4\uFF1B\u4E0D\u7522\u751F\u8A0A\u865F\u7684\u6545\u969C\u6703\u7121\u8072\u5730\u901A\u904E\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u7CCA\u6E2C\u8A66\u5B8C\u5168\u4F9D\u8CF4\u5176\u5224\u5B9A\u6E96\u5247\u3002\u82E5\u4E00\u500B\u89F8\u767C\u932F\u8AA4\u7684\u8F38\u5165\u4E0D\u9020\u6210\u7576\u6A5F\u3001\u5361\u6B7B\u3001\u6D88\u6BD2\u5668\u9055\u898F\u6216\u65B7\u8A00\uFF0F\u53C3\u8003\u6AA2\u67E5\u5931\u6557\uFF0C\u6A21\u7CCA\u6E2C\u8A66\u5668\u5C31\u770B\u4E0D\u51FA\u4EFB\u4F55\u7570\u5E38\u800C\u7565\u904E\u2014\u2014\u9019\u6B63\u662F\u70BA\u4F55\u5F37\u5316\u5224\u5B9A\u6E96\u5247\uFF08\u6D88\u6BD2\u5668\u3001\u65B7\u8A00\u3001\u5DEE\u5206\u6AA2\u67E5\uFF09\u8207\u751F\u6210\u597D\u8F38\u5165\u540C\u7B49\u91CD\u8981\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DEE\u5206\u6A21\u7CCA\u6E2C\u8A66\u4F5C\u70BA\u5224\u5B9A\u6E96\u5247",
+            "text": "<p><strong>\u5DEE\u5206\u6A21\u7CCA\u6E2C\u8A66\uFF08differential fuzzing\uFF09</strong>\u5982\u4F55\u5E6B\u52A9\u6355\u6349\u7576\u6A5F\u8207\u6D88\u6BD2\u5668\u6F0F\u6389\u7684\u7121\u8072\u908F\u8F2F\u932F\u8AA4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u628A\u76F8\u540C\u8F38\u5165\u9001\u9032\u5169\u500B\u6216\u591A\u500B\u61C9\u8A72\u4E00\u81F4\u7684\u5BE6\u4F5C\uFF0C\u7576\u5B83\u5011\u7684\u8F38\u51FA\u4E0D\u540C\u6642\u5C31\u6A19\u8A18\u70BA\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE6\u4F5C\u4E4B\u9593\u7684\u5206\u6B67\u4F5C\u70BA\u975E\u7576\u6A5F\u932F\u8AA4\u7684\u5224\u5B9A\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5B83\u91CF\u6E2C\u54EA\u500B\u5BE6\u4F5C\u8DD1\u5F97\u6BD4\u8F03\u5FEB\uFF0C\u4E26\u628A\u8F03\u6162\u7684\u56DE\u5831\u70BA\u6709\u932F",
+                "fraction": 0,
+                "feedback": "\u5DEE\u5206\u6A21\u7CCA\u6E2C\u8A66\u6BD4\u8F03\u7684\u662F\u8F38\u51FA\u7684\u6B63\u78BA\u6027\uFF0C\u800C\u975E\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u52A0\u500D\u8986\u84CB\u7387\u63D2\u6A01\u4EE5\u5075\u6E2C\u8A18\u61B6\u9AD4\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u57FA\u65BC\u8F38\u51FA\u6BD4\u8F03\u7684\u5224\u5B9A\u6E96\u5247\u6280\u8853\uFF0C\u800C\u975E\u984D\u5916\u7684\u8A18\u61B6\u9AD4\u63D2\u6A01\u3002"
+              },
+              {
+                "text": "\u7576\u5169\u500B\u5BE6\u4F5C\u4E00\u81F4\u6642\uFF0C\u5B83\u8B49\u660E\u5169\u8005\u90FD\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u4E00\u81F4\u4E26\u975E\u6B63\u78BA\u6027\u7684\u8B49\u660E\u2014\u2014\u5169\u8005\u53EF\u80FD\u5171\u6709\u76F8\u540C\u932F\u8AA4\uFF1B\u5B83\u53EA\u6A19\u8A18\u5206\u6B67\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DEE\u5206\u6A21\u7CCA\u6E2C\u8A66\u628A\u540C\u4E00\u8F38\u5165\u9935\u7D66\u591A\u500B\u9810\u671F\u884C\u70BA\u76F8\u540C\u7684\u5BE6\u4F5C\uFF08\u4F8B\u5982\u5169\u500B\u5256\u6790\u5668\uFF0C\u6216\u53C3\u8003\u7248\u5C0D\u6700\u4F73\u5316\u7248\uFF09\uFF0C\u628A\u4EFB\u4F55\u8F38\u51FA\u4E0D\u4E00\u81F4\u8996\u70BA\u932F\u8AA4\u3002\u9019\u70BA\u4E0D\u7522\u751F\u7576\u6A5F\u7684\u7121\u8072\u908F\u8F2F\u932F\u8AA4\u63D0\u4F9B\u4E86\u5224\u5B9A\u6E96\u5247\u3002\u8981\u6CE8\u610F\uFF1A\u82E5\u5169\u500B\u5BE6\u4F5C\u5171\u6709\u540C\u4E00\u7F3A\u9677\uFF0C\u5B83\u5011\u53EF\u80FD\u4E00\u81F4\u537B\u4ECD\u662F\u932F\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8986\u84CB\u7387\u662F\u9069\u61C9\u5EA6\u8A0A\u865F\uFF0C\u800C\u975E\u8B49\u660E",
+            "text": "<p>\u95DC\u65BC\u8986\u84CB\u7387\u5728\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u4E2D\u7684\u89D2\u8272\uFF0C\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8986\u84CB\u7387\u662F\u4E00\u7A2E\u555F\u767C\u5F0F\u9069\u61C9\u5EA6\u8A0A\u865F\uFF0C\u7528\u4EE5\u628A\u641C\u5C0B\u5C0E\u5411\u65B0\u7A0B\u5F0F\u78BC\uFF1B\u9AD8\u8986\u84CB\u7387\u4EE3\u8868\u57F7\u884C\u5F97\u5FB9\u5E95\uFF0C\u800C\u975E\u4EE3\u8868\u6B63\u78BA\u6216\u7121\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8986\u84CB\u7387\u5F15\u5C0E\u63A2\u7D22\uFF0C\u4F46\u4E0D\u662F\u6B63\u78BA\u6027\u7684\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u9054\u5230 100% \u908A\u8986\u84CB\u7387\u5C31\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u5230\u7A0B\u5F0F\u78BC\u4E0D\u7B49\u65BC\u6B63\u78BA\u6E2C\u8A66\u5B83\uFF1B\u5B8C\u6574\u8986\u84CB\u7387\u4ECD\u53EF\u80FD\u6F0F\u6389\u932F\u8AA4\uFF08\u4F8B\u5982\u932F\u8AA4\u4F46\u4E0D\u7576\u6A5F\u7684\u7D50\u679C\uFF09\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u7387\u76F4\u63A5\u6C7A\u5B9A\u67D0\u6B21\u57F7\u884C\u662F\u5426\u627E\u5230\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5F15\u5C0E\u641C\u5C0B\uFF1B\u932F\u8AA4\u7684\u5224\u5B9A\u4F86\u81EA\u5224\u5B9A\u6E96\u5247\uFF08\u7576\u6A5F\uFF0F\u6D88\u6BD2\u5668\uFF0F\u65B7\u8A00\uFF09\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u7387\u56DE\u994B\u514D\u9664\u4E86\u57F7\u884C\u8F38\u5165\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u662F\u9760\u57F7\u884C\u63D2\u6A01\u904E\u7684\u8F38\u5165\u53D6\u5F97\u7684\uFF1B\u5B83\u7121\u6CD5\u53D6\u4EE3\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u8986\u84CB\u7387\u5C0E\u5411\u6A21\u7CCA\u6E2C\u8A66\u4E2D\uFF0C\u8986\u84CB\u7387\u662F\u4E00\u7A2E\u9069\u61C9\u5EA6\u8A0A\u865F\uFF1A\u62B5\u9054\u65B0\u908A\u7684\u8F38\u5165\u6703\u88AB\u4FDD\u7559\u4E26\u8B8A\u7570\uFF0C\u628A\u641C\u5C0B\u5C0E\u5411\u66F4\u6DF1\u8655\u3002\u4F46\u6DB5\u84CB\u67D0\u4E00\u884C\u53EA\u4EE3\u8868\u5B83\u88AB\u57F7\u884C\uFF0C\u800C\u975E\u5B83\u7522\u751F\u4E86\u6B63\u78BA\u7D50\u679C\u2014\u2014\u56E0\u6B64\u5373\u4F7F 100% \u8986\u84CB\u7387\u4E5F\u4E0D\u8B49\u660E\u7121\u932F\u8AA4\uFF0C\u800C\u4E14\u5224\u5B9A\u300C\u67D0\u6B21\u57F7\u884C\u662F\u5426\u5931\u6557\u300D\u7684\u662F\u5224\u5B9A\u6E96\u5247\uFF0C\u800C\u975E\u8986\u84CB\u7387\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "graph-coverage": {
       "en": {
         "easy": [

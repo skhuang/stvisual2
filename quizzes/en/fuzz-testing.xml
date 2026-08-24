@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Fuzz Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What fuzzing is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a <strong>fuzzer</strong> fundamentally do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It automatically feeds a program large volumes of generated or malformed inputs, watching for crashes and other failures</text><feedback><text>Correct — fuzzing is automated testing that bombards the program with many inputs and looks for observable failures.</text></feedback></answer>
+    <answer fraction="0"><text>It formally proves that the program has no bugs</text><feedback><text>Fuzzing finds bugs by trying inputs; it never proves the absence of bugs.</text></feedback></answer>
+    <answer fraction="0"><text>It statically measures how many lines a test suite covers</text><feedback><text>That is coverage measurement; a fuzzer actively runs the program on many generated inputs.</text></feedback></answer>
+    <answer fraction="0"><text>It translates source code into optimized machine code</text><feedback><text>That describes a compiler, not a fuzzer.</text></feedback></answer>
+    <generalfeedback><text>Fuzz testing (fuzzing) automatically generates many inputs — often random or malformed — runs the program on them, and reports the ones that trigger a detectable failure such as a crash. It is a bug-finding technique, not a correctness proof.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seed corpus</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In fuzzing, a <strong>seed corpus</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A set of sample inputs the fuzzer starts from and mutates to produce new inputs</text><feedback><text>Correct — seeds are the starting examples that mutation-based fuzzers build on.</text></feedback></answer>
+    <answer fraction="0"><text>The list of crashes the fuzzer has already found</text><feedback><text>Crashes are outputs of a fuzzing run; the seed corpus is the set of starting inputs.</text></feedback></answer>
+    <answer fraction="0"><text>The random-number generator's initial seed value</text><feedback><text>A PRNG seed is a single number; the seed corpus is a collection of example inputs.</text></feedback></answer>
+    <answer fraction="0"><text>The source code of the program under test</text><feedback><text>The corpus is input data, not the program's code.</text></feedback></answer>
+    <generalfeedback><text>The seed corpus is the initial collection of valid or interesting example inputs a mutation-based fuzzer uses as a starting point; it mutates these seeds to explore new behavior.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation-based vs generation-based</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>mutation-based</strong> fuzzing differ from <strong>generation-based</strong> fuzzing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mutation-based fuzzing modifies existing seed inputs, while generation-based fuzzing builds inputs from scratch using a model or grammar of the format</text><feedback><text>Correct — one mutates given samples, the other constructs inputs from a specification.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation-based fuzzing needs a full grammar, while generation-based fuzzing just flips bits</text><feedback><text>It is the reverse: generation-based fuzzing uses a grammar/model; mutation-based typically flips bits and splices seeds.</text></feedback></answer>
+    <answer fraction="0"><text>Both require the program's source code to run</text><feedback><text>Neither necessarily needs source; the distinction is how inputs are produced (mutation vs generation).</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for the exact same technique</text><feedback><text>They are distinct strategies for producing inputs.</text></feedback></answer>
+    <generalfeedback><text>Mutation-based fuzzing takes a seed corpus and applies mutations (bit flips, byte replacements, splicing) to it. Generation-based fuzzing instead synthesizes inputs from a model or grammar that describes the expected format, so it can produce well-structured inputs from the start.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage-guided fuzzing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What defines a <strong>coverage-guided</strong> (greybox) fuzzer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It instruments the program to observe code coverage and keeps inputs that reach new code, evolving its corpus toward deeper behavior</text><feedback><text>Correct — coverage feedback selects "interesting" inputs and drives the search.</text></feedback></answer>
+    <answer fraction="0"><text>It generates inputs purely at random and never looks at what the program does</text><feedback><text>That describes black-box fuzzing; coverage-guided fuzzing uses feedback.</text></feedback></answer>
+    <answer fraction="0"><text>It requires a full formal specification of the program</text><feedback><text>No specification is needed — just lightweight coverage instrumentation.</text></feedback></answer>
+    <answer fraction="0"><text>It only measures coverage after fuzzing finishes and never changes its inputs</text><feedback><text>Coverage is used online, during the run, to choose which inputs to keep and mutate further.</text></feedback></answer>
+    <generalfeedback><text>A coverage-guided fuzzer (e.g. AFL, libFuzzer) instruments the target to record which code edges each input exercises. Inputs that hit new coverage are saved to the corpus and mutated further, so the fuzzer gradually works its way into deeper code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The fuzzing oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a fuzzer runs an input, what most commonly tells it that a bug was found (its <strong>oracle</strong>)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A crash, a hang, a sanitizer violation, or a failed assertion during the run</text><feedback><text>Correct — these are the observable failure signals fuzzers rely on.</text></feedback></answer>
+    <answer fraction="0"><text>A human reads every generated input and judges it by hand</text><feedback><text>Fuzzers run millions of inputs; the oracle must be automatic, like a crash or sanitizer report.</text></feedback></answer>
+    <answer fraction="0"><text>The input's file size exceeding a threshold</text><feedback><text>File size does not indicate a bug; crashes, hangs, and sanitizer errors do.</text></feedback></answer>
+    <answer fraction="0"><text>The program producing any output at all</text><feedback><text>Normal output is expected; the oracle looks for failure signals, not ordinary output.</text></feedback></answer>
+    <generalfeedback><text>Because a fuzzer runs enormous numbers of inputs, its bug oracle must be automatic. The usual signals are a crash (e.g. SIGSEGV), a hang/timeout, a sanitizer-reported violation (ASan/UBSan), or a failed assertion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Black-box, grey-box, white-box</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which correctly orders <strong>black-box</strong>, <strong>grey-box</strong>, and <strong>white-box</strong> fuzzing by how much program internals they use?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Black-box uses no internal information; grey-box uses lightweight coverage feedback; white-box uses heavier program analysis such as symbolic execution</text><feedback><text>Correct — the three sit on a spectrum of increasing internal insight.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box uses symbolic execution; grey-box uses none; white-box uses coverage</text><feedback><text>The labels are scrambled: white-box is the one that uses symbolic execution, black-box uses nothing.</text></feedback></answer>
+    <answer fraction="0"><text>All three use identical amounts of internal information</text><feedback><text>They differ precisely in how much internal insight they use.</text></feedback></answer>
+    <answer fraction="0"><text>Grey-box uses the most internal information of the three</text><feedback><text>White-box uses the most (program analysis); grey-box uses only lightweight coverage.</text></feedback></answer>
+    <generalfeedback><text>Black-box fuzzing treats the target as opaque (only inputs and observed crashes). Grey-box fuzzing adds lightweight instrumentation for coverage feedback. White-box fuzzing uses heavier analysis — e.g. symbolic/concolic execution — to reason about which inputs drive which paths.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Goal of fuzzing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A central goal of fuzzing is to automatically discover inputs that make the program crash or otherwise misbehave.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — fuzzing automates the search for failure-triggering inputs.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Finding crash- or fault-triggering inputs automatically is exactly what fuzzing is for.</text></feedback></answer>
+    <generalfeedback><text>Fuzzing generates many inputs and runs the program on each, aiming to find those that trigger a detectable failure — a crash, hang, sanitizer violation, or assertion failure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bit-flip mutation operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>bit-flip</strong> mutation operator in a fuzzer:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Toggles one or more bits within a copy of an existing input</text><feedback><text>Correct — flipping bits is one of the simplest mutation operators.</text></feedback></answer>
+    <answer fraction="0"><text>Rewrites the program's source to invert a boolean</text><feedback><text>That would be source mutation (mutation testing); a fuzzer mutates inputs, not code.</text></feedback></answer>
+    <answer fraction="0"><text>Deletes the entire input and starts over from nothing</text><feedback><text>A bit flip modifies a few bits; it does not erase the whole input.</text></feedback></answer>
+    <answer fraction="0"><text>Recompiles the target with a different optimization level</text><feedback><text>Mutation operators change inputs, not the build configuration.</text></feedback></answer>
+    <generalfeedback><text>Mutation operators transform seed inputs. Common ones include bit flips (toggling bits), byte or integer replacement, insertion/deletion, and splicing two inputs together.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>AFL is coverage-guided greybox</text></name>
+    <questiontext format="html"><text><![CDATA[<p>AFL (American Fuzzy Lop) is a coverage-guided greybox fuzzer: it instruments the target and uses edge-coverage feedback to guide mutation.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — AFL is the canonical coverage-guided greybox fuzzer, using edge-coverage feedback.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>AFL is indeed coverage-guided and greybox; it records edge coverage via instrumentation and keeps inputs that reach new edges.</text></feedback></answer>
+    <generalfeedback><text>AFL popularized coverage-guided greybox fuzzing: compile-time (or QEMU-based) instrumentation records edge coverage, and inputs that hit new edges are added to the queue and mutated further.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>libFuzzer's fuzz target</text></name>
+    <questiontext format="html"><text><![CDATA[<p>libFuzzer is an in-process, coverage-guided fuzzer. How do you tell it what to fuzz?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You write a fuzz-target function that receives a byte buffer and feeds it into the code under test</text><feedback><text>Correct — libFuzzer repeatedly calls your entry function (e.g. LLVMFuzzerTestOneInput) with generated bytes.</text></feedback></answer>
+    <answer fraction="0"><text>You supply a formal grammar and libFuzzer derives the target automatically</text><feedback><text>libFuzzer drives a byte buffer into a function you write; it does not require a grammar.</text></feedback></answer>
+    <answer fraction="0"><text>You give it only the compiled binary with no code changes</text><feedback><text>libFuzzer is in-process and links against a target function you provide.</text></feedback></answer>
+    <answer fraction="0"><text>You point it at the program's log files</text><feedback><text>It calls your fuzz-target function with generated input; logs are irrelevant.</text></feedback></answer>
+    <generalfeedback><text>libFuzzer runs in-process: you write a fuzz target (commonly <code>LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)</code>) that turns the bytes into calls on the API under test. libFuzzer generates inputs, calls the target in a loop, and uses coverage feedback to guide mutation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>AddressSanitizer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>AddressSanitizer (ASan)</strong> contribute when fuzzing C/C++ code?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It detects memory errors — such as heap/stack buffer overflows and use-after-free — turning otherwise silent corruption into an immediate, visible failure</text><feedback><text>Correct — ASan makes many memory-safety bugs crash loudly so the fuzzer's oracle catches them.</text></feedback></answer>
+    <answer fraction="0"><text>It generates the fuzzing inputs</text><feedback><text>Input generation is the fuzzer's job; ASan is a bug detector, not a generator.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the program is memory-safe</text><feedback><text>ASan reports errors it observes at runtime; it does not prove their absence.</text></feedback></answer>
+    <answer fraction="0"><text>It speeds the program up by removing bounds checks</text><feedback><text>ASan adds checks (with overhead); it does not remove them.</text></feedback></answer>
+    <generalfeedback><text>AddressSanitizer instruments memory accesses to detect errors like out-of-bounds reads/writes and use-after-free. Combined with fuzzing, it converts many silent memory-corruption bugs into observable crashes, strengthening the oracle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a crash signals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a fuzzer reports a "crash," it usually means the run:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Terminated abnormally — e.g. a segmentation fault or an abort — indicating a fault worth investigating</text><feedback><text>Correct — abnormal termination is the classic fuzzing bug signal.</text></feedback></answer>
+    <answer fraction="0"><text>Produced output that differs from a reference implementation</text><feedback><text>That is a differential-testing signal, not what "crash" means here.</text></feedback></answer>
+    <answer fraction="0"><text>Finished normally but slowly</text><feedback><text>Slow-but-normal completion is not a crash; a hang/timeout would be a separate signal.</text></feedback></answer>
+    <answer fraction="0"><text>Was rejected by the fuzzer's input filter</text><feedback><text>A crash is abnormal termination of the target, not input filtering.</text></feedback></answer>
+    <generalfeedback><text>A crash is abnormal termination of the target process — for example a segmentation fault (SIGSEGV) or an abort (SIGABRT, often from a sanitizer or assertion). The fuzzer saves the triggering input for triage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Random/black-box fuzzing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The simplest, purely <strong>random black-box</strong> fuzzer works by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Throwing randomly generated or randomly mutated inputs at the program without using any internal feedback</text><feedback><text>Correct — pure black-box random fuzzing ignores program internals entirely.</text></feedback></answer>
+    <answer fraction="0"><text>Solving path constraints with an SMT solver to choose inputs</text><feedback><text>That is white-box/symbolic fuzzing, not random black-box.</text></feedback></answer>
+    <answer fraction="0"><text>Selecting inputs based on measured edge coverage</text><feedback><text>Using coverage feedback makes it greybox, not black-box.</text></feedback></answer>
+    <answer fraction="0"><text>Requiring a complete grammar of the input format</text><feedback><text>A pure random fuzzer needs no grammar; it just generates or mutates bytes.</text></feedback></answer>
+    <generalfeedback><text>Random black-box fuzzing simply generates or mutates inputs and observes only external behavior (did it crash?). It is cheap and easy but, without feedback, tends to plateau once the easy-to-reach code has been exercised.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fuzzing dictionary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A fuzzing <strong>dictionary</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A set of tokens or magic values (keywords, headers, constants) the fuzzer can insert into inputs</text><feedback><text>Correct — dictionaries give the fuzzer meaningful building blocks it would rarely produce by chance.</text></feedback></answer>
+    <answer fraction="0"><text>A log of every crash mapped to its stack trace</text><feedback><text>That is crash triage output; a dictionary is a set of input tokens.</text></feedback></answer>
+    <answer fraction="0"><text>The mapping from source files to coverage counters</text><feedback><text>That is coverage bookkeeping, not a dictionary of tokens.</text></feedback></answer>
+    <answer fraction="0"><text>A grammar describing the entire input format</text><feedback><text>A dictionary is a flat list of useful tokens, not a full grammar.</text></feedback></answer>
+    <generalfeedback><text>A dictionary supplies interesting tokens — format keywords, magic bytes, or common constants — that the fuzzer can splice into inputs. This helps it get past checks that expect specific byte sequences it would almost never generate randomly.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Generation-based needs a model</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Generation-based fuzzing requires a model or grammar of the input format in order to construct inputs.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — generation-based fuzzing builds inputs from a specification of the format, so it needs that model.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>By definition, generation-based fuzzing constructs inputs from a model/grammar; without one it would have nothing to generate from.</text></feedback></answer>
+    <generalfeedback><text>Generation-based (grammar-based) fuzzing synthesizes inputs from a description of the format. That model is what lets it produce structurally valid inputs, unlike mutation-based fuzzing which starts from existing seeds.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fuzz Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why coverage feedback helps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does keeping inputs that reach <em>new</em> code edges make a coverage-guided fuzzer more effective?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Such inputs are stepping stones: they exercise new behavior and, when mutated further, are more likely to reach still-deeper code than random inputs would</text><feedback><text>Correct — new-coverage inputs seed further exploration into the program.</text></feedback></answer>
+    <answer fraction="0"><text>Reaching new edges guarantees a crash on the next mutation</text><feedback><text>New coverage does not guarantee a crash; it just improves the odds of exploring deeper.</text></feedback></answer>
+    <answer fraction="0"><text>New-coverage inputs are always smaller, which speeds execution</text><feedback><text>They are kept for the new behavior they reach, not because they are smaller.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage feedback lets the fuzzer skip running the program</text><feedback><text>The fuzzer must still run each input; feedback tells it which results to keep.</text></feedback></answer>
+    <generalfeedback><text>Coverage feedback turns fuzzing into a guided search. An input that unlocks a new edge is retained because mutating it is far more likely to push into adjacent, previously unreached code than mutating an input that adds nothing new — so the corpus evolves toward deeper coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation vs generation trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which best captures the trade-off between mutation-based and generation-based fuzzing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mutation-based is cheap and needs no format spec but struggles with highly structured inputs; generation-based needs a grammar to write but readily produces valid structured inputs</text><feedback><text>Correct — the trade-off is spec effort versus ability to produce valid structured inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation-based always finds more bugs than generation-based on every target</text><feedback><text>Neither dominates universally; each suits different input formats.</text></feedback></answer>
+    <answer fraction="0"><text>Generation-based is always cheaper to set up than mutation-based</text><feedback><text>Generation-based usually costs more up front because you must write the grammar/model.</text></feedback></answer>
+    <answer fraction="0"><text>Only generation-based fuzzing can use coverage feedback</text><feedback><text>Coverage feedback is orthogonal; mutation-based greybox fuzzers use it heavily.</text></feedback></answer>
+    <generalfeedback><text>Mutation-based fuzzing is quick to start (just supply seeds) but random mutations often break the structure of complex formats. Generation-based fuzzing invests in a grammar/model up front, which pays off for highly structured inputs (compilers, network protocols) by producing valid inputs consistently.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What makes a good seed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which set of seed inputs is generally <em>best</em> for a mutation-based coverage-guided fuzzer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Small, valid, diverse examples that together exercise many different features of the format</text><feedback><text>Correct — small-and-diverse valid seeds give broad, mutable starting coverage.</text></feedback></answer>
+    <answer fraction="0"><text>A single very large file that contains every feature at once</text><feedback><text>One huge file is slow to run and mutate; many small diverse seeds are better.</text></feedback></answer>
+    <answer fraction="0"><text>Random byte blobs with no relation to the format</text><feedback><text>Invalid blobs waste effort getting rejected early; valid seeds reach deeper code faster.</text></feedback></answer>
+    <answer fraction="0"><text>Only inputs already known to crash the program</text><feedback><text>Known crashes are for regression tests; seeds should broadly exercise valid behavior to explore from.</text></feedback></answer>
+    <generalfeedback><text>Good seeds are valid enough to get past early parsing, small so they run and mutate quickly, and diverse so the corpus starts with broad coverage. A pile of tiny, feature-varied valid inputs beats one giant file or random noise.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Greybox vs blackbox</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The key practical advantage of greybox fuzzing over black-box fuzzing on the same target is that greybox:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Uses coverage feedback to recognize and retain inputs that reach new code, so it explores far more of the program over time</text><feedback><text>Correct — the feedback loop is exactly what greybox adds.</text></feedback></answer>
+    <answer fraction="0"><text>Needs no oracle because coverage replaces crash detection</text><feedback><text>Coverage guides the search but is not a bug oracle; you still need crash/sanitizer signals.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees full path coverage of the program</text><feedback><text>Greybox fuzzing improves coverage but guarantees nothing close to all paths.</text></feedback></answer>
+    <answer fraction="0"><text>Requires no instrumentation at all</text><feedback><text>The coverage feedback that defines greybox comes from lightweight instrumentation.</text></feedback></answer>
+    <generalfeedback><text>Black-box fuzzing sees only external behavior, so it cannot tell a "boring" input from one that unlocked new code. Greybox fuzzing adds lightweight coverage instrumentation, letting it keep and mutate inputs that reach new edges — a feedback loop that dramatically improves reach.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dictionaries and magic values</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does supplying a dictionary help a fuzzer get past a check like <code>if (memcmp(hdr, "PNG", 3) == 0)</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The dictionary contains the token "PNG", so the fuzzer can insert it directly instead of having to stumble onto those bytes at random</text><feedback><text>Correct — dictionaries hand the fuzzer the exact tokens the code checks for.</text></feedback></answer>
+    <answer fraction="0"><text>It disables the comparison so the check always passes</text><feedback><text>A dictionary supplies input tokens; it does not modify the program's checks.</text></feedback></answer>
+    <answer fraction="0"><text>It makes random mutation exponentially faster</text><feedback><text>It does not change mutation speed; it changes what tokens are available to insert.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the header is correct without running the code</text><feedback><text>Dictionaries do not prove anything; they just provide useful byte sequences to try.</text></feedback></answer>
+    <generalfeedback><text>Randomly producing a specific multi-byte token (like "PNG") is unlikely. A dictionary lists such tokens so the fuzzer can splice them in directly, letting it satisfy magic-value checks and reach the code guarded behind them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Structure-aware fuzzing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the point of <strong>structure-aware</strong> fuzzing (e.g. mutating a parsed/typed representation rather than raw bytes)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mutations respect the input format, so most generated inputs stay structurally valid and reach deep logic instead of being rejected by the parser</text><feedback><text>Correct — mutating at the structural level keeps inputs valid enough to exercise deeper code.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for any oracle</text><feedback><text>Structure awareness is about input validity, not bug detection; an oracle is still required.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the fuzzer will find all bugs in the parser</text><feedback><text>No technique guarantees finding all bugs; it just keeps more inputs valid.</text></feedback></answer>
+    <answer fraction="0"><text>It works only on plain text and never on binary formats</text><feedback><text>Structure-aware fuzzing applies to binary formats too (e.g. protobuf-based fuzzers).</text></feedback></answer>
+    <generalfeedback><text>For highly structured inputs, raw byte mutations are usually rejected early by the parser. Structure-aware fuzzing mutates a typed/parsed representation (or uses a grammar), so generated inputs remain well-formed and can drive the deeper semantic logic where interesting bugs live.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why keep a new-edge input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A coverage-guided fuzzer runs an input that reaches a brand-new edge but does not crash. What does it typically do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Add it to the corpus/queue so it can be mutated further, since it may lead to still-deeper code</text><feedback><text>Correct — new coverage is valuable even without a crash, as a basis for further mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Discard it, because only crashing inputs are worth keeping</text><feedback><text>New-coverage inputs are kept precisely because they open paths toward future crashes.</text></feedback></answer>
+    <answer fraction="0"><text>Immediately report it as a bug</text><feedback><text>New coverage is not a bug; only failure signals from the oracle are.</text></feedback></answer>
+    <answer fraction="0"><text>Stop the fuzzing campaign</text><feedback><text>Reaching new coverage is progress, not a reason to stop.</text></feedback></answer>
+    <generalfeedback><text>Inputs that unlock new coverage are saved and prioritized for further mutation. They act as stepping stones: mutating them is the most promising way to push execution into adjacent, not-yet-covered code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Splicing operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>splicing</strong> mutation operator produces a new input by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Combining a portion of one corpus input with a portion of another</text><feedback><text>Correct — splicing recombines fragments of two existing inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Flipping a single bit in one input</text><feedback><text>That is a bit-flip, not splicing.</text></feedback></answer>
+    <answer fraction="0"><text>Replacing a 4-byte integer with a boundary value</text><feedback><text>That is an integer-replacement mutation, not splicing.</text></feedback></answer>
+    <answer fraction="0"><text>Sorting the bytes of an input in ascending order</text><feedback><text>Sorting bytes is not a standard mutation; splicing joins parts of two inputs.</text></feedback></answer>
+    <generalfeedback><text>Splicing (crossover) takes two inputs from the corpus and joins a prefix of one with a suffix of another, letting the fuzzer combine features discovered separately — a complement to local mutations like bit flips and byte replacement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Corpus evolution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an AFL-style fuzzer, how does the corpus (queue) evolve during a run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inputs that trigger new coverage are appended to the queue and later mutated, so the corpus grows toward inputs reaching deeper code</text><feedback><text>Correct — the queue is continually extended with interesting inputs and re-mutated.</text></feedback></answer>
+    <answer fraction="0"><text>The corpus is fixed at startup and never changes</text><feedback><text>A coverage-guided fuzzer's corpus grows as new-coverage inputs are found.</text></feedback></answer>
+    <answer fraction="0"><text>Every generated input, coverage or not, is permanently stored</text><feedback><text>Only inputs that add new coverage (or crash) are retained; the rest are discarded.</text></feedback></answer>
+    <answer fraction="0"><text>The corpus shrinks by one input after every execution</text><feedback><text>The corpus grows with interesting finds; it is not decremented per run.</text></feedback></answer>
+    <generalfeedback><text>A coverage-guided fuzzer maintains a queue of interesting inputs. When a mutated input hits new coverage, it is added to the queue; the fuzzer then keeps cycling through the queue, mutating each entry, so the corpus evolves toward inputs that reach ever-deeper behavior.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge vs block coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why do many greybox fuzzers track <strong>edge</strong> (branch-transition) coverage rather than just <strong>basic-block</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Edge coverage records which block-to-block transitions occur, so it distinguishes control-flow that block coverage alone would treat as identical</text><feedback><text>Correct — edges capture transitions, giving a finer signal than block hits.</text></feedback></answer>
+    <answer fraction="0"><text>Edge coverage requires no instrumentation while block coverage does</text><feedback><text>Both require instrumentation; edge coverage is simply more discriminating.</text></feedback></answer>
+    <answer fraction="0"><text>Block coverage can detect crashes but edge coverage cannot</text><feedback><text>Neither detects crashes; that is the oracle's role. The difference is granularity of the coverage signal.</text></feedback></answer>
+    <answer fraction="0"><text>Edge coverage is always exact while block coverage is random</text><feedback><text>Both are deterministic measurements; the point is edges are finer-grained.</text></feedback></answer>
+    <generalfeedback><text>Edge coverage records transitions between basic blocks, so two runs that visit the same blocks in different orders look different. This finer signal helps the fuzzer recognize more "interesting" inputs than block coverage, which only notes whether a block was reached.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>In-process vs fork-based fuzzing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with a fork-based fuzzer, an in-process fuzzer like libFuzzer:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Runs each input by calling a target function in the same process, which is fast but requires the target to be free of state that leaks between runs</text><feedback><text>Correct — in-process execution is fast but sensitive to residual/global state.</text></feedback></answer>
+    <answer fraction="0"><text>Starts a fresh process for every input, giving stronger isolation but more overhead</text><feedback><text>That describes fork/exec-based fuzzing, the opposite of in-process.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot use coverage feedback at all</text><feedback><text>libFuzzer is coverage-guided; in-process execution does not preclude feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Requires a full input grammar to operate</text><feedback><text>libFuzzer needs no grammar; it drives a byte buffer into your fuzz target.</text></feedback></answer>
+    <generalfeedback><text>In-process fuzzing calls the target function repeatedly within one process, avoiding process-creation overhead and running very fast. The cost is that leftover global/static state between runs can cause non-reproducible behavior, so the target must reset cleanly each call.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sanitizers strengthen the oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does running a fuzzer against a sanitizer-instrumented build tend to find more bugs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Sanitizers turn otherwise-silent errors (e.g. small out-of-bounds reads, integer overflow) into immediate visible failures the fuzzer's oracle can catch</text><feedback><text>Correct — sanitizers expose faults that would not crash on their own.</text></feedback></answer>
+    <answer fraction="0"><text>Sanitizers generate additional inputs for the fuzzer</text><feedback><text>Sanitizers detect faults; they do not generate inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Sanitizers increase execution speed, allowing more runs</text><feedback><text>Sanitizers add overhead; the benefit is better detection, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>Sanitizers replace the need for a corpus</text><feedback><text>A corpus is still needed; sanitizers only improve the failure signal.</text></feedback></answer>
+    <generalfeedback><text>Without a sanitizer, many bugs (a one-byte overread, a signed overflow) do not crash and slip past the fuzzer unnoticed. Sanitizers such as ASan and UBSan detect these at runtime and abort, so the fuzzer's crash oracle catches faults it otherwise would miss.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Hangs as an oracle signal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Besides crashes, a fuzzer can use a hang or timeout as a bug signal — for example to catch an input that drives the program into an infinite loop.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — excessive runtime (a hang/timeout) is a standard fuzzing signal, e.g. for potential denial-of-service loops.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Fuzzers routinely flag inputs that exceed a time limit, which can reveal infinite loops or algorithmic-complexity problems.</text></feedback></answer>
+    <generalfeedback><text>A hang/timeout is a legitimate oracle: if an input makes the program run far longer than a set limit, the fuzzer records it. Such inputs can expose infinite loops or worst-case algorithmic-complexity (denial-of-service) issues.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage plateau</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A coverage-guided fuzzer stops discovering new coverage for a long time (it plateaus). Which response is most reasonable?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Help it past the barrier — add better seeds, supply a dictionary, or bring in a solver/symbolic help — because random mutation alone is likely stuck on a hard check</text><feedback><text>Correct — a plateau usually means a hard-to-satisfy condition that needs extra help.</text></feedback></answer>
+    <answer fraction="0"><text>Conclude the program is now proven bug-free</text><feedback><text>A plateau means the fuzzer stopped making progress, not that the program is correct.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the seed corpus to force pure randomness</text><feedback><text>Removing seeds usually hurts; the fuzzer needs better starting points, not fewer.</text></feedback></answer>
+    <answer fraction="0"><text>Disable the coverage instrumentation</text><feedback><text>Turning off feedback discards the very mechanism that guides exploration.</text></feedback></answer>
+    <generalfeedback><text>Plateaus typically mean the fuzzer is blocked by a check its mutations cannot satisfy (a magic value, checksum, or complex structure). Practical responses include richer seeds, a dictionary of expected tokens, structure-aware mutation, or hybrid fuzzing that uses a solver to get past the barrier — not treating the plateau as a proof of correctness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Integer/boundary replacement operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Many fuzzers include a mutation operator that overwrites a multi-byte integer field with values like 0, -1, or INT_MAX. Why favor these particular values?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Boundary and extreme values disproportionately expose off-by-one, overflow, and sign-handling bugs, so trying them is more productive than purely random integers</text><feedback><text>Correct — boundary values target the edge cases where integer bugs cluster.</text></feedback></answer>
+    <answer fraction="0"><text>These values are guaranteed to satisfy any checksum</text><feedback><text>They have nothing to do with checksums; they target integer edge cases.</text></feedback></answer>
+    <answer fraction="0"><text>They make the input file smaller</text><feedback><text>Replacing an integer does not shrink the input; the point is bug-prone edge values.</text></feedback></answer>
+    <answer fraction="0"><text>They are the only values a coverage-guided fuzzer can generate</text><feedback><text>A fuzzer can produce many values; boundary values are just especially bug-revealing choices to try.</text></feedback></answer>
+    <generalfeedback><text>Integer-replacement mutations deliberately inject boundary and extreme values (0, 1, -1, max/min, powers of two nearby) because bugs — off-by-one errors, overflows, signed/unsigned confusion — tend to cluster at these edges. Trying them is far more productive than sampling integers uniformly at random.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fuzz Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a checksum defeats naive mutation fuzzing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A parser first verifies a CRC checksum over the input and rejects the input immediately if it fails. Why does this defeat naive mutation-based fuzzing, and what actually helps?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; help comes from patching out the check in the harness, or from coverage-guided/dictionary/symbolic techniques that can satisfy it</text><feedback><text>Correct — the check is an all-or-nothing gate; the practical fix is often to disable it in the fuzzing build, or to use techniques that can produce a valid checksum.</text></feedback></answer>
+    <answer fraction="0"><text>The checksum makes the program run faster, so the fuzzer has less time — adding more CPU cores solves it</text><feedback><text>The problem is that mutated inputs fail the check, not runtime; more cores do not make random mutations satisfy a checksum.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage-guided fuzzing alone trivially computes correct checksums for every input</text><feedback><text>Coverage guidance does not compute checksums; a single pass/fail check gives it almost no gradient to follow. That is an overstatement.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing helps — such code simply cannot be fuzzed</text><feedback><text>It can be fuzzed: disabling the check in the harness, or using dictionaries/symbolic execution, are standard remedies.</text></feedback></answer>
+    <generalfeedback><text>A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it and coverage feedback gives little help (it is essentially all-or-nothing). Common remedies: remove or fix up the checksum inside the fuzzing harness so any input passes, supply the needed constant via a dictionary, or use symbolic/concolic execution to solve for a valid checksum. Coverage guidance alone does not magically satisfy it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Magic-bytes comparison and coverage gradient</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a guard <code>if (x == 0xDEADBEEF)</code> on a 32-bit input, why is plain edge coverage a weak guide, and what addresses it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The comparison is all-or-nothing, so partial progress toward the constant earns no new coverage; comparison-tracking instrumentation (splitting the compare into bytes / value profiling) or a dictionary supplies the missing gradient</text><feedback><text>Correct — without a gradient the fuzzer is guessing 1-in-2³²; compare-coverage or dictionaries give it feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Edge coverage already rewards each matching byte, so no extra help is needed</text><feedback><text>A single <code>==</code> yields one edge either way; plain edge coverage does not reward matching individual bytes.</text></feedback></answer>
+    <answer fraction="0"><text>The guard is impossible to satisfy, so fuzzing must skip it</text><feedback><text>It is satisfiable (x = 0xDEADBEEF); the issue is guiding the fuzzer there, which compare-coverage/dictionaries do.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage feedback makes random guessing of the 4 bytes fast</text><feedback><text>Random guessing stays ~1-in-2³²; the fix is instrumentation that provides a gradient, not faster guessing.</text></feedback></answer>
+    <generalfeedback><text>A wide equality is a cliff: the input is either exactly right (new edge) or not (no signal), so the fuzzer has no gradient to climb and random search faces ~2³² odds. Compare-coverage instrumentation (e.g. laf-intel-style splitting into byte comparisons, or libFuzzer value profiling) rewards matching more bytes, and dictionaries supply the constant directly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Shallow reach vs deep conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is fuzzing strong at shallow bugs but weak at bugs guarded behind deep, specific conditions?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Random mutation easily exercises shallow code but is unlikely to satisfy long chains of specific conditions; symbolic/concolic execution can solve such constraints but faces path explosion</text><feedback><text>Correct — fuzzing reaches shallow code cheaply; deep specific guards need constraint solving, which has its own scaling cost.</text></feedback></answer>
+    <answer fraction="0"><text>Fuzzing explores all paths exhaustively, so depth is irrelevant</text><feedback><text>Fuzzing does not explore exhaustively; deep specific conditions are exactly where it struggles.</text></feedback></answer>
+    <answer fraction="0"><text>Deep conditions are always infeasible, so no technique can reach them</text><feedback><text>They are usually feasible; the difficulty is generating inputs that satisfy them.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic execution reaches deep conditions with no scaling limits</text><feedback><text>Symbolic execution helps but is limited by path explosion; that is an overstatement.</text></feedback></answer>
+    <generalfeedback><text>Fuzzing throws many inputs cheaply, so it readily hits shallow, easy-to-reach faults. But a bug behind several precise checks requires satisfying all of them at once, which random mutation rarely does. Symbolic/concolic execution can solve those constraints directly, at the cost of path explosion — which is why hybrid (fuzzing + symbolic) approaches exist.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Oracle limitation: silent logic bugs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function returns a subtly wrong result but never crashes, hangs, or triggers a sanitizer. Why might a fuzzer miss this bug?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fuzzer's oracle only detects observable failures; a wrong-but-not-crashing output passes unless a stronger oracle (assertions, a reference/differential check) is added</text><feedback><text>Correct — no failure signal means the bug is invisible to the default oracle.</text></feedback></answer>
+    <answer fraction="0"><text>Fuzzers automatically know the correct output for every input</text><feedback><text>They do not; that is precisely the oracle problem fuzzing faces for logic bugs.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage feedback flags any incorrect result</text><feedback><text>Coverage measures which code ran, not whether the result was correct.</text></feedback></answer>
+    <answer fraction="0"><text>Sanitizers detect all incorrect return values</text><feedback><text>Sanitizers detect memory/UB errors, not general logic errors.</text></feedback></answer>
+    <generalfeedback><text>Fuzzing relies on an automatic oracle, which by default catches only crashes, hangs, and sanitizer/assertion failures. A logic bug that produces a wrong-but-well-formed result raises no such signal. To catch it you need a stronger oracle: inline assertions/invariants, or differential testing against a reference implementation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Corpus minimization</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the goal of <strong>corpus minimization</strong> (e.g. afl-cmin)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reduce the corpus to a smaller subset of inputs that preserves the same overall coverage, so later fuzzing spends less time on redundant seeds</text><feedback><text>Correct — it prunes redundant seeds while keeping coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Shrink a single crashing input to the smallest bytes that still crash</text><feedback><text>That is test-case minimization (afl-tmin), not corpus minimization.</text></feedback></answer>
+    <answer fraction="0"><text>Delete all seeds so the fuzzer starts from empty</text><feedback><text>Minimization keeps a coverage-preserving subset, not nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Combine all seeds into one large file</text><feedback><text>It selects a minimal set of separate inputs; it does not merge them.</text></feedback></answer>
+    <generalfeedback><text>Corpus minimization selects the smallest subset of the corpus that still achieves the corpus's coverage, discarding inputs that add nothing new. A leaner corpus means the fuzzer cycles through it faster and wastes less effort on redundant seeds.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test-case minimization</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a crash is found, what does <strong>test-case minimization</strong> (e.g. afl-tmin) do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Repeatedly trims the crashing input to the smallest/simplest form that still reproduces the crash, easing debugging</text><feedback><text>Correct — a minimized reproducer isolates what actually triggers the bug.</text></feedback></answer>
+    <answer fraction="0"><text>Removes redundant seeds from the whole corpus</text><feedback><text>That is corpus minimization; test-case minimization works on one crashing input.</text></feedback></answer>
+    <answer fraction="0"><text>Fixes the bug automatically</text><feedback><text>It shrinks the reproducer; it does not patch the code.</text></feedback></answer>
+    <answer fraction="0"><text>Expands the input with extra bytes to make the crash more reliable</text><feedback><text>Minimization removes bytes to simplify; it does not pad the input.</text></feedback></answer>
+    <generalfeedback><text>Test-case (crash) minimization takes a crashing input and iteratively removes or simplifies bytes as long as the crash still reproduces, yielding a small, focused reproducer that makes root-causing the bug far easier.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When generation-based beats mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For which target is generation-based (grammar-based) fuzzing most likely to outperform mutation-based fuzzing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A compiler or protocol parser with a rigid, highly structured input format, where random mutations almost always produce invalid inputs rejected early</text><feedback><text>Correct — a grammar lets the fuzzer produce valid structured inputs that reach deep logic.</text></feedback></answer>
+    <answer fraction="0"><text>A routine that accepts an arbitrary blob of bytes with no structure</text><feedback><text>For unstructured input, mutation-based fuzzing works well and a grammar adds little.</text></feedback></answer>
+    <answer fraction="0"><text>Any target, since generation-based fuzzing is universally superior</text><feedback><text>Neither approach is universally best; generation-based shines specifically on structured formats.</text></feedback></answer>
+    <answer fraction="0"><text>A target with no oracle available</text><feedback><text>Oracle availability is orthogonal to the mutation-vs-generation choice.</text></feedback></answer>
+    <generalfeedback><text>When inputs must obey a strict grammar (source code for a compiler, messages for a protocol), random byte mutations are overwhelmingly rejected by the front end. A generation-based fuzzer builds inputs from the grammar, so it consistently produces valid inputs that exercise the deeper semantic logic where interesting bugs hide.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Hybrid (symbolic-assisted) fuzzing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In hybrid fuzzing (e.g. Driller-style), how does concolic/symbolic execution complement a greybox fuzzer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When the fuzzer plateaus at a hard check, the solver computes an input that satisfies that specific branch; the new input is handed back so cheap fuzzing can continue exploring beyond it</text><feedback><text>Correct — the solver gets past narrow guards, then the fuzzer takes over again.</text></feedback></answer>
+    <answer fraction="0"><text>The solver replaces the fuzzer entirely and explores all paths symbolically</text><feedback><text>Symbolic execution suffers path explosion; hybrid fuzzing uses it selectively, not as a full replacement.</text></feedback></answer>
+    <answer fraction="0"><text>The solver generates the coverage instrumentation for the fuzzer</text><feedback><text>Instrumentation comes from the compiler/toolchain; the solver's role is satisfying hard constraints.</text></feedback></answer>
+    <answer fraction="0"><text>The solver acts as the bug oracle in place of sanitizers</text><feedback><text>The oracle is still crashes/sanitizers; the solver's job is producing inputs past hard branches.</text></feedback></answer>
+    <generalfeedback><text>Hybrid fuzzing plays to each technique's strength: the fuzzer explores cheaply and broadly, and when it gets stuck at a narrow condition (magic value, checksum), concolic execution solves that branch's constraint to produce a passing input. Control returns to the fuzzer, which explores the newly reached region — using the solver sparingly to avoid path explosion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ASan vs UBSan roles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do the roles of <strong>AddressSanitizer (ASan)</strong> and <strong>UndefinedBehaviorSanitizer (UBSan)</strong> differ when fuzzing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ASan targets memory-safety errors (out-of-bounds access, use-after-free); UBSan targets undefined behavior (e.g. signed integer overflow, invalid shifts, misaligned pointers)</text><feedback><text>Correct — they detect different, complementary fault classes.</text></feedback></answer>
+    <answer fraction="0"><text>They detect exactly the same errors, so running both is redundant</text><feedback><text>They cover different fault classes; using both broadens what the oracle catches.</text></feedback></answer>
+    <answer fraction="0"><text>ASan detects undefined behavior while UBSan detects memory errors</text><feedback><text>The roles are swapped: ASan is for memory errors, UBSan for undefined behavior.</text></feedback></answer>
+    <answer fraction="0"><text>Both generate fuzzing inputs rather than detect faults</text><feedback><text>Neither generates inputs; both are runtime fault detectors.</text></feedback></answer>
+    <generalfeedback><text>ASan instruments memory accesses to catch spatial/temporal memory-safety violations (buffer overflows, use-after-free). UBSan catches language-level undefined behavior such as signed overflow, out-of-range shifts, and misaligned or null pointer use. They target different fault classes, so fuzzing under both enlarges the set of detectable bugs.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Fuzzing does not prove correctness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a fuzzer runs for a long time and finds no crashes, that proves the program is bug-free.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — no crashes found only means none were found within the inputs tried; fuzzing cannot prove the absence of bugs.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Fuzzing samples the input space; finding no crashes is not a proof of correctness, since untried inputs (and silent logic bugs) may still fail.</text></feedback></answer>
+    <generalfeedback><text>Fuzzing is a testing technique: it can reveal bugs but never prove their absence. A clean run reflects only the inputs actually explored and the failures the oracle can see; it says nothing about untried inputs or silent logic errors.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Value profiling / compare coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Comparison-tracking instrumentation (splitting multi-byte comparisons, or "value profiling") helps a coverage-guided fuzzer because it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Rewards inputs that get closer to satisfying a comparison (e.g. more matching bytes), giving the search a gradient it otherwise lacks</text><feedback><text>Correct — it converts an all-or-nothing compare into incremental feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Removes all comparisons from the program so every branch is taken</text><feedback><text>It instruments comparisons for feedback; it does not delete them from the program's logic.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees the fuzzer solves every equality in constant time</text><feedback><text>It improves guidance but guarantees nothing; some constraints still need a solver.</text></feedback></answer>
+    <answer fraction="0"><text>Replaces the need for a seed corpus</text><feedback><text>Seeds are still valuable; compare-coverage only adds a finer feedback signal.</text></feedback></answer>
+    <generalfeedback><text>A wide comparison normally gives feedback only when fully matched. Comparison-tracking (e.g. laf-intel splitting a 4-byte compare into per-byte compares, or libFuzzer value profiling) rewards partial matches, so the fuzzer can climb toward the target value instead of guessing it all at once.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Harness design and determinism</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why should a fuzz harness (fuzz target) map input bytes to program behavior <em>deterministically</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-determinism (randomness, time, uninitialized state) makes crashes hard to reproduce and pollutes coverage feedback, so the same input should always behave the same way</text><feedback><text>Correct — determinism keeps coverage feedback meaningful and crashes reproducible.</text></feedback></answer>
+    <answer fraction="0"><text>Determinism lets the fuzzer skip running the target</text><feedback><text>The target must still run each input; determinism just makes results reliable.</text></feedback></answer>
+    <answer fraction="0"><text>Only deterministic targets can have bugs</text><feedback><text>Non-deterministic targets have bugs too; determinism makes them easier to find and reproduce.</text></feedback></answer>
+    <answer fraction="0"><text>Determinism removes the need for an oracle</text><feedback><text>An oracle is still required; determinism does not detect faults by itself.</text></feedback></answer>
+    <generalfeedback><text>Coverage-guided fuzzing assumes an input's behavior (and its coverage) is a function of the input. If the harness introduces randomness, wall-clock time, or leftover global state, the same bytes can behave differently — making coverage feedback noisy and crashes non-reproducible. Good harnesses derive all behavior deterministically from the input bytes.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Fuzzing needs a detectable failure signal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Without a detectable failure signal (crash, hang, sanitizer/assertion violation, or a reference check), a fuzzer can execute a bug-triggering input yet never report the bug.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — with no observable signal, the fuzzer has no way to recognize that anything went wrong.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A fuzzer only reports a bug when its oracle observes a failure; a fault that produces no signal passes silently.</text></feedback></answer>
+    <generalfeedback><text>Fuzzing depends entirely on its oracle. If a triggering input causes no crash, hang, sanitizer violation, or assertion/reference-check failure, the fuzzer sees nothing wrong and moves on — which is why strengthening the oracle (sanitizers, assertions, differential checks) is as important as generating good inputs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Differential fuzzing as an oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>differential fuzzing</strong> help catch silent logic bugs that crashes and sanitizers miss?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It runs the same input through two or more implementations that should agree, and flags a bug when their outputs differ</text><feedback><text>Correct — disagreement between implementations serves as an oracle for non-crashing bugs.</text></feedback></answer>
+    <answer fraction="0"><text>It measures which implementation runs faster and reports the slower one as buggy</text><feedback><text>Differential fuzzing compares outputs for correctness, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>It doubles the coverage instrumentation to detect memory errors</text><feedback><text>It is an oracle technique based on output comparison, not extra memory instrumentation.</text></feedback></answer>
+    <answer fraction="0"><text>It proves both implementations are correct when they agree</text><feedback><text>Agreement is not proof of correctness — both could share the same bug; it only flags disagreements.</text></feedback></answer>
+    <generalfeedback><text>Differential fuzzing feeds one input to multiple implementations expected to behave identically (e.g. two parsers or a reference vs an optimized version) and treats any output mismatch as a bug. This provides an oracle for silent logic errors that produce no crash. Note that if both implementations share the same flaw, they can agree and still be wrong.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage as a fitness signal, not a proof</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about the role of coverage in coverage-guided fuzzing is accurate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage is a heuristic fitness signal that steers the search toward new code; high coverage indicates thorough exercising, not correctness or bug-freedom</text><feedback><text>Correct — coverage guides exploration but is not a correctness guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>Reaching 100% edge coverage proves the program has no bugs</text><feedback><text>Executing code is not the same as testing it correctly; full coverage can still miss bugs (e.g. wrong-but-non-crashing results).</text></feedback></answer>
+    <answer fraction="0"><text>Coverage directly decides whether a run found a bug</text><feedback><text>Coverage guides the search; the bug decision comes from the oracle (crash/sanitizer/assertion).</text></feedback></answer>
+    <answer fraction="0"><text>Coverage feedback removes the need to run inputs</text><feedback><text>Coverage is obtained by running instrumented inputs; it cannot replace execution.</text></feedback></answer>
+    <generalfeedback><text>In coverage-guided fuzzing, coverage is a fitness signal: inputs that reach new edges are kept and mutated, steering the search deeper. But covering a line only means it ran, not that it produced a correct result — so even 100% coverage does not prove bug-freedom, and the oracle, not coverage, decides whether a run failed.</text></generalfeedback>
+  </question>
+</quiz>

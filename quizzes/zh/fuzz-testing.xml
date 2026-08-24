@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Fuzz Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是模糊測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>模糊測試器（fuzzer）</strong>本質上在做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它自動對程式餵入大量生成或畸形的輸入，並觀察是否發生當機與其他失敗</text><feedback><text>正確——模糊測試是一種自動化測試，用大量輸入轟炸程式並尋找可觀察到的失敗。</text></feedback></answer>
+    <answer fraction="0"><text>它形式化地證明程式沒有任何錯誤</text><feedback><text>模糊測試藉由嘗試輸入來找出錯誤；它永遠無法證明錯誤不存在。</text></feedback></answer>
+    <answer fraction="0"><text>它靜態地量測測試套件所涵蓋的行數</text><feedback><text>那是覆蓋率量測；模糊測試器會主動以大量生成的輸入執行程式。</text></feedback></answer>
+    <answer fraction="0"><text>它把原始碼翻譯成最佳化過的機器碼</text><feedback><text>那描述的是編譯器，而非模糊測試器。</text></feedback></answer>
+    <generalfeedback><text>模糊測試（fuzzing）自動生成大量輸入——常是隨機或畸形的——以之執行程式，並回報觸發可偵測失敗（例如當機）的那些輸入。它是一種找錯技術，而非正確性證明。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>種子語料庫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模糊測試中，<strong>種子語料庫（seed corpus）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組樣本輸入，模糊測試器以它們為起點並加以變異來產生新輸入</text><feedback><text>正確——種子是變異式模糊測試器賴以出發的起始範例。</text></feedback></answer>
+    <answer fraction="0"><text>模糊測試器已經找到的當機清單</text><feedback><text>當機是模糊測試執行的輸出；種子語料庫則是起始輸入的集合。</text></feedback></answer>
+    <answer fraction="0"><text>亂數產生器的初始種子值</text><feedback><text>亂數種子是單一數字；種子語料庫則是一組範例輸入。</text></feedback></answer>
+    <answer fraction="0"><text>受測程式的原始碼</text><feedback><text>語料庫是輸入資料，而非程式的程式碼。</text></feedback></answer>
+    <generalfeedback><text>種子語料庫是變異式模糊測試器所用的初始一組有效或有趣的範例輸入；它變異這些種子以探索新行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>變異式與生成式</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>變異式（mutation-based）</strong>模糊測試與<strong>生成式（generation-based）</strong>模糊測試有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變異式模糊測試修改既有的種子輸入，生成式模糊測試則依格式的模型或文法（grammar）從頭建構輸入</text><feedback><text>正確——一者變異既有樣本，另一者依規格建構輸入。</text></feedback></answer>
+    <answer fraction="0"><text>變異式模糊測試需要完整文法，生成式模糊測試只是翻轉位元</text><feedback><text>恰好相反：生成式使用文法／模型；變異式通常翻轉位元並拼接種子。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都必須要有程式原始碼才能執行</text><feedback><text>兩者都不一定需要原始碼；差別在於如何產生輸入（變異或生成）。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一種技術的兩個名稱</text><feedback><text>它們是產生輸入的兩種不同策略。</text></feedback></answer>
+    <generalfeedback><text>變異式模糊測試取用種子語料庫並對其套用變異（位元翻轉、位元組替換、拼接）。生成式模糊測試則依描述預期格式的模型或文法合成輸入，因此一開始就能產生結構良好的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋率導向模糊測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼定義了<strong>覆蓋率導向（灰箱）</strong>模糊測試器？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它對程式插樁以觀察程式覆蓋率，保留能抵達新程式碼的輸入，並讓語料庫朝更深的行為演進</text><feedback><text>正確——覆蓋率回饋挑選「有趣」的輸入並驅動搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>它純粹隨機生成輸入，從不觀察程式的行為</text><feedback><text>那描述的是黑箱模糊測試；覆蓋率導向會使用回饋。</text></feedback></answer>
+    <answer fraction="0"><text>它需要程式的完整形式化規格</text><feedback><text>不需要規格——只需輕量的覆蓋率插樁。</text></feedback></answer>
+    <answer fraction="0"><text>它只在模糊測試結束後才量測覆蓋率，且從不改變其輸入</text><feedback><text>覆蓋率是在執行過程中即時使用，用以決定保留與變異哪些輸入。</text></feedback></answer>
+    <generalfeedback><text>覆蓋率導向模糊測試器（例如 AFL、libFuzzer）對目標插樁，記錄每個輸入所執行到的程式碼邊（edge）。命中新覆蓋率的輸入會被存入語料庫並進一步變異，因此模糊測試器會逐步深入更深的程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模糊測試的判定準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當模糊測試器執行一個輸入時，什麼最常告訴它找到了錯誤（其<strong>判定準則／oracle</strong>）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>執行期間發生當機、卡死（hang）、消毒器（sanitizer）違規，或斷言（assertion）失敗</text><feedback><text>正確——這些是模糊測試器賴以判斷的可觀察失敗訊號。</text></feedback></answer>
+    <answer fraction="0"><text>由人工逐一閱讀每個生成的輸入並親手判斷</text><feedback><text>模糊測試器會執行數百萬個輸入；判定準則必須是自動的，例如當機或消毒器報告。</text></feedback></answer>
+    <answer fraction="0"><text>輸入的檔案大小超過某個門檻</text><feedback><text>檔案大小並不表示有錯誤；當機、卡死與消毒器錯誤才是。</text></feedback></answer>
+    <answer fraction="0"><text>程式產生了任何輸出</text><feedback><text>正常輸出是預期中的；判定準則尋找的是失敗訊號，而非一般輸出。</text></feedback></answer>
+    <generalfeedback><text>因為模糊測試器會執行極大量的輸入，它的錯誤判定準則必須是自動的。常見訊號包括當機（例如 SIGSEGV）、卡死／逾時、消毒器回報的違規（ASan／UBSan），或失敗的斷言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>黑箱、灰箱、白箱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者正確地依「使用多少程式內部資訊」排序<strong>黑箱</strong>、<strong>灰箱</strong>與<strong>白箱</strong>模糊測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>黑箱不使用任何內部資訊；灰箱使用輕量的覆蓋率回饋；白箱使用較重的程式分析，例如符號執行</text><feedback><text>正確——三者落在「內部洞察逐漸增加」的光譜上。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱使用符號執行；灰箱不使用任何；白箱使用覆蓋率</text><feedback><text>標籤被打亂了：使用符號執行的是白箱，黑箱什麼都不用。</text></feedback></answer>
+    <answer fraction="0"><text>三者使用的內部資訊量完全相同</text><feedback><text>它們的差別正在於使用多少內部洞察。</text></feedback></answer>
+    <answer fraction="0"><text>灰箱使用三者中最多的內部資訊</text><feedback><text>使用最多的是白箱（程式分析）；灰箱只用輕量的覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>黑箱模糊測試把目標當成不透明（只看輸入與觀察到的當機）。灰箱模糊測試加入輕量插樁以取得覆蓋率回饋。白箱模糊測試使用較重的分析——例如符號／具體符號執行——以推理哪些輸入驅動哪些路徑。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>模糊測試的目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模糊測試的一個核心目標，是自動找出會使程式當機或以其他方式出錯的輸入。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——模糊測試把「尋找觸發失敗的輸入」自動化。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>自動找出觸發當機或故障的輸入，正是模糊測試的用途。</text></feedback></answer>
+    <generalfeedback><text>模糊測試生成大量輸入並以之執行程式，目標是找出觸發可偵測失敗（當機、卡死、消毒器違規或斷言失敗）的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>位元翻轉變異運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模糊測試器中的<strong>位元翻轉（bit-flip）</strong>變異運算子會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在既有輸入的副本中切換一個或多個位元</text><feedback><text>正確——翻轉位元是最簡單的變異運算子之一。</text></feedback></answer>
+    <answer fraction="0"><text>改寫程式原始碼以反轉某個布林值</text><feedback><text>那會是原始碼變異（突變測試）；模糊測試器變異的是輸入，而非程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>刪除整個輸入並從零重新開始</text><feedback><text>位元翻轉修改的是少數位元；它不會抹除整個輸入。</text></feedback></answer>
+    <answer fraction="0"><text>以不同的最佳化等級重新編譯目標</text><feedback><text>變異運算子改變的是輸入，而非建置設定。</text></feedback></answer>
+    <generalfeedback><text>變異運算子轉換種子輸入。常見的包括位元翻轉（切換位元）、位元組或整數替換、插入／刪除，以及把兩個輸入拼接（splicing）在一起。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>AFL 是覆蓋率導向灰箱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>AFL（American Fuzzy Lop）是一個覆蓋率導向的灰箱模糊測試器：它對目標插樁，並以邊覆蓋率（edge coverage）回饋來引導變異。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——AFL 是覆蓋率導向灰箱模糊測試的典型代表，使用邊覆蓋率回饋。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>AFL 確實是覆蓋率導向且灰箱的；它透過插樁記錄邊覆蓋率，並保留能抵達新邊的輸入。</text></feedback></answer>
+    <generalfeedback><text>AFL 使覆蓋率導向灰箱模糊測試普及：編譯期（或以 QEMU）插樁記錄邊覆蓋率，命中新邊的輸入會被加入佇列並進一步變異。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>libFuzzer 的模糊目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>libFuzzer 是一個行程內（in-process）、覆蓋率導向的模糊測試器。你如何告訴它要模糊測試什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>你撰寫一個模糊目標函式，它接收一段位元組緩衝區，並把它餵入受測程式碼</text><feedback><text>正確——libFuzzer 會反覆以生成的位元組呼叫你的進入函式（例如 LLVMFuzzerTestOneInput）。</text></feedback></answer>
+    <answer fraction="0"><text>你提供一份形式化文法，libFuzzer 自動推導出目標</text><feedback><text>libFuzzer 把位元組緩衝區驅動進你所寫的函式；它不需要文法。</text></feedback></answer>
+    <answer fraction="0"><text>你只給它編譯後的執行檔，不需修改任何程式碼</text><feedback><text>libFuzzer 是行程內的，會連結到你提供的目標函式。</text></feedback></answer>
+    <answer fraction="0"><text>你把它指向程式的日誌檔</text><feedback><text>它以生成的輸入呼叫你的模糊目標函式；日誌與此無關。</text></feedback></answer>
+    <generalfeedback><text>libFuzzer 在行程內執行：你撰寫一個模糊目標（通常是 <code>LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)</code>），把位元組轉成對受測 API 的呼叫。libFuzzer 生成輸入、在迴圈中呼叫該目標，並以覆蓋率回饋引導變異。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>AddressSanitizer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在對 C/C++ 程式碼進行模糊測試時，<strong>AddressSanitizer（ASan）</strong>提供了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它偵測記憶體錯誤——例如堆積／堆疊緩衝區溢位與釋放後使用（use-after-free）——把原本無聲的破壞轉為立即可見的失敗</text><feedback><text>正確——ASan 使許多記憶體安全錯誤大聲當機，讓模糊測試器的判定準則得以捕捉。</text></feedback></answer>
+    <answer fraction="0"><text>它負責產生模糊測試的輸入</text><feedback><text>產生輸入是模糊測試器的工作；ASan 是錯誤偵測器，而非產生器。</text></feedback></answer>
+    <answer fraction="0"><text>它證明程式是記憶體安全的</text><feedback><text>ASan 回報它在執行期觀察到的錯誤；它不證明錯誤不存在。</text></feedback></answer>
+    <answer fraction="0"><text>它移除邊界檢查以加速程式</text><feedback><text>ASan 會加入檢查（並帶有額外開銷）；它不會移除檢查。</text></feedback></answer>
+    <generalfeedback><text>AddressSanitizer 對記憶體存取插樁，以偵測越界讀寫與釋放後使用等錯誤。與模糊測試搭配時，它把許多無聲的記憶體破壞錯誤轉為可觀察的當機，強化判定準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>當機代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當模糊測試器回報一個「當機（crash）」時，通常表示該次執行：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>異常終止——例如區段錯誤（segmentation fault）或中止（abort）——代表一個值得調查的故障</text><feedback><text>正確——異常終止是典型的模糊測試錯誤訊號。</text></feedback></answer>
+    <answer fraction="0"><text>產生了與參考實作不同的輸出</text><feedback><text>那是差分測試（differential testing）的訊號，並非此處「當機」的意思。</text></feedback></answer>
+    <answer fraction="0"><text>正常結束，只是比較慢</text><feedback><text>緩慢但正常地完成不是當機；卡死／逾時會是另一種獨立訊號。</text></feedback></answer>
+    <answer fraction="0"><text>被模糊測試器的輸入過濾器拒絕</text><feedback><text>當機是目標的異常終止，而非輸入過濾。</text></feedback></answer>
+    <generalfeedback><text>當機是目標行程的異常終止——例如區段錯誤（SIGSEGV）或中止（SIGABRT，常由消毒器或斷言引發）。模糊測試器會保存觸發它的輸入以供分類分析。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隨機／黑箱模糊測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>最簡單、純<strong>隨機黑箱</strong>模糊測試器的運作方式是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把隨機生成或隨機變異的輸入丟給程式，完全不使用任何內部回饋</text><feedback><text>正確——純黑箱隨機模糊測試完全忽略程式內部。</text></feedback></answer>
+    <answer fraction="0"><text>以 SMT 求解器求解路徑限制式來選擇輸入</text><feedback><text>那是白箱／符號模糊測試，並非隨機黑箱。</text></feedback></answer>
+    <answer fraction="0"><text>依量測到的邊覆蓋率來挑選輸入</text><feedback><text>使用覆蓋率回饋會使它成為灰箱，而非黑箱。</text></feedback></answer>
+    <answer fraction="0"><text>需要輸入格式的完整文法</text><feedback><text>純隨機模糊測試器不需要文法；它只是生成或變異位元組。</text></feedback></answer>
+    <generalfeedback><text>隨機黑箱模糊測試單純生成或變異輸入，並只觀察外部行為（有沒有當機？）。它便宜又容易，但沒有回饋，一旦易於抵達的程式碼被執行過後往往就會停滯（plateau）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模糊測試字典</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模糊測試的<strong>字典（dictionary）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組符記（token）或魔術值（關鍵字、標頭、常數），模糊測試器可將其插入輸入中</text><feedback><text>正確——字典提供模糊測試器靠隨機幾乎產生不出的有意義建構區塊。</text></feedback></answer>
+    <answer fraction="0"><text>把每個當機對應到其呼叫堆疊軌跡的日誌</text><feedback><text>那是當機分類的輸出；字典是一組輸入符記。</text></feedback></answer>
+    <answer fraction="0"><text>從原始檔到覆蓋率計數器的對應表</text><feedback><text>那是覆蓋率的記錄，而非符記字典。</text></feedback></answer>
+    <answer fraction="0"><text>描述整個輸入格式的文法</text><feedback><text>字典是一份扁平的有用符記清單，而非完整文法。</text></feedback></answer>
+    <generalfeedback><text>字典提供有趣的符記——格式關鍵字、魔術位元組或常見常數——模糊測試器可把它們拼接進輸入。這有助於通過那些期待特定位元組序列（而它幾乎不可能隨機生成）的檢查。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>生成式需要模型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>生成式模糊測試需要輸入格式的模型或文法，才能建構輸入。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——生成式模糊測試依格式規格建構輸入，因此需要該模型。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>依定義，生成式模糊測試依模型／文法建構輸入；沒有它就無從生成。</text></feedback></answer>
+    <generalfeedback><text>生成式（文法式）模糊測試依格式描述合成輸入。正是那個模型讓它能產生結構有效的輸入，不同於從既有種子出發的變異式模糊測試。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fuzz Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何覆蓋率回饋有幫助</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼保留能抵達<em>新</em>程式碼邊的輸入，會讓覆蓋率導向模糊測試器更有效？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>這類輸入是墊腳石：它們執行到新行為，進一步變異後比隨機輸入更可能抵達更深的程式碼</text><feedback><text>正確——新覆蓋率的輸入是進一步深入程式的探索起點。</text></feedback></answer>
+    <answer fraction="0"><text>抵達新邊保證下一次變異就會當機</text><feedback><text>新覆蓋率並不保證當機；它只是提高更深入探索的機會。</text></feedback></answer>
+    <answer fraction="0"><text>新覆蓋率的輸入一定比較小，因此執行更快</text><feedback><text>保留它們是因為抵達了新行為，而非因為比較小。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率回饋讓模糊測試器可以略過執行程式</text><feedback><text>模糊測試器仍必須執行每個輸入；回饋只是告訴它該保留哪些結果。</text></feedback></answer>
+    <generalfeedback><text>覆蓋率回饋把模糊測試變成一種有引導的搜尋。解鎖了新邊的輸入會被保留，因為變異它比變異毫無新意的輸入，更可能推進到相鄰、先前未抵達的程式碼——語料庫因而朝更深的覆蓋率演進。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>變異與生成的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者最能概括變異式與生成式模糊測試之間的取捨？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變異式便宜且不需格式規格，但難以處理高度結構化的輸入；生成式需要撰寫文法，但能輕易產生有效的結構化輸入</text><feedback><text>正確——取捨在於「規格投入」對上「能否產生有效結構化輸入」。</text></feedback></answer>
+    <answer fraction="0"><text>變異式在每一個目標上都一定比生成式找到更多錯誤</text><feedback><text>兩者皆非全面勝出；各自適合不同的輸入格式。</text></feedback></answer>
+    <answer fraction="0"><text>生成式的建置成本總是比變異式更低</text><feedback><text>生成式通常前期成本更高，因為你必須撰寫文法／模型。</text></feedback></answer>
+    <answer fraction="0"><text>只有生成式模糊測試能使用覆蓋率回饋</text><feedback><text>覆蓋率回饋是正交的；變異式灰箱模糊測試器大量使用它。</text></feedback></answer>
+    <generalfeedback><text>變異式模糊測試容易上手（只需提供種子），但隨機變異常破壞複雜格式的結構。生成式模糊測試前期投入撰寫文法／模型，對高度結構化的輸入（編譯器、網路協定）而言，能持續產生有效輸入而回本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是好的種子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對變異式覆蓋率導向模糊測試器而言，哪一組種子輸入通常<em>最佳</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>小巧、有效、多樣的範例，合起來能執行到格式的許多不同特性</text><feedback><text>正確——小而多樣的有效種子提供了廣泛、可變異的起始覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>一個涵蓋所有特性的超大單一檔案</text><feedback><text>單一巨檔執行與變異都慢；許多小而多樣的種子更好。</text></feedback></answer>
+    <answer fraction="0"><text>與格式無關的隨機位元組團</text><feedback><text>無效團塊會浪費在早期被拒；有效種子能更快抵達更深的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>只用已知會使程式當機的輸入</text><feedback><text>已知當機用於回歸測試；種子應廣泛執行有效行為以供由此探索。</text></feedback></answer>
+    <generalfeedback><text>好的種子要「有效到足以通過早期剖析」、「小到能快速執行與變異」，且「多樣到讓語料庫一開始就有廣泛覆蓋率」。一堆小巧、特性各異的有效輸入，勝過一個巨檔或隨機雜訊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>灰箱與黑箱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在相同目標上，灰箱模糊測試相對於黑箱模糊測試的關鍵實務優勢是灰箱：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使用覆蓋率回饋來辨識並保留能抵達新程式碼的輸入，因此隨時間能探索到程式中更多部分</text><feedback><text>正確——這個回饋迴路正是灰箱所增加的。</text></feedback></answer>
+    <answer fraction="0"><text>不需要判定準則，因為覆蓋率取代了當機偵測</text><feedback><text>覆蓋率引導搜尋，但不是錯誤判定準則；你仍需當機／消毒器訊號。</text></feedback></answer>
+    <answer fraction="0"><text>保證涵蓋程式的所有路徑</text><feedback><text>灰箱模糊測試改善覆蓋率，但遠不能保證所有路徑。</text></feedback></answer>
+    <answer fraction="0"><text>完全不需要任何插樁</text><feedback><text>定義灰箱的覆蓋率回饋正是來自輕量插樁。</text></feedback></answer>
+    <generalfeedback><text>黑箱模糊測試只看外部行為，因此無法分辨「無聊」輸入與「解鎖新程式碼」的輸入。灰箱模糊測試加入輕量覆蓋率插樁，得以保留並變異抵達新邊的輸入——這個回饋迴路大幅提升觸及範圍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>字典與魔術值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>提供字典如何幫助模糊測試器通過像 <code>if (memcmp(hdr, "PNG", 3) == 0)</code> 這樣的檢查？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>字典包含符記 "PNG"，因此模糊測試器可直接插入它，不必靠隨機碰巧湊出那些位元組</text><feedback><text>正確——字典把程式檢查所需的確切符記直接交給模糊測試器。</text></feedback></answer>
+    <answer fraction="0"><text>它停用該比較，使檢查永遠通過</text><feedback><text>字典提供的是輸入符記；它不會修改程式的檢查。</text></feedback></answer>
+    <answer fraction="0"><text>它讓隨機變異呈指數級加速</text><feedback><text>它不改變變異速度；它改變的是可供插入的符記。</text></feedback></answer>
+    <answer fraction="0"><text>它不執行程式就證明標頭正確</text><feedback><text>字典不證明任何事；它只是提供有用的位元組序列供嘗試。</text></feedback></answer>
+    <generalfeedback><text>隨機產生特定的多位元組符記（例如 "PNG"）機率很低。字典列出這類符記，讓模糊測試器可直接拼接進去，從而滿足魔術值檢查並抵達其後守護的程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結構感知模糊測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>結構感知（structure-aware）</strong>模糊測試（例如變異已剖析／具型別的表示，而非原始位元組）的重點是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變異會遵守輸入格式，因此大多數生成的輸入仍結構有效，能抵達深層邏輯，而非被剖析器早早拒絕</text><feedback><text>正確——在結構層次變異能讓輸入維持足夠有效以執行更深的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>它免除了對任何判定準則的需求</text><feedback><text>結構感知關乎輸入有效性，而非錯誤偵測；仍需判定準則。</text></feedback></answer>
+    <answer fraction="0"><text>它保證模糊測試器會找到剖析器中所有的錯誤</text><feedback><text>沒有技術能保證找到所有錯誤；它只是讓更多輸入維持有效。</text></feedback></answer>
+    <answer fraction="0"><text>它只適用於純文字，永遠不適用於二進位格式</text><feedback><text>結構感知模糊測試也適用於二進位格式（例如以 protobuf 為基礎的模糊測試器）。</text></feedback></answer>
+    <generalfeedback><text>對高度結構化的輸入而言，原始位元組變異通常會被剖析器早早拒絕。結構感知模糊測試變異已具型別／已剖析的表示（或使用文法），因此生成的輸入維持良好形式，能驅動更深、藏有有趣錯誤的語意邏輯。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何保留抵達新邊的輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>覆蓋率導向模糊測試器執行了一個抵達全新邊、但沒有當機的輸入。它通常會怎麼做？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把它加入語料庫／佇列以供進一步變異，因為它可能通往更深的程式碼</text><feedback><text>正確——即使沒有當機，新覆蓋率作為進一步變異的基礎仍有價值。</text></feedback></answer>
+    <answer fraction="0"><text>丟棄它，因為只有會當機的輸入才值得保留</text><feedback><text>正因新覆蓋率的輸入開啟了通往未來當機的路徑，才會被保留。</text></feedback></answer>
+    <answer fraction="0"><text>立即把它回報為錯誤</text><feedback><text>新覆蓋率不是錯誤；只有判定準則發出的失敗訊號才是。</text></feedback></answer>
+    <answer fraction="0"><text>停止整個模糊測試活動</text><feedback><text>抵達新覆蓋率是進展，而非停止的理由。</text></feedback></answer>
+    <generalfeedback><text>解鎖新覆蓋率的輸入會被保存並優先進一步變異。它們作為墊腳石：變異它們是把執行推進到相鄰、尚未抵達的程式碼最有前景的方式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>拼接運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>拼接（splicing）</strong>變異運算子產生新輸入的方式是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把某個語料庫輸入的一部分與另一個輸入的一部分組合起來</text><feedback><text>正確——拼接重組兩個既有輸入的片段。</text></feedback></answer>
+    <answer fraction="0"><text>翻轉某個輸入中的單一位元</text><feedback><text>那是位元翻轉，而非拼接。</text></feedback></answer>
+    <answer fraction="0"><text>把一個 4 位元組整數換成邊界值</text><feedback><text>那是整數替換變異，而非拼接。</text></feedback></answer>
+    <answer fraction="0"><text>把輸入的位元組依遞增順序排序</text><feedback><text>排序位元組不是標準變異；拼接是把兩個輸入的片段接合。</text></feedback></answer>
+    <generalfeedback><text>拼接（crossover）取用語料庫中兩個輸入，把其中一個的前綴與另一個的後綴接合，讓模糊測試器把個別發現的特性組合起來——這是對位元翻轉、位元組替換等區域變異的補充。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>語料庫的演進</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 AFL 式模糊測試器中，語料庫（佇列）在執行過程中如何演進？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>觸發新覆蓋率的輸入會被附加到佇列並稍後被變異，因此語料庫朝著抵達更深程式碼的輸入成長</text><feedback><text>正確——佇列持續被有趣的輸入擴充並再度變異。</text></feedback></answer>
+    <answer fraction="0"><text>語料庫在啟動時固定，之後永不改變</text><feedback><text>覆蓋率導向模糊測試器的語料庫會隨著找到新覆蓋率的輸入而成長。</text></feedback></answer>
+    <answer fraction="0"><text>每個生成的輸入，無論有無覆蓋率，都會被永久保存</text><feedback><text>只有增加新覆蓋率（或當機）的輸入才會被保留，其餘丟棄。</text></feedback></answer>
+    <answer fraction="0"><text>每次執行後語料庫就減少一個輸入</text><feedback><text>語料庫隨有趣的發現成長，而非每次執行遞減。</text></feedback></answer>
+    <generalfeedback><text>覆蓋率導向模糊測試器維護一個有趣輸入的佇列。當變異後的輸入命中新覆蓋率時，就會被加入佇列；模糊測試器接著不斷循環佇列、變異每一項，因此語料庫朝著抵達越來越深行為的輸入演進。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊覆蓋率與區塊覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼許多灰箱模糊測試器追蹤<strong>邊（分支轉移）覆蓋率</strong>，而不只是<strong>基本區塊（basic-block）覆蓋率</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊覆蓋率記錄發生了哪些「區塊到區塊」的轉移，因此能區分區塊覆蓋率會視為相同的控制流</text><feedback><text>正確——邊捕捉轉移，提供比區塊命中更細緻的訊號。</text></feedback></answer>
+    <answer fraction="0"><text>邊覆蓋率不需插樁，而區塊覆蓋率需要</text><feedback><text>兩者都需插樁；邊覆蓋率只是更具鑑別力。</text></feedback></answer>
+    <answer fraction="0"><text>區塊覆蓋率能偵測當機，但邊覆蓋率不能</text><feedback><text>兩者都不偵測當機；那是判定準則的職責。差別在於覆蓋率訊號的細緻程度。</text></feedback></answer>
+    <answer fraction="0"><text>邊覆蓋率總是精確，而區塊覆蓋率是隨機的</text><feedback><text>兩者都是確定性的量測；重點是邊更細緻。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋率記錄基本區塊之間的轉移，因此兩次以不同順序造訪相同區塊的執行看起來會不同。這個更細緻的訊號幫助模糊測試器辨識出比區塊覆蓋率更多的「有趣」輸入，後者只記錄某區塊是否被抵達。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>行程內與 fork 式模糊測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於 fork 式模糊測試器，像 libFuzzer 這樣的行程內模糊測試器：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在同一行程內呼叫目標函式來執行每個輸入，速度快，但要求目標不得有在多次執行間洩漏的狀態</text><feedback><text>正確——行程內執行速度快，但對殘留／全域狀態敏感。</text></feedback></answer>
+    <answer fraction="0"><text>為每個輸入啟動一個全新行程，隔離更強但額外開銷更大</text><feedback><text>那描述的是 fork/exec 式模糊測試，與行程內相反。</text></feedback></answer>
+    <answer fraction="0"><text>完全無法使用覆蓋率回饋</text><feedback><text>libFuzzer 是覆蓋率導向的；行程內執行並不排除回饋。</text></feedback></answer>
+    <answer fraction="0"><text>需要完整的輸入文法才能運作</text><feedback><text>libFuzzer 不需文法；它把位元組緩衝區驅動進你的模糊目標。</text></feedback></answer>
+    <generalfeedback><text>行程內模糊測試在單一行程內反覆呼叫目標函式，避免了建立行程的開銷，執行非常快。代價是多次執行間殘留的全域／靜態狀態可能導致無法重現的行為，因此目標必須在每次呼叫時乾淨地重置。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>消毒器強化判定準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼對「插入消毒器的建置」進行模糊測試往往能找到更多錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>消毒器把原本無聲的錯誤（例如小範圍越界讀取、整數溢位）轉為立即可見的失敗，讓模糊測試器的判定準則得以捕捉</text><feedback><text>正確——消毒器暴露了那些本身不會當機的故障。</text></feedback></answer>
+    <answer fraction="0"><text>消毒器為模糊測試器產生額外的輸入</text><feedback><text>消毒器偵測故障；它們不產生輸入。</text></feedback></answer>
+    <answer fraction="0"><text>消毒器提升執行速度，因而能執行更多次</text><feedback><text>消毒器帶來額外開銷；好處在於更好的偵測，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>消毒器取代了對語料庫的需求</text><feedback><text>仍需語料庫；消毒器只改善失敗訊號。</text></feedback></answer>
+    <generalfeedback><text>沒有消毒器時，許多錯誤（一個位元組的越界讀取、有號溢位）不會當機而從模糊測試器眼前溜走。ASan、UBSan 等消毒器在執行期偵測到這些並中止，讓模糊測試器的當機判定準則捕捉到原本會漏掉的故障。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>卡死作為判定訊號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>除了當機，模糊測試器也可以用卡死（hang）或逾時作為錯誤訊號——例如捕捉使程式陷入無窮迴圈的輸入。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——過長的執行時間（卡死／逾時）是標準的模糊測試訊號，例如用於潛在的阻斷服務迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>模糊測試器常標記超過時限的輸入，這可揭露無窮迴圈或演算法複雜度問題。</text></feedback></answer>
+    <generalfeedback><text>卡死／逾時是合理的判定準則：若某輸入使程式執行遠超過設定時限，模糊測試器就會記錄它。這類輸入可暴露無窮迴圈或最壞情況演算法複雜度（阻斷服務）問題。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋率停滯</text></name>
+    <questiontext format="html"><text><![CDATA[<p>覆蓋率導向模糊測試器長時間不再發現新覆蓋率（陷入停滯／plateau）。下列哪個回應最合理？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>幫它越過障礙——加入更好的種子、提供字典，或引入求解器／符號執行協助——因為單靠隨機變異很可能卡在某個難以滿足的檢查</text><feedback><text>正確——停滯通常代表某個難以滿足的條件，需要額外協助。</text></feedback></answer>
+    <answer fraction="0"><text>斷定程式現在已被證明無錯誤</text><feedback><text>停滯代表模糊測試器不再取得進展，而非程式正確。</text></feedback></answer>
+    <answer fraction="0"><text>刪除種子語料庫以強制回到純隨機</text><feedback><text>移除種子通常有害；模糊測試器需要更好的起點，而非更少。</text></feedback></answer>
+    <answer fraction="0"><text>停用覆蓋率插樁</text><feedback><text>關掉回饋等於丟棄引導探索的核心機制。</text></feedback></answer>
+    <generalfeedback><text>停滯通常意味著模糊測試器被某個變異無法滿足的檢查擋住（魔術值、校驗和或複雜結構）。實務回應包括更豐富的種子、期待符記的字典、結構感知變異，或用求解器越過障礙的混合式模糊測試——而不是把停滯當成正確性的證明。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整數／邊界替換運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>許多模糊測試器包含一個變異運算子，會把多位元組整數欄位覆寫成像 0、-1 或 INT_MAX 這樣的值。為何偏好這些特定的值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊界值與極端值特別容易暴露差一（off-by-one）、溢位與正負號處理的錯誤，所以嘗試它們比純隨機整數更有成效</text><feedback><text>正確——邊界值瞄準整數錯誤群聚的邊緣情況。</text></feedback></answer>
+    <answer fraction="0"><text>這些值保證能滿足任何校驗和</text><feedback><text>它們與校驗和無關；它們瞄準的是整數邊緣情況。</text></feedback></answer>
+    <answer fraction="0"><text>它們使輸入檔案更小</text><feedback><text>替換整數不會縮小輸入；重點在於容易引發錯誤的邊緣值。</text></feedback></answer>
+    <answer fraction="0"><text>它們是覆蓋率導向模糊測試器唯一能生成的值</text><feedback><text>模糊測試器能產生許多值；邊界值只是特別容易揭露錯誤而值得嘗試的選擇。</text></feedback></answer>
+    <generalfeedback><text>整數替換變異刻意注入邊界與極端值（0、1、-1、最大／最小值、鄰近的 2 的冪次），因為錯誤——差一錯誤、溢位、有號／無號混淆——傾向群聚在這些邊緣。嘗試它們比均勻隨機取樣整數更有成效。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fuzz Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何校驗和能擊敗天真的變異式模糊測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某剖析器會先驗證輸入的 CRC 校驗和，若失敗就立即拒絕該輸入。為什麼這會擊敗天真的變異式模糊測試，而真正有幫助的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>幾乎每個變異都會破壞校驗和，導致輸入在抵達更深程式碼前就被拒絕；有幫助的是在測試支架中移除該檢查，或用覆蓋率導向／字典／符號執行等能滿足它的技術</text><feedback><text>正確——該檢查是全有全無的關卡；實務作法常是在模糊測試建置中停用它，或用能產生有效校驗和的技術。</text></feedback></answer>
+    <answer fraction="0"><text>校驗和使程式跑得更快，讓模糊測試器時間變少——增加 CPU 核心即可解決</text><feedback><text>問題在於變異後的輸入無法通過檢查，而非執行時間；更多核心無法讓隨機變異滿足校驗和。</text></feedback></answer>
+    <answer fraction="0"><text>單靠覆蓋率導向模糊測試就能輕易為每個輸入算出正確的校驗和</text><feedback><text>覆蓋率導向並不會計算校驗和；單一通過／失敗的檢查幾乎不提供梯度可循。這是誇大之詞。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何辦法有幫助——這類程式碼根本無法被模糊測試</text><feedback><text>它是可以被模糊測試的：在支架中停用該檢查，或使用字典／符號執行，都是標準的補救手段。</text></feedback></answer>
+    <generalfeedback><text>校驗和關卡是一個單一分支，幾乎所有隨機變異都會失敗，因此模糊測試器永遠抵達不了其後的邏輯，覆蓋率回饋也幫助有限（本質上是全有全無）。常見補救：在模糊測試支架內移除或修正校驗和，使任何輸入都能通過；用字典提供所需常數；或用符號／具體符號執行求解出有效校驗和。單靠覆蓋率導向並不會神奇地滿足它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>魔術位元組比較與覆蓋率梯度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 32 位元輸入上的守衛 <code>if (x == 0xDEADBEEF)</code>，為什麼單純的邊覆蓋率是薄弱的引導，而什麼能改善它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該比較是全有全無，因此朝常數逼近的部分進展得不到新覆蓋率；比較追蹤插樁（把比較拆成逐位元組／值剖析）或字典能補上缺失的梯度</text><feedback><text>正確——沒有梯度時模糊測試器等於在猜 2³² 分之一；比較覆蓋率或字典給它回饋。</text></feedback></answer>
+    <answer fraction="0"><text>邊覆蓋率已經對每個相符的位元組給予獎勵，因此不需額外協助</text><feedback><text>單一 <code>==</code> 無論如何只產生一條邊；單純的邊覆蓋率不會獎勵相符的個別位元組。</text></feedback></answer>
+    <answer fraction="0"><text>該守衛無法被滿足，所以模糊測試必須略過它</text><feedback><text>它是可滿足的（x = 0xDEADBEEF）；問題在於引導模糊測試器抵達那裡，而比較覆蓋率／字典正是做這件事。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率回饋使隨機猜出這 4 個位元組變得很快</text><feedback><text>隨機猜測仍約為 2³² 分之一；解法是提供梯度的插樁，而非更快的猜測。</text></feedback></answer>
+    <generalfeedback><text>寬比較是一道懸崖：輸入要嘛完全正確（新邊）、要嘛不對（無訊號），因此模糊測試器沒有梯度可攀爬，隨機搜尋面對約 2³² 的機率。比較追蹤插樁（例如 laf-intel 式把 4 位元組比較拆成逐位元組比較，或 libFuzzer 的值剖析 value profiling）會獎勵更多位元組相符，而字典則直接提供該常數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>淺層觸及與深層條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼模糊測試擅長淺層錯誤，卻不擅長藏在深層、特定條件之後的錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機變異容易執行到淺層程式碼，卻不太可能滿足一長串特定條件；符號／具體符號執行能求解這類限制式，但面臨路徑爆炸</text><feedback><text>正確——模糊測試便宜地抵達淺層程式碼；深層特定守衛需要限制式求解，而後者有其自身的擴充代價。</text></feedback></answer>
+    <answer fraction="0"><text>模糊測試會窮舉探索所有路徑，因此深度無關緊要</text><feedback><text>模糊測試並非窮舉探索；深層特定條件正是它吃力之處。</text></feedback></answer>
+    <answer fraction="0"><text>深層條件總是不可行，因此沒有技術能抵達它們</text><feedback><text>它們通常是可行的；難處在於產生滿足它們的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>符號執行能抵達深層條件且沒有任何擴充限制</text><feedback><text>符號執行有幫助，但受路徑爆炸限制；這是誇大之詞。</text></feedback></answer>
+    <generalfeedback><text>模糊測試便宜地丟出大量輸入，因此容易命中淺層、易抵達的故障。但藏在數道精確檢查之後的錯誤需要同時滿足所有檢查，隨機變異鮮少做到。符號／具體符號執行能直接求解那些限制式，代價是路徑爆炸——這正是混合式（模糊測試＋符號）方法存在的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>判定準則的限制：無聲的邏輯錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某函式回傳一個細微錯誤的結果，但從不當機、卡死或觸發消毒器。為什麼模糊測試器可能漏掉這個錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模糊測試器的判定準則只偵測可觀察的失敗；除非加入更強的判定準則（斷言、參考／差分檢查），否則「錯誤但不當機」的輸出會被放行</text><feedback><text>正確——沒有失敗訊號，錯誤對預設判定準則就是隱形的。</text></feedback></answer>
+    <answer fraction="0"><text>模糊測試器自動知道每個輸入的正確輸出</text><feedback><text>它並不知道；那正是模糊測試面對邏輯錯誤時的判定準則問題（oracle problem）。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率回饋會標記任何不正確的結果</text><feedback><text>覆蓋率量測的是哪些程式碼被執行，而非結果是否正確。</text></feedback></answer>
+    <answer fraction="0"><text>消毒器會偵測所有不正確的回傳值</text><feedback><text>消毒器偵測的是記憶體／未定義行為錯誤，而非一般邏輯錯誤。</text></feedback></answer>
+    <generalfeedback><text>模糊測試依賴自動判定準則，而它預設只捕捉當機、卡死與消毒器／斷言失敗。一個產生「錯誤但形式良好」結果的邏輯錯誤不會引發任何此類訊號。要捕捉它，你需要更強的判定準則：內嵌的斷言／不變式，或對參考實作進行差分測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>語料庫最小化</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>語料庫最小化（corpus minimization，例如 afl-cmin）</strong>的目標是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把語料庫縮減為一個較小、能保持相同整體覆蓋率的輸入子集，讓之後的模糊測試少花時間在冗餘種子上</text><feedback><text>正確——它在維持覆蓋率的同時修剪冗餘種子。</text></feedback></answer>
+    <answer fraction="0"><text>把單一當機輸入縮到仍會當機的最小位元組</text><feedback><text>那是測試案例最小化（afl-tmin），而非語料庫最小化。</text></feedback></answer>
+    <answer fraction="0"><text>刪除所有種子，讓模糊測試器從空的開始</text><feedback><text>最小化保留一個能維持覆蓋率的子集，而非什麼都不留。</text></feedback></answer>
+    <answer fraction="0"><text>把所有種子合併成一個大檔案</text><feedback><text>它選出一個最小的獨立輸入集合；並不把它們合併。</text></feedback></answer>
+    <generalfeedback><text>語料庫最小化選出仍能達成語料庫覆蓋率的最小子集，丟棄不增加新東西的輸入。更精簡的語料庫代表模糊測試器循環得更快，也少浪費心力在冗餘種子上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試案例最小化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>找到一個當機後，<strong>測試案例最小化（test-case minimization，例如 afl-tmin）</strong>會做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>反覆修剪當機輸入，得到仍能重現當機的最小／最簡形式，以利除錯</text><feedback><text>正確——最小化後的重現案例能孤立出真正觸發錯誤的部分。</text></feedback></answer>
+    <answer fraction="0"><text>從整個語料庫移除冗餘種子</text><feedback><text>那是語料庫最小化；測試案例最小化作用於單一當機輸入。</text></feedback></answer>
+    <answer fraction="0"><text>自動修正該錯誤</text><feedback><text>它縮小重現案例；並不修補程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>在輸入中加入額外位元組使當機更可靠</text><feedback><text>最小化是移除位元組以簡化；並不為輸入加料。</text></feedback></answer>
+    <generalfeedback><text>測試案例（當機）最小化取一個當機輸入，在當機仍能重現的前提下反覆移除或簡化位元組，得到一個小而聚焦的重現案例，使錯誤的根因分析容易許多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>生成式何時勝過變異式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對哪一種目標而言，生成式（文法式）模糊測試最可能勝過變異式模糊測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具有僵硬、高度結構化輸入格式的編譯器或協定剖析器，隨機變異幾乎總是產生會被早早拒絕的無效輸入</text><feedback><text>正確——文法讓模糊測試器能產生抵達深層邏輯的有效結構化輸入。</text></feedback></answer>
+    <answer fraction="0"><text>一個接受任意、無結構位元組團的常式</text><feedback><text>對無結構輸入，變異式模糊測試表現良好，文法幫助不大。</text></feedback></answer>
+    <answer fraction="0"><text>任何目標，因為生成式模糊測試全面優越</text><feedback><text>兩種方法皆非全面最佳；生成式專門在結構化格式上發光。</text></feedback></answer>
+    <answer fraction="0"><text>沒有可用判定準則的目標</text><feedback><text>判定準則的可用性與「變異對生成」的選擇是正交的。</text></feedback></answer>
+    <generalfeedback><text>當輸入必須遵守嚴格文法（供編譯器的原始碼、供協定的訊息）時，隨機位元組變異絕大多數會被前端拒絕。生成式模糊測試依文法建構輸入，因此能持續產生有效輸入，執行到藏有有趣錯誤的深層語意邏輯。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>混合式（符號協助）模糊測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在混合式模糊測試（例如 Driller 式）中，具體符號／符號執行如何補足灰箱模糊測試器？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當模糊測試器在某個難關停滯時，求解器計算出滿足該特定分支的輸入；新輸入交回後，便宜的模糊測試便可繼續探索其後的區域</text><feedback><text>正確——求解器越過狹窄守衛，接著模糊測試器再度接手。</text></feedback></answer>
+    <answer fraction="0"><text>求解器完全取代模糊測試器，並以符號方式探索所有路徑</text><feedback><text>符號執行受路徑爆炸所苦；混合式模糊測試選擇性地使用它，而非全面取代。</text></feedback></answer>
+    <answer fraction="0"><text>求解器為模糊測試器產生覆蓋率插樁</text><feedback><text>插樁來自編譯器／工具鏈；求解器的角色是滿足困難限制式。</text></feedback></answer>
+    <answer fraction="0"><text>求解器取代消毒器作為錯誤判定準則</text><feedback><text>判定準則仍是當機／消毒器；求解器的工作是產生越過困難分支的輸入。</text></feedback></answer>
+    <generalfeedback><text>混合式模糊測試發揮各技術之長：模糊測試器便宜且廣泛地探索，當它卡在某個狹窄條件（魔術值、校驗和）時，具體符號執行求解該分支的限制式以產生通過的輸入。控制權交回模糊測試器，讓它探索新抵達的區域——並謹慎地使用求解器以避免路徑爆炸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ASan 與 UBSan 的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模糊測試時，<strong>AddressSanitizer（ASan）</strong>與<strong>UndefinedBehaviorSanitizer（UBSan）</strong>的角色有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ASan 針對記憶體安全錯誤（越界存取、釋放後使用）；UBSan 針對未定義行為（例如有號整數溢位、無效位移、未對齊指標）</text><feedback><text>正確——它們偵測不同、互補的故障類別。</text></feedback></answer>
+    <answer fraction="0"><text>它們偵測完全相同的錯誤，因此兩個一起用是多餘的</text><feedback><text>它們涵蓋不同的故障類別；同時使用能擴大判定準則所能捕捉的範圍。</text></feedback></answer>
+    <answer fraction="0"><text>ASan 偵測未定義行為，而 UBSan 偵測記憶體錯誤</text><feedback><text>角色顛倒了：ASan 用於記憶體錯誤，UBSan 用於未定義行為。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是產生模糊測試輸入，而非偵測故障</text><feedback><text>兩者都不產生輸入；它們都是執行期故障偵測器。</text></feedback></answer>
+    <generalfeedback><text>ASan 對記憶體存取插樁，捕捉空間／時間上的記憶體安全違規（緩衝區溢位、釋放後使用）。UBSan 捕捉語言層級的未定義行為，例如有號溢位、超範圍位移，以及未對齊或空指標的使用。它們針對不同的故障類別，因此在兩者之下進行模糊測試會擴大可偵測錯誤的集合。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>模糊測試不證明正確性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若模糊測試器長時間執行卻找不到任何當機，這就證明了程式沒有錯誤。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——找不到當機只代表在所嘗試的輸入中沒有找到；模糊測試無法證明錯誤不存在。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>模糊測試取樣輸入空間；找不到當機不是正確性的證明，因為未嘗試的輸入（以及無聲的邏輯錯誤）仍可能失敗。</text></feedback></answer>
+    <generalfeedback><text>模糊測試是一種測試技術：它能揭露錯誤，卻永遠無法證明錯誤不存在。一次乾淨的執行只反映實際探索過的輸入，以及判定準則看得見的失敗；它對未嘗試的輸入或無聲的邏輯錯誤毫無保證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>值剖析／比較覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>比較追蹤插樁（拆分多位元組比較，或「值剖析／value profiling」）能幫助覆蓋率導向模糊測試器，是因為它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對更接近滿足某比較的輸入（例如更多位元組相符）給予獎勵，為搜尋提供原本欠缺的梯度</text><feedback><text>正確——它把全有全無的比較轉為漸進的回饋。</text></feedback></answer>
+    <answer fraction="0"><text>移除程式中所有的比較，使每個分支都被走到</text><feedback><text>它對比較插樁以取得回饋；並不從程式邏輯中刪除它們。</text></feedback></answer>
+    <answer fraction="0"><text>保證模糊測試器在常數時間內求解每一個相等式</text><feedback><text>它改善引導，但不保證任何事；有些限制式仍需求解器。</text></feedback></answer>
+    <answer fraction="0"><text>取代對種子語料庫的需求</text><feedback><text>種子仍有價值；比較覆蓋率只是增添更細緻的回饋訊號。</text></feedback></answer>
+    <generalfeedback><text>寬比較通常只在完全相符時才給回饋。比較追蹤（例如 laf-intel 把 4 位元組比較拆成逐位元組比較，或 libFuzzer 的值剖析）會獎勵部分相符，讓模糊測試器能朝目標值攀爬，而非一次全部猜對。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>支架設計與確定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼模糊測試支架（fuzz target）應該<em>確定性地</em>把輸入位元組對應到程式行為？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非確定性（隨機、時間、未初始化狀態）會使當機難以重現並污染覆蓋率回饋，因此相同輸入應總是有相同行為</text><feedback><text>正確——確定性使覆蓋率回饋有意義且當機可重現。</text></feedback></answer>
+    <answer fraction="0"><text>確定性讓模糊測試器能略過執行目標</text><feedback><text>目標仍必須執行每個輸入；確定性只是讓結果可靠。</text></feedback></answer>
+    <answer fraction="0"><text>只有確定性的目標才會有錯誤</text><feedback><text>非確定性的目標也有錯誤；確定性只是讓它們更容易被找到與重現。</text></feedback></answer>
+    <answer fraction="0"><text>確定性免除了對判定準則的需求</text><feedback><text>仍需判定準則；確定性本身並不偵測故障。</text></feedback></answer>
+    <generalfeedback><text>覆蓋率導向模糊測試假設輸入的行為（及其覆蓋率）是輸入的函式。若支架引入隨機性、實際時鐘時間或殘留全域狀態，相同的位元組就可能有不同行為——使覆蓋率回饋充滿雜訊、當機無法重現。好的支架完全由輸入位元組確定性地推導出所有行為。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>模糊測試需要可偵測的失敗訊號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若沒有可偵測的失敗訊號（當機、卡死、消毒器／斷言違規，或參考檢查），模糊測試器可能執行了一個觸發錯誤的輸入，卻永遠不回報該錯誤。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——沒有可觀察的訊號，模糊測試器就無從得知出了問題。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>模糊測試器只有在其判定準則觀察到失敗時才回報錯誤；不產生訊號的故障會無聲地通過。</text></feedback></answer>
+    <generalfeedback><text>模糊測試完全依賴其判定準則。若一個觸發錯誤的輸入不造成當機、卡死、消毒器違規或斷言／參考檢查失敗，模糊測試器就看不出任何異常而略過——這正是為何強化判定準則（消毒器、斷言、差分檢查）與生成好輸入同等重要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>差分模糊測試作為判定準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>差分模糊測試（differential fuzzing）</strong>如何幫助捕捉當機與消毒器漏掉的無聲邏輯錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把相同輸入送進兩個或多個應該一致的實作，當它們的輸出不同時就標記為錯誤</text><feedback><text>正確——實作之間的分歧作為非當機錯誤的判定準則。</text></feedback></answer>
+    <answer fraction="0"><text>它量測哪個實作跑得比較快，並把較慢的回報為有錯</text><feedback><text>差分模糊測試比較的是輸出的正確性，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>它加倍覆蓋率插樁以偵測記憶體錯誤</text><feedback><text>它是基於輸出比較的判定準則技術，而非額外的記憶體插樁。</text></feedback></answer>
+    <answer fraction="0"><text>當兩個實作一致時，它證明兩者都正確</text><feedback><text>一致並非正確性的證明——兩者可能共有相同錯誤；它只標記分歧。</text></feedback></answer>
+    <generalfeedback><text>差分模糊測試把同一輸入餵給多個預期行為相同的實作（例如兩個剖析器，或參考版對最佳化版），把任何輸出不一致視為錯誤。這為不產生當機的無聲邏輯錯誤提供了判定準則。要注意：若兩個實作共有同一缺陷，它們可能一致卻仍是錯的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋率是適應度訊號，而非證明</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於覆蓋率在覆蓋率導向模糊測試中的角色，下列何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>覆蓋率是一種啟發式適應度訊號，用以把搜尋導向新程式碼；高覆蓋率代表執行得徹底，而非代表正確或無錯誤</text><feedback><text>正確——覆蓋率引導探索，但不是正確性的保證。</text></feedback></answer>
+    <answer fraction="0"><text>達到 100% 邊覆蓋率就證明程式沒有錯誤</text><feedback><text>執行到程式碼不等於正確測試它；完整覆蓋率仍可能漏掉錯誤（例如錯誤但不當機的結果）。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率直接決定某次執行是否找到錯誤</text><feedback><text>覆蓋率引導搜尋；錯誤的判定來自判定準則（當機／消毒器／斷言）。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率回饋免除了執行輸入的需要</text><feedback><text>覆蓋率是靠執行插樁過的輸入取得的；它無法取代執行。</text></feedback></answer>
+    <generalfeedback><text>在覆蓋率導向模糊測試中，覆蓋率是一種適應度訊號：抵達新邊的輸入會被保留並變異，把搜尋導向更深處。但涵蓋某一行只代表它被執行，而非它產生了正確結果——因此即使 100% 覆蓋率也不證明無錯誤，而且判定「某次執行是否失敗」的是判定準則，而非覆蓋率。</text></generalfeedback>
+  </question>
+</quiz>
