@@ -21163,7 +21163,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "a!c + b!c",
               "fraction": 0,
-              "feedback": "This is true at 100, 010, and 110, but f itself is false there, and it misses 000 — it is not ¬f."
+              "feedback": "This is true at 100, 010, and 110 — but at 110 f is true (so ¬f must be false there), and it misses 000 where f is false; so it is not ¬f."
             }
           ],
           "generalFeedback": "f = ab + c is false exactly on 000, 010, 100 — all with c=0 and ab false. So ¬f = !c(!a + !b) = !a!c + !b!c.",
@@ -22399,7 +22399,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "a!c + b!c",
               "fraction": 0,
-              "feedback": "它在 100、010 與 110 為真，但 f 本身在該處為假，且漏掉 000——並非 ¬f。"
+              "feedback": "它在 100、010 與 110 為真——但 110 處 f 為真（¬f 在該處應為假），又漏掉了 f 為假的 000；因此並非 ¬f。"
             }
           ],
           "generalFeedback": "f = ab + c 恰在 000、010、100 為假——皆為 c=0 且 ab 為假。故 ¬f = !c(!a + !b) = !a!c + !b!c。",

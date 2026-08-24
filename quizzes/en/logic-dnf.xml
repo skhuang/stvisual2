@@ -359,7 +359,7 @@
     <answer fraction="100"><text><![CDATA[!a!c + !b!c]]></text><feedback><text>Correct — ¬f is true exactly when c=0 and not(ab), i.e. !c(!a + !b).</text></feedback></answer>
     <answer fraction="0"><text><![CDATA[!a + !b + !c]]></text><feedback><text>This is true at 110 (where f is true), so it is not ¬f.</text></feedback></answer>
     <answer fraction="0"><text><![CDATA[!a!b!c]]></text><feedback><text>This covers only 000; ¬f is also true at 010 and 100.</text></feedback></answer>
-    <answer fraction="0"><text><![CDATA[a!c + b!c]]></text><feedback><text>This is true at 100, 010, and 110, but f itself is false there, and it misses 000 — it is not ¬f.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a!c + b!c]]></text><feedback><text>This is true at 100, 010, and 110 — but at 110 f is true (so ¬f must be false there), and it misses 000 where f is false; so it is not ¬f.</text></feedback></answer>
     <generalfeedback><text>f = ab + c is false exactly on 000, 010, 100 — all with c=0 and ab false. So ¬f = !c(!a + !b) = !a!c + !b!c.</text></generalfeedback>
   </question>
   <question type="multichoice">
