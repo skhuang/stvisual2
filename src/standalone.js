@@ -66482,6 +66482,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   var body2 = null;
   var lang = "en";
   var state40 = null;
+  var attemptId = (slug) => "lab:" + slug;
+  var POLL_INTERVAL_MS = 1500;
+  var POLL_TRIES = 120;
   function t3(k, fb) {
     const v = t(k);
     return v !== k ? v : fb || k;
@@ -66530,6 +66533,104 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     <div class="lab-sample-col"><strong>out</strong><pre><code>${esc24(s.out)}</code></pre></div>
   </div>`;
   }
+  function judgeBaseOf(lab) {
+    return String(lab.judgeBase || "").replace(/\/$/, "");
+  }
+  function setJudgeStatus(html, cls) {
+    const el = overlay3 == null ? void 0 : overlay3.querySelector("#lab-judge-result");
+    if (el) el.innerHTML = `<div class="lab-judge-status ${cls || ""}">${html}</div>`;
+  }
+  function renderVerdict2(s) {
+    const v = esc24(s.verdict || "?");
+    const msg = s.message ? `<pre class="lab-judge-msg" data-testid="lab-judge-message">${esc24(s.message)}</pre>` : "";
+    return `<strong class="v-${v}" data-testid="lab-judge-verdict">${v} ${esc24(s.score)}/${esc24(s.max_score)}</strong>${msg}`;
+  }
+  function recordAttempt(lab, s) {
+    QuizAttempts.record(localStorage, attemptId(lab.slug), {
+      id: s.submission_id,
+      verdict: s.verdict,
+      score: s.score,
+      max_score: s.max_score,
+      at: Date.now()
+    });
+  }
+  async function pollSubmission(lab, sid) {
+    const base = judgeBaseOf(lab);
+    for (let i = 0; i < POLL_TRIES; i++) {
+      await new Promise((r2) => setTimeout(r2, POLL_INTERVAL_MS));
+      let r;
+      try {
+        r = await fetch(
+          `${base}/bank/submission/${encodeURIComponent(sid)}`,
+          { headers: { Accept: "application/json" }, credentials: "include" }
+        );
+      } catch {
+        continue;
+      }
+      if (!r.ok) continue;
+      const s = await r.json();
+      if (s.status === "done") {
+        recordAttempt(lab, s);
+        setJudgeStatus(renderVerdict2(s), "done");
+        return;
+      }
+    }
+    setJudgeStatus(esc24(t3("lab.judgeSlow", "Still grading \u2014 check back shortly.")), "pending");
+  }
+  async function submitTests(lab, file) {
+    const base = judgeBaseOf(lab);
+    const fd = new FormData();
+    fd.append("file", file, file.name);
+    let r;
+    try {
+      r = await fetch(
+        `${base}/bank/${encodeURIComponent(lab.judgeProblemId)}/submit`,
+        { method: "POST", body: fd, credentials: "include" }
+      );
+    } catch {
+      setJudgeStatus(esc24(t3("lab.judgeOffline", "Could not reach the judge.")), "error");
+      return;
+    }
+    if (!r.ok) {
+      const why = r.status === 429 ? t3("lab.judgeRateLimited", "Too many submissions \u2014 slow down.") : t3("lab.judgeRejected", "The judge rejected this submission.");
+      setJudgeStatus(`${esc24(why)} (${esc24(r.status)})`, "error");
+      return;
+    }
+    const { submission_id: sid } = await r.json();
+    setJudgeStatus(esc24(t3("lab.judgeWaiting", "Grading\u2026")) + ` #${esc24(sid)}`, "pending");
+    await pollSubmission(lab, sid);
+  }
+  function judgePanel(lab) {
+    if (!lab.judgeProblemId) {
+      return `<button type="button" class="btn secondary" data-testid="lab-judge" aria-disabled="true" disabled>${t3("lab.judgeSoon", "Practice on judge (coming soon)")}</button>`;
+    }
+    return `<div class="lab-judge" data-testid="lab-judge-panel">
+      <input type="file" accept=".py" data-testid="lab-test-file" id="lab-test-file"
+             aria-label="${esc24(t3("lab.testFile", "Your pytest file"))}">
+      <button type="button" class="btn primary" data-testid="lab-submit-tests">${esc24(t3("lab.submitTests", "Submit tests"))}</button>
+      <div id="lab-judge-result" data-testid="lab-judge-result"></div>
+    </div>`;
+  }
+  function wireJudge(lab) {
+    const btn = overlay3.querySelector('[data-testid="lab-submit-tests"]');
+    if (!btn) return;
+    btn.addEventListener("click", async () => {
+      var _a;
+      const input = overlay3.querySelector('[data-testid="lab-test-file"]');
+      const file = (_a = input == null ? void 0 : input.files) == null ? void 0 : _a[0];
+      if (!file) {
+        setJudgeStatus(esc24(t3("lab.judgePickFile", "Choose a test_*.py file first.")), "error");
+        return;
+      }
+      btn.disabled = true;
+      setJudgeStatus(esc24(t3("lab.judgeSending", "Uploading\u2026")), "pending");
+      try {
+        await submitTests(lab, file);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
   function render40() {
     if (!state40) return;
     const lab = state40.lab;
@@ -66539,13 +66640,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     if (lab.difficulty) meta.push(t3("lab.difficulty", "Difficulty") + " " + "\u2605".repeat(lab.difficulty));
     if (lab.week) meta.push(t3("lab.week", "Week") + " " + lab.week);
     const repoBtn = lab.repoUrl ? `<a class="btn primary" data-testid="lab-open-repo" href="${lab.repoUrl}" target="_blank" rel="noopener">${t3("lab.openRepo", "Open practice repo")} \u2197</a>` : "";
-    const judgeBtn = `<button type="button" class="btn secondary" data-testid="lab-judge" aria-disabled="true" disabled>${t3("lab.judgeSoon", "Practice on judge (coming soon)")}</button>`;
     body2.innerHTML = `<div class="lab-head"><h3>${esc24(title)}</h3><div class="lab-meta">${meta.map(esc24).join(" \xB7 ")}</div></div>
      <div class="lab-statement" data-testid="lab-statement">${stmt}</div>
      <h4>${t3("lab.samples", "Samples")}</h4>
      <div class="lab-samples" data-testid="lab-samples">${lab.samples.map(sampleBlock).join("")}</div>
-     <div class="lab-actions">${repoBtn} ${judgeBtn}</div>`;
+     <div class="lab-actions">${repoBtn} ${judgePanel(lab)}</div>`;
     overlay3.querySelector("#lab-lang-toggle").textContent = lang === "zh" ? "EN" : "\u4E2D";
+    wireJudge(lab);
   }
   function open2(unitId) {
     const arr = LAB_RENDERED[unitId];
