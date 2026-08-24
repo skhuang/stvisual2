@@ -5041,6 +5041,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "graph-dataflow": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Definition of a def",
+          "text": "<p>In data-flow analysis, a <strong>def (definition)</strong> of a variable <code>v</code> at a location is:</p>",
+          "answers": [
+            {
+              "text": "A location where v is assigned a value (e.g. an assignment, input, or parameter binding)",
+              "fraction": 100,
+              "feedback": "Correct — a def is where the variable receives a value."
+            },
+            {
+              "text": "A location where the value of v is read but not changed",
+              "fraction": 0,
+              "feedback": "That is a use, not a def."
+            },
+            {
+              "text": "A predicate that tests the value of v",
+              "fraction": 0,
+              "feedback": "Testing v is a p-use; a def stores a value into v."
+            },
+            {
+              "text": "An edge of the control-flow graph",
+              "fraction": 0,
+              "feedback": "A def is a location that stores into v, not an edge."
+            }
+          ],
+          "generalFeedback": "A def is any location where a variable is given a value: assignments, reads/inputs, and formal-parameter bindings are all defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a use",
+          "text": "<p>In data-flow analysis, a <strong>use</strong> of a variable <code>v</code> at a location is:</p>",
+          "answers": [
+            {
+              "text": "A location where the value of v is read (accessed) without necessarily changing it",
+              "fraction": 100,
+              "feedback": "Correct — a use reads the current value of v."
+            },
+            {
+              "text": "A location where v is assigned a new value",
+              "fraction": 0,
+              "feedback": "That is a def, not a use."
+            },
+            {
+              "text": "A location where v is declared but never referenced",
+              "fraction": 0,
+              "feedback": "A mere declaration with no read is not a use of the value."
+            },
+            {
+              "text": "Any node on a def-clear path",
+              "fraction": 0,
+              "feedback": "A use is a specific read of v, not simply any node on a path."
+            }
+          ],
+          "generalFeedback": "A use is a location where the stored value of v is accessed — either in a computation (c-use) or in a predicate (p-use).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a c-use",
+          "text": "<p>A <strong>c-use (computation use)</strong> of a variable is a use that occurs:</p>",
+          "answers": [
+            {
+              "text": "In a computation — e.g. the right-hand side of an assignment, an output, or a subscript",
+              "fraction": 100,
+              "feedback": "Correct — a c-use feeds a computation and is associated with a node."
+            },
+            {
+              "text": "In the predicate of a branch or loop",
+              "fraction": 0,
+              "feedback": "That is a p-use, not a c-use."
+            },
+            {
+              "text": "Only when the variable is being assigned",
+              "fraction": 0,
+              "feedback": "Assignment is a def; a c-use reads the value inside a computation."
+            },
+            {
+              "text": "On an edge of the control-flow graph",
+              "fraction": 0,
+              "feedback": "c-uses are associated with nodes; p-uses are the ones associated with edges."
+            }
+          ],
+          "generalFeedback": "A c-use is a use in a computation (RHS of an assignment, an argument, an output, an array index). It is associated with the node where the computation occurs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a p-use",
+          "text": "<p>A <strong>p-use (predicate use)</strong> of a variable is a use that occurs:</p>",
+          "answers": [
+            {
+              "text": "In the predicate of a decision, and is associated with the out-edges of that decision node",
+              "fraction": 100,
+              "feedback": "Correct — a p-use lives in a condition and attaches to the branch's out-edges."
+            },
+            {
+              "text": "On the right-hand side of an assignment",
+              "fraction": 0,
+              "feedback": "That is a c-use, associated with a node."
+            },
+            {
+              "text": "Wherever the variable is first defined",
+              "fraction": 0,
+              "feedback": "That is a def, not a use."
+            },
+            {
+              "text": "Only inside a loop body",
+              "fraction": 0,
+              "feedback": "A p-use is any use in a predicate, whether in an if, while, or other decision."
+            }
+          ],
+          "generalFeedback": "A p-use is a use in a predicate (e.g. the condition of an if or while). Because a decision's outcome selects an out-edge, a p-use is associated with each of the decision node's out-edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a DU pair",
+          "text": "<p>A <strong>DU pair (def-use pair)</strong> <code>(d, u)</code> for a variable v is:</p>",
+          "answers": [
+            {
+              "text": "A def d and a use u of v such that some def-clear path (no intervening redefinition of v) runs from d to u",
+              "fraction": 100,
+              "feedback": "Correct — the def must reach the use along a path with no redefinition in between."
+            },
+            {
+              "text": "Any def d and any use u of v, whether or not d can reach u",
+              "fraction": 0,
+              "feedback": "Reachability by a def-clear path is required; unrelated defs and uses do not form a DU pair."
+            },
+            {
+              "text": "Two definitions of v that appear on the same path",
+              "fraction": 0,
+              "feedback": "A DU pair links a def to a use, not two defs."
+            },
+            {
+              "text": "Two uses of v with no def between them",
+              "fraction": 0,
+              "feedback": "A DU pair is one def and one use, not two uses."
+            }
+          ],
+          "generalFeedback": "A DU pair (d, u) requires that d defines v, u uses v, and there is a def-clear path from d to u — i.e. the value placed by d can actually reach u.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a def-clear path",
+          "text": "<p>A path is <strong>def-clear</strong> with respect to a variable <code>v</code> when:</p>",
+          "answers": [
+            {
+              "text": "It contains no redefinition of v strictly between its first and last nodes",
+              "fraction": 100,
+              "feedback": "Correct — no intervening def of v may kill the value along the way."
+            },
+            {
+              "text": "It contains no use of v anywhere along it",
+              "fraction": 0,
+              "feedback": "Def-clear concerns intervening definitions (kills), not uses."
+            },
+            {
+              "text": "It visits every node of the graph",
+              "fraction": 0,
+              "feedback": "Def-clear says nothing about visiting all nodes."
+            },
+            {
+              "text": "It never repeats any node",
+              "fraction": 0,
+              "feedback": "That describes a simple path; def-clear is about no intervening redefinition of v."
+            }
+          ],
+          "generalFeedback": "A path is def-clear for v if no node between the def and the use redefines v; an intervening def would kill the value and break the pairing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a du-path",
+          "text": "<p>A <strong>du-path</strong> for a variable v is:</p>",
+          "answers": [
+            {
+              "text": "A simple def-clear path from a def of v to a use of v",
+              "fraction": 100,
+              "feedback": "Correct — a du-path is simple (no internal repeats) and def-clear from the def to the use."
+            },
+            {
+              "text": "Any path from a def of v to a use of v, even with a redefinition in between",
+              "fraction": 0,
+              "feedback": "A du-path must be def-clear; a redefinition in between disqualifies it."
+            },
+            {
+              "text": "Any def-clear path, whether simple or not",
+              "fraction": 0,
+              "feedback": "A du-path must additionally be simple; an arbitrary def-clear path may repeat nodes."
+            },
+            {
+              "text": "A complete path from the initial node to the final node",
+              "fraction": 0,
+              "feedback": "A du-path runs from a def to a use, not necessarily from entry to exit."
+            }
+          ],
+          "generalFeedback": "A du-path is a simple (cycle-free except possibly a single loop where first = last) def-clear path from a def of v to a use of v.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of All-Defs",
+          "text": "<p>The <strong>All-Defs</strong> coverage criterion requires that:</p>",
+          "answers": [
+            {
+              "text": "For each def of each variable, at least one def-clear path reaches some use of that variable",
+              "fraction": 100,
+              "feedback": "Correct — All-Defs requires every def to reach at least one use."
+            },
+            {
+              "text": "For each def, a path reaches every use it can reach",
+              "fraction": 0,
+              "feedback": "That is All-Uses, which is stronger than All-Defs."
+            },
+            {
+              "text": "Every du-path of every DU pair is toured",
+              "fraction": 0,
+              "feedback": "That is All-DU-Paths, the strongest of the three."
+            },
+            {
+              "text": "Every edge of the control-flow graph is traversed",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage, a structural criterion, not All-Defs."
+            }
+          ],
+          "generalFeedback": "All-Defs: each def must reach (via a def-clear path) at least one use — one test requirement per def.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of All-Uses",
+          "text": "<p>The <strong>All-Uses</strong> coverage criterion requires that:</p>",
+          "answers": [
+            {
+              "text": "For each def, a def-clear path reaches every use that the def can reach (every DU pair is covered)",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses covers every DU pair, i.e. each def reaches every reachable use."
+            },
+            {
+              "text": "For each def, a path reaches at least one use",
+              "fraction": 0,
+              "feedback": "That is All-Defs, which is weaker than All-Uses."
+            },
+            {
+              "text": "Every du-path of every DU pair is toured",
+              "fraction": 0,
+              "feedback": "That is All-DU-Paths, which is stronger than All-Uses."
+            },
+            {
+              "text": "Every node of the control-flow graph is visited",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, a structural criterion, not All-Uses."
+            }
+          ],
+          "generalFeedback": "All-Uses: for every DU pair (every def and every use it reaches), at least one du-path is toured — one test requirement per DU pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of All-DU-Paths",
+          "text": "<p>The <strong>All-DU-Paths</strong> coverage criterion requires that:</p>",
+          "answers": [
+            {
+              "text": "For each DU pair, every du-path (every simple def-clear path) between the def and the use is toured",
+              "fraction": 100,
+              "feedback": "Correct — All-DU-Paths demands all du-paths for each pair, not just one."
+            },
+            {
+              "text": "For each DU pair, at least one du-path is toured",
+              "fraction": 0,
+              "feedback": "That is All-Uses; All-DU-Paths requires every du-path."
+            },
+            {
+              "text": "For each def, at least one use is reached",
+              "fraction": 0,
+              "feedback": "That is All-Defs, the weakest of the three."
+            },
+            {
+              "text": "Every complete path from entry to exit is executed",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, generally infeasible; All-DU-Paths is limited to du-paths of DU pairs."
+            }
+          ],
+          "generalFeedback": "All-DU-Paths: for every DU pair, all of its du-paths must be toured — the strongest of the three data-flow criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a DU pair",
+          "text": "<p>Consider:</p><pre>1  x = read()\n2  y = x + 3\n3  print(y)</pre><p>Which of the following is a valid DU pair?</p>",
+          "answers": [
+            {
+              "text": "x: def at line 1, use at line 2",
+              "fraction": 100,
+              "feedback": "Correct — x is defined at line 1 and read at line 2, with a def-clear path 1→2."
+            },
+            {
+              "text": "x: def at line 2, use at line 3",
+              "fraction": 0,
+              "feedback": "x is not defined at line 2 (y is), and x is not used at line 3."
+            },
+            {
+              "text": "y: def at line 1, use at line 2",
+              "fraction": 0,
+              "feedback": "y is defined at line 2, not line 1."
+            },
+            {
+              "text": "x: def at line 1, use at line 3",
+              "fraction": 0,
+              "feedback": "x is not used at line 3; only y is read there."
+            }
+          ],
+          "generalFeedback": "x: (def@1, use@2) and y: (def@2, use@3) are the two DU pairs. x is read at line 2 (c-use) and y is read at line 3 (c-use).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the predicate use",
+          "text": "<p>Consider:</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>The use of <code>x</code> at line 2 (inside the condition) is a:</p>",
+          "answers": [
+            {
+              "text": "p-use (predicate use)",
+              "fraction": 100,
+              "feedback": "Correct — x is read inside the branch condition, so it is a p-use."
+            },
+            {
+              "text": "c-use (computation use)",
+              "fraction": 0,
+              "feedback": "The use in a computation is at line 3; the line-2 use is in a predicate."
+            },
+            {
+              "text": "def (definition)",
+              "fraction": 0,
+              "feedback": "Line 2 reads x, it does not assign to it."
+            },
+            {
+              "text": "Neither a def nor a use",
+              "fraction": 0,
+              "feedback": "The condition reads x, which is a use — specifically a p-use."
+            }
+          ],
+          "generalFeedback": "A use inside a decision's predicate is a p-use, associated with the out-edges of that decision node.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the computation use",
+          "text": "<p>Consider:</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>The use of <code>x</code> at line 3 (in <code>y = x + 1</code>) is a:</p>",
+          "answers": [
+            {
+              "text": "c-use (computation use)",
+              "fraction": 100,
+              "feedback": "Correct — x is read on the right-hand side of an assignment, so it is a c-use."
+            },
+            {
+              "text": "p-use (predicate use)",
+              "fraction": 0,
+              "feedback": "The predicate use is at line 2; line 3 is a computation."
+            },
+            {
+              "text": "def (definition)",
+              "fraction": 0,
+              "feedback": "Line 3 defines y, but it uses (reads) x."
+            },
+            {
+              "text": "A redefinition of x",
+              "fraction": 0,
+              "feedback": "Line 3 does not assign to x; it reads x to compute y."
+            }
+          ],
+          "generalFeedback": "A use in a computation such as the RHS of an assignment is a c-use, associated with the node where it occurs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "p-use associated with edges",
+          "text": "<p>A p-use of a variable is associated with the out-edges of the decision node, whereas a c-use is associated with a node.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — p-uses attach to the branch's out-edges; c-uses attach to nodes."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A p-use is tied to the decision's out-edges (which outcome is taken), while a c-use is tied to the node where the computation happens."
+            }
+          ],
+          "generalFeedback": "Because a predicate's value selects which out-edge is taken, a p-use is associated with the out-edges of the decision, while a c-use is associated with the node of the computation."
+        },
+        {
+          "type": "truefalse",
+          "name": "All-Uses is not just one use per def",
+          "text": "<p>All-Uses is satisfied as soon as each def reaches <em>at least one</em> use, without needing to reach the other uses it can reach.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — reaching at least one use per def is All-Defs; All-Uses requires reaching every reachable use."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Reaching just one use per def is All-Defs. All-Uses requires each def to reach every use it can reach (every DU pair)."
+            }
+          ],
+          "generalFeedback": "All-Defs = each def reaches some use; All-Uses = each def reaches every reachable use. The statement describes All-Defs, not All-Uses."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Count the defs of y",
+          "text": "<p>Consider snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many <strong>definitions</strong> of variable <code>y</code> does this code contain?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — y is defined at line 2 (y = 0) and line 4 (y = 1)."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "There are two assignments to y: line 2 and line 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Line 5 uses y (c-use); it does not define y. There are two defs."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "y is assigned at lines 2 and 4, so it has two defs."
+            }
+          ],
+          "generalFeedback": "y is defined at line 2 and line 4; line 5 reads y (a c-use). So y has two defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the use of x in the condition",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>The use of <code>x</code> at line 3 is a:</p>",
+          "answers": [
+            {
+              "text": "p-use, associated with edges 3→4 and 3→5",
+              "fraction": 100,
+              "feedback": "Correct — x is read in the decision predicate, so it is a p-use on both out-edges."
+            },
+            {
+              "text": "c-use at node 3",
+              "fraction": 0,
+              "feedback": "Line 3 is a predicate, so the use is a p-use, not a c-use."
+            },
+            {
+              "text": "A def of x",
+              "fraction": 0,
+              "feedback": "x is only read at line 3, not assigned."
+            },
+            {
+              "text": "p-use associated only with edge 3→4",
+              "fraction": 0,
+              "feedback": "A p-use attaches to both out-edges of the decision, 3→4 and 3→5."
+            }
+          ],
+          "generalFeedback": "The predicate at line 3 reads x, so it is a p-use, associated with both out-edges 3→4 (true) and 3→5 (false).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the use of x at line 5",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>The use of <code>x</code> at line 5 (in <code>z = x + y</code>) is a:</p>",
+          "answers": [
+            {
+              "text": "c-use at node 5",
+              "fraction": 100,
+              "feedback": "Correct — x is read in a computation, so it is a c-use associated with node 5."
+            },
+            {
+              "text": "p-use on edge 4→5",
+              "fraction": 0,
+              "feedback": "Line 5 is a computation, not a predicate; there is no branch here."
+            },
+            {
+              "text": "A def of x",
+              "fraction": 0,
+              "feedback": "Line 5 defines z; it reads x."
+            },
+            {
+              "text": "A redefinition of x",
+              "fraction": 0,
+              "feedback": "x is not assigned at line 5; it is read to compute z."
+            }
+          ],
+          "generalFeedback": "The use of x on the RHS of z = x + y is a c-use, associated with node 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Def-clear path for y",
+          "text": "<p>In snippet D (edges 1→2, 2→3, 3→4, 3→5, 4→5):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Which path is <strong>def-clear</strong> with respect to <code>y</code> from the def at line 2 to the use at line 5?</p>",
+          "answers": [
+            {
+              "text": "2→3→5",
+              "fraction": 100,
+              "feedback": "Correct — this false-branch path never redefines y, so the def at line 2 reaches line 5."
+            },
+            {
+              "text": "2→3→4→5",
+              "fraction": 0,
+              "feedback": "Line 4 redefines y (y = 1), so this path is not def-clear for the def at line 2."
+            },
+            {
+              "text": "1→2→3→4→5",
+              "fraction": 0,
+              "feedback": "Besides starting before the def, it passes through line 4 which redefines y."
+            },
+            {
+              "text": "There is no def-clear path from line 2 to line 5",
+              "fraction": 0,
+              "feedback": "The false-branch path 2→3→5 is def-clear, so one does exist."
+            }
+          ],
+          "generalFeedback": "Only the false-branch path 2→3→5 avoids the redefinition at line 4, so it is the def-clear path carrying the def at line 2 to the use at line 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 2→3→4→5 is not a du-path for y",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Why is <code>2→3→4→5</code> not a du-path for the def of <code>y</code> at line 2?</p>",
+          "answers": [
+            {
+              "text": "Node 4 redefines y, killing the def from line 2, so the path is not def-clear",
+              "fraction": 100,
+              "feedback": "Correct — the redefinition at line 4 kills line 2's value before line 5."
+            },
+            {
+              "text": "The path repeats a node, so it is not simple",
+              "fraction": 0,
+              "feedback": "The path visits distinct nodes; the disqualifier is the redefinition at line 4."
+            },
+            {
+              "text": "y is never used at line 5",
+              "fraction": 0,
+              "feedback": "y is read at line 5 (z = x + y); the issue is the kill at line 4."
+            },
+            {
+              "text": "The path does not start at the initial node",
+              "fraction": 0,
+              "feedback": "A du-path need not start at the initial node; it starts at the def. The problem is the kill at line 4."
+            }
+          ],
+          "generalFeedback": "Because line 4 assigns y = 1, the value from line 2 is killed on this path; a du-path must be def-clear, so 2→3→4→5 does not qualify for the def at line 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs vs All-Uses",
+          "text": "<p>What is the key difference between All-Defs and All-Uses?</p>",
+          "answers": [
+            {
+              "text": "All-Defs requires each def to reach some use; All-Uses requires each def to reach every use it can reach",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses covers every DU pair, All-Defs only one use per def."
+            },
+            {
+              "text": "All-Defs requires every du-path; All-Uses requires only one du-path per pair",
+              "fraction": 0,
+              "feedback": "Requiring every du-path is All-DU-Paths, not All-Defs."
+            },
+            {
+              "text": "All-Uses concerns only p-uses; All-Defs concerns only c-uses",
+              "fraction": 0,
+              "feedback": "Both criteria concern all uses (c-uses and p-uses); the difference is one-use vs every-use per def."
+            },
+            {
+              "text": "They are equivalent on every program",
+              "fraction": 0,
+              "feedback": "All-Uses is strictly stronger; it subsumes All-Defs."
+            }
+          ],
+          "generalFeedback": "All-Defs asks each def to reach at least one use; All-Uses asks each def to reach every reachable use (cover every DU pair). Hence All-Uses subsumes All-Defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest data-flow criterion",
+          "text": "<p>Among All-Defs, All-Uses and All-DU-Paths, which is the <strong>strongest</strong> (subsumes the others)?</p>",
+          "answers": [
+            {
+              "text": "All-DU-Paths",
+              "fraction": 100,
+              "feedback": "Correct — All-DU-Paths ⊒ All-Uses ⊒ All-Defs."
+            },
+            {
+              "text": "All-Uses",
+              "fraction": 0,
+              "feedback": "All-Uses subsumes All-Defs but is itself subsumed by All-DU-Paths."
+            },
+            {
+              "text": "All-Defs",
+              "fraction": 0,
+              "feedback": "All-Defs is the weakest of the three."
+            },
+            {
+              "text": "They are mutually incomparable",
+              "fraction": 0,
+              "feedback": "They form a chain: All-DU-Paths ⊒ All-Uses ⊒ All-Defs."
+            }
+          ],
+          "generalFeedback": "The Rapps–Weyuker hierarchy orders them All-DU-Paths ⊒ All-Uses ⊒ All-Defs, so All-DU-Paths is the strongest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Middle of the subsumption chain",
+          "text": "<p>Fill in the blank in the subsumption chain: <code>All-DU-Paths ⊒ ______ ⊒ All-Defs</code>.</p>",
+          "answers": [
+            {
+              "text": "All-Uses",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses sits between All-DU-Paths and All-Defs."
+            },
+            {
+              "text": "Edge Coverage",
+              "fraction": 0,
+              "feedback": "Edge Coverage is a structural criterion; the data-flow chain's middle term is All-Uses."
+            },
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "Prime Path Coverage is a graph-path criterion, not the middle of the data-flow chain."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node Coverage is structural; the data-flow chain's middle term is All-Uses."
+            }
+          ],
+          "generalFeedback": "The data-flow chain is All-DU-Paths ⊒ All-Uses ⊒ All-Defs, so the middle term is All-Uses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of a redefinition (kill)",
+          "text": "<p>Consider snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>Which def of <code>x</code> reaches the use at line 3?</p>",
+          "answers": [
+            {
+              "text": "Only the def at line 2 (x = 10); the def at line 1 is killed by line 2",
+              "fraction": 100,
+              "feedback": "Correct — line 2 redefines x before line 3, so only line 2's value reaches the use."
+            },
+            {
+              "text": "Only the def at line 1 (x = 5)",
+              "fraction": 0,
+              "feedback": "Line 2 overwrites x before line 3, so line 1's value does not reach the use."
+            },
+            {
+              "text": "Both defs reach the use",
+              "fraction": 0,
+              "feedback": "The path from line 1 to line 3 passes through the redefinition at line 2, so line 1's value is killed."
+            },
+            {
+              "text": "Neither def reaches the use",
+              "fraction": 0,
+              "feedback": "Line 2's value reaches line 3 along the def-clear path 2→3."
+            }
+          ],
+          "generalFeedback": "The def at line 2 kills the def at line 1, so only (x@2, use@3) is a DU pair; the def at line 1 reaches no use.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of du-paths for a DU pair (x)",
+          "text": "<p>In snippet D (edges 1→2, 2→3, 3→4, 3→5, 4→5):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(x def@1, c-use@5)</code> have?</p>",
+          "answers": [
+            {
+              "text": "2 — namely 1→2→3→4→5 and 1→2→3→5",
+              "fraction": 100,
+              "feedback": "Correct — x is never redefined, so both the then-path and the skip-path are def-clear du-paths."
+            },
+            {
+              "text": "1 — only 1→2→3→5",
+              "fraction": 0,
+              "feedback": "The then-path 1→2→3→4→5 is also def-clear for x (x is not redefined at line 4), so there are two."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There are exactly two simple def-clear paths from line 1 to line 5."
+            },
+            {
+              "text": "0 — the def at line 1 does not reach line 5",
+              "fraction": 0,
+              "feedback": "x reaches line 5 along both branches; there are two du-paths."
+            }
+          ],
+          "generalFeedback": "x is defined only at line 1 and never redefined, so both 1→2→3→4→5 and 1→2→3→5 are simple def-clear paths — two du-paths for this DU pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of du-paths for a DU pair (y@4)",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@4, c-use@5)</code> have?</p>",
+          "answers": [
+            {
+              "text": "1 — namely 4→5",
+              "fraction": 100,
+              "feedback": "Correct — the only def-clear path from line 4 to line 5 is the single edge 4→5."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There is only one path from line 4 to line 5, the edge 4→5."
+            },
+            {
+              "text": "0 — line 4's value is always killed",
+              "fraction": 0,
+              "feedback": "Line 4's def of y reaches line 5 directly along 4→5; nothing kills it."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only the single edge 4→5 connects the def to the use."
+            }
+          ],
+          "generalFeedback": "From node 4 the only route to node 5 is the edge 4→5, so this DU pair has exactly one du-path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses subsumes All-Defs",
+          "text": "<p>If a test suite satisfies All-Uses, what can you conclude about All-Defs?</p>",
+          "answers": [
+            {
+              "text": "All-Defs is automatically satisfied, because covering every DU pair covers at least one use per def",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses subsumes All-Defs."
+            },
+            {
+              "text": "All-Defs may still fail",
+              "fraction": 0,
+              "feedback": "Covering every reachable use includes at least one use per def, so All-Defs cannot fail."
+            },
+            {
+              "text": "Nothing can be concluded",
+              "fraction": 0,
+              "feedback": "All-Uses strictly subsumes All-Defs, so the conclusion is definite."
+            },
+            {
+              "text": "All-DU-Paths is also satisfied",
+              "fraction": 0,
+              "feedback": "All-Uses does not imply All-DU-Paths; only the weaker All-Defs follows."
+            }
+          ],
+          "generalFeedback": "Since every def with a reachable use has at least one DU pair, covering all DU pairs (All-Uses) covers at least one use per def (All-Defs). So All-Uses ⊒ All-Defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "List the DU pairs for y",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Which set correctly lists all DU pairs for variable <code>y</code>?</p>",
+          "answers": [
+            {
+              "text": "(y@2 → use@5) and (y@4 → use@5)",
+              "fraction": 100,
+              "feedback": "Correct — line 2's def reaches line 5 via the false branch (2→3→5), and line 4's def reaches line 5 via 4→5."
+            },
+            {
+              "text": "Only (y@4 → use@5), because line 2's def is always killed",
+              "fraction": 0,
+              "feedback": "Line 2's def is killed only on the then-path; via the false branch 2→3→5 it still reaches line 5."
+            },
+            {
+              "text": "Only (y@2 → use@5)",
+              "fraction": 0,
+              "feedback": "Line 4's def also reaches line 5 via 4→5, so it forms a DU pair too."
+            },
+            {
+              "text": "(y@2 → use@3) and (y@4 → use@5)",
+              "fraction": 0,
+              "feedback": "y is not used at line 3; the use of y is at line 5."
+            }
+          ],
+          "generalFeedback": "Both defs of y reach the c-use at line 5: line 2 via the false-branch def-clear path 2→3→5, and line 4 via 4→5. So there are two DU pairs for y.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses versus All-DU-Paths",
+          "text": "<p>Which statement correctly distinguishes All-Uses from All-DU-Paths?</p>",
+          "answers": [
+            {
+              "text": "All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path per DU pair",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the difference between the two criteria."
+            },
+            {
+              "text": "All-Uses tours every du-path; All-DU-Paths tours at least one",
+              "fraction": 0,
+              "feedback": "This is backwards: All-DU-Paths is the stronger criterion requiring every du-path."
+            },
+            {
+              "text": "All-Uses covers only c-uses; All-DU-Paths covers only p-uses",
+              "fraction": 0,
+              "feedback": "Both criteria cover c-uses and p-uses; the difference is one du-path versus all du-paths per pair."
+            },
+            {
+              "text": "They differ only on programs with loops",
+              "fraction": 0,
+              "feedback": "They can differ whenever a DU pair has more than one du-path, loop or not."
+            }
+          ],
+          "generalFeedback": "For each DU pair, All-Uses requires touring at least one du-path, while All-DU-Paths requires touring every du-path. Hence All-DU-Paths ⊒ All-Uses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the uses of x",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many <strong>uses</strong> of variable <code>x</code> does the code contain, and of what kinds?</p>",
+          "answers": [
+            {
+              "text": "2 — a p-use at line 3 and a c-use at line 5",
+              "fraction": 100,
+              "feedback": "Correct — x is read in the predicate at line 3 (p-use) and in the computation at line 5 (c-use)."
+            },
+            {
+              "text": "1 — only the c-use at line 5",
+              "fraction": 0,
+              "feedback": "The predicate at line 3 also reads x, which is a p-use."
+            },
+            {
+              "text": "1 — only the p-use at line 3",
+              "fraction": 0,
+              "feedback": "Line 5 also reads x (c-use), so there are two uses."
+            },
+            {
+              "text": "3 — a def at line 1 also counts as a use",
+              "fraction": 0,
+              "feedback": "Line 1 is a def, not a use; x has two uses (line 3 and line 5)."
+            }
+          ],
+          "generalFeedback": "x is used twice: a p-use in the predicate at line 3 (associated with edges 3→4 and 3→5) and a c-use at line 5.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "All-Uses vs All-DU-Paths requirements",
+          "text": "<p>In snippet D the DU pair <code>(x def@1, c-use@5)</code> has two du-paths: <code>P1 = 1→2→3→4→5</code> and <code>P2 = 1→2→3→5</code>. For this pair, how many du-paths must be toured by All-Uses versus All-DU-Paths?</p>",
+          "answers": [
+            {
+              "text": "All-Uses requires at least one of {P1, P2}; All-DU-Paths requires both",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses needs one du-path per pair, All-DU-Paths needs every du-path."
+            },
+            {
+              "text": "Both require exactly one du-path",
+              "fraction": 0,
+              "feedback": "All-DU-Paths requires every du-path of the pair, which here is both P1 and P2."
+            },
+            {
+              "text": "Both require both du-paths",
+              "fraction": 0,
+              "feedback": "All-Uses requires only one du-path per DU pair, not both."
+            },
+            {
+              "text": "All-Uses requires both; All-DU-Paths requires one",
+              "fraction": 0,
+              "feedback": "This is backwards: All-DU-Paths is the stronger criterion requiring all du-paths."
+            }
+          ],
+          "generalFeedback": "All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path. Here that is one of {P1, P2} versus both — a concrete witness that All-DU-Paths ⊒ All-Uses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible du-path",
+          "text": "<p>Consider:</p><pre>1  x = input()\n2  if (x &gt; 0)\n3      a = 1\n4  if (x &lt; 0)\n5      b = a</pre><p>The du-path <code>3→4→5</code> carries the def of <code>a</code> at line 3 to its use at line 5. Why is this du-path <strong>infeasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "Reaching line 3 requires x > 0, but taking 4→5 requires x < 0, and no single input satisfies both",
+              "fraction": 100,
+              "feedback": "Correct — the two conditions are contradictory, so no test can drive this du-path."
+            },
+            {
+              "text": "The path is not def-clear for a",
+              "fraction": 0,
+              "feedback": "a is not redefined between lines 3 and 5, so the path is def-clear; the problem is contradictory predicates."
+            },
+            {
+              "text": "The path repeats a node, so it is not simple",
+              "fraction": 0,
+              "feedback": "3→4→5 visits distinct nodes; it is simple. Infeasibility comes from the contradictory conditions."
+            },
+            {
+              "text": "a has no use at line 5",
+              "fraction": 0,
+              "feedback": "a is read at line 5 (b = a); the du-path exists syntactically but is infeasible."
+            }
+          ],
+          "generalFeedback": "An infeasible du-path exists in the graph but no input can execute it. Here line 3 needs x > 0 while edge 4→5 needs x < 0 — contradictory, so the du-path can never be toured.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses subsumes Edge — the assumption",
+          "text": "<p>All-Uses subsumes Edge Coverage only under a standard assumption. Which assumption?</p>",
+          "answers": [
+            {
+              "text": "Every decision's predicate uses at least one variable, so each out-edge carries a p-use test requirement",
+              "fraction": 100,
+              "feedback": "Correct — only then does covering all p-uses force both out-edges of every decision."
+            },
+            {
+              "text": "Every variable is defined before it is used",
+              "fraction": 0,
+              "feedback": "That rules out undefined uses but does not by itself force every edge to be taken."
+            },
+            {
+              "text": "The program contains no loops",
+              "fraction": 0,
+              "feedback": "Loops do not affect this subsumption; the requirement is a p-use on each decision."
+            },
+            {
+              "text": "Every def reaches exactly one use",
+              "fraction": 0,
+              "feedback": "That is unrelated; the assumption concerns predicates having variable uses."
+            }
+          ],
+          "generalFeedback": "A p-use attaches to both out-edges of a decision. If every decision predicate uses at least one variable, All-Uses forces both edges of every decision, hence subsumes Edge Coverage. Without that assumption a variable-free predicate leaves an edge unforced.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When All-Uses can miss an edge",
+          "text": "<p>In which situation can a test suite satisfy All-Uses yet leave an <strong>edge uncovered</strong>?</p>",
+          "answers": [
+            {
+              "text": "A decision whose predicate uses no variable (e.g. a constant condition), so neither out-edge carries a p-use requirement",
+              "fraction": 100,
+              "feedback": "Correct — with no p-use, All-Uses imposes no requirement forcing that branch's edges."
+            },
+            {
+              "text": "Any decision that uses a variable",
+              "fraction": 0,
+              "feedback": "A variable p-use forces both out-edges, so those edges are covered."
+            },
+            {
+              "text": "A straight-line program with no decisions",
+              "fraction": 0,
+              "feedback": "With no decisions there is one path; All-Uses and Edge Coverage coincide there."
+            },
+            {
+              "text": "A program where every def reaches every use",
+              "fraction": 0,
+              "feedback": "Rich data flow does not by itself leave an edge uncovered; a variable-free predicate does."
+            }
+          ],
+          "generalFeedback": "The subsumption of Edge Coverage by All-Uses relies on every decision having a variable p-use. A constant/variable-free predicate has no p-use, so All-Uses need not exercise both of its out-edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p-use generates two edge requirements",
+          "text": "<p>A variable v has a p-use in <code>if (v &gt; 0)</code>, a decision node with out-edges to the then-block and the else/merge. Under All-Uses, a def that reaches this p-use creates test requirements for:</p>",
+          "answers": [
+            {
+              "text": "Both out-edges — the true edge and the false edge of the decision",
+              "fraction": 100,
+              "feedback": "Correct — a p-use attaches to every out-edge, so both must be toured."
+            },
+            {
+              "text": "Only the true edge (where the condition holds)",
+              "fraction": 0,
+              "feedback": "A p-use requirement covers both outcomes, not just the true edge."
+            },
+            {
+              "text": "Only the node of the decision",
+              "fraction": 0,
+              "feedback": "A p-use attaches to the out-edges, not merely the node."
+            },
+            {
+              "text": "Neither edge, because a predicate is not a use",
+              "fraction": 0,
+              "feedback": "Reading v in a predicate is a use — specifically a p-use on the out-edges."
+            }
+          ],
+          "generalFeedback": "Because the predicate's outcome selects an out-edge, a p-use of v creates a (def, p-use) requirement for each out-edge — forcing both the true and false branches.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Does a killed def still reach a use?",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Does the def of <code>y</code> at line 2 reach the use at line 5?</p>",
+          "answers": [
+            {
+              "text": "Yes — via the false branch 2→3→5, which skips the redefinition at line 4",
+              "fraction": 100,
+              "feedback": "Correct — the def at line 2 is killed only along the then-path; the false branch keeps it def-clear."
+            },
+            {
+              "text": "No — line 4 always redefines y before line 5",
+              "fraction": 0,
+              "feedback": "Line 4 executes only on the true branch; when x ≤ 0 the def at line 2 survives to line 5."
+            },
+            {
+              "text": "Only if line 4 also executes",
+              "fraction": 0,
+              "feedback": "If line 4 executes it kills line 2's value; the def at line 2 reaches line 5 precisely when line 4 is skipped."
+            },
+            {
+              "text": "No — y at line 2 is dead code",
+              "fraction": 0,
+              "feedback": "It is not dead: on the false branch its value flows to line 5."
+            }
+          ],
+          "generalFeedback": "A redefinition kills a def only along paths that pass through it. The false branch 2→3→5 avoids line 4, so the def of y at line 2 does reach the use at line 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Witness that All-DU-Paths is strictly stronger",
+          "text": "<p>Which scenario best witnesses that All-DU-Paths is <em>strictly</em> stronger than All-Uses?</p>",
+          "answers": [
+            {
+              "text": "A DU pair with two distinct du-paths, where a test set tours one (satisfying All-Uses) but not the other (failing All-DU-Paths)",
+              "fraction": 100,
+              "feedback": "Correct — one du-path meets All-Uses for the pair, but All-DU-Paths still demands the second."
+            },
+            {
+              "text": "A DU pair with exactly one du-path that is toured",
+              "fraction": 0,
+              "feedback": "With a single du-path the two criteria coincide for that pair; it cannot witness strictness."
+            },
+            {
+              "text": "A def that reaches no use at all",
+              "fraction": 0,
+              "feedback": "Such a def imposes no requirement for either criterion, so it distinguishes nothing."
+            },
+            {
+              "text": "A program with no decisions",
+              "fraction": 0,
+              "feedback": "Without decisions, DU pairs have single du-paths and the criteria coincide."
+            }
+          ],
+          "generalFeedback": "Strict subsumption needs a case where All-Uses holds but All-DU-Paths fails: a DU pair with ≥2 du-paths, with only one toured. Then All-Uses is met for the pair while a du-path is still uncovered.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Correct subsumption statement",
+          "text": "<p>Assuming every decision predicate uses at least one variable, which statement is correct?</p>",
+          "answers": [
+            {
+              "text": "All-Uses subsumes both All-Defs and Edge Coverage, and Edge Coverage subsumes Node Coverage",
+              "fraction": 100,
+              "feedback": "Correct — under the stated assumption All-Uses ⊒ Edge ⊒ Node, and All-Uses ⊒ All-Defs."
+            },
+            {
+              "text": "All-Defs subsumes All-Uses",
+              "fraction": 0,
+              "feedback": "The subsumption runs the other way: All-Uses ⊒ All-Defs."
+            },
+            {
+              "text": "All-Defs subsumes Edge Coverage",
+              "fraction": 0,
+              "feedback": "All-Defs need not exercise both branches of a decision, so it does not subsume Edge Coverage."
+            },
+            {
+              "text": "Node Coverage subsumes All-Uses",
+              "fraction": 0,
+              "feedback": "Node Coverage is far weaker; it does not subsume any data-flow criterion."
+            }
+          ],
+          "generalFeedback": "Under the p-use-per-decision assumption: All-DU-Paths ⊒ All-Uses ⊒ All-Defs, All-Uses ⊒ Edge ⊒ Node. All-Defs and Edge Coverage are incomparable in general.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs does not subsume Edge",
+          "text": "<p>Why does All-Defs fail to subsume Edge Coverage in general?</p>",
+          "answers": [
+            {
+              "text": "A def can reach a use through just one branch, so All-Defs may be met without ever taking the other branch's edge",
+              "fraction": 100,
+              "feedback": "Correct — one reaching path per def suffices for All-Defs, leaving branch edges untaken."
+            },
+            {
+              "text": "All-Defs requires every edge, so it always subsumes Edge Coverage",
+              "fraction": 0,
+              "feedback": "All-Defs requires only one reaching use per def, not every edge."
+            },
+            {
+              "text": "Edge Coverage is a data-flow criterion weaker than All-Defs",
+              "fraction": 0,
+              "feedback": "Edge Coverage is structural; the point is All-Defs does not force both branches."
+            },
+            {
+              "text": "All-Defs concerns only p-uses, which cover all edges",
+              "fraction": 0,
+              "feedback": "All-Defs concerns reaching some use (c-use or p-use), and one such use can leave an edge untaken."
+            }
+          ],
+          "generalFeedback": "All-Defs is satisfied once each def reaches some use via one def-clear path. That single path may take only one outcome of a decision, leaving the other out-edge uncovered — so All-Defs does not subsume Edge Coverage.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "du-paths stay finite with a loop",
+          "text": "<p>Consider snippet L (edges 1→2, 2→3, 3→2, 2→4):</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>Even though the loop allows unboundedly many executions, the number of du-paths for <code>x</code> is finite, because a du-path must be simple (no repeated nodes except possibly first = last).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the simple-path restriction bounds du-paths to a finite set even with a loop."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The simple-path requirement keeps du-paths finite; only complete paths become unbounded with a loop."
+            }
+          ],
+          "generalFeedback": "A du-path is a simple def-clear path, so at most one traversal of any cycle is allowed. That keeps the set of du-paths finite even when the loop can iterate arbitrarily many times."
+        },
+        {
+          "type": "multichoice",
+          "name": "Count du-paths from a def in a loop",
+          "text": "<p>In snippet L (edges 1→2, 2→3, 3→2, 2→4):</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>How many du-paths originate from the def of <code>x</code> at line 3 (<code>x = x + 1</code>)?</p>",
+          "answers": [
+            {
+              "text": "2 — namely 3→2→3 (to the p-use/c-use at the next iteration) and 3→2→4 (to the exit use)",
+              "fraction": 100,
+              "feedback": "Correct — from line 3 the value flows back through the condition either into the body again or out to line 4."
+            },
+            {
+              "text": "1 — only 3→2→4",
+              "fraction": 0,
+              "feedback": "The simple cycle 3→2→3 is also a du-path (reaching the p-use on edge 2→3 and the c-use at line 3)."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only two simple def-clear paths start at line 3: 3→2→3 and 3→2→4."
+            },
+            {
+              "text": "0 — line 3's value is immediately killed",
+              "fraction": 0,
+              "feedback": "Line 3's value is used at the condition (line 2) and at line 4; it is not immediately killed."
+            }
+          ],
+          "generalFeedback": "From the def at line 3, the def-clear simple paths are 3→2→3 (a simple cycle reaching the p-use on 2→3 and the c-use at line 3) and 3→2→4 (reaching the c-use at line 4) — two du-paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A def that reaches no use",
+          "text": "<p>In snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>",
+          "answers": [
+            {
+              "text": "The def of x at line 1, because line 2 redefines x before any use",
+              "fraction": 100,
+              "feedback": "Correct — line 1's value is killed at line 2, so it never reaches a use; it forms no DU pair."
+            },
+            {
+              "text": "The def of x at line 2",
+              "fraction": 0,
+              "feedback": "Line 2's value reaches the use at line 3 (def-clear path 2→3), so it does form a DU pair."
+            },
+            {
+              "text": "The def of y at line 3",
+              "fraction": 0,
+              "feedback": "y is defined at line 3 but the question concerns which def reaches no use; and y's reachability is not the point here — x@1 is the answer."
+            },
+            {
+              "text": "None; every def reaches a use",
+              "fraction": 0,
+              "feedback": "The def of x at line 1 is killed by line 2 and reaches no use."
+            }
+          ],
+          "generalFeedback": "The def of x at line 1 is overwritten at line 2 before x is ever read, so it reaches no use and forms no DU pair. Under All-Defs such a def imposes an infeasible (uncoverable) requirement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count all DU pairs",
+          "text": "<p>In snippet D, counting each p-use edge as a separate use (and noting z has a def but no use):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many DU pairs does the code have in total (across all variables)?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — x: (1,edge 3→4), (1,edge 3→5), (1,c-use@5); y: (2,c-use@5), (4,c-use@5). Total 5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount x's p-uses: edges 3→4 and 3→5 count separately, giving x three pairs and y two — five in all."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "z has a def but no use, so it contributes no DU pair; the total is five."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "x alone contributes three DU pairs and y two, so the total is five."
+            }
+          ],
+          "generalFeedback": "x: p-use on 3→4 and on 3→5 plus the c-use@5 = 3; y: def@2→use@5 and def@4→use@5 = 2; z has no use = 0. Total 5 DU pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-path versus def-clear path",
+          "text": "<p>What extra condition must a du-path satisfy beyond being a def-clear path from a def to a use?</p>",
+          "answers": [
+            {
+              "text": "It must be simple — no internal repeated nodes (a cycle is allowed only when its first and last node coincide)",
+              "fraction": 100,
+              "feedback": "Correct — every du-path is a simple def-clear path from the def to the use."
+            },
+            {
+              "text": "It must run from the initial node to the final node",
+              "fraction": 0,
+              "feedback": "A du-path runs from a def to a use, not necessarily from entry to exit."
+            },
+            {
+              "text": "It must contain a p-use",
+              "fraction": 0,
+              "feedback": "A du-path may end at a c-use or a p-use; there is no p-use requirement."
+            },
+            {
+              "text": "It must visit every use of the variable",
+              "fraction": 0,
+              "feedback": "A du-path connects one def to one use, not all uses."
+            }
+          ],
+          "generalFeedback": "A du-path is a def-clear path that is additionally simple: it may not repeat an internal node, allowing at most a single cycle where the first and last node are the same.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-paths for a killed-on-one-branch DU pair",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@2, c-use@5)</code> have?</p>",
+          "answers": [
+            {
+              "text": "1 — only 2→3→5, because the then-path 2→3→4→5 is killed by the redefinition at line 4",
+              "fraction": 100,
+              "feedback": "Correct — only the false-branch path stays def-clear for the def at line 2."
+            },
+            {
+              "text": "2 — both 2→3→4→5 and 2→3→5",
+              "fraction": 0,
+              "feedback": "The path 2→3→4→5 passes through the redefinition at line 4, so it is not def-clear for the def at line 2."
+            },
+            {
+              "text": "0 — line 2's def never reaches line 5",
+              "fraction": 0,
+              "feedback": "Via the false branch 2→3→5 the def at line 2 does reach line 5."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only the single def-clear path 2→3→5 qualifies."
+            }
+          ],
+          "generalFeedback": "The then-path 2→3→4→5 redefines y at line 4 (a kill), so it is not def-clear. Only 2→3→5 carries the def at line 2 to line 5 — one du-path.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "def 的定義",
+          "text": "<p>在資料流分析中，變數 <code>v</code> 在某位置的<strong>定義（def）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個對 v 賦值的位置（例如指派、輸入、或參數綁定）",
+              "fraction": 100,
+              "feedback": "正確——def 是變數取得值的位置。"
+            },
+            {
+              "text": "一個讀取 v 的值但不改變它的位置",
+              "fraction": 0,
+              "feedback": "那是使用（use），不是 def。"
+            },
+            {
+              "text": "一個測試 v 值的謂詞",
+              "fraction": 0,
+              "feedback": "測試 v 是謂詞使用（p-use）；def 是把值存入 v。"
+            },
+            {
+              "text": "控制流程圖的一條邊",
+              "fraction": 0,
+              "feedback": "def 是把值存入 v 的位置，不是一條邊。"
+            }
+          ],
+          "generalFeedback": "def 是變數被賦值的任何位置：指派、讀取／輸入、以及形式參數綁定都是 def。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "use 的定義",
+          "text": "<p>在資料流分析中，變數 <code>v</code> 在某位置的<strong>使用（use）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個讀取（存取）v 的值、但不一定改變它的位置",
+              "fraction": 100,
+              "feedback": "正確——use 讀取 v 目前的值。"
+            },
+            {
+              "text": "一個對 v 賦予新值的位置",
+              "fraction": 0,
+              "feedback": "那是 def，不是 use。"
+            },
+            {
+              "text": "一個宣告 v 但從未引用它的位置",
+              "fraction": 0,
+              "feedback": "只有宣告而未讀取其值，並不是對該值的 use。"
+            },
+            {
+              "text": "定義潔淨路徑上的任一節點",
+              "fraction": 0,
+              "feedback": "use 是對 v 的特定讀取，而不只是路徑上的任一節點。"
+            }
+          ],
+          "generalFeedback": "use 是 v 儲存的值被存取的位置——可以在計算中（c-use）或在謂詞中（p-use）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "c-use 的定義",
+          "text": "<p>變數的<strong>計算使用（c-use, computation use）</strong>是指出現在以下位置的 use：</p>",
+          "answers": [
+            {
+              "text": "在一個計算中——例如指派的右手邊、輸出、或陣列索引",
+              "fraction": 100,
+              "feedback": "正確——c-use 供給計算，並與一個節點關聯。"
+            },
+            {
+              "text": "在分支或迴圈的謂詞中",
+              "fraction": 0,
+              "feedback": "那是謂詞使用（p-use），不是 c-use。"
+            },
+            {
+              "text": "只在變數被賦值時",
+              "fraction": 0,
+              "feedback": "賦值是 def；c-use 是在計算中讀取值。"
+            },
+            {
+              "text": "在控制流程圖的一條邊上",
+              "fraction": 0,
+              "feedback": "c-use 與節點關聯；與邊關聯的是 p-use。"
+            }
+          ],
+          "generalFeedback": "c-use 是計算中的 use（指派的右手邊、引數、輸出、陣列索引），與計算發生的節點關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p-use 的定義",
+          "text": "<p>變數的<strong>謂詞使用（p-use, predicate use）</strong>是指出現在以下位置的 use：</p>",
+          "answers": [
+            {
+              "text": "在一個決策的謂詞中，並與該決策節點的各條出邊關聯",
+              "fraction": 100,
+              "feedback": "正確——p-use 位於條件中，並附著於該分支的出邊。"
+            },
+            {
+              "text": "在指派的右手邊",
+              "fraction": 0,
+              "feedback": "那是 c-use，與一個節點關聯。"
+            },
+            {
+              "text": "在變數首次被定義的地方",
+              "fraction": 0,
+              "feedback": "那是 def，不是 use。"
+            },
+            {
+              "text": "只在迴圈本體內",
+              "fraction": 0,
+              "feedback": "p-use 是謂詞中的任何 use，無論在 if、while 或其他決策中。"
+            }
+          ],
+          "generalFeedback": "p-use 是謂詞中的 use（例如 if 或 while 的條件）。由於決策的結果會選擇一條出邊，p-use 與該決策節點的每一條出邊關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DU pair 的定義",
+          "text": "<p>變數 v 的<strong>定義-使用對（DU pair, def-use pair）</strong> <code>(d, u)</code> 是指：</p>",
+          "answers": [
+            {
+              "text": "v 的一個 def d 與一個 use u，且存在一條從 d 到 u 的定義潔淨路徑（其間沒有對 v 的再定義）",
+              "fraction": 100,
+              "feedback": "正確——該 def 必須沿著中間無再定義的路徑到達該 use。"
+            },
+            {
+              "text": "v 的任一 def d 與任一 use u，無論 d 是否能到達 u",
+              "fraction": 0,
+              "feedback": "必須存在定義潔淨路徑可達；毫無關係的 def 與 use 不構成 DU pair。"
+            },
+            {
+              "text": "出現在同一路徑上的 v 的兩個定義",
+              "fraction": 0,
+              "feedback": "DU pair 連結一個 def 與一個 use，而非兩個 def。"
+            },
+            {
+              "text": "其間沒有 def 的 v 的兩個使用",
+              "fraction": 0,
+              "feedback": "DU pair 是一個 def 與一個 use，而非兩個 use。"
+            }
+          ],
+          "generalFeedback": "DU pair (d, u) 要求 d 定義 v、u 使用 v，且存在從 d 到 u 的定義潔淨路徑——亦即 d 放入的值確實能到達 u。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "定義潔淨路徑的定義",
+          "text": "<p>一條路徑對變數 <code>v</code> 是<strong>定義潔淨（def-clear）</strong>的，當：</p>",
+          "answers": [
+            {
+              "text": "在其起點與終點之間（嚴格中間）不含對 v 的任何再定義",
+              "fraction": 100,
+              "feedback": "正確——中間不可有 v 的 def 覆殺沿途的值。"
+            },
+            {
+              "text": "沿途任何地方都不含 v 的 use",
+              "fraction": 0,
+              "feedback": "定義潔淨關乎中間的再定義（覆殺），而非 use。"
+            },
+            {
+              "text": "它拜訪圖中的每一個節點",
+              "fraction": 0,
+              "feedback": "定義潔淨並不要求拜訪所有節點。"
+            },
+            {
+              "text": "它從不重複任何節點",
+              "fraction": 0,
+              "feedback": "那描述的是簡單路徑；定義潔淨關乎的是 v 中間無再定義。"
+            }
+          ],
+          "generalFeedback": "若在 def 與 use 之間沒有節點再定義 v，該路徑對 v 為定義潔淨；中間的 def 會覆殺該值並破壞配對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-path 的定義",
+          "text": "<p>變數 v 的 <strong>du-path（定義-使用路徑）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條從 v 的 def 到 v 的 use 的簡單且定義潔淨的路徑",
+              "fraction": 100,
+              "feedback": "正確——du-path 是簡單的（內部不重複）且從 def 到 use 為定義潔淨。"
+            },
+            {
+              "text": "任一條從 v 的 def 到 v 的 use 的路徑，即使其間有再定義",
+              "fraction": 0,
+              "feedback": "du-path 必須是定義潔淨的；中間有再定義即不符合。"
+            },
+            {
+              "text": "任一條定義潔淨路徑，無論是否簡單",
+              "fraction": 0,
+              "feedback": "du-path 還必須是簡單的；任意的定義潔淨路徑可能重複節點。"
+            },
+            {
+              "text": "一條從起始節點到結束節點的完整路徑",
+              "fraction": 0,
+              "feedback": "du-path 從 def 到 use，不一定從進入點到離開點。"
+            }
+          ],
+          "generalFeedback": "du-path 是一條簡單（除了起點=終點的單一環外，無環）且從 v 的 def 到 v 的 use 的定義潔淨路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs 的意義",
+          "text": "<p><strong>All-Defs（全定義）</strong>涵蓋準則要求：</p>",
+          "answers": [
+            {
+              "text": "對每個變數的每個 def，至少有一條定義潔淨路徑到達該變數的某個 use",
+              "fraction": 100,
+              "feedback": "正確——All-Defs 要求每個 def 至少到達一個 use。"
+            },
+            {
+              "text": "對每個 def，都有路徑到達它能到達的每個 use",
+              "fraction": 0,
+              "feedback": "那是 All-Uses，比 All-Defs 更強。"
+            },
+            {
+              "text": "每個 DU pair 的每一條 du-path 都被巡覽",
+              "fraction": 0,
+              "feedback": "那是 All-DU-Paths，三者中最強。"
+            },
+            {
+              "text": "控制流程圖的每一條邊都被走過",
+              "fraction": 0,
+              "feedback": "那是邊涵蓋（Edge Coverage），是結構準則，不是 All-Defs。"
+            }
+          ],
+          "generalFeedback": "All-Defs：每個 def 必須（經定義潔淨路徑）到達至少一個 use——每個 def 一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 的意義",
+          "text": "<p><strong>All-Uses（全使用）</strong>涵蓋準則要求：</p>",
+          "answers": [
+            {
+              "text": "對每個 def，都有定義潔淨路徑到達它能到達的每個 use（即涵蓋每個 DU pair）",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 涵蓋每個 DU pair，亦即每個 def 到達其所有可達的 use。"
+            },
+            {
+              "text": "對每個 def，路徑到達至少一個 use",
+              "fraction": 0,
+              "feedback": "那是 All-Defs，比 All-Uses 更弱。"
+            },
+            {
+              "text": "每個 DU pair 的每一條 du-path 都被巡覽",
+              "fraction": 0,
+              "feedback": "那是 All-DU-Paths，比 All-Uses 更強。"
+            },
+            {
+              "text": "控制流程圖的每一個節點都被拜訪",
+              "fraction": 0,
+              "feedback": "那是節點涵蓋（Node Coverage），是結構準則，不是 All-Uses。"
+            }
+          ],
+          "generalFeedback": "All-Uses：對每個 DU pair（每個 def 及它到達的每個 use），至少巡覽一條 du-path——每個 DU pair 一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-DU-Paths 的意義",
+          "text": "<p><strong>All-DU-Paths（全定義-使用路徑）</strong>涵蓋準則要求：</p>",
+          "answers": [
+            {
+              "text": "對每個 DU pair，其 def 與 use 之間的每一條 du-path（每一條簡單定義潔淨路徑）都被巡覽",
+              "fraction": 100,
+              "feedback": "正確——All-DU-Paths 要求每個配對的所有 du-path，而不只是一條。"
+            },
+            {
+              "text": "對每個 DU pair，至少巡覽一條 du-path",
+              "fraction": 0,
+              "feedback": "那是 All-Uses；All-DU-Paths 要求每一條 du-path。"
+            },
+            {
+              "text": "對每個 def，至少到達一個 use",
+              "fraction": 0,
+              "feedback": "那是 All-Defs，三者中最弱。"
+            },
+            {
+              "text": "從進入點到離開點的每一條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是完整路徑涵蓋（Complete Path Coverage），通常不可行；All-DU-Paths 只限於 DU pair 的 du-path。"
+            }
+          ],
+          "generalFeedback": "All-DU-Paths：對每個 DU pair，其所有 du-path 都必須被巡覽——三種資料流準則中最強者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識一個 DU pair",
+          "text": "<p>考慮：</p><pre>1  x = read()\n2  y = x + 3\n3  print(y)</pre><p>下列何者是有效的 DU pair？</p>",
+          "answers": [
+            {
+              "text": "x：def 在第 1 行，use 在第 2 行",
+              "fraction": 100,
+              "feedback": "正確——x 在第 1 行被定義、在第 2 行被讀取，存在定義潔淨路徑 1→2。"
+            },
+            {
+              "text": "x：def 在第 2 行，use 在第 3 行",
+              "fraction": 0,
+              "feedback": "x 並非在第 2 行被定義（那是 y），且 x 未在第 3 行被使用。"
+            },
+            {
+              "text": "y：def 在第 1 行，use 在第 2 行",
+              "fraction": 0,
+              "feedback": "y 是在第 2 行被定義，不是第 1 行。"
+            },
+            {
+              "text": "x：def 在第 1 行，use 在第 3 行",
+              "fraction": 0,
+              "feedback": "x 未在第 3 行被使用；那裡只讀取 y。"
+            }
+          ],
+          "generalFeedback": "x：(def@1, use@2) 與 y：(def@2, use@3) 是兩個 DU pair。x 在第 2 行被讀取（c-use），y 在第 3 行被讀取（c-use）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類謂詞中的 use",
+          "text": "<p>考慮：</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>第 2 行（條件中）對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "p-use（謂詞使用）",
+              "fraction": 100,
+              "feedback": "正確——x 在分支條件中被讀取，故為 p-use。"
+            },
+            {
+              "text": "c-use（計算使用）",
+              "fraction": 0,
+              "feedback": "計算中的 use 在第 3 行；第 2 行的 use 在謂詞中。"
+            },
+            {
+              "text": "def（定義）",
+              "fraction": 0,
+              "feedback": "第 2 行讀取 x，並未對它賦值。"
+            },
+            {
+              "text": "既非 def 也非 use",
+              "fraction": 0,
+              "feedback": "條件讀取了 x，那是 use——具體而言是 p-use。"
+            }
+          ],
+          "generalFeedback": "決策謂詞中的 use 是 p-use，與該決策節點的出邊關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類計算中的 use",
+          "text": "<p>考慮：</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>第 3 行（在 <code>y = x + 1</code> 中）對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "c-use（計算使用）",
+              "fraction": 100,
+              "feedback": "正確——x 在指派的右手邊被讀取，故為 c-use。"
+            },
+            {
+              "text": "p-use（謂詞使用）",
+              "fraction": 0,
+              "feedback": "謂詞使用在第 2 行；第 3 行是計算。"
+            },
+            {
+              "text": "def（定義）",
+              "fraction": 0,
+              "feedback": "第 3 行定義 y，但它使用（讀取）x。"
+            },
+            {
+              "text": "對 x 的再定義",
+              "fraction": 0,
+              "feedback": "第 3 行並未對 x 賦值；它讀取 x 以計算 y。"
+            }
+          ],
+          "generalFeedback": "在計算（例如指派右手邊）中的 use 是 c-use，與其發生的節點關聯。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "p-use 與邊關聯",
+          "text": "<p>變數的 p-use 與決策節點的出邊關聯，而 c-use 則與一個節點關聯。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——p-use 附著於分支的出邊；c-use 附著於節點。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "p-use 綁定決策的出邊（走哪個結果），而 c-use 綁定計算發生的節點。"
+            }
+          ],
+          "generalFeedback": "由於謂詞的值選擇走哪條出邊，p-use 與決策的出邊關聯，而 c-use 與計算的節點關聯。"
+        },
+        {
+          "type": "truefalse",
+          "name": "All-Uses 不只是每個 def 一個 use",
+          "text": "<p>只要每個 def 到達<em>至少一個</em> use，All-Uses 就已被滿足，不需要到達它能到達的其他 use。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——每個 def 到達至少一個 use 是 All-Defs；All-Uses 要求到達每個可達的 use。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "每個 def 只到達一個 use 是 All-Defs。All-Uses 要求每個 def 到達它能到達的每個 use（每個 DU pair）。"
+            }
+          ],
+          "generalFeedback": "All-Defs = 每個 def 到達某個 use；All-Uses = 每個 def 到達每個可達的 use。此敘述描述的是 All-Defs，不是 All-Uses。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算 y 的 def 個數",
+          "text": "<p>考慮片段 D：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>這段程式對變數 <code>y</code> 含有幾個<strong>定義（def）</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——y 在第 2 行（y = 0）與第 4 行（y = 1）被定義。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "對 y 有兩個指派：第 2 行與第 4 行。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "第 5 行使用 y（c-use），並非定義 y。共有兩個 def。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "y 在第 2 與第 4 行被指派，故有兩個 def。"
+            }
+          ],
+          "generalFeedback": "y 在第 2 行與第 4 行被定義；第 5 行讀取 y（c-use）。故 y 有兩個 def。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類條件中對 x 的 use",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>第 3 行對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "p-use，與邊 3→4 及 3→5 關聯",
+              "fraction": 100,
+              "feedback": "正確——x 在決策謂詞中被讀取，故為 p-use，關聯於兩條出邊。"
+            },
+            {
+              "text": "節點 3 的 c-use",
+              "fraction": 0,
+              "feedback": "第 3 行是謂詞，故該 use 是 p-use，不是 c-use。"
+            },
+            {
+              "text": "對 x 的一個 def",
+              "fraction": 0,
+              "feedback": "x 在第 3 行只被讀取，未被賦值。"
+            },
+            {
+              "text": "只與邊 3→4 關聯的 p-use",
+              "fraction": 0,
+              "feedback": "p-use 附著於決策的兩條出邊 3→4 與 3→5。"
+            }
+          ],
+          "generalFeedback": "第 3 行的謂詞讀取 x，故為 p-use，與兩條出邊 3→4（真）與 3→5（假）關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類第 5 行對 x 的 use",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>第 5 行（在 <code>z = x + y</code> 中）對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "節點 5 的 c-use",
+              "fraction": 100,
+              "feedback": "正確——x 在計算中被讀取，故為與節點 5 關聯的 c-use。"
+            },
+            {
+              "text": "邊 4→5 上的 p-use",
+              "fraction": 0,
+              "feedback": "第 5 行是計算，不是謂詞；此處沒有分支。"
+            },
+            {
+              "text": "對 x 的一個 def",
+              "fraction": 0,
+              "feedback": "第 5 行定義 z；它讀取 x。"
+            },
+            {
+              "text": "對 x 的再定義",
+              "fraction": 0,
+              "feedback": "x 未在第 5 行被賦值；它被讀取以計算 z。"
+            }
+          ],
+          "generalFeedback": "在 z = x + y 的右手邊對 x 的 use 是 c-use，與節點 5 關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "y 的定義潔淨路徑",
+          "text": "<p>在片段 D 中（邊 1→2, 2→3, 3→4, 3→5, 4→5）：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>從第 2 行的 def 到第 5 行的 use，哪一條路徑對 <code>y</code> 是<strong>定義潔淨</strong>的？</p>",
+          "answers": [
+            {
+              "text": "2→3→5",
+              "fraction": 100,
+              "feedback": "正確——這條假分支路徑從不再定義 y，故第 2 行的 def 能到達第 5 行。"
+            },
+            {
+              "text": "2→3→4→5",
+              "fraction": 0,
+              "feedback": "第 4 行再定義 y（y = 1），故此路徑對第 2 行的 def 不是定義潔淨。"
+            },
+            {
+              "text": "1→2→3→4→5",
+              "fraction": 0,
+              "feedback": "除了起點在 def 之前，它還經過第 4 行的再定義。"
+            },
+            {
+              "text": "從第 2 行到第 5 行不存在定義潔淨路徑",
+              "fraction": 0,
+              "feedback": "假分支路徑 2→3→5 是定義潔淨的，故確實存在一條。"
+            }
+          ],
+          "generalFeedback": "只有假分支路徑 2→3→5 避開第 4 行的再定義，故它是把第 2 行的 def 帶到第 5 行 use 的定義潔淨路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 2→3→4→5 不是 y 的 du-path",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>為何 <code>2→3→4→5</code> 不是第 2 行 <code>y</code> 之 def 的 du-path？</p>",
+          "answers": [
+            {
+              "text": "節點 4 再定義 y，覆殺了來自第 2 行的 def，故此路徑不是定義潔淨",
+              "fraction": 100,
+              "feedback": "正確——第 4 行的再定義在到達第 5 行前覆殺了第 2 行的值。"
+            },
+            {
+              "text": "此路徑重複了某節點，故不是簡單路徑",
+              "fraction": 0,
+              "feedback": "此路徑拜訪的是相異節點；使其失格的是第 4 行的再定義。"
+            },
+            {
+              "text": "y 從未在第 5 行被使用",
+              "fraction": 0,
+              "feedback": "y 在第 5 行被讀取（z = x + y）；問題在於第 4 行的覆殺。"
+            },
+            {
+              "text": "此路徑不是從起始節點開始",
+              "fraction": 0,
+              "feedback": "du-path 不必從起始節點開始；它從 def 開始。問題在於第 4 行的覆殺。"
+            }
+          ],
+          "generalFeedback": "由於第 4 行指派 y = 1，第 2 行的值在此路徑被覆殺；du-path 必須是定義潔淨的，故對第 2 行的 def 而言 2→3→4→5 不符合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs 與 All-Uses 的差異",
+          "text": "<p>All-Defs 與 All-Uses 的關鍵差異為何？</p>",
+          "answers": [
+            {
+              "text": "All-Defs 要求每個 def 到達某個 use；All-Uses 要求每個 def 到達它能到達的每個 use",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 涵蓋每個 DU pair，All-Defs 每個 def 只要一個 use。"
+            },
+            {
+              "text": "All-Defs 要求每一條 du-path；All-Uses 每對只要一條 du-path",
+              "fraction": 0,
+              "feedback": "要求每一條 du-path 的是 All-DU-Paths，不是 All-Defs。"
+            },
+            {
+              "text": "All-Uses 只關乎 p-use；All-Defs 只關乎 c-use",
+              "fraction": 0,
+              "feedback": "兩準則都關乎所有 use（c-use 與 p-use）；差別在每個 def 一個 use 對每個 use。"
+            },
+            {
+              "text": "它們在每個程式上都等價",
+              "fraction": 0,
+              "feedback": "All-Uses 嚴格更強；它包容 All-Defs。"
+            }
+          ],
+          "generalFeedback": "All-Defs 要求每個 def 到達至少一個 use；All-Uses 要求每個 def 到達每個可達的 use（涵蓋每個 DU pair）。因此 All-Uses 包容 All-Defs。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最強的資料流準則",
+          "text": "<p>在 All-Defs、All-Uses 與 All-DU-Paths 之中，哪一個<strong>最強</strong>（包容其他）？</p>",
+          "answers": [
+            {
+              "text": "All-DU-Paths",
+              "fraction": 100,
+              "feedback": "正確——All-DU-Paths ⊒ All-Uses ⊒ All-Defs。"
+            },
+            {
+              "text": "All-Uses",
+              "fraction": 0,
+              "feedback": "All-Uses 包容 All-Defs，但本身被 All-DU-Paths 包容。"
+            },
+            {
+              "text": "All-Defs",
+              "fraction": 0,
+              "feedback": "All-Defs 是三者中最弱的。"
+            },
+            {
+              "text": "它們彼此不可比較",
+              "fraction": 0,
+              "feedback": "它們形成一條鏈：All-DU-Paths ⊒ All-Uses ⊒ All-Defs。"
+            }
+          ],
+          "generalFeedback": "Rapps–Weyuker 階層將它們排為 All-DU-Paths ⊒ All-Uses ⊒ All-Defs，故 All-DU-Paths 最強。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "包容鏈的中間項",
+          "text": "<p>填入包容鏈中的空格：<code>All-DU-Paths ⊒ ______ ⊒ All-Defs</code>。</p>",
+          "answers": [
+            {
+              "text": "All-Uses",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 位於 All-DU-Paths 與 All-Defs 之間。"
+            },
+            {
+              "text": "邊涵蓋（Edge Coverage）",
+              "fraction": 0,
+              "feedback": "邊涵蓋是結構準則；此資料流鏈的中間項是 All-Uses。"
+            },
+            {
+              "text": "質數路徑涵蓋（Prime Path Coverage）",
+              "fraction": 0,
+              "feedback": "質數路徑涵蓋是圖路徑準則，不是此資料流鏈的中間項。"
+            },
+            {
+              "text": "節點涵蓋（Node Coverage）",
+              "fraction": 0,
+              "feedback": "節點涵蓋是結構準則；此資料流鏈的中間項是 All-Uses。"
+            }
+          ],
+          "generalFeedback": "資料流鏈為 All-DU-Paths ⊒ All-Uses ⊒ All-Defs，故中間項是 All-Uses。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "再定義（覆殺）的效果",
+          "text": "<p>考慮片段 K：</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>哪一個 <code>x</code> 的 def 到達第 3 行的 use？</p>",
+          "answers": [
+            {
+              "text": "只有第 2 行的 def（x = 10）；第 1 行的 def 被第 2 行覆殺",
+              "fraction": 100,
+              "feedback": "正確——第 2 行在第 3 行之前再定義 x，故只有第 2 行的值到達 use。"
+            },
+            {
+              "text": "只有第 1 行的 def（x = 5）",
+              "fraction": 0,
+              "feedback": "第 2 行在第 3 行之前覆寫 x，故第 1 行的值不會到達 use。"
+            },
+            {
+              "text": "兩個 def 都到達 use",
+              "fraction": 0,
+              "feedback": "從第 1 行到第 3 行的路徑經過第 2 行的再定義，故第 1 行的值被覆殺。"
+            },
+            {
+              "text": "兩個 def 都未到達 use",
+              "fraction": 0,
+              "feedback": "第 2 行的值沿定義潔淨路徑 2→3 到達第 3 行。"
+            }
+          ],
+          "generalFeedback": "第 2 行的 def 覆殺第 1 行的 def，故只有 (x@2, use@3) 是 DU pair；第 1 行的 def 未到達任何 use。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某 DU pair 的 du-path 數（x）",
+          "text": "<p>在片段 D 中（邊 1→2, 2→3, 3→4, 3→5, 4→5）：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(x def@1, c-use@5)</code> 有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "2——即 1→2→3→4→5 與 1→2→3→5",
+              "fraction": 100,
+              "feedback": "正確——x 從未被再定義，故真分支路徑與略過路徑都是定義潔淨的 du-path。"
+            },
+            {
+              "text": "1——只有 1→2→3→5",
+              "fraction": 0,
+              "feedback": "真分支路徑 1→2→3→4→5 對 x 也是定義潔淨（x 未在第 4 行被再定義），故有兩條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "從第 1 行到第 5 行恰有兩條簡單定義潔淨路徑。"
+            },
+            {
+              "text": "0——第 1 行的 def 未到達第 5 行",
+              "fraction": 0,
+              "feedback": "x 沿兩條分支都到達第 5 行；共有兩條 du-path。"
+            }
+          ],
+          "generalFeedback": "x 只在第 1 行被定義且從未再定義，故 1→2→3→4→5 與 1→2→3→5 都是簡單定義潔淨路徑——此 DU pair 有兩條 du-path。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某 DU pair 的 du-path 數（y@4）",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(y def@4, c-use@5)</code> 有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "1——即 4→5",
+              "fraction": 100,
+              "feedback": "正確——從第 4 行到第 5 行唯一的定義潔淨路徑就是單一邊 4→5。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "從第 4 行到第 5 行只有一條路徑，即邊 4→5。"
+            },
+            {
+              "text": "0——第 4 行的值總是被覆殺",
+              "fraction": 0,
+              "feedback": "第 4 行的 y 之 def 沿 4→5 直接到達第 5 行；沒有東西覆殺它。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有單一邊 4→5 連接該 def 與 use。"
+            }
+          ],
+          "generalFeedback": "從節點 4 到節點 5 唯一的路線是邊 4→5，故此 DU pair 恰有一條 du-path。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 包容 All-Defs",
+          "text": "<p>若一個測試套組滿足 All-Uses，你能對 All-Defs 下什麼結論？</p>",
+          "answers": [
+            {
+              "text": "All-Defs 自動被滿足，因為涵蓋每個 DU pair 就涵蓋了每個 def 的至少一個 use",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 包容 All-Defs。"
+            },
+            {
+              "text": "All-Defs 仍可能失敗",
+              "fraction": 0,
+              "feedback": "涵蓋每個可達的 use 已包含每個 def 的至少一個 use，故 All-Defs 不會失敗。"
+            },
+            {
+              "text": "無法下任何結論",
+              "fraction": 0,
+              "feedback": "All-Uses 嚴格包容 All-Defs，故結論是確定的。"
+            },
+            {
+              "text": "All-DU-Paths 也被滿足",
+              "fraction": 0,
+              "feedback": "All-Uses 並不蘊含 All-DU-Paths；只有較弱的 All-Defs 隨之成立。"
+            }
+          ],
+          "generalFeedback": "由於每個有可達 use 的 def 至少有一個 DU pair，涵蓋所有 DU pair（All-Uses）即涵蓋每個 def 的至少一個 use（All-Defs）。故 All-Uses ⊒ All-Defs。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "列出 y 的 DU pairs",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>哪一組正確列出變數 <code>y</code> 的所有 DU pairs？</p>",
+          "answers": [
+            {
+              "text": "(y@2 → use@5) 與 (y@4 → use@5)",
+              "fraction": 100,
+              "feedback": "正確——第 2 行的 def 經假分支（2→3→5）到達第 5 行，第 4 行的 def 經 4→5 到達第 5 行。"
+            },
+            {
+              "text": "只有 (y@4 → use@5)，因為第 2 行的 def 總是被覆殺",
+              "fraction": 0,
+              "feedback": "第 2 行的 def 只在真分支路徑上被覆殺；經假分支 2→3→5 它仍到達第 5 行。"
+            },
+            {
+              "text": "只有 (y@2 → use@5)",
+              "fraction": 0,
+              "feedback": "第 4 行的 def 也經 4→5 到達第 5 行，故也構成一個 DU pair。"
+            },
+            {
+              "text": "(y@2 → use@3) 與 (y@4 → use@5)",
+              "fraction": 0,
+              "feedback": "y 未在第 3 行被使用；y 的 use 在第 5 行。"
+            }
+          ],
+          "generalFeedback": "y 的兩個 def 都到達第 5 行的 c-use：第 2 行經假分支定義潔淨路徑 2→3→5，第 4 行經 4→5。故 y 有兩個 DU pair。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 對比 All-DU-Paths",
+          "text": "<p>下列何者正確區分 All-Uses 與 All-DU-Paths？</p>",
+          "answers": [
+            {
+              "text": "All-Uses 每個 DU pair 至少巡覽一條 du-path；All-DU-Paths 每個 DU pair 巡覽每一條 du-path",
+              "fraction": 100,
+              "feedback": "正確——這正是兩準則的差異。"
+            },
+            {
+              "text": "All-Uses 巡覽每一條 du-path；All-DU-Paths 至少巡覽一條",
+              "fraction": 0,
+              "feedback": "這是相反的：All-DU-Paths 才是要求每一條 du-path 的較強準則。"
+            },
+            {
+              "text": "All-Uses 只涵蓋 c-use；All-DU-Paths 只涵蓋 p-use",
+              "fraction": 0,
+              "feedback": "兩準則都涵蓋 c-use 與 p-use；差別在每對一條 du-path 對每對所有 du-path。"
+            },
+            {
+              "text": "它們只在有迴圈的程式上不同",
+              "fraction": 0,
+              "feedback": "只要某 DU pair 有超過一條 du-path，它們就可能不同，無論是否有迴圈。"
+            }
+          ],
+          "generalFeedback": "對每個 DU pair，All-Uses 要求巡覽至少一條 du-path，而 All-DU-Paths 要求巡覽每一條 du-path。故 All-DU-Paths ⊒ All-Uses。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 x 的 use 個數",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>這段程式對變數 <code>x</code> 含有幾個<strong>使用（use）</strong>，各為何種？</p>",
+          "answers": [
+            {
+              "text": "2——第 3 行一個 p-use，第 5 行一個 c-use",
+              "fraction": 100,
+              "feedback": "正確——x 在第 3 行的謂詞被讀取（p-use），在第 5 行的計算被讀取（c-use）。"
+            },
+            {
+              "text": "1——只有第 5 行的 c-use",
+              "fraction": 0,
+              "feedback": "第 3 行的謂詞也讀取 x，那是 p-use。"
+            },
+            {
+              "text": "1——只有第 3 行的 p-use",
+              "fraction": 0,
+              "feedback": "第 5 行也讀取 x（c-use），故有兩個 use。"
+            },
+            {
+              "text": "3——第 1 行的 def 也算一個 use",
+              "fraction": 0,
+              "feedback": "第 1 行是 def，不是 use；x 有兩個 use（第 3 行與第 5 行）。"
+            }
+          ],
+          "generalFeedback": "x 被使用兩次：第 3 行謂詞中的 p-use（與邊 3→4 及 3→5 關聯）與第 5 行的 c-use。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "All-Uses 與 All-DU-Paths 的需求",
+          "text": "<p>在片段 D 中，DU pair <code>(x def@1, c-use@5)</code> 有兩條 du-path：<code>P1 = 1→2→3→4→5</code> 與 <code>P2 = 1→2→3→5</code>。就此配對而言，All-Uses 與 All-DU-Paths 各需巡覽幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "All-Uses 需要 {P1, P2} 中至少一條；All-DU-Paths 需要兩條都巡覽",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 每對只需一條 du-path，All-DU-Paths 需要每一條。"
+            },
+            {
+              "text": "兩者都恰需一條 du-path",
+              "fraction": 0,
+              "feedback": "All-DU-Paths 需要該配對的每一條 du-path，此處即 P1 與 P2 兩條。"
+            },
+            {
+              "text": "兩者都需要兩條 du-path",
+              "fraction": 0,
+              "feedback": "All-Uses 每個 DU pair 只需一條 du-path，並非兩條。"
+            },
+            {
+              "text": "All-Uses 需要兩條；All-DU-Paths 需要一條",
+              "fraction": 0,
+              "feedback": "這是相反的：All-DU-Paths 才是要求所有 du-path 的較強準則。"
+            }
+          ],
+          "generalFeedback": "All-Uses 每個 DU pair 巡覽至少一條 du-path；All-DU-Paths 巡覽每一條。此處即 {P1, P2} 中一條對比兩條——正是 All-DU-Paths ⊒ All-Uses 的具體見證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的 du-path",
+          "text": "<p>考慮：</p><pre>1  x = input()\n2  if (x &gt; 0)\n3      a = 1\n4  if (x &lt; 0)\n5      b = a</pre><p>du-path <code>3→4→5</code> 把第 3 行 <code>a</code> 的 def 帶到第 5 行的 use。為何此 du-path <strong>不可行（infeasible）</strong>？</p>",
+          "answers": [
+            {
+              "text": "到達第 3 行需要 x > 0，但走 4→5 需要 x < 0，沒有任何單一輸入能同時滿足兩者",
+              "fraction": 100,
+              "feedback": "正確——兩個條件互相矛盾，故沒有測試能驅動此 du-path。"
+            },
+            {
+              "text": "此路徑對 a 不是定義潔淨",
+              "fraction": 0,
+              "feedback": "a 在第 3 與第 5 行之間未被再定義，故路徑是定義潔淨的；問題在於謂詞矛盾。"
+            },
+            {
+              "text": "此路徑重複了某節點，故不是簡單路徑",
+              "fraction": 0,
+              "feedback": "3→4→5 拜訪相異節點；它是簡單的。不可行來自矛盾的條件。"
+            },
+            {
+              "text": "a 在第 5 行沒有 use",
+              "fraction": 0,
+              "feedback": "a 在第 5 行被讀取（b = a）；此 du-path 語法上存在但不可行。"
+            }
+          ],
+          "generalFeedback": "不可行的 du-path 在圖中存在，但沒有輸入能執行它。此處第 3 行需 x > 0，而邊 4→5 需 x < 0——互相矛盾，故此 du-path 永不能被巡覽。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 包容邊涵蓋——假設條件",
+          "text": "<p>All-Uses 只在某個標準假設下才包容邊涵蓋（Edge Coverage）。是哪個假設？</p>",
+          "answers": [
+            {
+              "text": "每個決策的謂詞都至少使用一個變數，因此每條出邊都帶有一個 p-use 測試需求",
+              "fraction": 100,
+              "feedback": "正確——唯有如此，涵蓋所有 p-use 才會強制每個決策的兩條出邊。"
+            },
+            {
+              "text": "每個變數在使用前都已被定義",
+              "fraction": 0,
+              "feedback": "那排除了未定義的 use，但本身並不強制每條邊都被走過。"
+            },
+            {
+              "text": "程式不含迴圈",
+              "fraction": 0,
+              "feedback": "迴圈不影響此包容關係；需求在於每個決策都有 p-use。"
+            },
+            {
+              "text": "每個 def 恰好到達一個 use",
+              "fraction": 0,
+              "feedback": "那與此無關；假設關乎謂詞含有變數 use。"
+            }
+          ],
+          "generalFeedback": "p-use 附著於決策的兩條出邊。若每個決策謂詞都至少使用一個變數，All-Uses 就會強制每個決策的兩條邊，從而包容邊涵蓋。若無此假設，一個不含變數的謂詞會留下某條邊不被強制。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 何時會漏掉一條邊",
+          "text": "<p>在哪種情況下，一個測試套組能滿足 All-Uses，卻仍留下一條<strong>邊未被涵蓋</strong>？</p>",
+          "answers": [
+            {
+              "text": "某個決策的謂詞不使用任何變數（例如常數條件），故兩條出邊都不帶 p-use 需求",
+              "fraction": 100,
+              "feedback": "正確——沒有 p-use，All-Uses 就沒有強制該分支各邊的需求。"
+            },
+            {
+              "text": "任何使用了變數的決策",
+              "fraction": 0,
+              "feedback": "變數 p-use 會強制兩條出邊，故那些邊都會被涵蓋。"
+            },
+            {
+              "text": "沒有決策的直線程式",
+              "fraction": 0,
+              "feedback": "沒有決策就只有一條路徑；此處 All-Uses 與邊涵蓋一致。"
+            },
+            {
+              "text": "每個 def 都到達每個 use 的程式",
+              "fraction": 0,
+              "feedback": "豐富的資料流本身不會留下某條邊未涵蓋；不含變數的謂詞才會。"
+            }
+          ],
+          "generalFeedback": "All-Uses 包容邊涵蓋，倚賴每個決策都有變數 p-use。常數／不含變數的謂詞沒有 p-use，故 All-Uses 不必走過它的兩條出邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p-use 產生兩條邊需求",
+          "text": "<p>變數 v 在 <code>if (v &gt; 0)</code> 中有一個 p-use，該決策節點有通往 then 區塊與 else／匯合點的出邊。在 All-Uses 下，一個到達此 p-use 的 def 會產生哪些測試需求？</p>",
+          "answers": [
+            {
+              "text": "兩條出邊——決策的真邊與假邊",
+              "fraction": 100,
+              "feedback": "正確——p-use 附著於每一條出邊，故兩者都必須被巡覽。"
+            },
+            {
+              "text": "只有真邊（條件成立處）",
+              "fraction": 0,
+              "feedback": "p-use 需求涵蓋兩種結果，不只真邊。"
+            },
+            {
+              "text": "只有該決策的節點",
+              "fraction": 0,
+              "feedback": "p-use 附著於出邊，而不只是節點。"
+            },
+            {
+              "text": "兩條邊都不需，因為謂詞不是 use",
+              "fraction": 0,
+              "feedback": "在謂詞中讀取 v 就是 use——具體而言是出邊上的 p-use。"
+            }
+          ],
+          "generalFeedback": "由於謂詞的結果選擇出邊，v 的 p-use 會為每一條出邊產生一個 (def, p-use) 需求——強制走過真、假兩個分支。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被覆殺的 def 仍能到達某 use 嗎？",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>第 2 行 <code>y</code> 的 def 能到達第 5 行的 use 嗎？</p>",
+          "answers": [
+            {
+              "text": "能——經假分支 2→3→5，它略過第 4 行的再定義",
+              "fraction": 100,
+              "feedback": "正確——第 2 行的 def 只在真分支路徑上被覆殺；假分支使它保持定義潔淨。"
+            },
+            {
+              "text": "不能——第 4 行總在第 5 行之前再定義 y",
+              "fraction": 0,
+              "feedback": "第 4 行只在真分支執行；當 x ≤ 0 時第 2 行的 def 會存活到第 5 行。"
+            },
+            {
+              "text": "只有第 4 行也執行時才能",
+              "fraction": 0,
+              "feedback": "若第 4 行執行，它會覆殺第 2 行的值；第 2 行的 def 正是在第 4 行被略過時才到達第 5 行。"
+            },
+            {
+              "text": "不能——第 2 行的 y 是死碼",
+              "fraction": 0,
+              "feedback": "它不是死碼：在假分支上其值流到第 5 行。"
+            }
+          ],
+          "generalFeedback": "再定義只在經過它的路徑上覆殺某 def。假分支 2→3→5 避開第 4 行，故第 2 行 y 的 def 確實到達第 5 行的 use。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-DU-Paths 嚴格更強的見證",
+          "text": "<p>哪種情境最能見證 All-DU-Paths <em>嚴格</em>強於 All-Uses？</p>",
+          "answers": [
+            {
+              "text": "一個具有兩條相異 du-path 的 DU pair，測試集巡覽其中一條（滿足 All-Uses）卻不巡覽另一條（未達 All-DU-Paths）",
+              "fraction": 100,
+              "feedback": "正確——一條 du-path 就滿足該對的 All-Uses，但 All-DU-Paths 仍要求第二條。"
+            },
+            {
+              "text": "一個恰有一條 du-path 且被巡覽的 DU pair",
+              "fraction": 0,
+              "feedback": "只有一條 du-path 時兩準則對該對一致；無法見證嚴格性。"
+            },
+            {
+              "text": "一個完全不到達任何 use 的 def",
+              "fraction": 0,
+              "feedback": "這種 def 對兩準則都不產生需求，區分不出任何差異。"
+            },
+            {
+              "text": "一個沒有決策的程式",
+              "fraction": 0,
+              "feedback": "沒有決策時，DU pair 都只有一條 du-path，兩準則一致。"
+            }
+          ],
+          "generalFeedback": "嚴格包容需要一個 All-Uses 成立但 All-DU-Paths 失敗的情形：一個具 ≥2 條 du-path 的 DU pair，只巡覽其中一條。此時該對的 All-Uses 已滿足，但仍有一條 du-path 未被涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正確的包容關係敘述",
+          "text": "<p>假設每個決策謂詞都至少使用一個變數，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "All-Uses 同時包容 All-Defs 與邊涵蓋，且邊涵蓋包容節點涵蓋",
+              "fraction": 100,
+              "feedback": "正確——在此假設下 All-Uses ⊒ 邊 ⊒ 節點，且 All-Uses ⊒ All-Defs。"
+            },
+            {
+              "text": "All-Defs 包容 All-Uses",
+              "fraction": 0,
+              "feedback": "包容方向相反：All-Uses ⊒ All-Defs。"
+            },
+            {
+              "text": "All-Defs 包容邊涵蓋",
+              "fraction": 0,
+              "feedback": "All-Defs 不必走過決策的兩條分支，故不包容邊涵蓋。"
+            },
+            {
+              "text": "節點涵蓋包容 All-Uses",
+              "fraction": 0,
+              "feedback": "節點涵蓋弱得多；它不包容任何資料流準則。"
+            }
+          ],
+          "generalFeedback": "在每個決策都有 p-use 的假設下：All-DU-Paths ⊒ All-Uses ⊒ All-Defs，All-Uses ⊒ 邊 ⊒ 節點。All-Defs 與邊涵蓋在一般情況下不可比較。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs 不包容邊涵蓋",
+          "text": "<p>為何 All-Defs 在一般情況下無法包容邊涵蓋？</p>",
+          "answers": [
+            {
+              "text": "一個 def 可以只經一條分支到達某 use，故 All-Defs 可被滿足而從未走過另一條分支的邊",
+              "fraction": 100,
+              "feedback": "正確——每個 def 一條到達路徑即滿足 All-Defs，可能留下分支邊未走。"
+            },
+            {
+              "text": "All-Defs 要求每一條邊，故總是包容邊涵蓋",
+              "fraction": 0,
+              "feedback": "All-Defs 只要求每個 def 到達某一個 use，並非每一條邊。"
+            },
+            {
+              "text": "邊涵蓋是比 All-Defs 更弱的資料流準則",
+              "fraction": 0,
+              "feedback": "邊涵蓋是結構準則；重點在於 All-Defs 不強制兩條分支。"
+            },
+            {
+              "text": "All-Defs 只關乎能涵蓋所有邊的 p-use",
+              "fraction": 0,
+              "feedback": "All-Defs 關乎到達某個 use（c-use 或 p-use），而這樣一個 use 可能留下某條邊未走。"
+            }
+          ],
+          "generalFeedback": "只要每個 def 經一條定義潔淨路徑到達某個 use，All-Defs 即被滿足。那條路徑可能只走決策的一個結果，留下另一條出邊未涵蓋——故 All-Defs 不包容邊涵蓋。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "有迴圈時 du-path 仍為有限",
+          "text": "<p>考慮片段 L（邊 1→2, 2→3, 3→2, 2→4）：</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>即使迴圈允許無界次執行，<code>x</code> 的 du-path 數目仍為有限，因為 du-path 必須是簡單的（除了可能起點=終點外，無重複節點）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——簡單路徑的限制使 du-path 即使有迴圈也是有限集合。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "簡單路徑的要求使 du-path 保持有限；只有完整路徑才會因迴圈而變無界。"
+            }
+          ],
+          "generalFeedback": "du-path 是簡單的定義潔淨路徑，故任何環至多走一次。這使 du-path 集合即使迴圈能任意次迭代仍為有限。"
+        },
+        {
+          "type": "multichoice",
+          "name": "計算迴圈中某 def 的 du-path 數",
+          "text": "<p>在片段 L 中（邊 1→2, 2→3, 3→2, 2→4）：</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>從第 3 行 <code>x</code> 的 def（<code>x = x + 1</code>）出發，有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "2——即 3→2→3（到下一輪迭代的 p-use／c-use）與 3→2→4（到離開處的 use）",
+              "fraction": 100,
+              "feedback": "正確——從第 3 行，值經條件回流進本體再一次，或流出到第 4 行。"
+            },
+            {
+              "text": "1——只有 3→2→4",
+              "fraction": 0,
+              "feedback": "簡單環 3→2→3 也是 du-path（到達邊 2→3 的 p-use 與第 3 行的 c-use）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "從第 3 行出發只有兩條簡單定義潔淨路徑：3→2→3 與 3→2→4。"
+            },
+            {
+              "text": "0——第 3 行的值立即被覆殺",
+              "fraction": 0,
+              "feedback": "第 3 行的值在條件（第 2 行）與第 4 行被使用；它不會立即被覆殺。"
+            }
+          ],
+          "generalFeedback": "從第 3 行的 def 出發，定義潔淨的簡單路徑為 3→2→3（一個簡單環，到達 2→3 的 p-use 與第 3 行的 c-use）與 3→2→4（到達第 4 行的 c-use）——兩條 du-path。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不到達任何 use 的 def",
+          "text": "<p>在片段 K 中：</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>哪個 def <strong>沒有 DU pair</strong>（不到達任何 use）？</p>",
+          "answers": [
+            {
+              "text": "第 1 行 x 的 def，因為第 2 行在任何 use 之前就再定義了 x",
+              "fraction": 100,
+              "feedback": "正確——第 1 行的值在第 2 行被覆殺，故從未到達任何 use；它不構成 DU pair。"
+            },
+            {
+              "text": "第 2 行 x 的 def",
+              "fraction": 0,
+              "feedback": "第 2 行的值到達第 3 行的 use（定義潔淨路徑 2→3），故它確實構成 DU pair。"
+            },
+            {
+              "text": "第 3 行 y 的 def",
+              "fraction": 0,
+              "feedback": "y 在第 3 行被定義，但問題問的是哪個 def 不到達任何 use；答案是 x@1。"
+            },
+            {
+              "text": "沒有；每個 def 都到達某個 use",
+              "fraction": 0,
+              "feedback": "第 1 行 x 的 def 被第 2 行覆殺，不到達任何 use。"
+            }
+          ],
+          "generalFeedback": "第 1 行 x 的 def 在第 2 行被覆寫、且在 x 被讀取之前，故它不到達任何 use、不構成 DU pair。在 All-Defs 下，這樣的 def 是一項不可行（無法涵蓋）的需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算所有 DU pairs",
+          "text": "<p>在片段 D 中，將每條 p-use 邊視為個別的 use（並留意 z 有 def 但無 use）：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>整段程式（跨所有變數）共有幾個 DU pair？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——x：(1,邊 3→4)、(1,邊 3→5)、(1,c-use@5)；y：(2,c-use@5)、(4,c-use@5)。共 5 個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重數 x 的 p-use：邊 3→4 與 3→5 分別計，x 有三對、y 有兩對——共五個。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "z 有 def 但無 use，故不貢獻任何 DU pair；總數為五。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "光是 x 就貢獻三個 DU pair、y 兩個，故總數為五。"
+            }
+          ],
+          "generalFeedback": "x：邊 3→4 的 p-use、邊 3→5 的 p-use、加上 c-use@5 = 3；y：def@2→use@5 與 def@4→use@5 = 2；z 無 use = 0。共 5 個 DU pair。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-path 與定義潔淨路徑之別",
+          "text": "<p>除了是一條從 def 到 use 的定義潔淨路徑外，du-path 還必須滿足哪個額外條件？</p>",
+          "answers": [
+            {
+              "text": "它必須是簡單的——內部無重複節點（僅當起點與終點相同時才允許一個環）",
+              "fraction": 100,
+              "feedback": "正確——每條 du-path 都是從 def 到 use 的簡單定義潔淨路徑。"
+            },
+            {
+              "text": "它必須從起始節點到結束節點",
+              "fraction": 0,
+              "feedback": "du-path 從 def 到 use，不一定從進入點到離開點。"
+            },
+            {
+              "text": "它必須包含一個 p-use",
+              "fraction": 0,
+              "feedback": "du-path 可結束於 c-use 或 p-use；沒有 p-use 的要求。"
+            },
+            {
+              "text": "它必須拜訪該變數的每個 use",
+              "fraction": 0,
+              "feedback": "du-path 連接一個 def 與一個 use，而非所有 use。"
+            }
+          ],
+          "generalFeedback": "du-path 是一條額外為簡單的定義潔淨路徑：內部不可重複節點，至多允許一個起點與終點相同的環。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單分支被覆殺的 DU pair 之 du-path 數",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(y def@2, c-use@5)</code> 有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "1——只有 2→3→5，因為真分支路徑 2→3→4→5 被第 4 行的再定義覆殺",
+              "fraction": 100,
+              "feedback": "正確——只有假分支路徑對第 2 行的 def 保持定義潔淨。"
+            },
+            {
+              "text": "2——2→3→4→5 與 2→3→5 兩條",
+              "fraction": 0,
+              "feedback": "路徑 2→3→4→5 經過第 4 行的再定義，故對第 2 行的 def 不是定義潔淨。"
+            },
+            {
+              "text": "0——第 2 行的 def 從未到達第 5 行",
+              "fraction": 0,
+              "feedback": "經假分支 2→3→5，第 2 行的 def 確實到達第 5 行。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有單一條定義潔淨路徑 2→3→5 符合。"
+            }
+          ],
+          "generalFeedback": "真分支路徑 2→3→4→5 在第 4 行再定義 y（覆殺），故不是定義潔淨。只有 2→3→5 把第 2 行的 def 帶到第 5 行——一條 du-path。",
+          "single": true
+        }
+      ]
+    }
+  },
   "graph-path": {
     "en": {
       "easy": [

@@ -50853,6 +50853,2568 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "graph-dataflow": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Definition of a def",
+            "text": "<p>In data-flow analysis, a <strong>def (definition)</strong> of a variable <code>v</code> at a location is:</p>",
+            "answers": [
+              {
+                "text": "A location where v is assigned a value (e.g. an assignment, input, or parameter binding)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a def is where the variable receives a value."
+              },
+              {
+                "text": "A location where the value of v is read but not changed",
+                "fraction": 0,
+                "feedback": "That is a use, not a def."
+              },
+              {
+                "text": "A predicate that tests the value of v",
+                "fraction": 0,
+                "feedback": "Testing v is a p-use; a def stores a value into v."
+              },
+              {
+                "text": "An edge of the control-flow graph",
+                "fraction": 0,
+                "feedback": "A def is a location that stores into v, not an edge."
+              }
+            ],
+            "generalFeedback": "A def is any location where a variable is given a value: assignments, reads/inputs, and formal-parameter bindings are all defs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of a use",
+            "text": "<p>In data-flow analysis, a <strong>use</strong> of a variable <code>v</code> at a location is:</p>",
+            "answers": [
+              {
+                "text": "A location where the value of v is read (accessed) without necessarily changing it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a use reads the current value of v."
+              },
+              {
+                "text": "A location where v is assigned a new value",
+                "fraction": 0,
+                "feedback": "That is a def, not a use."
+              },
+              {
+                "text": "A location where v is declared but never referenced",
+                "fraction": 0,
+                "feedback": "A mere declaration with no read is not a use of the value."
+              },
+              {
+                "text": "Any node on a def-clear path",
+                "fraction": 0,
+                "feedback": "A use is a specific read of v, not simply any node on a path."
+              }
+            ],
+            "generalFeedback": "A use is a location where the stored value of v is accessed \u2014 either in a computation (c-use) or in a predicate (p-use).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of a c-use",
+            "text": "<p>A <strong>c-use (computation use)</strong> of a variable is a use that occurs:</p>",
+            "answers": [
+              {
+                "text": "In a computation \u2014 e.g. the right-hand side of an assignment, an output, or a subscript",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a c-use feeds a computation and is associated with a node."
+              },
+              {
+                "text": "In the predicate of a branch or loop",
+                "fraction": 0,
+                "feedback": "That is a p-use, not a c-use."
+              },
+              {
+                "text": "Only when the variable is being assigned",
+                "fraction": 0,
+                "feedback": "Assignment is a def; a c-use reads the value inside a computation."
+              },
+              {
+                "text": "On an edge of the control-flow graph",
+                "fraction": 0,
+                "feedback": "c-uses are associated with nodes; p-uses are the ones associated with edges."
+              }
+            ],
+            "generalFeedback": "A c-use is a use in a computation (RHS of an assignment, an argument, an output, an array index). It is associated with the node where the computation occurs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of a p-use",
+            "text": "<p>A <strong>p-use (predicate use)</strong> of a variable is a use that occurs:</p>",
+            "answers": [
+              {
+                "text": "In the predicate of a decision, and is associated with the out-edges of that decision node",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a p-use lives in a condition and attaches to the branch's out-edges."
+              },
+              {
+                "text": "On the right-hand side of an assignment",
+                "fraction": 0,
+                "feedback": "That is a c-use, associated with a node."
+              },
+              {
+                "text": "Wherever the variable is first defined",
+                "fraction": 0,
+                "feedback": "That is a def, not a use."
+              },
+              {
+                "text": "Only inside a loop body",
+                "fraction": 0,
+                "feedback": "A p-use is any use in a predicate, whether in an if, while, or other decision."
+              }
+            ],
+            "generalFeedback": "A p-use is a use in a predicate (e.g. the condition of an if or while). Because a decision's outcome selects an out-edge, a p-use is associated with each of the decision node's out-edges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of a DU pair",
+            "text": "<p>A <strong>DU pair (def-use pair)</strong> <code>(d, u)</code> for a variable v is:</p>",
+            "answers": [
+              {
+                "text": "A def d and a use u of v such that some def-clear path (no intervening redefinition of v) runs from d to u",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the def must reach the use along a path with no redefinition in between."
+              },
+              {
+                "text": "Any def d and any use u of v, whether or not d can reach u",
+                "fraction": 0,
+                "feedback": "Reachability by a def-clear path is required; unrelated defs and uses do not form a DU pair."
+              },
+              {
+                "text": "Two definitions of v that appear on the same path",
+                "fraction": 0,
+                "feedback": "A DU pair links a def to a use, not two defs."
+              },
+              {
+                "text": "Two uses of v with no def between them",
+                "fraction": 0,
+                "feedback": "A DU pair is one def and one use, not two uses."
+              }
+            ],
+            "generalFeedback": "A DU pair (d, u) requires that d defines v, u uses v, and there is a def-clear path from d to u \u2014 i.e. the value placed by d can actually reach u.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of a def-clear path",
+            "text": "<p>A path is <strong>def-clear</strong> with respect to a variable <code>v</code> when:</p>",
+            "answers": [
+              {
+                "text": "It contains no redefinition of v strictly between its first and last nodes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no intervening def of v may kill the value along the way."
+              },
+              {
+                "text": "It contains no use of v anywhere along it",
+                "fraction": 0,
+                "feedback": "Def-clear concerns intervening definitions (kills), not uses."
+              },
+              {
+                "text": "It visits every node of the graph",
+                "fraction": 0,
+                "feedback": "Def-clear says nothing about visiting all nodes."
+              },
+              {
+                "text": "It never repeats any node",
+                "fraction": 0,
+                "feedback": "That describes a simple path; def-clear is about no intervening redefinition of v."
+              }
+            ],
+            "generalFeedback": "A path is def-clear for v if no node between the def and the use redefines v; an intervening def would kill the value and break the pairing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of a du-path",
+            "text": "<p>A <strong>du-path</strong> for a variable v is:</p>",
+            "answers": [
+              {
+                "text": "A simple def-clear path from a def of v to a use of v",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a du-path is simple (no internal repeats) and def-clear from the def to the use."
+              },
+              {
+                "text": "Any path from a def of v to a use of v, even with a redefinition in between",
+                "fraction": 0,
+                "feedback": "A du-path must be def-clear; a redefinition in between disqualifies it."
+              },
+              {
+                "text": "Any def-clear path, whether simple or not",
+                "fraction": 0,
+                "feedback": "A du-path must additionally be simple; an arbitrary def-clear path may repeat nodes."
+              },
+              {
+                "text": "A complete path from the initial node to the final node",
+                "fraction": 0,
+                "feedback": "A du-path runs from a def to a use, not necessarily from entry to exit."
+              }
+            ],
+            "generalFeedback": "A du-path is a simple (cycle-free except possibly a single loop where first = last) def-clear path from a def of v to a use of v.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of All-Defs",
+            "text": "<p>The <strong>All-Defs</strong> coverage criterion requires that:</p>",
+            "answers": [
+              {
+                "text": "For each def of each variable, at least one def-clear path reaches some use of that variable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-Defs requires every def to reach at least one use."
+              },
+              {
+                "text": "For each def, a path reaches every use it can reach",
+                "fraction": 0,
+                "feedback": "That is All-Uses, which is stronger than All-Defs."
+              },
+              {
+                "text": "Every du-path of every DU pair is toured",
+                "fraction": 0,
+                "feedback": "That is All-DU-Paths, the strongest of the three."
+              },
+              {
+                "text": "Every edge of the control-flow graph is traversed",
+                "fraction": 0,
+                "feedback": "That is Edge Coverage, a structural criterion, not All-Defs."
+              }
+            ],
+            "generalFeedback": "All-Defs: each def must reach (via a def-clear path) at least one use \u2014 one test requirement per def.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of All-Uses",
+            "text": "<p>The <strong>All-Uses</strong> coverage criterion requires that:</p>",
+            "answers": [
+              {
+                "text": "For each def, a def-clear path reaches every use that the def can reach (every DU pair is covered)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-Uses covers every DU pair, i.e. each def reaches every reachable use."
+              },
+              {
+                "text": "For each def, a path reaches at least one use",
+                "fraction": 0,
+                "feedback": "That is All-Defs, which is weaker than All-Uses."
+              },
+              {
+                "text": "Every du-path of every DU pair is toured",
+                "fraction": 0,
+                "feedback": "That is All-DU-Paths, which is stronger than All-Uses."
+              },
+              {
+                "text": "Every node of the control-flow graph is visited",
+                "fraction": 0,
+                "feedback": "That is Node Coverage, a structural criterion, not All-Uses."
+              }
+            ],
+            "generalFeedback": "All-Uses: for every DU pair (every def and every use it reaches), at least one du-path is toured \u2014 one test requirement per DU pair.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of All-DU-Paths",
+            "text": "<p>The <strong>All-DU-Paths</strong> coverage criterion requires that:</p>",
+            "answers": [
+              {
+                "text": "For each DU pair, every du-path (every simple def-clear path) between the def and the use is toured",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-DU-Paths demands all du-paths for each pair, not just one."
+              },
+              {
+                "text": "For each DU pair, at least one du-path is toured",
+                "fraction": 0,
+                "feedback": "That is All-Uses; All-DU-Paths requires every du-path."
+              },
+              {
+                "text": "For each def, at least one use is reached",
+                "fraction": 0,
+                "feedback": "That is All-Defs, the weakest of the three."
+              },
+              {
+                "text": "Every complete path from entry to exit is executed",
+                "fraction": 0,
+                "feedback": "That is Complete Path Coverage, generally infeasible; All-DU-Paths is limited to du-paths of DU pairs."
+              }
+            ],
+            "generalFeedback": "All-DU-Paths: for every DU pair, all of its du-paths must be toured \u2014 the strongest of the three data-flow criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify a DU pair",
+            "text": "<p>Consider:</p><pre>1  x = read()\n2  y = x + 3\n3  print(y)</pre><p>Which of the following is a valid DU pair?</p>",
+            "answers": [
+              {
+                "text": "x: def at line 1, use at line 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x is defined at line 1 and read at line 2, with a def-clear path 1\u21922."
+              },
+              {
+                "text": "x: def at line 2, use at line 3",
+                "fraction": 0,
+                "feedback": "x is not defined at line 2 (y is), and x is not used at line 3."
+              },
+              {
+                "text": "y: def at line 1, use at line 2",
+                "fraction": 0,
+                "feedback": "y is defined at line 2, not line 1."
+              },
+              {
+                "text": "x: def at line 1, use at line 3",
+                "fraction": 0,
+                "feedback": "x is not used at line 3; only y is read there."
+              }
+            ],
+            "generalFeedback": "x: (def@1, use@2) and y: (def@2, use@3) are the two DU pairs. x is read at line 2 (c-use) and y is read at line 3 (c-use).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the predicate use",
+            "text": "<p>Consider:</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>The use of <code>x</code> at line 2 (inside the condition) is a:</p>",
+            "answers": [
+              {
+                "text": "p-use (predicate use)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x is read inside the branch condition, so it is a p-use."
+              },
+              {
+                "text": "c-use (computation use)",
+                "fraction": 0,
+                "feedback": "The use in a computation is at line 3; the line-2 use is in a predicate."
+              },
+              {
+                "text": "def (definition)",
+                "fraction": 0,
+                "feedback": "Line 2 reads x, it does not assign to it."
+              },
+              {
+                "text": "Neither a def nor a use",
+                "fraction": 0,
+                "feedback": "The condition reads x, which is a use \u2014 specifically a p-use."
+              }
+            ],
+            "generalFeedback": "A use inside a decision's predicate is a p-use, associated with the out-edges of that decision node.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the computation use",
+            "text": "<p>Consider:</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>The use of <code>x</code> at line 3 (in <code>y = x + 1</code>) is a:</p>",
+            "answers": [
+              {
+                "text": "c-use (computation use)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x is read on the right-hand side of an assignment, so it is a c-use."
+              },
+              {
+                "text": "p-use (predicate use)",
+                "fraction": 0,
+                "feedback": "The predicate use is at line 2; line 3 is a computation."
+              },
+              {
+                "text": "def (definition)",
+                "fraction": 0,
+                "feedback": "Line 3 defines y, but it uses (reads) x."
+              },
+              {
+                "text": "A redefinition of x",
+                "fraction": 0,
+                "feedback": "Line 3 does not assign to x; it reads x to compute y."
+              }
+            ],
+            "generalFeedback": "A use in a computation such as the RHS of an assignment is a c-use, associated with the node where it occurs.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "p-use associated with edges",
+            "text": "<p>A p-use of a variable is associated with the out-edges of the decision node, whereas a c-use is associated with a node.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 p-uses attach to the branch's out-edges; c-uses attach to nodes."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A p-use is tied to the decision's out-edges (which outcome is taken), while a c-use is tied to the node where the computation happens."
+              }
+            ],
+            "generalFeedback": "Because a predicate's value selects which out-edge is taken, a p-use is associated with the out-edges of the decision, while a c-use is associated with the node of the computation."
+          },
+          {
+            "type": "truefalse",
+            "name": "All-Uses is not just one use per def",
+            "text": "<p>All-Uses is satisfied as soon as each def reaches <em>at least one</em> use, without needing to reach the other uses it can reach.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reaching at least one use per def is All-Defs; All-Uses requires reaching every reachable use."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Reaching just one use per def is All-Defs. All-Uses requires each def to reach every use it can reach (every DU pair)."
+              }
+            ],
+            "generalFeedback": "All-Defs = each def reaches some use; All-Uses = each def reaches every reachable use. The statement describes All-Defs, not All-Uses."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Count the defs of y",
+            "text": "<p>Consider snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many <strong>definitions</strong> of variable <code>y</code> does this code contain?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 y is defined at line 2 (y = 0) and line 4 (y = 1)."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "There are two assignments to y: line 2 and line 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Line 5 uses y (c-use); it does not define y. There are two defs."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "y is assigned at lines 2 and 4, so it has two defs."
+              }
+            ],
+            "generalFeedback": "y is defined at line 2 and line 4; line 5 reads y (a c-use). So y has two defs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the use of x in the condition",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>The use of <code>x</code> at line 3 is a:</p>",
+            "answers": [
+              {
+                "text": "p-use, associated with edges 3\u21924 and 3\u21925",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x is read in the decision predicate, so it is a p-use on both out-edges."
+              },
+              {
+                "text": "c-use at node 3",
+                "fraction": 0,
+                "feedback": "Line 3 is a predicate, so the use is a p-use, not a c-use."
+              },
+              {
+                "text": "A def of x",
+                "fraction": 0,
+                "feedback": "x is only read at line 3, not assigned."
+              },
+              {
+                "text": "p-use associated only with edge 3\u21924",
+                "fraction": 0,
+                "feedback": "A p-use attaches to both out-edges of the decision, 3\u21924 and 3\u21925."
+              }
+            ],
+            "generalFeedback": "The predicate at line 3 reads x, so it is a p-use, associated with both out-edges 3\u21924 (true) and 3\u21925 (false).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the use of x at line 5",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>The use of <code>x</code> at line 5 (in <code>z = x + y</code>) is a:</p>",
+            "answers": [
+              {
+                "text": "c-use at node 5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x is read in a computation, so it is a c-use associated with node 5."
+              },
+              {
+                "text": "p-use on edge 4\u21925",
+                "fraction": 0,
+                "feedback": "Line 5 is a computation, not a predicate; there is no branch here."
+              },
+              {
+                "text": "A def of x",
+                "fraction": 0,
+                "feedback": "Line 5 defines z; it reads x."
+              },
+              {
+                "text": "A redefinition of x",
+                "fraction": 0,
+                "feedback": "x is not assigned at line 5; it is read to compute z."
+              }
+            ],
+            "generalFeedback": "The use of x on the RHS of z = x + y is a c-use, associated with node 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Def-clear path for y",
+            "text": "<p>In snippet D (edges 1\u21922, 2\u21923, 3\u21924, 3\u21925, 4\u21925):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Which path is <strong>def-clear</strong> with respect to <code>y</code> from the def at line 2 to the use at line 5?</p>",
+            "answers": [
+              {
+                "text": "2\u21923\u21925",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this false-branch path never redefines y, so the def at line 2 reaches line 5."
+              },
+              {
+                "text": "2\u21923\u21924\u21925",
+                "fraction": 0,
+                "feedback": "Line 4 redefines y (y = 1), so this path is not def-clear for the def at line 2."
+              },
+              {
+                "text": "1\u21922\u21923\u21924\u21925",
+                "fraction": 0,
+                "feedback": "Besides starting before the def, it passes through line 4 which redefines y."
+              },
+              {
+                "text": "There is no def-clear path from line 2 to line 5",
+                "fraction": 0,
+                "feedback": "The false-branch path 2\u21923\u21925 is def-clear, so one does exist."
+              }
+            ],
+            "generalFeedback": "Only the false-branch path 2\u21923\u21925 avoids the redefinition at line 4, so it is the def-clear path carrying the def at line 2 to the use at line 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why 2\u21923\u21924\u21925 is not a du-path for y",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Why is <code>2\u21923\u21924\u21925</code> not a du-path for the def of <code>y</code> at line 2?</p>",
+            "answers": [
+              {
+                "text": "Node 4 redefines y, killing the def from line 2, so the path is not def-clear",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the redefinition at line 4 kills line 2's value before line 5."
+              },
+              {
+                "text": "The path repeats a node, so it is not simple",
+                "fraction": 0,
+                "feedback": "The path visits distinct nodes; the disqualifier is the redefinition at line 4."
+              },
+              {
+                "text": "y is never used at line 5",
+                "fraction": 0,
+                "feedback": "y is read at line 5 (z = x + y); the issue is the kill at line 4."
+              },
+              {
+                "text": "The path does not start at the initial node",
+                "fraction": 0,
+                "feedback": "A du-path need not start at the initial node; it starts at the def. The problem is the kill at line 4."
+              }
+            ],
+            "generalFeedback": "Because line 4 assigns y = 1, the value from line 2 is killed on this path; a du-path must be def-clear, so 2\u21923\u21924\u21925 does not qualify for the def at line 2.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Defs vs All-Uses",
+            "text": "<p>What is the key difference between All-Defs and All-Uses?</p>",
+            "answers": [
+              {
+                "text": "All-Defs requires each def to reach some use; All-Uses requires each def to reach every use it can reach",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-Uses covers every DU pair, All-Defs only one use per def."
+              },
+              {
+                "text": "All-Defs requires every du-path; All-Uses requires only one du-path per pair",
+                "fraction": 0,
+                "feedback": "Requiring every du-path is All-DU-Paths, not All-Defs."
+              },
+              {
+                "text": "All-Uses concerns only p-uses; All-Defs concerns only c-uses",
+                "fraction": 0,
+                "feedback": "Both criteria concern all uses (c-uses and p-uses); the difference is one-use vs every-use per def."
+              },
+              {
+                "text": "They are equivalent on every program",
+                "fraction": 0,
+                "feedback": "All-Uses is strictly stronger; it subsumes All-Defs."
+              }
+            ],
+            "generalFeedback": "All-Defs asks each def to reach at least one use; All-Uses asks each def to reach every reachable use (cover every DU pair). Hence All-Uses subsumes All-Defs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Strongest data-flow criterion",
+            "text": "<p>Among All-Defs, All-Uses and All-DU-Paths, which is the <strong>strongest</strong> (subsumes the others)?</p>",
+            "answers": [
+              {
+                "text": "All-DU-Paths",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-DU-Paths \u2292 All-Uses \u2292 All-Defs."
+              },
+              {
+                "text": "All-Uses",
+                "fraction": 0,
+                "feedback": "All-Uses subsumes All-Defs but is itself subsumed by All-DU-Paths."
+              },
+              {
+                "text": "All-Defs",
+                "fraction": 0,
+                "feedback": "All-Defs is the weakest of the three."
+              },
+              {
+                "text": "They are mutually incomparable",
+                "fraction": 0,
+                "feedback": "They form a chain: All-DU-Paths \u2292 All-Uses \u2292 All-Defs."
+              }
+            ],
+            "generalFeedback": "The Rapps\u2013Weyuker hierarchy orders them All-DU-Paths \u2292 All-Uses \u2292 All-Defs, so All-DU-Paths is the strongest.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Middle of the subsumption chain",
+            "text": "<p>Fill in the blank in the subsumption chain: <code>All-DU-Paths \u2292 ______ \u2292 All-Defs</code>.</p>",
+            "answers": [
+              {
+                "text": "All-Uses",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-Uses sits between All-DU-Paths and All-Defs."
+              },
+              {
+                "text": "Edge Coverage",
+                "fraction": 0,
+                "feedback": "Edge Coverage is a structural criterion; the data-flow chain's middle term is All-Uses."
+              },
+              {
+                "text": "Prime Path Coverage",
+                "fraction": 0,
+                "feedback": "Prime Path Coverage is a graph-path criterion, not the middle of the data-flow chain."
+              },
+              {
+                "text": "Node Coverage",
+                "fraction": 0,
+                "feedback": "Node Coverage is structural; the data-flow chain's middle term is All-Uses."
+              }
+            ],
+            "generalFeedback": "The data-flow chain is All-DU-Paths \u2292 All-Uses \u2292 All-Defs, so the middle term is All-Uses.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of a redefinition (kill)",
+            "text": "<p>Consider snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>Which def of <code>x</code> reaches the use at line 3?</p>",
+            "answers": [
+              {
+                "text": "Only the def at line 2 (x = 10); the def at line 1 is killed by line 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 line 2 redefines x before line 3, so only line 2's value reaches the use."
+              },
+              {
+                "text": "Only the def at line 1 (x = 5)",
+                "fraction": 0,
+                "feedback": "Line 2 overwrites x before line 3, so line 1's value does not reach the use."
+              },
+              {
+                "text": "Both defs reach the use",
+                "fraction": 0,
+                "feedback": "The path from line 1 to line 3 passes through the redefinition at line 2, so line 1's value is killed."
+              },
+              {
+                "text": "Neither def reaches the use",
+                "fraction": 0,
+                "feedback": "Line 2's value reaches line 3 along the def-clear path 2\u21923."
+              }
+            ],
+            "generalFeedback": "The def at line 2 kills the def at line 1, so only (x@2, use@3) is a DU pair; the def at line 1 reaches no use.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of du-paths for a DU pair (x)",
+            "text": "<p>In snippet D (edges 1\u21922, 2\u21923, 3\u21924, 3\u21925, 4\u21925):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(x def@1, c-use@5)</code> have?</p>",
+            "answers": [
+              {
+                "text": "2 \u2014 namely 1\u21922\u21923\u21924\u21925 and 1\u21922\u21923\u21925",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x is never redefined, so both the then-path and the skip-path are def-clear du-paths."
+              },
+              {
+                "text": "1 \u2014 only 1\u21922\u21923\u21925",
+                "fraction": 0,
+                "feedback": "The then-path 1\u21922\u21923\u21924\u21925 is also def-clear for x (x is not redefined at line 4), so there are two."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "There are exactly two simple def-clear paths from line 1 to line 5."
+              },
+              {
+                "text": "0 \u2014 the def at line 1 does not reach line 5",
+                "fraction": 0,
+                "feedback": "x reaches line 5 along both branches; there are two du-paths."
+              }
+            ],
+            "generalFeedback": "x is defined only at line 1 and never redefined, so both 1\u21922\u21923\u21924\u21925 and 1\u21922\u21923\u21925 are simple def-clear paths \u2014 two du-paths for this DU pair.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of du-paths for a DU pair (y@4)",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@4, c-use@5)</code> have?</p>",
+            "answers": [
+              {
+                "text": "1 \u2014 namely 4\u21925",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the only def-clear path from line 4 to line 5 is the single edge 4\u21925."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "There is only one path from line 4 to line 5, the edge 4\u21925."
+              },
+              {
+                "text": "0 \u2014 line 4's value is always killed",
+                "fraction": 0,
+                "feedback": "Line 4's def of y reaches line 5 directly along 4\u21925; nothing kills it."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only the single edge 4\u21925 connects the def to the use."
+              }
+            ],
+            "generalFeedback": "From node 4 the only route to node 5 is the edge 4\u21925, so this DU pair has exactly one du-path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses subsumes All-Defs",
+            "text": "<p>If a test suite satisfies All-Uses, what can you conclude about All-Defs?</p>",
+            "answers": [
+              {
+                "text": "All-Defs is automatically satisfied, because covering every DU pair covers at least one use per def",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-Uses subsumes All-Defs."
+              },
+              {
+                "text": "All-Defs may still fail",
+                "fraction": 0,
+                "feedback": "Covering every reachable use includes at least one use per def, so All-Defs cannot fail."
+              },
+              {
+                "text": "Nothing can be concluded",
+                "fraction": 0,
+                "feedback": "All-Uses strictly subsumes All-Defs, so the conclusion is definite."
+              },
+              {
+                "text": "All-DU-Paths is also satisfied",
+                "fraction": 0,
+                "feedback": "All-Uses does not imply All-DU-Paths; only the weaker All-Defs follows."
+              }
+            ],
+            "generalFeedback": "Since every def with a reachable use has at least one DU pair, covering all DU pairs (All-Uses) covers at least one use per def (All-Defs). So All-Uses \u2292 All-Defs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "List the DU pairs for y",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Which set correctly lists all DU pairs for variable <code>y</code>?</p>",
+            "answers": [
+              {
+                "text": "(y@2 \u2192 use@5) and (y@4 \u2192 use@5)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 line 2's def reaches line 5 via the false branch (2\u21923\u21925), and line 4's def reaches line 5 via 4\u21925."
+              },
+              {
+                "text": "Only (y@4 \u2192 use@5), because line 2's def is always killed",
+                "fraction": 0,
+                "feedback": "Line 2's def is killed only on the then-path; via the false branch 2\u21923\u21925 it still reaches line 5."
+              },
+              {
+                "text": "Only (y@2 \u2192 use@5)",
+                "fraction": 0,
+                "feedback": "Line 4's def also reaches line 5 via 4\u21925, so it forms a DU pair too."
+              },
+              {
+                "text": "(y@2 \u2192 use@3) and (y@4 \u2192 use@5)",
+                "fraction": 0,
+                "feedback": "y is not used at line 3; the use of y is at line 5."
+              }
+            ],
+            "generalFeedback": "Both defs of y reach the c-use at line 5: line 2 via the false-branch def-clear path 2\u21923\u21925, and line 4 via 4\u21925. So there are two DU pairs for y.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses versus All-DU-Paths",
+            "text": "<p>Which statement correctly distinguishes All-Uses from All-DU-Paths?</p>",
+            "answers": [
+              {
+                "text": "All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path per DU pair",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly the difference between the two criteria."
+              },
+              {
+                "text": "All-Uses tours every du-path; All-DU-Paths tours at least one",
+                "fraction": 0,
+                "feedback": "This is backwards: All-DU-Paths is the stronger criterion requiring every du-path."
+              },
+              {
+                "text": "All-Uses covers only c-uses; All-DU-Paths covers only p-uses",
+                "fraction": 0,
+                "feedback": "Both criteria cover c-uses and p-uses; the difference is one du-path versus all du-paths per pair."
+              },
+              {
+                "text": "They differ only on programs with loops",
+                "fraction": 0,
+                "feedback": "They can differ whenever a DU pair has more than one du-path, loop or not."
+              }
+            ],
+            "generalFeedback": "For each DU pair, All-Uses requires touring at least one du-path, while All-DU-Paths requires touring every du-path. Hence All-DU-Paths \u2292 All-Uses.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count the uses of x",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many <strong>uses</strong> of variable <code>x</code> does the code contain, and of what kinds?</p>",
+            "answers": [
+              {
+                "text": "2 \u2014 a p-use at line 3 and a c-use at line 5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x is read in the predicate at line 3 (p-use) and in the computation at line 5 (c-use)."
+              },
+              {
+                "text": "1 \u2014 only the c-use at line 5",
+                "fraction": 0,
+                "feedback": "The predicate at line 3 also reads x, which is a p-use."
+              },
+              {
+                "text": "1 \u2014 only the p-use at line 3",
+                "fraction": 0,
+                "feedback": "Line 5 also reads x (c-use), so there are two uses."
+              },
+              {
+                "text": "3 \u2014 a def at line 1 also counts as a use",
+                "fraction": 0,
+                "feedback": "Line 1 is a def, not a use; x has two uses (line 3 and line 5)."
+              }
+            ],
+            "generalFeedback": "x is used twice: a p-use in the predicate at line 3 (associated with edges 3\u21924 and 3\u21925) and a c-use at line 5.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "All-Uses vs All-DU-Paths requirements",
+            "text": "<p>In snippet D the DU pair <code>(x def@1, c-use@5)</code> has two du-paths: <code>P1 = 1\u21922\u21923\u21924\u21925</code> and <code>P2 = 1\u21922\u21923\u21925</code>. For this pair, how many du-paths must be toured by All-Uses versus All-DU-Paths?</p>",
+            "answers": [
+              {
+                "text": "All-Uses requires at least one of {P1, P2}; All-DU-Paths requires both",
+                "fraction": 100,
+                "feedback": "Correct \u2014 All-Uses needs one du-path per pair, All-DU-Paths needs every du-path."
+              },
+              {
+                "text": "Both require exactly one du-path",
+                "fraction": 0,
+                "feedback": "All-DU-Paths requires every du-path of the pair, which here is both P1 and P2."
+              },
+              {
+                "text": "Both require both du-paths",
+                "fraction": 0,
+                "feedback": "All-Uses requires only one du-path per DU pair, not both."
+              },
+              {
+                "text": "All-Uses requires both; All-DU-Paths requires one",
+                "fraction": 0,
+                "feedback": "This is backwards: All-DU-Paths is the stronger criterion requiring all du-paths."
+              }
+            ],
+            "generalFeedback": "All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path. Here that is one of {P1, P2} versus both \u2014 a concrete witness that All-DU-Paths \u2292 All-Uses.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible du-path",
+            "text": "<p>Consider:</p><pre>1  x = input()\n2  if (x &gt; 0)\n3      a = 1\n4  if (x &lt; 0)\n5      b = a</pre><p>The du-path <code>3\u21924\u21925</code> carries the def of <code>a</code> at line 3 to its use at line 5. Why is this du-path <strong>infeasible</strong>?</p>",
+            "answers": [
+              {
+                "text": "Reaching line 3 requires x > 0, but taking 4\u21925 requires x < 0, and no single input satisfies both",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two conditions are contradictory, so no test can drive this du-path."
+              },
+              {
+                "text": "The path is not def-clear for a",
+                "fraction": 0,
+                "feedback": "a is not redefined between lines 3 and 5, so the path is def-clear; the problem is contradictory predicates."
+              },
+              {
+                "text": "The path repeats a node, so it is not simple",
+                "fraction": 0,
+                "feedback": "3\u21924\u21925 visits distinct nodes; it is simple. Infeasibility comes from the contradictory conditions."
+              },
+              {
+                "text": "a has no use at line 5",
+                "fraction": 0,
+                "feedback": "a is read at line 5 (b = a); the du-path exists syntactically but is infeasible."
+              }
+            ],
+            "generalFeedback": "An infeasible du-path exists in the graph but no input can execute it. Here line 3 needs x > 0 while edge 4\u21925 needs x < 0 \u2014 contradictory, so the du-path can never be toured.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses subsumes Edge \u2014 the assumption",
+            "text": "<p>All-Uses subsumes Edge Coverage only under a standard assumption. Which assumption?</p>",
+            "answers": [
+              {
+                "text": "Every decision's predicate uses at least one variable, so each out-edge carries a p-use test requirement",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only then does covering all p-uses force both out-edges of every decision."
+              },
+              {
+                "text": "Every variable is defined before it is used",
+                "fraction": 0,
+                "feedback": "That rules out undefined uses but does not by itself force every edge to be taken."
+              },
+              {
+                "text": "The program contains no loops",
+                "fraction": 0,
+                "feedback": "Loops do not affect this subsumption; the requirement is a p-use on each decision."
+              },
+              {
+                "text": "Every def reaches exactly one use",
+                "fraction": 0,
+                "feedback": "That is unrelated; the assumption concerns predicates having variable uses."
+              }
+            ],
+            "generalFeedback": "A p-use attaches to both out-edges of a decision. If every decision predicate uses at least one variable, All-Uses forces both edges of every decision, hence subsumes Edge Coverage. Without that assumption a variable-free predicate leaves an edge unforced.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When All-Uses can miss an edge",
+            "text": "<p>In which situation can a test suite satisfy All-Uses yet leave an <strong>edge uncovered</strong>?</p>",
+            "answers": [
+              {
+                "text": "A decision whose predicate uses no variable (e.g. a constant condition), so neither out-edge carries a p-use requirement",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with no p-use, All-Uses imposes no requirement forcing that branch's edges."
+              },
+              {
+                "text": "Any decision that uses a variable",
+                "fraction": 0,
+                "feedback": "A variable p-use forces both out-edges, so those edges are covered."
+              },
+              {
+                "text": "A straight-line program with no decisions",
+                "fraction": 0,
+                "feedback": "With no decisions there is one path; All-Uses and Edge Coverage coincide there."
+              },
+              {
+                "text": "A program where every def reaches every use",
+                "fraction": 0,
+                "feedback": "Rich data flow does not by itself leave an edge uncovered; a variable-free predicate does."
+              }
+            ],
+            "generalFeedback": "The subsumption of Edge Coverage by All-Uses relies on every decision having a variable p-use. A constant/variable-free predicate has no p-use, so All-Uses need not exercise both of its out-edges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "p-use generates two edge requirements",
+            "text": "<p>A variable v has a p-use in <code>if (v &gt; 0)</code>, a decision node with out-edges to the then-block and the else/merge. Under All-Uses, a def that reaches this p-use creates test requirements for:</p>",
+            "answers": [
+              {
+                "text": "Both out-edges \u2014 the true edge and the false edge of the decision",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a p-use attaches to every out-edge, so both must be toured."
+              },
+              {
+                "text": "Only the true edge (where the condition holds)",
+                "fraction": 0,
+                "feedback": "A p-use requirement covers both outcomes, not just the true edge."
+              },
+              {
+                "text": "Only the node of the decision",
+                "fraction": 0,
+                "feedback": "A p-use attaches to the out-edges, not merely the node."
+              },
+              {
+                "text": "Neither edge, because a predicate is not a use",
+                "fraction": 0,
+                "feedback": "Reading v in a predicate is a use \u2014 specifically a p-use on the out-edges."
+              }
+            ],
+            "generalFeedback": "Because the predicate's outcome selects an out-edge, a p-use of v creates a (def, p-use) requirement for each out-edge \u2014 forcing both the true and false branches.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Does a killed def still reach a use?",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Does the def of <code>y</code> at line 2 reach the use at line 5?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 via the false branch 2\u21923\u21925, which skips the redefinition at line 4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the def at line 2 is killed only along the then-path; the false branch keeps it def-clear."
+              },
+              {
+                "text": "No \u2014 line 4 always redefines y before line 5",
+                "fraction": 0,
+                "feedback": "Line 4 executes only on the true branch; when x \u2264 0 the def at line 2 survives to line 5."
+              },
+              {
+                "text": "Only if line 4 also executes",
+                "fraction": 0,
+                "feedback": "If line 4 executes it kills line 2's value; the def at line 2 reaches line 5 precisely when line 4 is skipped."
+              },
+              {
+                "text": "No \u2014 y at line 2 is dead code",
+                "fraction": 0,
+                "feedback": "It is not dead: on the false branch its value flows to line 5."
+              }
+            ],
+            "generalFeedback": "A redefinition kills a def only along paths that pass through it. The false branch 2\u21923\u21925 avoids line 4, so the def of y at line 2 does reach the use at line 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Witness that All-DU-Paths is strictly stronger",
+            "text": "<p>Which scenario best witnesses that All-DU-Paths is <em>strictly</em> stronger than All-Uses?</p>",
+            "answers": [
+              {
+                "text": "A DU pair with two distinct du-paths, where a test set tours one (satisfying All-Uses) but not the other (failing All-DU-Paths)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one du-path meets All-Uses for the pair, but All-DU-Paths still demands the second."
+              },
+              {
+                "text": "A DU pair with exactly one du-path that is toured",
+                "fraction": 0,
+                "feedback": "With a single du-path the two criteria coincide for that pair; it cannot witness strictness."
+              },
+              {
+                "text": "A def that reaches no use at all",
+                "fraction": 0,
+                "feedback": "Such a def imposes no requirement for either criterion, so it distinguishes nothing."
+              },
+              {
+                "text": "A program with no decisions",
+                "fraction": 0,
+                "feedback": "Without decisions, DU pairs have single du-paths and the criteria coincide."
+              }
+            ],
+            "generalFeedback": "Strict subsumption needs a case where All-Uses holds but All-DU-Paths fails: a DU pair with \u22652 du-paths, with only one toured. Then All-Uses is met for the pair while a du-path is still uncovered.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Correct subsumption statement",
+            "text": "<p>Assuming every decision predicate uses at least one variable, which statement is correct?</p>",
+            "answers": [
+              {
+                "text": "All-Uses subsumes both All-Defs and Edge Coverage, and Edge Coverage subsumes Node Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 under the stated assumption All-Uses \u2292 Edge \u2292 Node, and All-Uses \u2292 All-Defs."
+              },
+              {
+                "text": "All-Defs subsumes All-Uses",
+                "fraction": 0,
+                "feedback": "The subsumption runs the other way: All-Uses \u2292 All-Defs."
+              },
+              {
+                "text": "All-Defs subsumes Edge Coverage",
+                "fraction": 0,
+                "feedback": "All-Defs need not exercise both branches of a decision, so it does not subsume Edge Coverage."
+              },
+              {
+                "text": "Node Coverage subsumes All-Uses",
+                "fraction": 0,
+                "feedback": "Node Coverage is far weaker; it does not subsume any data-flow criterion."
+              }
+            ],
+            "generalFeedback": "Under the p-use-per-decision assumption: All-DU-Paths \u2292 All-Uses \u2292 All-Defs, All-Uses \u2292 Edge \u2292 Node. All-Defs and Edge Coverage are incomparable in general.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Defs does not subsume Edge",
+            "text": "<p>Why does All-Defs fail to subsume Edge Coverage in general?</p>",
+            "answers": [
+              {
+                "text": "A def can reach a use through just one branch, so All-Defs may be met without ever taking the other branch's edge",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one reaching path per def suffices for All-Defs, leaving branch edges untaken."
+              },
+              {
+                "text": "All-Defs requires every edge, so it always subsumes Edge Coverage",
+                "fraction": 0,
+                "feedback": "All-Defs requires only one reaching use per def, not every edge."
+              },
+              {
+                "text": "Edge Coverage is a data-flow criterion weaker than All-Defs",
+                "fraction": 0,
+                "feedback": "Edge Coverage is structural; the point is All-Defs does not force both branches."
+              },
+              {
+                "text": "All-Defs concerns only p-uses, which cover all edges",
+                "fraction": 0,
+                "feedback": "All-Defs concerns reaching some use (c-use or p-use), and one such use can leave an edge untaken."
+              }
+            ],
+            "generalFeedback": "All-Defs is satisfied once each def reaches some use via one def-clear path. That single path may take only one outcome of a decision, leaving the other out-edge uncovered \u2014 so All-Defs does not subsume Edge Coverage.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "du-paths stay finite with a loop",
+            "text": "<p>Consider snippet L (edges 1\u21922, 2\u21923, 3\u21922, 2\u21924):</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>Even though the loop allows unboundedly many executions, the number of du-paths for <code>x</code> is finite, because a du-path must be simple (no repeated nodes except possibly first = last).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the simple-path restriction bounds du-paths to a finite set even with a loop."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The simple-path requirement keeps du-paths finite; only complete paths become unbounded with a loop."
+              }
+            ],
+            "generalFeedback": "A du-path is a simple def-clear path, so at most one traversal of any cycle is allowed. That keeps the set of du-paths finite even when the loop can iterate arbitrarily many times."
+          },
+          {
+            "type": "multichoice",
+            "name": "Count du-paths from a def in a loop",
+            "text": "<p>In snippet L (edges 1\u21922, 2\u21923, 3\u21922, 2\u21924):</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>How many du-paths originate from the def of <code>x</code> at line 3 (<code>x = x + 1</code>)?</p>",
+            "answers": [
+              {
+                "text": "2 \u2014 namely 3\u21922\u21923 (to the p-use/c-use at the next iteration) and 3\u21922\u21924 (to the exit use)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 from line 3 the value flows back through the condition either into the body again or out to line 4."
+              },
+              {
+                "text": "1 \u2014 only 3\u21922\u21924",
+                "fraction": 0,
+                "feedback": "The simple cycle 3\u21922\u21923 is also a du-path (reaching the p-use on edge 2\u21923 and the c-use at line 3)."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only two simple def-clear paths start at line 3: 3\u21922\u21923 and 3\u21922\u21924."
+              },
+              {
+                "text": "0 \u2014 line 3's value is immediately killed",
+                "fraction": 0,
+                "feedback": "Line 3's value is used at the condition (line 2) and at line 4; it is not immediately killed."
+              }
+            ],
+            "generalFeedback": "From the def at line 3, the def-clear simple paths are 3\u21922\u21923 (a simple cycle reaching the p-use on 2\u21923 and the c-use at line 3) and 3\u21922\u21924 (reaching the c-use at line 4) \u2014 two du-paths.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "A def that reaches no use",
+            "text": "<p>In snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>",
+            "answers": [
+              {
+                "text": "The def of x at line 1, because line 2 redefines x before any use",
+                "fraction": 100,
+                "feedback": "Correct \u2014 line 1's value is killed at line 2, so it never reaches a use; it forms no DU pair."
+              },
+              {
+                "text": "The def of x at line 2",
+                "fraction": 0,
+                "feedback": "Line 2's value reaches the use at line 3 (def-clear path 2\u21923), so it does form a DU pair."
+              },
+              {
+                "text": "The def of y at line 3",
+                "fraction": 0,
+                "feedback": "y is defined at line 3 but the question concerns which def reaches no use; and y's reachability is not the point here \u2014 x@1 is the answer."
+              },
+              {
+                "text": "None; every def reaches a use",
+                "fraction": 0,
+                "feedback": "The def of x at line 1 is killed by line 2 and reaches no use."
+              }
+            ],
+            "generalFeedback": "The def of x at line 1 is overwritten at line 2 before x is ever read, so it reaches no use and forms no DU pair. Under All-Defs such a def imposes an infeasible (uncoverable) requirement.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count all DU pairs",
+            "text": "<p>In snippet D, counting each p-use edge as a separate use (and noting z has a def but no use):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many DU pairs does the code have in total (across all variables)?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x: (1,edge 3\u21924), (1,edge 3\u21925), (1,c-use@5); y: (2,c-use@5), (4,c-use@5). Total 5."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount x's p-uses: edges 3\u21924 and 3\u21925 count separately, giving x three pairs and y two \u2014 five in all."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "z has a def but no use, so it contributes no DU pair; the total is five."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "x alone contributes three DU pairs and y two, so the total is five."
+              }
+            ],
+            "generalFeedback": "x: p-use on 3\u21924 and on 3\u21925 plus the c-use@5 = 3; y: def@2\u2192use@5 and def@4\u2192use@5 = 2; z has no use = 0. Total 5 DU pairs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "du-path versus def-clear path",
+            "text": "<p>What extra condition must a du-path satisfy beyond being a def-clear path from a def to a use?</p>",
+            "answers": [
+              {
+                "text": "It must be simple \u2014 no internal repeated nodes (a cycle is allowed only when its first and last node coincide)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every du-path is a simple def-clear path from the def to the use."
+              },
+              {
+                "text": "It must run from the initial node to the final node",
+                "fraction": 0,
+                "feedback": "A du-path runs from a def to a use, not necessarily from entry to exit."
+              },
+              {
+                "text": "It must contain a p-use",
+                "fraction": 0,
+                "feedback": "A du-path may end at a c-use or a p-use; there is no p-use requirement."
+              },
+              {
+                "text": "It must visit every use of the variable",
+                "fraction": 0,
+                "feedback": "A du-path connects one def to one use, not all uses."
+              }
+            ],
+            "generalFeedback": "A du-path is a def-clear path that is additionally simple: it may not repeat an internal node, allowing at most a single cycle where the first and last node are the same.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "du-paths for a killed-on-one-branch DU pair",
+            "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@2, c-use@5)</code> have?</p>",
+            "answers": [
+              {
+                "text": "1 \u2014 only 2\u21923\u21925, because the then-path 2\u21923\u21924\u21925 is killed by the redefinition at line 4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only the false-branch path stays def-clear for the def at line 2."
+              },
+              {
+                "text": "2 \u2014 both 2\u21923\u21924\u21925 and 2\u21923\u21925",
+                "fraction": 0,
+                "feedback": "The path 2\u21923\u21924\u21925 passes through the redefinition at line 4, so it is not def-clear for the def at line 2."
+              },
+              {
+                "text": "0 \u2014 line 2's def never reaches line 5",
+                "fraction": 0,
+                "feedback": "Via the false branch 2\u21923\u21925 the def at line 2 does reach line 5."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only the single def-clear path 2\u21923\u21925 qualifies."
+              }
+            ],
+            "generalFeedback": "The then-path 2\u21923\u21924\u21925 redefines y at line 4 (a kill), so it is not def-clear. Only 2\u21923\u21925 carries the def at line 2 to line 5 \u2014 one du-path.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "def \u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u8CC7\u6599\u6D41\u5206\u6790\u4E2D\uFF0C\u8B8A\u6578 <code>v</code> \u5728\u67D0\u4F4D\u7F6E\u7684<strong>\u5B9A\u7FA9\uFF08def\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u5C0D v \u8CE6\u503C\u7684\u4F4D\u7F6E\uFF08\u4F8B\u5982\u6307\u6D3E\u3001\u8F38\u5165\u3001\u6216\u53C3\u6578\u7D81\u5B9A\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014def \u662F\u8B8A\u6578\u53D6\u5F97\u503C\u7684\u4F4D\u7F6E\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u8B80\u53D6 v \u7684\u503C\u4F46\u4E0D\u6539\u8B8A\u5B83\u7684\u4F4D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F7F\u7528\uFF08use\uFF09\uFF0C\u4E0D\u662F def\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6E2C\u8A66 v \u503C\u7684\u8B02\u8A5E",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66 v \u662F\u8B02\u8A5E\u4F7F\u7528\uFF08p-use\uFF09\uFF1Bdef \u662F\u628A\u503C\u5B58\u5165 v\u3002"
+              },
+              {
+                "text": "\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u4E00\u689D\u908A",
+                "fraction": 0,
+                "feedback": "def \u662F\u628A\u503C\u5B58\u5165 v \u7684\u4F4D\u7F6E\uFF0C\u4E0D\u662F\u4E00\u689D\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "def \u662F\u8B8A\u6578\u88AB\u8CE6\u503C\u7684\u4EFB\u4F55\u4F4D\u7F6E\uFF1A\u6307\u6D3E\u3001\u8B80\u53D6\uFF0F\u8F38\u5165\u3001\u4EE5\u53CA\u5F62\u5F0F\u53C3\u6578\u7D81\u5B9A\u90FD\u662F def\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "use \u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u8CC7\u6599\u6D41\u5206\u6790\u4E2D\uFF0C\u8B8A\u6578 <code>v</code> \u5728\u67D0\u4F4D\u7F6E\u7684<strong>\u4F7F\u7528\uFF08use\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u8B80\u53D6\uFF08\u5B58\u53D6\uFF09v \u7684\u503C\u3001\u4F46\u4E0D\u4E00\u5B9A\u6539\u8B8A\u5B83\u7684\u4F4D\u7F6E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014use \u8B80\u53D6 v \u76EE\u524D\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5C0D v \u8CE6\u4E88\u65B0\u503C\u7684\u4F4D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F def\uFF0C\u4E0D\u662F use\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5BA3\u544A v \u4F46\u5F9E\u672A\u5F15\u7528\u5B83\u7684\u4F4D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u5BA3\u544A\u800C\u672A\u8B80\u53D6\u5176\u503C\uFF0C\u4E26\u4E0D\u662F\u5C0D\u8A72\u503C\u7684 use\u3002"
+              },
+              {
+                "text": "\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u4E0A\u7684\u4EFB\u4E00\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "use \u662F\u5C0D v \u7684\u7279\u5B9A\u8B80\u53D6\uFF0C\u800C\u4E0D\u53EA\u662F\u8DEF\u5F91\u4E0A\u7684\u4EFB\u4E00\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "use \u662F v \u5132\u5B58\u7684\u503C\u88AB\u5B58\u53D6\u7684\u4F4D\u7F6E\u2014\u2014\u53EF\u4EE5\u5728\u8A08\u7B97\u4E2D\uFF08c-use\uFF09\u6216\u5728\u8B02\u8A5E\u4E2D\uFF08p-use\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "c-use \u7684\u5B9A\u7FA9",
+            "text": "<p>\u8B8A\u6578\u7684<strong>\u8A08\u7B97\u4F7F\u7528\uFF08c-use, computation use\uFF09</strong>\u662F\u6307\u51FA\u73FE\u5728\u4EE5\u4E0B\u4F4D\u7F6E\u7684 use\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u4E00\u500B\u8A08\u7B97\u4E2D\u2014\u2014\u4F8B\u5982\u6307\u6D3E\u7684\u53F3\u624B\u908A\u3001\u8F38\u51FA\u3001\u6216\u9663\u5217\u7D22\u5F15",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c-use \u4F9B\u7D66\u8A08\u7B97\uFF0C\u4E26\u8207\u4E00\u500B\u7BC0\u9EDE\u95DC\u806F\u3002"
+              },
+              {
+                "text": "\u5728\u5206\u652F\u6216\u8FF4\u5708\u7684\u8B02\u8A5E\u4E2D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B02\u8A5E\u4F7F\u7528\uFF08p-use\uFF09\uFF0C\u4E0D\u662F c-use\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u8B8A\u6578\u88AB\u8CE6\u503C\u6642",
+                "fraction": 0,
+                "feedback": "\u8CE6\u503C\u662F def\uFF1Bc-use \u662F\u5728\u8A08\u7B97\u4E2D\u8B80\u53D6\u503C\u3002"
+              },
+              {
+                "text": "\u5728\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u4E00\u689D\u908A\u4E0A",
+                "fraction": 0,
+                "feedback": "c-use \u8207\u7BC0\u9EDE\u95DC\u806F\uFF1B\u8207\u908A\u95DC\u806F\u7684\u662F p-use\u3002"
+              }
+            ],
+            "generalFeedback": "c-use \u662F\u8A08\u7B97\u4E2D\u7684 use\uFF08\u6307\u6D3E\u7684\u53F3\u624B\u908A\u3001\u5F15\u6578\u3001\u8F38\u51FA\u3001\u9663\u5217\u7D22\u5F15\uFF09\uFF0C\u8207\u8A08\u7B97\u767C\u751F\u7684\u7BC0\u9EDE\u95DC\u806F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "p-use \u7684\u5B9A\u7FA9",
+            "text": "<p>\u8B8A\u6578\u7684<strong>\u8B02\u8A5E\u4F7F\u7528\uFF08p-use, predicate use\uFF09</strong>\u662F\u6307\u51FA\u73FE\u5728\u4EE5\u4E0B\u4F4D\u7F6E\u7684 use\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u4E00\u500B\u6C7A\u7B56\u7684\u8B02\u8A5E\u4E2D\uFF0C\u4E26\u8207\u8A72\u6C7A\u7B56\u7BC0\u9EDE\u7684\u5404\u689D\u51FA\u908A\u95DC\u806F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014p-use \u4F4D\u65BC\u689D\u4EF6\u4E2D\uFF0C\u4E26\u9644\u8457\u65BC\u8A72\u5206\u652F\u7684\u51FA\u908A\u3002"
+              },
+              {
+                "text": "\u5728\u6307\u6D3E\u7684\u53F3\u624B\u908A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F c-use\uFF0C\u8207\u4E00\u500B\u7BC0\u9EDE\u95DC\u806F\u3002"
+              },
+              {
+                "text": "\u5728\u8B8A\u6578\u9996\u6B21\u88AB\u5B9A\u7FA9\u7684\u5730\u65B9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F def\uFF0C\u4E0D\u662F use\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u8FF4\u5708\u672C\u9AD4\u5167",
+                "fraction": 0,
+                "feedback": "p-use \u662F\u8B02\u8A5E\u4E2D\u7684\u4EFB\u4F55 use\uFF0C\u7121\u8AD6\u5728 if\u3001while \u6216\u5176\u4ED6\u6C7A\u7B56\u4E2D\u3002"
+              }
+            ],
+            "generalFeedback": "p-use \u662F\u8B02\u8A5E\u4E2D\u7684 use\uFF08\u4F8B\u5982 if \u6216 while \u7684\u689D\u4EF6\uFF09\u3002\u7531\u65BC\u6C7A\u7B56\u7684\u7D50\u679C\u6703\u9078\u64C7\u4E00\u689D\u51FA\u908A\uFF0Cp-use \u8207\u8A72\u6C7A\u7B56\u7BC0\u9EDE\u7684\u6BCF\u4E00\u689D\u51FA\u908A\u95DC\u806F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DU pair \u7684\u5B9A\u7FA9",
+            "text": "<p>\u8B8A\u6578 v \u7684<strong>\u5B9A\u7FA9-\u4F7F\u7528\u5C0D\uFF08DU pair, def-use pair\uFF09</strong> <code>(d, u)</code> \u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "v \u7684\u4E00\u500B def d \u8207\u4E00\u500B use u\uFF0C\u4E14\u5B58\u5728\u4E00\u689D\u5F9E d \u5230 u \u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\uFF08\u5176\u9593\u6C92\u6709\u5C0D v \u7684\u518D\u5B9A\u7FA9\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72 def \u5FC5\u9808\u6CBF\u8457\u4E2D\u9593\u7121\u518D\u5B9A\u7FA9\u7684\u8DEF\u5F91\u5230\u9054\u8A72 use\u3002"
+              },
+              {
+                "text": "v \u7684\u4EFB\u4E00 def d \u8207\u4EFB\u4E00 use u\uFF0C\u7121\u8AD6 d \u662F\u5426\u80FD\u5230\u9054 u",
+                "fraction": 0,
+                "feedback": "\u5FC5\u9808\u5B58\u5728\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u53EF\u9054\uFF1B\u6BEB\u7121\u95DC\u4FC2\u7684 def \u8207 use \u4E0D\u69CB\u6210 DU pair\u3002"
+              },
+              {
+                "text": "\u51FA\u73FE\u5728\u540C\u4E00\u8DEF\u5F91\u4E0A\u7684 v \u7684\u5169\u500B\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "DU pair \u9023\u7D50\u4E00\u500B def \u8207\u4E00\u500B use\uFF0C\u800C\u975E\u5169\u500B def\u3002"
+              },
+              {
+                "text": "\u5176\u9593\u6C92\u6709 def \u7684 v \u7684\u5169\u500B\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "DU pair \u662F\u4E00\u500B def \u8207\u4E00\u500B use\uFF0C\u800C\u975E\u5169\u500B use\u3002"
+              }
+            ],
+            "generalFeedback": "DU pair (d, u) \u8981\u6C42 d \u5B9A\u7FA9 v\u3001u \u4F7F\u7528 v\uFF0C\u4E14\u5B58\u5728\u5F9E d \u5230 u \u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u2014\u2014\u4EA6\u5373 d \u653E\u5165\u7684\u503C\u78BA\u5BE6\u80FD\u5230\u9054 u\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u7684\u5B9A\u7FA9",
+            "text": "<p>\u4E00\u689D\u8DEF\u5F91\u5C0D\u8B8A\u6578 <code>v</code> \u662F<strong>\u5B9A\u7FA9\u6F54\u6DE8\uFF08def-clear\uFF09</strong>\u7684\uFF0C\u7576\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5176\u8D77\u9EDE\u8207\u7D42\u9EDE\u4E4B\u9593\uFF08\u56B4\u683C\u4E2D\u9593\uFF09\u4E0D\u542B\u5C0D v \u7684\u4EFB\u4F55\u518D\u5B9A\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E2D\u9593\u4E0D\u53EF\u6709 v \u7684 def \u8986\u6BBA\u6CBF\u9014\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u6CBF\u9014\u4EFB\u4F55\u5730\u65B9\u90FD\u4E0D\u542B v \u7684 use",
+                "fraction": 0,
+                "feedback": "\u5B9A\u7FA9\u6F54\u6DE8\u95DC\u4E4E\u4E2D\u9593\u7684\u518D\u5B9A\u7FA9\uFF08\u8986\u6BBA\uFF09\uFF0C\u800C\u975E use\u3002"
+              },
+              {
+                "text": "\u5B83\u62DC\u8A2A\u5716\u4E2D\u7684\u6BCF\u4E00\u500B\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u5B9A\u7FA9\u6F54\u6DE8\u4E26\u4E0D\u8981\u6C42\u62DC\u8A2A\u6240\u6709\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u5F9E\u4E0D\u91CD\u8907\u4EFB\u4F55\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7C21\u55AE\u8DEF\u5F91\uFF1B\u5B9A\u7FA9\u6F54\u6DE8\u95DC\u4E4E\u7684\u662F v \u4E2D\u9593\u7121\u518D\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u5728 def \u8207 use \u4E4B\u9593\u6C92\u6709\u7BC0\u9EDE\u518D\u5B9A\u7FA9 v\uFF0C\u8A72\u8DEF\u5F91\u5C0D v \u70BA\u5B9A\u7FA9\u6F54\u6DE8\uFF1B\u4E2D\u9593\u7684 def \u6703\u8986\u6BBA\u8A72\u503C\u4E26\u7834\u58DE\u914D\u5C0D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "du-path \u7684\u5B9A\u7FA9",
+            "text": "<p>\u8B8A\u6578 v \u7684 <strong>du-path\uFF08\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u689D\u5F9E v \u7684 def \u5230 v \u7684 use \u7684\u7C21\u55AE\u4E14\u5B9A\u7FA9\u6F54\u6DE8\u7684\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014du-path \u662F\u7C21\u55AE\u7684\uFF08\u5167\u90E8\u4E0D\u91CD\u8907\uFF09\u4E14\u5F9E def \u5230 use \u70BA\u5B9A\u7FA9\u6F54\u6DE8\u3002"
+              },
+              {
+                "text": "\u4EFB\u4E00\u689D\u5F9E v \u7684 def \u5230 v \u7684 use \u7684\u8DEF\u5F91\uFF0C\u5373\u4F7F\u5176\u9593\u6709\u518D\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "du-path \u5FC5\u9808\u662F\u5B9A\u7FA9\u6F54\u6DE8\u7684\uFF1B\u4E2D\u9593\u6709\u518D\u5B9A\u7FA9\u5373\u4E0D\u7B26\u5408\u3002"
+              },
+              {
+                "text": "\u4EFB\u4E00\u689D\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\uFF0C\u7121\u8AD6\u662F\u5426\u7C21\u55AE",
+                "fraction": 0,
+                "feedback": "du-path \u9084\u5FC5\u9808\u662F\u7C21\u55AE\u7684\uFF1B\u4EFB\u610F\u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u53EF\u80FD\u91CD\u8907\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u4E00\u689D\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u5230\u7D50\u675F\u7BC0\u9EDE\u7684\u5B8C\u6574\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "du-path \u5F9E def \u5230 use\uFF0C\u4E0D\u4E00\u5B9A\u5F9E\u9032\u5165\u9EDE\u5230\u96E2\u958B\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "du-path \u662F\u4E00\u689D\u7C21\u55AE\uFF08\u9664\u4E86\u8D77\u9EDE=\u7D42\u9EDE\u7684\u55AE\u4E00\u74B0\u5916\uFF0C\u7121\u74B0\uFF09\u4E14\u5F9E v \u7684 def \u5230 v \u7684 use \u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Defs \u7684\u610F\u7FA9",
+            "text": "<p><strong>All-Defs\uFF08\u5168\u5B9A\u7FA9\uFF09</strong>\u6DB5\u84CB\u6E96\u5247\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6BCF\u500B\u8B8A\u6578\u7684\u6BCF\u500B def\uFF0C\u81F3\u5C11\u6709\u4E00\u689D\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u5230\u9054\u8A72\u8B8A\u6578\u7684\u67D0\u500B use",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-Defs \u8981\u6C42\u6BCF\u500B def \u81F3\u5C11\u5230\u9054\u4E00\u500B use\u3002"
+              },
+              {
+                "text": "\u5C0D\u6BCF\u500B def\uFF0C\u90FD\u6709\u8DEF\u5F91\u5230\u9054\u5B83\u80FD\u5230\u9054\u7684\u6BCF\u500B use",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All-Uses\uFF0C\u6BD4 All-Defs \u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B DU pair \u7684\u6BCF\u4E00\u689D du-path \u90FD\u88AB\u5DE1\u89BD",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All-DU-Paths\uFF0C\u4E09\u8005\u4E2D\u6700\u5F37\u3002"
+              },
+              {
+                "text": "\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u6BCF\u4E00\u689D\u908A\u90FD\u88AB\u8D70\u904E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u908A\u6DB5\u84CB\uFF08Edge Coverage\uFF09\uFF0C\u662F\u7D50\u69CB\u6E96\u5247\uFF0C\u4E0D\u662F All-Defs\u3002"
+              }
+            ],
+            "generalFeedback": "All-Defs\uFF1A\u6BCF\u500B def \u5FC5\u9808\uFF08\u7D93\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\uFF09\u5230\u9054\u81F3\u5C11\u4E00\u500B use\u2014\u2014\u6BCF\u500B def \u4E00\u9805\u6E2C\u8A66\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses \u7684\u610F\u7FA9",
+            "text": "<p><strong>All-Uses\uFF08\u5168\u4F7F\u7528\uFF09</strong>\u6DB5\u84CB\u6E96\u5247\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6BCF\u500B def\uFF0C\u90FD\u6709\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u5230\u9054\u5B83\u80FD\u5230\u9054\u7684\u6BCF\u500B use\uFF08\u5373\u6DB5\u84CB\u6BCF\u500B DU pair\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-Uses \u6DB5\u84CB\u6BCF\u500B DU pair\uFF0C\u4EA6\u5373\u6BCF\u500B def \u5230\u9054\u5176\u6240\u6709\u53EF\u9054\u7684 use\u3002"
+              },
+              {
+                "text": "\u5C0D\u6BCF\u500B def\uFF0C\u8DEF\u5F91\u5230\u9054\u81F3\u5C11\u4E00\u500B use",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All-Defs\uFF0C\u6BD4 All-Uses \u66F4\u5F31\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B DU pair \u7684\u6BCF\u4E00\u689D du-path \u90FD\u88AB\u5DE1\u89BD",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All-DU-Paths\uFF0C\u6BD4 All-Uses \u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u6BCF\u4E00\u500B\u7BC0\u9EDE\u90FD\u88AB\u62DC\u8A2A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7BC0\u9EDE\u6DB5\u84CB\uFF08Node Coverage\uFF09\uFF0C\u662F\u7D50\u69CB\u6E96\u5247\uFF0C\u4E0D\u662F All-Uses\u3002"
+              }
+            ],
+            "generalFeedback": "All-Uses\uFF1A\u5C0D\u6BCF\u500B DU pair\uFF08\u6BCF\u500B def \u53CA\u5B83\u5230\u9054\u7684\u6BCF\u500B use\uFF09\uFF0C\u81F3\u5C11\u5DE1\u89BD\u4E00\u689D du-path\u2014\u2014\u6BCF\u500B DU pair \u4E00\u9805\u6E2C\u8A66\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-DU-Paths \u7684\u610F\u7FA9",
+            "text": "<p><strong>All-DU-Paths\uFF08\u5168\u5B9A\u7FA9-\u4F7F\u7528\u8DEF\u5F91\uFF09</strong>\u6DB5\u84CB\u6E96\u5247\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6BCF\u500B DU pair\uFF0C\u5176 def \u8207 use \u4E4B\u9593\u7684\u6BCF\u4E00\u689D du-path\uFF08\u6BCF\u4E00\u689D\u7C21\u55AE\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\uFF09\u90FD\u88AB\u5DE1\u89BD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-DU-Paths \u8981\u6C42\u6BCF\u500B\u914D\u5C0D\u7684\u6240\u6709 du-path\uFF0C\u800C\u4E0D\u53EA\u662F\u4E00\u689D\u3002"
+              },
+              {
+                "text": "\u5C0D\u6BCF\u500B DU pair\uFF0C\u81F3\u5C11\u5DE1\u89BD\u4E00\u689D du-path",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All-Uses\uFF1BAll-DU-Paths \u8981\u6C42\u6BCF\u4E00\u689D du-path\u3002"
+              },
+              {
+                "text": "\u5C0D\u6BCF\u500B def\uFF0C\u81F3\u5C11\u5230\u9054\u4E00\u500B use",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F All-Defs\uFF0C\u4E09\u8005\u4E2D\u6700\u5F31\u3002"
+              },
+              {
+                "text": "\u5F9E\u9032\u5165\u9EDE\u5230\u96E2\u958B\u9EDE\u7684\u6BCF\u4E00\u689D\u5B8C\u6574\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\uFF08Complete Path Coverage\uFF09\uFF0C\u901A\u5E38\u4E0D\u53EF\u884C\uFF1BAll-DU-Paths \u53EA\u9650\u65BC DU pair \u7684 du-path\u3002"
+              }
+            ],
+            "generalFeedback": "All-DU-Paths\uFF1A\u5C0D\u6BCF\u500B DU pair\uFF0C\u5176\u6240\u6709 du-path \u90FD\u5FC5\u9808\u88AB\u5DE1\u89BD\u2014\u2014\u4E09\u7A2E\u8CC7\u6599\u6D41\u6E96\u5247\u4E2D\u6700\u5F37\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u4E00\u500B DU pair",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>1  x = read()\n2  y = x + 3\n3  print(y)</pre><p>\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684 DU pair\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x\uFF1Adef \u5728\u7B2C 1 \u884C\uFF0Cuse \u5728\u7B2C 2 \u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x \u5728\u7B2C 1 \u884C\u88AB\u5B9A\u7FA9\u3001\u5728\u7B2C 2 \u884C\u88AB\u8B80\u53D6\uFF0C\u5B58\u5728\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91 1\u21922\u3002"
+              },
+              {
+                "text": "x\uFF1Adef \u5728\u7B2C 2 \u884C\uFF0Cuse \u5728\u7B2C 3 \u884C",
+                "fraction": 0,
+                "feedback": "x \u4E26\u975E\u5728\u7B2C 2 \u884C\u88AB\u5B9A\u7FA9\uFF08\u90A3\u662F y\uFF09\uFF0C\u4E14 x \u672A\u5728\u7B2C 3 \u884C\u88AB\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "y\uFF1Adef \u5728\u7B2C 1 \u884C\uFF0Cuse \u5728\u7B2C 2 \u884C",
+                "fraction": 0,
+                "feedback": "y \u662F\u5728\u7B2C 2 \u884C\u88AB\u5B9A\u7FA9\uFF0C\u4E0D\u662F\u7B2C 1 \u884C\u3002"
+              },
+              {
+                "text": "x\uFF1Adef \u5728\u7B2C 1 \u884C\uFF0Cuse \u5728\u7B2C 3 \u884C",
+                "fraction": 0,
+                "feedback": "x \u672A\u5728\u7B2C 3 \u884C\u88AB\u4F7F\u7528\uFF1B\u90A3\u88E1\u53EA\u8B80\u53D6 y\u3002"
+              }
+            ],
+            "generalFeedback": "x\uFF1A(def@1, use@2) \u8207 y\uFF1A(def@2, use@3) \u662F\u5169\u500B DU pair\u3002x \u5728\u7B2C 2 \u884C\u88AB\u8B80\u53D6\uFF08c-use\uFF09\uFF0Cy \u5728\u7B2C 3 \u884C\u88AB\u8B80\u53D6\uFF08c-use\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u8B02\u8A5E\u4E2D\u7684 use",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>\u7B2C 2 \u884C\uFF08\u689D\u4EF6\u4E2D\uFF09\u5C0D <code>x</code> \u7684 use \u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "p-use\uFF08\u8B02\u8A5E\u4F7F\u7528\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x \u5728\u5206\u652F\u689D\u4EF6\u4E2D\u88AB\u8B80\u53D6\uFF0C\u6545\u70BA p-use\u3002"
+              },
+              {
+                "text": "c-use\uFF08\u8A08\u7B97\u4F7F\u7528\uFF09",
+                "fraction": 0,
+                "feedback": "\u8A08\u7B97\u4E2D\u7684 use \u5728\u7B2C 3 \u884C\uFF1B\u7B2C 2 \u884C\u7684 use \u5728\u8B02\u8A5E\u4E2D\u3002"
+              },
+              {
+                "text": "def\uFF08\u5B9A\u7FA9\uFF09",
+                "fraction": 0,
+                "feedback": "\u7B2C 2 \u884C\u8B80\u53D6 x\uFF0C\u4E26\u672A\u5C0D\u5B83\u8CE6\u503C\u3002"
+              },
+              {
+                "text": "\u65E2\u975E def \u4E5F\u975E use",
+                "fraction": 0,
+                "feedback": "\u689D\u4EF6\u8B80\u53D6\u4E86 x\uFF0C\u90A3\u662F use\u2014\u2014\u5177\u9AD4\u800C\u8A00\u662F p-use\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C7A\u7B56\u8B02\u8A5E\u4E2D\u7684 use \u662F p-use\uFF0C\u8207\u8A72\u6C7A\u7B56\u7BC0\u9EDE\u7684\u51FA\u908A\u95DC\u806F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u8A08\u7B97\u4E2D\u7684 use",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>\u7B2C 3 \u884C\uFF08\u5728 <code>y = x + 1</code> \u4E2D\uFF09\u5C0D <code>x</code> \u7684 use \u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "c-use\uFF08\u8A08\u7B97\u4F7F\u7528\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x \u5728\u6307\u6D3E\u7684\u53F3\u624B\u908A\u88AB\u8B80\u53D6\uFF0C\u6545\u70BA c-use\u3002"
+              },
+              {
+                "text": "p-use\uFF08\u8B02\u8A5E\u4F7F\u7528\uFF09",
+                "fraction": 0,
+                "feedback": "\u8B02\u8A5E\u4F7F\u7528\u5728\u7B2C 2 \u884C\uFF1B\u7B2C 3 \u884C\u662F\u8A08\u7B97\u3002"
+              },
+              {
+                "text": "def\uFF08\u5B9A\u7FA9\uFF09",
+                "fraction": 0,
+                "feedback": "\u7B2C 3 \u884C\u5B9A\u7FA9 y\uFF0C\u4F46\u5B83\u4F7F\u7528\uFF08\u8B80\u53D6\uFF09x\u3002"
+              },
+              {
+                "text": "\u5C0D x \u7684\u518D\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u7B2C 3 \u884C\u4E26\u672A\u5C0D x \u8CE6\u503C\uFF1B\u5B83\u8B80\u53D6 x \u4EE5\u8A08\u7B97 y\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u8A08\u7B97\uFF08\u4F8B\u5982\u6307\u6D3E\u53F3\u624B\u908A\uFF09\u4E2D\u7684 use \u662F c-use\uFF0C\u8207\u5176\u767C\u751F\u7684\u7BC0\u9EDE\u95DC\u806F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "p-use \u8207\u908A\u95DC\u806F",
+            "text": "<p>\u8B8A\u6578\u7684 p-use \u8207\u6C7A\u7B56\u7BC0\u9EDE\u7684\u51FA\u908A\u95DC\u806F\uFF0C\u800C c-use \u5247\u8207\u4E00\u500B\u7BC0\u9EDE\u95DC\u806F\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014p-use \u9644\u8457\u65BC\u5206\u652F\u7684\u51FA\u908A\uFF1Bc-use \u9644\u8457\u65BC\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "p-use \u7D81\u5B9A\u6C7A\u7B56\u7684\u51FA\u908A\uFF08\u8D70\u54EA\u500B\u7D50\u679C\uFF09\uFF0C\u800C c-use \u7D81\u5B9A\u8A08\u7B97\u767C\u751F\u7684\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u8B02\u8A5E\u7684\u503C\u9078\u64C7\u8D70\u54EA\u689D\u51FA\u908A\uFF0Cp-use \u8207\u6C7A\u7B56\u7684\u51FA\u908A\u95DC\u806F\uFF0C\u800C c-use \u8207\u8A08\u7B97\u7684\u7BC0\u9EDE\u95DC\u806F\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "All-Uses \u4E0D\u53EA\u662F\u6BCF\u500B def \u4E00\u500B use",
+            "text": "<p>\u53EA\u8981\u6BCF\u500B def \u5230\u9054<em>\u81F3\u5C11\u4E00\u500B</em> use\uFF0CAll-Uses \u5C31\u5DF2\u88AB\u6EFF\u8DB3\uFF0C\u4E0D\u9700\u8981\u5230\u9054\u5B83\u80FD\u5230\u9054\u7684\u5176\u4ED6 use\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B def \u5230\u9054\u81F3\u5C11\u4E00\u500B use \u662F All-Defs\uFF1BAll-Uses \u8981\u6C42\u5230\u9054\u6BCF\u500B\u53EF\u9054\u7684 use\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B def \u53EA\u5230\u9054\u4E00\u500B use \u662F All-Defs\u3002All-Uses \u8981\u6C42\u6BCF\u500B def \u5230\u9054\u5B83\u80FD\u5230\u9054\u7684\u6BCF\u500B use\uFF08\u6BCF\u500B DU pair\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "All-Defs = \u6BCF\u500B def \u5230\u9054\u67D0\u500B use\uFF1BAll-Uses = \u6BCF\u500B def \u5230\u9054\u6BCF\u500B\u53EF\u9054\u7684 use\u3002\u6B64\u6558\u8FF0\u63CF\u8FF0\u7684\u662F All-Defs\uFF0C\u4E0D\u662F All-Uses\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 y \u7684 def \u500B\u6578",
+            "text": "<p>\u8003\u616E\u7247\u6BB5 D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u9019\u6BB5\u7A0B\u5F0F\u5C0D\u8B8A\u6578 <code>y</code> \u542B\u6709\u5E7E\u500B<strong>\u5B9A\u7FA9\uFF08def\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014y \u5728\u7B2C 2 \u884C\uFF08y = 0\uFF09\u8207\u7B2C 4 \u884C\uFF08y = 1\uFF09\u88AB\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5C0D y \u6709\u5169\u500B\u6307\u6D3E\uFF1A\u7B2C 2 \u884C\u8207\u7B2C 4 \u884C\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u7B2C 5 \u884C\u4F7F\u7528 y\uFF08c-use\uFF09\uFF0C\u4E26\u975E\u5B9A\u7FA9 y\u3002\u5171\u6709\u5169\u500B def\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "y \u5728\u7B2C 2 \u8207\u7B2C 4 \u884C\u88AB\u6307\u6D3E\uFF0C\u6545\u6709\u5169\u500B def\u3002"
+              }
+            ],
+            "generalFeedback": "y \u5728\u7B2C 2 \u884C\u8207\u7B2C 4 \u884C\u88AB\u5B9A\u7FA9\uFF1B\u7B2C 5 \u884C\u8B80\u53D6 y\uFF08c-use\uFF09\u3002\u6545 y \u6709\u5169\u500B def\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u689D\u4EF6\u4E2D\u5C0D x \u7684 use",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u7B2C 3 \u884C\u5C0D <code>x</code> \u7684 use \u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "p-use\uFF0C\u8207\u908A 3\u21924 \u53CA 3\u21925 \u95DC\u806F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x \u5728\u6C7A\u7B56\u8B02\u8A5E\u4E2D\u88AB\u8B80\u53D6\uFF0C\u6545\u70BA p-use\uFF0C\u95DC\u806F\u65BC\u5169\u689D\u51FA\u908A\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE 3 \u7684 c-use",
+                "fraction": 0,
+                "feedback": "\u7B2C 3 \u884C\u662F\u8B02\u8A5E\uFF0C\u6545\u8A72 use \u662F p-use\uFF0C\u4E0D\u662F c-use\u3002"
+              },
+              {
+                "text": "\u5C0D x \u7684\u4E00\u500B def",
+                "fraction": 0,
+                "feedback": "x \u5728\u7B2C 3 \u884C\u53EA\u88AB\u8B80\u53D6\uFF0C\u672A\u88AB\u8CE6\u503C\u3002"
+              },
+              {
+                "text": "\u53EA\u8207\u908A 3\u21924 \u95DC\u806F\u7684 p-use",
+                "fraction": 0,
+                "feedback": "p-use \u9644\u8457\u65BC\u6C7A\u7B56\u7684\u5169\u689D\u51FA\u908A 3\u21924 \u8207 3\u21925\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B2C 3 \u884C\u7684\u8B02\u8A5E\u8B80\u53D6 x\uFF0C\u6545\u70BA p-use\uFF0C\u8207\u5169\u689D\u51FA\u908A 3\u21924\uFF08\u771F\uFF09\u8207 3\u21925\uFF08\u5047\uFF09\u95DC\u806F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u7B2C 5 \u884C\u5C0D x \u7684 use",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u7B2C 5 \u884C\uFF08\u5728 <code>z = x + y</code> \u4E2D\uFF09\u5C0D <code>x</code> \u7684 use \u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7BC0\u9EDE 5 \u7684 c-use",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x \u5728\u8A08\u7B97\u4E2D\u88AB\u8B80\u53D6\uFF0C\u6545\u70BA\u8207\u7BC0\u9EDE 5 \u95DC\u806F\u7684 c-use\u3002"
+              },
+              {
+                "text": "\u908A 4\u21925 \u4E0A\u7684 p-use",
+                "fraction": 0,
+                "feedback": "\u7B2C 5 \u884C\u662F\u8A08\u7B97\uFF0C\u4E0D\u662F\u8B02\u8A5E\uFF1B\u6B64\u8655\u6C92\u6709\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u5C0D x \u7684\u4E00\u500B def",
+                "fraction": 0,
+                "feedback": "\u7B2C 5 \u884C\u5B9A\u7FA9 z\uFF1B\u5B83\u8B80\u53D6 x\u3002"
+              },
+              {
+                "text": "\u5C0D x \u7684\u518D\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "x \u672A\u5728\u7B2C 5 \u884C\u88AB\u8CE6\u503C\uFF1B\u5B83\u88AB\u8B80\u53D6\u4EE5\u8A08\u7B97 z\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 z = x + y \u7684\u53F3\u624B\u908A\u5C0D x \u7684 use \u662F c-use\uFF0C\u8207\u7BC0\u9EDE 5 \u95DC\u806F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "y \u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF08\u908A 1\u21922, 2\u21923, 3\u21924, 3\u21925, 4\u21925\uFF09\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u5F9E\u7B2C 2 \u884C\u7684 def \u5230\u7B2C 5 \u884C\u7684 use\uFF0C\u54EA\u4E00\u689D\u8DEF\u5F91\u5C0D <code>y</code> \u662F<strong>\u5B9A\u7FA9\u6F54\u6DE8</strong>\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2\u21923\u21925",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u689D\u5047\u5206\u652F\u8DEF\u5F91\u5F9E\u4E0D\u518D\u5B9A\u7FA9 y\uFF0C\u6545\u7B2C 2 \u884C\u7684 def \u80FD\u5230\u9054\u7B2C 5 \u884C\u3002"
+              },
+              {
+                "text": "2\u21923\u21924\u21925",
+                "fraction": 0,
+                "feedback": "\u7B2C 4 \u884C\u518D\u5B9A\u7FA9 y\uFF08y = 1\uFF09\uFF0C\u6545\u6B64\u8DEF\u5F91\u5C0D\u7B2C 2 \u884C\u7684 def \u4E0D\u662F\u5B9A\u7FA9\u6F54\u6DE8\u3002"
+              },
+              {
+                "text": "1\u21922\u21923\u21924\u21925",
+                "fraction": 0,
+                "feedback": "\u9664\u4E86\u8D77\u9EDE\u5728 def \u4E4B\u524D\uFF0C\u5B83\u9084\u7D93\u904E\u7B2C 4 \u884C\u7684\u518D\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u5F9E\u7B2C 2 \u884C\u5230\u7B2C 5 \u884C\u4E0D\u5B58\u5728\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u5047\u5206\u652F\u8DEF\u5F91 2\u21923\u21925 \u662F\u5B9A\u7FA9\u6F54\u6DE8\u7684\uFF0C\u6545\u78BA\u5BE6\u5B58\u5728\u4E00\u689D\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u5047\u5206\u652F\u8DEF\u5F91 2\u21923\u21925 \u907F\u958B\u7B2C 4 \u884C\u7684\u518D\u5B9A\u7FA9\uFF0C\u6545\u5B83\u662F\u628A\u7B2C 2 \u884C\u7684 def \u5E36\u5230\u7B2C 5 \u884C use \u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 2\u21923\u21924\u21925 \u4E0D\u662F y \u7684 du-path",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u70BA\u4F55 <code>2\u21923\u21924\u21925</code> \u4E0D\u662F\u7B2C 2 \u884C <code>y</code> \u4E4B def \u7684 du-path\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7BC0\u9EDE 4 \u518D\u5B9A\u7FA9 y\uFF0C\u8986\u6BBA\u4E86\u4F86\u81EA\u7B2C 2 \u884C\u7684 def\uFF0C\u6545\u6B64\u8DEF\u5F91\u4E0D\u662F\u5B9A\u7FA9\u6F54\u6DE8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B2C 4 \u884C\u7684\u518D\u5B9A\u7FA9\u5728\u5230\u9054\u7B2C 5 \u884C\u524D\u8986\u6BBA\u4E86\u7B2C 2 \u884C\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u6B64\u8DEF\u5F91\u91CD\u8907\u4E86\u67D0\u7BC0\u9EDE\uFF0C\u6545\u4E0D\u662F\u7C21\u55AE\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u6B64\u8DEF\u5F91\u62DC\u8A2A\u7684\u662F\u76F8\u7570\u7BC0\u9EDE\uFF1B\u4F7F\u5176\u5931\u683C\u7684\u662F\u7B2C 4 \u884C\u7684\u518D\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "y \u5F9E\u672A\u5728\u7B2C 5 \u884C\u88AB\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "y \u5728\u7B2C 5 \u884C\u88AB\u8B80\u53D6\uFF08z = x + y\uFF09\uFF1B\u554F\u984C\u5728\u65BC\u7B2C 4 \u884C\u7684\u8986\u6BBA\u3002"
+              },
+              {
+                "text": "\u6B64\u8DEF\u5F91\u4E0D\u662F\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "du-path \u4E0D\u5FC5\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u958B\u59CB\uFF1B\u5B83\u5F9E def \u958B\u59CB\u3002\u554F\u984C\u5728\u65BC\u7B2C 4 \u884C\u7684\u8986\u6BBA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7B2C 4 \u884C\u6307\u6D3E y = 1\uFF0C\u7B2C 2 \u884C\u7684\u503C\u5728\u6B64\u8DEF\u5F91\u88AB\u8986\u6BBA\uFF1Bdu-path \u5FC5\u9808\u662F\u5B9A\u7FA9\u6F54\u6DE8\u7684\uFF0C\u6545\u5C0D\u7B2C 2 \u884C\u7684 def \u800C\u8A00 2\u21923\u21924\u21925 \u4E0D\u7B26\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Defs \u8207 All-Uses \u7684\u5DEE\u7570",
+            "text": "<p>All-Defs \u8207 All-Uses \u7684\u95DC\u9375\u5DEE\u7570\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "All-Defs \u8981\u6C42\u6BCF\u500B def \u5230\u9054\u67D0\u500B use\uFF1BAll-Uses \u8981\u6C42\u6BCF\u500B def \u5230\u9054\u5B83\u80FD\u5230\u9054\u7684\u6BCF\u500B use",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-Uses \u6DB5\u84CB\u6BCF\u500B DU pair\uFF0CAll-Defs \u6BCF\u500B def \u53EA\u8981\u4E00\u500B use\u3002"
+              },
+              {
+                "text": "All-Defs \u8981\u6C42\u6BCF\u4E00\u689D du-path\uFF1BAll-Uses \u6BCF\u5C0D\u53EA\u8981\u4E00\u689D du-path",
+                "fraction": 0,
+                "feedback": "\u8981\u6C42\u6BCF\u4E00\u689D du-path \u7684\u662F All-DU-Paths\uFF0C\u4E0D\u662F All-Defs\u3002"
+              },
+              {
+                "text": "All-Uses \u53EA\u95DC\u4E4E p-use\uFF1BAll-Defs \u53EA\u95DC\u4E4E c-use",
+                "fraction": 0,
+                "feedback": "\u5169\u6E96\u5247\u90FD\u95DC\u4E4E\u6240\u6709 use\uFF08c-use \u8207 p-use\uFF09\uFF1B\u5DEE\u5225\u5728\u6BCF\u500B def \u4E00\u500B use \u5C0D\u6BCF\u500B use\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5728\u6BCF\u500B\u7A0B\u5F0F\u4E0A\u90FD\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "All-Uses \u56B4\u683C\u66F4\u5F37\uFF1B\u5B83\u5305\u5BB9 All-Defs\u3002"
+              }
+            ],
+            "generalFeedback": "All-Defs \u8981\u6C42\u6BCF\u500B def \u5230\u9054\u81F3\u5C11\u4E00\u500B use\uFF1BAll-Uses \u8981\u6C42\u6BCF\u500B def \u5230\u9054\u6BCF\u500B\u53EF\u9054\u7684 use\uFF08\u6DB5\u84CB\u6BCF\u500B DU pair\uFF09\u3002\u56E0\u6B64 All-Uses \u5305\u5BB9 All-Defs\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u5F37\u7684\u8CC7\u6599\u6D41\u6E96\u5247",
+            "text": "<p>\u5728 All-Defs\u3001All-Uses \u8207 All-DU-Paths \u4E4B\u4E2D\uFF0C\u54EA\u4E00\u500B<strong>\u6700\u5F37</strong>\uFF08\u5305\u5BB9\u5176\u4ED6\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "All-DU-Paths",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-DU-Paths \u2292 All-Uses \u2292 All-Defs\u3002"
+              },
+              {
+                "text": "All-Uses",
+                "fraction": 0,
+                "feedback": "All-Uses \u5305\u5BB9 All-Defs\uFF0C\u4F46\u672C\u8EAB\u88AB All-DU-Paths \u5305\u5BB9\u3002"
+              },
+              {
+                "text": "All-Defs",
+                "fraction": 0,
+                "feedback": "All-Defs \u662F\u4E09\u8005\u4E2D\u6700\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5F7C\u6B64\u4E0D\u53EF\u6BD4\u8F03",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5F62\u6210\u4E00\u689D\u93C8\uFF1AAll-DU-Paths \u2292 All-Uses \u2292 All-Defs\u3002"
+              }
+            ],
+            "generalFeedback": "Rapps\u2013Weyuker \u968E\u5C64\u5C07\u5B83\u5011\u6392\u70BA All-DU-Paths \u2292 All-Uses \u2292 All-Defs\uFF0C\u6545 All-DU-Paths \u6700\u5F37\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5305\u5BB9\u93C8\u7684\u4E2D\u9593\u9805",
+            "text": "<p>\u586B\u5165\u5305\u5BB9\u93C8\u4E2D\u7684\u7A7A\u683C\uFF1A<code>All-DU-Paths \u2292 ______ \u2292 All-Defs</code>\u3002</p>",
+            "answers": [
+              {
+                "text": "All-Uses",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-Uses \u4F4D\u65BC All-DU-Paths \u8207 All-Defs \u4E4B\u9593\u3002"
+              },
+              {
+                "text": "\u908A\u6DB5\u84CB\uFF08Edge Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u908A\u6DB5\u84CB\u662F\u7D50\u69CB\u6E96\u5247\uFF1B\u6B64\u8CC7\u6599\u6D41\u93C8\u7684\u4E2D\u9593\u9805\u662F All-Uses\u3002"
+              },
+              {
+                "text": "\u8CEA\u6578\u8DEF\u5F91\u6DB5\u84CB\uFF08Prime Path Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CEA\u6578\u8DEF\u5F91\u6DB5\u84CB\u662F\u5716\u8DEF\u5F91\u6E96\u5247\uFF0C\u4E0D\u662F\u6B64\u8CC7\u6599\u6D41\u93C8\u7684\u4E2D\u9593\u9805\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u6DB5\u84CB\uFF08Node Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u6DB5\u84CB\u662F\u7D50\u69CB\u6E96\u5247\uFF1B\u6B64\u8CC7\u6599\u6D41\u93C8\u7684\u4E2D\u9593\u9805\u662F All-Uses\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CC7\u6599\u6D41\u93C8\u70BA All-DU-Paths \u2292 All-Uses \u2292 All-Defs\uFF0C\u6545\u4E2D\u9593\u9805\u662F All-Uses\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u518D\u5B9A\u7FA9\uFF08\u8986\u6BBA\uFF09\u7684\u6548\u679C",
+            "text": "<p>\u8003\u616E\u7247\u6BB5 K\uFF1A</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>\u54EA\u4E00\u500B <code>x</code> \u7684 def \u5230\u9054\u7B2C 3 \u884C\u7684 use\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u6709\u7B2C 2 \u884C\u7684 def\uFF08x = 10\uFF09\uFF1B\u7B2C 1 \u884C\u7684 def \u88AB\u7B2C 2 \u884C\u8986\u6BBA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B2C 2 \u884C\u5728\u7B2C 3 \u884C\u4E4B\u524D\u518D\u5B9A\u7FA9 x\uFF0C\u6545\u53EA\u6709\u7B2C 2 \u884C\u7684\u503C\u5230\u9054 use\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7B2C 1 \u884C\u7684 def\uFF08x = 5\uFF09",
+                "fraction": 0,
+                "feedback": "\u7B2C 2 \u884C\u5728\u7B2C 3 \u884C\u4E4B\u524D\u8986\u5BEB x\uFF0C\u6545\u7B2C 1 \u884C\u7684\u503C\u4E0D\u6703\u5230\u9054 use\u3002"
+              },
+              {
+                "text": "\u5169\u500B def \u90FD\u5230\u9054 use",
+                "fraction": 0,
+                "feedback": "\u5F9E\u7B2C 1 \u884C\u5230\u7B2C 3 \u884C\u7684\u8DEF\u5F91\u7D93\u904E\u7B2C 2 \u884C\u7684\u518D\u5B9A\u7FA9\uFF0C\u6545\u7B2C 1 \u884C\u7684\u503C\u88AB\u8986\u6BBA\u3002"
+              },
+              {
+                "text": "\u5169\u500B def \u90FD\u672A\u5230\u9054 use",
+                "fraction": 0,
+                "feedback": "\u7B2C 2 \u884C\u7684\u503C\u6CBF\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91 2\u21923 \u5230\u9054\u7B2C 3 \u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B2C 2 \u884C\u7684 def \u8986\u6BBA\u7B2C 1 \u884C\u7684 def\uFF0C\u6545\u53EA\u6709 (x@2, use@3) \u662F DU pair\uFF1B\u7B2C 1 \u884C\u7684 def \u672A\u5230\u9054\u4EFB\u4F55 use\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u67D0 DU pair \u7684 du-path \u6578\uFF08x\uFF09",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF08\u908A 1\u21922, 2\u21923, 3\u21924, 3\u21925, 4\u21925\uFF09\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(x def@1, c-use@5)</code> \u6709\u5E7E\u689D du-path\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2\u2014\u2014\u5373 1\u21922\u21923\u21924\u21925 \u8207 1\u21922\u21923\u21925",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x \u5F9E\u672A\u88AB\u518D\u5B9A\u7FA9\uFF0C\u6545\u771F\u5206\u652F\u8DEF\u5F91\u8207\u7565\u904E\u8DEF\u5F91\u90FD\u662F\u5B9A\u7FA9\u6F54\u6DE8\u7684 du-path\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u53EA\u6709 1\u21922\u21923\u21925",
+                "fraction": 0,
+                "feedback": "\u771F\u5206\u652F\u8DEF\u5F91 1\u21922\u21923\u21924\u21925 \u5C0D x \u4E5F\u662F\u5B9A\u7FA9\u6F54\u6DE8\uFF08x \u672A\u5728\u7B2C 4 \u884C\u88AB\u518D\u5B9A\u7FA9\uFF09\uFF0C\u6545\u6709\u5169\u689D\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5F9E\u7B2C 1 \u884C\u5230\u7B2C 5 \u884C\u6070\u6709\u5169\u689D\u7C21\u55AE\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u7B2C 1 \u884C\u7684 def \u672A\u5230\u9054\u7B2C 5 \u884C",
+                "fraction": 0,
+                "feedback": "x \u6CBF\u5169\u689D\u5206\u652F\u90FD\u5230\u9054\u7B2C 5 \u884C\uFF1B\u5171\u6709\u5169\u689D du-path\u3002"
+              }
+            ],
+            "generalFeedback": "x \u53EA\u5728\u7B2C 1 \u884C\u88AB\u5B9A\u7FA9\u4E14\u5F9E\u672A\u518D\u5B9A\u7FA9\uFF0C\u6545 1\u21922\u21923\u21924\u21925 \u8207 1\u21922\u21923\u21925 \u90FD\u662F\u7C21\u55AE\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u2014\u2014\u6B64 DU pair \u6709\u5169\u689D du-path\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u67D0 DU pair \u7684 du-path \u6578\uFF08y@4\uFF09",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(y def@4, c-use@5)</code> \u6709\u5E7E\u689D du-path\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1\u2014\u2014\u5373 4\u21925",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u7B2C 4 \u884C\u5230\u7B2C 5 \u884C\u552F\u4E00\u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u5C31\u662F\u55AE\u4E00\u908A 4\u21925\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u5F9E\u7B2C 4 \u884C\u5230\u7B2C 5 \u884C\u53EA\u6709\u4E00\u689D\u8DEF\u5F91\uFF0C\u5373\u908A 4\u21925\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u7B2C 4 \u884C\u7684\u503C\u7E3D\u662F\u88AB\u8986\u6BBA",
+                "fraction": 0,
+                "feedback": "\u7B2C 4 \u884C\u7684 y \u4E4B def \u6CBF 4\u21925 \u76F4\u63A5\u5230\u9054\u7B2C 5 \u884C\uFF1B\u6C92\u6709\u6771\u897F\u8986\u6BBA\u5B83\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u55AE\u4E00\u908A 4\u21925 \u9023\u63A5\u8A72 def \u8207 use\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E\u7BC0\u9EDE 4 \u5230\u7BC0\u9EDE 5 \u552F\u4E00\u7684\u8DEF\u7DDA\u662F\u908A 4\u21925\uFF0C\u6545\u6B64 DU pair \u6070\u6709\u4E00\u689D du-path\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses \u5305\u5BB9 All-Defs",
+            "text": "<p>\u82E5\u4E00\u500B\u6E2C\u8A66\u5957\u7D44\u6EFF\u8DB3 All-Uses\uFF0C\u4F60\u80FD\u5C0D All-Defs \u4E0B\u4EC0\u9EBC\u7D50\u8AD6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "All-Defs \u81EA\u52D5\u88AB\u6EFF\u8DB3\uFF0C\u56E0\u70BA\u6DB5\u84CB\u6BCF\u500B DU pair \u5C31\u6DB5\u84CB\u4E86\u6BCF\u500B def \u7684\u81F3\u5C11\u4E00\u500B use",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-Uses \u5305\u5BB9 All-Defs\u3002"
+              },
+              {
+                "text": "All-Defs \u4ECD\u53EF\u80FD\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u6BCF\u500B\u53EF\u9054\u7684 use \u5DF2\u5305\u542B\u6BCF\u500B def \u7684\u81F3\u5C11\u4E00\u500B use\uFF0C\u6545 All-Defs \u4E0D\u6703\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u4E0B\u4EFB\u4F55\u7D50\u8AD6",
+                "fraction": 0,
+                "feedback": "All-Uses \u56B4\u683C\u5305\u5BB9 All-Defs\uFF0C\u6545\u7D50\u8AD6\u662F\u78BA\u5B9A\u7684\u3002"
+              },
+              {
+                "text": "All-DU-Paths \u4E5F\u88AB\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "All-Uses \u4E26\u4E0D\u860A\u542B All-DU-Paths\uFF1B\u53EA\u6709\u8F03\u5F31\u7684 All-Defs \u96A8\u4E4B\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u6BCF\u500B\u6709\u53EF\u9054 use \u7684 def \u81F3\u5C11\u6709\u4E00\u500B DU pair\uFF0C\u6DB5\u84CB\u6240\u6709 DU pair\uFF08All-Uses\uFF09\u5373\u6DB5\u84CB\u6BCF\u500B def \u7684\u81F3\u5C11\u4E00\u500B use\uFF08All-Defs\uFF09\u3002\u6545 All-Uses \u2292 All-Defs\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5217\u51FA y \u7684 DU pairs",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u54EA\u4E00\u7D44\u6B63\u78BA\u5217\u51FA\u8B8A\u6578 <code>y</code> \u7684\u6240\u6709 DU pairs\uFF1F</p>",
+            "answers": [
+              {
+                "text": "(y@2 \u2192 use@5) \u8207 (y@4 \u2192 use@5)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B2C 2 \u884C\u7684 def \u7D93\u5047\u5206\u652F\uFF082\u21923\u21925\uFF09\u5230\u9054\u7B2C 5 \u884C\uFF0C\u7B2C 4 \u884C\u7684 def \u7D93 4\u21925 \u5230\u9054\u7B2C 5 \u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 (y@4 \u2192 use@5)\uFF0C\u56E0\u70BA\u7B2C 2 \u884C\u7684 def \u7E3D\u662F\u88AB\u8986\u6BBA",
+                "fraction": 0,
+                "feedback": "\u7B2C 2 \u884C\u7684 def \u53EA\u5728\u771F\u5206\u652F\u8DEF\u5F91\u4E0A\u88AB\u8986\u6BBA\uFF1B\u7D93\u5047\u5206\u652F 2\u21923\u21925 \u5B83\u4ECD\u5230\u9054\u7B2C 5 \u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 (y@2 \u2192 use@5)",
+                "fraction": 0,
+                "feedback": "\u7B2C 4 \u884C\u7684 def \u4E5F\u7D93 4\u21925 \u5230\u9054\u7B2C 5 \u884C\uFF0C\u6545\u4E5F\u69CB\u6210\u4E00\u500B DU pair\u3002"
+              },
+              {
+                "text": "(y@2 \u2192 use@3) \u8207 (y@4 \u2192 use@5)",
+                "fraction": 0,
+                "feedback": "y \u672A\u5728\u7B2C 3 \u884C\u88AB\u4F7F\u7528\uFF1By \u7684 use \u5728\u7B2C 5 \u884C\u3002"
+              }
+            ],
+            "generalFeedback": "y \u7684\u5169\u500B def \u90FD\u5230\u9054\u7B2C 5 \u884C\u7684 c-use\uFF1A\u7B2C 2 \u884C\u7D93\u5047\u5206\u652F\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91 2\u21923\u21925\uFF0C\u7B2C 4 \u884C\u7D93 4\u21925\u3002\u6545 y \u6709\u5169\u500B DU pair\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses \u5C0D\u6BD4 All-DU-Paths",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\u5340\u5206 All-Uses \u8207 All-DU-Paths\uFF1F</p>",
+            "answers": [
+              {
+                "text": "All-Uses \u6BCF\u500B DU pair \u81F3\u5C11\u5DE1\u89BD\u4E00\u689D du-path\uFF1BAll-DU-Paths \u6BCF\u500B DU pair \u5DE1\u89BD\u6BCF\u4E00\u689D du-path",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u5169\u6E96\u5247\u7684\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "All-Uses \u5DE1\u89BD\u6BCF\u4E00\u689D du-path\uFF1BAll-DU-Paths \u81F3\u5C11\u5DE1\u89BD\u4E00\u689D",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u76F8\u53CD\u7684\uFF1AAll-DU-Paths \u624D\u662F\u8981\u6C42\u6BCF\u4E00\u689D du-path \u7684\u8F03\u5F37\u6E96\u5247\u3002"
+              },
+              {
+                "text": "All-Uses \u53EA\u6DB5\u84CB c-use\uFF1BAll-DU-Paths \u53EA\u6DB5\u84CB p-use",
+                "fraction": 0,
+                "feedback": "\u5169\u6E96\u5247\u90FD\u6DB5\u84CB c-use \u8207 p-use\uFF1B\u5DEE\u5225\u5728\u6BCF\u5C0D\u4E00\u689D du-path \u5C0D\u6BCF\u5C0D\u6240\u6709 du-path\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u5728\u6709\u8FF4\u5708\u7684\u7A0B\u5F0F\u4E0A\u4E0D\u540C",
+                "fraction": 0,
+                "feedback": "\u53EA\u8981\u67D0 DU pair \u6709\u8D85\u904E\u4E00\u689D du-path\uFF0C\u5B83\u5011\u5C31\u53EF\u80FD\u4E0D\u540C\uFF0C\u7121\u8AD6\u662F\u5426\u6709\u8FF4\u5708\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u500B DU pair\uFF0CAll-Uses \u8981\u6C42\u5DE1\u89BD\u81F3\u5C11\u4E00\u689D du-path\uFF0C\u800C All-DU-Paths \u8981\u6C42\u5DE1\u89BD\u6BCF\u4E00\u689D du-path\u3002\u6545 All-DU-Paths \u2292 All-Uses\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 x \u7684 use \u500B\u6578",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u9019\u6BB5\u7A0B\u5F0F\u5C0D\u8B8A\u6578 <code>x</code> \u542B\u6709\u5E7E\u500B<strong>\u4F7F\u7528\uFF08use\uFF09</strong>\uFF0C\u5404\u70BA\u4F55\u7A2E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2\u2014\u2014\u7B2C 3 \u884C\u4E00\u500B p-use\uFF0C\u7B2C 5 \u884C\u4E00\u500B c-use",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x \u5728\u7B2C 3 \u884C\u7684\u8B02\u8A5E\u88AB\u8B80\u53D6\uFF08p-use\uFF09\uFF0C\u5728\u7B2C 5 \u884C\u7684\u8A08\u7B97\u88AB\u8B80\u53D6\uFF08c-use\uFF09\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u53EA\u6709\u7B2C 5 \u884C\u7684 c-use",
+                "fraction": 0,
+                "feedback": "\u7B2C 3 \u884C\u7684\u8B02\u8A5E\u4E5F\u8B80\u53D6 x\uFF0C\u90A3\u662F p-use\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u53EA\u6709\u7B2C 3 \u884C\u7684 p-use",
+                "fraction": 0,
+                "feedback": "\u7B2C 5 \u884C\u4E5F\u8B80\u53D6 x\uFF08c-use\uFF09\uFF0C\u6545\u6709\u5169\u500B use\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u7B2C 1 \u884C\u7684 def \u4E5F\u7B97\u4E00\u500B use",
+                "fraction": 0,
+                "feedback": "\u7B2C 1 \u884C\u662F def\uFF0C\u4E0D\u662F use\uFF1Bx \u6709\u5169\u500B use\uFF08\u7B2C 3 \u884C\u8207\u7B2C 5 \u884C\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "x \u88AB\u4F7F\u7528\u5169\u6B21\uFF1A\u7B2C 3 \u884C\u8B02\u8A5E\u4E2D\u7684 p-use\uFF08\u8207\u908A 3\u21924 \u53CA 3\u21925 \u95DC\u806F\uFF09\u8207\u7B2C 5 \u884C\u7684 c-use\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "All-Uses \u8207 All-DU-Paths \u7684\u9700\u6C42",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF0CDU pair <code>(x def@1, c-use@5)</code> \u6709\u5169\u689D du-path\uFF1A<code>P1 = 1\u21922\u21923\u21924\u21925</code> \u8207 <code>P2 = 1\u21922\u21923\u21925</code>\u3002\u5C31\u6B64\u914D\u5C0D\u800C\u8A00\uFF0CAll-Uses \u8207 All-DU-Paths \u5404\u9700\u5DE1\u89BD\u5E7E\u689D du-path\uFF1F</p>",
+            "answers": [
+              {
+                "text": "All-Uses \u9700\u8981 {P1, P2} \u4E2D\u81F3\u5C11\u4E00\u689D\uFF1BAll-DU-Paths \u9700\u8981\u5169\u689D\u90FD\u5DE1\u89BD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014All-Uses \u6BCF\u5C0D\u53EA\u9700\u4E00\u689D du-path\uFF0CAll-DU-Paths \u9700\u8981\u6BCF\u4E00\u689D\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u6070\u9700\u4E00\u689D du-path",
+                "fraction": 0,
+                "feedback": "All-DU-Paths \u9700\u8981\u8A72\u914D\u5C0D\u7684\u6BCF\u4E00\u689D du-path\uFF0C\u6B64\u8655\u5373 P1 \u8207 P2 \u5169\u689D\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u9700\u8981\u5169\u689D du-path",
+                "fraction": 0,
+                "feedback": "All-Uses \u6BCF\u500B DU pair \u53EA\u9700\u4E00\u689D du-path\uFF0C\u4E26\u975E\u5169\u689D\u3002"
+              },
+              {
+                "text": "All-Uses \u9700\u8981\u5169\u689D\uFF1BAll-DU-Paths \u9700\u8981\u4E00\u689D",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u76F8\u53CD\u7684\uFF1AAll-DU-Paths \u624D\u662F\u8981\u6C42\u6240\u6709 du-path \u7684\u8F03\u5F37\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "All-Uses \u6BCF\u500B DU pair \u5DE1\u89BD\u81F3\u5C11\u4E00\u689D du-path\uFF1BAll-DU-Paths \u5DE1\u89BD\u6BCF\u4E00\u689D\u3002\u6B64\u8655\u5373 {P1, P2} \u4E2D\u4E00\u689D\u5C0D\u6BD4\u5169\u689D\u2014\u2014\u6B63\u662F All-DU-Paths \u2292 All-Uses \u7684\u5177\u9AD4\u898B\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u53EF\u884C\u7684 du-path",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>1  x = input()\n2  if (x &gt; 0)\n3      a = 1\n4  if (x &lt; 0)\n5      b = a</pre><p>du-path <code>3\u21924\u21925</code> \u628A\u7B2C 3 \u884C <code>a</code> \u7684 def \u5E36\u5230\u7B2C 5 \u884C\u7684 use\u3002\u70BA\u4F55\u6B64 du-path <strong>\u4E0D\u53EF\u884C\uFF08infeasible\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5230\u9054\u7B2C 3 \u884C\u9700\u8981 x > 0\uFF0C\u4F46\u8D70 4\u21925 \u9700\u8981 x < 0\uFF0C\u6C92\u6709\u4EFB\u4F55\u55AE\u4E00\u8F38\u5165\u80FD\u540C\u6642\u6EFF\u8DB3\u5169\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u689D\u4EF6\u4E92\u76F8\u77DB\u76FE\uFF0C\u6545\u6C92\u6709\u6E2C\u8A66\u80FD\u9A45\u52D5\u6B64 du-path\u3002"
+              },
+              {
+                "text": "\u6B64\u8DEF\u5F91\u5C0D a \u4E0D\u662F\u5B9A\u7FA9\u6F54\u6DE8",
+                "fraction": 0,
+                "feedback": "a \u5728\u7B2C 3 \u8207\u7B2C 5 \u884C\u4E4B\u9593\u672A\u88AB\u518D\u5B9A\u7FA9\uFF0C\u6545\u8DEF\u5F91\u662F\u5B9A\u7FA9\u6F54\u6DE8\u7684\uFF1B\u554F\u984C\u5728\u65BC\u8B02\u8A5E\u77DB\u76FE\u3002"
+              },
+              {
+                "text": "\u6B64\u8DEF\u5F91\u91CD\u8907\u4E86\u67D0\u7BC0\u9EDE\uFF0C\u6545\u4E0D\u662F\u7C21\u55AE\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "3\u21924\u21925 \u62DC\u8A2A\u76F8\u7570\u7BC0\u9EDE\uFF1B\u5B83\u662F\u7C21\u55AE\u7684\u3002\u4E0D\u53EF\u884C\u4F86\u81EA\u77DB\u76FE\u7684\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "a \u5728\u7B2C 5 \u884C\u6C92\u6709 use",
+                "fraction": 0,
+                "feedback": "a \u5728\u7B2C 5 \u884C\u88AB\u8B80\u53D6\uFF08b = a\uFF09\uFF1B\u6B64 du-path \u8A9E\u6CD5\u4E0A\u5B58\u5728\u4F46\u4E0D\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u884C\u7684 du-path \u5728\u5716\u4E2D\u5B58\u5728\uFF0C\u4F46\u6C92\u6709\u8F38\u5165\u80FD\u57F7\u884C\u5B83\u3002\u6B64\u8655\u7B2C 3 \u884C\u9700 x > 0\uFF0C\u800C\u908A 4\u21925 \u9700 x < 0\u2014\u2014\u4E92\u76F8\u77DB\u76FE\uFF0C\u6545\u6B64 du-path \u6C38\u4E0D\u80FD\u88AB\u5DE1\u89BD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses \u5305\u5BB9\u908A\u6DB5\u84CB\u2014\u2014\u5047\u8A2D\u689D\u4EF6",
+            "text": "<p>All-Uses \u53EA\u5728\u67D0\u500B\u6A19\u6E96\u5047\u8A2D\u4E0B\u624D\u5305\u5BB9\u908A\u6DB5\u84CB\uFF08Edge Coverage\uFF09\u3002\u662F\u54EA\u500B\u5047\u8A2D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u6C7A\u7B56\u7684\u8B02\u8A5E\u90FD\u81F3\u5C11\u4F7F\u7528\u4E00\u500B\u8B8A\u6578\uFF0C\u56E0\u6B64\u6BCF\u689D\u51FA\u908A\u90FD\u5E36\u6709\u4E00\u500B p-use \u6E2C\u8A66\u9700\u6C42",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u6709\u5982\u6B64\uFF0C\u6DB5\u84CB\u6240\u6709 p-use \u624D\u6703\u5F37\u5236\u6BCF\u500B\u6C7A\u7B56\u7684\u5169\u689D\u51FA\u908A\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u8B8A\u6578\u5728\u4F7F\u7528\u524D\u90FD\u5DF2\u88AB\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u90A3\u6392\u9664\u4E86\u672A\u5B9A\u7FA9\u7684 use\uFF0C\u4F46\u672C\u8EAB\u4E26\u4E0D\u5F37\u5236\u6BCF\u689D\u908A\u90FD\u88AB\u8D70\u904E\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u4E0D\u542B\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u8FF4\u5708\u4E0D\u5F71\u97FF\u6B64\u5305\u5BB9\u95DC\u4FC2\uFF1B\u9700\u6C42\u5728\u65BC\u6BCF\u500B\u6C7A\u7B56\u90FD\u6709 p-use\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B def \u6070\u597D\u5230\u9054\u4E00\u500B use",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u6B64\u7121\u95DC\uFF1B\u5047\u8A2D\u95DC\u4E4E\u8B02\u8A5E\u542B\u6709\u8B8A\u6578 use\u3002"
+              }
+            ],
+            "generalFeedback": "p-use \u9644\u8457\u65BC\u6C7A\u7B56\u7684\u5169\u689D\u51FA\u908A\u3002\u82E5\u6BCF\u500B\u6C7A\u7B56\u8B02\u8A5E\u90FD\u81F3\u5C11\u4F7F\u7528\u4E00\u500B\u8B8A\u6578\uFF0CAll-Uses \u5C31\u6703\u5F37\u5236\u6BCF\u500B\u6C7A\u7B56\u7684\u5169\u689D\u908A\uFF0C\u5F9E\u800C\u5305\u5BB9\u908A\u6DB5\u84CB\u3002\u82E5\u7121\u6B64\u5047\u8A2D\uFF0C\u4E00\u500B\u4E0D\u542B\u8B8A\u6578\u7684\u8B02\u8A5E\u6703\u7559\u4E0B\u67D0\u689D\u908A\u4E0D\u88AB\u5F37\u5236\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Uses \u4F55\u6642\u6703\u6F0F\u6389\u4E00\u689D\u908A",
+            "text": "<p>\u5728\u54EA\u7A2E\u60C5\u6CC1\u4E0B\uFF0C\u4E00\u500B\u6E2C\u8A66\u5957\u7D44\u80FD\u6EFF\u8DB3 All-Uses\uFF0C\u537B\u4ECD\u7559\u4E0B\u4E00\u689D<strong>\u908A\u672A\u88AB\u6DB5\u84CB</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u67D0\u500B\u6C7A\u7B56\u7684\u8B02\u8A5E\u4E0D\u4F7F\u7528\u4EFB\u4F55\u8B8A\u6578\uFF08\u4F8B\u5982\u5E38\u6578\u689D\u4EF6\uFF09\uFF0C\u6545\u5169\u689D\u51FA\u908A\u90FD\u4E0D\u5E36 p-use \u9700\u6C42",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709 p-use\uFF0CAll-Uses \u5C31\u6C92\u6709\u5F37\u5236\u8A72\u5206\u652F\u5404\u908A\u7684\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u4F7F\u7528\u4E86\u8B8A\u6578\u7684\u6C7A\u7B56",
+                "fraction": 0,
+                "feedback": "\u8B8A\u6578 p-use \u6703\u5F37\u5236\u5169\u689D\u51FA\u908A\uFF0C\u6545\u90A3\u4E9B\u908A\u90FD\u6703\u88AB\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u6C7A\u7B56\u7684\u76F4\u7DDA\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6C7A\u7B56\u5C31\u53EA\u6709\u4E00\u689D\u8DEF\u5F91\uFF1B\u6B64\u8655 All-Uses \u8207\u908A\u6DB5\u84CB\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B def \u90FD\u5230\u9054\u6BCF\u500B use \u7684\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u8C50\u5BCC\u7684\u8CC7\u6599\u6D41\u672C\u8EAB\u4E0D\u6703\u7559\u4E0B\u67D0\u689D\u908A\u672A\u6DB5\u84CB\uFF1B\u4E0D\u542B\u8B8A\u6578\u7684\u8B02\u8A5E\u624D\u6703\u3002"
+              }
+            ],
+            "generalFeedback": "All-Uses \u5305\u5BB9\u908A\u6DB5\u84CB\uFF0C\u501A\u8CF4\u6BCF\u500B\u6C7A\u7B56\u90FD\u6709\u8B8A\u6578 p-use\u3002\u5E38\u6578\uFF0F\u4E0D\u542B\u8B8A\u6578\u7684\u8B02\u8A5E\u6C92\u6709 p-use\uFF0C\u6545 All-Uses \u4E0D\u5FC5\u8D70\u904E\u5B83\u7684\u5169\u689D\u51FA\u908A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "p-use \u7522\u751F\u5169\u689D\u908A\u9700\u6C42",
+            "text": "<p>\u8B8A\u6578 v \u5728 <code>if (v &gt; 0)</code> \u4E2D\u6709\u4E00\u500B p-use\uFF0C\u8A72\u6C7A\u7B56\u7BC0\u9EDE\u6709\u901A\u5F80 then \u5340\u584A\u8207 else\uFF0F\u532F\u5408\u9EDE\u7684\u51FA\u908A\u3002\u5728 All-Uses \u4E0B\uFF0C\u4E00\u500B\u5230\u9054\u6B64 p-use \u7684 def \u6703\u7522\u751F\u54EA\u4E9B\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u689D\u51FA\u908A\u2014\u2014\u6C7A\u7B56\u7684\u771F\u908A\u8207\u5047\u908A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014p-use \u9644\u8457\u65BC\u6BCF\u4E00\u689D\u51FA\u908A\uFF0C\u6545\u5169\u8005\u90FD\u5FC5\u9808\u88AB\u5DE1\u89BD\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u771F\u908A\uFF08\u689D\u4EF6\u6210\u7ACB\u8655\uFF09",
+                "fraction": 0,
+                "feedback": "p-use \u9700\u6C42\u6DB5\u84CB\u5169\u7A2E\u7D50\u679C\uFF0C\u4E0D\u53EA\u771F\u908A\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u8A72\u6C7A\u7B56\u7684\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "p-use \u9644\u8457\u65BC\u51FA\u908A\uFF0C\u800C\u4E0D\u53EA\u662F\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u5169\u689D\u908A\u90FD\u4E0D\u9700\uFF0C\u56E0\u70BA\u8B02\u8A5E\u4E0D\u662F use",
+                "fraction": 0,
+                "feedback": "\u5728\u8B02\u8A5E\u4E2D\u8B80\u53D6 v \u5C31\u662F use\u2014\u2014\u5177\u9AD4\u800C\u8A00\u662F\u51FA\u908A\u4E0A\u7684 p-use\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u8B02\u8A5E\u7684\u7D50\u679C\u9078\u64C7\u51FA\u908A\uFF0Cv \u7684 p-use \u6703\u70BA\u6BCF\u4E00\u689D\u51FA\u908A\u7522\u751F\u4E00\u500B (def, p-use) \u9700\u6C42\u2014\u2014\u5F37\u5236\u8D70\u904E\u771F\u3001\u5047\u5169\u500B\u5206\u652F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88AB\u8986\u6BBA\u7684 def \u4ECD\u80FD\u5230\u9054\u67D0 use \u55CE\uFF1F",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u7B2C 2 \u884C <code>y</code> \u7684 def \u80FD\u5230\u9054\u7B2C 5 \u884C\u7684 use \u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u80FD\u2014\u2014\u7D93\u5047\u5206\u652F 2\u21923\u21925\uFF0C\u5B83\u7565\u904E\u7B2C 4 \u884C\u7684\u518D\u5B9A\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B2C 2 \u884C\u7684 def \u53EA\u5728\u771F\u5206\u652F\u8DEF\u5F91\u4E0A\u88AB\u8986\u6BBA\uFF1B\u5047\u5206\u652F\u4F7F\u5B83\u4FDD\u6301\u5B9A\u7FA9\u6F54\u6DE8\u3002"
+              },
+              {
+                "text": "\u4E0D\u80FD\u2014\u2014\u7B2C 4 \u884C\u7E3D\u5728\u7B2C 5 \u884C\u4E4B\u524D\u518D\u5B9A\u7FA9 y",
+                "fraction": 0,
+                "feedback": "\u7B2C 4 \u884C\u53EA\u5728\u771F\u5206\u652F\u57F7\u884C\uFF1B\u7576 x \u2264 0 \u6642\u7B2C 2 \u884C\u7684 def \u6703\u5B58\u6D3B\u5230\u7B2C 5 \u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7B2C 4 \u884C\u4E5F\u57F7\u884C\u6642\u624D\u80FD",
+                "fraction": 0,
+                "feedback": "\u82E5\u7B2C 4 \u884C\u57F7\u884C\uFF0C\u5B83\u6703\u8986\u6BBA\u7B2C 2 \u884C\u7684\u503C\uFF1B\u7B2C 2 \u884C\u7684 def \u6B63\u662F\u5728\u7B2C 4 \u884C\u88AB\u7565\u904E\u6642\u624D\u5230\u9054\u7B2C 5 \u884C\u3002"
+              },
+              {
+                "text": "\u4E0D\u80FD\u2014\u2014\u7B2C 2 \u884C\u7684 y \u662F\u6B7B\u78BC",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u662F\u6B7B\u78BC\uFF1A\u5728\u5047\u5206\u652F\u4E0A\u5176\u503C\u6D41\u5230\u7B2C 5 \u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u518D\u5B9A\u7FA9\u53EA\u5728\u7D93\u904E\u5B83\u7684\u8DEF\u5F91\u4E0A\u8986\u6BBA\u67D0 def\u3002\u5047\u5206\u652F 2\u21923\u21925 \u907F\u958B\u7B2C 4 \u884C\uFF0C\u6545\u7B2C 2 \u884C y \u7684 def \u78BA\u5BE6\u5230\u9054\u7B2C 5 \u884C\u7684 use\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-DU-Paths \u56B4\u683C\u66F4\u5F37\u7684\u898B\u8B49",
+            "text": "<p>\u54EA\u7A2E\u60C5\u5883\u6700\u80FD\u898B\u8B49 All-DU-Paths <em>\u56B4\u683C</em>\u5F37\u65BC All-Uses\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u5177\u6709\u5169\u689D\u76F8\u7570 du-path \u7684 DU pair\uFF0C\u6E2C\u8A66\u96C6\u5DE1\u89BD\u5176\u4E2D\u4E00\u689D\uFF08\u6EFF\u8DB3 All-Uses\uFF09\u537B\u4E0D\u5DE1\u89BD\u53E6\u4E00\u689D\uFF08\u672A\u9054 All-DU-Paths\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D du-path \u5C31\u6EFF\u8DB3\u8A72\u5C0D\u7684 All-Uses\uFF0C\u4F46 All-DU-Paths \u4ECD\u8981\u6C42\u7B2C\u4E8C\u689D\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6070\u6709\u4E00\u689D du-path \u4E14\u88AB\u5DE1\u89BD\u7684 DU pair",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u689D du-path \u6642\u5169\u6E96\u5247\u5C0D\u8A72\u5C0D\u4E00\u81F4\uFF1B\u7121\u6CD5\u898B\u8B49\u56B4\u683C\u6027\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5B8C\u5168\u4E0D\u5230\u9054\u4EFB\u4F55 use \u7684 def",
+                "fraction": 0,
+                "feedback": "\u9019\u7A2E def \u5C0D\u5169\u6E96\u5247\u90FD\u4E0D\u7522\u751F\u9700\u6C42\uFF0C\u5340\u5206\u4E0D\u51FA\u4EFB\u4F55\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6C92\u6709\u6C7A\u7B56\u7684\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6C7A\u7B56\u6642\uFF0CDU pair \u90FD\u53EA\u6709\u4E00\u689D du-path\uFF0C\u5169\u6E96\u5247\u4E00\u81F4\u3002"
+              }
+            ],
+            "generalFeedback": "\u56B4\u683C\u5305\u5BB9\u9700\u8981\u4E00\u500B All-Uses \u6210\u7ACB\u4F46 All-DU-Paths \u5931\u6557\u7684\u60C5\u5F62\uFF1A\u4E00\u500B\u5177 \u22652 \u689D du-path \u7684 DU pair\uFF0C\u53EA\u5DE1\u89BD\u5176\u4E2D\u4E00\u689D\u3002\u6B64\u6642\u8A72\u5C0D\u7684 All-Uses \u5DF2\u6EFF\u8DB3\uFF0C\u4F46\u4ECD\u6709\u4E00\u689D du-path \u672A\u88AB\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B63\u78BA\u7684\u5305\u5BB9\u95DC\u4FC2\u6558\u8FF0",
+            "text": "<p>\u5047\u8A2D\u6BCF\u500B\u6C7A\u7B56\u8B02\u8A5E\u90FD\u81F3\u5C11\u4F7F\u7528\u4E00\u500B\u8B8A\u6578\uFF0C\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "All-Uses \u540C\u6642\u5305\u5BB9 All-Defs \u8207\u908A\u6DB5\u84CB\uFF0C\u4E14\u908A\u6DB5\u84CB\u5305\u5BB9\u7BC0\u9EDE\u6DB5\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u6B64\u5047\u8A2D\u4E0B All-Uses \u2292 \u908A \u2292 \u7BC0\u9EDE\uFF0C\u4E14 All-Uses \u2292 All-Defs\u3002"
+              },
+              {
+                "text": "All-Defs \u5305\u5BB9 All-Uses",
+                "fraction": 0,
+                "feedback": "\u5305\u5BB9\u65B9\u5411\u76F8\u53CD\uFF1AAll-Uses \u2292 All-Defs\u3002"
+              },
+              {
+                "text": "All-Defs \u5305\u5BB9\u908A\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "All-Defs \u4E0D\u5FC5\u8D70\u904E\u6C7A\u7B56\u7684\u5169\u689D\u5206\u652F\uFF0C\u6545\u4E0D\u5305\u5BB9\u908A\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u6DB5\u84CB\u5305\u5BB9 All-Uses",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u6DB5\u84CB\u5F31\u5F97\u591A\uFF1B\u5B83\u4E0D\u5305\u5BB9\u4EFB\u4F55\u8CC7\u6599\u6D41\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6BCF\u500B\u6C7A\u7B56\u90FD\u6709 p-use \u7684\u5047\u8A2D\u4E0B\uFF1AAll-DU-Paths \u2292 All-Uses \u2292 All-Defs\uFF0CAll-Uses \u2292 \u908A \u2292 \u7BC0\u9EDE\u3002All-Defs \u8207\u908A\u6DB5\u84CB\u5728\u4E00\u822C\u60C5\u6CC1\u4E0B\u4E0D\u53EF\u6BD4\u8F03\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "All-Defs \u4E0D\u5305\u5BB9\u908A\u6DB5\u84CB",
+            "text": "<p>\u70BA\u4F55 All-Defs \u5728\u4E00\u822C\u60C5\u6CC1\u4E0B\u7121\u6CD5\u5305\u5BB9\u908A\u6DB5\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B def \u53EF\u4EE5\u53EA\u7D93\u4E00\u689D\u5206\u652F\u5230\u9054\u67D0 use\uFF0C\u6545 All-Defs \u53EF\u88AB\u6EFF\u8DB3\u800C\u5F9E\u672A\u8D70\u904E\u53E6\u4E00\u689D\u5206\u652F\u7684\u908A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B def \u4E00\u689D\u5230\u9054\u8DEF\u5F91\u5373\u6EFF\u8DB3 All-Defs\uFF0C\u53EF\u80FD\u7559\u4E0B\u5206\u652F\u908A\u672A\u8D70\u3002"
+              },
+              {
+                "text": "All-Defs \u8981\u6C42\u6BCF\u4E00\u689D\u908A\uFF0C\u6545\u7E3D\u662F\u5305\u5BB9\u908A\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "All-Defs \u53EA\u8981\u6C42\u6BCF\u500B def \u5230\u9054\u67D0\u4E00\u500B use\uFF0C\u4E26\u975E\u6BCF\u4E00\u689D\u908A\u3002"
+              },
+              {
+                "text": "\u908A\u6DB5\u84CB\u662F\u6BD4 All-Defs \u66F4\u5F31\u7684\u8CC7\u6599\u6D41\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u908A\u6DB5\u84CB\u662F\u7D50\u69CB\u6E96\u5247\uFF1B\u91CD\u9EDE\u5728\u65BC All-Defs \u4E0D\u5F37\u5236\u5169\u689D\u5206\u652F\u3002"
+              },
+              {
+                "text": "All-Defs \u53EA\u95DC\u4E4E\u80FD\u6DB5\u84CB\u6240\u6709\u908A\u7684 p-use",
+                "fraction": 0,
+                "feedback": "All-Defs \u95DC\u4E4E\u5230\u9054\u67D0\u500B use\uFF08c-use \u6216 p-use\uFF09\uFF0C\u800C\u9019\u6A23\u4E00\u500B use \u53EF\u80FD\u7559\u4E0B\u67D0\u689D\u908A\u672A\u8D70\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u8981\u6BCF\u500B def \u7D93\u4E00\u689D\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u5230\u9054\u67D0\u500B use\uFF0CAll-Defs \u5373\u88AB\u6EFF\u8DB3\u3002\u90A3\u689D\u8DEF\u5F91\u53EF\u80FD\u53EA\u8D70\u6C7A\u7B56\u7684\u4E00\u500B\u7D50\u679C\uFF0C\u7559\u4E0B\u53E6\u4E00\u689D\u51FA\u908A\u672A\u6DB5\u84CB\u2014\u2014\u6545 All-Defs \u4E0D\u5305\u5BB9\u908A\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6709\u8FF4\u5708\u6642 du-path \u4ECD\u70BA\u6709\u9650",
+            "text": "<p>\u8003\u616E\u7247\u6BB5 L\uFF08\u908A 1\u21922, 2\u21923, 3\u21922, 2\u21924\uFF09\uFF1A</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>\u5373\u4F7F\u8FF4\u5708\u5141\u8A31\u7121\u754C\u6B21\u57F7\u884C\uFF0C<code>x</code> \u7684 du-path \u6578\u76EE\u4ECD\u70BA\u6709\u9650\uFF0C\u56E0\u70BA du-path \u5FC5\u9808\u662F\u7C21\u55AE\u7684\uFF08\u9664\u4E86\u53EF\u80FD\u8D77\u9EDE=\u7D42\u9EDE\u5916\uFF0C\u7121\u91CD\u8907\u7BC0\u9EDE\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7C21\u55AE\u8DEF\u5F91\u7684\u9650\u5236\u4F7F du-path \u5373\u4F7F\u6709\u8FF4\u5708\u4E5F\u662F\u6709\u9650\u96C6\u5408\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7C21\u55AE\u8DEF\u5F91\u7684\u8981\u6C42\u4F7F du-path \u4FDD\u6301\u6709\u9650\uFF1B\u53EA\u6709\u5B8C\u6574\u8DEF\u5F91\u624D\u6703\u56E0\u8FF4\u5708\u800C\u8B8A\u7121\u754C\u3002"
+              }
+            ],
+            "generalFeedback": "du-path \u662F\u7C21\u55AE\u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\uFF0C\u6545\u4EFB\u4F55\u74B0\u81F3\u591A\u8D70\u4E00\u6B21\u3002\u9019\u4F7F du-path \u96C6\u5408\u5373\u4F7F\u8FF4\u5708\u80FD\u4EFB\u610F\u6B21\u8FED\u4EE3\u4ECD\u70BA\u6709\u9650\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u8FF4\u5708\u4E2D\u67D0 def \u7684 du-path \u6578",
+            "text": "<p>\u5728\u7247\u6BB5 L \u4E2D\uFF08\u908A 1\u21922, 2\u21923, 3\u21922, 2\u21924\uFF09\uFF1A</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>\u5F9E\u7B2C 3 \u884C <code>x</code> \u7684 def\uFF08<code>x = x + 1</code>\uFF09\u51FA\u767C\uFF0C\u6709\u5E7E\u689D du-path\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2\u2014\u2014\u5373 3\u21922\u21923\uFF08\u5230\u4E0B\u4E00\u8F2A\u8FED\u4EE3\u7684 p-use\uFF0Fc-use\uFF09\u8207 3\u21922\u21924\uFF08\u5230\u96E2\u958B\u8655\u7684 use\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u7B2C 3 \u884C\uFF0C\u503C\u7D93\u689D\u4EF6\u56DE\u6D41\u9032\u672C\u9AD4\u518D\u4E00\u6B21\uFF0C\u6216\u6D41\u51FA\u5230\u7B2C 4 \u884C\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u53EA\u6709 3\u21922\u21924",
+                "fraction": 0,
+                "feedback": "\u7C21\u55AE\u74B0 3\u21922\u21923 \u4E5F\u662F du-path\uFF08\u5230\u9054\u908A 2\u21923 \u7684 p-use \u8207\u7B2C 3 \u884C\u7684 c-use\uFF09\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5F9E\u7B2C 3 \u884C\u51FA\u767C\u53EA\u6709\u5169\u689D\u7C21\u55AE\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\uFF1A3\u21922\u21923 \u8207 3\u21922\u21924\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u7B2C 3 \u884C\u7684\u503C\u7ACB\u5373\u88AB\u8986\u6BBA",
+                "fraction": 0,
+                "feedback": "\u7B2C 3 \u884C\u7684\u503C\u5728\u689D\u4EF6\uFF08\u7B2C 2 \u884C\uFF09\u8207\u7B2C 4 \u884C\u88AB\u4F7F\u7528\uFF1B\u5B83\u4E0D\u6703\u7ACB\u5373\u88AB\u8986\u6BBA\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E\u7B2C 3 \u884C\u7684 def \u51FA\u767C\uFF0C\u5B9A\u7FA9\u6F54\u6DE8\u7684\u7C21\u55AE\u8DEF\u5F91\u70BA 3\u21922\u21923\uFF08\u4E00\u500B\u7C21\u55AE\u74B0\uFF0C\u5230\u9054 2\u21923 \u7684 p-use \u8207\u7B2C 3 \u884C\u7684 c-use\uFF09\u8207 3\u21922\u21924\uFF08\u5230\u9054\u7B2C 4 \u884C\u7684 c-use\uFF09\u2014\u2014\u5169\u689D du-path\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u5230\u9054\u4EFB\u4F55 use \u7684 def",
+            "text": "<p>\u5728\u7247\u6BB5 K \u4E2D\uFF1A</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>\u54EA\u500B def <strong>\u6C92\u6709 DU pair</strong>\uFF08\u4E0D\u5230\u9054\u4EFB\u4F55 use\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B2C 1 \u884C x \u7684 def\uFF0C\u56E0\u70BA\u7B2C 2 \u884C\u5728\u4EFB\u4F55 use \u4E4B\u524D\u5C31\u518D\u5B9A\u7FA9\u4E86 x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B2C 1 \u884C\u7684\u503C\u5728\u7B2C 2 \u884C\u88AB\u8986\u6BBA\uFF0C\u6545\u5F9E\u672A\u5230\u9054\u4EFB\u4F55 use\uFF1B\u5B83\u4E0D\u69CB\u6210 DU pair\u3002"
+              },
+              {
+                "text": "\u7B2C 2 \u884C x \u7684 def",
+                "fraction": 0,
+                "feedback": "\u7B2C 2 \u884C\u7684\u503C\u5230\u9054\u7B2C 3 \u884C\u7684 use\uFF08\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91 2\u21923\uFF09\uFF0C\u6545\u5B83\u78BA\u5BE6\u69CB\u6210 DU pair\u3002"
+              },
+              {
+                "text": "\u7B2C 3 \u884C y \u7684 def",
+                "fraction": 0,
+                "feedback": "y \u5728\u7B2C 3 \u884C\u88AB\u5B9A\u7FA9\uFF0C\u4F46\u554F\u984C\u554F\u7684\u662F\u54EA\u500B def \u4E0D\u5230\u9054\u4EFB\u4F55 use\uFF1B\u7B54\u6848\u662F x@1\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\uFF1B\u6BCF\u500B def \u90FD\u5230\u9054\u67D0\u500B use",
+                "fraction": 0,
+                "feedback": "\u7B2C 1 \u884C x \u7684 def \u88AB\u7B2C 2 \u884C\u8986\u6BBA\uFF0C\u4E0D\u5230\u9054\u4EFB\u4F55 use\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B2C 1 \u884C x \u7684 def \u5728\u7B2C 2 \u884C\u88AB\u8986\u5BEB\u3001\u4E14\u5728 x \u88AB\u8B80\u53D6\u4E4B\u524D\uFF0C\u6545\u5B83\u4E0D\u5230\u9054\u4EFB\u4F55 use\u3001\u4E0D\u69CB\u6210 DU pair\u3002\u5728 All-Defs \u4E0B\uFF0C\u9019\u6A23\u7684 def \u662F\u4E00\u9805\u4E0D\u53EF\u884C\uFF08\u7121\u6CD5\u6DB5\u84CB\uFF09\u7684\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u6240\u6709 DU pairs",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF0C\u5C07\u6BCF\u689D p-use \u908A\u8996\u70BA\u500B\u5225\u7684 use\uFF08\u4E26\u7559\u610F z \u6709 def \u4F46\u7121 use\uFF09\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>\u6574\u6BB5\u7A0B\u5F0F\uFF08\u8DE8\u6240\u6709\u8B8A\u6578\uFF09\u5171\u6709\u5E7E\u500B DU pair\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x\uFF1A(1,\u908A 3\u21924)\u3001(1,\u908A 3\u21925)\u3001(1,c-use@5)\uFF1By\uFF1A(2,c-use@5)\u3001(4,c-use@5)\u3002\u5171 5 \u500B\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578 x \u7684 p-use\uFF1A\u908A 3\u21924 \u8207 3\u21925 \u5206\u5225\u8A08\uFF0Cx \u6709\u4E09\u5C0D\u3001y \u6709\u5169\u5C0D\u2014\u2014\u5171\u4E94\u500B\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "z \u6709 def \u4F46\u7121 use\uFF0C\u6545\u4E0D\u8CA2\u737B\u4EFB\u4F55 DU pair\uFF1B\u7E3D\u6578\u70BA\u4E94\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5149\u662F x \u5C31\u8CA2\u737B\u4E09\u500B DU pair\u3001y \u5169\u500B\uFF0C\u6545\u7E3D\u6578\u70BA\u4E94\u3002"
+              }
+            ],
+            "generalFeedback": "x\uFF1A\u908A 3\u21924 \u7684 p-use\u3001\u908A 3\u21925 \u7684 p-use\u3001\u52A0\u4E0A c-use@5 = 3\uFF1By\uFF1Adef@2\u2192use@5 \u8207 def@4\u2192use@5 = 2\uFF1Bz \u7121 use = 0\u3002\u5171 5 \u500B DU pair\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "du-path \u8207\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u4E4B\u5225",
+            "text": "<p>\u9664\u4E86\u662F\u4E00\u689D\u5F9E def \u5230 use \u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u5916\uFF0Cdu-path \u9084\u5FC5\u9808\u6EFF\u8DB3\u54EA\u500B\u984D\u5916\u689D\u4EF6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5FC5\u9808\u662F\u7C21\u55AE\u7684\u2014\u2014\u5167\u90E8\u7121\u91CD\u8907\u7BC0\u9EDE\uFF08\u50C5\u7576\u8D77\u9EDE\u8207\u7D42\u9EDE\u76F8\u540C\u6642\u624D\u5141\u8A31\u4E00\u500B\u74B0\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u689D du-path \u90FD\u662F\u5F9E def \u5230 use \u7684\u7C21\u55AE\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B83\u5FC5\u9808\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u5230\u7D50\u675F\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "du-path \u5F9E def \u5230 use\uFF0C\u4E0D\u4E00\u5B9A\u5F9E\u9032\u5165\u9EDE\u5230\u96E2\u958B\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u5FC5\u9808\u5305\u542B\u4E00\u500B p-use",
+                "fraction": 0,
+                "feedback": "du-path \u53EF\u7D50\u675F\u65BC c-use \u6216 p-use\uFF1B\u6C92\u6709 p-use \u7684\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u5B83\u5FC5\u9808\u62DC\u8A2A\u8A72\u8B8A\u6578\u7684\u6BCF\u500B use",
+                "fraction": 0,
+                "feedback": "du-path \u9023\u63A5\u4E00\u500B def \u8207\u4E00\u500B use\uFF0C\u800C\u975E\u6240\u6709 use\u3002"
+              }
+            ],
+            "generalFeedback": "du-path \u662F\u4E00\u689D\u984D\u5916\u70BA\u7C21\u55AE\u7684\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91\uFF1A\u5167\u90E8\u4E0D\u53EF\u91CD\u8907\u7BC0\u9EDE\uFF0C\u81F3\u591A\u5141\u8A31\u4E00\u500B\u8D77\u9EDE\u8207\u7D42\u9EDE\u76F8\u540C\u7684\u74B0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u55AE\u5206\u652F\u88AB\u8986\u6BBA\u7684 DU pair \u4E4B du-path \u6578",
+            "text": "<p>\u5728\u7247\u6BB5 D \u4E2D\uFF1A</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(y def@2, c-use@5)</code> \u6709\u5E7E\u689D du-path\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1\u2014\u2014\u53EA\u6709 2\u21923\u21925\uFF0C\u56E0\u70BA\u771F\u5206\u652F\u8DEF\u5F91 2\u21923\u21924\u21925 \u88AB\u7B2C 4 \u884C\u7684\u518D\u5B9A\u7FA9\u8986\u6BBA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709\u5047\u5206\u652F\u8DEF\u5F91\u5C0D\u7B2C 2 \u884C\u7684 def \u4FDD\u6301\u5B9A\u7FA9\u6F54\u6DE8\u3002"
+              },
+              {
+                "text": "2\u2014\u20142\u21923\u21924\u21925 \u8207 2\u21923\u21925 \u5169\u689D",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91 2\u21923\u21924\u21925 \u7D93\u904E\u7B2C 4 \u884C\u7684\u518D\u5B9A\u7FA9\uFF0C\u6545\u5C0D\u7B2C 2 \u884C\u7684 def \u4E0D\u662F\u5B9A\u7FA9\u6F54\u6DE8\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u7B2C 2 \u884C\u7684 def \u5F9E\u672A\u5230\u9054\u7B2C 5 \u884C",
+                "fraction": 0,
+                "feedback": "\u7D93\u5047\u5206\u652F 2\u21923\u21925\uFF0C\u7B2C 2 \u884C\u7684 def \u78BA\u5BE6\u5230\u9054\u7B2C 5 \u884C\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u55AE\u4E00\u689D\u5B9A\u7FA9\u6F54\u6DE8\u8DEF\u5F91 2\u21923\u21925 \u7B26\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u771F\u5206\u652F\u8DEF\u5F91 2\u21923\u21924\u21925 \u5728\u7B2C 4 \u884C\u518D\u5B9A\u7FA9 y\uFF08\u8986\u6BBA\uFF09\uFF0C\u6545\u4E0D\u662F\u5B9A\u7FA9\u6F54\u6DE8\u3002\u53EA\u6709 2\u21923\u21925 \u628A\u7B2C 2 \u884C\u7684 def \u5E36\u5230\u7B2C 5 \u884C\u2014\u2014\u4E00\u689D du-path\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "graph-path": {
       "en": {
         "easy": [
