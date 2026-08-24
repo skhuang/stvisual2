@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Graph Path Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Simple path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path in a graph is a <strong>simple path</strong> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No node appears more than once, except that the first and last node may be identical</text><feedback><text>Correct — a simple path has no internal repeats; only the endpoints may coincide (a round trip).</text></feedback></answer>
+    <answer fraction="0"><text>It visits every node of the graph exactly once</text><feedback><text>That is a Hamiltonian path; a simple path need not touch every node.</text></feedback></answer>
+    <answer fraction="0"><text>It runs from an initial node to a final node</text><feedback><text>That is a test path / complete path; a simple path can start and end anywhere.</text></feedback></answer>
+    <answer fraction="0"><text>No edge is traversed more than once</text><feedback><text>Simplicity is defined on nodes, not edges; a simple path forbids repeated nodes (except the endpoints).</text></feedback></answer>
+    <generalfeedback><text>A simple path repeats no node, with the single exception that its first and last node may be the same, which lets a simple path form a loop (a round trip).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>prime path</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A simple path that is not a proper subpath of any other simple path (a maximal simple path)</text><feedback><text>Correct — a prime path is a simple path that cannot be extended into a longer simple path.</text></feedback></answer>
+    <answer fraction="0"><text>The shortest path between two nodes</text><feedback><text>Prime paths are about maximality of simple paths, not shortest distance.</text></feedback></answer>
+    <answer fraction="0"><text>Any path from the initial node to a final node</text><feedback><text>That is a complete/test path; a prime path need not start at entry or end at exit.</text></feedback></answer>
+    <answer fraction="0"><text>A path that visits every node exactly once</text><feedback><text>That is a Hamiltonian path; a prime path need not visit every node.</text></feedback></answer>
+    <generalfeedback><text>A prime path is a maximal simple path: it is simple, and no longer simple path contains it as a contiguous subpath.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-pair definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <strong>edge-pair</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A path of length 2 — two consecutive edges u→v→w sharing the middle node v</text><feedback><text>Correct — an edge-pair is a length-2 path formed by two adjacent edges.</text></feedback></answer>
+    <answer fraction="0"><text>Any two edges of the graph, whether or not they are adjacent</text><feedback><text>An edge-pair requires the two edges to be adjacent (share a middle node), forming a length-2 path.</text></feedback></answer>
+    <answer fraction="0"><text>A single edge together with its reverse</text><feedback><text>Direction is not reversed; an edge-pair is two consecutive forward edges.</text></feedback></answer>
+    <answer fraction="0"><text>A pair of nodes connected by an edge</text><feedback><text>That is just an edge; an edge-pair is two adjacent edges (a length-2 path).</text></feedback></answer>
+    <generalfeedback><text>An edge-pair is a path of length 2: edges u→v and v→w chained through a shared middle node v.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Complete path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>complete path</strong> in a control-flow graph is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A path that starts at an initial node and ends at a final node</text><feedback><text>Correct — a complete path runs the whole way from entry to exit.</text></feedback></answer>
+    <answer fraction="0"><text>A simple path that cannot be extended</text><feedback><text>That is a prime path; a complete path is defined by its entry/exit endpoints and may repeat nodes.</text></feedback></answer>
+    <answer fraction="0"><text>A path that visits every edge of the graph</text><feedback><text>Covering every edge is Edge Coverage; a complete path just runs from entry to exit.</text></feedback></answer>
+    <answer fraction="0"><text>Any path of length 2</text><feedback><text>That is an edge-pair, not a complete path.</text></feedback></answer>
+    <generalfeedback><text>A complete path goes from an initial node to a final node; each program execution follows one complete path, and it may repeat nodes (e.g. loop iterations).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In graph-based testing, a <strong>test path</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A path that starts at an initial node and ends at a final node — one complete execution</text><feedback><text>Correct — a test path represents one run of the program from entry to exit.</text></feedback></answer>
+    <answer fraction="0"><text>A simple path that is maximal</text><feedback><text>That is a prime path; a test path may repeat nodes and must run entry to exit.</text></feedback></answer>
+    <answer fraction="0"><text>Any single edge of the graph</text><feedback><text>A single edge is a length-1 path, not necessarily a full entry-to-exit execution.</text></feedback></answer>
+    <answer fraction="0"><text>A path that never repeats a node</text><feedback><text>Test paths may repeat nodes (loops); only simple paths forbid internal repeats.</text></feedback></answer>
+    <generalfeedback><text>A test path runs from an initial node to a final node; a test case executes exactly one test path, which may traverse loops and repeat nodes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Round-trip path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>round-trip path</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A prime path of nonzero length whose first and last node are the same</text><feedback><text>Correct — a round-trip path is a prime path that begins and ends at the same node.</text></feedback></answer>
+    <answer fraction="0"><text>Any path from the initial node to a final node and back</text><feedback><text>A round-trip path is a maximal simple cycle (prime), not a full entry-exit-entry run.</text></feedback></answer>
+    <answer fraction="0"><text>A path that traverses every edge in both directions</text><feedback><text>Round-trip refers to returning to the starting node, not to reversing edges.</text></feedback></answer>
+    <answer fraction="0"><text>A path of length 2</text><feedback><text>That is an edge-pair; a round-trip path is a prime path with coinciding endpoints.</text></feedback></answer>
+    <generalfeedback><text>A round-trip path is a prime path (a maximal simple path) whose first and last nodes coincide, i.e. a simple cycle that cannot be extended.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime Path Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Prime Path Coverage (PPC)</strong> is satisfied when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every prime path of the graph is toured by at least one test path</text><feedback><text>Correct — PPC requires each prime path to be toured.</text></feedback></answer>
+    <answer fraction="0"><text>Every edge of the graph is traversed</text><feedback><text>That is Edge Coverage, which PPC subsumes but is weaker than PPC.</text></feedback></answer>
+    <answer fraction="0"><text>Every complete path is executed</text><feedback><text>That is Complete Path Coverage, which is stronger and usually infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Every node is visited</text><feedback><text>That is Node Coverage, the weakest of these criteria.</text></feedback></answer>
+    <generalfeedback><text>Prime Path Coverage imposes one test requirement per prime path: each prime path must be toured by some test path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-Pair Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Edge-Pair Coverage (EPC)</strong> is satisfied when the test paths tour:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every reachable path of length up to 2 (each edge-pair, plus edges/nodes that cannot be extended)</text><feedback><text>Correct — EPC requires every reachable path of length ≤ 2.</text></feedback></answer>
+    <answer fraction="0"><text>Every reachable edge, and nothing more</text><feedback><text>That is Edge Coverage; EPC additionally requires the adjacent edge-pairs.</text></feedback></answer>
+    <answer fraction="0"><text>Every prime path of the graph</text><feedback><text>That is Prime Path Coverage, which is stronger than EPC.</text></feedback></answer>
+    <answer fraction="0"><text>Every complete path from entry to exit</text><feedback><text>That is Complete Path Coverage, far stronger and usually infeasible.</text></feedback></answer>
+    <generalfeedback><text>Edge-Pair Coverage requires every reachable path of length ≤ 2; the length-2 paths are the edge-pairs, and shorter paths are included for elements that cannot be extended.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Complete Path Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Complete Path Coverage (CPC)</strong> is satisfied when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every complete path (from an initial node to a final node) is executed by some test path</text><feedback><text>Correct — CPC requires all complete paths, which is why loops usually make it infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Every prime path is toured</text><feedback><text>That is Prime Path Coverage, which is weaker than CPC.</text></feedback></answer>
+    <answer fraction="0"><text>Every edge-pair is toured</text><feedback><text>That is Edge-Pair Coverage, much weaker than CPC.</text></feedback></answer>
+    <answer fraction="0"><text>Every node is visited at least once</text><feedback><text>That is Node Coverage, the weakest criterion here.</text></feedback></answer>
+    <generalfeedback><text>Complete Path Coverage requires touring every complete path; with a loop there are infinitely many complete paths, so CPC is generally infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a prime path in a diamond</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). Which of the following is a <strong>prime path</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1→2→4</text><feedback><text>Correct — 1→2→4 is a maximal simple path; it cannot be extended at either end.</text></feedback></answer>
+    <answer fraction="0"><text>2→4</text><feedback><text>2→4 is a proper subpath of 1→2→4, so it is not maximal and not prime.</text></feedback></answer>
+    <answer fraction="0"><text>1→2</text><feedback><text>1→2 is a proper subpath of 1→2→4, so it is not prime.</text></feedback></answer>
+    <answer fraction="0"><text>1→3→2</text><feedback><text>There is no edge 3→2, so this is not even a valid path.</text></feedback></answer>
+    <generalfeedback><text>The prime paths of this diamond are 1→2→4 and 1→3→4; each is a maximal simple path, while 2→4 and 1→2 are proper subpaths and 1→3→2 is not a path at all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count edge-pairs on a triangle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 2→3, 1→3</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — only 1→2→3 chains two adjacent edges; 1→3 and 2→3 have no continuation.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only one length-2 path exists (1→2→3); node 3 has no outgoing edge to continue.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Three is the edge count; edge-pairs count adjacent edge chains, of which there is only one.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>1→2 followed by 2→3 forms the edge-pair 1→2→3, so the count is 1, not 0.</text></feedback></answer>
+    <generalfeedback><text>For each edge u→v look for an edge v→w: only 1→2 (v=2) continues via 2→3, giving the single edge-pair 1→2→3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count edge-pairs on a diamond</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — 1→2→4 and 1→3→4 are the only length-2 chains.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Four is the edge count; only two adjacent edge chains exist (1→2→4, 1→3→4).</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — the chains are 1→2→4 and 1→3→4, so there are two.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both 1→2→4 and 1→3→4 are edge-pairs, so the count is two.</text></feedback></answer>
+    <generalfeedback><text>Edge-pairs: 1→2 continues via 2→4 (1→2→4), and 1→3 continues via 3→4 (1→3→4); edges into node 4 have no continuation, so the total is 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Length of an edge-pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many edges does an <strong>edge-pair</strong> (a path of length 2) contain, and how many nodes does it visit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 edges and 3 nodes (u, v, w)</text><feedback><text>Correct — two consecutive edges u→v and v→w span three nodes.</text></feedback></answer>
+    <answer fraction="0"><text>1 edge and 2 nodes</text><feedback><text>That is a single edge (length 1), not an edge-pair.</text></feedback></answer>
+    <answer fraction="0"><text>2 edges and 2 nodes</text><feedback><text>Two distinct consecutive edges span three nodes, not two.</text></feedback></answer>
+    <answer fraction="0"><text>3 edges and 4 nodes</text><feedback><text>That is a path of length 3; an edge-pair has length 2.</text></feedback></answer>
+    <generalfeedback><text>Path length counts edges: a length-2 path has 2 edges (u→v, v→w) and therefore visits 3 nodes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which sequence is a simple path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Ignoring which edges exist, which of the following node sequences is a <strong>simple path</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1→2→3→4</text><feedback><text>Correct — all four nodes are distinct, so it is simple.</text></feedback></answer>
+    <answer fraction="0"><text>1→2→3→2</text><feedback><text>Node 2 repeats in an internal position (not as first=last), so it is not simple.</text></feedback></answer>
+    <answer fraction="0"><text>1→2→2→3</text><feedback><text>Node 2 repeats consecutively in the middle, so it is not simple.</text></feedback></answer>
+    <answer fraction="0"><text>2→3→4→3</text><feedback><text>Node 3 repeats internally (positions 2 and 4), so it is not simple.</text></feedback></answer>
+    <generalfeedback><text>A simple path forbids any repeated node except a possible first=last coincidence; 1→2→3→4 has all distinct nodes, while the others repeat a node internally.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CPC infeasible with loops (easy)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete Path Coverage is usually <strong>infeasible</strong> when the program under test contains a loop.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a loop yields infinitely many complete paths (one per iteration count), so CPC cannot generally be achieved.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A loop lets the number of complete paths grow without bound, so touring all of them is infeasible.</text></feedback></answer>
+    <generalfeedback><text>Each additional loop iteration is a distinct complete path, so a loop produces infinitely many complete paths and CPC becomes infeasible.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Path Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Count prime paths (two decisions)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code> (node 1 initial; nodes 5 and 6 final). How many <strong>prime paths</strong> does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 1→2→4→5, 1→2→4→6, 1→3→4→5, 1→3→4→6.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Two counts only the first decision; the second decision at node 4 doubles the maximal paths to four.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Six is the edge count; the maximal simple paths number four.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — combining the choice at node 1 (2 or 3) with the choice at node 4 (5 or 6) gives 2×2 = 4 prime paths.</text></feedback></answer>
+    <generalfeedback><text>The graph is acyclic with a branch at node 1 and a branch at node 4, giving four maximal simple paths: 1→2→4→5, 1→2→4→6, 1→3→4→5, 1→3→4→6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count edge-pairs (two decisions)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 1→2→4, 1→3→4, 2→4→5, 2→4→6, 3→4→5, 3→4→6.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Four is the number of prime paths; there are six adjacent edge chains.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Recount — node 4 has two out-edges, so each edge into 4 continues two ways, giving six chains.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>Recount — 1→2→4, 1→3→4, 2→4→5, 2→4→6, 3→4→5, 3→4→6 is six, not eight.</text></feedback></answer>
+    <generalfeedback><text>For each edge u→v, count edges v→w: edges into 4 (2→4, 3→4) each continue via 4→5 and 4→6 (four chains), and 1→2, 1→3 continue into 4 (two chains) — six edge-pairs total.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>EPC vs EC strength</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do <strong>Edge-Pair Coverage (EPC)</strong> and <strong>Edge Coverage (EC)</strong> compare in strength?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>EPC is strictly stronger: EPC subsumes EC, but not conversely</text><feedback><text>Correct — every edge-pair contains its edges, so EPC ⇒ EC, and covering edge-pairs is a stricter demand.</text></feedback></answer>
+    <answer fraction="0"><text>EC is stronger than EPC</text><feedback><text>Backwards — EPC (adjacent edge pairs) is the stronger criterion.</text></feedback></answer>
+    <answer fraction="0"><text>They are equivalent on every graph</text><feedback><text>They differ: covering edges need not cover all adjacent edge combinations.</text></feedback></answer>
+    <answer fraction="0"><text>They are incomparable</text><feedback><text>They are comparable: EPC subsumes EC.</text></feedback></answer>
+    <generalfeedback><text>Touring every edge-pair traverses each constituent edge, so EPC subsumes EC; the converse fails because covering edges does not force every adjacent pairing at a branch/merge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subsumption ordering</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which chain lists the structural criteria from <strong>strongest to weakest</strong> (⊒ means "subsumes")?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>PPC ⊒ EPC ⊒ EC ⊒ NC</text><feedback><text>Correct — Prime Path ⊒ Edge-Pair ⊒ Edge ⊒ Node.</text></feedback></answer>
+    <answer fraction="0"><text>NC ⊒ EC ⊒ EPC ⊒ PPC</text><feedback><text>This is reversed; Node Coverage is the weakest, not the strongest.</text></feedback></answer>
+    <answer fraction="0"><text>EPC ⊒ PPC ⊒ EC ⊒ NC</text><feedback><text>PPC is stronger than EPC, so PPC must come first.</text></feedback></answer>
+    <answer fraction="0"><text>PPC ⊒ EC ⊒ EPC ⊒ NC</text><feedback><text>EPC sits between PPC and EC, not below EC.</text></feedback></answer>
+    <generalfeedback><text>The structural hierarchy is PPC ⊒ EPC ⊒ EC ⊒ NC; each criterion subsumes the one to its right, and CPC sits above PPC but is usually infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sidetrip definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test path tours a prime path <em>with a <strong>sidetrip</strong></em> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It traverses every edge of the prime path in order, but is allowed excursions that leave a node and return to that same node</text><feedback><text>Correct — a sidetrip preserves all edges of the prime path and returns to the node it departed from.</text></feedback></answer>
+    <answer fraction="0"><text>It visits every node of the prime path in order, but may use different edges between them</text><feedback><text>That describes a detour, which relaxes edges; a sidetrip keeps all the prime path's edges.</text></feedback></answer>
+    <answer fraction="0"><text>It tours the prime path with no extra edges at all</text><feedback><text>That is touring directly; a sidetrip adds an excursion.</text></feedback></answer>
+    <answer fraction="0"><text>It skips part of the prime path entirely</text><feedback><text>A sidetrip never skips the prime path's edges; it adds a return excursion.</text></feedback></answer>
+    <generalfeedback><text>Touring with a sidetrip keeps every edge of the prime path (in order) and permits an excursion that leaves and returns to the same node before continuing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Detour definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test path tours a prime path <em>with a <strong>detour</strong></em> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It visits every node of the prime path in the same order, but may reach the next node via different edges</text><feedback><text>Correct — a detour preserves the node sequence but relaxes which edges are used.</text></feedback></answer>
+    <answer fraction="0"><text>It traverses every edge of the prime path in order, with excursions returning to the same node</text><feedback><text>That describes a sidetrip, which keeps all edges; a detour only preserves the nodes.</text></feedback></answer>
+    <answer fraction="0"><text>It runs the prime path backwards</text><feedback><text>Order is preserved in a detour; it does not reverse the path.</text></feedback></answer>
+    <answer fraction="0"><text>It tours the prime path exactly, edge for edge</text><feedback><text>That is a direct tour; a detour may substitute edges between the same nodes.</text></feedback></answer>
+    <generalfeedback><text>A detour keeps the prime path's node sequence in order but may travel between consecutive nodes by a different route, so it is a weaker touring notion than a sidetrip.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Touring directly</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test path <strong>tours</strong> a prime path (directly) when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The prime path appears as a contiguous subpath of the test path</text><feedback><text>Correct — a direct tour contains the prime path exactly, edge for edge and in order.</text></feedback></answer>
+    <answer fraction="0"><text>The test path shares at least one edge with the prime path</text><feedback><text>Sharing one edge is not enough; the whole prime path must appear contiguously.</text></feedback></answer>
+    <answer fraction="0"><text>The test path visits the endpoints of the prime path</text><feedback><text>Touching the endpoints is insufficient; the entire prime path must be a subpath.</text></feedback></answer>
+    <answer fraction="0"><text>The test path has the same length as the prime path</text><feedback><text>Equal length is irrelevant; touring requires the prime path to be a contiguous subpath.</text></feedback></answer>
+    <generalfeedback><text>A test path tours a prime path directly when the prime path is a contiguous subpath of it; sidetrips and detours are relaxed forms used when a direct tour is impossible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why CPC is usually infeasible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is <strong>Complete Path Coverage</strong> usually infeasible in practice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A loop creates infinitely many complete paths (one for each number of iterations), so they cannot all be toured</text><feedback><text>Correct — unbounded iteration makes the set of complete paths infinite.</text></feedback></answer>
+    <answer fraction="0"><text>Complete paths are hard to draw in a diagram</text><feedback><text>The obstacle is their infinite number under loops, not diagramming difficulty.</text></feedback></answer>
+    <answer fraction="0"><text>Complete paths are not related to the program's behavior</text><feedback><text>Complete paths model whole executions; the issue is that loops make them infinite.</text></feedback></answer>
+    <answer fraction="0"><text>There is no algorithm to find any complete path</text><feedback><text>Finding complete paths is straightforward; enumerating all of them is what fails when loops allow unbounded iteration.</text></feedback></answer>
+    <generalfeedback><text>With a loop, each iteration count yields a distinct complete path, so CPC would require infinitely many test paths — hence it is generally infeasible, and PPC is used as a practical strongest criterion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count prime paths on a triangle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (node 1 initial, node 3 final). How many <strong>prime paths</strong> does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — 1→2→3 and 1→3 are both maximal simple paths.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both 1→2→3 and 1→3 are prime; the edge 1→3 is not a subpath of 1→2→3.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Three is the edge count; only two of the simple paths are maximal.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — the maximal simple paths are just 1→2→3 and 1→3.</text></feedback></answer>
+    <generalfeedback><text>1→2→3 cannot be extended, and 1→3 is not contained in 1→2→3 (which lacks the edge 1→3), so both are prime; the count is 2.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Prime path need not be a test path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A prime path need not begin at an initial node or end at a final node; a prime path is therefore not necessarily a test path on its own.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a prime path is a maximal simple path anywhere in the graph; it must be toured by a test path, but it need not itself run entry-to-exit.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Prime paths can start and end at internal nodes (e.g. a round-trip loop), so they are not always test paths.</text></feedback></answer>
+    <generalfeedback><text>Prime paths are defined by maximality of simple paths, not by entry/exit endpoints; PPC requires each prime path to be toured by some test path, which does run entry-to-exit.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why EPC uses "length up to 2"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Edge-Pair Coverage is defined over paths of length <em>up to</em> 2 rather than exactly 2. Why include the shorter paths?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So that edges (and nodes) which cannot be extended into a length-2 path are still required, keeping EPC ⊒ EC ⊒ NC</text><feedback><text>Correct — the "≤ 2" wording guarantees EPC still subsumes Edge and Node Coverage on small or terminal parts of the graph.</text></feedback></answer>
+    <answer fraction="0"><text>Because length-2 paths do not exist in most graphs</text><feedback><text>Length-2 paths are common; the shorter paths are added for boundary cases, not because pairs are rare.</text></feedback></answer>
+    <answer fraction="0"><text>To make EPC equivalent to Prime Path Coverage</text><feedback><text>EPC remains weaker than PPC; the "≤ 2" wording is about subsuming EC/NC, not matching PPC.</text></feedback></answer>
+    <answer fraction="0"><text>To allow paths that repeat nodes</text><feedback><text>The reason is coverage of non-extendable edges/nodes, not repetition of nodes.</text></feedback></answer>
+    <generalfeedback><text>A final node or a graph too small for any edge-pair would otherwise be uncovered; requiring all reachable paths of length ≤ 2 ensures every edge and node is still a requirement, so EPC subsumes EC and NC.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>PPC subsumes EPC</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Prime Path Coverage subsumes Edge-Pair Coverage</strong>: any test set that satisfies PPC also satisfies EPC.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — every reachable path of length ≤ 2 is a subpath of some prime path, so touring all prime paths covers all edge-pairs.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Each edge-pair lies on some prime path, so satisfying PPC necessarily satisfies EPC.</text></feedback></answer>
+    <generalfeedback><text>Any edge-pair is a simple path of length 2 and hence a subpath of a maximal simple path (a prime path); touring every prime path therefore tours every edge-pair, so PPC ⊒ EPC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a round-trip prime path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 1 initial, node 4 final). Which listed prime path is a <strong>round-trip</strong> path (first node = last node)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2→3→2</text><feedback><text>Correct — 2→3→2 is a maximal simple path whose first and last node coincide.</text></feedback></answer>
+    <answer fraction="0"><text>1→2→4</text><feedback><text>1→2→4 is a prime path, but it starts at 1 and ends at 4, so it is not a round trip.</text></feedback></answer>
+    <answer fraction="0"><text>1→2→3</text><feedback><text>1→2→3 is a prime path but not a round trip (1 ≠ 3).</text></feedback></answer>
+    <answer fraction="0"><text>2→3</text><feedback><text>2→3 is a proper subpath of 2→3→2, so it is not even prime, let alone a round trip.</text></feedback></answer>
+    <generalfeedback><text>The loop 2↔3 gives the round-trip prime path 2→3→2 (and also 3→2→3); a round-trip prime path begins and ends at the same node.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count edge-pairs with a skip edge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 2→3, 3→4, 2→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — 1→2→3, 1→2→4, and 2→3→4.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Four is the edge count; only three adjacent edge chains exist.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Recount — node 2 has two out-edges, so 1→2 continues two ways (1→2→3, 1→2→4), plus 2→3→4.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Recount — 1→2→3, 1→2→4, 2→3→4 is three; edges into node 4 have no continuation.</text></feedback></answer>
+    <generalfeedback><text>1→2 continues via 2→3 and 2→4 (two chains), and 2→3 continues via 3→4 (one chain); edges into node 4 cannot continue, so there are 3 edge-pairs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of subsumption</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Criterion C1 <strong>subsumes</strong> criterion C2 means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every test set that satisfies C1 is guaranteed to also satisfy C2</text><feedback><text>Correct — subsumption is this universal implication between the criteria.</text></feedback></answer>
+    <answer fraction="0"><text>C1 and C2 always require the same test paths</text><feedback><text>That would be equivalence; subsumption is a one-directional guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>C1 needs fewer test paths than C2 on every graph</text><feedback><text>Subsumption is about implication of satisfaction, not about counting test paths.</text></feedback></answer>
+    <answer fraction="0"><text>Some test set satisfying C1 also happens to satisfy C2</text><feedback><text>Subsumption must hold for every satisfying test set, not merely for one.</text></feedback></answer>
+    <generalfeedback><text>C1 subsumes C2 iff any test set meeting C1 necessarily meets C2; e.g. PPC subsumes EPC because touring all prime paths tours all edge-pairs.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Path Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Count prime paths with a loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 1 initial, node 2 the loop condition, node 3 the body, node 4 final). How many <strong>prime paths</strong> does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 1→2→3, 1→2→4, 3→2→4, and the two round-trip prime paths 2→3→2 and 3→2→3.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>A common miss: the loop 2↔3 yields TWO round-trip prime paths (2→3→2 and 3→2→3), not one, giving five in total.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — besides 1→2→3, 1→2→4, 3→2→4 there are also 2→3→2 and 3→2→3, so five.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>There are exactly five maximal simple paths; 2→3 and 3→2 alone are subpaths, not prime.</text></feedback></answer>
+    <generalfeedback><text>The maximal simple paths are: 1→2→3, 1→2→4, 3→2→4, and the two round trips of the loop 2↔3, namely 2→3→2 and 3→2→3 — five prime paths. Rotating a cycle to each start node gives distinct round-trip prime paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Round-trip prime paths of the loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the CFG <code>1→2, 2→3, 3→2, 2→4</code>, which are its <strong>round-trip</strong> prime paths (first node = last node)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2→3→2 and 3→2→3</text><feedback><text>Correct — the cycle 2↔3 gives one round-trip prime path per starting node.</text></feedback></answer>
+    <answer fraction="0"><text>Only 2→3→2</text><feedback><text>3→2→3 is also a maximal simple path with coinciding endpoints, so there are two.</text></feedback></answer>
+    <answer fraction="0"><text>2→3→2 and 1→2→4</text><feedback><text>1→2→4 is a prime path but not a round trip (1 ≠ 4); the second round trip is 3→2→3.</text></feedback></answer>
+    <answer fraction="0"><text>There are no round-trip prime paths</text><feedback><text>The loop 2↔3 does produce round-trip prime paths: 2→3→2 and 3→2→3.</text></feedback></answer>
+    <generalfeedback><text>Writing the simple cycle 2↔3 starting from each of its nodes gives two distinct round-trip prime paths: 2→3→2 and 3→2→3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count prime paths with a self-loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 2→2, 2→3</code> (node 1 initial, node 3 final; 2→2 is a self-loop). How many <strong>prime paths</strong> does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — 1→2→3 and the self-loop round trip 2→2.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>The self-loop 2→2 is itself a maximal simple (round-trip) path, so with 1→2→3 there are two.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>1→2 and 2→3 are proper subpaths of 1→2→3, so they are not prime; the count is two.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — only 1→2→3 and 2→2 are maximal simple paths.</text></feedback></answer>
+    <generalfeedback><text>The self-loop 2→2 has first=last=2 with no internal repeat, so it is a round-trip prime path; together with the maximal 1→2→3 that is two prime paths. A self-loop rotates only to itself, so it contributes a single round-trip prime path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible prime path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A prime path is <strong>infeasible</strong> when no input can drive execution along it. What is the correct consequence for Prime Path Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Literal 100% PPC is unachievable; coverage is measured over the feasible prime paths</text><feedback><text>Correct — infeasible requirements are set aside so the metric stays meaningful.</text></feedback></answer>
+    <answer fraction="0"><text>The whole PPC criterion becomes meaningless and is abandoned</text><feedback><text>The criterion is kept; only the infeasible prime path is excluded from the target.</text></feedback></answer>
+    <answer fraction="0"><text>100% PPC is still achievable by trying harder</text><feedback><text>No input can tour an infeasible prime path, so literal full coverage is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>The prime path is automatically removed from the graph</text><feedback><text>The graph is unchanged; the requirement is simply reported as infeasible.</text></feedback></answer>
+    <generalfeedback><text>Because no test can tour an infeasible prime path, tools report PPC against the feasible prime paths rather than demanding an impossible 100%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Best-effort touring</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A prime path cannot be toured <em>directly</em> by any test path, but it can be toured if a <strong>sidetrip</strong> or <strong>detour</strong> is allowed. What is the standard best-effort response?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Allow the prime path to be toured with a sidetrip (or detour) rather than dropping the requirement</text><feedback><text>Correct — permitting sidetrips/detours recovers coverage of prime paths that no direct tour can reach.</text></feedback></answer>
+    <answer fraction="0"><text>Immediately declare the prime path infeasible and ignore it</text><feedback><text>A prime path tourable via a sidetrip is feasible; best effort tours it with the sidetrip instead of discarding it.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the prime path from the requirement set with no substitute</text><feedback><text>Best effort keeps the requirement and satisfies it with a relaxed tour.</text></feedback></answer>
+    <answer fraction="0"><text>Require a direct tour anyway, leaving the requirement unmet</text><feedback><text>If no direct tour exists, insisting on one just leaves the prime path uncovered; sidetrips/detours are the remedy.</text></feedback></answer>
+    <generalfeedback><text>When a prime path has no direct tour, best-effort touring permits a sidetrip (all edges kept, with returning excursions) or a detour (nodes kept in order) so the requirement can still be satisfied.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why CPC is infeasible but PPC is not</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a CFG with a loop, why is Complete Path Coverage infeasible while Prime Path Coverage remains achievable?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Complete paths are unbounded in number (one per iteration count), but prime paths are simple, so there are only finitely many</text><feedback><text>Correct — simplicity bounds prime paths; complete paths are unbounded under looping.</text></feedback></answer>
+    <answer fraction="0"><text>Prime paths ignore the loop entirely</text><feedback><text>Prime paths include the loop's round trips; they are just finite because they are simple.</text></feedback></answer>
+    <answer fraction="0"><text>Complete paths do not exist when there is a loop</text><feedback><text>Complete paths certainly exist; the problem is that there are infinitely many.</text></feedback></answer>
+    <answer fraction="0"><text>Prime Path Coverage does not require touring the loop</text><feedback><text>PPC does require touring the loop's round-trip prime paths; it stays finite because prime paths are simple.</text></feedback></answer>
+    <generalfeedback><text>A loop lets a complete path iterate any number of times, giving infinitely many complete paths (CPC infeasible); prime paths are simple, so their length is bounded by the node count and their number is finite (PPC achievable).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime path vs Hamiltonian path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does a <strong>prime path</strong> differ from a <strong>Hamiltonian path</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A prime path is a maximal simple path and need not visit every node; a Hamiltonian path must visit every node exactly once</text><feedback><text>Correct — maximality among simple paths does not force visiting all nodes.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same thing</text><feedback><text>They differ: a prime path can omit nodes, while a Hamiltonian path must include them all.</text></feedback></answer>
+    <answer fraction="0"><text>A prime path must visit every node, a Hamiltonian path need not</text><feedback><text>Backwards — the Hamiltonian path is the one required to visit every node.</text></feedback></answer>
+    <answer fraction="0"><text>A prime path must start at the initial node; a Hamiltonian path must not</text><feedback><text>Neither is defined by the initial node; the distinction is about visiting all nodes.</text></feedback></answer>
+    <generalfeedback><text>A prime path is simply a maximal simple path; it may skip nodes. A Hamiltonian path is a stricter global notion requiring every node to be visited exactly once.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime path vs complete path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement correctly distinguishes a <strong>prime path</strong> from a <strong>complete path</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A complete path runs entry-to-exit and may repeat nodes; a prime path is a maximal simple path and may start/end at internal nodes</text><feedback><text>Correct — complete paths are defined by endpoints and allow repeats; prime paths are simple and maximal.</text></feedback></answer>
+    <answer fraction="0"><text>Both must run from an initial node to a final node</text><feedback><text>Only complete paths must; a prime path can begin and end internally (e.g. a round trip).</text></feedback></answer>
+    <answer fraction="0"><text>Both forbid any repeated node</text><feedback><text>Complete paths may repeat nodes (loops); only prime/simple paths forbid internal repeats.</text></feedback></answer>
+    <answer fraction="0"><text>A prime path is always longer than any complete path</text><feedback><text>Complete paths can be arbitrarily long (loops); prime paths are bounded by the node count.</text></feedback></answer>
+    <generalfeedback><text>A complete path is any entry-to-exit execution and can repeat nodes through loops; a prime path is a maximal simple path anywhere in the graph and forbids internal repeats.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count edge-pairs with a loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w, back edges allowed) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 1→2→3, 1→2→4, 2→3→2, 3→2→3, and 3→2→4.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — the back edge 3→2 both continues (3→2→3, 3→2→4) and is continued into (2→3→2), giving five chains.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — 1→2→3, 1→2→4, 2→3→2, 3→2→3, 3→2→4 is five; the edge into node 4 cannot continue.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The loop adds edge-pairs through the back edge (2→3→2, 3→2→3, 3→2→4), raising the total to five.</text></feedback></answer>
+    <generalfeedback><text>For each edge u→v find edges v→w: 1→2 gives 1→2→3 and 1→2→4; 2→3 gives 2→3→2; 3→2 gives 3→2→3 and 3→2→4; 2→4 cannot continue. Total = 5 edge-pairs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>EPC subsumption edge case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider a CFG whose only reachable structure past some point is a single final node with no outgoing edge, so no length-2 path passes through it. Why does the "length ≤ 2" definition of Edge-Pair Coverage matter here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The shorter (length ≤ 1) requirements ensure the incoming edge and the final node are still covered, so EPC keeps subsuming EC and NC</text><feedback><text>Correct — without the "≤ 2" clause, elements with no edge-pair through them could be missed, breaking subsumption.</text></feedback></answer>
+    <answer fraction="0"><text>It lets EPC ignore the final node entirely</text><feedback><text>The opposite — the clause guarantees the final node is still a requirement.</text></feedback></answer>
+    <answer fraction="0"><text>It makes EPC equivalent to Prime Path Coverage there</text><feedback><text>EPC stays weaker than PPC; the clause is about preserving EC/NC subsumption.</text></feedback></answer>
+    <answer fraction="0"><text>It permits paths that repeat the final node</text><feedback><text>The final node has no out-edge; the clause is about covering non-extendable elements, not repetition.</text></feedback></answer>
+    <generalfeedback><text>If a node/edge cannot sit in any length-2 path (e.g. a terminal edge into a final node), requiring only exact length-2 paths would leave it uncovered; the "length ≤ 2" wording adds the shorter requirements so EPC still subsumes EC and NC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PPC and CPC direction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about <strong>Prime Path Coverage (PPC)</strong> and <strong>Complete Path Coverage (CPC)</strong> is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CPC subsumes PPC, but PPC does not subsume CPC</text><feedback><text>Correct — executing all complete paths tours every feasible prime path, but touring prime paths does not force every complete path.</text></feedback></answer>
+    <answer fraction="0"><text>PPC subsumes CPC</text><feedback><text>Backwards — CPC is the stronger (and usually infeasible) criterion.</text></feedback></answer>
+    <answer fraction="0"><text>They are equivalent</text><feedback><text>They are not: CPC is strictly stronger, requiring all complete paths, not just prime ones.</text></feedback></answer>
+    <answer fraction="0"><text>They are incomparable</text><feedback><text>They are comparable: CPC subsumes PPC.</text></feedback></answer>
+    <generalfeedback><text>Every feasible prime path lies on some complete path, so covering all complete paths (CPC) satisfies PPC; the reverse fails because a finite prime-path suite need not exercise every loop-iteration count. Hence CPC ⊒ PPC, and CPC is the strongest but usually infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sidetrip vs detour precisely</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing correctly states the precise difference between a <strong>sidetrip</strong> and a <strong>detour</strong> when touring a prime path q?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Sidetrip: every edge of q is traversed in order (with returning excursions). Detour: every node of q is visited in order, but edges between them may differ</text><feedback><text>Correct — sidetrips preserve edges, detours only preserve the node sequence.</text></feedback></answer>
+    <answer fraction="0"><text>Sidetrip preserves the nodes only; detour preserves the edges</text><feedback><text>Reversed — the sidetrip is the edge-preserving one.</text></feedback></answer>
+    <answer fraction="0"><text>Both preserve every edge of q; they differ only in length</text><feedback><text>Only the sidetrip preserves every edge; the detour may replace edges between the same nodes.</text></feedback></answer>
+    <answer fraction="0"><text>Both preserve only the endpoints of q</text><feedback><text>Sidetrips keep all edges and detours keep all nodes in order; neither keeps only the endpoints.</text></feedback></answer>
+    <generalfeedback><text>A sidetrip keeps every edge of q in order and merely inserts excursions that return to the departure node; a detour is weaker, keeping only q's node sequence and allowing different edges between consecutive nodes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which subsumption claim is false</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following subsumption claims is <strong>false</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Node Coverage subsumes Edge Coverage</text><feedback><text>Correct — this is false; NC is weaker than EC, so NC does not subsume EC.</text></feedback></answer>
+    <answer fraction="0"><text>Prime Path Coverage subsumes Edge-Pair Coverage</text><feedback><text>This is true: every edge-pair lies on a prime path.</text></feedback></answer>
+    <answer fraction="0"><text>Edge-Pair Coverage subsumes Edge Coverage</text><feedback><text>This is true: touring edge-pairs traverses each constituent edge.</text></feedback></answer>
+    <answer fraction="0"><text>Edge Coverage subsumes Node Coverage</text><feedback><text>This is true: traversing every edge visits every reachable node.</text></feedback></answer>
+    <generalfeedback><text>The hierarchy is PPC ⊒ EPC ⊒ EC ⊒ NC; subsumption points from stronger to weaker, so "NC subsumes EC" is the reversed, false claim.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Maximum PPC with an infeasible prime path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has exactly 5 prime paths, one of which is infeasible. Counting all 5 prime paths, what is the maximum Prime Path Coverage any test suite can achieve?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>80% (4 of 5)</text><feedback><text>Correct — the infeasible prime path can never be toured, so at most 4/5 = 80%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>No input can tour the infeasible prime path, so literal 5/5 is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>75% (3 of 4)</text><feedback><text>Coverage is measured over all 5 stated prime paths: 4/5 = 80%, not 3/4.</text></feedback></answer>
+    <answer fraction="0"><text>60% (3 of 5)</text><feedback><text>Only one prime path is infeasible, so up to 4 of 5 are tourable = 80%.</text></feedback></answer>
+    <generalfeedback><text>One infeasible prime path caps literal PPC at 4/5 = 80%; in practice coverage is reported over the feasible prime paths instead.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which path is not prime</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the while-loop CFG <code>1→2, 2→3, 3→2, 2→4</code>, which of the following simple paths is <strong>NOT</strong> a prime path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2→3</text><feedback><text>Correct — 2→3 is a proper subpath of 1→2→3 (and of 2→3→2), so it is not maximal and not prime.</text></feedback></answer>
+    <answer fraction="0"><text>3→2→3</text><feedback><text>3→2→3 is a maximal simple round-trip path, so it is prime.</text></feedback></answer>
+    <answer fraction="0"><text>3→2→4</text><feedback><text>3→2→4 cannot be extended into a longer simple path, so it is prime.</text></feedback></answer>
+    <answer fraction="0"><text>1→2→3</text><feedback><text>1→2→3 is maximal (it cannot be extended without repeating node 2), so it is prime.</text></feedback></answer>
+    <generalfeedback><text>The prime paths are 1→2→3, 1→2→4, 3→2→4, 2→3→2, 3→2→3; the single edge 2→3 is a proper subpath of longer simple paths, so it is not prime.</text></generalfeedback>
+  </question>
+</quiz>

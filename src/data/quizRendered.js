@@ -5041,6 +5041,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "graph-path": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Simple path definition",
+          "text": "<p>A path in a graph is a <strong>simple path</strong> when:</p>",
+          "answers": [
+            {
+              "text": "No node appears more than once, except that the first and last node may be identical",
+              "fraction": 100,
+              "feedback": "Correct — a simple path has no internal repeats; only the endpoints may coincide (a round trip)."
+            },
+            {
+              "text": "It visits every node of the graph exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path; a simple path need not touch every node."
+            },
+            {
+              "text": "It runs from an initial node to a final node",
+              "fraction": 0,
+              "feedback": "That is a test path / complete path; a simple path can start and end anywhere."
+            },
+            {
+              "text": "No edge is traversed more than once",
+              "fraction": 0,
+              "feedback": "Simplicity is defined on nodes, not edges; a simple path forbids repeated nodes (except the endpoints)."
+            }
+          ],
+          "generalFeedback": "A simple path repeats no node, with the single exception that its first and last node may be the same, which lets a simple path form a loop (a round trip).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path definition",
+          "text": "<p>A <strong>prime path</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A simple path that is not a proper subpath of any other simple path (a maximal simple path)",
+              "fraction": 100,
+              "feedback": "Correct — a prime path is a simple path that cannot be extended into a longer simple path."
+            },
+            {
+              "text": "The shortest path between two nodes",
+              "fraction": 0,
+              "feedback": "Prime paths are about maximality of simple paths, not shortest distance."
+            },
+            {
+              "text": "Any path from the initial node to a final node",
+              "fraction": 0,
+              "feedback": "That is a complete/test path; a prime path need not start at entry or end at exit."
+            },
+            {
+              "text": "A path that visits every node exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path; a prime path need not visit every node."
+            }
+          ],
+          "generalFeedback": "A prime path is a maximal simple path: it is simple, and no longer simple path contains it as a contiguous subpath.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair definition",
+          "text": "<p>An <strong>edge-pair</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A path of length 2 — two consecutive edges u→v→w sharing the middle node v",
+              "fraction": 100,
+              "feedback": "Correct — an edge-pair is a length-2 path formed by two adjacent edges."
+            },
+            {
+              "text": "Any two edges of the graph, whether or not they are adjacent",
+              "fraction": 0,
+              "feedback": "An edge-pair requires the two edges to be adjacent (share a middle node), forming a length-2 path."
+            },
+            {
+              "text": "A single edge together with its reverse",
+              "fraction": 0,
+              "feedback": "Direction is not reversed; an edge-pair is two consecutive forward edges."
+            },
+            {
+              "text": "A pair of nodes connected by an edge",
+              "fraction": 0,
+              "feedback": "That is just an edge; an edge-pair is two adjacent edges (a length-2 path)."
+            }
+          ],
+          "generalFeedback": "An edge-pair is a path of length 2: edges u→v and v→w chained through a shared middle node v.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complete path definition",
+          "text": "<p>A <strong>complete path</strong> in a control-flow graph is:</p>",
+          "answers": [
+            {
+              "text": "A path that starts at an initial node and ends at a final node",
+              "fraction": 100,
+              "feedback": "Correct — a complete path runs the whole way from entry to exit."
+            },
+            {
+              "text": "A simple path that cannot be extended",
+              "fraction": 0,
+              "feedback": "That is a prime path; a complete path is defined by its entry/exit endpoints and may repeat nodes."
+            },
+            {
+              "text": "A path that visits every edge of the graph",
+              "fraction": 0,
+              "feedback": "Covering every edge is Edge Coverage; a complete path just runs from entry to exit."
+            },
+            {
+              "text": "Any path of length 2",
+              "fraction": 0,
+              "feedback": "That is an edge-pair, not a complete path."
+            }
+          ],
+          "generalFeedback": "A complete path goes from an initial node to a final node; each program execution follows one complete path, and it may repeat nodes (e.g. loop iterations).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test path definition",
+          "text": "<p>In graph-based testing, a <strong>test path</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A path that starts at an initial node and ends at a final node — one complete execution",
+              "fraction": 100,
+              "feedback": "Correct — a test path represents one run of the program from entry to exit."
+            },
+            {
+              "text": "A simple path that is maximal",
+              "fraction": 0,
+              "feedback": "That is a prime path; a test path may repeat nodes and must run entry to exit."
+            },
+            {
+              "text": "Any single edge of the graph",
+              "fraction": 0,
+              "feedback": "A single edge is a length-1 path, not necessarily a full entry-to-exit execution."
+            },
+            {
+              "text": "A path that never repeats a node",
+              "fraction": 0,
+              "feedback": "Test paths may repeat nodes (loops); only simple paths forbid internal repeats."
+            }
+          ],
+          "generalFeedback": "A test path runs from an initial node to a final node; a test case executes exactly one test path, which may traverse loops and repeat nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Round-trip path definition",
+          "text": "<p>A <strong>round-trip path</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A prime path of nonzero length whose first and last node are the same",
+              "fraction": 100,
+              "feedback": "Correct — a round-trip path is a prime path that begins and ends at the same node."
+            },
+            {
+              "text": "Any path from the initial node to a final node and back",
+              "fraction": 0,
+              "feedback": "A round-trip path is a maximal simple cycle (prime), not a full entry-exit-entry run."
+            },
+            {
+              "text": "A path that traverses every edge in both directions",
+              "fraction": 0,
+              "feedback": "Round-trip refers to returning to the starting node, not to reversing edges."
+            },
+            {
+              "text": "A path of length 2",
+              "fraction": 0,
+              "feedback": "That is an edge-pair; a round-trip path is a prime path with coinciding endpoints."
+            }
+          ],
+          "generalFeedback": "A round-trip path is a prime path (a maximal simple path) whose first and last nodes coincide, i.e. a simple cycle that cannot be extended.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime Path Coverage definition",
+          "text": "<p><strong>Prime Path Coverage (PPC)</strong> is satisfied when:</p>",
+          "answers": [
+            {
+              "text": "Every prime path of the graph is toured by at least one test path",
+              "fraction": 100,
+              "feedback": "Correct — PPC requires each prime path to be toured."
+            },
+            {
+              "text": "Every edge of the graph is traversed",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage, which PPC subsumes but is weaker than PPC."
+            },
+            {
+              "text": "Every complete path is executed",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, which is stronger and usually infeasible."
+            },
+            {
+              "text": "Every node is visited",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, the weakest of these criteria."
+            }
+          ],
+          "generalFeedback": "Prime Path Coverage imposes one test requirement per prime path: each prime path must be toured by some test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-Pair Coverage definition",
+          "text": "<p><strong>Edge-Pair Coverage (EPC)</strong> is satisfied when the test paths tour:</p>",
+          "answers": [
+            {
+              "text": "Every reachable path of length up to 2 (each edge-pair, plus edges/nodes that cannot be extended)",
+              "fraction": 100,
+              "feedback": "Correct — EPC requires every reachable path of length ≤ 2."
+            },
+            {
+              "text": "Every reachable edge, and nothing more",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage; EPC additionally requires the adjacent edge-pairs."
+            },
+            {
+              "text": "Every prime path of the graph",
+              "fraction": 0,
+              "feedback": "That is Prime Path Coverage, which is stronger than EPC."
+            },
+            {
+              "text": "Every complete path from entry to exit",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, far stronger and usually infeasible."
+            }
+          ],
+          "generalFeedback": "Edge-Pair Coverage requires every reachable path of length ≤ 2; the length-2 paths are the edge-pairs, and shorter paths are included for elements that cannot be extended.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complete Path Coverage definition",
+          "text": "<p><strong>Complete Path Coverage (CPC)</strong> is satisfied when:</p>",
+          "answers": [
+            {
+              "text": "Every complete path (from an initial node to a final node) is executed by some test path",
+              "fraction": 100,
+              "feedback": "Correct — CPC requires all complete paths, which is why loops usually make it infeasible."
+            },
+            {
+              "text": "Every prime path is toured",
+              "fraction": 0,
+              "feedback": "That is Prime Path Coverage, which is weaker than CPC."
+            },
+            {
+              "text": "Every edge-pair is toured",
+              "fraction": 0,
+              "feedback": "That is Edge-Pair Coverage, much weaker than CPC."
+            },
+            {
+              "text": "Every node is visited at least once",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, the weakest criterion here."
+            }
+          ],
+          "generalFeedback": "Complete Path Coverage requires touring every complete path; with a loop there are infinitely many complete paths, so CPC is generally infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a prime path in a diamond",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). Which of the following is a <strong>prime path</strong>?</p>",
+          "answers": [
+            {
+              "text": "1→2→4",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4 is a maximal simple path; it cannot be extended at either end."
+            },
+            {
+              "text": "2→4",
+              "fraction": 0,
+              "feedback": "2→4 is a proper subpath of 1→2→4, so it is not maximal and not prime."
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "1→2 is a proper subpath of 1→2→4, so it is not prime."
+            },
+            {
+              "text": "1→3→2",
+              "fraction": 0,
+              "feedback": "There is no edge 3→2, so this is not even a valid path."
+            }
+          ],
+          "generalFeedback": "The prime paths of this diamond are 1→2→4 and 1→3→4; each is a maximal simple path, while 2→4 and 1→2 are proper subpaths and 1→3→2 is not a path at all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs on a triangle",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only 1→2→3 chains two adjacent edges; 1→3 and 2→3 have no continuation."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only one length-2 path exists (1→2→3); node 3 has no outgoing edge to continue."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three is the edge count; edge-pairs count adjacent edge chains, of which there is only one."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "1→2 followed by 2→3 forms the edge-pair 1→2→3, so the count is 1, not 0."
+            }
+          ],
+          "generalFeedback": "For each edge u→v look for an edge v→w: only 1→2 (v=2) continues via 2→3, giving the single edge-pair 1→2→3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs on a diamond",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4 and 1→3→4 are the only length-2 chains."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the edge count; only two adjacent edge chains exist (1→2→4, 1→3→4)."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — the chains are 1→2→4 and 1→3→4, so there are two."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both 1→2→4 and 1→3→4 are edge-pairs, so the count is two."
+            }
+          ],
+          "generalFeedback": "Edge-pairs: 1→2 continues via 2→4 (1→2→4), and 1→3 continues via 3→4 (1→3→4); edges into node 4 have no continuation, so the total is 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Length of an edge-pair",
+          "text": "<p>How many edges does an <strong>edge-pair</strong> (a path of length 2) contain, and how many nodes does it visit?</p>",
+          "answers": [
+            {
+              "text": "2 edges and 3 nodes (u, v, w)",
+              "fraction": 100,
+              "feedback": "Correct — two consecutive edges u→v and v→w span three nodes."
+            },
+            {
+              "text": "1 edge and 2 nodes",
+              "fraction": 0,
+              "feedback": "That is a single edge (length 1), not an edge-pair."
+            },
+            {
+              "text": "2 edges and 2 nodes",
+              "fraction": 0,
+              "feedback": "Two distinct consecutive edges span three nodes, not two."
+            },
+            {
+              "text": "3 edges and 4 nodes",
+              "fraction": 0,
+              "feedback": "That is a path of length 3; an edge-pair has length 2."
+            }
+          ],
+          "generalFeedback": "Path length counts edges: a length-2 path has 2 edges (u→v, v→w) and therefore visits 3 nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which sequence is a simple path",
+          "text": "<p>Ignoring which edges exist, which of the following node sequences is a <strong>simple path</strong>?</p>",
+          "answers": [
+            {
+              "text": "1→2→3→4",
+              "fraction": 100,
+              "feedback": "Correct — all four nodes are distinct, so it is simple."
+            },
+            {
+              "text": "1→2→3→2",
+              "fraction": 0,
+              "feedback": "Node 2 repeats in an internal position (not as first=last), so it is not simple."
+            },
+            {
+              "text": "1→2→2→3",
+              "fraction": 0,
+              "feedback": "Node 2 repeats consecutively in the middle, so it is not simple."
+            },
+            {
+              "text": "2→3→4→3",
+              "fraction": 0,
+              "feedback": "Node 3 repeats internally (positions 2 and 4), so it is not simple."
+            }
+          ],
+          "generalFeedback": "A simple path forbids any repeated node except a possible first=last coincidence; 1→2→3→4 has all distinct nodes, while the others repeat a node internally.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CPC infeasible with loops (easy)",
+          "text": "<p>Complete Path Coverage is usually <strong>infeasible</strong> when the program under test contains a loop.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a loop yields infinitely many complete paths (one per iteration count), so CPC cannot generally be achieved."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A loop lets the number of complete paths grow without bound, so touring all of them is infeasible."
+            }
+          ],
+          "generalFeedback": "Each additional loop iteration is a distinct complete path, so a loop produces infinitely many complete paths and CPC becomes infeasible."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Count prime paths (two decisions)",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code> (node 1 initial; nodes 5 and 6 final). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4→5, 1→2→4→6, 1→3→4→5, 1→3→4→6."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two counts only the first decision; the second decision at node 4 doubles the maximal paths to four."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Six is the edge count; the maximal simple paths number four."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — combining the choice at node 1 (2 or 3) with the choice at node 4 (5 or 6) gives 2×2 = 4 prime paths."
+            }
+          ],
+          "generalFeedback": "The graph is acyclic with a branch at node 1 and a branch at node 4, giving four maximal simple paths: 1→2→4→5, 1→2→4→6, 1→3→4→5, 1→3→4→6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs (two decisions)",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4, 1→3→4, 2→4→5, 2→4→6, 3→4→5, 3→4→6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the number of prime paths; there are six adjacent edge chains."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — node 4 has two out-edges, so each edge into 4 continues two ways, giving six chains."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Recount — 1→2→4, 1→3→4, 2→4→5, 2→4→6, 3→4→5, 3→4→6 is six, not eight."
+            }
+          ],
+          "generalFeedback": "For each edge u→v, count edges v→w: edges into 4 (2→4, 3→4) each continue via 4→5 and 4→6 (four chains), and 1→2, 1→3 continue into 4 (two chains) — six edge-pairs total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC vs EC strength",
+          "text": "<p>How do <strong>Edge-Pair Coverage (EPC)</strong> and <strong>Edge Coverage (EC)</strong> compare in strength?</p>",
+          "answers": [
+            {
+              "text": "EPC is strictly stronger: EPC subsumes EC, but not conversely",
+              "fraction": 100,
+              "feedback": "Correct — every edge-pair contains its edges, so EPC ⇒ EC, and covering edge-pairs is a stricter demand."
+            },
+            {
+              "text": "EC is stronger than EPC",
+              "fraction": 0,
+              "feedback": "Backwards — EPC (adjacent edge pairs) is the stronger criterion."
+            },
+            {
+              "text": "They are equivalent on every graph",
+              "fraction": 0,
+              "feedback": "They differ: covering edges need not cover all adjacent edge combinations."
+            },
+            {
+              "text": "They are incomparable",
+              "fraction": 0,
+              "feedback": "They are comparable: EPC subsumes EC."
+            }
+          ],
+          "generalFeedback": "Touring every edge-pair traverses each constituent edge, so EPC subsumes EC; the converse fails because covering edges does not force every adjacent pairing at a branch/merge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subsumption ordering",
+          "text": "<p>Which chain lists the structural criteria from <strong>strongest to weakest</strong> (⊒ means \"subsumes\")?</p>",
+          "answers": [
+            {
+              "text": "PPC ⊒ EPC ⊒ EC ⊒ NC",
+              "fraction": 100,
+              "feedback": "Correct — Prime Path ⊒ Edge-Pair ⊒ Edge ⊒ Node."
+            },
+            {
+              "text": "NC ⊒ EC ⊒ EPC ⊒ PPC",
+              "fraction": 0,
+              "feedback": "This is reversed; Node Coverage is the weakest, not the strongest."
+            },
+            {
+              "text": "EPC ⊒ PPC ⊒ EC ⊒ NC",
+              "fraction": 0,
+              "feedback": "PPC is stronger than EPC, so PPC must come first."
+            },
+            {
+              "text": "PPC ⊒ EC ⊒ EPC ⊒ NC",
+              "fraction": 0,
+              "feedback": "EPC sits between PPC and EC, not below EC."
+            }
+          ],
+          "generalFeedback": "The structural hierarchy is PPC ⊒ EPC ⊒ EC ⊒ NC; each criterion subsumes the one to its right, and CPC sits above PPC but is usually infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sidetrip definition",
+          "text": "<p>A test path tours a prime path <em>with a <strong>sidetrip</strong></em> when:</p>",
+          "answers": [
+            {
+              "text": "It traverses every edge of the prime path in order, but is allowed excursions that leave a node and return to that same node",
+              "fraction": 100,
+              "feedback": "Correct — a sidetrip preserves all edges of the prime path and returns to the node it departed from."
+            },
+            {
+              "text": "It visits every node of the prime path in order, but may use different edges between them",
+              "fraction": 0,
+              "feedback": "That describes a detour, which relaxes edges; a sidetrip keeps all the prime path's edges."
+            },
+            {
+              "text": "It tours the prime path with no extra edges at all",
+              "fraction": 0,
+              "feedback": "That is touring directly; a sidetrip adds an excursion."
+            },
+            {
+              "text": "It skips part of the prime path entirely",
+              "fraction": 0,
+              "feedback": "A sidetrip never skips the prime path's edges; it adds a return excursion."
+            }
+          ],
+          "generalFeedback": "Touring with a sidetrip keeps every edge of the prime path (in order) and permits an excursion that leaves and returns to the same node before continuing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Detour definition",
+          "text": "<p>A test path tours a prime path <em>with a <strong>detour</strong></em> when:</p>",
+          "answers": [
+            {
+              "text": "It visits every node of the prime path in the same order, but may reach the next node via different edges",
+              "fraction": 100,
+              "feedback": "Correct — a detour preserves the node sequence but relaxes which edges are used."
+            },
+            {
+              "text": "It traverses every edge of the prime path in order, with excursions returning to the same node",
+              "fraction": 0,
+              "feedback": "That describes a sidetrip, which keeps all edges; a detour only preserves the nodes."
+            },
+            {
+              "text": "It runs the prime path backwards",
+              "fraction": 0,
+              "feedback": "Order is preserved in a detour; it does not reverse the path."
+            },
+            {
+              "text": "It tours the prime path exactly, edge for edge",
+              "fraction": 0,
+              "feedback": "That is a direct tour; a detour may substitute edges between the same nodes."
+            }
+          ],
+          "generalFeedback": "A detour keeps the prime path's node sequence in order but may travel between consecutive nodes by a different route, so it is a weaker touring notion than a sidetrip.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Touring directly",
+          "text": "<p>A test path <strong>tours</strong> a prime path (directly) when:</p>",
+          "answers": [
+            {
+              "text": "The prime path appears as a contiguous subpath of the test path",
+              "fraction": 100,
+              "feedback": "Correct — a direct tour contains the prime path exactly, edge for edge and in order."
+            },
+            {
+              "text": "The test path shares at least one edge with the prime path",
+              "fraction": 0,
+              "feedback": "Sharing one edge is not enough; the whole prime path must appear contiguously."
+            },
+            {
+              "text": "The test path visits the endpoints of the prime path",
+              "fraction": 0,
+              "feedback": "Touching the endpoints is insufficient; the entire prime path must be a subpath."
+            },
+            {
+              "text": "The test path has the same length as the prime path",
+              "fraction": 0,
+              "feedback": "Equal length is irrelevant; touring requires the prime path to be a contiguous subpath."
+            }
+          ],
+          "generalFeedback": "A test path tours a prime path directly when the prime path is a contiguous subpath of it; sidetrips and detours are relaxed forms used when a direct tour is impossible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why CPC is usually infeasible",
+          "text": "<p>Why is <strong>Complete Path Coverage</strong> usually infeasible in practice?</p>",
+          "answers": [
+            {
+              "text": "A loop creates infinitely many complete paths (one for each number of iterations), so they cannot all be toured",
+              "fraction": 100,
+              "feedback": "Correct — unbounded iteration makes the set of complete paths infinite."
+            },
+            {
+              "text": "Complete paths are hard to draw in a diagram",
+              "fraction": 0,
+              "feedback": "The obstacle is their infinite number under loops, not diagramming difficulty."
+            },
+            {
+              "text": "Complete paths are not related to the program's behavior",
+              "fraction": 0,
+              "feedback": "Complete paths model whole executions; the issue is that loops make them infinite."
+            },
+            {
+              "text": "There is no algorithm to find any complete path",
+              "fraction": 0,
+              "feedback": "Finding complete paths is straightforward; enumerating all of them is what fails when loops allow unbounded iteration."
+            }
+          ],
+          "generalFeedback": "With a loop, each iteration count yields a distinct complete path, so CPC would require infinitely many test paths — hence it is generally infeasible, and PPC is used as a practical strongest criterion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count prime paths on a triangle",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (node 1 initial, node 3 final). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3 and 1→3 are both maximal simple paths."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both 1→2→3 and 1→3 are prime; the edge 1→3 is not a subpath of 1→2→3."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three is the edge count; only two of the simple paths are maximal."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — the maximal simple paths are just 1→2→3 and 1→3."
+            }
+          ],
+          "generalFeedback": "1→2→3 cannot be extended, and 1→3 is not contained in 1→2→3 (which lacks the edge 1→3), so both are prime; the count is 2.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Prime path need not be a test path",
+          "text": "<p>A prime path need not begin at an initial node or end at a final node; a prime path is therefore not necessarily a test path on its own.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a prime path is a maximal simple path anywhere in the graph; it must be toured by a test path, but it need not itself run entry-to-exit."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Prime paths can start and end at internal nodes (e.g. a round-trip loop), so they are not always test paths."
+            }
+          ],
+          "generalFeedback": "Prime paths are defined by maximality of simple paths, not by entry/exit endpoints; PPC requires each prime path to be toured by some test path, which does run entry-to-exit."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why EPC uses \"length up to 2\"",
+          "text": "<p>Edge-Pair Coverage is defined over paths of length <em>up to</em> 2 rather than exactly 2. Why include the shorter paths?</p>",
+          "answers": [
+            {
+              "text": "So that edges (and nodes) which cannot be extended into a length-2 path are still required, keeping EPC ⊒ EC ⊒ NC",
+              "fraction": 100,
+              "feedback": "Correct — the \"≤ 2\" wording guarantees EPC still subsumes Edge and Node Coverage on small or terminal parts of the graph."
+            },
+            {
+              "text": "Because length-2 paths do not exist in most graphs",
+              "fraction": 0,
+              "feedback": "Length-2 paths are common; the shorter paths are added for boundary cases, not because pairs are rare."
+            },
+            {
+              "text": "To make EPC equivalent to Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "EPC remains weaker than PPC; the \"≤ 2\" wording is about subsuming EC/NC, not matching PPC."
+            },
+            {
+              "text": "To allow paths that repeat nodes",
+              "fraction": 0,
+              "feedback": "The reason is coverage of non-extendable edges/nodes, not repetition of nodes."
+            }
+          ],
+          "generalFeedback": "A final node or a graph too small for any edge-pair would otherwise be uncovered; requiring all reachable paths of length ≤ 2 ensures every edge and node is still a requirement, so EPC subsumes EC and NC.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PPC subsumes EPC",
+          "text": "<p><strong>Prime Path Coverage subsumes Edge-Pair Coverage</strong>: any test set that satisfies PPC also satisfies EPC.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — every reachable path of length ≤ 2 is a subpath of some prime path, so touring all prime paths covers all edge-pairs."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Each edge-pair lies on some prime path, so satisfying PPC necessarily satisfies EPC."
+            }
+          ],
+          "generalFeedback": "Any edge-pair is a simple path of length 2 and hence a subpath of a maximal simple path (a prime path); touring every prime path therefore tours every edge-pair, so PPC ⊒ EPC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a round-trip prime path",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 1 initial, node 4 final). Which listed prime path is a <strong>round-trip</strong> path (first node = last node)?</p>",
+          "answers": [
+            {
+              "text": "2→3→2",
+              "fraction": 100,
+              "feedback": "Correct — 2→3→2 is a maximal simple path whose first and last node coincide."
+            },
+            {
+              "text": "1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 is a prime path, but it starts at 1 and ends at 4, so it is not a round trip."
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 is a prime path but not a round trip (1 ≠ 3)."
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "2→3 is a proper subpath of 2→3→2, so it is not even prime, let alone a round trip."
+            }
+          ],
+          "generalFeedback": "The loop 2↔3 gives the round-trip prime path 2→3→2 (and also 3→2→3); a round-trip prime path begins and ends at the same node.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs with a skip edge",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 3→4, 2→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, and 2→3→4."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the edge count; only three adjacent edge chains exist."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Recount — node 2 has two out-edges, so 1→2 continues two ways (1→2→3, 1→2→4), plus 2→3→4."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — 1→2→3, 1→2→4, 2→3→4 is three; edges into node 4 have no continuation."
+            }
+          ],
+          "generalFeedback": "1→2 continues via 2→3 and 2→4 (two chains), and 2→3 continues via 3→4 (one chain); edges into node 4 cannot continue, so there are 3 edge-pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of subsumption",
+          "text": "<p>Criterion C1 <strong>subsumes</strong> criterion C2 means:</p>",
+          "answers": [
+            {
+              "text": "Every test set that satisfies C1 is guaranteed to also satisfy C2",
+              "fraction": 100,
+              "feedback": "Correct — subsumption is this universal implication between the criteria."
+            },
+            {
+              "text": "C1 and C2 always require the same test paths",
+              "fraction": 0,
+              "feedback": "That would be equivalence; subsumption is a one-directional guarantee."
+            },
+            {
+              "text": "C1 needs fewer test paths than C2 on every graph",
+              "fraction": 0,
+              "feedback": "Subsumption is about implication of satisfaction, not about counting test paths."
+            },
+            {
+              "text": "Some test set satisfying C1 also happens to satisfy C2",
+              "fraction": 0,
+              "feedback": "Subsumption must hold for every satisfying test set, not merely for one."
+            }
+          ],
+          "generalFeedback": "C1 subsumes C2 iff any test set meeting C1 necessarily meets C2; e.g. PPC subsumes EPC because touring all prime paths tours all edge-pairs.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Count prime paths with a loop",
+          "text": "<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 1 initial, node 2 the loop condition, node 3 the body, node 4 final). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, 3→2→4, and the two round-trip prime paths 2→3→2 and 3→2→3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "A common miss: the loop 2↔3 yields TWO round-trip prime paths (2→3→2 and 3→2→3), not one, giving five in total."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — besides 1→2→3, 1→2→4, 3→2→4 there are also 2→3→2 and 3→2→3, so five."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "There are exactly five maximal simple paths; 2→3 and 3→2 alone are subpaths, not prime."
+            }
+          ],
+          "generalFeedback": "The maximal simple paths are: 1→2→3, 1→2→4, 3→2→4, and the two round trips of the loop 2↔3, namely 2→3→2 and 3→2→3 — five prime paths. Rotating a cycle to each start node gives distinct round-trip prime paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Round-trip prime paths of the loop",
+          "text": "<p>For the CFG <code>1→2, 2→3, 3→2, 2→4</code>, which are its <strong>round-trip</strong> prime paths (first node = last node)?</p>",
+          "answers": [
+            {
+              "text": "2→3→2 and 3→2→3",
+              "fraction": 100,
+              "feedback": "Correct — the cycle 2↔3 gives one round-trip prime path per starting node."
+            },
+            {
+              "text": "Only 2→3→2",
+              "fraction": 0,
+              "feedback": "3→2→3 is also a maximal simple path with coinciding endpoints, so there are two."
+            },
+            {
+              "text": "2→3→2 and 1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 is a prime path but not a round trip (1 ≠ 4); the second round trip is 3→2→3."
+            },
+            {
+              "text": "There are no round-trip prime paths",
+              "fraction": 0,
+              "feedback": "The loop 2↔3 does produce round-trip prime paths: 2→3→2 and 3→2→3."
+            }
+          ],
+          "generalFeedback": "Writing the simple cycle 2↔3 starting from each of its nodes gives two distinct round-trip prime paths: 2→3→2 and 3→2→3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count prime paths with a self-loop",
+          "text": "<p>A CFG has edges <code>1→2, 2→2, 2→3</code> (node 1 initial, node 3 final; 2→2 is a self-loop). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3 and the self-loop round trip 2→2."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "The self-loop 2→2 is itself a maximal simple (round-trip) path, so with 1→2→3 there are two."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "1→2 and 2→3 are proper subpaths of 1→2→3, so they are not prime; the count is two."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — only 1→2→3 and 2→2 are maximal simple paths."
+            }
+          ],
+          "generalFeedback": "The self-loop 2→2 has first=last=2 with no internal repeat, so it is a round-trip prime path; together with the maximal 1→2→3 that is two prime paths. A self-loop rotates only to itself, so it contributes a single round-trip prime path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible prime path",
+          "text": "<p>A prime path is <strong>infeasible</strong> when no input can drive execution along it. What is the correct consequence for Prime Path Coverage?</p>",
+          "answers": [
+            {
+              "text": "Literal 100% PPC is unachievable; coverage is measured over the feasible prime paths",
+              "fraction": 100,
+              "feedback": "Correct — infeasible requirements are set aside so the metric stays meaningful."
+            },
+            {
+              "text": "The whole PPC criterion becomes meaningless and is abandoned",
+              "fraction": 0,
+              "feedback": "The criterion is kept; only the infeasible prime path is excluded from the target."
+            },
+            {
+              "text": "100% PPC is still achievable by trying harder",
+              "fraction": 0,
+              "feedback": "No input can tour an infeasible prime path, so literal full coverage is impossible."
+            },
+            {
+              "text": "The prime path is automatically removed from the graph",
+              "fraction": 0,
+              "feedback": "The graph is unchanged; the requirement is simply reported as infeasible."
+            }
+          ],
+          "generalFeedback": "Because no test can tour an infeasible prime path, tools report PPC against the feasible prime paths rather than demanding an impossible 100%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Best-effort touring",
+          "text": "<p>A prime path cannot be toured <em>directly</em> by any test path, but it can be toured if a <strong>sidetrip</strong> or <strong>detour</strong> is allowed. What is the standard best-effort response?</p>",
+          "answers": [
+            {
+              "text": "Allow the prime path to be toured with a sidetrip (or detour) rather than dropping the requirement",
+              "fraction": 100,
+              "feedback": "Correct — permitting sidetrips/detours recovers coverage of prime paths that no direct tour can reach."
+            },
+            {
+              "text": "Immediately declare the prime path infeasible and ignore it",
+              "fraction": 0,
+              "feedback": "A prime path tourable via a sidetrip is feasible; best effort tours it with the sidetrip instead of discarding it."
+            },
+            {
+              "text": "Delete the prime path from the requirement set with no substitute",
+              "fraction": 0,
+              "feedback": "Best effort keeps the requirement and satisfies it with a relaxed tour."
+            },
+            {
+              "text": "Require a direct tour anyway, leaving the requirement unmet",
+              "fraction": 0,
+              "feedback": "If no direct tour exists, insisting on one just leaves the prime path uncovered; sidetrips/detours are the remedy."
+            }
+          ],
+          "generalFeedback": "When a prime path has no direct tour, best-effort touring permits a sidetrip (all edges kept, with returning excursions) or a detour (nodes kept in order) so the requirement can still be satisfied.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why CPC is infeasible but PPC is not",
+          "text": "<p>On a CFG with a loop, why is Complete Path Coverage infeasible while Prime Path Coverage remains achievable?</p>",
+          "answers": [
+            {
+              "text": "Complete paths are unbounded in number (one per iteration count), but prime paths are simple, so there are only finitely many",
+              "fraction": 100,
+              "feedback": "Correct — simplicity bounds prime paths; complete paths are unbounded under looping."
+            },
+            {
+              "text": "Prime paths ignore the loop entirely",
+              "fraction": 0,
+              "feedback": "Prime paths include the loop's round trips; they are just finite because they are simple."
+            },
+            {
+              "text": "Complete paths do not exist when there is a loop",
+              "fraction": 0,
+              "feedback": "Complete paths certainly exist; the problem is that there are infinitely many."
+            },
+            {
+              "text": "Prime Path Coverage does not require touring the loop",
+              "fraction": 0,
+              "feedback": "PPC does require touring the loop's round-trip prime paths; it stays finite because prime paths are simple."
+            }
+          ],
+          "generalFeedback": "A loop lets a complete path iterate any number of times, giving infinitely many complete paths (CPC infeasible); prime paths are simple, so their length is bounded by the node count and their number is finite (PPC achievable).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path vs Hamiltonian path",
+          "text": "<p>How does a <strong>prime path</strong> differ from a <strong>Hamiltonian path</strong>?</p>",
+          "answers": [
+            {
+              "text": "A prime path is a maximal simple path and need not visit every node; a Hamiltonian path must visit every node exactly once",
+              "fraction": 100,
+              "feedback": "Correct — maximality among simple paths does not force visiting all nodes."
+            },
+            {
+              "text": "They are the same thing",
+              "fraction": 0,
+              "feedback": "They differ: a prime path can omit nodes, while a Hamiltonian path must include them all."
+            },
+            {
+              "text": "A prime path must visit every node, a Hamiltonian path need not",
+              "fraction": 0,
+              "feedback": "Backwards — the Hamiltonian path is the one required to visit every node."
+            },
+            {
+              "text": "A prime path must start at the initial node; a Hamiltonian path must not",
+              "fraction": 0,
+              "feedback": "Neither is defined by the initial node; the distinction is about visiting all nodes."
+            }
+          ],
+          "generalFeedback": "A prime path is simply a maximal simple path; it may skip nodes. A Hamiltonian path is a stricter global notion requiring every node to be visited exactly once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path vs complete path",
+          "text": "<p>Which statement correctly distinguishes a <strong>prime path</strong> from a <strong>complete path</strong>?</p>",
+          "answers": [
+            {
+              "text": "A complete path runs entry-to-exit and may repeat nodes; a prime path is a maximal simple path and may start/end at internal nodes",
+              "fraction": 100,
+              "feedback": "Correct — complete paths are defined by endpoints and allow repeats; prime paths are simple and maximal."
+            },
+            {
+              "text": "Both must run from an initial node to a final node",
+              "fraction": 0,
+              "feedback": "Only complete paths must; a prime path can begin and end internally (e.g. a round trip)."
+            },
+            {
+              "text": "Both forbid any repeated node",
+              "fraction": 0,
+              "feedback": "Complete paths may repeat nodes (loops); only prime/simple paths forbid internal repeats."
+            },
+            {
+              "text": "A prime path is always longer than any complete path",
+              "fraction": 0,
+              "feedback": "Complete paths can be arbitrarily long (loops); prime paths are bounded by the node count."
+            }
+          ],
+          "generalFeedback": "A complete path is any entry-to-exit execution and can repeat nodes through loops; a prime path is a maximal simple path anywhere in the graph and forbids internal repeats.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs with a loop",
+          "text": "<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w, back edges allowed) does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, 2→3→2, 3→2→3, and 3→2→4."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — the back edge 3→2 both continues (3→2→3, 3→2→4) and is continued into (2→3→2), giving five chains."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — 1→2→3, 1→2→4, 2→3→2, 3→2→3, 3→2→4 is five; the edge into node 4 cannot continue."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The loop adds edge-pairs through the back edge (2→3→2, 3→2→3, 3→2→4), raising the total to five."
+            }
+          ],
+          "generalFeedback": "For each edge u→v find edges v→w: 1→2 gives 1→2→3 and 1→2→4; 2→3 gives 2→3→2; 3→2 gives 3→2→3 and 3→2→4; 2→4 cannot continue. Total = 5 edge-pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC subsumption edge case",
+          "text": "<p>Consider a CFG whose only reachable structure past some point is a single final node with no outgoing edge, so no length-2 path passes through it. Why does the \"length ≤ 2\" definition of Edge-Pair Coverage matter here?</p>",
+          "answers": [
+            {
+              "text": "The shorter (length ≤ 1) requirements ensure the incoming edge and the final node are still covered, so EPC keeps subsuming EC and NC",
+              "fraction": 100,
+              "feedback": "Correct — without the \"≤ 2\" clause, elements with no edge-pair through them could be missed, breaking subsumption."
+            },
+            {
+              "text": "It lets EPC ignore the final node entirely",
+              "fraction": 0,
+              "feedback": "The opposite — the clause guarantees the final node is still a requirement."
+            },
+            {
+              "text": "It makes EPC equivalent to Prime Path Coverage there",
+              "fraction": 0,
+              "feedback": "EPC stays weaker than PPC; the clause is about preserving EC/NC subsumption."
+            },
+            {
+              "text": "It permits paths that repeat the final node",
+              "fraction": 0,
+              "feedback": "The final node has no out-edge; the clause is about covering non-extendable elements, not repetition."
+            }
+          ],
+          "generalFeedback": "If a node/edge cannot sit in any length-2 path (e.g. a terminal edge into a final node), requiring only exact length-2 paths would leave it uncovered; the \"length ≤ 2\" wording adds the shorter requirements so EPC still subsumes EC and NC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PPC and CPC direction",
+          "text": "<p>Which statement about <strong>Prime Path Coverage (PPC)</strong> and <strong>Complete Path Coverage (CPC)</strong> is correct?</p>",
+          "answers": [
+            {
+              "text": "CPC subsumes PPC, but PPC does not subsume CPC",
+              "fraction": 100,
+              "feedback": "Correct — executing all complete paths tours every feasible prime path, but touring prime paths does not force every complete path."
+            },
+            {
+              "text": "PPC subsumes CPC",
+              "fraction": 0,
+              "feedback": "Backwards — CPC is the stronger (and usually infeasible) criterion."
+            },
+            {
+              "text": "They are equivalent",
+              "fraction": 0,
+              "feedback": "They are not: CPC is strictly stronger, requiring all complete paths, not just prime ones."
+            },
+            {
+              "text": "They are incomparable",
+              "fraction": 0,
+              "feedback": "They are comparable: CPC subsumes PPC."
+            }
+          ],
+          "generalFeedback": "Every feasible prime path lies on some complete path, so covering all complete paths (CPC) satisfies PPC; the reverse fails because a finite prime-path suite need not exercise every loop-iteration count. Hence CPC ⊒ PPC, and CPC is the strongest but usually infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sidetrip vs detour precisely",
+          "text": "<p>Which pairing correctly states the precise difference between a <strong>sidetrip</strong> and a <strong>detour</strong> when touring a prime path q?</p>",
+          "answers": [
+            {
+              "text": "Sidetrip: every edge of q is traversed in order (with returning excursions). Detour: every node of q is visited in order, but edges between them may differ",
+              "fraction": 100,
+              "feedback": "Correct — sidetrips preserve edges, detours only preserve the node sequence."
+            },
+            {
+              "text": "Sidetrip preserves the nodes only; detour preserves the edges",
+              "fraction": 0,
+              "feedback": "Reversed — the sidetrip is the edge-preserving one."
+            },
+            {
+              "text": "Both preserve every edge of q; they differ only in length",
+              "fraction": 0,
+              "feedback": "Only the sidetrip preserves every edge; the detour may replace edges between the same nodes."
+            },
+            {
+              "text": "Both preserve only the endpoints of q",
+              "fraction": 0,
+              "feedback": "Sidetrips keep all edges and detours keep all nodes in order; neither keeps only the endpoints."
+            }
+          ],
+          "generalFeedback": "A sidetrip keeps every edge of q in order and merely inserts excursions that return to the departure node; a detour is weaker, keeping only q's node sequence and allowing different edges between consecutive nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which subsumption claim is false",
+          "text": "<p>Which of the following subsumption claims is <strong>false</strong>?</p>",
+          "answers": [
+            {
+              "text": "Node Coverage subsumes Edge Coverage",
+              "fraction": 100,
+              "feedback": "Correct — this is false; NC is weaker than EC, so NC does not subsume EC."
+            },
+            {
+              "text": "Prime Path Coverage subsumes Edge-Pair Coverage",
+              "fraction": 0,
+              "feedback": "This is true: every edge-pair lies on a prime path."
+            },
+            {
+              "text": "Edge-Pair Coverage subsumes Edge Coverage",
+              "fraction": 0,
+              "feedback": "This is true: touring edge-pairs traverses each constituent edge."
+            },
+            {
+              "text": "Edge Coverage subsumes Node Coverage",
+              "fraction": 0,
+              "feedback": "This is true: traversing every edge visits every reachable node."
+            }
+          ],
+          "generalFeedback": "The hierarchy is PPC ⊒ EPC ⊒ EC ⊒ NC; subsumption points from stronger to weaker, so \"NC subsumes EC\" is the reversed, false claim.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Maximum PPC with an infeasible prime path",
+          "text": "<p>A CFG has exactly 5 prime paths, one of which is infeasible. Counting all 5 prime paths, what is the maximum Prime Path Coverage any test suite can achieve?</p>",
+          "answers": [
+            {
+              "text": "80% (4 of 5)",
+              "fraction": 100,
+              "feedback": "Correct — the infeasible prime path can never be toured, so at most 4/5 = 80%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "No input can tour the infeasible prime path, so literal 5/5 is impossible."
+            },
+            {
+              "text": "75% (3 of 4)",
+              "fraction": 0,
+              "feedback": "Coverage is measured over all 5 stated prime paths: 4/5 = 80%, not 3/4."
+            },
+            {
+              "text": "60% (3 of 5)",
+              "fraction": 0,
+              "feedback": "Only one prime path is infeasible, so up to 4 of 5 are tourable = 80%."
+            }
+          ],
+          "generalFeedback": "One infeasible prime path caps literal PPC at 4/5 = 80%; in practice coverage is reported over the feasible prime paths instead.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which path is not prime",
+          "text": "<p>For the while-loop CFG <code>1→2, 2→3, 3→2, 2→4</code>, which of the following simple paths is <strong>NOT</strong> a prime path?</p>",
+          "answers": [
+            {
+              "text": "2→3",
+              "fraction": 100,
+              "feedback": "Correct — 2→3 is a proper subpath of 1→2→3 (and of 2→3→2), so it is not maximal and not prime."
+            },
+            {
+              "text": "3→2→3",
+              "fraction": 0,
+              "feedback": "3→2→3 is a maximal simple round-trip path, so it is prime."
+            },
+            {
+              "text": "3→2→4",
+              "fraction": 0,
+              "feedback": "3→2→4 cannot be extended into a longer simple path, so it is prime."
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 is maximal (it cannot be extended without repeating node 2), so it is prime."
+            }
+          ],
+          "generalFeedback": "The prime paths are 1→2→3, 1→2→4, 3→2→4, 2→3→2, 3→2→3; the single edge 2→3 is a proper subpath of longer simple paths, so it is not prime.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "簡單路徑的定義",
+          "text": "<p>圖中的一條路徑在何時是<strong>簡單路徑（simple path）</strong>？</p>",
+          "answers": [
+            {
+              "text": "除了頭尾兩節點可以相同以外，沒有任何節點出現超過一次",
+              "fraction": 100,
+              "feedback": "正確——簡單路徑沒有內部重複，只有頭尾可以相同（形成來回）。"
+            },
+            {
+              "text": "它恰好造訪圖中每一個節點一次",
+              "fraction": 0,
+              "feedback": "那是漢彌爾頓路徑；簡單路徑不必碰到每個節點。"
+            },
+            {
+              "text": "它從進入點一路走到結束點",
+              "fraction": 0,
+              "feedback": "那是測試路徑／完整路徑；簡單路徑可以從任意處開始與結束。"
+            },
+            {
+              "text": "沒有任何邊被走過超過一次",
+              "fraction": 0,
+              "feedback": "簡單性是以節點定義的，不是以邊；簡單路徑禁止重複節點（頭尾除外）。"
+            }
+          ],
+          "generalFeedback": "簡單路徑不重複任何節點，唯一的例外是頭尾兩節點可以相同，這讓簡單路徑能形成一個迴圈（來回）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑的定義",
+          "text": "<p>一條<strong>質路徑（prime path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條不是任何其他簡單路徑之真子路徑的簡單路徑（即極大的簡單路徑）",
+              "fraction": 100,
+              "feedback": "正確——質路徑是無法再延伸成更長簡單路徑的簡單路徑。"
+            },
+            {
+              "text": "兩節點間的最短路徑",
+              "fraction": 0,
+              "feedback": "質路徑談的是簡單路徑的極大性，與最短距離無關。"
+            },
+            {
+              "text": "任何從進入點到結束點的路徑",
+              "fraction": 0,
+              "feedback": "那是完整／測試路徑；質路徑不必從進入點開始或在結束點結束。"
+            },
+            {
+              "text": "恰好造訪每個節點一次的路徑",
+              "fraction": 0,
+              "feedback": "那是漢彌爾頓路徑；質路徑不必造訪每個節點。"
+            }
+          ],
+          "generalFeedback": "質路徑是極大的簡單路徑：它是簡單路徑，且沒有更長的簡單路徑能把它當作連續子路徑包含進去。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對的定義",
+          "text": "<p>一個<strong>邊對（edge-pair）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條長度為 2 的路徑——兩條共用中間節點 v 的相鄰邊 u→v→w",
+              "fraction": 100,
+              "feedback": "正確——邊對是由兩條相鄰邊構成的長度為 2 的路徑。"
+            },
+            {
+              "text": "圖中任意兩條邊，不論是否相鄰",
+              "fraction": 0,
+              "feedback": "邊對要求兩邊相鄰（共用中間節點），構成長度為 2 的路徑。"
+            },
+            {
+              "text": "一條邊與其反向邊",
+              "fraction": 0,
+              "feedback": "方向不會反轉；邊對是兩條連續的同向邊。"
+            },
+            {
+              "text": "由一條邊相連的一對節點",
+              "fraction": 0,
+              "feedback": "那只是一條邊；邊對是兩條相鄰邊（長度為 2 的路徑）。"
+            }
+          ],
+          "generalFeedback": "邊對是長度為 2 的路徑：邊 u→v 與 v→w 透過共用的中間節點 v 串接。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整路徑的定義",
+          "text": "<p>在控制流程圖中，一條<strong>完整路徑（complete path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條從進入節點開始、在結束節點結束的路徑",
+              "fraction": 100,
+              "feedback": "正確——完整路徑從進入點一路走到結束點。"
+            },
+            {
+              "text": "一條無法再延伸的簡單路徑",
+              "fraction": 0,
+              "feedback": "那是質路徑；完整路徑以進入／結束端點定義，且可以重複節點。"
+            },
+            {
+              "text": "一條走過圖中每條邊的路徑",
+              "fraction": 0,
+              "feedback": "走過每條邊是邊覆蓋；完整路徑只是從進入點到結束點。"
+            },
+            {
+              "text": "任何長度為 2 的路徑",
+              "fraction": 0,
+              "feedback": "那是邊對，不是完整路徑。"
+            }
+          ],
+          "generalFeedback": "完整路徑從進入節點走到結束節點；每次程式執行都遵循一條完整路徑，且可能重複節點（例如迴圈迭代）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試路徑的定義",
+          "text": "<p>在以圖為基礎的測試中，一條<strong>測試路徑（test path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條從進入節點開始、在結束節點結束的路徑——代表一次完整執行",
+              "fraction": 100,
+              "feedback": "正確——測試路徑代表程式從進入到結束的一次執行。"
+            },
+            {
+              "text": "一條極大的簡單路徑",
+              "fraction": 0,
+              "feedback": "那是質路徑；測試路徑可以重複節點，且必須從進入走到結束。"
+            },
+            {
+              "text": "圖中的任一條單一邊",
+              "fraction": 0,
+              "feedback": "單一邊是長度為 1 的路徑，不一定是完整的進入到結束執行。"
+            },
+            {
+              "text": "一條永不重複任何節點的路徑",
+              "fraction": 0,
+              "feedback": "測試路徑可以重複節點（迴圈）；只有簡單路徑禁止內部重複。"
+            }
+          ],
+          "generalFeedback": "測試路徑從進入節點走到結束節點；一個測試案例恰好執行一條測試路徑，它可以走過迴圈並重複節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "來回路徑的定義",
+          "text": "<p>一條<strong>來回路徑（round-trip path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條長度非零、頭尾為同一節點的質路徑",
+              "fraction": 100,
+              "feedback": "正確——來回路徑是一條開始與結束在同一節點的質路徑。"
+            },
+            {
+              "text": "任何從進入點到結束點再折返的路徑",
+              "fraction": 0,
+              "feedback": "來回路徑是極大的簡單迴圈（質路徑），不是完整的進入-結束-進入執行。"
+            },
+            {
+              "text": "雙向走過每一條邊的路徑",
+              "fraction": 0,
+              "feedback": "來回指的是回到起始節點，而非反向走邊。"
+            },
+            {
+              "text": "一條長度為 2 的路徑",
+              "fraction": 0,
+              "feedback": "那是邊對；來回路徑是頭尾相同的質路徑。"
+            }
+          ],
+          "generalFeedback": "來回路徑是一條頭尾節點相同的質路徑（極大的簡單路徑），也就是一個無法再延伸的簡單迴圈。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑覆蓋的定義",
+          "text": "<p><strong>質路徑覆蓋（Prime Path Coverage, PPC）</strong>在何時被滿足？</p>",
+          "answers": [
+            {
+              "text": "圖中每一條質路徑都被至少一條測試路徑巡覽（tour）",
+              "fraction": 100,
+              "feedback": "正確——PPC 要求每條質路徑都被巡覽。"
+            },
+            {
+              "text": "圖中每一條邊都被走過",
+              "fraction": 0,
+              "feedback": "那是邊覆蓋；PPC 涵蓋它，但邊覆蓋比 PPC 弱。"
+            },
+            {
+              "text": "每一條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是完整路徑覆蓋，更強且通常不可行。"
+            },
+            {
+              "text": "每一個節點都被造訪",
+              "fraction": 0,
+              "feedback": "那是節點覆蓋，是這些準則中最弱的。"
+            }
+          ],
+          "generalFeedback": "質路徑覆蓋對每條質路徑課予一項測試需求：每條質路徑都必須被某條測試路徑巡覽。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對覆蓋的定義",
+          "text": "<p><strong>邊對覆蓋（Edge-Pair Coverage, EPC）</strong>在測試路徑巡覽下列何者時被滿足？</p>",
+          "answers": [
+            {
+              "text": "每一條長度至多為 2 的可到達路徑（每個邊對，加上無法再延伸的邊／節點）",
+              "fraction": 100,
+              "feedback": "正確——EPC 要求每條長度 ≤ 2 的可到達路徑。"
+            },
+            {
+              "text": "每一條可到達的邊，僅此而已",
+              "fraction": 0,
+              "feedback": "那是邊覆蓋；EPC 另外要求相鄰的邊對。"
+            },
+            {
+              "text": "圖中每一條質路徑",
+              "fraction": 0,
+              "feedback": "那是質路徑覆蓋，比 EPC 更強。"
+            },
+            {
+              "text": "每一條從進入到結束的完整路徑",
+              "fraction": 0,
+              "feedback": "那是完整路徑覆蓋，遠更強且通常不可行。"
+            }
+          ],
+          "generalFeedback": "邊對覆蓋要求每一條長度 ≤ 2 的可到達路徑；長度為 2 的路徑就是邊對，較短的路徑則用於納入無法延伸的元素。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整路徑覆蓋的定義",
+          "text": "<p><strong>完整路徑覆蓋（Complete Path Coverage, CPC）</strong>在何時被滿足？</p>",
+          "answers": [
+            {
+              "text": "每一條完整路徑（從進入節點到結束節點）都被某條測試路徑執行",
+              "fraction": 100,
+              "feedback": "正確——CPC 要求所有完整路徑，這正是迴圈通常使其不可行的原因。"
+            },
+            {
+              "text": "每一條質路徑都被巡覽",
+              "fraction": 0,
+              "feedback": "那是質路徑覆蓋，比 CPC 弱。"
+            },
+            {
+              "text": "每一個邊對都被巡覽",
+              "fraction": 0,
+              "feedback": "那是邊對覆蓋，比 CPC 弱得多。"
+            },
+            {
+              "text": "每一個節點都至少被造訪一次",
+              "fraction": 0,
+              "feedback": "那是節點覆蓋，是這裡最弱的準則。"
+            }
+          ],
+          "generalFeedback": "完整路徑覆蓋要求巡覽每一條完整路徑；有迴圈時完整路徑有無限多條，因此 CPC 通常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在菱形圖中辨識質路徑",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4</code>（節點 1 為進入，節點 4 為結束）。下列何者是一條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "1→2→4",
+              "fraction": 100,
+              "feedback": "正確——1→2→4 是一條極大的簡單路徑，兩端都無法再延伸。"
+            },
+            {
+              "text": "2→4",
+              "fraction": 0,
+              "feedback": "2→4 是 1→2→4 的真子路徑，並非極大，因此不是質路徑。"
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "1→2 是 1→2→4 的真子路徑，因此不是質路徑。"
+            },
+            {
+              "text": "1→3→2",
+              "fraction": 0,
+              "feedback": "並不存在邊 3→2，因此這根本不是一條合法路徑。"
+            }
+          ],
+          "generalFeedback": "此菱形的質路徑為 1→2→4 與 1→3→4，各是一條極大的簡單路徑；而 2→4 與 1→2 是真子路徑，1→3→2 則根本不是路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算三角形圖的邊對數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 1→3</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有 1→2→3 能串接兩條相鄰邊；1→3 與 2→3 沒有後續。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有一條長度為 2 的路徑（1→2→3）；節點 3 沒有外向邊可延續。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是邊數；邊對計算相鄰邊的串接，這裡只有一個。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "1→2 接著 2→3 形成邊對 1→2→3，所以數量是 1 而非 0。"
+            }
+          ],
+          "generalFeedback": "對每條邊 u→v 尋找邊 v→w：只有 1→2（v=2）能經由 2→3 延續，得到唯一的邊對 1→2→3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算菱形圖的邊對數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→4 與 1→3→4 是僅有的兩條長度為 2 的串接。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊數；相鄰邊串接只有兩條（1→2→4、1→3→4）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重新數算——串接為 1→2→4 與 1→3→4，共兩條。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1→2→4 與 1→3→4 都是邊對，所以數量為二。"
+            }
+          ],
+          "generalFeedback": "邊對：1→2 經由 2→4 延續（1→2→4），1→3 經由 3→4 延續（1→3→4）；進入節點 4 的邊沒有後續，因此總數為 2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對的長度",
+          "text": "<p>一個<strong>邊對</strong>（長度為 2 的路徑）包含多少條邊、造訪多少個節點？</p>",
+          "answers": [
+            {
+              "text": "2 條邊、3 個節點（u、v、w）",
+              "fraction": 100,
+              "feedback": "正確——兩條連續邊 u→v 與 v→w 橫跨三個節點。"
+            },
+            {
+              "text": "1 條邊、2 個節點",
+              "fraction": 0,
+              "feedback": "那是單一邊（長度 1），不是邊對。"
+            },
+            {
+              "text": "2 條邊、2 個節點",
+              "fraction": 0,
+              "feedback": "兩條相異的連續邊橫跨三個節點，不是兩個。"
+            },
+            {
+              "text": "3 條邊、4 個節點",
+              "fraction": 0,
+              "feedback": "那是長度為 3 的路徑；邊對的長度為 2。"
+            }
+          ],
+          "generalFeedback": "路徑長度以邊計算：長度為 2 的路徑有 2 條邊（u→v、v→w），因此造訪 3 個節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個序列是簡單路徑",
+          "text": "<p>先不論邊是否存在，下列哪一個節點序列是<strong>簡單路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "1→2→3→4",
+              "fraction": 100,
+              "feedback": "正確——四個節點皆相異，因此是簡單路徑。"
+            },
+            {
+              "text": "1→2→3→2",
+              "fraction": 0,
+              "feedback": "節點 2 重複出現在內部位置（並非頭=尾），因此不是簡單路徑。"
+            },
+            {
+              "text": "1→2→2→3",
+              "fraction": 0,
+              "feedback": "節點 2 在中間連續重複，因此不是簡單路徑。"
+            },
+            {
+              "text": "2→3→4→3",
+              "fraction": 0,
+              "feedback": "節點 3 於內部重複（第 2 與第 4 位置），因此不是簡單路徑。"
+            }
+          ],
+          "generalFeedback": "簡單路徑禁止任何重複節點，唯一例外是頭=尾可以相同；1→2→3→4 節點全異，其餘皆有節點於內部重複。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "有迴圈時 CPC 不可行（簡單）",
+          "text": "<p>當受測程式含有迴圈時，完整路徑覆蓋通常是<strong>不可行的</strong>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——迴圈會產生無限多條完整路徑（每種迭代次數一條），因此 CPC 通常無法達成。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "迴圈讓完整路徑的數目無上限地成長，因此巡覽全部並不可行。"
+            }
+          ],
+          "generalFeedback": "每多一次迴圈迭代就是一條相異的完整路徑，因此迴圈會產生無限多條完整路徑，使 CPC 不可行。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算質路徑數（兩個判斷）",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code>（節點 1 為進入；節點 5 與 6 為結束）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——1→2→4→5、1→2→4→6、1→3→4→5、1→3→4→6。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只算了第一個判斷；節點 4 的第二個判斷讓極大路徑加倍為四條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是邊數；極大的簡單路徑共有四條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重新數算——節點 1（走 2 或 3）與節點 4（走 5 或 6）的選擇組合為 2×2 = 4 條質路徑。"
+            }
+          ],
+          "generalFeedback": "此圖無迴圈，於節點 1 與節點 4 各有一個分支，得到四條極大簡單路徑：1→2→4→5、1→2→4→6、1→3→4→5、1→3→4→6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算邊對數（兩個判斷）",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1→2→4、1→3→4、2→4→5、2→4→6、3→4→5、3→4→6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是質路徑數；相鄰邊串接共有六個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重新數算——節點 4 有兩條外向邊，因此每條進入 4 的邊都能延續兩種方式，共六個串接。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "重新數算——1→2→4、1→3→4、2→4→5、2→4→6、3→4→5、3→4→6 共六個，不是八個。"
+            }
+          ],
+          "generalFeedback": "對每條邊 u→v 數算邊 v→w：進入 4 的邊（2→4、3→4）各可經 4→5 與 4→6 延續（四個串接），而 1→2、1→3 延續進入 4（兩個串接）——共 6 個邊對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC 與 EC 的強弱",
+          "text": "<p><strong>邊對覆蓋（EPC）</strong>與<strong>邊覆蓋（EC）</strong>在強弱上如何比較？</p>",
+          "answers": [
+            {
+              "text": "EPC 嚴格較強：EPC 涵蓋 EC，但反之不成立",
+              "fraction": 100,
+              "feedback": "正確——每個邊對都包含其組成邊，故 EPC ⇒ EC，且覆蓋邊對是更嚴格的要求。"
+            },
+            {
+              "text": "EC 比 EPC 強",
+              "fraction": 0,
+              "feedback": "反了——EPC（相鄰邊對）才是較強的準則。"
+            },
+            {
+              "text": "在每個圖上兩者等價",
+              "fraction": 0,
+              "feedback": "它們不同：覆蓋所有邊未必覆蓋所有相鄰邊的組合。"
+            },
+            {
+              "text": "兩者不可比較",
+              "fraction": 0,
+              "feedback": "它們可比較：EPC 涵蓋 EC。"
+            }
+          ],
+          "generalFeedback": "巡覽每個邊對就會走過其組成的每條邊，故 EPC 涵蓋 EC；反向不成立，因為覆蓋邊並不強制在分支／匯合處走過每一種相鄰配對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋順序",
+          "text": "<p>下列哪一條鏈由<strong>最強到最弱</strong>列出這些結構準則（⊒ 表示「涵蓋」）？</p>",
+          "answers": [
+            {
+              "text": "PPC ⊒ EPC ⊒ EC ⊒ NC",
+              "fraction": 100,
+              "feedback": "正確——質路徑 ⊒ 邊對 ⊒ 邊 ⊒ 節點。"
+            },
+            {
+              "text": "NC ⊒ EC ⊒ EPC ⊒ PPC",
+              "fraction": 0,
+              "feedback": "這是反過來的；節點覆蓋是最弱而非最強。"
+            },
+            {
+              "text": "EPC ⊒ PPC ⊒ EC ⊒ NC",
+              "fraction": 0,
+              "feedback": "PPC 比 EPC 強，故 PPC 必須排在最前。"
+            },
+            {
+              "text": "PPC ⊒ EC ⊒ EPC ⊒ NC",
+              "fraction": 0,
+              "feedback": "EPC 介於 PPC 與 EC 之間，不在 EC 之下。"
+            }
+          ],
+          "generalFeedback": "結構層級為 PPC ⊒ EPC ⊒ EC ⊒ NC；每個準則涵蓋其右側者，而 CPC 位於 PPC 之上但通常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "側行（sidetrip）的定義",
+          "text": "<p>一條測試路徑在何時以<em><strong>側行（sidetrip）</strong></em>巡覽一條質路徑？</p>",
+          "answers": [
+            {
+              "text": "它依序走過質路徑的每一條邊，但允許離開某節點後再回到同一節點的岔出",
+              "fraction": 100,
+              "feedback": "正確——側行保留質路徑的所有邊，並回到當初離開的節點。"
+            },
+            {
+              "text": "它依序造訪質路徑的每個節點，但相鄰節點間可走不同的邊",
+              "fraction": 0,
+              "feedback": "那是繞道，放寬了邊；側行保留質路徑的所有邊。"
+            },
+            {
+              "text": "它完全不加任何額外邊地巡覽質路徑",
+              "fraction": 0,
+              "feedback": "那是直接巡覽；側行會加入一段岔出。"
+            },
+            {
+              "text": "它完全略過質路徑的一部分",
+              "fraction": 0,
+              "feedback": "側行絕不略過質路徑的邊；它加入一段折返的岔出。"
+            }
+          ],
+          "generalFeedback": "以側行巡覽會依序保留質路徑的每條邊，並允許一段離開又回到同一節點的岔出，然後再繼續。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "繞道（detour）的定義",
+          "text": "<p>一條測試路徑在何時以<em><strong>繞道（detour）</strong></em>巡覽一條質路徑？</p>",
+          "answers": [
+            {
+              "text": "它依相同順序造訪質路徑的每個節點，但可經由不同的邊到達下一個節點",
+              "fraction": 100,
+              "feedback": "正確——繞道保留節點序列但放寬所使用的邊。"
+            },
+            {
+              "text": "它依序走過質路徑的每條邊，並有回到同一節點的岔出",
+              "fraction": 0,
+              "feedback": "那是側行，保留所有邊；繞道只保留節點。"
+            },
+            {
+              "text": "它把質路徑倒著走",
+              "fraction": 0,
+              "feedback": "繞道保留順序；它不會反向。"
+            },
+            {
+              "text": "它逐邊完全一致地巡覽質路徑",
+              "fraction": 0,
+              "feedback": "那是直接巡覽；繞道可在相同節點之間換用不同的邊。"
+            }
+          ],
+          "generalFeedback": "繞道依序保留質路徑的節點序列，但可在相鄰節點之間走不同路線，因此比側行更弱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "直接巡覽",
+          "text": "<p>一條測試路徑在何時（直接）<strong>巡覽</strong>一條質路徑？</p>",
+          "answers": [
+            {
+              "text": "該質路徑以連續子路徑的形式出現在測試路徑中",
+              "fraction": 100,
+              "feedback": "正確——直接巡覽會逐邊、依序完整包含該質路徑。"
+            },
+            {
+              "text": "測試路徑與質路徑至少共用一條邊",
+              "fraction": 0,
+              "feedback": "共用一條邊不夠；整條質路徑必須連續出現。"
+            },
+            {
+              "text": "測試路徑造訪質路徑的兩端點",
+              "fraction": 0,
+              "feedback": "只碰端點不足；整條質路徑必須是子路徑。"
+            },
+            {
+              "text": "測試路徑與質路徑等長",
+              "fraction": 0,
+              "feedback": "長度是否相等無關；巡覽要求質路徑是連續子路徑。"
+            }
+          ],
+          "generalFeedback": "當質路徑是測試路徑的連續子路徑時，測試路徑就直接巡覽該質路徑；側行與繞道是在無法直接巡覽時使用的放寬形式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 CPC 通常不可行",
+          "text": "<p>為何<strong>完整路徑覆蓋</strong>在實務上通常不可行？</p>",
+          "answers": [
+            {
+              "text": "迴圈會產生無限多條完整路徑（每種迭代次數一條），無法全部巡覽",
+              "fraction": 100,
+              "feedback": "正確——無上限的迭代使完整路徑的集合為無限。"
+            },
+            {
+              "text": "完整路徑很難畫在圖上",
+              "fraction": 0,
+              "feedback": "障礙在於迴圈下數目無限，而非繪圖困難。"
+            },
+            {
+              "text": "完整路徑與程式行為無關",
+              "fraction": 0,
+              "feedback": "完整路徑模擬整次執行；問題在於迴圈使其無限。"
+            },
+            {
+              "text": "沒有演算法能找到任何一條完整路徑",
+              "fraction": 0,
+              "feedback": "找出完整路徑並不難；當迴圈允許無上限迭代時，是「列舉全部」才會失敗。"
+            }
+          ],
+          "generalFeedback": "有迴圈時每種迭代次數都產生一條相異的完整路徑，因此 CPC 需要無限多條測試路徑——故通常不可行，實務上以 PPC 作為可行的最強準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算三角形圖的質路徑數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 1→3</code>（節點 1 為進入，節點 3 為結束）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→3 與 1→3 都是極大的簡單路徑。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1→2→3 與 1→3 皆為質路徑；邊 1→3 不是 1→2→3 的子路徑。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是邊數；簡單路徑中只有兩條是極大的。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新數算——極大的簡單路徑就只有 1→2→3 與 1→3。"
+            }
+          ],
+          "generalFeedback": "1→2→3 無法再延伸，而 1→3 並不包含於 1→2→3（後者缺少邊 1→3），故兩者皆為質路徑；數量為 2。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "質路徑不必是測試路徑",
+          "text": "<p>質路徑不必從進入節點開始或在結束節點結束；因此質路徑本身不一定是一條測試路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——質路徑是圖中任處的極大簡單路徑；它必須被某測試路徑巡覽，但本身不必是進入到結束的執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "質路徑可以起訖於內部節點（例如來回迴圈），因此不一定是測試路徑。"
+            }
+          ],
+          "generalFeedback": "質路徑由簡單路徑的極大性定義，而非由進入／結束端點定義；PPC 要求每條質路徑都被某條測試路徑巡覽，而測試路徑才是進入到結束的執行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 EPC 採用「長度至多 2」",
+          "text": "<p>邊對覆蓋定義在長度<em>至多</em> 2 的路徑，而非恰好 2。為何要納入較短的路徑？</p>",
+          "answers": [
+            {
+              "text": "如此，無法延伸成長度為 2 之路徑的邊（與節點）仍會被要求，使 EPC ⊒ EC ⊒ NC 成立",
+              "fraction": 100,
+              "feedback": "正確——「≤ 2」的措辭保證 EPC 在圖的細小或終端部位仍涵蓋邊覆蓋與節點覆蓋。"
+            },
+            {
+              "text": "因為大多數圖裡不存在長度為 2 的路徑",
+              "fraction": 0,
+              "feedback": "長度為 2 的路徑很常見；納入較短路徑是為了邊界情況，而非因為邊對稀少。"
+            },
+            {
+              "text": "為了讓 EPC 等價於質路徑覆蓋",
+              "fraction": 0,
+              "feedback": "EPC 仍比 PPC 弱；「≤ 2」的措辭是為了涵蓋 EC／NC，而非等同 PPC。"
+            },
+            {
+              "text": "為了允許重複節點的路徑",
+              "fraction": 0,
+              "feedback": "理由是要覆蓋無法延伸的邊／節點，而非重複節點。"
+            }
+          ],
+          "generalFeedback": "若某節點／邊無法置於任何長度為 2 的路徑中（例如通往結束節點的終端邊），只要求恰好長度 2 的路徑會使其未被覆蓋；「長度 ≤ 2」的措辭加入較短需求，讓 EPC 仍涵蓋 EC 與 NC。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PPC 涵蓋 EPC",
+          "text": "<p><strong>質路徑覆蓋涵蓋邊對覆蓋</strong>：任何滿足 PPC 的測試集也會滿足 EPC。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每一條長度 ≤ 2 的可到達路徑都是某條質路徑的子路徑，故巡覽所有質路徑就覆蓋所有邊對。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個邊對都位於某條質路徑上，故滿足 PPC 必然滿足 EPC。"
+            }
+          ],
+          "generalFeedback": "任一邊對是長度為 2 的簡單路徑，因而是某條極大簡單路徑（質路徑）的子路徑；巡覽每條質路徑即巡覽每個邊對，故 PPC ⊒ EPC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識一條來回質路徑",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 3→2, 2→4</code>（節點 1 為進入，節點 4 為結束）。下列哪一條質路徑是<strong>來回</strong>路徑（頭節點 = 尾節點）？</p>",
+          "answers": [
+            {
+              "text": "2→3→2",
+              "fraction": 100,
+              "feedback": "正確——2→3→2 是一條頭尾節點相同的極大簡單路徑。"
+            },
+            {
+              "text": "1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 是質路徑，但起於 1、終於 4，故不是來回路徑。"
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 是質路徑，但不是來回（1 ≠ 3）。"
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "2→3 是 2→3→2 的真子路徑，因此連質路徑都不是，更談不上來回。"
+            }
+          ],
+          "generalFeedback": "迴圈 2↔3 給出來回質路徑 2→3→2（以及 3→2→3）；來回質路徑起訖於同一節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算含跳過邊的邊對數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 3→4, 2→4</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、2→3→4。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊數；相鄰邊串接只有三個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "重新數算——節點 2 有兩條外向邊，故 1→2 延續兩種方式（1→2→3、1→2→4），再加 2→3→4。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重新數算——1→2→3、1→2→4、2→3→4 共三個；進入節點 4 的邊沒有後續。"
+            }
+          ],
+          "generalFeedback": "1→2 經由 2→3 與 2→4 延續（兩個串接），2→3 經由 3→4 延續（一個串接）；進入節點 4 的邊無法延續，故共 3 個邊對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋（subsumption）的意涵",
+          "text": "<p>準則 C1 <strong>涵蓋（subsumes）</strong> 準則 C2 是指：</p>",
+          "answers": [
+            {
+              "text": "任何滿足 C1 的測試集必定也滿足 C2",
+              "fraction": 100,
+              "feedback": "正確——涵蓋就是準則間這種普遍性的蘊涵。"
+            },
+            {
+              "text": "C1 與 C2 永遠要求相同的測試路徑",
+              "fraction": 0,
+              "feedback": "那是等價；涵蓋是單向的保證。"
+            },
+            {
+              "text": "在每個圖上 C1 所需的測試路徑都比 C2 少",
+              "fraction": 0,
+              "feedback": "涵蓋談的是滿足的蘊涵關係，而非測試路徑數目的多寡。"
+            },
+            {
+              "text": "某個滿足 C1 的測試集恰好也滿足 C2",
+              "fraction": 0,
+              "feedback": "涵蓋必須對每一個滿足的測試集成立，而非僅對某一個。"
+            }
+          ],
+          "generalFeedback": "C1 涵蓋 C2 當且僅當任何達成 C1 的測試集必然達成 C2；例如 PPC 涵蓋 EPC，因為巡覽所有質路徑就巡覽了所有邊對。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "計算含迴圈的質路徑數",
+          "text": "<p>某 while 迴圈的 CFG 邊為 <code>1→2, 2→3, 3→2, 2→4</code>（節點 1 為進入，節點 2 為迴圈條件，節點 3 為迴圈本體，節點 4 為結束）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、3→2→4，以及兩條來回質路徑 2→3→2 與 3→2→3。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "常見的漏算：迴圈 2↔3 產生「兩條」來回質路徑（2→3→2 與 3→2→3），而非一條，總計五條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重新數算——除了 1→2→3、1→2→4、3→2→4，還有 2→3→2 與 3→2→3，故為五條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "恰有五條極大簡單路徑；2→3 與 3→2 本身只是子路徑，不是質路徑。"
+            }
+          ],
+          "generalFeedback": "極大簡單路徑為：1→2→3、1→2→4、3→2→4，以及迴圈 2↔3 的兩條來回路徑 2→3→2 與 3→2→3——共五條質路徑。將一個環從各個起始節點展開，會得到相異的來回質路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "該迴圈的來回質路徑",
+          "text": "<p>對於 CFG <code>1→2, 2→3, 3→2, 2→4</code>，哪些是它的<strong>來回</strong>質路徑（頭節點 = 尾節點）？</p>",
+          "answers": [
+            {
+              "text": "2→3→2 與 3→2→3",
+              "fraction": 100,
+              "feedback": "正確——環 2↔3 每個起始節點各給出一條來回質路徑。"
+            },
+            {
+              "text": "只有 2→3→2",
+              "fraction": 0,
+              "feedback": "3→2→3 也是頭尾相同的極大簡單路徑，故共兩條。"
+            },
+            {
+              "text": "2→3→2 與 1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 是質路徑但不是來回（1 ≠ 4）；第二條來回是 3→2→3。"
+            },
+            {
+              "text": "沒有任何來回質路徑",
+              "fraction": 0,
+              "feedback": "迴圈 2↔3 確實產生來回質路徑：2→3→2 與 3→2→3。"
+            }
+          ],
+          "generalFeedback": "把簡單環 2↔3 從它的各個節點作為起點寫出，得到兩條相異的來回質路徑：2→3→2 與 3→2→3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算含自迴圈的質路徑數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→2, 2→3</code>（節點 1 為進入，節點 3 為結束；2→2 為自迴圈）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→3 與自迴圈來回 2→2。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "自迴圈 2→2 本身就是一條極大簡單（來回）路徑，加上 1→2→3 共兩條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "1→2 與 2→3 是 1→2→3 的真子路徑，故非質路徑；數量為二。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新數算——極大簡單路徑只有 1→2→3 與 2→2。"
+            }
+          ],
+          "generalFeedback": "自迴圈 2→2 頭尾皆為 2 且無內部重複，故是一條來回質路徑；加上極大的 1→2→3，共兩條質路徑。自迴圈只能展開成它自己，因此僅貢獻一條來回質路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的質路徑",
+          "text": "<p>當沒有任何輸入能驅動執行沿某條質路徑前進時，該質路徑<strong>不可行（infeasible）</strong>。這對質路徑覆蓋的正確結論為何？</p>",
+          "answers": [
+            {
+              "text": "字面上的 100% PPC 無法達成；覆蓋率改以可行的質路徑來衡量",
+              "fraction": 100,
+              "feedback": "正確——不可行的需求被排除，使度量仍有意義。"
+            },
+            {
+              "text": "整個 PPC 準則因此失去意義而被放棄",
+              "fraction": 0,
+              "feedback": "準則會保留；只是不可行的那條質路徑被排除於目標之外。"
+            },
+            {
+              "text": "只要再努力，100% PPC 仍可達成",
+              "fraction": 0,
+              "feedback": "沒有輸入能巡覽不可行的質路徑，故字面上的完整覆蓋不可能。"
+            },
+            {
+              "text": "該質路徑會被自動從圖中移除",
+              "fraction": 0,
+              "feedback": "圖不會被更動；該需求只是被回報為不可行。"
+            }
+          ],
+          "generalFeedback": "由於沒有測試能巡覽不可行的質路徑，工具改以可行的質路徑來回報 PPC，而非要求不可能的 100%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "盡力巡覽",
+          "text": "<p>某條質路徑無法被任何測試路徑<em>直接</em>巡覽，但若允許<strong>側行</strong>或<strong>繞道</strong>則可被巡覽。標準的盡力（best-effort）做法為何？</p>",
+          "answers": [
+            {
+              "text": "允許以側行（或繞道）巡覽該質路徑，而非放棄該需求",
+              "fraction": 100,
+              "feedback": "正確——允許側行／繞道可挽回那些沒有直接巡覽能到達的質路徑覆蓋。"
+            },
+            {
+              "text": "立刻宣告該質路徑不可行並忽略它",
+              "fraction": 0,
+              "feedback": "能以側行巡覽的質路徑是可行的；盡力做法會以側行巡覽它，而非丟棄。"
+            },
+            {
+              "text": "將該質路徑從需求集中刪除且不作替代",
+              "fraction": 0,
+              "feedback": "盡力做法會保留需求，並以放寬的巡覽滿足它。"
+            },
+            {
+              "text": "仍堅持直接巡覽，讓需求維持未滿足",
+              "fraction": 0,
+              "feedback": "若不存在直接巡覽，硬要求直接只會讓質路徑未被覆蓋；側行／繞道才是解方。"
+            }
+          ],
+          "generalFeedback": "當某條質路徑沒有直接巡覽時，盡力巡覽允許以側行（保留所有邊、加折返岔出）或繞道（依序保留節點）來滿足需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 CPC 不可行而 PPC 可行",
+          "text": "<p>在含迴圈的 CFG 上，為何完整路徑覆蓋不可行，而質路徑覆蓋仍可達成？</p>",
+          "answers": [
+            {
+              "text": "完整路徑數目無上限（每種迭代次數一條），但質路徑是簡單路徑，因此只有有限多條",
+              "fraction": 100,
+              "feedback": "正確——簡單性限制了質路徑數；完整路徑在迴圈下無上限。"
+            },
+            {
+              "text": "質路徑完全忽略迴圈",
+              "fraction": 0,
+              "feedback": "質路徑包含迴圈的來回；它們只是因為是簡單路徑而有限。"
+            },
+            {
+              "text": "有迴圈時完整路徑不存在",
+              "fraction": 0,
+              "feedback": "完整路徑確實存在；問題在於有無限多條。"
+            },
+            {
+              "text": "質路徑覆蓋不需要巡覽迴圈",
+              "fraction": 0,
+              "feedback": "PPC 的確要求巡覽迴圈的來回質路徑；它因質路徑是簡單路徑而維持有限。"
+            }
+          ],
+          "generalFeedback": "迴圈讓完整路徑可迭代任意次數，產生無限多條完整路徑（CPC 不可行）；質路徑是簡單路徑，長度受節點數上限限制，數量有限（PPC 可達成）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑 vs 漢彌爾頓路徑",
+          "text": "<p><strong>質路徑</strong>與<strong>漢彌爾頓路徑（Hamiltonian path）</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "質路徑是極大簡單路徑，不必造訪每個節點；漢彌爾頓路徑必須恰好造訪每個節點一次",
+              "fraction": 100,
+              "feedback": "正確——在簡單路徑中的極大性並不強制造訪所有節點。"
+            },
+            {
+              "text": "兩者是同一回事",
+              "fraction": 0,
+              "feedback": "它們不同：質路徑可略過節點，而漢彌爾頓路徑必須全部包含。"
+            },
+            {
+              "text": "質路徑必須造訪每個節點，漢彌爾頓路徑則不必",
+              "fraction": 0,
+              "feedback": "反了——必須造訪每個節點的是漢彌爾頓路徑。"
+            },
+            {
+              "text": "質路徑必須從進入節點開始；漢彌爾頓路徑則不可",
+              "fraction": 0,
+              "feedback": "兩者皆非以進入節點定義；差別在於是否造訪所有節點。"
+            }
+          ],
+          "generalFeedback": "質路徑只是極大的簡單路徑，可略過節點；漢彌爾頓路徑是更嚴格的全域概念，要求每個節點恰好被造訪一次。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑 vs 完整路徑",
+          "text": "<p>下列哪一項正確區分<strong>質路徑</strong>與<strong>完整路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "完整路徑從進入走到結束且可重複節點；質路徑是極大簡單路徑，可起訖於內部節點",
+              "fraction": 100,
+              "feedback": "正確——完整路徑以端點定義並允許重複；質路徑是簡單且極大的。"
+            },
+            {
+              "text": "兩者都必須從進入節點走到結束節點",
+              "fraction": 0,
+              "feedback": "只有完整路徑必須；質路徑可起訖於內部（例如來回）。"
+            },
+            {
+              "text": "兩者都禁止任何重複節點",
+              "fraction": 0,
+              "feedback": "完整路徑可重複節點（迴圈）；只有質路徑／簡單路徑禁止內部重複。"
+            },
+            {
+              "text": "質路徑永遠比任何完整路徑長",
+              "fraction": 0,
+              "feedback": "完整路徑可以任意長（迴圈）；質路徑則受節點數上限限制。"
+            }
+          ],
+          "generalFeedback": "完整路徑是任何進入到結束的執行，可經由迴圈重複節點；質路徑是圖中任處的極大簡單路徑，禁止內部重複。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算含迴圈的邊對數",
+          "text": "<p>某 while 迴圈的 CFG 邊為 <code>1→2, 2→3, 3→2, 2→4</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w，允許回邊）？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、2→3→2、3→2→3、3→2→4。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新數算——回邊 3→2 既能延續（3→2→3、3→2→4）也被延續進入（2→3→2），共五個串接。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重新數算——1→2→3、1→2→4、2→3→2、3→2→3、3→2→4 共五個；進入節點 4 的邊無法延續。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "迴圈透過回邊增添邊對（2→3→2、3→2→3、3→2→4），使總數提升到五。"
+            }
+          ],
+          "generalFeedback": "對每條邊 u→v 找邊 v→w：1→2 給出 1→2→3 與 1→2→4；2→3 給出 2→3→2；3→2 給出 3→2→3 與 3→2→4；2→4 無法延續。總計 = 5 個邊對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC 涵蓋的邊界情況",
+          "text": "<p>考慮某 CFG，在某處之後可到達的唯一結構是一個沒有外向邊的結束節點，因此沒有任何長度為 2 的路徑通過它。此時邊對覆蓋「長度 ≤ 2」的定義為何重要？</p>",
+          "answers": [
+            {
+              "text": "較短（長度 ≤ 1）的需求確保進入的邊與該結束節點仍被覆蓋，使 EPC 仍涵蓋 EC 與 NC",
+              "fraction": 100,
+              "feedback": "正確——若無「≤ 2」條款，沒有邊對通過的元素可能被漏掉，破壞涵蓋關係。"
+            },
+            {
+              "text": "它讓 EPC 完全忽略該結束節點",
+              "fraction": 0,
+              "feedback": "恰好相反——該條款保證結束節點仍是一項需求。"
+            },
+            {
+              "text": "它讓 EPC 在此處等價於質路徑覆蓋",
+              "fraction": 0,
+              "feedback": "EPC 仍比 PPC 弱；該條款是為了保住對 EC／NC 的涵蓋。"
+            },
+            {
+              "text": "它允許重複該結束節點的路徑",
+              "fraction": 0,
+              "feedback": "結束節點沒有外向邊；該條款是為了覆蓋無法延伸的元素，而非重複。"
+            }
+          ],
+          "generalFeedback": "若某節點／邊無法置於任何長度為 2 的路徑（例如通往結束節點的終端邊），只要求恰好長度 2 會使其未被覆蓋；「長度 ≤ 2」加入較短需求，使 EPC 仍涵蓋 EC 與 NC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PPC 與 CPC 的方向",
+          "text": "<p>關於<strong>質路徑覆蓋（PPC）</strong>與<strong>完整路徑覆蓋（CPC）</strong>，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "CPC 涵蓋 PPC，但 PPC 不涵蓋 CPC",
+              "fraction": 100,
+              "feedback": "正確——執行所有完整路徑會巡覽每條可行質路徑，但巡覽質路徑並不強制走過每一條完整路徑。"
+            },
+            {
+              "text": "PPC 涵蓋 CPC",
+              "fraction": 0,
+              "feedback": "反了——CPC 才是較強（且通常不可行）的準則。"
+            },
+            {
+              "text": "兩者等價",
+              "fraction": 0,
+              "feedback": "並非如此：CPC 嚴格較強，要求所有完整路徑，而不只是質路徑。"
+            },
+            {
+              "text": "兩者不可比較",
+              "fraction": 0,
+              "feedback": "它們可比較：CPC 涵蓋 PPC。"
+            }
+          ],
+          "generalFeedback": "每條可行質路徑都位於某條完整路徑上，故覆蓋所有完整路徑（CPC）就滿足 PPC；反向不成立，因為有限的質路徑測試集不必走過每一種迴圈迭代次數。因此 CPC ⊒ PPC，且 CPC 最強但通常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "精確區分側行與繞道",
+          "text": "<p>在巡覽質路徑 q 時，下列哪一組正確陳述<strong>側行</strong>與<strong>繞道</strong>的精確差異？</p>",
+          "answers": [
+            {
+              "text": "側行：依序走過 q 的每一條邊（含折返岔出）。繞道：依序造訪 q 的每個節點，但節點之間的邊可不同",
+              "fraction": 100,
+              "feedback": "正確——側行保留邊，繞道只保留節點序列。"
+            },
+            {
+              "text": "側行只保留節點；繞道保留邊",
+              "fraction": 0,
+              "feedback": "反了——保留邊的是側行。"
+            },
+            {
+              "text": "兩者都保留 q 的每一條邊；差別只在長度",
+              "fraction": 0,
+              "feedback": "只有側行保留每一條邊；繞道可在相同節點之間換邊。"
+            },
+            {
+              "text": "兩者都只保留 q 的端點",
+              "fraction": 0,
+              "feedback": "側行保留所有邊、繞道依序保留所有節點；兩者都不是只保留端點。"
+            }
+          ],
+          "generalFeedback": "側行依序保留 q 的每條邊，只插入回到出發節點的岔出；繞道較弱，只保留 q 的節點序列，允許相鄰節點間走不同的邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一項涵蓋主張為偽",
+          "text": "<p>下列哪一項涵蓋主張為<strong>偽</strong>？</p>",
+          "answers": [
+            {
+              "text": "節點覆蓋涵蓋邊覆蓋",
+              "fraction": 100,
+              "feedback": "正確——這是偽的；NC 比 EC 弱，故 NC 不涵蓋 EC。"
+            },
+            {
+              "text": "質路徑覆蓋涵蓋邊對覆蓋",
+              "fraction": 0,
+              "feedback": "這是真的：每個邊對都位於某條質路徑上。"
+            },
+            {
+              "text": "邊對覆蓋涵蓋邊覆蓋",
+              "fraction": 0,
+              "feedback": "這是真的：巡覽邊對會走過其組成的每條邊。"
+            },
+            {
+              "text": "邊覆蓋涵蓋節點覆蓋",
+              "fraction": 0,
+              "feedback": "這是真的：走過每條邊就會造訪每個可到達節點。"
+            }
+          ],
+          "generalFeedback": "層級為 PPC ⊒ EPC ⊒ EC ⊒ NC；涵蓋由強指向弱，故「NC 涵蓋 EC」是反向的偽主張。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含不可行質路徑時的最大 PPC",
+          "text": "<p>某 CFG 恰有 5 條質路徑，其中 1 條不可行。以全部 5 條質路徑計算，任何測試套件所能達成的最大質路徑覆蓋為何？</p>",
+          "answers": [
+            {
+              "text": "80%（5 中的 4）",
+              "fraction": 100,
+              "feedback": "正確——不可行的質路徑永遠無法巡覽，故至多 4/5 = 80%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "沒有輸入能巡覽不可行的質路徑，故字面上的 5/5 不可能。"
+            },
+            {
+              "text": "75%（4 中的 3）",
+              "fraction": 0,
+              "feedback": "覆蓋率以全部 5 條質路徑計算：4/5 = 80%，而非 3/4。"
+            },
+            {
+              "text": "60%（5 中的 3）",
+              "fraction": 0,
+              "feedback": "只有一條質路徑不可行，故最多 5 中的 4 條可巡覽 = 80%。"
+            }
+          ],
+          "generalFeedback": "一條不可行質路徑使字面 PPC 上限為 4/5 = 80%；實務上覆蓋率改以可行的質路徑回報。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一條路徑不是質路徑",
+          "text": "<p>對於 while 迴圈的 CFG <code>1→2, 2→3, 3→2, 2→4</code>，下列哪一條簡單路徑<strong>不是</strong>質路徑？</p>",
+          "answers": [
+            {
+              "text": "2→3",
+              "fraction": 100,
+              "feedback": "正確——2→3 是 1→2→3（以及 2→3→2）的真子路徑，並非極大，因此不是質路徑。"
+            },
+            {
+              "text": "3→2→3",
+              "fraction": 0,
+              "feedback": "3→2→3 是一條極大的簡單來回路徑，因此是質路徑。"
+            },
+            {
+              "text": "3→2→4",
+              "fraction": 0,
+              "feedback": "3→2→4 無法再延伸成更長的簡單路徑，因此是質路徑。"
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 是極大的（不重複節點 2 便無法延伸），因此是質路徑。"
+            }
+          ],
+          "generalFeedback": "質路徑為 1→2→3、1→2→4、3→2→4、2→3→2、3→2→3；單一邊 2→3 是較長簡單路徑的真子路徑，故不是質路徑。",
+          "single": true
+        }
+      ]
+    }
+  },
   "graph-structural": {
     "en": {
       "easy": [
