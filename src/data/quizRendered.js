@@ -2587,6 +2587,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "code-coverage": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Statement coverage definition",
+          "text": "<p><strong>Statement (line) coverage</strong> of a test suite is best defined as:</p>",
+          "answers": [
+            {
+              "text": "The fraction of executable statements that were executed by at least one test",
+              "fraction": 100,
+              "feedback": "Correct — it counts executable statements run at least once, divided by the total executable statements."
+            },
+            {
+              "text": "The fraction of branch outcomes that were taken by at least one test",
+              "fraction": 0,
+              "feedback": "That is branch (decision) coverage, not statement coverage."
+            },
+            {
+              "text": "The fraction of source lines, including blanks and comments, that were compiled",
+              "fraction": 0,
+              "feedback": "Blank lines and comments are not executable statements, and coverage is about execution, not compilation."
+            },
+            {
+              "text": "The fraction of all input values that were tried",
+              "fraction": 0,
+              "feedback": "Coverage is measured over the code, not over the whole input domain."
+            }
+          ],
+          "generalFeedback": "Statement coverage = (executable statements executed by some test) / (total executable statements). Comments and blank lines do not count.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage definition",
+          "text": "<p><strong>Branch (decision) coverage</strong> requires that:</p>",
+          "answers": [
+            {
+              "text": "Every decision has taken both its true and its false outcome at least once",
+              "fraction": 100,
+              "feedback": "Correct — each branch outcome of every decision must be exercised."
+            },
+            {
+              "text": "Every executable statement has been executed at least once",
+              "fraction": 0,
+              "feedback": "That is statement coverage, which is weaker than branch coverage."
+            },
+            {
+              "text": "Every individual boolean condition has taken both values",
+              "fraction": 0,
+              "feedback": "That is condition coverage, which targets the atomic conditions, not the whole decision."
+            },
+            {
+              "text": "Every complete path through the program has been executed",
+              "fraction": 0,
+              "feedback": "That is path coverage, far stronger and often infeasible."
+            }
+          ],
+          "generalFeedback": "Branch (decision) coverage requires each decision to evaluate to both true and false at least once, so every branch outcome (edge) is taken.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition coverage definition",
+          "text": "<p><strong>Condition coverage</strong> requires that:</p>",
+          "answers": [
+            {
+              "text": "Each atomic boolean condition in a decision has taken both true and false at least once",
+              "fraction": 100,
+              "feedback": "Correct — every individual condition must be evaluated both ways."
+            },
+            {
+              "text": "Each decision as a whole has taken both true and false",
+              "fraction": 0,
+              "feedback": "That is decision (branch) coverage; condition coverage looks inside the decision."
+            },
+            {
+              "text": "Every combination of the conditions' values has been tried",
+              "fraction": 0,
+              "feedback": "That is multiple-condition coverage, which is stronger."
+            },
+            {
+              "text": "Every statement has executed once",
+              "fraction": 0,
+              "feedback": "That is statement coverage."
+            }
+          ],
+          "generalFeedback": "Condition coverage requires each atomic condition (e.g. a, b in a && b) to be true in some test and false in some test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path coverage definition",
+          "text": "<p><strong>Path coverage</strong> requires that:</p>",
+          "answers": [
+            {
+              "text": "Every feasible execution path through the code is exercised by some test",
+              "fraction": 100,
+              "feedback": "Correct — path coverage aims to exercise each end-to-end path of control flow."
+            },
+            {
+              "text": "Every decision takes both outcomes",
+              "fraction": 0,
+              "feedback": "That is branch coverage; path coverage constrains whole paths, not just individual decisions."
+            },
+            {
+              "text": "Every statement executes once",
+              "fraction": 0,
+              "feedback": "That is statement coverage, the weakest of these."
+            },
+            {
+              "text": "Every condition takes both values",
+              "fraction": 0,
+              "feedback": "That is condition coverage."
+            }
+          ],
+          "generalFeedback": "Path coverage requires each feasible path through the program to be executed. With loops the number of paths is usually unbounded, so full path coverage is often infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What MC/DC stands for",
+          "text": "<p>In coverage terminology, <strong>MC/DC</strong> stands for:</p>",
+          "answers": [
+            {
+              "text": "Modified Condition/Decision Coverage",
+              "fraction": 100,
+              "feedback": "Correct — MC/DC is Modified Condition/Decision Coverage, used in DO-178B/C."
+            },
+            {
+              "text": "Multiple Condition/Decision Coverage",
+              "fraction": 0,
+              "feedback": "That is a different, stronger criterion (multiple-condition coverage); MC/DC is Modified Condition/Decision Coverage."
+            },
+            {
+              "text": "Maximum Coverage/Decision Criterion",
+              "fraction": 0,
+              "feedback": "No such standard criterion; MC/DC = Modified Condition/Decision Coverage."
+            },
+            {
+              "text": "Minimal Code/Data Coverage",
+              "fraction": 0,
+              "feedback": "Not a coverage criterion; MC/DC = Modified Condition/Decision Coverage."
+            }
+          ],
+          "generalFeedback": "MC/DC = Modified Condition/Decision Coverage. Each condition must be shown to independently affect the decision's outcome.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Function coverage definition",
+          "text": "<p><strong>Function (entry) coverage</strong> measures:</p>",
+          "answers": [
+            {
+              "text": "The fraction of functions/subroutines that were called at least once",
+              "fraction": 100,
+              "feedback": "Correct — function coverage counts how many functions were entered by the test suite."
+            },
+            {
+              "text": "The fraction of statements inside each function that executed",
+              "fraction": 0,
+              "feedback": "That is statement coverage, measured per statement, not per function."
+            },
+            {
+              "text": "The fraction of branches inside each function that were taken",
+              "fraction": 0,
+              "feedback": "That is branch coverage, not function coverage."
+            },
+            {
+              "text": "The number of parameters passed to each function",
+              "fraction": 0,
+              "feedback": "Function coverage is about whether a function was called, not its arguments."
+            }
+          ],
+          "generalFeedback": "Function (entry) coverage = (functions called at least once) / (total functions). It is the coarsest common metric.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute statement coverage (5 of 8)",
+          "text": "<p>A function has <strong>8</strong> executable statements. A test suite executes <strong>5</strong> of them. What is the statement coverage?</p>",
+          "answers": [
+            {
+              "text": "62.5%",
+              "fraction": 100,
+              "feedback": "Correct — 5 / 8 = 0.625 = 62.5%."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "5 / 8 = 62.5%, not 50%."
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% would be 5 of about 6.25 statements; 5 / 8 = 62.5%."
+            },
+            {
+              "text": "37.5%",
+              "fraction": 0,
+              "feedback": "37.5% is the fraction NOT executed (3 / 8); coverage is 5 / 8 = 62.5%."
+            }
+          ],
+          "generalFeedback": "Statement coverage = executed / total = 5 / 8 = 62.5%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute branch coverage (3 of 4)",
+          "text": "<p>A function contains <strong>4</strong> branch outcomes (two decisions, each with a true and a false edge). A suite takes <strong>3</strong> of them. What is the branch coverage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — 3 / 4 = 75%."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "50% would be 2 of 4; here 3 of 4 = 75%."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "25% is the fraction NOT taken (1 / 4); branch coverage is 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "One branch outcome is still untaken, so it cannot be 100%."
+            }
+          ],
+          "generalFeedback": "Branch coverage = branch outcomes taken / total branch outcomes = 3 / 4 = 75%.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% statement need not give 100% branch",
+          "text": "<p>Achieving 100% statement coverage guarantees 100% branch coverage.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — anwith nocan execute its only statement (100% statement) while the false branch is never taken (branch < 100%)."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Not true: e.g.tested only with x = 5 reaches every statement but never takes the false branch."
+            }
+          ],
+          "generalFeedback": "Statement coverage does not imply branch coverage: an if-without-else can reach 100% statements while leaving the false branch untaken. (Branch coverage does subsume statement coverage, but not the reverse.)"
+        },
+        {
+          "type": "multichoice",
+          "name": "Line coverage relationship",
+          "text": "<p>Commonly reported <strong>line coverage</strong> most closely corresponds to which classic metric?</p>",
+          "answers": [
+            {
+              "text": "Statement coverage",
+              "fraction": 100,
+              "feedback": "Correct — line coverage counts executable lines run, essentially statement coverage."
+            },
+            {
+              "text": "Branch coverage",
+              "fraction": 0,
+              "feedback": "Branch coverage is about decision outcomes, not lines executed."
+            },
+            {
+              "text": "Path coverage",
+              "fraction": 0,
+              "feedback": "Path coverage counts whole paths, far stronger than line coverage."
+            },
+            {
+              "text": "MC/DC",
+              "fraction": 0,
+              "feedback": "MC/DC is about conditions independently affecting decisions, not lines."
+            }
+          ],
+          "generalFeedback": "Line coverage counts executable lines executed and is treated as (roughly) equivalent to statement coverage; one line may hold several statements, but they are close.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute line coverage (7 of 10)",
+          "text": "<p>A file has <strong>10</strong> executable lines; a suite executes <strong>7</strong> of them. What is the line coverage?</p>",
+          "answers": [
+            {
+              "text": "70%",
+              "fraction": 100,
+              "feedback": "Correct — 7 / 10 = 70%."
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "30% is the uncovered fraction; coverage is 7 / 10 = 70%."
+            },
+            {
+              "text": "77%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%, not 77%."
+            },
+            {
+              "text": "7%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%, not 7%."
+            }
+          ],
+          "generalFeedback": "Line coverage = executed lines / executable lines = 7 / 10 = 70%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest of the three",
+          "text": "<p>Of <strong>statement</strong>, <strong>branch</strong>, and <strong>path</strong> coverage, which is the strongest (hardest to fully achieve)?</p>",
+          "answers": [
+            {
+              "text": "Path coverage",
+              "fraction": 100,
+              "feedback": "Correct — path coverage subsumes branch, which subsumes statement."
+            },
+            {
+              "text": "Statement coverage",
+              "fraction": 0,
+              "feedback": "Statement coverage is the weakest of the three."
+            },
+            {
+              "text": "Branch coverage",
+              "fraction": 0,
+              "feedback": "Branch coverage is stronger than statement but weaker than path."
+            },
+            {
+              "text": "They are equally strong",
+              "fraction": 0,
+              "feedback": "They form a strict hierarchy: path subsumes branch subsumes statement."
+            }
+          ],
+          "generalFeedback": "Subsumption: path coverage ⊒ branch/decision coverage ⊒ statement coverage. Path coverage is the strongest and usually infeasible with loops.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% coverage is not bug-free",
+          "text": "<p>Reaching 100% of any structural coverage metric proves the program is free of bugs.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — coverage shows code was executed, not that outputs were checked or that missing code and unexercised data combinations are correct."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Coverage measures which code ran, not correctness; missing logic, wrong oracles, and untested data values can still hide bugs."
+            }
+          ],
+          "generalFeedback": "Coverage tells you code was executed, not that it was correct. A faulty oracle, an omitted case, or a specific data value not tried can leave bugs even at 100% coverage."
+        },
+        {
+          "type": "multichoice",
+          "name": "What instrumentation does",
+          "text": "<p>To measure coverage, a tool usually <strong>instruments</strong> the program. This means it:</p>",
+          "answers": [
+            {
+              "text": "Inserts probes/counters that record which statements or branches execute at run time",
+              "fraction": 100,
+              "feedback": "Correct — instrumentation adds bookkeeping so executed elements are recorded during test runs."
+            },
+            {
+              "text": "Rewrites the program to remove all bugs automatically",
+              "fraction": 0,
+              "feedback": "Instrumentation only records execution; it does not fix code."
+            },
+            {
+              "text": "Proves mathematically that the code is correct",
+              "fraction": 0,
+              "feedback": "That is formal verification, not coverage instrumentation."
+            },
+            {
+              "text": "Generates the test inputs for you",
+              "fraction": 0,
+              "feedback": "Instrumentation records what tests reach; it does not create the tests."
+            }
+          ],
+          "generalFeedback": "A coverage tool instruments the code with probes/counters at statements and branches; running the tests records which elements executed, from which percentages are computed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision vs condition (basic)",
+          "text": "<p>In the decision <code>if (a &amp;&amp; b)</code>, the whole expression <code>a &amp;&amp; b</code> is the <em>decision</em>. What are <code>a</code> and <code>b</code> called?</p>",
+          "answers": [
+            {
+              "text": "Conditions (atomic boolean sub-expressions)",
+              "fraction": 100,
+              "feedback": "Correct — a and b are the individual conditions of the decision."
+            },
+            {
+              "text": "Branches",
+              "fraction": 0,
+              "feedback": "Branches are the true/false outcomes of the decision, not a and b themselves."
+            },
+            {
+              "text": "Paths",
+              "fraction": 0,
+              "feedback": "Paths are whole routes through the code, not the atomic parts of a decision."
+            },
+            {
+              "text": "Statements",
+              "fraction": 0,
+              "feedback": "a and b are conditions inside the decision, not separate statements."
+            }
+          ],
+          "generalFeedback": "A decision is the full boolean expression that controls a branch; the atomic boolean sub-expressions (a, b) are its conditions. Condition coverage targets a and b; decision coverage targets a && b.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Statement coverage of an if (x<=0 test)",
+          "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>Executable statements: s1, s2, s3, s4 (four total). The suite is the single test <code>{x = -3}</code>. What is the <strong>statement</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — x = -3 runs s1, s2, s4 but skips s3 (y = 1), so 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s3 (y = 1) is only reached when x > 0, so it is not executed by x = -3."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Three of the four statements execute (s1, s2, s4), giving 75%, not 50%."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "Only s3 is missed; that is 3 / 4 = 75% covered."
+            }
+          ],
+          "generalFeedback": "x = -3 executes s1, s2 (the if), and s4, but not s3. Statement coverage = 3 / 4 = 75%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage of an if (x<=0 test)",
+          "text": "<p>Same code:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>The single decision <code>x &gt; 0</code> has two branch outcomes (true, false). With the suite <code>{x = -3}</code>, what is the <strong>branch</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — only the false outcome is taken, so 1 / 2 = 50%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The true outcome (x > 0) is never taken by x = -3."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% is the statement coverage; branch coverage here is 1 of 2 = 50%."
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "The false outcome IS taken, so it is 50%, not 0%."
+            }
+          ],
+          "generalFeedback": "x = -3 takes only the false outcome of x > 0, so branch coverage = 1 / 2 = 50%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statement coverage of an if-else (one test)",
+          "text": "<p>Consider:</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>Executable statements: s1, s2, s3 (three total). The suite is <code>{n = 4}</code>. What is the <strong>statement</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "Correct — n = 4 runs s1 and s2 but not s3 (return 1), so 2 / 3 ≈ 66.7%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The else statement s3 is only reached when n is odd, so n = 4 misses it."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Two of three statements run; that is 2 / 3 ≈ 66.7%, not 50%."
+            },
+            {
+              "text": "≈ 33.3%",
+              "fraction": 0,
+              "feedback": "33.3% is one of three; here two of three run, so ≈ 66.7%."
+            }
+          ],
+          "generalFeedback": "n = 4 executes s1 (the if) and s2 (return 0), skipping s3. Statement coverage = 2 / 3 ≈ 66.7%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage of an if-else (one test)",
+          "text": "<p>Same if-else:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>With suite <code>{n = 4}</code>, what is the <strong>branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — only the true outcome is taken, so 1 / 2 = 50%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The false outcome (odd n) is never taken by n = 4."
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% is the statement coverage here; branch coverage is 1 of 2 = 50%."
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "The true outcome IS taken, so branch coverage is 50%."
+            }
+          ],
+          "generalFeedback": "n = 4 takes only the true outcome; the false (else) outcome is untaken, so branch coverage = 1 / 2 = 50%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition covered but decision not",
+          "text": "<p>For the decision <code>a &amp;&amp; b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=T)</code>. Both make the decision <strong>false</strong>. What does this show?</p>",
+          "answers": [
+            {
+              "text": "100% condition coverage but only 50% decision coverage",
+              "fraction": 100,
+              "feedback": "Correct — a and b each take T and F (condition 100%), yet the decision is false both times (decision 50%)."
+            },
+            {
+              "text": "100% decision coverage but only 50% condition coverage",
+              "fraction": 0,
+              "feedback": "Reversed: the decision is false both times (50%), while each condition takes both values (100%)."
+            },
+            {
+              "text": "Both are 100%",
+              "fraction": 0,
+              "feedback": "The decision never evaluates to true, so decision coverage is only 50%."
+            },
+            {
+              "text": "Both are 50%",
+              "fraction": 0,
+              "feedback": "Condition coverage is full: a is T then F, b is F then T."
+            }
+          ],
+          "generalFeedback": "a: T then F; b: F then T — full condition coverage. But a && b is false in both tests, so decision coverage is 1 / 2 = 50%. Condition coverage does not subsume decision coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision covered but condition not",
+          "text": "<p>For the decision <code>a || b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=F)</code>. Condition coverage counts the four goals a=T, a=F, b=T, b=F. What coverage results?</p>",
+          "answers": [
+            {
+              "text": "100% decision coverage but only 75% condition coverage",
+              "fraction": 100,
+              "feedback": "Correct — decision is true then false (100%); a=T, a=F, b=F are met but b=T is not, so 3 / 4 = 75% condition."
+            },
+            {
+              "text": "100% condition coverage but only 50% decision coverage",
+              "fraction": 0,
+              "feedback": "Reversed: the decision takes both values (100%); it is b that never becomes true, leaving condition coverage below 100%."
+            },
+            {
+              "text": "Both are 100%",
+              "fraction": 0,
+              "feedback": "b is false in both tests, so the goal b=T is unmet and condition coverage is 75%."
+            },
+            {
+              "text": "Both are 50%",
+              "fraction": 0,
+              "feedback": "The decision is true in test 1 and false in test 2, so decision coverage is 100%."
+            }
+          ],
+          "generalFeedback": "a || b: T then F, so decision coverage is 100%. Condition goals met: a=T ✓, a=F ✓, b=F ✓, but b=T ✗ (b is false in both tests) → 3 / 4 = 75%. Decision coverage does not subsume condition coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subsumption ordering",
+          "text": "<p>Which subsumption ordering is correct (X ⊒ Y means X guarantees Y)?</p>",
+          "answers": [
+            {
+              "text": "path ⊒ branch/decision ⊒ statement",
+              "fraction": 100,
+              "feedback": "Correct — full path coverage implies full branch coverage, which implies full statement coverage."
+            },
+            {
+              "text": "statement ⊒ branch/decision ⊒ path",
+              "fraction": 0,
+              "feedback": "Reversed — statement coverage is the weakest, not the strongest."
+            },
+            {
+              "text": "branch/decision ⊒ path ⊒ statement",
+              "fraction": 0,
+              "feedback": "Path coverage is stronger than branch coverage, not weaker."
+            },
+            {
+              "text": "condition ⊒ branch/decision ⊒ statement",
+              "fraction": 0,
+              "feedback": "Condition and branch/decision coverage are incomparable; condition does not subsume branch."
+            }
+          ],
+          "generalFeedback": "path ⊒ branch/decision ⊒ statement. Note that condition coverage and branch/decision coverage are incomparable — neither subsumes the other.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% statement, 50% branch example",
+          "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>With the single test <code>{x = 5}</code>, which statement is true?</p>",
+          "answers": [
+            {
+              "text": "Statement coverage is 100% but branch coverage is only 50%",
+              "fraction": 100,
+              "feedback": "Correct — every statement runs, but the false outcome of x > 0 is never taken."
+            },
+            {
+              "text": "Both statement and branch coverage are 100%",
+              "fraction": 0,
+              "feedback": "The false branch (x <= 0) is never taken, so branch coverage is 50%."
+            },
+            {
+              "text": "Statement coverage is 75%",
+              "fraction": 0,
+              "feedback": "x = 5 runs all four statements including y = 1, so statement coverage is 100%."
+            },
+            {
+              "text": "Branch coverage is 100% but statement coverage is 75%",
+              "fraction": 0,
+              "feedback": "Both claims are wrong: statements are all covered (100%) and branch is 50%."
+            }
+          ],
+          "generalFeedback": "x = 5 runs s1..s4 (statement 100%) but takes only the true outcome, so branch coverage is 1 / 2 = 50%. This is the classic case where statement coverage does not imply branch coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Short-circuit: is b evaluated?",
+          "text": "<p>In a language with short-circuit evaluation, the decision <code>a &amp;&amp; b</code> is run with the single test <code>{a = false}</code>. Is condition <code>b</code> evaluated?</p>",
+          "answers": [
+            {
+              "text": "No — because a is false, && short-circuits and b is never evaluated",
+              "fraction": 100,
+              "feedback": "Correct — with a = false the result is already false, so b is skipped."
+            },
+            {
+              "text": "Yes — both operands are always evaluated",
+              "fraction": 0,
+              "feedback": "That would be true only without short-circuiting; a false left operand of && skips b."
+            },
+            {
+              "text": "Yes — b is evaluated first",
+              "fraction": 0,
+              "feedback": "&& evaluates the left operand first; a = false ends evaluation before b."
+            },
+            {
+              "text": "Only if a is true and b is false",
+              "fraction": 0,
+              "feedback": "b is evaluated exactly when a is true; here a is false, so b is skipped."
+            }
+          ],
+          "generalFeedback": "With short-circuit &&, a false left operand determines the result, so b is not evaluated. To exercise b's values you need tests where a is true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Short-circuit effect on condition coverage",
+          "text": "<p>With short-circuit <code>&amp;&amp;</code>, to make condition <code>b</code> in <code>a &amp;&amp; b</code> take <strong>both</strong> true and false so it counts for condition coverage, the tests must have:</p>",
+          "answers": [
+            {
+              "text": "a = true in both tests (once with b = true, once with b = false)",
+              "fraction": 100,
+              "feedback": "Correct — b is only evaluated when a is true, so a must be true to exercise b."
+            },
+            {
+              "text": "a = false in both tests",
+              "fraction": 0,
+              "feedback": "With a = false, b is never evaluated, so b's value is never exercised."
+            },
+            {
+              "text": "any values of a, since b is always evaluated",
+              "fraction": 0,
+              "feedback": "Short-circuiting means b is skipped when a is false."
+            },
+            {
+              "text": "b = true in both tests",
+              "fraction": 0,
+              "feedback": "Then b never takes false, so condition coverage of b is incomplete."
+            }
+          ],
+          "generalFeedback": "Short-circuit && evaluates b only when a is true. To let b be observed as both true and false, keep a true and vary b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage subsumes statement",
+          "text": "<p>Which statement about branch and statement coverage is correct?</p>",
+          "answers": [
+            {
+              "text": "100% branch coverage guarantees 100% statement coverage",
+              "fraction": 100,
+              "feedback": "Correct — taking every branch reaches every reachable statement, so branch coverage subsumes statement coverage."
+            },
+            {
+              "text": "100% statement coverage guarantees 100% branch coverage",
+              "fraction": 0,
+              "feedback": "Reversed — an if without else can be 100% statement yet under 100% branch."
+            },
+            {
+              "text": "They always give the same percentage",
+              "fraction": 0,
+              "feedback": "They differ, e.g. if-without-else: statement can be 100% while branch is 50%."
+            },
+            {
+              "text": "Neither subsumes the other",
+              "fraction": 0,
+              "feedback": "Branch coverage does subsume statement coverage."
+            }
+          ],
+          "generalFeedback": "Branch/decision coverage ⊒ statement coverage: exercising both outcomes of every decision necessarily reaches every reachable statement. The reverse does not hold.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Condition coverage subsumes decision?",
+          "text": "<p>Achieving 100% condition coverage always guarantees 100% decision (branch) coverage.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — e.g. a && b with (T,F) and (F,T) gives full condition coverage but the decision is false both times (50% decision)."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Not true: condition and decision coverage are incomparable; full condition coverage can leave a decision outcome untaken."
+            }
+          ],
+          "generalFeedback": "Condition coverage and decision coverage are incomparable. Tests (a=T,b=F) and (a=F,b=T) on a && b cover both values of a and b yet make the decision false both times, so decision coverage is only 50%. (Decision/condition coverage combines both to fix this.)"
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute condition coverage under one test",
+          "text": "<p>For the decision <code>a &amp;&amp; b</code>, condition coverage counts the four condition-value goals: a=T, a=F, b=T, b=F. The suite is the single test <code>(a=T, b=T)</code>. What is the <strong>condition</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — a=T and b=T are met, but a=F and b=F are not, so 2 / 4 = 50%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "a=F and b=F are never exercised by a single all-true test."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "Two of the four goals (a=T, b=T) are met, so 50%, not 25%."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "Only two of four condition-value goals are met, giving 50%."
+            }
+          ],
+          "generalFeedback": "Condition coverage tracks each condition taking each value: a=T ✓, b=T ✓, a=F ✗, b=F ✗ → 2 / 4 = 50%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum tests for branch coverage of one if-else",
+          "text": "<p>What is the minimum number of tests needed to fully cover the branches of a single <code>if-else</code> with one simple decision?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one test to take the true outcome and one for the false outcome."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test can take only one outcome; you need both true and false."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only two outcomes exist for one decision, so two tests suffice."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four would be the truth-table size for two conditions; one simple decision needs just two tests."
+            }
+          ],
+          "generalFeedback": "A single decision has two outcomes, so branch coverage needs at least two tests (true and false).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Suite that achieves 100% branch coverage",
+          "text": "<p>For:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>Which suite achieves <strong>100% branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+          "answers": [
+            {
+              "text": "{n = 4, n = 7}",
+              "fraction": 100,
+              "feedback": "Correct — n = 4 takes the true outcome and n = 7 takes the false outcome, covering both branches."
+            },
+            {
+              "text": "{n = 4}",
+              "fraction": 0,
+              "feedback": "Only the true outcome is taken, so branch coverage is 50%."
+            },
+            {
+              "text": "{n = 2, n = 8}",
+              "fraction": 0,
+              "feedback": "Both are even, so only the true outcome is taken — 50%."
+            },
+            {
+              "text": "{n = 3}",
+              "fraction": 0,
+              "feedback": "Only the false outcome is taken, so branch coverage is 50%."
+            }
+          ],
+          "generalFeedback": "Branch coverage needs both outcomes: one even n (true) and one odd n (false). {n = 4, n = 7} does this; suites with only evens or only odds reach just one branch.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "MC/DC minimum tests for 3 conditions",
+          "text": "<p>A decision has <strong>3</strong> independent conditions. What is the minimum number of tests that can satisfy <strong>MC/DC</strong>?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — MC/DC needs a minimum of n + 1 tests; for n = 3 that is 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The minimum is n + 1 = 4, not n."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "2^3 = 8 is multiple-condition coverage; MC/DC needs only about n + 1."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Up to 2n = 6 tests may be used, but the minimum is n + 1 = 4."
+            }
+          ],
+          "generalFeedback": "For n independent conditions, MC/DC requires a minimum of n + 1 tests (and at most 2n), because a well-chosen test can serve as the pair-partner for several conditions. For n = 3 the minimum is 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC requirement",
+          "text": "<p>Beyond decision and condition coverage, the extra requirement of <strong>MC/DC</strong> is that:</p>",
+          "answers": [
+            {
+              "text": "Each condition is shown to independently affect the decision's outcome",
+              "fraction": 100,
+              "feedback": "Correct — for each condition there is a pair of tests, differing only in that condition, where the decision's value flips."
+            },
+            {
+              "text": "Every combination of condition values is tested",
+              "fraction": 0,
+              "feedback": "That is multiple-condition coverage, which is stronger than MC/DC."
+            },
+            {
+              "text": "Every statement is executed",
+              "fraction": 0,
+              "feedback": "That is statement coverage, unrelated to the independence requirement."
+            },
+            {
+              "text": "Every path is executed",
+              "fraction": 0,
+              "feedback": "That is path coverage, not MC/DC."
+            }
+          ],
+          "generalFeedback": "MC/DC requires each condition, holding the others fixed, to be demonstrated to independently flip the decision's outcome — plus each condition and the decision take both values.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multiple-condition coverage for 3 conditions",
+          "text": "<p>How many tests does <strong>multiple-condition coverage</strong> require for a decision with <strong>3</strong> conditions (ignoring infeasible combinations)?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — multiple-condition coverage needs all 2^n combinations; 2^3 = 8."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 is MC/DC's minimum, not multiple-condition coverage."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n is MC/DC's upper bound, not all combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Multiple-condition coverage needs 2^3 = 8 combinations, not 3."
+            }
+          ],
+          "generalFeedback": "Multiple-condition coverage exercises all 2^n truth-value combinations of the n conditions; for n = 3 that is 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compound-decision subsumption chain",
+          "text": "<p>Which ordering among these compound-decision criteria is correct (X ⊒ Y means X subsumes Y)?</p>",
+          "answers": [
+            {
+              "text": "multiple-condition ⊒ MC/DC ⊒ decision/condition ⊒ condition",
+              "fraction": 100,
+              "feedback": "Correct — all combinations subsume MC/DC, which subsumes decision/condition, which subsumes plain condition (and decision) coverage."
+            },
+            {
+              "text": "MC/DC ⊒ multiple-condition ⊒ decision/condition",
+              "fraction": 0,
+              "feedback": "Multiple-condition coverage is the strongest; it subsumes MC/DC, not the reverse."
+            },
+            {
+              "text": "condition ⊒ decision/condition ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "Reversed — plain condition coverage is the weakest of these."
+            },
+            {
+              "text": "decision/condition ⊒ multiple-condition ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "Multiple-condition coverage is stronger than both of the others."
+            }
+          ],
+          "generalFeedback": "multiple-condition ⊒ MC/DC ⊒ decision/condition coverage ⊒ condition coverage (and ⊒ decision coverage). Multiple-condition coverage is the strongest because it exercises the full truth table.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum MC/DC tests for a && b",
+          "text": "<p>For the decision <code>a &amp;&amp; b</code>, a minimal MC/DC test set is <code>{(T,T), (F,T), (T,F)}</code>. How many tests is that, and does it match n + 1?</p>",
+          "answers": [
+            {
+              "text": "3 tests, which equals n + 1 for n = 2",
+              "fraction": 100,
+              "feedback": "Correct — (T,T)/(F,T) shows a's effect, (T,T)/(T,F) shows b's effect; 3 = 2 + 1."
+            },
+            {
+              "text": "4 tests, the full truth table",
+              "fraction": 0,
+              "feedback": "The listed set has 3 tests, not 4; MC/DC does not need the whole table for a && b."
+            },
+            {
+              "text": "2 tests, one per outcome",
+              "fraction": 0,
+              "feedback": "Two tests give decision coverage but cannot show both a and b independently; MC/DC needs 3 here."
+            },
+            {
+              "text": "3 tests, but that is more than n + 1",
+              "fraction": 0,
+              "feedback": "n + 1 = 3 for n = 2, so 3 tests is exactly the minimum."
+            }
+          ],
+          "generalFeedback": "For a && b: the pair (T,T)/(F,T) flips the decision by changing a alone; the pair (T,T)/(T,F) flips it by changing b alone. The three distinct tests {(T,T),(F,T),(T,F)} = n + 1 = 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count of two sequential ifs",
+          "text": "<p>Consider:</p><pre>if (a) S1;\nif (b) S2;</pre><p>with two independent decisions and no loops. How many distinct execution <strong>paths</strong> are there?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — each if independently taken or not: 2 × 2 = 4 paths."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two counts branch outcomes of one if; two independent ifs give 2 × 2 = 4 paths."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The combinations are (a,b) = TT, TF, FT, FF — four paths, not three."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "With two independent decisions there are 4 distinct paths."
+            }
+          ],
+          "generalFeedback": "Two independent decisions in sequence yield 2 × 2 = 4 paths (a taken/not) × (b taken/not). Branch coverage needs only 2 tests, but path coverage needs 4.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Loops make path coverage infeasible",
+          "text": "<p>When the code under test contains a loop whose iteration count depends on input, full path coverage is generally infeasible.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each distinct iteration count is a distinct path, so the number of paths is unbounded."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A data-dependent loop produces a different path for every iteration count, giving unboundedly many paths."
+            }
+          ],
+          "generalFeedback": "A loop that can run 0, 1, 2, ... times yields a distinct path per iteration count, so the path set is (potentially) infinite and full path coverage cannot generally be achieved."
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible branch caps coverage",
+          "text": "<p>A function has <strong>4</strong> branch outcomes, but one of them is <em>infeasible</em> (dead code that no input can reach). What is the maximum <strong>branch</strong> coverage achievable, measured over all 4 outcomes?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — at best 3 of the 4 outcomes can be taken, so 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The infeasible outcome can never be taken, so 100% over all 4 is impossible."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Three feasible outcomes can be taken; that is 75%, not 50%."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "Only one outcome is unreachable; the other three are reachable, giving 75%."
+            }
+          ],
+          "generalFeedback": "Infeasible branches cap achievable coverage: with 1 of 4 outcomes unreachable, the maximum over all 4 is 3 / 4 = 75%. Reporting over feasible outcomes only would show 100%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if branch coverage",
+          "text": "<p>Consider:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>There are 4 branch outcomes: outer-true, outer-false, inner-true, inner-false. Suite: <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>branch</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — outer-true, inner-true (from 5,3) and outer-false (from -1,0) are taken, but inner-false is not: 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The inner-false outcome (x > 0 and y <= 0) is never reached by this suite."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Three of four outcomes are taken (outer-true, outer-false, inner-true), giving 75%."
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% would be 2 of 3; here 3 of 4 branch outcomes are taken = 75%."
+            }
+          ],
+          "generalFeedback": "(5,3): outer-true + inner-true. (-1,0): outer-false. Inner-false requires x > 0 and y <= 0, which no test provides. Branch coverage = 3 / 4 = 75%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if missed branch",
+          "text": "<p>Same code and suite:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. Which branch outcome is <strong>missed</strong>?</p>",
+          "answers": [
+            {
+              "text": "The inner false branch (x > 0 and y <= 0, so r = 2)",
+              "fraction": 100,
+              "feedback": "Correct — no test has x > 0 together with y <= 0, so r = 2 is never reached."
+            },
+            {
+              "text": "The outer false branch (x <= 0)",
+              "fraction": 0,
+              "feedback": "(x=-1, y=0) takes the outer false branch, so it is covered."
+            },
+            {
+              "text": "The inner true branch (r = 1)",
+              "fraction": 0,
+              "feedback": "(x=5, y=3) takes the inner true branch, so it is covered."
+            },
+            {
+              "text": "None — all branches are covered",
+              "fraction": 0,
+              "feedback": "The inner false branch (r = 2) is missed; it needs x > 0 and y <= 0."
+            }
+          ],
+          "generalFeedback": "To reach r = 2 you need x > 0 (enter outer) and y <= 0 (inner false). The suite never combines those, so the inner-false branch and the path leading to r = 2 are missed. Adding e.g. (x=5, y=-1) would cover it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if statement coverage",
+          "text": "<p>Same code:</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>Six executable statements s1..s6. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>statement</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "≈ 83.3%",
+              "fraction": 100,
+              "feedback": "Correct — all run except s5 (r = 2), so 5 / 6 ≈ 83.3%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s5 (r = 2) needs x > 0 and y <= 0, which the suite never provides."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% is the branch coverage; statement coverage is 5 / 6 ≈ 83.3%."
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "Five of six statements execute, giving ≈ 83.3%, not 66.7%."
+            }
+          ],
+          "generalFeedback": "(5,3) runs s1, s2, s3, s4, s6; (-1,0) runs s1, s2, s6. Only s5 (r = 2) is missed. Statement coverage = 5 / 6 ≈ 83.3%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if path coverage",
+          "text": "<p>Same code has three feasible paths: P1 = x &lt;= 0; P2 = x &gt; 0 and y &gt; 0; P3 = x &gt; 0 and y &lt;= 0. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>path</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "Correct — (5,3) covers P2 and (-1,0) covers P1, but P3 is missed: 2 / 3 ≈ 66.7%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "Path P3 (x > 0 and y <= 0) is never exercised."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Two of three feasible paths are covered, giving ≈ 66.7%, not 50%."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% is the branch coverage; path coverage here is 2 / 3 ≈ 66.7%."
+            }
+          ],
+          "generalFeedback": "Feasible paths: P1 (x <= 0), P2 (x > 0, y > 0), P3 (x > 0, y <= 0). The suite covers P1 and P2 but not P3, so path coverage = 2 / 3 ≈ 66.7%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC independence pair for a || b",
+          "text": "<p>For the decision <code>a || b</code>, which pair of tests demonstrates that condition <code>b</code> <strong>independently</strong> affects the outcome?</p>",
+          "answers": [
+            {
+              "text": "(a=F, b=F) giving false and (a=F, b=T) giving true",
+              "fraction": 100,
+              "feedback": "Correct — a is held false; changing b alone flips the decision from false to true."
+            },
+            {
+              "text": "(a=T, b=F) and (a=T, b=T), both giving true",
+              "fraction": 0,
+              "feedback": "With a = true, a || b is true regardless of b, so the outcome does not flip — b's effect is masked."
+            },
+            {
+              "text": "(a=F, b=T) and (a=T, b=F), both giving true",
+              "fraction": 0,
+              "feedback": "These differ in both a and b, so they cannot isolate b's independent effect."
+            },
+            {
+              "text": "(a=T, b=T) and (a=F, b=F)",
+              "fraction": 0,
+              "feedback": "These differ in both conditions, so neither condition's effect is isolated."
+            }
+          ],
+          "generalFeedback": "To show b independently affects a || b, hold a = false and vary b: (F,F) → false, (F,T) → true. Only then does changing b alone flip the outcome.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MC/DC subsumes decision coverage",
+          "text": "<p>A test set that satisfies MC/DC for a decision necessarily satisfies decision (branch) coverage of that decision.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — showing each condition can flip the outcome forces the decision to take both true and false, so decision coverage is met."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MC/DC requires each condition to flip the decision, which necessarily makes the decision both true and false — decision coverage is implied."
+            }
+          ],
+          "generalFeedback": "MC/DC ⊒ decision/condition coverage ⊒ decision coverage (and condition coverage). Demonstrating independent effect requires the decision to take both outcomes, so branch coverage of that decision follows."
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision/condition coverage definition",
+          "text": "<p><strong>Decision/condition coverage</strong> (a.k.a. condition/decision coverage) is satisfied when:</p>",
+          "answers": [
+            {
+              "text": "Both condition coverage and decision coverage are achieved together",
+              "fraction": 100,
+              "feedback": "Correct — each condition takes both values AND the decision takes both outcomes."
+            },
+            {
+              "text": "Only the decision takes both true and false",
+              "fraction": 0,
+              "feedback": "That is plain decision coverage; decision/condition also requires condition coverage."
+            },
+            {
+              "text": "Only each condition takes both values",
+              "fraction": 0,
+              "feedback": "That is plain condition coverage; decision/condition also requires decision coverage."
+            },
+            {
+              "text": "Every combination of the conditions' values is exercised",
+              "fraction": 0,
+              "feedback": "That is multiple-condition coverage, which is stronger than decision/condition."
+            }
+          ],
+          "generalFeedback": "Decision/condition coverage simply combines the two: every condition takes both values and the decision takes both outcomes. It sits above condition and decision coverage and below MC/DC in the subsumption chain.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "敘述涵蓋率定義",
+          "text": "<p>測試套件的<strong>敘述（行）涵蓋率（statement/line coverage）</strong>最適當的定義是：</p>",
+          "answers": [
+            {
+              "text": "被至少一個測試執行到的可執行敘述所佔的比例",
+              "fraction": 100,
+              "feedback": "正確——即被執行到的可執行敘述數除以可執行敘述總數。"
+            },
+            {
+              "text": "被至少一個測試取到的分支結果所佔的比例",
+              "fraction": 0,
+              "feedback": "那是分支（判定）涵蓋率，不是敘述涵蓋率。"
+            },
+            {
+              "text": "被編譯到的原始碼行（含空行與註解）所佔的比例",
+              "fraction": 0,
+              "feedback": "空行與註解不是可執行敘述，且涵蓋率談的是執行而非編譯。"
+            },
+            {
+              "text": "被嘗試過的所有輸入值所佔的比例",
+              "fraction": 0,
+              "feedback": "涵蓋率是對程式碼衡量，而非對整個輸入域衡量。"
+            }
+          ],
+          "generalFeedback": "敘述涵蓋率 =（被某測試執行到的可執行敘述）/（可執行敘述總數）。註解與空行不計。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支涵蓋率定義",
+          "text": "<p><strong>分支（判定）涵蓋率</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "每個判定都至少各取到一次真與假的結果",
+              "fraction": 100,
+              "feedback": "正確——每個判定的兩個分支結果都要被執行到。"
+            },
+            {
+              "text": "每個可執行敘述都至少被執行一次",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，比分支涵蓋率弱。"
+            },
+            {
+              "text": "每個個別布林條件都取到真與假兩種值",
+              "fraction": 0,
+              "feedback": "那是條件涵蓋率，針對原子條件而非整個判定。"
+            },
+            {
+              "text": "程式的每條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是路徑涵蓋率，遠更強且常不可行。"
+            }
+          ],
+          "generalFeedback": "分支（判定）涵蓋率要求每個判定至少各評估為真與假一次，使每個分支結果（邊）都被取到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "條件涵蓋率定義",
+          "text": "<p><strong>條件涵蓋率（condition coverage）</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "判定中每個原子布林條件都至少各取到一次真與假",
+              "fraction": 100,
+              "feedback": "正確——每個個別條件都要被兩種取值都評估到。"
+            },
+            {
+              "text": "整個判定都至少各取到一次真與假",
+              "fraction": 0,
+              "feedback": "那是判定（分支）涵蓋率；條件涵蓋率看的是判定內部。"
+            },
+            {
+              "text": "條件所有取值組合都被嘗試過",
+              "fraction": 0,
+              "feedback": "那是多重條件涵蓋率，更強。"
+            },
+            {
+              "text": "每個敘述都執行一次",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率。"
+            }
+          ],
+          "generalFeedback": "條件涵蓋率要求每個原子條件（例如 a && b 中的 a、b）在某測試為真、在某測試為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑涵蓋率定義",
+          "text": "<p><strong>路徑涵蓋率（path coverage）</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "程式碼中每條可行的執行路徑都被某測試執行到",
+              "fraction": 100,
+              "feedback": "正確——路徑涵蓋率要執行每一條端到端的控制流路徑。"
+            },
+            {
+              "text": "每個判定都取到兩種結果",
+              "fraction": 0,
+              "feedback": "那是分支涵蓋率；路徑涵蓋率約束整條路徑，而非單一判定。"
+            },
+            {
+              "text": "每個敘述都執行一次",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，是這些之中最弱的。"
+            },
+            {
+              "text": "每個條件都取到兩種值",
+              "fraction": 0,
+              "feedback": "那是條件涵蓋率。"
+            }
+          ],
+          "generalFeedback": "路徑涵蓋率要求程式的每條可行路徑都被執行。有迴圈時路徑數通常無上限，故完整路徑涵蓋常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 代表什麼",
+          "text": "<p>在涵蓋率術語中，<strong>MC/DC</strong> 代表：</p>",
+          "answers": [
+            {
+              "text": "修正條件／判定涵蓋率（Modified Condition/Decision Coverage）",
+              "fraction": 100,
+              "feedback": "正確——MC/DC 即 Modified Condition/Decision Coverage，用於 DO-178B/C。"
+            },
+            {
+              "text": "多重條件／判定涵蓋率（Multiple Condition/Decision Coverage）",
+              "fraction": 0,
+              "feedback": "那是另一個更強的準則（多重條件涵蓋率）；MC/DC 是 Modified Condition/Decision Coverage。"
+            },
+            {
+              "text": "最大涵蓋／判定準則（Maximum Coverage/Decision Criterion）",
+              "fraction": 0,
+              "feedback": "並無此標準準則；MC/DC = Modified Condition/Decision Coverage。"
+            },
+            {
+              "text": "最小程式碼／資料涵蓋率（Minimal Code/Data Coverage）",
+              "fraction": 0,
+              "feedback": "並非涵蓋率準則；MC/DC = Modified Condition/Decision Coverage。"
+            }
+          ],
+          "generalFeedback": "MC/DC = Modified Condition/Decision Coverage（修正條件／判定涵蓋率）。每個條件都必須被證明能獨立影響判定的結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "函式涵蓋率定義",
+          "text": "<p><strong>函式（進入點）涵蓋率（function/entry coverage）</strong>衡量：</p>",
+          "answers": [
+            {
+              "text": "被至少呼叫一次的函式／副程式所佔的比例",
+              "fraction": 100,
+              "feedback": "正確——函式涵蓋率計算測試套件進入了多少個函式。"
+            },
+            {
+              "text": "每個函式內被執行到的敘述比例",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，以敘述為單位而非以函式為單位。"
+            },
+            {
+              "text": "每個函式內被取到的分支比例",
+              "fraction": 0,
+              "feedback": "那是分支涵蓋率，不是函式涵蓋率。"
+            },
+            {
+              "text": "傳給每個函式的參數個數",
+              "fraction": 0,
+              "feedback": "函式涵蓋率談的是函式是否被呼叫，而非其引數。"
+            }
+          ],
+          "generalFeedback": "函式（進入點）涵蓋率 =（至少被呼叫一次的函式）/（函式總數），是最粗略的常見度量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算敘述涵蓋率（8 中 5）",
+          "text": "<p>某函式有 <strong>8</strong> 個可執行敘述。測試套件執行了其中 <strong>5</strong> 個。敘述涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "62.5%",
+              "fraction": 100,
+              "feedback": "正確——5 / 8 = 0.625 = 62.5%。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "5 / 8 = 62.5%，不是 50%。"
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% 約為 5 除以 6.25；5 / 8 = 62.5%。"
+            },
+            {
+              "text": "37.5%",
+              "fraction": 0,
+              "feedback": "37.5% 是未執行的比例（3 / 8）；涵蓋率是 5 / 8 = 62.5%。"
+            }
+          ],
+          "generalFeedback": "敘述涵蓋率 = 已執行 / 總數 = 5 / 8 = 62.5%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算分支涵蓋率（4 中 3）",
+          "text": "<p>某函式含 <strong>4</strong> 個分支結果（兩個判定，各有真、假一條邊）。某套件取到其中 <strong>3</strong> 個。分支涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——3 / 4 = 75%。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "50% 會是 4 中 2；此處為 4 中 3 = 75%。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "25% 是未取到的比例（1 / 4）；分支涵蓋率是 3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "還有一個分支結果未取到，故不可能是 100%。"
+            }
+          ],
+          "generalFeedback": "分支涵蓋率 = 取到的分支結果 / 分支結果總數 = 3 / 4 = 75%。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% 敘述未必得到 100% 分支",
+          "text": "<p>達到 100% 敘述涵蓋率就保證 100% 分支涵蓋率。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——沒有的可執行到它唯一的敘述（100% 敘述），但假分支從未被取到（分支 < 100%）。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不成立：例如只用 x = 5 測試會到達每個敘述，但從不取假分支。"
+            }
+          ],
+          "generalFeedback": "敘述涵蓋率並不蘊含分支涵蓋率：無 else 的 if 可達 100% 敘述，卻讓假分支未被取到。（分支涵蓋率會蘊含敘述涵蓋率，但反向不成立。）"
+        },
+        {
+          "type": "multichoice",
+          "name": "行涵蓋率的對應關係",
+          "text": "<p>常被回報的<strong>行涵蓋率（line coverage）</strong>最接近下列哪個經典度量？</p>",
+          "answers": [
+            {
+              "text": "敘述涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——行涵蓋率計算被執行到的可執行行，本質上就是敘述涵蓋率。"
+            },
+            {
+              "text": "分支涵蓋率",
+              "fraction": 0,
+              "feedback": "分支涵蓋率談的是判定結果，而非執行到的行。"
+            },
+            {
+              "text": "路徑涵蓋率",
+              "fraction": 0,
+              "feedback": "路徑涵蓋率計算整條路徑，遠比行涵蓋率強。"
+            },
+            {
+              "text": "MC/DC",
+              "fraction": 0,
+              "feedback": "MC/DC 談的是條件獨立影響判定，與行無關。"
+            }
+          ],
+          "generalFeedback": "行涵蓋率計算被執行到的可執行行，被視為（大致）等同於敘述涵蓋率；一行可能含多個敘述，但兩者相近。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算行涵蓋率（10 中 7）",
+          "text": "<p>某檔案有 <strong>10</strong> 個可執行行；某套件執行了其中 <strong>7</strong> 行。行涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "70%",
+              "fraction": 100,
+              "feedback": "正確——7 / 10 = 70%。"
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "30% 是未涵蓋比例；涵蓋率是 7 / 10 = 70%。"
+            },
+            {
+              "text": "77%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%，不是 77%。"
+            },
+            {
+              "text": "7%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%，不是 7%。"
+            }
+          ],
+          "generalFeedback": "行涵蓋率 = 已執行行 / 可執行行 = 7 / 10 = 70%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三者中最強者",
+          "text": "<p>在<strong>敘述</strong>、<strong>分支</strong>、<strong>路徑</strong>涵蓋率之中，何者最強（最難完全達成）？</p>",
+          "answers": [
+            {
+              "text": "路徑涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——路徑涵蓋率蘊含分支，分支又蘊含敘述。"
+            },
+            {
+              "text": "敘述涵蓋率",
+              "fraction": 0,
+              "feedback": "敘述涵蓋率是三者中最弱的。"
+            },
+            {
+              "text": "分支涵蓋率",
+              "fraction": 0,
+              "feedback": "分支涵蓋率比敘述強，但比路徑弱。"
+            },
+            {
+              "text": "三者一樣強",
+              "fraction": 0,
+              "feedback": "它們形成嚴格層級：路徑蘊含分支蘊含敘述。"
+            }
+          ],
+          "generalFeedback": "包含關係：路徑涵蓋率 ⊒ 分支／判定涵蓋率 ⊒ 敘述涵蓋率。路徑涵蓋率最強，且有迴圈時通常不可行。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% 涵蓋率不等於無錯誤",
+          "text": "<p>達到任一結構涵蓋率度量的 100% 就證明程式沒有錯誤。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率只顯示程式碼被執行，並未顯示輸出被檢查，也未涵蓋缺漏的程式碼與未試到的資料組合是否正確。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "涵蓋率衡量哪些程式碼被執行，而非正確性；缺漏邏輯、錯誤的預期結果、未試到的資料值仍可能藏有錯誤。"
+            }
+          ],
+          "generalFeedback": "涵蓋率告訴你程式碼被執行了，而非它是正確的。錯誤的預期結果（oracle）、被遺漏的情況、或某個未嘗試的資料值，都可能在 100% 涵蓋率下仍留有錯誤。"
+        },
+        {
+          "type": "multichoice",
+          "name": "插樁（instrumentation）做什麼",
+          "text": "<p>為衡量涵蓋率，工具通常會對程式做<strong>插樁（instrument）</strong>。這是指它：</p>",
+          "answers": [
+            {
+              "text": "插入探針／計數器，於執行期記錄哪些敘述或分支被執行",
+              "fraction": 100,
+              "feedback": "正確——插樁加入記錄用的簿記，使執行到的元素在測試執行時被記下。"
+            },
+            {
+              "text": "改寫程式以自動移除所有錯誤",
+              "fraction": 0,
+              "feedback": "插樁只記錄執行，並不修正程式碼。"
+            },
+            {
+              "text": "以數學方式證明程式碼正確",
+              "fraction": 0,
+              "feedback": "那是形式驗證，而非涵蓋率插樁。"
+            },
+            {
+              "text": "替你產生測試輸入",
+              "fraction": 0,
+              "feedback": "插樁記錄測試到達之處，並不產生測試。"
+            }
+          ],
+          "generalFeedback": "涵蓋率工具在敘述與分支處以探針／計數器插樁；執行測試會記下哪些元素被執行，再由此計算百分比。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判定與條件（基礎）",
+          "text": "<p>在判定 <code>if (a &amp;&amp; b)</code> 中，整個運算式 <code>a &amp;&amp; b</code> 是<em>判定（decision）</em>。那 <code>a</code> 與 <code>b</code> 稱為什麼？</p>",
+          "answers": [
+            {
+              "text": "條件（原子布林子運算式）",
+              "fraction": 100,
+              "feedback": "正確——a 與 b 是該判定的個別條件。"
+            },
+            {
+              "text": "分支",
+              "fraction": 0,
+              "feedback": "分支是判定的真／假結果，而非 a、b 本身。"
+            },
+            {
+              "text": "路徑",
+              "fraction": 0,
+              "feedback": "路徑是穿過程式碼的整條路線，而非判定的原子部分。"
+            },
+            {
+              "text": "敘述",
+              "fraction": 0,
+              "feedback": "a 與 b 是判定內的條件，而非各自獨立的敘述。"
+            }
+          ],
+          "generalFeedback": "判定是控制分支的完整布林運算式；其原子布林子運算式（a、b）是它的條件。條件涵蓋率針對 a、b；判定涵蓋率針對 a && b。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "if 的敘述涵蓋率（x<=0 測試）",
+          "text": "<p>考慮：</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>可執行敘述：s1、s2、s3、s4（共四個）。套件為單一測試 <code>{x = -3}</code>。<strong>敘述</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——x = -3 執行 s1、s2、s4，但跳過 s3（y = 1），故 3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s3（y = 1）僅在 x > 0 時到達，x = -3 不會執行它。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "四個敘述中有三個執行（s1、s2、s4），是 75%，不是 50%。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "只漏了 s3；即 4 中 3 = 75% 被涵蓋。"
+            }
+          ],
+          "generalFeedback": "x = -3 執行 s1、s2（if）與 s4，但不執行 s3。敘述涵蓋率 = 3 / 4 = 75%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "if 的分支涵蓋率（x<=0 測試）",
+          "text": "<p>同一段程式：</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>單一判定 <code>x &gt; 0</code> 有兩個分支結果（真、假）。用套件 <code>{x = -3}</code>，<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——只取到假結果，故 1 / 2 = 50%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "x = -3 從未取到真結果（x > 0）。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是敘述涵蓋率；此處分支涵蓋率是 2 中 1 = 50%。"
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "假結果有被取到，故是 50%，不是 0%。"
+            }
+          ],
+          "generalFeedback": "x = -3 只取到 x > 0 的假結果，故分支涵蓋率 = 1 / 2 = 50%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "if-else 的敘述涵蓋率（一個測試）",
+          "text": "<p>考慮：</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>可執行敘述：s1、s2、s3（共三個）。套件為 <code>{n = 4}</code>。<strong>敘述</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "正確——n = 4 執行 s1 與 s2，但不執行 s3（return 1），故 2 / 3 ≈ 66.7%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "else 敘述 s3 僅在 n 為奇數時到達，n = 4 會漏掉它。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "三個敘述中有兩個執行；即 2 / 3 ≈ 66.7%，不是 50%。"
+            },
+            {
+              "text": "≈ 33.3%",
+              "fraction": 0,
+              "feedback": "33.3% 是三中一；此處三中二執行，故 ≈ 66.7%。"
+            }
+          ],
+          "generalFeedback": "n = 4 執行 s1（if）與 s2（return 0），跳過 s3。敘述涵蓋率 = 2 / 3 ≈ 66.7%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "if-else 的分支涵蓋率（一個測試）",
+          "text": "<p>同一段 if-else：</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>用套件 <code>{n = 4}</code>，判定 <code>n % 2 == 0</code> 的<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——只取到真結果，故 1 / 2 = 50%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "n = 4 從未取到假結果（n 為奇數）。"
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% 是此處的敘述涵蓋率；分支涵蓋率是 2 中 1 = 50%。"
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "真結果有被取到，故分支涵蓋率是 50%。"
+            }
+          ],
+          "generalFeedback": "n = 4 只取到真結果；假（else）結果未取到，故分支涵蓋率 = 1 / 2 = 50%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "條件涵蓋達成但判定未達成",
+          "text": "<p>對判定 <code>a &amp;&amp; b</code>，執行兩個測試 <code>(a=T, b=F)</code> 與 <code>(a=F, b=T)</code>。兩者都使判定為<strong>假</strong>。這說明了什麼？</p>",
+          "answers": [
+            {
+              "text": "100% 條件涵蓋率，但僅 50% 判定涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——a 與 b 各取到 T 與 F（條件 100%），但判定兩次都為假（判定 50%）。"
+            },
+            {
+              "text": "100% 判定涵蓋率，但僅 50% 條件涵蓋率",
+              "fraction": 0,
+              "feedback": "相反：判定兩次都為假（50%），而每個條件都取到兩種值（100%）。"
+            },
+            {
+              "text": "兩者皆為 100%",
+              "fraction": 0,
+              "feedback": "判定從未評估為真，故判定涵蓋率僅 50%。"
+            },
+            {
+              "text": "兩者皆為 50%",
+              "fraction": 0,
+              "feedback": "條件涵蓋是完整的：a 先 T 後 F，b 先 F 後 T。"
+            }
+          ],
+          "generalFeedback": "a：先 T 後 F；b：先 F 後 T——條件涵蓋完整。但 a && b 兩個測試都為假，故判定涵蓋率是 1 / 2 = 50%。條件涵蓋率並不蘊含判定涵蓋率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判定涵蓋達成但條件未達成",
+          "text": "<p>對判定 <code>a || b</code>，執行兩個測試 <code>(a=T, b=F)</code> 與 <code>(a=F, b=F)</code>。條件涵蓋率計四個目標 a=T、a=F、b=T、b=F。得到什麼涵蓋率？</p>",
+          "answers": [
+            {
+              "text": "100% 判定涵蓋率，但僅 75% 條件涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——判定先真後假（100%）；a=T、a=F、b=F 達成，但 b=T 未達成，故 3 / 4 = 75% 條件。"
+            },
+            {
+              "text": "100% 條件涵蓋率，但僅 50% 判定涵蓋率",
+              "fraction": 0,
+              "feedback": "相反：判定取到兩種值（100%）；是 b 從未變真，使條件涵蓋率不到 100%。"
+            },
+            {
+              "text": "兩者皆為 100%",
+              "fraction": 0,
+              "feedback": "b 在兩個測試都為假，故目標 b=T 未達成，條件涵蓋率為 75%。"
+            },
+            {
+              "text": "兩者皆為 50%",
+              "fraction": 0,
+              "feedback": "判定在測試 1 為真、測試 2 為假，故判定涵蓋率是 100%。"
+            }
+          ],
+          "generalFeedback": "a || b：先真後假，故判定涵蓋率 100%。條件目標達成情形：a=T ✓、a=F ✓、b=F ✓，但 b=T ✗（b 兩次都為假）→ 3 / 4 = 75%。判定涵蓋率並不蘊含條件涵蓋率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "包含（subsumption）順序",
+          "text": "<p>下列哪個包含順序正確（X ⊒ Y 表示 X 保證 Y）？</p>",
+          "answers": [
+            {
+              "text": "路徑 ⊒ 分支／判定 ⊒ 敘述",
+              "fraction": 100,
+              "feedback": "正確——完整路徑涵蓋蘊含完整分支涵蓋，後者又蘊含完整敘述涵蓋。"
+            },
+            {
+              "text": "敘述 ⊒ 分支／判定 ⊒ 路徑",
+              "fraction": 0,
+              "feedback": "相反——敘述涵蓋率最弱，而非最強。"
+            },
+            {
+              "text": "分支／判定 ⊒ 路徑 ⊒ 敘述",
+              "fraction": 0,
+              "feedback": "路徑涵蓋率比分支涵蓋率強，而非弱。"
+            },
+            {
+              "text": "條件 ⊒ 分支／判定 ⊒ 敘述",
+              "fraction": 0,
+              "feedback": "條件與分支／判定涵蓋率不可比；條件並不蘊含分支。"
+            }
+          ],
+          "generalFeedback": "路徑 ⊒ 分支／判定 ⊒ 敘述。注意條件涵蓋率與分支／判定涵蓋率不可比——彼此互不蘊含。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% 敘述、50% 分支之例",
+          "text": "<p>考慮：</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>用單一測試 <code>{x = 5}</code>，下列何者為真？</p>",
+          "answers": [
+            {
+              "text": "敘述涵蓋率為 100%，但分支涵蓋率僅 50%",
+              "fraction": 100,
+              "feedback": "正確——每個敘述都執行，但 x > 0 的假結果從未取到。"
+            },
+            {
+              "text": "敘述與分支涵蓋率皆為 100%",
+              "fraction": 0,
+              "feedback": "假分支（x <= 0）從未取到，故分支涵蓋率為 50%。"
+            },
+            {
+              "text": "敘述涵蓋率為 75%",
+              "fraction": 0,
+              "feedback": "x = 5 執行所有四個敘述（含 y = 1），故敘述涵蓋率為 100%。"
+            },
+            {
+              "text": "分支涵蓋率為 100%，但敘述涵蓋率為 75%",
+              "fraction": 0,
+              "feedback": "兩項都錯：敘述全被涵蓋（100%），而分支為 50%。"
+            }
+          ],
+          "generalFeedback": "x = 5 執行 s1..s4（敘述 100%），但只取到真結果，故分支涵蓋率為 1 / 2 = 50%。這是敘述涵蓋率不蘊含分支涵蓋率的經典情況。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "短路：b 有被評估嗎？",
+          "text": "<p>在具短路求值（short-circuit）的語言中，判定 <code>a &amp;&amp; b</code> 用單一測試 <code>{a = false}</code> 執行。條件 <code>b</code> 有被評估嗎？</p>",
+          "answers": [
+            {
+              "text": "沒有——因為 a 為假，&& 短路，b 從未被評估",
+              "fraction": 100,
+              "feedback": "正確——a = false 時結果已確定為假，故略過 b。"
+            },
+            {
+              "text": "有——兩個運算元一律都會被評估",
+              "fraction": 0,
+              "feedback": "只有在沒有短路時才如此；&& 的左運算元為假會略過 b。"
+            },
+            {
+              "text": "有——b 會先被評估",
+              "fraction": 0,
+              "feedback": "&& 先評估左運算元；a = false 會在評估 b 前結束。"
+            },
+            {
+              "text": "只有在 a 為真且 b 為假時",
+              "fraction": 0,
+              "feedback": "b 恰在 a 為真時被評估；此處 a 為假，故略過 b。"
+            }
+          ],
+          "generalFeedback": "短路 && 中，左運算元為假即決定結果，故 b 不被評估。要試到 b 的取值，需要 a 為真的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "短路對條件涵蓋率的影響",
+          "text": "<p>在短路 <code>&amp;&amp;</code> 下，要讓 <code>a &amp;&amp; b</code> 中的條件 <code>b</code> 取到<strong>真與假</strong>兩種值以計入條件涵蓋率，測試必須：</p>",
+          "answers": [
+            {
+              "text": "兩個測試都 a = true（一次 b = true，一次 b = false）",
+              "fraction": 100,
+              "feedback": "正確——b 只在 a 為真時被評估，故 a 必須為真才能試到 b。"
+            },
+            {
+              "text": "兩個測試都 a = false",
+              "fraction": 0,
+              "feedback": "a = false 時 b 從未被評估，其取值永不被試到。"
+            },
+            {
+              "text": "a 為任意值皆可，因為 b 一律都會被評估",
+              "fraction": 0,
+              "feedback": "短路表示 a 為假時會略過 b。"
+            },
+            {
+              "text": "兩個測試都 b = true",
+              "fraction": 0,
+              "feedback": "那樣 b 永不取假，b 的條件涵蓋不完整。"
+            }
+          ],
+          "generalFeedback": "短路 && 只在 a 為真時評估 b。要讓 b 被觀察到真與假兩種值，需保持 a 為真並變化 b。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支涵蓋蘊含敘述涵蓋",
+          "text": "<p>關於分支與敘述涵蓋率，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "100% 分支涵蓋率保證 100% 敘述涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——取到每個分支即會到達每個可達敘述，故分支涵蓋率蘊含敘述涵蓋率。"
+            },
+            {
+              "text": "100% 敘述涵蓋率保證 100% 分支涵蓋率",
+              "fraction": 0,
+              "feedback": "相反——無 else 的 if 可達 100% 敘述卻不到 100% 分支。"
+            },
+            {
+              "text": "兩者總是給出相同的百分比",
+              "fraction": 0,
+              "feedback": "兩者會不同，例如無 else 的 if：敘述可為 100% 而分支為 50%。"
+            },
+            {
+              "text": "兩者互不蘊含",
+              "fraction": 0,
+              "feedback": "分支涵蓋率確實蘊含敘述涵蓋率。"
+            }
+          ],
+          "generalFeedback": "分支／判定涵蓋率 ⊒ 敘述涵蓋率：取到每個判定的兩個結果，必然到達每個可達敘述。反向不成立。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "條件涵蓋蘊含判定涵蓋？",
+          "text": "<p>達到 100% 條件涵蓋率一定保證 100% 判定（分支）涵蓋率。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——例如 a && b 用 (T,F) 與 (F,T) 得到完整條件涵蓋，但判定兩次都為假（判定 50%）。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不成立：條件與判定涵蓋率不可比；完整的條件涵蓋可能留下某個判定結果未取到。"
+            }
+          ],
+          "generalFeedback": "條件涵蓋率與判定涵蓋率不可比。對 a && b 用 (a=T,b=F) 與 (a=F,b=T)，涵蓋了 a、b 的兩種值，但判定兩次都為假，故判定涵蓋率僅 50%。（判定／條件涵蓋率結合兩者以修補此問題。）"
+        },
+        {
+          "type": "multichoice",
+          "name": "計算單一測試下的條件涵蓋率",
+          "text": "<p>對判定 <code>a &amp;&amp; b</code>，條件涵蓋率計四個條件取值目標：a=T、a=F、b=T、b=F。套件為單一測試 <code>(a=T, b=T)</code>。<strong>條件</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——a=T 與 b=T 達成，但 a=F 與 b=F 未達成，故 2 / 4 = 50%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "單一全真測試從未試到 a=F 與 b=F。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "四個目標中達成兩個（a=T、b=T），故 50%，不是 25%。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "四個條件取值目標僅達成兩個，得 50%。"
+            }
+          ],
+          "generalFeedback": "條件涵蓋率追蹤每個條件取到每種值：a=T ✓、b=T ✓、a=F ✗、b=F ✗ → 2 / 4 = 50%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單一 if-else 分支涵蓋的最少測試數",
+          "text": "<p>要完整涵蓋一個含單一簡單判定的 <code>if-else</code> 之分支，最少需要幾個測試？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個測試取真結果，一個取假結果。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只能取到一個結果；真與假兩者都需要。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "單一判定只有兩個結果，故兩個測試即足夠。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是兩個條件的真值表大小；單一簡單判定只需兩個測試。"
+            }
+          ],
+          "generalFeedback": "單一判定有兩個結果，故分支涵蓋至少需兩個測試（真與假）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成 100% 分支涵蓋的套件",
+          "text": "<p>對於：</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>哪個套件能達成判定 <code>n % 2 == 0</code> 的 <strong>100% 分支</strong>涵蓋？</p>",
+          "answers": [
+            {
+              "text": "{n = 4, n = 7}",
+              "fraction": 100,
+              "feedback": "正確——n = 4 取到真結果，n = 7 取到假結果，兩個分支都涵蓋。"
+            },
+            {
+              "text": "{n = 4}",
+              "fraction": 0,
+              "feedback": "只取到真結果，故分支涵蓋率為 50%。"
+            },
+            {
+              "text": "{n = 2, n = 8}",
+              "fraction": 0,
+              "feedback": "兩者皆為偶數，故只取到真結果——50%。"
+            },
+            {
+              "text": "{n = 3}",
+              "fraction": 0,
+              "feedback": "只取到假結果，故分支涵蓋率為 50%。"
+            }
+          ],
+          "generalFeedback": "分支涵蓋需要兩個結果：一個偶數 n（真）與一個奇數 n（假）。{n = 4, n = 7} 做到；全偶或全奇的套件只到達一個分支。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "3 個條件的 MC/DC 最少測試數",
+          "text": "<p>某判定有 <strong>3</strong> 個獨立條件。滿足 <strong>MC/DC</strong> 的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——MC/DC 最少需 n + 1 個測試；n = 3 時為 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "最少是 n + 1 = 4，不是 n。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "2^3 = 8 是多重條件涵蓋率；MC/DC 只需約 n + 1。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "最多可能用到 2n = 6 個測試，但最少是 n + 1 = 4。"
+            }
+          ],
+          "generalFeedback": "對 n 個獨立條件，MC/DC 最少需 n + 1 個測試（最多 2n），因為一個精心挑選的測試可作為多個條件的配對夥伴。n = 3 時最少為 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 的要求",
+          "text": "<p>除了判定與條件涵蓋率之外，<strong>MC/DC</strong> 額外的要求是：</p>",
+          "answers": [
+            {
+              "text": "每個條件都被證明能獨立影響判定的結果",
+              "fraction": 100,
+              "feedback": "正確——對每個條件都存在一對僅在該條件不同的測試，使判定的值翻轉。"
+            },
+            {
+              "text": "測試條件值的每一種組合",
+              "fraction": 0,
+              "feedback": "那是多重條件涵蓋率，比 MC/DC 更強。"
+            },
+            {
+              "text": "執行每個敘述",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，與獨立影響的要求無關。"
+            },
+            {
+              "text": "執行每條路徑",
+              "fraction": 0,
+              "feedback": "那是路徑涵蓋率，不是 MC/DC。"
+            }
+          ],
+          "generalFeedback": "MC/DC 要求每個條件在其他條件固定時，被展示能獨立翻轉判定的結果——外加每個條件與判定都取到兩種值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個條件的多重條件涵蓋率",
+          "text": "<p>對含 <strong>3</strong> 個條件的判定，<strong>多重條件涵蓋率</strong>需要幾個測試（忽略不可行的組合）？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——多重條件涵蓋率需全部 2^n 種組合；2^3 = 8。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 是 MC/DC 的最少值，不是多重條件涵蓋率。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n 是 MC/DC 的上界，不是所有組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "多重條件涵蓋率需 2^3 = 8 種組合，不是 3。"
+            }
+          ],
+          "generalFeedback": "多重條件涵蓋率要試到 n 個條件的全部 2^n 種真值組合；n = 3 時為 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "複合判定的包含鏈",
+          "text": "<p>下列這些複合判定準則的順序，何者正確（X ⊒ Y 表示 X 包含 Y）？</p>",
+          "answers": [
+            {
+              "text": "多重條件 ⊒ MC/DC ⊒ 判定／條件 ⊒ 條件",
+              "fraction": 100,
+              "feedback": "正確——所有組合包含 MC/DC，MC/DC 包含判定／條件，後者包含單純條件（與判定）涵蓋率。"
+            },
+            {
+              "text": "MC/DC ⊒ 多重條件 ⊒ 判定／條件",
+              "fraction": 0,
+              "feedback": "多重條件涵蓋率最強；它包含 MC/DC，而非相反。"
+            },
+            {
+              "text": "條件 ⊒ 判定／條件 ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "相反——單純條件涵蓋率是這些之中最弱的。"
+            },
+            {
+              "text": "判定／條件 ⊒ 多重條件 ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "多重條件涵蓋率比另外兩者都強。"
+            }
+          ],
+          "generalFeedback": "多重條件 ⊒ MC/DC ⊒ 判定／條件涵蓋率 ⊒ 條件涵蓋率（並 ⊒ 判定涵蓋率）。多重條件涵蓋率最強，因為它試到完整真值表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a && b 的最少 MC/DC 測試",
+          "text": "<p>對判定 <code>a &amp;&amp; b</code>，一個最少的 MC/DC 測試集為 <code>{(T,T), (F,T), (T,F)}</code>。這是幾個測試？是否等於 n + 1？</p>",
+          "answers": [
+            {
+              "text": "3 個測試，等於 n = 2 時的 n + 1",
+              "fraction": 100,
+              "feedback": "正確——(T,T)/(F,T) 展示 a 的影響，(T,T)/(T,F) 展示 b 的影響；3 = 2 + 1。"
+            },
+            {
+              "text": "4 個測試，即完整真值表",
+              "fraction": 0,
+              "feedback": "所列集合是 3 個測試而非 4；a && b 的 MC/DC 不需整張表。"
+            },
+            {
+              "text": "2 個測試，每個結果一個",
+              "fraction": 0,
+              "feedback": "兩個測試給出判定涵蓋，但無法同時展示 a 與 b 的獨立性；此處 MC/DC 需 3 個。"
+            },
+            {
+              "text": "3 個測試，但這多於 n + 1",
+              "fraction": 0,
+              "feedback": "n = 2 時 n + 1 = 3，故 3 個測試恰是最少值。"
+            }
+          ],
+          "generalFeedback": "對 a && b：(T,T)/(F,T) 這一對只改變 a 即翻轉判定；(T,T)/(T,F) 這一對只改變 b 即翻轉。三個相異測試 {(T,T),(F,T),(T,F)} = n + 1 = 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個連續 if 的路徑數",
+          "text": "<p>考慮：</p><pre>if (a) S1;\nif (b) S2;</pre><p>含兩個獨立判定且無迴圈。共有幾條相異的執行<strong>路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每個 if 各自取或不取：2 × 2 = 4 條路徑。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是一個 if 的分支結果數；兩個獨立 if 給出 2 × 2 = 4 條路徑。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "組合 (a,b) = TT、TF、FT、FF——四條路徑，不是三條。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "兩個獨立判定共有 4 條相異路徑。"
+            }
+          ],
+          "generalFeedback": "兩個連續的獨立判定產生 2 × 2 = 4 條路徑（a 取／不取）×（b 取／不取）。分支涵蓋只需 2 個測試，但路徑涵蓋需 4 個。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴圈使路徑涵蓋不可行",
+          "text": "<p>當受測程式含有迭代次數取決於輸入的迴圈時，完整路徑涵蓋通常不可行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個相異的迭代次數都是一條相異路徑，故路徑數無上限。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "取決於資料的迴圈每種迭代次數都產生一條不同路徑，故有無上限的路徑數。"
+            }
+          ],
+          "generalFeedback": "可執行 0、1、2、... 次的迴圈，每種迭代次數各對應一條相異路徑，故路徑集（可能）無限，完整路徑涵蓋通常無法達成。"
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行分支限制涵蓋率",
+          "text": "<p>某函式有 <strong>4</strong> 個分支結果，但其中一個<em>不可行</em>（沒有任何輸入能到達的死碼）。以全部 4 個結果衡量，可達成的最大<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——最多能取到 4 個中的 3 個結果，故 3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "不可行的結果永不會被取到，故以全部 4 個衡量不可能達 100%。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "三個可行結果都能取到；那是 75%，不是 50%。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "只有一個結果不可達；其餘三個可達，得 75%。"
+            }
+          ],
+          "generalFeedback": "不可行分支會限制可達成的涵蓋率：4 個結果中有 1 個不可達時，以全部 4 個衡量的最大值為 3 / 4 = 75%。若只以可行結果衡量則顯示 100%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 的分支涵蓋率",
+          "text": "<p>考慮：</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>共有 4 個分支結果：外層真、外層假、內層真、內層假。套件：<code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——外層真、內層真（來自 5,3）與外層假（來自 -1,0）被取到，但內層假未取到：3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "內層假結果（x > 0 且 y <= 0）從未被此套件到達。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "四個結果中有三個被取到（外層真、外層假、內層真），得 75%。"
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% 會是 3 中 2；此處 4 個分支結果中取到 3 個 = 75%。"
+            }
+          ],
+          "generalFeedback": "(5,3)：外層真 + 內層真。(-1,0)：外層假。內層假需要 x > 0 且 y <= 0，此套件皆未提供。分支涵蓋率 = 3 / 4 = 75%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 未取到的分支",
+          "text": "<p>同一段程式與套件：</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。哪個分支結果被<strong>漏掉</strong>？</p>",
+          "answers": [
+            {
+              "text": "內層假分支（x > 0 且 y <= 0，故 r = 2）",
+              "fraction": 100,
+              "feedback": "正確——沒有測試同時有 x > 0 與 y <= 0，故 r = 2 從未被到達。"
+            },
+            {
+              "text": "外層假分支（x <= 0）",
+              "fraction": 0,
+              "feedback": "(x=-1, y=0) 取到外層假分支，故已涵蓋。"
+            },
+            {
+              "text": "內層真分支（r = 1）",
+              "fraction": 0,
+              "feedback": "(x=5, y=3) 取到內層真分支，故已涵蓋。"
+            },
+            {
+              "text": "無——所有分支都已涵蓋",
+              "fraction": 0,
+              "feedback": "內層假分支（r = 2）被漏掉；它需要 x > 0 且 y <= 0。"
+            }
+          ],
+          "generalFeedback": "要到達 r = 2 需 x > 0（進入外層）且 y <= 0（內層假）。套件從未同時滿足，故內層假分支與導向 r = 2 的路徑被漏掉。加入例如 (x=5, y=-1) 即可涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 的敘述涵蓋率",
+          "text": "<p>同一段程式：</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>六個可執行敘述 s1..s6。套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>敘述</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "≈ 83.3%",
+              "fraction": 100,
+              "feedback": "正確——除 s5（r = 2）外全都執行，故 5 / 6 ≈ 83.3%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s5（r = 2）需要 x > 0 且 y <= 0，此套件皆未提供。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是分支涵蓋率；敘述涵蓋率是 5 / 6 ≈ 83.3%。"
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "六個敘述中有五個執行，得 ≈ 83.3%，不是 66.7%。"
+            }
+          ],
+          "generalFeedback": "(5,3) 執行 s1、s2、s3、s4、s6；(-1,0) 執行 s1、s2、s6。只漏掉 s5（r = 2）。敘述涵蓋率 = 5 / 6 ≈ 83.3%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 的路徑涵蓋率",
+          "text": "<p>同一段程式有三條可行路徑：P1 = x &lt;= 0；P2 = x &gt; 0 且 y &gt; 0；P3 = x &gt; 0 且 y &lt;= 0。套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>路徑</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "正確——(5,3) 涵蓋 P2，(-1,0) 涵蓋 P1，但 P3 被漏掉：2 / 3 ≈ 66.7%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "路徑 P3（x > 0 且 y <= 0）從未被試到。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "三條可行路徑中涵蓋兩條，得 ≈ 66.7%，不是 50%。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是分支涵蓋率；此處路徑涵蓋率是 2 / 3 ≈ 66.7%。"
+            }
+          ],
+          "generalFeedback": "可行路徑：P1（x <= 0）、P2（x > 0, y > 0）、P3（x > 0, y <= 0）。套件涵蓋 P1 與 P2 但不含 P3，故路徑涵蓋率 = 2 / 3 ≈ 66.7%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a || b 的 MC/DC 獨立性配對",
+          "text": "<p>對判定 <code>a || b</code>，哪一對測試展示條件 <code>b</code> 能<strong>獨立</strong>影響結果？</p>",
+          "answers": [
+            {
+              "text": "(a=F, b=F) 得假，與 (a=F, b=T) 得真",
+              "fraction": 100,
+              "feedback": "正確——a 固定為假；只改變 b 即使判定由假翻為真。"
+            },
+            {
+              "text": "(a=T, b=F) 與 (a=T, b=T)，皆得真",
+              "fraction": 0,
+              "feedback": "a = 真時 a || b 恆為真，不論 b，故結果不翻轉——b 的影響被遮蔽。"
+            },
+            {
+              "text": "(a=F, b=T) 與 (a=T, b=F)，皆得真",
+              "fraction": 0,
+              "feedback": "這兩者 a 與 b 都不同，無法隔離 b 的獨立影響。"
+            },
+            {
+              "text": "(a=T, b=T) 與 (a=F, b=F)",
+              "fraction": 0,
+              "feedback": "這兩者兩個條件都不同，故無法隔離任一條件的影響。"
+            }
+          ],
+          "generalFeedback": "要展示 b 獨立影響 a || b，固定 a = 假並變化 b：(F,F) → 假，(F,T) → 真。唯有如此，只改變 b 才能翻轉結果。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MC/DC 蘊含判定涵蓋",
+          "text": "<p>對某判定滿足 MC/DC 的測試集，必然也滿足該判定的判定（分支）涵蓋率。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——展示每個條件都能翻轉結果，會迫使判定取到真與假兩者，故判定涵蓋達成。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MC/DC 要求每個條件都能翻轉判定，這必然使判定取到真與假兩者——判定涵蓋因而被蘊含。"
+            }
+          ],
+          "generalFeedback": "MC/DC ⊒ 判定／條件涵蓋率 ⊒ 判定涵蓋率（與條件涵蓋率）。展示獨立影響需要判定取到兩種結果，故該判定的分支涵蓋隨之成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "判定／條件涵蓋率定義",
+          "text": "<p><strong>判定／條件涵蓋率（decision/condition coverage）</strong>在以下情況滿足：</p>",
+          "answers": [
+            {
+              "text": "條件涵蓋率與判定涵蓋率同時達成",
+              "fraction": 100,
+              "feedback": "正確——每個條件取到兩種值，且判定取到兩種結果。"
+            },
+            {
+              "text": "只有判定取到真與假",
+              "fraction": 0,
+              "feedback": "那是單純判定涵蓋率；判定／條件還要求條件涵蓋率。"
+            },
+            {
+              "text": "只有每個條件取到兩種值",
+              "fraction": 0,
+              "feedback": "那是單純條件涵蓋率；判定／條件還要求判定涵蓋率。"
+            },
+            {
+              "text": "試到條件所有取值組合",
+              "fraction": 0,
+              "feedback": "那是多重條件涵蓋率，比判定／條件更強。"
+            }
+          ],
+          "generalFeedback": "判定／條件涵蓋率就是結合兩者：每個條件取到兩種值，且判定取到兩種結果。在包含鏈中位於條件與判定涵蓋率之上、MC/DC 之下。",
+          "single": true
+        }
+      ]
+    }
+  },
   "graph-coverage": {
     "en": {
       "easy": [

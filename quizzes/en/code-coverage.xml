@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Code Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Statement (line) coverage</strong> of a test suite is best defined as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fraction of executable statements that were executed by at least one test</text><feedback><text>Correct — it counts executable statements run at least once, divided by the total executable statements.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of branch outcomes that were taken by at least one test</text><feedback><text>That is branch (decision) coverage, not statement coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of source lines, including blanks and comments, that were compiled</text><feedback><text>Blank lines and comments are not executable statements, and coverage is about execution, not compilation.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of all input values that were tried</text><feedback><text>Coverage is measured over the code, not over the whole input domain.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage = (executable statements executed by some test) / (total executable statements). Comments and blank lines do not count.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Branch (decision) coverage</strong> requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every decision has taken both its true and its false outcome at least once</text><feedback><text>Correct — each branch outcome of every decision must be exercised.</text></feedback></answer>
+    <answer fraction="0"><text>Every executable statement has been executed at least once</text><feedback><text>That is statement coverage, which is weaker than branch coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every individual boolean condition has taken both values</text><feedback><text>That is condition coverage, which targets the atomic conditions, not the whole decision.</text></feedback></answer>
+    <answer fraction="0"><text>Every complete path through the program has been executed</text><feedback><text>That is path coverage, far stronger and often infeasible.</text></feedback></answer>
+    <generalfeedback><text>Branch (decision) coverage requires each decision to evaluate to both true and false at least once, so every branch outcome (edge) is taken.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Condition coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Condition coverage</strong> requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each atomic boolean condition in a decision has taken both true and false at least once</text><feedback><text>Correct — every individual condition must be evaluated both ways.</text></feedback></answer>
+    <answer fraction="0"><text>Each decision as a whole has taken both true and false</text><feedback><text>That is decision (branch) coverage; condition coverage looks inside the decision.</text></feedback></answer>
+    <answer fraction="0"><text>Every combination of the conditions' values has been tried</text><feedback><text>That is multiple-condition coverage, which is stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Every statement has executed once</text><feedback><text>That is statement coverage.</text></feedback></answer>
+    <generalfeedback><text>Condition coverage requires each atomic condition (e.g. a, b in a &amp;&amp; b) to be true in some test and false in some test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Path coverage</strong> requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every feasible execution path through the code is exercised by some test</text><feedback><text>Correct — path coverage aims to exercise each end-to-end path of control flow.</text></feedback></answer>
+    <answer fraction="0"><text>Every decision takes both outcomes</text><feedback><text>That is branch coverage; path coverage constrains whole paths, not just individual decisions.</text></feedback></answer>
+    <answer fraction="0"><text>Every statement executes once</text><feedback><text>That is statement coverage, the weakest of these.</text></feedback></answer>
+    <answer fraction="0"><text>Every condition takes both values</text><feedback><text>That is condition coverage.</text></feedback></answer>
+    <generalfeedback><text>Path coverage requires each feasible path through the program to be executed. With loops the number of paths is usually unbounded, so full path coverage is often infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What MC/DC stands for</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In coverage terminology, <strong>MC/DC</strong> stands for:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Modified Condition/Decision Coverage</text><feedback><text>Correct — MC/DC is Modified Condition/Decision Coverage, used in DO-178B/C.</text></feedback></answer>
+    <answer fraction="0"><text>Multiple Condition/Decision Coverage</text><feedback><text>That is a different, stronger criterion (multiple-condition coverage); MC/DC is Modified Condition/Decision Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Maximum Coverage/Decision Criterion</text><feedback><text>No such standard criterion; MC/DC = Modified Condition/Decision Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Minimal Code/Data Coverage</text><feedback><text>Not a coverage criterion; MC/DC = Modified Condition/Decision Coverage.</text></feedback></answer>
+    <generalfeedback><text>MC/DC = Modified Condition/Decision Coverage. Each condition must be shown to independently affect the decision's outcome.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Function coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Function (entry) coverage</strong> measures:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fraction of functions/subroutines that were called at least once</text><feedback><text>Correct — function coverage counts how many functions were entered by the test suite.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of statements inside each function that executed</text><feedback><text>That is statement coverage, measured per statement, not per function.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of branches inside each function that were taken</text><feedback><text>That is branch coverage, not function coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The number of parameters passed to each function</text><feedback><text>Function coverage is about whether a function was called, not its arguments.</text></feedback></answer>
+    <generalfeedback><text>Function (entry) coverage = (functions called at least once) / (total functions). It is the coarsest common metric.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute statement coverage (5 of 8)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function has <strong>8</strong> executable statements. A test suite executes <strong>5</strong> of them. What is the statement coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>62.5%</text><feedback><text>Correct — 5 / 8 = 0.625 = 62.5%.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>5 / 8 = 62.5%, not 50%.</text></feedback></answer>
+    <answer fraction="0"><text>80%</text><feedback><text>80% would be 5 of about 6.25 statements; 5 / 8 = 62.5%.</text></feedback></answer>
+    <answer fraction="0"><text>37.5%</text><feedback><text>37.5% is the fraction NOT executed (3 / 8); coverage is 5 / 8 = 62.5%.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage = executed / total = 5 / 8 = 62.5%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute branch coverage (3 of 4)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function contains <strong>4</strong> branch outcomes (two decisions, each with a true and a false edge). A suite takes <strong>3</strong> of them. What is the branch coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>Correct — 3 / 4 = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>50% would be 2 of 4; here 3 of 4 = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>25% is the fraction NOT taken (1 / 4); branch coverage is 3 / 4 = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>One branch outcome is still untaken, so it cannot be 100%.</text></feedback></answer>
+    <generalfeedback><text>Branch coverage = branch outcomes taken / total branch outcomes = 3 / 4 = 75%.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>100% statement need not give 100% branch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Achieving 100% statement coverage guarantees 100% branch coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — an <code>if</code> with no <code>else</code> can execute its only statement (100% statement) while the false branch is never taken (branch &lt; 100%).</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Not true: e.g. <code>if (x &gt; 0) y = 1;</code> tested only with x = 5 reaches every statement but never takes the false branch.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage does not imply branch coverage: an if-without-else can reach 100% statements while leaving the false branch untaken. (Branch coverage does subsume statement coverage, but not the reverse.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Line coverage relationship</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Commonly reported <strong>line coverage</strong> most closely corresponds to which classic metric?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Statement coverage</text><feedback><text>Correct — line coverage counts executable lines run, essentially statement coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Branch coverage</text><feedback><text>Branch coverage is about decision outcomes, not lines executed.</text></feedback></answer>
+    <answer fraction="0"><text>Path coverage</text><feedback><text>Path coverage counts whole paths, far stronger than line coverage.</text></feedback></answer>
+    <answer fraction="0"><text>MC/DC</text><feedback><text>MC/DC is about conditions independently affecting decisions, not lines.</text></feedback></answer>
+    <generalfeedback><text>Line coverage counts executable lines executed and is treated as (roughly) equivalent to statement coverage; one line may hold several statements, but they are close.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute line coverage (7 of 10)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A file has <strong>10</strong> executable lines; a suite executes <strong>7</strong> of them. What is the line coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>70%</text><feedback><text>Correct — 7 / 10 = 70%.</text></feedback></answer>
+    <answer fraction="0"><text>30%</text><feedback><text>30% is the uncovered fraction; coverage is 7 / 10 = 70%.</text></feedback></answer>
+    <answer fraction="0"><text>77%</text><feedback><text>7 / 10 = 70%, not 77%.</text></feedback></answer>
+    <answer fraction="0"><text>7%</text><feedback><text>7 / 10 = 70%, not 7%.</text></feedback></answer>
+    <generalfeedback><text>Line coverage = executed lines / executable lines = 7 / 10 = 70%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Strongest of the three</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of <strong>statement</strong>, <strong>branch</strong>, and <strong>path</strong> coverage, which is the strongest (hardest to fully achieve)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Path coverage</text><feedback><text>Correct — path coverage subsumes branch, which subsumes statement.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage</text><feedback><text>Statement coverage is the weakest of the three.</text></feedback></answer>
+    <answer fraction="0"><text>Branch coverage</text><feedback><text>Branch coverage is stronger than statement but weaker than path.</text></feedback></answer>
+    <answer fraction="0"><text>They are equally strong</text><feedback><text>They form a strict hierarchy: path subsumes branch subsumes statement.</text></feedback></answer>
+    <generalfeedback><text>Subsumption: path coverage ⊒ branch/decision coverage ⊒ statement coverage. Path coverage is the strongest and usually infeasible with loops.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>100% coverage is not bug-free</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reaching 100% of any structural coverage metric proves the program is free of bugs.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — coverage shows code was executed, not that outputs were checked or that missing code and unexercised data combinations are correct.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Coverage measures which code ran, not correctness; missing logic, wrong oracles, and untested data values can still hide bugs.</text></feedback></answer>
+    <generalfeedback><text>Coverage tells you code was executed, not that it was correct. A faulty oracle, an omitted case, or a specific data value not tried can leave bugs even at 100% coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What instrumentation does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To measure coverage, a tool usually <strong>instruments</strong> the program. This means it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inserts probes/counters that record which statements or branches execute at run time</text><feedback><text>Correct — instrumentation adds bookkeeping so executed elements are recorded during test runs.</text></feedback></answer>
+    <answer fraction="0"><text>Rewrites the program to remove all bugs automatically</text><feedback><text>Instrumentation only records execution; it does not fix code.</text></feedback></answer>
+    <answer fraction="0"><text>Proves mathematically that the code is correct</text><feedback><text>That is formal verification, not coverage instrumentation.</text></feedback></answer>
+    <answer fraction="0"><text>Generates the test inputs for you</text><feedback><text>Instrumentation records what tests reach; it does not create the tests.</text></feedback></answer>
+    <generalfeedback><text>A coverage tool instruments the code with probes/counters at statements and branches; running the tests records which elements executed, from which percentages are computed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Decision vs condition (basic)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the decision <code>if (a &amp;&amp; b)</code>, the whole expression <code>a &amp;&amp; b</code> is the <em>decision</em>. What are <code>a</code> and <code>b</code> called?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Conditions (atomic boolean sub-expressions)</text><feedback><text>Correct — a and b are the individual conditions of the decision.</text></feedback></answer>
+    <answer fraction="0"><text>Branches</text><feedback><text>Branches are the true/false outcomes of the decision, not a and b themselves.</text></feedback></answer>
+    <answer fraction="0"><text>Paths</text><feedback><text>Paths are whole routes through the code, not the atomic parts of a decision.</text></feedback></answer>
+    <answer fraction="0"><text>Statements</text><feedback><text>a and b are conditions inside the decision, not separate statements.</text></feedback></answer>
+    <generalfeedback><text>A decision is the full boolean expression that controls a branch; the atomic boolean sub-expressions (a, b) are its conditions. Condition coverage targets a and b; decision coverage targets a &amp;&amp; b.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Code Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement coverage of an if (x&lt;=0 test)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>int f(int x) {
+  int y = 0;      // s1
+  if (x &gt; 0)      // s2
+    y = 1;        // s3
+  return y;       // s4
+}</pre><p>Executable statements: s1, s2, s3, s4 (four total). The suite is the single test <code>{x = -3}</code>. What is the <strong>statement</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>Correct — x = -3 runs s1, s2, s4 but skips s3 (y = 1), so 3 / 4 = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>s3 (y = 1) is only reached when x &gt; 0, so it is not executed by x = -3.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>Three of the four statements execute (s1, s2, s4), giving 75%, not 50%.</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>Only s3 is missed; that is 3 / 4 = 75% covered.</text></feedback></answer>
+    <generalfeedback><text>x = -3 executes s1, s2 (the if), and s4, but not s3. Statement coverage = 3 / 4 = 75%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch coverage of an if (x&lt;=0 test)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Same code:</p><pre>int f(int x) {
+  int y = 0;
+  if (x &gt; 0)
+    y = 1;
+  return y;
+}</pre><p>The single decision <code>x &gt; 0</code> has two branch outcomes (true, false). With the suite <code>{x = -3}</code>, what is the <strong>branch</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%</text><feedback><text>Correct — only the false outcome is taken, so 1 / 2 = 50%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>The true outcome (x &gt; 0) is never taken by x = -3.</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% is the statement coverage; branch coverage here is 1 of 2 = 50%.</text></feedback></answer>
+    <answer fraction="0"><text>0%</text><feedback><text>The false outcome IS taken, so it is 50%, not 0%.</text></feedback></answer>
+    <generalfeedback><text>x = -3 takes only the false outcome of x &gt; 0, so branch coverage = 1 / 2 = 50%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement coverage of an if-else (one test)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>int classify(int n) {
+  if (n % 2 == 0)   // s1
+    return 0;       // s2
+  else
+    return 1;       // s3
+}</pre><p>Executable statements: s1, s2, s3 (three total). The suite is <code>{n = 4}</code>. What is the <strong>statement</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>≈ 66.7%</text><feedback><text>Correct — n = 4 runs s1 and s2 but not s3 (return 1), so 2 / 3 ≈ 66.7%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>The else statement s3 is only reached when n is odd, so n = 4 misses it.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>Two of three statements run; that is 2 / 3 ≈ 66.7%, not 50%.</text></feedback></answer>
+    <answer fraction="0"><text>≈ 33.3%</text><feedback><text>33.3% is one of three; here two of three run, so ≈ 66.7%.</text></feedback></answer>
+    <generalfeedback><text>n = 4 executes s1 (the if) and s2 (return 0), skipping s3. Statement coverage = 2 / 3 ≈ 66.7%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch coverage of an if-else (one test)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Same if-else:</p><pre>int classify(int n) {
+  if (n % 2 == 0)
+    return 0;
+  else
+    return 1;
+}</pre><p>With suite <code>{n = 4}</code>, what is the <strong>branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%</text><feedback><text>Correct — only the true outcome is taken, so 1 / 2 = 50%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>The false outcome (odd n) is never taken by n = 4.</text></feedback></answer>
+    <answer fraction="0"><text>≈ 66.7%</text><feedback><text>66.7% is the statement coverage here; branch coverage is 1 of 2 = 50%.</text></feedback></answer>
+    <answer fraction="0"><text>0%</text><feedback><text>The true outcome IS taken, so branch coverage is 50%.</text></feedback></answer>
+    <generalfeedback><text>n = 4 takes only the true outcome; the false (else) outcome is untaken, so branch coverage = 1 / 2 = 50%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Condition covered but decision not</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the decision <code>a &amp;&amp; b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=T)</code>. Both make the decision <strong>false</strong>. What does this show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% condition coverage but only 50% decision coverage</text><feedback><text>Correct — a and b each take T and F (condition 100%), yet the decision is false both times (decision 50%).</text></feedback></answer>
+    <answer fraction="0"><text>100% decision coverage but only 50% condition coverage</text><feedback><text>Reversed: the decision is false both times (50%), while each condition takes both values (100%).</text></feedback></answer>
+    <answer fraction="0"><text>Both are 100%</text><feedback><text>The decision never evaluates to true, so decision coverage is only 50%.</text></feedback></answer>
+    <answer fraction="0"><text>Both are 50%</text><feedback><text>Condition coverage is full: a is T then F, b is F then T.</text></feedback></answer>
+    <generalfeedback><text>a: T then F; b: F then T — full condition coverage. But a &amp;&amp; b is false in both tests, so decision coverage is 1 / 2 = 50%. Condition coverage does not subsume decision coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Decision covered but condition not</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the decision <code>a || b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=F)</code>. Condition coverage counts the four goals a=T, a=F, b=T, b=F. What coverage results?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% decision coverage but only 75% condition coverage</text><feedback><text>Correct — decision is true then false (100%); a=T, a=F, b=F are met but b=T is not, so 3 / 4 = 75% condition.</text></feedback></answer>
+    <answer fraction="0"><text>100% condition coverage but only 50% decision coverage</text><feedback><text>Reversed: the decision takes both values (100%); it is b that never becomes true, leaving condition coverage below 100%.</text></feedback></answer>
+    <answer fraction="0"><text>Both are 100%</text><feedback><text>b is false in both tests, so the goal b=T is unmet and condition coverage is 75%.</text></feedback></answer>
+    <answer fraction="0"><text>Both are 50%</text><feedback><text>The decision is true in test 1 and false in test 2, so decision coverage is 100%.</text></feedback></answer>
+    <generalfeedback><text>a || b: T then F, so decision coverage is 100%. Condition goals met: a=T ✓, a=F ✓, b=F ✓, but b=T ✗ (b is false in both tests) → 3 / 4 = 75%. Decision coverage does not subsume condition coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subsumption ordering</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which subsumption ordering is correct (X ⊒ Y means X guarantees Y)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>path ⊒ branch/decision ⊒ statement</text><feedback><text>Correct — full path coverage implies full branch coverage, which implies full statement coverage.</text></feedback></answer>
+    <answer fraction="0"><text>statement ⊒ branch/decision ⊒ path</text><feedback><text>Reversed — statement coverage is the weakest, not the strongest.</text></feedback></answer>
+    <answer fraction="0"><text>branch/decision ⊒ path ⊒ statement</text><feedback><text>Path coverage is stronger than branch coverage, not weaker.</text></feedback></answer>
+    <answer fraction="0"><text>condition ⊒ branch/decision ⊒ statement</text><feedback><text>Condition and branch/decision coverage are incomparable; condition does not subsume branch.</text></feedback></answer>
+    <generalfeedback><text>path ⊒ branch/decision ⊒ statement. Note that condition coverage and branch/decision coverage are incomparable — neither subsumes the other.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>100% statement, 50% branch example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>int f(int x) {
+  int y = 0;
+  if (x &gt; 0)
+    y = 1;
+  return y;
+}</pre><p>With the single test <code>{x = 5}</code>, which statement is true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Statement coverage is 100% but branch coverage is only 50%</text><feedback><text>Correct — every statement runs, but the false outcome of x &gt; 0 is never taken.</text></feedback></answer>
+    <answer fraction="0"><text>Both statement and branch coverage are 100%</text><feedback><text>The false branch (x &lt;= 0) is never taken, so branch coverage is 50%.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage is 75%</text><feedback><text>x = 5 runs all four statements including y = 1, so statement coverage is 100%.</text></feedback></answer>
+    <answer fraction="0"><text>Branch coverage is 100% but statement coverage is 75%</text><feedback><text>Both claims are wrong: statements are all covered (100%) and branch is 50%.</text></feedback></answer>
+    <generalfeedback><text>x = 5 runs s1..s4 (statement 100%) but takes only the true outcome, so branch coverage is 1 / 2 = 50%. This is the classic case where statement coverage does not imply branch coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Short-circuit: is b evaluated?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a language with short-circuit evaluation, the decision <code>a &amp;&amp; b</code> is run with the single test <code>{a = false}</code>. Is condition <code>b</code> evaluated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — because a is false, &amp;&amp; short-circuits and b is never evaluated</text><feedback><text>Correct — with a = false the result is already false, so b is skipped.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — both operands are always evaluated</text><feedback><text>That would be true only without short-circuiting; a false left operand of &amp;&amp; skips b.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — b is evaluated first</text><feedback><text>&amp;&amp; evaluates the left operand first; a = false ends evaluation before b.</text></feedback></answer>
+    <answer fraction="0"><text>Only if a is true and b is false</text><feedback><text>b is evaluated exactly when a is true; here a is false, so b is skipped.</text></feedback></answer>
+    <generalfeedback><text>With short-circuit &amp;&amp;, a false left operand determines the result, so b is not evaluated. To exercise b's values you need tests where a is true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Short-circuit effect on condition coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With short-circuit <code>&amp;&amp;</code>, to make condition <code>b</code> in <code>a &amp;&amp; b</code> take <strong>both</strong> true and false so it counts for condition coverage, the tests must have:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = true in both tests (once with b = true, once with b = false)</text><feedback><text>Correct — b is only evaluated when a is true, so a must be true to exercise b.</text></feedback></answer>
+    <answer fraction="0"><text>a = false in both tests</text><feedback><text>With a = false, b is never evaluated, so b's value is never exercised.</text></feedback></answer>
+    <answer fraction="0"><text>any values of a, since b is always evaluated</text><feedback><text>Short-circuiting means b is skipped when a is false.</text></feedback></answer>
+    <answer fraction="0"><text>b = true in both tests</text><feedback><text>Then b never takes false, so condition coverage of b is incomplete.</text></feedback></answer>
+    <generalfeedback><text>Short-circuit &amp;&amp; evaluates b only when a is true. To let b be observed as both true and false, keep a true and vary b.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch coverage subsumes statement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about branch and statement coverage is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% branch coverage guarantees 100% statement coverage</text><feedback><text>Correct — taking every branch reaches every reachable statement, so branch coverage subsumes statement coverage.</text></feedback></answer>
+    <answer fraction="0"><text>100% statement coverage guarantees 100% branch coverage</text><feedback><text>Reversed — an if without else can be 100% statement yet under 100% branch.</text></feedback></answer>
+    <answer fraction="0"><text>They always give the same percentage</text><feedback><text>They differ, e.g. if-without-else: statement can be 100% while branch is 50%.</text></feedback></answer>
+    <answer fraction="0"><text>Neither subsumes the other</text><feedback><text>Branch coverage does subsume statement coverage.</text></feedback></answer>
+    <generalfeedback><text>Branch/decision coverage ⊒ statement coverage: exercising both outcomes of every decision necessarily reaches every reachable statement. The reverse does not hold.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Condition coverage subsumes decision?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Achieving 100% condition coverage always guarantees 100% decision (branch) coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — e.g. a &amp;&amp; b with (T,F) and (F,T) gives full condition coverage but the decision is false both times (50% decision).</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Not true: condition and decision coverage are incomparable; full condition coverage can leave a decision outcome untaken.</text></feedback></answer>
+    <generalfeedback><text>Condition coverage and decision coverage are incomparable. Tests (a=T,b=F) and (a=F,b=T) on a &amp;&amp; b cover both values of a and b yet make the decision false both times, so decision coverage is only 50%. (Decision/condition coverage combines both to fix this.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute condition coverage under one test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the decision <code>a &amp;&amp; b</code>, condition coverage counts the four condition-value goals: a=T, a=F, b=T, b=F. The suite is the single test <code>(a=T, b=T)</code>. What is the <strong>condition</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%</text><feedback><text>Correct — a=T and b=T are met, but a=F and b=F are not, so 2 / 4 = 50%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>a=F and b=F are never exercised by a single all-true test.</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>Two of the four goals (a=T, b=T) are met, so 50%, not 25%.</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>Only two of four condition-value goals are met, giving 50%.</text></feedback></answer>
+    <generalfeedback><text>Condition coverage tracks each condition taking each value: a=T ✓, b=T ✓, a=F ✗, b=F ✗ → 2 / 4 = 50%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum tests for branch coverage of one if-else</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the minimum number of tests needed to fully cover the branches of a single <code>if-else</code> with one simple decision?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one test to take the true outcome and one for the false outcome.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One test can take only one outcome; you need both true and false.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only two outcomes exist for one decision, so two tests suffice.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Four would be the truth-table size for two conditions; one simple decision needs just two tests.</text></feedback></answer>
+    <generalfeedback><text>A single decision has two outcomes, so branch coverage needs at least two tests (true and false).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Suite that achieves 100% branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For:</p><pre>int classify(int n) {
+  if (n % 2 == 0)
+    return 0;
+  else
+    return 1;
+}</pre><p>Which suite achieves <strong>100% branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{n = 4, n = 7}</text><feedback><text>Correct — n = 4 takes the true outcome and n = 7 takes the false outcome, covering both branches.</text></feedback></answer>
+    <answer fraction="0"><text>{n = 4}</text><feedback><text>Only the true outcome is taken, so branch coverage is 50%.</text></feedback></answer>
+    <answer fraction="0"><text>{n = 2, n = 8}</text><feedback><text>Both are even, so only the true outcome is taken — 50%.</text></feedback></answer>
+    <answer fraction="0"><text>{n = 3}</text><feedback><text>Only the false outcome is taken, so branch coverage is 50%.</text></feedback></answer>
+    <generalfeedback><text>Branch coverage needs both outcomes: one even n (true) and one odd n (false). {n = 4, n = 7} does this; suites with only evens or only odds reach just one branch.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Code Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC minimum tests for 3 conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A decision has <strong>3</strong> independent conditions. What is the minimum number of tests that can satisfy <strong>MC/DC</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — MC/DC needs a minimum of n + 1 tests; for n = 3 that is 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The minimum is n + 1 = 4, not n.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>2^3 = 8 is multiple-condition coverage; MC/DC needs only about n + 1.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Up to 2n = 6 tests may be used, but the minimum is n + 1 = 4.</text></feedback></answer>
+    <generalfeedback><text>For n independent conditions, MC/DC requires a minimum of n + 1 tests (and at most 2n), because a well-chosen test can serve as the pair-partner for several conditions. For n = 3 the minimum is 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC requirement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Beyond decision and condition coverage, the extra requirement of <strong>MC/DC</strong> is that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each condition is shown to independently affect the decision's outcome</text><feedback><text>Correct — for each condition there is a pair of tests, differing only in that condition, where the decision's value flips.</text></feedback></answer>
+    <answer fraction="0"><text>Every combination of condition values is tested</text><feedback><text>That is multiple-condition coverage, which is stronger than MC/DC.</text></feedback></answer>
+    <answer fraction="0"><text>Every statement is executed</text><feedback><text>That is statement coverage, unrelated to the independence requirement.</text></feedback></answer>
+    <answer fraction="0"><text>Every path is executed</text><feedback><text>That is path coverage, not MC/DC.</text></feedback></answer>
+    <generalfeedback><text>MC/DC requires each condition, holding the others fixed, to be demonstrated to independently flip the decision's outcome — plus each condition and the decision take both values.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multiple-condition coverage for 3 conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many tests does <strong>multiple-condition coverage</strong> require for a decision with <strong>3</strong> conditions (ignoring infeasible combinations)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — multiple-condition coverage needs all 2^n combinations; 2^3 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 = n + 1 is MC/DC's minimum, not multiple-condition coverage.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 = 2n is MC/DC's upper bound, not all combinations.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Multiple-condition coverage needs 2^3 = 8 combinations, not 3.</text></feedback></answer>
+    <generalfeedback><text>Multiple-condition coverage exercises all 2^n truth-value combinations of the n conditions; for n = 3 that is 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compound-decision subsumption chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ordering among these compound-decision criteria is correct (X ⊒ Y means X subsumes Y)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>multiple-condition ⊒ MC/DC ⊒ decision/condition ⊒ condition</text><feedback><text>Correct — all combinations subsume MC/DC, which subsumes decision/condition, which subsumes plain condition (and decision) coverage.</text></feedback></answer>
+    <answer fraction="0"><text>MC/DC ⊒ multiple-condition ⊒ decision/condition</text><feedback><text>Multiple-condition coverage is the strongest; it subsumes MC/DC, not the reverse.</text></feedback></answer>
+    <answer fraction="0"><text>condition ⊒ decision/condition ⊒ MC/DC</text><feedback><text>Reversed — plain condition coverage is the weakest of these.</text></feedback></answer>
+    <answer fraction="0"><text>decision/condition ⊒ multiple-condition ⊒ MC/DC</text><feedback><text>Multiple-condition coverage is stronger than both of the others.</text></feedback></answer>
+    <generalfeedback><text>multiple-condition ⊒ MC/DC ⊒ decision/condition coverage ⊒ condition coverage (and ⊒ decision coverage). Multiple-condition coverage is the strongest because it exercises the full truth table.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum MC/DC tests for a &amp;&amp; b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the decision <code>a &amp;&amp; b</code>, a minimal MC/DC test set is <code>{(T,T), (F,T), (T,F)}</code>. How many tests is that, and does it match n + 1?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 tests, which equals n + 1 for n = 2</text><feedback><text>Correct — (T,T)/(F,T) shows a's effect, (T,T)/(T,F) shows b's effect; 3 = 2 + 1.</text></feedback></answer>
+    <answer fraction="0"><text>4 tests, the full truth table</text><feedback><text>The listed set has 3 tests, not 4; MC/DC does not need the whole table for a &amp;&amp; b.</text></feedback></answer>
+    <answer fraction="0"><text>2 tests, one per outcome</text><feedback><text>Two tests give decision coverage but cannot show both a and b independently; MC/DC needs 3 here.</text></feedback></answer>
+    <answer fraction="0"><text>3 tests, but that is more than n + 1</text><feedback><text>n + 1 = 3 for n = 2, so 3 tests is exactly the minimum.</text></feedback></answer>
+    <generalfeedback><text>For a &amp;&amp; b: the pair (T,T)/(F,T) flips the decision by changing a alone; the pair (T,T)/(T,F) flips it by changing b alone. The three distinct tests {(T,T),(F,T),(T,F)} = n + 1 = 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path count of two sequential ifs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>if (a) S1;
+if (b) S2;</pre><p>with two independent decisions and no loops. How many distinct execution <strong>paths</strong> are there?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — each if independently taken or not: 2 × 2 = 4 paths.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Two counts branch outcomes of one if; two independent ifs give 2 × 2 = 4 paths.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The combinations are (a,b) = TT, TF, FT, FF — four paths, not three.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>With two independent decisions there are 4 distinct paths.</text></feedback></answer>
+    <generalfeedback><text>Two independent decisions in sequence yield 2 × 2 = 4 paths (a taken/not) × (b taken/not). Branch coverage needs only 2 tests, but path coverage needs 4.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Loops make path coverage infeasible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the code under test contains a loop whose iteration count depends on input, full path coverage is generally infeasible.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — each distinct iteration count is a distinct path, so the number of paths is unbounded.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A data-dependent loop produces a different path for every iteration count, giving unboundedly many paths.</text></feedback></answer>
+    <generalfeedback><text>A loop that can run 0, 1, 2, ... times yields a distinct path per iteration count, so the path set is (potentially) infinite and full path coverage cannot generally be achieved.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible branch caps coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function has <strong>4</strong> branch outcomes, but one of them is <em>infeasible</em> (dead code that no input can reach). What is the maximum <strong>branch</strong> coverage achievable, measured over all 4 outcomes?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>Correct — at best 3 of the 4 outcomes can be taken, so 3 / 4 = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>The infeasible outcome can never be taken, so 100% over all 4 is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>Three feasible outcomes can be taken; that is 75%, not 50%.</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>Only one outcome is unreachable; the other three are reachable, giving 75%.</text></feedback></answer>
+    <generalfeedback><text>Infeasible branches cap achievable coverage: with 1 of 4 outcomes unreachable, the maximum over all 4 is 3 / 4 = 75%. Reporting over feasible outcomes only would show 100%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Nested-if branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>int h(int x, int y) {
+  int r = 0;
+  if (x &gt; 0) {
+    if (y &gt; 0)
+      r = 1;
+    else
+      r = 2;
+  }
+  return r;
+}</pre><p>There are 4 branch outcomes: outer-true, outer-false, inner-true, inner-false. Suite: <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>branch</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>Correct — outer-true, inner-true (from 5,3) and outer-false (from -1,0) are taken, but inner-false is not: 3 / 4 = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>The inner-false outcome (x &gt; 0 and y &lt;= 0) is never reached by this suite.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>Three of four outcomes are taken (outer-true, outer-false, inner-true), giving 75%.</text></feedback></answer>
+    <answer fraction="0"><text>≈ 66.7%</text><feedback><text>66.7% would be 2 of 3; here 3 of 4 branch outcomes are taken = 75%.</text></feedback></answer>
+    <generalfeedback><text>(5,3): outer-true + inner-true. (-1,0): outer-false. Inner-false requires x &gt; 0 and y &lt;= 0, which no test provides. Branch coverage = 3 / 4 = 75%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Nested-if missed branch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Same code and suite:</p><pre>int h(int x, int y) {
+  int r = 0;
+  if (x &gt; 0) {
+    if (y &gt; 0) r = 1; else r = 2;
+  }
+  return r;
+}</pre><p>Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. Which branch outcome is <strong>missed</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The inner false branch (x &gt; 0 and y &lt;= 0, so r = 2)</text><feedback><text>Correct — no test has x &gt; 0 together with y &lt;= 0, so r = 2 is never reached.</text></feedback></answer>
+    <answer fraction="0"><text>The outer false branch (x &lt;= 0)</text><feedback><text>(x=-1, y=0) takes the outer false branch, so it is covered.</text></feedback></answer>
+    <answer fraction="0"><text>The inner true branch (r = 1)</text><feedback><text>(x=5, y=3) takes the inner true branch, so it is covered.</text></feedback></answer>
+    <answer fraction="0"><text>None — all branches are covered</text><feedback><text>The inner false branch (r = 2) is missed; it needs x &gt; 0 and y &lt;= 0.</text></feedback></answer>
+    <generalfeedback><text>To reach r = 2 you need x &gt; 0 (enter outer) and y &lt;= 0 (inner false). The suite never combines those, so the inner-false branch and the path leading to r = 2 are missed. Adding e.g. (x=5, y=-1) would cover it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Nested-if statement coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Same code:</p><pre>int h(int x, int y) {
+  int r = 0;        // s1
+  if (x &gt; 0) {      // s2
+    if (y &gt; 0)      // s3
+      r = 1;        // s4
+    else
+      r = 2;        // s5
+  }
+  return r;         // s6
+}</pre><p>Six executable statements s1..s6. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>statement</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>≈ 83.3%</text><feedback><text>Correct — all run except s5 (r = 2), so 5 / 6 ≈ 83.3%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>s5 (r = 2) needs x &gt; 0 and y &lt;= 0, which the suite never provides.</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% is the branch coverage; statement coverage is 5 / 6 ≈ 83.3%.</text></feedback></answer>
+    <answer fraction="0"><text>≈ 66.7%</text><feedback><text>Five of six statements execute, giving ≈ 83.3%, not 66.7%.</text></feedback></answer>
+    <generalfeedback><text>(5,3) runs s1, s2, s3, s4, s6; (-1,0) runs s1, s2, s6. Only s5 (r = 2) is missed. Statement coverage = 5 / 6 ≈ 83.3%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Nested-if path coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Same code has three feasible paths: P1 = x &lt;= 0; P2 = x &gt; 0 and y &gt; 0; P3 = x &gt; 0 and y &lt;= 0. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>path</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>≈ 66.7%</text><feedback><text>Correct — (5,3) covers P2 and (-1,0) covers P1, but P3 is missed: 2 / 3 ≈ 66.7%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>Path P3 (x &gt; 0 and y &lt;= 0) is never exercised.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>Two of three feasible paths are covered, giving ≈ 66.7%, not 50%.</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% is the branch coverage; path coverage here is 2 / 3 ≈ 66.7%.</text></feedback></answer>
+    <generalfeedback><text>Feasible paths: P1 (x &lt;= 0), P2 (x &gt; 0, y &gt; 0), P3 (x &gt; 0, y &lt;= 0). The suite covers P1 and P2 but not P3, so path coverage = 2 / 3 ≈ 66.7%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC independence pair for a || b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the decision <code>a || b</code>, which pair of tests demonstrates that condition <code>b</code> <strong>independently</strong> affects the outcome?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(a=F, b=F) giving false and (a=F, b=T) giving true</text><feedback><text>Correct — a is held false; changing b alone flips the decision from false to true.</text></feedback></answer>
+    <answer fraction="0"><text>(a=T, b=F) and (a=T, b=T), both giving true</text><feedback><text>With a = true, a || b is true regardless of b, so the outcome does not flip — b's effect is masked.</text></feedback></answer>
+    <answer fraction="0"><text>(a=F, b=T) and (a=T, b=F), both giving true</text><feedback><text>These differ in both a and b, so they cannot isolate b's independent effect.</text></feedback></answer>
+    <answer fraction="0"><text>(a=T, b=T) and (a=F, b=F)</text><feedback><text>These differ in both conditions, so neither condition's effect is isolated.</text></feedback></answer>
+    <generalfeedback><text>To show b independently affects a || b, hold a = false and vary b: (F,F) → false, (F,T) → true. Only then does changing b alone flip the outcome.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>MC/DC subsumes decision coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test set that satisfies MC/DC for a decision necessarily satisfies decision (branch) coverage of that decision.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — showing each condition can flip the outcome forces the decision to take both true and false, so decision coverage is met.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>MC/DC requires each condition to flip the decision, which necessarily makes the decision both true and false — decision coverage is implied.</text></feedback></answer>
+    <generalfeedback><text>MC/DC ⊒ decision/condition coverage ⊒ decision coverage (and condition coverage). Demonstrating independent effect requires the decision to take both outcomes, so branch coverage of that decision follows.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Decision/condition coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Decision/condition coverage</strong> (a.k.a. condition/decision coverage) is satisfied when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both condition coverage and decision coverage are achieved together</text><feedback><text>Correct — each condition takes both values AND the decision takes both outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>Only the decision takes both true and false</text><feedback><text>That is plain decision coverage; decision/condition also requires condition coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Only each condition takes both values</text><feedback><text>That is plain condition coverage; decision/condition also requires decision coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every combination of the conditions' values is exercised</text><feedback><text>That is multiple-condition coverage, which is stronger than decision/condition.</text></feedback></answer>
+    <generalfeedback><text>Decision/condition coverage simply combines the two: every condition takes both values and the decision takes both outcomes. It sits above condition and decision coverage and below MC/DC in the subsumption chain.</text></generalfeedback>
+  </question>
+</quiz>

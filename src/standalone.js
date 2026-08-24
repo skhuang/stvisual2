@@ -48399,6 +48399,2524 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "code-coverage": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Statement coverage definition",
+            "text": "<p><strong>Statement (line) coverage</strong> of a test suite is best defined as:</p>",
+            "answers": [
+              {
+                "text": "The fraction of executable statements that were executed by at least one test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it counts executable statements run at least once, divided by the total executable statements."
+              },
+              {
+                "text": "The fraction of branch outcomes that were taken by at least one test",
+                "fraction": 0,
+                "feedback": "That is branch (decision) coverage, not statement coverage."
+              },
+              {
+                "text": "The fraction of source lines, including blanks and comments, that were compiled",
+                "fraction": 0,
+                "feedback": "Blank lines and comments are not executable statements, and coverage is about execution, not compilation."
+              },
+              {
+                "text": "The fraction of all input values that were tried",
+                "fraction": 0,
+                "feedback": "Coverage is measured over the code, not over the whole input domain."
+              }
+            ],
+            "generalFeedback": "Statement coverage = (executable statements executed by some test) / (total executable statements). Comments and blank lines do not count.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage definition",
+            "text": "<p><strong>Branch (decision) coverage</strong> requires that:</p>",
+            "answers": [
+              {
+                "text": "Every decision has taken both its true and its false outcome at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each branch outcome of every decision must be exercised."
+              },
+              {
+                "text": "Every executable statement has been executed at least once",
+                "fraction": 0,
+                "feedback": "That is statement coverage, which is weaker than branch coverage."
+              },
+              {
+                "text": "Every individual boolean condition has taken both values",
+                "fraction": 0,
+                "feedback": "That is condition coverage, which targets the atomic conditions, not the whole decision."
+              },
+              {
+                "text": "Every complete path through the program has been executed",
+                "fraction": 0,
+                "feedback": "That is path coverage, far stronger and often infeasible."
+              }
+            ],
+            "generalFeedback": "Branch (decision) coverage requires each decision to evaluate to both true and false at least once, so every branch outcome (edge) is taken.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Condition coverage definition",
+            "text": "<p><strong>Condition coverage</strong> requires that:</p>",
+            "answers": [
+              {
+                "text": "Each atomic boolean condition in a decision has taken both true and false at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every individual condition must be evaluated both ways."
+              },
+              {
+                "text": "Each decision as a whole has taken both true and false",
+                "fraction": 0,
+                "feedback": "That is decision (branch) coverage; condition coverage looks inside the decision."
+              },
+              {
+                "text": "Every combination of the conditions' values has been tried",
+                "fraction": 0,
+                "feedback": "That is multiple-condition coverage, which is stronger."
+              },
+              {
+                "text": "Every statement has executed once",
+                "fraction": 0,
+                "feedback": "That is statement coverage."
+              }
+            ],
+            "generalFeedback": "Condition coverage requires each atomic condition (e.g. a, b in a && b) to be true in some test and false in some test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path coverage definition",
+            "text": "<p><strong>Path coverage</strong> requires that:</p>",
+            "answers": [
+              {
+                "text": "Every feasible execution path through the code is exercised by some test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 path coverage aims to exercise each end-to-end path of control flow."
+              },
+              {
+                "text": "Every decision takes both outcomes",
+                "fraction": 0,
+                "feedback": "That is branch coverage; path coverage constrains whole paths, not just individual decisions."
+              },
+              {
+                "text": "Every statement executes once",
+                "fraction": 0,
+                "feedback": "That is statement coverage, the weakest of these."
+              },
+              {
+                "text": "Every condition takes both values",
+                "fraction": 0,
+                "feedback": "That is condition coverage."
+              }
+            ],
+            "generalFeedback": "Path coverage requires each feasible path through the program to be executed. With loops the number of paths is usually unbounded, so full path coverage is often infeasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What MC/DC stands for",
+            "text": "<p>In coverage terminology, <strong>MC/DC</strong> stands for:</p>",
+            "answers": [
+              {
+                "text": "Modified Condition/Decision Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MC/DC is Modified Condition/Decision Coverage, used in DO-178B/C."
+              },
+              {
+                "text": "Multiple Condition/Decision Coverage",
+                "fraction": 0,
+                "feedback": "That is a different, stronger criterion (multiple-condition coverage); MC/DC is Modified Condition/Decision Coverage."
+              },
+              {
+                "text": "Maximum Coverage/Decision Criterion",
+                "fraction": 0,
+                "feedback": "No such standard criterion; MC/DC = Modified Condition/Decision Coverage."
+              },
+              {
+                "text": "Minimal Code/Data Coverage",
+                "fraction": 0,
+                "feedback": "Not a coverage criterion; MC/DC = Modified Condition/Decision Coverage."
+              }
+            ],
+            "generalFeedback": "MC/DC = Modified Condition/Decision Coverage. Each condition must be shown to independently affect the decision's outcome.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Function coverage definition",
+            "text": "<p><strong>Function (entry) coverage</strong> measures:</p>",
+            "answers": [
+              {
+                "text": "The fraction of functions/subroutines that were called at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 function coverage counts how many functions were entered by the test suite."
+              },
+              {
+                "text": "The fraction of statements inside each function that executed",
+                "fraction": 0,
+                "feedback": "That is statement coverage, measured per statement, not per function."
+              },
+              {
+                "text": "The fraction of branches inside each function that were taken",
+                "fraction": 0,
+                "feedback": "That is branch coverage, not function coverage."
+              },
+              {
+                "text": "The number of parameters passed to each function",
+                "fraction": 0,
+                "feedback": "Function coverage is about whether a function was called, not its arguments."
+              }
+            ],
+            "generalFeedback": "Function (entry) coverage = (functions called at least once) / (total functions). It is the coarsest common metric.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute statement coverage (5 of 8)",
+            "text": "<p>A function has <strong>8</strong> executable statements. A test suite executes <strong>5</strong> of them. What is the statement coverage?</p>",
+            "answers": [
+              {
+                "text": "62.5%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 5 / 8 = 0.625 = 62.5%."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "5 / 8 = 62.5%, not 50%."
+              },
+              {
+                "text": "80%",
+                "fraction": 0,
+                "feedback": "80% would be 5 of about 6.25 statements; 5 / 8 = 62.5%."
+              },
+              {
+                "text": "37.5%",
+                "fraction": 0,
+                "feedback": "37.5% is the fraction NOT executed (3 / 8); coverage is 5 / 8 = 62.5%."
+              }
+            ],
+            "generalFeedback": "Statement coverage = executed / total = 5 / 8 = 62.5%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute branch coverage (3 of 4)",
+            "text": "<p>A function contains <strong>4</strong> branch outcomes (two decisions, each with a true and a false edge). A suite takes <strong>3</strong> of them. What is the branch coverage?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 / 4 = 75%."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "50% would be 2 of 4; here 3 of 4 = 75%."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "25% is the fraction NOT taken (1 / 4); branch coverage is 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "One branch outcome is still untaken, so it cannot be 100%."
+              }
+            ],
+            "generalFeedback": "Branch coverage = branch outcomes taken / total branch outcomes = 3 / 4 = 75%.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% statement need not give 100% branch",
+            "text": "<p>Achieving 100% statement coverage guarantees 100% branch coverage.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 anwith nocan execute its only statement (100% statement) while the false branch is never taken (branch < 100%)."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Not true: e.g.tested only with x = 5 reaches every statement but never takes the false branch."
+              }
+            ],
+            "generalFeedback": "Statement coverage does not imply branch coverage: an if-without-else can reach 100% statements while leaving the false branch untaken. (Branch coverage does subsume statement coverage, but not the reverse.)"
+          },
+          {
+            "type": "multichoice",
+            "name": "Line coverage relationship",
+            "text": "<p>Commonly reported <strong>line coverage</strong> most closely corresponds to which classic metric?</p>",
+            "answers": [
+              {
+                "text": "Statement coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 line coverage counts executable lines run, essentially statement coverage."
+              },
+              {
+                "text": "Branch coverage",
+                "fraction": 0,
+                "feedback": "Branch coverage is about decision outcomes, not lines executed."
+              },
+              {
+                "text": "Path coverage",
+                "fraction": 0,
+                "feedback": "Path coverage counts whole paths, far stronger than line coverage."
+              },
+              {
+                "text": "MC/DC",
+                "fraction": 0,
+                "feedback": "MC/DC is about conditions independently affecting decisions, not lines."
+              }
+            ],
+            "generalFeedback": "Line coverage counts executable lines executed and is treated as (roughly) equivalent to statement coverage; one line may hold several statements, but they are close.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute line coverage (7 of 10)",
+            "text": "<p>A file has <strong>10</strong> executable lines; a suite executes <strong>7</strong> of them. What is the line coverage?</p>",
+            "answers": [
+              {
+                "text": "70%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 7 / 10 = 70%."
+              },
+              {
+                "text": "30%",
+                "fraction": 0,
+                "feedback": "30% is the uncovered fraction; coverage is 7 / 10 = 70%."
+              },
+              {
+                "text": "77%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%, not 77%."
+              },
+              {
+                "text": "7%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%, not 7%."
+              }
+            ],
+            "generalFeedback": "Line coverage = executed lines / executable lines = 7 / 10 = 70%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Strongest of the three",
+            "text": "<p>Of <strong>statement</strong>, <strong>branch</strong>, and <strong>path</strong> coverage, which is the strongest (hardest to fully achieve)?</p>",
+            "answers": [
+              {
+                "text": "Path coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 path coverage subsumes branch, which subsumes statement."
+              },
+              {
+                "text": "Statement coverage",
+                "fraction": 0,
+                "feedback": "Statement coverage is the weakest of the three."
+              },
+              {
+                "text": "Branch coverage",
+                "fraction": 0,
+                "feedback": "Branch coverage is stronger than statement but weaker than path."
+              },
+              {
+                "text": "They are equally strong",
+                "fraction": 0,
+                "feedback": "They form a strict hierarchy: path subsumes branch subsumes statement."
+              }
+            ],
+            "generalFeedback": "Subsumption: path coverage \u2292 branch/decision coverage \u2292 statement coverage. Path coverage is the strongest and usually infeasible with loops.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% coverage is not bug-free",
+            "text": "<p>Reaching 100% of any structural coverage metric proves the program is free of bugs.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage shows code was executed, not that outputs were checked or that missing code and unexercised data combinations are correct."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Coverage measures which code ran, not correctness; missing logic, wrong oracles, and untested data values can still hide bugs."
+              }
+            ],
+            "generalFeedback": "Coverage tells you code was executed, not that it was correct. A faulty oracle, an omitted case, or a specific data value not tried can leave bugs even at 100% coverage."
+          },
+          {
+            "type": "multichoice",
+            "name": "What instrumentation does",
+            "text": "<p>To measure coverage, a tool usually <strong>instruments</strong> the program. This means it:</p>",
+            "answers": [
+              {
+                "text": "Inserts probes/counters that record which statements or branches execute at run time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 instrumentation adds bookkeeping so executed elements are recorded during test runs."
+              },
+              {
+                "text": "Rewrites the program to remove all bugs automatically",
+                "fraction": 0,
+                "feedback": "Instrumentation only records execution; it does not fix code."
+              },
+              {
+                "text": "Proves mathematically that the code is correct",
+                "fraction": 0,
+                "feedback": "That is formal verification, not coverage instrumentation."
+              },
+              {
+                "text": "Generates the test inputs for you",
+                "fraction": 0,
+                "feedback": "Instrumentation records what tests reach; it does not create the tests."
+              }
+            ],
+            "generalFeedback": "A coverage tool instruments the code with probes/counters at statements and branches; running the tests records which elements executed, from which percentages are computed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision vs condition (basic)",
+            "text": "<p>In the decision <code>if (a &amp;&amp; b)</code>, the whole expression <code>a &amp;&amp; b</code> is the <em>decision</em>. What are <code>a</code> and <code>b</code> called?</p>",
+            "answers": [
+              {
+                "text": "Conditions (atomic boolean sub-expressions)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a and b are the individual conditions of the decision."
+              },
+              {
+                "text": "Branches",
+                "fraction": 0,
+                "feedback": "Branches are the true/false outcomes of the decision, not a and b themselves."
+              },
+              {
+                "text": "Paths",
+                "fraction": 0,
+                "feedback": "Paths are whole routes through the code, not the atomic parts of a decision."
+              },
+              {
+                "text": "Statements",
+                "fraction": 0,
+                "feedback": "a and b are conditions inside the decision, not separate statements."
+              }
+            ],
+            "generalFeedback": "A decision is the full boolean expression that controls a branch; the atomic boolean sub-expressions (a, b) are its conditions. Condition coverage targets a and b; decision coverage targets a && b.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Statement coverage of an if (x<=0 test)",
+            "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>Executable statements: s1, s2, s3, s4 (four total). The suite is the single test <code>{x = -3}</code>. What is the <strong>statement</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x = -3 runs s1, s2, s4 but skips s3 (y = 1), so 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s3 (y = 1) is only reached when x > 0, so it is not executed by x = -3."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Three of the four statements execute (s1, s2, s4), giving 75%, not 50%."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "Only s3 is missed; that is 3 / 4 = 75% covered."
+              }
+            ],
+            "generalFeedback": "x = -3 executes s1, s2 (the if), and s4, but not s3. Statement coverage = 3 / 4 = 75%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage of an if (x<=0 test)",
+            "text": "<p>Same code:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>The single decision <code>x &gt; 0</code> has two branch outcomes (true, false). With the suite <code>{x = -3}</code>, what is the <strong>branch</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only the false outcome is taken, so 1 / 2 = 50%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The true outcome (x > 0) is never taken by x = -3."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% is the statement coverage; branch coverage here is 1 of 2 = 50%."
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "The false outcome IS taken, so it is 50%, not 0%."
+              }
+            ],
+            "generalFeedback": "x = -3 takes only the false outcome of x > 0, so branch coverage = 1 / 2 = 50%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Statement coverage of an if-else (one test)",
+            "text": "<p>Consider:</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>Executable statements: s1, s2, s3 (three total). The suite is <code>{n = 4}</code>. What is the <strong>statement</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 n = 4 runs s1 and s2 but not s3 (return 1), so 2 / 3 \u2248 66.7%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The else statement s3 is only reached when n is odd, so n = 4 misses it."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Two of three statements run; that is 2 / 3 \u2248 66.7%, not 50%."
+              },
+              {
+                "text": "\u2248 33.3%",
+                "fraction": 0,
+                "feedback": "33.3% is one of three; here two of three run, so \u2248 66.7%."
+              }
+            ],
+            "generalFeedback": "n = 4 executes s1 (the if) and s2 (return 0), skipping s3. Statement coverage = 2 / 3 \u2248 66.7%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage of an if-else (one test)",
+            "text": "<p>Same if-else:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>With suite <code>{n = 4}</code>, what is the <strong>branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only the true outcome is taken, so 1 / 2 = 50%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The false outcome (odd n) is never taken by n = 4."
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% is the statement coverage here; branch coverage is 1 of 2 = 50%."
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "The true outcome IS taken, so branch coverage is 50%."
+              }
+            ],
+            "generalFeedback": "n = 4 takes only the true outcome; the false (else) outcome is untaken, so branch coverage = 1 / 2 = 50%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Condition covered but decision not",
+            "text": "<p>For the decision <code>a &amp;&amp; b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=T)</code>. Both make the decision <strong>false</strong>. What does this show?</p>",
+            "answers": [
+              {
+                "text": "100% condition coverage but only 50% decision coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a and b each take T and F (condition 100%), yet the decision is false both times (decision 50%)."
+              },
+              {
+                "text": "100% decision coverage but only 50% condition coverage",
+                "fraction": 0,
+                "feedback": "Reversed: the decision is false both times (50%), while each condition takes both values (100%)."
+              },
+              {
+                "text": "Both are 100%",
+                "fraction": 0,
+                "feedback": "The decision never evaluates to true, so decision coverage is only 50%."
+              },
+              {
+                "text": "Both are 50%",
+                "fraction": 0,
+                "feedback": "Condition coverage is full: a is T then F, b is F then T."
+              }
+            ],
+            "generalFeedback": "a: T then F; b: F then T \u2014 full condition coverage. But a && b is false in both tests, so decision coverage is 1 / 2 = 50%. Condition coverage does not subsume decision coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision covered but condition not",
+            "text": "<p>For the decision <code>a || b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=F)</code>. Condition coverage counts the four goals a=T, a=F, b=T, b=F. What coverage results?</p>",
+            "answers": [
+              {
+                "text": "100% decision coverage but only 75% condition coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 decision is true then false (100%); a=T, a=F, b=F are met but b=T is not, so 3 / 4 = 75% condition."
+              },
+              {
+                "text": "100% condition coverage but only 50% decision coverage",
+                "fraction": 0,
+                "feedback": "Reversed: the decision takes both values (100%); it is b that never becomes true, leaving condition coverage below 100%."
+              },
+              {
+                "text": "Both are 100%",
+                "fraction": 0,
+                "feedback": "b is false in both tests, so the goal b=T is unmet and condition coverage is 75%."
+              },
+              {
+                "text": "Both are 50%",
+                "fraction": 0,
+                "feedback": "The decision is true in test 1 and false in test 2, so decision coverage is 100%."
+              }
+            ],
+            "generalFeedback": "a || b: T then F, so decision coverage is 100%. Condition goals met: a=T \u2713, a=F \u2713, b=F \u2713, but b=T \u2717 (b is false in both tests) \u2192 3 / 4 = 75%. Decision coverage does not subsume condition coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subsumption ordering",
+            "text": "<p>Which subsumption ordering is correct (X \u2292 Y means X guarantees Y)?</p>",
+            "answers": [
+              {
+                "text": "path \u2292 branch/decision \u2292 statement",
+                "fraction": 100,
+                "feedback": "Correct \u2014 full path coverage implies full branch coverage, which implies full statement coverage."
+              },
+              {
+                "text": "statement \u2292 branch/decision \u2292 path",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 statement coverage is the weakest, not the strongest."
+              },
+              {
+                "text": "branch/decision \u2292 path \u2292 statement",
+                "fraction": 0,
+                "feedback": "Path coverage is stronger than branch coverage, not weaker."
+              },
+              {
+                "text": "condition \u2292 branch/decision \u2292 statement",
+                "fraction": 0,
+                "feedback": "Condition and branch/decision coverage are incomparable; condition does not subsume branch."
+              }
+            ],
+            "generalFeedback": "path \u2292 branch/decision \u2292 statement. Note that condition coverage and branch/decision coverage are incomparable \u2014 neither subsumes the other.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "100% statement, 50% branch example",
+            "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>With the single test <code>{x = 5}</code>, which statement is true?</p>",
+            "answers": [
+              {
+                "text": "Statement coverage is 100% but branch coverage is only 50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every statement runs, but the false outcome of x > 0 is never taken."
+              },
+              {
+                "text": "Both statement and branch coverage are 100%",
+                "fraction": 0,
+                "feedback": "The false branch (x <= 0) is never taken, so branch coverage is 50%."
+              },
+              {
+                "text": "Statement coverage is 75%",
+                "fraction": 0,
+                "feedback": "x = 5 runs all four statements including y = 1, so statement coverage is 100%."
+              },
+              {
+                "text": "Branch coverage is 100% but statement coverage is 75%",
+                "fraction": 0,
+                "feedback": "Both claims are wrong: statements are all covered (100%) and branch is 50%."
+              }
+            ],
+            "generalFeedback": "x = 5 runs s1..s4 (statement 100%) but takes only the true outcome, so branch coverage is 1 / 2 = 50%. This is the classic case where statement coverage does not imply branch coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Short-circuit: is b evaluated?",
+            "text": "<p>In a language with short-circuit evaluation, the decision <code>a &amp;&amp; b</code> is run with the single test <code>{a = false}</code>. Is condition <code>b</code> evaluated?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 because a is false, && short-circuits and b is never evaluated",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with a = false the result is already false, so b is skipped."
+              },
+              {
+                "text": "Yes \u2014 both operands are always evaluated",
+                "fraction": 0,
+                "feedback": "That would be true only without short-circuiting; a false left operand of && skips b."
+              },
+              {
+                "text": "Yes \u2014 b is evaluated first",
+                "fraction": 0,
+                "feedback": "&& evaluates the left operand first; a = false ends evaluation before b."
+              },
+              {
+                "text": "Only if a is true and b is false",
+                "fraction": 0,
+                "feedback": "b is evaluated exactly when a is true; here a is false, so b is skipped."
+              }
+            ],
+            "generalFeedback": "With short-circuit &&, a false left operand determines the result, so b is not evaluated. To exercise b's values you need tests where a is true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Short-circuit effect on condition coverage",
+            "text": "<p>With short-circuit <code>&amp;&amp;</code>, to make condition <code>b</code> in <code>a &amp;&amp; b</code> take <strong>both</strong> true and false so it counts for condition coverage, the tests must have:</p>",
+            "answers": [
+              {
+                "text": "a = true in both tests (once with b = true, once with b = false)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 b is only evaluated when a is true, so a must be true to exercise b."
+              },
+              {
+                "text": "a = false in both tests",
+                "fraction": 0,
+                "feedback": "With a = false, b is never evaluated, so b's value is never exercised."
+              },
+              {
+                "text": "any values of a, since b is always evaluated",
+                "fraction": 0,
+                "feedback": "Short-circuiting means b is skipped when a is false."
+              },
+              {
+                "text": "b = true in both tests",
+                "fraction": 0,
+                "feedback": "Then b never takes false, so condition coverage of b is incomplete."
+              }
+            ],
+            "generalFeedback": "Short-circuit && evaluates b only when a is true. To let b be observed as both true and false, keep a true and vary b.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage subsumes statement",
+            "text": "<p>Which statement about branch and statement coverage is correct?</p>",
+            "answers": [
+              {
+                "text": "100% branch coverage guarantees 100% statement coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 taking every branch reaches every reachable statement, so branch coverage subsumes statement coverage."
+              },
+              {
+                "text": "100% statement coverage guarantees 100% branch coverage",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 an if without else can be 100% statement yet under 100% branch."
+              },
+              {
+                "text": "They always give the same percentage",
+                "fraction": 0,
+                "feedback": "They differ, e.g. if-without-else: statement can be 100% while branch is 50%."
+              },
+              {
+                "text": "Neither subsumes the other",
+                "fraction": 0,
+                "feedback": "Branch coverage does subsume statement coverage."
+              }
+            ],
+            "generalFeedback": "Branch/decision coverage \u2292 statement coverage: exercising both outcomes of every decision necessarily reaches every reachable statement. The reverse does not hold.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Condition coverage subsumes decision?",
+            "text": "<p>Achieving 100% condition coverage always guarantees 100% decision (branch) coverage.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 e.g. a && b with (T,F) and (F,T) gives full condition coverage but the decision is false both times (50% decision)."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Not true: condition and decision coverage are incomparable; full condition coverage can leave a decision outcome untaken."
+              }
+            ],
+            "generalFeedback": "Condition coverage and decision coverage are incomparable. Tests (a=T,b=F) and (a=F,b=T) on a && b cover both values of a and b yet make the decision false both times, so decision coverage is only 50%. (Decision/condition coverage combines both to fix this.)"
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute condition coverage under one test",
+            "text": "<p>For the decision <code>a &amp;&amp; b</code>, condition coverage counts the four condition-value goals: a=T, a=F, b=T, b=F. The suite is the single test <code>(a=T, b=T)</code>. What is the <strong>condition</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a=T and b=T are met, but a=F and b=F are not, so 2 / 4 = 50%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "a=F and b=F are never exercised by a single all-true test."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "Two of the four goals (a=T, b=T) are met, so 50%, not 25%."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "Only two of four condition-value goals are met, giving 50%."
+              }
+            ],
+            "generalFeedback": "Condition coverage tracks each condition taking each value: a=T \u2713, b=T \u2713, a=F \u2717, b=F \u2717 \u2192 2 / 4 = 50%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimum tests for branch coverage of one if-else",
+            "text": "<p>What is the minimum number of tests needed to fully cover the branches of a single <code>if-else</code> with one simple decision?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one test to take the true outcome and one for the false outcome."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One test can take only one outcome; you need both true and false."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only two outcomes exist for one decision, so two tests suffice."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Four would be the truth-table size for two conditions; one simple decision needs just two tests."
+              }
+            ],
+            "generalFeedback": "A single decision has two outcomes, so branch coverage needs at least two tests (true and false).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Suite that achieves 100% branch coverage",
+            "text": "<p>For:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>Which suite achieves <strong>100% branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+            "answers": [
+              {
+                "text": "{n = 4, n = 7}",
+                "fraction": 100,
+                "feedback": "Correct \u2014 n = 4 takes the true outcome and n = 7 takes the false outcome, covering both branches."
+              },
+              {
+                "text": "{n = 4}",
+                "fraction": 0,
+                "feedback": "Only the true outcome is taken, so branch coverage is 50%."
+              },
+              {
+                "text": "{n = 2, n = 8}",
+                "fraction": 0,
+                "feedback": "Both are even, so only the true outcome is taken \u2014 50%."
+              },
+              {
+                "text": "{n = 3}",
+                "fraction": 0,
+                "feedback": "Only the false outcome is taken, so branch coverage is 50%."
+              }
+            ],
+            "generalFeedback": "Branch coverage needs both outcomes: one even n (true) and one odd n (false). {n = 4, n = 7} does this; suites with only evens or only odds reach just one branch.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "MC/DC minimum tests for 3 conditions",
+            "text": "<p>A decision has <strong>3</strong> independent conditions. What is the minimum number of tests that can satisfy <strong>MC/DC</strong>?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MC/DC needs a minimum of n + 1 tests; for n = 3 that is 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The minimum is n + 1 = 4, not n."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "2^3 = 8 is multiple-condition coverage; MC/DC needs only about n + 1."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Up to 2n = 6 tests may be used, but the minimum is n + 1 = 4."
+              }
+            ],
+            "generalFeedback": "For n independent conditions, MC/DC requires a minimum of n + 1 tests (and at most 2n), because a well-chosen test can serve as the pair-partner for several conditions. For n = 3 the minimum is 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC requirement",
+            "text": "<p>Beyond decision and condition coverage, the extra requirement of <strong>MC/DC</strong> is that:</p>",
+            "answers": [
+              {
+                "text": "Each condition is shown to independently affect the decision's outcome",
+                "fraction": 100,
+                "feedback": "Correct \u2014 for each condition there is a pair of tests, differing only in that condition, where the decision's value flips."
+              },
+              {
+                "text": "Every combination of condition values is tested",
+                "fraction": 0,
+                "feedback": "That is multiple-condition coverage, which is stronger than MC/DC."
+              },
+              {
+                "text": "Every statement is executed",
+                "fraction": 0,
+                "feedback": "That is statement coverage, unrelated to the independence requirement."
+              },
+              {
+                "text": "Every path is executed",
+                "fraction": 0,
+                "feedback": "That is path coverage, not MC/DC."
+              }
+            ],
+            "generalFeedback": "MC/DC requires each condition, holding the others fixed, to be demonstrated to independently flip the decision's outcome \u2014 plus each condition and the decision take both values.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multiple-condition coverage for 3 conditions",
+            "text": "<p>How many tests does <strong>multiple-condition coverage</strong> require for a decision with <strong>3</strong> conditions (ignoring infeasible combinations)?</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 multiple-condition coverage needs all 2^n combinations; 2^3 = 8."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 = n + 1 is MC/DC's minimum, not multiple-condition coverage."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 = 2n is MC/DC's upper bound, not all combinations."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Multiple-condition coverage needs 2^3 = 8 combinations, not 3."
+              }
+            ],
+            "generalFeedback": "Multiple-condition coverage exercises all 2^n truth-value combinations of the n conditions; for n = 3 that is 8.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compound-decision subsumption chain",
+            "text": "<p>Which ordering among these compound-decision criteria is correct (X \u2292 Y means X subsumes Y)?</p>",
+            "answers": [
+              {
+                "text": "multiple-condition \u2292 MC/DC \u2292 decision/condition \u2292 condition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all combinations subsume MC/DC, which subsumes decision/condition, which subsumes plain condition (and decision) coverage."
+              },
+              {
+                "text": "MC/DC \u2292 multiple-condition \u2292 decision/condition",
+                "fraction": 0,
+                "feedback": "Multiple-condition coverage is the strongest; it subsumes MC/DC, not the reverse."
+              },
+              {
+                "text": "condition \u2292 decision/condition \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 plain condition coverage is the weakest of these."
+              },
+              {
+                "text": "decision/condition \u2292 multiple-condition \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "Multiple-condition coverage is stronger than both of the others."
+              }
+            ],
+            "generalFeedback": "multiple-condition \u2292 MC/DC \u2292 decision/condition coverage \u2292 condition coverage (and \u2292 decision coverage). Multiple-condition coverage is the strongest because it exercises the full truth table.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimum MC/DC tests for a && b",
+            "text": "<p>For the decision <code>a &amp;&amp; b</code>, a minimal MC/DC test set is <code>{(T,T), (F,T), (T,F)}</code>. How many tests is that, and does it match n + 1?</p>",
+            "answers": [
+              {
+                "text": "3 tests, which equals n + 1 for n = 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (T,T)/(F,T) shows a's effect, (T,T)/(T,F) shows b's effect; 3 = 2 + 1."
+              },
+              {
+                "text": "4 tests, the full truth table",
+                "fraction": 0,
+                "feedback": "The listed set has 3 tests, not 4; MC/DC does not need the whole table for a && b."
+              },
+              {
+                "text": "2 tests, one per outcome",
+                "fraction": 0,
+                "feedback": "Two tests give decision coverage but cannot show both a and b independently; MC/DC needs 3 here."
+              },
+              {
+                "text": "3 tests, but that is more than n + 1",
+                "fraction": 0,
+                "feedback": "n + 1 = 3 for n = 2, so 3 tests is exactly the minimum."
+              }
+            ],
+            "generalFeedback": "For a && b: the pair (T,T)/(F,T) flips the decision by changing a alone; the pair (T,T)/(T,F) flips it by changing b alone. The three distinct tests {(T,T),(F,T),(T,F)} = n + 1 = 3.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path count of two sequential ifs",
+            "text": "<p>Consider:</p><pre>if (a) S1;\nif (b) S2;</pre><p>with two independent decisions and no loops. How many distinct execution <strong>paths</strong> are there?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each if independently taken or not: 2 \xD7 2 = 4 paths."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Two counts branch outcomes of one if; two independent ifs give 2 \xD7 2 = 4 paths."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The combinations are (a,b) = TT, TF, FT, FF \u2014 four paths, not three."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "With two independent decisions there are 4 distinct paths."
+              }
+            ],
+            "generalFeedback": "Two independent decisions in sequence yield 2 \xD7 2 = 4 paths (a taken/not) \xD7 (b taken/not). Branch coverage needs only 2 tests, but path coverage needs 4.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Loops make path coverage infeasible",
+            "text": "<p>When the code under test contains a loop whose iteration count depends on input, full path coverage is generally infeasible.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each distinct iteration count is a distinct path, so the number of paths is unbounded."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A data-dependent loop produces a different path for every iteration count, giving unboundedly many paths."
+              }
+            ],
+            "generalFeedback": "A loop that can run 0, 1, 2, ... times yields a distinct path per iteration count, so the path set is (potentially) infinite and full path coverage cannot generally be achieved."
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible branch caps coverage",
+            "text": "<p>A function has <strong>4</strong> branch outcomes, but one of them is <em>infeasible</em> (dead code that no input can reach). What is the maximum <strong>branch</strong> coverage achievable, measured over all 4 outcomes?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at best 3 of the 4 outcomes can be taken, so 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The infeasible outcome can never be taken, so 100% over all 4 is impossible."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Three feasible outcomes can be taken; that is 75%, not 50%."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "Only one outcome is unreachable; the other three are reachable, giving 75%."
+              }
+            ],
+            "generalFeedback": "Infeasible branches cap achievable coverage: with 1 of 4 outcomes unreachable, the maximum over all 4 is 3 / 4 = 75%. Reporting over feasible outcomes only would show 100%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if branch coverage",
+            "text": "<p>Consider:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>There are 4 branch outcomes: outer-true, outer-false, inner-true, inner-false. Suite: <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>branch</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 outer-true, inner-true (from 5,3) and outer-false (from -1,0) are taken, but inner-false is not: 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The inner-false outcome (x > 0 and y <= 0) is never reached by this suite."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Three of four outcomes are taken (outer-true, outer-false, inner-true), giving 75%."
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% would be 2 of 3; here 3 of 4 branch outcomes are taken = 75%."
+              }
+            ],
+            "generalFeedback": "(5,3): outer-true + inner-true. (-1,0): outer-false. Inner-false requires x > 0 and y <= 0, which no test provides. Branch coverage = 3 / 4 = 75%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if missed branch",
+            "text": "<p>Same code and suite:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. Which branch outcome is <strong>missed</strong>?</p>",
+            "answers": [
+              {
+                "text": "The inner false branch (x > 0 and y <= 0, so r = 2)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no test has x > 0 together with y <= 0, so r = 2 is never reached."
+              },
+              {
+                "text": "The outer false branch (x <= 0)",
+                "fraction": 0,
+                "feedback": "(x=-1, y=0) takes the outer false branch, so it is covered."
+              },
+              {
+                "text": "The inner true branch (r = 1)",
+                "fraction": 0,
+                "feedback": "(x=5, y=3) takes the inner true branch, so it is covered."
+              },
+              {
+                "text": "None \u2014 all branches are covered",
+                "fraction": 0,
+                "feedback": "The inner false branch (r = 2) is missed; it needs x > 0 and y <= 0."
+              }
+            ],
+            "generalFeedback": "To reach r = 2 you need x > 0 (enter outer) and y <= 0 (inner false). The suite never combines those, so the inner-false branch and the path leading to r = 2 are missed. Adding e.g. (x=5, y=-1) would cover it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if statement coverage",
+            "text": "<p>Same code:</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>Six executable statements s1..s6. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>statement</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "\u2248 83.3%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all run except s5 (r = 2), so 5 / 6 \u2248 83.3%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s5 (r = 2) needs x > 0 and y <= 0, which the suite never provides."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% is the branch coverage; statement coverage is 5 / 6 \u2248 83.3%."
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "Five of six statements execute, giving \u2248 83.3%, not 66.7%."
+              }
+            ],
+            "generalFeedback": "(5,3) runs s1, s2, s3, s4, s6; (-1,0) runs s1, s2, s6. Only s5 (r = 2) is missed. Statement coverage = 5 / 6 \u2248 83.3%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if path coverage",
+            "text": "<p>Same code has three feasible paths: P1 = x &lt;= 0; P2 = x &gt; 0 and y &gt; 0; P3 = x &gt; 0 and y &lt;= 0. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>path</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (5,3) covers P2 and (-1,0) covers P1, but P3 is missed: 2 / 3 \u2248 66.7%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "Path P3 (x > 0 and y <= 0) is never exercised."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Two of three feasible paths are covered, giving \u2248 66.7%, not 50%."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% is the branch coverage; path coverage here is 2 / 3 \u2248 66.7%."
+              }
+            ],
+            "generalFeedback": "Feasible paths: P1 (x <= 0), P2 (x > 0, y > 0), P3 (x > 0, y <= 0). The suite covers P1 and P2 but not P3, so path coverage = 2 / 3 \u2248 66.7%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC independence pair for a || b",
+            "text": "<p>For the decision <code>a || b</code>, which pair of tests demonstrates that condition <code>b</code> <strong>independently</strong> affects the outcome?</p>",
+            "answers": [
+              {
+                "text": "(a=F, b=F) giving false and (a=F, b=T) giving true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a is held false; changing b alone flips the decision from false to true."
+              },
+              {
+                "text": "(a=T, b=F) and (a=T, b=T), both giving true",
+                "fraction": 0,
+                "feedback": "With a = true, a || b is true regardless of b, so the outcome does not flip \u2014 b's effect is masked."
+              },
+              {
+                "text": "(a=F, b=T) and (a=T, b=F), both giving true",
+                "fraction": 0,
+                "feedback": "These differ in both a and b, so they cannot isolate b's independent effect."
+              },
+              {
+                "text": "(a=T, b=T) and (a=F, b=F)",
+                "fraction": 0,
+                "feedback": "These differ in both conditions, so neither condition's effect is isolated."
+              }
+            ],
+            "generalFeedback": "To show b independently affects a || b, hold a = false and vary b: (F,F) \u2192 false, (F,T) \u2192 true. Only then does changing b alone flip the outcome.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "MC/DC subsumes decision coverage",
+            "text": "<p>A test set that satisfies MC/DC for a decision necessarily satisfies decision (branch) coverage of that decision.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 showing each condition can flip the outcome forces the decision to take both true and false, so decision coverage is met."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "MC/DC requires each condition to flip the decision, which necessarily makes the decision both true and false \u2014 decision coverage is implied."
+              }
+            ],
+            "generalFeedback": "MC/DC \u2292 decision/condition coverage \u2292 decision coverage (and condition coverage). Demonstrating independent effect requires the decision to take both outcomes, so branch coverage of that decision follows."
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision/condition coverage definition",
+            "text": "<p><strong>Decision/condition coverage</strong> (a.k.a. condition/decision coverage) is satisfied when:</p>",
+            "answers": [
+              {
+                "text": "Both condition coverage and decision coverage are achieved together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each condition takes both values AND the decision takes both outcomes."
+              },
+              {
+                "text": "Only the decision takes both true and false",
+                "fraction": 0,
+                "feedback": "That is plain decision coverage; decision/condition also requires condition coverage."
+              },
+              {
+                "text": "Only each condition takes both values",
+                "fraction": 0,
+                "feedback": "That is plain condition coverage; decision/condition also requires decision coverage."
+              },
+              {
+                "text": "Every combination of the conditions' values is exercised",
+                "fraction": 0,
+                "feedback": "That is multiple-condition coverage, which is stronger than decision/condition."
+              }
+            ],
+            "generalFeedback": "Decision/condition coverage simply combines the two: every condition takes both values and the decision takes both outcomes. It sits above condition and decision coverage and below MC/DC in the subsumption chain.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u6558\u8FF0\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p>\u6E2C\u8A66\u5957\u4EF6\u7684<strong>\u6558\u8FF0\uFF08\u884C\uFF09\u6DB5\u84CB\u7387\uFF08statement/line coverage\uFF09</strong>\u6700\u9069\u7576\u7684\u5B9A\u7FA9\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u6558\u8FF0\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u88AB\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u6558\u8FF0\u6578\u9664\u4EE5\u53EF\u57F7\u884C\u6558\u8FF0\u7E3D\u6578\u3002"
+              },
+              {
+                "text": "\u88AB\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u53D6\u5230\u7684\u5206\u652F\u7D50\u679C\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u652F\uFF08\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387\uFF0C\u4E0D\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u88AB\u7DE8\u8B6F\u5230\u7684\u539F\u59CB\u78BC\u884C\uFF08\u542B\u7A7A\u884C\u8207\u8A3B\u89E3\uFF09\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u7A7A\u884C\u8207\u8A3B\u89E3\u4E0D\u662F\u53EF\u57F7\u884C\u6558\u8FF0\uFF0C\u4E14\u6DB5\u84CB\u7387\u8AC7\u7684\u662F\u57F7\u884C\u800C\u975E\u7DE8\u8B6F\u3002"
+              },
+              {
+                "text": "\u88AB\u5617\u8A66\u904E\u7684\u6240\u6709\u8F38\u5165\u503C\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u662F\u5C0D\u7A0B\u5F0F\u78BC\u8861\u91CF\uFF0C\u800C\u975E\u5C0D\u6574\u500B\u8F38\u5165\u57DF\u8861\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u6DB5\u84CB\u7387 =\uFF08\u88AB\u67D0\u6E2C\u8A66\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u6558\u8FF0\uFF09/\uFF08\u53EF\u57F7\u884C\u6558\u8FF0\u7E3D\u6578\uFF09\u3002\u8A3B\u89E3\u8207\u7A7A\u884C\u4E0D\u8A08\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u5206\u652F\uFF08\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u5224\u5B9A\u90FD\u81F3\u5C11\u5404\u53D6\u5230\u4E00\u6B21\u771F\u8207\u5047\u7684\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u5224\u5B9A\u7684\u5169\u500B\u5206\u652F\u7D50\u679C\u90FD\u8981\u88AB\u57F7\u884C\u5230\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u53EF\u57F7\u884C\u6558\u8FF0\u90FD\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u6BD4\u5206\u652F\u6DB5\u84CB\u7387\u5F31\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u500B\u5225\u5E03\u6797\u689D\u4EF6\u90FD\u53D6\u5230\u771F\u8207\u5047\u5169\u7A2E\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u91DD\u5C0D\u539F\u5B50\u689D\u4EF6\u800C\u975E\u6574\u500B\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7684\u6BCF\u689D\u5B8C\u6574\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8DEF\u5F91\u6DB5\u84CB\u7387\uFF0C\u9060\u66F4\u5F37\u4E14\u5E38\u4E0D\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\uFF08\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387\u8981\u6C42\u6BCF\u500B\u5224\u5B9A\u81F3\u5C11\u5404\u8A55\u4F30\u70BA\u771F\u8207\u5047\u4E00\u6B21\uFF0C\u4F7F\u6BCF\u500B\u5206\u652F\u7D50\u679C\uFF08\u908A\uFF09\u90FD\u88AB\u53D6\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u689D\u4EF6\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u689D\u4EF6\u6DB5\u84CB\u7387\uFF08condition coverage\uFF09</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5224\u5B9A\u4E2D\u6BCF\u500B\u539F\u5B50\u5E03\u6797\u689D\u4EF6\u90FD\u81F3\u5C11\u5404\u53D6\u5230\u4E00\u6B21\u771F\u8207\u5047",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u500B\u5225\u689D\u4EF6\u90FD\u8981\u88AB\u5169\u7A2E\u53D6\u503C\u90FD\u8A55\u4F30\u5230\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u5224\u5B9A\u90FD\u81F3\u5C11\u5404\u53D6\u5230\u4E00\u6B21\u771F\u8207\u5047",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5224\u5B9A\uFF08\u5206\u652F\uFF09\u6DB5\u84CB\u7387\uFF1B\u689D\u4EF6\u6DB5\u84CB\u7387\u770B\u7684\u662F\u5224\u5B9A\u5167\u90E8\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6\u6240\u6709\u53D6\u503C\u7D44\u5408\u90FD\u88AB\u5617\u8A66\u904E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6558\u8FF0\u90FD\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8981\u6C42\u6BCF\u500B\u539F\u5B50\u689D\u4EF6\uFF08\u4F8B\u5982 a && b \u4E2D\u7684 a\u3001b\uFF09\u5728\u67D0\u6E2C\u8A66\u70BA\u771F\u3001\u5728\u67D0\u6E2C\u8A66\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u8DEF\u5F91\u6DB5\u84CB\u7387\uFF08path coverage\uFF09</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u4E2D\u6BCF\u689D\u53EF\u884C\u7684\u57F7\u884C\u8DEF\u5F91\u90FD\u88AB\u67D0\u6E2C\u8A66\u57F7\u884C\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DEF\u5F91\u6DB5\u84CB\u7387\u8981\u57F7\u884C\u6BCF\u4E00\u689D\u7AEF\u5230\u7AEF\u7684\u63A7\u5236\u6D41\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u5224\u5B9A\u90FD\u53D6\u5230\u5169\u7A2E\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF1B\u8DEF\u5F91\u6DB5\u84CB\u7387\u7D04\u675F\u6574\u689D\u8DEF\u5F91\uFF0C\u800C\u975E\u55AE\u4E00\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6558\u8FF0\u90FD\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u662F\u9019\u4E9B\u4E4B\u4E2D\u6700\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u689D\u4EF6\u90FD\u53D6\u5230\u5169\u7A2E\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u689D\u4EF6\u6DB5\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u8981\u6C42\u7A0B\u5F0F\u7684\u6BCF\u689D\u53EF\u884C\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C\u3002\u6709\u8FF4\u5708\u6642\u8DEF\u5F91\u6578\u901A\u5E38\u7121\u4E0A\u9650\uFF0C\u6545\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u5E38\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC \u4EE3\u8868\u4EC0\u9EBC",
+            "text": "<p>\u5728\u6DB5\u84CB\u7387\u8853\u8A9E\u4E2D\uFF0C<strong>MC/DC</strong> \u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4FEE\u6B63\u689D\u4EF6\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\uFF08Modified Condition/Decision Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MC/DC \u5373 Modified Condition/Decision Coverage\uFF0C\u7528\u65BC DO-178B/C\u3002"
+              },
+              {
+                "text": "\u591A\u91CD\u689D\u4EF6\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\uFF08Multiple Condition/Decision Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53E6\u4E00\u500B\u66F4\u5F37\u7684\u6E96\u5247\uFF08\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF09\uFF1BMC/DC \u662F Modified Condition/Decision Coverage\u3002"
+              },
+              {
+                "text": "\u6700\u5927\u6DB5\u84CB\uFF0F\u5224\u5B9A\u6E96\u5247\uFF08Maximum Coverage/Decision Criterion\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u6A19\u6E96\u6E96\u5247\uFF1BMC/DC = Modified Condition/Decision Coverage\u3002"
+              },
+              {
+                "text": "\u6700\u5C0F\u7A0B\u5F0F\u78BC\uFF0F\u8CC7\u6599\u6DB5\u84CB\u7387\uFF08Minimal Code/Data Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u6DB5\u84CB\u7387\u6E96\u5247\uFF1BMC/DC = Modified Condition/Decision Coverage\u3002"
+              }
+            ],
+            "generalFeedback": "MC/DC = Modified Condition/Decision Coverage\uFF08\u4FEE\u6B63\u689D\u4EF6\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\uFF09\u3002\u6BCF\u500B\u689D\u4EF6\u90FD\u5FC5\u9808\u88AB\u8B49\u660E\u80FD\u7368\u7ACB\u5F71\u97FF\u5224\u5B9A\u7684\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u51FD\u5F0F\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u51FD\u5F0F\uFF08\u9032\u5165\u9EDE\uFF09\u6DB5\u84CB\u7387\uFF08function/entry coverage\uFF09</strong>\u8861\u91CF\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u81F3\u5C11\u547C\u53EB\u4E00\u6B21\u7684\u51FD\u5F0F\uFF0F\u526F\u7A0B\u5F0F\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u51FD\u5F0F\u6DB5\u84CB\u7387\u8A08\u7B97\u6E2C\u8A66\u5957\u4EF6\u9032\u5165\u4E86\u591A\u5C11\u500B\u51FD\u5F0F\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u51FD\u5F0F\u5167\u88AB\u57F7\u884C\u5230\u7684\u6558\u8FF0\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u4EE5\u6558\u8FF0\u70BA\u55AE\u4F4D\u800C\u975E\u4EE5\u51FD\u5F0F\u70BA\u55AE\u4F4D\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u51FD\u5F0F\u5167\u88AB\u53D6\u5230\u7684\u5206\u652F\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF0C\u4E0D\u662F\u51FD\u5F0F\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u50B3\u7D66\u6BCF\u500B\u51FD\u5F0F\u7684\u53C3\u6578\u500B\u6578",
+                "fraction": 0,
+                "feedback": "\u51FD\u5F0F\u6DB5\u84CB\u7387\u8AC7\u7684\u662F\u51FD\u5F0F\u662F\u5426\u88AB\u547C\u53EB\uFF0C\u800C\u975E\u5176\u5F15\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u51FD\u5F0F\uFF08\u9032\u5165\u9EDE\uFF09\u6DB5\u84CB\u7387 =\uFF08\u81F3\u5C11\u88AB\u547C\u53EB\u4E00\u6B21\u7684\u51FD\u5F0F\uFF09/\uFF08\u51FD\u5F0F\u7E3D\u6578\uFF09\uFF0C\u662F\u6700\u7C97\u7565\u7684\u5E38\u898B\u5EA6\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u6558\u8FF0\u6DB5\u84CB\u7387\uFF088 \u4E2D 5\uFF09",
+            "text": "<p>\u67D0\u51FD\u5F0F\u6709 <strong>8</strong> \u500B\u53EF\u57F7\u884C\u6558\u8FF0\u3002\u6E2C\u8A66\u5957\u4EF6\u57F7\u884C\u4E86\u5176\u4E2D <strong>5</strong> \u500B\u3002\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "62.5%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 / 8 = 0.625 = 62.5%\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "5 / 8 = 62.5%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "80%",
+                "fraction": 0,
+                "feedback": "80% \u7D04\u70BA 5 \u9664\u4EE5 6.25\uFF1B5 / 8 = 62.5%\u3002"
+              },
+              {
+                "text": "37.5%",
+                "fraction": 0,
+                "feedback": "37.5% \u662F\u672A\u57F7\u884C\u7684\u6BD4\u4F8B\uFF083 / 8\uFF09\uFF1B\u6DB5\u84CB\u7387\u662F 5 / 8 = 62.5%\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u6DB5\u84CB\u7387 = \u5DF2\u57F7\u884C / \u7E3D\u6578 = 5 / 8 = 62.5%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u5206\u652F\u6DB5\u84CB\u7387\uFF084 \u4E2D 3\uFF09",
+            "text": "<p>\u67D0\u51FD\u5F0F\u542B <strong>4</strong> \u500B\u5206\u652F\u7D50\u679C\uFF08\u5169\u500B\u5224\u5B9A\uFF0C\u5404\u6709\u771F\u3001\u5047\u4E00\u689D\u908A\uFF09\u3002\u67D0\u5957\u4EF6\u53D6\u5230\u5176\u4E2D <strong>3</strong> \u500B\u3002\u5206\u652F\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 / 4 = 75%\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "50% \u6703\u662F 4 \u4E2D 2\uFF1B\u6B64\u8655\u70BA 4 \u4E2D 3 = 75%\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "25% \u662F\u672A\u53D6\u5230\u7684\u6BD4\u4F8B\uFF081 / 4\uFF09\uFF1B\u5206\u652F\u6DB5\u84CB\u7387\u662F 3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u9084\u6709\u4E00\u500B\u5206\u652F\u7D50\u679C\u672A\u53D6\u5230\uFF0C\u6545\u4E0D\u53EF\u80FD\u662F 100%\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\u6DB5\u84CB\u7387 = \u53D6\u5230\u7684\u5206\u652F\u7D50\u679C / \u5206\u652F\u7D50\u679C\u7E3D\u6578 = 3 / 4 = 75%\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% \u6558\u8FF0\u672A\u5FC5\u5F97\u5230 100% \u5206\u652F",
+            "text": "<p>\u9054\u5230 100% \u6558\u8FF0\u6DB5\u84CB\u7387\u5C31\u4FDD\u8B49 100% \u5206\u652F\u6DB5\u84CB\u7387\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u7684\u53EF\u57F7\u884C\u5230\u5B83\u552F\u4E00\u7684\u6558\u8FF0\uFF08100% \u6558\u8FF0\uFF09\uFF0C\u4F46\u5047\u5206\u652F\u5F9E\u672A\u88AB\u53D6\u5230\uFF08\u5206\u652F < 100%\uFF09\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6210\u7ACB\uFF1A\u4F8B\u5982\u53EA\u7528 x = 5 \u6E2C\u8A66\u6703\u5230\u9054\u6BCF\u500B\u6558\u8FF0\uFF0C\u4F46\u5F9E\u4E0D\u53D6\u5047\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u6DB5\u84CB\u7387\u4E26\u4E0D\u860A\u542B\u5206\u652F\u6DB5\u84CB\u7387\uFF1A\u7121 else \u7684 if \u53EF\u9054 100% \u6558\u8FF0\uFF0C\u537B\u8B93\u5047\u5206\u652F\u672A\u88AB\u53D6\u5230\u3002\uFF08\u5206\u652F\u6DB5\u84CB\u7387\u6703\u860A\u542B\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u4F46\u53CD\u5411\u4E0D\u6210\u7ACB\u3002\uFF09"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u884C\u6DB5\u84CB\u7387\u7684\u5C0D\u61C9\u95DC\u4FC2",
+            "text": "<p>\u5E38\u88AB\u56DE\u5831\u7684<strong>\u884C\u6DB5\u84CB\u7387\uFF08line coverage\uFF09</strong>\u6700\u63A5\u8FD1\u4E0B\u5217\u54EA\u500B\u7D93\u5178\u5EA6\u91CF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u884C\u6DB5\u84CB\u7387\u8A08\u7B97\u88AB\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u884C\uFF0C\u672C\u8CEA\u4E0A\u5C31\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6DB5\u84CB\u7387\u8AC7\u7684\u662F\u5224\u5B9A\u7D50\u679C\uFF0C\u800C\u975E\u57F7\u884C\u5230\u7684\u884C\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u8A08\u7B97\u6574\u689D\u8DEF\u5F91\uFF0C\u9060\u6BD4\u884C\u6DB5\u84CB\u7387\u5F37\u3002"
+              },
+              {
+                "text": "MC/DC",
+                "fraction": 0,
+                "feedback": "MC/DC \u8AC7\u7684\u662F\u689D\u4EF6\u7368\u7ACB\u5F71\u97FF\u5224\u5B9A\uFF0C\u8207\u884C\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u884C\u6DB5\u84CB\u7387\u8A08\u7B97\u88AB\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u884C\uFF0C\u88AB\u8996\u70BA\uFF08\u5927\u81F4\uFF09\u7B49\u540C\u65BC\u6558\u8FF0\u6DB5\u84CB\u7387\uFF1B\u4E00\u884C\u53EF\u80FD\u542B\u591A\u500B\u6558\u8FF0\uFF0C\u4F46\u5169\u8005\u76F8\u8FD1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u884C\u6DB5\u84CB\u7387\uFF0810 \u4E2D 7\uFF09",
+            "text": "<p>\u67D0\u6A94\u6848\u6709 <strong>10</strong> \u500B\u53EF\u57F7\u884C\u884C\uFF1B\u67D0\u5957\u4EF6\u57F7\u884C\u4E86\u5176\u4E2D <strong>7</strong> \u884C\u3002\u884C\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "70%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20147 / 10 = 70%\u3002"
+              },
+              {
+                "text": "30%",
+                "fraction": 0,
+                "feedback": "30% \u662F\u672A\u6DB5\u84CB\u6BD4\u4F8B\uFF1B\u6DB5\u84CB\u7387\u662F 7 / 10 = 70%\u3002"
+              },
+              {
+                "text": "77%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%\uFF0C\u4E0D\u662F 77%\u3002"
+              },
+              {
+                "text": "7%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%\uFF0C\u4E0D\u662F 7%\u3002"
+              }
+            ],
+            "generalFeedback": "\u884C\u6DB5\u84CB\u7387 = \u5DF2\u57F7\u884C\u884C / \u53EF\u57F7\u884C\u884C = 7 / 10 = 70%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u8005\u4E2D\u6700\u5F37\u8005",
+            "text": "<p>\u5728<strong>\u6558\u8FF0</strong>\u3001<strong>\u5206\u652F</strong>\u3001<strong>\u8DEF\u5F91</strong>\u6DB5\u84CB\u7387\u4E4B\u4E2D\uFF0C\u4F55\u8005\u6700\u5F37\uFF08\u6700\u96E3\u5B8C\u5168\u9054\u6210\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8DEF\u5F91\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DEF\u5F91\u6DB5\u84CB\u7387\u860A\u542B\u5206\u652F\uFF0C\u5206\u652F\u53C8\u860A\u542B\u6558\u8FF0\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u6DB5\u84CB\u7387\u662F\u4E09\u8005\u4E2D\u6700\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6DB5\u84CB\u7387\u6BD4\u6558\u8FF0\u5F37\uFF0C\u4F46\u6BD4\u8DEF\u5F91\u5F31\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u4E00\u6A23\u5F37",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5F62\u6210\u56B4\u683C\u5C64\u7D1A\uFF1A\u8DEF\u5F91\u860A\u542B\u5206\u652F\u860A\u542B\u6558\u8FF0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5305\u542B\u95DC\u4FC2\uFF1A\u8DEF\u5F91\u6DB5\u84CB\u7387 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387 \u2292 \u6558\u8FF0\u6DB5\u84CB\u7387\u3002\u8DEF\u5F91\u6DB5\u84CB\u7387\u6700\u5F37\uFF0C\u4E14\u6709\u8FF4\u5708\u6642\u901A\u5E38\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% \u6DB5\u84CB\u7387\u4E0D\u7B49\u65BC\u7121\u932F\u8AA4",
+            "text": "<p>\u9054\u5230\u4EFB\u4E00\u7D50\u69CB\u6DB5\u84CB\u7387\u5EA6\u91CF\u7684 100% \u5C31\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u932F\u8AA4\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u53EA\u986F\u793A\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\uFF0C\u4E26\u672A\u986F\u793A\u8F38\u51FA\u88AB\u6AA2\u67E5\uFF0C\u4E5F\u672A\u6DB5\u84CB\u7F3A\u6F0F\u7684\u7A0B\u5F0F\u78BC\u8207\u672A\u8A66\u5230\u7684\u8CC7\u6599\u7D44\u5408\u662F\u5426\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u8861\u91CF\u54EA\u4E9B\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\uFF0C\u800C\u975E\u6B63\u78BA\u6027\uFF1B\u7F3A\u6F0F\u908F\u8F2F\u3001\u932F\u8AA4\u7684\u9810\u671F\u7D50\u679C\u3001\u672A\u8A66\u5230\u7684\u8CC7\u6599\u503C\u4ECD\u53EF\u80FD\u85CF\u6709\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u544A\u8A34\u4F60\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u4E86\uFF0C\u800C\u975E\u5B83\u662F\u6B63\u78BA\u7684\u3002\u932F\u8AA4\u7684\u9810\u671F\u7D50\u679C\uFF08oracle\uFF09\u3001\u88AB\u907A\u6F0F\u7684\u60C5\u6CC1\u3001\u6216\u67D0\u500B\u672A\u5617\u8A66\u7684\u8CC7\u6599\u503C\uFF0C\u90FD\u53EF\u80FD\u5728 100% \u6DB5\u84CB\u7387\u4E0B\u4ECD\u7559\u6709\u932F\u8AA4\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D2\u6A01\uFF08instrumentation\uFF09\u505A\u4EC0\u9EBC",
+            "text": "<p>\u70BA\u8861\u91CF\u6DB5\u84CB\u7387\uFF0C\u5DE5\u5177\u901A\u5E38\u6703\u5C0D\u7A0B\u5F0F\u505A<strong>\u63D2\u6A01\uFF08instrument\uFF09</strong>\u3002\u9019\u662F\u6307\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63D2\u5165\u63A2\u91DD\uFF0F\u8A08\u6578\u5668\uFF0C\u65BC\u57F7\u884C\u671F\u8A18\u9304\u54EA\u4E9B\u6558\u8FF0\u6216\u5206\u652F\u88AB\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D2\u6A01\u52A0\u5165\u8A18\u9304\u7528\u7684\u7C3F\u8A18\uFF0C\u4F7F\u57F7\u884C\u5230\u7684\u5143\u7D20\u5728\u6E2C\u8A66\u57F7\u884C\u6642\u88AB\u8A18\u4E0B\u3002"
+              },
+              {
+                "text": "\u6539\u5BEB\u7A0B\u5F0F\u4EE5\u81EA\u52D5\u79FB\u9664\u6240\u6709\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u63D2\u6A01\u53EA\u8A18\u9304\u57F7\u884C\uFF0C\u4E26\u4E0D\u4FEE\u6B63\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u4EE5\u6578\u5B78\u65B9\u5F0F\u8B49\u660E\u7A0B\u5F0F\u78BC\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F62\u5F0F\u9A57\u8B49\uFF0C\u800C\u975E\u6DB5\u84CB\u7387\u63D2\u6A01\u3002"
+              },
+              {
+                "text": "\u66FF\u4F60\u7522\u751F\u6E2C\u8A66\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u63D2\u6A01\u8A18\u9304\u6E2C\u8A66\u5230\u9054\u4E4B\u8655\uFF0C\u4E26\u4E0D\u7522\u751F\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u5DE5\u5177\u5728\u6558\u8FF0\u8207\u5206\u652F\u8655\u4EE5\u63A2\u91DD\uFF0F\u8A08\u6578\u5668\u63D2\u6A01\uFF1B\u57F7\u884C\u6E2C\u8A66\u6703\u8A18\u4E0B\u54EA\u4E9B\u5143\u7D20\u88AB\u57F7\u884C\uFF0C\u518D\u7531\u6B64\u8A08\u7B97\u767E\u5206\u6BD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5B9A\u8207\u689D\u4EF6\uFF08\u57FA\u790E\uFF09",
+            "text": "<p>\u5728\u5224\u5B9A <code>if (a &amp;&amp; b)</code> \u4E2D\uFF0C\u6574\u500B\u904B\u7B97\u5F0F <code>a &amp;&amp; b</code> \u662F<em>\u5224\u5B9A\uFF08decision\uFF09</em>\u3002\u90A3 <code>a</code> \u8207 <code>b</code> \u7A31\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u689D\u4EF6\uFF08\u539F\u5B50\u5E03\u6797\u5B50\u904B\u7B97\u5F0F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u8207 b \u662F\u8A72\u5224\u5B9A\u7684\u500B\u5225\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u662F\u5224\u5B9A\u7684\u771F\uFF0F\u5047\u7D50\u679C\uFF0C\u800C\u975E a\u3001b \u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u662F\u7A7F\u904E\u7A0B\u5F0F\u78BC\u7684\u6574\u689D\u8DEF\u7DDA\uFF0C\u800C\u975E\u5224\u5B9A\u7684\u539F\u5B50\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "a \u8207 b \u662F\u5224\u5B9A\u5167\u7684\u689D\u4EF6\uFF0C\u800C\u975E\u5404\u81EA\u7368\u7ACB\u7684\u6558\u8FF0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5224\u5B9A\u662F\u63A7\u5236\u5206\u652F\u7684\u5B8C\u6574\u5E03\u6797\u904B\u7B97\u5F0F\uFF1B\u5176\u539F\u5B50\u5E03\u6797\u5B50\u904B\u7B97\u5F0F\uFF08a\u3001b\uFF09\u662F\u5B83\u7684\u689D\u4EF6\u3002\u689D\u4EF6\u6DB5\u84CB\u7387\u91DD\u5C0D a\u3001b\uFF1B\u5224\u5B9A\u6DB5\u84CB\u7387\u91DD\u5C0D a && b\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "if \u7684\u6558\u8FF0\u6DB5\u84CB\u7387\uFF08x<=0 \u6E2C\u8A66\uFF09",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>\u53EF\u57F7\u884C\u6558\u8FF0\uFF1As1\u3001s2\u3001s3\u3001s4\uFF08\u5171\u56DB\u500B\uFF09\u3002\u5957\u4EF6\u70BA\u55AE\u4E00\u6E2C\u8A66 <code>{x = -3}</code>\u3002<strong>\u6558\u8FF0</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x = -3 \u57F7\u884C s1\u3001s2\u3001s4\uFF0C\u4F46\u8DF3\u904E s3\uFF08y = 1\uFF09\uFF0C\u6545 3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s3\uFF08y = 1\uFF09\u50C5\u5728 x > 0 \u6642\u5230\u9054\uFF0Cx = -3 \u4E0D\u6703\u57F7\u884C\u5B83\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u6558\u8FF0\u4E2D\u6709\u4E09\u500B\u57F7\u884C\uFF08s1\u3001s2\u3001s4\uFF09\uFF0C\u662F 75%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "\u53EA\u6F0F\u4E86 s3\uFF1B\u5373 4 \u4E2D 3 = 75% \u88AB\u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "x = -3 \u57F7\u884C s1\u3001s2\uFF08if\uFF09\u8207 s4\uFF0C\u4F46\u4E0D\u57F7\u884C s3\u3002\u6558\u8FF0\u6DB5\u84CB\u7387 = 3 / 4 = 75%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "if \u7684\u5206\u652F\u6DB5\u84CB\u7387\uFF08x<=0 \u6E2C\u8A66\uFF09",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\uFF1A</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>\u55AE\u4E00\u5224\u5B9A <code>x &gt; 0</code> \u6709\u5169\u500B\u5206\u652F\u7D50\u679C\uFF08\u771F\u3001\u5047\uFF09\u3002\u7528\u5957\u4EF6 <code>{x = -3}</code>\uFF0C<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u53D6\u5230\u5047\u7D50\u679C\uFF0C\u6545 1 / 2 = 50%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "x = -3 \u5F9E\u672A\u53D6\u5230\u771F\u7D50\u679C\uFF08x > 0\uFF09\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% \u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF1B\u6B64\u8655\u5206\u652F\u6DB5\u84CB\u7387\u662F 2 \u4E2D 1 = 50%\u3002"
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "\u5047\u7D50\u679C\u6709\u88AB\u53D6\u5230\uFF0C\u6545\u662F 50%\uFF0C\u4E0D\u662F 0%\u3002"
+              }
+            ],
+            "generalFeedback": "x = -3 \u53EA\u53D6\u5230 x > 0 \u7684\u5047\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387 = 1 / 2 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "if-else \u7684\u6558\u8FF0\u6DB5\u84CB\u7387\uFF08\u4E00\u500B\u6E2C\u8A66\uFF09",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>\u53EF\u57F7\u884C\u6558\u8FF0\uFF1As1\u3001s2\u3001s3\uFF08\u5171\u4E09\u500B\uFF09\u3002\u5957\u4EF6\u70BA <code>{n = 4}</code>\u3002<strong>\u6558\u8FF0</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014n = 4 \u57F7\u884C s1 \u8207 s2\uFF0C\u4F46\u4E0D\u57F7\u884C s3\uFF08return 1\uFF09\uFF0C\u6545 2 / 3 \u2248 66.7%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "else \u6558\u8FF0 s3 \u50C5\u5728 n \u70BA\u5947\u6578\u6642\u5230\u9054\uFF0Cn = 4 \u6703\u6F0F\u6389\u5B83\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u6558\u8FF0\u4E2D\u6709\u5169\u500B\u57F7\u884C\uFF1B\u5373 2 / 3 \u2248 66.7%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "\u2248 33.3%",
+                "fraction": 0,
+                "feedback": "33.3% \u662F\u4E09\u4E2D\u4E00\uFF1B\u6B64\u8655\u4E09\u4E2D\u4E8C\u57F7\u884C\uFF0C\u6545 \u2248 66.7%\u3002"
+              }
+            ],
+            "generalFeedback": "n = 4 \u57F7\u884C s1\uFF08if\uFF09\u8207 s2\uFF08return 0\uFF09\uFF0C\u8DF3\u904E s3\u3002\u6558\u8FF0\u6DB5\u84CB\u7387 = 2 / 3 \u2248 66.7%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "if-else \u7684\u5206\u652F\u6DB5\u84CB\u7387\uFF08\u4E00\u500B\u6E2C\u8A66\uFF09",
+            "text": "<p>\u540C\u4E00\u6BB5 if-else\uFF1A</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>\u7528\u5957\u4EF6 <code>{n = 4}</code>\uFF0C\u5224\u5B9A <code>n % 2 == 0</code> \u7684<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF0C\u6545 1 / 2 = 50%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "n = 4 \u5F9E\u672A\u53D6\u5230\u5047\u7D50\u679C\uFF08n \u70BA\u5947\u6578\uFF09\u3002"
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% \u662F\u6B64\u8655\u7684\u6558\u8FF0\u6DB5\u84CB\u7387\uFF1B\u5206\u652F\u6DB5\u84CB\u7387\u662F 2 \u4E2D 1 = 50%\u3002"
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "\u771F\u7D50\u679C\u6709\u88AB\u53D6\u5230\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u662F 50%\u3002"
+              }
+            ],
+            "generalFeedback": "n = 4 \u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF1B\u5047\uFF08else\uFF09\u7D50\u679C\u672A\u53D6\u5230\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387 = 1 / 2 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u689D\u4EF6\u6DB5\u84CB\u9054\u6210\u4F46\u5224\u5B9A\u672A\u9054\u6210",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a &amp;&amp; b</code>\uFF0C\u57F7\u884C\u5169\u500B\u6E2C\u8A66 <code>(a=T, b=F)</code> \u8207 <code>(a=F, b=T)</code>\u3002\u5169\u8005\u90FD\u4F7F\u5224\u5B9A\u70BA<strong>\u5047</strong>\u3002\u9019\u8AAA\u660E\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100% \u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 50% \u5224\u5B9A\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u8207 b \u5404\u53D6\u5230 T \u8207 F\uFF08\u689D\u4EF6 100%\uFF09\uFF0C\u4F46\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF08\u5224\u5B9A 50%\uFF09\u3002"
+              },
+              {
+                "text": "100% \u5224\u5B9A\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 50% \u689D\u4EF6\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\uFF1A\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF0850%\uFF09\uFF0C\u800C\u6BCF\u500B\u689D\u4EF6\u90FD\u53D6\u5230\u5169\u7A2E\u503C\uFF08100%\uFF09\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 100%",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u5F9E\u672A\u8A55\u4F30\u70BA\u771F\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u50C5 50%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 50%",
+                "fraction": 0,
+                "feedback": "\u689D\u4EF6\u6DB5\u84CB\u662F\u5B8C\u6574\u7684\uFF1Aa \u5148 T \u5F8C F\uFF0Cb \u5148 F \u5F8C T\u3002"
+              }
+            ],
+            "generalFeedback": "a\uFF1A\u5148 T \u5F8C F\uFF1Bb\uFF1A\u5148 F \u5F8C T\u2014\u2014\u689D\u4EF6\u6DB5\u84CB\u5B8C\u6574\u3002\u4F46 a && b \u5169\u500B\u6E2C\u8A66\u90FD\u70BA\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u662F 1 / 2 = 50%\u3002\u689D\u4EF6\u6DB5\u84CB\u7387\u4E26\u4E0D\u860A\u542B\u5224\u5B9A\u6DB5\u84CB\u7387\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5B9A\u6DB5\u84CB\u9054\u6210\u4F46\u689D\u4EF6\u672A\u9054\u6210",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a || b</code>\uFF0C\u57F7\u884C\u5169\u500B\u6E2C\u8A66 <code>(a=T, b=F)</code> \u8207 <code>(a=F, b=F)</code>\u3002\u689D\u4EF6\u6DB5\u84CB\u7387\u8A08\u56DB\u500B\u76EE\u6A19 a=T\u3001a=F\u3001b=T\u3001b=F\u3002\u5F97\u5230\u4EC0\u9EBC\u6DB5\u84CB\u7387\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100% \u5224\u5B9A\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 75% \u689D\u4EF6\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5224\u5B9A\u5148\u771F\u5F8C\u5047\uFF08100%\uFF09\uFF1Ba=T\u3001a=F\u3001b=F \u9054\u6210\uFF0C\u4F46 b=T \u672A\u9054\u6210\uFF0C\u6545 3 / 4 = 75% \u689D\u4EF6\u3002"
+              },
+              {
+                "text": "100% \u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 50% \u5224\u5B9A\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\uFF1A\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u503C\uFF08100%\uFF09\uFF1B\u662F b \u5F9E\u672A\u8B8A\u771F\uFF0C\u4F7F\u689D\u4EF6\u6DB5\u84CB\u7387\u4E0D\u5230 100%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 100%",
+                "fraction": 0,
+                "feedback": "b \u5728\u5169\u500B\u6E2C\u8A66\u90FD\u70BA\u5047\uFF0C\u6545\u76EE\u6A19 b=T \u672A\u9054\u6210\uFF0C\u689D\u4EF6\u6DB5\u84CB\u7387\u70BA 75%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 50%",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u5728\u6E2C\u8A66 1 \u70BA\u771F\u3001\u6E2C\u8A66 2 \u70BA\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u662F 100%\u3002"
+              }
+            ],
+            "generalFeedback": "a || b\uFF1A\u5148\u771F\u5F8C\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387 100%\u3002\u689D\u4EF6\u76EE\u6A19\u9054\u6210\u60C5\u5F62\uFF1Aa=T \u2713\u3001a=F \u2713\u3001b=F \u2713\uFF0C\u4F46 b=T \u2717\uFF08b \u5169\u6B21\u90FD\u70BA\u5047\uFF09\u2192 3 / 4 = 75%\u3002\u5224\u5B9A\u6DB5\u84CB\u7387\u4E26\u4E0D\u860A\u542B\u689D\u4EF6\u6DB5\u84CB\u7387\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5305\u542B\uFF08subsumption\uFF09\u9806\u5E8F",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u5305\u542B\u9806\u5E8F\u6B63\u78BA\uFF08X \u2292 Y \u8868\u793A X \u4FDD\u8B49 Y\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8DEF\u5F91 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u6558\u8FF0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u860A\u542B\u5B8C\u6574\u5206\u652F\u6DB5\u84CB\uFF0C\u5F8C\u8005\u53C8\u860A\u542B\u5B8C\u6574\u6558\u8FF0\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u2014\u2014\u6558\u8FF0\u6DB5\u84CB\u7387\u6700\u5F31\uFF0C\u800C\u975E\u6700\u5F37\u3002"
+              },
+              {
+                "text": "\u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u8DEF\u5F91 \u2292 \u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u6BD4\u5206\u652F\u6DB5\u84CB\u7387\u5F37\uFF0C\u800C\u975E\u5F31\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u689D\u4EF6\u8207\u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\uFF1B\u689D\u4EF6\u4E26\u4E0D\u860A\u542B\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u6558\u8FF0\u3002\u6CE8\u610F\u689D\u4EF6\u6DB5\u84CB\u7387\u8207\u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\u2014\u2014\u5F7C\u6B64\u4E92\u4E0D\u860A\u542B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "100% \u6558\u8FF0\u300150% \u5206\u652F\u4E4B\u4F8B",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>\u7528\u55AE\u4E00\u6E2C\u8A66 <code>{x = 5}</code>\uFF0C\u4E0B\u5217\u4F55\u8005\u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 100%\uFF0C\u4F46\u5206\u652F\u6DB5\u84CB\u7387\u50C5 50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u6558\u8FF0\u90FD\u57F7\u884C\uFF0C\u4F46 x > 0 \u7684\u5047\u7D50\u679C\u5F9E\u672A\u53D6\u5230\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8207\u5206\u652F\u6DB5\u84CB\u7387\u7686\u70BA 100%",
+                "fraction": 0,
+                "feedback": "\u5047\u5206\u652F\uFF08x <= 0\uFF09\u5F9E\u672A\u53D6\u5230\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 50%\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 75%",
+                "fraction": 0,
+                "feedback": "x = 5 \u57F7\u884C\u6240\u6709\u56DB\u500B\u6558\u8FF0\uFF08\u542B y = 1\uFF09\uFF0C\u6545\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 100%\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u6DB5\u84CB\u7387\u70BA 100%\uFF0C\u4F46\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 75%",
+                "fraction": 0,
+                "feedback": "\u5169\u9805\u90FD\u932F\uFF1A\u6558\u8FF0\u5168\u88AB\u6DB5\u84CB\uFF08100%\uFF09\uFF0C\u800C\u5206\u652F\u70BA 50%\u3002"
+              }
+            ],
+            "generalFeedback": "x = 5 \u57F7\u884C s1..s4\uFF08\u6558\u8FF0 100%\uFF09\uFF0C\u4F46\u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 1 / 2 = 50%\u3002\u9019\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u4E0D\u860A\u542B\u5206\u652F\u6DB5\u84CB\u7387\u7684\u7D93\u5178\u60C5\u6CC1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u77ED\u8DEF\uFF1Ab \u6709\u88AB\u8A55\u4F30\u55CE\uFF1F",
+            "text": "<p>\u5728\u5177\u77ED\u8DEF\u6C42\u503C\uFF08short-circuit\uFF09\u7684\u8A9E\u8A00\u4E2D\uFF0C\u5224\u5B9A <code>a &amp;&amp; b</code> \u7528\u55AE\u4E00\u6E2C\u8A66 <code>{a = false}</code> \u57F7\u884C\u3002\u689D\u4EF6 <code>b</code> \u6709\u88AB\u8A55\u4F30\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u56E0\u70BA a \u70BA\u5047\uFF0C&& \u77ED\u8DEF\uFF0Cb \u5F9E\u672A\u88AB\u8A55\u4F30",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a = false \u6642\u7D50\u679C\u5DF2\u78BA\u5B9A\u70BA\u5047\uFF0C\u6545\u7565\u904E b\u3002"
+              },
+              {
+                "text": "\u6709\u2014\u2014\u5169\u500B\u904B\u7B97\u5143\u4E00\u5F8B\u90FD\u6703\u88AB\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u5728\u6C92\u6709\u77ED\u8DEF\u6642\u624D\u5982\u6B64\uFF1B&& \u7684\u5DE6\u904B\u7B97\u5143\u70BA\u5047\u6703\u7565\u904E b\u3002"
+              },
+              {
+                "text": "\u6709\u2014\u2014b \u6703\u5148\u88AB\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "&& \u5148\u8A55\u4F30\u5DE6\u904B\u7B97\u5143\uFF1Ba = false \u6703\u5728\u8A55\u4F30 b \u524D\u7D50\u675F\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728 a \u70BA\u771F\u4E14 b \u70BA\u5047\u6642",
+                "fraction": 0,
+                "feedback": "b \u6070\u5728 a \u70BA\u771F\u6642\u88AB\u8A55\u4F30\uFF1B\u6B64\u8655 a \u70BA\u5047\uFF0C\u6545\u7565\u904E b\u3002"
+              }
+            ],
+            "generalFeedback": "\u77ED\u8DEF && \u4E2D\uFF0C\u5DE6\u904B\u7B97\u5143\u70BA\u5047\u5373\u6C7A\u5B9A\u7D50\u679C\uFF0C\u6545 b \u4E0D\u88AB\u8A55\u4F30\u3002\u8981\u8A66\u5230 b \u7684\u53D6\u503C\uFF0C\u9700\u8981 a \u70BA\u771F\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u77ED\u8DEF\u5C0D\u689D\u4EF6\u6DB5\u84CB\u7387\u7684\u5F71\u97FF",
+            "text": "<p>\u5728\u77ED\u8DEF <code>&amp;&amp;</code> \u4E0B\uFF0C\u8981\u8B93 <code>a &amp;&amp; b</code> \u4E2D\u7684\u689D\u4EF6 <code>b</code> \u53D6\u5230<strong>\u771F\u8207\u5047</strong>\u5169\u7A2E\u503C\u4EE5\u8A08\u5165\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u6E2C\u8A66\u5FC5\u9808\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5169\u500B\u6E2C\u8A66\u90FD a = true\uFF08\u4E00\u6B21 b = true\uFF0C\u4E00\u6B21 b = false\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u53EA\u5728 a \u70BA\u771F\u6642\u88AB\u8A55\u4F30\uFF0C\u6545 a \u5FC5\u9808\u70BA\u771F\u624D\u80FD\u8A66\u5230 b\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u6E2C\u8A66\u90FD a = false",
+                "fraction": 0,
+                "feedback": "a = false \u6642 b \u5F9E\u672A\u88AB\u8A55\u4F30\uFF0C\u5176\u53D6\u503C\u6C38\u4E0D\u88AB\u8A66\u5230\u3002"
+              },
+              {
+                "text": "a \u70BA\u4EFB\u610F\u503C\u7686\u53EF\uFF0C\u56E0\u70BA b \u4E00\u5F8B\u90FD\u6703\u88AB\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "\u77ED\u8DEF\u8868\u793A a \u70BA\u5047\u6642\u6703\u7565\u904E b\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u6E2C\u8A66\u90FD b = true",
+                "fraction": 0,
+                "feedback": "\u90A3\u6A23 b \u6C38\u4E0D\u53D6\u5047\uFF0Cb \u7684\u689D\u4EF6\u6DB5\u84CB\u4E0D\u5B8C\u6574\u3002"
+              }
+            ],
+            "generalFeedback": "\u77ED\u8DEF && \u53EA\u5728 a \u70BA\u771F\u6642\u8A55\u4F30 b\u3002\u8981\u8B93 b \u88AB\u89C0\u5BDF\u5230\u771F\u8207\u5047\u5169\u7A2E\u503C\uFF0C\u9700\u4FDD\u6301 a \u70BA\u771F\u4E26\u8B8A\u5316 b\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u6DB5\u84CB\u860A\u542B\u6558\u8FF0\u6DB5\u84CB",
+            "text": "<p>\u95DC\u65BC\u5206\u652F\u8207\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100% \u5206\u652F\u6DB5\u84CB\u7387\u4FDD\u8B49 100% \u6558\u8FF0\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53D6\u5230\u6BCF\u500B\u5206\u652F\u5373\u6703\u5230\u9054\u6BCF\u500B\u53EF\u9054\u6558\u8FF0\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u860A\u542B\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "100% \u6558\u8FF0\u6DB5\u84CB\u7387\u4FDD\u8B49 100% \u5206\u652F\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u2014\u2014\u7121 else \u7684 if \u53EF\u9054 100% \u6558\u8FF0\u537B\u4E0D\u5230 100% \u5206\u652F\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7E3D\u662F\u7D66\u51FA\u76F8\u540C\u7684\u767E\u5206\u6BD4",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u6703\u4E0D\u540C\uFF0C\u4F8B\u5982\u7121 else \u7684 if\uFF1A\u6558\u8FF0\u53EF\u70BA 100% \u800C\u5206\u652F\u70BA 50%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E92\u4E0D\u860A\u542B",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6DB5\u84CB\u7387\u78BA\u5BE6\u860A\u542B\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387 \u2292 \u6558\u8FF0\u6DB5\u84CB\u7387\uFF1A\u53D6\u5230\u6BCF\u500B\u5224\u5B9A\u7684\u5169\u500B\u7D50\u679C\uFF0C\u5FC5\u7136\u5230\u9054\u6BCF\u500B\u53EF\u9054\u6558\u8FF0\u3002\u53CD\u5411\u4E0D\u6210\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u689D\u4EF6\u6DB5\u84CB\u860A\u542B\u5224\u5B9A\u6DB5\u84CB\uFF1F",
+            "text": "<p>\u9054\u5230 100% \u689D\u4EF6\u6DB5\u84CB\u7387\u4E00\u5B9A\u4FDD\u8B49 100% \u5224\u5B9A\uFF08\u5206\u652F\uFF09\u6DB5\u84CB\u7387\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5982 a && b \u7528 (T,F) \u8207 (F,T) \u5F97\u5230\u5B8C\u6574\u689D\u4EF6\u6DB5\u84CB\uFF0C\u4F46\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF08\u5224\u5B9A 50%\uFF09\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6210\u7ACB\uFF1A\u689D\u4EF6\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\uFF1B\u5B8C\u6574\u7684\u689D\u4EF6\u6DB5\u84CB\u53EF\u80FD\u7559\u4E0B\u67D0\u500B\u5224\u5B9A\u7D50\u679C\u672A\u53D6\u5230\u3002"
+              }
+            ],
+            "generalFeedback": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\u3002\u5C0D a && b \u7528 (a=T,b=F) \u8207 (a=F,b=T)\uFF0C\u6DB5\u84CB\u4E86 a\u3001b \u7684\u5169\u7A2E\u503C\uFF0C\u4F46\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u50C5 50%\u3002\uFF08\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\u7D50\u5408\u5169\u8005\u4EE5\u4FEE\u88DC\u6B64\u554F\u984C\u3002\uFF09"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u55AE\u4E00\u6E2C\u8A66\u4E0B\u7684\u689D\u4EF6\u6DB5\u84CB\u7387",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a &amp;&amp; b</code>\uFF0C\u689D\u4EF6\u6DB5\u84CB\u7387\u8A08\u56DB\u500B\u689D\u4EF6\u53D6\u503C\u76EE\u6A19\uFF1Aa=T\u3001a=F\u3001b=T\u3001b=F\u3002\u5957\u4EF6\u70BA\u55AE\u4E00\u6E2C\u8A66 <code>(a=T, b=T)</code>\u3002<strong>\u689D\u4EF6</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a=T \u8207 b=T \u9054\u6210\uFF0C\u4F46 a=F \u8207 b=F \u672A\u9054\u6210\uFF0C\u6545 2 / 4 = 50%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5168\u771F\u6E2C\u8A66\u5F9E\u672A\u8A66\u5230 a=F \u8207 b=F\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u76EE\u6A19\u4E2D\u9054\u6210\u5169\u500B\uFF08a=T\u3001b=T\uFF09\uFF0C\u6545 50%\uFF0C\u4E0D\u662F 25%\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u689D\u4EF6\u53D6\u503C\u76EE\u6A19\u50C5\u9054\u6210\u5169\u500B\uFF0C\u5F97 50%\u3002"
+              }
+            ],
+            "generalFeedback": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8FFD\u8E64\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u6BCF\u7A2E\u503C\uFF1Aa=T \u2713\u3001b=T \u2713\u3001a=F \u2717\u3001b=F \u2717 \u2192 2 / 4 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u55AE\u4E00 if-else \u5206\u652F\u6DB5\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u6578",
+            "text": "<p>\u8981\u5B8C\u6574\u6DB5\u84CB\u4E00\u500B\u542B\u55AE\u4E00\u7C21\u55AE\u5224\u5B9A\u7684 <code>if-else</code> \u4E4B\u5206\u652F\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u53D6\u771F\u7D50\u679C\uFF0C\u4E00\u500B\u53D6\u5047\u7D50\u679C\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6E2C\u8A66\u53EA\u80FD\u53D6\u5230\u4E00\u500B\u7D50\u679C\uFF1B\u771F\u8207\u5047\u5169\u8005\u90FD\u9700\u8981\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5224\u5B9A\u53EA\u6709\u5169\u500B\u7D50\u679C\uFF0C\u6545\u5169\u500B\u6E2C\u8A66\u5373\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u5169\u500B\u689D\u4EF6\u7684\u771F\u503C\u8868\u5927\u5C0F\uFF1B\u55AE\u4E00\u7C21\u55AE\u5224\u5B9A\u53EA\u9700\u5169\u500B\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u4E00\u5224\u5B9A\u6709\u5169\u500B\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u81F3\u5C11\u9700\u5169\u500B\u6E2C\u8A66\uFF08\u771F\u8207\u5047\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9054\u6210 100% \u5206\u652F\u6DB5\u84CB\u7684\u5957\u4EF6",
+            "text": "<p>\u5C0D\u65BC\uFF1A</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>\u54EA\u500B\u5957\u4EF6\u80FD\u9054\u6210\u5224\u5B9A <code>n % 2 == 0</code> \u7684 <strong>100% \u5206\u652F</strong>\u6DB5\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "{n = 4, n = 7}",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014n = 4 \u53D6\u5230\u771F\u7D50\u679C\uFF0Cn = 7 \u53D6\u5230\u5047\u7D50\u679C\uFF0C\u5169\u500B\u5206\u652F\u90FD\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "{n = 4}",
+                "fraction": 0,
+                "feedback": "\u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 50%\u3002"
+              },
+              {
+                "text": "{n = 2, n = 8}",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7686\u70BA\u5076\u6578\uFF0C\u6545\u53EA\u53D6\u5230\u771F\u7D50\u679C\u2014\u201450%\u3002"
+              },
+              {
+                "text": "{n = 3}",
+                "fraction": 0,
+                "feedback": "\u53EA\u53D6\u5230\u5047\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 50%\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\u6DB5\u84CB\u9700\u8981\u5169\u500B\u7D50\u679C\uFF1A\u4E00\u500B\u5076\u6578 n\uFF08\u771F\uFF09\u8207\u4E00\u500B\u5947\u6578 n\uFF08\u5047\uFF09\u3002{n = 4, n = 7} \u505A\u5230\uFF1B\u5168\u5076\u6216\u5168\u5947\u7684\u5957\u4EF6\u53EA\u5230\u9054\u4E00\u500B\u5206\u652F\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "3 \u500B\u689D\u4EF6\u7684 MC/DC \u6700\u5C11\u6E2C\u8A66\u6578",
+            "text": "<p>\u67D0\u5224\u5B9A\u6709 <strong>3</strong> \u500B\u7368\u7ACB\u689D\u4EF6\u3002\u6EFF\u8DB3 <strong>MC/DC</strong> \u7684\u6700\u5C11\u6E2C\u8A66\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MC/DC \u6700\u5C11\u9700 n + 1 \u500B\u6E2C\u8A66\uFF1Bn = 3 \u6642\u70BA 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u6700\u5C11\u662F n + 1 = 4\uFF0C\u4E0D\u662F n\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "2^3 = 8 \u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF1BMC/DC \u53EA\u9700\u7D04 n + 1\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u6700\u591A\u53EF\u80FD\u7528\u5230 2n = 6 \u500B\u6E2C\u8A66\uFF0C\u4F46\u6700\u5C11\u662F n + 1 = 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D n \u500B\u7368\u7ACB\u689D\u4EF6\uFF0CMC/DC \u6700\u5C11\u9700 n + 1 \u500B\u6E2C\u8A66\uFF08\u6700\u591A 2n\uFF09\uFF0C\u56E0\u70BA\u4E00\u500B\u7CBE\u5FC3\u6311\u9078\u7684\u6E2C\u8A66\u53EF\u4F5C\u70BA\u591A\u500B\u689D\u4EF6\u7684\u914D\u5C0D\u5925\u4F34\u3002n = 3 \u6642\u6700\u5C11\u70BA 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC \u7684\u8981\u6C42",
+            "text": "<p>\u9664\u4E86\u5224\u5B9A\u8207\u689D\u4EF6\u6DB5\u84CB\u7387\u4E4B\u5916\uFF0C<strong>MC/DC</strong> \u984D\u5916\u7684\u8981\u6C42\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u689D\u4EF6\u90FD\u88AB\u8B49\u660E\u80FD\u7368\u7ACB\u5F71\u97FF\u5224\u5B9A\u7684\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6BCF\u500B\u689D\u4EF6\u90FD\u5B58\u5728\u4E00\u5C0D\u50C5\u5728\u8A72\u689D\u4EF6\u4E0D\u540C\u7684\u6E2C\u8A66\uFF0C\u4F7F\u5224\u5B9A\u7684\u503C\u7FFB\u8F49\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u689D\u4EF6\u503C\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u6BD4 MC/DC \u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6BCF\u500B\u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u8207\u7368\u7ACB\u5F71\u97FF\u7684\u8981\u6C42\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6BCF\u689D\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8DEF\u5F91\u6DB5\u84CB\u7387\uFF0C\u4E0D\u662F MC/DC\u3002"
+              }
+            ],
+            "generalFeedback": "MC/DC \u8981\u6C42\u6BCF\u500B\u689D\u4EF6\u5728\u5176\u4ED6\u689D\u4EF6\u56FA\u5B9A\u6642\uFF0C\u88AB\u5C55\u793A\u80FD\u7368\u7ACB\u7FFB\u8F49\u5224\u5B9A\u7684\u7D50\u679C\u2014\u2014\u5916\u52A0\u6BCF\u500B\u689D\u4EF6\u8207\u5224\u5B9A\u90FD\u53D6\u5230\u5169\u7A2E\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3 \u500B\u689D\u4EF6\u7684\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387",
+            "text": "<p>\u5C0D\u542B <strong>3</strong> \u500B\u689D\u4EF6\u7684\u5224\u5B9A\uFF0C<strong>\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387</strong>\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\uFF08\u5FFD\u7565\u4E0D\u53EF\u884C\u7684\u7D44\u5408\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u9700\u5168\u90E8 2^n \u7A2E\u7D44\u5408\uFF1B2^3 = 8\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 = n + 1 \u662F MC/DC \u7684\u6700\u5C11\u503C\uFF0C\u4E0D\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 = 2n \u662F MC/DC \u7684\u4E0A\u754C\uFF0C\u4E0D\u662F\u6240\u6709\u7D44\u5408\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u9700 2^3 = 8 \u7A2E\u7D44\u5408\uFF0C\u4E0D\u662F 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u8981\u8A66\u5230 n \u500B\u689D\u4EF6\u7684\u5168\u90E8 2^n \u7A2E\u771F\u503C\u7D44\u5408\uFF1Bn = 3 \u6642\u70BA 8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8907\u5408\u5224\u5B9A\u7684\u5305\u542B\u93C8",
+            "text": "<p>\u4E0B\u5217\u9019\u4E9B\u8907\u5408\u5224\u5B9A\u6E96\u5247\u7684\u9806\u5E8F\uFF0C\u4F55\u8005\u6B63\u78BA\uFF08X \u2292 Y \u8868\u793A X \u5305\u542B Y\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u591A\u91CD\u689D\u4EF6 \u2292 MC/DC \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6 \u2292 \u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6240\u6709\u7D44\u5408\u5305\u542B MC/DC\uFF0CMC/DC \u5305\u542B\u5224\u5B9A\uFF0F\u689D\u4EF6\uFF0C\u5F8C\u8005\u5305\u542B\u55AE\u7D14\u689D\u4EF6\uFF08\u8207\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "MC/DC \u2292 \u591A\u91CD\u689D\u4EF6 \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u6700\u5F37\uFF1B\u5B83\u5305\u542B MC/DC\uFF0C\u800C\u975E\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6 \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6 \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u2014\u2014\u55AE\u7D14\u689D\u4EF6\u6DB5\u84CB\u7387\u662F\u9019\u4E9B\u4E4B\u4E2D\u6700\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u5224\u5B9A\uFF0F\u689D\u4EF6 \u2292 \u591A\u91CD\u689D\u4EF6 \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u6BD4\u53E6\u5916\u5169\u8005\u90FD\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u591A\u91CD\u689D\u4EF6 \u2292 MC/DC \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387 \u2292 \u689D\u4EF6\u6DB5\u84CB\u7387\uFF08\u4E26 \u2292 \u5224\u5B9A\u6DB5\u84CB\u7387\uFF09\u3002\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u6700\u5F37\uFF0C\u56E0\u70BA\u5B83\u8A66\u5230\u5B8C\u6574\u771F\u503C\u8868\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a && b \u7684\u6700\u5C11 MC/DC \u6E2C\u8A66",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a &amp;&amp; b</code>\uFF0C\u4E00\u500B\u6700\u5C11\u7684 MC/DC \u6E2C\u8A66\u96C6\u70BA <code>{(T,T), (F,T), (T,F)}</code>\u3002\u9019\u662F\u5E7E\u500B\u6E2C\u8A66\uFF1F\u662F\u5426\u7B49\u65BC n + 1\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3 \u500B\u6E2C\u8A66\uFF0C\u7B49\u65BC n = 2 \u6642\u7684 n + 1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(T,T)/(F,T) \u5C55\u793A a \u7684\u5F71\u97FF\uFF0C(T,T)/(T,F) \u5C55\u793A b \u7684\u5F71\u97FF\uFF1B3 = 2 + 1\u3002"
+              },
+              {
+                "text": "4 \u500B\u6E2C\u8A66\uFF0C\u5373\u5B8C\u6574\u771F\u503C\u8868",
+                "fraction": 0,
+                "feedback": "\u6240\u5217\u96C6\u5408\u662F 3 \u500B\u6E2C\u8A66\u800C\u975E 4\uFF1Ba && b \u7684 MC/DC \u4E0D\u9700\u6574\u5F35\u8868\u3002"
+              },
+              {
+                "text": "2 \u500B\u6E2C\u8A66\uFF0C\u6BCF\u500B\u7D50\u679C\u4E00\u500B",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u6E2C\u8A66\u7D66\u51FA\u5224\u5B9A\u6DB5\u84CB\uFF0C\u4F46\u7121\u6CD5\u540C\u6642\u5C55\u793A a \u8207 b \u7684\u7368\u7ACB\u6027\uFF1B\u6B64\u8655 MC/DC \u9700 3 \u500B\u3002"
+              },
+              {
+                "text": "3 \u500B\u6E2C\u8A66\uFF0C\u4F46\u9019\u591A\u65BC n + 1",
+                "fraction": 0,
+                "feedback": "n = 2 \u6642 n + 1 = 3\uFF0C\u6545 3 \u500B\u6E2C\u8A66\u6070\u662F\u6700\u5C11\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D a && b\uFF1A(T,T)/(F,T) \u9019\u4E00\u5C0D\u53EA\u6539\u8B8A a \u5373\u7FFB\u8F49\u5224\u5B9A\uFF1B(T,T)/(T,F) \u9019\u4E00\u5C0D\u53EA\u6539\u8B8A b \u5373\u7FFB\u8F49\u3002\u4E09\u500B\u76F8\u7570\u6E2C\u8A66 {(T,T),(F,T),(T,F)} = n + 1 = 3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u9023\u7E8C if \u7684\u8DEF\u5F91\u6578",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>if (a) S1;\nif (b) S2;</pre><p>\u542B\u5169\u500B\u7368\u7ACB\u5224\u5B9A\u4E14\u7121\u8FF4\u5708\u3002\u5171\u6709\u5E7E\u689D\u76F8\u7570\u7684\u57F7\u884C<strong>\u8DEF\u5F91</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B if \u5404\u81EA\u53D6\u6216\u4E0D\u53D6\uFF1A2 \xD7 2 = 4 \u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u4E00\u500B if \u7684\u5206\u652F\u7D50\u679C\u6578\uFF1B\u5169\u500B\u7368\u7ACB if \u7D66\u51FA 2 \xD7 2 = 4 \u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u7D44\u5408 (a,b) = TT\u3001TF\u3001FT\u3001FF\u2014\u2014\u56DB\u689D\u8DEF\u5F91\uFF0C\u4E0D\u662F\u4E09\u689D\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u7368\u7ACB\u5224\u5B9A\u5171\u6709 4 \u689D\u76F8\u7570\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u9023\u7E8C\u7684\u7368\u7ACB\u5224\u5B9A\u7522\u751F 2 \xD7 2 = 4 \u689D\u8DEF\u5F91\uFF08a \u53D6\uFF0F\u4E0D\u53D6\uFF09\xD7\uFF08b \u53D6\uFF0F\u4E0D\u53D6\uFF09\u3002\u5206\u652F\u6DB5\u84CB\u53EA\u9700 2 \u500B\u6E2C\u8A66\uFF0C\u4F46\u8DEF\u5F91\u6DB5\u84CB\u9700 4 \u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8FF4\u5708\u4F7F\u8DEF\u5F91\u6DB5\u84CB\u4E0D\u53EF\u884C",
+            "text": "<p>\u7576\u53D7\u6E2C\u7A0B\u5F0F\u542B\u6709\u8FED\u4EE3\u6B21\u6578\u53D6\u6C7A\u65BC\u8F38\u5165\u7684\u8FF4\u5708\u6642\uFF0C\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u901A\u5E38\u4E0D\u53EF\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u76F8\u7570\u7684\u8FED\u4EE3\u6B21\u6578\u90FD\u662F\u4E00\u689D\u76F8\u7570\u8DEF\u5F91\uFF0C\u6545\u8DEF\u5F91\u6578\u7121\u4E0A\u9650\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u53D6\u6C7A\u65BC\u8CC7\u6599\u7684\u8FF4\u5708\u6BCF\u7A2E\u8FED\u4EE3\u6B21\u6578\u90FD\u7522\u751F\u4E00\u689D\u4E0D\u540C\u8DEF\u5F91\uFF0C\u6545\u6709\u7121\u4E0A\u9650\u7684\u8DEF\u5F91\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u57F7\u884C 0\u30011\u30012\u3001... \u6B21\u7684\u8FF4\u5708\uFF0C\u6BCF\u7A2E\u8FED\u4EE3\u6B21\u6578\u5404\u5C0D\u61C9\u4E00\u689D\u76F8\u7570\u8DEF\u5F91\uFF0C\u6545\u8DEF\u5F91\u96C6\uFF08\u53EF\u80FD\uFF09\u7121\u9650\uFF0C\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u901A\u5E38\u7121\u6CD5\u9054\u6210\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u53EF\u884C\u5206\u652F\u9650\u5236\u6DB5\u84CB\u7387",
+            "text": "<p>\u67D0\u51FD\u5F0F\u6709 <strong>4</strong> \u500B\u5206\u652F\u7D50\u679C\uFF0C\u4F46\u5176\u4E2D\u4E00\u500B<em>\u4E0D\u53EF\u884C</em>\uFF08\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u80FD\u5230\u9054\u7684\u6B7B\u78BC\uFF09\u3002\u4EE5\u5168\u90E8 4 \u500B\u7D50\u679C\u8861\u91CF\uFF0C\u53EF\u9054\u6210\u7684\u6700\u5927<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u591A\u80FD\u53D6\u5230 4 \u500B\u4E2D\u7684 3 \u500B\u7D50\u679C\uFF0C\u6545 3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u4E0D\u53EF\u884C\u7684\u7D50\u679C\u6C38\u4E0D\u6703\u88AB\u53D6\u5230\uFF0C\u6545\u4EE5\u5168\u90E8 4 \u500B\u8861\u91CF\u4E0D\u53EF\u80FD\u9054 100%\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u53EF\u884C\u7D50\u679C\u90FD\u80FD\u53D6\u5230\uFF1B\u90A3\u662F 75%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u500B\u7D50\u679C\u4E0D\u53EF\u9054\uFF1B\u5176\u9918\u4E09\u500B\u53EF\u9054\uFF0C\u5F97 75%\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u884C\u5206\u652F\u6703\u9650\u5236\u53EF\u9054\u6210\u7684\u6DB5\u84CB\u7387\uFF1A4 \u500B\u7D50\u679C\u4E2D\u6709 1 \u500B\u4E0D\u53EF\u9054\u6642\uFF0C\u4EE5\u5168\u90E8 4 \u500B\u8861\u91CF\u7684\u6700\u5927\u503C\u70BA 3 / 4 = 75%\u3002\u82E5\u53EA\u4EE5\u53EF\u884C\u7D50\u679C\u8861\u91CF\u5247\u986F\u793A 100%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u7684\u5206\u652F\u6DB5\u84CB\u7387",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>\u5171\u6709 4 \u500B\u5206\u652F\u7D50\u679C\uFF1A\u5916\u5C64\u771F\u3001\u5916\u5C64\u5047\u3001\u5167\u5C64\u771F\u3001\u5167\u5C64\u5047\u3002\u5957\u4EF6\uFF1A<code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5916\u5C64\u771F\u3001\u5167\u5C64\u771F\uFF08\u4F86\u81EA 5,3\uFF09\u8207\u5916\u5C64\u5047\uFF08\u4F86\u81EA -1,0\uFF09\u88AB\u53D6\u5230\uFF0C\u4F46\u5167\u5C64\u5047\u672A\u53D6\u5230\uFF1A3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u5167\u5C64\u5047\u7D50\u679C\uFF08x > 0 \u4E14 y <= 0\uFF09\u5F9E\u672A\u88AB\u6B64\u5957\u4EF6\u5230\u9054\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u7D50\u679C\u4E2D\u6709\u4E09\u500B\u88AB\u53D6\u5230\uFF08\u5916\u5C64\u771F\u3001\u5916\u5C64\u5047\u3001\u5167\u5C64\u771F\uFF09\uFF0C\u5F97 75%\u3002"
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% \u6703\u662F 3 \u4E2D 2\uFF1B\u6B64\u8655 4 \u500B\u5206\u652F\u7D50\u679C\u4E2D\u53D6\u5230 3 \u500B = 75%\u3002"
+              }
+            ],
+            "generalFeedback": "(5,3)\uFF1A\u5916\u5C64\u771F + \u5167\u5C64\u771F\u3002(-1,0)\uFF1A\u5916\u5C64\u5047\u3002\u5167\u5C64\u5047\u9700\u8981 x > 0 \u4E14 y <= 0\uFF0C\u6B64\u5957\u4EF6\u7686\u672A\u63D0\u4F9B\u3002\u5206\u652F\u6DB5\u84CB\u7387 = 3 / 4 = 75%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u672A\u53D6\u5230\u7684\u5206\u652F",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\u8207\u5957\u4EF6\uFF1A</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>\u5957\u4EF6 <code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002\u54EA\u500B\u5206\u652F\u7D50\u679C\u88AB<strong>\u6F0F\u6389</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5167\u5C64\u5047\u5206\u652F\uFF08x > 0 \u4E14 y <= 0\uFF0C\u6545 r = 2\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u6E2C\u8A66\u540C\u6642\u6709 x > 0 \u8207 y <= 0\uFF0C\u6545 r = 2 \u5F9E\u672A\u88AB\u5230\u9054\u3002"
+              },
+              {
+                "text": "\u5916\u5C64\u5047\u5206\u652F\uFF08x <= 0\uFF09",
+                "fraction": 0,
+                "feedback": "(x=-1, y=0) \u53D6\u5230\u5916\u5C64\u5047\u5206\u652F\uFF0C\u6545\u5DF2\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5167\u5C64\u771F\u5206\u652F\uFF08r = 1\uFF09",
+                "fraction": 0,
+                "feedback": "(x=5, y=3) \u53D6\u5230\u5167\u5C64\u771F\u5206\u652F\uFF0C\u6545\u5DF2\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u7121\u2014\u2014\u6240\u6709\u5206\u652F\u90FD\u5DF2\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u5167\u5C64\u5047\u5206\u652F\uFF08r = 2\uFF09\u88AB\u6F0F\u6389\uFF1B\u5B83\u9700\u8981 x > 0 \u4E14 y <= 0\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u5230\u9054 r = 2 \u9700 x > 0\uFF08\u9032\u5165\u5916\u5C64\uFF09\u4E14 y <= 0\uFF08\u5167\u5C64\u5047\uFF09\u3002\u5957\u4EF6\u5F9E\u672A\u540C\u6642\u6EFF\u8DB3\uFF0C\u6545\u5167\u5C64\u5047\u5206\u652F\u8207\u5C0E\u5411 r = 2 \u7684\u8DEF\u5F91\u88AB\u6F0F\u6389\u3002\u52A0\u5165\u4F8B\u5982 (x=5, y=-1) \u5373\u53EF\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u7684\u6558\u8FF0\u6DB5\u84CB\u7387",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\uFF1A</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>\u516D\u500B\u53EF\u57F7\u884C\u6558\u8FF0 s1..s6\u3002\u5957\u4EF6 <code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002<strong>\u6558\u8FF0</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u2248 83.3%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9664 s5\uFF08r = 2\uFF09\u5916\u5168\u90FD\u57F7\u884C\uFF0C\u6545 5 / 6 \u2248 83.3%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s5\uFF08r = 2\uFF09\u9700\u8981 x > 0 \u4E14 y <= 0\uFF0C\u6B64\u5957\u4EF6\u7686\u672A\u63D0\u4F9B\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% \u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF1B\u6558\u8FF0\u6DB5\u84CB\u7387\u662F 5 / 6 \u2248 83.3%\u3002"
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "\u516D\u500B\u6558\u8FF0\u4E2D\u6709\u4E94\u500B\u57F7\u884C\uFF0C\u5F97 \u2248 83.3%\uFF0C\u4E0D\u662F 66.7%\u3002"
+              }
+            ],
+            "generalFeedback": "(5,3) \u57F7\u884C s1\u3001s2\u3001s3\u3001s4\u3001s6\uFF1B(-1,0) \u57F7\u884C s1\u3001s2\u3001s6\u3002\u53EA\u6F0F\u6389 s5\uFF08r = 2\uFF09\u3002\u6558\u8FF0\u6DB5\u84CB\u7387 = 5 / 6 \u2248 83.3%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u7684\u8DEF\u5F91\u6DB5\u84CB\u7387",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\u6709\u4E09\u689D\u53EF\u884C\u8DEF\u5F91\uFF1AP1 = x &lt;= 0\uFF1BP2 = x &gt; 0 \u4E14 y &gt; 0\uFF1BP3 = x &gt; 0 \u4E14 y &lt;= 0\u3002\u5957\u4EF6 <code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002<strong>\u8DEF\u5F91</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(5,3) \u6DB5\u84CB P2\uFF0C(-1,0) \u6DB5\u84CB P1\uFF0C\u4F46 P3 \u88AB\u6F0F\u6389\uFF1A2 / 3 \u2248 66.7%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91 P3\uFF08x > 0 \u4E14 y <= 0\uFF09\u5F9E\u672A\u88AB\u8A66\u5230\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u4E09\u689D\u53EF\u884C\u8DEF\u5F91\u4E2D\u6DB5\u84CB\u5169\u689D\uFF0C\u5F97 \u2248 66.7%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% \u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF1B\u6B64\u8655\u8DEF\u5F91\u6DB5\u84CB\u7387\u662F 2 / 3 \u2248 66.7%\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u884C\u8DEF\u5F91\uFF1AP1\uFF08x <= 0\uFF09\u3001P2\uFF08x > 0, y > 0\uFF09\u3001P3\uFF08x > 0, y <= 0\uFF09\u3002\u5957\u4EF6\u6DB5\u84CB P1 \u8207 P2 \u4F46\u4E0D\u542B P3\uFF0C\u6545\u8DEF\u5F91\u6DB5\u84CB\u7387 = 2 / 3 \u2248 66.7%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a || b \u7684 MC/DC \u7368\u7ACB\u6027\u914D\u5C0D",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a || b</code>\uFF0C\u54EA\u4E00\u5C0D\u6E2C\u8A66\u5C55\u793A\u689D\u4EF6 <code>b</code> \u80FD<strong>\u7368\u7ACB</strong>\u5F71\u97FF\u7D50\u679C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "(a=F, b=F) \u5F97\u5047\uFF0C\u8207 (a=F, b=T) \u5F97\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u56FA\u5B9A\u70BA\u5047\uFF1B\u53EA\u6539\u8B8A b \u5373\u4F7F\u5224\u5B9A\u7531\u5047\u7FFB\u70BA\u771F\u3002"
+              },
+              {
+                "text": "(a=T, b=F) \u8207 (a=T, b=T)\uFF0C\u7686\u5F97\u771F",
+                "fraction": 0,
+                "feedback": "a = \u771F\u6642 a || b \u6046\u70BA\u771F\uFF0C\u4E0D\u8AD6 b\uFF0C\u6545\u7D50\u679C\u4E0D\u7FFB\u8F49\u2014\u2014b \u7684\u5F71\u97FF\u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "(a=F, b=T) \u8207 (a=T, b=F)\uFF0C\u7686\u5F97\u771F",
+                "fraction": 0,
+                "feedback": "\u9019\u5169\u8005 a \u8207 b \u90FD\u4E0D\u540C\uFF0C\u7121\u6CD5\u9694\u96E2 b \u7684\u7368\u7ACB\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "(a=T, b=T) \u8207 (a=F, b=F)",
+                "fraction": 0,
+                "feedback": "\u9019\u5169\u8005\u5169\u500B\u689D\u4EF6\u90FD\u4E0D\u540C\uFF0C\u6545\u7121\u6CD5\u9694\u96E2\u4EFB\u4E00\u689D\u4EF6\u7684\u5F71\u97FF\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u5C55\u793A b \u7368\u7ACB\u5F71\u97FF a || b\uFF0C\u56FA\u5B9A a = \u5047\u4E26\u8B8A\u5316 b\uFF1A(F,F) \u2192 \u5047\uFF0C(F,T) \u2192 \u771F\u3002\u552F\u6709\u5982\u6B64\uFF0C\u53EA\u6539\u8B8A b \u624D\u80FD\u7FFB\u8F49\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "MC/DC \u860A\u542B\u5224\u5B9A\u6DB5\u84CB",
+            "text": "<p>\u5C0D\u67D0\u5224\u5B9A\u6EFF\u8DB3 MC/DC \u7684\u6E2C\u8A66\u96C6\uFF0C\u5FC5\u7136\u4E5F\u6EFF\u8DB3\u8A72\u5224\u5B9A\u7684\u5224\u5B9A\uFF08\u5206\u652F\uFF09\u6DB5\u84CB\u7387\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C55\u793A\u6BCF\u500B\u689D\u4EF6\u90FD\u80FD\u7FFB\u8F49\u7D50\u679C\uFF0C\u6703\u8FEB\u4F7F\u5224\u5B9A\u53D6\u5230\u771F\u8207\u5047\u5169\u8005\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u9054\u6210\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "MC/DC \u8981\u6C42\u6BCF\u500B\u689D\u4EF6\u90FD\u80FD\u7FFB\u8F49\u5224\u5B9A\uFF0C\u9019\u5FC5\u7136\u4F7F\u5224\u5B9A\u53D6\u5230\u771F\u8207\u5047\u5169\u8005\u2014\u2014\u5224\u5B9A\u6DB5\u84CB\u56E0\u800C\u88AB\u860A\u542B\u3002"
+              }
+            ],
+            "generalFeedback": "MC/DC \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387 \u2292 \u5224\u5B9A\u6DB5\u84CB\u7387\uFF08\u8207\u689D\u4EF6\u6DB5\u84CB\u7387\uFF09\u3002\u5C55\u793A\u7368\u7ACB\u5F71\u97FF\u9700\u8981\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u7D50\u679C\uFF0C\u6545\u8A72\u5224\u5B9A\u7684\u5206\u652F\u6DB5\u84CB\u96A8\u4E4B\u6210\u7ACB\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\uFF08decision/condition coverage\uFF09</strong>\u5728\u4EE5\u4E0B\u60C5\u6CC1\u6EFF\u8DB3\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u540C\u6642\u9054\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u5169\u7A2E\u503C\uFF0C\u4E14\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5224\u5B9A\u53D6\u5230\u771F\u8207\u5047",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u7D14\u5224\u5B9A\u6DB5\u84CB\u7387\uFF1B\u5224\u5B9A\uFF0F\u689D\u4EF6\u9084\u8981\u6C42\u689D\u4EF6\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u5169\u7A2E\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u7D14\u689D\u4EF6\u6DB5\u84CB\u7387\uFF1B\u5224\u5B9A\uFF0F\u689D\u4EF6\u9084\u8981\u6C42\u5224\u5B9A\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u8A66\u5230\u689D\u4EF6\u6240\u6709\u53D6\u503C\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u6BD4\u5224\u5B9A\uFF0F\u689D\u4EF6\u66F4\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\u5C31\u662F\u7D50\u5408\u5169\u8005\uFF1A\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u5169\u7A2E\u503C\uFF0C\u4E14\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u7D50\u679C\u3002\u5728\u5305\u542B\u93C8\u4E2D\u4F4D\u65BC\u689D\u4EF6\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u4E4B\u4E0A\u3001MC/DC \u4E4B\u4E0B\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "graph-coverage": {
       "en": {
         "easy": [
