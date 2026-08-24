@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Concolic Execution/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What concolic means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The word <strong>concolic</strong> is a blend of which two words?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CONCrete + symbOLIC — the program runs on a concrete input while symbolic constraints are collected simultaneously</text><feedback><text>Correct — concolic execution does both at once: a real concrete run plus symbolic path-condition tracking.</text></feedback></answer>
+    <answer fraction="0"><text>CONCurrent + symbOLIC — it runs many symbolic threads in parallel</text><feedback><text>No — the "conc" is concrete, not concurrent; concolic is about combining concrete and symbolic, not parallelism.</text></feedback></answer>
+    <answer fraction="0"><text>CONtrol + logICs — it analyses control-flow logic statically</text><feedback><text>No — concolic = concrete + symbolic; it is a dynamic technique, not a static control-flow analysis.</text></feedback></answer>
+    <answer fraction="0"><text>CONtext + symbOLIC — it tracks contextual symbols only</text><feedback><text>No — the first part stands for concrete, referring to the real runtime values used alongside the symbolic ones.</text></feedback></answer>
+    <generalfeedback><text>Concolic = CONCrete + symbOLIC. The program is executed on an actual concrete input, and at the same time the engine records the symbolic path condition along the path that concrete run takes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concrete state vs symbolic state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During concolic execution the engine keeps two states side by side. What are they?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete state (actual values driving the real run) and a symbolic state (expressions/constraints over the input symbols)</text><feedback><text>Correct — the concrete values pick the path actually taken, while the symbolic state records the constraints along it.</text></feedback></answer>
+    <answer fraction="0"><text>A source-code state and a compiled-binary state</text><feedback><text>No — both states describe the running program's data; one is concrete values, the other symbolic expressions.</text></feedback></answer>
+    <answer fraction="0"><text>A pass state and a fail state of the test oracle</text><feedback><text>No — the two states are concrete and symbolic; pass/fail is a separate testing concern.</text></feedback></answer>
+    <answer fraction="0"><text>Two independent random states used for statistical sampling</text><feedback><text>No — one state is a real concrete run, the other is a symbolic constraint state; neither is a random sample of the other.</text></feedback></answer>
+    <generalfeedback><text>Concolic execution maintains a concrete state (the actual values, which deterministically select the path the run takes) alongside a symbolic state (the variable-to-expression map and the path condition collected along that same path).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path condition in concolic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In concolic execution, the <strong>path condition</strong> recorded during a run is:</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>The conjunction of the branch conditions taken along the single path that the concrete input actually drove</text><feedback><text>Correct — because a concrete run follows exactly one path, the path condition describes that one executed path.</text></feedback></answer>
+    <answer fraction="0"><text>The disjunction of all path conditions of every path in the program</text><feedback><text>No — a concolic run records only the one path the concrete input took, as a conjunction of its branch outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>A count of how many branches the program contains</text><feedback><text>No — the path condition is a logical formula over the inputs, not a branch count.</text></feedback></answer>
+    <answer fraction="0"><text>The concrete output value the program returned</text><feedback><text>No — it is the constraints on the inputs along the executed path, not the output.</text></feedback></answer>
+    <generalfeedback><text>Because the concrete input drives exactly one path, the engine collects the branch conditions taken on that path and conjoins them into the path condition — a formula over the symbolic inputs characterizing that executed path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch negation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a concolic run records a path condition, how does the engine try to reach a new, not-yet-covered path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It negates one branch condition in the recorded path condition and asks the solver for an input satisfying the modified constraint</text><feedback><text>Correct — flipping one branch and solving yields a concrete input that drives execution the other way at that branch.</text></feedback></answer>
+    <answer fraction="0"><text>It recompiles the program with that branch removed</text><feedback><text>No — the program is never modified; only the path condition is altered and re-solved.</text></feedback></answer>
+    <answer fraction="0"><text>It keeps re-running the same concrete input until a different path appears</text><feedback><text>No — a deterministic program on the same input always takes the same path; the engine negates a branch and solves for a new input.</text></feedback></answer>
+    <answer fraction="0"><text>It negates every branch at once and solves the whole thing</text><feedback><text>No — the standard step flips one branch (typically the last unnegated one) while keeping the prefix, then solves.</text></feedback></answer>
+    <generalfeedback><text>The engine picks a branch condition on the recorded path, negates it (keeping the constraints before it), and hands the modified path condition to a solver; the satisfying assignment is the next concrete input, which drives execution down the sibling path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The concolic loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which sequence best describes one iteration of the concolic testing loop?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Run on a concrete input → record the path condition → negate a branch → solve → the solution is the next concrete input</text><feedback><text>Correct — this concrete-run / record / negate / solve cycle repeats to explore new paths.</text></feedback></answer>
+    <answer fraction="0"><text>Solve a random constraint → compile → run → discard the result</text><feedback><text>No — concolic starts from a concrete run, records the real path condition, then negates and solves; nothing is discarded and no compilation step is involved.</text></feedback></answer>
+    <answer fraction="0"><text>Enumerate all paths statically → solve each → pick the shortest</text><feedback><text>No — concolic is dynamic: it drives one concrete run at a time and steers to new paths by branch negation.</text></feedback></answer>
+    <answer fraction="0"><text>Mutate the source code → re-run the tests → measure coverage</text><feedback><text>No — that is mutation testing; concolic negates branch constraints and solves for inputs, leaving the code unchanged.</text></feedback></answer>
+    <generalfeedback><text>The concolic loop: pick a concrete input (often random at first), execute it, record the path condition of the path taken, negate one branch condition, solve the modified constraint to obtain the next concrete input, and repeat — driving execution down new paths each time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What DART stands for</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>DART</strong>, one of the original concolic tools, stands for:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Directed Automated Random Testing</text><feedback><text>Correct — DART directs random testing using the symbolic path condition to reach new paths.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic Abstract Refinement Testing</text><feedback><text>No — DART stands for Directed Automated Random Testing.</text></feedback></answer>
+    <answer fraction="0"><text>Deterministic Assertion Regression Tool</text><feedback><text>No — DART is Directed Automated Random Testing, a concolic engine.</text></feedback></answer>
+    <answer fraction="0"><text>Distributed Analysis of Runtime Traces</text><feedback><text>No — DART is Directed Automated Random Testing.</text></feedback></answer>
+    <generalfeedback><text>DART (Directed Automated Random Testing) starts from random concrete inputs and uses the collected symbolic path condition to direct subsequent inputs toward uncovered branches — coining the concolic approach.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What CUTE stands for</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>CUTE</strong>, a well-known concolic tool, stands for:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concolic Unit Testing Engine</text><feedback><text>Correct — CUTE applies concolic execution to unit testing, including code with pointers.</text></feedback></answer>
+    <answer fraction="0"><text>Constraint-based Uniform Test Explorer</text><feedback><text>No — CUTE stands for Concolic Unit Testing Engine.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage Under Test Estimator</text><feedback><text>No — CUTE is the Concolic Unit Testing Engine.</text></feedback></answer>
+    <answer fraction="0"><text>Combined Unit &amp; Type Evaluator</text><feedback><text>No — CUTE is the Concolic Unit Testing Engine.</text></feedback></answer>
+    <generalfeedback><text>CUTE (Concolic Unit Testing Engine) brought concolic execution to C unit testing, notably handling pointer/data-structure inputs by combining concrete and symbolic reasoning.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Why keep a concrete input alongside the symbolic state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A key reason concolic execution keeps a concrete input alongside the symbolic state is that when a constraint cannot be solved (e.g. it involves an external call), the engine can substitute the concrete value observed at runtime and keep going.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the concrete value is a ready fallback that lets execution continue where pure symbolic reasoning would stall.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is precisely a central advantage of concolic execution: the concrete run supplies a real value to substitute when a symbolic term is unsolvable.</text></feedback></answer>
+    <generalfeedback><text>Keeping a concrete input means the engine always has a real observed value for every expression. When a symbolic term is too hard, nonlinear, or opaque (an external/native call), it substitutes the concrete value and continues — something pure symbolic execution cannot do.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>First concrete input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Where does the very first concrete input in a concolic run typically come from?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is chosen arbitrarily, often randomly — the loop then refines subsequent inputs by solving negated path conditions</text><feedback><text>Correct — the seed input can be random; the engine improves coverage from there by directed branch flipping.</text></feedback></answer>
+    <answer fraction="0"><text>It must be a value proved optimal by the solver before any run</text><feedback><text>No — the first input needs no proof; it is typically just a random seed that starts the loop.</text></feedback></answer>
+    <answer fraction="0"><text>It is always zero for every input variable</text><feedback><text>No — while a fixed seed is possible, the point is that the first input is arbitrary/random, not a mandated zero.</text></feedback></answer>
+    <answer fraction="0"><text>It is derived by static analysis of the whole program first</text><feedback><text>No — concolic is dynamic; it simply starts from a concrete (often random) input rather than a static pre-analysis.</text></feedback></answer>
+    <generalfeedback><text>Concolic execution bootstraps from an arbitrary, often random, concrete input (this is the "Random" in DART). Each later input is computed by negating a branch on the previous run's path condition and solving.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Concrete run follows one path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because it uses a concrete input, a single concolic run follows exactly one execution path (in a deterministic program).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — concrete values deterministically select one path; that is why the run records a single path condition.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A concrete input in a deterministic program takes exactly one path; concolic reaches other paths only by solving negated constraints on later runs.</text></feedback></answer>
+    <generalfeedback><text>Each concolic run is a real execution on concrete values, so it takes one path and records that path's condition. New paths are reached across iterations by branch negation and re-solving, not within a single run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of the solver in concolic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the constraint/SMT solver do in the concolic loop?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It solves the modified (partly negated) path condition to produce the next concrete input</text><feedback><text>Correct — the solver's satisfying assignment becomes the concrete input for the next run.</text></feedback></answer>
+    <answer fraction="0"><text>It executes the program on the concrete input</text><feedback><text>No — running the program is done by the (instrumented) execution; the solver only computes inputs from constraints.</text></feedback></answer>
+    <answer fraction="0"><text>It decides whether the test's output is correct</text><feedback><text>No — that is the oracle's job; the solver produces inputs, not verdicts.</text></feedback></answer>
+    <answer fraction="0"><text>It measures branch coverage of the suite</text><feedback><text>No — coverage tracking is separate; the solver turns a negated path condition into a concrete input.</text></feedback></answer>
+    <generalfeedback><text>After the engine negates a branch, it hands the modified path condition to the solver; a satisfying assignment is exactly the concrete input that will drive the next run down the newly targeted path (or UNSAT if that path is infeasible).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concolic vs pure symbolic (one-line)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which best captures how concolic execution differs from pure symbolic execution?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concolic always has a real concrete run alongside the symbolic state, so it can substitute concrete values when the symbolic reasoning gets stuck</text><feedback><text>Correct — the concrete run is the safety net that lets concolic proceed past unsolvable terms.</text></feedback></answer>
+    <answer fraction="0"><text>Concolic never uses a solver, while pure symbolic always does</text><feedback><text>No — concolic relies on a solver to flip branches; the difference is the accompanying concrete run.</text></feedback></answer>
+    <answer fraction="0"><text>Pure symbolic runs the program concretely, concolic does not</text><feedback><text>No — it is the reverse: concolic performs real concrete runs; pure symbolic does not.</text></feedback></answer>
+    <answer fraction="0"><text>Concolic guarantees full path coverage, pure symbolic does not</text><feedback><text>No — neither guarantees full coverage; both face path explosion. The real distinction is the concrete companion run.</text></feedback></answer>
+    <generalfeedback><text>Both track a symbolic path condition and use a solver. The concolic difference is the simultaneous concrete run: it supplies a real value to fall back on when a constraint is unsolvable, nonlinear, or involves an opaque external call.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Instrumentation purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Concolic tools instrument the program under test primarily in order to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Observe, during the concrete run, the branch conditions taken and build the symbolic path condition in parallel</text><feedback><text>Correct — instrumentation collects the symbolic constraints alongside the real execution.</text></feedback></answer>
+    <answer fraction="0"><text>Slow the program down so the solver has time to think</text><feedback><text>No — instrumentation exists to gather symbolic constraints during the run, not to add delay.</text></feedback></answer>
+    <answer fraction="0"><text>Replace all branches with random coin flips</text><feedback><text>No — branches are observed and recorded symbolically; they are not replaced by randomness.</text></feedback></answer>
+    <answer fraction="0"><text>Permanently rewrite the program to a bug-free version</text><feedback><text>No — instrumentation only records information for the analysis; it does not fix the program.</text></feedback></answer>
+    <generalfeedback><text>The program is instrumented so that, as the concrete input drives execution, the engine simultaneously records each branch condition symbolically and accumulates the path condition — the raw material for the negate-and-solve step.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Paths explored are real</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every path that a concolic run explores corresponds to a real execution on a concrete input, so concolic execution reports no false (infeasible) paths.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — each concolic step is an actual concrete run, so the paths it reports are genuinely executable (this is its soundness with respect to explored paths).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Because every explored path is driven by a concrete input that really runs, concolic execution does not manufacture infeasible paths.</text></feedback></answer>
+    <generalfeedback><text>Concolic execution actually runs the program on each generated concrete input, so any path it reports as explored is genuinely feasible. Its limitation is completeness (it may miss some paths), not soundness of the paths it does explore.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What picks the path a run takes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a single concolic run, what determines which one path through the program is taken?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The concrete input values, which are executed for real and select each branch outcome deterministically</text><feedback><text>Correct — the concrete state drives the actual run and thus fixes the path; the symbolic state just records it.</text></feedback></answer>
+    <answer fraction="0"><text>The solver, which chooses a path before the run begins</text><feedback><text>No — within a run the concrete values pick the path; the solver only computes inputs for future runs.</text></feedback></answer>
+    <answer fraction="0"><text>The path condition, which forces execution down a chosen branch</text><feedback><text>No — the path condition is recorded from the run; it does not steer the current concrete execution.</text></feedback></answer>
+    <answer fraction="0"><text>A random choice made at each branch</text><feedback><text>No — branches are decided by the concrete values, not by randomness during the run.</text></feedback></answer>
+    <generalfeedback><text>The concrete input is really executed, so at each branch the concrete values decide true/false and thus fix the single path taken. The symbolic side merely records that path's condition for later branch negation.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Concolic Execution/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: single if, record the PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void f(int x) {
+  if (x &gt; 5) error();   // branch B1
+}</code></pre><p>The concolic run starts with concrete input <code>x = 0</code>. What path condition does this run record?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x ≤ 5 (the false side of B1, since 0 &gt; 5 is false)</text><feedback><text>Correct — x = 0 makes x &gt; 5 false, so the run takes the false branch and records x ≤ 5.</text></feedback></answer>
+    <answer fraction="0"><text>x &gt; 5 (the true side of B1)</text><feedback><text>No — x = 0 does not satisfy x &gt; 5, so the run takes the false branch and records x ≤ 5, not x &gt; 5.</text></feedback></answer>
+    <answer fraction="0"><text>x == 0 (the concrete value)</text><feedback><text>No — the path condition records the branch outcome (x ≤ 5), not the specific concrete value used.</text></feedback></answer>
+    <answer fraction="0"><text>true (no constraint, because no branch was taken)</text><feedback><text>No — the branch B1 was evaluated; its false outcome contributes the constraint x ≤ 5.</text></feedback></answer>
+    <generalfeedback><text>With x = 0, the condition x &gt; 5 evaluates false, so the run follows the false branch. The engine records the negation of the branch condition it did not take, i.e. the constraint actually satisfied: x ≤ 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: negate and solve for next input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Same code:</p><pre><code>void f(int x) {
+  if (x &gt; 5) error();   // branch B1
+}</code></pre><p>The first run used <code>x = 0</code> and recorded <code>x ≤ 5</code>. To cover the other side of B1, the engine negates it. Which next concrete input could the solver return?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 6 (any value satisfying the negated constraint x &gt; 5)</text><feedback><text>Correct — negating x ≤ 5 gives x &gt; 5, and x = 6 satisfies it, driving the run into error().</text></feedback></answer>
+    <answer fraction="0"><text>x = 5</text><feedback><text>No — 5 &gt; 5 is false, so x = 5 still takes the false branch and does not cover the other side.</text></feedback></answer>
+    <answer fraction="0"><text>x = -1</text><feedback><text>No — -1 does not satisfy x &gt; 5; it would re-take the already-covered false branch.</text></feedback></answer>
+    <answer fraction="0"><text>No input exists; the negated constraint is unsatisfiable</text><feedback><text>No — x &gt; 5 is easily satisfiable (e.g. x = 6), so the path is feasible.</text></feedback></answer>
+    <generalfeedback><text>Negating the recorded constraint x ≤ 5 yields x &gt; 5. The solver returns any satisfying value (e.g. x = 6), which becomes the next concrete input and drives execution into error().</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: equality guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void g(int x) {
+  if (x == 42) bug();   // branch B1
+}</code></pre><p>The run starts with <code>x = 7</code> (so B1 is false, PC is <code>x ≠ 42</code>). What next input does negating B1 yield?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 42 — negating x ≠ 42 gives x == 42, whose only solution is 42</text><feedback><text>Correct — the solver computes the exact value 42, immediately reaching bug().</text></feedback></answer>
+    <answer fraction="0"><text>x = 43 — any nearby value works</text><feedback><text>No — the negated constraint is the equality x == 42, so 43 does not satisfy it; only 42 does.</text></feedback></answer>
+    <answer fraction="0"><text>x = 7 — the run keeps the same input</text><feedback><text>No — x = 7 gives the already-covered false branch; the engine solves the flipped equality for 42.</text></feedback></answer>
+    <answer fraction="0"><text>No solution; equalities cannot be negated</text><feedback><text>No — negating x ≠ 42 is simply x == 42, which the solver satisfies with x = 42.</text></feedback></answer>
+    <generalfeedback><text>The first run's constraint is x ≠ 42; negating it gives x == 42. The solver returns exactly x = 42 — the classic case where concolic/symbolic reasoning beats random testing, which would almost never guess 42.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: which branch to negate (DFS)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A run took branches in order <code>[B1: true, B2: true]</code>, giving path condition <code>c1 ∧ c2</code>. Using the usual depth-first strategy (flip the last unnegated branch first), what is the next path condition to solve?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c1 ∧ ¬c2 — keep the prefix c1, negate the last branch c2</text><feedback><text>Correct — depth-first flips the deepest (last) branch first while preserving the earlier decisions.</text></feedback></answer>
+    <answer fraction="0"><text>¬c1 ∧ c2 — negate the first branch, keep the second</text><feedback><text>No — that flips B1 first; depth-first negates the last branch (c2) before backtracking to earlier ones.</text></feedback></answer>
+    <answer fraction="0"><text>¬c1 ∧ ¬c2 — negate both branches</text><feedback><text>No — each step negates exactly one branch; here the last one, giving c1 ∧ ¬c2.</text></feedback></answer>
+    <answer fraction="0"><text>c1 ∧ c2 — re-solve the same condition</text><feedback><text>No — re-solving the same condition re-covers the same path; the engine flips c2 to reach a new one.</text></feedback></answer>
+    <generalfeedback><text>Depth-first exploration negates the last unnegated branch condition while keeping the prefix intact: from c1 ∧ c2 it forms c1 ∧ ¬c2. Only after exhausting the c1-prefix subtree does it backtrack and flip c1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: two branches, next input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void h(int a, int b) {
+  if (a &gt; 0)          // B1
+    if (b &gt; 0)        // B2
+      target();
+}</code></pre><p>Run 1 uses <code>a = 1, b = -1</code>: B1 true, B2 false, PC = <code>(a &gt; 0) ∧ (b ≤ 0)</code>. Flipping the last branch (B2), what input reaches <code>target()</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 1, b = 1 — satisfies (a &gt; 0) ∧ (b &gt; 0)</text><feedback><text>Correct — keeping a &gt; 0 and negating b ≤ 0 to b &gt; 0 gives a path into target(); a = 1, b = 1 works.</text></feedback></answer>
+    <answer fraction="0"><text>a = -1, b = 1 — satisfies b &gt; 0</text><feedback><text>No — a = -1 fails a &gt; 0, so B1 is false and target() is never reached; the prefix a &gt; 0 must be kept.</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 0 — b is non-negative</text><feedback><text>No — b &gt; 0 requires strictly positive b; b = 0 fails, so B2 stays false.</text></feedback></answer>
+    <answer fraction="0"><text>a = 0, b = 0 — both zero</text><feedback><text>No — a = 0 fails a &gt; 0; the negated constraint keeps the prefix a &gt; 0 and flips b to b &gt; 0.</text></feedback></answer>
+    <generalfeedback><text>Flipping B2 forms (a &gt; 0) ∧ (b &gt; 0): the prefix a &gt; 0 is preserved and b ≤ 0 is negated to b &gt; 0. The solver returns any satisfying pair, e.g. a = 1, b = 1, which drives execution into target().</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: assignment before branch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void k(int x) {
+  int y = x + 3;
+  if (y == 10) hit();   // B1
+}</code></pre><p>Run 1 uses <code>x = 0</code> (so y = 3, B1 false). Negating B1, what next input does the solver return?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 7 — the constraint over the input is x + 3 == 10</text><feedback><text>Correct — y is the expression x + 3, so B1 becomes x + 3 == 10, giving x = 7.</text></feedback></answer>
+    <answer fraction="0"><text>x = 10 — the branch tests == 10</text><feedback><text>No — the branch tests y == 10 where y = x + 3, so the constraint on the input is x + 3 == 10, i.e. x = 7.</text></feedback></answer>
+    <answer fraction="0"><text>x = 3 — matches the first computed y</text><feedback><text>No — x = 3 gives y = 6, not 10; solving x + 3 == 10 gives x = 7.</text></feedback></answer>
+    <answer fraction="0"><text>y = 10 — treat y as the free input</text><feedback><text>No — y is not an input; it is the expression x + 3, which must be substituted, yielding x = 7.</text></feedback></answer>
+    <generalfeedback><text>The symbolic state records y = x + 3, so the branch y == 10 is the constraint x + 3 == 10 over the actual input x. Negating the false outcome and solving gives x = 7.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concolic vs pure symbolic on a simple case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>if (x &gt; 5) error();</code> with a solvable linear guard, how do concolic and pure symbolic execution compare on reaching <code>error()</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both reach it — each solves x &gt; 5 (concolic after negating the branch on its first concrete run) — the concrete companion matters only when a constraint is unsolvable</text><feedback><text>Correct — on a simple solvable guard the two behave similarly; the concrete fallback distinguishes them only for hard/opaque constraints.</text></feedback></answer>
+    <answer fraction="0"><text>Only pure symbolic can reach it; concolic cannot solve inequalities</text><feedback><text>No — concolic uses the same solver and easily handles x &gt; 5 by negating the branch and solving.</text></feedback></answer>
+    <answer fraction="0"><text>Only concolic can reach it; pure symbolic cannot solve inequalities</text><feedback><text>No — pure symbolic solves linear inequalities fine; both reach error() here.</text></feedback></answer>
+    <answer fraction="0"><text>Neither can reach it without random luck</text><feedback><text>No — both solve x &gt; 5 exactly; no luck is required for a simple linear constraint.</text></feedback></answer>
+    <generalfeedback><text>When every constraint is solvable, concolic and pure symbolic reach the same paths; both solve x &gt; 5 directly. The concrete-value fallback only becomes decisive when a constraint is nonlinear, unsolvable, or involves an opaque external call.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: recording the taken outcome</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void m(int x) {
+  if (x &lt; 100) a();   // B1
+  else b();
+}</code></pre><p>The concrete run uses <code>x = 250</code>. Which literal does the engine conjoin into the path condition for B1?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x ≥ 100 — the run took the else branch, so the satisfied condition is the negation of x &lt; 100</text><feedback><text>Correct — with x = 250 the guard x &lt; 100 is false, so the recorded literal is x ≥ 100.</text></feedback></answer>
+    <answer fraction="0"><text>x &lt; 100 — the branch's written condition</text><feedback><text>No — the written condition is false for x = 250; the engine records the outcome actually taken, x ≥ 100.</text></feedback></answer>
+    <answer fraction="0"><text>x == 250 — the concrete value</text><feedback><text>No — the path condition records the branch outcome (x ≥ 100), not the specific concrete number.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — else branches contribute no constraint</text><feedback><text>No — taking the else branch contributes the negated guard x ≥ 100 to the path condition.</text></feedback></answer>
+    <generalfeedback><text>The path condition always records the outcome actually taken. With x = 250 the guard x &lt; 100 is false, so the engine conjoins its negation, x ≥ 100, into the path condition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: unsatisfiable flip is skipped</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void p(int x) {
+  if (x &gt; 0)        // B1
+    if (x &lt; 0)      // B2
+      dead();
+}</code></pre><p>Run 1 uses <code>x = 5</code>: B1 true, B2 false, PC = <code>(x &gt; 0) ∧ (x ≥ 0)</code>. What happens when the engine flips B2 to try to reach <code>dead()</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The flipped condition (x &gt; 0) ∧ (x &lt; 0) is UNSAT, so the solver returns no input and the engine skips that infeasible path</text><feedback><text>Correct — no x is both positive and negative, so dead() is unreachable and correctly generates no test.</text></feedback></answer>
+    <answer fraction="0"><text>The solver returns x = 0, reaching dead()</text><feedback><text>No — x = 0 satisfies neither x &gt; 0 nor x &lt; 0; the conjunction is unsatisfiable.</text></feedback></answer>
+    <answer fraction="0"><text>The engine substitutes a concrete value and reaches dead() anyway</text><feedback><text>No — concrete fallback is for unsolvable/opaque terms, not for a cleanly UNSAT linear constraint; the path is genuinely infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>The program is modified to make the path feasible</text><feedback><text>No — concolic never modifies the program; an UNSAT flip simply yields no input.</text></feedback></answer>
+    <generalfeedback><text>Flipping B2 while keeping the prefix gives (x &gt; 0) ∧ (x &lt; 0), which is UNSAT. The solver reports no solution, so the engine skips this infeasible path — dead() is correctly never targeted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: number of runs to cover both branches</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a single <code>if (x &gt; 5) A(); else B();</code> with both sides feasible, how many concolic runs are needed to cover both branches, starting from one arbitrary concrete input?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — one run covers the branch the seed takes; negating it and solving gives a second input covering the other</text><feedback><text>Correct — one seed run plus one negate-and-solve run covers both sides.</text></feedback></answer>
+    <answer fraction="0"><text>1 — a single run covers both branches</text><feedback><text>No — a concrete run takes only one side; the other needs a second input from a negated constraint.</text></feedback></answer>
+    <answer fraction="0"><text>4 — every branch needs two runs</text><feedback><text>No — a single two-way branch needs just two runs total, one per side.</text></feedback></answer>
+    <answer fraction="0"><text>Unbounded — random seeds may never hit both</text><feedback><text>No — concolic is directed: it solves the negated constraint deterministically, so two runs suffice.</text></feedback></answer>
+    <generalfeedback><text>The seed run covers whichever side its concrete value takes. Negating that branch and solving yields a second input for the opposite side. Two runs cover both branches — the directedness that distinguishes concolic from blind random testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: compound guard, next input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider a branch whose recorded (satisfied) condition on run 1 is <code>(x + y &lt; 4)</code>. Negating it, which input pair does the solver accept?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 3, y = 3 — satisfies the negation x + y ≥ 4</text><feedback><text>Correct — 3 + 3 = 6 ≥ 4, so this pair takes the flipped branch.</text></feedback></answer>
+    <answer fraction="0"><text>x = 1, y = 1 — small values</text><feedback><text>No — 1 + 1 = 2 &lt; 4 still satisfies the original condition, not its negation.</text></feedback></answer>
+    <answer fraction="0"><text>x = 0, y = 3 — sums to 3</text><feedback><text>No — 0 + 3 = 3 &lt; 4, which fails the negated constraint x + y ≥ 4.</text></feedback></answer>
+    <answer fraction="0"><text>x = 2, y = 1 — sums to 3</text><feedback><text>No — 2 + 1 = 3 &lt; 4, so this stays on the original branch.</text></feedback></answer>
+    <generalfeedback><text>Negating x + y &lt; 4 gives x + y ≥ 4. Only x = 3, y = 3 (sum 6) satisfies it; the other options all sum to less than 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: input to keep prefix, flip deeper branch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void q(int a, int b) {
+  if (a == b)       // B1
+    if (a &gt; 10)     // B2
+      z();
+}</code></pre><p>Run 1 uses <code>a = 3, b = 3</code>: B1 true, B2 false, PC = <code>(a == b) ∧ (a ≤ 10)</code>. Flipping B2 to reach <code>z()</code>, which input works?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 11, b = 11 — keeps a == b and satisfies a &gt; 10</text><feedback><text>Correct — the prefix a == b is preserved and a ≤ 10 is negated to a &gt; 10; a = b = 11 satisfies both.</text></feedback></answer>
+    <answer fraction="0"><text>a = 11, b = 3 — a &gt; 10 holds</text><feedback><text>No — a ≠ b breaks the preserved prefix a == b, so B1 is false and z() is unreachable.</text></feedback></answer>
+    <answer fraction="0"><text>a = 5, b = 5 — equal values</text><feedback><text>No — a = 5 fails the negated constraint a &gt; 10, so B2 stays false.</text></feedback></answer>
+    <answer fraction="0"><text>a = 10, b = 10 — right at the boundary</text><feedback><text>No — a &gt; 10 is strict; a = 10 fails it, so z() is not reached.</text></feedback></answer>
+    <generalfeedback><text>Flipping B2 forms (a == b) ∧ (a &gt; 10): keep a == b, negate a ≤ 10 to a &gt; 10. The pair a = 11, b = 11 satisfies both constraints and drives execution into z().</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why re-running the same input fails to explore</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can't a concolic engine reach a new path by simply running the same concrete input again?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A deterministic program takes the same path for the same input, so a new path requires a new input from a negated-and-solved constraint</text><feedback><text>Correct — that is exactly why the engine negates a branch and solves for a different input.</text></feedback></answer>
+    <answer fraction="0"><text>Re-running clears the symbolic state, losing the path condition</text><feedback><text>No — the reason is determinism: same input, same path; the engine must change the input to change the path.</text></feedback></answer>
+    <answer fraction="0"><text>The solver forbids reusing any concrete input</text><feedback><text>No — there is no such prohibition; the point is that the same input simply retraces the same path.</text></feedback></answer>
+    <answer fraction="0"><text>Repeated runs randomly pick different branches</text><feedback><text>No — a deterministic program does not pick branches randomly; identical input yields the identical path.</text></feedback></answer>
+    <generalfeedback><text>For a deterministic program, the concrete input fully determines the path taken. To explore a different path the engine must supply a different input — obtained by negating a branch on the recorded path condition and solving.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace: order of inputs, depth-first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>if (a) {...} if (b) {...}</code> (two independent branches), starting from a run with <code>a=false, b=false</code> and flipping the last branch first, which is a plausible order of path conditions the engine solves next?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>First ¬a ∧ b (flip the last branch), then a ∧ ... (backtrack to flip the first)</text><feedback><text>Correct — depth-first flips the deepest branch (b) before backtracking to the earlier one (a).</text></feedback></answer>
+    <answer fraction="0"><text>First a ∧ b only, ignoring the other combinations</text><feedback><text>No — depth-first explores more than one combination; it starts by flipping the last branch to ¬a ∧ b.</text></feedback></answer>
+    <answer fraction="0"><text>It solves ¬a ∧ ¬b, the same as the seed run</text><feedback><text>No — that is the already-covered seed path; the engine flips a branch to reach a new one.</text></feedback></answer>
+    <answer fraction="0"><text>It must flip both branches simultaneously first</text><feedback><text>No — each step flips exactly one branch; the deepest first under depth-first order.</text></feedback></answer>
+    <generalfeedback><text>Depth-first flips the last branch first: from ¬a ∧ ¬b it forms ¬a ∧ b, then after that subtree backtracks to flip the first branch (a ∧ ...). Each step negates a single branch while keeping the prefix.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Concrete values keep the prefix consistent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the engine negates the last branch, it keeps the earlier branch conditions unchanged so that the solved input still reaches that branch point.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — preserving the prefix ensures the new input actually reaches the flipped branch before diverging.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The prefix is preserved precisely so the new input follows the same route up to the flipped branch, then diverges there.</text></feedback></answer>
+    <generalfeedback><text>To reach a sibling of a deep branch, the input must first satisfy all the earlier decisions leading to it. So the engine keeps the prefix constraints and negates only the target branch, then solves the whole conjunction.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Concolic Execution/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Concrete fallback for an external call</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void r(int x) {
+  int h = opaque_hash(x);   // native/library, no symbolic model
+  if (h == 1234) win();     // B1
+}</code></pre><p>Where a pure symbolic engine gets stuck, how does concolic execution proceed at B1?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It substitutes the concrete value of h observed at runtime, so B1 becomes a concrete true/false and execution continues down a real path</text><feedback><text>Correct — the concrete run always has an actual h, so concolic keeps going where pure symbolic stalls on the unmodeled call.</text></feedback></answer>
+    <answer fraction="0"><text>It builds a full symbolic model of opaque_hash automatically</text><feedback><text>No — the call is opaque with no model; concolic sidesteps this by using the concrete observed value, not by modeling it.</text></feedback></answer>
+    <answer fraction="0"><text>It aborts, exactly like pure symbolic execution</text><feedback><text>No — the whole point of the concrete companion is to continue past the opaque call rather than abort.</text></feedback></answer>
+    <answer fraction="0"><text>It proves B1 unreachable</text><feedback><text>No — it does not prove anything about B1; it simply plugs in the concrete h and follows the resulting real path.</text></feedback></answer>
+    <generalfeedback><text>Because opaque_hash has no symbolic model, its symbolic result is unknown. Concolic execution uses the concrete value of h that the actual run produced, so B1 evaluates concretely and execution proceeds along a genuine path — the key advantage over pure symbolic execution, which would stall.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Completeness cost of concrete fallback</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When concolic execution substitutes a concrete value for an unsolvable/opaque term, what is the cost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Incompleteness — by fixing that term to one concrete value, the engine may fail to explore other feasible paths that depend on it</text><feedback><text>Correct — the fallback keeps execution going but can hide paths reachable only for other values of the opaque term.</text></feedback></answer>
+    <answer fraction="0"><text>Unsoundness — it may report paths that cannot actually run</text><feedback><text>No — every run is concrete and real, so soundness of explored paths is preserved; the cost is missed paths (completeness).</text></feedback></answer>
+    <answer fraction="0"><text>It always crashes the solver</text><feedback><text>No — substituting a concrete value simplifies the constraint; it does not crash the solver.</text></feedback></answer>
+    <answer fraction="0"><text>There is no cost; coverage is unaffected</text><feedback><text>No — pinning the opaque term to one value can prevent reaching alternative paths, an incompleteness cost.</text></feedback></answer>
+    <generalfeedback><text>Concrete fallback preserves soundness (paths explored are real) but sacrifices completeness: fixing an opaque term to the one observed concrete value can mask branches feasible only under other values of that term, so some paths may never be explored.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Nonlinear constraint fallback</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void s(int x, int y) {
+  if (x * y == 30)   // B1, nonlinear
+    t();
+}</code></pre><p>Run 1 uses <code>x = 6, y = 4</code> (so x*y = 24, B1 false). If the solver cannot handle the nonlinear flip, how can concolic still make progress?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fix one variable to its concrete value (e.g. x = 6) so the constraint becomes linear (6*y == 30 → y = 5), then solve</text><feedback><text>Correct — pinning x to its concrete value linearises the constraint, letting the solver find y = 5 and reach t().</text></feedback></answer>
+    <answer fraction="0"><text>Give up entirely, since nonlinear constraints are undecidable</text><feedback><text>No — concolic uses the concrete value of one operand to simplify to a solvable linear constraint rather than giving up.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly guess both x and y until x*y == 30</text><feedback><text>No — the concolic approach pins one operand concretely and solves the resulting linear equation; that is the point of the concrete companion.</text></feedback></answer>
+    <answer fraction="0"><text>Modify the program to remove the multiplication</text><feedback><text>No — the program is never modified; the concrete value of x is substituted to simplify the constraint.</text></feedback></answer>
+    <generalfeedback><text>Concolic execution substitutes the concrete value of one operand (x = 6), turning x*y == 30 into the linear 6*y == 30, which the solver satisfies with y = 5. Running x = 6, y = 5 reaches t(). The cost is incompleteness: with x pinned to 6 it may miss solutions like x = 5, y = 6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Soundness vs completeness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement correctly characterises concolic execution's guarantees?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The paths it explores are all real (sound), but it may miss some feasible paths (incomplete)</text><feedback><text>Correct — real concrete runs guarantee no false paths, while concrete fallback and bounding can leave paths unexplored.</text></feedback></answer>
+    <answer fraction="0"><text>It explores every feasible path (complete) but may report some that cannot run (unsound)</text><feedback><text>No — it is the opposite: sound on explored paths, but not guaranteed complete.</text></feedback></answer>
+    <answer fraction="0"><text>It is both fully sound and fully complete for all programs</text><feedback><text>No — path explosion and concrete fallback mean completeness is not guaranteed.</text></feedback></answer>
+    <answer fraction="0"><text>It is neither sound nor complete</text><feedback><text>No — because every explored path is a real execution, it is sound with respect to the paths it reports.</text></feedback></answer>
+    <generalfeedback><text>Every concolic step is a genuine concrete execution, so the paths it explores are real (soundness of explored paths — no false positives from infeasible paths). But concrete fallback for opaque/nonlinear terms and bounded search mean it may not reach every feasible path (incompleteness).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path explosion is managed, not eliminated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does concolic execution relate to path explosion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It still faces path explosion and manages it with a search strategy and iteration/depth limits, rather than eliminating it</text><feedback><text>Correct — concolic does not remove the exponential path growth; it bounds exploration to cope.</text></feedback></answer>
+    <answer fraction="0"><text>It eliminates path explosion entirely by using concrete inputs</text><feedback><text>No — using concrete inputs does not remove the exponential number of branch combinations; concolic still must bound its search.</text></feedback></answer>
+    <answer fraction="0"><text>It has no notion of paths, so path explosion does not apply</text><feedback><text>No — concolic explicitly explores paths by branch flipping, so path explosion very much applies.</text></feedback></answer>
+    <answer fraction="0"><text>Path explosion only affects random testing, not concolic</text><feedback><text>No — path explosion is a core challenge for all path-based techniques, concolic included.</text></feedback></answer>
+    <generalfeedback><text>Each branch flip can lead to more branches, so the number of paths still grows exponentially. Concolic manages this with search heuristics (depth-first, coverage-guided) and bounds on iterations, loop unrolling, or depth — but it does not eliminate path explosion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-branch trace: naming each next input (1)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void f(int a, int b) {
+  if (a &gt; 0)          // B1
+    if (b == a + 1)   // B2
+      target();
+}</code></pre><p>Seed run: <code>a = -1, b = 0</code> (B1 false). Under depth-first flipping, what is the input for the run that first makes B1 true (flipping B1)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Any a &gt; 0 with b unconstrained, e.g. a = 1, b = 0 — solving the single constraint a &gt; 0</text><feedback><text>Correct — flipping B1 only imposes a &gt; 0; B2 is not yet on the recorded path, so b is free (e.g. b = 0).</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 2 — must already satisfy B2 as well</text><feedback><text>No — when flipping B1, only a &gt; 0 is required; B2 has not been recorded yet, so b need not satisfy b == a + 1 at this step.</text></feedback></answer>
+    <answer fraction="0"><text>a = -1, b = 0 — reuse the seed</text><feedback><text>No — the seed has B1 false; flipping B1 requires a &gt; 0, so the input must change.</text></feedback></answer>
+    <answer fraction="0"><text>No input works; a &gt; 0 is unsatisfiable</text><feedback><text>No — a &gt; 0 is trivially satisfiable, e.g. a = 1.</text></feedback></answer>
+    <generalfeedback><text>The seed took B1 false, so its path condition is just a ≤ 0. Negating it gives a &gt; 0, the only constraint at this step (B2 was never reached). The solver returns any a &gt; 0, e.g. a = 1, b = 0.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-branch trace: naming each next input (2)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Continuing the previous snippet, the run <code>a = 1, b = 0</code> now takes B1 true and B2 false (0 ≠ 2), with PC = <code>(a &gt; 0) ∧ (b ≠ a + 1)</code>. Flipping B2, which input reaches <code>target()</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 1, b = 2 — keeps a &gt; 0 and satisfies b == a + 1</text><feedback><text>Correct — preserve a &gt; 0, negate b ≠ a + 1 to b == a + 1; with a = 1 that means b = 2.</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 1 — b unchanged from a step earlier</text><feedback><text>No — b must equal a + 1 = 2; b = 1 fails the flipped constraint.</text></feedback></answer>
+    <answer fraction="0"><text>a = 0, b = 1 — b == a + 1 holds</text><feedback><text>No — a = 0 breaks the preserved prefix a &gt; 0, so B1 becomes false and target() is unreachable.</text></feedback></answer>
+    <answer fraction="0"><text>a = 2, b = 2 — both equal</text><feedback><text>No — with a = 2, b == a + 1 requires b = 3, not 2.</text></feedback></answer>
+    <generalfeedback><text>Flipping B2 gives (a &gt; 0) ∧ (b == a + 1). Keeping a = 1 from the prefix, b must be a + 1 = 2. The input a = 1, b = 2 reaches target(). (The solver could also pick another a &gt; 0 with matching b.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-branch trace: three iterations count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the nested snippet <code>if (a &gt; 0) if (b == a + 1) target();</code>, starting from seed <code>a = -1, b = 0</code>, how many concolic runs (including the seed) are needed to first reach <code>target()</code>, flipping one branch per iteration depth-first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — seed (B1 false), then B1 true/B2 false, then B1 true/B2 true reaching target()</text><feedback><text>Correct — one flip is needed to enter B1, another to satisfy B2, so the third run hits target().</text></feedback></answer>
+    <answer fraction="0"><text>2 — the seed plus one flip reaches target()</text><feedback><text>No — the seed fails B1; one flip only makes B1 true (B2 still false), so a second flip is needed, giving three runs.</text></feedback></answer>
+    <answer fraction="0"><text>1 — the seed reaches target() directly</text><feedback><text>No — the seed has a = -1, failing B1 immediately, so it cannot reach target().</text></feedback></answer>
+    <answer fraction="0"><text>4 — each nesting level doubles the runs</text><feedback><text>No — this particular path needs exactly two branch flips after the seed, i.e. three runs, not four.</text></feedback></answer>
+    <generalfeedback><text>Run 1 (seed a=-1): B1 false. Run 2 (a=1,b=0): flip B1 → B1 true, B2 false. Run 3 (a=1,b=2): flip B2 → both true, reaching target(). Three runs in total.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bounding the search</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To keep concolic exploration finite on a loop whose count depends on input, a common approach is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Impose a bound — e.g. a depth/iteration limit or bounded loop unrolling — accepting that paths beyond the bound go unexplored</text><feedback><text>Correct — bounding trades completeness for termination, a standard path-explosion control.</text></feedback></answer>
+    <answer fraction="0"><text>Negate every loop-body branch at once to cover all iterations in one run</text><feedback><text>No — a single run covers one path; loops are handled by bounding the exploration, not by simultaneous negation.</text></feedback></answer>
+    <answer fraction="0"><text>Prove the loop terminates and then skip it</text><feedback><text>No — skipping the loop would miss its behavior; the loop is bounded/unrolled instead.</text></feedback></answer>
+    <answer fraction="0"><text>Switch to pure symbolic execution, which has no path explosion</text><feedback><text>No — pure symbolic execution also suffers path explosion; switching does not solve it.</text></feedback></answer>
+    <generalfeedback><text>A symbolic loop count can spawn unboundedly many paths, so engines cap exploration with an iteration/depth limit or bounded unrolling (and search heuristics). This keeps the run finite at the price of not exploring paths beyond the bound — an accepted incompleteness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CUTE and pointer inputs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>CUTE extended concolic testing to programs with pointers and dynamic data structures by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tracking a symbolic representation of the heap/pointer structure alongside concrete pointers, and solving pointer constraints (e.g. aliasing, null-ness) as well as scalar ones</text><feedback><text>Correct — CUTE handles both a logical input map for scalars and a structure for pointer inputs, using the concrete run to resolve what the solver cannot.</text></feedback></answer>
+    <answer fraction="0"><text>Forbidding all pointer inputs so only integers are tested</text><feedback><text>No — CUTE's contribution was precisely to support pointer and data-structure inputs, not to forbid them.</text></feedback></answer>
+    <answer fraction="0"><text>Converting the whole program to a pointer-free form before testing</text><feedback><text>No — CUTE reasons about pointers directly, using concrete values where symbolic reasoning is insufficient.</text></feedback></answer>
+    <answer fraction="0"><text>Running only pure symbolic execution on the heap</text><feedback><text>No — CUTE is concolic: it combines concrete pointer values with symbolic constraints, which is what makes heap inputs tractable.</text></feedback></answer>
+    <generalfeedback><text>CUTE (Concolic Unit Testing Engine) represents pointer inputs with a logical structure and generates both scalar values and pointer shapes (including aliasing and null cases). The concrete run provides real pointers to fall back on, letting it test functions over dynamic data structures.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Concrete fallback preserves soundness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Even when concolic execution substitutes concrete values for terms the solver cannot handle, the paths it actually executes remain genuinely feasible (no false paths are introduced).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — substitution uses the value from a real run, so the resulting execution is still a real, feasible path.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Concrete fallback never fabricates a path; it uses observed values, so every executed path remains real. The tradeoff is missed paths, not false ones.</text></feedback></answer>
+    <generalfeedback><text>Because the substituted value comes from an actual execution, the path the engine then follows is one the program really can take. Soundness of explored paths is preserved; only completeness (some feasible paths may be skipped) is at risk.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Divergence when a constraint is approximated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose concolic execution pins an opaque term to a concrete value and solves for a new input, but on re-running, execution takes a different branch than predicted (a "divergence"). What does the engine do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It detects the divergence from the actual concrete run and records the real path taken, since the concrete execution is always the ground truth</text><feedback><text>Correct — the concrete run is authoritative, so a divergence is simply observed and the true path recorded, keeping the analysis sound.</text></feedback></answer>
+    <answer fraction="0"><text>It trusts the predicted path and ignores the actual run</text><feedback><text>No — the concrete run is ground truth; the engine records the path actually executed, not the predicted one.</text></feedback></answer>
+    <answer fraction="0"><text>It reports the predicted path as covered even though it was not taken</text><feedback><text>No — that would be unsound; the engine relies on the real run, which reveals the divergence.</text></feedback></answer>
+    <answer fraction="0"><text>It crashes because the prediction was wrong</text><feedback><text>No — divergence is handled gracefully by observing the actual concrete run and continuing.</text></feedback></answer>
+    <generalfeedback><text>Divergences can happen when a substituted/approximated term makes the solved input take an unexpected path. Because concolic always executes concretely, it observes the real path and records it — the concrete run is the ground truth, preserving soundness even when a prediction was off.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-branch trace with a concrete-fallback step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre><code>void w(int x) {
+  int t = external(x);   // opaque; run observed t = 3 for x = 2
+  if (x &gt; 0)             // B1
+    if (t == 3)          // B2, depends on opaque t
+      goal();
+}</code></pre><p>Run 1 uses <code>x = 2</code>: B1 true, and t = 3 so B2 true — <code>goal()</code> is reached. Is the path to goal() reported, and is it real?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes and yes — the concrete run actually reached goal(), so the path is reported and is genuinely feasible; B2 used the concrete t = 3</text><feedback><text>Correct — concolic uses the observed t, so goal() is really reached and soundly reported.</text></feedback></answer>
+    <answer fraction="0"><text>No — B2 depends on an opaque call, so concolic cannot report the path</text><feedback><text>No — concolic uses the concrete t = 3, so it evaluates B2 and really reaches goal(); the path is reported.</text></feedback></answer>
+    <answer fraction="0"><text>Yes but it may be a false path, since t is opaque</text><feedback><text>No — the run truly executed to goal(), so the path is real, not false; opacity affects completeness, not this run's reality.</text></feedback></answer>
+    <answer fraction="0"><text>The engine must abort at the opaque call</text><feedback><text>No — that is pure symbolic behavior; concolic proceeds using the observed t = 3.</text></feedback></answer>
+    <generalfeedback><text>The concrete run computed t = 3 from external(2) and really executed through B1 and B2 into goal(). Concolic reports this genuinely feasible path. What it cannot easily do is force B2 the other way for other x, since the relationship between x and t is opaque — an incompleteness, not an unsoundness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Search strategy choice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why do concolic engines use search strategies (depth-first, coverage-guided, random path) rather than exhaustively exploring all paths?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because the path space is exponential (path explosion), a strategy prioritises which branches to flip within a limited budget</text><feedback><text>Correct — with too many paths to try all, the strategy decides where to spend limited solver/run budget.</text></feedback></answer>
+    <answer fraction="0"><text>Because the solver can only answer one query per program</text><feedback><text>No — solvers answer many queries; the reason for strategies is the exponential number of paths.</text></feedback></answer>
+    <answer fraction="0"><text>Because concrete runs are not repeatable</text><feedback><text>No — concrete runs are repeatable; strategies exist to cope with the huge path space.</text></feedback></answer>
+    <answer fraction="0"><text>Because branch negation is impossible without a strategy</text><feedback><text>No — negation works regardless; a strategy just chooses which negation to pursue next given the path explosion.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive exploration is infeasible because branches and loops make the path count exponential. Search strategies (depth-first, coverage-guided, generational, random-path) choose which branch to flip next so the limited budget of runs and solver calls targets useful, uncovered paths.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Concolic does not guarantee full coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Concolic execution guarantees that, given enough time, it will cover every feasible path of any program.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Incorrect — concrete fallback for opaque/nonlinear terms and bounding for loops mean some feasible paths may never be reached.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — concolic does not guarantee full path coverage; concrete fallback and bounded search can leave feasible paths unexplored.</text></feedback></answer>
+    <generalfeedback><text>Concolic execution manages path explosion with bounds and heuristics and falls back to concrete values for terms it cannot solve. Both can prevent it from reaching every feasible path, so full coverage is not guaranteed — though every path it does explore is real.</text></generalfeedback>
+  </question>
+</quiz>

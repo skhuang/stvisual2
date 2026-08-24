@@ -5105,6 +5105,2502 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "concolic-execution": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What concolic means",
+          "text": "<p>The word <strong>concolic</strong> is a blend of which two words?</p>",
+          "answers": [
+            {
+              "text": "CONCrete + symbOLIC — the program runs on a concrete input while symbolic constraints are collected simultaneously",
+              "fraction": 100,
+              "feedback": "Correct — concolic execution does both at once: a real concrete run plus symbolic path-condition tracking."
+            },
+            {
+              "text": "CONCurrent + symbOLIC — it runs many symbolic threads in parallel",
+              "fraction": 0,
+              "feedback": "No — the \"conc\" is concrete, not concurrent; concolic is about combining concrete and symbolic, not parallelism."
+            },
+            {
+              "text": "CONtrol + logICs — it analyses control-flow logic statically",
+              "fraction": 0,
+              "feedback": "No — concolic = concrete + symbolic; it is a dynamic technique, not a static control-flow analysis."
+            },
+            {
+              "text": "CONtext + symbOLIC — it tracks contextual symbols only",
+              "fraction": 0,
+              "feedback": "No — the first part stands for concrete, referring to the real runtime values used alongside the symbolic ones."
+            }
+          ],
+          "generalFeedback": "Concolic = CONCrete + symbOLIC. The program is executed on an actual concrete input, and at the same time the engine records the symbolic path condition along the path that concrete run takes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concrete state vs symbolic state",
+          "text": "<p>During concolic execution the engine keeps two states side by side. What are they?</p>",
+          "answers": [
+            {
+              "text": "A concrete state (actual values driving the real run) and a symbolic state (expressions/constraints over the input symbols)",
+              "fraction": 100,
+              "feedback": "Correct — the concrete values pick the path actually taken, while the symbolic state records the constraints along it."
+            },
+            {
+              "text": "A source-code state and a compiled-binary state",
+              "fraction": 0,
+              "feedback": "No — both states describe the running program's data; one is concrete values, the other symbolic expressions."
+            },
+            {
+              "text": "A pass state and a fail state of the test oracle",
+              "fraction": 0,
+              "feedback": "No — the two states are concrete and symbolic; pass/fail is a separate testing concern."
+            },
+            {
+              "text": "Two independent random states used for statistical sampling",
+              "fraction": 0,
+              "feedback": "No — one state is a real concrete run, the other is a symbolic constraint state; neither is a random sample of the other."
+            }
+          ],
+          "generalFeedback": "Concolic execution maintains a concrete state (the actual values, which deterministically select the path the run takes) alongside a symbolic state (the variable-to-expression map and the path condition collected along that same path).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path condition in concolic",
+          "text": "<p>In concolic execution, the <strong>path condition</strong> recorded during a run is:</p>",
+          "answers": [
+            {
+              "text": "The conjunction of the branch conditions taken along the single path that the concrete input actually drove",
+              "fraction": 100,
+              "feedback": "Correct — because a concrete run follows exactly one path, the path condition describes that one executed path."
+            },
+            {
+              "text": "The disjunction of all path conditions of every path in the program",
+              "fraction": 0,
+              "feedback": "No — a concolic run records only the one path the concrete input took, as a conjunction of its branch outcomes."
+            },
+            {
+              "text": "A count of how many branches the program contains",
+              "fraction": 0,
+              "feedback": "No — the path condition is a logical formula over the inputs, not a branch count."
+            },
+            {
+              "text": "The concrete output value the program returned",
+              "fraction": 0,
+              "feedback": "No — it is the constraints on the inputs along the executed path, not the output."
+            }
+          ],
+          "generalFeedback": "Because the concrete input drives exactly one path, the engine collects the branch conditions taken on that path and conjoins them into the path condition — a formula over the symbolic inputs characterizing that executed path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch negation",
+          "text": "<p>After a concolic run records a path condition, how does the engine try to reach a new, not-yet-covered path?</p>",
+          "answers": [
+            {
+              "text": "It negates one branch condition in the recorded path condition and asks the solver for an input satisfying the modified constraint",
+              "fraction": 100,
+              "feedback": "Correct — flipping one branch and solving yields a concrete input that drives execution the other way at that branch."
+            },
+            {
+              "text": "It recompiles the program with that branch removed",
+              "fraction": 0,
+              "feedback": "No — the program is never modified; only the path condition is altered and re-solved."
+            },
+            {
+              "text": "It keeps re-running the same concrete input until a different path appears",
+              "fraction": 0,
+              "feedback": "No — a deterministic program on the same input always takes the same path; the engine negates a branch and solves for a new input."
+            },
+            {
+              "text": "It negates every branch at once and solves the whole thing",
+              "fraction": 0,
+              "feedback": "No — the standard step flips one branch (typically the last unnegated one) while keeping the prefix, then solves."
+            }
+          ],
+          "generalFeedback": "The engine picks a branch condition on the recorded path, negates it (keeping the constraints before it), and hands the modified path condition to a solver; the satisfying assignment is the next concrete input, which drives execution down the sibling path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The concolic loop",
+          "text": "<p>Which sequence best describes one iteration of the concolic testing loop?</p>",
+          "answers": [
+            {
+              "text": "Run on a concrete input → record the path condition → negate a branch → solve → the solution is the next concrete input",
+              "fraction": 100,
+              "feedback": "Correct — this concrete-run / record / negate / solve cycle repeats to explore new paths."
+            },
+            {
+              "text": "Solve a random constraint → compile → run → discard the result",
+              "fraction": 0,
+              "feedback": "No — concolic starts from a concrete run, records the real path condition, then negates and solves; nothing is discarded and no compilation step is involved."
+            },
+            {
+              "text": "Enumerate all paths statically → solve each → pick the shortest",
+              "fraction": 0,
+              "feedback": "No — concolic is dynamic: it drives one concrete run at a time and steers to new paths by branch negation."
+            },
+            {
+              "text": "Mutate the source code → re-run the tests → measure coverage",
+              "fraction": 0,
+              "feedback": "No — that is mutation testing; concolic negates branch constraints and solves for inputs, leaving the code unchanged."
+            }
+          ],
+          "generalFeedback": "The concolic loop: pick a concrete input (often random at first), execute it, record the path condition of the path taken, negate one branch condition, solve the modified constraint to obtain the next concrete input, and repeat — driving execution down new paths each time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What DART stands for",
+          "text": "<p><strong>DART</strong>, one of the original concolic tools, stands for:</p>",
+          "answers": [
+            {
+              "text": "Directed Automated Random Testing",
+              "fraction": 100,
+              "feedback": "Correct — DART directs random testing using the symbolic path condition to reach new paths."
+            },
+            {
+              "text": "Dynamic Abstract Refinement Testing",
+              "fraction": 0,
+              "feedback": "No — DART stands for Directed Automated Random Testing."
+            },
+            {
+              "text": "Deterministic Assertion Regression Tool",
+              "fraction": 0,
+              "feedback": "No — DART is Directed Automated Random Testing, a concolic engine."
+            },
+            {
+              "text": "Distributed Analysis of Runtime Traces",
+              "fraction": 0,
+              "feedback": "No — DART is Directed Automated Random Testing."
+            }
+          ],
+          "generalFeedback": "DART (Directed Automated Random Testing) starts from random concrete inputs and uses the collected symbolic path condition to direct subsequent inputs toward uncovered branches — coining the concolic approach.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What CUTE stands for",
+          "text": "<p><strong>CUTE</strong>, a well-known concolic tool, stands for:</p>",
+          "answers": [
+            {
+              "text": "Concolic Unit Testing Engine",
+              "fraction": 100,
+              "feedback": "Correct — CUTE applies concolic execution to unit testing, including code with pointers."
+            },
+            {
+              "text": "Constraint-based Uniform Test Explorer",
+              "fraction": 0,
+              "feedback": "No — CUTE stands for Concolic Unit Testing Engine."
+            },
+            {
+              "text": "Coverage Under Test Estimator",
+              "fraction": 0,
+              "feedback": "No — CUTE is the Concolic Unit Testing Engine."
+            },
+            {
+              "text": "Combined Unit & Type Evaluator",
+              "fraction": 0,
+              "feedback": "No — CUTE is the Concolic Unit Testing Engine."
+            }
+          ],
+          "generalFeedback": "CUTE (Concolic Unit Testing Engine) brought concolic execution to C unit testing, notably handling pointer/data-structure inputs by combining concrete and symbolic reasoning.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Why keep a concrete input alongside the symbolic state",
+          "text": "<p>A key reason concolic execution keeps a concrete input alongside the symbolic state is that when a constraint cannot be solved (e.g. it involves an external call), the engine can substitute the concrete value observed at runtime and keep going.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the concrete value is a ready fallback that lets execution continue where pure symbolic reasoning would stall."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is precisely a central advantage of concolic execution: the concrete run supplies a real value to substitute when a symbolic term is unsolvable."
+            }
+          ],
+          "generalFeedback": "Keeping a concrete input means the engine always has a real observed value for every expression. When a symbolic term is too hard, nonlinear, or opaque (an external/native call), it substitutes the concrete value and continues — something pure symbolic execution cannot do."
+        },
+        {
+          "type": "multichoice",
+          "name": "First concrete input",
+          "text": "<p>Where does the very first concrete input in a concolic run typically come from?</p>",
+          "answers": [
+            {
+              "text": "It is chosen arbitrarily, often randomly — the loop then refines subsequent inputs by solving negated path conditions",
+              "fraction": 100,
+              "feedback": "Correct — the seed input can be random; the engine improves coverage from there by directed branch flipping."
+            },
+            {
+              "text": "It must be a value proved optimal by the solver before any run",
+              "fraction": 0,
+              "feedback": "No — the first input needs no proof; it is typically just a random seed that starts the loop."
+            },
+            {
+              "text": "It is always zero for every input variable",
+              "fraction": 0,
+              "feedback": "No — while a fixed seed is possible, the point is that the first input is arbitrary/random, not a mandated zero."
+            },
+            {
+              "text": "It is derived by static analysis of the whole program first",
+              "fraction": 0,
+              "feedback": "No — concolic is dynamic; it simply starts from a concrete (often random) input rather than a static pre-analysis."
+            }
+          ],
+          "generalFeedback": "Concolic execution bootstraps from an arbitrary, often random, concrete input (this is the \"Random\" in DART). Each later input is computed by negating a branch on the previous run's path condition and solving.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concrete run follows one path",
+          "text": "<p>Because it uses a concrete input, a single concolic run follows exactly one execution path (in a deterministic program).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — concrete values deterministically select one path; that is why the run records a single path condition."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A concrete input in a deterministic program takes exactly one path; concolic reaches other paths only by solving negated constraints on later runs."
+            }
+          ],
+          "generalFeedback": "Each concolic run is a real execution on concrete values, so it takes one path and records that path's condition. New paths are reached across iterations by branch negation and re-solving, not within a single run."
+        },
+        {
+          "type": "multichoice",
+          "name": "Role of the solver in concolic",
+          "text": "<p>What does the constraint/SMT solver do in the concolic loop?</p>",
+          "answers": [
+            {
+              "text": "It solves the modified (partly negated) path condition to produce the next concrete input",
+              "fraction": 100,
+              "feedback": "Correct — the solver's satisfying assignment becomes the concrete input for the next run."
+            },
+            {
+              "text": "It executes the program on the concrete input",
+              "fraction": 0,
+              "feedback": "No — running the program is done by the (instrumented) execution; the solver only computes inputs from constraints."
+            },
+            {
+              "text": "It decides whether the test's output is correct",
+              "fraction": 0,
+              "feedback": "No — that is the oracle's job; the solver produces inputs, not verdicts."
+            },
+            {
+              "text": "It measures branch coverage of the suite",
+              "fraction": 0,
+              "feedback": "No — coverage tracking is separate; the solver turns a negated path condition into a concrete input."
+            }
+          ],
+          "generalFeedback": "After the engine negates a branch, it hands the modified path condition to the solver; a satisfying assignment is exactly the concrete input that will drive the next run down the newly targeted path (or UNSAT if that path is infeasible).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concolic vs pure symbolic (one-line)",
+          "text": "<p>Which best captures how concolic execution differs from pure symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "Concolic always has a real concrete run alongside the symbolic state, so it can substitute concrete values when the symbolic reasoning gets stuck",
+              "fraction": 100,
+              "feedback": "Correct — the concrete run is the safety net that lets concolic proceed past unsolvable terms."
+            },
+            {
+              "text": "Concolic never uses a solver, while pure symbolic always does",
+              "fraction": 0,
+              "feedback": "No — concolic relies on a solver to flip branches; the difference is the accompanying concrete run."
+            },
+            {
+              "text": "Pure symbolic runs the program concretely, concolic does not",
+              "fraction": 0,
+              "feedback": "No — it is the reverse: concolic performs real concrete runs; pure symbolic does not."
+            },
+            {
+              "text": "Concolic guarantees full path coverage, pure symbolic does not",
+              "fraction": 0,
+              "feedback": "No — neither guarantees full coverage; both face path explosion. The real distinction is the concrete companion run."
+            }
+          ],
+          "generalFeedback": "Both track a symbolic path condition and use a solver. The concolic difference is the simultaneous concrete run: it supplies a real value to fall back on when a constraint is unsolvable, nonlinear, or involves an opaque external call.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Instrumentation purpose",
+          "text": "<p>Concolic tools instrument the program under test primarily in order to:</p>",
+          "answers": [
+            {
+              "text": "Observe, during the concrete run, the branch conditions taken and build the symbolic path condition in parallel",
+              "fraction": 100,
+              "feedback": "Correct — instrumentation collects the symbolic constraints alongside the real execution."
+            },
+            {
+              "text": "Slow the program down so the solver has time to think",
+              "fraction": 0,
+              "feedback": "No — instrumentation exists to gather symbolic constraints during the run, not to add delay."
+            },
+            {
+              "text": "Replace all branches with random coin flips",
+              "fraction": 0,
+              "feedback": "No — branches are observed and recorded symbolically; they are not replaced by randomness."
+            },
+            {
+              "text": "Permanently rewrite the program to a bug-free version",
+              "fraction": 0,
+              "feedback": "No — instrumentation only records information for the analysis; it does not fix the program."
+            }
+          ],
+          "generalFeedback": "The program is instrumented so that, as the concrete input drives execution, the engine simultaneously records each branch condition symbolically and accumulates the path condition — the raw material for the negate-and-solve step.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Paths explored are real",
+          "text": "<p>Every path that a concolic run explores corresponds to a real execution on a concrete input, so concolic execution reports no false (infeasible) paths.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each concolic step is an actual concrete run, so the paths it reports are genuinely executable (this is its soundness with respect to explored paths)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Because every explored path is driven by a concrete input that really runs, concolic execution does not manufacture infeasible paths."
+            }
+          ],
+          "generalFeedback": "Concolic execution actually runs the program on each generated concrete input, so any path it reports as explored is genuinely feasible. Its limitation is completeness (it may miss some paths), not soundness of the paths it does explore."
+        },
+        {
+          "type": "multichoice",
+          "name": "What picks the path a run takes",
+          "text": "<p>In a single concolic run, what determines which one path through the program is taken?</p>",
+          "answers": [
+            {
+              "text": "The concrete input values, which are executed for real and select each branch outcome deterministically",
+              "fraction": 100,
+              "feedback": "Correct — the concrete state drives the actual run and thus fixes the path; the symbolic state just records it."
+            },
+            {
+              "text": "The solver, which chooses a path before the run begins",
+              "fraction": 0,
+              "feedback": "No — within a run the concrete values pick the path; the solver only computes inputs for future runs."
+            },
+            {
+              "text": "The path condition, which forces execution down a chosen branch",
+              "fraction": 0,
+              "feedback": "No — the path condition is recorded from the run; it does not steer the current concrete execution."
+            },
+            {
+              "text": "A random choice made at each branch",
+              "fraction": 0,
+              "feedback": "No — branches are decided by the concrete values, not by randomness during the run."
+            }
+          ],
+          "generalFeedback": "The concrete input is really executed, so at each branch the concrete values decide true/false and thus fix the single path taken. The symbolic side merely records that path's condition for later branch negation.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Trace: single if, record the PC",
+          "text": "<p>Consider:</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>The concolic run starts with concrete input <code>x = 0</code>. What path condition does this run record?</p>",
+          "answers": [
+            {
+              "text": "x ≤ 5 (the false side of B1, since 0 > 5 is false)",
+              "fraction": 100,
+              "feedback": "Correct — x = 0 makes x > 5 false, so the run takes the false branch and records x ≤ 5."
+            },
+            {
+              "text": "x > 5 (the true side of B1)",
+              "fraction": 0,
+              "feedback": "No — x = 0 does not satisfy x > 5, so the run takes the false branch and records x ≤ 5, not x > 5."
+            },
+            {
+              "text": "x == 0 (the concrete value)",
+              "fraction": 0,
+              "feedback": "No — the path condition records the branch outcome (x ≤ 5), not the specific concrete value used."
+            },
+            {
+              "text": "true (no constraint, because no branch was taken)",
+              "fraction": 0,
+              "feedback": "No — the branch B1 was evaluated; its false outcome contributes the constraint x ≤ 5."
+            }
+          ],
+          "generalFeedback": "With x = 0, the condition x > 5 evaluates false, so the run follows the false branch. The engine records the negation of the branch condition it did not take, i.e. the constraint actually satisfied: x ≤ 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: negate and solve for next input",
+          "text": "<p>Same code:</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>The first run used <code>x = 0</code> and recorded <code>x ≤ 5</code>. To cover the other side of B1, the engine negates it. Which next concrete input could the solver return?</p>",
+          "answers": [
+            {
+              "text": "x = 6 (any value satisfying the negated constraint x > 5)",
+              "fraction": 100,
+              "feedback": "Correct — negating x ≤ 5 gives x > 5, and x = 6 satisfies it, driving the run into error()."
+            },
+            {
+              "text": "x = 5",
+              "fraction": 0,
+              "feedback": "No — 5 > 5 is false, so x = 5 still takes the false branch and does not cover the other side."
+            },
+            {
+              "text": "x = -1",
+              "fraction": 0,
+              "feedback": "No — -1 does not satisfy x > 5; it would re-take the already-covered false branch."
+            },
+            {
+              "text": "No input exists; the negated constraint is unsatisfiable",
+              "fraction": 0,
+              "feedback": "No — x > 5 is easily satisfiable (e.g. x = 6), so the path is feasible."
+            }
+          ],
+          "generalFeedback": "Negating the recorded constraint x ≤ 5 yields x > 5. The solver returns any satisfying value (e.g. x = 6), which becomes the next concrete input and drives execution into error().",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: equality guard",
+          "text": "<p>Consider:</p><pre><code>void g(int x) {\n  if (x == 42) bug();   // branch B1\n}</code></pre><p>The run starts with <code>x = 7</code> (so B1 is false, PC is <code>x ≠ 42</code>). What next input does negating B1 yield?</p>",
+          "answers": [
+            {
+              "text": "x = 42 — negating x ≠ 42 gives x == 42, whose only solution is 42",
+              "fraction": 100,
+              "feedback": "Correct — the solver computes the exact value 42, immediately reaching bug()."
+            },
+            {
+              "text": "x = 43 — any nearby value works",
+              "fraction": 0,
+              "feedback": "No — the negated constraint is the equality x == 42, so 43 does not satisfy it; only 42 does."
+            },
+            {
+              "text": "x = 7 — the run keeps the same input",
+              "fraction": 0,
+              "feedback": "No — x = 7 gives the already-covered false branch; the engine solves the flipped equality for 42."
+            },
+            {
+              "text": "No solution; equalities cannot be negated",
+              "fraction": 0,
+              "feedback": "No — negating x ≠ 42 is simply x == 42, which the solver satisfies with x = 42."
+            }
+          ],
+          "generalFeedback": "The first run's constraint is x ≠ 42; negating it gives x == 42. The solver returns exactly x = 42 — the classic case where concolic/symbolic reasoning beats random testing, which would almost never guess 42.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: which branch to negate (DFS)",
+          "text": "<p>A run took branches in order <code>[B1: true, B2: true]</code>, giving path condition <code>c1 ∧ c2</code>. Using the usual depth-first strategy (flip the last unnegated branch first), what is the next path condition to solve?</p>",
+          "answers": [
+            {
+              "text": "c1 ∧ ¬c2 — keep the prefix c1, negate the last branch c2",
+              "fraction": 100,
+              "feedback": "Correct — depth-first flips the deepest (last) branch first while preserving the earlier decisions."
+            },
+            {
+              "text": "¬c1 ∧ c2 — negate the first branch, keep the second",
+              "fraction": 0,
+              "feedback": "No — that flips B1 first; depth-first negates the last branch (c2) before backtracking to earlier ones."
+            },
+            {
+              "text": "¬c1 ∧ ¬c2 — negate both branches",
+              "fraction": 0,
+              "feedback": "No — each step negates exactly one branch; here the last one, giving c1 ∧ ¬c2."
+            },
+            {
+              "text": "c1 ∧ c2 — re-solve the same condition",
+              "fraction": 0,
+              "feedback": "No — re-solving the same condition re-covers the same path; the engine flips c2 to reach a new one."
+            }
+          ],
+          "generalFeedback": "Depth-first exploration negates the last unnegated branch condition while keeping the prefix intact: from c1 ∧ c2 it forms c1 ∧ ¬c2. Only after exhausting the c1-prefix subtree does it backtrack and flip c1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: two branches, next input",
+          "text": "<p>Consider:</p><pre><code>void h(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b &gt; 0)        // B2\n      target();\n}</code></pre><p>Run 1 uses <code>a = 1, b = -1</code>: B1 true, B2 false, PC = <code>(a &gt; 0) ∧ (b ≤ 0)</code>. Flipping the last branch (B2), what input reaches <code>target()</code>?</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 1 — satisfies (a > 0) ∧ (b > 0)",
+              "fraction": 100,
+              "feedback": "Correct — keeping a > 0 and negating b ≤ 0 to b > 0 gives a path into target(); a = 1, b = 1 works."
+            },
+            {
+              "text": "a = -1, b = 1 — satisfies b > 0",
+              "fraction": 0,
+              "feedback": "No — a = -1 fails a > 0, so B1 is false and target() is never reached; the prefix a > 0 must be kept."
+            },
+            {
+              "text": "a = 1, b = 0 — b is non-negative",
+              "fraction": 0,
+              "feedback": "No — b > 0 requires strictly positive b; b = 0 fails, so B2 stays false."
+            },
+            {
+              "text": "a = 0, b = 0 — both zero",
+              "fraction": 0,
+              "feedback": "No — a = 0 fails a > 0; the negated constraint keeps the prefix a > 0 and flips b to b > 0."
+            }
+          ],
+          "generalFeedback": "Flipping B2 forms (a > 0) ∧ (b > 0): the prefix a > 0 is preserved and b ≤ 0 is negated to b > 0. The solver returns any satisfying pair, e.g. a = 1, b = 1, which drives execution into target().",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: assignment before branch",
+          "text": "<p>Consider:</p><pre><code>void k(int x) {\n  int y = x + 3;\n  if (y == 10) hit();   // B1\n}</code></pre><p>Run 1 uses <code>x = 0</code> (so y = 3, B1 false). Negating B1, what next input does the solver return?</p>",
+          "answers": [
+            {
+              "text": "x = 7 — the constraint over the input is x + 3 == 10",
+              "fraction": 100,
+              "feedback": "Correct — y is the expression x + 3, so B1 becomes x + 3 == 10, giving x = 7."
+            },
+            {
+              "text": "x = 10 — the branch tests == 10",
+              "fraction": 0,
+              "feedback": "No — the branch tests y == 10 where y = x + 3, so the constraint on the input is x + 3 == 10, i.e. x = 7."
+            },
+            {
+              "text": "x = 3 — matches the first computed y",
+              "fraction": 0,
+              "feedback": "No — x = 3 gives y = 6, not 10; solving x + 3 == 10 gives x = 7."
+            },
+            {
+              "text": "y = 10 — treat y as the free input",
+              "fraction": 0,
+              "feedback": "No — y is not an input; it is the expression x + 3, which must be substituted, yielding x = 7."
+            }
+          ],
+          "generalFeedback": "The symbolic state records y = x + 3, so the branch y == 10 is the constraint x + 3 == 10 over the actual input x. Negating the false outcome and solving gives x = 7.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concolic vs pure symbolic on a simple case",
+          "text": "<p>For <code>if (x &gt; 5) error();</code> with a solvable linear guard, how do concolic and pure symbolic execution compare on reaching <code>error()</code>?</p>",
+          "answers": [
+            {
+              "text": "Both reach it — each solves x > 5 (concolic after negating the branch on its first concrete run) — the concrete companion matters only when a constraint is unsolvable",
+              "fraction": 100,
+              "feedback": "Correct — on a simple solvable guard the two behave similarly; the concrete fallback distinguishes them only for hard/opaque constraints."
+            },
+            {
+              "text": "Only pure symbolic can reach it; concolic cannot solve inequalities",
+              "fraction": 0,
+              "feedback": "No — concolic uses the same solver and easily handles x > 5 by negating the branch and solving."
+            },
+            {
+              "text": "Only concolic can reach it; pure symbolic cannot solve inequalities",
+              "fraction": 0,
+              "feedback": "No — pure symbolic solves linear inequalities fine; both reach error() here."
+            },
+            {
+              "text": "Neither can reach it without random luck",
+              "fraction": 0,
+              "feedback": "No — both solve x > 5 exactly; no luck is required for a simple linear constraint."
+            }
+          ],
+          "generalFeedback": "When every constraint is solvable, concolic and pure symbolic reach the same paths; both solve x > 5 directly. The concrete-value fallback only becomes decisive when a constraint is nonlinear, unsolvable, or involves an opaque external call.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: recording the taken outcome",
+          "text": "<p>Consider:</p><pre><code>void m(int x) {\n  if (x &lt; 100) a();   // B1\n  else b();\n}</code></pre><p>The concrete run uses <code>x = 250</code>. Which literal does the engine conjoin into the path condition for B1?</p>",
+          "answers": [
+            {
+              "text": "x ≥ 100 — the run took the else branch, so the satisfied condition is the negation of x < 100",
+              "fraction": 100,
+              "feedback": "Correct — with x = 250 the guard x < 100 is false, so the recorded literal is x ≥ 100."
+            },
+            {
+              "text": "x < 100 — the branch's written condition",
+              "fraction": 0,
+              "feedback": "No — the written condition is false for x = 250; the engine records the outcome actually taken, x ≥ 100."
+            },
+            {
+              "text": "x == 250 — the concrete value",
+              "fraction": 0,
+              "feedback": "No — the path condition records the branch outcome (x ≥ 100), not the specific concrete number."
+            },
+            {
+              "text": "Nothing — else branches contribute no constraint",
+              "fraction": 0,
+              "feedback": "No — taking the else branch contributes the negated guard x ≥ 100 to the path condition."
+            }
+          ],
+          "generalFeedback": "The path condition always records the outcome actually taken. With x = 250 the guard x < 100 is false, so the engine conjoins its negation, x ≥ 100, into the path condition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: unsatisfiable flip is skipped",
+          "text": "<p>Consider:</p><pre><code>void p(int x) {\n  if (x &gt; 0)        // B1\n    if (x &lt; 0)      // B2\n      dead();\n}</code></pre><p>Run 1 uses <code>x = 5</code>: B1 true, B2 false, PC = <code>(x &gt; 0) ∧ (x ≥ 0)</code>. What happens when the engine flips B2 to try to reach <code>dead()</code>?</p>",
+          "answers": [
+            {
+              "text": "The flipped condition (x > 0) ∧ (x < 0) is UNSAT, so the solver returns no input and the engine skips that infeasible path",
+              "fraction": 100,
+              "feedback": "Correct — no x is both positive and negative, so dead() is unreachable and correctly generates no test."
+            },
+            {
+              "text": "The solver returns x = 0, reaching dead()",
+              "fraction": 0,
+              "feedback": "No — x = 0 satisfies neither x > 0 nor x < 0; the conjunction is unsatisfiable."
+            },
+            {
+              "text": "The engine substitutes a concrete value and reaches dead() anyway",
+              "fraction": 0,
+              "feedback": "No — concrete fallback is for unsolvable/opaque terms, not for a cleanly UNSAT linear constraint; the path is genuinely infeasible."
+            },
+            {
+              "text": "The program is modified to make the path feasible",
+              "fraction": 0,
+              "feedback": "No — concolic never modifies the program; an UNSAT flip simply yields no input."
+            }
+          ],
+          "generalFeedback": "Flipping B2 while keeping the prefix gives (x > 0) ∧ (x < 0), which is UNSAT. The solver reports no solution, so the engine skips this infeasible path — dead() is correctly never targeted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: number of runs to cover both branches",
+          "text": "<p>For a single <code>if (x &gt; 5) A(); else B();</code> with both sides feasible, how many concolic runs are needed to cover both branches, starting from one arbitrary concrete input?</p>",
+          "answers": [
+            {
+              "text": "2 — one run covers the branch the seed takes; negating it and solving gives a second input covering the other",
+              "fraction": 100,
+              "feedback": "Correct — one seed run plus one negate-and-solve run covers both sides."
+            },
+            {
+              "text": "1 — a single run covers both branches",
+              "fraction": 0,
+              "feedback": "No — a concrete run takes only one side; the other needs a second input from a negated constraint."
+            },
+            {
+              "text": "4 — every branch needs two runs",
+              "fraction": 0,
+              "feedback": "No — a single two-way branch needs just two runs total, one per side."
+            },
+            {
+              "text": "Unbounded — random seeds may never hit both",
+              "fraction": 0,
+              "feedback": "No — concolic is directed: it solves the negated constraint deterministically, so two runs suffice."
+            }
+          ],
+          "generalFeedback": "The seed run covers whichever side its concrete value takes. Negating that branch and solving yields a second input for the opposite side. Two runs cover both branches — the directedness that distinguishes concolic from blind random testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: compound guard, next input",
+          "text": "<p>Consider a branch whose recorded (satisfied) condition on run 1 is <code>(x + y &lt; 4)</code>. Negating it, which input pair does the solver accept?</p>",
+          "answers": [
+            {
+              "text": "x = 3, y = 3 — satisfies the negation x + y ≥ 4",
+              "fraction": 100,
+              "feedback": "Correct — 3 + 3 = 6 ≥ 4, so this pair takes the flipped branch."
+            },
+            {
+              "text": "x = 1, y = 1 — small values",
+              "fraction": 0,
+              "feedback": "No — 1 + 1 = 2 < 4 still satisfies the original condition, not its negation."
+            },
+            {
+              "text": "x = 0, y = 3 — sums to 3",
+              "fraction": 0,
+              "feedback": "No — 0 + 3 = 3 < 4, which fails the negated constraint x + y ≥ 4."
+            },
+            {
+              "text": "x = 2, y = 1 — sums to 3",
+              "fraction": 0,
+              "feedback": "No — 2 + 1 = 3 < 4, so this stays on the original branch."
+            }
+          ],
+          "generalFeedback": "Negating x + y < 4 gives x + y ≥ 4. Only x = 3, y = 3 (sum 6) satisfies it; the other options all sum to less than 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: input to keep prefix, flip deeper branch",
+          "text": "<p>Consider:</p><pre><code>void q(int a, int b) {\n  if (a == b)       // B1\n    if (a &gt; 10)     // B2\n      z();\n}</code></pre><p>Run 1 uses <code>a = 3, b = 3</code>: B1 true, B2 false, PC = <code>(a == b) ∧ (a ≤ 10)</code>. Flipping B2 to reach <code>z()</code>, which input works?</p>",
+          "answers": [
+            {
+              "text": "a = 11, b = 11 — keeps a == b and satisfies a > 10",
+              "fraction": 100,
+              "feedback": "Correct — the prefix a == b is preserved and a ≤ 10 is negated to a > 10; a = b = 11 satisfies both."
+            },
+            {
+              "text": "a = 11, b = 3 — a > 10 holds",
+              "fraction": 0,
+              "feedback": "No — a ≠ b breaks the preserved prefix a == b, so B1 is false and z() is unreachable."
+            },
+            {
+              "text": "a = 5, b = 5 — equal values",
+              "fraction": 0,
+              "feedback": "No — a = 5 fails the negated constraint a > 10, so B2 stays false."
+            },
+            {
+              "text": "a = 10, b = 10 — right at the boundary",
+              "fraction": 0,
+              "feedback": "No — a > 10 is strict; a = 10 fails it, so z() is not reached."
+            }
+          ],
+          "generalFeedback": "Flipping B2 forms (a == b) ∧ (a > 10): keep a == b, negate a ≤ 10 to a > 10. The pair a = 11, b = 11 satisfies both constraints and drives execution into z().",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why re-running the same input fails to explore",
+          "text": "<p>Why can't a concolic engine reach a new path by simply running the same concrete input again?</p>",
+          "answers": [
+            {
+              "text": "A deterministic program takes the same path for the same input, so a new path requires a new input from a negated-and-solved constraint",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly why the engine negates a branch and solves for a different input."
+            },
+            {
+              "text": "Re-running clears the symbolic state, losing the path condition",
+              "fraction": 0,
+              "feedback": "No — the reason is determinism: same input, same path; the engine must change the input to change the path."
+            },
+            {
+              "text": "The solver forbids reusing any concrete input",
+              "fraction": 0,
+              "feedback": "No — there is no such prohibition; the point is that the same input simply retraces the same path."
+            },
+            {
+              "text": "Repeated runs randomly pick different branches",
+              "fraction": 0,
+              "feedback": "No — a deterministic program does not pick branches randomly; identical input yields the identical path."
+            }
+          ],
+          "generalFeedback": "For a deterministic program, the concrete input fully determines the path taken. To explore a different path the engine must supply a different input — obtained by negating a branch on the recorded path condition and solving.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: order of inputs, depth-first",
+          "text": "<p>For <code>if (a) {...} if (b) {...}</code> (two independent branches), starting from a run with <code>a=false, b=false</code> and flipping the last branch first, which is a plausible order of path conditions the engine solves next?</p>",
+          "answers": [
+            {
+              "text": "First ¬a ∧ b (flip the last branch), then a ∧ ... (backtrack to flip the first)",
+              "fraction": 100,
+              "feedback": "Correct — depth-first flips the deepest branch (b) before backtracking to the earlier one (a)."
+            },
+            {
+              "text": "First a ∧ b only, ignoring the other combinations",
+              "fraction": 0,
+              "feedback": "No — depth-first explores more than one combination; it starts by flipping the last branch to ¬a ∧ b."
+            },
+            {
+              "text": "It solves ¬a ∧ ¬b, the same as the seed run",
+              "fraction": 0,
+              "feedback": "No — that is the already-covered seed path; the engine flips a branch to reach a new one."
+            },
+            {
+              "text": "It must flip both branches simultaneously first",
+              "fraction": 0,
+              "feedback": "No — each step flips exactly one branch; the deepest first under depth-first order."
+            }
+          ],
+          "generalFeedback": "Depth-first flips the last branch first: from ¬a ∧ ¬b it forms ¬a ∧ b, then after that subtree backtracks to flip the first branch (a ∧ ...). Each step negates a single branch while keeping the prefix.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concrete values keep the prefix consistent",
+          "text": "<p>When the engine negates the last branch, it keeps the earlier branch conditions unchanged so that the solved input still reaches that branch point.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — preserving the prefix ensures the new input actually reaches the flipped branch before diverging."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The prefix is preserved precisely so the new input follows the same route up to the flipped branch, then diverges there."
+            }
+          ],
+          "generalFeedback": "To reach a sibling of a deep branch, the input must first satisfy all the earlier decisions leading to it. So the engine keeps the prefix constraints and negates only the target branch, then solves the whole conjunction."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Concrete fallback for an external call",
+          "text": "<p>Consider:</p><pre><code>void r(int x) {\n  int h = opaque_hash(x);   // native/library, no symbolic model\n  if (h == 1234) win();     // B1\n}</code></pre><p>Where a pure symbolic engine gets stuck, how does concolic execution proceed at B1?</p>",
+          "answers": [
+            {
+              "text": "It substitutes the concrete value of h observed at runtime, so B1 becomes a concrete true/false and execution continues down a real path",
+              "fraction": 100,
+              "feedback": "Correct — the concrete run always has an actual h, so concolic keeps going where pure symbolic stalls on the unmodeled call."
+            },
+            {
+              "text": "It builds a full symbolic model of opaque_hash automatically",
+              "fraction": 0,
+              "feedback": "No — the call is opaque with no model; concolic sidesteps this by using the concrete observed value, not by modeling it."
+            },
+            {
+              "text": "It aborts, exactly like pure symbolic execution",
+              "fraction": 0,
+              "feedback": "No — the whole point of the concrete companion is to continue past the opaque call rather than abort."
+            },
+            {
+              "text": "It proves B1 unreachable",
+              "fraction": 0,
+              "feedback": "No — it does not prove anything about B1; it simply plugs in the concrete h and follows the resulting real path."
+            }
+          ],
+          "generalFeedback": "Because opaque_hash has no symbolic model, its symbolic result is unknown. Concolic execution uses the concrete value of h that the actual run produced, so B1 evaluates concretely and execution proceeds along a genuine path — the key advantage over pure symbolic execution, which would stall.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness cost of concrete fallback",
+          "text": "<p>When concolic execution substitutes a concrete value for an unsolvable/opaque term, what is the cost?</p>",
+          "answers": [
+            {
+              "text": "Incompleteness — by fixing that term to one concrete value, the engine may fail to explore other feasible paths that depend on it",
+              "fraction": 100,
+              "feedback": "Correct — the fallback keeps execution going but can hide paths reachable only for other values of the opaque term."
+            },
+            {
+              "text": "Unsoundness — it may report paths that cannot actually run",
+              "fraction": 0,
+              "feedback": "No — every run is concrete and real, so soundness of explored paths is preserved; the cost is missed paths (completeness)."
+            },
+            {
+              "text": "It always crashes the solver",
+              "fraction": 0,
+              "feedback": "No — substituting a concrete value simplifies the constraint; it does not crash the solver."
+            },
+            {
+              "text": "There is no cost; coverage is unaffected",
+              "fraction": 0,
+              "feedback": "No — pinning the opaque term to one value can prevent reaching alternative paths, an incompleteness cost."
+            }
+          ],
+          "generalFeedback": "Concrete fallback preserves soundness (paths explored are real) but sacrifices completeness: fixing an opaque term to the one observed concrete value can mask branches feasible only under other values of that term, so some paths may never be explored.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nonlinear constraint fallback",
+          "text": "<p>Consider:</p><pre><code>void s(int x, int y) {\n  if (x * y == 30)   // B1, nonlinear\n    t();\n}</code></pre><p>Run 1 uses <code>x = 6, y = 4</code> (so x*y = 24, B1 false). If the solver cannot handle the nonlinear flip, how can concolic still make progress?</p>",
+          "answers": [
+            {
+              "text": "Fix one variable to its concrete value (e.g. x = 6) so the constraint becomes linear (6*y == 30 → y = 5), then solve",
+              "fraction": 100,
+              "feedback": "Correct — pinning x to its concrete value linearises the constraint, letting the solver find y = 5 and reach t()."
+            },
+            {
+              "text": "Give up entirely, since nonlinear constraints are undecidable",
+              "fraction": 0,
+              "feedback": "No — concolic uses the concrete value of one operand to simplify to a solvable linear constraint rather than giving up."
+            },
+            {
+              "text": "Randomly guess both x and y until x*y == 30",
+              "fraction": 0,
+              "feedback": "No — the concolic approach pins one operand concretely and solves the resulting linear equation; that is the point of the concrete companion."
+            },
+            {
+              "text": "Modify the program to remove the multiplication",
+              "fraction": 0,
+              "feedback": "No — the program is never modified; the concrete value of x is substituted to simplify the constraint."
+            }
+          ],
+          "generalFeedback": "Concolic execution substitutes the concrete value of one operand (x = 6), turning x*y == 30 into the linear 6*y == 30, which the solver satisfies with y = 5. Running x = 6, y = 5 reaches t(). The cost is incompleteness: with x pinned to 6 it may miss solutions like x = 5, y = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Soundness vs completeness",
+          "text": "<p>Which statement correctly characterises concolic execution's guarantees?</p>",
+          "answers": [
+            {
+              "text": "The paths it explores are all real (sound), but it may miss some feasible paths (incomplete)",
+              "fraction": 100,
+              "feedback": "Correct — real concrete runs guarantee no false paths, while concrete fallback and bounding can leave paths unexplored."
+            },
+            {
+              "text": "It explores every feasible path (complete) but may report some that cannot run (unsound)",
+              "fraction": 0,
+              "feedback": "No — it is the opposite: sound on explored paths, but not guaranteed complete."
+            },
+            {
+              "text": "It is both fully sound and fully complete for all programs",
+              "fraction": 0,
+              "feedback": "No — path explosion and concrete fallback mean completeness is not guaranteed."
+            },
+            {
+              "text": "It is neither sound nor complete",
+              "fraction": 0,
+              "feedback": "No — because every explored path is a real execution, it is sound with respect to the paths it reports."
+            }
+          ],
+          "generalFeedback": "Every concolic step is a genuine concrete execution, so the paths it explores are real (soundness of explored paths — no false positives from infeasible paths). But concrete fallback for opaque/nonlinear terms and bounded search mean it may not reach every feasible path (incompleteness).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path explosion is managed, not eliminated",
+          "text": "<p>How does concolic execution relate to path explosion?</p>",
+          "answers": [
+            {
+              "text": "It still faces path explosion and manages it with a search strategy and iteration/depth limits, rather than eliminating it",
+              "fraction": 100,
+              "feedback": "Correct — concolic does not remove the exponential path growth; it bounds exploration to cope."
+            },
+            {
+              "text": "It eliminates path explosion entirely by using concrete inputs",
+              "fraction": 0,
+              "feedback": "No — using concrete inputs does not remove the exponential number of branch combinations; concolic still must bound its search."
+            },
+            {
+              "text": "It has no notion of paths, so path explosion does not apply",
+              "fraction": 0,
+              "feedback": "No — concolic explicitly explores paths by branch flipping, so path explosion very much applies."
+            },
+            {
+              "text": "Path explosion only affects random testing, not concolic",
+              "fraction": 0,
+              "feedback": "No — path explosion is a core challenge for all path-based techniques, concolic included."
+            }
+          ],
+          "generalFeedback": "Each branch flip can lead to more branches, so the number of paths still grows exponentially. Concolic manages this with search heuristics (depth-first, coverage-guided) and bounds on iterations, loop unrolling, or depth — but it does not eliminate path explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace: naming each next input (1)",
+          "text": "<p>Consider:</p><pre><code>void f(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b == a + 1)   // B2\n      target();\n}</code></pre><p>Seed run: <code>a = -1, b = 0</code> (B1 false). Under depth-first flipping, what is the input for the run that first makes B1 true (flipping B1)?</p>",
+          "answers": [
+            {
+              "text": "Any a > 0 with b unconstrained, e.g. a = 1, b = 0 — solving the single constraint a > 0",
+              "fraction": 100,
+              "feedback": "Correct — flipping B1 only imposes a > 0; B2 is not yet on the recorded path, so b is free (e.g. b = 0)."
+            },
+            {
+              "text": "a = 1, b = 2 — must already satisfy B2 as well",
+              "fraction": 0,
+              "feedback": "No — when flipping B1, only a > 0 is required; B2 has not been recorded yet, so b need not satisfy b == a + 1 at this step."
+            },
+            {
+              "text": "a = -1, b = 0 — reuse the seed",
+              "fraction": 0,
+              "feedback": "No — the seed has B1 false; flipping B1 requires a > 0, so the input must change."
+            },
+            {
+              "text": "No input works; a > 0 is unsatisfiable",
+              "fraction": 0,
+              "feedback": "No — a > 0 is trivially satisfiable, e.g. a = 1."
+            }
+          ],
+          "generalFeedback": "The seed took B1 false, so its path condition is just a ≤ 0. Negating it gives a > 0, the only constraint at this step (B2 was never reached). The solver returns any a > 0, e.g. a = 1, b = 0.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace: naming each next input (2)",
+          "text": "<p>Continuing the previous snippet, the run <code>a = 1, b = 0</code> now takes B1 true and B2 false (0 ≠ 2), with PC = <code>(a &gt; 0) ∧ (b ≠ a + 1)</code>. Flipping B2, which input reaches <code>target()</code>?</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 2 — keeps a > 0 and satisfies b == a + 1",
+              "fraction": 100,
+              "feedback": "Correct — preserve a > 0, negate b ≠ a + 1 to b == a + 1; with a = 1 that means b = 2."
+            },
+            {
+              "text": "a = 1, b = 1 — b unchanged from a step earlier",
+              "fraction": 0,
+              "feedback": "No — b must equal a + 1 = 2; b = 1 fails the flipped constraint."
+            },
+            {
+              "text": "a = 0, b = 1 — b == a + 1 holds",
+              "fraction": 0,
+              "feedback": "No — a = 0 breaks the preserved prefix a > 0, so B1 becomes false and target() is unreachable."
+            },
+            {
+              "text": "a = 2, b = 2 — both equal",
+              "fraction": 0,
+              "feedback": "No — with a = 2, b == a + 1 requires b = 3, not 2."
+            }
+          ],
+          "generalFeedback": "Flipping B2 gives (a > 0) ∧ (b == a + 1). Keeping a = 1 from the prefix, b must be a + 1 = 2. The input a = 1, b = 2 reaches target(). (The solver could also pick another a > 0 with matching b.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace: three iterations count",
+          "text": "<p>For the nested snippet <code>if (a &gt; 0) if (b == a + 1) target();</code>, starting from seed <code>a = -1, b = 0</code>, how many concolic runs (including the seed) are needed to first reach <code>target()</code>, flipping one branch per iteration depth-first?</p>",
+          "answers": [
+            {
+              "text": "3 — seed (B1 false), then B1 true/B2 false, then B1 true/B2 true reaching target()",
+              "fraction": 100,
+              "feedback": "Correct — one flip is needed to enter B1, another to satisfy B2, so the third run hits target()."
+            },
+            {
+              "text": "2 — the seed plus one flip reaches target()",
+              "fraction": 0,
+              "feedback": "No — the seed fails B1; one flip only makes B1 true (B2 still false), so a second flip is needed, giving three runs."
+            },
+            {
+              "text": "1 — the seed reaches target() directly",
+              "fraction": 0,
+              "feedback": "No — the seed has a = -1, failing B1 immediately, so it cannot reach target()."
+            },
+            {
+              "text": "4 — each nesting level doubles the runs",
+              "fraction": 0,
+              "feedback": "No — this particular path needs exactly two branch flips after the seed, i.e. three runs, not four."
+            }
+          ],
+          "generalFeedback": "Run 1 (seed a=-1): B1 false. Run 2 (a=1,b=0): flip B1 → B1 true, B2 false. Run 3 (a=1,b=2): flip B2 → both true, reaching target(). Three runs in total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bounding the search",
+          "text": "<p>To keep concolic exploration finite on a loop whose count depends on input, a common approach is to:</p>",
+          "answers": [
+            {
+              "text": "Impose a bound — e.g. a depth/iteration limit or bounded loop unrolling — accepting that paths beyond the bound go unexplored",
+              "fraction": 100,
+              "feedback": "Correct — bounding trades completeness for termination, a standard path-explosion control."
+            },
+            {
+              "text": "Negate every loop-body branch at once to cover all iterations in one run",
+              "fraction": 0,
+              "feedback": "No — a single run covers one path; loops are handled by bounding the exploration, not by simultaneous negation."
+            },
+            {
+              "text": "Prove the loop terminates and then skip it",
+              "fraction": 0,
+              "feedback": "No — skipping the loop would miss its behavior; the loop is bounded/unrolled instead."
+            },
+            {
+              "text": "Switch to pure symbolic execution, which has no path explosion",
+              "fraction": 0,
+              "feedback": "No — pure symbolic execution also suffers path explosion; switching does not solve it."
+            }
+          ],
+          "generalFeedback": "A symbolic loop count can spawn unboundedly many paths, so engines cap exploration with an iteration/depth limit or bounded unrolling (and search heuristics). This keeps the run finite at the price of not exploring paths beyond the bound — an accepted incompleteness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTE and pointer inputs",
+          "text": "<p>CUTE extended concolic testing to programs with pointers and dynamic data structures by:</p>",
+          "answers": [
+            {
+              "text": "Tracking a symbolic representation of the heap/pointer structure alongside concrete pointers, and solving pointer constraints (e.g. aliasing, null-ness) as well as scalar ones",
+              "fraction": 100,
+              "feedback": "Correct — CUTE handles both a logical input map for scalars and a structure for pointer inputs, using the concrete run to resolve what the solver cannot."
+            },
+            {
+              "text": "Forbidding all pointer inputs so only integers are tested",
+              "fraction": 0,
+              "feedback": "No — CUTE's contribution was precisely to support pointer and data-structure inputs, not to forbid them."
+            },
+            {
+              "text": "Converting the whole program to a pointer-free form before testing",
+              "fraction": 0,
+              "feedback": "No — CUTE reasons about pointers directly, using concrete values where symbolic reasoning is insufficient."
+            },
+            {
+              "text": "Running only pure symbolic execution on the heap",
+              "fraction": 0,
+              "feedback": "No — CUTE is concolic: it combines concrete pointer values with symbolic constraints, which is what makes heap inputs tractable."
+            }
+          ],
+          "generalFeedback": "CUTE (Concolic Unit Testing Engine) represents pointer inputs with a logical structure and generates both scalar values and pointer shapes (including aliasing and null cases). The concrete run provides real pointers to fall back on, letting it test functions over dynamic data structures.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concrete fallback preserves soundness",
+          "text": "<p>Even when concolic execution substitutes concrete values for terms the solver cannot handle, the paths it actually executes remain genuinely feasible (no false paths are introduced).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — substitution uses the value from a real run, so the resulting execution is still a real, feasible path."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Concrete fallback never fabricates a path; it uses observed values, so every executed path remains real. The tradeoff is missed paths, not false ones."
+            }
+          ],
+          "generalFeedback": "Because the substituted value comes from an actual execution, the path the engine then follows is one the program really can take. Soundness of explored paths is preserved; only completeness (some feasible paths may be skipped) is at risk."
+        },
+        {
+          "type": "multichoice",
+          "name": "Divergence when a constraint is approximated",
+          "text": "<p>Suppose concolic execution pins an opaque term to a concrete value and solves for a new input, but on re-running, execution takes a different branch than predicted (a \"divergence\"). What does the engine do?</p>",
+          "answers": [
+            {
+              "text": "It detects the divergence from the actual concrete run and records the real path taken, since the concrete execution is always the ground truth",
+              "fraction": 100,
+              "feedback": "Correct — the concrete run is authoritative, so a divergence is simply observed and the true path recorded, keeping the analysis sound."
+            },
+            {
+              "text": "It trusts the predicted path and ignores the actual run",
+              "fraction": 0,
+              "feedback": "No — the concrete run is ground truth; the engine records the path actually executed, not the predicted one."
+            },
+            {
+              "text": "It reports the predicted path as covered even though it was not taken",
+              "fraction": 0,
+              "feedback": "No — that would be unsound; the engine relies on the real run, which reveals the divergence."
+            },
+            {
+              "text": "It crashes because the prediction was wrong",
+              "fraction": 0,
+              "feedback": "No — divergence is handled gracefully by observing the actual concrete run and continuing."
+            }
+          ],
+          "generalFeedback": "Divergences can happen when a substituted/approximated term makes the solved input take an unexpected path. Because concolic always executes concretely, it observes the real path and records it — the concrete run is the ground truth, preserving soundness even when a prediction was off.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace with a concrete-fallback step",
+          "text": "<p>Consider:</p><pre><code>void w(int x) {\n  int t = external(x);   // opaque; run observed t = 3 for x = 2\n  if (x &gt; 0)             // B1\n    if (t == 3)          // B2, depends on opaque t\n      goal();\n}</code></pre><p>Run 1 uses <code>x = 2</code>: B1 true, and t = 3 so B2 true — <code>goal()</code> is reached. Is the path to goal() reported, and is it real?</p>",
+          "answers": [
+            {
+              "text": "Yes and yes — the concrete run actually reached goal(), so the path is reported and is genuinely feasible; B2 used the concrete t = 3",
+              "fraction": 100,
+              "feedback": "Correct — concolic uses the observed t, so goal() is really reached and soundly reported."
+            },
+            {
+              "text": "No — B2 depends on an opaque call, so concolic cannot report the path",
+              "fraction": 0,
+              "feedback": "No — concolic uses the concrete t = 3, so it evaluates B2 and really reaches goal(); the path is reported."
+            },
+            {
+              "text": "Yes but it may be a false path, since t is opaque",
+              "fraction": 0,
+              "feedback": "No — the run truly executed to goal(), so the path is real, not false; opacity affects completeness, not this run's reality."
+            },
+            {
+              "text": "The engine must abort at the opaque call",
+              "fraction": 0,
+              "feedback": "No — that is pure symbolic behavior; concolic proceeds using the observed t = 3."
+            }
+          ],
+          "generalFeedback": "The concrete run computed t = 3 from external(2) and really executed through B1 and B2 into goal(). Concolic reports this genuinely feasible path. What it cannot easily do is force B2 the other way for other x, since the relationship between x and t is opaque — an incompleteness, not an unsoundness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Search strategy choice",
+          "text": "<p>Why do concolic engines use search strategies (depth-first, coverage-guided, random path) rather than exhaustively exploring all paths?</p>",
+          "answers": [
+            {
+              "text": "Because the path space is exponential (path explosion), a strategy prioritises which branches to flip within a limited budget",
+              "fraction": 100,
+              "feedback": "Correct — with too many paths to try all, the strategy decides where to spend limited solver/run budget."
+            },
+            {
+              "text": "Because the solver can only answer one query per program",
+              "fraction": 0,
+              "feedback": "No — solvers answer many queries; the reason for strategies is the exponential number of paths."
+            },
+            {
+              "text": "Because concrete runs are not repeatable",
+              "fraction": 0,
+              "feedback": "No — concrete runs are repeatable; strategies exist to cope with the huge path space."
+            },
+            {
+              "text": "Because branch negation is impossible without a strategy",
+              "fraction": 0,
+              "feedback": "No — negation works regardless; a strategy just chooses which negation to pursue next given the path explosion."
+            }
+          ],
+          "generalFeedback": "Exhaustive exploration is infeasible because branches and loops make the path count exponential. Search strategies (depth-first, coverage-guided, generational, random-path) choose which branch to flip next so the limited budget of runs and solver calls targets useful, uncovered paths.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concolic does not guarantee full coverage",
+          "text": "<p>Concolic execution guarantees that, given enough time, it will cover every feasible path of any program.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Incorrect — concrete fallback for opaque/nonlinear terms and bounding for loops mean some feasible paths may never be reached."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — concolic does not guarantee full path coverage; concrete fallback and bounded search can leave feasible paths unexplored."
+            }
+          ],
+          "generalFeedback": "Concolic execution manages path explosion with bounds and heuristics and falls back to concrete values for terms it cannot solve. Both can prevent it from reaching every feasible path, so full coverage is not guaranteed — though every path it does explore is real."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "concolic 是哪兩個字的合體",
+          "text": "<p><strong>concolic（並行具體符號）</strong>這個字是由哪兩個英文字合成的？</p>",
+          "answers": [
+            {
+              "text": "CONCrete（具體）＋ symbOLIC（符號）——程式以具體輸入實際執行，同時收集符號限制式",
+              "fraction": 100,
+              "feedback": "正確——concolic 執行同時做兩件事：真正的具體執行，加上符號路徑條件的追蹤。"
+            },
+            {
+              "text": "CONCurrent（並行）＋ symbOLIC（符號）——它平行執行許多符號執行緒",
+              "fraction": 0,
+              "feedback": "錯——「conc」指的是具體（concrete），不是並行；concolic 講的是結合具體與符號，而非平行處理。"
+            },
+            {
+              "text": "CONtrol（控制）＋ logICs（邏輯）——它靜態分析控制流邏輯",
+              "fraction": 0,
+              "feedback": "錯——concolic ＝ 具體＋符號；它是動態技術，不是靜態控制流分析。"
+            },
+            {
+              "text": "CONtext（情境）＋ symbOLIC（符號）——它只追蹤情境符號",
+              "fraction": 0,
+              "feedback": "錯——前半指的是具體（concrete），亦即與符號值並用的實際執行期數值。"
+            }
+          ],
+          "generalFeedback": "concolic ＝ CONCrete（具體）＋ symbOLIC（符號）。程式以一個實際的具體輸入執行，同時引擎沿著該具體執行所走的路徑記錄符號路徑條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體狀態與符號狀態",
+          "text": "<p>concolic 執行時，引擎會並排維護兩種狀態。它們是哪兩種？</p>",
+          "answers": [
+            {
+              "text": "具體狀態（實際驅動執行的數值）與符號狀態（對輸入符號的運算式／限制式）",
+              "fraction": 100,
+              "feedback": "正確——具體值挑出實際走的路徑，而符號狀態沿途記錄限制式。"
+            },
+            {
+              "text": "原始碼狀態與編譯後的二進位狀態",
+              "fraction": 0,
+              "feedback": "錯——這兩種狀態描述的是執行中程式的資料；一個是具體值，另一個是符號運算式。"
+            },
+            {
+              "text": "測試判準（oracle）的通過狀態與失敗狀態",
+              "fraction": 0,
+              "feedback": "錯——這兩種狀態是具體與符號；通過／失敗是另一回事。"
+            },
+            {
+              "text": "兩個各自獨立、用於統計抽樣的隨機狀態",
+              "fraction": 0,
+              "feedback": "錯——一個是真實的具體執行，另一個是符號限制式狀態；兩者不是彼此的隨機樣本。"
+            }
+          ],
+          "generalFeedback": "concolic 執行同時維護具體狀態（實際數值，會確定性地選出該次執行所走的路徑）與符號狀態（變數對運算式的對映，以及沿同一路徑累積的路徑條件）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "concolic 中的路徑條件",
+          "text": "<p>在 concolic 執行中，一次執行所記錄的<strong>路徑條件（path condition）</strong>是：</p>",
+          "answers": [
+            {
+              "text": "具體輸入實際驅動的那一條路徑上，所走各分支條件的連言（conjunction）",
+              "fraction": 100,
+              "feedback": "正確——因為一次具體執行只走一條路徑，路徑條件描述的就是那唯一被執行的路徑。"
+            },
+            {
+              "text": "程式中每條路徑之路徑條件的選言（disjunction）",
+              "fraction": 0,
+              "feedback": "錯——一次 concolic 執行只記錄具體輸入所走的那一條路徑，形式為其分支結果的連言。"
+            },
+            {
+              "text": "程式所含分支數量的計數",
+              "fraction": 0,
+              "feedback": "錯——路徑條件是對輸入的邏輯式，而非分支計數。"
+            },
+            {
+              "text": "程式回傳的具體輸出值",
+              "fraction": 0,
+              "feedback": "錯——它是沿被執行路徑對輸入的限制式，而非輸出。"
+            }
+          ],
+          "generalFeedback": "因為具體輸入恰好驅動一條路徑，引擎收集該路徑上所走的各分支條件，並將其連言成路徑條件——一個描述該被執行路徑、以符號輸入表示的邏輯式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支取反",
+          "text": "<p>一次 concolic 執行記錄了路徑條件之後，引擎如何嘗試抵達一條尚未涵蓋的新路徑？</p>",
+          "answers": [
+            {
+              "text": "把已記錄路徑條件中的某一個分支條件取反（negate），再請求解算器求出滿足此修改後限制式的輸入",
+              "fraction": 100,
+              "feedback": "正確——翻轉一個分支並求解，就能得到在該分支往另一方向走的具體輸入。"
+            },
+            {
+              "text": "移除該分支後重新編譯程式",
+              "fraction": 0,
+              "feedback": "錯——程式從不被修改；被更動並重新求解的是路徑條件。"
+            },
+            {
+              "text": "不斷用同一個具體輸入重跑，直到出現不同路徑",
+              "fraction": 0,
+              "feedback": "錯——確定性程式對同一輸入永遠走同一路徑；引擎是把分支取反並求出新輸入。"
+            },
+            {
+              "text": "一次把所有分支同時取反並整體求解",
+              "fraction": 0,
+              "feedback": "錯——標準做法每步只翻轉一個分支（通常是最後一個尚未取反的），並保留前綴後再求解。"
+            }
+          ],
+          "generalFeedback": "引擎挑出已記錄路徑上的一個分支條件，將它取反（保留其前面的限制式），把修改後的路徑條件交給解算器；其滿足解就是下一個具體輸入，會把執行驅動到手足路徑（sibling path）上。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "concolic 迴圈",
+          "text": "<p>下列哪個順序最能描述 concolic 測試迴圈的一次迭代？</p>",
+          "answers": [
+            {
+              "text": "以具體輸入執行 → 記錄路徑條件 → 取反一個分支 → 求解 → 解就是下一個具體輸入",
+              "fraction": 100,
+              "feedback": "正確——「具體執行／記錄／取反／求解」這個循環會反覆進行以探索新路徑。"
+            },
+            {
+              "text": "求解一個隨機限制式 → 編譯 → 執行 → 丟棄結果",
+              "fraction": 0,
+              "feedback": "錯——concolic 從具體執行開始，記錄真實路徑條件，然後取反並求解；沒有東西被丟棄，也不涉及編譯步驟。"
+            },
+            {
+              "text": "靜態列舉所有路徑 → 各自求解 → 挑最短的",
+              "fraction": 0,
+              "feedback": "錯——concolic 是動態的：一次驅動一個具體執行，並藉分支取反引導至新路徑。"
+            },
+            {
+              "text": "變異原始碼 → 重跑測試 → 量測覆蓋率",
+              "fraction": 0,
+              "feedback": "錯——那是變異測試；concolic 是取反分支條件並求輸入，程式碼保持不變。"
+            }
+          ],
+          "generalFeedback": "concolic 迴圈：選一個具體輸入（初期常為隨機）、執行它、記錄所走路徑的路徑條件、取反一個分支條件、求解修改後限制式以得到下一個具體輸入，然後重複——每次把執行驅動到新路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DART 的全名",
+          "text": "<p>最早的 concolic 工具之一 <strong>DART</strong>，其全名是：</p>",
+          "answers": [
+            {
+              "text": "Directed Automated Random Testing（導向式自動隨機測試）",
+              "fraction": 100,
+              "feedback": "正確——DART 利用符號路徑條件來「導向」隨機測試，以抵達新路徑。"
+            },
+            {
+              "text": "Dynamic Abstract Refinement Testing",
+              "fraction": 0,
+              "feedback": "錯——DART 的全名是 Directed Automated Random Testing。"
+            },
+            {
+              "text": "Deterministic Assertion Regression Tool",
+              "fraction": 0,
+              "feedback": "錯——DART 是 Directed Automated Random Testing，一個 concolic 引擎。"
+            },
+            {
+              "text": "Distributed Analysis of Runtime Traces",
+              "fraction": 0,
+              "feedback": "錯——DART 是 Directed Automated Random Testing。"
+            }
+          ],
+          "generalFeedback": "DART（Directed Automated Random Testing）從隨機具體輸入出發，利用收集到的符號路徑條件把後續輸入導向未涵蓋的分支——開創了 concolic 方法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTE 的全名",
+          "text": "<p>知名 concolic 工具 <strong>CUTE</strong> 的全名是：</p>",
+          "answers": [
+            {
+              "text": "Concolic Unit Testing Engine（並行具體符號單元測試引擎）",
+              "fraction": 100,
+              "feedback": "正確——CUTE 把 concolic 執行應用於單元測試，並能處理含指標的程式碼。"
+            },
+            {
+              "text": "Constraint-based Uniform Test Explorer",
+              "fraction": 0,
+              "feedback": "錯——CUTE 的全名是 Concolic Unit Testing Engine。"
+            },
+            {
+              "text": "Coverage Under Test Estimator",
+              "fraction": 0,
+              "feedback": "錯——CUTE 是 Concolic Unit Testing Engine。"
+            },
+            {
+              "text": "Combined Unit & Type Evaluator",
+              "fraction": 0,
+              "feedback": "錯——CUTE 是 Concolic Unit Testing Engine。"
+            }
+          ],
+          "generalFeedback": "CUTE（Concolic Unit Testing Engine）把 concolic 執行帶進 C 語言的單元測試，特別能藉結合具體與符號推理來處理指標／資料結構型的輸入。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "為何在符號狀態旁保留具體輸入",
+          "text": "<p>concolic 執行在符號狀態旁保留一個具體輸入，一個關鍵理由是：當某限制式無法求解（例如牽涉外部呼叫）時，引擎可以代入執行期觀察到的具體值並繼續下去。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——具體值是一個現成的後援，讓執行在純符號推理會卡住的地方仍能繼續。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這正是 concolic 執行的核心優勢之一：具體執行提供了一個真實值，可在符號項無法求解時代入。"
+            }
+          ],
+          "generalFeedback": "保留具體輸入意味著引擎對每個運算式都握有一個真實觀察值。當某符號項太難、非線性、或不透明（外部／原生呼叫）時，就代入具體值繼續執行——這是純符號執行做不到的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "第一個具體輸入",
+          "text": "<p>concolic 執行中，最初的那個具體輸入通常從何而來？</p>",
+          "answers": [
+            {
+              "text": "任意選取，常為隨機——迴圈隨後藉由求解「取反後的路徑條件」來精修後續輸入",
+              "fraction": 100,
+              "feedback": "正確——種子輸入可以是隨機的；引擎之後藉由導向式的分支翻轉來提升覆蓋率。"
+            },
+            {
+              "text": "必須是在任何執行之前，由解算器證明為最佳的值",
+              "fraction": 0,
+              "feedback": "錯——第一個輸入無需任何證明；它通常只是啟動迴圈的隨機種子。"
+            },
+            {
+              "text": "對每個輸入變數一律為零",
+              "fraction": 0,
+              "feedback": "錯——雖然可以用固定種子，但重點是第一個輸入是任意／隨機的，而非一定為零。"
+            },
+            {
+              "text": "先對整支程式做靜態分析後推導得出",
+              "fraction": 0,
+              "feedback": "錯——concolic 是動態的；它只是從一個具體（常為隨機）輸入開始，而非先做靜態前置分析。"
+            }
+          ],
+          "generalFeedback": "concolic 執行從一個任意、常為隨機的具體輸入起步（這就是 DART 名稱中的「Random」）。之後每個輸入都由「取反前一次執行路徑條件中的某分支並求解」得到。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "具體執行只走一條路徑",
+          "text": "<p>由於使用具體輸入，單次 concolic 執行（在確定性程式中）恰好走一條執行路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——具體值確定性地選出一條路徑；這正是為何一次執行只記錄單一路徑條件。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "確定性程式中的具體輸入恰好走一條路徑；concolic 只能在後續執行中藉由求解取反的限制式抵達其他路徑。"
+            }
+          ],
+          "generalFeedback": "每次 concolic 執行都是對具體值的真實執行，因此只走一條路徑並記錄該路徑的條件。跨迭代時才藉由分支取反與重新求解抵達新路徑，而非在單次執行中。"
+        },
+        {
+          "type": "multichoice",
+          "name": "解算器在 concolic 中的角色",
+          "text": "<p>在 concolic 迴圈中，限制式／SMT 解算器負責什麼？</p>",
+          "answers": [
+            {
+              "text": "求解修改後（部分取反）的路徑條件，以產生下一個具體輸入",
+              "fraction": 100,
+              "feedback": "正確——解算器的滿足解就成為下一次執行的具體輸入。"
+            },
+            {
+              "text": "以具體輸入執行程式",
+              "fraction": 0,
+              "feedback": "錯——執行程式是由（被插樁的）執行過程完成；解算器只從限制式算出輸入。"
+            },
+            {
+              "text": "判斷測試的輸出是否正確",
+              "fraction": 0,
+              "feedback": "錯——那是判準（oracle）的工作；解算器產生輸入，而非判定。"
+            },
+            {
+              "text": "量測測試套件的分支覆蓋率",
+              "fraction": 0,
+              "feedback": "錯——覆蓋率追蹤是另一回事；解算器把取反後的路徑條件轉成具體輸入。"
+            }
+          ],
+          "generalFeedback": "引擎取反一個分支後，把修改後的路徑條件交給解算器；其滿足解正是能把下一次執行驅動到新目標路徑的具體輸入（若該路徑不可行則回報 UNSAT）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "concolic 與純符號執行（一句話）",
+          "text": "<p>下列何者最能說明 concolic 執行與純符號執行的差異？</p>",
+          "answers": [
+            {
+              "text": "concolic 在符號狀態旁始終有一次真實的具體執行，因此當符號推理卡住時可代入具體值",
+              "fraction": 100,
+              "feedback": "正確——具體執行是安全網，讓 concolic 能越過無法求解的項繼續前進。"
+            },
+            {
+              "text": "concolic 從不使用解算器，純符號執行則總是使用",
+              "fraction": 0,
+              "feedback": "錯——concolic 也依賴解算器來翻轉分支；差別在於伴隨的那次具體執行。"
+            },
+            {
+              "text": "純符號執行會具體地執行程式，concolic 則不會",
+              "fraction": 0,
+              "feedback": "錯——恰好相反：concolic 會做真實的具體執行；純符號執行不會。"
+            },
+            {
+              "text": "concolic 保證完整路徑覆蓋，純符號執行則否",
+              "fraction": 0,
+              "feedback": "錯——兩者都不保證完整覆蓋；都面臨路徑爆炸。真正的差別是那個具體的伴隨執行。"
+            }
+          ],
+          "generalFeedback": "兩者都追蹤符號路徑條件並使用解算器。concolic 的差別在於同時進行的具體執行：當限制式無法求解、非線性、或牽涉不透明外部呼叫時，它提供一個可代入的真實值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "插樁的目的",
+          "text": "<p>concolic 工具對受測程式插樁（instrument），主要目的是：</p>",
+          "answers": [
+            {
+              "text": "在具體執行期間觀察所走的分支條件，並平行建構符號路徑條件",
+              "fraction": 100,
+              "feedback": "正確——插樁在真實執行的同時收集符號限制式。"
+            },
+            {
+              "text": "把程式拖慢，好讓解算器有時間思考",
+              "fraction": 0,
+              "feedback": "錯——插樁是為了在執行期間收集符號限制式，而非增加延遲。"
+            },
+            {
+              "text": "把所有分支換成隨機擲硬幣",
+              "fraction": 0,
+              "feedback": "錯——分支是被符號地觀察並記錄，而不是被隨機取代。"
+            },
+            {
+              "text": "把程式永久改寫成無錯誤的版本",
+              "fraction": 0,
+              "feedback": "錯——插樁只為分析記錄資訊，並不修正程式。"
+            }
+          ],
+          "generalFeedback": "程式被插樁後，具體輸入驅動執行時，引擎同時把每個分支條件符號化地記錄下來並累積路徑條件——這是「取反再求解」步驟的原料。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "所探索的路徑都是真實的",
+          "text": "<p>concolic 執行所探索的每一條路徑都對應一次以具體輸入進行的真實執行，因此它不會回報任何虛假（不可行）的路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每一步 concolic 都是一次真實的具體執行，因此它回報的路徑確實可執行（這就是它對「所探索路徑」的健全性）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "因為每條被探索的路徑都由真正執行的具體輸入驅動，concolic 執行不會製造出不可行的路徑。"
+            }
+          ],
+          "generalFeedback": "concolic 執行實際以每個產生的具體輸入執行程式，所以它回報為已探索的任何路徑都是真正可行的。它的限制在於完整性（可能漏掉某些路徑），而非其所探索路徑的健全性。"
+        },
+        {
+          "type": "multichoice",
+          "name": "是什麼挑選一次執行所走的路徑",
+          "text": "<p>在單次 concolic 執行中，是什麼決定了程式被走過的那唯一一條路徑？</p>",
+          "answers": [
+            {
+              "text": "具體輸入值——它們被真正執行，並確定性地選出每個分支的走向",
+              "fraction": 100,
+              "feedback": "正確——具體狀態驅動真實執行，因而固定了路徑；符號狀態只是記錄它。"
+            },
+            {
+              "text": "解算器——它在執行開始前就選好路徑",
+              "fraction": 0,
+              "feedback": "錯——在一次執行內是具體值挑出路徑；解算器只為未來的執行算出輸入。"
+            },
+            {
+              "text": "路徑條件——它強制執行走向某個選定分支",
+              "fraction": 0,
+              "feedback": "錯——路徑條件是從執行中被記錄下來的；它不會操控當前的具體執行。"
+            },
+            {
+              "text": "在每個分支所做的隨機選擇",
+              "fraction": 0,
+              "feedback": "錯——分支是由具體值決定，而非執行期間的隨機。"
+            }
+          ],
+          "generalFeedback": "具體輸入被真正執行，因此在每個分支由具體值判定真／假，從而固定了所走的唯一路徑。符號面只是記錄該路徑的條件，供之後的分支取反使用。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "追蹤：單一 if，記錄路徑條件",
+          "text": "<p>考慮：</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>concolic 執行以具體輸入 <code>x = 0</code> 開始。這次執行記錄的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "x ≤ 5（B1 的假側，因為 0 > 5 為假）",
+              "fraction": 100,
+              "feedback": "正確——x = 0 使 x > 5 為假，故執行走假分支並記錄 x ≤ 5。"
+            },
+            {
+              "text": "x > 5（B1 的真側）",
+              "fraction": 0,
+              "feedback": "錯——x = 0 不滿足 x > 5，故執行走假分支並記錄 x ≤ 5，而非 x > 5。"
+            },
+            {
+              "text": "x == 0（具體值本身）",
+              "fraction": 0,
+              "feedback": "錯——路徑條件記錄的是分支走向（x ≤ 5），而非所用的具體值。"
+            },
+            {
+              "text": "true（沒有限制式，因為沒有走任何分支）",
+              "fraction": 0,
+              "feedback": "錯——分支 B1 有被求值；其假走向貢獻了限制式 x ≤ 5。"
+            }
+          ],
+          "generalFeedback": "當 x = 0 時，條件 x > 5 求值為假，故執行走假分支。引擎記錄它所滿足的條件，也就是它未走之分支條件的否定：x ≤ 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：取反並求解下一個輸入",
+          "text": "<p>同一段程式：</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>第一次執行用 <code>x = 0</code> 並記錄 <code>x ≤ 5</code>。為了涵蓋 B1 的另一側，引擎將其取反。解算器可能回傳下列哪個具體輸入？</p>",
+          "answers": [
+            {
+              "text": "x = 6（任何滿足取反後限制式 x > 5 的值）",
+              "fraction": 100,
+              "feedback": "正確——把 x ≤ 5 取反得 x > 5，x = 6 滿足它，會把執行驅動進 error()。"
+            },
+            {
+              "text": "x = 5",
+              "fraction": 0,
+              "feedback": "錯——5 > 5 為假，故 x = 5 仍走假分支，無法涵蓋另一側。"
+            },
+            {
+              "text": "x = -1",
+              "fraction": 0,
+              "feedback": "錯——-1 不滿足 x > 5；它會重走已涵蓋的假分支。"
+            },
+            {
+              "text": "不存在這樣的輸入；取反後的限制式無法滿足",
+              "fraction": 0,
+              "feedback": "錯——x > 5 很容易滿足（例如 x = 6），故該路徑可行。"
+            }
+          ],
+          "generalFeedback": "把已記錄的限制式 x ≤ 5 取反得 x > 5。解算器回傳任一滿足值（例如 x = 6），它成為下一個具體輸入並把執行驅動進 error()。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：等式守衛",
+          "text": "<p>考慮：</p><pre><code>void g(int x) {\n  if (x == 42) bug();   // branch B1\n}</code></pre><p>執行以 <code>x = 7</code> 開始（故 B1 為假，PC 為 <code>x ≠ 42</code>）。取反 B1 會得到什麼下一個輸入？</p>",
+          "answers": [
+            {
+              "text": "x = 42——把 x ≠ 42 取反得 x == 42，其唯一解為 42",
+              "fraction": 100,
+              "feedback": "正確——解算器算出確切值 42，立即抵達 bug()。"
+            },
+            {
+              "text": "x = 43——任何鄰近值皆可",
+              "fraction": 0,
+              "feedback": "錯——取反後的限制式是等式 x == 42，故 43 不滿足；只有 42 可以。"
+            },
+            {
+              "text": "x = 7——沿用同一輸入",
+              "fraction": 0,
+              "feedback": "錯——x = 7 走的是已涵蓋的假分支；引擎會對翻轉後的等式求解得到 42。"
+            },
+            {
+              "text": "無解；等式無法被取反",
+              "fraction": 0,
+              "feedback": "錯——把 x ≠ 42 取反就是 x == 42，解算器以 x = 42 滿足之。"
+            }
+          ],
+          "generalFeedback": "第一次執行的限制式是 x ≠ 42；取反得 x == 42。解算器回傳恰為 x = 42——這是 concolic／符號推理勝過隨機測試的典型情形，隨機測試幾乎不可能猜中 42。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：要取反哪個分支（DFS）",
+          "text": "<p>某次執行依序走了分支 <code>[B1: true, B2: true]</code>，得到路徑條件 <code>c1 ∧ c2</code>。採用常見的深度優先策略（先翻轉最後一個尚未取反的分支），下一個要求解的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "c1 ∧ ¬c2——保留前綴 c1，取反最後一個分支 c2",
+              "fraction": 100,
+              "feedback": "正確——深度優先先翻轉最深（最後）的分支，同時保留較早的決策。"
+            },
+            {
+              "text": "¬c1 ∧ c2——取反第一個分支，保留第二個",
+              "fraction": 0,
+              "feedback": "錯——那是先翻轉 B1；深度優先會先取反最後的分支（c2），再回溯到較早者。"
+            },
+            {
+              "text": "¬c1 ∧ ¬c2——把兩個分支都取反",
+              "fraction": 0,
+              "feedback": "錯——每步恰好取反一個分支；這裡是最後那個，得 c1 ∧ ¬c2。"
+            },
+            {
+              "text": "c1 ∧ c2——重新求解相同條件",
+              "fraction": 0,
+              "feedback": "錯——重解相同條件只會重走同一路徑；引擎翻轉 c2 以抵達新路徑。"
+            }
+          ],
+          "generalFeedback": "深度優先探索會取反最後一個尚未取反的分支條件，同時保持前綴不變：從 c1 ∧ c2 形成 c1 ∧ ¬c2。只有在窮盡 c1 前綴的子樹後，才回溯翻轉 c1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：兩個分支，下一個輸入",
+          "text": "<p>考慮：</p><pre><code>void h(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b &gt; 0)        // B2\n      target();\n}</code></pre><p>執行 1 用 <code>a = 1, b = -1</code>：B1 真、B2 假，PC = <code>(a &gt; 0) ∧ (b ≤ 0)</code>。翻轉最後的分支（B2），哪個輸入能抵達 <code>target()</code>？</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 1——滿足 (a > 0) ∧ (b > 0)",
+              "fraction": 100,
+              "feedback": "正確——保留 a > 0 並把 b ≤ 0 取反為 b > 0，即得抵達 target() 的路徑；a = 1, b = 1 可行。"
+            },
+            {
+              "text": "a = -1, b = 1——滿足 b > 0",
+              "fraction": 0,
+              "feedback": "錯——a = -1 不滿足 a > 0，故 B1 為假、永遠到不了 target()；前綴 a > 0 必須保留。"
+            },
+            {
+              "text": "a = 1, b = 0——b 非負",
+              "fraction": 0,
+              "feedback": "錯——b > 0 要求 b 嚴格為正；b = 0 不滿足，故 B2 仍為假。"
+            },
+            {
+              "text": "a = 0, b = 0——兩者皆零",
+              "fraction": 0,
+              "feedback": "錯——a = 0 不滿足 a > 0；取反後的限制式保留前綴 a > 0 並把 b 翻轉為 b > 0。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 形成 (a > 0) ∧ (b > 0)：前綴 a > 0 被保留，b ≤ 0 被取反為 b > 0。解算器回傳任一滿足對，例如 a = 1, b = 1，把執行驅動進 target()。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：分支前的指派",
+          "text": "<p>考慮：</p><pre><code>void k(int x) {\n  int y = x + 3;\n  if (y == 10) hit();   // B1\n}</code></pre><p>執行 1 用 <code>x = 0</code>（故 y = 3，B1 假）。取反 B1，解算器回傳的下一個輸入是什麼？</p>",
+          "answers": [
+            {
+              "text": "x = 7——對輸入的限制式是 x + 3 == 10",
+              "fraction": 100,
+              "feedback": "正確——y 是運算式 x + 3，故 B1 變成 x + 3 == 10，得 x = 7。"
+            },
+            {
+              "text": "x = 10——分支測的是 == 10",
+              "fraction": 0,
+              "feedback": "錯——分支測的是 y == 10，而 y = x + 3，故對輸入的限制式是 x + 3 == 10，即 x = 7。"
+            },
+            {
+              "text": "x = 3——與第一次算出的 y 相符",
+              "fraction": 0,
+              "feedback": "錯——x = 3 使 y = 6，不是 10；解 x + 3 == 10 得 x = 7。"
+            },
+            {
+              "text": "y = 10——把 y 當成自由輸入",
+              "fraction": 0,
+              "feedback": "錯——y 不是輸入；它是運算式 x + 3，必須代入，得 x = 7。"
+            }
+          ],
+          "generalFeedback": "符號狀態記錄 y = x + 3，故分支 y == 10 就是對實際輸入 x 的限制式 x + 3 == 10。取反假走向並求解得 x = 7。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單情形下 concolic 與純符號的比較",
+          "text": "<p>對於 <code>if (x &gt; 5) error();</code> 這個可求解的線性守衛，concolic 與純符號執行在抵達 <code>error()</code> 上如何比較？</p>",
+          "answers": [
+            {
+              "text": "兩者都能抵達——各自求解 x > 5（concolic 是在其第一次具體執行後取反分支）——具體伴隨執行只在限制式無法求解時才有差別",
+              "fraction": 100,
+              "feedback": "正確——在簡單可解的守衛上兩者行為相近；具體後援只在難／不透明限制式時才拉開差距。"
+            },
+            {
+              "text": "只有純符號能抵達；concolic 無法求解不等式",
+              "fraction": 0,
+              "feedback": "錯——concolic 使用同一個解算器，藉取反分支並求解就能輕鬆處理 x > 5。"
+            },
+            {
+              "text": "只有 concolic 能抵達；純符號無法求解不等式",
+              "fraction": 0,
+              "feedback": "錯——純符號能處理線性不等式；此處兩者都能抵達 error()。"
+            },
+            {
+              "text": "兩者都無法抵達，除非隨機碰運氣",
+              "fraction": 0,
+              "feedback": "錯——兩者都能精確求解 x > 5；簡單線性限制式無需運氣。"
+            }
+          ],
+          "generalFeedback": "當所有限制式都可求解時，concolic 與純符號抵達相同路徑；兩者都直接解出 x > 5。具體值後援只有在限制式為非線性、無法求解、或牽涉不透明外部呼叫時才會起決定性作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：記錄所走的走向",
+          "text": "<p>考慮：</p><pre><code>void m(int x) {\n  if (x &lt; 100) a();   // B1\n  else b();\n}</code></pre><p>具體執行用 <code>x = 250</code>。引擎會把哪個文字式（literal）連言進 B1 的路徑條件？</p>",
+          "answers": [
+            {
+              "text": "x ≥ 100——執行走了 else 分支，故所滿足的條件是 x < 100 的否定",
+              "fraction": 100,
+              "feedback": "正確——當 x = 250 時守衛 x < 100 為假，故記錄的文字式是 x ≥ 100。"
+            },
+            {
+              "text": "x < 100——分支的書面條件",
+              "fraction": 0,
+              "feedback": "錯——對 x = 250 而言書面條件為假；引擎記錄的是實際所走的走向 x ≥ 100。"
+            },
+            {
+              "text": "x == 250——具體值",
+              "fraction": 0,
+              "feedback": "錯——路徑條件記錄的是分支走向（x ≥ 100），而非具體數字。"
+            },
+            {
+              "text": "沒有——else 分支不貢獻任何限制式",
+              "fraction": 0,
+              "feedback": "錯——走 else 分支會把被否定的守衛 x ≥ 100 貢獻進路徑條件。"
+            }
+          ],
+          "generalFeedback": "路徑條件永遠記錄實際所走的走向。當 x = 250 時守衛 x < 100 為假，故引擎把它的否定 x ≥ 100 連言進路徑條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：無法滿足的翻轉會被略過",
+          "text": "<p>考慮：</p><pre><code>void p(int x) {\n  if (x &gt; 0)        // B1\n    if (x &lt; 0)      // B2\n      dead();\n}</code></pre><p>執行 1 用 <code>x = 5</code>：B1 真、B2 假，PC = <code>(x &gt; 0) ∧ (x ≥ 0)</code>。當引擎翻轉 B2 以嘗試抵達 <code>dead()</code> 時，會發生什麼？</p>",
+          "answers": [
+            {
+              "text": "翻轉後的條件 (x > 0) ∧ (x < 0) 為 UNSAT，故解算器回傳無解，引擎略過該不可行路徑",
+              "fraction": 100,
+              "feedback": "正確——沒有 x 同時為正又為負，故 dead() 不可達，正確地不產生任何測試。"
+            },
+            {
+              "text": "解算器回傳 x = 0，抵達 dead()",
+              "fraction": 0,
+              "feedback": "錯——x = 0 既不滿足 x > 0 也不滿足 x < 0；此連言無法滿足。"
+            },
+            {
+              "text": "引擎代入一個具體值，仍然抵達 dead()",
+              "fraction": 0,
+              "feedback": "錯——具體後援是用於無法求解／不透明的項，而非對一個乾淨的 UNSAT 線性限制式；該路徑確實不可行。"
+            },
+            {
+              "text": "程式被修改以使該路徑變為可行",
+              "fraction": 0,
+              "feedback": "錯——concolic 從不修改程式；UNSAT 的翻轉就只是得不到輸入。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 並保留前綴得 (x > 0) ∧ (x < 0)，此為 UNSAT。解算器回報無解，故引擎略過這條不可行路徑——dead() 正確地永不被鎖定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：涵蓋兩分支需幾次執行",
+          "text": "<p>對於單一 <code>if (x &gt; 5) A(); else B();</code>（兩側皆可行），從一個任意具體輸入開始，需要幾次 concolic 執行才能涵蓋兩個分支？</p>",
+          "answers": [
+            {
+              "text": "2——一次執行涵蓋種子所走的分支；取反它並求解得到第二個輸入，涵蓋另一側",
+              "fraction": 100,
+              "feedback": "正確——一次種子執行加一次取反求解執行，即可涵蓋兩側。"
+            },
+            {
+              "text": "1——單次執行即涵蓋兩個分支",
+              "fraction": 0,
+              "feedback": "錯——一次具體執行只走一側；另一側需要來自取反限制式的第二個輸入。"
+            },
+            {
+              "text": "4——每個分支都需要兩次執行",
+              "fraction": 0,
+              "feedback": "錯——單一雙向分支總共只需兩次執行，每側一次。"
+            },
+            {
+              "text": "無上限——隨機種子可能永遠碰不到兩側",
+              "fraction": 0,
+              "feedback": "錯——concolic 是導向式的：它確定性地求解取反限制式，故兩次執行即足夠。"
+            }
+          ],
+          "generalFeedback": "種子執行涵蓋其具體值所走的那一側。取反該分支並求解得到第二個輸入，涵蓋相反側。兩次執行涵蓋兩分支——這正是 concolic 有別於盲目隨機測試的導向性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：複合守衛，下一個輸入",
+          "text": "<p>某分支在執行 1 所記錄（已滿足）的條件為 <code>(x + y &lt; 4)</code>。將其取反後，解算器會接受哪個輸入對？</p>",
+          "answers": [
+            {
+              "text": "x = 3, y = 3——滿足取反後的 x + y ≥ 4",
+              "fraction": 100,
+              "feedback": "正確——3 + 3 = 6 ≥ 4，故此對會走翻轉後的分支。"
+            },
+            {
+              "text": "x = 1, y = 1——小值",
+              "fraction": 0,
+              "feedback": "錯——1 + 1 = 2 < 4，仍滿足原條件，而非其否定。"
+            },
+            {
+              "text": "x = 0, y = 3——和為 3",
+              "fraction": 0,
+              "feedback": "錯——0 + 3 = 3 < 4，不滿足取反後的限制式 x + y ≥ 4。"
+            },
+            {
+              "text": "x = 2, y = 1——和為 3",
+              "fraction": 0,
+              "feedback": "錯——2 + 1 = 3 < 4，故仍停留在原分支。"
+            }
+          ],
+          "generalFeedback": "把 x + y < 4 取反得 x + y ≥ 4。只有 x = 3, y = 3（和為 6）滿足它；其餘選項的和都小於 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：保留前綴、翻轉較深分支的輸入",
+          "text": "<p>考慮：</p><pre><code>void q(int a, int b) {\n  if (a == b)       // B1\n    if (a &gt; 10)     // B2\n      z();\n}</code></pre><p>執行 1 用 <code>a = 3, b = 3</code>：B1 真、B2 假，PC = <code>(a == b) ∧ (a ≤ 10)</code>。翻轉 B2 以抵達 <code>z()</code>，哪個輸入可行？</p>",
+          "answers": [
+            {
+              "text": "a = 11, b = 11——保留 a == b 並滿足 a > 10",
+              "fraction": 100,
+              "feedback": "正確——前綴 a == b 被保留，a ≤ 10 被取反為 a > 10；a = b = 11 兩者皆滿足。"
+            },
+            {
+              "text": "a = 11, b = 3——a > 10 成立",
+              "fraction": 0,
+              "feedback": "錯——a ≠ b 破壞了被保留的前綴 a == b，故 B1 為假、z() 不可達。"
+            },
+            {
+              "text": "a = 5, b = 5——相等值",
+              "fraction": 0,
+              "feedback": "錯——a = 5 不滿足取反後的限制式 a > 10，故 B2 仍為假。"
+            },
+            {
+              "text": "a = 10, b = 10——正好在邊界",
+              "fraction": 0,
+              "feedback": "錯——a > 10 為嚴格；a = 10 不滿足，故到不了 z()。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 形成 (a == b) ∧ (a > 10)：保留 a == b，取反 a ≤ 10 為 a > 10。輸入對 a = 11, b = 11 兩個限制式皆滿足，把執行驅動進 z()。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何重跑同一輸入無法探索",
+          "text": "<p>為什麼 concolic 引擎不能單靠再跑一次同樣的具體輸入來抵達新路徑？</p>",
+          "answers": [
+            {
+              "text": "確定性程式對同一輸入走同一路徑，故新路徑需要一個由「取反並求解限制式」得到的新輸入",
+              "fraction": 100,
+              "feedback": "正確——這正是引擎取反一個分支並求出不同輸入的原因。"
+            },
+            {
+              "text": "重跑會清空符號狀態，遺失路徑條件",
+              "fraction": 0,
+              "feedback": "錯——真正原因是確定性：同一輸入、同一路徑；引擎必須改變輸入才能改變路徑。"
+            },
+            {
+              "text": "解算器禁止重複使用任何具體輸入",
+              "fraction": 0,
+              "feedback": "錯——並無此禁令；重點是同一輸入只會重走同一路徑。"
+            },
+            {
+              "text": "重複執行會隨機挑到不同分支",
+              "fraction": 0,
+              "feedback": "錯——確定性程式不會隨機挑分支；相同輸入產生相同路徑。"
+            }
+          ],
+          "generalFeedback": "對確定性程式而言，具體輸入完全決定所走的路徑。要探索不同路徑，引擎必須提供不同輸入——由取反已記錄路徑條件中的某分支並求解得到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：深度優先下的輸入順序",
+          "text": "<p>對於 <code>if (a) {...} if (b) {...}</code>（兩個獨立分支），從一次 <code>a=false, b=false</code> 的執行開始，且先翻轉最後一個分支，引擎接著求解的路徑條件的合理順序是？</p>",
+          "answers": [
+            {
+              "text": "先 ¬a ∧ b（翻轉最後的分支），再 a ∧ ...（回溯翻轉第一個）",
+              "fraction": 100,
+              "feedback": "正確——深度優先先翻轉最深的分支（b），再回溯到較早者（a）。"
+            },
+            {
+              "text": "只有 a ∧ b，忽略其他組合",
+              "fraction": 0,
+              "feedback": "錯——深度優先會探索不只一種組合；它先翻轉最後分支得 ¬a ∧ b。"
+            },
+            {
+              "text": "它求解 ¬a ∧ ¬b，與種子執行相同",
+              "fraction": 0,
+              "feedback": "錯——那是已涵蓋的種子路徑；引擎會翻轉一個分支以抵達新路徑。"
+            },
+            {
+              "text": "它必須先同時翻轉兩個分支",
+              "fraction": 0,
+              "feedback": "錯——每步恰好翻轉一個分支；深度優先下先翻最深者。"
+            }
+          ],
+          "generalFeedback": "深度優先先翻轉最後的分支：從 ¬a ∧ ¬b 形成 ¬a ∧ b，待該子樹探索完後回溯翻轉第一個分支（a ∧ ...）。每步只取反單一分支並保留前綴。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "具體值使前綴保持一致",
+          "text": "<p>當引擎取反最後一個分支時，它會保持較早的分支條件不變，好讓求得的輸入仍能抵達那個分支點。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——保留前綴確保新輸入在分歧前確實抵達被翻轉的分支。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "保留前綴正是為了讓新輸入沿同一路線走到被翻轉的分支，再在該處分歧。"
+            }
+          ],
+          "generalFeedback": "要抵達某個深層分支的手足路徑，輸入必須先滿足通往它的所有較早決策。因此引擎保留前綴限制式、只取反目標分支，再求解整個連言。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "對外部呼叫的具體後援",
+          "text": "<p>考慮：</p><pre><code>void r(int x) {\n  int h = opaque_hash(x);   // native/library, no symbolic model\n  if (h == 1234) win();     // B1\n}</code></pre><p>在純符號引擎會卡住之處，concolic 執行如何在 B1 繼續前進？</p>",
+          "answers": [
+            {
+              "text": "代入執行期觀察到的 h 具體值，使 B1 變成具體的真／假，執行沿一條真實路徑繼續",
+              "fraction": 100,
+              "feedback": "正確——具體執行永遠有一個實際的 h，故 concolic 能在純符號會卡住的不可建模呼叫處繼續。"
+            },
+            {
+              "text": "它自動為 opaque_hash 建立完整的符號模型",
+              "fraction": 0,
+              "feedback": "錯——該呼叫不透明且無模型；concolic 是用具體觀察值繞過它，而非建模。"
+            },
+            {
+              "text": "它像純符號執行一樣中止",
+              "fraction": 0,
+              "feedback": "錯——具體伴隨值的重點正是要越過不透明呼叫繼續，而不是中止。"
+            },
+            {
+              "text": "它證明 B1 不可達",
+              "fraction": 0,
+              "feedback": "錯——它並不對 B1 做任何證明；它只是代入具體 h 並沿由此得到的真實路徑走。"
+            }
+          ],
+          "generalFeedback": "因為 opaque_hash 沒有符號模型，其符號結果未知。concolic 執行使用真實執行所產生的 h 具體值，故 B1 具體地求值、執行沿一條真正路徑前進——這正是相較於純符號執行（會卡住）的關鍵優勢。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體後援的完整性代價",
+          "text": "<p>當 concolic 執行對某個無法求解／不透明的項代入具體值時，代價是什麼？</p>",
+          "answers": [
+            {
+              "text": "不完整（incompleteness）——把該項固定為單一具體值，引擎可能無法探索其他依賴它的可行路徑",
+              "fraction": 100,
+              "feedback": "正確——後援讓執行能繼續，但可能隱藏那些只在該不透明項取其他值時才可達的路徑。"
+            },
+            {
+              "text": "不健全（unsoundness）——它可能回報實際上跑不到的路徑",
+              "fraction": 0,
+              "feedback": "錯——每次執行都是具體且真實的，故所探索路徑的健全性得以保持；代價是漏掉路徑（完整性）。"
+            },
+            {
+              "text": "它總是使解算器當機",
+              "fraction": 0,
+              "feedback": "錯——代入具體值會簡化限制式，不會使解算器當機。"
+            },
+            {
+              "text": "沒有代價；覆蓋率不受影響",
+              "fraction": 0,
+              "feedback": "錯——把不透明項釘死在單一值可能妨礙抵達其他路徑，這是不完整的代價。"
+            }
+          ],
+          "generalFeedback": "具體後援保持健全性（所探索路徑皆為真實），但犧牲完整性：把不透明項固定為所觀察到的唯一具體值，可能遮蔽只在該項取其他值時才可行的分支，因此某些路徑可能永不被探索。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非線性限制式的後援",
+          "text": "<p>考慮：</p><pre><code>void s(int x, int y) {\n  if (x * y == 30)   // B1, nonlinear\n    t();\n}</code></pre><p>執行 1 用 <code>x = 6, y = 4</code>（故 x*y = 24，B1 假）。若解算器無法處理這個非線性翻轉，concolic 仍能如何取得進展？</p>",
+          "answers": [
+            {
+              "text": "把其中一個變數固定為其具體值（例如 x = 6），使限制式變為線性（6*y == 30 → y = 5），再求解",
+              "fraction": 100,
+              "feedback": "正確——把 x 釘為具體值使限制式線性化，讓解算器求出 y = 5 並抵達 t()。"
+            },
+            {
+              "text": "直接放棄，因為非線性限制式不可判定",
+              "fraction": 0,
+              "feedback": "錯——concolic 是用其中一個運算元的具體值把式子簡化為可解的線性限制式，而非放棄。"
+            },
+            {
+              "text": "隨機亂猜 x 與 y，直到 x*y == 30",
+              "fraction": 0,
+              "feedback": "錯——concolic 的做法是把一個運算元具體釘死，再求解由此得到的線性方程；這正是具體伴隨的意義。"
+            },
+            {
+              "text": "修改程式以移除乘法",
+              "fraction": 0,
+              "feedback": "錯——程式從不被修改；是代入 x 的具體值來簡化限制式。"
+            }
+          ],
+          "generalFeedback": "concolic 執行代入其中一個運算元的具體值（x = 6），把 x*y == 30 化為線性的 6*y == 30，解算器以 y = 5 滿足之。以 x = 6, y = 5 執行即抵達 t()。代價是不完整：把 x 釘為 6 可能漏掉如 x = 5, y = 6 之類的解。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "健全性與完整性",
+          "text": "<p>下列何者正確刻畫 concolic 執行的保證？</p>",
+          "answers": [
+            {
+              "text": "它所探索的路徑都是真實的（健全），但可能漏掉某些可行路徑（不完整）",
+              "fraction": 100,
+              "feedback": "正確——真實的具體執行保證沒有虛假路徑，而具體後援與界限設定則可能使某些路徑未被探索。"
+            },
+            {
+              "text": "它會探索每一條可行路徑（完整），但可能回報一些跑不到的路徑（不健全）",
+              "fraction": 0,
+              "feedback": "錯——恰好相反：對所探索路徑是健全的，但不保證完整。"
+            },
+            {
+              "text": "對所有程式它既完全健全又完全完整",
+              "fraction": 0,
+              "feedback": "錯——路徑爆炸與具體後援意味著完整性無法保證。"
+            },
+            {
+              "text": "它既不健全也不完整",
+              "fraction": 0,
+              "feedback": "錯——因為每條被探索的路徑都是真實執行，它對其回報的路徑是健全的。"
+            }
+          ],
+          "generalFeedback": "每一步 concolic 都是真正的具體執行，故其所探索的路徑皆為真實（對所探索路徑的健全性——不會因不可行路徑而產生誤報）。但對不透明／非線性項的具體後援與有界搜尋，意味著它可能無法抵達每條可行路徑（不完整）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑爆炸是被管理，而非被消除",
+          "text": "<p>concolic 執行與路徑爆炸的關係為何？</p>",
+          "answers": [
+            {
+              "text": "它仍面臨路徑爆炸，並以搜尋策略與迭代／深度界限來管理它，而非消除它",
+              "fraction": 100,
+              "feedback": "正確——concolic 不會移除指數級的路徑成長；它以界限搜尋來因應。"
+            },
+            {
+              "text": "它藉由使用具體輸入而完全消除路徑爆炸",
+              "fraction": 0,
+              "feedback": "錯——使用具體輸入並不會移除指數級的分支組合數；concolic 仍須對搜尋設界。"
+            },
+            {
+              "text": "它沒有路徑的概念，故路徑爆炸不適用",
+              "fraction": 0,
+              "feedback": "錯——concolic 明確藉分支翻轉探索路徑，故路徑爆炸非常適用。"
+            },
+            {
+              "text": "路徑爆炸只影響隨機測試，不影響 concolic",
+              "fraction": 0,
+              "feedback": "錯——路徑爆炸是所有以路徑為基礎之技術的核心挑戰，concolic 亦然。"
+            }
+          ],
+          "generalFeedback": "每次分支翻轉都可能引出更多分支，故路徑數仍指數成長。concolic 以搜尋啟發式（深度優先、覆蓋率導向）與對迭代、迴圈展開或深度的界限來管理它——但不消除路徑爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支追蹤：說出每個下一個輸入（1）",
+          "text": "<p>考慮：</p><pre><code>void f(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b == a + 1)   // B2\n      target();\n}</code></pre><p>種子執行：<code>a = -1, b = 0</code>（B1 假）。在深度優先翻轉下，第一次使 B1 為真（翻轉 B1）的那次執行的輸入是什麼？</p>",
+          "answers": [
+            {
+              "text": "任何 a > 0 且 b 不受限，例如 a = 1, b = 0——求解單一限制式 a > 0",
+              "fraction": 100,
+              "feedback": "正確——翻轉 B1 只加上 a > 0；B2 尚未出現在已記錄路徑上，故 b 自由（例如 b = 0）。"
+            },
+            {
+              "text": "a = 1, b = 2——必須也已滿足 B2",
+              "fraction": 0,
+              "feedback": "錯——翻轉 B1 時只需要 a > 0；此步 B2 尚未被記錄，故 b 不必滿足 b == a + 1。"
+            },
+            {
+              "text": "a = -1, b = 0——沿用種子",
+              "fraction": 0,
+              "feedback": "錯——種子的 B1 為假；翻轉 B1 需要 a > 0，故輸入必須改變。"
+            },
+            {
+              "text": "無解；a > 0 無法滿足",
+              "fraction": 0,
+              "feedback": "錯——a > 0 顯然可滿足，例如 a = 1。"
+            }
+          ],
+          "generalFeedback": "種子走 B1 假，故其路徑條件僅為 a ≤ 0。取反得 a > 0，是此步唯一的限制式（B2 從未被抵達）。解算器回傳任一 a > 0，例如 a = 1, b = 0。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支追蹤：說出每個下一個輸入（2）",
+          "text": "<p>延續前一段程式，執行 <code>a = 1, b = 0</code> 現在走 B1 真、B2 假（0 ≠ 2），PC = <code>(a &gt; 0) ∧ (b ≠ a + 1)</code>。翻轉 B2，哪個輸入能抵達 <code>target()</code>？</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 2——保留 a > 0 並滿足 b == a + 1",
+              "fraction": 100,
+              "feedback": "正確——保留 a > 0，把 b ≠ a + 1 取反為 b == a + 1；當 a = 1 即 b = 2。"
+            },
+            {
+              "text": "a = 1, b = 1——b 沿用前一步",
+              "fraction": 0,
+              "feedback": "錯——b 必須等於 a + 1 = 2；b = 1 不滿足翻轉後的限制式。"
+            },
+            {
+              "text": "a = 0, b = 1——b == a + 1 成立",
+              "fraction": 0,
+              "feedback": "錯——a = 0 破壞了被保留的前綴 a > 0，故 B1 變假、target() 不可達。"
+            },
+            {
+              "text": "a = 2, b = 2——兩者相等",
+              "fraction": 0,
+              "feedback": "錯——當 a = 2 時 b == a + 1 需要 b = 3，而非 2。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 得 (a > 0) ∧ (b == a + 1)。沿用前綴的 a = 1，b 必須為 a + 1 = 2。輸入 a = 1, b = 2 抵達 target()。（解算器也可能選另一個 a > 0 並搭配相應的 b。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支追蹤：三次迭代計數",
+          "text": "<p>對於巢狀片段 <code>if (a &gt; 0) if (b == a + 1) target();</code>，從種子 <code>a = -1, b = 0</code> 開始，每次迭代按深度優先翻轉一個分支，需要幾次 concolic 執行（含種子）才能首次抵達 <code>target()</code>？</p>",
+          "answers": [
+            {
+              "text": "3——種子（B1 假）、然後 B1 真／B2 假、再來 B1 真／B2 真抵達 target()",
+              "fraction": 100,
+              "feedback": "正確——需要一次翻轉進入 B1，再一次翻轉滿足 B2，故第三次執行擊中 target()。"
+            },
+            {
+              "text": "2——種子加一次翻轉即抵達 target()",
+              "fraction": 0,
+              "feedback": "錯——種子未過 B1；一次翻轉只讓 B1 為真（B2 仍假），故需第二次翻轉，共三次執行。"
+            },
+            {
+              "text": "1——種子直接抵達 target()",
+              "fraction": 0,
+              "feedback": "錯——種子 a = -1，立刻未過 B1，故無法抵達 target()。"
+            },
+            {
+              "text": "4——每層巢狀使執行次數加倍",
+              "fraction": 0,
+              "feedback": "錯——這條特定路徑在種子之後恰好需要兩次分支翻轉，即三次執行，而非四次。"
+            }
+          ],
+          "generalFeedback": "執行 1（種子 a=-1）：B1 假。執行 2（a=1, b=0）：翻轉 B1 → B1 真、B2 假。執行 3（a=1, b=2）：翻轉 B2 → 兩者皆真，抵達 target()。共三次執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為搜尋設界",
+          "text": "<p>當迴圈次數取決於輸入時，為了讓 concolic 探索保持有限，常見做法是：</p>",
+          "answers": [
+            {
+              "text": "設一個界限——例如深度／迭代上限或有界迴圈展開——並接受界限外的路徑不被探索",
+              "fraction": 100,
+              "feedback": "正確——設界以終止性換取，是常見的路徑爆炸控制手段。"
+            },
+            {
+              "text": "一次把所有迴圈體分支取反，好在一次執行涵蓋所有迭代",
+              "fraction": 0,
+              "feedback": "錯——單次執行只涵蓋一條路徑；迴圈是以設界探索處理，而非同時取反。"
+            },
+            {
+              "text": "證明迴圈會終止後就略過它",
+              "fraction": 0,
+              "feedback": "錯——略過迴圈會漏掉其行為；應改以設界／展開處理迴圈。"
+            },
+            {
+              "text": "改用純符號執行，因為它沒有路徑爆炸",
+              "fraction": 0,
+              "feedback": "錯——純符號執行同樣有路徑爆炸；改用它並不能解決問題。"
+            }
+          ],
+          "generalFeedback": "符號化的迴圈次數可能引出無界多的路徑，故引擎以迭代／深度上限或有界展開（並搭配搜尋啟發式）對探索設界。這以不探索界限外路徑為代價換取有限的執行——一種被接受的不完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTE 與指標型輸入",
+          "text": "<p>CUTE 把 concolic 測試擴展到含指標與動態資料結構的程式，方法是：</p>",
+          "answers": [
+            {
+              "text": "在具體指標旁追蹤堆積／指標結構的符號表示，並像求解純量限制式一樣求解指標限制式（例如別名、是否為 null）",
+              "fraction": 100,
+              "feedback": "正確——CUTE 同時處理純量的邏輯輸入對映與指標輸入的結構，並以具體執行補足解算器所不能。"
+            },
+            {
+              "text": "禁止一切指標輸入，只測試整數",
+              "fraction": 0,
+              "feedback": "錯——CUTE 的貢獻正是支援指標與資料結構型輸入，而非禁止它們。"
+            },
+            {
+              "text": "在測試前把整支程式轉成無指標的形式",
+              "fraction": 0,
+              "feedback": "錯——CUTE 直接對指標推理，在符號推理不足處使用具體值。"
+            },
+            {
+              "text": "只對堆積執行純符號執行",
+              "fraction": 0,
+              "feedback": "錯——CUTE 是 concolic：它結合具體指標值與符號限制式，這正是它能處理堆積輸入的原因。"
+            }
+          ],
+          "generalFeedback": "CUTE（Concolic Unit Testing Engine）以邏輯結構表示指標輸入，並同時產生純量值與指標形狀（含別名與 null 情形）。具體執行提供可依靠的真實指標，使它能測試處理動態資料結構的函式。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "具體後援保持健全性",
+          "text": "<p>即使 concolic 執行對解算器無法處理的項代入具體值，它實際執行的路徑仍為真正可行（不會引入虛假路徑）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——代入所用的值來自真實執行，故由此走出的執行仍是一條真實、可行的路徑。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "具體後援從不捏造路徑；它使用觀察到的值，故每條被執行的路徑都真實。代價是漏掉路徑，而非虛假路徑。"
+            }
+          ],
+          "generalFeedback": "因為代入的值來自一次實際執行，引擎隨後走的路徑是程式真的能走的。所探索路徑的健全性得以保持；有風險的只是完整性（某些可行路徑可能被略過）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "限制式被近似時的分歧",
+          "text": "<p>假設 concolic 執行把某不透明項釘為具體值並求出新輸入，但重跑時執行卻走了與預測不同的分支（「分歧」，divergence）。引擎會怎麼做？</p>",
+          "answers": [
+            {
+              "text": "它從實際的具體執行偵測到分歧並記錄真正走過的路徑，因為具體執行永遠是基準真相",
+              "fraction": 100,
+              "feedback": "正確——具體執行是權威，故分歧只是被觀察到、真正的路徑被記錄，分析仍保持健全。"
+            },
+            {
+              "text": "它信任預測的路徑並忽略實際執行",
+              "fraction": 0,
+              "feedback": "錯——具體執行是基準真相；引擎記錄實際執行的路徑，而非預測的那條。"
+            },
+            {
+              "text": "它把預測的路徑回報為已涵蓋，即使實際上沒走到",
+              "fraction": 0,
+              "feedback": "錯——那會不健全；引擎依靠真實執行，而真實執行揭示了分歧。"
+            },
+            {
+              "text": "它因為預測錯誤而當機",
+              "fraction": 0,
+              "feedback": "錯——分歧會被優雅地處理：觀察實際的具體執行並繼續。"
+            }
+          ],
+          "generalFeedback": "當被代入／近似的項使求得的輸入走了意料外的路徑時，就會發生分歧。因為 concolic 永遠具體地執行，它會觀察到真實路徑並記錄之——具體執行是基準真相，即使預測失準也能保持健全。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含具體後援步驟的多分支追蹤",
+          "text": "<p>考慮：</p><pre><code>void w(int x) {\n  int t = external(x);   // opaque; run observed t = 3 for x = 2\n  if (x &gt; 0)             // B1\n    if (t == 3)          // B2, depends on opaque t\n      goal();\n}</code></pre><p>執行 1 用 <code>x = 2</code>：B1 真，且 t = 3 故 B2 真——<code>goal()</code> 被抵達。到 goal() 的路徑會被回報嗎？它是真實的嗎？</p>",
+          "answers": [
+            {
+              "text": "會，且是真實的——具體執行確實抵達了 goal()，故該路徑被回報且真正可行；B2 使用了具體的 t = 3",
+              "fraction": 100,
+              "feedback": "正確——concolic 使用觀察到的 t，故 goal() 真被抵達並被健全地回報。"
+            },
+            {
+              "text": "不會——B2 依賴不透明呼叫，故 concolic 無法回報該路徑",
+              "fraction": 0,
+              "feedback": "錯——concolic 使用具體 t = 3，故它求值 B2 並真的抵達 goal()；該路徑會被回報。"
+            },
+            {
+              "text": "會，但可能是虛假路徑，因為 t 不透明",
+              "fraction": 0,
+              "feedback": "錯——該次執行確實跑到 goal()，故路徑真實而非虛假；不透明影響的是完整性，而非這次執行的真實性。"
+            },
+            {
+              "text": "引擎必須在不透明呼叫處中止",
+              "fraction": 0,
+              "feedback": "錯——那是純符號行為；concolic 使用觀察到的 t = 3 繼續前進。"
+            }
+          ],
+          "generalFeedback": "具體執行由 external(2) 算出 t = 3，並真的經 B1、B2 走進 goal()。concolic 回報這條真正可行的路徑。它較難做到的是對其他 x 強迫 B2 走另一方向，因為 x 與 t 的關係不透明——這是不完整，而非不健全。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋策略的選擇",
+          "text": "<p>為什麼 concolic 引擎採用搜尋策略（深度優先、覆蓋率導向、隨機路徑），而非窮舉所有路徑？</p>",
+          "answers": [
+            {
+              "text": "因為路徑空間是指數級的（路徑爆炸），策略在有限預算內決定優先翻轉哪些分支",
+              "fraction": 100,
+              "feedback": "正確——路徑太多而無法全試，策略決定把有限的解算器／執行預算花在何處。"
+            },
+            {
+              "text": "因為解算器每支程式只能回答一次查詢",
+              "fraction": 0,
+              "feedback": "錯——解算器能回答許多查詢；採用策略是因為路徑數呈指數級。"
+            },
+            {
+              "text": "因為具體執行不可重複",
+              "fraction": 0,
+              "feedback": "錯——具體執行可重複；策略存在是為因應龐大的路徑空間。"
+            },
+            {
+              "text": "因為沒有策略就無法進行分支取反",
+              "fraction": 0,
+              "feedback": "錯——取反本身無論如何都能做；策略只是在路徑爆炸下決定接下來追哪個取反。"
+            }
+          ],
+          "generalFeedback": "窮舉探索不可行，因為分支與迴圈使路徑數指數成長。搜尋策略（深度優先、覆蓋率導向、世代式、隨機路徑）決定接下來翻轉哪個分支，讓有限的執行與解算器呼叫預算瞄準有用、未涵蓋的路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "concolic 不保證完整覆蓋",
+          "text": "<p>concolic 執行保證只要時間足夠，就能涵蓋任何程式的每一條可行路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不正確——對不透明／非線性項的具體後援，以及對迴圈的設界，意味著某些可行路徑可能永遠無法抵達。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——concolic 不保證完整路徑覆蓋；具體後援與有界搜尋可能使某些可行路徑未被探索。"
+            }
+          ],
+          "generalFeedback": "concolic 執行以界限與啟發式管理路徑爆炸，並對無法求解的項退回具體值。兩者都可能使它無法抵達每條可行路徑，故不保證完整覆蓋——儘管它所探索的每條路徑都是真實的。"
+        }
+      ]
+    }
+  },
   "graph-coverage": {
     "en": {
       "easy": [
