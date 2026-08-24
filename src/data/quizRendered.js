@@ -12639,6 +12639,2458 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "logic-basic": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Clause definition (basic)",
+          "text": "<p>A <strong>clause</strong> is best defined as:</p>",
+          "answers": [
+            {
+              "text": "A boolean expression that contains no logical operators",
+              "fraction": 100,
+              "feedback": "Correct — a clause is atomic, e.g. x > 0 or a single boolean variable."
+            },
+            {
+              "text": "Any boolean expression joined by &&, ||, or !",
+              "fraction": 0,
+              "feedback": "That describes a predicate, which is built from clauses."
+            },
+            {
+              "text": "A single row of a truth table",
+              "fraction": 0,
+              "feedback": "A truth-table row is one assignment of values, not a clause."
+            },
+            {
+              "text": "A test case that makes a predicate true",
+              "fraction": 0,
+              "feedback": "That is a test, not a clause."
+            }
+          ],
+          "generalFeedback": "A clause (condition) is a boolean expression with no logical operators (&&, ||, !). Predicates are formed by connecting clauses with those operators.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate definition (basic)",
+          "text": "<p>A <strong>predicate</strong> is:</p>",
+          "answers": [
+            {
+              "text": "An expression formed from one or more clauses connected by logical operators",
+              "fraction": 100,
+              "feedback": "Correct — clauses joined by &&, ||, ! form a predicate."
+            },
+            {
+              "text": "Always an expression with no logical operators",
+              "fraction": 0,
+              "feedback": "That is a clause; a predicate may contain operators."
+            },
+            {
+              "text": "An arithmetic expression that returns a number",
+              "fraction": 0,
+              "feedback": "A predicate is boolean-valued, not numeric."
+            },
+            {
+              "text": "A loop condition that must be an inequality",
+              "fraction": 0,
+              "feedback": "A predicate need not be an inequality nor tied to a loop."
+            }
+          ],
+          "generalFeedback": "A predicate is a boolean expression built from clauses connected by logical operators. A single clause with no operators is itself the simplest predicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the single clause",
+          "text": "<p>Which of the following is a <strong>single clause</strong> (not a compound predicate)?</p>",
+          "answers": [
+            {
+              "text": "x >= 5",
+              "fraction": 100,
+              "feedback": "Correct — a relational expression with no logical operators is one clause."
+            },
+            {
+              "text": "a && b",
+              "fraction": 0,
+              "feedback": "This joins two clauses with &&, so it is a predicate."
+            },
+            {
+              "text": "!p",
+              "fraction": 0,
+              "feedback": "The ! operator makes this a compound predicate over the clause p."
+            },
+            {
+              "text": "a || b",
+              "fraction": 0,
+              "feedback": "This joins two clauses with ||, so it is a predicate."
+            }
+          ],
+          "generalFeedback": "A clause contains no logical operators. Only x >= 5 qualifies; the others use &&, ||, or !.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the clauses",
+          "text": "<p>How many clauses does the predicate <code>(p && q) || !r</code> contain?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — the clauses are p, q, and r."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three atomic conditions: p, q, r."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The operators &&, ||, ! are not clauses; only p, q, r are."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "This is a compound predicate with three clauses, not one."
+            }
+          ],
+          "generalFeedback": "Clauses are the atomic boolean expressions. In (p && q) || !r they are p, q, and r — three clauses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate Coverage definition",
+          "text": "<p>Predicate Coverage (PC) requires that:</p>",
+          "answers": [
+            {
+              "text": "The predicate evaluates to both true and false at least once",
+              "fraction": 100,
+              "feedback": "Correct — one test making it true, one making it false."
+            },
+            {
+              "text": "Each clause evaluates to both true and false",
+              "fraction": 0,
+              "feedback": "That is Clause Coverage (CC), not PC."
+            },
+            {
+              "text": "Every combination of clause values is exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage (CoC)."
+            },
+            {
+              "text": "Each clause determines the predicate's value at least once",
+              "fraction": 0,
+              "feedback": "That is the active-clause idea (ACC), which is out of scope here."
+            }
+          ],
+          "generalFeedback": "PC only constrains the whole predicate: it must take both truth values at least once. It says nothing about individual clauses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clause Coverage definition",
+          "text": "<p>Clause Coverage (CC) requires that:</p>",
+          "answers": [
+            {
+              "text": "Each clause evaluates to both true and false at least once",
+              "fraction": 100,
+              "feedback": "Correct — every atomic condition must take on both values."
+            },
+            {
+              "text": "The whole predicate evaluates to both true and false",
+              "fraction": 0,
+              "feedback": "That is Predicate Coverage (PC)."
+            },
+            {
+              "text": "All 2^n combinations of clause values are exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage (CoC)."
+            },
+            {
+              "text": "Each clause independently determines the predicate",
+              "fraction": 0,
+              "feedback": "That is active-clause coverage, stronger than plain CC."
+            }
+          ],
+          "generalFeedback": "CC requires each clause to be both true and false at least once, regardless of what the enclosing predicate does.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial Coverage definition",
+          "text": "<p>Combinatorial (Clause) Coverage (CoC) requires that:</p>",
+          "answers": [
+            {
+              "text": "Every one of the 2^n truth-value combinations of the n clauses is exercised",
+              "fraction": 100,
+              "feedback": "Correct — the full truth table (subject to feasibility)."
+            },
+            {
+              "text": "The predicate takes both true and false",
+              "fraction": 0,
+              "feedback": "That is only Predicate Coverage (PC)."
+            },
+            {
+              "text": "Each clause takes both true and false",
+              "fraction": 0,
+              "feedback": "That is only Clause Coverage (CC)."
+            },
+            {
+              "text": "n + 1 carefully chosen tests are executed",
+              "fraction": 0,
+              "feedback": "n + 1 is the minimal size for CACC/MC-DC, which is out of scope here."
+            }
+          ],
+          "generalFeedback": "CoC (a.k.a. ACoC) demands all 2^n combinations of the n clauses' truth values — the complete truth table.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth-table rows for 2 clauses",
+          "text": "<p>How many rows are in the full truth table of a predicate with <strong>2</strong> clauses?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 2^2 = 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the minimum for PC or CC, not the number of rows."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "2^2 = 4, not 3."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 would be three clauses."
+            }
+          ],
+          "generalFeedback": "A predicate with n clauses has 2^n truth-table rows; for n = 2 that is 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth-table rows for 3 clauses",
+          "text": "<p>How many rows are in the full truth table of a predicate with <strong>3</strong> clauses?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2^3 = 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "2^3 = 8, not 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = 2^2 would be two clauses."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "The count is 2^3 = 8, not 3^2."
+            }
+          ],
+          "generalFeedback": "A predicate with n clauses has 2^n rows; for n = 3 that is 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth-table rows for 4 clauses",
+          "text": "<p>How many rows are in the full truth table of a predicate with <strong>4</strong> clauses?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 2^4 = 16."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 would be three clauses."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "2^4 = 16, not 4 times 3."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 would be five clauses."
+            }
+          ],
+          "generalFeedback": "A predicate with n clauses has 2^n rows; for n = 4 that is 16.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND b",
+          "text": "<p>Of the 4 truth-table rows, how many make <code>a && b</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only a=T, b=T satisfies a conjunction."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only the all-true row satisfies a && b."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the count for a || b, not a && b."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "A conjunction is false whenever any clause is false."
+            }
+          ],
+          "generalFeedback": "A conjunction is true only when every clause is true, so exactly 1 of the 4 rows satisfies a && b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a OR b",
+          "text": "<p>Of the 4 truth-table rows, how many make <code>a || b</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — only a=F, b=F fails."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 is the count for a && b."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only the all-false row fails, leaving 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The all-false row a=F, b=F does not satisfy a || b."
+            }
+          ],
+          "generalFeedback": "A disjunction is false only when every clause is false, so 3 of the 4 rows satisfy a || b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a AND b) OR c",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>(a && b) || c</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 4 rows with c=T, plus the one row a=T, b=T, c=F."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The 4 rows with c=T count, but a=T, b=T, c=F also satisfies it, giving 5."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — exactly 5 of the 8 rows are true."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "c=T alone already gives 4 true rows."
+            }
+          ],
+          "generalFeedback": "Whenever c=T the predicate is true (4 rows); when c=F it needs a=T and b=T (1 more). Total = 5 of 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum tests for PC",
+          "text": "<p>What is the minimum number of tests needed to satisfy Predicate Coverage for a single predicate?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one test makes it true, one makes it false."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test can only produce one truth value; PC needs both."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 relates to a 2-clause truth table, not the PC minimum."
+            },
+            {
+              "text": "It depends on the number of clauses",
+              "fraction": 0,
+              "feedback": "PC ignores clause count; 2 tests always suffice for one predicate."
+            }
+          ],
+          "generalFeedback": "PC needs the predicate to be both true and false, so at least 2 tests, independent of how many clauses it has.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Clause has no logical operators",
+          "text": "<p>A clause contains no logical operators (&&, ||, !).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — clauses are atomic; operators combine them into predicates."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "By definition a clause has no logical operators; adding one makes it a compound predicate."
+            }
+          ],
+          "generalFeedback": "A clause is a boolean expression with no logical operators. Joining clauses with &&, ||, or ! yields a predicate."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Minimum tests for CC (independent clauses)",
+          "text": "<p>For a predicate whose clauses can be set independently, what is the minimum number of tests that satisfies Clause Coverage, regardless of the number of clauses?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one all-true test and one all-false test flip every clause."
+            },
+            {
+              "text": "n (one per clause)",
+              "fraction": 0,
+              "feedback": "Two tests suffice: set all clauses true, then all false."
+            },
+            {
+              "text": "n + 1",
+              "fraction": 0,
+              "feedback": "n + 1 is the MC/DC minimum, not the CC minimum."
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, far more than CC needs."
+            }
+          ],
+          "generalFeedback": "When clauses are independent, one all-true and one all-false test give every clause both values, so CC needs only 2 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CoC test requirements for 3 clauses",
+          "text": "<p>A predicate has 3 independent clauses. How many test requirements does Combinatorial Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2^3 = 8 combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is closer to the CC size, not every combination."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 is the MC/DC minimum, not CoC."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 falls short of the full 2^3 = 8 combinations."
+            }
+          ],
+          "generalFeedback": "CoC requires all 2^n combinations; for n = 3 that is 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which criterion subsumes the others",
+          "text": "<p>Among PC, CC, and CoC, which statement is correct?</p>",
+          "answers": [
+            {
+              "text": "CoC subsumes both PC and CC",
+              "fraction": 100,
+              "feedback": "Correct — exercising all combinations covers both PC and CC."
+            },
+            {
+              "text": "PC subsumes CC",
+              "fraction": 0,
+              "feedback": "PC and CC are incomparable; neither subsumes the other."
+            },
+            {
+              "text": "CC subsumes PC",
+              "fraction": 0,
+              "feedback": "CC does not subsume PC — see the a && b counterexample."
+            },
+            {
+              "text": "PC subsumes CoC",
+              "fraction": 0,
+              "feedback": "It is the other way around: CoC is the strongest of the three."
+            }
+          ],
+          "generalFeedback": "A test set covering all 2^n combinations necessarily makes the predicate both true and false (PC) and each clause both values (CC), so CoC subsumes both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC and CC relationship",
+          "text": "<p>Which statement about Predicate Coverage and Clause Coverage is correct?</p>",
+          "answers": [
+            {
+              "text": "Neither subsumes the other; they are incomparable",
+              "fraction": 100,
+              "feedback": "Correct — each can be met without the other."
+            },
+            {
+              "text": "PC always subsumes CC",
+              "fraction": 0,
+              "feedback": "Not so: a || b with tests {(T,F),(F,F)} meets PC but not CC."
+            },
+            {
+              "text": "CC always subsumes PC",
+              "fraction": 0,
+              "feedback": "Not so: a && b with tests {(T,F),(F,T)} meets CC but not PC."
+            },
+            {
+              "text": "They are equivalent",
+              "fraction": 0,
+              "feedback": "They are distinct and incomparable, not equivalent."
+            }
+          ],
+          "generalFeedback": "PC and CC are incomparable: there are test sets meeting one but not the other in each direction.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CC-but-not-PC test set",
+          "text": "<p>For <code>p = a && b</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b))</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "Correct — a and b each take both values, yet p is false in both rows."
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "Here p is true then false, so this satisfies PC too."
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "b takes both values but a stays true, so CC is not met; also p is true then false."
+            },
+            {
+              "text": "{(F, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "a never becomes true, so this fails CC."
+            }
+          ],
+          "generalFeedback": "With (T,F) and (F,T), a is {T,F} and b is {F,T} (CC met), but a && b is false both times, so PC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC-but-not-CC test set",
+          "text": "<p>For <code>p = a || b</code>, which 2-test set satisfies <strong>Predicate Coverage but not Clause Coverage</strong>? (rows given as (a, b))</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 100,
+              "feedback": "Correct — p is true then false (PC met), but b is never true, so CC fails."
+            },
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "Here both clauses take both values, so CC is also satisfied."
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "Both clauses take both values here, so CC is satisfied too."
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "p is true in both rows, so PC is not satisfied."
+            }
+          ],
+          "generalFeedback": "With (T,F) and (F,F), p is true then false (PC met), but b stays false, so CC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND (b OR c)",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>a && (b || c)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — a=T (4 rows), minus the row where b=F and c=F."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Among the 4 rows with a=T, the one with b=F, c=F fails, leaving 3."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the count for (a && b) || c, a different predicate."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "a must be true, so at most 4 rows qualify; the correct count is 3."
+            }
+          ],
+          "generalFeedback": "The predicate needs a=T and (b || c). a=T gives 4 rows; removing b=F, c=F leaves 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a OR b) AND c",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>(a || b) && c</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — c must be true, and among those 4 rows only a=F, b=F fails."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=T gives 4 rows, but a=F, b=F, c=T fails (a || b is false), leaving 3."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — exactly 3 rows satisfy it."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Too few — three of the c=T rows satisfy a || b."
+            }
+          ],
+          "generalFeedback": "c must be true (4 rows); of those, a || b holds in 3 (all but a=F, b=F). Total = 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of NOT a OR (b AND c)",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>!a || (b && c)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — all 4 rows with a=F, plus a=T with b=T, c=T."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The 4 rows with a=F all count, and a=T, b=T, c=T adds one more, giving 5."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — exactly 5 rows satisfy it."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "a=F alone already yields 4 true rows."
+            }
+          ],
+          "generalFeedback": "When a=F the predicate is true (4 rows); when a=T it needs b=T and c=T (1 row). Total = 5.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CoC test set satisfies PC",
+          "text": "<p>Any test set that satisfies Combinatorial Coverage also satisfies Predicate Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — covering all combinations includes rows where the predicate is true and where it is false."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC subsumes PC: exercising every combination forces both truth values of the predicate."
+            }
+          ],
+          "generalFeedback": "CoC subsumes PC. All 2^n rows include at least one true and one false row (for any non-constant predicate), so PC is met."
+        },
+        {
+          "type": "truefalse",
+          "name": "CoC test set satisfies CC",
+          "text": "<p>Any test set that satisfies Combinatorial Coverage also satisfies Clause Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — every clause is true in some combinations and false in others."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC subsumes CC: all 2^n rows make each clause both true and false."
+            }
+          ],
+          "generalFeedback": "CoC subsumes CC. Across all 2^n combinations each clause takes both values, so CC is met."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which criterion needs the most tests",
+          "text": "<p>For a predicate with several independent clauses, which criterion generally demands the largest number of tests?</p>",
+          "answers": [
+            {
+              "text": "Combinatorial Coverage (CoC)",
+              "fraction": 100,
+              "feedback": "Correct — CoC requires all 2^n combinations."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC needs only 2 tests, the fewest."
+            },
+            {
+              "text": "Clause Coverage (CC)",
+              "fraction": 0,
+              "feedback": "CC needs as few as 2 tests when clauses are independent."
+            },
+            {
+              "text": "They all need the same number",
+              "fraction": 0,
+              "feedback": "CoC (2^n) grows far beyond the 2-test minimum of PC and CC."
+            }
+          ],
+          "generalFeedback": "CoC scales as 2^n and subsumes PC and CC, so it generally requires the most tests.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PC min vs CoC for 3 clauses",
+          "text": "<p>For a predicate with 3 clauses, Predicate Coverage needs a minimum of 2 tests while Combinatorial Coverage imposes 8 test requirements.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — PC min is 2; CoC is 2^3 = 8."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "PC needs only 2 tests, and CoC needs 2^3 = 8, so the statement holds."
+            }
+          ],
+          "generalFeedback": "PC always needs 2 tests (both predicate values); CoC needs all 2^n = 8 combinations for n = 3."
+        },
+        {
+          "type": "truefalse",
+          "name": "CC does not guarantee PC",
+          "text": "<p>Satisfying Clause Coverage always guarantees that Predicate Coverage is also satisfied.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — for a && b, tests {(T,F),(F,T)} meet CC but the predicate is never true."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC does not subsume PC: a && b with {(T,F),(F,T)} meets CC yet fails PC."
+            }
+          ],
+          "generalFeedback": "CC and PC are incomparable. The classic counterexample is a && b with {(T,F),(F,T)}: CC met, PC failed."
+        },
+        {
+          "type": "multichoice",
+          "name": "Tests to meet both PC and CC (a AND b)",
+          "text": "<p>For <code>p = a && b</code>, what is the minimum number of tests that satisfies <strong>both</strong> PC and CC?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — {(T,T),(F,F)} makes p both values and each clause both values."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two tests, (T,T) and (F,F), already meet both criteria."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the full truth table (CoC); PC and CC together need only 2."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test yields only one predicate value, so PC cannot be met."
+            }
+          ],
+          "generalFeedback": "The set {(T,T),(F,F)} gives p = true then false (PC) and a, b each both values (CC), so 2 tests suffice.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Feasible CoC with mutually exclusive clauses",
+          "text": "<p>A predicate uses the clauses <code>x > 0</code> and <code>x < 0</code> over a single variable x. Of the 4 combinations Combinatorial Coverage would require, how many are <strong>feasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — both true is impossible; the other three (TF, FT, FF at x=0) are feasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "x cannot be both > 0 and < 0, so the (T,T) combination is infeasible."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Three combinations are feasible: x>0, x<0, and x=0."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Only (T,T) is impossible; the other three are all reachable."
+            }
+          ],
+          "generalFeedback": "x > 0 and x < 0 cannot both hold, so (T,T) is infeasible. TF (x>0), FT (x<0), and FF (x=0) remain: 3 feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible CoC with a dependent clause",
+          "text": "<p>A predicate uses clauses <code>a: x > 5</code> and <code>b: x > 10</code>. Since b implies a, how many of the 4 CoC combinations are <strong>feasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — (a=F, b=T) is impossible because b implies a."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "b true forces a true, so (a=F, b=T) cannot happen."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Three combos are feasible: x>10, 5<x<=10, and x<=5."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Only one combination is infeasible, leaving 3."
+            }
+          ],
+          "generalFeedback": "b (x>10) implies a (x>5), so (a=F, b=T) is infeasible. TT (x>10), TF (5<x<=10), FF (x<=5) remain: 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CC-but-not-PC for a three-clause conjunction",
+          "text": "<p>For <code>p = a && b && c</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b, c))</p>",
+          "answers": [
+            {
+              "text": "{(T, F, T), (F, T, F)}",
+              "fraction": 100,
+              "feedback": "Correct — each clause takes both values, yet p is false in both rows."
+            },
+            {
+              "text": "{(T, T, T), (F, F, F)}",
+              "fraction": 0,
+              "feedback": "Here p is true then false, so PC is satisfied too."
+            },
+            {
+              "text": "{(T, T, T), (T, T, F)}",
+              "fraction": 0,
+              "feedback": "a and b never become false, so CC is not met."
+            },
+            {
+              "text": "{(F, F, T), (F, T, F)}",
+              "fraction": 0,
+              "feedback": "a never becomes true, so CC fails."
+            }
+          ],
+          "generalFeedback": "With (T,F,T) and (F,T,F) each of a, b, c takes both values (CC met), but a && b && c is false in both rows, so PC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a AND b) OR (c AND d)",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>(a && b) || (c && d)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — |a&&b| = 4, |c&&d| = 4, overlap = 1, so 4 + 4 - 1 = 7."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "You must subtract the 1 overlapping row (all four true) to avoid double counting."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Inclusion-exclusion gives 4 + 4 - 1 = 7, not 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Each conjunction alone is true in 4 rows, but together they cover 7."
+            }
+          ],
+          "generalFeedback": "a && b is true in 4 rows, c && d in 4 rows; they overlap only when all four are true (1 row). 4 + 4 - 1 = 7.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a OR b OR c OR d",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>a || b || c || d</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "Correct — only the all-false row fails."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "The all-false row does not satisfy a disjunction."
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "Exactly one row (all false) fails, leaving 15."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 would be a conjunction; a 4-way disjunction is true on 15 rows."
+            }
+          ],
+          "generalFeedback": "A 4-way disjunction is false only on the single all-false row, so 15 of 16 rows satisfy it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND b AND c AND d",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>a && b && c && d</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only the all-true row satisfies a 4-way conjunction."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "All four clauses must be true simultaneously, which happens in exactly 1 row."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "A conjunction is true only when every clause is true: 1 row."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 is the count for the disjunction, not the conjunction."
+            }
+          ],
+          "generalFeedback": "A conjunction is true only when every clause is true, so exactly 1 of the 16 rows satisfies it.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Infeasible combination breaks full CoC",
+          "text": "<p>If two clauses of a predicate can never be true at the same time, then full Combinatorial Coverage (all 2^n rows) is infeasible.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the combination requiring both clauses true can never be executed."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "An unreachable combination means at least one of the 2^n rows cannot be produced, so full CoC is infeasible."
+            }
+          ],
+          "generalFeedback": "CoC demands every one of the 2^n combinations. If one is logically impossible, the complete set cannot be achieved, so full CoC is infeasible (only the feasible rows can be required)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible CoC combinations with three clauses",
+          "text": "<p>A predicate uses clauses <code>a: x > 0</code>, <code>b: x < 0</code>, and <code>c: y > 0</code>. Of the 8 CoC combinations, how many are <strong>feasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — the 2 combinations with a=T and b=T (over c) are impossible, leaving 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a and b cannot both be true, so the 2 rows with a=T, b=T are infeasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only the 2 rows with a=T and b=T are infeasible; 6 remain."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Two rows (a=T, b=T with c either value) are infeasible, not one."
+            }
+          ],
+          "generalFeedback": "a and b are mutually exclusive, so both a=T, b=T rows (c=T and c=F) are infeasible: 8 - 2 = 6 feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CoC requirements after one infeasible combination",
+          "text": "<p>A 2-clause predicate has one infeasible combination. How many Combinatorial Coverage test requirements remain?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — 2^2 = 4 minus the 1 infeasible combination."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The infeasible combination is dropped, leaving 3."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only one combination is removed, so 3 remain."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Removing one of four combinations leaves three, not one."
+            }
+          ],
+          "generalFeedback": "CoC would need 2^2 = 4 combinations; removing the single infeasible one leaves 3 feasible requirements.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CC of a 3-clause predicate needs 3 tests",
+          "text": "<p>Clause Coverage of a predicate with 3 independent clauses requires at least 3 tests.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — one all-true and one all-false test cover all three clauses, so 2 tests suffice."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC needs only 2 tests: all clauses true, then all false, flips every clause."
+            }
+          ],
+          "generalFeedback": "The number of tests for CC does not grow with clause count when clauses are independent: 2 tests (all-true, all-false) always suffice."
+        },
+        {
+          "type": "multichoice",
+          "name": "CC-but-not-PC for a disjunction",
+          "text": "<p>For <code>p = a || b</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b))</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "Correct — each clause takes both values, but p is true in both rows, so PC fails."
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "Here p is true then false, so PC is satisfied."
+            },
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 0,
+              "feedback": "b never becomes true, so CC is not met (and p is true then false)."
+            },
+            {
+              "text": "{(F, F), (T, T)}",
+              "fraction": 0,
+              "feedback": "p is false then true here, so PC is satisfied."
+            }
+          ],
+          "generalFeedback": "With (T,F) and (F,T) each clause takes both values (CC met), but a || b is true in both rows, so the predicate is never false and PC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a OR b) AND (c OR d)",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>(a || b) && (c || d)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — (a || b) holds in 3 of 4 (a,b) combos and (c || d) in 3 of 4 (c,d) combos: 3 x 3 = 9."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "Each disjunction holds in 3 of its 4 combos, so 3 x 3 = 9, not 12."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the count for (a && b) || (c && d), a different predicate."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Multiply the independent halves: 3 x 3 = 9."
+            }
+          ],
+          "generalFeedback": "The two halves are over disjoint clauses. a || b is true in 3 of 4 (a,b) rows; c || d in 3 of 4 (c,d) rows. 3 x 3 = 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Tests to meet both PC and CC (a OR b OR c)",
+          "text": "<p>For <code>p = a || b || c</code>, what is the minimum number of tests that satisfies <strong>both</strong> PC and CC?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — {(T,T,T),(F,F,F)} makes p both values and each clause both values."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two tests, all-true and all-false, already meet both criteria."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the CoC size; PC and CC together need only 2."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Two well-chosen tests suffice for PC and CC together."
+            }
+          ],
+          "generalFeedback": "{(T,T,T),(F,F,F)} gives p = true then false (PC) and each clause both values (CC), so 2 tests suffice.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PC infeasible for a contradictory predicate",
+          "text": "<p>For <code>p = a && !a</code>, Predicate Coverage is infeasible because the predicate can never be true.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a and !a are contradictory, so p is always false and can never be made true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "a && !a is a contradiction; the predicate is false for every input, so PC (which needs a true case) is infeasible."
+            }
+          ],
+          "generalFeedback": "The clauses a and !a are dependent (one is the negation of the other), so a && !a is always false. PC requires a true evaluation, which is impossible here."
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of NOT (a OR b) AND (c OR d)",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>!(a || b) && (c || d)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — !(a || b) forces a=F, b=F (1 combo), and (c || d) holds in 3 of 4: 1 x 3 = 3."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "!(a || b) is true in only 1 of the 4 (a,b) combos, not 3; the answer is 1 x 3 = 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a=F, b=F is required, so only 3 of the (c || d) rows qualify."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "c || d contributes 3 rows, not 1, once a=F and b=F are fixed."
+            }
+          ],
+          "generalFeedback": "!(a || b) is true only when a=F and b=F (1 of 4 combos); c || d is true in 3 of 4. Total = 1 x 3 = 3.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "子句定義（基礎）",
+          "text": "<p><strong>子句（clause）</strong>最適當的定義是：</p>",
+          "answers": [
+            {
+              "text": "不含任何邏輯運算子的布林運算式",
+              "fraction": 100,
+              "feedback": "正確——子句是原子條件，例如 x > 0 或單一布林變數。"
+            },
+            {
+              "text": "任何以 &&、||、! 連接而成的布林運算式",
+              "fraction": 0,
+              "feedback": "那是述詞（predicate），由子句組成。"
+            },
+            {
+              "text": "真值表中的一列",
+              "fraction": 0,
+              "feedback": "真值表的一列是一組取值，不是子句。"
+            },
+            {
+              "text": "使某述詞為真的測試案例",
+              "fraction": 0,
+              "feedback": "那是測試，不是子句。"
+            }
+          ],
+          "generalFeedback": "子句（條件）是不含邏輯運算子（&&、||、!）的布林運算式。以這些運算子連接子句便構成述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "述詞定義（基礎）",
+          "text": "<p><strong>述詞（predicate）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "由一個或多個子句以邏輯運算子連接而成的運算式",
+              "fraction": 100,
+              "feedback": "正確——以 &&、||、! 連接子句即構成述詞。"
+            },
+            {
+              "text": "一定是不含邏輯運算子的運算式",
+              "fraction": 0,
+              "feedback": "那是子句；述詞可以包含運算子。"
+            },
+            {
+              "text": "回傳數值的算術運算式",
+              "fraction": 0,
+              "feedback": "述詞是布林值，而非數值。"
+            },
+            {
+              "text": "必須是不等式的迴圈條件",
+              "fraction": 0,
+              "feedback": "述詞不必是不等式，也不必與迴圈相關。"
+            }
+          ],
+          "generalFeedback": "述詞是由子句以邏輯運算子連接而成的布林運算式。不含運算子的單一子句本身就是最簡單的述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識單一子句",
+          "text": "<p>下列何者為<strong>單一子句</strong>（而非複合述詞）？</p>",
+          "answers": [
+            {
+              "text": "x >= 5",
+              "fraction": 100,
+              "feedback": "正確——不含邏輯運算子的關係運算式是一個子句。"
+            },
+            {
+              "text": "a && b",
+              "fraction": 0,
+              "feedback": "以 && 連接兩個子句，屬於述詞。"
+            },
+            {
+              "text": "!p",
+              "fraction": 0,
+              "feedback": "! 運算子使其成為對子句 p 的複合述詞。"
+            },
+            {
+              "text": "a || b",
+              "fraction": 0,
+              "feedback": "以 || 連接兩個子句，屬於述詞。"
+            }
+          ],
+          "generalFeedback": "子句不含邏輯運算子。只有 x >= 5 符合；其餘皆使用 &&、|| 或 !。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算子句數目",
+          "text": "<p>述詞 <code>(p && q) || !r</code> 含有幾個子句？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——子句為 p、q、r。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "共有三個原子條件：p、q、r。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "&&、||、! 是運算子而非子句；只有 p、q、r 是子句。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "這是含三個子句的複合述詞，而非一個。"
+            }
+          ],
+          "generalFeedback": "子句是原子布林運算式。在 (p && q) || !r 中為 p、q、r——共三個子句。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "述詞覆蓋定義",
+          "text": "<p>述詞覆蓋（Predicate Coverage, PC）要求：</p>",
+          "answers": [
+            {
+              "text": "述詞至少各取一次 true 與 false",
+              "fraction": 100,
+              "feedback": "正確——一個測試使其為真、一個使其為假。"
+            },
+            {
+              "text": "每個子句各取一次 true 與 false",
+              "fraction": 0,
+              "feedback": "那是子句覆蓋（CC），而非 PC。"
+            },
+            {
+              "text": "涵蓋子句真值的所有組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（CoC）。"
+            },
+            {
+              "text": "每個子句至少一次決定述詞的值",
+              "fraction": 0,
+              "feedback": "那是主動子句（ACC）的概念，超出本單元範圍。"
+            }
+          ],
+          "generalFeedback": "PC 只規範整個述詞：必須至少各取一次真與假，並未規範個別子句。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "子句覆蓋定義",
+          "text": "<p>子句覆蓋（Clause Coverage, CC）要求：</p>",
+          "answers": [
+            {
+              "text": "每個子句至少各取一次 true 與 false",
+              "fraction": 100,
+              "feedback": "正確——每個原子條件都必須取兩種真值。"
+            },
+            {
+              "text": "整個述詞至少各取一次 true 與 false",
+              "fraction": 0,
+              "feedback": "那是述詞覆蓋（PC）。"
+            },
+            {
+              "text": "涵蓋全部 2^n 種子句取值組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（CoC）。"
+            },
+            {
+              "text": "每個子句獨立決定述詞的值",
+              "fraction": 0,
+              "feedback": "那是主動子句覆蓋，比單純的 CC 更強。"
+            }
+          ],
+          "generalFeedback": "CC 要求每個子句至少各取一次真與假，與所屬述詞的取值無關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合覆蓋定義",
+          "text": "<p>組合（子句）覆蓋（Combinatorial Coverage, CoC）要求：</p>",
+          "answers": [
+            {
+              "text": "涵蓋 n 個子句的全部 2^n 種真值組合",
+              "fraction": 100,
+              "feedback": "正確——即完整的真值表（在可行的前提下）。"
+            },
+            {
+              "text": "述詞取一次 true 與一次 false",
+              "fraction": 0,
+              "feedback": "那只是述詞覆蓋（PC）。"
+            },
+            {
+              "text": "每個子句取一次 true 與一次 false",
+              "fraction": 0,
+              "feedback": "那只是子句覆蓋（CC）。"
+            },
+            {
+              "text": "執行 n + 1 個精心挑選的測試",
+              "fraction": 0,
+              "feedback": "n + 1 是 CACC/MC-DC 的最小規模，超出本單元範圍。"
+            }
+          ],
+          "generalFeedback": "CoC（又稱 ACoC）要求 n 個子句真值的全部 2^n 種組合——即完整的真值表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2 個子句的真值表列數",
+          "text": "<p>含 <strong>2</strong> 個子句的述詞，其完整真值表有幾列？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——2^2 = 4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是 PC 或 CC 的最小測試數，而非列數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "2^2 = 4，而非 3。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 對應三個子句。"
+            }
+          ],
+          "generalFeedback": "含 n 個子句的述詞有 2^n 列；n = 2 時為 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的真值表列數",
+          "text": "<p>含 <strong>3</strong> 個子句的述詞，其完整真值表有幾列？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2^3 = 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "2^3 = 8，而非 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = 2^2 對應兩個子句。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "是 2^3 = 8，而非 3^2。"
+            }
+          ],
+          "generalFeedback": "含 n 個子句的述詞有 2^n 列；n = 3 時為 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 個子句的真值表列數",
+          "text": "<p>含 <strong>4</strong> 個子句的述詞，其完整真值表有幾列？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——2^4 = 16。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 對應三個子句。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "2^4 = 16，而非 4 乘 3。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 對應五個子句。"
+            }
+          ],
+          "generalFeedback": "含 n 個子句的述詞有 2^n 列；n = 4 時為 16。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 的成真列數",
+          "text": "<p>在 4 列真值表中，有幾列使 <code>a && b</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有 a=T、b=T 使合取為真。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有全真列使 a && b 為真。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是 a || b 的成真列數，而非 a && b。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要有任一子句為假，合取即為假。"
+            }
+          ],
+          "generalFeedback": "合取只有在每個子句皆為真時才為真，故 4 列中恰有 1 列使 a && b 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 的成真列數",
+          "text": "<p>在 4 列真值表中，有幾列使 <code>a || b</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——只有 a=F、b=F 為假。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是 a && b 的成真列數。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有全假列為假，故剩 3 列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "全假列 a=F、b=F 不使 a || b 為真。"
+            }
+          ],
+          "generalFeedback": "析取只有在每個子句皆為假時才為假，故 4 列中有 3 列使 a || b 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>(a && b) || c</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——c=T 的 4 列，加上 a=T、b=T、c=F 這一列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=T 的 4 列成立，但 a=T、b=T、c=F 也成立，合計 5。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重新計算——8 列中恰有 5 列為真。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "光是 c=T 就已有 4 列為真。"
+            }
+          ],
+          "generalFeedback": "只要 c=T 述詞即為真（4 列）；c=F 時需 a=T 且 b=T（再加 1 列）。合計 8 列中 5 列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC 的最少測試數",
+          "text": "<p>對單一述詞而言，滿足述詞覆蓋所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個使其為真、一個使其為假。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只能產生一種真值；PC 需要兩種。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 與 2 個子句的真值表有關，而非 PC 的最小值。"
+            },
+            {
+              "text": "視子句數而定",
+              "fraction": 0,
+              "feedback": "PC 不管子句數；對單一述詞恆為 2 個測試。"
+            }
+          ],
+          "generalFeedback": "PC 要求述詞既為真又為假，故至少 2 個測試，與子句數無關。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "子句不含邏輯運算子",
+          "text": "<p>子句不含任何邏輯運算子（&&、||、!）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——子句是原子的；運算子將子句組合成述詞。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "依定義子句不含邏輯運算子；一旦加入運算子就成為複合述詞。"
+            }
+          ],
+          "generalFeedback": "子句是不含邏輯運算子的布林運算式。以 &&、|| 或 ! 連接子句即得述詞。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "CC 的最少測試數（子句獨立）",
+          "text": "<p>若述詞的各子句可獨立設定，無論子句多少，滿足子句覆蓋所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個全真測試與一個全假測試即可翻轉每個子句。"
+            },
+            {
+              "text": "n（每子句一個）",
+              "fraction": 0,
+              "feedback": "2 個測試即足夠：先全部設真、再全部設假。"
+            },
+            {
+              "text": "n + 1",
+              "fraction": 0,
+              "feedback": "n + 1 是 MC/DC 的最小值，而非 CC。"
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，遠多於 CC 所需。"
+            }
+          ],
+          "generalFeedback": "子句獨立時，一個全真與一個全假測試就能讓每個子句各取兩種值，故 CC 只需 2 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的 CoC 測試需求數",
+          "text": "<p>某述詞有 3 個獨立子句。組合覆蓋會產生多少個測試需求？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2^3 = 8 種組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 較接近 CC 的規模，而非所有組合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 是 MC/DC 的最小值，而非 CoC。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 少於完整的 2^3 = 8 種組合。"
+            }
+          ],
+          "generalFeedback": "CoC 要求全部 2^n 種組合；n = 3 時為 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何者包含其他準則",
+          "text": "<p>在 PC、CC、CoC 之中，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "CoC 同時包含（subsume）PC 與 CC",
+              "fraction": 100,
+              "feedback": "正確——涵蓋所有組合即涵蓋 PC 與 CC。"
+            },
+            {
+              "text": "PC 包含 CC",
+              "fraction": 0,
+              "feedback": "PC 與 CC 不可比較；兩者互不包含。"
+            },
+            {
+              "text": "CC 包含 PC",
+              "fraction": 0,
+              "feedback": "CC 不包含 PC——見 a && b 的反例。"
+            },
+            {
+              "text": "PC 包含 CoC",
+              "fraction": 0,
+              "feedback": "剛好相反：CoC 是三者中最強的。"
+            }
+          ],
+          "generalFeedback": "涵蓋全部 2^n 種組合的測試集必然使述詞既真又假（PC），且每個子句各取兩值（CC），故 CoC 同時包含兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC 與 CC 的關係",
+          "text": "<p>關於述詞覆蓋與子句覆蓋，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "兩者互不包含，彼此不可比較",
+              "fraction": 100,
+              "feedback": "正確——各自都可能在不滿足另一者的情況下被滿足。"
+            },
+            {
+              "text": "PC 恆包含 CC",
+              "fraction": 0,
+              "feedback": "並非如此：a || b 以 {(T,F),(F,F)} 滿足 PC 但不滿足 CC。"
+            },
+            {
+              "text": "CC 恆包含 PC",
+              "fraction": 0,
+              "feedback": "並非如此：a && b 以 {(T,F),(F,T)} 滿足 CC 但不滿足 PC。"
+            },
+            {
+              "text": "兩者等價",
+              "fraction": 0,
+              "feedback": "兩者互不包含且相異，並非等價。"
+            }
+          ],
+          "generalFeedback": "PC 與 CC 不可比較：兩個方向上都存在滿足其一而不滿足另一的測試集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足 CC 但不滿足 PC 的測試集",
+          "text": "<p>對 <code>p = a && b</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "正確——a 與 b 各取兩值，但 p 在兩列皆為假。"
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "此處 p 先真後假，故也滿足 PC。"
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "b 取兩值但 a 恆為真，故 CC 不成立；且 p 先真後假。"
+            },
+            {
+              "text": "{(F, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "a 從未為真，故不滿足 CC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F) 與 (F,T)，a 為 {T,F}、b 為 {F,T}（CC 成立），但 a && b 兩次皆為假，故 PC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足 PC 但不滿足 CC 的測試集",
+          "text": "<p>對 <code>p = a || b</code>，下列哪個 2 測試集<strong>滿足述詞覆蓋但不滿足子句覆蓋</strong>？（各列以 (a, b) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 100,
+              "feedback": "正確——p 先真後假（PC 成立），但 b 從未為真，故 CC 不成立。"
+            },
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "此處兩個子句都取兩值，故 CC 也被滿足。"
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "此處兩個子句都取兩值，故 CC 也被滿足。"
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "p 在兩列皆為真，故不滿足 PC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F) 與 (F,F)，p 先真後假（PC 成立），但 b 恆為假，故 CC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND (b OR c) 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>a && (b || c)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——a=T（4 列），扣掉 b=F 且 c=F 的那列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a=T 的 4 列中，b=F、c=F 那列不成立，故剩 3。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是 (a && b) || c 的成真列數，屬不同述詞。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "a 必須為真，故至多 4 列符合；正確答案是 3。"
+            }
+          ],
+          "generalFeedback": "述詞需 a=T 且 (b || c)。a=T 有 4 列；扣掉 b=F、c=F 後剩 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>(a || b) && c</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——c 必須為真，其中僅 a=F、b=F 那列不成立。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=T 有 4 列，但 a=F、b=F、c=T 不成立（a || b 為假），故剩 3。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重新計算——恰有 3 列成立。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "太少——c=T 的列中有三列滿足 a || b。"
+            }
+          ],
+          "generalFeedback": "c 必須為真（4 列）；其中 a || b 成立於 3 列（除 a=F、b=F 外）。合計 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NOT a OR (b AND c) 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>!a || (b && c)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——a=F 的 4 列，加上 a=T、b=T、c=T 那列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a=F 的 4 列都成立，加上 a=T、b=T、c=T 再一列，合計 5。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重新計算——恰有 5 列成立。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "光是 a=F 就已有 4 列為真。"
+            }
+          ],
+          "generalFeedback": "a=F 時述詞為真（4 列）；a=T 時需 b=T 且 c=T（1 列）。合計 5。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "滿足 CoC 即滿足 PC",
+          "text": "<p>任何滿足組合覆蓋的測試集也必然滿足述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——涵蓋所有組合就包含使述詞為真與為假的列。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC 包含 PC：執行每一種組合會迫使述詞取兩種真值。"
+            }
+          ],
+          "generalFeedback": "CoC 包含 PC。全部 2^n 列（對非常數述詞）至少各含一真列與一假列，故 PC 成立。"
+        },
+        {
+          "type": "truefalse",
+          "name": "滿足 CoC 即滿足 CC",
+          "text": "<p>任何滿足組合覆蓋的測試集也必然滿足子句覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個子句在某些組合為真、在另一些組合為假。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC 包含 CC：全部 2^n 列使每個子句各取真與假。"
+            }
+          ],
+          "generalFeedback": "CoC 包含 CC。跨越全部 2^n 種組合時每個子句都取兩值，故 CC 成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "何者所需測試最多",
+          "text": "<p>對含多個獨立子句的述詞，下列哪個準則一般需要最多測試？</p>",
+          "answers": [
+            {
+              "text": "組合覆蓋（CoC）",
+              "fraction": 100,
+              "feedback": "正確——CoC 需要全部 2^n 種組合。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 只需 2 個測試，最少。"
+            },
+            {
+              "text": "子句覆蓋（CC）",
+              "fraction": 0,
+              "feedback": "子句獨立時 CC 最少只需 2 個測試。"
+            },
+            {
+              "text": "三者所需相同",
+              "fraction": 0,
+              "feedback": "CoC（2^n）遠超過 PC 與 CC 的 2 測試最小值。"
+            }
+          ],
+          "generalFeedback": "CoC 隨 2^n 成長且包含 PC 與 CC，故一般需要最多測試。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "3 個子句時 PC 最小值與 CoC",
+          "text": "<p>對含 3 個子句的述詞，述詞覆蓋最少需 2 個測試，而組合覆蓋會產生 8 個測試需求。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——PC 最小值為 2；CoC 為 2^3 = 8。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "PC 只需 2 個測試，CoC 需 2^3 = 8，故敘述成立。"
+            }
+          ],
+          "generalFeedback": "PC 恆需 2 個測試（述詞兩種值）；CoC 對 n = 3 需全部 2^n = 8 種組合。"
+        },
+        {
+          "type": "truefalse",
+          "name": "CC 不保證 PC",
+          "text": "<p>滿足子句覆蓋必定保證同時滿足述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——對 a && b，{(T,F),(F,T)} 滿足 CC 但述詞從未為真。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC 不包含 PC：a && b 以 {(T,F),(F,T)} 滿足 CC 卻不滿足 PC。"
+            }
+          ],
+          "generalFeedback": "CC 與 PC 不可比較。經典反例為 a && b 搭配 {(T,F),(F,T)}：CC 成立、PC 不成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "同時滿足 PC 與 CC 的測試數（a AND b）",
+          "text": "<p>對 <code>p = a && b</code>，<strong>同時</strong>滿足 PC 與 CC 所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——{(T,T),(F,F)} 使 p 取兩值、且每個子句取兩值。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "(T,T) 與 (F,F) 兩個測試已同時滿足兩者。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是完整真值表（CoC）；PC 與 CC 合計只需 2。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只產生一種述詞值，故無法滿足 PC。"
+            }
+          ],
+          "generalFeedback": "{(T,T),(F,F)} 使 p 先真後假（PC），且 a、b 各取兩值（CC），故 2 個測試即足夠。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "互斥子句下可行的 CoC 組合",
+          "text": "<p>某述詞對單一變數 x 使用子句 <code>x > 0</code> 與 <code>x < 0</code>。組合覆蓋要求的 4 種組合中，有幾種是<strong>可行的</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——兩者同時為真不可能；其餘三種（TF、FT、x=0 時的 FF）皆可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "x 不可能同時 > 0 且 < 0，故 (T,T) 組合不可行。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "可行者有三種：x>0、x<0 與 x=0。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "只有 (T,T) 不可能；其餘三種皆可達成。"
+            }
+          ],
+          "generalFeedback": "x > 0 與 x < 0 不能同時成立，故 (T,T) 不可行。TF（x>0）、FT（x<0）、FF（x=0）皆可行：共 3 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具相依子句時可行的 CoC 組合",
+          "text": "<p>某述詞使用子句 <code>a: x > 5</code> 與 <code>b: x > 10</code>。由於 b 蘊含 a，4 種 CoC 組合中有幾種是<strong>可行的</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——(a=F, b=T) 不可能，因為 b 蘊含 a。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "b 為真會迫使 a 為真，故 (a=F, b=T) 不可能發生。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "可行者有三種：x>10、5<x<=10 與 x<=5。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "只有一種組合不可行，故剩 3。"
+            }
+          ],
+          "generalFeedback": "b（x>10）蘊含 a（x>5），故 (a=F, b=T) 不可行。TT（x>10）、TF（5<x<=10）、FF（x<=5）皆可行：共 3 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三子句合取的 CC 但非 PC",
+          "text": "<p>對 <code>p = a && b && c</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b, c) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F, T), (F, T, F)}",
+              "fraction": 100,
+              "feedback": "正確——每個子句各取兩值，但 p 在兩列皆為假。"
+            },
+            {
+              "text": "{(T, T, T), (F, F, F)}",
+              "fraction": 0,
+              "feedback": "此處 p 先真後假，故也滿足 PC。"
+            },
+            {
+              "text": "{(T, T, T), (T, T, F)}",
+              "fraction": 0,
+              "feedback": "a 與 b 從未為假，故不滿足 CC。"
+            },
+            {
+              "text": "{(F, F, T), (F, T, F)}",
+              "fraction": 0,
+              "feedback": "a 從未為真，故不滿足 CC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F,T) 與 (F,T,F)，a、b、c 各取兩值（CC 成立），但 a && b && c 兩列皆為假，故 PC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR (c AND d) 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>(a && b) || (c && d)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——|a&&b| = 4、|c&&d| = 4、重疊 = 1，故 4 + 4 - 1 = 7。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "須扣掉 1 個重疊列（四者皆真）以免重複計算。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "排容原理得 4 + 4 - 1 = 7，而非 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "各合取單獨為真的列各有 4，但合起來涵蓋 7。"
+            }
+          ],
+          "generalFeedback": "a && b 於 4 列為真，c && d 於 4 列為真；僅在四者皆真時重疊（1 列）。4 + 4 - 1 = 7。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c OR d 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>a || b || c || d</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "正確——只有全假列不成立。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "全假列不使析取成立。"
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "恰有一列（全假）不成立，故剩 15。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是合取的情形；四路析取有 15 列為真。"
+            }
+          ],
+          "generalFeedback": "四路析取只有在全假列才為假，故 16 列中 15 列成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c AND d 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>a && b && c && d</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有全真列使四路合取為真。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "四個子句須同時為真，只發生在 1 列。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "合取只有在每個子句皆為真時才為真：1 列。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 是析取的列數，而非合取。"
+            }
+          ],
+          "generalFeedback": "合取只有在每個子句皆為真時才為真，故 16 列中恰有 1 列成立。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "不可行組合使完整 CoC 無法達成",
+          "text": "<p>若述詞的兩個子句永遠不能同時為真，則完整的組合覆蓋（全部 2^n 列）不可行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——要求兩子句同時為真的那種組合永遠無法執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "存在無法達成的組合，代表 2^n 列中至少有一列無法產生，故完整 CoC 不可行。"
+            }
+          ],
+          "generalFeedback": "CoC 要求全部 2^n 種組合。若其中一種在邏輯上不可能，整組即無法達成，故完整 CoC 不可行（只能要求可行的列）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "三子句時可行的 CoC 組合數",
+          "text": "<p>某述詞使用子句 <code>a: x > 0</code>、<code>b: x < 0</code>、<code>c: y > 0</code>。8 種 CoC 組合中有幾種<strong>可行</strong>？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——a=T 且 b=T 的 2 種組合（對 c）不可能，故剩 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a 與 b 不能同時為真，故 a=T、b=T 的 2 列不可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只有 a=T 且 b=T 的 2 列不可行；剩 6。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "不可行者有兩列（a=T、b=T 且 c 任一值），而非一列。"
+            }
+          ],
+          "generalFeedback": "a 與 b 互斥，故 a=T、b=T 的兩列（c=T 與 c=F）皆不可行：8 - 2 = 6 可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存在一不可行組合後的 CoC 需求數",
+          "text": "<p>某 2 子句述詞有一種不可行組合。還剩多少個組合覆蓋的測試需求？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——2^2 = 4 扣掉 1 種不可行組合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "不可行組合被剔除，故剩 3。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只移除一種組合，故剩 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "四種組合移除一種後剩三種，而非一種。"
+            }
+          ],
+          "generalFeedback": "CoC 原需 2^2 = 4 種組合；剔除唯一的不可行組合後剩 3 個可行需求。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "3 子句述詞的 CC 需 3 個測試",
+          "text": "<p>含 3 個獨立子句之述詞的子句覆蓋至少需要 3 個測試。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——一個全真與一個全假測試即涵蓋全部三個子句，故 2 個測試即足夠。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC 只需 2 個測試：全部設真、再全部設假即可翻轉每個子句。"
+            }
+          ],
+          "generalFeedback": "子句獨立時 CC 所需測試數不隨子句數成長：2 個測試（全真、全假）恆足夠。"
+        },
+        {
+          "type": "multichoice",
+          "name": "析取的 CC 但非 PC",
+          "text": "<p>對 <code>p = a || b</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "正確——每個子句各取兩值，但 p 在兩列皆為真，故 PC 不成立。"
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "此處 p 先真後假，故滿足 PC。"
+            },
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 0,
+              "feedback": "b 從未為真，故不滿足 CC（且 p 先真後假）。"
+            },
+            {
+              "text": "{(F, F), (T, T)}",
+              "fraction": 0,
+              "feedback": "此處 p 先假後真，故滿足 PC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F) 與 (F,T)，每個子句各取兩值（CC 成立），但 a || b 兩列皆為真，故述詞從未為假、PC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND (c OR d) 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>(a || b) && (c || d)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——(a || b) 在 4 種 (a,b) 組合中有 3 種成立、(c || d) 在 4 種 (c,d) 組合中有 3 種成立：3 x 3 = 9。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "每個析取在其 4 種組合中有 3 種成立，故 3 x 3 = 9，而非 12。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 (a && b) || (c && d) 的列數，屬不同述詞。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "將兩個獨立部分相乘：3 x 3 = 9。"
+            }
+          ],
+          "generalFeedback": "兩部分作用於不相交的子句。a || b 在 4 種 (a,b) 列中有 3 種為真；c || d 在 4 種 (c,d) 列中有 3 種為真。3 x 3 = 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "同時滿足 PC 與 CC 的測試數（a OR b OR c）",
+          "text": "<p>對 <code>p = a || b || c</code>，<strong>同時</strong>滿足 PC 與 CC 所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——{(T,T,T),(F,F,F)} 使 p 取兩值、且每個子句取兩值。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "全真與全假兩個測試已同時滿足兩者。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 CoC 的規模；PC 與 CC 合計只需 2。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "兩個精選測試即足以同時滿足 PC 與 CC。"
+            }
+          ],
+          "generalFeedback": "{(T,T,T),(F,F,F)} 使 p 先真後假（PC），且每個子句各取兩值（CC），故 2 個測試即足夠。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "矛盾述詞的 PC 不可行",
+          "text": "<p>對 <code>p = a && !a</code>，述詞覆蓋不可行，因為該述詞永遠無法為真。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——a 與 !a 互相矛盾，故 p 恆為假、永遠無法為真。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "a && !a 是矛盾式；對所有輸入皆為假，故需要真值案例的 PC 不可行。"
+            }
+          ],
+          "generalFeedback": "子句 a 與 !a 相依（一者為另一者的否定），故 a && !a 恆為假。PC 需要一次為真的評估，在此不可能。"
+        },
+        {
+          "type": "multichoice",
+          "name": "NOT (a OR b) AND (c OR d) 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>!(a || b) && (c || d)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——!(a || b) 迫使 a=F、b=F（1 種組合），(c || d) 在 4 種中有 3 種成立：1 x 3 = 3。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "!(a || b) 只在 4 種 (a,b) 組合中的 1 種成立，而非 3 種；答案是 1 x 3 = 3。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "須 a=F、b=F，故只有 3 種 (c || d) 的列符合。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "固定 a=F、b=F 後，c || d 貢獻 3 列而非 1 列。"
+            }
+          ],
+          "generalFeedback": "!(a || b) 只在 a=F 且 b=F 時為真（4 種中 1 種）；c || d 在 4 種中有 3 種為真。合計 1 x 3 = 3。",
+          "single": true
+        }
+      ]
+    }
+  },
   "logic-coverage": {
     "en": {
       "easy": [

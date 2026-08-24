@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Logic Basic Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>子句定義（基礎）</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>子句（clause）</strong>最適當的定義是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不含任何邏輯運算子的布林運算式</text><feedback><text>正確——子句是原子條件，例如 x &gt; 0 或單一布林變數。</text></feedback></answer>
+    <answer fraction="0"><text>任何以 &amp;&amp;、||、! 連接而成的布林運算式</text><feedback><text>那是述詞（predicate），由子句組成。</text></feedback></answer>
+    <answer fraction="0"><text>真值表中的一列</text><feedback><text>真值表的一列是一組取值，不是子句。</text></feedback></answer>
+    <answer fraction="0"><text>使某述詞為真的測試案例</text><feedback><text>那是測試，不是子句。</text></feedback></answer>
+    <generalfeedback><text>子句（條件）是不含邏輯運算子（&amp;&amp;、||、!）的布林運算式。以這些運算子連接子句便構成述詞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>述詞定義（基礎）</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>述詞（predicate）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由一個或多個子句以邏輯運算子連接而成的運算式</text><feedback><text>正確——以 &amp;&amp;、||、! 連接子句即構成述詞。</text></feedback></answer>
+    <answer fraction="0"><text>一定是不含邏輯運算子的運算式</text><feedback><text>那是子句；述詞可以包含運算子。</text></feedback></answer>
+    <answer fraction="0"><text>回傳數值的算術運算式</text><feedback><text>述詞是布林值，而非數值。</text></feedback></answer>
+    <answer fraction="0"><text>必須是不等式的迴圈條件</text><feedback><text>述詞不必是不等式，也不必與迴圈相關。</text></feedback></answer>
+    <generalfeedback><text>述詞是由子句以邏輯運算子連接而成的布林運算式。不含運算子的單一子句本身就是最簡單的述詞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識單一子句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者為<strong>單一子句</strong>（而非複合述詞）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[x >= 5]]></text><feedback><text>正確——不含邏輯運算子的關係運算式是一個子句。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a && b]]></text><feedback><text>以 &amp;&amp; 連接兩個子句，屬於述詞。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[!p]]></text><feedback><text>! 運算子使其成為對子句 p 的複合述詞。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a || b]]></text><feedback><text>以 || 連接兩個子句，屬於述詞。</text></feedback></answer>
+    <generalfeedback><text>子句不含邏輯運算子。只有 x &gt;= 5 符合；其餘皆使用 &amp;&amp;、|| 或 !。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算子句數目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>述詞 <code>(p && q) || !r</code> 含有幾個子句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——子句為 p、q、r。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>共有三個原子條件：p、q、r。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>&amp;&amp;、||、! 是運算子而非子句；只有 p、q、r 是子句。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>這是含三個子句的複合述詞，而非一個。</text></feedback></answer>
+    <generalfeedback><text>子句是原子布林運算式。在 (p &amp;&amp; q) || !r 中為 p、q、r——共三個子句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>述詞覆蓋定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>述詞覆蓋（Predicate Coverage, PC）要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>述詞至少各取一次 true 與 false</text><feedback><text>正確——一個測試使其為真、一個使其為假。</text></feedback></answer>
+    <answer fraction="0"><text>每個子句各取一次 true 與 false</text><feedback><text>那是子句覆蓋（CC），而非 PC。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋子句真值的所有組合</text><feedback><text>那是組合覆蓋（CoC）。</text></feedback></answer>
+    <answer fraction="0"><text>每個子句至少一次決定述詞的值</text><feedback><text>那是主動子句（ACC）的概念，超出本單元範圍。</text></feedback></answer>
+    <generalfeedback><text>PC 只規範整個述詞：必須至少各取一次真與假，並未規範個別子句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>子句覆蓋定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>子句覆蓋（Clause Coverage, CC）要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個子句至少各取一次 true 與 false</text><feedback><text>正確——每個原子條件都必須取兩種真值。</text></feedback></answer>
+    <answer fraction="0"><text>整個述詞至少各取一次 true 與 false</text><feedback><text>那是述詞覆蓋（PC）。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋全部 2^n 種子句取值組合</text><feedback><text>那是組合覆蓋（CoC）。</text></feedback></answer>
+    <answer fraction="0"><text>每個子句獨立決定述詞的值</text><feedback><text>那是主動子句覆蓋，比單純的 CC 更強。</text></feedback></answer>
+    <generalfeedback><text>CC 要求每個子句至少各取一次真與假，與所屬述詞的取值無關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合覆蓋定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>組合（子句）覆蓋（Combinatorial Coverage, CoC）要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋 n 個子句的全部 2^n 種真值組合</text><feedback><text>正確——即完整的真值表（在可行的前提下）。</text></feedback></answer>
+    <answer fraction="0"><text>述詞取一次 true 與一次 false</text><feedback><text>那只是述詞覆蓋（PC）。</text></feedback></answer>
+    <answer fraction="0"><text>每個子句取一次 true 與一次 false</text><feedback><text>那只是子句覆蓋（CC）。</text></feedback></answer>
+    <answer fraction="0"><text>執行 n + 1 個精心挑選的測試</text><feedback><text>n + 1 是 CACC/MC-DC 的最小規模，超出本單元範圍。</text></feedback></answer>
+    <generalfeedback><text>CoC（又稱 ACoC）要求 n 個子句真值的全部 2^n 種組合——即完整的真值表。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>2 個子句的真值表列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>含 <strong>2</strong> 個子句的述詞，其完整真值表有幾列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——2^2 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是 PC 或 CC 的最小測試數，而非列數。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>2^2 = 4，而非 3。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 對應三個子句。</text></feedback></answer>
+    <generalfeedback><text>含 n 個子句的述詞有 2^n 列；n = 2 時為 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>3 個子句的真值表列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>含 <strong>3</strong> 個子句的述詞，其完整真值表有幾列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——2^3 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>2^3 = 8，而非 6。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 = 2^2 對應兩個子句。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>是 2^3 = 8，而非 3^2。</text></feedback></answer>
+    <generalfeedback><text>含 n 個子句的述詞有 2^n 列；n = 3 時為 8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>4 個子句的真值表列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>含 <strong>4</strong> 個子句的述詞，其完整真值表有幾列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>正確——2^4 = 16。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 對應三個子句。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>2^4 = 16，而非 4 乘 3。</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 = 2^5 對應五個子句。</text></feedback></answer>
+    <generalfeedback><text>含 n 個子句的述詞有 2^n 列；n = 4 時為 16。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND b 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 4 列真值表中，有幾列使 <code>a && b</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——只有 a=T、b=T 使合取為真。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只有全真列使 a &amp;&amp; b 為真。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是 a || b 的成真列數，而非 a &amp;&amp; b。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>只要有任一子句為假，合取即為假。</text></feedback></answer>
+    <generalfeedback><text>合取只有在每個子句皆為真時才為真，故 4 列中恰有 1 列使 a &amp;&amp; b 為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 4 列真值表中，有幾列使 <code>a || b</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——只有 a=F、b=F 為假。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 是 a &amp;&amp; b 的成真列數。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只有全假列為假，故剩 3 列。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>全假列 a=F、b=F 不使 a || b 為真。</text></feedback></answer>
+    <generalfeedback><text>析取只有在每個子句皆為假時才為假，故 4 列中有 3 列使 a || b 為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a AND b) OR c 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 8 列真值表中，有幾列使 <code>(a && b) || c</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——c=T 的 4 列，加上 a=T、b=T、c=F 這一列。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>c=T 的 4 列成立，但 a=T、b=T、c=F 也成立，合計 5。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>重新計算——8 列中恰有 5 列為真。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>光是 c=T 就已有 4 列為真。</text></feedback></answer>
+    <generalfeedback><text>只要 c=T 述詞即為真（4 列）；c=F 時需 a=T 且 b=T（再加 1 列）。合計 8 列中 5 列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC 的最少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對單一述詞而言，滿足述詞覆蓋所需的最少測試數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——一個使其為真、一個使其為假。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>一個測試只能產生一種真值；PC 需要兩種。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 與 2 個子句的真值表有關，而非 PC 的最小值。</text></feedback></answer>
+    <answer fraction="0"><text>視子句數而定</text><feedback><text>PC 不管子句數；對單一述詞恆為 2 個測試。</text></feedback></answer>
+    <generalfeedback><text>PC 要求述詞既為真又為假，故至少 2 個測試，與子句數無關。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>子句不含邏輯運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>子句不含任何邏輯運算子（&&、||、!）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——子句是原子的；運算子將子句組合成述詞。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>依定義子句不含邏輯運算子；一旦加入運算子就成為複合述詞。</text></feedback></answer>
+    <generalfeedback><text>子句是不含邏輯運算子的布林運算式。以 &amp;&amp;、|| 或 ! 連接子句即得述詞。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Basic Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>CC 的最少測試數（子句獨立）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若述詞的各子句可獨立設定，無論子句多少，滿足子句覆蓋所需的最少測試數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——一個全真測試與一個全假測試即可翻轉每個子句。</text></feedback></answer>
+    <answer fraction="0"><text>n（每子句一個）</text><feedback><text>2 個測試即足夠：先全部設真、再全部設假。</text></feedback></answer>
+    <answer fraction="0"><text>n + 1</text><feedback><text>n + 1 是 MC/DC 的最小值，而非 CC。</text></feedback></answer>
+    <answer fraction="0"><text>2^n</text><feedback><text>2^n 是組合覆蓋，遠多於 CC 所需。</text></feedback></answer>
+    <generalfeedback><text>子句獨立時，一個全真與一個全假測試就能讓每個子句各取兩種值，故 CC 只需 2 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>3 個子句的 CoC 測試需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞有 3 個獨立子句。組合覆蓋會產生多少個測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——2^3 = 8 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 較接近 CC 的規模，而非所有組合。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 = n + 1 是 MC/DC 的最小值，而非 CoC。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 少於完整的 2^3 = 8 種組合。</text></feedback></answer>
+    <generalfeedback><text>CoC 要求全部 2^n 種組合；n = 3 時為 8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何者包含其他準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 PC、CC、CoC 之中，下列敘述何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CoC 同時包含（subsume）PC 與 CC</text><feedback><text>正確——涵蓋所有組合即涵蓋 PC 與 CC。</text></feedback></answer>
+    <answer fraction="0"><text>PC 包含 CC</text><feedback><text>PC 與 CC 不可比較；兩者互不包含。</text></feedback></answer>
+    <answer fraction="0"><text>CC 包含 PC</text><feedback><text>CC 不包含 PC——見 a &amp;&amp; b 的反例。</text></feedback></answer>
+    <answer fraction="0"><text>PC 包含 CoC</text><feedback><text>剛好相反：CoC 是三者中最強的。</text></feedback></answer>
+    <generalfeedback><text>涵蓋全部 2^n 種組合的測試集必然使述詞既真又假（PC），且每個子句各取兩值（CC），故 CoC 同時包含兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC 與 CC 的關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於述詞覆蓋與子句覆蓋，下列敘述何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者互不包含，彼此不可比較</text><feedback><text>正確——各自都可能在不滿足另一者的情況下被滿足。</text></feedback></answer>
+    <answer fraction="0"><text>PC 恆包含 CC</text><feedback><text>並非如此：a || b 以 {(T,F),(F,F)} 滿足 PC 但不滿足 CC。</text></feedback></answer>
+    <answer fraction="0"><text>CC 恆包含 PC</text><feedback><text>並非如此：a &amp;&amp; b 以 {(T,F),(F,T)} 滿足 CC 但不滿足 PC。</text></feedback></answer>
+    <answer fraction="0"><text>兩者等價</text><feedback><text>兩者互不包含且相異，並非等價。</text></feedback></answer>
+    <generalfeedback><text>PC 與 CC 不可比較：兩個方向上都存在滿足其一而不滿足另一的測試集。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>滿足 CC 但不滿足 PC 的測試集</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>p = a && b</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b) 表示）</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F), (F, T)}]]></text><feedback><text>正確——a 與 b 各取兩值，但 p 在兩列皆為假。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (F, F)}]]></text><feedback><text>此處 p 先真後假，故也滿足 PC。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (T, F)}]]></text><feedback><text>b 取兩值但 a 恆為真，故 CC 不成立；且 p 先真後假。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(F, F), (F, T)}]]></text><feedback><text>a 從未為真，故不滿足 CC。</text></feedback></answer>
+    <generalfeedback><text>以 (T,F) 與 (F,T)，a 為 {T,F}、b 為 {F,T}（CC 成立），但 a &amp;&amp; b 兩次皆為假，故 PC 不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>滿足 PC 但不滿足 CC 的測試集</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>p = a || b</code>，下列哪個 2 測試集<strong>滿足述詞覆蓋但不滿足子句覆蓋</strong>？（各列以 (a, b) 表示）</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F), (F, F)}]]></text><feedback><text>正確——p 先真後假（PC 成立），但 b 從未為真，故 CC 不成立。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, F), (F, T)}]]></text><feedback><text>此處兩個子句都取兩值，故 CC 也被滿足。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (F, F)}]]></text><feedback><text>此處兩個子句都取兩值，故 CC 也被滿足。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (T, F)}]]></text><feedback><text>p 在兩列皆為真，故不滿足 PC。</text></feedback></answer>
+    <generalfeedback><text>以 (T,F) 與 (F,F)，p 先真後假（PC 成立），但 b 恆為假，故 CC 不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND (b OR c) 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 8 列真值表中，有幾列使 <code>a && (b || c)</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——a=T（4 列），扣掉 b=F 且 c=F 的那列。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>a=T 的 4 列中，b=F、c=F 那列不成立，故剩 3。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是 (a &amp;&amp; b) || c 的成真列數，屬不同述詞。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>a 必須為真，故至多 4 列符合；正確答案是 3。</text></feedback></answer>
+    <generalfeedback><text>述詞需 a=T 且 (b || c)。a=T 有 4 列；扣掉 b=F、c=F 後剩 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a OR b) AND c 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 8 列真值表中，有幾列使 <code>(a || b) && c</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——c 必須為真，其中僅 a=F、b=F 那列不成立。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>c=T 有 4 列，但 a=F、b=F、c=T 不成立（a || b 為假），故剩 3。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>重新計算——恰有 3 列成立。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>太少——c=T 的列中有三列滿足 a || b。</text></feedback></answer>
+    <generalfeedback><text>c 必須為真（4 列）；其中 a || b 成立於 3 列（除 a=F、b=F 外）。合計 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>NOT a OR (b AND c) 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 8 列真值表中，有幾列使 <code>!a || (b && c)</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——a=F 的 4 列，加上 a=T、b=T、c=T 那列。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>a=F 的 4 列都成立，加上 a=T、b=T、c=T 再一列，合計 5。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>重新計算——恰有 5 列成立。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>光是 a=F 就已有 4 列為真。</text></feedback></answer>
+    <generalfeedback><text>a=F 時述詞為真（4 列）；a=T 時需 b=T 且 c=T（1 列）。合計 5。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>滿足 CoC 即滿足 PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>任何滿足組合覆蓋的測試集也必然滿足述詞覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——涵蓋所有組合就包含使述詞為真與為假的列。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>CoC 包含 PC：執行每一種組合會迫使述詞取兩種真值。</text></feedback></answer>
+    <generalfeedback><text>CoC 包含 PC。全部 2^n 列（對非常數述詞）至少各含一真列與一假列，故 PC 成立。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>滿足 CoC 即滿足 CC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>任何滿足組合覆蓋的測試集也必然滿足子句覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每個子句在某些組合為真、在另一些組合為假。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>CoC 包含 CC：全部 2^n 列使每個子句各取真與假。</text></feedback></answer>
+    <generalfeedback><text>CoC 包含 CC。跨越全部 2^n 種組合時每個子句都取兩值，故 CC 成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何者所需測試最多</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對含多個獨立子句的述詞，下列哪個準則一般需要最多測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>組合覆蓋（CoC）</text><feedback><text>正確——CoC 需要全部 2^n 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>述詞覆蓋（PC）</text><feedback><text>PC 只需 2 個測試，最少。</text></feedback></answer>
+    <answer fraction="0"><text>子句覆蓋（CC）</text><feedback><text>子句獨立時 CC 最少只需 2 個測試。</text></feedback></answer>
+    <answer fraction="0"><text>三者所需相同</text><feedback><text>CoC（2^n）遠超過 PC 與 CC 的 2 測試最小值。</text></feedback></answer>
+    <generalfeedback><text>CoC 隨 2^n 成長且包含 PC 與 CC，故一般需要最多測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>3 個子句時 PC 最小值與 CoC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對含 3 個子句的述詞，述詞覆蓋最少需 2 個測試，而組合覆蓋會產生 8 個測試需求。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——PC 最小值為 2；CoC 為 2^3 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>PC 只需 2 個測試，CoC 需 2^3 = 8，故敘述成立。</text></feedback></answer>
+    <generalfeedback><text>PC 恆需 2 個測試（述詞兩種值）；CoC 對 n = 3 需全部 2^n = 8 種組合。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CC 不保證 PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>滿足子句覆蓋必定保證同時滿足述詞覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——對 a &amp;&amp; b，{(T,F),(F,T)} 滿足 CC 但述詞從未為真。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>CC 不包含 PC：a &amp;&amp; b 以 {(T,F),(F,T)} 滿足 CC 卻不滿足 PC。</text></feedback></answer>
+    <generalfeedback><text>CC 與 PC 不可比較。經典反例為 a &amp;&amp; b 搭配 {(T,F),(F,T)}：CC 成立、PC 不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>同時滿足 PC 與 CC 的測試數（a AND b）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>p = a && b</code>，<strong>同時</strong>滿足 PC 與 CC 所需的最少測試數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——{(T,T),(F,F)} 使 p 取兩值、且每個子句取兩值。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>(T,T) 與 (F,F) 兩個測試已同時滿足兩者。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是完整真值表（CoC）；PC 與 CC 合計只需 2。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>一個測試只產生一種述詞值，故無法滿足 PC。</text></feedback></answer>
+    <generalfeedback><text>{(T,T),(F,F)} 使 p 先真後假（PC），且 a、b 各取兩值（CC），故 2 個測試即足夠。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Basic Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>互斥子句下可行的 CoC 組合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞對單一變數 x 使用子句 <code>x > 0</code> 與 <code>x < 0</code>。組合覆蓋要求的 4 種組合中，有幾種是<strong>可行的</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——兩者同時為真不可能；其餘三種（TF、FT、x=0 時的 FF）皆可行。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>x 不可能同時 &gt; 0 且 &lt; 0，故 (T,T) 組合不可行。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>可行者有三種：x&gt;0、x&lt;0 與 x=0。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>只有 (T,T) 不可能；其餘三種皆可達成。</text></feedback></answer>
+    <generalfeedback><text>x &gt; 0 與 x &lt; 0 不能同時成立，故 (T,T) 不可行。TF（x&gt;0）、FT（x&lt;0）、FF（x=0）皆可行：共 3 種。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具相依子句時可行的 CoC 組合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞使用子句 <code>a: x > 5</code> 與 <code>b: x > 10</code>。由於 b 蘊含 a，4 種 CoC 組合中有幾種是<strong>可行的</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——(a=F, b=T) 不可能，因為 b 蘊含 a。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>b 為真會迫使 a 為真，故 (a=F, b=T) 不可能發生。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>可行者有三種：x&gt;10、5&lt;x&lt;=10 與 x&lt;=5。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>只有一種組合不可行，故剩 3。</text></feedback></answer>
+    <generalfeedback><text>b（x&gt;10）蘊含 a（x&gt;5），故 (a=F, b=T) 不可行。TT（x&gt;10）、TF（5&lt;x&lt;=10）、FF（x&lt;=5）皆可行：共 3 種。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三子句合取的 CC 但非 PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>p = a && b && c</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b, c) 表示）</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F, T), (F, T, F)}]]></text><feedback><text>正確——每個子句各取兩值，但 p 在兩列皆為假。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T, T), (F, F, F)}]]></text><feedback><text>此處 p 先真後假，故也滿足 PC。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T, T), (T, T, F)}]]></text><feedback><text>a 與 b 從未為假，故不滿足 CC。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(F, F, T), (F, T, F)}]]></text><feedback><text>a 從未為真，故不滿足 CC。</text></feedback></answer>
+    <generalfeedback><text>以 (T,F,T) 與 (F,T,F)，a、b、c 各取兩值（CC 成立），但 a &amp;&amp; b &amp;&amp; c 兩列皆為假，故 PC 不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a AND b) OR (c AND d) 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 16 列真值表中，有幾列使 <code>(a && b) || (c && d)</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——|a&amp;&amp;b| = 4、|c&amp;&amp;d| = 4、重疊 = 1，故 4 + 4 - 1 = 7。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>須扣掉 1 個重疊列（四者皆真）以免重複計算。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>排容原理得 4 + 4 - 1 = 7，而非 6。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>各合取單獨為真的列各有 4，但合起來涵蓋 7。</text></feedback></answer>
+    <generalfeedback><text>a &amp;&amp; b 於 4 列為真，c &amp;&amp; d 於 4 列為真；僅在四者皆真時重疊（1 列）。4 + 4 - 1 = 7。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b OR c OR d 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 16 列真值表中，有幾列使 <code>a || b || c || d</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15</text><feedback><text>正確——只有全假列不成立。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>全假列不使析取成立。</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>恰有一列（全假）不成立，故剩 15。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 是合取的情形；四路析取有 15 列為真。</text></feedback></answer>
+    <generalfeedback><text>四路析取只有在全假列才為假，故 16 列中 15 列成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND b AND c AND d 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 16 列真值表中，有幾列使 <code>a && b && c && d</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——只有全真列使四路合取為真。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>四個子句須同時為真，只發生在 1 列。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>合取只有在每個子句皆為真時才為真：1 列。</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 是析取的列數，而非合取。</text></feedback></answer>
+    <generalfeedback><text>合取只有在每個子句皆為真時才為真，故 16 列中恰有 1 列成立。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>不可行組合使完整 CoC 無法達成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若述詞的兩個子句永遠不能同時為真，則完整的組合覆蓋（全部 2^n 列）不可行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——要求兩子句同時為真的那種組合永遠無法執行。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>存在無法達成的組合，代表 2^n 列中至少有一列無法產生，故完整 CoC 不可行。</text></feedback></answer>
+    <generalfeedback><text>CoC 要求全部 2^n 種組合。若其中一種在邏輯上不可能，整組即無法達成，故完整 CoC 不可行（只能要求可行的列）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三子句時可行的 CoC 組合數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某述詞使用子句 <code>a: x > 0</code>、<code>b: x < 0</code>、<code>c: y > 0</code>。8 種 CoC 組合中有幾種<strong>可行</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——a=T 且 b=T 的 2 種組合（對 c）不可能，故剩 6。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>a 與 b 不能同時為真，故 a=T、b=T 的 2 列不可行。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>只有 a=T 且 b=T 的 2 列不可行；剩 6。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>不可行者有兩列（a=T、b=T 且 c 任一值），而非一列。</text></feedback></answer>
+    <generalfeedback><text>a 與 b 互斥，故 a=T、b=T 的兩列（c=T 與 c=F）皆不可行：8 - 2 = 6 可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>存在一不可行組合後的 CoC 需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 2 子句述詞有一種不可行組合。還剩多少個組合覆蓋的測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——2^2 = 4 扣掉 1 種不可行組合。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>不可行組合被剔除，故剩 3。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只移除一種組合，故剩 3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>四種組合移除一種後剩三種，而非一種。</text></feedback></answer>
+    <generalfeedback><text>CoC 原需 2^2 = 4 種組合；剔除唯一的不可行組合後剩 3 個可行需求。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>3 子句述詞的 CC 需 3 個測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>含 3 個獨立子句之述詞的子句覆蓋至少需要 3 個測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——一個全真與一個全假測試即涵蓋全部三個子句，故 2 個測試即足夠。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>CC 只需 2 個測試：全部設真、再全部設假即可翻轉每個子句。</text></feedback></answer>
+    <generalfeedback><text>子句獨立時 CC 所需測試數不隨子句數成長：2 個測試（全真、全假）恆足夠。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>析取的 CC 但非 PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>p = a || b</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b) 表示）</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F), (F, T)}]]></text><feedback><text>正確——每個子句各取兩值，但 p 在兩列皆為真，故 PC 不成立。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (F, F)}]]></text><feedback><text>此處 p 先真後假，故滿足 PC。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, F), (F, F)}]]></text><feedback><text>b 從未為真，故不滿足 CC（且 p 先真後假）。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(F, F), (T, T)}]]></text><feedback><text>此處 p 先假後真，故滿足 PC。</text></feedback></answer>
+    <generalfeedback><text>以 (T,F) 與 (F,T)，每個子句各取兩值（CC 成立），但 a || b 兩列皆為真，故述詞從未為假、PC 不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a OR b) AND (c OR d) 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 16 列真值表中，有幾列使 <code>(a || b) && (c || d)</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——(a || b) 在 4 種 (a,b) 組合中有 3 種成立、(c || d) 在 4 種 (c,d) 組合中有 3 種成立：3 x 3 = 9。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>每個析取在其 4 種組合中有 3 種成立，故 3 x 3 = 9，而非 12。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是 (a &amp;&amp; b) || (c &amp;&amp; d) 的列數，屬不同述詞。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>將兩個獨立部分相乘：3 x 3 = 9。</text></feedback></answer>
+    <generalfeedback><text>兩部分作用於不相交的子句。a || b 在 4 種 (a,b) 列中有 3 種為真；c || d 在 4 種 (c,d) 列中有 3 種為真。3 x 3 = 9。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>同時滿足 PC 與 CC 的測試數（a OR b OR c）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>p = a || b || c</code>，<strong>同時</strong>滿足 PC 與 CC 所需的最少測試數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——{(T,T,T),(F,F,F)} 使 p 取兩值、且每個子句取兩值。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>全真與全假兩個測試已同時滿足兩者。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是 CoC 的規模；PC 與 CC 合計只需 2。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>兩個精選測試即足以同時滿足 PC 與 CC。</text></feedback></answer>
+    <generalfeedback><text>{(T,T,T),(F,F,F)} 使 p 先真後假（PC），且每個子句各取兩值（CC），故 2 個測試即足夠。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>矛盾述詞的 PC 不可行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>p = a && !a</code>，述詞覆蓋不可行，因為該述詞永遠無法為真。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——a 與 !a 互相矛盾，故 p 恆為假、永遠無法為真。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>a &amp;&amp; !a 是矛盾式；對所有輸入皆為假，故需要真值案例的 PC 不可行。</text></feedback></answer>
+    <generalfeedback><text>子句 a 與 !a 相依（一者為另一者的否定），故 a &amp;&amp; !a 恆為假。PC 需要一次為真的評估，在此不可能。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>NOT (a OR b) AND (c OR d) 的成真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 16 列真值表中，有幾列使 <code>!(a || b) && (c || d)</code> 為<strong>真</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——!(a || b) 迫使 a=F、b=F（1 種組合），(c || d) 在 4 種中有 3 種成立：1 x 3 = 3。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>!(a || b) 只在 4 種 (a,b) 組合中的 1 種成立，而非 3 種；答案是 1 x 3 = 3。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>須 a=F、b=F，故只有 3 種 (c || d) 的列符合。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>固定 a=F、b=F 後，c || d 貢獻 3 列而非 1 列。</text></feedback></answer>
+    <generalfeedback><text>!(a || b) 只在 a=F 且 b=F 時為真（4 種中 1 種）；c || d 在 4 種中有 3 種為真。合計 1 x 3 = 3。</text></generalfeedback>
+  </question>
+</quiz>
