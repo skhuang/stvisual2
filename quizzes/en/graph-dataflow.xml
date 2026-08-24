@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Graph Data-Flow Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a def</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In data-flow analysis, a <strong>def (definition)</strong> of a variable <code>v</code> at a location is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A location where v is assigned a value (e.g. an assignment, input, or parameter binding)</text><feedback><text>Correct — a def is where the variable receives a value.</text></feedback></answer>
+    <answer fraction="0"><text>A location where the value of v is read but not changed</text><feedback><text>That is a use, not a def.</text></feedback></answer>
+    <answer fraction="0"><text>A predicate that tests the value of v</text><feedback><text>Testing v is a p-use; a def stores a value into v.</text></feedback></answer>
+    <answer fraction="0"><text>An edge of the control-flow graph</text><feedback><text>A def is a location that stores into v, not an edge.</text></feedback></answer>
+    <generalfeedback><text>A def is any location where a variable is given a value: assignments, reads/inputs, and formal-parameter bindings are all defs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a use</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In data-flow analysis, a <strong>use</strong> of a variable <code>v</code> at a location is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A location where the value of v is read (accessed) without necessarily changing it</text><feedback><text>Correct — a use reads the current value of v.</text></feedback></answer>
+    <answer fraction="0"><text>A location where v is assigned a new value</text><feedback><text>That is a def, not a use.</text></feedback></answer>
+    <answer fraction="0"><text>A location where v is declared but never referenced</text><feedback><text>A mere declaration with no read is not a use of the value.</text></feedback></answer>
+    <answer fraction="0"><text>Any node on a def-clear path</text><feedback><text>A use is a specific read of v, not simply any node on a path.</text></feedback></answer>
+    <generalfeedback><text>A use is a location where the stored value of v is accessed — either in a computation (c-use) or in a predicate (p-use).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a c-use</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>c-use (computation use)</strong> of a variable is a use that occurs:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In a computation — e.g. the right-hand side of an assignment, an output, or a subscript</text><feedback><text>Correct — a c-use feeds a computation and is associated with a node.</text></feedback></answer>
+    <answer fraction="0"><text>In the predicate of a branch or loop</text><feedback><text>That is a p-use, not a c-use.</text></feedback></answer>
+    <answer fraction="0"><text>Only when the variable is being assigned</text><feedback><text>Assignment is a def; a c-use reads the value inside a computation.</text></feedback></answer>
+    <answer fraction="0"><text>On an edge of the control-flow graph</text><feedback><text>c-uses are associated with nodes; p-uses are the ones associated with edges.</text></feedback></answer>
+    <generalfeedback><text>A c-use is a use in a computation (RHS of an assignment, an argument, an output, an array index). It is associated with the node where the computation occurs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a p-use</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>p-use (predicate use)</strong> of a variable is a use that occurs:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In the predicate of a decision, and is associated with the out-edges of that decision node</text><feedback><text>Correct — a p-use lives in a condition and attaches to the branch's out-edges.</text></feedback></answer>
+    <answer fraction="0"><text>On the right-hand side of an assignment</text><feedback><text>That is a c-use, associated with a node.</text></feedback></answer>
+    <answer fraction="0"><text>Wherever the variable is first defined</text><feedback><text>That is a def, not a use.</text></feedback></answer>
+    <answer fraction="0"><text>Only inside a loop body</text><feedback><text>A p-use is any use in a predicate, whether in an if, while, or other decision.</text></feedback></answer>
+    <generalfeedback><text>A p-use is a use in a predicate (e.g. the condition of an if or while). Because a decision's outcome selects an out-edge, a p-use is associated with each of the decision node's out-edges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a DU pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>DU pair (def-use pair)</strong> <code>(d, u)</code> for a variable v is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A def d and a use u of v such that some def-clear path (no intervening redefinition of v) runs from d to u</text><feedback><text>Correct — the def must reach the use along a path with no redefinition in between.</text></feedback></answer>
+    <answer fraction="0"><text>Any def d and any use u of v, whether or not d can reach u</text><feedback><text>Reachability by a def-clear path is required; unrelated defs and uses do not form a DU pair.</text></feedback></answer>
+    <answer fraction="0"><text>Two definitions of v that appear on the same path</text><feedback><text>A DU pair links a def to a use, not two defs.</text></feedback></answer>
+    <answer fraction="0"><text>Two uses of v with no def between them</text><feedback><text>A DU pair is one def and one use, not two uses.</text></feedback></answer>
+    <generalfeedback><text>A DU pair (d, u) requires that d defines v, u uses v, and there is a def-clear path from d to u — i.e. the value placed by d can actually reach u.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a def-clear path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A path is <strong>def-clear</strong> with respect to a variable <code>v</code> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It contains no redefinition of v strictly between its first and last nodes</text><feedback><text>Correct — no intervening def of v may kill the value along the way.</text></feedback></answer>
+    <answer fraction="0"><text>It contains no use of v anywhere along it</text><feedback><text>Def-clear concerns intervening definitions (kills), not uses.</text></feedback></answer>
+    <answer fraction="0"><text>It visits every node of the graph</text><feedback><text>Def-clear says nothing about visiting all nodes.</text></feedback></answer>
+    <answer fraction="0"><text>It never repeats any node</text><feedback><text>That describes a simple path; def-clear is about no intervening redefinition of v.</text></feedback></answer>
+    <generalfeedback><text>A path is def-clear for v if no node between the def and the use redefines v; an intervening def would kill the value and break the pairing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a du-path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>du-path</strong> for a variable v is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A simple def-clear path from a def of v to a use of v</text><feedback><text>Correct — a du-path is simple (no internal repeats) and def-clear from the def to the use.</text></feedback></answer>
+    <answer fraction="0"><text>Any path from a def of v to a use of v, even with a redefinition in between</text><feedback><text>A du-path must be def-clear; a redefinition in between disqualifies it.</text></feedback></answer>
+    <answer fraction="0"><text>Any def-clear path, whether simple or not</text><feedback><text>A du-path must additionally be simple; an arbitrary def-clear path may repeat nodes.</text></feedback></answer>
+    <answer fraction="0"><text>A complete path from the initial node to the final node</text><feedback><text>A du-path runs from a def to a use, not necessarily from entry to exit.</text></feedback></answer>
+    <generalfeedback><text>A du-path is a simple (cycle-free except possibly a single loop where first = last) def-clear path from a def of v to a use of v.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of All-Defs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>All-Defs</strong> coverage criterion requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For each def of each variable, at least one def-clear path reaches some use of that variable</text><feedback><text>Correct — All-Defs requires every def to reach at least one use.</text></feedback></answer>
+    <answer fraction="0"><text>For each def, a path reaches every use it can reach</text><feedback><text>That is All-Uses, which is stronger than All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>Every du-path of every DU pair is toured</text><feedback><text>That is All-DU-Paths, the strongest of the three.</text></feedback></answer>
+    <answer fraction="0"><text>Every edge of the control-flow graph is traversed</text><feedback><text>That is Edge Coverage, a structural criterion, not All-Defs.</text></feedback></answer>
+    <generalfeedback><text>All-Defs: each def must reach (via a def-clear path) at least one use — one test requirement per def.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of All-Uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>All-Uses</strong> coverage criterion requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For each def, a def-clear path reaches every use that the def can reach (every DU pair is covered)</text><feedback><text>Correct — All-Uses covers every DU pair, i.e. each def reaches every reachable use.</text></feedback></answer>
+    <answer fraction="0"><text>For each def, a path reaches at least one use</text><feedback><text>That is All-Defs, which is weaker than All-Uses.</text></feedback></answer>
+    <answer fraction="0"><text>Every du-path of every DU pair is toured</text><feedback><text>That is All-DU-Paths, which is stronger than All-Uses.</text></feedback></answer>
+    <answer fraction="0"><text>Every node of the control-flow graph is visited</text><feedback><text>That is Node Coverage, a structural criterion, not All-Uses.</text></feedback></answer>
+    <generalfeedback><text>All-Uses: for every DU pair (every def and every use it reaches), at least one du-path is toured — one test requirement per DU pair.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of All-DU-Paths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>All-DU-Paths</strong> coverage criterion requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For each DU pair, every du-path (every simple def-clear path) between the def and the use is toured</text><feedback><text>Correct — All-DU-Paths demands all du-paths for each pair, not just one.</text></feedback></answer>
+    <answer fraction="0"><text>For each DU pair, at least one du-path is toured</text><feedback><text>That is All-Uses; All-DU-Paths requires every du-path.</text></feedback></answer>
+    <answer fraction="0"><text>For each def, at least one use is reached</text><feedback><text>That is All-Defs, the weakest of the three.</text></feedback></answer>
+    <answer fraction="0"><text>Every complete path from entry to exit is executed</text><feedback><text>That is Complete Path Coverage, generally infeasible; All-DU-Paths is limited to du-paths of DU pairs.</text></feedback></answer>
+    <generalfeedback><text>All-DU-Paths: for every DU pair, all of its du-paths must be toured — the strongest of the three data-flow criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a DU pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>1  x = read()
+2  y = x + 3
+3  print(y)</pre><p>Which of the following is a valid DU pair?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x: def at line 1, use at line 2</text><feedback><text>Correct — x is defined at line 1 and read at line 2, with a def-clear path 1→2.</text></feedback></answer>
+    <answer fraction="0"><text>x: def at line 2, use at line 3</text><feedback><text>x is not defined at line 2 (y is), and x is not used at line 3.</text></feedback></answer>
+    <answer fraction="0"><text>y: def at line 1, use at line 2</text><feedback><text>y is defined at line 2, not line 1.</text></feedback></answer>
+    <answer fraction="0"><text>x: def at line 1, use at line 3</text><feedback><text>x is not used at line 3; only y is read there.</text></feedback></answer>
+    <generalfeedback><text>x: (def@1, use@2) and y: (def@2, use@3) are the two DU pairs. x is read at line 2 (c-use) and y is read at line 3 (c-use).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the predicate use</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>1  x = read()
+2  if (x &gt; 0)
+3      y = x + 1</pre><p>The use of <code>x</code> at line 2 (inside the condition) is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>p-use (predicate use)</text><feedback><text>Correct — x is read inside the branch condition, so it is a p-use.</text></feedback></answer>
+    <answer fraction="0"><text>c-use (computation use)</text><feedback><text>The use in a computation is at line 3; the line-2 use is in a predicate.</text></feedback></answer>
+    <answer fraction="0"><text>def (definition)</text><feedback><text>Line 2 reads x, it does not assign to it.</text></feedback></answer>
+    <answer fraction="0"><text>Neither a def nor a use</text><feedback><text>The condition reads x, which is a use — specifically a p-use.</text></feedback></answer>
+    <generalfeedback><text>A use inside a decision's predicate is a p-use, associated with the out-edges of that decision node.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the computation use</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>1  x = read()
+2  if (x &gt; 0)
+3      y = x + 1</pre><p>The use of <code>x</code> at line 3 (in <code>y = x + 1</code>) is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c-use (computation use)</text><feedback><text>Correct — x is read on the right-hand side of an assignment, so it is a c-use.</text></feedback></answer>
+    <answer fraction="0"><text>p-use (predicate use)</text><feedback><text>The predicate use is at line 2; line 3 is a computation.</text></feedback></answer>
+    <answer fraction="0"><text>def (definition)</text><feedback><text>Line 3 defines y, but it uses (reads) x.</text></feedback></answer>
+    <answer fraction="0"><text>A redefinition of x</text><feedback><text>Line 3 does not assign to x; it reads x to compute y.</text></feedback></answer>
+    <generalfeedback><text>A use in a computation such as the RHS of an assignment is a c-use, associated with the node where it occurs.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>p-use associated with edges</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A p-use of a variable is associated with the out-edges of the decision node, whereas a c-use is associated with a node.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — p-uses attach to the branch's out-edges; c-uses attach to nodes.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A p-use is tied to the decision's out-edges (which outcome is taken), while a c-use is tied to the node where the computation happens.</text></feedback></answer>
+    <generalfeedback><text>Because a predicate's value selects which out-edge is taken, a p-use is associated with the out-edges of the decision, while a c-use is associated with the node of the computation.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>All-Uses is not just one use per def</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All-Uses is satisfied as soon as each def reaches <em>at least one</em> use, without needing to reach the other uses it can reach.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — reaching at least one use per def is All-Defs; All-Uses requires reaching every reachable use.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Reaching just one use per def is All-Defs. All-Uses requires each def to reach every use it can reach (every DU pair).</text></feedback></answer>
+    <generalfeedback><text>All-Defs = each def reaches some use; All-Uses = each def reaches every reachable use. The statement describes All-Defs, not All-Uses.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Data-Flow Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Count the defs of y</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>How many <strong>definitions</strong> of variable <code>y</code> does this code contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — y is defined at line 2 (y = 0) and line 4 (y = 1).</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>There are two assignments to y: line 2 and line 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Line 5 uses y (c-use); it does not define y. There are two defs.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>y is assigned at lines 2 and 4, so it has two defs.</text></feedback></answer>
+    <generalfeedback><text>y is defined at line 2 and line 4; line 5 reads y (a c-use). So y has two defs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the use of x in the condition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>The use of <code>x</code> at line 3 is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>p-use, associated with edges 3→4 and 3→5</text><feedback><text>Correct — x is read in the decision predicate, so it is a p-use on both out-edges.</text></feedback></answer>
+    <answer fraction="0"><text>c-use at node 3</text><feedback><text>Line 3 is a predicate, so the use is a p-use, not a c-use.</text></feedback></answer>
+    <answer fraction="0"><text>A def of x</text><feedback><text>x is only read at line 3, not assigned.</text></feedback></answer>
+    <answer fraction="0"><text>p-use associated only with edge 3→4</text><feedback><text>A p-use attaches to both out-edges of the decision, 3→4 and 3→5.</text></feedback></answer>
+    <generalfeedback><text>The predicate at line 3 reads x, so it is a p-use, associated with both out-edges 3→4 (true) and 3→5 (false).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the use of x at line 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>The use of <code>x</code> at line 5 (in <code>z = x + y</code>) is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c-use at node 5</text><feedback><text>Correct — x is read in a computation, so it is a c-use associated with node 5.</text></feedback></answer>
+    <answer fraction="0"><text>p-use on edge 4→5</text><feedback><text>Line 5 is a computation, not a predicate; there is no branch here.</text></feedback></answer>
+    <answer fraction="0"><text>A def of x</text><feedback><text>Line 5 defines z; it reads x.</text></feedback></answer>
+    <answer fraction="0"><text>A redefinition of x</text><feedback><text>x is not assigned at line 5; it is read to compute z.</text></feedback></answer>
+    <generalfeedback><text>The use of x on the RHS of z = x + y is a c-use, associated with node 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Def-clear path for y</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D (edges 1→2, 2→3, 3→4, 3→5, 4→5):</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>Which path is <strong>def-clear</strong> with respect to <code>y</code> from the def at line 2 to the use at line 5?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2→3→5</text><feedback><text>Correct — this false-branch path never redefines y, so the def at line 2 reaches line 5.</text></feedback></answer>
+    <answer fraction="0"><text>2→3→4→5</text><feedback><text>Line 4 redefines y (y = 1), so this path is not def-clear for the def at line 2.</text></feedback></answer>
+    <answer fraction="0"><text>1→2→3→4→5</text><feedback><text>Besides starting before the def, it passes through line 4 which redefines y.</text></feedback></answer>
+    <answer fraction="0"><text>There is no def-clear path from line 2 to line 5</text><feedback><text>The false-branch path 2→3→5 is def-clear, so one does exist.</text></feedback></answer>
+    <generalfeedback><text>Only the false-branch path 2→3→5 avoids the redefinition at line 4, so it is the def-clear path carrying the def at line 2 to the use at line 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why 2→3→4→5 is not a du-path for y</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>Why is <code>2→3→4→5</code> not a du-path for the def of <code>y</code> at line 2?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Node 4 redefines y, killing the def from line 2, so the path is not def-clear</text><feedback><text>Correct — the redefinition at line 4 kills line 2's value before line 5.</text></feedback></answer>
+    <answer fraction="0"><text>The path repeats a node, so it is not simple</text><feedback><text>The path visits distinct nodes; the disqualifier is the redefinition at line 4.</text></feedback></answer>
+    <answer fraction="0"><text>y is never used at line 5</text><feedback><text>y is read at line 5 (z = x + y); the issue is the kill at line 4.</text></feedback></answer>
+    <answer fraction="0"><text>The path does not start at the initial node</text><feedback><text>A du-path need not start at the initial node; it starts at the def. The problem is the kill at line 4.</text></feedback></answer>
+    <generalfeedback><text>Because line 4 assigns y = 1, the value from line 2 is killed on this path; a du-path must be def-clear, so 2→3→4→5 does not qualify for the def at line 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Defs vs All-Uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the key difference between All-Defs and All-Uses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-Defs requires each def to reach some use; All-Uses requires each def to reach every use it can reach</text><feedback><text>Correct — All-Uses covers every DU pair, All-Defs only one use per def.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs requires every du-path; All-Uses requires only one du-path per pair</text><feedback><text>Requiring every du-path is All-DU-Paths, not All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses concerns only p-uses; All-Defs concerns only c-uses</text><feedback><text>Both criteria concern all uses (c-uses and p-uses); the difference is one-use vs every-use per def.</text></feedback></answer>
+    <answer fraction="0"><text>They are equivalent on every program</text><feedback><text>All-Uses is strictly stronger; it subsumes All-Defs.</text></feedback></answer>
+    <generalfeedback><text>All-Defs asks each def to reach at least one use; All-Uses asks each def to reach every reachable use (cover every DU pair). Hence All-Uses subsumes All-Defs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Strongest data-flow criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among All-Defs, All-Uses and All-DU-Paths, which is the <strong>strongest</strong> (subsumes the others)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-DU-Paths</text><feedback><text>Correct — All-DU-Paths ⊒ All-Uses ⊒ All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses</text><feedback><text>All-Uses subsumes All-Defs but is itself subsumed by All-DU-Paths.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs</text><feedback><text>All-Defs is the weakest of the three.</text></feedback></answer>
+    <answer fraction="0"><text>They are mutually incomparable</text><feedback><text>They form a chain: All-DU-Paths ⊒ All-Uses ⊒ All-Defs.</text></feedback></answer>
+    <generalfeedback><text>The Rapps–Weyuker hierarchy orders them All-DU-Paths ⊒ All-Uses ⊒ All-Defs, so All-DU-Paths is the strongest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Middle of the subsumption chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fill in the blank in the subsumption chain: <code>All-DU-Paths ⊒ ______ ⊒ All-Defs</code>.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-Uses</text><feedback><text>Correct — All-Uses sits between All-DU-Paths and All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>Edge Coverage</text><feedback><text>Edge Coverage is a structural criterion; the data-flow chain's middle term is All-Uses.</text></feedback></answer>
+    <answer fraction="0"><text>Prime Path Coverage</text><feedback><text>Prime Path Coverage is a graph-path criterion, not the middle of the data-flow chain.</text></feedback></answer>
+    <answer fraction="0"><text>Node Coverage</text><feedback><text>Node Coverage is structural; the data-flow chain's middle term is All-Uses.</text></feedback></answer>
+    <generalfeedback><text>The data-flow chain is All-DU-Paths ⊒ All-Uses ⊒ All-Defs, so the middle term is All-Uses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of a redefinition (kill)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider snippet K:</p><pre>1  x = 5
+2  x = 10
+3  y = x</pre><p>Which def of <code>x</code> reaches the use at line 3?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only the def at line 2 (x = 10); the def at line 1 is killed by line 2</text><feedback><text>Correct — line 2 redefines x before line 3, so only line 2's value reaches the use.</text></feedback></answer>
+    <answer fraction="0"><text>Only the def at line 1 (x = 5)</text><feedback><text>Line 2 overwrites x before line 3, so line 1's value does not reach the use.</text></feedback></answer>
+    <answer fraction="0"><text>Both defs reach the use</text><feedback><text>The path from line 1 to line 3 passes through the redefinition at line 2, so line 1's value is killed.</text></feedback></answer>
+    <answer fraction="0"><text>Neither def reaches the use</text><feedback><text>Line 2's value reaches line 3 along the def-clear path 2→3.</text></feedback></answer>
+    <generalfeedback><text>The def at line 2 kills the def at line 1, so only (x@2, use@3) is a DU pair; the def at line 1 reaches no use.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of du-paths for a DU pair (x)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D (edges 1→2, 2→3, 3→4, 3→5, 4→5):</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>How many du-paths does the DU pair <code>(x def@1, c-use@5)</code> have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — namely 1→2→3→4→5 and 1→2→3→5</text><feedback><text>Correct — x is never redefined, so both the then-path and the skip-path are def-clear du-paths.</text></feedback></answer>
+    <answer fraction="0"><text>1 — only 1→2→3→5</text><feedback><text>The then-path 1→2→3→4→5 is also def-clear for x (x is not redefined at line 4), so there are two.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>There are exactly two simple def-clear paths from line 1 to line 5.</text></feedback></answer>
+    <answer fraction="0"><text>0 — the def at line 1 does not reach line 5</text><feedback><text>x reaches line 5 along both branches; there are two du-paths.</text></feedback></answer>
+    <generalfeedback><text>x is defined only at line 1 and never redefined, so both 1→2→3→4→5 and 1→2→3→5 are simple def-clear paths — two du-paths for this DU pair.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of du-paths for a DU pair (y@4)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@4, c-use@5)</code> have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 — namely 4→5</text><feedback><text>Correct — the only def-clear path from line 4 to line 5 is the single edge 4→5.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There is only one path from line 4 to line 5, the edge 4→5.</text></feedback></answer>
+    <answer fraction="0"><text>0 — line 4's value is always killed</text><feedback><text>Line 4's def of y reaches line 5 directly along 4→5; nothing kills it.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only the single edge 4→5 connects the def to the use.</text></feedback></answer>
+    <generalfeedback><text>From node 4 the only route to node 5 is the edge 4→5, so this DU pair has exactly one du-path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Uses subsumes All-Defs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a test suite satisfies All-Uses, what can you conclude about All-Defs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-Defs is automatically satisfied, because covering every DU pair covers at least one use per def</text><feedback><text>Correct — All-Uses subsumes All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs may still fail</text><feedback><text>Covering every reachable use includes at least one use per def, so All-Defs cannot fail.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing can be concluded</text><feedback><text>All-Uses strictly subsumes All-Defs, so the conclusion is definite.</text></feedback></answer>
+    <answer fraction="0"><text>All-DU-Paths is also satisfied</text><feedback><text>All-Uses does not imply All-DU-Paths; only the weaker All-Defs follows.</text></feedback></answer>
+    <generalfeedback><text>Since every def with a reachable use has at least one DU pair, covering all DU pairs (All-Uses) covers at least one use per def (All-Defs). So All-Uses ⊒ All-Defs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>List the DU pairs for y</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>Which set correctly lists all DU pairs for variable <code>y</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(y@2 → use@5) and (y@4 → use@5)</text><feedback><text>Correct — line 2's def reaches line 5 via the false branch (2→3→5), and line 4's def reaches line 5 via 4→5.</text></feedback></answer>
+    <answer fraction="0"><text>Only (y@4 → use@5), because line 2's def is always killed</text><feedback><text>Line 2's def is killed only on the then-path; via the false branch 2→3→5 it still reaches line 5.</text></feedback></answer>
+    <answer fraction="0"><text>Only (y@2 → use@5)</text><feedback><text>Line 4's def also reaches line 5 via 4→5, so it forms a DU pair too.</text></feedback></answer>
+    <answer fraction="0"><text>(y@2 → use@3) and (y@4 → use@5)</text><feedback><text>y is not used at line 3; the use of y is at line 5.</text></feedback></answer>
+    <generalfeedback><text>Both defs of y reach the c-use at line 5: line 2 via the false-branch def-clear path 2→3→5, and line 4 via 4→5. So there are two DU pairs for y.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Uses versus All-DU-Paths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement correctly distinguishes All-Uses from All-DU-Paths?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path per DU pair</text><feedback><text>Correct — that is exactly the difference between the two criteria.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses tours every du-path; All-DU-Paths tours at least one</text><feedback><text>This is backwards: All-DU-Paths is the stronger criterion requiring every du-path.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses covers only c-uses; All-DU-Paths covers only p-uses</text><feedback><text>Both criteria cover c-uses and p-uses; the difference is one du-path versus all du-paths per pair.</text></feedback></answer>
+    <answer fraction="0"><text>They differ only on programs with loops</text><feedback><text>They can differ whenever a DU pair has more than one du-path, loop or not.</text></feedback></answer>
+    <generalfeedback><text>For each DU pair, All-Uses requires touring at least one du-path, while All-DU-Paths requires touring every du-path. Hence All-DU-Paths ⊒ All-Uses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count the uses of x</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>How many <strong>uses</strong> of variable <code>x</code> does the code contain, and of what kinds?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — a p-use at line 3 and a c-use at line 5</text><feedback><text>Correct — x is read in the predicate at line 3 (p-use) and in the computation at line 5 (c-use).</text></feedback></answer>
+    <answer fraction="0"><text>1 — only the c-use at line 5</text><feedback><text>The predicate at line 3 also reads x, which is a p-use.</text></feedback></answer>
+    <answer fraction="0"><text>1 — only the p-use at line 3</text><feedback><text>Line 5 also reads x (c-use), so there are two uses.</text></feedback></answer>
+    <answer fraction="0"><text>3 — a def at line 1 also counts as a use</text><feedback><text>Line 1 is a def, not a use; x has two uses (line 3 and line 5).</text></feedback></answer>
+    <generalfeedback><text>x is used twice: a p-use in the predicate at line 3 (associated with edges 3→4 and 3→5) and a c-use at line 5.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Data-Flow Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Uses vs All-DU-Paths requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D the DU pair <code>(x def@1, c-use@5)</code> has two du-paths: <code>P1 = 1→2→3→4→5</code> and <code>P2 = 1→2→3→5</code>. For this pair, how many du-paths must be toured by All-Uses versus All-DU-Paths?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-Uses requires at least one of {P1, P2}; All-DU-Paths requires both</text><feedback><text>Correct — All-Uses needs one du-path per pair, All-DU-Paths needs every du-path.</text></feedback></answer>
+    <answer fraction="0"><text>Both require exactly one du-path</text><feedback><text>All-DU-Paths requires every du-path of the pair, which here is both P1 and P2.</text></feedback></answer>
+    <answer fraction="0"><text>Both require both du-paths</text><feedback><text>All-Uses requires only one du-path per DU pair, not both.</text></feedback></answer>
+    <answer fraction="0"><text>All-Uses requires both; All-DU-Paths requires one</text><feedback><text>This is backwards: All-DU-Paths is the stronger criterion requiring all du-paths.</text></feedback></answer>
+    <generalfeedback><text>All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path. Here that is one of {P1, P2} versus both — a concrete witness that All-DU-Paths ⊒ All-Uses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible du-path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider:</p><pre>1  x = input()
+2  if (x &gt; 0)
+3      a = 1
+4  if (x &lt; 0)
+5      b = a</pre><p>The du-path <code>3→4→5</code> carries the def of <code>a</code> at line 3 to its use at line 5. Why is this du-path <strong>infeasible</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reaching line 3 requires x &gt; 0, but taking 4→5 requires x &lt; 0, and no single input satisfies both</text><feedback><text>Correct — the two conditions are contradictory, so no test can drive this du-path.</text></feedback></answer>
+    <answer fraction="0"><text>The path is not def-clear for a</text><feedback><text>a is not redefined between lines 3 and 5, so the path is def-clear; the problem is contradictory predicates.</text></feedback></answer>
+    <answer fraction="0"><text>The path repeats a node, so it is not simple</text><feedback><text>3→4→5 visits distinct nodes; it is simple. Infeasibility comes from the contradictory conditions.</text></feedback></answer>
+    <answer fraction="0"><text>a has no use at line 5</text><feedback><text>a is read at line 5 (b = a); the du-path exists syntactically but is infeasible.</text></feedback></answer>
+    <generalfeedback><text>An infeasible du-path exists in the graph but no input can execute it. Here line 3 needs x &gt; 0 while edge 4→5 needs x &lt; 0 — contradictory, so the du-path can never be toured.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Uses subsumes Edge — the assumption</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All-Uses subsumes Edge Coverage only under a standard assumption. Which assumption?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every decision's predicate uses at least one variable, so each out-edge carries a p-use test requirement</text><feedback><text>Correct — only then does covering all p-uses force both out-edges of every decision.</text></feedback></answer>
+    <answer fraction="0"><text>Every variable is defined before it is used</text><feedback><text>That rules out undefined uses but does not by itself force every edge to be taken.</text></feedback></answer>
+    <answer fraction="0"><text>The program contains no loops</text><feedback><text>Loops do not affect this subsumption; the requirement is a p-use on each decision.</text></feedback></answer>
+    <answer fraction="0"><text>Every def reaches exactly one use</text><feedback><text>That is unrelated; the assumption concerns predicates having variable uses.</text></feedback></answer>
+    <generalfeedback><text>A p-use attaches to both out-edges of a decision. If every decision predicate uses at least one variable, All-Uses forces both edges of every decision, hence subsumes Edge Coverage. Without that assumption a variable-free predicate leaves an edge unforced.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When All-Uses can miss an edge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In which situation can a test suite satisfy All-Uses yet leave an <strong>edge uncovered</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A decision whose predicate uses no variable (e.g. a constant condition), so neither out-edge carries a p-use requirement</text><feedback><text>Correct — with no p-use, All-Uses imposes no requirement forcing that branch's edges.</text></feedback></answer>
+    <answer fraction="0"><text>Any decision that uses a variable</text><feedback><text>A variable p-use forces both out-edges, so those edges are covered.</text></feedback></answer>
+    <answer fraction="0"><text>A straight-line program with no decisions</text><feedback><text>With no decisions there is one path; All-Uses and Edge Coverage coincide there.</text></feedback></answer>
+    <answer fraction="0"><text>A program where every def reaches every use</text><feedback><text>Rich data flow does not by itself leave an edge uncovered; a variable-free predicate does.</text></feedback></answer>
+    <generalfeedback><text>The subsumption of Edge Coverage by All-Uses relies on every decision having a variable p-use. A constant/variable-free predicate has no p-use, so All-Uses need not exercise both of its out-edges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>p-use generates two edge requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A variable v has a p-use in <code>if (v &gt; 0)</code>, a decision node with out-edges to the then-block and the else/merge. Under All-Uses, a def that reaches this p-use creates test requirements for:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both out-edges — the true edge and the false edge of the decision</text><feedback><text>Correct — a p-use attaches to every out-edge, so both must be toured.</text></feedback></answer>
+    <answer fraction="0"><text>Only the true edge (where the condition holds)</text><feedback><text>A p-use requirement covers both outcomes, not just the true edge.</text></feedback></answer>
+    <answer fraction="0"><text>Only the node of the decision</text><feedback><text>A p-use attaches to the out-edges, not merely the node.</text></feedback></answer>
+    <answer fraction="0"><text>Neither edge, because a predicate is not a use</text><feedback><text>Reading v in a predicate is a use — specifically a p-use on the out-edges.</text></feedback></answer>
+    <generalfeedback><text>Because the predicate's outcome selects an out-edge, a p-use of v creates a (def, p-use) requirement for each out-edge — forcing both the true and false branches.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Does a killed def still reach a use?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>Does the def of <code>y</code> at line 2 reach the use at line 5?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — via the false branch 2→3→5, which skips the redefinition at line 4</text><feedback><text>Correct — the def at line 2 is killed only along the then-path; the false branch keeps it def-clear.</text></feedback></answer>
+    <answer fraction="0"><text>No — line 4 always redefines y before line 5</text><feedback><text>Line 4 executes only on the true branch; when x ≤ 0 the def at line 2 survives to line 5.</text></feedback></answer>
+    <answer fraction="0"><text>Only if line 4 also executes</text><feedback><text>If line 4 executes it kills line 2's value; the def at line 2 reaches line 5 precisely when line 4 is skipped.</text></feedback></answer>
+    <answer fraction="0"><text>No — y at line 2 is dead code</text><feedback><text>It is not dead: on the false branch its value flows to line 5.</text></feedback></answer>
+    <generalfeedback><text>A redefinition kills a def only along paths that pass through it. The false branch 2→3→5 avoids line 4, so the def of y at line 2 does reach the use at line 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Witness that All-DU-Paths is strictly stronger</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which scenario best witnesses that All-DU-Paths is <em>strictly</em> stronger than All-Uses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A DU pair with two distinct du-paths, where a test set tours one (satisfying All-Uses) but not the other (failing All-DU-Paths)</text><feedback><text>Correct — one du-path meets All-Uses for the pair, but All-DU-Paths still demands the second.</text></feedback></answer>
+    <answer fraction="0"><text>A DU pair with exactly one du-path that is toured</text><feedback><text>With a single du-path the two criteria coincide for that pair; it cannot witness strictness.</text></feedback></answer>
+    <answer fraction="0"><text>A def that reaches no use at all</text><feedback><text>Such a def imposes no requirement for either criterion, so it distinguishes nothing.</text></feedback></answer>
+    <answer fraction="0"><text>A program with no decisions</text><feedback><text>Without decisions, DU pairs have single du-paths and the criteria coincide.</text></feedback></answer>
+    <generalfeedback><text>Strict subsumption needs a case where All-Uses holds but All-DU-Paths fails: a DU pair with ≥2 du-paths, with only one toured. Then All-Uses is met for the pair while a du-path is still uncovered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Correct subsumption statement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Assuming every decision predicate uses at least one variable, which statement is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All-Uses subsumes both All-Defs and Edge Coverage, and Edge Coverage subsumes Node Coverage</text><feedback><text>Correct — under the stated assumption All-Uses ⊒ Edge ⊒ Node, and All-Uses ⊒ All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs subsumes All-Uses</text><feedback><text>The subsumption runs the other way: All-Uses ⊒ All-Defs.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs subsumes Edge Coverage</text><feedback><text>All-Defs need not exercise both branches of a decision, so it does not subsume Edge Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Node Coverage subsumes All-Uses</text><feedback><text>Node Coverage is far weaker; it does not subsume any data-flow criterion.</text></feedback></answer>
+    <generalfeedback><text>Under the p-use-per-decision assumption: All-DU-Paths ⊒ All-Uses ⊒ All-Defs, All-Uses ⊒ Edge ⊒ Node. All-Defs and Edge Coverage are incomparable in general.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>All-Defs does not subsume Edge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does All-Defs fail to subsume Edge Coverage in general?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A def can reach a use through just one branch, so All-Defs may be met without ever taking the other branch's edge</text><feedback><text>Correct — one reaching path per def suffices for All-Defs, leaving branch edges untaken.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs requires every edge, so it always subsumes Edge Coverage</text><feedback><text>All-Defs requires only one reaching use per def, not every edge.</text></feedback></answer>
+    <answer fraction="0"><text>Edge Coverage is a data-flow criterion weaker than All-Defs</text><feedback><text>Edge Coverage is structural; the point is All-Defs does not force both branches.</text></feedback></answer>
+    <answer fraction="0"><text>All-Defs concerns only p-uses, which cover all edges</text><feedback><text>All-Defs concerns reaching some use (c-use or p-use), and one such use can leave an edge untaken.</text></feedback></answer>
+    <generalfeedback><text>All-Defs is satisfied once each def reaches some use via one def-clear path. That single path may take only one outcome of a decision, leaving the other out-edge uncovered — so All-Defs does not subsume Edge Coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>du-paths stay finite with a loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider snippet L (edges 1→2, 2→3, 3→2, 2→4):</p><pre>1  x = 0
+2  while (x &lt; n)
+3      x = x + 1
+4  print(x)</pre><p>Even though the loop allows unboundedly many executions, the number of du-paths for <code>x</code> is finite, because a du-path must be simple (no repeated nodes except possibly first = last).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the simple-path restriction bounds du-paths to a finite set even with a loop.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The simple-path requirement keeps du-paths finite; only complete paths become unbounded with a loop.</text></feedback></answer>
+    <generalfeedback><text>A du-path is a simple def-clear path, so at most one traversal of any cycle is allowed. That keeps the set of du-paths finite even when the loop can iterate arbitrarily many times.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count du-paths from a def in a loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet L (edges 1→2, 2→3, 3→2, 2→4):</p><pre>1  x = 0
+2  while (x &lt; n)
+3      x = x + 1
+4  print(x)</pre><p>How many du-paths originate from the def of <code>x</code> at line 3 (<code>x = x + 1</code>)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — namely 3→2→3 (to the p-use/c-use at the next iteration) and 3→2→4 (to the exit use)</text><feedback><text>Correct — from line 3 the value flows back through the condition either into the body again or out to line 4.</text></feedback></answer>
+    <answer fraction="0"><text>1 — only 3→2→4</text><feedback><text>The simple cycle 3→2→3 is also a du-path (reaching the p-use on edge 2→3 and the c-use at line 3).</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only two simple def-clear paths start at line 3: 3→2→3 and 3→2→4.</text></feedback></answer>
+    <answer fraction="0"><text>0 — line 3's value is immediately killed</text><feedback><text>Line 3's value is used at the condition (line 2) and at line 4; it is not immediately killed.</text></feedback></answer>
+    <generalfeedback><text>From the def at line 3, the def-clear simple paths are 3→2→3 (a simple cycle reaching the p-use on 2→3 and the c-use at line 3) and 3→2→4 (reaching the c-use at line 4) — two du-paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A def that reaches no use</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet K:</p><pre>1  x = 5
+2  x = 10
+3  y = x
+4  print(y)</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The def of x at line 1, because line 2 redefines x before any use</text><feedback><text>Correct — line 1's value is killed at line 2, so it never reaches a use; it forms no DU pair.</text></feedback></answer>
+    <answer fraction="0"><text>The def of x at line 2</text><feedback><text>Line 2's value reaches the use at line 3 (def-clear path 2→3), so it does form a DU pair.</text></feedback></answer>
+    <answer fraction="0"><text>The def of y at line 3</text><feedback><text>Incorrect — y is defined at line 3 and used at line 4, so it does reach a use.</text></feedback></answer>
+    <answer fraction="0"><text>None; every def reaches a use</text><feedback><text>The def of x at line 1 is killed by line 2 and reaches no use.</text></feedback></answer>
+    <generalfeedback><text>The def of x at line 1 is overwritten at line 2 before x is ever read, so it reaches no use and forms no DU pair. Under All-Defs such a def imposes an infeasible (uncoverable) requirement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count all DU pairs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D, counting each p-use edge as a separate use (and noting z has a def but no use):</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>How many DU pairs does the code have in total (across all variables)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — x: (1,edge 3→4), (1,edge 3→5), (1,c-use@5); y: (2,c-use@5), (4,c-use@5). Total 5.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount x's p-uses: edges 3→4 and 3→5 count separately, giving x three pairs and y two — five in all.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>z has a def but no use, so it contributes no DU pair; the total is five.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>x alone contributes three DU pairs and y two, so the total is five.</text></feedback></answer>
+    <generalfeedback><text>x: p-use on 3→4 and on 3→5 plus the c-use@5 = 3; y: def@2→use@5 and def@4→use@5 = 2; z has no use = 0. Total 5 DU pairs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>du-path versus def-clear path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What extra condition must a du-path satisfy beyond being a def-clear path from a def to a use?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It must be simple — no internal repeated nodes (a cycle is allowed only when its first and last node coincide)</text><feedback><text>Correct — every du-path is a simple def-clear path from the def to the use.</text></feedback></answer>
+    <answer fraction="0"><text>It must run from the initial node to the final node</text><feedback><text>A du-path runs from a def to a use, not necessarily from entry to exit.</text></feedback></answer>
+    <answer fraction="0"><text>It must contain a p-use</text><feedback><text>A du-path may end at a c-use or a p-use; there is no p-use requirement.</text></feedback></answer>
+    <answer fraction="0"><text>It must visit every use of the variable</text><feedback><text>A du-path connects one def to one use, not all uses.</text></feedback></answer>
+    <generalfeedback><text>A du-path is a def-clear path that is additionally simple: it may not repeat an internal node, allowing at most a single cycle where the first and last node are the same.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>du-paths for a killed-on-one-branch DU pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In snippet D:</p><pre>1  x = input()
+2  y = 0
+3  if (x &gt; 0)
+4      y = 1
+5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@2, c-use@5)</code> have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 — only 2→3→5, because the then-path 2→3→4→5 is killed by the redefinition at line 4</text><feedback><text>Correct — only the false-branch path stays def-clear for the def at line 2.</text></feedback></answer>
+    <answer fraction="0"><text>2 — both 2→3→4→5 and 2→3→5</text><feedback><text>The path 2→3→4→5 passes through the redefinition at line 4, so it is not def-clear for the def at line 2.</text></feedback></answer>
+    <answer fraction="0"><text>0 — line 2's def never reaches line 5</text><feedback><text>Via the false branch 2→3→5 the def at line 2 does reach line 5.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only the single def-clear path 2→3→5 qualifies.</text></feedback></answer>
+    <generalfeedback><text>The then-path 2→3→4→5 redefines y at line 4 (a kill), so it is not def-clear. Only 2→3→5 carries the def at line 2 to line 5 — one du-path.</text></generalfeedback>
+  </question>
+</quiz>

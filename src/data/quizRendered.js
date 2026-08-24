@@ -5041,6 +5041,7604 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "graph-dataflow": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Definition of a def",
+          "text": "<p>In data-flow analysis, a <strong>def (definition)</strong> of a variable <code>v</code> at a location is:</p>",
+          "answers": [
+            {
+              "text": "A location where v is assigned a value (e.g. an assignment, input, or parameter binding)",
+              "fraction": 100,
+              "feedback": "Correct — a def is where the variable receives a value."
+            },
+            {
+              "text": "A location where the value of v is read but not changed",
+              "fraction": 0,
+              "feedback": "That is a use, not a def."
+            },
+            {
+              "text": "A predicate that tests the value of v",
+              "fraction": 0,
+              "feedback": "Testing v is a p-use; a def stores a value into v."
+            },
+            {
+              "text": "An edge of the control-flow graph",
+              "fraction": 0,
+              "feedback": "A def is a location that stores into v, not an edge."
+            }
+          ],
+          "generalFeedback": "A def is any location where a variable is given a value: assignments, reads/inputs, and formal-parameter bindings are all defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a use",
+          "text": "<p>In data-flow analysis, a <strong>use</strong> of a variable <code>v</code> at a location is:</p>",
+          "answers": [
+            {
+              "text": "A location where the value of v is read (accessed) without necessarily changing it",
+              "fraction": 100,
+              "feedback": "Correct — a use reads the current value of v."
+            },
+            {
+              "text": "A location where v is assigned a new value",
+              "fraction": 0,
+              "feedback": "That is a def, not a use."
+            },
+            {
+              "text": "A location where v is declared but never referenced",
+              "fraction": 0,
+              "feedback": "A mere declaration with no read is not a use of the value."
+            },
+            {
+              "text": "Any node on a def-clear path",
+              "fraction": 0,
+              "feedback": "A use is a specific read of v, not simply any node on a path."
+            }
+          ],
+          "generalFeedback": "A use is a location where the stored value of v is accessed — either in a computation (c-use) or in a predicate (p-use).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a c-use",
+          "text": "<p>A <strong>c-use (computation use)</strong> of a variable is a use that occurs:</p>",
+          "answers": [
+            {
+              "text": "In a computation — e.g. the right-hand side of an assignment, an output, or a subscript",
+              "fraction": 100,
+              "feedback": "Correct — a c-use feeds a computation and is associated with a node."
+            },
+            {
+              "text": "In the predicate of a branch or loop",
+              "fraction": 0,
+              "feedback": "That is a p-use, not a c-use."
+            },
+            {
+              "text": "Only when the variable is being assigned",
+              "fraction": 0,
+              "feedback": "Assignment is a def; a c-use reads the value inside a computation."
+            },
+            {
+              "text": "On an edge of the control-flow graph",
+              "fraction": 0,
+              "feedback": "c-uses are associated with nodes; p-uses are the ones associated with edges."
+            }
+          ],
+          "generalFeedback": "A c-use is a use in a computation (RHS of an assignment, an argument, an output, an array index). It is associated with the node where the computation occurs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a p-use",
+          "text": "<p>A <strong>p-use (predicate use)</strong> of a variable is a use that occurs:</p>",
+          "answers": [
+            {
+              "text": "In the predicate of a decision, and is associated with the out-edges of that decision node",
+              "fraction": 100,
+              "feedback": "Correct — a p-use lives in a condition and attaches to the branch's out-edges."
+            },
+            {
+              "text": "On the right-hand side of an assignment",
+              "fraction": 0,
+              "feedback": "That is a c-use, associated with a node."
+            },
+            {
+              "text": "Wherever the variable is first defined",
+              "fraction": 0,
+              "feedback": "That is a def, not a use."
+            },
+            {
+              "text": "Only inside a loop body",
+              "fraction": 0,
+              "feedback": "A p-use is any use in a predicate, whether in an if, while, or other decision."
+            }
+          ],
+          "generalFeedback": "A p-use is a use in a predicate (e.g. the condition of an if or while). Because a decision's outcome selects an out-edge, a p-use is associated with each of the decision node's out-edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a DU pair",
+          "text": "<p>A <strong>DU pair (def-use pair)</strong> <code>(d, u)</code> for a variable v is:</p>",
+          "answers": [
+            {
+              "text": "A def d and a use u of v such that some def-clear path (no intervening redefinition of v) runs from d to u",
+              "fraction": 100,
+              "feedback": "Correct — the def must reach the use along a path with no redefinition in between."
+            },
+            {
+              "text": "Any def d and any use u of v, whether or not d can reach u",
+              "fraction": 0,
+              "feedback": "Reachability by a def-clear path is required; unrelated defs and uses do not form a DU pair."
+            },
+            {
+              "text": "Two definitions of v that appear on the same path",
+              "fraction": 0,
+              "feedback": "A DU pair links a def to a use, not two defs."
+            },
+            {
+              "text": "Two uses of v with no def between them",
+              "fraction": 0,
+              "feedback": "A DU pair is one def and one use, not two uses."
+            }
+          ],
+          "generalFeedback": "A DU pair (d, u) requires that d defines v, u uses v, and there is a def-clear path from d to u — i.e. the value placed by d can actually reach u.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a def-clear path",
+          "text": "<p>A path is <strong>def-clear</strong> with respect to a variable <code>v</code> when:</p>",
+          "answers": [
+            {
+              "text": "It contains no redefinition of v strictly between its first and last nodes",
+              "fraction": 100,
+              "feedback": "Correct — no intervening def of v may kill the value along the way."
+            },
+            {
+              "text": "It contains no use of v anywhere along it",
+              "fraction": 0,
+              "feedback": "Def-clear concerns intervening definitions (kills), not uses."
+            },
+            {
+              "text": "It visits every node of the graph",
+              "fraction": 0,
+              "feedback": "Def-clear says nothing about visiting all nodes."
+            },
+            {
+              "text": "It never repeats any node",
+              "fraction": 0,
+              "feedback": "That describes a simple path; def-clear is about no intervening redefinition of v."
+            }
+          ],
+          "generalFeedback": "A path is def-clear for v if no node between the def and the use redefines v; an intervening def would kill the value and break the pairing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a du-path",
+          "text": "<p>A <strong>du-path</strong> for a variable v is:</p>",
+          "answers": [
+            {
+              "text": "A simple def-clear path from a def of v to a use of v",
+              "fraction": 100,
+              "feedback": "Correct — a du-path is simple (no internal repeats) and def-clear from the def to the use."
+            },
+            {
+              "text": "Any path from a def of v to a use of v, even with a redefinition in between",
+              "fraction": 0,
+              "feedback": "A du-path must be def-clear; a redefinition in between disqualifies it."
+            },
+            {
+              "text": "Any def-clear path, whether simple or not",
+              "fraction": 0,
+              "feedback": "A du-path must additionally be simple; an arbitrary def-clear path may repeat nodes."
+            },
+            {
+              "text": "A complete path from the initial node to the final node",
+              "fraction": 0,
+              "feedback": "A du-path runs from a def to a use, not necessarily from entry to exit."
+            }
+          ],
+          "generalFeedback": "A du-path is a simple (cycle-free except possibly a single loop where first = last) def-clear path from a def of v to a use of v.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of All-Defs",
+          "text": "<p>The <strong>All-Defs</strong> coverage criterion requires that:</p>",
+          "answers": [
+            {
+              "text": "For each def of each variable, at least one def-clear path reaches some use of that variable",
+              "fraction": 100,
+              "feedback": "Correct — All-Defs requires every def to reach at least one use."
+            },
+            {
+              "text": "For each def, a path reaches every use it can reach",
+              "fraction": 0,
+              "feedback": "That is All-Uses, which is stronger than All-Defs."
+            },
+            {
+              "text": "Every du-path of every DU pair is toured",
+              "fraction": 0,
+              "feedback": "That is All-DU-Paths, the strongest of the three."
+            },
+            {
+              "text": "Every edge of the control-flow graph is traversed",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage, a structural criterion, not All-Defs."
+            }
+          ],
+          "generalFeedback": "All-Defs: each def must reach (via a def-clear path) at least one use — one test requirement per def.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of All-Uses",
+          "text": "<p>The <strong>All-Uses</strong> coverage criterion requires that:</p>",
+          "answers": [
+            {
+              "text": "For each def, a def-clear path reaches every use that the def can reach (every DU pair is covered)",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses covers every DU pair, i.e. each def reaches every reachable use."
+            },
+            {
+              "text": "For each def, a path reaches at least one use",
+              "fraction": 0,
+              "feedback": "That is All-Defs, which is weaker than All-Uses."
+            },
+            {
+              "text": "Every du-path of every DU pair is toured",
+              "fraction": 0,
+              "feedback": "That is All-DU-Paths, which is stronger than All-Uses."
+            },
+            {
+              "text": "Every node of the control-flow graph is visited",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, a structural criterion, not All-Uses."
+            }
+          ],
+          "generalFeedback": "All-Uses: for every DU pair (every def and every use it reaches), at least one du-path is toured — one test requirement per DU pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of All-DU-Paths",
+          "text": "<p>The <strong>All-DU-Paths</strong> coverage criterion requires that:</p>",
+          "answers": [
+            {
+              "text": "For each DU pair, every du-path (every simple def-clear path) between the def and the use is toured",
+              "fraction": 100,
+              "feedback": "Correct — All-DU-Paths demands all du-paths for each pair, not just one."
+            },
+            {
+              "text": "For each DU pair, at least one du-path is toured",
+              "fraction": 0,
+              "feedback": "That is All-Uses; All-DU-Paths requires every du-path."
+            },
+            {
+              "text": "For each def, at least one use is reached",
+              "fraction": 0,
+              "feedback": "That is All-Defs, the weakest of the three."
+            },
+            {
+              "text": "Every complete path from entry to exit is executed",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, generally infeasible; All-DU-Paths is limited to du-paths of DU pairs."
+            }
+          ],
+          "generalFeedback": "All-DU-Paths: for every DU pair, all of its du-paths must be toured — the strongest of the three data-flow criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a DU pair",
+          "text": "<p>Consider:</p><pre>1  x = read()\n2  y = x + 3\n3  print(y)</pre><p>Which of the following is a valid DU pair?</p>",
+          "answers": [
+            {
+              "text": "x: def at line 1, use at line 2",
+              "fraction": 100,
+              "feedback": "Correct — x is defined at line 1 and read at line 2, with a def-clear path 1→2."
+            },
+            {
+              "text": "x: def at line 2, use at line 3",
+              "fraction": 0,
+              "feedback": "x is not defined at line 2 (y is), and x is not used at line 3."
+            },
+            {
+              "text": "y: def at line 1, use at line 2",
+              "fraction": 0,
+              "feedback": "y is defined at line 2, not line 1."
+            },
+            {
+              "text": "x: def at line 1, use at line 3",
+              "fraction": 0,
+              "feedback": "x is not used at line 3; only y is read there."
+            }
+          ],
+          "generalFeedback": "x: (def@1, use@2) and y: (def@2, use@3) are the two DU pairs. x is read at line 2 (c-use) and y is read at line 3 (c-use).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the predicate use",
+          "text": "<p>Consider:</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>The use of <code>x</code> at line 2 (inside the condition) is a:</p>",
+          "answers": [
+            {
+              "text": "p-use (predicate use)",
+              "fraction": 100,
+              "feedback": "Correct — x is read inside the branch condition, so it is a p-use."
+            },
+            {
+              "text": "c-use (computation use)",
+              "fraction": 0,
+              "feedback": "The use in a computation is at line 3; the line-2 use is in a predicate."
+            },
+            {
+              "text": "def (definition)",
+              "fraction": 0,
+              "feedback": "Line 2 reads x, it does not assign to it."
+            },
+            {
+              "text": "Neither a def nor a use",
+              "fraction": 0,
+              "feedback": "The condition reads x, which is a use — specifically a p-use."
+            }
+          ],
+          "generalFeedback": "A use inside a decision's predicate is a p-use, associated with the out-edges of that decision node.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the computation use",
+          "text": "<p>Consider:</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>The use of <code>x</code> at line 3 (in <code>y = x + 1</code>) is a:</p>",
+          "answers": [
+            {
+              "text": "c-use (computation use)",
+              "fraction": 100,
+              "feedback": "Correct — x is read on the right-hand side of an assignment, so it is a c-use."
+            },
+            {
+              "text": "p-use (predicate use)",
+              "fraction": 0,
+              "feedback": "The predicate use is at line 2; line 3 is a computation."
+            },
+            {
+              "text": "def (definition)",
+              "fraction": 0,
+              "feedback": "Line 3 defines y, but it uses (reads) x."
+            },
+            {
+              "text": "A redefinition of x",
+              "fraction": 0,
+              "feedback": "Line 3 does not assign to x; it reads x to compute y."
+            }
+          ],
+          "generalFeedback": "A use in a computation such as the RHS of an assignment is a c-use, associated with the node where it occurs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "p-use associated with edges",
+          "text": "<p>A p-use of a variable is associated with the out-edges of the decision node, whereas a c-use is associated with a node.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — p-uses attach to the branch's out-edges; c-uses attach to nodes."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A p-use is tied to the decision's out-edges (which outcome is taken), while a c-use is tied to the node where the computation happens."
+            }
+          ],
+          "generalFeedback": "Because a predicate's value selects which out-edge is taken, a p-use is associated with the out-edges of the decision, while a c-use is associated with the node of the computation."
+        },
+        {
+          "type": "truefalse",
+          "name": "All-Uses is not just one use per def",
+          "text": "<p>All-Uses is satisfied as soon as each def reaches <em>at least one</em> use, without needing to reach the other uses it can reach.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — reaching at least one use per def is All-Defs; All-Uses requires reaching every reachable use."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Reaching just one use per def is All-Defs. All-Uses requires each def to reach every use it can reach (every DU pair)."
+            }
+          ],
+          "generalFeedback": "All-Defs = each def reaches some use; All-Uses = each def reaches every reachable use. The statement describes All-Defs, not All-Uses."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Count the defs of y",
+          "text": "<p>Consider snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many <strong>definitions</strong> of variable <code>y</code> does this code contain?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — y is defined at line 2 (y = 0) and line 4 (y = 1)."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "There are two assignments to y: line 2 and line 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Line 5 uses y (c-use); it does not define y. There are two defs."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "y is assigned at lines 2 and 4, so it has two defs."
+            }
+          ],
+          "generalFeedback": "y is defined at line 2 and line 4; line 5 reads y (a c-use). So y has two defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the use of x in the condition",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>The use of <code>x</code> at line 3 is a:</p>",
+          "answers": [
+            {
+              "text": "p-use, associated with edges 3→4 and 3→5",
+              "fraction": 100,
+              "feedback": "Correct — x is read in the decision predicate, so it is a p-use on both out-edges."
+            },
+            {
+              "text": "c-use at node 3",
+              "fraction": 0,
+              "feedback": "Line 3 is a predicate, so the use is a p-use, not a c-use."
+            },
+            {
+              "text": "A def of x",
+              "fraction": 0,
+              "feedback": "x is only read at line 3, not assigned."
+            },
+            {
+              "text": "p-use associated only with edge 3→4",
+              "fraction": 0,
+              "feedback": "A p-use attaches to both out-edges of the decision, 3→4 and 3→5."
+            }
+          ],
+          "generalFeedback": "The predicate at line 3 reads x, so it is a p-use, associated with both out-edges 3→4 (true) and 3→5 (false).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the use of x at line 5",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>The use of <code>x</code> at line 5 (in <code>z = x + y</code>) is a:</p>",
+          "answers": [
+            {
+              "text": "c-use at node 5",
+              "fraction": 100,
+              "feedback": "Correct — x is read in a computation, so it is a c-use associated with node 5."
+            },
+            {
+              "text": "p-use on edge 4→5",
+              "fraction": 0,
+              "feedback": "Line 5 is a computation, not a predicate; there is no branch here."
+            },
+            {
+              "text": "A def of x",
+              "fraction": 0,
+              "feedback": "Line 5 defines z; it reads x."
+            },
+            {
+              "text": "A redefinition of x",
+              "fraction": 0,
+              "feedback": "x is not assigned at line 5; it is read to compute z."
+            }
+          ],
+          "generalFeedback": "The use of x on the RHS of z = x + y is a c-use, associated with node 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Def-clear path for y",
+          "text": "<p>In snippet D (edges 1→2, 2→3, 3→4, 3→5, 4→5):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Which path is <strong>def-clear</strong> with respect to <code>y</code> from the def at line 2 to the use at line 5?</p>",
+          "answers": [
+            {
+              "text": "2→3→5",
+              "fraction": 100,
+              "feedback": "Correct — this false-branch path never redefines y, so the def at line 2 reaches line 5."
+            },
+            {
+              "text": "2→3→4→5",
+              "fraction": 0,
+              "feedback": "Line 4 redefines y (y = 1), so this path is not def-clear for the def at line 2."
+            },
+            {
+              "text": "1→2→3→4→5",
+              "fraction": 0,
+              "feedback": "Besides starting before the def, it passes through line 4 which redefines y."
+            },
+            {
+              "text": "There is no def-clear path from line 2 to line 5",
+              "fraction": 0,
+              "feedback": "The false-branch path 2→3→5 is def-clear, so one does exist."
+            }
+          ],
+          "generalFeedback": "Only the false-branch path 2→3→5 avoids the redefinition at line 4, so it is the def-clear path carrying the def at line 2 to the use at line 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 2→3→4→5 is not a du-path for y",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Why is <code>2→3→4→5</code> not a du-path for the def of <code>y</code> at line 2?</p>",
+          "answers": [
+            {
+              "text": "Node 4 redefines y, killing the def from line 2, so the path is not def-clear",
+              "fraction": 100,
+              "feedback": "Correct — the redefinition at line 4 kills line 2's value before line 5."
+            },
+            {
+              "text": "The path repeats a node, so it is not simple",
+              "fraction": 0,
+              "feedback": "The path visits distinct nodes; the disqualifier is the redefinition at line 4."
+            },
+            {
+              "text": "y is never used at line 5",
+              "fraction": 0,
+              "feedback": "y is read at line 5 (z = x + y); the issue is the kill at line 4."
+            },
+            {
+              "text": "The path does not start at the initial node",
+              "fraction": 0,
+              "feedback": "A du-path need not start at the initial node; it starts at the def. The problem is the kill at line 4."
+            }
+          ],
+          "generalFeedback": "Because line 4 assigns y = 1, the value from line 2 is killed on this path; a du-path must be def-clear, so 2→3→4→5 does not qualify for the def at line 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs vs All-Uses",
+          "text": "<p>What is the key difference between All-Defs and All-Uses?</p>",
+          "answers": [
+            {
+              "text": "All-Defs requires each def to reach some use; All-Uses requires each def to reach every use it can reach",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses covers every DU pair, All-Defs only one use per def."
+            },
+            {
+              "text": "All-Defs requires every du-path; All-Uses requires only one du-path per pair",
+              "fraction": 0,
+              "feedback": "Requiring every du-path is All-DU-Paths, not All-Defs."
+            },
+            {
+              "text": "All-Uses concerns only p-uses; All-Defs concerns only c-uses",
+              "fraction": 0,
+              "feedback": "Both criteria concern all uses (c-uses and p-uses); the difference is one-use vs every-use per def."
+            },
+            {
+              "text": "They are equivalent on every program",
+              "fraction": 0,
+              "feedback": "All-Uses is strictly stronger; it subsumes All-Defs."
+            }
+          ],
+          "generalFeedback": "All-Defs asks each def to reach at least one use; All-Uses asks each def to reach every reachable use (cover every DU pair). Hence All-Uses subsumes All-Defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest data-flow criterion",
+          "text": "<p>Among All-Defs, All-Uses and All-DU-Paths, which is the <strong>strongest</strong> (subsumes the others)?</p>",
+          "answers": [
+            {
+              "text": "All-DU-Paths",
+              "fraction": 100,
+              "feedback": "Correct — All-DU-Paths ⊒ All-Uses ⊒ All-Defs."
+            },
+            {
+              "text": "All-Uses",
+              "fraction": 0,
+              "feedback": "All-Uses subsumes All-Defs but is itself subsumed by All-DU-Paths."
+            },
+            {
+              "text": "All-Defs",
+              "fraction": 0,
+              "feedback": "All-Defs is the weakest of the three."
+            },
+            {
+              "text": "They are mutually incomparable",
+              "fraction": 0,
+              "feedback": "They form a chain: All-DU-Paths ⊒ All-Uses ⊒ All-Defs."
+            }
+          ],
+          "generalFeedback": "The Rapps–Weyuker hierarchy orders them All-DU-Paths ⊒ All-Uses ⊒ All-Defs, so All-DU-Paths is the strongest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Middle of the subsumption chain",
+          "text": "<p>Fill in the blank in the subsumption chain: <code>All-DU-Paths ⊒ ______ ⊒ All-Defs</code>.</p>",
+          "answers": [
+            {
+              "text": "All-Uses",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses sits between All-DU-Paths and All-Defs."
+            },
+            {
+              "text": "Edge Coverage",
+              "fraction": 0,
+              "feedback": "Edge Coverage is a structural criterion; the data-flow chain's middle term is All-Uses."
+            },
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "Prime Path Coverage is a graph-path criterion, not the middle of the data-flow chain."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node Coverage is structural; the data-flow chain's middle term is All-Uses."
+            }
+          ],
+          "generalFeedback": "The data-flow chain is All-DU-Paths ⊒ All-Uses ⊒ All-Defs, so the middle term is All-Uses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of a redefinition (kill)",
+          "text": "<p>Consider snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>Which def of <code>x</code> reaches the use at line 3?</p>",
+          "answers": [
+            {
+              "text": "Only the def at line 2 (x = 10); the def at line 1 is killed by line 2",
+              "fraction": 100,
+              "feedback": "Correct — line 2 redefines x before line 3, so only line 2's value reaches the use."
+            },
+            {
+              "text": "Only the def at line 1 (x = 5)",
+              "fraction": 0,
+              "feedback": "Line 2 overwrites x before line 3, so line 1's value does not reach the use."
+            },
+            {
+              "text": "Both defs reach the use",
+              "fraction": 0,
+              "feedback": "The path from line 1 to line 3 passes through the redefinition at line 2, so line 1's value is killed."
+            },
+            {
+              "text": "Neither def reaches the use",
+              "fraction": 0,
+              "feedback": "Line 2's value reaches line 3 along the def-clear path 2→3."
+            }
+          ],
+          "generalFeedback": "The def at line 2 kills the def at line 1, so only (x@2, use@3) is a DU pair; the def at line 1 reaches no use.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of du-paths for a DU pair (x)",
+          "text": "<p>In snippet D (edges 1→2, 2→3, 3→4, 3→5, 4→5):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(x def@1, c-use@5)</code> have?</p>",
+          "answers": [
+            {
+              "text": "2 — namely 1→2→3→4→5 and 1→2→3→5",
+              "fraction": 100,
+              "feedback": "Correct — x is never redefined, so both the then-path and the skip-path are def-clear du-paths."
+            },
+            {
+              "text": "1 — only 1→2→3→5",
+              "fraction": 0,
+              "feedback": "The then-path 1→2→3→4→5 is also def-clear for x (x is not redefined at line 4), so there are two."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There are exactly two simple def-clear paths from line 1 to line 5."
+            },
+            {
+              "text": "0 — the def at line 1 does not reach line 5",
+              "fraction": 0,
+              "feedback": "x reaches line 5 along both branches; there are two du-paths."
+            }
+          ],
+          "generalFeedback": "x is defined only at line 1 and never redefined, so both 1→2→3→4→5 and 1→2→3→5 are simple def-clear paths — two du-paths for this DU pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of du-paths for a DU pair (y@4)",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@4, c-use@5)</code> have?</p>",
+          "answers": [
+            {
+              "text": "1 — namely 4→5",
+              "fraction": 100,
+              "feedback": "Correct — the only def-clear path from line 4 to line 5 is the single edge 4→5."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There is only one path from line 4 to line 5, the edge 4→5."
+            },
+            {
+              "text": "0 — line 4's value is always killed",
+              "fraction": 0,
+              "feedback": "Line 4's def of y reaches line 5 directly along 4→5; nothing kills it."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only the single edge 4→5 connects the def to the use."
+            }
+          ],
+          "generalFeedback": "From node 4 the only route to node 5 is the edge 4→5, so this DU pair has exactly one du-path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses subsumes All-Defs",
+          "text": "<p>If a test suite satisfies All-Uses, what can you conclude about All-Defs?</p>",
+          "answers": [
+            {
+              "text": "All-Defs is automatically satisfied, because covering every DU pair covers at least one use per def",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses subsumes All-Defs."
+            },
+            {
+              "text": "All-Defs may still fail",
+              "fraction": 0,
+              "feedback": "Covering every reachable use includes at least one use per def, so All-Defs cannot fail."
+            },
+            {
+              "text": "Nothing can be concluded",
+              "fraction": 0,
+              "feedback": "All-Uses strictly subsumes All-Defs, so the conclusion is definite."
+            },
+            {
+              "text": "All-DU-Paths is also satisfied",
+              "fraction": 0,
+              "feedback": "All-Uses does not imply All-DU-Paths; only the weaker All-Defs follows."
+            }
+          ],
+          "generalFeedback": "Since every def with a reachable use has at least one DU pair, covering all DU pairs (All-Uses) covers at least one use per def (All-Defs). So All-Uses ⊒ All-Defs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "List the DU pairs for y",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Which set correctly lists all DU pairs for variable <code>y</code>?</p>",
+          "answers": [
+            {
+              "text": "(y@2 → use@5) and (y@4 → use@5)",
+              "fraction": 100,
+              "feedback": "Correct — line 2's def reaches line 5 via the false branch (2→3→5), and line 4's def reaches line 5 via 4→5."
+            },
+            {
+              "text": "Only (y@4 → use@5), because line 2's def is always killed",
+              "fraction": 0,
+              "feedback": "Line 2's def is killed only on the then-path; via the false branch 2→3→5 it still reaches line 5."
+            },
+            {
+              "text": "Only (y@2 → use@5)",
+              "fraction": 0,
+              "feedback": "Line 4's def also reaches line 5 via 4→5, so it forms a DU pair too."
+            },
+            {
+              "text": "(y@2 → use@3) and (y@4 → use@5)",
+              "fraction": 0,
+              "feedback": "y is not used at line 3; the use of y is at line 5."
+            }
+          ],
+          "generalFeedback": "Both defs of y reach the c-use at line 5: line 2 via the false-branch def-clear path 2→3→5, and line 4 via 4→5. So there are two DU pairs for y.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses versus All-DU-Paths",
+          "text": "<p>Which statement correctly distinguishes All-Uses from All-DU-Paths?</p>",
+          "answers": [
+            {
+              "text": "All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path per DU pair",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the difference between the two criteria."
+            },
+            {
+              "text": "All-Uses tours every du-path; All-DU-Paths tours at least one",
+              "fraction": 0,
+              "feedback": "This is backwards: All-DU-Paths is the stronger criterion requiring every du-path."
+            },
+            {
+              "text": "All-Uses covers only c-uses; All-DU-Paths covers only p-uses",
+              "fraction": 0,
+              "feedback": "Both criteria cover c-uses and p-uses; the difference is one du-path versus all du-paths per pair."
+            },
+            {
+              "text": "They differ only on programs with loops",
+              "fraction": 0,
+              "feedback": "They can differ whenever a DU pair has more than one du-path, loop or not."
+            }
+          ],
+          "generalFeedback": "For each DU pair, All-Uses requires touring at least one du-path, while All-DU-Paths requires touring every du-path. Hence All-DU-Paths ⊒ All-Uses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the uses of x",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many <strong>uses</strong> of variable <code>x</code> does the code contain, and of what kinds?</p>",
+          "answers": [
+            {
+              "text": "2 — a p-use at line 3 and a c-use at line 5",
+              "fraction": 100,
+              "feedback": "Correct — x is read in the predicate at line 3 (p-use) and in the computation at line 5 (c-use)."
+            },
+            {
+              "text": "1 — only the c-use at line 5",
+              "fraction": 0,
+              "feedback": "The predicate at line 3 also reads x, which is a p-use."
+            },
+            {
+              "text": "1 — only the p-use at line 3",
+              "fraction": 0,
+              "feedback": "Line 5 also reads x (c-use), so there are two uses."
+            },
+            {
+              "text": "3 — a def at line 1 also counts as a use",
+              "fraction": 0,
+              "feedback": "Line 1 is a def, not a use; x has two uses (line 3 and line 5)."
+            }
+          ],
+          "generalFeedback": "x is used twice: a p-use in the predicate at line 3 (associated with edges 3→4 and 3→5) and a c-use at line 5.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "All-Uses vs All-DU-Paths requirements",
+          "text": "<p>In snippet D the DU pair <code>(x def@1, c-use@5)</code> has two du-paths: <code>P1 = 1→2→3→4→5</code> and <code>P2 = 1→2→3→5</code>. For this pair, how many du-paths must be toured by All-Uses versus All-DU-Paths?</p>",
+          "answers": [
+            {
+              "text": "All-Uses requires at least one of {P1, P2}; All-DU-Paths requires both",
+              "fraction": 100,
+              "feedback": "Correct — All-Uses needs one du-path per pair, All-DU-Paths needs every du-path."
+            },
+            {
+              "text": "Both require exactly one du-path",
+              "fraction": 0,
+              "feedback": "All-DU-Paths requires every du-path of the pair, which here is both P1 and P2."
+            },
+            {
+              "text": "Both require both du-paths",
+              "fraction": 0,
+              "feedback": "All-Uses requires only one du-path per DU pair, not both."
+            },
+            {
+              "text": "All-Uses requires both; All-DU-Paths requires one",
+              "fraction": 0,
+              "feedback": "This is backwards: All-DU-Paths is the stronger criterion requiring all du-paths."
+            }
+          ],
+          "generalFeedback": "All-Uses tours at least one du-path per DU pair; All-DU-Paths tours every du-path. Here that is one of {P1, P2} versus both — a concrete witness that All-DU-Paths ⊒ All-Uses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible du-path",
+          "text": "<p>Consider:</p><pre>1  x = input()\n2  if (x &gt; 0)\n3      a = 1\n4  if (x &lt; 0)\n5      b = a</pre><p>The du-path <code>3→4→5</code> carries the def of <code>a</code> at line 3 to its use at line 5. Why is this du-path <strong>infeasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "Reaching line 3 requires x > 0, but taking 4→5 requires x < 0, and no single input satisfies both",
+              "fraction": 100,
+              "feedback": "Correct — the two conditions are contradictory, so no test can drive this du-path."
+            },
+            {
+              "text": "The path is not def-clear for a",
+              "fraction": 0,
+              "feedback": "a is not redefined between lines 3 and 5, so the path is def-clear; the problem is contradictory predicates."
+            },
+            {
+              "text": "The path repeats a node, so it is not simple",
+              "fraction": 0,
+              "feedback": "3→4→5 visits distinct nodes; it is simple. Infeasibility comes from the contradictory conditions."
+            },
+            {
+              "text": "a has no use at line 5",
+              "fraction": 0,
+              "feedback": "a is read at line 5 (b = a); the du-path exists syntactically but is infeasible."
+            }
+          ],
+          "generalFeedback": "An infeasible du-path exists in the graph but no input can execute it. Here line 3 needs x > 0 while edge 4→5 needs x < 0 — contradictory, so the du-path can never be toured.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses subsumes Edge — the assumption",
+          "text": "<p>All-Uses subsumes Edge Coverage only under a standard assumption. Which assumption?</p>",
+          "answers": [
+            {
+              "text": "Every decision's predicate uses at least one variable, so each out-edge carries a p-use test requirement",
+              "fraction": 100,
+              "feedback": "Correct — only then does covering all p-uses force both out-edges of every decision."
+            },
+            {
+              "text": "Every variable is defined before it is used",
+              "fraction": 0,
+              "feedback": "That rules out undefined uses but does not by itself force every edge to be taken."
+            },
+            {
+              "text": "The program contains no loops",
+              "fraction": 0,
+              "feedback": "Loops do not affect this subsumption; the requirement is a p-use on each decision."
+            },
+            {
+              "text": "Every def reaches exactly one use",
+              "fraction": 0,
+              "feedback": "That is unrelated; the assumption concerns predicates having variable uses."
+            }
+          ],
+          "generalFeedback": "A p-use attaches to both out-edges of a decision. If every decision predicate uses at least one variable, All-Uses forces both edges of every decision, hence subsumes Edge Coverage. Without that assumption a variable-free predicate leaves an edge unforced.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When All-Uses can miss an edge",
+          "text": "<p>In which situation can a test suite satisfy All-Uses yet leave an <strong>edge uncovered</strong>?</p>",
+          "answers": [
+            {
+              "text": "A decision whose predicate uses no variable (e.g. a constant condition), so neither out-edge carries a p-use requirement",
+              "fraction": 100,
+              "feedback": "Correct — with no p-use, All-Uses imposes no requirement forcing that branch's edges."
+            },
+            {
+              "text": "Any decision that uses a variable",
+              "fraction": 0,
+              "feedback": "A variable p-use forces both out-edges, so those edges are covered."
+            },
+            {
+              "text": "A straight-line program with no decisions",
+              "fraction": 0,
+              "feedback": "With no decisions there is one path; All-Uses and Edge Coverage coincide there."
+            },
+            {
+              "text": "A program where every def reaches every use",
+              "fraction": 0,
+              "feedback": "Rich data flow does not by itself leave an edge uncovered; a variable-free predicate does."
+            }
+          ],
+          "generalFeedback": "The subsumption of Edge Coverage by All-Uses relies on every decision having a variable p-use. A constant/variable-free predicate has no p-use, so All-Uses need not exercise both of its out-edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p-use generates two edge requirements",
+          "text": "<p>A variable v has a p-use in <code>if (v &gt; 0)</code>, a decision node with out-edges to the then-block and the else/merge. Under All-Uses, a def that reaches this p-use creates test requirements for:</p>",
+          "answers": [
+            {
+              "text": "Both out-edges — the true edge and the false edge of the decision",
+              "fraction": 100,
+              "feedback": "Correct — a p-use attaches to every out-edge, so both must be toured."
+            },
+            {
+              "text": "Only the true edge (where the condition holds)",
+              "fraction": 0,
+              "feedback": "A p-use requirement covers both outcomes, not just the true edge."
+            },
+            {
+              "text": "Only the node of the decision",
+              "fraction": 0,
+              "feedback": "A p-use attaches to the out-edges, not merely the node."
+            },
+            {
+              "text": "Neither edge, because a predicate is not a use",
+              "fraction": 0,
+              "feedback": "Reading v in a predicate is a use — specifically a p-use on the out-edges."
+            }
+          ],
+          "generalFeedback": "Because the predicate's outcome selects an out-edge, a p-use of v creates a (def, p-use) requirement for each out-edge — forcing both the true and false branches.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Does a killed def still reach a use?",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>Does the def of <code>y</code> at line 2 reach the use at line 5?</p>",
+          "answers": [
+            {
+              "text": "Yes — via the false branch 2→3→5, which skips the redefinition at line 4",
+              "fraction": 100,
+              "feedback": "Correct — the def at line 2 is killed only along the then-path; the false branch keeps it def-clear."
+            },
+            {
+              "text": "No — line 4 always redefines y before line 5",
+              "fraction": 0,
+              "feedback": "Line 4 executes only on the true branch; when x ≤ 0 the def at line 2 survives to line 5."
+            },
+            {
+              "text": "Only if line 4 also executes",
+              "fraction": 0,
+              "feedback": "If line 4 executes it kills line 2's value; the def at line 2 reaches line 5 precisely when line 4 is skipped."
+            },
+            {
+              "text": "No — y at line 2 is dead code",
+              "fraction": 0,
+              "feedback": "It is not dead: on the false branch its value flows to line 5."
+            }
+          ],
+          "generalFeedback": "A redefinition kills a def only along paths that pass through it. The false branch 2→3→5 avoids line 4, so the def of y at line 2 does reach the use at line 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Witness that All-DU-Paths is strictly stronger",
+          "text": "<p>Which scenario best witnesses that All-DU-Paths is <em>strictly</em> stronger than All-Uses?</p>",
+          "answers": [
+            {
+              "text": "A DU pair with two distinct du-paths, where a test set tours one (satisfying All-Uses) but not the other (failing All-DU-Paths)",
+              "fraction": 100,
+              "feedback": "Correct — one du-path meets All-Uses for the pair, but All-DU-Paths still demands the second."
+            },
+            {
+              "text": "A DU pair with exactly one du-path that is toured",
+              "fraction": 0,
+              "feedback": "With a single du-path the two criteria coincide for that pair; it cannot witness strictness."
+            },
+            {
+              "text": "A def that reaches no use at all",
+              "fraction": 0,
+              "feedback": "Such a def imposes no requirement for either criterion, so it distinguishes nothing."
+            },
+            {
+              "text": "A program with no decisions",
+              "fraction": 0,
+              "feedback": "Without decisions, DU pairs have single du-paths and the criteria coincide."
+            }
+          ],
+          "generalFeedback": "Strict subsumption needs a case where All-Uses holds but All-DU-Paths fails: a DU pair with ≥2 du-paths, with only one toured. Then All-Uses is met for the pair while a du-path is still uncovered.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Correct subsumption statement",
+          "text": "<p>Assuming every decision predicate uses at least one variable, which statement is correct?</p>",
+          "answers": [
+            {
+              "text": "All-Uses subsumes both All-Defs and Edge Coverage, and Edge Coverage subsumes Node Coverage",
+              "fraction": 100,
+              "feedback": "Correct — under the stated assumption All-Uses ⊒ Edge ⊒ Node, and All-Uses ⊒ All-Defs."
+            },
+            {
+              "text": "All-Defs subsumes All-Uses",
+              "fraction": 0,
+              "feedback": "The subsumption runs the other way: All-Uses ⊒ All-Defs."
+            },
+            {
+              "text": "All-Defs subsumes Edge Coverage",
+              "fraction": 0,
+              "feedback": "All-Defs need not exercise both branches of a decision, so it does not subsume Edge Coverage."
+            },
+            {
+              "text": "Node Coverage subsumes All-Uses",
+              "fraction": 0,
+              "feedback": "Node Coverage is far weaker; it does not subsume any data-flow criterion."
+            }
+          ],
+          "generalFeedback": "Under the p-use-per-decision assumption: All-DU-Paths ⊒ All-Uses ⊒ All-Defs, All-Uses ⊒ Edge ⊒ Node. All-Defs and Edge Coverage are incomparable in general.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs does not subsume Edge",
+          "text": "<p>Why does All-Defs fail to subsume Edge Coverage in general?</p>",
+          "answers": [
+            {
+              "text": "A def can reach a use through just one branch, so All-Defs may be met without ever taking the other branch's edge",
+              "fraction": 100,
+              "feedback": "Correct — one reaching path per def suffices for All-Defs, leaving branch edges untaken."
+            },
+            {
+              "text": "All-Defs requires every edge, so it always subsumes Edge Coverage",
+              "fraction": 0,
+              "feedback": "All-Defs requires only one reaching use per def, not every edge."
+            },
+            {
+              "text": "Edge Coverage is a data-flow criterion weaker than All-Defs",
+              "fraction": 0,
+              "feedback": "Edge Coverage is structural; the point is All-Defs does not force both branches."
+            },
+            {
+              "text": "All-Defs concerns only p-uses, which cover all edges",
+              "fraction": 0,
+              "feedback": "All-Defs concerns reaching some use (c-use or p-use), and one such use can leave an edge untaken."
+            }
+          ],
+          "generalFeedback": "All-Defs is satisfied once each def reaches some use via one def-clear path. That single path may take only one outcome of a decision, leaving the other out-edge uncovered — so All-Defs does not subsume Edge Coverage.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "du-paths stay finite with a loop",
+          "text": "<p>Consider snippet L (edges 1→2, 2→3, 3→2, 2→4):</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>Even though the loop allows unboundedly many executions, the number of du-paths for <code>x</code> is finite, because a du-path must be simple (no repeated nodes except possibly first = last).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the simple-path restriction bounds du-paths to a finite set even with a loop."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The simple-path requirement keeps du-paths finite; only complete paths become unbounded with a loop."
+            }
+          ],
+          "generalFeedback": "A du-path is a simple def-clear path, so at most one traversal of any cycle is allowed. That keeps the set of du-paths finite even when the loop can iterate arbitrarily many times."
+        },
+        {
+          "type": "multichoice",
+          "name": "Count du-paths from a def in a loop",
+          "text": "<p>In snippet L (edges 1→2, 2→3, 3→2, 2→4):</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>How many du-paths originate from the def of <code>x</code> at line 3 (<code>x = x + 1</code>)?</p>",
+          "answers": [
+            {
+              "text": "2 — namely 3→2→3 (to the p-use/c-use at the next iteration) and 3→2→4 (to the exit use)",
+              "fraction": 100,
+              "feedback": "Correct — from line 3 the value flows back through the condition either into the body again or out to line 4."
+            },
+            {
+              "text": "1 — only 3→2→4",
+              "fraction": 0,
+              "feedback": "The simple cycle 3→2→3 is also a du-path (reaching the p-use on edge 2→3 and the c-use at line 3)."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only two simple def-clear paths start at line 3: 3→2→3 and 3→2→4."
+            },
+            {
+              "text": "0 — line 3's value is immediately killed",
+              "fraction": 0,
+              "feedback": "Line 3's value is used at the condition (line 2) and at line 4; it is not immediately killed."
+            }
+          ],
+          "generalFeedback": "From the def at line 3, the def-clear simple paths are 3→2→3 (a simple cycle reaching the p-use on 2→3 and the c-use at line 3) and 3→2→4 (reaching the c-use at line 4) — two du-paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A def that reaches no use",
+          "text": "<p>In snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x\n4  print(y)</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>",
+          "answers": [
+            {
+              "text": "The def of x at line 1, because line 2 redefines x before any use",
+              "fraction": 100,
+              "feedback": "Correct — line 1's value is killed at line 2, so it never reaches a use; it forms no DU pair."
+            },
+            {
+              "text": "The def of x at line 2",
+              "fraction": 0,
+              "feedback": "Line 2's value reaches the use at line 3 (def-clear path 2→3), so it does form a DU pair."
+            },
+            {
+              "text": "The def of y at line 3",
+              "fraction": 0,
+              "feedback": "Incorrect — y is defined at line 3 and used at line 4, so it does reach a use."
+            },
+            {
+              "text": "None; every def reaches a use",
+              "fraction": 0,
+              "feedback": "The def of x at line 1 is killed by line 2 and reaches no use."
+            }
+          ],
+          "generalFeedback": "The def of x at line 1 is overwritten at line 2 before x is ever read, so it reaches no use and forms no DU pair. Under All-Defs such a def imposes an infeasible (uncoverable) requirement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count all DU pairs",
+          "text": "<p>In snippet D, counting each p-use edge as a separate use (and noting z has a def but no use):</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many DU pairs does the code have in total (across all variables)?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — x: (1,edge 3→4), (1,edge 3→5), (1,c-use@5); y: (2,c-use@5), (4,c-use@5). Total 5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount x's p-uses: edges 3→4 and 3→5 count separately, giving x three pairs and y two — five in all."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "z has a def but no use, so it contributes no DU pair; the total is five."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "x alone contributes three DU pairs and y two, so the total is five."
+            }
+          ],
+          "generalFeedback": "x: p-use on 3→4 and on 3→5 plus the c-use@5 = 3; y: def@2→use@5 and def@4→use@5 = 2; z has no use = 0. Total 5 DU pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-path versus def-clear path",
+          "text": "<p>What extra condition must a du-path satisfy beyond being a def-clear path from a def to a use?</p>",
+          "answers": [
+            {
+              "text": "It must be simple — no internal repeated nodes (a cycle is allowed only when its first and last node coincide)",
+              "fraction": 100,
+              "feedback": "Correct — every du-path is a simple def-clear path from the def to the use."
+            },
+            {
+              "text": "It must run from the initial node to the final node",
+              "fraction": 0,
+              "feedback": "A du-path runs from a def to a use, not necessarily from entry to exit."
+            },
+            {
+              "text": "It must contain a p-use",
+              "fraction": 0,
+              "feedback": "A du-path may end at a c-use or a p-use; there is no p-use requirement."
+            },
+            {
+              "text": "It must visit every use of the variable",
+              "fraction": 0,
+              "feedback": "A du-path connects one def to one use, not all uses."
+            }
+          ],
+          "generalFeedback": "A du-path is a def-clear path that is additionally simple: it may not repeat an internal node, allowing at most a single cycle where the first and last node are the same.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-paths for a killed-on-one-branch DU pair",
+          "text": "<p>In snippet D:</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>How many du-paths does the DU pair <code>(y def@2, c-use@5)</code> have?</p>",
+          "answers": [
+            {
+              "text": "1 — only 2→3→5, because the then-path 2→3→4→5 is killed by the redefinition at line 4",
+              "fraction": 100,
+              "feedback": "Correct — only the false-branch path stays def-clear for the def at line 2."
+            },
+            {
+              "text": "2 — both 2→3→4→5 and 2→3→5",
+              "fraction": 0,
+              "feedback": "The path 2→3→4→5 passes through the redefinition at line 4, so it is not def-clear for the def at line 2."
+            },
+            {
+              "text": "0 — line 2's def never reaches line 5",
+              "fraction": 0,
+              "feedback": "Via the false branch 2→3→5 the def at line 2 does reach line 5."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only the single def-clear path 2→3→5 qualifies."
+            }
+          ],
+          "generalFeedback": "The then-path 2→3→4→5 redefines y at line 4 (a kill), so it is not def-clear. Only 2→3→5 carries the def at line 2 to line 5 — one du-path.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "def 的定義",
+          "text": "<p>在資料流分析中，變數 <code>v</code> 在某位置的<strong>定義（def）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個對 v 賦值的位置（例如指派、輸入、或參數綁定）",
+              "fraction": 100,
+              "feedback": "正確——def 是變數取得值的位置。"
+            },
+            {
+              "text": "一個讀取 v 的值但不改變它的位置",
+              "fraction": 0,
+              "feedback": "那是使用（use），不是 def。"
+            },
+            {
+              "text": "一個測試 v 值的謂詞",
+              "fraction": 0,
+              "feedback": "測試 v 是謂詞使用（p-use）；def 是把值存入 v。"
+            },
+            {
+              "text": "控制流程圖的一條邊",
+              "fraction": 0,
+              "feedback": "def 是把值存入 v 的位置，不是一條邊。"
+            }
+          ],
+          "generalFeedback": "def 是變數被賦值的任何位置：指派、讀取／輸入、以及形式參數綁定都是 def。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "use 的定義",
+          "text": "<p>在資料流分析中，變數 <code>v</code> 在某位置的<strong>使用（use）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個讀取（存取）v 的值、但不一定改變它的位置",
+              "fraction": 100,
+              "feedback": "正確——use 讀取 v 目前的值。"
+            },
+            {
+              "text": "一個對 v 賦予新值的位置",
+              "fraction": 0,
+              "feedback": "那是 def，不是 use。"
+            },
+            {
+              "text": "一個宣告 v 但從未引用它的位置",
+              "fraction": 0,
+              "feedback": "只有宣告而未讀取其值，並不是對該值的 use。"
+            },
+            {
+              "text": "定義潔淨路徑上的任一節點",
+              "fraction": 0,
+              "feedback": "use 是對 v 的特定讀取，而不只是路徑上的任一節點。"
+            }
+          ],
+          "generalFeedback": "use 是 v 儲存的值被存取的位置——可以在計算中（c-use）或在謂詞中（p-use）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "c-use 的定義",
+          "text": "<p>變數的<strong>計算使用（c-use, computation use）</strong>是指出現在以下位置的 use：</p>",
+          "answers": [
+            {
+              "text": "在一個計算中——例如指派的右手邊、輸出、或陣列索引",
+              "fraction": 100,
+              "feedback": "正確——c-use 供給計算，並與一個節點關聯。"
+            },
+            {
+              "text": "在分支或迴圈的謂詞中",
+              "fraction": 0,
+              "feedback": "那是謂詞使用（p-use），不是 c-use。"
+            },
+            {
+              "text": "只在變數被賦值時",
+              "fraction": 0,
+              "feedback": "賦值是 def；c-use 是在計算中讀取值。"
+            },
+            {
+              "text": "在控制流程圖的一條邊上",
+              "fraction": 0,
+              "feedback": "c-use 與節點關聯；與邊關聯的是 p-use。"
+            }
+          ],
+          "generalFeedback": "c-use 是計算中的 use（指派的右手邊、引數、輸出、陣列索引），與計算發生的節點關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p-use 的定義",
+          "text": "<p>變數的<strong>謂詞使用（p-use, predicate use）</strong>是指出現在以下位置的 use：</p>",
+          "answers": [
+            {
+              "text": "在一個決策的謂詞中，並與該決策節點的各條出邊關聯",
+              "fraction": 100,
+              "feedback": "正確——p-use 位於條件中，並附著於該分支的出邊。"
+            },
+            {
+              "text": "在指派的右手邊",
+              "fraction": 0,
+              "feedback": "那是 c-use，與一個節點關聯。"
+            },
+            {
+              "text": "在變數首次被定義的地方",
+              "fraction": 0,
+              "feedback": "那是 def，不是 use。"
+            },
+            {
+              "text": "只在迴圈本體內",
+              "fraction": 0,
+              "feedback": "p-use 是謂詞中的任何 use，無論在 if、while 或其他決策中。"
+            }
+          ],
+          "generalFeedback": "p-use 是謂詞中的 use（例如 if 或 while 的條件）。由於決策的結果會選擇一條出邊，p-use 與該決策節點的每一條出邊關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DU pair 的定義",
+          "text": "<p>變數 v 的<strong>定義-使用對（DU pair, def-use pair）</strong> <code>(d, u)</code> 是指：</p>",
+          "answers": [
+            {
+              "text": "v 的一個 def d 與一個 use u，且存在一條從 d 到 u 的定義潔淨路徑（其間沒有對 v 的再定義）",
+              "fraction": 100,
+              "feedback": "正確——該 def 必須沿著中間無再定義的路徑到達該 use。"
+            },
+            {
+              "text": "v 的任一 def d 與任一 use u，無論 d 是否能到達 u",
+              "fraction": 0,
+              "feedback": "必須存在定義潔淨路徑可達；毫無關係的 def 與 use 不構成 DU pair。"
+            },
+            {
+              "text": "出現在同一路徑上的 v 的兩個定義",
+              "fraction": 0,
+              "feedback": "DU pair 連結一個 def 與一個 use，而非兩個 def。"
+            },
+            {
+              "text": "其間沒有 def 的 v 的兩個使用",
+              "fraction": 0,
+              "feedback": "DU pair 是一個 def 與一個 use，而非兩個 use。"
+            }
+          ],
+          "generalFeedback": "DU pair (d, u) 要求 d 定義 v、u 使用 v，且存在從 d 到 u 的定義潔淨路徑——亦即 d 放入的值確實能到達 u。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "定義潔淨路徑的定義",
+          "text": "<p>一條路徑對變數 <code>v</code> 是<strong>定義潔淨（def-clear）</strong>的，當：</p>",
+          "answers": [
+            {
+              "text": "在其起點與終點之間（嚴格中間）不含對 v 的任何再定義",
+              "fraction": 100,
+              "feedback": "正確——中間不可有 v 的 def 覆殺沿途的值。"
+            },
+            {
+              "text": "沿途任何地方都不含 v 的 use",
+              "fraction": 0,
+              "feedback": "定義潔淨關乎中間的再定義（覆殺），而非 use。"
+            },
+            {
+              "text": "它拜訪圖中的每一個節點",
+              "fraction": 0,
+              "feedback": "定義潔淨並不要求拜訪所有節點。"
+            },
+            {
+              "text": "它從不重複任何節點",
+              "fraction": 0,
+              "feedback": "那描述的是簡單路徑；定義潔淨關乎的是 v 中間無再定義。"
+            }
+          ],
+          "generalFeedback": "若在 def 與 use 之間沒有節點再定義 v，該路徑對 v 為定義潔淨；中間的 def 會覆殺該值並破壞配對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-path 的定義",
+          "text": "<p>變數 v 的 <strong>du-path（定義-使用路徑）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條從 v 的 def 到 v 的 use 的簡單且定義潔淨的路徑",
+              "fraction": 100,
+              "feedback": "正確——du-path 是簡單的（內部不重複）且從 def 到 use 為定義潔淨。"
+            },
+            {
+              "text": "任一條從 v 的 def 到 v 的 use 的路徑，即使其間有再定義",
+              "fraction": 0,
+              "feedback": "du-path 必須是定義潔淨的；中間有再定義即不符合。"
+            },
+            {
+              "text": "任一條定義潔淨路徑，無論是否簡單",
+              "fraction": 0,
+              "feedback": "du-path 還必須是簡單的；任意的定義潔淨路徑可能重複節點。"
+            },
+            {
+              "text": "一條從起始節點到結束節點的完整路徑",
+              "fraction": 0,
+              "feedback": "du-path 從 def 到 use，不一定從進入點到離開點。"
+            }
+          ],
+          "generalFeedback": "du-path 是一條簡單（除了起點=終點的單一環外，無環）且從 v 的 def 到 v 的 use 的定義潔淨路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs 的意義",
+          "text": "<p><strong>All-Defs（全定義）</strong>涵蓋準則要求：</p>",
+          "answers": [
+            {
+              "text": "對每個變數的每個 def，至少有一條定義潔淨路徑到達該變數的某個 use",
+              "fraction": 100,
+              "feedback": "正確——All-Defs 要求每個 def 至少到達一個 use。"
+            },
+            {
+              "text": "對每個 def，都有路徑到達它能到達的每個 use",
+              "fraction": 0,
+              "feedback": "那是 All-Uses，比 All-Defs 更強。"
+            },
+            {
+              "text": "每個 DU pair 的每一條 du-path 都被巡覽",
+              "fraction": 0,
+              "feedback": "那是 All-DU-Paths，三者中最強。"
+            },
+            {
+              "text": "控制流程圖的每一條邊都被走過",
+              "fraction": 0,
+              "feedback": "那是邊涵蓋（Edge Coverage），是結構準則，不是 All-Defs。"
+            }
+          ],
+          "generalFeedback": "All-Defs：每個 def 必須（經定義潔淨路徑）到達至少一個 use——每個 def 一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 的意義",
+          "text": "<p><strong>All-Uses（全使用）</strong>涵蓋準則要求：</p>",
+          "answers": [
+            {
+              "text": "對每個 def，都有定義潔淨路徑到達它能到達的每個 use（即涵蓋每個 DU pair）",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 涵蓋每個 DU pair，亦即每個 def 到達其所有可達的 use。"
+            },
+            {
+              "text": "對每個 def，路徑到達至少一個 use",
+              "fraction": 0,
+              "feedback": "那是 All-Defs，比 All-Uses 更弱。"
+            },
+            {
+              "text": "每個 DU pair 的每一條 du-path 都被巡覽",
+              "fraction": 0,
+              "feedback": "那是 All-DU-Paths，比 All-Uses 更強。"
+            },
+            {
+              "text": "控制流程圖的每一個節點都被拜訪",
+              "fraction": 0,
+              "feedback": "那是節點涵蓋（Node Coverage），是結構準則，不是 All-Uses。"
+            }
+          ],
+          "generalFeedback": "All-Uses：對每個 DU pair（每個 def 及它到達的每個 use），至少巡覽一條 du-path——每個 DU pair 一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-DU-Paths 的意義",
+          "text": "<p><strong>All-DU-Paths（全定義-使用路徑）</strong>涵蓋準則要求：</p>",
+          "answers": [
+            {
+              "text": "對每個 DU pair，其 def 與 use 之間的每一條 du-path（每一條簡單定義潔淨路徑）都被巡覽",
+              "fraction": 100,
+              "feedback": "正確——All-DU-Paths 要求每個配對的所有 du-path，而不只是一條。"
+            },
+            {
+              "text": "對每個 DU pair，至少巡覽一條 du-path",
+              "fraction": 0,
+              "feedback": "那是 All-Uses；All-DU-Paths 要求每一條 du-path。"
+            },
+            {
+              "text": "對每個 def，至少到達一個 use",
+              "fraction": 0,
+              "feedback": "那是 All-Defs，三者中最弱。"
+            },
+            {
+              "text": "從進入點到離開點的每一條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是完整路徑涵蓋（Complete Path Coverage），通常不可行；All-DU-Paths 只限於 DU pair 的 du-path。"
+            }
+          ],
+          "generalFeedback": "All-DU-Paths：對每個 DU pair，其所有 du-path 都必須被巡覽——三種資料流準則中最強者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識一個 DU pair",
+          "text": "<p>考慮：</p><pre>1  x = read()\n2  y = x + 3\n3  print(y)</pre><p>下列何者是有效的 DU pair？</p>",
+          "answers": [
+            {
+              "text": "x：def 在第 1 行，use 在第 2 行",
+              "fraction": 100,
+              "feedback": "正確——x 在第 1 行被定義、在第 2 行被讀取，存在定義潔淨路徑 1→2。"
+            },
+            {
+              "text": "x：def 在第 2 行，use 在第 3 行",
+              "fraction": 0,
+              "feedback": "x 並非在第 2 行被定義（那是 y），且 x 未在第 3 行被使用。"
+            },
+            {
+              "text": "y：def 在第 1 行，use 在第 2 行",
+              "fraction": 0,
+              "feedback": "y 是在第 2 行被定義，不是第 1 行。"
+            },
+            {
+              "text": "x：def 在第 1 行，use 在第 3 行",
+              "fraction": 0,
+              "feedback": "x 未在第 3 行被使用；那裡只讀取 y。"
+            }
+          ],
+          "generalFeedback": "x：(def@1, use@2) 與 y：(def@2, use@3) 是兩個 DU pair。x 在第 2 行被讀取（c-use），y 在第 3 行被讀取（c-use）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類謂詞中的 use",
+          "text": "<p>考慮：</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>第 2 行（條件中）對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "p-use（謂詞使用）",
+              "fraction": 100,
+              "feedback": "正確——x 在分支條件中被讀取，故為 p-use。"
+            },
+            {
+              "text": "c-use（計算使用）",
+              "fraction": 0,
+              "feedback": "計算中的 use 在第 3 行；第 2 行的 use 在謂詞中。"
+            },
+            {
+              "text": "def（定義）",
+              "fraction": 0,
+              "feedback": "第 2 行讀取 x，並未對它賦值。"
+            },
+            {
+              "text": "既非 def 也非 use",
+              "fraction": 0,
+              "feedback": "條件讀取了 x，那是 use——具體而言是 p-use。"
+            }
+          ],
+          "generalFeedback": "決策謂詞中的 use 是 p-use，與該決策節點的出邊關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類計算中的 use",
+          "text": "<p>考慮：</p><pre>1  x = read()\n2  if (x &gt; 0)\n3      y = x + 1</pre><p>第 3 行（在 <code>y = x + 1</code> 中）對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "c-use（計算使用）",
+              "fraction": 100,
+              "feedback": "正確——x 在指派的右手邊被讀取，故為 c-use。"
+            },
+            {
+              "text": "p-use（謂詞使用）",
+              "fraction": 0,
+              "feedback": "謂詞使用在第 2 行；第 3 行是計算。"
+            },
+            {
+              "text": "def（定義）",
+              "fraction": 0,
+              "feedback": "第 3 行定義 y，但它使用（讀取）x。"
+            },
+            {
+              "text": "對 x 的再定義",
+              "fraction": 0,
+              "feedback": "第 3 行並未對 x 賦值；它讀取 x 以計算 y。"
+            }
+          ],
+          "generalFeedback": "在計算（例如指派右手邊）中的 use 是 c-use，與其發生的節點關聯。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "p-use 與邊關聯",
+          "text": "<p>變數的 p-use 與決策節點的出邊關聯，而 c-use 則與一個節點關聯。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——p-use 附著於分支的出邊；c-use 附著於節點。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "p-use 綁定決策的出邊（走哪個結果），而 c-use 綁定計算發生的節點。"
+            }
+          ],
+          "generalFeedback": "由於謂詞的值選擇走哪條出邊，p-use 與決策的出邊關聯，而 c-use 與計算的節點關聯。"
+        },
+        {
+          "type": "truefalse",
+          "name": "All-Uses 不只是每個 def 一個 use",
+          "text": "<p>只要每個 def 到達<em>至少一個</em> use，All-Uses 就已被滿足，不需要到達它能到達的其他 use。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——每個 def 到達至少一個 use 是 All-Defs；All-Uses 要求到達每個可達的 use。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "每個 def 只到達一個 use 是 All-Defs。All-Uses 要求每個 def 到達它能到達的每個 use（每個 DU pair）。"
+            }
+          ],
+          "generalFeedback": "All-Defs = 每個 def 到達某個 use；All-Uses = 每個 def 到達每個可達的 use。此敘述描述的是 All-Defs，不是 All-Uses。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算 y 的 def 個數",
+          "text": "<p>考慮片段 D：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>這段程式對變數 <code>y</code> 含有幾個<strong>定義（def）</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——y 在第 2 行（y = 0）與第 4 行（y = 1）被定義。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "對 y 有兩個指派：第 2 行與第 4 行。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "第 5 行使用 y（c-use），並非定義 y。共有兩個 def。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "y 在第 2 與第 4 行被指派，故有兩個 def。"
+            }
+          ],
+          "generalFeedback": "y 在第 2 行與第 4 行被定義；第 5 行讀取 y（c-use）。故 y 有兩個 def。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類條件中對 x 的 use",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>第 3 行對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "p-use，與邊 3→4 及 3→5 關聯",
+              "fraction": 100,
+              "feedback": "正確——x 在決策謂詞中被讀取，故為 p-use，關聯於兩條出邊。"
+            },
+            {
+              "text": "節點 3 的 c-use",
+              "fraction": 0,
+              "feedback": "第 3 行是謂詞，故該 use 是 p-use，不是 c-use。"
+            },
+            {
+              "text": "對 x 的一個 def",
+              "fraction": 0,
+              "feedback": "x 在第 3 行只被讀取，未被賦值。"
+            },
+            {
+              "text": "只與邊 3→4 關聯的 p-use",
+              "fraction": 0,
+              "feedback": "p-use 附著於決策的兩條出邊 3→4 與 3→5。"
+            }
+          ],
+          "generalFeedback": "第 3 行的謂詞讀取 x，故為 p-use，與兩條出邊 3→4（真）與 3→5（假）關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類第 5 行對 x 的 use",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>第 5 行（在 <code>z = x + y</code> 中）對 <code>x</code> 的 use 是：</p>",
+          "answers": [
+            {
+              "text": "節點 5 的 c-use",
+              "fraction": 100,
+              "feedback": "正確——x 在計算中被讀取，故為與節點 5 關聯的 c-use。"
+            },
+            {
+              "text": "邊 4→5 上的 p-use",
+              "fraction": 0,
+              "feedback": "第 5 行是計算，不是謂詞；此處沒有分支。"
+            },
+            {
+              "text": "對 x 的一個 def",
+              "fraction": 0,
+              "feedback": "第 5 行定義 z；它讀取 x。"
+            },
+            {
+              "text": "對 x 的再定義",
+              "fraction": 0,
+              "feedback": "x 未在第 5 行被賦值；它被讀取以計算 z。"
+            }
+          ],
+          "generalFeedback": "在 z = x + y 的右手邊對 x 的 use 是 c-use，與節點 5 關聯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "y 的定義潔淨路徑",
+          "text": "<p>在片段 D 中（邊 1→2, 2→3, 3→4, 3→5, 4→5）：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>從第 2 行的 def 到第 5 行的 use，哪一條路徑對 <code>y</code> 是<strong>定義潔淨</strong>的？</p>",
+          "answers": [
+            {
+              "text": "2→3→5",
+              "fraction": 100,
+              "feedback": "正確——這條假分支路徑從不再定義 y，故第 2 行的 def 能到達第 5 行。"
+            },
+            {
+              "text": "2→3→4→5",
+              "fraction": 0,
+              "feedback": "第 4 行再定義 y（y = 1），故此路徑對第 2 行的 def 不是定義潔淨。"
+            },
+            {
+              "text": "1→2→3→4→5",
+              "fraction": 0,
+              "feedback": "除了起點在 def 之前，它還經過第 4 行的再定義。"
+            },
+            {
+              "text": "從第 2 行到第 5 行不存在定義潔淨路徑",
+              "fraction": 0,
+              "feedback": "假分支路徑 2→3→5 是定義潔淨的，故確實存在一條。"
+            }
+          ],
+          "generalFeedback": "只有假分支路徑 2→3→5 避開第 4 行的再定義，故它是把第 2 行的 def 帶到第 5 行 use 的定義潔淨路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 2→3→4→5 不是 y 的 du-path",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>為何 <code>2→3→4→5</code> 不是第 2 行 <code>y</code> 之 def 的 du-path？</p>",
+          "answers": [
+            {
+              "text": "節點 4 再定義 y，覆殺了來自第 2 行的 def，故此路徑不是定義潔淨",
+              "fraction": 100,
+              "feedback": "正確——第 4 行的再定義在到達第 5 行前覆殺了第 2 行的值。"
+            },
+            {
+              "text": "此路徑重複了某節點，故不是簡單路徑",
+              "fraction": 0,
+              "feedback": "此路徑拜訪的是相異節點；使其失格的是第 4 行的再定義。"
+            },
+            {
+              "text": "y 從未在第 5 行被使用",
+              "fraction": 0,
+              "feedback": "y 在第 5 行被讀取（z = x + y）；問題在於第 4 行的覆殺。"
+            },
+            {
+              "text": "此路徑不是從起始節點開始",
+              "fraction": 0,
+              "feedback": "du-path 不必從起始節點開始；它從 def 開始。問題在於第 4 行的覆殺。"
+            }
+          ],
+          "generalFeedback": "由於第 4 行指派 y = 1，第 2 行的值在此路徑被覆殺；du-path 必須是定義潔淨的，故對第 2 行的 def 而言 2→3→4→5 不符合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs 與 All-Uses 的差異",
+          "text": "<p>All-Defs 與 All-Uses 的關鍵差異為何？</p>",
+          "answers": [
+            {
+              "text": "All-Defs 要求每個 def 到達某個 use；All-Uses 要求每個 def 到達它能到達的每個 use",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 涵蓋每個 DU pair，All-Defs 每個 def 只要一個 use。"
+            },
+            {
+              "text": "All-Defs 要求每一條 du-path；All-Uses 每對只要一條 du-path",
+              "fraction": 0,
+              "feedback": "要求每一條 du-path 的是 All-DU-Paths，不是 All-Defs。"
+            },
+            {
+              "text": "All-Uses 只關乎 p-use；All-Defs 只關乎 c-use",
+              "fraction": 0,
+              "feedback": "兩準則都關乎所有 use（c-use 與 p-use）；差別在每個 def 一個 use 對每個 use。"
+            },
+            {
+              "text": "它們在每個程式上都等價",
+              "fraction": 0,
+              "feedback": "All-Uses 嚴格更強；它包容 All-Defs。"
+            }
+          ],
+          "generalFeedback": "All-Defs 要求每個 def 到達至少一個 use；All-Uses 要求每個 def 到達每個可達的 use（涵蓋每個 DU pair）。因此 All-Uses 包容 All-Defs。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最強的資料流準則",
+          "text": "<p>在 All-Defs、All-Uses 與 All-DU-Paths 之中，哪一個<strong>最強</strong>（包容其他）？</p>",
+          "answers": [
+            {
+              "text": "All-DU-Paths",
+              "fraction": 100,
+              "feedback": "正確——All-DU-Paths ⊒ All-Uses ⊒ All-Defs。"
+            },
+            {
+              "text": "All-Uses",
+              "fraction": 0,
+              "feedback": "All-Uses 包容 All-Defs，但本身被 All-DU-Paths 包容。"
+            },
+            {
+              "text": "All-Defs",
+              "fraction": 0,
+              "feedback": "All-Defs 是三者中最弱的。"
+            },
+            {
+              "text": "它們彼此不可比較",
+              "fraction": 0,
+              "feedback": "它們形成一條鏈：All-DU-Paths ⊒ All-Uses ⊒ All-Defs。"
+            }
+          ],
+          "generalFeedback": "Rapps–Weyuker 階層將它們排為 All-DU-Paths ⊒ All-Uses ⊒ All-Defs，故 All-DU-Paths 最強。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "包容鏈的中間項",
+          "text": "<p>填入包容鏈中的空格：<code>All-DU-Paths ⊒ ______ ⊒ All-Defs</code>。</p>",
+          "answers": [
+            {
+              "text": "All-Uses",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 位於 All-DU-Paths 與 All-Defs 之間。"
+            },
+            {
+              "text": "邊涵蓋（Edge Coverage）",
+              "fraction": 0,
+              "feedback": "邊涵蓋是結構準則；此資料流鏈的中間項是 All-Uses。"
+            },
+            {
+              "text": "質數路徑涵蓋（Prime Path Coverage）",
+              "fraction": 0,
+              "feedback": "質數路徑涵蓋是圖路徑準則，不是此資料流鏈的中間項。"
+            },
+            {
+              "text": "節點涵蓋（Node Coverage）",
+              "fraction": 0,
+              "feedback": "節點涵蓋是結構準則；此資料流鏈的中間項是 All-Uses。"
+            }
+          ],
+          "generalFeedback": "資料流鏈為 All-DU-Paths ⊒ All-Uses ⊒ All-Defs，故中間項是 All-Uses。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "再定義（覆殺）的效果",
+          "text": "<p>考慮片段 K：</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>哪一個 <code>x</code> 的 def 到達第 3 行的 use？</p>",
+          "answers": [
+            {
+              "text": "只有第 2 行的 def（x = 10）；第 1 行的 def 被第 2 行覆殺",
+              "fraction": 100,
+              "feedback": "正確——第 2 行在第 3 行之前再定義 x，故只有第 2 行的值到達 use。"
+            },
+            {
+              "text": "只有第 1 行的 def（x = 5）",
+              "fraction": 0,
+              "feedback": "第 2 行在第 3 行之前覆寫 x，故第 1 行的值不會到達 use。"
+            },
+            {
+              "text": "兩個 def 都到達 use",
+              "fraction": 0,
+              "feedback": "從第 1 行到第 3 行的路徑經過第 2 行的再定義，故第 1 行的值被覆殺。"
+            },
+            {
+              "text": "兩個 def 都未到達 use",
+              "fraction": 0,
+              "feedback": "第 2 行的值沿定義潔淨路徑 2→3 到達第 3 行。"
+            }
+          ],
+          "generalFeedback": "第 2 行的 def 覆殺第 1 行的 def，故只有 (x@2, use@3) 是 DU pair；第 1 行的 def 未到達任何 use。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某 DU pair 的 du-path 數（x）",
+          "text": "<p>在片段 D 中（邊 1→2, 2→3, 3→4, 3→5, 4→5）：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(x def@1, c-use@5)</code> 有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "2——即 1→2→3→4→5 與 1→2→3→5",
+              "fraction": 100,
+              "feedback": "正確——x 從未被再定義，故真分支路徑與略過路徑都是定義潔淨的 du-path。"
+            },
+            {
+              "text": "1——只有 1→2→3→5",
+              "fraction": 0,
+              "feedback": "真分支路徑 1→2→3→4→5 對 x 也是定義潔淨（x 未在第 4 行被再定義），故有兩條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "從第 1 行到第 5 行恰有兩條簡單定義潔淨路徑。"
+            },
+            {
+              "text": "0——第 1 行的 def 未到達第 5 行",
+              "fraction": 0,
+              "feedback": "x 沿兩條分支都到達第 5 行；共有兩條 du-path。"
+            }
+          ],
+          "generalFeedback": "x 只在第 1 行被定義且從未再定義，故 1→2→3→4→5 與 1→2→3→5 都是簡單定義潔淨路徑——此 DU pair 有兩條 du-path。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某 DU pair 的 du-path 數（y@4）",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(y def@4, c-use@5)</code> 有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "1——即 4→5",
+              "fraction": 100,
+              "feedback": "正確——從第 4 行到第 5 行唯一的定義潔淨路徑就是單一邊 4→5。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "從第 4 行到第 5 行只有一條路徑，即邊 4→5。"
+            },
+            {
+              "text": "0——第 4 行的值總是被覆殺",
+              "fraction": 0,
+              "feedback": "第 4 行的 y 之 def 沿 4→5 直接到達第 5 行；沒有東西覆殺它。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有單一邊 4→5 連接該 def 與 use。"
+            }
+          ],
+          "generalFeedback": "從節點 4 到節點 5 唯一的路線是邊 4→5，故此 DU pair 恰有一條 du-path。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 包容 All-Defs",
+          "text": "<p>若一個測試套組滿足 All-Uses，你能對 All-Defs 下什麼結論？</p>",
+          "answers": [
+            {
+              "text": "All-Defs 自動被滿足，因為涵蓋每個 DU pair 就涵蓋了每個 def 的至少一個 use",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 包容 All-Defs。"
+            },
+            {
+              "text": "All-Defs 仍可能失敗",
+              "fraction": 0,
+              "feedback": "涵蓋每個可達的 use 已包含每個 def 的至少一個 use，故 All-Defs 不會失敗。"
+            },
+            {
+              "text": "無法下任何結論",
+              "fraction": 0,
+              "feedback": "All-Uses 嚴格包容 All-Defs，故結論是確定的。"
+            },
+            {
+              "text": "All-DU-Paths 也被滿足",
+              "fraction": 0,
+              "feedback": "All-Uses 並不蘊含 All-DU-Paths；只有較弱的 All-Defs 隨之成立。"
+            }
+          ],
+          "generalFeedback": "由於每個有可達 use 的 def 至少有一個 DU pair，涵蓋所有 DU pair（All-Uses）即涵蓋每個 def 的至少一個 use（All-Defs）。故 All-Uses ⊒ All-Defs。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "列出 y 的 DU pairs",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>哪一組正確列出變數 <code>y</code> 的所有 DU pairs？</p>",
+          "answers": [
+            {
+              "text": "(y@2 → use@5) 與 (y@4 → use@5)",
+              "fraction": 100,
+              "feedback": "正確——第 2 行的 def 經假分支（2→3→5）到達第 5 行，第 4 行的 def 經 4→5 到達第 5 行。"
+            },
+            {
+              "text": "只有 (y@4 → use@5)，因為第 2 行的 def 總是被覆殺",
+              "fraction": 0,
+              "feedback": "第 2 行的 def 只在真分支路徑上被覆殺；經假分支 2→3→5 它仍到達第 5 行。"
+            },
+            {
+              "text": "只有 (y@2 → use@5)",
+              "fraction": 0,
+              "feedback": "第 4 行的 def 也經 4→5 到達第 5 行，故也構成一個 DU pair。"
+            },
+            {
+              "text": "(y@2 → use@3) 與 (y@4 → use@5)",
+              "fraction": 0,
+              "feedback": "y 未在第 3 行被使用；y 的 use 在第 5 行。"
+            }
+          ],
+          "generalFeedback": "y 的兩個 def 都到達第 5 行的 c-use：第 2 行經假分支定義潔淨路徑 2→3→5，第 4 行經 4→5。故 y 有兩個 DU pair。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 對比 All-DU-Paths",
+          "text": "<p>下列何者正確區分 All-Uses 與 All-DU-Paths？</p>",
+          "answers": [
+            {
+              "text": "All-Uses 每個 DU pair 至少巡覽一條 du-path；All-DU-Paths 每個 DU pair 巡覽每一條 du-path",
+              "fraction": 100,
+              "feedback": "正確——這正是兩準則的差異。"
+            },
+            {
+              "text": "All-Uses 巡覽每一條 du-path；All-DU-Paths 至少巡覽一條",
+              "fraction": 0,
+              "feedback": "這是相反的：All-DU-Paths 才是要求每一條 du-path 的較強準則。"
+            },
+            {
+              "text": "All-Uses 只涵蓋 c-use；All-DU-Paths 只涵蓋 p-use",
+              "fraction": 0,
+              "feedback": "兩準則都涵蓋 c-use 與 p-use；差別在每對一條 du-path 對每對所有 du-path。"
+            },
+            {
+              "text": "它們只在有迴圈的程式上不同",
+              "fraction": 0,
+              "feedback": "只要某 DU pair 有超過一條 du-path，它們就可能不同，無論是否有迴圈。"
+            }
+          ],
+          "generalFeedback": "對每個 DU pair，All-Uses 要求巡覽至少一條 du-path，而 All-DU-Paths 要求巡覽每一條 du-path。故 All-DU-Paths ⊒ All-Uses。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 x 的 use 個數",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>這段程式對變數 <code>x</code> 含有幾個<strong>使用（use）</strong>，各為何種？</p>",
+          "answers": [
+            {
+              "text": "2——第 3 行一個 p-use，第 5 行一個 c-use",
+              "fraction": 100,
+              "feedback": "正確——x 在第 3 行的謂詞被讀取（p-use），在第 5 行的計算被讀取（c-use）。"
+            },
+            {
+              "text": "1——只有第 5 行的 c-use",
+              "fraction": 0,
+              "feedback": "第 3 行的謂詞也讀取 x，那是 p-use。"
+            },
+            {
+              "text": "1——只有第 3 行的 p-use",
+              "fraction": 0,
+              "feedback": "第 5 行也讀取 x（c-use），故有兩個 use。"
+            },
+            {
+              "text": "3——第 1 行的 def 也算一個 use",
+              "fraction": 0,
+              "feedback": "第 1 行是 def，不是 use；x 有兩個 use（第 3 行與第 5 行）。"
+            }
+          ],
+          "generalFeedback": "x 被使用兩次：第 3 行謂詞中的 p-use（與邊 3→4 及 3→5 關聯）與第 5 行的 c-use。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "All-Uses 與 All-DU-Paths 的需求",
+          "text": "<p>在片段 D 中，DU pair <code>(x def@1, c-use@5)</code> 有兩條 du-path：<code>P1 = 1→2→3→4→5</code> 與 <code>P2 = 1→2→3→5</code>。就此配對而言，All-Uses 與 All-DU-Paths 各需巡覽幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "All-Uses 需要 {P1, P2} 中至少一條；All-DU-Paths 需要兩條都巡覽",
+              "fraction": 100,
+              "feedback": "正確——All-Uses 每對只需一條 du-path，All-DU-Paths 需要每一條。"
+            },
+            {
+              "text": "兩者都恰需一條 du-path",
+              "fraction": 0,
+              "feedback": "All-DU-Paths 需要該配對的每一條 du-path，此處即 P1 與 P2 兩條。"
+            },
+            {
+              "text": "兩者都需要兩條 du-path",
+              "fraction": 0,
+              "feedback": "All-Uses 每個 DU pair 只需一條 du-path，並非兩條。"
+            },
+            {
+              "text": "All-Uses 需要兩條；All-DU-Paths 需要一條",
+              "fraction": 0,
+              "feedback": "這是相反的：All-DU-Paths 才是要求所有 du-path 的較強準則。"
+            }
+          ],
+          "generalFeedback": "All-Uses 每個 DU pair 巡覽至少一條 du-path；All-DU-Paths 巡覽每一條。此處即 {P1, P2} 中一條對比兩條——正是 All-DU-Paths ⊒ All-Uses 的具體見證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的 du-path",
+          "text": "<p>考慮：</p><pre>1  x = input()\n2  if (x &gt; 0)\n3      a = 1\n4  if (x &lt; 0)\n5      b = a</pre><p>du-path <code>3→4→5</code> 把第 3 行 <code>a</code> 的 def 帶到第 5 行的 use。為何此 du-path <strong>不可行（infeasible）</strong>？</p>",
+          "answers": [
+            {
+              "text": "到達第 3 行需要 x > 0，但走 4→5 需要 x < 0，沒有任何單一輸入能同時滿足兩者",
+              "fraction": 100,
+              "feedback": "正確——兩個條件互相矛盾，故沒有測試能驅動此 du-path。"
+            },
+            {
+              "text": "此路徑對 a 不是定義潔淨",
+              "fraction": 0,
+              "feedback": "a 在第 3 與第 5 行之間未被再定義，故路徑是定義潔淨的；問題在於謂詞矛盾。"
+            },
+            {
+              "text": "此路徑重複了某節點，故不是簡單路徑",
+              "fraction": 0,
+              "feedback": "3→4→5 拜訪相異節點；它是簡單的。不可行來自矛盾的條件。"
+            },
+            {
+              "text": "a 在第 5 行沒有 use",
+              "fraction": 0,
+              "feedback": "a 在第 5 行被讀取（b = a）；此 du-path 語法上存在但不可行。"
+            }
+          ],
+          "generalFeedback": "不可行的 du-path 在圖中存在，但沒有輸入能執行它。此處第 3 行需 x > 0，而邊 4→5 需 x < 0——互相矛盾，故此 du-path 永不能被巡覽。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 包容邊涵蓋——假設條件",
+          "text": "<p>All-Uses 只在某個標準假設下才包容邊涵蓋（Edge Coverage）。是哪個假設？</p>",
+          "answers": [
+            {
+              "text": "每個決策的謂詞都至少使用一個變數，因此每條出邊都帶有一個 p-use 測試需求",
+              "fraction": 100,
+              "feedback": "正確——唯有如此，涵蓋所有 p-use 才會強制每個決策的兩條出邊。"
+            },
+            {
+              "text": "每個變數在使用前都已被定義",
+              "fraction": 0,
+              "feedback": "那排除了未定義的 use，但本身並不強制每條邊都被走過。"
+            },
+            {
+              "text": "程式不含迴圈",
+              "fraction": 0,
+              "feedback": "迴圈不影響此包容關係；需求在於每個決策都有 p-use。"
+            },
+            {
+              "text": "每個 def 恰好到達一個 use",
+              "fraction": 0,
+              "feedback": "那與此無關；假設關乎謂詞含有變數 use。"
+            }
+          ],
+          "generalFeedback": "p-use 附著於決策的兩條出邊。若每個決策謂詞都至少使用一個變數，All-Uses 就會強制每個決策的兩條邊，從而包容邊涵蓋。若無此假設，一個不含變數的謂詞會留下某條邊不被強制。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Uses 何時會漏掉一條邊",
+          "text": "<p>在哪種情況下，一個測試套組能滿足 All-Uses，卻仍留下一條<strong>邊未被涵蓋</strong>？</p>",
+          "answers": [
+            {
+              "text": "某個決策的謂詞不使用任何變數（例如常數條件），故兩條出邊都不帶 p-use 需求",
+              "fraction": 100,
+              "feedback": "正確——沒有 p-use，All-Uses 就沒有強制該分支各邊的需求。"
+            },
+            {
+              "text": "任何使用了變數的決策",
+              "fraction": 0,
+              "feedback": "變數 p-use 會強制兩條出邊，故那些邊都會被涵蓋。"
+            },
+            {
+              "text": "沒有決策的直線程式",
+              "fraction": 0,
+              "feedback": "沒有決策就只有一條路徑；此處 All-Uses 與邊涵蓋一致。"
+            },
+            {
+              "text": "每個 def 都到達每個 use 的程式",
+              "fraction": 0,
+              "feedback": "豐富的資料流本身不會留下某條邊未涵蓋；不含變數的謂詞才會。"
+            }
+          ],
+          "generalFeedback": "All-Uses 包容邊涵蓋，倚賴每個決策都有變數 p-use。常數／不含變數的謂詞沒有 p-use，故 All-Uses 不必走過它的兩條出邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p-use 產生兩條邊需求",
+          "text": "<p>變數 v 在 <code>if (v &gt; 0)</code> 中有一個 p-use，該決策節點有通往 then 區塊與 else／匯合點的出邊。在 All-Uses 下，一個到達此 p-use 的 def 會產生哪些測試需求？</p>",
+          "answers": [
+            {
+              "text": "兩條出邊——決策的真邊與假邊",
+              "fraction": 100,
+              "feedback": "正確——p-use 附著於每一條出邊，故兩者都必須被巡覽。"
+            },
+            {
+              "text": "只有真邊（條件成立處）",
+              "fraction": 0,
+              "feedback": "p-use 需求涵蓋兩種結果，不只真邊。"
+            },
+            {
+              "text": "只有該決策的節點",
+              "fraction": 0,
+              "feedback": "p-use 附著於出邊，而不只是節點。"
+            },
+            {
+              "text": "兩條邊都不需，因為謂詞不是 use",
+              "fraction": 0,
+              "feedback": "在謂詞中讀取 v 就是 use——具體而言是出邊上的 p-use。"
+            }
+          ],
+          "generalFeedback": "由於謂詞的結果選擇出邊，v 的 p-use 會為每一條出邊產生一個 (def, p-use) 需求——強制走過真、假兩個分支。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被覆殺的 def 仍能到達某 use 嗎？",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>第 2 行 <code>y</code> 的 def 能到達第 5 行的 use 嗎？</p>",
+          "answers": [
+            {
+              "text": "能——經假分支 2→3→5，它略過第 4 行的再定義",
+              "fraction": 100,
+              "feedback": "正確——第 2 行的 def 只在真分支路徑上被覆殺；假分支使它保持定義潔淨。"
+            },
+            {
+              "text": "不能——第 4 行總在第 5 行之前再定義 y",
+              "fraction": 0,
+              "feedback": "第 4 行只在真分支執行；當 x ≤ 0 時第 2 行的 def 會存活到第 5 行。"
+            },
+            {
+              "text": "只有第 4 行也執行時才能",
+              "fraction": 0,
+              "feedback": "若第 4 行執行，它會覆殺第 2 行的值；第 2 行的 def 正是在第 4 行被略過時才到達第 5 行。"
+            },
+            {
+              "text": "不能——第 2 行的 y 是死碼",
+              "fraction": 0,
+              "feedback": "它不是死碼：在假分支上其值流到第 5 行。"
+            }
+          ],
+          "generalFeedback": "再定義只在經過它的路徑上覆殺某 def。假分支 2→3→5 避開第 4 行，故第 2 行 y 的 def 確實到達第 5 行的 use。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-DU-Paths 嚴格更強的見證",
+          "text": "<p>哪種情境最能見證 All-DU-Paths <em>嚴格</em>強於 All-Uses？</p>",
+          "answers": [
+            {
+              "text": "一個具有兩條相異 du-path 的 DU pair，測試集巡覽其中一條（滿足 All-Uses）卻不巡覽另一條（未達 All-DU-Paths）",
+              "fraction": 100,
+              "feedback": "正確——一條 du-path 就滿足該對的 All-Uses，但 All-DU-Paths 仍要求第二條。"
+            },
+            {
+              "text": "一個恰有一條 du-path 且被巡覽的 DU pair",
+              "fraction": 0,
+              "feedback": "只有一條 du-path 時兩準則對該對一致；無法見證嚴格性。"
+            },
+            {
+              "text": "一個完全不到達任何 use 的 def",
+              "fraction": 0,
+              "feedback": "這種 def 對兩準則都不產生需求，區分不出任何差異。"
+            },
+            {
+              "text": "一個沒有決策的程式",
+              "fraction": 0,
+              "feedback": "沒有決策時，DU pair 都只有一條 du-path，兩準則一致。"
+            }
+          ],
+          "generalFeedback": "嚴格包容需要一個 All-Uses 成立但 All-DU-Paths 失敗的情形：一個具 ≥2 條 du-path 的 DU pair，只巡覽其中一條。此時該對的 All-Uses 已滿足，但仍有一條 du-path 未被涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正確的包容關係敘述",
+          "text": "<p>假設每個決策謂詞都至少使用一個變數，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "All-Uses 同時包容 All-Defs 與邊涵蓋，且邊涵蓋包容節點涵蓋",
+              "fraction": 100,
+              "feedback": "正確——在此假設下 All-Uses ⊒ 邊 ⊒ 節點，且 All-Uses ⊒ All-Defs。"
+            },
+            {
+              "text": "All-Defs 包容 All-Uses",
+              "fraction": 0,
+              "feedback": "包容方向相反：All-Uses ⊒ All-Defs。"
+            },
+            {
+              "text": "All-Defs 包容邊涵蓋",
+              "fraction": 0,
+              "feedback": "All-Defs 不必走過決策的兩條分支，故不包容邊涵蓋。"
+            },
+            {
+              "text": "節點涵蓋包容 All-Uses",
+              "fraction": 0,
+              "feedback": "節點涵蓋弱得多；它不包容任何資料流準則。"
+            }
+          ],
+          "generalFeedback": "在每個決策都有 p-use 的假設下：All-DU-Paths ⊒ All-Uses ⊒ All-Defs，All-Uses ⊒ 邊 ⊒ 節點。All-Defs 與邊涵蓋在一般情況下不可比較。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "All-Defs 不包容邊涵蓋",
+          "text": "<p>為何 All-Defs 在一般情況下無法包容邊涵蓋？</p>",
+          "answers": [
+            {
+              "text": "一個 def 可以只經一條分支到達某 use，故 All-Defs 可被滿足而從未走過另一條分支的邊",
+              "fraction": 100,
+              "feedback": "正確——每個 def 一條到達路徑即滿足 All-Defs，可能留下分支邊未走。"
+            },
+            {
+              "text": "All-Defs 要求每一條邊，故總是包容邊涵蓋",
+              "fraction": 0,
+              "feedback": "All-Defs 只要求每個 def 到達某一個 use，並非每一條邊。"
+            },
+            {
+              "text": "邊涵蓋是比 All-Defs 更弱的資料流準則",
+              "fraction": 0,
+              "feedback": "邊涵蓋是結構準則；重點在於 All-Defs 不強制兩條分支。"
+            },
+            {
+              "text": "All-Defs 只關乎能涵蓋所有邊的 p-use",
+              "fraction": 0,
+              "feedback": "All-Defs 關乎到達某個 use（c-use 或 p-use），而這樣一個 use 可能留下某條邊未走。"
+            }
+          ],
+          "generalFeedback": "只要每個 def 經一條定義潔淨路徑到達某個 use，All-Defs 即被滿足。那條路徑可能只走決策的一個結果，留下另一條出邊未涵蓋——故 All-Defs 不包容邊涵蓋。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "有迴圈時 du-path 仍為有限",
+          "text": "<p>考慮片段 L（邊 1→2, 2→3, 3→2, 2→4）：</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>即使迴圈允許無界次執行，<code>x</code> 的 du-path 數目仍為有限，因為 du-path 必須是簡單的（除了可能起點=終點外，無重複節點）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——簡單路徑的限制使 du-path 即使有迴圈也是有限集合。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "簡單路徑的要求使 du-path 保持有限；只有完整路徑才會因迴圈而變無界。"
+            }
+          ],
+          "generalFeedback": "du-path 是簡單的定義潔淨路徑，故任何環至多走一次。這使 du-path 集合即使迴圈能任意次迭代仍為有限。"
+        },
+        {
+          "type": "multichoice",
+          "name": "計算迴圈中某 def 的 du-path 數",
+          "text": "<p>在片段 L 中（邊 1→2, 2→3, 3→2, 2→4）：</p><pre>1  x = 0\n2  while (x &lt; n)\n3      x = x + 1\n4  print(x)</pre><p>從第 3 行 <code>x</code> 的 def（<code>x = x + 1</code>）出發，有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "2——即 3→2→3（到下一輪迭代的 p-use／c-use）與 3→2→4（到離開處的 use）",
+              "fraction": 100,
+              "feedback": "正確——從第 3 行，值經條件回流進本體再一次，或流出到第 4 行。"
+            },
+            {
+              "text": "1——只有 3→2→4",
+              "fraction": 0,
+              "feedback": "簡單環 3→2→3 也是 du-path（到達邊 2→3 的 p-use 與第 3 行的 c-use）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "從第 3 行出發只有兩條簡單定義潔淨路徑：3→2→3 與 3→2→4。"
+            },
+            {
+              "text": "0——第 3 行的值立即被覆殺",
+              "fraction": 0,
+              "feedback": "第 3 行的值在條件（第 2 行）與第 4 行被使用；它不會立即被覆殺。"
+            }
+          ],
+          "generalFeedback": "從第 3 行的 def 出發，定義潔淨的簡單路徑為 3→2→3（一個簡單環，到達 2→3 的 p-use 與第 3 行的 c-use）與 3→2→4（到達第 4 行的 c-use）——兩條 du-path。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不到達任何 use 的 def",
+          "text": "<p>在片段 K 中：</p><pre>1  x = 5\n2  x = 10\n3  y = x\n4  print(y)</pre><p>哪個 def <strong>沒有 DU pair</strong>（不到達任何 use）？</p>",
+          "answers": [
+            {
+              "text": "第 1 行 x 的 def，因為第 2 行在任何 use 之前就再定義了 x",
+              "fraction": 100,
+              "feedback": "正確——第 1 行的值在第 2 行被覆殺，故從未到達任何 use；它不構成 DU pair。"
+            },
+            {
+              "text": "第 2 行 x 的 def",
+              "fraction": 0,
+              "feedback": "第 2 行的值到達第 3 行的 use（定義潔淨路徑 2→3），故它確實構成 DU pair。"
+            },
+            {
+              "text": "第 3 行 y 的 def",
+              "fraction": 0,
+              "feedback": "不正確——y 在第 3 行定義、第 4 行被使用，因此它有到達某個使用。"
+            },
+            {
+              "text": "沒有；每個 def 都到達某個 use",
+              "fraction": 0,
+              "feedback": "第 1 行 x 的 def 被第 2 行覆殺，不到達任何 use。"
+            }
+          ],
+          "generalFeedback": "第 1 行 x 的 def 在第 2 行被覆寫、且在 x 被讀取之前，故它不到達任何 use、不構成 DU pair。在 All-Defs 下，這樣的 def 是一項不可行（無法涵蓋）的需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算所有 DU pairs",
+          "text": "<p>在片段 D 中，將每條 p-use 邊視為個別的 use（並留意 z 有 def 但無 use）：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>整段程式（跨所有變數）共有幾個 DU pair？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——x：(1,邊 3→4)、(1,邊 3→5)、(1,c-use@5)；y：(2,c-use@5)、(4,c-use@5)。共 5 個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重數 x 的 p-use：邊 3→4 與 3→5 分別計，x 有三對、y 有兩對——共五個。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "z 有 def 但無 use，故不貢獻任何 DU pair；總數為五。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "光是 x 就貢獻三個 DU pair、y 兩個，故總數為五。"
+            }
+          ],
+          "generalFeedback": "x：邊 3→4 的 p-use、邊 3→5 的 p-use、加上 c-use@5 = 3；y：def@2→use@5 與 def@4→use@5 = 2；z 無 use = 0。共 5 個 DU pair。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "du-path 與定義潔淨路徑之別",
+          "text": "<p>除了是一條從 def 到 use 的定義潔淨路徑外，du-path 還必須滿足哪個額外條件？</p>",
+          "answers": [
+            {
+              "text": "它必須是簡單的——內部無重複節點（僅當起點與終點相同時才允許一個環）",
+              "fraction": 100,
+              "feedback": "正確——每條 du-path 都是從 def 到 use 的簡單定義潔淨路徑。"
+            },
+            {
+              "text": "它必須從起始節點到結束節點",
+              "fraction": 0,
+              "feedback": "du-path 從 def 到 use，不一定從進入點到離開點。"
+            },
+            {
+              "text": "它必須包含一個 p-use",
+              "fraction": 0,
+              "feedback": "du-path 可結束於 c-use 或 p-use；沒有 p-use 的要求。"
+            },
+            {
+              "text": "它必須拜訪該變數的每個 use",
+              "fraction": 0,
+              "feedback": "du-path 連接一個 def 與一個 use，而非所有 use。"
+            }
+          ],
+          "generalFeedback": "du-path 是一條額外為簡單的定義潔淨路徑：內部不可重複節點，至多允許一個起點與終點相同的環。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單分支被覆殺的 DU pair 之 du-path 數",
+          "text": "<p>在片段 D 中：</p><pre>1  x = input()\n2  y = 0\n3  if (x &gt; 0)\n4      y = 1\n5  z = x + y</pre><p>DU pair <code>(y def@2, c-use@5)</code> 有幾條 du-path？</p>",
+          "answers": [
+            {
+              "text": "1——只有 2→3→5，因為真分支路徑 2→3→4→5 被第 4 行的再定義覆殺",
+              "fraction": 100,
+              "feedback": "正確——只有假分支路徑對第 2 行的 def 保持定義潔淨。"
+            },
+            {
+              "text": "2——2→3→4→5 與 2→3→5 兩條",
+              "fraction": 0,
+              "feedback": "路徑 2→3→4→5 經過第 4 行的再定義，故對第 2 行的 def 不是定義潔淨。"
+            },
+            {
+              "text": "0——第 2 行的 def 從未到達第 5 行",
+              "fraction": 0,
+              "feedback": "經假分支 2→3→5，第 2 行的 def 確實到達第 5 行。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有單一條定義潔淨路徑 2→3→5 符合。"
+            }
+          ],
+          "generalFeedback": "真分支路徑 2→3→4→5 在第 4 行再定義 y（覆殺），故不是定義潔淨。只有 2→3→5 把第 2 行的 def 帶到第 5 行——一條 du-path。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "graph-path": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Simple path definition",
+          "text": "<p>A path in a graph is a <strong>simple path</strong> when:</p>",
+          "answers": [
+            {
+              "text": "No node appears more than once, except that the first and last node may be identical",
+              "fraction": 100,
+              "feedback": "Correct — a simple path has no internal repeats; only the endpoints may coincide (a round trip)."
+            },
+            {
+              "text": "It visits every node of the graph exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path; a simple path need not touch every node."
+            },
+            {
+              "text": "It runs from an initial node to a final node",
+              "fraction": 0,
+              "feedback": "That is a test path / complete path; a simple path can start and end anywhere."
+            },
+            {
+              "text": "No edge is traversed more than once",
+              "fraction": 0,
+              "feedback": "Simplicity is defined on nodes, not edges; a simple path forbids repeated nodes (except the endpoints)."
+            }
+          ],
+          "generalFeedback": "A simple path repeats no node, with the single exception that its first and last node may be the same, which lets a simple path form a loop (a round trip).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path definition",
+          "text": "<p>A <strong>prime path</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A simple path that is not a proper subpath of any other simple path (a maximal simple path)",
+              "fraction": 100,
+              "feedback": "Correct — a prime path is a simple path that cannot be extended into a longer simple path."
+            },
+            {
+              "text": "The shortest path between two nodes",
+              "fraction": 0,
+              "feedback": "Prime paths are about maximality of simple paths, not shortest distance."
+            },
+            {
+              "text": "Any path from the initial node to a final node",
+              "fraction": 0,
+              "feedback": "That is a complete/test path; a prime path need not start at entry or end at exit."
+            },
+            {
+              "text": "A path that visits every node exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path; a prime path need not visit every node."
+            }
+          ],
+          "generalFeedback": "A prime path is a maximal simple path: it is simple, and no longer simple path contains it as a contiguous subpath.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-pair definition",
+          "text": "<p>An <strong>edge-pair</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A path of length 2 — two consecutive edges u→v→w sharing the middle node v",
+              "fraction": 100,
+              "feedback": "Correct — an edge-pair is a length-2 path formed by two adjacent edges."
+            },
+            {
+              "text": "Any two edges of the graph, whether or not they are adjacent",
+              "fraction": 0,
+              "feedback": "An edge-pair requires the two edges to be adjacent (share a middle node), forming a length-2 path."
+            },
+            {
+              "text": "A single edge together with its reverse",
+              "fraction": 0,
+              "feedback": "Direction is not reversed; an edge-pair is two consecutive forward edges."
+            },
+            {
+              "text": "A pair of nodes connected by an edge",
+              "fraction": 0,
+              "feedback": "That is just an edge; an edge-pair is two adjacent edges (a length-2 path)."
+            }
+          ],
+          "generalFeedback": "An edge-pair is a path of length 2: edges u→v and v→w chained through a shared middle node v.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complete path definition",
+          "text": "<p>A <strong>complete path</strong> in a control-flow graph is:</p>",
+          "answers": [
+            {
+              "text": "A path that starts at an initial node and ends at a final node",
+              "fraction": 100,
+              "feedback": "Correct — a complete path runs the whole way from entry to exit."
+            },
+            {
+              "text": "A simple path that cannot be extended",
+              "fraction": 0,
+              "feedback": "That is a prime path; a complete path is defined by its entry/exit endpoints and may repeat nodes."
+            },
+            {
+              "text": "A path that visits every edge of the graph",
+              "fraction": 0,
+              "feedback": "Covering every edge is Edge Coverage; a complete path just runs from entry to exit."
+            },
+            {
+              "text": "Any path of length 2",
+              "fraction": 0,
+              "feedback": "That is an edge-pair, not a complete path."
+            }
+          ],
+          "generalFeedback": "A complete path goes from an initial node to a final node; each program execution follows one complete path, and it may repeat nodes (e.g. loop iterations).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test path definition",
+          "text": "<p>In graph-based testing, a <strong>test path</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A path that starts at an initial node and ends at a final node — one complete execution",
+              "fraction": 100,
+              "feedback": "Correct — a test path represents one run of the program from entry to exit."
+            },
+            {
+              "text": "A simple path that is maximal",
+              "fraction": 0,
+              "feedback": "That is a prime path; a test path may repeat nodes and must run entry to exit."
+            },
+            {
+              "text": "Any single edge of the graph",
+              "fraction": 0,
+              "feedback": "A single edge is a length-1 path, not necessarily a full entry-to-exit execution."
+            },
+            {
+              "text": "A path that never repeats a node",
+              "fraction": 0,
+              "feedback": "Test paths may repeat nodes (loops); only simple paths forbid internal repeats."
+            }
+          ],
+          "generalFeedback": "A test path runs from an initial node to a final node; a test case executes exactly one test path, which may traverse loops and repeat nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Round-trip path definition",
+          "text": "<p>A <strong>round-trip path</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A prime path of nonzero length whose first and last node are the same",
+              "fraction": 100,
+              "feedback": "Correct — a round-trip path is a prime path that begins and ends at the same node."
+            },
+            {
+              "text": "Any path from the initial node to a final node and back",
+              "fraction": 0,
+              "feedback": "A round-trip path is a maximal simple cycle (prime), not a full entry-exit-entry run."
+            },
+            {
+              "text": "A path that traverses every edge in both directions",
+              "fraction": 0,
+              "feedback": "Round-trip refers to returning to the starting node, not to reversing edges."
+            },
+            {
+              "text": "A path of length 2",
+              "fraction": 0,
+              "feedback": "That is an edge-pair; a round-trip path is a prime path with coinciding endpoints."
+            }
+          ],
+          "generalFeedback": "A round-trip path is a prime path (a maximal simple path) whose first and last nodes coincide, i.e. a simple cycle that cannot be extended.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime Path Coverage definition",
+          "text": "<p><strong>Prime Path Coverage (PPC)</strong> is satisfied when:</p>",
+          "answers": [
+            {
+              "text": "Every prime path of the graph is toured by at least one test path",
+              "fraction": 100,
+              "feedback": "Correct — PPC requires each prime path to be toured."
+            },
+            {
+              "text": "Every edge of the graph is traversed",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage, which PPC subsumes but is weaker than PPC."
+            },
+            {
+              "text": "Every complete path is executed",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, which is stronger and usually infeasible."
+            },
+            {
+              "text": "Every node is visited",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, the weakest of these criteria."
+            }
+          ],
+          "generalFeedback": "Prime Path Coverage imposes one test requirement per prime path: each prime path must be toured by some test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-Pair Coverage definition",
+          "text": "<p><strong>Edge-Pair Coverage (EPC)</strong> is satisfied when the test paths tour:</p>",
+          "answers": [
+            {
+              "text": "Every reachable path of length up to 2 (each edge-pair, plus edges/nodes that cannot be extended)",
+              "fraction": 100,
+              "feedback": "Correct — EPC requires every reachable path of length ≤ 2."
+            },
+            {
+              "text": "Every reachable edge, and nothing more",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage; EPC additionally requires the adjacent edge-pairs."
+            },
+            {
+              "text": "Every prime path of the graph",
+              "fraction": 0,
+              "feedback": "That is Prime Path Coverage, which is stronger than EPC."
+            },
+            {
+              "text": "Every complete path from entry to exit",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, far stronger and usually infeasible."
+            }
+          ],
+          "generalFeedback": "Edge-Pair Coverage requires every reachable path of length ≤ 2; the length-2 paths are the edge-pairs, and shorter paths are included for elements that cannot be extended.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complete Path Coverage definition",
+          "text": "<p><strong>Complete Path Coverage (CPC)</strong> is satisfied when:</p>",
+          "answers": [
+            {
+              "text": "Every complete path (from an initial node to a final node) is executed by some test path",
+              "fraction": 100,
+              "feedback": "Correct — CPC requires all complete paths, which is why loops usually make it infeasible."
+            },
+            {
+              "text": "Every prime path is toured",
+              "fraction": 0,
+              "feedback": "That is Prime Path Coverage, which is weaker than CPC."
+            },
+            {
+              "text": "Every edge-pair is toured",
+              "fraction": 0,
+              "feedback": "That is Edge-Pair Coverage, much weaker than CPC."
+            },
+            {
+              "text": "Every node is visited at least once",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, the weakest criterion here."
+            }
+          ],
+          "generalFeedback": "Complete Path Coverage requires touring every complete path; with a loop there are infinitely many complete paths, so CPC is generally infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a prime path in a diamond",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). Which of the following is a <strong>prime path</strong>?</p>",
+          "answers": [
+            {
+              "text": "1→2→4",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4 is a maximal simple path; it cannot be extended at either end."
+            },
+            {
+              "text": "2→4",
+              "fraction": 0,
+              "feedback": "2→4 is a proper subpath of 1→2→4, so it is not maximal and not prime."
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "1→2 is a proper subpath of 1→2→4, so it is not prime."
+            },
+            {
+              "text": "1→3→2",
+              "fraction": 0,
+              "feedback": "There is no edge 3→2, so this is not even a valid path."
+            }
+          ],
+          "generalFeedback": "The prime paths of this diamond are 1→2→4 and 1→3→4; each is a maximal simple path, while 2→4 and 1→2 are proper subpaths and 1→3→2 is not a path at all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs on a triangle",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only 1→2→3 chains two adjacent edges; 1→3 and 2→3 have no continuation."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only one length-2 path exists (1→2→3); node 3 has no outgoing edge to continue."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three is the edge count; edge-pairs count adjacent edge chains, of which there is only one."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "1→2 followed by 2→3 forms the edge-pair 1→2→3, so the count is 1, not 0."
+            }
+          ],
+          "generalFeedback": "For each edge u→v look for an edge v→w: only 1→2 (v=2) continues via 2→3, giving the single edge-pair 1→2→3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs on a diamond",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4 and 1→3→4 are the only length-2 chains."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the edge count; only two adjacent edge chains exist (1→2→4, 1→3→4)."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — the chains are 1→2→4 and 1→3→4, so there are two."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both 1→2→4 and 1→3→4 are edge-pairs, so the count is two."
+            }
+          ],
+          "generalFeedback": "Edge-pairs: 1→2 continues via 2→4 (1→2→4), and 1→3 continues via 3→4 (1→3→4); edges into node 4 have no continuation, so the total is 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Length of an edge-pair",
+          "text": "<p>How many edges does an <strong>edge-pair</strong> (a path of length 2) contain, and how many nodes does it visit?</p>",
+          "answers": [
+            {
+              "text": "2 edges and 3 nodes (u, v, w)",
+              "fraction": 100,
+              "feedback": "Correct — two consecutive edges u→v and v→w span three nodes."
+            },
+            {
+              "text": "1 edge and 2 nodes",
+              "fraction": 0,
+              "feedback": "That is a single edge (length 1), not an edge-pair."
+            },
+            {
+              "text": "2 edges and 2 nodes",
+              "fraction": 0,
+              "feedback": "Two distinct consecutive edges span three nodes, not two."
+            },
+            {
+              "text": "3 edges and 4 nodes",
+              "fraction": 0,
+              "feedback": "That is a path of length 3; an edge-pair has length 2."
+            }
+          ],
+          "generalFeedback": "Path length counts edges: a length-2 path has 2 edges (u→v, v→w) and therefore visits 3 nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which sequence is a simple path",
+          "text": "<p>Ignoring which edges exist, which of the following node sequences is a <strong>simple path</strong>?</p>",
+          "answers": [
+            {
+              "text": "1→2→3→4",
+              "fraction": 100,
+              "feedback": "Correct — all four nodes are distinct, so it is simple."
+            },
+            {
+              "text": "1→2→3→2",
+              "fraction": 0,
+              "feedback": "Node 2 repeats in an internal position (not as first=last), so it is not simple."
+            },
+            {
+              "text": "1→2→2→3",
+              "fraction": 0,
+              "feedback": "Node 2 repeats consecutively in the middle, so it is not simple."
+            },
+            {
+              "text": "2→3→4→3",
+              "fraction": 0,
+              "feedback": "Node 3 repeats internally (positions 2 and 4), so it is not simple."
+            }
+          ],
+          "generalFeedback": "A simple path forbids any repeated node except a possible first=last coincidence; 1→2→3→4 has all distinct nodes, while the others repeat a node internally.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CPC infeasible with loops (easy)",
+          "text": "<p>Complete Path Coverage is usually <strong>infeasible</strong> when the program under test contains a loop.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a loop yields infinitely many complete paths (one per iteration count), so CPC cannot generally be achieved."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A loop lets the number of complete paths grow without bound, so touring all of them is infeasible."
+            }
+          ],
+          "generalFeedback": "Each additional loop iteration is a distinct complete path, so a loop produces infinitely many complete paths and CPC becomes infeasible."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Count prime paths (two decisions)",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code> (node 1 initial; nodes 5 and 6 final). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4→5, 1→2→4→6, 1→3→4→5, 1→3→4→6."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two counts only the first decision; the second decision at node 4 doubles the maximal paths to four."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Six is the edge count; the maximal simple paths number four."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — combining the choice at node 1 (2 or 3) with the choice at node 4 (5 or 6) gives 2×2 = 4 prime paths."
+            }
+          ],
+          "generalFeedback": "The graph is acyclic with a branch at node 1 and a branch at node 4, giving four maximal simple paths: 1→2→4→5, 1→2→4→6, 1→3→4→5, 1→3→4→6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs (two decisions)",
+          "text": "<p>A CFG has edges <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4, 1→3→4, 2→4→5, 2→4→6, 3→4→5, 3→4→6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the number of prime paths; there are six adjacent edge chains."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — node 4 has two out-edges, so each edge into 4 continues two ways, giving six chains."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Recount — 1→2→4, 1→3→4, 2→4→5, 2→4→6, 3→4→5, 3→4→6 is six, not eight."
+            }
+          ],
+          "generalFeedback": "For each edge u→v, count edges v→w: edges into 4 (2→4, 3→4) each continue via 4→5 and 4→6 (four chains), and 1→2, 1→3 continue into 4 (two chains) — six edge-pairs total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC vs EC strength",
+          "text": "<p>How do <strong>Edge-Pair Coverage (EPC)</strong> and <strong>Edge Coverage (EC)</strong> compare in strength?</p>",
+          "answers": [
+            {
+              "text": "EPC is strictly stronger: EPC subsumes EC, but not conversely",
+              "fraction": 100,
+              "feedback": "Correct — every edge-pair contains its edges, so EPC ⇒ EC, and covering edge-pairs is a stricter demand."
+            },
+            {
+              "text": "EC is stronger than EPC",
+              "fraction": 0,
+              "feedback": "Backwards — EPC (adjacent edge pairs) is the stronger criterion."
+            },
+            {
+              "text": "They are equivalent on every graph",
+              "fraction": 0,
+              "feedback": "They differ: covering edges need not cover all adjacent edge combinations."
+            },
+            {
+              "text": "They are incomparable",
+              "fraction": 0,
+              "feedback": "They are comparable: EPC subsumes EC."
+            }
+          ],
+          "generalFeedback": "Touring every edge-pair traverses each constituent edge, so EPC subsumes EC; the converse fails because covering edges does not force every adjacent pairing at a branch/merge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subsumption ordering",
+          "text": "<p>Which chain lists the structural criteria from <strong>strongest to weakest</strong> (⊒ means \"subsumes\")?</p>",
+          "answers": [
+            {
+              "text": "PPC ⊒ EPC ⊒ EC ⊒ NC",
+              "fraction": 100,
+              "feedback": "Correct — Prime Path ⊒ Edge-Pair ⊒ Edge ⊒ Node."
+            },
+            {
+              "text": "NC ⊒ EC ⊒ EPC ⊒ PPC",
+              "fraction": 0,
+              "feedback": "This is reversed; Node Coverage is the weakest, not the strongest."
+            },
+            {
+              "text": "EPC ⊒ PPC ⊒ EC ⊒ NC",
+              "fraction": 0,
+              "feedback": "PPC is stronger than EPC, so PPC must come first."
+            },
+            {
+              "text": "PPC ⊒ EC ⊒ EPC ⊒ NC",
+              "fraction": 0,
+              "feedback": "EPC sits between PPC and EC, not below EC."
+            }
+          ],
+          "generalFeedback": "The structural hierarchy is PPC ⊒ EPC ⊒ EC ⊒ NC; each criterion subsumes the one to its right, and CPC sits above PPC but is usually infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sidetrip definition",
+          "text": "<p>A test path tours a prime path <em>with a <strong>sidetrip</strong></em> when:</p>",
+          "answers": [
+            {
+              "text": "It traverses every edge of the prime path in order, but is allowed excursions that leave a node and return to that same node",
+              "fraction": 100,
+              "feedback": "Correct — a sidetrip preserves all edges of the prime path and returns to the node it departed from."
+            },
+            {
+              "text": "It visits every node of the prime path in order, but may use different edges between them",
+              "fraction": 0,
+              "feedback": "That describes a detour, which relaxes edges; a sidetrip keeps all the prime path's edges."
+            },
+            {
+              "text": "It tours the prime path with no extra edges at all",
+              "fraction": 0,
+              "feedback": "That is touring directly; a sidetrip adds an excursion."
+            },
+            {
+              "text": "It skips part of the prime path entirely",
+              "fraction": 0,
+              "feedback": "A sidetrip never skips the prime path's edges; it adds a return excursion."
+            }
+          ],
+          "generalFeedback": "Touring with a sidetrip keeps every edge of the prime path (in order) and permits an excursion that leaves and returns to the same node before continuing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Detour definition",
+          "text": "<p>A test path tours a prime path <em>with a <strong>detour</strong></em> when:</p>",
+          "answers": [
+            {
+              "text": "It visits every node of the prime path in the same order, but may reach the next node via different edges",
+              "fraction": 100,
+              "feedback": "Correct — a detour preserves the node sequence but relaxes which edges are used."
+            },
+            {
+              "text": "It traverses every edge of the prime path in order, with excursions returning to the same node",
+              "fraction": 0,
+              "feedback": "That describes a sidetrip, which keeps all edges; a detour only preserves the nodes."
+            },
+            {
+              "text": "It runs the prime path backwards",
+              "fraction": 0,
+              "feedback": "Order is preserved in a detour; it does not reverse the path."
+            },
+            {
+              "text": "It tours the prime path exactly, edge for edge",
+              "fraction": 0,
+              "feedback": "That is a direct tour; a detour may substitute edges between the same nodes."
+            }
+          ],
+          "generalFeedback": "A detour keeps the prime path's node sequence in order but may travel between consecutive nodes by a different route, so it is a weaker touring notion than a sidetrip.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Touring directly",
+          "text": "<p>A test path <strong>tours</strong> a prime path (directly) when:</p>",
+          "answers": [
+            {
+              "text": "The prime path appears as a contiguous subpath of the test path",
+              "fraction": 100,
+              "feedback": "Correct — a direct tour contains the prime path exactly, edge for edge and in order."
+            },
+            {
+              "text": "The test path shares at least one edge with the prime path",
+              "fraction": 0,
+              "feedback": "Sharing one edge is not enough; the whole prime path must appear contiguously."
+            },
+            {
+              "text": "The test path visits the endpoints of the prime path",
+              "fraction": 0,
+              "feedback": "Touching the endpoints is insufficient; the entire prime path must be a subpath."
+            },
+            {
+              "text": "The test path has the same length as the prime path",
+              "fraction": 0,
+              "feedback": "Equal length is irrelevant; touring requires the prime path to be a contiguous subpath."
+            }
+          ],
+          "generalFeedback": "A test path tours a prime path directly when the prime path is a contiguous subpath of it; sidetrips and detours are relaxed forms used when a direct tour is impossible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why CPC is usually infeasible",
+          "text": "<p>Why is <strong>Complete Path Coverage</strong> usually infeasible in practice?</p>",
+          "answers": [
+            {
+              "text": "A loop creates infinitely many complete paths (one for each number of iterations), so they cannot all be toured",
+              "fraction": 100,
+              "feedback": "Correct — unbounded iteration makes the set of complete paths infinite."
+            },
+            {
+              "text": "Complete paths are hard to draw in a diagram",
+              "fraction": 0,
+              "feedback": "The obstacle is their infinite number under loops, not diagramming difficulty."
+            },
+            {
+              "text": "Complete paths are not related to the program's behavior",
+              "fraction": 0,
+              "feedback": "Complete paths model whole executions; the issue is that loops make them infinite."
+            },
+            {
+              "text": "There is no algorithm to find any complete path",
+              "fraction": 0,
+              "feedback": "Finding complete paths is straightforward; enumerating all of them is what fails when loops allow unbounded iteration."
+            }
+          ],
+          "generalFeedback": "With a loop, each iteration count yields a distinct complete path, so CPC would require infinitely many test paths — hence it is generally infeasible, and PPC is used as a practical strongest criterion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count prime paths on a triangle",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (node 1 initial, node 3 final). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3 and 1→3 are both maximal simple paths."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both 1→2→3 and 1→3 are prime; the edge 1→3 is not a subpath of 1→2→3."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three is the edge count; only two of the simple paths are maximal."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — the maximal simple paths are just 1→2→3 and 1→3."
+            }
+          ],
+          "generalFeedback": "1→2→3 cannot be extended, and 1→3 is not contained in 1→2→3 (which lacks the edge 1→3), so both are prime; the count is 2.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Prime path need not be a test path",
+          "text": "<p>A prime path need not begin at an initial node or end at a final node; a prime path is therefore not necessarily a test path on its own.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a prime path is a maximal simple path anywhere in the graph; it must be toured by a test path, but it need not itself run entry-to-exit."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Prime paths can start and end at internal nodes (e.g. a round-trip loop), so they are not always test paths."
+            }
+          ],
+          "generalFeedback": "Prime paths are defined by maximality of simple paths, not by entry/exit endpoints; PPC requires each prime path to be toured by some test path, which does run entry-to-exit."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why EPC uses \"length up to 2\"",
+          "text": "<p>Edge-Pair Coverage is defined over paths of length <em>up to</em> 2 rather than exactly 2. Why include the shorter paths?</p>",
+          "answers": [
+            {
+              "text": "So that edges (and nodes) which cannot be extended into a length-2 path are still required, keeping EPC ⊒ EC ⊒ NC",
+              "fraction": 100,
+              "feedback": "Correct — the \"≤ 2\" wording guarantees EPC still subsumes Edge and Node Coverage on small or terminal parts of the graph."
+            },
+            {
+              "text": "Because length-2 paths do not exist in most graphs",
+              "fraction": 0,
+              "feedback": "Length-2 paths are common; the shorter paths are added for boundary cases, not because pairs are rare."
+            },
+            {
+              "text": "To make EPC equivalent to Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "EPC remains weaker than PPC; the \"≤ 2\" wording is about subsuming EC/NC, not matching PPC."
+            },
+            {
+              "text": "To allow paths that repeat nodes",
+              "fraction": 0,
+              "feedback": "The reason is coverage of non-extendable edges/nodes, not repetition of nodes."
+            }
+          ],
+          "generalFeedback": "A final node or a graph too small for any edge-pair would otherwise be uncovered; requiring all reachable paths of length ≤ 2 ensures every edge and node is still a requirement, so EPC subsumes EC and NC.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PPC subsumes EPC",
+          "text": "<p><strong>Prime Path Coverage subsumes Edge-Pair Coverage</strong>: any test set that satisfies PPC also satisfies EPC.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — every reachable path of length ≤ 2 is a subpath of some prime path, so touring all prime paths covers all edge-pairs."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Each edge-pair lies on some prime path, so satisfying PPC necessarily satisfies EPC."
+            }
+          ],
+          "generalFeedback": "Any edge-pair is a simple path of length 2 and hence a subpath of a maximal simple path (a prime path); touring every prime path therefore tours every edge-pair, so PPC ⊒ EPC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a round-trip prime path",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 1 initial, node 4 final). Which listed prime path is a <strong>round-trip</strong> path (first node = last node)?</p>",
+          "answers": [
+            {
+              "text": "2→3→2",
+              "fraction": 100,
+              "feedback": "Correct — 2→3→2 is a maximal simple path whose first and last node coincide."
+            },
+            {
+              "text": "1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 is a prime path, but it starts at 1 and ends at 4, so it is not a round trip."
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 is a prime path but not a round trip (1 ≠ 3)."
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "2→3 is a proper subpath of 2→3→2, so it is not even prime, let alone a round trip."
+            }
+          ],
+          "generalFeedback": "The loop 2↔3 gives the round-trip prime path 2→3→2 (and also 3→2→3); a round-trip prime path begins and ends at the same node.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs with a skip edge",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 3→4, 2→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w) does it have?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, and 2→3→4."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the edge count; only three adjacent edge chains exist."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Recount — node 2 has two out-edges, so 1→2 continues two ways (1→2→3, 1→2→4), plus 2→3→4."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — 1→2→3, 1→2→4, 2→3→4 is three; edges into node 4 have no continuation."
+            }
+          ],
+          "generalFeedback": "1→2 continues via 2→3 and 2→4 (two chains), and 2→3 continues via 3→4 (one chain); edges into node 4 cannot continue, so there are 3 edge-pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of subsumption",
+          "text": "<p>Criterion C1 <strong>subsumes</strong> criterion C2 means:</p>",
+          "answers": [
+            {
+              "text": "Every test set that satisfies C1 is guaranteed to also satisfy C2",
+              "fraction": 100,
+              "feedback": "Correct — subsumption is this universal implication between the criteria."
+            },
+            {
+              "text": "C1 and C2 always require the same test paths",
+              "fraction": 0,
+              "feedback": "That would be equivalence; subsumption is a one-directional guarantee."
+            },
+            {
+              "text": "C1 needs fewer test paths than C2 on every graph",
+              "fraction": 0,
+              "feedback": "Subsumption is about implication of satisfaction, not about counting test paths."
+            },
+            {
+              "text": "Some test set satisfying C1 also happens to satisfy C2",
+              "fraction": 0,
+              "feedback": "Subsumption must hold for every satisfying test set, not merely for one."
+            }
+          ],
+          "generalFeedback": "C1 subsumes C2 iff any test set meeting C1 necessarily meets C2; e.g. PPC subsumes EPC because touring all prime paths tours all edge-pairs.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Count prime paths with a loop",
+          "text": "<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 1 initial, node 2 the loop condition, node 3 the body, node 4 final). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, 3→2→4, and the two round-trip prime paths 2→3→2 and 3→2→3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "A common miss: the loop 2↔3 yields TWO round-trip prime paths (2→3→2 and 3→2→3), not one, giving five in total."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — besides 1→2→3, 1→2→4, 3→2→4 there are also 2→3→2 and 3→2→3, so five."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "There are exactly five maximal simple paths; 2→3 and 3→2 alone are subpaths, not prime."
+            }
+          ],
+          "generalFeedback": "The maximal simple paths are: 1→2→3, 1→2→4, 3→2→4, and the two round trips of the loop 2↔3, namely 2→3→2 and 3→2→3 — five prime paths. Rotating a cycle to each start node gives distinct round-trip prime paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Round-trip prime paths of the loop",
+          "text": "<p>For the CFG <code>1→2, 2→3, 3→2, 2→4</code>, which are its <strong>round-trip</strong> prime paths (first node = last node)?</p>",
+          "answers": [
+            {
+              "text": "2→3→2 and 3→2→3",
+              "fraction": 100,
+              "feedback": "Correct — the cycle 2↔3 gives one round-trip prime path per starting node."
+            },
+            {
+              "text": "Only 2→3→2",
+              "fraction": 0,
+              "feedback": "3→2→3 is also a maximal simple path with coinciding endpoints, so there are two."
+            },
+            {
+              "text": "2→3→2 and 1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 is a prime path but not a round trip (1 ≠ 4); the second round trip is 3→2→3."
+            },
+            {
+              "text": "There are no round-trip prime paths",
+              "fraction": 0,
+              "feedback": "The loop 2↔3 does produce round-trip prime paths: 2→3→2 and 3→2→3."
+            }
+          ],
+          "generalFeedback": "Writing the simple cycle 2↔3 starting from each of its nodes gives two distinct round-trip prime paths: 2→3→2 and 3→2→3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count prime paths with a self-loop",
+          "text": "<p>A CFG has edges <code>1→2, 2→2, 2→3</code> (node 1 initial, node 3 final; 2→2 is a self-loop). How many <strong>prime paths</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3 and the self-loop round trip 2→2."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "The self-loop 2→2 is itself a maximal simple (round-trip) path, so with 1→2→3 there are two."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "1→2 and 2→3 are proper subpaths of 1→2→3, so they are not prime; the count is two."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — only 1→2→3 and 2→2 are maximal simple paths."
+            }
+          ],
+          "generalFeedback": "The self-loop 2→2 has first=last=2 with no internal repeat, so it is a round-trip prime path; together with the maximal 1→2→3 that is two prime paths. A self-loop rotates only to itself, so it contributes a single round-trip prime path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible prime path",
+          "text": "<p>A prime path is <strong>infeasible</strong> when no input can drive execution along it. What is the correct consequence for Prime Path Coverage?</p>",
+          "answers": [
+            {
+              "text": "Literal 100% PPC is unachievable; coverage is measured over the feasible prime paths",
+              "fraction": 100,
+              "feedback": "Correct — infeasible requirements are set aside so the metric stays meaningful."
+            },
+            {
+              "text": "The whole PPC criterion becomes meaningless and is abandoned",
+              "fraction": 0,
+              "feedback": "The criterion is kept; only the infeasible prime path is excluded from the target."
+            },
+            {
+              "text": "100% PPC is still achievable by trying harder",
+              "fraction": 0,
+              "feedback": "No input can tour an infeasible prime path, so literal full coverage is impossible."
+            },
+            {
+              "text": "The prime path is automatically removed from the graph",
+              "fraction": 0,
+              "feedback": "The graph is unchanged; the requirement is simply reported as infeasible."
+            }
+          ],
+          "generalFeedback": "Because no test can tour an infeasible prime path, tools report PPC against the feasible prime paths rather than demanding an impossible 100%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Best-effort touring",
+          "text": "<p>A prime path cannot be toured <em>directly</em> by any test path, but it can be toured if a <strong>sidetrip</strong> or <strong>detour</strong> is allowed. What is the standard best-effort response?</p>",
+          "answers": [
+            {
+              "text": "Allow the prime path to be toured with a sidetrip (or detour) rather than dropping the requirement",
+              "fraction": 100,
+              "feedback": "Correct — permitting sidetrips/detours recovers coverage of prime paths that no direct tour can reach."
+            },
+            {
+              "text": "Immediately declare the prime path infeasible and ignore it",
+              "fraction": 0,
+              "feedback": "A prime path tourable via a sidetrip is feasible; best effort tours it with the sidetrip instead of discarding it."
+            },
+            {
+              "text": "Delete the prime path from the requirement set with no substitute",
+              "fraction": 0,
+              "feedback": "Best effort keeps the requirement and satisfies it with a relaxed tour."
+            },
+            {
+              "text": "Require a direct tour anyway, leaving the requirement unmet",
+              "fraction": 0,
+              "feedback": "If no direct tour exists, insisting on one just leaves the prime path uncovered; sidetrips/detours are the remedy."
+            }
+          ],
+          "generalFeedback": "When a prime path has no direct tour, best-effort touring permits a sidetrip (all edges kept, with returning excursions) or a detour (nodes kept in order) so the requirement can still be satisfied.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why CPC is infeasible but PPC is not",
+          "text": "<p>On a CFG with a loop, why is Complete Path Coverage infeasible while Prime Path Coverage remains achievable?</p>",
+          "answers": [
+            {
+              "text": "Complete paths are unbounded in number (one per iteration count), but prime paths are simple, so there are only finitely many",
+              "fraction": 100,
+              "feedback": "Correct — simplicity bounds prime paths; complete paths are unbounded under looping."
+            },
+            {
+              "text": "Prime paths ignore the loop entirely",
+              "fraction": 0,
+              "feedback": "Prime paths include the loop's round trips; they are just finite because they are simple."
+            },
+            {
+              "text": "Complete paths do not exist when there is a loop",
+              "fraction": 0,
+              "feedback": "Complete paths certainly exist; the problem is that there are infinitely many."
+            },
+            {
+              "text": "Prime Path Coverage does not require touring the loop",
+              "fraction": 0,
+              "feedback": "PPC does require touring the loop's round-trip prime paths; it stays finite because prime paths are simple."
+            }
+          ],
+          "generalFeedback": "A loop lets a complete path iterate any number of times, giving infinitely many complete paths (CPC infeasible); prime paths are simple, so their length is bounded by the node count and their number is finite (PPC achievable).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path vs Hamiltonian path",
+          "text": "<p>How does a <strong>prime path</strong> differ from a <strong>Hamiltonian path</strong>?</p>",
+          "answers": [
+            {
+              "text": "A prime path is a maximal simple path and need not visit every node; a Hamiltonian path must visit every node exactly once",
+              "fraction": 100,
+              "feedback": "Correct — maximality among simple paths does not force visiting all nodes."
+            },
+            {
+              "text": "They are the same thing",
+              "fraction": 0,
+              "feedback": "They differ: a prime path can omit nodes, while a Hamiltonian path must include them all."
+            },
+            {
+              "text": "A prime path must visit every node, a Hamiltonian path need not",
+              "fraction": 0,
+              "feedback": "Backwards — the Hamiltonian path is the one required to visit every node."
+            },
+            {
+              "text": "A prime path must start at the initial node; a Hamiltonian path must not",
+              "fraction": 0,
+              "feedback": "Neither is defined by the initial node; the distinction is about visiting all nodes."
+            }
+          ],
+          "generalFeedback": "A prime path is simply a maximal simple path; it may skip nodes. A Hamiltonian path is a stricter global notion requiring every node to be visited exactly once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime path vs complete path",
+          "text": "<p>Which statement correctly distinguishes a <strong>prime path</strong> from a <strong>complete path</strong>?</p>",
+          "answers": [
+            {
+              "text": "A complete path runs entry-to-exit and may repeat nodes; a prime path is a maximal simple path and may start/end at internal nodes",
+              "fraction": 100,
+              "feedback": "Correct — complete paths are defined by endpoints and allow repeats; prime paths are simple and maximal."
+            },
+            {
+              "text": "Both must run from an initial node to a final node",
+              "fraction": 0,
+              "feedback": "Only complete paths must; a prime path can begin and end internally (e.g. a round trip)."
+            },
+            {
+              "text": "Both forbid any repeated node",
+              "fraction": 0,
+              "feedback": "Complete paths may repeat nodes (loops); only prime/simple paths forbid internal repeats."
+            },
+            {
+              "text": "A prime path is always longer than any complete path",
+              "fraction": 0,
+              "feedback": "Complete paths can be arbitrarily long (loops); prime paths are bounded by the node count."
+            }
+          ],
+          "generalFeedback": "A complete path is any entry-to-exit execution and can repeat nodes through loops; a prime path is a maximal simple path anywhere in the graph and forbids internal repeats.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count edge-pairs with a loop",
+          "text": "<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code>. How many <strong>edge-pairs</strong> (length-2 paths u→v→w, back edges allowed) does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3, 1→2→4, 2→3→2, 3→2→3, and 3→2→4."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — the back edge 3→2 both continues (3→2→3, 3→2→4) and is continued into (2→3→2), giving five chains."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — 1→2→3, 1→2→4, 2→3→2, 3→2→3, 3→2→4 is five; the edge into node 4 cannot continue."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The loop adds edge-pairs through the back edge (2→3→2, 3→2→3, 3→2→4), raising the total to five."
+            }
+          ],
+          "generalFeedback": "For each edge u→v find edges v→w: 1→2 gives 1→2→3 and 1→2→4; 2→3 gives 2→3→2; 3→2 gives 3→2→3 and 3→2→4; 2→4 cannot continue. Total = 5 edge-pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC subsumption edge case",
+          "text": "<p>Consider a CFG whose only reachable structure past some point is a single final node with no outgoing edge, so no length-2 path passes through it. Why does the \"length ≤ 2\" definition of Edge-Pair Coverage matter here?</p>",
+          "answers": [
+            {
+              "text": "The shorter (length ≤ 1) requirements ensure the incoming edge and the final node are still covered, so EPC keeps subsuming EC and NC",
+              "fraction": 100,
+              "feedback": "Correct — without the \"≤ 2\" clause, elements with no edge-pair through them could be missed, breaking subsumption."
+            },
+            {
+              "text": "It lets EPC ignore the final node entirely",
+              "fraction": 0,
+              "feedback": "The opposite — the clause guarantees the final node is still a requirement."
+            },
+            {
+              "text": "It makes EPC equivalent to Prime Path Coverage there",
+              "fraction": 0,
+              "feedback": "EPC stays weaker than PPC; the clause is about preserving EC/NC subsumption."
+            },
+            {
+              "text": "It permits paths that repeat the final node",
+              "fraction": 0,
+              "feedback": "The final node has no out-edge; the clause is about covering non-extendable elements, not repetition."
+            }
+          ],
+          "generalFeedback": "If a node/edge cannot sit in any length-2 path (e.g. a terminal edge into a final node), requiring only exact length-2 paths would leave it uncovered; the \"length ≤ 2\" wording adds the shorter requirements so EPC still subsumes EC and NC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PPC and CPC direction",
+          "text": "<p>Which statement about <strong>Prime Path Coverage (PPC)</strong> and <strong>Complete Path Coverage (CPC)</strong> is correct?</p>",
+          "answers": [
+            {
+              "text": "CPC subsumes PPC, but PPC does not subsume CPC",
+              "fraction": 100,
+              "feedback": "Correct — executing all complete paths tours every feasible prime path, but touring prime paths does not force every complete path."
+            },
+            {
+              "text": "PPC subsumes CPC",
+              "fraction": 0,
+              "feedback": "Backwards — CPC is the stronger (and usually infeasible) criterion."
+            },
+            {
+              "text": "They are equivalent",
+              "fraction": 0,
+              "feedback": "They are not: CPC is strictly stronger, requiring all complete paths, not just prime ones."
+            },
+            {
+              "text": "They are incomparable",
+              "fraction": 0,
+              "feedback": "They are comparable: CPC subsumes PPC."
+            }
+          ],
+          "generalFeedback": "Every feasible prime path lies on some complete path, so covering all complete paths (CPC) satisfies PPC; the reverse fails because a finite prime-path suite need not exercise every loop-iteration count. Hence CPC ⊒ PPC, and CPC is the strongest but usually infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sidetrip vs detour precisely",
+          "text": "<p>Which pairing correctly states the precise difference between a <strong>sidetrip</strong> and a <strong>detour</strong> when touring a prime path q?</p>",
+          "answers": [
+            {
+              "text": "Sidetrip: every edge of q is traversed in order (with returning excursions). Detour: every node of q is visited in order, but edges between them may differ",
+              "fraction": 100,
+              "feedback": "Correct — sidetrips preserve edges, detours only preserve the node sequence."
+            },
+            {
+              "text": "Sidetrip preserves the nodes only; detour preserves the edges",
+              "fraction": 0,
+              "feedback": "Reversed — the sidetrip is the edge-preserving one."
+            },
+            {
+              "text": "Both preserve every edge of q; they differ only in length",
+              "fraction": 0,
+              "feedback": "Only the sidetrip preserves every edge; the detour may replace edges between the same nodes."
+            },
+            {
+              "text": "Both preserve only the endpoints of q",
+              "fraction": 0,
+              "feedback": "Sidetrips keep all edges and detours keep all nodes in order; neither keeps only the endpoints."
+            }
+          ],
+          "generalFeedback": "A sidetrip keeps every edge of q in order and merely inserts excursions that return to the departure node; a detour is weaker, keeping only q's node sequence and allowing different edges between consecutive nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which subsumption claim is false",
+          "text": "<p>Which of the following subsumption claims is <strong>false</strong>?</p>",
+          "answers": [
+            {
+              "text": "Node Coverage subsumes Edge Coverage",
+              "fraction": 100,
+              "feedback": "Correct — this is false; NC is weaker than EC, so NC does not subsume EC."
+            },
+            {
+              "text": "Prime Path Coverage subsumes Edge-Pair Coverage",
+              "fraction": 0,
+              "feedback": "This is true: every edge-pair lies on a prime path."
+            },
+            {
+              "text": "Edge-Pair Coverage subsumes Edge Coverage",
+              "fraction": 0,
+              "feedback": "This is true: touring edge-pairs traverses each constituent edge."
+            },
+            {
+              "text": "Edge Coverage subsumes Node Coverage",
+              "fraction": 0,
+              "feedback": "This is true: traversing every edge visits every reachable node."
+            }
+          ],
+          "generalFeedback": "The hierarchy is PPC ⊒ EPC ⊒ EC ⊒ NC; subsumption points from stronger to weaker, so \"NC subsumes EC\" is the reversed, false claim.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Maximum PPC with an infeasible prime path",
+          "text": "<p>A CFG has exactly 5 prime paths, one of which is infeasible. Counting all 5 prime paths, what is the maximum Prime Path Coverage any test suite can achieve?</p>",
+          "answers": [
+            {
+              "text": "80% (4 of 5)",
+              "fraction": 100,
+              "feedback": "Correct — the infeasible prime path can never be toured, so at most 4/5 = 80%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "No input can tour the infeasible prime path, so literal 5/5 is impossible."
+            },
+            {
+              "text": "75% (3 of 4)",
+              "fraction": 0,
+              "feedback": "Coverage is measured over all 5 stated prime paths: 4/5 = 80%, not 3/4."
+            },
+            {
+              "text": "60% (3 of 5)",
+              "fraction": 0,
+              "feedback": "Only one prime path is infeasible, so up to 4 of 5 are tourable = 80%."
+            }
+          ],
+          "generalFeedback": "One infeasible prime path caps literal PPC at 4/5 = 80%; in practice coverage is reported over the feasible prime paths instead.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which path is not prime",
+          "text": "<p>For the while-loop CFG <code>1→2, 2→3, 3→2, 2→4</code>, which of the following simple paths is <strong>NOT</strong> a prime path?</p>",
+          "answers": [
+            {
+              "text": "2→3",
+              "fraction": 100,
+              "feedback": "Correct — 2→3 is a proper subpath of 1→2→3 (and of 2→3→2), so it is not maximal and not prime."
+            },
+            {
+              "text": "3→2→3",
+              "fraction": 0,
+              "feedback": "3→2→3 is a maximal simple round-trip path, so it is prime."
+            },
+            {
+              "text": "3→2→4",
+              "fraction": 0,
+              "feedback": "3→2→4 cannot be extended into a longer simple path, so it is prime."
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 is maximal (it cannot be extended without repeating node 2), so it is prime."
+            }
+          ],
+          "generalFeedback": "The prime paths are 1→2→3, 1→2→4, 3→2→4, 2→3→2, 3→2→3; the single edge 2→3 is a proper subpath of longer simple paths, so it is not prime.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "簡單路徑的定義",
+          "text": "<p>圖中的一條路徑在何時是<strong>簡單路徑（simple path）</strong>？</p>",
+          "answers": [
+            {
+              "text": "除了頭尾兩節點可以相同以外，沒有任何節點出現超過一次",
+              "fraction": 100,
+              "feedback": "正確——簡單路徑沒有內部重複，只有頭尾可以相同（形成來回）。"
+            },
+            {
+              "text": "它恰好造訪圖中每一個節點一次",
+              "fraction": 0,
+              "feedback": "那是漢彌爾頓路徑；簡單路徑不必碰到每個節點。"
+            },
+            {
+              "text": "它從進入點一路走到結束點",
+              "fraction": 0,
+              "feedback": "那是測試路徑／完整路徑；簡單路徑可以從任意處開始與結束。"
+            },
+            {
+              "text": "沒有任何邊被走過超過一次",
+              "fraction": 0,
+              "feedback": "簡單性是以節點定義的，不是以邊；簡單路徑禁止重複節點（頭尾除外）。"
+            }
+          ],
+          "generalFeedback": "簡單路徑不重複任何節點，唯一的例外是頭尾兩節點可以相同，這讓簡單路徑能形成一個迴圈（來回）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑的定義",
+          "text": "<p>一條<strong>質路徑（prime path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條不是任何其他簡單路徑之真子路徑的簡單路徑（即極大的簡單路徑）",
+              "fraction": 100,
+              "feedback": "正確——質路徑是無法再延伸成更長簡單路徑的簡單路徑。"
+            },
+            {
+              "text": "兩節點間的最短路徑",
+              "fraction": 0,
+              "feedback": "質路徑談的是簡單路徑的極大性，與最短距離無關。"
+            },
+            {
+              "text": "任何從進入點到結束點的路徑",
+              "fraction": 0,
+              "feedback": "那是完整／測試路徑；質路徑不必從進入點開始或在結束點結束。"
+            },
+            {
+              "text": "恰好造訪每個節點一次的路徑",
+              "fraction": 0,
+              "feedback": "那是漢彌爾頓路徑；質路徑不必造訪每個節點。"
+            }
+          ],
+          "generalFeedback": "質路徑是極大的簡單路徑：它是簡單路徑，且沒有更長的簡單路徑能把它當作連續子路徑包含進去。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對的定義",
+          "text": "<p>一個<strong>邊對（edge-pair）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條長度為 2 的路徑——兩條共用中間節點 v 的相鄰邊 u→v→w",
+              "fraction": 100,
+              "feedback": "正確——邊對是由兩條相鄰邊構成的長度為 2 的路徑。"
+            },
+            {
+              "text": "圖中任意兩條邊，不論是否相鄰",
+              "fraction": 0,
+              "feedback": "邊對要求兩邊相鄰（共用中間節點），構成長度為 2 的路徑。"
+            },
+            {
+              "text": "一條邊與其反向邊",
+              "fraction": 0,
+              "feedback": "方向不會反轉；邊對是兩條連續的同向邊。"
+            },
+            {
+              "text": "由一條邊相連的一對節點",
+              "fraction": 0,
+              "feedback": "那只是一條邊；邊對是兩條相鄰邊（長度為 2 的路徑）。"
+            }
+          ],
+          "generalFeedback": "邊對是長度為 2 的路徑：邊 u→v 與 v→w 透過共用的中間節點 v 串接。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整路徑的定義",
+          "text": "<p>在控制流程圖中，一條<strong>完整路徑（complete path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條從進入節點開始、在結束節點結束的路徑",
+              "fraction": 100,
+              "feedback": "正確——完整路徑從進入點一路走到結束點。"
+            },
+            {
+              "text": "一條無法再延伸的簡單路徑",
+              "fraction": 0,
+              "feedback": "那是質路徑；完整路徑以進入／結束端點定義，且可以重複節點。"
+            },
+            {
+              "text": "一條走過圖中每條邊的路徑",
+              "fraction": 0,
+              "feedback": "走過每條邊是邊覆蓋；完整路徑只是從進入點到結束點。"
+            },
+            {
+              "text": "任何長度為 2 的路徑",
+              "fraction": 0,
+              "feedback": "那是邊對，不是完整路徑。"
+            }
+          ],
+          "generalFeedback": "完整路徑從進入節點走到結束節點；每次程式執行都遵循一條完整路徑，且可能重複節點（例如迴圈迭代）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試路徑的定義",
+          "text": "<p>在以圖為基礎的測試中，一條<strong>測試路徑（test path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條從進入節點開始、在結束節點結束的路徑——代表一次完整執行",
+              "fraction": 100,
+              "feedback": "正確——測試路徑代表程式從進入到結束的一次執行。"
+            },
+            {
+              "text": "一條極大的簡單路徑",
+              "fraction": 0,
+              "feedback": "那是質路徑；測試路徑可以重複節點，且必須從進入走到結束。"
+            },
+            {
+              "text": "圖中的任一條單一邊",
+              "fraction": 0,
+              "feedback": "單一邊是長度為 1 的路徑，不一定是完整的進入到結束執行。"
+            },
+            {
+              "text": "一條永不重複任何節點的路徑",
+              "fraction": 0,
+              "feedback": "測試路徑可以重複節點（迴圈）；只有簡單路徑禁止內部重複。"
+            }
+          ],
+          "generalFeedback": "測試路徑從進入節點走到結束節點；一個測試案例恰好執行一條測試路徑，它可以走過迴圈並重複節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "來回路徑的定義",
+          "text": "<p>一條<strong>來回路徑（round-trip path）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一條長度非零、頭尾為同一節點的質路徑",
+              "fraction": 100,
+              "feedback": "正確——來回路徑是一條開始與結束在同一節點的質路徑。"
+            },
+            {
+              "text": "任何從進入點到結束點再折返的路徑",
+              "fraction": 0,
+              "feedback": "來回路徑是極大的簡單迴圈（質路徑），不是完整的進入-結束-進入執行。"
+            },
+            {
+              "text": "雙向走過每一條邊的路徑",
+              "fraction": 0,
+              "feedback": "來回指的是回到起始節點，而非反向走邊。"
+            },
+            {
+              "text": "一條長度為 2 的路徑",
+              "fraction": 0,
+              "feedback": "那是邊對；來回路徑是頭尾相同的質路徑。"
+            }
+          ],
+          "generalFeedback": "來回路徑是一條頭尾節點相同的質路徑（極大的簡單路徑），也就是一個無法再延伸的簡單迴圈。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑覆蓋的定義",
+          "text": "<p><strong>質路徑覆蓋（Prime Path Coverage, PPC）</strong>在何時被滿足？</p>",
+          "answers": [
+            {
+              "text": "圖中每一條質路徑都被至少一條測試路徑巡覽（tour）",
+              "fraction": 100,
+              "feedback": "正確——PPC 要求每條質路徑都被巡覽。"
+            },
+            {
+              "text": "圖中每一條邊都被走過",
+              "fraction": 0,
+              "feedback": "那是邊覆蓋；PPC 涵蓋它，但邊覆蓋比 PPC 弱。"
+            },
+            {
+              "text": "每一條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是完整路徑覆蓋，更強且通常不可行。"
+            },
+            {
+              "text": "每一個節點都被造訪",
+              "fraction": 0,
+              "feedback": "那是節點覆蓋，是這些準則中最弱的。"
+            }
+          ],
+          "generalFeedback": "質路徑覆蓋對每條質路徑課予一項測試需求：每條質路徑都必須被某條測試路徑巡覽。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對覆蓋的定義",
+          "text": "<p><strong>邊對覆蓋（Edge-Pair Coverage, EPC）</strong>在測試路徑巡覽下列何者時被滿足？</p>",
+          "answers": [
+            {
+              "text": "每一條長度至多為 2 的可到達路徑（每個邊對，加上無法再延伸的邊／節點）",
+              "fraction": 100,
+              "feedback": "正確——EPC 要求每條長度 ≤ 2 的可到達路徑。"
+            },
+            {
+              "text": "每一條可到達的邊，僅此而已",
+              "fraction": 0,
+              "feedback": "那是邊覆蓋；EPC 另外要求相鄰的邊對。"
+            },
+            {
+              "text": "圖中每一條質路徑",
+              "fraction": 0,
+              "feedback": "那是質路徑覆蓋，比 EPC 更強。"
+            },
+            {
+              "text": "每一條從進入到結束的完整路徑",
+              "fraction": 0,
+              "feedback": "那是完整路徑覆蓋，遠更強且通常不可行。"
+            }
+          ],
+          "generalFeedback": "邊對覆蓋要求每一條長度 ≤ 2 的可到達路徑；長度為 2 的路徑就是邊對，較短的路徑則用於納入無法延伸的元素。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整路徑覆蓋的定義",
+          "text": "<p><strong>完整路徑覆蓋（Complete Path Coverage, CPC）</strong>在何時被滿足？</p>",
+          "answers": [
+            {
+              "text": "每一條完整路徑（從進入節點到結束節點）都被某條測試路徑執行",
+              "fraction": 100,
+              "feedback": "正確——CPC 要求所有完整路徑，這正是迴圈通常使其不可行的原因。"
+            },
+            {
+              "text": "每一條質路徑都被巡覽",
+              "fraction": 0,
+              "feedback": "那是質路徑覆蓋，比 CPC 弱。"
+            },
+            {
+              "text": "每一個邊對都被巡覽",
+              "fraction": 0,
+              "feedback": "那是邊對覆蓋，比 CPC 弱得多。"
+            },
+            {
+              "text": "每一個節點都至少被造訪一次",
+              "fraction": 0,
+              "feedback": "那是節點覆蓋，是這裡最弱的準則。"
+            }
+          ],
+          "generalFeedback": "完整路徑覆蓋要求巡覽每一條完整路徑；有迴圈時完整路徑有無限多條，因此 CPC 通常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在菱形圖中辨識質路徑",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4</code>（節點 1 為進入，節點 4 為結束）。下列何者是一條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "1→2→4",
+              "fraction": 100,
+              "feedback": "正確——1→2→4 是一條極大的簡單路徑，兩端都無法再延伸。"
+            },
+            {
+              "text": "2→4",
+              "fraction": 0,
+              "feedback": "2→4 是 1→2→4 的真子路徑，並非極大，因此不是質路徑。"
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "1→2 是 1→2→4 的真子路徑，因此不是質路徑。"
+            },
+            {
+              "text": "1→3→2",
+              "fraction": 0,
+              "feedback": "並不存在邊 3→2，因此這根本不是一條合法路徑。"
+            }
+          ],
+          "generalFeedback": "此菱形的質路徑為 1→2→4 與 1→3→4，各是一條極大的簡單路徑；而 2→4 與 1→2 是真子路徑，1→3→2 則根本不是路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算三角形圖的邊對數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 1→3</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有 1→2→3 能串接兩條相鄰邊；1→3 與 2→3 沒有後續。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有一條長度為 2 的路徑（1→2→3）；節點 3 沒有外向邊可延續。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是邊數；邊對計算相鄰邊的串接，這裡只有一個。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "1→2 接著 2→3 形成邊對 1→2→3，所以數量是 1 而非 0。"
+            }
+          ],
+          "generalFeedback": "對每條邊 u→v 尋找邊 v→w：只有 1→2（v=2）能經由 2→3 延續，得到唯一的邊對 1→2→3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算菱形圖的邊對數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→4 與 1→3→4 是僅有的兩條長度為 2 的串接。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊數；相鄰邊串接只有兩條（1→2→4、1→3→4）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重新數算——串接為 1→2→4 與 1→3→4，共兩條。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1→2→4 與 1→3→4 都是邊對，所以數量為二。"
+            }
+          ],
+          "generalFeedback": "邊對：1→2 經由 2→4 延續（1→2→4），1→3 經由 3→4 延續（1→3→4）；進入節點 4 的邊沒有後續，因此總數為 2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊對的長度",
+          "text": "<p>一個<strong>邊對</strong>（長度為 2 的路徑）包含多少條邊、造訪多少個節點？</p>",
+          "answers": [
+            {
+              "text": "2 條邊、3 個節點（u、v、w）",
+              "fraction": 100,
+              "feedback": "正確——兩條連續邊 u→v 與 v→w 橫跨三個節點。"
+            },
+            {
+              "text": "1 條邊、2 個節點",
+              "fraction": 0,
+              "feedback": "那是單一邊（長度 1），不是邊對。"
+            },
+            {
+              "text": "2 條邊、2 個節點",
+              "fraction": 0,
+              "feedback": "兩條相異的連續邊橫跨三個節點，不是兩個。"
+            },
+            {
+              "text": "3 條邊、4 個節點",
+              "fraction": 0,
+              "feedback": "那是長度為 3 的路徑；邊對的長度為 2。"
+            }
+          ],
+          "generalFeedback": "路徑長度以邊計算：長度為 2 的路徑有 2 條邊（u→v、v→w），因此造訪 3 個節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個序列是簡單路徑",
+          "text": "<p>先不論邊是否存在，下列哪一個節點序列是<strong>簡單路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "1→2→3→4",
+              "fraction": 100,
+              "feedback": "正確——四個節點皆相異，因此是簡單路徑。"
+            },
+            {
+              "text": "1→2→3→2",
+              "fraction": 0,
+              "feedback": "節點 2 重複出現在內部位置（並非頭=尾），因此不是簡單路徑。"
+            },
+            {
+              "text": "1→2→2→3",
+              "fraction": 0,
+              "feedback": "節點 2 在中間連續重複，因此不是簡單路徑。"
+            },
+            {
+              "text": "2→3→4→3",
+              "fraction": 0,
+              "feedback": "節點 3 於內部重複（第 2 與第 4 位置），因此不是簡單路徑。"
+            }
+          ],
+          "generalFeedback": "簡單路徑禁止任何重複節點，唯一例外是頭=尾可以相同；1→2→3→4 節點全異，其餘皆有節點於內部重複。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "有迴圈時 CPC 不可行（簡單）",
+          "text": "<p>當受測程式含有迴圈時，完整路徑覆蓋通常是<strong>不可行的</strong>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——迴圈會產生無限多條完整路徑（每種迭代次數一條），因此 CPC 通常無法達成。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "迴圈讓完整路徑的數目無上限地成長，因此巡覽全部並不可行。"
+            }
+          ],
+          "generalFeedback": "每多一次迴圈迭代就是一條相異的完整路徑，因此迴圈會產生無限多條完整路徑，使 CPC 不可行。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算質路徑數（兩個判斷）",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code>（節點 1 為進入；節點 5 與 6 為結束）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——1→2→4→5、1→2→4→6、1→3→4→5、1→3→4→6。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只算了第一個判斷；節點 4 的第二個判斷讓極大路徑加倍為四條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是邊數；極大的簡單路徑共有四條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重新數算——節點 1（走 2 或 3）與節點 4（走 5 或 6）的選擇組合為 2×2 = 4 條質路徑。"
+            }
+          ],
+          "generalFeedback": "此圖無迴圈，於節點 1 與節點 4 各有一個分支，得到四條極大簡單路徑：1→2→4→5、1→2→4→6、1→3→4→5、1→3→4→6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算邊對數（兩個判斷）",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 1→3, 2→4, 3→4, 4→5, 4→6</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1→2→4、1→3→4、2→4→5、2→4→6、3→4→5、3→4→6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是質路徑數；相鄰邊串接共有六個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重新數算——節點 4 有兩條外向邊，因此每條進入 4 的邊都能延續兩種方式，共六個串接。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "重新數算——1→2→4、1→3→4、2→4→5、2→4→6、3→4→5、3→4→6 共六個，不是八個。"
+            }
+          ],
+          "generalFeedback": "對每條邊 u→v 數算邊 v→w：進入 4 的邊（2→4、3→4）各可經 4→5 與 4→6 延續（四個串接），而 1→2、1→3 延續進入 4（兩個串接）——共 6 個邊對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC 與 EC 的強弱",
+          "text": "<p><strong>邊對覆蓋（EPC）</strong>與<strong>邊覆蓋（EC）</strong>在強弱上如何比較？</p>",
+          "answers": [
+            {
+              "text": "EPC 嚴格較強：EPC 涵蓋 EC，但反之不成立",
+              "fraction": 100,
+              "feedback": "正確——每個邊對都包含其組成邊，故 EPC ⇒ EC，且覆蓋邊對是更嚴格的要求。"
+            },
+            {
+              "text": "EC 比 EPC 強",
+              "fraction": 0,
+              "feedback": "反了——EPC（相鄰邊對）才是較強的準則。"
+            },
+            {
+              "text": "在每個圖上兩者等價",
+              "fraction": 0,
+              "feedback": "它們不同：覆蓋所有邊未必覆蓋所有相鄰邊的組合。"
+            },
+            {
+              "text": "兩者不可比較",
+              "fraction": 0,
+              "feedback": "它們可比較：EPC 涵蓋 EC。"
+            }
+          ],
+          "generalFeedback": "巡覽每個邊對就會走過其組成的每條邊，故 EPC 涵蓋 EC；反向不成立，因為覆蓋邊並不強制在分支／匯合處走過每一種相鄰配對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋順序",
+          "text": "<p>下列哪一條鏈由<strong>最強到最弱</strong>列出這些結構準則（⊒ 表示「涵蓋」）？</p>",
+          "answers": [
+            {
+              "text": "PPC ⊒ EPC ⊒ EC ⊒ NC",
+              "fraction": 100,
+              "feedback": "正確——質路徑 ⊒ 邊對 ⊒ 邊 ⊒ 節點。"
+            },
+            {
+              "text": "NC ⊒ EC ⊒ EPC ⊒ PPC",
+              "fraction": 0,
+              "feedback": "這是反過來的；節點覆蓋是最弱而非最強。"
+            },
+            {
+              "text": "EPC ⊒ PPC ⊒ EC ⊒ NC",
+              "fraction": 0,
+              "feedback": "PPC 比 EPC 強，故 PPC 必須排在最前。"
+            },
+            {
+              "text": "PPC ⊒ EC ⊒ EPC ⊒ NC",
+              "fraction": 0,
+              "feedback": "EPC 介於 PPC 與 EC 之間，不在 EC 之下。"
+            }
+          ],
+          "generalFeedback": "結構層級為 PPC ⊒ EPC ⊒ EC ⊒ NC；每個準則涵蓋其右側者，而 CPC 位於 PPC 之上但通常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "側行（sidetrip）的定義",
+          "text": "<p>一條測試路徑在何時以<em><strong>側行（sidetrip）</strong></em>巡覽一條質路徑？</p>",
+          "answers": [
+            {
+              "text": "它依序走過質路徑的每一條邊，但允許離開某節點後再回到同一節點的岔出",
+              "fraction": 100,
+              "feedback": "正確——側行保留質路徑的所有邊，並回到當初離開的節點。"
+            },
+            {
+              "text": "它依序造訪質路徑的每個節點，但相鄰節點間可走不同的邊",
+              "fraction": 0,
+              "feedback": "那是繞道，放寬了邊；側行保留質路徑的所有邊。"
+            },
+            {
+              "text": "它完全不加任何額外邊地巡覽質路徑",
+              "fraction": 0,
+              "feedback": "那是直接巡覽；側行會加入一段岔出。"
+            },
+            {
+              "text": "它完全略過質路徑的一部分",
+              "fraction": 0,
+              "feedback": "側行絕不略過質路徑的邊；它加入一段折返的岔出。"
+            }
+          ],
+          "generalFeedback": "以側行巡覽會依序保留質路徑的每條邊，並允許一段離開又回到同一節點的岔出，然後再繼續。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "繞道（detour）的定義",
+          "text": "<p>一條測試路徑在何時以<em><strong>繞道（detour）</strong></em>巡覽一條質路徑？</p>",
+          "answers": [
+            {
+              "text": "它依相同順序造訪質路徑的每個節點，但可經由不同的邊到達下一個節點",
+              "fraction": 100,
+              "feedback": "正確——繞道保留節點序列但放寬所使用的邊。"
+            },
+            {
+              "text": "它依序走過質路徑的每條邊，並有回到同一節點的岔出",
+              "fraction": 0,
+              "feedback": "那是側行，保留所有邊；繞道只保留節點。"
+            },
+            {
+              "text": "它把質路徑倒著走",
+              "fraction": 0,
+              "feedback": "繞道保留順序；它不會反向。"
+            },
+            {
+              "text": "它逐邊完全一致地巡覽質路徑",
+              "fraction": 0,
+              "feedback": "那是直接巡覽；繞道可在相同節點之間換用不同的邊。"
+            }
+          ],
+          "generalFeedback": "繞道依序保留質路徑的節點序列，但可在相鄰節點之間走不同路線，因此比側行更弱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "直接巡覽",
+          "text": "<p>一條測試路徑在何時（直接）<strong>巡覽</strong>一條質路徑？</p>",
+          "answers": [
+            {
+              "text": "該質路徑以連續子路徑的形式出現在測試路徑中",
+              "fraction": 100,
+              "feedback": "正確——直接巡覽會逐邊、依序完整包含該質路徑。"
+            },
+            {
+              "text": "測試路徑與質路徑至少共用一條邊",
+              "fraction": 0,
+              "feedback": "共用一條邊不夠；整條質路徑必須連續出現。"
+            },
+            {
+              "text": "測試路徑造訪質路徑的兩端點",
+              "fraction": 0,
+              "feedback": "只碰端點不足；整條質路徑必須是子路徑。"
+            },
+            {
+              "text": "測試路徑與質路徑等長",
+              "fraction": 0,
+              "feedback": "長度是否相等無關；巡覽要求質路徑是連續子路徑。"
+            }
+          ],
+          "generalFeedback": "當質路徑是測試路徑的連續子路徑時，測試路徑就直接巡覽該質路徑；側行與繞道是在無法直接巡覽時使用的放寬形式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 CPC 通常不可行",
+          "text": "<p>為何<strong>完整路徑覆蓋</strong>在實務上通常不可行？</p>",
+          "answers": [
+            {
+              "text": "迴圈會產生無限多條完整路徑（每種迭代次數一條），無法全部巡覽",
+              "fraction": 100,
+              "feedback": "正確——無上限的迭代使完整路徑的集合為無限。"
+            },
+            {
+              "text": "完整路徑很難畫在圖上",
+              "fraction": 0,
+              "feedback": "障礙在於迴圈下數目無限，而非繪圖困難。"
+            },
+            {
+              "text": "完整路徑與程式行為無關",
+              "fraction": 0,
+              "feedback": "完整路徑模擬整次執行；問題在於迴圈使其無限。"
+            },
+            {
+              "text": "沒有演算法能找到任何一條完整路徑",
+              "fraction": 0,
+              "feedback": "找出完整路徑並不難；當迴圈允許無上限迭代時，是「列舉全部」才會失敗。"
+            }
+          ],
+          "generalFeedback": "有迴圈時每種迭代次數都產生一條相異的完整路徑，因此 CPC 需要無限多條測試路徑——故通常不可行，實務上以 PPC 作為可行的最強準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算三角形圖的質路徑數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 1→3</code>（節點 1 為進入，節點 3 為結束）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→3 與 1→3 都是極大的簡單路徑。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1→2→3 與 1→3 皆為質路徑；邊 1→3 不是 1→2→3 的子路徑。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是邊數；簡單路徑中只有兩條是極大的。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新數算——極大的簡單路徑就只有 1→2→3 與 1→3。"
+            }
+          ],
+          "generalFeedback": "1→2→3 無法再延伸，而 1→3 並不包含於 1→2→3（後者缺少邊 1→3），故兩者皆為質路徑；數量為 2。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "質路徑不必是測試路徑",
+          "text": "<p>質路徑不必從進入節點開始或在結束節點結束；因此質路徑本身不一定是一條測試路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——質路徑是圖中任處的極大簡單路徑；它必須被某測試路徑巡覽，但本身不必是進入到結束的執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "質路徑可以起訖於內部節點（例如來回迴圈），因此不一定是測試路徑。"
+            }
+          ],
+          "generalFeedback": "質路徑由簡單路徑的極大性定義，而非由進入／結束端點定義；PPC 要求每條質路徑都被某條測試路徑巡覽，而測試路徑才是進入到結束的執行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 EPC 採用「長度至多 2」",
+          "text": "<p>邊對覆蓋定義在長度<em>至多</em> 2 的路徑，而非恰好 2。為何要納入較短的路徑？</p>",
+          "answers": [
+            {
+              "text": "如此，無法延伸成長度為 2 之路徑的邊（與節點）仍會被要求，使 EPC ⊒ EC ⊒ NC 成立",
+              "fraction": 100,
+              "feedback": "正確——「≤ 2」的措辭保證 EPC 在圖的細小或終端部位仍涵蓋邊覆蓋與節點覆蓋。"
+            },
+            {
+              "text": "因為大多數圖裡不存在長度為 2 的路徑",
+              "fraction": 0,
+              "feedback": "長度為 2 的路徑很常見；納入較短路徑是為了邊界情況，而非因為邊對稀少。"
+            },
+            {
+              "text": "為了讓 EPC 等價於質路徑覆蓋",
+              "fraction": 0,
+              "feedback": "EPC 仍比 PPC 弱；「≤ 2」的措辭是為了涵蓋 EC／NC，而非等同 PPC。"
+            },
+            {
+              "text": "為了允許重複節點的路徑",
+              "fraction": 0,
+              "feedback": "理由是要覆蓋無法延伸的邊／節點，而非重複節點。"
+            }
+          ],
+          "generalFeedback": "若某節點／邊無法置於任何長度為 2 的路徑中（例如通往結束節點的終端邊），只要求恰好長度 2 的路徑會使其未被覆蓋；「長度 ≤ 2」的措辭加入較短需求，讓 EPC 仍涵蓋 EC 與 NC。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PPC 涵蓋 EPC",
+          "text": "<p><strong>質路徑覆蓋涵蓋邊對覆蓋</strong>：任何滿足 PPC 的測試集也會滿足 EPC。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每一條長度 ≤ 2 的可到達路徑都是某條質路徑的子路徑，故巡覽所有質路徑就覆蓋所有邊對。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個邊對都位於某條質路徑上，故滿足 PPC 必然滿足 EPC。"
+            }
+          ],
+          "generalFeedback": "任一邊對是長度為 2 的簡單路徑，因而是某條極大簡單路徑（質路徑）的子路徑；巡覽每條質路徑即巡覽每個邊對，故 PPC ⊒ EPC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識一條來回質路徑",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 3→2, 2→4</code>（節點 1 為進入，節點 4 為結束）。下列哪一條質路徑是<strong>來回</strong>路徑（頭節點 = 尾節點）？</p>",
+          "answers": [
+            {
+              "text": "2→3→2",
+              "fraction": 100,
+              "feedback": "正確——2→3→2 是一條頭尾節點相同的極大簡單路徑。"
+            },
+            {
+              "text": "1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 是質路徑，但起於 1、終於 4，故不是來回路徑。"
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 是質路徑，但不是來回（1 ≠ 3）。"
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "2→3 是 2→3→2 的真子路徑，因此連質路徑都不是，更談不上來回。"
+            }
+          ],
+          "generalFeedback": "迴圈 2↔3 給出來回質路徑 2→3→2（以及 3→2→3）；來回質路徑起訖於同一節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算含跳過邊的邊對數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→3, 3→4, 2→4</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w）？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、2→3→4。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊數；相鄰邊串接只有三個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "重新數算——節點 2 有兩條外向邊，故 1→2 延續兩種方式（1→2→3、1→2→4），再加 2→3→4。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重新數算——1→2→3、1→2→4、2→3→4 共三個；進入節點 4 的邊沒有後續。"
+            }
+          ],
+          "generalFeedback": "1→2 經由 2→3 與 2→4 延續（兩個串接），2→3 經由 3→4 延續（一個串接）；進入節點 4 的邊無法延續，故共 3 個邊對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋（subsumption）的意涵",
+          "text": "<p>準則 C1 <strong>涵蓋（subsumes）</strong> 準則 C2 是指：</p>",
+          "answers": [
+            {
+              "text": "任何滿足 C1 的測試集必定也滿足 C2",
+              "fraction": 100,
+              "feedback": "正確——涵蓋就是準則間這種普遍性的蘊涵。"
+            },
+            {
+              "text": "C1 與 C2 永遠要求相同的測試路徑",
+              "fraction": 0,
+              "feedback": "那是等價；涵蓋是單向的保證。"
+            },
+            {
+              "text": "在每個圖上 C1 所需的測試路徑都比 C2 少",
+              "fraction": 0,
+              "feedback": "涵蓋談的是滿足的蘊涵關係，而非測試路徑數目的多寡。"
+            },
+            {
+              "text": "某個滿足 C1 的測試集恰好也滿足 C2",
+              "fraction": 0,
+              "feedback": "涵蓋必須對每一個滿足的測試集成立，而非僅對某一個。"
+            }
+          ],
+          "generalFeedback": "C1 涵蓋 C2 當且僅當任何達成 C1 的測試集必然達成 C2；例如 PPC 涵蓋 EPC，因為巡覽所有質路徑就巡覽了所有邊對。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "計算含迴圈的質路徑數",
+          "text": "<p>某 while 迴圈的 CFG 邊為 <code>1→2, 2→3, 3→2, 2→4</code>（節點 1 為進入，節點 2 為迴圈條件，節點 3 為迴圈本體，節點 4 為結束）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、3→2→4，以及兩條來回質路徑 2→3→2 與 3→2→3。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "常見的漏算：迴圈 2↔3 產生「兩條」來回質路徑（2→3→2 與 3→2→3），而非一條，總計五條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重新數算——除了 1→2→3、1→2→4、3→2→4，還有 2→3→2 與 3→2→3，故為五條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "恰有五條極大簡單路徑；2→3 與 3→2 本身只是子路徑，不是質路徑。"
+            }
+          ],
+          "generalFeedback": "極大簡單路徑為：1→2→3、1→2→4、3→2→4，以及迴圈 2↔3 的兩條來回路徑 2→3→2 與 3→2→3——共五條質路徑。將一個環從各個起始節點展開，會得到相異的來回質路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "該迴圈的來回質路徑",
+          "text": "<p>對於 CFG <code>1→2, 2→3, 3→2, 2→4</code>，哪些是它的<strong>來回</strong>質路徑（頭節點 = 尾節點）？</p>",
+          "answers": [
+            {
+              "text": "2→3→2 與 3→2→3",
+              "fraction": 100,
+              "feedback": "正確——環 2↔3 每個起始節點各給出一條來回質路徑。"
+            },
+            {
+              "text": "只有 2→3→2",
+              "fraction": 0,
+              "feedback": "3→2→3 也是頭尾相同的極大簡單路徑，故共兩條。"
+            },
+            {
+              "text": "2→3→2 與 1→2→4",
+              "fraction": 0,
+              "feedback": "1→2→4 是質路徑但不是來回（1 ≠ 4）；第二條來回是 3→2→3。"
+            },
+            {
+              "text": "沒有任何來回質路徑",
+              "fraction": 0,
+              "feedback": "迴圈 2↔3 確實產生來回質路徑：2→3→2 與 3→2→3。"
+            }
+          ],
+          "generalFeedback": "把簡單環 2↔3 從它的各個節點作為起點寫出，得到兩條相異的來回質路徑：2→3→2 與 3→2→3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算含自迴圈的質路徑數",
+          "text": "<p>某 CFG 的邊為 <code>1→2, 2→2, 2→3</code>（節點 1 為進入，節點 3 為結束；2→2 為自迴圈）。它有多少條<strong>質路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→3 與自迴圈來回 2→2。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "自迴圈 2→2 本身就是一條極大簡單（來回）路徑，加上 1→2→3 共兩條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "1→2 與 2→3 是 1→2→3 的真子路徑，故非質路徑；數量為二。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新數算——極大簡單路徑只有 1→2→3 與 2→2。"
+            }
+          ],
+          "generalFeedback": "自迴圈 2→2 頭尾皆為 2 且無內部重複，故是一條來回質路徑；加上極大的 1→2→3，共兩條質路徑。自迴圈只能展開成它自己，因此僅貢獻一條來回質路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的質路徑",
+          "text": "<p>當沒有任何輸入能驅動執行沿某條質路徑前進時，該質路徑<strong>不可行（infeasible）</strong>。這對質路徑覆蓋的正確結論為何？</p>",
+          "answers": [
+            {
+              "text": "字面上的 100% PPC 無法達成；覆蓋率改以可行的質路徑來衡量",
+              "fraction": 100,
+              "feedback": "正確——不可行的需求被排除，使度量仍有意義。"
+            },
+            {
+              "text": "整個 PPC 準則因此失去意義而被放棄",
+              "fraction": 0,
+              "feedback": "準則會保留；只是不可行的那條質路徑被排除於目標之外。"
+            },
+            {
+              "text": "只要再努力，100% PPC 仍可達成",
+              "fraction": 0,
+              "feedback": "沒有輸入能巡覽不可行的質路徑，故字面上的完整覆蓋不可能。"
+            },
+            {
+              "text": "該質路徑會被自動從圖中移除",
+              "fraction": 0,
+              "feedback": "圖不會被更動；該需求只是被回報為不可行。"
+            }
+          ],
+          "generalFeedback": "由於沒有測試能巡覽不可行的質路徑，工具改以可行的質路徑來回報 PPC，而非要求不可能的 100%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "盡力巡覽",
+          "text": "<p>某條質路徑無法被任何測試路徑<em>直接</em>巡覽，但若允許<strong>側行</strong>或<strong>繞道</strong>則可被巡覽。標準的盡力（best-effort）做法為何？</p>",
+          "answers": [
+            {
+              "text": "允許以側行（或繞道）巡覽該質路徑，而非放棄該需求",
+              "fraction": 100,
+              "feedback": "正確——允許側行／繞道可挽回那些沒有直接巡覽能到達的質路徑覆蓋。"
+            },
+            {
+              "text": "立刻宣告該質路徑不可行並忽略它",
+              "fraction": 0,
+              "feedback": "能以側行巡覽的質路徑是可行的；盡力做法會以側行巡覽它，而非丟棄。"
+            },
+            {
+              "text": "將該質路徑從需求集中刪除且不作替代",
+              "fraction": 0,
+              "feedback": "盡力做法會保留需求，並以放寬的巡覽滿足它。"
+            },
+            {
+              "text": "仍堅持直接巡覽，讓需求維持未滿足",
+              "fraction": 0,
+              "feedback": "若不存在直接巡覽，硬要求直接只會讓質路徑未被覆蓋；側行／繞道才是解方。"
+            }
+          ],
+          "generalFeedback": "當某條質路徑沒有直接巡覽時，盡力巡覽允許以側行（保留所有邊、加折返岔出）或繞道（依序保留節點）來滿足需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 CPC 不可行而 PPC 可行",
+          "text": "<p>在含迴圈的 CFG 上，為何完整路徑覆蓋不可行，而質路徑覆蓋仍可達成？</p>",
+          "answers": [
+            {
+              "text": "完整路徑數目無上限（每種迭代次數一條），但質路徑是簡單路徑，因此只有有限多條",
+              "fraction": 100,
+              "feedback": "正確——簡單性限制了質路徑數；完整路徑在迴圈下無上限。"
+            },
+            {
+              "text": "質路徑完全忽略迴圈",
+              "fraction": 0,
+              "feedback": "質路徑包含迴圈的來回；它們只是因為是簡單路徑而有限。"
+            },
+            {
+              "text": "有迴圈時完整路徑不存在",
+              "fraction": 0,
+              "feedback": "完整路徑確實存在；問題在於有無限多條。"
+            },
+            {
+              "text": "質路徑覆蓋不需要巡覽迴圈",
+              "fraction": 0,
+              "feedback": "PPC 的確要求巡覽迴圈的來回質路徑；它因質路徑是簡單路徑而維持有限。"
+            }
+          ],
+          "generalFeedback": "迴圈讓完整路徑可迭代任意次數，產生無限多條完整路徑（CPC 不可行）；質路徑是簡單路徑，長度受節點數上限限制，數量有限（PPC 可達成）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑 vs 漢彌爾頓路徑",
+          "text": "<p><strong>質路徑</strong>與<strong>漢彌爾頓路徑（Hamiltonian path）</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "質路徑是極大簡單路徑，不必造訪每個節點；漢彌爾頓路徑必須恰好造訪每個節點一次",
+              "fraction": 100,
+              "feedback": "正確——在簡單路徑中的極大性並不強制造訪所有節點。"
+            },
+            {
+              "text": "兩者是同一回事",
+              "fraction": 0,
+              "feedback": "它們不同：質路徑可略過節點，而漢彌爾頓路徑必須全部包含。"
+            },
+            {
+              "text": "質路徑必須造訪每個節點，漢彌爾頓路徑則不必",
+              "fraction": 0,
+              "feedback": "反了——必須造訪每個節點的是漢彌爾頓路徑。"
+            },
+            {
+              "text": "質路徑必須從進入節點開始；漢彌爾頓路徑則不可",
+              "fraction": 0,
+              "feedback": "兩者皆非以進入節點定義；差別在於是否造訪所有節點。"
+            }
+          ],
+          "generalFeedback": "質路徑只是極大的簡單路徑，可略過節點；漢彌爾頓路徑是更嚴格的全域概念，要求每個節點恰好被造訪一次。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "質路徑 vs 完整路徑",
+          "text": "<p>下列哪一項正確區分<strong>質路徑</strong>與<strong>完整路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "完整路徑從進入走到結束且可重複節點；質路徑是極大簡單路徑，可起訖於內部節點",
+              "fraction": 100,
+              "feedback": "正確——完整路徑以端點定義並允許重複；質路徑是簡單且極大的。"
+            },
+            {
+              "text": "兩者都必須從進入節點走到結束節點",
+              "fraction": 0,
+              "feedback": "只有完整路徑必須；質路徑可起訖於內部（例如來回）。"
+            },
+            {
+              "text": "兩者都禁止任何重複節點",
+              "fraction": 0,
+              "feedback": "完整路徑可重複節點（迴圈）；只有質路徑／簡單路徑禁止內部重複。"
+            },
+            {
+              "text": "質路徑永遠比任何完整路徑長",
+              "fraction": 0,
+              "feedback": "完整路徑可以任意長（迴圈）；質路徑則受節點數上限限制。"
+            }
+          ],
+          "generalFeedback": "完整路徑是任何進入到結束的執行，可經由迴圈重複節點；質路徑是圖中任處的極大簡單路徑，禁止內部重複。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算含迴圈的邊對數",
+          "text": "<p>某 while 迴圈的 CFG 邊為 <code>1→2, 2→3, 3→2, 2→4</code>。它有多少個<strong>邊對</strong>（長度為 2 的路徑 u→v→w，允許回邊）？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1→2→3、1→2→4、2→3→2、3→2→3、3→2→4。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新數算——回邊 3→2 既能延續（3→2→3、3→2→4）也被延續進入（2→3→2），共五個串接。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重新數算——1→2→3、1→2→4、2→3→2、3→2→3、3→2→4 共五個；進入節點 4 的邊無法延續。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "迴圈透過回邊增添邊對（2→3→2、3→2→3、3→2→4），使總數提升到五。"
+            }
+          ],
+          "generalFeedback": "對每條邊 u→v 找邊 v→w：1→2 給出 1→2→3 與 1→2→4；2→3 給出 2→3→2；3→2 給出 3→2→3 與 3→2→4；2→4 無法延續。總計 = 5 個邊對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EPC 涵蓋的邊界情況",
+          "text": "<p>考慮某 CFG，在某處之後可到達的唯一結構是一個沒有外向邊的結束節點，因此沒有任何長度為 2 的路徑通過它。此時邊對覆蓋「長度 ≤ 2」的定義為何重要？</p>",
+          "answers": [
+            {
+              "text": "較短（長度 ≤ 1）的需求確保進入的邊與該結束節點仍被覆蓋，使 EPC 仍涵蓋 EC 與 NC",
+              "fraction": 100,
+              "feedback": "正確——若無「≤ 2」條款，沒有邊對通過的元素可能被漏掉，破壞涵蓋關係。"
+            },
+            {
+              "text": "它讓 EPC 完全忽略該結束節點",
+              "fraction": 0,
+              "feedback": "恰好相反——該條款保證結束節點仍是一項需求。"
+            },
+            {
+              "text": "它讓 EPC 在此處等價於質路徑覆蓋",
+              "fraction": 0,
+              "feedback": "EPC 仍比 PPC 弱；該條款是為了保住對 EC／NC 的涵蓋。"
+            },
+            {
+              "text": "它允許重複該結束節點的路徑",
+              "fraction": 0,
+              "feedback": "結束節點沒有外向邊；該條款是為了覆蓋無法延伸的元素，而非重複。"
+            }
+          ],
+          "generalFeedback": "若某節點／邊無法置於任何長度為 2 的路徑（例如通往結束節點的終端邊），只要求恰好長度 2 會使其未被覆蓋；「長度 ≤ 2」加入較短需求，使 EPC 仍涵蓋 EC 與 NC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PPC 與 CPC 的方向",
+          "text": "<p>關於<strong>質路徑覆蓋（PPC）</strong>與<strong>完整路徑覆蓋（CPC）</strong>，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "CPC 涵蓋 PPC，但 PPC 不涵蓋 CPC",
+              "fraction": 100,
+              "feedback": "正確——執行所有完整路徑會巡覽每條可行質路徑，但巡覽質路徑並不強制走過每一條完整路徑。"
+            },
+            {
+              "text": "PPC 涵蓋 CPC",
+              "fraction": 0,
+              "feedback": "反了——CPC 才是較強（且通常不可行）的準則。"
+            },
+            {
+              "text": "兩者等價",
+              "fraction": 0,
+              "feedback": "並非如此：CPC 嚴格較強，要求所有完整路徑，而不只是質路徑。"
+            },
+            {
+              "text": "兩者不可比較",
+              "fraction": 0,
+              "feedback": "它們可比較：CPC 涵蓋 PPC。"
+            }
+          ],
+          "generalFeedback": "每條可行質路徑都位於某條完整路徑上，故覆蓋所有完整路徑（CPC）就滿足 PPC；反向不成立，因為有限的質路徑測試集不必走過每一種迴圈迭代次數。因此 CPC ⊒ PPC，且 CPC 最強但通常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "精確區分側行與繞道",
+          "text": "<p>在巡覽質路徑 q 時，下列哪一組正確陳述<strong>側行</strong>與<strong>繞道</strong>的精確差異？</p>",
+          "answers": [
+            {
+              "text": "側行：依序走過 q 的每一條邊（含折返岔出）。繞道：依序造訪 q 的每個節點，但節點之間的邊可不同",
+              "fraction": 100,
+              "feedback": "正確——側行保留邊，繞道只保留節點序列。"
+            },
+            {
+              "text": "側行只保留節點；繞道保留邊",
+              "fraction": 0,
+              "feedback": "反了——保留邊的是側行。"
+            },
+            {
+              "text": "兩者都保留 q 的每一條邊；差別只在長度",
+              "fraction": 0,
+              "feedback": "只有側行保留每一條邊；繞道可在相同節點之間換邊。"
+            },
+            {
+              "text": "兩者都只保留 q 的端點",
+              "fraction": 0,
+              "feedback": "側行保留所有邊、繞道依序保留所有節點；兩者都不是只保留端點。"
+            }
+          ],
+          "generalFeedback": "側行依序保留 q 的每條邊，只插入回到出發節點的岔出；繞道較弱，只保留 q 的節點序列，允許相鄰節點間走不同的邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一項涵蓋主張為偽",
+          "text": "<p>下列哪一項涵蓋主張為<strong>偽</strong>？</p>",
+          "answers": [
+            {
+              "text": "節點覆蓋涵蓋邊覆蓋",
+              "fraction": 100,
+              "feedback": "正確——這是偽的；NC 比 EC 弱，故 NC 不涵蓋 EC。"
+            },
+            {
+              "text": "質路徑覆蓋涵蓋邊對覆蓋",
+              "fraction": 0,
+              "feedback": "這是真的：每個邊對都位於某條質路徑上。"
+            },
+            {
+              "text": "邊對覆蓋涵蓋邊覆蓋",
+              "fraction": 0,
+              "feedback": "這是真的：巡覽邊對會走過其組成的每條邊。"
+            },
+            {
+              "text": "邊覆蓋涵蓋節點覆蓋",
+              "fraction": 0,
+              "feedback": "這是真的：走過每條邊就會造訪每個可到達節點。"
+            }
+          ],
+          "generalFeedback": "層級為 PPC ⊒ EPC ⊒ EC ⊒ NC；涵蓋由強指向弱，故「NC 涵蓋 EC」是反向的偽主張。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含不可行質路徑時的最大 PPC",
+          "text": "<p>某 CFG 恰有 5 條質路徑，其中 1 條不可行。以全部 5 條質路徑計算，任何測試套件所能達成的最大質路徑覆蓋為何？</p>",
+          "answers": [
+            {
+              "text": "80%（5 中的 4）",
+              "fraction": 100,
+              "feedback": "正確——不可行的質路徑永遠無法巡覽，故至多 4/5 = 80%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "沒有輸入能巡覽不可行的質路徑，故字面上的 5/5 不可能。"
+            },
+            {
+              "text": "75%（4 中的 3）",
+              "fraction": 0,
+              "feedback": "覆蓋率以全部 5 條質路徑計算：4/5 = 80%，而非 3/4。"
+            },
+            {
+              "text": "60%（5 中的 3）",
+              "fraction": 0,
+              "feedback": "只有一條質路徑不可行，故最多 5 中的 4 條可巡覽 = 80%。"
+            }
+          ],
+          "generalFeedback": "一條不可行質路徑使字面 PPC 上限為 4/5 = 80%；實務上覆蓋率改以可行的質路徑回報。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一條路徑不是質路徑",
+          "text": "<p>對於 while 迴圈的 CFG <code>1→2, 2→3, 3→2, 2→4</code>，下列哪一條簡單路徑<strong>不是</strong>質路徑？</p>",
+          "answers": [
+            {
+              "text": "2→3",
+              "fraction": 100,
+              "feedback": "正確——2→3 是 1→2→3（以及 2→3→2）的真子路徑，並非極大，因此不是質路徑。"
+            },
+            {
+              "text": "3→2→3",
+              "fraction": 0,
+              "feedback": "3→2→3 是一條極大的簡單來回路徑，因此是質路徑。"
+            },
+            {
+              "text": "3→2→4",
+              "fraction": 0,
+              "feedback": "3→2→4 無法再延伸成更長的簡單路徑，因此是質路徑。"
+            },
+            {
+              "text": "1→2→3",
+              "fraction": 0,
+              "feedback": "1→2→3 是極大的（不重複節點 2 便無法延伸），因此是質路徑。"
+            }
+          ],
+          "generalFeedback": "質路徑為 1→2→3、1→2→4、3→2→4、2→3→2、3→2→3；單一邊 2→3 是較長簡單路徑的真子路徑，故不是質路徑。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "graph-structural": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Node Coverage definition",
+          "text": "<p><strong>Node Coverage (NC)</strong> is satisfied by a set of test paths when:</p>",
+          "answers": [
+            {
+              "text": "Every reachable node of the graph is visited by at least one test path",
+              "fraction": 100,
+              "feedback": "Correct — NC requires that each node be reached."
+            },
+            {
+              "text": "Every edge of the graph is traversed by at least one test path",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage, which is stronger than Node Coverage."
+            },
+            {
+              "text": "Every complete path from entry to exit is executed",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, far stronger and usually infeasible."
+            },
+            {
+              "text": "Every node is visited exactly once",
+              "fraction": 0,
+              "feedback": "NC only requires each node be visited at least once; repeats are allowed."
+            }
+          ],
+          "generalFeedback": "Node Coverage imposes one test requirement per node: each reachable node must be visited by some test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge Coverage definition",
+          "text": "<p><strong>Edge Coverage (EC)</strong> is satisfied by a set of test paths when:</p>",
+          "answers": [
+            {
+              "text": "Every reachable edge of the graph is traversed by at least one test path",
+              "fraction": 100,
+              "feedback": "Correct — EC requires that each edge (branch) be taken."
+            },
+            {
+              "text": "Every reachable node of the graph is visited",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, which is weaker than Edge Coverage."
+            },
+            {
+              "text": "Every pair of adjacent edges is traversed",
+              "fraction": 0,
+              "feedback": "That is Edge-Pair Coverage, which is stronger than Edge Coverage."
+            },
+            {
+              "text": "Every edge is traversed exactly once",
+              "fraction": 0,
+              "feedback": "EC only requires each edge be taken at least once; an edge may repeat."
+            }
+          ],
+          "generalFeedback": "Edge Coverage imposes one test requirement per edge: each reachable edge must be traversed by some test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statement coverage maps to",
+          "text": "<p>Classic <strong>statement coverage</strong> corresponds to which structural graph-coverage criterion on the control-flow graph?</p>",
+          "answers": [
+            {
+              "text": "Node Coverage",
+              "fraction": 100,
+              "feedback": "Correct — executing every statement means visiting every node (basic block)."
+            },
+            {
+              "text": "Edge Coverage",
+              "fraction": 0,
+              "feedback": "Edge Coverage corresponds to branch coverage, which is stronger."
+            },
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage is much stronger than statement coverage."
+            },
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 0,
+              "feedback": "Complete path coverage is generally infeasible and far stronger."
+            }
+          ],
+          "generalFeedback": "Nodes model basic blocks/statements, so statement coverage is exactly Node Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage maps to",
+          "text": "<p>Classic <strong>branch coverage</strong> corresponds to which structural graph-coverage criterion?</p>",
+          "answers": [
+            {
+              "text": "Edge Coverage",
+              "fraction": 100,
+              "feedback": "Correct — every branch outcome is an edge that must be traversed."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node coverage corresponds to statement coverage, which is weaker."
+            },
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "Prime path coverage is much stronger than branch coverage."
+            },
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 0,
+              "feedback": "Complete path coverage is generally infeasible and far stronger."
+            }
+          ],
+          "generalFeedback": "Each decision outcome is an outgoing edge, so branch coverage is exactly Edge Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a node models",
+          "text": "<p>In a control-flow graph, a single <strong>node</strong> typically models:</p>",
+          "answers": [
+            {
+              "text": "A basic block — a maximal sequence of statements with no internal branch",
+              "fraction": 100,
+              "feedback": "Correct — a node is a basic block executed as a unit."
+            },
+            {
+              "text": "A single branch outcome of a decision",
+              "fraction": 0,
+              "feedback": "That is an edge, not a node."
+            },
+            {
+              "text": "A complete execution from entry to exit",
+              "fraction": 0,
+              "feedback": "That is a test path, not a node."
+            },
+            {
+              "text": "A variable definition",
+              "fraction": 0,
+              "feedback": "Variable definitions belong to data-flow analysis, not to what a node models structurally."
+            }
+          ],
+          "generalFeedback": "A node models a basic block: a straight-line run of statements entered only at the top and left only at the bottom.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an edge models",
+          "text": "<p>In a control-flow graph, an <strong>edge</strong> from node u to node v models:</p>",
+          "answers": [
+            {
+              "text": "A possible transfer of control from block u to block v (e.g. a branch outcome)",
+              "fraction": 100,
+              "feedback": "Correct — an edge is a possible flow of control between blocks."
+            },
+            {
+              "text": "A basic block of statements",
+              "fraction": 0,
+              "feedback": "That is a node, not an edge."
+            },
+            {
+              "text": "A definition-use pair for some variable",
+              "fraction": 0,
+              "feedback": "DU pairs belong to data-flow coverage, not to the structural meaning of an edge."
+            },
+            {
+              "text": "The entire body of a loop",
+              "fraction": 0,
+              "feedback": "A loop body is one or more nodes; an edge is a single control transfer."
+            }
+          ],
+          "generalFeedback": "An edge represents one possible control transfer between basic blocks; a decision's outcomes are its outgoing edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test path definition",
+          "text": "<p>In graph-based testing, a <strong>test path</strong> is a path that:</p>",
+          "answers": [
+            {
+              "text": "Starts at an initial node and ends at a final node of the graph",
+              "fraction": 100,
+              "feedback": "Correct — a test path represents one complete execution from entry to exit."
+            },
+            {
+              "text": "Visits every node of the graph exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path, not a test path."
+            },
+            {
+              "text": "Is any single edge of the graph",
+              "fraction": 0,
+              "feedback": "A single edge is a path of length 1, but a test path must run from an initial to a final node."
+            },
+            {
+              "text": "Never repeats any node",
+              "fraction": 0,
+              "feedback": "A test path may repeat nodes (e.g. loop iterations); only simple paths forbid repeats."
+            }
+          ],
+          "generalFeedback": "A test path runs from an initial node to a final node; executing one test case follows exactly one test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test requirement definition",
+          "text": "<p>A <strong>test requirement</strong> for a structural coverage criterion is:</p>",
+          "answers": [
+            {
+              "text": "A specific structural element (e.g. a node or an edge) that some test path must tour",
+              "fraction": 100,
+              "feedback": "Correct — a criterion yields a set of test requirements."
+            },
+            {
+              "text": "A single test case with concrete input values",
+              "fraction": 0,
+              "feedback": "That is a test case; a requirement is the element the case must cover."
+            },
+            {
+              "text": "The expected output of the program",
+              "fraction": 0,
+              "feedback": "That is an oracle, not a coverage requirement."
+            },
+            {
+              "text": "A complete path from entry to exit",
+              "fraction": 0,
+              "feedback": "A test path may satisfy many requirements, but a requirement is the element to be toured."
+            }
+          ],
+          "generalFeedback": "For Node Coverage each node is a test requirement; for Edge Coverage each edge is a test requirement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Node coverage requirement count",
+          "text": "<p>A control-flow graph has nodes 1..5 and edges <code>1→2, 2→3, 2→4, 3→5, 4→5</code>. How many test requirements does <strong>Node Coverage</strong> impose?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per node, and there are 5 nodes."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "That counts the edges; Node Coverage counts nodes (5)."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "That counts only the branch nodes, not all nodes."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "Node Coverage has one requirement per node (5), not per node pair."
+            }
+          ],
+          "generalFeedback": "Node Coverage requires visiting each node, so the number of requirements equals the number of nodes: 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge coverage requirement count",
+          "text": "<p>A control-flow graph has nodes 1..4 and edges <code>1→2, 2→3, 3→4, 2→4</code>. How many test requirements does <strong>Edge Coverage</strong> impose?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per edge, and there are 4 edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — there are four edges listed."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — there are only four edges listed."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Edge Coverage counts edges (4), not just the branch points."
+            }
+          ],
+          "generalFeedback": "Edge Coverage requires one test requirement per edge, so the count equals the number of edges: 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the nodes",
+          "text": "<p>A control-flow graph is given only by its directed edges: <code>1→2, 2→3, 2→4</code>. How many distinct nodes appear?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the distinct nodes are 1, 2, 3 and 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "That is the number of edges, not nodes; the distinct nodes are 1, 2, 3, 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Node 2 has two out-edges, but there are four distinct nodes overall."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "No node 5 appears in the edge list; there are four distinct nodes."
+            }
+          ],
+          "generalFeedback": "Collect the endpoints of every edge: {1, 2, 3, 4} — four distinct nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the edges",
+          "text": "<p>A control-flow graph on nodes 1..5 has directed edges <code>1→2, 2→3, 3→4, 4→5, 2→5</code>. How many directed edges does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — five edges are listed."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — there are five edges listed."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — there are only five edges listed."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Recount — there are only five edges listed."
+            }
+          ],
+          "generalFeedback": "Count each directed edge once; the list is the complete edge set, giving 5.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Does a path cover all nodes",
+          "text": "<p>A control-flow graph has nodes 1..4 and edges <code>1→2, 2→3, 2→4</code>. The single test path <code>1→2→3</code> visits every node of the graph.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — the path visits {1, 2, 3} but never reaches node 4, so Node Coverage is not met."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "The path 1→2→3 misses node 4 (reached only via edge 2→4), so it does not visit every node."
+            }
+          ],
+          "generalFeedback": "Node 4 is reachable only through edge 2→4; the path 1→2→3 never takes it, so one more path (e.g. 1→2→4) is needed for Node Coverage."
+        },
+        {
+          "type": "truefalse",
+          "name": "Edge coverage implies node coverage",
+          "text": "<p>On a control-flow graph in which every node has at least one incident edge, a test set that satisfies Edge Coverage also satisfies Node Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — traversing every edge visits both endpoints of each edge, hence every node with an incident edge."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Covering all edges necessarily visits all nodes that have an incident edge, so Edge Coverage subsumes Node Coverage here."
+            }
+          ],
+          "generalFeedback": "Edge Coverage subsumes Node Coverage: each edge's endpoints are visited when the edge is traversed. The converse does not hold."
+        },
+        {
+          "type": "truefalse",
+          "name": "Node coverage guarantees branch coverage",
+          "text": "<p>Satisfying Node Coverage guarantees that every branch (decision outcome) has been exercised.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — Node Coverage can be met while an edge (branch outcome) is never taken."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Node Coverage only requires visiting nodes; a branch can go untaken while every node is still reached via other paths."
+            }
+          ],
+          "generalFeedback": "Node Coverage does not imply Edge Coverage, so some branch outcomes may go untested."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why edge coverage subsumes node coverage",
+          "text": "<p>Why does Edge Coverage subsume Node Coverage (on a graph where every node has an incident edge)?</p>",
+          "answers": [
+            {
+              "text": "Every such node is an endpoint of some edge, so traversing all edges visits all those nodes",
+              "fraction": 100,
+              "feedback": "Correct — covering the edges automatically covers their endpoints."
+            },
+            {
+              "text": "Because there are always more edges than nodes",
+              "fraction": 0,
+              "feedback": "False in general — a straight-line graph of n nodes has only n−1 edges; subsumption does not rest on counts."
+            },
+            {
+              "text": "Because every node is itself an edge of length zero",
+              "fraction": 0,
+              "feedback": "A node is not an edge; the subsumption comes from edges visiting their endpoints."
+            },
+            {
+              "text": "Because Node Coverage requires visiting each edge",
+              "fraction": 0,
+              "feedback": "Node Coverage requires visiting nodes, not edges; that description is simply wrong."
+            }
+          ],
+          "generalFeedback": "An edge is traversed only by passing through both its endpoints, so an edge-covering test set visits every node that has an incident edge — hence EC subsumes NC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Node coverage met, edge missed",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (node 1 is an <code>if</code> with no <code>else</code>, node 2 the then-block, node 3 the merge). The single test path <code>1→2→3</code> is run. It satisfies Node Coverage, but which edge is left uncovered?</p>",
+          "answers": [
+            {
+              "text": "1→3",
+              "fraction": 100,
+              "feedback": "Correct — the path takes 1→2 and 2→3 but never the false branch 1→3."
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "The path 1→2→3 does take edge 1→2."
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "The path 1→2→3 does take edge 2→3."
+            },
+            {
+              "text": "None; all edges are covered",
+              "fraction": 0,
+              "feedback": "Edge 1→3 (the skipped else) is never taken by 1→2→3."
+            }
+          ],
+          "generalFeedback": "All three nodes are visited by 1→2→3, so Node Coverage holds, yet the false-branch edge 1→3 is missed — a classic NC-without-EC case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for NC on a diamond",
+          "text": "<p>A diamond CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). What is the minimum number of test paths needed for <strong>Node Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — no single entry-to-exit path visits both node 2 and node 3, so two paths are needed (e.g. 1→2→4 and 1→3→4)."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One path can visit either node 2 or node 3 but not both, so one path cannot cover all four nodes."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two paths suffice: 1→2→4 and 1→3→4 together visit all four nodes."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "That is the number of edges, not the minimum number of test paths for Node Coverage."
+            }
+          ],
+          "generalFeedback": "Nodes 2 and 3 lie on mutually exclusive branches, so a minimum of two test paths is required to visit every node.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for EC on a diamond",
+          "text": "<p>For the same diamond CFG with edges <code>1→2, 1→3, 2→4, 3→4</code>, what is the minimum number of test paths needed for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4 covers 1→2 and 2→4; 1→3→4 covers 1→3 and 3→4. Two paths cover all four edges."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A single entry-to-exit path uses only one of 1→2 / 1→3, so it cannot cover all four edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two paths already cover all four edges of the diamond."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the number of edges; two test paths suffice to traverse them all."
+            }
+          ],
+          "generalFeedback": "On a pure diamond, the same two paths achieve both Node and Edge Coverage — the criteria coincide in path count here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statement vs branch coverage",
+          "text": "<p>What is the key difference between statement coverage and branch coverage?</p>",
+          "answers": [
+            {
+              "text": "Branch coverage requires every decision outcome to be taken; statement coverage only requires every statement to run",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage (EC) also forces the false/else outcomes, which statement coverage (NC) may skip."
+            },
+            {
+              "text": "Statement coverage is strictly stronger than branch coverage",
+              "fraction": 0,
+              "feedback": "The reverse is true: branch coverage subsumes statement coverage."
+            },
+            {
+              "text": "They are always equivalent on every program",
+              "fraction": 0,
+              "feedback": "They coincide only when there are no decisions; a skipped else can satisfy statements but not branches."
+            },
+            {
+              "text": "Statement coverage concerns edges while branch coverage concerns nodes",
+              "fraction": 0,
+              "feedback": "It is the other way round: statements map to nodes, branches to edges."
+            }
+          ],
+          "generalFeedback": "Statement coverage = Node Coverage; branch coverage = Edge Coverage. Branch coverage additionally forces each decision outcome, so it subsumes statement coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for NC on an if-without-else",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (an <code>if</code> with no <code>else</code>; node 1 initial, node 3 final). What is the minimum number of test paths for <strong>Node Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — the single path 1→2→3 visits all three nodes."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "One path (1→2→3) already visits every node; two are needed only for Edge Coverage here."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three is the node count, not the number of test paths required."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "At least one test path is needed to visit any node."
+            }
+          ],
+          "generalFeedback": "The path 1→2→3 passes through nodes 1, 2 and 3, achieving Node Coverage with a single test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for EC on an if-without-else",
+          "text": "<p>For the same if-without-else CFG with edges <code>1→2, 2→3, 1→3</code>, what is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3 covers 1→2 and 2→3, but the false-branch edge 1→3 needs the second path 1→3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A single path cannot take both 1→2 and 1→3, so it cannot cover all three edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two paths suffice: 1→2→3 and 1→3 together cover all three edges."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "At least two test paths are required to cover every edge here."
+            }
+          ],
+          "generalFeedback": "Here NC needs 1 path but EC needs 2 — a concrete witness that Edge Coverage is strictly stronger than Node Coverage.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Straight-line code: NC and EC coincide",
+          "text": "<p>On a straight-line CFG with no decision nodes (edges <code>1→2, 2→3, 3→4</code>), any test set that achieves Node Coverage also achieves Edge Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with no branching, the single path 1→2→3→4 covers every node and every edge, so the criteria coincide."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Without decisions there is only one path through the graph; visiting all nodes necessarily traverses all edges."
+            }
+          ],
+          "generalFeedback": "Node and Edge Coverage differ only when the graph has decision nodes (nodes with two or more out-edges). On straight-line code they require exactly the same execution."
+        },
+        {
+          "type": "truefalse",
+          "name": "Branch coverage implies statement coverage",
+          "text": "<p>If a test suite achieves 100% branch coverage, its statement coverage is necessarily 100% as well (assuming every statement lies on some edge).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage is Edge Coverage, which subsumes Node Coverage (statement coverage)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Covering every branch traverses every edge, which visits every node/statement, so statement coverage is also complete."
+            }
+          ],
+          "generalFeedback": "Because Edge Coverage subsumes Node Coverage, 100% branch coverage guarantees 100% statement coverage; the converse fails."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why statement coverage can miss a bug",
+          "text": "<p>A method has an <code>if</code> with no <code>else</code>; the fault is that the missing else path returns a wrong value. Why can 100% statement coverage miss this fault while 100% branch coverage catches it?</p>",
+          "answers": [
+            {
+              "text": "Statement coverage only needs every statement executed, so the never-taken false branch (an edge) can go untested",
+              "fraction": 100,
+              "feedback": "Correct — the empty else path is an edge, not a statement, so only Edge/branch coverage forces it."
+            },
+            {
+              "text": "Statement coverage requires more test cases than branch coverage, masking the fault",
+              "fraction": 0,
+              "feedback": "Branch coverage generally needs at least as many cases; that is not the reason."
+            },
+            {
+              "text": "The fault is in a node, which statement coverage never checks",
+              "fraction": 0,
+              "feedback": "The fault manifests on the untaken edge (the skipped else), not in a visited node."
+            },
+            {
+              "text": "Statement coverage ignores loops entirely",
+              "fraction": 0,
+              "feedback": "Loops are unrelated here; the gap is the untaken false branch."
+            }
+          ],
+          "generalFeedback": "An if-without-else has a false-branch edge that executes no statement; statement coverage can be 100% without ever taking it, but branch/Edge Coverage requires it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Short-circuit and edge count",
+          "text": "<p>Modeling <code>if (a &amp;&amp; b)</code> with short-circuit evaluation (a decision on <code>a</code> that can skip evaluating <code>b</code>), compared with treating <code>a &amp;&amp; b</code> as a single atomic decision, the number of edges Edge Coverage must cover:</p>",
+          "answers": [
+            {
+              "text": "Increases, because short-circuit adds a second decision node with its own outgoing edges",
+              "fraction": 100,
+              "feedback": "Correct — testing a then b separately introduces extra branch edges."
+            },
+            {
+              "text": "Decreases, because b is sometimes skipped",
+              "fraction": 0,
+              "feedback": "Skipping b at runtime does not remove edges; short-circuit adds the extra decision structure."
+            },
+            {
+              "text": "Stays the same, because both forms have one decision",
+              "fraction": 0,
+              "feedback": "Short-circuit form has two decision nodes (on a and on b), not one."
+            },
+            {
+              "text": "Becomes infinite, because of the conjunction",
+              "fraction": 0,
+              "feedback": "The graph stays finite; short-circuit merely adds a bounded number of edges."
+            }
+          ],
+          "generalFeedback": "Short-circuit evaluation splitsinto two decisions (test a, then test b), so the CFG gains extra branch edges that Edge Coverage must cover.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Node coverage percentage",
+          "text": "<p>A CFG has 5 nodes. A test suite visits 4 of them. What is its Node Coverage percentage?</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "Correct — 4 of 5 nodes = 80%."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% would be 3 of 4; here it is 4 of 5 = 80%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "One node is unvisited, so coverage is below 100%."
+            },
+            {
+              "text": "40%",
+              "fraction": 0,
+              "feedback": "Coverage is visited/total = 4/5 = 80%, not 2/5."
+            }
+          ],
+          "generalFeedback": "Node Coverage percentage = nodes visited / total nodes = 4/5 = 80%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge coverage percentage",
+          "text": "<p>A CFG has 8 edges. A test suite traverses 6 of them. What is its Edge Coverage percentage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — 6 of 8 edges = 75%."
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% would be 4 of 5; here it is 6 of 8 = 75%."
+            },
+            {
+              "text": "60%",
+              "fraction": 0,
+              "feedback": "Coverage is traversed/total = 6/8 = 75%, not 6/10."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "Two edges are untraversed, so coverage is below 100%."
+            }
+          ],
+          "generalFeedback": "Edge Coverage percentage = edges traversed / total edges = 6/8 = 75%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What makes node coverage insufficient",
+          "text": "<p>Which single graph feature is what makes Node Coverage weaker than Edge Coverage (so that NC can hold while EC fails)?</p>",
+          "answers": [
+            {
+              "text": "A decision node — a node with two or more outgoing edges",
+              "fraction": 100,
+              "feedback": "Correct — branching lets a node be reached without every one of its out-edges being taken."
+            },
+            {
+              "text": "A node with only one outgoing edge",
+              "fraction": 0,
+              "feedback": "With a single out-edge, visiting the node and taking its edge coincide; no gap arises."
+            },
+            {
+              "text": "The presence of an initial node",
+              "fraction": 0,
+              "feedback": "Every graph has an initial node; that alone does not separate NC from EC."
+            },
+            {
+              "text": "Having more nodes than edges",
+              "fraction": 0,
+              "feedback": "Node/edge counts do not determine the gap; a decision node does."
+            }
+          ],
+          "generalFeedback": "Only at a decision node (out-degree ≥ 2) can a node be visited while one of its outgoing branch edges is skipped, so decision nodes are exactly where NC and EC diverge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge coverage requirements on a diamond",
+          "text": "<p>A diamond CFG has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many test requirements does Edge Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per edge, and there are 4 edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — the diamond has four edges."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two is the minimum number of test paths, not the number of edge requirements (4)."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — the diamond has only four edges."
+            }
+          ],
+          "generalFeedback": "Edge Coverage has one requirement per edge; the diamond's four edges give four requirements, met by two test paths.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Infeasible edge",
+          "text": "<p>An edge is <strong>(semantically) infeasible</strong> when:</p>",
+          "answers": [
+            {
+              "text": "No input to the program can cause execution to traverse it, even though it exists in the graph",
+              "fraction": 100,
+              "feedback": "Correct — the edge is present syntactically but unreachable under any actual execution."
+            },
+            {
+              "text": "It appears twice in the edge list",
+              "fraction": 0,
+              "feedback": "Duplicate listing is unrelated to feasibility."
+            },
+            {
+              "text": "Both its endpoints are decision nodes",
+              "fraction": 0,
+              "feedback": "The endpoints' types do not determine feasibility; whether any input drives the edge does."
+            },
+            {
+              "text": "It is part of a loop",
+              "fraction": 0,
+              "feedback": "Loop edges are usually perfectly feasible; feasibility is about reachability under real inputs."
+            }
+          ],
+          "generalFeedback": "An infeasible edge exists in the CFG but no test input can drive control across it (e.g. a branch condition that is never true), so 100% Edge Coverage is unachievable and coverage is measured over feasible edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Syntactically unreachable node",
+          "text": "<p>A node is <strong>syntactically unreachable</strong> from the initial node when:</p>",
+          "answers": [
+            {
+              "text": "There is no path in the graph from the initial node to it",
+              "fraction": 100,
+              "feedback": "Correct — no path exists even ignoring branch conditions."
+            },
+            {
+              "text": "There is a graph path to it, but no input actually drives execution there",
+              "fraction": 0,
+              "feedback": "That describes semantic infeasibility, not syntactic unreachability."
+            },
+            {
+              "text": "It has no outgoing edges",
+              "fraction": 0,
+              "feedback": "A node with no out-edges is just a final node; it can still be reachable."
+            },
+            {
+              "text": "It is visited by every test path",
+              "fraction": 0,
+              "feedback": "That is the opposite of unreachable."
+            }
+          ],
+          "generalFeedback": "Syntactic reachability asks only whether a graph path exists from the entry; if none does, the node can never be covered and full Node Coverage is unachievable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Syntactic vs semantic reachability",
+          "text": "<p>What is the difference between an edge being <em>syntactically</em> reachable and <em>semantically</em> reachable?</p>",
+          "answers": [
+            {
+              "text": "Syntactic reachability means a graph path to it exists; semantic reachability means some real input actually drives execution across it",
+              "fraction": 100,
+              "feedback": "Correct — syntactic ignores conditions, semantic accounts for them."
+            },
+            {
+              "text": "They are two names for the same property",
+              "fraction": 0,
+              "feedback": "They differ: an edge can be syntactically reachable yet semantically infeasible."
+            },
+            {
+              "text": "Syntactic reachability concerns nodes; semantic reachability concerns edges",
+              "fraction": 0,
+              "feedback": "Both notions apply to nodes and edges alike; the distinction is graph-path vs real-input."
+            },
+            {
+              "text": "Semantic reachability is always weaker (easier) than syntactic",
+              "fraction": 0,
+              "feedback": "Semantic is stronger: semantic reachability implies syntactic, not the reverse."
+            }
+          ],
+          "generalFeedback": "Every semantically reachable element is syntactically reachable, but a syntactically reachable edge may be infeasible because no input satisfies the conditions along the way.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why EC is strictly stronger than NC",
+          "text": "<p>Which fact establishes that Edge Coverage is <em>strictly</em> stronger than Node Coverage (EC ⊋ NC)?</p>",
+          "answers": [
+            {
+              "text": "EC always implies NC, and there exists a graph plus test set satisfying NC but not EC",
+              "fraction": 100,
+              "feedback": "Correct — subsumption in one direction plus a counterexample for the converse is exactly strict containment."
+            },
+            {
+              "text": "NC always implies EC, and there exists a graph satisfying EC but not NC",
+              "fraction": 0,
+              "feedback": "Both clauses are backwards; NC does not imply EC."
+            },
+            {
+              "text": "EC and NC are satisfied by exactly the same test sets on every graph",
+              "fraction": 0,
+              "feedback": "That would make them equivalent, not one strictly stronger."
+            },
+            {
+              "text": "Neither ever implies the other",
+              "fraction": 0,
+              "feedback": "EC does imply NC; the containment is strict, not incomparable."
+            }
+          ],
+          "generalFeedback": "Strict subsumption means EC ⇒ NC universally, while some instance (e.g. an if-without-else covered by 1→2→3) meets NC but not EC — so EC is strictly stronger.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal EC test paths with a loop",
+          "text": "<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 2 the loop condition, node 3 the body, node 4 the exit; node 1 initial). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — the single path 1→2→3→2→4 traverses all four edges (enter loop once, then exit)."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "One path suffices: 1→2→3→2→4 covers 1→2, 2→3, 3→2 and 2→4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "All four edges fit on one entry-to-exit path that iterates the loop once."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the edge count; a single well-chosen path covers them all."
+            }
+          ],
+          "generalFeedback": "Iterating the loop exactly once (1→2→3→2→4) traverses every edge, so Edge Coverage needs just one test path despite the back edge.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Self-loop coverage requires the body",
+          "text": "<p>A CFG has a self-loop edge <code>2→2</code>. To satisfy Edge Coverage, some test path must execute the loop body at node 2 at least once (traverse <code>2→2</code>).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — 2→2 is an edge, so Edge Coverage requires it be traversed, which means the loop iterates at least once."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The self-loop is a genuine edge; skipping it leaves Edge Coverage unsatisfied."
+            }
+          ],
+          "generalFeedback": "Every edge, including a self-loop, is a test requirement under Edge Coverage; visiting node 2 alone (Node Coverage) does not force traversing 2→2."
+        },
+        {
+          "type": "multichoice",
+          "name": "Covering a merge point",
+          "text": "<p>A merge node m has two incoming edges, <code>a→m</code> and <code>b→m</code>, from the two arms of an if-else. What does Edge Coverage require here that Node Coverage does not?</p>",
+          "answers": [
+            {
+              "text": "Both incoming edges a→m and b→m must be traversed, so both arms of the if-else are exercised",
+              "fraction": 100,
+              "feedback": "Correct — Node Coverage of m needs only one arm; Edge Coverage forces both incoming edges."
+            },
+            {
+              "text": "Node m must be visited twice",
+              "fraction": 0,
+              "feedback": "Edge Coverage concerns traversing both edges, not visiting m a specific number of times."
+            },
+            {
+              "text": "Nothing extra; visiting m once suffices for both criteria",
+              "fraction": 0,
+              "feedback": "Visiting m via one arm satisfies NC but leaves the other incoming edge uncovered."
+            },
+            {
+              "text": "The two arms must be merged into a single node",
+              "fraction": 0,
+              "feedback": "The graph is not rewritten; Edge Coverage simply requires both incoming edges."
+            }
+          ],
+          "generalFeedback": "Node Coverage of the merge node m is met by reaching it through either arm, but Edge Coverage requires both a→m and b→m, exercising both branches.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statements per node",
+          "text": "<p>A basic block contains 4 sequential statements with no internal branch or jump. In the control-flow graph it is represented by how many nodes?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — a basic block is a single node regardless of how many statements it holds."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Statements are not individual nodes; the whole block is one node."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "The block is one node; there is no per-statement node here."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "A block of statements is represented by exactly one node."
+            }
+          ],
+          "generalFeedback": "A basic block collapses to one node, so statement count and node count differ — yet coverage is equivalent because entering the block runs all its statements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible edge and full EC",
+          "text": "<p>A CFG contains a genuinely infeasible edge. What is the correct consequence for Edge Coverage?</p>",
+          "answers": [
+            {
+              "text": "100% Edge Coverage is unachievable; coverage is best measured over the feasible edges only",
+              "fraction": 100,
+              "feedback": "Correct — infeasible requirements are excluded so the metric stays meaningful."
+            },
+            {
+              "text": "100% Edge Coverage is still achievable by trying harder",
+              "fraction": 0,
+              "feedback": "No input can traverse an infeasible edge, so full literal coverage is impossible."
+            },
+            {
+              "text": "The whole Edge Coverage criterion becomes meaningless and is abandoned",
+              "fraction": 0,
+              "feedback": "The criterion is retained; only the infeasible requirement is set aside."
+            },
+            {
+              "text": "The infeasible edge is automatically deleted from the program",
+              "fraction": 0,
+              "feedback": "The graph models the program and is not altered; the requirement is simply reported as infeasible."
+            }
+          ],
+          "generalFeedback": "Because no test can traverse an infeasible edge, tools report coverage against the feasible test requirements rather than demanding an impossible 100%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Witness for strict containment",
+          "text": "<p>Which edge set, together with a suitable single test path, best witnesses that Node Coverage can be satisfied while Edge Coverage is not?</p>",
+          "answers": [
+            {
+              "text": "with test path 1→2→3 (edge 1→3 uncovered)",
+              "fraction": 100,
+              "feedback": "Correct — all nodes visited, but the false-branch edge 1→3 is missed."
+            },
+            {
+              "text": "with test path 1→2→3→4",
+              "fraction": 0,
+              "feedback": "Straight-line code: the one path covers all nodes and all edges, so it cannot witness a gap."
+            },
+            {
+              "text": "with test path 1→2→4",
+              "fraction": 0,
+              "feedback": "This path misses node 3, so it fails Node Coverage too — not a witness for NC-without-EC."
+            },
+            {
+              "text": "with test path 1→2",
+              "fraction": 0,
+              "feedback": "A single edge is covered along with both nodes; NC and EC both hold, so no gap."
+            }
+          ],
+          "generalFeedback": "The if-without-elsetoured by 1→2→3 visits every node yet skips edge 1→3 — the canonical NC-satisfied-but-EC-failed witness.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Loops keep EC finite",
+          "text": "<p>A CFG with a loop makes Complete Path Coverage infeasible, yet Edge Coverage remains a finite, achievable criterion on that graph.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a loop yields infinitely many complete paths, but the number of edges (hence edge requirements) stays finite."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Edge Coverage has one requirement per edge, a finite set, no matter how many times the loop can iterate."
+            }
+          ],
+          "generalFeedback": "Loops make the set of complete paths unbounded, but the edge set is finite, so Edge Coverage is always a finite (and typically achievable) target."
+        },
+        {
+          "type": "multichoice",
+          "name": "Max achievable NC with an unreachable node",
+          "text": "<p>A CFG has 5 nodes, one of which is syntactically unreachable from the entry (dead code). What is the maximum Node Coverage any test suite can achieve, counting all 5 nodes?</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "Correct — at most 4 of the 5 nodes can ever be visited, so 4/5 = 80%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The unreachable node can never be visited, so full coverage over all 5 nodes is impossible."
+            },
+            {
+              "text": "90%",
+              "fraction": 0,
+              "feedback": "Only whole nodes count; the best is 4/5 = 80%."
+            },
+            {
+              "text": "20%",
+              "fraction": 0,
+              "feedback": "Four of five nodes are reachable, so the maximum is 80%, not 20%."
+            }
+          ],
+          "generalFeedback": "An unreachable node caps literal Node Coverage below 100%; here max = 4/5 = 80%. Tools typically report coverage over reachable nodes instead.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Max achievable EC with an infeasible edge",
+          "text": "<p>A CFG has 6 edges, exactly one of which is infeasible. What is the maximum Edge Coverage any test suite can achieve, counting all 6 edges?</p>",
+          "answers": [
+            {
+              "text": "About 83% (5 of 6)",
+              "fraction": 100,
+              "feedback": "Correct — the infeasible edge can never be traversed, so at most 5/6 ≈ 83%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "No input can traverse the infeasible edge, so 6/6 is impossible."
+            },
+            {
+              "text": "About 67% (4 of 6)",
+              "fraction": 0,
+              "feedback": "Only one edge is infeasible, so up to 5 of 6 are coverable = ~83%."
+            },
+            {
+              "text": "50% (3 of 6)",
+              "fraction": 0,
+              "feedback": "Five of six edges are feasible, so the maximum is ~83%."
+            }
+          ],
+          "generalFeedback": "One infeasible edge caps literal Edge Coverage at 5/6 ≈ 83%; coverage is usually reported over the feasible edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal EC test paths on a branchy CFG",
+          "text": "<p>A CFG on nodes 1..4 has edges <code>1→2, 1→3, 2→3, 2→4, 3→4</code> (node 1 initial, node 4 final). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — e.g. 1→2→3→4 (covers 1→2, 2→3, 3→4), 1→3→4 (covers 1→3), 1→2→4 (covers 2→4); no two paths can cover all five edges."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Edges 2→3 and 2→4 both need node 2, but there is no way back to 2, so one path cannot take both; likewise 1→3 needs a path starting 1→3. Two paths cannot cover all five."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Three well-chosen paths already cover all five edges."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Five is the edge count; the minimum number of test paths is three."
+            }
+          ],
+          "generalFeedback": "Covering 2→3 and 2→4 needs two distinct paths through node 2, and 1→3 needs a path starting 1→3, so at least three test paths are required for Edge Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why statement coverage equals node coverage",
+          "text": "<p>Why is per-statement statement coverage equivalent to per-node Node Coverage even though a node may hold several statements?</p>",
+          "answers": [
+            {
+              "text": "A basic block is single-entry, single-exit, so entering the node executes all of its statements — visiting the node covers them together",
+              "fraction": 100,
+              "feedback": "Correct — the block runs atomically, so node coverage and statement coverage rise and fall together."
+            },
+            {
+              "text": "Because every statement is placed in its own node",
+              "fraction": 0,
+              "feedback": "Statements are grouped into basic blocks; they are not each a separate node."
+            },
+            {
+              "text": "Because statement coverage ignores the last statement of each block",
+              "fraction": 0,
+              "feedback": "No statement is ignored; the whole block executes when the node is visited."
+            },
+            {
+              "text": "They are not equivalent; node coverage is always stronger",
+              "fraction": 0,
+              "feedback": "They are equivalent: a basic block's statements all execute exactly when the node is visited."
+            }
+          ],
+          "generalFeedback": "Because a basic block has no internal branch, control enters at the top and runs every statement to the bottom, so covering the node covers all its statements — statement coverage ≡ Node Coverage.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋的定義",
+          "text": "<p>一組測試路徑在何時滿足<strong>節點覆蓋（Node Coverage, NC）</strong>？</p>",
+          "answers": [
+            {
+              "text": "圖中每個可到達的節點都至少被某條測試路徑造訪一次",
+              "fraction": 100,
+              "feedback": "正確——NC 要求每個節點都被到達。"
+            },
+            {
+              "text": "圖中每條邊都至少被某條測試路徑走過一次",
+              "fraction": 0,
+              "feedback": "那是邊覆蓋，比節點覆蓋更強。"
+            },
+            {
+              "text": "從進入點到結束點的每條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是完整路徑覆蓋，遠更強且通常不可行。"
+            },
+            {
+              "text": "每個節點恰好被造訪一次",
+              "fraction": 0,
+              "feedback": "NC 只要求每個節點至少被造訪一次，允許重複。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋對每個節點課予一項測試需求：每個可到達的節點都必須被某條測試路徑造訪。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋的定義",
+          "text": "<p>一組測試路徑在何時滿足<strong>邊覆蓋（Edge Coverage, EC）</strong>？</p>",
+          "answers": [
+            {
+              "text": "圖中每條可到達的邊都至少被某條測試路徑走過一次",
+              "fraction": 100,
+              "feedback": "正確——EC 要求每條邊（分支）都被走過。"
+            },
+            {
+              "text": "圖中每個可到達的節點都被造訪",
+              "fraction": 0,
+              "feedback": "那是節點覆蓋，比邊覆蓋更弱。"
+            },
+            {
+              "text": "每一對相鄰的邊都被走過",
+              "fraction": 0,
+              "feedback": "那是邊對覆蓋，比邊覆蓋更強。"
+            },
+            {
+              "text": "每條邊恰好被走過一次",
+              "fraction": 0,
+              "feedback": "EC 只要求每條邊至少被走過一次，邊可以重複。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋對每條邊課予一項測試需求：每條可到達的邊都必須被某條測試路徑走過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "敘述覆蓋對應到",
+          "text": "<p>經典的<strong>敘述覆蓋（statement coverage）</strong>對應到控制流程圖上的哪一項結構覆蓋準則？</p>",
+          "answers": [
+            {
+              "text": "節點覆蓋",
+              "fraction": 100,
+              "feedback": "正確——執行每一條敘述等於造訪每個節點（基本區塊）。"
+            },
+            {
+              "text": "邊覆蓋",
+              "fraction": 0,
+              "feedback": "邊覆蓋對應到分支覆蓋，更強。"
+            },
+            {
+              "text": "邊對覆蓋",
+              "fraction": 0,
+              "feedback": "邊對覆蓋比敘述覆蓋強得多。"
+            },
+            {
+              "text": "完整路徑覆蓋",
+              "fraction": 0,
+              "feedback": "完整路徑覆蓋通常不可行，且遠更強。"
+            }
+          ],
+          "generalFeedback": "節點代表基本區塊／敘述，因此敘述覆蓋正好就是節點覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支覆蓋對應到",
+          "text": "<p>經典的<strong>分支覆蓋（branch coverage）</strong>對應到哪一項結構覆蓋準則？</p>",
+          "answers": [
+            {
+              "text": "邊覆蓋",
+              "fraction": 100,
+              "feedback": "正確——每個分支結果都是一條必須被走過的邊。"
+            },
+            {
+              "text": "節點覆蓋",
+              "fraction": 0,
+              "feedback": "節點覆蓋對應到敘述覆蓋，較弱。"
+            },
+            {
+              "text": "質路徑覆蓋",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋比分支覆蓋強得多。"
+            },
+            {
+              "text": "完整路徑覆蓋",
+              "fraction": 0,
+              "feedback": "完整路徑覆蓋通常不可行，且遠更強。"
+            }
+          ],
+          "generalFeedback": "每個判斷結果都是一條外向邊，因此分支覆蓋正好就是邊覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節點代表什麼",
+          "text": "<p>在控制流程圖中，單一<strong>節點</strong>通常代表：</p>",
+          "answers": [
+            {
+              "text": "一個基本區塊——一段沒有內部分支的最大連續敘述序列",
+              "fraction": 100,
+              "feedback": "正確——節點就是一個以整體執行的基本區塊。"
+            },
+            {
+              "text": "某個判斷的單一分支結果",
+              "fraction": 0,
+              "feedback": "那是一條邊，不是節點。"
+            },
+            {
+              "text": "從進入點到結束點的一次完整執行",
+              "fraction": 0,
+              "feedback": "那是測試路徑，不是節點。"
+            },
+            {
+              "text": "一個變數定義",
+              "fraction": 0,
+              "feedback": "變數定義屬於資料流分析，不是節點在結構上代表的內容。"
+            }
+          ],
+          "generalFeedback": "節點代表一個基本區塊：只從頂端進入、只從底端離開的一段直線敘述。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊代表什麼",
+          "text": "<p>在控制流程圖中，從節點 u 到節點 v 的一條<strong>邊</strong>代表：</p>",
+          "answers": [
+            {
+              "text": "控制權可能從區塊 u 轉移到區塊 v（例如某個分支結果）",
+              "fraction": 100,
+              "feedback": "正確——邊代表區塊之間一種可能的控制流。"
+            },
+            {
+              "text": "一個由敘述組成的基本區塊",
+              "fraction": 0,
+              "feedback": "那是節點，不是邊。"
+            },
+            {
+              "text": "某變數的一個定義—使用對（DU pair）",
+              "fraction": 0,
+              "feedback": "DU 對屬於資料流覆蓋，不是邊在結構上的意義。"
+            },
+            {
+              "text": "整個迴圈的主體",
+              "fraction": 0,
+              "feedback": "迴圈主體是一個或多個節點；邊只是單一次控制轉移。"
+            }
+          ],
+          "generalFeedback": "邊代表基本區塊之間一次可能的控制轉移；一個判斷的各個結果就是它的外向邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試路徑的定義",
+          "text": "<p>在以圖為基礎的測試中，<strong>測試路徑（test path）</strong>是一條滿足下列何者的路徑？</p>",
+          "answers": [
+            {
+              "text": "起於圖的起始節點、止於圖的結束節點",
+              "fraction": 100,
+              "feedback": "正確——測試路徑代表一次從進入到離開的完整執行。"
+            },
+            {
+              "text": "恰好造訪圖中每個節點一次",
+              "fraction": 0,
+              "feedback": "那是漢米頓路徑，不是測試路徑。"
+            },
+            {
+              "text": "圖中任意一條單一邊",
+              "fraction": 0,
+              "feedback": "單一邊是長度為 1 的路徑，但測試路徑必須從起始節點走到結束節點。"
+            },
+            {
+              "text": "從不重複任何節點",
+              "fraction": 0,
+              "feedback": "測試路徑可以重複節點（例如迴圈迭代）；只有簡單路徑禁止重複。"
+            }
+          ],
+          "generalFeedback": "測試路徑從起始節點走到結束節點；執行一個測試案例會恰好沿著一條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試需求的定義",
+          "text": "<p>對結構覆蓋準則而言，<strong>測試需求（test requirement）</strong>是：</p>",
+          "answers": [
+            {
+              "text": "某條測試路徑必須遊歷的一個特定結構元素（例如一個節點或一條邊）",
+              "fraction": 100,
+              "feedback": "正確——一項準則會產生一組測試需求。"
+            },
+            {
+              "text": "一個帶有具體輸入值的單一測試案例",
+              "fraction": 0,
+              "feedback": "那是測試案例；需求是該案例必須涵蓋的元素。"
+            },
+            {
+              "text": "程式的預期輸出",
+              "fraction": 0,
+              "feedback": "那是判定準則（oracle），不是覆蓋需求。"
+            },
+            {
+              "text": "從進入點到結束點的一條完整路徑",
+              "fraction": 0,
+              "feedback": "一條測試路徑可以滿足許多需求，但需求本身是要被遊歷的元素。"
+            }
+          ],
+          "generalFeedback": "對節點覆蓋而言每個節點是一項測試需求；對邊覆蓋而言每條邊是一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋的需求數量",
+          "text": "<p>某控制流程圖有節點 1..5，邊為 <code>1→2, 2→3, 2→4, 3→5, 4→5</code>。<strong>節點覆蓋</strong>會課予幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——每個節點一項需求，共有 5 個節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "那是邊的數量；節點覆蓋計算的是節點（5）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "那只算了分支節點，並非全部節點。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "節點覆蓋每個節點一項需求（5），不是節點兩兩配對。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋要求造訪每個節點，因此需求數量等於節點數量：5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋的需求數量",
+          "text": "<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 2→3, 3→4, 2→4</code>。<strong>邊覆蓋</strong>會課予幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每條邊一項需求，共有 4 條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊有四條。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊只有四條。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "邊覆蓋計算的是邊（4），不只是分支點。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋每條邊一項測試需求，因此數量等於邊的數量：4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數一數節點",
+          "text": "<p>某控制流程圖僅以其有向邊給定：<code>1→2, 2→3, 2→4</code>。共出現幾個相異節點？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——相異節點為 1、2、3、4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "那是邊的數量，不是節點數；相異節點為 1、2、3、4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "節點 2 有兩條外向邊，但整體相異節點共有四個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "邊列中沒有節點 5；相異節點共有四個。"
+            }
+          ],
+          "generalFeedback": "收集每條邊的端點：{1, 2, 3, 4}——四個相異節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數一數邊",
+          "text": "<p>某控制流程圖有節點 1..5，有向邊為 <code>1→2, 2→3, 3→4, 4→5, 2→5</code>。共有幾條有向邊？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——列出了五條邊。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊有五條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊只有五條。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊只有五條。"
+            }
+          ],
+          "generalFeedback": "每條有向邊只算一次；此列即完整邊集，共 5 條。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "某路徑是否覆蓋所有節點",
+          "text": "<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 2→3, 2→4</code>。單一測試路徑 <code>1→2→3</code> 造訪了圖中的每個節點。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——此路徑造訪 {1, 2, 3} 但從未到達節點 4，因此未達成節點覆蓋。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "路徑 1→2→3 漏掉了節點 4（只能經由邊 2→4 到達），因此並未造訪每個節點。"
+            }
+          ],
+          "generalFeedback": "節點 4 只能經由邊 2→4 到達；路徑 1→2→3 從未走這條邊，因此還需再一條路徑（例如 1→2→4）才能達成節點覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "邊覆蓋蘊含節點覆蓋",
+          "text": "<p>在每個節點都至少有一條相連邊的控制流程圖上，滿足邊覆蓋的測試集也會滿足節點覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——走過每條邊就造訪了每條邊的兩個端點，因此造訪了每個有相連邊的節點。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "覆蓋所有邊必然會造訪所有有相連邊的節點，因此此處邊覆蓋涵蓋（subsume）節點覆蓋。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋涵蓋節點覆蓋：走過一條邊時就造訪了它的兩個端點。反方向並不成立。"
+        },
+        {
+          "type": "truefalse",
+          "name": "節點覆蓋是否保證分支覆蓋",
+          "text": "<p>達成節點覆蓋就保證每個分支（判斷結果）都已被執行。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——節點覆蓋可以達成，但某條邊（分支結果）卻從未被走過。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "節點覆蓋只要求造訪節點；某個分支可以未被走過，而每個節點仍經由其他路徑被造訪。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋並不蘊含邊覆蓋，因此某些分支結果可能未被測到。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何邊覆蓋涵蓋節點覆蓋",
+          "text": "<p>在每個節點都有相連邊的圖上，為何邊覆蓋涵蓋（subsume）節點覆蓋？</p>",
+          "answers": [
+            {
+              "text": "每個這樣的節點都是某條邊的端點，因此走過所有邊就會造訪所有這些節點",
+              "fraction": 100,
+              "feedback": "正確——覆蓋邊自然就覆蓋了它們的端點。"
+            },
+            {
+              "text": "因為邊永遠比節點多",
+              "fraction": 0,
+              "feedback": "一般並不成立——n 個節點的直線圖只有 n−1 條邊；涵蓋關係不建立在數量上。"
+            },
+            {
+              "text": "因為每個節點本身就是一條長度為零的邊",
+              "fraction": 0,
+              "feedback": "節點不是邊；涵蓋關係來自邊會造訪其端點。"
+            },
+            {
+              "text": "因為節點覆蓋要求走過每條邊",
+              "fraction": 0,
+              "feedback": "節點覆蓋要求造訪節點而非邊；此敘述本身就錯了。"
+            }
+          ],
+          "generalFeedback": "一條邊只有在通過其兩個端點時才會被走過，因此覆蓋所有邊的測試集會造訪每個有相連邊的節點——故 EC 涵蓋 NC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成節點覆蓋卻漏掉邊",
+          "text": "<p>某控制流程圖的邊為 <code>1→2, 2→3, 1→3</code>（節點 1 是沒有 <code>else</code> 的 <code>if</code>，節點 2 是 then 區塊，節點 3 是匯合點）。只執行單一測試路徑 <code>1→2→3</code>，它滿足節點覆蓋，但哪一條邊未被覆蓋？</p>",
+          "answers": [
+            {
+              "text": "1→3",
+              "fraction": 100,
+              "feedback": "正確——此路徑走了 1→2 與 2→3，卻從未走 false 分支 1→3。"
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "路徑 1→2→3 確實走了邊 1→2。"
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "路徑 1→2→3 確實走了邊 2→3。"
+            },
+            {
+              "text": "沒有；所有邊都被覆蓋",
+              "fraction": 0,
+              "feedback": "邊 1→3（被略過的 else）從未被 1→2→3 走到。"
+            }
+          ],
+          "generalFeedback": "1→2→3 造訪了全部三個節點，故滿足節點覆蓋，但漏掉了 false 分支邊 1→3——經典的「有 NC 但無 EC」情況。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "菱形圖上節點覆蓋的最少測試路徑",
+          "text": "<p>某菱形控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>（節點 1 起始、節點 4 結束）。達成<strong>節點覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——沒有任何單一起訖路徑能同時造訪節點 2 與節點 3，故需兩條（例如 1→2→4 與 1→3→4）。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一條路徑只能造訪節點 2 或節點 3 其一，無法覆蓋全部四個節點。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩條就夠：1→2→4 與 1→3→4 合起來造訪全部四個節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "那是邊的數量，不是節點覆蓋所需的最少測試路徑數。"
+            }
+          ],
+          "generalFeedback": "節點 2 與 3 位於互斥的分支上，故達成節點覆蓋至少需要兩條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "菱形圖上邊覆蓋的最少測試路徑",
+          "text": "<p>對於同一個菱形圖（邊為 <code>1→2, 1→3, 2→4, 3→4</code>），達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→4 覆蓋 1→2 與 2→4；1→3→4 覆蓋 1→3 與 3→4。兩條路徑覆蓋全部四條邊。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "單一起訖路徑只會用到 1→2 / 1→3 其中一條，無法覆蓋全部四條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩條就已覆蓋菱形的全部四條邊。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊的數量；兩條測試路徑即可走遍所有邊。"
+            }
+          ],
+          "generalFeedback": "在純菱形圖上，同樣的兩條路徑同時達成節點覆蓋與邊覆蓋——此處兩準則的路徑數一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "敘述覆蓋 vs 分支覆蓋",
+          "text": "<p>敘述覆蓋與分支覆蓋的關鍵差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "分支覆蓋要求每個判斷結果都被走到；敘述覆蓋只要求每條敘述都被執行",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋（EC）還會強制走 false／else 結果，那正是敘述覆蓋（NC）可能略過的。"
+            },
+            {
+              "text": "敘述覆蓋嚴格強於分支覆蓋",
+              "fraction": 0,
+              "feedback": "恰好相反：分支覆蓋涵蓋敘述覆蓋。"
+            },
+            {
+              "text": "它們在每個程式上永遠等價",
+              "fraction": 0,
+              "feedback": "只有在沒有判斷時才一致；被略過的 else 可以滿足敘述卻不滿足分支。"
+            },
+            {
+              "text": "敘述覆蓋關注邊，而分支覆蓋關注節點",
+              "fraction": 0,
+              "feedback": "剛好反過來：敘述對應節點，分支對應邊。"
+            }
+          ],
+          "generalFeedback": "敘述覆蓋＝節點覆蓋；分支覆蓋＝邊覆蓋。分支覆蓋額外強制每個判斷結果，因此涵蓋敘述覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無 else 的 if 上節點覆蓋的最少測試路徑",
+          "text": "<p>某控制流程圖的邊為 <code>1→2, 2→3, 1→3</code>（沒有 <code>else</code> 的 <code>if</code>；節點 1 起始、節點 3 結束）。達成<strong>節點覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——單一路徑 1→2→3 造訪全部三個節點。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "一條路徑（1→2→3）就造訪了每個節點；此處要兩條的是邊覆蓋。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是節點數量，不是所需的測試路徑數。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "至少需要一條測試路徑才能造訪任何節點。"
+            }
+          ],
+          "generalFeedback": "路徑 1→2→3 通過節點 1、2、3，以單一測試路徑達成節點覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無 else 的 if 上邊覆蓋的最少測試路徑",
+          "text": "<p>對於同一個無 else 的 if 圖（邊為 <code>1→2, 2→3, 1→3</code>），達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→3 覆蓋 1→2 與 2→3，但 false 分支邊 1→3 需要第二條路徑 1→3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "單一路徑無法同時走 1→2 與 1→3，故無法覆蓋全部三條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩條就夠：1→2→3 與 1→3 合起來覆蓋全部三條邊。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "此處至少需要兩條測試路徑才能覆蓋每條邊。"
+            }
+          ],
+          "generalFeedback": "此處 NC 需 1 條路徑但 EC 需 2 條——是「邊覆蓋嚴格強於節點覆蓋」的具體見證。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "直線程式碼：NC 與 EC 一致",
+          "text": "<p>在沒有判斷節點的直線控制流程圖上（邊為 <code>1→2, 2→3, 3→4</code>），任何達成節點覆蓋的測試集也會達成邊覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——沒有分支時，單一路徑 1→2→3→4 覆蓋每個節點與每條邊，故兩準則一致。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "沒有判斷時圖中只有一條路徑；造訪所有節點必然走遍所有邊。"
+            }
+          ],
+          "generalFeedback": "只有當圖具有判斷節點（外分支度 ≥ 2 的節點）時，節點覆蓋與邊覆蓋才會不同。在直線程式碼上它們要求完全相同的執行。"
+        },
+        {
+          "type": "truefalse",
+          "name": "分支覆蓋蘊含敘述覆蓋",
+          "text": "<p>若一個測試套件達成 100% 分支覆蓋，其敘述覆蓋也必然是 100%（假設每條敘述都位於某條邊上）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋即邊覆蓋，涵蓋節點覆蓋（敘述覆蓋）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "覆蓋每個分支就走遍每條邊，從而造訪每個節點／敘述，故敘述覆蓋也完整。"
+            }
+          ],
+          "generalFeedback": "因為邊覆蓋涵蓋節點覆蓋，100% 分支覆蓋保證 100% 敘述覆蓋；反向不成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何敘述覆蓋可能漏掉錯誤",
+          "text": "<p>某方法有一個沒有 <code>else</code> 的 <code>if</code>；缺陷在於被略過的 else 路徑會回傳錯誤值。為何 100% 敘述覆蓋可能漏掉此缺陷，而 100% 分支覆蓋能抓到？</p>",
+          "answers": [
+            {
+              "text": "敘述覆蓋只需每條敘述被執行，因此從未被走的 false 分支（一條邊）可能未被測到",
+              "fraction": 100,
+              "feedback": "正確——空的 else 路徑是一條邊而非敘述，故只有邊／分支覆蓋才會強制它。"
+            },
+            {
+              "text": "敘述覆蓋需要比分支覆蓋更多的測試案例，遮蔽了缺陷",
+              "fraction": 0,
+              "feedback": "分支覆蓋通常需要至少一樣多的案例；這不是原因。"
+            },
+            {
+              "text": "缺陷位於某個節點，而敘述覆蓋從不檢查節點",
+              "fraction": 0,
+              "feedback": "缺陷顯現在未被走的邊（被略過的 else）上，而非某個已造訪的節點。"
+            },
+            {
+              "text": "敘述覆蓋完全忽略迴圈",
+              "fraction": 0,
+              "feedback": "此處與迴圈無關；缺口在於未被走的 false 分支。"
+            }
+          ],
+          "generalFeedback": "無 else 的 if 有一條不執行任何敘述的 false 分支邊；敘述覆蓋可以是 100% 卻從未走它，但分支／邊覆蓋要求走它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "短路求值與邊數",
+          "text": "<p>以短路求值方式建模 <code>if (a &amp;&amp; b)</code>（在 <code>a</code> 上有一個可略過求值 <code>b</code> 的判斷），相較於把 <code>a &amp;&amp; b</code> 當成單一原子判斷，邊覆蓋必須覆蓋的邊數：</p>",
+          "answers": [
+            {
+              "text": "增加，因為短路求值多加了一個帶有自身外向邊的判斷節點",
+              "fraction": 100,
+              "feedback": "正確——分別測試 a 再測 b 會引入額外的分支邊。"
+            },
+            {
+              "text": "減少，因為 b 有時被略過",
+              "fraction": 0,
+              "feedback": "執行期略過 b 並不會移除邊；短路求值反而增加判斷結構。"
+            },
+            {
+              "text": "不變，因為兩種形式都只有一個判斷",
+              "fraction": 0,
+              "feedback": "短路形式有兩個判斷節點（測 a 與測 b），並非一個。"
+            },
+            {
+              "text": "變成無限，因為有連接詞",
+              "fraction": 0,
+              "feedback": "圖仍是有限的；短路求值只是增加有限數量的邊。"
+            }
+          ],
+          "generalFeedback": "短路求值把拆成兩個判斷（先測 a、再測 b），因此控制流程圖多出額外的分支邊需要邊覆蓋去走。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋百分比",
+          "text": "<p>某控制流程圖有 5 個節點，測試套件造訪了其中 4 個。其節點覆蓋百分比是多少？</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "正確——5 個中的 4 個＝80%。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是 4 個中的 3 個；此處是 5 個中的 4 個＝80%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "有一個節點未被造訪，故覆蓋率低於 100%。"
+            },
+            {
+              "text": "40%",
+              "fraction": 0,
+              "feedback": "覆蓋率＝已造訪／總數＝4/5＝80%，而非 2/5。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋百分比＝已造訪節點／總節點＝4/5＝80%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋百分比",
+          "text": "<p>某控制流程圖有 8 條邊，測試套件走過其中 6 條。其邊覆蓋百分比是多少？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——8 條中的 6 條＝75%。"
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% 是 5 條中的 4 條；此處是 8 條中的 6 條＝75%。"
+            },
+            {
+              "text": "60%",
+              "fraction": 0,
+              "feedback": "覆蓋率＝已走過／總數＝6/8＝75%，而非 6/10。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "有兩條邊未被走過，故覆蓋率低於 100%。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋百分比＝已走過邊／總邊＝6/8＝75%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "是什麼使節點覆蓋不足",
+          "text": "<p>哪一個圖的特徵正是使節點覆蓋弱於邊覆蓋（以致可以有 NC 卻無 EC）的原因？</p>",
+          "answers": [
+            {
+              "text": "判斷節點——外向邊有兩條以上的節點",
+              "fraction": 100,
+              "feedback": "正確——分支使得節點可被到達，卻不必然走過它的每一條外向邊。"
+            },
+            {
+              "text": "只有一條外向邊的節點",
+              "fraction": 0,
+              "feedback": "只有單一外向邊時，造訪節點與走它的邊是同一件事；不會產生缺口。"
+            },
+            {
+              "text": "圖中存在起始節點",
+              "fraction": 0,
+              "feedback": "每個圖都有起始節點；單憑這點無法區分 NC 與 EC。"
+            },
+            {
+              "text": "節點比邊多",
+              "fraction": 0,
+              "feedback": "節點／邊的數量並不決定此缺口；判斷節點才是關鍵。"
+            }
+          ],
+          "generalFeedback": "只有在判斷節點（外分支度 ≥ 2）處，才可能造訪該節點卻略過其一條外向分支邊，因此判斷節點正是 NC 與 EC 分歧之處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "菱形圖上邊覆蓋的需求數量",
+          "text": "<p>某菱形控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>。邊覆蓋會課予幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每條邊一項需求，共有 4 條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重數一次——菱形有四條邊。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是最少測試路徑數，不是邊需求的數量（4）。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重數一次——菱形只有四條邊。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋每條邊一項需求；菱形的四條邊給出四項需求，由兩條測試路徑達成。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "不可行的邊",
+          "text": "<p>一條邊在何時是<strong>（語意上）不可行的（infeasible）</strong>？</p>",
+          "answers": [
+            {
+              "text": "雖然它存在於圖中，但沒有任何程式輸入能使執行走過它",
+              "fraction": 100,
+              "feedback": "正確——這條邊在語法上存在，但在任何實際執行下都不可到達。"
+            },
+            {
+              "text": "它在邊列中出現了兩次",
+              "fraction": 0,
+              "feedback": "重複列出與可行性無關。"
+            },
+            {
+              "text": "它的兩個端點都是判斷節點",
+              "fraction": 0,
+              "feedback": "端點的型態不決定可行性；是否有輸入能驅動這條邊才是關鍵。"
+            },
+            {
+              "text": "它是某個迴圈的一部分",
+              "fraction": 0,
+              "feedback": "迴圈的邊通常完全可行；可行性關乎在真實輸入下的可到達性。"
+            }
+          ],
+          "generalFeedback": "不可行的邊存在於控制流程圖中，但沒有測試輸入能驅使控制走過它（例如某分支條件永遠不為真），因此 100% 邊覆蓋不可達成，覆蓋率以可行的邊為準來衡量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語法上不可到達的節點",
+          "text": "<p>一個節點在何時是從起始節點<strong>語法上不可到達（syntactically unreachable）</strong>？</p>",
+          "answers": [
+            {
+              "text": "圖中不存在任何從起始節點到它的路徑",
+              "fraction": 100,
+              "feedback": "正確——即使忽略分支條件也沒有路徑存在。"
+            },
+            {
+              "text": "圖中有到它的路徑，但沒有輸入真的驅使執行到那裡",
+              "fraction": 0,
+              "feedback": "那是語意不可行，而非語法不可到達。"
+            },
+            {
+              "text": "它沒有外向邊",
+              "fraction": 0,
+              "feedback": "沒有外向邊的節點只是結束節點，它仍可能是可到達的。"
+            },
+            {
+              "text": "它被每條測試路徑造訪",
+              "fraction": 0,
+              "feedback": "那與不可到達正好相反。"
+            }
+          ],
+          "generalFeedback": "語法可到達性只問是否存在從進入點的圖路徑；若不存在，該節點永遠無法被覆蓋，完整節點覆蓋即不可達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語法 vs 語意可到達性",
+          "text": "<p>一條邊「<em>語法上</em>可到達」與「<em>語意上</em>可到達」有何差別？</p>",
+          "answers": [
+            {
+              "text": "語法可到達指圖中存在到它的路徑；語意可到達指有某個真實輸入真的驅使執行走過它",
+              "fraction": 100,
+              "feedback": "正確——語法忽略條件，語意則考慮條件。"
+            },
+            {
+              "text": "兩者是同一性質的兩個名稱",
+              "fraction": 0,
+              "feedback": "兩者不同：一條邊可以語法上可到達卻語意上不可行。"
+            },
+            {
+              "text": "語法可到達關乎節點；語意可到達關乎邊",
+              "fraction": 0,
+              "feedback": "兩種概念都同樣適用於節點與邊；差別在於圖路徑 vs 真實輸入。"
+            },
+            {
+              "text": "語意可到達永遠比語法更弱（更容易）",
+              "fraction": 0,
+              "feedback": "語意更強：語意可到達蘊含語法可到達，反之不然。"
+            }
+          ],
+          "generalFeedback": "凡語意可到達的元素都語法可到達，但語法可到達的邊可能不可行，因為沒有輸入能滿足沿途的條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 EC 嚴格強於 NC",
+          "text": "<p>下列哪個事實確立了邊覆蓋<em>嚴格</em>強於節點覆蓋（EC ⊋ NC）？</p>",
+          "answers": [
+            {
+              "text": "EC 永遠蘊含 NC，且存在某個圖加測試集能滿足 NC 卻不滿足 EC",
+              "fraction": 100,
+              "feedback": "正確——一個方向的涵蓋加上反方向的反例，正好就是嚴格包含。"
+            },
+            {
+              "text": "NC 永遠蘊含 EC，且存在某個圖能滿足 EC 卻不滿足 NC",
+              "fraction": 0,
+              "feedback": "兩個子句都反了；NC 並不蘊含 EC。"
+            },
+            {
+              "text": "在每個圖上，EC 與 NC 都由完全相同的測試集滿足",
+              "fraction": 0,
+              "feedback": "那會使兩者等價，而非其一嚴格更強。"
+            },
+            {
+              "text": "兩者互不蘊含",
+              "fraction": 0,
+              "feedback": "EC 確實蘊含 NC；此包含是嚴格的，而非不可比較。"
+            }
+          ],
+          "generalFeedback": "嚴格涵蓋意指 EC 普遍蘊含 NC，而某個實例（例如以 1→2→3 覆蓋的無 else 之 if）滿足 NC 卻不滿足 EC——故 EC 嚴格更強。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有迴圈時邊覆蓋的最少測試路徑",
+          "text": "<p>某 while 迴圈控制流程圖的邊為 <code>1→2, 2→3, 3→2, 2→4</code>（節點 2 為迴圈條件、節點 3 為主體、節點 4 為出口；節點 1 起始）。達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——單一路徑 1→2→3→2→4 走過全部四條邊（進入迴圈一次後離開）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "一條就夠：1→2→3→2→4 覆蓋 1→2、2→3、3→2 與 2→4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "全部四條邊都能放進一條迭代迴圈一次的起訖路徑上。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊的數量；一條精選路徑即可全部走過。"
+            }
+          ],
+          "generalFeedback": "迴圈恰好迭代一次（1→2→3→2→4）就走過每條邊，因此儘管有回邊，邊覆蓋只需一條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "自迴圈的覆蓋需要主體",
+          "text": "<p>某控制流程圖有一條自迴圈邊 <code>2→2</code>。要滿足邊覆蓋，某條測試路徑必須至少執行節點 2 的迴圈主體一次（走過 <code>2→2</code>）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——2→2 是一條邊，故邊覆蓋要求走過它，也就是迴圈至少迭代一次。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "自迴圈是一條真正的邊；略過它就無法滿足邊覆蓋。"
+            }
+          ],
+          "generalFeedback": "在邊覆蓋下每條邊（含自迴圈）都是一項測試需求；僅造訪節點 2（節點覆蓋）並不會強制走過 2→2。"
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋一個匯合點",
+          "text": "<p>匯合節點 m 有兩條入邊 <code>a→m</code> 與 <code>b→m</code>，分別來自 if-else 的兩臂。此處邊覆蓋要求的、而節點覆蓋不要求的是什麼？</p>",
+          "answers": [
+            {
+              "text": "兩條入邊 a→m 與 b→m 都必須被走過，因此 if-else 的兩臂都被執行",
+              "fraction": 100,
+              "feedback": "正確——節點 m 的節點覆蓋只需其中一臂；邊覆蓋則強制兩條入邊。"
+            },
+            {
+              "text": "節點 m 必須被造訪兩次",
+              "fraction": 0,
+              "feedback": "邊覆蓋關注走過兩條邊，而非造訪 m 幾次。"
+            },
+            {
+              "text": "沒有額外要求；造訪 m 一次就同時滿足兩準則",
+              "fraction": 0,
+              "feedback": "經其中一臂造訪 m 可滿足 NC，但會漏掉另一條入邊。"
+            },
+            {
+              "text": "兩臂必須被合併成單一節點",
+              "fraction": 0,
+              "feedback": "圖不會被改寫；邊覆蓋只是要求兩條入邊都被走。"
+            }
+          ],
+          "generalFeedback": "造訪匯合節點 m 只要經任一臂到達即可滿足節點覆蓋，但邊覆蓋要求 a→m 與 b→m 都被走過，因此執行到兩個分支。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每個節點的敘述數",
+          "text": "<p>某基本區塊含有 4 條連續敘述，沒有內部分支或跳躍。在控制流程圖中它以幾個節點表示？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——不論含有多少敘述，一個基本區塊就是單一節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "敘述並非各自是節點；整個區塊是一個節點。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "此區塊是一個節點；這裡沒有每敘述一節點的情形。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "一段敘述構成的區塊恰以一個節點表示。"
+            }
+          ],
+          "generalFeedback": "一個基本區塊收縮成一個節點，因此敘述數與節點數不同——但覆蓋是等價的，因為進入該區塊就會執行其所有敘述。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的邊與完整 EC",
+          "text": "<p>某控制流程圖含有一條真正不可行的邊。對邊覆蓋而言，正確的後果是什麼？</p>",
+          "answers": [
+            {
+              "text": "100% 邊覆蓋不可達成；覆蓋率最好只以可行的邊來衡量",
+              "fraction": 100,
+              "feedback": "正確——排除不可行的需求可讓此度量維持有意義。"
+            },
+            {
+              "text": "只要更努力，100% 邊覆蓋仍可達成",
+              "fraction": 0,
+              "feedback": "沒有輸入能走過不可行的邊，故完整的字面覆蓋不可能。"
+            },
+            {
+              "text": "整個邊覆蓋準則變得毫無意義而被放棄",
+              "fraction": 0,
+              "feedback": "準則仍保留；只是把那項不可行需求擱置。"
+            },
+            {
+              "text": "不可行的邊會自動從程式中被刪除",
+              "fraction": 0,
+              "feedback": "圖是程式的模型、不會被更動；該需求只是被回報為不可行。"
+            }
+          ],
+          "generalFeedback": "因為沒有測試能走過不可行的邊，工具會以可行的測試需求為分母回報覆蓋率，而非要求不可能的 100%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "嚴格包含的見證",
+          "text": "<p>下列哪一組邊搭配一條適當的單一測試路徑，最能見證「節點覆蓋可被滿足、而邊覆蓋不被滿足」？</p>",
+          "answers": [
+            {
+              "text": "，測試路徑 1→2→3（邊 1→3 未被覆蓋）",
+              "fraction": 100,
+              "feedback": "正確——所有節點都被造訪，但 false 分支邊 1→3 被漏掉。"
+            },
+            {
+              "text": "，測試路徑 1→2→3→4",
+              "fraction": 0,
+              "feedback": "直線程式碼：一條路徑就覆蓋所有節點與所有邊，無法見證缺口。"
+            },
+            {
+              "text": "，測試路徑 1→2→4",
+              "fraction": 0,
+              "feedback": "此路徑漏掉節點 3，故也不滿足節點覆蓋——不是「有 NC 無 EC」的見證。"
+            },
+            {
+              "text": "，測試路徑 1→2",
+              "fraction": 0,
+              "feedback": "單一邊被覆蓋、兩個節點也被覆蓋；NC 與 EC 都成立，沒有缺口。"
+            }
+          ],
+          "generalFeedback": "以 1→2→3 遊歷的無 else 之 if造訪每個節點卻略過邊 1→3——是「滿足 NC 但不滿足 EC」的典型見證。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴圈使 EC 仍為有限",
+          "text": "<p>含迴圈的控制流程圖使完整路徑覆蓋不可行，但邊覆蓋在該圖上仍是有限且可達成的準則。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——迴圈產生無限多條完整路徑，但邊數（因而邊需求數）維持有限。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "不論迴圈能迭代多少次，邊覆蓋每條邊一項需求，是個有限集合。"
+            }
+          ],
+          "generalFeedback": "迴圈使完整路徑的集合無界，但邊集是有限的，因此邊覆蓋永遠是有限（且通常可達成）的目標。"
+        },
+        {
+          "type": "multichoice",
+          "name": "有不可到達節點時 NC 的最大可達成值",
+          "text": "<p>某控制流程圖有 5 個節點，其中一個從進入點語法上不可到達（死碼）。以全部 5 個節點計算，任何測試套件能達成的最大節點覆蓋率是多少？</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "正確——5 個中最多能造訪 4 個，故 4/5＝80%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "不可到達的節點永遠無法被造訪，故以全部 5 個節點計不可能達到完整覆蓋。"
+            },
+            {
+              "text": "90%",
+              "fraction": 0,
+              "feedback": "只能以整個節點計；最佳是 4/5＝80%。"
+            },
+            {
+              "text": "20%",
+              "fraction": 0,
+              "feedback": "五個節點中有四個可到達，故最大為 80%，而非 20%。"
+            }
+          ],
+          "generalFeedback": "不可到達的節點使字面節點覆蓋上限低於 100%；此處最大＝4/5＝80%。工具通常改以可到達的節點回報覆蓋率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有不可行邊時 EC 的最大可達成值",
+          "text": "<p>某控制流程圖有 6 條邊，其中恰好一條不可行。以全部 6 條邊計算，任何測試套件能達成的最大邊覆蓋率是多少？</p>",
+          "answers": [
+            {
+              "text": "約 83%（6 條中的 5 條）",
+              "fraction": 100,
+              "feedback": "正確——不可行的邊永遠無法被走過，故最多 5/6 ≈ 83%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "沒有輸入能走過不可行的邊，故 6/6 不可能。"
+            },
+            {
+              "text": "約 67%（6 條中的 4 條）",
+              "fraction": 0,
+              "feedback": "只有一條邊不可行，故最多 6 條中的 5 條可被覆蓋＝約 83%。"
+            },
+            {
+              "text": "50%（6 條中的 3 條）",
+              "fraction": 0,
+              "feedback": "六條邊中有五條可行，故最大約 83%。"
+            }
+          ],
+          "generalFeedback": "一條不可行的邊使字面邊覆蓋上限為 5/6 ≈ 83%；覆蓋率通常以可行的邊回報。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支圖上邊覆蓋的最少測試路徑",
+          "text": "<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 1→3, 2→3, 2→4, 3→4</code>（節點 1 起始、節點 4 結束）。達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——例如 1→2→3→4（覆蓋 1→2、2→3、3→4）、1→3→4（覆蓋 1→3）、1→2→4（覆蓋 2→4）；沒有任何兩條路徑能覆蓋全部五條邊。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "邊 2→3 與 2→4 都需要節點 2，但沒有回到 2 的路可走，故一條路徑無法同時走兩者；同理 1→3 需要以 1→3 起步。兩條無法覆蓋全部五條。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "三條精選路徑就已覆蓋全部五條邊。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是邊的數量；最少測試路徑數是 3。"
+            }
+          ],
+          "generalFeedback": "覆蓋 2→3 與 2→4 需要兩條經過節點 2 的相異路徑，而 1→3 需要一條以 1→3 起步的路徑，故邊覆蓋至少需要三條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何敘述覆蓋等於節點覆蓋",
+          "text": "<p>即使一個節點可能含有多條敘述，為何逐敘述的敘述覆蓋與逐節點的節點覆蓋等價？</p>",
+          "answers": [
+            {
+              "text": "基本區塊是單一進入、單一離開，因此進入該節點就會執行其所有敘述——造訪節點就一併覆蓋它們",
+              "fraction": 100,
+              "feedback": "正確——區塊以整體執行，故節點覆蓋與敘述覆蓋同進退。"
+            },
+            {
+              "text": "因為每條敘述都被放進自己的節點",
+              "fraction": 0,
+              "feedback": "敘述被歸入基本區塊，並非各自為一個節點。"
+            },
+            {
+              "text": "因為敘述覆蓋忽略每個區塊的最後一條敘述",
+              "fraction": 0,
+              "feedback": "沒有任何敘述被忽略；造訪節點時整個區塊都會執行。"
+            },
+            {
+              "text": "它們並不等價；節點覆蓋永遠更強",
+              "fraction": 0,
+              "feedback": "它們是等價的：一個基本區塊的所有敘述正好在節點被造訪時全部執行。"
+            }
+          ],
+          "generalFeedback": "因為基本區塊沒有內部分支，控制從頂端進入並一路執行到底部的每條敘述，故覆蓋該節點就覆蓋其所有敘述——敘述覆蓋 ≡ 節點覆蓋。",
+          "single": true
+        }
+      ]
+    }
+  },
   "logic-coverage": {
     "en": {
       "easy": [

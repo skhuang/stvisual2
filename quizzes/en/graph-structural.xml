@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Graph Structural Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Node Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Node Coverage (NC)</strong> is satisfied by a set of test paths when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every reachable node of the graph is visited by at least one test path</text><feedback><text>Correct — NC requires that each node be reached.</text></feedback></answer>
+    <answer fraction="0"><text>Every edge of the graph is traversed by at least one test path</text><feedback><text>That is Edge Coverage, which is stronger than Node Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every complete path from entry to exit is executed</text><feedback><text>That is Complete Path Coverage, far stronger and usually infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Every node is visited exactly once</text><feedback><text>NC only requires each node be visited at least once; repeats are allowed.</text></feedback></answer>
+    <generalfeedback><text>Node Coverage imposes one test requirement per node: each reachable node must be visited by some test path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Edge Coverage (EC)</strong> is satisfied by a set of test paths when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every reachable edge of the graph is traversed by at least one test path</text><feedback><text>Correct — EC requires that each edge (branch) be taken.</text></feedback></answer>
+    <answer fraction="0"><text>Every reachable node of the graph is visited</text><feedback><text>That is Node Coverage, which is weaker than Edge Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every pair of adjacent edges is traversed</text><feedback><text>That is Edge-Pair Coverage, which is stronger than Edge Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every edge is traversed exactly once</text><feedback><text>EC only requires each edge be taken at least once; an edge may repeat.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage imposes one test requirement per edge: each reachable edge must be traversed by some test path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement coverage maps to</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Classic <strong>statement coverage</strong> corresponds to which structural graph-coverage criterion on the control-flow graph?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Node Coverage</text><feedback><text>Correct — executing every statement means visiting every node (basic block).</text></feedback></answer>
+    <answer fraction="0"><text>Edge Coverage</text><feedback><text>Edge Coverage corresponds to branch coverage, which is stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Edge-Pair Coverage</text><feedback><text>Edge-pair coverage is much stronger than statement coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Complete Path Coverage</text><feedback><text>Complete path coverage is generally infeasible and far stronger.</text></feedback></answer>
+    <generalfeedback><text>Nodes model basic blocks/statements, so statement coverage is exactly Node Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch coverage maps to</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Classic <strong>branch coverage</strong> corresponds to which structural graph-coverage criterion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Edge Coverage</text><feedback><text>Correct — every branch outcome is an edge that must be traversed.</text></feedback></answer>
+    <answer fraction="0"><text>Node Coverage</text><feedback><text>Node coverage corresponds to statement coverage, which is weaker.</text></feedback></answer>
+    <answer fraction="0"><text>Prime Path Coverage</text><feedback><text>Prime path coverage is much stronger than branch coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Complete Path Coverage</text><feedback><text>Complete path coverage is generally infeasible and far stronger.</text></feedback></answer>
+    <generalfeedback><text>Each decision outcome is an outgoing edge, so branch coverage is exactly Edge Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a node models</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a control-flow graph, a single <strong>node</strong> typically models:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A basic block — a maximal sequence of statements with no internal branch</text><feedback><text>Correct — a node is a basic block executed as a unit.</text></feedback></answer>
+    <answer fraction="0"><text>A single branch outcome of a decision</text><feedback><text>That is an edge, not a node.</text></feedback></answer>
+    <answer fraction="0"><text>A complete execution from entry to exit</text><feedback><text>That is a test path, not a node.</text></feedback></answer>
+    <answer fraction="0"><text>A variable definition</text><feedback><text>Variable definitions belong to data-flow analysis, not to what a node models structurally.</text></feedback></answer>
+    <generalfeedback><text>A node models a basic block: a straight-line run of statements entered only at the top and left only at the bottom.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an edge models</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a control-flow graph, an <strong>edge</strong> from node u to node v models:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A possible transfer of control from block u to block v (e.g. a branch outcome)</text><feedback><text>Correct — an edge is a possible flow of control between blocks.</text></feedback></answer>
+    <answer fraction="0"><text>A basic block of statements</text><feedback><text>That is a node, not an edge.</text></feedback></answer>
+    <answer fraction="0"><text>A definition-use pair for some variable</text><feedback><text>DU pairs belong to data-flow coverage, not to the structural meaning of an edge.</text></feedback></answer>
+    <answer fraction="0"><text>The entire body of a loop</text><feedback><text>A loop body is one or more nodes; an edge is a single control transfer.</text></feedback></answer>
+    <generalfeedback><text>An edge represents one possible control transfer between basic blocks; a decision's outcomes are its outgoing edges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test path definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In graph-based testing, a <strong>test path</strong> is a path that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Starts at an initial node and ends at a final node of the graph</text><feedback><text>Correct — a test path represents one complete execution from entry to exit.</text></feedback></answer>
+    <answer fraction="0"><text>Visits every node of the graph exactly once</text><feedback><text>That is a Hamiltonian path, not a test path.</text></feedback></answer>
+    <answer fraction="0"><text>Is any single edge of the graph</text><feedback><text>A single edge is a path of length 1, but a test path must run from an initial to a final node.</text></feedback></answer>
+    <answer fraction="0"><text>Never repeats any node</text><feedback><text>A test path may repeat nodes (e.g. loop iterations); only simple paths forbid repeats.</text></feedback></answer>
+    <generalfeedback><text>A test path runs from an initial node to a final node; executing one test case follows exactly one test path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test requirement definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>test requirement</strong> for a structural coverage criterion is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A specific structural element (e.g. a node or an edge) that some test path must tour</text><feedback><text>Correct — a criterion yields a set of test requirements.</text></feedback></answer>
+    <answer fraction="0"><text>A single test case with concrete input values</text><feedback><text>That is a test case; a requirement is the element the case must cover.</text></feedback></answer>
+    <answer fraction="0"><text>The expected output of the program</text><feedback><text>That is an oracle, not a coverage requirement.</text></feedback></answer>
+    <answer fraction="0"><text>A complete path from entry to exit</text><feedback><text>A test path may satisfy many requirements, but a requirement is the element to be toured.</text></feedback></answer>
+    <generalfeedback><text>For Node Coverage each node is a test requirement; for Edge Coverage each edge is a test requirement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Node coverage requirement count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph has nodes 1..5 and edges <code>1→2, 2→3, 2→4, 3→5, 4→5</code>. How many test requirements does <strong>Node Coverage</strong> impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — one requirement per node, and there are 5 nodes.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>That counts the edges; Node Coverage counts nodes (5).</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>That counts only the branch nodes, not all nodes.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>Node Coverage has one requirement per node (5), not per node pair.</text></feedback></answer>
+    <generalfeedback><text>Node Coverage requires visiting each node, so the number of requirements equals the number of nodes: 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge coverage requirement count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph has nodes 1..4 and edges <code>1→2, 2→3, 3→4, 2→4</code>. How many test requirements does <strong>Edge Coverage</strong> impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — one requirement per edge, and there are 4 edges.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — there are four edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Recount — there are only four edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Edge Coverage counts edges (4), not just the branch points.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage requires one test requirement per edge, so the count equals the number of edges: 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count the nodes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph is given only by its directed edges: <code>1→2, 2→3, 2→4</code>. How many distinct nodes appear?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the distinct nodes are 1, 2, 3 and 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>That is the number of edges, not nodes; the distinct nodes are 1, 2, 3, 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Node 2 has two out-edges, but there are four distinct nodes overall.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>No node 5 appears in the edge list; there are four distinct nodes.</text></feedback></answer>
+    <generalfeedback><text>Collect the endpoints of every edge: {1, 2, 3, 4} — four distinct nodes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count the edges</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph on nodes 1..5 has directed edges <code>1→2, 2→3, 3→4, 4→5, 2→5</code>. How many directed edges does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — five edges are listed.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — there are five edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — there are only five edges listed.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>Recount — there are only five edges listed.</text></feedback></answer>
+    <generalfeedback><text>Count each directed edge once; the list is the complete edge set, giving 5.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Does a path cover all nodes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A control-flow graph has nodes 1..4 and edges <code>1→2, 2→3, 2→4</code>. The single test path <code>1→2→3</code> visits every node of the graph.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — the path visits {1, 2, 3} but never reaches node 4, so Node Coverage is not met.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>The path 1→2→3 misses node 4 (reached only via edge 2→4), so it does not visit every node.</text></feedback></answer>
+    <generalfeedback><text>Node 4 is reachable only through edge 2→4; the path 1→2→3 never takes it, so one more path (e.g. 1→2→4) is needed for Node Coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Edge coverage implies node coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a control-flow graph in which every node has at least one incident edge, a test set that satisfies Edge Coverage also satisfies Node Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — traversing every edge visits both endpoints of each edge, hence every node with an incident edge.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Covering all edges necessarily visits all nodes that have an incident edge, so Edge Coverage subsumes Node Coverage here.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage subsumes Node Coverage: each edge's endpoints are visited when the edge is traversed. The converse does not hold.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Node coverage guarantees branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Satisfying Node Coverage guarantees that every branch (decision outcome) has been exercised.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — Node Coverage can be met while an edge (branch outcome) is never taken.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Node Coverage only requires visiting nodes; a branch can go untaken while every node is still reached via other paths.</text></feedback></answer>
+    <generalfeedback><text>Node Coverage does not imply Edge Coverage, so some branch outcomes may go untested.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Structural Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why edge coverage subsumes node coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does Edge Coverage subsume Node Coverage (on a graph where every node has an incident edge)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every such node is an endpoint of some edge, so traversing all edges visits all those nodes</text><feedback><text>Correct — covering the edges automatically covers their endpoints.</text></feedback></answer>
+    <answer fraction="0"><text>Because there are always more edges than nodes</text><feedback><text>False in general — a straight-line graph of n nodes has only n−1 edges; subsumption does not rest on counts.</text></feedback></answer>
+    <answer fraction="0"><text>Because every node is itself an edge of length zero</text><feedback><text>A node is not an edge; the subsumption comes from edges visiting their endpoints.</text></feedback></answer>
+    <answer fraction="0"><text>Because Node Coverage requires visiting each edge</text><feedback><text>Node Coverage requires visiting nodes, not edges; that description is simply wrong.</text></feedback></answer>
+    <generalfeedback><text>An edge is traversed only by passing through both its endpoints, so an edge-covering test set visits every node that has an incident edge — hence EC subsumes NC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Node coverage met, edge missed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (node 1 is an <code>if</code> with no <code>else</code>, node 2 the then-block, node 3 the merge). The single test path <code>1→2→3</code> is run. It satisfies Node Coverage, but which edge is left uncovered?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1→3</text><feedback><text>Correct — the path takes 1→2 and 2→3 but never the false branch 1→3.</text></feedback></answer>
+    <answer fraction="0"><text>1→2</text><feedback><text>The path 1→2→3 does take edge 1→2.</text></feedback></answer>
+    <answer fraction="0"><text>2→3</text><feedback><text>The path 1→2→3 does take edge 2→3.</text></feedback></answer>
+    <answer fraction="0"><text>None; all edges are covered</text><feedback><text>Edge 1→3 (the skipped else) is never taken by 1→2→3.</text></feedback></answer>
+    <generalfeedback><text>All three nodes are visited by 1→2→3, so Node Coverage holds, yet the false-branch edge 1→3 is missed — a classic NC-without-EC case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal test paths for NC on a diamond</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A diamond CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). What is the minimum number of test paths needed for <strong>Node Coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — no single entry-to-exit path visits both node 2 and node 3, so two paths are needed (e.g. 1→2→4 and 1→3→4).</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One path can visit either node 2 or node 3 but not both, so one path cannot cover all four nodes.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Two paths suffice: 1→2→4 and 1→3→4 together visit all four nodes.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>That is the number of edges, not the minimum number of test paths for Node Coverage.</text></feedback></answer>
+    <generalfeedback><text>Nodes 2 and 3 lie on mutually exclusive branches, so a minimum of two test paths is required to visit every node.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal test paths for EC on a diamond</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the same diamond CFG with edges <code>1→2, 1→3, 2→4, 3→4</code>, what is the minimum number of test paths needed for <strong>Edge Coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — 1→2→4 covers 1→2 and 2→4; 1→3→4 covers 1→3 and 3→4. Two paths cover all four edges.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A single entry-to-exit path uses only one of 1→2 / 1→3, so it cannot cover all four edges.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Two paths already cover all four edges of the diamond.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Four is the number of edges; two test paths suffice to traverse them all.</text></feedback></answer>
+    <generalfeedback><text>On a pure diamond, the same two paths achieve both Node and Edge Coverage — the criteria coincide in path count here.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement vs branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the key difference between statement coverage and branch coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Branch coverage requires every decision outcome to be taken; statement coverage only requires every statement to run</text><feedback><text>Correct — branch coverage (EC) also forces the false/else outcomes, which statement coverage (NC) may skip.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage is strictly stronger than branch coverage</text><feedback><text>The reverse is true: branch coverage subsumes statement coverage.</text></feedback></answer>
+    <answer fraction="0"><text>They are always equivalent on every program</text><feedback><text>They coincide only when there are no decisions; a skipped else can satisfy statements but not branches.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage concerns edges while branch coverage concerns nodes</text><feedback><text>It is the other way round: statements map to nodes, branches to edges.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage = Node Coverage; branch coverage = Edge Coverage. Branch coverage additionally forces each decision outcome, so it subsumes statement coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal test paths for NC on an if-without-else</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (an <code>if</code> with no <code>else</code>; node 1 initial, node 3 final). What is the minimum number of test paths for <strong>Node Coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — the single path 1→2→3 visits all three nodes.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>One path (1→2→3) already visits every node; two are needed only for Edge Coverage here.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Three is the node count, not the number of test paths required.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>At least one test path is needed to visit any node.</text></feedback></answer>
+    <generalfeedback><text>The path 1→2→3 passes through nodes 1, 2 and 3, achieving Node Coverage with a single test path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal test paths for EC on an if-without-else</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the same if-without-else CFG with edges <code>1→2, 2→3, 1→3</code>, what is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — 1→2→3 covers 1→2 and 2→3, but the false-branch edge 1→3 needs the second path 1→3.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A single path cannot take both 1→2 and 1→3, so it cannot cover all three edges.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Two paths suffice: 1→2→3 and 1→3 together cover all three edges.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>At least two test paths are required to cover every edge here.</text></feedback></answer>
+    <generalfeedback><text>Here NC needs 1 path but EC needs 2 — a concrete witness that Edge Coverage is strictly stronger than Node Coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Straight-line code: NC and EC coincide</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a straight-line CFG with no decision nodes (edges <code>1→2, 2→3, 3→4</code>), any test set that achieves Node Coverage also achieves Edge Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — with no branching, the single path 1→2→3→4 covers every node and every edge, so the criteria coincide.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Without decisions there is only one path through the graph; visiting all nodes necessarily traverses all edges.</text></feedback></answer>
+    <generalfeedback><text>Node and Edge Coverage differ only when the graph has decision nodes (nodes with two or more out-edges). On straight-line code they require exactly the same execution.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Branch coverage implies statement coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a test suite achieves 100% branch coverage, its statement coverage is necessarily 100% as well (assuming every statement lies on some edge).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — branch coverage is Edge Coverage, which subsumes Node Coverage (statement coverage).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Covering every branch traverses every edge, which visits every node/statement, so statement coverage is also complete.</text></feedback></answer>
+    <generalfeedback><text>Because Edge Coverage subsumes Node Coverage, 100% branch coverage guarantees 100% statement coverage; the converse fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why statement coverage can miss a bug</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A method has an <code>if</code> with no <code>else</code>; the fault is that the missing else path returns a wrong value. Why can 100% statement coverage miss this fault while 100% branch coverage catches it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Statement coverage only needs every statement executed, so the never-taken false branch (an edge) can go untested</text><feedback><text>Correct — the empty else path is an edge, not a statement, so only Edge/branch coverage forces it.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage requires more test cases than branch coverage, masking the fault</text><feedback><text>Branch coverage generally needs at least as many cases; that is not the reason.</text></feedback></answer>
+    <answer fraction="0"><text>The fault is in a node, which statement coverage never checks</text><feedback><text>The fault manifests on the untaken edge (the skipped else), not in a visited node.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage ignores loops entirely</text><feedback><text>Loops are unrelated here; the gap is the untaken false branch.</text></feedback></answer>
+    <generalfeedback><text>An if-without-else has a false-branch edge that executes no statement; statement coverage can be 100% without ever taking it, but branch/Edge Coverage requires it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Short-circuit and edge count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Modeling <code>if (a &amp;&amp; b)</code> with short-circuit evaluation (a decision on <code>a</code> that can skip evaluating <code>b</code>), compared with treating <code>a &amp;&amp; b</code> as a single atomic decision, the number of edges Edge Coverage must cover:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Increases, because short-circuit adds a second decision node with its own outgoing edges</text><feedback><text>Correct — testing a then b separately introduces extra branch edges.</text></feedback></answer>
+    <answer fraction="0"><text>Decreases, because b is sometimes skipped</text><feedback><text>Skipping b at runtime does not remove edges; short-circuit adds the extra decision structure.</text></feedback></answer>
+    <answer fraction="0"><text>Stays the same, because both forms have one decision</text><feedback><text>Short-circuit form has two decision nodes (on a and on b), not one.</text></feedback></answer>
+    <answer fraction="0"><text>Becomes infinite, because of the conjunction</text><feedback><text>The graph stays finite; short-circuit merely adds a bounded number of edges.</text></feedback></answer>
+    <generalfeedback><text>Short-circuit evaluation splits <code>a &amp;&amp; b</code> into two decisions (test a, then test b), so the CFG gains extra branch edges that Edge Coverage must cover.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Node coverage percentage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has 5 nodes. A test suite visits 4 of them. What is its Node Coverage percentage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>80%</text><feedback><text>Correct — 4 of 5 nodes = 80%.</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% would be 3 of 4; here it is 4 of 5 = 80%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>One node is unvisited, so coverage is below 100%.</text></feedback></answer>
+    <answer fraction="0"><text>40%</text><feedback><text>Coverage is visited/total = 4/5 = 80%, not 2/5.</text></feedback></answer>
+    <generalfeedback><text>Node Coverage percentage = nodes visited / total nodes = 4/5 = 80%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge coverage percentage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has 8 edges. A test suite traverses 6 of them. What is its Edge Coverage percentage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>Correct — 6 of 8 edges = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>80%</text><feedback><text>80% would be 4 of 5; here it is 6 of 8 = 75%.</text></feedback></answer>
+    <answer fraction="0"><text>60%</text><feedback><text>Coverage is traversed/total = 6/8 = 75%, not 6/10.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>Two edges are untraversed, so coverage is below 100%.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage percentage = edges traversed / total edges = 6/8 = 75%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What makes node coverage insufficient</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which single graph feature is what makes Node Coverage weaker than Edge Coverage (so that NC can hold while EC fails)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A decision node — a node with two or more outgoing edges</text><feedback><text>Correct — branching lets a node be reached without every one of its out-edges being taken.</text></feedback></answer>
+    <answer fraction="0"><text>A node with only one outgoing edge</text><feedback><text>With a single out-edge, visiting the node and taking its edge coincide; no gap arises.</text></feedback></answer>
+    <answer fraction="0"><text>The presence of an initial node</text><feedback><text>Every graph has an initial node; that alone does not separate NC from EC.</text></feedback></answer>
+    <answer fraction="0"><text>Having more nodes than edges</text><feedback><text>Node/edge counts do not determine the gap; a decision node does.</text></feedback></answer>
+    <generalfeedback><text>Only at a decision node (out-degree ≥ 2) can a node be visited while one of its outgoing branch edges is skipped, so decision nodes are exactly where NC and EC diverge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge coverage requirements on a diamond</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A diamond CFG has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many test requirements does Edge Coverage impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — one requirement per edge, and there are 4 edges.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — the diamond has four edges.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Two is the minimum number of test paths, not the number of edge requirements (4).</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Recount — the diamond has only four edges.</text></feedback></answer>
+    <generalfeedback><text>Edge Coverage has one requirement per edge; the diamond's four edges give four requirements, met by two test paths.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Structural Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible edge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An edge is <strong>(semantically) infeasible</strong> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No input to the program can cause execution to traverse it, even though it exists in the graph</text><feedback><text>Correct — the edge is present syntactically but unreachable under any actual execution.</text></feedback></answer>
+    <answer fraction="0"><text>It appears twice in the edge list</text><feedback><text>Duplicate listing is unrelated to feasibility.</text></feedback></answer>
+    <answer fraction="0"><text>Both its endpoints are decision nodes</text><feedback><text>The endpoints' types do not determine feasibility; whether any input drives the edge does.</text></feedback></answer>
+    <answer fraction="0"><text>It is part of a loop</text><feedback><text>Loop edges are usually perfectly feasible; feasibility is about reachability under real inputs.</text></feedback></answer>
+    <generalfeedback><text>An infeasible edge exists in the CFG but no test input can drive control across it (e.g. a branch condition that is never true), so 100% Edge Coverage is unachievable and coverage is measured over feasible edges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Syntactically unreachable node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A node is <strong>syntactically unreachable</strong> from the initial node when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>There is no path in the graph from the initial node to it</text><feedback><text>Correct — no path exists even ignoring branch conditions.</text></feedback></answer>
+    <answer fraction="0"><text>There is a graph path to it, but no input actually drives execution there</text><feedback><text>That describes semantic infeasibility, not syntactic unreachability.</text></feedback></answer>
+    <answer fraction="0"><text>It has no outgoing edges</text><feedback><text>A node with no out-edges is just a final node; it can still be reachable.</text></feedback></answer>
+    <answer fraction="0"><text>It is visited by every test path</text><feedback><text>That is the opposite of unreachable.</text></feedback></answer>
+    <generalfeedback><text>Syntactic reachability asks only whether a graph path exists from the entry; if none does, the node can never be covered and full Node Coverage is unachievable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Syntactic vs semantic reachability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the difference between an edge being <em>syntactically</em> reachable and <em>semantically</em> reachable?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Syntactic reachability means a graph path to it exists; semantic reachability means some real input actually drives execution across it</text><feedback><text>Correct — syntactic ignores conditions, semantic accounts for them.</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for the same property</text><feedback><text>They differ: an edge can be syntactically reachable yet semantically infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Syntactic reachability concerns nodes; semantic reachability concerns edges</text><feedback><text>Both notions apply to nodes and edges alike; the distinction is graph-path vs real-input.</text></feedback></answer>
+    <answer fraction="0"><text>Semantic reachability is always weaker (easier) than syntactic</text><feedback><text>Semantic is stronger: semantic reachability implies syntactic, not the reverse.</text></feedback></answer>
+    <generalfeedback><text>Every semantically reachable element is syntactically reachable, but a syntactically reachable edge may be infeasible because no input satisfies the conditions along the way.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why EC is strictly stronger than NC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which fact establishes that Edge Coverage is <em>strictly</em> stronger than Node Coverage (EC ⊋ NC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>EC always implies NC, and there exists a graph plus test set satisfying NC but not EC</text><feedback><text>Correct — subsumption in one direction plus a counterexample for the converse is exactly strict containment.</text></feedback></answer>
+    <answer fraction="0"><text>NC always implies EC, and there exists a graph satisfying EC but not NC</text><feedback><text>Both clauses are backwards; NC does not imply EC.</text></feedback></answer>
+    <answer fraction="0"><text>EC and NC are satisfied by exactly the same test sets on every graph</text><feedback><text>That would make them equivalent, not one strictly stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Neither ever implies the other</text><feedback><text>EC does imply NC; the containment is strict, not incomparable.</text></feedback></answer>
+    <generalfeedback><text>Strict subsumption means EC ⇒ NC universally, while some instance (e.g. an if-without-else covered by 1→2→3) meets NC but not EC — so EC is strictly stronger.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal EC test paths with a loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 2 the loop condition, node 3 the body, node 4 the exit; node 1 initial). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — the single path 1→2→3→2→4 traverses all four edges (enter loop once, then exit).</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>One path suffices: 1→2→3→2→4 covers 1→2, 2→3, 3→2 and 2→4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>All four edges fit on one entry-to-exit path that iterates the loop once.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Four is the edge count; a single well-chosen path covers them all.</text></feedback></answer>
+    <generalfeedback><text>Iterating the loop exactly once (1→2→3→2→4) traverses every edge, so Edge Coverage needs just one test path despite the back edge.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Self-loop coverage requires the body</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has a self-loop edge <code>2→2</code>. To satisfy Edge Coverage, some test path must execute the loop body at node 2 at least once (traverse <code>2→2</code>).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — 2→2 is an edge, so Edge Coverage requires it be traversed, which means the loop iterates at least once.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The self-loop is a genuine edge; skipping it leaves Edge Coverage unsatisfied.</text></feedback></answer>
+    <generalfeedback><text>Every edge, including a self-loop, is a test requirement under Edge Coverage; visiting node 2 alone (Node Coverage) does not force traversing 2→2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Covering a merge point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A merge node m has two incoming edges, <code>a→m</code> and <code>b→m</code>, from the two arms of an if-else. What does Edge Coverage require here that Node Coverage does not?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both incoming edges a→m and b→m must be traversed, so both arms of the if-else are exercised</text><feedback><text>Correct — Node Coverage of m needs only one arm; Edge Coverage forces both incoming edges.</text></feedback></answer>
+    <answer fraction="0"><text>Node m must be visited twice</text><feedback><text>Edge Coverage concerns traversing both edges, not visiting m a specific number of times.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing extra; visiting m once suffices for both criteria</text><feedback><text>Visiting m via one arm satisfies NC but leaves the other incoming edge uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>The two arms must be merged into a single node</text><feedback><text>The graph is not rewritten; Edge Coverage simply requires both incoming edges.</text></feedback></answer>
+    <generalfeedback><text>Node Coverage of the merge node m is met by reaching it through either arm, but Edge Coverage requires both a→m and b→m, exercising both branches.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Statements per node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A basic block contains 4 sequential statements with no internal branch or jump. In the control-flow graph it is represented by how many nodes?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — a basic block is a single node regardless of how many statements it holds.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Statements are not individual nodes; the whole block is one node.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>The block is one node; there is no per-statement node here.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>A block of statements is represented by exactly one node.</text></feedback></answer>
+    <generalfeedback><text>A basic block collapses to one node, so statement count and node count differ — yet coverage is equivalent because entering the block runs all its statements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible edge and full EC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG contains a genuinely infeasible edge. What is the correct consequence for Edge Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% Edge Coverage is unachievable; coverage is best measured over the feasible edges only</text><feedback><text>Correct — infeasible requirements are excluded so the metric stays meaningful.</text></feedback></answer>
+    <answer fraction="0"><text>100% Edge Coverage is still achievable by trying harder</text><feedback><text>No input can traverse an infeasible edge, so full literal coverage is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>The whole Edge Coverage criterion becomes meaningless and is abandoned</text><feedback><text>The criterion is retained; only the infeasible requirement is set aside.</text></feedback></answer>
+    <answer fraction="0"><text>The infeasible edge is automatically deleted from the program</text><feedback><text>The graph models the program and is not altered; the requirement is simply reported as infeasible.</text></feedback></answer>
+    <generalfeedback><text>Because no test can traverse an infeasible edge, tools report coverage against the feasible test requirements rather than demanding an impossible 100%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Witness for strict containment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which edge set, together with a suitable single test path, best witnesses that Node Coverage can be satisfied while Edge Coverage is not?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><code>1→2, 2→3, 1→3</code> with test path 1→2→3 (edge 1→3 uncovered)</text><feedback><text>Correct — all nodes visited, but the false-branch edge 1→3 is missed.</text></feedback></answer>
+    <answer fraction="0"><text><code>1→2, 2→3, 3→4</code> with test path 1→2→3→4</text><feedback><text>Straight-line code: the one path covers all nodes and all edges, so it cannot witness a gap.</text></feedback></answer>
+    <answer fraction="0"><text><code>1→2, 1→3, 2→4, 3→4</code> with test path 1→2→4</text><feedback><text>This path misses node 3, so it fails Node Coverage too — not a witness for NC-without-EC.</text></feedback></answer>
+    <answer fraction="0"><text><code>1→2</code> with test path 1→2</text><feedback><text>A single edge is covered along with both nodes; NC and EC both hold, so no gap.</text></feedback></answer>
+    <generalfeedback><text>The if-without-else <code>1→2, 2→3, 1→3</code> toured by 1→2→3 visits every node yet skips edge 1→3 — the canonical NC-satisfied-but-EC-failed witness.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Loops keep EC finite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG with a loop makes Complete Path Coverage infeasible, yet Edge Coverage remains a finite, achievable criterion on that graph.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a loop yields infinitely many complete paths, but the number of edges (hence edge requirements) stays finite.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Edge Coverage has one requirement per edge, a finite set, no matter how many times the loop can iterate.</text></feedback></answer>
+    <generalfeedback><text>Loops make the set of complete paths unbounded, but the edge set is finite, so Edge Coverage is always a finite (and typically achievable) target.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Max achievable NC with an unreachable node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has 5 nodes, one of which is syntactically unreachable from the entry (dead code). What is the maximum Node Coverage any test suite can achieve, counting all 5 nodes?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>80%</text><feedback><text>Correct — at most 4 of the 5 nodes can ever be visited, so 4/5 = 80%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>The unreachable node can never be visited, so full coverage over all 5 nodes is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>90%</text><feedback><text>Only whole nodes count; the best is 4/5 = 80%.</text></feedback></answer>
+    <answer fraction="0"><text>20%</text><feedback><text>Four of five nodes are reachable, so the maximum is 80%, not 20%.</text></feedback></answer>
+    <generalfeedback><text>An unreachable node caps literal Node Coverage below 100%; here max = 4/5 = 80%. Tools typically report coverage over reachable nodes instead.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Max achievable EC with an infeasible edge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG has 6 edges, exactly one of which is infeasible. What is the maximum Edge Coverage any test suite can achieve, counting all 6 edges?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>About 83% (5 of 6)</text><feedback><text>Correct — the infeasible edge can never be traversed, so at most 5/6 ≈ 83%.</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>No input can traverse the infeasible edge, so 6/6 is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>About 67% (4 of 6)</text><feedback><text>Only one edge is infeasible, so up to 5 of 6 are coverable = ~83%.</text></feedback></answer>
+    <answer fraction="0"><text>50% (3 of 6)</text><feedback><text>Five of six edges are feasible, so the maximum is ~83%.</text></feedback></answer>
+    <generalfeedback><text>One infeasible edge caps literal Edge Coverage at 5/6 ≈ 83%; coverage is usually reported over the feasible edges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal EC test paths on a branchy CFG</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CFG on nodes 1..4 has edges <code>1→2, 1→3, 2→3, 2→4, 3→4</code> (node 1 initial, node 4 final). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — e.g. 1→2→3→4 (covers 1→2, 2→3, 3→4), 1→3→4 (covers 1→3), 1→2→4 (covers 2→4); no two paths can cover all five edges.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Edges 2→3 and 2→4 both need node 2, but there is no way back to 2, so one path cannot take both; likewise 1→3 needs a path starting 1→3. Two paths cannot cover all five.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Three well-chosen paths already cover all five edges.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Five is the edge count; the minimum number of test paths is three.</text></feedback></answer>
+    <generalfeedback><text>Covering 2→3 and 2→4 needs two distinct paths through node 2, and 1→3 needs a path starting 1→3, so at least three test paths are required for Edge Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why statement coverage equals node coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is per-statement statement coverage equivalent to per-node Node Coverage even though a node may hold several statements?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A basic block is single-entry, single-exit, so entering the node executes all of its statements — visiting the node covers them together</text><feedback><text>Correct — the block runs atomically, so node coverage and statement coverage rise and fall together.</text></feedback></answer>
+    <answer fraction="0"><text>Because every statement is placed in its own node</text><feedback><text>Statements are grouped into basic blocks; they are not each a separate node.</text></feedback></answer>
+    <answer fraction="0"><text>Because statement coverage ignores the last statement of each block</text><feedback><text>No statement is ignored; the whole block executes when the node is visited.</text></feedback></answer>
+    <answer fraction="0"><text>They are not equivalent; node coverage is always stronger</text><feedback><text>They are equivalent: a basic block's statements all execute exactly when the node is visited.</text></feedback></answer>
+    <generalfeedback><text>Because a basic block has no internal branch, control enters at the top and runs every statement to the bottom, so covering the node covers all its statements — statement coverage ≡ Node Coverage.</text></generalfeedback>
+  </question>
+</quiz>
