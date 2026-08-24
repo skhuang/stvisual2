@@ -472,11 +472,12 @@
     <name><text>不到達任何 use 的 def</text></name>
     <questiontext format="html"><text><![CDATA[<p>在片段 K 中：</p><pre>1  x = 5
 2  x = 10
-3  y = x</pre><p>哪個 def <strong>沒有 DU pair</strong>（不到達任何 use）？</p>]]></text></questiontext>
+3  y = x
+4  print(y)</pre><p>哪個 def <strong>沒有 DU pair</strong>（不到達任何 use）？</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>第 1 行 x 的 def，因為第 2 行在任何 use 之前就再定義了 x</text><feedback><text>正確——第 1 行的值在第 2 行被覆殺，故從未到達任何 use；它不構成 DU pair。</text></feedback></answer>
     <answer fraction="0"><text>第 2 行 x 的 def</text><feedback><text>第 2 行的值到達第 3 行的 use（定義潔淨路徑 2→3），故它確實構成 DU pair。</text></feedback></answer>
-    <answer fraction="0"><text>第 3 行 y 的 def</text><feedback><text>y 在第 3 行被定義，但問題問的是哪個 def 不到達任何 use；答案是 x@1。</text></feedback></answer>
+    <answer fraction="0"><text>第 3 行 y 的 def</text><feedback><text>不正確——y 在第 3 行定義、第 4 行被使用，因此它有到達某個使用。</text></feedback></answer>
     <answer fraction="0"><text>沒有；每個 def 都到達某個 use</text><feedback><text>第 1 行 x 的 def 被第 2 行覆殺，不到達任何 use。</text></feedback></answer>
     <generalfeedback><text>第 1 行 x 的 def 在第 2 行被覆寫、且在 x 被讀取之前，故它不到達任何 use、不構成 DU pair。在 All-Defs 下，這樣的 def 是一項不可行（無法涵蓋）的需求。</text></generalfeedback>
   </question>

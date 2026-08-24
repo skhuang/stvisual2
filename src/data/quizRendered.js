@@ -6207,7 +6207,7 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "A def that reaches no use",
-          "text": "<p>In snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>",
+          "text": "<p>In snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x\n4  print(y)</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>",
           "answers": [
             {
               "text": "The def of x at line 1, because line 2 redefines x before any use",
@@ -6222,7 +6222,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "The def of y at line 3",
               "fraction": 0,
-              "feedback": "y is defined at line 3 but the question concerns which def reaches no use; and y's reachability is not the point here — x@1 is the answer."
+              "feedback": "Incorrect — y is defined at line 3 and used at line 4, so it does reach a use."
             },
             {
               "text": "None; every def reaches a use",
@@ -7487,7 +7487,7 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "不到達任何 use 的 def",
-          "text": "<p>在片段 K 中：</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>哪個 def <strong>沒有 DU pair</strong>（不到達任何 use）？</p>",
+          "text": "<p>在片段 K 中：</p><pre>1  x = 5\n2  x = 10\n3  y = x\n4  print(y)</pre><p>哪個 def <strong>沒有 DU pair</strong>（不到達任何 use）？</p>",
           "answers": [
             {
               "text": "第 1 行 x 的 def，因為第 2 行在任何 use 之前就再定義了 x",
@@ -7502,7 +7502,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "第 3 行 y 的 def",
               "fraction": 0,
-              "feedback": "y 在第 3 行被定義，但問題問的是哪個 def 不到達任何 use；答案是 x@1。"
+              "feedback": "不正確——y 在第 3 行定義、第 4 行被使用，因此它有到達某個使用。"
             },
             {
               "text": "沒有；每個 def 都到達某個 use",

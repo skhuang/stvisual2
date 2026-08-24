@@ -52019,7 +52019,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           {
             "type": "multichoice",
             "name": "A def that reaches no use",
-            "text": "<p>In snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>",
+            "text": "<p>In snippet K:</p><pre>1  x = 5\n2  x = 10\n3  y = x\n4  print(y)</pre><p>Which def has <strong>no DU pair</strong> (reaches no use)?</p>",
             "answers": [
               {
                 "text": "The def of x at line 1, because line 2 redefines x before any use",
@@ -52034,7 +52034,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "The def of y at line 3",
                 "fraction": 0,
-                "feedback": "y is defined at line 3 but the question concerns which def reaches no use; and y's reachability is not the point here \u2014 x@1 is the answer."
+                "feedback": "Incorrect \u2014 y is defined at line 3 and used at line 4, so it does reach a use."
               },
               {
                 "text": "None; every def reaches a use",
@@ -53299,7 +53299,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           {
             "type": "multichoice",
             "name": "\u4E0D\u5230\u9054\u4EFB\u4F55 use \u7684 def",
-            "text": "<p>\u5728\u7247\u6BB5 K \u4E2D\uFF1A</p><pre>1  x = 5\n2  x = 10\n3  y = x</pre><p>\u54EA\u500B def <strong>\u6C92\u6709 DU pair</strong>\uFF08\u4E0D\u5230\u9054\u4EFB\u4F55 use\uFF09\uFF1F</p>",
+            "text": "<p>\u5728\u7247\u6BB5 K \u4E2D\uFF1A</p><pre>1  x = 5\n2  x = 10\n3  y = x\n4  print(y)</pre><p>\u54EA\u500B def <strong>\u6C92\u6709 DU pair</strong>\uFF08\u4E0D\u5230\u9054\u4EFB\u4F55 use\uFF09\uFF1F</p>",
             "answers": [
               {
                 "text": "\u7B2C 1 \u884C x \u7684 def\uFF0C\u56E0\u70BA\u7B2C 2 \u884C\u5728\u4EFB\u4F55 use \u4E4B\u524D\u5C31\u518D\u5B9A\u7FA9\u4E86 x",
@@ -53314,7 +53314,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "\u7B2C 3 \u884C y \u7684 def",
                 "fraction": 0,
-                "feedback": "y \u5728\u7B2C 3 \u884C\u88AB\u5B9A\u7FA9\uFF0C\u4F46\u554F\u984C\u554F\u7684\u662F\u54EA\u500B def \u4E0D\u5230\u9054\u4EFB\u4F55 use\uFF1B\u7B54\u6848\u662F x@1\u3002"
+                "feedback": "\u4E0D\u6B63\u78BA\u2014\u2014y \u5728\u7B2C 3 \u884C\u5B9A\u7FA9\u3001\u7B2C 4 \u884C\u88AB\u4F7F\u7528\uFF0C\u56E0\u6B64\u5B83\u6709\u5230\u9054\u67D0\u500B\u4F7F\u7528\u3002"
               },
               {
                 "text": "\u6C92\u6709\uFF1B\u6BCF\u500B def \u90FD\u5230\u9054\u67D0\u500B use",
