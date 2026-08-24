@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Decision Table Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>條件樁（condition stub）的內容</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在決策表（decision table）中，<strong>條件樁（condition stub）</strong>包含什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所考慮的條件（輸入／原因）清單，每列一項，位於左上象限</text><feedback><text>正確——條件樁列出各條件；其右側的條目給出每條規則的取值。</text></feedback></answer>
+    <answer fraction="0"><text>程式可能採取的動作，每列一項</text><feedback><text>那是動作樁（action stub），位於左下象限。</text></feedback></answer>
+    <answer fraction="0"><text>指派給每條規則的 T/F 取值</text><feedback><text>那是條件條目（condition entries），位於右上象限，並非條件樁本身。</text></feedback></answer>
+    <answer fraction="0"><text>規則欄的編號</text><feedback><text>規則編號用來標示欄位；條件樁列出的是條件本身。</text></feedback></answer>
+    <generalfeedback><text>決策表有四個象限。條件樁（左上）列出條件；條件條目（右上）給出每條規則對這些條件的取值；動作樁與動作條目則占據下半部。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>動作樁（action stub）的內容</text></name>
+    <questiontext format="html"><text><![CDATA[<p>決策表的<strong>動作樁（action stub）</strong>列出什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可能的動作（輸出／效果）清單，每列一項，位於左下象限</text><feedback><text>正確——動作樁列出各動作；動作條目則標示每條規則會觸發哪些動作。</text></feedback></answer>
+    <answer fraction="0"><text>正在評估的各條件</text><feedback><text>那些位於條件樁（左上）。</text></feedback></answer>
+    <answer fraction="0"><text>每個條件的 T/F 條目</text><feedback><text>那是條件條目，並非動作樁。</text></feedback></answer>
+    <answer fraction="0"><text>表中規則的總數</text><feedback><text>規則數由條件決定；動作樁只是列出動作。</text></feedback></answer>
+    <generalfeedback><text>動作樁是左下象限：它列舉規格中可被觸發的各種動作。其右側的動作條目（常以 X 標記）指出每條規則會觸發哪些動作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一條規則代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>決策表中的單一<strong>規則</strong>（一欄）代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組特定的條件結果組合，連同該組合下應觸發的動作</text><feedback><text>正確——一條規則把某個條件組合與其對應的動作配對起來。</text></feedback></answer>
+    <answer fraction="0"><text>單一個具體的測試輸入值</text><feedback><text>規則是條件結果的組合；測試案例是之後由它導出的。</text></feedback></answer>
+    <answer fraction="0"><text>正在評估的單一個條件</text><feedback><text>一條規則同時涵蓋所有條件（各取一個值），而非只有單一條件。</text></feedback></answer>
+    <answer fraction="0"><text>整張決策表</text><feedback><text>一條規則是一欄；整張表則是所有規則的集合。</text></feedback></answer>
+    <generalfeedback><text>每一欄（規則）為每個條件固定一個取值，並記錄該精確組合下必須發生的動作。由上而下讀一欄，即可得到情境與預期行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有限條目 vs 延伸條目</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>有限條目（limited-entry）</strong>決策表與<strong>延伸條目（extended-entry）</strong>決策表的差別是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有限條目的條件條目只用 T/F（以「-」表示不在意）；延伸條目則允許值、範圍或選項</text><feedback><text>正確——這正是兩種形式的差別。</text></feedback></answer>
+    <answer fraction="0"><text>有限條目允許值範圍；延伸條目只允許 T/F</text><feedback><text>這把兩者的定義弄反了。</text></feedback></answer>
+    <answer fraction="0"><text>有限條目表的動作數必定比延伸條目表少</text><feedback><text>動作數與此無關；差別在於條件條目的形式。</text></feedback></answer>
+    <answer fraction="0"><text>延伸條目表沒有規則</text><feedback><text>兩種形式都以規則組織；只是條目格式不同。</text></feedback></answer>
+    <generalfeedback><text>在有限條目表中，每個條件條目都是布林值（T、F 或「-」）。在延伸條目表中，條件條目可改為值、範圍或選項（例如「未滿 100」「100 到 500」「超過 500」），可使表更精簡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不在意（don't-care）條目的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規則中某個條件的「-」（破折號，即不在意 don't-care）條目代表什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>無論該條件取何值，該規則的動作都相同</text><feedback><text>正確——在該規則下，這個條件不影響結果。</text></feedback></answer>
+    <answer fraction="0"><text>該規則下這個條件一定為假</text><feedback><text>若為假會寫成 F；「-」代表其值無關緊要。</text></feedback></answer>
+    <answer fraction="0"><text>該條件的值未知，因此該規則無效</text><feedback><text>不在意是刻意的，並非資料錯誤；該規則有效，且對此條件的任何取值都適用。</text></feedback></answer>
+    <answer fraction="0"><text>該條件必須在同一條規則中同時以 T 與 F 測試</text><feedback><text>單一規則無法同時持有兩者；「-」只是表示結果與此條件無關。</text></feedback></answer>
+    <generalfeedback><text>不在意「-」表示該規則的結果與此條件無關。對 k 個不在意條件而言，一條這樣的規則相當於完全展開後的 2^k 種組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>2 個條件的規則數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張具有 <strong>2 個二元條件</strong>的有限條目決策表，在完整、未合併的形式下有多少條規則（欄）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——2^2 = 4 種 T/F 組合。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是單一條件可取的值數，而非兩個條件的組合數。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是 2^3，即三個條件的規則數。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 不是 2 的冪；完整的二元表必定有 2^n 條規則。</text></feedback></answer>
+    <generalfeedback><text>對 n 個二元條件而言，完整的有限條目表有 2^n 條規則。n = 2 時為 2^2 = 4：TT、TF、FT、FF。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>3 個條件的規則數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張具有 <strong>3 個二元條件</strong>的完整有限條目決策表有多少條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——2^3 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是 2×3；規則數是 2^n，不是 2×n。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是 3^2；二元條件給出 2^n，而非 n^2。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 是 2^4，即四個條件的規則數。</text></feedback></answer>
+    <generalfeedback><text>對 n 個二元條件，完整表有 2^n 條規則。n = 3 時為 2^3 = 8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>4 個條件的規則數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張具有 <strong>4 個二元條件</strong>的完整有限條目決策表有多少條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>正確——2^4 = 16。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是 2^3，即三個條件的規則數。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 不是 2 的冪；完整的二元表有 2^n 條規則。</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 不是 2 的冪且高估了；答案是 2^4 = 16。</text></feedback></answer>
+    <generalfeedback><text>對 n 個二元條件，完整表有 2^n 條規則。n = 4 時為 2^4 = 16。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>有限條目的條件取值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在有限條目決策表中，條件條目僅限於真／假值（並允許以「-」表示不在意）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——有限條目意指條件條目為布林值，再加上表示不在意的「-」。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>依定義，有限條目表的條件只用 T/F（與「-」）；值範圍屬於延伸條目表。</text></feedback></answer>
+    <generalfeedback><text>「有限條目」正是指把條件條目限制為真／假（並以「-」表示不在意）。值範圍與選項則是延伸條目表的特徵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>條件條目 vs 動作條目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在表的右側象限中，<strong>條件條目</strong>與<strong>動作條目</strong>分別指定什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>條件條目給出每條規則對各條件的取值；動作條目標示該規則會觸發哪些動作</text><feedback><text>正確——一個描述情境，另一個描述回應。</text></feedback></answer>
+    <answer fraction="0"><text>條件條目列出動作；動作條目列出條件</text><feedback><text>這把兩者的角色對調了。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都只是重複規則編號</text><feedback><text>規則編號是欄標題；條目承載的是 T/F 取值與動作標記。</text></feedback></answer>
+    <answer fraction="0"><text>條件條目顯示原始碼涵蓋；動作條目顯示測試結果</text><feedback><text>決策表是黑箱技術；條目描述的是規格，而非程式碼涵蓋。</text></feedback></answer>
+    <generalfeedback><text>對每條規則而言，條件條目（右上）記錄每個條件的 T/F 取值，動作條目（右下，常以 X 表示）記錄規格指出應觸發哪些動作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四個象限</text></name>
+    <questiontext format="html"><text><![CDATA[<p>決策表通常劃分為四個象限。是哪四個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>條件樁、條件條目、動作樁、動作條目</text><feedback><text>正確——左為樁、右為條目，上為條件、下為動作。</text></feedback></answer>
+    <answer fraction="0"><text>輸入、輸出、狀態、轉移</text><feedback><text>那些描述的是狀態機，而非決策表的象限。</text></feedback></answer>
+    <answer fraction="0"><text>前置條件、後置條件、不變式、守衛</text><feedback><text>那些是規格概念，並非決策表的四個象限。</text></feedback></answer>
+    <answer fraction="0"><text>節點、邊、路徑、環</text><feedback><text>那些是圖論概念，與表的版面無關。</text></feedback></answer>
+    <generalfeedback><text>四個象限是條件樁（左上）、條件條目（右上）、動作樁（左下）與動作條目（右下）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>決策表所屬的技術家族</text></name>
+    <questiontext format="html"><text><![CDATA[<p>決策表測試屬於哪一類測試設計技術？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>黑箱（以規格為基礎）技術</text><feedback><text>正確——它從規格的條件與動作導出測試，而非從程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>以控制流程圖為基礎的白箱（結構化）技術</text><feedback><text>決策表建構自規格，而非原始碼結構。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼涵蓋度量技術</text><feedback><text>它從行為設計測試，並不量測有多少程式碼被執行。</text></feedback></answer>
+    <answer fraction="0"><text>突變分析技術</text><feedback><text>突變分析注入程式碼缺陷；決策表是黑箱設計方法。</text></feedback></answer>
+    <generalfeedback><text>決策表測試是一種黑箱、以規格為基礎的設計技術：條件與動作來自需求，規則再系統化地將它們組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延伸條目的條件取值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>延伸條目</strong>決策表中，條件條目可以是以下何者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>值、範圍或選項（例如「未滿 100」「100 到 500」「超過 500」）</text><feedback><text>正確——延伸條目表允許比單純 T/F 更豐富的條目。</text></feedback></answer>
+    <answer fraction="0"><text>只能是 T 或 F</text><feedback><text>只允許布林條目的是有限條目表，而非延伸條目表。</text></feedback></answer>
+    <answer fraction="0"><text>只能是標記 X</text><feedback><text>X 標示的是動作條目中被觸發的動作，而非條件取值。</text></feedback></answer>
+    <answer fraction="0"><text>只能是規則編號</text><feedback><text>規則編號是欄標籤，並非條件條目。</text></feedback></answer>
+    <generalfeedback><text>延伸條目表允許條件條目為值、範圍或選項，這可把數個布林條件合成單一個多值條件，使表縮小。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>完整表有 2^n 條規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在任何合併之前，一張具有 n 個二元條件的完整有限條目決策表有 2^n 條規則。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每個條件各自可取 T 或 F，共 2^n 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>n 個二元條件各自使組合數加倍，因此完整表有 2^n 條規則。</text></feedback></answer>
+    <generalfeedback><text>有 n 個彼此獨立的二元條件時，共有 2^n 種相異的 T/F 組合，因此完整（未合併）表恰有 2^n 欄規則。之後以不在意合併可減少此數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由規則導出測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由決策表導出測試案例，最簡單的標準做法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>為表中每條規則（每欄）各建立一個測試案例</text><feedback><text>正確——每條規則成為一個測試，並使用滿足其條件組合的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>為每個條件各建立一個測試案例</text><feedback><text>一個測試必須同時固定每個條件；規則（一個完整組合）才是自然單位。</text></feedback></answer>
+    <answer fraction="0"><text>為每個動作各建立一個測試案例</text><feedback><text>動作是結果；測試由觸發它們的規則導出。</text></feedback></answer>
+    <answer fraction="0"><text>為整張表建立單一個測試案例</text><feedback><text>一個測試無法涵蓋每一條規則；每條規則各需一個。</text></feedback></answer>
+    <generalfeedback><text>標準對應是每條規則一個測試：選取滿足該規則條件組合的輸入，並檢查恰好其指定的動作被觸發。因此測試數等於（合併後）表的規則數。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Decision Table Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>輸入符合哪條規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定此有限條目表：</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+</pre><p>對於 <code>C1 = F</code> 且 <code>C2 = T</code> 的輸入，適用哪條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R3</text><feedback><text>正確——R3 的 C1 = F 且 C2 = T。</text></feedback></answer>
+    <answer fraction="0"><text>R1</text><feedback><text>R1 是 C1 = T、C2 = T，與給定輸入不符。</text></feedback></answer>
+    <answer fraction="0"><text>R2</text><feedback><text>R2 是 C1 = T、C2 = F。</text></feedback></answer>
+    <answer fraction="0"><text>R4</text><feedback><text>R4 是 C1 = F、C2 = F，其 C2 不同。</text></feedback></answer>
+    <generalfeedback><text>把輸入與各欄比對：只有 R3 的 C1 = F 且 C2 = T，因此適用規則為 R3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>會觸發哪個動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定此表（X 表示被觸發的動作）：</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+A        X   -   -   -
+B        -   X   X   -
+C        -   -   -   X
+</pre><p>對於 <code>C1 = T</code> 且 <code>C2 = F</code> 的輸入，會觸發哪個動作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>B</text><feedback><text>正確——C1 = T、C2 = F 是規則 R2，其唯一的 X 在動作 B。</text></feedback></answer>
+    <answer fraction="0"><text>A</text><feedback><text>動作 A 只在 R1（C1 = T、C2 = T）觸發。</text></feedback></answer>
+    <answer fraction="0"><text>C</text><feedback><text>動作 C 只在 R4（C1 = F、C2 = F）觸發。</text></feedback></answer>
+    <answer fraction="0"><text>沒有動作被觸發</text><feedback><text>R2 確實有被標記的動作（B），因此有動作被觸發。</text></feedback></answer>
+    <generalfeedback><text>輸入（C1 = T、C2 = F）選中規則 R2。沿 R2 往下讀，唯一的 X 在動作 B，因此 B 被觸發。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不在意背後的組合數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一張合併後的有限條目表中，某條規則對 <strong>2</strong> 個條件標記為「-」（其餘條件皆固定）。這一條合併規則代表原完整表中的多少條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——2 個不在意條件代表 2^2 = 4 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是 2^1；此處有兩個不在意，應為 2^2 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>不在意以 2 的冪展開；2 個給出 4，而非 3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>沒有不在意的規則代表 1 種組合；兩個不在意則代表 4 種。</text></feedback></answer>
+    <generalfeedback><text>每個不在意條件可為 T 或 F，因此 k 個不在意展開為 2^k 條完整表規則。k = 2 時為 2^2 = 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由合併後表導出測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張合併後的決策表有 <strong>5 條規則</strong>。採用「每條規則一個測試案例」的策略，會導出多少個測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——測試案例數等於規則數。</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 = 2^5 是把每條規則重新展開後的數量；此策略是每條合併規則一個測試。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>並不會加倍；是每條規則一個測試，因此為 5。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>每條規則都需要一個測試；5 條規則即為 5，不是 4。</text></feedback></answer>
+    <generalfeedback><text>每條規則一個測試的對應意味測試數等於規則數。合併後有 5 條規則的表可導出 5 個測試案例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>合併一張完整表</text></name>
+    <questiontext format="html"><text><![CDATA[<p>盡可能合併此完整表：</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+A        X   X   -   -
+B        -   -   X   X
+</pre><p>合併後剩下多少條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——R1、R2 合併為 (C1=T, C2=-)→A；R3、R4 合併為 (C1=F, C2=-)→B。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是未合併的數量；兩對可合併的規則使其減為 2。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>兩對都可合併，而非只有一對，因此剩 2 條規則。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A 與 B 是不同動作，因此其規則無法併成單一條。</text></feedback></answer>
+    <generalfeedback><text>R1 與 R2 都只觸發 A 且僅在 C2 上不同，故合併為 (C1=T, C2=-)。R3 與 R4 都只觸發 B 且僅在 C2 上不同，合併為 (C1=F, C2=-)。剩下兩條合併規則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含不在意的完整性檢查</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張針對 2 個二元條件的合併表有以下規則：</p><pre>
+規則 A：  C1=T, C2=-
+規則 B：  C1=F, C2=T
+規則 C：  C1=F, C2=F
+</pre><p>這些規則是否涵蓋全部 2^2 = 4 種組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是——規則 A 涵蓋 TT 與 TF，規則 B 涵蓋 FT，規則 C 涵蓋 FF：全部 4 種組合</text><feedback><text>正確——規則 A 的不在意涵蓋了兩種組合，補足了整個集合。</text></feedback></answer>
+    <answer fraction="0"><text>否——缺少組合 C1=T, C2=F</text><feedback><text>規則 A（C1=T, C2=-）已涵蓋 C1=T, C2=F。</text></feedback></answer>
+    <answer fraction="0"><text>否——缺少組合 C1=F, C2=T</text><feedback><text>規則 B 正好涵蓋 C1=F, C2=T。</text></feedback></answer>
+    <answer fraction="0"><text>否——3 條規則永遠只能涵蓋 3 種組合</text><feedback><text>含不在意的規則可涵蓋多於一種組合，因此 3 條規則能涵蓋 4 種組合。</text></feedback></answer>
+    <generalfeedback><text>規則 A 對 C2 的不在意涵蓋 TT 與 TF（2 種組合）；規則 B 涵蓋 FT；規則 C 涵蓋 FF。合計 2+1+1 = 4 = 2^2，因此該表完整。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>比對三個條件的規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定此完整 3 條件表：</p><pre>
+        R1 R2 R3 R4 R5 R6 R7 R8
+C1       T  T  T  T  F  F  F  F
+C2       T  T  F  F  T  T  F  F
+C3       T  F  T  F  T  F  T  F
+</pre><p><code>C1 = T, C2 = F, C3 = T</code> 符合哪條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R3</text><feedback><text>正確——R3 是 C1=T, C2=F, C3=T。</text></feedback></answer>
+    <answer fraction="0"><text>R2</text><feedback><text>R2 是 C1=T, C2=T, C3=F。</text></feedback></answer>
+    <answer fraction="0"><text>R4</text><feedback><text>R4 是 C1=T, C2=F, C3=F，其 C3 不同。</text></feedback></answer>
+    <answer fraction="0"><text>R7</text><feedback><text>R7 是 C1=F, C2=F, C3=T，其 C1 不同。</text></feedback></answer>
+    <generalfeedback><text>由上而下讀每一欄。只有 R3 的 C1=T、C2=F、C3=T。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延伸條目比對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張延伸條目表依訂單金額決定折扣：</p><pre>
+條件「訂單金額」：  R1: 未滿 100    R2: 100 到 500   R3: 超過 500
+動作「折扣」：      R1: 0%          R2: 5%           R3: 10%
+</pre><p>訂單金額為 250 會選中哪條規則、適用什麼折扣？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R2——5% 折扣</text><feedback><text>正確——250 落在「100 到 500」區間。</text></feedback></answer>
+    <answer fraction="0"><text>R1——0% 折扣</text><feedback><text>R1 適用於未滿 100 的金額；250 高於此。</text></feedback></answer>
+    <answer fraction="0"><text>R3——10% 折扣</text><feedback><text>R3 適用於超過 500 的金額；250 未達此。</text></feedback></answer>
+    <answer fraction="0"><text>沒有規則符合 250</text><feedback><text>250 正好落在 R2 的範圍內，因此有規則符合。</text></feedback></answer>
+    <generalfeedback><text>延伸條目條件依範圍比對。250 落在「100 到 500」，即 R2，給予 5% 折扣。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪兩條規則可合併</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定此表：</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+A1       X   X   -   -
+A2       -   -   X   -
+A3       -   -   -   X
+</pre><p>哪兩條規則可以合併為一條，如何合併？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 與 R2，合併為 (C1=T, C2=-) 觸發 A1</text><feedback><text>正確——它們觸發相同動作且僅在 C2 上不同。</text></feedback></answer>
+    <answer fraction="0"><text>R3 與 R4，合併為 (C1=F, C2=-)</text><feedback><text>R3 觸發 A2 而 R4 觸發 A3——動作不同，故無法合併。</text></feedback></answer>
+    <answer fraction="0"><text>R2 與 R3，合併為 (C1=-, C2=-)</text><feedback><text>R2 與 R3 在 C1 與 C2 上都不同，且觸發不同動作；無法合併。</text></feedback></answer>
+    <answer fraction="0"><text>R1 與 R4，合併為 (C1=-, C2=-)</text><feedback><text>R1 與 R4 在兩個條件上都不同，且觸發不同動作。</text></feedback></answer>
+    <generalfeedback><text>兩條規則唯有在觸發完全相同的動作且僅在一個條件上不同時才能合併。R1 與 R2 都觸發 A1 且僅 C2 不同，故合併為 (C1=T, C2=-)→A1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>會觸發哪個動作（三個條件）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定此表（X 表示被觸發的動作）：</p><pre>
+        R1 R2 R3 R4 R5 R6 R7 R8
+C1       T  T  T  T  F  F  F  F
+C2       T  T  F  F  T  T  F  F
+C3       T  F  T  F  T  F  T  F
+--------------------------------
+Accept   X  X  X  -  X  -  -  -
+Reject   -  -  -  X  -  X  X  X
+</pre><p>對於 <code>C1 = F, C2 = T, C3 = F</code>，會觸發哪個動作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reject</text><feedback><text>正確——(F,T,F) 是規則 R6，其 X 在 Reject。</text></feedback></answer>
+    <answer fraction="0"><text>Accept</text><feedback><text>Accept 在 R6 觸發嗎？否——R6 的 X 在 Reject，而非 Accept。</text></feedback></answer>
+    <answer fraction="0"><text>Accept 與 Reject 都會</text><feedback><text>R6 欄中只有一個 X，因此只有單一個動作被觸發。</text></feedback></answer>
+    <answer fraction="0"><text>兩個動作都不會</text><feedback><text>R6 確實有被標記的動作（Reject）。</text></feedback></answer>
+    <generalfeedback><text>(C1=F, C2=T, C3=F) 是欄 R6。其唯一的 X 在 Reject，因此 Reject 被觸發。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺少的組合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張針對 <strong>3 個二元條件</strong>的有限條目表目前列出 6 條規則，皆未使用不在意。假設沒有重複，缺少多少種條件組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——完整表需要 2^3 = 8 條規則，8 - 6 = 2 條缺少。</text></feedback></answer>
+    <answer fraction="0"><text>0——表已完整</text><feedback><text>完整的 3 條件表需要 8 條規則；此處只有 6 條。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>8 - 6 = 2，而非 3。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是已存在的數量；缺少的數量是 8 - 6 = 2。</text></feedback></answer>
+    <generalfeedback><text>完整性要求涵蓋全部 2^n 種組合。n = 3 時為 8；已有 6 條且無不在意，故缺少 2 種組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>合併前後的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張 3 條件的完整表（8 條規則）合併為 4 條規則。採用每條規則一個測試，合併後的表需要多少測試案例，相較於完整表如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 個測試案例，由 8 個減少而來</text><feedback><text>正確——合併為 4 條規則代表用 4 個測試取代 8 個。</text></feedback></answer>
+    <answer fraction="0"><text>8 個測試案例，不變</text><feedback><text>合併會減少規則數，因此需要的測試較少。</text></feedback></answer>
+    <answer fraction="0"><text>16 個測試案例</text><feedback><text>16 甚至超過完整表的 8 條規則；合併後的表需要 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>1 個測試案例</text><feedback><text>4 條合併規則各需自己的測試，共 4 個。</text></feedback></answer>
+    <generalfeedback><text>測試數等於規則數。完整表的 8 條規則給出 8 個測試；合併為 4 條規則後減為 4 個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀一張貸款決策表</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張貸款表使用 C1 =「信用分數合格」與 C2 =「收入足夠」：</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+Approve  X   -   -   -
+</pre><p>某申請人信用分數合格且收入足夠。適用哪條規則、結果如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1——貸款核准</text><feedback><text>正確——兩個條件皆為真是 R1，也是唯一標記 Approve 的規則。</text></feedback></answer>
+    <answer fraction="0"><text>R2——貸款核准</text><feedback><text>R2 是信用合格但收入不足，且未標記 Approve。</text></feedback></answer>
+    <answer fraction="0"><text>R4——貸款核准</text><feedback><text>R4 是兩個條件皆為假，且未標記 Approve。</text></feedback></answer>
+    <answer fraction="0"><text>R1——貸款不核准</text><feedback><text>R1 確實標記了 Approve，因此貸款核准。</text></feedback></answer>
+    <generalfeedback><text>信用合格且收入足夠是 (C1=T, C2=T)，即 R1。R1 是唯一標記 Approve 的規則，因此貸款核准。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延伸條目的年齡分段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張延伸條目表依年齡設定票價：</p><pre>
+條件「年齡」：  R1: 未滿 13   R2: 13 到 17   R3: 18 到 64   R4: 65 或以上
+動作「票價」：  R1: 免費      R2: $5         R3: $10        R4: $7
+</pre><p>一位 17 歲的訪客會選中哪條規則與票價？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R2——$5</text><feedback><text>正確——17 落在「13 到 17」分段。</text></feedback></answer>
+    <answer fraction="0"><text>R1——免費</text><feedback><text>R1 適用於未滿 13 歲；17 高於此。</text></feedback></answer>
+    <answer fraction="0"><text>R3——$10</text><feedback><text>R3 從 18 起算；17 未達此。</text></feedback></answer>
+    <answer fraction="0"><text>R4——$7</text><feedback><text>R4 適用於 65 歲或以上。</text></feedback></answer>
+    <generalfeedback><text>年齡 17 落在「13 到 17」分段，即 R2，票價 $5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三個條件的不在意</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一張具有 <strong>5 個二元條件</strong>的表中，某條合併規則對其中 3 個標記為「-」（另外 2 個固定）。這一條規則代表多少種完整表組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——3 個不在意代表 2^3 = 8 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>不在意以 2^k 展開；3 個給出 8，而非 3。</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 = 2^5 是整張表；此規則固定了 2 個條件，故涵蓋 2^3 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是條件的數目，而非 2 的不在意次冪。</text></feedback></answer>
+    <generalfeedback><text>只有不在意的條件會變動。有 3 個不在意時，該規則代表完全展開後的 2^3 = 8 種組合，與條件總數無關。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Decision Table Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>冗餘（被涵蓋）的規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>檢視此表：</p><pre>
+        R1     R2     R3
+C1       T      T      F
+C2       -      F      T
+--------------------------
+A        X      X      -
+</pre><p>哪條規則是冗餘的，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R2——它被 R1 涵蓋；R1 已涵蓋 C1=T 且 C2 為任意值，並觸發相同動作 A</text><feedback><text>正確——R1 對 C2 的不在意已包含 R2 的情況並觸發相同動作。</text></feedback></answer>
+    <answer fraction="0"><text>R1——因為它使用了不在意</text><feedback><text>使用不在意本身並非冗餘；R1 是通用規則，R2 才是被它涵蓋的那條。</text></feedback></answer>
+    <answer fraction="0"><text>R3——因為它不觸發任何動作</text><feedback><text>R3 涵蓋不同情況（C1=F, C2=T），且不觸發動作是合法結果，並非冗餘。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——此表沒有冗餘</text><feedback><text>R2 被 R1 以相同動作完全涵蓋，因此 R2 是冗餘的。</text></feedback></answer>
+    <generalfeedback><text>R1（C1=T, C2=-）已以動作 A 涵蓋 (T,T) 與 (T,F)。R2（C1=T, C2=F）正是 (T,F) 情況且動作相同，未增加任何內容——它是冗餘、被涵蓋的規則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可能的規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>條件為 C1 =「x &gt; 0」與 C2 =「x &lt; 0」：</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+</pre><p>哪條規則描述了<strong>不可能</strong>（不可行）的組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1——一個值不可能同時大於 0 且小於 0</text><feedback><text>正確——C1=T 且 C2=T 在邏輯上不可能。</text></feedback></answer>
+    <answer fraction="0"><text>R4——兩者皆為假是不可能的</text><feedback><text>C1=F 且 C2=F 只是代表 x = 0，完全可行。</text></feedback></answer>
+    <answer fraction="0"><text>R2——x &gt; 0 且非 x &lt; 0</text><feedback><text>那描述任何正的 x，是可行的。</text></feedback></answer>
+    <answer fraction="0"><text>R3——x &lt; 0 且非 x &gt; 0</text><feedback><text>那描述任何負的 x，是可行的。</text></feedback></answer>
+    <generalfeedback><text>C1 與 C2 互斥，因此 R1（兩者皆真）永不可能發生——它是不可行規則，無需測試案例。R4（兩者皆假）對應 x = 0，是可行的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不一致的規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>檢視此表：</p><pre>
+        R1  R2  R3
+C1       T   T   F
+C2       F   F   T
+--------------------
+A        X   -   -
+B        -   X   -
+</pre><p>此表包含什麼異常？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 與 R2 不一致——相同的條件組合（C1=T, C2=F）卻指定了不同的動作（A 對 B）</text><feedback><text>正確——條件相同但動作衝突即為不一致。</text></feedback></answer>
+    <answer fraction="0"><text>R3 是冗餘的</text><feedback><text>R3 涵蓋一個相異的組合（C1=F, C2=T）；它並非冗餘。</text></feedback></answer>
+    <answer fraction="0"><text>此表只是不完整</text><feedback><text>它也許同時不完整，但標記的缺陷是 R1 與 R2 在相同條件上的衝突。</text></feedback></answer>
+    <answer fraction="0"><text>沒有異常</text><feedback><text>R1 與 R2 條件取值相同卻觸發不同動作——這是明顯的不一致。</text></feedback></answer>
+    <generalfeedback><text>R1 與 R2 都是 C1=T, C2=F，卻分別觸發 A 與 B。兩條條件相同而動作不同的規則屬於不一致（衝突），必須解決。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完整性檢查</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張針對 2 個二元條件的表只有這兩條規則：</p><pre>
+規則 P：  C1=T, C2=-
+規則 Q：  C1=F, C2=T
+</pre><p>此表是否完整？若否，缺少什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不完整——組合 C1=F, C2=F 未被涵蓋</text><feedback><text>正確——P 涵蓋 TT 與 TF，Q 涵蓋 FT，留下 FF 未涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>完整——全部 4 種組合皆已涵蓋</text><feedback><text>4 種中只涵蓋了 3 種；FF 缺少。</text></feedback></answer>
+    <answer fraction="0"><text>不完整——缺少組合 C1=T, C2=T</text><feedback><text>規則 P 的不在意已涵蓋 C1=T, C2=T。</text></feedback></answer>
+    <answer fraction="0"><text>不完整——缺少組合 C1=F, C2=T</text><feedback><text>規則 Q 正好涵蓋 C1=F, C2=T。</text></feedback></answer>
+    <generalfeedback><text>規則 P（C1=T, C2=-）涵蓋 TT 與 TF；規則 Q 涵蓋 FT。這是 3 種組合；第四種 FF（C1=F, C2=F）未被涵蓋，因此該表不完整。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>正確的合併（三個條件）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>檢視此完整 3 條件表：</p><pre>
+        R1 R2 R3 R4 R5 R6 R7 R8
+C1       T  T  T  T  F  F  F  F
+C2       T  T  F  F  T  T  F  F
+C3       T  F  T  F  T  F  T  F
+--------------------------------
+Action   A  A  B  C  D  E  F  G
+</pre><p>哪一對規則可以正確地合併，合併成什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 與 R2，合併為 (C1=T, C2=T, C3=-) 觸發 A</text><feedback><text>正確——它們觸發相同動作且僅在 C3 上不同。</text></feedback></answer>
+    <answer fraction="0"><text>R1 與 R3，合併為 (C1=T, C2=-, C3=T)</text><feedback><text>R1 觸發 A 而 R3 觸發 B——動作不同，故無法合併。</text></feedback></answer>
+    <answer fraction="0"><text>R7 與 R8，合併為 (C1=F, C2=F, C3=-)</text><feedback><text>R7 觸發 F 而 R8 觸發 G——動作不同，故無法合併。</text></feedback></answer>
+    <answer fraction="0"><text>R1 與 R5，合併為 (C1=-, C2=T, C3=T)</text><feedback><text>R1 觸發 A 而 R5 觸發 D——動作不同，故無法合併。</text></feedback></answer>
+    <generalfeedback><text>只有 R1 與 R2 共用同一動作（A），且僅在一個條件（C3）上不同。它們合併為 (C1=T, C2=T, C3=-)→A。其他每對相鄰規則皆觸發不同動作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由合併後表得出最小測試集</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張針對 2 個二元條件、正確合併後的表為：</p><pre>
+規則 1：  C1=T, C2=-
+規則 2：  C1=F, C2=T
+規則 3：  C1=F, C2=F
+</pre><p>要讓每條規則各被執行一次，最少需要多少測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——每條合併規則一個（涵蓋底層全部 4 種組合）</text><feedback><text>正確——合併後的表有 3 條規則，因此 3 個測試即足夠。</text></feedback></answer>
+    <answer fraction="0"><text>4——每種底層組合一個</text><feedback><text>你測試的是合併後的規則，而非重新展開的組合，因此 3 個測試就夠。</text></feedback></answer>
+    <answer fraction="0"><text>2——每個條件一個</text><feedback><text>每條規則各需自己的測試；此處有 3 條規則。</text></feedback></answer>
+    <answer fraction="0"><text>1——單一個合併測試</text><feedback><text>一個測試無法執行三條相異的規則。</text></feedback></answer>
+    <generalfeedback><text>測試數等於（合併後）規則數。此處 3 條規則給出 3 個測試；規則 1 的不在意意味這 3 個測試仍涵蓋全部 2^2 = 4 種組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延伸條目範圍重疊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張延伸條目評分表：</p><pre>
+條件「分數」：  R1: 0 到 59   R2: 60 到 79   R3: 75 到 100
+動作：          R1: 不及格    R2: 及格       R3: 優等
+</pre><p>分數 77 揭露了什麼問題？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不一致——77 同時落在 R2（60 到 79）與 R3（75 到 100），因此兩條規則都符合卻有不同動作</text><feedback><text>正確——重疊的範圍使 75-79 的結果變得模稜兩可。</text></feedback></answer>
+    <answer fraction="0"><text>不完整——77 未被任何規則涵蓋</text><feedback><text>77 有被涵蓋——事實上被兩條規則涵蓋，這才是真正的問題。</text></feedback></answer>
+    <answer fraction="0"><text>不可能的規則——分數 77 不可能發生</text><feedback><text>77 是完全有效的分數；問題在於重疊，而非可行性。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題——此表格式良好</text><feedback><text>R2 與 R3 在 75-79 上重疊，因此該區間的分數會符合兩條衝突的規則。</text></feedback></answer>
+    <generalfeedback><text>R2（60 到 79）與 R3（75 到 100）在 75-79 上重疊。分數 77 同時符合兩者，同時指定及格與優等——這是由不互斥的延伸條目範圍造成的不一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延伸條目範圍的空隙</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張依年齡的延伸條目表：</p><pre>
+條件「年齡」：  R1: 0 到 17   R2: 18 到 64   R3: 66 到 120
+動作：          R1: 未成年    R2: 成年       R3: 年長
+</pre><p>此表有什麼完整性問題？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>年齡 65 未被任何規則涵蓋——R2 與 R3 之間有空隙</text><feedback><text>正確——R2 到 64 為止，R3 從 66 起算，留下 65 未涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>年齡 18 被涵蓋了兩次</text><feedback><text>18 只落在 R2；此處沒有重疊，只有 65 的空隙。</text></feedback></answer>
+    <answer fraction="0"><text>範圍在 64 處重疊</text><feedback><text>64 只屬於 R2；缺陷是空隙，而非重疊。</text></feedback></answer>
+    <answer fraction="0"><text>此表是完整的</text><feedback><text>65 沒有對應規則，因此該表不完整。</text></feedback></answer>
+    <generalfeedback><text>R2 涵蓋到 64，R3 從 66 起算，因此年齡 65 不符合任何規則。該空隙是延伸條目範圍中的不完整缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>重複（冗餘）的規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>檢視此表：</p><pre>
+        R1  R2  R3  R4
+C1       T   F   T   F
+C2       T   T   F   T
+------------------------
+Action   A   B   C   B
+</pre><p>哪條規則是冗餘的，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R4——它與 R2 重複：條件相同（C1=F, C2=T）且動作相同 B</text><feedback><text>正確——R2 與 R4 完全相同，因此 R4 未增加任何內容。</text></feedback></answer>
+    <answer fraction="0"><text>R3——它是唯一觸發 C 的規則</text><feedback><text>觸發唯一的動作並非冗餘；R3 涵蓋一個相異的組合。</text></feedback></answer>
+    <answer fraction="0"><text>R1——因為它觸發 A</text><feedback><text>R1 唯一地涵蓋 (T,T)；它並未被重複。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——每條規則都不同</text><feedback><text>R2 與 R4 條件相同且動作相同，因此其中一條是冗餘的。</text></feedback></answer>
+    <generalfeedback><text>R2 與 R4 都是 C1=F, C2=T 且都觸發 B。它們是完全的重複，因此 R4 是可移除的冗餘規則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以計數檢查完整性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張針對 <strong>4 個二元條件</strong>的有限條目表使用了不在意。其各規則分別涵蓋 8、4、2、1 種組合，且互不重疊。此表是否完整？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>否——各規則共涵蓋 8+4+2+1 = 15 種，而 2^4 = 16，故缺少一種</text><feedback><text>正確——15 &lt; 16，因此該表缺少一種組合而不完整。</text></feedback></answer>
+    <answer fraction="0"><text>是——四條規則涵蓋了全部</text><feedback><text>各涵蓋數合計為 15，比 16 少一。</text></feedback></answer>
+    <answer fraction="0"><text>否——此表規則過多而過度指定</text><feedback><text>合計為 15，低於 16；並無過度涵蓋（無重疊）。</text></feedback></answer>
+    <answer fraction="0"><text>否——缺少兩種組合</text><feedback><text>16 - 15 = 1，因此恰好缺少一種組合。</text></feedback></answer>
+    <generalfeedback><text>每條規則的不在意展開為 2 的冪；將互斥的涵蓋相加得 8+4+2+1 = 15。完整的 4 條件表需要 2^4 = 16，故有一種組合未被涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由不在意重疊造成的不一致</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張表對 2 個二元條件包含這兩條規則：</p><pre>
+規則 X：  C1=T, C2=-  ->  A
+規則 Y：  C1=T, C2=F  ->  B
+</pre><p>哪種組合造成衝突，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>C1=T, C2=F——規則 X（C2 為不在意）也涵蓋它並指定 A，而規則 Y 指定 B</text><feedback><text>正確——X 的不在意與 Y 在此重疊卻動作不同，屬於不一致。</text></feedback></answer>
+    <answer fraction="0"><text>C1=T, C2=T——兩條規則在此都要求動作 B</text><feedback><text>在 (T,T) 只有規則 X 適用（給出 A）；規則 Y 是 C2=F，故 (T,T) 沒有衝突。</text></feedback></answer>
+    <answer fraction="0"><text>C1=F, C2=F——兩條規則都未涵蓋它，造成衝突</text><feedback><text>未涵蓋的組合屬於不完整，而非衝突；且此處的衝突在 (T,F)。</text></feedback></answer>
+    <answer fraction="0"><text>沒有衝突——這兩條規則互斥</text><feedback><text>規則 X 的不在意使它在 (T,F) 與規則 Y 重疊，且動作不同。</text></feedback></answer>
+    <generalfeedback><text>規則 X（C1=T, C2=-）涵蓋 (T,T) 與 (T,F)。規則 Y（C1=T, C2=F）也涵蓋 (T,F)，卻指定 B 而非 A。(T,F) 處的重疊加上動作衝突即為不一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由互斥條件造成的不可能規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>條件來自規格：C1 =「付款為現金」、C2 =「付款為信用卡」（一筆付款只用一種方式）：</p><pre>
+        R1  R2  R3
+C1       T   T   F
+C2       T   F   T
+</pre><p>哪條規則不可行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1——單一筆付款不可能同時是現金又是信用卡</text><feedback><text>正確——C1 與 C2 互斥，故兩者皆真為不可能。</text></feedback></answer>
+    <answer fraction="0"><text>R2——現金而非信用卡</text><feedback><text>那是一般的現金付款；是可行的。</text></feedback></answer>
+    <answer fraction="0"><text>R3——信用卡而非現金</text><feedback><text>那是一般的信用卡付款；是可行的。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——三條都可行</text><feedback><text>R1 要求同時為現金與信用卡，這是規格所禁止的。</text></feedback></answer>
+    <generalfeedback><text>由於一筆付款恰為一種方式，C1 與 C2 不可能同時為真。R1（兩者皆真）不可行，無需測試案例；只有 R2 與 R3（以及可能的「兩者皆非」情況）才符合實際。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗證完整性與一致性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張針對 2 個二元條件、合併後的表為：</p><pre>
+規則 1：  C1=T, C2=-  ->  A
+規則 2：  C1=F, C2=-  ->  B
+</pre><p>此表是否既完整又一致？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是——兩條規則涵蓋全部 4 種組合且無重疊（在 C1 上互斥）</text><feedback><text>正確——規則 1 涵蓋 TT、TF，規則 2 涵蓋 FT、FF；合起來為全部 4 種且無衝突。</text></feedback></answer>
+    <answer fraction="0"><text>否——因為 C2 從未被固定，所以不完整</text><feedback><text>C2 上的不在意意味 C2 的兩個值都被涵蓋，故無缺少。</text></feedback></answer>
+    <answer fraction="0"><text>否——兩條規則重疊且衝突</text><feedback><text>它們在 C1 上不同（T 對 F），因此永不重疊；沒有衝突。</text></feedback></answer>
+    <answer fraction="0"><text>否——規則 2 是冗餘的</text><feedback><text>規則 2 涵蓋規則 1 未涵蓋的情況（FT、FF），因此是必要的。</text></feedback></answer>
+    <generalfeedback><text>規則 1（C1=T, C2=-）涵蓋 TT 與 TF；規則 2（C1=F, C2=-）涵蓋 FT 與 FF。它們的聯集是全部 2^2 = 4 種組合，且在 C1 上互斥，因此該表既完整又一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>排除不可行規則後的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張 3 條件表有 8 欄規則，但其中 2 欄描述<strong>不可行</strong>的條件組合。採用每條可行規則一個測試，實際需要多少測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——8 條規則減去 2 條不可行，剩 6 條需要測試。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>不可行規則永不發生，故無需測試案例；8 - 2 = 6。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是不可行規則的數目，而非需要測試的數目。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>8 - 2 = 6，而非 4。</text></feedback></answer>
+    <generalfeedback><text>不可行規則無法被執行，因此排除於測試導出之外。8 條規則中有 2 條不可行，剩 6 條可行規則，需要 6 個測試案例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延伸條目的規則數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一張延伸條目表有兩個條件：「Size」具選項 {Low, High}，「Method」具選項 {Cash, Card, Coupon}。完整的延伸條目表需要多少條規則才能涵蓋每種組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6——各選項數的乘積，2 x 3</text><feedback><text>正確——延伸條目的規則數是各條件選項數的乘積。</text></feedback></answer>
+    <answer fraction="0"><text>5——各選項數的和，2 + 3</text><feedback><text>組合是相乘而非相加；2 x 3 = 6。</text></feedback></answer>
+    <answer fraction="0"><text>4——2^2，把每個條件視為二元</text><feedback><text>Method 有 3 個選項而非 2 個，因此為 2 x 3 = 6，而非 2^2。</text></feedback></answer>
+    <answer fraction="0"><text>9——3^2</text><feedback><text>兩個條件的選項數不同（2 與 3）；乘積為 2 x 3 = 6。</text></feedback></answer>
+    <generalfeedback><text>對延伸條目表而言，完整規則數是各條件選項數的乘積——此處為 2 x 3 = 6。這推廣了 2^n 公式，後者是每個條件都恰有 2 個選項的特例。</text></generalfeedback>
+  </question>
+</quiz>

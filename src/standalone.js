@@ -48399,6 +48399,7604 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "code-coverage": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Statement coverage definition",
+            "text": "<p><strong>Statement (line) coverage</strong> of a test suite is best defined as:</p>",
+            "answers": [
+              {
+                "text": "The fraction of executable statements that were executed by at least one test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it counts executable statements run at least once, divided by the total executable statements."
+              },
+              {
+                "text": "The fraction of branch outcomes that were taken by at least one test",
+                "fraction": 0,
+                "feedback": "That is branch (decision) coverage, not statement coverage."
+              },
+              {
+                "text": "The fraction of source lines, including blanks and comments, that were compiled",
+                "fraction": 0,
+                "feedback": "Blank lines and comments are not executable statements, and coverage is about execution, not compilation."
+              },
+              {
+                "text": "The fraction of all input values that were tried",
+                "fraction": 0,
+                "feedback": "Coverage is measured over the code, not over the whole input domain."
+              }
+            ],
+            "generalFeedback": "Statement coverage = (executable statements executed by some test) / (total executable statements). Comments and blank lines do not count.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage definition",
+            "text": "<p><strong>Branch (decision) coverage</strong> requires that:</p>",
+            "answers": [
+              {
+                "text": "Every decision has taken both its true and its false outcome at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each branch outcome of every decision must be exercised."
+              },
+              {
+                "text": "Every executable statement has been executed at least once",
+                "fraction": 0,
+                "feedback": "That is statement coverage, which is weaker than branch coverage."
+              },
+              {
+                "text": "Every individual boolean condition has taken both values",
+                "fraction": 0,
+                "feedback": "That is condition coverage, which targets the atomic conditions, not the whole decision."
+              },
+              {
+                "text": "Every complete path through the program has been executed",
+                "fraction": 0,
+                "feedback": "That is path coverage, far stronger and often infeasible."
+              }
+            ],
+            "generalFeedback": "Branch (decision) coverage requires each decision to evaluate to both true and false at least once, so every branch outcome (edge) is taken.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Condition coverage definition",
+            "text": "<p><strong>Condition coverage</strong> requires that:</p>",
+            "answers": [
+              {
+                "text": "Each atomic boolean condition in a decision has taken both true and false at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every individual condition must be evaluated both ways."
+              },
+              {
+                "text": "Each decision as a whole has taken both true and false",
+                "fraction": 0,
+                "feedback": "That is decision (branch) coverage; condition coverage looks inside the decision."
+              },
+              {
+                "text": "Every combination of the conditions' values has been tried",
+                "fraction": 0,
+                "feedback": "That is multiple-condition coverage, which is stronger."
+              },
+              {
+                "text": "Every statement has executed once",
+                "fraction": 0,
+                "feedback": "That is statement coverage."
+              }
+            ],
+            "generalFeedback": "Condition coverage requires each atomic condition (e.g. a, b in a && b) to be true in some test and false in some test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path coverage definition",
+            "text": "<p><strong>Path coverage</strong> requires that:</p>",
+            "answers": [
+              {
+                "text": "Every feasible execution path through the code is exercised by some test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 path coverage aims to exercise each end-to-end path of control flow."
+              },
+              {
+                "text": "Every decision takes both outcomes",
+                "fraction": 0,
+                "feedback": "That is branch coverage; path coverage constrains whole paths, not just individual decisions."
+              },
+              {
+                "text": "Every statement executes once",
+                "fraction": 0,
+                "feedback": "That is statement coverage, the weakest of these."
+              },
+              {
+                "text": "Every condition takes both values",
+                "fraction": 0,
+                "feedback": "That is condition coverage."
+              }
+            ],
+            "generalFeedback": "Path coverage requires each feasible path through the program to be executed. With loops the number of paths is usually unbounded, so full path coverage is often infeasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What MC/DC stands for",
+            "text": "<p>In coverage terminology, <strong>MC/DC</strong> stands for:</p>",
+            "answers": [
+              {
+                "text": "Modified Condition/Decision Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MC/DC is Modified Condition/Decision Coverage, used in DO-178B/C."
+              },
+              {
+                "text": "Multiple Condition/Decision Coverage",
+                "fraction": 0,
+                "feedback": "That is a different, stronger criterion (multiple-condition coverage); MC/DC is Modified Condition/Decision Coverage."
+              },
+              {
+                "text": "Maximum Coverage/Decision Criterion",
+                "fraction": 0,
+                "feedback": "No such standard criterion; MC/DC = Modified Condition/Decision Coverage."
+              },
+              {
+                "text": "Minimal Code/Data Coverage",
+                "fraction": 0,
+                "feedback": "Not a coverage criterion; MC/DC = Modified Condition/Decision Coverage."
+              }
+            ],
+            "generalFeedback": "MC/DC = Modified Condition/Decision Coverage. Each condition must be shown to independently affect the decision's outcome.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Function coverage definition",
+            "text": "<p><strong>Function (entry) coverage</strong> measures:</p>",
+            "answers": [
+              {
+                "text": "The fraction of functions/subroutines that were called at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 function coverage counts how many functions were entered by the test suite."
+              },
+              {
+                "text": "The fraction of statements inside each function that executed",
+                "fraction": 0,
+                "feedback": "That is statement coverage, measured per statement, not per function."
+              },
+              {
+                "text": "The fraction of branches inside each function that were taken",
+                "fraction": 0,
+                "feedback": "That is branch coverage, not function coverage."
+              },
+              {
+                "text": "The number of parameters passed to each function",
+                "fraction": 0,
+                "feedback": "Function coverage is about whether a function was called, not its arguments."
+              }
+            ],
+            "generalFeedback": "Function (entry) coverage = (functions called at least once) / (total functions). It is the coarsest common metric.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute statement coverage (5 of 8)",
+            "text": "<p>A function has <strong>8</strong> executable statements. A test suite executes <strong>5</strong> of them. What is the statement coverage?</p>",
+            "answers": [
+              {
+                "text": "62.5%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 5 / 8 = 0.625 = 62.5%."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "5 / 8 = 62.5%, not 50%."
+              },
+              {
+                "text": "80%",
+                "fraction": 0,
+                "feedback": "80% would be 5 of about 6.25 statements; 5 / 8 = 62.5%."
+              },
+              {
+                "text": "37.5%",
+                "fraction": 0,
+                "feedback": "37.5% is the fraction NOT executed (3 / 8); coverage is 5 / 8 = 62.5%."
+              }
+            ],
+            "generalFeedback": "Statement coverage = executed / total = 5 / 8 = 62.5%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute branch coverage (3 of 4)",
+            "text": "<p>A function contains <strong>4</strong> branch outcomes (two decisions, each with a true and a false edge). A suite takes <strong>3</strong> of them. What is the branch coverage?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 / 4 = 75%."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "50% would be 2 of 4; here 3 of 4 = 75%."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "25% is the fraction NOT taken (1 / 4); branch coverage is 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "One branch outcome is still untaken, so it cannot be 100%."
+              }
+            ],
+            "generalFeedback": "Branch coverage = branch outcomes taken / total branch outcomes = 3 / 4 = 75%.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% statement need not give 100% branch",
+            "text": "<p>Achieving 100% statement coverage guarantees 100% branch coverage.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 anwith nocan execute its only statement (100% statement) while the false branch is never taken (branch < 100%)."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Not true: e.g.tested only with x = 5 reaches every statement but never takes the false branch."
+              }
+            ],
+            "generalFeedback": "Statement coverage does not imply branch coverage: an if-without-else can reach 100% statements while leaving the false branch untaken. (Branch coverage does subsume statement coverage, but not the reverse.)"
+          },
+          {
+            "type": "multichoice",
+            "name": "Line coverage relationship",
+            "text": "<p>Commonly reported <strong>line coverage</strong> most closely corresponds to which classic metric?</p>",
+            "answers": [
+              {
+                "text": "Statement coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 line coverage counts executable lines run, essentially statement coverage."
+              },
+              {
+                "text": "Branch coverage",
+                "fraction": 0,
+                "feedback": "Branch coverage is about decision outcomes, not lines executed."
+              },
+              {
+                "text": "Path coverage",
+                "fraction": 0,
+                "feedback": "Path coverage counts whole paths, far stronger than line coverage."
+              },
+              {
+                "text": "MC/DC",
+                "fraction": 0,
+                "feedback": "MC/DC is about conditions independently affecting decisions, not lines."
+              }
+            ],
+            "generalFeedback": "Line coverage counts executable lines executed and is treated as (roughly) equivalent to statement coverage; one line may hold several statements, but they are close.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute line coverage (7 of 10)",
+            "text": "<p>A file has <strong>10</strong> executable lines; a suite executes <strong>7</strong> of them. What is the line coverage?</p>",
+            "answers": [
+              {
+                "text": "70%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 7 / 10 = 70%."
+              },
+              {
+                "text": "30%",
+                "fraction": 0,
+                "feedback": "30% is the uncovered fraction; coverage is 7 / 10 = 70%."
+              },
+              {
+                "text": "77%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%, not 77%."
+              },
+              {
+                "text": "7%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%, not 7%."
+              }
+            ],
+            "generalFeedback": "Line coverage = executed lines / executable lines = 7 / 10 = 70%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Strongest of the three",
+            "text": "<p>Of <strong>statement</strong>, <strong>branch</strong>, and <strong>path</strong> coverage, which is the strongest (hardest to fully achieve)?</p>",
+            "answers": [
+              {
+                "text": "Path coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 path coverage subsumes branch, which subsumes statement."
+              },
+              {
+                "text": "Statement coverage",
+                "fraction": 0,
+                "feedback": "Statement coverage is the weakest of the three."
+              },
+              {
+                "text": "Branch coverage",
+                "fraction": 0,
+                "feedback": "Branch coverage is stronger than statement but weaker than path."
+              },
+              {
+                "text": "They are equally strong",
+                "fraction": 0,
+                "feedback": "They form a strict hierarchy: path subsumes branch subsumes statement."
+              }
+            ],
+            "generalFeedback": "Subsumption: path coverage \u2292 branch/decision coverage \u2292 statement coverage. Path coverage is the strongest and usually infeasible with loops.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% coverage is not bug-free",
+            "text": "<p>Reaching 100% of any structural coverage metric proves the program is free of bugs.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage shows code was executed, not that outputs were checked or that missing code and unexercised data combinations are correct."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Coverage measures which code ran, not correctness; missing logic, wrong oracles, and untested data values can still hide bugs."
+              }
+            ],
+            "generalFeedback": "Coverage tells you code was executed, not that it was correct. A faulty oracle, an omitted case, or a specific data value not tried can leave bugs even at 100% coverage."
+          },
+          {
+            "type": "multichoice",
+            "name": "What instrumentation does",
+            "text": "<p>To measure coverage, a tool usually <strong>instruments</strong> the program. This means it:</p>",
+            "answers": [
+              {
+                "text": "Inserts probes/counters that record which statements or branches execute at run time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 instrumentation adds bookkeeping so executed elements are recorded during test runs."
+              },
+              {
+                "text": "Rewrites the program to remove all bugs automatically",
+                "fraction": 0,
+                "feedback": "Instrumentation only records execution; it does not fix code."
+              },
+              {
+                "text": "Proves mathematically that the code is correct",
+                "fraction": 0,
+                "feedback": "That is formal verification, not coverage instrumentation."
+              },
+              {
+                "text": "Generates the test inputs for you",
+                "fraction": 0,
+                "feedback": "Instrumentation records what tests reach; it does not create the tests."
+              }
+            ],
+            "generalFeedback": "A coverage tool instruments the code with probes/counters at statements and branches; running the tests records which elements executed, from which percentages are computed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision vs condition (basic)",
+            "text": "<p>In the decision <code>if (a &amp;&amp; b)</code>, the whole expression <code>a &amp;&amp; b</code> is the <em>decision</em>. What are <code>a</code> and <code>b</code> called?</p>",
+            "answers": [
+              {
+                "text": "Conditions (atomic boolean sub-expressions)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a and b are the individual conditions of the decision."
+              },
+              {
+                "text": "Branches",
+                "fraction": 0,
+                "feedback": "Branches are the true/false outcomes of the decision, not a and b themselves."
+              },
+              {
+                "text": "Paths",
+                "fraction": 0,
+                "feedback": "Paths are whole routes through the code, not the atomic parts of a decision."
+              },
+              {
+                "text": "Statements",
+                "fraction": 0,
+                "feedback": "a and b are conditions inside the decision, not separate statements."
+              }
+            ],
+            "generalFeedback": "A decision is the full boolean expression that controls a branch; the atomic boolean sub-expressions (a, b) are its conditions. Condition coverage targets a and b; decision coverage targets a && b.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Statement coverage of an if (x<=0 test)",
+            "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>Executable statements: s1, s2, s3, s4 (four total). The suite is the single test <code>{x = -3}</code>. What is the <strong>statement</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x = -3 runs s1, s2, s4 but skips s3 (y = 1), so 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s3 (y = 1) is only reached when x > 0, so it is not executed by x = -3."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Three of the four statements execute (s1, s2, s4), giving 75%, not 50%."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "Only s3 is missed; that is 3 / 4 = 75% covered."
+              }
+            ],
+            "generalFeedback": "x = -3 executes s1, s2 (the if), and s4, but not s3. Statement coverage = 3 / 4 = 75%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage of an if (x<=0 test)",
+            "text": "<p>Same code:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>The single decision <code>x &gt; 0</code> has two branch outcomes (true, false). With the suite <code>{x = -3}</code>, what is the <strong>branch</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only the false outcome is taken, so 1 / 2 = 50%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The true outcome (x > 0) is never taken by x = -3."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% is the statement coverage; branch coverage here is 1 of 2 = 50%."
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "The false outcome IS taken, so it is 50%, not 0%."
+              }
+            ],
+            "generalFeedback": "x = -3 takes only the false outcome of x > 0, so branch coverage = 1 / 2 = 50%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Statement coverage of an if-else (one test)",
+            "text": "<p>Consider:</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>Executable statements: s1, s2, s3 (three total). The suite is <code>{n = 4}</code>. What is the <strong>statement</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 n = 4 runs s1 and s2 but not s3 (return 1), so 2 / 3 \u2248 66.7%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The else statement s3 is only reached when n is odd, so n = 4 misses it."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Two of three statements run; that is 2 / 3 \u2248 66.7%, not 50%."
+              },
+              {
+                "text": "\u2248 33.3%",
+                "fraction": 0,
+                "feedback": "33.3% is one of three; here two of three run, so \u2248 66.7%."
+              }
+            ],
+            "generalFeedback": "n = 4 executes s1 (the if) and s2 (return 0), skipping s3. Statement coverage = 2 / 3 \u2248 66.7%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage of an if-else (one test)",
+            "text": "<p>Same if-else:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>With suite <code>{n = 4}</code>, what is the <strong>branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only the true outcome is taken, so 1 / 2 = 50%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The false outcome (odd n) is never taken by n = 4."
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% is the statement coverage here; branch coverage is 1 of 2 = 50%."
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "The true outcome IS taken, so branch coverage is 50%."
+              }
+            ],
+            "generalFeedback": "n = 4 takes only the true outcome; the false (else) outcome is untaken, so branch coverage = 1 / 2 = 50%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Condition covered but decision not",
+            "text": "<p>For the decision <code>a &amp;&amp; b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=T)</code>. Both make the decision <strong>false</strong>. What does this show?</p>",
+            "answers": [
+              {
+                "text": "100% condition coverage but only 50% decision coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a and b each take T and F (condition 100%), yet the decision is false both times (decision 50%)."
+              },
+              {
+                "text": "100% decision coverage but only 50% condition coverage",
+                "fraction": 0,
+                "feedback": "Reversed: the decision is false both times (50%), while each condition takes both values (100%)."
+              },
+              {
+                "text": "Both are 100%",
+                "fraction": 0,
+                "feedback": "The decision never evaluates to true, so decision coverage is only 50%."
+              },
+              {
+                "text": "Both are 50%",
+                "fraction": 0,
+                "feedback": "Condition coverage is full: a is T then F, b is F then T."
+              }
+            ],
+            "generalFeedback": "a: T then F; b: F then T \u2014 full condition coverage. But a && b is false in both tests, so decision coverage is 1 / 2 = 50%. Condition coverage does not subsume decision coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision covered but condition not",
+            "text": "<p>For the decision <code>a || b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=F)</code>. Condition coverage counts the four goals a=T, a=F, b=T, b=F. What coverage results?</p>",
+            "answers": [
+              {
+                "text": "100% decision coverage but only 75% condition coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 decision is true then false (100%); a=T, a=F, b=F are met but b=T is not, so 3 / 4 = 75% condition."
+              },
+              {
+                "text": "100% condition coverage but only 50% decision coverage",
+                "fraction": 0,
+                "feedback": "Reversed: the decision takes both values (100%); it is b that never becomes true, leaving condition coverage below 100%."
+              },
+              {
+                "text": "Both are 100%",
+                "fraction": 0,
+                "feedback": "b is false in both tests, so the goal b=T is unmet and condition coverage is 75%."
+              },
+              {
+                "text": "Both are 50%",
+                "fraction": 0,
+                "feedback": "The decision is true in test 1 and false in test 2, so decision coverage is 100%."
+              }
+            ],
+            "generalFeedback": "a || b: T then F, so decision coverage is 100%. Condition goals met: a=T \u2713, a=F \u2713, b=F \u2713, but b=T \u2717 (b is false in both tests) \u2192 3 / 4 = 75%. Decision coverage does not subsume condition coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subsumption ordering",
+            "text": "<p>Which subsumption ordering is correct (X \u2292 Y means X guarantees Y)?</p>",
+            "answers": [
+              {
+                "text": "path \u2292 branch/decision \u2292 statement",
+                "fraction": 100,
+                "feedback": "Correct \u2014 full path coverage implies full branch coverage, which implies full statement coverage."
+              },
+              {
+                "text": "statement \u2292 branch/decision \u2292 path",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 statement coverage is the weakest, not the strongest."
+              },
+              {
+                "text": "branch/decision \u2292 path \u2292 statement",
+                "fraction": 0,
+                "feedback": "Path coverage is stronger than branch coverage, not weaker."
+              },
+              {
+                "text": "condition \u2292 branch/decision \u2292 statement",
+                "fraction": 0,
+                "feedback": "Condition and branch/decision coverage are incomparable; condition does not subsume branch."
+              }
+            ],
+            "generalFeedback": "path \u2292 branch/decision \u2292 statement. Note that condition coverage and branch/decision coverage are incomparable \u2014 neither subsumes the other.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "100% statement, 50% branch example",
+            "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>With the single test <code>{x = 5}</code>, which statement is true?</p>",
+            "answers": [
+              {
+                "text": "Statement coverage is 100% but branch coverage is only 50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every statement runs, but the false outcome of x > 0 is never taken."
+              },
+              {
+                "text": "Both statement and branch coverage are 100%",
+                "fraction": 0,
+                "feedback": "The false branch (x <= 0) is never taken, so branch coverage is 50%."
+              },
+              {
+                "text": "Statement coverage is 75%",
+                "fraction": 0,
+                "feedback": "x = 5 runs all four statements including y = 1, so statement coverage is 100%."
+              },
+              {
+                "text": "Branch coverage is 100% but statement coverage is 75%",
+                "fraction": 0,
+                "feedback": "Both claims are wrong: statements are all covered (100%) and branch is 50%."
+              }
+            ],
+            "generalFeedback": "x = 5 runs s1..s4 (statement 100%) but takes only the true outcome, so branch coverage is 1 / 2 = 50%. This is the classic case where statement coverage does not imply branch coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Short-circuit: is b evaluated?",
+            "text": "<p>In a language with short-circuit evaluation, the decision <code>a &amp;&amp; b</code> is run with the single test <code>{a = false}</code>. Is condition <code>b</code> evaluated?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 because a is false, && short-circuits and b is never evaluated",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with a = false the result is already false, so b is skipped."
+              },
+              {
+                "text": "Yes \u2014 both operands are always evaluated",
+                "fraction": 0,
+                "feedback": "That would be true only without short-circuiting; a false left operand of && skips b."
+              },
+              {
+                "text": "Yes \u2014 b is evaluated first",
+                "fraction": 0,
+                "feedback": "&& evaluates the left operand first; a = false ends evaluation before b."
+              },
+              {
+                "text": "Only if a is true and b is false",
+                "fraction": 0,
+                "feedback": "b is evaluated exactly when a is true; here a is false, so b is skipped."
+              }
+            ],
+            "generalFeedback": "With short-circuit &&, a false left operand determines the result, so b is not evaluated. To exercise b's values you need tests where a is true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Short-circuit effect on condition coverage",
+            "text": "<p>With short-circuit <code>&amp;&amp;</code>, to make condition <code>b</code> in <code>a &amp;&amp; b</code> take <strong>both</strong> true and false so it counts for condition coverage, the tests must have:</p>",
+            "answers": [
+              {
+                "text": "a = true in both tests (once with b = true, once with b = false)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 b is only evaluated when a is true, so a must be true to exercise b."
+              },
+              {
+                "text": "a = false in both tests",
+                "fraction": 0,
+                "feedback": "With a = false, b is never evaluated, so b's value is never exercised."
+              },
+              {
+                "text": "any values of a, since b is always evaluated",
+                "fraction": 0,
+                "feedback": "Short-circuiting means b is skipped when a is false."
+              },
+              {
+                "text": "b = true in both tests",
+                "fraction": 0,
+                "feedback": "Then b never takes false, so condition coverage of b is incomplete."
+              }
+            ],
+            "generalFeedback": "Short-circuit && evaluates b only when a is true. To let b be observed as both true and false, keep a true and vary b.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage subsumes statement",
+            "text": "<p>Which statement about branch and statement coverage is correct?</p>",
+            "answers": [
+              {
+                "text": "100% branch coverage guarantees 100% statement coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 taking every branch reaches every reachable statement, so branch coverage subsumes statement coverage."
+              },
+              {
+                "text": "100% statement coverage guarantees 100% branch coverage",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 an if without else can be 100% statement yet under 100% branch."
+              },
+              {
+                "text": "They always give the same percentage",
+                "fraction": 0,
+                "feedback": "They differ, e.g. if-without-else: statement can be 100% while branch is 50%."
+              },
+              {
+                "text": "Neither subsumes the other",
+                "fraction": 0,
+                "feedback": "Branch coverage does subsume statement coverage."
+              }
+            ],
+            "generalFeedback": "Branch/decision coverage \u2292 statement coverage: exercising both outcomes of every decision necessarily reaches every reachable statement. The reverse does not hold.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Condition coverage subsumes decision?",
+            "text": "<p>Achieving 100% condition coverage always guarantees 100% decision (branch) coverage.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 e.g. a && b with (T,F) and (F,T) gives full condition coverage but the decision is false both times (50% decision)."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Not true: condition and decision coverage are incomparable; full condition coverage can leave a decision outcome untaken."
+              }
+            ],
+            "generalFeedback": "Condition coverage and decision coverage are incomparable. Tests (a=T,b=F) and (a=F,b=T) on a && b cover both values of a and b yet make the decision false both times, so decision coverage is only 50%. (Decision/condition coverage combines both to fix this.)"
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute condition coverage under one test",
+            "text": "<p>For the decision <code>a &amp;&amp; b</code>, condition coverage counts the four condition-value goals: a=T, a=F, b=T, b=F. The suite is the single test <code>(a=T, b=T)</code>. What is the <strong>condition</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a=T and b=T are met, but a=F and b=F are not, so 2 / 4 = 50%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "a=F and b=F are never exercised by a single all-true test."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "Two of the four goals (a=T, b=T) are met, so 50%, not 25%."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "Only two of four condition-value goals are met, giving 50%."
+              }
+            ],
+            "generalFeedback": "Condition coverage tracks each condition taking each value: a=T \u2713, b=T \u2713, a=F \u2717, b=F \u2717 \u2192 2 / 4 = 50%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimum tests for branch coverage of one if-else",
+            "text": "<p>What is the minimum number of tests needed to fully cover the branches of a single <code>if-else</code> with one simple decision?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one test to take the true outcome and one for the false outcome."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One test can take only one outcome; you need both true and false."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only two outcomes exist for one decision, so two tests suffice."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Four would be the truth-table size for two conditions; one simple decision needs just two tests."
+              }
+            ],
+            "generalFeedback": "A single decision has two outcomes, so branch coverage needs at least two tests (true and false).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Suite that achieves 100% branch coverage",
+            "text": "<p>For:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>Which suite achieves <strong>100% branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+            "answers": [
+              {
+                "text": "{n = 4, n = 7}",
+                "fraction": 100,
+                "feedback": "Correct \u2014 n = 4 takes the true outcome and n = 7 takes the false outcome, covering both branches."
+              },
+              {
+                "text": "{n = 4}",
+                "fraction": 0,
+                "feedback": "Only the true outcome is taken, so branch coverage is 50%."
+              },
+              {
+                "text": "{n = 2, n = 8}",
+                "fraction": 0,
+                "feedback": "Both are even, so only the true outcome is taken \u2014 50%."
+              },
+              {
+                "text": "{n = 3}",
+                "fraction": 0,
+                "feedback": "Only the false outcome is taken, so branch coverage is 50%."
+              }
+            ],
+            "generalFeedback": "Branch coverage needs both outcomes: one even n (true) and one odd n (false). {n = 4, n = 7} does this; suites with only evens or only odds reach just one branch.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "MC/DC minimum tests for 3 conditions",
+            "text": "<p>A decision has <strong>3</strong> independent conditions. What is the minimum number of tests that can satisfy <strong>MC/DC</strong>?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MC/DC needs a minimum of n + 1 tests; for n = 3 that is 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The minimum is n + 1 = 4, not n."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "2^3 = 8 is multiple-condition coverage; MC/DC needs only about n + 1."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Up to 2n = 6 tests may be used, but the minimum is n + 1 = 4."
+              }
+            ],
+            "generalFeedback": "For n independent conditions, MC/DC requires a minimum of n + 1 tests (and at most 2n), because a well-chosen test can serve as the pair-partner for several conditions. For n = 3 the minimum is 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC requirement",
+            "text": "<p>Beyond decision and condition coverage, the extra requirement of <strong>MC/DC</strong> is that:</p>",
+            "answers": [
+              {
+                "text": "Each condition is shown to independently affect the decision's outcome",
+                "fraction": 100,
+                "feedback": "Correct \u2014 for each condition there is a pair of tests, differing only in that condition, where the decision's value flips."
+              },
+              {
+                "text": "Every combination of condition values is tested",
+                "fraction": 0,
+                "feedback": "That is multiple-condition coverage, which is stronger than MC/DC."
+              },
+              {
+                "text": "Every statement is executed",
+                "fraction": 0,
+                "feedback": "That is statement coverage, unrelated to the independence requirement."
+              },
+              {
+                "text": "Every path is executed",
+                "fraction": 0,
+                "feedback": "That is path coverage, not MC/DC."
+              }
+            ],
+            "generalFeedback": "MC/DC requires each condition, holding the others fixed, to be demonstrated to independently flip the decision's outcome \u2014 plus each condition and the decision take both values.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multiple-condition coverage for 3 conditions",
+            "text": "<p>How many tests does <strong>multiple-condition coverage</strong> require for a decision with <strong>3</strong> conditions (ignoring infeasible combinations)?</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 multiple-condition coverage needs all 2^n combinations; 2^3 = 8."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 = n + 1 is MC/DC's minimum, not multiple-condition coverage."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 = 2n is MC/DC's upper bound, not all combinations."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Multiple-condition coverage needs 2^3 = 8 combinations, not 3."
+              }
+            ],
+            "generalFeedback": "Multiple-condition coverage exercises all 2^n truth-value combinations of the n conditions; for n = 3 that is 8.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compound-decision subsumption chain",
+            "text": "<p>Which ordering among these compound-decision criteria is correct (X \u2292 Y means X subsumes Y)?</p>",
+            "answers": [
+              {
+                "text": "multiple-condition \u2292 MC/DC \u2292 decision/condition \u2292 condition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all combinations subsume MC/DC, which subsumes decision/condition, which subsumes plain condition (and decision) coverage."
+              },
+              {
+                "text": "MC/DC \u2292 multiple-condition \u2292 decision/condition",
+                "fraction": 0,
+                "feedback": "Multiple-condition coverage is the strongest; it subsumes MC/DC, not the reverse."
+              },
+              {
+                "text": "condition \u2292 decision/condition \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 plain condition coverage is the weakest of these."
+              },
+              {
+                "text": "decision/condition \u2292 multiple-condition \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "Multiple-condition coverage is stronger than both of the others."
+              }
+            ],
+            "generalFeedback": "multiple-condition \u2292 MC/DC \u2292 decision/condition coverage \u2292 condition coverage (and \u2292 decision coverage). Multiple-condition coverage is the strongest because it exercises the full truth table.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimum MC/DC tests for a && b",
+            "text": "<p>For the decision <code>a &amp;&amp; b</code>, a minimal MC/DC test set is <code>{(T,T), (F,T), (T,F)}</code>. How many tests is that, and does it match n + 1?</p>",
+            "answers": [
+              {
+                "text": "3 tests, which equals n + 1 for n = 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (T,T)/(F,T) shows a's effect, (T,T)/(T,F) shows b's effect; 3 = 2 + 1."
+              },
+              {
+                "text": "4 tests, the full truth table",
+                "fraction": 0,
+                "feedback": "The listed set has 3 tests, not 4; MC/DC does not need the whole table for a && b."
+              },
+              {
+                "text": "2 tests, one per outcome",
+                "fraction": 0,
+                "feedback": "Two tests give decision coverage but cannot show both a and b independently; MC/DC needs 3 here."
+              },
+              {
+                "text": "3 tests, but that is more than n + 1",
+                "fraction": 0,
+                "feedback": "n + 1 = 3 for n = 2, so 3 tests is exactly the minimum."
+              }
+            ],
+            "generalFeedback": "For a && b: the pair (T,T)/(F,T) flips the decision by changing a alone; the pair (T,T)/(T,F) flips it by changing b alone. The three distinct tests {(T,T),(F,T),(T,F)} = n + 1 = 3.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path count of two sequential ifs",
+            "text": "<p>Consider:</p><pre>if (a) S1;\nif (b) S2;</pre><p>with two independent decisions and no loops. How many distinct execution <strong>paths</strong> are there?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each if independently taken or not: 2 \xD7 2 = 4 paths."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Two counts branch outcomes of one if; two independent ifs give 2 \xD7 2 = 4 paths."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The combinations are (a,b) = TT, TF, FT, FF \u2014 four paths, not three."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "With two independent decisions there are 4 distinct paths."
+              }
+            ],
+            "generalFeedback": "Two independent decisions in sequence yield 2 \xD7 2 = 4 paths (a taken/not) \xD7 (b taken/not). Branch coverage needs only 2 tests, but path coverage needs 4.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Loops make path coverage infeasible",
+            "text": "<p>When the code under test contains a loop whose iteration count depends on input, full path coverage is generally infeasible.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each distinct iteration count is a distinct path, so the number of paths is unbounded."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A data-dependent loop produces a different path for every iteration count, giving unboundedly many paths."
+              }
+            ],
+            "generalFeedback": "A loop that can run 0, 1, 2, ... times yields a distinct path per iteration count, so the path set is (potentially) infinite and full path coverage cannot generally be achieved."
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible branch caps coverage",
+            "text": "<p>A function has <strong>4</strong> branch outcomes, but one of them is <em>infeasible</em> (dead code that no input can reach). What is the maximum <strong>branch</strong> coverage achievable, measured over all 4 outcomes?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at best 3 of the 4 outcomes can be taken, so 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The infeasible outcome can never be taken, so 100% over all 4 is impossible."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Three feasible outcomes can be taken; that is 75%, not 50%."
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "Only one outcome is unreachable; the other three are reachable, giving 75%."
+              }
+            ],
+            "generalFeedback": "Infeasible branches cap achievable coverage: with 1 of 4 outcomes unreachable, the maximum over all 4 is 3 / 4 = 75%. Reporting over feasible outcomes only would show 100%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if branch coverage",
+            "text": "<p>Consider:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>There are 4 branch outcomes: outer-true, outer-false, inner-true, inner-false. Suite: <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>branch</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 outer-true, inner-true (from 5,3) and outer-false (from -1,0) are taken, but inner-false is not: 3 / 4 = 75%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The inner-false outcome (x > 0 and y <= 0) is never reached by this suite."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Three of four outcomes are taken (outer-true, outer-false, inner-true), giving 75%."
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% would be 2 of 3; here 3 of 4 branch outcomes are taken = 75%."
+              }
+            ],
+            "generalFeedback": "(5,3): outer-true + inner-true. (-1,0): outer-false. Inner-false requires x > 0 and y <= 0, which no test provides. Branch coverage = 3 / 4 = 75%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if missed branch",
+            "text": "<p>Same code and suite:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. Which branch outcome is <strong>missed</strong>?</p>",
+            "answers": [
+              {
+                "text": "The inner false branch (x > 0 and y <= 0, so r = 2)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no test has x > 0 together with y <= 0, so r = 2 is never reached."
+              },
+              {
+                "text": "The outer false branch (x <= 0)",
+                "fraction": 0,
+                "feedback": "(x=-1, y=0) takes the outer false branch, so it is covered."
+              },
+              {
+                "text": "The inner true branch (r = 1)",
+                "fraction": 0,
+                "feedback": "(x=5, y=3) takes the inner true branch, so it is covered."
+              },
+              {
+                "text": "None \u2014 all branches are covered",
+                "fraction": 0,
+                "feedback": "The inner false branch (r = 2) is missed; it needs x > 0 and y <= 0."
+              }
+            ],
+            "generalFeedback": "To reach r = 2 you need x > 0 (enter outer) and y <= 0 (inner false). The suite never combines those, so the inner-false branch and the path leading to r = 2 are missed. Adding e.g. (x=5, y=-1) would cover it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if statement coverage",
+            "text": "<p>Same code:</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>Six executable statements s1..s6. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>statement</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "\u2248 83.3%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all run except s5 (r = 2), so 5 / 6 \u2248 83.3%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s5 (r = 2) needs x > 0 and y <= 0, which the suite never provides."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% is the branch coverage; statement coverage is 5 / 6 \u2248 83.3%."
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "Five of six statements execute, giving \u2248 83.3%, not 66.7%."
+              }
+            ],
+            "generalFeedback": "(5,3) runs s1, s2, s3, s4, s6; (-1,0) runs s1, s2, s6. Only s5 (r = 2) is missed. Statement coverage = 5 / 6 \u2248 83.3%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nested-if path coverage",
+            "text": "<p>Same code has three feasible paths: P1 = x &lt;= 0; P2 = x &gt; 0 and y &gt; 0; P3 = x &gt; 0 and y &lt;= 0. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>path</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (5,3) covers P2 and (-1,0) covers P1, but P3 is missed: 2 / 3 \u2248 66.7%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "Path P3 (x > 0 and y <= 0) is never exercised."
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "Two of three feasible paths are covered, giving \u2248 66.7%, not 50%."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% is the branch coverage; path coverage here is 2 / 3 \u2248 66.7%."
+              }
+            ],
+            "generalFeedback": "Feasible paths: P1 (x <= 0), P2 (x > 0, y > 0), P3 (x > 0, y <= 0). The suite covers P1 and P2 but not P3, so path coverage = 2 / 3 \u2248 66.7%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC independence pair for a || b",
+            "text": "<p>For the decision <code>a || b</code>, which pair of tests demonstrates that condition <code>b</code> <strong>independently</strong> affects the outcome?</p>",
+            "answers": [
+              {
+                "text": "(a=F, b=F) giving false and (a=F, b=T) giving true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a is held false; changing b alone flips the decision from false to true."
+              },
+              {
+                "text": "(a=T, b=F) and (a=T, b=T), both giving true",
+                "fraction": 0,
+                "feedback": "With a = true, a || b is true regardless of b, so the outcome does not flip \u2014 b's effect is masked."
+              },
+              {
+                "text": "(a=F, b=T) and (a=T, b=F), both giving true",
+                "fraction": 0,
+                "feedback": "These differ in both a and b, so they cannot isolate b's independent effect."
+              },
+              {
+                "text": "(a=T, b=T) and (a=F, b=F)",
+                "fraction": 0,
+                "feedback": "These differ in both conditions, so neither condition's effect is isolated."
+              }
+            ],
+            "generalFeedback": "To show b independently affects a || b, hold a = false and vary b: (F,F) \u2192 false, (F,T) \u2192 true. Only then does changing b alone flip the outcome.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "MC/DC subsumes decision coverage",
+            "text": "<p>A test set that satisfies MC/DC for a decision necessarily satisfies decision (branch) coverage of that decision.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 showing each condition can flip the outcome forces the decision to take both true and false, so decision coverage is met."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "MC/DC requires each condition to flip the decision, which necessarily makes the decision both true and false \u2014 decision coverage is implied."
+              }
+            ],
+            "generalFeedback": "MC/DC \u2292 decision/condition coverage \u2292 decision coverage (and condition coverage). Demonstrating independent effect requires the decision to take both outcomes, so branch coverage of that decision follows."
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision/condition coverage definition",
+            "text": "<p><strong>Decision/condition coverage</strong> (a.k.a. condition/decision coverage) is satisfied when:</p>",
+            "answers": [
+              {
+                "text": "Both condition coverage and decision coverage are achieved together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each condition takes both values AND the decision takes both outcomes."
+              },
+              {
+                "text": "Only the decision takes both true and false",
+                "fraction": 0,
+                "feedback": "That is plain decision coverage; decision/condition also requires condition coverage."
+              },
+              {
+                "text": "Only each condition takes both values",
+                "fraction": 0,
+                "feedback": "That is plain condition coverage; decision/condition also requires decision coverage."
+              },
+              {
+                "text": "Every combination of the conditions' values is exercised",
+                "fraction": 0,
+                "feedback": "That is multiple-condition coverage, which is stronger than decision/condition."
+              }
+            ],
+            "generalFeedback": "Decision/condition coverage simply combines the two: every condition takes both values and the decision takes both outcomes. It sits above condition and decision coverage and below MC/DC in the subsumption chain.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u6558\u8FF0\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p>\u6E2C\u8A66\u5957\u4EF6\u7684<strong>\u6558\u8FF0\uFF08\u884C\uFF09\u6DB5\u84CB\u7387\uFF08statement/line coverage\uFF09</strong>\u6700\u9069\u7576\u7684\u5B9A\u7FA9\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u6558\u8FF0\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u88AB\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u6558\u8FF0\u6578\u9664\u4EE5\u53EF\u57F7\u884C\u6558\u8FF0\u7E3D\u6578\u3002"
+              },
+              {
+                "text": "\u88AB\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u53D6\u5230\u7684\u5206\u652F\u7D50\u679C\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u652F\uFF08\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387\uFF0C\u4E0D\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u88AB\u7DE8\u8B6F\u5230\u7684\u539F\u59CB\u78BC\u884C\uFF08\u542B\u7A7A\u884C\u8207\u8A3B\u89E3\uFF09\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u7A7A\u884C\u8207\u8A3B\u89E3\u4E0D\u662F\u53EF\u57F7\u884C\u6558\u8FF0\uFF0C\u4E14\u6DB5\u84CB\u7387\u8AC7\u7684\u662F\u57F7\u884C\u800C\u975E\u7DE8\u8B6F\u3002"
+              },
+              {
+                "text": "\u88AB\u5617\u8A66\u904E\u7684\u6240\u6709\u8F38\u5165\u503C\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u662F\u5C0D\u7A0B\u5F0F\u78BC\u8861\u91CF\uFF0C\u800C\u975E\u5C0D\u6574\u500B\u8F38\u5165\u57DF\u8861\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u6DB5\u84CB\u7387 =\uFF08\u88AB\u67D0\u6E2C\u8A66\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u6558\u8FF0\uFF09/\uFF08\u53EF\u57F7\u884C\u6558\u8FF0\u7E3D\u6578\uFF09\u3002\u8A3B\u89E3\u8207\u7A7A\u884C\u4E0D\u8A08\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u5206\u652F\uFF08\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u5224\u5B9A\u90FD\u81F3\u5C11\u5404\u53D6\u5230\u4E00\u6B21\u771F\u8207\u5047\u7684\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u5224\u5B9A\u7684\u5169\u500B\u5206\u652F\u7D50\u679C\u90FD\u8981\u88AB\u57F7\u884C\u5230\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u53EF\u57F7\u884C\u6558\u8FF0\u90FD\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u6BD4\u5206\u652F\u6DB5\u84CB\u7387\u5F31\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u500B\u5225\u5E03\u6797\u689D\u4EF6\u90FD\u53D6\u5230\u771F\u8207\u5047\u5169\u7A2E\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u91DD\u5C0D\u539F\u5B50\u689D\u4EF6\u800C\u975E\u6574\u500B\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7684\u6BCF\u689D\u5B8C\u6574\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8DEF\u5F91\u6DB5\u84CB\u7387\uFF0C\u9060\u66F4\u5F37\u4E14\u5E38\u4E0D\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\uFF08\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387\u8981\u6C42\u6BCF\u500B\u5224\u5B9A\u81F3\u5C11\u5404\u8A55\u4F30\u70BA\u771F\u8207\u5047\u4E00\u6B21\uFF0C\u4F7F\u6BCF\u500B\u5206\u652F\u7D50\u679C\uFF08\u908A\uFF09\u90FD\u88AB\u53D6\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u689D\u4EF6\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u689D\u4EF6\u6DB5\u84CB\u7387\uFF08condition coverage\uFF09</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5224\u5B9A\u4E2D\u6BCF\u500B\u539F\u5B50\u5E03\u6797\u689D\u4EF6\u90FD\u81F3\u5C11\u5404\u53D6\u5230\u4E00\u6B21\u771F\u8207\u5047",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u500B\u5225\u689D\u4EF6\u90FD\u8981\u88AB\u5169\u7A2E\u53D6\u503C\u90FD\u8A55\u4F30\u5230\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u5224\u5B9A\u90FD\u81F3\u5C11\u5404\u53D6\u5230\u4E00\u6B21\u771F\u8207\u5047",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5224\u5B9A\uFF08\u5206\u652F\uFF09\u6DB5\u84CB\u7387\uFF1B\u689D\u4EF6\u6DB5\u84CB\u7387\u770B\u7684\u662F\u5224\u5B9A\u5167\u90E8\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6\u6240\u6709\u53D6\u503C\u7D44\u5408\u90FD\u88AB\u5617\u8A66\u904E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6558\u8FF0\u90FD\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8981\u6C42\u6BCF\u500B\u539F\u5B50\u689D\u4EF6\uFF08\u4F8B\u5982 a && b \u4E2D\u7684 a\u3001b\uFF09\u5728\u67D0\u6E2C\u8A66\u70BA\u771F\u3001\u5728\u67D0\u6E2C\u8A66\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u8DEF\u5F91\u6DB5\u84CB\u7387\uFF08path coverage\uFF09</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u4E2D\u6BCF\u689D\u53EF\u884C\u7684\u57F7\u884C\u8DEF\u5F91\u90FD\u88AB\u67D0\u6E2C\u8A66\u57F7\u884C\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DEF\u5F91\u6DB5\u84CB\u7387\u8981\u57F7\u884C\u6BCF\u4E00\u689D\u7AEF\u5230\u7AEF\u7684\u63A7\u5236\u6D41\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u5224\u5B9A\u90FD\u53D6\u5230\u5169\u7A2E\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF1B\u8DEF\u5F91\u6DB5\u84CB\u7387\u7D04\u675F\u6574\u689D\u8DEF\u5F91\uFF0C\u800C\u975E\u55AE\u4E00\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6558\u8FF0\u90FD\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u662F\u9019\u4E9B\u4E4B\u4E2D\u6700\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u689D\u4EF6\u90FD\u53D6\u5230\u5169\u7A2E\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u689D\u4EF6\u6DB5\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u8981\u6C42\u7A0B\u5F0F\u7684\u6BCF\u689D\u53EF\u884C\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C\u3002\u6709\u8FF4\u5708\u6642\u8DEF\u5F91\u6578\u901A\u5E38\u7121\u4E0A\u9650\uFF0C\u6545\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u5E38\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC \u4EE3\u8868\u4EC0\u9EBC",
+            "text": "<p>\u5728\u6DB5\u84CB\u7387\u8853\u8A9E\u4E2D\uFF0C<strong>MC/DC</strong> \u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4FEE\u6B63\u689D\u4EF6\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\uFF08Modified Condition/Decision Coverage\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MC/DC \u5373 Modified Condition/Decision Coverage\uFF0C\u7528\u65BC DO-178B/C\u3002"
+              },
+              {
+                "text": "\u591A\u91CD\u689D\u4EF6\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\uFF08Multiple Condition/Decision Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53E6\u4E00\u500B\u66F4\u5F37\u7684\u6E96\u5247\uFF08\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF09\uFF1BMC/DC \u662F Modified Condition/Decision Coverage\u3002"
+              },
+              {
+                "text": "\u6700\u5927\u6DB5\u84CB\uFF0F\u5224\u5B9A\u6E96\u5247\uFF08Maximum Coverage/Decision Criterion\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u6A19\u6E96\u6E96\u5247\uFF1BMC/DC = Modified Condition/Decision Coverage\u3002"
+              },
+              {
+                "text": "\u6700\u5C0F\u7A0B\u5F0F\u78BC\uFF0F\u8CC7\u6599\u6DB5\u84CB\u7387\uFF08Minimal Code/Data Coverage\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u6DB5\u84CB\u7387\u6E96\u5247\uFF1BMC/DC = Modified Condition/Decision Coverage\u3002"
+              }
+            ],
+            "generalFeedback": "MC/DC = Modified Condition/Decision Coverage\uFF08\u4FEE\u6B63\u689D\u4EF6\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\uFF09\u3002\u6BCF\u500B\u689D\u4EF6\u90FD\u5FC5\u9808\u88AB\u8B49\u660E\u80FD\u7368\u7ACB\u5F71\u97FF\u5224\u5B9A\u7684\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u51FD\u5F0F\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u51FD\u5F0F\uFF08\u9032\u5165\u9EDE\uFF09\u6DB5\u84CB\u7387\uFF08function/entry coverage\uFF09</strong>\u8861\u91CF\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u81F3\u5C11\u547C\u53EB\u4E00\u6B21\u7684\u51FD\u5F0F\uFF0F\u526F\u7A0B\u5F0F\u6240\u4F54\u7684\u6BD4\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u51FD\u5F0F\u6DB5\u84CB\u7387\u8A08\u7B97\u6E2C\u8A66\u5957\u4EF6\u9032\u5165\u4E86\u591A\u5C11\u500B\u51FD\u5F0F\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u51FD\u5F0F\u5167\u88AB\u57F7\u884C\u5230\u7684\u6558\u8FF0\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u4EE5\u6558\u8FF0\u70BA\u55AE\u4F4D\u800C\u975E\u4EE5\u51FD\u5F0F\u70BA\u55AE\u4F4D\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u51FD\u5F0F\u5167\u88AB\u53D6\u5230\u7684\u5206\u652F\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF0C\u4E0D\u662F\u51FD\u5F0F\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u50B3\u7D66\u6BCF\u500B\u51FD\u5F0F\u7684\u53C3\u6578\u500B\u6578",
+                "fraction": 0,
+                "feedback": "\u51FD\u5F0F\u6DB5\u84CB\u7387\u8AC7\u7684\u662F\u51FD\u5F0F\u662F\u5426\u88AB\u547C\u53EB\uFF0C\u800C\u975E\u5176\u5F15\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u51FD\u5F0F\uFF08\u9032\u5165\u9EDE\uFF09\u6DB5\u84CB\u7387 =\uFF08\u81F3\u5C11\u88AB\u547C\u53EB\u4E00\u6B21\u7684\u51FD\u5F0F\uFF09/\uFF08\u51FD\u5F0F\u7E3D\u6578\uFF09\uFF0C\u662F\u6700\u7C97\u7565\u7684\u5E38\u898B\u5EA6\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u6558\u8FF0\u6DB5\u84CB\u7387\uFF088 \u4E2D 5\uFF09",
+            "text": "<p>\u67D0\u51FD\u5F0F\u6709 <strong>8</strong> \u500B\u53EF\u57F7\u884C\u6558\u8FF0\u3002\u6E2C\u8A66\u5957\u4EF6\u57F7\u884C\u4E86\u5176\u4E2D <strong>5</strong> \u500B\u3002\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "62.5%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 / 8 = 0.625 = 62.5%\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "5 / 8 = 62.5%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "80%",
+                "fraction": 0,
+                "feedback": "80% \u7D04\u70BA 5 \u9664\u4EE5 6.25\uFF1B5 / 8 = 62.5%\u3002"
+              },
+              {
+                "text": "37.5%",
+                "fraction": 0,
+                "feedback": "37.5% \u662F\u672A\u57F7\u884C\u7684\u6BD4\u4F8B\uFF083 / 8\uFF09\uFF1B\u6DB5\u84CB\u7387\u662F 5 / 8 = 62.5%\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u6DB5\u84CB\u7387 = \u5DF2\u57F7\u884C / \u7E3D\u6578 = 5 / 8 = 62.5%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u5206\u652F\u6DB5\u84CB\u7387\uFF084 \u4E2D 3\uFF09",
+            "text": "<p>\u67D0\u51FD\u5F0F\u542B <strong>4</strong> \u500B\u5206\u652F\u7D50\u679C\uFF08\u5169\u500B\u5224\u5B9A\uFF0C\u5404\u6709\u771F\u3001\u5047\u4E00\u689D\u908A\uFF09\u3002\u67D0\u5957\u4EF6\u53D6\u5230\u5176\u4E2D <strong>3</strong> \u500B\u3002\u5206\u652F\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 / 4 = 75%\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "50% \u6703\u662F 4 \u4E2D 2\uFF1B\u6B64\u8655\u70BA 4 \u4E2D 3 = 75%\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "25% \u662F\u672A\u53D6\u5230\u7684\u6BD4\u4F8B\uFF081 / 4\uFF09\uFF1B\u5206\u652F\u6DB5\u84CB\u7387\u662F 3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u9084\u6709\u4E00\u500B\u5206\u652F\u7D50\u679C\u672A\u53D6\u5230\uFF0C\u6545\u4E0D\u53EF\u80FD\u662F 100%\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\u6DB5\u84CB\u7387 = \u53D6\u5230\u7684\u5206\u652F\u7D50\u679C / \u5206\u652F\u7D50\u679C\u7E3D\u6578 = 3 / 4 = 75%\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% \u6558\u8FF0\u672A\u5FC5\u5F97\u5230 100% \u5206\u652F",
+            "text": "<p>\u9054\u5230 100% \u6558\u8FF0\u6DB5\u84CB\u7387\u5C31\u4FDD\u8B49 100% \u5206\u652F\u6DB5\u84CB\u7387\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u7684\u53EF\u57F7\u884C\u5230\u5B83\u552F\u4E00\u7684\u6558\u8FF0\uFF08100% \u6558\u8FF0\uFF09\uFF0C\u4F46\u5047\u5206\u652F\u5F9E\u672A\u88AB\u53D6\u5230\uFF08\u5206\u652F < 100%\uFF09\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6210\u7ACB\uFF1A\u4F8B\u5982\u53EA\u7528 x = 5 \u6E2C\u8A66\u6703\u5230\u9054\u6BCF\u500B\u6558\u8FF0\uFF0C\u4F46\u5F9E\u4E0D\u53D6\u5047\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u6DB5\u84CB\u7387\u4E26\u4E0D\u860A\u542B\u5206\u652F\u6DB5\u84CB\u7387\uFF1A\u7121 else \u7684 if \u53EF\u9054 100% \u6558\u8FF0\uFF0C\u537B\u8B93\u5047\u5206\u652F\u672A\u88AB\u53D6\u5230\u3002\uFF08\u5206\u652F\u6DB5\u84CB\u7387\u6703\u860A\u542B\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u4F46\u53CD\u5411\u4E0D\u6210\u7ACB\u3002\uFF09"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u884C\u6DB5\u84CB\u7387\u7684\u5C0D\u61C9\u95DC\u4FC2",
+            "text": "<p>\u5E38\u88AB\u56DE\u5831\u7684<strong>\u884C\u6DB5\u84CB\u7387\uFF08line coverage\uFF09</strong>\u6700\u63A5\u8FD1\u4E0B\u5217\u54EA\u500B\u7D93\u5178\u5EA6\u91CF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u884C\u6DB5\u84CB\u7387\u8A08\u7B97\u88AB\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u884C\uFF0C\u672C\u8CEA\u4E0A\u5C31\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6DB5\u84CB\u7387\u8AC7\u7684\u662F\u5224\u5B9A\u7D50\u679C\uFF0C\u800C\u975E\u57F7\u884C\u5230\u7684\u884C\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u8A08\u7B97\u6574\u689D\u8DEF\u5F91\uFF0C\u9060\u6BD4\u884C\u6DB5\u84CB\u7387\u5F37\u3002"
+              },
+              {
+                "text": "MC/DC",
+                "fraction": 0,
+                "feedback": "MC/DC \u8AC7\u7684\u662F\u689D\u4EF6\u7368\u7ACB\u5F71\u97FF\u5224\u5B9A\uFF0C\u8207\u884C\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u884C\u6DB5\u84CB\u7387\u8A08\u7B97\u88AB\u57F7\u884C\u5230\u7684\u53EF\u57F7\u884C\u884C\uFF0C\u88AB\u8996\u70BA\uFF08\u5927\u81F4\uFF09\u7B49\u540C\u65BC\u6558\u8FF0\u6DB5\u84CB\u7387\uFF1B\u4E00\u884C\u53EF\u80FD\u542B\u591A\u500B\u6558\u8FF0\uFF0C\u4F46\u5169\u8005\u76F8\u8FD1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u884C\u6DB5\u84CB\u7387\uFF0810 \u4E2D 7\uFF09",
+            "text": "<p>\u67D0\u6A94\u6848\u6709 <strong>10</strong> \u500B\u53EF\u57F7\u884C\u884C\uFF1B\u67D0\u5957\u4EF6\u57F7\u884C\u4E86\u5176\u4E2D <strong>7</strong> \u884C\u3002\u884C\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "70%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20147 / 10 = 70%\u3002"
+              },
+              {
+                "text": "30%",
+                "fraction": 0,
+                "feedback": "30% \u662F\u672A\u6DB5\u84CB\u6BD4\u4F8B\uFF1B\u6DB5\u84CB\u7387\u662F 7 / 10 = 70%\u3002"
+              },
+              {
+                "text": "77%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%\uFF0C\u4E0D\u662F 77%\u3002"
+              },
+              {
+                "text": "7%",
+                "fraction": 0,
+                "feedback": "7 / 10 = 70%\uFF0C\u4E0D\u662F 7%\u3002"
+              }
+            ],
+            "generalFeedback": "\u884C\u6DB5\u84CB\u7387 = \u5DF2\u57F7\u884C\u884C / \u53EF\u57F7\u884C\u884C = 7 / 10 = 70%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u8005\u4E2D\u6700\u5F37\u8005",
+            "text": "<p>\u5728<strong>\u6558\u8FF0</strong>\u3001<strong>\u5206\u652F</strong>\u3001<strong>\u8DEF\u5F91</strong>\u6DB5\u84CB\u7387\u4E4B\u4E2D\uFF0C\u4F55\u8005\u6700\u5F37\uFF08\u6700\u96E3\u5B8C\u5168\u9054\u6210\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8DEF\u5F91\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DEF\u5F91\u6DB5\u84CB\u7387\u860A\u542B\u5206\u652F\uFF0C\u5206\u652F\u53C8\u860A\u542B\u6558\u8FF0\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u6DB5\u84CB\u7387\u662F\u4E09\u8005\u4E2D\u6700\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6DB5\u84CB\u7387\u6BD4\u6558\u8FF0\u5F37\uFF0C\u4F46\u6BD4\u8DEF\u5F91\u5F31\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u4E00\u6A23\u5F37",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5F62\u6210\u56B4\u683C\u5C64\u7D1A\uFF1A\u8DEF\u5F91\u860A\u542B\u5206\u652F\u860A\u542B\u6558\u8FF0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5305\u542B\u95DC\u4FC2\uFF1A\u8DEF\u5F91\u6DB5\u84CB\u7387 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387 \u2292 \u6558\u8FF0\u6DB5\u84CB\u7387\u3002\u8DEF\u5F91\u6DB5\u84CB\u7387\u6700\u5F37\uFF0C\u4E14\u6709\u8FF4\u5708\u6642\u901A\u5E38\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "100% \u6DB5\u84CB\u7387\u4E0D\u7B49\u65BC\u7121\u932F\u8AA4",
+            "text": "<p>\u9054\u5230\u4EFB\u4E00\u7D50\u69CB\u6DB5\u84CB\u7387\u5EA6\u91CF\u7684 100% \u5C31\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u932F\u8AA4\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u53EA\u986F\u793A\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\uFF0C\u4E26\u672A\u986F\u793A\u8F38\u51FA\u88AB\u6AA2\u67E5\uFF0C\u4E5F\u672A\u6DB5\u84CB\u7F3A\u6F0F\u7684\u7A0B\u5F0F\u78BC\u8207\u672A\u8A66\u5230\u7684\u8CC7\u6599\u7D44\u5408\u662F\u5426\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u8861\u91CF\u54EA\u4E9B\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\uFF0C\u800C\u975E\u6B63\u78BA\u6027\uFF1B\u7F3A\u6F0F\u908F\u8F2F\u3001\u932F\u8AA4\u7684\u9810\u671F\u7D50\u679C\u3001\u672A\u8A66\u5230\u7684\u8CC7\u6599\u503C\u4ECD\u53EF\u80FD\u85CF\u6709\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u544A\u8A34\u4F60\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u4E86\uFF0C\u800C\u975E\u5B83\u662F\u6B63\u78BA\u7684\u3002\u932F\u8AA4\u7684\u9810\u671F\u7D50\u679C\uFF08oracle\uFF09\u3001\u88AB\u907A\u6F0F\u7684\u60C5\u6CC1\u3001\u6216\u67D0\u500B\u672A\u5617\u8A66\u7684\u8CC7\u6599\u503C\uFF0C\u90FD\u53EF\u80FD\u5728 100% \u6DB5\u84CB\u7387\u4E0B\u4ECD\u7559\u6709\u932F\u8AA4\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D2\u6A01\uFF08instrumentation\uFF09\u505A\u4EC0\u9EBC",
+            "text": "<p>\u70BA\u8861\u91CF\u6DB5\u84CB\u7387\uFF0C\u5DE5\u5177\u901A\u5E38\u6703\u5C0D\u7A0B\u5F0F\u505A<strong>\u63D2\u6A01\uFF08instrument\uFF09</strong>\u3002\u9019\u662F\u6307\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63D2\u5165\u63A2\u91DD\uFF0F\u8A08\u6578\u5668\uFF0C\u65BC\u57F7\u884C\u671F\u8A18\u9304\u54EA\u4E9B\u6558\u8FF0\u6216\u5206\u652F\u88AB\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D2\u6A01\u52A0\u5165\u8A18\u9304\u7528\u7684\u7C3F\u8A18\uFF0C\u4F7F\u57F7\u884C\u5230\u7684\u5143\u7D20\u5728\u6E2C\u8A66\u57F7\u884C\u6642\u88AB\u8A18\u4E0B\u3002"
+              },
+              {
+                "text": "\u6539\u5BEB\u7A0B\u5F0F\u4EE5\u81EA\u52D5\u79FB\u9664\u6240\u6709\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u63D2\u6A01\u53EA\u8A18\u9304\u57F7\u884C\uFF0C\u4E26\u4E0D\u4FEE\u6B63\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u4EE5\u6578\u5B78\u65B9\u5F0F\u8B49\u660E\u7A0B\u5F0F\u78BC\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F62\u5F0F\u9A57\u8B49\uFF0C\u800C\u975E\u6DB5\u84CB\u7387\u63D2\u6A01\u3002"
+              },
+              {
+                "text": "\u66FF\u4F60\u7522\u751F\u6E2C\u8A66\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u63D2\u6A01\u8A18\u9304\u6E2C\u8A66\u5230\u9054\u4E4B\u8655\uFF0C\u4E26\u4E0D\u7522\u751F\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u5DE5\u5177\u5728\u6558\u8FF0\u8207\u5206\u652F\u8655\u4EE5\u63A2\u91DD\uFF0F\u8A08\u6578\u5668\u63D2\u6A01\uFF1B\u57F7\u884C\u6E2C\u8A66\u6703\u8A18\u4E0B\u54EA\u4E9B\u5143\u7D20\u88AB\u57F7\u884C\uFF0C\u518D\u7531\u6B64\u8A08\u7B97\u767E\u5206\u6BD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5B9A\u8207\u689D\u4EF6\uFF08\u57FA\u790E\uFF09",
+            "text": "<p>\u5728\u5224\u5B9A <code>if (a &amp;&amp; b)</code> \u4E2D\uFF0C\u6574\u500B\u904B\u7B97\u5F0F <code>a &amp;&amp; b</code> \u662F<em>\u5224\u5B9A\uFF08decision\uFF09</em>\u3002\u90A3 <code>a</code> \u8207 <code>b</code> \u7A31\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u689D\u4EF6\uFF08\u539F\u5B50\u5E03\u6797\u5B50\u904B\u7B97\u5F0F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u8207 b \u662F\u8A72\u5224\u5B9A\u7684\u500B\u5225\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u662F\u5224\u5B9A\u7684\u771F\uFF0F\u5047\u7D50\u679C\uFF0C\u800C\u975E a\u3001b \u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u662F\u7A7F\u904E\u7A0B\u5F0F\u78BC\u7684\u6574\u689D\u8DEF\u7DDA\uFF0C\u800C\u975E\u5224\u5B9A\u7684\u539F\u5B50\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "a \u8207 b \u662F\u5224\u5B9A\u5167\u7684\u689D\u4EF6\uFF0C\u800C\u975E\u5404\u81EA\u7368\u7ACB\u7684\u6558\u8FF0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5224\u5B9A\u662F\u63A7\u5236\u5206\u652F\u7684\u5B8C\u6574\u5E03\u6797\u904B\u7B97\u5F0F\uFF1B\u5176\u539F\u5B50\u5E03\u6797\u5B50\u904B\u7B97\u5F0F\uFF08a\u3001b\uFF09\u662F\u5B83\u7684\u689D\u4EF6\u3002\u689D\u4EF6\u6DB5\u84CB\u7387\u91DD\u5C0D a\u3001b\uFF1B\u5224\u5B9A\u6DB5\u84CB\u7387\u91DD\u5C0D a && b\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "if \u7684\u6558\u8FF0\u6DB5\u84CB\u7387\uFF08x<=0 \u6E2C\u8A66\uFF09",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>\u53EF\u57F7\u884C\u6558\u8FF0\uFF1As1\u3001s2\u3001s3\u3001s4\uFF08\u5171\u56DB\u500B\uFF09\u3002\u5957\u4EF6\u70BA\u55AE\u4E00\u6E2C\u8A66 <code>{x = -3}</code>\u3002<strong>\u6558\u8FF0</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x = -3 \u57F7\u884C s1\u3001s2\u3001s4\uFF0C\u4F46\u8DF3\u904E s3\uFF08y = 1\uFF09\uFF0C\u6545 3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s3\uFF08y = 1\uFF09\u50C5\u5728 x > 0 \u6642\u5230\u9054\uFF0Cx = -3 \u4E0D\u6703\u57F7\u884C\u5B83\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u6558\u8FF0\u4E2D\u6709\u4E09\u500B\u57F7\u884C\uFF08s1\u3001s2\u3001s4\uFF09\uFF0C\u662F 75%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "\u53EA\u6F0F\u4E86 s3\uFF1B\u5373 4 \u4E2D 3 = 75% \u88AB\u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "x = -3 \u57F7\u884C s1\u3001s2\uFF08if\uFF09\u8207 s4\uFF0C\u4F46\u4E0D\u57F7\u884C s3\u3002\u6558\u8FF0\u6DB5\u84CB\u7387 = 3 / 4 = 75%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "if \u7684\u5206\u652F\u6DB5\u84CB\u7387\uFF08x<=0 \u6E2C\u8A66\uFF09",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\uFF1A</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>\u55AE\u4E00\u5224\u5B9A <code>x &gt; 0</code> \u6709\u5169\u500B\u5206\u652F\u7D50\u679C\uFF08\u771F\u3001\u5047\uFF09\u3002\u7528\u5957\u4EF6 <code>{x = -3}</code>\uFF0C<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u53D6\u5230\u5047\u7D50\u679C\uFF0C\u6545 1 / 2 = 50%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "x = -3 \u5F9E\u672A\u53D6\u5230\u771F\u7D50\u679C\uFF08x > 0\uFF09\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% \u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF1B\u6B64\u8655\u5206\u652F\u6DB5\u84CB\u7387\u662F 2 \u4E2D 1 = 50%\u3002"
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "\u5047\u7D50\u679C\u6709\u88AB\u53D6\u5230\uFF0C\u6545\u662F 50%\uFF0C\u4E0D\u662F 0%\u3002"
+              }
+            ],
+            "generalFeedback": "x = -3 \u53EA\u53D6\u5230 x > 0 \u7684\u5047\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387 = 1 / 2 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "if-else \u7684\u6558\u8FF0\u6DB5\u84CB\u7387\uFF08\u4E00\u500B\u6E2C\u8A66\uFF09",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>\u53EF\u57F7\u884C\u6558\u8FF0\uFF1As1\u3001s2\u3001s3\uFF08\u5171\u4E09\u500B\uFF09\u3002\u5957\u4EF6\u70BA <code>{n = 4}</code>\u3002<strong>\u6558\u8FF0</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014n = 4 \u57F7\u884C s1 \u8207 s2\uFF0C\u4F46\u4E0D\u57F7\u884C s3\uFF08return 1\uFF09\uFF0C\u6545 2 / 3 \u2248 66.7%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "else \u6558\u8FF0 s3 \u50C5\u5728 n \u70BA\u5947\u6578\u6642\u5230\u9054\uFF0Cn = 4 \u6703\u6F0F\u6389\u5B83\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u6558\u8FF0\u4E2D\u6709\u5169\u500B\u57F7\u884C\uFF1B\u5373 2 / 3 \u2248 66.7%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "\u2248 33.3%",
+                "fraction": 0,
+                "feedback": "33.3% \u662F\u4E09\u4E2D\u4E00\uFF1B\u6B64\u8655\u4E09\u4E2D\u4E8C\u57F7\u884C\uFF0C\u6545 \u2248 66.7%\u3002"
+              }
+            ],
+            "generalFeedback": "n = 4 \u57F7\u884C s1\uFF08if\uFF09\u8207 s2\uFF08return 0\uFF09\uFF0C\u8DF3\u904E s3\u3002\u6558\u8FF0\u6DB5\u84CB\u7387 = 2 / 3 \u2248 66.7%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "if-else \u7684\u5206\u652F\u6DB5\u84CB\u7387\uFF08\u4E00\u500B\u6E2C\u8A66\uFF09",
+            "text": "<p>\u540C\u4E00\u6BB5 if-else\uFF1A</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>\u7528\u5957\u4EF6 <code>{n = 4}</code>\uFF0C\u5224\u5B9A <code>n % 2 == 0</code> \u7684<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF0C\u6545 1 / 2 = 50%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "n = 4 \u5F9E\u672A\u53D6\u5230\u5047\u7D50\u679C\uFF08n \u70BA\u5947\u6578\uFF09\u3002"
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% \u662F\u6B64\u8655\u7684\u6558\u8FF0\u6DB5\u84CB\u7387\uFF1B\u5206\u652F\u6DB5\u84CB\u7387\u662F 2 \u4E2D 1 = 50%\u3002"
+              },
+              {
+                "text": "0%",
+                "fraction": 0,
+                "feedback": "\u771F\u7D50\u679C\u6709\u88AB\u53D6\u5230\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u662F 50%\u3002"
+              }
+            ],
+            "generalFeedback": "n = 4 \u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF1B\u5047\uFF08else\uFF09\u7D50\u679C\u672A\u53D6\u5230\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387 = 1 / 2 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u689D\u4EF6\u6DB5\u84CB\u9054\u6210\u4F46\u5224\u5B9A\u672A\u9054\u6210",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a &amp;&amp; b</code>\uFF0C\u57F7\u884C\u5169\u500B\u6E2C\u8A66 <code>(a=T, b=F)</code> \u8207 <code>(a=F, b=T)</code>\u3002\u5169\u8005\u90FD\u4F7F\u5224\u5B9A\u70BA<strong>\u5047</strong>\u3002\u9019\u8AAA\u660E\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100% \u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 50% \u5224\u5B9A\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u8207 b \u5404\u53D6\u5230 T \u8207 F\uFF08\u689D\u4EF6 100%\uFF09\uFF0C\u4F46\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF08\u5224\u5B9A 50%\uFF09\u3002"
+              },
+              {
+                "text": "100% \u5224\u5B9A\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 50% \u689D\u4EF6\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\uFF1A\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF0850%\uFF09\uFF0C\u800C\u6BCF\u500B\u689D\u4EF6\u90FD\u53D6\u5230\u5169\u7A2E\u503C\uFF08100%\uFF09\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 100%",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u5F9E\u672A\u8A55\u4F30\u70BA\u771F\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u50C5 50%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 50%",
+                "fraction": 0,
+                "feedback": "\u689D\u4EF6\u6DB5\u84CB\u662F\u5B8C\u6574\u7684\uFF1Aa \u5148 T \u5F8C F\uFF0Cb \u5148 F \u5F8C T\u3002"
+              }
+            ],
+            "generalFeedback": "a\uFF1A\u5148 T \u5F8C F\uFF1Bb\uFF1A\u5148 F \u5F8C T\u2014\u2014\u689D\u4EF6\u6DB5\u84CB\u5B8C\u6574\u3002\u4F46 a && b \u5169\u500B\u6E2C\u8A66\u90FD\u70BA\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u662F 1 / 2 = 50%\u3002\u689D\u4EF6\u6DB5\u84CB\u7387\u4E26\u4E0D\u860A\u542B\u5224\u5B9A\u6DB5\u84CB\u7387\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5B9A\u6DB5\u84CB\u9054\u6210\u4F46\u689D\u4EF6\u672A\u9054\u6210",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a || b</code>\uFF0C\u57F7\u884C\u5169\u500B\u6E2C\u8A66 <code>(a=T, b=F)</code> \u8207 <code>(a=F, b=F)</code>\u3002\u689D\u4EF6\u6DB5\u84CB\u7387\u8A08\u56DB\u500B\u76EE\u6A19 a=T\u3001a=F\u3001b=T\u3001b=F\u3002\u5F97\u5230\u4EC0\u9EBC\u6DB5\u84CB\u7387\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100% \u5224\u5B9A\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 75% \u689D\u4EF6\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5224\u5B9A\u5148\u771F\u5F8C\u5047\uFF08100%\uFF09\uFF1Ba=T\u3001a=F\u3001b=F \u9054\u6210\uFF0C\u4F46 b=T \u672A\u9054\u6210\uFF0C\u6545 3 / 4 = 75% \u689D\u4EF6\u3002"
+              },
+              {
+                "text": "100% \u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u4F46\u50C5 50% \u5224\u5B9A\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\uFF1A\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u503C\uFF08100%\uFF09\uFF1B\u662F b \u5F9E\u672A\u8B8A\u771F\uFF0C\u4F7F\u689D\u4EF6\u6DB5\u84CB\u7387\u4E0D\u5230 100%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 100%",
+                "fraction": 0,
+                "feedback": "b \u5728\u5169\u500B\u6E2C\u8A66\u90FD\u70BA\u5047\uFF0C\u6545\u76EE\u6A19 b=T \u672A\u9054\u6210\uFF0C\u689D\u4EF6\u6DB5\u84CB\u7387\u70BA 75%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA 50%",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u5728\u6E2C\u8A66 1 \u70BA\u771F\u3001\u6E2C\u8A66 2 \u70BA\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u662F 100%\u3002"
+              }
+            ],
+            "generalFeedback": "a || b\uFF1A\u5148\u771F\u5F8C\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387 100%\u3002\u689D\u4EF6\u76EE\u6A19\u9054\u6210\u60C5\u5F62\uFF1Aa=T \u2713\u3001a=F \u2713\u3001b=F \u2713\uFF0C\u4F46 b=T \u2717\uFF08b \u5169\u6B21\u90FD\u70BA\u5047\uFF09\u2192 3 / 4 = 75%\u3002\u5224\u5B9A\u6DB5\u84CB\u7387\u4E26\u4E0D\u860A\u542B\u689D\u4EF6\u6DB5\u84CB\u7387\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5305\u542B\uFF08subsumption\uFF09\u9806\u5E8F",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u5305\u542B\u9806\u5E8F\u6B63\u78BA\uFF08X \u2292 Y \u8868\u793A X \u4FDD\u8B49 Y\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8DEF\u5F91 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u6558\u8FF0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u860A\u542B\u5B8C\u6574\u5206\u652F\u6DB5\u84CB\uFF0C\u5F8C\u8005\u53C8\u860A\u542B\u5B8C\u6574\u6558\u8FF0\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u2014\u2014\u6558\u8FF0\u6DB5\u84CB\u7387\u6700\u5F31\uFF0C\u800C\u975E\u6700\u5F37\u3002"
+              },
+              {
+                "text": "\u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u8DEF\u5F91 \u2292 \u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u6DB5\u84CB\u7387\u6BD4\u5206\u652F\u6DB5\u84CB\u7387\u5F37\uFF0C\u800C\u975E\u5F31\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u689D\u4EF6\u8207\u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\uFF1B\u689D\u4EF6\u4E26\u4E0D\u860A\u542B\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91 \u2292 \u5206\u652F\uFF0F\u5224\u5B9A \u2292 \u6558\u8FF0\u3002\u6CE8\u610F\u689D\u4EF6\u6DB5\u84CB\u7387\u8207\u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\u2014\u2014\u5F7C\u6B64\u4E92\u4E0D\u860A\u542B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "100% \u6558\u8FF0\u300150% \u5206\u652F\u4E4B\u4F8B",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>\u7528\u55AE\u4E00\u6E2C\u8A66 <code>{x = 5}</code>\uFF0C\u4E0B\u5217\u4F55\u8005\u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 100%\uFF0C\u4F46\u5206\u652F\u6DB5\u84CB\u7387\u50C5 50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u6558\u8FF0\u90FD\u57F7\u884C\uFF0C\u4F46 x > 0 \u7684\u5047\u7D50\u679C\u5F9E\u672A\u53D6\u5230\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8207\u5206\u652F\u6DB5\u84CB\u7387\u7686\u70BA 100%",
+                "fraction": 0,
+                "feedback": "\u5047\u5206\u652F\uFF08x <= 0\uFF09\u5F9E\u672A\u53D6\u5230\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 50%\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 75%",
+                "fraction": 0,
+                "feedback": "x = 5 \u57F7\u884C\u6240\u6709\u56DB\u500B\u6558\u8FF0\uFF08\u542B y = 1\uFF09\uFF0C\u6545\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 100%\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u6DB5\u84CB\u7387\u70BA 100%\uFF0C\u4F46\u6558\u8FF0\u6DB5\u84CB\u7387\u70BA 75%",
+                "fraction": 0,
+                "feedback": "\u5169\u9805\u90FD\u932F\uFF1A\u6558\u8FF0\u5168\u88AB\u6DB5\u84CB\uFF08100%\uFF09\uFF0C\u800C\u5206\u652F\u70BA 50%\u3002"
+              }
+            ],
+            "generalFeedback": "x = 5 \u57F7\u884C s1..s4\uFF08\u6558\u8FF0 100%\uFF09\uFF0C\u4F46\u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 1 / 2 = 50%\u3002\u9019\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\u4E0D\u860A\u542B\u5206\u652F\u6DB5\u84CB\u7387\u7684\u7D93\u5178\u60C5\u6CC1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u77ED\u8DEF\uFF1Ab \u6709\u88AB\u8A55\u4F30\u55CE\uFF1F",
+            "text": "<p>\u5728\u5177\u77ED\u8DEF\u6C42\u503C\uFF08short-circuit\uFF09\u7684\u8A9E\u8A00\u4E2D\uFF0C\u5224\u5B9A <code>a &amp;&amp; b</code> \u7528\u55AE\u4E00\u6E2C\u8A66 <code>{a = false}</code> \u57F7\u884C\u3002\u689D\u4EF6 <code>b</code> \u6709\u88AB\u8A55\u4F30\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u56E0\u70BA a \u70BA\u5047\uFF0C&& \u77ED\u8DEF\uFF0Cb \u5F9E\u672A\u88AB\u8A55\u4F30",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a = false \u6642\u7D50\u679C\u5DF2\u78BA\u5B9A\u70BA\u5047\uFF0C\u6545\u7565\u904E b\u3002"
+              },
+              {
+                "text": "\u6709\u2014\u2014\u5169\u500B\u904B\u7B97\u5143\u4E00\u5F8B\u90FD\u6703\u88AB\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u5728\u6C92\u6709\u77ED\u8DEF\u6642\u624D\u5982\u6B64\uFF1B&& \u7684\u5DE6\u904B\u7B97\u5143\u70BA\u5047\u6703\u7565\u904E b\u3002"
+              },
+              {
+                "text": "\u6709\u2014\u2014b \u6703\u5148\u88AB\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "&& \u5148\u8A55\u4F30\u5DE6\u904B\u7B97\u5143\uFF1Ba = false \u6703\u5728\u8A55\u4F30 b \u524D\u7D50\u675F\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728 a \u70BA\u771F\u4E14 b \u70BA\u5047\u6642",
+                "fraction": 0,
+                "feedback": "b \u6070\u5728 a \u70BA\u771F\u6642\u88AB\u8A55\u4F30\uFF1B\u6B64\u8655 a \u70BA\u5047\uFF0C\u6545\u7565\u904E b\u3002"
+              }
+            ],
+            "generalFeedback": "\u77ED\u8DEF && \u4E2D\uFF0C\u5DE6\u904B\u7B97\u5143\u70BA\u5047\u5373\u6C7A\u5B9A\u7D50\u679C\uFF0C\u6545 b \u4E0D\u88AB\u8A55\u4F30\u3002\u8981\u8A66\u5230 b \u7684\u53D6\u503C\uFF0C\u9700\u8981 a \u70BA\u771F\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u77ED\u8DEF\u5C0D\u689D\u4EF6\u6DB5\u84CB\u7387\u7684\u5F71\u97FF",
+            "text": "<p>\u5728\u77ED\u8DEF <code>&amp;&amp;</code> \u4E0B\uFF0C\u8981\u8B93 <code>a &amp;&amp; b</code> \u4E2D\u7684\u689D\u4EF6 <code>b</code> \u53D6\u5230<strong>\u771F\u8207\u5047</strong>\u5169\u7A2E\u503C\u4EE5\u8A08\u5165\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u6E2C\u8A66\u5FC5\u9808\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5169\u500B\u6E2C\u8A66\u90FD a = true\uFF08\u4E00\u6B21 b = true\uFF0C\u4E00\u6B21 b = false\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u53EA\u5728 a \u70BA\u771F\u6642\u88AB\u8A55\u4F30\uFF0C\u6545 a \u5FC5\u9808\u70BA\u771F\u624D\u80FD\u8A66\u5230 b\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u6E2C\u8A66\u90FD a = false",
+                "fraction": 0,
+                "feedback": "a = false \u6642 b \u5F9E\u672A\u88AB\u8A55\u4F30\uFF0C\u5176\u53D6\u503C\u6C38\u4E0D\u88AB\u8A66\u5230\u3002"
+              },
+              {
+                "text": "a \u70BA\u4EFB\u610F\u503C\u7686\u53EF\uFF0C\u56E0\u70BA b \u4E00\u5F8B\u90FD\u6703\u88AB\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "\u77ED\u8DEF\u8868\u793A a \u70BA\u5047\u6642\u6703\u7565\u904E b\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u6E2C\u8A66\u90FD b = true",
+                "fraction": 0,
+                "feedback": "\u90A3\u6A23 b \u6C38\u4E0D\u53D6\u5047\uFF0Cb \u7684\u689D\u4EF6\u6DB5\u84CB\u4E0D\u5B8C\u6574\u3002"
+              }
+            ],
+            "generalFeedback": "\u77ED\u8DEF && \u53EA\u5728 a \u70BA\u771F\u6642\u8A55\u4F30 b\u3002\u8981\u8B93 b \u88AB\u89C0\u5BDF\u5230\u771F\u8207\u5047\u5169\u7A2E\u503C\uFF0C\u9700\u4FDD\u6301 a \u70BA\u771F\u4E26\u8B8A\u5316 b\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u6DB5\u84CB\u860A\u542B\u6558\u8FF0\u6DB5\u84CB",
+            "text": "<p>\u95DC\u65BC\u5206\u652F\u8207\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100% \u5206\u652F\u6DB5\u84CB\u7387\u4FDD\u8B49 100% \u6558\u8FF0\u6DB5\u84CB\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53D6\u5230\u6BCF\u500B\u5206\u652F\u5373\u6703\u5230\u9054\u6BCF\u500B\u53EF\u9054\u6558\u8FF0\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u860A\u542B\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "100% \u6558\u8FF0\u6DB5\u84CB\u7387\u4FDD\u8B49 100% \u5206\u652F\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u2014\u2014\u7121 else \u7684 if \u53EF\u9054 100% \u6558\u8FF0\u537B\u4E0D\u5230 100% \u5206\u652F\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7E3D\u662F\u7D66\u51FA\u76F8\u540C\u7684\u767E\u5206\u6BD4",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u6703\u4E0D\u540C\uFF0C\u4F8B\u5982\u7121 else \u7684 if\uFF1A\u6558\u8FF0\u53EF\u70BA 100% \u800C\u5206\u652F\u70BA 50%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E92\u4E0D\u860A\u542B",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6DB5\u84CB\u7387\u78BA\u5BE6\u860A\u542B\u6558\u8FF0\u6DB5\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\uFF0F\u5224\u5B9A\u6DB5\u84CB\u7387 \u2292 \u6558\u8FF0\u6DB5\u84CB\u7387\uFF1A\u53D6\u5230\u6BCF\u500B\u5224\u5B9A\u7684\u5169\u500B\u7D50\u679C\uFF0C\u5FC5\u7136\u5230\u9054\u6BCF\u500B\u53EF\u9054\u6558\u8FF0\u3002\u53CD\u5411\u4E0D\u6210\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u689D\u4EF6\u6DB5\u84CB\u860A\u542B\u5224\u5B9A\u6DB5\u84CB\uFF1F",
+            "text": "<p>\u9054\u5230 100% \u689D\u4EF6\u6DB5\u84CB\u7387\u4E00\u5B9A\u4FDD\u8B49 100% \u5224\u5B9A\uFF08\u5206\u652F\uFF09\u6DB5\u84CB\u7387\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5982 a && b \u7528 (T,F) \u8207 (F,T) \u5F97\u5230\u5B8C\u6574\u689D\u4EF6\u6DB5\u84CB\uFF0C\u4F46\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF08\u5224\u5B9A 50%\uFF09\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6210\u7ACB\uFF1A\u689D\u4EF6\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\uFF1B\u5B8C\u6574\u7684\u689D\u4EF6\u6DB5\u84CB\u53EF\u80FD\u7559\u4E0B\u67D0\u500B\u5224\u5B9A\u7D50\u679C\u672A\u53D6\u5230\u3002"
+              }
+            ],
+            "generalFeedback": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u4E0D\u53EF\u6BD4\u3002\u5C0D a && b \u7528 (a=T,b=F) \u8207 (a=F,b=T)\uFF0C\u6DB5\u84CB\u4E86 a\u3001b \u7684\u5169\u7A2E\u503C\uFF0C\u4F46\u5224\u5B9A\u5169\u6B21\u90FD\u70BA\u5047\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u7387\u50C5 50%\u3002\uFF08\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\u7D50\u5408\u5169\u8005\u4EE5\u4FEE\u88DC\u6B64\u554F\u984C\u3002\uFF09"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u55AE\u4E00\u6E2C\u8A66\u4E0B\u7684\u689D\u4EF6\u6DB5\u84CB\u7387",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a &amp;&amp; b</code>\uFF0C\u689D\u4EF6\u6DB5\u84CB\u7387\u8A08\u56DB\u500B\u689D\u4EF6\u53D6\u503C\u76EE\u6A19\uFF1Aa=T\u3001a=F\u3001b=T\u3001b=F\u3002\u5957\u4EF6\u70BA\u55AE\u4E00\u6E2C\u8A66 <code>(a=T, b=T)</code>\u3002<strong>\u689D\u4EF6</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a=T \u8207 b=T \u9054\u6210\uFF0C\u4F46 a=F \u8207 b=F \u672A\u9054\u6210\uFF0C\u6545 2 / 4 = 50%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5168\u771F\u6E2C\u8A66\u5F9E\u672A\u8A66\u5230 a=F \u8207 b=F\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u76EE\u6A19\u4E2D\u9054\u6210\u5169\u500B\uFF08a=T\u3001b=T\uFF09\uFF0C\u6545 50%\uFF0C\u4E0D\u662F 25%\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u689D\u4EF6\u53D6\u503C\u76EE\u6A19\u50C5\u9054\u6210\u5169\u500B\uFF0C\u5F97 50%\u3002"
+              }
+            ],
+            "generalFeedback": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8FFD\u8E64\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u6BCF\u7A2E\u503C\uFF1Aa=T \u2713\u3001b=T \u2713\u3001a=F \u2717\u3001b=F \u2717 \u2192 2 / 4 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u55AE\u4E00 if-else \u5206\u652F\u6DB5\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u6578",
+            "text": "<p>\u8981\u5B8C\u6574\u6DB5\u84CB\u4E00\u500B\u542B\u55AE\u4E00\u7C21\u55AE\u5224\u5B9A\u7684 <code>if-else</code> \u4E4B\u5206\u652F\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u53D6\u771F\u7D50\u679C\uFF0C\u4E00\u500B\u53D6\u5047\u7D50\u679C\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6E2C\u8A66\u53EA\u80FD\u53D6\u5230\u4E00\u500B\u7D50\u679C\uFF1B\u771F\u8207\u5047\u5169\u8005\u90FD\u9700\u8981\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5224\u5B9A\u53EA\u6709\u5169\u500B\u7D50\u679C\uFF0C\u6545\u5169\u500B\u6E2C\u8A66\u5373\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u5169\u500B\u689D\u4EF6\u7684\u771F\u503C\u8868\u5927\u5C0F\uFF1B\u55AE\u4E00\u7C21\u55AE\u5224\u5B9A\u53EA\u9700\u5169\u500B\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u4E00\u5224\u5B9A\u6709\u5169\u500B\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u81F3\u5C11\u9700\u5169\u500B\u6E2C\u8A66\uFF08\u771F\u8207\u5047\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9054\u6210 100% \u5206\u652F\u6DB5\u84CB\u7684\u5957\u4EF6",
+            "text": "<p>\u5C0D\u65BC\uFF1A</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>\u54EA\u500B\u5957\u4EF6\u80FD\u9054\u6210\u5224\u5B9A <code>n % 2 == 0</code> \u7684 <strong>100% \u5206\u652F</strong>\u6DB5\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "{n = 4, n = 7}",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014n = 4 \u53D6\u5230\u771F\u7D50\u679C\uFF0Cn = 7 \u53D6\u5230\u5047\u7D50\u679C\uFF0C\u5169\u500B\u5206\u652F\u90FD\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "{n = 4}",
+                "fraction": 0,
+                "feedback": "\u53EA\u53D6\u5230\u771F\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 50%\u3002"
+              },
+              {
+                "text": "{n = 2, n = 8}",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7686\u70BA\u5076\u6578\uFF0C\u6545\u53EA\u53D6\u5230\u771F\u7D50\u679C\u2014\u201450%\u3002"
+              },
+              {
+                "text": "{n = 3}",
+                "fraction": 0,
+                "feedback": "\u53EA\u53D6\u5230\u5047\u7D50\u679C\uFF0C\u6545\u5206\u652F\u6DB5\u84CB\u7387\u70BA 50%\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\u6DB5\u84CB\u9700\u8981\u5169\u500B\u7D50\u679C\uFF1A\u4E00\u500B\u5076\u6578 n\uFF08\u771F\uFF09\u8207\u4E00\u500B\u5947\u6578 n\uFF08\u5047\uFF09\u3002{n = 4, n = 7} \u505A\u5230\uFF1B\u5168\u5076\u6216\u5168\u5947\u7684\u5957\u4EF6\u53EA\u5230\u9054\u4E00\u500B\u5206\u652F\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "3 \u500B\u689D\u4EF6\u7684 MC/DC \u6700\u5C11\u6E2C\u8A66\u6578",
+            "text": "<p>\u67D0\u5224\u5B9A\u6709 <strong>3</strong> \u500B\u7368\u7ACB\u689D\u4EF6\u3002\u6EFF\u8DB3 <strong>MC/DC</strong> \u7684\u6700\u5C11\u6E2C\u8A66\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MC/DC \u6700\u5C11\u9700 n + 1 \u500B\u6E2C\u8A66\uFF1Bn = 3 \u6642\u70BA 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u6700\u5C11\u662F n + 1 = 4\uFF0C\u4E0D\u662F n\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "2^3 = 8 \u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF1BMC/DC \u53EA\u9700\u7D04 n + 1\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u6700\u591A\u53EF\u80FD\u7528\u5230 2n = 6 \u500B\u6E2C\u8A66\uFF0C\u4F46\u6700\u5C11\u662F n + 1 = 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D n \u500B\u7368\u7ACB\u689D\u4EF6\uFF0CMC/DC \u6700\u5C11\u9700 n + 1 \u500B\u6E2C\u8A66\uFF08\u6700\u591A 2n\uFF09\uFF0C\u56E0\u70BA\u4E00\u500B\u7CBE\u5FC3\u6311\u9078\u7684\u6E2C\u8A66\u53EF\u4F5C\u70BA\u591A\u500B\u689D\u4EF6\u7684\u914D\u5C0D\u5925\u4F34\u3002n = 3 \u6642\u6700\u5C11\u70BA 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MC/DC \u7684\u8981\u6C42",
+            "text": "<p>\u9664\u4E86\u5224\u5B9A\u8207\u689D\u4EF6\u6DB5\u84CB\u7387\u4E4B\u5916\uFF0C<strong>MC/DC</strong> \u984D\u5916\u7684\u8981\u6C42\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u689D\u4EF6\u90FD\u88AB\u8B49\u660E\u80FD\u7368\u7ACB\u5F71\u97FF\u5224\u5B9A\u7684\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6BCF\u500B\u689D\u4EF6\u90FD\u5B58\u5728\u4E00\u5C0D\u50C5\u5728\u8A72\u689D\u4EF6\u4E0D\u540C\u7684\u6E2C\u8A66\uFF0C\u4F7F\u5224\u5B9A\u7684\u503C\u7FFB\u8F49\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u689D\u4EF6\u503C\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u6BD4 MC/DC \u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6BCF\u500B\u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6558\u8FF0\u6DB5\u84CB\u7387\uFF0C\u8207\u7368\u7ACB\u5F71\u97FF\u7684\u8981\u6C42\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6BCF\u689D\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8DEF\u5F91\u6DB5\u84CB\u7387\uFF0C\u4E0D\u662F MC/DC\u3002"
+              }
+            ],
+            "generalFeedback": "MC/DC \u8981\u6C42\u6BCF\u500B\u689D\u4EF6\u5728\u5176\u4ED6\u689D\u4EF6\u56FA\u5B9A\u6642\uFF0C\u88AB\u5C55\u793A\u80FD\u7368\u7ACB\u7FFB\u8F49\u5224\u5B9A\u7684\u7D50\u679C\u2014\u2014\u5916\u52A0\u6BCF\u500B\u689D\u4EF6\u8207\u5224\u5B9A\u90FD\u53D6\u5230\u5169\u7A2E\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3 \u500B\u689D\u4EF6\u7684\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387",
+            "text": "<p>\u5C0D\u542B <strong>3</strong> \u500B\u689D\u4EF6\u7684\u5224\u5B9A\uFF0C<strong>\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387</strong>\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\uFF08\u5FFD\u7565\u4E0D\u53EF\u884C\u7684\u7D44\u5408\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u9700\u5168\u90E8 2^n \u7A2E\u7D44\u5408\uFF1B2^3 = 8\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 = n + 1 \u662F MC/DC \u7684\u6700\u5C11\u503C\uFF0C\u4E0D\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 = 2n \u662F MC/DC \u7684\u4E0A\u754C\uFF0C\u4E0D\u662F\u6240\u6709\u7D44\u5408\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u9700 2^3 = 8 \u7A2E\u7D44\u5408\uFF0C\u4E0D\u662F 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u8981\u8A66\u5230 n \u500B\u689D\u4EF6\u7684\u5168\u90E8 2^n \u7A2E\u771F\u503C\u7D44\u5408\uFF1Bn = 3 \u6642\u70BA 8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8907\u5408\u5224\u5B9A\u7684\u5305\u542B\u93C8",
+            "text": "<p>\u4E0B\u5217\u9019\u4E9B\u8907\u5408\u5224\u5B9A\u6E96\u5247\u7684\u9806\u5E8F\uFF0C\u4F55\u8005\u6B63\u78BA\uFF08X \u2292 Y \u8868\u793A X \u5305\u542B Y\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u591A\u91CD\u689D\u4EF6 \u2292 MC/DC \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6 \u2292 \u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6240\u6709\u7D44\u5408\u5305\u542B MC/DC\uFF0CMC/DC \u5305\u542B\u5224\u5B9A\uFF0F\u689D\u4EF6\uFF0C\u5F8C\u8005\u5305\u542B\u55AE\u7D14\u689D\u4EF6\uFF08\u8207\u5224\u5B9A\uFF09\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "MC/DC \u2292 \u591A\u91CD\u689D\u4EF6 \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u6700\u5F37\uFF1B\u5B83\u5305\u542B MC/DC\uFF0C\u800C\u975E\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6 \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6 \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u2014\u2014\u55AE\u7D14\u689D\u4EF6\u6DB5\u84CB\u7387\u662F\u9019\u4E9B\u4E4B\u4E2D\u6700\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u5224\u5B9A\uFF0F\u689D\u4EF6 \u2292 \u591A\u91CD\u689D\u4EF6 \u2292 MC/DC",
+                "fraction": 0,
+                "feedback": "\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u6BD4\u53E6\u5916\u5169\u8005\u90FD\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u591A\u91CD\u689D\u4EF6 \u2292 MC/DC \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387 \u2292 \u689D\u4EF6\u6DB5\u84CB\u7387\uFF08\u4E26 \u2292 \u5224\u5B9A\u6DB5\u84CB\u7387\uFF09\u3002\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\u6700\u5F37\uFF0C\u56E0\u70BA\u5B83\u8A66\u5230\u5B8C\u6574\u771F\u503C\u8868\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a && b \u7684\u6700\u5C11 MC/DC \u6E2C\u8A66",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a &amp;&amp; b</code>\uFF0C\u4E00\u500B\u6700\u5C11\u7684 MC/DC \u6E2C\u8A66\u96C6\u70BA <code>{(T,T), (F,T), (T,F)}</code>\u3002\u9019\u662F\u5E7E\u500B\u6E2C\u8A66\uFF1F\u662F\u5426\u7B49\u65BC n + 1\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3 \u500B\u6E2C\u8A66\uFF0C\u7B49\u65BC n = 2 \u6642\u7684 n + 1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(T,T)/(F,T) \u5C55\u793A a \u7684\u5F71\u97FF\uFF0C(T,T)/(T,F) \u5C55\u793A b \u7684\u5F71\u97FF\uFF1B3 = 2 + 1\u3002"
+              },
+              {
+                "text": "4 \u500B\u6E2C\u8A66\uFF0C\u5373\u5B8C\u6574\u771F\u503C\u8868",
+                "fraction": 0,
+                "feedback": "\u6240\u5217\u96C6\u5408\u662F 3 \u500B\u6E2C\u8A66\u800C\u975E 4\uFF1Ba && b \u7684 MC/DC \u4E0D\u9700\u6574\u5F35\u8868\u3002"
+              },
+              {
+                "text": "2 \u500B\u6E2C\u8A66\uFF0C\u6BCF\u500B\u7D50\u679C\u4E00\u500B",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u6E2C\u8A66\u7D66\u51FA\u5224\u5B9A\u6DB5\u84CB\uFF0C\u4F46\u7121\u6CD5\u540C\u6642\u5C55\u793A a \u8207 b \u7684\u7368\u7ACB\u6027\uFF1B\u6B64\u8655 MC/DC \u9700 3 \u500B\u3002"
+              },
+              {
+                "text": "3 \u500B\u6E2C\u8A66\uFF0C\u4F46\u9019\u591A\u65BC n + 1",
+                "fraction": 0,
+                "feedback": "n = 2 \u6642 n + 1 = 3\uFF0C\u6545 3 \u500B\u6E2C\u8A66\u6070\u662F\u6700\u5C11\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D a && b\uFF1A(T,T)/(F,T) \u9019\u4E00\u5C0D\u53EA\u6539\u8B8A a \u5373\u7FFB\u8F49\u5224\u5B9A\uFF1B(T,T)/(T,F) \u9019\u4E00\u5C0D\u53EA\u6539\u8B8A b \u5373\u7FFB\u8F49\u3002\u4E09\u500B\u76F8\u7570\u6E2C\u8A66 {(T,T),(F,T),(T,F)} = n + 1 = 3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u9023\u7E8C if \u7684\u8DEF\u5F91\u6578",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>if (a) S1;\nif (b) S2;</pre><p>\u542B\u5169\u500B\u7368\u7ACB\u5224\u5B9A\u4E14\u7121\u8FF4\u5708\u3002\u5171\u6709\u5E7E\u689D\u76F8\u7570\u7684\u57F7\u884C<strong>\u8DEF\u5F91</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B if \u5404\u81EA\u53D6\u6216\u4E0D\u53D6\uFF1A2 \xD7 2 = 4 \u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u4E00\u500B if \u7684\u5206\u652F\u7D50\u679C\u6578\uFF1B\u5169\u500B\u7368\u7ACB if \u7D66\u51FA 2 \xD7 2 = 4 \u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u7D44\u5408 (a,b) = TT\u3001TF\u3001FT\u3001FF\u2014\u2014\u56DB\u689D\u8DEF\u5F91\uFF0C\u4E0D\u662F\u4E09\u689D\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u7368\u7ACB\u5224\u5B9A\u5171\u6709 4 \u689D\u76F8\u7570\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u9023\u7E8C\u7684\u7368\u7ACB\u5224\u5B9A\u7522\u751F 2 \xD7 2 = 4 \u689D\u8DEF\u5F91\uFF08a \u53D6\uFF0F\u4E0D\u53D6\uFF09\xD7\uFF08b \u53D6\uFF0F\u4E0D\u53D6\uFF09\u3002\u5206\u652F\u6DB5\u84CB\u53EA\u9700 2 \u500B\u6E2C\u8A66\uFF0C\u4F46\u8DEF\u5F91\u6DB5\u84CB\u9700 4 \u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8FF4\u5708\u4F7F\u8DEF\u5F91\u6DB5\u84CB\u4E0D\u53EF\u884C",
+            "text": "<p>\u7576\u53D7\u6E2C\u7A0B\u5F0F\u542B\u6709\u8FED\u4EE3\u6B21\u6578\u53D6\u6C7A\u65BC\u8F38\u5165\u7684\u8FF4\u5708\u6642\uFF0C\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u901A\u5E38\u4E0D\u53EF\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u76F8\u7570\u7684\u8FED\u4EE3\u6B21\u6578\u90FD\u662F\u4E00\u689D\u76F8\u7570\u8DEF\u5F91\uFF0C\u6545\u8DEF\u5F91\u6578\u7121\u4E0A\u9650\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u53D6\u6C7A\u65BC\u8CC7\u6599\u7684\u8FF4\u5708\u6BCF\u7A2E\u8FED\u4EE3\u6B21\u6578\u90FD\u7522\u751F\u4E00\u689D\u4E0D\u540C\u8DEF\u5F91\uFF0C\u6545\u6709\u7121\u4E0A\u9650\u7684\u8DEF\u5F91\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u57F7\u884C 0\u30011\u30012\u3001... \u6B21\u7684\u8FF4\u5708\uFF0C\u6BCF\u7A2E\u8FED\u4EE3\u6B21\u6578\u5404\u5C0D\u61C9\u4E00\u689D\u76F8\u7570\u8DEF\u5F91\uFF0C\u6545\u8DEF\u5F91\u96C6\uFF08\u53EF\u80FD\uFF09\u7121\u9650\uFF0C\u5B8C\u6574\u8DEF\u5F91\u6DB5\u84CB\u901A\u5E38\u7121\u6CD5\u9054\u6210\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u53EF\u884C\u5206\u652F\u9650\u5236\u6DB5\u84CB\u7387",
+            "text": "<p>\u67D0\u51FD\u5F0F\u6709 <strong>4</strong> \u500B\u5206\u652F\u7D50\u679C\uFF0C\u4F46\u5176\u4E2D\u4E00\u500B<em>\u4E0D\u53EF\u884C</em>\uFF08\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u80FD\u5230\u9054\u7684\u6B7B\u78BC\uFF09\u3002\u4EE5\u5168\u90E8 4 \u500B\u7D50\u679C\u8861\u91CF\uFF0C\u53EF\u9054\u6210\u7684\u6700\u5927<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u591A\u80FD\u53D6\u5230 4 \u500B\u4E2D\u7684 3 \u500B\u7D50\u679C\uFF0C\u6545 3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u4E0D\u53EF\u884C\u7684\u7D50\u679C\u6C38\u4E0D\u6703\u88AB\u53D6\u5230\uFF0C\u6545\u4EE5\u5168\u90E8 4 \u500B\u8861\u91CF\u4E0D\u53EF\u80FD\u9054 100%\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u53EF\u884C\u7D50\u679C\u90FD\u80FD\u53D6\u5230\uFF1B\u90A3\u662F 75%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "25%",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u500B\u7D50\u679C\u4E0D\u53EF\u9054\uFF1B\u5176\u9918\u4E09\u500B\u53EF\u9054\uFF0C\u5F97 75%\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u884C\u5206\u652F\u6703\u9650\u5236\u53EF\u9054\u6210\u7684\u6DB5\u84CB\u7387\uFF1A4 \u500B\u7D50\u679C\u4E2D\u6709 1 \u500B\u4E0D\u53EF\u9054\u6642\uFF0C\u4EE5\u5168\u90E8 4 \u500B\u8861\u91CF\u7684\u6700\u5927\u503C\u70BA 3 / 4 = 75%\u3002\u82E5\u53EA\u4EE5\u53EF\u884C\u7D50\u679C\u8861\u91CF\u5247\u986F\u793A 100%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u7684\u5206\u652F\u6DB5\u84CB\u7387",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>\u5171\u6709 4 \u500B\u5206\u652F\u7D50\u679C\uFF1A\u5916\u5C64\u771F\u3001\u5916\u5C64\u5047\u3001\u5167\u5C64\u771F\u3001\u5167\u5C64\u5047\u3002\u5957\u4EF6\uFF1A<code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002<strong>\u5206\u652F</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5916\u5C64\u771F\u3001\u5167\u5C64\u771F\uFF08\u4F86\u81EA 5,3\uFF09\u8207\u5916\u5C64\u5047\uFF08\u4F86\u81EA -1,0\uFF09\u88AB\u53D6\u5230\uFF0C\u4F46\u5167\u5C64\u5047\u672A\u53D6\u5230\uFF1A3 / 4 = 75%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u5167\u5C64\u5047\u7D50\u679C\uFF08x > 0 \u4E14 y <= 0\uFF09\u5F9E\u672A\u88AB\u6B64\u5957\u4EF6\u5230\u9054\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u7D50\u679C\u4E2D\u6709\u4E09\u500B\u88AB\u53D6\u5230\uFF08\u5916\u5C64\u771F\u3001\u5916\u5C64\u5047\u3001\u5167\u5C64\u771F\uFF09\uFF0C\u5F97 75%\u3002"
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "66.7% \u6703\u662F 3 \u4E2D 2\uFF1B\u6B64\u8655 4 \u500B\u5206\u652F\u7D50\u679C\u4E2D\u53D6\u5230 3 \u500B = 75%\u3002"
+              }
+            ],
+            "generalFeedback": "(5,3)\uFF1A\u5916\u5C64\u771F + \u5167\u5C64\u771F\u3002(-1,0)\uFF1A\u5916\u5C64\u5047\u3002\u5167\u5C64\u5047\u9700\u8981 x > 0 \u4E14 y <= 0\uFF0C\u6B64\u5957\u4EF6\u7686\u672A\u63D0\u4F9B\u3002\u5206\u652F\u6DB5\u84CB\u7387 = 3 / 4 = 75%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u672A\u53D6\u5230\u7684\u5206\u652F",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\u8207\u5957\u4EF6\uFF1A</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>\u5957\u4EF6 <code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002\u54EA\u500B\u5206\u652F\u7D50\u679C\u88AB<strong>\u6F0F\u6389</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5167\u5C64\u5047\u5206\u652F\uFF08x > 0 \u4E14 y <= 0\uFF0C\u6545 r = 2\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u6E2C\u8A66\u540C\u6642\u6709 x > 0 \u8207 y <= 0\uFF0C\u6545 r = 2 \u5F9E\u672A\u88AB\u5230\u9054\u3002"
+              },
+              {
+                "text": "\u5916\u5C64\u5047\u5206\u652F\uFF08x <= 0\uFF09",
+                "fraction": 0,
+                "feedback": "(x=-1, y=0) \u53D6\u5230\u5916\u5C64\u5047\u5206\u652F\uFF0C\u6545\u5DF2\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5167\u5C64\u771F\u5206\u652F\uFF08r = 1\uFF09",
+                "fraction": 0,
+                "feedback": "(x=5, y=3) \u53D6\u5230\u5167\u5C64\u771F\u5206\u652F\uFF0C\u6545\u5DF2\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u7121\u2014\u2014\u6240\u6709\u5206\u652F\u90FD\u5DF2\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u5167\u5C64\u5047\u5206\u652F\uFF08r = 2\uFF09\u88AB\u6F0F\u6389\uFF1B\u5B83\u9700\u8981 x > 0 \u4E14 y <= 0\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u5230\u9054 r = 2 \u9700 x > 0\uFF08\u9032\u5165\u5916\u5C64\uFF09\u4E14 y <= 0\uFF08\u5167\u5C64\u5047\uFF09\u3002\u5957\u4EF6\u5F9E\u672A\u540C\u6642\u6EFF\u8DB3\uFF0C\u6545\u5167\u5C64\u5047\u5206\u652F\u8207\u5C0E\u5411 r = 2 \u7684\u8DEF\u5F91\u88AB\u6F0F\u6389\u3002\u52A0\u5165\u4F8B\u5982 (x=5, y=-1) \u5373\u53EF\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u7684\u6558\u8FF0\u6DB5\u84CB\u7387",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\uFF1A</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>\u516D\u500B\u53EF\u57F7\u884C\u6558\u8FF0 s1..s6\u3002\u5957\u4EF6 <code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002<strong>\u6558\u8FF0</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u2248 83.3%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9664 s5\uFF08r = 2\uFF09\u5916\u5168\u90FD\u57F7\u884C\uFF0C\u6545 5 / 6 \u2248 83.3%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "s5\uFF08r = 2\uFF09\u9700\u8981 x > 0 \u4E14 y <= 0\uFF0C\u6B64\u5957\u4EF6\u7686\u672A\u63D0\u4F9B\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% \u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF1B\u6558\u8FF0\u6DB5\u84CB\u7387\u662F 5 / 6 \u2248 83.3%\u3002"
+              },
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 0,
+                "feedback": "\u516D\u500B\u6558\u8FF0\u4E2D\u6709\u4E94\u500B\u57F7\u884C\uFF0C\u5F97 \u2248 83.3%\uFF0C\u4E0D\u662F 66.7%\u3002"
+              }
+            ],
+            "generalFeedback": "(5,3) \u57F7\u884C s1\u3001s2\u3001s3\u3001s4\u3001s6\uFF1B(-1,0) \u57F7\u884C s1\u3001s2\u3001s6\u3002\u53EA\u6F0F\u6389 s5\uFF08r = 2\uFF09\u3002\u6558\u8FF0\u6DB5\u84CB\u7387 = 5 / 6 \u2248 83.3%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE2\u72C0 if \u7684\u8DEF\u5F91\u6DB5\u84CB\u7387",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\u6709\u4E09\u689D\u53EF\u884C\u8DEF\u5F91\uFF1AP1 = x &lt;= 0\uFF1BP2 = x &gt; 0 \u4E14 y &gt; 0\uFF1BP3 = x &gt; 0 \u4E14 y &lt;= 0\u3002\u5957\u4EF6 <code>{(x=5, y=3), (x=-1, y=0)}</code>\u3002<strong>\u8DEF\u5F91</strong>\u6DB5\u84CB\u7387\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u2248 66.7%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(5,3) \u6DB5\u84CB P2\uFF0C(-1,0) \u6DB5\u84CB P1\uFF0C\u4F46 P3 \u88AB\u6F0F\u6389\uFF1A2 / 3 \u2248 66.7%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91 P3\uFF08x > 0 \u4E14 y <= 0\uFF09\u5F9E\u672A\u88AB\u8A66\u5230\u3002"
+              },
+              {
+                "text": "50%",
+                "fraction": 0,
+                "feedback": "\u4E09\u689D\u53EF\u884C\u8DEF\u5F91\u4E2D\u6DB5\u84CB\u5169\u689D\uFF0C\u5F97 \u2248 66.7%\uFF0C\u4E0D\u662F 50%\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% \u662F\u5206\u652F\u6DB5\u84CB\u7387\uFF1B\u6B64\u8655\u8DEF\u5F91\u6DB5\u84CB\u7387\u662F 2 / 3 \u2248 66.7%\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u884C\u8DEF\u5F91\uFF1AP1\uFF08x <= 0\uFF09\u3001P2\uFF08x > 0, y > 0\uFF09\u3001P3\uFF08x > 0, y <= 0\uFF09\u3002\u5957\u4EF6\u6DB5\u84CB P1 \u8207 P2 \u4F46\u4E0D\u542B P3\uFF0C\u6545\u8DEF\u5F91\u6DB5\u84CB\u7387 = 2 / 3 \u2248 66.7%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a || b \u7684 MC/DC \u7368\u7ACB\u6027\u914D\u5C0D",
+            "text": "<p>\u5C0D\u5224\u5B9A <code>a || b</code>\uFF0C\u54EA\u4E00\u5C0D\u6E2C\u8A66\u5C55\u793A\u689D\u4EF6 <code>b</code> \u80FD<strong>\u7368\u7ACB</strong>\u5F71\u97FF\u7D50\u679C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "(a=F, b=F) \u5F97\u5047\uFF0C\u8207 (a=F, b=T) \u5F97\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u56FA\u5B9A\u70BA\u5047\uFF1B\u53EA\u6539\u8B8A b \u5373\u4F7F\u5224\u5B9A\u7531\u5047\u7FFB\u70BA\u771F\u3002"
+              },
+              {
+                "text": "(a=T, b=F) \u8207 (a=T, b=T)\uFF0C\u7686\u5F97\u771F",
+                "fraction": 0,
+                "feedback": "a = \u771F\u6642 a || b \u6046\u70BA\u771F\uFF0C\u4E0D\u8AD6 b\uFF0C\u6545\u7D50\u679C\u4E0D\u7FFB\u8F49\u2014\u2014b \u7684\u5F71\u97FF\u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "(a=F, b=T) \u8207 (a=T, b=F)\uFF0C\u7686\u5F97\u771F",
+                "fraction": 0,
+                "feedback": "\u9019\u5169\u8005 a \u8207 b \u90FD\u4E0D\u540C\uFF0C\u7121\u6CD5\u9694\u96E2 b \u7684\u7368\u7ACB\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "(a=T, b=T) \u8207 (a=F, b=F)",
+                "fraction": 0,
+                "feedback": "\u9019\u5169\u8005\u5169\u500B\u689D\u4EF6\u90FD\u4E0D\u540C\uFF0C\u6545\u7121\u6CD5\u9694\u96E2\u4EFB\u4E00\u689D\u4EF6\u7684\u5F71\u97FF\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u5C55\u793A b \u7368\u7ACB\u5F71\u97FF a || b\uFF0C\u56FA\u5B9A a = \u5047\u4E26\u8B8A\u5316 b\uFF1A(F,F) \u2192 \u5047\uFF0C(F,T) \u2192 \u771F\u3002\u552F\u6709\u5982\u6B64\uFF0C\u53EA\u6539\u8B8A b \u624D\u80FD\u7FFB\u8F49\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "MC/DC \u860A\u542B\u5224\u5B9A\u6DB5\u84CB",
+            "text": "<p>\u5C0D\u67D0\u5224\u5B9A\u6EFF\u8DB3 MC/DC \u7684\u6E2C\u8A66\u96C6\uFF0C\u5FC5\u7136\u4E5F\u6EFF\u8DB3\u8A72\u5224\u5B9A\u7684\u5224\u5B9A\uFF08\u5206\u652F\uFF09\u6DB5\u84CB\u7387\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C55\u793A\u6BCF\u500B\u689D\u4EF6\u90FD\u80FD\u7FFB\u8F49\u7D50\u679C\uFF0C\u6703\u8FEB\u4F7F\u5224\u5B9A\u53D6\u5230\u771F\u8207\u5047\u5169\u8005\uFF0C\u6545\u5224\u5B9A\u6DB5\u84CB\u9054\u6210\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "MC/DC \u8981\u6C42\u6BCF\u500B\u689D\u4EF6\u90FD\u80FD\u7FFB\u8F49\u5224\u5B9A\uFF0C\u9019\u5FC5\u7136\u4F7F\u5224\u5B9A\u53D6\u5230\u771F\u8207\u5047\u5169\u8005\u2014\u2014\u5224\u5B9A\u6DB5\u84CB\u56E0\u800C\u88AB\u860A\u542B\u3002"
+              }
+            ],
+            "generalFeedback": "MC/DC \u2292 \u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387 \u2292 \u5224\u5B9A\u6DB5\u84CB\u7387\uFF08\u8207\u689D\u4EF6\u6DB5\u84CB\u7387\uFF09\u3002\u5C55\u793A\u7368\u7ACB\u5F71\u97FF\u9700\u8981\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u7D50\u679C\uFF0C\u6545\u8A72\u5224\u5B9A\u7684\u5206\u652F\u6DB5\u84CB\u96A8\u4E4B\u6210\u7ACB\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\u5B9A\u7FA9",
+            "text": "<p><strong>\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\uFF08decision/condition coverage\uFF09</strong>\u5728\u4EE5\u4E0B\u60C5\u6CC1\u6EFF\u8DB3\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u689D\u4EF6\u6DB5\u84CB\u7387\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u540C\u6642\u9054\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u5169\u7A2E\u503C\uFF0C\u4E14\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5224\u5B9A\u53D6\u5230\u771F\u8207\u5047",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u7D14\u5224\u5B9A\u6DB5\u84CB\u7387\uFF1B\u5224\u5B9A\uFF0F\u689D\u4EF6\u9084\u8981\u6C42\u689D\u4EF6\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u5169\u7A2E\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u7D14\u689D\u4EF6\u6DB5\u84CB\u7387\uFF1B\u5224\u5B9A\uFF0F\u689D\u4EF6\u9084\u8981\u6C42\u5224\u5B9A\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u8A66\u5230\u689D\u4EF6\u6240\u6709\u53D6\u503C\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u591A\u91CD\u689D\u4EF6\u6DB5\u84CB\u7387\uFF0C\u6BD4\u5224\u5B9A\uFF0F\u689D\u4EF6\u66F4\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u5224\u5B9A\uFF0F\u689D\u4EF6\u6DB5\u84CB\u7387\u5C31\u662F\u7D50\u5408\u5169\u8005\uFF1A\u6BCF\u500B\u689D\u4EF6\u53D6\u5230\u5169\u7A2E\u503C\uFF0C\u4E14\u5224\u5B9A\u53D6\u5230\u5169\u7A2E\u7D50\u679C\u3002\u5728\u5305\u542B\u93C8\u4E2D\u4F4D\u65BC\u689D\u4EF6\u8207\u5224\u5B9A\u6DB5\u84CB\u7387\u4E4B\u4E0A\u3001MC/DC \u4E4B\u4E0B\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
+    "concolic-execution": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What concolic means",
+            "text": "<p>The word <strong>concolic</strong> is a blend of which two words?</p>",
+            "answers": [
+              {
+                "text": "CONCrete + symbOLIC \u2014 the program runs on a concrete input while symbolic constraints are collected simultaneously",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concolic execution does both at once: a real concrete run plus symbolic path-condition tracking."
+              },
+              {
+                "text": "CONCurrent + symbOLIC \u2014 it runs many symbolic threads in parallel",
+                "fraction": 0,
+                "feedback": 'No \u2014 the "conc" is concrete, not concurrent; concolic is about combining concrete and symbolic, not parallelism.'
+              },
+              {
+                "text": "CONtrol + logICs \u2014 it analyses control-flow logic statically",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic = concrete + symbolic; it is a dynamic technique, not a static control-flow analysis."
+              },
+              {
+                "text": "CONtext + symbOLIC \u2014 it tracks contextual symbols only",
+                "fraction": 0,
+                "feedback": "No \u2014 the first part stands for concrete, referring to the real runtime values used alongside the symbolic ones."
+              }
+            ],
+            "generalFeedback": "Concolic = CONCrete + symbOLIC. The program is executed on an actual concrete input, and at the same time the engine records the symbolic path condition along the path that concrete run takes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concrete state vs symbolic state",
+            "text": "<p>During concolic execution the engine keeps two states side by side. What are they?</p>",
+            "answers": [
+              {
+                "text": "A concrete state (actual values driving the real run) and a symbolic state (expressions/constraints over the input symbols)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the concrete values pick the path actually taken, while the symbolic state records the constraints along it."
+              },
+              {
+                "text": "A source-code state and a compiled-binary state",
+                "fraction": 0,
+                "feedback": "No \u2014 both states describe the running program's data; one is concrete values, the other symbolic expressions."
+              },
+              {
+                "text": "A pass state and a fail state of the test oracle",
+                "fraction": 0,
+                "feedback": "No \u2014 the two states are concrete and symbolic; pass/fail is a separate testing concern."
+              },
+              {
+                "text": "Two independent random states used for statistical sampling",
+                "fraction": 0,
+                "feedback": "No \u2014 one state is a real concrete run, the other is a symbolic constraint state; neither is a random sample of the other."
+              }
+            ],
+            "generalFeedback": "Concolic execution maintains a concrete state (the actual values, which deterministically select the path the run takes) alongside a symbolic state (the variable-to-expression map and the path condition collected along that same path).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path condition in concolic",
+            "text": "<p>In concolic execution, the <strong>path condition</strong> recorded during a run is:</p>",
+            "answers": [
+              {
+                "text": "The conjunction of the branch conditions taken along the single path that the concrete input actually drove",
+                "fraction": 100,
+                "feedback": "Correct \u2014 because a concrete run follows exactly one path, the path condition describes that one executed path."
+              },
+              {
+                "text": "The disjunction of all path conditions of every path in the program",
+                "fraction": 0,
+                "feedback": "No \u2014 a concolic run records only the one path the concrete input took, as a conjunction of its branch outcomes."
+              },
+              {
+                "text": "A count of how many branches the program contains",
+                "fraction": 0,
+                "feedback": "No \u2014 the path condition is a logical formula over the inputs, not a branch count."
+              },
+              {
+                "text": "The concrete output value the program returned",
+                "fraction": 0,
+                "feedback": "No \u2014 it is the constraints on the inputs along the executed path, not the output."
+              }
+            ],
+            "generalFeedback": "Because the concrete input drives exactly one path, the engine collects the branch conditions taken on that path and conjoins them into the path condition \u2014 a formula over the symbolic inputs characterizing that executed path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch negation",
+            "text": "<p>After a concolic run records a path condition, how does the engine try to reach a new, not-yet-covered path?</p>",
+            "answers": [
+              {
+                "text": "It negates one branch condition in the recorded path condition and asks the solver for an input satisfying the modified constraint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flipping one branch and solving yields a concrete input that drives execution the other way at that branch."
+              },
+              {
+                "text": "It recompiles the program with that branch removed",
+                "fraction": 0,
+                "feedback": "No \u2014 the program is never modified; only the path condition is altered and re-solved."
+              },
+              {
+                "text": "It keeps re-running the same concrete input until a different path appears",
+                "fraction": 0,
+                "feedback": "No \u2014 a deterministic program on the same input always takes the same path; the engine negates a branch and solves for a new input."
+              },
+              {
+                "text": "It negates every branch at once and solves the whole thing",
+                "fraction": 0,
+                "feedback": "No \u2014 the standard step flips one branch (typically the last unnegated one) while keeping the prefix, then solves."
+              }
+            ],
+            "generalFeedback": "The engine picks a branch condition on the recorded path, negates it (keeping the constraints before it), and hands the modified path condition to a solver; the satisfying assignment is the next concrete input, which drives execution down the sibling path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The concolic loop",
+            "text": "<p>Which sequence best describes one iteration of the concolic testing loop?</p>",
+            "answers": [
+              {
+                "text": "Run on a concrete input \u2192 record the path condition \u2192 negate a branch \u2192 solve \u2192 the solution is the next concrete input",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this concrete-run / record / negate / solve cycle repeats to explore new paths."
+              },
+              {
+                "text": "Solve a random constraint \u2192 compile \u2192 run \u2192 discard the result",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic starts from a concrete run, records the real path condition, then negates and solves; nothing is discarded and no compilation step is involved."
+              },
+              {
+                "text": "Enumerate all paths statically \u2192 solve each \u2192 pick the shortest",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic is dynamic: it drives one concrete run at a time and steers to new paths by branch negation."
+              },
+              {
+                "text": "Mutate the source code \u2192 re-run the tests \u2192 measure coverage",
+                "fraction": 0,
+                "feedback": "No \u2014 that is mutation testing; concolic negates branch constraints and solves for inputs, leaving the code unchanged."
+              }
+            ],
+            "generalFeedback": "The concolic loop: pick a concrete input (often random at first), execute it, record the path condition of the path taken, negate one branch condition, solve the modified constraint to obtain the next concrete input, and repeat \u2014 driving execution down new paths each time.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What DART stands for",
+            "text": "<p><strong>DART</strong>, one of the original concolic tools, stands for:</p>",
+            "answers": [
+              {
+                "text": "Directed Automated Random Testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 DART directs random testing using the symbolic path condition to reach new paths."
+              },
+              {
+                "text": "Dynamic Abstract Refinement Testing",
+                "fraction": 0,
+                "feedback": "No \u2014 DART stands for Directed Automated Random Testing."
+              },
+              {
+                "text": "Deterministic Assertion Regression Tool",
+                "fraction": 0,
+                "feedback": "No \u2014 DART is Directed Automated Random Testing, a concolic engine."
+              },
+              {
+                "text": "Distributed Analysis of Runtime Traces",
+                "fraction": 0,
+                "feedback": "No \u2014 DART is Directed Automated Random Testing."
+              }
+            ],
+            "generalFeedback": "DART (Directed Automated Random Testing) starts from random concrete inputs and uses the collected symbolic path condition to direct subsequent inputs toward uncovered branches \u2014 coining the concolic approach.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What CUTE stands for",
+            "text": "<p><strong>CUTE</strong>, a well-known concolic tool, stands for:</p>",
+            "answers": [
+              {
+                "text": "Concolic Unit Testing Engine",
+                "fraction": 100,
+                "feedback": "Correct \u2014 CUTE applies concolic execution to unit testing, including code with pointers."
+              },
+              {
+                "text": "Constraint-based Uniform Test Explorer",
+                "fraction": 0,
+                "feedback": "No \u2014 CUTE stands for Concolic Unit Testing Engine."
+              },
+              {
+                "text": "Coverage Under Test Estimator",
+                "fraction": 0,
+                "feedback": "No \u2014 CUTE is the Concolic Unit Testing Engine."
+              },
+              {
+                "text": "Combined Unit & Type Evaluator",
+                "fraction": 0,
+                "feedback": "No \u2014 CUTE is the Concolic Unit Testing Engine."
+              }
+            ],
+            "generalFeedback": "CUTE (Concolic Unit Testing Engine) brought concolic execution to C unit testing, notably handling pointer/data-structure inputs by combining concrete and symbolic reasoning.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Why keep a concrete input alongside the symbolic state",
+            "text": "<p>A key reason concolic execution keeps a concrete input alongside the symbolic state is that when a constraint cannot be solved (e.g. it involves an external call), the engine can substitute the concrete value observed at runtime and keep going.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the concrete value is a ready fallback that lets execution continue where pure symbolic reasoning would stall."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is precisely a central advantage of concolic execution: the concrete run supplies a real value to substitute when a symbolic term is unsolvable."
+              }
+            ],
+            "generalFeedback": "Keeping a concrete input means the engine always has a real observed value for every expression. When a symbolic term is too hard, nonlinear, or opaque (an external/native call), it substitutes the concrete value and continues \u2014 something pure symbolic execution cannot do."
+          },
+          {
+            "type": "multichoice",
+            "name": "First concrete input",
+            "text": "<p>Where does the very first concrete input in a concolic run typically come from?</p>",
+            "answers": [
+              {
+                "text": "It is chosen arbitrarily, often randomly \u2014 the loop then refines subsequent inputs by solving negated path conditions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the seed input can be random; the engine improves coverage from there by directed branch flipping."
+              },
+              {
+                "text": "It must be a value proved optimal by the solver before any run",
+                "fraction": 0,
+                "feedback": "No \u2014 the first input needs no proof; it is typically just a random seed that starts the loop."
+              },
+              {
+                "text": "It is always zero for every input variable",
+                "fraction": 0,
+                "feedback": "No \u2014 while a fixed seed is possible, the point is that the first input is arbitrary/random, not a mandated zero."
+              },
+              {
+                "text": "It is derived by static analysis of the whole program first",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic is dynamic; it simply starts from a concrete (often random) input rather than a static pre-analysis."
+              }
+            ],
+            "generalFeedback": `Concolic execution bootstraps from an arbitrary, often random, concrete input (this is the "Random" in DART). Each later input is computed by negating a branch on the previous run's path condition and solving.`,
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Concrete run follows one path",
+            "text": "<p>Because it uses a concrete input, a single concolic run follows exactly one execution path (in a deterministic program).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concrete values deterministically select one path; that is why the run records a single path condition."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A concrete input in a deterministic program takes exactly one path; concolic reaches other paths only by solving negated constraints on later runs."
+              }
+            ],
+            "generalFeedback": "Each concolic run is a real execution on concrete values, so it takes one path and records that path's condition. New paths are reached across iterations by branch negation and re-solving, not within a single run."
+          },
+          {
+            "type": "multichoice",
+            "name": "Role of the solver in concolic",
+            "text": "<p>What does the constraint/SMT solver do in the concolic loop?</p>",
+            "answers": [
+              {
+                "text": "It solves the modified (partly negated) path condition to produce the next concrete input",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the solver's satisfying assignment becomes the concrete input for the next run."
+              },
+              {
+                "text": "It executes the program on the concrete input",
+                "fraction": 0,
+                "feedback": "No \u2014 running the program is done by the (instrumented) execution; the solver only computes inputs from constraints."
+              },
+              {
+                "text": "It decides whether the test's output is correct",
+                "fraction": 0,
+                "feedback": "No \u2014 that is the oracle's job; the solver produces inputs, not verdicts."
+              },
+              {
+                "text": "It measures branch coverage of the suite",
+                "fraction": 0,
+                "feedback": "No \u2014 coverage tracking is separate; the solver turns a negated path condition into a concrete input."
+              }
+            ],
+            "generalFeedback": "After the engine negates a branch, it hands the modified path condition to the solver; a satisfying assignment is exactly the concrete input that will drive the next run down the newly targeted path (or UNSAT if that path is infeasible).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concolic vs pure symbolic (one-line)",
+            "text": "<p>Which best captures how concolic execution differs from pure symbolic execution?</p>",
+            "answers": [
+              {
+                "text": "Concolic always has a real concrete run alongside the symbolic state, so it can substitute concrete values when the symbolic reasoning gets stuck",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the concrete run is the safety net that lets concolic proceed past unsolvable terms."
+              },
+              {
+                "text": "Concolic never uses a solver, while pure symbolic always does",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic relies on a solver to flip branches; the difference is the accompanying concrete run."
+              },
+              {
+                "text": "Pure symbolic runs the program concretely, concolic does not",
+                "fraction": 0,
+                "feedback": "No \u2014 it is the reverse: concolic performs real concrete runs; pure symbolic does not."
+              },
+              {
+                "text": "Concolic guarantees full path coverage, pure symbolic does not",
+                "fraction": 0,
+                "feedback": "No \u2014 neither guarantees full coverage; both face path explosion. The real distinction is the concrete companion run."
+              }
+            ],
+            "generalFeedback": "Both track a symbolic path condition and use a solver. The concolic difference is the simultaneous concrete run: it supplies a real value to fall back on when a constraint is unsolvable, nonlinear, or involves an opaque external call.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Instrumentation purpose",
+            "text": "<p>Concolic tools instrument the program under test primarily in order to:</p>",
+            "answers": [
+              {
+                "text": "Observe, during the concrete run, the branch conditions taken and build the symbolic path condition in parallel",
+                "fraction": 100,
+                "feedback": "Correct \u2014 instrumentation collects the symbolic constraints alongside the real execution."
+              },
+              {
+                "text": "Slow the program down so the solver has time to think",
+                "fraction": 0,
+                "feedback": "No \u2014 instrumentation exists to gather symbolic constraints during the run, not to add delay."
+              },
+              {
+                "text": "Replace all branches with random coin flips",
+                "fraction": 0,
+                "feedback": "No \u2014 branches are observed and recorded symbolically; they are not replaced by randomness."
+              },
+              {
+                "text": "Permanently rewrite the program to a bug-free version",
+                "fraction": 0,
+                "feedback": "No \u2014 instrumentation only records information for the analysis; it does not fix the program."
+              }
+            ],
+            "generalFeedback": "The program is instrumented so that, as the concrete input drives execution, the engine simultaneously records each branch condition symbolically and accumulates the path condition \u2014 the raw material for the negate-and-solve step.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Paths explored are real",
+            "text": "<p>Every path that a concolic run explores corresponds to a real execution on a concrete input, so concolic execution reports no false (infeasible) paths.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each concolic step is an actual concrete run, so the paths it reports are genuinely executable (this is its soundness with respect to explored paths)."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Because every explored path is driven by a concrete input that really runs, concolic execution does not manufacture infeasible paths."
+              }
+            ],
+            "generalFeedback": "Concolic execution actually runs the program on each generated concrete input, so any path it reports as explored is genuinely feasible. Its limitation is completeness (it may miss some paths), not soundness of the paths it does explore."
+          },
+          {
+            "type": "multichoice",
+            "name": "What picks the path a run takes",
+            "text": "<p>In a single concolic run, what determines which one path through the program is taken?</p>",
+            "answers": [
+              {
+                "text": "The concrete input values, which are executed for real and select each branch outcome deterministically",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the concrete state drives the actual run and thus fixes the path; the symbolic state just records it."
+              },
+              {
+                "text": "The solver, which chooses a path before the run begins",
+                "fraction": 0,
+                "feedback": "No \u2014 within a run the concrete values pick the path; the solver only computes inputs for future runs."
+              },
+              {
+                "text": "The path condition, which forces execution down a chosen branch",
+                "fraction": 0,
+                "feedback": "No \u2014 the path condition is recorded from the run; it does not steer the current concrete execution."
+              },
+              {
+                "text": "A random choice made at each branch",
+                "fraction": 0,
+                "feedback": "No \u2014 branches are decided by the concrete values, not by randomness during the run."
+              }
+            ],
+            "generalFeedback": "The concrete input is really executed, so at each branch the concrete values decide true/false and thus fix the single path taken. The symbolic side merely records that path's condition for later branch negation.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Trace: single if, record the PC",
+            "text": "<p>Consider:</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>The concolic run starts with concrete input <code>x = 0</code>. What path condition does this run record?</p>",
+            "answers": [
+              {
+                "text": "x \u2264 5 (the false side of B1, since 0 > 5 is false)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 x = 0 makes x > 5 false, so the run takes the false branch and records x \u2264 5."
+              },
+              {
+                "text": "x > 5 (the true side of B1)",
+                "fraction": 0,
+                "feedback": "No \u2014 x = 0 does not satisfy x > 5, so the run takes the false branch and records x \u2264 5, not x > 5."
+              },
+              {
+                "text": "x == 0 (the concrete value)",
+                "fraction": 0,
+                "feedback": "No \u2014 the path condition records the branch outcome (x \u2264 5), not the specific concrete value used."
+              },
+              {
+                "text": "true (no constraint, because no branch was taken)",
+                "fraction": 0,
+                "feedback": "No \u2014 the branch B1 was evaluated; its false outcome contributes the constraint x \u2264 5."
+              }
+            ],
+            "generalFeedback": "With x = 0, the condition x > 5 evaluates false, so the run follows the false branch. The engine records the negation of the branch condition it did not take, i.e. the constraint actually satisfied: x \u2264 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: negate and solve for next input",
+            "text": "<p>Same code:</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>The first run used <code>x = 0</code> and recorded <code>x \u2264 5</code>. To cover the other side of B1, the engine negates it. Which next concrete input could the solver return?</p>",
+            "answers": [
+              {
+                "text": "x = 6 (any value satisfying the negated constraint x > 5)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 negating x \u2264 5 gives x > 5, and x = 6 satisfies it, driving the run into error()."
+              },
+              {
+                "text": "x = 5",
+                "fraction": 0,
+                "feedback": "No \u2014 5 > 5 is false, so x = 5 still takes the false branch and does not cover the other side."
+              },
+              {
+                "text": "x = -1",
+                "fraction": 0,
+                "feedback": "No \u2014 -1 does not satisfy x > 5; it would re-take the already-covered false branch."
+              },
+              {
+                "text": "No input exists; the negated constraint is unsatisfiable",
+                "fraction": 0,
+                "feedback": "No \u2014 x > 5 is easily satisfiable (e.g. x = 6), so the path is feasible."
+              }
+            ],
+            "generalFeedback": "Negating the recorded constraint x \u2264 5 yields x > 5. The solver returns any satisfying value (e.g. x = 6), which becomes the next concrete input and drives execution into error().",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: equality guard",
+            "text": "<p>Consider:</p><pre><code>void g(int x) {\n  if (x == 42) bug();   // branch B1\n}</code></pre><p>The run starts with <code>x = 7</code> (so B1 is false, PC is <code>x \u2260 42</code>). What next input does negating B1 yield?</p>",
+            "answers": [
+              {
+                "text": "x = 42 \u2014 negating x \u2260 42 gives x == 42, whose only solution is 42",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the solver computes the exact value 42, immediately reaching bug()."
+              },
+              {
+                "text": "x = 43 \u2014 any nearby value works",
+                "fraction": 0,
+                "feedback": "No \u2014 the negated constraint is the equality x == 42, so 43 does not satisfy it; only 42 does."
+              },
+              {
+                "text": "x = 7 \u2014 the run keeps the same input",
+                "fraction": 0,
+                "feedback": "No \u2014 x = 7 gives the already-covered false branch; the engine solves the flipped equality for 42."
+              },
+              {
+                "text": "No solution; equalities cannot be negated",
+                "fraction": 0,
+                "feedback": "No \u2014 negating x \u2260 42 is simply x == 42, which the solver satisfies with x = 42."
+              }
+            ],
+            "generalFeedback": "The first run's constraint is x \u2260 42; negating it gives x == 42. The solver returns exactly x = 42 \u2014 the classic case where concolic/symbolic reasoning beats random testing, which would almost never guess 42.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: which branch to negate (DFS)",
+            "text": "<p>A run took branches in order <code>[B1: true, B2: true]</code>, giving path condition <code>c1 \u2227 c2</code>. Using the usual depth-first strategy (flip the last unnegated branch first), what is the next path condition to solve?</p>",
+            "answers": [
+              {
+                "text": "c1 \u2227 \xACc2 \u2014 keep the prefix c1, negate the last branch c2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 depth-first flips the deepest (last) branch first while preserving the earlier decisions."
+              },
+              {
+                "text": "\xACc1 \u2227 c2 \u2014 negate the first branch, keep the second",
+                "fraction": 0,
+                "feedback": "No \u2014 that flips B1 first; depth-first negates the last branch (c2) before backtracking to earlier ones."
+              },
+              {
+                "text": "\xACc1 \u2227 \xACc2 \u2014 negate both branches",
+                "fraction": 0,
+                "feedback": "No \u2014 each step negates exactly one branch; here the last one, giving c1 \u2227 \xACc2."
+              },
+              {
+                "text": "c1 \u2227 c2 \u2014 re-solve the same condition",
+                "fraction": 0,
+                "feedback": "No \u2014 re-solving the same condition re-covers the same path; the engine flips c2 to reach a new one."
+              }
+            ],
+            "generalFeedback": "Depth-first exploration negates the last unnegated branch condition while keeping the prefix intact: from c1 \u2227 c2 it forms c1 \u2227 \xACc2. Only after exhausting the c1-prefix subtree does it backtrack and flip c1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: two branches, next input",
+            "text": "<p>Consider:</p><pre><code>void h(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b &gt; 0)        // B2\n      target();\n}</code></pre><p>Run 1 uses <code>a = 1, b = -1</code>: B1 true, B2 false, PC = <code>(a &gt; 0) \u2227 (b \u2264 0)</code>. Flipping the last branch (B2), what input reaches <code>target()</code>?</p>",
+            "answers": [
+              {
+                "text": "a = 1, b = 1 \u2014 satisfies (a > 0) \u2227 (b > 0)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 keeping a > 0 and negating b \u2264 0 to b > 0 gives a path into target(); a = 1, b = 1 works."
+              },
+              {
+                "text": "a = -1, b = 1 \u2014 satisfies b > 0",
+                "fraction": 0,
+                "feedback": "No \u2014 a = -1 fails a > 0, so B1 is false and target() is never reached; the prefix a > 0 must be kept."
+              },
+              {
+                "text": "a = 1, b = 0 \u2014 b is non-negative",
+                "fraction": 0,
+                "feedback": "No \u2014 b > 0 requires strictly positive b; b = 0 fails, so B2 stays false."
+              },
+              {
+                "text": "a = 0, b = 0 \u2014 both zero",
+                "fraction": 0,
+                "feedback": "No \u2014 a = 0 fails a > 0; the negated constraint keeps the prefix a > 0 and flips b to b > 0."
+              }
+            ],
+            "generalFeedback": "Flipping B2 forms (a > 0) \u2227 (b > 0): the prefix a > 0 is preserved and b \u2264 0 is negated to b > 0. The solver returns any satisfying pair, e.g. a = 1, b = 1, which drives execution into target().",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: assignment before branch",
+            "text": "<p>Consider:</p><pre><code>void k(int x) {\n  int y = x + 3;\n  if (y == 10) hit();   // B1\n}</code></pre><p>Run 1 uses <code>x = 0</code> (so y = 3, B1 false). Negating B1, what next input does the solver return?</p>",
+            "answers": [
+              {
+                "text": "x = 7 \u2014 the constraint over the input is x + 3 == 10",
+                "fraction": 100,
+                "feedback": "Correct \u2014 y is the expression x + 3, so B1 becomes x + 3 == 10, giving x = 7."
+              },
+              {
+                "text": "x = 10 \u2014 the branch tests == 10",
+                "fraction": 0,
+                "feedback": "No \u2014 the branch tests y == 10 where y = x + 3, so the constraint on the input is x + 3 == 10, i.e. x = 7."
+              },
+              {
+                "text": "x = 3 \u2014 matches the first computed y",
+                "fraction": 0,
+                "feedback": "No \u2014 x = 3 gives y = 6, not 10; solving x + 3 == 10 gives x = 7."
+              },
+              {
+                "text": "y = 10 \u2014 treat y as the free input",
+                "fraction": 0,
+                "feedback": "No \u2014 y is not an input; it is the expression x + 3, which must be substituted, yielding x = 7."
+              }
+            ],
+            "generalFeedback": "The symbolic state records y = x + 3, so the branch y == 10 is the constraint x + 3 == 10 over the actual input x. Negating the false outcome and solving gives x = 7.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concolic vs pure symbolic on a simple case",
+            "text": "<p>For <code>if (x &gt; 5) error();</code> with a solvable linear guard, how do concolic and pure symbolic execution compare on reaching <code>error()</code>?</p>",
+            "answers": [
+              {
+                "text": "Both reach it \u2014 each solves x > 5 (concolic after negating the branch on its first concrete run) \u2014 the concrete companion matters only when a constraint is unsolvable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 on a simple solvable guard the two behave similarly; the concrete fallback distinguishes them only for hard/opaque constraints."
+              },
+              {
+                "text": "Only pure symbolic can reach it; concolic cannot solve inequalities",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic uses the same solver and easily handles x > 5 by negating the branch and solving."
+              },
+              {
+                "text": "Only concolic can reach it; pure symbolic cannot solve inequalities",
+                "fraction": 0,
+                "feedback": "No \u2014 pure symbolic solves linear inequalities fine; both reach error() here."
+              },
+              {
+                "text": "Neither can reach it without random luck",
+                "fraction": 0,
+                "feedback": "No \u2014 both solve x > 5 exactly; no luck is required for a simple linear constraint."
+              }
+            ],
+            "generalFeedback": "When every constraint is solvable, concolic and pure symbolic reach the same paths; both solve x > 5 directly. The concrete-value fallback only becomes decisive when a constraint is nonlinear, unsolvable, or involves an opaque external call.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: recording the taken outcome",
+            "text": "<p>Consider:</p><pre><code>void m(int x) {\n  if (x &lt; 100) a();   // B1\n  else b();\n}</code></pre><p>The concrete run uses <code>x = 250</code>. Which literal does the engine conjoin into the path condition for B1?</p>",
+            "answers": [
+              {
+                "text": "x \u2265 100 \u2014 the run took the else branch, so the satisfied condition is the negation of x < 100",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with x = 250 the guard x < 100 is false, so the recorded literal is x \u2265 100."
+              },
+              {
+                "text": "x < 100 \u2014 the branch's written condition",
+                "fraction": 0,
+                "feedback": "No \u2014 the written condition is false for x = 250; the engine records the outcome actually taken, x \u2265 100."
+              },
+              {
+                "text": "x == 250 \u2014 the concrete value",
+                "fraction": 0,
+                "feedback": "No \u2014 the path condition records the branch outcome (x \u2265 100), not the specific concrete number."
+              },
+              {
+                "text": "Nothing \u2014 else branches contribute no constraint",
+                "fraction": 0,
+                "feedback": "No \u2014 taking the else branch contributes the negated guard x \u2265 100 to the path condition."
+              }
+            ],
+            "generalFeedback": "The path condition always records the outcome actually taken. With x = 250 the guard x < 100 is false, so the engine conjoins its negation, x \u2265 100, into the path condition.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: unsatisfiable flip is skipped",
+            "text": "<p>Consider:</p><pre><code>void p(int x) {\n  if (x &gt; 0)        // B1\n    if (x &lt; 0)      // B2\n      dead();\n}</code></pre><p>Run 1 uses <code>x = 5</code>: B1 true, B2 false, PC = <code>(x &gt; 0) \u2227 (x \u2265 0)</code>. What happens when the engine flips B2 to try to reach <code>dead()</code>?</p>",
+            "answers": [
+              {
+                "text": "The flipped condition (x > 0) \u2227 (x < 0) is UNSAT, so the solver returns no input and the engine skips that infeasible path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no x is both positive and negative, so dead() is unreachable and correctly generates no test."
+              },
+              {
+                "text": "The solver returns x = 0, reaching dead()",
+                "fraction": 0,
+                "feedback": "No \u2014 x = 0 satisfies neither x > 0 nor x < 0; the conjunction is unsatisfiable."
+              },
+              {
+                "text": "The engine substitutes a concrete value and reaches dead() anyway",
+                "fraction": 0,
+                "feedback": "No \u2014 concrete fallback is for unsolvable/opaque terms, not for a cleanly UNSAT linear constraint; the path is genuinely infeasible."
+              },
+              {
+                "text": "The program is modified to make the path feasible",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic never modifies the program; an UNSAT flip simply yields no input."
+              }
+            ],
+            "generalFeedback": "Flipping B2 while keeping the prefix gives (x > 0) \u2227 (x < 0), which is UNSAT. The solver reports no solution, so the engine skips this infeasible path \u2014 dead() is correctly never targeted.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: number of runs to cover both branches",
+            "text": "<p>For a single <code>if (x &gt; 5) A(); else B();</code> with both sides feasible, how many concolic runs are needed to cover both branches, starting from one arbitrary concrete input?</p>",
+            "answers": [
+              {
+                "text": "2 \u2014 one run covers the branch the seed takes; negating it and solving gives a second input covering the other",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one seed run plus one negate-and-solve run covers both sides."
+              },
+              {
+                "text": "1 \u2014 a single run covers both branches",
+                "fraction": 0,
+                "feedback": "No \u2014 a concrete run takes only one side; the other needs a second input from a negated constraint."
+              },
+              {
+                "text": "4 \u2014 every branch needs two runs",
+                "fraction": 0,
+                "feedback": "No \u2014 a single two-way branch needs just two runs total, one per side."
+              },
+              {
+                "text": "Unbounded \u2014 random seeds may never hit both",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic is directed: it solves the negated constraint deterministically, so two runs suffice."
+              }
+            ],
+            "generalFeedback": "The seed run covers whichever side its concrete value takes. Negating that branch and solving yields a second input for the opposite side. Two runs cover both branches \u2014 the directedness that distinguishes concolic from blind random testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: compound guard, next input",
+            "text": "<p>Consider a branch whose recorded (satisfied) condition on run 1 is <code>(x + y &lt; 4)</code>. Negating it, which input pair does the solver accept?</p>",
+            "answers": [
+              {
+                "text": "x = 3, y = 3 \u2014 satisfies the negation x + y \u2265 4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 + 3 = 6 \u2265 4, so this pair takes the flipped branch."
+              },
+              {
+                "text": "x = 1, y = 1 \u2014 small values",
+                "fraction": 0,
+                "feedback": "No \u2014 1 + 1 = 2 < 4 still satisfies the original condition, not its negation."
+              },
+              {
+                "text": "x = 0, y = 3 \u2014 sums to 3",
+                "fraction": 0,
+                "feedback": "No \u2014 0 + 3 = 3 < 4, which fails the negated constraint x + y \u2265 4."
+              },
+              {
+                "text": "x = 2, y = 1 \u2014 sums to 3",
+                "fraction": 0,
+                "feedback": "No \u2014 2 + 1 = 3 < 4, so this stays on the original branch."
+              }
+            ],
+            "generalFeedback": "Negating x + y < 4 gives x + y \u2265 4. Only x = 3, y = 3 (sum 6) satisfies it; the other options all sum to less than 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: input to keep prefix, flip deeper branch",
+            "text": "<p>Consider:</p><pre><code>void q(int a, int b) {\n  if (a == b)       // B1\n    if (a &gt; 10)     // B2\n      z();\n}</code></pre><p>Run 1 uses <code>a = 3, b = 3</code>: B1 true, B2 false, PC = <code>(a == b) \u2227 (a \u2264 10)</code>. Flipping B2 to reach <code>z()</code>, which input works?</p>",
+            "answers": [
+              {
+                "text": "a = 11, b = 11 \u2014 keeps a == b and satisfies a > 10",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the prefix a == b is preserved and a \u2264 10 is negated to a > 10; a = b = 11 satisfies both."
+              },
+              {
+                "text": "a = 11, b = 3 \u2014 a > 10 holds",
+                "fraction": 0,
+                "feedback": "No \u2014 a \u2260 b breaks the preserved prefix a == b, so B1 is false and z() is unreachable."
+              },
+              {
+                "text": "a = 5, b = 5 \u2014 equal values",
+                "fraction": 0,
+                "feedback": "No \u2014 a = 5 fails the negated constraint a > 10, so B2 stays false."
+              },
+              {
+                "text": "a = 10, b = 10 \u2014 right at the boundary",
+                "fraction": 0,
+                "feedback": "No \u2014 a > 10 is strict; a = 10 fails it, so z() is not reached."
+              }
+            ],
+            "generalFeedback": "Flipping B2 forms (a == b) \u2227 (a > 10): keep a == b, negate a \u2264 10 to a > 10. The pair a = 11, b = 11 satisfies both constraints and drives execution into z().",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why re-running the same input fails to explore",
+            "text": "<p>Why can't a concolic engine reach a new path by simply running the same concrete input again?</p>",
+            "answers": [
+              {
+                "text": "A deterministic program takes the same path for the same input, so a new path requires a new input from a negated-and-solved constraint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly why the engine negates a branch and solves for a different input."
+              },
+              {
+                "text": "Re-running clears the symbolic state, losing the path condition",
+                "fraction": 0,
+                "feedback": "No \u2014 the reason is determinism: same input, same path; the engine must change the input to change the path."
+              },
+              {
+                "text": "The solver forbids reusing any concrete input",
+                "fraction": 0,
+                "feedback": "No \u2014 there is no such prohibition; the point is that the same input simply retraces the same path."
+              },
+              {
+                "text": "Repeated runs randomly pick different branches",
+                "fraction": 0,
+                "feedback": "No \u2014 a deterministic program does not pick branches randomly; identical input yields the identical path."
+              }
+            ],
+            "generalFeedback": "For a deterministic program, the concrete input fully determines the path taken. To explore a different path the engine must supply a different input \u2014 obtained by negating a branch on the recorded path condition and solving.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trace: order of inputs, depth-first",
+            "text": "<p>For <code>if (a) {...} if (b) {...}</code> (two independent branches), starting from a run with <code>a=false, b=false</code> and flipping the last branch first, which is a plausible order of path conditions the engine solves next?</p>",
+            "answers": [
+              {
+                "text": "First \xACa \u2227 b (flip the last branch), then a \u2227 ... (backtrack to flip the first)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 depth-first flips the deepest branch (b) before backtracking to the earlier one (a)."
+              },
+              {
+                "text": "First a \u2227 b only, ignoring the other combinations",
+                "fraction": 0,
+                "feedback": "No \u2014 depth-first explores more than one combination; it starts by flipping the last branch to \xACa \u2227 b."
+              },
+              {
+                "text": "It solves \xACa \u2227 \xACb, the same as the seed run",
+                "fraction": 0,
+                "feedback": "No \u2014 that is the already-covered seed path; the engine flips a branch to reach a new one."
+              },
+              {
+                "text": "It must flip both branches simultaneously first",
+                "fraction": 0,
+                "feedback": "No \u2014 each step flips exactly one branch; the deepest first under depth-first order."
+              }
+            ],
+            "generalFeedback": "Depth-first flips the last branch first: from \xACa \u2227 \xACb it forms \xACa \u2227 b, then after that subtree backtracks to flip the first branch (a \u2227 ...). Each step negates a single branch while keeping the prefix.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Concrete values keep the prefix consistent",
+            "text": "<p>When the engine negates the last branch, it keeps the earlier branch conditions unchanged so that the solved input still reaches that branch point.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 preserving the prefix ensures the new input actually reaches the flipped branch before diverging."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The prefix is preserved precisely so the new input follows the same route up to the flipped branch, then diverges there."
+              }
+            ],
+            "generalFeedback": "To reach a sibling of a deep branch, the input must first satisfy all the earlier decisions leading to it. So the engine keeps the prefix constraints and negates only the target branch, then solves the whole conjunction."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Concrete fallback for an external call",
+            "text": "<p>Consider:</p><pre><code>void r(int x) {\n  int h = opaque_hash(x);   // native/library, no symbolic model\n  if (h == 1234) win();     // B1\n}</code></pre><p>Where a pure symbolic engine gets stuck, how does concolic execution proceed at B1?</p>",
+            "answers": [
+              {
+                "text": "It substitutes the concrete value of h observed at runtime, so B1 becomes a concrete true/false and execution continues down a real path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the concrete run always has an actual h, so concolic keeps going where pure symbolic stalls on the unmodeled call."
+              },
+              {
+                "text": "It builds a full symbolic model of opaque_hash automatically",
+                "fraction": 0,
+                "feedback": "No \u2014 the call is opaque with no model; concolic sidesteps this by using the concrete observed value, not by modeling it."
+              },
+              {
+                "text": "It aborts, exactly like pure symbolic execution",
+                "fraction": 0,
+                "feedback": "No \u2014 the whole point of the concrete companion is to continue past the opaque call rather than abort."
+              },
+              {
+                "text": "It proves B1 unreachable",
+                "fraction": 0,
+                "feedback": "No \u2014 it does not prove anything about B1; it simply plugs in the concrete h and follows the resulting real path."
+              }
+            ],
+            "generalFeedback": "Because opaque_hash has no symbolic model, its symbolic result is unknown. Concolic execution uses the concrete value of h that the actual run produced, so B1 evaluates concretely and execution proceeds along a genuine path \u2014 the key advantage over pure symbolic execution, which would stall.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Completeness cost of concrete fallback",
+            "text": "<p>When concolic execution substitutes a concrete value for an unsolvable/opaque term, what is the cost?</p>",
+            "answers": [
+              {
+                "text": "Incompleteness \u2014 by fixing that term to one concrete value, the engine may fail to explore other feasible paths that depend on it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fallback keeps execution going but can hide paths reachable only for other values of the opaque term."
+              },
+              {
+                "text": "Unsoundness \u2014 it may report paths that cannot actually run",
+                "fraction": 0,
+                "feedback": "No \u2014 every run is concrete and real, so soundness of explored paths is preserved; the cost is missed paths (completeness)."
+              },
+              {
+                "text": "It always crashes the solver",
+                "fraction": 0,
+                "feedback": "No \u2014 substituting a concrete value simplifies the constraint; it does not crash the solver."
+              },
+              {
+                "text": "There is no cost; coverage is unaffected",
+                "fraction": 0,
+                "feedback": "No \u2014 pinning the opaque term to one value can prevent reaching alternative paths, an incompleteness cost."
+              }
+            ],
+            "generalFeedback": "Concrete fallback preserves soundness (paths explored are real) but sacrifices completeness: fixing an opaque term to the one observed concrete value can mask branches feasible only under other values of that term, so some paths may never be explored.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nonlinear constraint fallback",
+            "text": "<p>Consider:</p><pre><code>void s(int x, int y) {\n  if (x * y == 30)   // B1, nonlinear\n    t();\n}</code></pre><p>Run 1 uses <code>x = 6, y = 4</code> (so x*y = 24, B1 false). If the solver cannot handle the nonlinear flip, how can concolic still make progress?</p>",
+            "answers": [
+              {
+                "text": "Fix one variable to its concrete value (e.g. x = 6) so the constraint becomes linear (6*y == 30 \u2192 y = 5), then solve",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pinning x to its concrete value linearises the constraint, letting the solver find y = 5 and reach t()."
+              },
+              {
+                "text": "Give up entirely, since nonlinear constraints are undecidable",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic uses the concrete value of one operand to simplify to a solvable linear constraint rather than giving up."
+              },
+              {
+                "text": "Randomly guess both x and y until x*y == 30",
+                "fraction": 0,
+                "feedback": "No \u2014 the concolic approach pins one operand concretely and solves the resulting linear equation; that is the point of the concrete companion."
+              },
+              {
+                "text": "Modify the program to remove the multiplication",
+                "fraction": 0,
+                "feedback": "No \u2014 the program is never modified; the concrete value of x is substituted to simplify the constraint."
+              }
+            ],
+            "generalFeedback": "Concolic execution substitutes the concrete value of one operand (x = 6), turning x*y == 30 into the linear 6*y == 30, which the solver satisfies with y = 5. Running x = 6, y = 5 reaches t(). The cost is incompleteness: with x pinned to 6 it may miss solutions like x = 5, y = 6.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Soundness vs completeness",
+            "text": "<p>Which statement correctly characterises concolic execution's guarantees?</p>",
+            "answers": [
+              {
+                "text": "The paths it explores are all real (sound), but it may miss some feasible paths (incomplete)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 real concrete runs guarantee no false paths, while concrete fallback and bounding can leave paths unexplored."
+              },
+              {
+                "text": "It explores every feasible path (complete) but may report some that cannot run (unsound)",
+                "fraction": 0,
+                "feedback": "No \u2014 it is the opposite: sound on explored paths, but not guaranteed complete."
+              },
+              {
+                "text": "It is both fully sound and fully complete for all programs",
+                "fraction": 0,
+                "feedback": "No \u2014 path explosion and concrete fallback mean completeness is not guaranteed."
+              },
+              {
+                "text": "It is neither sound nor complete",
+                "fraction": 0,
+                "feedback": "No \u2014 because every explored path is a real execution, it is sound with respect to the paths it reports."
+              }
+            ],
+            "generalFeedback": "Every concolic step is a genuine concrete execution, so the paths it explores are real (soundness of explored paths \u2014 no false positives from infeasible paths). But concrete fallback for opaque/nonlinear terms and bounded search mean it may not reach every feasible path (incompleteness).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path explosion is managed, not eliminated",
+            "text": "<p>How does concolic execution relate to path explosion?</p>",
+            "answers": [
+              {
+                "text": "It still faces path explosion and manages it with a search strategy and iteration/depth limits, rather than eliminating it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concolic does not remove the exponential path growth; it bounds exploration to cope."
+              },
+              {
+                "text": "It eliminates path explosion entirely by using concrete inputs",
+                "fraction": 0,
+                "feedback": "No \u2014 using concrete inputs does not remove the exponential number of branch combinations; concolic still must bound its search."
+              },
+              {
+                "text": "It has no notion of paths, so path explosion does not apply",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic explicitly explores paths by branch flipping, so path explosion very much applies."
+              },
+              {
+                "text": "Path explosion only affects random testing, not concolic",
+                "fraction": 0,
+                "feedback": "No \u2014 path explosion is a core challenge for all path-based techniques, concolic included."
+              }
+            ],
+            "generalFeedback": "Each branch flip can lead to more branches, so the number of paths still grows exponentially. Concolic manages this with search heuristics (depth-first, coverage-guided) and bounds on iterations, loop unrolling, or depth \u2014 but it does not eliminate path explosion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multi-branch trace: naming each next input (1)",
+            "text": "<p>Consider:</p><pre><code>void f(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b == a + 1)   // B2\n      target();\n}</code></pre><p>Seed run: <code>a = -1, b = 0</code> (B1 false). Under depth-first flipping, what is the input for the run that first makes B1 true (flipping B1)?</p>",
+            "answers": [
+              {
+                "text": "Any a > 0 with b unconstrained, e.g. a = 1, b = 0 \u2014 solving the single constraint a > 0",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flipping B1 only imposes a > 0; B2 is not yet on the recorded path, so b is free (e.g. b = 0)."
+              },
+              {
+                "text": "a = 1, b = 2 \u2014 must already satisfy B2 as well",
+                "fraction": 0,
+                "feedback": "No \u2014 when flipping B1, only a > 0 is required; B2 has not been recorded yet, so b need not satisfy b == a + 1 at this step."
+              },
+              {
+                "text": "a = -1, b = 0 \u2014 reuse the seed",
+                "fraction": 0,
+                "feedback": "No \u2014 the seed has B1 false; flipping B1 requires a > 0, so the input must change."
+              },
+              {
+                "text": "No input works; a > 0 is unsatisfiable",
+                "fraction": 0,
+                "feedback": "No \u2014 a > 0 is trivially satisfiable, e.g. a = 1."
+              }
+            ],
+            "generalFeedback": "The seed took B1 false, so its path condition is just a \u2264 0. Negating it gives a > 0, the only constraint at this step (B2 was never reached). The solver returns any a > 0, e.g. a = 1, b = 0.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multi-branch trace: naming each next input (2)",
+            "text": "<p>Continuing the previous snippet, the run <code>a = 1, b = 0</code> now takes B1 true and B2 false (0 \u2260 2), with PC = <code>(a &gt; 0) \u2227 (b \u2260 a + 1)</code>. Flipping B2, which input reaches <code>target()</code>?</p>",
+            "answers": [
+              {
+                "text": "a = 1, b = 2 \u2014 keeps a > 0 and satisfies b == a + 1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 preserve a > 0, negate b \u2260 a + 1 to b == a + 1; with a = 1 that means b = 2."
+              },
+              {
+                "text": "a = 1, b = 1 \u2014 b unchanged from a step earlier",
+                "fraction": 0,
+                "feedback": "No \u2014 b must equal a + 1 = 2; b = 1 fails the flipped constraint."
+              },
+              {
+                "text": "a = 0, b = 1 \u2014 b == a + 1 holds",
+                "fraction": 0,
+                "feedback": "No \u2014 a = 0 breaks the preserved prefix a > 0, so B1 becomes false and target() is unreachable."
+              },
+              {
+                "text": "a = 2, b = 2 \u2014 both equal",
+                "fraction": 0,
+                "feedback": "No \u2014 with a = 2, b == a + 1 requires b = 3, not 2."
+              }
+            ],
+            "generalFeedback": "Flipping B2 gives (a > 0) \u2227 (b == a + 1). Keeping a = 1 from the prefix, b must be a + 1 = 2. The input a = 1, b = 2 reaches target(). (The solver could also pick another a > 0 with matching b.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multi-branch trace: three iterations count",
+            "text": "<p>For the nested snippet <code>if (a &gt; 0) if (b == a + 1) target();</code>, starting from seed <code>a = -1, b = 0</code>, how many concolic runs (including the seed) are needed to first reach <code>target()</code>, flipping one branch per iteration depth-first?</p>",
+            "answers": [
+              {
+                "text": "3 \u2014 seed (B1 false), then B1 true/B2 false, then B1 true/B2 true reaching target()",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one flip is needed to enter B1, another to satisfy B2, so the third run hits target()."
+              },
+              {
+                "text": "2 \u2014 the seed plus one flip reaches target()",
+                "fraction": 0,
+                "feedback": "No \u2014 the seed fails B1; one flip only makes B1 true (B2 still false), so a second flip is needed, giving three runs."
+              },
+              {
+                "text": "1 \u2014 the seed reaches target() directly",
+                "fraction": 0,
+                "feedback": "No \u2014 the seed has a = -1, failing B1 immediately, so it cannot reach target()."
+              },
+              {
+                "text": "4 \u2014 each nesting level doubles the runs",
+                "fraction": 0,
+                "feedback": "No \u2014 this particular path needs exactly two branch flips after the seed, i.e. three runs, not four."
+              }
+            ],
+            "generalFeedback": "Run 1 (seed a=-1): B1 false. Run 2 (a=1,b=0): flip B1 \u2192 B1 true, B2 false. Run 3 (a=1,b=2): flip B2 \u2192 both true, reaching target(). Three runs in total.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bounding the search",
+            "text": "<p>To keep concolic exploration finite on a loop whose count depends on input, a common approach is to:</p>",
+            "answers": [
+              {
+                "text": "Impose a bound \u2014 e.g. a depth/iteration limit or bounded loop unrolling \u2014 accepting that paths beyond the bound go unexplored",
+                "fraction": 100,
+                "feedback": "Correct \u2014 bounding trades completeness for termination, a standard path-explosion control."
+              },
+              {
+                "text": "Negate every loop-body branch at once to cover all iterations in one run",
+                "fraction": 0,
+                "feedback": "No \u2014 a single run covers one path; loops are handled by bounding the exploration, not by simultaneous negation."
+              },
+              {
+                "text": "Prove the loop terminates and then skip it",
+                "fraction": 0,
+                "feedback": "No \u2014 skipping the loop would miss its behavior; the loop is bounded/unrolled instead."
+              },
+              {
+                "text": "Switch to pure symbolic execution, which has no path explosion",
+                "fraction": 0,
+                "feedback": "No \u2014 pure symbolic execution also suffers path explosion; switching does not solve it."
+              }
+            ],
+            "generalFeedback": "A symbolic loop count can spawn unboundedly many paths, so engines cap exploration with an iteration/depth limit or bounded unrolling (and search heuristics). This keeps the run finite at the price of not exploring paths beyond the bound \u2014 an accepted incompleteness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "CUTE and pointer inputs",
+            "text": "<p>CUTE extended concolic testing to programs with pointers and dynamic data structures by:</p>",
+            "answers": [
+              {
+                "text": "Tracking a symbolic representation of the heap/pointer structure alongside concrete pointers, and solving pointer constraints (e.g. aliasing, null-ness) as well as scalar ones",
+                "fraction": 100,
+                "feedback": "Correct \u2014 CUTE handles both a logical input map for scalars and a structure for pointer inputs, using the concrete run to resolve what the solver cannot."
+              },
+              {
+                "text": "Forbidding all pointer inputs so only integers are tested",
+                "fraction": 0,
+                "feedback": "No \u2014 CUTE's contribution was precisely to support pointer and data-structure inputs, not to forbid them."
+              },
+              {
+                "text": "Converting the whole program to a pointer-free form before testing",
+                "fraction": 0,
+                "feedback": "No \u2014 CUTE reasons about pointers directly, using concrete values where symbolic reasoning is insufficient."
+              },
+              {
+                "text": "Running only pure symbolic execution on the heap",
+                "fraction": 0,
+                "feedback": "No \u2014 CUTE is concolic: it combines concrete pointer values with symbolic constraints, which is what makes heap inputs tractable."
+              }
+            ],
+            "generalFeedback": "CUTE (Concolic Unit Testing Engine) represents pointer inputs with a logical structure and generates both scalar values and pointer shapes (including aliasing and null cases). The concrete run provides real pointers to fall back on, letting it test functions over dynamic data structures.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Concrete fallback preserves soundness",
+            "text": "<p>Even when concolic execution substitutes concrete values for terms the solver cannot handle, the paths it actually executes remain genuinely feasible (no false paths are introduced).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 substitution uses the value from a real run, so the resulting execution is still a real, feasible path."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Concrete fallback never fabricates a path; it uses observed values, so every executed path remains real. The tradeoff is missed paths, not false ones."
+              }
+            ],
+            "generalFeedback": "Because the substituted value comes from an actual execution, the path the engine then follows is one the program really can take. Soundness of explored paths is preserved; only completeness (some feasible paths may be skipped) is at risk."
+          },
+          {
+            "type": "multichoice",
+            "name": "Divergence when a constraint is approximated",
+            "text": '<p>Suppose concolic execution pins an opaque term to a concrete value and solves for a new input, but on re-running, execution takes a different branch than predicted (a "divergence"). What does the engine do?</p>',
+            "answers": [
+              {
+                "text": "It detects the divergence from the actual concrete run and records the real path taken, since the concrete execution is always the ground truth",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the concrete run is authoritative, so a divergence is simply observed and the true path recorded, keeping the analysis sound."
+              },
+              {
+                "text": "It trusts the predicted path and ignores the actual run",
+                "fraction": 0,
+                "feedback": "No \u2014 the concrete run is ground truth; the engine records the path actually executed, not the predicted one."
+              },
+              {
+                "text": "It reports the predicted path as covered even though it was not taken",
+                "fraction": 0,
+                "feedback": "No \u2014 that would be unsound; the engine relies on the real run, which reveals the divergence."
+              },
+              {
+                "text": "It crashes because the prediction was wrong",
+                "fraction": 0,
+                "feedback": "No \u2014 divergence is handled gracefully by observing the actual concrete run and continuing."
+              }
+            ],
+            "generalFeedback": "Divergences can happen when a substituted/approximated term makes the solved input take an unexpected path. Because concolic always executes concretely, it observes the real path and records it \u2014 the concrete run is the ground truth, preserving soundness even when a prediction was off.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multi-branch trace with a concrete-fallback step",
+            "text": "<p>Consider:</p><pre><code>void w(int x) {\n  int t = external(x);   // opaque; run observed t = 3 for x = 2\n  if (x &gt; 0)             // B1\n    if (t == 3)          // B2, depends on opaque t\n      goal();\n}</code></pre><p>Run 1 uses <code>x = 2</code>: B1 true, and t = 3 so B2 true \u2014 <code>goal()</code> is reached. Is the path to goal() reported, and is it real?</p>",
+            "answers": [
+              {
+                "text": "Yes and yes \u2014 the concrete run actually reached goal(), so the path is reported and is genuinely feasible; B2 used the concrete t = 3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concolic uses the observed t, so goal() is really reached and soundly reported."
+              },
+              {
+                "text": "No \u2014 B2 depends on an opaque call, so concolic cannot report the path",
+                "fraction": 0,
+                "feedback": "No \u2014 concolic uses the concrete t = 3, so it evaluates B2 and really reaches goal(); the path is reported."
+              },
+              {
+                "text": "Yes but it may be a false path, since t is opaque",
+                "fraction": 0,
+                "feedback": "No \u2014 the run truly executed to goal(), so the path is real, not false; opacity affects completeness, not this run's reality."
+              },
+              {
+                "text": "The engine must abort at the opaque call",
+                "fraction": 0,
+                "feedback": "No \u2014 that is pure symbolic behavior; concolic proceeds using the observed t = 3."
+              }
+            ],
+            "generalFeedback": "The concrete run computed t = 3 from external(2) and really executed through B1 and B2 into goal(). Concolic reports this genuinely feasible path. What it cannot easily do is force B2 the other way for other x, since the relationship between x and t is opaque \u2014 an incompleteness, not an unsoundness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Search strategy choice",
+            "text": "<p>Why do concolic engines use search strategies (depth-first, coverage-guided, random path) rather than exhaustively exploring all paths?</p>",
+            "answers": [
+              {
+                "text": "Because the path space is exponential (path explosion), a strategy prioritises which branches to flip within a limited budget",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with too many paths to try all, the strategy decides where to spend limited solver/run budget."
+              },
+              {
+                "text": "Because the solver can only answer one query per program",
+                "fraction": 0,
+                "feedback": "No \u2014 solvers answer many queries; the reason for strategies is the exponential number of paths."
+              },
+              {
+                "text": "Because concrete runs are not repeatable",
+                "fraction": 0,
+                "feedback": "No \u2014 concrete runs are repeatable; strategies exist to cope with the huge path space."
+              },
+              {
+                "text": "Because branch negation is impossible without a strategy",
+                "fraction": 0,
+                "feedback": "No \u2014 negation works regardless; a strategy just chooses which negation to pursue next given the path explosion."
+              }
+            ],
+            "generalFeedback": "Exhaustive exploration is infeasible because branches and loops make the path count exponential. Search strategies (depth-first, coverage-guided, generational, random-path) choose which branch to flip next so the limited budget of runs and solver calls targets useful, uncovered paths.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Concolic does not guarantee full coverage",
+            "text": "<p>Concolic execution guarantees that, given enough time, it will cover every feasible path of any program.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Incorrect \u2014 concrete fallback for opaque/nonlinear terms and bounding for loops mean some feasible paths may never be reached."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concolic does not guarantee full path coverage; concrete fallback and bounded search can leave feasible paths unexplored."
+              }
+            ],
+            "generalFeedback": "Concolic execution manages path explosion with bounds and heuristics and falls back to concrete values for terms it cannot solve. Both can prevent it from reaching every feasible path, so full coverage is not guaranteed \u2014 though every path it does explore is real."
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "concolic \u662F\u54EA\u5169\u500B\u5B57\u7684\u5408\u9AD4",
+            "text": "<p><strong>concolic\uFF08\u4E26\u884C\u5177\u9AD4\u7B26\u865F\uFF09</strong>\u9019\u500B\u5B57\u662F\u7531\u54EA\u5169\u500B\u82F1\u6587\u5B57\u5408\u6210\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "CONCrete\uFF08\u5177\u9AD4\uFF09\uFF0B symbOLIC\uFF08\u7B26\u865F\uFF09\u2014\u2014\u7A0B\u5F0F\u4EE5\u5177\u9AD4\u8F38\u5165\u5BE6\u969B\u57F7\u884C\uFF0C\u540C\u6642\u6536\u96C6\u7B26\u865F\u9650\u5236\u5F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014concolic \u57F7\u884C\u540C\u6642\u505A\u5169\u4EF6\u4E8B\uFF1A\u771F\u6B63\u7684\u5177\u9AD4\u57F7\u884C\uFF0C\u52A0\u4E0A\u7B26\u865F\u8DEF\u5F91\u689D\u4EF6\u7684\u8FFD\u8E64\u3002"
+              },
+              {
+                "text": "CONCurrent\uFF08\u4E26\u884C\uFF09\uFF0B symbOLIC\uFF08\u7B26\u865F\uFF09\u2014\u2014\u5B83\u5E73\u884C\u57F7\u884C\u8A31\u591A\u7B26\u865F\u57F7\u884C\u7DD2",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u300Cconc\u300D\u6307\u7684\u662F\u5177\u9AD4\uFF08concrete\uFF09\uFF0C\u4E0D\u662F\u4E26\u884C\uFF1Bconcolic \u8B1B\u7684\u662F\u7D50\u5408\u5177\u9AD4\u8207\u7B26\u865F\uFF0C\u800C\u975E\u5E73\u884C\u8655\u7406\u3002"
+              },
+              {
+                "text": "CONtrol\uFF08\u63A7\u5236\uFF09\uFF0B logICs\uFF08\u908F\u8F2F\uFF09\u2014\u2014\u5B83\u975C\u614B\u5206\u6790\u63A7\u5236\u6D41\u908F\u8F2F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \uFF1D \u5177\u9AD4\uFF0B\u7B26\u865F\uFF1B\u5B83\u662F\u52D5\u614B\u6280\u8853\uFF0C\u4E0D\u662F\u975C\u614B\u63A7\u5236\u6D41\u5206\u6790\u3002"
+              },
+              {
+                "text": "CONtext\uFF08\u60C5\u5883\uFF09\uFF0B symbOLIC\uFF08\u7B26\u865F\uFF09\u2014\u2014\u5B83\u53EA\u8FFD\u8E64\u60C5\u5883\u7B26\u865F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u524D\u534A\u6307\u7684\u662F\u5177\u9AD4\uFF08concrete\uFF09\uFF0C\u4EA6\u5373\u8207\u7B26\u865F\u503C\u4E26\u7528\u7684\u5BE6\u969B\u57F7\u884C\u671F\u6578\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "concolic \uFF1D CONCrete\uFF08\u5177\u9AD4\uFF09\uFF0B symbOLIC\uFF08\u7B26\u865F\uFF09\u3002\u7A0B\u5F0F\u4EE5\u4E00\u500B\u5BE6\u969B\u7684\u5177\u9AD4\u8F38\u5165\u57F7\u884C\uFF0C\u540C\u6642\u5F15\u64CE\u6CBF\u8457\u8A72\u5177\u9AD4\u57F7\u884C\u6240\u8D70\u7684\u8DEF\u5F91\u8A18\u9304\u7B26\u865F\u8DEF\u5F91\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u9AD4\u72C0\u614B\u8207\u7B26\u865F\u72C0\u614B",
+            "text": "<p>concolic \u57F7\u884C\u6642\uFF0C\u5F15\u64CE\u6703\u4E26\u6392\u7DAD\u8B77\u5169\u7A2E\u72C0\u614B\u3002\u5B83\u5011\u662F\u54EA\u5169\u7A2E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5177\u9AD4\u72C0\u614B\uFF08\u5BE6\u969B\u9A45\u52D5\u57F7\u884C\u7684\u6578\u503C\uFF09\u8207\u7B26\u865F\u72C0\u614B\uFF08\u5C0D\u8F38\u5165\u7B26\u865F\u7684\u904B\u7B97\u5F0F\uFF0F\u9650\u5236\u5F0F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u503C\u6311\u51FA\u5BE6\u969B\u8D70\u7684\u8DEF\u5F91\uFF0C\u800C\u7B26\u865F\u72C0\u614B\u6CBF\u9014\u8A18\u9304\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "\u539F\u59CB\u78BC\u72C0\u614B\u8207\u7DE8\u8B6F\u5F8C\u7684\u4E8C\u9032\u4F4D\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u9019\u5169\u7A2E\u72C0\u614B\u63CF\u8FF0\u7684\u662F\u57F7\u884C\u4E2D\u7A0B\u5F0F\u7684\u8CC7\u6599\uFF1B\u4E00\u500B\u662F\u5177\u9AD4\u503C\uFF0C\u53E6\u4E00\u500B\u662F\u7B26\u865F\u904B\u7B97\u5F0F\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5224\u6E96\uFF08oracle\uFF09\u7684\u901A\u904E\u72C0\u614B\u8207\u5931\u6557\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u9019\u5169\u7A2E\u72C0\u614B\u662F\u5177\u9AD4\u8207\u7B26\u865F\uFF1B\u901A\u904E\uFF0F\u5931\u6557\u662F\u53E6\u4E00\u56DE\u4E8B\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u5404\u81EA\u7368\u7ACB\u3001\u7528\u65BC\u7D71\u8A08\u62BD\u6A23\u7684\u96A8\u6A5F\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u4E00\u500B\u662F\u771F\u5BE6\u7684\u5177\u9AD4\u57F7\u884C\uFF0C\u53E6\u4E00\u500B\u662F\u7B26\u865F\u9650\u5236\u5F0F\u72C0\u614B\uFF1B\u5169\u8005\u4E0D\u662F\u5F7C\u6B64\u7684\u96A8\u6A5F\u6A23\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "concolic \u57F7\u884C\u540C\u6642\u7DAD\u8B77\u5177\u9AD4\u72C0\u614B\uFF08\u5BE6\u969B\u6578\u503C\uFF0C\u6703\u78BA\u5B9A\u6027\u5730\u9078\u51FA\u8A72\u6B21\u57F7\u884C\u6240\u8D70\u7684\u8DEF\u5F91\uFF09\u8207\u7B26\u865F\u72C0\u614B\uFF08\u8B8A\u6578\u5C0D\u904B\u7B97\u5F0F\u7684\u5C0D\u6620\uFF0C\u4EE5\u53CA\u6CBF\u540C\u4E00\u8DEF\u5F91\u7D2F\u7A4D\u7684\u8DEF\u5F91\u689D\u4EF6\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "concolic \u4E2D\u7684\u8DEF\u5F91\u689D\u4EF6",
+            "text": "<p>\u5728 concolic \u57F7\u884C\u4E2D\uFF0C\u4E00\u6B21\u57F7\u884C\u6240\u8A18\u9304\u7684<strong>\u8DEF\u5F91\u689D\u4EF6\uFF08path condition\uFF09</strong>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5177\u9AD4\u8F38\u5165\u5BE6\u969B\u9A45\u52D5\u7684\u90A3\u4E00\u689D\u8DEF\u5F91\u4E0A\uFF0C\u6240\u8D70\u5404\u5206\u652F\u689D\u4EF6\u7684\u9023\u8A00\uFF08conjunction\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA\u4E00\u6B21\u5177\u9AD4\u57F7\u884C\u53EA\u8D70\u4E00\u689D\u8DEF\u5F91\uFF0C\u8DEF\u5F91\u689D\u4EF6\u63CF\u8FF0\u7684\u5C31\u662F\u90A3\u552F\u4E00\u88AB\u57F7\u884C\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u4E2D\u6BCF\u689D\u8DEF\u5F91\u4E4B\u8DEF\u5F91\u689D\u4EF6\u7684\u9078\u8A00\uFF08disjunction\uFF09",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u4E00\u6B21 concolic \u57F7\u884C\u53EA\u8A18\u9304\u5177\u9AD4\u8F38\u5165\u6240\u8D70\u7684\u90A3\u4E00\u689D\u8DEF\u5F91\uFF0C\u5F62\u5F0F\u70BA\u5176\u5206\u652F\u7D50\u679C\u7684\u9023\u8A00\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u6240\u542B\u5206\u652F\u6578\u91CF\u7684\u8A08\u6578",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8DEF\u5F91\u689D\u4EF6\u662F\u5C0D\u8F38\u5165\u7684\u908F\u8F2F\u5F0F\uFF0C\u800C\u975E\u5206\u652F\u8A08\u6578\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u56DE\u50B3\u7684\u5177\u9AD4\u8F38\u51FA\u503C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5B83\u662F\u6CBF\u88AB\u57F7\u884C\u8DEF\u5F91\u5C0D\u8F38\u5165\u7684\u9650\u5236\u5F0F\uFF0C\u800C\u975E\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u5177\u9AD4\u8F38\u5165\u6070\u597D\u9A45\u52D5\u4E00\u689D\u8DEF\u5F91\uFF0C\u5F15\u64CE\u6536\u96C6\u8A72\u8DEF\u5F91\u4E0A\u6240\u8D70\u7684\u5404\u5206\u652F\u689D\u4EF6\uFF0C\u4E26\u5C07\u5176\u9023\u8A00\u6210\u8DEF\u5F91\u689D\u4EF6\u2014\u2014\u4E00\u500B\u63CF\u8FF0\u8A72\u88AB\u57F7\u884C\u8DEF\u5F91\u3001\u4EE5\u7B26\u865F\u8F38\u5165\u8868\u793A\u7684\u908F\u8F2F\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u53D6\u53CD",
+            "text": "<p>\u4E00\u6B21 concolic \u57F7\u884C\u8A18\u9304\u4E86\u8DEF\u5F91\u689D\u4EF6\u4E4B\u5F8C\uFF0C\u5F15\u64CE\u5982\u4F55\u5617\u8A66\u62B5\u9054\u4E00\u689D\u5C1A\u672A\u6DB5\u84CB\u7684\u65B0\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u5DF2\u8A18\u9304\u8DEF\u5F91\u689D\u4EF6\u4E2D\u7684\u67D0\u4E00\u500B\u5206\u652F\u689D\u4EF6\u53D6\u53CD\uFF08negate\uFF09\uFF0C\u518D\u8ACB\u6C42\u89E3\u7B97\u5668\u6C42\u51FA\u6EFF\u8DB3\u6B64\u4FEE\u6539\u5F8C\u9650\u5236\u5F0F\u7684\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7FFB\u8F49\u4E00\u500B\u5206\u652F\u4E26\u6C42\u89E3\uFF0C\u5C31\u80FD\u5F97\u5230\u5728\u8A72\u5206\u652F\u5F80\u53E6\u4E00\u65B9\u5411\u8D70\u7684\u5177\u9AD4\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u8A72\u5206\u652F\u5F8C\u91CD\u65B0\u7DE8\u8B6F\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7A0B\u5F0F\u5F9E\u4E0D\u88AB\u4FEE\u6539\uFF1B\u88AB\u66F4\u52D5\u4E26\u91CD\u65B0\u6C42\u89E3\u7684\u662F\u8DEF\u5F91\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u4E0D\u65B7\u7528\u540C\u4E00\u500B\u5177\u9AD4\u8F38\u5165\u91CD\u8DD1\uFF0C\u76F4\u5230\u51FA\u73FE\u4E0D\u540C\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u78BA\u5B9A\u6027\u7A0B\u5F0F\u5C0D\u540C\u4E00\u8F38\u5165\u6C38\u9060\u8D70\u540C\u4E00\u8DEF\u5F91\uFF1B\u5F15\u64CE\u662F\u628A\u5206\u652F\u53D6\u53CD\u4E26\u6C42\u51FA\u65B0\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u628A\u6240\u6709\u5206\u652F\u540C\u6642\u53D6\u53CD\u4E26\u6574\u9AD4\u6C42\u89E3",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u6A19\u6E96\u505A\u6CD5\u6BCF\u6B65\u53EA\u7FFB\u8F49\u4E00\u500B\u5206\u652F\uFF08\u901A\u5E38\u662F\u6700\u5F8C\u4E00\u500B\u5C1A\u672A\u53D6\u53CD\u7684\uFF09\uFF0C\u4E26\u4FDD\u7559\u524D\u7DB4\u5F8C\u518D\u6C42\u89E3\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F15\u64CE\u6311\u51FA\u5DF2\u8A18\u9304\u8DEF\u5F91\u4E0A\u7684\u4E00\u500B\u5206\u652F\u689D\u4EF6\uFF0C\u5C07\u5B83\u53D6\u53CD\uFF08\u4FDD\u7559\u5176\u524D\u9762\u7684\u9650\u5236\u5F0F\uFF09\uFF0C\u628A\u4FEE\u6539\u5F8C\u7684\u8DEF\u5F91\u689D\u4EF6\u4EA4\u7D66\u89E3\u7B97\u5668\uFF1B\u5176\u6EFF\u8DB3\u89E3\u5C31\u662F\u4E0B\u4E00\u500B\u5177\u9AD4\u8F38\u5165\uFF0C\u6703\u628A\u57F7\u884C\u9A45\u52D5\u5230\u624B\u8DB3\u8DEF\u5F91\uFF08sibling path\uFF09\u4E0A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "concolic \u8FF4\u5708",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u9806\u5E8F\u6700\u80FD\u63CF\u8FF0 concolic \u6E2C\u8A66\u8FF4\u5708\u7684\u4E00\u6B21\u8FED\u4EE3\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u5177\u9AD4\u8F38\u5165\u57F7\u884C \u2192 \u8A18\u9304\u8DEF\u5F91\u689D\u4EF6 \u2192 \u53D6\u53CD\u4E00\u500B\u5206\u652F \u2192 \u6C42\u89E3 \u2192 \u89E3\u5C31\u662F\u4E0B\u4E00\u500B\u5177\u9AD4\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u5177\u9AD4\u57F7\u884C\uFF0F\u8A18\u9304\uFF0F\u53D6\u53CD\uFF0F\u6C42\u89E3\u300D\u9019\u500B\u5FAA\u74B0\u6703\u53CD\u8986\u9032\u884C\u4EE5\u63A2\u7D22\u65B0\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u4E00\u500B\u96A8\u6A5F\u9650\u5236\u5F0F \u2192 \u7DE8\u8B6F \u2192 \u57F7\u884C \u2192 \u4E1F\u68C4\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u5F9E\u5177\u9AD4\u57F7\u884C\u958B\u59CB\uFF0C\u8A18\u9304\u771F\u5BE6\u8DEF\u5F91\u689D\u4EF6\uFF0C\u7136\u5F8C\u53D6\u53CD\u4E26\u6C42\u89E3\uFF1B\u6C92\u6709\u6771\u897F\u88AB\u4E1F\u68C4\uFF0C\u4E5F\u4E0D\u6D89\u53CA\u7DE8\u8B6F\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5217\u8209\u6240\u6709\u8DEF\u5F91 \u2192 \u5404\u81EA\u6C42\u89E3 \u2192 \u6311\u6700\u77ED\u7684",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u662F\u52D5\u614B\u7684\uFF1A\u4E00\u6B21\u9A45\u52D5\u4E00\u500B\u5177\u9AD4\u57F7\u884C\uFF0C\u4E26\u85C9\u5206\u652F\u53D6\u53CD\u5F15\u5C0E\u81F3\u65B0\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u8B8A\u7570\u539F\u59CB\u78BC \u2192 \u91CD\u8DD1\u6E2C\u8A66 \u2192 \u91CF\u6E2C\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u90A3\u662F\u8B8A\u7570\u6E2C\u8A66\uFF1Bconcolic \u662F\u53D6\u53CD\u5206\u652F\u689D\u4EF6\u4E26\u6C42\u8F38\u5165\uFF0C\u7A0B\u5F0F\u78BC\u4FDD\u6301\u4E0D\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "concolic \u8FF4\u5708\uFF1A\u9078\u4E00\u500B\u5177\u9AD4\u8F38\u5165\uFF08\u521D\u671F\u5E38\u70BA\u96A8\u6A5F\uFF09\u3001\u57F7\u884C\u5B83\u3001\u8A18\u9304\u6240\u8D70\u8DEF\u5F91\u7684\u8DEF\u5F91\u689D\u4EF6\u3001\u53D6\u53CD\u4E00\u500B\u5206\u652F\u689D\u4EF6\u3001\u6C42\u89E3\u4FEE\u6539\u5F8C\u9650\u5236\u5F0F\u4EE5\u5F97\u5230\u4E0B\u4E00\u500B\u5177\u9AD4\u8F38\u5165\uFF0C\u7136\u5F8C\u91CD\u8907\u2014\u2014\u6BCF\u6B21\u628A\u57F7\u884C\u9A45\u52D5\u5230\u65B0\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DART \u7684\u5168\u540D",
+            "text": "<p>\u6700\u65E9\u7684 concolic \u5DE5\u5177\u4E4B\u4E00 <strong>DART</strong>\uFF0C\u5176\u5168\u540D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "Directed Automated Random Testing\uFF08\u5C0E\u5411\u5F0F\u81EA\u52D5\u96A8\u6A5F\u6E2C\u8A66\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DART \u5229\u7528\u7B26\u865F\u8DEF\u5F91\u689D\u4EF6\u4F86\u300C\u5C0E\u5411\u300D\u96A8\u6A5F\u6E2C\u8A66\uFF0C\u4EE5\u62B5\u9054\u65B0\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "Dynamic Abstract Refinement Testing",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014DART \u7684\u5168\u540D\u662F Directed Automated Random Testing\u3002"
+              },
+              {
+                "text": "Deterministic Assertion Regression Tool",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014DART \u662F Directed Automated Random Testing\uFF0C\u4E00\u500B concolic \u5F15\u64CE\u3002"
+              },
+              {
+                "text": "Distributed Analysis of Runtime Traces",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014DART \u662F Directed Automated Random Testing\u3002"
+              }
+            ],
+            "generalFeedback": "DART\uFF08Directed Automated Random Testing\uFF09\u5F9E\u96A8\u6A5F\u5177\u9AD4\u8F38\u5165\u51FA\u767C\uFF0C\u5229\u7528\u6536\u96C6\u5230\u7684\u7B26\u865F\u8DEF\u5F91\u689D\u4EF6\u628A\u5F8C\u7E8C\u8F38\u5165\u5C0E\u5411\u672A\u6DB5\u84CB\u7684\u5206\u652F\u2014\u2014\u958B\u5275\u4E86 concolic \u65B9\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "CUTE \u7684\u5168\u540D",
+            "text": "<p>\u77E5\u540D concolic \u5DE5\u5177 <strong>CUTE</strong> \u7684\u5168\u540D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "Concolic Unit Testing Engine\uFF08\u4E26\u884C\u5177\u9AD4\u7B26\u865F\u55AE\u5143\u6E2C\u8A66\u5F15\u64CE\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014CUTE \u628A concolic \u57F7\u884C\u61C9\u7528\u65BC\u55AE\u5143\u6E2C\u8A66\uFF0C\u4E26\u80FD\u8655\u7406\u542B\u6307\u6A19\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "Constraint-based Uniform Test Explorer",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014CUTE \u7684\u5168\u540D\u662F Concolic Unit Testing Engine\u3002"
+              },
+              {
+                "text": "Coverage Under Test Estimator",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014CUTE \u662F Concolic Unit Testing Engine\u3002"
+              },
+              {
+                "text": "Combined Unit & Type Evaluator",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014CUTE \u662F Concolic Unit Testing Engine\u3002"
+              }
+            ],
+            "generalFeedback": "CUTE\uFF08Concolic Unit Testing Engine\uFF09\u628A concolic \u57F7\u884C\u5E36\u9032 C \u8A9E\u8A00\u7684\u55AE\u5143\u6E2C\u8A66\uFF0C\u7279\u5225\u80FD\u85C9\u7D50\u5408\u5177\u9AD4\u8207\u7B26\u865F\u63A8\u7406\u4F86\u8655\u7406\u6307\u6A19\uFF0F\u8CC7\u6599\u7D50\u69CB\u578B\u7684\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u70BA\u4F55\u5728\u7B26\u865F\u72C0\u614B\u65C1\u4FDD\u7559\u5177\u9AD4\u8F38\u5165",
+            "text": "<p>concolic \u57F7\u884C\u5728\u7B26\u865F\u72C0\u614B\u65C1\u4FDD\u7559\u4E00\u500B\u5177\u9AD4\u8F38\u5165\uFF0C\u4E00\u500B\u95DC\u9375\u7406\u7531\u662F\uFF1A\u7576\u67D0\u9650\u5236\u5F0F\u7121\u6CD5\u6C42\u89E3\uFF08\u4F8B\u5982\u727D\u6D89\u5916\u90E8\u547C\u53EB\uFF09\u6642\uFF0C\u5F15\u64CE\u53EF\u4EE5\u4EE3\u5165\u57F7\u884C\u671F\u89C0\u5BDF\u5230\u7684\u5177\u9AD4\u503C\u4E26\u7E7C\u7E8C\u4E0B\u53BB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u503C\u662F\u4E00\u500B\u73FE\u6210\u7684\u5F8C\u63F4\uFF0C\u8B93\u57F7\u884C\u5728\u7D14\u7B26\u865F\u63A8\u7406\u6703\u5361\u4F4F\u7684\u5730\u65B9\u4ECD\u80FD\u7E7C\u7E8C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u9019\u6B63\u662F concolic \u57F7\u884C\u7684\u6838\u5FC3\u512A\u52E2\u4E4B\u4E00\uFF1A\u5177\u9AD4\u57F7\u884C\u63D0\u4F9B\u4E86\u4E00\u500B\u771F\u5BE6\u503C\uFF0C\u53EF\u5728\u7B26\u865F\u9805\u7121\u6CD5\u6C42\u89E3\u6642\u4EE3\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FDD\u7559\u5177\u9AD4\u8F38\u5165\u610F\u5473\u8457\u5F15\u64CE\u5C0D\u6BCF\u500B\u904B\u7B97\u5F0F\u90FD\u63E1\u6709\u4E00\u500B\u771F\u5BE6\u89C0\u5BDF\u503C\u3002\u7576\u67D0\u7B26\u865F\u9805\u592A\u96E3\u3001\u975E\u7DDA\u6027\u3001\u6216\u4E0D\u900F\u660E\uFF08\u5916\u90E8\uFF0F\u539F\u751F\u547C\u53EB\uFF09\u6642\uFF0C\u5C31\u4EE3\u5165\u5177\u9AD4\u503C\u7E7C\u7E8C\u57F7\u884C\u2014\u2014\u9019\u662F\u7D14\u7B26\u865F\u57F7\u884C\u505A\u4E0D\u5230\u7684\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B2C\u4E00\u500B\u5177\u9AD4\u8F38\u5165",
+            "text": "<p>concolic \u57F7\u884C\u4E2D\uFF0C\u6700\u521D\u7684\u90A3\u500B\u5177\u9AD4\u8F38\u5165\u901A\u5E38\u5F9E\u4F55\u800C\u4F86\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EFB\u610F\u9078\u53D6\uFF0C\u5E38\u70BA\u96A8\u6A5F\u2014\u2014\u8FF4\u5708\u96A8\u5F8C\u85C9\u7531\u6C42\u89E3\u300C\u53D6\u53CD\u5F8C\u7684\u8DEF\u5F91\u689D\u4EF6\u300D\u4F86\u7CBE\u4FEE\u5F8C\u7E8C\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A2E\u5B50\u8F38\u5165\u53EF\u4EE5\u662F\u96A8\u6A5F\u7684\uFF1B\u5F15\u64CE\u4E4B\u5F8C\u85C9\u7531\u5C0E\u5411\u5F0F\u7684\u5206\u652F\u7FFB\u8F49\u4F86\u63D0\u5347\u8986\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u662F\u5728\u4EFB\u4F55\u57F7\u884C\u4E4B\u524D\uFF0C\u7531\u89E3\u7B97\u5668\u8B49\u660E\u70BA\u6700\u4F73\u7684\u503C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7B2C\u4E00\u500B\u8F38\u5165\u7121\u9700\u4EFB\u4F55\u8B49\u660E\uFF1B\u5B83\u901A\u5E38\u53EA\u662F\u555F\u52D5\u8FF4\u5708\u7684\u96A8\u6A5F\u7A2E\u5B50\u3002"
+              },
+              {
+                "text": "\u5C0D\u6BCF\u500B\u8F38\u5165\u8B8A\u6578\u4E00\u5F8B\u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u96D6\u7136\u53EF\u4EE5\u7528\u56FA\u5B9A\u7A2E\u5B50\uFF0C\u4F46\u91CD\u9EDE\u662F\u7B2C\u4E00\u500B\u8F38\u5165\u662F\u4EFB\u610F\uFF0F\u96A8\u6A5F\u7684\uFF0C\u800C\u975E\u4E00\u5B9A\u70BA\u96F6\u3002"
+              },
+              {
+                "text": "\u5148\u5C0D\u6574\u652F\u7A0B\u5F0F\u505A\u975C\u614B\u5206\u6790\u5F8C\u63A8\u5C0E\u5F97\u51FA",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u662F\u52D5\u614B\u7684\uFF1B\u5B83\u53EA\u662F\u5F9E\u4E00\u500B\u5177\u9AD4\uFF08\u5E38\u70BA\u96A8\u6A5F\uFF09\u8F38\u5165\u958B\u59CB\uFF0C\u800C\u975E\u5148\u505A\u975C\u614B\u524D\u7F6E\u5206\u6790\u3002"
+              }
+            ],
+            "generalFeedback": "concolic \u57F7\u884C\u5F9E\u4E00\u500B\u4EFB\u610F\u3001\u5E38\u70BA\u96A8\u6A5F\u7684\u5177\u9AD4\u8F38\u5165\u8D77\u6B65\uFF08\u9019\u5C31\u662F DART \u540D\u7A31\u4E2D\u7684\u300CRandom\u300D\uFF09\u3002\u4E4B\u5F8C\u6BCF\u500B\u8F38\u5165\u90FD\u7531\u300C\u53D6\u53CD\u524D\u4E00\u6B21\u57F7\u884C\u8DEF\u5F91\u689D\u4EF6\u4E2D\u7684\u67D0\u5206\u652F\u4E26\u6C42\u89E3\u300D\u5F97\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5177\u9AD4\u57F7\u884C\u53EA\u8D70\u4E00\u689D\u8DEF\u5F91",
+            "text": "<p>\u7531\u65BC\u4F7F\u7528\u5177\u9AD4\u8F38\u5165\uFF0C\u55AE\u6B21 concolic \u57F7\u884C\uFF08\u5728\u78BA\u5B9A\u6027\u7A0B\u5F0F\u4E2D\uFF09\u6070\u597D\u8D70\u4E00\u689D\u57F7\u884C\u8DEF\u5F91\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u503C\u78BA\u5B9A\u6027\u5730\u9078\u51FA\u4E00\u689D\u8DEF\u5F91\uFF1B\u9019\u6B63\u662F\u70BA\u4F55\u4E00\u6B21\u57F7\u884C\u53EA\u8A18\u9304\u55AE\u4E00\u8DEF\u5F91\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u78BA\u5B9A\u6027\u7A0B\u5F0F\u4E2D\u7684\u5177\u9AD4\u8F38\u5165\u6070\u597D\u8D70\u4E00\u689D\u8DEF\u5F91\uFF1Bconcolic \u53EA\u80FD\u5728\u5F8C\u7E8C\u57F7\u884C\u4E2D\u85C9\u7531\u6C42\u89E3\u53D6\u53CD\u7684\u9650\u5236\u5F0F\u62B5\u9054\u5176\u4ED6\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u6B21 concolic \u57F7\u884C\u90FD\u662F\u5C0D\u5177\u9AD4\u503C\u7684\u771F\u5BE6\u57F7\u884C\uFF0C\u56E0\u6B64\u53EA\u8D70\u4E00\u689D\u8DEF\u5F91\u4E26\u8A18\u9304\u8A72\u8DEF\u5F91\u7684\u689D\u4EF6\u3002\u8DE8\u8FED\u4EE3\u6642\u624D\u85C9\u7531\u5206\u652F\u53D6\u53CD\u8207\u91CD\u65B0\u6C42\u89E3\u62B5\u9054\u65B0\u8DEF\u5F91\uFF0C\u800C\u975E\u5728\u55AE\u6B21\u57F7\u884C\u4E2D\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u7B97\u5668\u5728 concolic \u4E2D\u7684\u89D2\u8272",
+            "text": "<p>\u5728 concolic \u8FF4\u5708\u4E2D\uFF0C\u9650\u5236\u5F0F\uFF0FSMT \u89E3\u7B97\u5668\u8CA0\u8CAC\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C42\u89E3\u4FEE\u6539\u5F8C\uFF08\u90E8\u5206\u53D6\u53CD\uFF09\u7684\u8DEF\u5F91\u689D\u4EF6\uFF0C\u4EE5\u7522\u751F\u4E0B\u4E00\u500B\u5177\u9AD4\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u89E3\u7B97\u5668\u7684\u6EFF\u8DB3\u89E3\u5C31\u6210\u70BA\u4E0B\u4E00\u6B21\u57F7\u884C\u7684\u5177\u9AD4\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4EE5\u5177\u9AD4\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u57F7\u884C\u7A0B\u5F0F\u662F\u7531\uFF08\u88AB\u63D2\u6A01\u7684\uFF09\u57F7\u884C\u904E\u7A0B\u5B8C\u6210\uFF1B\u89E3\u7B97\u5668\u53EA\u5F9E\u9650\u5236\u5F0F\u7B97\u51FA\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u6E2C\u8A66\u7684\u8F38\u51FA\u662F\u5426\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u90A3\u662F\u5224\u6E96\uFF08oracle\uFF09\u7684\u5DE5\u4F5C\uFF1B\u89E3\u7B97\u5668\u7522\u751F\u8F38\u5165\uFF0C\u800C\u975E\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u6E2C\u8A66\u5957\u4EF6\u7684\u5206\u652F\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8986\u84CB\u7387\u8FFD\u8E64\u662F\u53E6\u4E00\u56DE\u4E8B\uFF1B\u89E3\u7B97\u5668\u628A\u53D6\u53CD\u5F8C\u7684\u8DEF\u5F91\u689D\u4EF6\u8F49\u6210\u5177\u9AD4\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F15\u64CE\u53D6\u53CD\u4E00\u500B\u5206\u652F\u5F8C\uFF0C\u628A\u4FEE\u6539\u5F8C\u7684\u8DEF\u5F91\u689D\u4EF6\u4EA4\u7D66\u89E3\u7B97\u5668\uFF1B\u5176\u6EFF\u8DB3\u89E3\u6B63\u662F\u80FD\u628A\u4E0B\u4E00\u6B21\u57F7\u884C\u9A45\u52D5\u5230\u65B0\u76EE\u6A19\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\uFF08\u82E5\u8A72\u8DEF\u5F91\u4E0D\u53EF\u884C\u5247\u56DE\u5831 UNSAT\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "concolic \u8207\u7D14\u7B26\u865F\u57F7\u884C\uFF08\u4E00\u53E5\u8A71\uFF09",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6700\u80FD\u8AAA\u660E concolic \u57F7\u884C\u8207\u7D14\u7B26\u865F\u57F7\u884C\u7684\u5DEE\u7570\uFF1F</p>",
+            "answers": [
+              {
+                "text": "concolic \u5728\u7B26\u865F\u72C0\u614B\u65C1\u59CB\u7D42\u6709\u4E00\u6B21\u771F\u5BE6\u7684\u5177\u9AD4\u57F7\u884C\uFF0C\u56E0\u6B64\u7576\u7B26\u865F\u63A8\u7406\u5361\u4F4F\u6642\u53EF\u4EE3\u5165\u5177\u9AD4\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u57F7\u884C\u662F\u5B89\u5168\u7DB2\uFF0C\u8B93 concolic \u80FD\u8D8A\u904E\u7121\u6CD5\u6C42\u89E3\u7684\u9805\u7E7C\u7E8C\u524D\u9032\u3002"
+              },
+              {
+                "text": "concolic \u5F9E\u4E0D\u4F7F\u7528\u89E3\u7B97\u5668\uFF0C\u7D14\u7B26\u865F\u57F7\u884C\u5247\u7E3D\u662F\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u4E5F\u4F9D\u8CF4\u89E3\u7B97\u5668\u4F86\u7FFB\u8F49\u5206\u652F\uFF1B\u5DEE\u5225\u5728\u65BC\u4F34\u96A8\u7684\u90A3\u6B21\u5177\u9AD4\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u7D14\u7B26\u865F\u57F7\u884C\u6703\u5177\u9AD4\u5730\u57F7\u884C\u7A0B\u5F0F\uFF0Cconcolic \u5247\u4E0D\u6703",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u6070\u597D\u76F8\u53CD\uFF1Aconcolic \u6703\u505A\u771F\u5BE6\u7684\u5177\u9AD4\u57F7\u884C\uFF1B\u7D14\u7B26\u865F\u57F7\u884C\u4E0D\u6703\u3002"
+              },
+              {
+                "text": "concolic \u4FDD\u8B49\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF0C\u7D14\u7B26\u865F\u57F7\u884C\u5247\u5426",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5169\u8005\u90FD\u4E0D\u4FDD\u8B49\u5B8C\u6574\u8986\u84CB\uFF1B\u90FD\u9762\u81E8\u8DEF\u5F91\u7206\u70B8\u3002\u771F\u6B63\u7684\u5DEE\u5225\u662F\u90A3\u500B\u5177\u9AD4\u7684\u4F34\u96A8\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u8005\u90FD\u8FFD\u8E64\u7B26\u865F\u8DEF\u5F91\u689D\u4EF6\u4E26\u4F7F\u7528\u89E3\u7B97\u5668\u3002concolic \u7684\u5DEE\u5225\u5728\u65BC\u540C\u6642\u9032\u884C\u7684\u5177\u9AD4\u57F7\u884C\uFF1A\u7576\u9650\u5236\u5F0F\u7121\u6CD5\u6C42\u89E3\u3001\u975E\u7DDA\u6027\u3001\u6216\u727D\u6D89\u4E0D\u900F\u660E\u5916\u90E8\u547C\u53EB\u6642\uFF0C\u5B83\u63D0\u4F9B\u4E00\u500B\u53EF\u4EE3\u5165\u7684\u771F\u5BE6\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D2\u6A01\u7684\u76EE\u7684",
+            "text": "<p>concolic \u5DE5\u5177\u5C0D\u53D7\u6E2C\u7A0B\u5F0F\u63D2\u6A01\uFF08instrument\uFF09\uFF0C\u4E3B\u8981\u76EE\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5177\u9AD4\u57F7\u884C\u671F\u9593\u89C0\u5BDF\u6240\u8D70\u7684\u5206\u652F\u689D\u4EF6\uFF0C\u4E26\u5E73\u884C\u5EFA\u69CB\u7B26\u865F\u8DEF\u5F91\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D2\u6A01\u5728\u771F\u5BE6\u57F7\u884C\u7684\u540C\u6642\u6536\u96C6\u7B26\u865F\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "\u628A\u7A0B\u5F0F\u62D6\u6162\uFF0C\u597D\u8B93\u89E3\u7B97\u5668\u6709\u6642\u9593\u601D\u8003",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u63D2\u6A01\u662F\u70BA\u4E86\u5728\u57F7\u884C\u671F\u9593\u6536\u96C6\u7B26\u865F\u9650\u5236\u5F0F\uFF0C\u800C\u975E\u589E\u52A0\u5EF6\u9072\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u5206\u652F\u63DB\u6210\u96A8\u6A5F\u64F2\u786C\u5E63",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5206\u652F\u662F\u88AB\u7B26\u865F\u5730\u89C0\u5BDF\u4E26\u8A18\u9304\uFF0C\u800C\u4E0D\u662F\u88AB\u96A8\u6A5F\u53D6\u4EE3\u3002"
+              },
+              {
+                "text": "\u628A\u7A0B\u5F0F\u6C38\u4E45\u6539\u5BEB\u6210\u7121\u932F\u8AA4\u7684\u7248\u672C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u63D2\u6A01\u53EA\u70BA\u5206\u6790\u8A18\u9304\u8CC7\u8A0A\uFF0C\u4E26\u4E0D\u4FEE\u6B63\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A0B\u5F0F\u88AB\u63D2\u6A01\u5F8C\uFF0C\u5177\u9AD4\u8F38\u5165\u9A45\u52D5\u57F7\u884C\u6642\uFF0C\u5F15\u64CE\u540C\u6642\u628A\u6BCF\u500B\u5206\u652F\u689D\u4EF6\u7B26\u865F\u5316\u5730\u8A18\u9304\u4E0B\u4F86\u4E26\u7D2F\u7A4D\u8DEF\u5F91\u689D\u4EF6\u2014\u2014\u9019\u662F\u300C\u53D6\u53CD\u518D\u6C42\u89E3\u300D\u6B65\u9A5F\u7684\u539F\u6599\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6240\u63A2\u7D22\u7684\u8DEF\u5F91\u90FD\u662F\u771F\u5BE6\u7684",
+            "text": "<p>concolic \u57F7\u884C\u6240\u63A2\u7D22\u7684\u6BCF\u4E00\u689D\u8DEF\u5F91\u90FD\u5C0D\u61C9\u4E00\u6B21\u4EE5\u5177\u9AD4\u8F38\u5165\u9032\u884C\u7684\u771F\u5BE6\u57F7\u884C\uFF0C\u56E0\u6B64\u5B83\u4E0D\u6703\u56DE\u5831\u4EFB\u4F55\u865B\u5047\uFF08\u4E0D\u53EF\u884C\uFF09\u7684\u8DEF\u5F91\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u4E00\u6B65 concolic \u90FD\u662F\u4E00\u6B21\u771F\u5BE6\u7684\u5177\u9AD4\u57F7\u884C\uFF0C\u56E0\u6B64\u5B83\u56DE\u5831\u7684\u8DEF\u5F91\u78BA\u5BE6\u53EF\u57F7\u884C\uFF08\u9019\u5C31\u662F\u5B83\u5C0D\u300C\u6240\u63A2\u7D22\u8DEF\u5F91\u300D\u7684\u5065\u5168\u6027\uFF09\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u56E0\u70BA\u6BCF\u689D\u88AB\u63A2\u7D22\u7684\u8DEF\u5F91\u90FD\u7531\u771F\u6B63\u57F7\u884C\u7684\u5177\u9AD4\u8F38\u5165\u9A45\u52D5\uFF0Cconcolic \u57F7\u884C\u4E0D\u6703\u88FD\u9020\u51FA\u4E0D\u53EF\u884C\u7684\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "concolic \u57F7\u884C\u5BE6\u969B\u4EE5\u6BCF\u500B\u7522\u751F\u7684\u5177\u9AD4\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\uFF0C\u6240\u4EE5\u5B83\u56DE\u5831\u70BA\u5DF2\u63A2\u7D22\u7684\u4EFB\u4F55\u8DEF\u5F91\u90FD\u662F\u771F\u6B63\u53EF\u884C\u7684\u3002\u5B83\u7684\u9650\u5236\u5728\u65BC\u5B8C\u6574\u6027\uFF08\u53EF\u80FD\u6F0F\u6389\u67D0\u4E9B\u8DEF\u5F91\uFF09\uFF0C\u800C\u975E\u5176\u6240\u63A2\u7D22\u8DEF\u5F91\u7684\u5065\u5168\u6027\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u662F\u4EC0\u9EBC\u6311\u9078\u4E00\u6B21\u57F7\u884C\u6240\u8D70\u7684\u8DEF\u5F91",
+            "text": "<p>\u5728\u55AE\u6B21 concolic \u57F7\u884C\u4E2D\uFF0C\u662F\u4EC0\u9EBC\u6C7A\u5B9A\u4E86\u7A0B\u5F0F\u88AB\u8D70\u904E\u7684\u90A3\u552F\u4E00\u4E00\u689D\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5177\u9AD4\u8F38\u5165\u503C\u2014\u2014\u5B83\u5011\u88AB\u771F\u6B63\u57F7\u884C\uFF0C\u4E26\u78BA\u5B9A\u6027\u5730\u9078\u51FA\u6BCF\u500B\u5206\u652F\u7684\u8D70\u5411",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u72C0\u614B\u9A45\u52D5\u771F\u5BE6\u57F7\u884C\uFF0C\u56E0\u800C\u56FA\u5B9A\u4E86\u8DEF\u5F91\uFF1B\u7B26\u865F\u72C0\u614B\u53EA\u662F\u8A18\u9304\u5B83\u3002"
+              },
+              {
+                "text": "\u89E3\u7B97\u5668\u2014\u2014\u5B83\u5728\u57F7\u884C\u958B\u59CB\u524D\u5C31\u9078\u597D\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5728\u4E00\u6B21\u57F7\u884C\u5167\u662F\u5177\u9AD4\u503C\u6311\u51FA\u8DEF\u5F91\uFF1B\u89E3\u7B97\u5668\u53EA\u70BA\u672A\u4F86\u7684\u57F7\u884C\u7B97\u51FA\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91\u689D\u4EF6\u2014\u2014\u5B83\u5F37\u5236\u57F7\u884C\u8D70\u5411\u67D0\u500B\u9078\u5B9A\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8DEF\u5F91\u689D\u4EF6\u662F\u5F9E\u57F7\u884C\u4E2D\u88AB\u8A18\u9304\u4E0B\u4F86\u7684\uFF1B\u5B83\u4E0D\u6703\u64CD\u63A7\u7576\u524D\u7684\u5177\u9AD4\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u500B\u5206\u652F\u6240\u505A\u7684\u96A8\u6A5F\u9078\u64C7",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5206\u652F\u662F\u7531\u5177\u9AD4\u503C\u6C7A\u5B9A\uFF0C\u800C\u975E\u57F7\u884C\u671F\u9593\u7684\u96A8\u6A5F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u8F38\u5165\u88AB\u771F\u6B63\u57F7\u884C\uFF0C\u56E0\u6B64\u5728\u6BCF\u500B\u5206\u652F\u7531\u5177\u9AD4\u503C\u5224\u5B9A\u771F\uFF0F\u5047\uFF0C\u5F9E\u800C\u56FA\u5B9A\u4E86\u6240\u8D70\u7684\u552F\u4E00\u8DEF\u5F91\u3002\u7B26\u865F\u9762\u53EA\u662F\u8A18\u9304\u8A72\u8DEF\u5F91\u7684\u689D\u4EF6\uFF0C\u4F9B\u4E4B\u5F8C\u7684\u5206\u652F\u53D6\u53CD\u4F7F\u7528\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u55AE\u4E00 if\uFF0C\u8A18\u9304\u8DEF\u5F91\u689D\u4EF6",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>concolic \u57F7\u884C\u4EE5\u5177\u9AD4\u8F38\u5165 <code>x = 0</code> \u958B\u59CB\u3002\u9019\u6B21\u57F7\u884C\u8A18\u9304\u7684\u8DEF\u5F91\u689D\u4EF6\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x \u2264 5\uFF08B1 \u7684\u5047\u5074\uFF0C\u56E0\u70BA 0 > 5 \u70BA\u5047\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014x = 0 \u4F7F x > 5 \u70BA\u5047\uFF0C\u6545\u57F7\u884C\u8D70\u5047\u5206\u652F\u4E26\u8A18\u9304 x \u2264 5\u3002"
+              },
+              {
+                "text": "x > 5\uFF08B1 \u7684\u771F\u5074\uFF09",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014x = 0 \u4E0D\u6EFF\u8DB3 x > 5\uFF0C\u6545\u57F7\u884C\u8D70\u5047\u5206\u652F\u4E26\u8A18\u9304 x \u2264 5\uFF0C\u800C\u975E x > 5\u3002"
+              },
+              {
+                "text": "x == 0\uFF08\u5177\u9AD4\u503C\u672C\u8EAB\uFF09",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8DEF\u5F91\u689D\u4EF6\u8A18\u9304\u7684\u662F\u5206\u652F\u8D70\u5411\uFF08x \u2264 5\uFF09\uFF0C\u800C\u975E\u6240\u7528\u7684\u5177\u9AD4\u503C\u3002"
+              },
+              {
+                "text": "true\uFF08\u6C92\u6709\u9650\u5236\u5F0F\uFF0C\u56E0\u70BA\u6C92\u6709\u8D70\u4EFB\u4F55\u5206\u652F\uFF09",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5206\u652F B1 \u6709\u88AB\u6C42\u503C\uFF1B\u5176\u5047\u8D70\u5411\u8CA2\u737B\u4E86\u9650\u5236\u5F0F x \u2264 5\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576 x = 0 \u6642\uFF0C\u689D\u4EF6 x > 5 \u6C42\u503C\u70BA\u5047\uFF0C\u6545\u57F7\u884C\u8D70\u5047\u5206\u652F\u3002\u5F15\u64CE\u8A18\u9304\u5B83\u6240\u6EFF\u8DB3\u7684\u689D\u4EF6\uFF0C\u4E5F\u5C31\u662F\u5B83\u672A\u8D70\u4E4B\u5206\u652F\u689D\u4EF6\u7684\u5426\u5B9A\uFF1Ax \u2264 5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u53D6\u53CD\u4E26\u6C42\u89E3\u4E0B\u4E00\u500B\u8F38\u5165",
+            "text": "<p>\u540C\u4E00\u6BB5\u7A0B\u5F0F\uFF1A</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>\u7B2C\u4E00\u6B21\u57F7\u884C\u7528 <code>x = 0</code> \u4E26\u8A18\u9304 <code>x \u2264 5</code>\u3002\u70BA\u4E86\u6DB5\u84CB B1 \u7684\u53E6\u4E00\u5074\uFF0C\u5F15\u64CE\u5C07\u5176\u53D6\u53CD\u3002\u89E3\u7B97\u5668\u53EF\u80FD\u56DE\u50B3\u4E0B\u5217\u54EA\u500B\u5177\u9AD4\u8F38\u5165\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x = 6\uFF08\u4EFB\u4F55\u6EFF\u8DB3\u53D6\u53CD\u5F8C\u9650\u5236\u5F0F x > 5 \u7684\u503C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A x \u2264 5 \u53D6\u53CD\u5F97 x > 5\uFF0Cx = 6 \u6EFF\u8DB3\u5B83\uFF0C\u6703\u628A\u57F7\u884C\u9A45\u52D5\u9032 error()\u3002"
+              },
+              {
+                "text": "x = 5",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u20145 > 5 \u70BA\u5047\uFF0C\u6545 x = 5 \u4ECD\u8D70\u5047\u5206\u652F\uFF0C\u7121\u6CD5\u6DB5\u84CB\u53E6\u4E00\u5074\u3002"
+              },
+              {
+                "text": "x = -1",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014-1 \u4E0D\u6EFF\u8DB3 x > 5\uFF1B\u5B83\u6703\u91CD\u8D70\u5DF2\u6DB5\u84CB\u7684\u5047\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u4E0D\u5B58\u5728\u9019\u6A23\u7684\u8F38\u5165\uFF1B\u53D6\u53CD\u5F8C\u7684\u9650\u5236\u5F0F\u7121\u6CD5\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014x > 5 \u5F88\u5BB9\u6613\u6EFF\u8DB3\uFF08\u4F8B\u5982 x = 6\uFF09\uFF0C\u6545\u8A72\u8DEF\u5F91\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5DF2\u8A18\u9304\u7684\u9650\u5236\u5F0F x \u2264 5 \u53D6\u53CD\u5F97 x > 5\u3002\u89E3\u7B97\u5668\u56DE\u50B3\u4EFB\u4E00\u6EFF\u8DB3\u503C\uFF08\u4F8B\u5982 x = 6\uFF09\uFF0C\u5B83\u6210\u70BA\u4E0B\u4E00\u500B\u5177\u9AD4\u8F38\u5165\u4E26\u628A\u57F7\u884C\u9A45\u52D5\u9032 error()\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u7B49\u5F0F\u5B88\u885B",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void g(int x) {\n  if (x == 42) bug();   // branch B1\n}</code></pre><p>\u57F7\u884C\u4EE5 <code>x = 7</code> \u958B\u59CB\uFF08\u6545 B1 \u70BA\u5047\uFF0CPC \u70BA <code>x \u2260 42</code>\uFF09\u3002\u53D6\u53CD B1 \u6703\u5F97\u5230\u4EC0\u9EBC\u4E0B\u4E00\u500B\u8F38\u5165\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x = 42\u2014\u2014\u628A x \u2260 42 \u53D6\u53CD\u5F97 x == 42\uFF0C\u5176\u552F\u4E00\u89E3\u70BA 42",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u89E3\u7B97\u5668\u7B97\u51FA\u78BA\u5207\u503C 42\uFF0C\u7ACB\u5373\u62B5\u9054 bug()\u3002"
+              },
+              {
+                "text": "x = 43\u2014\u2014\u4EFB\u4F55\u9130\u8FD1\u503C\u7686\u53EF",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u53D6\u53CD\u5F8C\u7684\u9650\u5236\u5F0F\u662F\u7B49\u5F0F x == 42\uFF0C\u6545 43 \u4E0D\u6EFF\u8DB3\uFF1B\u53EA\u6709 42 \u53EF\u4EE5\u3002"
+              },
+              {
+                "text": "x = 7\u2014\u2014\u6CBF\u7528\u540C\u4E00\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014x = 7 \u8D70\u7684\u662F\u5DF2\u6DB5\u84CB\u7684\u5047\u5206\u652F\uFF1B\u5F15\u64CE\u6703\u5C0D\u7FFB\u8F49\u5F8C\u7684\u7B49\u5F0F\u6C42\u89E3\u5F97\u5230 42\u3002"
+              },
+              {
+                "text": "\u7121\u89E3\uFF1B\u7B49\u5F0F\u7121\u6CD5\u88AB\u53D6\u53CD",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u628A x \u2260 42 \u53D6\u53CD\u5C31\u662F x == 42\uFF0C\u89E3\u7B97\u5668\u4EE5 x = 42 \u6EFF\u8DB3\u4E4B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B2C\u4E00\u6B21\u57F7\u884C\u7684\u9650\u5236\u5F0F\u662F x \u2260 42\uFF1B\u53D6\u53CD\u5F97 x == 42\u3002\u89E3\u7B97\u5668\u56DE\u50B3\u6070\u70BA x = 42\u2014\u2014\u9019\u662F concolic\uFF0F\u7B26\u865F\u63A8\u7406\u52DD\u904E\u96A8\u6A5F\u6E2C\u8A66\u7684\u5178\u578B\u60C5\u5F62\uFF0C\u96A8\u6A5F\u6E2C\u8A66\u5E7E\u4E4E\u4E0D\u53EF\u80FD\u731C\u4E2D 42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u8981\u53D6\u53CD\u54EA\u500B\u5206\u652F\uFF08DFS\uFF09",
+            "text": "<p>\u67D0\u6B21\u57F7\u884C\u4F9D\u5E8F\u8D70\u4E86\u5206\u652F <code>[B1: true, B2: true]</code>\uFF0C\u5F97\u5230\u8DEF\u5F91\u689D\u4EF6 <code>c1 \u2227 c2</code>\u3002\u63A1\u7528\u5E38\u898B\u7684\u6DF1\u5EA6\u512A\u5148\u7B56\u7565\uFF08\u5148\u7FFB\u8F49\u6700\u5F8C\u4E00\u500B\u5C1A\u672A\u53D6\u53CD\u7684\u5206\u652F\uFF09\uFF0C\u4E0B\u4E00\u500B\u8981\u6C42\u89E3\u7684\u8DEF\u5F91\u689D\u4EF6\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "c1 \u2227 \xACc2\u2014\u2014\u4FDD\u7559\u524D\u7DB4 c1\uFF0C\u53D6\u53CD\u6700\u5F8C\u4E00\u500B\u5206\u652F c2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DF1\u5EA6\u512A\u5148\u5148\u7FFB\u8F49\u6700\u6DF1\uFF08\u6700\u5F8C\uFF09\u7684\u5206\u652F\uFF0C\u540C\u6642\u4FDD\u7559\u8F03\u65E9\u7684\u6C7A\u7B56\u3002"
+              },
+              {
+                "text": "\xACc1 \u2227 c2\u2014\u2014\u53D6\u53CD\u7B2C\u4E00\u500B\u5206\u652F\uFF0C\u4FDD\u7559\u7B2C\u4E8C\u500B",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u90A3\u662F\u5148\u7FFB\u8F49 B1\uFF1B\u6DF1\u5EA6\u512A\u5148\u6703\u5148\u53D6\u53CD\u6700\u5F8C\u7684\u5206\u652F\uFF08c2\uFF09\uFF0C\u518D\u56DE\u6EAF\u5230\u8F03\u65E9\u8005\u3002"
+              },
+              {
+                "text": "\xACc1 \u2227 \xACc2\u2014\u2014\u628A\u5169\u500B\u5206\u652F\u90FD\u53D6\u53CD",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u6BCF\u6B65\u6070\u597D\u53D6\u53CD\u4E00\u500B\u5206\u652F\uFF1B\u9019\u88E1\u662F\u6700\u5F8C\u90A3\u500B\uFF0C\u5F97 c1 \u2227 \xACc2\u3002"
+              },
+              {
+                "text": "c1 \u2227 c2\u2014\u2014\u91CD\u65B0\u6C42\u89E3\u76F8\u540C\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u91CD\u89E3\u76F8\u540C\u689D\u4EF6\u53EA\u6703\u91CD\u8D70\u540C\u4E00\u8DEF\u5F91\uFF1B\u5F15\u64CE\u7FFB\u8F49 c2 \u4EE5\u62B5\u9054\u65B0\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF1\u5EA6\u512A\u5148\u63A2\u7D22\u6703\u53D6\u53CD\u6700\u5F8C\u4E00\u500B\u5C1A\u672A\u53D6\u53CD\u7684\u5206\u652F\u689D\u4EF6\uFF0C\u540C\u6642\u4FDD\u6301\u524D\u7DB4\u4E0D\u8B8A\uFF1A\u5F9E c1 \u2227 c2 \u5F62\u6210 c1 \u2227 \xACc2\u3002\u53EA\u6709\u5728\u7AAE\u76E1 c1 \u524D\u7DB4\u7684\u5B50\u6A39\u5F8C\uFF0C\u624D\u56DE\u6EAF\u7FFB\u8F49 c1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u5169\u500B\u5206\u652F\uFF0C\u4E0B\u4E00\u500B\u8F38\u5165",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void h(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b &gt; 0)        // B2\n      target();\n}</code></pre><p>\u57F7\u884C 1 \u7528 <code>a = 1, b = -1</code>\uFF1AB1 \u771F\u3001B2 \u5047\uFF0CPC = <code>(a &gt; 0) \u2227 (b \u2264 0)</code>\u3002\u7FFB\u8F49\u6700\u5F8C\u7684\u5206\u652F\uFF08B2\uFF09\uFF0C\u54EA\u500B\u8F38\u5165\u80FD\u62B5\u9054 <code>target()</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a = 1, b = 1\u2014\u2014\u6EFF\u8DB3 (a > 0) \u2227 (b > 0)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4FDD\u7559 a > 0 \u4E26\u628A b \u2264 0 \u53D6\u53CD\u70BA b > 0\uFF0C\u5373\u5F97\u62B5\u9054 target() \u7684\u8DEF\u5F91\uFF1Ba = 1, b = 1 \u53EF\u884C\u3002"
+              },
+              {
+                "text": "a = -1, b = 1\u2014\u2014\u6EFF\u8DB3 b > 0",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014a = -1 \u4E0D\u6EFF\u8DB3 a > 0\uFF0C\u6545 B1 \u70BA\u5047\u3001\u6C38\u9060\u5230\u4E0D\u4E86 target()\uFF1B\u524D\u7DB4 a > 0 \u5FC5\u9808\u4FDD\u7559\u3002"
+              },
+              {
+                "text": "a = 1, b = 0\u2014\u2014b \u975E\u8CA0",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014b > 0 \u8981\u6C42 b \u56B4\u683C\u70BA\u6B63\uFF1Bb = 0 \u4E0D\u6EFF\u8DB3\uFF0C\u6545 B2 \u4ECD\u70BA\u5047\u3002"
+              },
+              {
+                "text": "a = 0, b = 0\u2014\u2014\u5169\u8005\u7686\u96F6",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014a = 0 \u4E0D\u6EFF\u8DB3 a > 0\uFF1B\u53D6\u53CD\u5F8C\u7684\u9650\u5236\u5F0F\u4FDD\u7559\u524D\u7DB4 a > 0 \u4E26\u628A b \u7FFB\u8F49\u70BA b > 0\u3002"
+              }
+            ],
+            "generalFeedback": "\u7FFB\u8F49 B2 \u5F62\u6210 (a > 0) \u2227 (b > 0)\uFF1A\u524D\u7DB4 a > 0 \u88AB\u4FDD\u7559\uFF0Cb \u2264 0 \u88AB\u53D6\u53CD\u70BA b > 0\u3002\u89E3\u7B97\u5668\u56DE\u50B3\u4EFB\u4E00\u6EFF\u8DB3\u5C0D\uFF0C\u4F8B\u5982 a = 1, b = 1\uFF0C\u628A\u57F7\u884C\u9A45\u52D5\u9032 target()\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u5206\u652F\u524D\u7684\u6307\u6D3E",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void k(int x) {\n  int y = x + 3;\n  if (y == 10) hit();   // B1\n}</code></pre><p>\u57F7\u884C 1 \u7528 <code>x = 0</code>\uFF08\u6545 y = 3\uFF0CB1 \u5047\uFF09\u3002\u53D6\u53CD B1\uFF0C\u89E3\u7B97\u5668\u56DE\u50B3\u7684\u4E0B\u4E00\u500B\u8F38\u5165\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x = 7\u2014\u2014\u5C0D\u8F38\u5165\u7684\u9650\u5236\u5F0F\u662F x + 3 == 10",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014y \u662F\u904B\u7B97\u5F0F x + 3\uFF0C\u6545 B1 \u8B8A\u6210 x + 3 == 10\uFF0C\u5F97 x = 7\u3002"
+              },
+              {
+                "text": "x = 10\u2014\u2014\u5206\u652F\u6E2C\u7684\u662F == 10",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5206\u652F\u6E2C\u7684\u662F y == 10\uFF0C\u800C y = x + 3\uFF0C\u6545\u5C0D\u8F38\u5165\u7684\u9650\u5236\u5F0F\u662F x + 3 == 10\uFF0C\u5373 x = 7\u3002"
+              },
+              {
+                "text": "x = 3\u2014\u2014\u8207\u7B2C\u4E00\u6B21\u7B97\u51FA\u7684 y \u76F8\u7B26",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014x = 3 \u4F7F y = 6\uFF0C\u4E0D\u662F 10\uFF1B\u89E3 x + 3 == 10 \u5F97 x = 7\u3002"
+              },
+              {
+                "text": "y = 10\u2014\u2014\u628A y \u7576\u6210\u81EA\u7531\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014y \u4E0D\u662F\u8F38\u5165\uFF1B\u5B83\u662F\u904B\u7B97\u5F0F x + 3\uFF0C\u5FC5\u9808\u4EE3\u5165\uFF0C\u5F97 x = 7\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u72C0\u614B\u8A18\u9304 y = x + 3\uFF0C\u6545\u5206\u652F y == 10 \u5C31\u662F\u5C0D\u5BE6\u969B\u8F38\u5165 x \u7684\u9650\u5236\u5F0F x + 3 == 10\u3002\u53D6\u53CD\u5047\u8D70\u5411\u4E26\u6C42\u89E3\u5F97 x = 7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7C21\u55AE\u60C5\u5F62\u4E0B concolic \u8207\u7D14\u7B26\u865F\u7684\u6BD4\u8F03",
+            "text": "<p>\u5C0D\u65BC <code>if (x &gt; 5) error();</code> \u9019\u500B\u53EF\u6C42\u89E3\u7684\u7DDA\u6027\u5B88\u885B\uFF0Cconcolic \u8207\u7D14\u7B26\u865F\u57F7\u884C\u5728\u62B5\u9054 <code>error()</code> \u4E0A\u5982\u4F55\u6BD4\u8F03\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u8005\u90FD\u80FD\u62B5\u9054\u2014\u2014\u5404\u81EA\u6C42\u89E3 x > 5\uFF08concolic \u662F\u5728\u5176\u7B2C\u4E00\u6B21\u5177\u9AD4\u57F7\u884C\u5F8C\u53D6\u53CD\u5206\u652F\uFF09\u2014\u2014\u5177\u9AD4\u4F34\u96A8\u57F7\u884C\u53EA\u5728\u9650\u5236\u5F0F\u7121\u6CD5\u6C42\u89E3\u6642\u624D\u6709\u5DEE\u5225",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u7C21\u55AE\u53EF\u89E3\u7684\u5B88\u885B\u4E0A\u5169\u8005\u884C\u70BA\u76F8\u8FD1\uFF1B\u5177\u9AD4\u5F8C\u63F4\u53EA\u5728\u96E3\uFF0F\u4E0D\u900F\u660E\u9650\u5236\u5F0F\u6642\u624D\u62C9\u958B\u5DEE\u8DDD\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7D14\u7B26\u865F\u80FD\u62B5\u9054\uFF1Bconcolic \u7121\u6CD5\u6C42\u89E3\u4E0D\u7B49\u5F0F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u4F7F\u7528\u540C\u4E00\u500B\u89E3\u7B97\u5668\uFF0C\u85C9\u53D6\u53CD\u5206\u652F\u4E26\u6C42\u89E3\u5C31\u80FD\u8F15\u9B06\u8655\u7406 x > 5\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 concolic \u80FD\u62B5\u9054\uFF1B\u7D14\u7B26\u865F\u7121\u6CD5\u6C42\u89E3\u4E0D\u7B49\u5F0F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7D14\u7B26\u865F\u80FD\u8655\u7406\u7DDA\u6027\u4E0D\u7B49\u5F0F\uFF1B\u6B64\u8655\u5169\u8005\u90FD\u80FD\u62B5\u9054 error()\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u7121\u6CD5\u62B5\u9054\uFF0C\u9664\u975E\u96A8\u6A5F\u78B0\u904B\u6C23",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5169\u8005\u90FD\u80FD\u7CBE\u78BA\u6C42\u89E3 x > 5\uFF1B\u7C21\u55AE\u7DDA\u6027\u9650\u5236\u5F0F\u7121\u9700\u904B\u6C23\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6240\u6709\u9650\u5236\u5F0F\u90FD\u53EF\u6C42\u89E3\u6642\uFF0Cconcolic \u8207\u7D14\u7B26\u865F\u62B5\u9054\u76F8\u540C\u8DEF\u5F91\uFF1B\u5169\u8005\u90FD\u76F4\u63A5\u89E3\u51FA x > 5\u3002\u5177\u9AD4\u503C\u5F8C\u63F4\u53EA\u6709\u5728\u9650\u5236\u5F0F\u70BA\u975E\u7DDA\u6027\u3001\u7121\u6CD5\u6C42\u89E3\u3001\u6216\u727D\u6D89\u4E0D\u900F\u660E\u5916\u90E8\u547C\u53EB\u6642\u624D\u6703\u8D77\u6C7A\u5B9A\u6027\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u8A18\u9304\u6240\u8D70\u7684\u8D70\u5411",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void m(int x) {\n  if (x &lt; 100) a();   // B1\n  else b();\n}</code></pre><p>\u5177\u9AD4\u57F7\u884C\u7528 <code>x = 250</code>\u3002\u5F15\u64CE\u6703\u628A\u54EA\u500B\u6587\u5B57\u5F0F\uFF08literal\uFF09\u9023\u8A00\u9032 B1 \u7684\u8DEF\u5F91\u689D\u4EF6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x \u2265 100\u2014\u2014\u57F7\u884C\u8D70\u4E86 else \u5206\u652F\uFF0C\u6545\u6240\u6EFF\u8DB3\u7684\u689D\u4EF6\u662F x < 100 \u7684\u5426\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576 x = 250 \u6642\u5B88\u885B x < 100 \u70BA\u5047\uFF0C\u6545\u8A18\u9304\u7684\u6587\u5B57\u5F0F\u662F x \u2265 100\u3002"
+              },
+              {
+                "text": "x < 100\u2014\u2014\u5206\u652F\u7684\u66F8\u9762\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5C0D x = 250 \u800C\u8A00\u66F8\u9762\u689D\u4EF6\u70BA\u5047\uFF1B\u5F15\u64CE\u8A18\u9304\u7684\u662F\u5BE6\u969B\u6240\u8D70\u7684\u8D70\u5411 x \u2265 100\u3002"
+              },
+              {
+                "text": "x == 250\u2014\u2014\u5177\u9AD4\u503C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8DEF\u5F91\u689D\u4EF6\u8A18\u9304\u7684\u662F\u5206\u652F\u8D70\u5411\uFF08x \u2265 100\uFF09\uFF0C\u800C\u975E\u5177\u9AD4\u6578\u5B57\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u2014\u2014else \u5206\u652F\u4E0D\u8CA2\u737B\u4EFB\u4F55\u9650\u5236\u5F0F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8D70 else \u5206\u652F\u6703\u628A\u88AB\u5426\u5B9A\u7684\u5B88\u885B x \u2265 100 \u8CA2\u737B\u9032\u8DEF\u5F91\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91\u689D\u4EF6\u6C38\u9060\u8A18\u9304\u5BE6\u969B\u6240\u8D70\u7684\u8D70\u5411\u3002\u7576 x = 250 \u6642\u5B88\u885B x < 100 \u70BA\u5047\uFF0C\u6545\u5F15\u64CE\u628A\u5B83\u7684\u5426\u5B9A x \u2265 100 \u9023\u8A00\u9032\u8DEF\u5F91\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u7121\u6CD5\u6EFF\u8DB3\u7684\u7FFB\u8F49\u6703\u88AB\u7565\u904E",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void p(int x) {\n  if (x &gt; 0)        // B1\n    if (x &lt; 0)      // B2\n      dead();\n}</code></pre><p>\u57F7\u884C 1 \u7528 <code>x = 5</code>\uFF1AB1 \u771F\u3001B2 \u5047\uFF0CPC = <code>(x &gt; 0) \u2227 (x \u2265 0)</code>\u3002\u7576\u5F15\u64CE\u7FFB\u8F49 B2 \u4EE5\u5617\u8A66\u62B5\u9054 <code>dead()</code> \u6642\uFF0C\u6703\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7FFB\u8F49\u5F8C\u7684\u689D\u4EF6 (x > 0) \u2227 (x < 0) \u70BA UNSAT\uFF0C\u6545\u89E3\u7B97\u5668\u56DE\u50B3\u7121\u89E3\uFF0C\u5F15\u64CE\u7565\u904E\u8A72\u4E0D\u53EF\u884C\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709 x \u540C\u6642\u70BA\u6B63\u53C8\u70BA\u8CA0\uFF0C\u6545 dead() \u4E0D\u53EF\u9054\uFF0C\u6B63\u78BA\u5730\u4E0D\u7522\u751F\u4EFB\u4F55\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u89E3\u7B97\u5668\u56DE\u50B3 x = 0\uFF0C\u62B5\u9054 dead()",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014x = 0 \u65E2\u4E0D\u6EFF\u8DB3 x > 0 \u4E5F\u4E0D\u6EFF\u8DB3 x < 0\uFF1B\u6B64\u9023\u8A00\u7121\u6CD5\u6EFF\u8DB3\u3002"
+              },
+              {
+                "text": "\u5F15\u64CE\u4EE3\u5165\u4E00\u500B\u5177\u9AD4\u503C\uFF0C\u4ECD\u7136\u62B5\u9054 dead()",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5177\u9AD4\u5F8C\u63F4\u662F\u7528\u65BC\u7121\u6CD5\u6C42\u89E3\uFF0F\u4E0D\u900F\u660E\u7684\u9805\uFF0C\u800C\u975E\u5C0D\u4E00\u500B\u4E7E\u6DE8\u7684 UNSAT \u7DDA\u6027\u9650\u5236\u5F0F\uFF1B\u8A72\u8DEF\u5F91\u78BA\u5BE6\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u88AB\u4FEE\u6539\u4EE5\u4F7F\u8A72\u8DEF\u5F91\u8B8A\u70BA\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u5F9E\u4E0D\u4FEE\u6539\u7A0B\u5F0F\uFF1BUNSAT \u7684\u7FFB\u8F49\u5C31\u53EA\u662F\u5F97\u4E0D\u5230\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u7FFB\u8F49 B2 \u4E26\u4FDD\u7559\u524D\u7DB4\u5F97 (x > 0) \u2227 (x < 0)\uFF0C\u6B64\u70BA UNSAT\u3002\u89E3\u7B97\u5668\u56DE\u5831\u7121\u89E3\uFF0C\u6545\u5F15\u64CE\u7565\u904E\u9019\u689D\u4E0D\u53EF\u884C\u8DEF\u5F91\u2014\u2014dead() \u6B63\u78BA\u5730\u6C38\u4E0D\u88AB\u9396\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u6DB5\u84CB\u5169\u5206\u652F\u9700\u5E7E\u6B21\u57F7\u884C",
+            "text": "<p>\u5C0D\u65BC\u55AE\u4E00 <code>if (x &gt; 5) A(); else B();</code>\uFF08\u5169\u5074\u7686\u53EF\u884C\uFF09\uFF0C\u5F9E\u4E00\u500B\u4EFB\u610F\u5177\u9AD4\u8F38\u5165\u958B\u59CB\uFF0C\u9700\u8981\u5E7E\u6B21 concolic \u57F7\u884C\u624D\u80FD\u6DB5\u84CB\u5169\u500B\u5206\u652F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2\u2014\u2014\u4E00\u6B21\u57F7\u884C\u6DB5\u84CB\u7A2E\u5B50\u6240\u8D70\u7684\u5206\u652F\uFF1B\u53D6\u53CD\u5B83\u4E26\u6C42\u89E3\u5F97\u5230\u7B2C\u4E8C\u500B\u8F38\u5165\uFF0C\u6DB5\u84CB\u53E6\u4E00\u5074",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u6B21\u7A2E\u5B50\u57F7\u884C\u52A0\u4E00\u6B21\u53D6\u53CD\u6C42\u89E3\u57F7\u884C\uFF0C\u5373\u53EF\u6DB5\u84CB\u5169\u5074\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u55AE\u6B21\u57F7\u884C\u5373\u6DB5\u84CB\u5169\u500B\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u4E00\u6B21\u5177\u9AD4\u57F7\u884C\u53EA\u8D70\u4E00\u5074\uFF1B\u53E6\u4E00\u5074\u9700\u8981\u4F86\u81EA\u53D6\u53CD\u9650\u5236\u5F0F\u7684\u7B2C\u4E8C\u500B\u8F38\u5165\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u6BCF\u500B\u5206\u652F\u90FD\u9700\u8981\u5169\u6B21\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u55AE\u4E00\u96D9\u5411\u5206\u652F\u7E3D\u5171\u53EA\u9700\u5169\u6B21\u57F7\u884C\uFF0C\u6BCF\u5074\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "\u7121\u4E0A\u9650\u2014\u2014\u96A8\u6A5F\u7A2E\u5B50\u53EF\u80FD\u6C38\u9060\u78B0\u4E0D\u5230\u5169\u5074",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u662F\u5C0E\u5411\u5F0F\u7684\uFF1A\u5B83\u78BA\u5B9A\u6027\u5730\u6C42\u89E3\u53D6\u53CD\u9650\u5236\u5F0F\uFF0C\u6545\u5169\u6B21\u57F7\u884C\u5373\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A2E\u5B50\u57F7\u884C\u6DB5\u84CB\u5176\u5177\u9AD4\u503C\u6240\u8D70\u7684\u90A3\u4E00\u5074\u3002\u53D6\u53CD\u8A72\u5206\u652F\u4E26\u6C42\u89E3\u5F97\u5230\u7B2C\u4E8C\u500B\u8F38\u5165\uFF0C\u6DB5\u84CB\u76F8\u53CD\u5074\u3002\u5169\u6B21\u57F7\u884C\u6DB5\u84CB\u5169\u5206\u652F\u2014\u2014\u9019\u6B63\u662F concolic \u6709\u5225\u65BC\u76F2\u76EE\u96A8\u6A5F\u6E2C\u8A66\u7684\u5C0E\u5411\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u8907\u5408\u5B88\u885B\uFF0C\u4E0B\u4E00\u500B\u8F38\u5165",
+            "text": "<p>\u67D0\u5206\u652F\u5728\u57F7\u884C 1 \u6240\u8A18\u9304\uFF08\u5DF2\u6EFF\u8DB3\uFF09\u7684\u689D\u4EF6\u70BA <code>(x + y &lt; 4)</code>\u3002\u5C07\u5176\u53D6\u53CD\u5F8C\uFF0C\u89E3\u7B97\u5668\u6703\u63A5\u53D7\u54EA\u500B\u8F38\u5165\u5C0D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "x = 3, y = 3\u2014\u2014\u6EFF\u8DB3\u53D6\u53CD\u5F8C\u7684 x + y \u2265 4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 + 3 = 6 \u2265 4\uFF0C\u6545\u6B64\u5C0D\u6703\u8D70\u7FFB\u8F49\u5F8C\u7684\u5206\u652F\u3002"
+              },
+              {
+                "text": "x = 1, y = 1\u2014\u2014\u5C0F\u503C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u20141 + 1 = 2 < 4\uFF0C\u4ECD\u6EFF\u8DB3\u539F\u689D\u4EF6\uFF0C\u800C\u975E\u5176\u5426\u5B9A\u3002"
+              },
+              {
+                "text": "x = 0, y = 3\u2014\u2014\u548C\u70BA 3",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u20140 + 3 = 3 < 4\uFF0C\u4E0D\u6EFF\u8DB3\u53D6\u53CD\u5F8C\u7684\u9650\u5236\u5F0F x + y \u2265 4\u3002"
+              },
+              {
+                "text": "x = 2, y = 1\u2014\u2014\u548C\u70BA 3",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u20142 + 1 = 3 < 4\uFF0C\u6545\u4ECD\u505C\u7559\u5728\u539F\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A x + y < 4 \u53D6\u53CD\u5F97 x + y \u2265 4\u3002\u53EA\u6709 x = 3, y = 3\uFF08\u548C\u70BA 6\uFF09\u6EFF\u8DB3\u5B83\uFF1B\u5176\u9918\u9078\u9805\u7684\u548C\u90FD\u5C0F\u65BC 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u4FDD\u7559\u524D\u7DB4\u3001\u7FFB\u8F49\u8F03\u6DF1\u5206\u652F\u7684\u8F38\u5165",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void q(int a, int b) {\n  if (a == b)       // B1\n    if (a &gt; 10)     // B2\n      z();\n}</code></pre><p>\u57F7\u884C 1 \u7528 <code>a = 3, b = 3</code>\uFF1AB1 \u771F\u3001B2 \u5047\uFF0CPC = <code>(a == b) \u2227 (a \u2264 10)</code>\u3002\u7FFB\u8F49 B2 \u4EE5\u62B5\u9054 <code>z()</code>\uFF0C\u54EA\u500B\u8F38\u5165\u53EF\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a = 11, b = 11\u2014\u2014\u4FDD\u7559 a == b \u4E26\u6EFF\u8DB3 a > 10",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u524D\u7DB4 a == b \u88AB\u4FDD\u7559\uFF0Ca \u2264 10 \u88AB\u53D6\u53CD\u70BA a > 10\uFF1Ba = b = 11 \u5169\u8005\u7686\u6EFF\u8DB3\u3002"
+              },
+              {
+                "text": "a = 11, b = 3\u2014\u2014a > 10 \u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014a \u2260 b \u7834\u58DE\u4E86\u88AB\u4FDD\u7559\u7684\u524D\u7DB4 a == b\uFF0C\u6545 B1 \u70BA\u5047\u3001z() \u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "a = 5, b = 5\u2014\u2014\u76F8\u7B49\u503C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014a = 5 \u4E0D\u6EFF\u8DB3\u53D6\u53CD\u5F8C\u7684\u9650\u5236\u5F0F a > 10\uFF0C\u6545 B2 \u4ECD\u70BA\u5047\u3002"
+              },
+              {
+                "text": "a = 10, b = 10\u2014\u2014\u6B63\u597D\u5728\u908A\u754C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014a > 10 \u70BA\u56B4\u683C\uFF1Ba = 10 \u4E0D\u6EFF\u8DB3\uFF0C\u6545\u5230\u4E0D\u4E86 z()\u3002"
+              }
+            ],
+            "generalFeedback": "\u7FFB\u8F49 B2 \u5F62\u6210 (a == b) \u2227 (a > 10)\uFF1A\u4FDD\u7559 a == b\uFF0C\u53D6\u53CD a \u2264 10 \u70BA a > 10\u3002\u8F38\u5165\u5C0D a = 11, b = 11 \u5169\u500B\u9650\u5236\u5F0F\u7686\u6EFF\u8DB3\uFF0C\u628A\u57F7\u884C\u9A45\u52D5\u9032 z()\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u91CD\u8DD1\u540C\u4E00\u8F38\u5165\u7121\u6CD5\u63A2\u7D22",
+            "text": "<p>\u70BA\u4EC0\u9EBC concolic \u5F15\u64CE\u4E0D\u80FD\u55AE\u9760\u518D\u8DD1\u4E00\u6B21\u540C\u6A23\u7684\u5177\u9AD4\u8F38\u5165\u4F86\u62B5\u9054\u65B0\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u78BA\u5B9A\u6027\u7A0B\u5F0F\u5C0D\u540C\u4E00\u8F38\u5165\u8D70\u540C\u4E00\u8DEF\u5F91\uFF0C\u6545\u65B0\u8DEF\u5F91\u9700\u8981\u4E00\u500B\u7531\u300C\u53D6\u53CD\u4E26\u6C42\u89E3\u9650\u5236\u5F0F\u300D\u5F97\u5230\u7684\u65B0\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u5F15\u64CE\u53D6\u53CD\u4E00\u500B\u5206\u652F\u4E26\u6C42\u51FA\u4E0D\u540C\u8F38\u5165\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u91CD\u8DD1\u6703\u6E05\u7A7A\u7B26\u865F\u72C0\u614B\uFF0C\u907A\u5931\u8DEF\u5F91\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u771F\u6B63\u539F\u56E0\u662F\u78BA\u5B9A\u6027\uFF1A\u540C\u4E00\u8F38\u5165\u3001\u540C\u4E00\u8DEF\u5F91\uFF1B\u5F15\u64CE\u5FC5\u9808\u6539\u8B8A\u8F38\u5165\u624D\u80FD\u6539\u8B8A\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u89E3\u7B97\u5668\u7981\u6B62\u91CD\u8907\u4F7F\u7528\u4EFB\u4F55\u5177\u9AD4\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u4E26\u7121\u6B64\u7981\u4EE4\uFF1B\u91CD\u9EDE\u662F\u540C\u4E00\u8F38\u5165\u53EA\u6703\u91CD\u8D70\u540C\u4E00\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u91CD\u8907\u57F7\u884C\u6703\u96A8\u6A5F\u6311\u5230\u4E0D\u540C\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u78BA\u5B9A\u6027\u7A0B\u5F0F\u4E0D\u6703\u96A8\u6A5F\u6311\u5206\u652F\uFF1B\u76F8\u540C\u8F38\u5165\u7522\u751F\u76F8\u540C\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u78BA\u5B9A\u6027\u7A0B\u5F0F\u800C\u8A00\uFF0C\u5177\u9AD4\u8F38\u5165\u5B8C\u5168\u6C7A\u5B9A\u6240\u8D70\u7684\u8DEF\u5F91\u3002\u8981\u63A2\u7D22\u4E0D\u540C\u8DEF\u5F91\uFF0C\u5F15\u64CE\u5FC5\u9808\u63D0\u4F9B\u4E0D\u540C\u8F38\u5165\u2014\u2014\u7531\u53D6\u53CD\u5DF2\u8A18\u9304\u8DEF\u5F91\u689D\u4EF6\u4E2D\u7684\u67D0\u5206\u652F\u4E26\u6C42\u89E3\u5F97\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\uFF1A\u6DF1\u5EA6\u512A\u5148\u4E0B\u7684\u8F38\u5165\u9806\u5E8F",
+            "text": "<p>\u5C0D\u65BC <code>if (a) {...} if (b) {...}</code>\uFF08\u5169\u500B\u7368\u7ACB\u5206\u652F\uFF09\uFF0C\u5F9E\u4E00\u6B21 <code>a=false, b=false</code> \u7684\u57F7\u884C\u958B\u59CB\uFF0C\u4E14\u5148\u7FFB\u8F49\u6700\u5F8C\u4E00\u500B\u5206\u652F\uFF0C\u5F15\u64CE\u63A5\u8457\u6C42\u89E3\u7684\u8DEF\u5F91\u689D\u4EF6\u7684\u5408\u7406\u9806\u5E8F\u662F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5148 \xACa \u2227 b\uFF08\u7FFB\u8F49\u6700\u5F8C\u7684\u5206\u652F\uFF09\uFF0C\u518D a \u2227 ...\uFF08\u56DE\u6EAF\u7FFB\u8F49\u7B2C\u4E00\u500B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DF1\u5EA6\u512A\u5148\u5148\u7FFB\u8F49\u6700\u6DF1\u7684\u5206\u652F\uFF08b\uFF09\uFF0C\u518D\u56DE\u6EAF\u5230\u8F03\u65E9\u8005\uFF08a\uFF09\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 a \u2227 b\uFF0C\u5FFD\u7565\u5176\u4ED6\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u6DF1\u5EA6\u512A\u5148\u6703\u63A2\u7D22\u4E0D\u53EA\u4E00\u7A2E\u7D44\u5408\uFF1B\u5B83\u5148\u7FFB\u8F49\u6700\u5F8C\u5206\u652F\u5F97 \xACa \u2227 b\u3002"
+              },
+              {
+                "text": "\u5B83\u6C42\u89E3 \xACa \u2227 \xACb\uFF0C\u8207\u7A2E\u5B50\u57F7\u884C\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u90A3\u662F\u5DF2\u6DB5\u84CB\u7684\u7A2E\u5B50\u8DEF\u5F91\uFF1B\u5F15\u64CE\u6703\u7FFB\u8F49\u4E00\u500B\u5206\u652F\u4EE5\u62B5\u9054\u65B0\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B83\u5FC5\u9808\u5148\u540C\u6642\u7FFB\u8F49\u5169\u500B\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u6BCF\u6B65\u6070\u597D\u7FFB\u8F49\u4E00\u500B\u5206\u652F\uFF1B\u6DF1\u5EA6\u512A\u5148\u4E0B\u5148\u7FFB\u6700\u6DF1\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF1\u5EA6\u512A\u5148\u5148\u7FFB\u8F49\u6700\u5F8C\u7684\u5206\u652F\uFF1A\u5F9E \xACa \u2227 \xACb \u5F62\u6210 \xACa \u2227 b\uFF0C\u5F85\u8A72\u5B50\u6A39\u63A2\u7D22\u5B8C\u5F8C\u56DE\u6EAF\u7FFB\u8F49\u7B2C\u4E00\u500B\u5206\u652F\uFF08a \u2227 ...\uFF09\u3002\u6BCF\u6B65\u53EA\u53D6\u53CD\u55AE\u4E00\u5206\u652F\u4E26\u4FDD\u7559\u524D\u7DB4\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5177\u9AD4\u503C\u4F7F\u524D\u7DB4\u4FDD\u6301\u4E00\u81F4",
+            "text": "<p>\u7576\u5F15\u64CE\u53D6\u53CD\u6700\u5F8C\u4E00\u500B\u5206\u652F\u6642\uFF0C\u5B83\u6703\u4FDD\u6301\u8F03\u65E9\u7684\u5206\u652F\u689D\u4EF6\u4E0D\u8B8A\uFF0C\u597D\u8B93\u6C42\u5F97\u7684\u8F38\u5165\u4ECD\u80FD\u62B5\u9054\u90A3\u500B\u5206\u652F\u9EDE\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4FDD\u7559\u524D\u7DB4\u78BA\u4FDD\u65B0\u8F38\u5165\u5728\u5206\u6B67\u524D\u78BA\u5BE6\u62B5\u9054\u88AB\u7FFB\u8F49\u7684\u5206\u652F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4FDD\u7559\u524D\u7DB4\u6B63\u662F\u70BA\u4E86\u8B93\u65B0\u8F38\u5165\u6CBF\u540C\u4E00\u8DEF\u7DDA\u8D70\u5230\u88AB\u7FFB\u8F49\u7684\u5206\u652F\uFF0C\u518D\u5728\u8A72\u8655\u5206\u6B67\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u62B5\u9054\u67D0\u500B\u6DF1\u5C64\u5206\u652F\u7684\u624B\u8DB3\u8DEF\u5F91\uFF0C\u8F38\u5165\u5FC5\u9808\u5148\u6EFF\u8DB3\u901A\u5F80\u5B83\u7684\u6240\u6709\u8F03\u65E9\u6C7A\u7B56\u3002\u56E0\u6B64\u5F15\u64CE\u4FDD\u7559\u524D\u7DB4\u9650\u5236\u5F0F\u3001\u53EA\u53D6\u53CD\u76EE\u6A19\u5206\u652F\uFF0C\u518D\u6C42\u89E3\u6574\u500B\u9023\u8A00\u3002"
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u5916\u90E8\u547C\u53EB\u7684\u5177\u9AD4\u5F8C\u63F4",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void r(int x) {\n  int h = opaque_hash(x);   // native/library, no symbolic model\n  if (h == 1234) win();     // B1\n}</code></pre><p>\u5728\u7D14\u7B26\u865F\u5F15\u64CE\u6703\u5361\u4F4F\u4E4B\u8655\uFF0Cconcolic \u57F7\u884C\u5982\u4F55\u5728 B1 \u7E7C\u7E8C\u524D\u9032\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE3\u5165\u57F7\u884C\u671F\u89C0\u5BDF\u5230\u7684 h \u5177\u9AD4\u503C\uFF0C\u4F7F B1 \u8B8A\u6210\u5177\u9AD4\u7684\u771F\uFF0F\u5047\uFF0C\u57F7\u884C\u6CBF\u4E00\u689D\u771F\u5BE6\u8DEF\u5F91\u7E7C\u7E8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u57F7\u884C\u6C38\u9060\u6709\u4E00\u500B\u5BE6\u969B\u7684 h\uFF0C\u6545 concolic \u80FD\u5728\u7D14\u7B26\u865F\u6703\u5361\u4F4F\u7684\u4E0D\u53EF\u5EFA\u6A21\u547C\u53EB\u8655\u7E7C\u7E8C\u3002"
+              },
+              {
+                "text": "\u5B83\u81EA\u52D5\u70BA opaque_hash \u5EFA\u7ACB\u5B8C\u6574\u7684\u7B26\u865F\u6A21\u578B",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8A72\u547C\u53EB\u4E0D\u900F\u660E\u4E14\u7121\u6A21\u578B\uFF1Bconcolic \u662F\u7528\u5177\u9AD4\u89C0\u5BDF\u503C\u7E5E\u904E\u5B83\uFF0C\u800C\u975E\u5EFA\u6A21\u3002"
+              },
+              {
+                "text": "\u5B83\u50CF\u7D14\u7B26\u865F\u57F7\u884C\u4E00\u6A23\u4E2D\u6B62",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5177\u9AD4\u4F34\u96A8\u503C\u7684\u91CD\u9EDE\u6B63\u662F\u8981\u8D8A\u904E\u4E0D\u900F\u660E\u547C\u53EB\u7E7C\u7E8C\uFF0C\u800C\u4E0D\u662F\u4E2D\u6B62\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E B1 \u4E0D\u53EF\u9054",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5B83\u4E26\u4E0D\u5C0D B1 \u505A\u4EFB\u4F55\u8B49\u660E\uFF1B\u5B83\u53EA\u662F\u4EE3\u5165\u5177\u9AD4 h \u4E26\u6CBF\u7531\u6B64\u5F97\u5230\u7684\u771F\u5BE6\u8DEF\u5F91\u8D70\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA opaque_hash \u6C92\u6709\u7B26\u865F\u6A21\u578B\uFF0C\u5176\u7B26\u865F\u7D50\u679C\u672A\u77E5\u3002concolic \u57F7\u884C\u4F7F\u7528\u771F\u5BE6\u57F7\u884C\u6240\u7522\u751F\u7684 h \u5177\u9AD4\u503C\uFF0C\u6545 B1 \u5177\u9AD4\u5730\u6C42\u503C\u3001\u57F7\u884C\u6CBF\u4E00\u689D\u771F\u6B63\u8DEF\u5F91\u524D\u9032\u2014\u2014\u9019\u6B63\u662F\u76F8\u8F03\u65BC\u7D14\u7B26\u865F\u57F7\u884C\uFF08\u6703\u5361\u4F4F\uFF09\u7684\u95DC\u9375\u512A\u52E2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u9AD4\u5F8C\u63F4\u7684\u5B8C\u6574\u6027\u4EE3\u50F9",
+            "text": "<p>\u7576 concolic \u57F7\u884C\u5C0D\u67D0\u500B\u7121\u6CD5\u6C42\u89E3\uFF0F\u4E0D\u900F\u660E\u7684\u9805\u4EE3\u5165\u5177\u9AD4\u503C\u6642\uFF0C\u4EE3\u50F9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u5B8C\u6574\uFF08incompleteness\uFF09\u2014\u2014\u628A\u8A72\u9805\u56FA\u5B9A\u70BA\u55AE\u4E00\u5177\u9AD4\u503C\uFF0C\u5F15\u64CE\u53EF\u80FD\u7121\u6CD5\u63A2\u7D22\u5176\u4ED6\u4F9D\u8CF4\u5B83\u7684\u53EF\u884C\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F8C\u63F4\u8B93\u57F7\u884C\u80FD\u7E7C\u7E8C\uFF0C\u4F46\u53EF\u80FD\u96B1\u85CF\u90A3\u4E9B\u53EA\u5728\u8A72\u4E0D\u900F\u660E\u9805\u53D6\u5176\u4ED6\u503C\u6642\u624D\u53EF\u9054\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4E0D\u5065\u5168\uFF08unsoundness\uFF09\u2014\u2014\u5B83\u53EF\u80FD\u56DE\u5831\u5BE6\u969B\u4E0A\u8DD1\u4E0D\u5230\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u6BCF\u6B21\u57F7\u884C\u90FD\u662F\u5177\u9AD4\u4E14\u771F\u5BE6\u7684\uFF0C\u6545\u6240\u63A2\u7D22\u8DEF\u5F91\u7684\u5065\u5168\u6027\u5F97\u4EE5\u4FDD\u6301\uFF1B\u4EE3\u50F9\u662F\u6F0F\u6389\u8DEF\u5F91\uFF08\u5B8C\u6574\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u5B83\u7E3D\u662F\u4F7F\u89E3\u7B97\u5668\u7576\u6A5F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u4EE3\u5165\u5177\u9AD4\u503C\u6703\u7C21\u5316\u9650\u5236\u5F0F\uFF0C\u4E0D\u6703\u4F7F\u89E3\u7B97\u5668\u7576\u6A5F\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EE3\u50F9\uFF1B\u8986\u84CB\u7387\u4E0D\u53D7\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u628A\u4E0D\u900F\u660E\u9805\u91D8\u6B7B\u5728\u55AE\u4E00\u503C\u53EF\u80FD\u59A8\u7919\u62B5\u9054\u5176\u4ED6\u8DEF\u5F91\uFF0C\u9019\u662F\u4E0D\u5B8C\u6574\u7684\u4EE3\u50F9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u5F8C\u63F4\u4FDD\u6301\u5065\u5168\u6027\uFF08\u6240\u63A2\u7D22\u8DEF\u5F91\u7686\u70BA\u771F\u5BE6\uFF09\uFF0C\u4F46\u72A7\u7272\u5B8C\u6574\u6027\uFF1A\u628A\u4E0D\u900F\u660E\u9805\u56FA\u5B9A\u70BA\u6240\u89C0\u5BDF\u5230\u7684\u552F\u4E00\u5177\u9AD4\u503C\uFF0C\u53EF\u80FD\u906E\u853D\u53EA\u5728\u8A72\u9805\u53D6\u5176\u4ED6\u503C\u6642\u624D\u53EF\u884C\u7684\u5206\u652F\uFF0C\u56E0\u6B64\u67D0\u4E9B\u8DEF\u5F91\u53EF\u80FD\u6C38\u4E0D\u88AB\u63A2\u7D22\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u7DDA\u6027\u9650\u5236\u5F0F\u7684\u5F8C\u63F4",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void s(int x, int y) {\n  if (x * y == 30)   // B1, nonlinear\n    t();\n}</code></pre><p>\u57F7\u884C 1 \u7528 <code>x = 6, y = 4</code>\uFF08\u6545 x*y = 24\uFF0CB1 \u5047\uFF09\u3002\u82E5\u89E3\u7B97\u5668\u7121\u6CD5\u8655\u7406\u9019\u500B\u975E\u7DDA\u6027\u7FFB\u8F49\uFF0Cconcolic \u4ECD\u80FD\u5982\u4F55\u53D6\u5F97\u9032\u5C55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u5176\u4E2D\u4E00\u500B\u8B8A\u6578\u56FA\u5B9A\u70BA\u5176\u5177\u9AD4\u503C\uFF08\u4F8B\u5982 x = 6\uFF09\uFF0C\u4F7F\u9650\u5236\u5F0F\u8B8A\u70BA\u7DDA\u6027\uFF086*y == 30 \u2192 y = 5\uFF09\uFF0C\u518D\u6C42\u89E3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A x \u91D8\u70BA\u5177\u9AD4\u503C\u4F7F\u9650\u5236\u5F0F\u7DDA\u6027\u5316\uFF0C\u8B93\u89E3\u7B97\u5668\u6C42\u51FA y = 5 \u4E26\u62B5\u9054 t()\u3002"
+              },
+              {
+                "text": "\u76F4\u63A5\u653E\u68C4\uFF0C\u56E0\u70BA\u975E\u7DDA\u6027\u9650\u5236\u5F0F\u4E0D\u53EF\u5224\u5B9A",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u662F\u7528\u5176\u4E2D\u4E00\u500B\u904B\u7B97\u5143\u7684\u5177\u9AD4\u503C\u628A\u5F0F\u5B50\u7C21\u5316\u70BA\u53EF\u89E3\u7684\u7DDA\u6027\u9650\u5236\u5F0F\uFF0C\u800C\u975E\u653E\u68C4\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u4E82\u731C x \u8207 y\uFF0C\u76F4\u5230 x*y == 30",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u7684\u505A\u6CD5\u662F\u628A\u4E00\u500B\u904B\u7B97\u5143\u5177\u9AD4\u91D8\u6B7B\uFF0C\u518D\u6C42\u89E3\u7531\u6B64\u5F97\u5230\u7684\u7DDA\u6027\u65B9\u7A0B\uFF1B\u9019\u6B63\u662F\u5177\u9AD4\u4F34\u96A8\u7684\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u4FEE\u6539\u7A0B\u5F0F\u4EE5\u79FB\u9664\u4E58\u6CD5",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7A0B\u5F0F\u5F9E\u4E0D\u88AB\u4FEE\u6539\uFF1B\u662F\u4EE3\u5165 x \u7684\u5177\u9AD4\u503C\u4F86\u7C21\u5316\u9650\u5236\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "concolic \u57F7\u884C\u4EE3\u5165\u5176\u4E2D\u4E00\u500B\u904B\u7B97\u5143\u7684\u5177\u9AD4\u503C\uFF08x = 6\uFF09\uFF0C\u628A x*y == 30 \u5316\u70BA\u7DDA\u6027\u7684 6*y == 30\uFF0C\u89E3\u7B97\u5668\u4EE5 y = 5 \u6EFF\u8DB3\u4E4B\u3002\u4EE5 x = 6, y = 5 \u57F7\u884C\u5373\u62B5\u9054 t()\u3002\u4EE3\u50F9\u662F\u4E0D\u5B8C\u6574\uFF1A\u628A x \u91D8\u70BA 6 \u53EF\u80FD\u6F0F\u6389\u5982 x = 5, y = 6 \u4E4B\u985E\u7684\u89E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5065\u5168\u6027\u8207\u5B8C\u6574\u6027",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\u523B\u756B concolic \u57F7\u884C\u7684\u4FDD\u8B49\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6240\u63A2\u7D22\u7684\u8DEF\u5F91\u90FD\u662F\u771F\u5BE6\u7684\uFF08\u5065\u5168\uFF09\uFF0C\u4F46\u53EF\u80FD\u6F0F\u6389\u67D0\u4E9B\u53EF\u884C\u8DEF\u5F91\uFF08\u4E0D\u5B8C\u6574\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u771F\u5BE6\u7684\u5177\u9AD4\u57F7\u884C\u4FDD\u8B49\u6C92\u6709\u865B\u5047\u8DEF\u5F91\uFF0C\u800C\u5177\u9AD4\u5F8C\u63F4\u8207\u754C\u9650\u8A2D\u5B9A\u5247\u53EF\u80FD\u4F7F\u67D0\u4E9B\u8DEF\u5F91\u672A\u88AB\u63A2\u7D22\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u63A2\u7D22\u6BCF\u4E00\u689D\u53EF\u884C\u8DEF\u5F91\uFF08\u5B8C\u6574\uFF09\uFF0C\u4F46\u53EF\u80FD\u56DE\u5831\u4E00\u4E9B\u8DD1\u4E0D\u5230\u7684\u8DEF\u5F91\uFF08\u4E0D\u5065\u5168\uFF09",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u6070\u597D\u76F8\u53CD\uFF1A\u5C0D\u6240\u63A2\u7D22\u8DEF\u5F91\u662F\u5065\u5168\u7684\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u5B8C\u6574\u3002"
+              },
+              {
+                "text": "\u5C0D\u6240\u6709\u7A0B\u5F0F\u5B83\u65E2\u5B8C\u5168\u5065\u5168\u53C8\u5B8C\u5168\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8DEF\u5F91\u7206\u70B8\u8207\u5177\u9AD4\u5F8C\u63F4\u610F\u5473\u8457\u5B8C\u6574\u6027\u7121\u6CD5\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u5B83\u65E2\u4E0D\u5065\u5168\u4E5F\u4E0D\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u56E0\u70BA\u6BCF\u689D\u88AB\u63A2\u7D22\u7684\u8DEF\u5F91\u90FD\u662F\u771F\u5BE6\u57F7\u884C\uFF0C\u5B83\u5C0D\u5176\u56DE\u5831\u7684\u8DEF\u5F91\u662F\u5065\u5168\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u4E00\u6B65 concolic \u90FD\u662F\u771F\u6B63\u7684\u5177\u9AD4\u57F7\u884C\uFF0C\u6545\u5176\u6240\u63A2\u7D22\u7684\u8DEF\u5F91\u7686\u70BA\u771F\u5BE6\uFF08\u5C0D\u6240\u63A2\u7D22\u8DEF\u5F91\u7684\u5065\u5168\u6027\u2014\u2014\u4E0D\u6703\u56E0\u4E0D\u53EF\u884C\u8DEF\u5F91\u800C\u7522\u751F\u8AA4\u5831\uFF09\u3002\u4F46\u5C0D\u4E0D\u900F\u660E\uFF0F\u975E\u7DDA\u6027\u9805\u7684\u5177\u9AD4\u5F8C\u63F4\u8207\u6709\u754C\u641C\u5C0B\uFF0C\u610F\u5473\u8457\u5B83\u53EF\u80FD\u7121\u6CD5\u62B5\u9054\u6BCF\u689D\u53EF\u884C\u8DEF\u5F91\uFF08\u4E0D\u5B8C\u6574\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DEF\u5F91\u7206\u70B8\u662F\u88AB\u7BA1\u7406\uFF0C\u800C\u975E\u88AB\u6D88\u9664",
+            "text": "<p>concolic \u57F7\u884C\u8207\u8DEF\u5F91\u7206\u70B8\u7684\u95DC\u4FC2\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4ECD\u9762\u81E8\u8DEF\u5F91\u7206\u70B8\uFF0C\u4E26\u4EE5\u641C\u5C0B\u7B56\u7565\u8207\u8FED\u4EE3\uFF0F\u6DF1\u5EA6\u754C\u9650\u4F86\u7BA1\u7406\u5B83\uFF0C\u800C\u975E\u6D88\u9664\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014concolic \u4E0D\u6703\u79FB\u9664\u6307\u6578\u7D1A\u7684\u8DEF\u5F91\u6210\u9577\uFF1B\u5B83\u4EE5\u754C\u9650\u641C\u5C0B\u4F86\u56E0\u61C9\u3002"
+              },
+              {
+                "text": "\u5B83\u85C9\u7531\u4F7F\u7528\u5177\u9AD4\u8F38\u5165\u800C\u5B8C\u5168\u6D88\u9664\u8DEF\u5F91\u7206\u70B8",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u4F7F\u7528\u5177\u9AD4\u8F38\u5165\u4E26\u4E0D\u6703\u79FB\u9664\u6307\u6578\u7D1A\u7684\u5206\u652F\u7D44\u5408\u6578\uFF1Bconcolic \u4ECD\u9808\u5C0D\u641C\u5C0B\u8A2D\u754C\u3002"
+              },
+              {
+                "text": "\u5B83\u6C92\u6709\u8DEF\u5F91\u7684\u6982\u5FF5\uFF0C\u6545\u8DEF\u5F91\u7206\u70B8\u4E0D\u9069\u7528",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u660E\u78BA\u85C9\u5206\u652F\u7FFB\u8F49\u63A2\u7D22\u8DEF\u5F91\uFF0C\u6545\u8DEF\u5F91\u7206\u70B8\u975E\u5E38\u9069\u7528\u3002"
+              },
+              {
+                "text": "\u8DEF\u5F91\u7206\u70B8\u53EA\u5F71\u97FF\u96A8\u6A5F\u6E2C\u8A66\uFF0C\u4E0D\u5F71\u97FF concolic",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8DEF\u5F91\u7206\u70B8\u662F\u6240\u6709\u4EE5\u8DEF\u5F91\u70BA\u57FA\u790E\u4E4B\u6280\u8853\u7684\u6838\u5FC3\u6311\u6230\uFF0Cconcolic \u4EA6\u7136\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u6B21\u5206\u652F\u7FFB\u8F49\u90FD\u53EF\u80FD\u5F15\u51FA\u66F4\u591A\u5206\u652F\uFF0C\u6545\u8DEF\u5F91\u6578\u4ECD\u6307\u6578\u6210\u9577\u3002concolic \u4EE5\u641C\u5C0B\u555F\u767C\u5F0F\uFF08\u6DF1\u5EA6\u512A\u5148\u3001\u8986\u84CB\u7387\u5C0E\u5411\uFF09\u8207\u5C0D\u8FED\u4EE3\u3001\u8FF4\u5708\u5C55\u958B\u6216\u6DF1\u5EA6\u7684\u754C\u9650\u4F86\u7BA1\u7406\u5B83\u2014\u2014\u4F46\u4E0D\u6D88\u9664\u8DEF\u5F91\u7206\u70B8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u591A\u5206\u652F\u8FFD\u8E64\uFF1A\u8AAA\u51FA\u6BCF\u500B\u4E0B\u4E00\u500B\u8F38\u5165\uFF081\uFF09",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void f(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b == a + 1)   // B2\n      target();\n}</code></pre><p>\u7A2E\u5B50\u57F7\u884C\uFF1A<code>a = -1, b = 0</code>\uFF08B1 \u5047\uFF09\u3002\u5728\u6DF1\u5EA6\u512A\u5148\u7FFB\u8F49\u4E0B\uFF0C\u7B2C\u4E00\u6B21\u4F7F B1 \u70BA\u771F\uFF08\u7FFB\u8F49 B1\uFF09\u7684\u90A3\u6B21\u57F7\u884C\u7684\u8F38\u5165\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EFB\u4F55 a > 0 \u4E14 b \u4E0D\u53D7\u9650\uFF0C\u4F8B\u5982 a = 1, b = 0\u2014\u2014\u6C42\u89E3\u55AE\u4E00\u9650\u5236\u5F0F a > 0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7FFB\u8F49 B1 \u53EA\u52A0\u4E0A a > 0\uFF1BB2 \u5C1A\u672A\u51FA\u73FE\u5728\u5DF2\u8A18\u9304\u8DEF\u5F91\u4E0A\uFF0C\u6545 b \u81EA\u7531\uFF08\u4F8B\u5982 b = 0\uFF09\u3002"
+              },
+              {
+                "text": "a = 1, b = 2\u2014\u2014\u5FC5\u9808\u4E5F\u5DF2\u6EFF\u8DB3 B2",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7FFB\u8F49 B1 \u6642\u53EA\u9700\u8981 a > 0\uFF1B\u6B64\u6B65 B2 \u5C1A\u672A\u88AB\u8A18\u9304\uFF0C\u6545 b \u4E0D\u5FC5\u6EFF\u8DB3 b == a + 1\u3002"
+              },
+              {
+                "text": "a = -1, b = 0\u2014\u2014\u6CBF\u7528\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7A2E\u5B50\u7684 B1 \u70BA\u5047\uFF1B\u7FFB\u8F49 B1 \u9700\u8981 a > 0\uFF0C\u6545\u8F38\u5165\u5FC5\u9808\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u7121\u89E3\uFF1Ba > 0 \u7121\u6CD5\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014a > 0 \u986F\u7136\u53EF\u6EFF\u8DB3\uFF0C\u4F8B\u5982 a = 1\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A2E\u5B50\u8D70 B1 \u5047\uFF0C\u6545\u5176\u8DEF\u5F91\u689D\u4EF6\u50C5\u70BA a \u2264 0\u3002\u53D6\u53CD\u5F97 a > 0\uFF0C\u662F\u6B64\u6B65\u552F\u4E00\u7684\u9650\u5236\u5F0F\uFF08B2 \u5F9E\u672A\u88AB\u62B5\u9054\uFF09\u3002\u89E3\u7B97\u5668\u56DE\u50B3\u4EFB\u4E00 a > 0\uFF0C\u4F8B\u5982 a = 1, b = 0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u591A\u5206\u652F\u8FFD\u8E64\uFF1A\u8AAA\u51FA\u6BCF\u500B\u4E0B\u4E00\u500B\u8F38\u5165\uFF082\uFF09",
+            "text": "<p>\u5EF6\u7E8C\u524D\u4E00\u6BB5\u7A0B\u5F0F\uFF0C\u57F7\u884C <code>a = 1, b = 0</code> \u73FE\u5728\u8D70 B1 \u771F\u3001B2 \u5047\uFF080 \u2260 2\uFF09\uFF0CPC = <code>(a &gt; 0) \u2227 (b \u2260 a + 1)</code>\u3002\u7FFB\u8F49 B2\uFF0C\u54EA\u500B\u8F38\u5165\u80FD\u62B5\u9054 <code>target()</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a = 1, b = 2\u2014\u2014\u4FDD\u7559 a > 0 \u4E26\u6EFF\u8DB3 b == a + 1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4FDD\u7559 a > 0\uFF0C\u628A b \u2260 a + 1 \u53D6\u53CD\u70BA b == a + 1\uFF1B\u7576 a = 1 \u5373 b = 2\u3002"
+              },
+              {
+                "text": "a = 1, b = 1\u2014\u2014b \u6CBF\u7528\u524D\u4E00\u6B65",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014b \u5FC5\u9808\u7B49\u65BC a + 1 = 2\uFF1Bb = 1 \u4E0D\u6EFF\u8DB3\u7FFB\u8F49\u5F8C\u7684\u9650\u5236\u5F0F\u3002"
+              },
+              {
+                "text": "a = 0, b = 1\u2014\u2014b == a + 1 \u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014a = 0 \u7834\u58DE\u4E86\u88AB\u4FDD\u7559\u7684\u524D\u7DB4 a > 0\uFF0C\u6545 B1 \u8B8A\u5047\u3001target() \u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "a = 2, b = 2\u2014\u2014\u5169\u8005\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7576 a = 2 \u6642 b == a + 1 \u9700\u8981 b = 3\uFF0C\u800C\u975E 2\u3002"
+              }
+            ],
+            "generalFeedback": "\u7FFB\u8F49 B2 \u5F97 (a > 0) \u2227 (b == a + 1)\u3002\u6CBF\u7528\u524D\u7DB4\u7684 a = 1\uFF0Cb \u5FC5\u9808\u70BA a + 1 = 2\u3002\u8F38\u5165 a = 1, b = 2 \u62B5\u9054 target()\u3002\uFF08\u89E3\u7B97\u5668\u4E5F\u53EF\u80FD\u9078\u53E6\u4E00\u500B a > 0 \u4E26\u642D\u914D\u76F8\u61C9\u7684 b\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u591A\u5206\u652F\u8FFD\u8E64\uFF1A\u4E09\u6B21\u8FED\u4EE3\u8A08\u6578",
+            "text": "<p>\u5C0D\u65BC\u5DE2\u72C0\u7247\u6BB5 <code>if (a &gt; 0) if (b == a + 1) target();</code>\uFF0C\u5F9E\u7A2E\u5B50 <code>a = -1, b = 0</code> \u958B\u59CB\uFF0C\u6BCF\u6B21\u8FED\u4EE3\u6309\u6DF1\u5EA6\u512A\u5148\u7FFB\u8F49\u4E00\u500B\u5206\u652F\uFF0C\u9700\u8981\u5E7E\u6B21 concolic \u57F7\u884C\uFF08\u542B\u7A2E\u5B50\uFF09\u624D\u80FD\u9996\u6B21\u62B5\u9054 <code>target()</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014\u7A2E\u5B50\uFF08B1 \u5047\uFF09\u3001\u7136\u5F8C B1 \u771F\uFF0FB2 \u5047\u3001\u518D\u4F86 B1 \u771F\uFF0FB2 \u771F\u62B5\u9054 target()",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9700\u8981\u4E00\u6B21\u7FFB\u8F49\u9032\u5165 B1\uFF0C\u518D\u4E00\u6B21\u7FFB\u8F49\u6EFF\u8DB3 B2\uFF0C\u6545\u7B2C\u4E09\u6B21\u57F7\u884C\u64CA\u4E2D target()\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u7A2E\u5B50\u52A0\u4E00\u6B21\u7FFB\u8F49\u5373\u62B5\u9054 target()",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7A2E\u5B50\u672A\u904E B1\uFF1B\u4E00\u6B21\u7FFB\u8F49\u53EA\u8B93 B1 \u70BA\u771F\uFF08B2 \u4ECD\u5047\uFF09\uFF0C\u6545\u9700\u7B2C\u4E8C\u6B21\u7FFB\u8F49\uFF0C\u5171\u4E09\u6B21\u57F7\u884C\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u7A2E\u5B50\u76F4\u63A5\u62B5\u9054 target()",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7A2E\u5B50 a = -1\uFF0C\u7ACB\u523B\u672A\u904E B1\uFF0C\u6545\u7121\u6CD5\u62B5\u9054 target()\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u6BCF\u5C64\u5DE2\u72C0\u4F7F\u57F7\u884C\u6B21\u6578\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u9019\u689D\u7279\u5B9A\u8DEF\u5F91\u5728\u7A2E\u5B50\u4E4B\u5F8C\u6070\u597D\u9700\u8981\u5169\u6B21\u5206\u652F\u7FFB\u8F49\uFF0C\u5373\u4E09\u6B21\u57F7\u884C\uFF0C\u800C\u975E\u56DB\u6B21\u3002"
+              }
+            ],
+            "generalFeedback": "\u57F7\u884C 1\uFF08\u7A2E\u5B50 a=-1\uFF09\uFF1AB1 \u5047\u3002\u57F7\u884C 2\uFF08a=1, b=0\uFF09\uFF1A\u7FFB\u8F49 B1 \u2192 B1 \u771F\u3001B2 \u5047\u3002\u57F7\u884C 3\uFF08a=1, b=2\uFF09\uFF1A\u7FFB\u8F49 B2 \u2192 \u5169\u8005\u7686\u771F\uFF0C\u62B5\u9054 target()\u3002\u5171\u4E09\u6B21\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u641C\u5C0B\u8A2D\u754C",
+            "text": "<p>\u7576\u8FF4\u5708\u6B21\u6578\u53D6\u6C7A\u65BC\u8F38\u5165\u6642\uFF0C\u70BA\u4E86\u8B93 concolic \u63A2\u7D22\u4FDD\u6301\u6709\u9650\uFF0C\u5E38\u898B\u505A\u6CD5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A2D\u4E00\u500B\u754C\u9650\u2014\u2014\u4F8B\u5982\u6DF1\u5EA6\uFF0F\u8FED\u4EE3\u4E0A\u9650\u6216\u6709\u754C\u8FF4\u5708\u5C55\u958B\u2014\u2014\u4E26\u63A5\u53D7\u754C\u9650\u5916\u7684\u8DEF\u5F91\u4E0D\u88AB\u63A2\u7D22",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A2D\u754C\u4EE5\u7D42\u6B62\u6027\u63DB\u53D6\uFF0C\u662F\u5E38\u898B\u7684\u8DEF\u5F91\u7206\u70B8\u63A7\u5236\u624B\u6BB5\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u628A\u6240\u6709\u8FF4\u5708\u9AD4\u5206\u652F\u53D6\u53CD\uFF0C\u597D\u5728\u4E00\u6B21\u57F7\u884C\u6DB5\u84CB\u6240\u6709\u8FED\u4EE3",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u55AE\u6B21\u57F7\u884C\u53EA\u6DB5\u84CB\u4E00\u689D\u8DEF\u5F91\uFF1B\u8FF4\u5708\u662F\u4EE5\u8A2D\u754C\u63A2\u7D22\u8655\u7406\uFF0C\u800C\u975E\u540C\u6642\u53D6\u53CD\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u8FF4\u5708\u6703\u7D42\u6B62\u5F8C\u5C31\u7565\u904E\u5B83",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7565\u904E\u8FF4\u5708\u6703\u6F0F\u6389\u5176\u884C\u70BA\uFF1B\u61C9\u6539\u4EE5\u8A2D\u754C\uFF0F\u5C55\u958B\u8655\u7406\u8FF4\u5708\u3002"
+              },
+              {
+                "text": "\u6539\u7528\u7D14\u7B26\u865F\u57F7\u884C\uFF0C\u56E0\u70BA\u5B83\u6C92\u6709\u8DEF\u5F91\u7206\u70B8",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u7D14\u7B26\u865F\u57F7\u884C\u540C\u6A23\u6709\u8DEF\u5F91\u7206\u70B8\uFF1B\u6539\u7528\u5B83\u4E26\u4E0D\u80FD\u89E3\u6C7A\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u5316\u7684\u8FF4\u5708\u6B21\u6578\u53EF\u80FD\u5F15\u51FA\u7121\u754C\u591A\u7684\u8DEF\u5F91\uFF0C\u6545\u5F15\u64CE\u4EE5\u8FED\u4EE3\uFF0F\u6DF1\u5EA6\u4E0A\u9650\u6216\u6709\u754C\u5C55\u958B\uFF08\u4E26\u642D\u914D\u641C\u5C0B\u555F\u767C\u5F0F\uFF09\u5C0D\u63A2\u7D22\u8A2D\u754C\u3002\u9019\u4EE5\u4E0D\u63A2\u7D22\u754C\u9650\u5916\u8DEF\u5F91\u70BA\u4EE3\u50F9\u63DB\u53D6\u6709\u9650\u7684\u57F7\u884C\u2014\u2014\u4E00\u7A2E\u88AB\u63A5\u53D7\u7684\u4E0D\u5B8C\u6574\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "CUTE \u8207\u6307\u6A19\u578B\u8F38\u5165",
+            "text": "<p>CUTE \u628A concolic \u6E2C\u8A66\u64F4\u5C55\u5230\u542B\u6307\u6A19\u8207\u52D5\u614B\u8CC7\u6599\u7D50\u69CB\u7684\u7A0B\u5F0F\uFF0C\u65B9\u6CD5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5177\u9AD4\u6307\u6A19\u65C1\u8FFD\u8E64\u5806\u7A4D\uFF0F\u6307\u6A19\u7D50\u69CB\u7684\u7B26\u865F\u8868\u793A\uFF0C\u4E26\u50CF\u6C42\u89E3\u7D14\u91CF\u9650\u5236\u5F0F\u4E00\u6A23\u6C42\u89E3\u6307\u6A19\u9650\u5236\u5F0F\uFF08\u4F8B\u5982\u5225\u540D\u3001\u662F\u5426\u70BA null\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014CUTE \u540C\u6642\u8655\u7406\u7D14\u91CF\u7684\u908F\u8F2F\u8F38\u5165\u5C0D\u6620\u8207\u6307\u6A19\u8F38\u5165\u7684\u7D50\u69CB\uFF0C\u4E26\u4EE5\u5177\u9AD4\u57F7\u884C\u88DC\u8DB3\u89E3\u7B97\u5668\u6240\u4E0D\u80FD\u3002"
+              },
+              {
+                "text": "\u7981\u6B62\u4E00\u5207\u6307\u6A19\u8F38\u5165\uFF0C\u53EA\u6E2C\u8A66\u6574\u6578",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014CUTE \u7684\u8CA2\u737B\u6B63\u662F\u652F\u63F4\u6307\u6A19\u8207\u8CC7\u6599\u7D50\u69CB\u578B\u8F38\u5165\uFF0C\u800C\u975E\u7981\u6B62\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u524D\u628A\u6574\u652F\u7A0B\u5F0F\u8F49\u6210\u7121\u6307\u6A19\u7684\u5F62\u5F0F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014CUTE \u76F4\u63A5\u5C0D\u6307\u6A19\u63A8\u7406\uFF0C\u5728\u7B26\u865F\u63A8\u7406\u4E0D\u8DB3\u8655\u4F7F\u7528\u5177\u9AD4\u503C\u3002"
+              },
+              {
+                "text": "\u53EA\u5C0D\u5806\u7A4D\u57F7\u884C\u7D14\u7B26\u865F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014CUTE \u662F concolic\uFF1A\u5B83\u7D50\u5408\u5177\u9AD4\u6307\u6A19\u503C\u8207\u7B26\u865F\u9650\u5236\u5F0F\uFF0C\u9019\u6B63\u662F\u5B83\u80FD\u8655\u7406\u5806\u7A4D\u8F38\u5165\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "CUTE\uFF08Concolic Unit Testing Engine\uFF09\u4EE5\u908F\u8F2F\u7D50\u69CB\u8868\u793A\u6307\u6A19\u8F38\u5165\uFF0C\u4E26\u540C\u6642\u7522\u751F\u7D14\u91CF\u503C\u8207\u6307\u6A19\u5F62\u72C0\uFF08\u542B\u5225\u540D\u8207 null \u60C5\u5F62\uFF09\u3002\u5177\u9AD4\u57F7\u884C\u63D0\u4F9B\u53EF\u4F9D\u9760\u7684\u771F\u5BE6\u6307\u6A19\uFF0C\u4F7F\u5B83\u80FD\u6E2C\u8A66\u8655\u7406\u52D5\u614B\u8CC7\u6599\u7D50\u69CB\u7684\u51FD\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5177\u9AD4\u5F8C\u63F4\u4FDD\u6301\u5065\u5168\u6027",
+            "text": "<p>\u5373\u4F7F concolic \u57F7\u884C\u5C0D\u89E3\u7B97\u5668\u7121\u6CD5\u8655\u7406\u7684\u9805\u4EE3\u5165\u5177\u9AD4\u503C\uFF0C\u5B83\u5BE6\u969B\u57F7\u884C\u7684\u8DEF\u5F91\u4ECD\u70BA\u771F\u6B63\u53EF\u884C\uFF08\u4E0D\u6703\u5F15\u5165\u865B\u5047\u8DEF\u5F91\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE3\u5165\u6240\u7528\u7684\u503C\u4F86\u81EA\u771F\u5BE6\u57F7\u884C\uFF0C\u6545\u7531\u6B64\u8D70\u51FA\u7684\u57F7\u884C\u4ECD\u662F\u4E00\u689D\u771F\u5BE6\u3001\u53EF\u884C\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u5F8C\u63F4\u5F9E\u4E0D\u634F\u9020\u8DEF\u5F91\uFF1B\u5B83\u4F7F\u7528\u89C0\u5BDF\u5230\u7684\u503C\uFF0C\u6545\u6BCF\u689D\u88AB\u57F7\u884C\u7684\u8DEF\u5F91\u90FD\u771F\u5BE6\u3002\u4EE3\u50F9\u662F\u6F0F\u6389\u8DEF\u5F91\uFF0C\u800C\u975E\u865B\u5047\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u4EE3\u5165\u7684\u503C\u4F86\u81EA\u4E00\u6B21\u5BE6\u969B\u57F7\u884C\uFF0C\u5F15\u64CE\u96A8\u5F8C\u8D70\u7684\u8DEF\u5F91\u662F\u7A0B\u5F0F\u771F\u7684\u80FD\u8D70\u7684\u3002\u6240\u63A2\u7D22\u8DEF\u5F91\u7684\u5065\u5168\u6027\u5F97\u4EE5\u4FDD\u6301\uFF1B\u6709\u98A8\u96AA\u7684\u53EA\u662F\u5B8C\u6574\u6027\uFF08\u67D0\u4E9B\u53EF\u884C\u8DEF\u5F91\u53EF\u80FD\u88AB\u7565\u904E\uFF09\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9650\u5236\u5F0F\u88AB\u8FD1\u4F3C\u6642\u7684\u5206\u6B67",
+            "text": "<p>\u5047\u8A2D concolic \u57F7\u884C\u628A\u67D0\u4E0D\u900F\u660E\u9805\u91D8\u70BA\u5177\u9AD4\u503C\u4E26\u6C42\u51FA\u65B0\u8F38\u5165\uFF0C\u4F46\u91CD\u8DD1\u6642\u57F7\u884C\u537B\u8D70\u4E86\u8207\u9810\u6E2C\u4E0D\u540C\u7684\u5206\u652F\uFF08\u300C\u5206\u6B67\u300D\uFF0Cdivergence\uFF09\u3002\u5F15\u64CE\u6703\u600E\u9EBC\u505A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5F9E\u5BE6\u969B\u7684\u5177\u9AD4\u57F7\u884C\u5075\u6E2C\u5230\u5206\u6B67\u4E26\u8A18\u9304\u771F\u6B63\u8D70\u904E\u7684\u8DEF\u5F91\uFF0C\u56E0\u70BA\u5177\u9AD4\u57F7\u884C\u6C38\u9060\u662F\u57FA\u6E96\u771F\u76F8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u57F7\u884C\u662F\u6B0A\u5A01\uFF0C\u6545\u5206\u6B67\u53EA\u662F\u88AB\u89C0\u5BDF\u5230\u3001\u771F\u6B63\u7684\u8DEF\u5F91\u88AB\u8A18\u9304\uFF0C\u5206\u6790\u4ECD\u4FDD\u6301\u5065\u5168\u3002"
+              },
+              {
+                "text": "\u5B83\u4FE1\u4EFB\u9810\u6E2C\u7684\u8DEF\u5F91\u4E26\u5FFD\u7565\u5BE6\u969B\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5177\u9AD4\u57F7\u884C\u662F\u57FA\u6E96\u771F\u76F8\uFF1B\u5F15\u64CE\u8A18\u9304\u5BE6\u969B\u57F7\u884C\u7684\u8DEF\u5F91\uFF0C\u800C\u975E\u9810\u6E2C\u7684\u90A3\u689D\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u9810\u6E2C\u7684\u8DEF\u5F91\u56DE\u5831\u70BA\u5DF2\u6DB5\u84CB\uFF0C\u5373\u4F7F\u5BE6\u969B\u4E0A\u6C92\u8D70\u5230",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u90A3\u6703\u4E0D\u5065\u5168\uFF1B\u5F15\u64CE\u4F9D\u9760\u771F\u5BE6\u57F7\u884C\uFF0C\u800C\u771F\u5BE6\u57F7\u884C\u63ED\u793A\u4E86\u5206\u6B67\u3002"
+              },
+              {
+                "text": "\u5B83\u56E0\u70BA\u9810\u6E2C\u932F\u8AA4\u800C\u7576\u6A5F",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5206\u6B67\u6703\u88AB\u512A\u96C5\u5730\u8655\u7406\uFF1A\u89C0\u5BDF\u5BE6\u969B\u7684\u5177\u9AD4\u57F7\u884C\u4E26\u7E7C\u7E8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u88AB\u4EE3\u5165\uFF0F\u8FD1\u4F3C\u7684\u9805\u4F7F\u6C42\u5F97\u7684\u8F38\u5165\u8D70\u4E86\u610F\u6599\u5916\u7684\u8DEF\u5F91\u6642\uFF0C\u5C31\u6703\u767C\u751F\u5206\u6B67\u3002\u56E0\u70BA concolic \u6C38\u9060\u5177\u9AD4\u5730\u57F7\u884C\uFF0C\u5B83\u6703\u89C0\u5BDF\u5230\u771F\u5BE6\u8DEF\u5F91\u4E26\u8A18\u9304\u4E4B\u2014\u2014\u5177\u9AD4\u57F7\u884C\u662F\u57FA\u6E96\u771F\u76F8\uFF0C\u5373\u4F7F\u9810\u6E2C\u5931\u6E96\u4E5F\u80FD\u4FDD\u6301\u5065\u5168\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u542B\u5177\u9AD4\u5F8C\u63F4\u6B65\u9A5F\u7684\u591A\u5206\u652F\u8FFD\u8E64",
+            "text": "<p>\u8003\u616E\uFF1A</p><pre><code>void w(int x) {\n  int t = external(x);   // opaque; run observed t = 3 for x = 2\n  if (x &gt; 0)             // B1\n    if (t == 3)          // B2, depends on opaque t\n      goal();\n}</code></pre><p>\u57F7\u884C 1 \u7528 <code>x = 2</code>\uFF1AB1 \u771F\uFF0C\u4E14 t = 3 \u6545 B2 \u771F\u2014\u2014<code>goal()</code> \u88AB\u62B5\u9054\u3002\u5230 goal() \u7684\u8DEF\u5F91\u6703\u88AB\u56DE\u5831\u55CE\uFF1F\u5B83\u662F\u771F\u5BE6\u7684\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6703\uFF0C\u4E14\u662F\u771F\u5BE6\u7684\u2014\u2014\u5177\u9AD4\u57F7\u884C\u78BA\u5BE6\u62B5\u9054\u4E86 goal()\uFF0C\u6545\u8A72\u8DEF\u5F91\u88AB\u56DE\u5831\u4E14\u771F\u6B63\u53EF\u884C\uFF1BB2 \u4F7F\u7528\u4E86\u5177\u9AD4\u7684 t = 3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014concolic \u4F7F\u7528\u89C0\u5BDF\u5230\u7684 t\uFF0C\u6545 goal() \u771F\u88AB\u62B5\u9054\u4E26\u88AB\u5065\u5168\u5730\u56DE\u5831\u3002"
+              },
+              {
+                "text": "\u4E0D\u6703\u2014\u2014B2 \u4F9D\u8CF4\u4E0D\u900F\u660E\u547C\u53EB\uFF0C\u6545 concolic \u7121\u6CD5\u56DE\u5831\u8A72\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014concolic \u4F7F\u7528\u5177\u9AD4 t = 3\uFF0C\u6545\u5B83\u6C42\u503C B2 \u4E26\u771F\u7684\u62B5\u9054 goal()\uFF1B\u8A72\u8DEF\u5F91\u6703\u88AB\u56DE\u5831\u3002"
+              },
+              {
+                "text": "\u6703\uFF0C\u4F46\u53EF\u80FD\u662F\u865B\u5047\u8DEF\u5F91\uFF0C\u56E0\u70BA t \u4E0D\u900F\u660E",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u8A72\u6B21\u57F7\u884C\u78BA\u5BE6\u8DD1\u5230 goal()\uFF0C\u6545\u8DEF\u5F91\u771F\u5BE6\u800C\u975E\u865B\u5047\uFF1B\u4E0D\u900F\u660E\u5F71\u97FF\u7684\u662F\u5B8C\u6574\u6027\uFF0C\u800C\u975E\u9019\u6B21\u57F7\u884C\u7684\u771F\u5BE6\u6027\u3002"
+              },
+              {
+                "text": "\u5F15\u64CE\u5FC5\u9808\u5728\u4E0D\u900F\u660E\u547C\u53EB\u8655\u4E2D\u6B62",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u90A3\u662F\u7D14\u7B26\u865F\u884C\u70BA\uFF1Bconcolic \u4F7F\u7528\u89C0\u5BDF\u5230\u7684 t = 3 \u7E7C\u7E8C\u524D\u9032\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u57F7\u884C\u7531 external(2) \u7B97\u51FA t = 3\uFF0C\u4E26\u771F\u7684\u7D93 B1\u3001B2 \u8D70\u9032 goal()\u3002concolic \u56DE\u5831\u9019\u689D\u771F\u6B63\u53EF\u884C\u7684\u8DEF\u5F91\u3002\u5B83\u8F03\u96E3\u505A\u5230\u7684\u662F\u5C0D\u5176\u4ED6 x \u5F37\u8FEB B2 \u8D70\u53E6\u4E00\u65B9\u5411\uFF0C\u56E0\u70BA x \u8207 t \u7684\u95DC\u4FC2\u4E0D\u900F\u660E\u2014\u2014\u9019\u662F\u4E0D\u5B8C\u6574\uFF0C\u800C\u975E\u4E0D\u5065\u5168\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u641C\u5C0B\u7B56\u7565\u7684\u9078\u64C7",
+            "text": "<p>\u70BA\u4EC0\u9EBC concolic \u5F15\u64CE\u63A1\u7528\u641C\u5C0B\u7B56\u7565\uFF08\u6DF1\u5EA6\u512A\u5148\u3001\u8986\u84CB\u7387\u5C0E\u5411\u3001\u96A8\u6A5F\u8DEF\u5F91\uFF09\uFF0C\u800C\u975E\u7AAE\u8209\u6240\u6709\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u8DEF\u5F91\u7A7A\u9593\u662F\u6307\u6578\u7D1A\u7684\uFF08\u8DEF\u5F91\u7206\u70B8\uFF09\uFF0C\u7B56\u7565\u5728\u6709\u9650\u9810\u7B97\u5167\u6C7A\u5B9A\u512A\u5148\u7FFB\u8F49\u54EA\u4E9B\u5206\u652F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DEF\u5F91\u592A\u591A\u800C\u7121\u6CD5\u5168\u8A66\uFF0C\u7B56\u7565\u6C7A\u5B9A\u628A\u6709\u9650\u7684\u89E3\u7B97\u5668\uFF0F\u57F7\u884C\u9810\u7B97\u82B1\u5728\u4F55\u8655\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u89E3\u7B97\u5668\u6BCF\u652F\u7A0B\u5F0F\u53EA\u80FD\u56DE\u7B54\u4E00\u6B21\u67E5\u8A62",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u89E3\u7B97\u5668\u80FD\u56DE\u7B54\u8A31\u591A\u67E5\u8A62\uFF1B\u63A1\u7528\u7B56\u7565\u662F\u56E0\u70BA\u8DEF\u5F91\u6578\u5448\u6307\u6578\u7D1A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5177\u9AD4\u57F7\u884C\u4E0D\u53EF\u91CD\u8907",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u5177\u9AD4\u57F7\u884C\u53EF\u91CD\u8907\uFF1B\u7B56\u7565\u5B58\u5728\u662F\u70BA\u56E0\u61C9\u9F90\u5927\u7684\u8DEF\u5F91\u7A7A\u9593\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6C92\u6709\u7B56\u7565\u5C31\u7121\u6CD5\u9032\u884C\u5206\u652F\u53D6\u53CD",
+                "fraction": 0,
+                "feedback": "\u932F\u2014\u2014\u53D6\u53CD\u672C\u8EAB\u7121\u8AD6\u5982\u4F55\u90FD\u80FD\u505A\uFF1B\u7B56\u7565\u53EA\u662F\u5728\u8DEF\u5F91\u7206\u70B8\u4E0B\u6C7A\u5B9A\u63A5\u4E0B\u4F86\u8FFD\u54EA\u500B\u53D6\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u63A2\u7D22\u4E0D\u53EF\u884C\uFF0C\u56E0\u70BA\u5206\u652F\u8207\u8FF4\u5708\u4F7F\u8DEF\u5F91\u6578\u6307\u6578\u6210\u9577\u3002\u641C\u5C0B\u7B56\u7565\uFF08\u6DF1\u5EA6\u512A\u5148\u3001\u8986\u84CB\u7387\u5C0E\u5411\u3001\u4E16\u4EE3\u5F0F\u3001\u96A8\u6A5F\u8DEF\u5F91\uFF09\u6C7A\u5B9A\u63A5\u4E0B\u4F86\u7FFB\u8F49\u54EA\u500B\u5206\u652F\uFF0C\u8B93\u6709\u9650\u7684\u57F7\u884C\u8207\u89E3\u7B97\u5668\u547C\u53EB\u9810\u7B97\u7784\u6E96\u6709\u7528\u3001\u672A\u6DB5\u84CB\u7684\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "concolic \u4E0D\u4FDD\u8B49\u5B8C\u6574\u8986\u84CB",
+            "text": "<p>concolic \u57F7\u884C\u4FDD\u8B49\u53EA\u8981\u6642\u9593\u8DB3\u5920\uFF0C\u5C31\u80FD\u6DB5\u84CB\u4EFB\u4F55\u7A0B\u5F0F\u7684\u6BCF\u4E00\u689D\u53EF\u884C\u8DEF\u5F91\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6B63\u78BA\u2014\u2014\u5C0D\u4E0D\u900F\u660E\uFF0F\u975E\u7DDA\u6027\u9805\u7684\u5177\u9AD4\u5F8C\u63F4\uFF0C\u4EE5\u53CA\u5C0D\u8FF4\u5708\u7684\u8A2D\u754C\uFF0C\u610F\u5473\u8457\u67D0\u4E9B\u53EF\u884C\u8DEF\u5F91\u53EF\u80FD\u6C38\u9060\u7121\u6CD5\u62B5\u9054\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014concolic \u4E0D\u4FDD\u8B49\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF1B\u5177\u9AD4\u5F8C\u63F4\u8207\u6709\u754C\u641C\u5C0B\u53EF\u80FD\u4F7F\u67D0\u4E9B\u53EF\u884C\u8DEF\u5F91\u672A\u88AB\u63A2\u7D22\u3002"
+              }
+            ],
+            "generalFeedback": "concolic \u57F7\u884C\u4EE5\u754C\u9650\u8207\u555F\u767C\u5F0F\u7BA1\u7406\u8DEF\u5F91\u7206\u70B8\uFF0C\u4E26\u5C0D\u7121\u6CD5\u6C42\u89E3\u7684\u9805\u9000\u56DE\u5177\u9AD4\u503C\u3002\u5169\u8005\u90FD\u53EF\u80FD\u4F7F\u5B83\u7121\u6CD5\u62B5\u9054\u6BCF\u689D\u53EF\u884C\u8DEF\u5F91\uFF0C\u6545\u4E0D\u4FDD\u8B49\u5B8C\u6574\u8986\u84CB\u2014\u2014\u5118\u7BA1\u5B83\u6240\u63A2\u7D22\u7684\u6BCF\u689D\u8DEF\u5F91\u90FD\u662F\u771F\u5BE6\u7684\u3002"
+          }
+        ]
+      }
+    },
+    "decision-table": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What the condition stub holds",
+            "text": "<p>In a decision table, what does the <strong>condition stub</strong> contain?</p>",
+            "answers": [
+              {
+                "text": "The list of conditions (inputs/causes) being considered, one per row in the upper-left quadrant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the condition stub names the conditions; the entries to its right give each rule's values."
+              },
+              {
+                "text": "The actions the program may take, one per row",
+                "fraction": 0,
+                "feedback": "That is the action stub, in the lower-left quadrant."
+              },
+              {
+                "text": "The T/F values assigned to each rule",
+                "fraction": 0,
+                "feedback": "Those are the condition entries, in the upper-right quadrant, not the stub."
+              },
+              {
+                "text": "The numbering of the rule columns",
+                "fraction": 0,
+                "feedback": "Rule numbers label the columns; the stub lists the conditions themselves."
+              }
+            ],
+            "generalFeedback": "A decision table has four quadrants. The condition stub (upper-left) lists the conditions; the condition entries (upper-right) give each rule's value for those conditions; the action stub and action entries occupy the lower half.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the action stub holds",
+            "text": "<p>What does the <strong>action stub</strong> of a decision table list?</p>",
+            "answers": [
+              {
+                "text": "The possible actions (outputs/effects), one per row in the lower-left quadrant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the action stub names the actions; the action entries mark which fire per rule."
+              },
+              {
+                "text": "The conditions being evaluated",
+                "fraction": 0,
+                "feedback": "Those live in the condition stub (upper-left)."
+              },
+              {
+                "text": "The T/F entries for each condition",
+                "fraction": 0,
+                "feedback": "Those are condition entries, not the action stub."
+              },
+              {
+                "text": "The total number of rules in the table",
+                "fraction": 0,
+                "feedback": "The rule count is determined by the conditions; the action stub simply lists actions."
+              }
+            ],
+            "generalFeedback": "The action stub is the lower-left quadrant: it enumerates the actions the specification can trigger. The action entries to its right (often marked X) say which actions fire for each rule.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a rule represents",
+            "text": "<p>What does a single <strong>rule</strong> (column) in a decision table represent?</p>",
+            "answers": [
+              {
+                "text": "One specific combination of condition outcomes together with the action(s) that should fire for it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a rule pairs a condition combination with its prescribed actions."
+              },
+              {
+                "text": "A single concrete test input value",
+                "fraction": 0,
+                "feedback": "A rule is a combination of condition outcomes; a test case is later derived from it."
+              },
+              {
+                "text": "One condition being evaluated",
+                "fraction": 0,
+                "feedback": "A rule spans all the conditions at once (one value each), not a single condition."
+              },
+              {
+                "text": "The entire decision table",
+                "fraction": 0,
+                "feedback": "A rule is one column; the table is the set of all rules."
+              }
+            ],
+            "generalFeedback": "Each column (rule) fixes a value for every condition and records the actions that must occur for that exact combination. Reading down a column gives both the situation and the expected behaviour.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Limited-entry vs extended-entry",
+            "text": "<p>What distinguishes a <strong>limited-entry</strong> decision table from an <strong>extended-entry</strong> one?</p>",
+            "answers": [
+              {
+                "text": `Limited-entry uses only T/F (with "-" for don't-care) as condition entries; extended-entry allows values, ranges, or choices`,
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly the difference between the two forms."
+              },
+              {
+                "text": "Limited-entry allows value ranges; extended-entry allows only T/F",
+                "fraction": 0,
+                "feedback": "This reverses the two definitions."
+              },
+              {
+                "text": "Limited-entry tables can have fewer actions than extended-entry ones",
+                "fraction": 0,
+                "feedback": "The number of actions is unrelated; the difference is the form of the condition entries."
+              },
+              {
+                "text": "Extended-entry tables have no rules",
+                "fraction": 0,
+                "feedback": "Both forms are organised into rules; only the entry format differs."
+              }
+            ],
+            "generalFeedback": 'In a limited-entry table every condition entry is boolean (T, F, or "-"). In an extended-entry table a condition entry may instead be a value, a range, or a choice (e.g. "under 100", "100 to 500", "over 500"), which can make a table more compact.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of a don't-care entry",
+            "text": `<p>What does a "-" (dash, or don't-care) entry for a condition in a rule mean?</p>`,
+            "answers": [
+              {
+                "text": "The rule's action(s) are the same regardless of that condition's value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the condition does not affect the outcome for that rule."
+              },
+              {
+                "text": "The condition is definitely false for that rule",
+                "fraction": 0,
+                "feedback": 'A false value would be written F; "-" means the value is irrelevant.'
+              },
+              {
+                "text": "The condition's value is unknown, so the rule is invalid",
+                "fraction": 0,
+                "feedback": "Don't-care is deliberate, not a data error; the rule is valid and applies for any value of that condition."
+              },
+              {
+                "text": "The condition must be tested with both T and F in the same rule at once",
+                "fraction": 0,
+                "feedback": 'A single rule cannot hold both; "-" simply says the outcome is independent of this condition.'
+              }
+            ],
+            "generalFeedback": `A don't-care "-" says the rule's outcome does not depend on that condition. Over k don't-care conditions, one such rule stands in for 2^k of the fully-expanded combinations.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rules for 2 conditions",
+            "text": "<p>A limited-entry decision table with <strong>2 binary conditions</strong> has how many rules (columns) in its full, uncollapsed form?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2^2 = 4 combinations of T/F."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the number of values one condition can take, not the number of combinations of two conditions."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is 2^3, the count for three conditions."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is not a power of two; a full binary table always has 2^n rules."
+              }
+            ],
+            "generalFeedback": "A full limited-entry table for n binary conditions has 2^n rules. For n = 2 that is 2^2 = 4: TT, TF, FT, FF.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rules for 3 conditions",
+            "text": "<p>A full limited-entry decision table with <strong>3 binary conditions</strong> has how many rules?</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2^3 = 8."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is 2\xD73; the count is 2^n, not 2\xD7n."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is 3^2; binary conditions give 2^n, not n^2."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 is 2^4, the count for four conditions."
+              }
+            ],
+            "generalFeedback": "For n binary conditions a full table has 2^n rules. For n = 3 that is 2^3 = 8.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rules for 4 conditions",
+            "text": "<p>A full limited-entry decision table with <strong>4 binary conditions</strong> has how many rules?</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2^4 = 16."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is 2^3, the count for three conditions."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is not a power of two; a full binary table has 2^n rules."
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 is not a power of two and overcounts; the answer is 2^4 = 16."
+              }
+            ],
+            "generalFeedback": "For n binary conditions a full table has 2^n rules. For n = 4 that is 2^4 = 16.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Limited-entry condition values",
+            "text": `<p>In a limited-entry decision table, the condition entries are restricted to true/false values (with "-" allowed for don't-care).</p>`,
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": `Correct \u2014 limited-entry means boolean condition entries, plus "-" for don't-care.`
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": 'By definition, a limited-entry table uses only T/F (and "-") for conditions; value ranges belong to extended-entry tables.'
+              }
+            ],
+            "generalFeedback": `"Limited-entry" refers precisely to limiting condition entries to true/false (with "-" for don't-care). Value ranges and choices are the hallmark of extended-entry tables.`
+          },
+          {
+            "type": "multichoice",
+            "name": "Condition entries vs action entries",
+            "text": "<p>In the right-hand quadrants of the table, what do the <strong>condition entries</strong> and <strong>action entries</strong> specify?</p>",
+            "answers": [
+              {
+                "text": "Condition entries give each rule's value for each condition; action entries mark which actions fire for that rule",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one describes the situation, the other the response."
+              },
+              {
+                "text": "Condition entries list the actions; action entries list the conditions",
+                "fraction": 0,
+                "feedback": "This swaps their roles."
+              },
+              {
+                "text": "Both simply repeat the rule numbers",
+                "fraction": 0,
+                "feedback": "Rule numbers are column headers; the entries carry the T/F values and action marks."
+              },
+              {
+                "text": "Condition entries show source-code coverage; action entries show test results",
+                "fraction": 0,
+                "feedback": "Decision tables are black-box; entries describe the specification, not code coverage."
+              }
+            ],
+            "generalFeedback": "For each rule, the condition entries (upper-right) record the T/F value of every condition, and the action entries (lower-right, often X) record which actions the specification says should fire.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The four quadrants",
+            "text": "<p>A decision table is conventionally divided into four quadrants. Which four?</p>",
+            "answers": [
+              {
+                "text": "Condition stub, condition entries, action stub, action entries",
+                "fraction": 100,
+                "feedback": "Correct \u2014 stubs on the left, entries on the right, conditions on top, actions below."
+              },
+              {
+                "text": "Inputs, outputs, states, transitions",
+                "fraction": 0,
+                "feedback": "Those describe a state machine, not the quadrants of a decision table."
+              },
+              {
+                "text": "Preconditions, postconditions, invariants, guards",
+                "fraction": 0,
+                "feedback": "Those are specification concepts, not the four quadrants of a decision table."
+              },
+              {
+                "text": "Nodes, edges, paths, cycles",
+                "fraction": 0,
+                "feedback": "Those are graph concepts, unrelated to the table layout."
+              }
+            ],
+            "generalFeedback": "The four quadrants are the condition stub (upper-left), condition entries (upper-right), action stub (lower-left), and action entries (lower-right).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision table technique family",
+            "text": "<p>Decision table testing is classified as which kind of test-design technique?</p>",
+            "answers": [
+              {
+                "text": "A black-box (specification-based) technique",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it derives tests from the specification's conditions and actions, not from code."
+              },
+              {
+                "text": "A white-box (structural) technique based on the control-flow graph",
+                "fraction": 0,
+                "feedback": "Decision tables are built from the specification, not from source-code structure."
+              },
+              {
+                "text": "A code-coverage measurement technique",
+                "fraction": 0,
+                "feedback": "It designs tests from behaviour; it does not measure how much code runs."
+              },
+              {
+                "text": "A mutation-analysis technique",
+                "fraction": 0,
+                "feedback": "Mutation analysis seeds code faults; decision tables are a black-box design method."
+              }
+            ],
+            "generalFeedback": "Decision table testing is a black-box, specification-based design technique: conditions and actions come from the requirements, and rules combine them systematically.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Extended-entry condition value",
+            "text": "<p>In an <strong>extended-entry</strong> decision table, a condition entry may be which of the following?</p>",
+            "answers": [
+              {
+                "text": 'A value, range, or choice (for example "under 100", "100 to 500", "over 500")',
+                "fraction": 100,
+                "feedback": "Correct \u2014 extended-entry tables allow richer entries than plain T/F."
+              },
+              {
+                "text": "Only T or F",
+                "fraction": 0,
+                "feedback": "Boolean-only entries define a limited-entry table, not an extended-entry one."
+              },
+              {
+                "text": "Only the mark X",
+                "fraction": 0,
+                "feedback": "X marks fired actions in the action entries, not condition values."
+              },
+              {
+                "text": "Only a rule number",
+                "fraction": 0,
+                "feedback": "Rule numbers are column labels, not condition entries."
+              }
+            ],
+            "generalFeedback": "Extended-entry tables let a condition entry be a value, range, or choice, which can collapse several boolean conditions into one multi-valued condition and shrink the table.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Full table has 2^n rules",
+            "text": "<p>Before any collapsing, a full limited-entry decision table for n binary conditions has 2^n rules.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every condition independently takes T or F, giving 2^n combinations."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Each of the n binary conditions doubles the number of combinations, so the full table has 2^n rules."
+              }
+            ],
+            "generalFeedback": "With n independent binary conditions there are 2^n distinct T/F combinations, so the full (uncollapsed) table has exactly 2^n rule columns. Collapsing with don't-cares can reduce this later."
+          },
+          {
+            "type": "multichoice",
+            "name": "Deriving tests from rules",
+            "text": "<p>What is the simplest standard way to derive test cases from a decision table?</p>",
+            "answers": [
+              {
+                "text": "Create one test case per rule (column) of the table",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each rule becomes a test, using inputs that satisfy its condition combination."
+              },
+              {
+                "text": "Create one test case per condition",
+                "fraction": 0,
+                "feedback": "A test must fix every condition at once; a rule (a full combination) is the natural unit."
+              },
+              {
+                "text": "Create one test case per action",
+                "fraction": 0,
+                "feedback": "Actions are outcomes; tests are derived from the rules that trigger them."
+              },
+              {
+                "text": "Create a single test case for the whole table",
+                "fraction": 0,
+                "feedback": "One test cannot exercise every rule; you need one per rule."
+              }
+            ],
+            "generalFeedback": "The standard mapping is one test case per rule: pick inputs satisfying that rule's condition combination and check that exactly its prescribed actions fire. So the test count equals the number of rules in the (collapsed) table.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Which rule matches the input",
+            "text": "<p>Given this limited-entry table:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>For an input where <code>C1 = F</code> and <code>C2 = T</code>, which rule applies?</p>",
+            "answers": [
+              {
+                "text": "R3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 R3 has C1 = F and C2 = T."
+              },
+              {
+                "text": "R1",
+                "fraction": 0,
+                "feedback": "R1 is C1 = T, C2 = T, not the given input."
+              },
+              {
+                "text": "R2",
+                "fraction": 0,
+                "feedback": "R2 is C1 = T, C2 = F."
+              },
+              {
+                "text": "R4",
+                "fraction": 0,
+                "feedback": "R4 is C1 = F, C2 = F, which differs in C2."
+              }
+            ],
+            "generalFeedback": "Match the input against each column: only R3 has C1 = F and C2 = T, so R3 is the applicable rule.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which action fires",
+            "text": "<p>Given this table (X marks a fired action):</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   -   -   -\nB        -   X   X   -\nC        -   -   -   X\n</pre><p>For an input where <code>C1 = T</code> and <code>C2 = F</code>, which action fires?</p>",
+            "answers": [
+              {
+                "text": "B",
+                "fraction": 100,
+                "feedback": "Correct \u2014 C1 = T, C2 = F is rule R2, whose only X is on action B."
+              },
+              {
+                "text": "A",
+                "fraction": 0,
+                "feedback": "Action A fires only for R1 (C1 = T, C2 = T)."
+              },
+              {
+                "text": "C",
+                "fraction": 0,
+                "feedback": "Action C fires only for R4 (C1 = F, C2 = F)."
+              },
+              {
+                "text": "No action fires",
+                "fraction": 0,
+                "feedback": "R2 does have a marked action (B), so an action does fire."
+              }
+            ],
+            "generalFeedback": "The input (C1 = T, C2 = F) selects rule R2. Reading down R2, the only X is on action B, so B fires.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Combinations behind a don't-care",
+            "text": '<p>In a collapsed limited-entry table, one rule has "-" for <strong>2</strong> of the conditions (all other conditions fixed). How many rules of the original full table does this single collapsed rule represent?</p>',
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2 don't-care conditions stand for 2^2 = 4 combinations."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is 2^1; there are two don't-cares, giving 2^2 = 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Don't-cares expand as a power of two; 2 of them give 4, not 3."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A rule with no don't-cares represents 1 combination; two don't-cares represent 4."
+              }
+            ],
+            "generalFeedback": "Each don't-care condition can be T or F, so k don't-cares expand to 2^k full-table rules. For k = 2 that is 2^2 = 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test cases from a collapsed table",
+            "text": '<p>A collapsed decision table has <strong>5 rules</strong>. Using the "one test case per rule" strategy, how many test cases are derived?</p>',
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the number of test cases equals the number of rules."
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "32 = 2^5 would be the count if you re-expanded every rule; the strategy uses one test per collapsed rule."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "There is no doubling; it is one test per rule, so 5."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Every rule needs a test; with 5 rules that is 5, not 4."
+              }
+            ],
+            "generalFeedback": "The one-test-per-rule mapping means the test count equals the rule count. A collapsed table with 5 rules yields 5 test cases.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Collapsing a full table",
+            "text": "<p>Collapse this full table as far as possible:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   X   -   -\nB        -   -   X   X\n</pre><p>How many rules remain after collapsing?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 R1,R2 merge to (C1=T, C2=-)\u2192A and R3,R4 merge to (C1=F, C2=-)\u2192B."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the uncollapsed count; two mergeable pairs reduce it to 2."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Both pairs merge, not just one, so 2 rules remain."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A and B are different actions, so their rules cannot merge into a single rule."
+              }
+            ],
+            "generalFeedback": "R1 and R2 fire only A and differ only in C2, so they merge to (C1=T, C2=-). R3 and R4 fire only B and differ only in C2, merging to (C1=F, C2=-). Two collapsed rules remain.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Completeness with don't-cares",
+            "text": "<p>A collapsed table for 2 binary conditions has these rules:</p><pre>\nRule A:  C1=T, C2=-\nRule B:  C1=F, C2=T\nRule C:  C1=F, C2=F\n</pre><p>Do these rules cover all 2^2 = 4 combinations?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 Rule A covers TT and TF, Rule B covers FT, Rule C covers FF: all 4 combinations",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the don't-care in Rule A accounts for two combinations, completing the set."
+              },
+              {
+                "text": "No \u2014 the combination C1=T, C2=F is missing",
+                "fraction": 0,
+                "feedback": "Rule A (C1=T, C2=-) already covers C1=T, C2=F."
+              },
+              {
+                "text": "No \u2014 the combination C1=F, C2=T is missing",
+                "fraction": 0,
+                "feedback": "Rule B covers exactly C1=F, C2=T."
+              },
+              {
+                "text": "No \u2014 only 3 combinations can ever be covered by 3 rules",
+                "fraction": 0,
+                "feedback": "A rule with a don't-care covers more than one combination, so 3 rules can cover 4 combinations."
+              }
+            ],
+            "generalFeedback": "Rule A's don't-care on C2 covers both TT and TF (2 combinations); Rule B covers FT; Rule C covers FF. That is 2+1+1 = 4 = 2^2, so the table is complete.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Match a rule with three conditions",
+            "text": "<p>Given this full 3-condition table:</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n</pre><p>Which rule matches <code>C1 = T, C2 = F, C3 = T</code>?</p>",
+            "answers": [
+              {
+                "text": "R3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 R3 is C1=T, C2=F, C3=T."
+              },
+              {
+                "text": "R2",
+                "fraction": 0,
+                "feedback": "R2 is C1=T, C2=T, C3=F."
+              },
+              {
+                "text": "R4",
+                "fraction": 0,
+                "feedback": "R4 is C1=T, C2=F, C3=F, which differs in C3."
+              },
+              {
+                "text": "R7",
+                "fraction": 0,
+                "feedback": "R7 is C1=F, C2=F, C3=T, which differs in C1."
+              }
+            ],
+            "generalFeedback": "Read each column top to bottom. R3 is the only column with C1=T, C2=F, C3=T.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Extended-entry match",
+            "text": '<p>An extended-entry table sets a discount by order total:</p><pre>\nCondition "Order total":  R1: under 100   R2: 100 to 500   R3: over 500\nAction "Discount":        R1: 0%          R2: 5%           R3: 10%\n</pre><p>An order total of 250 selects which rule, and what discount applies?</p>',
+            "answers": [
+              {
+                "text": "R2 \u2014 a 5% discount",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 250 falls in the "100 to 500" band.'
+              },
+              {
+                "text": "R1 \u2014 a 0% discount",
+                "fraction": 0,
+                "feedback": "R1 is for totals under 100; 250 is above that."
+              },
+              {
+                "text": "R3 \u2014 a 10% discount",
+                "fraction": 0,
+                "feedback": "R3 is for totals over 500; 250 does not reach it."
+              },
+              {
+                "text": "No rule matches 250",
+                "fraction": 0,
+                "feedback": "250 is squarely within R2's range, so a rule does match."
+              }
+            ],
+            "generalFeedback": 'Extended-entry conditions match by range. 250 lies in "100 to 500", which is R2, giving a 5% discount.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which two rules may merge",
+            "text": "<p>Given this table:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA1       X   X   -   -\nA2       -   -   X   -\nA3       -   -   -   X\n</pre><p>Which two rules can be collapsed into one, and how?</p>",
+            "answers": [
+              {
+                "text": "R1 and R2, into (C1=T, C2=-) firing A1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they fire the same action and differ only in C2."
+              },
+              {
+                "text": "R3 and R4, into (C1=F, C2=-)",
+                "fraction": 0,
+                "feedback": "R3 fires A2 and R4 fires A3 \u2014 different actions, so they cannot merge."
+              },
+              {
+                "text": "R2 and R3, into (C1=-, C2=-)",
+                "fraction": 0,
+                "feedback": "R2 and R3 differ in both C1 and C2 and fire different actions; they cannot merge."
+              },
+              {
+                "text": "R1 and R4, into (C1=-, C2=-)",
+                "fraction": 0,
+                "feedback": "R1 and R4 differ in both conditions and fire different actions."
+              }
+            ],
+            "generalFeedback": "Two rules merge only if they fire identical actions and differ in exactly one condition. R1 and R2 both fire A1 and differ only in C2, so they collapse to (C1=T, C2=-)\u2192A1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which action fires (three conditions)",
+            "text": "<p>Given this table (X marks a fired action):</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAccept   X  X  X  -  X  -  -  -\nReject   -  -  -  X  -  X  X  X\n</pre><p>For <code>C1 = F, C2 = T, C3 = F</code>, which action fires?</p>",
+            "answers": [
+              {
+                "text": "Reject",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (F,T,F) is rule R6, whose X is on Reject."
+              },
+              {
+                "text": "Accept",
+                "fraction": 0,
+                "feedback": "Accept fires for R6? No \u2014 R6's X is on Reject, not Accept."
+              },
+              {
+                "text": "Both Accept and Reject",
+                "fraction": 0,
+                "feedback": "Only one X appears in column R6, so a single action fires."
+              },
+              {
+                "text": "Neither action",
+                "fraction": 0,
+                "feedback": "R6 does have a marked action (Reject)."
+              }
+            ],
+            "generalFeedback": "(C1=F, C2=T, C3=F) is column R6. Its only X is on Reject, so Reject fires.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Missing combinations",
+            "text": "<p>A limited-entry table for <strong>3 binary conditions</strong> currently lists 6 rules, none using don't-cares. Assuming no duplicates, how many condition combinations are missing?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a full table needs 2^3 = 8 rules, and 8 - 6 = 2 are missing."
+              },
+              {
+                "text": "0 \u2014 the table is complete",
+                "fraction": 0,
+                "feedback": "A complete 3-condition table needs 8 rules; only 6 are present."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "8 - 6 = 2, not 3."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is the number present; the number missing is 8 - 6 = 2."
+              }
+            ],
+            "generalFeedback": "Completeness requires all 2^n combinations. For n = 3 that is 8; with 6 present and no don't-cares, 2 combinations are missing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test count before and after collapsing",
+            "text": "<p>A full table for 3 conditions (8 rules) collapses to 4 rules. Using one test per rule, how many test cases does the collapsed table require, compared with the full table?</p>",
+            "answers": [
+              {
+                "text": "4 test cases, down from 8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 collapsing to 4 rules means 4 tests instead of 8."
+              },
+              {
+                "text": "8 test cases, unchanged",
+                "fraction": 0,
+                "feedback": "Collapsing reduces the rule count, so fewer tests are needed."
+              },
+              {
+                "text": "16 test cases",
+                "fraction": 0,
+                "feedback": "16 exceeds even the full table's 8 rules; the collapsed table needs 4."
+              },
+              {
+                "text": "1 test case",
+                "fraction": 0,
+                "feedback": "Each of the 4 collapsed rules needs its own test, giving 4."
+              }
+            ],
+            "generalFeedback": "Test count equals rule count. The full table's 8 rules would give 8 tests; collapsing to 4 rules reduces that to 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reading a loan decision table",
+            "text": '<p>A loan table uses C1 = "credit score OK" and C2 = "income sufficient":</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nApprove  X   -   -   -\n</pre><p>An applicant has credit score OK and sufficient income. Which rule applies and what happens?</p>',
+            "answers": [
+              {
+                "text": "R1 \u2014 the loan is approved",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both conditions true is R1, the only rule with Approve marked."
+              },
+              {
+                "text": "R2 \u2014 the loan is approved",
+                "fraction": 0,
+                "feedback": "R2 is credit OK but income not sufficient, and it has no Approve mark."
+              },
+              {
+                "text": "R4 \u2014 the loan is approved",
+                "fraction": 0,
+                "feedback": "R4 is both conditions false and has no Approve mark."
+              },
+              {
+                "text": "R1 \u2014 the loan is not approved",
+                "fraction": 0,
+                "feedback": "R1 does have Approve marked, so the loan is approved."
+              }
+            ],
+            "generalFeedback": "Credit OK and income sufficient is (C1=T, C2=T), which is R1. R1 is the only rule with Approve marked, so the loan is approved.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Extended-entry age bands",
+            "text": '<p>An extended-entry table sets ticket price by age:</p><pre>\nCondition "Age":  R1: under 13   R2: 13 to 17   R3: 18 to 64   R4: 65 or older\nAction "Price":   R1: free       R2: $5         R3: $10        R4: $7\n</pre><p>A visitor aged 17 selects which rule and price?</p>',
+            "answers": [
+              {
+                "text": "R2 \u2014 $5",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 17 falls in the "13 to 17" band.'
+              },
+              {
+                "text": "R1 \u2014 free",
+                "fraction": 0,
+                "feedback": "R1 is for ages under 13; 17 is above that."
+              },
+              {
+                "text": "R3 \u2014 $10",
+                "fraction": 0,
+                "feedback": "R3 starts at 18; 17 does not reach it."
+              },
+              {
+                "text": "R4 \u2014 $7",
+                "fraction": 0,
+                "feedback": "R4 is for ages 65 or older."
+              }
+            ],
+            "generalFeedback": 'Age 17 lies in the "13 to 17" band, which is R2, priced at $5.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Don't-care over three conditions",
+            "text": '<p>In a table with <strong>5 binary conditions</strong>, one collapsed rule has "-" for 3 of them (the other 2 fixed). How many full-table combinations does that single rule represent?</p>',
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 don't-cares stand for 2^3 = 8 combinations."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Don't-cares expand as 2^k; 3 of them give 8, not 3."
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "32 = 2^5 is the whole table; this rule fixes 2 conditions, so it covers 2^3 = 8."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the number of conditions, not 2 raised to the don't-care count."
+              }
+            ],
+            "generalFeedback": "Only the don't-care conditions vary. With 3 don't-cares the rule stands for 2^3 = 8 of the fully-expanded combinations, regardless of the total number of conditions.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Redundant (subsumed) rule",
+            "text": "<p>Examine this table:</p><pre>\n        R1     R2     R3\nC1       T      T      F\nC2       -      F      T\n--------------------------\nA        X      X      -\n</pre><p>Which rule is redundant, and why?</p>",
+            "answers": [
+              {
+                "text": "R2 \u2014 it is subsumed by R1, which already covers C1=T with any C2 and fires the same action A",
+                "fraction": 100,
+                "feedback": "Correct \u2014 R1's don't-care on C2 already includes R2's case with the same action."
+              },
+              {
+                "text": "R1 \u2014 because it uses a don't-care",
+                "fraction": 0,
+                "feedback": "Using a don't-care is not itself redundant; R1 is the general rule and R2 is the one it subsumes."
+              },
+              {
+                "text": "R3 \u2014 because it fires no action",
+                "fraction": 0,
+                "feedback": "R3 covers a different case (C1=F, C2=T) and firing no action is a legitimate outcome, not redundancy."
+              },
+              {
+                "text": "None \u2014 the table has no redundancy",
+                "fraction": 0,
+                "feedback": "R2 is fully covered by R1 with the same action, so R2 is redundant."
+              }
+            ],
+            "generalFeedback": "R1 (C1=T, C2=-) already covers both (T,T) and (T,F) with action A. R2 (C1=T, C2=F) is exactly the (T,F) case with the same action, so it adds nothing \u2014 it is a redundant, subsumed rule.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Impossible rule",
+            "text": '<p>Conditions are C1 = "x &gt; 0" and C2 = "x &lt; 0":</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>Which rule describes an <strong>impossible</strong> (infeasible) combination?</p>',
+            "answers": [
+              {
+                "text": "R1 \u2014 a value cannot be both greater than 0 and less than 0 at once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 C1=T and C2=T is logically impossible."
+              },
+              {
+                "text": "R4 \u2014 both false is impossible",
+                "fraction": 0,
+                "feedback": "C1=F and C2=F simply means x = 0, which is perfectly feasible."
+              },
+              {
+                "text": "R2 \u2014 x > 0 and not x < 0",
+                "fraction": 0,
+                "feedback": "That describes any positive x, which is feasible."
+              },
+              {
+                "text": "R3 \u2014 x < 0 and not x > 0",
+                "fraction": 0,
+                "feedback": "That describes any negative x, which is feasible."
+              }
+            ],
+            "generalFeedback": "C1 and C2 are mutually exclusive, so R1 (both true) can never occur \u2014 it is an infeasible rule and needs no test case. R4 (both false) corresponds to x = 0 and is feasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Inconsistent rules",
+            "text": "<p>Examine this table:</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       F   F   T\n--------------------\nA        X   -   -\nB        -   X   -\n</pre><p>What anomaly does this table contain?</p>",
+            "answers": [
+              {
+                "text": "R1 and R2 are inconsistent \u2014 the same condition combination (C1=T, C2=F) prescribes different actions (A vs B)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 identical conditions with conflicting actions is an inconsistency."
+              },
+              {
+                "text": "R3 is redundant",
+                "fraction": 0,
+                "feedback": "R3 covers a distinct combination (C1=F, C2=T); it is not redundant."
+              },
+              {
+                "text": "The table is incomplete only",
+                "fraction": 0,
+                "feedback": "It may also be incomplete, but the flagged defect is the conflict between R1 and R2 on the same conditions."
+              },
+              {
+                "text": "There is no anomaly",
+                "fraction": 0,
+                "feedback": "R1 and R2 share the same condition values but fire different actions \u2014 a clear inconsistency."
+              }
+            ],
+            "generalFeedback": "R1 and R2 both have C1=T, C2=F but fire A and B respectively. Two rules with identical conditions and different actions are inconsistent (conflicting) and must be resolved.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Completeness check",
+            "text": "<p>A table for 2 binary conditions has just these two rules:</p><pre>\nRule P:  C1=T, C2=-\nRule Q:  C1=F, C2=T\n</pre><p>Is the table complete, and if not what is missing?</p>",
+            "answers": [
+              {
+                "text": "Incomplete \u2014 the combination C1=F, C2=F is not covered",
+                "fraction": 100,
+                "feedback": "Correct \u2014 P covers TT and TF, Q covers FT, leaving FF uncovered."
+              },
+              {
+                "text": "Complete \u2014 all 4 combinations are covered",
+                "fraction": 0,
+                "feedback": "Only 3 of the 4 are covered; FF is missing."
+              },
+              {
+                "text": "Incomplete \u2014 the combination C1=T, C2=T is missing",
+                "fraction": 0,
+                "feedback": "Rule P's don't-care already covers C1=T, C2=T."
+              },
+              {
+                "text": "Incomplete \u2014 the combination C1=F, C2=T is missing",
+                "fraction": 0,
+                "feedback": "Rule Q covers exactly C1=F, C2=T."
+              }
+            ],
+            "generalFeedback": "Rule P (C1=T, C2=-) covers TT and TF; Rule Q covers FT. That is 3 combinations; the fourth, FF (C1=F, C2=F), is not covered, so the table is incomplete.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Correct collapsing (three conditions)",
+            "text": "<p>Examine this full 3-condition table:</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAction   A  A  B  C  D  E  F  G\n</pre><p>Which pair of rules may be correctly collapsed, and into what?</p>",
+            "answers": [
+              {
+                "text": "R1 and R2, into (C1=T, C2=T, C3=-) firing A",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they fire the same action and differ only in C3."
+              },
+              {
+                "text": "R1 and R3, into (C1=T, C2=-, C3=T)",
+                "fraction": 0,
+                "feedback": "R1 fires A and R3 fires B \u2014 different actions, so they cannot merge."
+              },
+              {
+                "text": "R7 and R8, into (C1=F, C2=F, C3=-)",
+                "fraction": 0,
+                "feedback": "R7 fires F and R8 fires G \u2014 different actions, so no merge."
+              },
+              {
+                "text": "R1 and R5, into (C1=-, C2=T, C3=T)",
+                "fraction": 0,
+                "feedback": "R1 fires A and R5 fires D \u2014 different actions, so no merge."
+              }
+            ],
+            "generalFeedback": "Only R1 and R2 share an action (A) while differing in exactly one condition (C3). They collapse to (C1=T, C2=T, C3=-)\u2192A. Every other adjacent pair fires different actions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal test set from a collapsed table",
+            "text": "<p>A correctly collapsed table for 2 binary conditions is:</p><pre>\nRule 1:  C1=T, C2=-\nRule 2:  C1=F, C2=T\nRule 3:  C1=F, C2=F\n</pre><p>What is the minimum number of test cases needed to exercise every rule once?</p>",
+            "answers": [
+              {
+                "text": "3 \u2014 one per collapsed rule (covering all 4 underlying combinations)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the collapsed table has 3 rules, so 3 tests suffice."
+              },
+              {
+                "text": "4 \u2014 one per underlying combination",
+                "fraction": 0,
+                "feedback": "You test the collapsed rules, not the re-expanded combinations, so 3 tests are enough."
+              },
+              {
+                "text": "2 \u2014 one per condition",
+                "fraction": 0,
+                "feedback": "Each rule needs its own test; there are 3 rules."
+              },
+              {
+                "text": "1 \u2014 a single combined test",
+                "fraction": 0,
+                "feedback": "One test cannot exercise three distinct rules."
+              }
+            ],
+            "generalFeedback": "Test count equals the number of (collapsed) rules. Here 3 rules give 3 tests; Rule 1's don't-care means those 3 tests still cover all 2^2 = 4 combinations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Overlapping extended-entry ranges",
+            "text": '<p>An extended-entry grading table:</p><pre>\nCondition "Score":  R1: 0 to 59   R2: 60 to 79   R3: 75 to 100\nAction:             R1: Fail      R2: Pass       R3: Distinction\n</pre><p>What problem does a score of 77 reveal?</p>',
+            "answers": [
+              {
+                "text": "Inconsistency \u2014 77 falls in both R2 (60 to 79) and R3 (75 to 100), so two rules match with different actions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the overlapping ranges make the outcome for 75-79 ambiguous."
+              },
+              {
+                "text": "Incompleteness \u2014 77 is not covered by any rule",
+                "fraction": 0,
+                "feedback": "77 is covered \u2014 in fact by two rules, which is the actual problem."
+              },
+              {
+                "text": "An impossible rule \u2014 a score of 77 cannot occur",
+                "fraction": 0,
+                "feedback": "77 is a perfectly valid score; the issue is the overlap, not feasibility."
+              },
+              {
+                "text": "Nothing \u2014 the table is well-formed",
+                "fraction": 0,
+                "feedback": "R2 and R3 overlap on 75-79, so a score there matches two conflicting rules."
+              }
+            ],
+            "generalFeedback": "R2 (60 to 79) and R3 (75 to 100) overlap on 75-79. A score of 77 matches both, prescribing Pass and Distinction at once \u2014 an inconsistency caused by non-disjoint extended-entry ranges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Gap in extended-entry ranges",
+            "text": '<p>An extended-entry table by age:</p><pre>\nCondition "Age":  R1: 0 to 17   R2: 18 to 64   R3: 66 to 120\nAction:           R1: minor     R2: adult      R3: senior\n</pre><p>What completeness problem does this table have?</p>',
+            "answers": [
+              {
+                "text": "Age 65 is not covered by any rule \u2014 a gap between R2 and R3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 R2 ends at 64 and R3 starts at 66, leaving 65 uncovered."
+              },
+              {
+                "text": "Age 18 is covered twice",
+                "fraction": 0,
+                "feedback": "18 falls only in R2; there is no overlap here, only a gap at 65."
+              },
+              {
+                "text": "The ranges overlap at 64",
+                "fraction": 0,
+                "feedback": "64 belongs only to R2; the defect is a gap, not an overlap."
+              },
+              {
+                "text": "The table is complete",
+                "fraction": 0,
+                "feedback": "65 has no matching rule, so the table is incomplete."
+              }
+            ],
+            "generalFeedback": "R2 covers up to 64 and R3 starts at 66, so age 65 matches no rule. That gap is an incompleteness defect in the extended-entry ranges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Duplicate (redundant) rule",
+            "text": "<p>Examine this table:</p><pre>\n        R1  R2  R3  R4\nC1       T   F   T   F\nC2       T   T   F   T\n------------------------\nAction   A   B   C   B\n</pre><p>Which rule is redundant, and why?</p>",
+            "answers": [
+              {
+                "text": "R4 \u2014 it duplicates R2: identical conditions (C1=F, C2=T) and the same action B",
+                "fraction": 100,
+                "feedback": "Correct \u2014 R2 and R4 are identical, so R4 adds nothing."
+              },
+              {
+                "text": "R3 \u2014 it is the only one firing C",
+                "fraction": 0,
+                "feedback": "Firing a unique action is not redundancy; R3 covers a distinct combination."
+              },
+              {
+                "text": "R1 \u2014 because it fires A",
+                "fraction": 0,
+                "feedback": "R1 covers (T,T) uniquely; it is not duplicated."
+              },
+              {
+                "text": "None \u2014 every rule differs",
+                "fraction": 0,
+                "feedback": "R2 and R4 have identical conditions and the same action, so one is redundant."
+              }
+            ],
+            "generalFeedback": "R2 and R4 both have C1=F, C2=T and both fire B. They are exact duplicates, so R4 is a redundant rule that can be removed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Completeness by counting coverage",
+            "text": "<p>A limited-entry table for <strong>4 binary conditions</strong> uses don't-cares. Its rules cover, respectively, 8, 4, 2, and 1 combinations, with no overlaps. Is the table complete?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 the rules cover 8+4+2+1 = 15 of the 2^4 = 16 combinations, so one is missing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 15 < 16, so the table is incomplete by one combination."
+              },
+              {
+                "text": "Yes \u2014 the four rules cover everything",
+                "fraction": 0,
+                "feedback": "The coverage counts sum to 15, one short of 16."
+              },
+              {
+                "text": "No \u2014 the table is over-specified with too many rules",
+                "fraction": 0,
+                "feedback": "The total is 15, which is under 16; nothing is over-covered (no overlaps)."
+              },
+              {
+                "text": "No \u2014 two combinations are missing",
+                "fraction": 0,
+                "feedback": "16 - 15 = 1, so exactly one combination is missing."
+              }
+            ],
+            "generalFeedback": "Each rule's don't-cares expand to a power of two; summing the disjoint coverage gives 8+4+2+1 = 15. A complete 4-condition table needs 2^4 = 16, so one combination is uncovered.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Inconsistency from a don't-care overlap",
+            "text": "<p>A table contains these two rules for 2 binary conditions:</p><pre>\nRule X:  C1=T, C2=-  ->  A\nRule Y:  C1=T, C2=F  ->  B\n</pre><p>Which combination causes a conflict, and why?</p>",
+            "answers": [
+              {
+                "text": "C1=T, C2=F \u2014 Rule X (don't-care C2) also covers it and prescribes A, while Rule Y prescribes B",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the don't-care in X overlaps Y with a different action, an inconsistency."
+              },
+              {
+                "text": "C1=T, C2=T \u2014 both rules require action B there",
+                "fraction": 0,
+                "feedback": "At (T,T) only Rule X applies (giving A); Rule Y is C2=F, so there is no conflict at (T,T)."
+              },
+              {
+                "text": "C1=F, C2=F \u2014 neither rule covers it, causing a conflict",
+                "fraction": 0,
+                "feedback": "An uncovered combination is incompleteness, not a conflict; and the conflict here is at (T,F)."
+              },
+              {
+                "text": "There is no conflict \u2014 the rules are disjoint",
+                "fraction": 0,
+                "feedback": "Rule X's don't-care makes it overlap Rule Y at (T,F) with a different action."
+              }
+            ],
+            "generalFeedback": "Rule X (C1=T, C2=-) covers (T,T) and (T,F). Rule Y (C1=T, C2=F) also covers (T,F) but prescribes B instead of A. The overlap at (T,F) with conflicting actions is an inconsistency.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Impossible rule from exclusive conditions",
+            "text": '<p>Conditions come from a spec: C1 = "payment is cash", C2 = "payment is card" (a payment is one method):</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       T   F   T\n</pre><p>Which rule is infeasible?</p>',
+            "answers": [
+              {
+                "text": "R1 \u2014 a single payment cannot be both cash and card",
+                "fraction": 100,
+                "feedback": "Correct \u2014 C1 and C2 are mutually exclusive, so both true is impossible."
+              },
+              {
+                "text": "R2 \u2014 cash but not card",
+                "fraction": 0,
+                "feedback": "That is a normal cash payment; it is feasible."
+              },
+              {
+                "text": "R3 \u2014 card but not cash",
+                "fraction": 0,
+                "feedback": "That is a normal card payment; it is feasible."
+              },
+              {
+                "text": "None \u2014 all three are feasible",
+                "fraction": 0,
+                "feedback": "R1 requires both cash and card at once, which the spec forbids."
+              }
+            ],
+            "generalFeedback": 'Because a payment is exactly one method, C1 and C2 cannot both be true. R1 (both true) is infeasible and needs no test case; only R2 and R3 (and possibly a "neither" case) are realistic.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Verifying completeness and consistency",
+            "text": "<p>A collapsed table for 2 binary conditions is:</p><pre>\nRule 1:  C1=T, C2=-  ->  A\nRule 2:  C1=F, C2=-  ->  B\n</pre><p>Is this table both complete and consistent?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 the two rules cover all 4 combinations with no overlap (disjoint on C1)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Rule 1 covers TT,TF and Rule 2 covers FT,FF; together all 4, no conflict."
+              },
+              {
+                "text": "No \u2014 it is incomplete because C2 is never fixed",
+                "fraction": 0,
+                "feedback": "The don't-cares on C2 mean both C2 values are covered, so nothing is missing."
+              },
+              {
+                "text": "No \u2014 the two rules overlap and conflict",
+                "fraction": 0,
+                "feedback": "They differ on C1 (T vs F), so they never overlap; there is no conflict."
+              },
+              {
+                "text": "No \u2014 Rule 2 is redundant",
+                "fraction": 0,
+                "feedback": "Rule 2 covers cases (FT, FF) that Rule 1 does not, so it is necessary."
+              }
+            ],
+            "generalFeedback": "Rule 1 (C1=T, C2=-) covers TT and TF; Rule 2 (C1=F, C2=-) covers FT and FF. Their union is all 2^2 = 4 combinations, and they are disjoint on C1, so the table is both complete and consistent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test cases excluding infeasible rules",
+            "text": "<p>A 3-condition table has 8 rule columns, but 2 of them describe <strong>infeasible</strong> condition combinations. Using one test per feasible rule, how many test cases are actually needed?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 8 rules minus 2 infeasible leaves 6 that need tests."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "Infeasible rules can never occur, so they need no test cases; 8 - 2 = 6."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the number of infeasible rules, not the number needing tests."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "8 - 2 = 6, not 4."
+              }
+            ],
+            "generalFeedback": "Infeasible rules cannot be exercised, so they are excluded from test derivation. With 8 rules and 2 infeasible, 6 feasible rules remain, needing 6 test cases.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Extended-entry rule count",
+            "text": '<p>An extended-entry table has two conditions: "Size" with choices {Low, High} and "Method" with choices {Cash, Card, Coupon}. How many rules does the full extended-entry table need to cover every combination?</p>',
+            "answers": [
+              {
+                "text": "6 \u2014 the product of the choice counts, 2 x 3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 extended-entry rule count is the product of each condition's number of choices."
+              },
+              {
+                "text": "5 \u2014 the sum of the choice counts, 2 + 3",
+                "fraction": 0,
+                "feedback": "Combinations multiply, not add; 2 x 3 = 6."
+              },
+              {
+                "text": "4 \u2014 2^2, treating each condition as binary",
+                "fraction": 0,
+                "feedback": "Method has 3 choices, not 2, so the count is 2 x 3 = 6, not 2^2."
+              },
+              {
+                "text": "9 \u2014 3^2",
+                "fraction": 0,
+                "feedback": "The conditions have different choice counts (2 and 3); the product is 2 x 3 = 6."
+              }
+            ],
+            "generalFeedback": "For extended-entry tables the full rule count is the product of each condition's number of choices \u2014 here 2 x 3 = 6. This generalises the 2^n formula, which is the special case where every condition has 2 choices.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u689D\u4EF6\u6A01\uFF08condition stub\uFF09\u7684\u5167\u5BB9",
+            "text": "<p>\u5728\u6C7A\u7B56\u8868\uFF08decision table\uFF09\u4E2D\uFF0C<strong>\u689D\u4EF6\u6A01\uFF08condition stub\uFF09</strong>\u5305\u542B\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6240\u8003\u616E\u7684\u689D\u4EF6\uFF08\u8F38\u5165\uFF0F\u539F\u56E0\uFF09\u6E05\u55AE\uFF0C\u6BCF\u5217\u4E00\u9805\uFF0C\u4F4D\u65BC\u5DE6\u4E0A\u8C61\u9650",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u689D\u4EF6\u6A01\u5217\u51FA\u5404\u689D\u4EF6\uFF1B\u5176\u53F3\u5074\u7684\u689D\u76EE\u7D66\u51FA\u6BCF\u689D\u898F\u5247\u7684\u53D6\u503C\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u53EF\u80FD\u63A1\u53D6\u7684\u52D5\u4F5C\uFF0C\u6BCF\u5217\u4E00\u9805",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u4F5C\u6A01\uFF08action stub\uFF09\uFF0C\u4F4D\u65BC\u5DE6\u4E0B\u8C61\u9650\u3002"
+              },
+              {
+                "text": "\u6307\u6D3E\u7D66\u6BCF\u689D\u898F\u5247\u7684 T/F \u53D6\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u689D\u4EF6\u689D\u76EE\uFF08condition entries\uFF09\uFF0C\u4F4D\u65BC\u53F3\u4E0A\u8C61\u9650\uFF0C\u4E26\u975E\u689D\u4EF6\u6A01\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u898F\u5247\u6B04\u7684\u7DE8\u865F",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u7DE8\u865F\u7528\u4F86\u6A19\u793A\u6B04\u4F4D\uFF1B\u689D\u4EF6\u6A01\u5217\u51FA\u7684\u662F\u689D\u4EF6\u672C\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C7A\u7B56\u8868\u6709\u56DB\u500B\u8C61\u9650\u3002\u689D\u4EF6\u6A01\uFF08\u5DE6\u4E0A\uFF09\u5217\u51FA\u689D\u4EF6\uFF1B\u689D\u4EF6\u689D\u76EE\uFF08\u53F3\u4E0A\uFF09\u7D66\u51FA\u6BCF\u689D\u898F\u5247\u5C0D\u9019\u4E9B\u689D\u4EF6\u7684\u53D6\u503C\uFF1B\u52D5\u4F5C\u6A01\u8207\u52D5\u4F5C\u689D\u76EE\u5247\u5360\u64DA\u4E0B\u534A\u90E8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u52D5\u4F5C\u6A01\uFF08action stub\uFF09\u7684\u5167\u5BB9",
+            "text": "<p>\u6C7A\u7B56\u8868\u7684<strong>\u52D5\u4F5C\u6A01\uFF08action stub\uFF09</strong>\u5217\u51FA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u80FD\u7684\u52D5\u4F5C\uFF08\u8F38\u51FA\uFF0F\u6548\u679C\uFF09\u6E05\u55AE\uFF0C\u6BCF\u5217\u4E00\u9805\uFF0C\u4F4D\u65BC\u5DE6\u4E0B\u8C61\u9650",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52D5\u4F5C\u6A01\u5217\u51FA\u5404\u52D5\u4F5C\uFF1B\u52D5\u4F5C\u689D\u76EE\u5247\u6A19\u793A\u6BCF\u689D\u898F\u5247\u6703\u89F8\u767C\u54EA\u4E9B\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u6B63\u5728\u8A55\u4F30\u7684\u5404\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u4F4D\u65BC\u689D\u4EF6\u6A01\uFF08\u5DE6\u4E0A\uFF09\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u689D\u4EF6\u7684 T/F \u689D\u76EE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u689D\u4EF6\u689D\u76EE\uFF0C\u4E26\u975E\u52D5\u4F5C\u6A01\u3002"
+              },
+              {
+                "text": "\u8868\u4E2D\u898F\u5247\u7684\u7E3D\u6578",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u6578\u7531\u689D\u4EF6\u6C7A\u5B9A\uFF1B\u52D5\u4F5C\u6A01\u53EA\u662F\u5217\u51FA\u52D5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u52D5\u4F5C\u6A01\u662F\u5DE6\u4E0B\u8C61\u9650\uFF1A\u5B83\u5217\u8209\u898F\u683C\u4E2D\u53EF\u88AB\u89F8\u767C\u7684\u5404\u7A2E\u52D5\u4F5C\u3002\u5176\u53F3\u5074\u7684\u52D5\u4F5C\u689D\u76EE\uFF08\u5E38\u4EE5 X \u6A19\u8A18\uFF09\u6307\u51FA\u6BCF\u689D\u898F\u5247\u6703\u89F8\u767C\u54EA\u4E9B\u52D5\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u689D\u898F\u5247\u4EE3\u8868\u4EC0\u9EBC",
+            "text": "<p>\u6C7A\u7B56\u8868\u4E2D\u7684\u55AE\u4E00<strong>\u898F\u5247</strong>\uFF08\u4E00\u6B04\uFF09\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7D44\u7279\u5B9A\u7684\u689D\u4EF6\u7D50\u679C\u7D44\u5408\uFF0C\u9023\u540C\u8A72\u7D44\u5408\u4E0B\u61C9\u89F8\u767C\u7684\u52D5\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u898F\u5247\u628A\u67D0\u500B\u689D\u4EF6\u7D44\u5408\u8207\u5176\u5C0D\u61C9\u7684\u52D5\u4F5C\u914D\u5C0D\u8D77\u4F86\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u500B\u5177\u9AD4\u7684\u6E2C\u8A66\u8F38\u5165\u503C",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u662F\u689D\u4EF6\u7D50\u679C\u7684\u7D44\u5408\uFF1B\u6E2C\u8A66\u6848\u4F8B\u662F\u4E4B\u5F8C\u7531\u5B83\u5C0E\u51FA\u7684\u3002"
+              },
+              {
+                "text": "\u6B63\u5728\u8A55\u4F30\u7684\u55AE\u4E00\u500B\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u898F\u5247\u540C\u6642\u6DB5\u84CB\u6240\u6709\u689D\u4EF6\uFF08\u5404\u53D6\u4E00\u500B\u503C\uFF09\uFF0C\u800C\u975E\u53EA\u6709\u55AE\u4E00\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u6574\u5F35\u6C7A\u7B56\u8868",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u898F\u5247\u662F\u4E00\u6B04\uFF1B\u6574\u5F35\u8868\u5247\u662F\u6240\u6709\u898F\u5247\u7684\u96C6\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u4E00\u6B04\uFF08\u898F\u5247\uFF09\u70BA\u6BCF\u500B\u689D\u4EF6\u56FA\u5B9A\u4E00\u500B\u53D6\u503C\uFF0C\u4E26\u8A18\u9304\u8A72\u7CBE\u78BA\u7D44\u5408\u4E0B\u5FC5\u9808\u767C\u751F\u7684\u52D5\u4F5C\u3002\u7531\u4E0A\u800C\u4E0B\u8B80\u4E00\u6B04\uFF0C\u5373\u53EF\u5F97\u5230\u60C5\u5883\u8207\u9810\u671F\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u9650\u689D\u76EE vs \u5EF6\u4F38\u689D\u76EE",
+            "text": "<p><strong>\u6709\u9650\u689D\u76EE\uFF08limited-entry\uFF09</strong>\u6C7A\u7B56\u8868\u8207<strong>\u5EF6\u4F38\u689D\u76EE\uFF08extended-entry\uFF09</strong>\u6C7A\u7B56\u8868\u7684\u5DEE\u5225\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6709\u9650\u689D\u76EE\u7684\u689D\u4EF6\u689D\u76EE\u53EA\u7528 T/F\uFF08\u4EE5\u300C-\u300D\u8868\u793A\u4E0D\u5728\u610F\uFF09\uFF1B\u5EF6\u4F38\u689D\u76EE\u5247\u5141\u8A31\u503C\u3001\u7BC4\u570D\u6216\u9078\u9805",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u5169\u7A2E\u5F62\u5F0F\u7684\u5DEE\u5225\u3002"
+              },
+              {
+                "text": "\u6709\u9650\u689D\u76EE\u5141\u8A31\u503C\u7BC4\u570D\uFF1B\u5EF6\u4F38\u689D\u76EE\u53EA\u5141\u8A31 T/F",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u7684\u5B9A\u7FA9\u5F04\u53CD\u4E86\u3002"
+              },
+              {
+                "text": "\u6709\u9650\u689D\u76EE\u8868\u7684\u52D5\u4F5C\u6578\u5FC5\u5B9A\u6BD4\u5EF6\u4F38\u689D\u76EE\u8868\u5C11",
+                "fraction": 0,
+                "feedback": "\u52D5\u4F5C\u6578\u8207\u6B64\u7121\u95DC\uFF1B\u5DEE\u5225\u5728\u65BC\u689D\u4EF6\u689D\u76EE\u7684\u5F62\u5F0F\u3002"
+              },
+              {
+                "text": "\u5EF6\u4F38\u689D\u76EE\u8868\u6C92\u6709\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u5F62\u5F0F\u90FD\u4EE5\u898F\u5247\u7D44\u7E54\uFF1B\u53EA\u662F\u689D\u76EE\u683C\u5F0F\u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6709\u9650\u689D\u76EE\u8868\u4E2D\uFF0C\u6BCF\u500B\u689D\u4EF6\u689D\u76EE\u90FD\u662F\u5E03\u6797\u503C\uFF08T\u3001F \u6216\u300C-\u300D\uFF09\u3002\u5728\u5EF6\u4F38\u689D\u76EE\u8868\u4E2D\uFF0C\u689D\u4EF6\u689D\u76EE\u53EF\u6539\u70BA\u503C\u3001\u7BC4\u570D\u6216\u9078\u9805\uFF08\u4F8B\u5982\u300C\u672A\u6EFF 100\u300D\u300C100 \u5230 500\u300D\u300C\u8D85\u904E 500\u300D\uFF09\uFF0C\u53EF\u4F7F\u8868\u66F4\u7CBE\u7C21\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u5728\u610F\uFF08don't-care\uFF09\u689D\u76EE\u7684\u610F\u7FA9",
+            "text": "<p>\u898F\u5247\u4E2D\u67D0\u500B\u689D\u4EF6\u7684\u300C-\u300D\uFF08\u7834\u6298\u865F\uFF0C\u5373\u4E0D\u5728\u610F don't-care\uFF09\u689D\u76EE\u4EE3\u8868\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7121\u8AD6\u8A72\u689D\u4EF6\u53D6\u4F55\u503C\uFF0C\u8A72\u898F\u5247\u7684\u52D5\u4F5C\u90FD\u76F8\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u8A72\u898F\u5247\u4E0B\uFF0C\u9019\u500B\u689D\u4EF6\u4E0D\u5F71\u97FF\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u8A72\u898F\u5247\u4E0B\u9019\u500B\u689D\u4EF6\u4E00\u5B9A\u70BA\u5047",
+                "fraction": 0,
+                "feedback": "\u82E5\u70BA\u5047\u6703\u5BEB\u6210 F\uFF1B\u300C-\u300D\u4EE3\u8868\u5176\u503C\u7121\u95DC\u7DCA\u8981\u3002"
+              },
+              {
+                "text": "\u8A72\u689D\u4EF6\u7684\u503C\u672A\u77E5\uFF0C\u56E0\u6B64\u8A72\u898F\u5247\u7121\u6548",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5728\u610F\u662F\u523B\u610F\u7684\uFF0C\u4E26\u975E\u8CC7\u6599\u932F\u8AA4\uFF1B\u8A72\u898F\u5247\u6709\u6548\uFF0C\u4E14\u5C0D\u6B64\u689D\u4EF6\u7684\u4EFB\u4F55\u53D6\u503C\u90FD\u9069\u7528\u3002"
+              },
+              {
+                "text": "\u8A72\u689D\u4EF6\u5FC5\u9808\u5728\u540C\u4E00\u689D\u898F\u5247\u4E2D\u540C\u6642\u4EE5 T \u8207 F \u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u898F\u5247\u7121\u6CD5\u540C\u6642\u6301\u6709\u5169\u8005\uFF1B\u300C-\u300D\u53EA\u662F\u8868\u793A\u7D50\u679C\u8207\u6B64\u689D\u4EF6\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u5728\u610F\u300C-\u300D\u8868\u793A\u8A72\u898F\u5247\u7684\u7D50\u679C\u8207\u6B64\u689D\u4EF6\u7121\u95DC\u3002\u5C0D k \u500B\u4E0D\u5728\u610F\u689D\u4EF6\u800C\u8A00\uFF0C\u4E00\u689D\u9019\u6A23\u7684\u898F\u5247\u76F8\u7576\u65BC\u5B8C\u5168\u5C55\u958B\u5F8C\u7684 2^k \u7A2E\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "2 \u500B\u689D\u4EF6\u7684\u898F\u5247\u6578",
+            "text": "<p>\u4E00\u5F35\u5177\u6709 <strong>2 \u500B\u4E8C\u5143\u689D\u4EF6</strong>\u7684\u6709\u9650\u689D\u76EE\u6C7A\u7B56\u8868\uFF0C\u5728\u5B8C\u6574\u3001\u672A\u5408\u4F75\u7684\u5F62\u5F0F\u4E0B\u6709\u591A\u5C11\u689D\u898F\u5247\uFF08\u6B04\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142^2 = 4 \u7A2E T/F \u7D44\u5408\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u55AE\u4E00\u689D\u4EF6\u53EF\u53D6\u7684\u503C\u6578\uFF0C\u800C\u975E\u5169\u500B\u689D\u4EF6\u7684\u7D44\u5408\u6578\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F 2^3\uFF0C\u5373\u4E09\u500B\u689D\u4EF6\u7684\u898F\u5247\u6578\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u4E0D\u662F 2 \u7684\u51AA\uFF1B\u5B8C\u6574\u7684\u4E8C\u5143\u8868\u5FC5\u5B9A\u6709 2^n \u689D\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D n \u500B\u4E8C\u5143\u689D\u4EF6\u800C\u8A00\uFF0C\u5B8C\u6574\u7684\u6709\u9650\u689D\u76EE\u8868\u6709 2^n \u689D\u898F\u5247\u3002n = 2 \u6642\u70BA 2^2 = 4\uFF1ATT\u3001TF\u3001FT\u3001FF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3 \u500B\u689D\u4EF6\u7684\u898F\u5247\u6578",
+            "text": "<p>\u4E00\u5F35\u5177\u6709 <strong>3 \u500B\u4E8C\u5143\u689D\u4EF6</strong>\u7684\u5B8C\u6574\u6709\u9650\u689D\u76EE\u6C7A\u7B56\u8868\u6709\u591A\u5C11\u689D\u898F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142^3 = 8\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F 2\xD73\uFF1B\u898F\u5247\u6578\u662F 2^n\uFF0C\u4E0D\u662F 2\xD7n\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F 3^2\uFF1B\u4E8C\u5143\u689D\u4EF6\u7D66\u51FA 2^n\uFF0C\u800C\u975E n^2\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u662F 2^4\uFF0C\u5373\u56DB\u500B\u689D\u4EF6\u7684\u898F\u5247\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D n \u500B\u4E8C\u5143\u689D\u4EF6\uFF0C\u5B8C\u6574\u8868\u6709 2^n \u689D\u898F\u5247\u3002n = 3 \u6642\u70BA 2^3 = 8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "4 \u500B\u689D\u4EF6\u7684\u898F\u5247\u6578",
+            "text": "<p>\u4E00\u5F35\u5177\u6709 <strong>4 \u500B\u4E8C\u5143\u689D\u4EF6</strong>\u7684\u5B8C\u6574\u6709\u9650\u689D\u76EE\u6C7A\u7B56\u8868\u6709\u591A\u5C11\u689D\u898F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142^4 = 16\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F 2^3\uFF0C\u5373\u4E09\u500B\u689D\u4EF6\u7684\u898F\u5247\u6578\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u4E0D\u662F 2 \u7684\u51AA\uFF1B\u5B8C\u6574\u7684\u4E8C\u5143\u8868\u6709 2^n \u689D\u898F\u5247\u3002"
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 \u4E0D\u662F 2 \u7684\u51AA\u4E14\u9AD8\u4F30\u4E86\uFF1B\u7B54\u6848\u662F 2^4 = 16\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D n \u500B\u4E8C\u5143\u689D\u4EF6\uFF0C\u5B8C\u6574\u8868\u6709 2^n \u689D\u898F\u5247\u3002n = 4 \u6642\u70BA 2^4 = 16\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6709\u9650\u689D\u76EE\u7684\u689D\u4EF6\u53D6\u503C",
+            "text": "<p>\u5728\u6709\u9650\u689D\u76EE\u6C7A\u7B56\u8868\u4E2D\uFF0C\u689D\u4EF6\u689D\u76EE\u50C5\u9650\u65BC\u771F\uFF0F\u5047\u503C\uFF08\u4E26\u5141\u8A31\u4EE5\u300C-\u300D\u8868\u793A\u4E0D\u5728\u610F\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6709\u9650\u689D\u76EE\u610F\u6307\u689D\u4EF6\u689D\u76EE\u70BA\u5E03\u6797\u503C\uFF0C\u518D\u52A0\u4E0A\u8868\u793A\u4E0D\u5728\u610F\u7684\u300C-\u300D\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4F9D\u5B9A\u7FA9\uFF0C\u6709\u9650\u689D\u76EE\u8868\u7684\u689D\u4EF6\u53EA\u7528 T/F\uFF08\u8207\u300C-\u300D\uFF09\uFF1B\u503C\u7BC4\u570D\u5C6C\u65BC\u5EF6\u4F38\u689D\u76EE\u8868\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u6709\u9650\u689D\u76EE\u300D\u6B63\u662F\u6307\u628A\u689D\u4EF6\u689D\u76EE\u9650\u5236\u70BA\u771F\uFF0F\u5047\uFF08\u4E26\u4EE5\u300C-\u300D\u8868\u793A\u4E0D\u5728\u610F\uFF09\u3002\u503C\u7BC4\u570D\u8207\u9078\u9805\u5247\u662F\u5EF6\u4F38\u689D\u76EE\u8868\u7684\u7279\u5FB5\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u689D\u4EF6\u689D\u76EE vs \u52D5\u4F5C\u689D\u76EE",
+            "text": "<p>\u5728\u8868\u7684\u53F3\u5074\u8C61\u9650\u4E2D\uFF0C<strong>\u689D\u4EF6\u689D\u76EE</strong>\u8207<strong>\u52D5\u4F5C\u689D\u76EE</strong>\u5206\u5225\u6307\u5B9A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u689D\u4EF6\u689D\u76EE\u7D66\u51FA\u6BCF\u689D\u898F\u5247\u5C0D\u5404\u689D\u4EF6\u7684\u53D6\u503C\uFF1B\u52D5\u4F5C\u689D\u76EE\u6A19\u793A\u8A72\u898F\u5247\u6703\u89F8\u767C\u54EA\u4E9B\u52D5\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u63CF\u8FF0\u60C5\u5883\uFF0C\u53E6\u4E00\u500B\u63CF\u8FF0\u56DE\u61C9\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6\u689D\u76EE\u5217\u51FA\u52D5\u4F5C\uFF1B\u52D5\u4F5C\u689D\u76EE\u5217\u51FA\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u7684\u89D2\u8272\u5C0D\u8ABF\u4E86\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u53EA\u662F\u91CD\u8907\u898F\u5247\u7DE8\u865F",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u7DE8\u865F\u662F\u6B04\u6A19\u984C\uFF1B\u689D\u76EE\u627F\u8F09\u7684\u662F T/F \u53D6\u503C\u8207\u52D5\u4F5C\u6A19\u8A18\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6\u689D\u76EE\u986F\u793A\u539F\u59CB\u78BC\u6DB5\u84CB\uFF1B\u52D5\u4F5C\u689D\u76EE\u986F\u793A\u6E2C\u8A66\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u6C7A\u7B56\u8868\u662F\u9ED1\u7BB1\u6280\u8853\uFF1B\u689D\u76EE\u63CF\u8FF0\u7684\u662F\u898F\u683C\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u689D\u898F\u5247\u800C\u8A00\uFF0C\u689D\u4EF6\u689D\u76EE\uFF08\u53F3\u4E0A\uFF09\u8A18\u9304\u6BCF\u500B\u689D\u4EF6\u7684 T/F \u53D6\u503C\uFF0C\u52D5\u4F5C\u689D\u76EE\uFF08\u53F3\u4E0B\uFF0C\u5E38\u4EE5 X \u8868\u793A\uFF09\u8A18\u9304\u898F\u683C\u6307\u51FA\u61C9\u89F8\u767C\u54EA\u4E9B\u52D5\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u8C61\u9650",
+            "text": "<p>\u6C7A\u7B56\u8868\u901A\u5E38\u5283\u5206\u70BA\u56DB\u500B\u8C61\u9650\u3002\u662F\u54EA\u56DB\u500B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u689D\u4EF6\u6A01\u3001\u689D\u4EF6\u689D\u76EE\u3001\u52D5\u4F5C\u6A01\u3001\u52D5\u4F5C\u689D\u76EE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DE6\u70BA\u6A01\u3001\u53F3\u70BA\u689D\u76EE\uFF0C\u4E0A\u70BA\u689D\u4EF6\u3001\u4E0B\u70BA\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u8F38\u5165\u3001\u8F38\u51FA\u3001\u72C0\u614B\u3001\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u63CF\u8FF0\u7684\u662F\u72C0\u614B\u6A5F\uFF0C\u800C\u975E\u6C7A\u7B56\u8868\u7684\u8C61\u9650\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u689D\u4EF6\u3001\u5F8C\u7F6E\u689D\u4EF6\u3001\u4E0D\u8B8A\u5F0F\u3001\u5B88\u885B",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u898F\u683C\u6982\u5FF5\uFF0C\u4E26\u975E\u6C7A\u7B56\u8868\u7684\u56DB\u500B\u8C61\u9650\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u3001\u908A\u3001\u8DEF\u5F91\u3001\u74B0",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u5716\u8AD6\u6982\u5FF5\uFF0C\u8207\u8868\u7684\u7248\u9762\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u500B\u8C61\u9650\u662F\u689D\u4EF6\u6A01\uFF08\u5DE6\u4E0A\uFF09\u3001\u689D\u4EF6\u689D\u76EE\uFF08\u53F3\u4E0A\uFF09\u3001\u52D5\u4F5C\u6A01\uFF08\u5DE6\u4E0B\uFF09\u8207\u52D5\u4F5C\u689D\u76EE\uFF08\u53F3\u4E0B\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6C7A\u7B56\u8868\u6240\u5C6C\u7684\u6280\u8853\u5BB6\u65CF",
+            "text": "<p>\u6C7A\u7B56\u8868\u6E2C\u8A66\u5C6C\u65BC\u54EA\u4E00\u985E\u6E2C\u8A66\u8A2D\u8A08\u6280\u8853\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9ED1\u7BB1\uFF08\u4EE5\u898F\u683C\u70BA\u57FA\u790E\uFF09\u6280\u8853",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5F9E\u898F\u683C\u7684\u689D\u4EF6\u8207\u52D5\u4F5C\u5C0E\u51FA\u6E2C\u8A66\uFF0C\u800C\u975E\u5F9E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u4EE5\u63A7\u5236\u6D41\u7A0B\u5716\u70BA\u57FA\u790E\u7684\u767D\u7BB1\uFF08\u7D50\u69CB\u5316\uFF09\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u6C7A\u7B56\u8868\u5EFA\u69CB\u81EA\u898F\u683C\uFF0C\u800C\u975E\u539F\u59CB\u78BC\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u6DB5\u84CB\u5EA6\u91CF\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u5F9E\u884C\u70BA\u8A2D\u8A08\u6E2C\u8A66\uFF0C\u4E26\u4E0D\u91CF\u6E2C\u6709\u591A\u5C11\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u5206\u6790\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u5206\u6790\u6CE8\u5165\u7A0B\u5F0F\u78BC\u7F3A\u9677\uFF1B\u6C7A\u7B56\u8868\u662F\u9ED1\u7BB1\u8A2D\u8A08\u65B9\u6CD5\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C7A\u7B56\u8868\u6E2C\u8A66\u662F\u4E00\u7A2E\u9ED1\u7BB1\u3001\u4EE5\u898F\u683C\u70BA\u57FA\u790E\u7684\u8A2D\u8A08\u6280\u8853\uFF1A\u689D\u4EF6\u8207\u52D5\u4F5C\u4F86\u81EA\u9700\u6C42\uFF0C\u898F\u5247\u518D\u7CFB\u7D71\u5316\u5730\u5C07\u5B83\u5011\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u4F38\u689D\u76EE\u7684\u689D\u4EF6\u53D6\u503C",
+            "text": "<p>\u5728<strong>\u5EF6\u4F38\u689D\u76EE</strong>\u6C7A\u7B56\u8868\u4E2D\uFF0C\u689D\u4EF6\u689D\u76EE\u53EF\u4EE5\u662F\u4EE5\u4E0B\u4F55\u8005\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u503C\u3001\u7BC4\u570D\u6216\u9078\u9805\uFF08\u4F8B\u5982\u300C\u672A\u6EFF 100\u300D\u300C100 \u5230 500\u300D\u300C\u8D85\u904E 500\u300D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EF6\u4F38\u689D\u76EE\u8868\u5141\u8A31\u6BD4\u55AE\u7D14 T/F \u66F4\u8C50\u5BCC\u7684\u689D\u76EE\u3002"
+              },
+              {
+                "text": "\u53EA\u80FD\u662F T \u6216 F",
+                "fraction": 0,
+                "feedback": "\u53EA\u5141\u8A31\u5E03\u6797\u689D\u76EE\u7684\u662F\u6709\u9650\u689D\u76EE\u8868\uFF0C\u800C\u975E\u5EF6\u4F38\u689D\u76EE\u8868\u3002"
+              },
+              {
+                "text": "\u53EA\u80FD\u662F\u6A19\u8A18 X",
+                "fraction": 0,
+                "feedback": "X \u6A19\u793A\u7684\u662F\u52D5\u4F5C\u689D\u76EE\u4E2D\u88AB\u89F8\u767C\u7684\u52D5\u4F5C\uFF0C\u800C\u975E\u689D\u4EF6\u53D6\u503C\u3002"
+              },
+              {
+                "text": "\u53EA\u80FD\u662F\u898F\u5247\u7DE8\u865F",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u7DE8\u865F\u662F\u6B04\u6A19\u7C64\uFF0C\u4E26\u975E\u689D\u4EF6\u689D\u76EE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5EF6\u4F38\u689D\u76EE\u8868\u5141\u8A31\u689D\u4EF6\u689D\u76EE\u70BA\u503C\u3001\u7BC4\u570D\u6216\u9078\u9805\uFF0C\u9019\u53EF\u628A\u6578\u500B\u5E03\u6797\u689D\u4EF6\u5408\u6210\u55AE\u4E00\u500B\u591A\u503C\u689D\u4EF6\uFF0C\u4F7F\u8868\u7E2E\u5C0F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5B8C\u6574\u8868\u6709 2^n \u689D\u898F\u5247",
+            "text": "<p>\u5728\u4EFB\u4F55\u5408\u4F75\u4E4B\u524D\uFF0C\u4E00\u5F35\u5177\u6709 n \u500B\u4E8C\u5143\u689D\u4EF6\u7684\u5B8C\u6574\u6709\u9650\u689D\u76EE\u6C7A\u7B56\u8868\u6709 2^n \u689D\u898F\u5247\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u689D\u4EF6\u5404\u81EA\u53EF\u53D6 T \u6216 F\uFF0C\u5171 2^n \u7A2E\u7D44\u5408\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "n \u500B\u4E8C\u5143\u689D\u4EF6\u5404\u81EA\u4F7F\u7D44\u5408\u6578\u52A0\u500D\uFF0C\u56E0\u6B64\u5B8C\u6574\u8868\u6709 2^n \u689D\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u6709 n \u500B\u5F7C\u6B64\u7368\u7ACB\u7684\u4E8C\u5143\u689D\u4EF6\u6642\uFF0C\u5171\u6709 2^n \u7A2E\u76F8\u7570\u7684 T/F \u7D44\u5408\uFF0C\u56E0\u6B64\u5B8C\u6574\uFF08\u672A\u5408\u4F75\uFF09\u8868\u6070\u6709 2^n \u6B04\u898F\u5247\u3002\u4E4B\u5F8C\u4EE5\u4E0D\u5728\u610F\u5408\u4F75\u53EF\u6E1B\u5C11\u6B64\u6578\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u898F\u5247\u5C0E\u51FA\u6E2C\u8A66",
+            "text": "<p>\u7531\u6C7A\u7B56\u8868\u5C0E\u51FA\u6E2C\u8A66\u6848\u4F8B\uFF0C\u6700\u7C21\u55AE\u7684\u6A19\u6E96\u505A\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u70BA\u8868\u4E2D\u6BCF\u689D\u898F\u5247\uFF08\u6BCF\u6B04\uFF09\u5404\u5EFA\u7ACB\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u689D\u898F\u5247\u6210\u70BA\u4E00\u500B\u6E2C\u8A66\uFF0C\u4E26\u4F7F\u7528\u6EFF\u8DB3\u5176\u689D\u4EF6\u7D44\u5408\u7684\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u689D\u4EF6\u5404\u5EFA\u7ACB\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6E2C\u8A66\u5FC5\u9808\u540C\u6642\u56FA\u5B9A\u6BCF\u500B\u689D\u4EF6\uFF1B\u898F\u5247\uFF08\u4E00\u500B\u5B8C\u6574\u7D44\u5408\uFF09\u624D\u662F\u81EA\u7136\u55AE\u4F4D\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u52D5\u4F5C\u5404\u5EFA\u7ACB\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u52D5\u4F5C\u662F\u7D50\u679C\uFF1B\u6E2C\u8A66\u7531\u89F8\u767C\u5B83\u5011\u7684\u898F\u5247\u5C0E\u51FA\u3002"
+              },
+              {
+                "text": "\u70BA\u6574\u5F35\u8868\u5EFA\u7ACB\u55AE\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6E2C\u8A66\u7121\u6CD5\u6DB5\u84CB\u6BCF\u4E00\u689D\u898F\u5247\uFF1B\u6BCF\u689D\u898F\u5247\u5404\u9700\u4E00\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A19\u6E96\u5C0D\u61C9\u662F\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6E2C\u8A66\uFF1A\u9078\u53D6\u6EFF\u8DB3\u8A72\u898F\u5247\u689D\u4EF6\u7D44\u5408\u7684\u8F38\u5165\uFF0C\u4E26\u6AA2\u67E5\u6070\u597D\u5176\u6307\u5B9A\u7684\u52D5\u4F5C\u88AB\u89F8\u767C\u3002\u56E0\u6B64\u6E2C\u8A66\u6578\u7B49\u65BC\uFF08\u5408\u4F75\u5F8C\uFF09\u8868\u7684\u898F\u5247\u6578\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u8F38\u5165\u7B26\u5408\u54EA\u689D\u898F\u5247",
+            "text": "<p>\u7D66\u5B9A\u6B64\u6709\u9650\u689D\u76EE\u8868\uFF1A</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>\u5C0D\u65BC <code>C1 = F</code> \u4E14 <code>C2 = T</code> \u7684\u8F38\u5165\uFF0C\u9069\u7528\u54EA\u689D\u898F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014R3 \u7684 C1 = F \u4E14 C2 = T\u3002"
+              },
+              {
+                "text": "R1",
+                "fraction": 0,
+                "feedback": "R1 \u662F C1 = T\u3001C2 = T\uFF0C\u8207\u7D66\u5B9A\u8F38\u5165\u4E0D\u7B26\u3002"
+              },
+              {
+                "text": "R2",
+                "fraction": 0,
+                "feedback": "R2 \u662F C1 = T\u3001C2 = F\u3002"
+              },
+              {
+                "text": "R4",
+                "fraction": 0,
+                "feedback": "R4 \u662F C1 = F\u3001C2 = F\uFF0C\u5176 C2 \u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u8F38\u5165\u8207\u5404\u6B04\u6BD4\u5C0D\uFF1A\u53EA\u6709 R3 \u7684 C1 = F \u4E14 C2 = T\uFF0C\u56E0\u6B64\u9069\u7528\u898F\u5247\u70BA R3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6703\u89F8\u767C\u54EA\u500B\u52D5\u4F5C",
+            "text": "<p>\u7D66\u5B9A\u6B64\u8868\uFF08X \u8868\u793A\u88AB\u89F8\u767C\u7684\u52D5\u4F5C\uFF09\uFF1A</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   -   -   -\nB        -   X   X   -\nC        -   -   -   X\n</pre><p>\u5C0D\u65BC <code>C1 = T</code> \u4E14 <code>C2 = F</code> \u7684\u8F38\u5165\uFF0C\u6703\u89F8\u767C\u54EA\u500B\u52D5\u4F5C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014C1 = T\u3001C2 = F \u662F\u898F\u5247 R2\uFF0C\u5176\u552F\u4E00\u7684 X \u5728\u52D5\u4F5C B\u3002"
+              },
+              {
+                "text": "A",
+                "fraction": 0,
+                "feedback": "\u52D5\u4F5C A \u53EA\u5728 R1\uFF08C1 = T\u3001C2 = T\uFF09\u89F8\u767C\u3002"
+              },
+              {
+                "text": "C",
+                "fraction": 0,
+                "feedback": "\u52D5\u4F5C C \u53EA\u5728 R4\uFF08C1 = F\u3001C2 = F\uFF09\u89F8\u767C\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u52D5\u4F5C\u88AB\u89F8\u767C",
+                "fraction": 0,
+                "feedback": "R2 \u78BA\u5BE6\u6709\u88AB\u6A19\u8A18\u7684\u52D5\u4F5C\uFF08B\uFF09\uFF0C\u56E0\u6B64\u6709\u52D5\u4F5C\u88AB\u89F8\u767C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8F38\u5165\uFF08C1 = T\u3001C2 = F\uFF09\u9078\u4E2D\u898F\u5247 R2\u3002\u6CBF R2 \u5F80\u4E0B\u8B80\uFF0C\u552F\u4E00\u7684 X \u5728\u52D5\u4F5C B\uFF0C\u56E0\u6B64 B \u88AB\u89F8\u767C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u5728\u610F\u80CC\u5F8C\u7684\u7D44\u5408\u6578",
+            "text": "<p>\u5728\u4E00\u5F35\u5408\u4F75\u5F8C\u7684\u6709\u9650\u689D\u76EE\u8868\u4E2D\uFF0C\u67D0\u689D\u898F\u5247\u5C0D <strong>2</strong> \u500B\u689D\u4EF6\u6A19\u8A18\u70BA\u300C-\u300D\uFF08\u5176\u9918\u689D\u4EF6\u7686\u56FA\u5B9A\uFF09\u3002\u9019\u4E00\u689D\u5408\u4F75\u898F\u5247\u4EE3\u8868\u539F\u5B8C\u6574\u8868\u4E2D\u7684\u591A\u5C11\u689D\u898F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142 \u500B\u4E0D\u5728\u610F\u689D\u4EF6\u4EE3\u8868 2^2 = 4 \u7A2E\u7D44\u5408\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F 2^1\uFF1B\u6B64\u8655\u6709\u5169\u500B\u4E0D\u5728\u610F\uFF0C\u61C9\u70BA 2^2 = 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5728\u610F\u4EE5 2 \u7684\u51AA\u5C55\u958B\uFF1B2 \u500B\u7D66\u51FA 4\uFF0C\u800C\u975E 3\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4E0D\u5728\u610F\u7684\u898F\u5247\u4EE3\u8868 1 \u7A2E\u7D44\u5408\uFF1B\u5169\u500B\u4E0D\u5728\u610F\u5247\u4EE3\u8868 4 \u7A2E\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u4E0D\u5728\u610F\u689D\u4EF6\u53EF\u70BA T \u6216 F\uFF0C\u56E0\u6B64 k \u500B\u4E0D\u5728\u610F\u5C55\u958B\u70BA 2^k \u689D\u5B8C\u6574\u8868\u898F\u5247\u3002k = 2 \u6642\u70BA 2^2 = 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u5408\u4F75\u5F8C\u8868\u5C0E\u51FA\u6E2C\u8A66\u6578",
+            "text": "<p>\u4E00\u5F35\u5408\u4F75\u5F8C\u7684\u6C7A\u7B56\u8868\u6709 <strong>5 \u689D\u898F\u5247</strong>\u3002\u63A1\u7528\u300C\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\u300D\u7684\u7B56\u7565\uFF0C\u6703\u5C0E\u51FA\u591A\u5C11\u500B\u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u6848\u4F8B\u6578\u7B49\u65BC\u898F\u5247\u6578\u3002"
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "32 = 2^5 \u662F\u628A\u6BCF\u689D\u898F\u5247\u91CD\u65B0\u5C55\u958B\u5F8C\u7684\u6578\u91CF\uFF1B\u6B64\u7B56\u7565\u662F\u6BCF\u689D\u5408\u4F75\u898F\u5247\u4E00\u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "\u4E26\u4E0D\u6703\u52A0\u500D\uFF1B\u662F\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6E2C\u8A66\uFF0C\u56E0\u6B64\u70BA 5\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u6BCF\u689D\u898F\u5247\u90FD\u9700\u8981\u4E00\u500B\u6E2C\u8A66\uFF1B5 \u689D\u898F\u5247\u5373\u70BA 5\uFF0C\u4E0D\u662F 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6E2C\u8A66\u7684\u5C0D\u61C9\u610F\u5473\u6E2C\u8A66\u6578\u7B49\u65BC\u898F\u5247\u6578\u3002\u5408\u4F75\u5F8C\u6709 5 \u689D\u898F\u5247\u7684\u8868\u53EF\u5C0E\u51FA 5 \u500B\u6E2C\u8A66\u6848\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5408\u4F75\u4E00\u5F35\u5B8C\u6574\u8868",
+            "text": "<p>\u76E1\u53EF\u80FD\u5408\u4F75\u6B64\u5B8C\u6574\u8868\uFF1A</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   X   -   -\nB        -   -   X   X\n</pre><p>\u5408\u4F75\u5F8C\u5269\u4E0B\u591A\u5C11\u689D\u898F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014R1\u3001R2 \u5408\u4F75\u70BA (C1=T, C2=-)\u2192A\uFF1BR3\u3001R4 \u5408\u4F75\u70BA (C1=F, C2=-)\u2192B\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u672A\u5408\u4F75\u7684\u6578\u91CF\uFF1B\u5169\u5C0D\u53EF\u5408\u4F75\u7684\u898F\u5247\u4F7F\u5176\u6E1B\u70BA 2\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5169\u5C0D\u90FD\u53EF\u5408\u4F75\uFF0C\u800C\u975E\u53EA\u6709\u4E00\u5C0D\uFF0C\u56E0\u6B64\u5269 2 \u689D\u898F\u5247\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A \u8207 B \u662F\u4E0D\u540C\u52D5\u4F5C\uFF0C\u56E0\u6B64\u5176\u898F\u5247\u7121\u6CD5\u4F75\u6210\u55AE\u4E00\u689D\u3002"
+              }
+            ],
+            "generalFeedback": "R1 \u8207 R2 \u90FD\u53EA\u89F8\u767C A \u4E14\u50C5\u5728 C2 \u4E0A\u4E0D\u540C\uFF0C\u6545\u5408\u4F75\u70BA (C1=T, C2=-)\u3002R3 \u8207 R4 \u90FD\u53EA\u89F8\u767C B \u4E14\u50C5\u5728 C2 \u4E0A\u4E0D\u540C\uFF0C\u5408\u4F75\u70BA (C1=F, C2=-)\u3002\u5269\u4E0B\u5169\u689D\u5408\u4F75\u898F\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u542B\u4E0D\u5728\u610F\u7684\u5B8C\u6574\u6027\u6AA2\u67E5",
+            "text": "<p>\u4E00\u5F35\u91DD\u5C0D 2 \u500B\u4E8C\u5143\u689D\u4EF6\u7684\u5408\u4F75\u8868\u6709\u4EE5\u4E0B\u898F\u5247\uFF1A</p><pre>\n\u898F\u5247 A\uFF1A  C1=T, C2=-\n\u898F\u5247 B\uFF1A  C1=F, C2=T\n\u898F\u5247 C\uFF1A  C1=F, C2=F\n</pre><p>\u9019\u4E9B\u898F\u5247\u662F\u5426\u6DB5\u84CB\u5168\u90E8 2^2 = 4 \u7A2E\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\u2014\u2014\u898F\u5247 A \u6DB5\u84CB TT \u8207 TF\uFF0C\u898F\u5247 B \u6DB5\u84CB FT\uFF0C\u898F\u5247 C \u6DB5\u84CB FF\uFF1A\u5168\u90E8 4 \u7A2E\u7D44\u5408",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u898F\u5247 A \u7684\u4E0D\u5728\u610F\u6DB5\u84CB\u4E86\u5169\u7A2E\u7D44\u5408\uFF0C\u88DC\u8DB3\u4E86\u6574\u500B\u96C6\u5408\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u7F3A\u5C11\u7D44\u5408 C1=T, C2=F",
+                "fraction": 0,
+                "feedback": "\u898F\u5247 A\uFF08C1=T, C2=-\uFF09\u5DF2\u6DB5\u84CB C1=T, C2=F\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u7F3A\u5C11\u7D44\u5408 C1=F, C2=T",
+                "fraction": 0,
+                "feedback": "\u898F\u5247 B \u6B63\u597D\u6DB5\u84CB C1=F, C2=T\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u20143 \u689D\u898F\u5247\u6C38\u9060\u53EA\u80FD\u6DB5\u84CB 3 \u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u542B\u4E0D\u5728\u610F\u7684\u898F\u5247\u53EF\u6DB5\u84CB\u591A\u65BC\u4E00\u7A2E\u7D44\u5408\uFF0C\u56E0\u6B64 3 \u689D\u898F\u5247\u80FD\u6DB5\u84CB 4 \u7A2E\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5247 A \u5C0D C2 \u7684\u4E0D\u5728\u610F\u6DB5\u84CB TT \u8207 TF\uFF082 \u7A2E\u7D44\u5408\uFF09\uFF1B\u898F\u5247 B \u6DB5\u84CB FT\uFF1B\u898F\u5247 C \u6DB5\u84CB FF\u3002\u5408\u8A08 2+1+1 = 4 = 2^2\uFF0C\u56E0\u6B64\u8A72\u8868\u5B8C\u6574\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BD4\u5C0D\u4E09\u500B\u689D\u4EF6\u7684\u898F\u5247",
+            "text": "<p>\u7D66\u5B9A\u6B64\u5B8C\u6574 3 \u689D\u4EF6\u8868\uFF1A</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n</pre><p><code>C1 = T, C2 = F, C3 = T</code> \u7B26\u5408\u54EA\u689D\u898F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014R3 \u662F C1=T, C2=F, C3=T\u3002"
+              },
+              {
+                "text": "R2",
+                "fraction": 0,
+                "feedback": "R2 \u662F C1=T, C2=T, C3=F\u3002"
+              },
+              {
+                "text": "R4",
+                "fraction": 0,
+                "feedback": "R4 \u662F C1=T, C2=F, C3=F\uFF0C\u5176 C3 \u4E0D\u540C\u3002"
+              },
+              {
+                "text": "R7",
+                "fraction": 0,
+                "feedback": "R7 \u662F C1=F, C2=F, C3=T\uFF0C\u5176 C1 \u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u8B80\u6BCF\u4E00\u6B04\u3002\u53EA\u6709 R3 \u7684 C1=T\u3001C2=F\u3001C3=T\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u4F38\u689D\u76EE\u6BD4\u5C0D",
+            "text": "<p>\u4E00\u5F35\u5EF6\u4F38\u689D\u76EE\u8868\u4F9D\u8A02\u55AE\u91D1\u984D\u6C7A\u5B9A\u6298\u6263\uFF1A</p><pre>\n\u689D\u4EF6\u300C\u8A02\u55AE\u91D1\u984D\u300D\uFF1A  R1: \u672A\u6EFF 100    R2: 100 \u5230 500   R3: \u8D85\u904E 500\n\u52D5\u4F5C\u300C\u6298\u6263\u300D\uFF1A      R1: 0%          R2: 5%           R3: 10%\n</pre><p>\u8A02\u55AE\u91D1\u984D\u70BA 250 \u6703\u9078\u4E2D\u54EA\u689D\u898F\u5247\u3001\u9069\u7528\u4EC0\u9EBC\u6298\u6263\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R2\u2014\u20145% \u6298\u6263",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014250 \u843D\u5728\u300C100 \u5230 500\u300D\u5340\u9593\u3002"
+              },
+              {
+                "text": "R1\u2014\u20140% \u6298\u6263",
+                "fraction": 0,
+                "feedback": "R1 \u9069\u7528\u65BC\u672A\u6EFF 100 \u7684\u91D1\u984D\uFF1B250 \u9AD8\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "R3\u2014\u201410% \u6298\u6263",
+                "fraction": 0,
+                "feedback": "R3 \u9069\u7528\u65BC\u8D85\u904E 500 \u7684\u91D1\u984D\uFF1B250 \u672A\u9054\u6B64\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u898F\u5247\u7B26\u5408 250",
+                "fraction": 0,
+                "feedback": "250 \u6B63\u597D\u843D\u5728 R2 \u7684\u7BC4\u570D\u5167\uFF0C\u56E0\u6B64\u6709\u898F\u5247\u7B26\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u5EF6\u4F38\u689D\u76EE\u689D\u4EF6\u4F9D\u7BC4\u570D\u6BD4\u5C0D\u3002250 \u843D\u5728\u300C100 \u5230 500\u300D\uFF0C\u5373 R2\uFF0C\u7D66\u4E88 5% \u6298\u6263\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u5169\u689D\u898F\u5247\u53EF\u5408\u4F75",
+            "text": "<p>\u7D66\u5B9A\u6B64\u8868\uFF1A</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA1       X   X   -   -\nA2       -   -   X   -\nA3       -   -   -   X\n</pre><p>\u54EA\u5169\u689D\u898F\u5247\u53EF\u4EE5\u5408\u4F75\u70BA\u4E00\u689D\uFF0C\u5982\u4F55\u5408\u4F75\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R1 \u8207 R2\uFF0C\u5408\u4F75\u70BA (C1=T, C2=-) \u89F8\u767C A1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5011\u89F8\u767C\u76F8\u540C\u52D5\u4F5C\u4E14\u50C5\u5728 C2 \u4E0A\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "R3 \u8207 R4\uFF0C\u5408\u4F75\u70BA (C1=F, C2=-)",
+                "fraction": 0,
+                "feedback": "R3 \u89F8\u767C A2 \u800C R4 \u89F8\u767C A3\u2014\u2014\u52D5\u4F5C\u4E0D\u540C\uFF0C\u6545\u7121\u6CD5\u5408\u4F75\u3002"
+              },
+              {
+                "text": "R2 \u8207 R3\uFF0C\u5408\u4F75\u70BA (C1=-, C2=-)",
+                "fraction": 0,
+                "feedback": "R2 \u8207 R3 \u5728 C1 \u8207 C2 \u4E0A\u90FD\u4E0D\u540C\uFF0C\u4E14\u89F8\u767C\u4E0D\u540C\u52D5\u4F5C\uFF1B\u7121\u6CD5\u5408\u4F75\u3002"
+              },
+              {
+                "text": "R1 \u8207 R4\uFF0C\u5408\u4F75\u70BA (C1=-, C2=-)",
+                "fraction": 0,
+                "feedback": "R1 \u8207 R4 \u5728\u5169\u500B\u689D\u4EF6\u4E0A\u90FD\u4E0D\u540C\uFF0C\u4E14\u89F8\u767C\u4E0D\u540C\u52D5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u689D\u898F\u5247\u552F\u6709\u5728\u89F8\u767C\u5B8C\u5168\u76F8\u540C\u7684\u52D5\u4F5C\u4E14\u50C5\u5728\u4E00\u500B\u689D\u4EF6\u4E0A\u4E0D\u540C\u6642\u624D\u80FD\u5408\u4F75\u3002R1 \u8207 R2 \u90FD\u89F8\u767C A1 \u4E14\u50C5 C2 \u4E0D\u540C\uFF0C\u6545\u5408\u4F75\u70BA (C1=T, C2=-)\u2192A1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6703\u89F8\u767C\u54EA\u500B\u52D5\u4F5C\uFF08\u4E09\u500B\u689D\u4EF6\uFF09",
+            "text": "<p>\u7D66\u5B9A\u6B64\u8868\uFF08X \u8868\u793A\u88AB\u89F8\u767C\u7684\u52D5\u4F5C\uFF09\uFF1A</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAccept   X  X  X  -  X  -  -  -\nReject   -  -  -  X  -  X  X  X\n</pre><p>\u5C0D\u65BC <code>C1 = F, C2 = T, C3 = F</code>\uFF0C\u6703\u89F8\u767C\u54EA\u500B\u52D5\u4F5C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Reject",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(F,T,F) \u662F\u898F\u5247 R6\uFF0C\u5176 X \u5728 Reject\u3002"
+              },
+              {
+                "text": "Accept",
+                "fraction": 0,
+                "feedback": "Accept \u5728 R6 \u89F8\u767C\u55CE\uFF1F\u5426\u2014\u2014R6 \u7684 X \u5728 Reject\uFF0C\u800C\u975E Accept\u3002"
+              },
+              {
+                "text": "Accept \u8207 Reject \u90FD\u6703",
+                "fraction": 0,
+                "feedback": "R6 \u6B04\u4E2D\u53EA\u6709\u4E00\u500B X\uFF0C\u56E0\u6B64\u53EA\u6709\u55AE\u4E00\u500B\u52D5\u4F5C\u88AB\u89F8\u767C\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u52D5\u4F5C\u90FD\u4E0D\u6703",
+                "fraction": 0,
+                "feedback": "R6 \u78BA\u5BE6\u6709\u88AB\u6A19\u8A18\u7684\u52D5\u4F5C\uFF08Reject\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "(C1=F, C2=T, C3=F) \u662F\u6B04 R6\u3002\u5176\u552F\u4E00\u7684 X \u5728 Reject\uFF0C\u56E0\u6B64 Reject \u88AB\u89F8\u767C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u5C11\u7684\u7D44\u5408",
+            "text": "<p>\u4E00\u5F35\u91DD\u5C0D <strong>3 \u500B\u4E8C\u5143\u689D\u4EF6</strong>\u7684\u6709\u9650\u689D\u76EE\u8868\u76EE\u524D\u5217\u51FA 6 \u689D\u898F\u5247\uFF0C\u7686\u672A\u4F7F\u7528\u4E0D\u5728\u610F\u3002\u5047\u8A2D\u6C92\u6709\u91CD\u8907\uFF0C\u7F3A\u5C11\u591A\u5C11\u7A2E\u689D\u4EF6\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6574\u8868\u9700\u8981 2^3 = 8 \u689D\u898F\u5247\uFF0C8 - 6 = 2 \u689D\u7F3A\u5C11\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u8868\u5DF2\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u7684 3 \u689D\u4EF6\u8868\u9700\u8981 8 \u689D\u898F\u5247\uFF1B\u6B64\u8655\u53EA\u6709 6 \u689D\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "8 - 6 = 2\uFF0C\u800C\u975E 3\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F\u5DF2\u5B58\u5728\u7684\u6578\u91CF\uFF1B\u7F3A\u5C11\u7684\u6578\u91CF\u662F 8 - 6 = 2\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6574\u6027\u8981\u6C42\u6DB5\u84CB\u5168\u90E8 2^n \u7A2E\u7D44\u5408\u3002n = 3 \u6642\u70BA 8\uFF1B\u5DF2\u6709 6 \u689D\u4E14\u7121\u4E0D\u5728\u610F\uFF0C\u6545\u7F3A\u5C11 2 \u7A2E\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5408\u4F75\u524D\u5F8C\u7684\u6E2C\u8A66\u6578",
+            "text": "<p>\u4E00\u5F35 3 \u689D\u4EF6\u7684\u5B8C\u6574\u8868\uFF088 \u689D\u898F\u5247\uFF09\u5408\u4F75\u70BA 4 \u689D\u898F\u5247\u3002\u63A1\u7528\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6E2C\u8A66\uFF0C\u5408\u4F75\u5F8C\u7684\u8868\u9700\u8981\u591A\u5C11\u6E2C\u8A66\u6848\u4F8B\uFF0C\u76F8\u8F03\u65BC\u5B8C\u6574\u8868\u5982\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4 \u500B\u6E2C\u8A66\u6848\u4F8B\uFF0C\u7531 8 \u500B\u6E1B\u5C11\u800C\u4F86",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5408\u4F75\u70BA 4 \u689D\u898F\u5247\u4EE3\u8868\u7528 4 \u500B\u6E2C\u8A66\u53D6\u4EE3 8 \u500B\u3002"
+              },
+              {
+                "text": "8 \u500B\u6E2C\u8A66\u6848\u4F8B\uFF0C\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u5408\u4F75\u6703\u6E1B\u5C11\u898F\u5247\u6578\uFF0C\u56E0\u6B64\u9700\u8981\u7684\u6E2C\u8A66\u8F03\u5C11\u3002"
+              },
+              {
+                "text": "16 \u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "16 \u751A\u81F3\u8D85\u904E\u5B8C\u6574\u8868\u7684 8 \u689D\u898F\u5247\uFF1B\u5408\u4F75\u5F8C\u7684\u8868\u9700\u8981 4 \u500B\u3002"
+              },
+              {
+                "text": "1 \u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "4 \u689D\u5408\u4F75\u898F\u5247\u5404\u9700\u81EA\u5DF1\u7684\u6E2C\u8A66\uFF0C\u5171 4 \u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u6578\u7B49\u65BC\u898F\u5247\u6578\u3002\u5B8C\u6574\u8868\u7684 8 \u689D\u898F\u5247\u7D66\u51FA 8 \u500B\u6E2C\u8A66\uFF1B\u5408\u4F75\u70BA 4 \u689D\u898F\u5247\u5F8C\u6E1B\u70BA 4 \u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u4E00\u5F35\u8CB8\u6B3E\u6C7A\u7B56\u8868",
+            "text": "<p>\u4E00\u5F35\u8CB8\u6B3E\u8868\u4F7F\u7528 C1 =\u300C\u4FE1\u7528\u5206\u6578\u5408\u683C\u300D\u8207 C2 =\u300C\u6536\u5165\u8DB3\u5920\u300D\uFF1A</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nApprove  X   -   -   -\n</pre><p>\u67D0\u7533\u8ACB\u4EBA\u4FE1\u7528\u5206\u6578\u5408\u683C\u4E14\u6536\u5165\u8DB3\u5920\u3002\u9069\u7528\u54EA\u689D\u898F\u5247\u3001\u7D50\u679C\u5982\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R1\u2014\u2014\u8CB8\u6B3E\u6838\u51C6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u689D\u4EF6\u7686\u70BA\u771F\u662F R1\uFF0C\u4E5F\u662F\u552F\u4E00\u6A19\u8A18 Approve \u7684\u898F\u5247\u3002"
+              },
+              {
+                "text": "R2\u2014\u2014\u8CB8\u6B3E\u6838\u51C6",
+                "fraction": 0,
+                "feedback": "R2 \u662F\u4FE1\u7528\u5408\u683C\u4F46\u6536\u5165\u4E0D\u8DB3\uFF0C\u4E14\u672A\u6A19\u8A18 Approve\u3002"
+              },
+              {
+                "text": "R4\u2014\u2014\u8CB8\u6B3E\u6838\u51C6",
+                "fraction": 0,
+                "feedback": "R4 \u662F\u5169\u500B\u689D\u4EF6\u7686\u70BA\u5047\uFF0C\u4E14\u672A\u6A19\u8A18 Approve\u3002"
+              },
+              {
+                "text": "R1\u2014\u2014\u8CB8\u6B3E\u4E0D\u6838\u51C6",
+                "fraction": 0,
+                "feedback": "R1 \u78BA\u5BE6\u6A19\u8A18\u4E86 Approve\uFF0C\u56E0\u6B64\u8CB8\u6B3E\u6838\u51C6\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FE1\u7528\u5408\u683C\u4E14\u6536\u5165\u8DB3\u5920\u662F (C1=T, C2=T)\uFF0C\u5373 R1\u3002R1 \u662F\u552F\u4E00\u6A19\u8A18 Approve \u7684\u898F\u5247\uFF0C\u56E0\u6B64\u8CB8\u6B3E\u6838\u51C6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u4F38\u689D\u76EE\u7684\u5E74\u9F61\u5206\u6BB5",
+            "text": "<p>\u4E00\u5F35\u5EF6\u4F38\u689D\u76EE\u8868\u4F9D\u5E74\u9F61\u8A2D\u5B9A\u7968\u50F9\uFF1A</p><pre>\n\u689D\u4EF6\u300C\u5E74\u9F61\u300D\uFF1A  R1: \u672A\u6EFF 13   R2: 13 \u5230 17   R3: 18 \u5230 64   R4: 65 \u6216\u4EE5\u4E0A\n\u52D5\u4F5C\u300C\u7968\u50F9\u300D\uFF1A  R1: \u514D\u8CBB      R2: $5         R3: $10        R4: $7\n</pre><p>\u4E00\u4F4D 17 \u6B72\u7684\u8A2A\u5BA2\u6703\u9078\u4E2D\u54EA\u689D\u898F\u5247\u8207\u7968\u50F9\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R2\u2014\u2014$5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201417 \u843D\u5728\u300C13 \u5230 17\u300D\u5206\u6BB5\u3002"
+              },
+              {
+                "text": "R1\u2014\u2014\u514D\u8CBB",
+                "fraction": 0,
+                "feedback": "R1 \u9069\u7528\u65BC\u672A\u6EFF 13 \u6B72\uFF1B17 \u9AD8\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "R3\u2014\u2014$10",
+                "fraction": 0,
+                "feedback": "R3 \u5F9E 18 \u8D77\u7B97\uFF1B17 \u672A\u9054\u6B64\u3002"
+              },
+              {
+                "text": "R4\u2014\u2014$7",
+                "fraction": 0,
+                "feedback": "R4 \u9069\u7528\u65BC 65 \u6B72\u6216\u4EE5\u4E0A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E74\u9F61 17 \u843D\u5728\u300C13 \u5230 17\u300D\u5206\u6BB5\uFF0C\u5373 R2\uFF0C\u7968\u50F9 $5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B\u689D\u4EF6\u7684\u4E0D\u5728\u610F",
+            "text": "<p>\u5728\u4E00\u5F35\u5177\u6709 <strong>5 \u500B\u4E8C\u5143\u689D\u4EF6</strong>\u7684\u8868\u4E2D\uFF0C\u67D0\u689D\u5408\u4F75\u898F\u5247\u5C0D\u5176\u4E2D 3 \u500B\u6A19\u8A18\u70BA\u300C-\u300D\uFF08\u53E6\u5916 2 \u500B\u56FA\u5B9A\uFF09\u3002\u9019\u4E00\u689D\u898F\u5247\u4EE3\u8868\u591A\u5C11\u7A2E\u5B8C\u6574\u8868\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 \u500B\u4E0D\u5728\u610F\u4EE3\u8868 2^3 = 8 \u7A2E\u7D44\u5408\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5728\u610F\u4EE5 2^k \u5C55\u958B\uFF1B3 \u500B\u7D66\u51FA 8\uFF0C\u800C\u975E 3\u3002"
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "32 = 2^5 \u662F\u6574\u5F35\u8868\uFF1B\u6B64\u898F\u5247\u56FA\u5B9A\u4E86 2 \u500B\u689D\u4EF6\uFF0C\u6545\u6DB5\u84CB 2^3 = 8\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u689D\u4EF6\u7684\u6578\u76EE\uFF0C\u800C\u975E 2 \u7684\u4E0D\u5728\u610F\u6B21\u51AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u4E0D\u5728\u610F\u7684\u689D\u4EF6\u6703\u8B8A\u52D5\u3002\u6709 3 \u500B\u4E0D\u5728\u610F\u6642\uFF0C\u8A72\u898F\u5247\u4EE3\u8868\u5B8C\u5168\u5C55\u958B\u5F8C\u7684 2^3 = 8 \u7A2E\u7D44\u5408\uFF0C\u8207\u689D\u4EF6\u7E3D\u6578\u7121\u95DC\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u5197\u9918\uFF08\u88AB\u6DB5\u84CB\uFF09\u7684\u898F\u5247",
+            "text": "<p>\u6AA2\u8996\u6B64\u8868\uFF1A</p><pre>\n        R1     R2     R3\nC1       T      T      F\nC2       -      F      T\n--------------------------\nA        X      X      -\n</pre><p>\u54EA\u689D\u898F\u5247\u662F\u5197\u9918\u7684\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R2\u2014\u2014\u5B83\u88AB R1 \u6DB5\u84CB\uFF1BR1 \u5DF2\u6DB5\u84CB C1=T \u4E14 C2 \u70BA\u4EFB\u610F\u503C\uFF0C\u4E26\u89F8\u767C\u76F8\u540C\u52D5\u4F5C A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014R1 \u5C0D C2 \u7684\u4E0D\u5728\u610F\u5DF2\u5305\u542B R2 \u7684\u60C5\u6CC1\u4E26\u89F8\u767C\u76F8\u540C\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "R1\u2014\u2014\u56E0\u70BA\u5B83\u4F7F\u7528\u4E86\u4E0D\u5728\u610F",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u4E0D\u5728\u610F\u672C\u8EAB\u4E26\u975E\u5197\u9918\uFF1BR1 \u662F\u901A\u7528\u898F\u5247\uFF0CR2 \u624D\u662F\u88AB\u5B83\u6DB5\u84CB\u7684\u90A3\u689D\u3002"
+              },
+              {
+                "text": "R3\u2014\u2014\u56E0\u70BA\u5B83\u4E0D\u89F8\u767C\u4EFB\u4F55\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "R3 \u6DB5\u84CB\u4E0D\u540C\u60C5\u6CC1\uFF08C1=F, C2=T\uFF09\uFF0C\u4E14\u4E0D\u89F8\u767C\u52D5\u4F5C\u662F\u5408\u6CD5\u7D50\u679C\uFF0C\u4E26\u975E\u5197\u9918\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u6B64\u8868\u6C92\u6709\u5197\u9918",
+                "fraction": 0,
+                "feedback": "R2 \u88AB R1 \u4EE5\u76F8\u540C\u52D5\u4F5C\u5B8C\u5168\u6DB5\u84CB\uFF0C\u56E0\u6B64 R2 \u662F\u5197\u9918\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "R1\uFF08C1=T, C2=-\uFF09\u5DF2\u4EE5\u52D5\u4F5C A \u6DB5\u84CB (T,T) \u8207 (T,F)\u3002R2\uFF08C1=T, C2=F\uFF09\u6B63\u662F (T,F) \u60C5\u6CC1\u4E14\u52D5\u4F5C\u76F8\u540C\uFF0C\u672A\u589E\u52A0\u4EFB\u4F55\u5167\u5BB9\u2014\u2014\u5B83\u662F\u5197\u9918\u3001\u88AB\u6DB5\u84CB\u7684\u898F\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u53EF\u80FD\u7684\u898F\u5247",
+            "text": "<p>\u689D\u4EF6\u70BA C1 =\u300Cx &gt; 0\u300D\u8207 C2 =\u300Cx &lt; 0\u300D\uFF1A</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>\u54EA\u689D\u898F\u5247\u63CF\u8FF0\u4E86<strong>\u4E0D\u53EF\u80FD</strong>\uFF08\u4E0D\u53EF\u884C\uFF09\u7684\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R1\u2014\u2014\u4E00\u500B\u503C\u4E0D\u53EF\u80FD\u540C\u6642\u5927\u65BC 0 \u4E14\u5C0F\u65BC 0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014C1=T \u4E14 C2=T \u5728\u908F\u8F2F\u4E0A\u4E0D\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "R4\u2014\u2014\u5169\u8005\u7686\u70BA\u5047\u662F\u4E0D\u53EF\u80FD\u7684",
+                "fraction": 0,
+                "feedback": "C1=F \u4E14 C2=F \u53EA\u662F\u4EE3\u8868 x = 0\uFF0C\u5B8C\u5168\u53EF\u884C\u3002"
+              },
+              {
+                "text": "R2\u2014\u2014x > 0 \u4E14\u975E x < 0",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u4EFB\u4F55\u6B63\u7684 x\uFF0C\u662F\u53EF\u884C\u7684\u3002"
+              },
+              {
+                "text": "R3\u2014\u2014x < 0 \u4E14\u975E x > 0",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u4EFB\u4F55\u8CA0\u7684 x\uFF0C\u662F\u53EF\u884C\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "C1 \u8207 C2 \u4E92\u65A5\uFF0C\u56E0\u6B64 R1\uFF08\u5169\u8005\u7686\u771F\uFF09\u6C38\u4E0D\u53EF\u80FD\u767C\u751F\u2014\u2014\u5B83\u662F\u4E0D\u53EF\u884C\u898F\u5247\uFF0C\u7121\u9700\u6E2C\u8A66\u6848\u4F8B\u3002R4\uFF08\u5169\u8005\u7686\u5047\uFF09\u5C0D\u61C9 x = 0\uFF0C\u662F\u53EF\u884C\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u4E00\u81F4\u7684\u898F\u5247",
+            "text": "<p>\u6AA2\u8996\u6B64\u8868\uFF1A</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       F   F   T\n--------------------\nA        X   -   -\nB        -   X   -\n</pre><p>\u6B64\u8868\u5305\u542B\u4EC0\u9EBC\u7570\u5E38\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R1 \u8207 R2 \u4E0D\u4E00\u81F4\u2014\u2014\u76F8\u540C\u7684\u689D\u4EF6\u7D44\u5408\uFF08C1=T, C2=F\uFF09\u537B\u6307\u5B9A\u4E86\u4E0D\u540C\u7684\u52D5\u4F5C\uFF08A \u5C0D B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u689D\u4EF6\u76F8\u540C\u4F46\u52D5\u4F5C\u885D\u7A81\u5373\u70BA\u4E0D\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "R3 \u662F\u5197\u9918\u7684",
+                "fraction": 0,
+                "feedback": "R3 \u6DB5\u84CB\u4E00\u500B\u76F8\u7570\u7684\u7D44\u5408\uFF08C1=F, C2=T\uFF09\uFF1B\u5B83\u4E26\u975E\u5197\u9918\u3002"
+              },
+              {
+                "text": "\u6B64\u8868\u53EA\u662F\u4E0D\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E5F\u8A31\u540C\u6642\u4E0D\u5B8C\u6574\uFF0C\u4F46\u6A19\u8A18\u7684\u7F3A\u9677\u662F R1 \u8207 R2 \u5728\u76F8\u540C\u689D\u4EF6\u4E0A\u7684\u885D\u7A81\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u7570\u5E38",
+                "fraction": 0,
+                "feedback": "R1 \u8207 R2 \u689D\u4EF6\u53D6\u503C\u76F8\u540C\u537B\u89F8\u767C\u4E0D\u540C\u52D5\u4F5C\u2014\u2014\u9019\u662F\u660E\u986F\u7684\u4E0D\u4E00\u81F4\u3002"
+              }
+            ],
+            "generalFeedback": "R1 \u8207 R2 \u90FD\u662F C1=T, C2=F\uFF0C\u537B\u5206\u5225\u89F8\u767C A \u8207 B\u3002\u5169\u689D\u689D\u4EF6\u76F8\u540C\u800C\u52D5\u4F5C\u4E0D\u540C\u7684\u898F\u5247\u5C6C\u65BC\u4E0D\u4E00\u81F4\uFF08\u885D\u7A81\uFF09\uFF0C\u5FC5\u9808\u89E3\u6C7A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B8C\u6574\u6027\u6AA2\u67E5",
+            "text": "<p>\u4E00\u5F35\u91DD\u5C0D 2 \u500B\u4E8C\u5143\u689D\u4EF6\u7684\u8868\u53EA\u6709\u9019\u5169\u689D\u898F\u5247\uFF1A</p><pre>\n\u898F\u5247 P\uFF1A  C1=T, C2=-\n\u898F\u5247 Q\uFF1A  C1=F, C2=T\n</pre><p>\u6B64\u8868\u662F\u5426\u5B8C\u6574\uFF1F\u82E5\u5426\uFF0C\u7F3A\u5C11\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u5B8C\u6574\u2014\u2014\u7D44\u5408 C1=F, C2=F \u672A\u88AB\u6DB5\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014P \u6DB5\u84CB TT \u8207 TF\uFF0CQ \u6DB5\u84CB FT\uFF0C\u7559\u4E0B FF \u672A\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5B8C\u6574\u2014\u2014\u5168\u90E8 4 \u7A2E\u7D44\u5408\u7686\u5DF2\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "4 \u7A2E\u4E2D\u53EA\u6DB5\u84CB\u4E86 3 \u7A2E\uFF1BFF \u7F3A\u5C11\u3002"
+              },
+              {
+                "text": "\u4E0D\u5B8C\u6574\u2014\u2014\u7F3A\u5C11\u7D44\u5408 C1=T, C2=T",
+                "fraction": 0,
+                "feedback": "\u898F\u5247 P \u7684\u4E0D\u5728\u610F\u5DF2\u6DB5\u84CB C1=T, C2=T\u3002"
+              },
+              {
+                "text": "\u4E0D\u5B8C\u6574\u2014\u2014\u7F3A\u5C11\u7D44\u5408 C1=F, C2=T",
+                "fraction": 0,
+                "feedback": "\u898F\u5247 Q \u6B63\u597D\u6DB5\u84CB C1=F, C2=T\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5247 P\uFF08C1=T, C2=-\uFF09\u6DB5\u84CB TT \u8207 TF\uFF1B\u898F\u5247 Q \u6DB5\u84CB FT\u3002\u9019\u662F 3 \u7A2E\u7D44\u5408\uFF1B\u7B2C\u56DB\u7A2E FF\uFF08C1=F, C2=F\uFF09\u672A\u88AB\u6DB5\u84CB\uFF0C\u56E0\u6B64\u8A72\u8868\u4E0D\u5B8C\u6574\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B63\u78BA\u7684\u5408\u4F75\uFF08\u4E09\u500B\u689D\u4EF6\uFF09",
+            "text": "<p>\u6AA2\u8996\u6B64\u5B8C\u6574 3 \u689D\u4EF6\u8868\uFF1A</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAction   A  A  B  C  D  E  F  G\n</pre><p>\u54EA\u4E00\u5C0D\u898F\u5247\u53EF\u4EE5\u6B63\u78BA\u5730\u5408\u4F75\uFF0C\u5408\u4F75\u6210\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R1 \u8207 R2\uFF0C\u5408\u4F75\u70BA (C1=T, C2=T, C3=-) \u89F8\u767C A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5011\u89F8\u767C\u76F8\u540C\u52D5\u4F5C\u4E14\u50C5\u5728 C3 \u4E0A\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "R1 \u8207 R3\uFF0C\u5408\u4F75\u70BA (C1=T, C2=-, C3=T)",
+                "fraction": 0,
+                "feedback": "R1 \u89F8\u767C A \u800C R3 \u89F8\u767C B\u2014\u2014\u52D5\u4F5C\u4E0D\u540C\uFF0C\u6545\u7121\u6CD5\u5408\u4F75\u3002"
+              },
+              {
+                "text": "R7 \u8207 R8\uFF0C\u5408\u4F75\u70BA (C1=F, C2=F, C3=-)",
+                "fraction": 0,
+                "feedback": "R7 \u89F8\u767C F \u800C R8 \u89F8\u767C G\u2014\u2014\u52D5\u4F5C\u4E0D\u540C\uFF0C\u6545\u7121\u6CD5\u5408\u4F75\u3002"
+              },
+              {
+                "text": "R1 \u8207 R5\uFF0C\u5408\u4F75\u70BA (C1=-, C2=T, C3=T)",
+                "fraction": 0,
+                "feedback": "R1 \u89F8\u767C A \u800C R5 \u89F8\u767C D\u2014\u2014\u52D5\u4F5C\u4E0D\u540C\uFF0C\u6545\u7121\u6CD5\u5408\u4F75\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709 R1 \u8207 R2 \u5171\u7528\u540C\u4E00\u52D5\u4F5C\uFF08A\uFF09\uFF0C\u4E14\u50C5\u5728\u4E00\u500B\u689D\u4EF6\uFF08C3\uFF09\u4E0A\u4E0D\u540C\u3002\u5B83\u5011\u5408\u4F75\u70BA (C1=T, C2=T, C3=-)\u2192A\u3002\u5176\u4ED6\u6BCF\u5C0D\u76F8\u9130\u898F\u5247\u7686\u89F8\u767C\u4E0D\u540C\u52D5\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u5408\u4F75\u5F8C\u8868\u5F97\u51FA\u6700\u5C0F\u6E2C\u8A66\u96C6",
+            "text": "<p>\u4E00\u5F35\u91DD\u5C0D 2 \u500B\u4E8C\u5143\u689D\u4EF6\u3001\u6B63\u78BA\u5408\u4F75\u5F8C\u7684\u8868\u70BA\uFF1A</p><pre>\n\u898F\u5247 1\uFF1A  C1=T, C2=-\n\u898F\u5247 2\uFF1A  C1=F, C2=T\n\u898F\u5247 3\uFF1A  C1=F, C2=F\n</pre><p>\u8981\u8B93\u6BCF\u689D\u898F\u5247\u5404\u88AB\u57F7\u884C\u4E00\u6B21\uFF0C\u6700\u5C11\u9700\u8981\u591A\u5C11\u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014\u6BCF\u689D\u5408\u4F75\u898F\u5247\u4E00\u500B\uFF08\u6DB5\u84CB\u5E95\u5C64\u5168\u90E8 4 \u7A2E\u7D44\u5408\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5408\u4F75\u5F8C\u7684\u8868\u6709 3 \u689D\u898F\u5247\uFF0C\u56E0\u6B64 3 \u500B\u6E2C\u8A66\u5373\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u6BCF\u7A2E\u5E95\u5C64\u7D44\u5408\u4E00\u500B",
+                "fraction": 0,
+                "feedback": "\u4F60\u6E2C\u8A66\u7684\u662F\u5408\u4F75\u5F8C\u7684\u898F\u5247\uFF0C\u800C\u975E\u91CD\u65B0\u5C55\u958B\u7684\u7D44\u5408\uFF0C\u56E0\u6B64 3 \u500B\u6E2C\u8A66\u5C31\u5920\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u6BCF\u500B\u689D\u4EF6\u4E00\u500B",
+                "fraction": 0,
+                "feedback": "\u6BCF\u689D\u898F\u5247\u5404\u9700\u81EA\u5DF1\u7684\u6E2C\u8A66\uFF1B\u6B64\u8655\u6709 3 \u689D\u898F\u5247\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u55AE\u4E00\u500B\u5408\u4F75\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6E2C\u8A66\u7121\u6CD5\u57F7\u884C\u4E09\u689D\u76F8\u7570\u7684\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u6578\u7B49\u65BC\uFF08\u5408\u4F75\u5F8C\uFF09\u898F\u5247\u6578\u3002\u6B64\u8655 3 \u689D\u898F\u5247\u7D66\u51FA 3 \u500B\u6E2C\u8A66\uFF1B\u898F\u5247 1 \u7684\u4E0D\u5728\u610F\u610F\u5473\u9019 3 \u500B\u6E2C\u8A66\u4ECD\u6DB5\u84CB\u5168\u90E8 2^2 = 4 \u7A2E\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u4F38\u689D\u76EE\u7BC4\u570D\u91CD\u758A",
+            "text": "<p>\u4E00\u5F35\u5EF6\u4F38\u689D\u76EE\u8A55\u5206\u8868\uFF1A</p><pre>\n\u689D\u4EF6\u300C\u5206\u6578\u300D\uFF1A  R1: 0 \u5230 59   R2: 60 \u5230 79   R3: 75 \u5230 100\n\u52D5\u4F5C\uFF1A          R1: \u4E0D\u53CA\u683C    R2: \u53CA\u683C       R3: \u512A\u7B49\n</pre><p>\u5206\u6578 77 \u63ED\u9732\u4E86\u4EC0\u9EBC\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u4E00\u81F4\u2014\u201477 \u540C\u6642\u843D\u5728 R2\uFF0860 \u5230 79\uFF09\u8207 R3\uFF0875 \u5230 100\uFF09\uFF0C\u56E0\u6B64\u5169\u689D\u898F\u5247\u90FD\u7B26\u5408\u537B\u6709\u4E0D\u540C\u52D5\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u758A\u7684\u7BC4\u570D\u4F7F 75-79 \u7684\u7D50\u679C\u8B8A\u5F97\u6A21\u7A1C\u5169\u53EF\u3002"
+              },
+              {
+                "text": "\u4E0D\u5B8C\u6574\u2014\u201477 \u672A\u88AB\u4EFB\u4F55\u898F\u5247\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "77 \u6709\u88AB\u6DB5\u84CB\u2014\u2014\u4E8B\u5BE6\u4E0A\u88AB\u5169\u689D\u898F\u5247\u6DB5\u84CB\uFF0C\u9019\u624D\u662F\u771F\u6B63\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u4E0D\u53EF\u80FD\u7684\u898F\u5247\u2014\u2014\u5206\u6578 77 \u4E0D\u53EF\u80FD\u767C\u751F",
+                "fraction": 0,
+                "feedback": "77 \u662F\u5B8C\u5168\u6709\u6548\u7684\u5206\u6578\uFF1B\u554F\u984C\u5728\u65BC\u91CD\u758A\uFF0C\u800C\u975E\u53EF\u884C\u6027\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\u2014\u2014\u6B64\u8868\u683C\u5F0F\u826F\u597D",
+                "fraction": 0,
+                "feedback": "R2 \u8207 R3 \u5728 75-79 \u4E0A\u91CD\u758A\uFF0C\u56E0\u6B64\u8A72\u5340\u9593\u7684\u5206\u6578\u6703\u7B26\u5408\u5169\u689D\u885D\u7A81\u7684\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "R2\uFF0860 \u5230 79\uFF09\u8207 R3\uFF0875 \u5230 100\uFF09\u5728 75-79 \u4E0A\u91CD\u758A\u3002\u5206\u6578 77 \u540C\u6642\u7B26\u5408\u5169\u8005\uFF0C\u540C\u6642\u6307\u5B9A\u53CA\u683C\u8207\u512A\u7B49\u2014\u2014\u9019\u662F\u7531\u4E0D\u4E92\u65A5\u7684\u5EF6\u4F38\u689D\u76EE\u7BC4\u570D\u9020\u6210\u7684\u4E0D\u4E00\u81F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u4F38\u689D\u76EE\u7BC4\u570D\u7684\u7A7A\u9699",
+            "text": "<p>\u4E00\u5F35\u4F9D\u5E74\u9F61\u7684\u5EF6\u4F38\u689D\u76EE\u8868\uFF1A</p><pre>\n\u689D\u4EF6\u300C\u5E74\u9F61\u300D\uFF1A  R1: 0 \u5230 17   R2: 18 \u5230 64   R3: 66 \u5230 120\n\u52D5\u4F5C\uFF1A          R1: \u672A\u6210\u5E74    R2: \u6210\u5E74       R3: \u5E74\u9577\n</pre><p>\u6B64\u8868\u6709\u4EC0\u9EBC\u5B8C\u6574\u6027\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5E74\u9F61 65 \u672A\u88AB\u4EFB\u4F55\u898F\u5247\u6DB5\u84CB\u2014\u2014R2 \u8207 R3 \u4E4B\u9593\u6709\u7A7A\u9699",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014R2 \u5230 64 \u70BA\u6B62\uFF0CR3 \u5F9E 66 \u8D77\u7B97\uFF0C\u7559\u4E0B 65 \u672A\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5E74\u9F61 18 \u88AB\u6DB5\u84CB\u4E86\u5169\u6B21",
+                "fraction": 0,
+                "feedback": "18 \u53EA\u843D\u5728 R2\uFF1B\u6B64\u8655\u6C92\u6709\u91CD\u758A\uFF0C\u53EA\u6709 65 \u7684\u7A7A\u9699\u3002"
+              },
+              {
+                "text": "\u7BC4\u570D\u5728 64 \u8655\u91CD\u758A",
+                "fraction": 0,
+                "feedback": "64 \u53EA\u5C6C\u65BC R2\uFF1B\u7F3A\u9677\u662F\u7A7A\u9699\uFF0C\u800C\u975E\u91CD\u758A\u3002"
+              },
+              {
+                "text": "\u6B64\u8868\u662F\u5B8C\u6574\u7684",
+                "fraction": 0,
+                "feedback": "65 \u6C92\u6709\u5C0D\u61C9\u898F\u5247\uFF0C\u56E0\u6B64\u8A72\u8868\u4E0D\u5B8C\u6574\u3002"
+              }
+            ],
+            "generalFeedback": "R2 \u6DB5\u84CB\u5230 64\uFF0CR3 \u5F9E 66 \u8D77\u7B97\uFF0C\u56E0\u6B64\u5E74\u9F61 65 \u4E0D\u7B26\u5408\u4EFB\u4F55\u898F\u5247\u3002\u8A72\u7A7A\u9699\u662F\u5EF6\u4F38\u689D\u76EE\u7BC4\u570D\u4E2D\u7684\u4E0D\u5B8C\u6574\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u91CD\u8907\uFF08\u5197\u9918\uFF09\u7684\u898F\u5247",
+            "text": "<p>\u6AA2\u8996\u6B64\u8868\uFF1A</p><pre>\n        R1  R2  R3  R4\nC1       T   F   T   F\nC2       T   T   F   T\n------------------------\nAction   A   B   C   B\n</pre><p>\u54EA\u689D\u898F\u5247\u662F\u5197\u9918\u7684\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R4\u2014\u2014\u5B83\u8207 R2 \u91CD\u8907\uFF1A\u689D\u4EF6\u76F8\u540C\uFF08C1=F, C2=T\uFF09\u4E14\u52D5\u4F5C\u76F8\u540C B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014R2 \u8207 R4 \u5B8C\u5168\u76F8\u540C\uFF0C\u56E0\u6B64 R4 \u672A\u589E\u52A0\u4EFB\u4F55\u5167\u5BB9\u3002"
+              },
+              {
+                "text": "R3\u2014\u2014\u5B83\u662F\u552F\u4E00\u89F8\u767C C \u7684\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u89F8\u767C\u552F\u4E00\u7684\u52D5\u4F5C\u4E26\u975E\u5197\u9918\uFF1BR3 \u6DB5\u84CB\u4E00\u500B\u76F8\u7570\u7684\u7D44\u5408\u3002"
+              },
+              {
+                "text": "R1\u2014\u2014\u56E0\u70BA\u5B83\u89F8\u767C A",
+                "fraction": 0,
+                "feedback": "R1 \u552F\u4E00\u5730\u6DB5\u84CB (T,T)\uFF1B\u5B83\u4E26\u672A\u88AB\u91CD\u8907\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u6BCF\u689D\u898F\u5247\u90FD\u4E0D\u540C",
+                "fraction": 0,
+                "feedback": "R2 \u8207 R4 \u689D\u4EF6\u76F8\u540C\u4E14\u52D5\u4F5C\u76F8\u540C\uFF0C\u56E0\u6B64\u5176\u4E2D\u4E00\u689D\u662F\u5197\u9918\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "R2 \u8207 R4 \u90FD\u662F C1=F, C2=T \u4E14\u90FD\u89F8\u767C B\u3002\u5B83\u5011\u662F\u5B8C\u5168\u7684\u91CD\u8907\uFF0C\u56E0\u6B64 R4 \u662F\u53EF\u79FB\u9664\u7684\u5197\u9918\u898F\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u8A08\u6578\u6AA2\u67E5\u5B8C\u6574\u6027",
+            "text": "<p>\u4E00\u5F35\u91DD\u5C0D <strong>4 \u500B\u4E8C\u5143\u689D\u4EF6</strong>\u7684\u6709\u9650\u689D\u76EE\u8868\u4F7F\u7528\u4E86\u4E0D\u5728\u610F\u3002\u5176\u5404\u898F\u5247\u5206\u5225\u6DB5\u84CB 8\u30014\u30012\u30011 \u7A2E\u7D44\u5408\uFF0C\u4E14\u4E92\u4E0D\u91CD\u758A\u3002\u6B64\u8868\u662F\u5426\u5B8C\u6574\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5426\u2014\u2014\u5404\u898F\u5247\u5171\u6DB5\u84CB 8+4+2+1 = 15 \u7A2E\uFF0C\u800C 2^4 = 16\uFF0C\u6545\u7F3A\u5C11\u4E00\u7A2E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201415 < 16\uFF0C\u56E0\u6B64\u8A72\u8868\u7F3A\u5C11\u4E00\u7A2E\u7D44\u5408\u800C\u4E0D\u5B8C\u6574\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u56DB\u689D\u898F\u5247\u6DB5\u84CB\u4E86\u5168\u90E8",
+                "fraction": 0,
+                "feedback": "\u5404\u6DB5\u84CB\u6578\u5408\u8A08\u70BA 15\uFF0C\u6BD4 16 \u5C11\u4E00\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u6B64\u8868\u898F\u5247\u904E\u591A\u800C\u904E\u5EA6\u6307\u5B9A",
+                "fraction": 0,
+                "feedback": "\u5408\u8A08\u70BA 15\uFF0C\u4F4E\u65BC 16\uFF1B\u4E26\u7121\u904E\u5EA6\u6DB5\u84CB\uFF08\u7121\u91CD\u758A\uFF09\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u7F3A\u5C11\u5169\u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "16 - 15 = 1\uFF0C\u56E0\u6B64\u6070\u597D\u7F3A\u5C11\u4E00\u7A2E\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u689D\u898F\u5247\u7684\u4E0D\u5728\u610F\u5C55\u958B\u70BA 2 \u7684\u51AA\uFF1B\u5C07\u4E92\u65A5\u7684\u6DB5\u84CB\u76F8\u52A0\u5F97 8+4+2+1 = 15\u3002\u5B8C\u6574\u7684 4 \u689D\u4EF6\u8868\u9700\u8981 2^4 = 16\uFF0C\u6545\u6709\u4E00\u7A2E\u7D44\u5408\u672A\u88AB\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0D\u5728\u610F\u91CD\u758A\u9020\u6210\u7684\u4E0D\u4E00\u81F4",
+            "text": "<p>\u4E00\u5F35\u8868\u5C0D 2 \u500B\u4E8C\u5143\u689D\u4EF6\u5305\u542B\u9019\u5169\u689D\u898F\u5247\uFF1A</p><pre>\n\u898F\u5247 X\uFF1A  C1=T, C2=-  ->  A\n\u898F\u5247 Y\uFF1A  C1=T, C2=F  ->  B\n</pre><p>\u54EA\u7A2E\u7D44\u5408\u9020\u6210\u885D\u7A81\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "C1=T, C2=F\u2014\u2014\u898F\u5247 X\uFF08C2 \u70BA\u4E0D\u5728\u610F\uFF09\u4E5F\u6DB5\u84CB\u5B83\u4E26\u6307\u5B9A A\uFF0C\u800C\u898F\u5247 Y \u6307\u5B9A B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014X \u7684\u4E0D\u5728\u610F\u8207 Y \u5728\u6B64\u91CD\u758A\u537B\u52D5\u4F5C\u4E0D\u540C\uFF0C\u5C6C\u65BC\u4E0D\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "C1=T, C2=T\u2014\u2014\u5169\u689D\u898F\u5247\u5728\u6B64\u90FD\u8981\u6C42\u52D5\u4F5C B",
+                "fraction": 0,
+                "feedback": "\u5728 (T,T) \u53EA\u6709\u898F\u5247 X \u9069\u7528\uFF08\u7D66\u51FA A\uFF09\uFF1B\u898F\u5247 Y \u662F C2=F\uFF0C\u6545 (T,T) \u6C92\u6709\u885D\u7A81\u3002"
+              },
+              {
+                "text": "C1=F, C2=F\u2014\u2014\u5169\u689D\u898F\u5247\u90FD\u672A\u6DB5\u84CB\u5B83\uFF0C\u9020\u6210\u885D\u7A81",
+                "fraction": 0,
+                "feedback": "\u672A\u6DB5\u84CB\u7684\u7D44\u5408\u5C6C\u65BC\u4E0D\u5B8C\u6574\uFF0C\u800C\u975E\u885D\u7A81\uFF1B\u4E14\u6B64\u8655\u7684\u885D\u7A81\u5728 (T,F)\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u885D\u7A81\u2014\u2014\u9019\u5169\u689D\u898F\u5247\u4E92\u65A5",
+                "fraction": 0,
+                "feedback": "\u898F\u5247 X \u7684\u4E0D\u5728\u610F\u4F7F\u5B83\u5728 (T,F) \u8207\u898F\u5247 Y \u91CD\u758A\uFF0C\u4E14\u52D5\u4F5C\u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5247 X\uFF08C1=T, C2=-\uFF09\u6DB5\u84CB (T,T) \u8207 (T,F)\u3002\u898F\u5247 Y\uFF08C1=T, C2=F\uFF09\u4E5F\u6DB5\u84CB (T,F)\uFF0C\u537B\u6307\u5B9A B \u800C\u975E A\u3002(T,F) \u8655\u7684\u91CD\u758A\u52A0\u4E0A\u52D5\u4F5C\u885D\u7A81\u5373\u70BA\u4E0D\u4E00\u81F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E92\u65A5\u689D\u4EF6\u9020\u6210\u7684\u4E0D\u53EF\u80FD\u898F\u5247",
+            "text": "<p>\u689D\u4EF6\u4F86\u81EA\u898F\u683C\uFF1AC1 =\u300C\u4ED8\u6B3E\u70BA\u73FE\u91D1\u300D\u3001C2 =\u300C\u4ED8\u6B3E\u70BA\u4FE1\u7528\u5361\u300D\uFF08\u4E00\u7B46\u4ED8\u6B3E\u53EA\u7528\u4E00\u7A2E\u65B9\u5F0F\uFF09\uFF1A</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       T   F   T\n</pre><p>\u54EA\u689D\u898F\u5247\u4E0D\u53EF\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R1\u2014\u2014\u55AE\u4E00\u7B46\u4ED8\u6B3E\u4E0D\u53EF\u80FD\u540C\u6642\u662F\u73FE\u91D1\u53C8\u662F\u4FE1\u7528\u5361",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014C1 \u8207 C2 \u4E92\u65A5\uFF0C\u6545\u5169\u8005\u7686\u771F\u70BA\u4E0D\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "R2\u2014\u2014\u73FE\u91D1\u800C\u975E\u4FE1\u7528\u5361",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u822C\u7684\u73FE\u91D1\u4ED8\u6B3E\uFF1B\u662F\u53EF\u884C\u7684\u3002"
+              },
+              {
+                "text": "R3\u2014\u2014\u4FE1\u7528\u5361\u800C\u975E\u73FE\u91D1",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u822C\u7684\u4FE1\u7528\u5361\u4ED8\u6B3E\uFF1B\u662F\u53EF\u884C\u7684\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u4E09\u689D\u90FD\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "R1 \u8981\u6C42\u540C\u6642\u70BA\u73FE\u91D1\u8207\u4FE1\u7528\u5361\uFF0C\u9019\u662F\u898F\u683C\u6240\u7981\u6B62\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u4E00\u7B46\u4ED8\u6B3E\u6070\u70BA\u4E00\u7A2E\u65B9\u5F0F\uFF0CC1 \u8207 C2 \u4E0D\u53EF\u80FD\u540C\u6642\u70BA\u771F\u3002R1\uFF08\u5169\u8005\u7686\u771F\uFF09\u4E0D\u53EF\u884C\uFF0C\u7121\u9700\u6E2C\u8A66\u6848\u4F8B\uFF1B\u53EA\u6709 R2 \u8207 R3\uFF08\u4EE5\u53CA\u53EF\u80FD\u7684\u300C\u5169\u8005\u7686\u975E\u300D\u60C5\u6CC1\uFF09\u624D\u7B26\u5408\u5BE6\u969B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u8B49\u5B8C\u6574\u6027\u8207\u4E00\u81F4\u6027",
+            "text": "<p>\u4E00\u5F35\u91DD\u5C0D 2 \u500B\u4E8C\u5143\u689D\u4EF6\u3001\u5408\u4F75\u5F8C\u7684\u8868\u70BA\uFF1A</p><pre>\n\u898F\u5247 1\uFF1A  C1=T, C2=-  ->  A\n\u898F\u5247 2\uFF1A  C1=F, C2=-  ->  B\n</pre><p>\u6B64\u8868\u662F\u5426\u65E2\u5B8C\u6574\u53C8\u4E00\u81F4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\u2014\u2014\u5169\u689D\u898F\u5247\u6DB5\u84CB\u5168\u90E8 4 \u7A2E\u7D44\u5408\u4E14\u7121\u91CD\u758A\uFF08\u5728 C1 \u4E0A\u4E92\u65A5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u898F\u5247 1 \u6DB5\u84CB TT\u3001TF\uFF0C\u898F\u5247 2 \u6DB5\u84CB FT\u3001FF\uFF1B\u5408\u8D77\u4F86\u70BA\u5168\u90E8 4 \u7A2E\u4E14\u7121\u885D\u7A81\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u56E0\u70BA C2 \u5F9E\u672A\u88AB\u56FA\u5B9A\uFF0C\u6240\u4EE5\u4E0D\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "C2 \u4E0A\u7684\u4E0D\u5728\u610F\u610F\u5473 C2 \u7684\u5169\u500B\u503C\u90FD\u88AB\u6DB5\u84CB\uFF0C\u6545\u7121\u7F3A\u5C11\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u5169\u689D\u898F\u5247\u91CD\u758A\u4E14\u885D\u7A81",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5728 C1 \u4E0A\u4E0D\u540C\uFF08T \u5C0D F\uFF09\uFF0C\u56E0\u6B64\u6C38\u4E0D\u91CD\u758A\uFF1B\u6C92\u6709\u885D\u7A81\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u898F\u5247 2 \u662F\u5197\u9918\u7684",
+                "fraction": 0,
+                "feedback": "\u898F\u5247 2 \u6DB5\u84CB\u898F\u5247 1 \u672A\u6DB5\u84CB\u7684\u60C5\u6CC1\uFF08FT\u3001FF\uFF09\uFF0C\u56E0\u6B64\u662F\u5FC5\u8981\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5247 1\uFF08C1=T, C2=-\uFF09\u6DB5\u84CB TT \u8207 TF\uFF1B\u898F\u5247 2\uFF08C1=F, C2=-\uFF09\u6DB5\u84CB FT \u8207 FF\u3002\u5B83\u5011\u7684\u806F\u96C6\u662F\u5168\u90E8 2^2 = 4 \u7A2E\u7D44\u5408\uFF0C\u4E14\u5728 C1 \u4E0A\u4E92\u65A5\uFF0C\u56E0\u6B64\u8A72\u8868\u65E2\u5B8C\u6574\u53C8\u4E00\u81F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u9664\u4E0D\u53EF\u884C\u898F\u5247\u5F8C\u7684\u6E2C\u8A66\u6578",
+            "text": "<p>\u4E00\u5F35 3 \u689D\u4EF6\u8868\u6709 8 \u6B04\u898F\u5247\uFF0C\u4F46\u5176\u4E2D 2 \u6B04\u63CF\u8FF0<strong>\u4E0D\u53EF\u884C</strong>\u7684\u689D\u4EF6\u7D44\u5408\u3002\u63A1\u7528\u6BCF\u689D\u53EF\u884C\u898F\u5247\u4E00\u500B\u6E2C\u8A66\uFF0C\u5BE6\u969B\u9700\u8981\u591A\u5C11\u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20148 \u689D\u898F\u5247\u6E1B\u53BB 2 \u689D\u4E0D\u53EF\u884C\uFF0C\u5269 6 \u689D\u9700\u8981\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u4E0D\u53EF\u884C\u898F\u5247\u6C38\u4E0D\u767C\u751F\uFF0C\u6545\u7121\u9700\u6E2C\u8A66\u6848\u4F8B\uFF1B8 - 2 = 6\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u4E0D\u53EF\u884C\u898F\u5247\u7684\u6578\u76EE\uFF0C\u800C\u975E\u9700\u8981\u6E2C\u8A66\u7684\u6578\u76EE\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "8 - 2 = 6\uFF0C\u800C\u975E 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u884C\u898F\u5247\u7121\u6CD5\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u6392\u9664\u65BC\u6E2C\u8A66\u5C0E\u51FA\u4E4B\u5916\u30028 \u689D\u898F\u5247\u4E2D\u6709 2 \u689D\u4E0D\u53EF\u884C\uFF0C\u5269 6 \u689D\u53EF\u884C\u898F\u5247\uFF0C\u9700\u8981 6 \u500B\u6E2C\u8A66\u6848\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u4F38\u689D\u76EE\u7684\u898F\u5247\u6578",
+            "text": "<p>\u4E00\u5F35\u5EF6\u4F38\u689D\u76EE\u8868\u6709\u5169\u500B\u689D\u4EF6\uFF1A\u300CSize\u300D\u5177\u9078\u9805 {Low, High}\uFF0C\u300CMethod\u300D\u5177\u9078\u9805 {Cash, Card, Coupon}\u3002\u5B8C\u6574\u7684\u5EF6\u4F38\u689D\u76EE\u8868\u9700\u8981\u591A\u5C11\u689D\u898F\u5247\u624D\u80FD\u6DB5\u84CB\u6BCF\u7A2E\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6\u2014\u2014\u5404\u9078\u9805\u6578\u7684\u4E58\u7A4D\uFF0C2 x 3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EF6\u4F38\u689D\u76EE\u7684\u898F\u5247\u6578\u662F\u5404\u689D\u4EF6\u9078\u9805\u6578\u7684\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "5\u2014\u2014\u5404\u9078\u9805\u6578\u7684\u548C\uFF0C2 + 3",
+                "fraction": 0,
+                "feedback": "\u7D44\u5408\u662F\u76F8\u4E58\u800C\u975E\u76F8\u52A0\uFF1B2 x 3 = 6\u3002"
+              },
+              {
+                "text": "4\u2014\u20142^2\uFF0C\u628A\u6BCF\u500B\u689D\u4EF6\u8996\u70BA\u4E8C\u5143",
+                "fraction": 0,
+                "feedback": "Method \u6709 3 \u500B\u9078\u9805\u800C\u975E 2 \u500B\uFF0C\u56E0\u6B64\u70BA 2 x 3 = 6\uFF0C\u800C\u975E 2^2\u3002"
+              },
+              {
+                "text": "9\u2014\u20143^2",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u689D\u4EF6\u7684\u9078\u9805\u6578\u4E0D\u540C\uFF082 \u8207 3\uFF09\uFF1B\u4E58\u7A4D\u70BA 2 x 3 = 6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u5EF6\u4F38\u689D\u76EE\u8868\u800C\u8A00\uFF0C\u5B8C\u6574\u898F\u5247\u6578\u662F\u5404\u689D\u4EF6\u9078\u9805\u6578\u7684\u4E58\u7A4D\u2014\u2014\u6B64\u8655\u70BA 2 x 3 = 6\u3002\u9019\u63A8\u5EE3\u4E86 2^n \u516C\u5F0F\uFF0C\u5F8C\u8005\u662F\u6BCF\u500B\u689D\u4EF6\u90FD\u6070\u6709 2 \u500B\u9078\u9805\u7684\u7279\u4F8B\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "graph-coverage": {
       "en": {
         "easy": [

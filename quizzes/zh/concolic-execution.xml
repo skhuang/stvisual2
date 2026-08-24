@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Concolic Execution/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>concolic 是哪兩個字的合體</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>concolic（並行具體符號）</strong>這個字是由哪兩個英文字合成的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CONCrete（具體）＋ symbOLIC（符號）——程式以具體輸入實際執行，同時收集符號限制式</text><feedback><text>正確——concolic 執行同時做兩件事：真正的具體執行，加上符號路徑條件的追蹤。</text></feedback></answer>
+    <answer fraction="0"><text>CONCurrent（並行）＋ symbOLIC（符號）——它平行執行許多符號執行緒</text><feedback><text>錯——「conc」指的是具體（concrete），不是並行；concolic 講的是結合具體與符號，而非平行處理。</text></feedback></answer>
+    <answer fraction="0"><text>CONtrol（控制）＋ logICs（邏輯）——它靜態分析控制流邏輯</text><feedback><text>錯——concolic ＝ 具體＋符號；它是動態技術，不是靜態控制流分析。</text></feedback></answer>
+    <answer fraction="0"><text>CONtext（情境）＋ symbOLIC（符號）——它只追蹤情境符號</text><feedback><text>錯——前半指的是具體（concrete），亦即與符號值並用的實際執行期數值。</text></feedback></answer>
+    <generalfeedback><text>concolic ＝ CONCrete（具體）＋ symbOLIC（符號）。程式以一個實際的具體輸入執行，同時引擎沿著該具體執行所走的路徑記錄符號路徑條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具體狀態與符號狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>concolic 執行時，引擎會並排維護兩種狀態。它們是哪兩種？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具體狀態（實際驅動執行的數值）與符號狀態（對輸入符號的運算式／限制式）</text><feedback><text>正確——具體值挑出實際走的路徑，而符號狀態沿途記錄限制式。</text></feedback></answer>
+    <answer fraction="0"><text>原始碼狀態與編譯後的二進位狀態</text><feedback><text>錯——這兩種狀態描述的是執行中程式的資料；一個是具體值，另一個是符號運算式。</text></feedback></answer>
+    <answer fraction="0"><text>測試判準（oracle）的通過狀態與失敗狀態</text><feedback><text>錯——這兩種狀態是具體與符號；通過／失敗是另一回事。</text></feedback></answer>
+    <answer fraction="0"><text>兩個各自獨立、用於統計抽樣的隨機狀態</text><feedback><text>錯——一個是真實的具體執行，另一個是符號限制式狀態；兩者不是彼此的隨機樣本。</text></feedback></answer>
+    <generalfeedback><text>concolic 執行同時維護具體狀態（實際數值，會確定性地選出該次執行所走的路徑）與符號狀態（變數對運算式的對映，以及沿同一路徑累積的路徑條件）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>concolic 中的路徑條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 concolic 執行中，一次執行所記錄的<strong>路徑條件（path condition）</strong>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <shuffleanswers>1</shuffleanswers>
+    <answer fraction="100"><text>具體輸入實際驅動的那一條路徑上，所走各分支條件的連言（conjunction）</text><feedback><text>正確——因為一次具體執行只走一條路徑，路徑條件描述的就是那唯一被執行的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>程式中每條路徑之路徑條件的選言（disjunction）</text><feedback><text>錯——一次 concolic 執行只記錄具體輸入所走的那一條路徑，形式為其分支結果的連言。</text></feedback></answer>
+    <answer fraction="0"><text>程式所含分支數量的計數</text><feedback><text>錯——路徑條件是對輸入的邏輯式，而非分支計數。</text></feedback></answer>
+    <answer fraction="0"><text>程式回傳的具體輸出值</text><feedback><text>錯——它是沿被執行路徑對輸入的限制式，而非輸出。</text></feedback></answer>
+    <generalfeedback><text>因為具體輸入恰好驅動一條路徑，引擎收集該路徑上所走的各分支條件，並將其連言成路徑條件——一個描述該被執行路徑、以符號輸入表示的邏輯式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分支取反</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次 concolic 執行記錄了路徑條件之後，引擎如何嘗試抵達一條尚未涵蓋的新路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把已記錄路徑條件中的某一個分支條件取反（negate），再請求解算器求出滿足此修改後限制式的輸入</text><feedback><text>正確——翻轉一個分支並求解，就能得到在該分支往另一方向走的具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>移除該分支後重新編譯程式</text><feedback><text>錯——程式從不被修改；被更動並重新求解的是路徑條件。</text></feedback></answer>
+    <answer fraction="0"><text>不斷用同一個具體輸入重跑，直到出現不同路徑</text><feedback><text>錯——確定性程式對同一輸入永遠走同一路徑；引擎是把分支取反並求出新輸入。</text></feedback></answer>
+    <answer fraction="0"><text>一次把所有分支同時取反並整體求解</text><feedback><text>錯——標準做法每步只翻轉一個分支（通常是最後一個尚未取反的），並保留前綴後再求解。</text></feedback></answer>
+    <generalfeedback><text>引擎挑出已記錄路徑上的一個分支條件，將它取反（保留其前面的限制式），把修改後的路徑條件交給解算器；其滿足解就是下一個具體輸入，會把執行驅動到手足路徑（sibling path）上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>concolic 迴圈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個順序最能描述 concolic 測試迴圈的一次迭代？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以具體輸入執行 → 記錄路徑條件 → 取反一個分支 → 求解 → 解就是下一個具體輸入</text><feedback><text>正確——「具體執行／記錄／取反／求解」這個循環會反覆進行以探索新路徑。</text></feedback></answer>
+    <answer fraction="0"><text>求解一個隨機限制式 → 編譯 → 執行 → 丟棄結果</text><feedback><text>錯——concolic 從具體執行開始，記錄真實路徑條件，然後取反並求解；沒有東西被丟棄，也不涉及編譯步驟。</text></feedback></answer>
+    <answer fraction="0"><text>靜態列舉所有路徑 → 各自求解 → 挑最短的</text><feedback><text>錯——concolic 是動態的：一次驅動一個具體執行，並藉分支取反引導至新路徑。</text></feedback></answer>
+    <answer fraction="0"><text>變異原始碼 → 重跑測試 → 量測覆蓋率</text><feedback><text>錯——那是變異測試；concolic 是取反分支條件並求輸入，程式碼保持不變。</text></feedback></answer>
+    <generalfeedback><text>concolic 迴圈：選一個具體輸入（初期常為隨機）、執行它、記錄所走路徑的路徑條件、取反一個分支條件、求解修改後限制式以得到下一個具體輸入，然後重複——每次把執行驅動到新路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DART 的全名</text></name>
+    <questiontext format="html"><text><![CDATA[<p>最早的 concolic 工具之一 <strong>DART</strong>，其全名是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Directed Automated Random Testing（導向式自動隨機測試）</text><feedback><text>正確——DART 利用符號路徑條件來「導向」隨機測試，以抵達新路徑。</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic Abstract Refinement Testing</text><feedback><text>錯——DART 的全名是 Directed Automated Random Testing。</text></feedback></answer>
+    <answer fraction="0"><text>Deterministic Assertion Regression Tool</text><feedback><text>錯——DART 是 Directed Automated Random Testing，一個 concolic 引擎。</text></feedback></answer>
+    <answer fraction="0"><text>Distributed Analysis of Runtime Traces</text><feedback><text>錯——DART 是 Directed Automated Random Testing。</text></feedback></answer>
+    <generalfeedback><text>DART（Directed Automated Random Testing）從隨機具體輸入出發，利用收集到的符號路徑條件把後續輸入導向未涵蓋的分支——開創了 concolic 方法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CUTE 的全名</text></name>
+    <questiontext format="html"><text><![CDATA[<p>知名 concolic 工具 <strong>CUTE</strong> 的全名是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concolic Unit Testing Engine（並行具體符號單元測試引擎）</text><feedback><text>正確——CUTE 把 concolic 執行應用於單元測試，並能處理含指標的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>Constraint-based Uniform Test Explorer</text><feedback><text>錯——CUTE 的全名是 Concolic Unit Testing Engine。</text></feedback></answer>
+    <answer fraction="0"><text>Coverage Under Test Estimator</text><feedback><text>錯——CUTE 是 Concolic Unit Testing Engine。</text></feedback></answer>
+    <answer fraction="0"><text>Combined Unit &amp; Type Evaluator</text><feedback><text>錯——CUTE 是 Concolic Unit Testing Engine。</text></feedback></answer>
+    <generalfeedback><text>CUTE（Concolic Unit Testing Engine）把 concolic 執行帶進 C 語言的單元測試，特別能藉結合具體與符號推理來處理指標／資料結構型的輸入。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>為何在符號狀態旁保留具體輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>concolic 執行在符號狀態旁保留一個具體輸入，一個關鍵理由是：當某限制式無法求解（例如牽涉外部呼叫）時，引擎可以代入執行期觀察到的具體值並繼續下去。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——具體值是一個現成的後援，讓執行在純符號推理會卡住的地方仍能繼續。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這正是 concolic 執行的核心優勢之一：具體執行提供了一個真實值，可在符號項無法求解時代入。</text></feedback></answer>
+    <generalfeedback><text>保留具體輸入意味著引擎對每個運算式都握有一個真實觀察值。當某符號項太難、非線性、或不透明（外部／原生呼叫）時，就代入具體值繼續執行——這是純符號執行做不到的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>第一個具體輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>concolic 執行中，最初的那個具體輸入通常從何而來？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>任意選取，常為隨機——迴圈隨後藉由求解「取反後的路徑條件」來精修後續輸入</text><feedback><text>正確——種子輸入可以是隨機的；引擎之後藉由導向式的分支翻轉來提升覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>必須是在任何執行之前，由解算器證明為最佳的值</text><feedback><text>錯——第一個輸入無需任何證明；它通常只是啟動迴圈的隨機種子。</text></feedback></answer>
+    <answer fraction="0"><text>對每個輸入變數一律為零</text><feedback><text>錯——雖然可以用固定種子，但重點是第一個輸入是任意／隨機的，而非一定為零。</text></feedback></answer>
+    <answer fraction="0"><text>先對整支程式做靜態分析後推導得出</text><feedback><text>錯——concolic 是動態的；它只是從一個具體（常為隨機）輸入開始，而非先做靜態前置分析。</text></feedback></answer>
+    <generalfeedback><text>concolic 執行從一個任意、常為隨機的具體輸入起步（這就是 DART 名稱中的「Random」）。之後每個輸入都由「取反前一次執行路徑條件中的某分支並求解」得到。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>具體執行只走一條路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於使用具體輸入，單次 concolic 執行（在確定性程式中）恰好走一條執行路徑。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——具體值確定性地選出一條路徑；這正是為何一次執行只記錄單一路徑條件。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>確定性程式中的具體輸入恰好走一條路徑；concolic 只能在後續執行中藉由求解取反的限制式抵達其他路徑。</text></feedback></answer>
+    <generalfeedback><text>每次 concolic 執行都是對具體值的真實執行，因此只走一條路徑並記錄該路徑的條件。跨迭代時才藉由分支取反與重新求解抵達新路徑，而非在單次執行中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解算器在 concolic 中的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 concolic 迴圈中，限制式／SMT 解算器負責什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>求解修改後（部分取反）的路徑條件，以產生下一個具體輸入</text><feedback><text>正確——解算器的滿足解就成為下一次執行的具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>以具體輸入執行程式</text><feedback><text>錯——執行程式是由（被插樁的）執行過程完成；解算器只從限制式算出輸入。</text></feedback></answer>
+    <answer fraction="0"><text>判斷測試的輸出是否正確</text><feedback><text>錯——那是判準（oracle）的工作；解算器產生輸入，而非判定。</text></feedback></answer>
+    <answer fraction="0"><text>量測測試套件的分支覆蓋率</text><feedback><text>錯——覆蓋率追蹤是另一回事；解算器把取反後的路徑條件轉成具體輸入。</text></feedback></answer>
+    <generalfeedback><text>引擎取反一個分支後，把修改後的路徑條件交給解算器；其滿足解正是能把下一次執行驅動到新目標路徑的具體輸入（若該路徑不可行則回報 UNSAT）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>concolic 與純符號執行（一句話）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者最能說明 concolic 執行與純符號執行的差異？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>concolic 在符號狀態旁始終有一次真實的具體執行，因此當符號推理卡住時可代入具體值</text><feedback><text>正確——具體執行是安全網，讓 concolic 能越過無法求解的項繼續前進。</text></feedback></answer>
+    <answer fraction="0"><text>concolic 從不使用解算器，純符號執行則總是使用</text><feedback><text>錯——concolic 也依賴解算器來翻轉分支；差別在於伴隨的那次具體執行。</text></feedback></answer>
+    <answer fraction="0"><text>純符號執行會具體地執行程式，concolic 則不會</text><feedback><text>錯——恰好相反：concolic 會做真實的具體執行；純符號執行不會。</text></feedback></answer>
+    <answer fraction="0"><text>concolic 保證完整路徑覆蓋，純符號執行則否</text><feedback><text>錯——兩者都不保證完整覆蓋；都面臨路徑爆炸。真正的差別是那個具體的伴隨執行。</text></feedback></answer>
+    <generalfeedback><text>兩者都追蹤符號路徑條件並使用解算器。concolic 的差別在於同時進行的具體執行：當限制式無法求解、非線性、或牽涉不透明外部呼叫時，它提供一個可代入的真實值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>插樁的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>concolic 工具對受測程式插樁（instrument），主要目的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在具體執行期間觀察所走的分支條件，並平行建構符號路徑條件</text><feedback><text>正確——插樁在真實執行的同時收集符號限制式。</text></feedback></answer>
+    <answer fraction="0"><text>把程式拖慢，好讓解算器有時間思考</text><feedback><text>錯——插樁是為了在執行期間收集符號限制式，而非增加延遲。</text></feedback></answer>
+    <answer fraction="0"><text>把所有分支換成隨機擲硬幣</text><feedback><text>錯——分支是被符號地觀察並記錄，而不是被隨機取代。</text></feedback></answer>
+    <answer fraction="0"><text>把程式永久改寫成無錯誤的版本</text><feedback><text>錯——插樁只為分析記錄資訊，並不修正程式。</text></feedback></answer>
+    <generalfeedback><text>程式被插樁後，具體輸入驅動執行時，引擎同時把每個分支條件符號化地記錄下來並累積路徑條件——這是「取反再求解」步驟的原料。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>所探索的路徑都是真實的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>concolic 執行所探索的每一條路徑都對應一次以具體輸入進行的真實執行，因此它不會回報任何虛假（不可行）的路徑。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每一步 concolic 都是一次真實的具體執行，因此它回報的路徑確實可執行（這就是它對「所探索路徑」的健全性）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>因為每條被探索的路徑都由真正執行的具體輸入驅動，concolic 執行不會製造出不可行的路徑。</text></feedback></answer>
+    <generalfeedback><text>concolic 執行實際以每個產生的具體輸入執行程式，所以它回報為已探索的任何路徑都是真正可行的。它的限制在於完整性（可能漏掉某些路徑），而非其所探索路徑的健全性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>是什麼挑選一次執行所走的路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在單次 concolic 執行中，是什麼決定了程式被走過的那唯一一條路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具體輸入值——它們被真正執行，並確定性地選出每個分支的走向</text><feedback><text>正確——具體狀態驅動真實執行，因而固定了路徑；符號狀態只是記錄它。</text></feedback></answer>
+    <answer fraction="0"><text>解算器——它在執行開始前就選好路徑</text><feedback><text>錯——在一次執行內是具體值挑出路徑；解算器只為未來的執行算出輸入。</text></feedback></answer>
+    <answer fraction="0"><text>路徑條件——它強制執行走向某個選定分支</text><feedback><text>錯——路徑條件是從執行中被記錄下來的；它不會操控當前的具體執行。</text></feedback></answer>
+    <answer fraction="0"><text>在每個分支所做的隨機選擇</text><feedback><text>錯——分支是由具體值決定，而非執行期間的隨機。</text></feedback></answer>
+    <generalfeedback><text>具體輸入被真正執行，因此在每個分支由具體值判定真／假，從而固定了所走的唯一路徑。符號面只是記錄該路徑的條件，供之後的分支取反使用。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Concolic Execution/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：單一 if，記錄路徑條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void f(int x) {
+  if (x &gt; 5) error();   // branch B1
+}</code></pre><p>concolic 執行以具體輸入 <code>x = 0</code> 開始。這次執行記錄的路徑條件是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x ≤ 5（B1 的假側，因為 0 &gt; 5 為假）</text><feedback><text>正確——x = 0 使 x &gt; 5 為假，故執行走假分支並記錄 x ≤ 5。</text></feedback></answer>
+    <answer fraction="0"><text>x &gt; 5（B1 的真側）</text><feedback><text>錯——x = 0 不滿足 x &gt; 5，故執行走假分支並記錄 x ≤ 5，而非 x &gt; 5。</text></feedback></answer>
+    <answer fraction="0"><text>x == 0（具體值本身）</text><feedback><text>錯——路徑條件記錄的是分支走向（x ≤ 5），而非所用的具體值。</text></feedback></answer>
+    <answer fraction="0"><text>true（沒有限制式，因為沒有走任何分支）</text><feedback><text>錯——分支 B1 有被求值；其假走向貢獻了限制式 x ≤ 5。</text></feedback></answer>
+    <generalfeedback><text>當 x = 0 時，條件 x &gt; 5 求值為假，故執行走假分支。引擎記錄它所滿足的條件，也就是它未走之分支條件的否定：x ≤ 5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：取反並求解下一個輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>同一段程式：</p><pre><code>void f(int x) {
+  if (x &gt; 5) error();   // branch B1
+}</code></pre><p>第一次執行用 <code>x = 0</code> 並記錄 <code>x ≤ 5</code>。為了涵蓋 B1 的另一側，引擎將其取反。解算器可能回傳下列哪個具體輸入？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 6（任何滿足取反後限制式 x &gt; 5 的值）</text><feedback><text>正確——把 x ≤ 5 取反得 x &gt; 5，x = 6 滿足它，會把執行驅動進 error()。</text></feedback></answer>
+    <answer fraction="0"><text>x = 5</text><feedback><text>錯——5 &gt; 5 為假，故 x = 5 仍走假分支，無法涵蓋另一側。</text></feedback></answer>
+    <answer fraction="0"><text>x = -1</text><feedback><text>錯——-1 不滿足 x &gt; 5；它會重走已涵蓋的假分支。</text></feedback></answer>
+    <answer fraction="0"><text>不存在這樣的輸入；取反後的限制式無法滿足</text><feedback><text>錯——x &gt; 5 很容易滿足（例如 x = 6），故該路徑可行。</text></feedback></answer>
+    <generalfeedback><text>把已記錄的限制式 x ≤ 5 取反得 x &gt; 5。解算器回傳任一滿足值（例如 x = 6），它成為下一個具體輸入並把執行驅動進 error()。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：等式守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void g(int x) {
+  if (x == 42) bug();   // branch B1
+}</code></pre><p>執行以 <code>x = 7</code> 開始（故 B1 為假，PC 為 <code>x ≠ 42</code>）。取反 B1 會得到什麼下一個輸入？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 42——把 x ≠ 42 取反得 x == 42，其唯一解為 42</text><feedback><text>正確——解算器算出確切值 42，立即抵達 bug()。</text></feedback></answer>
+    <answer fraction="0"><text>x = 43——任何鄰近值皆可</text><feedback><text>錯——取反後的限制式是等式 x == 42，故 43 不滿足；只有 42 可以。</text></feedback></answer>
+    <answer fraction="0"><text>x = 7——沿用同一輸入</text><feedback><text>錯——x = 7 走的是已涵蓋的假分支；引擎會對翻轉後的等式求解得到 42。</text></feedback></answer>
+    <answer fraction="0"><text>無解；等式無法被取反</text><feedback><text>錯——把 x ≠ 42 取反就是 x == 42，解算器以 x = 42 滿足之。</text></feedback></answer>
+    <generalfeedback><text>第一次執行的限制式是 x ≠ 42；取反得 x == 42。解算器回傳恰為 x = 42——這是 concolic／符號推理勝過隨機測試的典型情形，隨機測試幾乎不可能猜中 42。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：要取反哪個分支（DFS）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某次執行依序走了分支 <code>[B1: true, B2: true]</code>，得到路徑條件 <code>c1 ∧ c2</code>。採用常見的深度優先策略（先翻轉最後一個尚未取反的分支），下一個要求解的路徑條件是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c1 ∧ ¬c2——保留前綴 c1，取反最後一個分支 c2</text><feedback><text>正確——深度優先先翻轉最深（最後）的分支，同時保留較早的決策。</text></feedback></answer>
+    <answer fraction="0"><text>¬c1 ∧ c2——取反第一個分支，保留第二個</text><feedback><text>錯——那是先翻轉 B1；深度優先會先取反最後的分支（c2），再回溯到較早者。</text></feedback></answer>
+    <answer fraction="0"><text>¬c1 ∧ ¬c2——把兩個分支都取反</text><feedback><text>錯——每步恰好取反一個分支；這裡是最後那個，得 c1 ∧ ¬c2。</text></feedback></answer>
+    <answer fraction="0"><text>c1 ∧ c2——重新求解相同條件</text><feedback><text>錯——重解相同條件只會重走同一路徑；引擎翻轉 c2 以抵達新路徑。</text></feedback></answer>
+    <generalfeedback><text>深度優先探索會取反最後一個尚未取反的分支條件，同時保持前綴不變：從 c1 ∧ c2 形成 c1 ∧ ¬c2。只有在窮盡 c1 前綴的子樹後，才回溯翻轉 c1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：兩個分支，下一個輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void h(int a, int b) {
+  if (a &gt; 0)          // B1
+    if (b &gt; 0)        // B2
+      target();
+}</code></pre><p>執行 1 用 <code>a = 1, b = -1</code>：B1 真、B2 假，PC = <code>(a &gt; 0) ∧ (b ≤ 0)</code>。翻轉最後的分支（B2），哪個輸入能抵達 <code>target()</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 1, b = 1——滿足 (a &gt; 0) ∧ (b &gt; 0)</text><feedback><text>正確——保留 a &gt; 0 並把 b ≤ 0 取反為 b &gt; 0，即得抵達 target() 的路徑；a = 1, b = 1 可行。</text></feedback></answer>
+    <answer fraction="0"><text>a = -1, b = 1——滿足 b &gt; 0</text><feedback><text>錯——a = -1 不滿足 a &gt; 0，故 B1 為假、永遠到不了 target()；前綴 a &gt; 0 必須保留。</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 0——b 非負</text><feedback><text>錯——b &gt; 0 要求 b 嚴格為正；b = 0 不滿足，故 B2 仍為假。</text></feedback></answer>
+    <answer fraction="0"><text>a = 0, b = 0——兩者皆零</text><feedback><text>錯——a = 0 不滿足 a &gt; 0；取反後的限制式保留前綴 a &gt; 0 並把 b 翻轉為 b &gt; 0。</text></feedback></answer>
+    <generalfeedback><text>翻轉 B2 形成 (a &gt; 0) ∧ (b &gt; 0)：前綴 a &gt; 0 被保留，b ≤ 0 被取反為 b &gt; 0。解算器回傳任一滿足對，例如 a = 1, b = 1，把執行驅動進 target()。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：分支前的指派</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void k(int x) {
+  int y = x + 3;
+  if (y == 10) hit();   // B1
+}</code></pre><p>執行 1 用 <code>x = 0</code>（故 y = 3，B1 假）。取反 B1，解算器回傳的下一個輸入是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 7——對輸入的限制式是 x + 3 == 10</text><feedback><text>正確——y 是運算式 x + 3，故 B1 變成 x + 3 == 10，得 x = 7。</text></feedback></answer>
+    <answer fraction="0"><text>x = 10——分支測的是 == 10</text><feedback><text>錯——分支測的是 y == 10，而 y = x + 3，故對輸入的限制式是 x + 3 == 10，即 x = 7。</text></feedback></answer>
+    <answer fraction="0"><text>x = 3——與第一次算出的 y 相符</text><feedback><text>錯——x = 3 使 y = 6，不是 10；解 x + 3 == 10 得 x = 7。</text></feedback></answer>
+    <answer fraction="0"><text>y = 10——把 y 當成自由輸入</text><feedback><text>錯——y 不是輸入；它是運算式 x + 3，必須代入，得 x = 7。</text></feedback></answer>
+    <generalfeedback><text>符號狀態記錄 y = x + 3，故分支 y == 10 就是對實際輸入 x 的限制式 x + 3 == 10。取反假走向並求解得 x = 7。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>簡單情形下 concolic 與純符號的比較</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>if (x &gt; 5) error();</code> 這個可求解的線性守衛，concolic 與純符號執行在抵達 <code>error()</code> 上如何比較？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者都能抵達——各自求解 x &gt; 5（concolic 是在其第一次具體執行後取反分支）——具體伴隨執行只在限制式無法求解時才有差別</text><feedback><text>正確——在簡單可解的守衛上兩者行為相近；具體後援只在難／不透明限制式時才拉開差距。</text></feedback></answer>
+    <answer fraction="0"><text>只有純符號能抵達；concolic 無法求解不等式</text><feedback><text>錯——concolic 使用同一個解算器，藉取反分支並求解就能輕鬆處理 x &gt; 5。</text></feedback></answer>
+    <answer fraction="0"><text>只有 concolic 能抵達；純符號無法求解不等式</text><feedback><text>錯——純符號能處理線性不等式；此處兩者都能抵達 error()。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都無法抵達，除非隨機碰運氣</text><feedback><text>錯——兩者都能精確求解 x &gt; 5；簡單線性限制式無需運氣。</text></feedback></answer>
+    <generalfeedback><text>當所有限制式都可求解時，concolic 與純符號抵達相同路徑；兩者都直接解出 x &gt; 5。具體值後援只有在限制式為非線性、無法求解、或牽涉不透明外部呼叫時才會起決定性作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：記錄所走的走向</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void m(int x) {
+  if (x &lt; 100) a();   // B1
+  else b();
+}</code></pre><p>具體執行用 <code>x = 250</code>。引擎會把哪個文字式（literal）連言進 B1 的路徑條件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x ≥ 100——執行走了 else 分支，故所滿足的條件是 x &lt; 100 的否定</text><feedback><text>正確——當 x = 250 時守衛 x &lt; 100 為假，故記錄的文字式是 x ≥ 100。</text></feedback></answer>
+    <answer fraction="0"><text>x &lt; 100——分支的書面條件</text><feedback><text>錯——對 x = 250 而言書面條件為假；引擎記錄的是實際所走的走向 x ≥ 100。</text></feedback></answer>
+    <answer fraction="0"><text>x == 250——具體值</text><feedback><text>錯——路徑條件記錄的是分支走向（x ≥ 100），而非具體數字。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——else 分支不貢獻任何限制式</text><feedback><text>錯——走 else 分支會把被否定的守衛 x ≥ 100 貢獻進路徑條件。</text></feedback></answer>
+    <generalfeedback><text>路徑條件永遠記錄實際所走的走向。當 x = 250 時守衛 x &lt; 100 為假，故引擎把它的否定 x ≥ 100 連言進路徑條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：無法滿足的翻轉會被略過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void p(int x) {
+  if (x &gt; 0)        // B1
+    if (x &lt; 0)      // B2
+      dead();
+}</code></pre><p>執行 1 用 <code>x = 5</code>：B1 真、B2 假，PC = <code>(x &gt; 0) ∧ (x ≥ 0)</code>。當引擎翻轉 B2 以嘗試抵達 <code>dead()</code> 時，會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>翻轉後的條件 (x &gt; 0) ∧ (x &lt; 0) 為 UNSAT，故解算器回傳無解，引擎略過該不可行路徑</text><feedback><text>正確——沒有 x 同時為正又為負，故 dead() 不可達，正確地不產生任何測試。</text></feedback></answer>
+    <answer fraction="0"><text>解算器回傳 x = 0，抵達 dead()</text><feedback><text>錯——x = 0 既不滿足 x &gt; 0 也不滿足 x &lt; 0；此連言無法滿足。</text></feedback></answer>
+    <answer fraction="0"><text>引擎代入一個具體值，仍然抵達 dead()</text><feedback><text>錯——具體後援是用於無法求解／不透明的項，而非對一個乾淨的 UNSAT 線性限制式；該路徑確實不可行。</text></feedback></answer>
+    <answer fraction="0"><text>程式被修改以使該路徑變為可行</text><feedback><text>錯——concolic 從不修改程式；UNSAT 的翻轉就只是得不到輸入。</text></feedback></answer>
+    <generalfeedback><text>翻轉 B2 並保留前綴得 (x &gt; 0) ∧ (x &lt; 0)，此為 UNSAT。解算器回報無解，故引擎略過這條不可行路徑——dead() 正確地永不被鎖定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：涵蓋兩分支需幾次執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於單一 <code>if (x &gt; 5) A(); else B();</code>（兩側皆可行），從一個任意具體輸入開始，需要幾次 concolic 執行才能涵蓋兩個分支？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2——一次執行涵蓋種子所走的分支；取反它並求解得到第二個輸入，涵蓋另一側</text><feedback><text>正確——一次種子執行加一次取反求解執行，即可涵蓋兩側。</text></feedback></answer>
+    <answer fraction="0"><text>1——單次執行即涵蓋兩個分支</text><feedback><text>錯——一次具體執行只走一側；另一側需要來自取反限制式的第二個輸入。</text></feedback></answer>
+    <answer fraction="0"><text>4——每個分支都需要兩次執行</text><feedback><text>錯——單一雙向分支總共只需兩次執行，每側一次。</text></feedback></answer>
+    <answer fraction="0"><text>無上限——隨機種子可能永遠碰不到兩側</text><feedback><text>錯——concolic 是導向式的：它確定性地求解取反限制式，故兩次執行即足夠。</text></feedback></answer>
+    <generalfeedback><text>種子執行涵蓋其具體值所走的那一側。取反該分支並求解得到第二個輸入，涵蓋相反側。兩次執行涵蓋兩分支——這正是 concolic 有別於盲目隨機測試的導向性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：複合守衛，下一個輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某分支在執行 1 所記錄（已滿足）的條件為 <code>(x + y &lt; 4)</code>。將其取反後，解算器會接受哪個輸入對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x = 3, y = 3——滿足取反後的 x + y ≥ 4</text><feedback><text>正確——3 + 3 = 6 ≥ 4，故此對會走翻轉後的分支。</text></feedback></answer>
+    <answer fraction="0"><text>x = 1, y = 1——小值</text><feedback><text>錯——1 + 1 = 2 &lt; 4，仍滿足原條件，而非其否定。</text></feedback></answer>
+    <answer fraction="0"><text>x = 0, y = 3——和為 3</text><feedback><text>錯——0 + 3 = 3 &lt; 4，不滿足取反後的限制式 x + y ≥ 4。</text></feedback></answer>
+    <answer fraction="0"><text>x = 2, y = 1——和為 3</text><feedback><text>錯——2 + 1 = 3 &lt; 4，故仍停留在原分支。</text></feedback></answer>
+    <generalfeedback><text>把 x + y &lt; 4 取反得 x + y ≥ 4。只有 x = 3, y = 3（和為 6）滿足它；其餘選項的和都小於 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：保留前綴、翻轉較深分支的輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void q(int a, int b) {
+  if (a == b)       // B1
+    if (a &gt; 10)     // B2
+      z();
+}</code></pre><p>執行 1 用 <code>a = 3, b = 3</code>：B1 真、B2 假，PC = <code>(a == b) ∧ (a ≤ 10)</code>。翻轉 B2 以抵達 <code>z()</code>，哪個輸入可行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 11, b = 11——保留 a == b 並滿足 a &gt; 10</text><feedback><text>正確——前綴 a == b 被保留，a ≤ 10 被取反為 a &gt; 10；a = b = 11 兩者皆滿足。</text></feedback></answer>
+    <answer fraction="0"><text>a = 11, b = 3——a &gt; 10 成立</text><feedback><text>錯——a ≠ b 破壞了被保留的前綴 a == b，故 B1 為假、z() 不可達。</text></feedback></answer>
+    <answer fraction="0"><text>a = 5, b = 5——相等值</text><feedback><text>錯——a = 5 不滿足取反後的限制式 a &gt; 10，故 B2 仍為假。</text></feedback></answer>
+    <answer fraction="0"><text>a = 10, b = 10——正好在邊界</text><feedback><text>錯——a &gt; 10 為嚴格；a = 10 不滿足，故到不了 z()。</text></feedback></answer>
+    <generalfeedback><text>翻轉 B2 形成 (a == b) ∧ (a &gt; 10)：保留 a == b，取反 a ≤ 10 為 a &gt; 10。輸入對 a = 11, b = 11 兩個限制式皆滿足，把執行驅動進 z()。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何重跑同一輸入無法探索</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 concolic 引擎不能單靠再跑一次同樣的具體輸入來抵達新路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>確定性程式對同一輸入走同一路徑，故新路徑需要一個由「取反並求解限制式」得到的新輸入</text><feedback><text>正確——這正是引擎取反一個分支並求出不同輸入的原因。</text></feedback></answer>
+    <answer fraction="0"><text>重跑會清空符號狀態，遺失路徑條件</text><feedback><text>錯——真正原因是確定性：同一輸入、同一路徑；引擎必須改變輸入才能改變路徑。</text></feedback></answer>
+    <answer fraction="0"><text>解算器禁止重複使用任何具體輸入</text><feedback><text>錯——並無此禁令；重點是同一輸入只會重走同一路徑。</text></feedback></answer>
+    <answer fraction="0"><text>重複執行會隨機挑到不同分支</text><feedback><text>錯——確定性程式不會隨機挑分支；相同輸入產生相同路徑。</text></feedback></answer>
+    <generalfeedback><text>對確定性程式而言，具體輸入完全決定所走的路徑。要探索不同路徑，引擎必須提供不同輸入——由取反已記錄路徑條件中的某分支並求解得到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤：深度優先下的輸入順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>if (a) {...} if (b) {...}</code>（兩個獨立分支），從一次 <code>a=false, b=false</code> 的執行開始，且先翻轉最後一個分支，引擎接著求解的路徑條件的合理順序是？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>先 ¬a ∧ b（翻轉最後的分支），再 a ∧ ...（回溯翻轉第一個）</text><feedback><text>正確——深度優先先翻轉最深的分支（b），再回溯到較早者（a）。</text></feedback></answer>
+    <answer fraction="0"><text>只有 a ∧ b，忽略其他組合</text><feedback><text>錯——深度優先會探索不只一種組合；它先翻轉最後分支得 ¬a ∧ b。</text></feedback></answer>
+    <answer fraction="0"><text>它求解 ¬a ∧ ¬b，與種子執行相同</text><feedback><text>錯——那是已涵蓋的種子路徑；引擎會翻轉一個分支以抵達新路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它必須先同時翻轉兩個分支</text><feedback><text>錯——每步恰好翻轉一個分支；深度優先下先翻最深者。</text></feedback></answer>
+    <generalfeedback><text>深度優先先翻轉最後的分支：從 ¬a ∧ ¬b 形成 ¬a ∧ b，待該子樹探索完後回溯翻轉第一個分支（a ∧ ...）。每步只取反單一分支並保留前綴。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>具體值使前綴保持一致</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當引擎取反最後一個分支時，它會保持較早的分支條件不變，好讓求得的輸入仍能抵達那個分支點。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——保留前綴確保新輸入在分歧前確實抵達被翻轉的分支。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>保留前綴正是為了讓新輸入沿同一路線走到被翻轉的分支，再在該處分歧。</text></feedback></answer>
+    <generalfeedback><text>要抵達某個深層分支的手足路徑，輸入必須先滿足通往它的所有較早決策。因此引擎保留前綴限制式、只取反目標分支，再求解整個連言。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Concolic Execution/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>對外部呼叫的具體後援</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void r(int x) {
+  int h = opaque_hash(x);   // native/library, no symbolic model
+  if (h == 1234) win();     // B1
+}</code></pre><p>在純符號引擎會卡住之處，concolic 執行如何在 B1 繼續前進？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>代入執行期觀察到的 h 具體值，使 B1 變成具體的真／假，執行沿一條真實路徑繼續</text><feedback><text>正確——具體執行永遠有一個實際的 h，故 concolic 能在純符號會卡住的不可建模呼叫處繼續。</text></feedback></answer>
+    <answer fraction="0"><text>它自動為 opaque_hash 建立完整的符號模型</text><feedback><text>錯——該呼叫不透明且無模型；concolic 是用具體觀察值繞過它，而非建模。</text></feedback></answer>
+    <answer fraction="0"><text>它像純符號執行一樣中止</text><feedback><text>錯——具體伴隨值的重點正是要越過不透明呼叫繼續，而不是中止。</text></feedback></answer>
+    <answer fraction="0"><text>它證明 B1 不可達</text><feedback><text>錯——它並不對 B1 做任何證明；它只是代入具體 h 並沿由此得到的真實路徑走。</text></feedback></answer>
+    <generalfeedback><text>因為 opaque_hash 沒有符號模型，其符號結果未知。concolic 執行使用真實執行所產生的 h 具體值，故 B1 具體地求值、執行沿一條真正路徑前進——這正是相較於純符號執行（會卡住）的關鍵優勢。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具體後援的完整性代價</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當 concolic 執行對某個無法求解／不透明的項代入具體值時，代價是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不完整（incompleteness）——把該項固定為單一具體值，引擎可能無法探索其他依賴它的可行路徑</text><feedback><text>正確——後援讓執行能繼續，但可能隱藏那些只在該不透明項取其他值時才可達的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>不健全（unsoundness）——它可能回報實際上跑不到的路徑</text><feedback><text>錯——每次執行都是具體且真實的，故所探索路徑的健全性得以保持；代價是漏掉路徑（完整性）。</text></feedback></answer>
+    <answer fraction="0"><text>它總是使解算器當機</text><feedback><text>錯——代入具體值會簡化限制式，不會使解算器當機。</text></feedback></answer>
+    <answer fraction="0"><text>沒有代價；覆蓋率不受影響</text><feedback><text>錯——把不透明項釘死在單一值可能妨礙抵達其他路徑，這是不完整的代價。</text></feedback></answer>
+    <generalfeedback><text>具體後援保持健全性（所探索路徑皆為真實），但犧牲完整性：把不透明項固定為所觀察到的唯一具體值，可能遮蔽只在該項取其他值時才可行的分支，因此某些路徑可能永不被探索。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非線性限制式的後援</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void s(int x, int y) {
+  if (x * y == 30)   // B1, nonlinear
+    t();
+}</code></pre><p>執行 1 用 <code>x = 6, y = 4</code>（故 x*y = 24，B1 假）。若解算器無法處理這個非線性翻轉，concolic 仍能如何取得進展？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把其中一個變數固定為其具體值（例如 x = 6），使限制式變為線性（6*y == 30 → y = 5），再求解</text><feedback><text>正確——把 x 釘為具體值使限制式線性化，讓解算器求出 y = 5 並抵達 t()。</text></feedback></answer>
+    <answer fraction="0"><text>直接放棄，因為非線性限制式不可判定</text><feedback><text>錯——concolic 是用其中一個運算元的具體值把式子簡化為可解的線性限制式，而非放棄。</text></feedback></answer>
+    <answer fraction="0"><text>隨機亂猜 x 與 y，直到 x*y == 30</text><feedback><text>錯——concolic 的做法是把一個運算元具體釘死，再求解由此得到的線性方程；這正是具體伴隨的意義。</text></feedback></answer>
+    <answer fraction="0"><text>修改程式以移除乘法</text><feedback><text>錯——程式從不被修改；是代入 x 的具體值來簡化限制式。</text></feedback></answer>
+    <generalfeedback><text>concolic 執行代入其中一個運算元的具體值（x = 6），把 x*y == 30 化為線性的 6*y == 30，解算器以 y = 5 滿足之。以 x = 6, y = 5 執行即抵達 t()。代價是不完整：把 x 釘為 6 可能漏掉如 x = 5, y = 6 之類的解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>健全性與完整性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者正確刻畫 concolic 執行的保證？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它所探索的路徑都是真實的（健全），但可能漏掉某些可行路徑（不完整）</text><feedback><text>正確——真實的具體執行保證沒有虛假路徑，而具體後援與界限設定則可能使某些路徑未被探索。</text></feedback></answer>
+    <answer fraction="0"><text>它會探索每一條可行路徑（完整），但可能回報一些跑不到的路徑（不健全）</text><feedback><text>錯——恰好相反：對所探索路徑是健全的，但不保證完整。</text></feedback></answer>
+    <answer fraction="0"><text>對所有程式它既完全健全又完全完整</text><feedback><text>錯——路徑爆炸與具體後援意味著完整性無法保證。</text></feedback></answer>
+    <answer fraction="0"><text>它既不健全也不完整</text><feedback><text>錯——因為每條被探索的路徑都是真實執行，它對其回報的路徑是健全的。</text></feedback></answer>
+    <generalfeedback><text>每一步 concolic 都是真正的具體執行，故其所探索的路徑皆為真實（對所探索路徑的健全性——不會因不可行路徑而產生誤報）。但對不透明／非線性項的具體後援與有界搜尋，意味著它可能無法抵達每條可行路徑（不完整）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑爆炸是被管理，而非被消除</text></name>
+    <questiontext format="html"><text><![CDATA[<p>concolic 執行與路徑爆炸的關係為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它仍面臨路徑爆炸，並以搜尋策略與迭代／深度界限來管理它，而非消除它</text><feedback><text>正確——concolic 不會移除指數級的路徑成長；它以界限搜尋來因應。</text></feedback></answer>
+    <answer fraction="0"><text>它藉由使用具體輸入而完全消除路徑爆炸</text><feedback><text>錯——使用具體輸入並不會移除指數級的分支組合數；concolic 仍須對搜尋設界。</text></feedback></answer>
+    <answer fraction="0"><text>它沒有路徑的概念，故路徑爆炸不適用</text><feedback><text>錯——concolic 明確藉分支翻轉探索路徑，故路徑爆炸非常適用。</text></feedback></answer>
+    <answer fraction="0"><text>路徑爆炸只影響隨機測試，不影響 concolic</text><feedback><text>錯——路徑爆炸是所有以路徑為基礎之技術的核心挑戰，concolic 亦然。</text></feedback></answer>
+    <generalfeedback><text>每次分支翻轉都可能引出更多分支，故路徑數仍指數成長。concolic 以搜尋啟發式（深度優先、覆蓋率導向）與對迭代、迴圈展開或深度的界限來管理它——但不消除路徑爆炸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多分支追蹤：說出每個下一個輸入（1）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void f(int a, int b) {
+  if (a &gt; 0)          // B1
+    if (b == a + 1)   // B2
+      target();
+}</code></pre><p>種子執行：<code>a = -1, b = 0</code>（B1 假）。在深度優先翻轉下，第一次使 B1 為真（翻轉 B1）的那次執行的輸入是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>任何 a &gt; 0 且 b 不受限，例如 a = 1, b = 0——求解單一限制式 a &gt; 0</text><feedback><text>正確——翻轉 B1 只加上 a &gt; 0；B2 尚未出現在已記錄路徑上，故 b 自由（例如 b = 0）。</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 2——必須也已滿足 B2</text><feedback><text>錯——翻轉 B1 時只需要 a &gt; 0；此步 B2 尚未被記錄，故 b 不必滿足 b == a + 1。</text></feedback></answer>
+    <answer fraction="0"><text>a = -1, b = 0——沿用種子</text><feedback><text>錯——種子的 B1 為假；翻轉 B1 需要 a &gt; 0，故輸入必須改變。</text></feedback></answer>
+    <answer fraction="0"><text>無解；a &gt; 0 無法滿足</text><feedback><text>錯——a &gt; 0 顯然可滿足，例如 a = 1。</text></feedback></answer>
+    <generalfeedback><text>種子走 B1 假，故其路徑條件僅為 a ≤ 0。取反得 a &gt; 0，是此步唯一的限制式（B2 從未被抵達）。解算器回傳任一 a &gt; 0，例如 a = 1, b = 0。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多分支追蹤：說出每個下一個輸入（2）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>延續前一段程式，執行 <code>a = 1, b = 0</code> 現在走 B1 真、B2 假（0 ≠ 2），PC = <code>(a &gt; 0) ∧ (b ≠ a + 1)</code>。翻轉 B2，哪個輸入能抵達 <code>target()</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = 1, b = 2——保留 a &gt; 0 並滿足 b == a + 1</text><feedback><text>正確——保留 a &gt; 0，把 b ≠ a + 1 取反為 b == a + 1；當 a = 1 即 b = 2。</text></feedback></answer>
+    <answer fraction="0"><text>a = 1, b = 1——b 沿用前一步</text><feedback><text>錯——b 必須等於 a + 1 = 2；b = 1 不滿足翻轉後的限制式。</text></feedback></answer>
+    <answer fraction="0"><text>a = 0, b = 1——b == a + 1 成立</text><feedback><text>錯——a = 0 破壞了被保留的前綴 a &gt; 0，故 B1 變假、target() 不可達。</text></feedback></answer>
+    <answer fraction="0"><text>a = 2, b = 2——兩者相等</text><feedback><text>錯——當 a = 2 時 b == a + 1 需要 b = 3，而非 2。</text></feedback></answer>
+    <generalfeedback><text>翻轉 B2 得 (a &gt; 0) ∧ (b == a + 1)。沿用前綴的 a = 1，b 必須為 a + 1 = 2。輸入 a = 1, b = 2 抵達 target()。（解算器也可能選另一個 a &gt; 0 並搭配相應的 b。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多分支追蹤：三次迭代計數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於巢狀片段 <code>if (a &gt; 0) if (b == a + 1) target();</code>，從種子 <code>a = -1, b = 0</code> 開始，每次迭代按深度優先翻轉一個分支，需要幾次 concolic 執行（含種子）才能首次抵達 <code>target()</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——種子（B1 假）、然後 B1 真／B2 假、再來 B1 真／B2 真抵達 target()</text><feedback><text>正確——需要一次翻轉進入 B1，再一次翻轉滿足 B2，故第三次執行擊中 target()。</text></feedback></answer>
+    <answer fraction="0"><text>2——種子加一次翻轉即抵達 target()</text><feedback><text>錯——種子未過 B1；一次翻轉只讓 B1 為真（B2 仍假），故需第二次翻轉，共三次執行。</text></feedback></answer>
+    <answer fraction="0"><text>1——種子直接抵達 target()</text><feedback><text>錯——種子 a = -1，立刻未過 B1，故無法抵達 target()。</text></feedback></answer>
+    <answer fraction="0"><text>4——每層巢狀使執行次數加倍</text><feedback><text>錯——這條特定路徑在種子之後恰好需要兩次分支翻轉，即三次執行，而非四次。</text></feedback></answer>
+    <generalfeedback><text>執行 1（種子 a=-1）：B1 假。執行 2（a=1, b=0）：翻轉 B1 → B1 真、B2 假。執行 3（a=1, b=2）：翻轉 B2 → 兩者皆真，抵達 target()。共三次執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為搜尋設界</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當迴圈次數取決於輸入時，為了讓 concolic 探索保持有限，常見做法是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>設一個界限——例如深度／迭代上限或有界迴圈展開——並接受界限外的路徑不被探索</text><feedback><text>正確——設界以終止性換取，是常見的路徑爆炸控制手段。</text></feedback></answer>
+    <answer fraction="0"><text>一次把所有迴圈體分支取反，好在一次執行涵蓋所有迭代</text><feedback><text>錯——單次執行只涵蓋一條路徑；迴圈是以設界探索處理，而非同時取反。</text></feedback></answer>
+    <answer fraction="0"><text>證明迴圈會終止後就略過它</text><feedback><text>錯——略過迴圈會漏掉其行為；應改以設界／展開處理迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>改用純符號執行，因為它沒有路徑爆炸</text><feedback><text>錯——純符號執行同樣有路徑爆炸；改用它並不能解決問題。</text></feedback></answer>
+    <generalfeedback><text>符號化的迴圈次數可能引出無界多的路徑，故引擎以迭代／深度上限或有界展開（並搭配搜尋啟發式）對探索設界。這以不探索界限外路徑為代價換取有限的執行——一種被接受的不完整。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CUTE 與指標型輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>CUTE 把 concolic 測試擴展到含指標與動態資料結構的程式，方法是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在具體指標旁追蹤堆積／指標結構的符號表示，並像求解純量限制式一樣求解指標限制式（例如別名、是否為 null）</text><feedback><text>正確——CUTE 同時處理純量的邏輯輸入對映與指標輸入的結構，並以具體執行補足解算器所不能。</text></feedback></answer>
+    <answer fraction="0"><text>禁止一切指標輸入，只測試整數</text><feedback><text>錯——CUTE 的貢獻正是支援指標與資料結構型輸入，而非禁止它們。</text></feedback></answer>
+    <answer fraction="0"><text>在測試前把整支程式轉成無指標的形式</text><feedback><text>錯——CUTE 直接對指標推理，在符號推理不足處使用具體值。</text></feedback></answer>
+    <answer fraction="0"><text>只對堆積執行純符號執行</text><feedback><text>錯——CUTE 是 concolic：它結合具體指標值與符號限制式，這正是它能處理堆積輸入的原因。</text></feedback></answer>
+    <generalfeedback><text>CUTE（Concolic Unit Testing Engine）以邏輯結構表示指標輸入，並同時產生純量值與指標形狀（含別名與 null 情形）。具體執行提供可依靠的真實指標，使它能測試處理動態資料結構的函式。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>具體後援保持健全性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>即使 concolic 執行對解算器無法處理的項代入具體值，它實際執行的路徑仍為真正可行（不會引入虛假路徑）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——代入所用的值來自真實執行，故由此走出的執行仍是一條真實、可行的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>具體後援從不捏造路徑；它使用觀察到的值，故每條被執行的路徑都真實。代價是漏掉路徑，而非虛假路徑。</text></feedback></answer>
+    <generalfeedback><text>因為代入的值來自一次實際執行，引擎隨後走的路徑是程式真的能走的。所探索路徑的健全性得以保持；有風險的只是完整性（某些可行路徑可能被略過）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>限制式被近似時的分歧</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設 concolic 執行把某不透明項釘為具體值並求出新輸入，但重跑時執行卻走了與預測不同的分支（「分歧」，divergence）。引擎會怎麼做？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它從實際的具體執行偵測到分歧並記錄真正走過的路徑，因為具體執行永遠是基準真相</text><feedback><text>正確——具體執行是權威，故分歧只是被觀察到、真正的路徑被記錄，分析仍保持健全。</text></feedback></answer>
+    <answer fraction="0"><text>它信任預測的路徑並忽略實際執行</text><feedback><text>錯——具體執行是基準真相；引擎記錄實際執行的路徑，而非預測的那條。</text></feedback></answer>
+    <answer fraction="0"><text>它把預測的路徑回報為已涵蓋，即使實際上沒走到</text><feedback><text>錯——那會不健全；引擎依靠真實執行，而真實執行揭示了分歧。</text></feedback></answer>
+    <answer fraction="0"><text>它因為預測錯誤而當機</text><feedback><text>錯——分歧會被優雅地處理：觀察實際的具體執行並繼續。</text></feedback></answer>
+    <generalfeedback><text>當被代入／近似的項使求得的輸入走了意料外的路徑時，就會發生分歧。因為 concolic 永遠具體地執行，它會觀察到真實路徑並記錄之——具體執行是基準真相，即使預測失準也能保持健全。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含具體後援步驟的多分支追蹤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre><code>void w(int x) {
+  int t = external(x);   // opaque; run observed t = 3 for x = 2
+  if (x &gt; 0)             // B1
+    if (t == 3)          // B2, depends on opaque t
+      goal();
+}</code></pre><p>執行 1 用 <code>x = 2</code>：B1 真，且 t = 3 故 B2 真——<code>goal()</code> 被抵達。到 goal() 的路徑會被回報嗎？它是真實的嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>會，且是真實的——具體執行確實抵達了 goal()，故該路徑被回報且真正可行；B2 使用了具體的 t = 3</text><feedback><text>正確——concolic 使用觀察到的 t，故 goal() 真被抵達並被健全地回報。</text></feedback></answer>
+    <answer fraction="0"><text>不會——B2 依賴不透明呼叫，故 concolic 無法回報該路徑</text><feedback><text>錯——concolic 使用具體 t = 3，故它求值 B2 並真的抵達 goal()；該路徑會被回報。</text></feedback></answer>
+    <answer fraction="0"><text>會，但可能是虛假路徑，因為 t 不透明</text><feedback><text>錯——該次執行確實跑到 goal()，故路徑真實而非虛假；不透明影響的是完整性，而非這次執行的真實性。</text></feedback></answer>
+    <answer fraction="0"><text>引擎必須在不透明呼叫處中止</text><feedback><text>錯——那是純符號行為；concolic 使用觀察到的 t = 3 繼續前進。</text></feedback></answer>
+    <generalfeedback><text>具體執行由 external(2) 算出 t = 3，並真的經 B1、B2 走進 goal()。concolic 回報這條真正可行的路徑。它較難做到的是對其他 x 強迫 B2 走另一方向，因為 x 與 t 的關係不透明——這是不完整，而非不健全。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>搜尋策略的選擇</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 concolic 引擎採用搜尋策略（深度優先、覆蓋率導向、隨機路徑），而非窮舉所有路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為路徑空間是指數級的（路徑爆炸），策略在有限預算內決定優先翻轉哪些分支</text><feedback><text>正確——路徑太多而無法全試，策略決定把有限的解算器／執行預算花在何處。</text></feedback></answer>
+    <answer fraction="0"><text>因為解算器每支程式只能回答一次查詢</text><feedback><text>錯——解算器能回答許多查詢；採用策略是因為路徑數呈指數級。</text></feedback></answer>
+    <answer fraction="0"><text>因為具體執行不可重複</text><feedback><text>錯——具體執行可重複；策略存在是為因應龐大的路徑空間。</text></feedback></answer>
+    <answer fraction="0"><text>因為沒有策略就無法進行分支取反</text><feedback><text>錯——取反本身無論如何都能做；策略只是在路徑爆炸下決定接下來追哪個取反。</text></feedback></answer>
+    <generalfeedback><text>窮舉探索不可行，因為分支與迴圈使路徑數指數成長。搜尋策略（深度優先、覆蓋率導向、世代式、隨機路徑）決定接下來翻轉哪個分支，讓有限的執行與解算器呼叫預算瞄準有用、未涵蓋的路徑。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>concolic 不保證完整覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>concolic 執行保證只要時間足夠，就能涵蓋任何程式的每一條可行路徑。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>不正確——對不透明／非線性項的具體後援，以及對迴圈的設界，意味著某些可行路徑可能永遠無法抵達。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——concolic 不保證完整路徑覆蓋；具體後援與有界搜尋可能使某些可行路徑未被探索。</text></feedback></answer>
+    <generalfeedback><text>concolic 執行以界限與啟發式管理路徑爆炸，並對無法求解的項退回具體值。兩者都可能使它無法抵達每條可行路徑，故不保證完整覆蓋——儘管它所探索的每條路徑都是真實的。</text></generalfeedback>
+  </question>
+</quiz>

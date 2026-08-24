@@ -2587,6 +2587,7604 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "code-coverage": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Statement coverage definition",
+          "text": "<p><strong>Statement (line) coverage</strong> of a test suite is best defined as:</p>",
+          "answers": [
+            {
+              "text": "The fraction of executable statements that were executed by at least one test",
+              "fraction": 100,
+              "feedback": "Correct — it counts executable statements run at least once, divided by the total executable statements."
+            },
+            {
+              "text": "The fraction of branch outcomes that were taken by at least one test",
+              "fraction": 0,
+              "feedback": "That is branch (decision) coverage, not statement coverage."
+            },
+            {
+              "text": "The fraction of source lines, including blanks and comments, that were compiled",
+              "fraction": 0,
+              "feedback": "Blank lines and comments are not executable statements, and coverage is about execution, not compilation."
+            },
+            {
+              "text": "The fraction of all input values that were tried",
+              "fraction": 0,
+              "feedback": "Coverage is measured over the code, not over the whole input domain."
+            }
+          ],
+          "generalFeedback": "Statement coverage = (executable statements executed by some test) / (total executable statements). Comments and blank lines do not count.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage definition",
+          "text": "<p><strong>Branch (decision) coverage</strong> requires that:</p>",
+          "answers": [
+            {
+              "text": "Every decision has taken both its true and its false outcome at least once",
+              "fraction": 100,
+              "feedback": "Correct — each branch outcome of every decision must be exercised."
+            },
+            {
+              "text": "Every executable statement has been executed at least once",
+              "fraction": 0,
+              "feedback": "That is statement coverage, which is weaker than branch coverage."
+            },
+            {
+              "text": "Every individual boolean condition has taken both values",
+              "fraction": 0,
+              "feedback": "That is condition coverage, which targets the atomic conditions, not the whole decision."
+            },
+            {
+              "text": "Every complete path through the program has been executed",
+              "fraction": 0,
+              "feedback": "That is path coverage, far stronger and often infeasible."
+            }
+          ],
+          "generalFeedback": "Branch (decision) coverage requires each decision to evaluate to both true and false at least once, so every branch outcome (edge) is taken.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition coverage definition",
+          "text": "<p><strong>Condition coverage</strong> requires that:</p>",
+          "answers": [
+            {
+              "text": "Each atomic boolean condition in a decision has taken both true and false at least once",
+              "fraction": 100,
+              "feedback": "Correct — every individual condition must be evaluated both ways."
+            },
+            {
+              "text": "Each decision as a whole has taken both true and false",
+              "fraction": 0,
+              "feedback": "That is decision (branch) coverage; condition coverage looks inside the decision."
+            },
+            {
+              "text": "Every combination of the conditions' values has been tried",
+              "fraction": 0,
+              "feedback": "That is multiple-condition coverage, which is stronger."
+            },
+            {
+              "text": "Every statement has executed once",
+              "fraction": 0,
+              "feedback": "That is statement coverage."
+            }
+          ],
+          "generalFeedback": "Condition coverage requires each atomic condition (e.g. a, b in a && b) to be true in some test and false in some test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path coverage definition",
+          "text": "<p><strong>Path coverage</strong> requires that:</p>",
+          "answers": [
+            {
+              "text": "Every feasible execution path through the code is exercised by some test",
+              "fraction": 100,
+              "feedback": "Correct — path coverage aims to exercise each end-to-end path of control flow."
+            },
+            {
+              "text": "Every decision takes both outcomes",
+              "fraction": 0,
+              "feedback": "That is branch coverage; path coverage constrains whole paths, not just individual decisions."
+            },
+            {
+              "text": "Every statement executes once",
+              "fraction": 0,
+              "feedback": "That is statement coverage, the weakest of these."
+            },
+            {
+              "text": "Every condition takes both values",
+              "fraction": 0,
+              "feedback": "That is condition coverage."
+            }
+          ],
+          "generalFeedback": "Path coverage requires each feasible path through the program to be executed. With loops the number of paths is usually unbounded, so full path coverage is often infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What MC/DC stands for",
+          "text": "<p>In coverage terminology, <strong>MC/DC</strong> stands for:</p>",
+          "answers": [
+            {
+              "text": "Modified Condition/Decision Coverage",
+              "fraction": 100,
+              "feedback": "Correct — MC/DC is Modified Condition/Decision Coverage, used in DO-178B/C."
+            },
+            {
+              "text": "Multiple Condition/Decision Coverage",
+              "fraction": 0,
+              "feedback": "That is a different, stronger criterion (multiple-condition coverage); MC/DC is Modified Condition/Decision Coverage."
+            },
+            {
+              "text": "Maximum Coverage/Decision Criterion",
+              "fraction": 0,
+              "feedback": "No such standard criterion; MC/DC = Modified Condition/Decision Coverage."
+            },
+            {
+              "text": "Minimal Code/Data Coverage",
+              "fraction": 0,
+              "feedback": "Not a coverage criterion; MC/DC = Modified Condition/Decision Coverage."
+            }
+          ],
+          "generalFeedback": "MC/DC = Modified Condition/Decision Coverage. Each condition must be shown to independently affect the decision's outcome.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Function coverage definition",
+          "text": "<p><strong>Function (entry) coverage</strong> measures:</p>",
+          "answers": [
+            {
+              "text": "The fraction of functions/subroutines that were called at least once",
+              "fraction": 100,
+              "feedback": "Correct — function coverage counts how many functions were entered by the test suite."
+            },
+            {
+              "text": "The fraction of statements inside each function that executed",
+              "fraction": 0,
+              "feedback": "That is statement coverage, measured per statement, not per function."
+            },
+            {
+              "text": "The fraction of branches inside each function that were taken",
+              "fraction": 0,
+              "feedback": "That is branch coverage, not function coverage."
+            },
+            {
+              "text": "The number of parameters passed to each function",
+              "fraction": 0,
+              "feedback": "Function coverage is about whether a function was called, not its arguments."
+            }
+          ],
+          "generalFeedback": "Function (entry) coverage = (functions called at least once) / (total functions). It is the coarsest common metric.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute statement coverage (5 of 8)",
+          "text": "<p>A function has <strong>8</strong> executable statements. A test suite executes <strong>5</strong> of them. What is the statement coverage?</p>",
+          "answers": [
+            {
+              "text": "62.5%",
+              "fraction": 100,
+              "feedback": "Correct — 5 / 8 = 0.625 = 62.5%."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "5 / 8 = 62.5%, not 50%."
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% would be 5 of about 6.25 statements; 5 / 8 = 62.5%."
+            },
+            {
+              "text": "37.5%",
+              "fraction": 0,
+              "feedback": "37.5% is the fraction NOT executed (3 / 8); coverage is 5 / 8 = 62.5%."
+            }
+          ],
+          "generalFeedback": "Statement coverage = executed / total = 5 / 8 = 62.5%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute branch coverage (3 of 4)",
+          "text": "<p>A function contains <strong>4</strong> branch outcomes (two decisions, each with a true and a false edge). A suite takes <strong>3</strong> of them. What is the branch coverage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — 3 / 4 = 75%."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "50% would be 2 of 4; here 3 of 4 = 75%."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "25% is the fraction NOT taken (1 / 4); branch coverage is 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "One branch outcome is still untaken, so it cannot be 100%."
+            }
+          ],
+          "generalFeedback": "Branch coverage = branch outcomes taken / total branch outcomes = 3 / 4 = 75%.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% statement need not give 100% branch",
+          "text": "<p>Achieving 100% statement coverage guarantees 100% branch coverage.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — anwith nocan execute its only statement (100% statement) while the false branch is never taken (branch < 100%)."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Not true: e.g.tested only with x = 5 reaches every statement but never takes the false branch."
+            }
+          ],
+          "generalFeedback": "Statement coverage does not imply branch coverage: an if-without-else can reach 100% statements while leaving the false branch untaken. (Branch coverage does subsume statement coverage, but not the reverse.)"
+        },
+        {
+          "type": "multichoice",
+          "name": "Line coverage relationship",
+          "text": "<p>Commonly reported <strong>line coverage</strong> most closely corresponds to which classic metric?</p>",
+          "answers": [
+            {
+              "text": "Statement coverage",
+              "fraction": 100,
+              "feedback": "Correct — line coverage counts executable lines run, essentially statement coverage."
+            },
+            {
+              "text": "Branch coverage",
+              "fraction": 0,
+              "feedback": "Branch coverage is about decision outcomes, not lines executed."
+            },
+            {
+              "text": "Path coverage",
+              "fraction": 0,
+              "feedback": "Path coverage counts whole paths, far stronger than line coverage."
+            },
+            {
+              "text": "MC/DC",
+              "fraction": 0,
+              "feedback": "MC/DC is about conditions independently affecting decisions, not lines."
+            }
+          ],
+          "generalFeedback": "Line coverage counts executable lines executed and is treated as (roughly) equivalent to statement coverage; one line may hold several statements, but they are close.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute line coverage (7 of 10)",
+          "text": "<p>A file has <strong>10</strong> executable lines; a suite executes <strong>7</strong> of them. What is the line coverage?</p>",
+          "answers": [
+            {
+              "text": "70%",
+              "fraction": 100,
+              "feedback": "Correct — 7 / 10 = 70%."
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "30% is the uncovered fraction; coverage is 7 / 10 = 70%."
+            },
+            {
+              "text": "77%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%, not 77%."
+            },
+            {
+              "text": "7%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%, not 7%."
+            }
+          ],
+          "generalFeedback": "Line coverage = executed lines / executable lines = 7 / 10 = 70%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest of the three",
+          "text": "<p>Of <strong>statement</strong>, <strong>branch</strong>, and <strong>path</strong> coverage, which is the strongest (hardest to fully achieve)?</p>",
+          "answers": [
+            {
+              "text": "Path coverage",
+              "fraction": 100,
+              "feedback": "Correct — path coverage subsumes branch, which subsumes statement."
+            },
+            {
+              "text": "Statement coverage",
+              "fraction": 0,
+              "feedback": "Statement coverage is the weakest of the three."
+            },
+            {
+              "text": "Branch coverage",
+              "fraction": 0,
+              "feedback": "Branch coverage is stronger than statement but weaker than path."
+            },
+            {
+              "text": "They are equally strong",
+              "fraction": 0,
+              "feedback": "They form a strict hierarchy: path subsumes branch subsumes statement."
+            }
+          ],
+          "generalFeedback": "Subsumption: path coverage ⊒ branch/decision coverage ⊒ statement coverage. Path coverage is the strongest and usually infeasible with loops.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% coverage is not bug-free",
+          "text": "<p>Reaching 100% of any structural coverage metric proves the program is free of bugs.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — coverage shows code was executed, not that outputs were checked or that missing code and unexercised data combinations are correct."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Coverage measures which code ran, not correctness; missing logic, wrong oracles, and untested data values can still hide bugs."
+            }
+          ],
+          "generalFeedback": "Coverage tells you code was executed, not that it was correct. A faulty oracle, an omitted case, or a specific data value not tried can leave bugs even at 100% coverage."
+        },
+        {
+          "type": "multichoice",
+          "name": "What instrumentation does",
+          "text": "<p>To measure coverage, a tool usually <strong>instruments</strong> the program. This means it:</p>",
+          "answers": [
+            {
+              "text": "Inserts probes/counters that record which statements or branches execute at run time",
+              "fraction": 100,
+              "feedback": "Correct — instrumentation adds bookkeeping so executed elements are recorded during test runs."
+            },
+            {
+              "text": "Rewrites the program to remove all bugs automatically",
+              "fraction": 0,
+              "feedback": "Instrumentation only records execution; it does not fix code."
+            },
+            {
+              "text": "Proves mathematically that the code is correct",
+              "fraction": 0,
+              "feedback": "That is formal verification, not coverage instrumentation."
+            },
+            {
+              "text": "Generates the test inputs for you",
+              "fraction": 0,
+              "feedback": "Instrumentation records what tests reach; it does not create the tests."
+            }
+          ],
+          "generalFeedback": "A coverage tool instruments the code with probes/counters at statements and branches; running the tests records which elements executed, from which percentages are computed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision vs condition (basic)",
+          "text": "<p>In the decision <code>if (a &amp;&amp; b)</code>, the whole expression <code>a &amp;&amp; b</code> is the <em>decision</em>. What are <code>a</code> and <code>b</code> called?</p>",
+          "answers": [
+            {
+              "text": "Conditions (atomic boolean sub-expressions)",
+              "fraction": 100,
+              "feedback": "Correct — a and b are the individual conditions of the decision."
+            },
+            {
+              "text": "Branches",
+              "fraction": 0,
+              "feedback": "Branches are the true/false outcomes of the decision, not a and b themselves."
+            },
+            {
+              "text": "Paths",
+              "fraction": 0,
+              "feedback": "Paths are whole routes through the code, not the atomic parts of a decision."
+            },
+            {
+              "text": "Statements",
+              "fraction": 0,
+              "feedback": "a and b are conditions inside the decision, not separate statements."
+            }
+          ],
+          "generalFeedback": "A decision is the full boolean expression that controls a branch; the atomic boolean sub-expressions (a, b) are its conditions. Condition coverage targets a and b; decision coverage targets a && b.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Statement coverage of an if (x<=0 test)",
+          "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>Executable statements: s1, s2, s3, s4 (four total). The suite is the single test <code>{x = -3}</code>. What is the <strong>statement</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — x = -3 runs s1, s2, s4 but skips s3 (y = 1), so 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s3 (y = 1) is only reached when x > 0, so it is not executed by x = -3."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Three of the four statements execute (s1, s2, s4), giving 75%, not 50%."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "Only s3 is missed; that is 3 / 4 = 75% covered."
+            }
+          ],
+          "generalFeedback": "x = -3 executes s1, s2 (the if), and s4, but not s3. Statement coverage = 3 / 4 = 75%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage of an if (x<=0 test)",
+          "text": "<p>Same code:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>The single decision <code>x &gt; 0</code> has two branch outcomes (true, false). With the suite <code>{x = -3}</code>, what is the <strong>branch</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — only the false outcome is taken, so 1 / 2 = 50%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The true outcome (x > 0) is never taken by x = -3."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% is the statement coverage; branch coverage here is 1 of 2 = 50%."
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "The false outcome IS taken, so it is 50%, not 0%."
+            }
+          ],
+          "generalFeedback": "x = -3 takes only the false outcome of x > 0, so branch coverage = 1 / 2 = 50%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statement coverage of an if-else (one test)",
+          "text": "<p>Consider:</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>Executable statements: s1, s2, s3 (three total). The suite is <code>{n = 4}</code>. What is the <strong>statement</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "Correct — n = 4 runs s1 and s2 but not s3 (return 1), so 2 / 3 ≈ 66.7%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The else statement s3 is only reached when n is odd, so n = 4 misses it."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Two of three statements run; that is 2 / 3 ≈ 66.7%, not 50%."
+            },
+            {
+              "text": "≈ 33.3%",
+              "fraction": 0,
+              "feedback": "33.3% is one of three; here two of three run, so ≈ 66.7%."
+            }
+          ],
+          "generalFeedback": "n = 4 executes s1 (the if) and s2 (return 0), skipping s3. Statement coverage = 2 / 3 ≈ 66.7%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage of an if-else (one test)",
+          "text": "<p>Same if-else:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>With suite <code>{n = 4}</code>, what is the <strong>branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — only the true outcome is taken, so 1 / 2 = 50%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The false outcome (odd n) is never taken by n = 4."
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% is the statement coverage here; branch coverage is 1 of 2 = 50%."
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "The true outcome IS taken, so branch coverage is 50%."
+            }
+          ],
+          "generalFeedback": "n = 4 takes only the true outcome; the false (else) outcome is untaken, so branch coverage = 1 / 2 = 50%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition covered but decision not",
+          "text": "<p>For the decision <code>a &amp;&amp; b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=T)</code>. Both make the decision <strong>false</strong>. What does this show?</p>",
+          "answers": [
+            {
+              "text": "100% condition coverage but only 50% decision coverage",
+              "fraction": 100,
+              "feedback": "Correct — a and b each take T and F (condition 100%), yet the decision is false both times (decision 50%)."
+            },
+            {
+              "text": "100% decision coverage but only 50% condition coverage",
+              "fraction": 0,
+              "feedback": "Reversed: the decision is false both times (50%), while each condition takes both values (100%)."
+            },
+            {
+              "text": "Both are 100%",
+              "fraction": 0,
+              "feedback": "The decision never evaluates to true, so decision coverage is only 50%."
+            },
+            {
+              "text": "Both are 50%",
+              "fraction": 0,
+              "feedback": "Condition coverage is full: a is T then F, b is F then T."
+            }
+          ],
+          "generalFeedback": "a: T then F; b: F then T — full condition coverage. But a && b is false in both tests, so decision coverage is 1 / 2 = 50%. Condition coverage does not subsume decision coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision covered but condition not",
+          "text": "<p>For the decision <code>a || b</code>, run the two tests <code>(a=T, b=F)</code> and <code>(a=F, b=F)</code>. Condition coverage counts the four goals a=T, a=F, b=T, b=F. What coverage results?</p>",
+          "answers": [
+            {
+              "text": "100% decision coverage but only 75% condition coverage",
+              "fraction": 100,
+              "feedback": "Correct — decision is true then false (100%); a=T, a=F, b=F are met but b=T is not, so 3 / 4 = 75% condition."
+            },
+            {
+              "text": "100% condition coverage but only 50% decision coverage",
+              "fraction": 0,
+              "feedback": "Reversed: the decision takes both values (100%); it is b that never becomes true, leaving condition coverage below 100%."
+            },
+            {
+              "text": "Both are 100%",
+              "fraction": 0,
+              "feedback": "b is false in both tests, so the goal b=T is unmet and condition coverage is 75%."
+            },
+            {
+              "text": "Both are 50%",
+              "fraction": 0,
+              "feedback": "The decision is true in test 1 and false in test 2, so decision coverage is 100%."
+            }
+          ],
+          "generalFeedback": "a || b: T then F, so decision coverage is 100%. Condition goals met: a=T ✓, a=F ✓, b=F ✓, but b=T ✗ (b is false in both tests) → 3 / 4 = 75%. Decision coverage does not subsume condition coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subsumption ordering",
+          "text": "<p>Which subsumption ordering is correct (X ⊒ Y means X guarantees Y)?</p>",
+          "answers": [
+            {
+              "text": "path ⊒ branch/decision ⊒ statement",
+              "fraction": 100,
+              "feedback": "Correct — full path coverage implies full branch coverage, which implies full statement coverage."
+            },
+            {
+              "text": "statement ⊒ branch/decision ⊒ path",
+              "fraction": 0,
+              "feedback": "Reversed — statement coverage is the weakest, not the strongest."
+            },
+            {
+              "text": "branch/decision ⊒ path ⊒ statement",
+              "fraction": 0,
+              "feedback": "Path coverage is stronger than branch coverage, not weaker."
+            },
+            {
+              "text": "condition ⊒ branch/decision ⊒ statement",
+              "fraction": 0,
+              "feedback": "Condition and branch/decision coverage are incomparable; condition does not subsume branch."
+            }
+          ],
+          "generalFeedback": "path ⊒ branch/decision ⊒ statement. Note that condition coverage and branch/decision coverage are incomparable — neither subsumes the other.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% statement, 50% branch example",
+          "text": "<p>Consider:</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>With the single test <code>{x = 5}</code>, which statement is true?</p>",
+          "answers": [
+            {
+              "text": "Statement coverage is 100% but branch coverage is only 50%",
+              "fraction": 100,
+              "feedback": "Correct — every statement runs, but the false outcome of x > 0 is never taken."
+            },
+            {
+              "text": "Both statement and branch coverage are 100%",
+              "fraction": 0,
+              "feedback": "The false branch (x <= 0) is never taken, so branch coverage is 50%."
+            },
+            {
+              "text": "Statement coverage is 75%",
+              "fraction": 0,
+              "feedback": "x = 5 runs all four statements including y = 1, so statement coverage is 100%."
+            },
+            {
+              "text": "Branch coverage is 100% but statement coverage is 75%",
+              "fraction": 0,
+              "feedback": "Both claims are wrong: statements are all covered (100%) and branch is 50%."
+            }
+          ],
+          "generalFeedback": "x = 5 runs s1..s4 (statement 100%) but takes only the true outcome, so branch coverage is 1 / 2 = 50%. This is the classic case where statement coverage does not imply branch coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Short-circuit: is b evaluated?",
+          "text": "<p>In a language with short-circuit evaluation, the decision <code>a &amp;&amp; b</code> is run with the single test <code>{a = false}</code>. Is condition <code>b</code> evaluated?</p>",
+          "answers": [
+            {
+              "text": "No — because a is false, && short-circuits and b is never evaluated",
+              "fraction": 100,
+              "feedback": "Correct — with a = false the result is already false, so b is skipped."
+            },
+            {
+              "text": "Yes — both operands are always evaluated",
+              "fraction": 0,
+              "feedback": "That would be true only without short-circuiting; a false left operand of && skips b."
+            },
+            {
+              "text": "Yes — b is evaluated first",
+              "fraction": 0,
+              "feedback": "&& evaluates the left operand first; a = false ends evaluation before b."
+            },
+            {
+              "text": "Only if a is true and b is false",
+              "fraction": 0,
+              "feedback": "b is evaluated exactly when a is true; here a is false, so b is skipped."
+            }
+          ],
+          "generalFeedback": "With short-circuit &&, a false left operand determines the result, so b is not evaluated. To exercise b's values you need tests where a is true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Short-circuit effect on condition coverage",
+          "text": "<p>With short-circuit <code>&amp;&amp;</code>, to make condition <code>b</code> in <code>a &amp;&amp; b</code> take <strong>both</strong> true and false so it counts for condition coverage, the tests must have:</p>",
+          "answers": [
+            {
+              "text": "a = true in both tests (once with b = true, once with b = false)",
+              "fraction": 100,
+              "feedback": "Correct — b is only evaluated when a is true, so a must be true to exercise b."
+            },
+            {
+              "text": "a = false in both tests",
+              "fraction": 0,
+              "feedback": "With a = false, b is never evaluated, so b's value is never exercised."
+            },
+            {
+              "text": "any values of a, since b is always evaluated",
+              "fraction": 0,
+              "feedback": "Short-circuiting means b is skipped when a is false."
+            },
+            {
+              "text": "b = true in both tests",
+              "fraction": 0,
+              "feedback": "Then b never takes false, so condition coverage of b is incomplete."
+            }
+          ],
+          "generalFeedback": "Short-circuit && evaluates b only when a is true. To let b be observed as both true and false, keep a true and vary b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage subsumes statement",
+          "text": "<p>Which statement about branch and statement coverage is correct?</p>",
+          "answers": [
+            {
+              "text": "100% branch coverage guarantees 100% statement coverage",
+              "fraction": 100,
+              "feedback": "Correct — taking every branch reaches every reachable statement, so branch coverage subsumes statement coverage."
+            },
+            {
+              "text": "100% statement coverage guarantees 100% branch coverage",
+              "fraction": 0,
+              "feedback": "Reversed — an if without else can be 100% statement yet under 100% branch."
+            },
+            {
+              "text": "They always give the same percentage",
+              "fraction": 0,
+              "feedback": "They differ, e.g. if-without-else: statement can be 100% while branch is 50%."
+            },
+            {
+              "text": "Neither subsumes the other",
+              "fraction": 0,
+              "feedback": "Branch coverage does subsume statement coverage."
+            }
+          ],
+          "generalFeedback": "Branch/decision coverage ⊒ statement coverage: exercising both outcomes of every decision necessarily reaches every reachable statement. The reverse does not hold.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Condition coverage subsumes decision?",
+          "text": "<p>Achieving 100% condition coverage always guarantees 100% decision (branch) coverage.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — e.g. a && b with (T,F) and (F,T) gives full condition coverage but the decision is false both times (50% decision)."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Not true: condition and decision coverage are incomparable; full condition coverage can leave a decision outcome untaken."
+            }
+          ],
+          "generalFeedback": "Condition coverage and decision coverage are incomparable. Tests (a=T,b=F) and (a=F,b=T) on a && b cover both values of a and b yet make the decision false both times, so decision coverage is only 50%. (Decision/condition coverage combines both to fix this.)"
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute condition coverage under one test",
+          "text": "<p>For the decision <code>a &amp;&amp; b</code>, condition coverage counts the four condition-value goals: a=T, a=F, b=T, b=F. The suite is the single test <code>(a=T, b=T)</code>. What is the <strong>condition</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "Correct — a=T and b=T are met, but a=F and b=F are not, so 2 / 4 = 50%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "a=F and b=F are never exercised by a single all-true test."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "Two of the four goals (a=T, b=T) are met, so 50%, not 25%."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "Only two of four condition-value goals are met, giving 50%."
+            }
+          ],
+          "generalFeedback": "Condition coverage tracks each condition taking each value: a=T ✓, b=T ✓, a=F ✗, b=F ✗ → 2 / 4 = 50%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum tests for branch coverage of one if-else",
+          "text": "<p>What is the minimum number of tests needed to fully cover the branches of a single <code>if-else</code> with one simple decision?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one test to take the true outcome and one for the false outcome."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test can take only one outcome; you need both true and false."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only two outcomes exist for one decision, so two tests suffice."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four would be the truth-table size for two conditions; one simple decision needs just two tests."
+            }
+          ],
+          "generalFeedback": "A single decision has two outcomes, so branch coverage needs at least two tests (true and false).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Suite that achieves 100% branch coverage",
+          "text": "<p>For:</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>Which suite achieves <strong>100% branch</strong> coverage of the decision <code>n % 2 == 0</code>?</p>",
+          "answers": [
+            {
+              "text": "{n = 4, n = 7}",
+              "fraction": 100,
+              "feedback": "Correct — n = 4 takes the true outcome and n = 7 takes the false outcome, covering both branches."
+            },
+            {
+              "text": "{n = 4}",
+              "fraction": 0,
+              "feedback": "Only the true outcome is taken, so branch coverage is 50%."
+            },
+            {
+              "text": "{n = 2, n = 8}",
+              "fraction": 0,
+              "feedback": "Both are even, so only the true outcome is taken — 50%."
+            },
+            {
+              "text": "{n = 3}",
+              "fraction": 0,
+              "feedback": "Only the false outcome is taken, so branch coverage is 50%."
+            }
+          ],
+          "generalFeedback": "Branch coverage needs both outcomes: one even n (true) and one odd n (false). {n = 4, n = 7} does this; suites with only evens or only odds reach just one branch.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "MC/DC minimum tests for 3 conditions",
+          "text": "<p>A decision has <strong>3</strong> independent conditions. What is the minimum number of tests that can satisfy <strong>MC/DC</strong>?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — MC/DC needs a minimum of n + 1 tests; for n = 3 that is 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The minimum is n + 1 = 4, not n."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "2^3 = 8 is multiple-condition coverage; MC/DC needs only about n + 1."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Up to 2n = 6 tests may be used, but the minimum is n + 1 = 4."
+            }
+          ],
+          "generalFeedback": "For n independent conditions, MC/DC requires a minimum of n + 1 tests (and at most 2n), because a well-chosen test can serve as the pair-partner for several conditions. For n = 3 the minimum is 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC requirement",
+          "text": "<p>Beyond decision and condition coverage, the extra requirement of <strong>MC/DC</strong> is that:</p>",
+          "answers": [
+            {
+              "text": "Each condition is shown to independently affect the decision's outcome",
+              "fraction": 100,
+              "feedback": "Correct — for each condition there is a pair of tests, differing only in that condition, where the decision's value flips."
+            },
+            {
+              "text": "Every combination of condition values is tested",
+              "fraction": 0,
+              "feedback": "That is multiple-condition coverage, which is stronger than MC/DC."
+            },
+            {
+              "text": "Every statement is executed",
+              "fraction": 0,
+              "feedback": "That is statement coverage, unrelated to the independence requirement."
+            },
+            {
+              "text": "Every path is executed",
+              "fraction": 0,
+              "feedback": "That is path coverage, not MC/DC."
+            }
+          ],
+          "generalFeedback": "MC/DC requires each condition, holding the others fixed, to be demonstrated to independently flip the decision's outcome — plus each condition and the decision take both values.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multiple-condition coverage for 3 conditions",
+          "text": "<p>How many tests does <strong>multiple-condition coverage</strong> require for a decision with <strong>3</strong> conditions (ignoring infeasible combinations)?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — multiple-condition coverage needs all 2^n combinations; 2^3 = 8."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 is MC/DC's minimum, not multiple-condition coverage."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n is MC/DC's upper bound, not all combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Multiple-condition coverage needs 2^3 = 8 combinations, not 3."
+            }
+          ],
+          "generalFeedback": "Multiple-condition coverage exercises all 2^n truth-value combinations of the n conditions; for n = 3 that is 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compound-decision subsumption chain",
+          "text": "<p>Which ordering among these compound-decision criteria is correct (X ⊒ Y means X subsumes Y)?</p>",
+          "answers": [
+            {
+              "text": "multiple-condition ⊒ MC/DC ⊒ decision/condition ⊒ condition",
+              "fraction": 100,
+              "feedback": "Correct — all combinations subsume MC/DC, which subsumes decision/condition, which subsumes plain condition (and decision) coverage."
+            },
+            {
+              "text": "MC/DC ⊒ multiple-condition ⊒ decision/condition",
+              "fraction": 0,
+              "feedback": "Multiple-condition coverage is the strongest; it subsumes MC/DC, not the reverse."
+            },
+            {
+              "text": "condition ⊒ decision/condition ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "Reversed — plain condition coverage is the weakest of these."
+            },
+            {
+              "text": "decision/condition ⊒ multiple-condition ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "Multiple-condition coverage is stronger than both of the others."
+            }
+          ],
+          "generalFeedback": "multiple-condition ⊒ MC/DC ⊒ decision/condition coverage ⊒ condition coverage (and ⊒ decision coverage). Multiple-condition coverage is the strongest because it exercises the full truth table.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum MC/DC tests for a && b",
+          "text": "<p>For the decision <code>a &amp;&amp; b</code>, a minimal MC/DC test set is <code>{(T,T), (F,T), (T,F)}</code>. How many tests is that, and does it match n + 1?</p>",
+          "answers": [
+            {
+              "text": "3 tests, which equals n + 1 for n = 2",
+              "fraction": 100,
+              "feedback": "Correct — (T,T)/(F,T) shows a's effect, (T,T)/(T,F) shows b's effect; 3 = 2 + 1."
+            },
+            {
+              "text": "4 tests, the full truth table",
+              "fraction": 0,
+              "feedback": "The listed set has 3 tests, not 4; MC/DC does not need the whole table for a && b."
+            },
+            {
+              "text": "2 tests, one per outcome",
+              "fraction": 0,
+              "feedback": "Two tests give decision coverage but cannot show both a and b independently; MC/DC needs 3 here."
+            },
+            {
+              "text": "3 tests, but that is more than n + 1",
+              "fraction": 0,
+              "feedback": "n + 1 = 3 for n = 2, so 3 tests is exactly the minimum."
+            }
+          ],
+          "generalFeedback": "For a && b: the pair (T,T)/(F,T) flips the decision by changing a alone; the pair (T,T)/(T,F) flips it by changing b alone. The three distinct tests {(T,T),(F,T),(T,F)} = n + 1 = 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path count of two sequential ifs",
+          "text": "<p>Consider:</p><pre>if (a) S1;\nif (b) S2;</pre><p>with two independent decisions and no loops. How many distinct execution <strong>paths</strong> are there?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — each if independently taken or not: 2 × 2 = 4 paths."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two counts branch outcomes of one if; two independent ifs give 2 × 2 = 4 paths."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The combinations are (a,b) = TT, TF, FT, FF — four paths, not three."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "With two independent decisions there are 4 distinct paths."
+            }
+          ],
+          "generalFeedback": "Two independent decisions in sequence yield 2 × 2 = 4 paths (a taken/not) × (b taken/not). Branch coverage needs only 2 tests, but path coverage needs 4.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Loops make path coverage infeasible",
+          "text": "<p>When the code under test contains a loop whose iteration count depends on input, full path coverage is generally infeasible.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each distinct iteration count is a distinct path, so the number of paths is unbounded."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A data-dependent loop produces a different path for every iteration count, giving unboundedly many paths."
+            }
+          ],
+          "generalFeedback": "A loop that can run 0, 1, 2, ... times yields a distinct path per iteration count, so the path set is (potentially) infinite and full path coverage cannot generally be achieved."
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible branch caps coverage",
+          "text": "<p>A function has <strong>4</strong> branch outcomes, but one of them is <em>infeasible</em> (dead code that no input can reach). What is the maximum <strong>branch</strong> coverage achievable, measured over all 4 outcomes?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — at best 3 of the 4 outcomes can be taken, so 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The infeasible outcome can never be taken, so 100% over all 4 is impossible."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Three feasible outcomes can be taken; that is 75%, not 50%."
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "Only one outcome is unreachable; the other three are reachable, giving 75%."
+            }
+          ],
+          "generalFeedback": "Infeasible branches cap achievable coverage: with 1 of 4 outcomes unreachable, the maximum over all 4 is 3 / 4 = 75%. Reporting over feasible outcomes only would show 100%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if branch coverage",
+          "text": "<p>Consider:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>There are 4 branch outcomes: outer-true, outer-false, inner-true, inner-false. Suite: <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>branch</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — outer-true, inner-true (from 5,3) and outer-false (from -1,0) are taken, but inner-false is not: 3 / 4 = 75%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The inner-false outcome (x > 0 and y <= 0) is never reached by this suite."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Three of four outcomes are taken (outer-true, outer-false, inner-true), giving 75%."
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% would be 2 of 3; here 3 of 4 branch outcomes are taken = 75%."
+            }
+          ],
+          "generalFeedback": "(5,3): outer-true + inner-true. (-1,0): outer-false. Inner-false requires x > 0 and y <= 0, which no test provides. Branch coverage = 3 / 4 = 75%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if missed branch",
+          "text": "<p>Same code and suite:</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. Which branch outcome is <strong>missed</strong>?</p>",
+          "answers": [
+            {
+              "text": "The inner false branch (x > 0 and y <= 0, so r = 2)",
+              "fraction": 100,
+              "feedback": "Correct — no test has x > 0 together with y <= 0, so r = 2 is never reached."
+            },
+            {
+              "text": "The outer false branch (x <= 0)",
+              "fraction": 0,
+              "feedback": "(x=-1, y=0) takes the outer false branch, so it is covered."
+            },
+            {
+              "text": "The inner true branch (r = 1)",
+              "fraction": 0,
+              "feedback": "(x=5, y=3) takes the inner true branch, so it is covered."
+            },
+            {
+              "text": "None — all branches are covered",
+              "fraction": 0,
+              "feedback": "The inner false branch (r = 2) is missed; it needs x > 0 and y <= 0."
+            }
+          ],
+          "generalFeedback": "To reach r = 2 you need x > 0 (enter outer) and y <= 0 (inner false). The suite never combines those, so the inner-false branch and the path leading to r = 2 are missed. Adding e.g. (x=5, y=-1) would cover it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if statement coverage",
+          "text": "<p>Same code:</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>Six executable statements s1..s6. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>statement</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "≈ 83.3%",
+              "fraction": 100,
+              "feedback": "Correct — all run except s5 (r = 2), so 5 / 6 ≈ 83.3%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s5 (r = 2) needs x > 0 and y <= 0, which the suite never provides."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% is the branch coverage; statement coverage is 5 / 6 ≈ 83.3%."
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "Five of six statements execute, giving ≈ 83.3%, not 66.7%."
+            }
+          ],
+          "generalFeedback": "(5,3) runs s1, s2, s3, s4, s6; (-1,0) runs s1, s2, s6. Only s5 (r = 2) is missed. Statement coverage = 5 / 6 ≈ 83.3%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nested-if path coverage",
+          "text": "<p>Same code has three feasible paths: P1 = x &lt;= 0; P2 = x &gt; 0 and y &gt; 0; P3 = x &gt; 0 and y &lt;= 0. Suite <code>{(x=5, y=3), (x=-1, y=0)}</code>. What is the <strong>path</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "Correct — (5,3) covers P2 and (-1,0) covers P1, but P3 is missed: 2 / 3 ≈ 66.7%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "Path P3 (x > 0 and y <= 0) is never exercised."
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "Two of three feasible paths are covered, giving ≈ 66.7%, not 50%."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% is the branch coverage; path coverage here is 2 / 3 ≈ 66.7%."
+            }
+          ],
+          "generalFeedback": "Feasible paths: P1 (x <= 0), P2 (x > 0, y > 0), P3 (x > 0, y <= 0). The suite covers P1 and P2 but not P3, so path coverage = 2 / 3 ≈ 66.7%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC independence pair for a || b",
+          "text": "<p>For the decision <code>a || b</code>, which pair of tests demonstrates that condition <code>b</code> <strong>independently</strong> affects the outcome?</p>",
+          "answers": [
+            {
+              "text": "(a=F, b=F) giving false and (a=F, b=T) giving true",
+              "fraction": 100,
+              "feedback": "Correct — a is held false; changing b alone flips the decision from false to true."
+            },
+            {
+              "text": "(a=T, b=F) and (a=T, b=T), both giving true",
+              "fraction": 0,
+              "feedback": "With a = true, a || b is true regardless of b, so the outcome does not flip — b's effect is masked."
+            },
+            {
+              "text": "(a=F, b=T) and (a=T, b=F), both giving true",
+              "fraction": 0,
+              "feedback": "These differ in both a and b, so they cannot isolate b's independent effect."
+            },
+            {
+              "text": "(a=T, b=T) and (a=F, b=F)",
+              "fraction": 0,
+              "feedback": "These differ in both conditions, so neither condition's effect is isolated."
+            }
+          ],
+          "generalFeedback": "To show b independently affects a || b, hold a = false and vary b: (F,F) → false, (F,T) → true. Only then does changing b alone flip the outcome.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MC/DC subsumes decision coverage",
+          "text": "<p>A test set that satisfies MC/DC for a decision necessarily satisfies decision (branch) coverage of that decision.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — showing each condition can flip the outcome forces the decision to take both true and false, so decision coverage is met."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MC/DC requires each condition to flip the decision, which necessarily makes the decision both true and false — decision coverage is implied."
+            }
+          ],
+          "generalFeedback": "MC/DC ⊒ decision/condition coverage ⊒ decision coverage (and condition coverage). Demonstrating independent effect requires the decision to take both outcomes, so branch coverage of that decision follows."
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision/condition coverage definition",
+          "text": "<p><strong>Decision/condition coverage</strong> (a.k.a. condition/decision coverage) is satisfied when:</p>",
+          "answers": [
+            {
+              "text": "Both condition coverage and decision coverage are achieved together",
+              "fraction": 100,
+              "feedback": "Correct — each condition takes both values AND the decision takes both outcomes."
+            },
+            {
+              "text": "Only the decision takes both true and false",
+              "fraction": 0,
+              "feedback": "That is plain decision coverage; decision/condition also requires condition coverage."
+            },
+            {
+              "text": "Only each condition takes both values",
+              "fraction": 0,
+              "feedback": "That is plain condition coverage; decision/condition also requires decision coverage."
+            },
+            {
+              "text": "Every combination of the conditions' values is exercised",
+              "fraction": 0,
+              "feedback": "That is multiple-condition coverage, which is stronger than decision/condition."
+            }
+          ],
+          "generalFeedback": "Decision/condition coverage simply combines the two: every condition takes both values and the decision takes both outcomes. It sits above condition and decision coverage and below MC/DC in the subsumption chain.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "敘述涵蓋率定義",
+          "text": "<p>測試套件的<strong>敘述（行）涵蓋率（statement/line coverage）</strong>最適當的定義是：</p>",
+          "answers": [
+            {
+              "text": "被至少一個測試執行到的可執行敘述所佔的比例",
+              "fraction": 100,
+              "feedback": "正確——即被執行到的可執行敘述數除以可執行敘述總數。"
+            },
+            {
+              "text": "被至少一個測試取到的分支結果所佔的比例",
+              "fraction": 0,
+              "feedback": "那是分支（判定）涵蓋率，不是敘述涵蓋率。"
+            },
+            {
+              "text": "被編譯到的原始碼行（含空行與註解）所佔的比例",
+              "fraction": 0,
+              "feedback": "空行與註解不是可執行敘述，且涵蓋率談的是執行而非編譯。"
+            },
+            {
+              "text": "被嘗試過的所有輸入值所佔的比例",
+              "fraction": 0,
+              "feedback": "涵蓋率是對程式碼衡量，而非對整個輸入域衡量。"
+            }
+          ],
+          "generalFeedback": "敘述涵蓋率 =（被某測試執行到的可執行敘述）/（可執行敘述總數）。註解與空行不計。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支涵蓋率定義",
+          "text": "<p><strong>分支（判定）涵蓋率</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "每個判定都至少各取到一次真與假的結果",
+              "fraction": 100,
+              "feedback": "正確——每個判定的兩個分支結果都要被執行到。"
+            },
+            {
+              "text": "每個可執行敘述都至少被執行一次",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，比分支涵蓋率弱。"
+            },
+            {
+              "text": "每個個別布林條件都取到真與假兩種值",
+              "fraction": 0,
+              "feedback": "那是條件涵蓋率，針對原子條件而非整個判定。"
+            },
+            {
+              "text": "程式的每條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是路徑涵蓋率，遠更強且常不可行。"
+            }
+          ],
+          "generalFeedback": "分支（判定）涵蓋率要求每個判定至少各評估為真與假一次，使每個分支結果（邊）都被取到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "條件涵蓋率定義",
+          "text": "<p><strong>條件涵蓋率（condition coverage）</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "判定中每個原子布林條件都至少各取到一次真與假",
+              "fraction": 100,
+              "feedback": "正確——每個個別條件都要被兩種取值都評估到。"
+            },
+            {
+              "text": "整個判定都至少各取到一次真與假",
+              "fraction": 0,
+              "feedback": "那是判定（分支）涵蓋率；條件涵蓋率看的是判定內部。"
+            },
+            {
+              "text": "條件所有取值組合都被嘗試過",
+              "fraction": 0,
+              "feedback": "那是多重條件涵蓋率，更強。"
+            },
+            {
+              "text": "每個敘述都執行一次",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率。"
+            }
+          ],
+          "generalFeedback": "條件涵蓋率要求每個原子條件（例如 a && b 中的 a、b）在某測試為真、在某測試為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑涵蓋率定義",
+          "text": "<p><strong>路徑涵蓋率（path coverage）</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "程式碼中每條可行的執行路徑都被某測試執行到",
+              "fraction": 100,
+              "feedback": "正確——路徑涵蓋率要執行每一條端到端的控制流路徑。"
+            },
+            {
+              "text": "每個判定都取到兩種結果",
+              "fraction": 0,
+              "feedback": "那是分支涵蓋率；路徑涵蓋率約束整條路徑，而非單一判定。"
+            },
+            {
+              "text": "每個敘述都執行一次",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，是這些之中最弱的。"
+            },
+            {
+              "text": "每個條件都取到兩種值",
+              "fraction": 0,
+              "feedback": "那是條件涵蓋率。"
+            }
+          ],
+          "generalFeedback": "路徑涵蓋率要求程式的每條可行路徑都被執行。有迴圈時路徑數通常無上限，故完整路徑涵蓋常不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 代表什麼",
+          "text": "<p>在涵蓋率術語中，<strong>MC/DC</strong> 代表：</p>",
+          "answers": [
+            {
+              "text": "修正條件／判定涵蓋率（Modified Condition/Decision Coverage）",
+              "fraction": 100,
+              "feedback": "正確——MC/DC 即 Modified Condition/Decision Coverage，用於 DO-178B/C。"
+            },
+            {
+              "text": "多重條件／判定涵蓋率（Multiple Condition/Decision Coverage）",
+              "fraction": 0,
+              "feedback": "那是另一個更強的準則（多重條件涵蓋率）；MC/DC 是 Modified Condition/Decision Coverage。"
+            },
+            {
+              "text": "最大涵蓋／判定準則（Maximum Coverage/Decision Criterion）",
+              "fraction": 0,
+              "feedback": "並無此標準準則；MC/DC = Modified Condition/Decision Coverage。"
+            },
+            {
+              "text": "最小程式碼／資料涵蓋率（Minimal Code/Data Coverage）",
+              "fraction": 0,
+              "feedback": "並非涵蓋率準則；MC/DC = Modified Condition/Decision Coverage。"
+            }
+          ],
+          "generalFeedback": "MC/DC = Modified Condition/Decision Coverage（修正條件／判定涵蓋率）。每個條件都必須被證明能獨立影響判定的結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "函式涵蓋率定義",
+          "text": "<p><strong>函式（進入點）涵蓋率（function/entry coverage）</strong>衡量：</p>",
+          "answers": [
+            {
+              "text": "被至少呼叫一次的函式／副程式所佔的比例",
+              "fraction": 100,
+              "feedback": "正確——函式涵蓋率計算測試套件進入了多少個函式。"
+            },
+            {
+              "text": "每個函式內被執行到的敘述比例",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，以敘述為單位而非以函式為單位。"
+            },
+            {
+              "text": "每個函式內被取到的分支比例",
+              "fraction": 0,
+              "feedback": "那是分支涵蓋率，不是函式涵蓋率。"
+            },
+            {
+              "text": "傳給每個函式的參數個數",
+              "fraction": 0,
+              "feedback": "函式涵蓋率談的是函式是否被呼叫，而非其引數。"
+            }
+          ],
+          "generalFeedback": "函式（進入點）涵蓋率 =（至少被呼叫一次的函式）/（函式總數），是最粗略的常見度量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算敘述涵蓋率（8 中 5）",
+          "text": "<p>某函式有 <strong>8</strong> 個可執行敘述。測試套件執行了其中 <strong>5</strong> 個。敘述涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "62.5%",
+              "fraction": 100,
+              "feedback": "正確——5 / 8 = 0.625 = 62.5%。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "5 / 8 = 62.5%，不是 50%。"
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% 約為 5 除以 6.25；5 / 8 = 62.5%。"
+            },
+            {
+              "text": "37.5%",
+              "fraction": 0,
+              "feedback": "37.5% 是未執行的比例（3 / 8）；涵蓋率是 5 / 8 = 62.5%。"
+            }
+          ],
+          "generalFeedback": "敘述涵蓋率 = 已執行 / 總數 = 5 / 8 = 62.5%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算分支涵蓋率（4 中 3）",
+          "text": "<p>某函式含 <strong>4</strong> 個分支結果（兩個判定，各有真、假一條邊）。某套件取到其中 <strong>3</strong> 個。分支涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——3 / 4 = 75%。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "50% 會是 4 中 2；此處為 4 中 3 = 75%。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "25% 是未取到的比例（1 / 4）；分支涵蓋率是 3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "還有一個分支結果未取到，故不可能是 100%。"
+            }
+          ],
+          "generalFeedback": "分支涵蓋率 = 取到的分支結果 / 分支結果總數 = 3 / 4 = 75%。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% 敘述未必得到 100% 分支",
+          "text": "<p>達到 100% 敘述涵蓋率就保證 100% 分支涵蓋率。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——沒有的可執行到它唯一的敘述（100% 敘述），但假分支從未被取到（分支 < 100%）。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不成立：例如只用 x = 5 測試會到達每個敘述，但從不取假分支。"
+            }
+          ],
+          "generalFeedback": "敘述涵蓋率並不蘊含分支涵蓋率：無 else 的 if 可達 100% 敘述，卻讓假分支未被取到。（分支涵蓋率會蘊含敘述涵蓋率，但反向不成立。）"
+        },
+        {
+          "type": "multichoice",
+          "name": "行涵蓋率的對應關係",
+          "text": "<p>常被回報的<strong>行涵蓋率（line coverage）</strong>最接近下列哪個經典度量？</p>",
+          "answers": [
+            {
+              "text": "敘述涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——行涵蓋率計算被執行到的可執行行，本質上就是敘述涵蓋率。"
+            },
+            {
+              "text": "分支涵蓋率",
+              "fraction": 0,
+              "feedback": "分支涵蓋率談的是判定結果，而非執行到的行。"
+            },
+            {
+              "text": "路徑涵蓋率",
+              "fraction": 0,
+              "feedback": "路徑涵蓋率計算整條路徑，遠比行涵蓋率強。"
+            },
+            {
+              "text": "MC/DC",
+              "fraction": 0,
+              "feedback": "MC/DC 談的是條件獨立影響判定，與行無關。"
+            }
+          ],
+          "generalFeedback": "行涵蓋率計算被執行到的可執行行，被視為（大致）等同於敘述涵蓋率；一行可能含多個敘述，但兩者相近。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算行涵蓋率（10 中 7）",
+          "text": "<p>某檔案有 <strong>10</strong> 個可執行行；某套件執行了其中 <strong>7</strong> 行。行涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "70%",
+              "fraction": 100,
+              "feedback": "正確——7 / 10 = 70%。"
+            },
+            {
+              "text": "30%",
+              "fraction": 0,
+              "feedback": "30% 是未涵蓋比例；涵蓋率是 7 / 10 = 70%。"
+            },
+            {
+              "text": "77%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%，不是 77%。"
+            },
+            {
+              "text": "7%",
+              "fraction": 0,
+              "feedback": "7 / 10 = 70%，不是 7%。"
+            }
+          ],
+          "generalFeedback": "行涵蓋率 = 已執行行 / 可執行行 = 7 / 10 = 70%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三者中最強者",
+          "text": "<p>在<strong>敘述</strong>、<strong>分支</strong>、<strong>路徑</strong>涵蓋率之中，何者最強（最難完全達成）？</p>",
+          "answers": [
+            {
+              "text": "路徑涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——路徑涵蓋率蘊含分支，分支又蘊含敘述。"
+            },
+            {
+              "text": "敘述涵蓋率",
+              "fraction": 0,
+              "feedback": "敘述涵蓋率是三者中最弱的。"
+            },
+            {
+              "text": "分支涵蓋率",
+              "fraction": 0,
+              "feedback": "分支涵蓋率比敘述強，但比路徑弱。"
+            },
+            {
+              "text": "三者一樣強",
+              "fraction": 0,
+              "feedback": "它們形成嚴格層級：路徑蘊含分支蘊含敘述。"
+            }
+          ],
+          "generalFeedback": "包含關係：路徑涵蓋率 ⊒ 分支／判定涵蓋率 ⊒ 敘述涵蓋率。路徑涵蓋率最強，且有迴圈時通常不可行。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "100% 涵蓋率不等於無錯誤",
+          "text": "<p>達到任一結構涵蓋率度量的 100% 就證明程式沒有錯誤。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率只顯示程式碼被執行，並未顯示輸出被檢查，也未涵蓋缺漏的程式碼與未試到的資料組合是否正確。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "涵蓋率衡量哪些程式碼被執行，而非正確性；缺漏邏輯、錯誤的預期結果、未試到的資料值仍可能藏有錯誤。"
+            }
+          ],
+          "generalFeedback": "涵蓋率告訴你程式碼被執行了，而非它是正確的。錯誤的預期結果（oracle）、被遺漏的情況、或某個未嘗試的資料值，都可能在 100% 涵蓋率下仍留有錯誤。"
+        },
+        {
+          "type": "multichoice",
+          "name": "插樁（instrumentation）做什麼",
+          "text": "<p>為衡量涵蓋率，工具通常會對程式做<strong>插樁（instrument）</strong>。這是指它：</p>",
+          "answers": [
+            {
+              "text": "插入探針／計數器，於執行期記錄哪些敘述或分支被執行",
+              "fraction": 100,
+              "feedback": "正確——插樁加入記錄用的簿記，使執行到的元素在測試執行時被記下。"
+            },
+            {
+              "text": "改寫程式以自動移除所有錯誤",
+              "fraction": 0,
+              "feedback": "插樁只記錄執行，並不修正程式碼。"
+            },
+            {
+              "text": "以數學方式證明程式碼正確",
+              "fraction": 0,
+              "feedback": "那是形式驗證，而非涵蓋率插樁。"
+            },
+            {
+              "text": "替你產生測試輸入",
+              "fraction": 0,
+              "feedback": "插樁記錄測試到達之處，並不產生測試。"
+            }
+          ],
+          "generalFeedback": "涵蓋率工具在敘述與分支處以探針／計數器插樁；執行測試會記下哪些元素被執行，再由此計算百分比。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判定與條件（基礎）",
+          "text": "<p>在判定 <code>if (a &amp;&amp; b)</code> 中，整個運算式 <code>a &amp;&amp; b</code> 是<em>判定（decision）</em>。那 <code>a</code> 與 <code>b</code> 稱為什麼？</p>",
+          "answers": [
+            {
+              "text": "條件（原子布林子運算式）",
+              "fraction": 100,
+              "feedback": "正確——a 與 b 是該判定的個別條件。"
+            },
+            {
+              "text": "分支",
+              "fraction": 0,
+              "feedback": "分支是判定的真／假結果，而非 a、b 本身。"
+            },
+            {
+              "text": "路徑",
+              "fraction": 0,
+              "feedback": "路徑是穿過程式碼的整條路線，而非判定的原子部分。"
+            },
+            {
+              "text": "敘述",
+              "fraction": 0,
+              "feedback": "a 與 b 是判定內的條件，而非各自獨立的敘述。"
+            }
+          ],
+          "generalFeedback": "判定是控制分支的完整布林運算式；其原子布林子運算式（a、b）是它的條件。條件涵蓋率針對 a、b；判定涵蓋率針對 a && b。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "if 的敘述涵蓋率（x<=0 測試）",
+          "text": "<p>考慮：</p><pre>int f(int x) {\n  int y = 0;      // s1\n  if (x &gt; 0)      // s2\n    y = 1;        // s3\n  return y;       // s4\n}</pre><p>可執行敘述：s1、s2、s3、s4（共四個）。套件為單一測試 <code>{x = -3}</code>。<strong>敘述</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——x = -3 執行 s1、s2、s4，但跳過 s3（y = 1），故 3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s3（y = 1）僅在 x > 0 時到達，x = -3 不會執行它。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "四個敘述中有三個執行（s1、s2、s4），是 75%，不是 50%。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "只漏了 s3；即 4 中 3 = 75% 被涵蓋。"
+            }
+          ],
+          "generalFeedback": "x = -3 執行 s1、s2（if）與 s4，但不執行 s3。敘述涵蓋率 = 3 / 4 = 75%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "if 的分支涵蓋率（x<=0 測試）",
+          "text": "<p>同一段程式：</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>單一判定 <code>x &gt; 0</code> 有兩個分支結果（真、假）。用套件 <code>{x = -3}</code>，<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——只取到假結果，故 1 / 2 = 50%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "x = -3 從未取到真結果（x > 0）。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是敘述涵蓋率；此處分支涵蓋率是 2 中 1 = 50%。"
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "假結果有被取到，故是 50%，不是 0%。"
+            }
+          ],
+          "generalFeedback": "x = -3 只取到 x > 0 的假結果，故分支涵蓋率 = 1 / 2 = 50%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "if-else 的敘述涵蓋率（一個測試）",
+          "text": "<p>考慮：</p><pre>int classify(int n) {\n  if (n % 2 == 0)   // s1\n    return 0;       // s2\n  else\n    return 1;       // s3\n}</pre><p>可執行敘述：s1、s2、s3（共三個）。套件為 <code>{n = 4}</code>。<strong>敘述</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "正確——n = 4 執行 s1 與 s2，但不執行 s3（return 1），故 2 / 3 ≈ 66.7%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "else 敘述 s3 僅在 n 為奇數時到達，n = 4 會漏掉它。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "三個敘述中有兩個執行；即 2 / 3 ≈ 66.7%，不是 50%。"
+            },
+            {
+              "text": "≈ 33.3%",
+              "fraction": 0,
+              "feedback": "33.3% 是三中一；此處三中二執行，故 ≈ 66.7%。"
+            }
+          ],
+          "generalFeedback": "n = 4 執行 s1（if）與 s2（return 0），跳過 s3。敘述涵蓋率 = 2 / 3 ≈ 66.7%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "if-else 的分支涵蓋率（一個測試）",
+          "text": "<p>同一段 if-else：</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>用套件 <code>{n = 4}</code>，判定 <code>n % 2 == 0</code> 的<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——只取到真結果，故 1 / 2 = 50%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "n = 4 從未取到假結果（n 為奇數）。"
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% 是此處的敘述涵蓋率；分支涵蓋率是 2 中 1 = 50%。"
+            },
+            {
+              "text": "0%",
+              "fraction": 0,
+              "feedback": "真結果有被取到，故分支涵蓋率是 50%。"
+            }
+          ],
+          "generalFeedback": "n = 4 只取到真結果；假（else）結果未取到，故分支涵蓋率 = 1 / 2 = 50%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "條件涵蓋達成但判定未達成",
+          "text": "<p>對判定 <code>a &amp;&amp; b</code>，執行兩個測試 <code>(a=T, b=F)</code> 與 <code>(a=F, b=T)</code>。兩者都使判定為<strong>假</strong>。這說明了什麼？</p>",
+          "answers": [
+            {
+              "text": "100% 條件涵蓋率，但僅 50% 判定涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——a 與 b 各取到 T 與 F（條件 100%），但判定兩次都為假（判定 50%）。"
+            },
+            {
+              "text": "100% 判定涵蓋率，但僅 50% 條件涵蓋率",
+              "fraction": 0,
+              "feedback": "相反：判定兩次都為假（50%），而每個條件都取到兩種值（100%）。"
+            },
+            {
+              "text": "兩者皆為 100%",
+              "fraction": 0,
+              "feedback": "判定從未評估為真，故判定涵蓋率僅 50%。"
+            },
+            {
+              "text": "兩者皆為 50%",
+              "fraction": 0,
+              "feedback": "條件涵蓋是完整的：a 先 T 後 F，b 先 F 後 T。"
+            }
+          ],
+          "generalFeedback": "a：先 T 後 F；b：先 F 後 T——條件涵蓋完整。但 a && b 兩個測試都為假，故判定涵蓋率是 1 / 2 = 50%。條件涵蓋率並不蘊含判定涵蓋率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判定涵蓋達成但條件未達成",
+          "text": "<p>對判定 <code>a || b</code>，執行兩個測試 <code>(a=T, b=F)</code> 與 <code>(a=F, b=F)</code>。條件涵蓋率計四個目標 a=T、a=F、b=T、b=F。得到什麼涵蓋率？</p>",
+          "answers": [
+            {
+              "text": "100% 判定涵蓋率，但僅 75% 條件涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——判定先真後假（100%）；a=T、a=F、b=F 達成，但 b=T 未達成，故 3 / 4 = 75% 條件。"
+            },
+            {
+              "text": "100% 條件涵蓋率，但僅 50% 判定涵蓋率",
+              "fraction": 0,
+              "feedback": "相反：判定取到兩種值（100%）；是 b 從未變真，使條件涵蓋率不到 100%。"
+            },
+            {
+              "text": "兩者皆為 100%",
+              "fraction": 0,
+              "feedback": "b 在兩個測試都為假，故目標 b=T 未達成，條件涵蓋率為 75%。"
+            },
+            {
+              "text": "兩者皆為 50%",
+              "fraction": 0,
+              "feedback": "判定在測試 1 為真、測試 2 為假，故判定涵蓋率是 100%。"
+            }
+          ],
+          "generalFeedback": "a || b：先真後假，故判定涵蓋率 100%。條件目標達成情形：a=T ✓、a=F ✓、b=F ✓，但 b=T ✗（b 兩次都為假）→ 3 / 4 = 75%。判定涵蓋率並不蘊含條件涵蓋率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "包含（subsumption）順序",
+          "text": "<p>下列哪個包含順序正確（X ⊒ Y 表示 X 保證 Y）？</p>",
+          "answers": [
+            {
+              "text": "路徑 ⊒ 分支／判定 ⊒ 敘述",
+              "fraction": 100,
+              "feedback": "正確——完整路徑涵蓋蘊含完整分支涵蓋，後者又蘊含完整敘述涵蓋。"
+            },
+            {
+              "text": "敘述 ⊒ 分支／判定 ⊒ 路徑",
+              "fraction": 0,
+              "feedback": "相反——敘述涵蓋率最弱，而非最強。"
+            },
+            {
+              "text": "分支／判定 ⊒ 路徑 ⊒ 敘述",
+              "fraction": 0,
+              "feedback": "路徑涵蓋率比分支涵蓋率強，而非弱。"
+            },
+            {
+              "text": "條件 ⊒ 分支／判定 ⊒ 敘述",
+              "fraction": 0,
+              "feedback": "條件與分支／判定涵蓋率不可比；條件並不蘊含分支。"
+            }
+          ],
+          "generalFeedback": "路徑 ⊒ 分支／判定 ⊒ 敘述。注意條件涵蓋率與分支／判定涵蓋率不可比——彼此互不蘊含。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% 敘述、50% 分支之例",
+          "text": "<p>考慮：</p><pre>int f(int x) {\n  int y = 0;\n  if (x &gt; 0)\n    y = 1;\n  return y;\n}</pre><p>用單一測試 <code>{x = 5}</code>，下列何者為真？</p>",
+          "answers": [
+            {
+              "text": "敘述涵蓋率為 100%，但分支涵蓋率僅 50%",
+              "fraction": 100,
+              "feedback": "正確——每個敘述都執行，但 x > 0 的假結果從未取到。"
+            },
+            {
+              "text": "敘述與分支涵蓋率皆為 100%",
+              "fraction": 0,
+              "feedback": "假分支（x <= 0）從未取到，故分支涵蓋率為 50%。"
+            },
+            {
+              "text": "敘述涵蓋率為 75%",
+              "fraction": 0,
+              "feedback": "x = 5 執行所有四個敘述（含 y = 1），故敘述涵蓋率為 100%。"
+            },
+            {
+              "text": "分支涵蓋率為 100%，但敘述涵蓋率為 75%",
+              "fraction": 0,
+              "feedback": "兩項都錯：敘述全被涵蓋（100%），而分支為 50%。"
+            }
+          ],
+          "generalFeedback": "x = 5 執行 s1..s4（敘述 100%），但只取到真結果，故分支涵蓋率為 1 / 2 = 50%。這是敘述涵蓋率不蘊含分支涵蓋率的經典情況。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "短路：b 有被評估嗎？",
+          "text": "<p>在具短路求值（short-circuit）的語言中，判定 <code>a &amp;&amp; b</code> 用單一測試 <code>{a = false}</code> 執行。條件 <code>b</code> 有被評估嗎？</p>",
+          "answers": [
+            {
+              "text": "沒有——因為 a 為假，&& 短路，b 從未被評估",
+              "fraction": 100,
+              "feedback": "正確——a = false 時結果已確定為假，故略過 b。"
+            },
+            {
+              "text": "有——兩個運算元一律都會被評估",
+              "fraction": 0,
+              "feedback": "只有在沒有短路時才如此；&& 的左運算元為假會略過 b。"
+            },
+            {
+              "text": "有——b 會先被評估",
+              "fraction": 0,
+              "feedback": "&& 先評估左運算元；a = false 會在評估 b 前結束。"
+            },
+            {
+              "text": "只有在 a 為真且 b 為假時",
+              "fraction": 0,
+              "feedback": "b 恰在 a 為真時被評估；此處 a 為假，故略過 b。"
+            }
+          ],
+          "generalFeedback": "短路 && 中，左運算元為假即決定結果，故 b 不被評估。要試到 b 的取值，需要 a 為真的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "短路對條件涵蓋率的影響",
+          "text": "<p>在短路 <code>&amp;&amp;</code> 下，要讓 <code>a &amp;&amp; b</code> 中的條件 <code>b</code> 取到<strong>真與假</strong>兩種值以計入條件涵蓋率，測試必須：</p>",
+          "answers": [
+            {
+              "text": "兩個測試都 a = true（一次 b = true，一次 b = false）",
+              "fraction": 100,
+              "feedback": "正確——b 只在 a 為真時被評估，故 a 必須為真才能試到 b。"
+            },
+            {
+              "text": "兩個測試都 a = false",
+              "fraction": 0,
+              "feedback": "a = false 時 b 從未被評估，其取值永不被試到。"
+            },
+            {
+              "text": "a 為任意值皆可，因為 b 一律都會被評估",
+              "fraction": 0,
+              "feedback": "短路表示 a 為假時會略過 b。"
+            },
+            {
+              "text": "兩個測試都 b = true",
+              "fraction": 0,
+              "feedback": "那樣 b 永不取假，b 的條件涵蓋不完整。"
+            }
+          ],
+          "generalFeedback": "短路 && 只在 a 為真時評估 b。要讓 b 被觀察到真與假兩種值，需保持 a 為真並變化 b。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支涵蓋蘊含敘述涵蓋",
+          "text": "<p>關於分支與敘述涵蓋率，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "100% 分支涵蓋率保證 100% 敘述涵蓋率",
+              "fraction": 100,
+              "feedback": "正確——取到每個分支即會到達每個可達敘述，故分支涵蓋率蘊含敘述涵蓋率。"
+            },
+            {
+              "text": "100% 敘述涵蓋率保證 100% 分支涵蓋率",
+              "fraction": 0,
+              "feedback": "相反——無 else 的 if 可達 100% 敘述卻不到 100% 分支。"
+            },
+            {
+              "text": "兩者總是給出相同的百分比",
+              "fraction": 0,
+              "feedback": "兩者會不同，例如無 else 的 if：敘述可為 100% 而分支為 50%。"
+            },
+            {
+              "text": "兩者互不蘊含",
+              "fraction": 0,
+              "feedback": "分支涵蓋率確實蘊含敘述涵蓋率。"
+            }
+          ],
+          "generalFeedback": "分支／判定涵蓋率 ⊒ 敘述涵蓋率：取到每個判定的兩個結果，必然到達每個可達敘述。反向不成立。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "條件涵蓋蘊含判定涵蓋？",
+          "text": "<p>達到 100% 條件涵蓋率一定保證 100% 判定（分支）涵蓋率。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——例如 a && b 用 (T,F) 與 (F,T) 得到完整條件涵蓋，但判定兩次都為假（判定 50%）。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不成立：條件與判定涵蓋率不可比；完整的條件涵蓋可能留下某個判定結果未取到。"
+            }
+          ],
+          "generalFeedback": "條件涵蓋率與判定涵蓋率不可比。對 a && b 用 (a=T,b=F) 與 (a=F,b=T)，涵蓋了 a、b 的兩種值，但判定兩次都為假，故判定涵蓋率僅 50%。（判定／條件涵蓋率結合兩者以修補此問題。）"
+        },
+        {
+          "type": "multichoice",
+          "name": "計算單一測試下的條件涵蓋率",
+          "text": "<p>對判定 <code>a &amp;&amp; b</code>，條件涵蓋率計四個條件取值目標：a=T、a=F、b=T、b=F。套件為單一測試 <code>(a=T, b=T)</code>。<strong>條件</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "50%",
+              "fraction": 100,
+              "feedback": "正確——a=T 與 b=T 達成，但 a=F 與 b=F 未達成，故 2 / 4 = 50%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "單一全真測試從未試到 a=F 與 b=F。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "四個目標中達成兩個（a=T、b=T），故 50%，不是 25%。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "四個條件取值目標僅達成兩個，得 50%。"
+            }
+          ],
+          "generalFeedback": "條件涵蓋率追蹤每個條件取到每種值：a=T ✓、b=T ✓、a=F ✗、b=F ✗ → 2 / 4 = 50%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單一 if-else 分支涵蓋的最少測試數",
+          "text": "<p>要完整涵蓋一個含單一簡單判定的 <code>if-else</code> 之分支，最少需要幾個測試？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個測試取真結果，一個取假結果。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只能取到一個結果；真與假兩者都需要。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "單一判定只有兩個結果，故兩個測試即足夠。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是兩個條件的真值表大小；單一簡單判定只需兩個測試。"
+            }
+          ],
+          "generalFeedback": "單一判定有兩個結果，故分支涵蓋至少需兩個測試（真與假）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成 100% 分支涵蓋的套件",
+          "text": "<p>對於：</p><pre>int classify(int n) {\n  if (n % 2 == 0)\n    return 0;\n  else\n    return 1;\n}</pre><p>哪個套件能達成判定 <code>n % 2 == 0</code> 的 <strong>100% 分支</strong>涵蓋？</p>",
+          "answers": [
+            {
+              "text": "{n = 4, n = 7}",
+              "fraction": 100,
+              "feedback": "正確——n = 4 取到真結果，n = 7 取到假結果，兩個分支都涵蓋。"
+            },
+            {
+              "text": "{n = 4}",
+              "fraction": 0,
+              "feedback": "只取到真結果，故分支涵蓋率為 50%。"
+            },
+            {
+              "text": "{n = 2, n = 8}",
+              "fraction": 0,
+              "feedback": "兩者皆為偶數，故只取到真結果——50%。"
+            },
+            {
+              "text": "{n = 3}",
+              "fraction": 0,
+              "feedback": "只取到假結果，故分支涵蓋率為 50%。"
+            }
+          ],
+          "generalFeedback": "分支涵蓋需要兩個結果：一個偶數 n（真）與一個奇數 n（假）。{n = 4, n = 7} 做到；全偶或全奇的套件只到達一個分支。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "3 個條件的 MC/DC 最少測試數",
+          "text": "<p>某判定有 <strong>3</strong> 個獨立條件。滿足 <strong>MC/DC</strong> 的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——MC/DC 最少需 n + 1 個測試；n = 3 時為 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "最少是 n + 1 = 4，不是 n。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "2^3 = 8 是多重條件涵蓋率；MC/DC 只需約 n + 1。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "最多可能用到 2n = 6 個測試，但最少是 n + 1 = 4。"
+            }
+          ],
+          "generalFeedback": "對 n 個獨立條件，MC/DC 最少需 n + 1 個測試（最多 2n），因為一個精心挑選的測試可作為多個條件的配對夥伴。n = 3 時最少為 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 的要求",
+          "text": "<p>除了判定與條件涵蓋率之外，<strong>MC/DC</strong> 額外的要求是：</p>",
+          "answers": [
+            {
+              "text": "每個條件都被證明能獨立影響判定的結果",
+              "fraction": 100,
+              "feedback": "正確——對每個條件都存在一對僅在該條件不同的測試，使判定的值翻轉。"
+            },
+            {
+              "text": "測試條件值的每一種組合",
+              "fraction": 0,
+              "feedback": "那是多重條件涵蓋率，比 MC/DC 更強。"
+            },
+            {
+              "text": "執行每個敘述",
+              "fraction": 0,
+              "feedback": "那是敘述涵蓋率，與獨立影響的要求無關。"
+            },
+            {
+              "text": "執行每條路徑",
+              "fraction": 0,
+              "feedback": "那是路徑涵蓋率，不是 MC/DC。"
+            }
+          ],
+          "generalFeedback": "MC/DC 要求每個條件在其他條件固定時，被展示能獨立翻轉判定的結果——外加每個條件與判定都取到兩種值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個條件的多重條件涵蓋率",
+          "text": "<p>對含 <strong>3</strong> 個條件的判定，<strong>多重條件涵蓋率</strong>需要幾個測試（忽略不可行的組合）？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——多重條件涵蓋率需全部 2^n 種組合；2^3 = 8。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 是 MC/DC 的最少值，不是多重條件涵蓋率。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n 是 MC/DC 的上界，不是所有組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "多重條件涵蓋率需 2^3 = 8 種組合，不是 3。"
+            }
+          ],
+          "generalFeedback": "多重條件涵蓋率要試到 n 個條件的全部 2^n 種真值組合；n = 3 時為 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "複合判定的包含鏈",
+          "text": "<p>下列這些複合判定準則的順序，何者正確（X ⊒ Y 表示 X 包含 Y）？</p>",
+          "answers": [
+            {
+              "text": "多重條件 ⊒ MC/DC ⊒ 判定／條件 ⊒ 條件",
+              "fraction": 100,
+              "feedback": "正確——所有組合包含 MC/DC，MC/DC 包含判定／條件，後者包含單純條件（與判定）涵蓋率。"
+            },
+            {
+              "text": "MC/DC ⊒ 多重條件 ⊒ 判定／條件",
+              "fraction": 0,
+              "feedback": "多重條件涵蓋率最強；它包含 MC/DC，而非相反。"
+            },
+            {
+              "text": "條件 ⊒ 判定／條件 ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "相反——單純條件涵蓋率是這些之中最弱的。"
+            },
+            {
+              "text": "判定／條件 ⊒ 多重條件 ⊒ MC/DC",
+              "fraction": 0,
+              "feedback": "多重條件涵蓋率比另外兩者都強。"
+            }
+          ],
+          "generalFeedback": "多重條件 ⊒ MC/DC ⊒ 判定／條件涵蓋率 ⊒ 條件涵蓋率（並 ⊒ 判定涵蓋率）。多重條件涵蓋率最強，因為它試到完整真值表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a && b 的最少 MC/DC 測試",
+          "text": "<p>對判定 <code>a &amp;&amp; b</code>，一個最少的 MC/DC 測試集為 <code>{(T,T), (F,T), (T,F)}</code>。這是幾個測試？是否等於 n + 1？</p>",
+          "answers": [
+            {
+              "text": "3 個測試，等於 n = 2 時的 n + 1",
+              "fraction": 100,
+              "feedback": "正確——(T,T)/(F,T) 展示 a 的影響，(T,T)/(T,F) 展示 b 的影響；3 = 2 + 1。"
+            },
+            {
+              "text": "4 個測試，即完整真值表",
+              "fraction": 0,
+              "feedback": "所列集合是 3 個測試而非 4；a && b 的 MC/DC 不需整張表。"
+            },
+            {
+              "text": "2 個測試，每個結果一個",
+              "fraction": 0,
+              "feedback": "兩個測試給出判定涵蓋，但無法同時展示 a 與 b 的獨立性；此處 MC/DC 需 3 個。"
+            },
+            {
+              "text": "3 個測試，但這多於 n + 1",
+              "fraction": 0,
+              "feedback": "n = 2 時 n + 1 = 3，故 3 個測試恰是最少值。"
+            }
+          ],
+          "generalFeedback": "對 a && b：(T,T)/(F,T) 這一對只改變 a 即翻轉判定；(T,T)/(T,F) 這一對只改變 b 即翻轉。三個相異測試 {(T,T),(F,T),(T,F)} = n + 1 = 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個連續 if 的路徑數",
+          "text": "<p>考慮：</p><pre>if (a) S1;\nif (b) S2;</pre><p>含兩個獨立判定且無迴圈。共有幾條相異的執行<strong>路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每個 if 各自取或不取：2 × 2 = 4 條路徑。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是一個 if 的分支結果數；兩個獨立 if 給出 2 × 2 = 4 條路徑。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "組合 (a,b) = TT、TF、FT、FF——四條路徑，不是三條。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "兩個獨立判定共有 4 條相異路徑。"
+            }
+          ],
+          "generalFeedback": "兩個連續的獨立判定產生 2 × 2 = 4 條路徑（a 取／不取）×（b 取／不取）。分支涵蓋只需 2 個測試，但路徑涵蓋需 4 個。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴圈使路徑涵蓋不可行",
+          "text": "<p>當受測程式含有迭代次數取決於輸入的迴圈時，完整路徑涵蓋通常不可行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個相異的迭代次數都是一條相異路徑，故路徑數無上限。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "取決於資料的迴圈每種迭代次數都產生一條不同路徑，故有無上限的路徑數。"
+            }
+          ],
+          "generalFeedback": "可執行 0、1、2、... 次的迴圈，每種迭代次數各對應一條相異路徑，故路徑集（可能）無限，完整路徑涵蓋通常無法達成。"
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行分支限制涵蓋率",
+          "text": "<p>某函式有 <strong>4</strong> 個分支結果，但其中一個<em>不可行</em>（沒有任何輸入能到達的死碼）。以全部 4 個結果衡量，可達成的最大<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——最多能取到 4 個中的 3 個結果，故 3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "不可行的結果永不會被取到，故以全部 4 個衡量不可能達 100%。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "三個可行結果都能取到；那是 75%，不是 50%。"
+            },
+            {
+              "text": "25%",
+              "fraction": 0,
+              "feedback": "只有一個結果不可達；其餘三個可達，得 75%。"
+            }
+          ],
+          "generalFeedback": "不可行分支會限制可達成的涵蓋率：4 個結果中有 1 個不可達時，以全部 4 個衡量的最大值為 3 / 4 = 75%。若只以可行結果衡量則顯示 100%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 的分支涵蓋率",
+          "text": "<p>考慮：</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0)\n      r = 1;\n    else\n      r = 2;\n  }\n  return r;\n}</pre><p>共有 4 個分支結果：外層真、外層假、內層真、內層假。套件：<code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>分支</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——外層真、內層真（來自 5,3）與外層假（來自 -1,0）被取到，但內層假未取到：3 / 4 = 75%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "內層假結果（x > 0 且 y <= 0）從未被此套件到達。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "四個結果中有三個被取到（外層真、外層假、內層真），得 75%。"
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "66.7% 會是 3 中 2；此處 4 個分支結果中取到 3 個 = 75%。"
+            }
+          ],
+          "generalFeedback": "(5,3)：外層真 + 內層真。(-1,0)：外層假。內層假需要 x > 0 且 y <= 0，此套件皆未提供。分支涵蓋率 = 3 / 4 = 75%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 未取到的分支",
+          "text": "<p>同一段程式與套件：</p><pre>int h(int x, int y) {\n  int r = 0;\n  if (x &gt; 0) {\n    if (y &gt; 0) r = 1; else r = 2;\n  }\n  return r;\n}</pre><p>套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。哪個分支結果被<strong>漏掉</strong>？</p>",
+          "answers": [
+            {
+              "text": "內層假分支（x > 0 且 y <= 0，故 r = 2）",
+              "fraction": 100,
+              "feedback": "正確——沒有測試同時有 x > 0 與 y <= 0，故 r = 2 從未被到達。"
+            },
+            {
+              "text": "外層假分支（x <= 0）",
+              "fraction": 0,
+              "feedback": "(x=-1, y=0) 取到外層假分支，故已涵蓋。"
+            },
+            {
+              "text": "內層真分支（r = 1）",
+              "fraction": 0,
+              "feedback": "(x=5, y=3) 取到內層真分支，故已涵蓋。"
+            },
+            {
+              "text": "無——所有分支都已涵蓋",
+              "fraction": 0,
+              "feedback": "內層假分支（r = 2）被漏掉；它需要 x > 0 且 y <= 0。"
+            }
+          ],
+          "generalFeedback": "要到達 r = 2 需 x > 0（進入外層）且 y <= 0（內層假）。套件從未同時滿足，故內層假分支與導向 r = 2 的路徑被漏掉。加入例如 (x=5, y=-1) 即可涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 的敘述涵蓋率",
+          "text": "<p>同一段程式：</p><pre>int h(int x, int y) {\n  int r = 0;        // s1\n  if (x &gt; 0) {      // s2\n    if (y &gt; 0)      // s3\n      r = 1;        // s4\n    else\n      r = 2;        // s5\n  }\n  return r;         // s6\n}</pre><p>六個可執行敘述 s1..s6。套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>敘述</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "≈ 83.3%",
+              "fraction": 100,
+              "feedback": "正確——除 s5（r = 2）外全都執行，故 5 / 6 ≈ 83.3%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "s5（r = 2）需要 x > 0 且 y <= 0，此套件皆未提供。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是分支涵蓋率；敘述涵蓋率是 5 / 6 ≈ 83.3%。"
+            },
+            {
+              "text": "≈ 66.7%",
+              "fraction": 0,
+              "feedback": "六個敘述中有五個執行，得 ≈ 83.3%，不是 66.7%。"
+            }
+          ],
+          "generalFeedback": "(5,3) 執行 s1、s2、s3、s4、s6；(-1,0) 執行 s1、s2、s6。只漏掉 s5（r = 2）。敘述涵蓋率 = 5 / 6 ≈ 83.3%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "巢狀 if 的路徑涵蓋率",
+          "text": "<p>同一段程式有三條可行路徑：P1 = x &lt;= 0；P2 = x &gt; 0 且 y &gt; 0；P3 = x &gt; 0 且 y &lt;= 0。套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>路徑</strong>涵蓋率為何？</p>",
+          "answers": [
+            {
+              "text": "≈ 66.7%",
+              "fraction": 100,
+              "feedback": "正確——(5,3) 涵蓋 P2，(-1,0) 涵蓋 P1，但 P3 被漏掉：2 / 3 ≈ 66.7%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "路徑 P3（x > 0 且 y <= 0）從未被試到。"
+            },
+            {
+              "text": "50%",
+              "fraction": 0,
+              "feedback": "三條可行路徑中涵蓋兩條，得 ≈ 66.7%，不是 50%。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是分支涵蓋率；此處路徑涵蓋率是 2 / 3 ≈ 66.7%。"
+            }
+          ],
+          "generalFeedback": "可行路徑：P1（x <= 0）、P2（x > 0, y > 0）、P3（x > 0, y <= 0）。套件涵蓋 P1 與 P2 但不含 P3，故路徑涵蓋率 = 2 / 3 ≈ 66.7%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a || b 的 MC/DC 獨立性配對",
+          "text": "<p>對判定 <code>a || b</code>，哪一對測試展示條件 <code>b</code> 能<strong>獨立</strong>影響結果？</p>",
+          "answers": [
+            {
+              "text": "(a=F, b=F) 得假，與 (a=F, b=T) 得真",
+              "fraction": 100,
+              "feedback": "正確——a 固定為假；只改變 b 即使判定由假翻為真。"
+            },
+            {
+              "text": "(a=T, b=F) 與 (a=T, b=T)，皆得真",
+              "fraction": 0,
+              "feedback": "a = 真時 a || b 恆為真，不論 b，故結果不翻轉——b 的影響被遮蔽。"
+            },
+            {
+              "text": "(a=F, b=T) 與 (a=T, b=F)，皆得真",
+              "fraction": 0,
+              "feedback": "這兩者 a 與 b 都不同，無法隔離 b 的獨立影響。"
+            },
+            {
+              "text": "(a=T, b=T) 與 (a=F, b=F)",
+              "fraction": 0,
+              "feedback": "這兩者兩個條件都不同，故無法隔離任一條件的影響。"
+            }
+          ],
+          "generalFeedback": "要展示 b 獨立影響 a || b，固定 a = 假並變化 b：(F,F) → 假，(F,T) → 真。唯有如此，只改變 b 才能翻轉結果。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MC/DC 蘊含判定涵蓋",
+          "text": "<p>對某判定滿足 MC/DC 的測試集，必然也滿足該判定的判定（分支）涵蓋率。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——展示每個條件都能翻轉結果，會迫使判定取到真與假兩者，故判定涵蓋達成。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MC/DC 要求每個條件都能翻轉判定，這必然使判定取到真與假兩者——判定涵蓋因而被蘊含。"
+            }
+          ],
+          "generalFeedback": "MC/DC ⊒ 判定／條件涵蓋率 ⊒ 判定涵蓋率（與條件涵蓋率）。展示獨立影響需要判定取到兩種結果，故該判定的分支涵蓋隨之成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "判定／條件涵蓋率定義",
+          "text": "<p><strong>判定／條件涵蓋率（decision/condition coverage）</strong>在以下情況滿足：</p>",
+          "answers": [
+            {
+              "text": "條件涵蓋率與判定涵蓋率同時達成",
+              "fraction": 100,
+              "feedback": "正確——每個條件取到兩種值，且判定取到兩種結果。"
+            },
+            {
+              "text": "只有判定取到真與假",
+              "fraction": 0,
+              "feedback": "那是單純判定涵蓋率；判定／條件還要求條件涵蓋率。"
+            },
+            {
+              "text": "只有每個條件取到兩種值",
+              "fraction": 0,
+              "feedback": "那是單純條件涵蓋率；判定／條件還要求判定涵蓋率。"
+            },
+            {
+              "text": "試到條件所有取值組合",
+              "fraction": 0,
+              "feedback": "那是多重條件涵蓋率，比判定／條件更強。"
+            }
+          ],
+          "generalFeedback": "判定／條件涵蓋率就是結合兩者：每個條件取到兩種值，且判定取到兩種結果。在包含鏈中位於條件與判定涵蓋率之上、MC/DC 之下。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "concolic-execution": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What concolic means",
+          "text": "<p>The word <strong>concolic</strong> is a blend of which two words?</p>",
+          "answers": [
+            {
+              "text": "CONCrete + symbOLIC — the program runs on a concrete input while symbolic constraints are collected simultaneously",
+              "fraction": 100,
+              "feedback": "Correct — concolic execution does both at once: a real concrete run plus symbolic path-condition tracking."
+            },
+            {
+              "text": "CONCurrent + symbOLIC — it runs many symbolic threads in parallel",
+              "fraction": 0,
+              "feedback": "No — the \"conc\" is concrete, not concurrent; concolic is about combining concrete and symbolic, not parallelism."
+            },
+            {
+              "text": "CONtrol + logICs — it analyses control-flow logic statically",
+              "fraction": 0,
+              "feedback": "No — concolic = concrete + symbolic; it is a dynamic technique, not a static control-flow analysis."
+            },
+            {
+              "text": "CONtext + symbOLIC — it tracks contextual symbols only",
+              "fraction": 0,
+              "feedback": "No — the first part stands for concrete, referring to the real runtime values used alongside the symbolic ones."
+            }
+          ],
+          "generalFeedback": "Concolic = CONCrete + symbOLIC. The program is executed on an actual concrete input, and at the same time the engine records the symbolic path condition along the path that concrete run takes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concrete state vs symbolic state",
+          "text": "<p>During concolic execution the engine keeps two states side by side. What are they?</p>",
+          "answers": [
+            {
+              "text": "A concrete state (actual values driving the real run) and a symbolic state (expressions/constraints over the input symbols)",
+              "fraction": 100,
+              "feedback": "Correct — the concrete values pick the path actually taken, while the symbolic state records the constraints along it."
+            },
+            {
+              "text": "A source-code state and a compiled-binary state",
+              "fraction": 0,
+              "feedback": "No — both states describe the running program's data; one is concrete values, the other symbolic expressions."
+            },
+            {
+              "text": "A pass state and a fail state of the test oracle",
+              "fraction": 0,
+              "feedback": "No — the two states are concrete and symbolic; pass/fail is a separate testing concern."
+            },
+            {
+              "text": "Two independent random states used for statistical sampling",
+              "fraction": 0,
+              "feedback": "No — one state is a real concrete run, the other is a symbolic constraint state; neither is a random sample of the other."
+            }
+          ],
+          "generalFeedback": "Concolic execution maintains a concrete state (the actual values, which deterministically select the path the run takes) alongside a symbolic state (the variable-to-expression map and the path condition collected along that same path).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path condition in concolic",
+          "text": "<p>In concolic execution, the <strong>path condition</strong> recorded during a run is:</p>",
+          "answers": [
+            {
+              "text": "The conjunction of the branch conditions taken along the single path that the concrete input actually drove",
+              "fraction": 100,
+              "feedback": "Correct — because a concrete run follows exactly one path, the path condition describes that one executed path."
+            },
+            {
+              "text": "The disjunction of all path conditions of every path in the program",
+              "fraction": 0,
+              "feedback": "No — a concolic run records only the one path the concrete input took, as a conjunction of its branch outcomes."
+            },
+            {
+              "text": "A count of how many branches the program contains",
+              "fraction": 0,
+              "feedback": "No — the path condition is a logical formula over the inputs, not a branch count."
+            },
+            {
+              "text": "The concrete output value the program returned",
+              "fraction": 0,
+              "feedback": "No — it is the constraints on the inputs along the executed path, not the output."
+            }
+          ],
+          "generalFeedback": "Because the concrete input drives exactly one path, the engine collects the branch conditions taken on that path and conjoins them into the path condition — a formula over the symbolic inputs characterizing that executed path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch negation",
+          "text": "<p>After a concolic run records a path condition, how does the engine try to reach a new, not-yet-covered path?</p>",
+          "answers": [
+            {
+              "text": "It negates one branch condition in the recorded path condition and asks the solver for an input satisfying the modified constraint",
+              "fraction": 100,
+              "feedback": "Correct — flipping one branch and solving yields a concrete input that drives execution the other way at that branch."
+            },
+            {
+              "text": "It recompiles the program with that branch removed",
+              "fraction": 0,
+              "feedback": "No — the program is never modified; only the path condition is altered and re-solved."
+            },
+            {
+              "text": "It keeps re-running the same concrete input until a different path appears",
+              "fraction": 0,
+              "feedback": "No — a deterministic program on the same input always takes the same path; the engine negates a branch and solves for a new input."
+            },
+            {
+              "text": "It negates every branch at once and solves the whole thing",
+              "fraction": 0,
+              "feedback": "No — the standard step flips one branch (typically the last unnegated one) while keeping the prefix, then solves."
+            }
+          ],
+          "generalFeedback": "The engine picks a branch condition on the recorded path, negates it (keeping the constraints before it), and hands the modified path condition to a solver; the satisfying assignment is the next concrete input, which drives execution down the sibling path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The concolic loop",
+          "text": "<p>Which sequence best describes one iteration of the concolic testing loop?</p>",
+          "answers": [
+            {
+              "text": "Run on a concrete input → record the path condition → negate a branch → solve → the solution is the next concrete input",
+              "fraction": 100,
+              "feedback": "Correct — this concrete-run / record / negate / solve cycle repeats to explore new paths."
+            },
+            {
+              "text": "Solve a random constraint → compile → run → discard the result",
+              "fraction": 0,
+              "feedback": "No — concolic starts from a concrete run, records the real path condition, then negates and solves; nothing is discarded and no compilation step is involved."
+            },
+            {
+              "text": "Enumerate all paths statically → solve each → pick the shortest",
+              "fraction": 0,
+              "feedback": "No — concolic is dynamic: it drives one concrete run at a time and steers to new paths by branch negation."
+            },
+            {
+              "text": "Mutate the source code → re-run the tests → measure coverage",
+              "fraction": 0,
+              "feedback": "No — that is mutation testing; concolic negates branch constraints and solves for inputs, leaving the code unchanged."
+            }
+          ],
+          "generalFeedback": "The concolic loop: pick a concrete input (often random at first), execute it, record the path condition of the path taken, negate one branch condition, solve the modified constraint to obtain the next concrete input, and repeat — driving execution down new paths each time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What DART stands for",
+          "text": "<p><strong>DART</strong>, one of the original concolic tools, stands for:</p>",
+          "answers": [
+            {
+              "text": "Directed Automated Random Testing",
+              "fraction": 100,
+              "feedback": "Correct — DART directs random testing using the symbolic path condition to reach new paths."
+            },
+            {
+              "text": "Dynamic Abstract Refinement Testing",
+              "fraction": 0,
+              "feedback": "No — DART stands for Directed Automated Random Testing."
+            },
+            {
+              "text": "Deterministic Assertion Regression Tool",
+              "fraction": 0,
+              "feedback": "No — DART is Directed Automated Random Testing, a concolic engine."
+            },
+            {
+              "text": "Distributed Analysis of Runtime Traces",
+              "fraction": 0,
+              "feedback": "No — DART is Directed Automated Random Testing."
+            }
+          ],
+          "generalFeedback": "DART (Directed Automated Random Testing) starts from random concrete inputs and uses the collected symbolic path condition to direct subsequent inputs toward uncovered branches — coining the concolic approach.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What CUTE stands for",
+          "text": "<p><strong>CUTE</strong>, a well-known concolic tool, stands for:</p>",
+          "answers": [
+            {
+              "text": "Concolic Unit Testing Engine",
+              "fraction": 100,
+              "feedback": "Correct — CUTE applies concolic execution to unit testing, including code with pointers."
+            },
+            {
+              "text": "Constraint-based Uniform Test Explorer",
+              "fraction": 0,
+              "feedback": "No — CUTE stands for Concolic Unit Testing Engine."
+            },
+            {
+              "text": "Coverage Under Test Estimator",
+              "fraction": 0,
+              "feedback": "No — CUTE is the Concolic Unit Testing Engine."
+            },
+            {
+              "text": "Combined Unit & Type Evaluator",
+              "fraction": 0,
+              "feedback": "No — CUTE is the Concolic Unit Testing Engine."
+            }
+          ],
+          "generalFeedback": "CUTE (Concolic Unit Testing Engine) brought concolic execution to C unit testing, notably handling pointer/data-structure inputs by combining concrete and symbolic reasoning.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Why keep a concrete input alongside the symbolic state",
+          "text": "<p>A key reason concolic execution keeps a concrete input alongside the symbolic state is that when a constraint cannot be solved (e.g. it involves an external call), the engine can substitute the concrete value observed at runtime and keep going.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the concrete value is a ready fallback that lets execution continue where pure symbolic reasoning would stall."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is precisely a central advantage of concolic execution: the concrete run supplies a real value to substitute when a symbolic term is unsolvable."
+            }
+          ],
+          "generalFeedback": "Keeping a concrete input means the engine always has a real observed value for every expression. When a symbolic term is too hard, nonlinear, or opaque (an external/native call), it substitutes the concrete value and continues — something pure symbolic execution cannot do."
+        },
+        {
+          "type": "multichoice",
+          "name": "First concrete input",
+          "text": "<p>Where does the very first concrete input in a concolic run typically come from?</p>",
+          "answers": [
+            {
+              "text": "It is chosen arbitrarily, often randomly — the loop then refines subsequent inputs by solving negated path conditions",
+              "fraction": 100,
+              "feedback": "Correct — the seed input can be random; the engine improves coverage from there by directed branch flipping."
+            },
+            {
+              "text": "It must be a value proved optimal by the solver before any run",
+              "fraction": 0,
+              "feedback": "No — the first input needs no proof; it is typically just a random seed that starts the loop."
+            },
+            {
+              "text": "It is always zero for every input variable",
+              "fraction": 0,
+              "feedback": "No — while a fixed seed is possible, the point is that the first input is arbitrary/random, not a mandated zero."
+            },
+            {
+              "text": "It is derived by static analysis of the whole program first",
+              "fraction": 0,
+              "feedback": "No — concolic is dynamic; it simply starts from a concrete (often random) input rather than a static pre-analysis."
+            }
+          ],
+          "generalFeedback": "Concolic execution bootstraps from an arbitrary, often random, concrete input (this is the \"Random\" in DART). Each later input is computed by negating a branch on the previous run's path condition and solving.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concrete run follows one path",
+          "text": "<p>Because it uses a concrete input, a single concolic run follows exactly one execution path (in a deterministic program).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — concrete values deterministically select one path; that is why the run records a single path condition."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A concrete input in a deterministic program takes exactly one path; concolic reaches other paths only by solving negated constraints on later runs."
+            }
+          ],
+          "generalFeedback": "Each concolic run is a real execution on concrete values, so it takes one path and records that path's condition. New paths are reached across iterations by branch negation and re-solving, not within a single run."
+        },
+        {
+          "type": "multichoice",
+          "name": "Role of the solver in concolic",
+          "text": "<p>What does the constraint/SMT solver do in the concolic loop?</p>",
+          "answers": [
+            {
+              "text": "It solves the modified (partly negated) path condition to produce the next concrete input",
+              "fraction": 100,
+              "feedback": "Correct — the solver's satisfying assignment becomes the concrete input for the next run."
+            },
+            {
+              "text": "It executes the program on the concrete input",
+              "fraction": 0,
+              "feedback": "No — running the program is done by the (instrumented) execution; the solver only computes inputs from constraints."
+            },
+            {
+              "text": "It decides whether the test's output is correct",
+              "fraction": 0,
+              "feedback": "No — that is the oracle's job; the solver produces inputs, not verdicts."
+            },
+            {
+              "text": "It measures branch coverage of the suite",
+              "fraction": 0,
+              "feedback": "No — coverage tracking is separate; the solver turns a negated path condition into a concrete input."
+            }
+          ],
+          "generalFeedback": "After the engine negates a branch, it hands the modified path condition to the solver; a satisfying assignment is exactly the concrete input that will drive the next run down the newly targeted path (or UNSAT if that path is infeasible).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concolic vs pure symbolic (one-line)",
+          "text": "<p>Which best captures how concolic execution differs from pure symbolic execution?</p>",
+          "answers": [
+            {
+              "text": "Concolic always has a real concrete run alongside the symbolic state, so it can substitute concrete values when the symbolic reasoning gets stuck",
+              "fraction": 100,
+              "feedback": "Correct — the concrete run is the safety net that lets concolic proceed past unsolvable terms."
+            },
+            {
+              "text": "Concolic never uses a solver, while pure symbolic always does",
+              "fraction": 0,
+              "feedback": "No — concolic relies on a solver to flip branches; the difference is the accompanying concrete run."
+            },
+            {
+              "text": "Pure symbolic runs the program concretely, concolic does not",
+              "fraction": 0,
+              "feedback": "No — it is the reverse: concolic performs real concrete runs; pure symbolic does not."
+            },
+            {
+              "text": "Concolic guarantees full path coverage, pure symbolic does not",
+              "fraction": 0,
+              "feedback": "No — neither guarantees full coverage; both face path explosion. The real distinction is the concrete companion run."
+            }
+          ],
+          "generalFeedback": "Both track a symbolic path condition and use a solver. The concolic difference is the simultaneous concrete run: it supplies a real value to fall back on when a constraint is unsolvable, nonlinear, or involves an opaque external call.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Instrumentation purpose",
+          "text": "<p>Concolic tools instrument the program under test primarily in order to:</p>",
+          "answers": [
+            {
+              "text": "Observe, during the concrete run, the branch conditions taken and build the symbolic path condition in parallel",
+              "fraction": 100,
+              "feedback": "Correct — instrumentation collects the symbolic constraints alongside the real execution."
+            },
+            {
+              "text": "Slow the program down so the solver has time to think",
+              "fraction": 0,
+              "feedback": "No — instrumentation exists to gather symbolic constraints during the run, not to add delay."
+            },
+            {
+              "text": "Replace all branches with random coin flips",
+              "fraction": 0,
+              "feedback": "No — branches are observed and recorded symbolically; they are not replaced by randomness."
+            },
+            {
+              "text": "Permanently rewrite the program to a bug-free version",
+              "fraction": 0,
+              "feedback": "No — instrumentation only records information for the analysis; it does not fix the program."
+            }
+          ],
+          "generalFeedback": "The program is instrumented so that, as the concrete input drives execution, the engine simultaneously records each branch condition symbolically and accumulates the path condition — the raw material for the negate-and-solve step.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Paths explored are real",
+          "text": "<p>Every path that a concolic run explores corresponds to a real execution on a concrete input, so concolic execution reports no false (infeasible) paths.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each concolic step is an actual concrete run, so the paths it reports are genuinely executable (this is its soundness with respect to explored paths)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Because every explored path is driven by a concrete input that really runs, concolic execution does not manufacture infeasible paths."
+            }
+          ],
+          "generalFeedback": "Concolic execution actually runs the program on each generated concrete input, so any path it reports as explored is genuinely feasible. Its limitation is completeness (it may miss some paths), not soundness of the paths it does explore."
+        },
+        {
+          "type": "multichoice",
+          "name": "What picks the path a run takes",
+          "text": "<p>In a single concolic run, what determines which one path through the program is taken?</p>",
+          "answers": [
+            {
+              "text": "The concrete input values, which are executed for real and select each branch outcome deterministically",
+              "fraction": 100,
+              "feedback": "Correct — the concrete state drives the actual run and thus fixes the path; the symbolic state just records it."
+            },
+            {
+              "text": "The solver, which chooses a path before the run begins",
+              "fraction": 0,
+              "feedback": "No — within a run the concrete values pick the path; the solver only computes inputs for future runs."
+            },
+            {
+              "text": "The path condition, which forces execution down a chosen branch",
+              "fraction": 0,
+              "feedback": "No — the path condition is recorded from the run; it does not steer the current concrete execution."
+            },
+            {
+              "text": "A random choice made at each branch",
+              "fraction": 0,
+              "feedback": "No — branches are decided by the concrete values, not by randomness during the run."
+            }
+          ],
+          "generalFeedback": "The concrete input is really executed, so at each branch the concrete values decide true/false and thus fix the single path taken. The symbolic side merely records that path's condition for later branch negation.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Trace: single if, record the PC",
+          "text": "<p>Consider:</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>The concolic run starts with concrete input <code>x = 0</code>. What path condition does this run record?</p>",
+          "answers": [
+            {
+              "text": "x ≤ 5 (the false side of B1, since 0 > 5 is false)",
+              "fraction": 100,
+              "feedback": "Correct — x = 0 makes x > 5 false, so the run takes the false branch and records x ≤ 5."
+            },
+            {
+              "text": "x > 5 (the true side of B1)",
+              "fraction": 0,
+              "feedback": "No — x = 0 does not satisfy x > 5, so the run takes the false branch and records x ≤ 5, not x > 5."
+            },
+            {
+              "text": "x == 0 (the concrete value)",
+              "fraction": 0,
+              "feedback": "No — the path condition records the branch outcome (x ≤ 5), not the specific concrete value used."
+            },
+            {
+              "text": "true (no constraint, because no branch was taken)",
+              "fraction": 0,
+              "feedback": "No — the branch B1 was evaluated; its false outcome contributes the constraint x ≤ 5."
+            }
+          ],
+          "generalFeedback": "With x = 0, the condition x > 5 evaluates false, so the run follows the false branch. The engine records the negation of the branch condition it did not take, i.e. the constraint actually satisfied: x ≤ 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: negate and solve for next input",
+          "text": "<p>Same code:</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>The first run used <code>x = 0</code> and recorded <code>x ≤ 5</code>. To cover the other side of B1, the engine negates it. Which next concrete input could the solver return?</p>",
+          "answers": [
+            {
+              "text": "x = 6 (any value satisfying the negated constraint x > 5)",
+              "fraction": 100,
+              "feedback": "Correct — negating x ≤ 5 gives x > 5, and x = 6 satisfies it, driving the run into error()."
+            },
+            {
+              "text": "x = 5",
+              "fraction": 0,
+              "feedback": "No — 5 > 5 is false, so x = 5 still takes the false branch and does not cover the other side."
+            },
+            {
+              "text": "x = -1",
+              "fraction": 0,
+              "feedback": "No — -1 does not satisfy x > 5; it would re-take the already-covered false branch."
+            },
+            {
+              "text": "No input exists; the negated constraint is unsatisfiable",
+              "fraction": 0,
+              "feedback": "No — x > 5 is easily satisfiable (e.g. x = 6), so the path is feasible."
+            }
+          ],
+          "generalFeedback": "Negating the recorded constraint x ≤ 5 yields x > 5. The solver returns any satisfying value (e.g. x = 6), which becomes the next concrete input and drives execution into error().",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: equality guard",
+          "text": "<p>Consider:</p><pre><code>void g(int x) {\n  if (x == 42) bug();   // branch B1\n}</code></pre><p>The run starts with <code>x = 7</code> (so B1 is false, PC is <code>x ≠ 42</code>). What next input does negating B1 yield?</p>",
+          "answers": [
+            {
+              "text": "x = 42 — negating x ≠ 42 gives x == 42, whose only solution is 42",
+              "fraction": 100,
+              "feedback": "Correct — the solver computes the exact value 42, immediately reaching bug()."
+            },
+            {
+              "text": "x = 43 — any nearby value works",
+              "fraction": 0,
+              "feedback": "No — the negated constraint is the equality x == 42, so 43 does not satisfy it; only 42 does."
+            },
+            {
+              "text": "x = 7 — the run keeps the same input",
+              "fraction": 0,
+              "feedback": "No — x = 7 gives the already-covered false branch; the engine solves the flipped equality for 42."
+            },
+            {
+              "text": "No solution; equalities cannot be negated",
+              "fraction": 0,
+              "feedback": "No — negating x ≠ 42 is simply x == 42, which the solver satisfies with x = 42."
+            }
+          ],
+          "generalFeedback": "The first run's constraint is x ≠ 42; negating it gives x == 42. The solver returns exactly x = 42 — the classic case where concolic/symbolic reasoning beats random testing, which would almost never guess 42.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: which branch to negate (DFS)",
+          "text": "<p>A run took branches in order <code>[B1: true, B2: true]</code>, giving path condition <code>c1 ∧ c2</code>. Using the usual depth-first strategy (flip the last unnegated branch first), what is the next path condition to solve?</p>",
+          "answers": [
+            {
+              "text": "c1 ∧ ¬c2 — keep the prefix c1, negate the last branch c2",
+              "fraction": 100,
+              "feedback": "Correct — depth-first flips the deepest (last) branch first while preserving the earlier decisions."
+            },
+            {
+              "text": "¬c1 ∧ c2 — negate the first branch, keep the second",
+              "fraction": 0,
+              "feedback": "No — that flips B1 first; depth-first negates the last branch (c2) before backtracking to earlier ones."
+            },
+            {
+              "text": "¬c1 ∧ ¬c2 — negate both branches",
+              "fraction": 0,
+              "feedback": "No — each step negates exactly one branch; here the last one, giving c1 ∧ ¬c2."
+            },
+            {
+              "text": "c1 ∧ c2 — re-solve the same condition",
+              "fraction": 0,
+              "feedback": "No — re-solving the same condition re-covers the same path; the engine flips c2 to reach a new one."
+            }
+          ],
+          "generalFeedback": "Depth-first exploration negates the last unnegated branch condition while keeping the prefix intact: from c1 ∧ c2 it forms c1 ∧ ¬c2. Only after exhausting the c1-prefix subtree does it backtrack and flip c1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: two branches, next input",
+          "text": "<p>Consider:</p><pre><code>void h(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b &gt; 0)        // B2\n      target();\n}</code></pre><p>Run 1 uses <code>a = 1, b = -1</code>: B1 true, B2 false, PC = <code>(a &gt; 0) ∧ (b ≤ 0)</code>. Flipping the last branch (B2), what input reaches <code>target()</code>?</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 1 — satisfies (a > 0) ∧ (b > 0)",
+              "fraction": 100,
+              "feedback": "Correct — keeping a > 0 and negating b ≤ 0 to b > 0 gives a path into target(); a = 1, b = 1 works."
+            },
+            {
+              "text": "a = -1, b = 1 — satisfies b > 0",
+              "fraction": 0,
+              "feedback": "No — a = -1 fails a > 0, so B1 is false and target() is never reached; the prefix a > 0 must be kept."
+            },
+            {
+              "text": "a = 1, b = 0 — b is non-negative",
+              "fraction": 0,
+              "feedback": "No — b > 0 requires strictly positive b; b = 0 fails, so B2 stays false."
+            },
+            {
+              "text": "a = 0, b = 0 — both zero",
+              "fraction": 0,
+              "feedback": "No — a = 0 fails a > 0; the negated constraint keeps the prefix a > 0 and flips b to b > 0."
+            }
+          ],
+          "generalFeedback": "Flipping B2 forms (a > 0) ∧ (b > 0): the prefix a > 0 is preserved and b ≤ 0 is negated to b > 0. The solver returns any satisfying pair, e.g. a = 1, b = 1, which drives execution into target().",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: assignment before branch",
+          "text": "<p>Consider:</p><pre><code>void k(int x) {\n  int y = x + 3;\n  if (y == 10) hit();   // B1\n}</code></pre><p>Run 1 uses <code>x = 0</code> (so y = 3, B1 false). Negating B1, what next input does the solver return?</p>",
+          "answers": [
+            {
+              "text": "x = 7 — the constraint over the input is x + 3 == 10",
+              "fraction": 100,
+              "feedback": "Correct — y is the expression x + 3, so B1 becomes x + 3 == 10, giving x = 7."
+            },
+            {
+              "text": "x = 10 — the branch tests == 10",
+              "fraction": 0,
+              "feedback": "No — the branch tests y == 10 where y = x + 3, so the constraint on the input is x + 3 == 10, i.e. x = 7."
+            },
+            {
+              "text": "x = 3 — matches the first computed y",
+              "fraction": 0,
+              "feedback": "No — x = 3 gives y = 6, not 10; solving x + 3 == 10 gives x = 7."
+            },
+            {
+              "text": "y = 10 — treat y as the free input",
+              "fraction": 0,
+              "feedback": "No — y is not an input; it is the expression x + 3, which must be substituted, yielding x = 7."
+            }
+          ],
+          "generalFeedback": "The symbolic state records y = x + 3, so the branch y == 10 is the constraint x + 3 == 10 over the actual input x. Negating the false outcome and solving gives x = 7.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concolic vs pure symbolic on a simple case",
+          "text": "<p>For <code>if (x &gt; 5) error();</code> with a solvable linear guard, how do concolic and pure symbolic execution compare on reaching <code>error()</code>?</p>",
+          "answers": [
+            {
+              "text": "Both reach it — each solves x > 5 (concolic after negating the branch on its first concrete run) — the concrete companion matters only when a constraint is unsolvable",
+              "fraction": 100,
+              "feedback": "Correct — on a simple solvable guard the two behave similarly; the concrete fallback distinguishes them only for hard/opaque constraints."
+            },
+            {
+              "text": "Only pure symbolic can reach it; concolic cannot solve inequalities",
+              "fraction": 0,
+              "feedback": "No — concolic uses the same solver and easily handles x > 5 by negating the branch and solving."
+            },
+            {
+              "text": "Only concolic can reach it; pure symbolic cannot solve inequalities",
+              "fraction": 0,
+              "feedback": "No — pure symbolic solves linear inequalities fine; both reach error() here."
+            },
+            {
+              "text": "Neither can reach it without random luck",
+              "fraction": 0,
+              "feedback": "No — both solve x > 5 exactly; no luck is required for a simple linear constraint."
+            }
+          ],
+          "generalFeedback": "When every constraint is solvable, concolic and pure symbolic reach the same paths; both solve x > 5 directly. The concrete-value fallback only becomes decisive when a constraint is nonlinear, unsolvable, or involves an opaque external call.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: recording the taken outcome",
+          "text": "<p>Consider:</p><pre><code>void m(int x) {\n  if (x &lt; 100) a();   // B1\n  else b();\n}</code></pre><p>The concrete run uses <code>x = 250</code>. Which literal does the engine conjoin into the path condition for B1?</p>",
+          "answers": [
+            {
+              "text": "x ≥ 100 — the run took the else branch, so the satisfied condition is the negation of x < 100",
+              "fraction": 100,
+              "feedback": "Correct — with x = 250 the guard x < 100 is false, so the recorded literal is x ≥ 100."
+            },
+            {
+              "text": "x < 100 — the branch's written condition",
+              "fraction": 0,
+              "feedback": "No — the written condition is false for x = 250; the engine records the outcome actually taken, x ≥ 100."
+            },
+            {
+              "text": "x == 250 — the concrete value",
+              "fraction": 0,
+              "feedback": "No — the path condition records the branch outcome (x ≥ 100), not the specific concrete number."
+            },
+            {
+              "text": "Nothing — else branches contribute no constraint",
+              "fraction": 0,
+              "feedback": "No — taking the else branch contributes the negated guard x ≥ 100 to the path condition."
+            }
+          ],
+          "generalFeedback": "The path condition always records the outcome actually taken. With x = 250 the guard x < 100 is false, so the engine conjoins its negation, x ≥ 100, into the path condition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: unsatisfiable flip is skipped",
+          "text": "<p>Consider:</p><pre><code>void p(int x) {\n  if (x &gt; 0)        // B1\n    if (x &lt; 0)      // B2\n      dead();\n}</code></pre><p>Run 1 uses <code>x = 5</code>: B1 true, B2 false, PC = <code>(x &gt; 0) ∧ (x ≥ 0)</code>. What happens when the engine flips B2 to try to reach <code>dead()</code>?</p>",
+          "answers": [
+            {
+              "text": "The flipped condition (x > 0) ∧ (x < 0) is UNSAT, so the solver returns no input and the engine skips that infeasible path",
+              "fraction": 100,
+              "feedback": "Correct — no x is both positive and negative, so dead() is unreachable and correctly generates no test."
+            },
+            {
+              "text": "The solver returns x = 0, reaching dead()",
+              "fraction": 0,
+              "feedback": "No — x = 0 satisfies neither x > 0 nor x < 0; the conjunction is unsatisfiable."
+            },
+            {
+              "text": "The engine substitutes a concrete value and reaches dead() anyway",
+              "fraction": 0,
+              "feedback": "No — concrete fallback is for unsolvable/opaque terms, not for a cleanly UNSAT linear constraint; the path is genuinely infeasible."
+            },
+            {
+              "text": "The program is modified to make the path feasible",
+              "fraction": 0,
+              "feedback": "No — concolic never modifies the program; an UNSAT flip simply yields no input."
+            }
+          ],
+          "generalFeedback": "Flipping B2 while keeping the prefix gives (x > 0) ∧ (x < 0), which is UNSAT. The solver reports no solution, so the engine skips this infeasible path — dead() is correctly never targeted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: number of runs to cover both branches",
+          "text": "<p>For a single <code>if (x &gt; 5) A(); else B();</code> with both sides feasible, how many concolic runs are needed to cover both branches, starting from one arbitrary concrete input?</p>",
+          "answers": [
+            {
+              "text": "2 — one run covers the branch the seed takes; negating it and solving gives a second input covering the other",
+              "fraction": 100,
+              "feedback": "Correct — one seed run plus one negate-and-solve run covers both sides."
+            },
+            {
+              "text": "1 — a single run covers both branches",
+              "fraction": 0,
+              "feedback": "No — a concrete run takes only one side; the other needs a second input from a negated constraint."
+            },
+            {
+              "text": "4 — every branch needs two runs",
+              "fraction": 0,
+              "feedback": "No — a single two-way branch needs just two runs total, one per side."
+            },
+            {
+              "text": "Unbounded — random seeds may never hit both",
+              "fraction": 0,
+              "feedback": "No — concolic is directed: it solves the negated constraint deterministically, so two runs suffice."
+            }
+          ],
+          "generalFeedback": "The seed run covers whichever side its concrete value takes. Negating that branch and solving yields a second input for the opposite side. Two runs cover both branches — the directedness that distinguishes concolic from blind random testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: compound guard, next input",
+          "text": "<p>Consider a branch whose recorded (satisfied) condition on run 1 is <code>(x + y &lt; 4)</code>. Negating it, which input pair does the solver accept?</p>",
+          "answers": [
+            {
+              "text": "x = 3, y = 3 — satisfies the negation x + y ≥ 4",
+              "fraction": 100,
+              "feedback": "Correct — 3 + 3 = 6 ≥ 4, so this pair takes the flipped branch."
+            },
+            {
+              "text": "x = 1, y = 1 — small values",
+              "fraction": 0,
+              "feedback": "No — 1 + 1 = 2 < 4 still satisfies the original condition, not its negation."
+            },
+            {
+              "text": "x = 0, y = 3 — sums to 3",
+              "fraction": 0,
+              "feedback": "No — 0 + 3 = 3 < 4, which fails the negated constraint x + y ≥ 4."
+            },
+            {
+              "text": "x = 2, y = 1 — sums to 3",
+              "fraction": 0,
+              "feedback": "No — 2 + 1 = 3 < 4, so this stays on the original branch."
+            }
+          ],
+          "generalFeedback": "Negating x + y < 4 gives x + y ≥ 4. Only x = 3, y = 3 (sum 6) satisfies it; the other options all sum to less than 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: input to keep prefix, flip deeper branch",
+          "text": "<p>Consider:</p><pre><code>void q(int a, int b) {\n  if (a == b)       // B1\n    if (a &gt; 10)     // B2\n      z();\n}</code></pre><p>Run 1 uses <code>a = 3, b = 3</code>: B1 true, B2 false, PC = <code>(a == b) ∧ (a ≤ 10)</code>. Flipping B2 to reach <code>z()</code>, which input works?</p>",
+          "answers": [
+            {
+              "text": "a = 11, b = 11 — keeps a == b and satisfies a > 10",
+              "fraction": 100,
+              "feedback": "Correct — the prefix a == b is preserved and a ≤ 10 is negated to a > 10; a = b = 11 satisfies both."
+            },
+            {
+              "text": "a = 11, b = 3 — a > 10 holds",
+              "fraction": 0,
+              "feedback": "No — a ≠ b breaks the preserved prefix a == b, so B1 is false and z() is unreachable."
+            },
+            {
+              "text": "a = 5, b = 5 — equal values",
+              "fraction": 0,
+              "feedback": "No — a = 5 fails the negated constraint a > 10, so B2 stays false."
+            },
+            {
+              "text": "a = 10, b = 10 — right at the boundary",
+              "fraction": 0,
+              "feedback": "No — a > 10 is strict; a = 10 fails it, so z() is not reached."
+            }
+          ],
+          "generalFeedback": "Flipping B2 forms (a == b) ∧ (a > 10): keep a == b, negate a ≤ 10 to a > 10. The pair a = 11, b = 11 satisfies both constraints and drives execution into z().",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why re-running the same input fails to explore",
+          "text": "<p>Why can't a concolic engine reach a new path by simply running the same concrete input again?</p>",
+          "answers": [
+            {
+              "text": "A deterministic program takes the same path for the same input, so a new path requires a new input from a negated-and-solved constraint",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly why the engine negates a branch and solves for a different input."
+            },
+            {
+              "text": "Re-running clears the symbolic state, losing the path condition",
+              "fraction": 0,
+              "feedback": "No — the reason is determinism: same input, same path; the engine must change the input to change the path."
+            },
+            {
+              "text": "The solver forbids reusing any concrete input",
+              "fraction": 0,
+              "feedback": "No — there is no such prohibition; the point is that the same input simply retraces the same path."
+            },
+            {
+              "text": "Repeated runs randomly pick different branches",
+              "fraction": 0,
+              "feedback": "No — a deterministic program does not pick branches randomly; identical input yields the identical path."
+            }
+          ],
+          "generalFeedback": "For a deterministic program, the concrete input fully determines the path taken. To explore a different path the engine must supply a different input — obtained by negating a branch on the recorded path condition and solving.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trace: order of inputs, depth-first",
+          "text": "<p>For <code>if (a) {...} if (b) {...}</code> (two independent branches), starting from a run with <code>a=false, b=false</code> and flipping the last branch first, which is a plausible order of path conditions the engine solves next?</p>",
+          "answers": [
+            {
+              "text": "First ¬a ∧ b (flip the last branch), then a ∧ ... (backtrack to flip the first)",
+              "fraction": 100,
+              "feedback": "Correct — depth-first flips the deepest branch (b) before backtracking to the earlier one (a)."
+            },
+            {
+              "text": "First a ∧ b only, ignoring the other combinations",
+              "fraction": 0,
+              "feedback": "No — depth-first explores more than one combination; it starts by flipping the last branch to ¬a ∧ b."
+            },
+            {
+              "text": "It solves ¬a ∧ ¬b, the same as the seed run",
+              "fraction": 0,
+              "feedback": "No — that is the already-covered seed path; the engine flips a branch to reach a new one."
+            },
+            {
+              "text": "It must flip both branches simultaneously first",
+              "fraction": 0,
+              "feedback": "No — each step flips exactly one branch; the deepest first under depth-first order."
+            }
+          ],
+          "generalFeedback": "Depth-first flips the last branch first: from ¬a ∧ ¬b it forms ¬a ∧ b, then after that subtree backtracks to flip the first branch (a ∧ ...). Each step negates a single branch while keeping the prefix.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concrete values keep the prefix consistent",
+          "text": "<p>When the engine negates the last branch, it keeps the earlier branch conditions unchanged so that the solved input still reaches that branch point.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — preserving the prefix ensures the new input actually reaches the flipped branch before diverging."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The prefix is preserved precisely so the new input follows the same route up to the flipped branch, then diverges there."
+            }
+          ],
+          "generalFeedback": "To reach a sibling of a deep branch, the input must first satisfy all the earlier decisions leading to it. So the engine keeps the prefix constraints and negates only the target branch, then solves the whole conjunction."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Concrete fallback for an external call",
+          "text": "<p>Consider:</p><pre><code>void r(int x) {\n  int h = opaque_hash(x);   // native/library, no symbolic model\n  if (h == 1234) win();     // B1\n}</code></pre><p>Where a pure symbolic engine gets stuck, how does concolic execution proceed at B1?</p>",
+          "answers": [
+            {
+              "text": "It substitutes the concrete value of h observed at runtime, so B1 becomes a concrete true/false and execution continues down a real path",
+              "fraction": 100,
+              "feedback": "Correct — the concrete run always has an actual h, so concolic keeps going where pure symbolic stalls on the unmodeled call."
+            },
+            {
+              "text": "It builds a full symbolic model of opaque_hash automatically",
+              "fraction": 0,
+              "feedback": "No — the call is opaque with no model; concolic sidesteps this by using the concrete observed value, not by modeling it."
+            },
+            {
+              "text": "It aborts, exactly like pure symbolic execution",
+              "fraction": 0,
+              "feedback": "No — the whole point of the concrete companion is to continue past the opaque call rather than abort."
+            },
+            {
+              "text": "It proves B1 unreachable",
+              "fraction": 0,
+              "feedback": "No — it does not prove anything about B1; it simply plugs in the concrete h and follows the resulting real path."
+            }
+          ],
+          "generalFeedback": "Because opaque_hash has no symbolic model, its symbolic result is unknown. Concolic execution uses the concrete value of h that the actual run produced, so B1 evaluates concretely and execution proceeds along a genuine path — the key advantage over pure symbolic execution, which would stall.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness cost of concrete fallback",
+          "text": "<p>When concolic execution substitutes a concrete value for an unsolvable/opaque term, what is the cost?</p>",
+          "answers": [
+            {
+              "text": "Incompleteness — by fixing that term to one concrete value, the engine may fail to explore other feasible paths that depend on it",
+              "fraction": 100,
+              "feedback": "Correct — the fallback keeps execution going but can hide paths reachable only for other values of the opaque term."
+            },
+            {
+              "text": "Unsoundness — it may report paths that cannot actually run",
+              "fraction": 0,
+              "feedback": "No — every run is concrete and real, so soundness of explored paths is preserved; the cost is missed paths (completeness)."
+            },
+            {
+              "text": "It always crashes the solver",
+              "fraction": 0,
+              "feedback": "No — substituting a concrete value simplifies the constraint; it does not crash the solver."
+            },
+            {
+              "text": "There is no cost; coverage is unaffected",
+              "fraction": 0,
+              "feedback": "No — pinning the opaque term to one value can prevent reaching alternative paths, an incompleteness cost."
+            }
+          ],
+          "generalFeedback": "Concrete fallback preserves soundness (paths explored are real) but sacrifices completeness: fixing an opaque term to the one observed concrete value can mask branches feasible only under other values of that term, so some paths may never be explored.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nonlinear constraint fallback",
+          "text": "<p>Consider:</p><pre><code>void s(int x, int y) {\n  if (x * y == 30)   // B1, nonlinear\n    t();\n}</code></pre><p>Run 1 uses <code>x = 6, y = 4</code> (so x*y = 24, B1 false). If the solver cannot handle the nonlinear flip, how can concolic still make progress?</p>",
+          "answers": [
+            {
+              "text": "Fix one variable to its concrete value (e.g. x = 6) so the constraint becomes linear (6*y == 30 → y = 5), then solve",
+              "fraction": 100,
+              "feedback": "Correct — pinning x to its concrete value linearises the constraint, letting the solver find y = 5 and reach t()."
+            },
+            {
+              "text": "Give up entirely, since nonlinear constraints are undecidable",
+              "fraction": 0,
+              "feedback": "No — concolic uses the concrete value of one operand to simplify to a solvable linear constraint rather than giving up."
+            },
+            {
+              "text": "Randomly guess both x and y until x*y == 30",
+              "fraction": 0,
+              "feedback": "No — the concolic approach pins one operand concretely and solves the resulting linear equation; that is the point of the concrete companion."
+            },
+            {
+              "text": "Modify the program to remove the multiplication",
+              "fraction": 0,
+              "feedback": "No — the program is never modified; the concrete value of x is substituted to simplify the constraint."
+            }
+          ],
+          "generalFeedback": "Concolic execution substitutes the concrete value of one operand (x = 6), turning x*y == 30 into the linear 6*y == 30, which the solver satisfies with y = 5. Running x = 6, y = 5 reaches t(). The cost is incompleteness: with x pinned to 6 it may miss solutions like x = 5, y = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Soundness vs completeness",
+          "text": "<p>Which statement correctly characterises concolic execution's guarantees?</p>",
+          "answers": [
+            {
+              "text": "The paths it explores are all real (sound), but it may miss some feasible paths (incomplete)",
+              "fraction": 100,
+              "feedback": "Correct — real concrete runs guarantee no false paths, while concrete fallback and bounding can leave paths unexplored."
+            },
+            {
+              "text": "It explores every feasible path (complete) but may report some that cannot run (unsound)",
+              "fraction": 0,
+              "feedback": "No — it is the opposite: sound on explored paths, but not guaranteed complete."
+            },
+            {
+              "text": "It is both fully sound and fully complete for all programs",
+              "fraction": 0,
+              "feedback": "No — path explosion and concrete fallback mean completeness is not guaranteed."
+            },
+            {
+              "text": "It is neither sound nor complete",
+              "fraction": 0,
+              "feedback": "No — because every explored path is a real execution, it is sound with respect to the paths it reports."
+            }
+          ],
+          "generalFeedback": "Every concolic step is a genuine concrete execution, so the paths it explores are real (soundness of explored paths — no false positives from infeasible paths). But concrete fallback for opaque/nonlinear terms and bounded search mean it may not reach every feasible path (incompleteness).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path explosion is managed, not eliminated",
+          "text": "<p>How does concolic execution relate to path explosion?</p>",
+          "answers": [
+            {
+              "text": "It still faces path explosion and manages it with a search strategy and iteration/depth limits, rather than eliminating it",
+              "fraction": 100,
+              "feedback": "Correct — concolic does not remove the exponential path growth; it bounds exploration to cope."
+            },
+            {
+              "text": "It eliminates path explosion entirely by using concrete inputs",
+              "fraction": 0,
+              "feedback": "No — using concrete inputs does not remove the exponential number of branch combinations; concolic still must bound its search."
+            },
+            {
+              "text": "It has no notion of paths, so path explosion does not apply",
+              "fraction": 0,
+              "feedback": "No — concolic explicitly explores paths by branch flipping, so path explosion very much applies."
+            },
+            {
+              "text": "Path explosion only affects random testing, not concolic",
+              "fraction": 0,
+              "feedback": "No — path explosion is a core challenge for all path-based techniques, concolic included."
+            }
+          ],
+          "generalFeedback": "Each branch flip can lead to more branches, so the number of paths still grows exponentially. Concolic manages this with search heuristics (depth-first, coverage-guided) and bounds on iterations, loop unrolling, or depth — but it does not eliminate path explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace: naming each next input (1)",
+          "text": "<p>Consider:</p><pre><code>void f(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b == a + 1)   // B2\n      target();\n}</code></pre><p>Seed run: <code>a = -1, b = 0</code> (B1 false). Under depth-first flipping, what is the input for the run that first makes B1 true (flipping B1)?</p>",
+          "answers": [
+            {
+              "text": "Any a > 0 with b unconstrained, e.g. a = 1, b = 0 — solving the single constraint a > 0",
+              "fraction": 100,
+              "feedback": "Correct — flipping B1 only imposes a > 0; B2 is not yet on the recorded path, so b is free (e.g. b = 0)."
+            },
+            {
+              "text": "a = 1, b = 2 — must already satisfy B2 as well",
+              "fraction": 0,
+              "feedback": "No — when flipping B1, only a > 0 is required; B2 has not been recorded yet, so b need not satisfy b == a + 1 at this step."
+            },
+            {
+              "text": "a = -1, b = 0 — reuse the seed",
+              "fraction": 0,
+              "feedback": "No — the seed has B1 false; flipping B1 requires a > 0, so the input must change."
+            },
+            {
+              "text": "No input works; a > 0 is unsatisfiable",
+              "fraction": 0,
+              "feedback": "No — a > 0 is trivially satisfiable, e.g. a = 1."
+            }
+          ],
+          "generalFeedback": "The seed took B1 false, so its path condition is just a ≤ 0. Negating it gives a > 0, the only constraint at this step (B2 was never reached). The solver returns any a > 0, e.g. a = 1, b = 0.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace: naming each next input (2)",
+          "text": "<p>Continuing the previous snippet, the run <code>a = 1, b = 0</code> now takes B1 true and B2 false (0 ≠ 2), with PC = <code>(a &gt; 0) ∧ (b ≠ a + 1)</code>. Flipping B2, which input reaches <code>target()</code>?</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 2 — keeps a > 0 and satisfies b == a + 1",
+              "fraction": 100,
+              "feedback": "Correct — preserve a > 0, negate b ≠ a + 1 to b == a + 1; with a = 1 that means b = 2."
+            },
+            {
+              "text": "a = 1, b = 1 — b unchanged from a step earlier",
+              "fraction": 0,
+              "feedback": "No — b must equal a + 1 = 2; b = 1 fails the flipped constraint."
+            },
+            {
+              "text": "a = 0, b = 1 — b == a + 1 holds",
+              "fraction": 0,
+              "feedback": "No — a = 0 breaks the preserved prefix a > 0, so B1 becomes false and target() is unreachable."
+            },
+            {
+              "text": "a = 2, b = 2 — both equal",
+              "fraction": 0,
+              "feedback": "No — with a = 2, b == a + 1 requires b = 3, not 2."
+            }
+          ],
+          "generalFeedback": "Flipping B2 gives (a > 0) ∧ (b == a + 1). Keeping a = 1 from the prefix, b must be a + 1 = 2. The input a = 1, b = 2 reaches target(). (The solver could also pick another a > 0 with matching b.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace: three iterations count",
+          "text": "<p>For the nested snippet <code>if (a &gt; 0) if (b == a + 1) target();</code>, starting from seed <code>a = -1, b = 0</code>, how many concolic runs (including the seed) are needed to first reach <code>target()</code>, flipping one branch per iteration depth-first?</p>",
+          "answers": [
+            {
+              "text": "3 — seed (B1 false), then B1 true/B2 false, then B1 true/B2 true reaching target()",
+              "fraction": 100,
+              "feedback": "Correct — one flip is needed to enter B1, another to satisfy B2, so the third run hits target()."
+            },
+            {
+              "text": "2 — the seed plus one flip reaches target()",
+              "fraction": 0,
+              "feedback": "No — the seed fails B1; one flip only makes B1 true (B2 still false), so a second flip is needed, giving three runs."
+            },
+            {
+              "text": "1 — the seed reaches target() directly",
+              "fraction": 0,
+              "feedback": "No — the seed has a = -1, failing B1 immediately, so it cannot reach target()."
+            },
+            {
+              "text": "4 — each nesting level doubles the runs",
+              "fraction": 0,
+              "feedback": "No — this particular path needs exactly two branch flips after the seed, i.e. three runs, not four."
+            }
+          ],
+          "generalFeedback": "Run 1 (seed a=-1): B1 false. Run 2 (a=1,b=0): flip B1 → B1 true, B2 false. Run 3 (a=1,b=2): flip B2 → both true, reaching target(). Three runs in total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bounding the search",
+          "text": "<p>To keep concolic exploration finite on a loop whose count depends on input, a common approach is to:</p>",
+          "answers": [
+            {
+              "text": "Impose a bound — e.g. a depth/iteration limit or bounded loop unrolling — accepting that paths beyond the bound go unexplored",
+              "fraction": 100,
+              "feedback": "Correct — bounding trades completeness for termination, a standard path-explosion control."
+            },
+            {
+              "text": "Negate every loop-body branch at once to cover all iterations in one run",
+              "fraction": 0,
+              "feedback": "No — a single run covers one path; loops are handled by bounding the exploration, not by simultaneous negation."
+            },
+            {
+              "text": "Prove the loop terminates and then skip it",
+              "fraction": 0,
+              "feedback": "No — skipping the loop would miss its behavior; the loop is bounded/unrolled instead."
+            },
+            {
+              "text": "Switch to pure symbolic execution, which has no path explosion",
+              "fraction": 0,
+              "feedback": "No — pure symbolic execution also suffers path explosion; switching does not solve it."
+            }
+          ],
+          "generalFeedback": "A symbolic loop count can spawn unboundedly many paths, so engines cap exploration with an iteration/depth limit or bounded unrolling (and search heuristics). This keeps the run finite at the price of not exploring paths beyond the bound — an accepted incompleteness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTE and pointer inputs",
+          "text": "<p>CUTE extended concolic testing to programs with pointers and dynamic data structures by:</p>",
+          "answers": [
+            {
+              "text": "Tracking a symbolic representation of the heap/pointer structure alongside concrete pointers, and solving pointer constraints (e.g. aliasing, null-ness) as well as scalar ones",
+              "fraction": 100,
+              "feedback": "Correct — CUTE handles both a logical input map for scalars and a structure for pointer inputs, using the concrete run to resolve what the solver cannot."
+            },
+            {
+              "text": "Forbidding all pointer inputs so only integers are tested",
+              "fraction": 0,
+              "feedback": "No — CUTE's contribution was precisely to support pointer and data-structure inputs, not to forbid them."
+            },
+            {
+              "text": "Converting the whole program to a pointer-free form before testing",
+              "fraction": 0,
+              "feedback": "No — CUTE reasons about pointers directly, using concrete values where symbolic reasoning is insufficient."
+            },
+            {
+              "text": "Running only pure symbolic execution on the heap",
+              "fraction": 0,
+              "feedback": "No — CUTE is concolic: it combines concrete pointer values with symbolic constraints, which is what makes heap inputs tractable."
+            }
+          ],
+          "generalFeedback": "CUTE (Concolic Unit Testing Engine) represents pointer inputs with a logical structure and generates both scalar values and pointer shapes (including aliasing and null cases). The concrete run provides real pointers to fall back on, letting it test functions over dynamic data structures.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concrete fallback preserves soundness",
+          "text": "<p>Even when concolic execution substitutes concrete values for terms the solver cannot handle, the paths it actually executes remain genuinely feasible (no false paths are introduced).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — substitution uses the value from a real run, so the resulting execution is still a real, feasible path."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Concrete fallback never fabricates a path; it uses observed values, so every executed path remains real. The tradeoff is missed paths, not false ones."
+            }
+          ],
+          "generalFeedback": "Because the substituted value comes from an actual execution, the path the engine then follows is one the program really can take. Soundness of explored paths is preserved; only completeness (some feasible paths may be skipped) is at risk."
+        },
+        {
+          "type": "multichoice",
+          "name": "Divergence when a constraint is approximated",
+          "text": "<p>Suppose concolic execution pins an opaque term to a concrete value and solves for a new input, but on re-running, execution takes a different branch than predicted (a \"divergence\"). What does the engine do?</p>",
+          "answers": [
+            {
+              "text": "It detects the divergence from the actual concrete run and records the real path taken, since the concrete execution is always the ground truth",
+              "fraction": 100,
+              "feedback": "Correct — the concrete run is authoritative, so a divergence is simply observed and the true path recorded, keeping the analysis sound."
+            },
+            {
+              "text": "It trusts the predicted path and ignores the actual run",
+              "fraction": 0,
+              "feedback": "No — the concrete run is ground truth; the engine records the path actually executed, not the predicted one."
+            },
+            {
+              "text": "It reports the predicted path as covered even though it was not taken",
+              "fraction": 0,
+              "feedback": "No — that would be unsound; the engine relies on the real run, which reveals the divergence."
+            },
+            {
+              "text": "It crashes because the prediction was wrong",
+              "fraction": 0,
+              "feedback": "No — divergence is handled gracefully by observing the actual concrete run and continuing."
+            }
+          ],
+          "generalFeedback": "Divergences can happen when a substituted/approximated term makes the solved input take an unexpected path. Because concolic always executes concretely, it observes the real path and records it — the concrete run is the ground truth, preserving soundness even when a prediction was off.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-branch trace with a concrete-fallback step",
+          "text": "<p>Consider:</p><pre><code>void w(int x) {\n  int t = external(x);   // opaque; run observed t = 3 for x = 2\n  if (x &gt; 0)             // B1\n    if (t == 3)          // B2, depends on opaque t\n      goal();\n}</code></pre><p>Run 1 uses <code>x = 2</code>: B1 true, and t = 3 so B2 true — <code>goal()</code> is reached. Is the path to goal() reported, and is it real?</p>",
+          "answers": [
+            {
+              "text": "Yes and yes — the concrete run actually reached goal(), so the path is reported and is genuinely feasible; B2 used the concrete t = 3",
+              "fraction": 100,
+              "feedback": "Correct — concolic uses the observed t, so goal() is really reached and soundly reported."
+            },
+            {
+              "text": "No — B2 depends on an opaque call, so concolic cannot report the path",
+              "fraction": 0,
+              "feedback": "No — concolic uses the concrete t = 3, so it evaluates B2 and really reaches goal(); the path is reported."
+            },
+            {
+              "text": "Yes but it may be a false path, since t is opaque",
+              "fraction": 0,
+              "feedback": "No — the run truly executed to goal(), so the path is real, not false; opacity affects completeness, not this run's reality."
+            },
+            {
+              "text": "The engine must abort at the opaque call",
+              "fraction": 0,
+              "feedback": "No — that is pure symbolic behavior; concolic proceeds using the observed t = 3."
+            }
+          ],
+          "generalFeedback": "The concrete run computed t = 3 from external(2) and really executed through B1 and B2 into goal(). Concolic reports this genuinely feasible path. What it cannot easily do is force B2 the other way for other x, since the relationship between x and t is opaque — an incompleteness, not an unsoundness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Search strategy choice",
+          "text": "<p>Why do concolic engines use search strategies (depth-first, coverage-guided, random path) rather than exhaustively exploring all paths?</p>",
+          "answers": [
+            {
+              "text": "Because the path space is exponential (path explosion), a strategy prioritises which branches to flip within a limited budget",
+              "fraction": 100,
+              "feedback": "Correct — with too many paths to try all, the strategy decides where to spend limited solver/run budget."
+            },
+            {
+              "text": "Because the solver can only answer one query per program",
+              "fraction": 0,
+              "feedback": "No — solvers answer many queries; the reason for strategies is the exponential number of paths."
+            },
+            {
+              "text": "Because concrete runs are not repeatable",
+              "fraction": 0,
+              "feedback": "No — concrete runs are repeatable; strategies exist to cope with the huge path space."
+            },
+            {
+              "text": "Because branch negation is impossible without a strategy",
+              "fraction": 0,
+              "feedback": "No — negation works regardless; a strategy just chooses which negation to pursue next given the path explosion."
+            }
+          ],
+          "generalFeedback": "Exhaustive exploration is infeasible because branches and loops make the path count exponential. Search strategies (depth-first, coverage-guided, generational, random-path) choose which branch to flip next so the limited budget of runs and solver calls targets useful, uncovered paths.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Concolic does not guarantee full coverage",
+          "text": "<p>Concolic execution guarantees that, given enough time, it will cover every feasible path of any program.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Incorrect — concrete fallback for opaque/nonlinear terms and bounding for loops mean some feasible paths may never be reached."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — concolic does not guarantee full path coverage; concrete fallback and bounded search can leave feasible paths unexplored."
+            }
+          ],
+          "generalFeedback": "Concolic execution manages path explosion with bounds and heuristics and falls back to concrete values for terms it cannot solve. Both can prevent it from reaching every feasible path, so full coverage is not guaranteed — though every path it does explore is real."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "concolic 是哪兩個字的合體",
+          "text": "<p><strong>concolic（並行具體符號）</strong>這個字是由哪兩個英文字合成的？</p>",
+          "answers": [
+            {
+              "text": "CONCrete（具體）＋ symbOLIC（符號）——程式以具體輸入實際執行，同時收集符號限制式",
+              "fraction": 100,
+              "feedback": "正確——concolic 執行同時做兩件事：真正的具體執行，加上符號路徑條件的追蹤。"
+            },
+            {
+              "text": "CONCurrent（並行）＋ symbOLIC（符號）——它平行執行許多符號執行緒",
+              "fraction": 0,
+              "feedback": "錯——「conc」指的是具體（concrete），不是並行；concolic 講的是結合具體與符號，而非平行處理。"
+            },
+            {
+              "text": "CONtrol（控制）＋ logICs（邏輯）——它靜態分析控制流邏輯",
+              "fraction": 0,
+              "feedback": "錯——concolic ＝ 具體＋符號；它是動態技術，不是靜態控制流分析。"
+            },
+            {
+              "text": "CONtext（情境）＋ symbOLIC（符號）——它只追蹤情境符號",
+              "fraction": 0,
+              "feedback": "錯——前半指的是具體（concrete），亦即與符號值並用的實際執行期數值。"
+            }
+          ],
+          "generalFeedback": "concolic ＝ CONCrete（具體）＋ symbOLIC（符號）。程式以一個實際的具體輸入執行，同時引擎沿著該具體執行所走的路徑記錄符號路徑條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體狀態與符號狀態",
+          "text": "<p>concolic 執行時，引擎會並排維護兩種狀態。它們是哪兩種？</p>",
+          "answers": [
+            {
+              "text": "具體狀態（實際驅動執行的數值）與符號狀態（對輸入符號的運算式／限制式）",
+              "fraction": 100,
+              "feedback": "正確——具體值挑出實際走的路徑，而符號狀態沿途記錄限制式。"
+            },
+            {
+              "text": "原始碼狀態與編譯後的二進位狀態",
+              "fraction": 0,
+              "feedback": "錯——這兩種狀態描述的是執行中程式的資料；一個是具體值，另一個是符號運算式。"
+            },
+            {
+              "text": "測試判準（oracle）的通過狀態與失敗狀態",
+              "fraction": 0,
+              "feedback": "錯——這兩種狀態是具體與符號；通過／失敗是另一回事。"
+            },
+            {
+              "text": "兩個各自獨立、用於統計抽樣的隨機狀態",
+              "fraction": 0,
+              "feedback": "錯——一個是真實的具體執行，另一個是符號限制式狀態；兩者不是彼此的隨機樣本。"
+            }
+          ],
+          "generalFeedback": "concolic 執行同時維護具體狀態（實際數值，會確定性地選出該次執行所走的路徑）與符號狀態（變數對運算式的對映，以及沿同一路徑累積的路徑條件）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "concolic 中的路徑條件",
+          "text": "<p>在 concolic 執行中，一次執行所記錄的<strong>路徑條件（path condition）</strong>是：</p>",
+          "answers": [
+            {
+              "text": "具體輸入實際驅動的那一條路徑上，所走各分支條件的連言（conjunction）",
+              "fraction": 100,
+              "feedback": "正確——因為一次具體執行只走一條路徑，路徑條件描述的就是那唯一被執行的路徑。"
+            },
+            {
+              "text": "程式中每條路徑之路徑條件的選言（disjunction）",
+              "fraction": 0,
+              "feedback": "錯——一次 concolic 執行只記錄具體輸入所走的那一條路徑，形式為其分支結果的連言。"
+            },
+            {
+              "text": "程式所含分支數量的計數",
+              "fraction": 0,
+              "feedback": "錯——路徑條件是對輸入的邏輯式，而非分支計數。"
+            },
+            {
+              "text": "程式回傳的具體輸出值",
+              "fraction": 0,
+              "feedback": "錯——它是沿被執行路徑對輸入的限制式，而非輸出。"
+            }
+          ],
+          "generalFeedback": "因為具體輸入恰好驅動一條路徑，引擎收集該路徑上所走的各分支條件，並將其連言成路徑條件——一個描述該被執行路徑、以符號輸入表示的邏輯式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支取反",
+          "text": "<p>一次 concolic 執行記錄了路徑條件之後，引擎如何嘗試抵達一條尚未涵蓋的新路徑？</p>",
+          "answers": [
+            {
+              "text": "把已記錄路徑條件中的某一個分支條件取反（negate），再請求解算器求出滿足此修改後限制式的輸入",
+              "fraction": 100,
+              "feedback": "正確——翻轉一個分支並求解，就能得到在該分支往另一方向走的具體輸入。"
+            },
+            {
+              "text": "移除該分支後重新編譯程式",
+              "fraction": 0,
+              "feedback": "錯——程式從不被修改；被更動並重新求解的是路徑條件。"
+            },
+            {
+              "text": "不斷用同一個具體輸入重跑，直到出現不同路徑",
+              "fraction": 0,
+              "feedback": "錯——確定性程式對同一輸入永遠走同一路徑；引擎是把分支取反並求出新輸入。"
+            },
+            {
+              "text": "一次把所有分支同時取反並整體求解",
+              "fraction": 0,
+              "feedback": "錯——標準做法每步只翻轉一個分支（通常是最後一個尚未取反的），並保留前綴後再求解。"
+            }
+          ],
+          "generalFeedback": "引擎挑出已記錄路徑上的一個分支條件，將它取反（保留其前面的限制式），把修改後的路徑條件交給解算器；其滿足解就是下一個具體輸入，會把執行驅動到手足路徑（sibling path）上。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "concolic 迴圈",
+          "text": "<p>下列哪個順序最能描述 concolic 測試迴圈的一次迭代？</p>",
+          "answers": [
+            {
+              "text": "以具體輸入執行 → 記錄路徑條件 → 取反一個分支 → 求解 → 解就是下一個具體輸入",
+              "fraction": 100,
+              "feedback": "正確——「具體執行／記錄／取反／求解」這個循環會反覆進行以探索新路徑。"
+            },
+            {
+              "text": "求解一個隨機限制式 → 編譯 → 執行 → 丟棄結果",
+              "fraction": 0,
+              "feedback": "錯——concolic 從具體執行開始，記錄真實路徑條件，然後取反並求解；沒有東西被丟棄，也不涉及編譯步驟。"
+            },
+            {
+              "text": "靜態列舉所有路徑 → 各自求解 → 挑最短的",
+              "fraction": 0,
+              "feedback": "錯——concolic 是動態的：一次驅動一個具體執行，並藉分支取反引導至新路徑。"
+            },
+            {
+              "text": "變異原始碼 → 重跑測試 → 量測覆蓋率",
+              "fraction": 0,
+              "feedback": "錯——那是變異測試；concolic 是取反分支條件並求輸入，程式碼保持不變。"
+            }
+          ],
+          "generalFeedback": "concolic 迴圈：選一個具體輸入（初期常為隨機）、執行它、記錄所走路徑的路徑條件、取反一個分支條件、求解修改後限制式以得到下一個具體輸入，然後重複——每次把執行驅動到新路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DART 的全名",
+          "text": "<p>最早的 concolic 工具之一 <strong>DART</strong>，其全名是：</p>",
+          "answers": [
+            {
+              "text": "Directed Automated Random Testing（導向式自動隨機測試）",
+              "fraction": 100,
+              "feedback": "正確——DART 利用符號路徑條件來「導向」隨機測試，以抵達新路徑。"
+            },
+            {
+              "text": "Dynamic Abstract Refinement Testing",
+              "fraction": 0,
+              "feedback": "錯——DART 的全名是 Directed Automated Random Testing。"
+            },
+            {
+              "text": "Deterministic Assertion Regression Tool",
+              "fraction": 0,
+              "feedback": "錯——DART 是 Directed Automated Random Testing，一個 concolic 引擎。"
+            },
+            {
+              "text": "Distributed Analysis of Runtime Traces",
+              "fraction": 0,
+              "feedback": "錯——DART 是 Directed Automated Random Testing。"
+            }
+          ],
+          "generalFeedback": "DART（Directed Automated Random Testing）從隨機具體輸入出發，利用收集到的符號路徑條件把後續輸入導向未涵蓋的分支——開創了 concolic 方法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTE 的全名",
+          "text": "<p>知名 concolic 工具 <strong>CUTE</strong> 的全名是：</p>",
+          "answers": [
+            {
+              "text": "Concolic Unit Testing Engine（並行具體符號單元測試引擎）",
+              "fraction": 100,
+              "feedback": "正確——CUTE 把 concolic 執行應用於單元測試，並能處理含指標的程式碼。"
+            },
+            {
+              "text": "Constraint-based Uniform Test Explorer",
+              "fraction": 0,
+              "feedback": "錯——CUTE 的全名是 Concolic Unit Testing Engine。"
+            },
+            {
+              "text": "Coverage Under Test Estimator",
+              "fraction": 0,
+              "feedback": "錯——CUTE 是 Concolic Unit Testing Engine。"
+            },
+            {
+              "text": "Combined Unit & Type Evaluator",
+              "fraction": 0,
+              "feedback": "錯——CUTE 是 Concolic Unit Testing Engine。"
+            }
+          ],
+          "generalFeedback": "CUTE（Concolic Unit Testing Engine）把 concolic 執行帶進 C 語言的單元測試，特別能藉結合具體與符號推理來處理指標／資料結構型的輸入。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "為何在符號狀態旁保留具體輸入",
+          "text": "<p>concolic 執行在符號狀態旁保留一個具體輸入，一個關鍵理由是：當某限制式無法求解（例如牽涉外部呼叫）時，引擎可以代入執行期觀察到的具體值並繼續下去。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——具體值是一個現成的後援，讓執行在純符號推理會卡住的地方仍能繼續。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這正是 concolic 執行的核心優勢之一：具體執行提供了一個真實值，可在符號項無法求解時代入。"
+            }
+          ],
+          "generalFeedback": "保留具體輸入意味著引擎對每個運算式都握有一個真實觀察值。當某符號項太難、非線性、或不透明（外部／原生呼叫）時，就代入具體值繼續執行——這是純符號執行做不到的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "第一個具體輸入",
+          "text": "<p>concolic 執行中，最初的那個具體輸入通常從何而來？</p>",
+          "answers": [
+            {
+              "text": "任意選取，常為隨機——迴圈隨後藉由求解「取反後的路徑條件」來精修後續輸入",
+              "fraction": 100,
+              "feedback": "正確——種子輸入可以是隨機的；引擎之後藉由導向式的分支翻轉來提升覆蓋率。"
+            },
+            {
+              "text": "必須是在任何執行之前，由解算器證明為最佳的值",
+              "fraction": 0,
+              "feedback": "錯——第一個輸入無需任何證明；它通常只是啟動迴圈的隨機種子。"
+            },
+            {
+              "text": "對每個輸入變數一律為零",
+              "fraction": 0,
+              "feedback": "錯——雖然可以用固定種子，但重點是第一個輸入是任意／隨機的，而非一定為零。"
+            },
+            {
+              "text": "先對整支程式做靜態分析後推導得出",
+              "fraction": 0,
+              "feedback": "錯——concolic 是動態的；它只是從一個具體（常為隨機）輸入開始，而非先做靜態前置分析。"
+            }
+          ],
+          "generalFeedback": "concolic 執行從一個任意、常為隨機的具體輸入起步（這就是 DART 名稱中的「Random」）。之後每個輸入都由「取反前一次執行路徑條件中的某分支並求解」得到。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "具體執行只走一條路徑",
+          "text": "<p>由於使用具體輸入，單次 concolic 執行（在確定性程式中）恰好走一條執行路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——具體值確定性地選出一條路徑；這正是為何一次執行只記錄單一路徑條件。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "確定性程式中的具體輸入恰好走一條路徑；concolic 只能在後續執行中藉由求解取反的限制式抵達其他路徑。"
+            }
+          ],
+          "generalFeedback": "每次 concolic 執行都是對具體值的真實執行，因此只走一條路徑並記錄該路徑的條件。跨迭代時才藉由分支取反與重新求解抵達新路徑，而非在單次執行中。"
+        },
+        {
+          "type": "multichoice",
+          "name": "解算器在 concolic 中的角色",
+          "text": "<p>在 concolic 迴圈中，限制式／SMT 解算器負責什麼？</p>",
+          "answers": [
+            {
+              "text": "求解修改後（部分取反）的路徑條件，以產生下一個具體輸入",
+              "fraction": 100,
+              "feedback": "正確——解算器的滿足解就成為下一次執行的具體輸入。"
+            },
+            {
+              "text": "以具體輸入執行程式",
+              "fraction": 0,
+              "feedback": "錯——執行程式是由（被插樁的）執行過程完成；解算器只從限制式算出輸入。"
+            },
+            {
+              "text": "判斷測試的輸出是否正確",
+              "fraction": 0,
+              "feedback": "錯——那是判準（oracle）的工作；解算器產生輸入，而非判定。"
+            },
+            {
+              "text": "量測測試套件的分支覆蓋率",
+              "fraction": 0,
+              "feedback": "錯——覆蓋率追蹤是另一回事；解算器把取反後的路徑條件轉成具體輸入。"
+            }
+          ],
+          "generalFeedback": "引擎取反一個分支後，把修改後的路徑條件交給解算器；其滿足解正是能把下一次執行驅動到新目標路徑的具體輸入（若該路徑不可行則回報 UNSAT）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "concolic 與純符號執行（一句話）",
+          "text": "<p>下列何者最能說明 concolic 執行與純符號執行的差異？</p>",
+          "answers": [
+            {
+              "text": "concolic 在符號狀態旁始終有一次真實的具體執行，因此當符號推理卡住時可代入具體值",
+              "fraction": 100,
+              "feedback": "正確——具體執行是安全網，讓 concolic 能越過無法求解的項繼續前進。"
+            },
+            {
+              "text": "concolic 從不使用解算器，純符號執行則總是使用",
+              "fraction": 0,
+              "feedback": "錯——concolic 也依賴解算器來翻轉分支；差別在於伴隨的那次具體執行。"
+            },
+            {
+              "text": "純符號執行會具體地執行程式，concolic 則不會",
+              "fraction": 0,
+              "feedback": "錯——恰好相反：concolic 會做真實的具體執行；純符號執行不會。"
+            },
+            {
+              "text": "concolic 保證完整路徑覆蓋，純符號執行則否",
+              "fraction": 0,
+              "feedback": "錯——兩者都不保證完整覆蓋；都面臨路徑爆炸。真正的差別是那個具體的伴隨執行。"
+            }
+          ],
+          "generalFeedback": "兩者都追蹤符號路徑條件並使用解算器。concolic 的差別在於同時進行的具體執行：當限制式無法求解、非線性、或牽涉不透明外部呼叫時，它提供一個可代入的真實值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "插樁的目的",
+          "text": "<p>concolic 工具對受測程式插樁（instrument），主要目的是：</p>",
+          "answers": [
+            {
+              "text": "在具體執行期間觀察所走的分支條件，並平行建構符號路徑條件",
+              "fraction": 100,
+              "feedback": "正確——插樁在真實執行的同時收集符號限制式。"
+            },
+            {
+              "text": "把程式拖慢，好讓解算器有時間思考",
+              "fraction": 0,
+              "feedback": "錯——插樁是為了在執行期間收集符號限制式，而非增加延遲。"
+            },
+            {
+              "text": "把所有分支換成隨機擲硬幣",
+              "fraction": 0,
+              "feedback": "錯——分支是被符號地觀察並記錄，而不是被隨機取代。"
+            },
+            {
+              "text": "把程式永久改寫成無錯誤的版本",
+              "fraction": 0,
+              "feedback": "錯——插樁只為分析記錄資訊，並不修正程式。"
+            }
+          ],
+          "generalFeedback": "程式被插樁後，具體輸入驅動執行時，引擎同時把每個分支條件符號化地記錄下來並累積路徑條件——這是「取反再求解」步驟的原料。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "所探索的路徑都是真實的",
+          "text": "<p>concolic 執行所探索的每一條路徑都對應一次以具體輸入進行的真實執行，因此它不會回報任何虛假（不可行）的路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每一步 concolic 都是一次真實的具體執行，因此它回報的路徑確實可執行（這就是它對「所探索路徑」的健全性）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "因為每條被探索的路徑都由真正執行的具體輸入驅動，concolic 執行不會製造出不可行的路徑。"
+            }
+          ],
+          "generalFeedback": "concolic 執行實際以每個產生的具體輸入執行程式，所以它回報為已探索的任何路徑都是真正可行的。它的限制在於完整性（可能漏掉某些路徑），而非其所探索路徑的健全性。"
+        },
+        {
+          "type": "multichoice",
+          "name": "是什麼挑選一次執行所走的路徑",
+          "text": "<p>在單次 concolic 執行中，是什麼決定了程式被走過的那唯一一條路徑？</p>",
+          "answers": [
+            {
+              "text": "具體輸入值——它們被真正執行，並確定性地選出每個分支的走向",
+              "fraction": 100,
+              "feedback": "正確——具體狀態驅動真實執行，因而固定了路徑；符號狀態只是記錄它。"
+            },
+            {
+              "text": "解算器——它在執行開始前就選好路徑",
+              "fraction": 0,
+              "feedback": "錯——在一次執行內是具體值挑出路徑；解算器只為未來的執行算出輸入。"
+            },
+            {
+              "text": "路徑條件——它強制執行走向某個選定分支",
+              "fraction": 0,
+              "feedback": "錯——路徑條件是從執行中被記錄下來的；它不會操控當前的具體執行。"
+            },
+            {
+              "text": "在每個分支所做的隨機選擇",
+              "fraction": 0,
+              "feedback": "錯——分支是由具體值決定，而非執行期間的隨機。"
+            }
+          ],
+          "generalFeedback": "具體輸入被真正執行，因此在每個分支由具體值判定真／假，從而固定了所走的唯一路徑。符號面只是記錄該路徑的條件，供之後的分支取反使用。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "追蹤：單一 if，記錄路徑條件",
+          "text": "<p>考慮：</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>concolic 執行以具體輸入 <code>x = 0</code> 開始。這次執行記錄的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "x ≤ 5（B1 的假側，因為 0 > 5 為假）",
+              "fraction": 100,
+              "feedback": "正確——x = 0 使 x > 5 為假，故執行走假分支並記錄 x ≤ 5。"
+            },
+            {
+              "text": "x > 5（B1 的真側）",
+              "fraction": 0,
+              "feedback": "錯——x = 0 不滿足 x > 5，故執行走假分支並記錄 x ≤ 5，而非 x > 5。"
+            },
+            {
+              "text": "x == 0（具體值本身）",
+              "fraction": 0,
+              "feedback": "錯——路徑條件記錄的是分支走向（x ≤ 5），而非所用的具體值。"
+            },
+            {
+              "text": "true（沒有限制式，因為沒有走任何分支）",
+              "fraction": 0,
+              "feedback": "錯——分支 B1 有被求值；其假走向貢獻了限制式 x ≤ 5。"
+            }
+          ],
+          "generalFeedback": "當 x = 0 時，條件 x > 5 求值為假，故執行走假分支。引擎記錄它所滿足的條件，也就是它未走之分支條件的否定：x ≤ 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：取反並求解下一個輸入",
+          "text": "<p>同一段程式：</p><pre><code>void f(int x) {\n  if (x &gt; 5) error();   // branch B1\n}</code></pre><p>第一次執行用 <code>x = 0</code> 並記錄 <code>x ≤ 5</code>。為了涵蓋 B1 的另一側，引擎將其取反。解算器可能回傳下列哪個具體輸入？</p>",
+          "answers": [
+            {
+              "text": "x = 6（任何滿足取反後限制式 x > 5 的值）",
+              "fraction": 100,
+              "feedback": "正確——把 x ≤ 5 取反得 x > 5，x = 6 滿足它，會把執行驅動進 error()。"
+            },
+            {
+              "text": "x = 5",
+              "fraction": 0,
+              "feedback": "錯——5 > 5 為假，故 x = 5 仍走假分支，無法涵蓋另一側。"
+            },
+            {
+              "text": "x = -1",
+              "fraction": 0,
+              "feedback": "錯——-1 不滿足 x > 5；它會重走已涵蓋的假分支。"
+            },
+            {
+              "text": "不存在這樣的輸入；取反後的限制式無法滿足",
+              "fraction": 0,
+              "feedback": "錯——x > 5 很容易滿足（例如 x = 6），故該路徑可行。"
+            }
+          ],
+          "generalFeedback": "把已記錄的限制式 x ≤ 5 取反得 x > 5。解算器回傳任一滿足值（例如 x = 6），它成為下一個具體輸入並把執行驅動進 error()。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：等式守衛",
+          "text": "<p>考慮：</p><pre><code>void g(int x) {\n  if (x == 42) bug();   // branch B1\n}</code></pre><p>執行以 <code>x = 7</code> 開始（故 B1 為假，PC 為 <code>x ≠ 42</code>）。取反 B1 會得到什麼下一個輸入？</p>",
+          "answers": [
+            {
+              "text": "x = 42——把 x ≠ 42 取反得 x == 42，其唯一解為 42",
+              "fraction": 100,
+              "feedback": "正確——解算器算出確切值 42，立即抵達 bug()。"
+            },
+            {
+              "text": "x = 43——任何鄰近值皆可",
+              "fraction": 0,
+              "feedback": "錯——取反後的限制式是等式 x == 42，故 43 不滿足；只有 42 可以。"
+            },
+            {
+              "text": "x = 7——沿用同一輸入",
+              "fraction": 0,
+              "feedback": "錯——x = 7 走的是已涵蓋的假分支；引擎會對翻轉後的等式求解得到 42。"
+            },
+            {
+              "text": "無解；等式無法被取反",
+              "fraction": 0,
+              "feedback": "錯——把 x ≠ 42 取反就是 x == 42，解算器以 x = 42 滿足之。"
+            }
+          ],
+          "generalFeedback": "第一次執行的限制式是 x ≠ 42；取反得 x == 42。解算器回傳恰為 x = 42——這是 concolic／符號推理勝過隨機測試的典型情形，隨機測試幾乎不可能猜中 42。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：要取反哪個分支（DFS）",
+          "text": "<p>某次執行依序走了分支 <code>[B1: true, B2: true]</code>，得到路徑條件 <code>c1 ∧ c2</code>。採用常見的深度優先策略（先翻轉最後一個尚未取反的分支），下一個要求解的路徑條件是什麼？</p>",
+          "answers": [
+            {
+              "text": "c1 ∧ ¬c2——保留前綴 c1，取反最後一個分支 c2",
+              "fraction": 100,
+              "feedback": "正確——深度優先先翻轉最深（最後）的分支，同時保留較早的決策。"
+            },
+            {
+              "text": "¬c1 ∧ c2——取反第一個分支，保留第二個",
+              "fraction": 0,
+              "feedback": "錯——那是先翻轉 B1；深度優先會先取反最後的分支（c2），再回溯到較早者。"
+            },
+            {
+              "text": "¬c1 ∧ ¬c2——把兩個分支都取反",
+              "fraction": 0,
+              "feedback": "錯——每步恰好取反一個分支；這裡是最後那個，得 c1 ∧ ¬c2。"
+            },
+            {
+              "text": "c1 ∧ c2——重新求解相同條件",
+              "fraction": 0,
+              "feedback": "錯——重解相同條件只會重走同一路徑；引擎翻轉 c2 以抵達新路徑。"
+            }
+          ],
+          "generalFeedback": "深度優先探索會取反最後一個尚未取反的分支條件，同時保持前綴不變：從 c1 ∧ c2 形成 c1 ∧ ¬c2。只有在窮盡 c1 前綴的子樹後，才回溯翻轉 c1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：兩個分支，下一個輸入",
+          "text": "<p>考慮：</p><pre><code>void h(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b &gt; 0)        // B2\n      target();\n}</code></pre><p>執行 1 用 <code>a = 1, b = -1</code>：B1 真、B2 假，PC = <code>(a &gt; 0) ∧ (b ≤ 0)</code>。翻轉最後的分支（B2），哪個輸入能抵達 <code>target()</code>？</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 1——滿足 (a > 0) ∧ (b > 0)",
+              "fraction": 100,
+              "feedback": "正確——保留 a > 0 並把 b ≤ 0 取反為 b > 0，即得抵達 target() 的路徑；a = 1, b = 1 可行。"
+            },
+            {
+              "text": "a = -1, b = 1——滿足 b > 0",
+              "fraction": 0,
+              "feedback": "錯——a = -1 不滿足 a > 0，故 B1 為假、永遠到不了 target()；前綴 a > 0 必須保留。"
+            },
+            {
+              "text": "a = 1, b = 0——b 非負",
+              "fraction": 0,
+              "feedback": "錯——b > 0 要求 b 嚴格為正；b = 0 不滿足，故 B2 仍為假。"
+            },
+            {
+              "text": "a = 0, b = 0——兩者皆零",
+              "fraction": 0,
+              "feedback": "錯——a = 0 不滿足 a > 0；取反後的限制式保留前綴 a > 0 並把 b 翻轉為 b > 0。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 形成 (a > 0) ∧ (b > 0)：前綴 a > 0 被保留，b ≤ 0 被取反為 b > 0。解算器回傳任一滿足對，例如 a = 1, b = 1，把執行驅動進 target()。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：分支前的指派",
+          "text": "<p>考慮：</p><pre><code>void k(int x) {\n  int y = x + 3;\n  if (y == 10) hit();   // B1\n}</code></pre><p>執行 1 用 <code>x = 0</code>（故 y = 3，B1 假）。取反 B1，解算器回傳的下一個輸入是什麼？</p>",
+          "answers": [
+            {
+              "text": "x = 7——對輸入的限制式是 x + 3 == 10",
+              "fraction": 100,
+              "feedback": "正確——y 是運算式 x + 3，故 B1 變成 x + 3 == 10，得 x = 7。"
+            },
+            {
+              "text": "x = 10——分支測的是 == 10",
+              "fraction": 0,
+              "feedback": "錯——分支測的是 y == 10，而 y = x + 3，故對輸入的限制式是 x + 3 == 10，即 x = 7。"
+            },
+            {
+              "text": "x = 3——與第一次算出的 y 相符",
+              "fraction": 0,
+              "feedback": "錯——x = 3 使 y = 6，不是 10；解 x + 3 == 10 得 x = 7。"
+            },
+            {
+              "text": "y = 10——把 y 當成自由輸入",
+              "fraction": 0,
+              "feedback": "錯——y 不是輸入；它是運算式 x + 3，必須代入，得 x = 7。"
+            }
+          ],
+          "generalFeedback": "符號狀態記錄 y = x + 3，故分支 y == 10 就是對實際輸入 x 的限制式 x + 3 == 10。取反假走向並求解得 x = 7。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單情形下 concolic 與純符號的比較",
+          "text": "<p>對於 <code>if (x &gt; 5) error();</code> 這個可求解的線性守衛，concolic 與純符號執行在抵達 <code>error()</code> 上如何比較？</p>",
+          "answers": [
+            {
+              "text": "兩者都能抵達——各自求解 x > 5（concolic 是在其第一次具體執行後取反分支）——具體伴隨執行只在限制式無法求解時才有差別",
+              "fraction": 100,
+              "feedback": "正確——在簡單可解的守衛上兩者行為相近；具體後援只在難／不透明限制式時才拉開差距。"
+            },
+            {
+              "text": "只有純符號能抵達；concolic 無法求解不等式",
+              "fraction": 0,
+              "feedback": "錯——concolic 使用同一個解算器，藉取反分支並求解就能輕鬆處理 x > 5。"
+            },
+            {
+              "text": "只有 concolic 能抵達；純符號無法求解不等式",
+              "fraction": 0,
+              "feedback": "錯——純符號能處理線性不等式；此處兩者都能抵達 error()。"
+            },
+            {
+              "text": "兩者都無法抵達，除非隨機碰運氣",
+              "fraction": 0,
+              "feedback": "錯——兩者都能精確求解 x > 5；簡單線性限制式無需運氣。"
+            }
+          ],
+          "generalFeedback": "當所有限制式都可求解時，concolic 與純符號抵達相同路徑；兩者都直接解出 x > 5。具體值後援只有在限制式為非線性、無法求解、或牽涉不透明外部呼叫時才會起決定性作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：記錄所走的走向",
+          "text": "<p>考慮：</p><pre><code>void m(int x) {\n  if (x &lt; 100) a();   // B1\n  else b();\n}</code></pre><p>具體執行用 <code>x = 250</code>。引擎會把哪個文字式（literal）連言進 B1 的路徑條件？</p>",
+          "answers": [
+            {
+              "text": "x ≥ 100——執行走了 else 分支，故所滿足的條件是 x < 100 的否定",
+              "fraction": 100,
+              "feedback": "正確——當 x = 250 時守衛 x < 100 為假，故記錄的文字式是 x ≥ 100。"
+            },
+            {
+              "text": "x < 100——分支的書面條件",
+              "fraction": 0,
+              "feedback": "錯——對 x = 250 而言書面條件為假；引擎記錄的是實際所走的走向 x ≥ 100。"
+            },
+            {
+              "text": "x == 250——具體值",
+              "fraction": 0,
+              "feedback": "錯——路徑條件記錄的是分支走向（x ≥ 100），而非具體數字。"
+            },
+            {
+              "text": "沒有——else 分支不貢獻任何限制式",
+              "fraction": 0,
+              "feedback": "錯——走 else 分支會把被否定的守衛 x ≥ 100 貢獻進路徑條件。"
+            }
+          ],
+          "generalFeedback": "路徑條件永遠記錄實際所走的走向。當 x = 250 時守衛 x < 100 為假，故引擎把它的否定 x ≥ 100 連言進路徑條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：無法滿足的翻轉會被略過",
+          "text": "<p>考慮：</p><pre><code>void p(int x) {\n  if (x &gt; 0)        // B1\n    if (x &lt; 0)      // B2\n      dead();\n}</code></pre><p>執行 1 用 <code>x = 5</code>：B1 真、B2 假，PC = <code>(x &gt; 0) ∧ (x ≥ 0)</code>。當引擎翻轉 B2 以嘗試抵達 <code>dead()</code> 時，會發生什麼？</p>",
+          "answers": [
+            {
+              "text": "翻轉後的條件 (x > 0) ∧ (x < 0) 為 UNSAT，故解算器回傳無解，引擎略過該不可行路徑",
+              "fraction": 100,
+              "feedback": "正確——沒有 x 同時為正又為負，故 dead() 不可達，正確地不產生任何測試。"
+            },
+            {
+              "text": "解算器回傳 x = 0，抵達 dead()",
+              "fraction": 0,
+              "feedback": "錯——x = 0 既不滿足 x > 0 也不滿足 x < 0；此連言無法滿足。"
+            },
+            {
+              "text": "引擎代入一個具體值，仍然抵達 dead()",
+              "fraction": 0,
+              "feedback": "錯——具體後援是用於無法求解／不透明的項，而非對一個乾淨的 UNSAT 線性限制式；該路徑確實不可行。"
+            },
+            {
+              "text": "程式被修改以使該路徑變為可行",
+              "fraction": 0,
+              "feedback": "錯——concolic 從不修改程式；UNSAT 的翻轉就只是得不到輸入。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 並保留前綴得 (x > 0) ∧ (x < 0)，此為 UNSAT。解算器回報無解，故引擎略過這條不可行路徑——dead() 正確地永不被鎖定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：涵蓋兩分支需幾次執行",
+          "text": "<p>對於單一 <code>if (x &gt; 5) A(); else B();</code>（兩側皆可行），從一個任意具體輸入開始，需要幾次 concolic 執行才能涵蓋兩個分支？</p>",
+          "answers": [
+            {
+              "text": "2——一次執行涵蓋種子所走的分支；取反它並求解得到第二個輸入，涵蓋另一側",
+              "fraction": 100,
+              "feedback": "正確——一次種子執行加一次取反求解執行，即可涵蓋兩側。"
+            },
+            {
+              "text": "1——單次執行即涵蓋兩個分支",
+              "fraction": 0,
+              "feedback": "錯——一次具體執行只走一側；另一側需要來自取反限制式的第二個輸入。"
+            },
+            {
+              "text": "4——每個分支都需要兩次執行",
+              "fraction": 0,
+              "feedback": "錯——單一雙向分支總共只需兩次執行，每側一次。"
+            },
+            {
+              "text": "無上限——隨機種子可能永遠碰不到兩側",
+              "fraction": 0,
+              "feedback": "錯——concolic 是導向式的：它確定性地求解取反限制式，故兩次執行即足夠。"
+            }
+          ],
+          "generalFeedback": "種子執行涵蓋其具體值所走的那一側。取反該分支並求解得到第二個輸入，涵蓋相反側。兩次執行涵蓋兩分支——這正是 concolic 有別於盲目隨機測試的導向性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：複合守衛，下一個輸入",
+          "text": "<p>某分支在執行 1 所記錄（已滿足）的條件為 <code>(x + y &lt; 4)</code>。將其取反後，解算器會接受哪個輸入對？</p>",
+          "answers": [
+            {
+              "text": "x = 3, y = 3——滿足取反後的 x + y ≥ 4",
+              "fraction": 100,
+              "feedback": "正確——3 + 3 = 6 ≥ 4，故此對會走翻轉後的分支。"
+            },
+            {
+              "text": "x = 1, y = 1——小值",
+              "fraction": 0,
+              "feedback": "錯——1 + 1 = 2 < 4，仍滿足原條件，而非其否定。"
+            },
+            {
+              "text": "x = 0, y = 3——和為 3",
+              "fraction": 0,
+              "feedback": "錯——0 + 3 = 3 < 4，不滿足取反後的限制式 x + y ≥ 4。"
+            },
+            {
+              "text": "x = 2, y = 1——和為 3",
+              "fraction": 0,
+              "feedback": "錯——2 + 1 = 3 < 4，故仍停留在原分支。"
+            }
+          ],
+          "generalFeedback": "把 x + y < 4 取反得 x + y ≥ 4。只有 x = 3, y = 3（和為 6）滿足它；其餘選項的和都小於 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：保留前綴、翻轉較深分支的輸入",
+          "text": "<p>考慮：</p><pre><code>void q(int a, int b) {\n  if (a == b)       // B1\n    if (a &gt; 10)     // B2\n      z();\n}</code></pre><p>執行 1 用 <code>a = 3, b = 3</code>：B1 真、B2 假，PC = <code>(a == b) ∧ (a ≤ 10)</code>。翻轉 B2 以抵達 <code>z()</code>，哪個輸入可行？</p>",
+          "answers": [
+            {
+              "text": "a = 11, b = 11——保留 a == b 並滿足 a > 10",
+              "fraction": 100,
+              "feedback": "正確——前綴 a == b 被保留，a ≤ 10 被取反為 a > 10；a = b = 11 兩者皆滿足。"
+            },
+            {
+              "text": "a = 11, b = 3——a > 10 成立",
+              "fraction": 0,
+              "feedback": "錯——a ≠ b 破壞了被保留的前綴 a == b，故 B1 為假、z() 不可達。"
+            },
+            {
+              "text": "a = 5, b = 5——相等值",
+              "fraction": 0,
+              "feedback": "錯——a = 5 不滿足取反後的限制式 a > 10，故 B2 仍為假。"
+            },
+            {
+              "text": "a = 10, b = 10——正好在邊界",
+              "fraction": 0,
+              "feedback": "錯——a > 10 為嚴格；a = 10 不滿足，故到不了 z()。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 形成 (a == b) ∧ (a > 10)：保留 a == b，取反 a ≤ 10 為 a > 10。輸入對 a = 11, b = 11 兩個限制式皆滿足，把執行驅動進 z()。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何重跑同一輸入無法探索",
+          "text": "<p>為什麼 concolic 引擎不能單靠再跑一次同樣的具體輸入來抵達新路徑？</p>",
+          "answers": [
+            {
+              "text": "確定性程式對同一輸入走同一路徑，故新路徑需要一個由「取反並求解限制式」得到的新輸入",
+              "fraction": 100,
+              "feedback": "正確——這正是引擎取反一個分支並求出不同輸入的原因。"
+            },
+            {
+              "text": "重跑會清空符號狀態，遺失路徑條件",
+              "fraction": 0,
+              "feedback": "錯——真正原因是確定性：同一輸入、同一路徑；引擎必須改變輸入才能改變路徑。"
+            },
+            {
+              "text": "解算器禁止重複使用任何具體輸入",
+              "fraction": 0,
+              "feedback": "錯——並無此禁令；重點是同一輸入只會重走同一路徑。"
+            },
+            {
+              "text": "重複執行會隨機挑到不同分支",
+              "fraction": 0,
+              "feedback": "錯——確定性程式不會隨機挑分支；相同輸入產生相同路徑。"
+            }
+          ],
+          "generalFeedback": "對確定性程式而言，具體輸入完全決定所走的路徑。要探索不同路徑，引擎必須提供不同輸入——由取反已記錄路徑條件中的某分支並求解得到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "追蹤：深度優先下的輸入順序",
+          "text": "<p>對於 <code>if (a) {...} if (b) {...}</code>（兩個獨立分支），從一次 <code>a=false, b=false</code> 的執行開始，且先翻轉最後一個分支，引擎接著求解的路徑條件的合理順序是？</p>",
+          "answers": [
+            {
+              "text": "先 ¬a ∧ b（翻轉最後的分支），再 a ∧ ...（回溯翻轉第一個）",
+              "fraction": 100,
+              "feedback": "正確——深度優先先翻轉最深的分支（b），再回溯到較早者（a）。"
+            },
+            {
+              "text": "只有 a ∧ b，忽略其他組合",
+              "fraction": 0,
+              "feedback": "錯——深度優先會探索不只一種組合；它先翻轉最後分支得 ¬a ∧ b。"
+            },
+            {
+              "text": "它求解 ¬a ∧ ¬b，與種子執行相同",
+              "fraction": 0,
+              "feedback": "錯——那是已涵蓋的種子路徑；引擎會翻轉一個分支以抵達新路徑。"
+            },
+            {
+              "text": "它必須先同時翻轉兩個分支",
+              "fraction": 0,
+              "feedback": "錯——每步恰好翻轉一個分支；深度優先下先翻最深者。"
+            }
+          ],
+          "generalFeedback": "深度優先先翻轉最後的分支：從 ¬a ∧ ¬b 形成 ¬a ∧ b，待該子樹探索完後回溯翻轉第一個分支（a ∧ ...）。每步只取反單一分支並保留前綴。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "具體值使前綴保持一致",
+          "text": "<p>當引擎取反最後一個分支時，它會保持較早的分支條件不變，好讓求得的輸入仍能抵達那個分支點。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——保留前綴確保新輸入在分歧前確實抵達被翻轉的分支。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "保留前綴正是為了讓新輸入沿同一路線走到被翻轉的分支，再在該處分歧。"
+            }
+          ],
+          "generalFeedback": "要抵達某個深層分支的手足路徑，輸入必須先滿足通往它的所有較早決策。因此引擎保留前綴限制式、只取反目標分支，再求解整個連言。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "對外部呼叫的具體後援",
+          "text": "<p>考慮：</p><pre><code>void r(int x) {\n  int h = opaque_hash(x);   // native/library, no symbolic model\n  if (h == 1234) win();     // B1\n}</code></pre><p>在純符號引擎會卡住之處，concolic 執行如何在 B1 繼續前進？</p>",
+          "answers": [
+            {
+              "text": "代入執行期觀察到的 h 具體值，使 B1 變成具體的真／假，執行沿一條真實路徑繼續",
+              "fraction": 100,
+              "feedback": "正確——具體執行永遠有一個實際的 h，故 concolic 能在純符號會卡住的不可建模呼叫處繼續。"
+            },
+            {
+              "text": "它自動為 opaque_hash 建立完整的符號模型",
+              "fraction": 0,
+              "feedback": "錯——該呼叫不透明且無模型；concolic 是用具體觀察值繞過它，而非建模。"
+            },
+            {
+              "text": "它像純符號執行一樣中止",
+              "fraction": 0,
+              "feedback": "錯——具體伴隨值的重點正是要越過不透明呼叫繼續，而不是中止。"
+            },
+            {
+              "text": "它證明 B1 不可達",
+              "fraction": 0,
+              "feedback": "錯——它並不對 B1 做任何證明；它只是代入具體 h 並沿由此得到的真實路徑走。"
+            }
+          ],
+          "generalFeedback": "因為 opaque_hash 沒有符號模型，其符號結果未知。concolic 執行使用真實執行所產生的 h 具體值，故 B1 具體地求值、執行沿一條真正路徑前進——這正是相較於純符號執行（會卡住）的關鍵優勢。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體後援的完整性代價",
+          "text": "<p>當 concolic 執行對某個無法求解／不透明的項代入具體值時，代價是什麼？</p>",
+          "answers": [
+            {
+              "text": "不完整（incompleteness）——把該項固定為單一具體值，引擎可能無法探索其他依賴它的可行路徑",
+              "fraction": 100,
+              "feedback": "正確——後援讓執行能繼續，但可能隱藏那些只在該不透明項取其他值時才可達的路徑。"
+            },
+            {
+              "text": "不健全（unsoundness）——它可能回報實際上跑不到的路徑",
+              "fraction": 0,
+              "feedback": "錯——每次執行都是具體且真實的，故所探索路徑的健全性得以保持；代價是漏掉路徑（完整性）。"
+            },
+            {
+              "text": "它總是使解算器當機",
+              "fraction": 0,
+              "feedback": "錯——代入具體值會簡化限制式，不會使解算器當機。"
+            },
+            {
+              "text": "沒有代價；覆蓋率不受影響",
+              "fraction": 0,
+              "feedback": "錯——把不透明項釘死在單一值可能妨礙抵達其他路徑，這是不完整的代價。"
+            }
+          ],
+          "generalFeedback": "具體後援保持健全性（所探索路徑皆為真實），但犧牲完整性：把不透明項固定為所觀察到的唯一具體值，可能遮蔽只在該項取其他值時才可行的分支，因此某些路徑可能永不被探索。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非線性限制式的後援",
+          "text": "<p>考慮：</p><pre><code>void s(int x, int y) {\n  if (x * y == 30)   // B1, nonlinear\n    t();\n}</code></pre><p>執行 1 用 <code>x = 6, y = 4</code>（故 x*y = 24，B1 假）。若解算器無法處理這個非線性翻轉，concolic 仍能如何取得進展？</p>",
+          "answers": [
+            {
+              "text": "把其中一個變數固定為其具體值（例如 x = 6），使限制式變為線性（6*y == 30 → y = 5），再求解",
+              "fraction": 100,
+              "feedback": "正確——把 x 釘為具體值使限制式線性化，讓解算器求出 y = 5 並抵達 t()。"
+            },
+            {
+              "text": "直接放棄，因為非線性限制式不可判定",
+              "fraction": 0,
+              "feedback": "錯——concolic 是用其中一個運算元的具體值把式子簡化為可解的線性限制式，而非放棄。"
+            },
+            {
+              "text": "隨機亂猜 x 與 y，直到 x*y == 30",
+              "fraction": 0,
+              "feedback": "錯——concolic 的做法是把一個運算元具體釘死，再求解由此得到的線性方程；這正是具體伴隨的意義。"
+            },
+            {
+              "text": "修改程式以移除乘法",
+              "fraction": 0,
+              "feedback": "錯——程式從不被修改；是代入 x 的具體值來簡化限制式。"
+            }
+          ],
+          "generalFeedback": "concolic 執行代入其中一個運算元的具體值（x = 6），把 x*y == 30 化為線性的 6*y == 30，解算器以 y = 5 滿足之。以 x = 6, y = 5 執行即抵達 t()。代價是不完整：把 x 釘為 6 可能漏掉如 x = 5, y = 6 之類的解。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "健全性與完整性",
+          "text": "<p>下列何者正確刻畫 concolic 執行的保證？</p>",
+          "answers": [
+            {
+              "text": "它所探索的路徑都是真實的（健全），但可能漏掉某些可行路徑（不完整）",
+              "fraction": 100,
+              "feedback": "正確——真實的具體執行保證沒有虛假路徑，而具體後援與界限設定則可能使某些路徑未被探索。"
+            },
+            {
+              "text": "它會探索每一條可行路徑（完整），但可能回報一些跑不到的路徑（不健全）",
+              "fraction": 0,
+              "feedback": "錯——恰好相反：對所探索路徑是健全的，但不保證完整。"
+            },
+            {
+              "text": "對所有程式它既完全健全又完全完整",
+              "fraction": 0,
+              "feedback": "錯——路徑爆炸與具體後援意味著完整性無法保證。"
+            },
+            {
+              "text": "它既不健全也不完整",
+              "fraction": 0,
+              "feedback": "錯——因為每條被探索的路徑都是真實執行，它對其回報的路徑是健全的。"
+            }
+          ],
+          "generalFeedback": "每一步 concolic 都是真正的具體執行，故其所探索的路徑皆為真實（對所探索路徑的健全性——不會因不可行路徑而產生誤報）。但對不透明／非線性項的具體後援與有界搜尋，意味著它可能無法抵達每條可行路徑（不完整）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "路徑爆炸是被管理，而非被消除",
+          "text": "<p>concolic 執行與路徑爆炸的關係為何？</p>",
+          "answers": [
+            {
+              "text": "它仍面臨路徑爆炸，並以搜尋策略與迭代／深度界限來管理它，而非消除它",
+              "fraction": 100,
+              "feedback": "正確——concolic 不會移除指數級的路徑成長；它以界限搜尋來因應。"
+            },
+            {
+              "text": "它藉由使用具體輸入而完全消除路徑爆炸",
+              "fraction": 0,
+              "feedback": "錯——使用具體輸入並不會移除指數級的分支組合數；concolic 仍須對搜尋設界。"
+            },
+            {
+              "text": "它沒有路徑的概念，故路徑爆炸不適用",
+              "fraction": 0,
+              "feedback": "錯——concolic 明確藉分支翻轉探索路徑，故路徑爆炸非常適用。"
+            },
+            {
+              "text": "路徑爆炸只影響隨機測試，不影響 concolic",
+              "fraction": 0,
+              "feedback": "錯——路徑爆炸是所有以路徑為基礎之技術的核心挑戰，concolic 亦然。"
+            }
+          ],
+          "generalFeedback": "每次分支翻轉都可能引出更多分支，故路徑數仍指數成長。concolic 以搜尋啟發式（深度優先、覆蓋率導向）與對迭代、迴圈展開或深度的界限來管理它——但不消除路徑爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支追蹤：說出每個下一個輸入（1）",
+          "text": "<p>考慮：</p><pre><code>void f(int a, int b) {\n  if (a &gt; 0)          // B1\n    if (b == a + 1)   // B2\n      target();\n}</code></pre><p>種子執行：<code>a = -1, b = 0</code>（B1 假）。在深度優先翻轉下，第一次使 B1 為真（翻轉 B1）的那次執行的輸入是什麼？</p>",
+          "answers": [
+            {
+              "text": "任何 a > 0 且 b 不受限，例如 a = 1, b = 0——求解單一限制式 a > 0",
+              "fraction": 100,
+              "feedback": "正確——翻轉 B1 只加上 a > 0；B2 尚未出現在已記錄路徑上，故 b 自由（例如 b = 0）。"
+            },
+            {
+              "text": "a = 1, b = 2——必須也已滿足 B2",
+              "fraction": 0,
+              "feedback": "錯——翻轉 B1 時只需要 a > 0；此步 B2 尚未被記錄，故 b 不必滿足 b == a + 1。"
+            },
+            {
+              "text": "a = -1, b = 0——沿用種子",
+              "fraction": 0,
+              "feedback": "錯——種子的 B1 為假；翻轉 B1 需要 a > 0，故輸入必須改變。"
+            },
+            {
+              "text": "無解；a > 0 無法滿足",
+              "fraction": 0,
+              "feedback": "錯——a > 0 顯然可滿足，例如 a = 1。"
+            }
+          ],
+          "generalFeedback": "種子走 B1 假，故其路徑條件僅為 a ≤ 0。取反得 a > 0，是此步唯一的限制式（B2 從未被抵達）。解算器回傳任一 a > 0，例如 a = 1, b = 0。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支追蹤：說出每個下一個輸入（2）",
+          "text": "<p>延續前一段程式，執行 <code>a = 1, b = 0</code> 現在走 B1 真、B2 假（0 ≠ 2），PC = <code>(a &gt; 0) ∧ (b ≠ a + 1)</code>。翻轉 B2，哪個輸入能抵達 <code>target()</code>？</p>",
+          "answers": [
+            {
+              "text": "a = 1, b = 2——保留 a > 0 並滿足 b == a + 1",
+              "fraction": 100,
+              "feedback": "正確——保留 a > 0，把 b ≠ a + 1 取反為 b == a + 1；當 a = 1 即 b = 2。"
+            },
+            {
+              "text": "a = 1, b = 1——b 沿用前一步",
+              "fraction": 0,
+              "feedback": "錯——b 必須等於 a + 1 = 2；b = 1 不滿足翻轉後的限制式。"
+            },
+            {
+              "text": "a = 0, b = 1——b == a + 1 成立",
+              "fraction": 0,
+              "feedback": "錯——a = 0 破壞了被保留的前綴 a > 0，故 B1 變假、target() 不可達。"
+            },
+            {
+              "text": "a = 2, b = 2——兩者相等",
+              "fraction": 0,
+              "feedback": "錯——當 a = 2 時 b == a + 1 需要 b = 3，而非 2。"
+            }
+          ],
+          "generalFeedback": "翻轉 B2 得 (a > 0) ∧ (b == a + 1)。沿用前綴的 a = 1，b 必須為 a + 1 = 2。輸入 a = 1, b = 2 抵達 target()。（解算器也可能選另一個 a > 0 並搭配相應的 b。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支追蹤：三次迭代計數",
+          "text": "<p>對於巢狀片段 <code>if (a &gt; 0) if (b == a + 1) target();</code>，從種子 <code>a = -1, b = 0</code> 開始，每次迭代按深度優先翻轉一個分支，需要幾次 concolic 執行（含種子）才能首次抵達 <code>target()</code>？</p>",
+          "answers": [
+            {
+              "text": "3——種子（B1 假）、然後 B1 真／B2 假、再來 B1 真／B2 真抵達 target()",
+              "fraction": 100,
+              "feedback": "正確——需要一次翻轉進入 B1，再一次翻轉滿足 B2，故第三次執行擊中 target()。"
+            },
+            {
+              "text": "2——種子加一次翻轉即抵達 target()",
+              "fraction": 0,
+              "feedback": "錯——種子未過 B1；一次翻轉只讓 B1 為真（B2 仍假），故需第二次翻轉，共三次執行。"
+            },
+            {
+              "text": "1——種子直接抵達 target()",
+              "fraction": 0,
+              "feedback": "錯——種子 a = -1，立刻未過 B1，故無法抵達 target()。"
+            },
+            {
+              "text": "4——每層巢狀使執行次數加倍",
+              "fraction": 0,
+              "feedback": "錯——這條特定路徑在種子之後恰好需要兩次分支翻轉，即三次執行，而非四次。"
+            }
+          ],
+          "generalFeedback": "執行 1（種子 a=-1）：B1 假。執行 2（a=1, b=0）：翻轉 B1 → B1 真、B2 假。執行 3（a=1, b=2）：翻轉 B2 → 兩者皆真，抵達 target()。共三次執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為搜尋設界",
+          "text": "<p>當迴圈次數取決於輸入時，為了讓 concolic 探索保持有限，常見做法是：</p>",
+          "answers": [
+            {
+              "text": "設一個界限——例如深度／迭代上限或有界迴圈展開——並接受界限外的路徑不被探索",
+              "fraction": 100,
+              "feedback": "正確——設界以終止性換取，是常見的路徑爆炸控制手段。"
+            },
+            {
+              "text": "一次把所有迴圈體分支取反，好在一次執行涵蓋所有迭代",
+              "fraction": 0,
+              "feedback": "錯——單次執行只涵蓋一條路徑；迴圈是以設界探索處理，而非同時取反。"
+            },
+            {
+              "text": "證明迴圈會終止後就略過它",
+              "fraction": 0,
+              "feedback": "錯——略過迴圈會漏掉其行為；應改以設界／展開處理迴圈。"
+            },
+            {
+              "text": "改用純符號執行，因為它沒有路徑爆炸",
+              "fraction": 0,
+              "feedback": "錯——純符號執行同樣有路徑爆炸；改用它並不能解決問題。"
+            }
+          ],
+          "generalFeedback": "符號化的迴圈次數可能引出無界多的路徑，故引擎以迭代／深度上限或有界展開（並搭配搜尋啟發式）對探索設界。這以不探索界限外路徑為代價換取有限的執行——一種被接受的不完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTE 與指標型輸入",
+          "text": "<p>CUTE 把 concolic 測試擴展到含指標與動態資料結構的程式，方法是：</p>",
+          "answers": [
+            {
+              "text": "在具體指標旁追蹤堆積／指標結構的符號表示，並像求解純量限制式一樣求解指標限制式（例如別名、是否為 null）",
+              "fraction": 100,
+              "feedback": "正確——CUTE 同時處理純量的邏輯輸入對映與指標輸入的結構，並以具體執行補足解算器所不能。"
+            },
+            {
+              "text": "禁止一切指標輸入，只測試整數",
+              "fraction": 0,
+              "feedback": "錯——CUTE 的貢獻正是支援指標與資料結構型輸入，而非禁止它們。"
+            },
+            {
+              "text": "在測試前把整支程式轉成無指標的形式",
+              "fraction": 0,
+              "feedback": "錯——CUTE 直接對指標推理，在符號推理不足處使用具體值。"
+            },
+            {
+              "text": "只對堆積執行純符號執行",
+              "fraction": 0,
+              "feedback": "錯——CUTE 是 concolic：它結合具體指標值與符號限制式，這正是它能處理堆積輸入的原因。"
+            }
+          ],
+          "generalFeedback": "CUTE（Concolic Unit Testing Engine）以邏輯結構表示指標輸入，並同時產生純量值與指標形狀（含別名與 null 情形）。具體執行提供可依靠的真實指標，使它能測試處理動態資料結構的函式。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "具體後援保持健全性",
+          "text": "<p>即使 concolic 執行對解算器無法處理的項代入具體值，它實際執行的路徑仍為真正可行（不會引入虛假路徑）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——代入所用的值來自真實執行，故由此走出的執行仍是一條真實、可行的路徑。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "具體後援從不捏造路徑；它使用觀察到的值，故每條被執行的路徑都真實。代價是漏掉路徑，而非虛假路徑。"
+            }
+          ],
+          "generalFeedback": "因為代入的值來自一次實際執行，引擎隨後走的路徑是程式真的能走的。所探索路徑的健全性得以保持；有風險的只是完整性（某些可行路徑可能被略過）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "限制式被近似時的分歧",
+          "text": "<p>假設 concolic 執行把某不透明項釘為具體值並求出新輸入，但重跑時執行卻走了與預測不同的分支（「分歧」，divergence）。引擎會怎麼做？</p>",
+          "answers": [
+            {
+              "text": "它從實際的具體執行偵測到分歧並記錄真正走過的路徑，因為具體執行永遠是基準真相",
+              "fraction": 100,
+              "feedback": "正確——具體執行是權威，故分歧只是被觀察到、真正的路徑被記錄，分析仍保持健全。"
+            },
+            {
+              "text": "它信任預測的路徑並忽略實際執行",
+              "fraction": 0,
+              "feedback": "錯——具體執行是基準真相；引擎記錄實際執行的路徑，而非預測的那條。"
+            },
+            {
+              "text": "它把預測的路徑回報為已涵蓋，即使實際上沒走到",
+              "fraction": 0,
+              "feedback": "錯——那會不健全；引擎依靠真實執行，而真實執行揭示了分歧。"
+            },
+            {
+              "text": "它因為預測錯誤而當機",
+              "fraction": 0,
+              "feedback": "錯——分歧會被優雅地處理：觀察實際的具體執行並繼續。"
+            }
+          ],
+          "generalFeedback": "當被代入／近似的項使求得的輸入走了意料外的路徑時，就會發生分歧。因為 concolic 永遠具體地執行，它會觀察到真實路徑並記錄之——具體執行是基準真相，即使預測失準也能保持健全。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含具體後援步驟的多分支追蹤",
+          "text": "<p>考慮：</p><pre><code>void w(int x) {\n  int t = external(x);   // opaque; run observed t = 3 for x = 2\n  if (x &gt; 0)             // B1\n    if (t == 3)          // B2, depends on opaque t\n      goal();\n}</code></pre><p>執行 1 用 <code>x = 2</code>：B1 真，且 t = 3 故 B2 真——<code>goal()</code> 被抵達。到 goal() 的路徑會被回報嗎？它是真實的嗎？</p>",
+          "answers": [
+            {
+              "text": "會，且是真實的——具體執行確實抵達了 goal()，故該路徑被回報且真正可行；B2 使用了具體的 t = 3",
+              "fraction": 100,
+              "feedback": "正確——concolic 使用觀察到的 t，故 goal() 真被抵達並被健全地回報。"
+            },
+            {
+              "text": "不會——B2 依賴不透明呼叫，故 concolic 無法回報該路徑",
+              "fraction": 0,
+              "feedback": "錯——concolic 使用具體 t = 3，故它求值 B2 並真的抵達 goal()；該路徑會被回報。"
+            },
+            {
+              "text": "會，但可能是虛假路徑，因為 t 不透明",
+              "fraction": 0,
+              "feedback": "錯——該次執行確實跑到 goal()，故路徑真實而非虛假；不透明影響的是完整性，而非這次執行的真實性。"
+            },
+            {
+              "text": "引擎必須在不透明呼叫處中止",
+              "fraction": 0,
+              "feedback": "錯——那是純符號行為；concolic 使用觀察到的 t = 3 繼續前進。"
+            }
+          ],
+          "generalFeedback": "具體執行由 external(2) 算出 t = 3，並真的經 B1、B2 走進 goal()。concolic 回報這條真正可行的路徑。它較難做到的是對其他 x 強迫 B2 走另一方向，因為 x 與 t 的關係不透明——這是不完整，而非不健全。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋策略的選擇",
+          "text": "<p>為什麼 concolic 引擎採用搜尋策略（深度優先、覆蓋率導向、隨機路徑），而非窮舉所有路徑？</p>",
+          "answers": [
+            {
+              "text": "因為路徑空間是指數級的（路徑爆炸），策略在有限預算內決定優先翻轉哪些分支",
+              "fraction": 100,
+              "feedback": "正確——路徑太多而無法全試，策略決定把有限的解算器／執行預算花在何處。"
+            },
+            {
+              "text": "因為解算器每支程式只能回答一次查詢",
+              "fraction": 0,
+              "feedback": "錯——解算器能回答許多查詢；採用策略是因為路徑數呈指數級。"
+            },
+            {
+              "text": "因為具體執行不可重複",
+              "fraction": 0,
+              "feedback": "錯——具體執行可重複；策略存在是為因應龐大的路徑空間。"
+            },
+            {
+              "text": "因為沒有策略就無法進行分支取反",
+              "fraction": 0,
+              "feedback": "錯——取反本身無論如何都能做；策略只是在路徑爆炸下決定接下來追哪個取反。"
+            }
+          ],
+          "generalFeedback": "窮舉探索不可行，因為分支與迴圈使路徑數指數成長。搜尋策略（深度優先、覆蓋率導向、世代式、隨機路徑）決定接下來翻轉哪個分支，讓有限的執行與解算器呼叫預算瞄準有用、未涵蓋的路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "concolic 不保證完整覆蓋",
+          "text": "<p>concolic 執行保證只要時間足夠，就能涵蓋任何程式的每一條可行路徑。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不正確——對不透明／非線性項的具體後援，以及對迴圈的設界，意味著某些可行路徑可能永遠無法抵達。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——concolic 不保證完整路徑覆蓋；具體後援與有界搜尋可能使某些可行路徑未被探索。"
+            }
+          ],
+          "generalFeedback": "concolic 執行以界限與啟發式管理路徑爆炸，並對無法求解的項退回具體值。兩者都可能使它無法抵達每條可行路徑，故不保證完整覆蓋——儘管它所探索的每條路徑都是真實的。"
+        }
+      ]
+    }
+  },
+  "decision-table": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What the condition stub holds",
+          "text": "<p>In a decision table, what does the <strong>condition stub</strong> contain?</p>",
+          "answers": [
+            {
+              "text": "The list of conditions (inputs/causes) being considered, one per row in the upper-left quadrant",
+              "fraction": 100,
+              "feedback": "Correct — the condition stub names the conditions; the entries to its right give each rule's values."
+            },
+            {
+              "text": "The actions the program may take, one per row",
+              "fraction": 0,
+              "feedback": "That is the action stub, in the lower-left quadrant."
+            },
+            {
+              "text": "The T/F values assigned to each rule",
+              "fraction": 0,
+              "feedback": "Those are the condition entries, in the upper-right quadrant, not the stub."
+            },
+            {
+              "text": "The numbering of the rule columns",
+              "fraction": 0,
+              "feedback": "Rule numbers label the columns; the stub lists the conditions themselves."
+            }
+          ],
+          "generalFeedback": "A decision table has four quadrants. The condition stub (upper-left) lists the conditions; the condition entries (upper-right) give each rule's value for those conditions; the action stub and action entries occupy the lower half.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the action stub holds",
+          "text": "<p>What does the <strong>action stub</strong> of a decision table list?</p>",
+          "answers": [
+            {
+              "text": "The possible actions (outputs/effects), one per row in the lower-left quadrant",
+              "fraction": 100,
+              "feedback": "Correct — the action stub names the actions; the action entries mark which fire per rule."
+            },
+            {
+              "text": "The conditions being evaluated",
+              "fraction": 0,
+              "feedback": "Those live in the condition stub (upper-left)."
+            },
+            {
+              "text": "The T/F entries for each condition",
+              "fraction": 0,
+              "feedback": "Those are condition entries, not the action stub."
+            },
+            {
+              "text": "The total number of rules in the table",
+              "fraction": 0,
+              "feedback": "The rule count is determined by the conditions; the action stub simply lists actions."
+            }
+          ],
+          "generalFeedback": "The action stub is the lower-left quadrant: it enumerates the actions the specification can trigger. The action entries to its right (often marked X) say which actions fire for each rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a rule represents",
+          "text": "<p>What does a single <strong>rule</strong> (column) in a decision table represent?</p>",
+          "answers": [
+            {
+              "text": "One specific combination of condition outcomes together with the action(s) that should fire for it",
+              "fraction": 100,
+              "feedback": "Correct — a rule pairs a condition combination with its prescribed actions."
+            },
+            {
+              "text": "A single concrete test input value",
+              "fraction": 0,
+              "feedback": "A rule is a combination of condition outcomes; a test case is later derived from it."
+            },
+            {
+              "text": "One condition being evaluated",
+              "fraction": 0,
+              "feedback": "A rule spans all the conditions at once (one value each), not a single condition."
+            },
+            {
+              "text": "The entire decision table",
+              "fraction": 0,
+              "feedback": "A rule is one column; the table is the set of all rules."
+            }
+          ],
+          "generalFeedback": "Each column (rule) fixes a value for every condition and records the actions that must occur for that exact combination. Reading down a column gives both the situation and the expected behaviour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limited-entry vs extended-entry",
+          "text": "<p>What distinguishes a <strong>limited-entry</strong> decision table from an <strong>extended-entry</strong> one?</p>",
+          "answers": [
+            {
+              "text": "Limited-entry uses only T/F (with \"-\" for don't-care) as condition entries; extended-entry allows values, ranges, or choices",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the difference between the two forms."
+            },
+            {
+              "text": "Limited-entry allows value ranges; extended-entry allows only T/F",
+              "fraction": 0,
+              "feedback": "This reverses the two definitions."
+            },
+            {
+              "text": "Limited-entry tables can have fewer actions than extended-entry ones",
+              "fraction": 0,
+              "feedback": "The number of actions is unrelated; the difference is the form of the condition entries."
+            },
+            {
+              "text": "Extended-entry tables have no rules",
+              "fraction": 0,
+              "feedback": "Both forms are organised into rules; only the entry format differs."
+            }
+          ],
+          "generalFeedback": "In a limited-entry table every condition entry is boolean (T, F, or \"-\"). In an extended-entry table a condition entry may instead be a value, a range, or a choice (e.g. \"under 100\", \"100 to 500\", \"over 500\"), which can make a table more compact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of a don't-care entry",
+          "text": "<p>What does a \"-\" (dash, or don't-care) entry for a condition in a rule mean?</p>",
+          "answers": [
+            {
+              "text": "The rule's action(s) are the same regardless of that condition's value",
+              "fraction": 100,
+              "feedback": "Correct — the condition does not affect the outcome for that rule."
+            },
+            {
+              "text": "The condition is definitely false for that rule",
+              "fraction": 0,
+              "feedback": "A false value would be written F; \"-\" means the value is irrelevant."
+            },
+            {
+              "text": "The condition's value is unknown, so the rule is invalid",
+              "fraction": 0,
+              "feedback": "Don't-care is deliberate, not a data error; the rule is valid and applies for any value of that condition."
+            },
+            {
+              "text": "The condition must be tested with both T and F in the same rule at once",
+              "fraction": 0,
+              "feedback": "A single rule cannot hold both; \"-\" simply says the outcome is independent of this condition."
+            }
+          ],
+          "generalFeedback": "A don't-care \"-\" says the rule's outcome does not depend on that condition. Over k don't-care conditions, one such rule stands in for 2^k of the fully-expanded combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rules for 2 conditions",
+          "text": "<p>A limited-entry decision table with <strong>2 binary conditions</strong> has how many rules (columns) in its full, uncollapsed form?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 2^2 = 4 combinations of T/F."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of values one condition can take, not the number of combinations of two conditions."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 2^3, the count for three conditions."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is not a power of two; a full binary table always has 2^n rules."
+            }
+          ],
+          "generalFeedback": "A full limited-entry table for n binary conditions has 2^n rules. For n = 2 that is 2^2 = 4: TT, TF, FT, FF.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rules for 3 conditions",
+          "text": "<p>A full limited-entry decision table with <strong>3 binary conditions</strong> has how many rules?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2^3 = 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is 2×3; the count is 2^n, not 2×n."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3^2; binary conditions give 2^n, not n^2."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is 2^4, the count for four conditions."
+            }
+          ],
+          "generalFeedback": "For n binary conditions a full table has 2^n rules. For n = 3 that is 2^3 = 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rules for 4 conditions",
+          "text": "<p>A full limited-entry decision table with <strong>4 binary conditions</strong> has how many rules?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 2^4 = 16."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 2^3, the count for three conditions."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is not a power of two; a full binary table has 2^n rules."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is not a power of two and overcounts; the answer is 2^4 = 16."
+            }
+          ],
+          "generalFeedback": "For n binary conditions a full table has 2^n rules. For n = 4 that is 2^4 = 16.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Limited-entry condition values",
+          "text": "<p>In a limited-entry decision table, the condition entries are restricted to true/false values (with \"-\" allowed for don't-care).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — limited-entry means boolean condition entries, plus \"-\" for don't-care."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "By definition, a limited-entry table uses only T/F (and \"-\") for conditions; value ranges belong to extended-entry tables."
+            }
+          ],
+          "generalFeedback": "\"Limited-entry\" refers precisely to limiting condition entries to true/false (with \"-\" for don't-care). Value ranges and choices are the hallmark of extended-entry tables."
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition entries vs action entries",
+          "text": "<p>In the right-hand quadrants of the table, what do the <strong>condition entries</strong> and <strong>action entries</strong> specify?</p>",
+          "answers": [
+            {
+              "text": "Condition entries give each rule's value for each condition; action entries mark which actions fire for that rule",
+              "fraction": 100,
+              "feedback": "Correct — one describes the situation, the other the response."
+            },
+            {
+              "text": "Condition entries list the actions; action entries list the conditions",
+              "fraction": 0,
+              "feedback": "This swaps their roles."
+            },
+            {
+              "text": "Both simply repeat the rule numbers",
+              "fraction": 0,
+              "feedback": "Rule numbers are column headers; the entries carry the T/F values and action marks."
+            },
+            {
+              "text": "Condition entries show source-code coverage; action entries show test results",
+              "fraction": 0,
+              "feedback": "Decision tables are black-box; entries describe the specification, not code coverage."
+            }
+          ],
+          "generalFeedback": "For each rule, the condition entries (upper-right) record the T/F value of every condition, and the action entries (lower-right, often X) record which actions the specification says should fire.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four quadrants",
+          "text": "<p>A decision table is conventionally divided into four quadrants. Which four?</p>",
+          "answers": [
+            {
+              "text": "Condition stub, condition entries, action stub, action entries",
+              "fraction": 100,
+              "feedback": "Correct — stubs on the left, entries on the right, conditions on top, actions below."
+            },
+            {
+              "text": "Inputs, outputs, states, transitions",
+              "fraction": 0,
+              "feedback": "Those describe a state machine, not the quadrants of a decision table."
+            },
+            {
+              "text": "Preconditions, postconditions, invariants, guards",
+              "fraction": 0,
+              "feedback": "Those are specification concepts, not the four quadrants of a decision table."
+            },
+            {
+              "text": "Nodes, edges, paths, cycles",
+              "fraction": 0,
+              "feedback": "Those are graph concepts, unrelated to the table layout."
+            }
+          ],
+          "generalFeedback": "The four quadrants are the condition stub (upper-left), condition entries (upper-right), action stub (lower-left), and action entries (lower-right).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision table technique family",
+          "text": "<p>Decision table testing is classified as which kind of test-design technique?</p>",
+          "answers": [
+            {
+              "text": "A black-box (specification-based) technique",
+              "fraction": 100,
+              "feedback": "Correct — it derives tests from the specification's conditions and actions, not from code."
+            },
+            {
+              "text": "A white-box (structural) technique based on the control-flow graph",
+              "fraction": 0,
+              "feedback": "Decision tables are built from the specification, not from source-code structure."
+            },
+            {
+              "text": "A code-coverage measurement technique",
+              "fraction": 0,
+              "feedback": "It designs tests from behaviour; it does not measure how much code runs."
+            },
+            {
+              "text": "A mutation-analysis technique",
+              "fraction": 0,
+              "feedback": "Mutation analysis seeds code faults; decision tables are a black-box design method."
+            }
+          ],
+          "generalFeedback": "Decision table testing is a black-box, specification-based design technique: conditions and actions come from the requirements, and rules combine them systematically.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry condition value",
+          "text": "<p>In an <strong>extended-entry</strong> decision table, a condition entry may be which of the following?</p>",
+          "answers": [
+            {
+              "text": "A value, range, or choice (for example \"under 100\", \"100 to 500\", \"over 500\")",
+              "fraction": 100,
+              "feedback": "Correct — extended-entry tables allow richer entries than plain T/F."
+            },
+            {
+              "text": "Only T or F",
+              "fraction": 0,
+              "feedback": "Boolean-only entries define a limited-entry table, not an extended-entry one."
+            },
+            {
+              "text": "Only the mark X",
+              "fraction": 0,
+              "feedback": "X marks fired actions in the action entries, not condition values."
+            },
+            {
+              "text": "Only a rule number",
+              "fraction": 0,
+              "feedback": "Rule numbers are column labels, not condition entries."
+            }
+          ],
+          "generalFeedback": "Extended-entry tables let a condition entry be a value, range, or choice, which can collapse several boolean conditions into one multi-valued condition and shrink the table.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Full table has 2^n rules",
+          "text": "<p>Before any collapsing, a full limited-entry decision table for n binary conditions has 2^n rules.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — every condition independently takes T or F, giving 2^n combinations."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Each of the n binary conditions doubles the number of combinations, so the full table has 2^n rules."
+            }
+          ],
+          "generalFeedback": "With n independent binary conditions there are 2^n distinct T/F combinations, so the full (uncollapsed) table has exactly 2^n rule columns. Collapsing with don't-cares can reduce this later."
+        },
+        {
+          "type": "multichoice",
+          "name": "Deriving tests from rules",
+          "text": "<p>What is the simplest standard way to derive test cases from a decision table?</p>",
+          "answers": [
+            {
+              "text": "Create one test case per rule (column) of the table",
+              "fraction": 100,
+              "feedback": "Correct — each rule becomes a test, using inputs that satisfy its condition combination."
+            },
+            {
+              "text": "Create one test case per condition",
+              "fraction": 0,
+              "feedback": "A test must fix every condition at once; a rule (a full combination) is the natural unit."
+            },
+            {
+              "text": "Create one test case per action",
+              "fraction": 0,
+              "feedback": "Actions are outcomes; tests are derived from the rules that trigger them."
+            },
+            {
+              "text": "Create a single test case for the whole table",
+              "fraction": 0,
+              "feedback": "One test cannot exercise every rule; you need one per rule."
+            }
+          ],
+          "generalFeedback": "The standard mapping is one test case per rule: pick inputs satisfying that rule's condition combination and check that exactly its prescribed actions fire. So the test count equals the number of rules in the (collapsed) table.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Which rule matches the input",
+          "text": "<p>Given this limited-entry table:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>For an input where <code>C1 = F</code> and <code>C2 = T</code>, which rule applies?</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "Correct — R3 has C1 = F and C2 = T."
+            },
+            {
+              "text": "R1",
+              "fraction": 0,
+              "feedback": "R1 is C1 = T, C2 = T, not the given input."
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 is C1 = T, C2 = F."
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 is C1 = F, C2 = F, which differs in C2."
+            }
+          ],
+          "generalFeedback": "Match the input against each column: only R3 has C1 = F and C2 = T, so R3 is the applicable rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which action fires",
+          "text": "<p>Given this table (X marks a fired action):</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   -   -   -\nB        -   X   X   -\nC        -   -   -   X\n</pre><p>For an input where <code>C1 = T</code> and <code>C2 = F</code>, which action fires?</p>",
+          "answers": [
+            {
+              "text": "B",
+              "fraction": 100,
+              "feedback": "Correct — C1 = T, C2 = F is rule R2, whose only X is on action B."
+            },
+            {
+              "text": "A",
+              "fraction": 0,
+              "feedback": "Action A fires only for R1 (C1 = T, C2 = T)."
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "Action C fires only for R4 (C1 = F, C2 = F)."
+            },
+            {
+              "text": "No action fires",
+              "fraction": 0,
+              "feedback": "R2 does have a marked action (B), so an action does fire."
+            }
+          ],
+          "generalFeedback": "The input (C1 = T, C2 = F) selects rule R2. Reading down R2, the only X is on action B, so B fires.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinations behind a don't-care",
+          "text": "<p>In a collapsed limited-entry table, one rule has \"-\" for <strong>2</strong> of the conditions (all other conditions fixed). How many rules of the original full table does this single collapsed rule represent?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 2 don't-care conditions stand for 2^2 = 4 combinations."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is 2^1; there are two don't-cares, giving 2^2 = 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Don't-cares expand as a power of two; 2 of them give 4, not 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A rule with no don't-cares represents 1 combination; two don't-cares represent 4."
+            }
+          ],
+          "generalFeedback": "Each don't-care condition can be T or F, so k don't-cares expand to 2^k full-table rules. For k = 2 that is 2^2 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test cases from a collapsed table",
+          "text": "<p>A collapsed decision table has <strong>5 rules</strong>. Using the \"one test case per rule\" strategy, how many test cases are derived?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — the number of test cases equals the number of rules."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 would be the count if you re-expanded every rule; the strategy uses one test per collapsed rule."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "There is no doubling; it is one test per rule, so 5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Every rule needs a test; with 5 rules that is 5, not 4."
+            }
+          ],
+          "generalFeedback": "The one-test-per-rule mapping means the test count equals the rule count. A collapsed table with 5 rules yields 5 test cases.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Collapsing a full table",
+          "text": "<p>Collapse this full table as far as possible:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   X   -   -\nB        -   -   X   X\n</pre><p>How many rules remain after collapsing?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — R1,R2 merge to (C1=T, C2=-)→A and R3,R4 merge to (C1=F, C2=-)→B."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the uncollapsed count; two mergeable pairs reduce it to 2."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Both pairs merge, not just one, so 2 rules remain."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A and B are different actions, so their rules cannot merge into a single rule."
+            }
+          ],
+          "generalFeedback": "R1 and R2 fire only A and differ only in C2, so they merge to (C1=T, C2=-). R3 and R4 fire only B and differ only in C2, merging to (C1=F, C2=-). Two collapsed rules remain.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness with don't-cares",
+          "text": "<p>A collapsed table for 2 binary conditions has these rules:</p><pre>\nRule A:  C1=T, C2=-\nRule B:  C1=F, C2=T\nRule C:  C1=F, C2=F\n</pre><p>Do these rules cover all 2^2 = 4 combinations?</p>",
+          "answers": [
+            {
+              "text": "Yes — Rule A covers TT and TF, Rule B covers FT, Rule C covers FF: all 4 combinations",
+              "fraction": 100,
+              "feedback": "Correct — the don't-care in Rule A accounts for two combinations, completing the set."
+            },
+            {
+              "text": "No — the combination C1=T, C2=F is missing",
+              "fraction": 0,
+              "feedback": "Rule A (C1=T, C2=-) already covers C1=T, C2=F."
+            },
+            {
+              "text": "No — the combination C1=F, C2=T is missing",
+              "fraction": 0,
+              "feedback": "Rule B covers exactly C1=F, C2=T."
+            },
+            {
+              "text": "No — only 3 combinations can ever be covered by 3 rules",
+              "fraction": 0,
+              "feedback": "A rule with a don't-care covers more than one combination, so 3 rules can cover 4 combinations."
+            }
+          ],
+          "generalFeedback": "Rule A's don't-care on C2 covers both TT and TF (2 combinations); Rule B covers FT; Rule C covers FF. That is 2+1+1 = 4 = 2^2, so the table is complete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match a rule with three conditions",
+          "text": "<p>Given this full 3-condition table:</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n</pre><p>Which rule matches <code>C1 = T, C2 = F, C3 = T</code>?</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "Correct — R3 is C1=T, C2=F, C3=T."
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 is C1=T, C2=T, C3=F."
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 is C1=T, C2=F, C3=F, which differs in C3."
+            },
+            {
+              "text": "R7",
+              "fraction": 0,
+              "feedback": "R7 is C1=F, C2=F, C3=T, which differs in C1."
+            }
+          ],
+          "generalFeedback": "Read each column top to bottom. R3 is the only column with C1=T, C2=F, C3=T.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry match",
+          "text": "<p>An extended-entry table sets a discount by order total:</p><pre>\nCondition \"Order total\":  R1: under 100   R2: 100 to 500   R3: over 500\nAction \"Discount\":        R1: 0%          R2: 5%           R3: 10%\n</pre><p>An order total of 250 selects which rule, and what discount applies?</p>",
+          "answers": [
+            {
+              "text": "R2 — a 5% discount",
+              "fraction": 100,
+              "feedback": "Correct — 250 falls in the \"100 to 500\" band."
+            },
+            {
+              "text": "R1 — a 0% discount",
+              "fraction": 0,
+              "feedback": "R1 is for totals under 100; 250 is above that."
+            },
+            {
+              "text": "R3 — a 10% discount",
+              "fraction": 0,
+              "feedback": "R3 is for totals over 500; 250 does not reach it."
+            },
+            {
+              "text": "No rule matches 250",
+              "fraction": 0,
+              "feedback": "250 is squarely within R2's range, so a rule does match."
+            }
+          ],
+          "generalFeedback": "Extended-entry conditions match by range. 250 lies in \"100 to 500\", which is R2, giving a 5% discount.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which two rules may merge",
+          "text": "<p>Given this table:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA1       X   X   -   -\nA2       -   -   X   -\nA3       -   -   -   X\n</pre><p>Which two rules can be collapsed into one, and how?</p>",
+          "answers": [
+            {
+              "text": "R1 and R2, into (C1=T, C2=-) firing A1",
+              "fraction": 100,
+              "feedback": "Correct — they fire the same action and differ only in C2."
+            },
+            {
+              "text": "R3 and R4, into (C1=F, C2=-)",
+              "fraction": 0,
+              "feedback": "R3 fires A2 and R4 fires A3 — different actions, so they cannot merge."
+            },
+            {
+              "text": "R2 and R3, into (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R2 and R3 differ in both C1 and C2 and fire different actions; they cannot merge."
+            },
+            {
+              "text": "R1 and R4, into (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R1 and R4 differ in both conditions and fire different actions."
+            }
+          ],
+          "generalFeedback": "Two rules merge only if they fire identical actions and differ in exactly one condition. R1 and R2 both fire A1 and differ only in C2, so they collapse to (C1=T, C2=-)→A1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which action fires (three conditions)",
+          "text": "<p>Given this table (X marks a fired action):</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAccept   X  X  X  -  X  -  -  -\nReject   -  -  -  X  -  X  X  X\n</pre><p>For <code>C1 = F, C2 = T, C3 = F</code>, which action fires?</p>",
+          "answers": [
+            {
+              "text": "Reject",
+              "fraction": 100,
+              "feedback": "Correct — (F,T,F) is rule R6, whose X is on Reject."
+            },
+            {
+              "text": "Accept",
+              "fraction": 0,
+              "feedback": "Accept fires for R6? No — R6's X is on Reject, not Accept."
+            },
+            {
+              "text": "Both Accept and Reject",
+              "fraction": 0,
+              "feedback": "Only one X appears in column R6, so a single action fires."
+            },
+            {
+              "text": "Neither action",
+              "fraction": 0,
+              "feedback": "R6 does have a marked action (Reject)."
+            }
+          ],
+          "generalFeedback": "(C1=F, C2=T, C3=F) is column R6. Its only X is on Reject, so Reject fires.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missing combinations",
+          "text": "<p>A limited-entry table for <strong>3 binary conditions</strong> currently lists 6 rules, none using don't-cares. Assuming no duplicates, how many condition combinations are missing?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a full table needs 2^3 = 8 rules, and 8 - 6 = 2 are missing."
+            },
+            {
+              "text": "0 — the table is complete",
+              "fraction": 0,
+              "feedback": "A complete 3-condition table needs 8 rules; only 6 are present."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "8 - 6 = 2, not 3."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the number present; the number missing is 8 - 6 = 2."
+            }
+          ],
+          "generalFeedback": "Completeness requires all 2^n combinations. For n = 3 that is 8; with 6 present and no don't-cares, 2 combinations are missing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test count before and after collapsing",
+          "text": "<p>A full table for 3 conditions (8 rules) collapses to 4 rules. Using one test per rule, how many test cases does the collapsed table require, compared with the full table?</p>",
+          "answers": [
+            {
+              "text": "4 test cases, down from 8",
+              "fraction": 100,
+              "feedback": "Correct — collapsing to 4 rules means 4 tests instead of 8."
+            },
+            {
+              "text": "8 test cases, unchanged",
+              "fraction": 0,
+              "feedback": "Collapsing reduces the rule count, so fewer tests are needed."
+            },
+            {
+              "text": "16 test cases",
+              "fraction": 0,
+              "feedback": "16 exceeds even the full table's 8 rules; the collapsed table needs 4."
+            },
+            {
+              "text": "1 test case",
+              "fraction": 0,
+              "feedback": "Each of the 4 collapsed rules needs its own test, giving 4."
+            }
+          ],
+          "generalFeedback": "Test count equals rule count. The full table's 8 rules would give 8 tests; collapsing to 4 rules reduces that to 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reading a loan decision table",
+          "text": "<p>A loan table uses C1 = \"credit score OK\" and C2 = \"income sufficient\":</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nApprove  X   -   -   -\n</pre><p>An applicant has credit score OK and sufficient income. Which rule applies and what happens?</p>",
+          "answers": [
+            {
+              "text": "R1 — the loan is approved",
+              "fraction": 100,
+              "feedback": "Correct — both conditions true is R1, the only rule with Approve marked."
+            },
+            {
+              "text": "R2 — the loan is approved",
+              "fraction": 0,
+              "feedback": "R2 is credit OK but income not sufficient, and it has no Approve mark."
+            },
+            {
+              "text": "R4 — the loan is approved",
+              "fraction": 0,
+              "feedback": "R4 is both conditions false and has no Approve mark."
+            },
+            {
+              "text": "R1 — the loan is not approved",
+              "fraction": 0,
+              "feedback": "R1 does have Approve marked, so the loan is approved."
+            }
+          ],
+          "generalFeedback": "Credit OK and income sufficient is (C1=T, C2=T), which is R1. R1 is the only rule with Approve marked, so the loan is approved.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry age bands",
+          "text": "<p>An extended-entry table sets ticket price by age:</p><pre>\nCondition \"Age\":  R1: under 13   R2: 13 to 17   R3: 18 to 64   R4: 65 or older\nAction \"Price\":   R1: free       R2: $5         R3: $10        R4: $7\n</pre><p>A visitor aged 17 selects which rule and price?</p>",
+          "answers": [
+            {
+              "text": "R2 — $5",
+              "fraction": 100,
+              "feedback": "Correct — 17 falls in the \"13 to 17\" band."
+            },
+            {
+              "text": "R1 — free",
+              "fraction": 0,
+              "feedback": "R1 is for ages under 13; 17 is above that."
+            },
+            {
+              "text": "R3 — $10",
+              "fraction": 0,
+              "feedback": "R3 starts at 18; 17 does not reach it."
+            },
+            {
+              "text": "R4 — $7",
+              "fraction": 0,
+              "feedback": "R4 is for ages 65 or older."
+            }
+          ],
+          "generalFeedback": "Age 17 lies in the \"13 to 17\" band, which is R2, priced at $5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Don't-care over three conditions",
+          "text": "<p>In a table with <strong>5 binary conditions</strong>, one collapsed rule has \"-\" for 3 of them (the other 2 fixed). How many full-table combinations does that single rule represent?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 3 don't-cares stand for 2^3 = 8 combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Don't-cares expand as 2^k; 3 of them give 8, not 3."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 is the whole table; this rule fixes 2 conditions, so it covers 2^3 = 8."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the number of conditions, not 2 raised to the don't-care count."
+            }
+          ],
+          "generalFeedback": "Only the don't-care conditions vary. With 3 don't-cares the rule stands for 2^3 = 8 of the fully-expanded combinations, regardless of the total number of conditions.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Redundant (subsumed) rule",
+          "text": "<p>Examine this table:</p><pre>\n        R1     R2     R3\nC1       T      T      F\nC2       -      F      T\n--------------------------\nA        X      X      -\n</pre><p>Which rule is redundant, and why?</p>",
+          "answers": [
+            {
+              "text": "R2 — it is subsumed by R1, which already covers C1=T with any C2 and fires the same action A",
+              "fraction": 100,
+              "feedback": "Correct — R1's don't-care on C2 already includes R2's case with the same action."
+            },
+            {
+              "text": "R1 — because it uses a don't-care",
+              "fraction": 0,
+              "feedback": "Using a don't-care is not itself redundant; R1 is the general rule and R2 is the one it subsumes."
+            },
+            {
+              "text": "R3 — because it fires no action",
+              "fraction": 0,
+              "feedback": "R3 covers a different case (C1=F, C2=T) and firing no action is a legitimate outcome, not redundancy."
+            },
+            {
+              "text": "None — the table has no redundancy",
+              "fraction": 0,
+              "feedback": "R2 is fully covered by R1 with the same action, so R2 is redundant."
+            }
+          ],
+          "generalFeedback": "R1 (C1=T, C2=-) already covers both (T,T) and (T,F) with action A. R2 (C1=T, C2=F) is exactly the (T,F) case with the same action, so it adds nothing — it is a redundant, subsumed rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Impossible rule",
+          "text": "<p>Conditions are C1 = \"x &gt; 0\" and C2 = \"x &lt; 0\":</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>Which rule describes an <strong>impossible</strong> (infeasible) combination?</p>",
+          "answers": [
+            {
+              "text": "R1 — a value cannot be both greater than 0 and less than 0 at once",
+              "fraction": 100,
+              "feedback": "Correct — C1=T and C2=T is logically impossible."
+            },
+            {
+              "text": "R4 — both false is impossible",
+              "fraction": 0,
+              "feedback": "C1=F and C2=F simply means x = 0, which is perfectly feasible."
+            },
+            {
+              "text": "R2 — x > 0 and not x < 0",
+              "fraction": 0,
+              "feedback": "That describes any positive x, which is feasible."
+            },
+            {
+              "text": "R3 — x < 0 and not x > 0",
+              "fraction": 0,
+              "feedback": "That describes any negative x, which is feasible."
+            }
+          ],
+          "generalFeedback": "C1 and C2 are mutually exclusive, so R1 (both true) can never occur — it is an infeasible rule and needs no test case. R4 (both false) corresponds to x = 0 and is feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inconsistent rules",
+          "text": "<p>Examine this table:</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       F   F   T\n--------------------\nA        X   -   -\nB        -   X   -\n</pre><p>What anomaly does this table contain?</p>",
+          "answers": [
+            {
+              "text": "R1 and R2 are inconsistent — the same condition combination (C1=T, C2=F) prescribes different actions (A vs B)",
+              "fraction": 100,
+              "feedback": "Correct — identical conditions with conflicting actions is an inconsistency."
+            },
+            {
+              "text": "R3 is redundant",
+              "fraction": 0,
+              "feedback": "R3 covers a distinct combination (C1=F, C2=T); it is not redundant."
+            },
+            {
+              "text": "The table is incomplete only",
+              "fraction": 0,
+              "feedback": "It may also be incomplete, but the flagged defect is the conflict between R1 and R2 on the same conditions."
+            },
+            {
+              "text": "There is no anomaly",
+              "fraction": 0,
+              "feedback": "R1 and R2 share the same condition values but fire different actions — a clear inconsistency."
+            }
+          ],
+          "generalFeedback": "R1 and R2 both have C1=T, C2=F but fire A and B respectively. Two rules with identical conditions and different actions are inconsistent (conflicting) and must be resolved.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness check",
+          "text": "<p>A table for 2 binary conditions has just these two rules:</p><pre>\nRule P:  C1=T, C2=-\nRule Q:  C1=F, C2=T\n</pre><p>Is the table complete, and if not what is missing?</p>",
+          "answers": [
+            {
+              "text": "Incomplete — the combination C1=F, C2=F is not covered",
+              "fraction": 100,
+              "feedback": "Correct — P covers TT and TF, Q covers FT, leaving FF uncovered."
+            },
+            {
+              "text": "Complete — all 4 combinations are covered",
+              "fraction": 0,
+              "feedback": "Only 3 of the 4 are covered; FF is missing."
+            },
+            {
+              "text": "Incomplete — the combination C1=T, C2=T is missing",
+              "fraction": 0,
+              "feedback": "Rule P's don't-care already covers C1=T, C2=T."
+            },
+            {
+              "text": "Incomplete — the combination C1=F, C2=T is missing",
+              "fraction": 0,
+              "feedback": "Rule Q covers exactly C1=F, C2=T."
+            }
+          ],
+          "generalFeedback": "Rule P (C1=T, C2=-) covers TT and TF; Rule Q covers FT. That is 3 combinations; the fourth, FF (C1=F, C2=F), is not covered, so the table is incomplete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Correct collapsing (three conditions)",
+          "text": "<p>Examine this full 3-condition table:</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAction   A  A  B  C  D  E  F  G\n</pre><p>Which pair of rules may be correctly collapsed, and into what?</p>",
+          "answers": [
+            {
+              "text": "R1 and R2, into (C1=T, C2=T, C3=-) firing A",
+              "fraction": 100,
+              "feedback": "Correct — they fire the same action and differ only in C3."
+            },
+            {
+              "text": "R1 and R3, into (C1=T, C2=-, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 fires A and R3 fires B — different actions, so they cannot merge."
+            },
+            {
+              "text": "R7 and R8, into (C1=F, C2=F, C3=-)",
+              "fraction": 0,
+              "feedback": "R7 fires F and R8 fires G — different actions, so no merge."
+            },
+            {
+              "text": "R1 and R5, into (C1=-, C2=T, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 fires A and R5 fires D — different actions, so no merge."
+            }
+          ],
+          "generalFeedback": "Only R1 and R2 share an action (A) while differing in exactly one condition (C3). They collapse to (C1=T, C2=T, C3=-)→A. Every other adjacent pair fires different actions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test set from a collapsed table",
+          "text": "<p>A correctly collapsed table for 2 binary conditions is:</p><pre>\nRule 1:  C1=T, C2=-\nRule 2:  C1=F, C2=T\nRule 3:  C1=F, C2=F\n</pre><p>What is the minimum number of test cases needed to exercise every rule once?</p>",
+          "answers": [
+            {
+              "text": "3 — one per collapsed rule (covering all 4 underlying combinations)",
+              "fraction": 100,
+              "feedback": "Correct — the collapsed table has 3 rules, so 3 tests suffice."
+            },
+            {
+              "text": "4 — one per underlying combination",
+              "fraction": 0,
+              "feedback": "You test the collapsed rules, not the re-expanded combinations, so 3 tests are enough."
+            },
+            {
+              "text": "2 — one per condition",
+              "fraction": 0,
+              "feedback": "Each rule needs its own test; there are 3 rules."
+            },
+            {
+              "text": "1 — a single combined test",
+              "fraction": 0,
+              "feedback": "One test cannot exercise three distinct rules."
+            }
+          ],
+          "generalFeedback": "Test count equals the number of (collapsed) rules. Here 3 rules give 3 tests; Rule 1's don't-care means those 3 tests still cover all 2^2 = 4 combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Overlapping extended-entry ranges",
+          "text": "<p>An extended-entry grading table:</p><pre>\nCondition \"Score\":  R1: 0 to 59   R2: 60 to 79   R3: 75 to 100\nAction:             R1: Fail      R2: Pass       R3: Distinction\n</pre><p>What problem does a score of 77 reveal?</p>",
+          "answers": [
+            {
+              "text": "Inconsistency — 77 falls in both R2 (60 to 79) and R3 (75 to 100), so two rules match with different actions",
+              "fraction": 100,
+              "feedback": "Correct — the overlapping ranges make the outcome for 75-79 ambiguous."
+            },
+            {
+              "text": "Incompleteness — 77 is not covered by any rule",
+              "fraction": 0,
+              "feedback": "77 is covered — in fact by two rules, which is the actual problem."
+            },
+            {
+              "text": "An impossible rule — a score of 77 cannot occur",
+              "fraction": 0,
+              "feedback": "77 is a perfectly valid score; the issue is the overlap, not feasibility."
+            },
+            {
+              "text": "Nothing — the table is well-formed",
+              "fraction": 0,
+              "feedback": "R2 and R3 overlap on 75-79, so a score there matches two conflicting rules."
+            }
+          ],
+          "generalFeedback": "R2 (60 to 79) and R3 (75 to 100) overlap on 75-79. A score of 77 matches both, prescribing Pass and Distinction at once — an inconsistency caused by non-disjoint extended-entry ranges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Gap in extended-entry ranges",
+          "text": "<p>An extended-entry table by age:</p><pre>\nCondition \"Age\":  R1: 0 to 17   R2: 18 to 64   R3: 66 to 120\nAction:           R1: minor     R2: adult      R3: senior\n</pre><p>What completeness problem does this table have?</p>",
+          "answers": [
+            {
+              "text": "Age 65 is not covered by any rule — a gap between R2 and R3",
+              "fraction": 100,
+              "feedback": "Correct — R2 ends at 64 and R3 starts at 66, leaving 65 uncovered."
+            },
+            {
+              "text": "Age 18 is covered twice",
+              "fraction": 0,
+              "feedback": "18 falls only in R2; there is no overlap here, only a gap at 65."
+            },
+            {
+              "text": "The ranges overlap at 64",
+              "fraction": 0,
+              "feedback": "64 belongs only to R2; the defect is a gap, not an overlap."
+            },
+            {
+              "text": "The table is complete",
+              "fraction": 0,
+              "feedback": "65 has no matching rule, so the table is incomplete."
+            }
+          ],
+          "generalFeedback": "R2 covers up to 64 and R3 starts at 66, so age 65 matches no rule. That gap is an incompleteness defect in the extended-entry ranges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Duplicate (redundant) rule",
+          "text": "<p>Examine this table:</p><pre>\n        R1  R2  R3  R4\nC1       T   F   T   F\nC2       T   T   F   T\n------------------------\nAction   A   B   C   B\n</pre><p>Which rule is redundant, and why?</p>",
+          "answers": [
+            {
+              "text": "R4 — it duplicates R2: identical conditions (C1=F, C2=T) and the same action B",
+              "fraction": 100,
+              "feedback": "Correct — R2 and R4 are identical, so R4 adds nothing."
+            },
+            {
+              "text": "R3 — it is the only one firing C",
+              "fraction": 0,
+              "feedback": "Firing a unique action is not redundancy; R3 covers a distinct combination."
+            },
+            {
+              "text": "R1 — because it fires A",
+              "fraction": 0,
+              "feedback": "R1 covers (T,T) uniquely; it is not duplicated."
+            },
+            {
+              "text": "None — every rule differs",
+              "fraction": 0,
+              "feedback": "R2 and R4 have identical conditions and the same action, so one is redundant."
+            }
+          ],
+          "generalFeedback": "R2 and R4 both have C1=F, C2=T and both fire B. They are exact duplicates, so R4 is a redundant rule that can be removed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness by counting coverage",
+          "text": "<p>A limited-entry table for <strong>4 binary conditions</strong> uses don't-cares. Its rules cover, respectively, 8, 4, 2, and 1 combinations, with no overlaps. Is the table complete?</p>",
+          "answers": [
+            {
+              "text": "No — the rules cover 8+4+2+1 = 15 of the 2^4 = 16 combinations, so one is missing",
+              "fraction": 100,
+              "feedback": "Correct — 15 < 16, so the table is incomplete by one combination."
+            },
+            {
+              "text": "Yes — the four rules cover everything",
+              "fraction": 0,
+              "feedback": "The coverage counts sum to 15, one short of 16."
+            },
+            {
+              "text": "No — the table is over-specified with too many rules",
+              "fraction": 0,
+              "feedback": "The total is 15, which is under 16; nothing is over-covered (no overlaps)."
+            },
+            {
+              "text": "No — two combinations are missing",
+              "fraction": 0,
+              "feedback": "16 - 15 = 1, so exactly one combination is missing."
+            }
+          ],
+          "generalFeedback": "Each rule's don't-cares expand to a power of two; summing the disjoint coverage gives 8+4+2+1 = 15. A complete 4-condition table needs 2^4 = 16, so one combination is uncovered.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inconsistency from a don't-care overlap",
+          "text": "<p>A table contains these two rules for 2 binary conditions:</p><pre>\nRule X:  C1=T, C2=-  ->  A\nRule Y:  C1=T, C2=F  ->  B\n</pre><p>Which combination causes a conflict, and why?</p>",
+          "answers": [
+            {
+              "text": "C1=T, C2=F — Rule X (don't-care C2) also covers it and prescribes A, while Rule Y prescribes B",
+              "fraction": 100,
+              "feedback": "Correct — the don't-care in X overlaps Y with a different action, an inconsistency."
+            },
+            {
+              "text": "C1=T, C2=T — both rules require action B there",
+              "fraction": 0,
+              "feedback": "At (T,T) only Rule X applies (giving A); Rule Y is C2=F, so there is no conflict at (T,T)."
+            },
+            {
+              "text": "C1=F, C2=F — neither rule covers it, causing a conflict",
+              "fraction": 0,
+              "feedback": "An uncovered combination is incompleteness, not a conflict; and the conflict here is at (T,F)."
+            },
+            {
+              "text": "There is no conflict — the rules are disjoint",
+              "fraction": 0,
+              "feedback": "Rule X's don't-care makes it overlap Rule Y at (T,F) with a different action."
+            }
+          ],
+          "generalFeedback": "Rule X (C1=T, C2=-) covers (T,T) and (T,F). Rule Y (C1=T, C2=F) also covers (T,F) but prescribes B instead of A. The overlap at (T,F) with conflicting actions is an inconsistency.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Impossible rule from exclusive conditions",
+          "text": "<p>Conditions come from a spec: C1 = \"payment is cash\", C2 = \"payment is card\" (a payment is one method):</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       T   F   T\n</pre><p>Which rule is infeasible?</p>",
+          "answers": [
+            {
+              "text": "R1 — a single payment cannot be both cash and card",
+              "fraction": 100,
+              "feedback": "Correct — C1 and C2 are mutually exclusive, so both true is impossible."
+            },
+            {
+              "text": "R2 — cash but not card",
+              "fraction": 0,
+              "feedback": "That is a normal cash payment; it is feasible."
+            },
+            {
+              "text": "R3 — card but not cash",
+              "fraction": 0,
+              "feedback": "That is a normal card payment; it is feasible."
+            },
+            {
+              "text": "None — all three are feasible",
+              "fraction": 0,
+              "feedback": "R1 requires both cash and card at once, which the spec forbids."
+            }
+          ],
+          "generalFeedback": "Because a payment is exactly one method, C1 and C2 cannot both be true. R1 (both true) is infeasible and needs no test case; only R2 and R3 (and possibly a \"neither\" case) are realistic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verifying completeness and consistency",
+          "text": "<p>A collapsed table for 2 binary conditions is:</p><pre>\nRule 1:  C1=T, C2=-  ->  A\nRule 2:  C1=F, C2=-  ->  B\n</pre><p>Is this table both complete and consistent?</p>",
+          "answers": [
+            {
+              "text": "Yes — the two rules cover all 4 combinations with no overlap (disjoint on C1)",
+              "fraction": 100,
+              "feedback": "Correct — Rule 1 covers TT,TF and Rule 2 covers FT,FF; together all 4, no conflict."
+            },
+            {
+              "text": "No — it is incomplete because C2 is never fixed",
+              "fraction": 0,
+              "feedback": "The don't-cares on C2 mean both C2 values are covered, so nothing is missing."
+            },
+            {
+              "text": "No — the two rules overlap and conflict",
+              "fraction": 0,
+              "feedback": "They differ on C1 (T vs F), so they never overlap; there is no conflict."
+            },
+            {
+              "text": "No — Rule 2 is redundant",
+              "fraction": 0,
+              "feedback": "Rule 2 covers cases (FT, FF) that Rule 1 does not, so it is necessary."
+            }
+          ],
+          "generalFeedback": "Rule 1 (C1=T, C2=-) covers TT and TF; Rule 2 (C1=F, C2=-) covers FT and FF. Their union is all 2^2 = 4 combinations, and they are disjoint on C1, so the table is both complete and consistent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test cases excluding infeasible rules",
+          "text": "<p>A 3-condition table has 8 rule columns, but 2 of them describe <strong>infeasible</strong> condition combinations. Using one test per feasible rule, how many test cases are actually needed?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 8 rules minus 2 infeasible leaves 6 that need tests."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Infeasible rules can never occur, so they need no test cases; 8 - 2 = 6."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of infeasible rules, not the number needing tests."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "8 - 2 = 6, not 4."
+            }
+          ],
+          "generalFeedback": "Infeasible rules cannot be exercised, so they are excluded from test derivation. With 8 rules and 2 infeasible, 6 feasible rules remain, needing 6 test cases.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry rule count",
+          "text": "<p>An extended-entry table has two conditions: \"Size\" with choices {Low, High} and \"Method\" with choices {Cash, Card, Coupon}. How many rules does the full extended-entry table need to cover every combination?</p>",
+          "answers": [
+            {
+              "text": "6 — the product of the choice counts, 2 x 3",
+              "fraction": 100,
+              "feedback": "Correct — extended-entry rule count is the product of each condition's number of choices."
+            },
+            {
+              "text": "5 — the sum of the choice counts, 2 + 3",
+              "fraction": 0,
+              "feedback": "Combinations multiply, not add; 2 x 3 = 6."
+            },
+            {
+              "text": "4 — 2^2, treating each condition as binary",
+              "fraction": 0,
+              "feedback": "Method has 3 choices, not 2, so the count is 2 x 3 = 6, not 2^2."
+            },
+            {
+              "text": "9 — 3^2",
+              "fraction": 0,
+              "feedback": "The conditions have different choice counts (2 and 3); the product is 2 x 3 = 6."
+            }
+          ],
+          "generalFeedback": "For extended-entry tables the full rule count is the product of each condition's number of choices — here 2 x 3 = 6. This generalises the 2^n formula, which is the special case where every condition has 2 choices.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "條件樁（condition stub）的內容",
+          "text": "<p>在決策表（decision table）中，<strong>條件樁（condition stub）</strong>包含什麼？</p>",
+          "answers": [
+            {
+              "text": "所考慮的條件（輸入／原因）清單，每列一項，位於左上象限",
+              "fraction": 100,
+              "feedback": "正確——條件樁列出各條件；其右側的條目給出每條規則的取值。"
+            },
+            {
+              "text": "程式可能採取的動作，每列一項",
+              "fraction": 0,
+              "feedback": "那是動作樁（action stub），位於左下象限。"
+            },
+            {
+              "text": "指派給每條規則的 T/F 取值",
+              "fraction": 0,
+              "feedback": "那是條件條目（condition entries），位於右上象限，並非條件樁本身。"
+            },
+            {
+              "text": "規則欄的編號",
+              "fraction": 0,
+              "feedback": "規則編號用來標示欄位；條件樁列出的是條件本身。"
+            }
+          ],
+          "generalFeedback": "決策表有四個象限。條件樁（左上）列出條件；條件條目（右上）給出每條規則對這些條件的取值；動作樁與動作條目則占據下半部。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "動作樁（action stub）的內容",
+          "text": "<p>決策表的<strong>動作樁（action stub）</strong>列出什麼？</p>",
+          "answers": [
+            {
+              "text": "可能的動作（輸出／效果）清單，每列一項，位於左下象限",
+              "fraction": 100,
+              "feedback": "正確——動作樁列出各動作；動作條目則標示每條規則會觸發哪些動作。"
+            },
+            {
+              "text": "正在評估的各條件",
+              "fraction": 0,
+              "feedback": "那些位於條件樁（左上）。"
+            },
+            {
+              "text": "每個條件的 T/F 條目",
+              "fraction": 0,
+              "feedback": "那是條件條目，並非動作樁。"
+            },
+            {
+              "text": "表中規則的總數",
+              "fraction": 0,
+              "feedback": "規則數由條件決定；動作樁只是列出動作。"
+            }
+          ],
+          "generalFeedback": "動作樁是左下象限：它列舉規格中可被觸發的各種動作。其右側的動作條目（常以 X 標記）指出每條規則會觸發哪些動作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一條規則代表什麼",
+          "text": "<p>決策表中的單一<strong>規則</strong>（一欄）代表什麼？</p>",
+          "answers": [
+            {
+              "text": "一組特定的條件結果組合，連同該組合下應觸發的動作",
+              "fraction": 100,
+              "feedback": "正確——一條規則把某個條件組合與其對應的動作配對起來。"
+            },
+            {
+              "text": "單一個具體的測試輸入值",
+              "fraction": 0,
+              "feedback": "規則是條件結果的組合；測試案例是之後由它導出的。"
+            },
+            {
+              "text": "正在評估的單一個條件",
+              "fraction": 0,
+              "feedback": "一條規則同時涵蓋所有條件（各取一個值），而非只有單一條件。"
+            },
+            {
+              "text": "整張決策表",
+              "fraction": 0,
+              "feedback": "一條規則是一欄；整張表則是所有規則的集合。"
+            }
+          ],
+          "generalFeedback": "每一欄（規則）為每個條件固定一個取值，並記錄該精確組合下必須發生的動作。由上而下讀一欄，即可得到情境與預期行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有限條目 vs 延伸條目",
+          "text": "<p><strong>有限條目（limited-entry）</strong>決策表與<strong>延伸條目（extended-entry）</strong>決策表的差別是什麼？</p>",
+          "answers": [
+            {
+              "text": "有限條目的條件條目只用 T/F（以「-」表示不在意）；延伸條目則允許值、範圍或選項",
+              "fraction": 100,
+              "feedback": "正確——這正是兩種形式的差別。"
+            },
+            {
+              "text": "有限條目允許值範圍；延伸條目只允許 T/F",
+              "fraction": 0,
+              "feedback": "這把兩者的定義弄反了。"
+            },
+            {
+              "text": "有限條目表的動作數必定比延伸條目表少",
+              "fraction": 0,
+              "feedback": "動作數與此無關；差別在於條件條目的形式。"
+            },
+            {
+              "text": "延伸條目表沒有規則",
+              "fraction": 0,
+              "feedback": "兩種形式都以規則組織；只是條目格式不同。"
+            }
+          ],
+          "generalFeedback": "在有限條目表中，每個條件條目都是布林值（T、F 或「-」）。在延伸條目表中，條件條目可改為值、範圍或選項（例如「未滿 100」「100 到 500」「超過 500」），可使表更精簡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不在意（don't-care）條目的意義",
+          "text": "<p>規則中某個條件的「-」（破折號，即不在意 don't-care）條目代表什麼意思？</p>",
+          "answers": [
+            {
+              "text": "無論該條件取何值，該規則的動作都相同",
+              "fraction": 100,
+              "feedback": "正確——在該規則下，這個條件不影響結果。"
+            },
+            {
+              "text": "該規則下這個條件一定為假",
+              "fraction": 0,
+              "feedback": "若為假會寫成 F；「-」代表其值無關緊要。"
+            },
+            {
+              "text": "該條件的值未知，因此該規則無效",
+              "fraction": 0,
+              "feedback": "不在意是刻意的，並非資料錯誤；該規則有效，且對此條件的任何取值都適用。"
+            },
+            {
+              "text": "該條件必須在同一條規則中同時以 T 與 F 測試",
+              "fraction": 0,
+              "feedback": "單一規則無法同時持有兩者；「-」只是表示結果與此條件無關。"
+            }
+          ],
+          "generalFeedback": "不在意「-」表示該規則的結果與此條件無關。對 k 個不在意條件而言，一條這樣的規則相當於完全展開後的 2^k 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2 個條件的規則數",
+          "text": "<p>一張具有 <strong>2 個二元條件</strong>的有限條目決策表，在完整、未合併的形式下有多少條規則（欄）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——2^2 = 4 種 T/F 組合。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是單一條件可取的值數，而非兩個條件的組合數。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 2^3，即三個條件的規則數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 不是 2 的冪；完整的二元表必定有 2^n 條規則。"
+            }
+          ],
+          "generalFeedback": "對 n 個二元條件而言，完整的有限條目表有 2^n 條規則。n = 2 時為 2^2 = 4：TT、TF、FT、FF。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個條件的規則數",
+          "text": "<p>一張具有 <strong>3 個二元條件</strong>的完整有限條目決策表有多少條規則？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2^3 = 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 2×3；規則數是 2^n，不是 2×n。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3^2；二元條件給出 2^n，而非 n^2。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是 2^4，即四個條件的規則數。"
+            }
+          ],
+          "generalFeedback": "對 n 個二元條件，完整表有 2^n 條規則。n = 3 時為 2^3 = 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 個條件的規則數",
+          "text": "<p>一張具有 <strong>4 個二元條件</strong>的完整有限條目決策表有多少條規則？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——2^4 = 16。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 2^3，即三個條件的規則數。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 不是 2 的冪；完整的二元表有 2^n 條規則。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 不是 2 的冪且高估了；答案是 2^4 = 16。"
+            }
+          ],
+          "generalFeedback": "對 n 個二元條件，完整表有 2^n 條規則。n = 4 時為 2^4 = 16。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "有限條目的條件取值",
+          "text": "<p>在有限條目決策表中，條件條目僅限於真／假值（並允許以「-」表示不在意）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——有限條目意指條件條目為布林值，再加上表示不在意的「-」。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "依定義，有限條目表的條件只用 T/F（與「-」）；值範圍屬於延伸條目表。"
+            }
+          ],
+          "generalFeedback": "「有限條目」正是指把條件條目限制為真／假（並以「-」表示不在意）。值範圍與選項則是延伸條目表的特徵。"
+        },
+        {
+          "type": "multichoice",
+          "name": "條件條目 vs 動作條目",
+          "text": "<p>在表的右側象限中，<strong>條件條目</strong>與<strong>動作條目</strong>分別指定什麼？</p>",
+          "answers": [
+            {
+              "text": "條件條目給出每條規則對各條件的取值；動作條目標示該規則會觸發哪些動作",
+              "fraction": 100,
+              "feedback": "正確——一個描述情境，另一個描述回應。"
+            },
+            {
+              "text": "條件條目列出動作；動作條目列出條件",
+              "fraction": 0,
+              "feedback": "這把兩者的角色對調了。"
+            },
+            {
+              "text": "兩者都只是重複規則編號",
+              "fraction": 0,
+              "feedback": "規則編號是欄標題；條目承載的是 T/F 取值與動作標記。"
+            },
+            {
+              "text": "條件條目顯示原始碼涵蓋；動作條目顯示測試結果",
+              "fraction": 0,
+              "feedback": "決策表是黑箱技術；條目描述的是規格，而非程式碼涵蓋。"
+            }
+          ],
+          "generalFeedback": "對每條規則而言，條件條目（右上）記錄每個條件的 T/F 取值，動作條目（右下，常以 X 表示）記錄規格指出應觸發哪些動作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個象限",
+          "text": "<p>決策表通常劃分為四個象限。是哪四個？</p>",
+          "answers": [
+            {
+              "text": "條件樁、條件條目、動作樁、動作條目",
+              "fraction": 100,
+              "feedback": "正確——左為樁、右為條目，上為條件、下為動作。"
+            },
+            {
+              "text": "輸入、輸出、狀態、轉移",
+              "fraction": 0,
+              "feedback": "那些描述的是狀態機，而非決策表的象限。"
+            },
+            {
+              "text": "前置條件、後置條件、不變式、守衛",
+              "fraction": 0,
+              "feedback": "那些是規格概念，並非決策表的四個象限。"
+            },
+            {
+              "text": "節點、邊、路徑、環",
+              "fraction": 0,
+              "feedback": "那些是圖論概念，與表的版面無關。"
+            }
+          ],
+          "generalFeedback": "四個象限是條件樁（左上）、條件條目（右上）、動作樁（左下）與動作條目（右下）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "決策表所屬的技術家族",
+          "text": "<p>決策表測試屬於哪一類測試設計技術？</p>",
+          "answers": [
+            {
+              "text": "黑箱（以規格為基礎）技術",
+              "fraction": 100,
+              "feedback": "正確——它從規格的條件與動作導出測試，而非從程式碼。"
+            },
+            {
+              "text": "以控制流程圖為基礎的白箱（結構化）技術",
+              "fraction": 0,
+              "feedback": "決策表建構自規格，而非原始碼結構。"
+            },
+            {
+              "text": "程式碼涵蓋度量技術",
+              "fraction": 0,
+              "feedback": "它從行為設計測試，並不量測有多少程式碼被執行。"
+            },
+            {
+              "text": "突變分析技術",
+              "fraction": 0,
+              "feedback": "突變分析注入程式碼缺陷；決策表是黑箱設計方法。"
+            }
+          ],
+          "generalFeedback": "決策表測試是一種黑箱、以規格為基礎的設計技術：條件與動作來自需求，規則再系統化地將它們組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目的條件取值",
+          "text": "<p>在<strong>延伸條目</strong>決策表中，條件條目可以是以下何者？</p>",
+          "answers": [
+            {
+              "text": "值、範圍或選項（例如「未滿 100」「100 到 500」「超過 500」）",
+              "fraction": 100,
+              "feedback": "正確——延伸條目表允許比單純 T/F 更豐富的條目。"
+            },
+            {
+              "text": "只能是 T 或 F",
+              "fraction": 0,
+              "feedback": "只允許布林條目的是有限條目表，而非延伸條目表。"
+            },
+            {
+              "text": "只能是標記 X",
+              "fraction": 0,
+              "feedback": "X 標示的是動作條目中被觸發的動作，而非條件取值。"
+            },
+            {
+              "text": "只能是規則編號",
+              "fraction": 0,
+              "feedback": "規則編號是欄標籤，並非條件條目。"
+            }
+          ],
+          "generalFeedback": "延伸條目表允許條件條目為值、範圍或選項，這可把數個布林條件合成單一個多值條件，使表縮小。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "完整表有 2^n 條規則",
+          "text": "<p>在任何合併之前，一張具有 n 個二元條件的完整有限條目決策表有 2^n 條規則。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個條件各自可取 T 或 F，共 2^n 種組合。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "n 個二元條件各自使組合數加倍，因此完整表有 2^n 條規則。"
+            }
+          ],
+          "generalFeedback": "有 n 個彼此獨立的二元條件時，共有 2^n 種相異的 T/F 組合，因此完整（未合併）表恰有 2^n 欄規則。之後以不在意合併可減少此數。"
+        },
+        {
+          "type": "multichoice",
+          "name": "由規則導出測試",
+          "text": "<p>由決策表導出測試案例，最簡單的標準做法是什麼？</p>",
+          "answers": [
+            {
+              "text": "為表中每條規則（每欄）各建立一個測試案例",
+              "fraction": 100,
+              "feedback": "正確——每條規則成為一個測試，並使用滿足其條件組合的輸入。"
+            },
+            {
+              "text": "為每個條件各建立一個測試案例",
+              "fraction": 0,
+              "feedback": "一個測試必須同時固定每個條件；規則（一個完整組合）才是自然單位。"
+            },
+            {
+              "text": "為每個動作各建立一個測試案例",
+              "fraction": 0,
+              "feedback": "動作是結果；測試由觸發它們的規則導出。"
+            },
+            {
+              "text": "為整張表建立單一個測試案例",
+              "fraction": 0,
+              "feedback": "一個測試無法涵蓋每一條規則；每條規則各需一個。"
+            }
+          ],
+          "generalFeedback": "標準對應是每條規則一個測試：選取滿足該規則條件組合的輸入，並檢查恰好其指定的動作被觸發。因此測試數等於（合併後）表的規則數。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "輸入符合哪條規則",
+          "text": "<p>給定此有限條目表：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>對於 <code>C1 = F</code> 且 <code>C2 = T</code> 的輸入，適用哪條規則？</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "正確——R3 的 C1 = F 且 C2 = T。"
+            },
+            {
+              "text": "R1",
+              "fraction": 0,
+              "feedback": "R1 是 C1 = T、C2 = T，與給定輸入不符。"
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 是 C1 = T、C2 = F。"
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 是 C1 = F、C2 = F，其 C2 不同。"
+            }
+          ],
+          "generalFeedback": "把輸入與各欄比對：只有 R3 的 C1 = F 且 C2 = T，因此適用規則為 R3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "會觸發哪個動作",
+          "text": "<p>給定此表（X 表示被觸發的動作）：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   -   -   -\nB        -   X   X   -\nC        -   -   -   X\n</pre><p>對於 <code>C1 = T</code> 且 <code>C2 = F</code> 的輸入，會觸發哪個動作？</p>",
+          "answers": [
+            {
+              "text": "B",
+              "fraction": 100,
+              "feedback": "正確——C1 = T、C2 = F 是規則 R2，其唯一的 X 在動作 B。"
+            },
+            {
+              "text": "A",
+              "fraction": 0,
+              "feedback": "動作 A 只在 R1（C1 = T、C2 = T）觸發。"
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "動作 C 只在 R4（C1 = F、C2 = F）觸發。"
+            },
+            {
+              "text": "沒有動作被觸發",
+              "fraction": 0,
+              "feedback": "R2 確實有被標記的動作（B），因此有動作被觸發。"
+            }
+          ],
+          "generalFeedback": "輸入（C1 = T、C2 = F）選中規則 R2。沿 R2 往下讀，唯一的 X 在動作 B，因此 B 被觸發。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不在意背後的組合數",
+          "text": "<p>在一張合併後的有限條目表中，某條規則對 <strong>2</strong> 個條件標記為「-」（其餘條件皆固定）。這一條合併規則代表原完整表中的多少條規則？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——2 個不在意條件代表 2^2 = 4 種組合。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是 2^1；此處有兩個不在意，應為 2^2 = 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "不在意以 2 的冪展開；2 個給出 4，而非 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "沒有不在意的規則代表 1 種組合；兩個不在意則代表 4 種。"
+            }
+          ],
+          "generalFeedback": "每個不在意條件可為 T 或 F，因此 k 個不在意展開為 2^k 條完整表規則。k = 2 時為 2^2 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由合併後表導出測試數",
+          "text": "<p>一張合併後的決策表有 <strong>5 條規則</strong>。採用「每條規則一個測試案例」的策略，會導出多少個測試案例？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——測試案例數等於規則數。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 是把每條規則重新展開後的數量；此策略是每條合併規則一個測試。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "並不會加倍；是每條規則一個測試，因此為 5。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "每條規則都需要一個測試；5 條規則即為 5，不是 4。"
+            }
+          ],
+          "generalFeedback": "每條規則一個測試的對應意味測試數等於規則數。合併後有 5 條規則的表可導出 5 個測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "合併一張完整表",
+          "text": "<p>盡可能合併此完整表：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   X   -   -\nB        -   -   X   X\n</pre><p>合併後剩下多少條規則？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——R1、R2 合併為 (C1=T, C2=-)→A；R3、R4 合併為 (C1=F, C2=-)→B。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是未合併的數量；兩對可合併的規則使其減為 2。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩對都可合併，而非只有一對，因此剩 2 條規則。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A 與 B 是不同動作，因此其規則無法併成單一條。"
+            }
+          ],
+          "generalFeedback": "R1 與 R2 都只觸發 A 且僅在 C2 上不同，故合併為 (C1=T, C2=-)。R3 與 R4 都只觸發 B 且僅在 C2 上不同，合併為 (C1=F, C2=-)。剩下兩條合併規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含不在意的完整性檢查",
+          "text": "<p>一張針對 2 個二元條件的合併表有以下規則：</p><pre>\n規則 A：  C1=T, C2=-\n規則 B：  C1=F, C2=T\n規則 C：  C1=F, C2=F\n</pre><p>這些規則是否涵蓋全部 2^2 = 4 種組合？</p>",
+          "answers": [
+            {
+              "text": "是——規則 A 涵蓋 TT 與 TF，規則 B 涵蓋 FT，規則 C 涵蓋 FF：全部 4 種組合",
+              "fraction": 100,
+              "feedback": "正確——規則 A 的不在意涵蓋了兩種組合，補足了整個集合。"
+            },
+            {
+              "text": "否——缺少組合 C1=T, C2=F",
+              "fraction": 0,
+              "feedback": "規則 A（C1=T, C2=-）已涵蓋 C1=T, C2=F。"
+            },
+            {
+              "text": "否——缺少組合 C1=F, C2=T",
+              "fraction": 0,
+              "feedback": "規則 B 正好涵蓋 C1=F, C2=T。"
+            },
+            {
+              "text": "否——3 條規則永遠只能涵蓋 3 種組合",
+              "fraction": 0,
+              "feedback": "含不在意的規則可涵蓋多於一種組合，因此 3 條規則能涵蓋 4 種組合。"
+            }
+          ],
+          "generalFeedback": "規則 A 對 C2 的不在意涵蓋 TT 與 TF（2 種組合）；規則 B 涵蓋 FT；規則 C 涵蓋 FF。合計 2+1+1 = 4 = 2^2，因此該表完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "比對三個條件的規則",
+          "text": "<p>給定此完整 3 條件表：</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n</pre><p><code>C1 = T, C2 = F, C3 = T</code> 符合哪條規則？</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "正確——R3 是 C1=T, C2=F, C3=T。"
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 是 C1=T, C2=T, C3=F。"
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 是 C1=T, C2=F, C3=F，其 C3 不同。"
+            },
+            {
+              "text": "R7",
+              "fraction": 0,
+              "feedback": "R7 是 C1=F, C2=F, C3=T，其 C1 不同。"
+            }
+          ],
+          "generalFeedback": "由上而下讀每一欄。只有 R3 的 C1=T、C2=F、C3=T。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目比對",
+          "text": "<p>一張延伸條目表依訂單金額決定折扣：</p><pre>\n條件「訂單金額」：  R1: 未滿 100    R2: 100 到 500   R3: 超過 500\n動作「折扣」：      R1: 0%          R2: 5%           R3: 10%\n</pre><p>訂單金額為 250 會選中哪條規則、適用什麼折扣？</p>",
+          "answers": [
+            {
+              "text": "R2——5% 折扣",
+              "fraction": 100,
+              "feedback": "正確——250 落在「100 到 500」區間。"
+            },
+            {
+              "text": "R1——0% 折扣",
+              "fraction": 0,
+              "feedback": "R1 適用於未滿 100 的金額；250 高於此。"
+            },
+            {
+              "text": "R3——10% 折扣",
+              "fraction": 0,
+              "feedback": "R3 適用於超過 500 的金額；250 未達此。"
+            },
+            {
+              "text": "沒有規則符合 250",
+              "fraction": 0,
+              "feedback": "250 正好落在 R2 的範圍內，因此有規則符合。"
+            }
+          ],
+          "generalFeedback": "延伸條目條件依範圍比對。250 落在「100 到 500」，即 R2，給予 5% 折扣。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪兩條規則可合併",
+          "text": "<p>給定此表：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA1       X   X   -   -\nA2       -   -   X   -\nA3       -   -   -   X\n</pre><p>哪兩條規則可以合併為一條，如何合併？</p>",
+          "answers": [
+            {
+              "text": "R1 與 R2，合併為 (C1=T, C2=-) 觸發 A1",
+              "fraction": 100,
+              "feedback": "正確——它們觸發相同動作且僅在 C2 上不同。"
+            },
+            {
+              "text": "R3 與 R4，合併為 (C1=F, C2=-)",
+              "fraction": 0,
+              "feedback": "R3 觸發 A2 而 R4 觸發 A3——動作不同，故無法合併。"
+            },
+            {
+              "text": "R2 與 R3，合併為 (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R2 與 R3 在 C1 與 C2 上都不同，且觸發不同動作；無法合併。"
+            },
+            {
+              "text": "R1 與 R4，合併為 (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R1 與 R4 在兩個條件上都不同，且觸發不同動作。"
+            }
+          ],
+          "generalFeedback": "兩條規則唯有在觸發完全相同的動作且僅在一個條件上不同時才能合併。R1 與 R2 都觸發 A1 且僅 C2 不同，故合併為 (C1=T, C2=-)→A1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "會觸發哪個動作（三個條件）",
+          "text": "<p>給定此表（X 表示被觸發的動作）：</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAccept   X  X  X  -  X  -  -  -\nReject   -  -  -  X  -  X  X  X\n</pre><p>對於 <code>C1 = F, C2 = T, C3 = F</code>，會觸發哪個動作？</p>",
+          "answers": [
+            {
+              "text": "Reject",
+              "fraction": 100,
+              "feedback": "正確——(F,T,F) 是規則 R6，其 X 在 Reject。"
+            },
+            {
+              "text": "Accept",
+              "fraction": 0,
+              "feedback": "Accept 在 R6 觸發嗎？否——R6 的 X 在 Reject，而非 Accept。"
+            },
+            {
+              "text": "Accept 與 Reject 都會",
+              "fraction": 0,
+              "feedback": "R6 欄中只有一個 X，因此只有單一個動作被觸發。"
+            },
+            {
+              "text": "兩個動作都不會",
+              "fraction": 0,
+              "feedback": "R6 確實有被標記的動作（Reject）。"
+            }
+          ],
+          "generalFeedback": "(C1=F, C2=T, C3=F) 是欄 R6。其唯一的 X 在 Reject，因此 Reject 被觸發。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺少的組合",
+          "text": "<p>一張針對 <strong>3 個二元條件</strong>的有限條目表目前列出 6 條規則，皆未使用不在意。假設沒有重複，缺少多少種條件組合？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——完整表需要 2^3 = 8 條規則，8 - 6 = 2 條缺少。"
+            },
+            {
+              "text": "0——表已完整",
+              "fraction": 0,
+              "feedback": "完整的 3 條件表需要 8 條規則；此處只有 6 條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "8 - 6 = 2，而非 3。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是已存在的數量；缺少的數量是 8 - 6 = 2。"
+            }
+          ],
+          "generalFeedback": "完整性要求涵蓋全部 2^n 種組合。n = 3 時為 8；已有 6 條且無不在意，故缺少 2 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "合併前後的測試數",
+          "text": "<p>一張 3 條件的完整表（8 條規則）合併為 4 條規則。採用每條規則一個測試，合併後的表需要多少測試案例，相較於完整表如何？</p>",
+          "answers": [
+            {
+              "text": "4 個測試案例，由 8 個減少而來",
+              "fraction": 100,
+              "feedback": "正確——合併為 4 條規則代表用 4 個測試取代 8 個。"
+            },
+            {
+              "text": "8 個測試案例，不變",
+              "fraction": 0,
+              "feedback": "合併會減少規則數，因此需要的測試較少。"
+            },
+            {
+              "text": "16 個測試案例",
+              "fraction": 0,
+              "feedback": "16 甚至超過完整表的 8 條規則；合併後的表需要 4 個。"
+            },
+            {
+              "text": "1 個測試案例",
+              "fraction": 0,
+              "feedback": "4 條合併規則各需自己的測試，共 4 個。"
+            }
+          ],
+          "generalFeedback": "測試數等於規則數。完整表的 8 條規則給出 8 個測試；合併為 4 條規則後減為 4 個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀一張貸款決策表",
+          "text": "<p>一張貸款表使用 C1 =「信用分數合格」與 C2 =「收入足夠」：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nApprove  X   -   -   -\n</pre><p>某申請人信用分數合格且收入足夠。適用哪條規則、結果如何？</p>",
+          "answers": [
+            {
+              "text": "R1——貸款核准",
+              "fraction": 100,
+              "feedback": "正確——兩個條件皆為真是 R1，也是唯一標記 Approve 的規則。"
+            },
+            {
+              "text": "R2——貸款核准",
+              "fraction": 0,
+              "feedback": "R2 是信用合格但收入不足，且未標記 Approve。"
+            },
+            {
+              "text": "R4——貸款核准",
+              "fraction": 0,
+              "feedback": "R4 是兩個條件皆為假，且未標記 Approve。"
+            },
+            {
+              "text": "R1——貸款不核准",
+              "fraction": 0,
+              "feedback": "R1 確實標記了 Approve，因此貸款核准。"
+            }
+          ],
+          "generalFeedback": "信用合格且收入足夠是 (C1=T, C2=T)，即 R1。R1 是唯一標記 Approve 的規則，因此貸款核准。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目的年齡分段",
+          "text": "<p>一張延伸條目表依年齡設定票價：</p><pre>\n條件「年齡」：  R1: 未滿 13   R2: 13 到 17   R3: 18 到 64   R4: 65 或以上\n動作「票價」：  R1: 免費      R2: $5         R3: $10        R4: $7\n</pre><p>一位 17 歲的訪客會選中哪條規則與票價？</p>",
+          "answers": [
+            {
+              "text": "R2——$5",
+              "fraction": 100,
+              "feedback": "正確——17 落在「13 到 17」分段。"
+            },
+            {
+              "text": "R1——免費",
+              "fraction": 0,
+              "feedback": "R1 適用於未滿 13 歲；17 高於此。"
+            },
+            {
+              "text": "R3——$10",
+              "fraction": 0,
+              "feedback": "R3 從 18 起算；17 未達此。"
+            },
+            {
+              "text": "R4——$7",
+              "fraction": 0,
+              "feedback": "R4 適用於 65 歲或以上。"
+            }
+          ],
+          "generalFeedback": "年齡 17 落在「13 到 17」分段，即 R2，票價 $5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個條件的不在意",
+          "text": "<p>在一張具有 <strong>5 個二元條件</strong>的表中，某條合併規則對其中 3 個標記為「-」（另外 2 個固定）。這一條規則代表多少種完整表組合？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——3 個不在意代表 2^3 = 8 種組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "不在意以 2^k 展開；3 個給出 8，而非 3。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 是整張表；此規則固定了 2 個條件，故涵蓋 2^3 = 8。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是條件的數目，而非 2 的不在意次冪。"
+            }
+          ],
+          "generalFeedback": "只有不在意的條件會變動。有 3 個不在意時，該規則代表完全展開後的 2^3 = 8 種組合，與條件總數無關。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "冗餘（被涵蓋）的規則",
+          "text": "<p>檢視此表：</p><pre>\n        R1     R2     R3\nC1       T      T      F\nC2       -      F      T\n--------------------------\nA        X      X      -\n</pre><p>哪條規則是冗餘的，為什麼？</p>",
+          "answers": [
+            {
+              "text": "R2——它被 R1 涵蓋；R1 已涵蓋 C1=T 且 C2 為任意值，並觸發相同動作 A",
+              "fraction": 100,
+              "feedback": "正確——R1 對 C2 的不在意已包含 R2 的情況並觸發相同動作。"
+            },
+            {
+              "text": "R1——因為它使用了不在意",
+              "fraction": 0,
+              "feedback": "使用不在意本身並非冗餘；R1 是通用規則，R2 才是被它涵蓋的那條。"
+            },
+            {
+              "text": "R3——因為它不觸發任何動作",
+              "fraction": 0,
+              "feedback": "R3 涵蓋不同情況（C1=F, C2=T），且不觸發動作是合法結果，並非冗餘。"
+            },
+            {
+              "text": "沒有——此表沒有冗餘",
+              "fraction": 0,
+              "feedback": "R2 被 R1 以相同動作完全涵蓋，因此 R2 是冗餘的。"
+            }
+          ],
+          "generalFeedback": "R1（C1=T, C2=-）已以動作 A 涵蓋 (T,T) 與 (T,F)。R2（C1=T, C2=F）正是 (T,F) 情況且動作相同，未增加任何內容——它是冗餘、被涵蓋的規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可能的規則",
+          "text": "<p>條件為 C1 =「x &gt; 0」與 C2 =「x &lt; 0」：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>哪條規則描述了<strong>不可能</strong>（不可行）的組合？</p>",
+          "answers": [
+            {
+              "text": "R1——一個值不可能同時大於 0 且小於 0",
+              "fraction": 100,
+              "feedback": "正確——C1=T 且 C2=T 在邏輯上不可能。"
+            },
+            {
+              "text": "R4——兩者皆為假是不可能的",
+              "fraction": 0,
+              "feedback": "C1=F 且 C2=F 只是代表 x = 0，完全可行。"
+            },
+            {
+              "text": "R2——x > 0 且非 x < 0",
+              "fraction": 0,
+              "feedback": "那描述任何正的 x，是可行的。"
+            },
+            {
+              "text": "R3——x < 0 且非 x > 0",
+              "fraction": 0,
+              "feedback": "那描述任何負的 x，是可行的。"
+            }
+          ],
+          "generalFeedback": "C1 與 C2 互斥，因此 R1（兩者皆真）永不可能發生——它是不可行規則，無需測試案例。R4（兩者皆假）對應 x = 0，是可行的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不一致的規則",
+          "text": "<p>檢視此表：</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       F   F   T\n--------------------\nA        X   -   -\nB        -   X   -\n</pre><p>此表包含什麼異常？</p>",
+          "answers": [
+            {
+              "text": "R1 與 R2 不一致——相同的條件組合（C1=T, C2=F）卻指定了不同的動作（A 對 B）",
+              "fraction": 100,
+              "feedback": "正確——條件相同但動作衝突即為不一致。"
+            },
+            {
+              "text": "R3 是冗餘的",
+              "fraction": 0,
+              "feedback": "R3 涵蓋一個相異的組合（C1=F, C2=T）；它並非冗餘。"
+            },
+            {
+              "text": "此表只是不完整",
+              "fraction": 0,
+              "feedback": "它也許同時不完整，但標記的缺陷是 R1 與 R2 在相同條件上的衝突。"
+            },
+            {
+              "text": "沒有異常",
+              "fraction": 0,
+              "feedback": "R1 與 R2 條件取值相同卻觸發不同動作——這是明顯的不一致。"
+            }
+          ],
+          "generalFeedback": "R1 與 R2 都是 C1=T, C2=F，卻分別觸發 A 與 B。兩條條件相同而動作不同的規則屬於不一致（衝突），必須解決。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整性檢查",
+          "text": "<p>一張針對 2 個二元條件的表只有這兩條規則：</p><pre>\n規則 P：  C1=T, C2=-\n規則 Q：  C1=F, C2=T\n</pre><p>此表是否完整？若否，缺少什麼？</p>",
+          "answers": [
+            {
+              "text": "不完整——組合 C1=F, C2=F 未被涵蓋",
+              "fraction": 100,
+              "feedback": "正確——P 涵蓋 TT 與 TF，Q 涵蓋 FT，留下 FF 未涵蓋。"
+            },
+            {
+              "text": "完整——全部 4 種組合皆已涵蓋",
+              "fraction": 0,
+              "feedback": "4 種中只涵蓋了 3 種；FF 缺少。"
+            },
+            {
+              "text": "不完整——缺少組合 C1=T, C2=T",
+              "fraction": 0,
+              "feedback": "規則 P 的不在意已涵蓋 C1=T, C2=T。"
+            },
+            {
+              "text": "不完整——缺少組合 C1=F, C2=T",
+              "fraction": 0,
+              "feedback": "規則 Q 正好涵蓋 C1=F, C2=T。"
+            }
+          ],
+          "generalFeedback": "規則 P（C1=T, C2=-）涵蓋 TT 與 TF；規則 Q 涵蓋 FT。這是 3 種組合；第四種 FF（C1=F, C2=F）未被涵蓋，因此該表不完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正確的合併（三個條件）",
+          "text": "<p>檢視此完整 3 條件表：</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAction   A  A  B  C  D  E  F  G\n</pre><p>哪一對規則可以正確地合併，合併成什麼？</p>",
+          "answers": [
+            {
+              "text": "R1 與 R2，合併為 (C1=T, C2=T, C3=-) 觸發 A",
+              "fraction": 100,
+              "feedback": "正確——它們觸發相同動作且僅在 C3 上不同。"
+            },
+            {
+              "text": "R1 與 R3，合併為 (C1=T, C2=-, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 觸發 A 而 R3 觸發 B——動作不同，故無法合併。"
+            },
+            {
+              "text": "R7 與 R8，合併為 (C1=F, C2=F, C3=-)",
+              "fraction": 0,
+              "feedback": "R7 觸發 F 而 R8 觸發 G——動作不同，故無法合併。"
+            },
+            {
+              "text": "R1 與 R5，合併為 (C1=-, C2=T, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 觸發 A 而 R5 觸發 D——動作不同，故無法合併。"
+            }
+          ],
+          "generalFeedback": "只有 R1 與 R2 共用同一動作（A），且僅在一個條件（C3）上不同。它們合併為 (C1=T, C2=T, C3=-)→A。其他每對相鄰規則皆觸發不同動作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由合併後表得出最小測試集",
+          "text": "<p>一張針對 2 個二元條件、正確合併後的表為：</p><pre>\n規則 1：  C1=T, C2=-\n規則 2：  C1=F, C2=T\n規則 3：  C1=F, C2=F\n</pre><p>要讓每條規則各被執行一次，最少需要多少測試案例？</p>",
+          "answers": [
+            {
+              "text": "3——每條合併規則一個（涵蓋底層全部 4 種組合）",
+              "fraction": 100,
+              "feedback": "正確——合併後的表有 3 條規則，因此 3 個測試即足夠。"
+            },
+            {
+              "text": "4——每種底層組合一個",
+              "fraction": 0,
+              "feedback": "你測試的是合併後的規則，而非重新展開的組合，因此 3 個測試就夠。"
+            },
+            {
+              "text": "2——每個條件一個",
+              "fraction": 0,
+              "feedback": "每條規則各需自己的測試；此處有 3 條規則。"
+            },
+            {
+              "text": "1——單一個合併測試",
+              "fraction": 0,
+              "feedback": "一個測試無法執行三條相異的規則。"
+            }
+          ],
+          "generalFeedback": "測試數等於（合併後）規則數。此處 3 條規則給出 3 個測試；規則 1 的不在意意味這 3 個測試仍涵蓋全部 2^2 = 4 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目範圍重疊",
+          "text": "<p>一張延伸條目評分表：</p><pre>\n條件「分數」：  R1: 0 到 59   R2: 60 到 79   R3: 75 到 100\n動作：          R1: 不及格    R2: 及格       R3: 優等\n</pre><p>分數 77 揭露了什麼問題？</p>",
+          "answers": [
+            {
+              "text": "不一致——77 同時落在 R2（60 到 79）與 R3（75 到 100），因此兩條規則都符合卻有不同動作",
+              "fraction": 100,
+              "feedback": "正確——重疊的範圍使 75-79 的結果變得模稜兩可。"
+            },
+            {
+              "text": "不完整——77 未被任何規則涵蓋",
+              "fraction": 0,
+              "feedback": "77 有被涵蓋——事實上被兩條規則涵蓋，這才是真正的問題。"
+            },
+            {
+              "text": "不可能的規則——分數 77 不可能發生",
+              "fraction": 0,
+              "feedback": "77 是完全有效的分數；問題在於重疊，而非可行性。"
+            },
+            {
+              "text": "沒有問題——此表格式良好",
+              "fraction": 0,
+              "feedback": "R2 與 R3 在 75-79 上重疊，因此該區間的分數會符合兩條衝突的規則。"
+            }
+          ],
+          "generalFeedback": "R2（60 到 79）與 R3（75 到 100）在 75-79 上重疊。分數 77 同時符合兩者，同時指定及格與優等——這是由不互斥的延伸條目範圍造成的不一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目範圍的空隙",
+          "text": "<p>一張依年齡的延伸條目表：</p><pre>\n條件「年齡」：  R1: 0 到 17   R2: 18 到 64   R3: 66 到 120\n動作：          R1: 未成年    R2: 成年       R3: 年長\n</pre><p>此表有什麼完整性問題？</p>",
+          "answers": [
+            {
+              "text": "年齡 65 未被任何規則涵蓋——R2 與 R3 之間有空隙",
+              "fraction": 100,
+              "feedback": "正確——R2 到 64 為止，R3 從 66 起算，留下 65 未涵蓋。"
+            },
+            {
+              "text": "年齡 18 被涵蓋了兩次",
+              "fraction": 0,
+              "feedback": "18 只落在 R2；此處沒有重疊，只有 65 的空隙。"
+            },
+            {
+              "text": "範圍在 64 處重疊",
+              "fraction": 0,
+              "feedback": "64 只屬於 R2；缺陷是空隙，而非重疊。"
+            },
+            {
+              "text": "此表是完整的",
+              "fraction": 0,
+              "feedback": "65 沒有對應規則，因此該表不完整。"
+            }
+          ],
+          "generalFeedback": "R2 涵蓋到 64，R3 從 66 起算，因此年齡 65 不符合任何規則。該空隙是延伸條目範圍中的不完整缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "重複（冗餘）的規則",
+          "text": "<p>檢視此表：</p><pre>\n        R1  R2  R3  R4\nC1       T   F   T   F\nC2       T   T   F   T\n------------------------\nAction   A   B   C   B\n</pre><p>哪條規則是冗餘的，為什麼？</p>",
+          "answers": [
+            {
+              "text": "R4——它與 R2 重複：條件相同（C1=F, C2=T）且動作相同 B",
+              "fraction": 100,
+              "feedback": "正確——R2 與 R4 完全相同，因此 R4 未增加任何內容。"
+            },
+            {
+              "text": "R3——它是唯一觸發 C 的規則",
+              "fraction": 0,
+              "feedback": "觸發唯一的動作並非冗餘；R3 涵蓋一個相異的組合。"
+            },
+            {
+              "text": "R1——因為它觸發 A",
+              "fraction": 0,
+              "feedback": "R1 唯一地涵蓋 (T,T)；它並未被重複。"
+            },
+            {
+              "text": "沒有——每條規則都不同",
+              "fraction": 0,
+              "feedback": "R2 與 R4 條件相同且動作相同，因此其中一條是冗餘的。"
+            }
+          ],
+          "generalFeedback": "R2 與 R4 都是 C1=F, C2=T 且都觸發 B。它們是完全的重複，因此 R4 是可移除的冗餘規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以計數檢查完整性",
+          "text": "<p>一張針對 <strong>4 個二元條件</strong>的有限條目表使用了不在意。其各規則分別涵蓋 8、4、2、1 種組合，且互不重疊。此表是否完整？</p>",
+          "answers": [
+            {
+              "text": "否——各規則共涵蓋 8+4+2+1 = 15 種，而 2^4 = 16，故缺少一種",
+              "fraction": 100,
+              "feedback": "正確——15 < 16，因此該表缺少一種組合而不完整。"
+            },
+            {
+              "text": "是——四條規則涵蓋了全部",
+              "fraction": 0,
+              "feedback": "各涵蓋數合計為 15，比 16 少一。"
+            },
+            {
+              "text": "否——此表規則過多而過度指定",
+              "fraction": 0,
+              "feedback": "合計為 15，低於 16；並無過度涵蓋（無重疊）。"
+            },
+            {
+              "text": "否——缺少兩種組合",
+              "fraction": 0,
+              "feedback": "16 - 15 = 1，因此恰好缺少一種組合。"
+            }
+          ],
+          "generalFeedback": "每條規則的不在意展開為 2 的冪；將互斥的涵蓋相加得 8+4+2+1 = 15。完整的 4 條件表需要 2^4 = 16，故有一種組合未被涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由不在意重疊造成的不一致",
+          "text": "<p>一張表對 2 個二元條件包含這兩條規則：</p><pre>\n規則 X：  C1=T, C2=-  ->  A\n規則 Y：  C1=T, C2=F  ->  B\n</pre><p>哪種組合造成衝突，為什麼？</p>",
+          "answers": [
+            {
+              "text": "C1=T, C2=F——規則 X（C2 為不在意）也涵蓋它並指定 A，而規則 Y 指定 B",
+              "fraction": 100,
+              "feedback": "正確——X 的不在意與 Y 在此重疊卻動作不同，屬於不一致。"
+            },
+            {
+              "text": "C1=T, C2=T——兩條規則在此都要求動作 B",
+              "fraction": 0,
+              "feedback": "在 (T,T) 只有規則 X 適用（給出 A）；規則 Y 是 C2=F，故 (T,T) 沒有衝突。"
+            },
+            {
+              "text": "C1=F, C2=F——兩條規則都未涵蓋它，造成衝突",
+              "fraction": 0,
+              "feedback": "未涵蓋的組合屬於不完整，而非衝突；且此處的衝突在 (T,F)。"
+            },
+            {
+              "text": "沒有衝突——這兩條規則互斥",
+              "fraction": 0,
+              "feedback": "規則 X 的不在意使它在 (T,F) 與規則 Y 重疊，且動作不同。"
+            }
+          ],
+          "generalFeedback": "規則 X（C1=T, C2=-）涵蓋 (T,T) 與 (T,F)。規則 Y（C1=T, C2=F）也涵蓋 (T,F)，卻指定 B 而非 A。(T,F) 處的重疊加上動作衝突即為不一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由互斥條件造成的不可能規則",
+          "text": "<p>條件來自規格：C1 =「付款為現金」、C2 =「付款為信用卡」（一筆付款只用一種方式）：</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       T   F   T\n</pre><p>哪條規則不可行？</p>",
+          "answers": [
+            {
+              "text": "R1——單一筆付款不可能同時是現金又是信用卡",
+              "fraction": 100,
+              "feedback": "正確——C1 與 C2 互斥，故兩者皆真為不可能。"
+            },
+            {
+              "text": "R2——現金而非信用卡",
+              "fraction": 0,
+              "feedback": "那是一般的現金付款；是可行的。"
+            },
+            {
+              "text": "R3——信用卡而非現金",
+              "fraction": 0,
+              "feedback": "那是一般的信用卡付款；是可行的。"
+            },
+            {
+              "text": "沒有——三條都可行",
+              "fraction": 0,
+              "feedback": "R1 要求同時為現金與信用卡，這是規格所禁止的。"
+            }
+          ],
+          "generalFeedback": "由於一筆付款恰為一種方式，C1 與 C2 不可能同時為真。R1（兩者皆真）不可行，無需測試案例；只有 R2 與 R3（以及可能的「兩者皆非」情況）才符合實際。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證完整性與一致性",
+          "text": "<p>一張針對 2 個二元條件、合併後的表為：</p><pre>\n規則 1：  C1=T, C2=-  ->  A\n規則 2：  C1=F, C2=-  ->  B\n</pre><p>此表是否既完整又一致？</p>",
+          "answers": [
+            {
+              "text": "是——兩條規則涵蓋全部 4 種組合且無重疊（在 C1 上互斥）",
+              "fraction": 100,
+              "feedback": "正確——規則 1 涵蓋 TT、TF，規則 2 涵蓋 FT、FF；合起來為全部 4 種且無衝突。"
+            },
+            {
+              "text": "否——因為 C2 從未被固定，所以不完整",
+              "fraction": 0,
+              "feedback": "C2 上的不在意意味 C2 的兩個值都被涵蓋，故無缺少。"
+            },
+            {
+              "text": "否——兩條規則重疊且衝突",
+              "fraction": 0,
+              "feedback": "它們在 C1 上不同（T 對 F），因此永不重疊；沒有衝突。"
+            },
+            {
+              "text": "否——規則 2 是冗餘的",
+              "fraction": 0,
+              "feedback": "規則 2 涵蓋規則 1 未涵蓋的情況（FT、FF），因此是必要的。"
+            }
+          ],
+          "generalFeedback": "規則 1（C1=T, C2=-）涵蓋 TT 與 TF；規則 2（C1=F, C2=-）涵蓋 FT 與 FF。它們的聯集是全部 2^2 = 4 種組合，且在 C1 上互斥，因此該表既完整又一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排除不可行規則後的測試數",
+          "text": "<p>一張 3 條件表有 8 欄規則，但其中 2 欄描述<strong>不可行</strong>的條件組合。採用每條可行規則一個測試，實際需要多少測試案例？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——8 條規則減去 2 條不可行，剩 6 條需要測試。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "不可行規則永不發生，故無需測試案例；8 - 2 = 6。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是不可行規則的數目，而非需要測試的數目。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "8 - 2 = 6，而非 4。"
+            }
+          ],
+          "generalFeedback": "不可行規則無法被執行，因此排除於測試導出之外。8 條規則中有 2 條不可行，剩 6 條可行規則，需要 6 個測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目的規則數",
+          "text": "<p>一張延伸條目表有兩個條件：「Size」具選項 {Low, High}，「Method」具選項 {Cash, Card, Coupon}。完整的延伸條目表需要多少條規則才能涵蓋每種組合？</p>",
+          "answers": [
+            {
+              "text": "6——各選項數的乘積，2 x 3",
+              "fraction": 100,
+              "feedback": "正確——延伸條目的規則數是各條件選項數的乘積。"
+            },
+            {
+              "text": "5——各選項數的和，2 + 3",
+              "fraction": 0,
+              "feedback": "組合是相乘而非相加；2 x 3 = 6。"
+            },
+            {
+              "text": "4——2^2，把每個條件視為二元",
+              "fraction": 0,
+              "feedback": "Method 有 3 個選項而非 2 個，因此為 2 x 3 = 6，而非 2^2。"
+            },
+            {
+              "text": "9——3^2",
+              "fraction": 0,
+              "feedback": "兩個條件的選項數不同（2 與 3）；乘積為 2 x 3 = 6。"
+            }
+          ],
+          "generalFeedback": "對延伸條目表而言，完整規則數是各條件選項數的乘積——此處為 2 x 3 = 6。這推廣了 2^n 公式，後者是每個條件都恰有 2 個選項的特例。",
+          "single": true
+        }
+      ]
+    }
+  },
   "graph-coverage": {
     "en": {
       "easy": [

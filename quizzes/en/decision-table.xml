@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Decision Table Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the condition stub holds</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a decision table, what does the <strong>condition stub</strong> contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The list of conditions (inputs/causes) being considered, one per row in the upper-left quadrant</text><feedback><text>Correct — the condition stub names the conditions; the entries to its right give each rule's values.</text></feedback></answer>
+    <answer fraction="0"><text>The actions the program may take, one per row</text><feedback><text>That is the action stub, in the lower-left quadrant.</text></feedback></answer>
+    <answer fraction="0"><text>The T/F values assigned to each rule</text><feedback><text>Those are the condition entries, in the upper-right quadrant, not the stub.</text></feedback></answer>
+    <answer fraction="0"><text>The numbering of the rule columns</text><feedback><text>Rule numbers label the columns; the stub lists the conditions themselves.</text></feedback></answer>
+    <generalfeedback><text>A decision table has four quadrants. The condition stub (upper-left) lists the conditions; the condition entries (upper-right) give each rule's value for those conditions; the action stub and action entries occupy the lower half.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the action stub holds</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>action stub</strong> of a decision table list?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The possible actions (outputs/effects), one per row in the lower-left quadrant</text><feedback><text>Correct — the action stub names the actions; the action entries mark which fire per rule.</text></feedback></answer>
+    <answer fraction="0"><text>The conditions being evaluated</text><feedback><text>Those live in the condition stub (upper-left).</text></feedback></answer>
+    <answer fraction="0"><text>The T/F entries for each condition</text><feedback><text>Those are condition entries, not the action stub.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of rules in the table</text><feedback><text>The rule count is determined by the conditions; the action stub simply lists actions.</text></feedback></answer>
+    <generalfeedback><text>The action stub is the lower-left quadrant: it enumerates the actions the specification can trigger. The action entries to its right (often marked X) say which actions fire for each rule.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a rule represents</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a single <strong>rule</strong> (column) in a decision table represent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One specific combination of condition outcomes together with the action(s) that should fire for it</text><feedback><text>Correct — a rule pairs a condition combination with its prescribed actions.</text></feedback></answer>
+    <answer fraction="0"><text>A single concrete test input value</text><feedback><text>A rule is a combination of condition outcomes; a test case is later derived from it.</text></feedback></answer>
+    <answer fraction="0"><text>One condition being evaluated</text><feedback><text>A rule spans all the conditions at once (one value each), not a single condition.</text></feedback></answer>
+    <answer fraction="0"><text>The entire decision table</text><feedback><text>A rule is one column; the table is the set of all rules.</text></feedback></answer>
+    <generalfeedback><text>Each column (rule) fixes a value for every condition and records the actions that must occur for that exact combination. Reading down a column gives both the situation and the expected behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Limited-entry vs extended-entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What distinguishes a <strong>limited-entry</strong> decision table from an <strong>extended-entry</strong> one?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Limited-entry uses only T/F (with "-" for don't-care) as condition entries; extended-entry allows values, ranges, or choices</text><feedback><text>Correct — that is exactly the difference between the two forms.</text></feedback></answer>
+    <answer fraction="0"><text>Limited-entry allows value ranges; extended-entry allows only T/F</text><feedback><text>This reverses the two definitions.</text></feedback></answer>
+    <answer fraction="0"><text>Limited-entry tables can have fewer actions than extended-entry ones</text><feedback><text>The number of actions is unrelated; the difference is the form of the condition entries.</text></feedback></answer>
+    <answer fraction="0"><text>Extended-entry tables have no rules</text><feedback><text>Both forms are organised into rules; only the entry format differs.</text></feedback></answer>
+    <generalfeedback><text>In a limited-entry table every condition entry is boolean (T, F, or "-"). In an extended-entry table a condition entry may instead be a value, a range, or a choice (e.g. "under 100", "100 to 500", "over 500"), which can make a table more compact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of a don't-care entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a "-" (dash, or don't-care) entry for a condition in a rule mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The rule's action(s) are the same regardless of that condition's value</text><feedback><text>Correct — the condition does not affect the outcome for that rule.</text></feedback></answer>
+    <answer fraction="0"><text>The condition is definitely false for that rule</text><feedback><text>A false value would be written F; "-" means the value is irrelevant.</text></feedback></answer>
+    <answer fraction="0"><text>The condition's value is unknown, so the rule is invalid</text><feedback><text>Don't-care is deliberate, not a data error; the rule is valid and applies for any value of that condition.</text></feedback></answer>
+    <answer fraction="0"><text>The condition must be tested with both T and F in the same rule at once</text><feedback><text>A single rule cannot hold both; "-" simply says the outcome is independent of this condition.</text></feedback></answer>
+    <generalfeedback><text>A don't-care "-" says the rule's outcome does not depend on that condition. Over k don't-care conditions, one such rule stands in for 2^k of the fully-expanded combinations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rules for 2 conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A limited-entry decision table with <strong>2 binary conditions</strong> has how many rules (columns) in its full, uncollapsed form?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 2^2 = 4 combinations of T/F.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the number of values one condition can take, not the number of combinations of two conditions.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is 2^3, the count for three conditions.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is not a power of two; a full binary table always has 2^n rules.</text></feedback></answer>
+    <generalfeedback><text>A full limited-entry table for n binary conditions has 2^n rules. For n = 2 that is 2^2 = 4: TT, TF, FT, FF.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rules for 3 conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A full limited-entry decision table with <strong>3 binary conditions</strong> has how many rules?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 2^3 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is 2×3; the count is 2^n, not 2×n.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is 3^2; binary conditions give 2^n, not n^2.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 is 2^4, the count for four conditions.</text></feedback></answer>
+    <generalfeedback><text>For n binary conditions a full table has 2^n rules. For n = 3 that is 2^3 = 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rules for 4 conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A full limited-entry decision table with <strong>4 binary conditions</strong> has how many rules?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>Correct — 2^4 = 16.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is 2^3, the count for three conditions.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is not a power of two; a full binary table has 2^n rules.</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 is not a power of two and overcounts; the answer is 2^4 = 16.</text></feedback></answer>
+    <generalfeedback><text>For n binary conditions a full table has 2^n rules. For n = 4 that is 2^4 = 16.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Limited-entry condition values</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a limited-entry decision table, the condition entries are restricted to true/false values (with "-" allowed for don't-care).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — limited-entry means boolean condition entries, plus "-" for don't-care.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>By definition, a limited-entry table uses only T/F (and "-") for conditions; value ranges belong to extended-entry tables.</text></feedback></answer>
+    <generalfeedback><text>"Limited-entry" refers precisely to limiting condition entries to true/false (with "-" for don't-care). Value ranges and choices are the hallmark of extended-entry tables.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Condition entries vs action entries</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the right-hand quadrants of the table, what do the <strong>condition entries</strong> and <strong>action entries</strong> specify?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Condition entries give each rule's value for each condition; action entries mark which actions fire for that rule</text><feedback><text>Correct — one describes the situation, the other the response.</text></feedback></answer>
+    <answer fraction="0"><text>Condition entries list the actions; action entries list the conditions</text><feedback><text>This swaps their roles.</text></feedback></answer>
+    <answer fraction="0"><text>Both simply repeat the rule numbers</text><feedback><text>Rule numbers are column headers; the entries carry the T/F values and action marks.</text></feedback></answer>
+    <answer fraction="0"><text>Condition entries show source-code coverage; action entries show test results</text><feedback><text>Decision tables are black-box; entries describe the specification, not code coverage.</text></feedback></answer>
+    <generalfeedback><text>For each rule, the condition entries (upper-right) record the T/F value of every condition, and the action entries (lower-right, often X) record which actions the specification says should fire.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The four quadrants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A decision table is conventionally divided into four quadrants. Which four?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Condition stub, condition entries, action stub, action entries</text><feedback><text>Correct — stubs on the left, entries on the right, conditions on top, actions below.</text></feedback></answer>
+    <answer fraction="0"><text>Inputs, outputs, states, transitions</text><feedback><text>Those describe a state machine, not the quadrants of a decision table.</text></feedback></answer>
+    <answer fraction="0"><text>Preconditions, postconditions, invariants, guards</text><feedback><text>Those are specification concepts, not the four quadrants of a decision table.</text></feedback></answer>
+    <answer fraction="0"><text>Nodes, edges, paths, cycles</text><feedback><text>Those are graph concepts, unrelated to the table layout.</text></feedback></answer>
+    <generalfeedback><text>The four quadrants are the condition stub (upper-left), condition entries (upper-right), action stub (lower-left), and action entries (lower-right).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Decision table technique family</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Decision table testing is classified as which kind of test-design technique?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A black-box (specification-based) technique</text><feedback><text>Correct — it derives tests from the specification's conditions and actions, not from code.</text></feedback></answer>
+    <answer fraction="0"><text>A white-box (structural) technique based on the control-flow graph</text><feedback><text>Decision tables are built from the specification, not from source-code structure.</text></feedback></answer>
+    <answer fraction="0"><text>A code-coverage measurement technique</text><feedback><text>It designs tests from behaviour; it does not measure how much code runs.</text></feedback></answer>
+    <answer fraction="0"><text>A mutation-analysis technique</text><feedback><text>Mutation analysis seeds code faults; decision tables are a black-box design method.</text></feedback></answer>
+    <generalfeedback><text>Decision table testing is a black-box, specification-based design technique: conditions and actions come from the requirements, and rules combine them systematically.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Extended-entry condition value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an <strong>extended-entry</strong> decision table, a condition entry may be which of the following?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A value, range, or choice (for example "under 100", "100 to 500", "over 500")</text><feedback><text>Correct — extended-entry tables allow richer entries than plain T/F.</text></feedback></answer>
+    <answer fraction="0"><text>Only T or F</text><feedback><text>Boolean-only entries define a limited-entry table, not an extended-entry one.</text></feedback></answer>
+    <answer fraction="0"><text>Only the mark X</text><feedback><text>X marks fired actions in the action entries, not condition values.</text></feedback></answer>
+    <answer fraction="0"><text>Only a rule number</text><feedback><text>Rule numbers are column labels, not condition entries.</text></feedback></answer>
+    <generalfeedback><text>Extended-entry tables let a condition entry be a value, range, or choice, which can collapse several boolean conditions into one multi-valued condition and shrink the table.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Full table has 2^n rules</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Before any collapsing, a full limited-entry decision table for n binary conditions has 2^n rules.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — every condition independently takes T or F, giving 2^n combinations.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Each of the n binary conditions doubles the number of combinations, so the full table has 2^n rules.</text></feedback></answer>
+    <generalfeedback><text>With n independent binary conditions there are 2^n distinct T/F combinations, so the full (uncollapsed) table has exactly 2^n rule columns. Collapsing with don't-cares can reduce this later.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Deriving tests from rules</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the simplest standard way to derive test cases from a decision table?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Create one test case per rule (column) of the table</text><feedback><text>Correct — each rule becomes a test, using inputs that satisfy its condition combination.</text></feedback></answer>
+    <answer fraction="0"><text>Create one test case per condition</text><feedback><text>A test must fix every condition at once; a rule (a full combination) is the natural unit.</text></feedback></answer>
+    <answer fraction="0"><text>Create one test case per action</text><feedback><text>Actions are outcomes; tests are derived from the rules that trigger them.</text></feedback></answer>
+    <answer fraction="0"><text>Create a single test case for the whole table</text><feedback><text>One test cannot exercise every rule; you need one per rule.</text></feedback></answer>
+    <generalfeedback><text>The standard mapping is one test case per rule: pick inputs satisfying that rule's condition combination and check that exactly its prescribed actions fire. So the test count equals the number of rules in the (collapsed) table.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Decision Table Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Which rule matches the input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given this limited-entry table:</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+</pre><p>For an input where <code>C1 = F</code> and <code>C2 = T</code>, which rule applies?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R3</text><feedback><text>Correct — R3 has C1 = F and C2 = T.</text></feedback></answer>
+    <answer fraction="0"><text>R1</text><feedback><text>R1 is C1 = T, C2 = T, not the given input.</text></feedback></answer>
+    <answer fraction="0"><text>R2</text><feedback><text>R2 is C1 = T, C2 = F.</text></feedback></answer>
+    <answer fraction="0"><text>R4</text><feedback><text>R4 is C1 = F, C2 = F, which differs in C2.</text></feedback></answer>
+    <generalfeedback><text>Match the input against each column: only R3 has C1 = F and C2 = T, so R3 is the applicable rule.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which action fires</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given this table (X marks a fired action):</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+A        X   -   -   -
+B        -   X   X   -
+C        -   -   -   X
+</pre><p>For an input where <code>C1 = T</code> and <code>C2 = F</code>, which action fires?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>B</text><feedback><text>Correct — C1 = T, C2 = F is rule R2, whose only X is on action B.</text></feedback></answer>
+    <answer fraction="0"><text>A</text><feedback><text>Action A fires only for R1 (C1 = T, C2 = T).</text></feedback></answer>
+    <answer fraction="0"><text>C</text><feedback><text>Action C fires only for R4 (C1 = F, C2 = F).</text></feedback></answer>
+    <answer fraction="0"><text>No action fires</text><feedback><text>R2 does have a marked action (B), so an action does fire.</text></feedback></answer>
+    <generalfeedback><text>The input (C1 = T, C2 = F) selects rule R2. Reading down R2, the only X is on action B, so B fires.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combinations behind a don't-care</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a collapsed limited-entry table, one rule has "-" for <strong>2</strong> of the conditions (all other conditions fixed). How many rules of the original full table does this single collapsed rule represent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 2 don't-care conditions stand for 2^2 = 4 combinations.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is 2^1; there are two don't-cares, giving 2^2 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Don't-cares expand as a power of two; 2 of them give 4, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A rule with no don't-cares represents 1 combination; two don't-cares represent 4.</text></feedback></answer>
+    <generalfeedback><text>Each don't-care condition can be T or F, so k don't-cares expand to 2^k full-table rules. For k = 2 that is 2^2 = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test cases from a collapsed table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A collapsed decision table has <strong>5 rules</strong>. Using the "one test case per rule" strategy, how many test cases are derived?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — the number of test cases equals the number of rules.</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 = 2^5 would be the count if you re-expanded every rule; the strategy uses one test per collapsed rule.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>There is no doubling; it is one test per rule, so 5.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Every rule needs a test; with 5 rules that is 5, not 4.</text></feedback></answer>
+    <generalfeedback><text>The one-test-per-rule mapping means the test count equals the rule count. A collapsed table with 5 rules yields 5 test cases.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Collapsing a full table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Collapse this full table as far as possible:</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+A        X   X   -   -
+B        -   -   X   X
+</pre><p>How many rules remain after collapsing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — R1,R2 merge to (C1=T, C2=-)→A and R3,R4 merge to (C1=F, C2=-)→B.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the uncollapsed count; two mergeable pairs reduce it to 2.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Both pairs merge, not just one, so 2 rules remain.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A and B are different actions, so their rules cannot merge into a single rule.</text></feedback></answer>
+    <generalfeedback><text>R1 and R2 fire only A and differ only in C2, so they merge to (C1=T, C2=-). R3 and R4 fire only B and differ only in C2, merging to (C1=F, C2=-). Two collapsed rules remain.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Completeness with don't-cares</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A collapsed table for 2 binary conditions has these rules:</p><pre>
+Rule A:  C1=T, C2=-
+Rule B:  C1=F, C2=T
+Rule C:  C1=F, C2=F
+</pre><p>Do these rules cover all 2^2 = 4 combinations?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — Rule A covers TT and TF, Rule B covers FT, Rule C covers FF: all 4 combinations</text><feedback><text>Correct — the don't-care in Rule A accounts for two combinations, completing the set.</text></feedback></answer>
+    <answer fraction="0"><text>No — the combination C1=T, C2=F is missing</text><feedback><text>Rule A (C1=T, C2=-) already covers C1=T, C2=F.</text></feedback></answer>
+    <answer fraction="0"><text>No — the combination C1=F, C2=T is missing</text><feedback><text>Rule B covers exactly C1=F, C2=T.</text></feedback></answer>
+    <answer fraction="0"><text>No — only 3 combinations can ever be covered by 3 rules</text><feedback><text>A rule with a don't-care covers more than one combination, so 3 rules can cover 4 combinations.</text></feedback></answer>
+    <generalfeedback><text>Rule A's don't-care on C2 covers both TT and TF (2 combinations); Rule B covers FT; Rule C covers FF. That is 2+1+1 = 4 = 2^2, so the table is complete.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match a rule with three conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given this full 3-condition table:</p><pre>
+        R1 R2 R3 R4 R5 R6 R7 R8
+C1       T  T  T  T  F  F  F  F
+C2       T  T  F  F  T  T  F  F
+C3       T  F  T  F  T  F  T  F
+</pre><p>Which rule matches <code>C1 = T, C2 = F, C3 = T</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R3</text><feedback><text>Correct — R3 is C1=T, C2=F, C3=T.</text></feedback></answer>
+    <answer fraction="0"><text>R2</text><feedback><text>R2 is C1=T, C2=T, C3=F.</text></feedback></answer>
+    <answer fraction="0"><text>R4</text><feedback><text>R4 is C1=T, C2=F, C3=F, which differs in C3.</text></feedback></answer>
+    <answer fraction="0"><text>R7</text><feedback><text>R7 is C1=F, C2=F, C3=T, which differs in C1.</text></feedback></answer>
+    <generalfeedback><text>Read each column top to bottom. R3 is the only column with C1=T, C2=F, C3=T.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Extended-entry match</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An extended-entry table sets a discount by order total:</p><pre>
+Condition "Order total":  R1: under 100   R2: 100 to 500   R3: over 500
+Action "Discount":        R1: 0%          R2: 5%           R3: 10%
+</pre><p>An order total of 250 selects which rule, and what discount applies?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R2 — a 5% discount</text><feedback><text>Correct — 250 falls in the "100 to 500" band.</text></feedback></answer>
+    <answer fraction="0"><text>R1 — a 0% discount</text><feedback><text>R1 is for totals under 100; 250 is above that.</text></feedback></answer>
+    <answer fraction="0"><text>R3 — a 10% discount</text><feedback><text>R3 is for totals over 500; 250 does not reach it.</text></feedback></answer>
+    <answer fraction="0"><text>No rule matches 250</text><feedback><text>250 is squarely within R2's range, so a rule does match.</text></feedback></answer>
+    <generalfeedback><text>Extended-entry conditions match by range. 250 lies in "100 to 500", which is R2, giving a 5% discount.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which two rules may merge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given this table:</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+A1       X   X   -   -
+A2       -   -   X   -
+A3       -   -   -   X
+</pre><p>Which two rules can be collapsed into one, and how?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 and R2, into (C1=T, C2=-) firing A1</text><feedback><text>Correct — they fire the same action and differ only in C2.</text></feedback></answer>
+    <answer fraction="0"><text>R3 and R4, into (C1=F, C2=-)</text><feedback><text>R3 fires A2 and R4 fires A3 — different actions, so they cannot merge.</text></feedback></answer>
+    <answer fraction="0"><text>R2 and R3, into (C1=-, C2=-)</text><feedback><text>R2 and R3 differ in both C1 and C2 and fire different actions; they cannot merge.</text></feedback></answer>
+    <answer fraction="0"><text>R1 and R4, into (C1=-, C2=-)</text><feedback><text>R1 and R4 differ in both conditions and fire different actions.</text></feedback></answer>
+    <generalfeedback><text>Two rules merge only if they fire identical actions and differ in exactly one condition. R1 and R2 both fire A1 and differ only in C2, so they collapse to (C1=T, C2=-)→A1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which action fires (three conditions)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given this table (X marks a fired action):</p><pre>
+        R1 R2 R3 R4 R5 R6 R7 R8
+C1       T  T  T  T  F  F  F  F
+C2       T  T  F  F  T  T  F  F
+C3       T  F  T  F  T  F  T  F
+--------------------------------
+Accept   X  X  X  -  X  -  -  -
+Reject   -  -  -  X  -  X  X  X
+</pre><p>For <code>C1 = F, C2 = T, C3 = F</code>, which action fires?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reject</text><feedback><text>Correct — (F,T,F) is rule R6, whose X is on Reject.</text></feedback></answer>
+    <answer fraction="0"><text>Accept</text><feedback><text>Accept fires for R6? No — R6's X is on Reject, not Accept.</text></feedback></answer>
+    <answer fraction="0"><text>Both Accept and Reject</text><feedback><text>Only one X appears in column R6, so a single action fires.</text></feedback></answer>
+    <answer fraction="0"><text>Neither action</text><feedback><text>R6 does have a marked action (Reject).</text></feedback></answer>
+    <generalfeedback><text>(C1=F, C2=T, C3=F) is column R6. Its only X is on Reject, so Reject fires.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Missing combinations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A limited-entry table for <strong>3 binary conditions</strong> currently lists 6 rules, none using don't-cares. Assuming no duplicates, how many condition combinations are missing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — a full table needs 2^3 = 8 rules, and 8 - 6 = 2 are missing.</text></feedback></answer>
+    <answer fraction="0"><text>0 — the table is complete</text><feedback><text>A complete 3-condition table needs 8 rules; only 6 are present.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>8 - 6 = 2, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the number present; the number missing is 8 - 6 = 2.</text></feedback></answer>
+    <generalfeedback><text>Completeness requires all 2^n combinations. For n = 3 that is 8; with 6 present and no don't-cares, 2 combinations are missing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test count before and after collapsing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A full table for 3 conditions (8 rules) collapses to 4 rules. Using one test per rule, how many test cases does the collapsed table require, compared with the full table?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 test cases, down from 8</text><feedback><text>Correct — collapsing to 4 rules means 4 tests instead of 8.</text></feedback></answer>
+    <answer fraction="0"><text>8 test cases, unchanged</text><feedback><text>Collapsing reduces the rule count, so fewer tests are needed.</text></feedback></answer>
+    <answer fraction="0"><text>16 test cases</text><feedback><text>16 exceeds even the full table's 8 rules; the collapsed table needs 4.</text></feedback></answer>
+    <answer fraction="0"><text>1 test case</text><feedback><text>Each of the 4 collapsed rules needs its own test, giving 4.</text></feedback></answer>
+    <generalfeedback><text>Test count equals rule count. The full table's 8 rules would give 8 tests; collapsing to 4 rules reduces that to 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading a loan decision table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A loan table uses C1 = "credit score OK" and C2 = "income sufficient":</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+------------------------
+Approve  X   -   -   -
+</pre><p>An applicant has credit score OK and sufficient income. Which rule applies and what happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 — the loan is approved</text><feedback><text>Correct — both conditions true is R1, the only rule with Approve marked.</text></feedback></answer>
+    <answer fraction="0"><text>R2 — the loan is approved</text><feedback><text>R2 is credit OK but income not sufficient, and it has no Approve mark.</text></feedback></answer>
+    <answer fraction="0"><text>R4 — the loan is approved</text><feedback><text>R4 is both conditions false and has no Approve mark.</text></feedback></answer>
+    <answer fraction="0"><text>R1 — the loan is not approved</text><feedback><text>R1 does have Approve marked, so the loan is approved.</text></feedback></answer>
+    <generalfeedback><text>Credit OK and income sufficient is (C1=T, C2=T), which is R1. R1 is the only rule with Approve marked, so the loan is approved.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Extended-entry age bands</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An extended-entry table sets ticket price by age:</p><pre>
+Condition "Age":  R1: under 13   R2: 13 to 17   R3: 18 to 64   R4: 65 or older
+Action "Price":   R1: free       R2: $5         R3: $10        R4: $7
+</pre><p>A visitor aged 17 selects which rule and price?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R2 — $5</text><feedback><text>Correct — 17 falls in the "13 to 17" band.</text></feedback></answer>
+    <answer fraction="0"><text>R1 — free</text><feedback><text>R1 is for ages under 13; 17 is above that.</text></feedback></answer>
+    <answer fraction="0"><text>R3 — $10</text><feedback><text>R3 starts at 18; 17 does not reach it.</text></feedback></answer>
+    <answer fraction="0"><text>R4 — $7</text><feedback><text>R4 is for ages 65 or older.</text></feedback></answer>
+    <generalfeedback><text>Age 17 lies in the "13 to 17" band, which is R2, priced at $5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Don't-care over three conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a table with <strong>5 binary conditions</strong>, one collapsed rule has "-" for 3 of them (the other 2 fixed). How many full-table combinations does that single rule represent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 3 don't-cares stand for 2^3 = 8 combinations.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Don't-cares expand as 2^k; 3 of them give 8, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 = 2^5 is the whole table; this rule fixes 2 conditions, so it covers 2^3 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the number of conditions, not 2 raised to the don't-care count.</text></feedback></answer>
+    <generalfeedback><text>Only the don't-care conditions vary. With 3 don't-cares the rule stands for 2^3 = 8 of the fully-expanded combinations, regardless of the total number of conditions.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Decision Table Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Redundant (subsumed) rule</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Examine this table:</p><pre>
+        R1     R2     R3
+C1       T      T      F
+C2       -      F      T
+--------------------------
+A        X      X      -
+</pre><p>Which rule is redundant, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R2 — it is subsumed by R1, which already covers C1=T with any C2 and fires the same action A</text><feedback><text>Correct — R1's don't-care on C2 already includes R2's case with the same action.</text></feedback></answer>
+    <answer fraction="0"><text>R1 — because it uses a don't-care</text><feedback><text>Using a don't-care is not itself redundant; R1 is the general rule and R2 is the one it subsumes.</text></feedback></answer>
+    <answer fraction="0"><text>R3 — because it fires no action</text><feedback><text>R3 covers a different case (C1=F, C2=T) and firing no action is a legitimate outcome, not redundancy.</text></feedback></answer>
+    <answer fraction="0"><text>None — the table has no redundancy</text><feedback><text>R2 is fully covered by R1 with the same action, so R2 is redundant.</text></feedback></answer>
+    <generalfeedback><text>R1 (C1=T, C2=-) already covers both (T,T) and (T,F) with action A. R2 (C1=T, C2=F) is exactly the (T,F) case with the same action, so it adds nothing — it is a redundant, subsumed rule.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Impossible rule</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Conditions are C1 = "x &gt; 0" and C2 = "x &lt; 0":</p><pre>
+        R1  R2  R3  R4
+C1       T   T   F   F
+C2       T   F   T   F
+</pre><p>Which rule describes an <strong>impossible</strong> (infeasible) combination?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 — a value cannot be both greater than 0 and less than 0 at once</text><feedback><text>Correct — C1=T and C2=T is logically impossible.</text></feedback></answer>
+    <answer fraction="0"><text>R4 — both false is impossible</text><feedback><text>C1=F and C2=F simply means x = 0, which is perfectly feasible.</text></feedback></answer>
+    <answer fraction="0"><text>R2 — x &gt; 0 and not x &lt; 0</text><feedback><text>That describes any positive x, which is feasible.</text></feedback></answer>
+    <answer fraction="0"><text>R3 — x &lt; 0 and not x &gt; 0</text><feedback><text>That describes any negative x, which is feasible.</text></feedback></answer>
+    <generalfeedback><text>C1 and C2 are mutually exclusive, so R1 (both true) can never occur — it is an infeasible rule and needs no test case. R4 (both false) corresponds to x = 0 and is feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inconsistent rules</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Examine this table:</p><pre>
+        R1  R2  R3
+C1       T   T   F
+C2       F   F   T
+--------------------
+A        X   -   -
+B        -   X   -
+</pre><p>What anomaly does this table contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 and R2 are inconsistent — the same condition combination (C1=T, C2=F) prescribes different actions (A vs B)</text><feedback><text>Correct — identical conditions with conflicting actions is an inconsistency.</text></feedback></answer>
+    <answer fraction="0"><text>R3 is redundant</text><feedback><text>R3 covers a distinct combination (C1=F, C2=T); it is not redundant.</text></feedback></answer>
+    <answer fraction="0"><text>The table is incomplete only</text><feedback><text>It may also be incomplete, but the flagged defect is the conflict between R1 and R2 on the same conditions.</text></feedback></answer>
+    <answer fraction="0"><text>There is no anomaly</text><feedback><text>R1 and R2 share the same condition values but fire different actions — a clear inconsistency.</text></feedback></answer>
+    <generalfeedback><text>R1 and R2 both have C1=T, C2=F but fire A and B respectively. Two rules with identical conditions and different actions are inconsistent (conflicting) and must be resolved.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Completeness check</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A table for 2 binary conditions has just these two rules:</p><pre>
+Rule P:  C1=T, C2=-
+Rule Q:  C1=F, C2=T
+</pre><p>Is the table complete, and if not what is missing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Incomplete — the combination C1=F, C2=F is not covered</text><feedback><text>Correct — P covers TT and TF, Q covers FT, leaving FF uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>Complete — all 4 combinations are covered</text><feedback><text>Only 3 of the 4 are covered; FF is missing.</text></feedback></answer>
+    <answer fraction="0"><text>Incomplete — the combination C1=T, C2=T is missing</text><feedback><text>Rule P's don't-care already covers C1=T, C2=T.</text></feedback></answer>
+    <answer fraction="0"><text>Incomplete — the combination C1=F, C2=T is missing</text><feedback><text>Rule Q covers exactly C1=F, C2=T.</text></feedback></answer>
+    <generalfeedback><text>Rule P (C1=T, C2=-) covers TT and TF; Rule Q covers FT. That is 3 combinations; the fourth, FF (C1=F, C2=F), is not covered, so the table is incomplete.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Correct collapsing (three conditions)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Examine this full 3-condition table:</p><pre>
+        R1 R2 R3 R4 R5 R6 R7 R8
+C1       T  T  T  T  F  F  F  F
+C2       T  T  F  F  T  T  F  F
+C3       T  F  T  F  T  F  T  F
+--------------------------------
+Action   A  A  B  C  D  E  F  G
+</pre><p>Which pair of rules may be correctly collapsed, and into what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 and R2, into (C1=T, C2=T, C3=-) firing A</text><feedback><text>Correct — they fire the same action and differ only in C3.</text></feedback></answer>
+    <answer fraction="0"><text>R1 and R3, into (C1=T, C2=-, C3=T)</text><feedback><text>R1 fires A and R3 fires B — different actions, so they cannot merge.</text></feedback></answer>
+    <answer fraction="0"><text>R7 and R8, into (C1=F, C2=F, C3=-)</text><feedback><text>R7 fires F and R8 fires G — different actions, so no merge.</text></feedback></answer>
+    <answer fraction="0"><text>R1 and R5, into (C1=-, C2=T, C3=T)</text><feedback><text>R1 fires A and R5 fires D — different actions, so no merge.</text></feedback></answer>
+    <generalfeedback><text>Only R1 and R2 share an action (A) while differing in exactly one condition (C3). They collapse to (C1=T, C2=T, C3=-)→A. Every other adjacent pair fires different actions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal test set from a collapsed table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A correctly collapsed table for 2 binary conditions is:</p><pre>
+Rule 1:  C1=T, C2=-
+Rule 2:  C1=F, C2=T
+Rule 3:  C1=F, C2=F
+</pre><p>What is the minimum number of test cases needed to exercise every rule once?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — one per collapsed rule (covering all 4 underlying combinations)</text><feedback><text>Correct — the collapsed table has 3 rules, so 3 tests suffice.</text></feedback></answer>
+    <answer fraction="0"><text>4 — one per underlying combination</text><feedback><text>You test the collapsed rules, not the re-expanded combinations, so 3 tests are enough.</text></feedback></answer>
+    <answer fraction="0"><text>2 — one per condition</text><feedback><text>Each rule needs its own test; there are 3 rules.</text></feedback></answer>
+    <answer fraction="0"><text>1 — a single combined test</text><feedback><text>One test cannot exercise three distinct rules.</text></feedback></answer>
+    <generalfeedback><text>Test count equals the number of (collapsed) rules. Here 3 rules give 3 tests; Rule 1's don't-care means those 3 tests still cover all 2^2 = 4 combinations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Overlapping extended-entry ranges</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An extended-entry grading table:</p><pre>
+Condition "Score":  R1: 0 to 59   R2: 60 to 79   R3: 75 to 100
+Action:             R1: Fail      R2: Pass       R3: Distinction
+</pre><p>What problem does a score of 77 reveal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inconsistency — 77 falls in both R2 (60 to 79) and R3 (75 to 100), so two rules match with different actions</text><feedback><text>Correct — the overlapping ranges make the outcome for 75-79 ambiguous.</text></feedback></answer>
+    <answer fraction="0"><text>Incompleteness — 77 is not covered by any rule</text><feedback><text>77 is covered — in fact by two rules, which is the actual problem.</text></feedback></answer>
+    <answer fraction="0"><text>An impossible rule — a score of 77 cannot occur</text><feedback><text>77 is a perfectly valid score; the issue is the overlap, not feasibility.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — the table is well-formed</text><feedback><text>R2 and R3 overlap on 75-79, so a score there matches two conflicting rules.</text></feedback></answer>
+    <generalfeedback><text>R2 (60 to 79) and R3 (75 to 100) overlap on 75-79. A score of 77 matches both, prescribing Pass and Distinction at once — an inconsistency caused by non-disjoint extended-entry ranges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Gap in extended-entry ranges</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An extended-entry table by age:</p><pre>
+Condition "Age":  R1: 0 to 17   R2: 18 to 64   R3: 66 to 120
+Action:           R1: minor     R2: adult      R3: senior
+</pre><p>What completeness problem does this table have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Age 65 is not covered by any rule — a gap between R2 and R3</text><feedback><text>Correct — R2 ends at 64 and R3 starts at 66, leaving 65 uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>Age 18 is covered twice</text><feedback><text>18 falls only in R2; there is no overlap here, only a gap at 65.</text></feedback></answer>
+    <answer fraction="0"><text>The ranges overlap at 64</text><feedback><text>64 belongs only to R2; the defect is a gap, not an overlap.</text></feedback></answer>
+    <answer fraction="0"><text>The table is complete</text><feedback><text>65 has no matching rule, so the table is incomplete.</text></feedback></answer>
+    <generalfeedback><text>R2 covers up to 64 and R3 starts at 66, so age 65 matches no rule. That gap is an incompleteness defect in the extended-entry ranges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Duplicate (redundant) rule</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Examine this table:</p><pre>
+        R1  R2  R3  R4
+C1       T   F   T   F
+C2       T   T   F   T
+------------------------
+Action   A   B   C   B
+</pre><p>Which rule is redundant, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R4 — it duplicates R2: identical conditions (C1=F, C2=T) and the same action B</text><feedback><text>Correct — R2 and R4 are identical, so R4 adds nothing.</text></feedback></answer>
+    <answer fraction="0"><text>R3 — it is the only one firing C</text><feedback><text>Firing a unique action is not redundancy; R3 covers a distinct combination.</text></feedback></answer>
+    <answer fraction="0"><text>R1 — because it fires A</text><feedback><text>R1 covers (T,T) uniquely; it is not duplicated.</text></feedback></answer>
+    <answer fraction="0"><text>None — every rule differs</text><feedback><text>R2 and R4 have identical conditions and the same action, so one is redundant.</text></feedback></answer>
+    <generalfeedback><text>R2 and R4 both have C1=F, C2=T and both fire B. They are exact duplicates, so R4 is a redundant rule that can be removed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Completeness by counting coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A limited-entry table for <strong>4 binary conditions</strong> uses don't-cares. Its rules cover, respectively, 8, 4, 2, and 1 combinations, with no overlaps. Is the table complete?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — the rules cover 8+4+2+1 = 15 of the 2^4 = 16 combinations, so one is missing</text><feedback><text>Correct — 15 &lt; 16, so the table is incomplete by one combination.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the four rules cover everything</text><feedback><text>The coverage counts sum to 15, one short of 16.</text></feedback></answer>
+    <answer fraction="0"><text>No — the table is over-specified with too many rules</text><feedback><text>The total is 15, which is under 16; nothing is over-covered (no overlaps).</text></feedback></answer>
+    <answer fraction="0"><text>No — two combinations are missing</text><feedback><text>16 - 15 = 1, so exactly one combination is missing.</text></feedback></answer>
+    <generalfeedback><text>Each rule's don't-cares expand to a power of two; summing the disjoint coverage gives 8+4+2+1 = 15. A complete 4-condition table needs 2^4 = 16, so one combination is uncovered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inconsistency from a don't-care overlap</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A table contains these two rules for 2 binary conditions:</p><pre>
+Rule X:  C1=T, C2=-  ->  A
+Rule Y:  C1=T, C2=F  ->  B
+</pre><p>Which combination causes a conflict, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>C1=T, C2=F — Rule X (don't-care C2) also covers it and prescribes A, while Rule Y prescribes B</text><feedback><text>Correct — the don't-care in X overlaps Y with a different action, an inconsistency.</text></feedback></answer>
+    <answer fraction="0"><text>C1=T, C2=T — both rules require action B there</text><feedback><text>At (T,T) only Rule X applies (giving A); Rule Y is C2=F, so there is no conflict at (T,T).</text></feedback></answer>
+    <answer fraction="0"><text>C1=F, C2=F — neither rule covers it, causing a conflict</text><feedback><text>An uncovered combination is incompleteness, not a conflict; and the conflict here is at (T,F).</text></feedback></answer>
+    <answer fraction="0"><text>There is no conflict — the rules are disjoint</text><feedback><text>Rule X's don't-care makes it overlap Rule Y at (T,F) with a different action.</text></feedback></answer>
+    <generalfeedback><text>Rule X (C1=T, C2=-) covers (T,T) and (T,F). Rule Y (C1=T, C2=F) also covers (T,F) but prescribes B instead of A. The overlap at (T,F) with conflicting actions is an inconsistency.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Impossible rule from exclusive conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Conditions come from a spec: C1 = "payment is cash", C2 = "payment is card" (a payment is one method):</p><pre>
+        R1  R2  R3
+C1       T   T   F
+C2       T   F   T
+</pre><p>Which rule is infeasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R1 — a single payment cannot be both cash and card</text><feedback><text>Correct — C1 and C2 are mutually exclusive, so both true is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>R2 — cash but not card</text><feedback><text>That is a normal cash payment; it is feasible.</text></feedback></answer>
+    <answer fraction="0"><text>R3 — card but not cash</text><feedback><text>That is a normal card payment; it is feasible.</text></feedback></answer>
+    <answer fraction="0"><text>None — all three are feasible</text><feedback><text>R1 requires both cash and card at once, which the spec forbids.</text></feedback></answer>
+    <generalfeedback><text>Because a payment is exactly one method, C1 and C2 cannot both be true. R1 (both true) is infeasible and needs no test case; only R2 and R3 (and possibly a "neither" case) are realistic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Verifying completeness and consistency</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A collapsed table for 2 binary conditions is:</p><pre>
+Rule 1:  C1=T, C2=-  ->  A
+Rule 2:  C1=F, C2=-  ->  B
+</pre><p>Is this table both complete and consistent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — the two rules cover all 4 combinations with no overlap (disjoint on C1)</text><feedback><text>Correct — Rule 1 covers TT,TF and Rule 2 covers FT,FF; together all 4, no conflict.</text></feedback></answer>
+    <answer fraction="0"><text>No — it is incomplete because C2 is never fixed</text><feedback><text>The don't-cares on C2 mean both C2 values are covered, so nothing is missing.</text></feedback></answer>
+    <answer fraction="0"><text>No — the two rules overlap and conflict</text><feedback><text>They differ on C1 (T vs F), so they never overlap; there is no conflict.</text></feedback></answer>
+    <answer fraction="0"><text>No — Rule 2 is redundant</text><feedback><text>Rule 2 covers cases (FT, FF) that Rule 1 does not, so it is necessary.</text></feedback></answer>
+    <generalfeedback><text>Rule 1 (C1=T, C2=-) covers TT and TF; Rule 2 (C1=F, C2=-) covers FT and FF. Their union is all 2^2 = 4 combinations, and they are disjoint on C1, so the table is both complete and consistent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test cases excluding infeasible rules</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A 3-condition table has 8 rule columns, but 2 of them describe <strong>infeasible</strong> condition combinations. Using one test per feasible rule, how many test cases are actually needed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 8 rules minus 2 infeasible leaves 6 that need tests.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>Infeasible rules can never occur, so they need no test cases; 8 - 2 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the number of infeasible rules, not the number needing tests.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>8 - 2 = 6, not 4.</text></feedback></answer>
+    <generalfeedback><text>Infeasible rules cannot be exercised, so they are excluded from test derivation. With 8 rules and 2 infeasible, 6 feasible rules remain, needing 6 test cases.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Extended-entry rule count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An extended-entry table has two conditions: "Size" with choices {Low, High} and "Method" with choices {Cash, Card, Coupon}. How many rules does the full extended-entry table need to cover every combination?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6 — the product of the choice counts, 2 x 3</text><feedback><text>Correct — extended-entry rule count is the product of each condition's number of choices.</text></feedback></answer>
+    <answer fraction="0"><text>5 — the sum of the choice counts, 2 + 3</text><feedback><text>Combinations multiply, not add; 2 x 3 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>4 — 2^2, treating each condition as binary</text><feedback><text>Method has 3 choices, not 2, so the count is 2 x 3 = 6, not 2^2.</text></feedback></answer>
+    <answer fraction="0"><text>9 — 3^2</text><feedback><text>The conditions have different choice counts (2 and 3); the product is 2 x 3 = 6.</text></feedback></answer>
+    <generalfeedback><text>For extended-entry tables the full rule count is the product of each condition's number of choices — here 2 x 3 = 6. This generalises the 2^n formula, which is the special case where every condition has 2 choices.</text></generalfeedback>
+  </question>
+</quiz>

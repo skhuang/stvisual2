@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Code Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>敘述涵蓋率定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試套件的<strong>敘述（行）涵蓋率（statement/line coverage）</strong>最適當的定義是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被至少一個測試執行到的可執行敘述所佔的比例</text><feedback><text>正確——即被執行到的可執行敘述數除以可執行敘述總數。</text></feedback></answer>
+    <answer fraction="0"><text>被至少一個測試取到的分支結果所佔的比例</text><feedback><text>那是分支（判定）涵蓋率，不是敘述涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>被編譯到的原始碼行（含空行與註解）所佔的比例</text><feedback><text>空行與註解不是可執行敘述，且涵蓋率談的是執行而非編譯。</text></feedback></answer>
+    <answer fraction="0"><text>被嘗試過的所有輸入值所佔的比例</text><feedback><text>涵蓋率是對程式碼衡量，而非對整個輸入域衡量。</text></feedback></answer>
+    <generalfeedback><text>敘述涵蓋率 =（被某測試執行到的可執行敘述）/（可執行敘述總數）。註解與空行不計。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分支涵蓋率定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>分支（判定）涵蓋率</strong>要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個判定都至少各取到一次真與假的結果</text><feedback><text>正確——每個判定的兩個分支結果都要被執行到。</text></feedback></answer>
+    <answer fraction="0"><text>每個可執行敘述都至少被執行一次</text><feedback><text>那是敘述涵蓋率，比分支涵蓋率弱。</text></feedback></answer>
+    <answer fraction="0"><text>每個個別布林條件都取到真與假兩種值</text><feedback><text>那是條件涵蓋率，針對原子條件而非整個判定。</text></feedback></answer>
+    <answer fraction="0"><text>程式的每條完整路徑都被執行</text><feedback><text>那是路徑涵蓋率，遠更強且常不可行。</text></feedback></answer>
+    <generalfeedback><text>分支（判定）涵蓋率要求每個判定至少各評估為真與假一次，使每個分支結果（邊）都被取到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>條件涵蓋率定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>條件涵蓋率（condition coverage）</strong>要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>判定中每個原子布林條件都至少各取到一次真與假</text><feedback><text>正確——每個個別條件都要被兩種取值都評估到。</text></feedback></answer>
+    <answer fraction="0"><text>整個判定都至少各取到一次真與假</text><feedback><text>那是判定（分支）涵蓋率；條件涵蓋率看的是判定內部。</text></feedback></answer>
+    <answer fraction="0"><text>條件所有取值組合都被嘗試過</text><feedback><text>那是多重條件涵蓋率，更強。</text></feedback></answer>
+    <answer fraction="0"><text>每個敘述都執行一次</text><feedback><text>那是敘述涵蓋率。</text></feedback></answer>
+    <generalfeedback><text>條件涵蓋率要求每個原子條件（例如 a &amp;&amp; b 中的 a、b）在某測試為真、在某測試為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑涵蓋率定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>路徑涵蓋率（path coverage）</strong>要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>程式碼中每條可行的執行路徑都被某測試執行到</text><feedback><text>正確——路徑涵蓋率要執行每一條端到端的控制流路徑。</text></feedback></answer>
+    <answer fraction="0"><text>每個判定都取到兩種結果</text><feedback><text>那是分支涵蓋率；路徑涵蓋率約束整條路徑，而非單一判定。</text></feedback></answer>
+    <answer fraction="0"><text>每個敘述都執行一次</text><feedback><text>那是敘述涵蓋率，是這些之中最弱的。</text></feedback></answer>
+    <answer fraction="0"><text>每個條件都取到兩種值</text><feedback><text>那是條件涵蓋率。</text></feedback></answer>
+    <generalfeedback><text>路徑涵蓋率要求程式的每條可行路徑都被執行。有迴圈時路徑數通常無上限，故完整路徑涵蓋常不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC 代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在涵蓋率術語中，<strong>MC/DC</strong> 代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>修正條件／判定涵蓋率（Modified Condition/Decision Coverage）</text><feedback><text>正確——MC/DC 即 Modified Condition/Decision Coverage，用於 DO-178B/C。</text></feedback></answer>
+    <answer fraction="0"><text>多重條件／判定涵蓋率（Multiple Condition/Decision Coverage）</text><feedback><text>那是另一個更強的準則（多重條件涵蓋率）；MC/DC 是 Modified Condition/Decision Coverage。</text></feedback></answer>
+    <answer fraction="0"><text>最大涵蓋／判定準則（Maximum Coverage/Decision Criterion）</text><feedback><text>並無此標準準則；MC/DC = Modified Condition/Decision Coverage。</text></feedback></answer>
+    <answer fraction="0"><text>最小程式碼／資料涵蓋率（Minimal Code/Data Coverage）</text><feedback><text>並非涵蓋率準則；MC/DC = Modified Condition/Decision Coverage。</text></feedback></answer>
+    <generalfeedback><text>MC/DC = Modified Condition/Decision Coverage（修正條件／判定涵蓋率）。每個條件都必須被證明能獨立影響判定的結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>函式涵蓋率定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>函式（進入點）涵蓋率（function/entry coverage）</strong>衡量：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被至少呼叫一次的函式／副程式所佔的比例</text><feedback><text>正確——函式涵蓋率計算測試套件進入了多少個函式。</text></feedback></answer>
+    <answer fraction="0"><text>每個函式內被執行到的敘述比例</text><feedback><text>那是敘述涵蓋率，以敘述為單位而非以函式為單位。</text></feedback></answer>
+    <answer fraction="0"><text>每個函式內被取到的分支比例</text><feedback><text>那是分支涵蓋率，不是函式涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>傳給每個函式的參數個數</text><feedback><text>函式涵蓋率談的是函式是否被呼叫，而非其引數。</text></feedback></answer>
+    <generalfeedback><text>函式（進入點）涵蓋率 =（至少被呼叫一次的函式）/（函式總數），是最粗略的常見度量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算敘述涵蓋率（8 中 5）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某函式有 <strong>8</strong> 個可執行敘述。測試套件執行了其中 <strong>5</strong> 個。敘述涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>62.5%</text><feedback><text>正確——5 / 8 = 0.625 = 62.5%。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>5 / 8 = 62.5%，不是 50%。</text></feedback></answer>
+    <answer fraction="0"><text>80%</text><feedback><text>80% 約為 5 除以 6.25；5 / 8 = 62.5%。</text></feedback></answer>
+    <answer fraction="0"><text>37.5%</text><feedback><text>37.5% 是未執行的比例（3 / 8）；涵蓋率是 5 / 8 = 62.5%。</text></feedback></answer>
+    <generalfeedback><text>敘述涵蓋率 = 已執行 / 總數 = 5 / 8 = 62.5%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算分支涵蓋率（4 中 3）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某函式含 <strong>4</strong> 個分支結果（兩個判定，各有真、假一條邊）。某套件取到其中 <strong>3</strong> 個。分支涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>正確——3 / 4 = 75%。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>50% 會是 4 中 2；此處為 4 中 3 = 75%。</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>25% 是未取到的比例（1 / 4）；分支涵蓋率是 3 / 4 = 75%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>還有一個分支結果未取到，故不可能是 100%。</text></feedback></answer>
+    <generalfeedback><text>分支涵蓋率 = 取到的分支結果 / 分支結果總數 = 3 / 4 = 75%。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>100% 敘述未必得到 100% 分支</text></name>
+    <questiontext format="html"><text><![CDATA[<p>達到 100% 敘述涵蓋率就保證 100% 分支涵蓋率。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——沒有 <code>else</code> 的 <code>if</code> 可執行到它唯一的敘述（100% 敘述），但假分支從未被取到（分支 &lt; 100%）。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>不成立：例如 <code>if (x &gt; 0) y = 1;</code> 只用 x = 5 測試會到達每個敘述，但從不取假分支。</text></feedback></answer>
+    <generalfeedback><text>敘述涵蓋率並不蘊含分支涵蓋率：無 else 的 if 可達 100% 敘述，卻讓假分支未被取到。（分支涵蓋率會蘊含敘述涵蓋率，但反向不成立。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>行涵蓋率的對應關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>常被回報的<strong>行涵蓋率（line coverage）</strong>最接近下列哪個經典度量？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>敘述涵蓋率</text><feedback><text>正確——行涵蓋率計算被執行到的可執行行，本質上就是敘述涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>分支涵蓋率</text><feedback><text>分支涵蓋率談的是判定結果，而非執行到的行。</text></feedback></answer>
+    <answer fraction="0"><text>路徑涵蓋率</text><feedback><text>路徑涵蓋率計算整條路徑，遠比行涵蓋率強。</text></feedback></answer>
+    <answer fraction="0"><text>MC/DC</text><feedback><text>MC/DC 談的是條件獨立影響判定，與行無關。</text></feedback></answer>
+    <generalfeedback><text>行涵蓋率計算被執行到的可執行行，被視為（大致）等同於敘述涵蓋率；一行可能含多個敘述，但兩者相近。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算行涵蓋率（10 中 7）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某檔案有 <strong>10</strong> 個可執行行；某套件執行了其中 <strong>7</strong> 行。行涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>70%</text><feedback><text>正確——7 / 10 = 70%。</text></feedback></answer>
+    <answer fraction="0"><text>30%</text><feedback><text>30% 是未涵蓋比例；涵蓋率是 7 / 10 = 70%。</text></feedback></answer>
+    <answer fraction="0"><text>77%</text><feedback><text>7 / 10 = 70%，不是 77%。</text></feedback></answer>
+    <answer fraction="0"><text>7%</text><feedback><text>7 / 10 = 70%，不是 7%。</text></feedback></answer>
+    <generalfeedback><text>行涵蓋率 = 已執行行 / 可執行行 = 7 / 10 = 70%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三者中最強者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>敘述</strong>、<strong>分支</strong>、<strong>路徑</strong>涵蓋率之中，何者最強（最難完全達成）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>路徑涵蓋率</text><feedback><text>正確——路徑涵蓋率蘊含分支，分支又蘊含敘述。</text></feedback></answer>
+    <answer fraction="0"><text>敘述涵蓋率</text><feedback><text>敘述涵蓋率是三者中最弱的。</text></feedback></answer>
+    <answer fraction="0"><text>分支涵蓋率</text><feedback><text>分支涵蓋率比敘述強，但比路徑弱。</text></feedback></answer>
+    <answer fraction="0"><text>三者一樣強</text><feedback><text>它們形成嚴格層級：路徑蘊含分支蘊含敘述。</text></feedback></answer>
+    <generalfeedback><text>包含關係：路徑涵蓋率 ⊒ 分支／判定涵蓋率 ⊒ 敘述涵蓋率。路徑涵蓋率最強，且有迴圈時通常不可行。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>100% 涵蓋率不等於無錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>達到任一結構涵蓋率度量的 100% 就證明程式沒有錯誤。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——涵蓋率只顯示程式碼被執行，並未顯示輸出被檢查，也未涵蓋缺漏的程式碼與未試到的資料組合是否正確。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>涵蓋率衡量哪些程式碼被執行，而非正確性；缺漏邏輯、錯誤的預期結果、未試到的資料值仍可能藏有錯誤。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率告訴你程式碼被執行了，而非它是正確的。錯誤的預期結果（oracle）、被遺漏的情況、或某個未嘗試的資料值，都可能在 100% 涵蓋率下仍留有錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>插樁（instrumentation）做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為衡量涵蓋率，工具通常會對程式做<strong>插樁（instrument）</strong>。這是指它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>插入探針／計數器，於執行期記錄哪些敘述或分支被執行</text><feedback><text>正確——插樁加入記錄用的簿記，使執行到的元素在測試執行時被記下。</text></feedback></answer>
+    <answer fraction="0"><text>改寫程式以自動移除所有錯誤</text><feedback><text>插樁只記錄執行，並不修正程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>以數學方式證明程式碼正確</text><feedback><text>那是形式驗證，而非涵蓋率插樁。</text></feedback></answer>
+    <answer fraction="0"><text>替你產生測試輸入</text><feedback><text>插樁記錄測試到達之處，並不產生測試。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率工具在敘述與分支處以探針／計數器插樁；執行測試會記下哪些元素被執行，再由此計算百分比。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>判定與條件（基礎）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在判定 <code>if (a &amp;&amp; b)</code> 中，整個運算式 <code>a &amp;&amp; b</code> 是<em>判定（decision）</em>。那 <code>a</code> 與 <code>b</code> 稱為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>條件（原子布林子運算式）</text><feedback><text>正確——a 與 b 是該判定的個別條件。</text></feedback></answer>
+    <answer fraction="0"><text>分支</text><feedback><text>分支是判定的真／假結果，而非 a、b 本身。</text></feedback></answer>
+    <answer fraction="0"><text>路徑</text><feedback><text>路徑是穿過程式碼的整條路線，而非判定的原子部分。</text></feedback></answer>
+    <answer fraction="0"><text>敘述</text><feedback><text>a 與 b 是判定內的條件，而非各自獨立的敘述。</text></feedback></answer>
+    <generalfeedback><text>判定是控制分支的完整布林運算式；其原子布林子運算式（a、b）是它的條件。條件涵蓋率針對 a、b；判定涵蓋率針對 a &amp;&amp; b。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Code Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>if 的敘述涵蓋率（x&lt;=0 測試）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre>int f(int x) {
+  int y = 0;      // s1
+  if (x &gt; 0)      // s2
+    y = 1;        // s3
+  return y;       // s4
+}</pre><p>可執行敘述：s1、s2、s3、s4（共四個）。套件為單一測試 <code>{x = -3}</code>。<strong>敘述</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>正確——x = -3 執行 s1、s2、s4，但跳過 s3（y = 1），故 3 / 4 = 75%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>s3（y = 1）僅在 x &gt; 0 時到達，x = -3 不會執行它。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>四個敘述中有三個執行（s1、s2、s4），是 75%，不是 50%。</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>只漏了 s3；即 4 中 3 = 75% 被涵蓋。</text></feedback></answer>
+    <generalfeedback><text>x = -3 執行 s1、s2（if）與 s4，但不執行 s3。敘述涵蓋率 = 3 / 4 = 75%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>if 的分支涵蓋率（x&lt;=0 測試）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>同一段程式：</p><pre>int f(int x) {
+  int y = 0;
+  if (x &gt; 0)
+    y = 1;
+  return y;
+}</pre><p>單一判定 <code>x &gt; 0</code> 有兩個分支結果（真、假）。用套件 <code>{x = -3}</code>，<strong>分支</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%</text><feedback><text>正確——只取到假結果，故 1 / 2 = 50%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>x = -3 從未取到真結果（x &gt; 0）。</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% 是敘述涵蓋率；此處分支涵蓋率是 2 中 1 = 50%。</text></feedback></answer>
+    <answer fraction="0"><text>0%</text><feedback><text>假結果有被取到，故是 50%，不是 0%。</text></feedback></answer>
+    <generalfeedback><text>x = -3 只取到 x &gt; 0 的假結果，故分支涵蓋率 = 1 / 2 = 50%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>if-else 的敘述涵蓋率（一個測試）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre>int classify(int n) {
+  if (n % 2 == 0)   // s1
+    return 0;       // s2
+  else
+    return 1;       // s3
+}</pre><p>可執行敘述：s1、s2、s3（共三個）。套件為 <code>{n = 4}</code>。<strong>敘述</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>≈ 66.7%</text><feedback><text>正確——n = 4 執行 s1 與 s2，但不執行 s3（return 1），故 2 / 3 ≈ 66.7%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>else 敘述 s3 僅在 n 為奇數時到達，n = 4 會漏掉它。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>三個敘述中有兩個執行；即 2 / 3 ≈ 66.7%，不是 50%。</text></feedback></answer>
+    <answer fraction="0"><text>≈ 33.3%</text><feedback><text>33.3% 是三中一；此處三中二執行，故 ≈ 66.7%。</text></feedback></answer>
+    <generalfeedback><text>n = 4 執行 s1（if）與 s2（return 0），跳過 s3。敘述涵蓋率 = 2 / 3 ≈ 66.7%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>if-else 的分支涵蓋率（一個測試）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>同一段 if-else：</p><pre>int classify(int n) {
+  if (n % 2 == 0)
+    return 0;
+  else
+    return 1;
+}</pre><p>用套件 <code>{n = 4}</code>，判定 <code>n % 2 == 0</code> 的<strong>分支</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%</text><feedback><text>正確——只取到真結果，故 1 / 2 = 50%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>n = 4 從未取到假結果（n 為奇數）。</text></feedback></answer>
+    <answer fraction="0"><text>≈ 66.7%</text><feedback><text>66.7% 是此處的敘述涵蓋率；分支涵蓋率是 2 中 1 = 50%。</text></feedback></answer>
+    <answer fraction="0"><text>0%</text><feedback><text>真結果有被取到，故分支涵蓋率是 50%。</text></feedback></answer>
+    <generalfeedback><text>n = 4 只取到真結果；假（else）結果未取到，故分支涵蓋率 = 1 / 2 = 50%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>條件涵蓋達成但判定未達成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對判定 <code>a &amp;&amp; b</code>，執行兩個測試 <code>(a=T, b=F)</code> 與 <code>(a=F, b=T)</code>。兩者都使判定為<strong>假</strong>。這說明了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% 條件涵蓋率，但僅 50% 判定涵蓋率</text><feedback><text>正確——a 與 b 各取到 T 與 F（條件 100%），但判定兩次都為假（判定 50%）。</text></feedback></answer>
+    <answer fraction="0"><text>100% 判定涵蓋率，但僅 50% 條件涵蓋率</text><feedback><text>相反：判定兩次都為假（50%），而每個條件都取到兩種值（100%）。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆為 100%</text><feedback><text>判定從未評估為真，故判定涵蓋率僅 50%。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆為 50%</text><feedback><text>條件涵蓋是完整的：a 先 T 後 F，b 先 F 後 T。</text></feedback></answer>
+    <generalfeedback><text>a：先 T 後 F；b：先 F 後 T——條件涵蓋完整。但 a &amp;&amp; b 兩個測試都為假，故判定涵蓋率是 1 / 2 = 50%。條件涵蓋率並不蘊含判定涵蓋率。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>判定涵蓋達成但條件未達成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對判定 <code>a || b</code>，執行兩個測試 <code>(a=T, b=F)</code> 與 <code>(a=F, b=F)</code>。條件涵蓋率計四個目標 a=T、a=F、b=T、b=F。得到什麼涵蓋率？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% 判定涵蓋率，但僅 75% 條件涵蓋率</text><feedback><text>正確——判定先真後假（100%）；a=T、a=F、b=F 達成，但 b=T 未達成，故 3 / 4 = 75% 條件。</text></feedback></answer>
+    <answer fraction="0"><text>100% 條件涵蓋率，但僅 50% 判定涵蓋率</text><feedback><text>相反：判定取到兩種值（100%）；是 b 從未變真，使條件涵蓋率不到 100%。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆為 100%</text><feedback><text>b 在兩個測試都為假，故目標 b=T 未達成，條件涵蓋率為 75%。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆為 50%</text><feedback><text>判定在測試 1 為真、測試 2 為假，故判定涵蓋率是 100%。</text></feedback></answer>
+    <generalfeedback><text>a || b：先真後假，故判定涵蓋率 100%。條件目標達成情形：a=T ✓、a=F ✓、b=F ✓，但 b=T ✗（b 兩次都為假）→ 3 / 4 = 75%。判定涵蓋率並不蘊含條件涵蓋率。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>包含（subsumption）順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個包含順序正確（X ⊒ Y 表示 X 保證 Y）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>路徑 ⊒ 分支／判定 ⊒ 敘述</text><feedback><text>正確——完整路徑涵蓋蘊含完整分支涵蓋，後者又蘊含完整敘述涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>敘述 ⊒ 分支／判定 ⊒ 路徑</text><feedback><text>相反——敘述涵蓋率最弱，而非最強。</text></feedback></answer>
+    <answer fraction="0"><text>分支／判定 ⊒ 路徑 ⊒ 敘述</text><feedback><text>路徑涵蓋率比分支涵蓋率強，而非弱。</text></feedback></answer>
+    <answer fraction="0"><text>條件 ⊒ 分支／判定 ⊒ 敘述</text><feedback><text>條件與分支／判定涵蓋率不可比；條件並不蘊含分支。</text></feedback></answer>
+    <generalfeedback><text>路徑 ⊒ 分支／判定 ⊒ 敘述。注意條件涵蓋率與分支／判定涵蓋率不可比——彼此互不蘊含。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>100% 敘述、50% 分支之例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre>int f(int x) {
+  int y = 0;
+  if (x &gt; 0)
+    y = 1;
+  return y;
+}</pre><p>用單一測試 <code>{x = 5}</code>，下列何者為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>敘述涵蓋率為 100%，但分支涵蓋率僅 50%</text><feedback><text>正確——每個敘述都執行，但 x &gt; 0 的假結果從未取到。</text></feedback></answer>
+    <answer fraction="0"><text>敘述與分支涵蓋率皆為 100%</text><feedback><text>假分支（x &lt;= 0）從未取到，故分支涵蓋率為 50%。</text></feedback></answer>
+    <answer fraction="0"><text>敘述涵蓋率為 75%</text><feedback><text>x = 5 執行所有四個敘述（含 y = 1），故敘述涵蓋率為 100%。</text></feedback></answer>
+    <answer fraction="0"><text>分支涵蓋率為 100%，但敘述涵蓋率為 75%</text><feedback><text>兩項都錯：敘述全被涵蓋（100%），而分支為 50%。</text></feedback></answer>
+    <generalfeedback><text>x = 5 執行 s1..s4（敘述 100%），但只取到真結果，故分支涵蓋率為 1 / 2 = 50%。這是敘述涵蓋率不蘊含分支涵蓋率的經典情況。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>短路：b 有被評估嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在具短路求值（short-circuit）的語言中，判定 <code>a &amp;&amp; b</code> 用單一測試 <code>{a = false}</code> 執行。條件 <code>b</code> 有被評估嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有——因為 a 為假，&amp;&amp; 短路，b 從未被評估</text><feedback><text>正確——a = false 時結果已確定為假，故略過 b。</text></feedback></answer>
+    <answer fraction="0"><text>有——兩個運算元一律都會被評估</text><feedback><text>只有在沒有短路時才如此；&amp;&amp; 的左運算元為假會略過 b。</text></feedback></answer>
+    <answer fraction="0"><text>有——b 會先被評估</text><feedback><text>&amp;&amp; 先評估左運算元；a = false 會在評估 b 前結束。</text></feedback></answer>
+    <answer fraction="0"><text>只有在 a 為真且 b 為假時</text><feedback><text>b 恰在 a 為真時被評估；此處 a 為假，故略過 b。</text></feedback></answer>
+    <generalfeedback><text>短路 &amp;&amp; 中，左運算元為假即決定結果，故 b 不被評估。要試到 b 的取值，需要 a 為真的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>短路對條件涵蓋率的影響</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在短路 <code>&amp;&amp;</code> 下，要讓 <code>a &amp;&amp; b</code> 中的條件 <code>b</code> 取到<strong>真與假</strong>兩種值以計入條件涵蓋率，測試必須：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩個測試都 a = true（一次 b = true，一次 b = false）</text><feedback><text>正確——b 只在 a 為真時被評估，故 a 必須為真才能試到 b。</text></feedback></answer>
+    <answer fraction="0"><text>兩個測試都 a = false</text><feedback><text>a = false 時 b 從未被評估，其取值永不被試到。</text></feedback></answer>
+    <answer fraction="0"><text>a 為任意值皆可，因為 b 一律都會被評估</text><feedback><text>短路表示 a 為假時會略過 b。</text></feedback></answer>
+    <answer fraction="0"><text>兩個測試都 b = true</text><feedback><text>那樣 b 永不取假，b 的條件涵蓋不完整。</text></feedback></answer>
+    <generalfeedback><text>短路 &amp;&amp; 只在 a 為真時評估 b。要讓 b 被觀察到真與假兩種值，需保持 a 為真並變化 b。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分支涵蓋蘊含敘述涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於分支與敘述涵蓋率，下列何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% 分支涵蓋率保證 100% 敘述涵蓋率</text><feedback><text>正確——取到每個分支即會到達每個可達敘述，故分支涵蓋率蘊含敘述涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>100% 敘述涵蓋率保證 100% 分支涵蓋率</text><feedback><text>相反——無 else 的 if 可達 100% 敘述卻不到 100% 分支。</text></feedback></answer>
+    <answer fraction="0"><text>兩者總是給出相同的百分比</text><feedback><text>兩者會不同，例如無 else 的 if：敘述可為 100% 而分支為 50%。</text></feedback></answer>
+    <answer fraction="0"><text>兩者互不蘊含</text><feedback><text>分支涵蓋率確實蘊含敘述涵蓋率。</text></feedback></answer>
+    <generalfeedback><text>分支／判定涵蓋率 ⊒ 敘述涵蓋率：取到每個判定的兩個結果，必然到達每個可達敘述。反向不成立。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>條件涵蓋蘊含判定涵蓋？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>達到 100% 條件涵蓋率一定保證 100% 判定（分支）涵蓋率。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——例如 a &amp;&amp; b 用 (T,F) 與 (F,T) 得到完整條件涵蓋，但判定兩次都為假（判定 50%）。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>不成立：條件與判定涵蓋率不可比；完整的條件涵蓋可能留下某個判定結果未取到。</text></feedback></answer>
+    <generalfeedback><text>條件涵蓋率與判定涵蓋率不可比。對 a &amp;&amp; b 用 (a=T,b=F) 與 (a=F,b=T)，涵蓋了 a、b 的兩種值，但判定兩次都為假，故判定涵蓋率僅 50%。（判定／條件涵蓋率結合兩者以修補此問題。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算單一測試下的條件涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對判定 <code>a &amp;&amp; b</code>，條件涵蓋率計四個條件取值目標：a=T、a=F、b=T、b=F。套件為單一測試 <code>(a=T, b=T)</code>。<strong>條件</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%</text><feedback><text>正確——a=T 與 b=T 達成，但 a=F 與 b=F 未達成，故 2 / 4 = 50%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>單一全真測試從未試到 a=F 與 b=F。</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>四個目標中達成兩個（a=T、b=T），故 50%，不是 25%。</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>四個條件取值目標僅達成兩個，得 50%。</text></feedback></answer>
+    <generalfeedback><text>條件涵蓋率追蹤每個條件取到每種值：a=T ✓、b=T ✓、a=F ✗、b=F ✗ → 2 / 4 = 50%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單一 if-else 分支涵蓋的最少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要完整涵蓋一個含單一簡單判定的 <code>if-else</code> 之分支，最少需要幾個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——一個測試取真結果，一個取假結果。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>一個測試只能取到一個結果；真與假兩者都需要。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>單一判定只有兩個結果，故兩個測試即足夠。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是兩個條件的真值表大小；單一簡單判定只需兩個測試。</text></feedback></answer>
+    <generalfeedback><text>單一判定有兩個結果，故分支涵蓋至少需兩個測試（真與假）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>達成 100% 分支涵蓋的套件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於：</p><pre>int classify(int n) {
+  if (n % 2 == 0)
+    return 0;
+  else
+    return 1;
+}</pre><p>哪個套件能達成判定 <code>n % 2 == 0</code> 的 <strong>100% 分支</strong>涵蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{n = 4, n = 7}</text><feedback><text>正確——n = 4 取到真結果，n = 7 取到假結果，兩個分支都涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>{n = 4}</text><feedback><text>只取到真結果，故分支涵蓋率為 50%。</text></feedback></answer>
+    <answer fraction="0"><text>{n = 2, n = 8}</text><feedback><text>兩者皆為偶數，故只取到真結果——50%。</text></feedback></answer>
+    <answer fraction="0"><text>{n = 3}</text><feedback><text>只取到假結果，故分支涵蓋率為 50%。</text></feedback></answer>
+    <generalfeedback><text>分支涵蓋需要兩個結果：一個偶數 n（真）與一個奇數 n（假）。{n = 4, n = 7} 做到；全偶或全奇的套件只到達一個分支。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Code Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>3 個條件的 MC/DC 最少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某判定有 <strong>3</strong> 個獨立條件。滿足 <strong>MC/DC</strong> 的最少測試數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——MC/DC 最少需 n + 1 個測試；n = 3 時為 4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>最少是 n + 1 = 4，不是 n。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>2^3 = 8 是多重條件涵蓋率；MC/DC 只需約 n + 1。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>最多可能用到 2n = 6 個測試，但最少是 n + 1 = 4。</text></feedback></answer>
+    <generalfeedback><text>對 n 個獨立條件，MC/DC 最少需 n + 1 個測試（最多 2n），因為一個精心挑選的測試可作為多個條件的配對夥伴。n = 3 時最少為 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC 的要求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>除了判定與條件涵蓋率之外，<strong>MC/DC</strong> 額外的要求是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個條件都被證明能獨立影響判定的結果</text><feedback><text>正確——對每個條件都存在一對僅在該條件不同的測試，使判定的值翻轉。</text></feedback></answer>
+    <answer fraction="0"><text>測試條件值的每一種組合</text><feedback><text>那是多重條件涵蓋率，比 MC/DC 更強。</text></feedback></answer>
+    <answer fraction="0"><text>執行每個敘述</text><feedback><text>那是敘述涵蓋率，與獨立影響的要求無關。</text></feedback></answer>
+    <answer fraction="0"><text>執行每條路徑</text><feedback><text>那是路徑涵蓋率，不是 MC/DC。</text></feedback></answer>
+    <generalfeedback><text>MC/DC 要求每個條件在其他條件固定時，被展示能獨立翻轉判定的結果——外加每個條件與判定都取到兩種值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>3 個條件的多重條件涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對含 <strong>3</strong> 個條件的判定，<strong>多重條件涵蓋率</strong>需要幾個測試（忽略不可行的組合）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——多重條件涵蓋率需全部 2^n 種組合；2^3 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 = n + 1 是 MC/DC 的最少值，不是多重條件涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 = 2n 是 MC/DC 的上界，不是所有組合。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>多重條件涵蓋率需 2^3 = 8 種組合，不是 3。</text></feedback></answer>
+    <generalfeedback><text>多重條件涵蓋率要試到 n 個條件的全部 2^n 種真值組合；n = 3 時為 8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>複合判定的包含鏈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列這些複合判定準則的順序，何者正確（X ⊒ Y 表示 X 包含 Y）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>多重條件 ⊒ MC/DC ⊒ 判定／條件 ⊒ 條件</text><feedback><text>正確——所有組合包含 MC/DC，MC/DC 包含判定／條件，後者包含單純條件（與判定）涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>MC/DC ⊒ 多重條件 ⊒ 判定／條件</text><feedback><text>多重條件涵蓋率最強；它包含 MC/DC，而非相反。</text></feedback></answer>
+    <answer fraction="0"><text>條件 ⊒ 判定／條件 ⊒ MC/DC</text><feedback><text>相反——單純條件涵蓋率是這些之中最弱的。</text></feedback></answer>
+    <answer fraction="0"><text>判定／條件 ⊒ 多重條件 ⊒ MC/DC</text><feedback><text>多重條件涵蓋率比另外兩者都強。</text></feedback></answer>
+    <generalfeedback><text>多重條件 ⊒ MC/DC ⊒ 判定／條件涵蓋率 ⊒ 條件涵蓋率（並 ⊒ 判定涵蓋率）。多重條件涵蓋率最強，因為它試到完整真值表。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a &amp;&amp; b 的最少 MC/DC 測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對判定 <code>a &amp;&amp; b</code>，一個最少的 MC/DC 測試集為 <code>{(T,T), (F,T), (T,F)}</code>。這是幾個測試？是否等於 n + 1？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 個測試，等於 n = 2 時的 n + 1</text><feedback><text>正確——(T,T)/(F,T) 展示 a 的影響，(T,T)/(T,F) 展示 b 的影響；3 = 2 + 1。</text></feedback></answer>
+    <answer fraction="0"><text>4 個測試，即完整真值表</text><feedback><text>所列集合是 3 個測試而非 4；a &amp;&amp; b 的 MC/DC 不需整張表。</text></feedback></answer>
+    <answer fraction="0"><text>2 個測試，每個結果一個</text><feedback><text>兩個測試給出判定涵蓋，但無法同時展示 a 與 b 的獨立性；此處 MC/DC 需 3 個。</text></feedback></answer>
+    <answer fraction="0"><text>3 個測試，但這多於 n + 1</text><feedback><text>n = 2 時 n + 1 = 3，故 3 個測試恰是最少值。</text></feedback></answer>
+    <generalfeedback><text>對 a &amp;&amp; b：(T,T)/(F,T) 這一對只改變 a 即翻轉判定；(T,T)/(T,F) 這一對只改變 b 即翻轉。三個相異測試 {(T,T),(F,T),(T,F)} = n + 1 = 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個連續 if 的路徑數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre>if (a) S1;
+if (b) S2;</pre><p>含兩個獨立判定且無迴圈。共有幾條相異的執行<strong>路徑</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——每個 if 各自取或不取：2 × 2 = 4 條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是一個 if 的分支結果數；兩個獨立 if 給出 2 × 2 = 4 條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>組合 (a,b) = TT、TF、FT、FF——四條路徑，不是三條。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>兩個獨立判定共有 4 條相異路徑。</text></feedback></answer>
+    <generalfeedback><text>兩個連續的獨立判定產生 2 × 2 = 4 條路徑（a 取／不取）×（b 取／不取）。分支涵蓋只需 2 個測試，但路徑涵蓋需 4 個。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>迴圈使路徑涵蓋不可行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當受測程式含有迭代次數取決於輸入的迴圈時，完整路徑涵蓋通常不可行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每個相異的迭代次數都是一條相異路徑，故路徑數無上限。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>取決於資料的迴圈每種迭代次數都產生一條不同路徑，故有無上限的路徑數。</text></feedback></answer>
+    <generalfeedback><text>可執行 0、1、2、... 次的迴圈，每種迭代次數各對應一條相異路徑，故路徑集（可能）無限，完整路徑涵蓋通常無法達成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行分支限制涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某函式有 <strong>4</strong> 個分支結果，但其中一個<em>不可行</em>（沒有任何輸入能到達的死碼）。以全部 4 個結果衡量，可達成的最大<strong>分支</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>正確——最多能取到 4 個中的 3 個結果，故 3 / 4 = 75%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>不可行的結果永不會被取到，故以全部 4 個衡量不可能達 100%。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>三個可行結果都能取到；那是 75%，不是 50%。</text></feedback></answer>
+    <answer fraction="0"><text>25%</text><feedback><text>只有一個結果不可達；其餘三個可達，得 75%。</text></feedback></answer>
+    <generalfeedback><text>不可行分支會限制可達成的涵蓋率：4 個結果中有 1 個不可達時，以全部 4 個衡量的最大值為 3 / 4 = 75%。若只以可行結果衡量則顯示 100%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀 if 的分支涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮：</p><pre>int h(int x, int y) {
+  int r = 0;
+  if (x &gt; 0) {
+    if (y &gt; 0)
+      r = 1;
+    else
+      r = 2;
+  }
+  return r;
+}</pre><p>共有 4 個分支結果：外層真、外層假、內層真、內層假。套件：<code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>分支</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>正確——外層真、內層真（來自 5,3）與外層假（來自 -1,0）被取到，但內層假未取到：3 / 4 = 75%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>內層假結果（x &gt; 0 且 y &lt;= 0）從未被此套件到達。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>四個結果中有三個被取到（外層真、外層假、內層真），得 75%。</text></feedback></answer>
+    <answer fraction="0"><text>≈ 66.7%</text><feedback><text>66.7% 會是 3 中 2；此處 4 個分支結果中取到 3 個 = 75%。</text></feedback></answer>
+    <generalfeedback><text>(5,3)：外層真 + 內層真。(-1,0)：外層假。內層假需要 x &gt; 0 且 y &lt;= 0，此套件皆未提供。分支涵蓋率 = 3 / 4 = 75%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀 if 未取到的分支</text></name>
+    <questiontext format="html"><text><![CDATA[<p>同一段程式與套件：</p><pre>int h(int x, int y) {
+  int r = 0;
+  if (x &gt; 0) {
+    if (y &gt; 0) r = 1; else r = 2;
+  }
+  return r;
+}</pre><p>套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。哪個分支結果被<strong>漏掉</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>內層假分支（x &gt; 0 且 y &lt;= 0，故 r = 2）</text><feedback><text>正確——沒有測試同時有 x &gt; 0 與 y &lt;= 0，故 r = 2 從未被到達。</text></feedback></answer>
+    <answer fraction="0"><text>外層假分支（x &lt;= 0）</text><feedback><text>(x=-1, y=0) 取到外層假分支，故已涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>內層真分支（r = 1）</text><feedback><text>(x=5, y=3) 取到內層真分支，故已涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>無——所有分支都已涵蓋</text><feedback><text>內層假分支（r = 2）被漏掉；它需要 x &gt; 0 且 y &lt;= 0。</text></feedback></answer>
+    <generalfeedback><text>要到達 r = 2 需 x &gt; 0（進入外層）且 y &lt;= 0（內層假）。套件從未同時滿足，故內層假分支與導向 r = 2 的路徑被漏掉。加入例如 (x=5, y=-1) 即可涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀 if 的敘述涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>同一段程式：</p><pre>int h(int x, int y) {
+  int r = 0;        // s1
+  if (x &gt; 0) {      // s2
+    if (y &gt; 0)      // s3
+      r = 1;        // s4
+    else
+      r = 2;        // s5
+  }
+  return r;         // s6
+}</pre><p>六個可執行敘述 s1..s6。套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>敘述</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>≈ 83.3%</text><feedback><text>正確——除 s5（r = 2）外全都執行，故 5 / 6 ≈ 83.3%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>s5（r = 2）需要 x &gt; 0 且 y &lt;= 0，此套件皆未提供。</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% 是分支涵蓋率；敘述涵蓋率是 5 / 6 ≈ 83.3%。</text></feedback></answer>
+    <answer fraction="0"><text>≈ 66.7%</text><feedback><text>六個敘述中有五個執行，得 ≈ 83.3%，不是 66.7%。</text></feedback></answer>
+    <generalfeedback><text>(5,3) 執行 s1、s2、s3、s4、s6；(-1,0) 執行 s1、s2、s6。只漏掉 s5（r = 2）。敘述涵蓋率 = 5 / 6 ≈ 83.3%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀 if 的路徑涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>同一段程式有三條可行路徑：P1 = x &lt;= 0；P2 = x &gt; 0 且 y &gt; 0；P3 = x &gt; 0 且 y &lt;= 0。套件 <code>{(x=5, y=3), (x=-1, y=0)}</code>。<strong>路徑</strong>涵蓋率為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>≈ 66.7%</text><feedback><text>正確——(5,3) 涵蓋 P2，(-1,0) 涵蓋 P1，但 P3 被漏掉：2 / 3 ≈ 66.7%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>路徑 P3（x &gt; 0 且 y &lt;= 0）從未被試到。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>三條可行路徑中涵蓋兩條，得 ≈ 66.7%，不是 50%。</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% 是分支涵蓋率；此處路徑涵蓋率是 2 / 3 ≈ 66.7%。</text></feedback></answer>
+    <generalfeedback><text>可行路徑：P1（x &lt;= 0）、P2（x &gt; 0, y &gt; 0）、P3（x &gt; 0, y &lt;= 0）。套件涵蓋 P1 與 P2 但不含 P3，故路徑涵蓋率 = 2 / 3 ≈ 66.7%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a || b 的 MC/DC 獨立性配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對判定 <code>a || b</code>，哪一對測試展示條件 <code>b</code> 能<strong>獨立</strong>影響結果？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(a=F, b=F) 得假，與 (a=F, b=T) 得真</text><feedback><text>正確——a 固定為假；只改變 b 即使判定由假翻為真。</text></feedback></answer>
+    <answer fraction="0"><text>(a=T, b=F) 與 (a=T, b=T)，皆得真</text><feedback><text>a = 真時 a || b 恆為真，不論 b，故結果不翻轉——b 的影響被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>(a=F, b=T) 與 (a=T, b=F)，皆得真</text><feedback><text>這兩者 a 與 b 都不同，無法隔離 b 的獨立影響。</text></feedback></answer>
+    <answer fraction="0"><text>(a=T, b=T) 與 (a=F, b=F)</text><feedback><text>這兩者兩個條件都不同，故無法隔離任一條件的影響。</text></feedback></answer>
+    <generalfeedback><text>要展示 b 獨立影響 a || b，固定 a = 假並變化 b：(F,F) → 假，(F,T) → 真。唯有如此，只改變 b 才能翻轉結果。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>MC/DC 蘊含判定涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對某判定滿足 MC/DC 的測試集，必然也滿足該判定的判定（分支）涵蓋率。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——展示每個條件都能翻轉結果，會迫使判定取到真與假兩者，故判定涵蓋達成。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>MC/DC 要求每個條件都能翻轉判定，這必然使判定取到真與假兩者——判定涵蓋因而被蘊含。</text></feedback></answer>
+    <generalfeedback><text>MC/DC ⊒ 判定／條件涵蓋率 ⊒ 判定涵蓋率（與條件涵蓋率）。展示獨立影響需要判定取到兩種結果，故該判定的分支涵蓋隨之成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>判定／條件涵蓋率定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>判定／條件涵蓋率（decision/condition coverage）</strong>在以下情況滿足：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>條件涵蓋率與判定涵蓋率同時達成</text><feedback><text>正確——每個條件取到兩種值，且判定取到兩種結果。</text></feedback></answer>
+    <answer fraction="0"><text>只有判定取到真與假</text><feedback><text>那是單純判定涵蓋率；判定／條件還要求條件涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>只有每個條件取到兩種值</text><feedback><text>那是單純條件涵蓋率；判定／條件還要求判定涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>試到條件所有取值組合</text><feedback><text>那是多重條件涵蓋率，比判定／條件更強。</text></feedback></answer>
+    <generalfeedback><text>判定／條件涵蓋率就是結合兩者：每個條件取到兩種值，且判定取到兩種結果。在包含鏈中位於條件與判定涵蓋率之上、MC/DC 之下。</text></generalfeedback>
+  </question>
+</quiz>
