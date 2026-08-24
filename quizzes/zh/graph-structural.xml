@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Graph Structural Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>節點覆蓋的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一組測試路徑在何時滿足<strong>節點覆蓋（Node Coverage, NC）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>圖中每個可到達的節點都至少被某條測試路徑造訪一次</text><feedback><text>正確——NC 要求每個節點都被到達。</text></feedback></answer>
+    <answer fraction="0"><text>圖中每條邊都至少被某條測試路徑走過一次</text><feedback><text>那是邊覆蓋，比節點覆蓋更強。</text></feedback></answer>
+    <answer fraction="0"><text>從進入點到結束點的每條完整路徑都被執行</text><feedback><text>那是完整路徑覆蓋，遠更強且通常不可行。</text></feedback></answer>
+    <answer fraction="0"><text>每個節點恰好被造訪一次</text><feedback><text>NC 只要求每個節點至少被造訪一次，允許重複。</text></feedback></answer>
+    <generalfeedback><text>節點覆蓋對每個節點課予一項測試需求：每個可到達的節點都必須被某條測試路徑造訪。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊覆蓋的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一組測試路徑在何時滿足<strong>邊覆蓋（Edge Coverage, EC）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>圖中每條可到達的邊都至少被某條測試路徑走過一次</text><feedback><text>正確——EC 要求每條邊（分支）都被走過。</text></feedback></answer>
+    <answer fraction="0"><text>圖中每個可到達的節點都被造訪</text><feedback><text>那是節點覆蓋，比邊覆蓋更弱。</text></feedback></answer>
+    <answer fraction="0"><text>每一對相鄰的邊都被走過</text><feedback><text>那是邊對覆蓋，比邊覆蓋更強。</text></feedback></answer>
+    <answer fraction="0"><text>每條邊恰好被走過一次</text><feedback><text>EC 只要求每條邊至少被走過一次，邊可以重複。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋對每條邊課予一項測試需求：每條可到達的邊都必須被某條測試路徑走過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>敘述覆蓋對應到</text></name>
+    <questiontext format="html"><text><![CDATA[<p>經典的<strong>敘述覆蓋（statement coverage）</strong>對應到控制流程圖上的哪一項結構覆蓋準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>節點覆蓋</text><feedback><text>正確——執行每一條敘述等於造訪每個節點（基本區塊）。</text></feedback></answer>
+    <answer fraction="0"><text>邊覆蓋</text><feedback><text>邊覆蓋對應到分支覆蓋，更強。</text></feedback></answer>
+    <answer fraction="0"><text>邊對覆蓋</text><feedback><text>邊對覆蓋比敘述覆蓋強得多。</text></feedback></answer>
+    <answer fraction="0"><text>完整路徑覆蓋</text><feedback><text>完整路徑覆蓋通常不可行，且遠更強。</text></feedback></answer>
+    <generalfeedback><text>節點代表基本區塊／敘述，因此敘述覆蓋正好就是節點覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分支覆蓋對應到</text></name>
+    <questiontext format="html"><text><![CDATA[<p>經典的<strong>分支覆蓋（branch coverage）</strong>對應到哪一項結構覆蓋準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊覆蓋</text><feedback><text>正確——每個分支結果都是一條必須被走過的邊。</text></feedback></answer>
+    <answer fraction="0"><text>節點覆蓋</text><feedback><text>節點覆蓋對應到敘述覆蓋，較弱。</text></feedback></answer>
+    <answer fraction="0"><text>質路徑覆蓋</text><feedback><text>質路徑覆蓋比分支覆蓋強得多。</text></feedback></answer>
+    <answer fraction="0"><text>完整路徑覆蓋</text><feedback><text>完整路徑覆蓋通常不可行，且遠更強。</text></feedback></answer>
+    <generalfeedback><text>每個判斷結果都是一條外向邊，因此分支覆蓋正好就是邊覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>節點代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在控制流程圖中，單一<strong>節點</strong>通常代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個基本區塊——一段沒有內部分支的最大連續敘述序列</text><feedback><text>正確——節點就是一個以整體執行的基本區塊。</text></feedback></answer>
+    <answer fraction="0"><text>某個判斷的單一分支結果</text><feedback><text>那是一條邊，不是節點。</text></feedback></answer>
+    <answer fraction="0"><text>從進入點到結束點的一次完整執行</text><feedback><text>那是測試路徑，不是節點。</text></feedback></answer>
+    <answer fraction="0"><text>一個變數定義</text><feedback><text>變數定義屬於資料流分析，不是節點在結構上代表的內容。</text></feedback></answer>
+    <generalfeedback><text>節點代表一個基本區塊：只從頂端進入、只從底端離開的一段直線敘述。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在控制流程圖中，從節點 u 到節點 v 的一條<strong>邊</strong>代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>控制權可能從區塊 u 轉移到區塊 v（例如某個分支結果）</text><feedback><text>正確——邊代表區塊之間一種可能的控制流。</text></feedback></answer>
+    <answer fraction="0"><text>一個由敘述組成的基本區塊</text><feedback><text>那是節點，不是邊。</text></feedback></answer>
+    <answer fraction="0"><text>某變數的一個定義—使用對（DU pair）</text><feedback><text>DU 對屬於資料流覆蓋，不是邊在結構上的意義。</text></feedback></answer>
+    <answer fraction="0"><text>整個迴圈的主體</text><feedback><text>迴圈主體是一個或多個節點；邊只是單一次控制轉移。</text></feedback></answer>
+    <generalfeedback><text>邊代表基本區塊之間一次可能的控制轉移；一個判斷的各個結果就是它的外向邊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試路徑的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以圖為基礎的測試中，<strong>測試路徑（test path）</strong>是一條滿足下列何者的路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>起於圖的起始節點、止於圖的結束節點</text><feedback><text>正確——測試路徑代表一次從進入到離開的完整執行。</text></feedback></answer>
+    <answer fraction="0"><text>恰好造訪圖中每個節點一次</text><feedback><text>那是漢米頓路徑，不是測試路徑。</text></feedback></answer>
+    <answer fraction="0"><text>圖中任意一條單一邊</text><feedback><text>單一邊是長度為 1 的路徑，但測試路徑必須從起始節點走到結束節點。</text></feedback></answer>
+    <answer fraction="0"><text>從不重複任何節點</text><feedback><text>測試路徑可以重複節點（例如迴圈迭代）；只有簡單路徑禁止重複。</text></feedback></answer>
+    <generalfeedback><text>測試路徑從起始節點走到結束節點；執行一個測試案例會恰好沿著一條測試路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試需求的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對結構覆蓋準則而言，<strong>測試需求（test requirement）</strong>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某條測試路徑必須遊歷的一個特定結構元素（例如一個節點或一條邊）</text><feedback><text>正確——一項準則會產生一組測試需求。</text></feedback></answer>
+    <answer fraction="0"><text>一個帶有具體輸入值的單一測試案例</text><feedback><text>那是測試案例；需求是該案例必須涵蓋的元素。</text></feedback></answer>
+    <answer fraction="0"><text>程式的預期輸出</text><feedback><text>那是判定準則（oracle），不是覆蓋需求。</text></feedback></answer>
+    <answer fraction="0"><text>從進入點到結束點的一條完整路徑</text><feedback><text>一條測試路徑可以滿足許多需求，但需求本身是要被遊歷的元素。</text></feedback></answer>
+    <generalfeedback><text>對節點覆蓋而言每個節點是一項測試需求；對邊覆蓋而言每條邊是一項測試需求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>節點覆蓋的需求數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有節點 1..5，邊為 <code>1→2, 2→3, 2→4, 3→5, 4→5</code>。<strong>節點覆蓋</strong>會課予幾項測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——每個節點一項需求，共有 5 個節點。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>那是邊的數量；節點覆蓋計算的是節點（5）。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>那只算了分支節點，並非全部節點。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>節點覆蓋每個節點一項需求（5），不是節點兩兩配對。</text></feedback></answer>
+    <generalfeedback><text>節點覆蓋要求造訪每個節點，因此需求數量等於節點數量：5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊覆蓋的需求數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 2→3, 3→4, 2→4</code>。<strong>邊覆蓋</strong>會課予幾項測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——每條邊一項需求，共有 4 條邊。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>重數一次——列出的邊有四條。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>重數一次——列出的邊只有四條。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>邊覆蓋計算的是邊（4），不只是分支點。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋每條邊一項測試需求，因此數量等於邊的數量：4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數一數節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖僅以其有向邊給定：<code>1→2, 2→3, 2→4</code>。共出現幾個相異節點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——相異節點為 1、2、3、4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>那是邊的數量，不是節點數；相異節點為 1、2、3、4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>節點 2 有兩條外向邊，但整體相異節點共有四個。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>邊列中沒有節點 5；相異節點共有四個。</text></feedback></answer>
+    <generalfeedback><text>收集每條邊的端點：{1, 2, 3, 4}——四個相異節點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數一數邊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有節點 1..5，有向邊為 <code>1→2, 2→3, 3→4, 4→5, 2→5</code>。共有幾條有向邊？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——列出了五條邊。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>重數一次——列出的邊有五條。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>重數一次——列出的邊只有五條。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>重數一次——列出的邊只有五條。</text></feedback></answer>
+    <generalfeedback><text>每條有向邊只算一次；此列即完整邊集，共 5 條。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>某路徑是否覆蓋所有節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 2→3, 2→4</code>。單一測試路徑 <code>1→2→3</code> 造訪了圖中的每個節點。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——此路徑造訪 {1, 2, 3} 但從未到達節點 4，因此未達成節點覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>路徑 1→2→3 漏掉了節點 4（只能經由邊 2→4 到達），因此並未造訪每個節點。</text></feedback></answer>
+    <generalfeedback><text>節點 4 只能經由邊 2→4 到達；路徑 1→2→3 從未走這條邊，因此還需再一條路徑（例如 1→2→4）才能達成節點覆蓋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>邊覆蓋蘊含節點覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在每個節點都至少有一條相連邊的控制流程圖上，滿足邊覆蓋的測試集也會滿足節點覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——走過每條邊就造訪了每條邊的兩個端點，因此造訪了每個有相連邊的節點。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>覆蓋所有邊必然會造訪所有有相連邊的節點，因此此處邊覆蓋涵蓋（subsume）節點覆蓋。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋涵蓋節點覆蓋：走過一條邊時就造訪了它的兩個端點。反方向並不成立。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>節點覆蓋是否保證分支覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>達成節點覆蓋就保證每個分支（判斷結果）都已被執行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——節點覆蓋可以達成，但某條邊（分支結果）卻從未被走過。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>節點覆蓋只要求造訪節點；某個分支可以未被走過，而每個節點仍經由其他路徑被造訪。</text></feedback></answer>
+    <generalfeedback><text>節點覆蓋並不蘊含邊覆蓋，因此某些分支結果可能未被測到。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Structural Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何邊覆蓋涵蓋節點覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在每個節點都有相連邊的圖上，為何邊覆蓋涵蓋（subsume）節點覆蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個這樣的節點都是某條邊的端點，因此走過所有邊就會造訪所有這些節點</text><feedback><text>正確——覆蓋邊自然就覆蓋了它們的端點。</text></feedback></answer>
+    <answer fraction="0"><text>因為邊永遠比節點多</text><feedback><text>一般並不成立——n 個節點的直線圖只有 n−1 條邊；涵蓋關係不建立在數量上。</text></feedback></answer>
+    <answer fraction="0"><text>因為每個節點本身就是一條長度為零的邊</text><feedback><text>節點不是邊；涵蓋關係來自邊會造訪其端點。</text></feedback></answer>
+    <answer fraction="0"><text>因為節點覆蓋要求走過每條邊</text><feedback><text>節點覆蓋要求造訪節點而非邊；此敘述本身就錯了。</text></feedback></answer>
+    <generalfeedback><text>一條邊只有在通過其兩個端點時才會被走過，因此覆蓋所有邊的測試集會造訪每個有相連邊的節點——故 EC 涵蓋 NC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>達成節點覆蓋卻漏掉邊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的邊為 <code>1→2, 2→3, 1→3</code>（節點 1 是沒有 <code>else</code> 的 <code>if</code>，節點 2 是 then 區塊，節點 3 是匯合點）。只執行單一測試路徑 <code>1→2→3</code>，它滿足節點覆蓋，但哪一條邊未被覆蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1→3</text><feedback><text>正確——此路徑走了 1→2 與 2→3，卻從未走 false 分支 1→3。</text></feedback></answer>
+    <answer fraction="0"><text>1→2</text><feedback><text>路徑 1→2→3 確實走了邊 1→2。</text></feedback></answer>
+    <answer fraction="0"><text>2→3</text><feedback><text>路徑 1→2→3 確實走了邊 2→3。</text></feedback></answer>
+    <answer fraction="0"><text>沒有；所有邊都被覆蓋</text><feedback><text>邊 1→3（被略過的 else）從未被 1→2→3 走到。</text></feedback></answer>
+    <generalfeedback><text>1→2→3 造訪了全部三個節點，故滿足節點覆蓋，但漏掉了 false 分支邊 1→3——經典的「有 NC 但無 EC」情況。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>菱形圖上節點覆蓋的最少測試路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某菱形控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>（節點 1 起始、節點 4 結束）。達成<strong>節點覆蓋</strong>所需的最少測試路徑數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——沒有任何單一起訖路徑能同時造訪節點 2 與節點 3，故需兩條（例如 1→2→4 與 1→3→4）。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>一條路徑只能造訪節點 2 或節點 3 其一，無法覆蓋全部四個節點。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>兩條就夠：1→2→4 與 1→3→4 合起來造訪全部四個節點。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>那是邊的數量，不是節點覆蓋所需的最少測試路徑數。</text></feedback></answer>
+    <generalfeedback><text>節點 2 與 3 位於互斥的分支上，故達成節點覆蓋至少需要兩條測試路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>菱形圖上邊覆蓋的最少測試路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於同一個菱形圖（邊為 <code>1→2, 1→3, 2→4, 3→4</code>），達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——1→2→4 覆蓋 1→2 與 2→4；1→3→4 覆蓋 1→3 與 3→4。兩條路徑覆蓋全部四條邊。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>單一起訖路徑只會用到 1→2 / 1→3 其中一條，無法覆蓋全部四條邊。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>兩條就已覆蓋菱形的全部四條邊。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是邊的數量；兩條測試路徑即可走遍所有邊。</text></feedback></answer>
+    <generalfeedback><text>在純菱形圖上，同樣的兩條路徑同時達成節點覆蓋與邊覆蓋——此處兩準則的路徑數一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>敘述覆蓋 vs 分支覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>敘述覆蓋與分支覆蓋的關鍵差異是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>分支覆蓋要求每個判斷結果都被走到；敘述覆蓋只要求每條敘述都被執行</text><feedback><text>正確——分支覆蓋（EC）還會強制走 false／else 結果，那正是敘述覆蓋（NC）可能略過的。</text></feedback></answer>
+    <answer fraction="0"><text>敘述覆蓋嚴格強於分支覆蓋</text><feedback><text>恰好相反：分支覆蓋涵蓋敘述覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>它們在每個程式上永遠等價</text><feedback><text>只有在沒有判斷時才一致；被略過的 else 可以滿足敘述卻不滿足分支。</text></feedback></answer>
+    <answer fraction="0"><text>敘述覆蓋關注邊，而分支覆蓋關注節點</text><feedback><text>剛好反過來：敘述對應節點，分支對應邊。</text></feedback></answer>
+    <generalfeedback><text>敘述覆蓋＝節點覆蓋；分支覆蓋＝邊覆蓋。分支覆蓋額外強制每個判斷結果，因此涵蓋敘述覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無 else 的 if 上節點覆蓋的最少測試路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖的邊為 <code>1→2, 2→3, 1→3</code>（沒有 <code>else</code> 的 <code>if</code>；節點 1 起始、節點 3 結束）。達成<strong>節點覆蓋</strong>所需的最少測試路徑數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——單一路徑 1→2→3 造訪全部三個節點。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>一條路徑（1→2→3）就造訪了每個節點；此處要兩條的是邊覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是節點數量，不是所需的測試路徑數。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>至少需要一條測試路徑才能造訪任何節點。</text></feedback></answer>
+    <generalfeedback><text>路徑 1→2→3 通過節點 1、2、3，以單一測試路徑達成節點覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無 else 的 if 上邊覆蓋的最少測試路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於同一個無 else 的 if 圖（邊為 <code>1→2, 2→3, 1→3</code>），達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——1→2→3 覆蓋 1→2 與 2→3，但 false 分支邊 1→3 需要第二條路徑 1→3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>單一路徑無法同時走 1→2 與 1→3，故無法覆蓋全部三條邊。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>兩條就夠：1→2→3 與 1→3 合起來覆蓋全部三條邊。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>此處至少需要兩條測試路徑才能覆蓋每條邊。</text></feedback></answer>
+    <generalfeedback><text>此處 NC 需 1 條路徑但 EC 需 2 條——是「邊覆蓋嚴格強於節點覆蓋」的具體見證。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>直線程式碼：NC 與 EC 一致</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在沒有判斷節點的直線控制流程圖上（邊為 <code>1→2, 2→3, 3→4</code>），任何達成節點覆蓋的測試集也會達成邊覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——沒有分支時，單一路徑 1→2→3→4 覆蓋每個節點與每條邊，故兩準則一致。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>沒有判斷時圖中只有一條路徑；造訪所有節點必然走遍所有邊。</text></feedback></answer>
+    <generalfeedback><text>只有當圖具有判斷節點（外分支度 ≥ 2 的節點）時，節點覆蓋與邊覆蓋才會不同。在直線程式碼上它們要求完全相同的執行。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>分支覆蓋蘊含敘述覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若一個測試套件達成 100% 分支覆蓋，其敘述覆蓋也必然是 100%（假設每條敘述都位於某條邊上）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——分支覆蓋即邊覆蓋，涵蓋節點覆蓋（敘述覆蓋）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>覆蓋每個分支就走遍每條邊，從而造訪每個節點／敘述，故敘述覆蓋也完整。</text></feedback></answer>
+    <generalfeedback><text>因為邊覆蓋涵蓋節點覆蓋，100% 分支覆蓋保證 100% 敘述覆蓋；反向不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何敘述覆蓋可能漏掉錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某方法有一個沒有 <code>else</code> 的 <code>if</code>；缺陷在於被略過的 else 路徑會回傳錯誤值。為何 100% 敘述覆蓋可能漏掉此缺陷，而 100% 分支覆蓋能抓到？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>敘述覆蓋只需每條敘述被執行，因此從未被走的 false 分支（一條邊）可能未被測到</text><feedback><text>正確——空的 else 路徑是一條邊而非敘述，故只有邊／分支覆蓋才會強制它。</text></feedback></answer>
+    <answer fraction="0"><text>敘述覆蓋需要比分支覆蓋更多的測試案例，遮蔽了缺陷</text><feedback><text>分支覆蓋通常需要至少一樣多的案例；這不是原因。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷位於某個節點，而敘述覆蓋從不檢查節點</text><feedback><text>缺陷顯現在未被走的邊（被略過的 else）上，而非某個已造訪的節點。</text></feedback></answer>
+    <answer fraction="0"><text>敘述覆蓋完全忽略迴圈</text><feedback><text>此處與迴圈無關；缺口在於未被走的 false 分支。</text></feedback></answer>
+    <generalfeedback><text>無 else 的 if 有一條不執行任何敘述的 false 分支邊；敘述覆蓋可以是 100% 卻從未走它，但分支／邊覆蓋要求走它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>短路求值與邊數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>以短路求值方式建模 <code>if (a &amp;&amp; b)</code>（在 <code>a</code> 上有一個可略過求值 <code>b</code> 的判斷），相較於把 <code>a &amp;&amp; b</code> 當成單一原子判斷，邊覆蓋必須覆蓋的邊數：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>增加，因為短路求值多加了一個帶有自身外向邊的判斷節點</text><feedback><text>正確——分別測試 a 再測 b 會引入額外的分支邊。</text></feedback></answer>
+    <answer fraction="0"><text>減少，因為 b 有時被略過</text><feedback><text>執行期略過 b 並不會移除邊；短路求值反而增加判斷結構。</text></feedback></answer>
+    <answer fraction="0"><text>不變，因為兩種形式都只有一個判斷</text><feedback><text>短路形式有兩個判斷節點（測 a 與測 b），並非一個。</text></feedback></answer>
+    <answer fraction="0"><text>變成無限，因為有連接詞</text><feedback><text>圖仍是有限的；短路求值只是增加有限數量的邊。</text></feedback></answer>
+    <generalfeedback><text>短路求值把 <code>a &amp;&amp; b</code> 拆成兩個判斷（先測 a、再測 b），因此控制流程圖多出額外的分支邊需要邊覆蓋去走。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>節點覆蓋百分比</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有 5 個節點，測試套件造訪了其中 4 個。其節點覆蓋百分比是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>80%</text><feedback><text>正確——5 個中的 4 個＝80%。</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% 是 4 個中的 3 個；此處是 5 個中的 4 個＝80%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>有一個節點未被造訪，故覆蓋率低於 100%。</text></feedback></answer>
+    <answer fraction="0"><text>40%</text><feedback><text>覆蓋率＝已造訪／總數＝4/5＝80%，而非 2/5。</text></feedback></answer>
+    <generalfeedback><text>節點覆蓋百分比＝已造訪節點／總節點＝4/5＝80%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊覆蓋百分比</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有 8 條邊，測試套件走過其中 6 條。其邊覆蓋百分比是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%</text><feedback><text>正確——8 條中的 6 條＝75%。</text></feedback></answer>
+    <answer fraction="0"><text>80%</text><feedback><text>80% 是 5 條中的 4 條；此處是 8 條中的 6 條＝75%。</text></feedback></answer>
+    <answer fraction="0"><text>60%</text><feedback><text>覆蓋率＝已走過／總數＝6/8＝75%，而非 6/10。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>有兩條邊未被走過，故覆蓋率低於 100%。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋百分比＝已走過邊／總邊＝6/8＝75%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>是什麼使節點覆蓋不足</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個圖的特徵正是使節點覆蓋弱於邊覆蓋（以致可以有 NC 卻無 EC）的原因？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>判斷節點——外向邊有兩條以上的節點</text><feedback><text>正確——分支使得節點可被到達，卻不必然走過它的每一條外向邊。</text></feedback></answer>
+    <answer fraction="0"><text>只有一條外向邊的節點</text><feedback><text>只有單一外向邊時，造訪節點與走它的邊是同一件事；不會產生缺口。</text></feedback></answer>
+    <answer fraction="0"><text>圖中存在起始節點</text><feedback><text>每個圖都有起始節點；單憑這點無法區分 NC 與 EC。</text></feedback></answer>
+    <answer fraction="0"><text>節點比邊多</text><feedback><text>節點／邊的數量並不決定此缺口；判斷節點才是關鍵。</text></feedback></answer>
+    <generalfeedback><text>只有在判斷節點（外分支度 ≥ 2）處，才可能造訪該節點卻略過其一條外向分支邊，因此判斷節點正是 NC 與 EC 分歧之處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>菱形圖上邊覆蓋的需求數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某菱形控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>。邊覆蓋會課予幾項測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——每條邊一項需求，共有 4 條邊。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>重數一次——菱形有四條邊。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是最少測試路徑數，不是邊需求的數量（4）。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>重數一次——菱形只有四條邊。</text></feedback></answer>
+    <generalfeedback><text>邊覆蓋每條邊一項需求；菱形的四條邊給出四項需求，由兩條測試路徑達成。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Graph Structural Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行的邊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一條邊在何時是<strong>（語意上）不可行的（infeasible）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>雖然它存在於圖中，但沒有任何程式輸入能使執行走過它</text><feedback><text>正確——這條邊在語法上存在，但在任何實際執行下都不可到達。</text></feedback></answer>
+    <answer fraction="0"><text>它在邊列中出現了兩次</text><feedback><text>重複列出與可行性無關。</text></feedback></answer>
+    <answer fraction="0"><text>它的兩個端點都是判斷節點</text><feedback><text>端點的型態不決定可行性；是否有輸入能驅動這條邊才是關鍵。</text></feedback></answer>
+    <answer fraction="0"><text>它是某個迴圈的一部分</text><feedback><text>迴圈的邊通常完全可行；可行性關乎在真實輸入下的可到達性。</text></feedback></answer>
+    <generalfeedback><text>不可行的邊存在於控制流程圖中，但沒有測試輸入能驅使控制走過它（例如某分支條件永遠不為真），因此 100% 邊覆蓋不可達成，覆蓋率以可行的邊為準來衡量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>語法上不可到達的節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個節點在何時是從起始節點<strong>語法上不可到達（syntactically unreachable）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>圖中不存在任何從起始節點到它的路徑</text><feedback><text>正確——即使忽略分支條件也沒有路徑存在。</text></feedback></answer>
+    <answer fraction="0"><text>圖中有到它的路徑，但沒有輸入真的驅使執行到那裡</text><feedback><text>那是語意不可行，而非語法不可到達。</text></feedback></answer>
+    <answer fraction="0"><text>它沒有外向邊</text><feedback><text>沒有外向邊的節點只是結束節點，它仍可能是可到達的。</text></feedback></answer>
+    <answer fraction="0"><text>它被每條測試路徑造訪</text><feedback><text>那與不可到達正好相反。</text></feedback></answer>
+    <generalfeedback><text>語法可到達性只問是否存在從進入點的圖路徑；若不存在，該節點永遠無法被覆蓋，完整節點覆蓋即不可達成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>語法 vs 語意可到達性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一條邊「<em>語法上</em>可到達」與「<em>語意上</em>可到達」有何差別？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>語法可到達指圖中存在到它的路徑；語意可到達指有某個真實輸入真的驅使執行走過它</text><feedback><text>正確——語法忽略條件，語意則考慮條件。</text></feedback></answer>
+    <answer fraction="0"><text>兩者是同一性質的兩個名稱</text><feedback><text>兩者不同：一條邊可以語法上可到達卻語意上不可行。</text></feedback></answer>
+    <answer fraction="0"><text>語法可到達關乎節點；語意可到達關乎邊</text><feedback><text>兩種概念都同樣適用於節點與邊；差別在於圖路徑 vs 真實輸入。</text></feedback></answer>
+    <answer fraction="0"><text>語意可到達永遠比語法更弱（更容易）</text><feedback><text>語意更強：語意可到達蘊含語法可到達，反之不然。</text></feedback></answer>
+    <generalfeedback><text>凡語意可到達的元素都語法可到達，但語法可到達的邊可能不可行，因為沒有輸入能滿足沿途的條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 EC 嚴格強於 NC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個事實確立了邊覆蓋<em>嚴格</em>強於節點覆蓋（EC ⊋ NC）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>EC 永遠蘊含 NC，且存在某個圖加測試集能滿足 NC 卻不滿足 EC</text><feedback><text>正確——一個方向的涵蓋加上反方向的反例，正好就是嚴格包含。</text></feedback></answer>
+    <answer fraction="0"><text>NC 永遠蘊含 EC，且存在某個圖能滿足 EC 卻不滿足 NC</text><feedback><text>兩個子句都反了；NC 並不蘊含 EC。</text></feedback></answer>
+    <answer fraction="0"><text>在每個圖上，EC 與 NC 都由完全相同的測試集滿足</text><feedback><text>那會使兩者等價，而非其一嚴格更強。</text></feedback></answer>
+    <answer fraction="0"><text>兩者互不蘊含</text><feedback><text>EC 確實蘊含 NC；此包含是嚴格的，而非不可比較。</text></feedback></answer>
+    <generalfeedback><text>嚴格涵蓋意指 EC 普遍蘊含 NC，而某個實例（例如以 1→2→3 覆蓋的無 else 之 if）滿足 NC 卻不滿足 EC——故 EC 嚴格更強。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有迴圈時邊覆蓋的最少測試路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 while 迴圈控制流程圖的邊為 <code>1→2, 2→3, 3→2, 2→4</code>（節點 2 為迴圈條件、節點 3 為主體、節點 4 為出口；節點 1 起始）。達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——單一路徑 1→2→3→2→4 走過全部四條邊（進入迴圈一次後離開）。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>一條就夠：1→2→3→2→4 覆蓋 1→2、2→3、3→2 與 2→4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>全部四條邊都能放進一條迭代迴圈一次的起訖路徑上。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是邊的數量；一條精選路徑即可全部走過。</text></feedback></answer>
+    <generalfeedback><text>迴圈恰好迭代一次（1→2→3→2→4）就走過每條邊，因此儘管有回邊，邊覆蓋只需一條測試路徑。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>自迴圈的覆蓋需要主體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有一條自迴圈邊 <code>2→2</code>。要滿足邊覆蓋，某條測試路徑必須至少執行節點 2 的迴圈主體一次（走過 <code>2→2</code>）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——2→2 是一條邊，故邊覆蓋要求走過它，也就是迴圈至少迭代一次。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>自迴圈是一條真正的邊；略過它就無法滿足邊覆蓋。</text></feedback></answer>
+    <generalfeedback><text>在邊覆蓋下每條邊（含自迴圈）都是一項測試需求；僅造訪節點 2（節點覆蓋）並不會強制走過 2→2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋一個匯合點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>匯合節點 m 有兩條入邊 <code>a→m</code> 與 <code>b→m</code>，分別來自 if-else 的兩臂。此處邊覆蓋要求的、而節點覆蓋不要求的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩條入邊 a→m 與 b→m 都必須被走過，因此 if-else 的兩臂都被執行</text><feedback><text>正確——節點 m 的節點覆蓋只需其中一臂；邊覆蓋則強制兩條入邊。</text></feedback></answer>
+    <answer fraction="0"><text>節點 m 必須被造訪兩次</text><feedback><text>邊覆蓋關注走過兩條邊，而非造訪 m 幾次。</text></feedback></answer>
+    <answer fraction="0"><text>沒有額外要求；造訪 m 一次就同時滿足兩準則</text><feedback><text>經其中一臂造訪 m 可滿足 NC，但會漏掉另一條入邊。</text></feedback></answer>
+    <answer fraction="0"><text>兩臂必須被合併成單一節點</text><feedback><text>圖不會被改寫；邊覆蓋只是要求兩條入邊都被走。</text></feedback></answer>
+    <generalfeedback><text>造訪匯合節點 m 只要經任一臂到達即可滿足節點覆蓋，但邊覆蓋要求 a→m 與 b→m 都被走過，因此執行到兩個分支。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>每個節點的敘述數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某基本區塊含有 4 條連續敘述，沒有內部分支或跳躍。在控制流程圖中它以幾個節點表示？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——不論含有多少敘述，一個基本區塊就是單一節點。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>敘述並非各自是節點；整個區塊是一個節點。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>此區塊是一個節點；這裡沒有每敘述一節點的情形。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>一段敘述構成的區塊恰以一個節點表示。</text></feedback></answer>
+    <generalfeedback><text>一個基本區塊收縮成一個節點，因此敘述數與節點數不同——但覆蓋是等價的，因為進入該區塊就會執行其所有敘述。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行的邊與完整 EC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖含有一條真正不可行的邊。對邊覆蓋而言，正確的後果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% 邊覆蓋不可達成；覆蓋率最好只以可行的邊來衡量</text><feedback><text>正確——排除不可行的需求可讓此度量維持有意義。</text></feedback></answer>
+    <answer fraction="0"><text>只要更努力，100% 邊覆蓋仍可達成</text><feedback><text>沒有輸入能走過不可行的邊，故完整的字面覆蓋不可能。</text></feedback></answer>
+    <answer fraction="0"><text>整個邊覆蓋準則變得毫無意義而被放棄</text><feedback><text>準則仍保留；只是把那項不可行需求擱置。</text></feedback></answer>
+    <answer fraction="0"><text>不可行的邊會自動從程式中被刪除</text><feedback><text>圖是程式的模型、不會被更動；該需求只是被回報為不可行。</text></feedback></answer>
+    <generalfeedback><text>因為沒有測試能走過不可行的邊，工具會以可行的測試需求為分母回報覆蓋率，而非要求不可能的 100%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>嚴格包含的見證</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一組邊搭配一條適當的單一測試路徑，最能見證「節點覆蓋可被滿足、而邊覆蓋不被滿足」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><code>1→2, 2→3, 1→3</code>，測試路徑 1→2→3（邊 1→3 未被覆蓋）</text><feedback><text>正確——所有節點都被造訪，但 false 分支邊 1→3 被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text><code>1→2, 2→3, 3→4</code>，測試路徑 1→2→3→4</text><feedback><text>直線程式碼：一條路徑就覆蓋所有節點與所有邊，無法見證缺口。</text></feedback></answer>
+    <answer fraction="0"><text><code>1→2, 1→3, 2→4, 3→4</code>，測試路徑 1→2→4</text><feedback><text>此路徑漏掉節點 3，故也不滿足節點覆蓋——不是「有 NC 無 EC」的見證。</text></feedback></answer>
+    <answer fraction="0"><text><code>1→2</code>，測試路徑 1→2</text><feedback><text>單一邊被覆蓋、兩個節點也被覆蓋；NC 與 EC 都成立，沒有缺口。</text></feedback></answer>
+    <generalfeedback><text>以 1→2→3 遊歷的無 else 之 if <code>1→2, 2→3, 1→3</code> 造訪每個節點卻略過邊 1→3——是「滿足 NC 但不滿足 EC」的典型見證。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>迴圈使 EC 仍為有限</text></name>
+    <questiontext format="html"><text><![CDATA[<p>含迴圈的控制流程圖使完整路徑覆蓋不可行，但邊覆蓋在該圖上仍是有限且可達成的準則。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——迴圈產生無限多條完整路徑，但邊數（因而邊需求數）維持有限。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>不論迴圈能迭代多少次，邊覆蓋每條邊一項需求，是個有限集合。</text></feedback></answer>
+    <generalfeedback><text>迴圈使完整路徑的集合無界，但邊集是有限的，因此邊覆蓋永遠是有限（且通常可達成）的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有不可到達節點時 NC 的最大可達成值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有 5 個節點，其中一個從進入點語法上不可到達（死碼）。以全部 5 個節點計算，任何測試套件能達成的最大節點覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>80%</text><feedback><text>正確——5 個中最多能造訪 4 個，故 4/5＝80%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>不可到達的節點永遠無法被造訪，故以全部 5 個節點計不可能達到完整覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>90%</text><feedback><text>只能以整個節點計；最佳是 4/5＝80%。</text></feedback></answer>
+    <answer fraction="0"><text>20%</text><feedback><text>五個節點中有四個可到達，故最大為 80%，而非 20%。</text></feedback></answer>
+    <generalfeedback><text>不可到達的節點使字面節點覆蓋上限低於 100%；此處最大＝4/5＝80%。工具通常改以可到達的節點回報覆蓋率。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有不可行邊時 EC 的最大可達成值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有 6 條邊，其中恰好一條不可行。以全部 6 條邊計算，任何測試套件能達成的最大邊覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>約 83%（6 條中的 5 條）</text><feedback><text>正確——不可行的邊永遠無法被走過，故最多 5/6 ≈ 83%。</text></feedback></answer>
+    <answer fraction="0"><text>100%</text><feedback><text>沒有輸入能走過不可行的邊，故 6/6 不可能。</text></feedback></answer>
+    <answer fraction="0"><text>約 67%（6 條中的 4 條）</text><feedback><text>只有一條邊不可行，故最多 6 條中的 5 條可被覆蓋＝約 83%。</text></feedback></answer>
+    <answer fraction="0"><text>50%（6 條中的 3 條）</text><feedback><text>六條邊中有五條可行，故最大約 83%。</text></feedback></answer>
+    <generalfeedback><text>一條不可行的邊使字面邊覆蓋上限為 5/6 ≈ 83%；覆蓋率通常以可行的邊回報。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多分支圖上邊覆蓋的最少測試路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 1→3, 2→3, 2→4, 3→4</code>（節點 1 起始、節點 4 結束）。達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——例如 1→2→3→4（覆蓋 1→2、2→3、3→4）、1→3→4（覆蓋 1→3）、1→2→4（覆蓋 2→4）；沒有任何兩條路徑能覆蓋全部五條邊。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>邊 2→3 與 2→4 都需要節點 2，但沒有回到 2 的路可走，故一條路徑無法同時走兩者；同理 1→3 需要以 1→3 起步。兩條無法覆蓋全部五條。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>三條精選路徑就已覆蓋全部五條邊。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是邊的數量；最少測試路徑數是 3。</text></feedback></answer>
+    <generalfeedback><text>覆蓋 2→3 與 2→4 需要兩條經過節點 2 的相異路徑，而 1→3 需要一條以 1→3 起步的路徑，故邊覆蓋至少需要三條測試路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何敘述覆蓋等於節點覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>即使一個節點可能含有多條敘述，為何逐敘述的敘述覆蓋與逐節點的節點覆蓋等價？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>基本區塊是單一進入、單一離開，因此進入該節點就會執行其所有敘述——造訪節點就一併覆蓋它們</text><feedback><text>正確——區塊以整體執行，故節點覆蓋與敘述覆蓋同進退。</text></feedback></answer>
+    <answer fraction="0"><text>因為每條敘述都被放進自己的節點</text><feedback><text>敘述被歸入基本區塊，並非各自為一個節點。</text></feedback></answer>
+    <answer fraction="0"><text>因為敘述覆蓋忽略每個區塊的最後一條敘述</text><feedback><text>沒有任何敘述被忽略；造訪節點時整個區塊都會執行。</text></feedback></answer>
+    <answer fraction="0"><text>它們並不等價；節點覆蓋永遠更強</text><feedback><text>它們是等價的：一個基本區塊的所有敘述正好在節點被造訪時全部執行。</text></feedback></answer>
+    <generalfeedback><text>因為基本區塊沒有內部分支，控制從頂端進入並一路執行到底部的每條敘述，故覆蓋該節點就覆蓋其所有敘述——敘述覆蓋 ≡ 節點覆蓋。</text></generalfeedback>
+  </question>
+</quiz>

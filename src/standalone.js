@@ -50853,6 +50853,2480 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "graph-structural": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Node Coverage definition",
+            "text": "<p><strong>Node Coverage (NC)</strong> is satisfied by a set of test paths when:</p>",
+            "answers": [
+              {
+                "text": "Every reachable node of the graph is visited by at least one test path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 NC requires that each node be reached."
+              },
+              {
+                "text": "Every edge of the graph is traversed by at least one test path",
+                "fraction": 0,
+                "feedback": "That is Edge Coverage, which is stronger than Node Coverage."
+              },
+              {
+                "text": "Every complete path from entry to exit is executed",
+                "fraction": 0,
+                "feedback": "That is Complete Path Coverage, far stronger and usually infeasible."
+              },
+              {
+                "text": "Every node is visited exactly once",
+                "fraction": 0,
+                "feedback": "NC only requires each node be visited at least once; repeats are allowed."
+              }
+            ],
+            "generalFeedback": "Node Coverage imposes one test requirement per node: each reachable node must be visited by some test path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge Coverage definition",
+            "text": "<p><strong>Edge Coverage (EC)</strong> is satisfied by a set of test paths when:</p>",
+            "answers": [
+              {
+                "text": "Every reachable edge of the graph is traversed by at least one test path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 EC requires that each edge (branch) be taken."
+              },
+              {
+                "text": "Every reachable node of the graph is visited",
+                "fraction": 0,
+                "feedback": "That is Node Coverage, which is weaker than Edge Coverage."
+              },
+              {
+                "text": "Every pair of adjacent edges is traversed",
+                "fraction": 0,
+                "feedback": "That is Edge-Pair Coverage, which is stronger than Edge Coverage."
+              },
+              {
+                "text": "Every edge is traversed exactly once",
+                "fraction": 0,
+                "feedback": "EC only requires each edge be taken at least once; an edge may repeat."
+              }
+            ],
+            "generalFeedback": "Edge Coverage imposes one test requirement per edge: each reachable edge must be traversed by some test path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Statement coverage maps to",
+            "text": "<p>Classic <strong>statement coverage</strong> corresponds to which structural graph-coverage criterion on the control-flow graph?</p>",
+            "answers": [
+              {
+                "text": "Node Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 executing every statement means visiting every node (basic block)."
+              },
+              {
+                "text": "Edge Coverage",
+                "fraction": 0,
+                "feedback": "Edge Coverage corresponds to branch coverage, which is stronger."
+              },
+              {
+                "text": "Edge-Pair Coverage",
+                "fraction": 0,
+                "feedback": "Edge-pair coverage is much stronger than statement coverage."
+              },
+              {
+                "text": "Complete Path Coverage",
+                "fraction": 0,
+                "feedback": "Complete path coverage is generally infeasible and far stronger."
+              }
+            ],
+            "generalFeedback": "Nodes model basic blocks/statements, so statement coverage is exactly Node Coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch coverage maps to",
+            "text": "<p>Classic <strong>branch coverage</strong> corresponds to which structural graph-coverage criterion?</p>",
+            "answers": [
+              {
+                "text": "Edge Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every branch outcome is an edge that must be traversed."
+              },
+              {
+                "text": "Node Coverage",
+                "fraction": 0,
+                "feedback": "Node coverage corresponds to statement coverage, which is weaker."
+              },
+              {
+                "text": "Prime Path Coverage",
+                "fraction": 0,
+                "feedback": "Prime path coverage is much stronger than branch coverage."
+              },
+              {
+                "text": "Complete Path Coverage",
+                "fraction": 0,
+                "feedback": "Complete path coverage is generally infeasible and far stronger."
+              }
+            ],
+            "generalFeedback": "Each decision outcome is an outgoing edge, so branch coverage is exactly Edge Coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a node models",
+            "text": "<p>In a control-flow graph, a single <strong>node</strong> typically models:</p>",
+            "answers": [
+              {
+                "text": "A basic block \u2014 a maximal sequence of statements with no internal branch",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a node is a basic block executed as a unit."
+              },
+              {
+                "text": "A single branch outcome of a decision",
+                "fraction": 0,
+                "feedback": "That is an edge, not a node."
+              },
+              {
+                "text": "A complete execution from entry to exit",
+                "fraction": 0,
+                "feedback": "That is a test path, not a node."
+              },
+              {
+                "text": "A variable definition",
+                "fraction": 0,
+                "feedback": "Variable definitions belong to data-flow analysis, not to what a node models structurally."
+              }
+            ],
+            "generalFeedback": "A node models a basic block: a straight-line run of statements entered only at the top and left only at the bottom.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an edge models",
+            "text": "<p>In a control-flow graph, an <strong>edge</strong> from node u to node v models:</p>",
+            "answers": [
+              {
+                "text": "A possible transfer of control from block u to block v (e.g. a branch outcome)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an edge is a possible flow of control between blocks."
+              },
+              {
+                "text": "A basic block of statements",
+                "fraction": 0,
+                "feedback": "That is a node, not an edge."
+              },
+              {
+                "text": "A definition-use pair for some variable",
+                "fraction": 0,
+                "feedback": "DU pairs belong to data-flow coverage, not to the structural meaning of an edge."
+              },
+              {
+                "text": "The entire body of a loop",
+                "fraction": 0,
+                "feedback": "A loop body is one or more nodes; an edge is a single control transfer."
+              }
+            ],
+            "generalFeedback": "An edge represents one possible control transfer between basic blocks; a decision's outcomes are its outgoing edges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test path definition",
+            "text": "<p>In graph-based testing, a <strong>test path</strong> is a path that:</p>",
+            "answers": [
+              {
+                "text": "Starts at an initial node and ends at a final node of the graph",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test path represents one complete execution from entry to exit."
+              },
+              {
+                "text": "Visits every node of the graph exactly once",
+                "fraction": 0,
+                "feedback": "That is a Hamiltonian path, not a test path."
+              },
+              {
+                "text": "Is any single edge of the graph",
+                "fraction": 0,
+                "feedback": "A single edge is a path of length 1, but a test path must run from an initial to a final node."
+              },
+              {
+                "text": "Never repeats any node",
+                "fraction": 0,
+                "feedback": "A test path may repeat nodes (e.g. loop iterations); only simple paths forbid repeats."
+              }
+            ],
+            "generalFeedback": "A test path runs from an initial node to a final node; executing one test case follows exactly one test path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test requirement definition",
+            "text": "<p>A <strong>test requirement</strong> for a structural coverage criterion is:</p>",
+            "answers": [
+              {
+                "text": "A specific structural element (e.g. a node or an edge) that some test path must tour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a criterion yields a set of test requirements."
+              },
+              {
+                "text": "A single test case with concrete input values",
+                "fraction": 0,
+                "feedback": "That is a test case; a requirement is the element the case must cover."
+              },
+              {
+                "text": "The expected output of the program",
+                "fraction": 0,
+                "feedback": "That is an oracle, not a coverage requirement."
+              },
+              {
+                "text": "A complete path from entry to exit",
+                "fraction": 0,
+                "feedback": "A test path may satisfy many requirements, but a requirement is the element to be toured."
+              }
+            ],
+            "generalFeedback": "For Node Coverage each node is a test requirement; for Edge Coverage each edge is a test requirement.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Node coverage requirement count",
+            "text": "<p>A control-flow graph has nodes 1..5 and edges <code>1\u21922, 2\u21923, 2\u21924, 3\u21925, 4\u21925</code>. How many test requirements does <strong>Node Coverage</strong> impose?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one requirement per node, and there are 5 nodes."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "That counts the edges; Node Coverage counts nodes (5)."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "That counts only the branch nodes, not all nodes."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "Node Coverage has one requirement per node (5), not per node pair."
+              }
+            ],
+            "generalFeedback": "Node Coverage requires visiting each node, so the number of requirements equals the number of nodes: 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge coverage requirement count",
+            "text": "<p>A control-flow graph has nodes 1..4 and edges <code>1\u21922, 2\u21923, 3\u21924, 2\u21924</code>. How many test requirements does <strong>Edge Coverage</strong> impose?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one requirement per edge, and there are 4 edges."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are four edges listed."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are only four edges listed."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Edge Coverage counts edges (4), not just the branch points."
+              }
+            ],
+            "generalFeedback": "Edge Coverage requires one test requirement per edge, so the count equals the number of edges: 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count the nodes",
+            "text": "<p>A control-flow graph is given only by its directed edges: <code>1\u21922, 2\u21923, 2\u21924</code>. How many distinct nodes appear?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the distinct nodes are 1, 2, 3 and 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "That is the number of edges, not nodes; the distinct nodes are 1, 2, 3, 4."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Node 2 has two out-edges, but there are four distinct nodes overall."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "No node 5 appears in the edge list; there are four distinct nodes."
+              }
+            ],
+            "generalFeedback": "Collect the endpoints of every edge: {1, 2, 3, 4} \u2014 four distinct nodes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count the edges",
+            "text": "<p>A control-flow graph on nodes 1..5 has directed edges <code>1\u21922, 2\u21923, 3\u21924, 4\u21925, 2\u21925</code>. How many directed edges does it have?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 five edges are listed."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are five edges listed."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are only five edges listed."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are only five edges listed."
+              }
+            ],
+            "generalFeedback": "Count each directed edge once; the list is the complete edge set, giving 5.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Does a path cover all nodes",
+            "text": "<p>A control-flow graph has nodes 1..4 and edges <code>1\u21922, 2\u21923, 2\u21924</code>. The single test path <code>1\u21922\u21923</code> visits every node of the graph.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the path visits {1, 2, 3} but never reaches node 4, so Node Coverage is not met."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "The path 1\u21922\u21923 misses node 4 (reached only via edge 2\u21924), so it does not visit every node."
+              }
+            ],
+            "generalFeedback": "Node 4 is reachable only through edge 2\u21924; the path 1\u21922\u21923 never takes it, so one more path (e.g. 1\u21922\u21924) is needed for Node Coverage."
+          },
+          {
+            "type": "truefalse",
+            "name": "Edge coverage implies node coverage",
+            "text": "<p>On a control-flow graph in which every node has at least one incident edge, a test set that satisfies Edge Coverage also satisfies Node Coverage.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 traversing every edge visits both endpoints of each edge, hence every node with an incident edge."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Covering all edges necessarily visits all nodes that have an incident edge, so Edge Coverage subsumes Node Coverage here."
+              }
+            ],
+            "generalFeedback": "Edge Coverage subsumes Node Coverage: each edge's endpoints are visited when the edge is traversed. The converse does not hold."
+          },
+          {
+            "type": "truefalse",
+            "name": "Node coverage guarantees branch coverage",
+            "text": "<p>Satisfying Node Coverage guarantees that every branch (decision outcome) has been exercised.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Node Coverage can be met while an edge (branch outcome) is never taken."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Node Coverage only requires visiting nodes; a branch can go untaken while every node is still reached via other paths."
+              }
+            ],
+            "generalFeedback": "Node Coverage does not imply Edge Coverage, so some branch outcomes may go untested."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Why edge coverage subsumes node coverage",
+            "text": "<p>Why does Edge Coverage subsume Node Coverage (on a graph where every node has an incident edge)?</p>",
+            "answers": [
+              {
+                "text": "Every such node is an endpoint of some edge, so traversing all edges visits all those nodes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 covering the edges automatically covers their endpoints."
+              },
+              {
+                "text": "Because there are always more edges than nodes",
+                "fraction": 0,
+                "feedback": "False in general \u2014 a straight-line graph of n nodes has only n\u22121 edges; subsumption does not rest on counts."
+              },
+              {
+                "text": "Because every node is itself an edge of length zero",
+                "fraction": 0,
+                "feedback": "A node is not an edge; the subsumption comes from edges visiting their endpoints."
+              },
+              {
+                "text": "Because Node Coverage requires visiting each edge",
+                "fraction": 0,
+                "feedback": "Node Coverage requires visiting nodes, not edges; that description is simply wrong."
+              }
+            ],
+            "generalFeedback": "An edge is traversed only by passing through both its endpoints, so an edge-covering test set visits every node that has an incident edge \u2014 hence EC subsumes NC.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Node coverage met, edge missed",
+            "text": "<p>A CFG has edges <code>1\u21922, 2\u21923, 1\u21923</code> (node 1 is an <code>if</code> with no <code>else</code>, node 2 the then-block, node 3 the merge). The single test path <code>1\u21922\u21923</code> is run. It satisfies Node Coverage, but which edge is left uncovered?</p>",
+            "answers": [
+              {
+                "text": "1\u21923",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the path takes 1\u21922 and 2\u21923 but never the false branch 1\u21923."
+              },
+              {
+                "text": "1\u21922",
+                "fraction": 0,
+                "feedback": "The path 1\u21922\u21923 does take edge 1\u21922."
+              },
+              {
+                "text": "2\u21923",
+                "fraction": 0,
+                "feedback": "The path 1\u21922\u21923 does take edge 2\u21923."
+              },
+              {
+                "text": "None; all edges are covered",
+                "fraction": 0,
+                "feedback": "Edge 1\u21923 (the skipped else) is never taken by 1\u21922\u21923."
+              }
+            ],
+            "generalFeedback": "All three nodes are visited by 1\u21922\u21923, so Node Coverage holds, yet the false-branch edge 1\u21923 is missed \u2014 a classic NC-without-EC case.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal test paths for NC on a diamond",
+            "text": "<p>A diamond CFG has edges <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code> (node 1 initial, node 4 final). What is the minimum number of test paths needed for <strong>Node Coverage</strong>?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no single entry-to-exit path visits both node 2 and node 3, so two paths are needed (e.g. 1\u21922\u21924 and 1\u21923\u21924)."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One path can visit either node 2 or node 3 but not both, so one path cannot cover all four nodes."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Two paths suffice: 1\u21922\u21924 and 1\u21923\u21924 together visit all four nodes."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "That is the number of edges, not the minimum number of test paths for Node Coverage."
+              }
+            ],
+            "generalFeedback": "Nodes 2 and 3 lie on mutually exclusive branches, so a minimum of two test paths is required to visit every node.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal test paths for EC on a diamond",
+            "text": "<p>For the same diamond CFG with edges <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>, what is the minimum number of test paths needed for <strong>Edge Coverage</strong>?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21924 covers 1\u21922 and 2\u21924; 1\u21923\u21924 covers 1\u21923 and 3\u21924. Two paths cover all four edges."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A single entry-to-exit path uses only one of 1\u21922 / 1\u21923, so it cannot cover all four edges."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Two paths already cover all four edges of the diamond."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Four is the number of edges; two test paths suffice to traverse them all."
+              }
+            ],
+            "generalFeedback": "On a pure diamond, the same two paths achieve both Node and Edge Coverage \u2014 the criteria coincide in path count here.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Statement vs branch coverage",
+            "text": "<p>What is the key difference between statement coverage and branch coverage?</p>",
+            "answers": [
+              {
+                "text": "Branch coverage requires every decision outcome to be taken; statement coverage only requires every statement to run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 branch coverage (EC) also forces the false/else outcomes, which statement coverage (NC) may skip."
+              },
+              {
+                "text": "Statement coverage is strictly stronger than branch coverage",
+                "fraction": 0,
+                "feedback": "The reverse is true: branch coverage subsumes statement coverage."
+              },
+              {
+                "text": "They are always equivalent on every program",
+                "fraction": 0,
+                "feedback": "They coincide only when there are no decisions; a skipped else can satisfy statements but not branches."
+              },
+              {
+                "text": "Statement coverage concerns edges while branch coverage concerns nodes",
+                "fraction": 0,
+                "feedback": "It is the other way round: statements map to nodes, branches to edges."
+              }
+            ],
+            "generalFeedback": "Statement coverage = Node Coverage; branch coverage = Edge Coverage. Branch coverage additionally forces each decision outcome, so it subsumes statement coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal test paths for NC on an if-without-else",
+            "text": "<p>A CFG has edges <code>1\u21922, 2\u21923, 1\u21923</code> (an <code>if</code> with no <code>else</code>; node 1 initial, node 3 final). What is the minimum number of test paths for <strong>Node Coverage</strong>?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the single path 1\u21922\u21923 visits all three nodes."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "One path (1\u21922\u21923) already visits every node; two are needed only for Edge Coverage here."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Three is the node count, not the number of test paths required."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "At least one test path is needed to visit any node."
+              }
+            ],
+            "generalFeedback": "The path 1\u21922\u21923 passes through nodes 1, 2 and 3, achieving Node Coverage with a single test path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal test paths for EC on an if-without-else",
+            "text": "<p>For the same if-without-else CFG with edges <code>1\u21922, 2\u21923, 1\u21923</code>, what is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\u21922\u21923 covers 1\u21922 and 2\u21923, but the false-branch edge 1\u21923 needs the second path 1\u21923."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A single path cannot take both 1\u21922 and 1\u21923, so it cannot cover all three edges."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Two paths suffice: 1\u21922\u21923 and 1\u21923 together cover all three edges."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "At least two test paths are required to cover every edge here."
+              }
+            ],
+            "generalFeedback": "Here NC needs 1 path but EC needs 2 \u2014 a concrete witness that Edge Coverage is strictly stronger than Node Coverage.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Straight-line code: NC and EC coincide",
+            "text": "<p>On a straight-line CFG with no decision nodes (edges <code>1\u21922, 2\u21923, 3\u21924</code>), any test set that achieves Node Coverage also achieves Edge Coverage.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with no branching, the single path 1\u21922\u21923\u21924 covers every node and every edge, so the criteria coincide."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Without decisions there is only one path through the graph; visiting all nodes necessarily traverses all edges."
+              }
+            ],
+            "generalFeedback": "Node and Edge Coverage differ only when the graph has decision nodes (nodes with two or more out-edges). On straight-line code they require exactly the same execution."
+          },
+          {
+            "type": "truefalse",
+            "name": "Branch coverage implies statement coverage",
+            "text": "<p>If a test suite achieves 100% branch coverage, its statement coverage is necessarily 100% as well (assuming every statement lies on some edge).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 branch coverage is Edge Coverage, which subsumes Node Coverage (statement coverage)."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Covering every branch traverses every edge, which visits every node/statement, so statement coverage is also complete."
+              }
+            ],
+            "generalFeedback": "Because Edge Coverage subsumes Node Coverage, 100% branch coverage guarantees 100% statement coverage; the converse fails."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why statement coverage can miss a bug",
+            "text": "<p>A method has an <code>if</code> with no <code>else</code>; the fault is that the missing else path returns a wrong value. Why can 100% statement coverage miss this fault while 100% branch coverage catches it?</p>",
+            "answers": [
+              {
+                "text": "Statement coverage only needs every statement executed, so the never-taken false branch (an edge) can go untested",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the empty else path is an edge, not a statement, so only Edge/branch coverage forces it."
+              },
+              {
+                "text": "Statement coverage requires more test cases than branch coverage, masking the fault",
+                "fraction": 0,
+                "feedback": "Branch coverage generally needs at least as many cases; that is not the reason."
+              },
+              {
+                "text": "The fault is in a node, which statement coverage never checks",
+                "fraction": 0,
+                "feedback": "The fault manifests on the untaken edge (the skipped else), not in a visited node."
+              },
+              {
+                "text": "Statement coverage ignores loops entirely",
+                "fraction": 0,
+                "feedback": "Loops are unrelated here; the gap is the untaken false branch."
+              }
+            ],
+            "generalFeedback": "An if-without-else has a false-branch edge that executes no statement; statement coverage can be 100% without ever taking it, but branch/Edge Coverage requires it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Short-circuit and edge count",
+            "text": "<p>Modeling <code>if (a &amp;&amp; b)</code> with short-circuit evaluation (a decision on <code>a</code> that can skip evaluating <code>b</code>), compared with treating <code>a &amp;&amp; b</code> as a single atomic decision, the number of edges Edge Coverage must cover:</p>",
+            "answers": [
+              {
+                "text": "Increases, because short-circuit adds a second decision node with its own outgoing edges",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing a then b separately introduces extra branch edges."
+              },
+              {
+                "text": "Decreases, because b is sometimes skipped",
+                "fraction": 0,
+                "feedback": "Skipping b at runtime does not remove edges; short-circuit adds the extra decision structure."
+              },
+              {
+                "text": "Stays the same, because both forms have one decision",
+                "fraction": 0,
+                "feedback": "Short-circuit form has two decision nodes (on a and on b), not one."
+              },
+              {
+                "text": "Becomes infinite, because of the conjunction",
+                "fraction": 0,
+                "feedback": "The graph stays finite; short-circuit merely adds a bounded number of edges."
+              }
+            ],
+            "generalFeedback": "Short-circuit evaluation splitsinto two decisions (test a, then test b), so the CFG gains extra branch edges that Edge Coverage must cover.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Node coverage percentage",
+            "text": "<p>A CFG has 5 nodes. A test suite visits 4 of them. What is its Node Coverage percentage?</p>",
+            "answers": [
+              {
+                "text": "80%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 of 5 nodes = 80%."
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% would be 3 of 4; here it is 4 of 5 = 80%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "One node is unvisited, so coverage is below 100%."
+              },
+              {
+                "text": "40%",
+                "fraction": 0,
+                "feedback": "Coverage is visited/total = 4/5 = 80%, not 2/5."
+              }
+            ],
+            "generalFeedback": "Node Coverage percentage = nodes visited / total nodes = 4/5 = 80%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge coverage percentage",
+            "text": "<p>A CFG has 8 edges. A test suite traverses 6 of them. What is its Edge Coverage percentage?</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 6 of 8 edges = 75%."
+              },
+              {
+                "text": "80%",
+                "fraction": 0,
+                "feedback": "80% would be 4 of 5; here it is 6 of 8 = 75%."
+              },
+              {
+                "text": "60%",
+                "fraction": 0,
+                "feedback": "Coverage is traversed/total = 6/8 = 75%, not 6/10."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "Two edges are untraversed, so coverage is below 100%."
+              }
+            ],
+            "generalFeedback": "Edge Coverage percentage = edges traversed / total edges = 6/8 = 75%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What makes node coverage insufficient",
+            "text": "<p>Which single graph feature is what makes Node Coverage weaker than Edge Coverage (so that NC can hold while EC fails)?</p>",
+            "answers": [
+              {
+                "text": "A decision node \u2014 a node with two or more outgoing edges",
+                "fraction": 100,
+                "feedback": "Correct \u2014 branching lets a node be reached without every one of its out-edges being taken."
+              },
+              {
+                "text": "A node with only one outgoing edge",
+                "fraction": 0,
+                "feedback": "With a single out-edge, visiting the node and taking its edge coincide; no gap arises."
+              },
+              {
+                "text": "The presence of an initial node",
+                "fraction": 0,
+                "feedback": "Every graph has an initial node; that alone does not separate NC from EC."
+              },
+              {
+                "text": "Having more nodes than edges",
+                "fraction": 0,
+                "feedback": "Node/edge counts do not determine the gap; a decision node does."
+              }
+            ],
+            "generalFeedback": "Only at a decision node (out-degree \u2265 2) can a node be visited while one of its outgoing branch edges is skipped, so decision nodes are exactly where NC and EC diverge.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge coverage requirements on a diamond",
+            "text": "<p>A diamond CFG has edges <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>. How many test requirements does Edge Coverage impose?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one requirement per edge, and there are 4 edges."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Recount \u2014 the diamond has four edges."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Two is the minimum number of test paths, not the number of edge requirements (4)."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Recount \u2014 the diamond has only four edges."
+              }
+            ],
+            "generalFeedback": "Edge Coverage has one requirement per edge; the diamond's four edges give four requirements, met by two test paths.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Infeasible edge",
+            "text": "<p>An edge is <strong>(semantically) infeasible</strong> when:</p>",
+            "answers": [
+              {
+                "text": "No input to the program can cause execution to traverse it, even though it exists in the graph",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the edge is present syntactically but unreachable under any actual execution."
+              },
+              {
+                "text": "It appears twice in the edge list",
+                "fraction": 0,
+                "feedback": "Duplicate listing is unrelated to feasibility."
+              },
+              {
+                "text": "Both its endpoints are decision nodes",
+                "fraction": 0,
+                "feedback": "The endpoints' types do not determine feasibility; whether any input drives the edge does."
+              },
+              {
+                "text": "It is part of a loop",
+                "fraction": 0,
+                "feedback": "Loop edges are usually perfectly feasible; feasibility is about reachability under real inputs."
+              }
+            ],
+            "generalFeedback": "An infeasible edge exists in the CFG but no test input can drive control across it (e.g. a branch condition that is never true), so 100% Edge Coverage is unachievable and coverage is measured over feasible edges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Syntactically unreachable node",
+            "text": "<p>A node is <strong>syntactically unreachable</strong> from the initial node when:</p>",
+            "answers": [
+              {
+                "text": "There is no path in the graph from the initial node to it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no path exists even ignoring branch conditions."
+              },
+              {
+                "text": "There is a graph path to it, but no input actually drives execution there",
+                "fraction": 0,
+                "feedback": "That describes semantic infeasibility, not syntactic unreachability."
+              },
+              {
+                "text": "It has no outgoing edges",
+                "fraction": 0,
+                "feedback": "A node with no out-edges is just a final node; it can still be reachable."
+              },
+              {
+                "text": "It is visited by every test path",
+                "fraction": 0,
+                "feedback": "That is the opposite of unreachable."
+              }
+            ],
+            "generalFeedback": "Syntactic reachability asks only whether a graph path exists from the entry; if none does, the node can never be covered and full Node Coverage is unachievable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Syntactic vs semantic reachability",
+            "text": "<p>What is the difference between an edge being <em>syntactically</em> reachable and <em>semantically</em> reachable?</p>",
+            "answers": [
+              {
+                "text": "Syntactic reachability means a graph path to it exists; semantic reachability means some real input actually drives execution across it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 syntactic ignores conditions, semantic accounts for them."
+              },
+              {
+                "text": "They are two names for the same property",
+                "fraction": 0,
+                "feedback": "They differ: an edge can be syntactically reachable yet semantically infeasible."
+              },
+              {
+                "text": "Syntactic reachability concerns nodes; semantic reachability concerns edges",
+                "fraction": 0,
+                "feedback": "Both notions apply to nodes and edges alike; the distinction is graph-path vs real-input."
+              },
+              {
+                "text": "Semantic reachability is always weaker (easier) than syntactic",
+                "fraction": 0,
+                "feedback": "Semantic is stronger: semantic reachability implies syntactic, not the reverse."
+              }
+            ],
+            "generalFeedback": "Every semantically reachable element is syntactically reachable, but a syntactically reachable edge may be infeasible because no input satisfies the conditions along the way.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why EC is strictly stronger than NC",
+            "text": "<p>Which fact establishes that Edge Coverage is <em>strictly</em> stronger than Node Coverage (EC \u228B NC)?</p>",
+            "answers": [
+              {
+                "text": "EC always implies NC, and there exists a graph plus test set satisfying NC but not EC",
+                "fraction": 100,
+                "feedback": "Correct \u2014 subsumption in one direction plus a counterexample for the converse is exactly strict containment."
+              },
+              {
+                "text": "NC always implies EC, and there exists a graph satisfying EC but not NC",
+                "fraction": 0,
+                "feedback": "Both clauses are backwards; NC does not imply EC."
+              },
+              {
+                "text": "EC and NC are satisfied by exactly the same test sets on every graph",
+                "fraction": 0,
+                "feedback": "That would make them equivalent, not one strictly stronger."
+              },
+              {
+                "text": "Neither ever implies the other",
+                "fraction": 0,
+                "feedback": "EC does imply NC; the containment is strict, not incomparable."
+              }
+            ],
+            "generalFeedback": "Strict subsumption means EC \u21D2 NC universally, while some instance (e.g. an if-without-else covered by 1\u21922\u21923) meets NC but not EC \u2014 so EC is strictly stronger.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal EC test paths with a loop",
+            "text": "<p>A while-loop CFG has edges <code>1\u21922, 2\u21923, 3\u21922, 2\u21924</code> (node 2 the loop condition, node 3 the body, node 4 the exit; node 1 initial). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the single path 1\u21922\u21923\u21922\u21924 traverses all four edges (enter loop once, then exit)."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "One path suffices: 1\u21922\u21923\u21922\u21924 covers 1\u21922, 2\u21923, 3\u21922 and 2\u21924."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "All four edges fit on one entry-to-exit path that iterates the loop once."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Four is the edge count; a single well-chosen path covers them all."
+              }
+            ],
+            "generalFeedback": "Iterating the loop exactly once (1\u21922\u21923\u21922\u21924) traverses every edge, so Edge Coverage needs just one test path despite the back edge.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Self-loop coverage requires the body",
+            "text": "<p>A CFG has a self-loop edge <code>2\u21922</code>. To satisfy Edge Coverage, some test path must execute the loop body at node 2 at least once (traverse <code>2\u21922</code>).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2\u21922 is an edge, so Edge Coverage requires it be traversed, which means the loop iterates at least once."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The self-loop is a genuine edge; skipping it leaves Edge Coverage unsatisfied."
+              }
+            ],
+            "generalFeedback": "Every edge, including a self-loop, is a test requirement under Edge Coverage; visiting node 2 alone (Node Coverage) does not force traversing 2\u21922."
+          },
+          {
+            "type": "multichoice",
+            "name": "Covering a merge point",
+            "text": "<p>A merge node m has two incoming edges, <code>a\u2192m</code> and <code>b\u2192m</code>, from the two arms of an if-else. What does Edge Coverage require here that Node Coverage does not?</p>",
+            "answers": [
+              {
+                "text": "Both incoming edges a\u2192m and b\u2192m must be traversed, so both arms of the if-else are exercised",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Node Coverage of m needs only one arm; Edge Coverage forces both incoming edges."
+              },
+              {
+                "text": "Node m must be visited twice",
+                "fraction": 0,
+                "feedback": "Edge Coverage concerns traversing both edges, not visiting m a specific number of times."
+              },
+              {
+                "text": "Nothing extra; visiting m once suffices for both criteria",
+                "fraction": 0,
+                "feedback": "Visiting m via one arm satisfies NC but leaves the other incoming edge uncovered."
+              },
+              {
+                "text": "The two arms must be merged into a single node",
+                "fraction": 0,
+                "feedback": "The graph is not rewritten; Edge Coverage simply requires both incoming edges."
+              }
+            ],
+            "generalFeedback": "Node Coverage of the merge node m is met by reaching it through either arm, but Edge Coverage requires both a\u2192m and b\u2192m, exercising both branches.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Statements per node",
+            "text": "<p>A basic block contains 4 sequential statements with no internal branch or jump. In the control-flow graph it is represented by how many nodes?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a basic block is a single node regardless of how many statements it holds."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Statements are not individual nodes; the whole block is one node."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "The block is one node; there is no per-statement node here."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "A block of statements is represented by exactly one node."
+              }
+            ],
+            "generalFeedback": "A basic block collapses to one node, so statement count and node count differ \u2014 yet coverage is equivalent because entering the block runs all its statements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible edge and full EC",
+            "text": "<p>A CFG contains a genuinely infeasible edge. What is the correct consequence for Edge Coverage?</p>",
+            "answers": [
+              {
+                "text": "100% Edge Coverage is unachievable; coverage is best measured over the feasible edges only",
+                "fraction": 100,
+                "feedback": "Correct \u2014 infeasible requirements are excluded so the metric stays meaningful."
+              },
+              {
+                "text": "100% Edge Coverage is still achievable by trying harder",
+                "fraction": 0,
+                "feedback": "No input can traverse an infeasible edge, so full literal coverage is impossible."
+              },
+              {
+                "text": "The whole Edge Coverage criterion becomes meaningless and is abandoned",
+                "fraction": 0,
+                "feedback": "The criterion is retained; only the infeasible requirement is set aside."
+              },
+              {
+                "text": "The infeasible edge is automatically deleted from the program",
+                "fraction": 0,
+                "feedback": "The graph models the program and is not altered; the requirement is simply reported as infeasible."
+              }
+            ],
+            "generalFeedback": "Because no test can traverse an infeasible edge, tools report coverage against the feasible test requirements rather than demanding an impossible 100%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Witness for strict containment",
+            "text": "<p>Which edge set, together with a suitable single test path, best witnesses that Node Coverage can be satisfied while Edge Coverage is not?</p>",
+            "answers": [
+              {
+                "text": "with test path 1\u21922\u21923 (edge 1\u21923 uncovered)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all nodes visited, but the false-branch edge 1\u21923 is missed."
+              },
+              {
+                "text": "with test path 1\u21922\u21923\u21924",
+                "fraction": 0,
+                "feedback": "Straight-line code: the one path covers all nodes and all edges, so it cannot witness a gap."
+              },
+              {
+                "text": "with test path 1\u21922\u21924",
+                "fraction": 0,
+                "feedback": "This path misses node 3, so it fails Node Coverage too \u2014 not a witness for NC-without-EC."
+              },
+              {
+                "text": "with test path 1\u21922",
+                "fraction": 0,
+                "feedback": "A single edge is covered along with both nodes; NC and EC both hold, so no gap."
+              }
+            ],
+            "generalFeedback": "The if-without-elsetoured by 1\u21922\u21923 visits every node yet skips edge 1\u21923 \u2014 the canonical NC-satisfied-but-EC-failed witness.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Loops keep EC finite",
+            "text": "<p>A CFG with a loop makes Complete Path Coverage infeasible, yet Edge Coverage remains a finite, achievable criterion on that graph.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a loop yields infinitely many complete paths, but the number of edges (hence edge requirements) stays finite."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Edge Coverage has one requirement per edge, a finite set, no matter how many times the loop can iterate."
+              }
+            ],
+            "generalFeedback": "Loops make the set of complete paths unbounded, but the edge set is finite, so Edge Coverage is always a finite (and typically achievable) target."
+          },
+          {
+            "type": "multichoice",
+            "name": "Max achievable NC with an unreachable node",
+            "text": "<p>A CFG has 5 nodes, one of which is syntactically unreachable from the entry (dead code). What is the maximum Node Coverage any test suite can achieve, counting all 5 nodes?</p>",
+            "answers": [
+              {
+                "text": "80%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at most 4 of the 5 nodes can ever be visited, so 4/5 = 80%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "The unreachable node can never be visited, so full coverage over all 5 nodes is impossible."
+              },
+              {
+                "text": "90%",
+                "fraction": 0,
+                "feedback": "Only whole nodes count; the best is 4/5 = 80%."
+              },
+              {
+                "text": "20%",
+                "fraction": 0,
+                "feedback": "Four of five nodes are reachable, so the maximum is 80%, not 20%."
+              }
+            ],
+            "generalFeedback": "An unreachable node caps literal Node Coverage below 100%; here max = 4/5 = 80%. Tools typically report coverage over reachable nodes instead.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Max achievable EC with an infeasible edge",
+            "text": "<p>A CFG has 6 edges, exactly one of which is infeasible. What is the maximum Edge Coverage any test suite can achieve, counting all 6 edges?</p>",
+            "answers": [
+              {
+                "text": "About 83% (5 of 6)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the infeasible edge can never be traversed, so at most 5/6 \u2248 83%."
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "No input can traverse the infeasible edge, so 6/6 is impossible."
+              },
+              {
+                "text": "About 67% (4 of 6)",
+                "fraction": 0,
+                "feedback": "Only one edge is infeasible, so up to 5 of 6 are coverable = ~83%."
+              },
+              {
+                "text": "50% (3 of 6)",
+                "fraction": 0,
+                "feedback": "Five of six edges are feasible, so the maximum is ~83%."
+              }
+            ],
+            "generalFeedback": "One infeasible edge caps literal Edge Coverage at 5/6 \u2248 83%; coverage is usually reported over the feasible edges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal EC test paths on a branchy CFG",
+            "text": "<p>A CFG on nodes 1..4 has edges <code>1\u21922, 1\u21923, 2\u21923, 2\u21924, 3\u21924</code> (node 1 initial, node 4 final). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 e.g. 1\u21922\u21923\u21924 (covers 1\u21922, 2\u21923, 3\u21924), 1\u21923\u21924 (covers 1\u21923), 1\u21922\u21924 (covers 2\u21924); no two paths can cover all five edges."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Edges 2\u21923 and 2\u21924 both need node 2, but there is no way back to 2, so one path cannot take both; likewise 1\u21923 needs a path starting 1\u21923. Two paths cannot cover all five."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Three well-chosen paths already cover all five edges."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Five is the edge count; the minimum number of test paths is three."
+              }
+            ],
+            "generalFeedback": "Covering 2\u21923 and 2\u21924 needs two distinct paths through node 2, and 1\u21923 needs a path starting 1\u21923, so at least three test paths are required for Edge Coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why statement coverage equals node coverage",
+            "text": "<p>Why is per-statement statement coverage equivalent to per-node Node Coverage even though a node may hold several statements?</p>",
+            "answers": [
+              {
+                "text": "A basic block is single-entry, single-exit, so entering the node executes all of its statements \u2014 visiting the node covers them together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the block runs atomically, so node coverage and statement coverage rise and fall together."
+              },
+              {
+                "text": "Because every statement is placed in its own node",
+                "fraction": 0,
+                "feedback": "Statements are grouped into basic blocks; they are not each a separate node."
+              },
+              {
+                "text": "Because statement coverage ignores the last statement of each block",
+                "fraction": 0,
+                "feedback": "No statement is ignored; the whole block executes when the node is visited."
+              },
+              {
+                "text": "They are not equivalent; node coverage is always stronger",
+                "fraction": 0,
+                "feedback": "They are equivalent: a basic block's statements all execute exactly when the node is visited."
+              }
+            ],
+            "generalFeedback": "Because a basic block has no internal branch, control enters at the top and runs every statement to the bottom, so covering the node covers all its statements \u2014 statement coverage \u2261 Node Coverage.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u7BC0\u9EDE\u8986\u84CB\u7684\u5B9A\u7FA9",
+            "text": "<p>\u4E00\u7D44\u6E2C\u8A66\u8DEF\u5F91\u5728\u4F55\u6642\u6EFF\u8DB3<strong>\u7BC0\u9EDE\u8986\u84CB\uFF08Node Coverage, NC\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5716\u4E2D\u6BCF\u500B\u53EF\u5230\u9054\u7684\u7BC0\u9EDE\u90FD\u81F3\u5C11\u88AB\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u9020\u8A2A\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014NC \u8981\u6C42\u6BCF\u500B\u7BC0\u9EDE\u90FD\u88AB\u5230\u9054\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u6BCF\u689D\u908A\u90FD\u81F3\u5C11\u88AB\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u8D70\u904E\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u908A\u8986\u84CB\uFF0C\u6BD4\u7BC0\u9EDE\u8986\u84CB\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u5F9E\u9032\u5165\u9EDE\u5230\u7D50\u675F\u9EDE\u7684\u6BCF\u689D\u5B8C\u6574\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\uFF0C\u9060\u66F4\u5F37\u4E14\u901A\u5E38\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u7BC0\u9EDE\u6070\u597D\u88AB\u9020\u8A2A\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "NC \u53EA\u8981\u6C42\u6BCF\u500B\u7BC0\u9EDE\u81F3\u5C11\u88AB\u9020\u8A2A\u4E00\u6B21\uFF0C\u5141\u8A31\u91CD\u8907\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u8986\u84CB\u5C0D\u6BCF\u500B\u7BC0\u9EDE\u8AB2\u4E88\u4E00\u9805\u6E2C\u8A66\u9700\u6C42\uFF1A\u6BCF\u500B\u53EF\u5230\u9054\u7684\u7BC0\u9EDE\u90FD\u5FC5\u9808\u88AB\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u9020\u8A2A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u8986\u84CB\u7684\u5B9A\u7FA9",
+            "text": "<p>\u4E00\u7D44\u6E2C\u8A66\u8DEF\u5F91\u5728\u4F55\u6642\u6EFF\u8DB3<strong>\u908A\u8986\u84CB\uFF08Edge Coverage, EC\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5716\u4E2D\u6BCF\u689D\u53EF\u5230\u9054\u7684\u908A\u90FD\u81F3\u5C11\u88AB\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u8D70\u904E\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014EC \u8981\u6C42\u6BCF\u689D\u908A\uFF08\u5206\u652F\uFF09\u90FD\u88AB\u8D70\u904E\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u6BCF\u500B\u53EF\u5230\u9054\u7684\u7BC0\u9EDE\u90FD\u88AB\u9020\u8A2A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7BC0\u9EDE\u8986\u84CB\uFF0C\u6BD4\u908A\u8986\u84CB\u66F4\u5F31\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u5C0D\u76F8\u9130\u7684\u908A\u90FD\u88AB\u8D70\u904E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u908A\u5C0D\u8986\u84CB\uFF0C\u6BD4\u908A\u8986\u84CB\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u6BCF\u689D\u908A\u6070\u597D\u88AB\u8D70\u904E\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "EC \u53EA\u8981\u6C42\u6BCF\u689D\u908A\u81F3\u5C11\u88AB\u8D70\u904E\u4E00\u6B21\uFF0C\u908A\u53EF\u4EE5\u91CD\u8907\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u5C0D\u6BCF\u689D\u908A\u8AB2\u4E88\u4E00\u9805\u6E2C\u8A66\u9700\u6C42\uFF1A\u6BCF\u689D\u53EF\u5230\u9054\u7684\u908A\u90FD\u5FC5\u9808\u88AB\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u8D70\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6558\u8FF0\u8986\u84CB\u5C0D\u61C9\u5230",
+            "text": "<p>\u7D93\u5178\u7684<strong>\u6558\u8FF0\u8986\u84CB\uFF08statement coverage\uFF09</strong>\u5C0D\u61C9\u5230\u63A7\u5236\u6D41\u7A0B\u5716\u4E0A\u7684\u54EA\u4E00\u9805\u7D50\u69CB\u8986\u84CB\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7BC0\u9EDE\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u6BCF\u4E00\u689D\u6558\u8FF0\u7B49\u65BC\u9020\u8A2A\u6BCF\u500B\u7BC0\u9EDE\uFF08\u57FA\u672C\u5340\u584A\uFF09\u3002"
+              },
+              {
+                "text": "\u908A\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u908A\u8986\u84CB\u5C0D\u61C9\u5230\u5206\u652F\u8986\u84CB\uFF0C\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u908A\u5C0D\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u908A\u5C0D\u8986\u84CB\u6BD4\u6558\u8FF0\u8986\u84CB\u5F37\u5F97\u591A\u3002"
+              },
+              {
+                "text": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u901A\u5E38\u4E0D\u53EF\u884C\uFF0C\u4E14\u9060\u66F4\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u4EE3\u8868\u57FA\u672C\u5340\u584A\uFF0F\u6558\u8FF0\uFF0C\u56E0\u6B64\u6558\u8FF0\u8986\u84CB\u6B63\u597D\u5C31\u662F\u7BC0\u9EDE\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u8986\u84CB\u5C0D\u61C9\u5230",
+            "text": "<p>\u7D93\u5178\u7684<strong>\u5206\u652F\u8986\u84CB\uFF08branch coverage\uFF09</strong>\u5C0D\u61C9\u5230\u54EA\u4E00\u9805\u7D50\u69CB\u8986\u84CB\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u908A\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u5206\u652F\u7D50\u679C\u90FD\u662F\u4E00\u689D\u5FC5\u9808\u88AB\u8D70\u904E\u7684\u908A\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u5C0D\u61C9\u5230\u6558\u8FF0\u8986\u84CB\uFF0C\u8F03\u5F31\u3002"
+              },
+              {
+                "text": "\u8CEA\u8DEF\u5F91\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u8CEA\u8DEF\u5F91\u8986\u84CB\u6BD4\u5206\u652F\u8986\u84CB\u5F37\u5F97\u591A\u3002"
+              },
+              {
+                "text": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u901A\u5E38\u4E0D\u53EF\u884C\uFF0C\u4E14\u9060\u66F4\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5224\u65B7\u7D50\u679C\u90FD\u662F\u4E00\u689D\u5916\u5411\u908A\uFF0C\u56E0\u6B64\u5206\u652F\u8986\u84CB\u6B63\u597D\u5C31\u662F\u908A\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC0\u9EDE\u4EE3\u8868\u4EC0\u9EBC",
+            "text": "<p>\u5728\u63A7\u5236\u6D41\u7A0B\u5716\u4E2D\uFF0C\u55AE\u4E00<strong>\u7BC0\u9EDE</strong>\u901A\u5E38\u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u57FA\u672C\u5340\u584A\u2014\u2014\u4E00\u6BB5\u6C92\u6709\u5167\u90E8\u5206\u652F\u7684\u6700\u5927\u9023\u7E8C\u6558\u8FF0\u5E8F\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC0\u9EDE\u5C31\u662F\u4E00\u500B\u4EE5\u6574\u9AD4\u57F7\u884C\u7684\u57FA\u672C\u5340\u584A\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u5224\u65B7\u7684\u55AE\u4E00\u5206\u652F\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u689D\u908A\uFF0C\u4E0D\u662F\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u5F9E\u9032\u5165\u9EDE\u5230\u7D50\u675F\u9EDE\u7684\u4E00\u6B21\u5B8C\u6574\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8DEF\u5F91\uFF0C\u4E0D\u662F\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u8B8A\u6578\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u8B8A\u6578\u5B9A\u7FA9\u5C6C\u65BC\u8CC7\u6599\u6D41\u5206\u6790\uFF0C\u4E0D\u662F\u7BC0\u9EDE\u5728\u7D50\u69CB\u4E0A\u4EE3\u8868\u7684\u5167\u5BB9\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u4EE3\u8868\u4E00\u500B\u57FA\u672C\u5340\u584A\uFF1A\u53EA\u5F9E\u9802\u7AEF\u9032\u5165\u3001\u53EA\u5F9E\u5E95\u7AEF\u96E2\u958B\u7684\u4E00\u6BB5\u76F4\u7DDA\u6558\u8FF0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u4EE3\u8868\u4EC0\u9EBC",
+            "text": "<p>\u5728\u63A7\u5236\u6D41\u7A0B\u5716\u4E2D\uFF0C\u5F9E\u7BC0\u9EDE u \u5230\u7BC0\u9EDE v \u7684\u4E00\u689D<strong>\u908A</strong>\u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63A7\u5236\u6B0A\u53EF\u80FD\u5F9E\u5340\u584A u \u8F49\u79FB\u5230\u5340\u584A v\uFF08\u4F8B\u5982\u67D0\u500B\u5206\u652F\u7D50\u679C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u4EE3\u8868\u5340\u584A\u4E4B\u9593\u4E00\u7A2E\u53EF\u80FD\u7684\u63A7\u5236\u6D41\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u7531\u6558\u8FF0\u7D44\u6210\u7684\u57FA\u672C\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7BC0\u9EDE\uFF0C\u4E0D\u662F\u908A\u3002"
+              },
+              {
+                "text": "\u67D0\u8B8A\u6578\u7684\u4E00\u500B\u5B9A\u7FA9\u2014\u4F7F\u7528\u5C0D\uFF08DU pair\uFF09",
+                "fraction": 0,
+                "feedback": "DU \u5C0D\u5C6C\u65BC\u8CC7\u6599\u6D41\u8986\u84CB\uFF0C\u4E0D\u662F\u908A\u5728\u7D50\u69CB\u4E0A\u7684\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u8FF4\u5708\u7684\u4E3B\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8FF4\u5708\u4E3B\u9AD4\u662F\u4E00\u500B\u6216\u591A\u500B\u7BC0\u9EDE\uFF1B\u908A\u53EA\u662F\u55AE\u4E00\u6B21\u63A7\u5236\u8F49\u79FB\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u4EE3\u8868\u57FA\u672C\u5340\u584A\u4E4B\u9593\u4E00\u6B21\u53EF\u80FD\u7684\u63A7\u5236\u8F49\u79FB\uFF1B\u4E00\u500B\u5224\u65B7\u7684\u5404\u500B\u7D50\u679C\u5C31\u662F\u5B83\u7684\u5916\u5411\u908A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8DEF\u5F91\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u4EE5\u5716\u70BA\u57FA\u790E\u7684\u6E2C\u8A66\u4E2D\uFF0C<strong>\u6E2C\u8A66\u8DEF\u5F91\uFF08test path\uFF09</strong>\u662F\u4E00\u689D\u6EFF\u8DB3\u4E0B\u5217\u4F55\u8005\u7684\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8D77\u65BC\u5716\u7684\u8D77\u59CB\u7BC0\u9EDE\u3001\u6B62\u65BC\u5716\u7684\u7D50\u675F\u7BC0\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8DEF\u5F91\u4EE3\u8868\u4E00\u6B21\u5F9E\u9032\u5165\u5230\u96E2\u958B\u7684\u5B8C\u6574\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u6070\u597D\u9020\u8A2A\u5716\u4E2D\u6BCF\u500B\u7BC0\u9EDE\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6F22\u7C73\u9813\u8DEF\u5F91\uFF0C\u4E0D\u662F\u6E2C\u8A66\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u4EFB\u610F\u4E00\u689D\u55AE\u4E00\u908A",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u908A\u662F\u9577\u5EA6\u70BA 1 \u7684\u8DEF\u5F91\uFF0C\u4F46\u6E2C\u8A66\u8DEF\u5F91\u5FC5\u9808\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u8D70\u5230\u7D50\u675F\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u5F9E\u4E0D\u91CD\u8907\u4EFB\u4F55\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8DEF\u5F91\u53EF\u4EE5\u91CD\u8907\u7BC0\u9EDE\uFF08\u4F8B\u5982\u8FF4\u5708\u8FED\u4EE3\uFF09\uFF1B\u53EA\u6709\u7C21\u55AE\u8DEF\u5F91\u7981\u6B62\u91CD\u8907\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u8DEF\u5F91\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u8D70\u5230\u7D50\u675F\u7BC0\u9EDE\uFF1B\u57F7\u884C\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\u6703\u6070\u597D\u6CBF\u8457\u4E00\u689D\u6E2C\u8A66\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u9700\u6C42\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5C0D\u7D50\u69CB\u8986\u84CB\u6E96\u5247\u800C\u8A00\uFF0C<strong>\u6E2C\u8A66\u9700\u6C42\uFF08test requirement\uFF09</strong>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u5FC5\u9808\u904A\u6B77\u7684\u4E00\u500B\u7279\u5B9A\u7D50\u69CB\u5143\u7D20\uFF08\u4F8B\u5982\u4E00\u500B\u7BC0\u9EDE\u6216\u4E00\u689D\u908A\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u9805\u6E96\u5247\u6703\u7522\u751F\u4E00\u7D44\u6E2C\u8A66\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5E36\u6709\u5177\u9AD4\u8F38\u5165\u503C\u7684\u55AE\u4E00\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u6848\u4F8B\uFF1B\u9700\u6C42\u662F\u8A72\u6848\u4F8B\u5FC5\u9808\u6DB5\u84CB\u7684\u5143\u7D20\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7684\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5224\u5B9A\u6E96\u5247\uFF08oracle\uFF09\uFF0C\u4E0D\u662F\u8986\u84CB\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u5F9E\u9032\u5165\u9EDE\u5230\u7D50\u675F\u9EDE\u7684\u4E00\u689D\u5B8C\u6574\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u6E2C\u8A66\u8DEF\u5F91\u53EF\u4EE5\u6EFF\u8DB3\u8A31\u591A\u9700\u6C42\uFF0C\u4F46\u9700\u6C42\u672C\u8EAB\u662F\u8981\u88AB\u904A\u6B77\u7684\u5143\u7D20\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u7BC0\u9EDE\u8986\u84CB\u800C\u8A00\u6BCF\u500B\u7BC0\u9EDE\u662F\u4E00\u9805\u6E2C\u8A66\u9700\u6C42\uFF1B\u5C0D\u908A\u8986\u84CB\u800C\u8A00\u6BCF\u689D\u908A\u662F\u4E00\u9805\u6E2C\u8A66\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC0\u9EDE\u8986\u84CB\u7684\u9700\u6C42\u6578\u91CF",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709\u7BC0\u9EDE 1..5\uFF0C\u908A\u70BA <code>1\u21922, 2\u21923, 2\u21924, 3\u21925, 4\u21925</code>\u3002<strong>\u7BC0\u9EDE\u8986\u84CB</strong>\u6703\u8AB2\u4E88\u5E7E\u9805\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u7BC0\u9EDE\u4E00\u9805\u9700\u6C42\uFF0C\u5171\u6709 5 \u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u908A\u7684\u6578\u91CF\uFF1B\u7BC0\u9EDE\u8986\u84CB\u8A08\u7B97\u7684\u662F\u7BC0\u9EDE\uFF085\uFF09\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u7B97\u4E86\u5206\u652F\u7BC0\u9EDE\uFF0C\u4E26\u975E\u5168\u90E8\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u6BCF\u500B\u7BC0\u9EDE\u4E00\u9805\u9700\u6C42\uFF085\uFF09\uFF0C\u4E0D\u662F\u7BC0\u9EDE\u5169\u5169\u914D\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u8986\u84CB\u8981\u6C42\u9020\u8A2A\u6BCF\u500B\u7BC0\u9EDE\uFF0C\u56E0\u6B64\u9700\u6C42\u6578\u91CF\u7B49\u65BC\u7BC0\u9EDE\u6578\u91CF\uFF1A5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u8986\u84CB\u7684\u9700\u6C42\u6578\u91CF",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709\u7BC0\u9EDE 1..4\uFF0C\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21924, 2\u21924</code>\u3002<strong>\u908A\u8986\u84CB</strong>\u6703\u8AB2\u4E88\u5E7E\u9805\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u689D\u908A\u4E00\u9805\u9700\u6C42\uFF0C\u5171\u6709 4 \u689D\u908A\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u5217\u51FA\u7684\u908A\u6709\u56DB\u689D\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u5217\u51FA\u7684\u908A\u53EA\u6709\u56DB\u689D\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u908A\u8986\u84CB\u8A08\u7B97\u7684\u662F\u908A\uFF084\uFF09\uFF0C\u4E0D\u53EA\u662F\u5206\u652F\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u6BCF\u689D\u908A\u4E00\u9805\u6E2C\u8A66\u9700\u6C42\uFF0C\u56E0\u6B64\u6578\u91CF\u7B49\u65BC\u908A\u7684\u6578\u91CF\uFF1A4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578\u4E00\u6578\u7BC0\u9EDE",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u50C5\u4EE5\u5176\u6709\u5411\u908A\u7D66\u5B9A\uFF1A<code>1\u21922, 2\u21923, 2\u21924</code>\u3002\u5171\u51FA\u73FE\u5E7E\u500B\u76F8\u7570\u7BC0\u9EDE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76F8\u7570\u7BC0\u9EDE\u70BA 1\u30012\u30013\u30014\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u908A\u7684\u6578\u91CF\uFF0C\u4E0D\u662F\u7BC0\u9EDE\u6578\uFF1B\u76F8\u7570\u7BC0\u9EDE\u70BA 1\u30012\u30013\u30014\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE 2 \u6709\u5169\u689D\u5916\u5411\u908A\uFF0C\u4F46\u6574\u9AD4\u76F8\u7570\u7BC0\u9EDE\u5171\u6709\u56DB\u500B\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u908A\u5217\u4E2D\u6C92\u6709\u7BC0\u9EDE 5\uFF1B\u76F8\u7570\u7BC0\u9EDE\u5171\u6709\u56DB\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6536\u96C6\u6BCF\u689D\u908A\u7684\u7AEF\u9EDE\uFF1A{1, 2, 3, 4}\u2014\u2014\u56DB\u500B\u76F8\u7570\u7BC0\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578\u4E00\u6578\u908A",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709\u7BC0\u9EDE 1..5\uFF0C\u6709\u5411\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21924, 4\u21925, 2\u21925</code>\u3002\u5171\u6709\u5E7E\u689D\u6709\u5411\u908A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5217\u51FA\u4E86\u4E94\u689D\u908A\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u5217\u51FA\u7684\u908A\u6709\u4E94\u689D\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u5217\u51FA\u7684\u908A\u53EA\u6709\u4E94\u689D\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u5217\u51FA\u7684\u908A\u53EA\u6709\u4E94\u689D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u689D\u6709\u5411\u908A\u53EA\u7B97\u4E00\u6B21\uFF1B\u6B64\u5217\u5373\u5B8C\u6574\u908A\u96C6\uFF0C\u5171 5 \u689D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u67D0\u8DEF\u5F91\u662F\u5426\u8986\u84CB\u6240\u6709\u7BC0\u9EDE",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709\u7BC0\u9EDE 1..4\uFF0C\u908A\u70BA <code>1\u21922, 2\u21923, 2\u21924</code>\u3002\u55AE\u4E00\u6E2C\u8A66\u8DEF\u5F91 <code>1\u21922\u21923</code> \u9020\u8A2A\u4E86\u5716\u4E2D\u7684\u6BCF\u500B\u7BC0\u9EDE\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u8DEF\u5F91\u9020\u8A2A {1, 2, 3} \u4F46\u5F9E\u672A\u5230\u9054\u7BC0\u9EDE 4\uFF0C\u56E0\u6B64\u672A\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91 1\u21922\u21923 \u6F0F\u6389\u4E86\u7BC0\u9EDE 4\uFF08\u53EA\u80FD\u7D93\u7531\u908A 2\u21924 \u5230\u9054\uFF09\uFF0C\u56E0\u6B64\u4E26\u672A\u9020\u8A2A\u6BCF\u500B\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE 4 \u53EA\u80FD\u7D93\u7531\u908A 2\u21924 \u5230\u9054\uFF1B\u8DEF\u5F91 1\u21922\u21923 \u5F9E\u672A\u8D70\u9019\u689D\u908A\uFF0C\u56E0\u6B64\u9084\u9700\u518D\u4E00\u689D\u8DEF\u5F91\uFF08\u4F8B\u5982 1\u21922\u21924\uFF09\u624D\u80FD\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u908A\u8986\u84CB\u860A\u542B\u7BC0\u9EDE\u8986\u84CB",
+            "text": "<p>\u5728\u6BCF\u500B\u7BC0\u9EDE\u90FD\u81F3\u5C11\u6709\u4E00\u689D\u76F8\u9023\u908A\u7684\u63A7\u5236\u6D41\u7A0B\u5716\u4E0A\uFF0C\u6EFF\u8DB3\u908A\u8986\u84CB\u7684\u6E2C\u8A66\u96C6\u4E5F\u6703\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8D70\u904E\u6BCF\u689D\u908A\u5C31\u9020\u8A2A\u4E86\u6BCF\u689D\u908A\u7684\u5169\u500B\u7AEF\u9EDE\uFF0C\u56E0\u6B64\u9020\u8A2A\u4E86\u6BCF\u500B\u6709\u76F8\u9023\u908A\u7684\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u6240\u6709\u908A\u5FC5\u7136\u6703\u9020\u8A2A\u6240\u6709\u6709\u76F8\u9023\u908A\u7684\u7BC0\u9EDE\uFF0C\u56E0\u6B64\u6B64\u8655\u908A\u8986\u84CB\u6DB5\u84CB\uFF08subsume\uFF09\u7BC0\u9EDE\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\uFF1A\u8D70\u904E\u4E00\u689D\u908A\u6642\u5C31\u9020\u8A2A\u4E86\u5B83\u7684\u5169\u500B\u7AEF\u9EDE\u3002\u53CD\u65B9\u5411\u4E26\u4E0D\u6210\u7ACB\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7BC0\u9EDE\u8986\u84CB\u662F\u5426\u4FDD\u8B49\u5206\u652F\u8986\u84CB",
+            "text": "<p>\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u5C31\u4FDD\u8B49\u6BCF\u500B\u5206\u652F\uFF08\u5224\u65B7\u7D50\u679C\uFF09\u90FD\u5DF2\u88AB\u57F7\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC0\u9EDE\u8986\u84CB\u53EF\u4EE5\u9054\u6210\uFF0C\u4F46\u67D0\u689D\u908A\uFF08\u5206\u652F\u7D50\u679C\uFF09\u537B\u5F9E\u672A\u88AB\u8D70\u904E\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u53EA\u8981\u6C42\u9020\u8A2A\u7BC0\u9EDE\uFF1B\u67D0\u500B\u5206\u652F\u53EF\u4EE5\u672A\u88AB\u8D70\u904E\uFF0C\u800C\u6BCF\u500B\u7BC0\u9EDE\u4ECD\u7D93\u7531\u5176\u4ED6\u8DEF\u5F91\u88AB\u9020\u8A2A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u8986\u84CB\u4E26\u4E0D\u860A\u542B\u908A\u8986\u84CB\uFF0C\u56E0\u6B64\u67D0\u4E9B\u5206\u652F\u7D50\u679C\u53EF\u80FD\u672A\u88AB\u6E2C\u5230\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u908A\u8986\u84CB\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB",
+            "text": "<p>\u5728\u6BCF\u500B\u7BC0\u9EDE\u90FD\u6709\u76F8\u9023\u908A\u7684\u5716\u4E0A\uFF0C\u70BA\u4F55\u908A\u8986\u84CB\u6DB5\u84CB\uFF08subsume\uFF09\u7BC0\u9EDE\u8986\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u9019\u6A23\u7684\u7BC0\u9EDE\u90FD\u662F\u67D0\u689D\u908A\u7684\u7AEF\u9EDE\uFF0C\u56E0\u6B64\u8D70\u904E\u6240\u6709\u908A\u5C31\u6703\u9020\u8A2A\u6240\u6709\u9019\u4E9B\u7BC0\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8986\u84CB\u908A\u81EA\u7136\u5C31\u8986\u84CB\u4E86\u5B83\u5011\u7684\u7AEF\u9EDE\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u908A\u6C38\u9060\u6BD4\u7BC0\u9EDE\u591A",
+                "fraction": 0,
+                "feedback": "\u4E00\u822C\u4E26\u4E0D\u6210\u7ACB\u2014\u2014n \u500B\u7BC0\u9EDE\u7684\u76F4\u7DDA\u5716\u53EA\u6709 n\u22121 \u689D\u908A\uFF1B\u6DB5\u84CB\u95DC\u4FC2\u4E0D\u5EFA\u7ACB\u5728\u6578\u91CF\u4E0A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6BCF\u500B\u7BC0\u9EDE\u672C\u8EAB\u5C31\u662F\u4E00\u689D\u9577\u5EA6\u70BA\u96F6\u7684\u908A",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u4E0D\u662F\u908A\uFF1B\u6DB5\u84CB\u95DC\u4FC2\u4F86\u81EA\u908A\u6703\u9020\u8A2A\u5176\u7AEF\u9EDE\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7BC0\u9EDE\u8986\u84CB\u8981\u6C42\u8D70\u904E\u6BCF\u689D\u908A",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u8986\u84CB\u8981\u6C42\u9020\u8A2A\u7BC0\u9EDE\u800C\u975E\u908A\uFF1B\u6B64\u6558\u8FF0\u672C\u8EAB\u5C31\u932F\u4E86\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u689D\u908A\u53EA\u6709\u5728\u901A\u904E\u5176\u5169\u500B\u7AEF\u9EDE\u6642\u624D\u6703\u88AB\u8D70\u904E\uFF0C\u56E0\u6B64\u8986\u84CB\u6240\u6709\u908A\u7684\u6E2C\u8A66\u96C6\u6703\u9020\u8A2A\u6BCF\u500B\u6709\u76F8\u9023\u908A\u7684\u7BC0\u9EDE\u2014\u2014\u6545 EC \u6DB5\u84CB NC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u537B\u6F0F\u6389\u908A",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u908A\u70BA <code>1\u21922, 2\u21923, 1\u21923</code>\uFF08\u7BC0\u9EDE 1 \u662F\u6C92\u6709 <code>else</code> \u7684 <code>if</code>\uFF0C\u7BC0\u9EDE 2 \u662F then \u5340\u584A\uFF0C\u7BC0\u9EDE 3 \u662F\u532F\u5408\u9EDE\uFF09\u3002\u53EA\u57F7\u884C\u55AE\u4E00\u6E2C\u8A66\u8DEF\u5F91 <code>1\u21922\u21923</code>\uFF0C\u5B83\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\uFF0C\u4F46\u54EA\u4E00\u689D\u908A\u672A\u88AB\u8986\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1\u21923",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u8DEF\u5F91\u8D70\u4E86 1\u21922 \u8207 2\u21923\uFF0C\u537B\u5F9E\u672A\u8D70 false \u5206\u652F 1\u21923\u3002"
+              },
+              {
+                "text": "1\u21922",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91 1\u21922\u21923 \u78BA\u5BE6\u8D70\u4E86\u908A 1\u21922\u3002"
+              },
+              {
+                "text": "2\u21923",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91 1\u21922\u21923 \u78BA\u5BE6\u8D70\u4E86\u908A 2\u21923\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\uFF1B\u6240\u6709\u908A\u90FD\u88AB\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u908A 1\u21923\uFF08\u88AB\u7565\u904E\u7684 else\uFF09\u5F9E\u672A\u88AB 1\u21922\u21923 \u8D70\u5230\u3002"
+              }
+            ],
+            "generalFeedback": "1\u21922\u21923 \u9020\u8A2A\u4E86\u5168\u90E8\u4E09\u500B\u7BC0\u9EDE\uFF0C\u6545\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\uFF0C\u4F46\u6F0F\u6389\u4E86 false \u5206\u652F\u908A 1\u21923\u2014\u2014\u7D93\u5178\u7684\u300C\u6709 NC \u4F46\u7121 EC\u300D\u60C5\u6CC1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u83F1\u5F62\u5716\u4E0A\u7BC0\u9EDE\u8986\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91",
+            "text": "<p>\u67D0\u83F1\u5F62\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>\uFF08\u7BC0\u9EDE 1 \u8D77\u59CB\u3001\u7BC0\u9EDE 4 \u7D50\u675F\uFF09\u3002\u9054\u6210<strong>\u7BC0\u9EDE\u8986\u84CB</strong>\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u55AE\u4E00\u8D77\u8A16\u8DEF\u5F91\u80FD\u540C\u6642\u9020\u8A2A\u7BC0\u9EDE 2 \u8207\u7BC0\u9EDE 3\uFF0C\u6545\u9700\u5169\u689D\uFF08\u4F8B\u5982 1\u21922\u21924 \u8207 1\u21923\u21924\uFF09\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u8DEF\u5F91\u53EA\u80FD\u9020\u8A2A\u7BC0\u9EDE 2 \u6216\u7BC0\u9EDE 3 \u5176\u4E00\uFF0C\u7121\u6CD5\u8986\u84CB\u5168\u90E8\u56DB\u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5169\u689D\u5C31\u5920\uFF1A1\u21922\u21924 \u8207 1\u21923\u21924 \u5408\u8D77\u4F86\u9020\u8A2A\u5168\u90E8\u56DB\u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u908A\u7684\u6578\u91CF\uFF0C\u4E0D\u662F\u7BC0\u9EDE\u8986\u84CB\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE 2 \u8207 3 \u4F4D\u65BC\u4E92\u65A5\u7684\u5206\u652F\u4E0A\uFF0C\u6545\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u81F3\u5C11\u9700\u8981\u5169\u689D\u6E2C\u8A66\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u83F1\u5F62\u5716\u4E0A\u908A\u8986\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91",
+            "text": "<p>\u5C0D\u65BC\u540C\u4E00\u500B\u83F1\u5F62\u5716\uFF08\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>\uFF09\uFF0C\u9054\u6210<strong>\u908A\u8986\u84CB</strong>\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21924 \u8986\u84CB 1\u21922 \u8207 2\u21924\uFF1B1\u21923\u21924 \u8986\u84CB 1\u21923 \u8207 3\u21924\u3002\u5169\u689D\u8DEF\u5F91\u8986\u84CB\u5168\u90E8\u56DB\u689D\u908A\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u8D77\u8A16\u8DEF\u5F91\u53EA\u6703\u7528\u5230 1\u21922 / 1\u21923 \u5176\u4E2D\u4E00\u689D\uFF0C\u7121\u6CD5\u8986\u84CB\u5168\u90E8\u56DB\u689D\u908A\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5169\u689D\u5C31\u5DF2\u8986\u84CB\u83F1\u5F62\u7684\u5168\u90E8\u56DB\u689D\u908A\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u908A\u7684\u6578\u91CF\uFF1B\u5169\u689D\u6E2C\u8A66\u8DEF\u5F91\u5373\u53EF\u8D70\u904D\u6240\u6709\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u7D14\u83F1\u5F62\u5716\u4E0A\uFF0C\u540C\u6A23\u7684\u5169\u689D\u8DEF\u5F91\u540C\u6642\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u8207\u908A\u8986\u84CB\u2014\u2014\u6B64\u8655\u5169\u6E96\u5247\u7684\u8DEF\u5F91\u6578\u4E00\u81F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6558\u8FF0\u8986\u84CB vs \u5206\u652F\u8986\u84CB",
+            "text": "<p>\u6558\u8FF0\u8986\u84CB\u8207\u5206\u652F\u8986\u84CB\u7684\u95DC\u9375\u5DEE\u7570\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5206\u652F\u8986\u84CB\u8981\u6C42\u6BCF\u500B\u5224\u65B7\u7D50\u679C\u90FD\u88AB\u8D70\u5230\uFF1B\u6558\u8FF0\u8986\u84CB\u53EA\u8981\u6C42\u6BCF\u689D\u6558\u8FF0\u90FD\u88AB\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u652F\u8986\u84CB\uFF08EC\uFF09\u9084\u6703\u5F37\u5236\u8D70 false\uFF0Felse \u7D50\u679C\uFF0C\u90A3\u6B63\u662F\u6558\u8FF0\u8986\u84CB\uFF08NC\uFF09\u53EF\u80FD\u7565\u904E\u7684\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8986\u84CB\u56B4\u683C\u5F37\u65BC\u5206\u652F\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF1A\u5206\u652F\u8986\u84CB\u6DB5\u84CB\u6558\u8FF0\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5728\u6BCF\u500B\u7A0B\u5F0F\u4E0A\u6C38\u9060\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u5728\u6C92\u6709\u5224\u65B7\u6642\u624D\u4E00\u81F4\uFF1B\u88AB\u7565\u904E\u7684 else \u53EF\u4EE5\u6EFF\u8DB3\u6558\u8FF0\u537B\u4E0D\u6EFF\u8DB3\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8986\u84CB\u95DC\u6CE8\u908A\uFF0C\u800C\u5206\u652F\u8986\u84CB\u95DC\u6CE8\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u525B\u597D\u53CD\u904E\u4F86\uFF1A\u6558\u8FF0\u5C0D\u61C9\u7BC0\u9EDE\uFF0C\u5206\u652F\u5C0D\u61C9\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u8986\u84CB\uFF1D\u7BC0\u9EDE\u8986\u84CB\uFF1B\u5206\u652F\u8986\u84CB\uFF1D\u908A\u8986\u84CB\u3002\u5206\u652F\u8986\u84CB\u984D\u5916\u5F37\u5236\u6BCF\u500B\u5224\u65B7\u7D50\u679C\uFF0C\u56E0\u6B64\u6DB5\u84CB\u6558\u8FF0\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121 else \u7684 if \u4E0A\u7BC0\u9EDE\u8986\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u908A\u70BA <code>1\u21922, 2\u21923, 1\u21923</code>\uFF08\u6C92\u6709 <code>else</code> \u7684 <code>if</code>\uFF1B\u7BC0\u9EDE 1 \u8D77\u59CB\u3001\u7BC0\u9EDE 3 \u7D50\u675F\uFF09\u3002\u9054\u6210<strong>\u7BC0\u9EDE\u8986\u84CB</strong>\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u4E00\u8DEF\u5F91 1\u21922\u21923 \u9020\u8A2A\u5168\u90E8\u4E09\u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u8DEF\u5F91\uFF081\u21922\u21923\uFF09\u5C31\u9020\u8A2A\u4E86\u6BCF\u500B\u7BC0\u9EDE\uFF1B\u6B64\u8655\u8981\u5169\u689D\u7684\u662F\u908A\u8986\u84CB\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u7BC0\u9EDE\u6578\u91CF\uFF0C\u4E0D\u662F\u6240\u9700\u7684\u6E2C\u8A66\u8DEF\u5F91\u6578\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u81F3\u5C11\u9700\u8981\u4E00\u689D\u6E2C\u8A66\u8DEF\u5F91\u624D\u80FD\u9020\u8A2A\u4EFB\u4F55\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DEF\u5F91 1\u21922\u21923 \u901A\u904E\u7BC0\u9EDE 1\u30012\u30013\uFF0C\u4EE5\u55AE\u4E00\u6E2C\u8A66\u8DEF\u5F91\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121 else \u7684 if \u4E0A\u908A\u8986\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91",
+            "text": "<p>\u5C0D\u65BC\u540C\u4E00\u500B\u7121 else \u7684 if \u5716\uFF08\u908A\u70BA <code>1\u21922, 2\u21923, 1\u21923</code>\uFF09\uFF0C\u9054\u6210<strong>\u908A\u8986\u84CB</strong>\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\u21922\u21923 \u8986\u84CB 1\u21922 \u8207 2\u21923\uFF0C\u4F46 false \u5206\u652F\u908A 1\u21923 \u9700\u8981\u7B2C\u4E8C\u689D\u8DEF\u5F91 1\u21923\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u8DEF\u5F91\u7121\u6CD5\u540C\u6642\u8D70 1\u21922 \u8207 1\u21923\uFF0C\u6545\u7121\u6CD5\u8986\u84CB\u5168\u90E8\u4E09\u689D\u908A\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5169\u689D\u5C31\u5920\uFF1A1\u21922\u21923 \u8207 1\u21923 \u5408\u8D77\u4F86\u8986\u84CB\u5168\u90E8\u4E09\u689D\u908A\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u81F3\u5C11\u9700\u8981\u5169\u689D\u6E2C\u8A66\u8DEF\u5F91\u624D\u80FD\u8986\u84CB\u6BCF\u689D\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8655 NC \u9700 1 \u689D\u8DEF\u5F91\u4F46 EC \u9700 2 \u689D\u2014\u2014\u662F\u300C\u908A\u8986\u84CB\u56B4\u683C\u5F37\u65BC\u7BC0\u9EDE\u8986\u84CB\u300D\u7684\u5177\u9AD4\u898B\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u76F4\u7DDA\u7A0B\u5F0F\u78BC\uFF1ANC \u8207 EC \u4E00\u81F4",
+            "text": "<p>\u5728\u6C92\u6709\u5224\u65B7\u7BC0\u9EDE\u7684\u76F4\u7DDA\u63A7\u5236\u6D41\u7A0B\u5716\u4E0A\uFF08\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21924</code>\uFF09\uFF0C\u4EFB\u4F55\u9054\u6210\u7BC0\u9EDE\u8986\u84CB\u7684\u6E2C\u8A66\u96C6\u4E5F\u6703\u9054\u6210\u908A\u8986\u84CB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u5206\u652F\u6642\uFF0C\u55AE\u4E00\u8DEF\u5F91 1\u21922\u21923\u21924 \u8986\u84CB\u6BCF\u500B\u7BC0\u9EDE\u8207\u6BCF\u689D\u908A\uFF0C\u6545\u5169\u6E96\u5247\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u5224\u65B7\u6642\u5716\u4E2D\u53EA\u6709\u4E00\u689D\u8DEF\u5F91\uFF1B\u9020\u8A2A\u6240\u6709\u7BC0\u9EDE\u5FC5\u7136\u8D70\u904D\u6240\u6709\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u7576\u5716\u5177\u6709\u5224\u65B7\u7BC0\u9EDE\uFF08\u5916\u5206\u652F\u5EA6 \u2265 2 \u7684\u7BC0\u9EDE\uFF09\u6642\uFF0C\u7BC0\u9EDE\u8986\u84CB\u8207\u908A\u8986\u84CB\u624D\u6703\u4E0D\u540C\u3002\u5728\u76F4\u7DDA\u7A0B\u5F0F\u78BC\u4E0A\u5B83\u5011\u8981\u6C42\u5B8C\u5168\u76F8\u540C\u7684\u57F7\u884C\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5206\u652F\u8986\u84CB\u860A\u542B\u6558\u8FF0\u8986\u84CB",
+            "text": "<p>\u82E5\u4E00\u500B\u6E2C\u8A66\u5957\u4EF6\u9054\u6210 100% \u5206\u652F\u8986\u84CB\uFF0C\u5176\u6558\u8FF0\u8986\u84CB\u4E5F\u5FC5\u7136\u662F 100%\uFF08\u5047\u8A2D\u6BCF\u689D\u6558\u8FF0\u90FD\u4F4D\u65BC\u67D0\u689D\u908A\u4E0A\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u652F\u8986\u84CB\u5373\u908A\u8986\u84CB\uFF0C\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\uFF08\u6558\u8FF0\u8986\u84CB\uFF09\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u6BCF\u500B\u5206\u652F\u5C31\u8D70\u904D\u6BCF\u689D\u908A\uFF0C\u5F9E\u800C\u9020\u8A2A\u6BCF\u500B\u7BC0\u9EDE\uFF0F\u6558\u8FF0\uFF0C\u6545\u6558\u8FF0\u8986\u84CB\u4E5F\u5B8C\u6574\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u908A\u8986\u84CB\u6DB5\u84CB\u7BC0\u9EDE\u8986\u84CB\uFF0C100% \u5206\u652F\u8986\u84CB\u4FDD\u8B49 100% \u6558\u8FF0\u8986\u84CB\uFF1B\u53CD\u5411\u4E0D\u6210\u7ACB\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6558\u8FF0\u8986\u84CB\u53EF\u80FD\u6F0F\u6389\u932F\u8AA4",
+            "text": "<p>\u67D0\u65B9\u6CD5\u6709\u4E00\u500B\u6C92\u6709 <code>else</code> \u7684 <code>if</code>\uFF1B\u7F3A\u9677\u5728\u65BC\u88AB\u7565\u904E\u7684 else \u8DEF\u5F91\u6703\u56DE\u50B3\u932F\u8AA4\u503C\u3002\u70BA\u4F55 100% \u6558\u8FF0\u8986\u84CB\u53EF\u80FD\u6F0F\u6389\u6B64\u7F3A\u9677\uFF0C\u800C 100% \u5206\u652F\u8986\u84CB\u80FD\u6293\u5230\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6558\u8FF0\u8986\u84CB\u53EA\u9700\u6BCF\u689D\u6558\u8FF0\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u5F9E\u672A\u88AB\u8D70\u7684 false \u5206\u652F\uFF08\u4E00\u689D\u908A\uFF09\u53EF\u80FD\u672A\u88AB\u6E2C\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A7A\u7684 else \u8DEF\u5F91\u662F\u4E00\u689D\u908A\u800C\u975E\u6558\u8FF0\uFF0C\u6545\u53EA\u6709\u908A\uFF0F\u5206\u652F\u8986\u84CB\u624D\u6703\u5F37\u5236\u5B83\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8986\u84CB\u9700\u8981\u6BD4\u5206\u652F\u8986\u84CB\u66F4\u591A\u7684\u6E2C\u8A66\u6848\u4F8B\uFF0C\u906E\u853D\u4E86\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u8986\u84CB\u901A\u5E38\u9700\u8981\u81F3\u5C11\u4E00\u6A23\u591A\u7684\u6848\u4F8B\uFF1B\u9019\u4E0D\u662F\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u4F4D\u65BC\u67D0\u500B\u7BC0\u9EDE\uFF0C\u800C\u6558\u8FF0\u8986\u84CB\u5F9E\u4E0D\u6AA2\u67E5\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u986F\u73FE\u5728\u672A\u88AB\u8D70\u7684\u908A\uFF08\u88AB\u7565\u904E\u7684 else\uFF09\u4E0A\uFF0C\u800C\u975E\u67D0\u500B\u5DF2\u9020\u8A2A\u7684\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8986\u84CB\u5B8C\u5168\u5FFD\u7565\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u8207\u8FF4\u5708\u7121\u95DC\uFF1B\u7F3A\u53E3\u5728\u65BC\u672A\u88AB\u8D70\u7684 false \u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7121 else \u7684 if \u6709\u4E00\u689D\u4E0D\u57F7\u884C\u4EFB\u4F55\u6558\u8FF0\u7684 false \u5206\u652F\u908A\uFF1B\u6558\u8FF0\u8986\u84CB\u53EF\u4EE5\u662F 100% \u537B\u5F9E\u672A\u8D70\u5B83\uFF0C\u4F46\u5206\u652F\uFF0F\u908A\u8986\u84CB\u8981\u6C42\u8D70\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u77ED\u8DEF\u6C42\u503C\u8207\u908A\u6578",
+            "text": "<p>\u4EE5\u77ED\u8DEF\u6C42\u503C\u65B9\u5F0F\u5EFA\u6A21 <code>if (a &amp;&amp; b)</code>\uFF08\u5728 <code>a</code> \u4E0A\u6709\u4E00\u500B\u53EF\u7565\u904E\u6C42\u503C <code>b</code> \u7684\u5224\u65B7\uFF09\uFF0C\u76F8\u8F03\u65BC\u628A <code>a &amp;&amp; b</code> \u7576\u6210\u55AE\u4E00\u539F\u5B50\u5224\u65B7\uFF0C\u908A\u8986\u84CB\u5FC5\u9808\u8986\u84CB\u7684\u908A\u6578\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u589E\u52A0\uFF0C\u56E0\u70BA\u77ED\u8DEF\u6C42\u503C\u591A\u52A0\u4E86\u4E00\u500B\u5E36\u6709\u81EA\u8EAB\u5916\u5411\u908A\u7684\u5224\u65B7\u7BC0\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u5225\u6E2C\u8A66 a \u518D\u6E2C b \u6703\u5F15\u5165\u984D\u5916\u7684\u5206\u652F\u908A\u3002"
+              },
+              {
+                "text": "\u6E1B\u5C11\uFF0C\u56E0\u70BA b \u6709\u6642\u88AB\u7565\u904E",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u671F\u7565\u904E b \u4E26\u4E0D\u6703\u79FB\u9664\u908A\uFF1B\u77ED\u8DEF\u6C42\u503C\u53CD\u800C\u589E\u52A0\u5224\u65B7\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u4E0D\u8B8A\uFF0C\u56E0\u70BA\u5169\u7A2E\u5F62\u5F0F\u90FD\u53EA\u6709\u4E00\u500B\u5224\u65B7",
+                "fraction": 0,
+                "feedback": "\u77ED\u8DEF\u5F62\u5F0F\u6709\u5169\u500B\u5224\u65B7\u7BC0\u9EDE\uFF08\u6E2C a \u8207\u6E2C b\uFF09\uFF0C\u4E26\u975E\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u8B8A\u6210\u7121\u9650\uFF0C\u56E0\u70BA\u6709\u9023\u63A5\u8A5E",
+                "fraction": 0,
+                "feedback": "\u5716\u4ECD\u662F\u6709\u9650\u7684\uFF1B\u77ED\u8DEF\u6C42\u503C\u53EA\u662F\u589E\u52A0\u6709\u9650\u6578\u91CF\u7684\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u77ED\u8DEF\u6C42\u503C\u628A\u62C6\u6210\u5169\u500B\u5224\u65B7\uFF08\u5148\u6E2C a\u3001\u518D\u6E2C b\uFF09\uFF0C\u56E0\u6B64\u63A7\u5236\u6D41\u7A0B\u5716\u591A\u51FA\u984D\u5916\u7684\u5206\u652F\u908A\u9700\u8981\u908A\u8986\u84CB\u53BB\u8D70\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC0\u9EDE\u8986\u84CB\u767E\u5206\u6BD4",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709 5 \u500B\u7BC0\u9EDE\uFF0C\u6E2C\u8A66\u5957\u4EF6\u9020\u8A2A\u4E86\u5176\u4E2D 4 \u500B\u3002\u5176\u7BC0\u9EDE\u8986\u84CB\u767E\u5206\u6BD4\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "80%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 \u500B\u4E2D\u7684 4 \u500B\uFF1D80%\u3002"
+              },
+              {
+                "text": "75%",
+                "fraction": 0,
+                "feedback": "75% \u662F 4 \u500B\u4E2D\u7684 3 \u500B\uFF1B\u6B64\u8655\u662F 5 \u500B\u4E2D\u7684 4 \u500B\uFF1D80%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u6709\u4E00\u500B\u7BC0\u9EDE\u672A\u88AB\u9020\u8A2A\uFF0C\u6545\u8986\u84CB\u7387\u4F4E\u65BC 100%\u3002"
+              },
+              {
+                "text": "40%",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\uFF1D\u5DF2\u9020\u8A2A\uFF0F\u7E3D\u6578\uFF1D4/5\uFF1D80%\uFF0C\u800C\u975E 2/5\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC0\u9EDE\u8986\u84CB\u767E\u5206\u6BD4\uFF1D\u5DF2\u9020\u8A2A\u7BC0\u9EDE\uFF0F\u7E3D\u7BC0\u9EDE\uFF1D4/5\uFF1D80%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u8986\u84CB\u767E\u5206\u6BD4",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709 8 \u689D\u908A\uFF0C\u6E2C\u8A66\u5957\u4EF6\u8D70\u904E\u5176\u4E2D 6 \u689D\u3002\u5176\u908A\u8986\u84CB\u767E\u5206\u6BD4\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20148 \u689D\u4E2D\u7684 6 \u689D\uFF1D75%\u3002"
+              },
+              {
+                "text": "80%",
+                "fraction": 0,
+                "feedback": "80% \u662F 5 \u689D\u4E2D\u7684 4 \u689D\uFF1B\u6B64\u8655\u662F 8 \u689D\u4E2D\u7684 6 \u689D\uFF1D75%\u3002"
+              },
+              {
+                "text": "60%",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\uFF1D\u5DF2\u8D70\u904E\uFF0F\u7E3D\u6578\uFF1D6/8\uFF1D75%\uFF0C\u800C\u975E 6/10\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u6709\u5169\u689D\u908A\u672A\u88AB\u8D70\u904E\uFF0C\u6545\u8986\u84CB\u7387\u4F4E\u65BC 100%\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u767E\u5206\u6BD4\uFF1D\u5DF2\u8D70\u904E\u908A\uFF0F\u7E3D\u908A\uFF1D6/8\uFF1D75%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u662F\u4EC0\u9EBC\u4F7F\u7BC0\u9EDE\u8986\u84CB\u4E0D\u8DB3",
+            "text": "<p>\u54EA\u4E00\u500B\u5716\u7684\u7279\u5FB5\u6B63\u662F\u4F7F\u7BC0\u9EDE\u8986\u84CB\u5F31\u65BC\u908A\u8986\u84CB\uFF08\u4EE5\u81F4\u53EF\u4EE5\u6709 NC \u537B\u7121 EC\uFF09\u7684\u539F\u56E0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5224\u65B7\u7BC0\u9EDE\u2014\u2014\u5916\u5411\u908A\u6709\u5169\u689D\u4EE5\u4E0A\u7684\u7BC0\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u652F\u4F7F\u5F97\u7BC0\u9EDE\u53EF\u88AB\u5230\u9054\uFF0C\u537B\u4E0D\u5FC5\u7136\u8D70\u904E\u5B83\u7684\u6BCF\u4E00\u689D\u5916\u5411\u908A\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u4E00\u689D\u5916\u5411\u908A\u7684\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u55AE\u4E00\u5916\u5411\u908A\u6642\uFF0C\u9020\u8A2A\u7BC0\u9EDE\u8207\u8D70\u5B83\u7684\u908A\u662F\u540C\u4E00\u4EF6\u4E8B\uFF1B\u4E0D\u6703\u7522\u751F\u7F3A\u53E3\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u5B58\u5728\u8D77\u59CB\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u5716\u90FD\u6709\u8D77\u59CB\u7BC0\u9EDE\uFF1B\u55AE\u6191\u9019\u9EDE\u7121\u6CD5\u5340\u5206 NC \u8207 EC\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE\u6BD4\u908A\u591A",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\uFF0F\u908A\u7684\u6578\u91CF\u4E26\u4E0D\u6C7A\u5B9A\u6B64\u7F3A\u53E3\uFF1B\u5224\u65B7\u7BC0\u9EDE\u624D\u662F\u95DC\u9375\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u5728\u5224\u65B7\u7BC0\u9EDE\uFF08\u5916\u5206\u652F\u5EA6 \u2265 2\uFF09\u8655\uFF0C\u624D\u53EF\u80FD\u9020\u8A2A\u8A72\u7BC0\u9EDE\u537B\u7565\u904E\u5176\u4E00\u689D\u5916\u5411\u5206\u652F\u908A\uFF0C\u56E0\u6B64\u5224\u65B7\u7BC0\u9EDE\u6B63\u662F NC \u8207 EC \u5206\u6B67\u4E4B\u8655\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u83F1\u5F62\u5716\u4E0A\u908A\u8986\u84CB\u7684\u9700\u6C42\u6578\u91CF",
+            "text": "<p>\u67D0\u83F1\u5F62\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21924, 3\u21924</code>\u3002\u908A\u8986\u84CB\u6703\u8AB2\u4E88\u5E7E\u9805\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u689D\u908A\u4E00\u9805\u9700\u6C42\uFF0C\u5171\u6709 4 \u689D\u908A\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u83F1\u5F62\u6709\u56DB\u689D\u908A\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\uFF0C\u4E0D\u662F\u908A\u9700\u6C42\u7684\u6578\u91CF\uFF084\uFF09\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u83F1\u5F62\u53EA\u6709\u56DB\u689D\u908A\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u8986\u84CB\u6BCF\u689D\u908A\u4E00\u9805\u9700\u6C42\uFF1B\u83F1\u5F62\u7684\u56DB\u689D\u908A\u7D66\u51FA\u56DB\u9805\u9700\u6C42\uFF0C\u7531\u5169\u689D\u6E2C\u8A66\u8DEF\u5F91\u9054\u6210\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u53EF\u884C\u7684\u908A",
+            "text": "<p>\u4E00\u689D\u908A\u5728\u4F55\u6642\u662F<strong>\uFF08\u8A9E\u610F\u4E0A\uFF09\u4E0D\u53EF\u884C\u7684\uFF08infeasible\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u96D6\u7136\u5B83\u5B58\u5728\u65BC\u5716\u4E2D\uFF0C\u4F46\u6C92\u6709\u4EFB\u4F55\u7A0B\u5F0F\u8F38\u5165\u80FD\u4F7F\u57F7\u884C\u8D70\u904E\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u689D\u908A\u5728\u8A9E\u6CD5\u4E0A\u5B58\u5728\uFF0C\u4F46\u5728\u4EFB\u4F55\u5BE6\u969B\u57F7\u884C\u4E0B\u90FD\u4E0D\u53EF\u5230\u9054\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u908A\u5217\u4E2D\u51FA\u73FE\u4E86\u5169\u6B21",
+                "fraction": 0,
+                "feedback": "\u91CD\u8907\u5217\u51FA\u8207\u53EF\u884C\u6027\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u5B83\u7684\u5169\u500B\u7AEF\u9EDE\u90FD\u662F\u5224\u65B7\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u7AEF\u9EDE\u7684\u578B\u614B\u4E0D\u6C7A\u5B9A\u53EF\u884C\u6027\uFF1B\u662F\u5426\u6709\u8F38\u5165\u80FD\u9A45\u52D5\u9019\u689D\u908A\u624D\u662F\u95DC\u9375\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u67D0\u500B\u8FF4\u5708\u7684\u4E00\u90E8\u5206",
+                "fraction": 0,
+                "feedback": "\u8FF4\u5708\u7684\u908A\u901A\u5E38\u5B8C\u5168\u53EF\u884C\uFF1B\u53EF\u884C\u6027\u95DC\u4E4E\u5728\u771F\u5BE6\u8F38\u5165\u4E0B\u7684\u53EF\u5230\u9054\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u884C\u7684\u908A\u5B58\u5728\u65BC\u63A7\u5236\u6D41\u7A0B\u5716\u4E2D\uFF0C\u4F46\u6C92\u6709\u6E2C\u8A66\u8F38\u5165\u80FD\u9A45\u4F7F\u63A7\u5236\u8D70\u904E\u5B83\uFF08\u4F8B\u5982\u67D0\u5206\u652F\u689D\u4EF6\u6C38\u9060\u4E0D\u70BA\u771F\uFF09\uFF0C\u56E0\u6B64 100% \u908A\u8986\u84CB\u4E0D\u53EF\u9054\u6210\uFF0C\u8986\u84CB\u7387\u4EE5\u53EF\u884C\u7684\u908A\u70BA\u6E96\u4F86\u8861\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A9E\u6CD5\u4E0A\u4E0D\u53EF\u5230\u9054\u7684\u7BC0\u9EDE",
+            "text": "<p>\u4E00\u500B\u7BC0\u9EDE\u5728\u4F55\u6642\u662F\u5F9E\u8D77\u59CB\u7BC0\u9EDE<strong>\u8A9E\u6CD5\u4E0A\u4E0D\u53EF\u5230\u9054\uFF08syntactically unreachable\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5716\u4E2D\u4E0D\u5B58\u5728\u4EFB\u4F55\u5F9E\u8D77\u59CB\u7BC0\u9EDE\u5230\u5B83\u7684\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u5FFD\u7565\u5206\u652F\u689D\u4EF6\u4E5F\u6C92\u6709\u8DEF\u5F91\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u6709\u5230\u5B83\u7684\u8DEF\u5F91\uFF0C\u4F46\u6C92\u6709\u8F38\u5165\u771F\u7684\u9A45\u4F7F\u57F7\u884C\u5230\u90A3\u88E1",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8A9E\u610F\u4E0D\u53EF\u884C\uFF0C\u800C\u975E\u8A9E\u6CD5\u4E0D\u53EF\u5230\u9054\u3002"
+              },
+              {
+                "text": "\u5B83\u6C92\u6709\u5916\u5411\u908A",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u5916\u5411\u908A\u7684\u7BC0\u9EDE\u53EA\u662F\u7D50\u675F\u7BC0\u9EDE\uFF0C\u5B83\u4ECD\u53EF\u80FD\u662F\u53EF\u5230\u9054\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u6BCF\u689D\u6E2C\u8A66\u8DEF\u5F91\u9020\u8A2A",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u4E0D\u53EF\u5230\u9054\u6B63\u597D\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A9E\u6CD5\u53EF\u5230\u9054\u6027\u53EA\u554F\u662F\u5426\u5B58\u5728\u5F9E\u9032\u5165\u9EDE\u7684\u5716\u8DEF\u5F91\uFF1B\u82E5\u4E0D\u5B58\u5728\uFF0C\u8A72\u7BC0\u9EDE\u6C38\u9060\u7121\u6CD5\u88AB\u8986\u84CB\uFF0C\u5B8C\u6574\u7BC0\u9EDE\u8986\u84CB\u5373\u4E0D\u53EF\u9054\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A9E\u6CD5 vs \u8A9E\u610F\u53EF\u5230\u9054\u6027",
+            "text": "<p>\u4E00\u689D\u908A\u300C<em>\u8A9E\u6CD5\u4E0A</em>\u53EF\u5230\u9054\u300D\u8207\u300C<em>\u8A9E\u610F\u4E0A</em>\u53EF\u5230\u9054\u300D\u6709\u4F55\u5DEE\u5225\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A9E\u6CD5\u53EF\u5230\u9054\u6307\u5716\u4E2D\u5B58\u5728\u5230\u5B83\u7684\u8DEF\u5F91\uFF1B\u8A9E\u610F\u53EF\u5230\u9054\u6307\u6709\u67D0\u500B\u771F\u5BE6\u8F38\u5165\u771F\u7684\u9A45\u4F7F\u57F7\u884C\u8D70\u904E\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A9E\u6CD5\u5FFD\u7565\u689D\u4EF6\uFF0C\u8A9E\u610F\u5247\u8003\u616E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u662F\u540C\u4E00\u6027\u8CEA\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4E0D\u540C\uFF1A\u4E00\u689D\u908A\u53EF\u4EE5\u8A9E\u6CD5\u4E0A\u53EF\u5230\u9054\u537B\u8A9E\u610F\u4E0A\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u8A9E\u6CD5\u53EF\u5230\u9054\u95DC\u4E4E\u7BC0\u9EDE\uFF1B\u8A9E\u610F\u53EF\u5230\u9054\u95DC\u4E4E\u908A",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u6982\u5FF5\u90FD\u540C\u6A23\u9069\u7528\u65BC\u7BC0\u9EDE\u8207\u908A\uFF1B\u5DEE\u5225\u5728\u65BC\u5716\u8DEF\u5F91 vs \u771F\u5BE6\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u8A9E\u610F\u53EF\u5230\u9054\u6C38\u9060\u6BD4\u8A9E\u6CD5\u66F4\u5F31\uFF08\u66F4\u5BB9\u6613\uFF09",
+                "fraction": 0,
+                "feedback": "\u8A9E\u610F\u66F4\u5F37\uFF1A\u8A9E\u610F\u53EF\u5230\u9054\u860A\u542B\u8A9E\u6CD5\u53EF\u5230\u9054\uFF0C\u53CD\u4E4B\u4E0D\u7136\u3002"
+              }
+            ],
+            "generalFeedback": "\u51E1\u8A9E\u610F\u53EF\u5230\u9054\u7684\u5143\u7D20\u90FD\u8A9E\u6CD5\u53EF\u5230\u9054\uFF0C\u4F46\u8A9E\u6CD5\u53EF\u5230\u9054\u7684\u908A\u53EF\u80FD\u4E0D\u53EF\u884C\uFF0C\u56E0\u70BA\u6C92\u6709\u8F38\u5165\u80FD\u6EFF\u8DB3\u6CBF\u9014\u7684\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 EC \u56B4\u683C\u5F37\u65BC NC",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u4E8B\u5BE6\u78BA\u7ACB\u4E86\u908A\u8986\u84CB<em>\u56B4\u683C</em>\u5F37\u65BC\u7BC0\u9EDE\u8986\u84CB\uFF08EC \u228B NC\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "EC \u6C38\u9060\u860A\u542B NC\uFF0C\u4E14\u5B58\u5728\u67D0\u500B\u5716\u52A0\u6E2C\u8A66\u96C6\u80FD\u6EFF\u8DB3 NC \u537B\u4E0D\u6EFF\u8DB3 EC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u65B9\u5411\u7684\u6DB5\u84CB\u52A0\u4E0A\u53CD\u65B9\u5411\u7684\u53CD\u4F8B\uFF0C\u6B63\u597D\u5C31\u662F\u56B4\u683C\u5305\u542B\u3002"
+              },
+              {
+                "text": "NC \u6C38\u9060\u860A\u542B EC\uFF0C\u4E14\u5B58\u5728\u67D0\u500B\u5716\u80FD\u6EFF\u8DB3 EC \u537B\u4E0D\u6EFF\u8DB3 NC",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u5B50\u53E5\u90FD\u53CD\u4E86\uFF1BNC \u4E26\u4E0D\u860A\u542B EC\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u500B\u5716\u4E0A\uFF0CEC \u8207 NC \u90FD\u7531\u5B8C\u5168\u76F8\u540C\u7684\u6E2C\u8A66\u96C6\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u4F7F\u5169\u8005\u7B49\u50F9\uFF0C\u800C\u975E\u5176\u4E00\u56B4\u683C\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E92\u4E0D\u860A\u542B",
+                "fraction": 0,
+                "feedback": "EC \u78BA\u5BE6\u860A\u542B NC\uFF1B\u6B64\u5305\u542B\u662F\u56B4\u683C\u7684\uFF0C\u800C\u975E\u4E0D\u53EF\u6BD4\u8F03\u3002"
+              }
+            ],
+            "generalFeedback": "\u56B4\u683C\u6DB5\u84CB\u610F\u6307 EC \u666E\u904D\u860A\u542B NC\uFF0C\u800C\u67D0\u500B\u5BE6\u4F8B\uFF08\u4F8B\u5982\u4EE5 1\u21922\u21923 \u8986\u84CB\u7684\u7121 else \u4E4B if\uFF09\u6EFF\u8DB3 NC \u537B\u4E0D\u6EFF\u8DB3 EC\u2014\u2014\u6545 EC \u56B4\u683C\u66F4\u5F37\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u8FF4\u5708\u6642\u908A\u8986\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91",
+            "text": "<p>\u67D0 while \u8FF4\u5708\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u908A\u70BA <code>1\u21922, 2\u21923, 3\u21922, 2\u21924</code>\uFF08\u7BC0\u9EDE 2 \u70BA\u8FF4\u5708\u689D\u4EF6\u3001\u7BC0\u9EDE 3 \u70BA\u4E3B\u9AD4\u3001\u7BC0\u9EDE 4 \u70BA\u51FA\u53E3\uFF1B\u7BC0\u9EDE 1 \u8D77\u59CB\uFF09\u3002\u9054\u6210<strong>\u908A\u8986\u84CB</strong>\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u4E00\u8DEF\u5F91 1\u21922\u21923\u21922\u21924 \u8D70\u904E\u5168\u90E8\u56DB\u689D\u908A\uFF08\u9032\u5165\u8FF4\u5708\u4E00\u6B21\u5F8C\u96E2\u958B\uFF09\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u5C31\u5920\uFF1A1\u21922\u21923\u21922\u21924 \u8986\u84CB 1\u21922\u30012\u21923\u30013\u21922 \u8207 2\u21924\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5168\u90E8\u56DB\u689D\u908A\u90FD\u80FD\u653E\u9032\u4E00\u689D\u8FED\u4EE3\u8FF4\u5708\u4E00\u6B21\u7684\u8D77\u8A16\u8DEF\u5F91\u4E0A\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u908A\u7684\u6578\u91CF\uFF1B\u4E00\u689D\u7CBE\u9078\u8DEF\u5F91\u5373\u53EF\u5168\u90E8\u8D70\u904E\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF4\u5708\u6070\u597D\u8FED\u4EE3\u4E00\u6B21\uFF081\u21922\u21923\u21922\u21924\uFF09\u5C31\u8D70\u904E\u6BCF\u689D\u908A\uFF0C\u56E0\u6B64\u5118\u7BA1\u6709\u56DE\u908A\uFF0C\u908A\u8986\u84CB\u53EA\u9700\u4E00\u689D\u6E2C\u8A66\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u81EA\u8FF4\u5708\u7684\u8986\u84CB\u9700\u8981\u4E3B\u9AD4",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709\u4E00\u689D\u81EA\u8FF4\u5708\u908A <code>2\u21922</code>\u3002\u8981\u6EFF\u8DB3\u908A\u8986\u84CB\uFF0C\u67D0\u689D\u6E2C\u8A66\u8DEF\u5F91\u5FC5\u9808\u81F3\u5C11\u57F7\u884C\u7BC0\u9EDE 2 \u7684\u8FF4\u5708\u4E3B\u9AD4\u4E00\u6B21\uFF08\u8D70\u904E <code>2\u21922</code>\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142\u21922 \u662F\u4E00\u689D\u908A\uFF0C\u6545\u908A\u8986\u84CB\u8981\u6C42\u8D70\u904E\u5B83\uFF0C\u4E5F\u5C31\u662F\u8FF4\u5708\u81F3\u5C11\u8FED\u4EE3\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u81EA\u8FF4\u5708\u662F\u4E00\u689D\u771F\u6B63\u7684\u908A\uFF1B\u7565\u904E\u5B83\u5C31\u7121\u6CD5\u6EFF\u8DB3\u908A\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u908A\u8986\u84CB\u4E0B\u6BCF\u689D\u908A\uFF08\u542B\u81EA\u8FF4\u5708\uFF09\u90FD\u662F\u4E00\u9805\u6E2C\u8A66\u9700\u6C42\uFF1B\u50C5\u9020\u8A2A\u7BC0\u9EDE 2\uFF08\u7BC0\u9EDE\u8986\u84CB\uFF09\u4E26\u4E0D\u6703\u5F37\u5236\u8D70\u904E 2\u21922\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8986\u84CB\u4E00\u500B\u532F\u5408\u9EDE",
+            "text": "<p>\u532F\u5408\u7BC0\u9EDE m \u6709\u5169\u689D\u5165\u908A <code>a\u2192m</code> \u8207 <code>b\u2192m</code>\uFF0C\u5206\u5225\u4F86\u81EA if-else \u7684\u5169\u81C2\u3002\u6B64\u8655\u908A\u8986\u84CB\u8981\u6C42\u7684\u3001\u800C\u7BC0\u9EDE\u8986\u84CB\u4E0D\u8981\u6C42\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u689D\u5165\u908A a\u2192m \u8207 b\u2192m \u90FD\u5FC5\u9808\u88AB\u8D70\u904E\uFF0C\u56E0\u6B64 if-else \u7684\u5169\u81C2\u90FD\u88AB\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC0\u9EDE m \u7684\u7BC0\u9EDE\u8986\u84CB\u53EA\u9700\u5176\u4E2D\u4E00\u81C2\uFF1B\u908A\u8986\u84CB\u5247\u5F37\u5236\u5169\u689D\u5165\u908A\u3002"
+              },
+              {
+                "text": "\u7BC0\u9EDE m \u5FC5\u9808\u88AB\u9020\u8A2A\u5169\u6B21",
+                "fraction": 0,
+                "feedback": "\u908A\u8986\u84CB\u95DC\u6CE8\u8D70\u904E\u5169\u689D\u908A\uFF0C\u800C\u975E\u9020\u8A2A m \u5E7E\u6B21\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u984D\u5916\u8981\u6C42\uFF1B\u9020\u8A2A m \u4E00\u6B21\u5C31\u540C\u6642\u6EFF\u8DB3\u5169\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u7D93\u5176\u4E2D\u4E00\u81C2\u9020\u8A2A m \u53EF\u6EFF\u8DB3 NC\uFF0C\u4F46\u6703\u6F0F\u6389\u53E6\u4E00\u689D\u5165\u908A\u3002"
+              },
+              {
+                "text": "\u5169\u81C2\u5FC5\u9808\u88AB\u5408\u4F75\u6210\u55AE\u4E00\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u5716\u4E0D\u6703\u88AB\u6539\u5BEB\uFF1B\u908A\u8986\u84CB\u53EA\u662F\u8981\u6C42\u5169\u689D\u5165\u908A\u90FD\u88AB\u8D70\u3002"
+              }
+            ],
+            "generalFeedback": "\u9020\u8A2A\u532F\u5408\u7BC0\u9EDE m \u53EA\u8981\u7D93\u4EFB\u4E00\u81C2\u5230\u9054\u5373\u53EF\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\uFF0C\u4F46\u908A\u8986\u84CB\u8981\u6C42 a\u2192m \u8207 b\u2192m \u90FD\u88AB\u8D70\u904E\uFF0C\u56E0\u6B64\u57F7\u884C\u5230\u5169\u500B\u5206\u652F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BCF\u500B\u7BC0\u9EDE\u7684\u6558\u8FF0\u6578",
+            "text": "<p>\u67D0\u57FA\u672C\u5340\u584A\u542B\u6709 4 \u689D\u9023\u7E8C\u6558\u8FF0\uFF0C\u6C92\u6709\u5167\u90E8\u5206\u652F\u6216\u8DF3\u8E8D\u3002\u5728\u63A7\u5236\u6D41\u7A0B\u5716\u4E2D\u5B83\u4EE5\u5E7E\u500B\u7BC0\u9EDE\u8868\u793A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u8AD6\u542B\u6709\u591A\u5C11\u6558\u8FF0\uFF0C\u4E00\u500B\u57FA\u672C\u5340\u584A\u5C31\u662F\u55AE\u4E00\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u4E26\u975E\u5404\u81EA\u662F\u7BC0\u9EDE\uFF1B\u6574\u500B\u5340\u584A\u662F\u4E00\u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u6B64\u5340\u584A\u662F\u4E00\u500B\u7BC0\u9EDE\uFF1B\u9019\u88E1\u6C92\u6709\u6BCF\u6558\u8FF0\u4E00\u7BC0\u9EDE\u7684\u60C5\u5F62\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u4E00\u6BB5\u6558\u8FF0\u69CB\u6210\u7684\u5340\u584A\u6070\u4EE5\u4E00\u500B\u7BC0\u9EDE\u8868\u793A\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u57FA\u672C\u5340\u584A\u6536\u7E2E\u6210\u4E00\u500B\u7BC0\u9EDE\uFF0C\u56E0\u6B64\u6558\u8FF0\u6578\u8207\u7BC0\u9EDE\u6578\u4E0D\u540C\u2014\u2014\u4F46\u8986\u84CB\u662F\u7B49\u50F9\u7684\uFF0C\u56E0\u70BA\u9032\u5165\u8A72\u5340\u584A\u5C31\u6703\u57F7\u884C\u5176\u6240\u6709\u6558\u8FF0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u53EF\u884C\u7684\u908A\u8207\u5B8C\u6574 EC",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u542B\u6709\u4E00\u689D\u771F\u6B63\u4E0D\u53EF\u884C\u7684\u908A\u3002\u5C0D\u908A\u8986\u84CB\u800C\u8A00\uFF0C\u6B63\u78BA\u7684\u5F8C\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100% \u908A\u8986\u84CB\u4E0D\u53EF\u9054\u6210\uFF1B\u8986\u84CB\u7387\u6700\u597D\u53EA\u4EE5\u53EF\u884C\u7684\u908A\u4F86\u8861\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6392\u9664\u4E0D\u53EF\u884C\u7684\u9700\u6C42\u53EF\u8B93\u6B64\u5EA6\u91CF\u7DAD\u6301\u6709\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u66F4\u52AA\u529B\uFF0C100% \u908A\u8986\u84CB\u4ECD\u53EF\u9054\u6210",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u8F38\u5165\u80FD\u8D70\u904E\u4E0D\u53EF\u884C\u7684\u908A\uFF0C\u6545\u5B8C\u6574\u7684\u5B57\u9762\u8986\u84CB\u4E0D\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u908A\u8986\u84CB\u6E96\u5247\u8B8A\u5F97\u6BEB\u7121\u610F\u7FA9\u800C\u88AB\u653E\u68C4",
+                "fraction": 0,
+                "feedback": "\u6E96\u5247\u4ECD\u4FDD\u7559\uFF1B\u53EA\u662F\u628A\u90A3\u9805\u4E0D\u53EF\u884C\u9700\u6C42\u64F1\u7F6E\u3002"
+              },
+              {
+                "text": "\u4E0D\u53EF\u884C\u7684\u908A\u6703\u81EA\u52D5\u5F9E\u7A0B\u5F0F\u4E2D\u88AB\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u5716\u662F\u7A0B\u5F0F\u7684\u6A21\u578B\u3001\u4E0D\u6703\u88AB\u66F4\u52D5\uFF1B\u8A72\u9700\u6C42\u53EA\u662F\u88AB\u56DE\u5831\u70BA\u4E0D\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u6C92\u6709\u6E2C\u8A66\u80FD\u8D70\u904E\u4E0D\u53EF\u884C\u7684\u908A\uFF0C\u5DE5\u5177\u6703\u4EE5\u53EF\u884C\u7684\u6E2C\u8A66\u9700\u6C42\u70BA\u5206\u6BCD\u56DE\u5831\u8986\u84CB\u7387\uFF0C\u800C\u975E\u8981\u6C42\u4E0D\u53EF\u80FD\u7684 100%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56B4\u683C\u5305\u542B\u7684\u898B\u8B49",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u7D44\u908A\u642D\u914D\u4E00\u689D\u9069\u7576\u7684\u55AE\u4E00\u6E2C\u8A66\u8DEF\u5F91\uFF0C\u6700\u80FD\u898B\u8B49\u300C\u7BC0\u9EDE\u8986\u84CB\u53EF\u88AB\u6EFF\u8DB3\u3001\u800C\u908A\u8986\u84CB\u4E0D\u88AB\u6EFF\u8DB3\u300D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\uFF0C\u6E2C\u8A66\u8DEF\u5F91 1\u21922\u21923\uFF08\u908A 1\u21923 \u672A\u88AB\u8986\u84CB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6240\u6709\u7BC0\u9EDE\u90FD\u88AB\u9020\u8A2A\uFF0C\u4F46 false \u5206\u652F\u908A 1\u21923 \u88AB\u6F0F\u6389\u3002"
+              },
+              {
+                "text": "\uFF0C\u6E2C\u8A66\u8DEF\u5F91 1\u21922\u21923\u21924",
+                "fraction": 0,
+                "feedback": "\u76F4\u7DDA\u7A0B\u5F0F\u78BC\uFF1A\u4E00\u689D\u8DEF\u5F91\u5C31\u8986\u84CB\u6240\u6709\u7BC0\u9EDE\u8207\u6240\u6709\u908A\uFF0C\u7121\u6CD5\u898B\u8B49\u7F3A\u53E3\u3002"
+              },
+              {
+                "text": "\uFF0C\u6E2C\u8A66\u8DEF\u5F91 1\u21922\u21924",
+                "fraction": 0,
+                "feedback": "\u6B64\u8DEF\u5F91\u6F0F\u6389\u7BC0\u9EDE 3\uFF0C\u6545\u4E5F\u4E0D\u6EFF\u8DB3\u7BC0\u9EDE\u8986\u84CB\u2014\u2014\u4E0D\u662F\u300C\u6709 NC \u7121 EC\u300D\u7684\u898B\u8B49\u3002"
+              },
+              {
+                "text": "\uFF0C\u6E2C\u8A66\u8DEF\u5F91 1\u21922",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u908A\u88AB\u8986\u84CB\u3001\u5169\u500B\u7BC0\u9EDE\u4E5F\u88AB\u8986\u84CB\uFF1BNC \u8207 EC \u90FD\u6210\u7ACB\uFF0C\u6C92\u6709\u7F3A\u53E3\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5 1\u21922\u21923 \u904A\u6B77\u7684\u7121 else \u4E4B if\u9020\u8A2A\u6BCF\u500B\u7BC0\u9EDE\u537B\u7565\u904E\u908A 1\u21923\u2014\u2014\u662F\u300C\u6EFF\u8DB3 NC \u4F46\u4E0D\u6EFF\u8DB3 EC\u300D\u7684\u5178\u578B\u898B\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8FF4\u5708\u4F7F EC \u4ECD\u70BA\u6709\u9650",
+            "text": "<p>\u542B\u8FF4\u5708\u7684\u63A7\u5236\u6D41\u7A0B\u5716\u4F7F\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u4E0D\u53EF\u884C\uFF0C\u4F46\u908A\u8986\u84CB\u5728\u8A72\u5716\u4E0A\u4ECD\u662F\u6709\u9650\u4E14\u53EF\u9054\u6210\u7684\u6E96\u5247\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u5708\u7522\u751F\u7121\u9650\u591A\u689D\u5B8C\u6574\u8DEF\u5F91\uFF0C\u4F46\u908A\u6578\uFF08\u56E0\u800C\u908A\u9700\u6C42\u6578\uFF09\u7DAD\u6301\u6709\u9650\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4E0D\u8AD6\u8FF4\u5708\u80FD\u8FED\u4EE3\u591A\u5C11\u6B21\uFF0C\u908A\u8986\u84CB\u6BCF\u689D\u908A\u4E00\u9805\u9700\u6C42\uFF0C\u662F\u500B\u6709\u9650\u96C6\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF4\u5708\u4F7F\u5B8C\u6574\u8DEF\u5F91\u7684\u96C6\u5408\u7121\u754C\uFF0C\u4F46\u908A\u96C6\u662F\u6709\u9650\u7684\uFF0C\u56E0\u6B64\u908A\u8986\u84CB\u6C38\u9060\u662F\u6709\u9650\uFF08\u4E14\u901A\u5E38\u53EF\u9054\u6210\uFF09\u7684\u76EE\u6A19\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u4E0D\u53EF\u5230\u9054\u7BC0\u9EDE\u6642 NC \u7684\u6700\u5927\u53EF\u9054\u6210\u503C",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709 5 \u500B\u7BC0\u9EDE\uFF0C\u5176\u4E2D\u4E00\u500B\u5F9E\u9032\u5165\u9EDE\u8A9E\u6CD5\u4E0A\u4E0D\u53EF\u5230\u9054\uFF08\u6B7B\u78BC\uFF09\u3002\u4EE5\u5168\u90E8 5 \u500B\u7BC0\u9EDE\u8A08\u7B97\uFF0C\u4EFB\u4F55\u6E2C\u8A66\u5957\u4EF6\u80FD\u9054\u6210\u7684\u6700\u5927\u7BC0\u9EDE\u8986\u84CB\u7387\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "80%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 \u500B\u4E2D\u6700\u591A\u80FD\u9020\u8A2A 4 \u500B\uFF0C\u6545 4/5\uFF1D80%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u4E0D\u53EF\u5230\u9054\u7684\u7BC0\u9EDE\u6C38\u9060\u7121\u6CD5\u88AB\u9020\u8A2A\uFF0C\u6545\u4EE5\u5168\u90E8 5 \u500B\u7BC0\u9EDE\u8A08\u4E0D\u53EF\u80FD\u9054\u5230\u5B8C\u6574\u8986\u84CB\u3002"
+              },
+              {
+                "text": "90%",
+                "fraction": 0,
+                "feedback": "\u53EA\u80FD\u4EE5\u6574\u500B\u7BC0\u9EDE\u8A08\uFF1B\u6700\u4F73\u662F 4/5\uFF1D80%\u3002"
+              },
+              {
+                "text": "20%",
+                "fraction": 0,
+                "feedback": "\u4E94\u500B\u7BC0\u9EDE\u4E2D\u6709\u56DB\u500B\u53EF\u5230\u9054\uFF0C\u6545\u6700\u5927\u70BA 80%\uFF0C\u800C\u975E 20%\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u5230\u9054\u7684\u7BC0\u9EDE\u4F7F\u5B57\u9762\u7BC0\u9EDE\u8986\u84CB\u4E0A\u9650\u4F4E\u65BC 100%\uFF1B\u6B64\u8655\u6700\u5927\uFF1D4/5\uFF1D80%\u3002\u5DE5\u5177\u901A\u5E38\u6539\u4EE5\u53EF\u5230\u9054\u7684\u7BC0\u9EDE\u56DE\u5831\u8986\u84CB\u7387\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u4E0D\u53EF\u884C\u908A\u6642 EC \u7684\u6700\u5927\u53EF\u9054\u6210\u503C",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709 6 \u689D\u908A\uFF0C\u5176\u4E2D\u6070\u597D\u4E00\u689D\u4E0D\u53EF\u884C\u3002\u4EE5\u5168\u90E8 6 \u689D\u908A\u8A08\u7B97\uFF0C\u4EFB\u4F55\u6E2C\u8A66\u5957\u4EF6\u80FD\u9054\u6210\u7684\u6700\u5927\u908A\u8986\u84CB\u7387\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D04 83%\uFF086 \u689D\u4E2D\u7684 5 \u689D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u53EF\u884C\u7684\u908A\u6C38\u9060\u7121\u6CD5\u88AB\u8D70\u904E\uFF0C\u6545\u6700\u591A 5/6 \u2248 83%\u3002"
+              },
+              {
+                "text": "100%",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u8F38\u5165\u80FD\u8D70\u904E\u4E0D\u53EF\u884C\u7684\u908A\uFF0C\u6545 6/6 \u4E0D\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "\u7D04 67%\uFF086 \u689D\u4E2D\u7684 4 \u689D\uFF09",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u689D\u908A\u4E0D\u53EF\u884C\uFF0C\u6545\u6700\u591A 6 \u689D\u4E2D\u7684 5 \u689D\u53EF\u88AB\u8986\u84CB\uFF1D\u7D04 83%\u3002"
+              },
+              {
+                "text": "50%\uFF086 \u689D\u4E2D\u7684 3 \u689D\uFF09",
+                "fraction": 0,
+                "feedback": "\u516D\u689D\u908A\u4E2D\u6709\u4E94\u689D\u53EF\u884C\uFF0C\u6545\u6700\u5927\u7D04 83%\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u689D\u4E0D\u53EF\u884C\u7684\u908A\u4F7F\u5B57\u9762\u908A\u8986\u84CB\u4E0A\u9650\u70BA 5/6 \u2248 83%\uFF1B\u8986\u84CB\u7387\u901A\u5E38\u4EE5\u53EF\u884C\u7684\u908A\u56DE\u5831\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u591A\u5206\u652F\u5716\u4E0A\u908A\u8986\u84CB\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91",
+            "text": "<p>\u67D0\u63A7\u5236\u6D41\u7A0B\u5716\u6709\u7BC0\u9EDE 1..4\uFF0C\u908A\u70BA <code>1\u21922, 1\u21923, 2\u21923, 2\u21924, 3\u21924</code>\uFF08\u7BC0\u9EDE 1 \u8D77\u59CB\u3001\u7BC0\u9EDE 4 \u7D50\u675F\uFF09\u3002\u9054\u6210<strong>\u908A\u8986\u84CB</strong>\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5982 1\u21922\u21923\u21924\uFF08\u8986\u84CB 1\u21922\u30012\u21923\u30013\u21924\uFF09\u30011\u21923\u21924\uFF08\u8986\u84CB 1\u21923\uFF09\u30011\u21922\u21924\uFF08\u8986\u84CB 2\u21924\uFF09\uFF1B\u6C92\u6709\u4EFB\u4F55\u5169\u689D\u8DEF\u5F91\u80FD\u8986\u84CB\u5168\u90E8\u4E94\u689D\u908A\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u908A 2\u21923 \u8207 2\u21924 \u90FD\u9700\u8981\u7BC0\u9EDE 2\uFF0C\u4F46\u6C92\u6709\u56DE\u5230 2 \u7684\u8DEF\u53EF\u8D70\uFF0C\u6545\u4E00\u689D\u8DEF\u5F91\u7121\u6CD5\u540C\u6642\u8D70\u5169\u8005\uFF1B\u540C\u7406 1\u21923 \u9700\u8981\u4EE5 1\u21923 \u8D77\u6B65\u3002\u5169\u689D\u7121\u6CD5\u8986\u84CB\u5168\u90E8\u4E94\u689D\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u4E09\u689D\u7CBE\u9078\u8DEF\u5F91\u5C31\u5DF2\u8986\u84CB\u5168\u90E8\u4E94\u689D\u908A\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u908A\u7684\u6578\u91CF\uFF1B\u6700\u5C11\u6E2C\u8A66\u8DEF\u5F91\u6578\u662F 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB 2\u21923 \u8207 2\u21924 \u9700\u8981\u5169\u689D\u7D93\u904E\u7BC0\u9EDE 2 \u7684\u76F8\u7570\u8DEF\u5F91\uFF0C\u800C 1\u21923 \u9700\u8981\u4E00\u689D\u4EE5 1\u21923 \u8D77\u6B65\u7684\u8DEF\u5F91\uFF0C\u6545\u908A\u8986\u84CB\u81F3\u5C11\u9700\u8981\u4E09\u689D\u6E2C\u8A66\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6558\u8FF0\u8986\u84CB\u7B49\u65BC\u7BC0\u9EDE\u8986\u84CB",
+            "text": "<p>\u5373\u4F7F\u4E00\u500B\u7BC0\u9EDE\u53EF\u80FD\u542B\u6709\u591A\u689D\u6558\u8FF0\uFF0C\u70BA\u4F55\u9010\u6558\u8FF0\u7684\u6558\u8FF0\u8986\u84CB\u8207\u9010\u7BC0\u9EDE\u7684\u7BC0\u9EDE\u8986\u84CB\u7B49\u50F9\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u57FA\u672C\u5340\u584A\u662F\u55AE\u4E00\u9032\u5165\u3001\u55AE\u4E00\u96E2\u958B\uFF0C\u56E0\u6B64\u9032\u5165\u8A72\u7BC0\u9EDE\u5C31\u6703\u57F7\u884C\u5176\u6240\u6709\u6558\u8FF0\u2014\u2014\u9020\u8A2A\u7BC0\u9EDE\u5C31\u4E00\u4F75\u8986\u84CB\u5B83\u5011",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5340\u584A\u4EE5\u6574\u9AD4\u57F7\u884C\uFF0C\u6545\u7BC0\u9EDE\u8986\u84CB\u8207\u6558\u8FF0\u8986\u84CB\u540C\u9032\u9000\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6BCF\u689D\u6558\u8FF0\u90FD\u88AB\u653E\u9032\u81EA\u5DF1\u7684\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u88AB\u6B78\u5165\u57FA\u672C\u5340\u584A\uFF0C\u4E26\u975E\u5404\u81EA\u70BA\u4E00\u500B\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6558\u8FF0\u8986\u84CB\u5FFD\u7565\u6BCF\u500B\u5340\u584A\u7684\u6700\u5F8C\u4E00\u689D\u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6558\u8FF0\u88AB\u5FFD\u7565\uFF1B\u9020\u8A2A\u7BC0\u9EDE\u6642\u6574\u500B\u5340\u584A\u90FD\u6703\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u4E26\u4E0D\u7B49\u50F9\uFF1B\u7BC0\u9EDE\u8986\u84CB\u6C38\u9060\u66F4\u5F37",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u7B49\u50F9\u7684\uFF1A\u4E00\u500B\u57FA\u672C\u5340\u584A\u7684\u6240\u6709\u6558\u8FF0\u6B63\u597D\u5728\u7BC0\u9EDE\u88AB\u9020\u8A2A\u6642\u5168\u90E8\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u57FA\u672C\u5340\u584A\u6C92\u6709\u5167\u90E8\u5206\u652F\uFF0C\u63A7\u5236\u5F9E\u9802\u7AEF\u9032\u5165\u4E26\u4E00\u8DEF\u57F7\u884C\u5230\u5E95\u90E8\u7684\u6BCF\u689D\u6558\u8FF0\uFF0C\u6545\u8986\u84CB\u8A72\u7BC0\u9EDE\u5C31\u8986\u84CB\u5176\u6240\u6709\u6558\u8FF0\u2014\u2014\u6558\u8FF0\u8986\u84CB \u2261 \u7BC0\u9EDE\u8986\u84CB\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "logic-coverage": {
       "en": {
         "easy": [

@@ -5041,6 +5041,2480 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "graph-structural": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Node Coverage definition",
+          "text": "<p><strong>Node Coverage (NC)</strong> is satisfied by a set of test paths when:</p>",
+          "answers": [
+            {
+              "text": "Every reachable node of the graph is visited by at least one test path",
+              "fraction": 100,
+              "feedback": "Correct — NC requires that each node be reached."
+            },
+            {
+              "text": "Every edge of the graph is traversed by at least one test path",
+              "fraction": 0,
+              "feedback": "That is Edge Coverage, which is stronger than Node Coverage."
+            },
+            {
+              "text": "Every complete path from entry to exit is executed",
+              "fraction": 0,
+              "feedback": "That is Complete Path Coverage, far stronger and usually infeasible."
+            },
+            {
+              "text": "Every node is visited exactly once",
+              "fraction": 0,
+              "feedback": "NC only requires each node be visited at least once; repeats are allowed."
+            }
+          ],
+          "generalFeedback": "Node Coverage imposes one test requirement per node: each reachable node must be visited by some test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge Coverage definition",
+          "text": "<p><strong>Edge Coverage (EC)</strong> is satisfied by a set of test paths when:</p>",
+          "answers": [
+            {
+              "text": "Every reachable edge of the graph is traversed by at least one test path",
+              "fraction": 100,
+              "feedback": "Correct — EC requires that each edge (branch) be taken."
+            },
+            {
+              "text": "Every reachable node of the graph is visited",
+              "fraction": 0,
+              "feedback": "That is Node Coverage, which is weaker than Edge Coverage."
+            },
+            {
+              "text": "Every pair of adjacent edges is traversed",
+              "fraction": 0,
+              "feedback": "That is Edge-Pair Coverage, which is stronger than Edge Coverage."
+            },
+            {
+              "text": "Every edge is traversed exactly once",
+              "fraction": 0,
+              "feedback": "EC only requires each edge be taken at least once; an edge may repeat."
+            }
+          ],
+          "generalFeedback": "Edge Coverage imposes one test requirement per edge: each reachable edge must be traversed by some test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statement coverage maps to",
+          "text": "<p>Classic <strong>statement coverage</strong> corresponds to which structural graph-coverage criterion on the control-flow graph?</p>",
+          "answers": [
+            {
+              "text": "Node Coverage",
+              "fraction": 100,
+              "feedback": "Correct — executing every statement means visiting every node (basic block)."
+            },
+            {
+              "text": "Edge Coverage",
+              "fraction": 0,
+              "feedback": "Edge Coverage corresponds to branch coverage, which is stronger."
+            },
+            {
+              "text": "Edge-Pair Coverage",
+              "fraction": 0,
+              "feedback": "Edge-pair coverage is much stronger than statement coverage."
+            },
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 0,
+              "feedback": "Complete path coverage is generally infeasible and far stronger."
+            }
+          ],
+          "generalFeedback": "Nodes model basic blocks/statements, so statement coverage is exactly Node Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch coverage maps to",
+          "text": "<p>Classic <strong>branch coverage</strong> corresponds to which structural graph-coverage criterion?</p>",
+          "answers": [
+            {
+              "text": "Edge Coverage",
+              "fraction": 100,
+              "feedback": "Correct — every branch outcome is an edge that must be traversed."
+            },
+            {
+              "text": "Node Coverage",
+              "fraction": 0,
+              "feedback": "Node coverage corresponds to statement coverage, which is weaker."
+            },
+            {
+              "text": "Prime Path Coverage",
+              "fraction": 0,
+              "feedback": "Prime path coverage is much stronger than branch coverage."
+            },
+            {
+              "text": "Complete Path Coverage",
+              "fraction": 0,
+              "feedback": "Complete path coverage is generally infeasible and far stronger."
+            }
+          ],
+          "generalFeedback": "Each decision outcome is an outgoing edge, so branch coverage is exactly Edge Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a node models",
+          "text": "<p>In a control-flow graph, a single <strong>node</strong> typically models:</p>",
+          "answers": [
+            {
+              "text": "A basic block — a maximal sequence of statements with no internal branch",
+              "fraction": 100,
+              "feedback": "Correct — a node is a basic block executed as a unit."
+            },
+            {
+              "text": "A single branch outcome of a decision",
+              "fraction": 0,
+              "feedback": "That is an edge, not a node."
+            },
+            {
+              "text": "A complete execution from entry to exit",
+              "fraction": 0,
+              "feedback": "That is a test path, not a node."
+            },
+            {
+              "text": "A variable definition",
+              "fraction": 0,
+              "feedback": "Variable definitions belong to data-flow analysis, not to what a node models structurally."
+            }
+          ],
+          "generalFeedback": "A node models a basic block: a straight-line run of statements entered only at the top and left only at the bottom.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an edge models",
+          "text": "<p>In a control-flow graph, an <strong>edge</strong> from node u to node v models:</p>",
+          "answers": [
+            {
+              "text": "A possible transfer of control from block u to block v (e.g. a branch outcome)",
+              "fraction": 100,
+              "feedback": "Correct — an edge is a possible flow of control between blocks."
+            },
+            {
+              "text": "A basic block of statements",
+              "fraction": 0,
+              "feedback": "That is a node, not an edge."
+            },
+            {
+              "text": "A definition-use pair for some variable",
+              "fraction": 0,
+              "feedback": "DU pairs belong to data-flow coverage, not to the structural meaning of an edge."
+            },
+            {
+              "text": "The entire body of a loop",
+              "fraction": 0,
+              "feedback": "A loop body is one or more nodes; an edge is a single control transfer."
+            }
+          ],
+          "generalFeedback": "An edge represents one possible control transfer between basic blocks; a decision's outcomes are its outgoing edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test path definition",
+          "text": "<p>In graph-based testing, a <strong>test path</strong> is a path that:</p>",
+          "answers": [
+            {
+              "text": "Starts at an initial node and ends at a final node of the graph",
+              "fraction": 100,
+              "feedback": "Correct — a test path represents one complete execution from entry to exit."
+            },
+            {
+              "text": "Visits every node of the graph exactly once",
+              "fraction": 0,
+              "feedback": "That is a Hamiltonian path, not a test path."
+            },
+            {
+              "text": "Is any single edge of the graph",
+              "fraction": 0,
+              "feedback": "A single edge is a path of length 1, but a test path must run from an initial to a final node."
+            },
+            {
+              "text": "Never repeats any node",
+              "fraction": 0,
+              "feedback": "A test path may repeat nodes (e.g. loop iterations); only simple paths forbid repeats."
+            }
+          ],
+          "generalFeedback": "A test path runs from an initial node to a final node; executing one test case follows exactly one test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test requirement definition",
+          "text": "<p>A <strong>test requirement</strong> for a structural coverage criterion is:</p>",
+          "answers": [
+            {
+              "text": "A specific structural element (e.g. a node or an edge) that some test path must tour",
+              "fraction": 100,
+              "feedback": "Correct — a criterion yields a set of test requirements."
+            },
+            {
+              "text": "A single test case with concrete input values",
+              "fraction": 0,
+              "feedback": "That is a test case; a requirement is the element the case must cover."
+            },
+            {
+              "text": "The expected output of the program",
+              "fraction": 0,
+              "feedback": "That is an oracle, not a coverage requirement."
+            },
+            {
+              "text": "A complete path from entry to exit",
+              "fraction": 0,
+              "feedback": "A test path may satisfy many requirements, but a requirement is the element to be toured."
+            }
+          ],
+          "generalFeedback": "For Node Coverage each node is a test requirement; for Edge Coverage each edge is a test requirement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Node coverage requirement count",
+          "text": "<p>A control-flow graph has nodes 1..5 and edges <code>1→2, 2→3, 2→4, 3→5, 4→5</code>. How many test requirements does <strong>Node Coverage</strong> impose?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per node, and there are 5 nodes."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "That counts the edges; Node Coverage counts nodes (5)."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "That counts only the branch nodes, not all nodes."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "Node Coverage has one requirement per node (5), not per node pair."
+            }
+          ],
+          "generalFeedback": "Node Coverage requires visiting each node, so the number of requirements equals the number of nodes: 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge coverage requirement count",
+          "text": "<p>A control-flow graph has nodes 1..4 and edges <code>1→2, 2→3, 3→4, 2→4</code>. How many test requirements does <strong>Edge Coverage</strong> impose?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per edge, and there are 4 edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — there are four edges listed."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — there are only four edges listed."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Edge Coverage counts edges (4), not just the branch points."
+            }
+          ],
+          "generalFeedback": "Edge Coverage requires one test requirement per edge, so the count equals the number of edges: 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the nodes",
+          "text": "<p>A control-flow graph is given only by its directed edges: <code>1→2, 2→3, 2→4</code>. How many distinct nodes appear?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the distinct nodes are 1, 2, 3 and 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "That is the number of edges, not nodes; the distinct nodes are 1, 2, 3, 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Node 2 has two out-edges, but there are four distinct nodes overall."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "No node 5 appears in the edge list; there are four distinct nodes."
+            }
+          ],
+          "generalFeedback": "Collect the endpoints of every edge: {1, 2, 3, 4} — four distinct nodes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the edges",
+          "text": "<p>A control-flow graph on nodes 1..5 has directed edges <code>1→2, 2→3, 3→4, 4→5, 2→5</code>. How many directed edges does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — five edges are listed."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — there are five edges listed."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — there are only five edges listed."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Recount — there are only five edges listed."
+            }
+          ],
+          "generalFeedback": "Count each directed edge once; the list is the complete edge set, giving 5.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Does a path cover all nodes",
+          "text": "<p>A control-flow graph has nodes 1..4 and edges <code>1→2, 2→3, 2→4</code>. The single test path <code>1→2→3</code> visits every node of the graph.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — the path visits {1, 2, 3} but never reaches node 4, so Node Coverage is not met."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "The path 1→2→3 misses node 4 (reached only via edge 2→4), so it does not visit every node."
+            }
+          ],
+          "generalFeedback": "Node 4 is reachable only through edge 2→4; the path 1→2→3 never takes it, so one more path (e.g. 1→2→4) is needed for Node Coverage."
+        },
+        {
+          "type": "truefalse",
+          "name": "Edge coverage implies node coverage",
+          "text": "<p>On a control-flow graph in which every node has at least one incident edge, a test set that satisfies Edge Coverage also satisfies Node Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — traversing every edge visits both endpoints of each edge, hence every node with an incident edge."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Covering all edges necessarily visits all nodes that have an incident edge, so Edge Coverage subsumes Node Coverage here."
+            }
+          ],
+          "generalFeedback": "Edge Coverage subsumes Node Coverage: each edge's endpoints are visited when the edge is traversed. The converse does not hold."
+        },
+        {
+          "type": "truefalse",
+          "name": "Node coverage guarantees branch coverage",
+          "text": "<p>Satisfying Node Coverage guarantees that every branch (decision outcome) has been exercised.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — Node Coverage can be met while an edge (branch outcome) is never taken."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Node Coverage only requires visiting nodes; a branch can go untaken while every node is still reached via other paths."
+            }
+          ],
+          "generalFeedback": "Node Coverage does not imply Edge Coverage, so some branch outcomes may go untested."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why edge coverage subsumes node coverage",
+          "text": "<p>Why does Edge Coverage subsume Node Coverage (on a graph where every node has an incident edge)?</p>",
+          "answers": [
+            {
+              "text": "Every such node is an endpoint of some edge, so traversing all edges visits all those nodes",
+              "fraction": 100,
+              "feedback": "Correct — covering the edges automatically covers their endpoints."
+            },
+            {
+              "text": "Because there are always more edges than nodes",
+              "fraction": 0,
+              "feedback": "False in general — a straight-line graph of n nodes has only n−1 edges; subsumption does not rest on counts."
+            },
+            {
+              "text": "Because every node is itself an edge of length zero",
+              "fraction": 0,
+              "feedback": "A node is not an edge; the subsumption comes from edges visiting their endpoints."
+            },
+            {
+              "text": "Because Node Coverage requires visiting each edge",
+              "fraction": 0,
+              "feedback": "Node Coverage requires visiting nodes, not edges; that description is simply wrong."
+            }
+          ],
+          "generalFeedback": "An edge is traversed only by passing through both its endpoints, so an edge-covering test set visits every node that has an incident edge — hence EC subsumes NC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Node coverage met, edge missed",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (node 1 is an <code>if</code> with no <code>else</code>, node 2 the then-block, node 3 the merge). The single test path <code>1→2→3</code> is run. It satisfies Node Coverage, but which edge is left uncovered?</p>",
+          "answers": [
+            {
+              "text": "1→3",
+              "fraction": 100,
+              "feedback": "Correct — the path takes 1→2 and 2→3 but never the false branch 1→3."
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "The path 1→2→3 does take edge 1→2."
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "The path 1→2→3 does take edge 2→3."
+            },
+            {
+              "text": "None; all edges are covered",
+              "fraction": 0,
+              "feedback": "Edge 1→3 (the skipped else) is never taken by 1→2→3."
+            }
+          ],
+          "generalFeedback": "All three nodes are visited by 1→2→3, so Node Coverage holds, yet the false-branch edge 1→3 is missed — a classic NC-without-EC case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for NC on a diamond",
+          "text": "<p>A diamond CFG has edges <code>1→2, 1→3, 2→4, 3→4</code> (node 1 initial, node 4 final). What is the minimum number of test paths needed for <strong>Node Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — no single entry-to-exit path visits both node 2 and node 3, so two paths are needed (e.g. 1→2→4 and 1→3→4)."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One path can visit either node 2 or node 3 but not both, so one path cannot cover all four nodes."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two paths suffice: 1→2→4 and 1→3→4 together visit all four nodes."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "That is the number of edges, not the minimum number of test paths for Node Coverage."
+            }
+          ],
+          "generalFeedback": "Nodes 2 and 3 lie on mutually exclusive branches, so a minimum of two test paths is required to visit every node.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for EC on a diamond",
+          "text": "<p>For the same diamond CFG with edges <code>1→2, 1→3, 2→4, 3→4</code>, what is the minimum number of test paths needed for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→4 covers 1→2 and 2→4; 1→3→4 covers 1→3 and 3→4. Two paths cover all four edges."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A single entry-to-exit path uses only one of 1→2 / 1→3, so it cannot cover all four edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two paths already cover all four edges of the diamond."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the number of edges; two test paths suffice to traverse them all."
+            }
+          ],
+          "generalFeedback": "On a pure diamond, the same two paths achieve both Node and Edge Coverage — the criteria coincide in path count here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statement vs branch coverage",
+          "text": "<p>What is the key difference between statement coverage and branch coverage?</p>",
+          "answers": [
+            {
+              "text": "Branch coverage requires every decision outcome to be taken; statement coverage only requires every statement to run",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage (EC) also forces the false/else outcomes, which statement coverage (NC) may skip."
+            },
+            {
+              "text": "Statement coverage is strictly stronger than branch coverage",
+              "fraction": 0,
+              "feedback": "The reverse is true: branch coverage subsumes statement coverage."
+            },
+            {
+              "text": "They are always equivalent on every program",
+              "fraction": 0,
+              "feedback": "They coincide only when there are no decisions; a skipped else can satisfy statements but not branches."
+            },
+            {
+              "text": "Statement coverage concerns edges while branch coverage concerns nodes",
+              "fraction": 0,
+              "feedback": "It is the other way round: statements map to nodes, branches to edges."
+            }
+          ],
+          "generalFeedback": "Statement coverage = Node Coverage; branch coverage = Edge Coverage. Branch coverage additionally forces each decision outcome, so it subsumes statement coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for NC on an if-without-else",
+          "text": "<p>A CFG has edges <code>1→2, 2→3, 1→3</code> (an <code>if</code> with no <code>else</code>; node 1 initial, node 3 final). What is the minimum number of test paths for <strong>Node Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — the single path 1→2→3 visits all three nodes."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "One path (1→2→3) already visits every node; two are needed only for Edge Coverage here."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three is the node count, not the number of test paths required."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "At least one test path is needed to visit any node."
+            }
+          ],
+          "generalFeedback": "The path 1→2→3 passes through nodes 1, 2 and 3, achieving Node Coverage with a single test path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test paths for EC on an if-without-else",
+          "text": "<p>For the same if-without-else CFG with edges <code>1→2, 2→3, 1→3</code>, what is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — 1→2→3 covers 1→2 and 2→3, but the false-branch edge 1→3 needs the second path 1→3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A single path cannot take both 1→2 and 1→3, so it cannot cover all three edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two paths suffice: 1→2→3 and 1→3 together cover all three edges."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "At least two test paths are required to cover every edge here."
+            }
+          ],
+          "generalFeedback": "Here NC needs 1 path but EC needs 2 — a concrete witness that Edge Coverage is strictly stronger than Node Coverage.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Straight-line code: NC and EC coincide",
+          "text": "<p>On a straight-line CFG with no decision nodes (edges <code>1→2, 2→3, 3→4</code>), any test set that achieves Node Coverage also achieves Edge Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with no branching, the single path 1→2→3→4 covers every node and every edge, so the criteria coincide."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Without decisions there is only one path through the graph; visiting all nodes necessarily traverses all edges."
+            }
+          ],
+          "generalFeedback": "Node and Edge Coverage differ only when the graph has decision nodes (nodes with two or more out-edges). On straight-line code they require exactly the same execution."
+        },
+        {
+          "type": "truefalse",
+          "name": "Branch coverage implies statement coverage",
+          "text": "<p>If a test suite achieves 100% branch coverage, its statement coverage is necessarily 100% as well (assuming every statement lies on some edge).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage is Edge Coverage, which subsumes Node Coverage (statement coverage)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Covering every branch traverses every edge, which visits every node/statement, so statement coverage is also complete."
+            }
+          ],
+          "generalFeedback": "Because Edge Coverage subsumes Node Coverage, 100% branch coverage guarantees 100% statement coverage; the converse fails."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why statement coverage can miss a bug",
+          "text": "<p>A method has an <code>if</code> with no <code>else</code>; the fault is that the missing else path returns a wrong value. Why can 100% statement coverage miss this fault while 100% branch coverage catches it?</p>",
+          "answers": [
+            {
+              "text": "Statement coverage only needs every statement executed, so the never-taken false branch (an edge) can go untested",
+              "fraction": 100,
+              "feedback": "Correct — the empty else path is an edge, not a statement, so only Edge/branch coverage forces it."
+            },
+            {
+              "text": "Statement coverage requires more test cases than branch coverage, masking the fault",
+              "fraction": 0,
+              "feedback": "Branch coverage generally needs at least as many cases; that is not the reason."
+            },
+            {
+              "text": "The fault is in a node, which statement coverage never checks",
+              "fraction": 0,
+              "feedback": "The fault manifests on the untaken edge (the skipped else), not in a visited node."
+            },
+            {
+              "text": "Statement coverage ignores loops entirely",
+              "fraction": 0,
+              "feedback": "Loops are unrelated here; the gap is the untaken false branch."
+            }
+          ],
+          "generalFeedback": "An if-without-else has a false-branch edge that executes no statement; statement coverage can be 100% without ever taking it, but branch/Edge Coverage requires it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Short-circuit and edge count",
+          "text": "<p>Modeling <code>if (a &amp;&amp; b)</code> with short-circuit evaluation (a decision on <code>a</code> that can skip evaluating <code>b</code>), compared with treating <code>a &amp;&amp; b</code> as a single atomic decision, the number of edges Edge Coverage must cover:</p>",
+          "answers": [
+            {
+              "text": "Increases, because short-circuit adds a second decision node with its own outgoing edges",
+              "fraction": 100,
+              "feedback": "Correct — testing a then b separately introduces extra branch edges."
+            },
+            {
+              "text": "Decreases, because b is sometimes skipped",
+              "fraction": 0,
+              "feedback": "Skipping b at runtime does not remove edges; short-circuit adds the extra decision structure."
+            },
+            {
+              "text": "Stays the same, because both forms have one decision",
+              "fraction": 0,
+              "feedback": "Short-circuit form has two decision nodes (on a and on b), not one."
+            },
+            {
+              "text": "Becomes infinite, because of the conjunction",
+              "fraction": 0,
+              "feedback": "The graph stays finite; short-circuit merely adds a bounded number of edges."
+            }
+          ],
+          "generalFeedback": "Short-circuit evaluation splitsinto two decisions (test a, then test b), so the CFG gains extra branch edges that Edge Coverage must cover.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Node coverage percentage",
+          "text": "<p>A CFG has 5 nodes. A test suite visits 4 of them. What is its Node Coverage percentage?</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "Correct — 4 of 5 nodes = 80%."
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% would be 3 of 4; here it is 4 of 5 = 80%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "One node is unvisited, so coverage is below 100%."
+            },
+            {
+              "text": "40%",
+              "fraction": 0,
+              "feedback": "Coverage is visited/total = 4/5 = 80%, not 2/5."
+            }
+          ],
+          "generalFeedback": "Node Coverage percentage = nodes visited / total nodes = 4/5 = 80%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge coverage percentage",
+          "text": "<p>A CFG has 8 edges. A test suite traverses 6 of them. What is its Edge Coverage percentage?</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "Correct — 6 of 8 edges = 75%."
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% would be 4 of 5; here it is 6 of 8 = 75%."
+            },
+            {
+              "text": "60%",
+              "fraction": 0,
+              "feedback": "Coverage is traversed/total = 6/8 = 75%, not 6/10."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "Two edges are untraversed, so coverage is below 100%."
+            }
+          ],
+          "generalFeedback": "Edge Coverage percentage = edges traversed / total edges = 6/8 = 75%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What makes node coverage insufficient",
+          "text": "<p>Which single graph feature is what makes Node Coverage weaker than Edge Coverage (so that NC can hold while EC fails)?</p>",
+          "answers": [
+            {
+              "text": "A decision node — a node with two or more outgoing edges",
+              "fraction": 100,
+              "feedback": "Correct — branching lets a node be reached without every one of its out-edges being taken."
+            },
+            {
+              "text": "A node with only one outgoing edge",
+              "fraction": 0,
+              "feedback": "With a single out-edge, visiting the node and taking its edge coincide; no gap arises."
+            },
+            {
+              "text": "The presence of an initial node",
+              "fraction": 0,
+              "feedback": "Every graph has an initial node; that alone does not separate NC from EC."
+            },
+            {
+              "text": "Having more nodes than edges",
+              "fraction": 0,
+              "feedback": "Node/edge counts do not determine the gap; a decision node does."
+            }
+          ],
+          "generalFeedback": "Only at a decision node (out-degree ≥ 2) can a node be visited while one of its outgoing branch edges is skipped, so decision nodes are exactly where NC and EC diverge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge coverage requirements on a diamond",
+          "text": "<p>A diamond CFG has edges <code>1→2, 1→3, 2→4, 3→4</code>. How many test requirements does Edge Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per edge, and there are 4 edges."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — the diamond has four edges."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two is the minimum number of test paths, not the number of edge requirements (4)."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — the diamond has only four edges."
+            }
+          ],
+          "generalFeedback": "Edge Coverage has one requirement per edge; the diamond's four edges give four requirements, met by two test paths.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Infeasible edge",
+          "text": "<p>An edge is <strong>(semantically) infeasible</strong> when:</p>",
+          "answers": [
+            {
+              "text": "No input to the program can cause execution to traverse it, even though it exists in the graph",
+              "fraction": 100,
+              "feedback": "Correct — the edge is present syntactically but unreachable under any actual execution."
+            },
+            {
+              "text": "It appears twice in the edge list",
+              "fraction": 0,
+              "feedback": "Duplicate listing is unrelated to feasibility."
+            },
+            {
+              "text": "Both its endpoints are decision nodes",
+              "fraction": 0,
+              "feedback": "The endpoints' types do not determine feasibility; whether any input drives the edge does."
+            },
+            {
+              "text": "It is part of a loop",
+              "fraction": 0,
+              "feedback": "Loop edges are usually perfectly feasible; feasibility is about reachability under real inputs."
+            }
+          ],
+          "generalFeedback": "An infeasible edge exists in the CFG but no test input can drive control across it (e.g. a branch condition that is never true), so 100% Edge Coverage is unachievable and coverage is measured over feasible edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Syntactically unreachable node",
+          "text": "<p>A node is <strong>syntactically unreachable</strong> from the initial node when:</p>",
+          "answers": [
+            {
+              "text": "There is no path in the graph from the initial node to it",
+              "fraction": 100,
+              "feedback": "Correct — no path exists even ignoring branch conditions."
+            },
+            {
+              "text": "There is a graph path to it, but no input actually drives execution there",
+              "fraction": 0,
+              "feedback": "That describes semantic infeasibility, not syntactic unreachability."
+            },
+            {
+              "text": "It has no outgoing edges",
+              "fraction": 0,
+              "feedback": "A node with no out-edges is just a final node; it can still be reachable."
+            },
+            {
+              "text": "It is visited by every test path",
+              "fraction": 0,
+              "feedback": "That is the opposite of unreachable."
+            }
+          ],
+          "generalFeedback": "Syntactic reachability asks only whether a graph path exists from the entry; if none does, the node can never be covered and full Node Coverage is unachievable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Syntactic vs semantic reachability",
+          "text": "<p>What is the difference between an edge being <em>syntactically</em> reachable and <em>semantically</em> reachable?</p>",
+          "answers": [
+            {
+              "text": "Syntactic reachability means a graph path to it exists; semantic reachability means some real input actually drives execution across it",
+              "fraction": 100,
+              "feedback": "Correct — syntactic ignores conditions, semantic accounts for them."
+            },
+            {
+              "text": "They are two names for the same property",
+              "fraction": 0,
+              "feedback": "They differ: an edge can be syntactically reachable yet semantically infeasible."
+            },
+            {
+              "text": "Syntactic reachability concerns nodes; semantic reachability concerns edges",
+              "fraction": 0,
+              "feedback": "Both notions apply to nodes and edges alike; the distinction is graph-path vs real-input."
+            },
+            {
+              "text": "Semantic reachability is always weaker (easier) than syntactic",
+              "fraction": 0,
+              "feedback": "Semantic is stronger: semantic reachability implies syntactic, not the reverse."
+            }
+          ],
+          "generalFeedback": "Every semantically reachable element is syntactically reachable, but a syntactically reachable edge may be infeasible because no input satisfies the conditions along the way.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why EC is strictly stronger than NC",
+          "text": "<p>Which fact establishes that Edge Coverage is <em>strictly</em> stronger than Node Coverage (EC ⊋ NC)?</p>",
+          "answers": [
+            {
+              "text": "EC always implies NC, and there exists a graph plus test set satisfying NC but not EC",
+              "fraction": 100,
+              "feedback": "Correct — subsumption in one direction plus a counterexample for the converse is exactly strict containment."
+            },
+            {
+              "text": "NC always implies EC, and there exists a graph satisfying EC but not NC",
+              "fraction": 0,
+              "feedback": "Both clauses are backwards; NC does not imply EC."
+            },
+            {
+              "text": "EC and NC are satisfied by exactly the same test sets on every graph",
+              "fraction": 0,
+              "feedback": "That would make them equivalent, not one strictly stronger."
+            },
+            {
+              "text": "Neither ever implies the other",
+              "fraction": 0,
+              "feedback": "EC does imply NC; the containment is strict, not incomparable."
+            }
+          ],
+          "generalFeedback": "Strict subsumption means EC ⇒ NC universally, while some instance (e.g. an if-without-else covered by 1→2→3) meets NC but not EC — so EC is strictly stronger.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal EC test paths with a loop",
+          "text": "<p>A while-loop CFG has edges <code>1→2, 2→3, 3→2, 2→4</code> (node 2 the loop condition, node 3 the body, node 4 the exit; node 1 initial). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — the single path 1→2→3→2→4 traverses all four edges (enter loop once, then exit)."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "One path suffices: 1→2→3→2→4 covers 1→2, 2→3, 3→2 and 2→4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "All four edges fit on one entry-to-exit path that iterates the loop once."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Four is the edge count; a single well-chosen path covers them all."
+            }
+          ],
+          "generalFeedback": "Iterating the loop exactly once (1→2→3→2→4) traverses every edge, so Edge Coverage needs just one test path despite the back edge.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Self-loop coverage requires the body",
+          "text": "<p>A CFG has a self-loop edge <code>2→2</code>. To satisfy Edge Coverage, some test path must execute the loop body at node 2 at least once (traverse <code>2→2</code>).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — 2→2 is an edge, so Edge Coverage requires it be traversed, which means the loop iterates at least once."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The self-loop is a genuine edge; skipping it leaves Edge Coverage unsatisfied."
+            }
+          ],
+          "generalFeedback": "Every edge, including a self-loop, is a test requirement under Edge Coverage; visiting node 2 alone (Node Coverage) does not force traversing 2→2."
+        },
+        {
+          "type": "multichoice",
+          "name": "Covering a merge point",
+          "text": "<p>A merge node m has two incoming edges, <code>a→m</code> and <code>b→m</code>, from the two arms of an if-else. What does Edge Coverage require here that Node Coverage does not?</p>",
+          "answers": [
+            {
+              "text": "Both incoming edges a→m and b→m must be traversed, so both arms of the if-else are exercised",
+              "fraction": 100,
+              "feedback": "Correct — Node Coverage of m needs only one arm; Edge Coverage forces both incoming edges."
+            },
+            {
+              "text": "Node m must be visited twice",
+              "fraction": 0,
+              "feedback": "Edge Coverage concerns traversing both edges, not visiting m a specific number of times."
+            },
+            {
+              "text": "Nothing extra; visiting m once suffices for both criteria",
+              "fraction": 0,
+              "feedback": "Visiting m via one arm satisfies NC but leaves the other incoming edge uncovered."
+            },
+            {
+              "text": "The two arms must be merged into a single node",
+              "fraction": 0,
+              "feedback": "The graph is not rewritten; Edge Coverage simply requires both incoming edges."
+            }
+          ],
+          "generalFeedback": "Node Coverage of the merge node m is met by reaching it through either arm, but Edge Coverage requires both a→m and b→m, exercising both branches.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Statements per node",
+          "text": "<p>A basic block contains 4 sequential statements with no internal branch or jump. In the control-flow graph it is represented by how many nodes?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — a basic block is a single node regardless of how many statements it holds."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Statements are not individual nodes; the whole block is one node."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "The block is one node; there is no per-statement node here."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "A block of statements is represented by exactly one node."
+            }
+          ],
+          "generalFeedback": "A basic block collapses to one node, so statement count and node count differ — yet coverage is equivalent because entering the block runs all its statements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible edge and full EC",
+          "text": "<p>A CFG contains a genuinely infeasible edge. What is the correct consequence for Edge Coverage?</p>",
+          "answers": [
+            {
+              "text": "100% Edge Coverage is unachievable; coverage is best measured over the feasible edges only",
+              "fraction": 100,
+              "feedback": "Correct — infeasible requirements are excluded so the metric stays meaningful."
+            },
+            {
+              "text": "100% Edge Coverage is still achievable by trying harder",
+              "fraction": 0,
+              "feedback": "No input can traverse an infeasible edge, so full literal coverage is impossible."
+            },
+            {
+              "text": "The whole Edge Coverage criterion becomes meaningless and is abandoned",
+              "fraction": 0,
+              "feedback": "The criterion is retained; only the infeasible requirement is set aside."
+            },
+            {
+              "text": "The infeasible edge is automatically deleted from the program",
+              "fraction": 0,
+              "feedback": "The graph models the program and is not altered; the requirement is simply reported as infeasible."
+            }
+          ],
+          "generalFeedback": "Because no test can traverse an infeasible edge, tools report coverage against the feasible test requirements rather than demanding an impossible 100%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Witness for strict containment",
+          "text": "<p>Which edge set, together with a suitable single test path, best witnesses that Node Coverage can be satisfied while Edge Coverage is not?</p>",
+          "answers": [
+            {
+              "text": "with test path 1→2→3 (edge 1→3 uncovered)",
+              "fraction": 100,
+              "feedback": "Correct — all nodes visited, but the false-branch edge 1→3 is missed."
+            },
+            {
+              "text": "with test path 1→2→3→4",
+              "fraction": 0,
+              "feedback": "Straight-line code: the one path covers all nodes and all edges, so it cannot witness a gap."
+            },
+            {
+              "text": "with test path 1→2→4",
+              "fraction": 0,
+              "feedback": "This path misses node 3, so it fails Node Coverage too — not a witness for NC-without-EC."
+            },
+            {
+              "text": "with test path 1→2",
+              "fraction": 0,
+              "feedback": "A single edge is covered along with both nodes; NC and EC both hold, so no gap."
+            }
+          ],
+          "generalFeedback": "The if-without-elsetoured by 1→2→3 visits every node yet skips edge 1→3 — the canonical NC-satisfied-but-EC-failed witness.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Loops keep EC finite",
+          "text": "<p>A CFG with a loop makes Complete Path Coverage infeasible, yet Edge Coverage remains a finite, achievable criterion on that graph.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a loop yields infinitely many complete paths, but the number of edges (hence edge requirements) stays finite."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Edge Coverage has one requirement per edge, a finite set, no matter how many times the loop can iterate."
+            }
+          ],
+          "generalFeedback": "Loops make the set of complete paths unbounded, but the edge set is finite, so Edge Coverage is always a finite (and typically achievable) target."
+        },
+        {
+          "type": "multichoice",
+          "name": "Max achievable NC with an unreachable node",
+          "text": "<p>A CFG has 5 nodes, one of which is syntactically unreachable from the entry (dead code). What is the maximum Node Coverage any test suite can achieve, counting all 5 nodes?</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "Correct — at most 4 of the 5 nodes can ever be visited, so 4/5 = 80%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "The unreachable node can never be visited, so full coverage over all 5 nodes is impossible."
+            },
+            {
+              "text": "90%",
+              "fraction": 0,
+              "feedback": "Only whole nodes count; the best is 4/5 = 80%."
+            },
+            {
+              "text": "20%",
+              "fraction": 0,
+              "feedback": "Four of five nodes are reachable, so the maximum is 80%, not 20%."
+            }
+          ],
+          "generalFeedback": "An unreachable node caps literal Node Coverage below 100%; here max = 4/5 = 80%. Tools typically report coverage over reachable nodes instead.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Max achievable EC with an infeasible edge",
+          "text": "<p>A CFG has 6 edges, exactly one of which is infeasible. What is the maximum Edge Coverage any test suite can achieve, counting all 6 edges?</p>",
+          "answers": [
+            {
+              "text": "About 83% (5 of 6)",
+              "fraction": 100,
+              "feedback": "Correct — the infeasible edge can never be traversed, so at most 5/6 ≈ 83%."
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "No input can traverse the infeasible edge, so 6/6 is impossible."
+            },
+            {
+              "text": "About 67% (4 of 6)",
+              "fraction": 0,
+              "feedback": "Only one edge is infeasible, so up to 5 of 6 are coverable = ~83%."
+            },
+            {
+              "text": "50% (3 of 6)",
+              "fraction": 0,
+              "feedback": "Five of six edges are feasible, so the maximum is ~83%."
+            }
+          ],
+          "generalFeedback": "One infeasible edge caps literal Edge Coverage at 5/6 ≈ 83%; coverage is usually reported over the feasible edges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal EC test paths on a branchy CFG",
+          "text": "<p>A CFG on nodes 1..4 has edges <code>1→2, 1→3, 2→3, 2→4, 3→4</code> (node 1 initial, node 4 final). What is the minimum number of test paths for <strong>Edge Coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — e.g. 1→2→3→4 (covers 1→2, 2→3, 3→4), 1→3→4 (covers 1→3), 1→2→4 (covers 2→4); no two paths can cover all five edges."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Edges 2→3 and 2→4 both need node 2, but there is no way back to 2, so one path cannot take both; likewise 1→3 needs a path starting 1→3. Two paths cannot cover all five."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Three well-chosen paths already cover all five edges."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Five is the edge count; the minimum number of test paths is three."
+            }
+          ],
+          "generalFeedback": "Covering 2→3 and 2→4 needs two distinct paths through node 2, and 1→3 needs a path starting 1→3, so at least three test paths are required for Edge Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why statement coverage equals node coverage",
+          "text": "<p>Why is per-statement statement coverage equivalent to per-node Node Coverage even though a node may hold several statements?</p>",
+          "answers": [
+            {
+              "text": "A basic block is single-entry, single-exit, so entering the node executes all of its statements — visiting the node covers them together",
+              "fraction": 100,
+              "feedback": "Correct — the block runs atomically, so node coverage and statement coverage rise and fall together."
+            },
+            {
+              "text": "Because every statement is placed in its own node",
+              "fraction": 0,
+              "feedback": "Statements are grouped into basic blocks; they are not each a separate node."
+            },
+            {
+              "text": "Because statement coverage ignores the last statement of each block",
+              "fraction": 0,
+              "feedback": "No statement is ignored; the whole block executes when the node is visited."
+            },
+            {
+              "text": "They are not equivalent; node coverage is always stronger",
+              "fraction": 0,
+              "feedback": "They are equivalent: a basic block's statements all execute exactly when the node is visited."
+            }
+          ],
+          "generalFeedback": "Because a basic block has no internal branch, control enters at the top and runs every statement to the bottom, so covering the node covers all its statements — statement coverage ≡ Node Coverage.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋的定義",
+          "text": "<p>一組測試路徑在何時滿足<strong>節點覆蓋（Node Coverage, NC）</strong>？</p>",
+          "answers": [
+            {
+              "text": "圖中每個可到達的節點都至少被某條測試路徑造訪一次",
+              "fraction": 100,
+              "feedback": "正確——NC 要求每個節點都被到達。"
+            },
+            {
+              "text": "圖中每條邊都至少被某條測試路徑走過一次",
+              "fraction": 0,
+              "feedback": "那是邊覆蓋，比節點覆蓋更強。"
+            },
+            {
+              "text": "從進入點到結束點的每條完整路徑都被執行",
+              "fraction": 0,
+              "feedback": "那是完整路徑覆蓋，遠更強且通常不可行。"
+            },
+            {
+              "text": "每個節點恰好被造訪一次",
+              "fraction": 0,
+              "feedback": "NC 只要求每個節點至少被造訪一次，允許重複。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋對每個節點課予一項測試需求：每個可到達的節點都必須被某條測試路徑造訪。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋的定義",
+          "text": "<p>一組測試路徑在何時滿足<strong>邊覆蓋（Edge Coverage, EC）</strong>？</p>",
+          "answers": [
+            {
+              "text": "圖中每條可到達的邊都至少被某條測試路徑走過一次",
+              "fraction": 100,
+              "feedback": "正確——EC 要求每條邊（分支）都被走過。"
+            },
+            {
+              "text": "圖中每個可到達的節點都被造訪",
+              "fraction": 0,
+              "feedback": "那是節點覆蓋，比邊覆蓋更弱。"
+            },
+            {
+              "text": "每一對相鄰的邊都被走過",
+              "fraction": 0,
+              "feedback": "那是邊對覆蓋，比邊覆蓋更強。"
+            },
+            {
+              "text": "每條邊恰好被走過一次",
+              "fraction": 0,
+              "feedback": "EC 只要求每條邊至少被走過一次，邊可以重複。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋對每條邊課予一項測試需求：每條可到達的邊都必須被某條測試路徑走過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "敘述覆蓋對應到",
+          "text": "<p>經典的<strong>敘述覆蓋（statement coverage）</strong>對應到控制流程圖上的哪一項結構覆蓋準則？</p>",
+          "answers": [
+            {
+              "text": "節點覆蓋",
+              "fraction": 100,
+              "feedback": "正確——執行每一條敘述等於造訪每個節點（基本區塊）。"
+            },
+            {
+              "text": "邊覆蓋",
+              "fraction": 0,
+              "feedback": "邊覆蓋對應到分支覆蓋，更強。"
+            },
+            {
+              "text": "邊對覆蓋",
+              "fraction": 0,
+              "feedback": "邊對覆蓋比敘述覆蓋強得多。"
+            },
+            {
+              "text": "完整路徑覆蓋",
+              "fraction": 0,
+              "feedback": "完整路徑覆蓋通常不可行，且遠更強。"
+            }
+          ],
+          "generalFeedback": "節點代表基本區塊／敘述，因此敘述覆蓋正好就是節點覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分支覆蓋對應到",
+          "text": "<p>經典的<strong>分支覆蓋（branch coverage）</strong>對應到哪一項結構覆蓋準則？</p>",
+          "answers": [
+            {
+              "text": "邊覆蓋",
+              "fraction": 100,
+              "feedback": "正確——每個分支結果都是一條必須被走過的邊。"
+            },
+            {
+              "text": "節點覆蓋",
+              "fraction": 0,
+              "feedback": "節點覆蓋對應到敘述覆蓋，較弱。"
+            },
+            {
+              "text": "質路徑覆蓋",
+              "fraction": 0,
+              "feedback": "質路徑覆蓋比分支覆蓋強得多。"
+            },
+            {
+              "text": "完整路徑覆蓋",
+              "fraction": 0,
+              "feedback": "完整路徑覆蓋通常不可行，且遠更強。"
+            }
+          ],
+          "generalFeedback": "每個判斷結果都是一條外向邊，因此分支覆蓋正好就是邊覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節點代表什麼",
+          "text": "<p>在控制流程圖中，單一<strong>節點</strong>通常代表：</p>",
+          "answers": [
+            {
+              "text": "一個基本區塊——一段沒有內部分支的最大連續敘述序列",
+              "fraction": 100,
+              "feedback": "正確——節點就是一個以整體執行的基本區塊。"
+            },
+            {
+              "text": "某個判斷的單一分支結果",
+              "fraction": 0,
+              "feedback": "那是一條邊，不是節點。"
+            },
+            {
+              "text": "從進入點到結束點的一次完整執行",
+              "fraction": 0,
+              "feedback": "那是測試路徑，不是節點。"
+            },
+            {
+              "text": "一個變數定義",
+              "fraction": 0,
+              "feedback": "變數定義屬於資料流分析，不是節點在結構上代表的內容。"
+            }
+          ],
+          "generalFeedback": "節點代表一個基本區塊：只從頂端進入、只從底端離開的一段直線敘述。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊代表什麼",
+          "text": "<p>在控制流程圖中，從節點 u 到節點 v 的一條<strong>邊</strong>代表：</p>",
+          "answers": [
+            {
+              "text": "控制權可能從區塊 u 轉移到區塊 v（例如某個分支結果）",
+              "fraction": 100,
+              "feedback": "正確——邊代表區塊之間一種可能的控制流。"
+            },
+            {
+              "text": "一個由敘述組成的基本區塊",
+              "fraction": 0,
+              "feedback": "那是節點，不是邊。"
+            },
+            {
+              "text": "某變數的一個定義—使用對（DU pair）",
+              "fraction": 0,
+              "feedback": "DU 對屬於資料流覆蓋，不是邊在結構上的意義。"
+            },
+            {
+              "text": "整個迴圈的主體",
+              "fraction": 0,
+              "feedback": "迴圈主體是一個或多個節點；邊只是單一次控制轉移。"
+            }
+          ],
+          "generalFeedback": "邊代表基本區塊之間一次可能的控制轉移；一個判斷的各個結果就是它的外向邊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試路徑的定義",
+          "text": "<p>在以圖為基礎的測試中，<strong>測試路徑（test path）</strong>是一條滿足下列何者的路徑？</p>",
+          "answers": [
+            {
+              "text": "起於圖的起始節點、止於圖的結束節點",
+              "fraction": 100,
+              "feedback": "正確——測試路徑代表一次從進入到離開的完整執行。"
+            },
+            {
+              "text": "恰好造訪圖中每個節點一次",
+              "fraction": 0,
+              "feedback": "那是漢米頓路徑，不是測試路徑。"
+            },
+            {
+              "text": "圖中任意一條單一邊",
+              "fraction": 0,
+              "feedback": "單一邊是長度為 1 的路徑，但測試路徑必須從起始節點走到結束節點。"
+            },
+            {
+              "text": "從不重複任何節點",
+              "fraction": 0,
+              "feedback": "測試路徑可以重複節點（例如迴圈迭代）；只有簡單路徑禁止重複。"
+            }
+          ],
+          "generalFeedback": "測試路徑從起始節點走到結束節點；執行一個測試案例會恰好沿著一條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試需求的定義",
+          "text": "<p>對結構覆蓋準則而言，<strong>測試需求（test requirement）</strong>是：</p>",
+          "answers": [
+            {
+              "text": "某條測試路徑必須遊歷的一個特定結構元素（例如一個節點或一條邊）",
+              "fraction": 100,
+              "feedback": "正確——一項準則會產生一組測試需求。"
+            },
+            {
+              "text": "一個帶有具體輸入值的單一測試案例",
+              "fraction": 0,
+              "feedback": "那是測試案例；需求是該案例必須涵蓋的元素。"
+            },
+            {
+              "text": "程式的預期輸出",
+              "fraction": 0,
+              "feedback": "那是判定準則（oracle），不是覆蓋需求。"
+            },
+            {
+              "text": "從進入點到結束點的一條完整路徑",
+              "fraction": 0,
+              "feedback": "一條測試路徑可以滿足許多需求，但需求本身是要被遊歷的元素。"
+            }
+          ],
+          "generalFeedback": "對節點覆蓋而言每個節點是一項測試需求；對邊覆蓋而言每條邊是一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋的需求數量",
+          "text": "<p>某控制流程圖有節點 1..5，邊為 <code>1→2, 2→3, 2→4, 3→5, 4→5</code>。<strong>節點覆蓋</strong>會課予幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——每個節點一項需求，共有 5 個節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "那是邊的數量；節點覆蓋計算的是節點（5）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "那只算了分支節點，並非全部節點。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "節點覆蓋每個節點一項需求（5），不是節點兩兩配對。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋要求造訪每個節點，因此需求數量等於節點數量：5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋的需求數量",
+          "text": "<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 2→3, 3→4, 2→4</code>。<strong>邊覆蓋</strong>會課予幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每條邊一項需求，共有 4 條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊有四條。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊只有四條。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "邊覆蓋計算的是邊（4），不只是分支點。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋每條邊一項測試需求，因此數量等於邊的數量：4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數一數節點",
+          "text": "<p>某控制流程圖僅以其有向邊給定：<code>1→2, 2→3, 2→4</code>。共出現幾個相異節點？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——相異節點為 1、2、3、4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "那是邊的數量，不是節點數；相異節點為 1、2、3、4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "節點 2 有兩條外向邊，但整體相異節點共有四個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "邊列中沒有節點 5；相異節點共有四個。"
+            }
+          ],
+          "generalFeedback": "收集每條邊的端點：{1, 2, 3, 4}——四個相異節點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數一數邊",
+          "text": "<p>某控制流程圖有節點 1..5，有向邊為 <code>1→2, 2→3, 3→4, 4→5, 2→5</code>。共有幾條有向邊？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——列出了五條邊。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊有五條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊只有五條。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "重數一次——列出的邊只有五條。"
+            }
+          ],
+          "generalFeedback": "每條有向邊只算一次；此列即完整邊集，共 5 條。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "某路徑是否覆蓋所有節點",
+          "text": "<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 2→3, 2→4</code>。單一測試路徑 <code>1→2→3</code> 造訪了圖中的每個節點。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——此路徑造訪 {1, 2, 3} 但從未到達節點 4，因此未達成節點覆蓋。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "路徑 1→2→3 漏掉了節點 4（只能經由邊 2→4 到達），因此並未造訪每個節點。"
+            }
+          ],
+          "generalFeedback": "節點 4 只能經由邊 2→4 到達；路徑 1→2→3 從未走這條邊，因此還需再一條路徑（例如 1→2→4）才能達成節點覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "邊覆蓋蘊含節點覆蓋",
+          "text": "<p>在每個節點都至少有一條相連邊的控制流程圖上，滿足邊覆蓋的測試集也會滿足節點覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——走過每條邊就造訪了每條邊的兩個端點，因此造訪了每個有相連邊的節點。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "覆蓋所有邊必然會造訪所有有相連邊的節點，因此此處邊覆蓋涵蓋（subsume）節點覆蓋。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋涵蓋節點覆蓋：走過一條邊時就造訪了它的兩個端點。反方向並不成立。"
+        },
+        {
+          "type": "truefalse",
+          "name": "節點覆蓋是否保證分支覆蓋",
+          "text": "<p>達成節點覆蓋就保證每個分支（判斷結果）都已被執行。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——節點覆蓋可以達成，但某條邊（分支結果）卻從未被走過。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "節點覆蓋只要求造訪節點；某個分支可以未被走過，而每個節點仍經由其他路徑被造訪。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋並不蘊含邊覆蓋，因此某些分支結果可能未被測到。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何邊覆蓋涵蓋節點覆蓋",
+          "text": "<p>在每個節點都有相連邊的圖上，為何邊覆蓋涵蓋（subsume）節點覆蓋？</p>",
+          "answers": [
+            {
+              "text": "每個這樣的節點都是某條邊的端點，因此走過所有邊就會造訪所有這些節點",
+              "fraction": 100,
+              "feedback": "正確——覆蓋邊自然就覆蓋了它們的端點。"
+            },
+            {
+              "text": "因為邊永遠比節點多",
+              "fraction": 0,
+              "feedback": "一般並不成立——n 個節點的直線圖只有 n−1 條邊；涵蓋關係不建立在數量上。"
+            },
+            {
+              "text": "因為每個節點本身就是一條長度為零的邊",
+              "fraction": 0,
+              "feedback": "節點不是邊；涵蓋關係來自邊會造訪其端點。"
+            },
+            {
+              "text": "因為節點覆蓋要求走過每條邊",
+              "fraction": 0,
+              "feedback": "節點覆蓋要求造訪節點而非邊；此敘述本身就錯了。"
+            }
+          ],
+          "generalFeedback": "一條邊只有在通過其兩個端點時才會被走過，因此覆蓋所有邊的測試集會造訪每個有相連邊的節點——故 EC 涵蓋 NC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成節點覆蓋卻漏掉邊",
+          "text": "<p>某控制流程圖的邊為 <code>1→2, 2→3, 1→3</code>（節點 1 是沒有 <code>else</code> 的 <code>if</code>，節點 2 是 then 區塊，節點 3 是匯合點）。只執行單一測試路徑 <code>1→2→3</code>，它滿足節點覆蓋，但哪一條邊未被覆蓋？</p>",
+          "answers": [
+            {
+              "text": "1→3",
+              "fraction": 100,
+              "feedback": "正確——此路徑走了 1→2 與 2→3，卻從未走 false 分支 1→3。"
+            },
+            {
+              "text": "1→2",
+              "fraction": 0,
+              "feedback": "路徑 1→2→3 確實走了邊 1→2。"
+            },
+            {
+              "text": "2→3",
+              "fraction": 0,
+              "feedback": "路徑 1→2→3 確實走了邊 2→3。"
+            },
+            {
+              "text": "沒有；所有邊都被覆蓋",
+              "fraction": 0,
+              "feedback": "邊 1→3（被略過的 else）從未被 1→2→3 走到。"
+            }
+          ],
+          "generalFeedback": "1→2→3 造訪了全部三個節點，故滿足節點覆蓋，但漏掉了 false 分支邊 1→3——經典的「有 NC 但無 EC」情況。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "菱形圖上節點覆蓋的最少測試路徑",
+          "text": "<p>某菱形控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>（節點 1 起始、節點 4 結束）。達成<strong>節點覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——沒有任何單一起訖路徑能同時造訪節點 2 與節點 3，故需兩條（例如 1→2→4 與 1→3→4）。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一條路徑只能造訪節點 2 或節點 3 其一，無法覆蓋全部四個節點。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩條就夠：1→2→4 與 1→3→4 合起來造訪全部四個節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "那是邊的數量，不是節點覆蓋所需的最少測試路徑數。"
+            }
+          ],
+          "generalFeedback": "節點 2 與 3 位於互斥的分支上，故達成節點覆蓋至少需要兩條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "菱形圖上邊覆蓋的最少測試路徑",
+          "text": "<p>對於同一個菱形圖（邊為 <code>1→2, 1→3, 2→4, 3→4</code>），達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→4 覆蓋 1→2 與 2→4；1→3→4 覆蓋 1→3 與 3→4。兩條路徑覆蓋全部四條邊。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "單一起訖路徑只會用到 1→2 / 1→3 其中一條，無法覆蓋全部四條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩條就已覆蓋菱形的全部四條邊。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊的數量；兩條測試路徑即可走遍所有邊。"
+            }
+          ],
+          "generalFeedback": "在純菱形圖上，同樣的兩條路徑同時達成節點覆蓋與邊覆蓋——此處兩準則的路徑數一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "敘述覆蓋 vs 分支覆蓋",
+          "text": "<p>敘述覆蓋與分支覆蓋的關鍵差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "分支覆蓋要求每個判斷結果都被走到；敘述覆蓋只要求每條敘述都被執行",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋（EC）還會強制走 false／else 結果，那正是敘述覆蓋（NC）可能略過的。"
+            },
+            {
+              "text": "敘述覆蓋嚴格強於分支覆蓋",
+              "fraction": 0,
+              "feedback": "恰好相反：分支覆蓋涵蓋敘述覆蓋。"
+            },
+            {
+              "text": "它們在每個程式上永遠等價",
+              "fraction": 0,
+              "feedback": "只有在沒有判斷時才一致；被略過的 else 可以滿足敘述卻不滿足分支。"
+            },
+            {
+              "text": "敘述覆蓋關注邊，而分支覆蓋關注節點",
+              "fraction": 0,
+              "feedback": "剛好反過來：敘述對應節點，分支對應邊。"
+            }
+          ],
+          "generalFeedback": "敘述覆蓋＝節點覆蓋；分支覆蓋＝邊覆蓋。分支覆蓋額外強制每個判斷結果，因此涵蓋敘述覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無 else 的 if 上節點覆蓋的最少測試路徑",
+          "text": "<p>某控制流程圖的邊為 <code>1→2, 2→3, 1→3</code>（沒有 <code>else</code> 的 <code>if</code>；節點 1 起始、節點 3 結束）。達成<strong>節點覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——單一路徑 1→2→3 造訪全部三個節點。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "一條路徑（1→2→3）就造訪了每個節點；此處要兩條的是邊覆蓋。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是節點數量，不是所需的測試路徑數。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "至少需要一條測試路徑才能造訪任何節點。"
+            }
+          ],
+          "generalFeedback": "路徑 1→2→3 通過節點 1、2、3，以單一測試路徑達成節點覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無 else 的 if 上邊覆蓋的最少測試路徑",
+          "text": "<p>對於同一個無 else 的 if 圖（邊為 <code>1→2, 2→3, 1→3</code>），達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——1→2→3 覆蓋 1→2 與 2→3，但 false 分支邊 1→3 需要第二條路徑 1→3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "單一路徑無法同時走 1→2 與 1→3，故無法覆蓋全部三條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩條就夠：1→2→3 與 1→3 合起來覆蓋全部三條邊。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "此處至少需要兩條測試路徑才能覆蓋每條邊。"
+            }
+          ],
+          "generalFeedback": "此處 NC 需 1 條路徑但 EC 需 2 條——是「邊覆蓋嚴格強於節點覆蓋」的具體見證。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "直線程式碼：NC 與 EC 一致",
+          "text": "<p>在沒有判斷節點的直線控制流程圖上（邊為 <code>1→2, 2→3, 3→4</code>），任何達成節點覆蓋的測試集也會達成邊覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——沒有分支時，單一路徑 1→2→3→4 覆蓋每個節點與每條邊，故兩準則一致。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "沒有判斷時圖中只有一條路徑；造訪所有節點必然走遍所有邊。"
+            }
+          ],
+          "generalFeedback": "只有當圖具有判斷節點（外分支度 ≥ 2 的節點）時，節點覆蓋與邊覆蓋才會不同。在直線程式碼上它們要求完全相同的執行。"
+        },
+        {
+          "type": "truefalse",
+          "name": "分支覆蓋蘊含敘述覆蓋",
+          "text": "<p>若一個測試套件達成 100% 分支覆蓋，其敘述覆蓋也必然是 100%（假設每條敘述都位於某條邊上）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋即邊覆蓋，涵蓋節點覆蓋（敘述覆蓋）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "覆蓋每個分支就走遍每條邊，從而造訪每個節點／敘述，故敘述覆蓋也完整。"
+            }
+          ],
+          "generalFeedback": "因為邊覆蓋涵蓋節點覆蓋，100% 分支覆蓋保證 100% 敘述覆蓋；反向不成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何敘述覆蓋可能漏掉錯誤",
+          "text": "<p>某方法有一個沒有 <code>else</code> 的 <code>if</code>；缺陷在於被略過的 else 路徑會回傳錯誤值。為何 100% 敘述覆蓋可能漏掉此缺陷，而 100% 分支覆蓋能抓到？</p>",
+          "answers": [
+            {
+              "text": "敘述覆蓋只需每條敘述被執行，因此從未被走的 false 分支（一條邊）可能未被測到",
+              "fraction": 100,
+              "feedback": "正確——空的 else 路徑是一條邊而非敘述，故只有邊／分支覆蓋才會強制它。"
+            },
+            {
+              "text": "敘述覆蓋需要比分支覆蓋更多的測試案例，遮蔽了缺陷",
+              "fraction": 0,
+              "feedback": "分支覆蓋通常需要至少一樣多的案例；這不是原因。"
+            },
+            {
+              "text": "缺陷位於某個節點，而敘述覆蓋從不檢查節點",
+              "fraction": 0,
+              "feedback": "缺陷顯現在未被走的邊（被略過的 else）上，而非某個已造訪的節點。"
+            },
+            {
+              "text": "敘述覆蓋完全忽略迴圈",
+              "fraction": 0,
+              "feedback": "此處與迴圈無關；缺口在於未被走的 false 分支。"
+            }
+          ],
+          "generalFeedback": "無 else 的 if 有一條不執行任何敘述的 false 分支邊；敘述覆蓋可以是 100% 卻從未走它，但分支／邊覆蓋要求走它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "短路求值與邊數",
+          "text": "<p>以短路求值方式建模 <code>if (a &amp;&amp; b)</code>（在 <code>a</code> 上有一個可略過求值 <code>b</code> 的判斷），相較於把 <code>a &amp;&amp; b</code> 當成單一原子判斷，邊覆蓋必須覆蓋的邊數：</p>",
+          "answers": [
+            {
+              "text": "增加，因為短路求值多加了一個帶有自身外向邊的判斷節點",
+              "fraction": 100,
+              "feedback": "正確——分別測試 a 再測 b 會引入額外的分支邊。"
+            },
+            {
+              "text": "減少，因為 b 有時被略過",
+              "fraction": 0,
+              "feedback": "執行期略過 b 並不會移除邊；短路求值反而增加判斷結構。"
+            },
+            {
+              "text": "不變，因為兩種形式都只有一個判斷",
+              "fraction": 0,
+              "feedback": "短路形式有兩個判斷節點（測 a 與測 b），並非一個。"
+            },
+            {
+              "text": "變成無限，因為有連接詞",
+              "fraction": 0,
+              "feedback": "圖仍是有限的；短路求值只是增加有限數量的邊。"
+            }
+          ],
+          "generalFeedback": "短路求值把拆成兩個判斷（先測 a、再測 b），因此控制流程圖多出額外的分支邊需要邊覆蓋去走。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節點覆蓋百分比",
+          "text": "<p>某控制流程圖有 5 個節點，測試套件造訪了其中 4 個。其節點覆蓋百分比是多少？</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "正確——5 個中的 4 個＝80%。"
+            },
+            {
+              "text": "75%",
+              "fraction": 0,
+              "feedback": "75% 是 4 個中的 3 個；此處是 5 個中的 4 個＝80%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "有一個節點未被造訪，故覆蓋率低於 100%。"
+            },
+            {
+              "text": "40%",
+              "fraction": 0,
+              "feedback": "覆蓋率＝已造訪／總數＝4/5＝80%，而非 2/5。"
+            }
+          ],
+          "generalFeedback": "節點覆蓋百分比＝已造訪節點／總節點＝4/5＝80%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋百分比",
+          "text": "<p>某控制流程圖有 8 條邊，測試套件走過其中 6 條。其邊覆蓋百分比是多少？</p>",
+          "answers": [
+            {
+              "text": "75%",
+              "fraction": 100,
+              "feedback": "正確——8 條中的 6 條＝75%。"
+            },
+            {
+              "text": "80%",
+              "fraction": 0,
+              "feedback": "80% 是 5 條中的 4 條；此處是 8 條中的 6 條＝75%。"
+            },
+            {
+              "text": "60%",
+              "fraction": 0,
+              "feedback": "覆蓋率＝已走過／總數＝6/8＝75%，而非 6/10。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "有兩條邊未被走過，故覆蓋率低於 100%。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋百分比＝已走過邊／總邊＝6/8＝75%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "是什麼使節點覆蓋不足",
+          "text": "<p>哪一個圖的特徵正是使節點覆蓋弱於邊覆蓋（以致可以有 NC 卻無 EC）的原因？</p>",
+          "answers": [
+            {
+              "text": "判斷節點——外向邊有兩條以上的節點",
+              "fraction": 100,
+              "feedback": "正確——分支使得節點可被到達，卻不必然走過它的每一條外向邊。"
+            },
+            {
+              "text": "只有一條外向邊的節點",
+              "fraction": 0,
+              "feedback": "只有單一外向邊時，造訪節點與走它的邊是同一件事；不會產生缺口。"
+            },
+            {
+              "text": "圖中存在起始節點",
+              "fraction": 0,
+              "feedback": "每個圖都有起始節點；單憑這點無法區分 NC 與 EC。"
+            },
+            {
+              "text": "節點比邊多",
+              "fraction": 0,
+              "feedback": "節點／邊的數量並不決定此缺口；判斷節點才是關鍵。"
+            }
+          ],
+          "generalFeedback": "只有在判斷節點（外分支度 ≥ 2）處，才可能造訪該節點卻略過其一條外向分支邊，因此判斷節點正是 NC 與 EC 分歧之處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "菱形圖上邊覆蓋的需求數量",
+          "text": "<p>某菱形控制流程圖的邊為 <code>1→2, 1→3, 2→4, 3→4</code>。邊覆蓋會課予幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每條邊一項需求，共有 4 條邊。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重數一次——菱形有四條邊。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是最少測試路徑數，不是邊需求的數量（4）。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重數一次——菱形只有四條邊。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋每條邊一項需求；菱形的四條邊給出四項需求，由兩條測試路徑達成。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "不可行的邊",
+          "text": "<p>一條邊在何時是<strong>（語意上）不可行的（infeasible）</strong>？</p>",
+          "answers": [
+            {
+              "text": "雖然它存在於圖中，但沒有任何程式輸入能使執行走過它",
+              "fraction": 100,
+              "feedback": "正確——這條邊在語法上存在，但在任何實際執行下都不可到達。"
+            },
+            {
+              "text": "它在邊列中出現了兩次",
+              "fraction": 0,
+              "feedback": "重複列出與可行性無關。"
+            },
+            {
+              "text": "它的兩個端點都是判斷節點",
+              "fraction": 0,
+              "feedback": "端點的型態不決定可行性；是否有輸入能驅動這條邊才是關鍵。"
+            },
+            {
+              "text": "它是某個迴圈的一部分",
+              "fraction": 0,
+              "feedback": "迴圈的邊通常完全可行；可行性關乎在真實輸入下的可到達性。"
+            }
+          ],
+          "generalFeedback": "不可行的邊存在於控制流程圖中，但沒有測試輸入能驅使控制走過它（例如某分支條件永遠不為真），因此 100% 邊覆蓋不可達成，覆蓋率以可行的邊為準來衡量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語法上不可到達的節點",
+          "text": "<p>一個節點在何時是從起始節點<strong>語法上不可到達（syntactically unreachable）</strong>？</p>",
+          "answers": [
+            {
+              "text": "圖中不存在任何從起始節點到它的路徑",
+              "fraction": 100,
+              "feedback": "正確——即使忽略分支條件也沒有路徑存在。"
+            },
+            {
+              "text": "圖中有到它的路徑，但沒有輸入真的驅使執行到那裡",
+              "fraction": 0,
+              "feedback": "那是語意不可行，而非語法不可到達。"
+            },
+            {
+              "text": "它沒有外向邊",
+              "fraction": 0,
+              "feedback": "沒有外向邊的節點只是結束節點，它仍可能是可到達的。"
+            },
+            {
+              "text": "它被每條測試路徑造訪",
+              "fraction": 0,
+              "feedback": "那與不可到達正好相反。"
+            }
+          ],
+          "generalFeedback": "語法可到達性只問是否存在從進入點的圖路徑；若不存在，該節點永遠無法被覆蓋，完整節點覆蓋即不可達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語法 vs 語意可到達性",
+          "text": "<p>一條邊「<em>語法上</em>可到達」與「<em>語意上</em>可到達」有何差別？</p>",
+          "answers": [
+            {
+              "text": "語法可到達指圖中存在到它的路徑；語意可到達指有某個真實輸入真的驅使執行走過它",
+              "fraction": 100,
+              "feedback": "正確——語法忽略條件，語意則考慮條件。"
+            },
+            {
+              "text": "兩者是同一性質的兩個名稱",
+              "fraction": 0,
+              "feedback": "兩者不同：一條邊可以語法上可到達卻語意上不可行。"
+            },
+            {
+              "text": "語法可到達關乎節點；語意可到達關乎邊",
+              "fraction": 0,
+              "feedback": "兩種概念都同樣適用於節點與邊；差別在於圖路徑 vs 真實輸入。"
+            },
+            {
+              "text": "語意可到達永遠比語法更弱（更容易）",
+              "fraction": 0,
+              "feedback": "語意更強：語意可到達蘊含語法可到達，反之不然。"
+            }
+          ],
+          "generalFeedback": "凡語意可到達的元素都語法可到達，但語法可到達的邊可能不可行，因為沒有輸入能滿足沿途的條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 EC 嚴格強於 NC",
+          "text": "<p>下列哪個事實確立了邊覆蓋<em>嚴格</em>強於節點覆蓋（EC ⊋ NC）？</p>",
+          "answers": [
+            {
+              "text": "EC 永遠蘊含 NC，且存在某個圖加測試集能滿足 NC 卻不滿足 EC",
+              "fraction": 100,
+              "feedback": "正確——一個方向的涵蓋加上反方向的反例，正好就是嚴格包含。"
+            },
+            {
+              "text": "NC 永遠蘊含 EC，且存在某個圖能滿足 EC 卻不滿足 NC",
+              "fraction": 0,
+              "feedback": "兩個子句都反了；NC 並不蘊含 EC。"
+            },
+            {
+              "text": "在每個圖上，EC 與 NC 都由完全相同的測試集滿足",
+              "fraction": 0,
+              "feedback": "那會使兩者等價，而非其一嚴格更強。"
+            },
+            {
+              "text": "兩者互不蘊含",
+              "fraction": 0,
+              "feedback": "EC 確實蘊含 NC；此包含是嚴格的，而非不可比較。"
+            }
+          ],
+          "generalFeedback": "嚴格涵蓋意指 EC 普遍蘊含 NC，而某個實例（例如以 1→2→3 覆蓋的無 else 之 if）滿足 NC 卻不滿足 EC——故 EC 嚴格更強。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有迴圈時邊覆蓋的最少測試路徑",
+          "text": "<p>某 while 迴圈控制流程圖的邊為 <code>1→2, 2→3, 3→2, 2→4</code>（節點 2 為迴圈條件、節點 3 為主體、節點 4 為出口；節點 1 起始）。達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——單一路徑 1→2→3→2→4 走過全部四條邊（進入迴圈一次後離開）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "一條就夠：1→2→3→2→4 覆蓋 1→2、2→3、3→2 與 2→4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "全部四條邊都能放進一條迭代迴圈一次的起訖路徑上。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是邊的數量；一條精選路徑即可全部走過。"
+            }
+          ],
+          "generalFeedback": "迴圈恰好迭代一次（1→2→3→2→4）就走過每條邊，因此儘管有回邊，邊覆蓋只需一條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "自迴圈的覆蓋需要主體",
+          "text": "<p>某控制流程圖有一條自迴圈邊 <code>2→2</code>。要滿足邊覆蓋，某條測試路徑必須至少執行節點 2 的迴圈主體一次（走過 <code>2→2</code>）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——2→2 是一條邊，故邊覆蓋要求走過它，也就是迴圈至少迭代一次。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "自迴圈是一條真正的邊；略過它就無法滿足邊覆蓋。"
+            }
+          ],
+          "generalFeedback": "在邊覆蓋下每條邊（含自迴圈）都是一項測試需求；僅造訪節點 2（節點覆蓋）並不會強制走過 2→2。"
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋一個匯合點",
+          "text": "<p>匯合節點 m 有兩條入邊 <code>a→m</code> 與 <code>b→m</code>，分別來自 if-else 的兩臂。此處邊覆蓋要求的、而節點覆蓋不要求的是什麼？</p>",
+          "answers": [
+            {
+              "text": "兩條入邊 a→m 與 b→m 都必須被走過，因此 if-else 的兩臂都被執行",
+              "fraction": 100,
+              "feedback": "正確——節點 m 的節點覆蓋只需其中一臂；邊覆蓋則強制兩條入邊。"
+            },
+            {
+              "text": "節點 m 必須被造訪兩次",
+              "fraction": 0,
+              "feedback": "邊覆蓋關注走過兩條邊，而非造訪 m 幾次。"
+            },
+            {
+              "text": "沒有額外要求；造訪 m 一次就同時滿足兩準則",
+              "fraction": 0,
+              "feedback": "經其中一臂造訪 m 可滿足 NC，但會漏掉另一條入邊。"
+            },
+            {
+              "text": "兩臂必須被合併成單一節點",
+              "fraction": 0,
+              "feedback": "圖不會被改寫；邊覆蓋只是要求兩條入邊都被走。"
+            }
+          ],
+          "generalFeedback": "造訪匯合節點 m 只要經任一臂到達即可滿足節點覆蓋，但邊覆蓋要求 a→m 與 b→m 都被走過，因此執行到兩個分支。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每個節點的敘述數",
+          "text": "<p>某基本區塊含有 4 條連續敘述，沒有內部分支或跳躍。在控制流程圖中它以幾個節點表示？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——不論含有多少敘述，一個基本區塊就是單一節點。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "敘述並非各自是節點；整個區塊是一個節點。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "此區塊是一個節點；這裡沒有每敘述一節點的情形。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "一段敘述構成的區塊恰以一個節點表示。"
+            }
+          ],
+          "generalFeedback": "一個基本區塊收縮成一個節點，因此敘述數與節點數不同——但覆蓋是等價的，因為進入該區塊就會執行其所有敘述。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可行的邊與完整 EC",
+          "text": "<p>某控制流程圖含有一條真正不可行的邊。對邊覆蓋而言，正確的後果是什麼？</p>",
+          "answers": [
+            {
+              "text": "100% 邊覆蓋不可達成；覆蓋率最好只以可行的邊來衡量",
+              "fraction": 100,
+              "feedback": "正確——排除不可行的需求可讓此度量維持有意義。"
+            },
+            {
+              "text": "只要更努力，100% 邊覆蓋仍可達成",
+              "fraction": 0,
+              "feedback": "沒有輸入能走過不可行的邊，故完整的字面覆蓋不可能。"
+            },
+            {
+              "text": "整個邊覆蓋準則變得毫無意義而被放棄",
+              "fraction": 0,
+              "feedback": "準則仍保留；只是把那項不可行需求擱置。"
+            },
+            {
+              "text": "不可行的邊會自動從程式中被刪除",
+              "fraction": 0,
+              "feedback": "圖是程式的模型、不會被更動；該需求只是被回報為不可行。"
+            }
+          ],
+          "generalFeedback": "因為沒有測試能走過不可行的邊，工具會以可行的測試需求為分母回報覆蓋率，而非要求不可能的 100%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "嚴格包含的見證",
+          "text": "<p>下列哪一組邊搭配一條適當的單一測試路徑，最能見證「節點覆蓋可被滿足、而邊覆蓋不被滿足」？</p>",
+          "answers": [
+            {
+              "text": "，測試路徑 1→2→3（邊 1→3 未被覆蓋）",
+              "fraction": 100,
+              "feedback": "正確——所有節點都被造訪，但 false 分支邊 1→3 被漏掉。"
+            },
+            {
+              "text": "，測試路徑 1→2→3→4",
+              "fraction": 0,
+              "feedback": "直線程式碼：一條路徑就覆蓋所有節點與所有邊，無法見證缺口。"
+            },
+            {
+              "text": "，測試路徑 1→2→4",
+              "fraction": 0,
+              "feedback": "此路徑漏掉節點 3，故也不滿足節點覆蓋——不是「有 NC 無 EC」的見證。"
+            },
+            {
+              "text": "，測試路徑 1→2",
+              "fraction": 0,
+              "feedback": "單一邊被覆蓋、兩個節點也被覆蓋；NC 與 EC 都成立，沒有缺口。"
+            }
+          ],
+          "generalFeedback": "以 1→2→3 遊歷的無 else 之 if造訪每個節點卻略過邊 1→3——是「滿足 NC 但不滿足 EC」的典型見證。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴圈使 EC 仍為有限",
+          "text": "<p>含迴圈的控制流程圖使完整路徑覆蓋不可行，但邊覆蓋在該圖上仍是有限且可達成的準則。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——迴圈產生無限多條完整路徑，但邊數（因而邊需求數）維持有限。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "不論迴圈能迭代多少次，邊覆蓋每條邊一項需求，是個有限集合。"
+            }
+          ],
+          "generalFeedback": "迴圈使完整路徑的集合無界，但邊集是有限的，因此邊覆蓋永遠是有限（且通常可達成）的目標。"
+        },
+        {
+          "type": "multichoice",
+          "name": "有不可到達節點時 NC 的最大可達成值",
+          "text": "<p>某控制流程圖有 5 個節點，其中一個從進入點語法上不可到達（死碼）。以全部 5 個節點計算，任何測試套件能達成的最大節點覆蓋率是多少？</p>",
+          "answers": [
+            {
+              "text": "80%",
+              "fraction": 100,
+              "feedback": "正確——5 個中最多能造訪 4 個，故 4/5＝80%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "不可到達的節點永遠無法被造訪，故以全部 5 個節點計不可能達到完整覆蓋。"
+            },
+            {
+              "text": "90%",
+              "fraction": 0,
+              "feedback": "只能以整個節點計；最佳是 4/5＝80%。"
+            },
+            {
+              "text": "20%",
+              "fraction": 0,
+              "feedback": "五個節點中有四個可到達，故最大為 80%，而非 20%。"
+            }
+          ],
+          "generalFeedback": "不可到達的節點使字面節點覆蓋上限低於 100%；此處最大＝4/5＝80%。工具通常改以可到達的節點回報覆蓋率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有不可行邊時 EC 的最大可達成值",
+          "text": "<p>某控制流程圖有 6 條邊，其中恰好一條不可行。以全部 6 條邊計算，任何測試套件能達成的最大邊覆蓋率是多少？</p>",
+          "answers": [
+            {
+              "text": "約 83%（6 條中的 5 條）",
+              "fraction": 100,
+              "feedback": "正確——不可行的邊永遠無法被走過，故最多 5/6 ≈ 83%。"
+            },
+            {
+              "text": "100%",
+              "fraction": 0,
+              "feedback": "沒有輸入能走過不可行的邊，故 6/6 不可能。"
+            },
+            {
+              "text": "約 67%（6 條中的 4 條）",
+              "fraction": 0,
+              "feedback": "只有一條邊不可行，故最多 6 條中的 5 條可被覆蓋＝約 83%。"
+            },
+            {
+              "text": "50%（6 條中的 3 條）",
+              "fraction": 0,
+              "feedback": "六條邊中有五條可行，故最大約 83%。"
+            }
+          ],
+          "generalFeedback": "一條不可行的邊使字面邊覆蓋上限為 5/6 ≈ 83%；覆蓋率通常以可行的邊回報。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多分支圖上邊覆蓋的最少測試路徑",
+          "text": "<p>某控制流程圖有節點 1..4，邊為 <code>1→2, 1→3, 2→3, 2→4, 3→4</code>（節點 1 起始、節點 4 結束）。達成<strong>邊覆蓋</strong>所需的最少測試路徑數是多少？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——例如 1→2→3→4（覆蓋 1→2、2→3、3→4）、1→3→4（覆蓋 1→3）、1→2→4（覆蓋 2→4）；沒有任何兩條路徑能覆蓋全部五條邊。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "邊 2→3 與 2→4 都需要節點 2，但沒有回到 2 的路可走，故一條路徑無法同時走兩者；同理 1→3 需要以 1→3 起步。兩條無法覆蓋全部五條。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "三條精選路徑就已覆蓋全部五條邊。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是邊的數量；最少測試路徑數是 3。"
+            }
+          ],
+          "generalFeedback": "覆蓋 2→3 與 2→4 需要兩條經過節點 2 的相異路徑，而 1→3 需要一條以 1→3 起步的路徑，故邊覆蓋至少需要三條測試路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何敘述覆蓋等於節點覆蓋",
+          "text": "<p>即使一個節點可能含有多條敘述，為何逐敘述的敘述覆蓋與逐節點的節點覆蓋等價？</p>",
+          "answers": [
+            {
+              "text": "基本區塊是單一進入、單一離開，因此進入該節點就會執行其所有敘述——造訪節點就一併覆蓋它們",
+              "fraction": 100,
+              "feedback": "正確——區塊以整體執行，故節點覆蓋與敘述覆蓋同進退。"
+            },
+            {
+              "text": "因為每條敘述都被放進自己的節點",
+              "fraction": 0,
+              "feedback": "敘述被歸入基本區塊，並非各自為一個節點。"
+            },
+            {
+              "text": "因為敘述覆蓋忽略每個區塊的最後一條敘述",
+              "fraction": 0,
+              "feedback": "沒有任何敘述被忽略；造訪節點時整個區塊都會執行。"
+            },
+            {
+              "text": "它們並不等價；節點覆蓋永遠更強",
+              "fraction": 0,
+              "feedback": "它們是等價的：一個基本區塊的所有敘述正好在節點被造訪時全部執行。"
+            }
+          ],
+          "generalFeedback": "因為基本區塊沒有內部分支，控制從頂端進入並一路執行到底部的每條敘述，故覆蓋該節點就覆蓋其所有敘述——敘述覆蓋 ≡ 節點覆蓋。",
+          "single": true
+        }
+      ]
+    }
+  },
   "logic-coverage": {
     "en": {
       "easy": [
