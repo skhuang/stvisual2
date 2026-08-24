@@ -7601,6 +7601,2590 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "decision-table": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What the condition stub holds",
+          "text": "<p>In a decision table, what does the <strong>condition stub</strong> contain?</p>",
+          "answers": [
+            {
+              "text": "The list of conditions (inputs/causes) being considered, one per row in the upper-left quadrant",
+              "fraction": 100,
+              "feedback": "Correct — the condition stub names the conditions; the entries to its right give each rule's values."
+            },
+            {
+              "text": "The actions the program may take, one per row",
+              "fraction": 0,
+              "feedback": "That is the action stub, in the lower-left quadrant."
+            },
+            {
+              "text": "The T/F values assigned to each rule",
+              "fraction": 0,
+              "feedback": "Those are the condition entries, in the upper-right quadrant, not the stub."
+            },
+            {
+              "text": "The numbering of the rule columns",
+              "fraction": 0,
+              "feedback": "Rule numbers label the columns; the stub lists the conditions themselves."
+            }
+          ],
+          "generalFeedback": "A decision table has four quadrants. The condition stub (upper-left) lists the conditions; the condition entries (upper-right) give each rule's value for those conditions; the action stub and action entries occupy the lower half.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the action stub holds",
+          "text": "<p>What does the <strong>action stub</strong> of a decision table list?</p>",
+          "answers": [
+            {
+              "text": "The possible actions (outputs/effects), one per row in the lower-left quadrant",
+              "fraction": 100,
+              "feedback": "Correct — the action stub names the actions; the action entries mark which fire per rule."
+            },
+            {
+              "text": "The conditions being evaluated",
+              "fraction": 0,
+              "feedback": "Those live in the condition stub (upper-left)."
+            },
+            {
+              "text": "The T/F entries for each condition",
+              "fraction": 0,
+              "feedback": "Those are condition entries, not the action stub."
+            },
+            {
+              "text": "The total number of rules in the table",
+              "fraction": 0,
+              "feedback": "The rule count is determined by the conditions; the action stub simply lists actions."
+            }
+          ],
+          "generalFeedback": "The action stub is the lower-left quadrant: it enumerates the actions the specification can trigger. The action entries to its right (often marked X) say which actions fire for each rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a rule represents",
+          "text": "<p>What does a single <strong>rule</strong> (column) in a decision table represent?</p>",
+          "answers": [
+            {
+              "text": "One specific combination of condition outcomes together with the action(s) that should fire for it",
+              "fraction": 100,
+              "feedback": "Correct — a rule pairs a condition combination with its prescribed actions."
+            },
+            {
+              "text": "A single concrete test input value",
+              "fraction": 0,
+              "feedback": "A rule is a combination of condition outcomes; a test case is later derived from it."
+            },
+            {
+              "text": "One condition being evaluated",
+              "fraction": 0,
+              "feedback": "A rule spans all the conditions at once (one value each), not a single condition."
+            },
+            {
+              "text": "The entire decision table",
+              "fraction": 0,
+              "feedback": "A rule is one column; the table is the set of all rules."
+            }
+          ],
+          "generalFeedback": "Each column (rule) fixes a value for every condition and records the actions that must occur for that exact combination. Reading down a column gives both the situation and the expected behaviour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limited-entry vs extended-entry",
+          "text": "<p>What distinguishes a <strong>limited-entry</strong> decision table from an <strong>extended-entry</strong> one?</p>",
+          "answers": [
+            {
+              "text": "Limited-entry uses only T/F (with \"-\" for don't-care) as condition entries; extended-entry allows values, ranges, or choices",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the difference between the two forms."
+            },
+            {
+              "text": "Limited-entry allows value ranges; extended-entry allows only T/F",
+              "fraction": 0,
+              "feedback": "This reverses the two definitions."
+            },
+            {
+              "text": "Limited-entry tables can have fewer actions than extended-entry ones",
+              "fraction": 0,
+              "feedback": "The number of actions is unrelated; the difference is the form of the condition entries."
+            },
+            {
+              "text": "Extended-entry tables have no rules",
+              "fraction": 0,
+              "feedback": "Both forms are organised into rules; only the entry format differs."
+            }
+          ],
+          "generalFeedback": "In a limited-entry table every condition entry is boolean (T, F, or \"-\"). In an extended-entry table a condition entry may instead be a value, a range, or a choice (e.g. \"under 100\", \"100 to 500\", \"over 500\"), which can make a table more compact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of a don't-care entry",
+          "text": "<p>What does a \"-\" (dash, or don't-care) entry for a condition in a rule mean?</p>",
+          "answers": [
+            {
+              "text": "The rule's action(s) are the same regardless of that condition's value",
+              "fraction": 100,
+              "feedback": "Correct — the condition does not affect the outcome for that rule."
+            },
+            {
+              "text": "The condition is definitely false for that rule",
+              "fraction": 0,
+              "feedback": "A false value would be written F; \"-\" means the value is irrelevant."
+            },
+            {
+              "text": "The condition's value is unknown, so the rule is invalid",
+              "fraction": 0,
+              "feedback": "Don't-care is deliberate, not a data error; the rule is valid and applies for any value of that condition."
+            },
+            {
+              "text": "The condition must be tested with both T and F in the same rule at once",
+              "fraction": 0,
+              "feedback": "A single rule cannot hold both; \"-\" simply says the outcome is independent of this condition."
+            }
+          ],
+          "generalFeedback": "A don't-care \"-\" says the rule's outcome does not depend on that condition. Over k don't-care conditions, one such rule stands in for 2^k of the fully-expanded combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rules for 2 conditions",
+          "text": "<p>A limited-entry decision table with <strong>2 binary conditions</strong> has how many rules (columns) in its full, uncollapsed form?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 2^2 = 4 combinations of T/F."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of values one condition can take, not the number of combinations of two conditions."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 2^3, the count for three conditions."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is not a power of two; a full binary table always has 2^n rules."
+            }
+          ],
+          "generalFeedback": "A full limited-entry table for n binary conditions has 2^n rules. For n = 2 that is 2^2 = 4: TT, TF, FT, FF.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rules for 3 conditions",
+          "text": "<p>A full limited-entry decision table with <strong>3 binary conditions</strong> has how many rules?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2^3 = 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is 2×3; the count is 2^n, not 2×n."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3^2; binary conditions give 2^n, not n^2."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is 2^4, the count for four conditions."
+            }
+          ],
+          "generalFeedback": "For n binary conditions a full table has 2^n rules. For n = 3 that is 2^3 = 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rules for 4 conditions",
+          "text": "<p>A full limited-entry decision table with <strong>4 binary conditions</strong> has how many rules?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 2^4 = 16."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 2^3, the count for three conditions."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is not a power of two; a full binary table has 2^n rules."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is not a power of two and overcounts; the answer is 2^4 = 16."
+            }
+          ],
+          "generalFeedback": "For n binary conditions a full table has 2^n rules. For n = 4 that is 2^4 = 16.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Limited-entry condition values",
+          "text": "<p>In a limited-entry decision table, the condition entries are restricted to true/false values (with \"-\" allowed for don't-care).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — limited-entry means boolean condition entries, plus \"-\" for don't-care."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "By definition, a limited-entry table uses only T/F (and \"-\") for conditions; value ranges belong to extended-entry tables."
+            }
+          ],
+          "generalFeedback": "\"Limited-entry\" refers precisely to limiting condition entries to true/false (with \"-\" for don't-care). Value ranges and choices are the hallmark of extended-entry tables."
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition entries vs action entries",
+          "text": "<p>In the right-hand quadrants of the table, what do the <strong>condition entries</strong> and <strong>action entries</strong> specify?</p>",
+          "answers": [
+            {
+              "text": "Condition entries give each rule's value for each condition; action entries mark which actions fire for that rule",
+              "fraction": 100,
+              "feedback": "Correct — one describes the situation, the other the response."
+            },
+            {
+              "text": "Condition entries list the actions; action entries list the conditions",
+              "fraction": 0,
+              "feedback": "This swaps their roles."
+            },
+            {
+              "text": "Both simply repeat the rule numbers",
+              "fraction": 0,
+              "feedback": "Rule numbers are column headers; the entries carry the T/F values and action marks."
+            },
+            {
+              "text": "Condition entries show source-code coverage; action entries show test results",
+              "fraction": 0,
+              "feedback": "Decision tables are black-box; entries describe the specification, not code coverage."
+            }
+          ],
+          "generalFeedback": "For each rule, the condition entries (upper-right) record the T/F value of every condition, and the action entries (lower-right, often X) record which actions the specification says should fire.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four quadrants",
+          "text": "<p>A decision table is conventionally divided into four quadrants. Which four?</p>",
+          "answers": [
+            {
+              "text": "Condition stub, condition entries, action stub, action entries",
+              "fraction": 100,
+              "feedback": "Correct — stubs on the left, entries on the right, conditions on top, actions below."
+            },
+            {
+              "text": "Inputs, outputs, states, transitions",
+              "fraction": 0,
+              "feedback": "Those describe a state machine, not the quadrants of a decision table."
+            },
+            {
+              "text": "Preconditions, postconditions, invariants, guards",
+              "fraction": 0,
+              "feedback": "Those are specification concepts, not the four quadrants of a decision table."
+            },
+            {
+              "text": "Nodes, edges, paths, cycles",
+              "fraction": 0,
+              "feedback": "Those are graph concepts, unrelated to the table layout."
+            }
+          ],
+          "generalFeedback": "The four quadrants are the condition stub (upper-left), condition entries (upper-right), action stub (lower-left), and action entries (lower-right).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision table technique family",
+          "text": "<p>Decision table testing is classified as which kind of test-design technique?</p>",
+          "answers": [
+            {
+              "text": "A black-box (specification-based) technique",
+              "fraction": 100,
+              "feedback": "Correct — it derives tests from the specification's conditions and actions, not from code."
+            },
+            {
+              "text": "A white-box (structural) technique based on the control-flow graph",
+              "fraction": 0,
+              "feedback": "Decision tables are built from the specification, not from source-code structure."
+            },
+            {
+              "text": "A code-coverage measurement technique",
+              "fraction": 0,
+              "feedback": "It designs tests from behaviour; it does not measure how much code runs."
+            },
+            {
+              "text": "A mutation-analysis technique",
+              "fraction": 0,
+              "feedback": "Mutation analysis seeds code faults; decision tables are a black-box design method."
+            }
+          ],
+          "generalFeedback": "Decision table testing is a black-box, specification-based design technique: conditions and actions come from the requirements, and rules combine them systematically.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry condition value",
+          "text": "<p>In an <strong>extended-entry</strong> decision table, a condition entry may be which of the following?</p>",
+          "answers": [
+            {
+              "text": "A value, range, or choice (for example \"under 100\", \"100 to 500\", \"over 500\")",
+              "fraction": 100,
+              "feedback": "Correct — extended-entry tables allow richer entries than plain T/F."
+            },
+            {
+              "text": "Only T or F",
+              "fraction": 0,
+              "feedback": "Boolean-only entries define a limited-entry table, not an extended-entry one."
+            },
+            {
+              "text": "Only the mark X",
+              "fraction": 0,
+              "feedback": "X marks fired actions in the action entries, not condition values."
+            },
+            {
+              "text": "Only a rule number",
+              "fraction": 0,
+              "feedback": "Rule numbers are column labels, not condition entries."
+            }
+          ],
+          "generalFeedback": "Extended-entry tables let a condition entry be a value, range, or choice, which can collapse several boolean conditions into one multi-valued condition and shrink the table.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Full table has 2^n rules",
+          "text": "<p>Before any collapsing, a full limited-entry decision table for n binary conditions has 2^n rules.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — every condition independently takes T or F, giving 2^n combinations."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Each of the n binary conditions doubles the number of combinations, so the full table has 2^n rules."
+            }
+          ],
+          "generalFeedback": "With n independent binary conditions there are 2^n distinct T/F combinations, so the full (uncollapsed) table has exactly 2^n rule columns. Collapsing with don't-cares can reduce this later."
+        },
+        {
+          "type": "multichoice",
+          "name": "Deriving tests from rules",
+          "text": "<p>What is the simplest standard way to derive test cases from a decision table?</p>",
+          "answers": [
+            {
+              "text": "Create one test case per rule (column) of the table",
+              "fraction": 100,
+              "feedback": "Correct — each rule becomes a test, using inputs that satisfy its condition combination."
+            },
+            {
+              "text": "Create one test case per condition",
+              "fraction": 0,
+              "feedback": "A test must fix every condition at once; a rule (a full combination) is the natural unit."
+            },
+            {
+              "text": "Create one test case per action",
+              "fraction": 0,
+              "feedback": "Actions are outcomes; tests are derived from the rules that trigger them."
+            },
+            {
+              "text": "Create a single test case for the whole table",
+              "fraction": 0,
+              "feedback": "One test cannot exercise every rule; you need one per rule."
+            }
+          ],
+          "generalFeedback": "The standard mapping is one test case per rule: pick inputs satisfying that rule's condition combination and check that exactly its prescribed actions fire. So the test count equals the number of rules in the (collapsed) table.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Which rule matches the input",
+          "text": "<p>Given this limited-entry table:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>For an input where <code>C1 = F</code> and <code>C2 = T</code>, which rule applies?</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "Correct — R3 has C1 = F and C2 = T."
+            },
+            {
+              "text": "R1",
+              "fraction": 0,
+              "feedback": "R1 is C1 = T, C2 = T, not the given input."
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 is C1 = T, C2 = F."
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 is C1 = F, C2 = F, which differs in C2."
+            }
+          ],
+          "generalFeedback": "Match the input against each column: only R3 has C1 = F and C2 = T, so R3 is the applicable rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which action fires",
+          "text": "<p>Given this table (X marks a fired action):</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   -   -   -\nB        -   X   X   -\nC        -   -   -   X\n</pre><p>For an input where <code>C1 = T</code> and <code>C2 = F</code>, which action fires?</p>",
+          "answers": [
+            {
+              "text": "B",
+              "fraction": 100,
+              "feedback": "Correct — C1 = T, C2 = F is rule R2, whose only X is on action B."
+            },
+            {
+              "text": "A",
+              "fraction": 0,
+              "feedback": "Action A fires only for R1 (C1 = T, C2 = T)."
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "Action C fires only for R4 (C1 = F, C2 = F)."
+            },
+            {
+              "text": "No action fires",
+              "fraction": 0,
+              "feedback": "R2 does have a marked action (B), so an action does fire."
+            }
+          ],
+          "generalFeedback": "The input (C1 = T, C2 = F) selects rule R2. Reading down R2, the only X is on action B, so B fires.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinations behind a don't-care",
+          "text": "<p>In a collapsed limited-entry table, one rule has \"-\" for <strong>2</strong> of the conditions (all other conditions fixed). How many rules of the original full table does this single collapsed rule represent?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 2 don't-care conditions stand for 2^2 = 4 combinations."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is 2^1; there are two don't-cares, giving 2^2 = 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Don't-cares expand as a power of two; 2 of them give 4, not 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A rule with no don't-cares represents 1 combination; two don't-cares represent 4."
+            }
+          ],
+          "generalFeedback": "Each don't-care condition can be T or F, so k don't-cares expand to 2^k full-table rules. For k = 2 that is 2^2 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test cases from a collapsed table",
+          "text": "<p>A collapsed decision table has <strong>5 rules</strong>. Using the \"one test case per rule\" strategy, how many test cases are derived?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — the number of test cases equals the number of rules."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 would be the count if you re-expanded every rule; the strategy uses one test per collapsed rule."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "There is no doubling; it is one test per rule, so 5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Every rule needs a test; with 5 rules that is 5, not 4."
+            }
+          ],
+          "generalFeedback": "The one-test-per-rule mapping means the test count equals the rule count. A collapsed table with 5 rules yields 5 test cases.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Collapsing a full table",
+          "text": "<p>Collapse this full table as far as possible:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   X   -   -\nB        -   -   X   X\n</pre><p>How many rules remain after collapsing?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — R1,R2 merge to (C1=T, C2=-)→A and R3,R4 merge to (C1=F, C2=-)→B."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the uncollapsed count; two mergeable pairs reduce it to 2."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Both pairs merge, not just one, so 2 rules remain."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A and B are different actions, so their rules cannot merge into a single rule."
+            }
+          ],
+          "generalFeedback": "R1 and R2 fire only A and differ only in C2, so they merge to (C1=T, C2=-). R3 and R4 fire only B and differ only in C2, merging to (C1=F, C2=-). Two collapsed rules remain.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness with don't-cares",
+          "text": "<p>A collapsed table for 2 binary conditions has these rules:</p><pre>\nRule A:  C1=T, C2=-\nRule B:  C1=F, C2=T\nRule C:  C1=F, C2=F\n</pre><p>Do these rules cover all 2^2 = 4 combinations?</p>",
+          "answers": [
+            {
+              "text": "Yes — Rule A covers TT and TF, Rule B covers FT, Rule C covers FF: all 4 combinations",
+              "fraction": 100,
+              "feedback": "Correct — the don't-care in Rule A accounts for two combinations, completing the set."
+            },
+            {
+              "text": "No — the combination C1=T, C2=F is missing",
+              "fraction": 0,
+              "feedback": "Rule A (C1=T, C2=-) already covers C1=T, C2=F."
+            },
+            {
+              "text": "No — the combination C1=F, C2=T is missing",
+              "fraction": 0,
+              "feedback": "Rule B covers exactly C1=F, C2=T."
+            },
+            {
+              "text": "No — only 3 combinations can ever be covered by 3 rules",
+              "fraction": 0,
+              "feedback": "A rule with a don't-care covers more than one combination, so 3 rules can cover 4 combinations."
+            }
+          ],
+          "generalFeedback": "Rule A's don't-care on C2 covers both TT and TF (2 combinations); Rule B covers FT; Rule C covers FF. That is 2+1+1 = 4 = 2^2, so the table is complete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match a rule with three conditions",
+          "text": "<p>Given this full 3-condition table:</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n</pre><p>Which rule matches <code>C1 = T, C2 = F, C3 = T</code>?</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "Correct — R3 is C1=T, C2=F, C3=T."
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 is C1=T, C2=T, C3=F."
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 is C1=T, C2=F, C3=F, which differs in C3."
+            },
+            {
+              "text": "R7",
+              "fraction": 0,
+              "feedback": "R7 is C1=F, C2=F, C3=T, which differs in C1."
+            }
+          ],
+          "generalFeedback": "Read each column top to bottom. R3 is the only column with C1=T, C2=F, C3=T.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry match",
+          "text": "<p>An extended-entry table sets a discount by order total:</p><pre>\nCondition \"Order total\":  R1: under 100   R2: 100 to 500   R3: over 500\nAction \"Discount\":        R1: 0%          R2: 5%           R3: 10%\n</pre><p>An order total of 250 selects which rule, and what discount applies?</p>",
+          "answers": [
+            {
+              "text": "R2 — a 5% discount",
+              "fraction": 100,
+              "feedback": "Correct — 250 falls in the \"100 to 500\" band."
+            },
+            {
+              "text": "R1 — a 0% discount",
+              "fraction": 0,
+              "feedback": "R1 is for totals under 100; 250 is above that."
+            },
+            {
+              "text": "R3 — a 10% discount",
+              "fraction": 0,
+              "feedback": "R3 is for totals over 500; 250 does not reach it."
+            },
+            {
+              "text": "No rule matches 250",
+              "fraction": 0,
+              "feedback": "250 is squarely within R2's range, so a rule does match."
+            }
+          ],
+          "generalFeedback": "Extended-entry conditions match by range. 250 lies in \"100 to 500\", which is R2, giving a 5% discount.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which two rules may merge",
+          "text": "<p>Given this table:</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA1       X   X   -   -\nA2       -   -   X   -\nA3       -   -   -   X\n</pre><p>Which two rules can be collapsed into one, and how?</p>",
+          "answers": [
+            {
+              "text": "R1 and R2, into (C1=T, C2=-) firing A1",
+              "fraction": 100,
+              "feedback": "Correct — they fire the same action and differ only in C2."
+            },
+            {
+              "text": "R3 and R4, into (C1=F, C2=-)",
+              "fraction": 0,
+              "feedback": "R3 fires A2 and R4 fires A3 — different actions, so they cannot merge."
+            },
+            {
+              "text": "R2 and R3, into (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R2 and R3 differ in both C1 and C2 and fire different actions; they cannot merge."
+            },
+            {
+              "text": "R1 and R4, into (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R1 and R4 differ in both conditions and fire different actions."
+            }
+          ],
+          "generalFeedback": "Two rules merge only if they fire identical actions and differ in exactly one condition. R1 and R2 both fire A1 and differ only in C2, so they collapse to (C1=T, C2=-)→A1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which action fires (three conditions)",
+          "text": "<p>Given this table (X marks a fired action):</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAccept   X  X  X  -  X  -  -  -\nReject   -  -  -  X  -  X  X  X\n</pre><p>For <code>C1 = F, C2 = T, C3 = F</code>, which action fires?</p>",
+          "answers": [
+            {
+              "text": "Reject",
+              "fraction": 100,
+              "feedback": "Correct — (F,T,F) is rule R6, whose X is on Reject."
+            },
+            {
+              "text": "Accept",
+              "fraction": 0,
+              "feedback": "Accept fires for R6? No — R6's X is on Reject, not Accept."
+            },
+            {
+              "text": "Both Accept and Reject",
+              "fraction": 0,
+              "feedback": "Only one X appears in column R6, so a single action fires."
+            },
+            {
+              "text": "Neither action",
+              "fraction": 0,
+              "feedback": "R6 does have a marked action (Reject)."
+            }
+          ],
+          "generalFeedback": "(C1=F, C2=T, C3=F) is column R6. Its only X is on Reject, so Reject fires.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missing combinations",
+          "text": "<p>A limited-entry table for <strong>3 binary conditions</strong> currently lists 6 rules, none using don't-cares. Assuming no duplicates, how many condition combinations are missing?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a full table needs 2^3 = 8 rules, and 8 - 6 = 2 are missing."
+            },
+            {
+              "text": "0 — the table is complete",
+              "fraction": 0,
+              "feedback": "A complete 3-condition table needs 8 rules; only 6 are present."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "8 - 6 = 2, not 3."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the number present; the number missing is 8 - 6 = 2."
+            }
+          ],
+          "generalFeedback": "Completeness requires all 2^n combinations. For n = 3 that is 8; with 6 present and no don't-cares, 2 combinations are missing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test count before and after collapsing",
+          "text": "<p>A full table for 3 conditions (8 rules) collapses to 4 rules. Using one test per rule, how many test cases does the collapsed table require, compared with the full table?</p>",
+          "answers": [
+            {
+              "text": "4 test cases, down from 8",
+              "fraction": 100,
+              "feedback": "Correct — collapsing to 4 rules means 4 tests instead of 8."
+            },
+            {
+              "text": "8 test cases, unchanged",
+              "fraction": 0,
+              "feedback": "Collapsing reduces the rule count, so fewer tests are needed."
+            },
+            {
+              "text": "16 test cases",
+              "fraction": 0,
+              "feedback": "16 exceeds even the full table's 8 rules; the collapsed table needs 4."
+            },
+            {
+              "text": "1 test case",
+              "fraction": 0,
+              "feedback": "Each of the 4 collapsed rules needs its own test, giving 4."
+            }
+          ],
+          "generalFeedback": "Test count equals rule count. The full table's 8 rules would give 8 tests; collapsing to 4 rules reduces that to 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reading a loan decision table",
+          "text": "<p>A loan table uses C1 = \"credit score OK\" and C2 = \"income sufficient\":</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nApprove  X   -   -   -\n</pre><p>An applicant has credit score OK and sufficient income. Which rule applies and what happens?</p>",
+          "answers": [
+            {
+              "text": "R1 — the loan is approved",
+              "fraction": 100,
+              "feedback": "Correct — both conditions true is R1, the only rule with Approve marked."
+            },
+            {
+              "text": "R2 — the loan is approved",
+              "fraction": 0,
+              "feedback": "R2 is credit OK but income not sufficient, and it has no Approve mark."
+            },
+            {
+              "text": "R4 — the loan is approved",
+              "fraction": 0,
+              "feedback": "R4 is both conditions false and has no Approve mark."
+            },
+            {
+              "text": "R1 — the loan is not approved",
+              "fraction": 0,
+              "feedback": "R1 does have Approve marked, so the loan is approved."
+            }
+          ],
+          "generalFeedback": "Credit OK and income sufficient is (C1=T, C2=T), which is R1. R1 is the only rule with Approve marked, so the loan is approved.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry age bands",
+          "text": "<p>An extended-entry table sets ticket price by age:</p><pre>\nCondition \"Age\":  R1: under 13   R2: 13 to 17   R3: 18 to 64   R4: 65 or older\nAction \"Price\":   R1: free       R2: $5         R3: $10        R4: $7\n</pre><p>A visitor aged 17 selects which rule and price?</p>",
+          "answers": [
+            {
+              "text": "R2 — $5",
+              "fraction": 100,
+              "feedback": "Correct — 17 falls in the \"13 to 17\" band."
+            },
+            {
+              "text": "R1 — free",
+              "fraction": 0,
+              "feedback": "R1 is for ages under 13; 17 is above that."
+            },
+            {
+              "text": "R3 — $10",
+              "fraction": 0,
+              "feedback": "R3 starts at 18; 17 does not reach it."
+            },
+            {
+              "text": "R4 — $7",
+              "fraction": 0,
+              "feedback": "R4 is for ages 65 or older."
+            }
+          ],
+          "generalFeedback": "Age 17 lies in the \"13 to 17\" band, which is R2, priced at $5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Don't-care over three conditions",
+          "text": "<p>In a table with <strong>5 binary conditions</strong>, one collapsed rule has \"-\" for 3 of them (the other 2 fixed). How many full-table combinations does that single rule represent?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 3 don't-cares stand for 2^3 = 8 combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Don't-cares expand as 2^k; 3 of them give 8, not 3."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 is the whole table; this rule fixes 2 conditions, so it covers 2^3 = 8."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the number of conditions, not 2 raised to the don't-care count."
+            }
+          ],
+          "generalFeedback": "Only the don't-care conditions vary. With 3 don't-cares the rule stands for 2^3 = 8 of the fully-expanded combinations, regardless of the total number of conditions.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Redundant (subsumed) rule",
+          "text": "<p>Examine this table:</p><pre>\n        R1     R2     R3\nC1       T      T      F\nC2       -      F      T\n--------------------------\nA        X      X      -\n</pre><p>Which rule is redundant, and why?</p>",
+          "answers": [
+            {
+              "text": "R2 — it is subsumed by R1, which already covers C1=T with any C2 and fires the same action A",
+              "fraction": 100,
+              "feedback": "Correct — R1's don't-care on C2 already includes R2's case with the same action."
+            },
+            {
+              "text": "R1 — because it uses a don't-care",
+              "fraction": 0,
+              "feedback": "Using a don't-care is not itself redundant; R1 is the general rule and R2 is the one it subsumes."
+            },
+            {
+              "text": "R3 — because it fires no action",
+              "fraction": 0,
+              "feedback": "R3 covers a different case (C1=F, C2=T) and firing no action is a legitimate outcome, not redundancy."
+            },
+            {
+              "text": "None — the table has no redundancy",
+              "fraction": 0,
+              "feedback": "R2 is fully covered by R1 with the same action, so R2 is redundant."
+            }
+          ],
+          "generalFeedback": "R1 (C1=T, C2=-) already covers both (T,T) and (T,F) with action A. R2 (C1=T, C2=F) is exactly the (T,F) case with the same action, so it adds nothing — it is a redundant, subsumed rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Impossible rule",
+          "text": "<p>Conditions are C1 = \"x &gt; 0\" and C2 = \"x &lt; 0\":</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>Which rule describes an <strong>impossible</strong> (infeasible) combination?</p>",
+          "answers": [
+            {
+              "text": "R1 — a value cannot be both greater than 0 and less than 0 at once",
+              "fraction": 100,
+              "feedback": "Correct — C1=T and C2=T is logically impossible."
+            },
+            {
+              "text": "R4 — both false is impossible",
+              "fraction": 0,
+              "feedback": "C1=F and C2=F simply means x = 0, which is perfectly feasible."
+            },
+            {
+              "text": "R2 — x > 0 and not x < 0",
+              "fraction": 0,
+              "feedback": "That describes any positive x, which is feasible."
+            },
+            {
+              "text": "R3 — x < 0 and not x > 0",
+              "fraction": 0,
+              "feedback": "That describes any negative x, which is feasible."
+            }
+          ],
+          "generalFeedback": "C1 and C2 are mutually exclusive, so R1 (both true) can never occur — it is an infeasible rule and needs no test case. R4 (both false) corresponds to x = 0 and is feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inconsistent rules",
+          "text": "<p>Examine this table:</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       F   F   T\n--------------------\nA        X   -   -\nB        -   X   -\n</pre><p>What anomaly does this table contain?</p>",
+          "answers": [
+            {
+              "text": "R1 and R2 are inconsistent — the same condition combination (C1=T, C2=F) prescribes different actions (A vs B)",
+              "fraction": 100,
+              "feedback": "Correct — identical conditions with conflicting actions is an inconsistency."
+            },
+            {
+              "text": "R3 is redundant",
+              "fraction": 0,
+              "feedback": "R3 covers a distinct combination (C1=F, C2=T); it is not redundant."
+            },
+            {
+              "text": "The table is incomplete only",
+              "fraction": 0,
+              "feedback": "It may also be incomplete, but the flagged defect is the conflict between R1 and R2 on the same conditions."
+            },
+            {
+              "text": "There is no anomaly",
+              "fraction": 0,
+              "feedback": "R1 and R2 share the same condition values but fire different actions — a clear inconsistency."
+            }
+          ],
+          "generalFeedback": "R1 and R2 both have C1=T, C2=F but fire A and B respectively. Two rules with identical conditions and different actions are inconsistent (conflicting) and must be resolved.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness check",
+          "text": "<p>A table for 2 binary conditions has just these two rules:</p><pre>\nRule P:  C1=T, C2=-\nRule Q:  C1=F, C2=T\n</pre><p>Is the table complete, and if not what is missing?</p>",
+          "answers": [
+            {
+              "text": "Incomplete — the combination C1=F, C2=F is not covered",
+              "fraction": 100,
+              "feedback": "Correct — P covers TT and TF, Q covers FT, leaving FF uncovered."
+            },
+            {
+              "text": "Complete — all 4 combinations are covered",
+              "fraction": 0,
+              "feedback": "Only 3 of the 4 are covered; FF is missing."
+            },
+            {
+              "text": "Incomplete — the combination C1=T, C2=T is missing",
+              "fraction": 0,
+              "feedback": "Rule P's don't-care already covers C1=T, C2=T."
+            },
+            {
+              "text": "Incomplete — the combination C1=F, C2=T is missing",
+              "fraction": 0,
+              "feedback": "Rule Q covers exactly C1=F, C2=T."
+            }
+          ],
+          "generalFeedback": "Rule P (C1=T, C2=-) covers TT and TF; Rule Q covers FT. That is 3 combinations; the fourth, FF (C1=F, C2=F), is not covered, so the table is incomplete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Correct collapsing (three conditions)",
+          "text": "<p>Examine this full 3-condition table:</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAction   A  A  B  C  D  E  F  G\n</pre><p>Which pair of rules may be correctly collapsed, and into what?</p>",
+          "answers": [
+            {
+              "text": "R1 and R2, into (C1=T, C2=T, C3=-) firing A",
+              "fraction": 100,
+              "feedback": "Correct — they fire the same action and differ only in C3."
+            },
+            {
+              "text": "R1 and R3, into (C1=T, C2=-, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 fires A and R3 fires B — different actions, so they cannot merge."
+            },
+            {
+              "text": "R7 and R8, into (C1=F, C2=F, C3=-)",
+              "fraction": 0,
+              "feedback": "R7 fires F and R8 fires G — different actions, so no merge."
+            },
+            {
+              "text": "R1 and R5, into (C1=-, C2=T, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 fires A and R5 fires D — different actions, so no merge."
+            }
+          ],
+          "generalFeedback": "Only R1 and R2 share an action (A) while differing in exactly one condition (C3). They collapse to (C1=T, C2=T, C3=-)→A. Every other adjacent pair fires different actions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal test set from a collapsed table",
+          "text": "<p>A correctly collapsed table for 2 binary conditions is:</p><pre>\nRule 1:  C1=T, C2=-\nRule 2:  C1=F, C2=T\nRule 3:  C1=F, C2=F\n</pre><p>What is the minimum number of test cases needed to exercise every rule once?</p>",
+          "answers": [
+            {
+              "text": "3 — one per collapsed rule (covering all 4 underlying combinations)",
+              "fraction": 100,
+              "feedback": "Correct — the collapsed table has 3 rules, so 3 tests suffice."
+            },
+            {
+              "text": "4 — one per underlying combination",
+              "fraction": 0,
+              "feedback": "You test the collapsed rules, not the re-expanded combinations, so 3 tests are enough."
+            },
+            {
+              "text": "2 — one per condition",
+              "fraction": 0,
+              "feedback": "Each rule needs its own test; there are 3 rules."
+            },
+            {
+              "text": "1 — a single combined test",
+              "fraction": 0,
+              "feedback": "One test cannot exercise three distinct rules."
+            }
+          ],
+          "generalFeedback": "Test count equals the number of (collapsed) rules. Here 3 rules give 3 tests; Rule 1's don't-care means those 3 tests still cover all 2^2 = 4 combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Overlapping extended-entry ranges",
+          "text": "<p>An extended-entry grading table:</p><pre>\nCondition \"Score\":  R1: 0 to 59   R2: 60 to 79   R3: 75 to 100\nAction:             R1: Fail      R2: Pass       R3: Distinction\n</pre><p>What problem does a score of 77 reveal?</p>",
+          "answers": [
+            {
+              "text": "Inconsistency — 77 falls in both R2 (60 to 79) and R3 (75 to 100), so two rules match with different actions",
+              "fraction": 100,
+              "feedback": "Correct — the overlapping ranges make the outcome for 75-79 ambiguous."
+            },
+            {
+              "text": "Incompleteness — 77 is not covered by any rule",
+              "fraction": 0,
+              "feedback": "77 is covered — in fact by two rules, which is the actual problem."
+            },
+            {
+              "text": "An impossible rule — a score of 77 cannot occur",
+              "fraction": 0,
+              "feedback": "77 is a perfectly valid score; the issue is the overlap, not feasibility."
+            },
+            {
+              "text": "Nothing — the table is well-formed",
+              "fraction": 0,
+              "feedback": "R2 and R3 overlap on 75-79, so a score there matches two conflicting rules."
+            }
+          ],
+          "generalFeedback": "R2 (60 to 79) and R3 (75 to 100) overlap on 75-79. A score of 77 matches both, prescribing Pass and Distinction at once — an inconsistency caused by non-disjoint extended-entry ranges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Gap in extended-entry ranges",
+          "text": "<p>An extended-entry table by age:</p><pre>\nCondition \"Age\":  R1: 0 to 17   R2: 18 to 64   R3: 66 to 120\nAction:           R1: minor     R2: adult      R3: senior\n</pre><p>What completeness problem does this table have?</p>",
+          "answers": [
+            {
+              "text": "Age 65 is not covered by any rule — a gap between R2 and R3",
+              "fraction": 100,
+              "feedback": "Correct — R2 ends at 64 and R3 starts at 66, leaving 65 uncovered."
+            },
+            {
+              "text": "Age 18 is covered twice",
+              "fraction": 0,
+              "feedback": "18 falls only in R2; there is no overlap here, only a gap at 65."
+            },
+            {
+              "text": "The ranges overlap at 64",
+              "fraction": 0,
+              "feedback": "64 belongs only to R2; the defect is a gap, not an overlap."
+            },
+            {
+              "text": "The table is complete",
+              "fraction": 0,
+              "feedback": "65 has no matching rule, so the table is incomplete."
+            }
+          ],
+          "generalFeedback": "R2 covers up to 64 and R3 starts at 66, so age 65 matches no rule. That gap is an incompleteness defect in the extended-entry ranges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Duplicate (redundant) rule",
+          "text": "<p>Examine this table:</p><pre>\n        R1  R2  R3  R4\nC1       T   F   T   F\nC2       T   T   F   T\n------------------------\nAction   A   B   C   B\n</pre><p>Which rule is redundant, and why?</p>",
+          "answers": [
+            {
+              "text": "R4 — it duplicates R2: identical conditions (C1=F, C2=T) and the same action B",
+              "fraction": 100,
+              "feedback": "Correct — R2 and R4 are identical, so R4 adds nothing."
+            },
+            {
+              "text": "R3 — it is the only one firing C",
+              "fraction": 0,
+              "feedback": "Firing a unique action is not redundancy; R3 covers a distinct combination."
+            },
+            {
+              "text": "R1 — because it fires A",
+              "fraction": 0,
+              "feedback": "R1 covers (T,T) uniquely; it is not duplicated."
+            },
+            {
+              "text": "None — every rule differs",
+              "fraction": 0,
+              "feedback": "R2 and R4 have identical conditions and the same action, so one is redundant."
+            }
+          ],
+          "generalFeedback": "R2 and R4 both have C1=F, C2=T and both fire B. They are exact duplicates, so R4 is a redundant rule that can be removed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Completeness by counting coverage",
+          "text": "<p>A limited-entry table for <strong>4 binary conditions</strong> uses don't-cares. Its rules cover, respectively, 8, 4, 2, and 1 combinations, with no overlaps. Is the table complete?</p>",
+          "answers": [
+            {
+              "text": "No — the rules cover 8+4+2+1 = 15 of the 2^4 = 16 combinations, so one is missing",
+              "fraction": 100,
+              "feedback": "Correct — 15 < 16, so the table is incomplete by one combination."
+            },
+            {
+              "text": "Yes — the four rules cover everything",
+              "fraction": 0,
+              "feedback": "The coverage counts sum to 15, one short of 16."
+            },
+            {
+              "text": "No — the table is over-specified with too many rules",
+              "fraction": 0,
+              "feedback": "The total is 15, which is under 16; nothing is over-covered (no overlaps)."
+            },
+            {
+              "text": "No — two combinations are missing",
+              "fraction": 0,
+              "feedback": "16 - 15 = 1, so exactly one combination is missing."
+            }
+          ],
+          "generalFeedback": "Each rule's don't-cares expand to a power of two; summing the disjoint coverage gives 8+4+2+1 = 15. A complete 4-condition table needs 2^4 = 16, so one combination is uncovered.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inconsistency from a don't-care overlap",
+          "text": "<p>A table contains these two rules for 2 binary conditions:</p><pre>\nRule X:  C1=T, C2=-  ->  A\nRule Y:  C1=T, C2=F  ->  B\n</pre><p>Which combination causes a conflict, and why?</p>",
+          "answers": [
+            {
+              "text": "C1=T, C2=F — Rule X (don't-care C2) also covers it and prescribes A, while Rule Y prescribes B",
+              "fraction": 100,
+              "feedback": "Correct — the don't-care in X overlaps Y with a different action, an inconsistency."
+            },
+            {
+              "text": "C1=T, C2=T — both rules require action B there",
+              "fraction": 0,
+              "feedback": "At (T,T) only Rule X applies (giving A); Rule Y is C2=F, so there is no conflict at (T,T)."
+            },
+            {
+              "text": "C1=F, C2=F — neither rule covers it, causing a conflict",
+              "fraction": 0,
+              "feedback": "An uncovered combination is incompleteness, not a conflict; and the conflict here is at (T,F)."
+            },
+            {
+              "text": "There is no conflict — the rules are disjoint",
+              "fraction": 0,
+              "feedback": "Rule X's don't-care makes it overlap Rule Y at (T,F) with a different action."
+            }
+          ],
+          "generalFeedback": "Rule X (C1=T, C2=-) covers (T,T) and (T,F). Rule Y (C1=T, C2=F) also covers (T,F) but prescribes B instead of A. The overlap at (T,F) with conflicting actions is an inconsistency.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Impossible rule from exclusive conditions",
+          "text": "<p>Conditions come from a spec: C1 = \"payment is cash\", C2 = \"payment is card\" (a payment is one method):</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       T   F   T\n</pre><p>Which rule is infeasible?</p>",
+          "answers": [
+            {
+              "text": "R1 — a single payment cannot be both cash and card",
+              "fraction": 100,
+              "feedback": "Correct — C1 and C2 are mutually exclusive, so both true is impossible."
+            },
+            {
+              "text": "R2 — cash but not card",
+              "fraction": 0,
+              "feedback": "That is a normal cash payment; it is feasible."
+            },
+            {
+              "text": "R3 — card but not cash",
+              "fraction": 0,
+              "feedback": "That is a normal card payment; it is feasible."
+            },
+            {
+              "text": "None — all three are feasible",
+              "fraction": 0,
+              "feedback": "R1 requires both cash and card at once, which the spec forbids."
+            }
+          ],
+          "generalFeedback": "Because a payment is exactly one method, C1 and C2 cannot both be true. R1 (both true) is infeasible and needs no test case; only R2 and R3 (and possibly a \"neither\" case) are realistic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verifying completeness and consistency",
+          "text": "<p>A collapsed table for 2 binary conditions is:</p><pre>\nRule 1:  C1=T, C2=-  ->  A\nRule 2:  C1=F, C2=-  ->  B\n</pre><p>Is this table both complete and consistent?</p>",
+          "answers": [
+            {
+              "text": "Yes — the two rules cover all 4 combinations with no overlap (disjoint on C1)",
+              "fraction": 100,
+              "feedback": "Correct — Rule 1 covers TT,TF and Rule 2 covers FT,FF; together all 4, no conflict."
+            },
+            {
+              "text": "No — it is incomplete because C2 is never fixed",
+              "fraction": 0,
+              "feedback": "The don't-cares on C2 mean both C2 values are covered, so nothing is missing."
+            },
+            {
+              "text": "No — the two rules overlap and conflict",
+              "fraction": 0,
+              "feedback": "They differ on C1 (T vs F), so they never overlap; there is no conflict."
+            },
+            {
+              "text": "No — Rule 2 is redundant",
+              "fraction": 0,
+              "feedback": "Rule 2 covers cases (FT, FF) that Rule 1 does not, so it is necessary."
+            }
+          ],
+          "generalFeedback": "Rule 1 (C1=T, C2=-) covers TT and TF; Rule 2 (C1=F, C2=-) covers FT and FF. Their union is all 2^2 = 4 combinations, and they are disjoint on C1, so the table is both complete and consistent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test cases excluding infeasible rules",
+          "text": "<p>A 3-condition table has 8 rule columns, but 2 of them describe <strong>infeasible</strong> condition combinations. Using one test per feasible rule, how many test cases are actually needed?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 8 rules minus 2 infeasible leaves 6 that need tests."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Infeasible rules can never occur, so they need no test cases; 8 - 2 = 6."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of infeasible rules, not the number needing tests."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "8 - 2 = 6, not 4."
+            }
+          ],
+          "generalFeedback": "Infeasible rules cannot be exercised, so they are excluded from test derivation. With 8 rules and 2 infeasible, 6 feasible rules remain, needing 6 test cases.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extended-entry rule count",
+          "text": "<p>An extended-entry table has two conditions: \"Size\" with choices {Low, High} and \"Method\" with choices {Cash, Card, Coupon}. How many rules does the full extended-entry table need to cover every combination?</p>",
+          "answers": [
+            {
+              "text": "6 — the product of the choice counts, 2 x 3",
+              "fraction": 100,
+              "feedback": "Correct — extended-entry rule count is the product of each condition's number of choices."
+            },
+            {
+              "text": "5 — the sum of the choice counts, 2 + 3",
+              "fraction": 0,
+              "feedback": "Combinations multiply, not add; 2 x 3 = 6."
+            },
+            {
+              "text": "4 — 2^2, treating each condition as binary",
+              "fraction": 0,
+              "feedback": "Method has 3 choices, not 2, so the count is 2 x 3 = 6, not 2^2."
+            },
+            {
+              "text": "9 — 3^2",
+              "fraction": 0,
+              "feedback": "The conditions have different choice counts (2 and 3); the product is 2 x 3 = 6."
+            }
+          ],
+          "generalFeedback": "For extended-entry tables the full rule count is the product of each condition's number of choices — here 2 x 3 = 6. This generalises the 2^n formula, which is the special case where every condition has 2 choices.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "條件樁（condition stub）的內容",
+          "text": "<p>在決策表（decision table）中，<strong>條件樁（condition stub）</strong>包含什麼？</p>",
+          "answers": [
+            {
+              "text": "所考慮的條件（輸入／原因）清單，每列一項，位於左上象限",
+              "fraction": 100,
+              "feedback": "正確——條件樁列出各條件；其右側的條目給出每條規則的取值。"
+            },
+            {
+              "text": "程式可能採取的動作，每列一項",
+              "fraction": 0,
+              "feedback": "那是動作樁（action stub），位於左下象限。"
+            },
+            {
+              "text": "指派給每條規則的 T/F 取值",
+              "fraction": 0,
+              "feedback": "那是條件條目（condition entries），位於右上象限，並非條件樁本身。"
+            },
+            {
+              "text": "規則欄的編號",
+              "fraction": 0,
+              "feedback": "規則編號用來標示欄位；條件樁列出的是條件本身。"
+            }
+          ],
+          "generalFeedback": "決策表有四個象限。條件樁（左上）列出條件；條件條目（右上）給出每條規則對這些條件的取值；動作樁與動作條目則占據下半部。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "動作樁（action stub）的內容",
+          "text": "<p>決策表的<strong>動作樁（action stub）</strong>列出什麼？</p>",
+          "answers": [
+            {
+              "text": "可能的動作（輸出／效果）清單，每列一項，位於左下象限",
+              "fraction": 100,
+              "feedback": "正確——動作樁列出各動作；動作條目則標示每條規則會觸發哪些動作。"
+            },
+            {
+              "text": "正在評估的各條件",
+              "fraction": 0,
+              "feedback": "那些位於條件樁（左上）。"
+            },
+            {
+              "text": "每個條件的 T/F 條目",
+              "fraction": 0,
+              "feedback": "那是條件條目，並非動作樁。"
+            },
+            {
+              "text": "表中規則的總數",
+              "fraction": 0,
+              "feedback": "規則數由條件決定；動作樁只是列出動作。"
+            }
+          ],
+          "generalFeedback": "動作樁是左下象限：它列舉規格中可被觸發的各種動作。其右側的動作條目（常以 X 標記）指出每條規則會觸發哪些動作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一條規則代表什麼",
+          "text": "<p>決策表中的單一<strong>規則</strong>（一欄）代表什麼？</p>",
+          "answers": [
+            {
+              "text": "一組特定的條件結果組合，連同該組合下應觸發的動作",
+              "fraction": 100,
+              "feedback": "正確——一條規則把某個條件組合與其對應的動作配對起來。"
+            },
+            {
+              "text": "單一個具體的測試輸入值",
+              "fraction": 0,
+              "feedback": "規則是條件結果的組合；測試案例是之後由它導出的。"
+            },
+            {
+              "text": "正在評估的單一個條件",
+              "fraction": 0,
+              "feedback": "一條規則同時涵蓋所有條件（各取一個值），而非只有單一條件。"
+            },
+            {
+              "text": "整張決策表",
+              "fraction": 0,
+              "feedback": "一條規則是一欄；整張表則是所有規則的集合。"
+            }
+          ],
+          "generalFeedback": "每一欄（規則）為每個條件固定一個取值，並記錄該精確組合下必須發生的動作。由上而下讀一欄，即可得到情境與預期行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有限條目 vs 延伸條目",
+          "text": "<p><strong>有限條目（limited-entry）</strong>決策表與<strong>延伸條目（extended-entry）</strong>決策表的差別是什麼？</p>",
+          "answers": [
+            {
+              "text": "有限條目的條件條目只用 T/F（以「-」表示不在意）；延伸條目則允許值、範圍或選項",
+              "fraction": 100,
+              "feedback": "正確——這正是兩種形式的差別。"
+            },
+            {
+              "text": "有限條目允許值範圍；延伸條目只允許 T/F",
+              "fraction": 0,
+              "feedback": "這把兩者的定義弄反了。"
+            },
+            {
+              "text": "有限條目表的動作數必定比延伸條目表少",
+              "fraction": 0,
+              "feedback": "動作數與此無關；差別在於條件條目的形式。"
+            },
+            {
+              "text": "延伸條目表沒有規則",
+              "fraction": 0,
+              "feedback": "兩種形式都以規則組織；只是條目格式不同。"
+            }
+          ],
+          "generalFeedback": "在有限條目表中，每個條件條目都是布林值（T、F 或「-」）。在延伸條目表中，條件條目可改為值、範圍或選項（例如「未滿 100」「100 到 500」「超過 500」），可使表更精簡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不在意（don't-care）條目的意義",
+          "text": "<p>規則中某個條件的「-」（破折號，即不在意 don't-care）條目代表什麼意思？</p>",
+          "answers": [
+            {
+              "text": "無論該條件取何值，該規則的動作都相同",
+              "fraction": 100,
+              "feedback": "正確——在該規則下，這個條件不影響結果。"
+            },
+            {
+              "text": "該規則下這個條件一定為假",
+              "fraction": 0,
+              "feedback": "若為假會寫成 F；「-」代表其值無關緊要。"
+            },
+            {
+              "text": "該條件的值未知，因此該規則無效",
+              "fraction": 0,
+              "feedback": "不在意是刻意的，並非資料錯誤；該規則有效，且對此條件的任何取值都適用。"
+            },
+            {
+              "text": "該條件必須在同一條規則中同時以 T 與 F 測試",
+              "fraction": 0,
+              "feedback": "單一規則無法同時持有兩者；「-」只是表示結果與此條件無關。"
+            }
+          ],
+          "generalFeedback": "不在意「-」表示該規則的結果與此條件無關。對 k 個不在意條件而言，一條這樣的規則相當於完全展開後的 2^k 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2 個條件的規則數",
+          "text": "<p>一張具有 <strong>2 個二元條件</strong>的有限條目決策表，在完整、未合併的形式下有多少條規則（欄）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——2^2 = 4 種 T/F 組合。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是單一條件可取的值數，而非兩個條件的組合數。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 2^3，即三個條件的規則數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 不是 2 的冪；完整的二元表必定有 2^n 條規則。"
+            }
+          ],
+          "generalFeedback": "對 n 個二元條件而言，完整的有限條目表有 2^n 條規則。n = 2 時為 2^2 = 4：TT、TF、FT、FF。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個條件的規則數",
+          "text": "<p>一張具有 <strong>3 個二元條件</strong>的完整有限條目決策表有多少條規則？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2^3 = 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 2×3；規則數是 2^n，不是 2×n。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3^2；二元條件給出 2^n，而非 n^2。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是 2^4，即四個條件的規則數。"
+            }
+          ],
+          "generalFeedback": "對 n 個二元條件，完整表有 2^n 條規則。n = 3 時為 2^3 = 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 個條件的規則數",
+          "text": "<p>一張具有 <strong>4 個二元條件</strong>的完整有限條目決策表有多少條規則？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——2^4 = 16。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 2^3，即三個條件的規則數。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 不是 2 的冪；完整的二元表有 2^n 條規則。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 不是 2 的冪且高估了；答案是 2^4 = 16。"
+            }
+          ],
+          "generalFeedback": "對 n 個二元條件，完整表有 2^n 條規則。n = 4 時為 2^4 = 16。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "有限條目的條件取值",
+          "text": "<p>在有限條目決策表中，條件條目僅限於真／假值（並允許以「-」表示不在意）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——有限條目意指條件條目為布林值，再加上表示不在意的「-」。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "依定義，有限條目表的條件只用 T/F（與「-」）；值範圍屬於延伸條目表。"
+            }
+          ],
+          "generalFeedback": "「有限條目」正是指把條件條目限制為真／假（並以「-」表示不在意）。值範圍與選項則是延伸條目表的特徵。"
+        },
+        {
+          "type": "multichoice",
+          "name": "條件條目 vs 動作條目",
+          "text": "<p>在表的右側象限中，<strong>條件條目</strong>與<strong>動作條目</strong>分別指定什麼？</p>",
+          "answers": [
+            {
+              "text": "條件條目給出每條規則對各條件的取值；動作條目標示該規則會觸發哪些動作",
+              "fraction": 100,
+              "feedback": "正確——一個描述情境，另一個描述回應。"
+            },
+            {
+              "text": "條件條目列出動作；動作條目列出條件",
+              "fraction": 0,
+              "feedback": "這把兩者的角色對調了。"
+            },
+            {
+              "text": "兩者都只是重複規則編號",
+              "fraction": 0,
+              "feedback": "規則編號是欄標題；條目承載的是 T/F 取值與動作標記。"
+            },
+            {
+              "text": "條件條目顯示原始碼涵蓋；動作條目顯示測試結果",
+              "fraction": 0,
+              "feedback": "決策表是黑箱技術；條目描述的是規格，而非程式碼涵蓋。"
+            }
+          ],
+          "generalFeedback": "對每條規則而言，條件條目（右上）記錄每個條件的 T/F 取值，動作條目（右下，常以 X 表示）記錄規格指出應觸發哪些動作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個象限",
+          "text": "<p>決策表通常劃分為四個象限。是哪四個？</p>",
+          "answers": [
+            {
+              "text": "條件樁、條件條目、動作樁、動作條目",
+              "fraction": 100,
+              "feedback": "正確——左為樁、右為條目，上為條件、下為動作。"
+            },
+            {
+              "text": "輸入、輸出、狀態、轉移",
+              "fraction": 0,
+              "feedback": "那些描述的是狀態機，而非決策表的象限。"
+            },
+            {
+              "text": "前置條件、後置條件、不變式、守衛",
+              "fraction": 0,
+              "feedback": "那些是規格概念，並非決策表的四個象限。"
+            },
+            {
+              "text": "節點、邊、路徑、環",
+              "fraction": 0,
+              "feedback": "那些是圖論概念，與表的版面無關。"
+            }
+          ],
+          "generalFeedback": "四個象限是條件樁（左上）、條件條目（右上）、動作樁（左下）與動作條目（右下）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "決策表所屬的技術家族",
+          "text": "<p>決策表測試屬於哪一類測試設計技術？</p>",
+          "answers": [
+            {
+              "text": "黑箱（以規格為基礎）技術",
+              "fraction": 100,
+              "feedback": "正確——它從規格的條件與動作導出測試，而非從程式碼。"
+            },
+            {
+              "text": "以控制流程圖為基礎的白箱（結構化）技術",
+              "fraction": 0,
+              "feedback": "決策表建構自規格，而非原始碼結構。"
+            },
+            {
+              "text": "程式碼涵蓋度量技術",
+              "fraction": 0,
+              "feedback": "它從行為設計測試，並不量測有多少程式碼被執行。"
+            },
+            {
+              "text": "突變分析技術",
+              "fraction": 0,
+              "feedback": "突變分析注入程式碼缺陷；決策表是黑箱設計方法。"
+            }
+          ],
+          "generalFeedback": "決策表測試是一種黑箱、以規格為基礎的設計技術：條件與動作來自需求，規則再系統化地將它們組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目的條件取值",
+          "text": "<p>在<strong>延伸條目</strong>決策表中，條件條目可以是以下何者？</p>",
+          "answers": [
+            {
+              "text": "值、範圍或選項（例如「未滿 100」「100 到 500」「超過 500」）",
+              "fraction": 100,
+              "feedback": "正確——延伸條目表允許比單純 T/F 更豐富的條目。"
+            },
+            {
+              "text": "只能是 T 或 F",
+              "fraction": 0,
+              "feedback": "只允許布林條目的是有限條目表，而非延伸條目表。"
+            },
+            {
+              "text": "只能是標記 X",
+              "fraction": 0,
+              "feedback": "X 標示的是動作條目中被觸發的動作，而非條件取值。"
+            },
+            {
+              "text": "只能是規則編號",
+              "fraction": 0,
+              "feedback": "規則編號是欄標籤，並非條件條目。"
+            }
+          ],
+          "generalFeedback": "延伸條目表允許條件條目為值、範圍或選項，這可把數個布林條件合成單一個多值條件，使表縮小。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "完整表有 2^n 條規則",
+          "text": "<p>在任何合併之前，一張具有 n 個二元條件的完整有限條目決策表有 2^n 條規則。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個條件各自可取 T 或 F，共 2^n 種組合。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "n 個二元條件各自使組合數加倍，因此完整表有 2^n 條規則。"
+            }
+          ],
+          "generalFeedback": "有 n 個彼此獨立的二元條件時，共有 2^n 種相異的 T/F 組合，因此完整（未合併）表恰有 2^n 欄規則。之後以不在意合併可減少此數。"
+        },
+        {
+          "type": "multichoice",
+          "name": "由規則導出測試",
+          "text": "<p>由決策表導出測試案例，最簡單的標準做法是什麼？</p>",
+          "answers": [
+            {
+              "text": "為表中每條規則（每欄）各建立一個測試案例",
+              "fraction": 100,
+              "feedback": "正確——每條規則成為一個測試，並使用滿足其條件組合的輸入。"
+            },
+            {
+              "text": "為每個條件各建立一個測試案例",
+              "fraction": 0,
+              "feedback": "一個測試必須同時固定每個條件；規則（一個完整組合）才是自然單位。"
+            },
+            {
+              "text": "為每個動作各建立一個測試案例",
+              "fraction": 0,
+              "feedback": "動作是結果；測試由觸發它們的規則導出。"
+            },
+            {
+              "text": "為整張表建立單一個測試案例",
+              "fraction": 0,
+              "feedback": "一個測試無法涵蓋每一條規則；每條規則各需一個。"
+            }
+          ],
+          "generalFeedback": "標準對應是每條規則一個測試：選取滿足該規則條件組合的輸入，並檢查恰好其指定的動作被觸發。因此測試數等於（合併後）表的規則數。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "輸入符合哪條規則",
+          "text": "<p>給定此有限條目表：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>對於 <code>C1 = F</code> 且 <code>C2 = T</code> 的輸入，適用哪條規則？</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "正確——R3 的 C1 = F 且 C2 = T。"
+            },
+            {
+              "text": "R1",
+              "fraction": 0,
+              "feedback": "R1 是 C1 = T、C2 = T，與給定輸入不符。"
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 是 C1 = T、C2 = F。"
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 是 C1 = F、C2 = F，其 C2 不同。"
+            }
+          ],
+          "generalFeedback": "把輸入與各欄比對：只有 R3 的 C1 = F 且 C2 = T，因此適用規則為 R3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "會觸發哪個動作",
+          "text": "<p>給定此表（X 表示被觸發的動作）：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   -   -   -\nB        -   X   X   -\nC        -   -   -   X\n</pre><p>對於 <code>C1 = T</code> 且 <code>C2 = F</code> 的輸入，會觸發哪個動作？</p>",
+          "answers": [
+            {
+              "text": "B",
+              "fraction": 100,
+              "feedback": "正確——C1 = T、C2 = F 是規則 R2，其唯一的 X 在動作 B。"
+            },
+            {
+              "text": "A",
+              "fraction": 0,
+              "feedback": "動作 A 只在 R1（C1 = T、C2 = T）觸發。"
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "動作 C 只在 R4（C1 = F、C2 = F）觸發。"
+            },
+            {
+              "text": "沒有動作被觸發",
+              "fraction": 0,
+              "feedback": "R2 確實有被標記的動作（B），因此有動作被觸發。"
+            }
+          ],
+          "generalFeedback": "輸入（C1 = T、C2 = F）選中規則 R2。沿 R2 往下讀，唯一的 X 在動作 B，因此 B 被觸發。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不在意背後的組合數",
+          "text": "<p>在一張合併後的有限條目表中，某條規則對 <strong>2</strong> 個條件標記為「-」（其餘條件皆固定）。這一條合併規則代表原完整表中的多少條規則？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——2 個不在意條件代表 2^2 = 4 種組合。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是 2^1；此處有兩個不在意，應為 2^2 = 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "不在意以 2 的冪展開；2 個給出 4，而非 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "沒有不在意的規則代表 1 種組合；兩個不在意則代表 4 種。"
+            }
+          ],
+          "generalFeedback": "每個不在意條件可為 T 或 F，因此 k 個不在意展開為 2^k 條完整表規則。k = 2 時為 2^2 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由合併後表導出測試數",
+          "text": "<p>一張合併後的決策表有 <strong>5 條規則</strong>。採用「每條規則一個測試案例」的策略，會導出多少個測試案例？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——測試案例數等於規則數。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 是把每條規則重新展開後的數量；此策略是每條合併規則一個測試。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "並不會加倍；是每條規則一個測試，因此為 5。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "每條規則都需要一個測試；5 條規則即為 5，不是 4。"
+            }
+          ],
+          "generalFeedback": "每條規則一個測試的對應意味測試數等於規則數。合併後有 5 條規則的表可導出 5 個測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "合併一張完整表",
+          "text": "<p>盡可能合併此完整表：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA        X   X   -   -\nB        -   -   X   X\n</pre><p>合併後剩下多少條規則？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——R1、R2 合併為 (C1=T, C2=-)→A；R3、R4 合併為 (C1=F, C2=-)→B。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是未合併的數量；兩對可合併的規則使其減為 2。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩對都可合併，而非只有一對，因此剩 2 條規則。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A 與 B 是不同動作，因此其規則無法併成單一條。"
+            }
+          ],
+          "generalFeedback": "R1 與 R2 都只觸發 A 且僅在 C2 上不同，故合併為 (C1=T, C2=-)。R3 與 R4 都只觸發 B 且僅在 C2 上不同，合併為 (C1=F, C2=-)。剩下兩條合併規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含不在意的完整性檢查",
+          "text": "<p>一張針對 2 個二元條件的合併表有以下規則：</p><pre>\n規則 A：  C1=T, C2=-\n規則 B：  C1=F, C2=T\n規則 C：  C1=F, C2=F\n</pre><p>這些規則是否涵蓋全部 2^2 = 4 種組合？</p>",
+          "answers": [
+            {
+              "text": "是——規則 A 涵蓋 TT 與 TF，規則 B 涵蓋 FT，規則 C 涵蓋 FF：全部 4 種組合",
+              "fraction": 100,
+              "feedback": "正確——規則 A 的不在意涵蓋了兩種組合，補足了整個集合。"
+            },
+            {
+              "text": "否——缺少組合 C1=T, C2=F",
+              "fraction": 0,
+              "feedback": "規則 A（C1=T, C2=-）已涵蓋 C1=T, C2=F。"
+            },
+            {
+              "text": "否——缺少組合 C1=F, C2=T",
+              "fraction": 0,
+              "feedback": "規則 B 正好涵蓋 C1=F, C2=T。"
+            },
+            {
+              "text": "否——3 條規則永遠只能涵蓋 3 種組合",
+              "fraction": 0,
+              "feedback": "含不在意的規則可涵蓋多於一種組合，因此 3 條規則能涵蓋 4 種組合。"
+            }
+          ],
+          "generalFeedback": "規則 A 對 C2 的不在意涵蓋 TT 與 TF（2 種組合）；規則 B 涵蓋 FT；規則 C 涵蓋 FF。合計 2+1+1 = 4 = 2^2，因此該表完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "比對三個條件的規則",
+          "text": "<p>給定此完整 3 條件表：</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n</pre><p><code>C1 = T, C2 = F, C3 = T</code> 符合哪條規則？</p>",
+          "answers": [
+            {
+              "text": "R3",
+              "fraction": 100,
+              "feedback": "正確——R3 是 C1=T, C2=F, C3=T。"
+            },
+            {
+              "text": "R2",
+              "fraction": 0,
+              "feedback": "R2 是 C1=T, C2=T, C3=F。"
+            },
+            {
+              "text": "R4",
+              "fraction": 0,
+              "feedback": "R4 是 C1=T, C2=F, C3=F，其 C3 不同。"
+            },
+            {
+              "text": "R7",
+              "fraction": 0,
+              "feedback": "R7 是 C1=F, C2=F, C3=T，其 C1 不同。"
+            }
+          ],
+          "generalFeedback": "由上而下讀每一欄。只有 R3 的 C1=T、C2=F、C3=T。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目比對",
+          "text": "<p>一張延伸條目表依訂單金額決定折扣：</p><pre>\n條件「訂單金額」：  R1: 未滿 100    R2: 100 到 500   R3: 超過 500\n動作「折扣」：      R1: 0%          R2: 5%           R3: 10%\n</pre><p>訂單金額為 250 會選中哪條規則、適用什麼折扣？</p>",
+          "answers": [
+            {
+              "text": "R2——5% 折扣",
+              "fraction": 100,
+              "feedback": "正確——250 落在「100 到 500」區間。"
+            },
+            {
+              "text": "R1——0% 折扣",
+              "fraction": 0,
+              "feedback": "R1 適用於未滿 100 的金額；250 高於此。"
+            },
+            {
+              "text": "R3——10% 折扣",
+              "fraction": 0,
+              "feedback": "R3 適用於超過 500 的金額；250 未達此。"
+            },
+            {
+              "text": "沒有規則符合 250",
+              "fraction": 0,
+              "feedback": "250 正好落在 R2 的範圍內，因此有規則符合。"
+            }
+          ],
+          "generalFeedback": "延伸條目條件依範圍比對。250 落在「100 到 500」，即 R2，給予 5% 折扣。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪兩條規則可合併",
+          "text": "<p>給定此表：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nA1       X   X   -   -\nA2       -   -   X   -\nA3       -   -   -   X\n</pre><p>哪兩條規則可以合併為一條，如何合併？</p>",
+          "answers": [
+            {
+              "text": "R1 與 R2，合併為 (C1=T, C2=-) 觸發 A1",
+              "fraction": 100,
+              "feedback": "正確——它們觸發相同動作且僅在 C2 上不同。"
+            },
+            {
+              "text": "R3 與 R4，合併為 (C1=F, C2=-)",
+              "fraction": 0,
+              "feedback": "R3 觸發 A2 而 R4 觸發 A3——動作不同，故無法合併。"
+            },
+            {
+              "text": "R2 與 R3，合併為 (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R2 與 R3 在 C1 與 C2 上都不同，且觸發不同動作；無法合併。"
+            },
+            {
+              "text": "R1 與 R4，合併為 (C1=-, C2=-)",
+              "fraction": 0,
+              "feedback": "R1 與 R4 在兩個條件上都不同，且觸發不同動作。"
+            }
+          ],
+          "generalFeedback": "兩條規則唯有在觸發完全相同的動作且僅在一個條件上不同時才能合併。R1 與 R2 都觸發 A1 且僅 C2 不同，故合併為 (C1=T, C2=-)→A1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "會觸發哪個動作（三個條件）",
+          "text": "<p>給定此表（X 表示被觸發的動作）：</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAccept   X  X  X  -  X  -  -  -\nReject   -  -  -  X  -  X  X  X\n</pre><p>對於 <code>C1 = F, C2 = T, C3 = F</code>，會觸發哪個動作？</p>",
+          "answers": [
+            {
+              "text": "Reject",
+              "fraction": 100,
+              "feedback": "正確——(F,T,F) 是規則 R6，其 X 在 Reject。"
+            },
+            {
+              "text": "Accept",
+              "fraction": 0,
+              "feedback": "Accept 在 R6 觸發嗎？否——R6 的 X 在 Reject，而非 Accept。"
+            },
+            {
+              "text": "Accept 與 Reject 都會",
+              "fraction": 0,
+              "feedback": "R6 欄中只有一個 X，因此只有單一個動作被觸發。"
+            },
+            {
+              "text": "兩個動作都不會",
+              "fraction": 0,
+              "feedback": "R6 確實有被標記的動作（Reject）。"
+            }
+          ],
+          "generalFeedback": "(C1=F, C2=T, C3=F) 是欄 R6。其唯一的 X 在 Reject，因此 Reject 被觸發。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺少的組合",
+          "text": "<p>一張針對 <strong>3 個二元條件</strong>的有限條目表目前列出 6 條規則，皆未使用不在意。假設沒有重複，缺少多少種條件組合？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——完整表需要 2^3 = 8 條規則，8 - 6 = 2 條缺少。"
+            },
+            {
+              "text": "0——表已完整",
+              "fraction": 0,
+              "feedback": "完整的 3 條件表需要 8 條規則；此處只有 6 條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "8 - 6 = 2，而非 3。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是已存在的數量；缺少的數量是 8 - 6 = 2。"
+            }
+          ],
+          "generalFeedback": "完整性要求涵蓋全部 2^n 種組合。n = 3 時為 8；已有 6 條且無不在意，故缺少 2 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "合併前後的測試數",
+          "text": "<p>一張 3 條件的完整表（8 條規則）合併為 4 條規則。採用每條規則一個測試，合併後的表需要多少測試案例，相較於完整表如何？</p>",
+          "answers": [
+            {
+              "text": "4 個測試案例，由 8 個減少而來",
+              "fraction": 100,
+              "feedback": "正確——合併為 4 條規則代表用 4 個測試取代 8 個。"
+            },
+            {
+              "text": "8 個測試案例，不變",
+              "fraction": 0,
+              "feedback": "合併會減少規則數，因此需要的測試較少。"
+            },
+            {
+              "text": "16 個測試案例",
+              "fraction": 0,
+              "feedback": "16 甚至超過完整表的 8 條規則；合併後的表需要 4 個。"
+            },
+            {
+              "text": "1 個測試案例",
+              "fraction": 0,
+              "feedback": "4 條合併規則各需自己的測試，共 4 個。"
+            }
+          ],
+          "generalFeedback": "測試數等於規則數。完整表的 8 條規則給出 8 個測試；合併為 4 條規則後減為 4 個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀一張貸款決策表",
+          "text": "<p>一張貸款表使用 C1 =「信用分數合格」與 C2 =「收入足夠」：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n------------------------\nApprove  X   -   -   -\n</pre><p>某申請人信用分數合格且收入足夠。適用哪條規則、結果如何？</p>",
+          "answers": [
+            {
+              "text": "R1——貸款核准",
+              "fraction": 100,
+              "feedback": "正確——兩個條件皆為真是 R1，也是唯一標記 Approve 的規則。"
+            },
+            {
+              "text": "R2——貸款核准",
+              "fraction": 0,
+              "feedback": "R2 是信用合格但收入不足，且未標記 Approve。"
+            },
+            {
+              "text": "R4——貸款核准",
+              "fraction": 0,
+              "feedback": "R4 是兩個條件皆為假，且未標記 Approve。"
+            },
+            {
+              "text": "R1——貸款不核准",
+              "fraction": 0,
+              "feedback": "R1 確實標記了 Approve，因此貸款核准。"
+            }
+          ],
+          "generalFeedback": "信用合格且收入足夠是 (C1=T, C2=T)，即 R1。R1 是唯一標記 Approve 的規則，因此貸款核准。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目的年齡分段",
+          "text": "<p>一張延伸條目表依年齡設定票價：</p><pre>\n條件「年齡」：  R1: 未滿 13   R2: 13 到 17   R3: 18 到 64   R4: 65 或以上\n動作「票價」：  R1: 免費      R2: $5         R3: $10        R4: $7\n</pre><p>一位 17 歲的訪客會選中哪條規則與票價？</p>",
+          "answers": [
+            {
+              "text": "R2——$5",
+              "fraction": 100,
+              "feedback": "正確——17 落在「13 到 17」分段。"
+            },
+            {
+              "text": "R1——免費",
+              "fraction": 0,
+              "feedback": "R1 適用於未滿 13 歲；17 高於此。"
+            },
+            {
+              "text": "R3——$10",
+              "fraction": 0,
+              "feedback": "R3 從 18 起算；17 未達此。"
+            },
+            {
+              "text": "R4——$7",
+              "fraction": 0,
+              "feedback": "R4 適用於 65 歲或以上。"
+            }
+          ],
+          "generalFeedback": "年齡 17 落在「13 到 17」分段，即 R2，票價 $5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個條件的不在意",
+          "text": "<p>在一張具有 <strong>5 個二元條件</strong>的表中，某條合併規則對其中 3 個標記為「-」（另外 2 個固定）。這一條規則代表多少種完整表組合？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——3 個不在意代表 2^3 = 8 種組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "不在意以 2^k 展開；3 個給出 8，而非 3。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 是整張表；此規則固定了 2 個條件，故涵蓋 2^3 = 8。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是條件的數目，而非 2 的不在意次冪。"
+            }
+          ],
+          "generalFeedback": "只有不在意的條件會變動。有 3 個不在意時，該規則代表完全展開後的 2^3 = 8 種組合，與條件總數無關。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "冗餘（被涵蓋）的規則",
+          "text": "<p>檢視此表：</p><pre>\n        R1     R2     R3\nC1       T      T      F\nC2       -      F      T\n--------------------------\nA        X      X      -\n</pre><p>哪條規則是冗餘的，為什麼？</p>",
+          "answers": [
+            {
+              "text": "R2——它被 R1 涵蓋；R1 已涵蓋 C1=T 且 C2 為任意值，並觸發相同動作 A",
+              "fraction": 100,
+              "feedback": "正確——R1 對 C2 的不在意已包含 R2 的情況並觸發相同動作。"
+            },
+            {
+              "text": "R1——因為它使用了不在意",
+              "fraction": 0,
+              "feedback": "使用不在意本身並非冗餘；R1 是通用規則，R2 才是被它涵蓋的那條。"
+            },
+            {
+              "text": "R3——因為它不觸發任何動作",
+              "fraction": 0,
+              "feedback": "R3 涵蓋不同情況（C1=F, C2=T），且不觸發動作是合法結果，並非冗餘。"
+            },
+            {
+              "text": "沒有——此表沒有冗餘",
+              "fraction": 0,
+              "feedback": "R2 被 R1 以相同動作完全涵蓋，因此 R2 是冗餘的。"
+            }
+          ],
+          "generalFeedback": "R1（C1=T, C2=-）已以動作 A 涵蓋 (T,T) 與 (T,F)。R2（C1=T, C2=F）正是 (T,F) 情況且動作相同，未增加任何內容——它是冗餘、被涵蓋的規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不可能的規則",
+          "text": "<p>條件為 C1 =「x &gt; 0」與 C2 =「x &lt; 0」：</p><pre>\n        R1  R2  R3  R4\nC1       T   T   F   F\nC2       T   F   T   F\n</pre><p>哪條規則描述了<strong>不可能</strong>（不可行）的組合？</p>",
+          "answers": [
+            {
+              "text": "R1——一個值不可能同時大於 0 且小於 0",
+              "fraction": 100,
+              "feedback": "正確——C1=T 且 C2=T 在邏輯上不可能。"
+            },
+            {
+              "text": "R4——兩者皆為假是不可能的",
+              "fraction": 0,
+              "feedback": "C1=F 且 C2=F 只是代表 x = 0，完全可行。"
+            },
+            {
+              "text": "R2——x > 0 且非 x < 0",
+              "fraction": 0,
+              "feedback": "那描述任何正的 x，是可行的。"
+            },
+            {
+              "text": "R3——x < 0 且非 x > 0",
+              "fraction": 0,
+              "feedback": "那描述任何負的 x，是可行的。"
+            }
+          ],
+          "generalFeedback": "C1 與 C2 互斥，因此 R1（兩者皆真）永不可能發生——它是不可行規則，無需測試案例。R4（兩者皆假）對應 x = 0，是可行的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不一致的規則",
+          "text": "<p>檢視此表：</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       F   F   T\n--------------------\nA        X   -   -\nB        -   X   -\n</pre><p>此表包含什麼異常？</p>",
+          "answers": [
+            {
+              "text": "R1 與 R2 不一致——相同的條件組合（C1=T, C2=F）卻指定了不同的動作（A 對 B）",
+              "fraction": 100,
+              "feedback": "正確——條件相同但動作衝突即為不一致。"
+            },
+            {
+              "text": "R3 是冗餘的",
+              "fraction": 0,
+              "feedback": "R3 涵蓋一個相異的組合（C1=F, C2=T）；它並非冗餘。"
+            },
+            {
+              "text": "此表只是不完整",
+              "fraction": 0,
+              "feedback": "它也許同時不完整，但標記的缺陷是 R1 與 R2 在相同條件上的衝突。"
+            },
+            {
+              "text": "沒有異常",
+              "fraction": 0,
+              "feedback": "R1 與 R2 條件取值相同卻觸發不同動作——這是明顯的不一致。"
+            }
+          ],
+          "generalFeedback": "R1 與 R2 都是 C1=T, C2=F，卻分別觸發 A 與 B。兩條條件相同而動作不同的規則屬於不一致（衝突），必須解決。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整性檢查",
+          "text": "<p>一張針對 2 個二元條件的表只有這兩條規則：</p><pre>\n規則 P：  C1=T, C2=-\n規則 Q：  C1=F, C2=T\n</pre><p>此表是否完整？若否，缺少什麼？</p>",
+          "answers": [
+            {
+              "text": "不完整——組合 C1=F, C2=F 未被涵蓋",
+              "fraction": 100,
+              "feedback": "正確——P 涵蓋 TT 與 TF，Q 涵蓋 FT，留下 FF 未涵蓋。"
+            },
+            {
+              "text": "完整——全部 4 種組合皆已涵蓋",
+              "fraction": 0,
+              "feedback": "4 種中只涵蓋了 3 種；FF 缺少。"
+            },
+            {
+              "text": "不完整——缺少組合 C1=T, C2=T",
+              "fraction": 0,
+              "feedback": "規則 P 的不在意已涵蓋 C1=T, C2=T。"
+            },
+            {
+              "text": "不完整——缺少組合 C1=F, C2=T",
+              "fraction": 0,
+              "feedback": "規則 Q 正好涵蓋 C1=F, C2=T。"
+            }
+          ],
+          "generalFeedback": "規則 P（C1=T, C2=-）涵蓋 TT 與 TF；規則 Q 涵蓋 FT。這是 3 種組合；第四種 FF（C1=F, C2=F）未被涵蓋，因此該表不完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正確的合併（三個條件）",
+          "text": "<p>檢視此完整 3 條件表：</p><pre>\n        R1 R2 R3 R4 R5 R6 R7 R8\nC1       T  T  T  T  F  F  F  F\nC2       T  T  F  F  T  T  F  F\nC3       T  F  T  F  T  F  T  F\n--------------------------------\nAction   A  A  B  C  D  E  F  G\n</pre><p>哪一對規則可以正確地合併，合併成什麼？</p>",
+          "answers": [
+            {
+              "text": "R1 與 R2，合併為 (C1=T, C2=T, C3=-) 觸發 A",
+              "fraction": 100,
+              "feedback": "正確——它們觸發相同動作且僅在 C3 上不同。"
+            },
+            {
+              "text": "R1 與 R3，合併為 (C1=T, C2=-, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 觸發 A 而 R3 觸發 B——動作不同，故無法合併。"
+            },
+            {
+              "text": "R7 與 R8，合併為 (C1=F, C2=F, C3=-)",
+              "fraction": 0,
+              "feedback": "R7 觸發 F 而 R8 觸發 G——動作不同，故無法合併。"
+            },
+            {
+              "text": "R1 與 R5，合併為 (C1=-, C2=T, C3=T)",
+              "fraction": 0,
+              "feedback": "R1 觸發 A 而 R5 觸發 D——動作不同，故無法合併。"
+            }
+          ],
+          "generalFeedback": "只有 R1 與 R2 共用同一動作（A），且僅在一個條件（C3）上不同。它們合併為 (C1=T, C2=T, C3=-)→A。其他每對相鄰規則皆觸發不同動作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由合併後表得出最小測試集",
+          "text": "<p>一張針對 2 個二元條件、正確合併後的表為：</p><pre>\n規則 1：  C1=T, C2=-\n規則 2：  C1=F, C2=T\n規則 3：  C1=F, C2=F\n</pre><p>要讓每條規則各被執行一次，最少需要多少測試案例？</p>",
+          "answers": [
+            {
+              "text": "3——每條合併規則一個（涵蓋底層全部 4 種組合）",
+              "fraction": 100,
+              "feedback": "正確——合併後的表有 3 條規則，因此 3 個測試即足夠。"
+            },
+            {
+              "text": "4——每種底層組合一個",
+              "fraction": 0,
+              "feedback": "你測試的是合併後的規則，而非重新展開的組合，因此 3 個測試就夠。"
+            },
+            {
+              "text": "2——每個條件一個",
+              "fraction": 0,
+              "feedback": "每條規則各需自己的測試；此處有 3 條規則。"
+            },
+            {
+              "text": "1——單一個合併測試",
+              "fraction": 0,
+              "feedback": "一個測試無法執行三條相異的規則。"
+            }
+          ],
+          "generalFeedback": "測試數等於（合併後）規則數。此處 3 條規則給出 3 個測試；規則 1 的不在意意味這 3 個測試仍涵蓋全部 2^2 = 4 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目範圍重疊",
+          "text": "<p>一張延伸條目評分表：</p><pre>\n條件「分數」：  R1: 0 到 59   R2: 60 到 79   R3: 75 到 100\n動作：          R1: 不及格    R2: 及格       R3: 優等\n</pre><p>分數 77 揭露了什麼問題？</p>",
+          "answers": [
+            {
+              "text": "不一致——77 同時落在 R2（60 到 79）與 R3（75 到 100），因此兩條規則都符合卻有不同動作",
+              "fraction": 100,
+              "feedback": "正確——重疊的範圍使 75-79 的結果變得模稜兩可。"
+            },
+            {
+              "text": "不完整——77 未被任何規則涵蓋",
+              "fraction": 0,
+              "feedback": "77 有被涵蓋——事實上被兩條規則涵蓋，這才是真正的問題。"
+            },
+            {
+              "text": "不可能的規則——分數 77 不可能發生",
+              "fraction": 0,
+              "feedback": "77 是完全有效的分數；問題在於重疊，而非可行性。"
+            },
+            {
+              "text": "沒有問題——此表格式良好",
+              "fraction": 0,
+              "feedback": "R2 與 R3 在 75-79 上重疊，因此該區間的分數會符合兩條衝突的規則。"
+            }
+          ],
+          "generalFeedback": "R2（60 到 79）與 R3（75 到 100）在 75-79 上重疊。分數 77 同時符合兩者，同時指定及格與優等——這是由不互斥的延伸條目範圍造成的不一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目範圍的空隙",
+          "text": "<p>一張依年齡的延伸條目表：</p><pre>\n條件「年齡」：  R1: 0 到 17   R2: 18 到 64   R3: 66 到 120\n動作：          R1: 未成年    R2: 成年       R3: 年長\n</pre><p>此表有什麼完整性問題？</p>",
+          "answers": [
+            {
+              "text": "年齡 65 未被任何規則涵蓋——R2 與 R3 之間有空隙",
+              "fraction": 100,
+              "feedback": "正確——R2 到 64 為止，R3 從 66 起算，留下 65 未涵蓋。"
+            },
+            {
+              "text": "年齡 18 被涵蓋了兩次",
+              "fraction": 0,
+              "feedback": "18 只落在 R2；此處沒有重疊，只有 65 的空隙。"
+            },
+            {
+              "text": "範圍在 64 處重疊",
+              "fraction": 0,
+              "feedback": "64 只屬於 R2；缺陷是空隙，而非重疊。"
+            },
+            {
+              "text": "此表是完整的",
+              "fraction": 0,
+              "feedback": "65 沒有對應規則，因此該表不完整。"
+            }
+          ],
+          "generalFeedback": "R2 涵蓋到 64，R3 從 66 起算，因此年齡 65 不符合任何規則。該空隙是延伸條目範圍中的不完整缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "重複（冗餘）的規則",
+          "text": "<p>檢視此表：</p><pre>\n        R1  R2  R3  R4\nC1       T   F   T   F\nC2       T   T   F   T\n------------------------\nAction   A   B   C   B\n</pre><p>哪條規則是冗餘的，為什麼？</p>",
+          "answers": [
+            {
+              "text": "R4——它與 R2 重複：條件相同（C1=F, C2=T）且動作相同 B",
+              "fraction": 100,
+              "feedback": "正確——R2 與 R4 完全相同，因此 R4 未增加任何內容。"
+            },
+            {
+              "text": "R3——它是唯一觸發 C 的規則",
+              "fraction": 0,
+              "feedback": "觸發唯一的動作並非冗餘；R3 涵蓋一個相異的組合。"
+            },
+            {
+              "text": "R1——因為它觸發 A",
+              "fraction": 0,
+              "feedback": "R1 唯一地涵蓋 (T,T)；它並未被重複。"
+            },
+            {
+              "text": "沒有——每條規則都不同",
+              "fraction": 0,
+              "feedback": "R2 與 R4 條件相同且動作相同，因此其中一條是冗餘的。"
+            }
+          ],
+          "generalFeedback": "R2 與 R4 都是 C1=F, C2=T 且都觸發 B。它們是完全的重複，因此 R4 是可移除的冗餘規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以計數檢查完整性",
+          "text": "<p>一張針對 <strong>4 個二元條件</strong>的有限條目表使用了不在意。其各規則分別涵蓋 8、4、2、1 種組合，且互不重疊。此表是否完整？</p>",
+          "answers": [
+            {
+              "text": "否——各規則共涵蓋 8+4+2+1 = 15 種，而 2^4 = 16，故缺少一種",
+              "fraction": 100,
+              "feedback": "正確——15 < 16，因此該表缺少一種組合而不完整。"
+            },
+            {
+              "text": "是——四條規則涵蓋了全部",
+              "fraction": 0,
+              "feedback": "各涵蓋數合計為 15，比 16 少一。"
+            },
+            {
+              "text": "否——此表規則過多而過度指定",
+              "fraction": 0,
+              "feedback": "合計為 15，低於 16；並無過度涵蓋（無重疊）。"
+            },
+            {
+              "text": "否——缺少兩種組合",
+              "fraction": 0,
+              "feedback": "16 - 15 = 1，因此恰好缺少一種組合。"
+            }
+          ],
+          "generalFeedback": "每條規則的不在意展開為 2 的冪；將互斥的涵蓋相加得 8+4+2+1 = 15。完整的 4 條件表需要 2^4 = 16，故有一種組合未被涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由不在意重疊造成的不一致",
+          "text": "<p>一張表對 2 個二元條件包含這兩條規則：</p><pre>\n規則 X：  C1=T, C2=-  ->  A\n規則 Y：  C1=T, C2=F  ->  B\n</pre><p>哪種組合造成衝突，為什麼？</p>",
+          "answers": [
+            {
+              "text": "C1=T, C2=F——規則 X（C2 為不在意）也涵蓋它並指定 A，而規則 Y 指定 B",
+              "fraction": 100,
+              "feedback": "正確——X 的不在意與 Y 在此重疊卻動作不同，屬於不一致。"
+            },
+            {
+              "text": "C1=T, C2=T——兩條規則在此都要求動作 B",
+              "fraction": 0,
+              "feedback": "在 (T,T) 只有規則 X 適用（給出 A）；規則 Y 是 C2=F，故 (T,T) 沒有衝突。"
+            },
+            {
+              "text": "C1=F, C2=F——兩條規則都未涵蓋它，造成衝突",
+              "fraction": 0,
+              "feedback": "未涵蓋的組合屬於不完整，而非衝突；且此處的衝突在 (T,F)。"
+            },
+            {
+              "text": "沒有衝突——這兩條規則互斥",
+              "fraction": 0,
+              "feedback": "規則 X 的不在意使它在 (T,F) 與規則 Y 重疊，且動作不同。"
+            }
+          ],
+          "generalFeedback": "規則 X（C1=T, C2=-）涵蓋 (T,T) 與 (T,F)。規則 Y（C1=T, C2=F）也涵蓋 (T,F)，卻指定 B 而非 A。(T,F) 處的重疊加上動作衝突即為不一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由互斥條件造成的不可能規則",
+          "text": "<p>條件來自規格：C1 =「付款為現金」、C2 =「付款為信用卡」（一筆付款只用一種方式）：</p><pre>\n        R1  R2  R3\nC1       T   T   F\nC2       T   F   T\n</pre><p>哪條規則不可行？</p>",
+          "answers": [
+            {
+              "text": "R1——單一筆付款不可能同時是現金又是信用卡",
+              "fraction": 100,
+              "feedback": "正確——C1 與 C2 互斥，故兩者皆真為不可能。"
+            },
+            {
+              "text": "R2——現金而非信用卡",
+              "fraction": 0,
+              "feedback": "那是一般的現金付款；是可行的。"
+            },
+            {
+              "text": "R3——信用卡而非現金",
+              "fraction": 0,
+              "feedback": "那是一般的信用卡付款；是可行的。"
+            },
+            {
+              "text": "沒有——三條都可行",
+              "fraction": 0,
+              "feedback": "R1 要求同時為現金與信用卡，這是規格所禁止的。"
+            }
+          ],
+          "generalFeedback": "由於一筆付款恰為一種方式，C1 與 C2 不可能同時為真。R1（兩者皆真）不可行，無需測試案例；只有 R2 與 R3（以及可能的「兩者皆非」情況）才符合實際。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證完整性與一致性",
+          "text": "<p>一張針對 2 個二元條件、合併後的表為：</p><pre>\n規則 1：  C1=T, C2=-  ->  A\n規則 2：  C1=F, C2=-  ->  B\n</pre><p>此表是否既完整又一致？</p>",
+          "answers": [
+            {
+              "text": "是——兩條規則涵蓋全部 4 種組合且無重疊（在 C1 上互斥）",
+              "fraction": 100,
+              "feedback": "正確——規則 1 涵蓋 TT、TF，規則 2 涵蓋 FT、FF；合起來為全部 4 種且無衝突。"
+            },
+            {
+              "text": "否——因為 C2 從未被固定，所以不完整",
+              "fraction": 0,
+              "feedback": "C2 上的不在意意味 C2 的兩個值都被涵蓋，故無缺少。"
+            },
+            {
+              "text": "否——兩條規則重疊且衝突",
+              "fraction": 0,
+              "feedback": "它們在 C1 上不同（T 對 F），因此永不重疊；沒有衝突。"
+            },
+            {
+              "text": "否——規則 2 是冗餘的",
+              "fraction": 0,
+              "feedback": "規則 2 涵蓋規則 1 未涵蓋的情況（FT、FF），因此是必要的。"
+            }
+          ],
+          "generalFeedback": "規則 1（C1=T, C2=-）涵蓋 TT 與 TF；規則 2（C1=F, C2=-）涵蓋 FT 與 FF。它們的聯集是全部 2^2 = 4 種組合，且在 C1 上互斥，因此該表既完整又一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排除不可行規則後的測試數",
+          "text": "<p>一張 3 條件表有 8 欄規則，但其中 2 欄描述<strong>不可行</strong>的條件組合。採用每條可行規則一個測試，實際需要多少測試案例？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——8 條規則減去 2 條不可行，剩 6 條需要測試。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "不可行規則永不發生，故無需測試案例；8 - 2 = 6。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是不可行規則的數目，而非需要測試的數目。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "8 - 2 = 6，而非 4。"
+            }
+          ],
+          "generalFeedback": "不可行規則無法被執行，因此排除於測試導出之外。8 條規則中有 2 條不可行，剩 6 條可行規則，需要 6 個測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延伸條目的規則數",
+          "text": "<p>一張延伸條目表有兩個條件：「Size」具選項 {Low, High}，「Method」具選項 {Cash, Card, Coupon}。完整的延伸條目表需要多少條規則才能涵蓋每種組合？</p>",
+          "answers": [
+            {
+              "text": "6——各選項數的乘積，2 x 3",
+              "fraction": 100,
+              "feedback": "正確——延伸條目的規則數是各條件選項數的乘積。"
+            },
+            {
+              "text": "5——各選項數的和，2 + 3",
+              "fraction": 0,
+              "feedback": "組合是相乘而非相加；2 x 3 = 6。"
+            },
+            {
+              "text": "4——2^2，把每個條件視為二元",
+              "fraction": 0,
+              "feedback": "Method 有 3 個選項而非 2 個，因此為 2 x 3 = 6，而非 2^2。"
+            },
+            {
+              "text": "9——3^2",
+              "fraction": 0,
+              "feedback": "兩個條件的選項數不同（2 與 3）；乘積為 2 x 3 = 6。"
+            }
+          ],
+          "generalFeedback": "對延伸條目表而言，完整規則數是各條件選項數的乘積——此處為 2 x 3 = 6。這推廣了 2^n 公式，後者是每個條件都恰有 2 個選項的特例。",
+          "single": true
+        }
+      ]
+    }
+  },
   "graph-coverage": {
     "en": {
       "easy": [
