@@ -65963,6 +65963,2502 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "logic-inactive-clause": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Definition of inactive clause",
+            "text": "<p>A major clause c<sub>i</sub> is <strong>inactive</strong> for predicate p (under a fixed assignment of the minor clauses) when:</p>",
+            "answers": [
+              {
+                "text": "Toggling only c, with the minor clauses fixed, does not change the value of p",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an inactive clause does not determine p; flipping it leaves p unchanged."
+              },
+              {
+                "text": "Toggling only c, with the minor clauses fixed, changes the value of p",
+                "fraction": 0,
+                "feedback": "That is an active (determining) clause, the opposite of inactive."
+              },
+              {
+                "text": "cevaluates to false",
+                "fraction": 0,
+                "feedback": "Inactivity is about cnot affecting p, not about c's own value."
+              },
+              {
+                "text": "cdoes not appear syntactically in p",
+                "fraction": 0,
+                "feedback": "An inactive clause is still part of p; it just happens to be masked by the minor clauses."
+              }
+            ],
+            "generalFeedback": `A clause is inactive (does not determine p) under a minor assignment when flipping it, with everything else fixed, leaves p's value unchanged. This is exactly the negation of "determines".`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Equivalent inactivity condition",
+            "text": "<p>With the minor clauses fixed, clause c<sub>i</sub> is inactive for p if and only if:</p>",
+            "answers": [
+              {
+                "text": "pequals p",
+                "fraction": 100,
+                "feedback": "Correct \u2014 p takes the same value whether cis true or false, so chas no effect."
+              },
+              {
+                "text": "pdiffers from p",
+                "fraction": 0,
+                "feedback": "That is the determination (active) condition, not inactivity."
+              },
+              {
+                "text": "cequals p",
+                "fraction": 0,
+                "feedback": "Inactivity is about cnot changing p, not about them being equal."
+              },
+              {
+                "text": "Every minor clause equals c",
+                "fraction": 0,
+                "feedback": "Inactivity does not require the minor clauses to match c."
+              }
+            ],
+            "generalFeedback": "cis inactive exactly when p= punder the fixed minor assignment: the two possible cvalues give the same p, so cdoes not determine p.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When a is inactive in a AND b",
+            "text": "<p>For predicate p = a &#8743; b, clause a is <strong>inactive</strong> exactly when:</p>",
+            "answers": [
+              {
+                "text": "b is false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with b false, p is false regardless of a, so a does not determine p."
+              },
+              {
+                "text": "b is true",
+                "fraction": 0,
+                "feedback": "With b true, p equals a, so a determines p \u2014 a is active, not inactive."
+              },
+              {
+                "text": "Always, regardless of b",
+                "fraction": 0,
+                "feedback": "When b is true, a does determine p, so a is not always inactive."
+              },
+              {
+                "text": "Never",
+                "fraction": 0,
+                "feedback": "a is inactive whenever b is false."
+              }
+            ],
+            "generalFeedback": "For a conjunction a &#8743; b, clause a determines p only when b is true. Hence a is inactive exactly when b is false, where p is pinned to false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When a is inactive in a OR b",
+            "text": "<p>For predicate p = a &#8744; b, clause a is <strong>inactive</strong> exactly when:</p>",
+            "answers": [
+              {
+                "text": "b is true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with b true, p is true regardless of a, so a does not determine p."
+              },
+              {
+                "text": "b is false",
+                "fraction": 0,
+                "feedback": "With b false, p equals a, so a determines p \u2014 a is active, not inactive."
+              },
+              {
+                "text": "Always, regardless of b",
+                "fraction": 0,
+                "feedback": "When b is false, a determines p, so a is not always inactive."
+              },
+              {
+                "text": "Never",
+                "fraction": 0,
+                "feedback": "a is inactive whenever b is true."
+              }
+            ],
+            "generalFeedback": "For a disjunction a &#8744; b, clause a determines p only when b is false. Hence a is inactive exactly when b is true, where p is pinned to true.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Inactive means does not determine",
+            "text": "<p>A clause is inactive for a predicate exactly when it does <em>not</em> determine that predicate.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "inactive" is defined as the negation of "determines".'
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Inactive and determining are complementary: a clause is inactive precisely when it fails to determine p."
+              }
+            ],
+            "generalFeedback": 'Active-clause criteria require a clause to determine p; inactive-clause criteria require it to be masked. "Inactive" simply means the clause does not determine the predicate under the given minor assignment.'
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of inactive-clause coverage",
+            "text": "<p>The inactive-clause criteria (GICC/RICC) are designed to verify that:</p>",
+            "answers": [
+              {
+                "text": "An inactive (masked) clause genuinely has no effect on the predicate's outcome",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they check that masking behaves correctly."
+              },
+              {
+                "text": "Each clause independently determines the predicate",
+                "fraction": 0,
+                "feedback": "That is the goal of the active-clause criteria (GACC/CACC/RACC)."
+              },
+              {
+                "text": "Every combination of clause values is exercised",
+                "fraction": 0,
+                "feedback": "That is Combinatorial Coverage."
+              },
+              {
+                "text": "The predicate takes both truth values at least once",
+                "fraction": 0,
+                "feedback": "That is merely Predicate Coverage."
+              }
+            ],
+            "generalFeedback": `Inactive-clause coverage confirms that when a clause is supposed to be masked, it really has no effect on p \u2014 catching bugs where a "don't care" clause secretly changes the outcome.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "GICC acronym",
+            "text": "<p>What does <strong>GICC</strong> stand for?</p>",
+            "answers": [
+              {
+                "text": "General Inactive Clause Coverage",
+                "fraction": 100,
+                "feedback": "Correct."
+              },
+              {
+                "text": "General Independent Clause Coverage",
+                "fraction": 0,
+                "feedback": 'The "I" stands for Inactive, not Independent.'
+              },
+              {
+                "text": "General Active Clause Coverage",
+                "fraction": 0,
+                "feedback": "That is GACC, an active-clause criterion."
+              },
+              {
+                "text": "Grouped Inactive Combination Coverage",
+                "fraction": 0,
+                "feedback": "Not a standard criterion name."
+              }
+            ],
+            "generalFeedback": "GICC = General Inactive Clause Coverage: the inactive-clause criterion whose minor-clause values may differ across the four test requirements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC acronym",
+            "text": "<p>What does <strong>RICC</strong> stand for?</p>",
+            "answers": [
+              {
+                "text": "Restricted Inactive Clause Coverage",
+                "fraction": 100,
+                "feedback": "Correct."
+              },
+              {
+                "text": "Restricted Independent Clause Coverage",
+                "fraction": 0,
+                "feedback": 'The "I" stands for Inactive, not Independent.'
+              },
+              {
+                "text": "Restricted Active Clause Coverage",
+                "fraction": 0,
+                "feedback": "That is RACC, an active-clause criterion."
+              },
+              {
+                "text": "Reduced Inactive Combination Coverage",
+                "fraction": 0,
+                "feedback": "Not a standard criterion name."
+              }
+            ],
+            "generalFeedback": "RICC = Restricted Inactive Clause Coverage: like GICC, but the minor-clause values must match across the paired c=true / c=false requirements at each fixed value of p.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of ICC requirements per clause",
+            "text": "<p>For each major clause, Inactive Clause Coverage imposes how many test requirements?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the four combinations of c&#8712; {T,F} with p &#8712; {T,F}, all with cinactive."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 would only cover c=true and c=false; ICC also splits on p's value."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "ICC needs four requirements per clause, not one."
+              },
+              {
+                "text": "2^n (for n clauses)",
+                "fraction": 0,
+                "feedback": "2^n is Combinatorial Coverage, not ICC."
+              }
+            ],
+            "generalFeedback": "Because an inactive clause does not determine p, p can independently be true or false. ICC therefore requires four requirements per major clause: c=T&#8743;p=T, c=T&#8743;p=F, c=F&#8743;p=T, c=F&#8743;p=F.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the four ICC requirements vary",
+            "text": "<p>The four Inactive Clause Coverage requirements for a major clause enumerate the combinations of:</p>",
+            "answers": [
+              {
+                "text": "The value of c(true/false) and the value of p (true/false)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2 &#215; 2 = 4 requirements, all with cinactive."
+              },
+              {
+                "text": "The values of two of the minor clauses",
+                "fraction": 0,
+                "feedback": "ICC varies cand p, not a pair of minor clauses."
+              },
+              {
+                "text": "The value of cand whether cdetermines p",
+                "fraction": 0,
+                "feedback": "cis inactive (does not determine p) in all four requirements; only cand p vary."
+              },
+              {
+                "text": "All 2^n rows of the truth table",
+                "fraction": 0,
+                "feedback": "That is Combinatorial Coverage."
+              }
+            ],
+            "generalFeedback": "Holding cinactive, ICC crosses c&#8712; {T,F} with p &#8712; {T,F}, giving four requirements per major clause.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Value of a AND b when a is inactive",
+            "text": "<p>For p = a &#8743; b, when clause a is inactive (b = false), the predicate p is:</p>",
+            "answers": [
+              {
+                "text": "False, regardless of a",
+                "fraction": 100,
+                "feedback": "Correct \u2014 b false forces a &#8743; b to false whatever a is."
+              },
+              {
+                "text": "True, regardless of a",
+                "fraction": 0,
+                "feedback": "A conjunction with a false operand is false, not true."
+              },
+              {
+                "text": "Equal to a",
+                "fraction": 0,
+                "feedback": "That happens when b is true (a active), not when a is inactive."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "p is well-defined and equals false."
+              }
+            ],
+            "generalFeedback": "Making a inactive in a &#8743; b requires b = false, which pins p to false. So while a is inactive, p can only be false \u2014 a fact with consequences for ICC feasibility.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Value of a OR b when a is inactive",
+            "text": "<p>For p = a &#8744; b, when clause a is inactive (b = true), the predicate p is:</p>",
+            "answers": [
+              {
+                "text": "True, regardless of a",
+                "fraction": 100,
+                "feedback": "Correct \u2014 b true forces a &#8744; b to true whatever a is."
+              },
+              {
+                "text": "False, regardless of a",
+                "fraction": 0,
+                "feedback": "A disjunction with a true operand is true, not false."
+              },
+              {
+                "text": "Equal to a",
+                "fraction": 0,
+                "feedback": "That happens when b is false (a active), not when a is inactive."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "p is well-defined and equals true."
+              }
+            ],
+            "generalFeedback": "Making a inactive in a &#8744; b requires b = true, which pins p to true. So while a is inactive, p can only be true \u2014 the dual of the conjunction case.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Minor clauses determine p when masked",
+            "text": "<p>When a major clause is inactive, the predicate's value is determined entirely by the minor clauses.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 since the major clause has no effect, only the minor clauses fix p."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "An inactive major clause cannot change p, so p is fixed by the minor clauses alone."
+              }
+            ],
+            "generalFeedback": "An inactive clause does not affect p, so with it masked the outcome is a function of the minor clauses only. This is why, while cis inactive, p can still independently be true or false depending on the minor clauses."
+          },
+          {
+            "type": "multichoice",
+            "name": "Contrast with active-clause coverage",
+            "text": "<p>Which family of criteria is the direct <strong>contrast</strong> to the inactive-clause criteria?</p>",
+            "answers": [
+              {
+                "text": "The active-clause criteria (GACC / CACC / RACC)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they require the clause to determine p, whereas inactive-clause criteria require it to be masked."
+              },
+              {
+                "text": "Predicate Coverage and Clause Coverage",
+                "fraction": 0,
+                "feedback": "Those are coarser criteria, not the active/inactive counterpart."
+              },
+              {
+                "text": "Combinatorial Coverage",
+                "fraction": 0,
+                "feedback": "CoC exercises all combinations; it is not the determination-based counterpart."
+              },
+              {
+                "text": "The DNF criteria (implicant / unique-true-point)",
+                "fraction": 0,
+                "feedback": "Those are a separate DNF-based family, not the direct contrast."
+              }
+            ],
+            "generalFeedback": "The active-clause criteria (GACC/CACC/RACC) require each clause to determine p; the inactive-clause criteria (GICC/RICC) require each clause to be masked. They are complementary halves of the determination idea.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "b false makes a active in a OR b",
+            "text": "<p>For p = a &#8744; b, setting b = false makes clause a <em>active</em> (determining), not inactive.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with b false, p equals a, so a determines p."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "With b false, p = a &#8744; false = a, so flipping a flips p; a is active. a would be inactive when b = true."
+              }
+            ],
+            "generalFeedback": "For a &#8744; b, a is inactive when b = true (p pinned to true) and active when b = false (p mirrors a)."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Make c inactive in (a AND b) OR c",
+            "text": "<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause <strong>c</strong> inactive?</p>",
+            "answers": [
+              {
+                "text": "a = true, b = true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 then a &#8743; b is true, so p is true regardless of c; c is masked."
+              },
+              {
+                "text": "a = false, b = false",
+                "fraction": 0,
+                "feedback": "Then a &#8743; b is false, so p = c and c determines p (active)."
+              },
+              {
+                "text": "a = true, b = false",
+                "fraction": 0,
+                "feedback": "Then a &#8743; b is false, so p = c and c is active."
+              },
+              {
+                "text": "a = false, b = true",
+                "fraction": 0,
+                "feedback": "Then a &#8743; b is false, so p = c and c is active."
+              }
+            ],
+            "generalFeedback": "For a disjunction X &#8744; c, clause c is inactive exactly when the other operand X is true. Here X = a &#8743; b, so c is inactive when a = true and b = true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When a determines (a AND b) OR c",
+            "text": "<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause a <strong>active</strong> (i.e., a is <em>not</em> inactive)?</p>",
+            "answers": [
+              {
+                "text": "b = true, c = false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only then does p reduce to a, so a determines p."
+              },
+              {
+                "text": "b = false, c = false",
+                "fraction": 0,
+                "feedback": "With b false, a &#8743; b is false regardless of a, so a is inactive."
+              },
+              {
+                "text": "b = false, c = true",
+                "fraction": 0,
+                "feedback": "c true pins p to true and b false masks a, so a is inactive."
+              },
+              {
+                "text": "b = true, c = true",
+                "fraction": 0,
+                "feedback": "c true pins p to true regardless of a, so a is inactive."
+              }
+            ],
+            "generalFeedback": "a determines p only when its term passes a through (b = true) and the disjunction does not mask it (c = false). At every other minor assignment, a is inactive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The four ICC requirements",
+            "text": "<p>For an inactive major clause c<sub>i</sub>, Inactive Clause Coverage requires test requirements covering exactly:</p>",
+            "answers": [
+              {
+                "text": "c=T&#8743;p=T, c=T&#8743;p=F, c=F&#8743;p=T, c=F&#8743;p=F",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cand p each take both values while cstays inactive."
+              },
+              {
+                "text": "c=T and c=F only",
+                "fraction": 0,
+                "feedback": "That ignores the requirement that p also take both values."
+              },
+              {
+                "text": "p=T and p=F only",
+                "fraction": 0,
+                "feedback": "That ignores the requirement that calso take both values."
+              },
+              {
+                "text": "All 2^n combinations of the clause values",
+                "fraction": 0,
+                "feedback": "That is Combinatorial Coverage, not ICC."
+              }
+            ],
+            "generalFeedback": "Because an inactive clause cannot change p, p is free to be true or false independently of c. ICC therefore lists all four (c, p) combinations as separate test requirements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How RICC restricts GICC",
+            "text": "<p>How does Restricted Inactive Clause Coverage (RICC) differ from General Inactive Clause Coverage (GICC)?</p>",
+            "answers": [
+              {
+                "text": "RICC requires the minor-clause values to be identical for the c=true and c=false requirements that share the same value of p",
+                "fraction": 100,
+                "feedback": "Correct \u2014 RICC pins the minors across each same-p pair; GICC lets them vary."
+              },
+              {
+                "text": "RICC requires the minor-clause values to differ across all four requirements",
+                "fraction": 0,
+                "feedback": "RICC constrains minors to be the same across the same-p pairs, not different."
+              },
+              {
+                "text": "RICC requires cto determine p",
+                "fraction": 0,
+                "feedback": "Both are inactive-clause criteria: cis masked in both, never determining p."
+              },
+              {
+                "text": "RICC drops one of the four requirements",
+                "fraction": 0,
+                "feedback": "RICC keeps all four requirements; it only adds a constraint on the minor clauses."
+              }
+            ],
+            "generalFeedback": "GICC lets the minor-clause values vary freely among the four requirements. RICC adds the restriction that the minors match within each same-p pair (c=T&#8743;p=T with c=F&#8743;p=T, and c=T&#8743;p=F with c=F&#8743;p=F).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Active vs inactive requirement",
+            "text": "<p>The active-clause criteria require the major clause to <em>determine</em> p. The inactive-clause criteria instead require the major clause to:</p>",
+            "answers": [
+              {
+                "text": "Not determine p (be masked by the minor clauses)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 inactive-clause coverage exercises the masked case."
+              },
+              {
+                "text": "Determine p in both directions",
+                "fraction": 0,
+                "feedback": "That is the active-clause idea, the opposite of inactive."
+              },
+              {
+                "text": "Take the same value as p",
+                "fraction": 0,
+                "feedback": "Masking is not about the clause equalling p."
+              },
+              {
+                "text": "Be removed from the predicate",
+                "fraction": 0,
+                "feedback": "The clause stays in the predicate; it is merely masked at runtime."
+              }
+            ],
+            "generalFeedback": "Active-clause criteria set the minor clauses so cdetermines p; inactive-clause criteria set them so cis masked and cannot affect p.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Make a inactive in a OR (b AND c)",
+            "text": "<p>For p = a &#8744; (b &#8743; c), which minor assignment makes clause <strong>a</strong> inactive?</p>",
+            "answers": [
+              {
+                "text": "b = true, c = true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 then b &#8743; c is true, so p is true regardless of a; a is masked."
+              },
+              {
+                "text": "b = false, c = false",
+                "fraction": 0,
+                "feedback": "Then b &#8743; c is false, so p = a and a determines p (active)."
+              },
+              {
+                "text": "b = true, c = false",
+                "fraction": 0,
+                "feedback": "Then b &#8743; c is false, so p = a and a is active."
+              },
+              {
+                "text": "b = false, c = true",
+                "fraction": 0,
+                "feedback": "Then b &#8743; c is false, so p = a and a is active."
+              }
+            ],
+            "generalFeedback": "For a disjunction a &#8744; X, clause a is inactive exactly when the other operand X is true. Here X = b &#8743; c, so a is inactive when b = true and c = true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Make c inactive in (a OR b) AND c",
+            "text": "<p>For p = (a &#8744; b) &#8743; c, which minor assignment makes clause <strong>c</strong> inactive?</p>",
+            "answers": [
+              {
+                "text": "a = false, b = false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 then a &#8744; b is false, so p is false regardless of c; c is masked."
+              },
+              {
+                "text": "a = true, b = true",
+                "fraction": 0,
+                "feedback": "Then a &#8744; b is true, so p = c and c determines p (active)."
+              },
+              {
+                "text": "a = true, b = false",
+                "fraction": 0,
+                "feedback": "Then a &#8744; b is true, so p = c and c is active."
+              },
+              {
+                "text": "a = false, b = true",
+                "fraction": 0,
+                "feedback": "Then a &#8744; b is true, so p = c and c is active."
+              }
+            ],
+            "generalFeedback": "For a conjunction X &#8743; c, clause c is inactive exactly when the other operand X is false. Here X = a &#8744; b, so c is inactive when a = false and b = false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Tests for four feasible ICC requirements",
+            "text": "<p>When all four Inactive Clause Coverage requirements for a single major clause are feasible, how many distinct test cases are needed to satisfy them?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the four (c, p) combinations are distinct, so four tests are required."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Two tests cannot realise four different (c, p) combinations."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Three tests leave one of the four (c, p) combinations uncovered."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One test fixes a single (c, p) pair, not all four."
+              }
+            ],
+            "generalFeedback": "Each of the four requirements pins a distinct pair of (cvalue, p value); no single test can satisfy two of them at once, so four tests are needed for that clause.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which clause is inactive at a row",
+            "text": "<p>For p = (a &#8743; b) &#8744; c evaluated at a = true, b = false, c = false, which clause is <strong>inactive</strong> (does not determine p)?</p>",
+            "answers": [
+              {
+                "text": "a",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flipping a gives (F &#8743; F) &#8744; F = F, unchanged from p = F, so a is inactive here."
+              },
+              {
+                "text": "b",
+                "fraction": 0,
+                "feedback": "Flipping b gives (T &#8743; T) &#8744; F = T, changing p from F, so b is active here."
+              },
+              {
+                "text": "c",
+                "fraction": 0,
+                "feedback": "Flipping c gives (T &#8743; F) &#8744; T = T, changing p from F, so c is active here."
+              },
+              {
+                "text": "None of them",
+                "fraction": 0,
+                "feedback": "a is inactive at this row; b and c are active."
+              }
+            ],
+            "generalFeedback": "At a=T, b=F, c=F, p = (T&#8743;F)&#8744;F = F. Flipping a leaves p false (a masked by b=F), while flipping b or c changes p. So a is the only inactive clause here.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC pairing at p true",
+            "text": "<p>Under RICC, the two requirements with c<sub>i</sub>=true and c<sub>i</sub>=false at p=true must:</p>",
+            "answers": [
+              {
+                "text": "Use the same values for all minor clauses",
+                "fraction": 100,
+                "feedback": "Correct \u2014 RICC pins the minor clauses across each same-p pair."
+              },
+              {
+                "text": "Use different values for the minor clauses",
+                "fraction": 0,
+                "feedback": "That is not required by any criterion; RICC pins them equal."
+              },
+              {
+                "text": "Make cdetermine p",
+                "fraction": 0,
+                "feedback": "These are inactive-clause requirements: cstays masked."
+              },
+              {
+                "text": "Make p take different values",
+                "fraction": 0,
+                "feedback": "Both requirements in this pair fix p = true."
+              }
+            ],
+            "generalFeedback": "RICC requires the minor-clause values to match within each same-p pair. For the p=true pair, the c=true and c=false tests use identical minor values (which is exactly why p stays true across the pair).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "GICC minors may vary",
+            "text": "<p>Under GICC, the minor-clause values may differ across the four inactive-clause test requirements.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 GICC places no matching constraint on the minor clauses."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "It is RICC, not GICC, that forces the minors to match; GICC lets them vary."
+              }
+            ],
+            "generalFeedback": 'GICC ("General") only requires that cbe inactive in each of the four requirements; the minor-clause values are free to change from one requirement to another.'
+          },
+          {
+            "type": "multichoice",
+            "name": "Criterion that confirms masking",
+            "text": "<p>Which criterion is specifically aimed at confirming the <strong>correct masking</strong> of a clause?</p>",
+            "answers": [
+              {
+                "text": "Inactive Clause Coverage (GICC / RICC)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it checks that a masked clause has no effect on p."
+              },
+              {
+                "text": "Correlated Active Clause Coverage (CACC)",
+                "fraction": 0,
+                "feedback": "CACC checks the clause's determining (active) effect, not masking."
+              },
+              {
+                "text": "General Active Clause Coverage (GACC)",
+                "fraction": 0,
+                "feedback": "GACC is an active-clause criterion; it exercises determination, not masking."
+              },
+              {
+                "text": "Predicate Coverage (PC)",
+                "fraction": 0,
+                "feedback": "PC only requires p to take both values; it says nothing about masking."
+              }
+            ],
+            "generalFeedback": "Only the inactive-clause criteria deliberately mask a clause and check that p is unaffected \u2014 the test for correct masking.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "p value while a is inactive in a AND b",
+            "text": "<p>For p = a &#8743; b, across all minor assignments that make clause a inactive, the value of p is:</p>",
+            "answers": [
+              {
+                "text": "Always false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a is inactive only when b = false, and then p = false."
+              },
+              {
+                "text": "Always true",
+                "fraction": 0,
+                "feedback": "a is inactive when b = false, which forces p to false, not true."
+              },
+              {
+                "text": "Sometimes true, sometimes false",
+                "fraction": 0,
+                "feedback": "There is only one masking assignment (b = false), and it pins p to false."
+              },
+              {
+                "text": "Equal to a",
+                "fraction": 0,
+                "feedback": "p equals a only when a is active (b = true)."
+              }
+            ],
+            "generalFeedback": "For a &#8743; b the only way to mask a is b = false, which fixes p = false. Consequently the ICC requirements needing p = true for clause a are infeasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When a is not inactive in a OR b OR c",
+            "text": "<p>For p = a &#8744; b &#8744; c, clause a fails to be inactive (it determines p) only when:</p>",
+            "answers": [
+              {
+                "text": "b = false and c = false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 then p = a, so a determines p; at every other minor assignment a is masked."
+              },
+              {
+                "text": "b = true and c = true",
+                "fraction": 0,
+                "feedback": "Then p is true regardless of a, so a is inactive there."
+              },
+              {
+                "text": "b = true and c = false",
+                "fraction": 0,
+                "feedback": "b true pins p to true regardless of a, so a is inactive."
+              },
+              {
+                "text": "b = false and c = true",
+                "fraction": 0,
+                "feedback": "c true pins p to true regardless of a, so a is inactive."
+              }
+            ],
+            "generalFeedback": "For a disjunction, a determines p only when every other operand is false. Here that means b = false and c = false; otherwise b &#8744; c is true and a is masked.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Requirements a p-false masking helps",
+            "text": "<p>Suppose a minor assignment makes c<sub>i</sub> inactive and pins p to false regardless of c<sub>i</sub>. Which ICC requirements can such an assignment help satisfy?</p>",
+            "answers": [
+              {
+                "text": "The two requirements with p = false (c=T&#8743;p=F and c=F&#8743;p=F)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with p pinned false, only the p=false requirements can be met from this assignment."
+              },
+              {
+                "text": "The two requirements with p = true",
+                "fraction": 0,
+                "feedback": "p is false here, so it cannot satisfy any p=true requirement."
+              },
+              {
+                "text": "All four requirements",
+                "fraction": 0,
+                "feedback": "Only the two p=false requirements are reachable when p is pinned false."
+              },
+              {
+                "text": "None of them",
+                "fraction": 0,
+                "feedback": "It does satisfy the p=false requirements (for both cvalues)."
+              }
+            ],
+            "generalFeedback": "Because cis inactive, both c=T and c=F are available at this assignment, but p is stuck at false \u2014 so it covers c=T&#8743;p=F and c=F&#8743;p=F only.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "truefalse",
+            "name": "RICC subsumes GICC",
+            "text": "<p>Restricted Inactive Clause Coverage (RICC) subsumes General Inactive Clause Coverage (GICC).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 RICC's requirements are GICC's plus an extra minor-matching constraint, so any RICC-satisfying suite satisfies GICC."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "RICC is strictly stronger: it adds a restriction to GICC, so RICC &#8594; GICC."
+              }
+            ],
+            "generalFeedback": "RICC keeps all of GICC's four requirements and additionally forces the minor clauses to match within each same-p pair. A stricter criterion that only adds constraints subsumes the weaker one, so RICC subsumes GICC."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why RICC subsumes GICC",
+            "text": "<p>Why does RICC subsume GICC?</p>",
+            "answers": [
+              {
+                "text": "RICC's test requirements are GICC's requirements plus an extra minor-matching constraint, so any suite meeting RICC also meets GICC",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding constraints can only shrink the set of satisfying suites."
+              },
+              {
+                "text": "RICC has more test requirements than GICC",
+                "fraction": 0,
+                "feedback": "Both have the same four requirements per clause; RICC just constrains the minors more tightly."
+              },
+              {
+                "text": "RICC exercises all 2^n combinations",
+                "fraction": 0,
+                "feedback": "That would be Combinatorial Coverage, not RICC."
+              },
+              {
+                "text": "RICC additionally requires cto determine p",
+                "fraction": 0,
+                "feedback": "Both are inactive-clause criteria; neither requires determination."
+              }
+            ],
+            "generalFeedback": "Subsumption follows because RICC = GICC + (minors match within each same-p pair). Every RICC test set already satisfies the looser GICC obligations, so RICC subsumes GICC.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Inactive criteria subsume Clause Coverage",
+            "text": "<p>Both GICC and RICC subsume Clause Coverage (CC).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each major clause is exercised both true and false (while inactive), which is exactly Clause Coverage."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "GICC and RICC both require c=true and c=false requirements for every clause, so every clause takes both values &#8212; CC is met."
+              }
+            ],
+            "generalFeedback": "The four ICC requirements include both c=true and c=false for each clause, so every clause takes both truth values. Hence GICC and RICC each subsume Clause Coverage."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why GICC subsumes CC",
+            "text": "<p>What makes GICC subsume Clause Coverage?</p>",
+            "answers": [
+              {
+                "text": "For every clause, GICC requires a c=true test and a c=false test, so each clause takes both values",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is precisely the Clause Coverage requirement."
+              },
+              {
+                "text": "GICC requires the predicate to take both values",
+                "fraction": 0,
+                "feedback": "That would relate to Predicate Coverage; CC is about individual clauses."
+              },
+              {
+                "text": "GICC exercises every clause combination",
+                "fraction": 0,
+                "feedback": "That is Combinatorial Coverage, stronger than needed for CC."
+              },
+              {
+                "text": "GICC requires each clause to determine p",
+                "fraction": 0,
+                "feedback": "That is the active-clause idea; inactive-clause coverage masks the clause instead."
+              }
+            ],
+            "generalFeedback": "Clause Coverage requires each clause to be both true and false. Because GICC's four requirements per clause include c=true and c=false, every clause is exercised both ways, so GICC subsumes CC.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible ICC requirements for a AND b",
+            "text": "<p>For p = a &#8743; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>",
+            "answers": [
+              {
+                "text": "The two requiring p = true (a=T&#8743;p=T and a=F&#8743;p=T)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a can be inactive only when b = false, which pins p to false, so p = true is unreachable while a is inactive."
+              },
+              {
+                "text": "The two requiring p = false",
+                "fraction": 0,
+                "feedback": "Those are the feasible ones: masking a (b = false) makes p = false."
+              },
+              {
+                "text": "All four requirements",
+                "fraction": 0,
+                "feedback": "The two p=false requirements are feasible; only the p=true ones are not."
+              },
+              {
+                "text": "None \u2014 all four are feasible",
+                "fraction": 0,
+                "feedback": "a inactive forces p = false, so the p=true requirements cannot be met."
+              }
+            ],
+            "generalFeedback": "Masking a in a &#8743; b requires b = false, pinning p to false. Thus a=T&#8743;p=T and a=F&#8743;p=T are infeasible, while the two p=false requirements are feasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible ICC requirements for a OR b",
+            "text": "<p>For p = a &#8744; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>",
+            "answers": [
+              {
+                "text": "The two requiring p = false (a=T&#8743;p=F and a=F&#8743;p=F)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a can be inactive only when b = true, which pins p to true, so p = false is unreachable while a is inactive."
+              },
+              {
+                "text": "The two requiring p = true",
+                "fraction": 0,
+                "feedback": "Those are the feasible ones: masking a (b = true) makes p = true."
+              },
+              {
+                "text": "All four requirements",
+                "fraction": 0,
+                "feedback": "The two p=true requirements are feasible; only the p=false ones are not."
+              },
+              {
+                "text": "None \u2014 all four are feasible",
+                "fraction": 0,
+                "feedback": "a inactive forces p = true, so the p=false requirements cannot be met."
+              }
+            ],
+            "generalFeedback": "Masking a in a &#8744; b requires b = true, pinning p to true. Thus a=T&#8743;p=F and a=F&#8743;p=F are infeasible, while the two p=true requirements are feasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Inactive rows for a in a AND b AND c",
+            "text": "<p>For p = a &#8743; b &#8743; c, in how many of the 8 assignments is clause a <strong>inactive</strong>?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a determines p only when b &#8743; c is true (2 rows), so a is inactive in the other 6."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the number of rows where a is active (b=T, c=T), not inactive."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount \u2014 a is active only when b &#8743; c is true, which is 2 rows, leaving 6 inactive."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "a is active in 2 rows, so it is not inactive in all 8."
+              }
+            ],
+            "generalFeedback": "a determines a &#8743; b &#8743; c exactly when b &#8743; c is true (b=T, c=T), giving 2 active rows (a free). The remaining 6 of 8 rows have a inactive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Inactive rows for c in (a AND b) OR c",
+            "text": "<p>For p = (a &#8743; b) &#8744; c, in how many of the 8 assignments is clause <strong>c</strong> inactive?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 c is inactive only when a &#8743; b is true (a=T, b=T), which is 2 rows (c free)."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is the number of rows where c is active (a &#8743; b false), not inactive."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Recount \u2014 a &#8743; b is true in only 2 of the 8 rows."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Both c=T and c=F rows at a=T,b=T are inactive, giving 2, not 1."
+              }
+            ],
+            "generalFeedback": "c is inactive exactly when the other operand a &#8743; b is true. That happens in 2 of the 8 rows (a=T, b=T, c either value), so c is inactive in 2 assignments.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Inactive rows for a in (a AND b) OR (c AND d)",
+            "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), in how many of the 16 assignments is clause a <strong>inactive</strong>?</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a is active only when b = true and (c &#8743; d) = false: 1 &#215; 3 &#215; 2 = 6 rows, leaving 10 inactive."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is the number of rows where a is active, not inactive."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "Recount \u2014 a is active in 6 rows, so it is inactive in 16 &#8722; 6 = 10."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "That overcounts; the exact number of inactive rows is 10."
+              }
+            ],
+            "generalFeedback": "a determines p only when its term passes a through (b = true) and the other term does not mask it (c &#8743; d = false): 1 &#215; 3 &#215; 2 = 6 active rows. The remaining 10 of 16 rows have a inactive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Predicate with all four ICC requirements feasible",
+            "text": "<p>For which predicate and clause are <strong>all four</strong> ICC requirements feasible?</p>",
+            "answers": [
+              {
+                "text": "Clause a in p = (a &#8743; b) &#8744; (c &#8743; d)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with b = false, a is inactive and p = (c &#8743; d), which can be both true and false; all four requirements are reachable."
+              },
+              {
+                "text": "Clause a in p = a &#8743; b",
+                "fraction": 0,
+                "feedback": "a inactive forces p = false, so the p=true requirements are infeasible."
+              },
+              {
+                "text": "Clause a in p = a &#8744; b &#8744; c",
+                "fraction": 0,
+                "feedback": "a inactive forces p = true, so the p=false requirements are infeasible."
+              },
+              {
+                "text": "Clause c in p = (a &#8744; b) &#8743; c",
+                "fraction": 0,
+                "feedback": "c inactive forces p = false, so the p=true requirements are infeasible."
+              }
+            ],
+            "generalFeedback": "All four ICC requirements are feasible only if p can be both true and false while cis masked. In (a &#8743; b) &#8744; (c &#8743; d) with b = false, a is masked and p = (c &#8743; d) still ranges over both values, so every requirement is reachable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC minor-matching scope",
+            "text": "<p>Under RICC for p = (a &#8743; b) &#8744; (c &#8743; d) with major clause a, the a=true and a=false requirements at p=false must share the same values of:</p>",
+            "answers": [
+              {
+                "text": "All the minor clauses: b, c, and d",
+                "fraction": 100,
+                "feedback": "Correct \u2014 RICC pins every minor clause across the same-p pair."
+              },
+              {
+                "text": "Only b",
+                "fraction": 0,
+                "feedback": "RICC constrains all minor clauses, not just the one paired with a."
+              },
+              {
+                "text": "Only c and d",
+                "fraction": 0,
+                "feedback": "b is also a minor clause and must match too."
+              },
+              {
+                "text": "None \u2014 RICC only fixes a",
+                "fraction": 0,
+                "feedback": "RICC's whole point is to fix the minor clauses across the pair."
+              }
+            ],
+            "generalFeedback": "For major clause a, the minor clauses are b, c, and d. RICC requires all of them to hold identical values in the a=true and a=false tests of each same-p pair.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feasibility condition for all four requirements",
+            "text": "<p>The four ICC requirements for a clause c<sub>i</sub> are all feasible only if, while c<sub>i</sub> is inactive, the predicate p can be:</p>",
+            "answers": [
+              {
+                "text": "Both true and false (under different inactive-making minor assignments)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 p must range over both values while cstays masked."
+              },
+              {
+                "text": "Only true",
+                "fraction": 0,
+                "feedback": "Then the p=false requirements would be infeasible."
+              },
+              {
+                "text": "Only false",
+                "fraction": 0,
+                "feedback": "Then the p=true requirements would be infeasible."
+              },
+              {
+                "text": "Determined by c",
+                "fraction": 0,
+                "feedback": "If cdetermined p it would not be inactive; the requirements concern the masked case."
+              }
+            ],
+            "generalFeedback": "Since cis masked, p is set by the minor clauses. All four requirements (crossing cwith p) are feasible only when some inactive-making minor assignment yields p=true and another yields p=false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rows where c is inactive in (a AND b) OR c",
+            "text": "<p>For p = (a &#8743; b) &#8744; c, clause c is inactive in exactly the assignments where:</p>",
+            "answers": [
+              {
+                "text": "a = true and b = true (c either value)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 then a &#8743; b is true, masking c; p is true regardless of c."
+              },
+              {
+                "text": "a = false and b = false",
+                "fraction": 0,
+                "feedback": "Then a &#8743; b is false, so p = c and c determines p (active)."
+              },
+              {
+                "text": "c = false",
+                "fraction": 0,
+                "feedback": "c's own value does not decide whether c is masked; the operand a &#8743; b does."
+              },
+              {
+                "text": "a = true or b = true",
+                "fraction": 0,
+                "feedback": "a &#8743; b needs both true to mask c; either-one-true is not enough."
+              }
+            ],
+            "generalFeedback": "c is masked in the disjunction exactly when the other operand a &#8743; b is true, i.e., a = true and b = true \u2014 the 2 rows where c is inactive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Clause with fewest inactive rows",
+            "text": "<p>For p = (a &#8743; b) &#8744; c, which clause is inactive in the <strong>fewest</strong> assignments?</p>",
+            "answers": [
+              {
+                "text": "c (inactive in 2 of 8 rows)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 c is masked only when a &#8743; b is true (2 rows), whereas a and b are each masked in 6 rows."
+              },
+              {
+                "text": "a (inactive in 6 of 8 rows)",
+                "fraction": 0,
+                "feedback": "a is masked whenever b = false or c = true \u2014 6 rows, more than c."
+              },
+              {
+                "text": "b (inactive in 6 of 8 rows)",
+                "fraction": 0,
+                "feedback": "By symmetry with a, b is masked in 6 rows, more than c."
+              },
+              {
+                "text": "All three are inactive equally often",
+                "fraction": 0,
+                "feedback": "c differs: it is masked in only 2 rows versus 6 for a and b."
+              }
+            ],
+            "generalFeedback": "c is masked only when a &#8743; b is true (2 rows). a is masked when b=false or c=true (6 rows), and b symmetrically in 6 rows. So c has the fewest inactive rows.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Total GICC requirements for a 4-clause predicate",
+            "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), where all four ICC requirements are feasible for every clause, how many inactive-clause test requirements does GICC impose in total?</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 clauses &#215; 4 requirements each = 16 test requirements."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 = 4 clauses &#215; 2; but ICC has four requirements per clause, not two."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the requirement count for a single clause, not the whole predicate."
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "That doubles the count; there are 4 requirements per clause, giving 16."
+              }
+            ],
+            "generalFeedback": "ICC imposes four requirements per major clause. With 4 clauses all feasible, GICC has 4 &#215; 4 = 16 test requirements (some may be satisfiable by shared tests).",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u975E\u4F5C\u7528\u5B50\u53E5\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u56FA\u5B9A\u6B21\u8981\u5B50\u53E5\uFF08minor clauses\uFF09\u53D6\u503C\u7684\u524D\u63D0\u4E0B\uFF0C\u4E3B\u8981\u5B50\u53E5 c<sub>i</sub> \u5C0D\u8FF0\u8A5E p \u70BA<strong>\u975E\u4F5C\u7528\uFF08inactive\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u56FA\u5B9A\u5176\u4ED6\u5B50\u53E5\u3001\u53EA\u7FFB\u8F49 c\u6642\uFF0Cp \u7684\u503C\u4E0D\u6539\u8B8A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u4F5C\u7528\u5B50\u53E5\u7121\u6CD5\u6C7A\u5B9A p\uFF0C\u7FFB\u8F49\u5B83\u6642 p \u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u56FA\u5B9A\u5176\u4ED6\u5B50\u53E5\u3001\u53EA\u7FFB\u8F49 c\u6642\uFF0Cp \u7684\u503C\u6703\u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F5C\u7528\uFF08\u6C7A\u5B9A\u6027\uFF09\u5B50\u53E5\uFF0C\u8207\u975E\u4F5C\u7528\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "c\u7684\u503C\u70BA false",
+                "fraction": 0,
+                "feedback": "\u975E\u4F5C\u7528\u8AC7\u7684\u662F c\u4E0D\u5F71\u97FF p\uFF0C\u800C\u975E c\u672C\u8EAB\u7684\u53D6\u503C\u3002"
+              },
+              {
+                "text": "c\u5728\u8A9E\u6CD5\u4E0A\u672A\u51FA\u73FE\u65BC p \u4E2D",
+                "fraction": 0,
+                "feedback": "\u975E\u4F5C\u7528\u5B50\u53E5\u4ECD\u662F p \u7684\u4E00\u90E8\u5206\uFF0C\u53EA\u662F\u88AB\u6B21\u8981\u5B50\u53E5\u906E\u853D\uFF08masked\uFF09\u4E86\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u56FA\u5B9A\u5176\u4ED6\u5B50\u53E5\u4E0B\uFF0C\u82E5\u7FFB\u8F49 c\u800C p \u4E0D\u8B8A\uFF0C\u5247 c\u70BA\u975E\u4F5C\u7528\uFF08\u7121\u6CD5\u6C7A\u5B9A p\uFF09\u3002\u9019\u6B63\u662F\u300C\u6C7A\u5B9A p\u300D\u7684\u5426\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u4F5C\u7528\u7684\u7B49\u50F9\u689D\u4EF6",
+            "text": "<p>\u5728\u56FA\u5B9A\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u4E0B\uFF0Cc<sub>i</sub> \u5C0D p \u70BA\u975E\u4F5C\u7528\uFF0C\u5176\u5145\u8981\u689D\u4EF6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "p\u7B49\u65BC p",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7121\u8AD6 c\u70BA true \u6216 false\uFF0Cp \u90FD\u76F8\u540C\uFF0C\u6545 c\u7121\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "p\u4E0D\u7B49\u65BC p",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6C7A\u5B9A\u6027\uFF08\u4F5C\u7528\uFF09\u7684\u689D\u4EF6\uFF0C\u800C\u975E\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "c\u7B49\u65BC p",
+                "fraction": 0,
+                "feedback": "\u975E\u4F5C\u7528\u8AC7\u7684\u662F c\u4E0D\u6539\u8B8A p\uFF0C\u800C\u975E\u5169\u8005\u76F8\u7B49\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6B21\u8981\u5B50\u53E5\u90FD\u7B49\u65BC c",
+                "fraction": 0,
+                "feedback": "\u975E\u4F5C\u7528\u4E0D\u8981\u6C42\u6B21\u8981\u5B50\u53E5\u8207 c\u76F8\u7B49\u3002"
+              }
+            ],
+            "generalFeedback": "c\u70BA\u975E\u4F5C\u7528\uFF0C\u6070\u7576\u56FA\u5B9A\u6B21\u8981\u5B50\u53E5\u4E0B p= p\uFF1A\u5169\u7A2E c\u53D6\u503C\u7D66\u51FA\u76F8\u540C p\uFF0C\u6545 c\u7121\u6CD5\u6C7A\u5B9A p\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a AND b \u4E2D a \u4F55\u6642\u975E\u4F5C\u7528",
+            "text": "<p>\u5C0D\u8FF0\u8A5E p = a &#8743; b\uFF0C\u5B50\u53E5 a \u70BA<strong>\u975E\u4F5C\u7528</strong>\u6070\u7576\uFF1A</p>",
+            "answers": [
+              {
+                "text": "b \u70BA false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u70BA false \u6642\uFF0C\u4E0D\u8AD6 a \u70BA\u4F55 p \u7686\u70BA false\uFF0C\u6545 a \u7121\u6CD5\u6C7A\u5B9A p\u3002"
+              },
+              {
+                "text": "b \u70BA true",
+                "fraction": 0,
+                "feedback": "b \u70BA true \u6642 p \u7B49\u65BC a\uFF0C\u6545 a \u6C7A\u5B9A p\u2014\u2014\u6B64\u6642 a \u70BA\u4F5C\u7528\u800C\u975E\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u6210\u7ACB\uFF0C\u8207 b \u7121\u95DC",
+                "fraction": 0,
+                "feedback": "b \u70BA true \u6642 a \u6703\u6C7A\u5B9A p\uFF0C\u6545 a \u4E26\u975E\u6C38\u9060\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u6C38\u4E0D\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u53EA\u8981 b \u70BA false\uFF0Ca \u5373\u70BA\u975E\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u5408\u53D6 a &#8743; b\uFF0C\u5B50\u53E5 a \u53EA\u6709\u5728 b \u70BA true \u6642\u624D\u6C7A\u5B9A p\u3002\u6545 a \u70BA\u975E\u4F5C\u7528\u6070\u7576 b \u70BA false\uFF0C\u6B64\u6642 p \u88AB\u56FA\u5B9A\u70BA false\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a OR b \u4E2D a \u4F55\u6642\u975E\u4F5C\u7528",
+            "text": "<p>\u5C0D\u8FF0\u8A5E p = a &#8744; b\uFF0C\u5B50\u53E5 a \u70BA<strong>\u975E\u4F5C\u7528</strong>\u6070\u7576\uFF1A</p>",
+            "answers": [
+              {
+                "text": "b \u70BA true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u70BA true \u6642\uFF0C\u4E0D\u8AD6 a \u70BA\u4F55 p \u7686\u70BA true\uFF0C\u6545 a \u7121\u6CD5\u6C7A\u5B9A p\u3002"
+              },
+              {
+                "text": "b \u70BA false",
+                "fraction": 0,
+                "feedback": "b \u70BA false \u6642 p \u7B49\u65BC a\uFF0C\u6545 a \u6C7A\u5B9A p\u2014\u2014\u6B64\u6642 a \u70BA\u4F5C\u7528\u800C\u975E\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u6210\u7ACB\uFF0C\u8207 b \u7121\u95DC",
+                "fraction": 0,
+                "feedback": "b \u70BA false \u6642 a \u6703\u6C7A\u5B9A p\uFF0C\u6545 a \u4E26\u975E\u6C38\u9060\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u6C38\u4E0D\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u53EA\u8981 b \u70BA true\uFF0Ca \u5373\u70BA\u975E\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6790\u53D6 a &#8744; b\uFF0C\u5B50\u53E5 a \u53EA\u6709\u5728 b \u70BA false \u6642\u624D\u6C7A\u5B9A p\u3002\u6545 a \u70BA\u975E\u4F5C\u7528\u6070\u7576 b \u70BA true\uFF0C\u6B64\u6642 p \u88AB\u56FA\u5B9A\u70BA true\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u975E\u4F5C\u7528\u5373\u70BA\u4E0D\u6C7A\u5B9A",
+            "text": "<p>\u4E00\u500B\u5B50\u53E5\u5C0D\u8FF0\u8A5E\u70BA\u975E\u4F5C\u7528\uFF0C\u6070\u7576\u5B83<em>\u4E0D</em>\u6C7A\u5B9A\u8A72\u8FF0\u8A5E\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u975E\u4F5C\u7528\u300D\u7684\u5B9A\u7FA9\u6B63\u662F\u300C\u6C7A\u5B9A\u300D\u7684\u5426\u5B9A\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u975E\u4F5C\u7528\u8207\u6C7A\u5B9A\u4E92\u88DC\uFF1A\u5B50\u53E5\u70BA\u975E\u4F5C\u7528\uFF0C\u6070\u7576\u5B83\u5728\u8A72\u6B21\u8981\u53D6\u503C\u4E0B\u7121\u6CD5\u6C7A\u5B9A p\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u8981\u6C42\u5B50\u53E5\u6C7A\u5B9A p\uFF1B\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u8981\u6C42\u5B50\u53E5\u88AB\u906E\u853D\u3002\u300C\u975E\u4F5C\u7528\u300D\u5373\u6307\u8A72\u5B50\u53E5\u5728\u7D66\u5B9A\u6B21\u8981\u53D6\u503C\u4E0B\u4E0D\u6C7A\u5B9A\u8FF0\u8A5E\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u7684\u76EE\u7684",
+            "text": "<p>\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF08GICC/RICC\uFF09\u7684\u8A2D\u8A08\u76EE\u7684\u662F\u9A57\u8B49\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u906E\u853D\uFF08masked\uFF09\u7684\u975E\u4F5C\u7528\u5B50\u53E5\u78BA\u5BE6\u5C0D\u8FF0\u8A5E\u7D50\u679C\u6BEB\u7121\u5F71\u97FF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5011\u6AA2\u67E5\u906E\u853D\u884C\u70BA\u662F\u5426\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u5B50\u53E5\u90FD\u80FD\u7368\u7ACB\u6C7A\u5B9A\u8FF0\u8A5E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF08GACC/CACC/RACC\uFF09\u7684\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u5B50\u53E5\u53D6\u503C\u7684\u6240\u6709\u7D44\u5408\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D44\u5408\u8986\u84CB\uFF08Combinatorial Coverage\uFF09\u3002"
+              },
+              {
+                "text": "\u8FF0\u8A5E\u81F3\u5C11\u5404\u53D6\u4E00\u6B21\u771F\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u50C5\u662F\u8FF0\u8A5E\u8986\u84CB\uFF08Predicate Coverage\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u78BA\u8A8D\uFF1A\u7576\u67D0\u5B50\u53E5\u672C\u61C9\u88AB\u906E\u853D\u6642\uFF0C\u5B83\u78BA\u5BE6\u5C0D p \u7121\u5F71\u97FF\u2014\u2014\u53EF\u6355\u6349\u300C\u672C\u61C9\u7121\u95DC\u7684\u5B50\u53E5\u537B\u5077\u5077\u6539\u8B8A\u7D50\u679C\u300D\u9019\u985E\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "GICC \u7E2E\u5BEB",
+            "text": "<p><strong>GICC</strong> \u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "General Inactive Clause Coverage\uFF08\u4E00\u822C\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "General Independent Clause Coverage",
+                "fraction": 0,
+                "feedback": "\u300CI\u300D\u4EE3\u8868 Inactive\uFF08\u975E\u4F5C\u7528\uFF09\uFF0C\u800C\u975E Independent\u3002"
+              },
+              {
+                "text": "General Active Clause Coverage",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F GACC\uFF0C\u5C6C\u65BC\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u3002"
+              },
+              {
+                "text": "Grouped Inactive Combination Coverage",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u6A19\u6E96\u7684\u6E96\u5247\u540D\u7A31\u3002"
+              }
+            ],
+            "generalFeedback": "GICC = General Inactive Clause Coverage\uFF1A\u5176\u56DB\u9805\u6E2C\u8A66\u9700\u6C42\u9593\u7684\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u53EF\u4EE5\u4E0D\u540C\u7684\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC \u7E2E\u5BEB",
+            "text": "<p><strong>RICC</strong> \u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Restricted Inactive Clause Coverage\uFF08\u53D7\u9650\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "Restricted Independent Clause Coverage",
+                "fraction": 0,
+                "feedback": "\u300CI\u300D\u4EE3\u8868 Inactive\uFF08\u975E\u4F5C\u7528\uFF09\uFF0C\u800C\u975E Independent\u3002"
+              },
+              {
+                "text": "Restricted Active Clause Coverage",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F RACC\uFF0C\u5C6C\u65BC\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u3002"
+              },
+              {
+                "text": "Reduced Inactive Combination Coverage",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u6A19\u6E96\u7684\u6E96\u5247\u540D\u7A31\u3002"
+              }
+            ],
+            "generalFeedback": "RICC = Restricted Inactive Clause Coverage\uFF1A\u5982\u540C GICC\uFF0C\u4F46\u5728\u6BCF\u500B\u56FA\u5B9A p \u503C\u7684 c=true\uFF0Fc=false \u914D\u5C0D\u4E2D\uFF0C\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u5FC5\u9808\u76F8\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BCF\u500B\u5B50\u53E5\u7684 ICC \u9700\u6C42\u6578",
+            "text": "<p>\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u5C0D\u6BCF\u500B\u4E3B\u8981\u5B50\u53E5\u65BD\u52A0\u5E7E\u9805\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373 c&#8712; {T,F} \u8207 p &#8712; {T,F} \u7684\u56DB\u7A2E\u7D44\u5408\uFF0C\u4E14 c\u7686\u70BA\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u53EA\u6DB5\u84CB c=true \u8207 c=false\uFF1BICC \u9084\u9700\u4F9D p \u7684\u503C\u518D\u5206\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "ICC \u6BCF\u500B\u5B50\u53E5\u9700\u56DB\u9805\u9700\u6C42\uFF0C\u800C\u975E\u4E00\u9805\u3002"
+              },
+              {
+                "text": "2^n\uFF08n \u500B\u5B50\u53E5\uFF09",
+                "fraction": 0,
+                "feedback": "2^n \u662F\u7D44\u5408\u8986\u84CB\uFF0C\u800C\u975E ICC\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u975E\u4F5C\u7528\u5B50\u53E5\u7121\u6CD5\u6539\u8B8A p\uFF0Cp \u53EF\u7368\u7ACB\u70BA true \u6216 false\u3002\u6545 ICC \u5C0D\u6BCF\u500B\u4E3B\u8981\u5B50\u53E5\u9700\u56DB\u9805\u9700\u6C42\uFF1Ac=T&#8743;p=T\u3001c=T&#8743;p=F\u3001c=F&#8743;p=T\u3001c=F&#8743;p=F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u9805 ICC \u9700\u6C42\u6240\u8B8A\u52D5\u7684\u91CF",
+            "text": "<p>\u67D0\u4E3B\u8981\u5B50\u53E5\u7684\u56DB\u9805\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u9700\u6C42\uFF0C\u5217\u8209\u7684\u662F\u4E0B\u5217\u4F55\u8005\u7684\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "c\u7684\u503C\uFF08true\uFF0Ffalse\uFF09\u8207 p \u7684\u503C\uFF08true\uFF0Ffalse\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142 &#215; 2 = 4 \u9805\u9700\u6C42\uFF0C\u4E14 c\u7686\u70BA\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u6B21\u8981\u5B50\u53E5\u7684\u53D6\u503C",
+                "fraction": 0,
+                "feedback": "ICC \u8B8A\u52D5\u7684\u662F c\u8207 p\uFF0C\u800C\u975E\u67D0\u4E00\u5C0D\u6B21\u8981\u5B50\u53E5\u3002"
+              },
+              {
+                "text": "c\u7684\u503C\uFF0C\u4EE5\u53CA c\u662F\u5426\u6C7A\u5B9A p",
+                "fraction": 0,
+                "feedback": "\u56DB\u9805\u9700\u6C42\u4E2D c\u7686\u70BA\u975E\u4F5C\u7528\uFF08\u4E0D\u6C7A\u5B9A p\uFF09\uFF1B\u8B8A\u52D5\u7684\u53EA\u6709 c\u8207 p\u3002"
+              },
+              {
+                "text": "\u771F\u503C\u8868\u7684\u5168\u90E8 2^n \u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D44\u5408\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u7DAD\u6301 c\u975E\u4F5C\u7528\u4E0B\uFF0CICC \u5C07 c&#8712; {T,F} \u8207 p &#8712; {T,F} \u4EA4\u53C9\uFF0C\u5C0D\u6BCF\u500B\u4E3B\u8981\u5B50\u53E5\u5F97\u56DB\u9805\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a \u975E\u4F5C\u7528\u6642 a AND b \u7684\u503C",
+            "text": "<p>\u5C0D p = a &#8743; b\uFF0C\u7576\u5B50\u53E5 a \u70BA\u975E\u4F5C\u7528\uFF08b = false\uFF09\u6642\uFF0C\u8FF0\u8A5E p \u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "false\uFF0C\u8207 a \u7121\u95DC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u70BA false \u4F7F a &#8743; b \u7121\u8AD6 a \u70BA\u4F55\u7686\u70BA false\u3002"
+              },
+              {
+                "text": "true\uFF0C\u8207 a \u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u5408\u53D6\u4E2D\u6709\u4E00\u904B\u7B97\u5143\u70BA false \u6642\u7D50\u679C\u70BA false\uFF0C\u800C\u975E true\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC a",
+                "fraction": 0,
+                "feedback": "\u90A3\u767C\u751F\u5728 b \u70BA true\uFF08a \u70BA\u4F5C\u7528\uFF09\u6642\uFF0C\u800C\u975E a \u975E\u4F5C\u7528\u6642\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "p \u6709\u660E\u78BA\u5B9A\u7FA9\uFF0C\u7B49\u65BC false\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u4F7F a \u5728 a &#8743; b \u4E2D\u975E\u4F5C\u7528\u9700 b = false\uFF0C\u9019\u6703\u5C07 p \u56FA\u5B9A\u70BA false\u3002\u56E0\u6B64 a \u975E\u4F5C\u7528\u6642 p \u53EA\u80FD\u70BA false\u2014\u2014\u9019\u5C0D ICC \u7684\u53EF\u884C\u6027\u6709\u5F71\u97FF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a \u975E\u4F5C\u7528\u6642 a OR b \u7684\u503C",
+            "text": "<p>\u5C0D p = a &#8744; b\uFF0C\u7576\u5B50\u53E5 a \u70BA\u975E\u4F5C\u7528\uFF08b = true\uFF09\u6642\uFF0C\u8FF0\u8A5E p \u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "true\uFF0C\u8207 a \u7121\u95DC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u70BA true \u4F7F a &#8744; b \u7121\u8AD6 a \u70BA\u4F55\u7686\u70BA true\u3002"
+              },
+              {
+                "text": "false\uFF0C\u8207 a \u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u6790\u53D6\u4E2D\u6709\u4E00\u904B\u7B97\u5143\u70BA true \u6642\u7D50\u679C\u70BA true\uFF0C\u800C\u975E false\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC a",
+                "fraction": 0,
+                "feedback": "\u90A3\u767C\u751F\u5728 b \u70BA false\uFF08a \u70BA\u4F5C\u7528\uFF09\u6642\uFF0C\u800C\u975E a \u975E\u4F5C\u7528\u6642\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "p \u6709\u660E\u78BA\u5B9A\u7FA9\uFF0C\u7B49\u65BC true\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u4F7F a \u5728 a &#8744; b \u4E2D\u975E\u4F5C\u7528\u9700 b = true\uFF0C\u9019\u6703\u5C07 p \u56FA\u5B9A\u70BA true\u2014\u2014\u8207\u5408\u53D6\u60C5\u5F62\u5C0D\u5076\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u906E\u853D\u6642 p \u7531\u6B21\u8981\u5B50\u53E5\u6C7A\u5B9A",
+            "text": "<p>\u7576\u4E3B\u8981\u5B50\u53E5\u70BA\u975E\u4F5C\u7528\u6642\uFF0C\u8FF0\u8A5E\u7684\u503C\u5B8C\u5168\u7531\u6B21\u8981\u5B50\u53E5\u6C7A\u5B9A\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E3B\u8981\u5B50\u53E5\u7121\u5F71\u97FF\uFF0C\u6545\u50C5\u7531\u6B21\u8981\u5B50\u53E5\u56FA\u5B9A p\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u975E\u4F5C\u7528\u7684\u4E3B\u8981\u5B50\u53E5\u7121\u6CD5\u6539\u8B8A p\uFF0C\u6545 p \u50C5\u7531\u6B21\u8981\u5B50\u53E5\u6C7A\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u4F5C\u7528\u5B50\u53E5\u4E0D\u5F71\u97FF p\uFF0C\u6545\u5728\u5B83\u88AB\u906E\u853D\u6642\uFF0C\u7D50\u679C\u662F\u6B21\u8981\u5B50\u53E5\u7684\u51FD\u6578\u3002\u9019\u4E5F\u662F\u70BA\u4F55 c\u975E\u4F5C\u7528\u6642\uFF0Cp \u4ECD\u53EF\u4F9D\u6B21\u8981\u5B50\u53E5\u800C\u7368\u7ACB\u70BA true \u6216 false\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8207\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u7684\u5C0D\u6BD4",
+            "text": "<p>\u54EA\u4E00\u65CF\u6E96\u5247\u662F\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u7684\u76F4\u63A5<strong>\u5C0D\u6BD4</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF08GACC\uFF0FCACC\uFF0FRACC\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5011\u8981\u6C42\u5B50\u53E5\u6C7A\u5B9A p\uFF0C\u800C\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u8981\u6C42\u5B50\u53E5\u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "\u8FF0\u8A5E\u8986\u84CB\u8207\u5B50\u53E5\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u8F03\u7C97\u7684\u6E96\u5247\uFF0C\u4E26\u975E\u4F5C\u7528\uFF0F\u975E\u4F5C\u7528\u7684\u5C0D\u61C9\u3002"
+              },
+              {
+                "text": "\u7D44\u5408\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "CoC \u57F7\u884C\u6240\u6709\u7D44\u5408\uFF0C\u4E26\u975E\u4EE5\u300C\u6C7A\u5B9A\u6027\u300D\u70BA\u57FA\u790E\u7684\u5C0D\u61C9\u6E96\u5247\u3002"
+              },
+              {
+                "text": "DNF \u6E96\u5247\uFF08\u860A\u6DB5\u9805\uFF0F\u552F\u4E00\u771F\u9EDE\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53E6\u4E00\u65CF\u4EE5 DNF \u70BA\u57FA\u790E\u7684\u6E96\u5247\uFF0C\u4E26\u975E\u76F4\u63A5\u5C0D\u6BD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF08GACC/CACC/RACC\uFF09\u8981\u6C42\u6BCF\u500B\u5B50\u53E5\u6C7A\u5B9A p\uFF1B\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF08GICC/RICC\uFF09\u8981\u6C42\u6BCF\u500B\u5B50\u53E5\u88AB\u906E\u853D\u3002\u4E8C\u8005\u662F\u300C\u6C7A\u5B9A\u6027\u300D\u6982\u5FF5\u4E92\u88DC\u7684\u5169\u534A\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "a OR b \u4E2D b false \u4F7F a \u70BA\u4F5C\u7528",
+            "text": "<p>\u5C0D p = a &#8744; b\uFF0C\u4EE4 b = false \u6703\u4F7F\u5B50\u53E5 a \u6210\u70BA<em>\u4F5C\u7528</em>\uFF08\u6C7A\u5B9A\u6027\uFF09\uFF0C\u800C\u975E\u975E\u4F5C\u7528\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b \u70BA false \u6642 p \u7B49\u65BC a\uFF0C\u6545 a \u6C7A\u5B9A p\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "b \u70BA false \u6642 p = a &#8744; false = a\uFF0C\u7FFB\u8F49 a \u5373\u7FFB\u8F49 p\uFF0Ca \u70BA\u4F5C\u7528\u3002a \u8981\u5728 b = true \u6642\u624D\u975E\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D a &#8744; b\uFF0Ca \u5728 b = true \u6642\u975E\u4F5C\u7528\uFF08p \u56FA\u5B9A\u70BA true\uFF09\uFF0C\u5728 b = false \u6642\u70BA\u4F5C\u7528\uFF08p \u96A8 a \u800C\u8B8A\uFF09\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5728 (a AND b) OR c \u4E2D\u4EE4 c \u975E\u4F5C\u7528",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; c\uFF0C\u54EA\u4E00\u7D44\u6B21\u8981\u53D6\u503C\u80FD\u4F7F\u5B50\u53E5 <strong>c</strong> \u975E\u4F5C\u7528\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a = true, b = true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u6642 a &#8743; b \u70BA true\uFF0C\u6545\u4E0D\u8AD6 c \u70BA\u4F55 p \u7686\u70BA true\uFF1Bc \u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "a = false, b = false",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 a &#8743; b \u70BA false\uFF0C\u6545 p = c\uFF0Cc \u6C7A\u5B9A p\uFF08\u4F5C\u7528\uFF09\u3002"
+              },
+              {
+                "text": "a = true, b = false",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 a &#8743; b \u70BA false\uFF0C\u6545 p = c\uFF0Cc \u70BA\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "a = false, b = true",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 a &#8743; b \u70BA false\uFF0C\u6545 p = c\uFF0Cc \u70BA\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6790\u53D6 X &#8744; c\uFF0C\u5B50\u53E5 c \u70BA\u975E\u4F5C\u7528\u6070\u7576\u53E6\u4E00\u904B\u7B97\u5143 X \u70BA true\u3002\u6B64\u8655 X = a &#8743; b\uFF0C\u6545 c \u5728 a = true \u4E14 b = true \u6642\u975E\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "(a AND b) OR c \u4E2D a \u4F55\u6642\u6C7A\u5B9A p",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; c\uFF0C\u54EA\u4E00\u7D44\u6B21\u8981\u53D6\u503C\u80FD\u4F7F\u5B50\u53E5 a \u6210\u70BA<strong>\u4F5C\u7528</strong>\uFF08\u5373 a <em>\u975E</em>\u975E\u4F5C\u7528\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "b = true, c = false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u6709\u6B64\u6642 p \u5316\u7C21\u70BA a\uFF0C\u6545 a \u6C7A\u5B9A p\u3002"
+              },
+              {
+                "text": "b = false, c = false",
+                "fraction": 0,
+                "feedback": "b \u70BA false \u6642 a &#8743; b \u7121\u8AD6 a \u7686\u70BA false\uFF0C\u6545 a \u70BA\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "b = false, c = true",
+                "fraction": 0,
+                "feedback": "c \u70BA true \u4F7F p \u56FA\u5B9A\u70BA true\uFF0C\u4E14 b \u70BA false \u906E\u853D a\uFF0C\u6545 a \u70BA\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "b = true, c = true",
+                "fraction": 0,
+                "feedback": "c \u70BA true \u4F7F p \u4E0D\u8AD6 a \u7686\u70BA true\uFF0C\u6545 a \u70BA\u975E\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "a \u53EA\u6709\u5728\u5176\u9805\u50B3\u905E a\uFF08b = true\uFF09\u4E14\u6790\u53D6\u672A\u906E\u853D\u5B83\uFF08c = false\uFF09\u6642\u624D\u6C7A\u5B9A p\u3002\u5176\u9918\u6BCF\u4E00\u7D44\u6B21\u8981\u53D6\u503C a \u7686\u70BA\u975E\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u9805 ICC \u9700\u6C42",
+            "text": "<p>\u5C0D\u4E00\u500B\u975E\u4F5C\u7528\u7684\u4E3B\u8981\u5B50\u53E5 c<sub>i</sub>\uFF0C\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u8981\u6C42\u6DB5\u84CB\u6070\u70BA\u4E0B\u5217\u54EA\u7D44\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "c=T&#8743;p=T\u3001c=T&#8743;p=F\u3001c=F&#8743;p=T\u3001c=F&#8743;p=F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728 c\u7DAD\u6301\u975E\u4F5C\u7528\u4E0B\uFF0Cc\u8207 p \u5404\u53D6\u5169\u503C\u3002"
+              },
+              {
+                "text": "\u50C5 c=T \u8207 c=F",
+                "fraction": 0,
+                "feedback": "\u90A3\u5FFD\u7565\u4E86 p \u4E5F\u9700\u53D6\u5169\u503C\u7684\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u50C5 p=T \u8207 p=F",
+                "fraction": 0,
+                "feedback": "\u90A3\u5FFD\u7565\u4E86 c\u4E5F\u9700\u53D6\u5169\u503C\u7684\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u5B50\u53E5\u53D6\u503C\u7684\u5168\u90E8 2^n \u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D44\u5408\u8986\u84CB\uFF0C\u800C\u975E ICC\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u975E\u4F5C\u7528\u5B50\u53E5\u7121\u6CD5\u6539\u8B8A p\uFF0Cp \u53EF\u7368\u7ACB\u65BC c\u70BA true \u6216 false\u3002\u6545 ICC \u5C07\u56DB\u7A2E (c, p) \u7D44\u5408\u5404\u5217\u70BA\u4E00\u9805\u6E2C\u8A66\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC \u5982\u4F55\u9650\u5236 GICC",
+            "text": "<p>\u53D7\u9650\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF08RICC\uFF09\u8207\u4E00\u822C\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF08GICC\uFF09\u7684\u5DEE\u7570\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "RICC \u8981\u6C42\uFF1A\u5728\u5171\u4EAB\u540C\u4E00 p \u503C\u7684 c=true \u8207 c=false \u9700\u6C42\u4E2D\uFF0C\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u5FC5\u9808\u76F8\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014RICC \u5728\u6BCF\u500B\u540C p \u914D\u5C0D\u4E2D\u56FA\u5B9A\u6B21\u8981\u5B50\u53E5\uFF1BGICC \u5247\u53EF\u8B8A\u52D5\u3002"
+              },
+              {
+                "text": "RICC \u8981\u6C42\u56DB\u9805\u9700\u6C42\u4E2D\u7684\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u5168\u90FD\u4E0D\u540C",
+                "fraction": 0,
+                "feedback": "RICC \u662F\u8981\u6C42\u5728\u540C p \u914D\u5C0D\u4E2D\u76F8\u540C\uFF0C\u800C\u975E\u5168\u90FD\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "RICC \u8981\u6C42 c\u6C7A\u5B9A p",
+                "fraction": 0,
+                "feedback": "\u4E8C\u8005\u7686\u70BA\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF1Ac\u7686\u88AB\u906E\u853D\uFF0C\u5F9E\u4E0D\u6C7A\u5B9A p\u3002"
+              },
+              {
+                "text": "RICC \u6368\u53BB\u56DB\u9805\u9700\u6C42\u4E4B\u4E00",
+                "fraction": 0,
+                "feedback": "RICC \u4FDD\u7559\u5168\u90E8\u56DB\u9805\u9700\u6C42\uFF0C\u53EA\u662F\u5C0D\u6B21\u8981\u5B50\u53E5\u52A0\u4E0A\u9650\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "GICC \u5141\u8A31\u56DB\u9805\u9700\u6C42\u9593\u7684\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u81EA\u7531\u8B8A\u52D5\u3002RICC \u984D\u5916\u8981\u6C42\uFF1A\u5728\u6BCF\u500B\u540C p \u914D\u5C0D\u4E2D\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u76F8\u540C\uFF08c=T&#8743;p=T \u8207 c=F&#8743;p=T \u914D\u5C0D\uFF0Cc=T&#8743;p=F \u8207 c=F&#8743;p=F \u914D\u5C0D\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F5C\u7528\u8207\u975E\u4F5C\u7528\u7684\u8981\u6C42",
+            "text": "<p>\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u8981\u6C42\u4E3B\u8981\u5B50\u53E5<em>\u6C7A\u5B9A</em> p\u3002\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u5247\u8981\u6C42\u4E3B\u8981\u5B50\u53E5\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u6C7A\u5B9A p\uFF08\u88AB\u6B21\u8981\u5B50\u53E5\u906E\u853D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u57F7\u884C\u7684\u662F\u88AB\u906E\u853D\u7684\u60C5\u5F62\u3002"
+              },
+              {
+                "text": "\u96D9\u5411\u7686\u6C7A\u5B9A p",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F5C\u7528\u5B50\u53E5\u7684\u6982\u5FF5\uFF0C\u8207\u975E\u4F5C\u7528\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u53D6\u503C\u8207 p \u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u906E\u853D\u8207\u300C\u5B50\u53E5\u7B49\u65BC p\u300D\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u81EA\u8FF0\u8A5E\u4E2D\u79FB\u9664",
+                "fraction": 0,
+                "feedback": "\u5B50\u53E5\u4ECD\u5728\u8FF0\u8A5E\u4E2D\uFF0C\u53EA\u662F\u5728\u57F7\u884C\u671F\u88AB\u906E\u853D\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u8A2D\u5B9A\u6B21\u8981\u5B50\u53E5\u4F7F c\u6C7A\u5B9A p\uFF1B\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u5247\u8A2D\u5B9A\u4F7F c\u88AB\u906E\u853D\u800C\u7121\u6CD5\u5F71\u97FF p\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728 a OR (b AND c) \u4E2D\u4EE4 a \u975E\u4F5C\u7528",
+            "text": "<p>\u5C0D p = a &#8744; (b &#8743; c)\uFF0C\u54EA\u4E00\u7D44\u6B21\u8981\u53D6\u503C\u80FD\u4F7F\u5B50\u53E5 <strong>a</strong> \u975E\u4F5C\u7528\uFF1F</p>",
+            "answers": [
+              {
+                "text": "b = true, c = true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u6642 b &#8743; c \u70BA true\uFF0C\u6545\u4E0D\u8AD6 a \u70BA\u4F55 p \u7686\u70BA true\uFF1Ba \u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "b = false, c = false",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 b &#8743; c \u70BA false\uFF0C\u6545 p = a\uFF0Ca \u6C7A\u5B9A p\uFF08\u4F5C\u7528\uFF09\u3002"
+              },
+              {
+                "text": "b = true, c = false",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 b &#8743; c \u70BA false\uFF0C\u6545 p = a\uFF0Ca \u70BA\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "b = false, c = true",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 b &#8743; c \u70BA false\uFF0C\u6545 p = a\uFF0Ca \u70BA\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6790\u53D6 a &#8744; X\uFF0C\u5B50\u53E5 a \u70BA\u975E\u4F5C\u7528\u6070\u7576\u53E6\u4E00\u904B\u7B97\u5143 X \u70BA true\u3002\u6B64\u8655 X = b &#8743; c\uFF0C\u6545 a \u5728 b = true \u4E14 c = true \u6642\u975E\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728 (a OR b) AND c \u4E2D\u4EE4 c \u975E\u4F5C\u7528",
+            "text": "<p>\u5C0D p = (a &#8744; b) &#8743; c\uFF0C\u54EA\u4E00\u7D44\u6B21\u8981\u53D6\u503C\u80FD\u4F7F\u5B50\u53E5 <strong>c</strong> \u975E\u4F5C\u7528\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a = false, b = false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u6642 a &#8744; b \u70BA false\uFF0C\u6545\u4E0D\u8AD6 c \u70BA\u4F55 p \u7686\u70BA false\uFF1Bc \u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "a = true, b = true",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 a &#8744; b \u70BA true\uFF0C\u6545 p = c\uFF0Cc \u6C7A\u5B9A p\uFF08\u4F5C\u7528\uFF09\u3002"
+              },
+              {
+                "text": "a = true, b = false",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 a &#8744; b \u70BA true\uFF0C\u6545 p = c\uFF0Cc \u70BA\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "a = false, b = true",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 a &#8744; b \u70BA true\uFF0C\u6545 p = c\uFF0Cc \u70BA\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u5408\u53D6 X &#8743; c\uFF0C\u5B50\u53E5 c \u70BA\u975E\u4F5C\u7528\u6070\u7576\u53E6\u4E00\u904B\u7B97\u5143 X \u70BA false\u3002\u6B64\u8655 X = a &#8744; b\uFF0C\u6545 c \u5728 a = false \u4E14 b = false \u6642\u975E\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6EFF\u8DB3\u56DB\u9805\u53EF\u884C ICC \u9700\u6C42\u6240\u9700\u6E2C\u8A66\u6578",
+            "text": "<p>\u7576\u67D0\u4E3B\u8981\u5B50\u53E5\u7684\u56DB\u9805\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u9700\u6C42\u7686\u53EF\u884C\u6642\uFF0C\u9700\u8981\u5E7E\u500B\u4E0D\u540C\u7684\u6E2C\u8A66\u6848\u4F8B\u624D\u80FD\u6EFF\u8DB3\u5B83\u5011\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DB\u7A2E (c, p) \u7D44\u5408\u4E92\u7570\uFF0C\u6545\u9700\u56DB\u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u6E2C\u8A66\u7121\u6CD5\u5BE6\u73FE\u56DB\u7A2E\u4E0D\u540C\u7684 (c, p) \u7D44\u5408\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u6E2C\u8A66\u6703\u6F0F\u6389\u56DB\u7A2E (c, p) \u7D44\u5408\u4E2D\u7684\u4E00\u7A2E\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6E2C\u8A66\u53EA\u80FD\u56FA\u5B9A\u55AE\u4E00 (c, p) \u5C0D\uFF0C\u800C\u975E\u5168\u90E8\u56DB\u7A2E\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u9805\u9700\u6C42\u5404\u56FA\u5B9A\u4E00\u7D44\u4E92\u7570\u7684 (c\u503C, p \u503C)\uFF1B\u6C92\u6709\u55AE\u4E00\u6E2C\u8A66\u80FD\u540C\u6642\u6EFF\u8DB3\u5176\u4E2D\u5169\u9805\uFF0C\u6545\u8A72\u5B50\u53E5\u9700\u56DB\u500B\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u67D0\u5217\u4E2D\u54EA\u500B\u5B50\u53E5\u70BA\u975E\u4F5C\u7528",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; c\uFF0C\u5728 a = true, b = false, c = false \u6642\uFF0C\u54EA\u500B\u5B50\u53E5\u70BA<strong>\u975E\u4F5C\u7528</strong>\uFF08\u4E0D\u6C7A\u5B9A p\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7FFB\u8F49 a \u5F97 (F &#8743; F) &#8744; F = F\uFF0C\u8207 p = F \u4E0D\u8B8A\uFF0C\u6545\u6B64\u8655 a \u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "b",
+                "fraction": 0,
+                "feedback": "\u7FFB\u8F49 b \u5F97 (T &#8743; T) &#8744; F = T\uFF0C\u4F7F p \u7531 F \u6539\u8B8A\uFF0C\u6545\u6B64\u8655 b \u70BA\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "c",
+                "fraction": 0,
+                "feedback": "\u7FFB\u8F49 c \u5F97 (T &#8743; F) &#8744; T = T\uFF0C\u4F7F p \u7531 F \u6539\u8B8A\uFF0C\u6545\u6B64\u8655 c \u70BA\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F",
+                "fraction": 0,
+                "feedback": "\u6B64\u5217 a \u70BA\u975E\u4F5C\u7528\uFF1Bb \u8207 c \u70BA\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 a=T, b=F, c=F \u6642\uFF0Cp = (T&#8743;F)&#8744;F = F\u3002\u7FFB\u8F49 a \u4F7F p \u7DAD\u6301 false\uFF08a \u88AB b=F \u906E\u853D\uFF09\uFF0C\u800C\u7FFB\u8F49 b \u6216 c \u6703\u6539\u8B8A p\u3002\u6545\u6B64\u5217\u552F\u4E00\u7684\u975E\u4F5C\u7528\u5B50\u53E5\u70BA a\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC \u5728 p \u70BA true \u6642\u7684\u914D\u5C0D",
+            "text": "<p>\u5728 RICC \u4E0B\uFF0Cp=true \u6642 c<sub>i</sub>=true \u8207 c<sub>i</sub>=false \u7684\u5169\u9805\u9700\u6C42\u5FC5\u9808\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6240\u6709\u6B21\u8981\u5B50\u53E5\u63A1\u7528\u76F8\u540C\u53D6\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014RICC \u5728\u6BCF\u500B\u540C p \u914D\u5C0D\u4E2D\u56FA\u5B9A\u6B21\u8981\u5B50\u53E5\u3002"
+              },
+              {
+                "text": "\u5C0D\u6B21\u8981\u5B50\u53E5\u63A1\u7528\u4E0D\u540C\u53D6\u503C",
+                "fraction": 0,
+                "feedback": "\u4EFB\u4F55\u6E96\u5247\u90FD\u4E0D\u4F5C\u6B64\u8981\u6C42\uFF1BRICC \u662F\u5C07\u5B83\u5011\u56FA\u5B9A\u70BA\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u4F7F c\u6C7A\u5B9A p",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u662F\u975E\u4F5C\u7528\u5B50\u53E5\u9700\u6C42\uFF1Ac\u7DAD\u6301\u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "\u4F7F p \u53D6\u4E0D\u540C\u503C",
+                "fraction": 0,
+                "feedback": "\u6B64\u914D\u5C0D\u4E2D\u5169\u9805\u9700\u6C42\u7686\u56FA\u5B9A p = true\u3002"
+              }
+            ],
+            "generalFeedback": "RICC \u8981\u6C42\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u5728\u6BCF\u500B\u540C p \u914D\u5C0D\u4E2D\u76F8\u540C\u3002\u5C0D p=true \u914D\u5C0D\uFF0Cc=true \u8207 c=false \u7684\u6E2C\u8A66\u63A1\u7528\u76F8\u540C\u6B21\u8981\u53D6\u503C\uFF08\u9019\u6B63\u662F p \u5728\u914D\u5C0D\u4E2D\u7DAD\u6301 true \u7684\u539F\u56E0\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "GICC \u6B21\u8981\u5B50\u53E5\u53EF\u8B8A\u52D5",
+            "text": "<p>\u5728 GICC \u4E0B\uFF0C\u56DB\u9805\u975E\u4F5C\u7528\u5B50\u53E5\u6E2C\u8A66\u9700\u6C42\u9593\u7684\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u53EF\u4EE5\u4E0D\u540C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014GICC \u5C0D\u6B21\u8981\u5B50\u53E5\u4E0D\u65BD\u52A0\u76F8\u540C\u6027\u9650\u5236\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5F37\u5236\u6B21\u8981\u5B50\u53E5\u76F8\u540C\u7684\u662F RICC \u800C\u975E GICC\uFF1BGICC \u5141\u8A31\u5B83\u5011\u8B8A\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "GICC\uFF08\u300C\u4E00\u822C\u300D\uFF09\u50C5\u8981\u6C42 c\u5728\u56DB\u9805\u9700\u6C42\u4E2D\u7686\u70BA\u975E\u4F5C\u7528\uFF1B\u6B21\u8981\u5B50\u53E5\u53D6\u503C\u53EF\u5728\u5404\u9700\u6C42\u9593\u81EA\u7531\u8B8A\u52D5\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u78BA\u8A8D\u906E\u853D\u7684\u6E96\u5247",
+            "text": "<p>\u54EA\u4E00\u6E96\u5247\u5C08\u9580\u7528\u65BC\u78BA\u8A8D\u5B50\u53E5\u7684<strong>\u6B63\u78BA\u906E\u853D</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF08GICC\uFF0FRICC\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6AA2\u67E5\u88AB\u906E\u853D\u7684\u5B50\u53E5\u5C0D p \u7121\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u95DC\u806F\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF08CACC\uFF09",
+                "fraction": 0,
+                "feedback": "CACC \u6AA2\u67E5\u5B50\u53E5\u7684\u6C7A\u5B9A\u6027\uFF08\u4F5C\u7528\uFF09\u6548\u679C\uFF0C\u800C\u975E\u906E\u853D\u3002"
+              },
+              {
+                "text": "\u4E00\u822C\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF08GACC\uFF09",
+                "fraction": 0,
+                "feedback": "GACC \u662F\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF1B\u5B83\u57F7\u884C\u6C7A\u5B9A\u6027\uFF0C\u800C\u975E\u906E\u853D\u3002"
+              },
+              {
+                "text": "\u8FF0\u8A5E\u8986\u84CB\uFF08PC\uFF09",
+                "fraction": 0,
+                "feedback": "PC \u53EA\u8981\u6C42 p \u53D6\u5169\u503C\uFF0C\u672A\u6D89\u53CA\u906E\u853D\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\u6703\u523B\u610F\u906E\u853D\u5B50\u53E5\u4E26\u6AA2\u67E5 p \u4E0D\u53D7\u5F71\u97FF\u2014\u2014\u9019\u662F\u5C0D\u6B63\u78BA\u906E\u853D\u7684\u6AA2\u6E2C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a \u975E\u4F5C\u7528\u6642 a AND b \u4E2D p \u7684\u503C",
+            "text": "<p>\u5C0D p = a &#8743; b\uFF0C\u5728\u6240\u6709\u4F7F\u5B50\u53E5 a \u975E\u4F5C\u7528\u7684\u6B21\u8981\u53D6\u503C\u4E0B\uFF0Cp \u7684\u503C\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6C38\u9060\u70BA false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u975E\u4F5C\u7528\u50C5\u5728 b = false \u6642\u6210\u7ACB\uFF0C\u6B64\u6642 p = false\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u70BA true",
+                "fraction": 0,
+                "feedback": "a \u975E\u4F5C\u7528\u6642 b = false\uFF0C\u9019\u4F7F p \u70BA false \u800C\u975E true\u3002"
+              },
+              {
+                "text": "\u6709\u6642 true\u3001\u6709\u6642 false",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u7A2E\u906E\u853D\u53D6\u503C\uFF08b = false\uFF09\uFF0C\u4E14\u5B83\u5C07 p \u56FA\u5B9A\u70BA false\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC a",
+                "fraction": 0,
+                "feedback": "p \u7B49\u65BC a \u53EA\u5728 a \u70BA\u4F5C\u7528\uFF08b = true\uFF09\u6642\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D a &#8743; b\uFF0C\u552F\u4E00\u80FD\u906E\u853D a \u7684\u65B9\u5F0F\u662F b = false\uFF0C\u9019\u5C07 p \u56FA\u5B9A\u70BA false\u3002\u56E0\u6B64 a \u9700\u8981 p = true \u7684 ICC \u9700\u6C42\u7686\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a OR b OR c \u4E2D a \u4F55\u6642\u975E\u300C\u975E\u4F5C\u7528\u300D",
+            "text": "<p>\u5C0D p = a &#8744; b &#8744; c\uFF0C\u5B50\u53E5 a \u672A\u80FD\u7DAD\u6301\u975E\u4F5C\u7528\uFF08\u5373\u5B83\u6C7A\u5B9A p\uFF09\u50C5\u7576\uFF1A</p>",
+            "answers": [
+              {
+                "text": "b = false \u4E14 c = false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u6642 p = a\uFF0C\u6545 a \u6C7A\u5B9A p\uFF1B\u5728\u5176\u9918\u6240\u6709\u6B21\u8981\u53D6\u503C\u4E0B a \u7686\u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "b = true \u4E14 c = true",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642\u4E0D\u8AD6 a \u70BA\u4F55 p \u7686\u70BA true\uFF0C\u6545 a \u65BC\u6B64\u70BA\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "b = true \u4E14 c = false",
+                "fraction": 0,
+                "feedback": "b \u70BA true \u4F7F p \u4E0D\u8AD6 a \u7686\u70BA true\uFF0C\u6545 a \u70BA\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "b = false \u4E14 c = true",
+                "fraction": 0,
+                "feedback": "c \u70BA true \u4F7F p \u4E0D\u8AD6 a \u7686\u70BA true\uFF0C\u6545 a \u70BA\u975E\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6790\u53D6\uFF0Ca \u53EA\u6709\u5728\u5176\u9918\u6BCF\u500B\u904B\u7B97\u5143\u7686\u70BA false \u6642\u624D\u6C7A\u5B9A p\u3002\u6B64\u8655\u5373 b = false \u4E14 c = false\uFF1B\u5426\u5247 b &#8744; c \u70BA true \u800C a \u88AB\u906E\u853D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "p \u56FA\u5B9A\u70BA false \u7684\u906E\u853D\u53EF\u5354\u52A9\u7684\u9700\u6C42",
+            "text": "<p>\u5047\u8A2D\u67D0\u6B21\u8981\u53D6\u503C\u4F7F c<sub>i</sub> \u975E\u4F5C\u7528\uFF0C\u4E14\u4E0D\u8AD6 c<sub>i</sub> \u70BA\u4F55\u90FD\u5C07 p \u56FA\u5B9A\u70BA false\u3002\u6B64\u53D6\u503C\u53EF\u5354\u52A9\u6EFF\u8DB3\u54EA\u4E9B ICC \u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u9805 p = false \u7684\u9700\u6C42\uFF08c=T&#8743;p=F \u8207 c=F&#8743;p=F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014p \u88AB\u56FA\u5B9A\u70BA false\uFF0C\u6545\u6B64\u53D6\u503C\u53EA\u80FD\u6EFF\u8DB3 p=false \u7684\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u5169\u9805 p = true \u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 p \u70BA false\uFF0C\u6545\u7121\u6CD5\u6EFF\u8DB3\u4EFB\u4F55 p=true \u7684\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u5168\u90E8\u56DB\u9805\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "p \u88AB\u56FA\u5B9A\u70BA false \u6642\u53EA\u6709\u5169\u9805 p=false \u7684\u9700\u6C42\u53EF\u9054\u6210\u3002"
+              },
+              {
+                "text": "\u4E00\u9805\u90FD\u4E0D\u80FD",
+                "fraction": 0,
+                "feedback": "\u5B83\u78BA\u5BE6\u80FD\u6EFF\u8DB3 p=false \u7684\u9700\u6C42\uFF08c\u7684\u5169\u7A2E\u53D6\u503C\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0 c\u975E\u4F5C\u7528\uFF0C\u6B64\u53D6\u503C\u4E0B c=T \u8207 c=F \u7686\u53EF\u5F97\uFF0C\u4F46 p \u5361\u5728 false\u2014\u2014\u6545\u53EA\u80FD\u6DB5\u84CB c=T&#8743;p=F \u8207 c=F&#8743;p=F\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "truefalse",
+            "name": "RICC \u6DB5\u84CB\uFF08subsume\uFF09GICC",
+            "text": "<p>\u53D7\u9650\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF08RICC\uFF09\u6DB5\u84CB\uFF08subsumes\uFF09\u4E00\u822C\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\uFF08GICC\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014RICC \u7684\u9700\u6C42\u5373 GICC \u7684\u9700\u6C42\u518D\u52A0\u4E0A\u6B21\u8981\u5B50\u53E5\u76F8\u540C\u7684\u9650\u5236\uFF0C\u6545\u4EFB\u4F55\u6EFF\u8DB3 RICC \u7684\u6E2C\u8A66\u7D44\u4EA6\u6EFF\u8DB3 GICC\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "RICC \u56B4\u683C\u66F4\u5F37\uFF1A\u5B83\u5728 GICC \u4E0A\u9644\u52A0\u9650\u5236\uFF0C\u6545 RICC &#8594; GICC\u3002"
+              }
+            ],
+            "generalFeedback": "RICC \u4FDD\u7559 GICC \u7684\u5168\u90E8\u56DB\u9805\u9700\u6C42\uFF0C\u4E26\u984D\u5916\u8981\u6C42\u6B21\u8981\u5B50\u53E5\u5728\u6BCF\u500B\u540C p \u914D\u5C0D\u4E2D\u76F8\u540C\u3002\u53EA\u9644\u52A0\u9650\u5236\u7684\u8F03\u56B4\u6E96\u5247\u6703\u6DB5\u84CB\u8F03\u5F31\u8005\uFF0C\u6545 RICC \u6DB5\u84CB GICC\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC \u70BA\u4F55\u6DB5\u84CB GICC",
+            "text": "<p>RICC \u70BA\u4F55\u6DB5\u84CB\uFF08subsumes\uFF09GICC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "RICC \u7684\u6E2C\u8A66\u9700\u6C42\u5373 GICC \u7684\u9700\u6C42\u518D\u52A0\u4E0A\u6B21\u8981\u5B50\u53E5\u76F8\u540C\u7684\u9650\u5236\uFF0C\u6545\u4EFB\u4F55\u6EFF\u8DB3 RICC \u7684\u6E2C\u8A66\u7D44\u4EA6\u6EFF\u8DB3 GICC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9644\u52A0\u9650\u5236\u53EA\u6703\u7E2E\u5C0F\u6EFF\u8DB3\u7684\u6E2C\u8A66\u7D44\u96C6\u5408\u3002"
+              },
+              {
+                "text": "RICC \u7684\u6E2C\u8A66\u9700\u6C42\u6BD4 GICC \u591A",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u6BCF\u500B\u5B50\u53E5\u90FD\u6709\u76F8\u540C\u7684\u56DB\u9805\u9700\u6C42\uFF1BRICC \u53EA\u662F\u66F4\u56B4\u683C\u5730\u9650\u5236\u6B21\u8981\u5B50\u53E5\u3002"
+              },
+              {
+                "text": "RICC \u57F7\u884C\u5168\u90E8 2^n \u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u7D44\u5408\u8986\u84CB\uFF0C\u800C\u975E RICC\u3002"
+              },
+              {
+                "text": "RICC \u53E6\u5916\u8981\u6C42 c\u6C7A\u5B9A p",
+                "fraction": 0,
+                "feedback": "\u4E8C\u8005\u7686\u70BA\u975E\u4F5C\u7528\u5B50\u53E5\u6E96\u5247\uFF1B\u7686\u4E0D\u8981\u6C42\u6C7A\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u6210\u7ACB\u662F\u56E0\u70BA RICC = GICC +\uFF08\u6BCF\u500B\u540C p \u914D\u5C0D\u4E2D\u6B21\u8981\u5B50\u53E5\u76F8\u540C\uFF09\u3002\u4EFB\u4F55 RICC \u6E2C\u8A66\u7D44\u5DF2\u6EFF\u8DB3\u8F03\u5BEC\u9B06\u7684 GICC \u7FA9\u52D9\uFF0C\u6545 RICC \u6DB5\u84CB GICC\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u975E\u4F5C\u7528\u6E96\u5247\u6DB5\u84CB\u5B50\u53E5\u8986\u84CB",
+            "text": "<p>GICC \u8207 RICC \u7686\u6DB5\u84CB\uFF08subsume\uFF09\u5B50\u53E5\u8986\u84CB\uFF08CC\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u4E3B\u8981\u5B50\u53E5\uFF08\u5728\u975E\u4F5C\u7528\u72C0\u614B\u4E0B\uFF09\u7686\u88AB\u57F7\u884C true \u8207 false\uFF0C\u9019\u6B63\u662F\u5B50\u53E5\u8986\u84CB\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "GICC \u8207 RICC \u5C0D\u6BCF\u500B\u5B50\u53E5\u7686\u6709 c=true \u8207 c=false \u9700\u6C42\uFF0C\u6545\u6BCF\u500B\u5B50\u53E5\u90FD\u53D6\u5169\u503C\u2014\u2014CC \u88AB\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u9805 ICC \u9700\u6C42\u5C0D\u6BCF\u500B\u5B50\u53E5\u90FD\u542B c=true \u8207 c=false\uFF0C\u6545\u6BCF\u500B\u5B50\u53E5\u90FD\u53D6\u5169\u7A2E\u771F\u503C\u3002\u56E0\u6B64 GICC \u8207 RICC \u7686\u6DB5\u84CB\u5B50\u53E5\u8986\u84CB\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "GICC \u70BA\u4F55\u6DB5\u84CB CC",
+            "text": "<p>\u662F\u4EC0\u9EBC\u4F7F GICC \u6DB5\u84CB\uFF08subsume\uFF09\u5B50\u53E5\u8986\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6BCF\u500B\u5B50\u53E5\uFF0CGICC \u90FD\u8981\u6C42\u4E00\u500B c=true \u6E2C\u8A66\u8207\u4E00\u500B c=false \u6E2C\u8A66\uFF0C\u6545\u6BCF\u500B\u5B50\u53E5\u90FD\u53D6\u5169\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u5B50\u53E5\u8986\u84CB\u7684\u8981\u6C42\u3002"
+              },
+              {
+                "text": "GICC \u8981\u6C42\u8FF0\u8A5E\u53D6\u5169\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u8FF0\u8A5E\u8986\u84CB\u6709\u95DC\uFF1BCC \u95DC\u6CE8\u7684\u662F\u500B\u5225\u5B50\u53E5\u3002"
+              },
+              {
+                "text": "GICC \u57F7\u884C\u6BCF\u4E00\u7A2E\u5B50\u53E5\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D44\u5408\u8986\u84CB\uFF0C\u6BD4\u9054\u6210 CC \u6240\u9700\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "GICC \u8981\u6C42\u6BCF\u500B\u5B50\u53E5\u6C7A\u5B9A p",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F5C\u7528\u5B50\u53E5\u7684\u6982\u5FF5\uFF1B\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u53CD\u800C\u906E\u853D\u5B50\u53E5\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B50\u53E5\u8986\u84CB\u8981\u6C42\u6BCF\u500B\u5B50\u53E5\u7686\u53D6 true \u8207 false\u3002\u56E0 GICC \u5C0D\u6BCF\u500B\u5B50\u53E5\u7684\u56DB\u9805\u9700\u6C42\u542B c=true \u8207 c=false\uFF0C\u6BCF\u500B\u5B50\u53E5\u90FD\u88AB\u96D9\u5411\u57F7\u884C\uFF0C\u6545 GICC \u6DB5\u84CB CC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a AND b \u4E0D\u53EF\u884C\u7684 ICC \u9700\u6C42",
+            "text": "<p>\u5C0D p = a &#8743; b\uFF0C\u5B50\u53E5 a \u7684\u54EA\u4E9B\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u9700\u6C42<strong>\u4E0D\u53EF\u884C</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u9805\u8981\u6C42 p = true \u7684\u9700\u6C42\uFF08a=T&#8743;p=T \u8207 a=F&#8743;p=T\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u53EA\u80FD\u5728 b = false \u6642\u975E\u4F5C\u7528\uFF0C\u9019\u5C07 p \u56FA\u5B9A\u70BA false\uFF0C\u6545 a \u975E\u4F5C\u7528\u6642 p = true \u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "\u5169\u9805\u8981\u6C42 p = false \u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u624D\u662F\u53EF\u884C\u7684\uFF1A\u906E\u853D a\uFF08b = false\uFF09\u4F7F p = false\u3002"
+              },
+              {
+                "text": "\u5168\u90E8\u56DB\u9805\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u5169\u9805 p=false \u9700\u6C42\u53EF\u884C\uFF1B\u53EA\u6709 p=true \u7684\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u90FD\u53EF\u884C\u2014\u2014\u56DB\u9805\u7686\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "a \u975E\u4F5C\u7528\u5F37\u5236 p = false\uFF0C\u6545 p=true \u7684\u9700\u6C42\u7121\u6CD5\u9054\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 a &#8743; b \u4E2D\u906E\u853D a \u9700 b = false\uFF0C\u5C07 p \u56FA\u5B9A\u70BA false\u3002\u6545 a=T&#8743;p=T \u8207 a=F&#8743;p=T \u4E0D\u53EF\u884C\uFF0C\u800C\u5169\u9805 p=false \u7684\u9700\u6C42\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a OR b \u4E0D\u53EF\u884C\u7684 ICC \u9700\u6C42",
+            "text": "<p>\u5C0D p = a &#8744; b\uFF0C\u5B50\u53E5 a \u7684\u54EA\u4E9B\u975E\u4F5C\u7528\u5B50\u53E5\u8986\u84CB\u9700\u6C42<strong>\u4E0D\u53EF\u884C</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u9805\u8981\u6C42 p = false \u7684\u9700\u6C42\uFF08a=T&#8743;p=F \u8207 a=F&#8743;p=F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u53EA\u80FD\u5728 b = true \u6642\u975E\u4F5C\u7528\uFF0C\u9019\u5C07 p \u56FA\u5B9A\u70BA true\uFF0C\u6545 a \u975E\u4F5C\u7528\u6642 p = false \u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "\u5169\u9805\u8981\u6C42 p = true \u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u624D\u662F\u53EF\u884C\u7684\uFF1A\u906E\u853D a\uFF08b = true\uFF09\u4F7F p = true\u3002"
+              },
+              {
+                "text": "\u5168\u90E8\u56DB\u9805\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u5169\u9805 p=true \u9700\u6C42\u53EF\u884C\uFF1B\u53EA\u6709 p=false \u7684\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u90FD\u53EF\u884C\u2014\u2014\u56DB\u9805\u7686\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "a \u975E\u4F5C\u7528\u5F37\u5236 p = true\uFF0C\u6545 p=false \u7684\u9700\u6C42\u7121\u6CD5\u9054\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 a &#8744; b \u4E2D\u906E\u853D a \u9700 b = true\uFF0C\u5C07 p \u56FA\u5B9A\u70BA true\u3002\u6545 a=T&#8743;p=F \u8207 a=F&#8743;p=F \u4E0D\u53EF\u884C\uFF0C\u800C\u5169\u9805 p=true \u7684\u9700\u6C42\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a AND b AND c \u4E2D a \u7684\u975E\u4F5C\u7528\u5217\u6578",
+            "text": "<p>\u5C0D p = a &#8743; b &#8743; c\uFF0C\u5728 8 \u7A2E\u53D6\u503C\u4E2D\u6709\u5E7E\u7A2E\u4F7F\u5B50\u53E5 a \u70BA<strong>\u975E\u4F5C\u7528</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u53EA\u6709\u5728 b &#8743; c \u70BA true \u6642\uFF082 \u5217\uFF09\u624D\u6C7A\u5B9A p\uFF0C\u5176\u9918 6 \u5217 a \u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F a \u70BA\u4F5C\u7528\uFF08b=T, c=T\uFF09\u7684\u5217\u6578\uFF0C\u800C\u975E\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u8A08\u7B97\u2014\u2014a \u50C5\u5728 b &#8743; c \u70BA true \u6642\u4F5C\u7528\uFF0C\u5373 2 \u5217\uFF0C\u6545\u975E\u4F5C\u7528\u70BA 6 \u5217\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "a \u5728 2 \u5217\u70BA\u4F5C\u7528\uFF0C\u6545\u4E26\u975E\u5168\u90E8 8 \u5217\u7686\u975E\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "a \u6C7A\u5B9A a &#8743; b &#8743; c \u6070\u7576 b &#8743; c \u70BA true\uFF08b=T, c=T\uFF09\uFF0C\u5F97 2 \u500B\u4F5C\u7528\u5217\uFF08a \u81EA\u7531\uFF09\u3002\u5176\u9918 8 \u5217\u4E2D\u7684 6 \u5217 a \u70BA\u975E\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "(a AND b) OR c \u4E2D c \u7684\u975E\u4F5C\u7528\u5217\u6578",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; c\uFF0C\u5728 8 \u7A2E\u53D6\u503C\u4E2D\u6709\u5E7E\u7A2E\u4F7F\u5B50\u53E5 <strong>c</strong> \u70BA<strong>\u975E\u4F5C\u7528</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c \u53EA\u6709\u5728 a &#8743; b \u70BA true\uFF08a=T, b=T\uFF09\u6642\u975E\u4F5C\u7528\uFF0C\u5373 2 \u5217\uFF08c \u81EA\u7531\uFF09\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F c \u70BA\u4F5C\u7528\uFF08a &#8743; b \u70BA false\uFF09\u7684\u5217\u6578\uFF0C\u800C\u975E\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u8A08\u7B97\u2014\u2014a &#8743; b \u5728 8 \u5217\u4E2D\u50C5 2 \u5217\u70BA true\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "a=T, b=T \u6642 c=T \u8207 c=F \u5169\u5217\u7686\u975E\u4F5C\u7528\uFF0C\u6545\u70BA 2 \u800C\u975E 1\u3002"
+              }
+            ],
+            "generalFeedback": "c \u70BA\u975E\u4F5C\u7528\u6070\u7576\u53E6\u4E00\u904B\u7B97\u5143 a &#8743; b \u70BA true\u3002\u9019\u767C\u751F\u5728 8 \u5217\u4E2D\u7684 2 \u5217\uFF08a=T, b=T\uFF0Cc \u70BA\u4EFB\u4E00\u503C\uFF09\uFF0C\u6545 c \u5728 2 \u7A2E\u53D6\u503C\u4E2D\u975E\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "(a AND b) OR (c AND d) \u4E2D a \u7684\u975E\u4F5C\u7528\u5217\u6578",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; (c &#8743; d)\uFF0C\u5728 16 \u7A2E\u53D6\u503C\u4E2D\u6709\u5E7E\u7A2E\u4F7F\u5B50\u53E5 a \u70BA<strong>\u975E\u4F5C\u7528</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u50C5\u5728 b = true \u4E14 (c &#8743; d) = false \u6642\u70BA\u4F5C\u7528\uFF1A1 &#215; 3 &#215; 2 = 6 \u5217\uFF0C\u5176\u9918 10 \u5217\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F a \u70BA\u4F5C\u7528\u7684\u5217\u6578\uFF0C\u800C\u975E\u975E\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u8A08\u7B97\u2014\u2014a \u5728 6 \u5217\u70BA\u4F5C\u7528\uFF0C\u6545\u975E\u4F5C\u7528\u70BA 16 &#8722; 6 = 10\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "\u90A3\u9AD8\u4F30\u4E86\uFF1B\u975E\u4F5C\u7528\u5217\u6578\u6070\u70BA 10\u3002"
+              }
+            ],
+            "generalFeedback": "a \u53EA\u6709\u5728\u5176\u9805\u50B3\u905E a\uFF08b = true\uFF09\u4E14\u53E6\u4E00\u9805\u672A\u906E\u853D\u5B83\uFF08c &#8743; d = false\uFF09\u6642\u624D\u6C7A\u5B9A p\uFF1A1 &#215; 3 &#215; 2 = 6 \u500B\u4F5C\u7528\u5217\u3002\u5176\u9918 16 \u5217\u4E2D\u7684 10 \u5217 a \u70BA\u975E\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u9805 ICC \u9700\u6C42\u7686\u53EF\u884C\u7684\u8FF0\u8A5E",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u8FF0\u8A5E\u8207\u5B50\u53E5\uFF0C\u5176<strong>\u56DB\u9805</strong> ICC \u9700\u6C42\u7686\u53EF\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "p = (a &#8743; b) &#8744; (c &#8743; d) \u4E2D\u7684\u5B50\u53E5 a",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576 b = false \u6642 a \u975E\u4F5C\u7528\u4E14 p = (c &#8743; d)\uFF0C\u5176\u53EF\u70BA true \u4EA6\u53EF\u70BA false\uFF1B\u56DB\u9805\u9700\u6C42\u7686\u53EF\u9054\u3002"
+              },
+              {
+                "text": "p = a &#8743; b \u4E2D\u7684\u5B50\u53E5 a",
+                "fraction": 0,
+                "feedback": "a \u975E\u4F5C\u7528\u5F37\u5236 p = false\uFF0C\u6545 p=true \u7684\u9700\u6C42\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "p = a &#8744; b &#8744; c \u4E2D\u7684\u5B50\u53E5 a",
+                "fraction": 0,
+                "feedback": "a \u975E\u4F5C\u7528\u5F37\u5236 p = true\uFF0C\u6545 p=false \u7684\u9700\u6C42\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "p = (a &#8744; b) &#8743; c \u4E2D\u7684\u5B50\u53E5 c",
+                "fraction": 0,
+                "feedback": "c \u975E\u4F5C\u7528\u5F37\u5236 p = false\uFF0C\u6545 p=true \u7684\u9700\u6C42\u4E0D\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u9805 ICC \u9700\u6C42\u7686\u53EF\u884C\u7684\u689D\u4EF6\u662F\uFF1Ac\u88AB\u906E\u853D\u6642 p \u4ECD\u53EF\u70BA true \u8207 false\u3002\u5728 (a &#8743; b) &#8744; (c &#8743; d) \u4E2D\u4EE4 b = false\uFF0Ca \u88AB\u906E\u853D\u800C p = (c &#8743; d) \u4ECD\u6DB5\u84CB\u5169\u503C\uFF0C\u6545\u6BCF\u9805\u9700\u6C42\u7686\u53EF\u9054\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "RICC \u6B21\u8981\u5B50\u53E5\u76F8\u540C\u7684\u7BC4\u570D",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; (c &#8743; d) \u4E14\u4E3B\u8981\u5B50\u53E5\u70BA a\uFF0C\u5728 RICC \u4E0B\uFF0Cp=false \u6642 a=true \u8207 a=false \u7684\u9700\u6C42\u5FC5\u9808\u5171\u7528\u54EA\u4E9B\u5B50\u53E5\u7684\u76F8\u540C\u53D6\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6240\u6709\u6B21\u8981\u5B50\u53E5\uFF1Ab\u3001c \u8207 d",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014RICC \u5728\u540C p \u914D\u5C0D\u4E2D\u56FA\u5B9A\u6BCF\u4E00\u500B\u6B21\u8981\u5B50\u53E5\u3002"
+              },
+              {
+                "text": "\u50C5 b",
+                "fraction": 0,
+                "feedback": "RICC \u9650\u5236\u6240\u6709\u6B21\u8981\u5B50\u53E5\uFF0C\u800C\u4E0D\u53EA\u662F\u8207 a \u540C\u9805\u7684\u90A3\u500B\u3002"
+              },
+              {
+                "text": "\u50C5 c \u8207 d",
+                "fraction": 0,
+                "feedback": "b \u4E5F\u662F\u6B21\u8981\u5B50\u53E5\uFF0C\u540C\u6A23\u5FC5\u9808\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u7528\u2014\u2014RICC \u53EA\u56FA\u5B9A a",
+                "fraction": 0,
+                "feedback": "RICC \u7684\u91CD\u9EDE\u6B63\u662F\u5728\u914D\u5C0D\u4E2D\u56FA\u5B9A\u6B21\u8981\u5B50\u53E5\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u4E3B\u8981\u5B50\u53E5 a\uFF0C\u6B21\u8981\u5B50\u53E5\u70BA b\u3001c \u8207 d\u3002RICC \u8981\u6C42\u5B83\u5011\u5728\u6BCF\u500B\u540C p \u914D\u5C0D\u7684 a=true \u8207 a=false \u6E2C\u8A66\u4E2D\u53D6\u503C\u5168\u90E8\u76F8\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u9805\u9700\u6C42\u7686\u53EF\u884C\u7684\u689D\u4EF6",
+            "text": "<p>\u5B50\u53E5 c<sub>i</sub> \u7684\u56DB\u9805 ICC \u9700\u6C42\u7686\u53EF\u884C\u7684\u689D\u4EF6\u662F\uFF1A\u5728 c<sub>i</sub> \u975E\u4F5C\u7528\u6642\uFF0C\u8FF0\u8A5E p \u80FD\u5920\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u540C\u6642\u53EF\u70BA true \u8207 false\uFF08\u5728\u4E0D\u540C\u7684\u906E\u853D\u7528\u6B21\u8981\u53D6\u503C\u4E0B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c\u7DAD\u6301\u88AB\u906E\u853D\u6642 p \u5FC5\u9808\u6DB5\u84CB\u5169\u503C\u3002"
+              },
+              {
+                "text": "\u50C5\u53EF\u70BA true",
+                "fraction": 0,
+                "feedback": "\u90A3\u6A23 p=false \u7684\u9700\u6C42\u5C07\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u50C5\u53EF\u70BA false",
+                "fraction": 0,
+                "feedback": "\u90A3\u6A23 p=true \u7684\u9700\u6C42\u5C07\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u7531 c\u6C7A\u5B9A",
+                "fraction": 0,
+                "feedback": "\u82E5 c\u6C7A\u5B9A p \u4FBF\u975E\u975E\u4F5C\u7528\uFF1B\u6B64\u8655\u9700\u6C42\u95DC\u6CE8\u7684\u662F\u88AB\u906E\u853D\u7684\u60C5\u5F62\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0 c\u88AB\u906E\u853D\uFF0Cp \u7531\u6B21\u8981\u5B50\u53E5\u8A2D\u5B9A\u3002\u56DB\u9805\u9700\u6C42\uFF08\u5C07 c\u8207 p \u4EA4\u53C9\uFF09\u7686\u53EF\u884C\uFF0C\u6070\u7576\u6709\u67D0\u906E\u853D\u7528\u6B21\u8981\u53D6\u503C\u4F7F p=true\u3001\u53E6\u6709\u53D6\u503C\u4F7F p=false\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "(a AND b) OR c \u4E2D c \u975E\u4F5C\u7528\u7684\u53D6\u503C",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; c\uFF0C\u5B50\u53E5 c \u70BA\u975E\u4F5C\u7528\u6070\u70BA\u4E0B\u5217\u54EA\u7A2E\u53D6\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "a = true \u4E14 b = true\uFF08c \u70BA\u4EFB\u4E00\u503C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u6642 a &#8743; b \u70BA true \u906E\u853D c\uFF1B\u4E0D\u8AD6 c \u70BA\u4F55 p \u7686\u70BA true\u3002"
+              },
+              {
+                "text": "a = false \u4E14 b = false",
+                "fraction": 0,
+                "feedback": "\u6B64\u6642 a &#8743; b \u70BA false\uFF0C\u6545 p = c\uFF0Cc \u6C7A\u5B9A p\uFF08\u4F5C\u7528\uFF09\u3002"
+              },
+              {
+                "text": "c = false",
+                "fraction": 0,
+                "feedback": "c \u662F\u5426\u88AB\u906E\u853D\u7531\u904B\u7B97\u5143 a &#8743; b \u6C7A\u5B9A\uFF0C\u800C\u975E c \u81EA\u8EAB\u7684\u503C\u3002"
+              },
+              {
+                "text": "a = true \u6216 b = true",
+                "fraction": 0,
+                "feedback": "a &#8743; b \u9700\u5169\u8005\u7686 true \u624D\u80FD\u906E\u853D c\uFF1B\u53EA\u6709\u5176\u4E00\u70BA true \u4E26\u4E0D\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6790\u53D6\u4E2D c \u88AB\u906E\u853D\u6070\u7576\u53E6\u4E00\u904B\u7B97\u5143 a &#8743; b \u70BA true\uFF0C\u5373 a = true \u4E14 b = true\u2014\u2014\u9019\u662F c \u975E\u4F5C\u7528\u7684 2 \u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u4F5C\u7528\u5217\u6578\u6700\u5C11\u7684\u5B50\u53E5",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; c\uFF0C\u54EA\u500B\u5B50\u53E5\u975E\u4F5C\u7528\u7684\u53D6\u503C\u6578<strong>\u6700\u5C11</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "c\uFF088 \u5217\u4E2D 2 \u5217\u975E\u4F5C\u7528\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c \u50C5\u5728 a &#8743; b \u70BA true \u6642\u88AB\u906E\u853D\uFF082 \u5217\uFF09\uFF0C\u800C a \u8207 b \u5404\u5728 6 \u5217\u88AB\u906E\u853D\u3002"
+              },
+              {
+                "text": "a\uFF088 \u5217\u4E2D 6 \u5217\u975E\u4F5C\u7528\uFF09",
+                "fraction": 0,
+                "feedback": "a \u5728 b = false \u6216 c = true \u6642\u88AB\u906E\u853D\u2014\u20146 \u5217\uFF0C\u591A\u65BC c\u3002"
+              },
+              {
+                "text": "b\uFF088 \u5217\u4E2D 6 \u5217\u975E\u4F5C\u7528\uFF09",
+                "fraction": 0,
+                "feedback": "\u8207 a \u5C0D\u7A31\uFF0Cb \u5728 6 \u5217\u88AB\u906E\u853D\uFF0C\u591A\u65BC c\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u975E\u4F5C\u7528\u6B21\u6578\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "c \u4E0D\u540C\uFF1A\u5B83\u50C5\u5728 2 \u5217\u88AB\u906E\u853D\uFF0C\u800C a \u8207 b \u5404\u70BA 6 \u5217\u3002"
+              }
+            ],
+            "generalFeedback": "c \u50C5\u5728 a &#8743; b \u70BA true \u6642\u88AB\u906E\u853D\uFF082 \u5217\uFF09\u3002a \u5728 b=false \u6216 c=true \u6642\u88AB\u906E\u853D\uFF086 \u5217\uFF09\uFF0Cb \u5C0D\u7A31\u5730\u70BA 6 \u5217\u3002\u6545 c \u7684\u975E\u4F5C\u7528\u5217\u6578\u6700\u5C11\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "4 \u5B50\u53E5\u8FF0\u8A5E\u7684 GICC \u7E3D\u9700\u6C42\u6578",
+            "text": "<p>\u5C0D p = (a &#8743; b) &#8744; (c &#8743; d)\uFF0C\u82E5\u6BCF\u500B\u5B50\u53E5\u7684\u56DB\u9805 ICC \u9700\u6C42\u7686\u53EF\u884C\uFF0CGICC \u7E3D\u5171\u65BD\u52A0\u591A\u5C11\u9805\u975E\u4F5C\u7528\u5B50\u53E5\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \u500B\u5B50\u53E5 &#215; \u6BCF\u500B 4 \u9805\u9700\u6C42 = 16 \u9805\u6E2C\u8A66\u9700\u6C42\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 = 4 \u5B50\u53E5 &#215; 2\uFF1B\u4F46 ICC \u6BCF\u500B\u5B50\u53E5\u662F\u56DB\u9805\u9700\u6C42\uFF0C\u800C\u975E\u5169\u9805\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u55AE\u4E00\u5B50\u53E5\u7684\u9700\u6C42\u6578\uFF0C\u800C\u975E\u6574\u500B\u8FF0\u8A5E\u3002"
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "\u90A3\u5C07\u6578\u91CF\u52A0\u500D\uFF1B\u6BCF\u500B\u5B50\u53E5 4 \u9805\u9700\u6C42\uFF0C\u5171 16 \u9805\u3002"
+              }
+            ],
+            "generalFeedback": "ICC \u6BCF\u500B\u4E3B\u8981\u5B50\u53E5\u65BD\u52A0\u56DB\u9805\u9700\u6C42\u30024 \u500B\u5B50\u53E5\u7686\u53EF\u884C\u6642\uFF0CGICC \u5171\u6709 4 &#215; 4 = 16 \u9805\u6E2C\u8A66\u9700\u6C42\uFF08\u90E8\u5206\u53EF\u7531\u5171\u7528\u6E2C\u8A66\u6EFF\u8DB3\uFF09\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "mutation-testing": {
       "en": {
         "easy": [

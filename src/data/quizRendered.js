@@ -20151,6 +20151,2502 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "logic-inactive-clause": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Definition of inactive clause",
+          "text": "<p>A major clause c<sub>i</sub> is <strong>inactive</strong> for predicate p (under a fixed assignment of the minor clauses) when:</p>",
+          "answers": [
+            {
+              "text": "Toggling only c, with the minor clauses fixed, does not change the value of p",
+              "fraction": 100,
+              "feedback": "Correct — an inactive clause does not determine p; flipping it leaves p unchanged."
+            },
+            {
+              "text": "Toggling only c, with the minor clauses fixed, changes the value of p",
+              "fraction": 0,
+              "feedback": "That is an active (determining) clause, the opposite of inactive."
+            },
+            {
+              "text": "cevaluates to false",
+              "fraction": 0,
+              "feedback": "Inactivity is about cnot affecting p, not about c's own value."
+            },
+            {
+              "text": "cdoes not appear syntactically in p",
+              "fraction": 0,
+              "feedback": "An inactive clause is still part of p; it just happens to be masked by the minor clauses."
+            }
+          ],
+          "generalFeedback": "A clause is inactive (does not determine p) under a minor assignment when flipping it, with everything else fixed, leaves p's value unchanged. This is exactly the negation of \"determines\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent inactivity condition",
+          "text": "<p>With the minor clauses fixed, clause c<sub>i</sub> is inactive for p if and only if:</p>",
+          "answers": [
+            {
+              "text": "pequals p",
+              "fraction": 100,
+              "feedback": "Correct — p takes the same value whether cis true or false, so chas no effect."
+            },
+            {
+              "text": "pdiffers from p",
+              "fraction": 0,
+              "feedback": "That is the determination (active) condition, not inactivity."
+            },
+            {
+              "text": "cequals p",
+              "fraction": 0,
+              "feedback": "Inactivity is about cnot changing p, not about them being equal."
+            },
+            {
+              "text": "Every minor clause equals c",
+              "fraction": 0,
+              "feedback": "Inactivity does not require the minor clauses to match c."
+            }
+          ],
+          "generalFeedback": "cis inactive exactly when p= punder the fixed minor assignment: the two possible cvalues give the same p, so cdoes not determine p.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a is inactive in a AND b",
+          "text": "<p>For predicate p = a &#8743; b, clause a is <strong>inactive</strong> exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is false",
+              "fraction": 100,
+              "feedback": "Correct — with b false, p is false regardless of a, so a does not determine p."
+            },
+            {
+              "text": "b is true",
+              "fraction": 0,
+              "feedback": "With b true, p equals a, so a determines p — a is active, not inactive."
+            },
+            {
+              "text": "Always, regardless of b",
+              "fraction": 0,
+              "feedback": "When b is true, a does determine p, so a is not always inactive."
+            },
+            {
+              "text": "Never",
+              "fraction": 0,
+              "feedback": "a is inactive whenever b is false."
+            }
+          ],
+          "generalFeedback": "For a conjunction a &#8743; b, clause a determines p only when b is true. Hence a is inactive exactly when b is false, where p is pinned to false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a is inactive in a OR b",
+          "text": "<p>For predicate p = a &#8744; b, clause a is <strong>inactive</strong> exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is true",
+              "fraction": 100,
+              "feedback": "Correct — with b true, p is true regardless of a, so a does not determine p."
+            },
+            {
+              "text": "b is false",
+              "fraction": 0,
+              "feedback": "With b false, p equals a, so a determines p — a is active, not inactive."
+            },
+            {
+              "text": "Always, regardless of b",
+              "fraction": 0,
+              "feedback": "When b is false, a determines p, so a is not always inactive."
+            },
+            {
+              "text": "Never",
+              "fraction": 0,
+              "feedback": "a is inactive whenever b is true."
+            }
+          ],
+          "generalFeedback": "For a disjunction a &#8744; b, clause a determines p only when b is false. Hence a is inactive exactly when b is true, where p is pinned to true.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Inactive means does not determine",
+          "text": "<p>A clause is inactive for a predicate exactly when it does <em>not</em> determine that predicate.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — \"inactive\" is defined as the negation of \"determines\"."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Inactive and determining are complementary: a clause is inactive precisely when it fails to determine p."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria require a clause to determine p; inactive-clause criteria require it to be masked. \"Inactive\" simply means the clause does not determine the predicate under the given minor assignment."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of inactive-clause coverage",
+          "text": "<p>The inactive-clause criteria (GICC/RICC) are designed to verify that:</p>",
+          "answers": [
+            {
+              "text": "An inactive (masked) clause genuinely has no effect on the predicate's outcome",
+              "fraction": 100,
+              "feedback": "Correct — they check that masking behaves correctly."
+            },
+            {
+              "text": "Each clause independently determines the predicate",
+              "fraction": 0,
+              "feedback": "That is the goal of the active-clause criteria (GACC/CACC/RACC)."
+            },
+            {
+              "text": "Every combination of clause values is exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            },
+            {
+              "text": "The predicate takes both truth values at least once",
+              "fraction": 0,
+              "feedback": "That is merely Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "Inactive-clause coverage confirms that when a clause is supposed to be masked, it really has no effect on p — catching bugs where a \"don't care\" clause secretly changes the outcome.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GICC acronym",
+          "text": "<p>What does <strong>GICC</strong> stand for?</p>",
+          "answers": [
+            {
+              "text": "General Inactive Clause Coverage",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "General Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "The \"I\" stands for Inactive, not Independent."
+            },
+            {
+              "text": "General Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "That is GACC, an active-clause criterion."
+            },
+            {
+              "text": "Grouped Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "Not a standard criterion name."
+            }
+          ],
+          "generalFeedback": "GICC = General Inactive Clause Coverage: the inactive-clause criterion whose minor-clause values may differ across the four test requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC acronym",
+          "text": "<p>What does <strong>RICC</strong> stand for?</p>",
+          "answers": [
+            {
+              "text": "Restricted Inactive Clause Coverage",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "Restricted Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "The \"I\" stands for Inactive, not Independent."
+            },
+            {
+              "text": "Restricted Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "That is RACC, an active-clause criterion."
+            },
+            {
+              "text": "Reduced Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "Not a standard criterion name."
+            }
+          ],
+          "generalFeedback": "RICC = Restricted Inactive Clause Coverage: like GICC, but the minor-clause values must match across the paired c=true / c=false requirements at each fixed value of p.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of ICC requirements per clause",
+          "text": "<p>For each major clause, Inactive Clause Coverage imposes how many test requirements?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the four combinations of c&#8712; {T,F} with p &#8712; {T,F}, all with cinactive."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 would only cover c=true and c=false; ICC also splits on p's value."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "ICC needs four requirements per clause, not one."
+            },
+            {
+              "text": "2^n (for n clauses)",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, not ICC."
+            }
+          ],
+          "generalFeedback": "Because an inactive clause does not determine p, p can independently be true or false. ICC therefore requires four requirements per major clause: c=T&#8743;p=T, c=T&#8743;p=F, c=F&#8743;p=T, c=F&#8743;p=F.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the four ICC requirements vary",
+          "text": "<p>The four Inactive Clause Coverage requirements for a major clause enumerate the combinations of:</p>",
+          "answers": [
+            {
+              "text": "The value of c(true/false) and the value of p (true/false)",
+              "fraction": 100,
+              "feedback": "Correct — 2 &#215; 2 = 4 requirements, all with cinactive."
+            },
+            {
+              "text": "The values of two of the minor clauses",
+              "fraction": 0,
+              "feedback": "ICC varies cand p, not a pair of minor clauses."
+            },
+            {
+              "text": "The value of cand whether cdetermines p",
+              "fraction": 0,
+              "feedback": "cis inactive (does not determine p) in all four requirements; only cand p vary."
+            },
+            {
+              "text": "All 2^n rows of the truth table",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            }
+          ],
+          "generalFeedback": "Holding cinactive, ICC crosses c&#8712; {T,F} with p &#8712; {T,F}, giving four requirements per major clause.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of a AND b when a is inactive",
+          "text": "<p>For p = a &#8743; b, when clause a is inactive (b = false), the predicate p is:</p>",
+          "answers": [
+            {
+              "text": "False, regardless of a",
+              "fraction": 100,
+              "feedback": "Correct — b false forces a &#8743; b to false whatever a is."
+            },
+            {
+              "text": "True, regardless of a",
+              "fraction": 0,
+              "feedback": "A conjunction with a false operand is false, not true."
+            },
+            {
+              "text": "Equal to a",
+              "fraction": 0,
+              "feedback": "That happens when b is true (a active), not when a is inactive."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "p is well-defined and equals false."
+            }
+          ],
+          "generalFeedback": "Making a inactive in a &#8743; b requires b = false, which pins p to false. So while a is inactive, p can only be false — a fact with consequences for ICC feasibility.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of a OR b when a is inactive",
+          "text": "<p>For p = a &#8744; b, when clause a is inactive (b = true), the predicate p is:</p>",
+          "answers": [
+            {
+              "text": "True, regardless of a",
+              "fraction": 100,
+              "feedback": "Correct — b true forces a &#8744; b to true whatever a is."
+            },
+            {
+              "text": "False, regardless of a",
+              "fraction": 0,
+              "feedback": "A disjunction with a true operand is true, not false."
+            },
+            {
+              "text": "Equal to a",
+              "fraction": 0,
+              "feedback": "That happens when b is false (a active), not when a is inactive."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "p is well-defined and equals true."
+            }
+          ],
+          "generalFeedback": "Making a inactive in a &#8744; b requires b = true, which pins p to true. So while a is inactive, p can only be true — the dual of the conjunction case.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Minor clauses determine p when masked",
+          "text": "<p>When a major clause is inactive, the predicate's value is determined entirely by the minor clauses.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — since the major clause has no effect, only the minor clauses fix p."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "An inactive major clause cannot change p, so p is fixed by the minor clauses alone."
+            }
+          ],
+          "generalFeedback": "An inactive clause does not affect p, so with it masked the outcome is a function of the minor clauses only. This is why, while cis inactive, p can still independently be true or false depending on the minor clauses."
+        },
+        {
+          "type": "multichoice",
+          "name": "Contrast with active-clause coverage",
+          "text": "<p>Which family of criteria is the direct <strong>contrast</strong> to the inactive-clause criteria?</p>",
+          "answers": [
+            {
+              "text": "The active-clause criteria (GACC / CACC / RACC)",
+              "fraction": 100,
+              "feedback": "Correct — they require the clause to determine p, whereas inactive-clause criteria require it to be masked."
+            },
+            {
+              "text": "Predicate Coverage and Clause Coverage",
+              "fraction": 0,
+              "feedback": "Those are coarser criteria, not the active/inactive counterpart."
+            },
+            {
+              "text": "Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "CoC exercises all combinations; it is not the determination-based counterpart."
+            },
+            {
+              "text": "The DNF criteria (implicant / unique-true-point)",
+              "fraction": 0,
+              "feedback": "Those are a separate DNF-based family, not the direct contrast."
+            }
+          ],
+          "generalFeedback": "The active-clause criteria (GACC/CACC/RACC) require each clause to determine p; the inactive-clause criteria (GICC/RICC) require each clause to be masked. They are complementary halves of the determination idea.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "b false makes a active in a OR b",
+          "text": "<p>For p = a &#8744; b, setting b = false makes clause a <em>active</em> (determining), not inactive.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with b false, p equals a, so a determines p."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "With b false, p = a &#8744; false = a, so flipping a flips p; a is active. a would be inactive when b = true."
+            }
+          ],
+          "generalFeedback": "For a &#8744; b, a is inactive when b = true (p pinned to true) and active when b = false (p mirrors a)."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Make c inactive in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause <strong>c</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "a = true, b = true",
+              "fraction": 100,
+              "feedback": "Correct — then a &#8743; b is true, so p is true regardless of c; c is masked."
+            },
+            {
+              "text": "a = false, b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c determines p (active)."
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c is active."
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c is active."
+            }
+          ],
+          "generalFeedback": "For a disjunction X &#8744; c, clause c is inactive exactly when the other operand X is true. Here X = a &#8743; b, so c is inactive when a = true and b = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a determines (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause a <strong>active</strong> (i.e., a is <em>not</em> inactive)?</p>",
+          "answers": [
+            {
+              "text": "b = true, c = false",
+              "fraction": 100,
+              "feedback": "Correct — only then does p reduce to a, so a determines p."
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "With b false, a &#8743; b is false regardless of a, so a is inactive."
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "c true pins p to true and b false masks a, so a is inactive."
+            },
+            {
+              "text": "b = true, c = true",
+              "fraction": 0,
+              "feedback": "c true pins p to true regardless of a, so a is inactive."
+            }
+          ],
+          "generalFeedback": "a determines p only when its term passes a through (b = true) and the disjunction does not mask it (c = false). At every other minor assignment, a is inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four ICC requirements",
+          "text": "<p>For an inactive major clause c<sub>i</sub>, Inactive Clause Coverage requires test requirements covering exactly:</p>",
+          "answers": [
+            {
+              "text": "c=T&#8743;p=T, c=T&#8743;p=F, c=F&#8743;p=T, c=F&#8743;p=F",
+              "fraction": 100,
+              "feedback": "Correct — cand p each take both values while cstays inactive."
+            },
+            {
+              "text": "c=T and c=F only",
+              "fraction": 0,
+              "feedback": "That ignores the requirement that p also take both values."
+            },
+            {
+              "text": "p=T and p=F only",
+              "fraction": 0,
+              "feedback": "That ignores the requirement that calso take both values."
+            },
+            {
+              "text": "All 2^n combinations of the clause values",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, not ICC."
+            }
+          ],
+          "generalFeedback": "Because an inactive clause cannot change p, p is free to be true or false independently of c. ICC therefore lists all four (c, p) combinations as separate test requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How RICC restricts GICC",
+          "text": "<p>How does Restricted Inactive Clause Coverage (RICC) differ from General Inactive Clause Coverage (GICC)?</p>",
+          "answers": [
+            {
+              "text": "RICC requires the minor-clause values to be identical for the c=true and c=false requirements that share the same value of p",
+              "fraction": 100,
+              "feedback": "Correct — RICC pins the minors across each same-p pair; GICC lets them vary."
+            },
+            {
+              "text": "RICC requires the minor-clause values to differ across all four requirements",
+              "fraction": 0,
+              "feedback": "RICC constrains minors to be the same across the same-p pairs, not different."
+            },
+            {
+              "text": "RICC requires cto determine p",
+              "fraction": 0,
+              "feedback": "Both are inactive-clause criteria: cis masked in both, never determining p."
+            },
+            {
+              "text": "RICC drops one of the four requirements",
+              "fraction": 0,
+              "feedback": "RICC keeps all four requirements; it only adds a constraint on the minor clauses."
+            }
+          ],
+          "generalFeedback": "GICC lets the minor-clause values vary freely among the four requirements. RICC adds the restriction that the minors match within each same-p pair (c=T&#8743;p=T with c=F&#8743;p=T, and c=T&#8743;p=F with c=F&#8743;p=F).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active vs inactive requirement",
+          "text": "<p>The active-clause criteria require the major clause to <em>determine</em> p. The inactive-clause criteria instead require the major clause to:</p>",
+          "answers": [
+            {
+              "text": "Not determine p (be masked by the minor clauses)",
+              "fraction": 100,
+              "feedback": "Correct — inactive-clause coverage exercises the masked case."
+            },
+            {
+              "text": "Determine p in both directions",
+              "fraction": 0,
+              "feedback": "That is the active-clause idea, the opposite of inactive."
+            },
+            {
+              "text": "Take the same value as p",
+              "fraction": 0,
+              "feedback": "Masking is not about the clause equalling p."
+            },
+            {
+              "text": "Be removed from the predicate",
+              "fraction": 0,
+              "feedback": "The clause stays in the predicate; it is merely masked at runtime."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria set the minor clauses so cdetermines p; inactive-clause criteria set them so cis masked and cannot affect p.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Make a inactive in a OR (b AND c)",
+          "text": "<p>For p = a &#8744; (b &#8743; c), which minor assignment makes clause <strong>a</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "b = true, c = true",
+              "fraction": 100,
+              "feedback": "Correct — then b &#8743; c is true, so p is true regardless of a; a is masked."
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "Then b &#8743; c is false, so p = a and a determines p (active)."
+            },
+            {
+              "text": "b = true, c = false",
+              "fraction": 0,
+              "feedback": "Then b &#8743; c is false, so p = a and a is active."
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "Then b &#8743; c is false, so p = a and a is active."
+            }
+          ],
+          "generalFeedback": "For a disjunction a &#8744; X, clause a is inactive exactly when the other operand X is true. Here X = b &#8743; c, so a is inactive when b = true and c = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Make c inactive in (a OR b) AND c",
+          "text": "<p>For p = (a &#8744; b) &#8743; c, which minor assignment makes clause <strong>c</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "a = false, b = false",
+              "fraction": 100,
+              "feedback": "Correct — then a &#8744; b is false, so p is false regardless of c; c is masked."
+            },
+            {
+              "text": "a = true, b = true",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is true, so p = c and c determines p (active)."
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is true, so p = c and c is active."
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is true, so p = c and c is active."
+            }
+          ],
+          "generalFeedback": "For a conjunction X &#8743; c, clause c is inactive exactly when the other operand X is false. Here X = a &#8744; b, so c is inactive when a = false and b = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Tests for four feasible ICC requirements",
+          "text": "<p>When all four Inactive Clause Coverage requirements for a single major clause are feasible, how many distinct test cases are needed to satisfy them?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the four (c, p) combinations are distinct, so four tests are required."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two tests cannot realise four different (c, p) combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three tests leave one of the four (c, p) combinations uncovered."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test fixes a single (c, p) pair, not all four."
+            }
+          ],
+          "generalFeedback": "Each of the four requirements pins a distinct pair of (cvalue, p value); no single test can satisfy two of them at once, so four tests are needed for that clause.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which clause is inactive at a row",
+          "text": "<p>For p = (a &#8743; b) &#8744; c evaluated at a = true, b = false, c = false, which clause is <strong>inactive</strong> (does not determine p)?</p>",
+          "answers": [
+            {
+              "text": "a",
+              "fraction": 100,
+              "feedback": "Correct — flipping a gives (F &#8743; F) &#8744; F = F, unchanged from p = F, so a is inactive here."
+            },
+            {
+              "text": "b",
+              "fraction": 0,
+              "feedback": "Flipping b gives (T &#8743; T) &#8744; F = T, changing p from F, so b is active here."
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "Flipping c gives (T &#8743; F) &#8744; T = T, changing p from F, so c is active here."
+            },
+            {
+              "text": "None of them",
+              "fraction": 0,
+              "feedback": "a is inactive at this row; b and c are active."
+            }
+          ],
+          "generalFeedback": "At a=T, b=F, c=F, p = (T&#8743;F)&#8744;F = F. Flipping a leaves p false (a masked by b=F), while flipping b or c changes p. So a is the only inactive clause here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC pairing at p true",
+          "text": "<p>Under RICC, the two requirements with c<sub>i</sub>=true and c<sub>i</sub>=false at p=true must:</p>",
+          "answers": [
+            {
+              "text": "Use the same values for all minor clauses",
+              "fraction": 100,
+              "feedback": "Correct — RICC pins the minor clauses across each same-p pair."
+            },
+            {
+              "text": "Use different values for the minor clauses",
+              "fraction": 0,
+              "feedback": "That is not required by any criterion; RICC pins them equal."
+            },
+            {
+              "text": "Make cdetermine p",
+              "fraction": 0,
+              "feedback": "These are inactive-clause requirements: cstays masked."
+            },
+            {
+              "text": "Make p take different values",
+              "fraction": 0,
+              "feedback": "Both requirements in this pair fix p = true."
+            }
+          ],
+          "generalFeedback": "RICC requires the minor-clause values to match within each same-p pair. For the p=true pair, the c=true and c=false tests use identical minor values (which is exactly why p stays true across the pair).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "GICC minors may vary",
+          "text": "<p>Under GICC, the minor-clause values may differ across the four inactive-clause test requirements.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — GICC places no matching constraint on the minor clauses."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is RICC, not GICC, that forces the minors to match; GICC lets them vary."
+            }
+          ],
+          "generalFeedback": "GICC (\"General\") only requires that cbe inactive in each of the four requirements; the minor-clause values are free to change from one requirement to another."
+        },
+        {
+          "type": "multichoice",
+          "name": "Criterion that confirms masking",
+          "text": "<p>Which criterion is specifically aimed at confirming the <strong>correct masking</strong> of a clause?</p>",
+          "answers": [
+            {
+              "text": "Inactive Clause Coverage (GICC / RICC)",
+              "fraction": 100,
+              "feedback": "Correct — it checks that a masked clause has no effect on p."
+            },
+            {
+              "text": "Correlated Active Clause Coverage (CACC)",
+              "fraction": 0,
+              "feedback": "CACC checks the clause's determining (active) effect, not masking."
+            },
+            {
+              "text": "General Active Clause Coverage (GACC)",
+              "fraction": 0,
+              "feedback": "GACC is an active-clause criterion; it exercises determination, not masking."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC only requires p to take both values; it says nothing about masking."
+            }
+          ],
+          "generalFeedback": "Only the inactive-clause criteria deliberately mask a clause and check that p is unaffected — the test for correct masking.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p value while a is inactive in a AND b",
+          "text": "<p>For p = a &#8743; b, across all minor assignments that make clause a inactive, the value of p is:</p>",
+          "answers": [
+            {
+              "text": "Always false",
+              "fraction": 100,
+              "feedback": "Correct — a is inactive only when b = false, and then p = false."
+            },
+            {
+              "text": "Always true",
+              "fraction": 0,
+              "feedback": "a is inactive when b = false, which forces p to false, not true."
+            },
+            {
+              "text": "Sometimes true, sometimes false",
+              "fraction": 0,
+              "feedback": "There is only one masking assignment (b = false), and it pins p to false."
+            },
+            {
+              "text": "Equal to a",
+              "fraction": 0,
+              "feedback": "p equals a only when a is active (b = true)."
+            }
+          ],
+          "generalFeedback": "For a &#8743; b the only way to mask a is b = false, which fixes p = false. Consequently the ICC requirements needing p = true for clause a are infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a is not inactive in a OR b OR c",
+          "text": "<p>For p = a &#8744; b &#8744; c, clause a fails to be inactive (it determines p) only when:</p>",
+          "answers": [
+            {
+              "text": "b = false and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p = a, so a determines p; at every other minor assignment a is masked."
+            },
+            {
+              "text": "b = true and c = true",
+              "fraction": 0,
+              "feedback": "Then p is true regardless of a, so a is inactive there."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "b true pins p to true regardless of a, so a is inactive."
+            },
+            {
+              "text": "b = false and c = true",
+              "fraction": 0,
+              "feedback": "c true pins p to true regardless of a, so a is inactive."
+            }
+          ],
+          "generalFeedback": "For a disjunction, a determines p only when every other operand is false. Here that means b = false and c = false; otherwise b &#8744; c is true and a is masked.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Requirements a p-false masking helps",
+          "text": "<p>Suppose a minor assignment makes c<sub>i</sub> inactive and pins p to false regardless of c<sub>i</sub>. Which ICC requirements can such an assignment help satisfy?</p>",
+          "answers": [
+            {
+              "text": "The two requirements with p = false (c=T&#8743;p=F and c=F&#8743;p=F)",
+              "fraction": 100,
+              "feedback": "Correct — with p pinned false, only the p=false requirements can be met from this assignment."
+            },
+            {
+              "text": "The two requirements with p = true",
+              "fraction": 0,
+              "feedback": "p is false here, so it cannot satisfy any p=true requirement."
+            },
+            {
+              "text": "All four requirements",
+              "fraction": 0,
+              "feedback": "Only the two p=false requirements are reachable when p is pinned false."
+            },
+            {
+              "text": "None of them",
+              "fraction": 0,
+              "feedback": "It does satisfy the p=false requirements (for both cvalues)."
+            }
+          ],
+          "generalFeedback": "Because cis inactive, both c=T and c=F are available at this assignment, but p is stuck at false — so it covers c=T&#8743;p=F and c=F&#8743;p=F only.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "truefalse",
+          "name": "RICC subsumes GICC",
+          "text": "<p>Restricted Inactive Clause Coverage (RICC) subsumes General Inactive Clause Coverage (GICC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — RICC's requirements are GICC's plus an extra minor-matching constraint, so any RICC-satisfying suite satisfies GICC."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "RICC is strictly stronger: it adds a restriction to GICC, so RICC &#8594; GICC."
+            }
+          ],
+          "generalFeedback": "RICC keeps all of GICC's four requirements and additionally forces the minor clauses to match within each same-p pair. A stricter criterion that only adds constraints subsumes the weaker one, so RICC subsumes GICC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why RICC subsumes GICC",
+          "text": "<p>Why does RICC subsume GICC?</p>",
+          "answers": [
+            {
+              "text": "RICC's test requirements are GICC's requirements plus an extra minor-matching constraint, so any suite meeting RICC also meets GICC",
+              "fraction": 100,
+              "feedback": "Correct — adding constraints can only shrink the set of satisfying suites."
+            },
+            {
+              "text": "RICC has more test requirements than GICC",
+              "fraction": 0,
+              "feedback": "Both have the same four requirements per clause; RICC just constrains the minors more tightly."
+            },
+            {
+              "text": "RICC exercises all 2^n combinations",
+              "fraction": 0,
+              "feedback": "That would be Combinatorial Coverage, not RICC."
+            },
+            {
+              "text": "RICC additionally requires cto determine p",
+              "fraction": 0,
+              "feedback": "Both are inactive-clause criteria; neither requires determination."
+            }
+          ],
+          "generalFeedback": "Subsumption follows because RICC = GICC + (minors match within each same-p pair). Every RICC test set already satisfies the looser GICC obligations, so RICC subsumes GICC.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Inactive criteria subsume Clause Coverage",
+          "text": "<p>Both GICC and RICC subsume Clause Coverage (CC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each major clause is exercised both true and false (while inactive), which is exactly Clause Coverage."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "GICC and RICC both require c=true and c=false requirements for every clause, so every clause takes both values &#8212; CC is met."
+            }
+          ],
+          "generalFeedback": "The four ICC requirements include both c=true and c=false for each clause, so every clause takes both truth values. Hence GICC and RICC each subsume Clause Coverage."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why GICC subsumes CC",
+          "text": "<p>What makes GICC subsume Clause Coverage?</p>",
+          "answers": [
+            {
+              "text": "For every clause, GICC requires a c=true test and a c=false test, so each clause takes both values",
+              "fraction": 100,
+              "feedback": "Correct — that is precisely the Clause Coverage requirement."
+            },
+            {
+              "text": "GICC requires the predicate to take both values",
+              "fraction": 0,
+              "feedback": "That would relate to Predicate Coverage; CC is about individual clauses."
+            },
+            {
+              "text": "GICC exercises every clause combination",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, stronger than needed for CC."
+            },
+            {
+              "text": "GICC requires each clause to determine p",
+              "fraction": 0,
+              "feedback": "That is the active-clause idea; inactive-clause coverage masks the clause instead."
+            }
+          ],
+          "generalFeedback": "Clause Coverage requires each clause to be both true and false. Because GICC's four requirements per clause include c=true and c=false, every clause is exercised both ways, so GICC subsumes CC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible ICC requirements for a AND b",
+          "text": "<p>For p = a &#8743; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "The two requiring p = true (a=T&#8743;p=T and a=F&#8743;p=T)",
+              "fraction": 100,
+              "feedback": "Correct — a can be inactive only when b = false, which pins p to false, so p = true is unreachable while a is inactive."
+            },
+            {
+              "text": "The two requiring p = false",
+              "fraction": 0,
+              "feedback": "Those are the feasible ones: masking a (b = false) makes p = false."
+            },
+            {
+              "text": "All four requirements",
+              "fraction": 0,
+              "feedback": "The two p=false requirements are feasible; only the p=true ones are not."
+            },
+            {
+              "text": "None — all four are feasible",
+              "fraction": 0,
+              "feedback": "a inactive forces p = false, so the p=true requirements cannot be met."
+            }
+          ],
+          "generalFeedback": "Masking a in a &#8743; b requires b = false, pinning p to false. Thus a=T&#8743;p=T and a=F&#8743;p=T are infeasible, while the two p=false requirements are feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible ICC requirements for a OR b",
+          "text": "<p>For p = a &#8744; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "The two requiring p = false (a=T&#8743;p=F and a=F&#8743;p=F)",
+              "fraction": 100,
+              "feedback": "Correct — a can be inactive only when b = true, which pins p to true, so p = false is unreachable while a is inactive."
+            },
+            {
+              "text": "The two requiring p = true",
+              "fraction": 0,
+              "feedback": "Those are the feasible ones: masking a (b = true) makes p = true."
+            },
+            {
+              "text": "All four requirements",
+              "fraction": 0,
+              "feedback": "The two p=true requirements are feasible; only the p=false ones are not."
+            },
+            {
+              "text": "None — all four are feasible",
+              "fraction": 0,
+              "feedback": "a inactive forces p = true, so the p=false requirements cannot be met."
+            }
+          ],
+          "generalFeedback": "Masking a in a &#8744; b requires b = true, pinning p to true. Thus a=T&#8743;p=F and a=F&#8743;p=F are infeasible, while the two p=true requirements are feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inactive rows for a in a AND b AND c",
+          "text": "<p>For p = a &#8743; b &#8743; c, in how many of the 8 assignments is clause a <strong>inactive</strong>?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b &#8743; c is true (2 rows), so a is inactive in the other 6."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of rows where a is active (b=T, c=T), not inactive."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — a is active only when b &#8743; c is true, which is 2 rows, leaving 6 inactive."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a is active in 2 rows, so it is not inactive in all 8."
+            }
+          ],
+          "generalFeedback": "a determines a &#8743; b &#8743; c exactly when b &#8743; c is true (b=T, c=T), giving 2 active rows (a free). The remaining 6 of 8 rows have a inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inactive rows for c in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, in how many of the 8 assignments is clause <strong>c</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — c is inactive only when a &#8743; b is true (a=T, b=T), which is 2 rows (c free)."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the number of rows where c is active (a &#8743; b false), not inactive."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — a &#8743; b is true in only 2 of the 8 rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both c=T and c=F rows at a=T,b=T are inactive, giving 2, not 1."
+            }
+          ],
+          "generalFeedback": "c is inactive exactly when the other operand a &#8743; b is true. That happens in 2 of the 8 rows (a=T, b=T, c either value), so c is inactive in 2 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inactive rows for a in (a AND b) OR (c AND d)",
+          "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), in how many of the 16 assignments is clause a <strong>inactive</strong>?</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — a is active only when b = true and (c &#8743; d) = false: 1 &#215; 3 &#215; 2 = 6 rows, leaving 10 inactive."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the number of rows where a is active, not inactive."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Recount — a is active in 6 rows, so it is inactive in 16 &#8722; 6 = 10."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "That overcounts; the exact number of inactive rows is 10."
+            }
+          ],
+          "generalFeedback": "a determines p only when its term passes a through (b = true) and the other term does not mask it (c &#8743; d = false): 1 &#215; 3 &#215; 2 = 6 active rows. The remaining 10 of 16 rows have a inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate with all four ICC requirements feasible",
+          "text": "<p>For which predicate and clause are <strong>all four</strong> ICC requirements feasible?</p>",
+          "answers": [
+            {
+              "text": "Clause a in p = (a &#8743; b) &#8744; (c &#8743; d)",
+              "fraction": 100,
+              "feedback": "Correct — with b = false, a is inactive and p = (c &#8743; d), which can be both true and false; all four requirements are reachable."
+            },
+            {
+              "text": "Clause a in p = a &#8743; b",
+              "fraction": 0,
+              "feedback": "a inactive forces p = false, so the p=true requirements are infeasible."
+            },
+            {
+              "text": "Clause a in p = a &#8744; b &#8744; c",
+              "fraction": 0,
+              "feedback": "a inactive forces p = true, so the p=false requirements are infeasible."
+            },
+            {
+              "text": "Clause c in p = (a &#8744; b) &#8743; c",
+              "fraction": 0,
+              "feedback": "c inactive forces p = false, so the p=true requirements are infeasible."
+            }
+          ],
+          "generalFeedback": "All four ICC requirements are feasible only if p can be both true and false while cis masked. In (a &#8743; b) &#8744; (c &#8743; d) with b = false, a is masked and p = (c &#8743; d) still ranges over both values, so every requirement is reachable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC minor-matching scope",
+          "text": "<p>Under RICC for p = (a &#8743; b) &#8744; (c &#8743; d) with major clause a, the a=true and a=false requirements at p=false must share the same values of:</p>",
+          "answers": [
+            {
+              "text": "All the minor clauses: b, c, and d",
+              "fraction": 100,
+              "feedback": "Correct — RICC pins every minor clause across the same-p pair."
+            },
+            {
+              "text": "Only b",
+              "fraction": 0,
+              "feedback": "RICC constrains all minor clauses, not just the one paired with a."
+            },
+            {
+              "text": "Only c and d",
+              "fraction": 0,
+              "feedback": "b is also a minor clause and must match too."
+            },
+            {
+              "text": "None — RICC only fixes a",
+              "fraction": 0,
+              "feedback": "RICC's whole point is to fix the minor clauses across the pair."
+            }
+          ],
+          "generalFeedback": "For major clause a, the minor clauses are b, c, and d. RICC requires all of them to hold identical values in the a=true and a=false tests of each same-p pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasibility condition for all four requirements",
+          "text": "<p>The four ICC requirements for a clause c<sub>i</sub> are all feasible only if, while c<sub>i</sub> is inactive, the predicate p can be:</p>",
+          "answers": [
+            {
+              "text": "Both true and false (under different inactive-making minor assignments)",
+              "fraction": 100,
+              "feedback": "Correct — p must range over both values while cstays masked."
+            },
+            {
+              "text": "Only true",
+              "fraction": 0,
+              "feedback": "Then the p=false requirements would be infeasible."
+            },
+            {
+              "text": "Only false",
+              "fraction": 0,
+              "feedback": "Then the p=true requirements would be infeasible."
+            },
+            {
+              "text": "Determined by c",
+              "fraction": 0,
+              "feedback": "If cdetermined p it would not be inactive; the requirements concern the masked case."
+            }
+          ],
+          "generalFeedback": "Since cis masked, p is set by the minor clauses. All four requirements (crossing cwith p) are feasible only when some inactive-making minor assignment yields p=true and another yields p=false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rows where c is inactive in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, clause c is inactive in exactly the assignments where:</p>",
+          "answers": [
+            {
+              "text": "a = true and b = true (c either value)",
+              "fraction": 100,
+              "feedback": "Correct — then a &#8743; b is true, masking c; p is true regardless of c."
+            },
+            {
+              "text": "a = false and b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c determines p (active)."
+            },
+            {
+              "text": "c = false",
+              "fraction": 0,
+              "feedback": "c's own value does not decide whether c is masked; the operand a &#8743; b does."
+            },
+            {
+              "text": "a = true or b = true",
+              "fraction": 0,
+              "feedback": "a &#8743; b needs both true to mask c; either-one-true is not enough."
+            }
+          ],
+          "generalFeedback": "c is masked in the disjunction exactly when the other operand a &#8743; b is true, i.e., a = true and b = true — the 2 rows where c is inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clause with fewest inactive rows",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, which clause is inactive in the <strong>fewest</strong> assignments?</p>",
+          "answers": [
+            {
+              "text": "c (inactive in 2 of 8 rows)",
+              "fraction": 100,
+              "feedback": "Correct — c is masked only when a &#8743; b is true (2 rows), whereas a and b are each masked in 6 rows."
+            },
+            {
+              "text": "a (inactive in 6 of 8 rows)",
+              "fraction": 0,
+              "feedback": "a is masked whenever b = false or c = true — 6 rows, more than c."
+            },
+            {
+              "text": "b (inactive in 6 of 8 rows)",
+              "fraction": 0,
+              "feedback": "By symmetry with a, b is masked in 6 rows, more than c."
+            },
+            {
+              "text": "All three are inactive equally often",
+              "fraction": 0,
+              "feedback": "c differs: it is masked in only 2 rows versus 6 for a and b."
+            }
+          ],
+          "generalFeedback": "c is masked only when a &#8743; b is true (2 rows). a is masked when b=false or c=true (6 rows), and b symmetrically in 6 rows. So c has the fewest inactive rows.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Total GICC requirements for a 4-clause predicate",
+          "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), where all four ICC requirements are feasible for every clause, how many inactive-clause test requirements does GICC impose in total?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 4 clauses &#215; 4 requirements each = 16 test requirements."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 4 clauses &#215; 2; but ICC has four requirements per clause, not two."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the requirement count for a single clause, not the whole predicate."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "That doubles the count; there are 4 requirements per clause, giving 16."
+            }
+          ],
+          "generalFeedback": "ICC imposes four requirements per major clause. With 4 clauses all feasible, GICC has 4 &#215; 4 = 16 test requirements (some may be satisfiable by shared tests).",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "非作用子句的定義",
+          "text": "<p>在固定次要子句（minor clauses）取值的前提下，主要子句 c<sub>i</sub> 對述詞 p 為<strong>非作用（inactive）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "固定其他子句、只翻轉 c時，p 的值不改變",
+              "fraction": 100,
+              "feedback": "正確——非作用子句無法決定 p，翻轉它時 p 不變。"
+            },
+            {
+              "text": "固定其他子句、只翻轉 c時，p 的值會改變",
+              "fraction": 0,
+              "feedback": "那是作用（決定性）子句，與非作用相反。"
+            },
+            {
+              "text": "c的值為 false",
+              "fraction": 0,
+              "feedback": "非作用談的是 c不影響 p，而非 c本身的取值。"
+            },
+            {
+              "text": "c在語法上未出現於 p 中",
+              "fraction": 0,
+              "feedback": "非作用子句仍是 p 的一部分，只是被次要子句遮蔽（masked）了。"
+            }
+          ],
+          "generalFeedback": "在固定其他子句下，若翻轉 c而 p 不變，則 c為非作用（無法決定 p）。這正是「決定 p」的否定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非作用的等價條件",
+          "text": "<p>在固定次要子句取值下，c<sub>i</sub> 對 p 為非作用，其充要條件為：</p>",
+          "answers": [
+            {
+              "text": "p等於 p",
+              "fraction": 100,
+              "feedback": "正確——無論 c為 true 或 false，p 都相同，故 c無影響。"
+            },
+            {
+              "text": "p不等於 p",
+              "fraction": 0,
+              "feedback": "那是決定性（作用）的條件，而非非作用。"
+            },
+            {
+              "text": "c等於 p",
+              "fraction": 0,
+              "feedback": "非作用談的是 c不改變 p，而非兩者相等。"
+            },
+            {
+              "text": "每個次要子句都等於 c",
+              "fraction": 0,
+              "feedback": "非作用不要求次要子句與 c相等。"
+            }
+          ],
+          "generalFeedback": "c為非作用，恰當固定次要子句下 p= p：兩種 c取值給出相同 p，故 c無法決定 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 中 a 何時非作用",
+          "text": "<p>對述詞 p = a &#8743; b，子句 a 為<strong>非作用</strong>恰當：</p>",
+          "answers": [
+            {
+              "text": "b 為 false",
+              "fraction": 100,
+              "feedback": "正確——b 為 false 時，不論 a 為何 p 皆為 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "b 為 true",
+              "fraction": 0,
+              "feedback": "b 為 true 時 p 等於 a，故 a 決定 p——此時 a 為作用而非非作用。"
+            },
+            {
+              "text": "永遠成立，與 b 無關",
+              "fraction": 0,
+              "feedback": "b 為 true 時 a 會決定 p，故 a 並非永遠非作用。"
+            },
+            {
+              "text": "永不成立",
+              "fraction": 0,
+              "feedback": "只要 b 為 false，a 即為非作用。"
+            }
+          ],
+          "generalFeedback": "對合取 a &#8743; b，子句 a 只有在 b 為 true 時才決定 p。故 a 為非作用恰當 b 為 false，此時 p 被固定為 false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 中 a 何時非作用",
+          "text": "<p>對述詞 p = a &#8744; b，子句 a 為<strong>非作用</strong>恰當：</p>",
+          "answers": [
+            {
+              "text": "b 為 true",
+              "fraction": 100,
+              "feedback": "正確——b 為 true 時，不論 a 為何 p 皆為 true，故 a 無法決定 p。"
+            },
+            {
+              "text": "b 為 false",
+              "fraction": 0,
+              "feedback": "b 為 false 時 p 等於 a，故 a 決定 p——此時 a 為作用而非非作用。"
+            },
+            {
+              "text": "永遠成立，與 b 無關",
+              "fraction": 0,
+              "feedback": "b 為 false 時 a 會決定 p，故 a 並非永遠非作用。"
+            },
+            {
+              "text": "永不成立",
+              "fraction": 0,
+              "feedback": "只要 b 為 true，a 即為非作用。"
+            }
+          ],
+          "generalFeedback": "對析取 a &#8744; b，子句 a 只有在 b 為 false 時才決定 p。故 a 為非作用恰當 b 為 true，此時 p 被固定為 true。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "非作用即為不決定",
+          "text": "<p>一個子句對述詞為非作用，恰當它<em>不</em>決定該述詞。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——「非作用」的定義正是「決定」的否定。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "非作用與決定互補：子句為非作用，恰當它在該次要取值下無法決定 p。"
+            }
+          ],
+          "generalFeedback": "作用子句準則要求子句決定 p；非作用子句準則要求子句被遮蔽。「非作用」即指該子句在給定次要取值下不決定述詞。"
+        },
+        {
+          "type": "multichoice",
+          "name": "非作用子句覆蓋的目的",
+          "text": "<p>非作用子句準則（GICC/RICC）的設計目的是驗證：</p>",
+          "answers": [
+            {
+              "text": "被遮蔽（masked）的非作用子句確實對述詞結果毫無影響",
+              "fraction": 100,
+              "feedback": "正確——它們檢查遮蔽行為是否正確。"
+            },
+            {
+              "text": "每個子句都能獨立決定述詞",
+              "fraction": 0,
+              "feedback": "那是作用子句準則（GACC/CACC/RACC）的目標。"
+            },
+            {
+              "text": "子句取值的所有組合都被執行",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（Combinatorial Coverage）。"
+            },
+            {
+              "text": "述詞至少各取一次真值",
+              "fraction": 0,
+              "feedback": "那僅是述詞覆蓋（Predicate Coverage）。"
+            }
+          ],
+          "generalFeedback": "非作用子句覆蓋確認：當某子句本應被遮蔽時，它確實對 p 無影響——可捕捉「本應無關的子句卻偷偷改變結果」這類錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GICC 縮寫",
+          "text": "<p><strong>GICC</strong> 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "General Inactive Clause Coverage（一般非作用子句覆蓋）",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "General Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "「I」代表 Inactive（非作用），而非 Independent。"
+            },
+            {
+              "text": "General Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "那是 GACC，屬於作用子句準則。"
+            },
+            {
+              "text": "Grouped Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "並非標準的準則名稱。"
+            }
+          ],
+          "generalFeedback": "GICC = General Inactive Clause Coverage：其四項測試需求間的次要子句取值可以不同的非作用子句準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 縮寫",
+          "text": "<p><strong>RICC</strong> 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "Restricted Inactive Clause Coverage（受限非作用子句覆蓋）",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "Restricted Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "「I」代表 Inactive（非作用），而非 Independent。"
+            },
+            {
+              "text": "Restricted Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "那是 RACC，屬於作用子句準則。"
+            },
+            {
+              "text": "Reduced Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "並非標準的準則名稱。"
+            }
+          ],
+          "generalFeedback": "RICC = Restricted Inactive Clause Coverage：如同 GICC，但在每個固定 p 值的 c=true／c=false 配對中，次要子句取值必須相同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每個子句的 ICC 需求數",
+          "text": "<p>非作用子句覆蓋對每個主要子句施加幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——即 c&#8712; {T,F} 與 p &#8712; {T,F} 的四種組合，且 c皆為非作用。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只涵蓋 c=true 與 c=false；ICC 還需依 p 的值再分。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "ICC 每個子句需四項需求，而非一項。"
+            },
+            {
+              "text": "2^n（n 個子句）",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，而非 ICC。"
+            }
+          ],
+          "generalFeedback": "因非作用子句無法改變 p，p 可獨立為 true 或 false。故 ICC 對每個主要子句需四項需求：c=T&#8743;p=T、c=T&#8743;p=F、c=F&#8743;p=T、c=F&#8743;p=F。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項 ICC 需求所變動的量",
+          "text": "<p>某主要子句的四項非作用子句覆蓋需求，列舉的是下列何者的組合？</p>",
+          "answers": [
+            {
+              "text": "c的值（true／false）與 p 的值（true／false）",
+              "fraction": 100,
+              "feedback": "正確——2 &#215; 2 = 4 項需求，且 c皆為非作用。"
+            },
+            {
+              "text": "兩個次要子句的取值",
+              "fraction": 0,
+              "feedback": "ICC 變動的是 c與 p，而非某一對次要子句。"
+            },
+            {
+              "text": "c的值，以及 c是否決定 p",
+              "fraction": 0,
+              "feedback": "四項需求中 c皆為非作用（不決定 p）；變動的只有 c與 p。"
+            },
+            {
+              "text": "真值表的全部 2^n 列",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "在維持 c非作用下，ICC 將 c&#8712; {T,F} 與 p &#8712; {T,F} 交叉，對每個主要子句得四項需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a 非作用時 a AND b 的值",
+          "text": "<p>對 p = a &#8743; b，當子句 a 為非作用（b = false）時，述詞 p 為：</p>",
+          "answers": [
+            {
+              "text": "false，與 a 無關",
+              "fraction": 100,
+              "feedback": "正確——b 為 false 使 a &#8743; b 無論 a 為何皆為 false。"
+            },
+            {
+              "text": "true，與 a 無關",
+              "fraction": 0,
+              "feedback": "合取中有一運算元為 false 時結果為 false，而非 true。"
+            },
+            {
+              "text": "等於 a",
+              "fraction": 0,
+              "feedback": "那發生在 b 為 true（a 為作用）時，而非 a 非作用時。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "p 有明確定義，等於 false。"
+            }
+          ],
+          "generalFeedback": "要使 a 在 a &#8743; b 中非作用需 b = false，這會將 p 固定為 false。因此 a 非作用時 p 只能為 false——這對 ICC 的可行性有影響。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a 非作用時 a OR b 的值",
+          "text": "<p>對 p = a &#8744; b，當子句 a 為非作用（b = true）時，述詞 p 為：</p>",
+          "answers": [
+            {
+              "text": "true，與 a 無關",
+              "fraction": 100,
+              "feedback": "正確——b 為 true 使 a &#8744; b 無論 a 為何皆為 true。"
+            },
+            {
+              "text": "false，與 a 無關",
+              "fraction": 0,
+              "feedback": "析取中有一運算元為 true 時結果為 true，而非 false。"
+            },
+            {
+              "text": "等於 a",
+              "fraction": 0,
+              "feedback": "那發生在 b 為 false（a 為作用）時，而非 a 非作用時。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "p 有明確定義，等於 true。"
+            }
+          ],
+          "generalFeedback": "要使 a 在 a &#8744; b 中非作用需 b = true，這會將 p 固定為 true——與合取情形對偶。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "遮蔽時 p 由次要子句決定",
+          "text": "<p>當主要子句為非作用時，述詞的值完全由次要子句決定。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——主要子句無影響，故僅由次要子句固定 p。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "非作用的主要子句無法改變 p，故 p 僅由次要子句決定。"
+            }
+          ],
+          "generalFeedback": "非作用子句不影響 p，故在它被遮蔽時，結果是次要子句的函數。這也是為何 c非作用時，p 仍可依次要子句而獨立為 true 或 false。"
+        },
+        {
+          "type": "multichoice",
+          "name": "與作用子句覆蓋的對比",
+          "text": "<p>哪一族準則是非作用子句準則的直接<strong>對比</strong>？</p>",
+          "answers": [
+            {
+              "text": "作用子句準則（GACC／CACC／RACC）",
+              "fraction": 100,
+              "feedback": "正確——它們要求子句決定 p，而非作用子句準則要求子句被遮蔽。"
+            },
+            {
+              "text": "述詞覆蓋與子句覆蓋",
+              "fraction": 0,
+              "feedback": "那些是較粗的準則，並非作用／非作用的對應。"
+            },
+            {
+              "text": "組合覆蓋",
+              "fraction": 0,
+              "feedback": "CoC 執行所有組合，並非以「決定性」為基礎的對應準則。"
+            },
+            {
+              "text": "DNF 準則（蘊涵項／唯一真點）",
+              "fraction": 0,
+              "feedback": "那是另一族以 DNF 為基礎的準則，並非直接對比。"
+            }
+          ],
+          "generalFeedback": "作用子句準則（GACC/CACC/RACC）要求每個子句決定 p；非作用子句準則（GICC/RICC）要求每個子句被遮蔽。二者是「決定性」概念互補的兩半。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "a OR b 中 b false 使 a 為作用",
+          "text": "<p>對 p = a &#8744; b，令 b = false 會使子句 a 成為<em>作用</em>（決定性），而非非作用。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——b 為 false 時 p 等於 a，故 a 決定 p。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "b 為 false 時 p = a &#8744; false = a，翻轉 a 即翻轉 p，a 為作用。a 要在 b = true 時才非作用。"
+            }
+          ],
+          "generalFeedback": "對 a &#8744; b，a 在 b = true 時非作用（p 固定為 true），在 b = false 時為作用（p 隨 a 而變）。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "在 (a AND b) OR c 中令 c 非作用",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，哪一組次要取值能使子句 <strong>c</strong> 非作用？</p>",
+          "answers": [
+            {
+              "text": "a = true, b = true",
+              "fraction": 100,
+              "feedback": "正確——此時 a &#8743; b 為 true，故不論 c 為何 p 皆為 true；c 被遮蔽。"
+            },
+            {
+              "text": "a = false, b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 決定 p（作用）。"
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 為作用。"
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 為作用。"
+            }
+          ],
+          "generalFeedback": "對析取 X &#8744; c，子句 c 為非作用恰當另一運算元 X 為 true。此處 X = a &#8743; b，故 c 在 a = true 且 b = true 時非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 a 何時決定 p",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，哪一組次要取值能使子句 a 成為<strong>作用</strong>（即 a <em>非</em>非作用）？</p>",
+          "answers": [
+            {
+              "text": "b = true, c = false",
+              "fraction": 100,
+              "feedback": "正確——唯有此時 p 化簡為 a，故 a 決定 p。"
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "b 為 false 時 a &#8743; b 無論 a 皆為 false，故 a 為非作用。"
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 使 p 固定為 true，且 b 為 false 遮蔽 a，故 a 為非作用。"
+            },
+            {
+              "text": "b = true, c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 使 p 不論 a 皆為 true，故 a 為非作用。"
+            }
+          ],
+          "generalFeedback": "a 只有在其項傳遞 a（b = true）且析取未遮蔽它（c = false）時才決定 p。其餘每一組次要取值 a 皆為非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項 ICC 需求",
+          "text": "<p>對一個非作用的主要子句 c<sub>i</sub>，非作用子句覆蓋要求涵蓋恰為下列哪組測試需求？</p>",
+          "answers": [
+            {
+              "text": "c=T&#8743;p=T、c=T&#8743;p=F、c=F&#8743;p=T、c=F&#8743;p=F",
+              "fraction": 100,
+              "feedback": "正確——在 c維持非作用下，c與 p 各取兩值。"
+            },
+            {
+              "text": "僅 c=T 與 c=F",
+              "fraction": 0,
+              "feedback": "那忽略了 p 也需取兩值的要求。"
+            },
+            {
+              "text": "僅 p=T 與 p=F",
+              "fraction": 0,
+              "feedback": "那忽略了 c也需取兩值的要求。"
+            },
+            {
+              "text": "子句取值的全部 2^n 種組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，而非 ICC。"
+            }
+          ],
+          "generalFeedback": "因非作用子句無法改變 p，p 可獨立於 c為 true 或 false。故 ICC 將四種 (c, p) 組合各列為一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 如何限制 GICC",
+          "text": "<p>受限非作用子句覆蓋（RICC）與一般非作用子句覆蓋（GICC）的差異為何？</p>",
+          "answers": [
+            {
+              "text": "RICC 要求：在共享同一 p 值的 c=true 與 c=false 需求中，次要子句取值必須相同",
+              "fraction": 100,
+              "feedback": "正確——RICC 在每個同 p 配對中固定次要子句；GICC 則可變動。"
+            },
+            {
+              "text": "RICC 要求四項需求中的次要子句取值全都不同",
+              "fraction": 0,
+              "feedback": "RICC 是要求在同 p 配對中相同，而非全都不同。"
+            },
+            {
+              "text": "RICC 要求 c決定 p",
+              "fraction": 0,
+              "feedback": "二者皆為非作用子句準則：c皆被遮蔽，從不決定 p。"
+            },
+            {
+              "text": "RICC 捨去四項需求之一",
+              "fraction": 0,
+              "feedback": "RICC 保留全部四項需求，只是對次要子句加上限制。"
+            }
+          ],
+          "generalFeedback": "GICC 允許四項需求間的次要子句取值自由變動。RICC 額外要求：在每個同 p 配對中次要子句取值相同（c=T&#8743;p=T 與 c=F&#8743;p=T 配對，c=T&#8743;p=F 與 c=F&#8743;p=F 配對）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "作用與非作用的要求",
+          "text": "<p>作用子句準則要求主要子句<em>決定</em> p。非作用子句準則則要求主要子句：</p>",
+          "answers": [
+            {
+              "text": "不決定 p（被次要子句遮蔽）",
+              "fraction": 100,
+              "feedback": "正確——非作用子句覆蓋執行的是被遮蔽的情形。"
+            },
+            {
+              "text": "雙向皆決定 p",
+              "fraction": 0,
+              "feedback": "那是作用子句的概念，與非作用相反。"
+            },
+            {
+              "text": "取值與 p 相同",
+              "fraction": 0,
+              "feedback": "遮蔽與「子句等於 p」無關。"
+            },
+            {
+              "text": "自述詞中移除",
+              "fraction": 0,
+              "feedback": "子句仍在述詞中，只是在執行期被遮蔽。"
+            }
+          ],
+          "generalFeedback": "作用子句準則設定次要子句使 c決定 p；非作用子句準則則設定使 c被遮蔽而無法影響 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在 a OR (b AND c) 中令 a 非作用",
+          "text": "<p>對 p = a &#8744; (b &#8743; c)，哪一組次要取值能使子句 <strong>a</strong> 非作用？</p>",
+          "answers": [
+            {
+              "text": "b = true, c = true",
+              "fraction": 100,
+              "feedback": "正確——此時 b &#8743; c 為 true，故不論 a 為何 p 皆為 true；a 被遮蔽。"
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "此時 b &#8743; c 為 false，故 p = a，a 決定 p（作用）。"
+            },
+            {
+              "text": "b = true, c = false",
+              "fraction": 0,
+              "feedback": "此時 b &#8743; c 為 false，故 p = a，a 為作用。"
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "此時 b &#8743; c 為 false，故 p = a，a 為作用。"
+            }
+          ],
+          "generalFeedback": "對析取 a &#8744; X，子句 a 為非作用恰當另一運算元 X 為 true。此處 X = b &#8743; c，故 a 在 b = true 且 c = true 時非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在 (a OR b) AND c 中令 c 非作用",
+          "text": "<p>對 p = (a &#8744; b) &#8743; c，哪一組次要取值能使子句 <strong>c</strong> 非作用？</p>",
+          "answers": [
+            {
+              "text": "a = false, b = false",
+              "fraction": 100,
+              "feedback": "正確——此時 a &#8744; b 為 false，故不論 c 為何 p 皆為 false；c 被遮蔽。"
+            },
+            {
+              "text": "a = true, b = true",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 true，故 p = c，c 決定 p（作用）。"
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 true，故 p = c，c 為作用。"
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 true，故 p = c，c 為作用。"
+            }
+          ],
+          "generalFeedback": "對合取 X &#8743; c，子句 c 為非作用恰當另一運算元 X 為 false。此處 X = a &#8744; b，故 c 在 a = false 且 b = false 時非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足四項可行 ICC 需求所需測試數",
+          "text": "<p>當某主要子句的四項非作用子句覆蓋需求皆可行時，需要幾個不同的測試案例才能滿足它們？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——四種 (c, p) 組合互異，故需四個測試。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "兩個測試無法實現四種不同的 (c, p) 組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "三個測試會漏掉四種 (c, p) 組合中的一種。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只能固定單一 (c, p) 對，而非全部四種。"
+            }
+          ],
+          "generalFeedback": "四項需求各固定一組互異的 (c值, p 值)；沒有單一測試能同時滿足其中兩項，故該子句需四個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某列中哪個子句為非作用",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 a = true, b = false, c = false 時，哪個子句為<strong>非作用</strong>（不決定 p）？</p>",
+          "answers": [
+            {
+              "text": "a",
+              "fraction": 100,
+              "feedback": "正確——翻轉 a 得 (F &#8743; F) &#8744; F = F，與 p = F 不變，故此處 a 非作用。"
+            },
+            {
+              "text": "b",
+              "fraction": 0,
+              "feedback": "翻轉 b 得 (T &#8743; T) &#8744; F = T，使 p 由 F 改變，故此處 b 為作用。"
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "翻轉 c 得 (T &#8743; F) &#8744; T = T，使 p 由 F 改變，故此處 c 為作用。"
+            },
+            {
+              "text": "都不是",
+              "fraction": 0,
+              "feedback": "此列 a 為非作用；b 與 c 為作用。"
+            }
+          ],
+          "generalFeedback": "在 a=T, b=F, c=F 時，p = (T&#8743;F)&#8744;F = F。翻轉 a 使 p 維持 false（a 被 b=F 遮蔽），而翻轉 b 或 c 會改變 p。故此列唯一的非作用子句為 a。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 在 p 為 true 時的配對",
+          "text": "<p>在 RICC 下，p=true 時 c<sub>i</sub>=true 與 c<sub>i</sub>=false 的兩項需求必須：</p>",
+          "answers": [
+            {
+              "text": "對所有次要子句採用相同取值",
+              "fraction": 100,
+              "feedback": "正確——RICC 在每個同 p 配對中固定次要子句。"
+            },
+            {
+              "text": "對次要子句採用不同取值",
+              "fraction": 0,
+              "feedback": "任何準則都不作此要求；RICC 是將它們固定為相同。"
+            },
+            {
+              "text": "使 c決定 p",
+              "fraction": 0,
+              "feedback": "這些是非作用子句需求：c維持被遮蔽。"
+            },
+            {
+              "text": "使 p 取不同值",
+              "fraction": 0,
+              "feedback": "此配對中兩項需求皆固定 p = true。"
+            }
+          ],
+          "generalFeedback": "RICC 要求次要子句取值在每個同 p 配對中相同。對 p=true 配對，c=true 與 c=false 的測試採用相同次要取值（這正是 p 在配對中維持 true 的原因）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "GICC 次要子句可變動",
+          "text": "<p>在 GICC 下，四項非作用子句測試需求間的次要子句取值可以不同。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——GICC 對次要子句不施加相同性限制。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "強制次要子句相同的是 RICC 而非 GICC；GICC 允許它們變動。"
+            }
+          ],
+          "generalFeedback": "GICC（「一般」）僅要求 c在四項需求中皆為非作用；次要子句取值可在各需求間自由變動。"
+        },
+        {
+          "type": "multichoice",
+          "name": "確認遮蔽的準則",
+          "text": "<p>哪一準則專門用於確認子句的<strong>正確遮蔽</strong>？</p>",
+          "answers": [
+            {
+              "text": "非作用子句覆蓋（GICC／RICC）",
+              "fraction": 100,
+              "feedback": "正確——它檢查被遮蔽的子句對 p 無影響。"
+            },
+            {
+              "text": "關聯作用子句覆蓋（CACC）",
+              "fraction": 0,
+              "feedback": "CACC 檢查子句的決定性（作用）效果，而非遮蔽。"
+            },
+            {
+              "text": "一般作用子句覆蓋（GACC）",
+              "fraction": 0,
+              "feedback": "GACC 是作用子句準則；它執行決定性，而非遮蔽。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 只要求 p 取兩值，未涉及遮蔽。"
+            }
+          ],
+          "generalFeedback": "只有非作用子句準則會刻意遮蔽子句並檢查 p 不受影響——這是對正確遮蔽的檢測。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a 非作用時 a AND b 中 p 的值",
+          "text": "<p>對 p = a &#8743; b，在所有使子句 a 非作用的次要取值下，p 的值為：</p>",
+          "answers": [
+            {
+              "text": "永遠為 false",
+              "fraction": 100,
+              "feedback": "正確——a 非作用僅在 b = false 時成立，此時 p = false。"
+            },
+            {
+              "text": "永遠為 true",
+              "fraction": 0,
+              "feedback": "a 非作用時 b = false，這使 p 為 false 而非 true。"
+            },
+            {
+              "text": "有時 true、有時 false",
+              "fraction": 0,
+              "feedback": "只有一種遮蔽取值（b = false），且它將 p 固定為 false。"
+            },
+            {
+              "text": "等於 a",
+              "fraction": 0,
+              "feedback": "p 等於 a 只在 a 為作用（b = true）時。"
+            }
+          ],
+          "generalFeedback": "對 a &#8743; b，唯一能遮蔽 a 的方式是 b = false，這將 p 固定為 false。因此 a 需要 p = true 的 ICC 需求皆不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c 中 a 何時非「非作用」",
+          "text": "<p>對 p = a &#8744; b &#8744; c，子句 a 未能維持非作用（即它決定 p）僅當：</p>",
+          "answers": [
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p = a，故 a 決定 p；在其餘所有次要取值下 a 皆被遮蔽。"
+            },
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 0,
+              "feedback": "此時不論 a 為何 p 皆為 true，故 a 於此為非作用。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "b 為 true 使 p 不論 a 皆為 true，故 a 為非作用。"
+            },
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 使 p 不論 a 皆為 true，故 a 為非作用。"
+            }
+          ],
+          "generalFeedback": "對析取，a 只有在其餘每個運算元皆為 false 時才決定 p。此處即 b = false 且 c = false；否則 b &#8744; c 為 true 而 a 被遮蔽。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p 固定為 false 的遮蔽可協助的需求",
+          "text": "<p>假設某次要取值使 c<sub>i</sub> 非作用，且不論 c<sub>i</sub> 為何都將 p 固定為 false。此取值可協助滿足哪些 ICC 需求？</p>",
+          "answers": [
+            {
+              "text": "兩項 p = false 的需求（c=T&#8743;p=F 與 c=F&#8743;p=F）",
+              "fraction": 100,
+              "feedback": "正確——p 被固定為 false，故此取值只能滿足 p=false 的需求。"
+            },
+            {
+              "text": "兩項 p = true 的需求",
+              "fraction": 0,
+              "feedback": "此處 p 為 false，故無法滿足任何 p=true 的需求。"
+            },
+            {
+              "text": "全部四項需求",
+              "fraction": 0,
+              "feedback": "p 被固定為 false 時只有兩項 p=false 的需求可達成。"
+            },
+            {
+              "text": "一項都不能",
+              "fraction": 0,
+              "feedback": "它確實能滿足 p=false 的需求（c的兩種取值）。"
+            }
+          ],
+          "generalFeedback": "因 c非作用，此取值下 c=T 與 c=F 皆可得，但 p 卡在 false——故只能涵蓋 c=T&#8743;p=F 與 c=F&#8743;p=F。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "truefalse",
+          "name": "RICC 涵蓋（subsume）GICC",
+          "text": "<p>受限非作用子句覆蓋（RICC）涵蓋（subsumes）一般非作用子句覆蓋（GICC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——RICC 的需求即 GICC 的需求再加上次要子句相同的限制，故任何滿足 RICC 的測試組亦滿足 GICC。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "RICC 嚴格更強：它在 GICC 上附加限制，故 RICC &#8594; GICC。"
+            }
+          ],
+          "generalFeedback": "RICC 保留 GICC 的全部四項需求，並額外要求次要子句在每個同 p 配對中相同。只附加限制的較嚴準則會涵蓋較弱者，故 RICC 涵蓋 GICC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 為何涵蓋 GICC",
+          "text": "<p>RICC 為何涵蓋（subsumes）GICC？</p>",
+          "answers": [
+            {
+              "text": "RICC 的測試需求即 GICC 的需求再加上次要子句相同的限制，故任何滿足 RICC 的測試組亦滿足 GICC",
+              "fraction": 100,
+              "feedback": "正確——附加限制只會縮小滿足的測試組集合。"
+            },
+            {
+              "text": "RICC 的測試需求比 GICC 多",
+              "fraction": 0,
+              "feedback": "兩者每個子句都有相同的四項需求；RICC 只是更嚴格地限制次要子句。"
+            },
+            {
+              "text": "RICC 執行全部 2^n 種組合",
+              "fraction": 0,
+              "feedback": "那會是組合覆蓋，而非 RICC。"
+            },
+            {
+              "text": "RICC 另外要求 c決定 p",
+              "fraction": 0,
+              "feedback": "二者皆為非作用子句準則；皆不要求決定性。"
+            }
+          ],
+          "generalFeedback": "涵蓋成立是因為 RICC = GICC +（每個同 p 配對中次要子句相同）。任何 RICC 測試組已滿足較寬鬆的 GICC 義務，故 RICC 涵蓋 GICC。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "非作用準則涵蓋子句覆蓋",
+          "text": "<p>GICC 與 RICC 皆涵蓋（subsume）子句覆蓋（CC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個主要子句（在非作用狀態下）皆被執行 true 與 false，這正是子句覆蓋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "GICC 與 RICC 對每個子句皆有 c=true 與 c=false 需求，故每個子句都取兩值——CC 被滿足。"
+            }
+          ],
+          "generalFeedback": "四項 ICC 需求對每個子句都含 c=true 與 c=false，故每個子句都取兩種真值。因此 GICC 與 RICC 皆涵蓋子句覆蓋。"
+        },
+        {
+          "type": "multichoice",
+          "name": "GICC 為何涵蓋 CC",
+          "text": "<p>是什麼使 GICC 涵蓋（subsume）子句覆蓋？</p>",
+          "answers": [
+            {
+              "text": "對每個子句，GICC 都要求一個 c=true 測試與一個 c=false 測試，故每個子句都取兩值",
+              "fraction": 100,
+              "feedback": "正確——這正是子句覆蓋的要求。"
+            },
+            {
+              "text": "GICC 要求述詞取兩值",
+              "fraction": 0,
+              "feedback": "那與述詞覆蓋有關；CC 關注的是個別子句。"
+            },
+            {
+              "text": "GICC 執行每一種子句組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，比達成 CC 所需更強。"
+            },
+            {
+              "text": "GICC 要求每個子句決定 p",
+              "fraction": 0,
+              "feedback": "那是作用子句的概念；非作用子句覆蓋反而遮蔽子句。"
+            }
+          ],
+          "generalFeedback": "子句覆蓋要求每個子句皆取 true 與 false。因 GICC 對每個子句的四項需求含 c=true 與 c=false，每個子句都被雙向執行，故 GICC 涵蓋 CC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 不可行的 ICC 需求",
+          "text": "<p>對 p = a &#8743; b，子句 a 的哪些非作用子句覆蓋需求<strong>不可行</strong>？</p>",
+          "answers": [
+            {
+              "text": "兩項要求 p = true 的需求（a=T&#8743;p=T 與 a=F&#8743;p=T）",
+              "fraction": 100,
+              "feedback": "正確——a 只能在 b = false 時非作用，這將 p 固定為 false，故 a 非作用時 p = true 不可達。"
+            },
+            {
+              "text": "兩項要求 p = false 的需求",
+              "fraction": 0,
+              "feedback": "那些才是可行的：遮蔽 a（b = false）使 p = false。"
+            },
+            {
+              "text": "全部四項需求",
+              "fraction": 0,
+              "feedback": "兩項 p=false 需求可行；只有 p=true 的不可行。"
+            },
+            {
+              "text": "都可行——四項皆可行",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = false，故 p=true 的需求無法達成。"
+            }
+          ],
+          "generalFeedback": "在 a &#8743; b 中遮蔽 a 需 b = false，將 p 固定為 false。故 a=T&#8743;p=T 與 a=F&#8743;p=T 不可行，而兩項 p=false 的需求可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 不可行的 ICC 需求",
+          "text": "<p>對 p = a &#8744; b，子句 a 的哪些非作用子句覆蓋需求<strong>不可行</strong>？</p>",
+          "answers": [
+            {
+              "text": "兩項要求 p = false 的需求（a=T&#8743;p=F 與 a=F&#8743;p=F）",
+              "fraction": 100,
+              "feedback": "正確——a 只能在 b = true 時非作用，這將 p 固定為 true，故 a 非作用時 p = false 不可達。"
+            },
+            {
+              "text": "兩項要求 p = true 的需求",
+              "fraction": 0,
+              "feedback": "那些才是可行的：遮蔽 a（b = true）使 p = true。"
+            },
+            {
+              "text": "全部四項需求",
+              "fraction": 0,
+              "feedback": "兩項 p=true 需求可行；只有 p=false 的不可行。"
+            },
+            {
+              "text": "都可行——四項皆可行",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = true，故 p=false 的需求無法達成。"
+            }
+          ],
+          "generalFeedback": "在 a &#8744; b 中遮蔽 a 需 b = true，將 p 固定為 true。故 a=T&#8743;p=F 與 a=F&#8743;p=F 不可行，而兩項 p=true 的需求可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c 中 a 的非作用列數",
+          "text": "<p>對 p = a &#8743; b &#8743; c，在 8 種取值中有幾種使子句 a 為<strong>非作用</strong>？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——a 只有在 b &#8743; c 為 true 時（2 列）才決定 p，其餘 6 列 a 非作用。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是 a 為作用（b=T, c=T）的列數，而非非作用。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新計算——a 僅在 b &#8743; c 為 true 時作用，即 2 列，故非作用為 6 列。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a 在 2 列為作用，故並非全部 8 列皆非作用。"
+            }
+          ],
+          "generalFeedback": "a 決定 a &#8743; b &#8743; c 恰當 b &#8743; c 為 true（b=T, c=T），得 2 個作用列（a 自由）。其餘 8 列中的 6 列 a 為非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 c 的非作用列數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 8 種取值中有幾種使子句 <strong>c</strong> 為<strong>非作用</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——c 只有在 a &#8743; b 為 true（a=T, b=T）時非作用，即 2 列（c 自由）。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 c 為作用（a &#8743; b 為 false）的列數，而非非作用。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新計算——a &#8743; b 在 8 列中僅 2 列為 true。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "a=T, b=T 時 c=T 與 c=F 兩列皆非作用，故為 2 而非 1。"
+            }
+          ],
+          "generalFeedback": "c 為非作用恰當另一運算元 a &#8743; b 為 true。這發生在 8 列中的 2 列（a=T, b=T，c 為任一值），故 c 在 2 種取值中非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR (c AND d) 中 a 的非作用列數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，在 16 種取值中有幾種使子句 a 為<strong>非作用</strong>？</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——a 僅在 b = true 且 (c &#8743; d) = false 時為作用：1 &#215; 3 &#215; 2 = 6 列，其餘 10 列非作用。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 a 為作用的列數，而非非作用。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "重新計算——a 在 6 列為作用，故非作用為 16 &#8722; 6 = 10。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "那高估了；非作用列數恰為 10。"
+            }
+          ],
+          "generalFeedback": "a 只有在其項傳遞 a（b = true）且另一項未遮蔽它（c &#8743; d = false）時才決定 p：1 &#215; 3 &#215; 2 = 6 個作用列。其餘 16 列中的 10 列 a 為非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項 ICC 需求皆可行的述詞",
+          "text": "<p>下列哪個述詞與子句，其<strong>四項</strong> ICC 需求皆可行？</p>",
+          "answers": [
+            {
+              "text": "p = (a &#8743; b) &#8744; (c &#8743; d) 中的子句 a",
+              "fraction": 100,
+              "feedback": "正確——當 b = false 時 a 非作用且 p = (c &#8743; d)，其可為 true 亦可為 false；四項需求皆可達。"
+            },
+            {
+              "text": "p = a &#8743; b 中的子句 a",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = false，故 p=true 的需求不可行。"
+            },
+            {
+              "text": "p = a &#8744; b &#8744; c 中的子句 a",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = true，故 p=false 的需求不可行。"
+            },
+            {
+              "text": "p = (a &#8744; b) &#8743; c 中的子句 c",
+              "fraction": 0,
+              "feedback": "c 非作用強制 p = false，故 p=true 的需求不可行。"
+            }
+          ],
+          "generalFeedback": "四項 ICC 需求皆可行的條件是：c被遮蔽時 p 仍可為 true 與 false。在 (a &#8743; b) &#8744; (c &#8743; d) 中令 b = false，a 被遮蔽而 p = (c &#8743; d) 仍涵蓋兩值，故每項需求皆可達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 次要子句相同的範圍",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d) 且主要子句為 a，在 RICC 下，p=false 時 a=true 與 a=false 的需求必須共用哪些子句的相同取值？</p>",
+          "answers": [
+            {
+              "text": "所有次要子句：b、c 與 d",
+              "fraction": 100,
+              "feedback": "正確——RICC 在同 p 配對中固定每一個次要子句。"
+            },
+            {
+              "text": "僅 b",
+              "fraction": 0,
+              "feedback": "RICC 限制所有次要子句，而不只是與 a 同項的那個。"
+            },
+            {
+              "text": "僅 c 與 d",
+              "fraction": 0,
+              "feedback": "b 也是次要子句，同樣必須相同。"
+            },
+            {
+              "text": "都不用——RICC 只固定 a",
+              "fraction": 0,
+              "feedback": "RICC 的重點正是在配對中固定次要子句。"
+            }
+          ],
+          "generalFeedback": "對主要子句 a，次要子句為 b、c 與 d。RICC 要求它們在每個同 p 配對的 a=true 與 a=false 測試中取值全部相同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項需求皆可行的條件",
+          "text": "<p>子句 c<sub>i</sub> 的四項 ICC 需求皆可行的條件是：在 c<sub>i</sub> 非作用時，述詞 p 能夠：</p>",
+          "answers": [
+            {
+              "text": "同時可為 true 與 false（在不同的遮蔽用次要取值下）",
+              "fraction": 100,
+              "feedback": "正確——c維持被遮蔽時 p 必須涵蓋兩值。"
+            },
+            {
+              "text": "僅可為 true",
+              "fraction": 0,
+              "feedback": "那樣 p=false 的需求將不可行。"
+            },
+            {
+              "text": "僅可為 false",
+              "fraction": 0,
+              "feedback": "那樣 p=true 的需求將不可行。"
+            },
+            {
+              "text": "由 c決定",
+              "fraction": 0,
+              "feedback": "若 c決定 p 便非非作用；此處需求關注的是被遮蔽的情形。"
+            }
+          ],
+          "generalFeedback": "因 c被遮蔽，p 由次要子句設定。四項需求（將 c與 p 交叉）皆可行，恰當有某遮蔽用次要取值使 p=true、另有取值使 p=false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 c 非作用的取值",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，子句 c 為非作用恰為下列哪種取值？</p>",
+          "answers": [
+            {
+              "text": "a = true 且 b = true（c 為任一值）",
+              "fraction": 100,
+              "feedback": "正確——此時 a &#8743; b 為 true 遮蔽 c；不論 c 為何 p 皆為 true。"
+            },
+            {
+              "text": "a = false 且 b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 決定 p（作用）。"
+            },
+            {
+              "text": "c = false",
+              "fraction": 0,
+              "feedback": "c 是否被遮蔽由運算元 a &#8743; b 決定，而非 c 自身的值。"
+            },
+            {
+              "text": "a = true 或 b = true",
+              "fraction": 0,
+              "feedback": "a &#8743; b 需兩者皆 true 才能遮蔽 c；只有其一為 true 並不足夠。"
+            }
+          ],
+          "generalFeedback": "在析取中 c 被遮蔽恰當另一運算元 a &#8743; b 為 true，即 a = true 且 b = true——這是 c 非作用的 2 列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非作用列數最少的子句",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，哪個子句非作用的取值數<strong>最少</strong>？</p>",
+          "answers": [
+            {
+              "text": "c（8 列中 2 列非作用）",
+              "fraction": 100,
+              "feedback": "正確——c 僅在 a &#8743; b 為 true 時被遮蔽（2 列），而 a 與 b 各在 6 列被遮蔽。"
+            },
+            {
+              "text": "a（8 列中 6 列非作用）",
+              "fraction": 0,
+              "feedback": "a 在 b = false 或 c = true 時被遮蔽——6 列，多於 c。"
+            },
+            {
+              "text": "b（8 列中 6 列非作用）",
+              "fraction": 0,
+              "feedback": "與 a 對稱，b 在 6 列被遮蔽，多於 c。"
+            },
+            {
+              "text": "三者非作用次數相同",
+              "fraction": 0,
+              "feedback": "c 不同：它僅在 2 列被遮蔽，而 a 與 b 各為 6 列。"
+            }
+          ],
+          "generalFeedback": "c 僅在 a &#8743; b 為 true 時被遮蔽（2 列）。a 在 b=false 或 c=true 時被遮蔽（6 列），b 對稱地為 6 列。故 c 的非作用列數最少。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 子句述詞的 GICC 總需求數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，若每個子句的四項 ICC 需求皆可行，GICC 總共施加多少項非作用子句測試需求？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——4 個子句 &#215; 每個 4 項需求 = 16 項測試需求。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 4 子句 &#215; 2；但 ICC 每個子句是四項需求，而非兩項。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一子句的需求數，而非整個述詞。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "那將數量加倍；每個子句 4 項需求，共 16 項。"
+            }
+          ],
+          "generalFeedback": "ICC 每個主要子句施加四項需求。4 個子句皆可行時，GICC 共有 4 &#215; 4 = 16 項測試需求（部分可由共用測試滿足）。",
+          "single": true
+        }
+      ]
+    }
+  },
   "mutation-testing": {
     "en": {
       "easy": [

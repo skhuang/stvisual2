@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Logic Inactive-Clause Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>非作用子句的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在固定次要子句（minor clauses）取值的前提下，主要子句 c<sub>i</sub> 對述詞 p 為<strong>非作用（inactive）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>固定其他子句、只翻轉 c<sub>i</sub> 時，p 的值不改變</text><feedback><text>正確——非作用子句無法決定 p，翻轉它時 p 不變。</text></feedback></answer>
+    <answer fraction="0"><text>固定其他子句、只翻轉 c<sub>i</sub> 時，p 的值會改變</text><feedback><text>那是作用（決定性）子句，與非作用相反。</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub> 的值為 false</text><feedback><text>非作用談的是 c<sub>i</sub> 不影響 p，而非 c<sub>i</sub> 本身的取值。</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub> 在語法上未出現於 p 中</text><feedback><text>非作用子句仍是 p 的一部分，只是被次要子句遮蔽（masked）了。</text></feedback></answer>
+    <generalfeedback><text>在固定其他子句下，若翻轉 c<sub>i</sub> 而 p 不變，則 c<sub>i</sub> 為非作用（無法決定 p）。這正是「決定 p」的否定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非作用的等價條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在固定次要子句取值下，c<sub>i</sub> 對 p 為非作用，其充要條件為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>p<sub>c<sub>i</sub>=T</sub> 等於 p<sub>c<sub>i</sub>=F</sub></text><feedback><text>正確——無論 c<sub>i</sub> 為 true 或 false，p 都相同，故 c<sub>i</sub> 無影響。</text></feedback></answer>
+    <answer fraction="0"><text>p<sub>c<sub>i</sub>=T</sub> 不等於 p<sub>c<sub>i</sub>=F</sub></text><feedback><text>那是決定性（作用）的條件，而非非作用。</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub> 等於 p</text><feedback><text>非作用談的是 c<sub>i</sub> 不改變 p，而非兩者相等。</text></feedback></answer>
+    <answer fraction="0"><text>每個次要子句都等於 c<sub>i</sub></text><feedback><text>非作用不要求次要子句與 c<sub>i</sub> 相等。</text></feedback></answer>
+    <generalfeedback><text>c<sub>i</sub> 為非作用，恰當固定次要子句下 p<sub>c<sub>i</sub>=T</sub> = p<sub>c<sub>i</sub>=F</sub>：兩種 c<sub>i</sub> 取值給出相同 p，故 c<sub>i</sub> 無法決定 p。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND b 中 a 何時非作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = a &#8743; b，子句 a 為<strong>非作用</strong>恰當：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b 為 false</text><feedback><text>正確——b 為 false 時，不論 a 為何 p 皆為 false，故 a 無法決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>b 為 true</text><feedback><text>b 為 true 時 p 等於 a，故 a 決定 p——此時 a 為作用而非非作用。</text></feedback></answer>
+    <answer fraction="0"><text>永遠成立，與 b 無關</text><feedback><text>b 為 true 時 a 會決定 p，故 a 並非永遠非作用。</text></feedback></answer>
+    <answer fraction="0"><text>永不成立</text><feedback><text>只要 b 為 false，a 即為非作用。</text></feedback></answer>
+    <generalfeedback><text>對合取 a &#8743; b，子句 a 只有在 b 為 true 時才決定 p。故 a 為非作用恰當 b 為 false，此時 p 被固定為 false。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b 中 a 何時非作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對述詞 p = a &#8744; b，子句 a 為<strong>非作用</strong>恰當：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b 為 true</text><feedback><text>正確——b 為 true 時，不論 a 為何 p 皆為 true，故 a 無法決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>b 為 false</text><feedback><text>b 為 false 時 p 等於 a，故 a 決定 p——此時 a 為作用而非非作用。</text></feedback></answer>
+    <answer fraction="0"><text>永遠成立，與 b 無關</text><feedback><text>b 為 false 時 a 會決定 p，故 a 並非永遠非作用。</text></feedback></answer>
+    <answer fraction="0"><text>永不成立</text><feedback><text>只要 b 為 true，a 即為非作用。</text></feedback></answer>
+    <generalfeedback><text>對析取 a &#8744; b，子句 a 只有在 b 為 false 時才決定 p。故 a 為非作用恰當 b 為 true，此時 p 被固定為 true。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>非作用即為不決定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個子句對述詞為非作用，恰當它<em>不</em>決定該述詞。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——「非作用」的定義正是「決定」的否定。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>非作用與決定互補：子句為非作用，恰當它在該次要取值下無法決定 p。</text></feedback></answer>
+    <generalfeedback><text>作用子句準則要求子句決定 p；非作用子句準則要求子句被遮蔽。「非作用」即指該子句在給定次要取值下不決定述詞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非作用子句覆蓋的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>非作用子句準則（GICC/RICC）的設計目的是驗證：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被遮蔽（masked）的非作用子句確實對述詞結果毫無影響</text><feedback><text>正確——它們檢查遮蔽行為是否正確。</text></feedback></answer>
+    <answer fraction="0"><text>每個子句都能獨立決定述詞</text><feedback><text>那是作用子句準則（GACC/CACC/RACC）的目標。</text></feedback></answer>
+    <answer fraction="0"><text>子句取值的所有組合都被執行</text><feedback><text>那是組合覆蓋（Combinatorial Coverage）。</text></feedback></answer>
+    <answer fraction="0"><text>述詞至少各取一次真值</text><feedback><text>那僅是述詞覆蓋（Predicate Coverage）。</text></feedback></answer>
+    <generalfeedback><text>非作用子句覆蓋確認：當某子句本應被遮蔽時，它確實對 p 無影響——可捕捉「本應無關的子句卻偷偷改變結果」這類錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GICC 縮寫</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>GICC</strong> 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>General Inactive Clause Coverage（一般非作用子句覆蓋）</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="0"><text>General Independent Clause Coverage</text><feedback><text>「I」代表 Inactive（非作用），而非 Independent。</text></feedback></answer>
+    <answer fraction="0"><text>General Active Clause Coverage</text><feedback><text>那是 GACC，屬於作用子句準則。</text></feedback></answer>
+    <answer fraction="0"><text>Grouped Inactive Combination Coverage</text><feedback><text>並非標準的準則名稱。</text></feedback></answer>
+    <generalfeedback><text>GICC = General Inactive Clause Coverage：其四項測試需求間的次要子句取值可以不同的非作用子句準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC 縮寫</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>RICC</strong> 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Restricted Inactive Clause Coverage（受限非作用子句覆蓋）</text><feedback><text>正確。</text></feedback></answer>
+    <answer fraction="0"><text>Restricted Independent Clause Coverage</text><feedback><text>「I」代表 Inactive（非作用），而非 Independent。</text></feedback></answer>
+    <answer fraction="0"><text>Restricted Active Clause Coverage</text><feedback><text>那是 RACC，屬於作用子句準則。</text></feedback></answer>
+    <answer fraction="0"><text>Reduced Inactive Combination Coverage</text><feedback><text>並非標準的準則名稱。</text></feedback></answer>
+    <generalfeedback><text>RICC = Restricted Inactive Clause Coverage：如同 GICC，但在每個固定 p 值的 c<sub>i</sub>=true／c<sub>i</sub>=false 配對中，次要子句取值必須相同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>每個子句的 ICC 需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>非作用子句覆蓋對每個主要子句施加幾項測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——即 c<sub>i</sub> &#8712; {T,F} 與 p &#8712; {T,F} 的四種組合，且 c<sub>i</sub> 皆為非作用。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 只涵蓋 c<sub>i</sub>=true 與 c<sub>i</sub>=false；ICC 還需依 p 的值再分。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>ICC 每個子句需四項需求，而非一項。</text></feedback></answer>
+    <answer fraction="0"><text>2^n（n 個子句）</text><feedback><text>2^n 是組合覆蓋，而非 ICC。</text></feedback></answer>
+    <generalfeedback><text>因非作用子句無法改變 p，p 可獨立為 true 或 false。故 ICC 對每個主要子句需四項需求：c<sub>i</sub>=T&#8743;p=T、c<sub>i</sub>=T&#8743;p=F、c<sub>i</sub>=F&#8743;p=T、c<sub>i</sub>=F&#8743;p=F。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四項 ICC 需求所變動的量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某主要子句的四項非作用子句覆蓋需求，列舉的是下列何者的組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c<sub>i</sub> 的值（true／false）與 p 的值（true／false）</text><feedback><text>正確——2 &#215; 2 = 4 項需求，且 c<sub>i</sub> 皆為非作用。</text></feedback></answer>
+    <answer fraction="0"><text>兩個次要子句的取值</text><feedback><text>ICC 變動的是 c<sub>i</sub> 與 p，而非某一對次要子句。</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub> 的值，以及 c<sub>i</sub> 是否決定 p</text><feedback><text>四項需求中 c<sub>i</sub> 皆為非作用（不決定 p）；變動的只有 c<sub>i</sub> 與 p。</text></feedback></answer>
+    <answer fraction="0"><text>真值表的全部 2^n 列</text><feedback><text>那是組合覆蓋。</text></feedback></answer>
+    <generalfeedback><text>在維持 c<sub>i</sub> 非作用下，ICC 將 c<sub>i</sub> &#8712; {T,F} 與 p &#8712; {T,F} 交叉，對每個主要子句得四項需求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a 非作用時 a AND b 的值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8743; b，當子句 a 為非作用（b = false）時，述詞 p 為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>false，與 a 無關</text><feedback><text>正確——b 為 false 使 a &#8743; b 無論 a 為何皆為 false。</text></feedback></answer>
+    <answer fraction="0"><text>true，與 a 無關</text><feedback><text>合取中有一運算元為 false 時結果為 false，而非 true。</text></feedback></answer>
+    <answer fraction="0"><text>等於 a</text><feedback><text>那發生在 b 為 true（a 為作用）時，而非 a 非作用時。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>p 有明確定義，等於 false。</text></feedback></answer>
+    <generalfeedback><text>要使 a 在 a &#8743; b 中非作用需 b = false，這會將 p 固定為 false。因此 a 非作用時 p 只能為 false——這對 ICC 的可行性有影響。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a 非作用時 a OR b 的值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8744; b，當子句 a 為非作用（b = true）時，述詞 p 為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true，與 a 無關</text><feedback><text>正確——b 為 true 使 a &#8744; b 無論 a 為何皆為 true。</text></feedback></answer>
+    <answer fraction="0"><text>false，與 a 無關</text><feedback><text>析取中有一運算元為 true 時結果為 true，而非 false。</text></feedback></answer>
+    <answer fraction="0"><text>等於 a</text><feedback><text>那發生在 b 為 false（a 為作用）時，而非 a 非作用時。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>p 有明確定義，等於 true。</text></feedback></answer>
+    <generalfeedback><text>要使 a 在 a &#8744; b 中非作用需 b = true，這會將 p 固定為 true——與合取情形對偶。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>遮蔽時 p 由次要子句決定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當主要子句為非作用時，述詞的值完全由次要子句決定。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——主要子句無影響，故僅由次要子句固定 p。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>非作用的主要子句無法改變 p，故 p 僅由次要子句決定。</text></feedback></answer>
+    <generalfeedback><text>非作用子句不影響 p，故在它被遮蔽時，結果是次要子句的函數。這也是為何 c<sub>i</sub> 非作用時，p 仍可依次要子句而獨立為 true 或 false。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>與作用子句覆蓋的對比</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一族準則是非作用子句準則的直接<strong>對比</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>作用子句準則（GACC／CACC／RACC）</text><feedback><text>正確——它們要求子句決定 p，而非作用子句準則要求子句被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>述詞覆蓋與子句覆蓋</text><feedback><text>那些是較粗的準則，並非作用／非作用的對應。</text></feedback></answer>
+    <answer fraction="0"><text>組合覆蓋</text><feedback><text>CoC 執行所有組合，並非以「決定性」為基礎的對應準則。</text></feedback></answer>
+    <answer fraction="0"><text>DNF 準則（蘊涵項／唯一真點）</text><feedback><text>那是另一族以 DNF 為基礎的準則，並非直接對比。</text></feedback></answer>
+    <generalfeedback><text>作用子句準則（GACC/CACC/RACC）要求每個子句決定 p；非作用子句準則（GICC/RICC）要求每個子句被遮蔽。二者是「決定性」概念互補的兩半。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>a OR b 中 b false 使 a 為作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8744; b，令 b = false 會使子句 a 成為<em>作用</em>（決定性），而非非作用。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——b 為 false 時 p 等於 a，故 a 決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>b 為 false 時 p = a &#8744; false = a，翻轉 a 即翻轉 p，a 為作用。a 要在 b = true 時才非作用。</text></feedback></answer>
+    <generalfeedback><text>對 a &#8744; b，a 在 b = true 時非作用（p 固定為 true），在 b = false 時為作用（p 隨 a 而變）。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Inactive-Clause Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>在 (a AND b) OR c 中令 c 非作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; c，哪一組次要取值能使子句 <strong>c</strong> 非作用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = true, b = true</text><feedback><text>正確——此時 a &#8743; b 為 true，故不論 c 為何 p 皆為 true；c 被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>a = false, b = false</text><feedback><text>此時 a &#8743; b 為 false，故 p = c，c 決定 p（作用）。</text></feedback></answer>
+    <answer fraction="0"><text>a = true, b = false</text><feedback><text>此時 a &#8743; b 為 false，故 p = c，c 為作用。</text></feedback></answer>
+    <answer fraction="0"><text>a = false, b = true</text><feedback><text>此時 a &#8743; b 為 false，故 p = c，c 為作用。</text></feedback></answer>
+    <generalfeedback><text>對析取 X &#8744; c，子句 c 為非作用恰當另一運算元 X 為 true。此處 X = a &#8743; b，故 c 在 a = true 且 b = true 時非作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a AND b) OR c 中 a 何時決定 p</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; c，哪一組次要取值能使子句 a 成為<strong>作用</strong>（即 a <em>非</em>非作用）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = true, c = false</text><feedback><text>正確——唯有此時 p 化簡為 a，故 a 決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = false</text><feedback><text>b 為 false 時 a &#8743; b 無論 a 皆為 false，故 a 為非作用。</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = true</text><feedback><text>c 為 true 使 p 固定為 true，且 b 為 false 遮蔽 a，故 a 為非作用。</text></feedback></answer>
+    <answer fraction="0"><text>b = true, c = true</text><feedback><text>c 為 true 使 p 不論 a 皆為 true，故 a 為非作用。</text></feedback></answer>
+    <generalfeedback><text>a 只有在其項傳遞 a（b = true）且析取未遮蔽它（c = false）時才決定 p。其餘每一組次要取值 a 皆為非作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四項 ICC 需求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對一個非作用的主要子句 c<sub>i</sub>，非作用子句覆蓋要求涵蓋恰為下列哪組測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c<sub>i</sub>=T&#8743;p=T、c<sub>i</sub>=T&#8743;p=F、c<sub>i</sub>=F&#8743;p=T、c<sub>i</sub>=F&#8743;p=F</text><feedback><text>正確——在 c<sub>i</sub> 維持非作用下，c<sub>i</sub> 與 p 各取兩值。</text></feedback></answer>
+    <answer fraction="0"><text>僅 c<sub>i</sub>=T 與 c<sub>i</sub>=F</text><feedback><text>那忽略了 p 也需取兩值的要求。</text></feedback></answer>
+    <answer fraction="0"><text>僅 p=T 與 p=F</text><feedback><text>那忽略了 c<sub>i</sub> 也需取兩值的要求。</text></feedback></answer>
+    <answer fraction="0"><text>子句取值的全部 2^n 種組合</text><feedback><text>那是組合覆蓋，而非 ICC。</text></feedback></answer>
+    <generalfeedback><text>因非作用子句無法改變 p，p 可獨立於 c<sub>i</sub> 為 true 或 false。故 ICC 將四種 (c<sub>i</sub>, p) 組合各列為一項測試需求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC 如何限制 GICC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>受限非作用子句覆蓋（RICC）與一般非作用子句覆蓋（GICC）的差異為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RICC 要求：在共享同一 p 值的 c<sub>i</sub>=true 與 c<sub>i</sub>=false 需求中，次要子句取值必須相同</text><feedback><text>正確——RICC 在每個同 p 配對中固定次要子句；GICC 則可變動。</text></feedback></answer>
+    <answer fraction="0"><text>RICC 要求四項需求中的次要子句取值全都不同</text><feedback><text>RICC 是要求在同 p 配對中相同，而非全都不同。</text></feedback></answer>
+    <answer fraction="0"><text>RICC 要求 c<sub>i</sub> 決定 p</text><feedback><text>二者皆為非作用子句準則：c<sub>i</sub> 皆被遮蔽，從不決定 p。</text></feedback></answer>
+    <answer fraction="0"><text>RICC 捨去四項需求之一</text><feedback><text>RICC 保留全部四項需求，只是對次要子句加上限制。</text></feedback></answer>
+    <generalfeedback><text>GICC 允許四項需求間的次要子句取值自由變動。RICC 額外要求：在每個同 p 配對中次要子句取值相同（c<sub>i</sub>=T&#8743;p=T 與 c<sub>i</sub>=F&#8743;p=T 配對，c<sub>i</sub>=T&#8743;p=F 與 c<sub>i</sub>=F&#8743;p=F 配對）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>作用與非作用的要求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>作用子句準則要求主要子句<em>決定</em> p。非作用子句準則則要求主要子句：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不決定 p（被次要子句遮蔽）</text><feedback><text>正確——非作用子句覆蓋執行的是被遮蔽的情形。</text></feedback></answer>
+    <answer fraction="0"><text>雙向皆決定 p</text><feedback><text>那是作用子句的概念，與非作用相反。</text></feedback></answer>
+    <answer fraction="0"><text>取值與 p 相同</text><feedback><text>遮蔽與「子句等於 p」無關。</text></feedback></answer>
+    <answer fraction="0"><text>自述詞中移除</text><feedback><text>子句仍在述詞中，只是在執行期被遮蔽。</text></feedback></answer>
+    <generalfeedback><text>作用子句準則設定次要子句使 c<sub>i</sub> 決定 p；非作用子句準則則設定使 c<sub>i</sub> 被遮蔽而無法影響 p。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在 a OR (b AND c) 中令 a 非作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8744; (b &#8743; c)，哪一組次要取值能使子句 <strong>a</strong> 非作用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = true, c = true</text><feedback><text>正確——此時 b &#8743; c 為 true，故不論 a 為何 p 皆為 true；a 被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = false</text><feedback><text>此時 b &#8743; c 為 false，故 p = a，a 決定 p（作用）。</text></feedback></answer>
+    <answer fraction="0"><text>b = true, c = false</text><feedback><text>此時 b &#8743; c 為 false，故 p = a，a 為作用。</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = true</text><feedback><text>此時 b &#8743; c 為 false，故 p = a，a 為作用。</text></feedback></answer>
+    <generalfeedback><text>對析取 a &#8744; X，子句 a 為非作用恰當另一運算元 X 為 true。此處 X = b &#8743; c，故 a 在 b = true 且 c = true 時非作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在 (a OR b) AND c 中令 c 非作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8744; b) &#8743; c，哪一組次要取值能使子句 <strong>c</strong> 非作用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = false, b = false</text><feedback><text>正確——此時 a &#8744; b 為 false，故不論 c 為何 p 皆為 false；c 被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>a = true, b = true</text><feedback><text>此時 a &#8744; b 為 true，故 p = c，c 決定 p（作用）。</text></feedback></answer>
+    <answer fraction="0"><text>a = true, b = false</text><feedback><text>此時 a &#8744; b 為 true，故 p = c，c 為作用。</text></feedback></answer>
+    <answer fraction="0"><text>a = false, b = true</text><feedback><text>此時 a &#8744; b 為 true，故 p = c，c 為作用。</text></feedback></answer>
+    <generalfeedback><text>對合取 X &#8743; c，子句 c 為非作用恰當另一運算元 X 為 false。此處 X = a &#8744; b，故 c 在 a = false 且 b = false 時非作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>滿足四項可行 ICC 需求所需測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當某主要子句的四項非作用子句覆蓋需求皆可行時，需要幾個不同的測試案例才能滿足它們？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——四種 (c<sub>i</sub>, p) 組合互異，故需四個測試。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>兩個測試無法實現四種不同的 (c<sub>i</sub>, p) 組合。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>三個測試會漏掉四種 (c<sub>i</sub>, p) 組合中的一種。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>一個測試只能固定單一 (c<sub>i</sub>, p) 對，而非全部四種。</text></feedback></answer>
+    <generalfeedback><text>四項需求各固定一組互異的 (c<sub>i</sub> 值, p 值)；沒有單一測試能同時滿足其中兩項，故該子句需四個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>某列中哪個子句為非作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; c，在 a = true, b = false, c = false 時，哪個子句為<strong>非作用</strong>（不決定 p）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a</text><feedback><text>正確——翻轉 a 得 (F &#8743; F) &#8744; F = F，與 p = F 不變，故此處 a 非作用。</text></feedback></answer>
+    <answer fraction="0"><text>b</text><feedback><text>翻轉 b 得 (T &#8743; T) &#8744; F = T，使 p 由 F 改變，故此處 b 為作用。</text></feedback></answer>
+    <answer fraction="0"><text>c</text><feedback><text>翻轉 c 得 (T &#8743; F) &#8744; T = T，使 p 由 F 改變，故此處 c 為作用。</text></feedback></answer>
+    <answer fraction="0"><text>都不是</text><feedback><text>此列 a 為非作用；b 與 c 為作用。</text></feedback></answer>
+    <generalfeedback><text>在 a=T, b=F, c=F 時，p = (T&#8743;F)&#8744;F = F。翻轉 a 使 p 維持 false（a 被 b=F 遮蔽），而翻轉 b 或 c 會改變 p。故此列唯一的非作用子句為 a。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC 在 p 為 true 時的配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 RICC 下，p=true 時 c<sub>i</sub>=true 與 c<sub>i</sub>=false 的兩項需求必須：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對所有次要子句採用相同取值</text><feedback><text>正確——RICC 在每個同 p 配對中固定次要子句。</text></feedback></answer>
+    <answer fraction="0"><text>對次要子句採用不同取值</text><feedback><text>任何準則都不作此要求；RICC 是將它們固定為相同。</text></feedback></answer>
+    <answer fraction="0"><text>使 c<sub>i</sub> 決定 p</text><feedback><text>這些是非作用子句需求：c<sub>i</sub> 維持被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>使 p 取不同值</text><feedback><text>此配對中兩項需求皆固定 p = true。</text></feedback></answer>
+    <generalfeedback><text>RICC 要求次要子句取值在每個同 p 配對中相同。對 p=true 配對，c<sub>i</sub>=true 與 c<sub>i</sub>=false 的測試採用相同次要取值（這正是 p 在配對中維持 true 的原因）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>GICC 次要子句可變動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 GICC 下，四項非作用子句測試需求間的次要子句取值可以不同。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——GICC 對次要子句不施加相同性限制。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>強制次要子句相同的是 RICC 而非 GICC；GICC 允許它們變動。</text></feedback></answer>
+    <generalfeedback><text>GICC（「一般」）僅要求 c<sub>i</sub> 在四項需求中皆為非作用；次要子句取值可在各需求間自由變動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確認遮蔽的準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一準則專門用於確認子句的<strong>正確遮蔽</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非作用子句覆蓋（GICC／RICC）</text><feedback><text>正確——它檢查被遮蔽的子句對 p 無影響。</text></feedback></answer>
+    <answer fraction="0"><text>關聯作用子句覆蓋（CACC）</text><feedback><text>CACC 檢查子句的決定性（作用）效果，而非遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>一般作用子句覆蓋（GACC）</text><feedback><text>GACC 是作用子句準則；它執行決定性，而非遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>述詞覆蓋（PC）</text><feedback><text>PC 只要求 p 取兩值，未涉及遮蔽。</text></feedback></answer>
+    <generalfeedback><text>只有非作用子句準則會刻意遮蔽子句並檢查 p 不受影響——這是對正確遮蔽的檢測。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a 非作用時 a AND b 中 p 的值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8743; b，在所有使子句 a 非作用的次要取值下，p 的值為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>永遠為 false</text><feedback><text>正確——a 非作用僅在 b = false 時成立，此時 p = false。</text></feedback></answer>
+    <answer fraction="0"><text>永遠為 true</text><feedback><text>a 非作用時 b = false，這使 p 為 false 而非 true。</text></feedback></answer>
+    <answer fraction="0"><text>有時 true、有時 false</text><feedback><text>只有一種遮蔽取值（b = false），且它將 p 固定為 false。</text></feedback></answer>
+    <answer fraction="0"><text>等於 a</text><feedback><text>p 等於 a 只在 a 為作用（b = true）時。</text></feedback></answer>
+    <generalfeedback><text>對 a &#8743; b，唯一能遮蔽 a 的方式是 b = false，這將 p 固定為 false。因此 a 需要 p = true 的 ICC 需求皆不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b OR c 中 a 何時非「非作用」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8744; b &#8744; c，子句 a 未能維持非作用（即它決定 p）僅當：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = false 且 c = false</text><feedback><text>正確——此時 p = a，故 a 決定 p；在其餘所有次要取值下 a 皆被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>b = true 且 c = true</text><feedback><text>此時不論 a 為何 p 皆為 true，故 a 於此為非作用。</text></feedback></answer>
+    <answer fraction="0"><text>b = true 且 c = false</text><feedback><text>b 為 true 使 p 不論 a 皆為 true，故 a 為非作用。</text></feedback></answer>
+    <answer fraction="0"><text>b = false 且 c = true</text><feedback><text>c 為 true 使 p 不論 a 皆為 true，故 a 為非作用。</text></feedback></answer>
+    <generalfeedback><text>對析取，a 只有在其餘每個運算元皆為 false 時才決定 p。此處即 b = false 且 c = false；否則 b &#8744; c 為 true 而 a 被遮蔽。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>p 固定為 false 的遮蔽可協助的需求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設某次要取值使 c<sub>i</sub> 非作用，且不論 c<sub>i</sub> 為何都將 p 固定為 false。此取值可協助滿足哪些 ICC 需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩項 p = false 的需求（c<sub>i</sub>=T&#8743;p=F 與 c<sub>i</sub>=F&#8743;p=F）</text><feedback><text>正確——p 被固定為 false，故此取值只能滿足 p=false 的需求。</text></feedback></answer>
+    <answer fraction="0"><text>兩項 p = true 的需求</text><feedback><text>此處 p 為 false，故無法滿足任何 p=true 的需求。</text></feedback></answer>
+    <answer fraction="0"><text>全部四項需求</text><feedback><text>p 被固定為 false 時只有兩項 p=false 的需求可達成。</text></feedback></answer>
+    <answer fraction="0"><text>一項都不能</text><feedback><text>它確實能滿足 p=false 的需求（c<sub>i</sub> 的兩種取值）。</text></feedback></answer>
+    <generalfeedback><text>因 c<sub>i</sub> 非作用，此取值下 c<sub>i</sub>=T 與 c<sub>i</sub>=F 皆可得，但 p 卡在 false——故只能涵蓋 c<sub>i</sub>=T&#8743;p=F 與 c<sub>i</sub>=F&#8743;p=F。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Inactive-Clause Coverage/hard</text></category>
+  </question>
+  <question type="truefalse">
+    <name><text>RICC 涵蓋（subsume）GICC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>受限非作用子句覆蓋（RICC）涵蓋（subsumes）一般非作用子句覆蓋（GICC）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——RICC 的需求即 GICC 的需求再加上次要子句相同的限制，故任何滿足 RICC 的測試組亦滿足 GICC。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>RICC 嚴格更強：它在 GICC 上附加限制，故 RICC &#8594; GICC。</text></feedback></answer>
+    <generalfeedback><text>RICC 保留 GICC 的全部四項需求，並額外要求次要子句在每個同 p 配對中相同。只附加限制的較嚴準則會涵蓋較弱者，故 RICC 涵蓋 GICC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC 為何涵蓋 GICC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>RICC 為何涵蓋（subsumes）GICC？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RICC 的測試需求即 GICC 的需求再加上次要子句相同的限制，故任何滿足 RICC 的測試組亦滿足 GICC</text><feedback><text>正確——附加限制只會縮小滿足的測試組集合。</text></feedback></answer>
+    <answer fraction="0"><text>RICC 的測試需求比 GICC 多</text><feedback><text>兩者每個子句都有相同的四項需求；RICC 只是更嚴格地限制次要子句。</text></feedback></answer>
+    <answer fraction="0"><text>RICC 執行全部 2^n 種組合</text><feedback><text>那會是組合覆蓋，而非 RICC。</text></feedback></answer>
+    <answer fraction="0"><text>RICC 另外要求 c<sub>i</sub> 決定 p</text><feedback><text>二者皆為非作用子句準則；皆不要求決定性。</text></feedback></answer>
+    <generalfeedback><text>涵蓋成立是因為 RICC = GICC +（每個同 p 配對中次要子句相同）。任何 RICC 測試組已滿足較寬鬆的 GICC 義務，故 RICC 涵蓋 GICC。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>非作用準則涵蓋子句覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>GICC 與 RICC 皆涵蓋（subsume）子句覆蓋（CC）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每個主要子句（在非作用狀態下）皆被執行 true 與 false，這正是子句覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>GICC 與 RICC 對每個子句皆有 c<sub>i</sub>=true 與 c<sub>i</sub>=false 需求，故每個子句都取兩值——CC 被滿足。</text></feedback></answer>
+    <generalfeedback><text>四項 ICC 需求對每個子句都含 c<sub>i</sub>=true 與 c<sub>i</sub>=false，故每個子句都取兩種真值。因此 GICC 與 RICC 皆涵蓋子句覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GICC 為何涵蓋 CC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>是什麼使 GICC 涵蓋（subsume）子句覆蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對每個子句，GICC 都要求一個 c<sub>i</sub>=true 測試與一個 c<sub>i</sub>=false 測試，故每個子句都取兩值</text><feedback><text>正確——這正是子句覆蓋的要求。</text></feedback></answer>
+    <answer fraction="0"><text>GICC 要求述詞取兩值</text><feedback><text>那與述詞覆蓋有關；CC 關注的是個別子句。</text></feedback></answer>
+    <answer fraction="0"><text>GICC 執行每一種子句組合</text><feedback><text>那是組合覆蓋，比達成 CC 所需更強。</text></feedback></answer>
+    <answer fraction="0"><text>GICC 要求每個子句決定 p</text><feedback><text>那是作用子句的概念；非作用子句覆蓋反而遮蔽子句。</text></feedback></answer>
+    <generalfeedback><text>子句覆蓋要求每個子句皆取 true 與 false。因 GICC 對每個子句的四項需求含 c<sub>i</sub>=true 與 c<sub>i</sub>=false，每個子句都被雙向執行，故 GICC 涵蓋 CC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND b 不可行的 ICC 需求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8743; b，子句 a 的哪些非作用子句覆蓋需求<strong>不可行</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩項要求 p = true 的需求（a=T&#8743;p=T 與 a=F&#8743;p=T）</text><feedback><text>正確——a 只能在 b = false 時非作用，這將 p 固定為 false，故 a 非作用時 p = true 不可達。</text></feedback></answer>
+    <answer fraction="0"><text>兩項要求 p = false 的需求</text><feedback><text>那些才是可行的：遮蔽 a（b = false）使 p = false。</text></feedback></answer>
+    <answer fraction="0"><text>全部四項需求</text><feedback><text>兩項 p=false 需求可行；只有 p=true 的不可行。</text></feedback></answer>
+    <answer fraction="0"><text>都可行——四項皆可行</text><feedback><text>a 非作用強制 p = false，故 p=true 的需求無法達成。</text></feedback></answer>
+    <generalfeedback><text>在 a &#8743; b 中遮蔽 a 需 b = false，將 p 固定為 false。故 a=T&#8743;p=T 與 a=F&#8743;p=T 不可行，而兩項 p=false 的需求可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a OR b 不可行的 ICC 需求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8744; b，子句 a 的哪些非作用子句覆蓋需求<strong>不可行</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩項要求 p = false 的需求（a=T&#8743;p=F 與 a=F&#8743;p=F）</text><feedback><text>正確——a 只能在 b = true 時非作用，這將 p 固定為 true，故 a 非作用時 p = false 不可達。</text></feedback></answer>
+    <answer fraction="0"><text>兩項要求 p = true 的需求</text><feedback><text>那些才是可行的：遮蔽 a（b = true）使 p = true。</text></feedback></answer>
+    <answer fraction="0"><text>全部四項需求</text><feedback><text>兩項 p=true 需求可行；只有 p=false 的不可行。</text></feedback></answer>
+    <answer fraction="0"><text>都可行——四項皆可行</text><feedback><text>a 非作用強制 p = true，故 p=false 的需求無法達成。</text></feedback></answer>
+    <generalfeedback><text>在 a &#8744; b 中遮蔽 a 需 b = true，將 p 固定為 true。故 a=T&#8743;p=F 與 a=F&#8743;p=F 不可行，而兩項 p=true 的需求可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a AND b AND c 中 a 的非作用列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = a &#8743; b &#8743; c，在 8 種取值中有幾種使子句 a 為<strong>非作用</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——a 只有在 b &#8743; c 為 true 時（2 列）才決定 p，其餘 6 列 a 非作用。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是 a 為作用（b=T, c=T）的列數，而非非作用。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>重新計算——a 僅在 b &#8743; c 為 true 時作用，即 2 列，故非作用為 6 列。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>a 在 2 列為作用，故並非全部 8 列皆非作用。</text></feedback></answer>
+    <generalfeedback><text>a 決定 a &#8743; b &#8743; c 恰當 b &#8743; c 為 true（b=T, c=T），得 2 個作用列（a 自由）。其餘 8 列中的 6 列 a 為非作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a AND b) OR c 中 c 的非作用列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; c，在 8 種取值中有幾種使子句 <strong>c</strong> 為<strong>非作用</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——c 只有在 a &#8743; b 為 true（a=T, b=T）時非作用，即 2 列（c 自由）。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是 c 為作用（a &#8743; b 為 false）的列數，而非非作用。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>重新計算——a &#8743; b 在 8 列中僅 2 列為 true。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>a=T, b=T 時 c=T 與 c=F 兩列皆非作用，故為 2 而非 1。</text></feedback></answer>
+    <generalfeedback><text>c 為非作用恰當另一運算元 a &#8743; b 為 true。這發生在 8 列中的 2 列（a=T, b=T，c 為任一值），故 c 在 2 種取值中非作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a AND b) OR (c AND d) 中 a 的非作用列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，在 16 種取值中有幾種使子句 a 為<strong>非作用</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>正確——a 僅在 b = true 且 (c &#8743; d) = false 時為作用：1 &#215; 3 &#215; 2 = 6 列，其餘 10 列非作用。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是 a 為作用的列數，而非非作用。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>重新計算——a 在 6 列為作用，故非作用為 16 &#8722; 6 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>那高估了；非作用列數恰為 10。</text></feedback></answer>
+    <generalfeedback><text>a 只有在其項傳遞 a（b = true）且另一項未遮蔽它（c &#8743; d = false）時才決定 p：1 &#215; 3 &#215; 2 = 6 個作用列。其餘 16 列中的 10 列 a 為非作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四項 ICC 需求皆可行的述詞</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個述詞與子句，其<strong>四項</strong> ICC 需求皆可行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>p = (a &#8743; b) &#8744; (c &#8743; d) 中的子句 a</text><feedback><text>正確——當 b = false 時 a 非作用且 p = (c &#8743; d)，其可為 true 亦可為 false；四項需求皆可達。</text></feedback></answer>
+    <answer fraction="0"><text>p = a &#8743; b 中的子句 a</text><feedback><text>a 非作用強制 p = false，故 p=true 的需求不可行。</text></feedback></answer>
+    <answer fraction="0"><text>p = a &#8744; b &#8744; c 中的子句 a</text><feedback><text>a 非作用強制 p = true，故 p=false 的需求不可行。</text></feedback></answer>
+    <answer fraction="0"><text>p = (a &#8744; b) &#8743; c 中的子句 c</text><feedback><text>c 非作用強制 p = false，故 p=true 的需求不可行。</text></feedback></answer>
+    <generalfeedback><text>四項 ICC 需求皆可行的條件是：c<sub>i</sub> 被遮蔽時 p 仍可為 true 與 false。在 (a &#8743; b) &#8744; (c &#8743; d) 中令 b = false，a 被遮蔽而 p = (c &#8743; d) 仍涵蓋兩值，故每項需求皆可達。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC 次要子句相同的範圍</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; (c &#8743; d) 且主要子句為 a，在 RICC 下，p=false 時 a=true 與 a=false 的需求必須共用哪些子句的相同取值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有次要子句：b、c 與 d</text><feedback><text>正確——RICC 在同 p 配對中固定每一個次要子句。</text></feedback></answer>
+    <answer fraction="0"><text>僅 b</text><feedback><text>RICC 限制所有次要子句，而不只是與 a 同項的那個。</text></feedback></answer>
+    <answer fraction="0"><text>僅 c 與 d</text><feedback><text>b 也是次要子句，同樣必須相同。</text></feedback></answer>
+    <answer fraction="0"><text>都不用——RICC 只固定 a</text><feedback><text>RICC 的重點正是在配對中固定次要子句。</text></feedback></answer>
+    <generalfeedback><text>對主要子句 a，次要子句為 b、c 與 d。RICC 要求它們在每個同 p 配對的 a=true 與 a=false 測試中取值全部相同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四項需求皆可行的條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>子句 c<sub>i</sub> 的四項 ICC 需求皆可行的條件是：在 c<sub>i</sub> 非作用時，述詞 p 能夠：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>同時可為 true 與 false（在不同的遮蔽用次要取值下）</text><feedback><text>正確——c<sub>i</sub> 維持被遮蔽時 p 必須涵蓋兩值。</text></feedback></answer>
+    <answer fraction="0"><text>僅可為 true</text><feedback><text>那樣 p=false 的需求將不可行。</text></feedback></answer>
+    <answer fraction="0"><text>僅可為 false</text><feedback><text>那樣 p=true 的需求將不可行。</text></feedback></answer>
+    <answer fraction="0"><text>由 c<sub>i</sub> 決定</text><feedback><text>若 c<sub>i</sub> 決定 p 便非非作用；此處需求關注的是被遮蔽的情形。</text></feedback></answer>
+    <generalfeedback><text>因 c<sub>i</sub> 被遮蔽，p 由次要子句設定。四項需求（將 c<sub>i</sub> 與 p 交叉）皆可行，恰當有某遮蔽用次要取值使 p=true、另有取值使 p=false。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>(a AND b) OR c 中 c 非作用的取值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; c，子句 c 為非作用恰為下列哪種取值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = true 且 b = true（c 為任一值）</text><feedback><text>正確——此時 a &#8743; b 為 true 遮蔽 c；不論 c 為何 p 皆為 true。</text></feedback></answer>
+    <answer fraction="0"><text>a = false 且 b = false</text><feedback><text>此時 a &#8743; b 為 false，故 p = c，c 決定 p（作用）。</text></feedback></answer>
+    <answer fraction="0"><text>c = false</text><feedback><text>c 是否被遮蔽由運算元 a &#8743; b 決定，而非 c 自身的值。</text></feedback></answer>
+    <answer fraction="0"><text>a = true 或 b = true</text><feedback><text>a &#8743; b 需兩者皆 true 才能遮蔽 c；只有其一為 true 並不足夠。</text></feedback></answer>
+    <generalfeedback><text>在析取中 c 被遮蔽恰當另一運算元 a &#8743; b 為 true，即 a = true 且 b = true——這是 c 非作用的 2 列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非作用列數最少的子句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; c，哪個子句非作用的取值數<strong>最少</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c（8 列中 2 列非作用）</text><feedback><text>正確——c 僅在 a &#8743; b 為 true 時被遮蔽（2 列），而 a 與 b 各在 6 列被遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>a（8 列中 6 列非作用）</text><feedback><text>a 在 b = false 或 c = true 時被遮蔽——6 列，多於 c。</text></feedback></answer>
+    <answer fraction="0"><text>b（8 列中 6 列非作用）</text><feedback><text>與 a 對稱，b 在 6 列被遮蔽，多於 c。</text></feedback></answer>
+    <answer fraction="0"><text>三者非作用次數相同</text><feedback><text>c 不同：它僅在 2 列被遮蔽，而 a 與 b 各為 6 列。</text></feedback></answer>
+    <generalfeedback><text>c 僅在 a &#8743; b 為 true 時被遮蔽（2 列）。a 在 b=false 或 c=true 時被遮蔽（6 列），b 對稱地為 6 列。故 c 的非作用列數最少。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>4 子句述詞的 GICC 總需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，若每個子句的四項 ICC 需求皆可行，GICC 總共施加多少項非作用子句測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>正確——4 個子句 &#215; 每個 4 項需求 = 16 項測試需求。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 4 子句 &#215; 2；但 ICC 每個子句是四項需求，而非兩項。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是單一子句的需求數，而非整個述詞。</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>那將數量加倍；每個子句 4 項需求，共 16 項。</text></feedback></answer>
+    <generalfeedback><text>ICC 每個主要子句施加四項需求。4 個子句皆可行時，GICC 共有 4 &#215; 4 = 16 項測試需求（部分可由共用測試滿足）。</text></generalfeedback>
+  </question>
+</quiz>
