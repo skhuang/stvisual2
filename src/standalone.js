@@ -66975,7 +66975,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "a!c + b!c",
                 "fraction": 0,
-                "feedback": "This is true at 100 and 010, but f itself is false there, and it misses 000 \u2014 it is not \xACf."
+                "feedback": "This is true at 100, 010, and 110, but f itself is false there, and it misses 000 \u2014 it is not \xACf."
               }
             ],
             "generalFeedback": "f = ab + c is false exactly on 000, 010, 100 \u2014 all with c=0 and ab false. So \xACf = !c(!a + !b) = !a!c + !b!c.",
@@ -68211,7 +68211,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "a!c + b!c",
                 "fraction": 0,
-                "feedback": "\u5B83\u5728 100 \u8207 010 \u70BA\u771F\uFF0C\u4F46 f \u672C\u8EAB\u5728\u8A72\u8655\u70BA\u5047\uFF0C\u4E14\u6F0F\u6389 000\u2014\u2014\u4E26\u975E \xACf\u3002"
+                "feedback": "\u5B83\u5728 100\u3001010 \u8207 110 \u70BA\u771F\uFF0C\u4F46 f \u672C\u8EAB\u5728\u8A72\u8655\u70BA\u5047\uFF0C\u4E14\u6F0F\u6389 000\u2014\u2014\u4E26\u975E \xACf\u3002"
               }
             ],
             "generalFeedback": "f = ab + c \u6070\u5728 000\u3001010\u3001100 \u70BA\u5047\u2014\u2014\u7686\u70BA c=0 \u4E14 ab \u70BA\u5047\u3002\u6545 \xACf = !c(!a + !b) = !a!c + !b!c\u3002",
