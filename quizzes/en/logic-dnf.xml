@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <!-- Notation: AND = adjacency (ab), OR = + , NOT = ! prefix (!a).
+       Assignments are written as bit strings in the stated variable order. -->
+  <question type="category">
+    <category><text>$course$/top/Logic DNF Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What is DNF</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate is in <strong>Disjunctive Normal Form (DNF)</strong> when it is written as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A disjunction (OR) of product terms, where each term is a conjunction (AND) of literals</text><feedback><text>Correct — DNF is a "sum of products": an OR of AND-terms.</text></feedback></answer>
+    <answer fraction="0"><text>A conjunction (AND) of sum terms, where each term is a disjunction of literals</text><feedback><text>That is Conjunctive Normal Form (CNF), a product of sums.</text></feedback></answer>
+    <answer fraction="0"><text>A single product term of every variable</text><feedback><text>That is a minterm, only one special case of a DNF.</text></feedback></answer>
+    <answer fraction="0"><text>Any boolean expression, regardless of structure</text><feedback><text>DNF is a specific normal form, not an arbitrary expression.</text></feedback></answer>
+    <generalfeedback><text>DNF (sum of products) writes f as an OR of product terms; each product term is an AND of literals. Notation used here: AND = adjacency (<code>ab</code>), OR = <code>+</code>, NOT = <code>!</code> (e.g. <code>!a</code>).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a literal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In DNF, a <strong>literal</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A variable or its negation (e.g. a or !a)</text><feedback><text>Correct — a literal is one occurrence of a variable, possibly negated.</text></feedback></answer>
+    <answer fraction="0"><text>A conjunction of two or more variables</text><feedback><text>That is a product term, not a single literal.</text></feedback></answer>
+    <answer fraction="0"><text>The whole sum-of-products expression</text><feedback><text>That is the entire DNF, not a literal.</text></feedback></answer>
+    <answer fraction="0"><text>An assignment of values to all variables</text><feedback><text>That is a test point/row, not a literal.</text></feedback></answer>
+    <generalfeedback><text>A literal is a single variable or its negation, e.g. <code>a</code> or <code>!a</code>. Literals are AND-ed together to form product terms.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a product term</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In DNF, a <strong>term</strong> (product term) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A conjunction (AND) of one or more literals, e.g. a!bc</text><feedback><text>Correct — a term is literals AND-ed together.</text></feedback></answer>
+    <answer fraction="0"><text>A disjunction (OR) of literals, e.g. a + b + c</text><feedback><text>That is a sum term (used in CNF), not a DNF product term.</text></feedback></answer>
+    <answer fraction="0"><text>A single variable only</text><feedback><text>A single variable is one valid term, but terms may AND several literals.</text></feedback></answer>
+    <answer fraction="0"><text>The negation of the whole predicate</text><feedback><text>That is ¬f, not a product term.</text></feedback></answer>
+    <generalfeedback><text>A product term is a conjunction of literals, such as <code>a!bc</code>. A DNF is a disjunction (sum) of such product terms.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a minterm</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a predicate over the variables a, b, c, a <strong>minterm</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A product term that contains every variable exactly once (each as a or !a), e.g. a!bc</text><feedback><text>Correct — a minterm mentions all variables and is true at exactly one row.</text></feedback></answer>
+    <answer fraction="0"><text>A product term that omits at least one variable, e.g. ac</text><feedback><text>That is a valid product term, but not a minterm — a minterm names every variable.</text></feedback></answer>
+    <answer fraction="0"><text>A disjunction of all variables, e.g. a + b + c</text><feedback><text>That is a sum term, not a minterm.</text></feedback></answer>
+    <answer fraction="0"><text>The smallest implicant of the predicate</text><feedback><text>Size of an implicant is unrelated; a minterm is defined by naming every variable.</text></feedback></answer>
+    <generalfeedback><text>A minterm is a product term mentioning every variable exactly once; it is true at exactly one assignment (one truth-table row). Over 3 variables, <code>a!bc</code> is a minterm.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is an implicant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A product term i is an <strong>implicant</strong> of predicate f when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Whenever i is true, f is also true (i implies f)</text><feedback><text>Correct — an implicant implies the predicate.</text></feedback></answer>
+    <answer fraction="0"><text>Whenever f is true, i is also true</text><feedback><text>That is the reverse implication and is not what "implicant" means.</text></feedback></answer>
+    <answer fraction="0"><text>i and f are true on exactly the same rows</text><feedback><text>That would make i logically equivalent to f, which is stronger than being an implicant.</text></feedback></answer>
+    <answer fraction="0"><text>i makes f false</text><feedback><text>An implicant makes f true, not false.</text></feedback></answer>
+    <generalfeedback><text>An implicant is a product term that implies f: every assignment satisfying the term also satisfies f. Each term listed in a DNF of f is an implicant of f.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a prime implicant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>prime implicant</strong> of f is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An implicant from which no single literal can be removed while it stays an implicant</text><feedback><text>Correct — it is a "maximal" (irreducible) implicant.</text></feedback></answer>
+    <answer fraction="0"><text>An implicant that contains every variable</text><feedback><text>That describes a minterm; prime implicants are usually smaller.</text></feedback></answer>
+    <answer fraction="0"><text>Any product term appearing in some DNF of f</text><feedback><text>Such a term is an implicant, but it need not be prime (a literal might still be removable).</text></feedback></answer>
+    <answer fraction="0"><text>The disjunction of all implicants of f</text><feedback><text>That is a DNF of f, not a single prime implicant.</text></feedback></answer>
+    <generalfeedback><text>A prime implicant is an implicant that cannot be reduced: dropping any one of its literals yields a term that no longer implies f.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a unique true point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>unique true point (UTP)</strong> for an implicant i of f is an assignment that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Makes i true and every other implicant of f false</text><feedback><text>Correct — at a UTP, i alone is responsible for f being true.</text></feedback></answer>
+    <answer fraction="0"><text>Makes i true, regardless of the other implicants</text><feedback><text>That is just a true point of i; a UTP additionally requires all other implicants to be false.</text></feedback></answer>
+    <answer fraction="0"><text>Makes f false</text><feedback><text>A UTP is a true point: it makes i (and hence f) true.</text></feedback></answer>
+    <answer fraction="0"><text>Is the only assignment making f true</text><feedback><text>"Unique" refers to only one implicant being true, not to f having a single satisfying row.</text></feedback></answer>
+    <generalfeedback><text>A UTP for implicant i is an assignment where i is true and all other implicants are false, so i is the unique implicant accounting for f's truth there.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a near false point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>near false point (NFP)</strong> for a literal L of implicant i is an assignment that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Makes f false, but flipping only literal L makes i (and f) true</text><feedback><text>Correct — it lies one literal away from a true point of i.</text></feedback></answer>
+    <answer fraction="0"><text>Makes f true using implicant i</text><feedback><text>An NFP makes f false, not true.</text></feedback></answer>
+    <answer fraction="0"><text>Makes every literal of i false at once</text><feedback><text>Only the one literal L is "wrong"; the others keep the values that would make i true.</text></feedback></answer>
+    <answer fraction="0"><text>Differs from a true point of i in two or more variables</text><feedback><text>An NFP differs in exactly one variable — the one for literal L — hence "near".</text></feedback></answer>
+    <generalfeedback><text>A near false point for literal L of implicant i makes f false, yet flipping just the variable of L turns i (and f) true. It sits one variable away from making i true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count product terms in ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many product terms does the DNF <code>ab + cd</code> contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — the two terms are ab and cd.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of literals, not the number of terms.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>The <code>+</code> separates two distinct product terms.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>There are exactly two terms, ab and cd.</text></feedback></answer>
+    <generalfeedback><text><code>ab + cd</code> is a disjunction of two product terms, ab and cd, so it has 2 terms (each an implicant of the predicate).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count literals in ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many literal occurrences does the DNF <code>ab + cd</code> contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — a, b, c, d each appear once.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the number of terms, not the number of literals.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>There are only four literal occurrences: a, b, c, d.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Count each literal in each term: ab has 2, cd has 2, total 4.</text></feedback></answer>
+    <generalfeedback><text>Term ab contributes literals a and b; term cd contributes c and d — four literal occurrences in all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a single literal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a single <strong>literal</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[!b]]></text><feedback><text>Correct — !b is a variable's negation, a literal.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[ab]]></text><feedback><text>ab is a product term (two literals AND-ed), not a single literal.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a + b]]></text><feedback><text>a + b is a disjunction of two literals, not a single literal.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a!bc]]></text><feedback><text>a!bc is a product term of three literals.</text></feedback></answer>
+    <generalfeedback><text>A literal is one variable or its negation. <code>!b</code> qualifies; <code>ab</code> and <code>a!bc</code> are product terms and <code>a + b</code> is a disjunction.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count literals in ab + c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many literal occurrences does the DNF <code>ab + c</code> contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — a and b in the first term, c in the second.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the number of terms; there are 3 literal occurrences.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Only a, b, and c appear — three literals.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Count all literals across both terms: 2 + 1 = 3.</text></feedback></answer>
+    <generalfeedback><text>Term ab has literals a and b; term c has literal c — three literal occurrences total.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count variables in ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many distinct variables (clauses) does the predicate <code>ab + cd</code> involve?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — a, b, c, and d.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the number of terms; the predicate uses 4 distinct variables.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 = 2^4 is the number of truth-table rows, not the number of variables.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>There are 4 distinct variables: a, b, c, d.</text></feedback></answer>
+    <generalfeedback><text>The predicate mentions a, b, c, d — four distinct variables, giving 2^4 = 16 truth-table rows.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Prime implicant irreducibility</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A prime implicant is an implicant from which no single literal can be removed while it remains an implicant.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — that irreducibility is exactly what makes an implicant prime.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Prime implicants are precisely the irreducible implicants; removing any literal breaks the implication.</text></feedback></answer>
+    <generalfeedback><text>An implicant is prime when it is minimal: dropping any one literal produces a term that no longer implies f.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DNF terms are implicants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every product term appearing in a DNF of f is an implicant of f.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — if a term is true, that whole disjunct is true, so f is true; the term implies f.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Each disjunct, when true, forces the OR (and thus f) to be true, so every DNF term implies f.</text></feedback></answer>
+    <generalfeedback><text>Because f is the OR of its terms, any term being true makes f true. Hence every term of a DNF of f is (by definition) an implicant of f.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic DNF Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>UTP for ab in ab + c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + c</code> (variable order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>ab</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>110 (a=1, b=1, c=0)</text><feedback><text>Correct — ab is true and c is false, so ab is the only true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>111 (a=1, b=1, c=1)</text><feedback><text>At 111 the implicant c is also true, so ab is not the unique true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>100 (a=1, b=0, c=0)</text><feedback><text>Here ab is false (b=0), so this is not even a true point of ab.</text></feedback></answer>
+    <answer fraction="0"><text>001 (a=0, b=0, c=1)</text><feedback><text>ab is false here; this is a true point of c, not of ab.</text></feedback></answer>
+    <generalfeedback><text>A UTP for ab needs ab true and every other implicant (here c) false: a=1, b=1, c=0, i.e. 110. It is the only UTP for ab in this predicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UTP for c in ab + c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>c</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>001 (a=0, b=0, c=1)</text><feedback><text>Correct — c is true and ab is false, so c is the only true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>111 (a=1, b=1, c=1)</text><feedback><text>Here ab is also true, so c is not the unique true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>110 (a=1, b=1, c=0)</text><feedback><text>c is false here (c=0); this is a true point of ab, not of c.</text></feedback></answer>
+    <answer fraction="0"><text>000 (a=0, b=0, c=0)</text><feedback><text>f is false here, so it is not a true point at all.</text></feedback></answer>
+    <generalfeedback><text>c has three UTPs — 001, 011, 101 — each with c true and ab false. Of the options, only 001 qualifies (111 also makes ab true).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>NFP for literal a of ab in ab + c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>a</code> of the implicant <code>ab</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>010 (a=0, b=1, c=0)</text><feedback><text>Correct — f is false here, and flipping a to 1 gives 110, making ab (and f) true.</text></feedback></answer>
+    <answer fraction="0"><text>100 (a=1, b=0, c=0)</text><feedback><text>f is false here, but flipping a gives 000, where ab is still false (b=0). Not an NFP for a.</text></feedback></answer>
+    <answer fraction="0"><text>110 (a=1, b=1, c=0)</text><feedback><text>f is true here (ab holds), so it is a true point, not a near false point.</text></feedback></answer>
+    <answer fraction="0"><text>011 (a=0, b=1, c=1)</text><feedback><text>f is true here (c holds), so it cannot be a near false point.</text></feedback></answer>
+    <generalfeedback><text>An NFP for literal a of ab needs f false and the flip of a alone to make ab true. That requires b=1, c=0, a=0: assignment 010. Flipping a yields 110 with ab true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UTP vs NFP truth values</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At a unique true point the predicate f is ____, and at a near false point f is ____.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true; false</text><feedback><text>Correct — a UTP is a true point of f; an NFP is a false point of f.</text></feedback></answer>
+    <answer fraction="0"><text>false; true</text><feedback><text>Reversed — the UTP makes f true and the NFP makes f false.</text></feedback></answer>
+    <answer fraction="0"><text>true; true</text><feedback><text>An NFP makes f false, not true.</text></feedback></answer>
+    <answer fraction="0"><text>false; false</text><feedback><text>A UTP makes f true, not false.</text></feedback></answer>
+    <generalfeedback><text>By definition, a UTP makes its implicant (hence f) true, while an NFP makes f false but is one literal flip away from making an implicant true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime implicants of ab + a!b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>f = ab + a!b</code>, which simplifies to <code>a</code>. Which statement is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Neither ab nor a!b is a prime implicant, because in each the second literal can be dropped (a alone still implies f)</text><feedback><text>Correct — since f = a, the term a is an implicant, so ab and a!b are both reducible.</text></feedback></answer>
+    <answer fraction="0"><text>Both ab and a!b are prime implicants</text><feedback><text>Neither is prime: removing b (or !b) leaves a, which still implies f.</text></feedback></answer>
+    <answer fraction="0"><text>Only ab is a prime implicant</text><feedback><text>ab is reducible to a, so it is not prime.</text></feedback></answer>
+    <answer fraction="0"><text>a is not an implicant of f</text><feedback><text>Since f = a, the term a implies f — it is in fact the only prime implicant.</text></feedback></answer>
+    <generalfeedback><text>f = ab + a!b = a. The single prime implicant is a. Both listed terms carry a removable literal, so neither is prime.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of UTPs UTPC requires for ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + cd</code>, how many unique true points must Unique True Point Coverage (UTPC) require (one per implicant)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one UTP for ab and one for cd.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the literal count; UTPC needs one UTP per implicant, and there are 2 implicants.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Each implicant needs its own UTP, and no single point can be a UTP for both.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the number of true rows; UTPC requires one UTP per implicant, i.e. 2.</text></feedback></answer>
+    <generalfeedback><text>UTPC requires a UTP for each implicant. With two implicants (ab, cd), it requires 2 unique true points; since a UTP makes only its own implicant true, one test cannot serve both.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of NFPs NFPC requires for ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + cd</code>, how many near false points must Near False Point Coverage (NFPC) require (one per literal of each implicant)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — one NFP for each of the four literals a, b, c, d.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the implicant count; NFPC requires one NFP per literal, and there are 4 literals.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>There are only 4 literal occurrences, so 4 NFPs are required.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 = 2^4 is the row count, not the number of NFPs required.</text></feedback></answer>
+    <generalfeedback><text>NFPC requires a near false point for each literal of each implicant. Terms ab and cd have four literals total (a, b, c, d), so 4 NFPs are required.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UTP for !ab in !ab + ac</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>!ab</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>010 (a=0, b=1, c=0)</text><feedback><text>Correct — !ab is true (a=0, b=1) and ac is false (a=0), so !ab is the unique true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>110 (a=1, b=1, c=0)</text><feedback><text>!ab is false here because a=1, so !a is false.</text></feedback></answer>
+    <answer fraction="0"><text>111 (a=1, b=1, c=1)</text><feedback><text>Here ac is true and !ab is false (a=1); not a UTP for !ab.</text></feedback></answer>
+    <answer fraction="0"><text>001 (a=0, b=0, c=1)</text><feedback><text>!ab is false here because b=0.</text></feedback></answer>
+    <generalfeedback><text>!ab needs a=0 and b=1; to keep ac false we need a=0 (already) — so both 010 and 011 are UTPs. Of the options only 010 qualifies.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>NFP for literal c of ac in !ab + ac</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>c</code> of the implicant <code>ac</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100 (a=1, b=0, c=0)</text><feedback><text>Correct — f is false here, and flipping c to 1 gives 101, making ac (and f) true.</text></feedback></answer>
+    <answer fraction="0"><text>101 (a=1, b=0, c=1)</text><feedback><text>f is true here (ac holds), so it is a true point, not a near false point.</text></feedback></answer>
+    <answer fraction="0"><text>000 (a=0, b=0, c=0)</text><feedback><text>f is false, but flipping c gives 001, where ac is still false (a=0). Not an NFP for c.</text></feedback></answer>
+    <answer fraction="0"><text>010 (a=0, b=1, c=0)</text><feedback><text>f is true here (!ab holds), so it cannot be a near false point.</text></feedback></answer>
+    <generalfeedback><text>An NFP for c of ac needs f false and flipping c alone to make ac true, i.e. a=1 and c=0. With a=1, !ab is false; b may be 0 or 1. 100 works: flipping c yields 101 with ac true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Overlapping implicants in ac + bc</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ac + bc</code> (order a,b,c), at the assignment 111 (a=1, b=1, c=1), how many of the two implicants are true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — both ac and bc are true</text><feedback><text>Correct — with a=b=c=1, both terms hold, so 111 is not a unique true point for either.</text></feedback></answer>
+    <answer fraction="0"><text>1 — only ac is true</text><feedback><text>bc is also true at 111 (b=1, c=1).</text></feedback></answer>
+    <answer fraction="0"><text>0 — neither is true</text><feedback><text>Both terms are true; f is true at 111.</text></feedback></answer>
+    <answer fraction="0"><text>It depends on the variable order</text><feedback><text>Truth values do not depend on the order in which variables are written.</text></feedback></answer>
+    <generalfeedback><text>At 111 both ac and bc are true, so 111 is a shared true point — it cannot be a UTP for either implicant. The overlap is why unique true points must be chosen carefully.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Single test for Implicant Coverage of ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Can a <strong>single</strong> test satisfy Implicant Coverage (IC) for <code>f = ab + cd</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — the assignment 1111 makes both ab and cd true at once</text><feedback><text>Correct — IC only asks that each implicant be true in some test, and 1111 makes both true.</text></feedback></answer>
+    <answer fraction="0"><text>No — IC always needs one test per implicant</text><feedback><text>That is UTPC. Plain IC can reuse a single test if it makes every implicant true.</text></feedback></answer>
+    <answer fraction="0"><text>No — a single test can never make two product terms true</text><feedback><text>1111 makes both ab and cd true simultaneously.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, but only under Combinatorial Coverage</text><feedback><text>Feasibility of one test for IC does not depend on any other criterion.</text></feedback></answer>
+    <generalfeedback><text>IC requires each implicant to be made true by some test — the same test may serve several. At 1111 both ab and cd are true, so one test satisfies IC. UTPC, by contrast, forbids this by demanding each true point be unique to one implicant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UTP for a in a + bc</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = a + bc</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>a</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100 (a=1, b=0, c=0)</text><feedback><text>Correct — a is true and bc is false, so a is the unique true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>111 (a=1, b=1, c=1)</text><feedback><text>bc is also true here, so a is not the unique true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>011 (a=0, b=1, c=1)</text><feedback><text>a is false here; this is a true point of bc, not of a.</text></feedback></answer>
+    <answer fraction="0"><text>000 (a=0, b=0, c=0)</text><feedback><text>f is false here, so it is not a true point.</text></feedback></answer>
+    <generalfeedback><text>a has UTPs 100, 101, 110 (a true, bc false). 111 fails because bc is also true. Of the options, 100 is the UTP.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Is a an implicant of ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The single literal <code>a</code> is an implicant of <code>f = ab + cd</code>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — at a=1, b=0, c=0, d=0 (1000) the term a is true but f is false, so a does not imply f.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Counterexample 1000: a is true yet f = ab + cd is false, so a does not imply f.</text></feedback></answer>
+    <generalfeedback><text>For a to be an implicant, every assignment with a=1 must make f true. But 1000 has a=1 and f=0, so a is not an implicant of ab + cd.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Non-unique true point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An assignment at which implicant i is true but at least one <em>other</em> implicant of f is also true is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A true point of f, but not a unique true point for i</text><feedback><text>Correct — uniqueness fails because more than one implicant is true.</text></feedback></answer>
+    <answer fraction="0"><text>A unique true point for i</text><feedback><text>A UTP requires all other implicants to be false; here another one is true.</text></feedback></answer>
+    <answer fraction="0"><text>A near false point for i</text><feedback><text>An NFP makes f false; this point makes f true.</text></feedback></answer>
+    <answer fraction="0"><text>Not a true point of f at all</text><feedback><text>Since i is true, f is true, so it is a true point — just not a unique one.</text></feedback></answer>
+    <generalfeedback><text>It is a true point of f (i is true), but not a UTP for i because another implicant is simultaneously true, so i is not the unique cause of f's truth.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Truth value of f at a near false point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At a near false point, the predicate f must evaluate to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — an NFP is a false point of f that is one literal flip away from a true point.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>That would be a true point; an NFP makes f false.</text></feedback></answer>
+    <answer fraction="0"><text>either true or false, depending on the implicant</text><feedback><text>By definition an NFP always makes f false.</text></feedback></answer>
+    <answer fraction="0"><text>undefined</text><feedback><text>f is a total boolean function; it is defined at every assignment.</text></feedback></answer>
+    <generalfeedback><text>A near false point makes f false; flipping the one targeted literal turns the implicant (and f) true. The "false" value at the NFP is essential to the pairing used by CUTPNFP.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic DNF Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>CUTPNFP pair for literal a of ab</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + cd</code> (order a,b,c,d), a CUTPNFP pair for literal <code>a</code> of implicant <code>ab</code> is a unique true point and a near false point that differ in exactly variable a. Which pair works?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UTP 1100 and NFP 0100</text><feedback><text>Correct — they differ only in a; 1100 makes ab (only) true, 0100 makes f false and flips to true when a is set.</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1100 and NFP 1000</text><feedback><text>These differ in variable b, not a — that is the pair for literal b.</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1100 and NFP 0011</text><feedback><text>These differ in multiple variables, so they do not isolate literal a.</text></feedback></answer>
+    <answer fraction="0"><text>UTP 0011 and NFP 0100</text><feedback><text>0011 is a UTP for cd, not for ab, so it does not pair with an NFP for literal a of ab.</text></feedback></answer>
+    <generalfeedback><text>For literal a of ab: UTP 1100 (ab uniquely true) and NFP 0100 (f false) differ only in a; setting a at the NFP restores ab and f. This isolates a's independent effect.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CUTPNFP pair for literal b of ab</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + cd</code> (order a,b,c,d), which UTP/NFP pair isolates literal <code>b</code> of implicant <code>ab</code> (differ in exactly variable b)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UTP 1100 and NFP 1000</text><feedback><text>Correct — they differ only in b; 1000 makes f false, and setting b restores ab and f.</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1100 and NFP 0100</text><feedback><text>These differ in a, not b — that is the pair for literal a.</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1110 and NFP 1000</text><feedback><text>1110 and 1000 differ in variables b and c, so they do not isolate b alone.</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1000 and NFP 1100</text><feedback><text>1000 makes f false, so it is not a UTP; the roles are also reversed.</text></feedback></answer>
+    <generalfeedback><text>For literal b of ab: UTP 1100 and NFP 1000 differ only in b. At 1000 f is false; setting b to 1 restores ab (and f), demonstrating b's independent effect.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of CUTPNFP pairs for ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + cd</code>, how many corresponding (UTP, NFP) pairs does CUTPNFP require — one per literal of each implicant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — one pair for each of the four literals a, b, c, d.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 counts implicants; CUTPNFP pairs are per literal, so there are 4.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>There are 4 literals, hence 4 pairs, not 8.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the number of true rows, unrelated to the pair count.</text></feedback></answer>
+    <generalfeedback><text>CUTPNFP forms one UTP/NFP pair per literal of each implicant. With literals a, b (in ab) and c, d (in cd), that is 4 pairs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why 111 is not a UTP in ac + bc</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ac + bc</code> (order a,b,c), why is 111 not a unique true point for the implicant <code>ac</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because the other implicant bc is also true at 111</text><feedback><text>Correct — with b=1, c=1 the term bc is true too, so ac is not the unique true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>Because ac is false at 111</text><feedback><text>ac is true at 111 (a=1, c=1); the problem is that bc is true as well.</text></feedback></answer>
+    <answer fraction="0"><text>Because f is false at 111</text><feedback><text>f is true at 111; it just is not uniquely due to ac.</text></feedback></answer>
+    <answer fraction="0"><text>Because 111 is a near false point</text><feedback><text>111 makes f true, so it is not a near false point.</text></feedback></answer>
+    <generalfeedback><text>At 111 both ac and bc are true, so ac is not the sole cause of f's truth. The unique true point for ac is 101 (ac true, bc false).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The unique true point for ac in ac + bc</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ac + bc</code> (order a,b,c), which assignment is the (only) unique true point for the implicant <code>ac</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>101 (a=1, b=0, c=1)</text><feedback><text>Correct — ac is true and bc is false (b=0), so ac is the unique true implicant.</text></feedback></answer>
+    <answer fraction="0"><text>111 (a=1, b=1, c=1)</text><feedback><text>bc is also true here, so ac is not unique.</text></feedback></answer>
+    <answer fraction="0"><text>100 (a=1, b=0, c=0)</text><feedback><text>ac is false here (c=0), so f is false.</text></feedback></answer>
+    <answer fraction="0"><text>001 (a=0, b=0, c=1)</text><feedback><text>ac is false here (a=0); f is false.</text></feedback></answer>
+    <generalfeedback><text>ac is true only when a=1 and c=1; to make bc false we need b=0. That forces 101 — the sole unique true point for ac.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DNF of not-f for ab + c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>MUTPC/MNFPC also work with the DNF of <code>¬f</code>. For <code>f = ab + c</code>, which is a correct DNF of <code>¬f</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[!a!c + !b!c]]></text><feedback><text>Correct — ¬f is true exactly when c=0 and not(ab), i.e. !c(!a + !b).</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[!a + !b + !c]]></text><feedback><text>This is true at 110 (where f is true), so it is not ¬f.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[!a!b!c]]></text><feedback><text>This covers only 000; ¬f is also true at 010 and 100.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a!c + b!c]]></text><feedback><text>This is true at 100, 010, and 110 — but at 110 f is true (so ¬f must be false there), and it misses 000 where f is false; so it is not ¬f.</text></feedback></answer>
+    <generalfeedback><text>f = ab + c is false exactly on 000, 010, 100 — all with c=0 and ab false. So ¬f = !c(!a + !b) = !a!c + !b!c.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prime implicants of not-f for ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + cd</code>, the negation is <code>¬f = (!a + !b)(!c + !d)</code>. In minimal DNF, how many prime implicants does ¬f have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — expanding gives !a!c + !a!d + !b!c + !b!d, four prime implicants.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>The product (!a + !b)(!c + !d) expands to four product terms, not two.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>¬f is not a single product term; it expands to four.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the number of true rows of f; ¬f has 9 true rows and 4 prime implicants.</text></feedback></answer>
+    <generalfeedback><text>Distributing (!a + !b)(!c + !d) yields !a!c + !a!d + !b!c + !b!d — four prime implicants, each a valid implicant of ¬f. MUTPC would require UTPs for the implicants of both f and ¬f.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>True rows of ab + c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over the 8 assignments of a,b,c, how many make <code>f = ab + c</code> true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — the 4 rows with c=1, plus 110 (a=1,b=1,c=0).</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>c=1 already gives 4 true rows; 110 adds a fifth.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount: exactly 5 rows are true (001,011,101,110,111).</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Too few — c=1 alone yields 4 true rows.</text></feedback></answer>
+    <generalfeedback><text>f is true whenever c=1 (4 rows) or ab=1 (adds 110). The true rows are 001, 011, 101, 110, 111 — five in all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>True rows of ab + cd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over the 16 assignments of a,b,c,d, how many make <code>f = ab + cd</code> true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — 3 rows with ab (cd false) + 3 with cd (ab false) + 1 with both (1111) = 7.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>Adding the two blocks of 4 double-counts 1111; the true count is 7.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — there are 7 true rows.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>ab alone gives 4 rows and cd gives 4 more (overlapping in 1111), for 7 distinct rows.</text></feedback></answer>
+    <generalfeedback><text>ab is true on 4 rows and cd on 4 rows; they share only 1111, so by inclusion–exclusion 4 + 4 − 1 = 7 assignments make f true.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>UTPC alone and predicate coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test suite that satisfies only Unique True Point Coverage (UTPC) is guaranteed to make f evaluate to false in at least one test.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — every UTP makes its implicant (and f) true, so a UTPC-only suite may never make f false.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>All unique true points make f true; nothing in UTPC forces a false point, so f need never be false.</text></feedback></answer>
+    <generalfeedback><text>Each UTP is a true point of f. A suite consisting solely of UTPs makes f true in every test, so UTPC alone does not guarantee a false evaluation — it does not subsume Predicate Coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>NFPC alone and predicate coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test suite that satisfies only Near False Point Coverage (NFPC) is guaranteed to make f evaluate to true in at least one test.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — every near false point makes f false, so an NFPC-only suite may never make f true.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>All near false points make f false; nothing in NFPC forces a true point, so f need never be true.</text></feedback></answer>
+    <generalfeedback><text>Each NFP is a false point of f. A suite of only NFPs makes f false in every test, so NFPC alone does not guarantee a true evaluation — it does not subsume Predicate Coverage on its own.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CUTPNFP subsumes predicate coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because CUTPNFP includes a unique true point (f true) and a near false point (f false) for each literal, any CUTPNFP-satisfying suite makes f both true and false — so it subsumes Predicate Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the UTPs give a true evaluation and the NFPs give a false one, covering both values of f.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>CUTPNFP requires both UTPs (f true) and NFPs (f false), so f necessarily takes both values.</text></feedback></answer>
+    <generalfeedback><text>CUTPNFP pairs a UTP (f true) with an NFP (f false) for every literal. The suite therefore contains at least one true and one false evaluation of f, satisfying Predicate Coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>UTPC subsumes implicant coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Unique True Point Coverage (UTPC) subsumes Implicant Coverage (IC).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a UTP for implicant i makes i true, so covering a UTP for each implicant also makes each implicant true, which is exactly IC.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Every UTP makes its own implicant true; requiring one per implicant satisfies IC, so UTPC subsumes IC.</text></feedback></answer>
+    <generalfeedback><text>IC requires each implicant to be made true by some test. A UTP for implicant i makes i true, so a UTPC suite (a UTP per implicant) automatically satisfies IC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of CUTPNFP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a CUTPNFP (UTP, NFP) pair for a literal L demonstrate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That toggling only L flips f — L's independent effect on the outcome (the DNF analog of MC/DC)</text><feedback><text>Correct — the pair differs only in L and f changes, showing L independently affects f.</text></feedback></answer>
+    <answer fraction="0"><text>That all 2^n combinations of variables are exercised</text><feedback><text>That is Combinatorial Coverage, far more than CUTPNFP requires.</text></feedback></answer>
+    <answer fraction="0"><text>That the predicate is always true</text><feedback><text>The NFP of the pair makes f false, so f is not always true.</text></feedback></answer>
+    <answer fraction="0"><text>That L never affects the outcome</text><feedback><text>The pair shows exactly the opposite: L does affect f.</text></feedback></answer>
+    <generalfeedback><text>A CUTPNFP pair is a UTP and an NFP differing only in literal L; f is true at one and false at the other, so flipping L alone flips f. This mirrors MC/DC's independent-effect requirement in DNF form.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Missing near false point in ab + a!b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>f = ab + a!b</code> (which equals <code>a</code>), literal <code>b</code> of the implicant <code>ab</code> has <strong>no</strong> near false point. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Any point where flipping b would make ab true already has a=1, so f = a is already true there — f is never false at such a point</text><feedback><text>Correct — the required "f false" condition cannot hold, so no NFP for b exists.</text></feedback></answer>
+    <answer fraction="0"><text>Because b does not appear in the predicate</text><feedback><text>b does appear in the term ab; the issue is that ab is redundant (f = a).</text></feedback></answer>
+    <answer fraction="0"><text>Because ab has no unique true point</text><feedback><text>ab does have a UTP (11); the missing NFP is a separate consequence of redundancy.</text></feedback></answer>
+    <answer fraction="0"><text>Because f is a tautology</text><feedback><text>f = a is not a tautology; it is false whenever a=0.</text></feedback></answer>
+    <generalfeedback><text>An NFP for b of ab needs f false while flipping b makes ab true — but making ab true by flipping b requires a=1, and with a=1 f = a is already true. No assignment satisfies both, so this NFP is infeasible: NFPC can be infeasible for a non-prime (redundant) implicant.</text></generalfeedback>
+  </question>
+</quiz>

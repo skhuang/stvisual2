@@ -12639,6 +12639,4998 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "logic-active-clause": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Determination as an XOR condition",
+          "text": "<p>Fix the minor clauses at some assignment. Major clause c <strong>determines</strong> predicate p exactly when:</p>",
+          "answers": [
+            {
+              "text": "p|<sub>c=T</sub> XOR p|<sub>c=F</sub> is true (evaluating with those minor values)",
+              "fraction": 100,
+              "feedback": "Correct — the two evaluations of p differ, so toggling c alone toggles p."
+            },
+            {
+              "text": "p|<sub>c=T</sub> AND p|<sub>c=F</sub> is true",
+              "fraction": 0,
+              "feedback": "That would require p true in both cases, meaning c does NOT change p."
+            },
+            {
+              "text": "p|<sub>c=T</sub> is true",
+              "fraction": 0,
+              "feedback": "Determination is about the two values differing, not about p being true when c is true."
+            },
+            {
+              "text": "c and p have the same truth value",
+              "fraction": 0,
+              "feedback": "That is not the definition; determination compares p at c=T versus c=F."
+            }
+          ],
+          "generalFeedback": "With the minor clauses held fixed, c determines p iff evaluating p with c=true and with c=false gives different results, i.e. p|&#8853; p|= true. This XOR test is the operational definition of determination.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is the major clause",
+          "text": "<p>In an active-clause coverage requirement, the <strong>major clause</strong> is:</p>",
+          "answers": [
+            {
+              "text": "The clause whose determination of the predicate is being tested",
+              "fraction": 100,
+              "feedback": "Correct — we focus on one clause at a time and require it to determine p."
+            },
+            {
+              "text": "The clause that appears first (leftmost) in the predicate",
+              "fraction": 0,
+              "feedback": "Position is irrelevant; the major clause is whichever one we are currently testing."
+            },
+            {
+              "text": "The clause with the most occurrences in the predicate",
+              "fraction": 0,
+              "feedback": "Frequency does not define the major clause."
+            },
+            {
+              "text": "Any clause that is always true",
+              "fraction": 0,
+              "feedback": "A constant clause could never determine p; the major clause is the one under test."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria pick one clause as the major clause (c_i) and require it to determine the predicate; every other clause is a minor clause whose value is chosen to enable that determination.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What are the minor clauses",
+          "text": "<p>When clause c_i is the major clause, the <strong>minor clauses</strong> are:</p>",
+          "answers": [
+            {
+              "text": "All the other clauses, whose values are chosen so that c_i determines the predicate",
+              "fraction": 100,
+              "feedback": "Correct — they are set to let the major clause control the outcome."
+            },
+            {
+              "text": "The clauses that also determine the predicate at the same time",
+              "fraction": 0,
+              "feedback": "Minor clauses are simply the non-major clauses; they need not determine p."
+            },
+            {
+              "text": "The clauses that are removed from the predicate",
+              "fraction": 0,
+              "feedback": "They stay in the predicate; only their values are fixed."
+            },
+            {
+              "text": "The clauses evaluated to false",
+              "fraction": 0,
+              "feedback": "Minor clauses may be true or false; the label has nothing to do with their value."
+            }
+          ],
+          "generalFeedback": "For each choice of major clause, the remaining clauses are the minor clauses. Their values are set (per the criterion's rules) so that toggling the major clause toggles the predicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active clause at an assignment",
+          "text": "<p>A clause is said to be <strong>active</strong> at a given test (assignment) when:</p>",
+          "answers": [
+            {
+              "text": "It determines the predicate there — flipping it alone would change the predicate's value",
+              "fraction": 100,
+              "feedback": "Correct — an active clause is one that determines p at that row."
+            },
+            {
+              "text": "It is evaluated to true at that test",
+              "fraction": 0,
+              "feedback": "Being true is unrelated to being active; an active clause can be true or false."
+            },
+            {
+              "text": "It is the only clause in the predicate",
+              "fraction": 0,
+              "feedback": "Predicates with many clauses still have active clauses at particular rows."
+            },
+            {
+              "text": "It is masked by the other clauses",
+              "fraction": 0,
+              "feedback": "A masked clause is the opposite of active — it does not determine p."
+            }
+          ],
+          "generalFeedback": "A clause is active at a test when it determines the predicate there; the active-clause criteria are named for requiring each clause to be active in the tests that exercise it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"General\" means in GACC",
+          "text": "<p>In <strong>General</strong> Active Clause Coverage (GACC), the word \"General\" refers to the fact that:</p>",
+          "answers": [
+            {
+              "text": "The minor-clause values may differ between the major-clause-true and major-clause-false tests",
+              "fraction": 100,
+              "feedback": "Correct — GACC is the most permissive about the minor clauses."
+            },
+            {
+              "text": "The minor-clause values must be identical across the pair",
+              "fraction": 0,
+              "feedback": "That restriction is RACC, not GACC."
+            },
+            {
+              "text": "The predicate must take both values across the pair",
+              "fraction": 0,
+              "feedback": "That extra correlation requirement is CACC."
+            },
+            {
+              "text": "All 2^n clause combinations are covered",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            }
+          ],
+          "generalFeedback": "GACC only requires that the major clause determine p and take both values; it places no constraint linking the minor clauses of the two tests, so they may take any (possibly different) values.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"Correlated\" means in CACC",
+          "text": "<p>In <strong>Correlated</strong> Active Clause Coverage (CACC), what is \"correlated\" with the major clause changing?</p>",
+          "answers": [
+            {
+              "text": "The value of the predicate p — it must take both true and false across the pair",
+              "fraction": 100,
+              "feedback": "Correct — the major clause's flip is correlated with a change in p."
+            },
+            {
+              "text": "The values of the minor clauses, which must stay identical",
+              "fraction": 0,
+              "feedback": "Requiring identical minor clauses is RACC."
+            },
+            {
+              "text": "The number of true clauses in the predicate",
+              "fraction": 0,
+              "feedback": "CACC says nothing about counting true clauses."
+            },
+            {
+              "text": "The execution time of the two tests",
+              "fraction": 0,
+              "feedback": "Correlation here is about truth values, not performance."
+            }
+          ],
+          "generalFeedback": "CACC requires that, in the pair of tests for each major clause, the predicate p be true in one and false in the other — the change in p is correlated with the flip of the major clause.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"Restricted\" means in RACC",
+          "text": "<p>In <strong>Restricted</strong> Active Clause Coverage (RACC), what is restricted?</p>",
+          "answers": [
+            {
+              "text": "The minor clauses must hold identical values in the major-clause-true and major-clause-false tests",
+              "fraction": 100,
+              "feedback": "Correct — RACC pins the minor clauses to the same values across the pair."
+            },
+            {
+              "text": "The number of clauses is restricted to at most three",
+              "fraction": 0,
+              "feedback": "RACC has no limit on the number of clauses."
+            },
+            {
+              "text": "Only the predicate value is restricted to true",
+              "fraction": 0,
+              "feedback": "RACC does not fix p to true; the major clause still determines p."
+            },
+            {
+              "text": "The major clause is restricted to being false",
+              "fraction": 0,
+              "feedback": "The major clause must take both values, not be restricted to false."
+            }
+          ],
+          "generalFeedback": "RACC restricts the minor clauses to identical values across the two tests of each major clause — the strictest of the three active-clause criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test requirements per clause under ACC",
+          "text": "<p>Active Clause Coverage generates, for each clause chosen as the major clause, how many test requirements?</p>",
+          "answers": [
+            {
+              "text": "2 — one with the major clause true and one with it false (both determining p)",
+              "fraction": 100,
+              "feedback": "Correct — each clause yields a true/false determining pair."
+            },
+            {
+              "text": "1 — a single test where the clause determines p",
+              "fraction": 0,
+              "feedback": "The clause must be tested both true and false while determining p, so two requirements."
+            },
+            {
+              "text": "2^n — all combinations of the other clauses",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, not ACC."
+            },
+            {
+              "text": "n — one per other clause",
+              "fraction": 0,
+              "feedback": "Each major clause gives exactly two requirements, regardless of n."
+            }
+          ],
+          "generalFeedback": "For each major clause, ACC requires two tests in which that clause determines the predicate: one with the clause true and one with it false. With n clauses that is 2n requirements (before merging shared tests).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination in a AND b",
+          "text": "<p>For predicate p = a &#8743; b, clause a determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b = true",
+              "fraction": 100,
+              "feedback": "Correct — with b true, p equals a, so flipping a flips p."
+            },
+            {
+              "text": "b = false",
+              "fraction": 0,
+              "feedback": "With b false, p is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "a = true",
+              "fraction": 0,
+              "feedback": "Determination for a depends on the minor clause b, not on a's own value."
+            },
+            {
+              "text": "Never, since it is a conjunction",
+              "fraction": 0,
+              "feedback": "a does determine p in a conjunction — precisely when the other clause is true."
+            }
+          ],
+          "generalFeedback": "For a conjunction p = a &#8743; b, clause a determines p exactly when the other clause b is true; then p mirrors a.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination in a OR b",
+          "text": "<p>For predicate p = a &#8744; b, clause a determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b = false",
+              "fraction": 100,
+              "feedback": "Correct — with b false, p equals a, so flipping a flips p."
+            },
+            {
+              "text": "b = true",
+              "fraction": 0,
+              "feedback": "With b true, p is true regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "a = false",
+              "fraction": 0,
+              "feedback": "Determination for a depends on the minor clause b, not on a's own value."
+            },
+            {
+              "text": "Always, for a disjunction",
+              "fraction": 0,
+              "feedback": "a fails to determine p when b is true."
+            }
+          ],
+          "generalFeedback": "For a disjunction p = a &#8744; b, clause a determines p exactly when the other clause b is false; then p mirrors a. (Dually, in a &#8743; b, a determines p when b is true.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum CACC test count formula",
+          "text": "<p>For a predicate with n independent clauses, the minimum number of tests that can satisfy CACC (MC/DC) is:</p>",
+          "answers": [
+            {
+              "text": "n + 1",
+              "fraction": 100,
+              "feedback": "Correct — well-chosen tests can be shared across clauses, giving a minimum of n+1."
+            },
+            {
+              "text": "2n",
+              "fraction": 0,
+              "feedback": "2n is the upper bound (a fresh pair per clause), not the minimum."
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, far more than CACC needs."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 suffices only for Predicate Coverage, not CACC."
+            }
+          ],
+          "generalFeedback": "Because a single test can serve as the determining test for several clauses at once, CACC/MC-DC for n independent clauses needs a minimum of n+1 tests (and at most 2n).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC equals which active-clause criterion",
+          "text": "<p>The industry criterion MC/DC (as in DO-178C) corresponds most closely to which active-clause criterion?</p>",
+          "answers": [
+            {
+              "text": "Correlated Active Clause Coverage (CACC)",
+              "fraction": 100,
+              "feedback": "Correct — generic MC/DC requires each clause to independently affect the outcome, i.e. CACC."
+            },
+            {
+              "text": "General Active Clause Coverage (GACC)",
+              "fraction": 0,
+              "feedback": "GACC does not require p to change with the clause, so it is weaker than MC/DC."
+            },
+            {
+              "text": "Combinatorial Coverage (CoC)",
+              "fraction": 0,
+              "feedback": "CoC requires all 2^n combinations; MC/DC needs only about n+1 tests."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC only checks the whole decision, far weaker than MC/DC."
+            }
+          ],
+          "generalFeedback": "Generic MC/DC is equivalent to CACC: each clause must be shown to independently affect the decision's outcome. (Strict \"unique-cause\" MC/DC corresponds to RACC.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ACC needs both determining values",
+          "text": "<p>Active Clause Coverage requires each clause, while it determines the predicate, to be tested both true and false.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each major clause gets a determining-true and a determining-false test."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ACC's whole point is a true/false pair for each clause while it is active (determining p)."
+            }
+          ],
+          "generalFeedback": "For every clause chosen as the major clause, ACC demands two tests in which the clause determines p: one with the clause true and one with it false."
+        },
+        {
+          "type": "multichoice",
+          "name": "Family of GACC, CACC, RACC",
+          "text": "<p>GACC, CACC, and RACC together form which family of logic-coverage criteria?</p>",
+          "answers": [
+            {
+              "text": "The active-clause criteria (each clause must determine the predicate)",
+              "fraction": 100,
+              "feedback": "Correct — all three require the major clause to be active (to determine p)."
+            },
+            {
+              "text": "The inactive-clause criteria (each clause must NOT determine the predicate)",
+              "fraction": 0,
+              "feedback": "That is the GICC/RICC family, the complement of these."
+            },
+            {
+              "text": "The DNF (implicant-based) criteria",
+              "fraction": 0,
+              "feedback": "Those are criteria such as UTPC and CUTPNFP, not the active-clause family."
+            },
+            {
+              "text": "The combinatorial criteria",
+              "fraction": 0,
+              "feedback": "Combinatorial Coverage is a single criterion, not this family."
+            }
+          ],
+          "generalFeedback": "GACC, CACC, and RACC are the three active-clause coverage criteria: each requires the major clause to determine (be active in) the predicate, differing only in how the minor clauses and p are constrained.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Determining clause is called active",
+          "text": "<p>A clause that determines the predicate at a given test is called an <em>active</em> clause at that test.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — \"active\" is exactly the term for a clause that determines p at that assignment."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A determining clause is active; a non-determining (masked) clause is inactive."
+            }
+          ],
+          "generalFeedback": "Determination and activeness are the same notion: a clause is active at a test precisely when it determines the predicate there. This is why GACC/CACC/RACC are the \"active-clause\" criteria."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Minor values for a in (a OR b) AND c",
+          "text": "<p>For predicate p = (a &#8744; b) &#8743; c, which minor-clause values make clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "b = false and c = true",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to a, so flipping a flips p."
+            },
+            {
+              "text": "b = true and c = true",
+              "fraction": 0,
+              "feedback": "With b true, a &#8744; b is true regardless of a, so a is masked."
+            },
+            {
+              "text": "b = false and c = false",
+              "fraction": 0,
+              "feedback": "With c false, p is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "Both conditions block a: c false forces p false and b true masks a."
+            }
+          ],
+          "generalFeedback": "a determines the disjunction a &#8744; b only when b = false, and the disjunction determines p = (&#8230;) &#8743; c only when c = true. So a determines p exactly when b = false and c = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for b in a AND (b OR c)",
+          "text": "<p>For predicate p = a &#8743; (b &#8744; c), which minor-clause values make clause b <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "a = true and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to b, so flipping b flips p."
+            },
+            {
+              "text": "a = true and c = true",
+              "fraction": 0,
+              "feedback": "With c true, b &#8744; c is true regardless of b, so b is masked."
+            },
+            {
+              "text": "a = false and c = false",
+              "fraction": 0,
+              "feedback": "With a false, p is false regardless of b, so b cannot determine p."
+            },
+            {
+              "text": "a = false and c = true",
+              "fraction": 0,
+              "feedback": "Both conditions block b: a false forces p false and c true masks b."
+            }
+          ],
+          "generalFeedback": "b determines the disjunction b &#8744; c only when c = false, and that disjunction determines p = a &#8743; (&#8230;) only when a = true. So b determines p exactly when a = true and c = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for b in (a AND b) OR c",
+          "text": "<p>For predicate p = (a &#8743; b) &#8744; c, which minor-clause values make clause b <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "a = true and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to b, so flipping b flips p."
+            },
+            {
+              "text": "a = false and c = false",
+              "fraction": 0,
+              "feedback": "With a false, a &#8743; b is false regardless of b, so b is masked."
+            },
+            {
+              "text": "a = true and c = true",
+              "fraction": 0,
+              "feedback": "With c true, p is true regardless of b, so b cannot determine p."
+            },
+            {
+              "text": "a = false and c = true",
+              "fraction": 0,
+              "feedback": "Both conditions block b: a false masks b and c true forces p true."
+            }
+          ],
+          "generalFeedback": "b passes through the term a &#8743; b only when a = true, and that term reaches p = (&#8230;) &#8744; c only when c = false. So b determines p exactly when a = true and c = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classifying a CACC-only pair",
+          "text": "<p>For p = a &#8743; (b &#8744; c) with major clause a, consider the test pair {(a=T, b=T, c=F), (a=F, b=F, c=T)}. Which is the <strong>strongest</strong> active-clause criterion this pair satisfies for a?</p>",
+          "answers": [
+            {
+              "text": "CACC (but not RACC)",
+              "fraction": 100,
+              "feedback": "Correct — a determines p in both rows and p differs (T then F), but the minor values (b,c) differ, so it is not RACC."
+            },
+            {
+              "text": "RACC",
+              "fraction": 0,
+              "feedback": "RACC needs identical minor values; here (b,c) is (T,F) then (F,T), so RACC fails."
+            },
+            {
+              "text": "Only GACC",
+              "fraction": 0,
+              "feedback": "It is at least CACC, because p takes both values across the pair."
+            },
+            {
+              "text": "Neither GACC, CACC, nor RACC",
+              "fraction": 0,
+              "feedback": "a determines p in both rows, so at least GACC and CACC are met."
+            }
+          ],
+          "generalFeedback": "In both rows b &#8744; c is true, so a determines p; p is true then false, satisfying CACC (and hence GACC). But the minor values differ ((T,F) vs (F,T)), so RACC is not satisfied. The strongest met is CACC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classifying a RACC pair",
+          "text": "<p>For p = a &#8743; (b &#8744; c) with major clause a, consider the test pair {(a=T, b=T, c=F), (a=F, b=T, c=F)}. Which is the <strong>strongest</strong> active-clause criterion this pair satisfies for a?</p>",
+          "answers": [
+            {
+              "text": "RACC",
+              "fraction": 100,
+              "feedback": "Correct — a determines p in both rows, p differs, and the minor values (b=T, c=F) are identical across the pair."
+            },
+            {
+              "text": "CACC but not RACC",
+              "fraction": 0,
+              "feedback": "The minor values ARE identical here, so RACC (the stronger criterion) is satisfied."
+            },
+            {
+              "text": "Only GACC",
+              "fraction": 0,
+              "feedback": "p also takes both values, so CACC and even RACC hold."
+            },
+            {
+              "text": "Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "A single pair cannot achieve Combinatorial Coverage of three clauses."
+            }
+          ],
+          "generalFeedback": "b &#8744; c = true in both rows so a determines p; p is true then false (CACC); and the minor values (b=T, c=F) match across the pair (RACC). RACC is the strongest satisfied, and RACC subsumes CACC and GACC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why CACC subsumes Predicate Coverage",
+          "text": "<p>Why does CACC subsume Predicate Coverage (PC)?</p>",
+          "answers": [
+            {
+              "text": "Each major clause's pair forces p to be true in one test and false in the other, so p takes both values",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly what PC requires."
+            },
+            {
+              "text": "Because CACC tests every combination of clause values",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage; CACC does not test all combinations."
+            },
+            {
+              "text": "Because CACC fixes the minor clauses to identical values",
+              "fraction": 0,
+              "feedback": "That describes RACC's extra restriction, not why PC is subsumed."
+            },
+            {
+              "text": "Because every clause is made both true and false",
+              "fraction": 0,
+              "feedback": "That gives Clause Coverage, not Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "CACC requires p to differ across each major clause's test pair, so p is driven to both true and false — which is precisely Predicate Coverage. (GACC lacks this guarantee, so GACC does not subsume PC.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination of c in (a OR b) AND c",
+          "text": "<p>For predicate p = (a &#8744; b) &#8743; c, clause c determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "a &#8744; b is true",
+              "fraction": 100,
+              "feedback": "Correct — when (a &#8744; b) is true, p equals c; when it is false, p is false regardless of c."
+            },
+            {
+              "text": "a &#8744; b is false",
+              "fraction": 0,
+              "feedback": "Then p is false no matter what c is, so c does not determine p."
+            },
+            {
+              "text": "a is true and b is true",
+              "fraction": 0,
+              "feedback": "c determines p whenever a &#8744; b is true, which includes rows where only one of a, b is true."
+            },
+            {
+              "text": "Always",
+              "fraction": 0,
+              "feedback": "c cannot determine p when a &#8744; b is false."
+            }
+          ],
+          "generalFeedback": "For a conjunction p = X &#8743; c, clause c determines p exactly when the other operand X is true. Here X = a &#8744; b, so c determines p when a &#8744; b is true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for c in (a OR b) AND c",
+          "text": "<p>For predicate p = (a &#8744; b) &#8743; c, which condition on the minor clauses makes c <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "At least one of a, b is true (a &#8744; b is true)",
+              "fraction": 100,
+              "feedback": "Correct — then p equals c."
+            },
+            {
+              "text": "Both a and b are false",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is false and p is false regardless of c."
+            },
+            {
+              "text": "Both a and b are true only",
+              "fraction": 0,
+              "feedback": "a=T,b=F (or a=F,b=T) also makes a &#8744; b true, so those rows work too."
+            },
+            {
+              "text": "Exactly one of a, b is true",
+              "fraction": 0,
+              "feedback": "a=T,b=T also enables c to determine p, so it is not \"exactly one\"."
+            }
+          ],
+          "generalFeedback": "c determines p = (a &#8744; b) &#8743; c whenever the other operand a &#8744; b is true, i.e. whenever at least one of a, b is true (three of the four (a,b) combinations).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of ACC requirements for 3 clauses",
+          "text": "<p>Before merging any shared tests, how many active-clause test requirements does a 3-clause predicate generate?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 2 requirements (true/false) for each of the 3 major clauses."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Each clause needs a true AND a false determining test, so 2 per clause."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 is Combinatorial Coverage, not the ACC requirement count."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n+1 is the minimum test count after merging, not the number of requirements."
+            }
+          ],
+          "generalFeedback": "ACC produces 2 requirements per clause (major-true and major-false, both determining p), so 2 &#215; 3 = 6 requirements. Sharing tests then reduces the actual test count to as few as n+1 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for a in a AND b AND c",
+          "text": "<p>For predicate p = a &#8743; b &#8743; c, which minor-clause values make clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "b = true and c = true",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to a, so flipping a flips p."
+            },
+            {
+              "text": "b = false and c = false",
+              "fraction": 0,
+              "feedback": "Any false clause forces the conjunction false regardless of a."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "c = false forces p false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = false and c = true",
+              "fraction": 0,
+              "feedback": "b = false forces p false regardless of a, so a cannot determine p."
+            }
+          ],
+          "generalFeedback": "In a conjunction, a clause determines the predicate only when every other clause is true. For a &#8743; b &#8743; c, a determines p exactly when b = true and c = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minor values for a in a OR b OR c",
+          "text": "<p>For predicate p = a &#8744; b &#8744; c, which minor-clause values make clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "b = false and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p reduces to a, so flipping a flips p."
+            },
+            {
+              "text": "b = true and c = true",
+              "fraction": 0,
+              "feedback": "Any true clause forces the disjunction true regardless of a."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "b = true forces p true regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = false and c = true",
+              "fraction": 0,
+              "feedback": "c = true forces p true regardless of a, so a cannot determine p."
+            }
+          ],
+          "generalFeedback": "In a disjunction, a clause determines the predicate only when every other clause is false. For a &#8744; b &#8744; c, a determines p exactly when b = false and c = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active clauses at a row of (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c evaluated at a=T, b=F, c=F, which clauses are <strong>active</strong> (determine p there)?</p>",
+          "answers": [
+            {
+              "text": "b and c",
+              "fraction": 100,
+              "feedback": "Correct — flipping b (F&#8594;T) makes p true, and flipping c (F&#8594;T) makes p true; flipping a leaves p false."
+            },
+            {
+              "text": "a and c",
+              "fraction": 0,
+              "feedback": "Flipping a (T&#8594;F) leaves a &#8743; b false, so p stays false; a is not active."
+            },
+            {
+              "text": "a, b, and c",
+              "fraction": 0,
+              "feedback": "a is not active here: with b false, a &#8743; b is false whether a is T or F."
+            },
+            {
+              "text": "c only",
+              "fraction": 0,
+              "feedback": "b is also active: flipping b to true makes a &#8743; b true, hence p true."
+            }
+          ],
+          "generalFeedback": "At a=T,b=F,c=F, p = (T&#8743;F)&#8744;F = F. Flip a &#8594; (F&#8743;F)&#8744;F = F (not active). Flip b &#8594; (T&#8743;T)&#8744;F = T (active). Flip c &#8594; (T&#8743;F)&#8744;T = T (active). So b and c are active.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CACC subsumes GACC",
+          "text": "<p>Correlated Active Clause Coverage (CACC) subsumes General Active Clause Coverage (GACC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — CACC adds the requirement that p differ across the pair, keeping all of GACC's requirements, so it is at least as strong."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Every CACC-adequate test set is also GACC-adequate, so CACC subsumes GACC."
+            }
+          ],
+          "generalFeedback": "The active-clause hierarchy is RACC subsumes CACC subsumes GACC. CACC keeps GACC's determination requirements and merely adds the correlation that p change across each pair, so it subsumes GACC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination for X AND c",
+          "text": "<p>Let p = X &#8743; c, where X is any subexpression and c is a single clause. Clause c determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "X evaluates to true",
+              "fraction": 100,
+              "feedback": "Correct — with X true, p equals c, so flipping c flips p."
+            },
+            {
+              "text": "X evaluates to false",
+              "fraction": 0,
+              "feedback": "With X false, p is false regardless of c."
+            },
+            {
+              "text": "c evaluates to true",
+              "fraction": 0,
+              "feedback": "Determination for c depends on X, not on c's own value."
+            },
+            {
+              "text": "Always, since c is a top-level clause",
+              "fraction": 0,
+              "feedback": "c is masked whenever X is false."
+            }
+          ],
+          "generalFeedback": "For a top-level conjunction p = X &#8743; c, c determines p exactly when the other operand X is true. Dually, for p = X &#8744; c, c determines p exactly when X is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination for X OR c",
+          "text": "<p>Let p = X &#8744; c, where X is any subexpression and c is a single clause. Clause c determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "X evaluates to false",
+              "fraction": 100,
+              "feedback": "Correct — with X false, p equals c, so flipping c flips p."
+            },
+            {
+              "text": "X evaluates to true",
+              "fraction": 0,
+              "feedback": "With X true, p is true regardless of c."
+            },
+            {
+              "text": "c evaluates to false",
+              "fraction": 0,
+              "feedback": "Determination for c depends on X, not on c's own value."
+            },
+            {
+              "text": "Always, since c is a top-level clause",
+              "fraction": 0,
+              "feedback": "c is masked whenever X is true."
+            }
+          ],
+          "generalFeedback": "For a top-level disjunction p = X &#8744; c, c determines p exactly when the other operand X is false. Dually, for p = X &#8743; c, c determines p exactly when X is true.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why RACC subsumes CACC",
+          "text": "<p>Why does RACC subsume CACC?</p>",
+          "answers": [
+            {
+              "text": "Fixing the minor clauses identical while the major clause determines p forces p to take opposite values across the pair, which is exactly CACC's added requirement",
+              "fraction": 100,
+              "feedback": "Correct — RACC's constraint implies CACC's correlation, and RACC keeps all other ACC requirements."
+            },
+            {
+              "text": "RACC tests all 2^n combinations, which includes every CACC test",
+              "fraction": 0,
+              "feedback": "RACC does not require all combinations; it uses about n+1 tests, like CACC."
+            },
+            {
+              "text": "RACC drops the determination requirement, making it easier to satisfy",
+              "fraction": 0,
+              "feedback": "RACC keeps determination; dropping it would make it weaker, not stronger."
+            },
+            {
+              "text": "RACC only applies to two-clause predicates, where CACC is trivial",
+              "fraction": 0,
+              "feedback": "RACC applies to any predicate."
+            }
+          ],
+          "generalFeedback": "Under RACC the minor clauses are identical across the pair and the major clause determines p; determination then means flipping only the major clause flips p, so p is true in one test and false in the other — CACC's requirement. Thus every RACC-adequate set is CACC-adequate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC does not subsume PC — counterexample",
+          "text": "<p>Consider p = a &#8596; b (equivalence, true when a and b are equal). Which test set satisfies GACC yet fails Predicate Coverage, showing GACC does not subsume PC?</p>",
+          "answers": [
+            {
+              "text": "{(a=T, b=T), (a=F, b=F)}",
+              "fraction": 100,
+              "feedback": "Correct — both tests give p=true, so PC fails; yet each clause determines p in both, so GACC holds."
+            },
+            {
+              "text": "{(a=T, b=T), (a=F, b=T)}",
+              "fraction": 0,
+              "feedback": "Here p takes both values (T then F), so this satisfies PC — not a counterexample."
+            },
+            {
+              "text": "{(a=T, b=T), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "Here p takes both values (T then F), so this satisfies PC — not a counterexample."
+            },
+            {
+              "text": "{(a=F, b=F), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "Here p takes both values (T then F), so PC is satisfied — not a counterexample."
+            }
+          ],
+          "generalFeedback": "For p = a &#8596; b each clause always determines p. The set {(T,T),(F,F)} makes each clause both true and false while determining p (satisfying GACC), yet p = true in both rows, so Predicate Coverage is not met. This is the classic proof that GACC does not subsume PC.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Every CACC set satisfies PC",
+          "text": "<p>Every test set that satisfies CACC also satisfies Predicate Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — CACC forces p to be true in one test and false in another of each pair, so p takes both values."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CACC requires p to differ across each major clause's pair, which guarantees Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "CACC subsumes Predicate Coverage because it requires p to take both truth values across each pair. (By contrast, GACC does not, since GACC lets the minor clauses vary so p can stay constant.)"
+        },
+        {
+          "type": "multichoice",
+          "name": "Why RACC can be infeasible while CACC is feasible",
+          "text": "<p>Sometimes RACC is infeasible for a clause even though CACC is feasible. The best explanation is that:</p>",
+          "answers": [
+            {
+              "text": "RACC pins the minor clauses to one identical combination; a constraint among the clauses can forbid that specific combination, while CACC's freedom to use different minor values still allows a valid pair",
+              "fraction": 100,
+              "feedback": "Correct — the extra restriction of RACC can collide with clause constraints that CACC can sidestep."
+            },
+            {
+              "text": "RACC requires more tests than there are rows in the truth table",
+              "fraction": 0,
+              "feedback": "RACC needs about n+1 tests, well within the 2^n rows."
+            },
+            {
+              "text": "CACC does not require the major clause to determine p, so it is always feasible",
+              "fraction": 0,
+              "feedback": "CACC does require determination; that is not the reason."
+            },
+            {
+              "text": "RACC ignores infeasible rows automatically",
+              "fraction": 0,
+              "feedback": "Infeasible rows are precisely what can make RACC unsatisfiable, not something it ignores."
+            }
+          ],
+          "generalFeedback": "When clauses are logically coupled, the single identical minor-clause combination RACC demands may be unreachable, whereas CACC can pick two different (each individually reachable) minor assignments. Hence RACC can be infeasible where CACC is feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=true and c=false; a is free, giving 2 rows."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the count for c, not a."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b=false or c=true, leaving only 2 determining rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=true, c=false, giving 2 rows."
+            }
+          ],
+          "generalFeedback": "a determines p exactly when b=true and c=false (so the term a &#8743; b passes a through and the disjunction does not mask it). That fixes b and c and leaves a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for c in (a OR b) AND (c OR d)",
+          "text": "<p>For p = (a &#8744; b) &#8743; (c &#8744; d), in how many of the 16 assignments does clause c <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — c determines p when (a &#8744; b)=true (3 of 4) and d=false (1 of 2), c free (2): 3&#215;1&#215;2 = 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That would ignore the d=false condition; only half of those rows qualify."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — 3 (a &#8744; b true) &#215; 1 (d false) &#215; 2 (c free) = 6."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "c is masked whenever a &#8744; b is false or d is true, so far fewer than 12 rows qualify."
+            }
+          ],
+          "generalFeedback": "c determines c &#8744; d only when d=false, and that disjunction determines p only when a &#8744; b=true. So c determines p when a &#8744; b=true (3 of 4 (a,b)) and d=false, with c free: 3 &#215; 1 &#215; 2 = 6 of 16.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in a OR b OR c",
+          "text": "<p>For p = a &#8744; b &#8744; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=false and c=false; a is free, giving 2 rows."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of satisfying rows of a &#8744; b &#8744; c, not the determining rows for a."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b or c is true, leaving only 2 determining rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=false, c=false, giving 2 rows."
+            }
+          ],
+          "generalFeedback": "In a disjunction a determines p only when every other clause is false. b=false and c=false fixes the minors and leaves a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in a AND b AND c",
+          "text": "<p>For p = a &#8743; b &#8743; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=true and c=true; a is free, giving 2 rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=true, c=true, giving 2 rows."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b or c is false, leaving only 2 determining rows."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a determines p in only the 2 rows where b and c are both true."
+            }
+          ],
+          "generalFeedback": "In a conjunction a determines p only when every other clause is true. b=true and c=true fixes the minors and leaves a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determination condition for a in (a AND b) OR (c AND d)",
+          "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), clause a determines p exactly when:</p>",
+          "answers": [
+            {
+              "text": "b = true and (c &#8743; d) = false",
+              "fraction": 100,
+              "feedback": "Correct — b true passes a through the first term, and (c &#8743; d) false keeps the disjunction from masking it."
+            },
+            {
+              "text": "b = true and (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "With c &#8743; d true, p is true regardless of a, so a is masked."
+            },
+            {
+              "text": "b = false and (c &#8743; d) = false",
+              "fraction": 0,
+              "feedback": "With b false, a &#8743; b is false regardless of a, so a cannot determine p."
+            },
+            {
+              "text": "b = false and (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "Both conditions block a: b false masks a and c &#8743; d true forces p true."
+            }
+          ],
+          "generalFeedback": "a passes through the term a &#8743; b only when b = true, and that term reaches p = (&#8230;) &#8744; (c &#8743; d) only when the other term c &#8743; d is false. So a determines p exactly when b = true and (c &#8743; d) = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible RACC pair under an implication constraint",
+          "text": "<p>A predicate uses clauses c1: <code>x &gt; 10</code> and c2: <code>x &gt; 0</code>. A test requirement that needs c1 = true while c2 = false is:</p>",
+          "answers": [
+            {
+              "text": "Infeasible — x > 10 implies x > 0, so c1 true with c2 false cannot occur",
+              "fraction": 100,
+              "feedback": "Correct — the clauses are logically coupled, so that combination is impossible."
+            },
+            {
+              "text": "Feasible for some value of x",
+              "fraction": 0,
+              "feedback": "No x exceeds 10 without also exceeding 0."
+            },
+            {
+              "text": "Feasible only under GACC",
+              "fraction": 0,
+              "feedback": "No criterion can realize a logically impossible clause combination."
+            },
+            {
+              "text": "Always feasible because the clauses are independent",
+              "fraction": 0,
+              "feedback": "These clauses are not independent; c1 implies c2."
+            }
+          ],
+          "generalFeedback": "Because x > 10 logically implies x > 0, the combination c1=true, c2=false is unreachable. Any active-clause requirement (including a RACC pair) that depends on that combination is infeasible and must be excluded.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum CACC tests for 3 clauses",
+          "text": "<p>A decision has 3 independent clauses. What is the minimum number of tests that can satisfy CACC (MC/DC)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — n + 1 = 3 + 1 = 4."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n is the upper bound, not the minimum."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 is Combinatorial Coverage."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "You need at least n + 1 = 4 tests to show all three clauses independently affect the outcome."
+            }
+          ],
+          "generalFeedback": "CACC/MC-DC for n independent clauses is achievable with a minimum of n + 1 tests; for n = 3 that is 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What GACC guarantees among PC and CC",
+          "text": "<p>Which statement about GACC and the basic criteria is correct?</p>",
+          "answers": [
+            {
+              "text": "GACC subsumes Clause Coverage but does not necessarily subsume Predicate Coverage",
+              "fraction": 100,
+              "feedback": "Correct — every clause is made both true and false (CC), but p may stay constant across a pair (so PC can fail)."
+            },
+            {
+              "text": "GACC subsumes both Clause Coverage and Predicate Coverage",
+              "fraction": 0,
+              "feedback": "GACC need not subsume PC; the equivalence predicate is a counterexample."
+            },
+            {
+              "text": "GACC subsumes Predicate Coverage but not Clause Coverage",
+              "fraction": 0,
+              "feedback": "It is the other way around: GACC gives CC but may miss PC."
+            },
+            {
+              "text": "GACC subsumes neither Clause nor Predicate Coverage",
+              "fraction": 0,
+              "feedback": "GACC does make each clause both true and false, so it subsumes CC."
+            }
+          ],
+          "generalFeedback": "Because each clause is the major clause of a true/false pair, GACC makes every clause take both values, subsuming Clause Coverage. But GACC allows p to remain constant across a pair (e.g. p = a &#8596; b), so it does not necessarily subsume Predicate Coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in a EQUIV b",
+          "text": "<p>For p = a &#8596; b, in how many of the 4 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — for equivalence, flipping a always flips p, so a determines p in every row."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a determines p for both values of b, so all 4 rows qualify, not 2."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Determination for a &#8596; b does not depend on b, so it holds in all rows."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "a always determines p in an equivalence; the count is 4, not 0."
+            }
+          ],
+          "generalFeedback": "p = a &#8596; b equals true when a and b are equal. For any fixed b, flipping a flips p, so a determines p in all 4 assignments. This is why the equivalence gives the GACC-vs-PC counterexample: every row is determining, yet a GACC test set can leave p constant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determining rows for a in (a OR b) AND c",
+          "text": "<p>For p = (a &#8744; b) &#8743; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b=false and c=true; a is free, giving 2 rows."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a is masked whenever b=true (a &#8744; b already true) or c=false, leaving only 2 determining rows."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 would be c's count in a different predicate; here a determines p in just 2 rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both a=T and a=F count when b=false, c=true, giving 2 rows."
+            }
+          ],
+          "generalFeedback": "a determines the disjunction a &#8744; b only when b=false, and that disjunction determines p only when c=true. So a determines p when b=false and c=true, with a free: 2 of the 8 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Full active-clause subsumption summary",
+          "text": "<p>Which summary of the active-clause subsumption relationships is completely correct?</p>",
+          "answers": [
+            {
+              "text": "RACC subsumes CACC subsumes GACC; CACC subsumes PC, but GACC does not necessarily subsume PC",
+              "fraction": 100,
+              "feedback": "Correct — this captures both the internal ordering and the PC relationship."
+            },
+            {
+              "text": "GACC subsumes CACC subsumes RACC; all three subsume PC",
+              "fraction": 0,
+              "feedback": "The ordering is reversed and GACC does not necessarily subsume PC."
+            },
+            {
+              "text": "RACC subsumes CACC subsumes GACC; none of them subsumes PC",
+              "fraction": 0,
+              "feedback": "CACC (and RACC) do subsume PC; only GACC may fail to."
+            },
+            {
+              "text": "All three are equivalent and each subsumes Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "They are strictly ordered, and Combinatorial Coverage subsumes them, not the reverse."
+            }
+          ],
+          "generalFeedback": "The correct picture: RACC &#8839; CACC &#8839; GACC (strongest to weakest). Both RACC and CACC subsume Predicate Coverage because they force p to take both values; GACC does not necessarily, since it can leave p constant across a pair.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "以 XOR 表述決定性",
+          "text": "<p>固定次要子句於某一指派。主要子句 c <strong>決定（determines）</strong>述詞 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "p|<sub>c=T</sub> XOR p|<sub>c=F</sub> 為 true（以該次要子句值計算）",
+              "fraction": 100,
+              "feedback": "正確——p 的兩次評估結果不同，故單獨切換 c 就會切換 p。"
+            },
+            {
+              "text": "p|<sub>c=T</sub> AND p|<sub>c=F</sub> 為 true",
+              "fraction": 0,
+              "feedback": "那需要兩種情況下 p 都為 true，意味著 c 並未改變 p。"
+            },
+            {
+              "text": "p|<sub>c=T</sub> 為 true",
+              "fraction": 0,
+              "feedback": "決定性在於兩個值不同，而非 c 為 true 時 p 為 true。"
+            },
+            {
+              "text": "c 與 p 的真值相同",
+              "fraction": 0,
+              "feedback": "那不是定義；決定性比較的是 c=T 與 c=F 時的 p。"
+            }
+          ],
+          "generalFeedback": "在次要子句固定下，c 決定 p 恰好在以 c=true 與 c=false 評估 p 得到不同結果時，即 p|&#8853; p|= true。這個 XOR 判準即決定性的操作型定義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是主要子句",
+          "text": "<p>在主動子句覆蓋的要求中，<strong>主要子句（major clause）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "當前正在測試其「是否決定述詞」的那個子句",
+              "fraction": 100,
+              "feedback": "正確——我們一次聚焦一個子句，並要求它決定 p。"
+            },
+            {
+              "text": "在述詞中出現在最前（最左）的子句",
+              "fraction": 0,
+              "feedback": "位置無關；主要子句是我們當前所測試的那個。"
+            },
+            {
+              "text": "在述詞中出現次數最多的子句",
+              "fraction": 0,
+              "feedback": "出現頻率並不定義主要子句。"
+            },
+            {
+              "text": "任何恆為 true 的子句",
+              "fraction": 0,
+              "feedback": "恆定子句永遠無法決定 p；主要子句是受測的那個。"
+            }
+          ],
+          "generalFeedback": "主動子句準則選一個子句作為主要子句（c_i）並要求它決定述詞；其餘每個子句都是次要子句，其值被設定以促成該決定性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是次要子句",
+          "text": "<p>當子句 c_i 為主要子句時，<strong>次要子句（minor clauses）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "其餘所有子句，其值被設定以使 c_i 決定述詞",
+              "fraction": 100,
+              "feedback": "正確——設定它們的值讓主要子句主宰結果。"
+            },
+            {
+              "text": "同時也決定述詞的那些子句",
+              "fraction": 0,
+              "feedback": "次要子句只是「非主要」的子句，它們不必決定 p。"
+            },
+            {
+              "text": "從述詞中被移除的子句",
+              "fraction": 0,
+              "feedback": "它們仍留在述詞中，只是其值被固定。"
+            },
+            {
+              "text": "被評估為 false 的子句",
+              "fraction": 0,
+              "feedback": "次要子句可為 true 或 false；此稱呼與其取值無關。"
+            }
+          ],
+          "generalFeedback": "對每個主要子句的選擇，其餘子句即為次要子句。依準則規則設定其值，使切換主要子句就會切換述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某指派下的主動子句",
+          "text": "<p>在某個測試（指派）下，稱一個子句是<strong>主動的（active）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "它在該處決定述詞——單獨翻轉它會改變述詞的值",
+              "fraction": 100,
+              "feedback": "正確——主動子句就是在該列決定 p 的子句。"
+            },
+            {
+              "text": "它在該測試被評估為 true",
+              "fraction": 0,
+              "feedback": "為 true 與是否主動無關；主動子句可為 true 或 false。"
+            },
+            {
+              "text": "它是述詞中唯一的子句",
+              "fraction": 0,
+              "feedback": "多子句的述詞在特定列仍有主動子句。"
+            },
+            {
+              "text": "它被其他子句遮蔽",
+              "fraction": 0,
+              "feedback": "被遮蔽的子句與主動相反——它不決定 p。"
+            }
+          ],
+          "generalFeedback": "子句在某測試為主動，是指它在該處決定述詞；主動子句準則之所以得名，正是因為要求每個子句在其相應測試中為主動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC 中「General」的意涵",
+          "text": "<p>在<strong>一般（General）</strong>主動子句覆蓋（GACC）中，「一般」指的是：</p>",
+          "answers": [
+            {
+              "text": "在主要子句為 true 與為 false 的兩個測試之間，次要子句的值可以不同",
+              "fraction": 100,
+              "feedback": "正確——GACC 對次要子句最為寬鬆。"
+            },
+            {
+              "text": "在該對測試之間，次要子句的值必須相同",
+              "fraction": 0,
+              "feedback": "那個限制是 RACC，而非 GACC。"
+            },
+            {
+              "text": "該對測試中述詞必須取到兩種值",
+              "fraction": 0,
+              "feedback": "那個額外的相關要求是 CACC。"
+            },
+            {
+              "text": "涵蓋全部 2^n 種子句組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "GACC 僅要求主要子句決定 p 並取到兩種值；它不對兩個測試的次要子句加任何連結限制，故次要子句可取任意（可能不同）的值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC 中「Correlated」的意涵",
+          "text": "<p>在<strong>相關（Correlated）</strong>主動子句覆蓋（CACC）中，什麼與主要子句的改變「相關」？</p>",
+          "answers": [
+            {
+              "text": "述詞 p 的值——在該對測試中必須取到 true 與 false",
+              "fraction": 100,
+              "feedback": "正確——主要子句的翻轉與 p 的改變相關聯。"
+            },
+            {
+              "text": "次要子句的值，必須維持相同",
+              "fraction": 0,
+              "feedback": "要求次要子句相同是 RACC。"
+            },
+            {
+              "text": "述詞中為 true 的子句數目",
+              "fraction": 0,
+              "feedback": "CACC 未提及計算 true 子句的數目。"
+            },
+            {
+              "text": "兩個測試的執行時間",
+              "fraction": 0,
+              "feedback": "此處的相關性是關於真值，而非效能。"
+            }
+          ],
+          "generalFeedback": "CACC 要求：在每個主要子句的那對測試中，p 一者為 true、另一者為 false——p 的改變與主要子句的翻轉相關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RACC 中「Restricted」的意涵",
+          "text": "<p>在<strong>受限（Restricted）</strong>主動子句覆蓋（RACC）中，受限的是什麼？</p>",
+          "answers": [
+            {
+              "text": "在主要子句為 true 與為 false 的兩個測試中，次要子句必須維持相同的值",
+              "fraction": 100,
+              "feedback": "正確——RACC 將次要子句固定為該對測試中相同的值。"
+            },
+            {
+              "text": "子句數目受限於至多三個",
+              "fraction": 0,
+              "feedback": "RACC 對子句數目沒有上限。"
+            },
+            {
+              "text": "只有述詞值被限制為 true",
+              "fraction": 0,
+              "feedback": "RACC 不將 p 固定為 true；主要子句仍需決定 p。"
+            },
+            {
+              "text": "主要子句被限制為 false",
+              "fraction": 0,
+              "feedback": "主要子句必須取到兩種值，而非被限制為 false。"
+            }
+          ],
+          "generalFeedback": "RACC 將次要子句限制為每個主要子句兩個測試中皆相同的值——是三個主動子句準則中最嚴格的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACC 每個子句的測試要求數",
+          "text": "<p>主動子句覆蓋對每個被選為主要子句的子句，會產生幾項測試要求？</p>",
+          "answers": [
+            {
+              "text": "2——一個使主要子句為 true、一個為 false（兩者都決定 p）",
+              "fraction": 100,
+              "feedback": "正確——每個子句產生一對「決定性的」true／false 測試。"
+            },
+            {
+              "text": "1——單一個使子句決定 p 的測試",
+              "fraction": 0,
+              "feedback": "該子句必須在決定 p 的同時被測試為 true 與 false，故有兩項要求。"
+            },
+            {
+              "text": "2^n——其餘子句的所有組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，而非 ACC。"
+            },
+            {
+              "text": "n——每個其他子句一項",
+              "fraction": 0,
+              "feedback": "不論 n 為何，每個主要子句恰產生兩項要求。"
+            }
+          ],
+          "generalFeedback": "對每個主要子句，ACC 要求兩個「該子句決定述詞」的測試：一個子句為 true、一個為 false。含 n 個子句時共 2n 項要求（在合併共用測試之前）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 的決定性",
+          "text": "<p>對述詞 p = a &#8743; b 而言，子句 a 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b = true",
+              "fraction": 100,
+              "feedback": "正確——當 b 為 true 時，p 等於 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = false",
+              "fraction": 0,
+              "feedback": "b 為 false 時，無論 a 為何 p 都是 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "a = true",
+              "fraction": 0,
+              "feedback": "a 的決定性取決於次要子句 b，而非 a 自身的值。"
+            },
+            {
+              "text": "永遠不成立，因為它是邏輯與",
+              "fraction": 0,
+              "feedback": "在邏輯與中 a 確實能決定 p——恰在另一子句為 true 時。"
+            }
+          ],
+          "generalFeedback": "對邏輯與 p = a &#8743; b，子句 a 決定 p 恰好在另一子句 b 為 true 時；此時 p 跟隨 a。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 的決定性",
+          "text": "<p>對述詞 p = a &#8744; b 而言，子句 a 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b = false",
+              "fraction": 100,
+              "feedback": "正確——當 b 為 false 時，p 等於 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = true",
+              "fraction": 0,
+              "feedback": "b 為 true 時，無論 a 為何 p 都是 true，故 a 無法決定 p。"
+            },
+            {
+              "text": "a = false",
+              "fraction": 0,
+              "feedback": "a 的決定性取決於次要子句 b，而非 a 自身的值。"
+            },
+            {
+              "text": "對邏輯或而言恆成立",
+              "fraction": 0,
+              "feedback": "當 b 為 true 時 a 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "對邏輯或 p = a &#8744; b，子句 a 決定 p 恰好在另一子句 b 為 false 時；此時 p 跟隨 a。（對偶地，對 a &#8743; b，a 在 b 為 true 時決定 p。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CACC 最少測試數公式",
+          "text": "<p>對含 n 個獨立子句的述詞，滿足 CACC（MC/DC）最少所需的測試數為：</p>",
+          "answers": [
+            {
+              "text": "n + 1",
+              "fraction": 100,
+              "feedback": "正確——精心挑選的測試可在子句間共用，故最小值為 n+1。"
+            },
+            {
+              "text": "2n",
+              "fraction": 0,
+              "feedback": "2n 是上界（每個子句一對全新測試），並非最小值。"
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，遠多於 CACC 所需。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只足以滿足述詞覆蓋，不足以滿足 CACC。"
+            }
+          ],
+          "generalFeedback": "由於單一測試可同時作為多個子句的決定性測試，含 n 個獨立子句的 CACC／MC-DC 最少需 n+1 個測試（最多 2n）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MC/DC 對應哪個主動子句準則",
+          "text": "<p>業界準則 MC/DC（如 DO-178C）最貼近哪個主動子句準則？</p>",
+          "answers": [
+            {
+              "text": "相關主動子句覆蓋（CACC）",
+              "fraction": 100,
+              "feedback": "正確——一般 MC/DC 要求每個子句獨立影響結果，即 CACC。"
+            },
+            {
+              "text": "一般主動子句覆蓋（GACC）",
+              "fraction": 0,
+              "feedback": "GACC 不要求 p 隨子句改變，故弱於 MC/DC。"
+            },
+            {
+              "text": "組合覆蓋（CoC）",
+              "fraction": 0,
+              "feedback": "CoC 要求全部 2^n 組合；MC/DC 僅需約 n+1 個測試。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 只檢查整個判斷，遠弱於 MC/DC。"
+            }
+          ],
+          "generalFeedback": "一般 MC/DC 等價於 CACC：每個子句必須被證明能獨立影響判斷的結果。（嚴格的「唯一原因」MC/DC 則對應 RACC。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ACC 需取到兩種決定性的值",
+          "text": "<p>主動子句覆蓋要求每個子句在決定述詞的同時，被測試為 true 與 false 兩者。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個主要子句都取得一個決定性的 true 測試與一個決定性的 false 測試。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ACC 的核心正是：對每個子句在其主動（決定 p）時給出一對 true／false 測試。"
+            }
+          ],
+          "generalFeedback": "對每個被選為主要子句的子句，ACC 要求兩個該子句決定 p 的測試：一個子句為 true、一個為 false。"
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC、CACC、RACC 屬於哪個家族",
+          "text": "<p>GACC、CACC、RACC 三者共同構成哪一個邏輯覆蓋準則家族？</p>",
+          "answers": [
+            {
+              "text": "主動子句準則（每個子句必須決定述詞）",
+              "fraction": 100,
+              "feedback": "正確——三者都要求主要子句為主動（決定 p）。"
+            },
+            {
+              "text": "非主動子句準則（每個子句必須「不」決定述詞）",
+              "fraction": 0,
+              "feedback": "那是 GICC／RICC 家族，與此互補。"
+            },
+            {
+              "text": "DNF（含蘊項）準則",
+              "fraction": 0,
+              "feedback": "那些是 UTPC、CUTPNFP 之類的準則，非主動子句家族。"
+            },
+            {
+              "text": "組合準則",
+              "fraction": 0,
+              "feedback": "組合覆蓋是單一準則，並非此家族。"
+            }
+          ],
+          "generalFeedback": "GACC、CACC、RACC 是三個主動子句覆蓋準則：各自要求主要子句決定（在述詞中為主動），差別僅在於如何約束次要子句與 p。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "決定述詞的子句稱為主動",
+          "text": "<p>在某測試中決定述詞的子句，在該測試被稱為<em>主動（active）</em>子句。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——「主動」正是「在該指派決定 p 的子句」之稱呼。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "決定性的子句是主動的；不決定（被遮蔽）的子句是非主動的。"
+            }
+          ],
+          "generalFeedback": "決定性與主動性是同一概念：子句在某測試為主動，恰好等於它在該處決定述詞。這正是 GACC/CACC/RACC 稱為「主動子句」準則的原因。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 a 的次要子句值",
+          "text": "<p>對述詞 p = (a &#8744; b) &#8743; c，哪組次要子句值能使子句 a <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 0,
+              "feedback": "b 為 true 時，無論 a 為何 a &#8744; b 都為 true，故 a 被遮蔽。"
+            },
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 0,
+              "feedback": "c 為 false 時，無論 a 為何 p 都為 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 a：c 為 false 使 p 為 false，b 為 true 遮蔽 a。"
+            }
+          ],
+          "generalFeedback": "a 決定邏輯或 a &#8744; b 僅在 b = false 時，而該邏輯或決定 p = (&#8230;) &#8743; c 僅在 c = true 時。故 a 決定 p 恰在 b = false 且 c = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND (b OR c) 中 b 的次要子句值",
+          "text": "<p>對述詞 p = a &#8743; (b &#8744; c)，哪組次要子句值能使子句 b <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "a = true 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 b，故翻轉 b 會翻轉 p。"
+            },
+            {
+              "text": "a = true 且 c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 時，無論 b 為何 b &#8744; c 都為 true，故 b 被遮蔽。"
+            },
+            {
+              "text": "a = false 且 c = false",
+              "fraction": 0,
+              "feedback": "a 為 false 時，無論 b 為何 p 都為 false，故 b 無法決定 p。"
+            },
+            {
+              "text": "a = false 且 c = true",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 b：a 為 false 使 p 為 false，c 為 true 遮蔽 b。"
+            }
+          ],
+          "generalFeedback": "b 決定邏輯或 b &#8744; c 僅在 c = false 時，而該邏輯或決定 p = a &#8743; (&#8230;) 僅在 a = true 時。故 b 決定 p 恰在 a = true 且 c = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 b 的次要子句值",
+          "text": "<p>對述詞 p = (a &#8743; b) &#8744; c，哪組次要子句值能使子句 b <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "a = true 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 b，故翻轉 b 會翻轉 p。"
+            },
+            {
+              "text": "a = false 且 c = false",
+              "fraction": 0,
+              "feedback": "a 為 false 時，無論 b 為何 a &#8743; b 都為 false，故 b 被遮蔽。"
+            },
+            {
+              "text": "a = true 且 c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 時，無論 b 為何 p 都為 true，故 b 無法決定 p。"
+            },
+            {
+              "text": "a = false 且 c = true",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 b：a 為 false 遮蔽 b，c 為 true 使 p 為 true。"
+            }
+          ],
+          "generalFeedback": "b 只有在 a = true 時才能通過項 a &#8743; b，且該項只有在 c = false 時才傳達到 p = (&#8230;) &#8744; c。故 b 決定 p 恰在 a = true 且 c = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判別「只滿足 CACC」的測試對",
+          "text": "<p>對 p = a &#8743; (b &#8744; c)，以 a 為主要子句，考慮測試對 {(a=T, b=T, c=F), (a=F, b=F, c=T)}。此對針對 a 所滿足的<strong>最強</strong>主動子句準則為何？</p>",
+          "answers": [
+            {
+              "text": "CACC（但非 RACC）",
+              "fraction": 100,
+              "feedback": "正確——a 在兩列都決定 p 且 p 取值不同（先 T 後 F），但次要子句 (b,c) 不同，故非 RACC。"
+            },
+            {
+              "text": "RACC",
+              "fraction": 0,
+              "feedback": "RACC 需次要子句值相同；此處 (b,c) 為 (T,F) 與 (F,T)，故 RACC 不成立。"
+            },
+            {
+              "text": "只有 GACC",
+              "fraction": 0,
+              "feedback": "因 p 在該對測試取到兩種值，至少已達 CACC。"
+            },
+            {
+              "text": "GACC、CACC、RACC 皆不滿足",
+              "fraction": 0,
+              "feedback": "a 在兩列都決定 p，故至少滿足 GACC 與 CACC。"
+            }
+          ],
+          "generalFeedback": "兩列中 b &#8744; c 皆為 true，故 a 決定 p；p 先 true 後 false，滿足 CACC（因而滿足 GACC）。但次要子句不同（(T,F) 對 (F,T)），故不滿足 RACC。最強者為 CACC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判別 RACC 測試對",
+          "text": "<p>對 p = a &#8743; (b &#8744; c)，以 a 為主要子句，考慮測試對 {(a=T, b=T, c=F), (a=F, b=T, c=F)}。此對針對 a 所滿足的<strong>最強</strong>主動子句準則為何？</p>",
+          "answers": [
+            {
+              "text": "RACC",
+              "fraction": 100,
+              "feedback": "正確——a 在兩列都決定 p、p 取值不同，且次要子句值 (b=T, c=F) 在該對測試中相同。"
+            },
+            {
+              "text": "CACC 但非 RACC",
+              "fraction": 0,
+              "feedback": "此處次要子句值「相同」，故較強的 RACC 已被滿足。"
+            },
+            {
+              "text": "只有 GACC",
+              "fraction": 0,
+              "feedback": "p 也取到兩種值，故 CACC 乃至 RACC 皆成立。"
+            },
+            {
+              "text": "組合覆蓋",
+              "fraction": 0,
+              "feedback": "單一測試對無法達成三個子句的組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "兩列中 b &#8744; c = true 故 a 決定 p；p 先 true 後 false（CACC）；且次要子句值 (b=T, c=F) 在該對測試相同（RACC）。最強者為 RACC，而 RACC 涵蓋 CACC 與 GACC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 CACC 涵蓋述詞覆蓋",
+          "text": "<p>為何 CACC 涵蓋（subsumes）述詞覆蓋（PC）？</p>",
+          "answers": [
+            {
+              "text": "每個主要子句的測試對迫使 p 一者為 true、另一者為 false，故 p 取到兩種值",
+              "fraction": 100,
+              "feedback": "正確——這正是 PC 的要求。"
+            },
+            {
+              "text": "因為 CACC 測試每一種子句值組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋；CACC 並不測試所有組合。"
+            },
+            {
+              "text": "因為 CACC 將次要子句固定為相同的值",
+              "fraction": 0,
+              "feedback": "那描述的是 RACC 的額外限制，並非 PC 被涵蓋的原因。"
+            },
+            {
+              "text": "因為每個子句都被取到 true 與 false",
+              "fraction": 0,
+              "feedback": "那給出子句覆蓋，而非述詞覆蓋。"
+            }
+          ],
+          "generalFeedback": "CACC 要求 p 在每個主要子句的測試對中取值不同，故 p 被驅動到 true 與 false——這正是述詞覆蓋。（GACC 缺乏此保證，故 GACC 不涵蓋 PC。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 c 的決定性",
+          "text": "<p>對述詞 p = (a &#8744; b) &#8743; c，子句 c 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "a &#8744; b 為 true 時",
+              "fraction": 100,
+              "feedback": "正確——當 (a &#8744; b) 為 true 時 p 等於 c；為 false 時無論 c 為何 p 都為 false。"
+            },
+            {
+              "text": "a &#8744; b 為 false 時",
+              "fraction": 0,
+              "feedback": "此時無論 c 為何 p 都為 false，故 c 不決定 p。"
+            },
+            {
+              "text": "a 為 true 且 b 為 true 時",
+              "fraction": 0,
+              "feedback": "只要 a &#8744; b 為 true，c 就決定 p，這包含只有一個為 true 的列。"
+            },
+            {
+              "text": "恆成立",
+              "fraction": 0,
+              "feedback": "當 a &#8744; b 為 false 時 c 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "對邏輯與 p = X &#8743; c，子句 c 決定 p 恰在另一運算元 X 為 true 時。此處 X = a &#8744; b，故 c 在 a &#8744; b 為 true 時決定 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 c 的次要子句值",
+          "text": "<p>對述詞 p = (a &#8744; b) &#8743; c，次要子句滿足何種條件能使 c <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "a、b 至少一者為 true（a &#8744; b 為 true）",
+              "fraction": 100,
+              "feedback": "正確——此時 p 等於 c。"
+            },
+            {
+              "text": "a 與 b 皆為 false",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 false，無論 c 為何 p 都為 false。"
+            },
+            {
+              "text": "僅 a 與 b 皆為 true",
+              "fraction": 0,
+              "feedback": "a=T,b=F（或 a=F,b=T）也使 a &#8744; b 為 true，那些列同樣可行。"
+            },
+            {
+              "text": "a、b 恰有一者為 true",
+              "fraction": 0,
+              "feedback": "a=T,b=T 也能使 c 決定 p，故並非「恰有一者」。"
+            }
+          ],
+          "generalFeedback": "只要另一運算元 a &#8744; b 為 true，c 就決定 p = (a &#8744; b) &#8743; c，即 a、b 至少一者為 true（(a,b) 四種組合中的三種）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的 ACC 要求數",
+          "text": "<p>在合併任何共用測試之前，一個 3 子句述詞會產生多少項主動子句測試要求？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——3 個主要子句各 2 項（true／false）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "每個子句需要一個 true 與一個 false 的決定性測試，故每子句 2 項。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 是組合覆蓋，並非 ACC 的要求數。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n+1 是合併後的最少測試數，並非要求的數目。"
+            }
+          ],
+          "generalFeedback": "ACC 每子句產生 2 項要求（主要子句為 true 與為 false，兩者都決定 p），故 2 &#215; 3 = 6 項要求。共用測試後可將實際測試數降至 n+1 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c 中 a 的次要子句值",
+          "text": "<p>對述詞 p = a &#8743; b &#8743; c，哪組次要子句值能使子句 a <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 0,
+              "feedback": "任一子句為 false 都使邏輯與為 false，與 a 無關。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "c = false 使 p 為 false，與 a 無關，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 0,
+              "feedback": "b = false 使 p 為 false，與 a 無關，故 a 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "在邏輯與中，子句決定述詞僅在其餘每個子句皆為 true 時。對 a &#8743; b &#8743; c，a 決定 p 恰在 b = true 且 c = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c 中 a 的次要子句值",
+          "text": "<p>對述詞 p = a &#8744; b &#8744; c，哪組次要子句值能使子句 a <strong>決定</strong> p？</p>",
+          "answers": [
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p 化簡為 a，故翻轉 a 會翻轉 p。"
+            },
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 0,
+              "feedback": "任一子句為 true 都使邏輯或為 true，與 a 無關。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "b = true 使 p 為 true，與 a 無關，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 0,
+              "feedback": "c = true 使 p 為 true，與 a 無關，故 a 無法決定 p。"
+            }
+          ],
+          "generalFeedback": "在邏輯或中，子句決定述詞僅在其餘每個子句皆為 false 時。對 a &#8744; b &#8744; c，a 決定 p 恰在 b = false 且 c = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 某列的主動子句",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 a=T、b=F、c=F 時，哪些子句是<strong>主動的</strong>（在該處決定 p）？</p>",
+          "answers": [
+            {
+              "text": "b 與 c",
+              "fraction": 100,
+              "feedback": "正確——翻轉 b（F&#8594;T）使 p 為 true，翻轉 c（F&#8594;T）使 p 為 true；翻轉 a 則 p 仍為 false。"
+            },
+            {
+              "text": "a 與 c",
+              "fraction": 0,
+              "feedback": "翻轉 a（T&#8594;F）後 a &#8743; b 仍為 false，p 保持 false；a 非主動。"
+            },
+            {
+              "text": "a、b、c",
+              "fraction": 0,
+              "feedback": "a 在此非主動：b 為 false 時，無論 a 為 T 或 F，a &#8743; b 都為 false。"
+            },
+            {
+              "text": "只有 c",
+              "fraction": 0,
+              "feedback": "b 也是主動：將 b 翻為 true 使 a &#8743; b 為 true，因而 p 為 true。"
+            }
+          ],
+          "generalFeedback": "在 a=T,b=F,c=F 時，p = (T&#8743;F)&#8744;F = F。翻轉 a &#8594; (F&#8743;F)&#8744;F = F（非主動）；翻轉 b &#8594; (T&#8743;T)&#8744;F = T（主動）；翻轉 c &#8594; (T&#8743;F)&#8744;T = T（主動）。故 b 與 c 為主動。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CACC 涵蓋 GACC",
+          "text": "<p>相關主動子句覆蓋（CACC）涵蓋（subsumes）一般主動子句覆蓋（GACC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——CACC 增加了「p 在該對測試取值不同」的要求，並保留 GACC 的所有要求，故至少一樣強。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個滿足 CACC 的測試集也滿足 GACC，故 CACC 涵蓋 GACC。"
+            }
+          ],
+          "generalFeedback": "主動子句階層為 RACC 涵蓋 CACC 涵蓋 GACC。CACC 保留 GACC 的決定性要求，僅額外要求 p 在每對測試中改變，故涵蓋 GACC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "X AND c 的決定性",
+          "text": "<p>設 p = X &#8743; c，其中 X 為任意子運算式、c 為單一子句。子句 c 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "X 評估為 true",
+              "fraction": 100,
+              "feedback": "正確——X 為 true 時 p 等於 c，故翻轉 c 會翻轉 p。"
+            },
+            {
+              "text": "X 評估為 false",
+              "fraction": 0,
+              "feedback": "X 為 false 時，無論 c 為何 p 都為 false。"
+            },
+            {
+              "text": "c 評估為 true",
+              "fraction": 0,
+              "feedback": "c 的決定性取決於 X，而非 c 自身的值。"
+            },
+            {
+              "text": "恆成立，因為 c 是頂層子句",
+              "fraction": 0,
+              "feedback": "只要 X 為 false，c 就被遮蔽。"
+            }
+          ],
+          "generalFeedback": "對頂層邏輯與 p = X &#8743; c，c 決定 p 恰在另一運算元 X 為 true 時。對偶地，對 p = X &#8744; c，c 決定 p 恰在 X 為 false 時。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "X OR c 的決定性",
+          "text": "<p>設 p = X &#8744; c，其中 X 為任意子運算式、c 為單一子句。子句 c 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "X 評估為 false",
+              "fraction": 100,
+              "feedback": "正確——X 為 false 時 p 等於 c，故翻轉 c 會翻轉 p。"
+            },
+            {
+              "text": "X 評估為 true",
+              "fraction": 0,
+              "feedback": "X 為 true 時，無論 c 為何 p 都為 true。"
+            },
+            {
+              "text": "c 評估為 false",
+              "fraction": 0,
+              "feedback": "c 的決定性取決於 X，而非 c 自身的值。"
+            },
+            {
+              "text": "恆成立，因為 c 是頂層子句",
+              "fraction": 0,
+              "feedback": "只要 X 為 true，c 就被遮蔽。"
+            }
+          ],
+          "generalFeedback": "對頂層邏輯或 p = X &#8744; c，c 決定 p 恰在另一運算元 X 為 false 時。對偶地，對 p = X &#8743; c，c 決定 p 恰在 X 為 true 時。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何 RACC 涵蓋 CACC",
+          "text": "<p>為何 RACC 涵蓋 CACC？</p>",
+          "answers": [
+            {
+              "text": "在主要子句決定 p 的同時將次要子句固定為相同值，會迫使 p 在該對測試取到相反值，這正是 CACC 額外要求的",
+              "fraction": 100,
+              "feedback": "正確——RACC 的限制蘊含 CACC 的相關性，且 RACC 保留所有其他 ACC 要求。"
+            },
+            {
+              "text": "RACC 測試全部 2^n 種組合，其中包含每個 CACC 測試",
+              "fraction": 0,
+              "feedback": "RACC 不需所有組合；它與 CACC 一樣約用 n+1 個測試。"
+            },
+            {
+              "text": "RACC 取消了決定性要求，使其更易滿足",
+              "fraction": 0,
+              "feedback": "RACC 保留決定性；取消它只會更弱而非更強。"
+            },
+            {
+              "text": "RACC 只適用於兩子句述詞，此時 CACC 為顯然成立",
+              "fraction": 0,
+              "feedback": "RACC 適用於任意述詞。"
+            }
+          ],
+          "generalFeedback": "在 RACC 下次要子句於該對測試相同且主要子句決定 p；決定性即「只翻轉主要子句就翻轉 p」，故 p 一者為 true、另一者為 false——即 CACC 的要求。因此每個滿足 RACC 的測試集也滿足 CACC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC 不涵蓋 PC 的反例",
+          "text": "<p>考慮 p = a &#8596; b（等價，於 a 與 b 相等時為 true）。哪個測試集滿足 GACC 卻不滿足述詞覆蓋，藉此顯示 GACC 不涵蓋 PC？</p>",
+          "answers": [
+            {
+              "text": "{(a=T, b=T), (a=F, b=F)}",
+              "fraction": 100,
+              "feedback": "正確——兩個測試皆使 p=true，故 PC 不成立；但每個子句在兩列都決定 p，故 GACC 成立。"
+            },
+            {
+              "text": "{(a=T, b=T), (a=F, b=T)}",
+              "fraction": 0,
+              "feedback": "此處 p 取到兩種值（先 T 後 F），故滿足 PC——並非反例。"
+            },
+            {
+              "text": "{(a=T, b=T), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "此處 p 取到兩種值（先 T 後 F），故滿足 PC——並非反例。"
+            },
+            {
+              "text": "{(a=F, b=F), (a=T, b=F)}",
+              "fraction": 0,
+              "feedback": "此處 p 取到兩種值（先 T 後 F），故滿足 PC——並非反例。"
+            }
+          ],
+          "generalFeedback": "對 p = a &#8596; b，每個子句恆決定 p。集合 {(T,T),(F,F)} 使每個子句在決定 p 的同時取到 true 與 false（滿足 GACC），但兩列的 p = true，故不滿足述詞覆蓋。這是「GACC 不涵蓋 PC」的經典證明。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "每個 CACC 測試集都滿足 PC",
+          "text": "<p>每個滿足 CACC 的測試集也都滿足述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——CACC 迫使 p 在每對測試中一者為 true、另一者為 false，故 p 取到兩種值。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CACC 要求 p 在每個主要子句的測試對中取值不同，這保證了述詞覆蓋。"
+            }
+          ],
+          "generalFeedback": "CACC 涵蓋述詞覆蓋，因為它要求 p 在每對測試取到兩種真值。（相對地 GACC 不然，因為 GACC 允許次要子句變動，使 p 可保持不變。）"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 RACC 可能不可行而 CACC 可行",
+          "text": "<p>有時對某子句而言 RACC 不可行，即使 CACC 可行。最佳解釋是：</p>",
+          "answers": [
+            {
+              "text": "RACC 將次要子句固定為單一相同的組合；子句間的約束可能禁止該特定組合，而 CACC 可自由採用不同的次要子句值，仍能得到有效的測試對",
+              "fraction": 100,
+              "feedback": "正確——RACC 的額外限制可能與子句約束衝突，而 CACC 得以迴避。"
+            },
+            {
+              "text": "RACC 需要的測試數多於真值表的列數",
+              "fraction": 0,
+              "feedback": "RACC 約需 n+1 個測試，遠在 2^n 列之內。"
+            },
+            {
+              "text": "CACC 不要求主要子句決定 p，故恆可行",
+              "fraction": 0,
+              "feedback": "CACC 確實要求決定性；那不是原因。"
+            },
+            {
+              "text": "RACC 會自動忽略不可行的列",
+              "fraction": 0,
+              "feedback": "不可行的列正是可能使 RACC 無法滿足的原因，而非它會忽略的東西。"
+            }
+          ],
+          "generalFeedback": "當子句在邏輯上耦合時，RACC 要求的那個相同次要子句組合可能無法達到，而 CACC 可挑選兩個不同（各自可達）的次要子句指派。因此 RACC 可能不可行而 CACC 可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 a 的決定列數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=true 且 c=false；a 自由，故 2 列。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 c 的決定列數，而非 a。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b=false 或 c=true，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=true、c=false 時 a=T 與 a=F 都算，故 2 列。"
+            }
+          ],
+          "generalFeedback": "a 決定 p 恰在 b=true 且 c=false（使項 a &#8743; b 傳達 a 值，且邏輯或未遮蔽它）。此固定 b 與 c、a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND (c OR d) 中 c 的決定列數",
+          "text": "<p>對 p = (a &#8744; b) &#8743; (c &#8744; d)，在 16 種指派中，子句 c <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——c 決定 p 需 (a &#8744; b)=true（4 中之 3）且 d=false（2 中之 1），c 自由（2）：3&#215;1&#215;2 = 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那忽略了 d=false 的條件；那些列只有一半符合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重算——3（a &#8744; b 為 true）&#215; 1（d 為 false）&#215; 2（c 自由）= 6。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "只要 a &#8744; b 為 false 或 d 為 true，c 就被遮蔽，故符合的列遠少於 12。"
+            }
+          ],
+          "generalFeedback": "c 決定 c &#8744; d 僅在 d=false 時，而該邏輯或決定 p 僅在 a &#8744; b=true 時。故 c 決定 p 需 a &#8744; b=true（(a,b) 4 中之 3）且 d=false，c 自由：3 &#215; 1 &#215; 2 = 16 中之 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c 中 a 的決定列數",
+          "text": "<p>對 p = a &#8744; b &#8744; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=false 且 c=false；a 自由，故 2 列。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 a &#8744; b &#8744; c 的滿足列數，而非 a 的決定列數。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b 或 c 為 true，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=false、c=false 時 a=T 與 a=F 都算，故 2 列。"
+            }
+          ],
+          "generalFeedback": "在邏輯或中，a 決定 p 僅在其餘每個子句皆為 false 時。b=false 且 c=false 固定次要子句、a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c 中 a 的決定列數",
+          "text": "<p>對 p = a &#8743; b &#8743; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=true 且 c=true；a 自由，故 2 列。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=true、c=true 時 a=T 與 a=F 都算，故 2 列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b 或 c 為 false，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a 只在 b、c 皆為 true 的 2 列決定 p。"
+            }
+          ],
+          "generalFeedback": "在邏輯與中，a 決定 p 僅在其餘每個子句皆為 true 時。b=true 且 c=true 固定次要子句、a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR (c AND d) 中 a 的決定條件",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，子句 a 決定 p 恰好發生於：</p>",
+          "answers": [
+            {
+              "text": "b = true 且 (c &#8743; d) = false",
+              "fraction": 100,
+              "feedback": "正確——b 為 true 使 a 通過第一項，(c &#8743; d) 為 false 使邏輯或不遮蔽它。"
+            },
+            {
+              "text": "b = true 且 (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "c &#8743; d 為 true 時，無論 a 為何 p 都為 true，故 a 被遮蔽。"
+            },
+            {
+              "text": "b = false 且 (c &#8743; d) = false",
+              "fraction": 0,
+              "feedback": "b 為 false 時，無論 a 為何 a &#8743; b 都為 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "b = false 且 (c &#8743; d) = true",
+              "fraction": 0,
+              "feedback": "兩個條件都阻擋 a：b 為 false 遮蔽 a，c &#8743; d 為 true 使 p 為 true。"
+            }
+          ],
+          "generalFeedback": "a 只有在 b = true 時才能通過項 a &#8743; b，且該項只有在另一項 c &#8743; d 為 false 時才傳達到 p = (&#8230;) &#8744; (c &#8743; d)。故 a 決定 p 恰在 b = true 且 (c &#8743; d) = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "蘊含約束下不可行的 RACC 測試對",
+          "text": "<p>某述詞使用子句 c1：<code>x &gt; 10</code> 與 c2：<code>x &gt; 0</code>。一項需要 c1 = true 而 c2 = false 的測試要求是：</p>",
+          "answers": [
+            {
+              "text": "不可行——x > 10 蘊含 x > 0，故 c1 為 true 而 c2 為 false 不可能發生",
+              "fraction": 100,
+              "feedback": "正確——這兩個子句在邏輯上耦合，該組合不可能成立。"
+            },
+            {
+              "text": "對某個 x 值可行",
+              "fraction": 0,
+              "feedback": "沒有 x 大於 10 卻不大於 0。"
+            },
+            {
+              "text": "僅在 GACC 下可行",
+              "fraction": 0,
+              "feedback": "任何準則都無法實現邏輯上不可能的子句組合。"
+            },
+            {
+              "text": "恆可行，因為兩子句相互獨立",
+              "fraction": 0,
+              "feedback": "這兩個子句並不獨立；c1 蘊含 c2。"
+            }
+          ],
+          "generalFeedback": "因為 x > 10 邏輯上蘊含 x > 0，組合 c1=true、c2=false 無法達到。任何依賴該組合的主動子句要求（包含一對 RACC）都不可行，必須予以排除。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的 CACC 最少測試數",
+          "text": "<p>某判斷有 3 個獨立子句。滿足 CACC（MC/DC）最少需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——n + 1 = 3 + 1 = 4。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 = 2n 是上界，並非最小值。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 是組合覆蓋。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "需至少 n + 1 = 4 個測試才能顯示三個子句各自獨立影響結果。"
+            }
+          ],
+          "generalFeedback": "含 n 個獨立子句的 CACC／MC-DC 最少可用 n + 1 個測試達成；n = 3 時即 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GACC 對 PC 與 CC 的保證",
+          "text": "<p>關於 GACC 與基本準則，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "GACC 涵蓋子句覆蓋，但不必然涵蓋述詞覆蓋",
+              "fraction": 100,
+              "feedback": "正確——每個子句都被取到 true 與 false（CC），但 p 可能在一對測試中維持不變（故 PC 可能失敗）。"
+            },
+            {
+              "text": "GACC 同時涵蓋子句覆蓋與述詞覆蓋",
+              "fraction": 0,
+              "feedback": "GACC 不必然涵蓋 PC；等價述詞即為反例。"
+            },
+            {
+              "text": "GACC 涵蓋述詞覆蓋，但不涵蓋子句覆蓋",
+              "fraction": 0,
+              "feedback": "恰好相反：GACC 給出 CC，但可能遺漏 PC。"
+            },
+            {
+              "text": "GACC 既不涵蓋子句覆蓋，也不涵蓋述詞覆蓋",
+              "fraction": 0,
+              "feedback": "GACC 確實使每個子句取到 true 與 false，故涵蓋 CC。"
+            }
+          ],
+          "generalFeedback": "由於每個子句都是某對 true／false 測試的主要子句，GACC 使每個子句取到兩種值，故涵蓋子句覆蓋。但 GACC 允許 p 在一對測試中維持不變（例如 p = a &#8596; b），故不必然涵蓋述詞覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a EQUIV b 中 a 的決定列數",
+          "text": "<p>對 p = a &#8596; b，在 4 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——對等價而言，翻轉 a 恆翻轉 p，故 a 在每一列都決定 p。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "a 對 b 的兩種值都決定 p，故 4 列皆符合，而非 2。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "a &#8596; b 中 a 的決定性與 b 無關，故在所有列都成立。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "在等價中 a 恆決定 p；計數為 4，而非 0。"
+            }
+          ],
+          "generalFeedback": "p = a &#8596; b 於 a 與 b 相等時為 true。對任意固定的 b，翻轉 a 都翻轉 p，故 a 在全部 4 種指派都決定 p。這正是等價給出 GACC-vs-PC 反例的原因：每一列都是決定性的，而 GACC 測試集卻可使 p 維持不變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 中 a 的決定列數",
+          "text": "<p>對 p = (a &#8744; b) &#8743; c，在 8 種指派中，子句 a <strong>決定</strong> p 的有幾種？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——a 決定 p 僅在 b=false 且 c=true；a 自由，故 2 列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要 b=true（a &#8744; b 已為 true）或 c=false，a 就被遮蔽，僅剩 2 個決定列。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是其他述詞中 c 的列數；此處 a 只在 2 列決定 p。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "當 b=false、c=true 時 a=T 與 a=F 都算，故 2 列。"
+            }
+          ],
+          "generalFeedback": "a 決定邏輯或 a &#8744; b 僅在 b=false 時，而該邏輯或決定 p 僅在 c=true 時。故 a 決定 p 需 b=false 且 c=true，a 自由：8 種指派中的 2 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主動子句涵蓋關係總整理",
+          "text": "<p>關於主動子句的涵蓋關係，下列哪一項總結完全正確？</p>",
+          "answers": [
+            {
+              "text": "RACC 涵蓋 CACC 涵蓋 GACC；CACC 涵蓋 PC，但 GACC 不必然涵蓋 PC",
+              "fraction": 100,
+              "feedback": "正確——這同時捕捉了內部次序與對 PC 的關係。"
+            },
+            {
+              "text": "GACC 涵蓋 CACC 涵蓋 RACC；三者都涵蓋 PC",
+              "fraction": 0,
+              "feedback": "次序顛倒，且 GACC 不必然涵蓋 PC。"
+            },
+            {
+              "text": "RACC 涵蓋 CACC 涵蓋 GACC；三者都不涵蓋 PC",
+              "fraction": 0,
+              "feedback": "CACC（與 RACC）確實涵蓋 PC；只有 GACC 可能不涵蓋。"
+            },
+            {
+              "text": "三者等價，且各自都涵蓋組合覆蓋",
+              "fraction": 0,
+              "feedback": "三者為嚴格排序，且是組合覆蓋涵蓋它們，而非反之。"
+            }
+          ],
+          "generalFeedback": "正確圖像：RACC &#8839; CACC &#8839; GACC（由強到弱）。RACC 與 CACC 都涵蓋述詞覆蓋，因為它們迫使 p 取到兩種值；GACC 則不必然，因為它可使 p 在一對測試中維持不變。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "logic-basic": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Clause definition (basic)",
+          "text": "<p>A <strong>clause</strong> is best defined as:</p>",
+          "answers": [
+            {
+              "text": "A boolean expression that contains no logical operators",
+              "fraction": 100,
+              "feedback": "Correct — a clause is atomic, e.g. x > 0 or a single boolean variable."
+            },
+            {
+              "text": "Any boolean expression joined by &&, ||, or !",
+              "fraction": 0,
+              "feedback": "That describes a predicate, which is built from clauses."
+            },
+            {
+              "text": "A single row of a truth table",
+              "fraction": 0,
+              "feedback": "A truth-table row is one assignment of values, not a clause."
+            },
+            {
+              "text": "A test case that makes a predicate true",
+              "fraction": 0,
+              "feedback": "That is a test, not a clause."
+            }
+          ],
+          "generalFeedback": "A clause (condition) is a boolean expression with no logical operators (&&, ||, !). Predicates are formed by connecting clauses with those operators.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate definition (basic)",
+          "text": "<p>A <strong>predicate</strong> is:</p>",
+          "answers": [
+            {
+              "text": "An expression formed from one or more clauses connected by logical operators",
+              "fraction": 100,
+              "feedback": "Correct — clauses joined by &&, ||, ! form a predicate."
+            },
+            {
+              "text": "Always an expression with no logical operators",
+              "fraction": 0,
+              "feedback": "That is a clause; a predicate may contain operators."
+            },
+            {
+              "text": "An arithmetic expression that returns a number",
+              "fraction": 0,
+              "feedback": "A predicate is boolean-valued, not numeric."
+            },
+            {
+              "text": "A loop condition that must be an inequality",
+              "fraction": 0,
+              "feedback": "A predicate need not be an inequality nor tied to a loop."
+            }
+          ],
+          "generalFeedback": "A predicate is a boolean expression built from clauses connected by logical operators. A single clause with no operators is itself the simplest predicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the single clause",
+          "text": "<p>Which of the following is a <strong>single clause</strong> (not a compound predicate)?</p>",
+          "answers": [
+            {
+              "text": "x >= 5",
+              "fraction": 100,
+              "feedback": "Correct — a relational expression with no logical operators is one clause."
+            },
+            {
+              "text": "a && b",
+              "fraction": 0,
+              "feedback": "This joins two clauses with &&, so it is a predicate."
+            },
+            {
+              "text": "!p",
+              "fraction": 0,
+              "feedback": "The ! operator makes this a compound predicate over the clause p."
+            },
+            {
+              "text": "a || b",
+              "fraction": 0,
+              "feedback": "This joins two clauses with ||, so it is a predicate."
+            }
+          ],
+          "generalFeedback": "A clause contains no logical operators. Only x >= 5 qualifies; the others use &&, ||, or !.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the clauses",
+          "text": "<p>How many clauses does the predicate <code>(p && q) || !r</code> contain?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — the clauses are p, q, and r."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three atomic conditions: p, q, r."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The operators &&, ||, ! are not clauses; only p, q, r are."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "This is a compound predicate with three clauses, not one."
+            }
+          ],
+          "generalFeedback": "Clauses are the atomic boolean expressions. In (p && q) || !r they are p, q, and r — three clauses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate Coverage definition",
+          "text": "<p>Predicate Coverage (PC) requires that:</p>",
+          "answers": [
+            {
+              "text": "The predicate evaluates to both true and false at least once",
+              "fraction": 100,
+              "feedback": "Correct — one test making it true, one making it false."
+            },
+            {
+              "text": "Each clause evaluates to both true and false",
+              "fraction": 0,
+              "feedback": "That is Clause Coverage (CC), not PC."
+            },
+            {
+              "text": "Every combination of clause values is exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage (CoC)."
+            },
+            {
+              "text": "Each clause determines the predicate's value at least once",
+              "fraction": 0,
+              "feedback": "That is the active-clause idea (ACC), which is out of scope here."
+            }
+          ],
+          "generalFeedback": "PC only constrains the whole predicate: it must take both truth values at least once. It says nothing about individual clauses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clause Coverage definition",
+          "text": "<p>Clause Coverage (CC) requires that:</p>",
+          "answers": [
+            {
+              "text": "Each clause evaluates to both true and false at least once",
+              "fraction": 100,
+              "feedback": "Correct — every atomic condition must take on both values."
+            },
+            {
+              "text": "The whole predicate evaluates to both true and false",
+              "fraction": 0,
+              "feedback": "That is Predicate Coverage (PC)."
+            },
+            {
+              "text": "All 2^n combinations of clause values are exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage (CoC)."
+            },
+            {
+              "text": "Each clause independently determines the predicate",
+              "fraction": 0,
+              "feedback": "That is active-clause coverage, stronger than plain CC."
+            }
+          ],
+          "generalFeedback": "CC requires each clause to be both true and false at least once, regardless of what the enclosing predicate does.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial Coverage definition",
+          "text": "<p>Combinatorial (Clause) Coverage (CoC) requires that:</p>",
+          "answers": [
+            {
+              "text": "Every one of the 2^n truth-value combinations of the n clauses is exercised",
+              "fraction": 100,
+              "feedback": "Correct — the full truth table (subject to feasibility)."
+            },
+            {
+              "text": "The predicate takes both true and false",
+              "fraction": 0,
+              "feedback": "That is only Predicate Coverage (PC)."
+            },
+            {
+              "text": "Each clause takes both true and false",
+              "fraction": 0,
+              "feedback": "That is only Clause Coverage (CC)."
+            },
+            {
+              "text": "n + 1 carefully chosen tests are executed",
+              "fraction": 0,
+              "feedback": "n + 1 is the minimal size for CACC/MC-DC, which is out of scope here."
+            }
+          ],
+          "generalFeedback": "CoC (a.k.a. ACoC) demands all 2^n combinations of the n clauses' truth values — the complete truth table.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth-table rows for 2 clauses",
+          "text": "<p>How many rows are in the full truth table of a predicate with <strong>2</strong> clauses?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 2^2 = 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the minimum for PC or CC, not the number of rows."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "2^2 = 4, not 3."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 would be three clauses."
+            }
+          ],
+          "generalFeedback": "A predicate with n clauses has 2^n truth-table rows; for n = 2 that is 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth-table rows for 3 clauses",
+          "text": "<p>How many rows are in the full truth table of a predicate with <strong>3</strong> clauses?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2^3 = 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "2^3 = 8, not 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = 2^2 would be two clauses."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "The count is 2^3 = 8, not 3^2."
+            }
+          ],
+          "generalFeedback": "A predicate with n clauses has 2^n rows; for n = 3 that is 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth-table rows for 4 clauses",
+          "text": "<p>How many rows are in the full truth table of a predicate with <strong>4</strong> clauses?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 2^4 = 16."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 would be three clauses."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "2^4 = 16, not 4 times 3."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 would be five clauses."
+            }
+          ],
+          "generalFeedback": "A predicate with n clauses has 2^n rows; for n = 4 that is 16.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND b",
+          "text": "<p>Of the 4 truth-table rows, how many make <code>a && b</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only a=T, b=T satisfies a conjunction."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only the all-true row satisfies a && b."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the count for a || b, not a && b."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "A conjunction is false whenever any clause is false."
+            }
+          ],
+          "generalFeedback": "A conjunction is true only when every clause is true, so exactly 1 of the 4 rows satisfies a && b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a OR b",
+          "text": "<p>Of the 4 truth-table rows, how many make <code>a || b</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — only a=F, b=F fails."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 is the count for a && b."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only the all-false row fails, leaving 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The all-false row a=F, b=F does not satisfy a || b."
+            }
+          ],
+          "generalFeedback": "A disjunction is false only when every clause is false, so 3 of the 4 rows satisfy a || b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a AND b) OR c",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>(a && b) || c</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 4 rows with c=T, plus the one row a=T, b=T, c=F."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The 4 rows with c=T count, but a=T, b=T, c=F also satisfies it, giving 5."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — exactly 5 of the 8 rows are true."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "c=T alone already gives 4 true rows."
+            }
+          ],
+          "generalFeedback": "Whenever c=T the predicate is true (4 rows); when c=F it needs a=T and b=T (1 more). Total = 5 of 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum tests for PC",
+          "text": "<p>What is the minimum number of tests needed to satisfy Predicate Coverage for a single predicate?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one test makes it true, one makes it false."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test can only produce one truth value; PC needs both."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 relates to a 2-clause truth table, not the PC minimum."
+            },
+            {
+              "text": "It depends on the number of clauses",
+              "fraction": 0,
+              "feedback": "PC ignores clause count; 2 tests always suffice for one predicate."
+            }
+          ],
+          "generalFeedback": "PC needs the predicate to be both true and false, so at least 2 tests, independent of how many clauses it has.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Clause has no logical operators",
+          "text": "<p>A clause contains no logical operators (&&, ||, !).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — clauses are atomic; operators combine them into predicates."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "By definition a clause has no logical operators; adding one makes it a compound predicate."
+            }
+          ],
+          "generalFeedback": "A clause is a boolean expression with no logical operators. Joining clauses with &&, ||, or ! yields a predicate."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Minimum tests for CC (independent clauses)",
+          "text": "<p>For a predicate whose clauses can be set independently, what is the minimum number of tests that satisfies Clause Coverage, regardless of the number of clauses?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one all-true test and one all-false test flip every clause."
+            },
+            {
+              "text": "n (one per clause)",
+              "fraction": 0,
+              "feedback": "Two tests suffice: set all clauses true, then all false."
+            },
+            {
+              "text": "n + 1",
+              "fraction": 0,
+              "feedback": "n + 1 is the MC/DC minimum, not the CC minimum."
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, far more than CC needs."
+            }
+          ],
+          "generalFeedback": "When clauses are independent, one all-true and one all-false test give every clause both values, so CC needs only 2 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CoC test requirements for 3 clauses",
+          "text": "<p>A predicate has 3 independent clauses. How many test requirements does Combinatorial Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2^3 = 8 combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is closer to the CC size, not every combination."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 is the MC/DC minimum, not CoC."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 falls short of the full 2^3 = 8 combinations."
+            }
+          ],
+          "generalFeedback": "CoC requires all 2^n combinations; for n = 3 that is 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which criterion subsumes the others",
+          "text": "<p>Among PC, CC, and CoC, which statement is correct?</p>",
+          "answers": [
+            {
+              "text": "CoC subsumes both PC and CC",
+              "fraction": 100,
+              "feedback": "Correct — exercising all combinations covers both PC and CC."
+            },
+            {
+              "text": "PC subsumes CC",
+              "fraction": 0,
+              "feedback": "PC and CC are incomparable; neither subsumes the other."
+            },
+            {
+              "text": "CC subsumes PC",
+              "fraction": 0,
+              "feedback": "CC does not subsume PC — see the a && b counterexample."
+            },
+            {
+              "text": "PC subsumes CoC",
+              "fraction": 0,
+              "feedback": "It is the other way around: CoC is the strongest of the three."
+            }
+          ],
+          "generalFeedback": "A test set covering all 2^n combinations necessarily makes the predicate both true and false (PC) and each clause both values (CC), so CoC subsumes both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC and CC relationship",
+          "text": "<p>Which statement about Predicate Coverage and Clause Coverage is correct?</p>",
+          "answers": [
+            {
+              "text": "Neither subsumes the other; they are incomparable",
+              "fraction": 100,
+              "feedback": "Correct — each can be met without the other."
+            },
+            {
+              "text": "PC always subsumes CC",
+              "fraction": 0,
+              "feedback": "Not so: a || b with tests {(T,F),(F,F)} meets PC but not CC."
+            },
+            {
+              "text": "CC always subsumes PC",
+              "fraction": 0,
+              "feedback": "Not so: a && b with tests {(T,F),(F,T)} meets CC but not PC."
+            },
+            {
+              "text": "They are equivalent",
+              "fraction": 0,
+              "feedback": "They are distinct and incomparable, not equivalent."
+            }
+          ],
+          "generalFeedback": "PC and CC are incomparable: there are test sets meeting one but not the other in each direction.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CC-but-not-PC test set",
+          "text": "<p>For <code>p = a && b</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b))</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "Correct — a and b each take both values, yet p is false in both rows."
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "Here p is true then false, so this satisfies PC too."
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "b takes both values but a stays true, so CC is not met; also p is true then false."
+            },
+            {
+              "text": "{(F, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "a never becomes true, so this fails CC."
+            }
+          ],
+          "generalFeedback": "With (T,F) and (F,T), a is {T,F} and b is {F,T} (CC met), but a && b is false both times, so PC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC-but-not-CC test set",
+          "text": "<p>For <code>p = a || b</code>, which 2-test set satisfies <strong>Predicate Coverage but not Clause Coverage</strong>? (rows given as (a, b))</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 100,
+              "feedback": "Correct — p is true then false (PC met), but b is never true, so CC fails."
+            },
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "Here both clauses take both values, so CC is also satisfied."
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "Both clauses take both values here, so CC is satisfied too."
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "p is true in both rows, so PC is not satisfied."
+            }
+          ],
+          "generalFeedback": "With (T,F) and (F,F), p is true then false (PC met), but b stays false, so CC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND (b OR c)",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>a && (b || c)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — a=T (4 rows), minus the row where b=F and c=F."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Among the 4 rows with a=T, the one with b=F, c=F fails, leaving 3."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the count for (a && b) || c, a different predicate."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "a must be true, so at most 4 rows qualify; the correct count is 3."
+            }
+          ],
+          "generalFeedback": "The predicate needs a=T and (b || c). a=T gives 4 rows; removing b=F, c=F leaves 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a OR b) AND c",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>(a || b) && c</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — c must be true, and among those 4 rows only a=F, b=F fails."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=T gives 4 rows, but a=F, b=F, c=T fails (a || b is false), leaving 3."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Recount — exactly 3 rows satisfy it."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Too few — three of the c=T rows satisfy a || b."
+            }
+          ],
+          "generalFeedback": "c must be true (4 rows); of those, a || b holds in 3 (all but a=F, b=F). Total = 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of NOT a OR (b AND c)",
+          "text": "<p>Of the 8 truth-table rows, how many make <code>!a || (b && c)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — all 4 rows with a=F, plus a=T with b=T, c=T."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The 4 rows with a=F all count, and a=T, b=T, c=T adds one more, giving 5."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — exactly 5 rows satisfy it."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "a=F alone already yields 4 true rows."
+            }
+          ],
+          "generalFeedback": "When a=F the predicate is true (4 rows); when a=T it needs b=T and c=T (1 row). Total = 5.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CoC test set satisfies PC",
+          "text": "<p>Any test set that satisfies Combinatorial Coverage also satisfies Predicate Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — covering all combinations includes rows where the predicate is true and where it is false."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC subsumes PC: exercising every combination forces both truth values of the predicate."
+            }
+          ],
+          "generalFeedback": "CoC subsumes PC. All 2^n rows include at least one true and one false row (for any non-constant predicate), so PC is met."
+        },
+        {
+          "type": "truefalse",
+          "name": "CoC test set satisfies CC",
+          "text": "<p>Any test set that satisfies Combinatorial Coverage also satisfies Clause Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — every clause is true in some combinations and false in others."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC subsumes CC: all 2^n rows make each clause both true and false."
+            }
+          ],
+          "generalFeedback": "CoC subsumes CC. Across all 2^n combinations each clause takes both values, so CC is met."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which criterion needs the most tests",
+          "text": "<p>For a predicate with several independent clauses, which criterion generally demands the largest number of tests?</p>",
+          "answers": [
+            {
+              "text": "Combinatorial Coverage (CoC)",
+              "fraction": 100,
+              "feedback": "Correct — CoC requires all 2^n combinations."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC needs only 2 tests, the fewest."
+            },
+            {
+              "text": "Clause Coverage (CC)",
+              "fraction": 0,
+              "feedback": "CC needs as few as 2 tests when clauses are independent."
+            },
+            {
+              "text": "They all need the same number",
+              "fraction": 0,
+              "feedback": "CoC (2^n) grows far beyond the 2-test minimum of PC and CC."
+            }
+          ],
+          "generalFeedback": "CoC scales as 2^n and subsumes PC and CC, so it generally requires the most tests.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PC min vs CoC for 3 clauses",
+          "text": "<p>For a predicate with 3 clauses, Predicate Coverage needs a minimum of 2 tests while Combinatorial Coverage imposes 8 test requirements.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — PC min is 2; CoC is 2^3 = 8."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "PC needs only 2 tests, and CoC needs 2^3 = 8, so the statement holds."
+            }
+          ],
+          "generalFeedback": "PC always needs 2 tests (both predicate values); CoC needs all 2^n = 8 combinations for n = 3."
+        },
+        {
+          "type": "truefalse",
+          "name": "CC does not guarantee PC",
+          "text": "<p>Satisfying Clause Coverage always guarantees that Predicate Coverage is also satisfied.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — for a && b, tests {(T,F),(F,T)} meet CC but the predicate is never true."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC does not subsume PC: a && b with {(T,F),(F,T)} meets CC yet fails PC."
+            }
+          ],
+          "generalFeedback": "CC and PC are incomparable. The classic counterexample is a && b with {(T,F),(F,T)}: CC met, PC failed."
+        },
+        {
+          "type": "multichoice",
+          "name": "Tests to meet both PC and CC (a AND b)",
+          "text": "<p>For <code>p = a && b</code>, what is the minimum number of tests that satisfies <strong>both</strong> PC and CC?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — {(T,T),(F,F)} makes p both values and each clause both values."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two tests, (T,T) and (F,F), already meet both criteria."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the full truth table (CoC); PC and CC together need only 2."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test yields only one predicate value, so PC cannot be met."
+            }
+          ],
+          "generalFeedback": "The set {(T,T),(F,F)} gives p = true then false (PC) and a, b each both values (CC), so 2 tests suffice.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Feasible CoC with mutually exclusive clauses",
+          "text": "<p>A predicate uses the clauses <code>x > 0</code> and <code>x < 0</code> over a single variable x. Of the 4 combinations Combinatorial Coverage would require, how many are <strong>feasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — both true is impossible; the other three (TF, FT, FF at x=0) are feasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "x cannot be both > 0 and < 0, so the (T,T) combination is infeasible."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Three combinations are feasible: x>0, x<0, and x=0."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Only (T,T) is impossible; the other three are all reachable."
+            }
+          ],
+          "generalFeedback": "x > 0 and x < 0 cannot both hold, so (T,T) is infeasible. TF (x>0), FT (x<0), and FF (x=0) remain: 3 feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible CoC with a dependent clause",
+          "text": "<p>A predicate uses clauses <code>a: x > 5</code> and <code>b: x > 10</code>. Since b implies a, how many of the 4 CoC combinations are <strong>feasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — (a=F, b=T) is impossible because b implies a."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "b true forces a true, so (a=F, b=T) cannot happen."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Three combos are feasible: x>10, 5<x<=10, and x<=5."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Only one combination is infeasible, leaving 3."
+            }
+          ],
+          "generalFeedback": "b (x>10) implies a (x>5), so (a=F, b=T) is infeasible. TT (x>10), TF (5<x<=10), FF (x<=5) remain: 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CC-but-not-PC for a three-clause conjunction",
+          "text": "<p>For <code>p = a && b && c</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b, c))</p>",
+          "answers": [
+            {
+              "text": "{(T, F, T), (F, T, F)}",
+              "fraction": 100,
+              "feedback": "Correct — each clause takes both values, yet p is false in both rows."
+            },
+            {
+              "text": "{(T, T, T), (F, F, F)}",
+              "fraction": 0,
+              "feedback": "Here p is true then false, so PC is satisfied too."
+            },
+            {
+              "text": "{(T, T, T), (T, T, F)}",
+              "fraction": 0,
+              "feedback": "a and b never become false, so CC is not met."
+            },
+            {
+              "text": "{(F, F, T), (F, T, F)}",
+              "fraction": 0,
+              "feedback": "a never becomes true, so CC fails."
+            }
+          ],
+          "generalFeedback": "With (T,F,T) and (F,T,F) each of a, b, c takes both values (CC met), but a && b && c is false in both rows, so PC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a AND b) OR (c AND d)",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>(a && b) || (c && d)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — |a&&b| = 4, |c&&d| = 4, overlap = 1, so 4 + 4 - 1 = 7."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "You must subtract the 1 overlapping row (all four true) to avoid double counting."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Inclusion-exclusion gives 4 + 4 - 1 = 7, not 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Each conjunction alone is true in 4 rows, but together they cover 7."
+            }
+          ],
+          "generalFeedback": "a && b is true in 4 rows, c && d in 4 rows; they overlap only when all four are true (1 row). 4 + 4 - 1 = 7.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a OR b OR c OR d",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>a || b || c || d</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "Correct — only the all-false row fails."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "The all-false row does not satisfy a disjunction."
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "Exactly one row (all false) fails, leaving 15."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 would be a conjunction; a 4-way disjunction is true on 15 rows."
+            }
+          ],
+          "generalFeedback": "A 4-way disjunction is false only on the single all-false row, so 15 of 16 rows satisfy it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of a AND b AND c AND d",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>a && b && c && d</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only the all-true row satisfies a 4-way conjunction."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "All four clauses must be true simultaneously, which happens in exactly 1 row."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "A conjunction is true only when every clause is true: 1 row."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 is the count for the disjunction, not the conjunction."
+            }
+          ],
+          "generalFeedback": "A conjunction is true only when every clause is true, so exactly 1 of the 16 rows satisfies it.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Infeasible combination breaks full CoC",
+          "text": "<p>If two clauses of a predicate can never be true at the same time, then full Combinatorial Coverage (all 2^n rows) is infeasible.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the combination requiring both clauses true can never be executed."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "An unreachable combination means at least one of the 2^n rows cannot be produced, so full CoC is infeasible."
+            }
+          ],
+          "generalFeedback": "CoC demands every one of the 2^n combinations. If one is logically impossible, the complete set cannot be achieved, so full CoC is infeasible (only the feasible rows can be required)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible CoC combinations with three clauses",
+          "text": "<p>A predicate uses clauses <code>a: x > 0</code>, <code>b: x < 0</code>, and <code>c: y > 0</code>. Of the 8 CoC combinations, how many are <strong>feasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — the 2 combinations with a=T and b=T (over c) are impossible, leaving 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a and b cannot both be true, so the 2 rows with a=T, b=T are infeasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only the 2 rows with a=T and b=T are infeasible; 6 remain."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Two rows (a=T, b=T with c either value) are infeasible, not one."
+            }
+          ],
+          "generalFeedback": "a and b are mutually exclusive, so both a=T, b=T rows (c=T and c=F) are infeasible: 8 - 2 = 6 feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CoC requirements after one infeasible combination",
+          "text": "<p>A 2-clause predicate has one infeasible combination. How many Combinatorial Coverage test requirements remain?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — 2^2 = 4 minus the 1 infeasible combination."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The infeasible combination is dropped, leaving 3."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only one combination is removed, so 3 remain."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Removing one of four combinations leaves three, not one."
+            }
+          ],
+          "generalFeedback": "CoC would need 2^2 = 4 combinations; removing the single infeasible one leaves 3 feasible requirements.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CC of a 3-clause predicate needs 3 tests",
+          "text": "<p>Clause Coverage of a predicate with 3 independent clauses requires at least 3 tests.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — one all-true and one all-false test cover all three clauses, so 2 tests suffice."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC needs only 2 tests: all clauses true, then all false, flips every clause."
+            }
+          ],
+          "generalFeedback": "The number of tests for CC does not grow with clause count when clauses are independent: 2 tests (all-true, all-false) always suffice."
+        },
+        {
+          "type": "multichoice",
+          "name": "CC-but-not-PC for a disjunction",
+          "text": "<p>For <code>p = a || b</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b))</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "Correct — each clause takes both values, but p is true in both rows, so PC fails."
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "Here p is true then false, so PC is satisfied."
+            },
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 0,
+              "feedback": "b never becomes true, so CC is not met (and p is true then false)."
+            },
+            {
+              "text": "{(F, F), (T, T)}",
+              "fraction": 0,
+              "feedback": "p is false then true here, so PC is satisfied."
+            }
+          ],
+          "generalFeedback": "With (T,F) and (F,T) each clause takes both values (CC met), but a || b is true in both rows, so the predicate is never false and PC fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of (a OR b) AND (c OR d)",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>(a || b) && (c || d)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — (a || b) holds in 3 of 4 (a,b) combos and (c || d) in 3 of 4 (c,d) combos: 3 x 3 = 9."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "Each disjunction holds in 3 of its 4 combos, so 3 x 3 = 9, not 12."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the count for (a && b) || (c && d), a different predicate."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Multiply the independent halves: 3 x 3 = 9."
+            }
+          ],
+          "generalFeedback": "The two halves are over disjoint clauses. a || b is true in 3 of 4 (a,b) rows; c || d in 3 of 4 (c,d) rows. 3 x 3 = 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Tests to meet both PC and CC (a OR b OR c)",
+          "text": "<p>For <code>p = a || b || c</code>, what is the minimum number of tests that satisfies <strong>both</strong> PC and CC?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — {(T,T,T),(F,F,F)} makes p both values and each clause both values."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two tests, all-true and all-false, already meet both criteria."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the CoC size; PC and CC together need only 2."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Two well-chosen tests suffice for PC and CC together."
+            }
+          ],
+          "generalFeedback": "{(T,T,T),(F,F,F)} gives p = true then false (PC) and each clause both values (CC), so 2 tests suffice.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PC infeasible for a contradictory predicate",
+          "text": "<p>For <code>p = a && !a</code>, Predicate Coverage is infeasible because the predicate can never be true.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a and !a are contradictory, so p is always false and can never be made true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "a && !a is a contradiction; the predicate is false for every input, so PC (which needs a true case) is infeasible."
+            }
+          ],
+          "generalFeedback": "The clauses a and !a are dependent (one is the negation of the other), so a && !a is always false. PC requires a true evaluation, which is impossible here."
+        },
+        {
+          "type": "multichoice",
+          "name": "Satisfying rows of NOT (a OR b) AND (c OR d)",
+          "text": "<p>Of the 16 truth-table rows, how many make <code>!(a || b) && (c || d)</code> <strong>true</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — !(a || b) forces a=F, b=F (1 combo), and (c || d) holds in 3 of 4: 1 x 3 = 3."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "!(a || b) is true in only 1 of the 4 (a,b) combos, not 3; the answer is 1 x 3 = 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a=F, b=F is required, so only 3 of the (c || d) rows qualify."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "c || d contributes 3 rows, not 1, once a=F and b=F are fixed."
+            }
+          ],
+          "generalFeedback": "!(a || b) is true only when a=F and b=F (1 of 4 combos); c || d is true in 3 of 4. Total = 1 x 3 = 3.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "子句定義（基礎）",
+          "text": "<p><strong>子句（clause）</strong>最適當的定義是：</p>",
+          "answers": [
+            {
+              "text": "不含任何邏輯運算子的布林運算式",
+              "fraction": 100,
+              "feedback": "正確——子句是原子條件，例如 x > 0 或單一布林變數。"
+            },
+            {
+              "text": "任何以 &&、||、! 連接而成的布林運算式",
+              "fraction": 0,
+              "feedback": "那是述詞（predicate），由子句組成。"
+            },
+            {
+              "text": "真值表中的一列",
+              "fraction": 0,
+              "feedback": "真值表的一列是一組取值，不是子句。"
+            },
+            {
+              "text": "使某述詞為真的測試案例",
+              "fraction": 0,
+              "feedback": "那是測試，不是子句。"
+            }
+          ],
+          "generalFeedback": "子句（條件）是不含邏輯運算子（&&、||、!）的布林運算式。以這些運算子連接子句便構成述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "述詞定義（基礎）",
+          "text": "<p><strong>述詞（predicate）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "由一個或多個子句以邏輯運算子連接而成的運算式",
+              "fraction": 100,
+              "feedback": "正確——以 &&、||、! 連接子句即構成述詞。"
+            },
+            {
+              "text": "一定是不含邏輯運算子的運算式",
+              "fraction": 0,
+              "feedback": "那是子句；述詞可以包含運算子。"
+            },
+            {
+              "text": "回傳數值的算術運算式",
+              "fraction": 0,
+              "feedback": "述詞是布林值，而非數值。"
+            },
+            {
+              "text": "必須是不等式的迴圈條件",
+              "fraction": 0,
+              "feedback": "述詞不必是不等式，也不必與迴圈相關。"
+            }
+          ],
+          "generalFeedback": "述詞是由子句以邏輯運算子連接而成的布林運算式。不含運算子的單一子句本身就是最簡單的述詞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識單一子句",
+          "text": "<p>下列何者為<strong>單一子句</strong>（而非複合述詞）？</p>",
+          "answers": [
+            {
+              "text": "x >= 5",
+              "fraction": 100,
+              "feedback": "正確——不含邏輯運算子的關係運算式是一個子句。"
+            },
+            {
+              "text": "a && b",
+              "fraction": 0,
+              "feedback": "以 && 連接兩個子句，屬於述詞。"
+            },
+            {
+              "text": "!p",
+              "fraction": 0,
+              "feedback": "! 運算子使其成為對子句 p 的複合述詞。"
+            },
+            {
+              "text": "a || b",
+              "fraction": 0,
+              "feedback": "以 || 連接兩個子句，屬於述詞。"
+            }
+          ],
+          "generalFeedback": "子句不含邏輯運算子。只有 x >= 5 符合；其餘皆使用 &&、|| 或 !。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算子句數目",
+          "text": "<p>述詞 <code>(p && q) || !r</code> 含有幾個子句？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——子句為 p、q、r。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "共有三個原子條件：p、q、r。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "&&、||、! 是運算子而非子句；只有 p、q、r 是子句。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "這是含三個子句的複合述詞，而非一個。"
+            }
+          ],
+          "generalFeedback": "子句是原子布林運算式。在 (p && q) || !r 中為 p、q、r——共三個子句。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "述詞覆蓋定義",
+          "text": "<p>述詞覆蓋（Predicate Coverage, PC）要求：</p>",
+          "answers": [
+            {
+              "text": "述詞至少各取一次 true 與 false",
+              "fraction": 100,
+              "feedback": "正確——一個測試使其為真、一個使其為假。"
+            },
+            {
+              "text": "每個子句各取一次 true 與 false",
+              "fraction": 0,
+              "feedback": "那是子句覆蓋（CC），而非 PC。"
+            },
+            {
+              "text": "涵蓋子句真值的所有組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（CoC）。"
+            },
+            {
+              "text": "每個子句至少一次決定述詞的值",
+              "fraction": 0,
+              "feedback": "那是主動子句（ACC）的概念，超出本單元範圍。"
+            }
+          ],
+          "generalFeedback": "PC 只規範整個述詞：必須至少各取一次真與假，並未規範個別子句。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "子句覆蓋定義",
+          "text": "<p>子句覆蓋（Clause Coverage, CC）要求：</p>",
+          "answers": [
+            {
+              "text": "每個子句至少各取一次 true 與 false",
+              "fraction": 100,
+              "feedback": "正確——每個原子條件都必須取兩種真值。"
+            },
+            {
+              "text": "整個述詞至少各取一次 true 與 false",
+              "fraction": 0,
+              "feedback": "那是述詞覆蓋（PC）。"
+            },
+            {
+              "text": "涵蓋全部 2^n 種子句取值組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（CoC）。"
+            },
+            {
+              "text": "每個子句獨立決定述詞的值",
+              "fraction": 0,
+              "feedback": "那是主動子句覆蓋，比單純的 CC 更強。"
+            }
+          ],
+          "generalFeedback": "CC 要求每個子句至少各取一次真與假，與所屬述詞的取值無關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合覆蓋定義",
+          "text": "<p>組合（子句）覆蓋（Combinatorial Coverage, CoC）要求：</p>",
+          "answers": [
+            {
+              "text": "涵蓋 n 個子句的全部 2^n 種真值組合",
+              "fraction": 100,
+              "feedback": "正確——即完整的真值表（在可行的前提下）。"
+            },
+            {
+              "text": "述詞取一次 true 與一次 false",
+              "fraction": 0,
+              "feedback": "那只是述詞覆蓋（PC）。"
+            },
+            {
+              "text": "每個子句取一次 true 與一次 false",
+              "fraction": 0,
+              "feedback": "那只是子句覆蓋（CC）。"
+            },
+            {
+              "text": "執行 n + 1 個精心挑選的測試",
+              "fraction": 0,
+              "feedback": "n + 1 是 CACC/MC-DC 的最小規模，超出本單元範圍。"
+            }
+          ],
+          "generalFeedback": "CoC（又稱 ACoC）要求 n 個子句真值的全部 2^n 種組合——即完整的真值表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2 個子句的真值表列數",
+          "text": "<p>含 <strong>2</strong> 個子句的述詞，其完整真值表有幾列？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——2^2 = 4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是 PC 或 CC 的最小測試數，而非列數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "2^2 = 4，而非 3。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 對應三個子句。"
+            }
+          ],
+          "generalFeedback": "含 n 個子句的述詞有 2^n 列；n = 2 時為 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的真值表列數",
+          "text": "<p>含 <strong>3</strong> 個子句的述詞，其完整真值表有幾列？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2^3 = 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "2^3 = 8，而非 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = 2^2 對應兩個子句。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "是 2^3 = 8，而非 3^2。"
+            }
+          ],
+          "generalFeedback": "含 n 個子句的述詞有 2^n 列；n = 3 時為 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 個子句的真值表列數",
+          "text": "<p>含 <strong>4</strong> 個子句的述詞，其完整真值表有幾列？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——2^4 = 16。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 2^3 對應三個子句。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "2^4 = 16，而非 4 乘 3。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 = 2^5 對應五個子句。"
+            }
+          ],
+          "generalFeedback": "含 n 個子句的述詞有 2^n 列；n = 4 時為 16。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 的成真列數",
+          "text": "<p>在 4 列真值表中，有幾列使 <code>a && b</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有 a=T、b=T 使合取為真。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有全真列使 a && b 為真。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是 a || b 的成真列數，而非 a && b。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只要有任一子句為假，合取即為假。"
+            }
+          ],
+          "generalFeedback": "合取只有在每個子句皆為真時才為真，故 4 列中恰有 1 列使 a && b 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 的成真列數",
+          "text": "<p>在 4 列真值表中，有幾列使 <code>a || b</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——只有 a=F、b=F 為假。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是 a && b 的成真列數。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有全假列為假，故剩 3 列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "全假列 a=F、b=F 不使 a || b 為真。"
+            }
+          ],
+          "generalFeedback": "析取只有在每個子句皆為假時才為假，故 4 列中有 3 列使 a || b 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>(a && b) || c</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——c=T 的 4 列，加上 a=T、b=T、c=F 這一列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=T 的 4 列成立，但 a=T、b=T、c=F 也成立，合計 5。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重新計算——8 列中恰有 5 列為真。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "光是 c=T 就已有 4 列為真。"
+            }
+          ],
+          "generalFeedback": "只要 c=T 述詞即為真（4 列）；c=F 時需 a=T 且 b=T（再加 1 列）。合計 8 列中 5 列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC 的最少測試數",
+          "text": "<p>對單一述詞而言，滿足述詞覆蓋所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個使其為真、一個使其為假。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只能產生一種真值；PC 需要兩種。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 與 2 個子句的真值表有關，而非 PC 的最小值。"
+            },
+            {
+              "text": "視子句數而定",
+              "fraction": 0,
+              "feedback": "PC 不管子句數；對單一述詞恆為 2 個測試。"
+            }
+          ],
+          "generalFeedback": "PC 要求述詞既為真又為假，故至少 2 個測試，與子句數無關。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "子句不含邏輯運算子",
+          "text": "<p>子句不含任何邏輯運算子（&&、||、!）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——子句是原子的；運算子將子句組合成述詞。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "依定義子句不含邏輯運算子；一旦加入運算子就成為複合述詞。"
+            }
+          ],
+          "generalFeedback": "子句是不含邏輯運算子的布林運算式。以 &&、|| 或 ! 連接子句即得述詞。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "CC 的最少測試數（子句獨立）",
+          "text": "<p>若述詞的各子句可獨立設定，無論子句多少，滿足子句覆蓋所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——一個全真測試與一個全假測試即可翻轉每個子句。"
+            },
+            {
+              "text": "n（每子句一個）",
+              "fraction": 0,
+              "feedback": "2 個測試即足夠：先全部設真、再全部設假。"
+            },
+            {
+              "text": "n + 1",
+              "fraction": 0,
+              "feedback": "n + 1 是 MC/DC 的最小值，而非 CC。"
+            },
+            {
+              "text": "2^n",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，遠多於 CC 所需。"
+            }
+          ],
+          "generalFeedback": "子句獨立時，一個全真與一個全假測試就能讓每個子句各取兩種值，故 CC 只需 2 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 個子句的 CoC 測試需求數",
+          "text": "<p>某述詞有 3 個獨立子句。組合覆蓋會產生多少個測試需求？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2^3 = 8 種組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 較接近 CC 的規模，而非所有組合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 = n + 1 是 MC/DC 的最小值，而非 CoC。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 少於完整的 2^3 = 8 種組合。"
+            }
+          ],
+          "generalFeedback": "CoC 要求全部 2^n 種組合；n = 3 時為 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何者包含其他準則",
+          "text": "<p>在 PC、CC、CoC 之中，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "CoC 同時包含（subsume）PC 與 CC",
+              "fraction": 100,
+              "feedback": "正確——涵蓋所有組合即涵蓋 PC 與 CC。"
+            },
+            {
+              "text": "PC 包含 CC",
+              "fraction": 0,
+              "feedback": "PC 與 CC 不可比較；兩者互不包含。"
+            },
+            {
+              "text": "CC 包含 PC",
+              "fraction": 0,
+              "feedback": "CC 不包含 PC——見 a && b 的反例。"
+            },
+            {
+              "text": "PC 包含 CoC",
+              "fraction": 0,
+              "feedback": "剛好相反：CoC 是三者中最強的。"
+            }
+          ],
+          "generalFeedback": "涵蓋全部 2^n 種組合的測試集必然使述詞既真又假（PC），且每個子句各取兩值（CC），故 CoC 同時包含兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PC 與 CC 的關係",
+          "text": "<p>關於述詞覆蓋與子句覆蓋，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "兩者互不包含，彼此不可比較",
+              "fraction": 100,
+              "feedback": "正確——各自都可能在不滿足另一者的情況下被滿足。"
+            },
+            {
+              "text": "PC 恆包含 CC",
+              "fraction": 0,
+              "feedback": "並非如此：a || b 以 {(T,F),(F,F)} 滿足 PC 但不滿足 CC。"
+            },
+            {
+              "text": "CC 恆包含 PC",
+              "fraction": 0,
+              "feedback": "並非如此：a && b 以 {(T,F),(F,T)} 滿足 CC 但不滿足 PC。"
+            },
+            {
+              "text": "兩者等價",
+              "fraction": 0,
+              "feedback": "兩者互不包含且相異，並非等價。"
+            }
+          ],
+          "generalFeedback": "PC 與 CC 不可比較：兩個方向上都存在滿足其一而不滿足另一的測試集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足 CC 但不滿足 PC 的測試集",
+          "text": "<p>對 <code>p = a && b</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "正確——a 與 b 各取兩值，但 p 在兩列皆為假。"
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "此處 p 先真後假，故也滿足 PC。"
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "b 取兩值但 a 恆為真，故 CC 不成立；且 p 先真後假。"
+            },
+            {
+              "text": "{(F, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "a 從未為真，故不滿足 CC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F) 與 (F,T)，a 為 {T,F}、b 為 {F,T}（CC 成立），但 a && b 兩次皆為假，故 PC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足 PC 但不滿足 CC 的測試集",
+          "text": "<p>對 <code>p = a || b</code>，下列哪個 2 測試集<strong>滿足述詞覆蓋但不滿足子句覆蓋</strong>？（各列以 (a, b) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 100,
+              "feedback": "正確——p 先真後假（PC 成立），但 b 從未為真，故 CC 不成立。"
+            },
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 0,
+              "feedback": "此處兩個子句都取兩值，故 CC 也被滿足。"
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "此處兩個子句都取兩值，故 CC 也被滿足。"
+            },
+            {
+              "text": "{(T, T), (T, F)}",
+              "fraction": 0,
+              "feedback": "p 在兩列皆為真，故不滿足 PC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F) 與 (F,F)，p 先真後假（PC 成立），但 b 恆為假，故 CC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND (b OR c) 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>a && (b || c)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——a=T（4 列），扣掉 b=F 且 c=F 的那列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a=T 的 4 列中，b=F、c=F 那列不成立，故剩 3。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是 (a && b) || c 的成真列數，屬不同述詞。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "a 必須為真，故至多 4 列符合；正確答案是 3。"
+            }
+          ],
+          "generalFeedback": "述詞需 a=T 且 (b || c)。a=T 有 4 列；扣掉 b=F、c=F 後剩 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND c 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>(a || b) && c</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——c 必須為真，其中僅 a=F、b=F 那列不成立。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=T 有 4 列，但 a=F、b=F、c=T 不成立（a || b 為假），故剩 3。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "重新計算——恰有 3 列成立。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "太少——c=T 的列中有三列滿足 a || b。"
+            }
+          ],
+          "generalFeedback": "c 必須為真（4 列）；其中 a || b 成立於 3 列（除 a=F、b=F 外）。合計 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NOT a OR (b AND c) 的成真列數",
+          "text": "<p>在 8 列真值表中，有幾列使 <code>!a || (b && c)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——a=F 的 4 列，加上 a=T、b=T、c=T 那列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "a=F 的 4 列都成立，加上 a=T、b=T、c=T 再一列，合計 5。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重新計算——恰有 5 列成立。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "光是 a=F 就已有 4 列為真。"
+            }
+          ],
+          "generalFeedback": "a=F 時述詞為真（4 列）；a=T 時需 b=T 且 c=T（1 列）。合計 5。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "滿足 CoC 即滿足 PC",
+          "text": "<p>任何滿足組合覆蓋的測試集也必然滿足述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——涵蓋所有組合就包含使述詞為真與為假的列。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC 包含 PC：執行每一種組合會迫使述詞取兩種真值。"
+            }
+          ],
+          "generalFeedback": "CoC 包含 PC。全部 2^n 列（對非常數述詞）至少各含一真列與一假列，故 PC 成立。"
+        },
+        {
+          "type": "truefalse",
+          "name": "滿足 CoC 即滿足 CC",
+          "text": "<p>任何滿足組合覆蓋的測試集也必然滿足子句覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個子句在某些組合為真、在另一些組合為假。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CoC 包含 CC：全部 2^n 列使每個子句各取真與假。"
+            }
+          ],
+          "generalFeedback": "CoC 包含 CC。跨越全部 2^n 種組合時每個子句都取兩值，故 CC 成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "何者所需測試最多",
+          "text": "<p>對含多個獨立子句的述詞，下列哪個準則一般需要最多測試？</p>",
+          "answers": [
+            {
+              "text": "組合覆蓋（CoC）",
+              "fraction": 100,
+              "feedback": "正確——CoC 需要全部 2^n 種組合。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 只需 2 個測試，最少。"
+            },
+            {
+              "text": "子句覆蓋（CC）",
+              "fraction": 0,
+              "feedback": "子句獨立時 CC 最少只需 2 個測試。"
+            },
+            {
+              "text": "三者所需相同",
+              "fraction": 0,
+              "feedback": "CoC（2^n）遠超過 PC 與 CC 的 2 測試最小值。"
+            }
+          ],
+          "generalFeedback": "CoC 隨 2^n 成長且包含 PC 與 CC，故一般需要最多測試。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "3 個子句時 PC 最小值與 CoC",
+          "text": "<p>對含 3 個子句的述詞，述詞覆蓋最少需 2 個測試，而組合覆蓋會產生 8 個測試需求。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——PC 最小值為 2；CoC 為 2^3 = 8。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "PC 只需 2 個測試，CoC 需 2^3 = 8，故敘述成立。"
+            }
+          ],
+          "generalFeedback": "PC 恆需 2 個測試（述詞兩種值）；CoC 對 n = 3 需全部 2^n = 8 種組合。"
+        },
+        {
+          "type": "truefalse",
+          "name": "CC 不保證 PC",
+          "text": "<p>滿足子句覆蓋必定保證同時滿足述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——對 a && b，{(T,F),(F,T)} 滿足 CC 但述詞從未為真。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC 不包含 PC：a && b 以 {(T,F),(F,T)} 滿足 CC 卻不滿足 PC。"
+            }
+          ],
+          "generalFeedback": "CC 與 PC 不可比較。經典反例為 a && b 搭配 {(T,F),(F,T)}：CC 成立、PC 不成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "同時滿足 PC 與 CC 的測試數（a AND b）",
+          "text": "<p>對 <code>p = a && b</code>，<strong>同時</strong>滿足 PC 與 CC 所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——{(T,T),(F,F)} 使 p 取兩值、且每個子句取兩值。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "(T,T) 與 (F,F) 兩個測試已同時滿足兩者。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是完整真值表（CoC）；PC 與 CC 合計只需 2。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只產生一種述詞值，故無法滿足 PC。"
+            }
+          ],
+          "generalFeedback": "{(T,T),(F,F)} 使 p 先真後假（PC），且 a、b 各取兩值（CC），故 2 個測試即足夠。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "互斥子句下可行的 CoC 組合",
+          "text": "<p>某述詞對單一變數 x 使用子句 <code>x > 0</code> 與 <code>x < 0</code>。組合覆蓋要求的 4 種組合中，有幾種是<strong>可行的</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——兩者同時為真不可能；其餘三種（TF、FT、x=0 時的 FF）皆可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "x 不可能同時 > 0 且 < 0，故 (T,T) 組合不可行。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "可行者有三種：x>0、x<0 與 x=0。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "只有 (T,T) 不可能；其餘三種皆可達成。"
+            }
+          ],
+          "generalFeedback": "x > 0 與 x < 0 不能同時成立，故 (T,T) 不可行。TF（x>0）、FT（x<0）、FF（x=0）皆可行：共 3 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具相依子句時可行的 CoC 組合",
+          "text": "<p>某述詞使用子句 <code>a: x > 5</code> 與 <code>b: x > 10</code>。由於 b 蘊含 a，4 種 CoC 組合中有幾種是<strong>可行的</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——(a=F, b=T) 不可能，因為 b 蘊含 a。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "b 為真會迫使 a 為真，故 (a=F, b=T) 不可能發生。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "可行者有三種：x>10、5<x<=10 與 x<=5。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "只有一種組合不可行，故剩 3。"
+            }
+          ],
+          "generalFeedback": "b（x>10）蘊含 a（x>5），故 (a=F, b=T) 不可行。TT（x>10）、TF（5<x<=10）、FF（x<=5）皆可行：共 3 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三子句合取的 CC 但非 PC",
+          "text": "<p>對 <code>p = a && b && c</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b, c) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F, T), (F, T, F)}",
+              "fraction": 100,
+              "feedback": "正確——每個子句各取兩值，但 p 在兩列皆為假。"
+            },
+            {
+              "text": "{(T, T, T), (F, F, F)}",
+              "fraction": 0,
+              "feedback": "此處 p 先真後假，故也滿足 PC。"
+            },
+            {
+              "text": "{(T, T, T), (T, T, F)}",
+              "fraction": 0,
+              "feedback": "a 與 b 從未為假，故不滿足 CC。"
+            },
+            {
+              "text": "{(F, F, T), (F, T, F)}",
+              "fraction": 0,
+              "feedback": "a 從未為真，故不滿足 CC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F,T) 與 (F,T,F)，a、b、c 各取兩值（CC 成立），但 a && b && c 兩列皆為假，故 PC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR (c AND d) 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>(a && b) || (c && d)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——|a&&b| = 4、|c&&d| = 4、重疊 = 1，故 4 + 4 - 1 = 7。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "須扣掉 1 個重疊列（四者皆真）以免重複計算。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "排容原理得 4 + 4 - 1 = 7，而非 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "各合取單獨為真的列各有 4，但合起來涵蓋 7。"
+            }
+          ],
+          "generalFeedback": "a && b 於 4 列為真，c && d 於 4 列為真；僅在四者皆真時重疊（1 列）。4 + 4 - 1 = 7。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c OR d 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>a || b || c || d</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "正確——只有全假列不成立。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "全假列不使析取成立。"
+            },
+            {
+              "text": "14",
+              "fraction": 0,
+              "feedback": "恰有一列（全假）不成立，故剩 15。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是合取的情形；四路析取有 15 列為真。"
+            }
+          ],
+          "generalFeedback": "四路析取只有在全假列才為假，故 16 列中 15 列成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c AND d 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>a && b && c && d</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——只有全真列使四路合取為真。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "四個子句須同時為真，只發生在 1 列。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "合取只有在每個子句皆為真時才為真：1 列。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 是析取的列數，而非合取。"
+            }
+          ],
+          "generalFeedback": "合取只有在每個子句皆為真時才為真，故 16 列中恰有 1 列成立。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "不可行組合使完整 CoC 無法達成",
+          "text": "<p>若述詞的兩個子句永遠不能同時為真，則完整的組合覆蓋（全部 2^n 列）不可行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——要求兩子句同時為真的那種組合永遠無法執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "存在無法達成的組合，代表 2^n 列中至少有一列無法產生，故完整 CoC 不可行。"
+            }
+          ],
+          "generalFeedback": "CoC 要求全部 2^n 種組合。若其中一種在邏輯上不可能，整組即無法達成，故完整 CoC 不可行（只能要求可行的列）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "三子句時可行的 CoC 組合數",
+          "text": "<p>某述詞使用子句 <code>a: x > 0</code>、<code>b: x < 0</code>、<code>c: y > 0</code>。8 種 CoC 組合中有幾種<strong>可行</strong>？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——a=T 且 b=T 的 2 種組合（對 c）不可能，故剩 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a 與 b 不能同時為真，故 a=T、b=T 的 2 列不可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只有 a=T 且 b=T 的 2 列不可行；剩 6。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "不可行者有兩列（a=T、b=T 且 c 任一值），而非一列。"
+            }
+          ],
+          "generalFeedback": "a 與 b 互斥，故 a=T、b=T 的兩列（c=T 與 c=F）皆不可行：8 - 2 = 6 可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "存在一不可行組合後的 CoC 需求數",
+          "text": "<p>某 2 子句述詞有一種不可行組合。還剩多少個組合覆蓋的測試需求？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——2^2 = 4 扣掉 1 種不可行組合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "不可行組合被剔除，故剩 3。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只移除一種組合，故剩 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "四種組合移除一種後剩三種，而非一種。"
+            }
+          ],
+          "generalFeedback": "CoC 原需 2^2 = 4 種組合；剔除唯一的不可行組合後剩 3 個可行需求。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "3 子句述詞的 CC 需 3 個測試",
+          "text": "<p>含 3 個獨立子句之述詞的子句覆蓋至少需要 3 個測試。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——一個全真與一個全假測試即涵蓋全部三個子句，故 2 個測試即足夠。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "CC 只需 2 個測試：全部設真、再全部設假即可翻轉每個子句。"
+            }
+          ],
+          "generalFeedback": "子句獨立時 CC 所需測試數不隨子句數成長：2 個測試（全真、全假）恆足夠。"
+        },
+        {
+          "type": "multichoice",
+          "name": "析取的 CC 但非 PC",
+          "text": "<p>對 <code>p = a || b</code>，下列哪個 2 測試集<strong>滿足子句覆蓋但不滿足述詞覆蓋</strong>？（各列以 (a, b) 表示）</p>",
+          "answers": [
+            {
+              "text": "{(T, F), (F, T)}",
+              "fraction": 100,
+              "feedback": "正確——每個子句各取兩值，但 p 在兩列皆為真，故 PC 不成立。"
+            },
+            {
+              "text": "{(T, T), (F, F)}",
+              "fraction": 0,
+              "feedback": "此處 p 先真後假，故滿足 PC。"
+            },
+            {
+              "text": "{(T, F), (F, F)}",
+              "fraction": 0,
+              "feedback": "b 從未為真，故不滿足 CC（且 p 先真後假）。"
+            },
+            {
+              "text": "{(F, F), (T, T)}",
+              "fraction": 0,
+              "feedback": "此處 p 先假後真，故滿足 PC。"
+            }
+          ],
+          "generalFeedback": "以 (T,F) 與 (F,T)，每個子句各取兩值（CC 成立），但 a || b 兩列皆為真，故述詞從未為假、PC 不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a OR b) AND (c OR d) 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>(a || b) && (c || d)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——(a || b) 在 4 種 (a,b) 組合中有 3 種成立、(c || d) 在 4 種 (c,d) 組合中有 3 種成立：3 x 3 = 9。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "每個析取在其 4 種組合中有 3 種成立，故 3 x 3 = 9，而非 12。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 (a && b) || (c && d) 的列數，屬不同述詞。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "將兩個獨立部分相乘：3 x 3 = 9。"
+            }
+          ],
+          "generalFeedback": "兩部分作用於不相交的子句。a || b 在 4 種 (a,b) 列中有 3 種為真；c || d 在 4 種 (c,d) 列中有 3 種為真。3 x 3 = 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "同時滿足 PC 與 CC 的測試數（a OR b OR c）",
+          "text": "<p>對 <code>p = a || b || c</code>，<strong>同時</strong>滿足 PC 與 CC 所需的最少測試數為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——{(T,T,T),(F,F,F)} 使 p 取兩值、且每個子句取兩值。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "全真與全假兩個測試已同時滿足兩者。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 CoC 的規模；PC 與 CC 合計只需 2。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "兩個精選測試即足以同時滿足 PC 與 CC。"
+            }
+          ],
+          "generalFeedback": "{(T,T,T),(F,F,F)} 使 p 先真後假（PC），且每個子句各取兩值（CC），故 2 個測試即足夠。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "矛盾述詞的 PC 不可行",
+          "text": "<p>對 <code>p = a && !a</code>，述詞覆蓋不可行，因為該述詞永遠無法為真。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——a 與 !a 互相矛盾，故 p 恆為假、永遠無法為真。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "a && !a 是矛盾式；對所有輸入皆為假，故需要真值案例的 PC 不可行。"
+            }
+          ],
+          "generalFeedback": "子句 a 與 !a 相依（一者為另一者的否定），故 a && !a 恆為假。PC 需要一次為真的評估，在此不可能。"
+        },
+        {
+          "type": "multichoice",
+          "name": "NOT (a OR b) AND (c OR d) 的成真列數",
+          "text": "<p>在 16 列真值表中，有幾列使 <code>!(a || b) && (c || d)</code> 為<strong>真</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——!(a || b) 迫使 a=F、b=F（1 種組合），(c || d) 在 4 種中有 3 種成立：1 x 3 = 3。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "!(a || b) 只在 4 種 (a,b) 組合中的 1 種成立，而非 3 種；答案是 1 x 3 = 3。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "須 a=F、b=F，故只有 3 種 (c || d) 的列符合。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "固定 a=F、b=F 後，c || d 貢獻 3 列而非 1 列。"
+            }
+          ],
+          "generalFeedback": "!(a || b) 只在 a=F 且 b=F 時為真（4 種中 1 種）；c || d 在 4 種中有 3 種為真。合計 1 x 3 = 3。",
+          "single": true
+        }
+      ]
+    }
+  },
   "logic-coverage": {
     "en": {
       "easy": [
@@ -15154,6 +20146,4976 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "a 只有在其項傳遞 a（b = true）且另一項未遮蔽它（c &#8743; d 為 false）時才決定 p。即 16 種指派中的 1 &#215; 3 &#215; 2 = 6 種。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "logic-dnf": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is DNF",
+          "text": "<p>A predicate is in <strong>Disjunctive Normal Form (DNF)</strong> when it is written as:</p>",
+          "answers": [
+            {
+              "text": "A disjunction (OR) of product terms, where each term is a conjunction (AND) of literals",
+              "fraction": 100,
+              "feedback": "Correct — DNF is a \"sum of products\": an OR of AND-terms."
+            },
+            {
+              "text": "A conjunction (AND) of sum terms, where each term is a disjunction of literals",
+              "fraction": 0,
+              "feedback": "That is Conjunctive Normal Form (CNF), a product of sums."
+            },
+            {
+              "text": "A single product term of every variable",
+              "fraction": 0,
+              "feedback": "That is a minterm, only one special case of a DNF."
+            },
+            {
+              "text": "Any boolean expression, regardless of structure",
+              "fraction": 0,
+              "feedback": "DNF is a specific normal form, not an arbitrary expression."
+            }
+          ],
+          "generalFeedback": "DNF (sum of products) writes f as an OR of product terms; each product term is an AND of literals. Notation used here: AND = adjacency (), OR =, NOT =(e.g.).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a literal",
+          "text": "<p>In DNF, a <strong>literal</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A variable or its negation (e.g. a or !a)",
+              "fraction": 100,
+              "feedback": "Correct — a literal is one occurrence of a variable, possibly negated."
+            },
+            {
+              "text": "A conjunction of two or more variables",
+              "fraction": 0,
+              "feedback": "That is a product term, not a single literal."
+            },
+            {
+              "text": "The whole sum-of-products expression",
+              "fraction": 0,
+              "feedback": "That is the entire DNF, not a literal."
+            },
+            {
+              "text": "An assignment of values to all variables",
+              "fraction": 0,
+              "feedback": "That is a test point/row, not a literal."
+            }
+          ],
+          "generalFeedback": "A literal is a single variable or its negation, e.g.or. Literals are AND-ed together to form product terms.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a product term",
+          "text": "<p>In DNF, a <strong>term</strong> (product term) is:</p>",
+          "answers": [
+            {
+              "text": "A conjunction (AND) of one or more literals, e.g. a!bc",
+              "fraction": 100,
+              "feedback": "Correct — a term is literals AND-ed together."
+            },
+            {
+              "text": "A disjunction (OR) of literals, e.g. a + b + c",
+              "fraction": 0,
+              "feedback": "That is a sum term (used in CNF), not a DNF product term."
+            },
+            {
+              "text": "A single variable only",
+              "fraction": 0,
+              "feedback": "A single variable is one valid term, but terms may AND several literals."
+            },
+            {
+              "text": "The negation of the whole predicate",
+              "fraction": 0,
+              "feedback": "That is ¬f, not a product term."
+            }
+          ],
+          "generalFeedback": "A product term is a conjunction of literals, such as. A DNF is a disjunction (sum) of such product terms.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a minterm",
+          "text": "<p>For a predicate over the variables a, b, c, a <strong>minterm</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A product term that contains every variable exactly once (each as a or !a), e.g. a!bc",
+              "fraction": 100,
+              "feedback": "Correct — a minterm mentions all variables and is true at exactly one row."
+            },
+            {
+              "text": "A product term that omits at least one variable, e.g. ac",
+              "fraction": 0,
+              "feedback": "That is a valid product term, but not a minterm — a minterm names every variable."
+            },
+            {
+              "text": "A disjunction of all variables, e.g. a + b + c",
+              "fraction": 0,
+              "feedback": "That is a sum term, not a minterm."
+            },
+            {
+              "text": "The smallest implicant of the predicate",
+              "fraction": 0,
+              "feedback": "Size of an implicant is unrelated; a minterm is defined by naming every variable."
+            }
+          ],
+          "generalFeedback": "A minterm is a product term mentioning every variable exactly once; it is true at exactly one assignment (one truth-table row). Over 3 variables,is a minterm.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is an implicant",
+          "text": "<p>A product term i is an <strong>implicant</strong> of predicate f when:</p>",
+          "answers": [
+            {
+              "text": "Whenever i is true, f is also true (i implies f)",
+              "fraction": 100,
+              "feedback": "Correct — an implicant implies the predicate."
+            },
+            {
+              "text": "Whenever f is true, i is also true",
+              "fraction": 0,
+              "feedback": "That is the reverse implication and is not what \"implicant\" means."
+            },
+            {
+              "text": "i and f are true on exactly the same rows",
+              "fraction": 0,
+              "feedback": "That would make i logically equivalent to f, which is stronger than being an implicant."
+            },
+            {
+              "text": "i makes f false",
+              "fraction": 0,
+              "feedback": "An implicant makes f true, not false."
+            }
+          ],
+          "generalFeedback": "An implicant is a product term that implies f: every assignment satisfying the term also satisfies f. Each term listed in a DNF of f is an implicant of f.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a prime implicant",
+          "text": "<p>A <strong>prime implicant</strong> of f is:</p>",
+          "answers": [
+            {
+              "text": "An implicant from which no single literal can be removed while it stays an implicant",
+              "fraction": 100,
+              "feedback": "Correct — it is a \"maximal\" (irreducible) implicant."
+            },
+            {
+              "text": "An implicant that contains every variable",
+              "fraction": 0,
+              "feedback": "That describes a minterm; prime implicants are usually smaller."
+            },
+            {
+              "text": "Any product term appearing in some DNF of f",
+              "fraction": 0,
+              "feedback": "Such a term is an implicant, but it need not be prime (a literal might still be removable)."
+            },
+            {
+              "text": "The disjunction of all implicants of f",
+              "fraction": 0,
+              "feedback": "That is a DNF of f, not a single prime implicant."
+            }
+          ],
+          "generalFeedback": "A prime implicant is an implicant that cannot be reduced: dropping any one of its literals yields a term that no longer implies f.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a unique true point",
+          "text": "<p>A <strong>unique true point (UTP)</strong> for an implicant i of f is an assignment that:</p>",
+          "answers": [
+            {
+              "text": "Makes i true and every other implicant of f false",
+              "fraction": 100,
+              "feedback": "Correct — at a UTP, i alone is responsible for f being true."
+            },
+            {
+              "text": "Makes i true, regardless of the other implicants",
+              "fraction": 0,
+              "feedback": "That is just a true point of i; a UTP additionally requires all other implicants to be false."
+            },
+            {
+              "text": "Makes f false",
+              "fraction": 0,
+              "feedback": "A UTP is a true point: it makes i (and hence f) true."
+            },
+            {
+              "text": "Is the only assignment making f true",
+              "fraction": 0,
+              "feedback": "\"Unique\" refers to only one implicant being true, not to f having a single satisfying row."
+            }
+          ],
+          "generalFeedback": "A UTP for implicant i is an assignment where i is true and all other implicants are false, so i is the unique implicant accounting for f's truth there.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a near false point",
+          "text": "<p>A <strong>near false point (NFP)</strong> for a literal L of implicant i is an assignment that:</p>",
+          "answers": [
+            {
+              "text": "Makes f false, but flipping only literal L makes i (and f) true",
+              "fraction": 100,
+              "feedback": "Correct — it lies one literal away from a true point of i."
+            },
+            {
+              "text": "Makes f true using implicant i",
+              "fraction": 0,
+              "feedback": "An NFP makes f false, not true."
+            },
+            {
+              "text": "Makes every literal of i false at once",
+              "fraction": 0,
+              "feedback": "Only the one literal L is \"wrong\"; the others keep the values that would make i true."
+            },
+            {
+              "text": "Differs from a true point of i in two or more variables",
+              "fraction": 0,
+              "feedback": "An NFP differs in exactly one variable — the one for literal L — hence \"near\"."
+            }
+          ],
+          "generalFeedback": "A near false point for literal L of implicant i makes f false, yet flipping just the variable of L turns i (and f) true. It sits one variable away from making i true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count product terms in ab + cd",
+          "text": "<p>How many product terms does the DNF <code>ab + cd</code> contain?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — the two terms are ab and cd."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of literals, not the number of terms."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Theseparates two distinct product terms."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There are exactly two terms, ab and cd."
+            }
+          ],
+          "generalFeedback": "is a disjunction of two product terms, ab and cd, so it has 2 terms (each an implicant of the predicate).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count literals in ab + cd",
+          "text": "<p>How many literal occurrences does the DNF <code>ab + cd</code> contain?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — a, b, c, d each appear once."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of terms, not the number of literals."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "There are only four literal occurrences: a, b, c, d."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Count each literal in each term: ab has 2, cd has 2, total 4."
+            }
+          ],
+          "generalFeedback": "Term ab contributes literals a and b; term cd contributes c and d — four literal occurrences in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a single literal",
+          "text": "<p>Which of the following is a single <strong>literal</strong>?</p>",
+          "answers": [
+            {
+              "text": "!b",
+              "fraction": 100,
+              "feedback": "Correct — !b is a variable's negation, a literal."
+            },
+            {
+              "text": "ab",
+              "fraction": 0,
+              "feedback": "ab is a product term (two literals AND-ed), not a single literal."
+            },
+            {
+              "text": "a + b",
+              "fraction": 0,
+              "feedback": "a + b is a disjunction of two literals, not a single literal."
+            },
+            {
+              "text": "a!bc",
+              "fraction": 0,
+              "feedback": "a!bc is a product term of three literals."
+            }
+          ],
+          "generalFeedback": "A literal is one variable or its negation.qualifies;andare product terms andis a disjunction.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count literals in ab + c",
+          "text": "<p>How many literal occurrences does the DNF <code>ab + c</code> contain?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — a and b in the first term, c in the second."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of terms; there are 3 literal occurrences."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only a, b, and c appear — three literals."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Count all literals across both terms: 2 + 1 = 3."
+            }
+          ],
+          "generalFeedback": "Term ab has literals a and b; term c has literal c — three literal occurrences total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count variables in ab + cd",
+          "text": "<p>How many distinct variables (clauses) does the predicate <code>ab + cd</code> involve?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — a, b, c, and d."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of terms; the predicate uses 4 distinct variables."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 is the number of truth-table rows, not the number of variables."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There are 4 distinct variables: a, b, c, d."
+            }
+          ],
+          "generalFeedback": "The predicate mentions a, b, c, d — four distinct variables, giving 2^4 = 16 truth-table rows.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Prime implicant irreducibility",
+          "text": "<p>A prime implicant is an implicant from which no single literal can be removed while it remains an implicant.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — that irreducibility is exactly what makes an implicant prime."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Prime implicants are precisely the irreducible implicants; removing any literal breaks the implication."
+            }
+          ],
+          "generalFeedback": "An implicant is prime when it is minimal: dropping any one literal produces a term that no longer implies f."
+        },
+        {
+          "type": "truefalse",
+          "name": "DNF terms are implicants",
+          "text": "<p>Every product term appearing in a DNF of f is an implicant of f.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — if a term is true, that whole disjunct is true, so f is true; the term implies f."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Each disjunct, when true, forces the OR (and thus f) to be true, so every DNF term implies f."
+            }
+          ],
+          "generalFeedback": "Because f is the OR of its terms, any term being true makes f true. Hence every term of a DNF of f is (by definition) an implicant of f."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "UTP for ab in ab + c",
+          "text": "<p>For <code>f = ab + c</code> (variable order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>ab</code>?</p>",
+          "answers": [
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — ab is true and c is false, so ab is the only true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "At 111 the implicant c is also true, so ab is not the unique true implicant."
+            },
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "Here ab is false (b=0), so this is not even a true point of ab."
+            },
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "ab is false here; this is a true point of c, not of ab."
+            }
+          ],
+          "generalFeedback": "A UTP for ab needs ab true and every other implicant (here c) false: a=1, b=1, c=0, i.e. 110. It is the only UTP for ab in this predicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP for c in ab + c",
+          "text": "<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>c</code>?</p>",
+          "answers": [
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 100,
+              "feedback": "Correct — c is true and ab is false, so c is the only true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "Here ab is also true, so c is not the unique true implicant."
+            },
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "c is false here (c=0); this is a true point of ab, not of c."
+            },
+            {
+              "text": "000 (a=0, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false here, so it is not a true point at all."
+            }
+          ],
+          "generalFeedback": "c has three UTPs — 001, 011, 101 — each with c true and ab false. Of the options, only 001 qualifies (111 also makes ab true).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NFP for literal a of ab in ab + c",
+          "text": "<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>a</code> of the implicant <code>ab</code>?</p>",
+          "answers": [
+            {
+              "text": "010 (a=0, b=1, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — f is false here, and flipping a to 1 gives 110, making ab (and f) true."
+            },
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false here, but flipping a gives 000, where ab is still false (b=0). Not an NFP for a."
+            },
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "f is true here (ab holds), so it is a true point, not a near false point."
+            },
+            {
+              "text": "011 (a=0, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "f is true here (c holds), so it cannot be a near false point."
+            }
+          ],
+          "generalFeedback": "An NFP for literal a of ab needs f false and the flip of a alone to make ab true. That requires b=1, c=0, a=0: assignment 010. Flipping a yields 110 with ab true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP vs NFP truth values",
+          "text": "<p>At a unique true point the predicate f is ____, and at a near false point f is ____.</p>",
+          "answers": [
+            {
+              "text": "true; false",
+              "fraction": 100,
+              "feedback": "Correct — a UTP is a true point of f; an NFP is a false point of f."
+            },
+            {
+              "text": "false; true",
+              "fraction": 0,
+              "feedback": "Reversed — the UTP makes f true and the NFP makes f false."
+            },
+            {
+              "text": "true; true",
+              "fraction": 0,
+              "feedback": "An NFP makes f false, not true."
+            },
+            {
+              "text": "false; false",
+              "fraction": 0,
+              "feedback": "A UTP makes f true, not false."
+            }
+          ],
+          "generalFeedback": "By definition, a UTP makes its implicant (hence f) true, while an NFP makes f false but is one literal flip away from making an implicant true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime implicants of ab + a!b",
+          "text": "<p>Consider <code>f = ab + a!b</code>, which simplifies to <code>a</code>. Which statement is correct?</p>",
+          "answers": [
+            {
+              "text": "Neither ab nor a!b is a prime implicant, because in each the second literal can be dropped (a alone still implies f)",
+              "fraction": 100,
+              "feedback": "Correct — since f = a, the term a is an implicant, so ab and a!b are both reducible."
+            },
+            {
+              "text": "Both ab and a!b are prime implicants",
+              "fraction": 0,
+              "feedback": "Neither is prime: removing b (or !b) leaves a, which still implies f."
+            },
+            {
+              "text": "Only ab is a prime implicant",
+              "fraction": 0,
+              "feedback": "ab is reducible to a, so it is not prime."
+            },
+            {
+              "text": "a is not an implicant of f",
+              "fraction": 0,
+              "feedback": "Since f = a, the term a implies f — it is in fact the only prime implicant."
+            }
+          ],
+          "generalFeedback": "f = ab + a!b = a. The single prime implicant is a. Both listed terms carry a removable literal, so neither is prime.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of UTPs UTPC requires for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, how many unique true points must Unique True Point Coverage (UTPC) require (one per implicant)?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one UTP for ab and one for cd."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the literal count; UTPC needs one UTP per implicant, and there are 2 implicants."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Each implicant needs its own UTP, and no single point can be a UTP for both."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of true rows; UTPC requires one UTP per implicant, i.e. 2."
+            }
+          ],
+          "generalFeedback": "UTPC requires a UTP for each implicant. With two implicants (ab, cd), it requires 2 unique true points; since a UTP makes only its own implicant true, one test cannot serve both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of NFPs NFPC requires for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, how many near false points must Near False Point Coverage (NFPC) require (one per literal of each implicant)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one NFP for each of the four literals a, b, c, d."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the implicant count; NFPC requires one NFP per literal, and there are 4 literals."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "There are only 4 literal occurrences, so 4 NFPs are required."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 is the row count, not the number of NFPs required."
+            }
+          ],
+          "generalFeedback": "NFPC requires a near false point for each literal of each implicant. Terms ab and cd have four literals total (a, b, c, d), so 4 NFPs are required.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP for !ab in !ab + ac",
+          "text": "<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>!ab</code>?</p>",
+          "answers": [
+            {
+              "text": "010 (a=0, b=1, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — !ab is true (a=0, b=1) and ac is false (a=0), so !ab is the unique true implicant."
+            },
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "!ab is false here because a=1, so !a is false."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "Here ac is true and !ab is false (a=1); not a UTP for !ab."
+            },
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "!ab is false here because b=0."
+            }
+          ],
+          "generalFeedback": "!ab needs a=0 and b=1; to keep ac false we need a=0 (already) — so both 010 and 011 are UTPs. Of the options only 010 qualifies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NFP for literal c of ac in !ab + ac",
+          "text": "<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>c</code> of the implicant <code>ac</code>?</p>",
+          "answers": [
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — f is false here, and flipping c to 1 gives 101, making ac (and f) true."
+            },
+            {
+              "text": "101 (a=1, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "f is true here (ac holds), so it is a true point, not a near false point."
+            },
+            {
+              "text": "000 (a=0, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false, but flipping c gives 001, where ac is still false (a=0). Not an NFP for c."
+            },
+            {
+              "text": "010 (a=0, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "f is true here (!ab holds), so it cannot be a near false point."
+            }
+          ],
+          "generalFeedback": "An NFP for c of ac needs f false and flipping c alone to make ac true, i.e. a=1 and c=0. With a=1, !ab is false; b may be 0 or 1. 100 works: flipping c yields 101 with ac true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Overlapping implicants in ac + bc",
+          "text": "<p>For <code>f = ac + bc</code> (order a,b,c), at the assignment 111 (a=1, b=1, c=1), how many of the two implicants are true?</p>",
+          "answers": [
+            {
+              "text": "2 — both ac and bc are true",
+              "fraction": 100,
+              "feedback": "Correct — with a=b=c=1, both terms hold, so 111 is not a unique true point for either."
+            },
+            {
+              "text": "1 — only ac is true",
+              "fraction": 0,
+              "feedback": "bc is also true at 111 (b=1, c=1)."
+            },
+            {
+              "text": "0 — neither is true",
+              "fraction": 0,
+              "feedback": "Both terms are true; f is true at 111."
+            },
+            {
+              "text": "It depends on the variable order",
+              "fraction": 0,
+              "feedback": "Truth values do not depend on the order in which variables are written."
+            }
+          ],
+          "generalFeedback": "At 111 both ac and bc are true, so 111 is a shared true point — it cannot be a UTP for either implicant. The overlap is why unique true points must be chosen carefully.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Single test for Implicant Coverage of ab + cd",
+          "text": "<p>Can a <strong>single</strong> test satisfy Implicant Coverage (IC) for <code>f = ab + cd</code>?</p>",
+          "answers": [
+            {
+              "text": "Yes — the assignment 1111 makes both ab and cd true at once",
+              "fraction": 100,
+              "feedback": "Correct — IC only asks that each implicant be true in some test, and 1111 makes both true."
+            },
+            {
+              "text": "No — IC always needs one test per implicant",
+              "fraction": 0,
+              "feedback": "That is UTPC. Plain IC can reuse a single test if it makes every implicant true."
+            },
+            {
+              "text": "No — a single test can never make two product terms true",
+              "fraction": 0,
+              "feedback": "1111 makes both ab and cd true simultaneously."
+            },
+            {
+              "text": "Yes, but only under Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "Feasibility of one test for IC does not depend on any other criterion."
+            }
+          ],
+          "generalFeedback": "IC requires each implicant to be made true by some test — the same test may serve several. At 1111 both ab and cd are true, so one test satisfies IC. UTPC, by contrast, forbids this by demanding each true point be unique to one implicant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP for a in a + bc",
+          "text": "<p>For <code>f = a + bc</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>a</code>?</p>",
+          "answers": [
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — a is true and bc is false, so a is the unique true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "bc is also true here, so a is not the unique true implicant."
+            },
+            {
+              "text": "011 (a=0, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "a is false here; this is a true point of bc, not of a."
+            },
+            {
+              "text": "000 (a=0, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false here, so it is not a true point."
+            }
+          ],
+          "generalFeedback": "a has UTPs 100, 101, 110 (a true, bc false). 111 fails because bc is also true. Of the options, 100 is the UTP.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Is a an implicant of ab + cd",
+          "text": "<p>The single literal <code>a</code> is an implicant of <code>f = ab + cd</code>.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — at a=1, b=0, c=0, d=0 (1000) the term a is true but f is false, so a does not imply f."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Counterexample 1000: a is true yet f = ab + cd is false, so a does not imply f."
+            }
+          ],
+          "generalFeedback": "For a to be an implicant, every assignment with a=1 must make f true. But 1000 has a=1 and f=0, so a is not an implicant of ab + cd."
+        },
+        {
+          "type": "multichoice",
+          "name": "Non-unique true point",
+          "text": "<p>An assignment at which implicant i is true but at least one <em>other</em> implicant of f is also true is:</p>",
+          "answers": [
+            {
+              "text": "A true point of f, but not a unique true point for i",
+              "fraction": 100,
+              "feedback": "Correct — uniqueness fails because more than one implicant is true."
+            },
+            {
+              "text": "A unique true point for i",
+              "fraction": 0,
+              "feedback": "A UTP requires all other implicants to be false; here another one is true."
+            },
+            {
+              "text": "A near false point for i",
+              "fraction": 0,
+              "feedback": "An NFP makes f false; this point makes f true."
+            },
+            {
+              "text": "Not a true point of f at all",
+              "fraction": 0,
+              "feedback": "Since i is true, f is true, so it is a true point — just not a unique one."
+            }
+          ],
+          "generalFeedback": "It is a true point of f (i is true), but not a UTP for i because another implicant is simultaneously true, so i is not the unique cause of f's truth.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth value of f at a near false point",
+          "text": "<p>At a near false point, the predicate f must evaluate to:</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — an NFP is a false point of f that is one literal flip away from a true point."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "That would be a true point; an NFP makes f false."
+            },
+            {
+              "text": "either true or false, depending on the implicant",
+              "fraction": 0,
+              "feedback": "By definition an NFP always makes f false."
+            },
+            {
+              "text": "undefined",
+              "fraction": 0,
+              "feedback": "f is a total boolean function; it is defined at every assignment."
+            }
+          ],
+          "generalFeedback": "A near false point makes f false; flipping the one targeted literal turns the implicant (and f) true. The \"false\" value at the NFP is essential to the pairing used by CUTPNFP.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "CUTPNFP pair for literal a of ab",
+          "text": "<p>For <code>f = ab + cd</code> (order a,b,c,d), a CUTPNFP pair for literal <code>a</code> of implicant <code>ab</code> is a unique true point and a near false point that differ in exactly variable a. Which pair works?</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 and NFP 0100",
+              "fraction": 100,
+              "feedback": "Correct — they differ only in a; 1100 makes ab (only) true, 0100 makes f false and flips to true when a is set."
+            },
+            {
+              "text": "UTP 1100 and NFP 1000",
+              "fraction": 0,
+              "feedback": "These differ in variable b, not a — that is the pair for literal b."
+            },
+            {
+              "text": "UTP 1100 and NFP 0011",
+              "fraction": 0,
+              "feedback": "These differ in multiple variables, so they do not isolate literal a."
+            },
+            {
+              "text": "UTP 0011 and NFP 0100",
+              "fraction": 0,
+              "feedback": "0011 is a UTP for cd, not for ab, so it does not pair with an NFP for literal a of ab."
+            }
+          ],
+          "generalFeedback": "For literal a of ab: UTP 1100 (ab uniquely true) and NFP 0100 (f false) differ only in a; setting a at the NFP restores ab and f. This isolates a's independent effect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTPNFP pair for literal b of ab",
+          "text": "<p>For <code>f = ab + cd</code> (order a,b,c,d), which UTP/NFP pair isolates literal <code>b</code> of implicant <code>ab</code> (differ in exactly variable b)?</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 and NFP 1000",
+              "fraction": 100,
+              "feedback": "Correct — they differ only in b; 1000 makes f false, and setting b restores ab and f."
+            },
+            {
+              "text": "UTP 1100 and NFP 0100",
+              "fraction": 0,
+              "feedback": "These differ in a, not b — that is the pair for literal a."
+            },
+            {
+              "text": "UTP 1110 and NFP 1000",
+              "fraction": 0,
+              "feedback": "1110 and 1000 differ in variables b and c, so they do not isolate b alone."
+            },
+            {
+              "text": "UTP 1000 and NFP 1100",
+              "fraction": 0,
+              "feedback": "1000 makes f false, so it is not a UTP; the roles are also reversed."
+            }
+          ],
+          "generalFeedback": "For literal b of ab: UTP 1100 and NFP 1000 differ only in b. At 1000 f is false; setting b to 1 restores ab (and f), demonstrating b's independent effect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of CUTPNFP pairs for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, how many corresponding (UTP, NFP) pairs does CUTPNFP require — one per literal of each implicant?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one pair for each of the four literals a, b, c, d."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 counts implicants; CUTPNFP pairs are per literal, so there are 4."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "There are 4 literals, hence 4 pairs, not 8."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of true rows, unrelated to the pair count."
+            }
+          ],
+          "generalFeedback": "CUTPNFP forms one UTP/NFP pair per literal of each implicant. With literals a, b (in ab) and c, d (in cd), that is 4 pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 111 is not a UTP in ac + bc",
+          "text": "<p>For <code>f = ac + bc</code> (order a,b,c), why is 111 not a unique true point for the implicant <code>ac</code>?</p>",
+          "answers": [
+            {
+              "text": "Because the other implicant bc is also true at 111",
+              "fraction": 100,
+              "feedback": "Correct — with b=1, c=1 the term bc is true too, so ac is not the unique true implicant."
+            },
+            {
+              "text": "Because ac is false at 111",
+              "fraction": 0,
+              "feedback": "ac is true at 111 (a=1, c=1); the problem is that bc is true as well."
+            },
+            {
+              "text": "Because f is false at 111",
+              "fraction": 0,
+              "feedback": "f is true at 111; it just is not uniquely due to ac."
+            },
+            {
+              "text": "Because 111 is a near false point",
+              "fraction": 0,
+              "feedback": "111 makes f true, so it is not a near false point."
+            }
+          ],
+          "generalFeedback": "At 111 both ac and bc are true, so ac is not the sole cause of f's truth. The unique true point for ac is 101 (ac true, bc false).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The unique true point for ac in ac + bc",
+          "text": "<p>For <code>f = ac + bc</code> (order a,b,c), which assignment is the (only) unique true point for the implicant <code>ac</code>?</p>",
+          "answers": [
+            {
+              "text": "101 (a=1, b=0, c=1)",
+              "fraction": 100,
+              "feedback": "Correct — ac is true and bc is false (b=0), so ac is the unique true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "bc is also true here, so ac is not unique."
+            },
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "ac is false here (c=0), so f is false."
+            },
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "ac is false here (a=0); f is false."
+            }
+          ],
+          "generalFeedback": "ac is true only when a=1 and c=1; to make bc false we need b=0. That forces 101 — the sole unique true point for ac.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DNF of not-f for ab + c",
+          "text": "<p>MUTPC/MNFPC also work with the DNF of <code>¬f</code>. For <code>f = ab + c</code>, which is a correct DNF of <code>¬f</code>?</p>",
+          "answers": [
+            {
+              "text": "!a!c + !b!c",
+              "fraction": 100,
+              "feedback": "Correct — ¬f is true exactly when c=0 and not(ab), i.e. !c(!a + !b)."
+            },
+            {
+              "text": "!a + !b + !c",
+              "fraction": 0,
+              "feedback": "This is true at 110 (where f is true), so it is not ¬f."
+            },
+            {
+              "text": "!a!b!c",
+              "fraction": 0,
+              "feedback": "This covers only 000; ¬f is also true at 010 and 100."
+            },
+            {
+              "text": "a!c + b!c",
+              "fraction": 0,
+              "feedback": "This is true at 100, 010, and 110 — but at 110 f is true (so ¬f must be false there), and it misses 000 where f is false; so it is not ¬f."
+            }
+          ],
+          "generalFeedback": "f = ab + c is false exactly on 000, 010, 100 — all with c=0 and ab false. So ¬f = !c(!a + !b) = !a!c + !b!c.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime implicants of not-f for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, the negation is <code>¬f = (!a + !b)(!c + !d)</code>. In minimal DNF, how many prime implicants does ¬f have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — expanding gives !a!c + !a!d + !b!c + !b!d, four prime implicants."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "The product (!a + !b)(!c + !d) expands to four product terms, not two."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "¬f is not a single product term; it expands to four."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of true rows of f; ¬f has 9 true rows and 4 prime implicants."
+            }
+          ],
+          "generalFeedback": "Distributing (!a + !b)(!c + !d) yields !a!c + !a!d + !b!c + !b!d — four prime implicants, each a valid implicant of ¬f. MUTPC would require UTPs for the implicants of both f and ¬f.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True rows of ab + c",
+          "text": "<p>Over the 8 assignments of a,b,c, how many make <code>f = ab + c</code> true?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — the 4 rows with c=1, plus 110 (a=1,b=1,c=0)."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=1 already gives 4 true rows; 110 adds a fifth."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount: exactly 5 rows are true (001,011,101,110,111)."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Too few — c=1 alone yields 4 true rows."
+            }
+          ],
+          "generalFeedback": "f is true whenever c=1 (4 rows) or ab=1 (adds 110). The true rows are 001, 011, 101, 110, 111 — five in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True rows of ab + cd",
+          "text": "<p>Over the 16 assignments of a,b,c,d, how many make <code>f = ab + cd</code> true?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — 3 rows with ab (cd false) + 3 with cd (ab false) + 1 with both (1111) = 7."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Adding the two blocks of 4 double-counts 1111; the true count is 7."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — there are 7 true rows."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "ab alone gives 4 rows and cd gives 4 more (overlapping in 1111), for 7 distinct rows."
+            }
+          ],
+          "generalFeedback": "ab is true on 4 rows and cd on 4 rows; they share only 1111, so by inclusion–exclusion 4 + 4 − 1 = 7 assignments make f true.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "UTPC alone and predicate coverage",
+          "text": "<p>A test suite that satisfies only Unique True Point Coverage (UTPC) is guaranteed to make f evaluate to false in at least one test.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — every UTP makes its implicant (and f) true, so a UTPC-only suite may never make f false."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "All unique true points make f true; nothing in UTPC forces a false point, so f need never be false."
+            }
+          ],
+          "generalFeedback": "Each UTP is a true point of f. A suite consisting solely of UTPs makes f true in every test, so UTPC alone does not guarantee a false evaluation — it does not subsume Predicate Coverage."
+        },
+        {
+          "type": "truefalse",
+          "name": "NFPC alone and predicate coverage",
+          "text": "<p>A test suite that satisfies only Near False Point Coverage (NFPC) is guaranteed to make f evaluate to true in at least one test.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — every near false point makes f false, so an NFPC-only suite may never make f true."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "All near false points make f false; nothing in NFPC forces a true point, so f need never be true."
+            }
+          ],
+          "generalFeedback": "Each NFP is a false point of f. A suite of only NFPs makes f false in every test, so NFPC alone does not guarantee a true evaluation — it does not subsume Predicate Coverage on its own."
+        },
+        {
+          "type": "truefalse",
+          "name": "CUTPNFP subsumes predicate coverage",
+          "text": "<p>Because CUTPNFP includes a unique true point (f true) and a near false point (f false) for each literal, any CUTPNFP-satisfying suite makes f both true and false — so it subsumes Predicate Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the UTPs give a true evaluation and the NFPs give a false one, covering both values of f."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CUTPNFP requires both UTPs (f true) and NFPs (f false), so f necessarily takes both values."
+            }
+          ],
+          "generalFeedback": "CUTPNFP pairs a UTP (f true) with an NFP (f false) for every literal. The suite therefore contains at least one true and one false evaluation of f, satisfying Predicate Coverage."
+        },
+        {
+          "type": "truefalse",
+          "name": "UTPC subsumes implicant coverage",
+          "text": "<p>Unique True Point Coverage (UTPC) subsumes Implicant Coverage (IC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a UTP for implicant i makes i true, so covering a UTP for each implicant also makes each implicant true, which is exactly IC."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Every UTP makes its own implicant true; requiring one per implicant satisfies IC, so UTPC subsumes IC."
+            }
+          ],
+          "generalFeedback": "IC requires each implicant to be made true by some test. A UTP for implicant i makes i true, so a UTPC suite (a UTP per implicant) automatically satisfies IC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of CUTPNFP",
+          "text": "<p>What does a CUTPNFP (UTP, NFP) pair for a literal L demonstrate?</p>",
+          "answers": [
+            {
+              "text": "That toggling only L flips f — L's independent effect on the outcome (the DNF analog of MC/DC)",
+              "fraction": 100,
+              "feedback": "Correct — the pair differs only in L and f changes, showing L independently affects f."
+            },
+            {
+              "text": "That all 2^n combinations of variables are exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, far more than CUTPNFP requires."
+            },
+            {
+              "text": "That the predicate is always true",
+              "fraction": 0,
+              "feedback": "The NFP of the pair makes f false, so f is not always true."
+            },
+            {
+              "text": "That L never affects the outcome",
+              "fraction": 0,
+              "feedback": "The pair shows exactly the opposite: L does affect f."
+            }
+          ],
+          "generalFeedback": "A CUTPNFP pair is a UTP and an NFP differing only in literal L; f is true at one and false at the other, so flipping L alone flips f. This mirrors MC/DC's independent-effect requirement in DNF form.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missing near false point in ab + a!b",
+          "text": "<p>For <code>f = ab + a!b</code> (which equals <code>a</code>), literal <code>b</code> of the implicant <code>ab</code> has <strong>no</strong> near false point. Why?</p>",
+          "answers": [
+            {
+              "text": "Any point where flipping b would make ab true already has a=1, so f = a is already true there — f is never false at such a point",
+              "fraction": 100,
+              "feedback": "Correct — the required \"f false\" condition cannot hold, so no NFP for b exists."
+            },
+            {
+              "text": "Because b does not appear in the predicate",
+              "fraction": 0,
+              "feedback": "b does appear in the term ab; the issue is that ab is redundant (f = a)."
+            },
+            {
+              "text": "Because ab has no unique true point",
+              "fraction": 0,
+              "feedback": "ab does have a UTP (11); the missing NFP is a separate consequence of redundancy."
+            },
+            {
+              "text": "Because f is a tautology",
+              "fraction": 0,
+              "feedback": "f = a is not a tautology; it is false whenever a=0."
+            }
+          ],
+          "generalFeedback": "An NFP for b of ab needs f false while flipping b makes ab true — but making ab true by flipping b requires a=1, and with a=1 f = a is already true. No assignment satisfies both, so this NFP is infeasible: NFPC can be infeasible for a non-prime (redundant) implicant.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "何謂 DNF",
+          "text": "<p>當一個述詞寫成下列何種形式時，稱其為<strong>析取範式（Disjunctive Normal Form, DNF）</strong>？</p>",
+          "answers": [
+            {
+              "text": "若干乘積項（product term）以 OR 連接，而每個項是若干字面（literal）以 AND 連接",
+              "fraction": 100,
+              "feedback": "正確——DNF 即「積之和（sum of products）」：由 AND 項再以 OR 連接。"
+            },
+            {
+              "text": "若干和項以 AND 連接，而每個項是若干字面以 OR 連接",
+              "fraction": 0,
+              "feedback": "那是合取範式（CNF），即「和之積」。"
+            },
+            {
+              "text": "由所有變數構成的單一乘積項",
+              "fraction": 0,
+              "feedback": "那是最小項（minterm），只是 DNF 的一種特例。"
+            },
+            {
+              "text": "任何布林運算式，不論結構為何",
+              "fraction": 0,
+              "feedback": "DNF 是特定的範式，而非任意運算式。"
+            }
+          ],
+          "generalFeedback": "DNF（積之和）把 f 寫成若干乘積項以 OR 連接；每個乘積項是若干字面以 AND 連接。本題庫記法：AND 以相鄰（）、OR 以、NOT 以（例如）表示。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂字面",
+          "text": "<p>在 DNF 中，<strong>字面（literal）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個變數或其否定（例如 a 或 !a）",
+              "fraction": 100,
+              "feedback": "正確——字面是一個變數的單次出現，可能帶否定。"
+            },
+            {
+              "text": "兩個以上變數的 AND 連接",
+              "fraction": 0,
+              "feedback": "那是乘積項，而非單一字面。"
+            },
+            {
+              "text": "整個積之和運算式",
+              "fraction": 0,
+              "feedback": "那是整個 DNF，而非字面。"
+            },
+            {
+              "text": "對所有變數的一組指派值",
+              "fraction": 0,
+              "feedback": "那是測試點／真值表列，而非字面。"
+            }
+          ],
+          "generalFeedback": "字面是單一變數或其否定，例如或。字面以 AND 連接構成乘積項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂乘積項",
+          "text": "<p>在 DNF 中，一個<strong>項（乘積項）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個以上字面以 AND 連接，例如 a!bc",
+              "fraction": 100,
+              "feedback": "正確——乘積項是字面以 AND 連接而成。"
+            },
+            {
+              "text": "若干字面以 OR 連接，例如 a + b + c",
+              "fraction": 0,
+              "feedback": "那是和項（用於 CNF），而非 DNF 的乘積項。"
+            },
+            {
+              "text": "只能是單一變數",
+              "fraction": 0,
+              "feedback": "單一變數是合法的項，但項可 AND 多個字面。"
+            },
+            {
+              "text": "整個述詞的否定",
+              "fraction": 0,
+              "feedback": "那是 ¬f，而非乘積項。"
+            }
+          ],
+          "generalFeedback": "乘積項是若干字面的 AND 連接，例如。DNF 則是這些乘積項以 OR（和）連接。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂最小項",
+          "text": "<p>對於變數 a、b、c 的述詞，<strong>最小項（minterm）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "恰好含每個變數各一次（各為 a 或 !a）的乘積項，例如 a!bc",
+              "fraction": 100,
+              "feedback": "正確——最小項提及所有變數，且恰在一列為真。"
+            },
+            {
+              "text": "至少省略一個變數的乘積項，例如 ac",
+              "fraction": 0,
+              "feedback": "那是合法的乘積項，但非最小項——最小項須提及每個變數。"
+            },
+            {
+              "text": "所有變數的 OR 連接，例如 a + b + c",
+              "fraction": 0,
+              "feedback": "那是和項，而非最小項。"
+            },
+            {
+              "text": "述詞的最小蘊涵項",
+              "fraction": 0,
+              "feedback": "蘊涵項的大小與此無關；最小項的定義在於提及每個變數。"
+            }
+          ],
+          "generalFeedback": "最小項是恰好提及每個變數各一次的乘積項；它恰在一組指派（真值表的一列）為真。在 3 個變數下，是最小項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂蘊涵項",
+          "text": "<p>當乘積項 i 為述詞 f 的<strong>蘊涵項（implicant）</strong>時，代表：</p>",
+          "answers": [
+            {
+              "text": "只要 i 為真，f 也必為真（i 蘊涵 f）",
+              "fraction": 100,
+              "feedback": "正確——蘊涵項會蘊涵該述詞。"
+            },
+            {
+              "text": "只要 f 為真，i 也必為真",
+              "fraction": 0,
+              "feedback": "那是相反方向的蘊涵，並非蘊涵項的意義。"
+            },
+            {
+              "text": "i 與 f 在完全相同的列上為真",
+              "fraction": 0,
+              "feedback": "那會使 i 邏輯等價於 f，比「蘊涵項」更強。"
+            },
+            {
+              "text": "i 使 f 為假",
+              "fraction": 0,
+              "feedback": "蘊涵項使 f 為真，而非為假。"
+            }
+          ],
+          "generalFeedback": "蘊涵項是會蘊涵 f 的乘積項：凡滿足該項的指派亦滿足 f。f 的任一 DNF 中所列的每個項都是 f 的蘊涵項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂質蘊涵項",
+          "text": "<p>f 的<strong>質蘊涵項（prime implicant）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "移除任一字面後便不再是蘊涵項的蘊涵項",
+              "fraction": 100,
+              "feedback": "正確——它是「極大／不可再化簡」的蘊涵項。"
+            },
+            {
+              "text": "含所有變數的蘊涵項",
+              "fraction": 0,
+              "feedback": "那描述的是最小項；質蘊涵項通常較小。"
+            },
+            {
+              "text": "出現在 f 某個 DNF 中的任一乘積項",
+              "fraction": 0,
+              "feedback": "這樣的項是蘊涵項，但未必是質的（可能仍可移除某字面）。"
+            },
+            {
+              "text": "f 所有蘊涵項的 OR 連接",
+              "fraction": 0,
+              "feedback": "那是 f 的一個 DNF，而非單一質蘊涵項。"
+            }
+          ],
+          "generalFeedback": "質蘊涵項是不可再化簡的蘊涵項：移除其中任一字面後，所得的項便不再蘊涵 f。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂唯一真點",
+          "text": "<p>蘊涵項 i 的<strong>唯一真點（unique true point, UTP）</strong>是指一組指派，使得：</p>",
+          "answers": [
+            {
+              "text": "i 為真，且 f 的其他每個蘊涵項皆為假",
+              "fraction": 100,
+              "feedback": "正確——在 UTP 上，僅 i 使 f 為真。"
+            },
+            {
+              "text": "i 為真，不論其他蘊涵項如何",
+              "fraction": 0,
+              "feedback": "那只是 i 的一個真點；UTP 另要求其他所有蘊涵項為假。"
+            },
+            {
+              "text": "使 f 為假",
+              "fraction": 0,
+              "feedback": "UTP 是真點：它使 i（進而使 f）為真。"
+            },
+            {
+              "text": "是使 f 為真的唯一指派",
+              "fraction": 0,
+              "feedback": "「唯一」指只有一個蘊涵項為真，而非 f 只有一組令其為真的指派。"
+            }
+          ],
+          "generalFeedback": "蘊涵項 i 的 UTP 是使 i 為真、而其他所有蘊涵項皆為假的指派，因此在該點上 i 是使 f 為真的唯一蘊涵項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂近似假點",
+          "text": "<p>對於蘊涵項 i 的某字面 L，其<strong>近似假點（near false point, NFP）</strong>是指一組指派，使得：</p>",
+          "answers": [
+            {
+              "text": "f 為假，但只翻轉字面 L 便使 i（進而使 f）為真",
+              "fraction": 100,
+              "feedback": "正確——它與 i 的某真點僅差一個字面。"
+            },
+            {
+              "text": "以蘊涵項 i 使 f 為真",
+              "fraction": 0,
+              "feedback": "NFP 使 f 為假，而非為真。"
+            },
+            {
+              "text": "同時使 i 的每個字面皆為假",
+              "fraction": 0,
+              "feedback": "只有 L 這一個字面「不對」，其餘字面仍保持能使 i 為真的值。"
+            },
+            {
+              "text": "與 i 的某真點相差兩個以上變數",
+              "fraction": 0,
+              "feedback": "NFP 恰差一個變數——即字面 L 所對應者，故稱「近似」。"
+            }
+          ],
+          "generalFeedback": "蘊涵項 i 之字面 L 的近似假點使 f 為假，但只翻轉 L 所對應的變數即可使 i（進而使 f）為真；它與能使 i 為真的點僅相差一個變數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + cd 的乘積項數",
+          "text": "<p>DNF <code>ab + cd</code> 含有幾個乘積項？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——兩個項為 ab 與 cd。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是字面數，而非項數。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "分隔出兩個不同的乘積項。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "恰有兩個項：ab 與 cd。"
+            }
+          ],
+          "generalFeedback": "是兩個乘積項 ab 與 cd 的 OR 連接，故有 2 個項（各為該述詞的蘊涵項）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + cd 的字面數",
+          "text": "<p>DNF <code>ab + cd</code> 含有幾次字面出現？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d 各出現一次。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是項數，而非字面數。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "只有四次字面出現：a、b、c、d。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "逐項計算：ab 有 2 個、cd 有 2 個，共 4 個。"
+            }
+          ],
+          "generalFeedback": "項 ab 提供字面 a 與 b；項 cd 提供 c 與 d——合計四次字面出現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識單一字面",
+          "text": "<p>下列何者是單一<strong>字面</strong>？</p>",
+          "answers": [
+            {
+              "text": "!b",
+              "fraction": 100,
+              "feedback": "正確——!b 是某變數的否定，為一個字面。"
+            },
+            {
+              "text": "ab",
+              "fraction": 0,
+              "feedback": "ab 是乘積項（兩個字面 AND 連接），並非單一字面。"
+            },
+            {
+              "text": "a + b",
+              "fraction": 0,
+              "feedback": "a + b 是兩個字面的 OR 連接，並非單一字面。"
+            },
+            {
+              "text": "a!bc",
+              "fraction": 0,
+              "feedback": "a!bc 是含三個字面的乘積項。"
+            }
+          ],
+          "generalFeedback": "字面是一個變數或其否定。符合；與是乘積項，則是 OR 連接。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + c 的字面數",
+          "text": "<p>DNF <code>ab + c</code> 含有幾次字面出現？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——第一項有 a 與 b，第二項有 c。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是項數；字面出現共 3 次。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只出現 a、b、c——三個字面。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "將兩項的字面相加：2 + 1 = 3。"
+            }
+          ],
+          "generalFeedback": "項 ab 有字面 a 與 b；項 c 有字面 c——合計三次字面出現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + cd 的變數數",
+          "text": "<p>述詞 <code>ab + cd</code> 涉及幾個相異變數（子句）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是項數；該述詞用到 4 個相異變數。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 是真值表列數，而非變數數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "相異變數有 4 個：a、b、c、d。"
+            }
+          ],
+          "generalFeedback": "此述詞提及 a、b、c、d——四個相異變數，故有 2^4 = 16 列真值表。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "質蘊涵項的不可化簡性",
+          "text": "<p>質蘊涵項是指「移除任一字面後便不再是蘊涵項」的蘊涵項。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這種不可化簡性正是使蘊涵項成為「質」的條件。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "質蘊涵項正是不可再化簡的蘊涵項；移除任一字面都會破壞其蘊涵性。"
+            }
+          ],
+          "generalFeedback": "當蘊涵項為極小（不可化簡）時即為質的：移除其中任一字面，所得的項便不再蘊涵 f。"
+        },
+        {
+          "type": "truefalse",
+          "name": "DNF 的項皆為蘊涵項",
+          "text": "<p>出現在 f 之某 DNF 中的每個乘積項都是 f 的蘊涵項。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——若某項為真，則該 OR 支為真，故 f 為真；該項蘊涵 f。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "任一支為真都會使整個 OR（進而使 f）為真，故 DNF 的每個項都蘊涵 f。"
+            }
+          ],
+          "generalFeedback": "由於 f 是其各項的 OR，任一項為真即使 f 為真。因此 f 之 DNF 中的每個項（依定義）都是 f 的蘊涵項。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "ab + c 中 ab 的 UTP",
+          "text": "<p>對 <code>f = ab + c</code>（變數順序 a,b,c），下列何者是蘊涵項 <code>ab</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 100,
+              "feedback": "正確——ab 為真且 c 為假，故 ab 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "在 111 時蘊涵項 c 亦為真，故 ab 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 ab 為假（b=0），故根本不是 ab 的真點。"
+            },
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ab 為假；這是 c 的真點，而非 ab 的。"
+            }
+          ],
+          "generalFeedback": "ab 的 UTP 需 ab 為真且其他蘊涵項（此處為 c）為假：a=1, b=1, c=0，即 110。它是本述詞中 ab 的唯一 UTP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 中 c 的 UTP",
+          "text": "<p>對 <code>f = ab + c</code>（順序 a,b,c），下列何者是蘊涵項 <code>c</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 100,
+              "feedback": "正確——c 為真且 ab 為假，故 c 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ab 亦為真，故 c 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 c 為假（c=0）；這是 ab 的真點，而非 c 的。"
+            },
+            {
+              "text": "000（a=0, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為假，根本不是真點。"
+            }
+          ],
+          "generalFeedback": "c 有三個 UTP——001、011、101，皆使 c 為真而 ab 為假。選項中僅 001 符合（111 會使 ab 亦為真）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 中 ab 之字面 a 的 NFP",
+          "text": "<p>對 <code>f = ab + c</code>（順序 a,b,c），下列何者是蘊涵項 <code>ab</code> 之字面 <code>a</code> 的<strong>近似假點</strong>？</p>",
+          "answers": [
+            {
+              "text": "010（a=0, b=1, c=0）",
+              "fraction": 100,
+              "feedback": "正確——此處 f 為假，將 a 翻為 1 得到 110，使 ab（進而 f）為真。"
+            },
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為假，但翻轉 a 得到 000，ab 仍為假（b=0）。不是 a 的 NFP。"
+            },
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（ab 成立），是真點，而非近似假點。"
+            },
+            {
+              "text": "011（a=0, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（c 成立），故不可能是近似假點。"
+            }
+          ],
+          "generalFeedback": "ab 之字面 a 的 NFP 需 f 為假，且只翻轉 a 便使 ab 為真。這要求 b=1、c=0、a=0：即 010。翻轉 a 得 110，ab 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP 與 NFP 的真值",
+          "text": "<p>在唯一真點上，述詞 f 為 ____；在近似假點上，f 為 ____。</p>",
+          "answers": [
+            {
+              "text": "真；假",
+              "fraction": 100,
+              "feedback": "正確——UTP 是 f 的真點；NFP 是 f 的假點。"
+            },
+            {
+              "text": "假；真",
+              "fraction": 0,
+              "feedback": "顛倒了——UTP 使 f 為真，NFP 使 f 為假。"
+            },
+            {
+              "text": "真；真",
+              "fraction": 0,
+              "feedback": "NFP 使 f 為假，而非為真。"
+            },
+            {
+              "text": "假；假",
+              "fraction": 0,
+              "feedback": "UTP 使 f 為真，而非為假。"
+            }
+          ],
+          "generalFeedback": "依定義，UTP 使其蘊涵項（進而使 f）為真；NFP 使 f 為假，但只差一個字面翻轉即可使某蘊涵項為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + a!b 的質蘊涵項",
+          "text": "<p>考慮 <code>f = ab + a!b</code>，其可化簡為 <code>a</code>。下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "ab 與 a!b 皆非質蘊涵項，因為兩者的第二個字面都可移除（僅 a 仍蘊涵 f）",
+              "fraction": 100,
+              "feedback": "正確——因 f = a，項 a 即為蘊涵項，故 ab 與 a!b 皆可化簡。"
+            },
+            {
+              "text": "ab 與 a!b 皆為質蘊涵項",
+              "fraction": 0,
+              "feedback": "兩者皆非質的：移除 b（或 !b）後剩下 a，仍蘊涵 f。"
+            },
+            {
+              "text": "僅 ab 是質蘊涵項",
+              "fraction": 0,
+              "feedback": "ab 可化簡為 a，故非質的。"
+            },
+            {
+              "text": "a 不是 f 的蘊涵項",
+              "fraction": 0,
+              "feedback": "因 f = a，項 a 蘊涵 f——它其實是唯一的質蘊涵項。"
+            }
+          ],
+          "generalFeedback": "f = ab + a!b = a。唯一的質蘊涵項是 a。兩個所列的項都帶有可移除的字面，故皆非質的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 之 UTPC 所需 UTP 數",
+          "text": "<p>對 <code>f = ab + cd</code>，唯一真點覆蓋（UTPC）須要求幾個唯一真點（每個蘊涵項一個）？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——ab 一個、cd 一個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是字面數；UTPC 每個蘊涵項需一個 UTP，而蘊涵項有 2 個。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "每個蘊涵項各需自己的 UTP，且沒有任何一點能同時是兩者的 UTP。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是真列數；UTPC 每個蘊涵項需一個 UTP，即 2 個。"
+            }
+          ],
+          "generalFeedback": "UTPC 對每個蘊涵項要求一個 UTP。有兩個蘊涵項（ab、cd），故需 2 個唯一真點；由於 UTP 只使自身蘊涵項為真，一個測試無法同時服務兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 之 NFPC 所需 NFP 數",
+          "text": "<p>對 <code>f = ab + cd</code>，近似假點覆蓋（NFPC）須要求幾個近似假點（每個蘊涵項的每個字面一個）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d 四個字面各一個 NFP。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是蘊涵項數；NFPC 每個字面需一個 NFP，而字面有 4 個。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "字面出現僅 4 次，故需 4 個 NFP。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 是列數，而非所需 NFP 數。"
+            }
+          ],
+          "generalFeedback": "NFPC 對每個蘊涵項的每個字面要求一個近似假點。項 ab 與 cd 共有四個字面（a、b、c、d），故需 4 個 NFP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "!ab + ac 中 !ab 的 UTP",
+          "text": "<p>對 <code>f = !ab + ac</code>（順序 a,b,c），下列何者是蘊涵項 <code>!ab</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "010（a=0, b=1, c=0）",
+              "fraction": 100,
+              "feedback": "正確——!ab 為真（a=0, b=1）且 ac 為假（a=0），故 !ab 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 !ab 為假，因 a=1 使 !a 為假。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ac 為真而 !ab 為假（a=1）；並非 !ab 的 UTP。"
+            },
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 !ab 為假，因 b=0。"
+            }
+          ],
+          "generalFeedback": "!ab 需 a=0 且 b=1；要使 ac 為假需 a=0（已滿足）——故 010 與 011 皆為 UTP。選項中僅 010 符合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "!ab + ac 中 ac 之字面 c 的 NFP",
+          "text": "<p>對 <code>f = !ab + ac</code>（順序 a,b,c），下列何者是蘊涵項 <code>ac</code> 之字面 <code>c</code> 的<strong>近似假點</strong>？</p>",
+          "answers": [
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 100,
+              "feedback": "正確——此處 f 為假，將 c 翻為 1 得到 101，使 ac（進而 f）為真。"
+            },
+            {
+              "text": "101（a=1, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（ac 成立），是真點，而非近似假點。"
+            },
+            {
+              "text": "000（a=0, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "f 為假，但翻轉 c 得到 001，ac 仍為假（a=0）。不是 c 的 NFP。"
+            },
+            {
+              "text": "010（a=0, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（!ab 成立），故不可能是近似假點。"
+            }
+          ],
+          "generalFeedback": "ac 之字面 c 的 NFP 需 f 為假，且只翻轉 c 便使 ac 為真，即 a=1 且 c=0。a=1 時 !ab 為假；b 可為 0 或 1。100 可行：翻轉 c 得 101，ac 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ac + bc 的重疊蘊涵項",
+          "text": "<p>對 <code>f = ac + bc</code>（順序 a,b,c），在指派 111（a=1, b=1, c=1）時，兩個蘊涵項中有幾個為真？</p>",
+          "answers": [
+            {
+              "text": "2——ac 與 bc 皆為真",
+              "fraction": 100,
+              "feedback": "正確——a=b=c=1 時兩項皆成立，故 111 不是任一者的唯一真點。"
+            },
+            {
+              "text": "1——僅 ac 為真",
+              "fraction": 0,
+              "feedback": "111 時 bc 亦為真（b=1, c=1）。"
+            },
+            {
+              "text": "0——皆不為真",
+              "fraction": 0,
+              "feedback": "兩項皆為真；111 時 f 為真。"
+            },
+            {
+              "text": "視變數順序而定",
+              "fraction": 0,
+              "feedback": "真值不因變數書寫順序而改變。"
+            }
+          ],
+          "generalFeedback": "在 111 時 ac 與 bc 皆為真，故 111 是共有的真點——不可能是任一蘊涵項的 UTP。此重疊正是選取唯一真點須謹慎的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 之 IC 是否可用單一測試",
+          "text": "<p>對 <code>f = ab + cd</code>，單一測試能否滿足蘊涵項覆蓋（IC）？</p>",
+          "answers": [
+            {
+              "text": "能——指派 1111 同時使 ab 與 cd 為真",
+              "fraction": 100,
+              "feedback": "正確——IC 僅要求每個蘊涵項在某測試中為真，而 1111 使兩者皆為真。"
+            },
+            {
+              "text": "不能——IC 總是需要每個蘊涵項一個測試",
+              "fraction": 0,
+              "feedback": "那是 UTPC。單純的 IC 若某測試能使每個蘊涵項為真，即可共用。"
+            },
+            {
+              "text": "不能——單一測試永遠無法使兩個乘積項為真",
+              "fraction": 0,
+              "feedback": "1111 同時使 ab 與 cd 為真。"
+            },
+            {
+              "text": "能，但僅在組合覆蓋下",
+              "fraction": 0,
+              "feedback": "單一測試能否滿足 IC 與其他準則無關。"
+            }
+          ],
+          "generalFeedback": "IC 要求每個蘊涵項在某測試中為真——同一測試可服務多個。在 1111 時 ab 與 cd 皆為真，故單一測試即可滿足 IC。反之 UTPC 要求每個真點僅屬一個蘊涵項，因而禁止此作法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a + bc 中 a 的 UTP",
+          "text": "<p>對 <code>f = a + bc</code>（順序 a,b,c），下列何者是蘊涵項 <code>a</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 100,
+              "feedback": "正確——a 為真且 bc 為假，故 a 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 bc 亦為真，故 a 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "011（a=0, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 a 為假；這是 bc 的真點，而非 a 的。"
+            },
+            {
+              "text": "000（a=0, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為假，故不是真點。"
+            }
+          ],
+          "generalFeedback": "a 的 UTP 為 100、101、110（a 為真、bc 為假）。111 失格，因 bc 亦為真。選項中 100 是 UTP。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "a 是否為 ab + cd 的蘊涵項",
+          "text": "<p>單一字面 <code>a</code> 是 <code>f = ab + cd</code> 的蘊涵項。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——在 a=1, b=0, c=0, d=0（1000）時項 a 為真但 f 為假，故 a 不蘊涵 f。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "反例 1000：a 為真但 f = ab + cd 為假，故 a 不蘊涵 f。"
+            }
+          ],
+          "generalFeedback": "若 a 為蘊涵項，則凡 a=1 的指派都須使 f 為真。但 1000 中 a=1 而 f=0，故 a 不是 ab + cd 的蘊涵項。"
+        },
+        {
+          "type": "multichoice",
+          "name": "非唯一的真點",
+          "text": "<p>在某指派上，蘊涵項 i 為真，但 f 的至少一個<em>其他</em>蘊涵項亦為真，則此點是：</p>",
+          "answers": [
+            {
+              "text": "f 的真點，但不是 i 的唯一真點",
+              "fraction": 100,
+              "feedback": "正確——因不只一個蘊涵項為真，唯一性不成立。"
+            },
+            {
+              "text": "i 的唯一真點",
+              "fraction": 0,
+              "feedback": "UTP 要求其他所有蘊涵項為假；此處另有一個為真。"
+            },
+            {
+              "text": "i 的近似假點",
+              "fraction": 0,
+              "feedback": "NFP 使 f 為假；此點使 f 為真。"
+            },
+            {
+              "text": "根本不是 f 的真點",
+              "fraction": 0,
+              "feedback": "既然 i 為真，f 即為真，故它是真點——只是非唯一的。"
+            }
+          ],
+          "generalFeedback": "它是 f 的真點（i 為真），但不是 i 的 UTP，因為另有蘊涵項同時為真，故 i 並非使 f 為真的唯一原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "近似假點上 f 的真值",
+          "text": "<p>在近似假點上，述詞 f 必為：</p>",
+          "answers": [
+            {
+              "text": "假",
+              "fraction": 100,
+              "feedback": "正確——NFP 是 f 的假點，且與某真點僅差一個字面翻轉。"
+            },
+            {
+              "text": "真",
+              "fraction": 0,
+              "feedback": "那會是真點；NFP 使 f 為假。"
+            },
+            {
+              "text": "視蘊涵項而定，可真可假",
+              "fraction": 0,
+              "feedback": "依定義 NFP 必使 f 為假。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "f 是全域布林函數；在每組指派上皆有定義。"
+            }
+          ],
+          "generalFeedback": "近似假點使 f 為假；翻轉所鎖定的那個字面即使蘊涵項（進而 f）為真。NFP 上的「假」值對 CUTPNFP 所用的配對至關重要。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "ab 之字面 a 的 CUTPNFP 配對",
+          "text": "<p>對 <code>f = ab + cd</code>（順序 a,b,c,d），蘊涵項 <code>ab</code> 之字面 <code>a</code> 的 CUTPNFP 配對，是一個唯一真點與一個近似假點，且兩者恰在變數 a 相異。下列何組可行？</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 與 NFP 0100",
+              "fraction": 100,
+              "feedback": "正確——兩者僅在 a 相異；1100 使（僅）ab 為真，0100 使 f 為假且設回 a 即轉為真。"
+            },
+            {
+              "text": "UTP 1100 與 NFP 1000",
+              "fraction": 0,
+              "feedback": "兩者在變數 b 相異，而非 a——那是字面 b 的配對。"
+            },
+            {
+              "text": "UTP 1100 與 NFP 0011",
+              "fraction": 0,
+              "feedback": "兩者在多個變數相異，無法孤立出字面 a。"
+            },
+            {
+              "text": "UTP 0011 與 NFP 0100",
+              "fraction": 0,
+              "feedback": "0011 是 cd 的 UTP，而非 ab 的，故無法與 ab 之字面 a 的 NFP 配對。"
+            }
+          ],
+          "generalFeedback": "對 ab 之字面 a：UTP 1100（ab 唯一為真）與 NFP 0100（f 為假）僅在 a 相異；在 NFP 上設回 a 即恢復 ab 與 f。此配對孤立出 a 的獨立效應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab 之字面 b 的 CUTPNFP 配對",
+          "text": "<p>對 <code>f = ab + cd</code>（順序 a,b,c,d），下列哪組 UTP/NFP 配對可孤立出蘊涵項 <code>ab</code> 之字面 <code>b</code>（恰在變數 b 相異）？</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 與 NFP 1000",
+              "fraction": 100,
+              "feedback": "正確——兩者僅在 b 相異；1000 使 f 為假，設回 b 即恢復 ab 與 f。"
+            },
+            {
+              "text": "UTP 1100 與 NFP 0100",
+              "fraction": 0,
+              "feedback": "兩者在 a 相異，而非 b——那是字面 a 的配對。"
+            },
+            {
+              "text": "UTP 1110 與 NFP 1000",
+              "fraction": 0,
+              "feedback": "1110 與 1000 在變數 b 與 c 皆相異，無法單獨孤立 b。"
+            },
+            {
+              "text": "UTP 1000 與 NFP 1100",
+              "fraction": 0,
+              "feedback": "1000 使 f 為假，故不是 UTP；角色也顛倒了。"
+            }
+          ],
+          "generalFeedback": "對 ab 之字面 b：UTP 1100 與 NFP 1000 僅在 b 相異。1000 時 f 為假；將 b 設為 1 即恢復 ab（進而 f），展現 b 的獨立效應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 的 CUTPNFP 配對數",
+          "text": "<p>對 <code>f = ab + cd</code>，CUTPNFP 需要幾組對應的 (UTP, NFP) 配對——每個蘊涵項的每個字面一組？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d 四個字面各一組。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是蘊涵項數；CUTPNFP 配對以字面計，故有 4 組。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "字面有 4 個，故 4 組，而非 8。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是真列數，與配對數無關。"
+            }
+          ],
+          "generalFeedback": "CUTPNFP 對每個蘊涵項的每個字面形成一組 UTP/NFP 配對。ab 有字面 a、b，cd 有 c、d，故共 4 組。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ac + bc 中 111 為何不是 UTP",
+          "text": "<p>對 <code>f = ac + bc</code>（順序 a,b,c），為何 111 不是蘊涵項 <code>ac</code> 的唯一真點？</p>",
+          "answers": [
+            {
+              "text": "因為另一蘊涵項 bc 在 111 時也為真",
+              "fraction": 100,
+              "feedback": "正確——b=1、c=1 時 bc 亦為真，故 ac 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "因為 111 時 ac 為假",
+              "fraction": 0,
+              "feedback": "111 時 ac 為真（a=1, c=1）；問題在於 bc 也為真。"
+            },
+            {
+              "text": "因為 111 時 f 為假",
+              "fraction": 0,
+              "feedback": "111 時 f 為真；只是並非唯一由 ac 造成。"
+            },
+            {
+              "text": "因為 111 是近似假點",
+              "fraction": 0,
+              "feedback": "111 使 f 為真，故不是近似假點。"
+            }
+          ],
+          "generalFeedback": "111 時 ac 與 bc 皆為真，故 ac 不是使 f 為真的唯一原因。ac 的唯一真點是 101（ac 為真、bc 為假）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ac + bc 中 ac 的唯一真點",
+          "text": "<p>對 <code>f = ac + bc</code>（順序 a,b,c），下列何者是蘊涵項 <code>ac</code> 的（唯一）唯一真點？</p>",
+          "answers": [
+            {
+              "text": "101（a=1, b=0, c=1）",
+              "fraction": 100,
+              "feedback": "正確——ac 為真且 bc 為假（b=0），故 ac 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 bc 亦為真，故 ac 非唯一。"
+            },
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 ac 為假（c=0），f 為假。"
+            },
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ac 為假（a=0）；f 為假。"
+            }
+          ],
+          "generalFeedback": "ac 只有在 a=1 且 c=1 時為真；要使 bc 為假需 b=0。這迫使得到 101——ac 的唯一 UTP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 的 not-f 之 DNF",
+          "text": "<p>MUTPC/MNFPC 也會用到 <code>¬f</code> 的 DNF。對 <code>f = ab + c</code>，下列何者是 <code>¬f</code> 的正確 DNF？</p>",
+          "answers": [
+            {
+              "text": "!a!c + !b!c",
+              "fraction": 100,
+              "feedback": "正確——¬f 恰在 c=0 且非(ab) 時為真，即 !c(!a + !b)。"
+            },
+            {
+              "text": "!a + !b + !c",
+              "fraction": 0,
+              "feedback": "它在 110（f 為真處）為真，故非 ¬f。"
+            },
+            {
+              "text": "!a!b!c",
+              "fraction": 0,
+              "feedback": "它只涵蓋 000；¬f 在 010 與 100 亦為真。"
+            },
+            {
+              "text": "a!c + b!c",
+              "fraction": 0,
+              "feedback": "它在 100、010 與 110 為真——但 110 處 f 為真（¬f 在該處應為假），又漏掉了 f 為假的 000；因此並非 ¬f。"
+            }
+          ],
+          "generalFeedback": "f = ab + c 恰在 000、010、100 為假——皆為 c=0 且 ab 為假。故 ¬f = !c(!a + !b) = !a!c + !b!c。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 的 not-f 之質蘊涵項",
+          "text": "<p>對 <code>f = ab + cd</code>，其否定為 <code>¬f = (!a + !b)(!c + !d)</code>。在最小 DNF 下，¬f 有幾個質蘊涵項？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——展開得 !a!c + !a!d + !b!c + !b!d，共四個質蘊涵項。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "乘積 (!a + !b)(!c + !d) 展開為四個乘積項，而非兩個。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "¬f 不是單一乘積項；它展開為四個。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 f 的真列數；¬f 有 9 個真列與 4 個質蘊涵項。"
+            }
+          ],
+          "generalFeedback": "展開 (!a + !b)(!c + !d) 得 !a!c + !a!d + !b!c + !b!d——四個質蘊涵項，各為 ¬f 的合法蘊涵項。MUTPC 會對 f 與 ¬f 兩者的蘊涵項各要求 UTP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 的真列數",
+          "text": "<p>在 a,b,c 的 8 組指派中，有幾組使 <code>f = ab + c</code> 為真？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——c=1 的 4 列，加上 110（a=1,b=1,c=0）。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=1 已給出 4 列；110 再添一列。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重數：恰有 5 列為真（001,011,101,110,111）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "太少——單是 c=1 就有 4 列為真。"
+            }
+          ],
+          "generalFeedback": "只要 c=1（4 列）或 ab=1（再加 110），f 即為真。真列為 001、011、101、110、111——共五列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 的真列數",
+          "text": "<p>在 a,b,c,d 的 16 組指派中，有幾組使 <code>f = ab + cd</code> 為真？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——ab（cd 為假）3 列 + cd（ab 為假）3 列 + 兩者皆真（1111）1 列 = 7。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "兩個 4 列的區塊相加會重複計入 1111；真列數為 7。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重數——有 7 個真列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "ab 單獨給 4 列，cd 再給 4 列（在 1111 重疊），共 7 個相異列。"
+            }
+          ],
+          "generalFeedback": "ab 在 4 列為真，cd 在 4 列為真；兩者僅在 1111 重疊，依排容原理 4 + 4 − 1 = 7 組使 f 為真。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "僅 UTPC 與述詞覆蓋",
+          "text": "<p>僅滿足唯一真點覆蓋（UTPC）的測試套件，保證至少有一個測試使 f 為假。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——每個 UTP 都使其蘊涵項（進而 f）為真，故僅含 UTP 的套件可能從未使 f 為假。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "所有唯一真點都使 f 為真；UTPC 並未強制任何假點，故 f 未必為假。"
+            }
+          ],
+          "generalFeedback": "每個 UTP 都是 f 的真點。僅由 UTP 構成的套件使每個測試中 f 皆為真，故僅 UTPC 不保證出現假值——它不涵蓋（subsume）述詞覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "僅 NFPC 與述詞覆蓋",
+          "text": "<p>僅滿足近似假點覆蓋（NFPC）的測試套件，保證至少有一個測試使 f 為真。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——每個近似假點都使 f 為假，故僅含 NFP 的套件可能從未使 f 為真。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "所有近似假點都使 f 為假；NFPC 並未強制任何真點，故 f 未必為真。"
+            }
+          ],
+          "generalFeedback": "每個 NFP 都是 f 的假點。僅由 NFP 構成的套件使每個測試中 f 皆為假，故僅 NFPC 不保證出現真值——單獨並不涵蓋述詞覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "CUTPNFP 涵蓋述詞覆蓋",
+          "text": "<p>由於 CUTPNFP 對每個字面都含一個唯一真點（f 為真）與一個近似假點（f 為假），任何滿足 CUTPNFP 的套件都會使 f 同時取真與假——故它涵蓋（subsume）述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——UTP 提供真值、NFP 提供假值，f 的兩種值皆被涵蓋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CUTPNFP 同時要求 UTP（f 為真）與 NFP（f 為假），故 f 必取兩種值。"
+            }
+          ],
+          "generalFeedback": "CUTPNFP 對每個字面配對一個 UTP（f 為真）與一個 NFP（f 為假）。因此套件中至少各有一次 f 為真與 f 為假的評估，滿足述詞覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "UTPC 涵蓋蘊涵項覆蓋",
+          "text": "<p>唯一真點覆蓋（UTPC）涵蓋（subsume）蘊涵項覆蓋（IC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——蘊涵項 i 的 UTP 使 i 為真，故對每個蘊涵項各取一個 UTP 也使每個蘊涵項為真，這正是 IC。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個 UTP 都使自身蘊涵項為真；每個蘊涵項各取一個即滿足 IC，故 UTPC 涵蓋 IC。"
+            }
+          ],
+          "generalFeedback": "IC 要求每個蘊涵項在某測試中為真。蘊涵項 i 的 UTP 使 i 為真，故 UTPC 套件（每個蘊涵項一個 UTP）自動滿足 IC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTPNFP 的目的",
+          "text": "<p>字面 L 的一組 CUTPNFP (UTP, NFP) 配對展現了什麼？</p>",
+          "answers": [
+            {
+              "text": "只翻轉 L 便使 f 改變——即 L 對結果的獨立效應（DNF 版的 MC/DC）",
+              "fraction": 100,
+              "feedback": "正確——配對僅在 L 相異且 f 改變，展現 L 對 f 的獨立影響。"
+            },
+            {
+              "text": "已測試變數的全部 2^n 種組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，遠多於 CUTPNFP 所需。"
+            },
+            {
+              "text": "述詞恆為真",
+              "fraction": 0,
+              "feedback": "配對中的 NFP 使 f 為假，故 f 並非恆真。"
+            },
+            {
+              "text": "L 從不影響結果",
+              "fraction": 0,
+              "feedback": "配對展現的恰恰相反：L 確實影響 f。"
+            }
+          ],
+          "generalFeedback": "一組 CUTPNFP 配對是僅在字面 L 相異的 UTP 與 NFP；一者 f 為真、另一者 f 為假，故只翻轉 L 便使 f 改變。這以 DNF 形式對應 MC/DC 的獨立效應要求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + a!b 中缺少的近似假點",
+          "text": "<p>對 <code>f = ab + a!b</code>（其等於 <code>a</code>），蘊涵項 <code>ab</code> 之字面 <code>b</code> <strong>沒有</strong>近似假點。為什麼？</p>",
+          "answers": [
+            {
+              "text": "凡是翻轉 b 便能使 ab 為真的點，其 a 都已為 1，故 f = a 在該處已為真——這種點上 f 從不為假",
+              "fraction": 100,
+              "feedback": "正確——「f 為假」的條件無法成立，故 b 沒有 NFP。"
+            },
+            {
+              "text": "因為 b 未出現在述詞中",
+              "fraction": 0,
+              "feedback": "b 確實出現在項 ab 中；問題在於 ab 是冗餘的（f = a）。"
+            },
+            {
+              "text": "因為 ab 沒有唯一真點",
+              "fraction": 0,
+              "feedback": "ab 有 UTP（11）；缺少 NFP 是冗餘造成的另一後果。"
+            },
+            {
+              "text": "因為 f 是恆真式",
+              "fraction": 0,
+              "feedback": "f = a 並非恆真式；a=0 時它為假。"
+            }
+          ],
+          "generalFeedback": "ab 之字面 b 的 NFP 需 f 為假，且翻轉 b 使 ab 為真——但要以翻轉 b 使 ab 為真必須 a=1，而 a=1 時 f = a 已為真。沒有指派能同時滿足兩者，故此 NFP 不可行：對非質（冗餘）蘊涵項，NFPC 可能不可行。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "logic-inactive-clause": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Definition of inactive clause",
+          "text": "<p>A major clause c<sub>i</sub> is <strong>inactive</strong> for predicate p (under a fixed assignment of the minor clauses) when:</p>",
+          "answers": [
+            {
+              "text": "Toggling only c, with the minor clauses fixed, does not change the value of p",
+              "fraction": 100,
+              "feedback": "Correct — an inactive clause does not determine p; flipping it leaves p unchanged."
+            },
+            {
+              "text": "Toggling only c, with the minor clauses fixed, changes the value of p",
+              "fraction": 0,
+              "feedback": "That is an active (determining) clause, the opposite of inactive."
+            },
+            {
+              "text": "cevaluates to false",
+              "fraction": 0,
+              "feedback": "Inactivity is about cnot affecting p, not about c's own value."
+            },
+            {
+              "text": "cdoes not appear syntactically in p",
+              "fraction": 0,
+              "feedback": "An inactive clause is still part of p; it just happens to be masked by the minor clauses."
+            }
+          ],
+          "generalFeedback": "A clause is inactive (does not determine p) under a minor assignment when flipping it, with everything else fixed, leaves p's value unchanged. This is exactly the negation of \"determines\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent inactivity condition",
+          "text": "<p>With the minor clauses fixed, clause c<sub>i</sub> is inactive for p if and only if:</p>",
+          "answers": [
+            {
+              "text": "pequals p",
+              "fraction": 100,
+              "feedback": "Correct — p takes the same value whether cis true or false, so chas no effect."
+            },
+            {
+              "text": "pdiffers from p",
+              "fraction": 0,
+              "feedback": "That is the determination (active) condition, not inactivity."
+            },
+            {
+              "text": "cequals p",
+              "fraction": 0,
+              "feedback": "Inactivity is about cnot changing p, not about them being equal."
+            },
+            {
+              "text": "Every minor clause equals c",
+              "fraction": 0,
+              "feedback": "Inactivity does not require the minor clauses to match c."
+            }
+          ],
+          "generalFeedback": "cis inactive exactly when p= punder the fixed minor assignment: the two possible cvalues give the same p, so cdoes not determine p.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a is inactive in a AND b",
+          "text": "<p>For predicate p = a &#8743; b, clause a is <strong>inactive</strong> exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is false",
+              "fraction": 100,
+              "feedback": "Correct — with b false, p is false regardless of a, so a does not determine p."
+            },
+            {
+              "text": "b is true",
+              "fraction": 0,
+              "feedback": "With b true, p equals a, so a determines p — a is active, not inactive."
+            },
+            {
+              "text": "Always, regardless of b",
+              "fraction": 0,
+              "feedback": "When b is true, a does determine p, so a is not always inactive."
+            },
+            {
+              "text": "Never",
+              "fraction": 0,
+              "feedback": "a is inactive whenever b is false."
+            }
+          ],
+          "generalFeedback": "For a conjunction a &#8743; b, clause a determines p only when b is true. Hence a is inactive exactly when b is false, where p is pinned to false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a is inactive in a OR b",
+          "text": "<p>For predicate p = a &#8744; b, clause a is <strong>inactive</strong> exactly when:</p>",
+          "answers": [
+            {
+              "text": "b is true",
+              "fraction": 100,
+              "feedback": "Correct — with b true, p is true regardless of a, so a does not determine p."
+            },
+            {
+              "text": "b is false",
+              "fraction": 0,
+              "feedback": "With b false, p equals a, so a determines p — a is active, not inactive."
+            },
+            {
+              "text": "Always, regardless of b",
+              "fraction": 0,
+              "feedback": "When b is false, a determines p, so a is not always inactive."
+            },
+            {
+              "text": "Never",
+              "fraction": 0,
+              "feedback": "a is inactive whenever b is true."
+            }
+          ],
+          "generalFeedback": "For a disjunction a &#8744; b, clause a determines p only when b is false. Hence a is inactive exactly when b is true, where p is pinned to true.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Inactive means does not determine",
+          "text": "<p>A clause is inactive for a predicate exactly when it does <em>not</em> determine that predicate.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — \"inactive\" is defined as the negation of \"determines\"."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Inactive and determining are complementary: a clause is inactive precisely when it fails to determine p."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria require a clause to determine p; inactive-clause criteria require it to be masked. \"Inactive\" simply means the clause does not determine the predicate under the given minor assignment."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of inactive-clause coverage",
+          "text": "<p>The inactive-clause criteria (GICC/RICC) are designed to verify that:</p>",
+          "answers": [
+            {
+              "text": "An inactive (masked) clause genuinely has no effect on the predicate's outcome",
+              "fraction": 100,
+              "feedback": "Correct — they check that masking behaves correctly."
+            },
+            {
+              "text": "Each clause independently determines the predicate",
+              "fraction": 0,
+              "feedback": "That is the goal of the active-clause criteria (GACC/CACC/RACC)."
+            },
+            {
+              "text": "Every combination of clause values is exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            },
+            {
+              "text": "The predicate takes both truth values at least once",
+              "fraction": 0,
+              "feedback": "That is merely Predicate Coverage."
+            }
+          ],
+          "generalFeedback": "Inactive-clause coverage confirms that when a clause is supposed to be masked, it really has no effect on p — catching bugs where a \"don't care\" clause secretly changes the outcome.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GICC acronym",
+          "text": "<p>What does <strong>GICC</strong> stand for?</p>",
+          "answers": [
+            {
+              "text": "General Inactive Clause Coverage",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "General Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "The \"I\" stands for Inactive, not Independent."
+            },
+            {
+              "text": "General Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "That is GACC, an active-clause criterion."
+            },
+            {
+              "text": "Grouped Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "Not a standard criterion name."
+            }
+          ],
+          "generalFeedback": "GICC = General Inactive Clause Coverage: the inactive-clause criterion whose minor-clause values may differ across the four test requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC acronym",
+          "text": "<p>What does <strong>RICC</strong> stand for?</p>",
+          "answers": [
+            {
+              "text": "Restricted Inactive Clause Coverage",
+              "fraction": 100,
+              "feedback": "Correct."
+            },
+            {
+              "text": "Restricted Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "The \"I\" stands for Inactive, not Independent."
+            },
+            {
+              "text": "Restricted Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "That is RACC, an active-clause criterion."
+            },
+            {
+              "text": "Reduced Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "Not a standard criterion name."
+            }
+          ],
+          "generalFeedback": "RICC = Restricted Inactive Clause Coverage: like GICC, but the minor-clause values must match across the paired c=true / c=false requirements at each fixed value of p.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of ICC requirements per clause",
+          "text": "<p>For each major clause, Inactive Clause Coverage imposes how many test requirements?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the four combinations of c&#8712; {T,F} with p &#8712; {T,F}, all with cinactive."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 would only cover c=true and c=false; ICC also splits on p's value."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "ICC needs four requirements per clause, not one."
+            },
+            {
+              "text": "2^n (for n clauses)",
+              "fraction": 0,
+              "feedback": "2^n is Combinatorial Coverage, not ICC."
+            }
+          ],
+          "generalFeedback": "Because an inactive clause does not determine p, p can independently be true or false. ICC therefore requires four requirements per major clause: c=T&#8743;p=T, c=T&#8743;p=F, c=F&#8743;p=T, c=F&#8743;p=F.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the four ICC requirements vary",
+          "text": "<p>The four Inactive Clause Coverage requirements for a major clause enumerate the combinations of:</p>",
+          "answers": [
+            {
+              "text": "The value of c(true/false) and the value of p (true/false)",
+              "fraction": 100,
+              "feedback": "Correct — 2 &#215; 2 = 4 requirements, all with cinactive."
+            },
+            {
+              "text": "The values of two of the minor clauses",
+              "fraction": 0,
+              "feedback": "ICC varies cand p, not a pair of minor clauses."
+            },
+            {
+              "text": "The value of cand whether cdetermines p",
+              "fraction": 0,
+              "feedback": "cis inactive (does not determine p) in all four requirements; only cand p vary."
+            },
+            {
+              "text": "All 2^n rows of the truth table",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage."
+            }
+          ],
+          "generalFeedback": "Holding cinactive, ICC crosses c&#8712; {T,F} with p &#8712; {T,F}, giving four requirements per major clause.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of a AND b when a is inactive",
+          "text": "<p>For p = a &#8743; b, when clause a is inactive (b = false), the predicate p is:</p>",
+          "answers": [
+            {
+              "text": "False, regardless of a",
+              "fraction": 100,
+              "feedback": "Correct — b false forces a &#8743; b to false whatever a is."
+            },
+            {
+              "text": "True, regardless of a",
+              "fraction": 0,
+              "feedback": "A conjunction with a false operand is false, not true."
+            },
+            {
+              "text": "Equal to a",
+              "fraction": 0,
+              "feedback": "That happens when b is true (a active), not when a is inactive."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "p is well-defined and equals false."
+            }
+          ],
+          "generalFeedback": "Making a inactive in a &#8743; b requires b = false, which pins p to false. So while a is inactive, p can only be false — a fact with consequences for ICC feasibility.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of a OR b when a is inactive",
+          "text": "<p>For p = a &#8744; b, when clause a is inactive (b = true), the predicate p is:</p>",
+          "answers": [
+            {
+              "text": "True, regardless of a",
+              "fraction": 100,
+              "feedback": "Correct — b true forces a &#8744; b to true whatever a is."
+            },
+            {
+              "text": "False, regardless of a",
+              "fraction": 0,
+              "feedback": "A disjunction with a true operand is true, not false."
+            },
+            {
+              "text": "Equal to a",
+              "fraction": 0,
+              "feedback": "That happens when b is false (a active), not when a is inactive."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "p is well-defined and equals true."
+            }
+          ],
+          "generalFeedback": "Making a inactive in a &#8744; b requires b = true, which pins p to true. So while a is inactive, p can only be true — the dual of the conjunction case.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Minor clauses determine p when masked",
+          "text": "<p>When a major clause is inactive, the predicate's value is determined entirely by the minor clauses.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — since the major clause has no effect, only the minor clauses fix p."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "An inactive major clause cannot change p, so p is fixed by the minor clauses alone."
+            }
+          ],
+          "generalFeedback": "An inactive clause does not affect p, so with it masked the outcome is a function of the minor clauses only. This is why, while cis inactive, p can still independently be true or false depending on the minor clauses."
+        },
+        {
+          "type": "multichoice",
+          "name": "Contrast with active-clause coverage",
+          "text": "<p>Which family of criteria is the direct <strong>contrast</strong> to the inactive-clause criteria?</p>",
+          "answers": [
+            {
+              "text": "The active-clause criteria (GACC / CACC / RACC)",
+              "fraction": 100,
+              "feedback": "Correct — they require the clause to determine p, whereas inactive-clause criteria require it to be masked."
+            },
+            {
+              "text": "Predicate Coverage and Clause Coverage",
+              "fraction": 0,
+              "feedback": "Those are coarser criteria, not the active/inactive counterpart."
+            },
+            {
+              "text": "Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "CoC exercises all combinations; it is not the determination-based counterpart."
+            },
+            {
+              "text": "The DNF criteria (implicant / unique-true-point)",
+              "fraction": 0,
+              "feedback": "Those are a separate DNF-based family, not the direct contrast."
+            }
+          ],
+          "generalFeedback": "The active-clause criteria (GACC/CACC/RACC) require each clause to determine p; the inactive-clause criteria (GICC/RICC) require each clause to be masked. They are complementary halves of the determination idea.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "b false makes a active in a OR b",
+          "text": "<p>For p = a &#8744; b, setting b = false makes clause a <em>active</em> (determining), not inactive.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with b false, p equals a, so a determines p."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "With b false, p = a &#8744; false = a, so flipping a flips p; a is active. a would be inactive when b = true."
+            }
+          ],
+          "generalFeedback": "For a &#8744; b, a is inactive when b = true (p pinned to true) and active when b = false (p mirrors a)."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Make c inactive in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause <strong>c</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "a = true, b = true",
+              "fraction": 100,
+              "feedback": "Correct — then a &#8743; b is true, so p is true regardless of c; c is masked."
+            },
+            {
+              "text": "a = false, b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c determines p (active)."
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c is active."
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c is active."
+            }
+          ],
+          "generalFeedback": "For a disjunction X &#8744; c, clause c is inactive exactly when the other operand X is true. Here X = a &#8743; b, so c is inactive when a = true and b = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a determines (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause a <strong>active</strong> (i.e., a is <em>not</em> inactive)?</p>",
+          "answers": [
+            {
+              "text": "b = true, c = false",
+              "fraction": 100,
+              "feedback": "Correct — only then does p reduce to a, so a determines p."
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "With b false, a &#8743; b is false regardless of a, so a is inactive."
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "c true pins p to true and b false masks a, so a is inactive."
+            },
+            {
+              "text": "b = true, c = true",
+              "fraction": 0,
+              "feedback": "c true pins p to true regardless of a, so a is inactive."
+            }
+          ],
+          "generalFeedback": "a determines p only when its term passes a through (b = true) and the disjunction does not mask it (c = false). At every other minor assignment, a is inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four ICC requirements",
+          "text": "<p>For an inactive major clause c<sub>i</sub>, Inactive Clause Coverage requires test requirements covering exactly:</p>",
+          "answers": [
+            {
+              "text": "c=T&#8743;p=T, c=T&#8743;p=F, c=F&#8743;p=T, c=F&#8743;p=F",
+              "fraction": 100,
+              "feedback": "Correct — cand p each take both values while cstays inactive."
+            },
+            {
+              "text": "c=T and c=F only",
+              "fraction": 0,
+              "feedback": "That ignores the requirement that p also take both values."
+            },
+            {
+              "text": "p=T and p=F only",
+              "fraction": 0,
+              "feedback": "That ignores the requirement that calso take both values."
+            },
+            {
+              "text": "All 2^n combinations of the clause values",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, not ICC."
+            }
+          ],
+          "generalFeedback": "Because an inactive clause cannot change p, p is free to be true or false independently of c. ICC therefore lists all four (c, p) combinations as separate test requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How RICC restricts GICC",
+          "text": "<p>How does Restricted Inactive Clause Coverage (RICC) differ from General Inactive Clause Coverage (GICC)?</p>",
+          "answers": [
+            {
+              "text": "RICC requires the minor-clause values to be identical for the c=true and c=false requirements that share the same value of p",
+              "fraction": 100,
+              "feedback": "Correct — RICC pins the minors across each same-p pair; GICC lets them vary."
+            },
+            {
+              "text": "RICC requires the minor-clause values to differ across all four requirements",
+              "fraction": 0,
+              "feedback": "RICC constrains minors to be the same across the same-p pairs, not different."
+            },
+            {
+              "text": "RICC requires cto determine p",
+              "fraction": 0,
+              "feedback": "Both are inactive-clause criteria: cis masked in both, never determining p."
+            },
+            {
+              "text": "RICC drops one of the four requirements",
+              "fraction": 0,
+              "feedback": "RICC keeps all four requirements; it only adds a constraint on the minor clauses."
+            }
+          ],
+          "generalFeedback": "GICC lets the minor-clause values vary freely among the four requirements. RICC adds the restriction that the minors match within each same-p pair (c=T&#8743;p=T with c=F&#8743;p=T, and c=T&#8743;p=F with c=F&#8743;p=F).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Active vs inactive requirement",
+          "text": "<p>The active-clause criteria require the major clause to <em>determine</em> p. The inactive-clause criteria instead require the major clause to:</p>",
+          "answers": [
+            {
+              "text": "Not determine p (be masked by the minor clauses)",
+              "fraction": 100,
+              "feedback": "Correct — inactive-clause coverage exercises the masked case."
+            },
+            {
+              "text": "Determine p in both directions",
+              "fraction": 0,
+              "feedback": "That is the active-clause idea, the opposite of inactive."
+            },
+            {
+              "text": "Take the same value as p",
+              "fraction": 0,
+              "feedback": "Masking is not about the clause equalling p."
+            },
+            {
+              "text": "Be removed from the predicate",
+              "fraction": 0,
+              "feedback": "The clause stays in the predicate; it is merely masked at runtime."
+            }
+          ],
+          "generalFeedback": "Active-clause criteria set the minor clauses so cdetermines p; inactive-clause criteria set them so cis masked and cannot affect p.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Make a inactive in a OR (b AND c)",
+          "text": "<p>For p = a &#8744; (b &#8743; c), which minor assignment makes clause <strong>a</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "b = true, c = true",
+              "fraction": 100,
+              "feedback": "Correct — then b &#8743; c is true, so p is true regardless of a; a is masked."
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "Then b &#8743; c is false, so p = a and a determines p (active)."
+            },
+            {
+              "text": "b = true, c = false",
+              "fraction": 0,
+              "feedback": "Then b &#8743; c is false, so p = a and a is active."
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "Then b &#8743; c is false, so p = a and a is active."
+            }
+          ],
+          "generalFeedback": "For a disjunction a &#8744; X, clause a is inactive exactly when the other operand X is true. Here X = b &#8743; c, so a is inactive when b = true and c = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Make c inactive in (a OR b) AND c",
+          "text": "<p>For p = (a &#8744; b) &#8743; c, which minor assignment makes clause <strong>c</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "a = false, b = false",
+              "fraction": 100,
+              "feedback": "Correct — then a &#8744; b is false, so p is false regardless of c; c is masked."
+            },
+            {
+              "text": "a = true, b = true",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is true, so p = c and c determines p (active)."
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is true, so p = c and c is active."
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "Then a &#8744; b is true, so p = c and c is active."
+            }
+          ],
+          "generalFeedback": "For a conjunction X &#8743; c, clause c is inactive exactly when the other operand X is false. Here X = a &#8744; b, so c is inactive when a = false and b = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Tests for four feasible ICC requirements",
+          "text": "<p>When all four Inactive Clause Coverage requirements for a single major clause are feasible, how many distinct test cases are needed to satisfy them?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the four (c, p) combinations are distinct, so four tests are required."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two tests cannot realise four different (c, p) combinations."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Three tests leave one of the four (c, p) combinations uncovered."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One test fixes a single (c, p) pair, not all four."
+            }
+          ],
+          "generalFeedback": "Each of the four requirements pins a distinct pair of (cvalue, p value); no single test can satisfy two of them at once, so four tests are needed for that clause.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which clause is inactive at a row",
+          "text": "<p>For p = (a &#8743; b) &#8744; c evaluated at a = true, b = false, c = false, which clause is <strong>inactive</strong> (does not determine p)?</p>",
+          "answers": [
+            {
+              "text": "a",
+              "fraction": 100,
+              "feedback": "Correct — flipping a gives (F &#8743; F) &#8744; F = F, unchanged from p = F, so a is inactive here."
+            },
+            {
+              "text": "b",
+              "fraction": 0,
+              "feedback": "Flipping b gives (T &#8743; T) &#8744; F = T, changing p from F, so b is active here."
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "Flipping c gives (T &#8743; F) &#8744; T = T, changing p from F, so c is active here."
+            },
+            {
+              "text": "None of them",
+              "fraction": 0,
+              "feedback": "a is inactive at this row; b and c are active."
+            }
+          ],
+          "generalFeedback": "At a=T, b=F, c=F, p = (T&#8743;F)&#8744;F = F. Flipping a leaves p false (a masked by b=F), while flipping b or c changes p. So a is the only inactive clause here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC pairing at p true",
+          "text": "<p>Under RICC, the two requirements with c<sub>i</sub>=true and c<sub>i</sub>=false at p=true must:</p>",
+          "answers": [
+            {
+              "text": "Use the same values for all minor clauses",
+              "fraction": 100,
+              "feedback": "Correct — RICC pins the minor clauses across each same-p pair."
+            },
+            {
+              "text": "Use different values for the minor clauses",
+              "fraction": 0,
+              "feedback": "That is not required by any criterion; RICC pins them equal."
+            },
+            {
+              "text": "Make cdetermine p",
+              "fraction": 0,
+              "feedback": "These are inactive-clause requirements: cstays masked."
+            },
+            {
+              "text": "Make p take different values",
+              "fraction": 0,
+              "feedback": "Both requirements in this pair fix p = true."
+            }
+          ],
+          "generalFeedback": "RICC requires the minor-clause values to match within each same-p pair. For the p=true pair, the c=true and c=false tests use identical minor values (which is exactly why p stays true across the pair).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "GICC minors may vary",
+          "text": "<p>Under GICC, the minor-clause values may differ across the four inactive-clause test requirements.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — GICC places no matching constraint on the minor clauses."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is RICC, not GICC, that forces the minors to match; GICC lets them vary."
+            }
+          ],
+          "generalFeedback": "GICC (\"General\") only requires that cbe inactive in each of the four requirements; the minor-clause values are free to change from one requirement to another."
+        },
+        {
+          "type": "multichoice",
+          "name": "Criterion that confirms masking",
+          "text": "<p>Which criterion is specifically aimed at confirming the <strong>correct masking</strong> of a clause?</p>",
+          "answers": [
+            {
+              "text": "Inactive Clause Coverage (GICC / RICC)",
+              "fraction": 100,
+              "feedback": "Correct — it checks that a masked clause has no effect on p."
+            },
+            {
+              "text": "Correlated Active Clause Coverage (CACC)",
+              "fraction": 0,
+              "feedback": "CACC checks the clause's determining (active) effect, not masking."
+            },
+            {
+              "text": "General Active Clause Coverage (GACC)",
+              "fraction": 0,
+              "feedback": "GACC is an active-clause criterion; it exercises determination, not masking."
+            },
+            {
+              "text": "Predicate Coverage (PC)",
+              "fraction": 0,
+              "feedback": "PC only requires p to take both values; it says nothing about masking."
+            }
+          ],
+          "generalFeedback": "Only the inactive-clause criteria deliberately mask a clause and check that p is unaffected — the test for correct masking.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p value while a is inactive in a AND b",
+          "text": "<p>For p = a &#8743; b, across all minor assignments that make clause a inactive, the value of p is:</p>",
+          "answers": [
+            {
+              "text": "Always false",
+              "fraction": 100,
+              "feedback": "Correct — a is inactive only when b = false, and then p = false."
+            },
+            {
+              "text": "Always true",
+              "fraction": 0,
+              "feedback": "a is inactive when b = false, which forces p to false, not true."
+            },
+            {
+              "text": "Sometimes true, sometimes false",
+              "fraction": 0,
+              "feedback": "There is only one masking assignment (b = false), and it pins p to false."
+            },
+            {
+              "text": "Equal to a",
+              "fraction": 0,
+              "feedback": "p equals a only when a is active (b = true)."
+            }
+          ],
+          "generalFeedback": "For a &#8743; b the only way to mask a is b = false, which fixes p = false. Consequently the ICC requirements needing p = true for clause a are infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a is not inactive in a OR b OR c",
+          "text": "<p>For p = a &#8744; b &#8744; c, clause a fails to be inactive (it determines p) only when:</p>",
+          "answers": [
+            {
+              "text": "b = false and c = false",
+              "fraction": 100,
+              "feedback": "Correct — then p = a, so a determines p; at every other minor assignment a is masked."
+            },
+            {
+              "text": "b = true and c = true",
+              "fraction": 0,
+              "feedback": "Then p is true regardless of a, so a is inactive there."
+            },
+            {
+              "text": "b = true and c = false",
+              "fraction": 0,
+              "feedback": "b true pins p to true regardless of a, so a is inactive."
+            },
+            {
+              "text": "b = false and c = true",
+              "fraction": 0,
+              "feedback": "c true pins p to true regardless of a, so a is inactive."
+            }
+          ],
+          "generalFeedback": "For a disjunction, a determines p only when every other operand is false. Here that means b = false and c = false; otherwise b &#8744; c is true and a is masked.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Requirements a p-false masking helps",
+          "text": "<p>Suppose a minor assignment makes c<sub>i</sub> inactive and pins p to false regardless of c<sub>i</sub>. Which ICC requirements can such an assignment help satisfy?</p>",
+          "answers": [
+            {
+              "text": "The two requirements with p = false (c=T&#8743;p=F and c=F&#8743;p=F)",
+              "fraction": 100,
+              "feedback": "Correct — with p pinned false, only the p=false requirements can be met from this assignment."
+            },
+            {
+              "text": "The two requirements with p = true",
+              "fraction": 0,
+              "feedback": "p is false here, so it cannot satisfy any p=true requirement."
+            },
+            {
+              "text": "All four requirements",
+              "fraction": 0,
+              "feedback": "Only the two p=false requirements are reachable when p is pinned false."
+            },
+            {
+              "text": "None of them",
+              "fraction": 0,
+              "feedback": "It does satisfy the p=false requirements (for both cvalues)."
+            }
+          ],
+          "generalFeedback": "Because cis inactive, both c=T and c=F are available at this assignment, but p is stuck at false — so it covers c=T&#8743;p=F and c=F&#8743;p=F only.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "truefalse",
+          "name": "RICC subsumes GICC",
+          "text": "<p>Restricted Inactive Clause Coverage (RICC) subsumes General Inactive Clause Coverage (GICC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — RICC's requirements are GICC's plus an extra minor-matching constraint, so any RICC-satisfying suite satisfies GICC."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "RICC is strictly stronger: it adds a restriction to GICC, so RICC &#8594; GICC."
+            }
+          ],
+          "generalFeedback": "RICC keeps all of GICC's four requirements and additionally forces the minor clauses to match within each same-p pair. A stricter criterion that only adds constraints subsumes the weaker one, so RICC subsumes GICC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why RICC subsumes GICC",
+          "text": "<p>Why does RICC subsume GICC?</p>",
+          "answers": [
+            {
+              "text": "RICC's test requirements are GICC's requirements plus an extra minor-matching constraint, so any suite meeting RICC also meets GICC",
+              "fraction": 100,
+              "feedback": "Correct — adding constraints can only shrink the set of satisfying suites."
+            },
+            {
+              "text": "RICC has more test requirements than GICC",
+              "fraction": 0,
+              "feedback": "Both have the same four requirements per clause; RICC just constrains the minors more tightly."
+            },
+            {
+              "text": "RICC exercises all 2^n combinations",
+              "fraction": 0,
+              "feedback": "That would be Combinatorial Coverage, not RICC."
+            },
+            {
+              "text": "RICC additionally requires cto determine p",
+              "fraction": 0,
+              "feedback": "Both are inactive-clause criteria; neither requires determination."
+            }
+          ],
+          "generalFeedback": "Subsumption follows because RICC = GICC + (minors match within each same-p pair). Every RICC test set already satisfies the looser GICC obligations, so RICC subsumes GICC.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Inactive criteria subsume Clause Coverage",
+          "text": "<p>Both GICC and RICC subsume Clause Coverage (CC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — each major clause is exercised both true and false (while inactive), which is exactly Clause Coverage."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "GICC and RICC both require c=true and c=false requirements for every clause, so every clause takes both values &#8212; CC is met."
+            }
+          ],
+          "generalFeedback": "The four ICC requirements include both c=true and c=false for each clause, so every clause takes both truth values. Hence GICC and RICC each subsume Clause Coverage."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why GICC subsumes CC",
+          "text": "<p>What makes GICC subsume Clause Coverage?</p>",
+          "answers": [
+            {
+              "text": "For every clause, GICC requires a c=true test and a c=false test, so each clause takes both values",
+              "fraction": 100,
+              "feedback": "Correct — that is precisely the Clause Coverage requirement."
+            },
+            {
+              "text": "GICC requires the predicate to take both values",
+              "fraction": 0,
+              "feedback": "That would relate to Predicate Coverage; CC is about individual clauses."
+            },
+            {
+              "text": "GICC exercises every clause combination",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, stronger than needed for CC."
+            },
+            {
+              "text": "GICC requires each clause to determine p",
+              "fraction": 0,
+              "feedback": "That is the active-clause idea; inactive-clause coverage masks the clause instead."
+            }
+          ],
+          "generalFeedback": "Clause Coverage requires each clause to be both true and false. Because GICC's four requirements per clause include c=true and c=false, every clause is exercised both ways, so GICC subsumes CC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible ICC requirements for a AND b",
+          "text": "<p>For p = a &#8743; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "The two requiring p = true (a=T&#8743;p=T and a=F&#8743;p=T)",
+              "fraction": 100,
+              "feedback": "Correct — a can be inactive only when b = false, which pins p to false, so p = true is unreachable while a is inactive."
+            },
+            {
+              "text": "The two requiring p = false",
+              "fraction": 0,
+              "feedback": "Those are the feasible ones: masking a (b = false) makes p = false."
+            },
+            {
+              "text": "All four requirements",
+              "fraction": 0,
+              "feedback": "The two p=false requirements are feasible; only the p=true ones are not."
+            },
+            {
+              "text": "None — all four are feasible",
+              "fraction": 0,
+              "feedback": "a inactive forces p = false, so the p=true requirements cannot be met."
+            }
+          ],
+          "generalFeedback": "Masking a in a &#8743; b requires b = false, pinning p to false. Thus a=T&#8743;p=T and a=F&#8743;p=T are infeasible, while the two p=false requirements are feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible ICC requirements for a OR b",
+          "text": "<p>For p = a &#8744; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>",
+          "answers": [
+            {
+              "text": "The two requiring p = false (a=T&#8743;p=F and a=F&#8743;p=F)",
+              "fraction": 100,
+              "feedback": "Correct — a can be inactive only when b = true, which pins p to true, so p = false is unreachable while a is inactive."
+            },
+            {
+              "text": "The two requiring p = true",
+              "fraction": 0,
+              "feedback": "Those are the feasible ones: masking a (b = true) makes p = true."
+            },
+            {
+              "text": "All four requirements",
+              "fraction": 0,
+              "feedback": "The two p=true requirements are feasible; only the p=false ones are not."
+            },
+            {
+              "text": "None — all four are feasible",
+              "fraction": 0,
+              "feedback": "a inactive forces p = true, so the p=false requirements cannot be met."
+            }
+          ],
+          "generalFeedback": "Masking a in a &#8744; b requires b = true, pinning p to true. Thus a=T&#8743;p=F and a=F&#8743;p=F are infeasible, while the two p=true requirements are feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inactive rows for a in a AND b AND c",
+          "text": "<p>For p = a &#8743; b &#8743; c, in how many of the 8 assignments is clause a <strong>inactive</strong>?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — a determines p only when b &#8743; c is true (2 rows), so a is inactive in the other 6."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of rows where a is active (b=T, c=T), not inactive."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — a is active only when b &#8743; c is true, which is 2 rows, leaving 6 inactive."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a is active in 2 rows, so it is not inactive in all 8."
+            }
+          ],
+          "generalFeedback": "a determines a &#8743; b &#8743; c exactly when b &#8743; c is true (b=T, c=T), giving 2 active rows (a free). The remaining 6 of 8 rows have a inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inactive rows for c in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, in how many of the 8 assignments is clause <strong>c</strong> inactive?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — c is inactive only when a &#8743; b is true (a=T, b=T), which is 2 rows (c free)."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the number of rows where c is active (a &#8743; b false), not inactive."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Recount — a &#8743; b is true in only 2 of the 8 rows."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both c=T and c=F rows at a=T,b=T are inactive, giving 2, not 1."
+            }
+          ],
+          "generalFeedback": "c is inactive exactly when the other operand a &#8743; b is true. That happens in 2 of the 8 rows (a=T, b=T, c either value), so c is inactive in 2 assignments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Inactive rows for a in (a AND b) OR (c AND d)",
+          "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), in how many of the 16 assignments is clause a <strong>inactive</strong>?</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — a is active only when b = true and (c &#8743; d) = false: 1 &#215; 3 &#215; 2 = 6 rows, leaving 10 inactive."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the number of rows where a is active, not inactive."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Recount — a is active in 6 rows, so it is inactive in 16 &#8722; 6 = 10."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "That overcounts; the exact number of inactive rows is 10."
+            }
+          ],
+          "generalFeedback": "a determines p only when its term passes a through (b = true) and the other term does not mask it (c &#8743; d = false): 1 &#215; 3 &#215; 2 = 6 active rows. The remaining 10 of 16 rows have a inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Predicate with all four ICC requirements feasible",
+          "text": "<p>For which predicate and clause are <strong>all four</strong> ICC requirements feasible?</p>",
+          "answers": [
+            {
+              "text": "Clause a in p = (a &#8743; b) &#8744; (c &#8743; d)",
+              "fraction": 100,
+              "feedback": "Correct — with b = false, a is inactive and p = (c &#8743; d), which can be both true and false; all four requirements are reachable."
+            },
+            {
+              "text": "Clause a in p = a &#8743; b",
+              "fraction": 0,
+              "feedback": "a inactive forces p = false, so the p=true requirements are infeasible."
+            },
+            {
+              "text": "Clause a in p = a &#8744; b &#8744; c",
+              "fraction": 0,
+              "feedback": "a inactive forces p = true, so the p=false requirements are infeasible."
+            },
+            {
+              "text": "Clause c in p = (a &#8744; b) &#8743; c",
+              "fraction": 0,
+              "feedback": "c inactive forces p = false, so the p=true requirements are infeasible."
+            }
+          ],
+          "generalFeedback": "All four ICC requirements are feasible only if p can be both true and false while cis masked. In (a &#8743; b) &#8744; (c &#8743; d) with b = false, a is masked and p = (c &#8743; d) still ranges over both values, so every requirement is reachable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC minor-matching scope",
+          "text": "<p>Under RICC for p = (a &#8743; b) &#8744; (c &#8743; d) with major clause a, the a=true and a=false requirements at p=false must share the same values of:</p>",
+          "answers": [
+            {
+              "text": "All the minor clauses: b, c, and d",
+              "fraction": 100,
+              "feedback": "Correct — RICC pins every minor clause across the same-p pair."
+            },
+            {
+              "text": "Only b",
+              "fraction": 0,
+              "feedback": "RICC constrains all minor clauses, not just the one paired with a."
+            },
+            {
+              "text": "Only c and d",
+              "fraction": 0,
+              "feedback": "b is also a minor clause and must match too."
+            },
+            {
+              "text": "None — RICC only fixes a",
+              "fraction": 0,
+              "feedback": "RICC's whole point is to fix the minor clauses across the pair."
+            }
+          ],
+          "generalFeedback": "For major clause a, the minor clauses are b, c, and d. RICC requires all of them to hold identical values in the a=true and a=false tests of each same-p pair.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasibility condition for all four requirements",
+          "text": "<p>The four ICC requirements for a clause c<sub>i</sub> are all feasible only if, while c<sub>i</sub> is inactive, the predicate p can be:</p>",
+          "answers": [
+            {
+              "text": "Both true and false (under different inactive-making minor assignments)",
+              "fraction": 100,
+              "feedback": "Correct — p must range over both values while cstays masked."
+            },
+            {
+              "text": "Only true",
+              "fraction": 0,
+              "feedback": "Then the p=false requirements would be infeasible."
+            },
+            {
+              "text": "Only false",
+              "fraction": 0,
+              "feedback": "Then the p=true requirements would be infeasible."
+            },
+            {
+              "text": "Determined by c",
+              "fraction": 0,
+              "feedback": "If cdetermined p it would not be inactive; the requirements concern the masked case."
+            }
+          ],
+          "generalFeedback": "Since cis masked, p is set by the minor clauses. All four requirements (crossing cwith p) are feasible only when some inactive-making minor assignment yields p=true and another yields p=false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rows where c is inactive in (a AND b) OR c",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, clause c is inactive in exactly the assignments where:</p>",
+          "answers": [
+            {
+              "text": "a = true and b = true (c either value)",
+              "fraction": 100,
+              "feedback": "Correct — then a &#8743; b is true, masking c; p is true regardless of c."
+            },
+            {
+              "text": "a = false and b = false",
+              "fraction": 0,
+              "feedback": "Then a &#8743; b is false, so p = c and c determines p (active)."
+            },
+            {
+              "text": "c = false",
+              "fraction": 0,
+              "feedback": "c's own value does not decide whether c is masked; the operand a &#8743; b does."
+            },
+            {
+              "text": "a = true or b = true",
+              "fraction": 0,
+              "feedback": "a &#8743; b needs both true to mask c; either-one-true is not enough."
+            }
+          ],
+          "generalFeedback": "c is masked in the disjunction exactly when the other operand a &#8743; b is true, i.e., a = true and b = true — the 2 rows where c is inactive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clause with fewest inactive rows",
+          "text": "<p>For p = (a &#8743; b) &#8744; c, which clause is inactive in the <strong>fewest</strong> assignments?</p>",
+          "answers": [
+            {
+              "text": "c (inactive in 2 of 8 rows)",
+              "fraction": 100,
+              "feedback": "Correct — c is masked only when a &#8743; b is true (2 rows), whereas a and b are each masked in 6 rows."
+            },
+            {
+              "text": "a (inactive in 6 of 8 rows)",
+              "fraction": 0,
+              "feedback": "a is masked whenever b = false or c = true — 6 rows, more than c."
+            },
+            {
+              "text": "b (inactive in 6 of 8 rows)",
+              "fraction": 0,
+              "feedback": "By symmetry with a, b is masked in 6 rows, more than c."
+            },
+            {
+              "text": "All three are inactive equally often",
+              "fraction": 0,
+              "feedback": "c differs: it is masked in only 2 rows versus 6 for a and b."
+            }
+          ],
+          "generalFeedback": "c is masked only when a &#8743; b is true (2 rows). a is masked when b=false or c=true (6 rows), and b symmetrically in 6 rows. So c has the fewest inactive rows.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Total GICC requirements for a 4-clause predicate",
+          "text": "<p>For p = (a &#8743; b) &#8744; (c &#8743; d), where all four ICC requirements are feasible for every clause, how many inactive-clause test requirements does GICC impose in total?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 4 clauses &#215; 4 requirements each = 16 test requirements."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 4 clauses &#215; 2; but ICC has four requirements per clause, not two."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the requirement count for a single clause, not the whole predicate."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "That doubles the count; there are 4 requirements per clause, giving 16."
+            }
+          ],
+          "generalFeedback": "ICC imposes four requirements per major clause. With 4 clauses all feasible, GICC has 4 &#215; 4 = 16 test requirements (some may be satisfiable by shared tests).",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "非作用子句的定義",
+          "text": "<p>在固定次要子句（minor clauses）取值的前提下，主要子句 c<sub>i</sub> 對述詞 p 為<strong>非作用（inactive）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "固定其他子句、只翻轉 c時，p 的值不改變",
+              "fraction": 100,
+              "feedback": "正確——非作用子句無法決定 p，翻轉它時 p 不變。"
+            },
+            {
+              "text": "固定其他子句、只翻轉 c時，p 的值會改變",
+              "fraction": 0,
+              "feedback": "那是作用（決定性）子句，與非作用相反。"
+            },
+            {
+              "text": "c的值為 false",
+              "fraction": 0,
+              "feedback": "非作用談的是 c不影響 p，而非 c本身的取值。"
+            },
+            {
+              "text": "c在語法上未出現於 p 中",
+              "fraction": 0,
+              "feedback": "非作用子句仍是 p 的一部分，只是被次要子句遮蔽（masked）了。"
+            }
+          ],
+          "generalFeedback": "在固定其他子句下，若翻轉 c而 p 不變，則 c為非作用（無法決定 p）。這正是「決定 p」的否定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非作用的等價條件",
+          "text": "<p>在固定次要子句取值下，c<sub>i</sub> 對 p 為非作用，其充要條件為：</p>",
+          "answers": [
+            {
+              "text": "p等於 p",
+              "fraction": 100,
+              "feedback": "正確——無論 c為 true 或 false，p 都相同，故 c無影響。"
+            },
+            {
+              "text": "p不等於 p",
+              "fraction": 0,
+              "feedback": "那是決定性（作用）的條件，而非非作用。"
+            },
+            {
+              "text": "c等於 p",
+              "fraction": 0,
+              "feedback": "非作用談的是 c不改變 p，而非兩者相等。"
+            },
+            {
+              "text": "每個次要子句都等於 c",
+              "fraction": 0,
+              "feedback": "非作用不要求次要子句與 c相等。"
+            }
+          ],
+          "generalFeedback": "c為非作用，恰當固定次要子句下 p= p：兩種 c取值給出相同 p，故 c無法決定 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 中 a 何時非作用",
+          "text": "<p>對述詞 p = a &#8743; b，子句 a 為<strong>非作用</strong>恰當：</p>",
+          "answers": [
+            {
+              "text": "b 為 false",
+              "fraction": 100,
+              "feedback": "正確——b 為 false 時，不論 a 為何 p 皆為 false，故 a 無法決定 p。"
+            },
+            {
+              "text": "b 為 true",
+              "fraction": 0,
+              "feedback": "b 為 true 時 p 等於 a，故 a 決定 p——此時 a 為作用而非非作用。"
+            },
+            {
+              "text": "永遠成立，與 b 無關",
+              "fraction": 0,
+              "feedback": "b 為 true 時 a 會決定 p，故 a 並非永遠非作用。"
+            },
+            {
+              "text": "永不成立",
+              "fraction": 0,
+              "feedback": "只要 b 為 false，a 即為非作用。"
+            }
+          ],
+          "generalFeedback": "對合取 a &#8743; b，子句 a 只有在 b 為 true 時才決定 p。故 a 為非作用恰當 b 為 false，此時 p 被固定為 false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 中 a 何時非作用",
+          "text": "<p>對述詞 p = a &#8744; b，子句 a 為<strong>非作用</strong>恰當：</p>",
+          "answers": [
+            {
+              "text": "b 為 true",
+              "fraction": 100,
+              "feedback": "正確——b 為 true 時，不論 a 為何 p 皆為 true，故 a 無法決定 p。"
+            },
+            {
+              "text": "b 為 false",
+              "fraction": 0,
+              "feedback": "b 為 false 時 p 等於 a，故 a 決定 p——此時 a 為作用而非非作用。"
+            },
+            {
+              "text": "永遠成立，與 b 無關",
+              "fraction": 0,
+              "feedback": "b 為 false 時 a 會決定 p，故 a 並非永遠非作用。"
+            },
+            {
+              "text": "永不成立",
+              "fraction": 0,
+              "feedback": "只要 b 為 true，a 即為非作用。"
+            }
+          ],
+          "generalFeedback": "對析取 a &#8744; b，子句 a 只有在 b 為 false 時才決定 p。故 a 為非作用恰當 b 為 true，此時 p 被固定為 true。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "非作用即為不決定",
+          "text": "<p>一個子句對述詞為非作用，恰當它<em>不</em>決定該述詞。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——「非作用」的定義正是「決定」的否定。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "非作用與決定互補：子句為非作用，恰當它在該次要取值下無法決定 p。"
+            }
+          ],
+          "generalFeedback": "作用子句準則要求子句決定 p；非作用子句準則要求子句被遮蔽。「非作用」即指該子句在給定次要取值下不決定述詞。"
+        },
+        {
+          "type": "multichoice",
+          "name": "非作用子句覆蓋的目的",
+          "text": "<p>非作用子句準則（GICC/RICC）的設計目的是驗證：</p>",
+          "answers": [
+            {
+              "text": "被遮蔽（masked）的非作用子句確實對述詞結果毫無影響",
+              "fraction": 100,
+              "feedback": "正確——它們檢查遮蔽行為是否正確。"
+            },
+            {
+              "text": "每個子句都能獨立決定述詞",
+              "fraction": 0,
+              "feedback": "那是作用子句準則（GACC/CACC/RACC）的目標。"
+            },
+            {
+              "text": "子句取值的所有組合都被執行",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋（Combinatorial Coverage）。"
+            },
+            {
+              "text": "述詞至少各取一次真值",
+              "fraction": 0,
+              "feedback": "那僅是述詞覆蓋（Predicate Coverage）。"
+            }
+          ],
+          "generalFeedback": "非作用子句覆蓋確認：當某子句本應被遮蔽時，它確實對 p 無影響——可捕捉「本應無關的子句卻偷偷改變結果」這類錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GICC 縮寫",
+          "text": "<p><strong>GICC</strong> 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "General Inactive Clause Coverage（一般非作用子句覆蓋）",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "General Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "「I」代表 Inactive（非作用），而非 Independent。"
+            },
+            {
+              "text": "General Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "那是 GACC，屬於作用子句準則。"
+            },
+            {
+              "text": "Grouped Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "並非標準的準則名稱。"
+            }
+          ],
+          "generalFeedback": "GICC = General Inactive Clause Coverage：其四項測試需求間的次要子句取值可以不同的非作用子句準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 縮寫",
+          "text": "<p><strong>RICC</strong> 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "Restricted Inactive Clause Coverage（受限非作用子句覆蓋）",
+              "fraction": 100,
+              "feedback": "正確。"
+            },
+            {
+              "text": "Restricted Independent Clause Coverage",
+              "fraction": 0,
+              "feedback": "「I」代表 Inactive（非作用），而非 Independent。"
+            },
+            {
+              "text": "Restricted Active Clause Coverage",
+              "fraction": 0,
+              "feedback": "那是 RACC，屬於作用子句準則。"
+            },
+            {
+              "text": "Reduced Inactive Combination Coverage",
+              "fraction": 0,
+              "feedback": "並非標準的準則名稱。"
+            }
+          ],
+          "generalFeedback": "RICC = Restricted Inactive Clause Coverage：如同 GICC，但在每個固定 p 值的 c=true／c=false 配對中，次要子句取值必須相同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每個子句的 ICC 需求數",
+          "text": "<p>非作用子句覆蓋對每個主要子句施加幾項測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——即 c&#8712; {T,F} 與 p &#8712; {T,F} 的四種組合，且 c皆為非作用。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只涵蓋 c=true 與 c=false；ICC 還需依 p 的值再分。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "ICC 每個子句需四項需求，而非一項。"
+            },
+            {
+              "text": "2^n（n 個子句）",
+              "fraction": 0,
+              "feedback": "2^n 是組合覆蓋，而非 ICC。"
+            }
+          ],
+          "generalFeedback": "因非作用子句無法改變 p，p 可獨立為 true 或 false。故 ICC 對每個主要子句需四項需求：c=T&#8743;p=T、c=T&#8743;p=F、c=F&#8743;p=T、c=F&#8743;p=F。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項 ICC 需求所變動的量",
+          "text": "<p>某主要子句的四項非作用子句覆蓋需求，列舉的是下列何者的組合？</p>",
+          "answers": [
+            {
+              "text": "c的值（true／false）與 p 的值（true／false）",
+              "fraction": 100,
+              "feedback": "正確——2 &#215; 2 = 4 項需求，且 c皆為非作用。"
+            },
+            {
+              "text": "兩個次要子句的取值",
+              "fraction": 0,
+              "feedback": "ICC 變動的是 c與 p，而非某一對次要子句。"
+            },
+            {
+              "text": "c的值，以及 c是否決定 p",
+              "fraction": 0,
+              "feedback": "四項需求中 c皆為非作用（不決定 p）；變動的只有 c與 p。"
+            },
+            {
+              "text": "真值表的全部 2^n 列",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋。"
+            }
+          ],
+          "generalFeedback": "在維持 c非作用下，ICC 將 c&#8712; {T,F} 與 p &#8712; {T,F} 交叉，對每個主要子句得四項需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a 非作用時 a AND b 的值",
+          "text": "<p>對 p = a &#8743; b，當子句 a 為非作用（b = false）時，述詞 p 為：</p>",
+          "answers": [
+            {
+              "text": "false，與 a 無關",
+              "fraction": 100,
+              "feedback": "正確——b 為 false 使 a &#8743; b 無論 a 為何皆為 false。"
+            },
+            {
+              "text": "true，與 a 無關",
+              "fraction": 0,
+              "feedback": "合取中有一運算元為 false 時結果為 false，而非 true。"
+            },
+            {
+              "text": "等於 a",
+              "fraction": 0,
+              "feedback": "那發生在 b 為 true（a 為作用）時，而非 a 非作用時。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "p 有明確定義，等於 false。"
+            }
+          ],
+          "generalFeedback": "要使 a 在 a &#8743; b 中非作用需 b = false，這會將 p 固定為 false。因此 a 非作用時 p 只能為 false——這對 ICC 的可行性有影響。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a 非作用時 a OR b 的值",
+          "text": "<p>對 p = a &#8744; b，當子句 a 為非作用（b = true）時，述詞 p 為：</p>",
+          "answers": [
+            {
+              "text": "true，與 a 無關",
+              "fraction": 100,
+              "feedback": "正確——b 為 true 使 a &#8744; b 無論 a 為何皆為 true。"
+            },
+            {
+              "text": "false，與 a 無關",
+              "fraction": 0,
+              "feedback": "析取中有一運算元為 true 時結果為 true，而非 false。"
+            },
+            {
+              "text": "等於 a",
+              "fraction": 0,
+              "feedback": "那發生在 b 為 false（a 為作用）時，而非 a 非作用時。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "p 有明確定義，等於 true。"
+            }
+          ],
+          "generalFeedback": "要使 a 在 a &#8744; b 中非作用需 b = true，這會將 p 固定為 true——與合取情形對偶。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "遮蔽時 p 由次要子句決定",
+          "text": "<p>當主要子句為非作用時，述詞的值完全由次要子句決定。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——主要子句無影響，故僅由次要子句固定 p。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "非作用的主要子句無法改變 p，故 p 僅由次要子句決定。"
+            }
+          ],
+          "generalFeedback": "非作用子句不影響 p，故在它被遮蔽時，結果是次要子句的函數。這也是為何 c非作用時，p 仍可依次要子句而獨立為 true 或 false。"
+        },
+        {
+          "type": "multichoice",
+          "name": "與作用子句覆蓋的對比",
+          "text": "<p>哪一族準則是非作用子句準則的直接<strong>對比</strong>？</p>",
+          "answers": [
+            {
+              "text": "作用子句準則（GACC／CACC／RACC）",
+              "fraction": 100,
+              "feedback": "正確——它們要求子句決定 p，而非作用子句準則要求子句被遮蔽。"
+            },
+            {
+              "text": "述詞覆蓋與子句覆蓋",
+              "fraction": 0,
+              "feedback": "那些是較粗的準則，並非作用／非作用的對應。"
+            },
+            {
+              "text": "組合覆蓋",
+              "fraction": 0,
+              "feedback": "CoC 執行所有組合，並非以「決定性」為基礎的對應準則。"
+            },
+            {
+              "text": "DNF 準則（蘊涵項／唯一真點）",
+              "fraction": 0,
+              "feedback": "那是另一族以 DNF 為基礎的準則，並非直接對比。"
+            }
+          ],
+          "generalFeedback": "作用子句準則（GACC/CACC/RACC）要求每個子句決定 p；非作用子句準則（GICC/RICC）要求每個子句被遮蔽。二者是「決定性」概念互補的兩半。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "a OR b 中 b false 使 a 為作用",
+          "text": "<p>對 p = a &#8744; b，令 b = false 會使子句 a 成為<em>作用</em>（決定性），而非非作用。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——b 為 false 時 p 等於 a，故 a 決定 p。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "b 為 false 時 p = a &#8744; false = a，翻轉 a 即翻轉 p，a 為作用。a 要在 b = true 時才非作用。"
+            }
+          ],
+          "generalFeedback": "對 a &#8744; b，a 在 b = true 時非作用（p 固定為 true），在 b = false 時為作用（p 隨 a 而變）。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "在 (a AND b) OR c 中令 c 非作用",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，哪一組次要取值能使子句 <strong>c</strong> 非作用？</p>",
+          "answers": [
+            {
+              "text": "a = true, b = true",
+              "fraction": 100,
+              "feedback": "正確——此時 a &#8743; b 為 true，故不論 c 為何 p 皆為 true；c 被遮蔽。"
+            },
+            {
+              "text": "a = false, b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 決定 p（作用）。"
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 為作用。"
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 為作用。"
+            }
+          ],
+          "generalFeedback": "對析取 X &#8744; c，子句 c 為非作用恰當另一運算元 X 為 true。此處 X = a &#8743; b，故 c 在 a = true 且 b = true 時非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 a 何時決定 p",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，哪一組次要取值能使子句 a 成為<strong>作用</strong>（即 a <em>非</em>非作用）？</p>",
+          "answers": [
+            {
+              "text": "b = true, c = false",
+              "fraction": 100,
+              "feedback": "正確——唯有此時 p 化簡為 a，故 a 決定 p。"
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "b 為 false 時 a &#8743; b 無論 a 皆為 false，故 a 為非作用。"
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 使 p 固定為 true，且 b 為 false 遮蔽 a，故 a 為非作用。"
+            },
+            {
+              "text": "b = true, c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 使 p 不論 a 皆為 true，故 a 為非作用。"
+            }
+          ],
+          "generalFeedback": "a 只有在其項傳遞 a（b = true）且析取未遮蔽它（c = false）時才決定 p。其餘每一組次要取值 a 皆為非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項 ICC 需求",
+          "text": "<p>對一個非作用的主要子句 c<sub>i</sub>，非作用子句覆蓋要求涵蓋恰為下列哪組測試需求？</p>",
+          "answers": [
+            {
+              "text": "c=T&#8743;p=T、c=T&#8743;p=F、c=F&#8743;p=T、c=F&#8743;p=F",
+              "fraction": 100,
+              "feedback": "正確——在 c維持非作用下，c與 p 各取兩值。"
+            },
+            {
+              "text": "僅 c=T 與 c=F",
+              "fraction": 0,
+              "feedback": "那忽略了 p 也需取兩值的要求。"
+            },
+            {
+              "text": "僅 p=T 與 p=F",
+              "fraction": 0,
+              "feedback": "那忽略了 c也需取兩值的要求。"
+            },
+            {
+              "text": "子句取值的全部 2^n 種組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，而非 ICC。"
+            }
+          ],
+          "generalFeedback": "因非作用子句無法改變 p，p 可獨立於 c為 true 或 false。故 ICC 將四種 (c, p) 組合各列為一項測試需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 如何限制 GICC",
+          "text": "<p>受限非作用子句覆蓋（RICC）與一般非作用子句覆蓋（GICC）的差異為何？</p>",
+          "answers": [
+            {
+              "text": "RICC 要求：在共享同一 p 值的 c=true 與 c=false 需求中，次要子句取值必須相同",
+              "fraction": 100,
+              "feedback": "正確——RICC 在每個同 p 配對中固定次要子句；GICC 則可變動。"
+            },
+            {
+              "text": "RICC 要求四項需求中的次要子句取值全都不同",
+              "fraction": 0,
+              "feedback": "RICC 是要求在同 p 配對中相同，而非全都不同。"
+            },
+            {
+              "text": "RICC 要求 c決定 p",
+              "fraction": 0,
+              "feedback": "二者皆為非作用子句準則：c皆被遮蔽，從不決定 p。"
+            },
+            {
+              "text": "RICC 捨去四項需求之一",
+              "fraction": 0,
+              "feedback": "RICC 保留全部四項需求，只是對次要子句加上限制。"
+            }
+          ],
+          "generalFeedback": "GICC 允許四項需求間的次要子句取值自由變動。RICC 額外要求：在每個同 p 配對中次要子句取值相同（c=T&#8743;p=T 與 c=F&#8743;p=T 配對，c=T&#8743;p=F 與 c=F&#8743;p=F 配對）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "作用與非作用的要求",
+          "text": "<p>作用子句準則要求主要子句<em>決定</em> p。非作用子句準則則要求主要子句：</p>",
+          "answers": [
+            {
+              "text": "不決定 p（被次要子句遮蔽）",
+              "fraction": 100,
+              "feedback": "正確——非作用子句覆蓋執行的是被遮蔽的情形。"
+            },
+            {
+              "text": "雙向皆決定 p",
+              "fraction": 0,
+              "feedback": "那是作用子句的概念，與非作用相反。"
+            },
+            {
+              "text": "取值與 p 相同",
+              "fraction": 0,
+              "feedback": "遮蔽與「子句等於 p」無關。"
+            },
+            {
+              "text": "自述詞中移除",
+              "fraction": 0,
+              "feedback": "子句仍在述詞中，只是在執行期被遮蔽。"
+            }
+          ],
+          "generalFeedback": "作用子句準則設定次要子句使 c決定 p；非作用子句準則則設定使 c被遮蔽而無法影響 p。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在 a OR (b AND c) 中令 a 非作用",
+          "text": "<p>對 p = a &#8744; (b &#8743; c)，哪一組次要取值能使子句 <strong>a</strong> 非作用？</p>",
+          "answers": [
+            {
+              "text": "b = true, c = true",
+              "fraction": 100,
+              "feedback": "正確——此時 b &#8743; c 為 true，故不論 a 為何 p 皆為 true；a 被遮蔽。"
+            },
+            {
+              "text": "b = false, c = false",
+              "fraction": 0,
+              "feedback": "此時 b &#8743; c 為 false，故 p = a，a 決定 p（作用）。"
+            },
+            {
+              "text": "b = true, c = false",
+              "fraction": 0,
+              "feedback": "此時 b &#8743; c 為 false，故 p = a，a 為作用。"
+            },
+            {
+              "text": "b = false, c = true",
+              "fraction": 0,
+              "feedback": "此時 b &#8743; c 為 false，故 p = a，a 為作用。"
+            }
+          ],
+          "generalFeedback": "對析取 a &#8744; X，子句 a 為非作用恰當另一運算元 X 為 true。此處 X = b &#8743; c，故 a 在 b = true 且 c = true 時非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在 (a OR b) AND c 中令 c 非作用",
+          "text": "<p>對 p = (a &#8744; b) &#8743; c，哪一組次要取值能使子句 <strong>c</strong> 非作用？</p>",
+          "answers": [
+            {
+              "text": "a = false, b = false",
+              "fraction": 100,
+              "feedback": "正確——此時 a &#8744; b 為 false，故不論 c 為何 p 皆為 false；c 被遮蔽。"
+            },
+            {
+              "text": "a = true, b = true",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 true，故 p = c，c 決定 p（作用）。"
+            },
+            {
+              "text": "a = true, b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 true，故 p = c，c 為作用。"
+            },
+            {
+              "text": "a = false, b = true",
+              "fraction": 0,
+              "feedback": "此時 a &#8744; b 為 true，故 p = c，c 為作用。"
+            }
+          ],
+          "generalFeedback": "對合取 X &#8743; c，子句 c 為非作用恰當另一運算元 X 為 false。此處 X = a &#8744; b，故 c 在 a = false 且 b = false 時非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足四項可行 ICC 需求所需測試數",
+          "text": "<p>當某主要子句的四項非作用子句覆蓋需求皆可行時，需要幾個不同的測試案例才能滿足它們？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——四種 (c, p) 組合互異，故需四個測試。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "兩個測試無法實現四種不同的 (c, p) 組合。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "三個測試會漏掉四種 (c, p) 組合中的一種。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "一個測試只能固定單一 (c, p) 對，而非全部四種。"
+            }
+          ],
+          "generalFeedback": "四項需求各固定一組互異的 (c值, p 值)；沒有單一測試能同時滿足其中兩項，故該子句需四個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某列中哪個子句為非作用",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 a = true, b = false, c = false 時，哪個子句為<strong>非作用</strong>（不決定 p）？</p>",
+          "answers": [
+            {
+              "text": "a",
+              "fraction": 100,
+              "feedback": "正確——翻轉 a 得 (F &#8743; F) &#8744; F = F，與 p = F 不變，故此處 a 非作用。"
+            },
+            {
+              "text": "b",
+              "fraction": 0,
+              "feedback": "翻轉 b 得 (T &#8743; T) &#8744; F = T，使 p 由 F 改變，故此處 b 為作用。"
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "翻轉 c 得 (T &#8743; F) &#8744; T = T，使 p 由 F 改變，故此處 c 為作用。"
+            },
+            {
+              "text": "都不是",
+              "fraction": 0,
+              "feedback": "此列 a 為非作用；b 與 c 為作用。"
+            }
+          ],
+          "generalFeedback": "在 a=T, b=F, c=F 時，p = (T&#8743;F)&#8744;F = F。翻轉 a 使 p 維持 false（a 被 b=F 遮蔽），而翻轉 b 或 c 會改變 p。故此列唯一的非作用子句為 a。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 在 p 為 true 時的配對",
+          "text": "<p>在 RICC 下，p=true 時 c<sub>i</sub>=true 與 c<sub>i</sub>=false 的兩項需求必須：</p>",
+          "answers": [
+            {
+              "text": "對所有次要子句採用相同取值",
+              "fraction": 100,
+              "feedback": "正確——RICC 在每個同 p 配對中固定次要子句。"
+            },
+            {
+              "text": "對次要子句採用不同取值",
+              "fraction": 0,
+              "feedback": "任何準則都不作此要求；RICC 是將它們固定為相同。"
+            },
+            {
+              "text": "使 c決定 p",
+              "fraction": 0,
+              "feedback": "這些是非作用子句需求：c維持被遮蔽。"
+            },
+            {
+              "text": "使 p 取不同值",
+              "fraction": 0,
+              "feedback": "此配對中兩項需求皆固定 p = true。"
+            }
+          ],
+          "generalFeedback": "RICC 要求次要子句取值在每個同 p 配對中相同。對 p=true 配對，c=true 與 c=false 的測試採用相同次要取值（這正是 p 在配對中維持 true 的原因）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "GICC 次要子句可變動",
+          "text": "<p>在 GICC 下，四項非作用子句測試需求間的次要子句取值可以不同。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——GICC 對次要子句不施加相同性限制。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "強制次要子句相同的是 RICC 而非 GICC；GICC 允許它們變動。"
+            }
+          ],
+          "generalFeedback": "GICC（「一般」）僅要求 c在四項需求中皆為非作用；次要子句取值可在各需求間自由變動。"
+        },
+        {
+          "type": "multichoice",
+          "name": "確認遮蔽的準則",
+          "text": "<p>哪一準則專門用於確認子句的<strong>正確遮蔽</strong>？</p>",
+          "answers": [
+            {
+              "text": "非作用子句覆蓋（GICC／RICC）",
+              "fraction": 100,
+              "feedback": "正確——它檢查被遮蔽的子句對 p 無影響。"
+            },
+            {
+              "text": "關聯作用子句覆蓋（CACC）",
+              "fraction": 0,
+              "feedback": "CACC 檢查子句的決定性（作用）效果，而非遮蔽。"
+            },
+            {
+              "text": "一般作用子句覆蓋（GACC）",
+              "fraction": 0,
+              "feedback": "GACC 是作用子句準則；它執行決定性，而非遮蔽。"
+            },
+            {
+              "text": "述詞覆蓋（PC）",
+              "fraction": 0,
+              "feedback": "PC 只要求 p 取兩值，未涉及遮蔽。"
+            }
+          ],
+          "generalFeedback": "只有非作用子句準則會刻意遮蔽子句並檢查 p 不受影響——這是對正確遮蔽的檢測。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a 非作用時 a AND b 中 p 的值",
+          "text": "<p>對 p = a &#8743; b，在所有使子句 a 非作用的次要取值下，p 的值為：</p>",
+          "answers": [
+            {
+              "text": "永遠為 false",
+              "fraction": 100,
+              "feedback": "正確——a 非作用僅在 b = false 時成立，此時 p = false。"
+            },
+            {
+              "text": "永遠為 true",
+              "fraction": 0,
+              "feedback": "a 非作用時 b = false，這使 p 為 false 而非 true。"
+            },
+            {
+              "text": "有時 true、有時 false",
+              "fraction": 0,
+              "feedback": "只有一種遮蔽取值（b = false），且它將 p 固定為 false。"
+            },
+            {
+              "text": "等於 a",
+              "fraction": 0,
+              "feedback": "p 等於 a 只在 a 為作用（b = true）時。"
+            }
+          ],
+          "generalFeedback": "對 a &#8743; b，唯一能遮蔽 a 的方式是 b = false，這將 p 固定為 false。因此 a 需要 p = true 的 ICC 需求皆不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b OR c 中 a 何時非「非作用」",
+          "text": "<p>對 p = a &#8744; b &#8744; c，子句 a 未能維持非作用（即它決定 p）僅當：</p>",
+          "answers": [
+            {
+              "text": "b = false 且 c = false",
+              "fraction": 100,
+              "feedback": "正確——此時 p = a，故 a 決定 p；在其餘所有次要取值下 a 皆被遮蔽。"
+            },
+            {
+              "text": "b = true 且 c = true",
+              "fraction": 0,
+              "feedback": "此時不論 a 為何 p 皆為 true，故 a 於此為非作用。"
+            },
+            {
+              "text": "b = true 且 c = false",
+              "fraction": 0,
+              "feedback": "b 為 true 使 p 不論 a 皆為 true，故 a 為非作用。"
+            },
+            {
+              "text": "b = false 且 c = true",
+              "fraction": 0,
+              "feedback": "c 為 true 使 p 不論 a 皆為 true，故 a 為非作用。"
+            }
+          ],
+          "generalFeedback": "對析取，a 只有在其餘每個運算元皆為 false 時才決定 p。此處即 b = false 且 c = false；否則 b &#8744; c 為 true 而 a 被遮蔽。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p 固定為 false 的遮蔽可協助的需求",
+          "text": "<p>假設某次要取值使 c<sub>i</sub> 非作用，且不論 c<sub>i</sub> 為何都將 p 固定為 false。此取值可協助滿足哪些 ICC 需求？</p>",
+          "answers": [
+            {
+              "text": "兩項 p = false 的需求（c=T&#8743;p=F 與 c=F&#8743;p=F）",
+              "fraction": 100,
+              "feedback": "正確——p 被固定為 false，故此取值只能滿足 p=false 的需求。"
+            },
+            {
+              "text": "兩項 p = true 的需求",
+              "fraction": 0,
+              "feedback": "此處 p 為 false，故無法滿足任何 p=true 的需求。"
+            },
+            {
+              "text": "全部四項需求",
+              "fraction": 0,
+              "feedback": "p 被固定為 false 時只有兩項 p=false 的需求可達成。"
+            },
+            {
+              "text": "一項都不能",
+              "fraction": 0,
+              "feedback": "它確實能滿足 p=false 的需求（c的兩種取值）。"
+            }
+          ],
+          "generalFeedback": "因 c非作用，此取值下 c=T 與 c=F 皆可得，但 p 卡在 false——故只能涵蓋 c=T&#8743;p=F 與 c=F&#8743;p=F。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "truefalse",
+          "name": "RICC 涵蓋（subsume）GICC",
+          "text": "<p>受限非作用子句覆蓋（RICC）涵蓋（subsumes）一般非作用子句覆蓋（GICC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——RICC 的需求即 GICC 的需求再加上次要子句相同的限制，故任何滿足 RICC 的測試組亦滿足 GICC。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "RICC 嚴格更強：它在 GICC 上附加限制，故 RICC &#8594; GICC。"
+            }
+          ],
+          "generalFeedback": "RICC 保留 GICC 的全部四項需求，並額外要求次要子句在每個同 p 配對中相同。只附加限制的較嚴準則會涵蓋較弱者，故 RICC 涵蓋 GICC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 為何涵蓋 GICC",
+          "text": "<p>RICC 為何涵蓋（subsumes）GICC？</p>",
+          "answers": [
+            {
+              "text": "RICC 的測試需求即 GICC 的需求再加上次要子句相同的限制，故任何滿足 RICC 的測試組亦滿足 GICC",
+              "fraction": 100,
+              "feedback": "正確——附加限制只會縮小滿足的測試組集合。"
+            },
+            {
+              "text": "RICC 的測試需求比 GICC 多",
+              "fraction": 0,
+              "feedback": "兩者每個子句都有相同的四項需求；RICC 只是更嚴格地限制次要子句。"
+            },
+            {
+              "text": "RICC 執行全部 2^n 種組合",
+              "fraction": 0,
+              "feedback": "那會是組合覆蓋，而非 RICC。"
+            },
+            {
+              "text": "RICC 另外要求 c決定 p",
+              "fraction": 0,
+              "feedback": "二者皆為非作用子句準則；皆不要求決定性。"
+            }
+          ],
+          "generalFeedback": "涵蓋成立是因為 RICC = GICC +（每個同 p 配對中次要子句相同）。任何 RICC 測試組已滿足較寬鬆的 GICC 義務，故 RICC 涵蓋 GICC。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "非作用準則涵蓋子句覆蓋",
+          "text": "<p>GICC 與 RICC 皆涵蓋（subsume）子句覆蓋（CC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——每個主要子句（在非作用狀態下）皆被執行 true 與 false，這正是子句覆蓋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "GICC 與 RICC 對每個子句皆有 c=true 與 c=false 需求，故每個子句都取兩值——CC 被滿足。"
+            }
+          ],
+          "generalFeedback": "四項 ICC 需求對每個子句都含 c=true 與 c=false，故每個子句都取兩種真值。因此 GICC 與 RICC 皆涵蓋子句覆蓋。"
+        },
+        {
+          "type": "multichoice",
+          "name": "GICC 為何涵蓋 CC",
+          "text": "<p>是什麼使 GICC 涵蓋（subsume）子句覆蓋？</p>",
+          "answers": [
+            {
+              "text": "對每個子句，GICC 都要求一個 c=true 測試與一個 c=false 測試，故每個子句都取兩值",
+              "fraction": 100,
+              "feedback": "正確——這正是子句覆蓋的要求。"
+            },
+            {
+              "text": "GICC 要求述詞取兩值",
+              "fraction": 0,
+              "feedback": "那與述詞覆蓋有關；CC 關注的是個別子句。"
+            },
+            {
+              "text": "GICC 執行每一種子句組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，比達成 CC 所需更強。"
+            },
+            {
+              "text": "GICC 要求每個子句決定 p",
+              "fraction": 0,
+              "feedback": "那是作用子句的概念；非作用子句覆蓋反而遮蔽子句。"
+            }
+          ],
+          "generalFeedback": "子句覆蓋要求每個子句皆取 true 與 false。因 GICC 對每個子句的四項需求含 c=true 與 c=false，每個子句都被雙向執行，故 GICC 涵蓋 CC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b 不可行的 ICC 需求",
+          "text": "<p>對 p = a &#8743; b，子句 a 的哪些非作用子句覆蓋需求<strong>不可行</strong>？</p>",
+          "answers": [
+            {
+              "text": "兩項要求 p = true 的需求（a=T&#8743;p=T 與 a=F&#8743;p=T）",
+              "fraction": 100,
+              "feedback": "正確——a 只能在 b = false 時非作用，這將 p 固定為 false，故 a 非作用時 p = true 不可達。"
+            },
+            {
+              "text": "兩項要求 p = false 的需求",
+              "fraction": 0,
+              "feedback": "那些才是可行的：遮蔽 a（b = false）使 p = false。"
+            },
+            {
+              "text": "全部四項需求",
+              "fraction": 0,
+              "feedback": "兩項 p=false 需求可行；只有 p=true 的不可行。"
+            },
+            {
+              "text": "都可行——四項皆可行",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = false，故 p=true 的需求無法達成。"
+            }
+          ],
+          "generalFeedback": "在 a &#8743; b 中遮蔽 a 需 b = false，將 p 固定為 false。故 a=T&#8743;p=T 與 a=F&#8743;p=T 不可行，而兩項 p=false 的需求可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a OR b 不可行的 ICC 需求",
+          "text": "<p>對 p = a &#8744; b，子句 a 的哪些非作用子句覆蓋需求<strong>不可行</strong>？</p>",
+          "answers": [
+            {
+              "text": "兩項要求 p = false 的需求（a=T&#8743;p=F 與 a=F&#8743;p=F）",
+              "fraction": 100,
+              "feedback": "正確——a 只能在 b = true 時非作用，這將 p 固定為 true，故 a 非作用時 p = false 不可達。"
+            },
+            {
+              "text": "兩項要求 p = true 的需求",
+              "fraction": 0,
+              "feedback": "那些才是可行的：遮蔽 a（b = true）使 p = true。"
+            },
+            {
+              "text": "全部四項需求",
+              "fraction": 0,
+              "feedback": "兩項 p=true 需求可行；只有 p=false 的不可行。"
+            },
+            {
+              "text": "都可行——四項皆可行",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = true，故 p=false 的需求無法達成。"
+            }
+          ],
+          "generalFeedback": "在 a &#8744; b 中遮蔽 a 需 b = true，將 p 固定為 true。故 a=T&#8743;p=F 與 a=F&#8743;p=F 不可行，而兩項 p=true 的需求可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a AND b AND c 中 a 的非作用列數",
+          "text": "<p>對 p = a &#8743; b &#8743; c，在 8 種取值中有幾種使子句 a 為<strong>非作用</strong>？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——a 只有在 b &#8743; c 為 true 時（2 列）才決定 p，其餘 6 列 a 非作用。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是 a 為作用（b=T, c=T）的列數，而非非作用。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新計算——a 僅在 b &#8743; c 為 true 時作用，即 2 列，故非作用為 6 列。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "a 在 2 列為作用，故並非全部 8 列皆非作用。"
+            }
+          ],
+          "generalFeedback": "a 決定 a &#8743; b &#8743; c 恰當 b &#8743; c 為 true（b=T, c=T），得 2 個作用列（a 自由）。其餘 8 列中的 6 列 a 為非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 c 的非作用列數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，在 8 種取值中有幾種使子句 <strong>c</strong> 為<strong>非作用</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——c 只有在 a &#8743; b 為 true（a=T, b=T）時非作用，即 2 列（c 自由）。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 c 為作用（a &#8743; b 為 false）的列數，而非非作用。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "重新計算——a &#8743; b 在 8 列中僅 2 列為 true。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "a=T, b=T 時 c=T 與 c=F 兩列皆非作用，故為 2 而非 1。"
+            }
+          ],
+          "generalFeedback": "c 為非作用恰當另一運算元 a &#8743; b 為 true。這發生在 8 列中的 2 列（a=T, b=T，c 為任一值），故 c 在 2 種取值中非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR (c AND d) 中 a 的非作用列數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，在 16 種取值中有幾種使子句 a 為<strong>非作用</strong>？</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——a 僅在 b = true 且 (c &#8743; d) = false 時為作用：1 &#215; 3 &#215; 2 = 6 列，其餘 10 列非作用。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 a 為作用的列數，而非非作用。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "重新計算——a 在 6 列為作用，故非作用為 16 &#8722; 6 = 10。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "那高估了；非作用列數恰為 10。"
+            }
+          ],
+          "generalFeedback": "a 只有在其項傳遞 a（b = true）且另一項未遮蔽它（c &#8743; d = false）時才決定 p：1 &#215; 3 &#215; 2 = 6 個作用列。其餘 16 列中的 10 列 a 為非作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項 ICC 需求皆可行的述詞",
+          "text": "<p>下列哪個述詞與子句，其<strong>四項</strong> ICC 需求皆可行？</p>",
+          "answers": [
+            {
+              "text": "p = (a &#8743; b) &#8744; (c &#8743; d) 中的子句 a",
+              "fraction": 100,
+              "feedback": "正確——當 b = false 時 a 非作用且 p = (c &#8743; d)，其可為 true 亦可為 false；四項需求皆可達。"
+            },
+            {
+              "text": "p = a &#8743; b 中的子句 a",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = false，故 p=true 的需求不可行。"
+            },
+            {
+              "text": "p = a &#8744; b &#8744; c 中的子句 a",
+              "fraction": 0,
+              "feedback": "a 非作用強制 p = true，故 p=false 的需求不可行。"
+            },
+            {
+              "text": "p = (a &#8744; b) &#8743; c 中的子句 c",
+              "fraction": 0,
+              "feedback": "c 非作用強制 p = false，故 p=true 的需求不可行。"
+            }
+          ],
+          "generalFeedback": "四項 ICC 需求皆可行的條件是：c被遮蔽時 p 仍可為 true 與 false。在 (a &#8743; b) &#8744; (c &#8743; d) 中令 b = false，a 被遮蔽而 p = (c &#8743; d) 仍涵蓋兩值，故每項需求皆可達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "RICC 次要子句相同的範圍",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d) 且主要子句為 a，在 RICC 下，p=false 時 a=true 與 a=false 的需求必須共用哪些子句的相同取值？</p>",
+          "answers": [
+            {
+              "text": "所有次要子句：b、c 與 d",
+              "fraction": 100,
+              "feedback": "正確——RICC 在同 p 配對中固定每一個次要子句。"
+            },
+            {
+              "text": "僅 b",
+              "fraction": 0,
+              "feedback": "RICC 限制所有次要子句，而不只是與 a 同項的那個。"
+            },
+            {
+              "text": "僅 c 與 d",
+              "fraction": 0,
+              "feedback": "b 也是次要子句，同樣必須相同。"
+            },
+            {
+              "text": "都不用——RICC 只固定 a",
+              "fraction": 0,
+              "feedback": "RICC 的重點正是在配對中固定次要子句。"
+            }
+          ],
+          "generalFeedback": "對主要子句 a，次要子句為 b、c 與 d。RICC 要求它們在每個同 p 配對的 a=true 與 a=false 測試中取值全部相同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四項需求皆可行的條件",
+          "text": "<p>子句 c<sub>i</sub> 的四項 ICC 需求皆可行的條件是：在 c<sub>i</sub> 非作用時，述詞 p 能夠：</p>",
+          "answers": [
+            {
+              "text": "同時可為 true 與 false（在不同的遮蔽用次要取值下）",
+              "fraction": 100,
+              "feedback": "正確——c維持被遮蔽時 p 必須涵蓋兩值。"
+            },
+            {
+              "text": "僅可為 true",
+              "fraction": 0,
+              "feedback": "那樣 p=false 的需求將不可行。"
+            },
+            {
+              "text": "僅可為 false",
+              "fraction": 0,
+              "feedback": "那樣 p=true 的需求將不可行。"
+            },
+            {
+              "text": "由 c決定",
+              "fraction": 0,
+              "feedback": "若 c決定 p 便非非作用；此處需求關注的是被遮蔽的情形。"
+            }
+          ],
+          "generalFeedback": "因 c被遮蔽，p 由次要子句設定。四項需求（將 c與 p 交叉）皆可行，恰當有某遮蔽用次要取值使 p=true、另有取值使 p=false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "(a AND b) OR c 中 c 非作用的取值",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，子句 c 為非作用恰為下列哪種取值？</p>",
+          "answers": [
+            {
+              "text": "a = true 且 b = true（c 為任一值）",
+              "fraction": 100,
+              "feedback": "正確——此時 a &#8743; b 為 true 遮蔽 c；不論 c 為何 p 皆為 true。"
+            },
+            {
+              "text": "a = false 且 b = false",
+              "fraction": 0,
+              "feedback": "此時 a &#8743; b 為 false，故 p = c，c 決定 p（作用）。"
+            },
+            {
+              "text": "c = false",
+              "fraction": 0,
+              "feedback": "c 是否被遮蔽由運算元 a &#8743; b 決定，而非 c 自身的值。"
+            },
+            {
+              "text": "a = true 或 b = true",
+              "fraction": 0,
+              "feedback": "a &#8743; b 需兩者皆 true 才能遮蔽 c；只有其一為 true 並不足夠。"
+            }
+          ],
+          "generalFeedback": "在析取中 c 被遮蔽恰當另一運算元 a &#8743; b 為 true，即 a = true 且 b = true——這是 c 非作用的 2 列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非作用列數最少的子句",
+          "text": "<p>對 p = (a &#8743; b) &#8744; c，哪個子句非作用的取值數<strong>最少</strong>？</p>",
+          "answers": [
+            {
+              "text": "c（8 列中 2 列非作用）",
+              "fraction": 100,
+              "feedback": "正確——c 僅在 a &#8743; b 為 true 時被遮蔽（2 列），而 a 與 b 各在 6 列被遮蔽。"
+            },
+            {
+              "text": "a（8 列中 6 列非作用）",
+              "fraction": 0,
+              "feedback": "a 在 b = false 或 c = true 時被遮蔽——6 列，多於 c。"
+            },
+            {
+              "text": "b（8 列中 6 列非作用）",
+              "fraction": 0,
+              "feedback": "與 a 對稱，b 在 6 列被遮蔽，多於 c。"
+            },
+            {
+              "text": "三者非作用次數相同",
+              "fraction": 0,
+              "feedback": "c 不同：它僅在 2 列被遮蔽，而 a 與 b 各為 6 列。"
+            }
+          ],
+          "generalFeedback": "c 僅在 a &#8743; b 為 true 時被遮蔽（2 列）。a 在 b=false 或 c=true 時被遮蔽（6 列），b 對稱地為 6 列。故 c 的非作用列數最少。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 子句述詞的 GICC 總需求數",
+          "text": "<p>對 p = (a &#8743; b) &#8744; (c &#8743; d)，若每個子句的四項 ICC 需求皆可行，GICC 總共施加多少項非作用子句測試需求？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——4 個子句 &#215; 每個 4 項需求 = 16 項測試需求。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 = 4 子句 &#215; 2；但 ICC 每個子句是四項需求，而非兩項。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一子句的需求數，而非整個述詞。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "那將數量加倍；每個子句 4 項需求，共 16 項。"
+            }
+          ],
+          "generalFeedback": "ICC 每個主要子句施加四項需求。4 個子句皆可行時，GICC 共有 4 &#215; 4 = 16 項測試需求（部分可由共用測試滿足）。",
           "single": true
         }
       ]

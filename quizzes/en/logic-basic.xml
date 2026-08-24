@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Logic Basic Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Clause definition (basic)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>clause</strong> is best defined as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A boolean expression that contains no logical operators</text><feedback><text>Correct — a clause is atomic, e.g. x &gt; 0 or a single boolean variable.</text></feedback></answer>
+    <answer fraction="0"><text>Any boolean expression joined by &amp;&amp;, ||, or !</text><feedback><text>That describes a predicate, which is built from clauses.</text></feedback></answer>
+    <answer fraction="0"><text>A single row of a truth table</text><feedback><text>A truth-table row is one assignment of values, not a clause.</text></feedback></answer>
+    <answer fraction="0"><text>A test case that makes a predicate true</text><feedback><text>That is a test, not a clause.</text></feedback></answer>
+    <generalfeedback><text>A clause (condition) is a boolean expression with no logical operators (&amp;&amp;, ||, !). Predicates are formed by connecting clauses with those operators.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate definition (basic)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>predicate</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An expression formed from one or more clauses connected by logical operators</text><feedback><text>Correct — clauses joined by &amp;&amp;, ||, ! form a predicate.</text></feedback></answer>
+    <answer fraction="0"><text>Always an expression with no logical operators</text><feedback><text>That is a clause; a predicate may contain operators.</text></feedback></answer>
+    <answer fraction="0"><text>An arithmetic expression that returns a number</text><feedback><text>A predicate is boolean-valued, not numeric.</text></feedback></answer>
+    <answer fraction="0"><text>A loop condition that must be an inequality</text><feedback><text>A predicate need not be an inequality nor tied to a loop.</text></feedback></answer>
+    <generalfeedback><text>A predicate is a boolean expression built from clauses connected by logical operators. A single clause with no operators is itself the simplest predicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the single clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a <strong>single clause</strong> (not a compound predicate)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[x >= 5]]></text><feedback><text>Correct — a relational expression with no logical operators is one clause.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a && b]]></text><feedback><text>This joins two clauses with &amp;&amp;, so it is a predicate.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[!p]]></text><feedback><text>The ! operator makes this a compound predicate over the clause p.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a || b]]></text><feedback><text>This joins two clauses with ||, so it is a predicate.</text></feedback></answer>
+    <generalfeedback><text>A clause contains no logical operators. Only x &gt;= 5 qualifies; the others use &amp;&amp;, ||, or !.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count the clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many clauses does the predicate <code>(p && q) || !r</code> contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — the clauses are p, q, and r.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There are three atomic conditions: p, q, r.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The operators &amp;&amp;, ||, ! are not clauses; only p, q, r are.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>This is a compound predicate with three clauses, not one.</text></feedback></answer>
+    <generalfeedback><text>Clauses are the atomic boolean expressions. In (p &amp;&amp; q) || !r they are p, q, and r — three clauses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Predicate Coverage (PC) requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The predicate evaluates to both true and false at least once</text><feedback><text>Correct — one test making it true, one making it false.</text></feedback></answer>
+    <answer fraction="0"><text>Each clause evaluates to both true and false</text><feedback><text>That is Clause Coverage (CC), not PC.</text></feedback></answer>
+    <answer fraction="0"><text>Every combination of clause values is exercised</text><feedback><text>That is Combinatorial Coverage (CoC).</text></feedback></answer>
+    <answer fraction="0"><text>Each clause determines the predicate's value at least once</text><feedback><text>That is the active-clause idea (ACC), which is out of scope here.</text></feedback></answer>
+    <generalfeedback><text>PC only constrains the whole predicate: it must take both truth values at least once. It says nothing about individual clauses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Clause Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Clause Coverage (CC) requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each clause evaluates to both true and false at least once</text><feedback><text>Correct — every atomic condition must take on both values.</text></feedback></answer>
+    <answer fraction="0"><text>The whole predicate evaluates to both true and false</text><feedback><text>That is Predicate Coverage (PC).</text></feedback></answer>
+    <answer fraction="0"><text>All 2^n combinations of clause values are exercised</text><feedback><text>That is Combinatorial Coverage (CoC).</text></feedback></answer>
+    <answer fraction="0"><text>Each clause independently determines the predicate</text><feedback><text>That is active-clause coverage, stronger than plain CC.</text></feedback></answer>
+    <generalfeedback><text>CC requires each clause to be both true and false at least once, regardless of what the enclosing predicate does.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combinatorial Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Combinatorial (Clause) Coverage (CoC) requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every one of the 2^n truth-value combinations of the n clauses is exercised</text><feedback><text>Correct — the full truth table (subject to feasibility).</text></feedback></answer>
+    <answer fraction="0"><text>The predicate takes both true and false</text><feedback><text>That is only Predicate Coverage (PC).</text></feedback></answer>
+    <answer fraction="0"><text>Each clause takes both true and false</text><feedback><text>That is only Clause Coverage (CC).</text></feedback></answer>
+    <answer fraction="0"><text>n + 1 carefully chosen tests are executed</text><feedback><text>n + 1 is the minimal size for CACC/MC-DC, which is out of scope here.</text></feedback></answer>
+    <generalfeedback><text>CoC (a.k.a. ACoC) demands all 2^n combinations of the n clauses' truth values — the complete truth table.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Truth-table rows for 2 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many rows are in the full truth table of a predicate with <strong>2</strong> clauses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 2^2 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the minimum for PC or CC, not the number of rows.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>2^2 = 4, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 would be three clauses.</text></feedback></answer>
+    <generalfeedback><text>A predicate with n clauses has 2^n truth-table rows; for n = 2 that is 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Truth-table rows for 3 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many rows are in the full truth table of a predicate with <strong>3</strong> clauses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 2^3 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>2^3 = 8, not 6.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 = 2^2 would be two clauses.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>The count is 2^3 = 8, not 3^2.</text></feedback></answer>
+    <generalfeedback><text>A predicate with n clauses has 2^n rows; for n = 3 that is 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Truth-table rows for 4 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many rows are in the full truth table of a predicate with <strong>4</strong> clauses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>Correct — 2^4 = 16.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 would be three clauses.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>2^4 = 16, not 4 times 3.</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 = 2^5 would be five clauses.</text></feedback></answer>
+    <generalfeedback><text>A predicate with n clauses has 2^n rows; for n = 4 that is 16.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a AND b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 4 truth-table rows, how many make <code>a && b</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — only a=T, b=T satisfies a conjunction.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only the all-true row satisfies a &amp;&amp; b.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the count for a || b, not a &amp;&amp; b.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>A conjunction is false whenever any clause is false.</text></feedback></answer>
+    <generalfeedback><text>A conjunction is true only when every clause is true, so exactly 1 of the 4 rows satisfies a &amp;&amp; b.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a OR b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 4 truth-table rows, how many make <code>a || b</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — only a=F, b=F fails.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 is the count for a &amp;&amp; b.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only the all-false row fails, leaving 3.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The all-false row a=F, b=F does not satisfy a || b.</text></feedback></answer>
+    <generalfeedback><text>A disjunction is false only when every clause is false, so 3 of the 4 rows satisfy a || b.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 8 truth-table rows, how many make <code>(a && b) || c</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 4 rows with c=T, plus the one row a=T, b=T, c=F.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The 4 rows with c=T count, but a=T, b=T, c=F also satisfies it, giving 5.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — exactly 5 of the 8 rows are true.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>c=T alone already gives 4 true rows.</text></feedback></answer>
+    <generalfeedback><text>Whenever c=T the predicate is true (4 rows); when c=F it needs a=T and b=T (1 more). Total = 5 of 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum tests for PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the minimum number of tests needed to satisfy Predicate Coverage for a single predicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one test makes it true, one makes it false.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One test can only produce one truth value; PC needs both.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 relates to a 2-clause truth table, not the PC minimum.</text></feedback></answer>
+    <answer fraction="0"><text>It depends on the number of clauses</text><feedback><text>PC ignores clause count; 2 tests always suffice for one predicate.</text></feedback></answer>
+    <generalfeedback><text>PC needs the predicate to be both true and false, so at least 2 tests, independent of how many clauses it has.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Clause has no logical operators</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A clause contains no logical operators (&&, ||, !).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — clauses are atomic; operators combine them into predicates.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>By definition a clause has no logical operators; adding one makes it a compound predicate.</text></feedback></answer>
+    <generalfeedback><text>A clause is a boolean expression with no logical operators. Joining clauses with &amp;&amp;, ||, or ! yields a predicate.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Basic Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum tests for CC (independent clauses)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a predicate whose clauses can be set independently, what is the minimum number of tests that satisfies Clause Coverage, regardless of the number of clauses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one all-true test and one all-false test flip every clause.</text></feedback></answer>
+    <answer fraction="0"><text>n (one per clause)</text><feedback><text>Two tests suffice: set all clauses true, then all false.</text></feedback></answer>
+    <answer fraction="0"><text>n + 1</text><feedback><text>n + 1 is the MC/DC minimum, not the CC minimum.</text></feedback></answer>
+    <answer fraction="0"><text>2^n</text><feedback><text>2^n is Combinatorial Coverage, far more than CC needs.</text></feedback></answer>
+    <generalfeedback><text>When clauses are independent, one all-true and one all-false test give every clause both values, so CC needs only 2 tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CoC test requirements for 3 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate has 3 independent clauses. How many test requirements does Combinatorial Coverage impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 2^3 = 8 combinations.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is closer to the CC size, not every combination.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 = n + 1 is the MC/DC minimum, not CoC.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 falls short of the full 2^3 = 8 combinations.</text></feedback></answer>
+    <generalfeedback><text>CoC requires all 2^n combinations; for n = 3 that is 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which criterion subsumes the others</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among PC, CC, and CoC, which statement is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CoC subsumes both PC and CC</text><feedback><text>Correct — exercising all combinations covers both PC and CC.</text></feedback></answer>
+    <answer fraction="0"><text>PC subsumes CC</text><feedback><text>PC and CC are incomparable; neither subsumes the other.</text></feedback></answer>
+    <answer fraction="0"><text>CC subsumes PC</text><feedback><text>CC does not subsume PC — see the a &amp;&amp; b counterexample.</text></feedback></answer>
+    <answer fraction="0"><text>PC subsumes CoC</text><feedback><text>It is the other way around: CoC is the strongest of the three.</text></feedback></answer>
+    <generalfeedback><text>A test set covering all 2^n combinations necessarily makes the predicate both true and false (PC) and each clause both values (CC), so CoC subsumes both.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC and CC relationship</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about Predicate Coverage and Clause Coverage is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Neither subsumes the other; they are incomparable</text><feedback><text>Correct — each can be met without the other.</text></feedback></answer>
+    <answer fraction="0"><text>PC always subsumes CC</text><feedback><text>Not so: a || b with tests {(T,F),(F,F)} meets PC but not CC.</text></feedback></answer>
+    <answer fraction="0"><text>CC always subsumes PC</text><feedback><text>Not so: a &amp;&amp; b with tests {(T,F),(F,T)} meets CC but not PC.</text></feedback></answer>
+    <answer fraction="0"><text>They are equivalent</text><feedback><text>They are distinct and incomparable, not equivalent.</text></feedback></answer>
+    <generalfeedback><text>PC and CC are incomparable: there are test sets meeting one but not the other in each direction.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CC-but-not-PC test set</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>p = a && b</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b))</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F), (F, T)}]]></text><feedback><text>Correct — a and b each take both values, yet p is false in both rows.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (F, F)}]]></text><feedback><text>Here p is true then false, so this satisfies PC too.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (T, F)}]]></text><feedback><text>b takes both values but a stays true, so CC is not met; also p is true then false.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(F, F), (F, T)}]]></text><feedback><text>a never becomes true, so this fails CC.</text></feedback></answer>
+    <generalfeedback><text>With (T,F) and (F,T), a is {T,F} and b is {F,T} (CC met), but a &amp;&amp; b is false both times, so PC fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC-but-not-CC test set</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>p = a || b</code>, which 2-test set satisfies <strong>Predicate Coverage but not Clause Coverage</strong>? (rows given as (a, b))</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F), (F, F)}]]></text><feedback><text>Correct — p is true then false (PC met), but b is never true, so CC fails.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, F), (F, T)}]]></text><feedback><text>Here both clauses take both values, so CC is also satisfied.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (F, F)}]]></text><feedback><text>Both clauses take both values here, so CC is satisfied too.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (T, F)}]]></text><feedback><text>p is true in both rows, so PC is not satisfied.</text></feedback></answer>
+    <generalfeedback><text>With (T,F) and (F,F), p is true then false (PC met), but b stays false, so CC fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a AND (b OR c)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 8 truth-table rows, how many make <code>a && (b || c)</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — a=T (4 rows), minus the row where b=F and c=F.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Among the 4 rows with a=T, the one with b=F, c=F fails, leaving 3.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the count for (a &amp;&amp; b) || c, a different predicate.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>a must be true, so at most 4 rows qualify; the correct count is 3.</text></feedback></answer>
+    <generalfeedback><text>The predicate needs a=T and (b || c). a=T gives 4 rows; removing b=F, c=F leaves 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of (a OR b) AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 8 truth-table rows, how many make <code>(a || b) && c</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — c must be true, and among those 4 rows only a=F, b=F fails.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>c=T gives 4 rows, but a=F, b=F, c=T fails (a || b is false), leaving 3.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Recount — exactly 3 rows satisfy it.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Too few — three of the c=T rows satisfy a || b.</text></feedback></answer>
+    <generalfeedback><text>c must be true (4 rows); of those, a || b holds in 3 (all but a=F, b=F). Total = 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of NOT a OR (b AND c)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 8 truth-table rows, how many make <code>!a || (b && c)</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — all 4 rows with a=F, plus a=T with b=T, c=T.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The 4 rows with a=F all count, and a=T, b=T, c=T adds one more, giving 5.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — exactly 5 rows satisfy it.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>a=F alone already yields 4 true rows.</text></feedback></answer>
+    <generalfeedback><text>When a=F the predicate is true (4 rows); when a=T it needs b=T and c=T (1 row). Total = 5.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CoC test set satisfies PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Any test set that satisfies Combinatorial Coverage also satisfies Predicate Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — covering all combinations includes rows where the predicate is true and where it is false.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>CoC subsumes PC: exercising every combination forces both truth values of the predicate.</text></feedback></answer>
+    <generalfeedback><text>CoC subsumes PC. All 2^n rows include at least one true and one false row (for any non-constant predicate), so PC is met.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CoC test set satisfies CC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Any test set that satisfies Combinatorial Coverage also satisfies Clause Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — every clause is true in some combinations and false in others.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>CoC subsumes CC: all 2^n rows make each clause both true and false.</text></feedback></answer>
+    <generalfeedback><text>CoC subsumes CC. Across all 2^n combinations each clause takes both values, so CC is met.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which criterion needs the most tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a predicate with several independent clauses, which criterion generally demands the largest number of tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Combinatorial Coverage (CoC)</text><feedback><text>Correct — CoC requires all 2^n combinations.</text></feedback></answer>
+    <answer fraction="0"><text>Predicate Coverage (PC)</text><feedback><text>PC needs only 2 tests, the fewest.</text></feedback></answer>
+    <answer fraction="0"><text>Clause Coverage (CC)</text><feedback><text>CC needs as few as 2 tests when clauses are independent.</text></feedback></answer>
+    <answer fraction="0"><text>They all need the same number</text><feedback><text>CoC (2^n) grows far beyond the 2-test minimum of PC and CC.</text></feedback></answer>
+    <generalfeedback><text>CoC scales as 2^n and subsumes PC and CC, so it generally requires the most tests.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>PC min vs CoC for 3 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a predicate with 3 clauses, Predicate Coverage needs a minimum of 2 tests while Combinatorial Coverage imposes 8 test requirements.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — PC min is 2; CoC is 2^3 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>PC needs only 2 tests, and CoC needs 2^3 = 8, so the statement holds.</text></feedback></answer>
+    <generalfeedback><text>PC always needs 2 tests (both predicate values); CoC needs all 2^n = 8 combinations for n = 3.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CC does not guarantee PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Satisfying Clause Coverage always guarantees that Predicate Coverage is also satisfied.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — for a &amp;&amp; b, tests {(T,F),(F,T)} meet CC but the predicate is never true.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>CC does not subsume PC: a &amp;&amp; b with {(T,F),(F,T)} meets CC yet fails PC.</text></feedback></answer>
+    <generalfeedback><text>CC and PC are incomparable. The classic counterexample is a &amp;&amp; b with {(T,F),(F,T)}: CC met, PC failed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Tests to meet both PC and CC (a AND b)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>p = a && b</code>, what is the minimum number of tests that satisfies <strong>both</strong> PC and CC?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — {(T,T),(F,F)} makes p both values and each clause both values.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Two tests, (T,T) and (F,F), already meet both criteria.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the full truth table (CoC); PC and CC together need only 2.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One test yields only one predicate value, so PC cannot be met.</text></feedback></answer>
+    <generalfeedback><text>The set {(T,T),(F,F)} gives p = true then false (PC) and a, b each both values (CC), so 2 tests suffice.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Basic Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible CoC with mutually exclusive clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate uses the clauses <code>x > 0</code> and <code>x < 0</code> over a single variable x. Of the 4 combinations Combinatorial Coverage would require, how many are <strong>feasible</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — both true is impossible; the other three (TF, FT, FF at x=0) are feasible.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>x cannot be both &gt; 0 and &lt; 0, so the (T,T) combination is infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Three combinations are feasible: x&gt;0, x&lt;0, and x=0.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Only (T,T) is impossible; the other three are all reachable.</text></feedback></answer>
+    <generalfeedback><text>x &gt; 0 and x &lt; 0 cannot both hold, so (T,T) is infeasible. TF (x&gt;0), FT (x&lt;0), and FF (x=0) remain: 3 feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible CoC with a dependent clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate uses clauses <code>a: x > 5</code> and <code>b: x > 10</code>. Since b implies a, how many of the 4 CoC combinations are <strong>feasible</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — (a=F, b=T) is impossible because b implies a.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>b true forces a true, so (a=F, b=T) cannot happen.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Three combos are feasible: x&gt;10, 5&lt;x&lt;=10, and x&lt;=5.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Only one combination is infeasible, leaving 3.</text></feedback></answer>
+    <generalfeedback><text>b (x&gt;10) implies a (x&gt;5), so (a=F, b=T) is infeasible. TT (x&gt;10), TF (5&lt;x&lt;=10), FF (x&lt;=5) remain: 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CC-but-not-PC for a three-clause conjunction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>p = a && b && c</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b, c))</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F, T), (F, T, F)}]]></text><feedback><text>Correct — each clause takes both values, yet p is false in both rows.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T, T), (F, F, F)}]]></text><feedback><text>Here p is true then false, so PC is satisfied too.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T, T), (T, T, F)}]]></text><feedback><text>a and b never become false, so CC is not met.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(F, F, T), (F, T, F)}]]></text><feedback><text>a never becomes true, so CC fails.</text></feedback></answer>
+    <generalfeedback><text>With (T,F,T) and (F,T,F) each of a, b, c takes both values (CC met), but a &amp;&amp; b &amp;&amp; c is false in both rows, so PC fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of (a AND b) OR (c AND d)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 16 truth-table rows, how many make <code>(a && b) || (c && d)</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — |a&amp;&amp;b| = 4, |c&amp;&amp;d| = 4, overlap = 1, so 4 + 4 - 1 = 7.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>You must subtract the 1 overlapping row (all four true) to avoid double counting.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Inclusion-exclusion gives 4 + 4 - 1 = 7, not 6.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Each conjunction alone is true in 4 rows, but together they cover 7.</text></feedback></answer>
+    <generalfeedback><text>a &amp;&amp; b is true in 4 rows, c &amp;&amp; d in 4 rows; they overlap only when all four are true (1 row). 4 + 4 - 1 = 7.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a OR b OR c OR d</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 16 truth-table rows, how many make <code>a || b || c || d</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15</text><feedback><text>Correct — only the all-false row fails.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>The all-false row does not satisfy a disjunction.</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>Exactly one row (all false) fails, leaving 15.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 would be a conjunction; a 4-way disjunction is true on 15 rows.</text></feedback></answer>
+    <generalfeedback><text>A 4-way disjunction is false only on the single all-false row, so 15 of 16 rows satisfy it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of a AND b AND c AND d</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 16 truth-table rows, how many make <code>a && b && c && d</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — only the all-true row satisfies a 4-way conjunction.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>All four clauses must be true simultaneously, which happens in exactly 1 row.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>A conjunction is true only when every clause is true: 1 row.</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 is the count for the disjunction, not the conjunction.</text></feedback></answer>
+    <generalfeedback><text>A conjunction is true only when every clause is true, so exactly 1 of the 16 rows satisfies it.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Infeasible combination breaks full CoC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If two clauses of a predicate can never be true at the same time, then full Combinatorial Coverage (all 2^n rows) is infeasible.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the combination requiring both clauses true can never be executed.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>An unreachable combination means at least one of the 2^n rows cannot be produced, so full CoC is infeasible.</text></feedback></answer>
+    <generalfeedback><text>CoC demands every one of the 2^n combinations. If one is logically impossible, the complete set cannot be achieved, so full CoC is infeasible (only the feasible rows can be required).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible CoC combinations with three clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate uses clauses <code>a: x > 0</code>, <code>b: x < 0</code>, and <code>c: y > 0</code>. Of the 8 CoC combinations, how many are <strong>feasible</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — the 2 combinations with a=T and b=T (over c) are impossible, leaving 6.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>a and b cannot both be true, so the 2 rows with a=T, b=T are infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Only the 2 rows with a=T and b=T are infeasible; 6 remain.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>Two rows (a=T, b=T with c either value) are infeasible, not one.</text></feedback></answer>
+    <generalfeedback><text>a and b are mutually exclusive, so both a=T, b=T rows (c=T and c=F) are infeasible: 8 - 2 = 6 feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CoC requirements after one infeasible combination</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A 2-clause predicate has one infeasible combination. How many Combinatorial Coverage test requirements remain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — 2^2 = 4 minus the 1 infeasible combination.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The infeasible combination is dropped, leaving 3.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only one combination is removed, so 3 remain.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Removing one of four combinations leaves three, not one.</text></feedback></answer>
+    <generalfeedback><text>CoC would need 2^2 = 4 combinations; removing the single infeasible one leaves 3 feasible requirements.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CC of a 3-clause predicate needs 3 tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Clause Coverage of a predicate with 3 independent clauses requires at least 3 tests.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — one all-true and one all-false test cover all three clauses, so 2 tests suffice.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>CC needs only 2 tests: all clauses true, then all false, flips every clause.</text></feedback></answer>
+    <generalfeedback><text>The number of tests for CC does not grow with clause count when clauses are independent: 2 tests (all-true, all-false) always suffice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CC-but-not-PC for a disjunction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>p = a || b</code>, which 2-test set satisfies <strong>Clause Coverage but not Predicate Coverage</strong>? (rows given as (a, b))</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[{(T, F), (F, T)}]]></text><feedback><text>Correct — each clause takes both values, but p is true in both rows, so PC fails.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, T), (F, F)}]]></text><feedback><text>Here p is true then false, so PC is satisfied.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(T, F), (F, F)}]]></text><feedback><text>b never becomes true, so CC is not met (and p is true then false).</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[{(F, F), (T, T)}]]></text><feedback><text>p is false then true here, so PC is satisfied.</text></feedback></answer>
+    <generalfeedback><text>With (T,F) and (F,T) each clause takes both values (CC met), but a || b is true in both rows, so the predicate is never false and PC fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of (a OR b) AND (c OR d)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 16 truth-table rows, how many make <code>(a || b) && (c || d)</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — (a || b) holds in 3 of 4 (a,b) combos and (c || d) in 3 of 4 (c,d) combos: 3 x 3 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>Each disjunction holds in 3 of its 4 combos, so 3 x 3 = 9, not 12.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the count for (a &amp;&amp; b) || (c &amp;&amp; d), a different predicate.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Multiply the independent halves: 3 x 3 = 9.</text></feedback></answer>
+    <generalfeedback><text>The two halves are over disjoint clauses. a || b is true in 3 of 4 (a,b) rows; c || d in 3 of 4 (c,d) rows. 3 x 3 = 9.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Tests to meet both PC and CC (a OR b OR c)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>p = a || b || c</code>, what is the minimum number of tests that satisfies <strong>both</strong> PC and CC?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — {(T,T,T),(F,F,F)} makes p both values and each clause both values.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Two tests, all-true and all-false, already meet both criteria.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the CoC size; PC and CC together need only 2.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Two well-chosen tests suffice for PC and CC together.</text></feedback></answer>
+    <generalfeedback><text>{(T,T,T),(F,F,F)} gives p = true then false (PC) and each clause both values (CC), so 2 tests suffice.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>PC infeasible for a contradictory predicate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>p = a && !a</code>, Predicate Coverage is infeasible because the predicate can never be true.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a and !a are contradictory, so p is always false and can never be made true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>a &amp;&amp; !a is a contradiction; the predicate is false for every input, so PC (which needs a true case) is infeasible.</text></feedback></answer>
+    <generalfeedback><text>The clauses a and !a are dependent (one is the negation of the other), so a &amp;&amp; !a is always false. PC requires a true evaluation, which is impossible here.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfying rows of NOT (a OR b) AND (c OR d)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Of the 16 truth-table rows, how many make <code>!(a || b) && (c || d)</code> <strong>true</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — !(a || b) forces a=F, b=F (1 combo), and (c || d) holds in 3 of 4: 1 x 3 = 3.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>!(a || b) is true in only 1 of the 4 (a,b) combos, not 3; the answer is 1 x 3 = 3.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>a=F, b=F is required, so only 3 of the (c || d) rows qualify.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>c || d contributes 3 rows, not 1, once a=F and b=F are fixed.</text></feedback></answer>
+    <generalfeedback><text>!(a || b) is true only when a=F and b=F (1 of 4 combos); c || d is true in 3 of 4. Total = 1 x 3 = 3.</text></generalfeedback>
+  </question>
+</quiz>

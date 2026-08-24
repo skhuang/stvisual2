@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Logic Active-Clause Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination as an XOR condition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fix the minor clauses at some assignment. Major clause c <strong>determines</strong> predicate p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[p|<sub>c=T</sub> XOR p|<sub>c=F</sub> is true (evaluating with those minor values)]]></text><feedback><text>Correct — the two evaluations of p differ, so toggling c alone toggles p.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[p|<sub>c=T</sub> AND p|<sub>c=F</sub> is true]]></text><feedback><text>That would require p true in both cases, meaning c does NOT change p.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[p|<sub>c=T</sub> is true]]></text><feedback><text>Determination is about the two values differing, not about p being true when c is true.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[c and p have the same truth value]]></text><feedback><text>That is not the definition; determination compares p at c=T versus c=F.</text></feedback></answer>
+    <generalfeedback><text>With the minor clauses held fixed, c determines p iff evaluating p with c=true and with c=false gives different results, i.e. p|<sub>c=T</sub> &#8853; p|<sub>c=F</sub> = true. This XOR test is the operational definition of determination.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is the major clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an active-clause coverage requirement, the <strong>major clause</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The clause whose determination of the predicate is being tested</text><feedback><text>Correct — we focus on one clause at a time and require it to determine p.</text></feedback></answer>
+    <answer fraction="0"><text>The clause that appears first (leftmost) in the predicate</text><feedback><text>Position is irrelevant; the major clause is whichever one we are currently testing.</text></feedback></answer>
+    <answer fraction="0"><text>The clause with the most occurrences in the predicate</text><feedback><text>Frequency does not define the major clause.</text></feedback></answer>
+    <answer fraction="0"><text>Any clause that is always true</text><feedback><text>A constant clause could never determine p; the major clause is the one under test.</text></feedback></answer>
+    <generalfeedback><text>Active-clause criteria pick one clause as the major clause (c_i) and require it to determine the predicate; every other clause is a minor clause whose value is chosen to enable that determination.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What are the minor clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When clause c_i is the major clause, the <strong>minor clauses</strong> are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All the other clauses, whose values are chosen so that c_i determines the predicate</text><feedback><text>Correct — they are set to let the major clause control the outcome.</text></feedback></answer>
+    <answer fraction="0"><text>The clauses that also determine the predicate at the same time</text><feedback><text>Minor clauses are simply the non-major clauses; they need not determine p.</text></feedback></answer>
+    <answer fraction="0"><text>The clauses that are removed from the predicate</text><feedback><text>They stay in the predicate; only their values are fixed.</text></feedback></answer>
+    <answer fraction="0"><text>The clauses evaluated to false</text><feedback><text>Minor clauses may be true or false; the label has nothing to do with their value.</text></feedback></answer>
+    <generalfeedback><text>For each choice of major clause, the remaining clauses are the minor clauses. Their values are set (per the criterion's rules) so that toggling the major clause toggles the predicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Active clause at an assignment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A clause is said to be <strong>active</strong> at a given test (assignment) when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It determines the predicate there — flipping it alone would change the predicate's value</text><feedback><text>Correct — an active clause is one that determines p at that row.</text></feedback></answer>
+    <answer fraction="0"><text>It is evaluated to true at that test</text><feedback><text>Being true is unrelated to being active; an active clause can be true or false.</text></feedback></answer>
+    <answer fraction="0"><text>It is the only clause in the predicate</text><feedback><text>Predicates with many clauses still have active clauses at particular rows.</text></feedback></answer>
+    <answer fraction="0"><text>It is masked by the other clauses</text><feedback><text>A masked clause is the opposite of active — it does not determine p.</text></feedback></answer>
+    <generalfeedback><text>A clause is active at a test when it determines the predicate there; the active-clause criteria are named for requiring each clause to be active in the tests that exercise it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "General" means in GACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>General</strong> Active Clause Coverage (GACC), the word "General" refers to the fact that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The minor-clause values may differ between the major-clause-true and major-clause-false tests</text><feedback><text>Correct — GACC is the most permissive about the minor clauses.</text></feedback></answer>
+    <answer fraction="0"><text>The minor-clause values must be identical across the pair</text><feedback><text>That restriction is RACC, not GACC.</text></feedback></answer>
+    <answer fraction="0"><text>The predicate must take both values across the pair</text><feedback><text>That extra correlation requirement is CACC.</text></feedback></answer>
+    <answer fraction="0"><text>All 2^n clause combinations are covered</text><feedback><text>That is Combinatorial Coverage.</text></feedback></answer>
+    <generalfeedback><text>GACC only requires that the major clause determine p and take both values; it places no constraint linking the minor clauses of the two tests, so they may take any (possibly different) values.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "Correlated" means in CACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Correlated</strong> Active Clause Coverage (CACC), what is "correlated" with the major clause changing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The value of the predicate p — it must take both true and false across the pair</text><feedback><text>Correct — the major clause's flip is correlated with a change in p.</text></feedback></answer>
+    <answer fraction="0"><text>The values of the minor clauses, which must stay identical</text><feedback><text>Requiring identical minor clauses is RACC.</text></feedback></answer>
+    <answer fraction="0"><text>The number of true clauses in the predicate</text><feedback><text>CACC says nothing about counting true clauses.</text></feedback></answer>
+    <answer fraction="0"><text>The execution time of the two tests</text><feedback><text>Correlation here is about truth values, not performance.</text></feedback></answer>
+    <generalfeedback><text>CACC requires that, in the pair of tests for each major clause, the predicate p be true in one and false in the other — the change in p is correlated with the flip of the major clause.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "Restricted" means in RACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Restricted</strong> Active Clause Coverage (RACC), what is restricted?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The minor clauses must hold identical values in the major-clause-true and major-clause-false tests</text><feedback><text>Correct — RACC pins the minor clauses to the same values across the pair.</text></feedback></answer>
+    <answer fraction="0"><text>The number of clauses is restricted to at most three</text><feedback><text>RACC has no limit on the number of clauses.</text></feedback></answer>
+    <answer fraction="0"><text>Only the predicate value is restricted to true</text><feedback><text>RACC does not fix p to true; the major clause still determines p.</text></feedback></answer>
+    <answer fraction="0"><text>The major clause is restricted to being false</text><feedback><text>The major clause must take both values, not be restricted to false.</text></feedback></answer>
+    <generalfeedback><text>RACC restricts the minor clauses to identical values across the two tests of each major clause — the strictest of the three active-clause criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test requirements per clause under ACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Active Clause Coverage generates, for each clause chosen as the major clause, how many test requirements?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — one with the major clause true and one with it false (both determining p)</text><feedback><text>Correct — each clause yields a true/false determining pair.</text></feedback></answer>
+    <answer fraction="0"><text>1 — a single test where the clause determines p</text><feedback><text>The clause must be tested both true and false while determining p, so two requirements.</text></feedback></answer>
+    <answer fraction="0"><text>2^n — all combinations of the other clauses</text><feedback><text>That is Combinatorial Coverage, not ACC.</text></feedback></answer>
+    <answer fraction="0"><text>n — one per other clause</text><feedback><text>Each major clause gives exactly two requirements, regardless of n.</text></feedback></answer>
+    <generalfeedback><text>For each major clause, ACC requires two tests in which that clause determines the predicate: one with the clause true and one with it false. With n clauses that is 2n requirements (before merging shared tests).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination in a AND b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8743; b, clause a determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = true</text><feedback><text>Correct — with b true, p equals a, so flipping a flips p.</text></feedback></answer>
+    <answer fraction="0"><text>b = false</text><feedback><text>With b false, p is false regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>a = true</text><feedback><text>Determination for a depends on the minor clause b, not on a's own value.</text></feedback></answer>
+    <answer fraction="0"><text>Never, since it is a conjunction</text><feedback><text>a does determine p in a conjunction — precisely when the other clause is true.</text></feedback></answer>
+    <generalfeedback><text>For a conjunction p = a &#8743; b, clause a determines p exactly when the other clause b is true; then p mirrors a.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination in a OR b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8744; b, clause a determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = false</text><feedback><text>Correct — with b false, p equals a, so flipping a flips p.</text></feedback></answer>
+    <answer fraction="0"><text>b = true</text><feedback><text>With b true, p is true regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>a = false</text><feedback><text>Determination for a depends on the minor clause b, not on a's own value.</text></feedback></answer>
+    <answer fraction="0"><text>Always, for a disjunction</text><feedback><text>a fails to determine p when b is true.</text></feedback></answer>
+    <generalfeedback><text>For a disjunction p = a &#8744; b, clause a determines p exactly when the other clause b is false; then p mirrors a. (Dually, in a &#8743; b, a determines p when b is true.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum CACC test count formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a predicate with n independent clauses, the minimum number of tests that can satisfy CACC (MC/DC) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n + 1</text><feedback><text>Correct — well-chosen tests can be shared across clauses, giving a minimum of n+1.</text></feedback></answer>
+    <answer fraction="0"><text>2n</text><feedback><text>2n is the upper bound (a fresh pair per clause), not the minimum.</text></feedback></answer>
+    <answer fraction="0"><text>2^n</text><feedback><text>2^n is Combinatorial Coverage, far more than CACC needs.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 suffices only for Predicate Coverage, not CACC.</text></feedback></answer>
+    <generalfeedback><text>Because a single test can serve as the determining test for several clauses at once, CACC/MC-DC for n independent clauses needs a minimum of n+1 tests (and at most 2n).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MC/DC equals which active-clause criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The industry criterion MC/DC (as in DO-178C) corresponds most closely to which active-clause criterion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Correlated Active Clause Coverage (CACC)</text><feedback><text>Correct — generic MC/DC requires each clause to independently affect the outcome, i.e. CACC.</text></feedback></answer>
+    <answer fraction="0"><text>General Active Clause Coverage (GACC)</text><feedback><text>GACC does not require p to change with the clause, so it is weaker than MC/DC.</text></feedback></answer>
+    <answer fraction="0"><text>Combinatorial Coverage (CoC)</text><feedback><text>CoC requires all 2^n combinations; MC/DC needs only about n+1 tests.</text></feedback></answer>
+    <answer fraction="0"><text>Predicate Coverage (PC)</text><feedback><text>PC only checks the whole decision, far weaker than MC/DC.</text></feedback></answer>
+    <generalfeedback><text>Generic MC/DC is equivalent to CACC: each clause must be shown to independently affect the decision's outcome. (Strict "unique-cause" MC/DC corresponds to RACC.)</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>ACC needs both determining values</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Active Clause Coverage requires each clause, while it determines the predicate, to be tested both true and false.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — each major clause gets a determining-true and a determining-false test.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>ACC's whole point is a true/false pair for each clause while it is active (determining p).</text></feedback></answer>
+    <generalfeedback><text>For every clause chosen as the major clause, ACC demands two tests in which the clause determines p: one with the clause true and one with it false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Family of GACC, CACC, RACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>GACC, CACC, and RACC together form which family of logic-coverage criteria?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The active-clause criteria (each clause must determine the predicate)</text><feedback><text>Correct — all three require the major clause to be active (to determine p).</text></feedback></answer>
+    <answer fraction="0"><text>The inactive-clause criteria (each clause must NOT determine the predicate)</text><feedback><text>That is the GICC/RICC family, the complement of these.</text></feedback></answer>
+    <answer fraction="0"><text>The DNF (implicant-based) criteria</text><feedback><text>Those are criteria such as UTPC and CUTPNFP, not the active-clause family.</text></feedback></answer>
+    <answer fraction="0"><text>The combinatorial criteria</text><feedback><text>Combinatorial Coverage is a single criterion, not this family.</text></feedback></answer>
+    <generalfeedback><text>GACC, CACC, and RACC are the three active-clause coverage criteria: each requires the major clause to determine (be active in) the predicate, differing only in how the minor clauses and p are constrained.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Determining clause is called active</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A clause that determines the predicate at a given test is called an <em>active</em> clause at that test.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — "active" is exactly the term for a clause that determines p at that assignment.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A determining clause is active; a non-determining (masked) clause is inactive.</text></feedback></answer>
+    <generalfeedback><text>Determination and activeness are the same notion: a clause is active at a test precisely when it determines the predicate there. This is why GACC/CACC/RACC are the "active-clause" criteria.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Active-Clause Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Minor values for a in (a OR b) AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8744; b) &#8743; c, which minor-clause values make clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = false and c = true</text><feedback><text>Correct — then p reduces to a, so flipping a flips p.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and c = true</text><feedback><text>With b true, a &#8744; b is true regardless of a, so a is masked.</text></feedback></answer>
+    <answer fraction="0"><text>b = false and c = false</text><feedback><text>With c false, p is false regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and c = false</text><feedback><text>Both conditions block a: c false forces p false and b true masks a.</text></feedback></answer>
+    <generalfeedback><text>a determines the disjunction a &#8744; b only when b = false, and the disjunction determines p = (&#8230;) &#8743; c only when c = true. So a determines p exactly when b = false and c = true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minor values for b in a AND (b OR c)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8743; (b &#8744; c), which minor-clause values make clause b <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = true and c = false</text><feedback><text>Correct — then p reduces to b, so flipping b flips p.</text></feedback></answer>
+    <answer fraction="0"><text>a = true and c = true</text><feedback><text>With c true, b &#8744; c is true regardless of b, so b is masked.</text></feedback></answer>
+    <answer fraction="0"><text>a = false and c = false</text><feedback><text>With a false, p is false regardless of b, so b cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>a = false and c = true</text><feedback><text>Both conditions block b: a false forces p false and c true masks b.</text></feedback></answer>
+    <generalfeedback><text>b determines the disjunction b &#8744; c only when c = false, and that disjunction determines p = a &#8743; (&#8230;) only when a = true. So b determines p exactly when a = true and c = false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minor values for b in (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8743; b) &#8744; c, which minor-clause values make clause b <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = true and c = false</text><feedback><text>Correct — then p reduces to b, so flipping b flips p.</text></feedback></answer>
+    <answer fraction="0"><text>a = false and c = false</text><feedback><text>With a false, a &#8743; b is false regardless of b, so b is masked.</text></feedback></answer>
+    <answer fraction="0"><text>a = true and c = true</text><feedback><text>With c true, p is true regardless of b, so b cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>a = false and c = true</text><feedback><text>Both conditions block b: a false masks b and c true forces p true.</text></feedback></answer>
+    <generalfeedback><text>b passes through the term a &#8743; b only when a = true, and that term reaches p = (&#8230;) &#8744; c only when c = false. So b determines p exactly when a = true and c = false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classifying a CACC-only pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8743; (b &#8744; c) with major clause a, consider the test pair {(a=T, b=T, c=F), (a=F, b=F, c=T)}. Which is the <strong>strongest</strong> active-clause criterion this pair satisfies for a?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CACC (but not RACC)</text><feedback><text>Correct — a determines p in both rows and p differs (T then F), but the minor values (b,c) differ, so it is not RACC.</text></feedback></answer>
+    <answer fraction="0"><text>RACC</text><feedback><text>RACC needs identical minor values; here (b,c) is (T,F) then (F,T), so RACC fails.</text></feedback></answer>
+    <answer fraction="0"><text>Only GACC</text><feedback><text>It is at least CACC, because p takes both values across the pair.</text></feedback></answer>
+    <answer fraction="0"><text>Neither GACC, CACC, nor RACC</text><feedback><text>a determines p in both rows, so at least GACC and CACC are met.</text></feedback></answer>
+    <generalfeedback><text>In both rows b &#8744; c is true, so a determines p; p is true then false, satisfying CACC (and hence GACC). But the minor values differ ((T,F) vs (F,T)), so RACC is not satisfied. The strongest met is CACC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classifying a RACC pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8743; (b &#8744; c) with major clause a, consider the test pair {(a=T, b=T, c=F), (a=F, b=T, c=F)}. Which is the <strong>strongest</strong> active-clause criterion this pair satisfies for a?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RACC</text><feedback><text>Correct — a determines p in both rows, p differs, and the minor values (b=T, c=F) are identical across the pair.</text></feedback></answer>
+    <answer fraction="0"><text>CACC but not RACC</text><feedback><text>The minor values ARE identical here, so RACC (the stronger criterion) is satisfied.</text></feedback></answer>
+    <answer fraction="0"><text>Only GACC</text><feedback><text>p also takes both values, so CACC and even RACC hold.</text></feedback></answer>
+    <answer fraction="0"><text>Combinatorial Coverage</text><feedback><text>A single pair cannot achieve Combinatorial Coverage of three clauses.</text></feedback></answer>
+    <generalfeedback><text>b &#8744; c = true in both rows so a determines p; p is true then false (CACC); and the minor values (b=T, c=F) match across the pair (RACC). RACC is the strongest satisfied, and RACC subsumes CACC and GACC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why CACC subsumes Predicate Coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does CACC subsume Predicate Coverage (PC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each major clause's pair forces p to be true in one test and false in the other, so p takes both values</text><feedback><text>Correct — that is exactly what PC requires.</text></feedback></answer>
+    <answer fraction="0"><text>Because CACC tests every combination of clause values</text><feedback><text>That is Combinatorial Coverage; CACC does not test all combinations.</text></feedback></answer>
+    <answer fraction="0"><text>Because CACC fixes the minor clauses to identical values</text><feedback><text>That describes RACC's extra restriction, not why PC is subsumed.</text></feedback></answer>
+    <answer fraction="0"><text>Because every clause is made both true and false</text><feedback><text>That gives Clause Coverage, not Predicate Coverage.</text></feedback></answer>
+    <generalfeedback><text>CACC requires p to differ across each major clause's test pair, so p is driven to both true and false — which is precisely Predicate Coverage. (GACC lacks this guarantee, so GACC does not subsume PC.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination of c in (a OR b) AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8744; b) &#8743; c, clause c determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a &#8744; b is true</text><feedback><text>Correct — when (a &#8744; b) is true, p equals c; when it is false, p is false regardless of c.</text></feedback></answer>
+    <answer fraction="0"><text>a &#8744; b is false</text><feedback><text>Then p is false no matter what c is, so c does not determine p.</text></feedback></answer>
+    <answer fraction="0"><text>a is true and b is true</text><feedback><text>c determines p whenever a &#8744; b is true, which includes rows where only one of a, b is true.</text></feedback></answer>
+    <answer fraction="0"><text>Always</text><feedback><text>c cannot determine p when a &#8744; b is false.</text></feedback></answer>
+    <generalfeedback><text>For a conjunction p = X &#8743; c, clause c determines p exactly when the other operand X is true. Here X = a &#8744; b, so c determines p when a &#8744; b is true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minor values for c in (a OR b) AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = (a &#8744; b) &#8743; c, which condition on the minor clauses makes c <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At least one of a, b is true (a &#8744; b is true)</text><feedback><text>Correct — then p equals c.</text></feedback></answer>
+    <answer fraction="0"><text>Both a and b are false</text><feedback><text>Then a &#8744; b is false and p is false regardless of c.</text></feedback></answer>
+    <answer fraction="0"><text>Both a and b are true only</text><feedback><text>a=T,b=F (or a=F,b=T) also makes a &#8744; b true, so those rows work too.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly one of a, b is true</text><feedback><text>a=T,b=T also enables c to determine p, so it is not "exactly one".</text></feedback></answer>
+    <generalfeedback><text>c determines p = (a &#8744; b) &#8743; c whenever the other operand a &#8744; b is true, i.e. whenever at least one of a, b is true (three of the four (a,b) combinations).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of ACC requirements for 3 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Before merging any shared tests, how many active-clause test requirements does a 3-clause predicate generate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 2 requirements (true/false) for each of the 3 major clauses.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Each clause needs a true AND a false determining test, so 2 per clause.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 is Combinatorial Coverage, not the ACC requirement count.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 = n+1 is the minimum test count after merging, not the number of requirements.</text></feedback></answer>
+    <generalfeedback><text>ACC produces 2 requirements per clause (major-true and major-false, both determining p), so 2 &#215; 3 = 6 requirements. Sharing tests then reduces the actual test count to as few as n+1 = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minor values for a in a AND b AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8743; b &#8743; c, which minor-clause values make clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = true and c = true</text><feedback><text>Correct — then p reduces to a, so flipping a flips p.</text></feedback></answer>
+    <answer fraction="0"><text>b = false and c = false</text><feedback><text>Any false clause forces the conjunction false regardless of a.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and c = false</text><feedback><text>c = false forces p false regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b = false and c = true</text><feedback><text>b = false forces p false regardless of a, so a cannot determine p.</text></feedback></answer>
+    <generalfeedback><text>In a conjunction, a clause determines the predicate only when every other clause is true. For a &#8743; b &#8743; c, a determines p exactly when b = true and c = true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minor values for a in a OR b OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8744; b &#8744; c, which minor-clause values make clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = false and c = false</text><feedback><text>Correct — then p reduces to a, so flipping a flips p.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and c = true</text><feedback><text>Any true clause forces the disjunction true regardless of a.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and c = false</text><feedback><text>b = true forces p true regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b = false and c = true</text><feedback><text>c = true forces p true regardless of a, so a cannot determine p.</text></feedback></answer>
+    <generalfeedback><text>In a disjunction, a clause determines the predicate only when every other clause is false. For a &#8744; b &#8744; c, a determines p exactly when b = false and c = false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Active clauses at a row of (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c evaluated at a=T, b=F, c=F, which clauses are <strong>active</strong> (determine p there)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b and c</text><feedback><text>Correct — flipping b (F&#8594;T) makes p true, and flipping c (F&#8594;T) makes p true; flipping a leaves p false.</text></feedback></answer>
+    <answer fraction="0"><text>a and c</text><feedback><text>Flipping a (T&#8594;F) leaves a &#8743; b false, so p stays false; a is not active.</text></feedback></answer>
+    <answer fraction="0"><text>a, b, and c</text><feedback><text>a is not active here: with b false, a &#8743; b is false whether a is T or F.</text></feedback></answer>
+    <answer fraction="0"><text>c only</text><feedback><text>b is also active: flipping b to true makes a &#8743; b true, hence p true.</text></feedback></answer>
+    <generalfeedback><text>At a=T,b=F,c=F, p = (T&#8743;F)&#8744;F = F. Flip a &#8594; (F&#8743;F)&#8744;F = F (not active). Flip b &#8594; (T&#8743;T)&#8744;F = T (active). Flip c &#8594; (T&#8743;F)&#8744;T = T (active). So b and c are active.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CACC subsumes GACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Correlated Active Clause Coverage (CACC) subsumes General Active Clause Coverage (GACC).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — CACC adds the requirement that p differ across the pair, keeping all of GACC's requirements, so it is at least as strong.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Every CACC-adequate test set is also GACC-adequate, so CACC subsumes GACC.</text></feedback></answer>
+    <generalfeedback><text>The active-clause hierarchy is RACC subsumes CACC subsumes GACC. CACC keeps GACC's determination requirements and merely adds the correlation that p change across each pair, so it subsumes GACC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination for X AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Let p = X &#8743; c, where X is any subexpression and c is a single clause. Clause c determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>X evaluates to true</text><feedback><text>Correct — with X true, p equals c, so flipping c flips p.</text></feedback></answer>
+    <answer fraction="0"><text>X evaluates to false</text><feedback><text>With X false, p is false regardless of c.</text></feedback></answer>
+    <answer fraction="0"><text>c evaluates to true</text><feedback><text>Determination for c depends on X, not on c's own value.</text></feedback></answer>
+    <answer fraction="0"><text>Always, since c is a top-level clause</text><feedback><text>c is masked whenever X is false.</text></feedback></answer>
+    <generalfeedback><text>For a top-level conjunction p = X &#8743; c, c determines p exactly when the other operand X is true. Dually, for p = X &#8744; c, c determines p exactly when X is false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination for X OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Let p = X &#8744; c, where X is any subexpression and c is a single clause. Clause c determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>X evaluates to false</text><feedback><text>Correct — with X false, p equals c, so flipping c flips p.</text></feedback></answer>
+    <answer fraction="0"><text>X evaluates to true</text><feedback><text>With X true, p is true regardless of c.</text></feedback></answer>
+    <answer fraction="0"><text>c evaluates to false</text><feedback><text>Determination for c depends on X, not on c's own value.</text></feedback></answer>
+    <answer fraction="0"><text>Always, since c is a top-level clause</text><feedback><text>c is masked whenever X is true.</text></feedback></answer>
+    <generalfeedback><text>For a top-level disjunction p = X &#8744; c, c determines p exactly when the other operand X is false. Dually, for p = X &#8743; c, c determines p exactly when X is true.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Active-Clause Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why RACC subsumes CACC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does RACC subsume CACC?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fixing the minor clauses identical while the major clause determines p forces p to take opposite values across the pair, which is exactly CACC's added requirement</text><feedback><text>Correct — RACC's constraint implies CACC's correlation, and RACC keeps all other ACC requirements.</text></feedback></answer>
+    <answer fraction="0"><text>RACC tests all 2^n combinations, which includes every CACC test</text><feedback><text>RACC does not require all combinations; it uses about n+1 tests, like CACC.</text></feedback></answer>
+    <answer fraction="0"><text>RACC drops the determination requirement, making it easier to satisfy</text><feedback><text>RACC keeps determination; dropping it would make it weaker, not stronger.</text></feedback></answer>
+    <answer fraction="0"><text>RACC only applies to two-clause predicates, where CACC is trivial</text><feedback><text>RACC applies to any predicate.</text></feedback></answer>
+    <generalfeedback><text>Under RACC the minor clauses are identical across the pair and the major clause determines p; determination then means flipping only the major clause flips p, so p is true in one test and false in the other — CACC's requirement. Thus every RACC-adequate set is CACC-adequate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GACC does not subsume PC — counterexample</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider p = a &#8596; b (equivalence, true when a and b are equal). Which test set satisfies GACC yet fails Predicate Coverage, showing GACC does not subsume PC?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{(a=T, b=T), (a=F, b=F)}</text><feedback><text>Correct — both tests give p=true, so PC fails; yet each clause determines p in both, so GACC holds.</text></feedback></answer>
+    <answer fraction="0"><text>{(a=T, b=T), (a=F, b=T)}</text><feedback><text>Here p takes both values (T then F), so this satisfies PC — not a counterexample.</text></feedback></answer>
+    <answer fraction="0"><text>{(a=T, b=T), (a=T, b=F)}</text><feedback><text>Here p takes both values (T then F), so this satisfies PC — not a counterexample.</text></feedback></answer>
+    <answer fraction="0"><text>{(a=F, b=F), (a=T, b=F)}</text><feedback><text>Here p takes both values (T then F), so PC is satisfied — not a counterexample.</text></feedback></answer>
+    <generalfeedback><text>For p = a &#8596; b each clause always determines p. The set {(T,T),(F,F)} makes each clause both true and false while determining p (satisfying GACC), yet p = true in both rows, so Predicate Coverage is not met. This is the classic proof that GACC does not subsume PC.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Every CACC set satisfies PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every test set that satisfies CACC also satisfies Predicate Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — CACC forces p to be true in one test and false in another of each pair, so p takes both values.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>CACC requires p to differ across each major clause's pair, which guarantees Predicate Coverage.</text></feedback></answer>
+    <generalfeedback><text>CACC subsumes Predicate Coverage because it requires p to take both truth values across each pair. (By contrast, GACC does not, since GACC lets the minor clauses vary so p can stay constant.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why RACC can be infeasible while CACC is feasible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Sometimes RACC is infeasible for a clause even though CACC is feasible. The best explanation is that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RACC pins the minor clauses to one identical combination; a constraint among the clauses can forbid that specific combination, while CACC's freedom to use different minor values still allows a valid pair</text><feedback><text>Correct — the extra restriction of RACC can collide with clause constraints that CACC can sidestep.</text></feedback></answer>
+    <answer fraction="0"><text>RACC requires more tests than there are rows in the truth table</text><feedback><text>RACC needs about n+1 tests, well within the 2^n rows.</text></feedback></answer>
+    <answer fraction="0"><text>CACC does not require the major clause to determine p, so it is always feasible</text><feedback><text>CACC does require determination; that is not the reason.</text></feedback></answer>
+    <answer fraction="0"><text>RACC ignores infeasible rows automatically</text><feedback><text>Infeasible rows are precisely what can make RACC unsatisfiable, not something it ignores.</text></feedback></answer>
+    <generalfeedback><text>When clauses are logically coupled, the single identical minor-clause combination RACC demands may be unreachable, whereas CACC can pick two different (each individually reachable) minor assignments. Hence RACC can be infeasible where CACC is feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determining rows for a in (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — a determines p only when b=true and c=false; a is free, giving 2 rows.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the count for c, not a.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>a is masked whenever b=false or c=true, leaving only 2 determining rows.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both a=T and a=F count when b=true, c=false, giving 2 rows.</text></feedback></answer>
+    <generalfeedback><text>a determines p exactly when b=true and c=false (so the term a &#8743; b passes a through and the disjunction does not mask it). That fixes b and c and leaves a free: 2 of the 8 assignments.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determining rows for c in (a OR b) AND (c OR d)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8744; b) &#8743; (c &#8744; d), in how many of the 16 assignments does clause c <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — c determines p when (a &#8744; b)=true (3 of 4) and d=false (1 of 2), c free (2): 3&#215;1&#215;2 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>That would ignore the d=false condition; only half of those rows qualify.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — 3 (a &#8744; b true) &#215; 1 (d false) &#215; 2 (c free) = 6.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>c is masked whenever a &#8744; b is false or d is true, so far fewer than 12 rows qualify.</text></feedback></answer>
+    <generalfeedback><text>c determines c &#8744; d only when d=false, and that disjunction determines p only when a &#8744; b=true. So c determines p when a &#8744; b=true (3 of 4 (a,b)) and d=false, with c free: 3 &#215; 1 &#215; 2 = 6 of 16.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determining rows for a in a OR b OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8744; b &#8744; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — a determines p only when b=false and c=false; a is free, giving 2 rows.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the number of satisfying rows of a &#8744; b &#8744; c, not the determining rows for a.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>a is masked whenever b or c is true, leaving only 2 determining rows.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both a=T and a=F count when b=false, c=false, giving 2 rows.</text></feedback></answer>
+    <generalfeedback><text>In a disjunction a determines p only when every other clause is false. b=false and c=false fixes the minors and leaves a free: 2 of the 8 assignments.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determining rows for a in a AND b AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8743; b &#8743; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — a determines p only when b=true and c=true; a is free, giving 2 rows.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both a=T and a=F count when b=true, c=true, giving 2 rows.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>a is masked whenever b or c is false, leaving only 2 determining rows.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>a determines p in only the 2 rows where b and c are both true.</text></feedback></answer>
+    <generalfeedback><text>In a conjunction a determines p only when every other clause is true. b=true and c=true fixes the minors and leaves a free: 2 of the 8 assignments.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determination condition for a in (a AND b) OR (c AND d)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; (c &#8743; d), clause a determines p exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = true and (c &#8743; d) = false</text><feedback><text>Correct — b true passes a through the first term, and (c &#8743; d) false keeps the disjunction from masking it.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and (c &#8743; d) = true</text><feedback><text>With c &#8743; d true, p is true regardless of a, so a is masked.</text></feedback></answer>
+    <answer fraction="0"><text>b = false and (c &#8743; d) = false</text><feedback><text>With b false, a &#8743; b is false regardless of a, so a cannot determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b = false and (c &#8743; d) = true</text><feedback><text>Both conditions block a: b false masks a and c &#8743; d true forces p true.</text></feedback></answer>
+    <generalfeedback><text>a passes through the term a &#8743; b only when b = true, and that term reaches p = (&#8230;) &#8744; (c &#8743; d) only when the other term c &#8743; d is false. So a determines p exactly when b = true and (c &#8743; d) = false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible RACC pair under an implication constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A predicate uses clauses c1: <code>x &gt; 10</code> and c2: <code>x &gt; 0</code>. A test requirement that needs c1 = true while c2 = false is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Infeasible — x &gt; 10 implies x &gt; 0, so c1 true with c2 false cannot occur</text><feedback><text>Correct — the clauses are logically coupled, so that combination is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible for some value of x</text><feedback><text>No x exceeds 10 without also exceeding 0.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible only under GACC</text><feedback><text>No criterion can realize a logically impossible clause combination.</text></feedback></answer>
+    <answer fraction="0"><text>Always feasible because the clauses are independent</text><feedback><text>These clauses are not independent; c1 implies c2.</text></feedback></answer>
+    <generalfeedback><text>Because x &gt; 10 logically implies x &gt; 0, the combination c1=true, c2=false is unreachable. Any active-clause requirement (including a RACC pair) that depends on that combination is infeasible and must be excluded.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum CACC tests for 3 clauses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A decision has 3 independent clauses. What is the minimum number of tests that can satisfy CACC (MC/DC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — n + 1 = 3 + 1 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 = 2n is the upper bound, not the minimum.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 2^3 is Combinatorial Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>You need at least n + 1 = 4 tests to show all three clauses independently affect the outcome.</text></feedback></answer>
+    <generalfeedback><text>CACC/MC-DC for n independent clauses is achievable with a minimum of n + 1 tests; for n = 3 that is 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What GACC guarantees among PC and CC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about GACC and the basic criteria is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>GACC subsumes Clause Coverage but does not necessarily subsume Predicate Coverage</text><feedback><text>Correct — every clause is made both true and false (CC), but p may stay constant across a pair (so PC can fail).</text></feedback></answer>
+    <answer fraction="0"><text>GACC subsumes both Clause Coverage and Predicate Coverage</text><feedback><text>GACC need not subsume PC; the equivalence predicate is a counterexample.</text></feedback></answer>
+    <answer fraction="0"><text>GACC subsumes Predicate Coverage but not Clause Coverage</text><feedback><text>It is the other way around: GACC gives CC but may miss PC.</text></feedback></answer>
+    <answer fraction="0"><text>GACC subsumes neither Clause nor Predicate Coverage</text><feedback><text>GACC does make each clause both true and false, so it subsumes CC.</text></feedback></answer>
+    <generalfeedback><text>Because each clause is the major clause of a true/false pair, GACC makes every clause take both values, subsuming Clause Coverage. But GACC allows p to remain constant across a pair (e.g. p = a &#8596; b), so it does not necessarily subsume Predicate Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determining rows for a in a EQUIV b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8596; b, in how many of the 4 assignments does clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — for equivalence, flipping a always flips p, so a determines p in every row.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>a determines p for both values of b, so all 4 rows qualify, not 2.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Determination for a &#8596; b does not depend on b, so it holds in all rows.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>a always determines p in an equivalence; the count is 4, not 0.</text></feedback></answer>
+    <generalfeedback><text>p = a &#8596; b equals true when a and b are equal. For any fixed b, flipping a flips p, so a determines p in all 4 assignments. This is why the equivalence gives the GACC-vs-PC counterexample: every row is determining, yet a GACC test set can leave p constant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determining rows for a in (a OR b) AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8744; b) &#8743; c, in how many of the 8 assignments does clause a <strong>determine</strong> p?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — a determines p only when b=false and c=true; a is free, giving 2 rows.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>a is masked whenever b=true (a &#8744; b already true) or c=false, leaving only 2 determining rows.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 would be c's count in a different predicate; here a determines p in just 2 rows.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both a=T and a=F count when b=false, c=true, giving 2 rows.</text></feedback></answer>
+    <generalfeedback><text>a determines the disjunction a &#8744; b only when b=false, and that disjunction determines p only when c=true. So a determines p when b=false and c=true, with a free: 2 of the 8 assignments.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Full active-clause subsumption summary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which summary of the active-clause subsumption relationships is completely correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RACC subsumes CACC subsumes GACC; CACC subsumes PC, but GACC does not necessarily subsume PC</text><feedback><text>Correct — this captures both the internal ordering and the PC relationship.</text></feedback></answer>
+    <answer fraction="0"><text>GACC subsumes CACC subsumes RACC; all three subsume PC</text><feedback><text>The ordering is reversed and GACC does not necessarily subsume PC.</text></feedback></answer>
+    <answer fraction="0"><text>RACC subsumes CACC subsumes GACC; none of them subsumes PC</text><feedback><text>CACC (and RACC) do subsume PC; only GACC may fail to.</text></feedback></answer>
+    <answer fraction="0"><text>All three are equivalent and each subsumes Combinatorial Coverage</text><feedback><text>They are strictly ordered, and Combinatorial Coverage subsumes them, not the reverse.</text></feedback></answer>
+    <generalfeedback><text>The correct picture: RACC &#8839; CACC &#8839; GACC (strongest to weakest). Both RACC and CACC subsume Predicate Coverage because they force p to take both values; GACC does not necessarily, since it can leave p constant across a pair.</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Logic Inactive-Clause Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of inactive clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A major clause c<sub>i</sub> is <strong>inactive</strong> for predicate p (under a fixed assignment of the minor clauses) when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Toggling only c<sub>i</sub>, with the minor clauses fixed, does not change the value of p</text><feedback><text>Correct — an inactive clause does not determine p; flipping it leaves p unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Toggling only c<sub>i</sub>, with the minor clauses fixed, changes the value of p</text><feedback><text>That is an active (determining) clause, the opposite of inactive.</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub> evaluates to false</text><feedback><text>Inactivity is about c<sub>i</sub> not affecting p, not about c<sub>i</sub>'s own value.</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub> does not appear syntactically in p</text><feedback><text>An inactive clause is still part of p; it just happens to be masked by the minor clauses.</text></feedback></answer>
+    <generalfeedback><text>A clause is inactive (does not determine p) under a minor assignment when flipping it, with everything else fixed, leaves p's value unchanged. This is exactly the negation of "determines".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent inactivity condition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With the minor clauses fixed, clause c<sub>i</sub> is inactive for p if and only if:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>p<sub>c<sub>i</sub>=T</sub> equals p<sub>c<sub>i</sub>=F</sub></text><feedback><text>Correct — p takes the same value whether c<sub>i</sub> is true or false, so c<sub>i</sub> has no effect.</text></feedback></answer>
+    <answer fraction="0"><text>p<sub>c<sub>i</sub>=T</sub> differs from p<sub>c<sub>i</sub>=F</sub></text><feedback><text>That is the determination (active) condition, not inactivity.</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub> equals p</text><feedback><text>Inactivity is about c<sub>i</sub> not changing p, not about them being equal.</text></feedback></answer>
+    <answer fraction="0"><text>Every minor clause equals c<sub>i</sub></text><feedback><text>Inactivity does not require the minor clauses to match c<sub>i</sub>.</text></feedback></answer>
+    <generalfeedback><text>c<sub>i</sub> is inactive exactly when p<sub>c<sub>i</sub>=T</sub> = p<sub>c<sub>i</sub>=F</sub> under the fixed minor assignment: the two possible c<sub>i</sub> values give the same p, so c<sub>i</sub> does not determine p.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a is inactive in a AND b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8743; b, clause a is <strong>inactive</strong> exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b is false</text><feedback><text>Correct — with b false, p is false regardless of a, so a does not determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b is true</text><feedback><text>With b true, p equals a, so a determines p — a is active, not inactive.</text></feedback></answer>
+    <answer fraction="0"><text>Always, regardless of b</text><feedback><text>When b is true, a does determine p, so a is not always inactive.</text></feedback></answer>
+    <answer fraction="0"><text>Never</text><feedback><text>a is inactive whenever b is false.</text></feedback></answer>
+    <generalfeedback><text>For a conjunction a &#8743; b, clause a determines p only when b is true. Hence a is inactive exactly when b is false, where p is pinned to false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a is inactive in a OR b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For predicate p = a &#8744; b, clause a is <strong>inactive</strong> exactly when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b is true</text><feedback><text>Correct — with b true, p is true regardless of a, so a does not determine p.</text></feedback></answer>
+    <answer fraction="0"><text>b is false</text><feedback><text>With b false, p equals a, so a determines p — a is active, not inactive.</text></feedback></answer>
+    <answer fraction="0"><text>Always, regardless of b</text><feedback><text>When b is false, a determines p, so a is not always inactive.</text></feedback></answer>
+    <answer fraction="0"><text>Never</text><feedback><text>a is inactive whenever b is true.</text></feedback></answer>
+    <generalfeedback><text>For a disjunction a &#8744; b, clause a determines p only when b is false. Hence a is inactive exactly when b is true, where p is pinned to true.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Inactive means does not determine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A clause is inactive for a predicate exactly when it does <em>not</em> determine that predicate.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — "inactive" is defined as the negation of "determines".</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Inactive and determining are complementary: a clause is inactive precisely when it fails to determine p.</text></feedback></answer>
+    <generalfeedback><text>Active-clause criteria require a clause to determine p; inactive-clause criteria require it to be masked. "Inactive" simply means the clause does not determine the predicate under the given minor assignment.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of inactive-clause coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The inactive-clause criteria (GICC/RICC) are designed to verify that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An inactive (masked) clause genuinely has no effect on the predicate's outcome</text><feedback><text>Correct — they check that masking behaves correctly.</text></feedback></answer>
+    <answer fraction="0"><text>Each clause independently determines the predicate</text><feedback><text>That is the goal of the active-clause criteria (GACC/CACC/RACC).</text></feedback></answer>
+    <answer fraction="0"><text>Every combination of clause values is exercised</text><feedback><text>That is Combinatorial Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The predicate takes both truth values at least once</text><feedback><text>That is merely Predicate Coverage.</text></feedback></answer>
+    <generalfeedback><text>Inactive-clause coverage confirms that when a clause is supposed to be masked, it really has no effect on p — catching bugs where a "don't care" clause secretly changes the outcome.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GICC acronym</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>GICC</strong> stand for?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>General Inactive Clause Coverage</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="0"><text>General Independent Clause Coverage</text><feedback><text>The "I" stands for Inactive, not Independent.</text></feedback></answer>
+    <answer fraction="0"><text>General Active Clause Coverage</text><feedback><text>That is GACC, an active-clause criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Grouped Inactive Combination Coverage</text><feedback><text>Not a standard criterion name.</text></feedback></answer>
+    <generalfeedback><text>GICC = General Inactive Clause Coverage: the inactive-clause criterion whose minor-clause values may differ across the four test requirements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC acronym</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>RICC</strong> stand for?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Restricted Inactive Clause Coverage</text><feedback><text>Correct.</text></feedback></answer>
+    <answer fraction="0"><text>Restricted Independent Clause Coverage</text><feedback><text>The "I" stands for Inactive, not Independent.</text></feedback></answer>
+    <answer fraction="0"><text>Restricted Active Clause Coverage</text><feedback><text>That is RACC, an active-clause criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Reduced Inactive Combination Coverage</text><feedback><text>Not a standard criterion name.</text></feedback></answer>
+    <generalfeedback><text>RICC = Restricted Inactive Clause Coverage: like GICC, but the minor-clause values must match across the paired c<sub>i</sub>=true / c<sub>i</sub>=false requirements at each fixed value of p.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of ICC requirements per clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For each major clause, Inactive Clause Coverage imposes how many test requirements?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the four combinations of c<sub>i</sub> &#8712; {T,F} with p &#8712; {T,F}, all with c<sub>i</sub> inactive.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 would only cover c<sub>i</sub>=true and c<sub>i</sub>=false; ICC also splits on p's value.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>ICC needs four requirements per clause, not one.</text></feedback></answer>
+    <answer fraction="0"><text>2^n (for n clauses)</text><feedback><text>2^n is Combinatorial Coverage, not ICC.</text></feedback></answer>
+    <generalfeedback><text>Because an inactive clause does not determine p, p can independently be true or false. ICC therefore requires four requirements per major clause: c<sub>i</sub>=T&#8743;p=T, c<sub>i</sub>=T&#8743;p=F, c<sub>i</sub>=F&#8743;p=T, c<sub>i</sub>=F&#8743;p=F.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the four ICC requirements vary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The four Inactive Clause Coverage requirements for a major clause enumerate the combinations of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The value of c<sub>i</sub> (true/false) and the value of p (true/false)</text><feedback><text>Correct — 2 &#215; 2 = 4 requirements, all with c<sub>i</sub> inactive.</text></feedback></answer>
+    <answer fraction="0"><text>The values of two of the minor clauses</text><feedback><text>ICC varies c<sub>i</sub> and p, not a pair of minor clauses.</text></feedback></answer>
+    <answer fraction="0"><text>The value of c<sub>i</sub> and whether c<sub>i</sub> determines p</text><feedback><text>c<sub>i</sub> is inactive (does not determine p) in all four requirements; only c<sub>i</sub> and p vary.</text></feedback></answer>
+    <answer fraction="0"><text>All 2^n rows of the truth table</text><feedback><text>That is Combinatorial Coverage.</text></feedback></answer>
+    <generalfeedback><text>Holding c<sub>i</sub> inactive, ICC crosses c<sub>i</sub> &#8712; {T,F} with p &#8712; {T,F}, giving four requirements per major clause.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Value of a AND b when a is inactive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8743; b, when clause a is inactive (b = false), the predicate p is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>False, regardless of a</text><feedback><text>Correct — b false forces a &#8743; b to false whatever a is.</text></feedback></answer>
+    <answer fraction="0"><text>True, regardless of a</text><feedback><text>A conjunction with a false operand is false, not true.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to a</text><feedback><text>That happens when b is true (a active), not when a is inactive.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>p is well-defined and equals false.</text></feedback></answer>
+    <generalfeedback><text>Making a inactive in a &#8743; b requires b = false, which pins p to false. So while a is inactive, p can only be false — a fact with consequences for ICC feasibility.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Value of a OR b when a is inactive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8744; b, when clause a is inactive (b = true), the predicate p is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>True, regardless of a</text><feedback><text>Correct — b true forces a &#8744; b to true whatever a is.</text></feedback></answer>
+    <answer fraction="0"><text>False, regardless of a</text><feedback><text>A disjunction with a true operand is true, not false.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to a</text><feedback><text>That happens when b is false (a active), not when a is inactive.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>p is well-defined and equals true.</text></feedback></answer>
+    <generalfeedback><text>Making a inactive in a &#8744; b requires b = true, which pins p to true. So while a is inactive, p can only be true — the dual of the conjunction case.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Minor clauses determine p when masked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a major clause is inactive, the predicate's value is determined entirely by the minor clauses.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — since the major clause has no effect, only the minor clauses fix p.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>An inactive major clause cannot change p, so p is fixed by the minor clauses alone.</text></feedback></answer>
+    <generalfeedback><text>An inactive clause does not affect p, so with it masked the outcome is a function of the minor clauses only. This is why, while c<sub>i</sub> is inactive, p can still independently be true or false depending on the minor clauses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contrast with active-clause coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which family of criteria is the direct <strong>contrast</strong> to the inactive-clause criteria?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The active-clause criteria (GACC / CACC / RACC)</text><feedback><text>Correct — they require the clause to determine p, whereas inactive-clause criteria require it to be masked.</text></feedback></answer>
+    <answer fraction="0"><text>Predicate Coverage and Clause Coverage</text><feedback><text>Those are coarser criteria, not the active/inactive counterpart.</text></feedback></answer>
+    <answer fraction="0"><text>Combinatorial Coverage</text><feedback><text>CoC exercises all combinations; it is not the determination-based counterpart.</text></feedback></answer>
+    <answer fraction="0"><text>The DNF criteria (implicant / unique-true-point)</text><feedback><text>Those are a separate DNF-based family, not the direct contrast.</text></feedback></answer>
+    <generalfeedback><text>The active-clause criteria (GACC/CACC/RACC) require each clause to determine p; the inactive-clause criteria (GICC/RICC) require each clause to be masked. They are complementary halves of the determination idea.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>b false makes a active in a OR b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8744; b, setting b = false makes clause a <em>active</em> (determining), not inactive.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — with b false, p equals a, so a determines p.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>With b false, p = a &#8744; false = a, so flipping a flips p; a is active. a would be inactive when b = true.</text></feedback></answer>
+    <generalfeedback><text>For a &#8744; b, a is inactive when b = true (p pinned to true) and active when b = false (p mirrors a).</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Inactive-Clause Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Make c inactive in (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause <strong>c</strong> inactive?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = true, b = true</text><feedback><text>Correct — then a &#8743; b is true, so p is true regardless of c; c is masked.</text></feedback></answer>
+    <answer fraction="0"><text>a = false, b = false</text><feedback><text>Then a &#8743; b is false, so p = c and c determines p (active).</text></feedback></answer>
+    <answer fraction="0"><text>a = true, b = false</text><feedback><text>Then a &#8743; b is false, so p = c and c is active.</text></feedback></answer>
+    <answer fraction="0"><text>a = false, b = true</text><feedback><text>Then a &#8743; b is false, so p = c and c is active.</text></feedback></answer>
+    <generalfeedback><text>For a disjunction X &#8744; c, clause c is inactive exactly when the other operand X is true. Here X = a &#8743; b, so c is inactive when a = true and b = true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a determines (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c, which minor assignment makes clause a <strong>active</strong> (i.e., a is <em>not</em> inactive)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = true, c = false</text><feedback><text>Correct — only then does p reduce to a, so a determines p.</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = false</text><feedback><text>With b false, a &#8743; b is false regardless of a, so a is inactive.</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = true</text><feedback><text>c true pins p to true and b false masks a, so a is inactive.</text></feedback></answer>
+    <answer fraction="0"><text>b = true, c = true</text><feedback><text>c true pins p to true regardless of a, so a is inactive.</text></feedback></answer>
+    <generalfeedback><text>a determines p only when its term passes a through (b = true) and the disjunction does not mask it (c = false). At every other minor assignment, a is inactive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The four ICC requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For an inactive major clause c<sub>i</sub>, Inactive Clause Coverage requires test requirements covering exactly:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c<sub>i</sub>=T&#8743;p=T, c<sub>i</sub>=T&#8743;p=F, c<sub>i</sub>=F&#8743;p=T, c<sub>i</sub>=F&#8743;p=F</text><feedback><text>Correct — c<sub>i</sub> and p each take both values while c<sub>i</sub> stays inactive.</text></feedback></answer>
+    <answer fraction="0"><text>c<sub>i</sub>=T and c<sub>i</sub>=F only</text><feedback><text>That ignores the requirement that p also take both values.</text></feedback></answer>
+    <answer fraction="0"><text>p=T and p=F only</text><feedback><text>That ignores the requirement that c<sub>i</sub> also take both values.</text></feedback></answer>
+    <answer fraction="0"><text>All 2^n combinations of the clause values</text><feedback><text>That is Combinatorial Coverage, not ICC.</text></feedback></answer>
+    <generalfeedback><text>Because an inactive clause cannot change p, p is free to be true or false independently of c<sub>i</sub>. ICC therefore lists all four (c<sub>i</sub>, p) combinations as separate test requirements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How RICC restricts GICC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does Restricted Inactive Clause Coverage (RICC) differ from General Inactive Clause Coverage (GICC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RICC requires the minor-clause values to be identical for the c<sub>i</sub>=true and c<sub>i</sub>=false requirements that share the same value of p</text><feedback><text>Correct — RICC pins the minors across each same-p pair; GICC lets them vary.</text></feedback></answer>
+    <answer fraction="0"><text>RICC requires the minor-clause values to differ across all four requirements</text><feedback><text>RICC constrains minors to be the same across the same-p pairs, not different.</text></feedback></answer>
+    <answer fraction="0"><text>RICC requires c<sub>i</sub> to determine p</text><feedback><text>Both are inactive-clause criteria: c<sub>i</sub> is masked in both, never determining p.</text></feedback></answer>
+    <answer fraction="0"><text>RICC drops one of the four requirements</text><feedback><text>RICC keeps all four requirements; it only adds a constraint on the minor clauses.</text></feedback></answer>
+    <generalfeedback><text>GICC lets the minor-clause values vary freely among the four requirements. RICC adds the restriction that the minors match within each same-p pair (c<sub>i</sub>=T&#8743;p=T with c<sub>i</sub>=F&#8743;p=T, and c<sub>i</sub>=T&#8743;p=F with c<sub>i</sub>=F&#8743;p=F).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Active vs inactive requirement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The active-clause criteria require the major clause to <em>determine</em> p. The inactive-clause criteria instead require the major clause to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Not determine p (be masked by the minor clauses)</text><feedback><text>Correct — inactive-clause coverage exercises the masked case.</text></feedback></answer>
+    <answer fraction="0"><text>Determine p in both directions</text><feedback><text>That is the active-clause idea, the opposite of inactive.</text></feedback></answer>
+    <answer fraction="0"><text>Take the same value as p</text><feedback><text>Masking is not about the clause equalling p.</text></feedback></answer>
+    <answer fraction="0"><text>Be removed from the predicate</text><feedback><text>The clause stays in the predicate; it is merely masked at runtime.</text></feedback></answer>
+    <generalfeedback><text>Active-clause criteria set the minor clauses so c<sub>i</sub> determines p; inactive-clause criteria set them so c<sub>i</sub> is masked and cannot affect p.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Make a inactive in a OR (b AND c)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8744; (b &#8743; c), which minor assignment makes clause <strong>a</strong> inactive?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = true, c = true</text><feedback><text>Correct — then b &#8743; c is true, so p is true regardless of a; a is masked.</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = false</text><feedback><text>Then b &#8743; c is false, so p = a and a determines p (active).</text></feedback></answer>
+    <answer fraction="0"><text>b = true, c = false</text><feedback><text>Then b &#8743; c is false, so p = a and a is active.</text></feedback></answer>
+    <answer fraction="0"><text>b = false, c = true</text><feedback><text>Then b &#8743; c is false, so p = a and a is active.</text></feedback></answer>
+    <generalfeedback><text>For a disjunction a &#8744; X, clause a is inactive exactly when the other operand X is true. Here X = b &#8743; c, so a is inactive when b = true and c = true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Make c inactive in (a OR b) AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8744; b) &#8743; c, which minor assignment makes clause <strong>c</strong> inactive?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = false, b = false</text><feedback><text>Correct — then a &#8744; b is false, so p is false regardless of c; c is masked.</text></feedback></answer>
+    <answer fraction="0"><text>a = true, b = true</text><feedback><text>Then a &#8744; b is true, so p = c and c determines p (active).</text></feedback></answer>
+    <answer fraction="0"><text>a = true, b = false</text><feedback><text>Then a &#8744; b is true, so p = c and c is active.</text></feedback></answer>
+    <answer fraction="0"><text>a = false, b = true</text><feedback><text>Then a &#8744; b is true, so p = c and c is active.</text></feedback></answer>
+    <generalfeedback><text>For a conjunction X &#8743; c, clause c is inactive exactly when the other operand X is false. Here X = a &#8744; b, so c is inactive when a = false and b = false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Tests for four feasible ICC requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When all four Inactive Clause Coverage requirements for a single major clause are feasible, how many distinct test cases are needed to satisfy them?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the four (c<sub>i</sub>, p) combinations are distinct, so four tests are required.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Two tests cannot realise four different (c<sub>i</sub>, p) combinations.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Three tests leave one of the four (c<sub>i</sub>, p) combinations uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One test fixes a single (c<sub>i</sub>, p) pair, not all four.</text></feedback></answer>
+    <generalfeedback><text>Each of the four requirements pins a distinct pair of (c<sub>i</sub> value, p value); no single test can satisfy two of them at once, so four tests are needed for that clause.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which clause is inactive at a row</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c evaluated at a = true, b = false, c = false, which clause is <strong>inactive</strong> (does not determine p)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a</text><feedback><text>Correct — flipping a gives (F &#8743; F) &#8744; F = F, unchanged from p = F, so a is inactive here.</text></feedback></answer>
+    <answer fraction="0"><text>b</text><feedback><text>Flipping b gives (T &#8743; T) &#8744; F = T, changing p from F, so b is active here.</text></feedback></answer>
+    <answer fraction="0"><text>c</text><feedback><text>Flipping c gives (T &#8743; F) &#8744; T = T, changing p from F, so c is active here.</text></feedback></answer>
+    <answer fraction="0"><text>None of them</text><feedback><text>a is inactive at this row; b and c are active.</text></feedback></answer>
+    <generalfeedback><text>At a=T, b=F, c=F, p = (T&#8743;F)&#8744;F = F. Flipping a leaves p false (a masked by b=F), while flipping b or c changes p. So a is the only inactive clause here.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC pairing at p true</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under RICC, the two requirements with c<sub>i</sub>=true and c<sub>i</sub>=false at p=true must:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Use the same values for all minor clauses</text><feedback><text>Correct — RICC pins the minor clauses across each same-p pair.</text></feedback></answer>
+    <answer fraction="0"><text>Use different values for the minor clauses</text><feedback><text>That is not required by any criterion; RICC pins them equal.</text></feedback></answer>
+    <answer fraction="0"><text>Make c<sub>i</sub> determine p</text><feedback><text>These are inactive-clause requirements: c<sub>i</sub> stays masked.</text></feedback></answer>
+    <answer fraction="0"><text>Make p take different values</text><feedback><text>Both requirements in this pair fix p = true.</text></feedback></answer>
+    <generalfeedback><text>RICC requires the minor-clause values to match within each same-p pair. For the p=true pair, the c<sub>i</sub>=true and c<sub>i</sub>=false tests use identical minor values (which is exactly why p stays true across the pair).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>GICC minors may vary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under GICC, the minor-clause values may differ across the four inactive-clause test requirements.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — GICC places no matching constraint on the minor clauses.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>It is RICC, not GICC, that forces the minors to match; GICC lets them vary.</text></feedback></answer>
+    <generalfeedback><text>GICC ("General") only requires that c<sub>i</sub> be inactive in each of the four requirements; the minor-clause values are free to change from one requirement to another.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Criterion that confirms masking</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which criterion is specifically aimed at confirming the <strong>correct masking</strong> of a clause?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inactive Clause Coverage (GICC / RICC)</text><feedback><text>Correct — it checks that a masked clause has no effect on p.</text></feedback></answer>
+    <answer fraction="0"><text>Correlated Active Clause Coverage (CACC)</text><feedback><text>CACC checks the clause's determining (active) effect, not masking.</text></feedback></answer>
+    <answer fraction="0"><text>General Active Clause Coverage (GACC)</text><feedback><text>GACC is an active-clause criterion; it exercises determination, not masking.</text></feedback></answer>
+    <answer fraction="0"><text>Predicate Coverage (PC)</text><feedback><text>PC only requires p to take both values; it says nothing about masking.</text></feedback></answer>
+    <generalfeedback><text>Only the inactive-clause criteria deliberately mask a clause and check that p is unaffected — the test for correct masking.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>p value while a is inactive in a AND b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8743; b, across all minor assignments that make clause a inactive, the value of p is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Always false</text><feedback><text>Correct — a is inactive only when b = false, and then p = false.</text></feedback></answer>
+    <answer fraction="0"><text>Always true</text><feedback><text>a is inactive when b = false, which forces p to false, not true.</text></feedback></answer>
+    <answer fraction="0"><text>Sometimes true, sometimes false</text><feedback><text>There is only one masking assignment (b = false), and it pins p to false.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to a</text><feedback><text>p equals a only when a is active (b = true).</text></feedback></answer>
+    <generalfeedback><text>For a &#8743; b the only way to mask a is b = false, which fixes p = false. Consequently the ICC requirements needing p = true for clause a are infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a is not inactive in a OR b OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8744; b &#8744; c, clause a fails to be inactive (it determines p) only when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b = false and c = false</text><feedback><text>Correct — then p = a, so a determines p; at every other minor assignment a is masked.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and c = true</text><feedback><text>Then p is true regardless of a, so a is inactive there.</text></feedback></answer>
+    <answer fraction="0"><text>b = true and c = false</text><feedback><text>b true pins p to true regardless of a, so a is inactive.</text></feedback></answer>
+    <answer fraction="0"><text>b = false and c = true</text><feedback><text>c true pins p to true regardless of a, so a is inactive.</text></feedback></answer>
+    <generalfeedback><text>For a disjunction, a determines p only when every other operand is false. Here that means b = false and c = false; otherwise b &#8744; c is true and a is masked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Requirements a p-false masking helps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose a minor assignment makes c<sub>i</sub> inactive and pins p to false regardless of c<sub>i</sub>. Which ICC requirements can such an assignment help satisfy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The two requirements with p = false (c<sub>i</sub>=T&#8743;p=F and c<sub>i</sub>=F&#8743;p=F)</text><feedback><text>Correct — with p pinned false, only the p=false requirements can be met from this assignment.</text></feedback></answer>
+    <answer fraction="0"><text>The two requirements with p = true</text><feedback><text>p is false here, so it cannot satisfy any p=true requirement.</text></feedback></answer>
+    <answer fraction="0"><text>All four requirements</text><feedback><text>Only the two p=false requirements are reachable when p is pinned false.</text></feedback></answer>
+    <answer fraction="0"><text>None of them</text><feedback><text>It does satisfy the p=false requirements (for both c<sub>i</sub> values).</text></feedback></answer>
+    <generalfeedback><text>Because c<sub>i</sub> is inactive, both c<sub>i</sub>=T and c<sub>i</sub>=F are available at this assignment, but p is stuck at false — so it covers c<sub>i</sub>=T&#8743;p=F and c<sub>i</sub>=F&#8743;p=F only.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic Inactive-Clause Coverage/hard</text></category>
+  </question>
+  <question type="truefalse">
+    <name><text>RICC subsumes GICC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Restricted Inactive Clause Coverage (RICC) subsumes General Inactive Clause Coverage (GICC).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — RICC's requirements are GICC's plus an extra minor-matching constraint, so any RICC-satisfying suite satisfies GICC.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>RICC is strictly stronger: it adds a restriction to GICC, so RICC &#8594; GICC.</text></feedback></answer>
+    <generalfeedback><text>RICC keeps all of GICC's four requirements and additionally forces the minor clauses to match within each same-p pair. A stricter criterion that only adds constraints subsumes the weaker one, so RICC subsumes GICC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why RICC subsumes GICC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does RICC subsume GICC?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>RICC's test requirements are GICC's requirements plus an extra minor-matching constraint, so any suite meeting RICC also meets GICC</text><feedback><text>Correct — adding constraints can only shrink the set of satisfying suites.</text></feedback></answer>
+    <answer fraction="0"><text>RICC has more test requirements than GICC</text><feedback><text>Both have the same four requirements per clause; RICC just constrains the minors more tightly.</text></feedback></answer>
+    <answer fraction="0"><text>RICC exercises all 2^n combinations</text><feedback><text>That would be Combinatorial Coverage, not RICC.</text></feedback></answer>
+    <answer fraction="0"><text>RICC additionally requires c<sub>i</sub> to determine p</text><feedback><text>Both are inactive-clause criteria; neither requires determination.</text></feedback></answer>
+    <generalfeedback><text>Subsumption follows because RICC = GICC + (minors match within each same-p pair). Every RICC test set already satisfies the looser GICC obligations, so RICC subsumes GICC.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Inactive criteria subsume Clause Coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Both GICC and RICC subsume Clause Coverage (CC).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — each major clause is exercised both true and false (while inactive), which is exactly Clause Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>GICC and RICC both require c<sub>i</sub>=true and c<sub>i</sub>=false requirements for every clause, so every clause takes both values &#8212; CC is met.</text></feedback></answer>
+    <generalfeedback><text>The four ICC requirements include both c<sub>i</sub>=true and c<sub>i</sub>=false for each clause, so every clause takes both truth values. Hence GICC and RICC each subsume Clause Coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why GICC subsumes CC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What makes GICC subsume Clause Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For every clause, GICC requires a c<sub>i</sub>=true test and a c<sub>i</sub>=false test, so each clause takes both values</text><feedback><text>Correct — that is precisely the Clause Coverage requirement.</text></feedback></answer>
+    <answer fraction="0"><text>GICC requires the predicate to take both values</text><feedback><text>That would relate to Predicate Coverage; CC is about individual clauses.</text></feedback></answer>
+    <answer fraction="0"><text>GICC exercises every clause combination</text><feedback><text>That is Combinatorial Coverage, stronger than needed for CC.</text></feedback></answer>
+    <answer fraction="0"><text>GICC requires each clause to determine p</text><feedback><text>That is the active-clause idea; inactive-clause coverage masks the clause instead.</text></feedback></answer>
+    <generalfeedback><text>Clause Coverage requires each clause to be both true and false. Because GICC's four requirements per clause include c<sub>i</sub>=true and c<sub>i</sub>=false, every clause is exercised both ways, so GICC subsumes CC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible ICC requirements for a AND b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8743; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The two requiring p = true (a=T&#8743;p=T and a=F&#8743;p=T)</text><feedback><text>Correct — a can be inactive only when b = false, which pins p to false, so p = true is unreachable while a is inactive.</text></feedback></answer>
+    <answer fraction="0"><text>The two requiring p = false</text><feedback><text>Those are the feasible ones: masking a (b = false) makes p = false.</text></feedback></answer>
+    <answer fraction="0"><text>All four requirements</text><feedback><text>The two p=false requirements are feasible; only the p=true ones are not.</text></feedback></answer>
+    <answer fraction="0"><text>None — all four are feasible</text><feedback><text>a inactive forces p = false, so the p=true requirements cannot be met.</text></feedback></answer>
+    <generalfeedback><text>Masking a in a &#8743; b requires b = false, pinning p to false. Thus a=T&#8743;p=T and a=F&#8743;p=T are infeasible, while the two p=false requirements are feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible ICC requirements for a OR b</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8744; b, which Inactive Clause Coverage requirements for clause a are <strong>infeasible</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The two requiring p = false (a=T&#8743;p=F and a=F&#8743;p=F)</text><feedback><text>Correct — a can be inactive only when b = true, which pins p to true, so p = false is unreachable while a is inactive.</text></feedback></answer>
+    <answer fraction="0"><text>The two requiring p = true</text><feedback><text>Those are the feasible ones: masking a (b = true) makes p = true.</text></feedback></answer>
+    <answer fraction="0"><text>All four requirements</text><feedback><text>The two p=true requirements are feasible; only the p=false ones are not.</text></feedback></answer>
+    <answer fraction="0"><text>None — all four are feasible</text><feedback><text>a inactive forces p = true, so the p=false requirements cannot be met.</text></feedback></answer>
+    <generalfeedback><text>Masking a in a &#8744; b requires b = true, pinning p to true. Thus a=T&#8743;p=F and a=F&#8743;p=F are infeasible, while the two p=true requirements are feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inactive rows for a in a AND b AND c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = a &#8743; b &#8743; c, in how many of the 8 assignments is clause a <strong>inactive</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — a determines p only when b &#8743; c is true (2 rows), so a is inactive in the other 6.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the number of rows where a is active (b=T, c=T), not inactive.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — a is active only when b &#8743; c is true, which is 2 rows, leaving 6 inactive.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>a is active in 2 rows, so it is not inactive in all 8.</text></feedback></answer>
+    <generalfeedback><text>a determines a &#8743; b &#8743; c exactly when b &#8743; c is true (b=T, c=T), giving 2 active rows (a free). The remaining 6 of 8 rows have a inactive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inactive rows for c in (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c, in how many of the 8 assignments is clause <strong>c</strong> inactive?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — c is inactive only when a &#8743; b is true (a=T, b=T), which is 2 rows (c free).</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the number of rows where c is active (a &#8743; b false), not inactive.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Recount — a &#8743; b is true in only 2 of the 8 rows.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both c=T and c=F rows at a=T,b=T are inactive, giving 2, not 1.</text></feedback></answer>
+    <generalfeedback><text>c is inactive exactly when the other operand a &#8743; b is true. That happens in 2 of the 8 rows (a=T, b=T, c either value), so c is inactive in 2 assignments.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inactive rows for a in (a AND b) OR (c AND d)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; (c &#8743; d), in how many of the 16 assignments is clause a <strong>inactive</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>Correct — a is active only when b = true and (c &#8743; d) = false: 1 &#215; 3 &#215; 2 = 6 rows, leaving 10 inactive.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the number of rows where a is active, not inactive.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>Recount — a is active in 6 rows, so it is inactive in 16 &#8722; 6 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>That overcounts; the exact number of inactive rows is 10.</text></feedback></answer>
+    <generalfeedback><text>a determines p only when its term passes a through (b = true) and the other term does not mask it (c &#8743; d = false): 1 &#215; 3 &#215; 2 = 6 active rows. The remaining 10 of 16 rows have a inactive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate with all four ICC requirements feasible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For which predicate and clause are <strong>all four</strong> ICC requirements feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Clause a in p = (a &#8743; b) &#8744; (c &#8743; d)</text><feedback><text>Correct — with b = false, a is inactive and p = (c &#8743; d), which can be both true and false; all four requirements are reachable.</text></feedback></answer>
+    <answer fraction="0"><text>Clause a in p = a &#8743; b</text><feedback><text>a inactive forces p = false, so the p=true requirements are infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Clause a in p = a &#8744; b &#8744; c</text><feedback><text>a inactive forces p = true, so the p=false requirements are infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Clause c in p = (a &#8744; b) &#8743; c</text><feedback><text>c inactive forces p = false, so the p=true requirements are infeasible.</text></feedback></answer>
+    <generalfeedback><text>All four ICC requirements are feasible only if p can be both true and false while c<sub>i</sub> is masked. In (a &#8743; b) &#8744; (c &#8743; d) with b = false, a is masked and p = (c &#8743; d) still ranges over both values, so every requirement is reachable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>RICC minor-matching scope</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under RICC for p = (a &#8743; b) &#8744; (c &#8743; d) with major clause a, the a=true and a=false requirements at p=false must share the same values of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All the minor clauses: b, c, and d</text><feedback><text>Correct — RICC pins every minor clause across the same-p pair.</text></feedback></answer>
+    <answer fraction="0"><text>Only b</text><feedback><text>RICC constrains all minor clauses, not just the one paired with a.</text></feedback></answer>
+    <answer fraction="0"><text>Only c and d</text><feedback><text>b is also a minor clause and must match too.</text></feedback></answer>
+    <answer fraction="0"><text>None — RICC only fixes a</text><feedback><text>RICC's whole point is to fix the minor clauses across the pair.</text></feedback></answer>
+    <generalfeedback><text>For major clause a, the minor clauses are b, c, and d. RICC requires all of them to hold identical values in the a=true and a=false tests of each same-p pair.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasibility condition for all four requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The four ICC requirements for a clause c<sub>i</sub> are all feasible only if, while c<sub>i</sub> is inactive, the predicate p can be:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both true and false (under different inactive-making minor assignments)</text><feedback><text>Correct — p must range over both values while c<sub>i</sub> stays masked.</text></feedback></answer>
+    <answer fraction="0"><text>Only true</text><feedback><text>Then the p=false requirements would be infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Only false</text><feedback><text>Then the p=true requirements would be infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Determined by c<sub>i</sub></text><feedback><text>If c<sub>i</sub> determined p it would not be inactive; the requirements concern the masked case.</text></feedback></answer>
+    <generalfeedback><text>Since c<sub>i</sub> is masked, p is set by the minor clauses. All four requirements (crossing c<sub>i</sub> with p) are feasible only when some inactive-making minor assignment yields p=true and another yields p=false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rows where c is inactive in (a AND b) OR c</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c, clause c is inactive in exactly the assignments where:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a = true and b = true (c either value)</text><feedback><text>Correct — then a &#8743; b is true, masking c; p is true regardless of c.</text></feedback></answer>
+    <answer fraction="0"><text>a = false and b = false</text><feedback><text>Then a &#8743; b is false, so p = c and c determines p (active).</text></feedback></answer>
+    <answer fraction="0"><text>c = false</text><feedback><text>c's own value does not decide whether c is masked; the operand a &#8743; b does.</text></feedback></answer>
+    <answer fraction="0"><text>a = true or b = true</text><feedback><text>a &#8743; b needs both true to mask c; either-one-true is not enough.</text></feedback></answer>
+    <generalfeedback><text>c is masked in the disjunction exactly when the other operand a &#8743; b is true, i.e., a = true and b = true — the 2 rows where c is inactive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Clause with fewest inactive rows</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; c, which clause is inactive in the <strong>fewest</strong> assignments?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>c (inactive in 2 of 8 rows)</text><feedback><text>Correct — c is masked only when a &#8743; b is true (2 rows), whereas a and b are each masked in 6 rows.</text></feedback></answer>
+    <answer fraction="0"><text>a (inactive in 6 of 8 rows)</text><feedback><text>a is masked whenever b = false or c = true — 6 rows, more than c.</text></feedback></answer>
+    <answer fraction="0"><text>b (inactive in 6 of 8 rows)</text><feedback><text>By symmetry with a, b is masked in 6 rows, more than c.</text></feedback></answer>
+    <answer fraction="0"><text>All three are inactive equally often</text><feedback><text>c differs: it is masked in only 2 rows versus 6 for a and b.</text></feedback></answer>
+    <generalfeedback><text>c is masked only when a &#8743; b is true (2 rows). a is masked when b=false or c=true (6 rows), and b symmetrically in 6 rows. So c has the fewest inactive rows.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Total GICC requirements for a 4-clause predicate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = (a &#8743; b) &#8744; (c &#8743; d), where all four ICC requirements are feasible for every clause, how many inactive-clause test requirements does GICC impose in total?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>Correct — 4 clauses &#215; 4 requirements each = 16 test requirements.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 = 4 clauses &#215; 2; but ICC has four requirements per clause, not two.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the requirement count for a single clause, not the whole predicate.</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>That doubles the count; there are 4 requirements per clause, giving 16.</text></feedback></answer>
+    <generalfeedback><text>ICC imposes four requirements per major clause. With 4 clauses all feasible, GICC has 4 &#215; 4 = 16 test requirements (some may be satisfiable by shared tests).</text></generalfeedback>
+  </question>
+</quiz>
