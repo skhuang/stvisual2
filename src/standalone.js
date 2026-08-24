@@ -65963,6 +65963,2480 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "logic-dnf": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What is DNF",
+            "text": "<p>A predicate is in <strong>Disjunctive Normal Form (DNF)</strong> when it is written as:</p>",
+            "answers": [
+              {
+                "text": "A disjunction (OR) of product terms, where each term is a conjunction (AND) of literals",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 DNF is a "sum of products": an OR of AND-terms.'
+              },
+              {
+                "text": "A conjunction (AND) of sum terms, where each term is a disjunction of literals",
+                "fraction": 0,
+                "feedback": "That is Conjunctive Normal Form (CNF), a product of sums."
+              },
+              {
+                "text": "A single product term of every variable",
+                "fraction": 0,
+                "feedback": "That is a minterm, only one special case of a DNF."
+              },
+              {
+                "text": "Any boolean expression, regardless of structure",
+                "fraction": 0,
+                "feedback": "DNF is a specific normal form, not an arbitrary expression."
+              }
+            ],
+            "generalFeedback": "DNF (sum of products) writes f as an OR of product terms; each product term is an AND of literals. Notation used here: AND = adjacency (), OR =, NOT =(e.g.).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a literal",
+            "text": "<p>In DNF, a <strong>literal</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A variable or its negation (e.g. a or !a)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a literal is one occurrence of a variable, possibly negated."
+              },
+              {
+                "text": "A conjunction of two or more variables",
+                "fraction": 0,
+                "feedback": "That is a product term, not a single literal."
+              },
+              {
+                "text": "The whole sum-of-products expression",
+                "fraction": 0,
+                "feedback": "That is the entire DNF, not a literal."
+              },
+              {
+                "text": "An assignment of values to all variables",
+                "fraction": 0,
+                "feedback": "That is a test point/row, not a literal."
+              }
+            ],
+            "generalFeedback": "A literal is a single variable or its negation, e.g.or. Literals are AND-ed together to form product terms.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a product term",
+            "text": "<p>In DNF, a <strong>term</strong> (product term) is:</p>",
+            "answers": [
+              {
+                "text": "A conjunction (AND) of one or more literals, e.g. a!bc",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a term is literals AND-ed together."
+              },
+              {
+                "text": "A disjunction (OR) of literals, e.g. a + b + c",
+                "fraction": 0,
+                "feedback": "That is a sum term (used in CNF), not a DNF product term."
+              },
+              {
+                "text": "A single variable only",
+                "fraction": 0,
+                "feedback": "A single variable is one valid term, but terms may AND several literals."
+              },
+              {
+                "text": "The negation of the whole predicate",
+                "fraction": 0,
+                "feedback": "That is \xACf, not a product term."
+              }
+            ],
+            "generalFeedback": "A product term is a conjunction of literals, such as. A DNF is a disjunction (sum) of such product terms.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a minterm",
+            "text": "<p>For a predicate over the variables a, b, c, a <strong>minterm</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A product term that contains every variable exactly once (each as a or !a), e.g. a!bc",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a minterm mentions all variables and is true at exactly one row."
+              },
+              {
+                "text": "A product term that omits at least one variable, e.g. ac",
+                "fraction": 0,
+                "feedback": "That is a valid product term, but not a minterm \u2014 a minterm names every variable."
+              },
+              {
+                "text": "A disjunction of all variables, e.g. a + b + c",
+                "fraction": 0,
+                "feedback": "That is a sum term, not a minterm."
+              },
+              {
+                "text": "The smallest implicant of the predicate",
+                "fraction": 0,
+                "feedback": "Size of an implicant is unrelated; a minterm is defined by naming every variable."
+              }
+            ],
+            "generalFeedback": "A minterm is a product term mentioning every variable exactly once; it is true at exactly one assignment (one truth-table row). Over 3 variables,is a minterm.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is an implicant",
+            "text": "<p>A product term i is an <strong>implicant</strong> of predicate f when:</p>",
+            "answers": [
+              {
+                "text": "Whenever i is true, f is also true (i implies f)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an implicant implies the predicate."
+              },
+              {
+                "text": "Whenever f is true, i is also true",
+                "fraction": 0,
+                "feedback": 'That is the reverse implication and is not what "implicant" means.'
+              },
+              {
+                "text": "i and f are true on exactly the same rows",
+                "fraction": 0,
+                "feedback": "That would make i logically equivalent to f, which is stronger than being an implicant."
+              },
+              {
+                "text": "i makes f false",
+                "fraction": 0,
+                "feedback": "An implicant makes f true, not false."
+              }
+            ],
+            "generalFeedback": "An implicant is a product term that implies f: every assignment satisfying the term also satisfies f. Each term listed in a DNF of f is an implicant of f.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a prime implicant",
+            "text": "<p>A <strong>prime implicant</strong> of f is:</p>",
+            "answers": [
+              {
+                "text": "An implicant from which no single literal can be removed while it stays an implicant",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 it is a "maximal" (irreducible) implicant.'
+              },
+              {
+                "text": "An implicant that contains every variable",
+                "fraction": 0,
+                "feedback": "That describes a minterm; prime implicants are usually smaller."
+              },
+              {
+                "text": "Any product term appearing in some DNF of f",
+                "fraction": 0,
+                "feedback": "Such a term is an implicant, but it need not be prime (a literal might still be removable)."
+              },
+              {
+                "text": "The disjunction of all implicants of f",
+                "fraction": 0,
+                "feedback": "That is a DNF of f, not a single prime implicant."
+              }
+            ],
+            "generalFeedback": "A prime implicant is an implicant that cannot be reduced: dropping any one of its literals yields a term that no longer implies f.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a unique true point",
+            "text": "<p>A <strong>unique true point (UTP)</strong> for an implicant i of f is an assignment that:</p>",
+            "answers": [
+              {
+                "text": "Makes i true and every other implicant of f false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at a UTP, i alone is responsible for f being true."
+              },
+              {
+                "text": "Makes i true, regardless of the other implicants",
+                "fraction": 0,
+                "feedback": "That is just a true point of i; a UTP additionally requires all other implicants to be false."
+              },
+              {
+                "text": "Makes f false",
+                "fraction": 0,
+                "feedback": "A UTP is a true point: it makes i (and hence f) true."
+              },
+              {
+                "text": "Is the only assignment making f true",
+                "fraction": 0,
+                "feedback": '"Unique" refers to only one implicant being true, not to f having a single satisfying row.'
+              }
+            ],
+            "generalFeedback": "A UTP for implicant i is an assignment where i is true and all other implicants are false, so i is the unique implicant accounting for f's truth there.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a near false point",
+            "text": "<p>A <strong>near false point (NFP)</strong> for a literal L of implicant i is an assignment that:</p>",
+            "answers": [
+              {
+                "text": "Makes f false, but flipping only literal L makes i (and f) true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it lies one literal away from a true point of i."
+              },
+              {
+                "text": "Makes f true using implicant i",
+                "fraction": 0,
+                "feedback": "An NFP makes f false, not true."
+              },
+              {
+                "text": "Makes every literal of i false at once",
+                "fraction": 0,
+                "feedback": 'Only the one literal L is "wrong"; the others keep the values that would make i true.'
+              },
+              {
+                "text": "Differs from a true point of i in two or more variables",
+                "fraction": 0,
+                "feedback": 'An NFP differs in exactly one variable \u2014 the one for literal L \u2014 hence "near".'
+              }
+            ],
+            "generalFeedback": "A near false point for literal L of implicant i makes f false, yet flipping just the variable of L turns i (and f) true. It sits one variable away from making i true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count product terms in ab + cd",
+            "text": "<p>How many product terms does the DNF <code>ab + cd</code> contain?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two terms are ab and cd."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of literals, not the number of terms."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Theseparates two distinct product terms."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "There are exactly two terms, ab and cd."
+              }
+            ],
+            "generalFeedback": "is a disjunction of two product terms, ab and cd, so it has 2 terms (each an implicant of the predicate).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count literals in ab + cd",
+            "text": "<p>How many literal occurrences does the DNF <code>ab + cd</code> contain?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a, b, c, d each appear once."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the number of terms, not the number of literals."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "There are only four literal occurrences: a, b, c, d."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Count each literal in each term: ab has 2, cd has 2, total 4."
+              }
+            ],
+            "generalFeedback": "Term ab contributes literals a and b; term cd contributes c and d \u2014 four literal occurrences in all.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify a single literal",
+            "text": "<p>Which of the following is a single <strong>literal</strong>?</p>",
+            "answers": [
+              {
+                "text": "!b",
+                "fraction": 100,
+                "feedback": "Correct \u2014 !b is a variable's negation, a literal."
+              },
+              {
+                "text": "ab",
+                "fraction": 0,
+                "feedback": "ab is a product term (two literals AND-ed), not a single literal."
+              },
+              {
+                "text": "a + b",
+                "fraction": 0,
+                "feedback": "a + b is a disjunction of two literals, not a single literal."
+              },
+              {
+                "text": "a!bc",
+                "fraction": 0,
+                "feedback": "a!bc is a product term of three literals."
+              }
+            ],
+            "generalFeedback": "A literal is one variable or its negation.qualifies;andare product terms andis a disjunction.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count literals in ab + c",
+            "text": "<p>How many literal occurrences does the DNF <code>ab + c</code> contain?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a and b in the first term, c in the second."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the number of terms; there are 3 literal occurrences."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Only a, b, and c appear \u2014 three literals."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Count all literals across both terms: 2 + 1 = 3."
+              }
+            ],
+            "generalFeedback": "Term ab has literals a and b; term c has literal c \u2014 three literal occurrences total.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count variables in ab + cd",
+            "text": "<p>How many distinct variables (clauses) does the predicate <code>ab + cd</code> involve?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a, b, c, and d."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the number of terms; the predicate uses 4 distinct variables."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 = 2^4 is the number of truth-table rows, not the number of variables."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "There are 4 distinct variables: a, b, c, d."
+              }
+            ],
+            "generalFeedback": "The predicate mentions a, b, c, d \u2014 four distinct variables, giving 2^4 = 16 truth-table rows.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Prime implicant irreducibility",
+            "text": "<p>A prime implicant is an implicant from which no single literal can be removed while it remains an implicant.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that irreducibility is exactly what makes an implicant prime."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Prime implicants are precisely the irreducible implicants; removing any literal breaks the implication."
+              }
+            ],
+            "generalFeedback": "An implicant is prime when it is minimal: dropping any one literal produces a term that no longer implies f."
+          },
+          {
+            "type": "truefalse",
+            "name": "DNF terms are implicants",
+            "text": "<p>Every product term appearing in a DNF of f is an implicant of f.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 if a term is true, that whole disjunct is true, so f is true; the term implies f."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Each disjunct, when true, forces the OR (and thus f) to be true, so every DNF term implies f."
+              }
+            ],
+            "generalFeedback": "Because f is the OR of its terms, any term being true makes f true. Hence every term of a DNF of f is (by definition) an implicant of f."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "UTP for ab in ab + c",
+            "text": "<p>For <code>f = ab + c</code> (variable order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>ab</code>?</p>",
+            "answers": [
+              {
+                "text": "110 (a=1, b=1, c=0)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ab is true and c is false, so ab is the only true implicant."
+              },
+              {
+                "text": "111 (a=1, b=1, c=1)",
+                "fraction": 0,
+                "feedback": "At 111 the implicant c is also true, so ab is not the unique true implicant."
+              },
+              {
+                "text": "100 (a=1, b=0, c=0)",
+                "fraction": 0,
+                "feedback": "Here ab is false (b=0), so this is not even a true point of ab."
+              },
+              {
+                "text": "001 (a=0, b=0, c=1)",
+                "fraction": 0,
+                "feedback": "ab is false here; this is a true point of c, not of ab."
+              }
+            ],
+            "generalFeedback": "A UTP for ab needs ab true and every other implicant (here c) false: a=1, b=1, c=0, i.e. 110. It is the only UTP for ab in this predicate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UTP for c in ab + c",
+            "text": "<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>c</code>?</p>",
+            "answers": [
+              {
+                "text": "001 (a=0, b=0, c=1)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 c is true and ab is false, so c is the only true implicant."
+              },
+              {
+                "text": "111 (a=1, b=1, c=1)",
+                "fraction": 0,
+                "feedback": "Here ab is also true, so c is not the unique true implicant."
+              },
+              {
+                "text": "110 (a=1, b=1, c=0)",
+                "fraction": 0,
+                "feedback": "c is false here (c=0); this is a true point of ab, not of c."
+              },
+              {
+                "text": "000 (a=0, b=0, c=0)",
+                "fraction": 0,
+                "feedback": "f is false here, so it is not a true point at all."
+              }
+            ],
+            "generalFeedback": "c has three UTPs \u2014 001, 011, 101 \u2014 each with c true and ab false. Of the options, only 001 qualifies (111 also makes ab true).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "NFP for literal a of ab in ab + c",
+            "text": "<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>a</code> of the implicant <code>ab</code>?</p>",
+            "answers": [
+              {
+                "text": "010 (a=0, b=1, c=0)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 f is false here, and flipping a to 1 gives 110, making ab (and f) true."
+              },
+              {
+                "text": "100 (a=1, b=0, c=0)",
+                "fraction": 0,
+                "feedback": "f is false here, but flipping a gives 000, where ab is still false (b=0). Not an NFP for a."
+              },
+              {
+                "text": "110 (a=1, b=1, c=0)",
+                "fraction": 0,
+                "feedback": "f is true here (ab holds), so it is a true point, not a near false point."
+              },
+              {
+                "text": "011 (a=0, b=1, c=1)",
+                "fraction": 0,
+                "feedback": "f is true here (c holds), so it cannot be a near false point."
+              }
+            ],
+            "generalFeedback": "An NFP for literal a of ab needs f false and the flip of a alone to make ab true. That requires b=1, c=0, a=0: assignment 010. Flipping a yields 110 with ab true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UTP vs NFP truth values",
+            "text": "<p>At a unique true point the predicate f is ____, and at a near false point f is ____.</p>",
+            "answers": [
+              {
+                "text": "true; false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a UTP is a true point of f; an NFP is a false point of f."
+              },
+              {
+                "text": "false; true",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 the UTP makes f true and the NFP makes f false."
+              },
+              {
+                "text": "true; true",
+                "fraction": 0,
+                "feedback": "An NFP makes f false, not true."
+              },
+              {
+                "text": "false; false",
+                "fraction": 0,
+                "feedback": "A UTP makes f true, not false."
+              }
+            ],
+            "generalFeedback": "By definition, a UTP makes its implicant (hence f) true, while an NFP makes f false but is one literal flip away from making an implicant true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prime implicants of ab + a!b",
+            "text": "<p>Consider <code>f = ab + a!b</code>, which simplifies to <code>a</code>. Which statement is correct?</p>",
+            "answers": [
+              {
+                "text": "Neither ab nor a!b is a prime implicant, because in each the second literal can be dropped (a alone still implies f)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 since f = a, the term a is an implicant, so ab and a!b are both reducible."
+              },
+              {
+                "text": "Both ab and a!b are prime implicants",
+                "fraction": 0,
+                "feedback": "Neither is prime: removing b (or !b) leaves a, which still implies f."
+              },
+              {
+                "text": "Only ab is a prime implicant",
+                "fraction": 0,
+                "feedback": "ab is reducible to a, so it is not prime."
+              },
+              {
+                "text": "a is not an implicant of f",
+                "fraction": 0,
+                "feedback": "Since f = a, the term a implies f \u2014 it is in fact the only prime implicant."
+              }
+            ],
+            "generalFeedback": "f = ab + a!b = a. The single prime implicant is a. Both listed terms carry a removable literal, so neither is prime.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of UTPs UTPC requires for ab + cd",
+            "text": "<p>For <code>f = ab + cd</code>, how many unique true points must Unique True Point Coverage (UTPC) require (one per implicant)?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one UTP for ab and one for cd."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the literal count; UTPC needs one UTP per implicant, and there are 2 implicants."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Each implicant needs its own UTP, and no single point can be a UTP for both."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the number of true rows; UTPC requires one UTP per implicant, i.e. 2."
+              }
+            ],
+            "generalFeedback": "UTPC requires a UTP for each implicant. With two implicants (ab, cd), it requires 2 unique true points; since a UTP makes only its own implicant true, one test cannot serve both.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of NFPs NFPC requires for ab + cd",
+            "text": "<p>For <code>f = ab + cd</code>, how many near false points must Near False Point Coverage (NFPC) require (one per literal of each implicant)?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one NFP for each of the four literals a, b, c, d."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the implicant count; NFPC requires one NFP per literal, and there are 4 literals."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "There are only 4 literal occurrences, so 4 NFPs are required."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 = 2^4 is the row count, not the number of NFPs required."
+              }
+            ],
+            "generalFeedback": "NFPC requires a near false point for each literal of each implicant. Terms ab and cd have four literals total (a, b, c, d), so 4 NFPs are required.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UTP for !ab in !ab + ac",
+            "text": "<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>!ab</code>?</p>",
+            "answers": [
+              {
+                "text": "010 (a=0, b=1, c=0)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 !ab is true (a=0, b=1) and ac is false (a=0), so !ab is the unique true implicant."
+              },
+              {
+                "text": "110 (a=1, b=1, c=0)",
+                "fraction": 0,
+                "feedback": "!ab is false here because a=1, so !a is false."
+              },
+              {
+                "text": "111 (a=1, b=1, c=1)",
+                "fraction": 0,
+                "feedback": "Here ac is true and !ab is false (a=1); not a UTP for !ab."
+              },
+              {
+                "text": "001 (a=0, b=0, c=1)",
+                "fraction": 0,
+                "feedback": "!ab is false here because b=0."
+              }
+            ],
+            "generalFeedback": "!ab needs a=0 and b=1; to keep ac false we need a=0 (already) \u2014 so both 010 and 011 are UTPs. Of the options only 010 qualifies.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "NFP for literal c of ac in !ab + ac",
+            "text": "<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>c</code> of the implicant <code>ac</code>?</p>",
+            "answers": [
+              {
+                "text": "100 (a=1, b=0, c=0)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 f is false here, and flipping c to 1 gives 101, making ac (and f) true."
+              },
+              {
+                "text": "101 (a=1, b=0, c=1)",
+                "fraction": 0,
+                "feedback": "f is true here (ac holds), so it is a true point, not a near false point."
+              },
+              {
+                "text": "000 (a=0, b=0, c=0)",
+                "fraction": 0,
+                "feedback": "f is false, but flipping c gives 001, where ac is still false (a=0). Not an NFP for c."
+              },
+              {
+                "text": "010 (a=0, b=1, c=0)",
+                "fraction": 0,
+                "feedback": "f is true here (!ab holds), so it cannot be a near false point."
+              }
+            ],
+            "generalFeedback": "An NFP for c of ac needs f false and flipping c alone to make ac true, i.e. a=1 and c=0. With a=1, !ab is false; b may be 0 or 1. 100 works: flipping c yields 101 with ac true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Overlapping implicants in ac + bc",
+            "text": "<p>For <code>f = ac + bc</code> (order a,b,c), at the assignment 111 (a=1, b=1, c=1), how many of the two implicants are true?</p>",
+            "answers": [
+              {
+                "text": "2 \u2014 both ac and bc are true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with a=b=c=1, both terms hold, so 111 is not a unique true point for either."
+              },
+              {
+                "text": "1 \u2014 only ac is true",
+                "fraction": 0,
+                "feedback": "bc is also true at 111 (b=1, c=1)."
+              },
+              {
+                "text": "0 \u2014 neither is true",
+                "fraction": 0,
+                "feedback": "Both terms are true; f is true at 111."
+              },
+              {
+                "text": "It depends on the variable order",
+                "fraction": 0,
+                "feedback": "Truth values do not depend on the order in which variables are written."
+              }
+            ],
+            "generalFeedback": "At 111 both ac and bc are true, so 111 is a shared true point \u2014 it cannot be a UTP for either implicant. The overlap is why unique true points must be chosen carefully.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Single test for Implicant Coverage of ab + cd",
+            "text": "<p>Can a <strong>single</strong> test satisfy Implicant Coverage (IC) for <code>f = ab + cd</code>?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 the assignment 1111 makes both ab and cd true at once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 IC only asks that each implicant be true in some test, and 1111 makes both true."
+              },
+              {
+                "text": "No \u2014 IC always needs one test per implicant",
+                "fraction": 0,
+                "feedback": "That is UTPC. Plain IC can reuse a single test if it makes every implicant true."
+              },
+              {
+                "text": "No \u2014 a single test can never make two product terms true",
+                "fraction": 0,
+                "feedback": "1111 makes both ab and cd true simultaneously."
+              },
+              {
+                "text": "Yes, but only under Combinatorial Coverage",
+                "fraction": 0,
+                "feedback": "Feasibility of one test for IC does not depend on any other criterion."
+              }
+            ],
+            "generalFeedback": "IC requires each implicant to be made true by some test \u2014 the same test may serve several. At 1111 both ab and cd are true, so one test satisfies IC. UTPC, by contrast, forbids this by demanding each true point be unique to one implicant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UTP for a in a + bc",
+            "text": "<p>For <code>f = a + bc</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>a</code>?</p>",
+            "answers": [
+              {
+                "text": "100 (a=1, b=0, c=0)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a is true and bc is false, so a is the unique true implicant."
+              },
+              {
+                "text": "111 (a=1, b=1, c=1)",
+                "fraction": 0,
+                "feedback": "bc is also true here, so a is not the unique true implicant."
+              },
+              {
+                "text": "011 (a=0, b=1, c=1)",
+                "fraction": 0,
+                "feedback": "a is false here; this is a true point of bc, not of a."
+              },
+              {
+                "text": "000 (a=0, b=0, c=0)",
+                "fraction": 0,
+                "feedback": "f is false here, so it is not a true point."
+              }
+            ],
+            "generalFeedback": "a has UTPs 100, 101, 110 (a true, bc false). 111 fails because bc is also true. Of the options, 100 is the UTP.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Is a an implicant of ab + cd",
+            "text": "<p>The single literal <code>a</code> is an implicant of <code>f = ab + cd</code>.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at a=1, b=0, c=0, d=0 (1000) the term a is true but f is false, so a does not imply f."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Counterexample 1000: a is true yet f = ab + cd is false, so a does not imply f."
+              }
+            ],
+            "generalFeedback": "For a to be an implicant, every assignment with a=1 must make f true. But 1000 has a=1 and f=0, so a is not an implicant of ab + cd."
+          },
+          {
+            "type": "multichoice",
+            "name": "Non-unique true point",
+            "text": "<p>An assignment at which implicant i is true but at least one <em>other</em> implicant of f is also true is:</p>",
+            "answers": [
+              {
+                "text": "A true point of f, but not a unique true point for i",
+                "fraction": 100,
+                "feedback": "Correct \u2014 uniqueness fails because more than one implicant is true."
+              },
+              {
+                "text": "A unique true point for i",
+                "fraction": 0,
+                "feedback": "A UTP requires all other implicants to be false; here another one is true."
+              },
+              {
+                "text": "A near false point for i",
+                "fraction": 0,
+                "feedback": "An NFP makes f false; this point makes f true."
+              },
+              {
+                "text": "Not a true point of f at all",
+                "fraction": 0,
+                "feedback": "Since i is true, f is true, so it is a true point \u2014 just not a unique one."
+              }
+            ],
+            "generalFeedback": "It is a true point of f (i is true), but not a UTP for i because another implicant is simultaneously true, so i is not the unique cause of f's truth.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Truth value of f at a near false point",
+            "text": "<p>At a near false point, the predicate f must evaluate to:</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an NFP is a false point of f that is one literal flip away from a true point."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "That would be a true point; an NFP makes f false."
+              },
+              {
+                "text": "either true or false, depending on the implicant",
+                "fraction": 0,
+                "feedback": "By definition an NFP always makes f false."
+              },
+              {
+                "text": "undefined",
+                "fraction": 0,
+                "feedback": "f is a total boolean function; it is defined at every assignment."
+              }
+            ],
+            "generalFeedback": 'A near false point makes f false; flipping the one targeted literal turns the implicant (and f) true. The "false" value at the NFP is essential to the pairing used by CUTPNFP.',
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "CUTPNFP pair for literal a of ab",
+            "text": "<p>For <code>f = ab + cd</code> (order a,b,c,d), a CUTPNFP pair for literal <code>a</code> of implicant <code>ab</code> is a unique true point and a near false point that differ in exactly variable a. Which pair works?</p>",
+            "answers": [
+              {
+                "text": "UTP 1100 and NFP 0100",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they differ only in a; 1100 makes ab (only) true, 0100 makes f false and flips to true when a is set."
+              },
+              {
+                "text": "UTP 1100 and NFP 1000",
+                "fraction": 0,
+                "feedback": "These differ in variable b, not a \u2014 that is the pair for literal b."
+              },
+              {
+                "text": "UTP 1100 and NFP 0011",
+                "fraction": 0,
+                "feedback": "These differ in multiple variables, so they do not isolate literal a."
+              },
+              {
+                "text": "UTP 0011 and NFP 0100",
+                "fraction": 0,
+                "feedback": "0011 is a UTP for cd, not for ab, so it does not pair with an NFP for literal a of ab."
+              }
+            ],
+            "generalFeedback": "For literal a of ab: UTP 1100 (ab uniquely true) and NFP 0100 (f false) differ only in a; setting a at the NFP restores ab and f. This isolates a's independent effect.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "CUTPNFP pair for literal b of ab",
+            "text": "<p>For <code>f = ab + cd</code> (order a,b,c,d), which UTP/NFP pair isolates literal <code>b</code> of implicant <code>ab</code> (differ in exactly variable b)?</p>",
+            "answers": [
+              {
+                "text": "UTP 1100 and NFP 1000",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they differ only in b; 1000 makes f false, and setting b restores ab and f."
+              },
+              {
+                "text": "UTP 1100 and NFP 0100",
+                "fraction": 0,
+                "feedback": "These differ in a, not b \u2014 that is the pair for literal a."
+              },
+              {
+                "text": "UTP 1110 and NFP 1000",
+                "fraction": 0,
+                "feedback": "1110 and 1000 differ in variables b and c, so they do not isolate b alone."
+              },
+              {
+                "text": "UTP 1000 and NFP 1100",
+                "fraction": 0,
+                "feedback": "1000 makes f false, so it is not a UTP; the roles are also reversed."
+              }
+            ],
+            "generalFeedback": "For literal b of ab: UTP 1100 and NFP 1000 differ only in b. At 1000 f is false; setting b to 1 restores ab (and f), demonstrating b's independent effect.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of CUTPNFP pairs for ab + cd",
+            "text": "<p>For <code>f = ab + cd</code>, how many corresponding (UTP, NFP) pairs does CUTPNFP require \u2014 one per literal of each implicant?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one pair for each of the four literals a, b, c, d."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 counts implicants; CUTPNFP pairs are per literal, so there are 4."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "There are 4 literals, hence 4 pairs, not 8."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the number of true rows, unrelated to the pair count."
+              }
+            ],
+            "generalFeedback": "CUTPNFP forms one UTP/NFP pair per literal of each implicant. With literals a, b (in ab) and c, d (in cd), that is 4 pairs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why 111 is not a UTP in ac + bc",
+            "text": "<p>For <code>f = ac + bc</code> (order a,b,c), why is 111 not a unique true point for the implicant <code>ac</code>?</p>",
+            "answers": [
+              {
+                "text": "Because the other implicant bc is also true at 111",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with b=1, c=1 the term bc is true too, so ac is not the unique true implicant."
+              },
+              {
+                "text": "Because ac is false at 111",
+                "fraction": 0,
+                "feedback": "ac is true at 111 (a=1, c=1); the problem is that bc is true as well."
+              },
+              {
+                "text": "Because f is false at 111",
+                "fraction": 0,
+                "feedback": "f is true at 111; it just is not uniquely due to ac."
+              },
+              {
+                "text": "Because 111 is a near false point",
+                "fraction": 0,
+                "feedback": "111 makes f true, so it is not a near false point."
+              }
+            ],
+            "generalFeedback": "At 111 both ac and bc are true, so ac is not the sole cause of f's truth. The unique true point for ac is 101 (ac true, bc false).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The unique true point for ac in ac + bc",
+            "text": "<p>For <code>f = ac + bc</code> (order a,b,c), which assignment is the (only) unique true point for the implicant <code>ac</code>?</p>",
+            "answers": [
+              {
+                "text": "101 (a=1, b=0, c=1)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ac is true and bc is false (b=0), so ac is the unique true implicant."
+              },
+              {
+                "text": "111 (a=1, b=1, c=1)",
+                "fraction": 0,
+                "feedback": "bc is also true here, so ac is not unique."
+              },
+              {
+                "text": "100 (a=1, b=0, c=0)",
+                "fraction": 0,
+                "feedback": "ac is false here (c=0), so f is false."
+              },
+              {
+                "text": "001 (a=0, b=0, c=1)",
+                "fraction": 0,
+                "feedback": "ac is false here (a=0); f is false."
+              }
+            ],
+            "generalFeedback": "ac is true only when a=1 and c=1; to make bc false we need b=0. That forces 101 \u2014 the sole unique true point for ac.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DNF of not-f for ab + c",
+            "text": "<p>MUTPC/MNFPC also work with the DNF of <code>\xACf</code>. For <code>f = ab + c</code>, which is a correct DNF of <code>\xACf</code>?</p>",
+            "answers": [
+              {
+                "text": "!a!c + !b!c",
+                "fraction": 100,
+                "feedback": "Correct \u2014 \xACf is true exactly when c=0 and not(ab), i.e. !c(!a + !b)."
+              },
+              {
+                "text": "!a + !b + !c",
+                "fraction": 0,
+                "feedback": "This is true at 110 (where f is true), so it is not \xACf."
+              },
+              {
+                "text": "!a!b!c",
+                "fraction": 0,
+                "feedback": "This covers only 000; \xACf is also true at 010 and 100."
+              },
+              {
+                "text": "a!c + b!c",
+                "fraction": 0,
+                "feedback": "This is true at 100 and 010, but f itself is false there, and it misses 000 \u2014 it is not \xACf."
+              }
+            ],
+            "generalFeedback": "f = ab + c is false exactly on 000, 010, 100 \u2014 all with c=0 and ab false. So \xACf = !c(!a + !b) = !a!c + !b!c.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prime implicants of not-f for ab + cd",
+            "text": "<p>For <code>f = ab + cd</code>, the negation is <code>\xACf = (!a + !b)(!c + !d)</code>. In minimal DNF, how many prime implicants does \xACf have?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 expanding gives !a!c + !a!d + !b!c + !b!d, four prime implicants."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "The product (!a + !b)(!c + !d) expands to four product terms, not two."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\xACf is not a single product term; it expands to four."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the number of true rows of f; \xACf has 9 true rows and 4 prime implicants."
+              }
+            ],
+            "generalFeedback": "Distributing (!a + !b)(!c + !d) yields !a!c + !a!d + !b!c + !b!d \u2014 four prime implicants, each a valid implicant of \xACf. MUTPC would require UTPs for the implicants of both f and \xACf.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "True rows of ab + c",
+            "text": "<p>Over the 8 assignments of a,b,c, how many make <code>f = ab + c</code> true?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the 4 rows with c=1, plus 110 (a=1,b=1,c=0)."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "c=1 already gives 4 true rows; 110 adds a fifth."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Recount: exactly 5 rows are true (001,011,101,110,111)."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Too few \u2014 c=1 alone yields 4 true rows."
+              }
+            ],
+            "generalFeedback": "f is true whenever c=1 (4 rows) or ab=1 (adds 110). The true rows are 001, 011, 101, 110, 111 \u2014 five in all.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "True rows of ab + cd",
+            "text": "<p>Over the 16 assignments of a,b,c,d, how many make <code>f = ab + cd</code> true?</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 rows with ab (cd false) + 3 with cd (ab false) + 1 with both (1111) = 7."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "Adding the two blocks of 4 double-counts 1111; the true count is 7."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Recount \u2014 there are 7 true rows."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "ab alone gives 4 rows and cd gives 4 more (overlapping in 1111), for 7 distinct rows."
+              }
+            ],
+            "generalFeedback": "ab is true on 4 rows and cd on 4 rows; they share only 1111, so by inclusion\u2013exclusion 4 + 4 \u2212 1 = 7 assignments make f true.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "UTPC alone and predicate coverage",
+            "text": "<p>A test suite that satisfies only Unique True Point Coverage (UTPC) is guaranteed to make f evaluate to false in at least one test.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every UTP makes its implicant (and f) true, so a UTPC-only suite may never make f false."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "All unique true points make f true; nothing in UTPC forces a false point, so f need never be false."
+              }
+            ],
+            "generalFeedback": "Each UTP is a true point of f. A suite consisting solely of UTPs makes f true in every test, so UTPC alone does not guarantee a false evaluation \u2014 it does not subsume Predicate Coverage."
+          },
+          {
+            "type": "truefalse",
+            "name": "NFPC alone and predicate coverage",
+            "text": "<p>A test suite that satisfies only Near False Point Coverage (NFPC) is guaranteed to make f evaluate to true in at least one test.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every near false point makes f false, so an NFPC-only suite may never make f true."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "All near false points make f false; nothing in NFPC forces a true point, so f need never be true."
+              }
+            ],
+            "generalFeedback": "Each NFP is a false point of f. A suite of only NFPs makes f false in every test, so NFPC alone does not guarantee a true evaluation \u2014 it does not subsume Predicate Coverage on its own."
+          },
+          {
+            "type": "truefalse",
+            "name": "CUTPNFP subsumes predicate coverage",
+            "text": "<p>Because CUTPNFP includes a unique true point (f true) and a near false point (f false) for each literal, any CUTPNFP-satisfying suite makes f both true and false \u2014 so it subsumes Predicate Coverage.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the UTPs give a true evaluation and the NFPs give a false one, covering both values of f."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "CUTPNFP requires both UTPs (f true) and NFPs (f false), so f necessarily takes both values."
+              }
+            ],
+            "generalFeedback": "CUTPNFP pairs a UTP (f true) with an NFP (f false) for every literal. The suite therefore contains at least one true and one false evaluation of f, satisfying Predicate Coverage."
+          },
+          {
+            "type": "truefalse",
+            "name": "UTPC subsumes implicant coverage",
+            "text": "<p>Unique True Point Coverage (UTPC) subsumes Implicant Coverage (IC).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a UTP for implicant i makes i true, so covering a UTP for each implicant also makes each implicant true, which is exactly IC."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Every UTP makes its own implicant true; requiring one per implicant satisfies IC, so UTPC subsumes IC."
+              }
+            ],
+            "generalFeedback": "IC requires each implicant to be made true by some test. A UTP for implicant i makes i true, so a UTPC suite (a UTP per implicant) automatically satisfies IC."
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of CUTPNFP",
+            "text": "<p>What does a CUTPNFP (UTP, NFP) pair for a literal L demonstrate?</p>",
+            "answers": [
+              {
+                "text": "That toggling only L flips f \u2014 L's independent effect on the outcome (the DNF analog of MC/DC)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the pair differs only in L and f changes, showing L independently affects f."
+              },
+              {
+                "text": "That all 2^n combinations of variables are exercised",
+                "fraction": 0,
+                "feedback": "That is Combinatorial Coverage, far more than CUTPNFP requires."
+              },
+              {
+                "text": "That the predicate is always true",
+                "fraction": 0,
+                "feedback": "The NFP of the pair makes f false, so f is not always true."
+              },
+              {
+                "text": "That L never affects the outcome",
+                "fraction": 0,
+                "feedback": "The pair shows exactly the opposite: L does affect f."
+              }
+            ],
+            "generalFeedback": "A CUTPNFP pair is a UTP and an NFP differing only in literal L; f is true at one and false at the other, so flipping L alone flips f. This mirrors MC/DC's independent-effect requirement in DNF form.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Missing near false point in ab + a!b",
+            "text": "<p>For <code>f = ab + a!b</code> (which equals <code>a</code>), literal <code>b</code> of the implicant <code>ab</code> has <strong>no</strong> near false point. Why?</p>",
+            "answers": [
+              {
+                "text": "Any point where flipping b would make ab true already has a=1, so f = a is already true there \u2014 f is never false at such a point",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 the required "f false" condition cannot hold, so no NFP for b exists.'
+              },
+              {
+                "text": "Because b does not appear in the predicate",
+                "fraction": 0,
+                "feedback": "b does appear in the term ab; the issue is that ab is redundant (f = a)."
+              },
+              {
+                "text": "Because ab has no unique true point",
+                "fraction": 0,
+                "feedback": "ab does have a UTP (11); the missing NFP is a separate consequence of redundancy."
+              },
+              {
+                "text": "Because f is a tautology",
+                "fraction": 0,
+                "feedback": "f = a is not a tautology; it is false whenever a=0."
+              }
+            ],
+            "generalFeedback": "An NFP for b of ab needs f false while flipping b makes ab true \u2014 but making ab true by flipping b requires a=1, and with a=1 f = a is already true. No assignment satisfies both, so this NFP is infeasible: NFPC can be infeasible for a non-prime (redundant) implicant.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02 DNF",
+            "text": "<p>\u7576\u4E00\u500B\u8FF0\u8A5E\u5BEB\u6210\u4E0B\u5217\u4F55\u7A2E\u5F62\u5F0F\u6642\uFF0C\u7A31\u5176\u70BA<strong>\u6790\u53D6\u7BC4\u5F0F\uFF08Disjunctive Normal Form, DNF\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u82E5\u5E72\u4E58\u7A4D\u9805\uFF08product term\uFF09\u4EE5 OR \u9023\u63A5\uFF0C\u800C\u6BCF\u500B\u9805\u662F\u82E5\u5E72\u5B57\u9762\uFF08literal\uFF09\u4EE5 AND \u9023\u63A5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DNF \u5373\u300C\u7A4D\u4E4B\u548C\uFF08sum of products\uFF09\u300D\uFF1A\u7531 AND \u9805\u518D\u4EE5 OR \u9023\u63A5\u3002"
+              },
+              {
+                "text": "\u82E5\u5E72\u548C\u9805\u4EE5 AND \u9023\u63A5\uFF0C\u800C\u6BCF\u500B\u9805\u662F\u82E5\u5E72\u5B57\u9762\u4EE5 OR \u9023\u63A5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5408\u53D6\u7BC4\u5F0F\uFF08CNF\uFF09\uFF0C\u5373\u300C\u548C\u4E4B\u7A4D\u300D\u3002"
+              },
+              {
+                "text": "\u7531\u6240\u6709\u8B8A\u6578\u69CB\u6210\u7684\u55AE\u4E00\u4E58\u7A4D\u9805",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6700\u5C0F\u9805\uFF08minterm\uFF09\uFF0C\u53EA\u662F DNF \u7684\u4E00\u7A2E\u7279\u4F8B\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u5E03\u6797\u904B\u7B97\u5F0F\uFF0C\u4E0D\u8AD6\u7D50\u69CB\u70BA\u4F55",
+                "fraction": 0,
+                "feedback": "DNF \u662F\u7279\u5B9A\u7684\u7BC4\u5F0F\uFF0C\u800C\u975E\u4EFB\u610F\u904B\u7B97\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "DNF\uFF08\u7A4D\u4E4B\u548C\uFF09\u628A f \u5BEB\u6210\u82E5\u5E72\u4E58\u7A4D\u9805\u4EE5 OR \u9023\u63A5\uFF1B\u6BCF\u500B\u4E58\u7A4D\u9805\u662F\u82E5\u5E72\u5B57\u9762\u4EE5 AND \u9023\u63A5\u3002\u672C\u984C\u5EAB\u8A18\u6CD5\uFF1AAND \u4EE5\u76F8\u9130\uFF08\uFF09\u3001OR \u4EE5\u3001NOT \u4EE5\uFF08\u4F8B\u5982\uFF09\u8868\u793A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02\u5B57\u9762",
+            "text": "<p>\u5728 DNF \u4E2D\uFF0C<strong>\u5B57\u9762\uFF08literal\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u8B8A\u6578\u6216\u5176\u5426\u5B9A\uFF08\u4F8B\u5982 a \u6216 !a\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B57\u9762\u662F\u4E00\u500B\u8B8A\u6578\u7684\u55AE\u6B21\u51FA\u73FE\uFF0C\u53EF\u80FD\u5E36\u5426\u5B9A\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u4EE5\u4E0A\u8B8A\u6578\u7684 AND \u9023\u63A5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E58\u7A4D\u9805\uFF0C\u800C\u975E\u55AE\u4E00\u5B57\u9762\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u7A4D\u4E4B\u548C\u904B\u7B97\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6574\u500B DNF\uFF0C\u800C\u975E\u5B57\u9762\u3002"
+              },
+              {
+                "text": "\u5C0D\u6240\u6709\u8B8A\u6578\u7684\u4E00\u7D44\u6307\u6D3E\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u9EDE\uFF0F\u771F\u503C\u8868\u5217\uFF0C\u800C\u975E\u5B57\u9762\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B57\u9762\u662F\u55AE\u4E00\u8B8A\u6578\u6216\u5176\u5426\u5B9A\uFF0C\u4F8B\u5982\u6216\u3002\u5B57\u9762\u4EE5 AND \u9023\u63A5\u69CB\u6210\u4E58\u7A4D\u9805\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02\u4E58\u7A4D\u9805",
+            "text": "<p>\u5728 DNF \u4E2D\uFF0C\u4E00\u500B<strong>\u9805\uFF08\u4E58\u7A4D\u9805\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u4EE5\u4E0A\u5B57\u9762\u4EE5 AND \u9023\u63A5\uFF0C\u4F8B\u5982 a!bc",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E58\u7A4D\u9805\u662F\u5B57\u9762\u4EE5 AND \u9023\u63A5\u800C\u6210\u3002"
+              },
+              {
+                "text": "\u82E5\u5E72\u5B57\u9762\u4EE5 OR \u9023\u63A5\uFF0C\u4F8B\u5982 a + b + c",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u548C\u9805\uFF08\u7528\u65BC CNF\uFF09\uFF0C\u800C\u975E DNF \u7684\u4E58\u7A4D\u9805\u3002"
+              },
+              {
+                "text": "\u53EA\u80FD\u662F\u55AE\u4E00\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u8B8A\u6578\u662F\u5408\u6CD5\u7684\u9805\uFF0C\u4F46\u9805\u53EF AND \u591A\u500B\u5B57\u9762\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u8FF0\u8A5E\u7684\u5426\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F \xACf\uFF0C\u800C\u975E\u4E58\u7A4D\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E58\u7A4D\u9805\u662F\u82E5\u5E72\u5B57\u9762\u7684 AND \u9023\u63A5\uFF0C\u4F8B\u5982\u3002DNF \u5247\u662F\u9019\u4E9B\u4E58\u7A4D\u9805\u4EE5 OR\uFF08\u548C\uFF09\u9023\u63A5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02\u6700\u5C0F\u9805",
+            "text": "<p>\u5C0D\u65BC\u8B8A\u6578 a\u3001b\u3001c \u7684\u8FF0\u8A5E\uFF0C<strong>\u6700\u5C0F\u9805\uFF08minterm\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6070\u597D\u542B\u6BCF\u500B\u8B8A\u6578\u5404\u4E00\u6B21\uFF08\u5404\u70BA a \u6216 !a\uFF09\u7684\u4E58\u7A4D\u9805\uFF0C\u4F8B\u5982 a!bc",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5C0F\u9805\u63D0\u53CA\u6240\u6709\u8B8A\u6578\uFF0C\u4E14\u6070\u5728\u4E00\u5217\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11\u7701\u7565\u4E00\u500B\u8B8A\u6578\u7684\u4E58\u7A4D\u9805\uFF0C\u4F8B\u5982 ac",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5408\u6CD5\u7684\u4E58\u7A4D\u9805\uFF0C\u4F46\u975E\u6700\u5C0F\u9805\u2014\u2014\u6700\u5C0F\u9805\u9808\u63D0\u53CA\u6BCF\u500B\u8B8A\u6578\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u8B8A\u6578\u7684 OR \u9023\u63A5\uFF0C\u4F8B\u5982 a + b + c",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u548C\u9805\uFF0C\u800C\u975E\u6700\u5C0F\u9805\u3002"
+              },
+              {
+                "text": "\u8FF0\u8A5E\u7684\u6700\u5C0F\u860A\u6DB5\u9805",
+                "fraction": 0,
+                "feedback": "\u860A\u6DB5\u9805\u7684\u5927\u5C0F\u8207\u6B64\u7121\u95DC\uFF1B\u6700\u5C0F\u9805\u7684\u5B9A\u7FA9\u5728\u65BC\u63D0\u53CA\u6BCF\u500B\u8B8A\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6700\u5C0F\u9805\u662F\u6070\u597D\u63D0\u53CA\u6BCF\u500B\u8B8A\u6578\u5404\u4E00\u6B21\u7684\u4E58\u7A4D\u9805\uFF1B\u5B83\u6070\u5728\u4E00\u7D44\u6307\u6D3E\uFF08\u771F\u503C\u8868\u7684\u4E00\u5217\uFF09\u70BA\u771F\u3002\u5728 3 \u500B\u8B8A\u6578\u4E0B\uFF0C\u662F\u6700\u5C0F\u9805\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02\u860A\u6DB5\u9805",
+            "text": "<p>\u7576\u4E58\u7A4D\u9805 i \u70BA\u8FF0\u8A5E f \u7684<strong>\u860A\u6DB5\u9805\uFF08implicant\uFF09</strong>\u6642\uFF0C\u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u8981 i \u70BA\u771F\uFF0Cf \u4E5F\u5FC5\u70BA\u771F\uFF08i \u860A\u6DB5 f\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u860A\u6DB5\u9805\u6703\u860A\u6DB5\u8A72\u8FF0\u8A5E\u3002"
+              },
+              {
+                "text": "\u53EA\u8981 f \u70BA\u771F\uFF0Ci \u4E5F\u5FC5\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76F8\u53CD\u65B9\u5411\u7684\u860A\u6DB5\uFF0C\u4E26\u975E\u860A\u6DB5\u9805\u7684\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "i \u8207 f \u5728\u5B8C\u5168\u76F8\u540C\u7684\u5217\u4E0A\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u4F7F i \u908F\u8F2F\u7B49\u50F9\u65BC f\uFF0C\u6BD4\u300C\u860A\u6DB5\u9805\u300D\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "i \u4F7F f \u70BA\u5047",
+                "fraction": 0,
+                "feedback": "\u860A\u6DB5\u9805\u4F7F f \u70BA\u771F\uFF0C\u800C\u975E\u70BA\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "\u860A\u6DB5\u9805\u662F\u6703\u860A\u6DB5 f \u7684\u4E58\u7A4D\u9805\uFF1A\u51E1\u6EFF\u8DB3\u8A72\u9805\u7684\u6307\u6D3E\u4EA6\u6EFF\u8DB3 f\u3002f \u7684\u4EFB\u4E00 DNF \u4E2D\u6240\u5217\u7684\u6BCF\u500B\u9805\u90FD\u662F f \u7684\u860A\u6DB5\u9805\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02\u8CEA\u860A\u6DB5\u9805",
+            "text": "<p>f \u7684<strong>\u8CEA\u860A\u6DB5\u9805\uFF08prime implicant\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u79FB\u9664\u4EFB\u4E00\u5B57\u9762\u5F8C\u4FBF\u4E0D\u518D\u662F\u860A\u6DB5\u9805\u7684\u860A\u6DB5\u9805",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u300C\u6975\u5927\uFF0F\u4E0D\u53EF\u518D\u5316\u7C21\u300D\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "\u542B\u6240\u6709\u8B8A\u6578\u7684\u860A\u6DB5\u9805",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6700\u5C0F\u9805\uFF1B\u8CEA\u860A\u6DB5\u9805\u901A\u5E38\u8F03\u5C0F\u3002"
+              },
+              {
+                "text": "\u51FA\u73FE\u5728 f \u67D0\u500B DNF \u4E2D\u7684\u4EFB\u4E00\u4E58\u7A4D\u9805",
+                "fraction": 0,
+                "feedback": "\u9019\u6A23\u7684\u9805\u662F\u860A\u6DB5\u9805\uFF0C\u4F46\u672A\u5FC5\u662F\u8CEA\u7684\uFF08\u53EF\u80FD\u4ECD\u53EF\u79FB\u9664\u67D0\u5B57\u9762\uFF09\u3002"
+              },
+              {
+                "text": "f \u6240\u6709\u860A\u6DB5\u9805\u7684 OR \u9023\u63A5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F f \u7684\u4E00\u500B DNF\uFF0C\u800C\u975E\u55AE\u4E00\u8CEA\u860A\u6DB5\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CEA\u860A\u6DB5\u9805\u662F\u4E0D\u53EF\u518D\u5316\u7C21\u7684\u860A\u6DB5\u9805\uFF1A\u79FB\u9664\u5176\u4E2D\u4EFB\u4E00\u5B57\u9762\u5F8C\uFF0C\u6240\u5F97\u7684\u9805\u4FBF\u4E0D\u518D\u860A\u6DB5 f\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02\u552F\u4E00\u771F\u9EDE",
+            "text": "<p>\u860A\u6DB5\u9805 i \u7684<strong>\u552F\u4E00\u771F\u9EDE\uFF08unique true point, UTP\uFF09</strong>\u662F\u6307\u4E00\u7D44\u6307\u6D3E\uFF0C\u4F7F\u5F97\uFF1A</p>",
+            "answers": [
+              {
+                "text": "i \u70BA\u771F\uFF0C\u4E14 f \u7684\u5176\u4ED6\u6BCF\u500B\u860A\u6DB5\u9805\u7686\u70BA\u5047",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728 UTP \u4E0A\uFF0C\u50C5 i \u4F7F f \u70BA\u771F\u3002"
+              },
+              {
+                "text": "i \u70BA\u771F\uFF0C\u4E0D\u8AD6\u5176\u4ED6\u860A\u6DB5\u9805\u5982\u4F55",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u662F i \u7684\u4E00\u500B\u771F\u9EDE\uFF1BUTP \u53E6\u8981\u6C42\u5176\u4ED6\u6240\u6709\u860A\u6DB5\u9805\u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u4F7F f \u70BA\u5047",
+                "fraction": 0,
+                "feedback": "UTP \u662F\u771F\u9EDE\uFF1A\u5B83\u4F7F i\uFF08\u9032\u800C\u4F7F f\uFF09\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u662F\u4F7F f \u70BA\u771F\u7684\u552F\u4E00\u6307\u6D3E",
+                "fraction": 0,
+                "feedback": "\u300C\u552F\u4E00\u300D\u6307\u53EA\u6709\u4E00\u500B\u860A\u6DB5\u9805\u70BA\u771F\uFF0C\u800C\u975E f \u53EA\u6709\u4E00\u7D44\u4EE4\u5176\u70BA\u771F\u7684\u6307\u6D3E\u3002"
+              }
+            ],
+            "generalFeedback": "\u860A\u6DB5\u9805 i \u7684 UTP \u662F\u4F7F i \u70BA\u771F\u3001\u800C\u5176\u4ED6\u6240\u6709\u860A\u6DB5\u9805\u7686\u70BA\u5047\u7684\u6307\u6D3E\uFF0C\u56E0\u6B64\u5728\u8A72\u9EDE\u4E0A i \u662F\u4F7F f \u70BA\u771F\u7684\u552F\u4E00\u860A\u6DB5\u9805\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8B02\u8FD1\u4F3C\u5047\u9EDE",
+            "text": "<p>\u5C0D\u65BC\u860A\u6DB5\u9805 i \u7684\u67D0\u5B57\u9762 L\uFF0C\u5176<strong>\u8FD1\u4F3C\u5047\u9EDE\uFF08near false point, NFP\uFF09</strong>\u662F\u6307\u4E00\u7D44\u6307\u6D3E\uFF0C\u4F7F\u5F97\uFF1A</p>",
+            "answers": [
+              {
+                "text": "f \u70BA\u5047\uFF0C\u4F46\u53EA\u7FFB\u8F49\u5B57\u9762 L \u4FBF\u4F7F i\uFF08\u9032\u800C\u4F7F f\uFF09\u70BA\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u8207 i \u7684\u67D0\u771F\u9EDE\u50C5\u5DEE\u4E00\u500B\u5B57\u9762\u3002"
+              },
+              {
+                "text": "\u4EE5\u860A\u6DB5\u9805 i \u4F7F f \u70BA\u771F",
+                "fraction": 0,
+                "feedback": "NFP \u4F7F f \u70BA\u5047\uFF0C\u800C\u975E\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u540C\u6642\u4F7F i \u7684\u6BCF\u500B\u5B57\u9762\u7686\u70BA\u5047",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 L \u9019\u4E00\u500B\u5B57\u9762\u300C\u4E0D\u5C0D\u300D\uFF0C\u5176\u9918\u5B57\u9762\u4ECD\u4FDD\u6301\u80FD\u4F7F i \u70BA\u771F\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u8207 i \u7684\u67D0\u771F\u9EDE\u76F8\u5DEE\u5169\u500B\u4EE5\u4E0A\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "NFP \u6070\u5DEE\u4E00\u500B\u8B8A\u6578\u2014\u2014\u5373\u5B57\u9762 L \u6240\u5C0D\u61C9\u8005\uFF0C\u6545\u7A31\u300C\u8FD1\u4F3C\u300D\u3002"
+              }
+            ],
+            "generalFeedback": "\u860A\u6DB5\u9805 i \u4E4B\u5B57\u9762 L \u7684\u8FD1\u4F3C\u5047\u9EDE\u4F7F f \u70BA\u5047\uFF0C\u4F46\u53EA\u7FFB\u8F49 L \u6240\u5C0D\u61C9\u7684\u8B8A\u6578\u5373\u53EF\u4F7F i\uFF08\u9032\u800C\u4F7F f\uFF09\u70BA\u771F\uFF1B\u5B83\u8207\u80FD\u4F7F i \u70BA\u771F\u7684\u9EDE\u50C5\u76F8\u5DEE\u4E00\u500B\u8B8A\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 ab + cd \u7684\u4E58\u7A4D\u9805\u6578",
+            "text": "<p>DNF <code>ab + cd</code> \u542B\u6709\u5E7E\u500B\u4E58\u7A4D\u9805\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u9805\u70BA ab \u8207 cd\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u5B57\u9762\u6578\uFF0C\u800C\u975E\u9805\u6578\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5206\u9694\u51FA\u5169\u500B\u4E0D\u540C\u7684\u4E58\u7A4D\u9805\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u6070\u6709\u5169\u500B\u9805\uFF1Aab \u8207 cd\u3002"
+              }
+            ],
+            "generalFeedback": "\u662F\u5169\u500B\u4E58\u7A4D\u9805 ab \u8207 cd \u7684 OR \u9023\u63A5\uFF0C\u6545\u6709 2 \u500B\u9805\uFF08\u5404\u70BA\u8A72\u8FF0\u8A5E\u7684\u860A\u6DB5\u9805\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 ab + cd \u7684\u5B57\u9762\u6578",
+            "text": "<p>DNF <code>ab + cd</code> \u542B\u6709\u5E7E\u6B21\u5B57\u9762\u51FA\u73FE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a\u3001b\u3001c\u3001d \u5404\u51FA\u73FE\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u9805\u6578\uFF0C\u800C\u975E\u5B57\u9762\u6578\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u56DB\u6B21\u5B57\u9762\u51FA\u73FE\uFF1Aa\u3001b\u3001c\u3001d\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u9010\u9805\u8A08\u7B97\uFF1Aab \u6709 2 \u500B\u3001cd \u6709 2 \u500B\uFF0C\u5171 4 \u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u9805 ab \u63D0\u4F9B\u5B57\u9762 a \u8207 b\uFF1B\u9805 cd \u63D0\u4F9B c \u8207 d\u2014\u2014\u5408\u8A08\u56DB\u6B21\u5B57\u9762\u51FA\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u55AE\u4E00\u5B57\u9762",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u55AE\u4E00<strong>\u5B57\u9762</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "!b",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014!b \u662F\u67D0\u8B8A\u6578\u7684\u5426\u5B9A\uFF0C\u70BA\u4E00\u500B\u5B57\u9762\u3002"
+              },
+              {
+                "text": "ab",
+                "fraction": 0,
+                "feedback": "ab \u662F\u4E58\u7A4D\u9805\uFF08\u5169\u500B\u5B57\u9762 AND \u9023\u63A5\uFF09\uFF0C\u4E26\u975E\u55AE\u4E00\u5B57\u9762\u3002"
+              },
+              {
+                "text": "a + b",
+                "fraction": 0,
+                "feedback": "a + b \u662F\u5169\u500B\u5B57\u9762\u7684 OR \u9023\u63A5\uFF0C\u4E26\u975E\u55AE\u4E00\u5B57\u9762\u3002"
+              },
+              {
+                "text": "a!bc",
+                "fraction": 0,
+                "feedback": "a!bc \u662F\u542B\u4E09\u500B\u5B57\u9762\u7684\u4E58\u7A4D\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B57\u9762\u662F\u4E00\u500B\u8B8A\u6578\u6216\u5176\u5426\u5B9A\u3002\u7B26\u5408\uFF1B\u8207\u662F\u4E58\u7A4D\u9805\uFF0C\u5247\u662F OR \u9023\u63A5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 ab + c \u7684\u5B57\u9762\u6578",
+            "text": "<p>DNF <code>ab + c</code> \u542B\u6709\u5E7E\u6B21\u5B57\u9762\u51FA\u73FE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B2C\u4E00\u9805\u6709 a \u8207 b\uFF0C\u7B2C\u4E8C\u9805\u6709 c\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u9805\u6578\uFF1B\u5B57\u9762\u51FA\u73FE\u5171 3 \u6B21\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u53EA\u51FA\u73FE a\u3001b\u3001c\u2014\u2014\u4E09\u500B\u5B57\u9762\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5C07\u5169\u9805\u7684\u5B57\u9762\u76F8\u52A0\uFF1A2 + 1 = 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u9805 ab \u6709\u5B57\u9762 a \u8207 b\uFF1B\u9805 c \u6709\u5B57\u9762 c\u2014\u2014\u5408\u8A08\u4E09\u6B21\u5B57\u9762\u51FA\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 ab + cd \u7684\u8B8A\u6578\u6578",
+            "text": "<p>\u8FF0\u8A5E <code>ab + cd</code> \u6D89\u53CA\u5E7E\u500B\u76F8\u7570\u8B8A\u6578\uFF08\u5B50\u53E5\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a\u3001b\u3001c\u3001d\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u9805\u6578\uFF1B\u8A72\u8FF0\u8A5E\u7528\u5230 4 \u500B\u76F8\u7570\u8B8A\u6578\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 = 2^4 \u662F\u771F\u503C\u8868\u5217\u6578\uFF0C\u800C\u975E\u8B8A\u6578\u6578\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u76F8\u7570\u8B8A\u6578\u6709 4 \u500B\uFF1Aa\u3001b\u3001c\u3001d\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8FF0\u8A5E\u63D0\u53CA a\u3001b\u3001c\u3001d\u2014\u2014\u56DB\u500B\u76F8\u7570\u8B8A\u6578\uFF0C\u6545\u6709 2^4 = 16 \u5217\u771F\u503C\u8868\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8CEA\u860A\u6DB5\u9805\u7684\u4E0D\u53EF\u5316\u7C21\u6027",
+            "text": "<p>\u8CEA\u860A\u6DB5\u9805\u662F\u6307\u300C\u79FB\u9664\u4EFB\u4E00\u5B57\u9762\u5F8C\u4FBF\u4E0D\u518D\u662F\u860A\u6DB5\u9805\u300D\u7684\u860A\u6DB5\u9805\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u7A2E\u4E0D\u53EF\u5316\u7C21\u6027\u6B63\u662F\u4F7F\u860A\u6DB5\u9805\u6210\u70BA\u300C\u8CEA\u300D\u7684\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u8CEA\u860A\u6DB5\u9805\u6B63\u662F\u4E0D\u53EF\u518D\u5316\u7C21\u7684\u860A\u6DB5\u9805\uFF1B\u79FB\u9664\u4EFB\u4E00\u5B57\u9762\u90FD\u6703\u7834\u58DE\u5176\u860A\u6DB5\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u860A\u6DB5\u9805\u70BA\u6975\u5C0F\uFF08\u4E0D\u53EF\u5316\u7C21\uFF09\u6642\u5373\u70BA\u8CEA\u7684\uFF1A\u79FB\u9664\u5176\u4E2D\u4EFB\u4E00\u5B57\u9762\uFF0C\u6240\u5F97\u7684\u9805\u4FBF\u4E0D\u518D\u860A\u6DB5 f\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "DNF \u7684\u9805\u7686\u70BA\u860A\u6DB5\u9805",
+            "text": "<p>\u51FA\u73FE\u5728 f \u4E4B\u67D0 DNF \u4E2D\u7684\u6BCF\u500B\u4E58\u7A4D\u9805\u90FD\u662F f \u7684\u860A\u6DB5\u9805\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u82E5\u67D0\u9805\u70BA\u771F\uFF0C\u5247\u8A72 OR \u652F\u70BA\u771F\uFF0C\u6545 f \u70BA\u771F\uFF1B\u8A72\u9805\u860A\u6DB5 f\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4EFB\u4E00\u652F\u70BA\u771F\u90FD\u6703\u4F7F\u6574\u500B OR\uFF08\u9032\u800C\u4F7F f\uFF09\u70BA\u771F\uFF0C\u6545 DNF \u7684\u6BCF\u500B\u9805\u90FD\u860A\u6DB5 f\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC f \u662F\u5176\u5404\u9805\u7684 OR\uFF0C\u4EFB\u4E00\u9805\u70BA\u771F\u5373\u4F7F f \u70BA\u771F\u3002\u56E0\u6B64 f \u4E4B DNF \u4E2D\u7684\u6BCF\u500B\u9805\uFF08\u4F9D\u5B9A\u7FA9\uFF09\u90FD\u662F f \u7684\u860A\u6DB5\u9805\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "ab + c \u4E2D ab \u7684 UTP",
+            "text": "<p>\u5C0D <code>f = ab + c</code>\uFF08\u8B8A\u6578\u9806\u5E8F a,b,c\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u860A\u6DB5\u9805 <code>ab</code> \u7684<strong>\u552F\u4E00\u771F\u9EDE</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "110\uFF08a=1, b=1, c=0\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ab \u70BA\u771F\u4E14 c \u70BA\u5047\uFF0C\u6545 ab \u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "111\uFF08a=1, b=1, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u5728 111 \u6642\u860A\u6DB5\u9805 c \u4EA6\u70BA\u771F\uFF0C\u6545 ab \u4E0D\u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "100\uFF08a=1, b=0, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 ab \u70BA\u5047\uFF08b=0\uFF09\uFF0C\u6545\u6839\u672C\u4E0D\u662F ab \u7684\u771F\u9EDE\u3002"
+              },
+              {
+                "text": "001\uFF08a=0, b=0, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 ab \u70BA\u5047\uFF1B\u9019\u662F c \u7684\u771F\u9EDE\uFF0C\u800C\u975E ab \u7684\u3002"
+              }
+            ],
+            "generalFeedback": "ab \u7684 UTP \u9700 ab \u70BA\u771F\u4E14\u5176\u4ED6\u860A\u6DB5\u9805\uFF08\u6B64\u8655\u70BA c\uFF09\u70BA\u5047\uFF1Aa=1, b=1, c=0\uFF0C\u5373 110\u3002\u5B83\u662F\u672C\u8FF0\u8A5E\u4E2D ab \u7684\u552F\u4E00 UTP\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + c \u4E2D c \u7684 UTP",
+            "text": "<p>\u5C0D <code>f = ab + c</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u860A\u6DB5\u9805 <code>c</code> \u7684<strong>\u552F\u4E00\u771F\u9EDE</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "001\uFF08a=0, b=0, c=1\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c \u70BA\u771F\u4E14 ab \u70BA\u5047\uFF0C\u6545 c \u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "111\uFF08a=1, b=1, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 ab \u4EA6\u70BA\u771F\uFF0C\u6545 c \u4E0D\u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "110\uFF08a=1, b=1, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 c \u70BA\u5047\uFF08c=0\uFF09\uFF1B\u9019\u662F ab \u7684\u771F\u9EDE\uFF0C\u800C\u975E c \u7684\u3002"
+              },
+              {
+                "text": "000\uFF08a=0, b=0, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 f \u70BA\u5047\uFF0C\u6839\u672C\u4E0D\u662F\u771F\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "c \u6709\u4E09\u500B UTP\u2014\u2014001\u3001011\u3001101\uFF0C\u7686\u4F7F c \u70BA\u771F\u800C ab \u70BA\u5047\u3002\u9078\u9805\u4E2D\u50C5 001 \u7B26\u5408\uFF08111 \u6703\u4F7F ab \u4EA6\u70BA\u771F\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + c \u4E2D ab \u4E4B\u5B57\u9762 a \u7684 NFP",
+            "text": "<p>\u5C0D <code>f = ab + c</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u860A\u6DB5\u9805 <code>ab</code> \u4E4B\u5B57\u9762 <code>a</code> \u7684<strong>\u8FD1\u4F3C\u5047\u9EDE</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "010\uFF08a=0, b=1, c=0\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u8655 f \u70BA\u5047\uFF0C\u5C07 a \u7FFB\u70BA 1 \u5F97\u5230 110\uFF0C\u4F7F ab\uFF08\u9032\u800C f\uFF09\u70BA\u771F\u3002"
+              },
+              {
+                "text": "100\uFF08a=1, b=0, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 f \u70BA\u5047\uFF0C\u4F46\u7FFB\u8F49 a \u5F97\u5230 000\uFF0Cab \u4ECD\u70BA\u5047\uFF08b=0\uFF09\u3002\u4E0D\u662F a \u7684 NFP\u3002"
+              },
+              {
+                "text": "110\uFF08a=1, b=1, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 f \u70BA\u771F\uFF08ab \u6210\u7ACB\uFF09\uFF0C\u662F\u771F\u9EDE\uFF0C\u800C\u975E\u8FD1\u4F3C\u5047\u9EDE\u3002"
+              },
+              {
+                "text": "011\uFF08a=0, b=1, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 f \u70BA\u771F\uFF08c \u6210\u7ACB\uFF09\uFF0C\u6545\u4E0D\u53EF\u80FD\u662F\u8FD1\u4F3C\u5047\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "ab \u4E4B\u5B57\u9762 a \u7684 NFP \u9700 f \u70BA\u5047\uFF0C\u4E14\u53EA\u7FFB\u8F49 a \u4FBF\u4F7F ab \u70BA\u771F\u3002\u9019\u8981\u6C42 b=1\u3001c=0\u3001a=0\uFF1A\u5373 010\u3002\u7FFB\u8F49 a \u5F97 110\uFF0Cab \u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UTP \u8207 NFP \u7684\u771F\u503C",
+            "text": "<p>\u5728\u552F\u4E00\u771F\u9EDE\u4E0A\uFF0C\u8FF0\u8A5E f \u70BA ____\uFF1B\u5728\u8FD1\u4F3C\u5047\u9EDE\u4E0A\uFF0Cf \u70BA ____\u3002</p>",
+            "answers": [
+              {
+                "text": "\u771F\uFF1B\u5047",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014UTP \u662F f \u7684\u771F\u9EDE\uFF1BNFP \u662F f \u7684\u5047\u9EDE\u3002"
+              },
+              {
+                "text": "\u5047\uFF1B\u771F",
+                "fraction": 0,
+                "feedback": "\u985B\u5012\u4E86\u2014\u2014UTP \u4F7F f \u70BA\u771F\uFF0CNFP \u4F7F f \u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u771F\uFF1B\u771F",
+                "fraction": 0,
+                "feedback": "NFP \u4F7F f \u70BA\u5047\uFF0C\u800C\u975E\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u5047\uFF1B\u5047",
+                "fraction": 0,
+                "feedback": "UTP \u4F7F f \u70BA\u771F\uFF0C\u800C\u975E\u70BA\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u5B9A\u7FA9\uFF0CUTP \u4F7F\u5176\u860A\u6DB5\u9805\uFF08\u9032\u800C\u4F7F f\uFF09\u70BA\u771F\uFF1BNFP \u4F7F f \u70BA\u5047\uFF0C\u4F46\u53EA\u5DEE\u4E00\u500B\u5B57\u9762\u7FFB\u8F49\u5373\u53EF\u4F7F\u67D0\u860A\u6DB5\u9805\u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + a!b \u7684\u8CEA\u860A\u6DB5\u9805",
+            "text": "<p>\u8003\u616E <code>f = ab + a!b</code>\uFF0C\u5176\u53EF\u5316\u7C21\u70BA <code>a</code>\u3002\u4E0B\u5217\u6558\u8FF0\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "ab \u8207 a!b \u7686\u975E\u8CEA\u860A\u6DB5\u9805\uFF0C\u56E0\u70BA\u5169\u8005\u7684\u7B2C\u4E8C\u500B\u5B57\u9762\u90FD\u53EF\u79FB\u9664\uFF08\u50C5 a \u4ECD\u860A\u6DB5 f\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0 f = a\uFF0C\u9805 a \u5373\u70BA\u860A\u6DB5\u9805\uFF0C\u6545 ab \u8207 a!b \u7686\u53EF\u5316\u7C21\u3002"
+              },
+              {
+                "text": "ab \u8207 a!b \u7686\u70BA\u8CEA\u860A\u6DB5\u9805",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7686\u975E\u8CEA\u7684\uFF1A\u79FB\u9664 b\uFF08\u6216 !b\uFF09\u5F8C\u5269\u4E0B a\uFF0C\u4ECD\u860A\u6DB5 f\u3002"
+              },
+              {
+                "text": "\u50C5 ab \u662F\u8CEA\u860A\u6DB5\u9805",
+                "fraction": 0,
+                "feedback": "ab \u53EF\u5316\u7C21\u70BA a\uFF0C\u6545\u975E\u8CEA\u7684\u3002"
+              },
+              {
+                "text": "a \u4E0D\u662F f \u7684\u860A\u6DB5\u9805",
+                "fraction": 0,
+                "feedback": "\u56E0 f = a\uFF0C\u9805 a \u860A\u6DB5 f\u2014\u2014\u5B83\u5176\u5BE6\u662F\u552F\u4E00\u7684\u8CEA\u860A\u6DB5\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "f = ab + a!b = a\u3002\u552F\u4E00\u7684\u8CEA\u860A\u6DB5\u9805\u662F a\u3002\u5169\u500B\u6240\u5217\u7684\u9805\u90FD\u5E36\u6709\u53EF\u79FB\u9664\u7684\u5B57\u9762\uFF0C\u6545\u7686\u975E\u8CEA\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + cd \u4E4B UTPC \u6240\u9700 UTP \u6578",
+            "text": "<p>\u5C0D <code>f = ab + cd</code>\uFF0C\u552F\u4E00\u771F\u9EDE\u8986\u84CB\uFF08UTPC\uFF09\u9808\u8981\u6C42\u5E7E\u500B\u552F\u4E00\u771F\u9EDE\uFF08\u6BCF\u500B\u860A\u6DB5\u9805\u4E00\u500B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ab \u4E00\u500B\u3001cd \u4E00\u500B\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u5B57\u9762\u6578\uFF1BUTPC \u6BCF\u500B\u860A\u6DB5\u9805\u9700\u4E00\u500B UTP\uFF0C\u800C\u860A\u6DB5\u9805\u6709 2 \u500B\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u860A\u6DB5\u9805\u5404\u9700\u81EA\u5DF1\u7684 UTP\uFF0C\u4E14\u6C92\u6709\u4EFB\u4F55\u4E00\u9EDE\u80FD\u540C\u6642\u662F\u5169\u8005\u7684 UTP\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u771F\u5217\u6578\uFF1BUTPC \u6BCF\u500B\u860A\u6DB5\u9805\u9700\u4E00\u500B UTP\uFF0C\u5373 2 \u500B\u3002"
+              }
+            ],
+            "generalFeedback": "UTPC \u5C0D\u6BCF\u500B\u860A\u6DB5\u9805\u8981\u6C42\u4E00\u500B UTP\u3002\u6709\u5169\u500B\u860A\u6DB5\u9805\uFF08ab\u3001cd\uFF09\uFF0C\u6545\u9700 2 \u500B\u552F\u4E00\u771F\u9EDE\uFF1B\u7531\u65BC UTP \u53EA\u4F7F\u81EA\u8EAB\u860A\u6DB5\u9805\u70BA\u771F\uFF0C\u4E00\u500B\u6E2C\u8A66\u7121\u6CD5\u540C\u6642\u670D\u52D9\u5169\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + cd \u4E4B NFPC \u6240\u9700 NFP \u6578",
+            "text": "<p>\u5C0D <code>f = ab + cd</code>\uFF0C\u8FD1\u4F3C\u5047\u9EDE\u8986\u84CB\uFF08NFPC\uFF09\u9808\u8981\u6C42\u5E7E\u500B\u8FD1\u4F3C\u5047\u9EDE\uFF08\u6BCF\u500B\u860A\u6DB5\u9805\u7684\u6BCF\u500B\u5B57\u9762\u4E00\u500B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a\u3001b\u3001c\u3001d \u56DB\u500B\u5B57\u9762\u5404\u4E00\u500B NFP\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u860A\u6DB5\u9805\u6578\uFF1BNFPC \u6BCF\u500B\u5B57\u9762\u9700\u4E00\u500B NFP\uFF0C\u800C\u5B57\u9762\u6709 4 \u500B\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u5B57\u9762\u51FA\u73FE\u50C5 4 \u6B21\uFF0C\u6545\u9700 4 \u500B NFP\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 = 2^4 \u662F\u5217\u6578\uFF0C\u800C\u975E\u6240\u9700 NFP \u6578\u3002"
+              }
+            ],
+            "generalFeedback": "NFPC \u5C0D\u6BCF\u500B\u860A\u6DB5\u9805\u7684\u6BCF\u500B\u5B57\u9762\u8981\u6C42\u4E00\u500B\u8FD1\u4F3C\u5047\u9EDE\u3002\u9805 ab \u8207 cd \u5171\u6709\u56DB\u500B\u5B57\u9762\uFF08a\u3001b\u3001c\u3001d\uFF09\uFF0C\u6545\u9700 4 \u500B NFP\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "!ab + ac \u4E2D !ab \u7684 UTP",
+            "text": "<p>\u5C0D <code>f = !ab + ac</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u860A\u6DB5\u9805 <code>!ab</code> \u7684<strong>\u552F\u4E00\u771F\u9EDE</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "010\uFF08a=0, b=1, c=0\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014!ab \u70BA\u771F\uFF08a=0, b=1\uFF09\u4E14 ac \u70BA\u5047\uFF08a=0\uFF09\uFF0C\u6545 !ab \u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "110\uFF08a=1, b=1, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 !ab \u70BA\u5047\uFF0C\u56E0 a=1 \u4F7F !a \u70BA\u5047\u3002"
+              },
+              {
+                "text": "111\uFF08a=1, b=1, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 ac \u70BA\u771F\u800C !ab \u70BA\u5047\uFF08a=1\uFF09\uFF1B\u4E26\u975E !ab \u7684 UTP\u3002"
+              },
+              {
+                "text": "001\uFF08a=0, b=0, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 !ab \u70BA\u5047\uFF0C\u56E0 b=0\u3002"
+              }
+            ],
+            "generalFeedback": "!ab \u9700 a=0 \u4E14 b=1\uFF1B\u8981\u4F7F ac \u70BA\u5047\u9700 a=0\uFF08\u5DF2\u6EFF\u8DB3\uFF09\u2014\u2014\u6545 010 \u8207 011 \u7686\u70BA UTP\u3002\u9078\u9805\u4E2D\u50C5 010 \u7B26\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "!ab + ac \u4E2D ac \u4E4B\u5B57\u9762 c \u7684 NFP",
+            "text": "<p>\u5C0D <code>f = !ab + ac</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u860A\u6DB5\u9805 <code>ac</code> \u4E4B\u5B57\u9762 <code>c</code> \u7684<strong>\u8FD1\u4F3C\u5047\u9EDE</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100\uFF08a=1, b=0, c=0\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u8655 f \u70BA\u5047\uFF0C\u5C07 c \u7FFB\u70BA 1 \u5F97\u5230 101\uFF0C\u4F7F ac\uFF08\u9032\u800C f\uFF09\u70BA\u771F\u3002"
+              },
+              {
+                "text": "101\uFF08a=1, b=0, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 f \u70BA\u771F\uFF08ac \u6210\u7ACB\uFF09\uFF0C\u662F\u771F\u9EDE\uFF0C\u800C\u975E\u8FD1\u4F3C\u5047\u9EDE\u3002"
+              },
+              {
+                "text": "000\uFF08a=0, b=0, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "f \u70BA\u5047\uFF0C\u4F46\u7FFB\u8F49 c \u5F97\u5230 001\uFF0Cac \u4ECD\u70BA\u5047\uFF08a=0\uFF09\u3002\u4E0D\u662F c \u7684 NFP\u3002"
+              },
+              {
+                "text": "010\uFF08a=0, b=1, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 f \u70BA\u771F\uFF08!ab \u6210\u7ACB\uFF09\uFF0C\u6545\u4E0D\u53EF\u80FD\u662F\u8FD1\u4F3C\u5047\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "ac \u4E4B\u5B57\u9762 c \u7684 NFP \u9700 f \u70BA\u5047\uFF0C\u4E14\u53EA\u7FFB\u8F49 c \u4FBF\u4F7F ac \u70BA\u771F\uFF0C\u5373 a=1 \u4E14 c=0\u3002a=1 \u6642 !ab \u70BA\u5047\uFF1Bb \u53EF\u70BA 0 \u6216 1\u3002100 \u53EF\u884C\uFF1A\u7FFB\u8F49 c \u5F97 101\uFF0Cac \u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ac + bc \u7684\u91CD\u758A\u860A\u6DB5\u9805",
+            "text": "<p>\u5C0D <code>f = ac + bc</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u5728\u6307\u6D3E 111\uFF08a=1, b=1, c=1\uFF09\u6642\uFF0C\u5169\u500B\u860A\u6DB5\u9805\u4E2D\u6709\u5E7E\u500B\u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2\u2014\u2014ac \u8207 bc \u7686\u70BA\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a=b=c=1 \u6642\u5169\u9805\u7686\u6210\u7ACB\uFF0C\u6545 111 \u4E0D\u662F\u4EFB\u4E00\u8005\u7684\u552F\u4E00\u771F\u9EDE\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u50C5 ac \u70BA\u771F",
+                "fraction": 0,
+                "feedback": "111 \u6642 bc \u4EA6\u70BA\u771F\uFF08b=1, c=1\uFF09\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u7686\u4E0D\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u5169\u9805\u7686\u70BA\u771F\uFF1B111 \u6642 f \u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u8996\u8B8A\u6578\u9806\u5E8F\u800C\u5B9A",
+                "fraction": 0,
+                "feedback": "\u771F\u503C\u4E0D\u56E0\u8B8A\u6578\u66F8\u5BEB\u9806\u5E8F\u800C\u6539\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 111 \u6642 ac \u8207 bc \u7686\u70BA\u771F\uFF0C\u6545 111 \u662F\u5171\u6709\u7684\u771F\u9EDE\u2014\u2014\u4E0D\u53EF\u80FD\u662F\u4EFB\u4E00\u860A\u6DB5\u9805\u7684 UTP\u3002\u6B64\u91CD\u758A\u6B63\u662F\u9078\u53D6\u552F\u4E00\u771F\u9EDE\u9808\u8B39\u614E\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + cd \u4E4B IC \u662F\u5426\u53EF\u7528\u55AE\u4E00\u6E2C\u8A66",
+            "text": "<p>\u5C0D <code>f = ab + cd</code>\uFF0C\u55AE\u4E00\u6E2C\u8A66\u80FD\u5426\u6EFF\u8DB3\u860A\u6DB5\u9805\u8986\u84CB\uFF08IC\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u80FD\u2014\u2014\u6307\u6D3E 1111 \u540C\u6642\u4F7F ab \u8207 cd \u70BA\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014IC \u50C5\u8981\u6C42\u6BCF\u500B\u860A\u6DB5\u9805\u5728\u67D0\u6E2C\u8A66\u4E2D\u70BA\u771F\uFF0C\u800C 1111 \u4F7F\u5169\u8005\u7686\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u4E0D\u80FD\u2014\u2014IC \u7E3D\u662F\u9700\u8981\u6BCF\u500B\u860A\u6DB5\u9805\u4E00\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F UTPC\u3002\u55AE\u7D14\u7684 IC \u82E5\u67D0\u6E2C\u8A66\u80FD\u4F7F\u6BCF\u500B\u860A\u6DB5\u9805\u70BA\u771F\uFF0C\u5373\u53EF\u5171\u7528\u3002"
+              },
+              {
+                "text": "\u4E0D\u80FD\u2014\u2014\u55AE\u4E00\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u4F7F\u5169\u500B\u4E58\u7A4D\u9805\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "1111 \u540C\u6642\u4F7F ab \u8207 cd \u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u80FD\uFF0C\u4F46\u50C5\u5728\u7D44\u5408\u8986\u84CB\u4E0B",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u6E2C\u8A66\u80FD\u5426\u6EFF\u8DB3 IC \u8207\u5176\u4ED6\u6E96\u5247\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "IC \u8981\u6C42\u6BCF\u500B\u860A\u6DB5\u9805\u5728\u67D0\u6E2C\u8A66\u4E2D\u70BA\u771F\u2014\u2014\u540C\u4E00\u6E2C\u8A66\u53EF\u670D\u52D9\u591A\u500B\u3002\u5728 1111 \u6642 ab \u8207 cd \u7686\u70BA\u771F\uFF0C\u6545\u55AE\u4E00\u6E2C\u8A66\u5373\u53EF\u6EFF\u8DB3 IC\u3002\u53CD\u4E4B UTPC \u8981\u6C42\u6BCF\u500B\u771F\u9EDE\u50C5\u5C6C\u4E00\u500B\u860A\u6DB5\u9805\uFF0C\u56E0\u800C\u7981\u6B62\u6B64\u4F5C\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "a + bc \u4E2D a \u7684 UTP",
+            "text": "<p>\u5C0D <code>f = a + bc</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u860A\u6DB5\u9805 <code>a</code> \u7684<strong>\u552F\u4E00\u771F\u9EDE</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "100\uFF08a=1, b=0, c=0\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u70BA\u771F\u4E14 bc \u70BA\u5047\uFF0C\u6545 a \u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "111\uFF08a=1, b=1, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 bc \u4EA6\u70BA\u771F\uFF0C\u6545 a \u4E0D\u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "011\uFF08a=0, b=1, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 a \u70BA\u5047\uFF1B\u9019\u662F bc \u7684\u771F\u9EDE\uFF0C\u800C\u975E a \u7684\u3002"
+              },
+              {
+                "text": "000\uFF08a=0, b=0, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 f \u70BA\u5047\uFF0C\u6545\u4E0D\u662F\u771F\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "a \u7684 UTP \u70BA 100\u3001101\u3001110\uFF08a \u70BA\u771F\u3001bc \u70BA\u5047\uFF09\u3002111 \u5931\u683C\uFF0C\u56E0 bc \u4EA6\u70BA\u771F\u3002\u9078\u9805\u4E2D 100 \u662F UTP\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "a \u662F\u5426\u70BA ab + cd \u7684\u860A\u6DB5\u9805",
+            "text": "<p>\u55AE\u4E00\u5B57\u9762 <code>a</code> \u662F <code>f = ab + cd</code> \u7684\u860A\u6DB5\u9805\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728 a=1, b=0, c=0, d=0\uFF081000\uFF09\u6642\u9805 a \u70BA\u771F\u4F46 f \u70BA\u5047\uFF0C\u6545 a \u4E0D\u860A\u6DB5 f\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u53CD\u4F8B 1000\uFF1Aa \u70BA\u771F\u4F46 f = ab + cd \u70BA\u5047\uFF0C\u6545 a \u4E0D\u860A\u6DB5 f\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5 a \u70BA\u860A\u6DB5\u9805\uFF0C\u5247\u51E1 a=1 \u7684\u6307\u6D3E\u90FD\u9808\u4F7F f \u70BA\u771F\u3002\u4F46 1000 \u4E2D a=1 \u800C f=0\uFF0C\u6545 a \u4E0D\u662F ab + cd \u7684\u860A\u6DB5\u9805\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u552F\u4E00\u7684\u771F\u9EDE",
+            "text": "<p>\u5728\u67D0\u6307\u6D3E\u4E0A\uFF0C\u860A\u6DB5\u9805 i \u70BA\u771F\uFF0C\u4F46 f \u7684\u81F3\u5C11\u4E00\u500B<em>\u5176\u4ED6</em>\u860A\u6DB5\u9805\u4EA6\u70BA\u771F\uFF0C\u5247\u6B64\u9EDE\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "f \u7684\u771F\u9EDE\uFF0C\u4F46\u4E0D\u662F i \u7684\u552F\u4E00\u771F\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u4E0D\u53EA\u4E00\u500B\u860A\u6DB5\u9805\u70BA\u771F\uFF0C\u552F\u4E00\u6027\u4E0D\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "i \u7684\u552F\u4E00\u771F\u9EDE",
+                "fraction": 0,
+                "feedback": "UTP \u8981\u6C42\u5176\u4ED6\u6240\u6709\u860A\u6DB5\u9805\u70BA\u5047\uFF1B\u6B64\u8655\u53E6\u6709\u4E00\u500B\u70BA\u771F\u3002"
+              },
+              {
+                "text": "i \u7684\u8FD1\u4F3C\u5047\u9EDE",
+                "fraction": 0,
+                "feedback": "NFP \u4F7F f \u70BA\u5047\uFF1B\u6B64\u9EDE\u4F7F f \u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u6839\u672C\u4E0D\u662F f \u7684\u771F\u9EDE",
+                "fraction": 0,
+                "feedback": "\u65E2\u7136 i \u70BA\u771F\uFF0Cf \u5373\u70BA\u771F\uFF0C\u6545\u5B83\u662F\u771F\u9EDE\u2014\u2014\u53EA\u662F\u975E\u552F\u4E00\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B83\u662F f \u7684\u771F\u9EDE\uFF08i \u70BA\u771F\uFF09\uFF0C\u4F46\u4E0D\u662F i \u7684 UTP\uFF0C\u56E0\u70BA\u53E6\u6709\u860A\u6DB5\u9805\u540C\u6642\u70BA\u771F\uFF0C\u6545 i \u4E26\u975E\u4F7F f \u70BA\u771F\u7684\u552F\u4E00\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FD1\u4F3C\u5047\u9EDE\u4E0A f \u7684\u771F\u503C",
+            "text": "<p>\u5728\u8FD1\u4F3C\u5047\u9EDE\u4E0A\uFF0C\u8FF0\u8A5E f \u5FC5\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5047",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014NFP \u662F f \u7684\u5047\u9EDE\uFF0C\u4E14\u8207\u67D0\u771F\u9EDE\u50C5\u5DEE\u4E00\u500B\u5B57\u9762\u7FFB\u8F49\u3002"
+              },
+              {
+                "text": "\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u771F\u9EDE\uFF1BNFP \u4F7F f \u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u8996\u860A\u6DB5\u9805\u800C\u5B9A\uFF0C\u53EF\u771F\u53EF\u5047",
+                "fraction": 0,
+                "feedback": "\u4F9D\u5B9A\u7FA9 NFP \u5FC5\u4F7F f \u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "f \u662F\u5168\u57DF\u5E03\u6797\u51FD\u6578\uFF1B\u5728\u6BCF\u7D44\u6307\u6D3E\u4E0A\u7686\u6709\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FD1\u4F3C\u5047\u9EDE\u4F7F f \u70BA\u5047\uFF1B\u7FFB\u8F49\u6240\u9396\u5B9A\u7684\u90A3\u500B\u5B57\u9762\u5373\u4F7F\u860A\u6DB5\u9805\uFF08\u9032\u800C f\uFF09\u70BA\u771F\u3002NFP \u4E0A\u7684\u300C\u5047\u300D\u503C\u5C0D CUTPNFP \u6240\u7528\u7684\u914D\u5C0D\u81F3\u95DC\u91CD\u8981\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "ab \u4E4B\u5B57\u9762 a \u7684 CUTPNFP \u914D\u5C0D",
+            "text": "<p>\u5C0D <code>f = ab + cd</code>\uFF08\u9806\u5E8F a,b,c,d\uFF09\uFF0C\u860A\u6DB5\u9805 <code>ab</code> \u4E4B\u5B57\u9762 <code>a</code> \u7684 CUTPNFP \u914D\u5C0D\uFF0C\u662F\u4E00\u500B\u552F\u4E00\u771F\u9EDE\u8207\u4E00\u500B\u8FD1\u4F3C\u5047\u9EDE\uFF0C\u4E14\u5169\u8005\u6070\u5728\u8B8A\u6578 a \u76F8\u7570\u3002\u4E0B\u5217\u4F55\u7D44\u53EF\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "UTP 1100 \u8207 NFP 0100",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u50C5\u5728 a \u76F8\u7570\uFF1B1100 \u4F7F\uFF08\u50C5\uFF09ab \u70BA\u771F\uFF0C0100 \u4F7F f \u70BA\u5047\u4E14\u8A2D\u56DE a \u5373\u8F49\u70BA\u771F\u3002"
+              },
+              {
+                "text": "UTP 1100 \u8207 NFP 1000",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5728\u8B8A\u6578 b \u76F8\u7570\uFF0C\u800C\u975E a\u2014\u2014\u90A3\u662F\u5B57\u9762 b \u7684\u914D\u5C0D\u3002"
+              },
+              {
+                "text": "UTP 1100 \u8207 NFP 0011",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5728\u591A\u500B\u8B8A\u6578\u76F8\u7570\uFF0C\u7121\u6CD5\u5B64\u7ACB\u51FA\u5B57\u9762 a\u3002"
+              },
+              {
+                "text": "UTP 0011 \u8207 NFP 0100",
+                "fraction": 0,
+                "feedback": "0011 \u662F cd \u7684 UTP\uFF0C\u800C\u975E ab \u7684\uFF0C\u6545\u7121\u6CD5\u8207 ab \u4E4B\u5B57\u9762 a \u7684 NFP \u914D\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D ab \u4E4B\u5B57\u9762 a\uFF1AUTP 1100\uFF08ab \u552F\u4E00\u70BA\u771F\uFF09\u8207 NFP 0100\uFF08f \u70BA\u5047\uFF09\u50C5\u5728 a \u76F8\u7570\uFF1B\u5728 NFP \u4E0A\u8A2D\u56DE a \u5373\u6062\u5FA9 ab \u8207 f\u3002\u6B64\u914D\u5C0D\u5B64\u7ACB\u51FA a \u7684\u7368\u7ACB\u6548\u61C9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab \u4E4B\u5B57\u9762 b \u7684 CUTPNFP \u914D\u5C0D",
+            "text": "<p>\u5C0D <code>f = ab + cd</code>\uFF08\u9806\u5E8F a,b,c,d\uFF09\uFF0C\u4E0B\u5217\u54EA\u7D44 UTP/NFP \u914D\u5C0D\u53EF\u5B64\u7ACB\u51FA\u860A\u6DB5\u9805 <code>ab</code> \u4E4B\u5B57\u9762 <code>b</code>\uFF08\u6070\u5728\u8B8A\u6578 b \u76F8\u7570\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "UTP 1100 \u8207 NFP 1000",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u50C5\u5728 b \u76F8\u7570\uFF1B1000 \u4F7F f \u70BA\u5047\uFF0C\u8A2D\u56DE b \u5373\u6062\u5FA9 ab \u8207 f\u3002"
+              },
+              {
+                "text": "UTP 1100 \u8207 NFP 0100",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5728 a \u76F8\u7570\uFF0C\u800C\u975E b\u2014\u2014\u90A3\u662F\u5B57\u9762 a \u7684\u914D\u5C0D\u3002"
+              },
+              {
+                "text": "UTP 1110 \u8207 NFP 1000",
+                "fraction": 0,
+                "feedback": "1110 \u8207 1000 \u5728\u8B8A\u6578 b \u8207 c \u7686\u76F8\u7570\uFF0C\u7121\u6CD5\u55AE\u7368\u5B64\u7ACB b\u3002"
+              },
+              {
+                "text": "UTP 1000 \u8207 NFP 1100",
+                "fraction": 0,
+                "feedback": "1000 \u4F7F f \u70BA\u5047\uFF0C\u6545\u4E0D\u662F UTP\uFF1B\u89D2\u8272\u4E5F\u985B\u5012\u4E86\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D ab \u4E4B\u5B57\u9762 b\uFF1AUTP 1100 \u8207 NFP 1000 \u50C5\u5728 b \u76F8\u7570\u30021000 \u6642 f \u70BA\u5047\uFF1B\u5C07 b \u8A2D\u70BA 1 \u5373\u6062\u5FA9 ab\uFF08\u9032\u800C f\uFF09\uFF0C\u5C55\u73FE b \u7684\u7368\u7ACB\u6548\u61C9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + cd \u7684 CUTPNFP \u914D\u5C0D\u6578",
+            "text": "<p>\u5C0D <code>f = ab + cd</code>\uFF0CCUTPNFP \u9700\u8981\u5E7E\u7D44\u5C0D\u61C9\u7684 (UTP, NFP) \u914D\u5C0D\u2014\u2014\u6BCF\u500B\u860A\u6DB5\u9805\u7684\u6BCF\u500B\u5B57\u9762\u4E00\u7D44\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a\u3001b\u3001c\u3001d \u56DB\u500B\u5B57\u9762\u5404\u4E00\u7D44\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u860A\u6DB5\u9805\u6578\uFF1BCUTPNFP \u914D\u5C0D\u4EE5\u5B57\u9762\u8A08\uFF0C\u6545\u6709 4 \u7D44\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u5B57\u9762\u6709 4 \u500B\uFF0C\u6545 4 \u7D44\uFF0C\u800C\u975E 8\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u771F\u5217\u6578\uFF0C\u8207\u914D\u5C0D\u6578\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "CUTPNFP \u5C0D\u6BCF\u500B\u860A\u6DB5\u9805\u7684\u6BCF\u500B\u5B57\u9762\u5F62\u6210\u4E00\u7D44 UTP/NFP \u914D\u5C0D\u3002ab \u6709\u5B57\u9762 a\u3001b\uFF0Ccd \u6709 c\u3001d\uFF0C\u6545\u5171 4 \u7D44\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ac + bc \u4E2D 111 \u70BA\u4F55\u4E0D\u662F UTP",
+            "text": "<p>\u5C0D <code>f = ac + bc</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u70BA\u4F55 111 \u4E0D\u662F\u860A\u6DB5\u9805 <code>ac</code> \u7684\u552F\u4E00\u771F\u9EDE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u53E6\u4E00\u860A\u6DB5\u9805 bc \u5728 111 \u6642\u4E5F\u70BA\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014b=1\u3001c=1 \u6642 bc \u4EA6\u70BA\u771F\uFF0C\u6545 ac \u4E0D\u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA 111 \u6642 ac \u70BA\u5047",
+                "fraction": 0,
+                "feedback": "111 \u6642 ac \u70BA\u771F\uFF08a=1, c=1\uFF09\uFF1B\u554F\u984C\u5728\u65BC bc \u4E5F\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA 111 \u6642 f \u70BA\u5047",
+                "fraction": 0,
+                "feedback": "111 \u6642 f \u70BA\u771F\uFF1B\u53EA\u662F\u4E26\u975E\u552F\u4E00\u7531 ac \u9020\u6210\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA 111 \u662F\u8FD1\u4F3C\u5047\u9EDE",
+                "fraction": 0,
+                "feedback": "111 \u4F7F f \u70BA\u771F\uFF0C\u6545\u4E0D\u662F\u8FD1\u4F3C\u5047\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "111 \u6642 ac \u8207 bc \u7686\u70BA\u771F\uFF0C\u6545 ac \u4E0D\u662F\u4F7F f \u70BA\u771F\u7684\u552F\u4E00\u539F\u56E0\u3002ac \u7684\u552F\u4E00\u771F\u9EDE\u662F 101\uFF08ac \u70BA\u771F\u3001bc \u70BA\u5047\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ac + bc \u4E2D ac \u7684\u552F\u4E00\u771F\u9EDE",
+            "text": "<p>\u5C0D <code>f = ac + bc</code>\uFF08\u9806\u5E8F a,b,c\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u860A\u6DB5\u9805 <code>ac</code> \u7684\uFF08\u552F\u4E00\uFF09\u552F\u4E00\u771F\u9EDE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "101\uFF08a=1, b=0, c=1\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ac \u70BA\u771F\u4E14 bc \u70BA\u5047\uFF08b=0\uFF09\uFF0C\u6545 ac \u662F\u552F\u4E00\u70BA\u771F\u7684\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "111\uFF08a=1, b=1, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 bc \u4EA6\u70BA\u771F\uFF0C\u6545 ac \u975E\u552F\u4E00\u3002"
+              },
+              {
+                "text": "100\uFF08a=1, b=0, c=0\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 ac \u70BA\u5047\uFF08c=0\uFF09\uFF0Cf \u70BA\u5047\u3002"
+              },
+              {
+                "text": "001\uFF08a=0, b=0, c=1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 ac \u70BA\u5047\uFF08a=0\uFF09\uFF1Bf \u70BA\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "ac \u53EA\u6709\u5728 a=1 \u4E14 c=1 \u6642\u70BA\u771F\uFF1B\u8981\u4F7F bc \u70BA\u5047\u9700 b=0\u3002\u9019\u8FEB\u4F7F\u5F97\u5230 101\u2014\u2014ac \u7684\u552F\u4E00 UTP\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + c \u7684 not-f \u4E4B DNF",
+            "text": "<p>MUTPC/MNFPC \u4E5F\u6703\u7528\u5230 <code>\xACf</code> \u7684 DNF\u3002\u5C0D <code>f = ab + c</code>\uFF0C\u4E0B\u5217\u4F55\u8005\u662F <code>\xACf</code> \u7684\u6B63\u78BA DNF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "!a!c + !b!c",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\xACf \u6070\u5728 c=0 \u4E14\u975E(ab) \u6642\u70BA\u771F\uFF0C\u5373 !c(!a + !b)\u3002"
+              },
+              {
+                "text": "!a + !b + !c",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728 110\uFF08f \u70BA\u771F\u8655\uFF09\u70BA\u771F\uFF0C\u6545\u975E \xACf\u3002"
+              },
+              {
+                "text": "!a!b!c",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EA\u6DB5\u84CB 000\uFF1B\xACf \u5728 010 \u8207 100 \u4EA6\u70BA\u771F\u3002"
+              },
+              {
+                "text": "a!c + b!c",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728 100 \u8207 010 \u70BA\u771F\uFF0C\u4F46 f \u672C\u8EAB\u5728\u8A72\u8655\u70BA\u5047\uFF0C\u4E14\u6F0F\u6389 000\u2014\u2014\u4E26\u975E \xACf\u3002"
+              }
+            ],
+            "generalFeedback": "f = ab + c \u6070\u5728 000\u3001010\u3001100 \u70BA\u5047\u2014\u2014\u7686\u70BA c=0 \u4E14 ab \u70BA\u5047\u3002\u6545 \xACf = !c(!a + !b) = !a!c + !b!c\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + cd \u7684 not-f \u4E4B\u8CEA\u860A\u6DB5\u9805",
+            "text": "<p>\u5C0D <code>f = ab + cd</code>\uFF0C\u5176\u5426\u5B9A\u70BA <code>\xACf = (!a + !b)(!c + !d)</code>\u3002\u5728\u6700\u5C0F DNF \u4E0B\uFF0C\xACf \u6709\u5E7E\u500B\u8CEA\u860A\u6DB5\u9805\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C55\u958B\u5F97 !a!c + !a!d + !b!c + !b!d\uFF0C\u5171\u56DB\u500B\u8CEA\u860A\u6DB5\u9805\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u4E58\u7A4D (!a + !b)(!c + !d) \u5C55\u958B\u70BA\u56DB\u500B\u4E58\u7A4D\u9805\uFF0C\u800C\u975E\u5169\u500B\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\xACf \u4E0D\u662F\u55AE\u4E00\u4E58\u7A4D\u9805\uFF1B\u5B83\u5C55\u958B\u70BA\u56DB\u500B\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F f \u7684\u771F\u5217\u6578\uFF1B\xACf \u6709 9 \u500B\u771F\u5217\u8207 4 \u500B\u8CEA\u860A\u6DB5\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C55\u958B (!a + !b)(!c + !d) \u5F97 !a!c + !a!d + !b!c + !b!d\u2014\u2014\u56DB\u500B\u8CEA\u860A\u6DB5\u9805\uFF0C\u5404\u70BA \xACf \u7684\u5408\u6CD5\u860A\u6DB5\u9805\u3002MUTPC \u6703\u5C0D f \u8207 \xACf \u5169\u8005\u7684\u860A\u6DB5\u9805\u5404\u8981\u6C42 UTP\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + c \u7684\u771F\u5217\u6578",
+            "text": "<p>\u5728 a,b,c \u7684 8 \u7D44\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7D44\u4F7F <code>f = ab + c</code> \u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c=1 \u7684 4 \u5217\uFF0C\u52A0\u4E0A 110\uFF08a=1,b=1,c=0\uFF09\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "c=1 \u5DF2\u7D66\u51FA 4 \u5217\uFF1B110 \u518D\u6DFB\u4E00\u5217\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\uFF1A\u6070\u6709 5 \u5217\u70BA\u771F\uFF08001,011,101,110,111\uFF09\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u592A\u5C11\u2014\u2014\u55AE\u662F c=1 \u5C31\u6709 4 \u5217\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u8981 c=1\uFF084 \u5217\uFF09\u6216 ab=1\uFF08\u518D\u52A0 110\uFF09\uFF0Cf \u5373\u70BA\u771F\u3002\u771F\u5217\u70BA 001\u3001011\u3001101\u3001110\u3001111\u2014\u2014\u5171\u4E94\u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + cd \u7684\u771F\u5217\u6578",
+            "text": "<p>\u5728 a,b,c,d \u7684 16 \u7D44\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7D44\u4F7F <code>f = ab + cd</code> \u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ab\uFF08cd \u70BA\u5047\uFF093 \u5217 + cd\uFF08ab \u70BA\u5047\uFF093 \u5217 + \u5169\u8005\u7686\u771F\uFF081111\uFF091 \u5217 = 7\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u5169\u500B 4 \u5217\u7684\u5340\u584A\u76F8\u52A0\u6703\u91CD\u8907\u8A08\u5165 1111\uFF1B\u771F\u5217\u6578\u70BA 7\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u2014\u2014\u6709 7 \u500B\u771F\u5217\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "ab \u55AE\u7368\u7D66 4 \u5217\uFF0Ccd \u518D\u7D66 4 \u5217\uFF08\u5728 1111 \u91CD\u758A\uFF09\uFF0C\u5171 7 \u500B\u76F8\u7570\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "ab \u5728 4 \u5217\u70BA\u771F\uFF0Ccd \u5728 4 \u5217\u70BA\u771F\uFF1B\u5169\u8005\u50C5\u5728 1111 \u91CD\u758A\uFF0C\u4F9D\u6392\u5BB9\u539F\u7406 4 + 4 \u2212 1 = 7 \u7D44\u4F7F f \u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u50C5 UTPC \u8207\u8FF0\u8A5E\u8986\u84CB",
+            "text": "<p>\u50C5\u6EFF\u8DB3\u552F\u4E00\u771F\u9EDE\u8986\u84CB\uFF08UTPC\uFF09\u7684\u6E2C\u8A66\u5957\u4EF6\uFF0C\u4FDD\u8B49\u81F3\u5C11\u6709\u4E00\u500B\u6E2C\u8A66\u4F7F f \u70BA\u5047\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B UTP \u90FD\u4F7F\u5176\u860A\u6DB5\u9805\uFF08\u9032\u800C f\uFF09\u70BA\u771F\uFF0C\u6545\u50C5\u542B UTP \u7684\u5957\u4EF6\u53EF\u80FD\u5F9E\u672A\u4F7F f \u70BA\u5047\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6240\u6709\u552F\u4E00\u771F\u9EDE\u90FD\u4F7F f \u70BA\u771F\uFF1BUTPC \u4E26\u672A\u5F37\u5236\u4EFB\u4F55\u5047\u9EDE\uFF0C\u6545 f \u672A\u5FC5\u70BA\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B UTP \u90FD\u662F f \u7684\u771F\u9EDE\u3002\u50C5\u7531 UTP \u69CB\u6210\u7684\u5957\u4EF6\u4F7F\u6BCF\u500B\u6E2C\u8A66\u4E2D f \u7686\u70BA\u771F\uFF0C\u6545\u50C5 UTPC \u4E0D\u4FDD\u8B49\u51FA\u73FE\u5047\u503C\u2014\u2014\u5B83\u4E0D\u6DB5\u84CB\uFF08subsume\uFF09\u8FF0\u8A5E\u8986\u84CB\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u50C5 NFPC \u8207\u8FF0\u8A5E\u8986\u84CB",
+            "text": "<p>\u50C5\u6EFF\u8DB3\u8FD1\u4F3C\u5047\u9EDE\u8986\u84CB\uFF08NFPC\uFF09\u7684\u6E2C\u8A66\u5957\u4EF6\uFF0C\u4FDD\u8B49\u81F3\u5C11\u6709\u4E00\u500B\u6E2C\u8A66\u4F7F f \u70BA\u771F\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u8FD1\u4F3C\u5047\u9EDE\u90FD\u4F7F f \u70BA\u5047\uFF0C\u6545\u50C5\u542B NFP \u7684\u5957\u4EF6\u53EF\u80FD\u5F9E\u672A\u4F7F f \u70BA\u771F\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6240\u6709\u8FD1\u4F3C\u5047\u9EDE\u90FD\u4F7F f \u70BA\u5047\uFF1BNFPC \u4E26\u672A\u5F37\u5236\u4EFB\u4F55\u771F\u9EDE\uFF0C\u6545 f \u672A\u5FC5\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B NFP \u90FD\u662F f \u7684\u5047\u9EDE\u3002\u50C5\u7531 NFP \u69CB\u6210\u7684\u5957\u4EF6\u4F7F\u6BCF\u500B\u6E2C\u8A66\u4E2D f \u7686\u70BA\u5047\uFF0C\u6545\u50C5 NFPC \u4E0D\u4FDD\u8B49\u51FA\u73FE\u771F\u503C\u2014\u2014\u55AE\u7368\u4E26\u4E0D\u6DB5\u84CB\u8FF0\u8A5E\u8986\u84CB\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "CUTPNFP \u6DB5\u84CB\u8FF0\u8A5E\u8986\u84CB",
+            "text": "<p>\u7531\u65BC CUTPNFP \u5C0D\u6BCF\u500B\u5B57\u9762\u90FD\u542B\u4E00\u500B\u552F\u4E00\u771F\u9EDE\uFF08f \u70BA\u771F\uFF09\u8207\u4E00\u500B\u8FD1\u4F3C\u5047\u9EDE\uFF08f \u70BA\u5047\uFF09\uFF0C\u4EFB\u4F55\u6EFF\u8DB3 CUTPNFP \u7684\u5957\u4EF6\u90FD\u6703\u4F7F f \u540C\u6642\u53D6\u771F\u8207\u5047\u2014\u2014\u6545\u5B83\u6DB5\u84CB\uFF08subsume\uFF09\u8FF0\u8A5E\u8986\u84CB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014UTP \u63D0\u4F9B\u771F\u503C\u3001NFP \u63D0\u4F9B\u5047\u503C\uFF0Cf \u7684\u5169\u7A2E\u503C\u7686\u88AB\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "CUTPNFP \u540C\u6642\u8981\u6C42 UTP\uFF08f \u70BA\u771F\uFF09\u8207 NFP\uFF08f \u70BA\u5047\uFF09\uFF0C\u6545 f \u5FC5\u53D6\u5169\u7A2E\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "CUTPNFP \u5C0D\u6BCF\u500B\u5B57\u9762\u914D\u5C0D\u4E00\u500B UTP\uFF08f \u70BA\u771F\uFF09\u8207\u4E00\u500B NFP\uFF08f \u70BA\u5047\uFF09\u3002\u56E0\u6B64\u5957\u4EF6\u4E2D\u81F3\u5C11\u5404\u6709\u4E00\u6B21 f \u70BA\u771F\u8207 f \u70BA\u5047\u7684\u8A55\u4F30\uFF0C\u6EFF\u8DB3\u8FF0\u8A5E\u8986\u84CB\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "UTPC \u6DB5\u84CB\u860A\u6DB5\u9805\u8986\u84CB",
+            "text": "<p>\u552F\u4E00\u771F\u9EDE\u8986\u84CB\uFF08UTPC\uFF09\u6DB5\u84CB\uFF08subsume\uFF09\u860A\u6DB5\u9805\u8986\u84CB\uFF08IC\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u860A\u6DB5\u9805 i \u7684 UTP \u4F7F i \u70BA\u771F\uFF0C\u6545\u5C0D\u6BCF\u500B\u860A\u6DB5\u9805\u5404\u53D6\u4E00\u500B UTP \u4E5F\u4F7F\u6BCF\u500B\u860A\u6DB5\u9805\u70BA\u771F\uFF0C\u9019\u6B63\u662F IC\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B UTP \u90FD\u4F7F\u81EA\u8EAB\u860A\u6DB5\u9805\u70BA\u771F\uFF1B\u6BCF\u500B\u860A\u6DB5\u9805\u5404\u53D6\u4E00\u500B\u5373\u6EFF\u8DB3 IC\uFF0C\u6545 UTPC \u6DB5\u84CB IC\u3002"
+              }
+            ],
+            "generalFeedback": "IC \u8981\u6C42\u6BCF\u500B\u860A\u6DB5\u9805\u5728\u67D0\u6E2C\u8A66\u4E2D\u70BA\u771F\u3002\u860A\u6DB5\u9805 i \u7684 UTP \u4F7F i \u70BA\u771F\uFF0C\u6545 UTPC \u5957\u4EF6\uFF08\u6BCF\u500B\u860A\u6DB5\u9805\u4E00\u500B UTP\uFF09\u81EA\u52D5\u6EFF\u8DB3 IC\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "CUTPNFP \u7684\u76EE\u7684",
+            "text": "<p>\u5B57\u9762 L \u7684\u4E00\u7D44 CUTPNFP (UTP, NFP) \u914D\u5C0D\u5C55\u73FE\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u7FFB\u8F49 L \u4FBF\u4F7F f \u6539\u8B8A\u2014\u2014\u5373 L \u5C0D\u7D50\u679C\u7684\u7368\u7ACB\u6548\u61C9\uFF08DNF \u7248\u7684 MC/DC\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u914D\u5C0D\u50C5\u5728 L \u76F8\u7570\u4E14 f \u6539\u8B8A\uFF0C\u5C55\u73FE L \u5C0D f \u7684\u7368\u7ACB\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u5DF2\u6E2C\u8A66\u8B8A\u6578\u7684\u5168\u90E8 2^n \u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D44\u5408\u8986\u84CB\uFF0C\u9060\u591A\u65BC CUTPNFP \u6240\u9700\u3002"
+              },
+              {
+                "text": "\u8FF0\u8A5E\u6046\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u914D\u5C0D\u4E2D\u7684 NFP \u4F7F f \u70BA\u5047\uFF0C\u6545 f \u4E26\u975E\u6046\u771F\u3002"
+              },
+              {
+                "text": "L \u5F9E\u4E0D\u5F71\u97FF\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u914D\u5C0D\u5C55\u73FE\u7684\u6070\u6070\u76F8\u53CD\uFF1AL \u78BA\u5BE6\u5F71\u97FF f\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u7D44 CUTPNFP \u914D\u5C0D\u662F\u50C5\u5728\u5B57\u9762 L \u76F8\u7570\u7684 UTP \u8207 NFP\uFF1B\u4E00\u8005 f \u70BA\u771F\u3001\u53E6\u4E00\u8005 f \u70BA\u5047\uFF0C\u6545\u53EA\u7FFB\u8F49 L \u4FBF\u4F7F f \u6539\u8B8A\u3002\u9019\u4EE5 DNF \u5F62\u5F0F\u5C0D\u61C9 MC/DC \u7684\u7368\u7ACB\u6548\u61C9\u8981\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ab + a!b \u4E2D\u7F3A\u5C11\u7684\u8FD1\u4F3C\u5047\u9EDE",
+            "text": "<p>\u5C0D <code>f = ab + a!b</code>\uFF08\u5176\u7B49\u65BC <code>a</code>\uFF09\uFF0C\u860A\u6DB5\u9805 <code>ab</code> \u4E4B\u5B57\u9762 <code>b</code> <strong>\u6C92\u6709</strong>\u8FD1\u4F3C\u5047\u9EDE\u3002\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u51E1\u662F\u7FFB\u8F49 b \u4FBF\u80FD\u4F7F ab \u70BA\u771F\u7684\u9EDE\uFF0C\u5176 a \u90FD\u5DF2\u70BA 1\uFF0C\u6545 f = a \u5728\u8A72\u8655\u5DF2\u70BA\u771F\u2014\u2014\u9019\u7A2E\u9EDE\u4E0A f \u5F9E\u4E0D\u70BA\u5047",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300Cf \u70BA\u5047\u300D\u7684\u689D\u4EF6\u7121\u6CD5\u6210\u7ACB\uFF0C\u6545 b \u6C92\u6709 NFP\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA b \u672A\u51FA\u73FE\u5728\u8FF0\u8A5E\u4E2D",
+                "fraction": 0,
+                "feedback": "b \u78BA\u5BE6\u51FA\u73FE\u5728\u9805 ab \u4E2D\uFF1B\u554F\u984C\u5728\u65BC ab \u662F\u5197\u9918\u7684\uFF08f = a\uFF09\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA ab \u6C92\u6709\u552F\u4E00\u771F\u9EDE",
+                "fraction": 0,
+                "feedback": "ab \u6709 UTP\uFF0811\uFF09\uFF1B\u7F3A\u5C11 NFP \u662F\u5197\u9918\u9020\u6210\u7684\u53E6\u4E00\u5F8C\u679C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA f \u662F\u6046\u771F\u5F0F",
+                "fraction": 0,
+                "feedback": "f = a \u4E26\u975E\u6046\u771F\u5F0F\uFF1Ba=0 \u6642\u5B83\u70BA\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "ab \u4E4B\u5B57\u9762 b \u7684 NFP \u9700 f \u70BA\u5047\uFF0C\u4E14\u7FFB\u8F49 b \u4F7F ab \u70BA\u771F\u2014\u2014\u4F46\u8981\u4EE5\u7FFB\u8F49 b \u4F7F ab \u70BA\u771F\u5FC5\u9808 a=1\uFF0C\u800C a=1 \u6642 f = a \u5DF2\u70BA\u771F\u3002\u6C92\u6709\u6307\u6D3E\u80FD\u540C\u6642\u6EFF\u8DB3\u5169\u8005\uFF0C\u6545\u6B64 NFP \u4E0D\u53EF\u884C\uFF1A\u5C0D\u975E\u8CEA\uFF08\u5197\u9918\uFF09\u860A\u6DB5\u9805\uFF0CNFPC \u53EF\u80FD\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "logic-inactive-clause": {
       "en": {
         "easy": [

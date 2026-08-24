@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <!-- 記法：AND 以相鄰表示（ab），OR 以 + 表示，NOT 以 ! 前綴表示（!a）。
+       指派值以指定變數順序寫成位元字串。 -->
+  <question type="category">
+    <category><text>$course$/top/Logic DNF Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂 DNF</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當一個述詞寫成下列何種形式時，稱其為<strong>析取範式（Disjunctive Normal Form, DNF）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>若干乘積項（product term）以 OR 連接，而每個項是若干字面（literal）以 AND 連接</text><feedback><text>正確——DNF 即「積之和（sum of products）」：由 AND 項再以 OR 連接。</text></feedback></answer>
+    <answer fraction="0"><text>若干和項以 AND 連接，而每個項是若干字面以 OR 連接</text><feedback><text>那是合取範式（CNF），即「和之積」。</text></feedback></answer>
+    <answer fraction="0"><text>由所有變數構成的單一乘積項</text><feedback><text>那是最小項（minterm），只是 DNF 的一種特例。</text></feedback></answer>
+    <answer fraction="0"><text>任何布林運算式，不論結構為何</text><feedback><text>DNF 是特定的範式，而非任意運算式。</text></feedback></answer>
+    <generalfeedback><text>DNF（積之和）把 f 寫成若干乘積項以 OR 連接；每個乘積項是若干字面以 AND 連接。本題庫記法：AND 以相鄰（<code>ab</code>）、OR 以 <code>+</code>、NOT 以 <code>!</code>（例如 <code>!a</code>）表示。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂字面</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 DNF 中，<strong>字面（literal）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個變數或其否定（例如 a 或 !a）</text><feedback><text>正確——字面是一個變數的單次出現，可能帶否定。</text></feedback></answer>
+    <answer fraction="0"><text>兩個以上變數的 AND 連接</text><feedback><text>那是乘積項，而非單一字面。</text></feedback></answer>
+    <answer fraction="0"><text>整個積之和運算式</text><feedback><text>那是整個 DNF，而非字面。</text></feedback></answer>
+    <answer fraction="0"><text>對所有變數的一組指派值</text><feedback><text>那是測試點／真值表列，而非字面。</text></feedback></answer>
+    <generalfeedback><text>字面是單一變數或其否定，例如 <code>a</code> 或 <code>!a</code>。字面以 AND 連接構成乘積項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂乘積項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 DNF 中，一個<strong>項（乘積項）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個以上字面以 AND 連接，例如 a!bc</text><feedback><text>正確——乘積項是字面以 AND 連接而成。</text></feedback></answer>
+    <answer fraction="0"><text>若干字面以 OR 連接，例如 a + b + c</text><feedback><text>那是和項（用於 CNF），而非 DNF 的乘積項。</text></feedback></answer>
+    <answer fraction="0"><text>只能是單一變數</text><feedback><text>單一變數是合法的項，但項可 AND 多個字面。</text></feedback></answer>
+    <answer fraction="0"><text>整個述詞的否定</text><feedback><text>那是 ¬f，而非乘積項。</text></feedback></answer>
+    <generalfeedback><text>乘積項是若干字面的 AND 連接，例如 <code>a!bc</code>。DNF 則是這些乘積項以 OR（和）連接。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂最小項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於變數 a、b、c 的述詞，<strong>最小項（minterm）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>恰好含每個變數各一次（各為 a 或 !a）的乘積項，例如 a!bc</text><feedback><text>正確——最小項提及所有變數，且恰在一列為真。</text></feedback></answer>
+    <answer fraction="0"><text>至少省略一個變數的乘積項，例如 ac</text><feedback><text>那是合法的乘積項，但非最小項——最小項須提及每個變數。</text></feedback></answer>
+    <answer fraction="0"><text>所有變數的 OR 連接，例如 a + b + c</text><feedback><text>那是和項，而非最小項。</text></feedback></answer>
+    <answer fraction="0"><text>述詞的最小蘊涵項</text><feedback><text>蘊涵項的大小與此無關；最小項的定義在於提及每個變數。</text></feedback></answer>
+    <generalfeedback><text>最小項是恰好提及每個變數各一次的乘積項；它恰在一組指派（真值表的一列）為真。在 3 個變數下，<code>a!bc</code> 是最小項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂蘊涵項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當乘積項 i 為述詞 f 的<strong>蘊涵項（implicant）</strong>時，代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只要 i 為真，f 也必為真（i 蘊涵 f）</text><feedback><text>正確——蘊涵項會蘊涵該述詞。</text></feedback></answer>
+    <answer fraction="0"><text>只要 f 為真，i 也必為真</text><feedback><text>那是相反方向的蘊涵，並非蘊涵項的意義。</text></feedback></answer>
+    <answer fraction="0"><text>i 與 f 在完全相同的列上為真</text><feedback><text>那會使 i 邏輯等價於 f，比「蘊涵項」更強。</text></feedback></answer>
+    <answer fraction="0"><text>i 使 f 為假</text><feedback><text>蘊涵項使 f 為真，而非為假。</text></feedback></answer>
+    <generalfeedback><text>蘊涵項是會蘊涵 f 的乘積項：凡滿足該項的指派亦滿足 f。f 的任一 DNF 中所列的每個項都是 f 的蘊涵項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂質蘊涵項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>f 的<strong>質蘊涵項（prime implicant）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>移除任一字面後便不再是蘊涵項的蘊涵項</text><feedback><text>正確——它是「極大／不可再化簡」的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>含所有變數的蘊涵項</text><feedback><text>那描述的是最小項；質蘊涵項通常較小。</text></feedback></answer>
+    <answer fraction="0"><text>出現在 f 某個 DNF 中的任一乘積項</text><feedback><text>這樣的項是蘊涵項，但未必是質的（可能仍可移除某字面）。</text></feedback></answer>
+    <answer fraction="0"><text>f 所有蘊涵項的 OR 連接</text><feedback><text>那是 f 的一個 DNF，而非單一質蘊涵項。</text></feedback></answer>
+    <generalfeedback><text>質蘊涵項是不可再化簡的蘊涵項：移除其中任一字面後，所得的項便不再蘊涵 f。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂唯一真點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>蘊涵項 i 的<strong>唯一真點（unique true point, UTP）</strong>是指一組指派，使得：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>i 為真，且 f 的其他每個蘊涵項皆為假</text><feedback><text>正確——在 UTP 上，僅 i 使 f 為真。</text></feedback></answer>
+    <answer fraction="0"><text>i 為真，不論其他蘊涵項如何</text><feedback><text>那只是 i 的一個真點；UTP 另要求其他所有蘊涵項為假。</text></feedback></answer>
+    <answer fraction="0"><text>使 f 為假</text><feedback><text>UTP 是真點：它使 i（進而使 f）為真。</text></feedback></answer>
+    <answer fraction="0"><text>是使 f 為真的唯一指派</text><feedback><text>「唯一」指只有一個蘊涵項為真，而非 f 只有一組令其為真的指派。</text></feedback></answer>
+    <generalfeedback><text>蘊涵項 i 的 UTP 是使 i 為真、而其他所有蘊涵項皆為假的指派，因此在該點上 i 是使 f 為真的唯一蘊涵項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何謂近似假點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於蘊涵項 i 的某字面 L，其<strong>近似假點（near false point, NFP）</strong>是指一組指派，使得：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>f 為假，但只翻轉字面 L 便使 i（進而使 f）為真</text><feedback><text>正確——它與 i 的某真點僅差一個字面。</text></feedback></answer>
+    <answer fraction="0"><text>以蘊涵項 i 使 f 為真</text><feedback><text>NFP 使 f 為假，而非為真。</text></feedback></answer>
+    <answer fraction="0"><text>同時使 i 的每個字面皆為假</text><feedback><text>只有 L 這一個字面「不對」，其餘字面仍保持能使 i 為真的值。</text></feedback></answer>
+    <answer fraction="0"><text>與 i 的某真點相差兩個以上變數</text><feedback><text>NFP 恰差一個變數——即字面 L 所對應者，故稱「近似」。</text></feedback></answer>
+    <generalfeedback><text>蘊涵項 i 之字面 L 的近似假點使 f 為假，但只翻轉 L 所對應的變數即可使 i（進而使 f）為真；它與能使 i 為真的點僅相差一個變數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 ab + cd 的乘積項數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>DNF <code>ab + cd</code> 含有幾個乘積項？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——兩個項為 ab 與 cd。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是字面數，而非項數。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text><code>+</code> 分隔出兩個不同的乘積項。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>恰有兩個項：ab 與 cd。</text></feedback></answer>
+    <generalfeedback><text><code>ab + cd</code> 是兩個乘積項 ab 與 cd 的 OR 連接，故有 2 個項（各為該述詞的蘊涵項）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 ab + cd 的字面數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>DNF <code>ab + cd</code> 含有幾次字面出現？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——a、b、c、d 各出現一次。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是項數，而非字面數。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>只有四次字面出現：a、b、c、d。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>逐項計算：ab 有 2 個、cd 有 2 個，共 4 個。</text></feedback></answer>
+    <generalfeedback><text>項 ab 提供字面 a 與 b；項 cd 提供 c 與 d——合計四次字面出現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識單一字面</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是單一<strong>字面</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[!b]]></text><feedback><text>正確——!b 是某變數的否定，為一個字面。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[ab]]></text><feedback><text>ab 是乘積項（兩個字面 AND 連接），並非單一字面。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a + b]]></text><feedback><text>a + b 是兩個字面的 OR 連接，並非單一字面。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a!bc]]></text><feedback><text>a!bc 是含三個字面的乘積項。</text></feedback></answer>
+    <generalfeedback><text>字面是一個變數或其否定。<code>!b</code> 符合；<code>ab</code> 與 <code>a!bc</code> 是乘積項，<code>a + b</code> 則是 OR 連接。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 ab + c 的字面數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>DNF <code>ab + c</code> 含有幾次字面出現？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——第一項有 a 與 b，第二項有 c。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是項數；字面出現共 3 次。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>只出現 a、b、c——三個字面。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>將兩項的字面相加：2 + 1 = 3。</text></feedback></answer>
+    <generalfeedback><text>項 ab 有字面 a 與 b；項 c 有字面 c——合計三次字面出現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 ab + cd 的變數數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>述詞 <code>ab + cd</code> 涉及幾個相異變數（子句）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——a、b、c、d。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是項數；該述詞用到 4 個相異變數。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 = 2^4 是真值表列數，而非變數數。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>相異變數有 4 個：a、b、c、d。</text></feedback></answer>
+    <generalfeedback><text>此述詞提及 a、b、c、d——四個相異變數，故有 2^4 = 16 列真值表。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>質蘊涵項的不可化簡性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>質蘊涵項是指「移除任一字面後便不再是蘊涵項」的蘊涵項。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——這種不可化簡性正是使蘊涵項成為「質」的條件。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>質蘊涵項正是不可再化簡的蘊涵項；移除任一字面都會破壞其蘊涵性。</text></feedback></answer>
+    <generalfeedback><text>當蘊涵項為極小（不可化簡）時即為質的：移除其中任一字面，所得的項便不再蘊涵 f。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DNF 的項皆為蘊涵項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>出現在 f 之某 DNF 中的每個乘積項都是 f 的蘊涵項。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——若某項為真，則該 OR 支為真，故 f 為真；該項蘊涵 f。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>任一支為真都會使整個 OR（進而使 f）為真，故 DNF 的每個項都蘊涵 f。</text></feedback></answer>
+    <generalfeedback><text>由於 f 是其各項的 OR，任一項為真即使 f 為真。因此 f 之 DNF 中的每個項（依定義）都是 f 的蘊涵項。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic DNF Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + c 中 ab 的 UTP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + c</code>（變數順序 a,b,c），下列何者是蘊涵項 <code>ab</code> 的<strong>唯一真點</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>110（a=1, b=1, c=0）</text><feedback><text>正確——ab 為真且 c 為假，故 ab 是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>111（a=1, b=1, c=1）</text><feedback><text>在 111 時蘊涵項 c 亦為真，故 ab 不是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>100（a=1, b=0, c=0）</text><feedback><text>此處 ab 為假（b=0），故根本不是 ab 的真點。</text></feedback></answer>
+    <answer fraction="0"><text>001（a=0, b=0, c=1）</text><feedback><text>此處 ab 為假；這是 c 的真點，而非 ab 的。</text></feedback></answer>
+    <generalfeedback><text>ab 的 UTP 需 ab 為真且其他蘊涵項（此處為 c）為假：a=1, b=1, c=0，即 110。它是本述詞中 ab 的唯一 UTP。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + c 中 c 的 UTP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + c</code>（順序 a,b,c），下列何者是蘊涵項 <code>c</code> 的<strong>唯一真點</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>001（a=0, b=0, c=1）</text><feedback><text>正確——c 為真且 ab 為假，故 c 是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>111（a=1, b=1, c=1）</text><feedback><text>此處 ab 亦為真，故 c 不是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>110（a=1, b=1, c=0）</text><feedback><text>此處 c 為假（c=0）；這是 ab 的真點，而非 c 的。</text></feedback></answer>
+    <answer fraction="0"><text>000（a=0, b=0, c=0）</text><feedback><text>此處 f 為假，根本不是真點。</text></feedback></answer>
+    <generalfeedback><text>c 有三個 UTP——001、011、101，皆使 c 為真而 ab 為假。選項中僅 001 符合（111 會使 ab 亦為真）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + c 中 ab 之字面 a 的 NFP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + c</code>（順序 a,b,c），下列何者是蘊涵項 <code>ab</code> 之字面 <code>a</code> 的<strong>近似假點</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>010（a=0, b=1, c=0）</text><feedback><text>正確——此處 f 為假，將 a 翻為 1 得到 110，使 ab（進而 f）為真。</text></feedback></answer>
+    <answer fraction="0"><text>100（a=1, b=0, c=0）</text><feedback><text>此處 f 為假，但翻轉 a 得到 000，ab 仍為假（b=0）。不是 a 的 NFP。</text></feedback></answer>
+    <answer fraction="0"><text>110（a=1, b=1, c=0）</text><feedback><text>此處 f 為真（ab 成立），是真點，而非近似假點。</text></feedback></answer>
+    <answer fraction="0"><text>011（a=0, b=1, c=1）</text><feedback><text>此處 f 為真（c 成立），故不可能是近似假點。</text></feedback></answer>
+    <generalfeedback><text>ab 之字面 a 的 NFP 需 f 為假，且只翻轉 a 便使 ab 為真。這要求 b=1、c=0、a=0：即 010。翻轉 a 得 110，ab 為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UTP 與 NFP 的真值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在唯一真點上，述詞 f 為 ____；在近似假點上，f 為 ____。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>真；假</text><feedback><text>正確——UTP 是 f 的真點；NFP 是 f 的假點。</text></feedback></answer>
+    <answer fraction="0"><text>假；真</text><feedback><text>顛倒了——UTP 使 f 為真，NFP 使 f 為假。</text></feedback></answer>
+    <answer fraction="0"><text>真；真</text><feedback><text>NFP 使 f 為假，而非為真。</text></feedback></answer>
+    <answer fraction="0"><text>假；假</text><feedback><text>UTP 使 f 為真，而非為假。</text></feedback></answer>
+    <generalfeedback><text>依定義，UTP 使其蘊涵項（進而使 f）為真；NFP 使 f 為假，但只差一個字面翻轉即可使某蘊涵項為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + a!b 的質蘊涵項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮 <code>f = ab + a!b</code>，其可化簡為 <code>a</code>。下列敘述何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ab 與 a!b 皆非質蘊涵項，因為兩者的第二個字面都可移除（僅 a 仍蘊涵 f）</text><feedback><text>正確——因 f = a，項 a 即為蘊涵項，故 ab 與 a!b 皆可化簡。</text></feedback></answer>
+    <answer fraction="0"><text>ab 與 a!b 皆為質蘊涵項</text><feedback><text>兩者皆非質的：移除 b（或 !b）後剩下 a，仍蘊涵 f。</text></feedback></answer>
+    <answer fraction="0"><text>僅 ab 是質蘊涵項</text><feedback><text>ab 可化簡為 a，故非質的。</text></feedback></answer>
+    <answer fraction="0"><text>a 不是 f 的蘊涵項</text><feedback><text>因 f = a，項 a 蘊涵 f——它其實是唯一的質蘊涵項。</text></feedback></answer>
+    <generalfeedback><text>f = ab + a!b = a。唯一的質蘊涵項是 a。兩個所列的項都帶有可移除的字面，故皆非質的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + cd 之 UTPC 所需 UTP 數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + cd</code>，唯一真點覆蓋（UTPC）須要求幾個唯一真點（每個蘊涵項一個）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——ab 一個、cd 一個。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是字面數；UTPC 每個蘊涵項需一個 UTP，而蘊涵項有 2 個。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>每個蘊涵項各需自己的 UTP，且沒有任何一點能同時是兩者的 UTP。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是真列數；UTPC 每個蘊涵項需一個 UTP，即 2 個。</text></feedback></answer>
+    <generalfeedback><text>UTPC 對每個蘊涵項要求一個 UTP。有兩個蘊涵項（ab、cd），故需 2 個唯一真點；由於 UTP 只使自身蘊涵項為真，一個測試無法同時服務兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + cd 之 NFPC 所需 NFP 數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + cd</code>，近似假點覆蓋（NFPC）須要求幾個近似假點（每個蘊涵項的每個字面一個）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——a、b、c、d 四個字面各一個 NFP。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是蘊涵項數；NFPC 每個字面需一個 NFP，而字面有 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>字面出現僅 4 次，故需 4 個 NFP。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 = 2^4 是列數，而非所需 NFP 數。</text></feedback></answer>
+    <generalfeedback><text>NFPC 對每個蘊涵項的每個字面要求一個近似假點。項 ab 與 cd 共有四個字面（a、b、c、d），故需 4 個 NFP。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>!ab + ac 中 !ab 的 UTP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = !ab + ac</code>（順序 a,b,c），下列何者是蘊涵項 <code>!ab</code> 的<strong>唯一真點</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>010（a=0, b=1, c=0）</text><feedback><text>正確——!ab 為真（a=0, b=1）且 ac 為假（a=0），故 !ab 是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>110（a=1, b=1, c=0）</text><feedback><text>此處 !ab 為假，因 a=1 使 !a 為假。</text></feedback></answer>
+    <answer fraction="0"><text>111（a=1, b=1, c=1）</text><feedback><text>此處 ac 為真而 !ab 為假（a=1）；並非 !ab 的 UTP。</text></feedback></answer>
+    <answer fraction="0"><text>001（a=0, b=0, c=1）</text><feedback><text>此處 !ab 為假，因 b=0。</text></feedback></answer>
+    <generalfeedback><text>!ab 需 a=0 且 b=1；要使 ac 為假需 a=0（已滿足）——故 010 與 011 皆為 UTP。選項中僅 010 符合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>!ab + ac 中 ac 之字面 c 的 NFP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = !ab + ac</code>（順序 a,b,c），下列何者是蘊涵項 <code>ac</code> 之字面 <code>c</code> 的<strong>近似假點</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100（a=1, b=0, c=0）</text><feedback><text>正確——此處 f 為假，將 c 翻為 1 得到 101，使 ac（進而 f）為真。</text></feedback></answer>
+    <answer fraction="0"><text>101（a=1, b=0, c=1）</text><feedback><text>此處 f 為真（ac 成立），是真點，而非近似假點。</text></feedback></answer>
+    <answer fraction="0"><text>000（a=0, b=0, c=0）</text><feedback><text>f 為假，但翻轉 c 得到 001，ac 仍為假（a=0）。不是 c 的 NFP。</text></feedback></answer>
+    <answer fraction="0"><text>010（a=0, b=1, c=0）</text><feedback><text>此處 f 為真（!ab 成立），故不可能是近似假點。</text></feedback></answer>
+    <generalfeedback><text>ac 之字面 c 的 NFP 需 f 為假，且只翻轉 c 便使 ac 為真，即 a=1 且 c=0。a=1 時 !ab 為假；b 可為 0 或 1。100 可行：翻轉 c 得 101，ac 為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ac + bc 的重疊蘊涵項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ac + bc</code>（順序 a,b,c），在指派 111（a=1, b=1, c=1）時，兩個蘊涵項中有幾個為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2——ac 與 bc 皆為真</text><feedback><text>正確——a=b=c=1 時兩項皆成立，故 111 不是任一者的唯一真點。</text></feedback></answer>
+    <answer fraction="0"><text>1——僅 ac 為真</text><feedback><text>111 時 bc 亦為真（b=1, c=1）。</text></feedback></answer>
+    <answer fraction="0"><text>0——皆不為真</text><feedback><text>兩項皆為真；111 時 f 為真。</text></feedback></answer>
+    <answer fraction="0"><text>視變數順序而定</text><feedback><text>真值不因變數書寫順序而改變。</text></feedback></answer>
+    <generalfeedback><text>在 111 時 ac 與 bc 皆為真，故 111 是共有的真點——不可能是任一蘊涵項的 UTP。此重疊正是選取唯一真點須謹慎的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + cd 之 IC 是否可用單一測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + cd</code>，單一測試能否滿足蘊涵項覆蓋（IC）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>能——指派 1111 同時使 ab 與 cd 為真</text><feedback><text>正確——IC 僅要求每個蘊涵項在某測試中為真，而 1111 使兩者皆為真。</text></feedback></answer>
+    <answer fraction="0"><text>不能——IC 總是需要每個蘊涵項一個測試</text><feedback><text>那是 UTPC。單純的 IC 若某測試能使每個蘊涵項為真，即可共用。</text></feedback></answer>
+    <answer fraction="0"><text>不能——單一測試永遠無法使兩個乘積項為真</text><feedback><text>1111 同時使 ab 與 cd 為真。</text></feedback></answer>
+    <answer fraction="0"><text>能，但僅在組合覆蓋下</text><feedback><text>單一測試能否滿足 IC 與其他準則無關。</text></feedback></answer>
+    <generalfeedback><text>IC 要求每個蘊涵項在某測試中為真——同一測試可服務多個。在 1111 時 ab 與 cd 皆為真，故單一測試即可滿足 IC。反之 UTPC 要求每個真點僅屬一個蘊涵項，因而禁止此作法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>a + bc 中 a 的 UTP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = a + bc</code>（順序 a,b,c），下列何者是蘊涵項 <code>a</code> 的<strong>唯一真點</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100（a=1, b=0, c=0）</text><feedback><text>正確——a 為真且 bc 為假，故 a 是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>111（a=1, b=1, c=1）</text><feedback><text>此處 bc 亦為真，故 a 不是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>011（a=0, b=1, c=1）</text><feedback><text>此處 a 為假；這是 bc 的真點，而非 a 的。</text></feedback></answer>
+    <answer fraction="0"><text>000（a=0, b=0, c=0）</text><feedback><text>此處 f 為假，故不是真點。</text></feedback></answer>
+    <generalfeedback><text>a 的 UTP 為 100、101、110（a 為真、bc 為假）。111 失格，因 bc 亦為真。選項中 100 是 UTP。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>a 是否為 ab + cd 的蘊涵項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單一字面 <code>a</code> 是 <code>f = ab + cd</code> 的蘊涵項。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——在 a=1, b=0, c=0, d=0（1000）時項 a 為真但 f 為假，故 a 不蘊涵 f。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>反例 1000：a 為真但 f = ab + cd 為假，故 a 不蘊涵 f。</text></feedback></answer>
+    <generalfeedback><text>若 a 為蘊涵項，則凡 a=1 的指派都須使 f 為真。但 1000 中 a=1 而 f=0，故 a 不是 ab + cd 的蘊涵項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非唯一的真點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在某指派上，蘊涵項 i 為真，但 f 的至少一個<em>其他</em>蘊涵項亦為真，則此點是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>f 的真點，但不是 i 的唯一真點</text><feedback><text>正確——因不只一個蘊涵項為真，唯一性不成立。</text></feedback></answer>
+    <answer fraction="0"><text>i 的唯一真點</text><feedback><text>UTP 要求其他所有蘊涵項為假；此處另有一個為真。</text></feedback></answer>
+    <answer fraction="0"><text>i 的近似假點</text><feedback><text>NFP 使 f 為假；此點使 f 為真。</text></feedback></answer>
+    <answer fraction="0"><text>根本不是 f 的真點</text><feedback><text>既然 i 為真，f 即為真，故它是真點——只是非唯一的。</text></feedback></answer>
+    <generalfeedback><text>它是 f 的真點（i 為真），但不是 i 的 UTP，因為另有蘊涵項同時為真，故 i 並非使 f 為真的唯一原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>近似假點上 f 的真值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在近似假點上，述詞 f 必為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>假</text><feedback><text>正確——NFP 是 f 的假點，且與某真點僅差一個字面翻轉。</text></feedback></answer>
+    <answer fraction="0"><text>真</text><feedback><text>那會是真點；NFP 使 f 為假。</text></feedback></answer>
+    <answer fraction="0"><text>視蘊涵項而定，可真可假</text><feedback><text>依定義 NFP 必使 f 為假。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>f 是全域布林函數；在每組指派上皆有定義。</text></feedback></answer>
+    <generalfeedback><text>近似假點使 f 為假；翻轉所鎖定的那個字面即使蘊涵項（進而 f）為真。NFP 上的「假」值對 CUTPNFP 所用的配對至關重要。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Logic DNF Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>ab 之字面 a 的 CUTPNFP 配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + cd</code>（順序 a,b,c,d），蘊涵項 <code>ab</code> 之字面 <code>a</code> 的 CUTPNFP 配對，是一個唯一真點與一個近似假點，且兩者恰在變數 a 相異。下列何組可行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UTP 1100 與 NFP 0100</text><feedback><text>正確——兩者僅在 a 相異；1100 使（僅）ab 為真，0100 使 f 為假且設回 a 即轉為真。</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1100 與 NFP 1000</text><feedback><text>兩者在變數 b 相異，而非 a——那是字面 b 的配對。</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1100 與 NFP 0011</text><feedback><text>兩者在多個變數相異，無法孤立出字面 a。</text></feedback></answer>
+    <answer fraction="0"><text>UTP 0011 與 NFP 0100</text><feedback><text>0011 是 cd 的 UTP，而非 ab 的，故無法與 ab 之字面 a 的 NFP 配對。</text></feedback></answer>
+    <generalfeedback><text>對 ab 之字面 a：UTP 1100（ab 唯一為真）與 NFP 0100（f 為假）僅在 a 相異；在 NFP 上設回 a 即恢復 ab 與 f。此配對孤立出 a 的獨立效應。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab 之字面 b 的 CUTPNFP 配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + cd</code>（順序 a,b,c,d），下列哪組 UTP/NFP 配對可孤立出蘊涵項 <code>ab</code> 之字面 <code>b</code>（恰在變數 b 相異）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UTP 1100 與 NFP 1000</text><feedback><text>正確——兩者僅在 b 相異；1000 使 f 為假，設回 b 即恢復 ab 與 f。</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1100 與 NFP 0100</text><feedback><text>兩者在 a 相異，而非 b——那是字面 a 的配對。</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1110 與 NFP 1000</text><feedback><text>1110 與 1000 在變數 b 與 c 皆相異，無法單獨孤立 b。</text></feedback></answer>
+    <answer fraction="0"><text>UTP 1000 與 NFP 1100</text><feedback><text>1000 使 f 為假，故不是 UTP；角色也顛倒了。</text></feedback></answer>
+    <generalfeedback><text>對 ab 之字面 b：UTP 1100 與 NFP 1000 僅在 b 相異。1000 時 f 為假；將 b 設為 1 即恢復 ab（進而 f），展現 b 的獨立效應。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + cd 的 CUTPNFP 配對數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + cd</code>，CUTPNFP 需要幾組對應的 (UTP, NFP) 配對——每個蘊涵項的每個字面一組？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——a、b、c、d 四個字面各一組。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是蘊涵項數；CUTPNFP 配對以字面計，故有 4 組。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>字面有 4 個，故 4 組，而非 8。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是真列數，與配對數無關。</text></feedback></answer>
+    <generalfeedback><text>CUTPNFP 對每個蘊涵項的每個字面形成一組 UTP/NFP 配對。ab 有字面 a、b，cd 有 c、d，故共 4 組。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ac + bc 中 111 為何不是 UTP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ac + bc</code>（順序 a,b,c），為何 111 不是蘊涵項 <code>ac</code> 的唯一真點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為另一蘊涵項 bc 在 111 時也為真</text><feedback><text>正確——b=1、c=1 時 bc 亦為真，故 ac 不是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>因為 111 時 ac 為假</text><feedback><text>111 時 ac 為真（a=1, c=1）；問題在於 bc 也為真。</text></feedback></answer>
+    <answer fraction="0"><text>因為 111 時 f 為假</text><feedback><text>111 時 f 為真；只是並非唯一由 ac 造成。</text></feedback></answer>
+    <answer fraction="0"><text>因為 111 是近似假點</text><feedback><text>111 使 f 為真，故不是近似假點。</text></feedback></answer>
+    <generalfeedback><text>111 時 ac 與 bc 皆為真，故 ac 不是使 f 為真的唯一原因。ac 的唯一真點是 101（ac 為真、bc 為假）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ac + bc 中 ac 的唯一真點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ac + bc</code>（順序 a,b,c），下列何者是蘊涵項 <code>ac</code> 的（唯一）唯一真點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>101（a=1, b=0, c=1）</text><feedback><text>正確——ac 為真且 bc 為假（b=0），故 ac 是唯一為真的蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>111（a=1, b=1, c=1）</text><feedback><text>此處 bc 亦為真，故 ac 非唯一。</text></feedback></answer>
+    <answer fraction="0"><text>100（a=1, b=0, c=0）</text><feedback><text>此處 ac 為假（c=0），f 為假。</text></feedback></answer>
+    <answer fraction="0"><text>001（a=0, b=0, c=1）</text><feedback><text>此處 ac 為假（a=0）；f 為假。</text></feedback></answer>
+    <generalfeedback><text>ac 只有在 a=1 且 c=1 時為真；要使 bc 為假需 b=0。這迫使得到 101——ac 的唯一 UTP。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + c 的 not-f 之 DNF</text></name>
+    <questiontext format="html"><text><![CDATA[<p>MUTPC/MNFPC 也會用到 <code>¬f</code> 的 DNF。對 <code>f = ab + c</code>，下列何者是 <code>¬f</code> 的正確 DNF？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[!a!c + !b!c]]></text><feedback><text>正確——¬f 恰在 c=0 且非(ab) 時為真，即 !c(!a + !b)。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[!a + !b + !c]]></text><feedback><text>它在 110（f 為真處）為真，故非 ¬f。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[!a!b!c]]></text><feedback><text>它只涵蓋 000；¬f 在 010 與 100 亦為真。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a!c + b!c]]></text><feedback><text>它在 100 與 010 為真，但 f 本身在該處為假，且漏掉 000——並非 ¬f。</text></feedback></answer>
+    <generalfeedback><text>f = ab + c 恰在 000、010、100 為假——皆為 c=0 且 ab 為假。故 ¬f = !c(!a + !b) = !a!c + !b!c。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + cd 的 not-f 之質蘊涵項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + cd</code>，其否定為 <code>¬f = (!a + !b)(!c + !d)</code>。在最小 DNF 下，¬f 有幾個質蘊涵項？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——展開得 !a!c + !a!d + !b!c + !b!d，共四個質蘊涵項。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>乘積 (!a + !b)(!c + !d) 展開為四個乘積項，而非兩個。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>¬f 不是單一乘積項；它展開為四個。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是 f 的真列數；¬f 有 9 個真列與 4 個質蘊涵項。</text></feedback></answer>
+    <generalfeedback><text>展開 (!a + !b)(!c + !d) 得 !a!c + !a!d + !b!c + !b!d——四個質蘊涵項，各為 ¬f 的合法蘊涵項。MUTPC 會對 f 與 ¬f 兩者的蘊涵項各要求 UTP。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + c 的真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 a,b,c 的 8 組指派中，有幾組使 <code>f = ab + c</code> 為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——c=1 的 4 列，加上 110（a=1,b=1,c=0）。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>c=1 已給出 4 列；110 再添一列。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>重數：恰有 5 列為真（001,011,101,110,111）。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>太少——單是 c=1 就有 4 列為真。</text></feedback></answer>
+    <generalfeedback><text>只要 c=1（4 列）或 ab=1（再加 110），f 即為真。真列為 001、011、101、110、111——共五列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + cd 的真列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 a,b,c,d 的 16 組指派中，有幾組使 <code>f = ab + cd</code> 為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——ab（cd 為假）3 列 + cd（ab 為假）3 列 + 兩者皆真（1111）1 列 = 7。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>兩個 4 列的區塊相加會重複計入 1111；真列數為 7。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>重數——有 7 個真列。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>ab 單獨給 4 列，cd 再給 4 列（在 1111 重疊），共 7 個相異列。</text></feedback></answer>
+    <generalfeedback><text>ab 在 4 列為真，cd 在 4 列為真；兩者僅在 1111 重疊，依排容原理 4 + 4 − 1 = 7 組使 f 為真。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>僅 UTPC 與述詞覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>僅滿足唯一真點覆蓋（UTPC）的測試套件，保證至少有一個測試使 f 為假。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——每個 UTP 都使其蘊涵項（進而 f）為真，故僅含 UTP 的套件可能從未使 f 為假。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>所有唯一真點都使 f 為真；UTPC 並未強制任何假點，故 f 未必為假。</text></feedback></answer>
+    <generalfeedback><text>每個 UTP 都是 f 的真點。僅由 UTP 構成的套件使每個測試中 f 皆為真，故僅 UTPC 不保證出現假值——它不涵蓋（subsume）述詞覆蓋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>僅 NFPC 與述詞覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>僅滿足近似假點覆蓋（NFPC）的測試套件，保證至少有一個測試使 f 為真。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——每個近似假點都使 f 為假，故僅含 NFP 的套件可能從未使 f 為真。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>所有近似假點都使 f 為假；NFPC 並未強制任何真點，故 f 未必為真。</text></feedback></answer>
+    <generalfeedback><text>每個 NFP 都是 f 的假點。僅由 NFP 構成的套件使每個測試中 f 皆為假，故僅 NFPC 不保證出現真值——單獨並不涵蓋述詞覆蓋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CUTPNFP 涵蓋述詞覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於 CUTPNFP 對每個字面都含一個唯一真點（f 為真）與一個近似假點（f 為假），任何滿足 CUTPNFP 的套件都會使 f 同時取真與假——故它涵蓋（subsume）述詞覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——UTP 提供真值、NFP 提供假值，f 的兩種值皆被涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>CUTPNFP 同時要求 UTP（f 為真）與 NFP（f 為假），故 f 必取兩種值。</text></feedback></answer>
+    <generalfeedback><text>CUTPNFP 對每個字面配對一個 UTP（f 為真）與一個 NFP（f 為假）。因此套件中至少各有一次 f 為真與 f 為假的評估，滿足述詞覆蓋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>UTPC 涵蓋蘊涵項覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>唯一真點覆蓋（UTPC）涵蓋（subsume）蘊涵項覆蓋（IC）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——蘊涵項 i 的 UTP 使 i 為真，故對每個蘊涵項各取一個 UTP 也使每個蘊涵項為真，這正是 IC。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>每個 UTP 都使自身蘊涵項為真；每個蘊涵項各取一個即滿足 IC，故 UTPC 涵蓋 IC。</text></feedback></answer>
+    <generalfeedback><text>IC 要求每個蘊涵項在某測試中為真。蘊涵項 i 的 UTP 使 i 為真，故 UTPC 套件（每個蘊涵項一個 UTP）自動滿足 IC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CUTPNFP 的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>字面 L 的一組 CUTPNFP (UTP, NFP) 配對展現了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只翻轉 L 便使 f 改變——即 L 對結果的獨立效應（DNF 版的 MC/DC）</text><feedback><text>正確——配對僅在 L 相異且 f 改變，展現 L 對 f 的獨立影響。</text></feedback></answer>
+    <answer fraction="0"><text>已測試變數的全部 2^n 種組合</text><feedback><text>那是組合覆蓋，遠多於 CUTPNFP 所需。</text></feedback></answer>
+    <answer fraction="0"><text>述詞恆為真</text><feedback><text>配對中的 NFP 使 f 為假，故 f 並非恆真。</text></feedback></answer>
+    <answer fraction="0"><text>L 從不影響結果</text><feedback><text>配對展現的恰恰相反：L 確實影響 f。</text></feedback></answer>
+    <generalfeedback><text>一組 CUTPNFP 配對是僅在字面 L 相異的 UTP 與 NFP；一者 f 為真、另一者 f 為假，故只翻轉 L 便使 f 改變。這以 DNF 形式對應 MC/DC 的獨立效應要求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab + a!b 中缺少的近似假點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>f = ab + a!b</code>（其等於 <code>a</code>），蘊涵項 <code>ab</code> 之字面 <code>b</code> <strong>沒有</strong>近似假點。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>凡是翻轉 b 便能使 ab 為真的點，其 a 都已為 1，故 f = a 在該處已為真——這種點上 f 從不為假</text><feedback><text>正確——「f 為假」的條件無法成立，故 b 沒有 NFP。</text></feedback></answer>
+    <answer fraction="0"><text>因為 b 未出現在述詞中</text><feedback><text>b 確實出現在項 ab 中；問題在於 ab 是冗餘的（f = a）。</text></feedback></answer>
+    <answer fraction="0"><text>因為 ab 沒有唯一真點</text><feedback><text>ab 有 UTP（11）；缺少 NFP 是冗餘造成的另一後果。</text></feedback></answer>
+    <answer fraction="0"><text>因為 f 是恆真式</text><feedback><text>f = a 並非恆真式；a=0 時它為假。</text></feedback></answer>
+    <generalfeedback><text>ab 之字面 b 的 NFP 需 f 為假，且翻轉 b 使 ab 為真——但要以翻轉 b 使 ab 為真必須 a=1，而 a=1 時 f = a 已為真。沒有指派能同時滿足兩者，故此 NFP 不可行：對非質（冗餘）蘊涵項，NFPC 可能不可行。</text></generalfeedback>
+  </question>
+</quiz>

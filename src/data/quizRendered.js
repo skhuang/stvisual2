@@ -20151,6 +20151,2480 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "logic-dnf": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is DNF",
+          "text": "<p>A predicate is in <strong>Disjunctive Normal Form (DNF)</strong> when it is written as:</p>",
+          "answers": [
+            {
+              "text": "A disjunction (OR) of product terms, where each term is a conjunction (AND) of literals",
+              "fraction": 100,
+              "feedback": "Correct — DNF is a \"sum of products\": an OR of AND-terms."
+            },
+            {
+              "text": "A conjunction (AND) of sum terms, where each term is a disjunction of literals",
+              "fraction": 0,
+              "feedback": "That is Conjunctive Normal Form (CNF), a product of sums."
+            },
+            {
+              "text": "A single product term of every variable",
+              "fraction": 0,
+              "feedback": "That is a minterm, only one special case of a DNF."
+            },
+            {
+              "text": "Any boolean expression, regardless of structure",
+              "fraction": 0,
+              "feedback": "DNF is a specific normal form, not an arbitrary expression."
+            }
+          ],
+          "generalFeedback": "DNF (sum of products) writes f as an OR of product terms; each product term is an AND of literals. Notation used here: AND = adjacency (), OR =, NOT =(e.g.).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a literal",
+          "text": "<p>In DNF, a <strong>literal</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A variable or its negation (e.g. a or !a)",
+              "fraction": 100,
+              "feedback": "Correct — a literal is one occurrence of a variable, possibly negated."
+            },
+            {
+              "text": "A conjunction of two or more variables",
+              "fraction": 0,
+              "feedback": "That is a product term, not a single literal."
+            },
+            {
+              "text": "The whole sum-of-products expression",
+              "fraction": 0,
+              "feedback": "That is the entire DNF, not a literal."
+            },
+            {
+              "text": "An assignment of values to all variables",
+              "fraction": 0,
+              "feedback": "That is a test point/row, not a literal."
+            }
+          ],
+          "generalFeedback": "A literal is a single variable or its negation, e.g.or. Literals are AND-ed together to form product terms.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a product term",
+          "text": "<p>In DNF, a <strong>term</strong> (product term) is:</p>",
+          "answers": [
+            {
+              "text": "A conjunction (AND) of one or more literals, e.g. a!bc",
+              "fraction": 100,
+              "feedback": "Correct — a term is literals AND-ed together."
+            },
+            {
+              "text": "A disjunction (OR) of literals, e.g. a + b + c",
+              "fraction": 0,
+              "feedback": "That is a sum term (used in CNF), not a DNF product term."
+            },
+            {
+              "text": "A single variable only",
+              "fraction": 0,
+              "feedback": "A single variable is one valid term, but terms may AND several literals."
+            },
+            {
+              "text": "The negation of the whole predicate",
+              "fraction": 0,
+              "feedback": "That is ¬f, not a product term."
+            }
+          ],
+          "generalFeedback": "A product term is a conjunction of literals, such as. A DNF is a disjunction (sum) of such product terms.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a minterm",
+          "text": "<p>For a predicate over the variables a, b, c, a <strong>minterm</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A product term that contains every variable exactly once (each as a or !a), e.g. a!bc",
+              "fraction": 100,
+              "feedback": "Correct — a minterm mentions all variables and is true at exactly one row."
+            },
+            {
+              "text": "A product term that omits at least one variable, e.g. ac",
+              "fraction": 0,
+              "feedback": "That is a valid product term, but not a minterm — a minterm names every variable."
+            },
+            {
+              "text": "A disjunction of all variables, e.g. a + b + c",
+              "fraction": 0,
+              "feedback": "That is a sum term, not a minterm."
+            },
+            {
+              "text": "The smallest implicant of the predicate",
+              "fraction": 0,
+              "feedback": "Size of an implicant is unrelated; a minterm is defined by naming every variable."
+            }
+          ],
+          "generalFeedback": "A minterm is a product term mentioning every variable exactly once; it is true at exactly one assignment (one truth-table row). Over 3 variables,is a minterm.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is an implicant",
+          "text": "<p>A product term i is an <strong>implicant</strong> of predicate f when:</p>",
+          "answers": [
+            {
+              "text": "Whenever i is true, f is also true (i implies f)",
+              "fraction": 100,
+              "feedback": "Correct — an implicant implies the predicate."
+            },
+            {
+              "text": "Whenever f is true, i is also true",
+              "fraction": 0,
+              "feedback": "That is the reverse implication and is not what \"implicant\" means."
+            },
+            {
+              "text": "i and f are true on exactly the same rows",
+              "fraction": 0,
+              "feedback": "That would make i logically equivalent to f, which is stronger than being an implicant."
+            },
+            {
+              "text": "i makes f false",
+              "fraction": 0,
+              "feedback": "An implicant makes f true, not false."
+            }
+          ],
+          "generalFeedback": "An implicant is a product term that implies f: every assignment satisfying the term also satisfies f. Each term listed in a DNF of f is an implicant of f.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a prime implicant",
+          "text": "<p>A <strong>prime implicant</strong> of f is:</p>",
+          "answers": [
+            {
+              "text": "An implicant from which no single literal can be removed while it stays an implicant",
+              "fraction": 100,
+              "feedback": "Correct — it is a \"maximal\" (irreducible) implicant."
+            },
+            {
+              "text": "An implicant that contains every variable",
+              "fraction": 0,
+              "feedback": "That describes a minterm; prime implicants are usually smaller."
+            },
+            {
+              "text": "Any product term appearing in some DNF of f",
+              "fraction": 0,
+              "feedback": "Such a term is an implicant, but it need not be prime (a literal might still be removable)."
+            },
+            {
+              "text": "The disjunction of all implicants of f",
+              "fraction": 0,
+              "feedback": "That is a DNF of f, not a single prime implicant."
+            }
+          ],
+          "generalFeedback": "A prime implicant is an implicant that cannot be reduced: dropping any one of its literals yields a term that no longer implies f.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a unique true point",
+          "text": "<p>A <strong>unique true point (UTP)</strong> for an implicant i of f is an assignment that:</p>",
+          "answers": [
+            {
+              "text": "Makes i true and every other implicant of f false",
+              "fraction": 100,
+              "feedback": "Correct — at a UTP, i alone is responsible for f being true."
+            },
+            {
+              "text": "Makes i true, regardless of the other implicants",
+              "fraction": 0,
+              "feedback": "That is just a true point of i; a UTP additionally requires all other implicants to be false."
+            },
+            {
+              "text": "Makes f false",
+              "fraction": 0,
+              "feedback": "A UTP is a true point: it makes i (and hence f) true."
+            },
+            {
+              "text": "Is the only assignment making f true",
+              "fraction": 0,
+              "feedback": "\"Unique\" refers to only one implicant being true, not to f having a single satisfying row."
+            }
+          ],
+          "generalFeedback": "A UTP for implicant i is an assignment where i is true and all other implicants are false, so i is the unique implicant accounting for f's truth there.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a near false point",
+          "text": "<p>A <strong>near false point (NFP)</strong> for a literal L of implicant i is an assignment that:</p>",
+          "answers": [
+            {
+              "text": "Makes f false, but flipping only literal L makes i (and f) true",
+              "fraction": 100,
+              "feedback": "Correct — it lies one literal away from a true point of i."
+            },
+            {
+              "text": "Makes f true using implicant i",
+              "fraction": 0,
+              "feedback": "An NFP makes f false, not true."
+            },
+            {
+              "text": "Makes every literal of i false at once",
+              "fraction": 0,
+              "feedback": "Only the one literal L is \"wrong\"; the others keep the values that would make i true."
+            },
+            {
+              "text": "Differs from a true point of i in two or more variables",
+              "fraction": 0,
+              "feedback": "An NFP differs in exactly one variable — the one for literal L — hence \"near\"."
+            }
+          ],
+          "generalFeedback": "A near false point for literal L of implicant i makes f false, yet flipping just the variable of L turns i (and f) true. It sits one variable away from making i true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count product terms in ab + cd",
+          "text": "<p>How many product terms does the DNF <code>ab + cd</code> contain?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — the two terms are ab and cd."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of literals, not the number of terms."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Theseparates two distinct product terms."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There are exactly two terms, ab and cd."
+            }
+          ],
+          "generalFeedback": "is a disjunction of two product terms, ab and cd, so it has 2 terms (each an implicant of the predicate).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count literals in ab + cd",
+          "text": "<p>How many literal occurrences does the DNF <code>ab + cd</code> contain?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — a, b, c, d each appear once."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of terms, not the number of literals."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "There are only four literal occurrences: a, b, c, d."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Count each literal in each term: ab has 2, cd has 2, total 4."
+            }
+          ],
+          "generalFeedback": "Term ab contributes literals a and b; term cd contributes c and d — four literal occurrences in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a single literal",
+          "text": "<p>Which of the following is a single <strong>literal</strong>?</p>",
+          "answers": [
+            {
+              "text": "!b",
+              "fraction": 100,
+              "feedback": "Correct — !b is a variable's negation, a literal."
+            },
+            {
+              "text": "ab",
+              "fraction": 0,
+              "feedback": "ab is a product term (two literals AND-ed), not a single literal."
+            },
+            {
+              "text": "a + b",
+              "fraction": 0,
+              "feedback": "a + b is a disjunction of two literals, not a single literal."
+            },
+            {
+              "text": "a!bc",
+              "fraction": 0,
+              "feedback": "a!bc is a product term of three literals."
+            }
+          ],
+          "generalFeedback": "A literal is one variable or its negation.qualifies;andare product terms andis a disjunction.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count literals in ab + c",
+          "text": "<p>How many literal occurrences does the DNF <code>ab + c</code> contain?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — a and b in the first term, c in the second."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of terms; there are 3 literal occurrences."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only a, b, and c appear — three literals."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Count all literals across both terms: 2 + 1 = 3."
+            }
+          ],
+          "generalFeedback": "Term ab has literals a and b; term c has literal c — three literal occurrences total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count variables in ab + cd",
+          "text": "<p>How many distinct variables (clauses) does the predicate <code>ab + cd</code> involve?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — a, b, c, and d."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the number of terms; the predicate uses 4 distinct variables."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 is the number of truth-table rows, not the number of variables."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There are 4 distinct variables: a, b, c, d."
+            }
+          ],
+          "generalFeedback": "The predicate mentions a, b, c, d — four distinct variables, giving 2^4 = 16 truth-table rows.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Prime implicant irreducibility",
+          "text": "<p>A prime implicant is an implicant from which no single literal can be removed while it remains an implicant.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — that irreducibility is exactly what makes an implicant prime."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Prime implicants are precisely the irreducible implicants; removing any literal breaks the implication."
+            }
+          ],
+          "generalFeedback": "An implicant is prime when it is minimal: dropping any one literal produces a term that no longer implies f."
+        },
+        {
+          "type": "truefalse",
+          "name": "DNF terms are implicants",
+          "text": "<p>Every product term appearing in a DNF of f is an implicant of f.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — if a term is true, that whole disjunct is true, so f is true; the term implies f."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Each disjunct, when true, forces the OR (and thus f) to be true, so every DNF term implies f."
+            }
+          ],
+          "generalFeedback": "Because f is the OR of its terms, any term being true makes f true. Hence every term of a DNF of f is (by definition) an implicant of f."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "UTP for ab in ab + c",
+          "text": "<p>For <code>f = ab + c</code> (variable order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>ab</code>?</p>",
+          "answers": [
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — ab is true and c is false, so ab is the only true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "At 111 the implicant c is also true, so ab is not the unique true implicant."
+            },
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "Here ab is false (b=0), so this is not even a true point of ab."
+            },
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "ab is false here; this is a true point of c, not of ab."
+            }
+          ],
+          "generalFeedback": "A UTP for ab needs ab true and every other implicant (here c) false: a=1, b=1, c=0, i.e. 110. It is the only UTP for ab in this predicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP for c in ab + c",
+          "text": "<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>c</code>?</p>",
+          "answers": [
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 100,
+              "feedback": "Correct — c is true and ab is false, so c is the only true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "Here ab is also true, so c is not the unique true implicant."
+            },
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "c is false here (c=0); this is a true point of ab, not of c."
+            },
+            {
+              "text": "000 (a=0, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false here, so it is not a true point at all."
+            }
+          ],
+          "generalFeedback": "c has three UTPs — 001, 011, 101 — each with c true and ab false. Of the options, only 001 qualifies (111 also makes ab true).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NFP for literal a of ab in ab + c",
+          "text": "<p>For <code>f = ab + c</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>a</code> of the implicant <code>ab</code>?</p>",
+          "answers": [
+            {
+              "text": "010 (a=0, b=1, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — f is false here, and flipping a to 1 gives 110, making ab (and f) true."
+            },
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false here, but flipping a gives 000, where ab is still false (b=0). Not an NFP for a."
+            },
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "f is true here (ab holds), so it is a true point, not a near false point."
+            },
+            {
+              "text": "011 (a=0, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "f is true here (c holds), so it cannot be a near false point."
+            }
+          ],
+          "generalFeedback": "An NFP for literal a of ab needs f false and the flip of a alone to make ab true. That requires b=1, c=0, a=0: assignment 010. Flipping a yields 110 with ab true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP vs NFP truth values",
+          "text": "<p>At a unique true point the predicate f is ____, and at a near false point f is ____.</p>",
+          "answers": [
+            {
+              "text": "true; false",
+              "fraction": 100,
+              "feedback": "Correct — a UTP is a true point of f; an NFP is a false point of f."
+            },
+            {
+              "text": "false; true",
+              "fraction": 0,
+              "feedback": "Reversed — the UTP makes f true and the NFP makes f false."
+            },
+            {
+              "text": "true; true",
+              "fraction": 0,
+              "feedback": "An NFP makes f false, not true."
+            },
+            {
+              "text": "false; false",
+              "fraction": 0,
+              "feedback": "A UTP makes f true, not false."
+            }
+          ],
+          "generalFeedback": "By definition, a UTP makes its implicant (hence f) true, while an NFP makes f false but is one literal flip away from making an implicant true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime implicants of ab + a!b",
+          "text": "<p>Consider <code>f = ab + a!b</code>, which simplifies to <code>a</code>. Which statement is correct?</p>",
+          "answers": [
+            {
+              "text": "Neither ab nor a!b is a prime implicant, because in each the second literal can be dropped (a alone still implies f)",
+              "fraction": 100,
+              "feedback": "Correct — since f = a, the term a is an implicant, so ab and a!b are both reducible."
+            },
+            {
+              "text": "Both ab and a!b are prime implicants",
+              "fraction": 0,
+              "feedback": "Neither is prime: removing b (or !b) leaves a, which still implies f."
+            },
+            {
+              "text": "Only ab is a prime implicant",
+              "fraction": 0,
+              "feedback": "ab is reducible to a, so it is not prime."
+            },
+            {
+              "text": "a is not an implicant of f",
+              "fraction": 0,
+              "feedback": "Since f = a, the term a implies f — it is in fact the only prime implicant."
+            }
+          ],
+          "generalFeedback": "f = ab + a!b = a. The single prime implicant is a. Both listed terms carry a removable literal, so neither is prime.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of UTPs UTPC requires for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, how many unique true points must Unique True Point Coverage (UTPC) require (one per implicant)?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one UTP for ab and one for cd."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the literal count; UTPC needs one UTP per implicant, and there are 2 implicants."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Each implicant needs its own UTP, and no single point can be a UTP for both."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of true rows; UTPC requires one UTP per implicant, i.e. 2."
+            }
+          ],
+          "generalFeedback": "UTPC requires a UTP for each implicant. With two implicants (ab, cd), it requires 2 unique true points; since a UTP makes only its own implicant true, one test cannot serve both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of NFPs NFPC requires for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, how many near false points must Near False Point Coverage (NFPC) require (one per literal of each implicant)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one NFP for each of the four literals a, b, c, d."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the implicant count; NFPC requires one NFP per literal, and there are 4 literals."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "There are only 4 literal occurrences, so 4 NFPs are required."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 is the row count, not the number of NFPs required."
+            }
+          ],
+          "generalFeedback": "NFPC requires a near false point for each literal of each implicant. Terms ab and cd have four literals total (a, b, c, d), so 4 NFPs are required.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP for !ab in !ab + ac",
+          "text": "<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>!ab</code>?</p>",
+          "answers": [
+            {
+              "text": "010 (a=0, b=1, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — !ab is true (a=0, b=1) and ac is false (a=0), so !ab is the unique true implicant."
+            },
+            {
+              "text": "110 (a=1, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "!ab is false here because a=1, so !a is false."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "Here ac is true and !ab is false (a=1); not a UTP for !ab."
+            },
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "!ab is false here because b=0."
+            }
+          ],
+          "generalFeedback": "!ab needs a=0 and b=1; to keep ac false we need a=0 (already) — so both 010 and 011 are UTPs. Of the options only 010 qualifies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NFP for literal c of ac in !ab + ac",
+          "text": "<p>For <code>f = !ab + ac</code> (order a,b,c), which assignment is a <strong>near false point</strong> for literal <code>c</code> of the implicant <code>ac</code>?</p>",
+          "answers": [
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — f is false here, and flipping c to 1 gives 101, making ac (and f) true."
+            },
+            {
+              "text": "101 (a=1, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "f is true here (ac holds), so it is a true point, not a near false point."
+            },
+            {
+              "text": "000 (a=0, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false, but flipping c gives 001, where ac is still false (a=0). Not an NFP for c."
+            },
+            {
+              "text": "010 (a=0, b=1, c=0)",
+              "fraction": 0,
+              "feedback": "f is true here (!ab holds), so it cannot be a near false point."
+            }
+          ],
+          "generalFeedback": "An NFP for c of ac needs f false and flipping c alone to make ac true, i.e. a=1 and c=0. With a=1, !ab is false; b may be 0 or 1. 100 works: flipping c yields 101 with ac true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Overlapping implicants in ac + bc",
+          "text": "<p>For <code>f = ac + bc</code> (order a,b,c), at the assignment 111 (a=1, b=1, c=1), how many of the two implicants are true?</p>",
+          "answers": [
+            {
+              "text": "2 — both ac and bc are true",
+              "fraction": 100,
+              "feedback": "Correct — with a=b=c=1, both terms hold, so 111 is not a unique true point for either."
+            },
+            {
+              "text": "1 — only ac is true",
+              "fraction": 0,
+              "feedback": "bc is also true at 111 (b=1, c=1)."
+            },
+            {
+              "text": "0 — neither is true",
+              "fraction": 0,
+              "feedback": "Both terms are true; f is true at 111."
+            },
+            {
+              "text": "It depends on the variable order",
+              "fraction": 0,
+              "feedback": "Truth values do not depend on the order in which variables are written."
+            }
+          ],
+          "generalFeedback": "At 111 both ac and bc are true, so 111 is a shared true point — it cannot be a UTP for either implicant. The overlap is why unique true points must be chosen carefully.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Single test for Implicant Coverage of ab + cd",
+          "text": "<p>Can a <strong>single</strong> test satisfy Implicant Coverage (IC) for <code>f = ab + cd</code>?</p>",
+          "answers": [
+            {
+              "text": "Yes — the assignment 1111 makes both ab and cd true at once",
+              "fraction": 100,
+              "feedback": "Correct — IC only asks that each implicant be true in some test, and 1111 makes both true."
+            },
+            {
+              "text": "No — IC always needs one test per implicant",
+              "fraction": 0,
+              "feedback": "That is UTPC. Plain IC can reuse a single test if it makes every implicant true."
+            },
+            {
+              "text": "No — a single test can never make two product terms true",
+              "fraction": 0,
+              "feedback": "1111 makes both ab and cd true simultaneously."
+            },
+            {
+              "text": "Yes, but only under Combinatorial Coverage",
+              "fraction": 0,
+              "feedback": "Feasibility of one test for IC does not depend on any other criterion."
+            }
+          ],
+          "generalFeedback": "IC requires each implicant to be made true by some test — the same test may serve several. At 1111 both ab and cd are true, so one test satisfies IC. UTPC, by contrast, forbids this by demanding each true point be unique to one implicant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP for a in a + bc",
+          "text": "<p>For <code>f = a + bc</code> (order a,b,c), which assignment is a <strong>unique true point</strong> for the implicant <code>a</code>?</p>",
+          "answers": [
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 100,
+              "feedback": "Correct — a is true and bc is false, so a is the unique true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "bc is also true here, so a is not the unique true implicant."
+            },
+            {
+              "text": "011 (a=0, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "a is false here; this is a true point of bc, not of a."
+            },
+            {
+              "text": "000 (a=0, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "f is false here, so it is not a true point."
+            }
+          ],
+          "generalFeedback": "a has UTPs 100, 101, 110 (a true, bc false). 111 fails because bc is also true. Of the options, 100 is the UTP.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Is a an implicant of ab + cd",
+          "text": "<p>The single literal <code>a</code> is an implicant of <code>f = ab + cd</code>.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — at a=1, b=0, c=0, d=0 (1000) the term a is true but f is false, so a does not imply f."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Counterexample 1000: a is true yet f = ab + cd is false, so a does not imply f."
+            }
+          ],
+          "generalFeedback": "For a to be an implicant, every assignment with a=1 must make f true. But 1000 has a=1 and f=0, so a is not an implicant of ab + cd."
+        },
+        {
+          "type": "multichoice",
+          "name": "Non-unique true point",
+          "text": "<p>An assignment at which implicant i is true but at least one <em>other</em> implicant of f is also true is:</p>",
+          "answers": [
+            {
+              "text": "A true point of f, but not a unique true point for i",
+              "fraction": 100,
+              "feedback": "Correct — uniqueness fails because more than one implicant is true."
+            },
+            {
+              "text": "A unique true point for i",
+              "fraction": 0,
+              "feedback": "A UTP requires all other implicants to be false; here another one is true."
+            },
+            {
+              "text": "A near false point for i",
+              "fraction": 0,
+              "feedback": "An NFP makes f false; this point makes f true."
+            },
+            {
+              "text": "Not a true point of f at all",
+              "fraction": 0,
+              "feedback": "Since i is true, f is true, so it is a true point — just not a unique one."
+            }
+          ],
+          "generalFeedback": "It is a true point of f (i is true), but not a UTP for i because another implicant is simultaneously true, so i is not the unique cause of f's truth.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Truth value of f at a near false point",
+          "text": "<p>At a near false point, the predicate f must evaluate to:</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — an NFP is a false point of f that is one literal flip away from a true point."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "That would be a true point; an NFP makes f false."
+            },
+            {
+              "text": "either true or false, depending on the implicant",
+              "fraction": 0,
+              "feedback": "By definition an NFP always makes f false."
+            },
+            {
+              "text": "undefined",
+              "fraction": 0,
+              "feedback": "f is a total boolean function; it is defined at every assignment."
+            }
+          ],
+          "generalFeedback": "A near false point makes f false; flipping the one targeted literal turns the implicant (and f) true. The \"false\" value at the NFP is essential to the pairing used by CUTPNFP.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "CUTPNFP pair for literal a of ab",
+          "text": "<p>For <code>f = ab + cd</code> (order a,b,c,d), a CUTPNFP pair for literal <code>a</code> of implicant <code>ab</code> is a unique true point and a near false point that differ in exactly variable a. Which pair works?</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 and NFP 0100",
+              "fraction": 100,
+              "feedback": "Correct — they differ only in a; 1100 makes ab (only) true, 0100 makes f false and flips to true when a is set."
+            },
+            {
+              "text": "UTP 1100 and NFP 1000",
+              "fraction": 0,
+              "feedback": "These differ in variable b, not a — that is the pair for literal b."
+            },
+            {
+              "text": "UTP 1100 and NFP 0011",
+              "fraction": 0,
+              "feedback": "These differ in multiple variables, so they do not isolate literal a."
+            },
+            {
+              "text": "UTP 0011 and NFP 0100",
+              "fraction": 0,
+              "feedback": "0011 is a UTP for cd, not for ab, so it does not pair with an NFP for literal a of ab."
+            }
+          ],
+          "generalFeedback": "For literal a of ab: UTP 1100 (ab uniquely true) and NFP 0100 (f false) differ only in a; setting a at the NFP restores ab and f. This isolates a's independent effect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTPNFP pair for literal b of ab",
+          "text": "<p>For <code>f = ab + cd</code> (order a,b,c,d), which UTP/NFP pair isolates literal <code>b</code> of implicant <code>ab</code> (differ in exactly variable b)?</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 and NFP 1000",
+              "fraction": 100,
+              "feedback": "Correct — they differ only in b; 1000 makes f false, and setting b restores ab and f."
+            },
+            {
+              "text": "UTP 1100 and NFP 0100",
+              "fraction": 0,
+              "feedback": "These differ in a, not b — that is the pair for literal a."
+            },
+            {
+              "text": "UTP 1110 and NFP 1000",
+              "fraction": 0,
+              "feedback": "1110 and 1000 differ in variables b and c, so they do not isolate b alone."
+            },
+            {
+              "text": "UTP 1000 and NFP 1100",
+              "fraction": 0,
+              "feedback": "1000 makes f false, so it is not a UTP; the roles are also reversed."
+            }
+          ],
+          "generalFeedback": "For literal b of ab: UTP 1100 and NFP 1000 differ only in b. At 1000 f is false; setting b to 1 restores ab (and f), demonstrating b's independent effect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of CUTPNFP pairs for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, how many corresponding (UTP, NFP) pairs does CUTPNFP require — one per literal of each implicant?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one pair for each of the four literals a, b, c, d."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 counts implicants; CUTPNFP pairs are per literal, so there are 4."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "There are 4 literals, hence 4 pairs, not 8."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of true rows, unrelated to the pair count."
+            }
+          ],
+          "generalFeedback": "CUTPNFP forms one UTP/NFP pair per literal of each implicant. With literals a, b (in ab) and c, d (in cd), that is 4 pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 111 is not a UTP in ac + bc",
+          "text": "<p>For <code>f = ac + bc</code> (order a,b,c), why is 111 not a unique true point for the implicant <code>ac</code>?</p>",
+          "answers": [
+            {
+              "text": "Because the other implicant bc is also true at 111",
+              "fraction": 100,
+              "feedback": "Correct — with b=1, c=1 the term bc is true too, so ac is not the unique true implicant."
+            },
+            {
+              "text": "Because ac is false at 111",
+              "fraction": 0,
+              "feedback": "ac is true at 111 (a=1, c=1); the problem is that bc is true as well."
+            },
+            {
+              "text": "Because f is false at 111",
+              "fraction": 0,
+              "feedback": "f is true at 111; it just is not uniquely due to ac."
+            },
+            {
+              "text": "Because 111 is a near false point",
+              "fraction": 0,
+              "feedback": "111 makes f true, so it is not a near false point."
+            }
+          ],
+          "generalFeedback": "At 111 both ac and bc are true, so ac is not the sole cause of f's truth. The unique true point for ac is 101 (ac true, bc false).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The unique true point for ac in ac + bc",
+          "text": "<p>For <code>f = ac + bc</code> (order a,b,c), which assignment is the (only) unique true point for the implicant <code>ac</code>?</p>",
+          "answers": [
+            {
+              "text": "101 (a=1, b=0, c=1)",
+              "fraction": 100,
+              "feedback": "Correct — ac is true and bc is false (b=0), so ac is the unique true implicant."
+            },
+            {
+              "text": "111 (a=1, b=1, c=1)",
+              "fraction": 0,
+              "feedback": "bc is also true here, so ac is not unique."
+            },
+            {
+              "text": "100 (a=1, b=0, c=0)",
+              "fraction": 0,
+              "feedback": "ac is false here (c=0), so f is false."
+            },
+            {
+              "text": "001 (a=0, b=0, c=1)",
+              "fraction": 0,
+              "feedback": "ac is false here (a=0); f is false."
+            }
+          ],
+          "generalFeedback": "ac is true only when a=1 and c=1; to make bc false we need b=0. That forces 101 — the sole unique true point for ac.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DNF of not-f for ab + c",
+          "text": "<p>MUTPC/MNFPC also work with the DNF of <code>¬f</code>. For <code>f = ab + c</code>, which is a correct DNF of <code>¬f</code>?</p>",
+          "answers": [
+            {
+              "text": "!a!c + !b!c",
+              "fraction": 100,
+              "feedback": "Correct — ¬f is true exactly when c=0 and not(ab), i.e. !c(!a + !b)."
+            },
+            {
+              "text": "!a + !b + !c",
+              "fraction": 0,
+              "feedback": "This is true at 110 (where f is true), so it is not ¬f."
+            },
+            {
+              "text": "!a!b!c",
+              "fraction": 0,
+              "feedback": "This covers only 000; ¬f is also true at 010 and 100."
+            },
+            {
+              "text": "a!c + b!c",
+              "fraction": 0,
+              "feedback": "This is true at 100 and 010, but f itself is false there, and it misses 000 — it is not ¬f."
+            }
+          ],
+          "generalFeedback": "f = ab + c is false exactly on 000, 010, 100 — all with c=0 and ab false. So ¬f = !c(!a + !b) = !a!c + !b!c.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prime implicants of not-f for ab + cd",
+          "text": "<p>For <code>f = ab + cd</code>, the negation is <code>¬f = (!a + !b)(!c + !d)</code>. In minimal DNF, how many prime implicants does ¬f have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — expanding gives !a!c + !a!d + !b!c + !b!d, four prime implicants."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "The product (!a + !b)(!c + !d) expands to four product terms, not two."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "¬f is not a single product term; it expands to four."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the number of true rows of f; ¬f has 9 true rows and 4 prime implicants."
+            }
+          ],
+          "generalFeedback": "Distributing (!a + !b)(!c + !d) yields !a!c + !a!d + !b!c + !b!d — four prime implicants, each a valid implicant of ¬f. MUTPC would require UTPs for the implicants of both f and ¬f.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True rows of ab + c",
+          "text": "<p>Over the 8 assignments of a,b,c, how many make <code>f = ab + c</code> true?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — the 4 rows with c=1, plus 110 (a=1,b=1,c=0)."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=1 already gives 4 true rows; 110 adds a fifth."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount: exactly 5 rows are true (001,011,101,110,111)."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Too few — c=1 alone yields 4 true rows."
+            }
+          ],
+          "generalFeedback": "f is true whenever c=1 (4 rows) or ab=1 (adds 110). The true rows are 001, 011, 101, 110, 111 — five in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True rows of ab + cd",
+          "text": "<p>Over the 16 assignments of a,b,c,d, how many make <code>f = ab + cd</code> true?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — 3 rows with ab (cd false) + 3 with cd (ab false) + 1 with both (1111) = 7."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "Adding the two blocks of 4 double-counts 1111; the true count is 7."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — there are 7 true rows."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "ab alone gives 4 rows and cd gives 4 more (overlapping in 1111), for 7 distinct rows."
+            }
+          ],
+          "generalFeedback": "ab is true on 4 rows and cd on 4 rows; they share only 1111, so by inclusion–exclusion 4 + 4 − 1 = 7 assignments make f true.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "UTPC alone and predicate coverage",
+          "text": "<p>A test suite that satisfies only Unique True Point Coverage (UTPC) is guaranteed to make f evaluate to false in at least one test.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — every UTP makes its implicant (and f) true, so a UTPC-only suite may never make f false."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "All unique true points make f true; nothing in UTPC forces a false point, so f need never be false."
+            }
+          ],
+          "generalFeedback": "Each UTP is a true point of f. A suite consisting solely of UTPs makes f true in every test, so UTPC alone does not guarantee a false evaluation — it does not subsume Predicate Coverage."
+        },
+        {
+          "type": "truefalse",
+          "name": "NFPC alone and predicate coverage",
+          "text": "<p>A test suite that satisfies only Near False Point Coverage (NFPC) is guaranteed to make f evaluate to true in at least one test.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — every near false point makes f false, so an NFPC-only suite may never make f true."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "All near false points make f false; nothing in NFPC forces a true point, so f need never be true."
+            }
+          ],
+          "generalFeedback": "Each NFP is a false point of f. A suite of only NFPs makes f false in every test, so NFPC alone does not guarantee a true evaluation — it does not subsume Predicate Coverage on its own."
+        },
+        {
+          "type": "truefalse",
+          "name": "CUTPNFP subsumes predicate coverage",
+          "text": "<p>Because CUTPNFP includes a unique true point (f true) and a near false point (f false) for each literal, any CUTPNFP-satisfying suite makes f both true and false — so it subsumes Predicate Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the UTPs give a true evaluation and the NFPs give a false one, covering both values of f."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CUTPNFP requires both UTPs (f true) and NFPs (f false), so f necessarily takes both values."
+            }
+          ],
+          "generalFeedback": "CUTPNFP pairs a UTP (f true) with an NFP (f false) for every literal. The suite therefore contains at least one true and one false evaluation of f, satisfying Predicate Coverage."
+        },
+        {
+          "type": "truefalse",
+          "name": "UTPC subsumes implicant coverage",
+          "text": "<p>Unique True Point Coverage (UTPC) subsumes Implicant Coverage (IC).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a UTP for implicant i makes i true, so covering a UTP for each implicant also makes each implicant true, which is exactly IC."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Every UTP makes its own implicant true; requiring one per implicant satisfies IC, so UTPC subsumes IC."
+            }
+          ],
+          "generalFeedback": "IC requires each implicant to be made true by some test. A UTP for implicant i makes i true, so a UTPC suite (a UTP per implicant) automatically satisfies IC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of CUTPNFP",
+          "text": "<p>What does a CUTPNFP (UTP, NFP) pair for a literal L demonstrate?</p>",
+          "answers": [
+            {
+              "text": "That toggling only L flips f — L's independent effect on the outcome (the DNF analog of MC/DC)",
+              "fraction": 100,
+              "feedback": "Correct — the pair differs only in L and f changes, showing L independently affects f."
+            },
+            {
+              "text": "That all 2^n combinations of variables are exercised",
+              "fraction": 0,
+              "feedback": "That is Combinatorial Coverage, far more than CUTPNFP requires."
+            },
+            {
+              "text": "That the predicate is always true",
+              "fraction": 0,
+              "feedback": "The NFP of the pair makes f false, so f is not always true."
+            },
+            {
+              "text": "That L never affects the outcome",
+              "fraction": 0,
+              "feedback": "The pair shows exactly the opposite: L does affect f."
+            }
+          ],
+          "generalFeedback": "A CUTPNFP pair is a UTP and an NFP differing only in literal L; f is true at one and false at the other, so flipping L alone flips f. This mirrors MC/DC's independent-effect requirement in DNF form.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missing near false point in ab + a!b",
+          "text": "<p>For <code>f = ab + a!b</code> (which equals <code>a</code>), literal <code>b</code> of the implicant <code>ab</code> has <strong>no</strong> near false point. Why?</p>",
+          "answers": [
+            {
+              "text": "Any point where flipping b would make ab true already has a=1, so f = a is already true there — f is never false at such a point",
+              "fraction": 100,
+              "feedback": "Correct — the required \"f false\" condition cannot hold, so no NFP for b exists."
+            },
+            {
+              "text": "Because b does not appear in the predicate",
+              "fraction": 0,
+              "feedback": "b does appear in the term ab; the issue is that ab is redundant (f = a)."
+            },
+            {
+              "text": "Because ab has no unique true point",
+              "fraction": 0,
+              "feedback": "ab does have a UTP (11); the missing NFP is a separate consequence of redundancy."
+            },
+            {
+              "text": "Because f is a tautology",
+              "fraction": 0,
+              "feedback": "f = a is not a tautology; it is false whenever a=0."
+            }
+          ],
+          "generalFeedback": "An NFP for b of ab needs f false while flipping b makes ab true — but making ab true by flipping b requires a=1, and with a=1 f = a is already true. No assignment satisfies both, so this NFP is infeasible: NFPC can be infeasible for a non-prime (redundant) implicant.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "何謂 DNF",
+          "text": "<p>當一個述詞寫成下列何種形式時，稱其為<strong>析取範式（Disjunctive Normal Form, DNF）</strong>？</p>",
+          "answers": [
+            {
+              "text": "若干乘積項（product term）以 OR 連接，而每個項是若干字面（literal）以 AND 連接",
+              "fraction": 100,
+              "feedback": "正確——DNF 即「積之和（sum of products）」：由 AND 項再以 OR 連接。"
+            },
+            {
+              "text": "若干和項以 AND 連接，而每個項是若干字面以 OR 連接",
+              "fraction": 0,
+              "feedback": "那是合取範式（CNF），即「和之積」。"
+            },
+            {
+              "text": "由所有變數構成的單一乘積項",
+              "fraction": 0,
+              "feedback": "那是最小項（minterm），只是 DNF 的一種特例。"
+            },
+            {
+              "text": "任何布林運算式，不論結構為何",
+              "fraction": 0,
+              "feedback": "DNF 是特定的範式，而非任意運算式。"
+            }
+          ],
+          "generalFeedback": "DNF（積之和）把 f 寫成若干乘積項以 OR 連接；每個乘積項是若干字面以 AND 連接。本題庫記法：AND 以相鄰（）、OR 以、NOT 以（例如）表示。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂字面",
+          "text": "<p>在 DNF 中，<strong>字面（literal）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個變數或其否定（例如 a 或 !a）",
+              "fraction": 100,
+              "feedback": "正確——字面是一個變數的單次出現，可能帶否定。"
+            },
+            {
+              "text": "兩個以上變數的 AND 連接",
+              "fraction": 0,
+              "feedback": "那是乘積項，而非單一字面。"
+            },
+            {
+              "text": "整個積之和運算式",
+              "fraction": 0,
+              "feedback": "那是整個 DNF，而非字面。"
+            },
+            {
+              "text": "對所有變數的一組指派值",
+              "fraction": 0,
+              "feedback": "那是測試點／真值表列，而非字面。"
+            }
+          ],
+          "generalFeedback": "字面是單一變數或其否定，例如或。字面以 AND 連接構成乘積項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂乘積項",
+          "text": "<p>在 DNF 中，一個<strong>項（乘積項）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一個以上字面以 AND 連接，例如 a!bc",
+              "fraction": 100,
+              "feedback": "正確——乘積項是字面以 AND 連接而成。"
+            },
+            {
+              "text": "若干字面以 OR 連接，例如 a + b + c",
+              "fraction": 0,
+              "feedback": "那是和項（用於 CNF），而非 DNF 的乘積項。"
+            },
+            {
+              "text": "只能是單一變數",
+              "fraction": 0,
+              "feedback": "單一變數是合法的項，但項可 AND 多個字面。"
+            },
+            {
+              "text": "整個述詞的否定",
+              "fraction": 0,
+              "feedback": "那是 ¬f，而非乘積項。"
+            }
+          ],
+          "generalFeedback": "乘積項是若干字面的 AND 連接，例如。DNF 則是這些乘積項以 OR（和）連接。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂最小項",
+          "text": "<p>對於變數 a、b、c 的述詞，<strong>最小項（minterm）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "恰好含每個變數各一次（各為 a 或 !a）的乘積項，例如 a!bc",
+              "fraction": 100,
+              "feedback": "正確——最小項提及所有變數，且恰在一列為真。"
+            },
+            {
+              "text": "至少省略一個變數的乘積項，例如 ac",
+              "fraction": 0,
+              "feedback": "那是合法的乘積項，但非最小項——最小項須提及每個變數。"
+            },
+            {
+              "text": "所有變數的 OR 連接，例如 a + b + c",
+              "fraction": 0,
+              "feedback": "那是和項，而非最小項。"
+            },
+            {
+              "text": "述詞的最小蘊涵項",
+              "fraction": 0,
+              "feedback": "蘊涵項的大小與此無關；最小項的定義在於提及每個變數。"
+            }
+          ],
+          "generalFeedback": "最小項是恰好提及每個變數各一次的乘積項；它恰在一組指派（真值表的一列）為真。在 3 個變數下，是最小項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂蘊涵項",
+          "text": "<p>當乘積項 i 為述詞 f 的<strong>蘊涵項（implicant）</strong>時，代表：</p>",
+          "answers": [
+            {
+              "text": "只要 i 為真，f 也必為真（i 蘊涵 f）",
+              "fraction": 100,
+              "feedback": "正確——蘊涵項會蘊涵該述詞。"
+            },
+            {
+              "text": "只要 f 為真，i 也必為真",
+              "fraction": 0,
+              "feedback": "那是相反方向的蘊涵，並非蘊涵項的意義。"
+            },
+            {
+              "text": "i 與 f 在完全相同的列上為真",
+              "fraction": 0,
+              "feedback": "那會使 i 邏輯等價於 f，比「蘊涵項」更強。"
+            },
+            {
+              "text": "i 使 f 為假",
+              "fraction": 0,
+              "feedback": "蘊涵項使 f 為真，而非為假。"
+            }
+          ],
+          "generalFeedback": "蘊涵項是會蘊涵 f 的乘積項：凡滿足該項的指派亦滿足 f。f 的任一 DNF 中所列的每個項都是 f 的蘊涵項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂質蘊涵項",
+          "text": "<p>f 的<strong>質蘊涵項（prime implicant）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "移除任一字面後便不再是蘊涵項的蘊涵項",
+              "fraction": 100,
+              "feedback": "正確——它是「極大／不可再化簡」的蘊涵項。"
+            },
+            {
+              "text": "含所有變數的蘊涵項",
+              "fraction": 0,
+              "feedback": "那描述的是最小項；質蘊涵項通常較小。"
+            },
+            {
+              "text": "出現在 f 某個 DNF 中的任一乘積項",
+              "fraction": 0,
+              "feedback": "這樣的項是蘊涵項，但未必是質的（可能仍可移除某字面）。"
+            },
+            {
+              "text": "f 所有蘊涵項的 OR 連接",
+              "fraction": 0,
+              "feedback": "那是 f 的一個 DNF，而非單一質蘊涵項。"
+            }
+          ],
+          "generalFeedback": "質蘊涵項是不可再化簡的蘊涵項：移除其中任一字面後，所得的項便不再蘊涵 f。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂唯一真點",
+          "text": "<p>蘊涵項 i 的<strong>唯一真點（unique true point, UTP）</strong>是指一組指派，使得：</p>",
+          "answers": [
+            {
+              "text": "i 為真，且 f 的其他每個蘊涵項皆為假",
+              "fraction": 100,
+              "feedback": "正確——在 UTP 上，僅 i 使 f 為真。"
+            },
+            {
+              "text": "i 為真，不論其他蘊涵項如何",
+              "fraction": 0,
+              "feedback": "那只是 i 的一個真點；UTP 另要求其他所有蘊涵項為假。"
+            },
+            {
+              "text": "使 f 為假",
+              "fraction": 0,
+              "feedback": "UTP 是真點：它使 i（進而使 f）為真。"
+            },
+            {
+              "text": "是使 f 為真的唯一指派",
+              "fraction": 0,
+              "feedback": "「唯一」指只有一個蘊涵項為真，而非 f 只有一組令其為真的指派。"
+            }
+          ],
+          "generalFeedback": "蘊涵項 i 的 UTP 是使 i 為真、而其他所有蘊涵項皆為假的指派，因此在該點上 i 是使 f 為真的唯一蘊涵項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何謂近似假點",
+          "text": "<p>對於蘊涵項 i 的某字面 L，其<strong>近似假點（near false point, NFP）</strong>是指一組指派，使得：</p>",
+          "answers": [
+            {
+              "text": "f 為假，但只翻轉字面 L 便使 i（進而使 f）為真",
+              "fraction": 100,
+              "feedback": "正確——它與 i 的某真點僅差一個字面。"
+            },
+            {
+              "text": "以蘊涵項 i 使 f 為真",
+              "fraction": 0,
+              "feedback": "NFP 使 f 為假，而非為真。"
+            },
+            {
+              "text": "同時使 i 的每個字面皆為假",
+              "fraction": 0,
+              "feedback": "只有 L 這一個字面「不對」，其餘字面仍保持能使 i 為真的值。"
+            },
+            {
+              "text": "與 i 的某真點相差兩個以上變數",
+              "fraction": 0,
+              "feedback": "NFP 恰差一個變數——即字面 L 所對應者，故稱「近似」。"
+            }
+          ],
+          "generalFeedback": "蘊涵項 i 之字面 L 的近似假點使 f 為假，但只翻轉 L 所對應的變數即可使 i（進而使 f）為真；它與能使 i 為真的點僅相差一個變數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + cd 的乘積項數",
+          "text": "<p>DNF <code>ab + cd</code> 含有幾個乘積項？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——兩個項為 ab 與 cd。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是字面數，而非項數。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "分隔出兩個不同的乘積項。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "恰有兩個項：ab 與 cd。"
+            }
+          ],
+          "generalFeedback": "是兩個乘積項 ab 與 cd 的 OR 連接，故有 2 個項（各為該述詞的蘊涵項）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + cd 的字面數",
+          "text": "<p>DNF <code>ab + cd</code> 含有幾次字面出現？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d 各出現一次。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是項數，而非字面數。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "只有四次字面出現：a、b、c、d。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "逐項計算：ab 有 2 個、cd 有 2 個，共 4 個。"
+            }
+          ],
+          "generalFeedback": "項 ab 提供字面 a 與 b；項 cd 提供 c 與 d——合計四次字面出現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識單一字面",
+          "text": "<p>下列何者是單一<strong>字面</strong>？</p>",
+          "answers": [
+            {
+              "text": "!b",
+              "fraction": 100,
+              "feedback": "正確——!b 是某變數的否定，為一個字面。"
+            },
+            {
+              "text": "ab",
+              "fraction": 0,
+              "feedback": "ab 是乘積項（兩個字面 AND 連接），並非單一字面。"
+            },
+            {
+              "text": "a + b",
+              "fraction": 0,
+              "feedback": "a + b 是兩個字面的 OR 連接，並非單一字面。"
+            },
+            {
+              "text": "a!bc",
+              "fraction": 0,
+              "feedback": "a!bc 是含三個字面的乘積項。"
+            }
+          ],
+          "generalFeedback": "字面是一個變數或其否定。符合；與是乘積項，則是 OR 連接。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + c 的字面數",
+          "text": "<p>DNF <code>ab + c</code> 含有幾次字面出現？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——第一項有 a 與 b，第二項有 c。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是項數；字面出現共 3 次。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只出現 a、b、c——三個字面。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "將兩項的字面相加：2 + 1 = 3。"
+            }
+          ],
+          "generalFeedback": "項 ab 有字面 a 與 b；項 c 有字面 c——合計三次字面出現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 ab + cd 的變數數",
+          "text": "<p>述詞 <code>ab + cd</code> 涉及幾個相異變數（子句）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是項數；該述詞用到 4 個相異變數。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 是真值表列數，而非變數數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "相異變數有 4 個：a、b、c、d。"
+            }
+          ],
+          "generalFeedback": "此述詞提及 a、b、c、d——四個相異變數，故有 2^4 = 16 列真值表。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "質蘊涵項的不可化簡性",
+          "text": "<p>質蘊涵項是指「移除任一字面後便不再是蘊涵項」的蘊涵項。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這種不可化簡性正是使蘊涵項成為「質」的條件。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "質蘊涵項正是不可再化簡的蘊涵項；移除任一字面都會破壞其蘊涵性。"
+            }
+          ],
+          "generalFeedback": "當蘊涵項為極小（不可化簡）時即為質的：移除其中任一字面，所得的項便不再蘊涵 f。"
+        },
+        {
+          "type": "truefalse",
+          "name": "DNF 的項皆為蘊涵項",
+          "text": "<p>出現在 f 之某 DNF 中的每個乘積項都是 f 的蘊涵項。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——若某項為真，則該 OR 支為真，故 f 為真；該項蘊涵 f。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "任一支為真都會使整個 OR（進而使 f）為真，故 DNF 的每個項都蘊涵 f。"
+            }
+          ],
+          "generalFeedback": "由於 f 是其各項的 OR，任一項為真即使 f 為真。因此 f 之 DNF 中的每個項（依定義）都是 f 的蘊涵項。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "ab + c 中 ab 的 UTP",
+          "text": "<p>對 <code>f = ab + c</code>（變數順序 a,b,c），下列何者是蘊涵項 <code>ab</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 100,
+              "feedback": "正確——ab 為真且 c 為假，故 ab 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "在 111 時蘊涵項 c 亦為真，故 ab 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 ab 為假（b=0），故根本不是 ab 的真點。"
+            },
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ab 為假；這是 c 的真點，而非 ab 的。"
+            }
+          ],
+          "generalFeedback": "ab 的 UTP 需 ab 為真且其他蘊涵項（此處為 c）為假：a=1, b=1, c=0，即 110。它是本述詞中 ab 的唯一 UTP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 中 c 的 UTP",
+          "text": "<p>對 <code>f = ab + c</code>（順序 a,b,c），下列何者是蘊涵項 <code>c</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 100,
+              "feedback": "正確——c 為真且 ab 為假，故 c 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ab 亦為真，故 c 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 c 為假（c=0）；這是 ab 的真點，而非 c 的。"
+            },
+            {
+              "text": "000（a=0, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為假，根本不是真點。"
+            }
+          ],
+          "generalFeedback": "c 有三個 UTP——001、011、101，皆使 c 為真而 ab 為假。選項中僅 001 符合（111 會使 ab 亦為真）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 中 ab 之字面 a 的 NFP",
+          "text": "<p>對 <code>f = ab + c</code>（順序 a,b,c），下列何者是蘊涵項 <code>ab</code> 之字面 <code>a</code> 的<strong>近似假點</strong>？</p>",
+          "answers": [
+            {
+              "text": "010（a=0, b=1, c=0）",
+              "fraction": 100,
+              "feedback": "正確——此處 f 為假，將 a 翻為 1 得到 110，使 ab（進而 f）為真。"
+            },
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為假，但翻轉 a 得到 000，ab 仍為假（b=0）。不是 a 的 NFP。"
+            },
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（ab 成立），是真點，而非近似假點。"
+            },
+            {
+              "text": "011（a=0, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（c 成立），故不可能是近似假點。"
+            }
+          ],
+          "generalFeedback": "ab 之字面 a 的 NFP 需 f 為假，且只翻轉 a 便使 ab 為真。這要求 b=1、c=0、a=0：即 010。翻轉 a 得 110，ab 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UTP 與 NFP 的真值",
+          "text": "<p>在唯一真點上，述詞 f 為 ____；在近似假點上，f 為 ____。</p>",
+          "answers": [
+            {
+              "text": "真；假",
+              "fraction": 100,
+              "feedback": "正確——UTP 是 f 的真點；NFP 是 f 的假點。"
+            },
+            {
+              "text": "假；真",
+              "fraction": 0,
+              "feedback": "顛倒了——UTP 使 f 為真，NFP 使 f 為假。"
+            },
+            {
+              "text": "真；真",
+              "fraction": 0,
+              "feedback": "NFP 使 f 為假，而非為真。"
+            },
+            {
+              "text": "假；假",
+              "fraction": 0,
+              "feedback": "UTP 使 f 為真，而非為假。"
+            }
+          ],
+          "generalFeedback": "依定義，UTP 使其蘊涵項（進而使 f）為真；NFP 使 f 為假，但只差一個字面翻轉即可使某蘊涵項為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + a!b 的質蘊涵項",
+          "text": "<p>考慮 <code>f = ab + a!b</code>，其可化簡為 <code>a</code>。下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "ab 與 a!b 皆非質蘊涵項，因為兩者的第二個字面都可移除（僅 a 仍蘊涵 f）",
+              "fraction": 100,
+              "feedback": "正確——因 f = a，項 a 即為蘊涵項，故 ab 與 a!b 皆可化簡。"
+            },
+            {
+              "text": "ab 與 a!b 皆為質蘊涵項",
+              "fraction": 0,
+              "feedback": "兩者皆非質的：移除 b（或 !b）後剩下 a，仍蘊涵 f。"
+            },
+            {
+              "text": "僅 ab 是質蘊涵項",
+              "fraction": 0,
+              "feedback": "ab 可化簡為 a，故非質的。"
+            },
+            {
+              "text": "a 不是 f 的蘊涵項",
+              "fraction": 0,
+              "feedback": "因 f = a，項 a 蘊涵 f——它其實是唯一的質蘊涵項。"
+            }
+          ],
+          "generalFeedback": "f = ab + a!b = a。唯一的質蘊涵項是 a。兩個所列的項都帶有可移除的字面，故皆非質的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 之 UTPC 所需 UTP 數",
+          "text": "<p>對 <code>f = ab + cd</code>，唯一真點覆蓋（UTPC）須要求幾個唯一真點（每個蘊涵項一個）？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——ab 一個、cd 一個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是字面數；UTPC 每個蘊涵項需一個 UTP，而蘊涵項有 2 個。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "每個蘊涵項各需自己的 UTP，且沒有任何一點能同時是兩者的 UTP。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是真列數；UTPC 每個蘊涵項需一個 UTP，即 2 個。"
+            }
+          ],
+          "generalFeedback": "UTPC 對每個蘊涵項要求一個 UTP。有兩個蘊涵項（ab、cd），故需 2 個唯一真點；由於 UTP 只使自身蘊涵項為真，一個測試無法同時服務兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 之 NFPC 所需 NFP 數",
+          "text": "<p>對 <code>f = ab + cd</code>，近似假點覆蓋（NFPC）須要求幾個近似假點（每個蘊涵項的每個字面一個）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d 四個字面各一個 NFP。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是蘊涵項數；NFPC 每個字面需一個 NFP，而字面有 4 個。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "字面出現僅 4 次，故需 4 個 NFP。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 = 2^4 是列數，而非所需 NFP 數。"
+            }
+          ],
+          "generalFeedback": "NFPC 對每個蘊涵項的每個字面要求一個近似假點。項 ab 與 cd 共有四個字面（a、b、c、d），故需 4 個 NFP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "!ab + ac 中 !ab 的 UTP",
+          "text": "<p>對 <code>f = !ab + ac</code>（順序 a,b,c），下列何者是蘊涵項 <code>!ab</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "010（a=0, b=1, c=0）",
+              "fraction": 100,
+              "feedback": "正確——!ab 為真（a=0, b=1）且 ac 為假（a=0），故 !ab 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "110（a=1, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 !ab 為假，因 a=1 使 !a 為假。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ac 為真而 !ab 為假（a=1）；並非 !ab 的 UTP。"
+            },
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 !ab 為假，因 b=0。"
+            }
+          ],
+          "generalFeedback": "!ab 需 a=0 且 b=1；要使 ac 為假需 a=0（已滿足）——故 010 與 011 皆為 UTP。選項中僅 010 符合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "!ab + ac 中 ac 之字面 c 的 NFP",
+          "text": "<p>對 <code>f = !ab + ac</code>（順序 a,b,c），下列何者是蘊涵項 <code>ac</code> 之字面 <code>c</code> 的<strong>近似假點</strong>？</p>",
+          "answers": [
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 100,
+              "feedback": "正確——此處 f 為假，將 c 翻為 1 得到 101，使 ac（進而 f）為真。"
+            },
+            {
+              "text": "101（a=1, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（ac 成立），是真點，而非近似假點。"
+            },
+            {
+              "text": "000（a=0, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "f 為假，但翻轉 c 得到 001，ac 仍為假（a=0）。不是 c 的 NFP。"
+            },
+            {
+              "text": "010（a=0, b=1, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為真（!ab 成立），故不可能是近似假點。"
+            }
+          ],
+          "generalFeedback": "ac 之字面 c 的 NFP 需 f 為假，且只翻轉 c 便使 ac 為真，即 a=1 且 c=0。a=1 時 !ab 為假；b 可為 0 或 1。100 可行：翻轉 c 得 101，ac 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ac + bc 的重疊蘊涵項",
+          "text": "<p>對 <code>f = ac + bc</code>（順序 a,b,c），在指派 111（a=1, b=1, c=1）時，兩個蘊涵項中有幾個為真？</p>",
+          "answers": [
+            {
+              "text": "2——ac 與 bc 皆為真",
+              "fraction": 100,
+              "feedback": "正確——a=b=c=1 時兩項皆成立，故 111 不是任一者的唯一真點。"
+            },
+            {
+              "text": "1——僅 ac 為真",
+              "fraction": 0,
+              "feedback": "111 時 bc 亦為真（b=1, c=1）。"
+            },
+            {
+              "text": "0——皆不為真",
+              "fraction": 0,
+              "feedback": "兩項皆為真；111 時 f 為真。"
+            },
+            {
+              "text": "視變數順序而定",
+              "fraction": 0,
+              "feedback": "真值不因變數書寫順序而改變。"
+            }
+          ],
+          "generalFeedback": "在 111 時 ac 與 bc 皆為真，故 111 是共有的真點——不可能是任一蘊涵項的 UTP。此重疊正是選取唯一真點須謹慎的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 之 IC 是否可用單一測試",
+          "text": "<p>對 <code>f = ab + cd</code>，單一測試能否滿足蘊涵項覆蓋（IC）？</p>",
+          "answers": [
+            {
+              "text": "能——指派 1111 同時使 ab 與 cd 為真",
+              "fraction": 100,
+              "feedback": "正確——IC 僅要求每個蘊涵項在某測試中為真，而 1111 使兩者皆為真。"
+            },
+            {
+              "text": "不能——IC 總是需要每個蘊涵項一個測試",
+              "fraction": 0,
+              "feedback": "那是 UTPC。單純的 IC 若某測試能使每個蘊涵項為真，即可共用。"
+            },
+            {
+              "text": "不能——單一測試永遠無法使兩個乘積項為真",
+              "fraction": 0,
+              "feedback": "1111 同時使 ab 與 cd 為真。"
+            },
+            {
+              "text": "能，但僅在組合覆蓋下",
+              "fraction": 0,
+              "feedback": "單一測試能否滿足 IC 與其他準則無關。"
+            }
+          ],
+          "generalFeedback": "IC 要求每個蘊涵項在某測試中為真——同一測試可服務多個。在 1111 時 ab 與 cd 皆為真，故單一測試即可滿足 IC。反之 UTPC 要求每個真點僅屬一個蘊涵項，因而禁止此作法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "a + bc 中 a 的 UTP",
+          "text": "<p>對 <code>f = a + bc</code>（順序 a,b,c），下列何者是蘊涵項 <code>a</code> 的<strong>唯一真點</strong>？</p>",
+          "answers": [
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 100,
+              "feedback": "正確——a 為真且 bc 為假，故 a 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 bc 亦為真，故 a 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "011（a=0, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 a 為假；這是 bc 的真點，而非 a 的。"
+            },
+            {
+              "text": "000（a=0, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 f 為假，故不是真點。"
+            }
+          ],
+          "generalFeedback": "a 的 UTP 為 100、101、110（a 為真、bc 為假）。111 失格，因 bc 亦為真。選項中 100 是 UTP。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "a 是否為 ab + cd 的蘊涵項",
+          "text": "<p>單一字面 <code>a</code> 是 <code>f = ab + cd</code> 的蘊涵項。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——在 a=1, b=0, c=0, d=0（1000）時項 a 為真但 f 為假，故 a 不蘊涵 f。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "反例 1000：a 為真但 f = ab + cd 為假，故 a 不蘊涵 f。"
+            }
+          ],
+          "generalFeedback": "若 a 為蘊涵項，則凡 a=1 的指派都須使 f 為真。但 1000 中 a=1 而 f=0，故 a 不是 ab + cd 的蘊涵項。"
+        },
+        {
+          "type": "multichoice",
+          "name": "非唯一的真點",
+          "text": "<p>在某指派上，蘊涵項 i 為真，但 f 的至少一個<em>其他</em>蘊涵項亦為真，則此點是：</p>",
+          "answers": [
+            {
+              "text": "f 的真點，但不是 i 的唯一真點",
+              "fraction": 100,
+              "feedback": "正確——因不只一個蘊涵項為真，唯一性不成立。"
+            },
+            {
+              "text": "i 的唯一真點",
+              "fraction": 0,
+              "feedback": "UTP 要求其他所有蘊涵項為假；此處另有一個為真。"
+            },
+            {
+              "text": "i 的近似假點",
+              "fraction": 0,
+              "feedback": "NFP 使 f 為假；此點使 f 為真。"
+            },
+            {
+              "text": "根本不是 f 的真點",
+              "fraction": 0,
+              "feedback": "既然 i 為真，f 即為真，故它是真點——只是非唯一的。"
+            }
+          ],
+          "generalFeedback": "它是 f 的真點（i 為真），但不是 i 的 UTP，因為另有蘊涵項同時為真，故 i 並非使 f 為真的唯一原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "近似假點上 f 的真值",
+          "text": "<p>在近似假點上，述詞 f 必為：</p>",
+          "answers": [
+            {
+              "text": "假",
+              "fraction": 100,
+              "feedback": "正確——NFP 是 f 的假點，且與某真點僅差一個字面翻轉。"
+            },
+            {
+              "text": "真",
+              "fraction": 0,
+              "feedback": "那會是真點；NFP 使 f 為假。"
+            },
+            {
+              "text": "視蘊涵項而定，可真可假",
+              "fraction": 0,
+              "feedback": "依定義 NFP 必使 f 為假。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "f 是全域布林函數；在每組指派上皆有定義。"
+            }
+          ],
+          "generalFeedback": "近似假點使 f 為假；翻轉所鎖定的那個字面即使蘊涵項（進而 f）為真。NFP 上的「假」值對 CUTPNFP 所用的配對至關重要。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "ab 之字面 a 的 CUTPNFP 配對",
+          "text": "<p>對 <code>f = ab + cd</code>（順序 a,b,c,d），蘊涵項 <code>ab</code> 之字面 <code>a</code> 的 CUTPNFP 配對，是一個唯一真點與一個近似假點，且兩者恰在變數 a 相異。下列何組可行？</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 與 NFP 0100",
+              "fraction": 100,
+              "feedback": "正確——兩者僅在 a 相異；1100 使（僅）ab 為真，0100 使 f 為假且設回 a 即轉為真。"
+            },
+            {
+              "text": "UTP 1100 與 NFP 1000",
+              "fraction": 0,
+              "feedback": "兩者在變數 b 相異，而非 a——那是字面 b 的配對。"
+            },
+            {
+              "text": "UTP 1100 與 NFP 0011",
+              "fraction": 0,
+              "feedback": "兩者在多個變數相異，無法孤立出字面 a。"
+            },
+            {
+              "text": "UTP 0011 與 NFP 0100",
+              "fraction": 0,
+              "feedback": "0011 是 cd 的 UTP，而非 ab 的，故無法與 ab 之字面 a 的 NFP 配對。"
+            }
+          ],
+          "generalFeedback": "對 ab 之字面 a：UTP 1100（ab 唯一為真）與 NFP 0100（f 為假）僅在 a 相異；在 NFP 上設回 a 即恢復 ab 與 f。此配對孤立出 a 的獨立效應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab 之字面 b 的 CUTPNFP 配對",
+          "text": "<p>對 <code>f = ab + cd</code>（順序 a,b,c,d），下列哪組 UTP/NFP 配對可孤立出蘊涵項 <code>ab</code> 之字面 <code>b</code>（恰在變數 b 相異）？</p>",
+          "answers": [
+            {
+              "text": "UTP 1100 與 NFP 1000",
+              "fraction": 100,
+              "feedback": "正確——兩者僅在 b 相異；1000 使 f 為假，設回 b 即恢復 ab 與 f。"
+            },
+            {
+              "text": "UTP 1100 與 NFP 0100",
+              "fraction": 0,
+              "feedback": "兩者在 a 相異，而非 b——那是字面 a 的配對。"
+            },
+            {
+              "text": "UTP 1110 與 NFP 1000",
+              "fraction": 0,
+              "feedback": "1110 與 1000 在變數 b 與 c 皆相異，無法單獨孤立 b。"
+            },
+            {
+              "text": "UTP 1000 與 NFP 1100",
+              "fraction": 0,
+              "feedback": "1000 使 f 為假，故不是 UTP；角色也顛倒了。"
+            }
+          ],
+          "generalFeedback": "對 ab 之字面 b：UTP 1100 與 NFP 1000 僅在 b 相異。1000 時 f 為假；將 b 設為 1 即恢復 ab（進而 f），展現 b 的獨立效應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 的 CUTPNFP 配對數",
+          "text": "<p>對 <code>f = ab + cd</code>，CUTPNFP 需要幾組對應的 (UTP, NFP) 配對——每個蘊涵項的每個字面一組？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——a、b、c、d 四個字面各一組。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是蘊涵項數；CUTPNFP 配對以字面計，故有 4 組。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "字面有 4 個，故 4 組，而非 8。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是真列數，與配對數無關。"
+            }
+          ],
+          "generalFeedback": "CUTPNFP 對每個蘊涵項的每個字面形成一組 UTP/NFP 配對。ab 有字面 a、b，cd 有 c、d，故共 4 組。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ac + bc 中 111 為何不是 UTP",
+          "text": "<p>對 <code>f = ac + bc</code>（順序 a,b,c），為何 111 不是蘊涵項 <code>ac</code> 的唯一真點？</p>",
+          "answers": [
+            {
+              "text": "因為另一蘊涵項 bc 在 111 時也為真",
+              "fraction": 100,
+              "feedback": "正確——b=1、c=1 時 bc 亦為真，故 ac 不是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "因為 111 時 ac 為假",
+              "fraction": 0,
+              "feedback": "111 時 ac 為真（a=1, c=1）；問題在於 bc 也為真。"
+            },
+            {
+              "text": "因為 111 時 f 為假",
+              "fraction": 0,
+              "feedback": "111 時 f 為真；只是並非唯一由 ac 造成。"
+            },
+            {
+              "text": "因為 111 是近似假點",
+              "fraction": 0,
+              "feedback": "111 使 f 為真，故不是近似假點。"
+            }
+          ],
+          "generalFeedback": "111 時 ac 與 bc 皆為真，故 ac 不是使 f 為真的唯一原因。ac 的唯一真點是 101（ac 為真、bc 為假）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ac + bc 中 ac 的唯一真點",
+          "text": "<p>對 <code>f = ac + bc</code>（順序 a,b,c），下列何者是蘊涵項 <code>ac</code> 的（唯一）唯一真點？</p>",
+          "answers": [
+            {
+              "text": "101（a=1, b=0, c=1）",
+              "fraction": 100,
+              "feedback": "正確——ac 為真且 bc 為假（b=0），故 ac 是唯一為真的蘊涵項。"
+            },
+            {
+              "text": "111（a=1, b=1, c=1）",
+              "fraction": 0,
+              "feedback": "此處 bc 亦為真，故 ac 非唯一。"
+            },
+            {
+              "text": "100（a=1, b=0, c=0）",
+              "fraction": 0,
+              "feedback": "此處 ac 為假（c=0），f 為假。"
+            },
+            {
+              "text": "001（a=0, b=0, c=1）",
+              "fraction": 0,
+              "feedback": "此處 ac 為假（a=0）；f 為假。"
+            }
+          ],
+          "generalFeedback": "ac 只有在 a=1 且 c=1 時為真；要使 bc 為假需 b=0。這迫使得到 101——ac 的唯一 UTP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 的 not-f 之 DNF",
+          "text": "<p>MUTPC/MNFPC 也會用到 <code>¬f</code> 的 DNF。對 <code>f = ab + c</code>，下列何者是 <code>¬f</code> 的正確 DNF？</p>",
+          "answers": [
+            {
+              "text": "!a!c + !b!c",
+              "fraction": 100,
+              "feedback": "正確——¬f 恰在 c=0 且非(ab) 時為真，即 !c(!a + !b)。"
+            },
+            {
+              "text": "!a + !b + !c",
+              "fraction": 0,
+              "feedback": "它在 110（f 為真處）為真，故非 ¬f。"
+            },
+            {
+              "text": "!a!b!c",
+              "fraction": 0,
+              "feedback": "它只涵蓋 000；¬f 在 010 與 100 亦為真。"
+            },
+            {
+              "text": "a!c + b!c",
+              "fraction": 0,
+              "feedback": "它在 100 與 010 為真，但 f 本身在該處為假，且漏掉 000——並非 ¬f。"
+            }
+          ],
+          "generalFeedback": "f = ab + c 恰在 000、010、100 為假——皆為 c=0 且 ab 為假。故 ¬f = !c(!a + !b) = !a!c + !b!c。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 的 not-f 之質蘊涵項",
+          "text": "<p>對 <code>f = ab + cd</code>，其否定為 <code>¬f = (!a + !b)(!c + !d)</code>。在最小 DNF 下，¬f 有幾個質蘊涵項？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——展開得 !a!c + !a!d + !b!c + !b!d，共四個質蘊涵項。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "乘積 (!a + !b)(!c + !d) 展開為四個乘積項，而非兩個。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "¬f 不是單一乘積項；它展開為四個。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 f 的真列數；¬f 有 9 個真列與 4 個質蘊涵項。"
+            }
+          ],
+          "generalFeedback": "展開 (!a + !b)(!c + !d) 得 !a!c + !a!d + !b!c + !b!d——四個質蘊涵項，各為 ¬f 的合法蘊涵項。MUTPC 會對 f 與 ¬f 兩者的蘊涵項各要求 UTP。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + c 的真列數",
+          "text": "<p>在 a,b,c 的 8 組指派中，有幾組使 <code>f = ab + c</code> 為真？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——c=1 的 4 列，加上 110（a=1,b=1,c=0）。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "c=1 已給出 4 列；110 再添一列。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重數：恰有 5 列為真（001,011,101,110,111）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "太少——單是 c=1 就有 4 列為真。"
+            }
+          ],
+          "generalFeedback": "只要 c=1（4 列）或 ab=1（再加 110），f 即為真。真列為 001、011、101、110、111——共五列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + cd 的真列數",
+          "text": "<p>在 a,b,c,d 的 16 組指派中，有幾組使 <code>f = ab + cd</code> 為真？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——ab（cd 為假）3 列 + cd（ab 為假）3 列 + 兩者皆真（1111）1 列 = 7。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "兩個 4 列的區塊相加會重複計入 1111；真列數為 7。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重數——有 7 個真列。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "ab 單獨給 4 列，cd 再給 4 列（在 1111 重疊），共 7 個相異列。"
+            }
+          ],
+          "generalFeedback": "ab 在 4 列為真，cd 在 4 列為真；兩者僅在 1111 重疊，依排容原理 4 + 4 − 1 = 7 組使 f 為真。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "僅 UTPC 與述詞覆蓋",
+          "text": "<p>僅滿足唯一真點覆蓋（UTPC）的測試套件，保證至少有一個測試使 f 為假。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——每個 UTP 都使其蘊涵項（進而 f）為真，故僅含 UTP 的套件可能從未使 f 為假。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "所有唯一真點都使 f 為真；UTPC 並未強制任何假點，故 f 未必為假。"
+            }
+          ],
+          "generalFeedback": "每個 UTP 都是 f 的真點。僅由 UTP 構成的套件使每個測試中 f 皆為真，故僅 UTPC 不保證出現假值——它不涵蓋（subsume）述詞覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "僅 NFPC 與述詞覆蓋",
+          "text": "<p>僅滿足近似假點覆蓋（NFPC）的測試套件，保證至少有一個測試使 f 為真。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——每個近似假點都使 f 為假，故僅含 NFP 的套件可能從未使 f 為真。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "所有近似假點都使 f 為假；NFPC 並未強制任何真點，故 f 未必為真。"
+            }
+          ],
+          "generalFeedback": "每個 NFP 都是 f 的假點。僅由 NFP 構成的套件使每個測試中 f 皆為假，故僅 NFPC 不保證出現真值——單獨並不涵蓋述詞覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "CUTPNFP 涵蓋述詞覆蓋",
+          "text": "<p>由於 CUTPNFP 對每個字面都含一個唯一真點（f 為真）與一個近似假點（f 為假），任何滿足 CUTPNFP 的套件都會使 f 同時取真與假——故它涵蓋（subsume）述詞覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——UTP 提供真值、NFP 提供假值，f 的兩種值皆被涵蓋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "CUTPNFP 同時要求 UTP（f 為真）與 NFP（f 為假），故 f 必取兩種值。"
+            }
+          ],
+          "generalFeedback": "CUTPNFP 對每個字面配對一個 UTP（f 為真）與一個 NFP（f 為假）。因此套件中至少各有一次 f 為真與 f 為假的評估，滿足述詞覆蓋。"
+        },
+        {
+          "type": "truefalse",
+          "name": "UTPC 涵蓋蘊涵項覆蓋",
+          "text": "<p>唯一真點覆蓋（UTPC）涵蓋（subsume）蘊涵項覆蓋（IC）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——蘊涵項 i 的 UTP 使 i 為真，故對每個蘊涵項各取一個 UTP 也使每個蘊涵項為真，這正是 IC。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個 UTP 都使自身蘊涵項為真；每個蘊涵項各取一個即滿足 IC，故 UTPC 涵蓋 IC。"
+            }
+          ],
+          "generalFeedback": "IC 要求每個蘊涵項在某測試中為真。蘊涵項 i 的 UTP 使 i 為真，故 UTPC 套件（每個蘊涵項一個 UTP）自動滿足 IC。"
+        },
+        {
+          "type": "multichoice",
+          "name": "CUTPNFP 的目的",
+          "text": "<p>字面 L 的一組 CUTPNFP (UTP, NFP) 配對展現了什麼？</p>",
+          "answers": [
+            {
+              "text": "只翻轉 L 便使 f 改變——即 L 對結果的獨立效應（DNF 版的 MC/DC）",
+              "fraction": 100,
+              "feedback": "正確——配對僅在 L 相異且 f 改變，展現 L 對 f 的獨立影響。"
+            },
+            {
+              "text": "已測試變數的全部 2^n 種組合",
+              "fraction": 0,
+              "feedback": "那是組合覆蓋，遠多於 CUTPNFP 所需。"
+            },
+            {
+              "text": "述詞恆為真",
+              "fraction": 0,
+              "feedback": "配對中的 NFP 使 f 為假，故 f 並非恆真。"
+            },
+            {
+              "text": "L 從不影響結果",
+              "fraction": 0,
+              "feedback": "配對展現的恰恰相反：L 確實影響 f。"
+            }
+          ],
+          "generalFeedback": "一組 CUTPNFP 配對是僅在字面 L 相異的 UTP 與 NFP；一者 f 為真、另一者 f 為假，故只翻轉 L 便使 f 改變。這以 DNF 形式對應 MC/DC 的獨立效應要求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ab + a!b 中缺少的近似假點",
+          "text": "<p>對 <code>f = ab + a!b</code>（其等於 <code>a</code>），蘊涵項 <code>ab</code> 之字面 <code>b</code> <strong>沒有</strong>近似假點。為什麼？</p>",
+          "answers": [
+            {
+              "text": "凡是翻轉 b 便能使 ab 為真的點，其 a 都已為 1，故 f = a 在該處已為真——這種點上 f 從不為假",
+              "fraction": 100,
+              "feedback": "正確——「f 為假」的條件無法成立，故 b 沒有 NFP。"
+            },
+            {
+              "text": "因為 b 未出現在述詞中",
+              "fraction": 0,
+              "feedback": "b 確實出現在項 ab 中；問題在於 ab 是冗餘的（f = a）。"
+            },
+            {
+              "text": "因為 ab 沒有唯一真點",
+              "fraction": 0,
+              "feedback": "ab 有 UTP（11）；缺少 NFP 是冗餘造成的另一後果。"
+            },
+            {
+              "text": "因為 f 是恆真式",
+              "fraction": 0,
+              "feedback": "f = a 並非恆真式；a=0 時它為假。"
+            }
+          ],
+          "generalFeedback": "ab 之字面 b 的 NFP 需 f 為假，且翻轉 b 使 ab 為真——但要以翻轉 b 使 ab 為真必須 a=1，而 a=1 時 f = a 已為真。沒有指派能同時滿足兩者，故此 NFP 不可行：對非質（冗餘）蘊涵項，NFPC 可能不可行。",
+          "single": true
+        }
+      ]
+    }
+  },
   "logic-inactive-clause": {
     "en": {
       "easy": [
