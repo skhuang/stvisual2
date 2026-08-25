@@ -22733,6 +22733,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "integration-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What integration testing checks",
+          "text": "<p><em>Integration testing</em> primarily aims to expose faults in:</p>",
+          "answers": [
+            {
+              "text": "The interactions and interfaces between modules that are combined together",
+              "fraction": 100,
+              "feedback": "Correct — integration testing targets the way separately-developed modules work together."
+            },
+            {
+              "text": "The internal logic of a single isolated function",
+              "fraction": 0,
+              "feedback": "That is unit testing; integration testing assumes units already work and focuses on their interactions."
+            },
+            {
+              "text": "The behaviour of the complete system against user requirements",
+              "fraction": 0,
+              "feedback": "That is system testing, which comes after integration."
+            },
+            {
+              "text": "The response time of the program under heavy load",
+              "fraction": 0,
+              "feedback": "That is performance/load testing, a non-functional concern, not integration."
+            }
+          ],
+          "generalFeedback": "Integration testing verifies that modules which have already passed unit testing cooperate correctly once combined — it hunts for interface and interaction faults, not for logic bugs inside a single unit.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Placing integration among the levels",
+          "text": "<p>In the usual ordering of test levels, integration testing sits:</p>",
+          "answers": [
+            {
+              "text": "After unit testing and before system testing",
+              "fraction": 100,
+              "feedback": "Correct — units are tested first, then integrated and tested together, then the whole system."
+            },
+            {
+              "text": "Before unit testing",
+              "fraction": 0,
+              "feedback": "Units must pass unit testing first, otherwise interaction failures cannot be distinguished from unit bugs."
+            },
+            {
+              "text": "After system testing",
+              "fraction": 0,
+              "feedback": "System testing is the last of these three levels, not before integration."
+            },
+            {
+              "text": "It replaces unit testing entirely",
+              "fraction": 0,
+              "feedback": "Integration testing complements unit testing; it does not replace it."
+            }
+          ],
+          "generalFeedback": "The common progression is unit &#8594; integration &#8594; system. Integration testing builds on already unit-tested modules and precedes end-to-end system testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Big-bang integration",
+          "text": "<p><em>Big-bang</em> integration means:</p>",
+          "answers": [
+            {
+              "text": "All modules are combined at once and the whole assembly is tested together",
+              "fraction": 100,
+              "feedback": "Correct — big-bang integrates everything in a single step."
+            },
+            {
+              "text": "Modules are added one at a time from the top of the hierarchy downward",
+              "fraction": 0,
+              "feedback": "That is top-down incremental integration, not big-bang."
+            },
+            {
+              "text": "Modules are added one at a time from the leaves upward",
+              "fraction": 0,
+              "feedback": "That is bottom-up incremental integration, not big-bang."
+            },
+            {
+              "text": "Each module is tested completely in isolation before any are combined",
+              "fraction": 0,
+              "feedback": "That describes unit testing; big-bang is about combining all units simultaneously."
+            }
+          ],
+          "generalFeedback": "Big-bang (non-incremental) integration assembles all modules together and tests them as one. It needs little scaffolding but makes failures hard to localise.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down integration",
+          "text": "<p><em>Top-down</em> integration proceeds by:</p>",
+          "answers": [
+            {
+              "text": "Integrating from the top of the call hierarchy downward, using stubs for not-yet-integrated lower modules",
+              "fraction": 100,
+              "feedback": "Correct — the top control modules come first; their callees are stubbed until integrated."
+            },
+            {
+              "text": "Integrating from the leaf modules upward, using drivers",
+              "fraction": 0,
+              "feedback": "That is bottom-up integration."
+            },
+            {
+              "text": "Combining all modules at once",
+              "fraction": 0,
+              "feedback": "That is big-bang integration."
+            },
+            {
+              "text": "Testing each module in isolation with no other modules present",
+              "fraction": 0,
+              "feedback": "That is unit testing, not an integration strategy."
+            }
+          ],
+          "generalFeedback": "Top-down integration starts at the top (main control) module and works down the hierarchy. Lower modules that are not yet integrated are represented by stubs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up integration",
+          "text": "<p><em>Bottom-up</em> integration proceeds by:</p>",
+          "answers": [
+            {
+              "text": "Integrating from the leaf modules upward, using drivers to call the modules under test",
+              "fraction": 100,
+              "feedback": "Correct — low-level modules are integrated first, driven by temporary drivers."
+            },
+            {
+              "text": "Integrating from the top control module downward, using stubs",
+              "fraction": 0,
+              "feedback": "That is top-down integration."
+            },
+            {
+              "text": "Combining all modules simultaneously",
+              "fraction": 0,
+              "feedback": "That is big-bang integration."
+            },
+            {
+              "text": "Delivering the software to end users to find faults",
+              "fraction": 0,
+              "feedback": "That is closer to acceptance/field testing, not bottom-up integration."
+            }
+          ],
+          "generalFeedback": "Bottom-up integration starts with the lowest-level (leaf) modules and works up the hierarchy. Because their callers are not yet present, a driver is written to invoke each module under test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sandwich integration",
+          "text": "<p><em>Sandwich</em> (hybrid) integration is best described as:</p>",
+          "answers": [
+            {
+              "text": "Combining top-down and bottom-up, working from both ends toward the middle at the same time",
+              "fraction": 100,
+              "feedback": "Correct — the top layers use stubs while the bottom layers use drivers, meeting in the middle."
+            },
+            {
+              "text": "Combining all modules at once with no stubs or drivers",
+              "fraction": 0,
+              "feedback": "That is big-bang integration."
+            },
+            {
+              "text": "Strictly top-down with no bottom-up element",
+              "fraction": 0,
+              "feedback": "Pure top-down is not hybrid; sandwich mixes both directions."
+            },
+            {
+              "text": "Testing only the middle layer and ignoring the top and bottom",
+              "fraction": 0,
+              "feedback": "Sandwich integrates all layers; it does not ignore the ends."
+            }
+          ],
+          "generalFeedback": "Sandwich (hybrid) integration applies top-down to the upper layers (with stubs) and bottom-up to the lower layers (with drivers) simultaneously, converging on a target middle layer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a stub is",
+          "text": "<p>A <em>stub</em> in integration testing is a temporary piece of code that:</p>",
+          "answers": [
+            {
+              "text": "Stands in for a lower-level module that the module under test calls",
+              "fraction": 100,
+              "feedback": "Correct — a stub is called by the module under test and returns canned results."
+            },
+            {
+              "text": "Stands in for a higher-level module that calls the module under test",
+              "fraction": 0,
+              "feedback": "That is a driver, not a stub."
+            },
+            {
+              "text": "Is the final production version of a called module",
+              "fraction": 0,
+              "feedback": "A stub is a throwaway substitute, not the real module."
+            },
+            {
+              "text": "Is a defect deliberately injected into the code",
+              "fraction": 0,
+              "feedback": "That describes a mutant/seeded fault, not a stub."
+            }
+          ],
+          "generalFeedback": "A stub replaces a not-yet-integrated: the module under test calls it, and it returns simplified, pre-arranged values. Stubs are what top-down integration needs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a driver is",
+          "text": "<p>A <em>driver</em> in integration testing is a temporary piece of code that:</p>",
+          "answers": [
+            {
+              "text": "Stands in for a higher-level module and calls the module under test",
+              "fraction": 100,
+              "feedback": "Correct — a driver is the caller: it invokes the module under test and passes inputs."
+            },
+            {
+              "text": "Stands in for a lower-level module that the module under test calls",
+              "fraction": 0,
+              "feedback": "That is a stub, not a driver."
+            },
+            {
+              "text": "Is the production main program shipped to users",
+              "fraction": 0,
+              "feedback": "A driver is a throwaway harness, not the real caller."
+            },
+            {
+              "text": "Is a tool that measures code coverage",
+              "fraction": 0,
+              "feedback": "That is a coverage tool, unrelated to a driver's role."
+            }
+          ],
+          "generalFeedback": "A driver replaces a not-yet-integrated: it calls the module under test, supplies inputs, and checks outputs. Drivers are what bottom-up integration needs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault",
+          "text": "<p>An <em>interface (integration) fault</em> is a defect that:</p>",
+          "answers": [
+            {
+              "text": "Arises from an incorrect assumption or mismatch in how two modules communicate",
+              "fraction": 100,
+              "feedback": "Correct — e.g. wrong parameter type/order, a violated protocol, or inconsistent shared state."
+            },
+            {
+              "text": "Is a purely internal logic error confined to one module",
+              "fraction": 0,
+              "feedback": "That is a unit-level fault; interface faults are about communication between modules."
+            },
+            {
+              "text": "Is a spelling mistake in the user documentation",
+              "fraction": 0,
+              "feedback": "Documentation typos are not interface faults between software modules."
+            },
+            {
+              "text": "Is a hardware failure in the CPU",
+              "fraction": 0,
+              "feedback": "That is a hardware fault, not a software interface fault."
+            }
+          ],
+          "generalFeedback": "Interface faults surface when integrated modules interact: mismatched parameter lists, wrong call order, protocol/timing violations, or inconsistent assumptions about shared data. These are exactly what integration testing hunts for.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy needs stubs",
+          "text": "<p>Which integration strategy characteristically requires <strong>stubs</strong>?</p>",
+          "answers": [
+            {
+              "text": "Top-down",
+              "fraction": 100,
+              "feedback": "Correct — top-down integrates upper modules first, so their not-yet-integrated callees are stubbed."
+            },
+            {
+              "text": "Bottom-up",
+              "fraction": 0,
+              "feedback": "Bottom-up needs drivers, not stubs, because it starts from the leaves."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang assembles everything at once and typically avoids per-step stubs."
+            },
+            {
+              "text": "None of these ever uses stubs",
+              "fraction": 0,
+              "feedback": "Top-down relies on stubs, so this is wrong."
+            }
+          ],
+          "generalFeedback": "Top-down integrates from the top down; the lower modules a top module calls are not ready yet, so they are replaced by stubs. (Bottom-up pairs with drivers.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy needs drivers",
+          "text": "<p>Which integration strategy characteristically requires <strong>drivers</strong>?</p>",
+          "answers": [
+            {
+              "text": "Bottom-up",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up integrates leaf modules first, so a driver is written to call each one."
+            },
+            {
+              "text": "Top-down",
+              "fraction": 0,
+              "feedback": "Top-down needs stubs, not drivers, because it starts from the top control module."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang combines all modules at once and typically avoids per-step drivers."
+            },
+            {
+              "text": "None of these ever uses drivers",
+              "fraction": 0,
+              "feedback": "Bottom-up relies on drivers, so this is wrong."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates from the leaves up; the higher modules that would call them are not ready yet, so a driver is written to invoke each module under test. (Top-down pairs with stubs.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A stub is called by the module under test",
+          "text": "<p>A stub is <em>called by</em> the module under test (the module under test invokes the stub).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a stub is a substitute callee, so the module under test calls it."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A stub does sit below the module under test and is called by it; the caller-side substitute is the driver."
+            }
+          ],
+          "generalFeedback": "Direction matters: a stub is below and is called by the module under test (a substitute callee); a driver is above and calls the module under test (a substitute caller)."
+        },
+        {
+          "type": "truefalse",
+          "name": "A driver is called by the module under test",
+          "text": "<p>A driver is <em>called by</em> the module under test (the module under test invokes the driver).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This reverses the direction — a driver calls the module under test, not the other way round."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a driver is the caller: it calls the module under test. The thing the module under test calls is a stub."
+            }
+          ],
+          "generalFeedback": "A driver stands in for a higher-level caller, so itthe module under test. Only a stub is called by the module under test."
+        },
+        {
+          "type": "multichoice",
+          "name": "What a stub substitutes for",
+          "text": "<p>During integration, a stub substitutes for:</p>",
+          "answers": [
+            {
+              "text": "A not-yet-integrated lower-level module that the module under test calls",
+              "fraction": 100,
+              "feedback": "Correct — the stub takes the place of an absent callee."
+            },
+            {
+              "text": "A not-yet-integrated higher-level module that calls the module under test",
+              "fraction": 0,
+              "feedback": "That absent caller is replaced by a driver, not a stub."
+            },
+            {
+              "text": "A test oracle that decides pass or fail",
+              "fraction": 0,
+              "feedback": "An oracle judges results; it is not a stand-in for a module."
+            },
+            {
+              "text": "The database used by the whole system",
+              "fraction": 0,
+              "feedback": "A stub is a code substitute for a called module, not a data store in general."
+            }
+          ],
+          "generalFeedback": "A stub replaces a missing— a lower module the module under test would call. Top-down integration relies on stubs while the lower levels are still absent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a driver substitutes for",
+          "text": "<p>During integration, a driver substitutes for:</p>",
+          "answers": [
+            {
+              "text": "A not-yet-integrated higher-level module that calls the module under test",
+              "fraction": 100,
+              "feedback": "Correct — the driver takes the place of an absent caller."
+            },
+            {
+              "text": "A not-yet-integrated lower-level module that the module under test calls",
+              "fraction": 0,
+              "feedback": "That absent callee is replaced by a stub, not a driver."
+            },
+            {
+              "text": "A compiler that builds the modules",
+              "fraction": 0,
+              "feedback": "A driver is a test harness, not a build tool."
+            },
+            {
+              "text": "A defect report filed by a user",
+              "fraction": 0,
+              "feedback": "That is unrelated to what a driver stands in for."
+            }
+          ],
+          "generalFeedback": "A driver replaces a missing— a higher module that would invoke the module under test. Bottom-up integration relies on drivers while the upper levels are still absent.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Top-down step 1 stubs — two children",
+          "text": "<p>Consider this call tree: <strong>A calls B and C</strong> (A is the root; B and C are its only children). Using <em>top-down</em> integration, step 1 integrates the root A and stubs its not-yet-integrated direct children. How many stubs are needed at step 1?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — A directly calls B and C, so both are stubbed: 2 stubs."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A has two direct children (B and C), so one stub is not enough."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only B and C are directly called by A; there is no third child."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Top-down step 1 must stub A's callees, and A calls two modules."
+            }
+          ],
+          "generalFeedback": "Top-down step 1 integrates the root A alone; every module A directly calls must be stubbed. A calls B and C, so 2 stubs are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down step 1 stubs — three children",
+          "text": "<p>Consider this call tree: <strong>M calls N, O, and P</strong> (M is the root with three children). Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating M alone)?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — M directly calls N, O, and P, so all three are stubbed: 3 stubs."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "M has three direct children, not one."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three direct children (N, O, P), so two stubs is too few."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "M calls exactly three modules; there is no fourth."
+            }
+          ],
+          "generalFeedback": "Top-down step 1 integrates M and stubs each module it directly calls. M calls N, O, and P, so 3 stubs are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up driver for a single leaf",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D</strong> (so D is a leaf). Using <em>bottom-up</em> integration, you integrate the leaf D first. How many <strong>drivers</strong> are needed to integrate D?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — D's real caller (B) is not integrated yet, so one driver is written to call D."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Something must call D; since B is not ready, a driver is required."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only one module (D) is under test, so one driver suffices."
+            },
+            {
+              "text": "1 stub",
+              "fraction": 0,
+              "feedback": "Bottom-up uses drivers, not stubs; and D has no callees to stub."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates leaves first. D has no callees (no stubs needed), but its caller B is absent, so one driver is written to invoke D: 1 driver.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs when integrating an intermediate module",
+          "text": "<p>Consider this call tree: <strong>R calls X and Y; X calls Z</strong>. Using <em>top-down</em> integration you have already integrated R, and now you integrate <strong>X</strong>. How many stubs must be in place for X's own not-yet-integrated callees?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — X directly calls only Z, which is not yet integrated, so one stub (for Z) is needed."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Y is a sibling of X, not a callee of X; X calls only Z."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "X calls Z, and Z is not integrated yet, so a stub for Z is required."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "X has a single callee (Z); there are not three."
+            }
+          ],
+          "generalFeedback": "When integrating X top-down, only X's direct callees that are still absent must be stubbed. X calls only Z, so 1 stub is needed. (Y is R's other child, unrelated to X's callees.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up drivers for two leaves",
+          "text": "<p>Consider this call tree: <strong>A calls B and C</strong>, where B and C are both leaves. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate B and C as the first step?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one driver per module under test, and two leaf modules (B and C) are being integrated: 2 drivers."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Two separate modules are under test; with one driver per module that is two drivers."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Their caller A is not integrated yet, so drivers are required to invoke B and C."
+            },
+            {
+              "text": "2 stubs",
+              "fraction": 0,
+              "feedback": "Bottom-up uses drivers, not stubs; and leaves B and C have no callees to stub."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates leaves first. B and C are leaves whose caller A is absent, so with one driver per module under test, 2 drivers are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fault isolation: incremental vs big-bang",
+          "text": "<p>Compared with big-bang, incremental integration generally gives:</p>",
+          "answers": [
+            {
+              "text": "Better fault isolation, because a failure points to the newly added module or its interface",
+              "fraction": 100,
+              "feedback": "Correct — adding modules one at a time localises where a new failure came from."
+            },
+            {
+              "text": "Worse fault isolation, because more scaffolding is used",
+              "fraction": 0,
+              "feedback": "Extra stubs/drivers do not worsen isolation; incremental integration improves it."
+            },
+            {
+              "text": "No difference in fault isolation",
+              "fraction": 0,
+              "feedback": "There is a clear difference: incremental isolates faults far better than big-bang."
+            },
+            {
+              "text": "Guaranteed absence of interface faults",
+              "fraction": 0,
+              "feedback": "No strategy guarantees the absence of faults; it only makes them easier to locate."
+            }
+          ],
+          "generalFeedback": "Because incremental integration adds one module at a time, a new failure is most likely due to the module just added or its interface — so faults are much easier to isolate than in big-bang, where everything is combined at once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy tests top-level control earliest",
+          "text": "<p>Which strategy exercises the <strong>top-level control logic</strong> earliest?</p>",
+          "answers": [
+            {
+              "text": "Top-down",
+              "fraction": 100,
+              "feedback": "Correct — top-down integrates the main control module first, so control logic is tested early."
+            },
+            {
+              "text": "Bottom-up",
+              "fraction": 0,
+              "feedback": "Bottom-up tests leaves first; the top-level control logic is integrated last."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang tests everything only after all modules are combined, not the top earliest."
+            },
+            {
+              "text": "None can test control logic early",
+              "fraction": 0,
+              "feedback": "Top-down does exactly this by integrating the top module first."
+            }
+          ],
+          "generalFeedback": "Top-down starts at the main control module, so high-level control flow and major design decisions are exercised early — one of its main advantages.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy tests leaf utilities earliest",
+          "text": "<p>Which strategy exercises the <strong>low-level leaf/utility modules</strong> earliest?</p>",
+          "answers": [
+            {
+              "text": "Bottom-up",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up integrates leaf modules first, so utilities are tested early."
+            },
+            {
+              "text": "Top-down",
+              "fraction": 0,
+              "feedback": "Top-down tests the top first; leaf utilities are integrated (or only stubbed) until late."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang exercises everything only after all modules are combined."
+            },
+            {
+              "text": "None can test leaves early",
+              "fraction": 0,
+              "feedback": "Bottom-up does exactly this by integrating the leaves first."
+            }
+          ],
+          "generalFeedback": "Bottom-up starts at the leaves, so low-level utility modules are thoroughly exercised early — useful when those utilities are complex or critical.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Big-bang failure localisation",
+          "text": "<p>A team integrates all modules at once (big-bang) and a test fails. Why is diagnosing the failure typically hard?</p>",
+          "answers": [
+            {
+              "text": "Any of the many simultaneously-combined interfaces could be the cause, so the fault is hard to localise",
+              "fraction": 100,
+              "feedback": "Correct — with everything combined at once, poor fault isolation makes the cause hard to pin down."
+            },
+            {
+              "text": "Big-bang produces no test output to examine",
+              "fraction": 0,
+              "feedback": "It still produces output; the problem is isolating which interface failed, not a lack of output."
+            },
+            {
+              "text": "Stubs and drivers hide the real modules",
+              "fraction": 0,
+              "feedback": "Big-bang uses little scaffolding; the difficulty is the many interfaces combined at once."
+            },
+            {
+              "text": "Big-bang cannot detect interface faults at all",
+              "fraction": 0,
+              "feedback": "It can detect them; it just makes them hard to locate."
+            }
+          ],
+          "generalFeedback": "Big-bang combines all modules together, so when a failure appears any of the numerous interfaces could be responsible. This poor fault isolation is big-bang's main drawback.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down early skeleton",
+          "text": "<p>A frequently cited advantage of <em>top-down</em> integration is that:</p>",
+          "answers": [
+            {
+              "text": "An early working skeleton of the system is available, since the top control structure is built first",
+              "fraction": 100,
+              "feedback": "Correct — a partial, demonstrable program emerges early."
+            },
+            {
+              "text": "No stubs are ever required",
+              "fraction": 0,
+              "feedback": "Top-down actually depends on stubs for its lower modules."
+            },
+            {
+              "text": "Low-level utility modules are fully tested first",
+              "fraction": 0,
+              "feedback": "That is a bottom-up characteristic, not top-down."
+            },
+            {
+              "text": "It removes the need for any regression testing",
+              "fraction": 0,
+              "feedback": "Regression testing is still needed as modules are added."
+            }
+          ],
+          "generalFeedback": "Because top-down builds the upper control structure first, an early demonstrable skeleton of the program appears, letting stakeholders see progress and letting major design errors surface early.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up late control testing",
+          "text": "<p>A drawback of <em>bottom-up</em> integration is that:</p>",
+          "answers": [
+            {
+              "text": "The top-level control logic and user interface are integrated and tested last",
+              "fraction": 100,
+              "feedback": "Correct — high-level control and UI concerns surface late, so major design errors there appear late."
+            },
+            {
+              "text": "It cannot test leaf modules",
+              "fraction": 0,
+              "feedback": "Bottom-up tests leaf modules first; that is its strength, not a weakness."
+            },
+            {
+              "text": "It requires stubs for every leaf",
+              "fraction": 0,
+              "feedback": "Bottom-up uses drivers, not stubs, and leaves have no callees to stub."
+            },
+            {
+              "text": "It combines all modules at once",
+              "fraction": 0,
+              "feedback": "That describes big-bang, not bottom-up."
+            }
+          ],
+          "generalFeedback": "Since bottom-up integrates leaves first and the top last, the main control logic and user interface are exercised only late, so serious high-level design faults may be discovered late.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up driver among three leaves",
+          "text": "<p>Consider this call tree: <strong>A calls B, C, and D</strong> (B, C, D are all leaves). Using <em>bottom-up</em> integration, how many drivers are needed to integrate <strong>just leaf B</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only B is under test, and its caller A is absent, so one driver is needed."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only B is being integrated here, not C and D, so one driver suffices."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "A is not integrated yet, so something must call B — a driver is required."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "A single module under test needs a single driver."
+            }
+          ],
+          "generalFeedback": "Integrating only leaf B: B has no callees (no stubs), and its caller A is absent, so exactly 1 driver is required to invoke B.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down step 1 stubs with a grandchild",
+          "text": "<p>Consider this call tree: <strong>S calls T and U; T calls V</strong>. Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating the root S alone)?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — at step 1 only S's direct children (T and U) are stubbed; V is not directly called by S."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "V is a callee of T, not of S; at step 1 only S's direct children are stubbed."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "S has two direct children (T and U), so one stub is not enough."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Step 1 must stub S's direct callees, and S calls two modules."
+            }
+          ],
+          "generalFeedback": "Top-down step 1 integrates S and stubs only the modules S directly calls: T and U (2 stubs). V is reached only through T, which is not yet integrated, so V is not stubbed at step 1.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Big-bang scaffolding cost",
+          "text": "<p>In general, big-bang integration requires fewer temporary stubs and drivers than incremental integration.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — big-bang combines all real modules at once, so it needs little per-step scaffolding; the trade-off is much poorer fault isolation."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Big-bang does typically need less scaffolding; it just pays for it with poor fault isolation."
+            }
+          ],
+          "generalFeedback": "Because big-bang assembles all the real modules together, it avoids most of the per-step stubs and drivers that incremental integration needs. Its cost is elsewhere: when something fails, isolating the responsible interface is hard."
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs for two children of a subtree",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; C calls D and E</strong>. Using <em>top-down</em> integration, A and B are already integrated and you now integrate <strong>C</strong>. How many stubs must be in place for C's own not-yet-integrated callees?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — C directly calls D and E, neither of which is integrated yet, so 2 stubs."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "C has two direct callees (D and E), so one stub is too few."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C calls only D and E; B is A's other child, not a callee of C."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "C's callees D and E are absent, so stubs are required for them."
+            }
+          ],
+          "generalFeedback": "When integrating C top-down, only C's direct callees still absent must be stubbed. C calls D and E, so 2 stubs are needed.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs at a multi-level step",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>top-down</em> integration, suppose the integrated set is exactly {A, B}. How many stubs must be in place at this point?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — integrated modules call three absent modules: A calls C (stub), and B calls D and E (two stubs) &#8594; 3 stubs."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Do not forget A still calls C: stubs are needed for C, D, and E — three in total."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "F is called by C, which is not integrated, so F is not stubbed yet; the count is 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both A and B have absent callees; there are three such callees (C, D, E)."
+            }
+          ],
+          "generalFeedback": "With integrated set {A, B}, list every call from an integrated module to a non-integrated one: A&#8594;C, B&#8594;D, B&#8594;E. (A&#8594;B is real.) That is stubs for C, D, and E = 3 stubs. F is not stubbed because its caller C is not integrated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up drivers for all leaves",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate all the leaf modules as the first step?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — the leaves are D, E, and F; with one driver each that is 3 drivers."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three leaves (D, E, F), not two."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Only the leaf modules are integrated at the first step; B and C are not leaves."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Bottom-up uses one driver per leaf under test; there are three leaves, so 3 drivers."
+            }
+          ],
+          "generalFeedback": "The leaves (modules that call nothing) are D, E, and F. Bottom-up integrates the leaves first, one driver per module under test, so 3 drivers are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What sandwich integration achieves",
+          "text": "<p>Why might a team choose <em>sandwich</em> (hybrid) integration over pure top-down or pure bottom-up?</p>",
+          "answers": [
+            {
+              "text": "It lets high-level and low-level modules be integrated in parallel, combining top-down's early control testing with bottom-up's early utility testing",
+              "fraction": 100,
+              "feedback": "Correct — working from both ends at once gains the benefits of both directions and can shorten the schedule."
+            },
+            {
+              "text": "It eliminates the need for both stubs and drivers",
+              "fraction": 0,
+              "feedback": "Sandwich uses stubs (upper layers) and drivers (lower layers) — it needs both."
+            },
+            {
+              "text": "It integrates all modules at once like big-bang",
+              "fraction": 0,
+              "feedback": "Sandwich is incremental from both ends, not a single big-bang step."
+            },
+            {
+              "text": "It guarantees no interface faults will remain",
+              "fraction": 0,
+              "feedback": "No strategy guarantees the absence of faults."
+            }
+          ],
+          "generalFeedback": "Sandwich applies top-down to the upper layers (stubs) and bottom-up to the lower layers (drivers) simultaneously, so control logic and utility modules are both exercised early and the two efforts can proceed in parallel.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sandwich integration weakness",
+          "text": "<p>A recognised weakness of <em>sandwich</em> integration is that:</p>",
+          "answers": [
+            {
+              "text": "The middle-layer modules where the two ends meet may get less thorough isolated testing",
+              "fraction": 100,
+              "feedback": "Correct — because both ends converge on the middle, that target layer can be under-tested in isolation."
+            },
+            {
+              "text": "It cannot test the top-level control logic",
+              "fraction": 0,
+              "feedback": "Its top-down half exercises the control logic early; that is a strength."
+            },
+            {
+              "text": "It needs neither stubs nor drivers",
+              "fraction": 0,
+              "feedback": "Sandwich needs both stubs and drivers, so this is false."
+            },
+            {
+              "text": "It provides worse fault isolation than big-bang",
+              "fraction": 0,
+              "feedback": "Being incremental, sandwich isolates faults better than big-bang, not worse."
+            }
+          ],
+          "generalFeedback": "Because top-down and bottom-up converge on a middle target layer, those middle modules can end up tested mostly as part of larger assemblies rather than thoroughly in isolation — the main criticism of the sandwich approach.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why top-down can hide low-level defects",
+          "text": "<p>Why can <em>top-down</em> integration hide defects that live in low-level modules?</p>",
+          "answers": [
+            {
+              "text": "Stubs return simplified canned results, so the real low-level behaviour (and its bugs) is not exercised until the stub is replaced",
+              "fraction": 100,
+              "feedback": "Correct — an oversimplified stub can mask a defect that only the real module would reveal."
+            },
+            {
+              "text": "Top-down never executes the low-level modules at all",
+              "fraction": 0,
+              "feedback": "They are eventually integrated; the issue is that stubs stand in for them for a long time."
+            },
+            {
+              "text": "Drivers suppress the outputs of low-level modules",
+              "fraction": 0,
+              "feedback": "Top-down uses stubs, not drivers, and stubs — not drivers — cause the masking here."
+            },
+            {
+              "text": "Low-level defects are always equivalent and undetectable",
+              "fraction": 0,
+              "feedback": "They are ordinary defects; they are simply not exercised while a stub substitutes for the real module."
+            }
+          ],
+          "generalFeedback": "Because top-down replaces lower modules with stubs that return canned values, the real (possibly buggy) low-level logic is not run until late. An oversimplified stub can therefore mask a defect that only surfaces once the actual module is integrated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why bottom-up delays UI/control testing",
+          "text": "<p>In <em>bottom-up</em> integration, why might a serious flaw in the user interface or overall control flow be discovered late?</p>",
+          "answers": [
+            {
+              "text": "The top-level control and UI modules are integrated last, so faults in them surface only near the end",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up leaves the top for last, delaying discovery of high-level design faults."
+            },
+            {
+              "text": "Drivers permanently replace the UI modules",
+              "fraction": 0,
+              "feedback": "Drivers are temporary; the point is that the real UI/control modules are integrated only late."
+            },
+            {
+              "text": "Bottom-up never tests the top-level modules",
+              "fraction": 0,
+              "feedback": "It does test them — just last, after the lower levels."
+            },
+            {
+              "text": "UI faults are always interface faults, which bottom-up ignores",
+              "fraction": 0,
+              "feedback": "Bottom-up does test interfaces; the delay is due to integration order, not ignoring faults."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates leaves first and the top control/UI modules last, so major high-level design or interface flaws in those top modules are not exercised until late in the integration schedule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault: parameter order",
+          "text": "<p>Which of the following is an example of an <em>interface (integration) fault</em>?</p>",
+          "answers": [
+            {
+              "text": "Module A calls B asbut B expects, so the arguments are swapped",
+              "fraction": 100,
+              "feedback": "Correct — mismatched parameter order across a call boundary is a classic interface fault."
+            },
+            {
+              "text": "A loop inside module B iterates one time too few (an off-by-one within B)",
+              "fraction": 0,
+              "feedback": "That is an internal logic (unit) fault confined to B, not an interface fault."
+            },
+            {
+              "text": "A local variable inside A is left uninitialised and never passed out",
+              "fraction": 0,
+              "feedback": "That is an internal fault in A; it does not concern the A&#8211;B interface."
+            },
+            {
+              "text": "B computes the wrong result even when called with correct arguments",
+              "fraction": 0,
+              "feedback": "That is a logic fault inside B, a unit-level concern, not an interface mismatch."
+            }
+          ],
+          "generalFeedback": "Interface faults occur at the boundary between modules. Passing arguments in the wrong order (a parameter mismatch) is a textbook example — the modules disagree on how they communicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault: timing/protocol",
+          "text": "<p>Module A sends data to module B before B has finished initialising, so B occasionally processes garbage. This is best classified as:</p>",
+          "answers": [
+            {
+              "text": "An interface fault of the timing/protocol kind",
+              "fraction": 100,
+              "feedback": "Correct — the modules violate the expected order/timing of their interaction."
+            },
+            {
+              "text": "An internal logic fault inside B's computation",
+              "fraction": 0,
+              "feedback": "B's computation may be fine; the fault is in when A interacts with B — a timing/protocol issue at the interface."
+            },
+            {
+              "text": "A compiler optimisation error",
+              "fraction": 0,
+              "feedback": "This is about module interaction order, not the compiler."
+            },
+            {
+              "text": "An equivalent mutant",
+              "fraction": 0,
+              "feedback": "That is a mutation-testing concept, unrelated to an integration timing fault."
+            }
+          ],
+          "generalFeedback": "When modules disagree on the order or timing of their exchanges — sending before the peer is ready — the defect lies at the interface: a protocol/timing interface fault, exactly what integration testing targets.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault: shared state",
+          "text": "<p>Modules A and B both read and write a shared global counter, each assuming it alone modifies it, and they corrupt each other's value. This is best classified as:</p>",
+          "answers": [
+            {
+              "text": "An interface fault arising from inconsistent assumptions about shared state",
+              "fraction": 100,
+              "feedback": "Correct — the modules interact through shared data with conflicting assumptions, an interface fault."
+            },
+            {
+              "text": "A pure unit fault inside A only",
+              "fraction": 0,
+              "feedback": "The problem emerges from A and B interacting via shared data, not from A alone."
+            },
+            {
+              "text": "A performance fault",
+              "fraction": 0,
+              "feedback": "The issue is incorrect results from shared-state conflict, not speed."
+            },
+            {
+              "text": "A documentation fault",
+              "fraction": 0,
+              "feedback": "The defect is in the code's shared-state interaction, not in the docs."
+            }
+          ],
+          "generalFeedback": "Shared-state (shared-data) faults happen when integrated modules make inconsistent assumptions about global or shared variables. The defect lives in how the modules interact, so it is an interface/integration fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ordering with a shared utility (bottom-up)",
+          "text": "<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (so C is a shared utility called by both A and B; D is a leaf). Using <em>bottom-up</em> integration, which module should be integrated earliest?</p>",
+          "answers": [
+            {
+              "text": "C — it is a leaf utility called by both A and B, so it must be available before A or B can be tested with real callees",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up integrates leaves first, and the shared utility C is needed by both A and B."
+            },
+            {
+              "text": "Main — because it is the top of the hierarchy",
+              "fraction": 0,
+              "feedback": "Integrating the root first is top-down; bottom-up starts with the leaves."
+            },
+            {
+              "text": "A — because it appears before B alphabetically",
+              "fraction": 0,
+              "feedback": "A is not a leaf (it calls C); bottom-up integrates the leaf C before A."
+            },
+            {
+              "text": "B — because it has the most callees",
+              "fraction": 0,
+              "feedback": "B is not a leaf (it calls C and D); its callees must be integrated first."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates from the leaves up. C and D are the leaves; the shared utility C is called by both A and B, so it should be integrated first (with a driver) before A and B can be integrated against real callees.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression during integration",
+          "text": "<p>As each new module is added during incremental integration, the previously passing integration tests are re-run to check that the new module has not broken existing interactions. This activity is called:</p>",
+          "answers": [
+            {
+              "text": "Regression testing",
+              "fraction": 100,
+              "feedback": "Correct — re-running earlier tests after a change guards against newly introduced breakage."
+            },
+            {
+              "text": "Stub replacement",
+              "fraction": 0,
+              "feedback": "Replacing a stub is part of proceeding with integration, not the re-testing of prior interactions."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing checks a single module in isolation, not the re-verification of prior integrated interactions."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the finished system against user needs, not the effect of each newly added module."
+            }
+          ],
+          "generalFeedback": "Each newly integrated module can perturb interactions that already worked. Re-running the earlier integration tests to confirm nothing was broken is regression testing — an ongoing cost of incremental integration.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs with a shared utility",
+          "text": "<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (C is shared, D is a leaf). Using <em>top-down</em> integration, the integrated set is exactly {Main, A, B}. How many stubs must be in place?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — the absent callees are C (called by both A and B, but one stub) and D, giving 2 stubs."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C is called by both A and B, but it needs only one stub; with D that is 2 stubs, not 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Two distinct modules are absent (C and D), so one stub is too few."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only C and D are absent; Main, A, and B are integrated, so 2 stubs suffice."
+            }
+          ],
+          "generalFeedback": "With integrated set {Main, A, B}, the calls to absent modules are A&#8594;C, B&#8594;C, and B&#8594;D. C needs only a single stub even though two modules call it, so the distinct stubs are for C and D = 2 stubs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up scaffolding when the callee is already integrated",
+          "text": "<p>Consider this call tree: <strong>P calls Q and R; Q calls S; R calls S</strong> (S is a shared leaf). Using <em>bottom-up</em> integration, S has already been integrated and you now integrate <strong>Q</strong>. How much scaffolding does integrating Q require?</p>",
+          "answers": [
+            {
+              "text": "1 driver and 0 stubs",
+              "fraction": 100,
+              "feedback": "Correct — Q's caller P is absent (so a driver is needed), but Q's callee S is already integrated (so no stub is needed)."
+            },
+            {
+              "text": "1 driver and 1 stub",
+              "fraction": 0,
+              "feedback": "No stub is needed for S: S is already integrated, so Q can call the real S."
+            },
+            {
+              "text": "0 drivers and 1 stub",
+              "fraction": 0,
+              "feedback": "Bottom-up needs a driver here because Q's caller P is not integrated; and S is real, so no stub."
+            },
+            {
+              "text": "2 drivers and 0 stubs",
+              "fraction": 0,
+              "feedback": "Only Q is under test, so a single driver suffices."
+            }
+          ],
+          "generalFeedback": "Integrating Q bottom-up: its callee S is already integrated, so Q calls the real S (0 stubs). Its caller P is absent, so one driver is written to invoke Q. Total: 1 driver, 0 stubs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Stub can mask a low-level defect",
+          "text": "<p>In top-down integration, a stub can mask a defect in the real lower-level module because the stub returns simplified, pre-arranged results instead of running the real logic.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — until the stub is replaced by the real module, the actual (possibly buggy) low-level behaviour is never exercised."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Stubs really can hide low-level defects: they return canned values rather than executing the real, possibly faulty, code."
+            }
+          ],
+          "generalFeedback": "A stub is an oversimplified stand-in that returns fixed results. While it substitutes for a real module, that module's genuine logic — and any defect in it — is not run, so top-down integration can hide low-level defects until the stub is replaced."
+        },
+        {
+          "type": "truefalse",
+          "name": "Sandwich needs both stubs and drivers",
+          "text": "<p>Sandwich (hybrid) integration requires both stubs and drivers.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — its top-down part uses stubs for lower modules while its bottom-up part uses drivers for the modules under test."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Sandwich combines top-down (stubs) and bottom-up (drivers), so it needs both kinds of scaffolding."
+            }
+          ],
+          "generalFeedback": "Because sandwich integration works top-down on the upper layers (needing stubs for their callees) and bottom-up on the lower layers (needing drivers to call them), it requires both stubs and drivers at once."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "整合測試檢查什麼",
+          "text": "<p><em>整合測試（integration testing）</em>的主要目的是揭露下列何者中的錯誤？</p>",
+          "answers": [
+            {
+              "text": "被組合在一起的各模組之間的互動與介面",
+              "fraction": 100,
+              "feedback": "正確——整合測試針對的是各自開發的模組合併後如何協同運作。"
+            },
+            {
+              "text": "單一孤立函式的內部邏輯",
+              "fraction": 0,
+              "feedback": "那是單元測試；整合測試假設單元已可運作，著眼於它們之間的互動。"
+            },
+            {
+              "text": "整個系統對照使用者需求的行為",
+              "fraction": 0,
+              "feedback": "那是系統測試，發生在整合之後。"
+            },
+            {
+              "text": "程式在高負載下的回應時間",
+              "fraction": 0,
+              "feedback": "那是效能／負載測試，屬非功能性議題，與整合無關。"
+            }
+          ],
+          "generalFeedback": "整合測試驗證已通過單元測試的模組合併後能否正確協作——它獵捕的是介面與互動錯誤，而非單一單元內部的邏輯錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合在測試層級中的位置",
+          "text": "<p>在常見的測試層級順序中，整合測試位於：</p>",
+          "answers": [
+            {
+              "text": "單元測試之後、系統測試之前",
+              "fraction": 100,
+              "feedback": "正確——先測單元，再把它們整合起來一起測，最後才測整個系統。"
+            },
+            {
+              "text": "單元測試之前",
+              "fraction": 0,
+              "feedback": "單元必須先通過單元測試，否則互動失敗將無法與單元錯誤區分。"
+            },
+            {
+              "text": "系統測試之後",
+              "fraction": 0,
+              "feedback": "在這三個層級中系統測試是最後一個，不會在整合之前。"
+            },
+            {
+              "text": "它完全取代單元測試",
+              "fraction": 0,
+              "feedback": "整合測試是對單元測試的補充，並非取代。"
+            }
+          ],
+          "generalFeedback": "常見流程是 單元 &#8594; 整合 &#8594; 系統。整合測試建立在已通過單元測試的模組之上，並先於端到端的系統測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "大爆炸整合",
+          "text": "<p><em>大爆炸（big-bang）</em>整合的意思是：</p>",
+          "answers": [
+            {
+              "text": "所有模組一次全部合併，整個組合體一起測試",
+              "fraction": 100,
+              "feedback": "正確——大爆炸在單一步驟中整合所有東西。"
+            },
+            {
+              "text": "從階層頂端往下，一次加入一個模組",
+              "fraction": 0,
+              "feedback": "那是由上而下（top-down）漸進式整合，不是大爆炸。"
+            },
+            {
+              "text": "從葉節點往上，一次加入一個模組",
+              "fraction": 0,
+              "feedback": "那是由下而上（bottom-up）漸進式整合，不是大爆炸。"
+            },
+            {
+              "text": "在合併之前，先把每個模組完全孤立地測完",
+              "fraction": 0,
+              "feedback": "那是單元測試；大爆炸講的是把所有單元同時合併。"
+            }
+          ],
+          "generalFeedback": "大爆炸（非漸進式）整合把所有模組一起組裝並當成一個整體測試。它幾乎不需要輔助程式，但使失敗很難定位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下整合",
+          "text": "<p><em>由上而下（top-down）</em>整合的進行方式是：</p>",
+          "answers": [
+            {
+              "text": "從呼叫階層頂端往下整合，對尚未整合的較低層模組使用樁（stub）代替",
+              "fraction": 100,
+              "feedback": "正確——頂層控制模組先整合，其被呼叫者在整合前以樁代替。"
+            },
+            {
+              "text": "從葉模組往上整合，使用驅動程式（driver）",
+              "fraction": 0,
+              "feedback": "那是由下而上整合。"
+            },
+            {
+              "text": "一次合併所有模組",
+              "fraction": 0,
+              "feedback": "那是大爆炸整合。"
+            },
+            {
+              "text": "在沒有其他模組存在的情況下孤立測試每個模組",
+              "fraction": 0,
+              "feedback": "那是單元測試，並非一種整合策略。"
+            }
+          ],
+          "generalFeedback": "由上而下整合從頂端（主控制）模組開始，沿階層往下進行。尚未整合的較低層模組以樁（stub）代表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上整合",
+          "text": "<p><em>由下而上（bottom-up）</em>整合的進行方式是：</p>",
+          "answers": [
+            {
+              "text": "從葉模組往上整合，使用驅動程式（driver）去呼叫待測模組",
+              "fraction": 100,
+              "feedback": "正確——低層模組先整合，由暫時的驅動程式來驅動它們。"
+            },
+            {
+              "text": "從頂層控制模組往下整合，使用樁（stub）",
+              "fraction": 0,
+              "feedback": "那是由上而下整合。"
+            },
+            {
+              "text": "同時合併所有模組",
+              "fraction": 0,
+              "feedback": "那是大爆炸整合。"
+            },
+            {
+              "text": "把軟體交給終端使用者去找錯誤",
+              "fraction": 0,
+              "feedback": "那較接近驗收／實地測試，不是由下而上整合。"
+            }
+          ],
+          "generalFeedback": "由下而上整合從最低層（葉）模組開始，沿階層往上進行。由於它們的呼叫者尚未存在，需寫一個驅動程式來呼叫每個待測模組。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三明治整合",
+          "text": "<p>對<em>三明治（sandwich，混合式）</em>整合最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "結合由上而下與由下而上，同時從兩端往中間進行",
+              "fraction": 100,
+              "feedback": "正確——上層使用樁、下層使用驅動程式，兩者在中間會合。"
+            },
+            {
+              "text": "一次合併所有模組，不用任何樁或驅動程式",
+              "fraction": 0,
+              "feedback": "那是大爆炸整合。"
+            },
+            {
+              "text": "嚴格由上而下，完全沒有由下而上的成分",
+              "fraction": 0,
+              "feedback": "純由上而下不是混合式；三明治混合了兩個方向。"
+            },
+            {
+              "text": "只測中間層，忽略頂端與底端",
+              "fraction": 0,
+              "feedback": "三明治會整合所有層級，並不忽略兩端。"
+            }
+          ],
+          "generalFeedback": "三明治（混合式）整合同時對上層採由上而下（用樁）、對下層採由下而上（用驅動程式），朝目標中間層收斂。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是樁",
+          "text": "<p>整合測試中的<em>樁（stub）</em>是一段暫時性程式碼，它：</p>",
+          "answers": [
+            {
+              "text": "代替待測模組所呼叫的較低層模組",
+              "fraction": 100,
+              "feedback": "正確——樁被待測模組呼叫，並回傳預先安排好的結果。"
+            },
+            {
+              "text": "代替呼叫待測模組的較高層模組",
+              "fraction": 0,
+              "feedback": "那是驅動程式（driver），不是樁。"
+            },
+            {
+              "text": "是某個被呼叫模組的最終正式版本",
+              "fraction": 0,
+              "feedback": "樁是可丟棄的替身，不是真正的模組。"
+            },
+            {
+              "text": "是刻意注入程式碼中的缺陷",
+              "fraction": 0,
+              "feedback": "那描述的是突變體／植入的錯誤，不是樁。"
+            }
+          ],
+          "generalFeedback": "樁代替尚未整合的：待測模組呼叫它，而它回傳簡化、預設的值。由上而下整合需要的正是樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是驅動程式",
+          "text": "<p>整合測試中的<em>驅動程式（driver）</em>是一段暫時性程式碼，它：</p>",
+          "answers": [
+            {
+              "text": "代替較高層模組，並呼叫待測模組",
+              "fraction": 100,
+              "feedback": "正確——驅動程式是呼叫者：它呼叫待測模組並傳入輸入。"
+            },
+            {
+              "text": "代替待測模組所呼叫的較低層模組",
+              "fraction": 0,
+              "feedback": "那是樁（stub），不是驅動程式。"
+            },
+            {
+              "text": "是交付給使用者的正式主程式",
+              "fraction": 0,
+              "feedback": "驅動程式是可丟棄的測試框架，不是真正的呼叫者。"
+            },
+            {
+              "text": "是用來量測程式碼覆蓋率的工具",
+              "fraction": 0,
+              "feedback": "那是覆蓋率工具，與驅動程式的角色無關。"
+            }
+          ],
+          "generalFeedback": "驅動程式代替尚未整合的：它呼叫待測模組、提供輸入並檢查輸出。由下而上整合需要的正是驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤",
+          "text": "<p><em>介面（整合）錯誤</em>是一種缺陷，它：</p>",
+          "answers": [
+            {
+              "text": "源自兩個模組如何溝通時的錯誤假設或不匹配",
+              "fraction": 100,
+              "feedback": "正確——例如參數型別／順序錯誤、違反協定，或對共享狀態的假設不一致。"
+            },
+            {
+              "text": "是侷限於單一模組的純內部邏輯錯誤",
+              "fraction": 0,
+              "feedback": "那是單元層級的錯誤；介面錯誤關乎模組之間的溝通。"
+            },
+            {
+              "text": "是使用者手冊裡的拼字錯誤",
+              "fraction": 0,
+              "feedback": "文件的錯字不是軟體模組之間的介面錯誤。"
+            },
+            {
+              "text": "是 CPU 的硬體故障",
+              "fraction": 0,
+              "feedback": "那是硬體錯誤，不是軟體介面錯誤。"
+            }
+          ],
+          "generalFeedback": "介面錯誤在已整合的模組互動時浮現：參數列不匹配、呼叫順序錯誤、違反協定／時序，或對共享資料的假設不一致。這些正是整合測試所要獵捕的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略需要樁",
+          "text": "<p>哪一種整合策略具有需要<strong>樁（stub）</strong>的特徵？</p>",
+          "answers": [
+            {
+              "text": "由上而下",
+              "fraction": 100,
+              "feedback": "正確——由上而下先整合上層模組，因此其尚未整合的被呼叫者以樁代替。"
+            },
+            {
+              "text": "由下而上",
+              "fraction": 0,
+              "feedback": "由下而上需要的是驅動程式，不是樁，因為它從葉節點開始。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸一次組裝所有東西，通常不需要逐步的樁。"
+            },
+            {
+              "text": "以上皆不使用樁",
+              "fraction": 0,
+              "feedback": "由上而下仰賴樁，所以此選項錯誤。"
+            }
+          ],
+          "generalFeedback": "由上而下從頂端往下整合；上層模組所呼叫的下層模組尚未就緒，因此以樁代替。（由下而上則搭配驅動程式。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略需要驅動程式",
+          "text": "<p>哪一種整合策略具有需要<strong>驅動程式（driver）</strong>的特徵？</p>",
+          "answers": [
+            {
+              "text": "由下而上",
+              "fraction": 100,
+              "feedback": "正確——由下而上先整合葉模組，因此需寫一個驅動程式來呼叫每一個。"
+            },
+            {
+              "text": "由上而下",
+              "fraction": 0,
+              "feedback": "由上而下需要的是樁，不是驅動程式，因為它從頂層控制模組開始。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸一次合併所有模組，通常不需要逐步的驅動程式。"
+            },
+            {
+              "text": "以上皆不使用驅動程式",
+              "fraction": 0,
+              "feedback": "由下而上仰賴驅動程式，所以此選項錯誤。"
+            }
+          ],
+          "generalFeedback": "由下而上從葉節點往上整合；會呼叫它們的較高層模組尚未就緒，因此需寫一個驅動程式來呼叫每個待測模組。（由上而下則搭配樁。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "樁是被待測模組呼叫的",
+          "text": "<p>樁是<em>被</em>待測模組<em>呼叫</em>的（待測模組會去呼叫該樁）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——樁是被呼叫者的替身，因此待測模組會呼叫它。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "樁確實位於待測模組之下並被它呼叫；位於呼叫端的替身才是驅動程式。"
+            }
+          ],
+          "generalFeedback": "方向很重要：樁在下方、被待測模組呼叫（被呼叫者的替身）；驅動程式在上方、去呼叫待測模組（呼叫者的替身）。"
+        },
+        {
+          "type": "truefalse",
+          "name": "驅動程式是被待測模組呼叫的",
+          "text": "<p>驅動程式是<em>被</em>待測模組<em>呼叫</em>的（待測模組會去呼叫該驅動程式）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這把方向弄反了——是驅動程式呼叫待測模組，而非反過來。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——驅動程式是呼叫者：它去呼叫待測模組。被待測模組呼叫的東西才是樁。"
+            }
+          ],
+          "generalFeedback": "驅動程式代替較高層的呼叫者，因此它待測模組。只有樁才是被待測模組呼叫的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "樁代替的是什麼",
+          "text": "<p>在整合過程中，樁代替的是：</p>",
+          "answers": [
+            {
+              "text": "待測模組所呼叫、但尚未整合的較低層模組",
+              "fraction": 100,
+              "feedback": "正確——樁取代缺席的被呼叫者。"
+            },
+            {
+              "text": "呼叫待測模組、但尚未整合的較高層模組",
+              "fraction": 0,
+              "feedback": "那個缺席的呼叫者由驅動程式取代，不是樁。"
+            },
+            {
+              "text": "判定通過或失敗的測試諭示（oracle）",
+              "fraction": 0,
+              "feedback": "諭示判斷結果，並不是某個模組的替身。"
+            },
+            {
+              "text": "整個系統所使用的資料庫",
+              "fraction": 0,
+              "feedback": "樁是被呼叫模組的程式碼替身，並非泛指資料儲存。"
+            }
+          ],
+          "generalFeedback": "樁代替缺席的——待測模組原本會呼叫的較低層模組。由上而下整合在下層尚未就緒時仰賴樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驅動程式代替的是什麼",
+          "text": "<p>在整合過程中，驅動程式代替的是：</p>",
+          "answers": [
+            {
+              "text": "呼叫待測模組、但尚未整合的較高層模組",
+              "fraction": 100,
+              "feedback": "正確——驅動程式取代缺席的呼叫者。"
+            },
+            {
+              "text": "待測模組所呼叫、但尚未整合的較低層模組",
+              "fraction": 0,
+              "feedback": "那個缺席的被呼叫者由樁取代，不是驅動程式。"
+            },
+            {
+              "text": "用來建置各模組的編譯器",
+              "fraction": 0,
+              "feedback": "驅動程式是測試框架，不是建置工具。"
+            },
+            {
+              "text": "使用者提交的缺陷報告",
+              "fraction": 0,
+              "feedback": "那與驅動程式所代替的對象無關。"
+            }
+          ],
+          "generalFeedback": "驅動程式代替缺席的——原本會呼叫待測模組的較高層模組。由下而上整合在上層尚未就緒時仰賴驅動程式。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "由上而下步驟 1 的樁——兩個子節點",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C</strong>（A 是根；B 與 C 是它僅有的子節點）。使用<em>由上而下</em>整合，步驟 1 整合根 A 並對其尚未整合的直接子節點加樁。步驟 1 需要幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——A 直接呼叫 B 與 C，兩者都要加樁：2 個樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A 有兩個直接子節點（B 與 C），一個樁不夠。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有 B 與 C 被 A 直接呼叫；沒有第三個子節點。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "由上而下步驟 1 必須對 A 的被呼叫者加樁，而 A 呼叫兩個模組。"
+            }
+          ],
+          "generalFeedback": "由上而下步驟 1 只整合根 A；A 直接呼叫的每個模組都要加樁。A 呼叫 B 與 C，所以需要 2 個樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下步驟 1 的樁——三個子節點",
+          "text": "<p>考慮以下呼叫樹：<strong>M 呼叫 N、O 與 P</strong>（M 是根，有三個子節點）。使用<em>由上而下</em>整合，步驟 1（只整合 M）需要幾個樁？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——M 直接呼叫 N、O 與 P，三者都要加樁：3 個樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "M 有三個直接子節點，不是一個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "有三個直接子節點（N、O、P），兩個樁太少。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "M 恰好呼叫三個模組；沒有第四個。"
+            }
+          ],
+          "generalFeedback": "由上而下步驟 1 整合 M 並對它直接呼叫的每個模組加樁。M 呼叫 N、O 與 P，所以需要 3 個樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上：單一葉節點的驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D</strong>（因此 D 是葉節點）。使用<em>由下而上</em>整合，你先整合葉節點 D。整合 D 需要幾個<strong>驅動程式</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——D 的真正呼叫者（B）尚未整合，因此需寫一個驅動程式來呼叫 D。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "必須有東西呼叫 D；由於 B 尚未就緒，需要一個驅動程式。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有一個模組（D）待測，一個驅動程式就夠。"
+            },
+            {
+              "text": "1 個樁",
+              "fraction": 0,
+              "feedback": "由下而上使用驅動程式而非樁；且 D 沒有被呼叫者可加樁。"
+            }
+          ],
+          "generalFeedback": "由下而上先整合葉節點。D 沒有被呼叫者（不需樁），但它的呼叫者 B 缺席，因此需寫一個驅動程式來呼叫 D：1 個驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下：整合中間模組時的樁",
+          "text": "<p>考慮以下呼叫樹：<strong>R 呼叫 X 與 Y；X 呼叫 Z</strong>。使用<em>由上而下</em>整合，你已整合了 R，現在要整合 <strong>X</strong>。需要為 X 自己尚未整合的被呼叫者準備幾個樁？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——X 只直接呼叫 Z，而 Z 尚未整合，因此需要一個樁（給 Z）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Y 是 X 的兄弟節點，不是 X 的被呼叫者；X 只呼叫 Z。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "X 呼叫 Z，而 Z 尚未整合，因此需要給 Z 的樁。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "X 只有一個被呼叫者（Z），沒有三個。"
+            }
+          ],
+          "generalFeedback": "由上而下整合 X 時，只需對 X 尚未整合的直接被呼叫者加樁。X 只呼叫 Z，所以需要 1 個樁。（Y 是 R 的另一個子節點，與 X 的被呼叫者無關。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上：兩個葉節點的驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C</strong>，其中 B 與 C 都是葉節點。使用<em>由下而上</em>整合，並且每個待測模組配一個驅動程式，將 B 與 C 作為第一步整合需要幾個驅動程式？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——每個待測模組一個驅動程式，而正在整合兩個葉模組（B 與 C）：2 個驅動程式。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "有兩個各自獨立的待測模組；每個模組一個驅動程式即為兩個。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "它們的呼叫者 A 尚未整合，因此需要驅動程式來呼叫 B 與 C。"
+            },
+            {
+              "text": "2 個樁",
+              "fraction": 0,
+              "feedback": "由下而上使用驅動程式而非樁；且葉節點 B 與 C 沒有被呼叫者可加樁。"
+            }
+          ],
+          "generalFeedback": "由下而上先整合葉節點。B 與 C 是葉節點且呼叫者 A 缺席，因此以每個待測模組一個驅動程式計，需要 2 個驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷定位：漸進式 vs 大爆炸",
+          "text": "<p>相較於大爆炸，漸進式整合通常帶來：</p>",
+          "answers": [
+            {
+              "text": "更好的缺陷定位，因為失敗會指向新加入的模組或其介面",
+              "fraction": 100,
+              "feedback": "正確——一次加入一個模組能將新失敗的來源定位。"
+            },
+            {
+              "text": "更差的缺陷定位，因為使用了較多輔助程式",
+              "fraction": 0,
+              "feedback": "額外的樁／驅動程式不會使定位變差；漸進式整合反而改善它。"
+            },
+            {
+              "text": "缺陷定位沒有差別",
+              "fraction": 0,
+              "feedback": "差別很明顯：漸進式的缺陷定位遠優於大爆炸。"
+            },
+            {
+              "text": "保證沒有介面錯誤",
+              "fraction": 0,
+              "feedback": "沒有任何策略能保證不存在錯誤；它只是讓錯誤更易定位。"
+            }
+          ],
+          "generalFeedback": "由於漸進式整合一次只加入一個模組，新的失敗最可能來自剛加入的模組或其介面——因此比一次全部合併的大爆炸容易許多定位缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略最早測到頂層控制",
+          "text": "<p>哪一種策略最早測到<strong>頂層控制邏輯</strong>？</p>",
+          "answers": [
+            {
+              "text": "由上而下",
+              "fraction": 100,
+              "feedback": "正確——由上而下先整合主控制模組，因此控制邏輯很早被測到。"
+            },
+            {
+              "text": "由下而上",
+              "fraction": 0,
+              "feedback": "由下而上先測葉節點；頂層控制邏輯最後才整合。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸要等所有模組合併後才測試一切，並非最早測頂層。"
+            },
+            {
+              "text": "沒有策略能提早測控制邏輯",
+              "fraction": 0,
+              "feedback": "由上而下正是靠先整合頂層模組做到這件事。"
+            }
+          ],
+          "generalFeedback": "由上而下從主控制模組開始，因此高階控制流程與重大設計決策很早被檢驗——這是它的主要優點之一。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略最早測到葉工具模組",
+          "text": "<p>哪一種策略最早測到<strong>低層葉／工具模組</strong>？</p>",
+          "answers": [
+            {
+              "text": "由下而上",
+              "fraction": 100,
+              "feedback": "正確——由下而上先整合葉模組，因此工具模組很早被測到。"
+            },
+            {
+              "text": "由上而下",
+              "fraction": 0,
+              "feedback": "由上而下先測頂端；葉工具模組要到很晚才整合（在此之前只是被加樁）。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸要等所有模組合併後才測試一切。"
+            },
+            {
+              "text": "沒有策略能提早測葉節點",
+              "fraction": 0,
+              "feedback": "由下而上正是靠先整合葉節點做到這件事。"
+            }
+          ],
+          "generalFeedback": "由下而上從葉節點開始，因此低層工具模組很早就被徹底檢驗——當那些工具很複雜或很關鍵時特別有用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "大爆炸的失敗定位",
+          "text": "<p>某團隊一次整合所有模組（大爆炸），某個測試失敗了。為何診斷此失敗通常很困難？</p>",
+          "answers": [
+            {
+              "text": "眾多同時合併的介面中任何一個都可能是原因，因此缺陷很難定位",
+              "fraction": 100,
+              "feedback": "正確——所有東西一次合併，缺陷定位差使得原因難以釐清。"
+            },
+            {
+              "text": "大爆炸不會產生任何可檢視的測試輸出",
+              "fraction": 0,
+              "feedback": "它仍會產生輸出；問題在於難以定位是哪個介面失敗，而非缺乏輸出。"
+            },
+            {
+              "text": "樁與驅動程式遮蔽了真正的模組",
+              "fraction": 0,
+              "feedback": "大爆炸幾乎不用輔助程式；困難在於眾多介面一次合併。"
+            },
+            {
+              "text": "大爆炸根本無法偵測介面錯誤",
+              "fraction": 0,
+              "feedback": "它偵測得到，只是使錯誤難以定位。"
+            }
+          ],
+          "generalFeedback": "大爆炸把所有模組合併在一起，因此出現失敗時，眾多介面中任何一個都可能負責。這種缺陷定位差是大爆炸的主要缺點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下的早期骨架",
+          "text": "<p><em>由上而下</em>整合常被提及的一項優點是：</p>",
+          "answers": [
+            {
+              "text": "由於先建立頂層控制結構，系統很早就有一個可運作的骨架",
+              "fraction": 100,
+              "feedback": "正確——一個可展示的部分程式會提早出現。"
+            },
+            {
+              "text": "永遠不需要任何樁",
+              "fraction": 0,
+              "feedback": "由上而下其實仰賴樁來代替其下層模組。"
+            },
+            {
+              "text": "低層工具模組會最先被完整測試",
+              "fraction": 0,
+              "feedback": "那是由下而上的特徵，不是由上而下。"
+            },
+            {
+              "text": "它消除了任何回歸測試的需要",
+              "fraction": 0,
+              "feedback": "隨著模組加入仍需要回歸測試。"
+            }
+          ],
+          "generalFeedback": "由於由上而下先建立上層控制結構，一個可展示的程式骨架會提早出現，讓利害關係人看到進度，也讓重大設計錯誤提早浮現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上延後控制測試",
+          "text": "<p><em>由下而上</em>整合的一項缺點是：</p>",
+          "answers": [
+            {
+              "text": "頂層控制邏輯與使用者介面最後才整合與測試",
+              "fraction": 100,
+              "feedback": "正確——高階控制與 UI 議題較晚浮現，因此那裡的重大設計錯誤會較晚出現。"
+            },
+            {
+              "text": "它無法測試葉模組",
+              "fraction": 0,
+              "feedback": "由下而上最先測葉模組；那是它的強項而非弱點。"
+            },
+            {
+              "text": "它需要為每個葉節點準備樁",
+              "fraction": 0,
+              "feedback": "由下而上使用驅動程式而非樁，且葉節點沒有被呼叫者可加樁。"
+            },
+            {
+              "text": "它一次合併所有模組",
+              "fraction": 0,
+              "feedback": "那描述的是大爆炸，不是由下而上。"
+            }
+          ],
+          "generalFeedback": "由於由下而上先整合葉節點、最後才是頂端，主控制邏輯與使用者介面較晚被檢驗，因此那些頂層模組中嚴重的高階設計錯誤可能較晚被發現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個葉節點中的由下而上驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B、C 與 D</strong>（B、C、D 都是葉節點）。使用<em>由下而上</em>整合，<strong>只整合葉節點 B</strong> 需要幾個驅動程式？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——這裡只有 B 待測，而它的呼叫者 A 缺席，所以需要一個驅動程式。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "這裡只整合 B，不整合 C 與 D，因此一個驅動程式就夠。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "A 尚未整合，因此必須有東西呼叫 B——需要一個驅動程式。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "單一待測模組需要單一驅動程式。"
+            }
+          ],
+          "generalFeedback": "只整合葉節點 B：B 沒有被呼叫者（不需樁），而它的呼叫者 A 缺席，因此恰好需要 1 個驅動程式來呼叫 B。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下步驟 1 的樁（含孫節點）",
+          "text": "<p>考慮以下呼叫樹：<strong>S 呼叫 T 與 U；T 呼叫 V</strong>。使用<em>由上而下</em>整合，步驟 1（只整合根 S）需要幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——步驟 1 只對 S 的直接子節點（T 與 U）加樁；V 不是被 S 直接呼叫。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "V 是 T 的被呼叫者，不是 S 的；步驟 1 只對 S 的直接子節點加樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "S 有兩個直接子節點（T 與 U），一個樁不夠。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "步驟 1 必須對 S 的直接被呼叫者加樁，而 S 呼叫兩個模組。"
+            }
+          ],
+          "generalFeedback": "由上而下步驟 1 整合 S 並只對 S 直接呼叫的模組加樁：T 與 U（2 個樁）。V 只能透過尚未整合的 T 到達，因此步驟 1 不對 V 加樁。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "大爆炸的輔助程式成本",
+          "text": "<p>一般而言，大爆炸整合所需的暫時性樁與驅動程式比漸進式整合少。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——大爆炸一次合併所有真實模組，因此幾乎不需逐步的輔助程式；代價是缺陷定位差得多。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "大爆炸確實通常需要較少輔助程式；它只是以缺陷定位差作為代價。"
+            }
+          ],
+          "generalFeedback": "由於大爆炸把所有真實模組一起組裝，它省去了漸進式整合所需的大部分逐步樁與驅動程式。它的代價在別處：一旦出錯，要定位負責的介面很困難。"
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下：某子樹兩個子節點的樁",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；C 呼叫 D 與 E</strong>。使用<em>由上而下</em>整合，A 與 B 已整合，你現在要整合 <strong>C</strong>。需要為 C 自己尚未整合的被呼叫者準備幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——C 直接呼叫 D 與 E，兩者都尚未整合，所以 2 個樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "C 有兩個直接被呼叫者（D 與 E），一個樁太少。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C 只呼叫 D 與 E；B 是 A 的另一個子節點，不是 C 的被呼叫者。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "C 的被呼叫者 D 與 E 缺席，因此需要為它們加樁。"
+            }
+          ],
+          "generalFeedback": "由上而下整合 C 時，只需對 C 尚未整合的直接被呼叫者加樁。C 呼叫 D 與 E，所以需要 2 個樁。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "由上而下在多層某步驟的樁數",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D 與 E；C 呼叫 F</strong>。使用<em>由上而下</em>整合，假設已整合的集合恰為 {A, B}。此時必須就位幾個樁？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——已整合模組共呼叫三個缺席模組：A 呼叫 C（樁），B 呼叫 D 與 E（兩個樁）&#8594; 3 個樁。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "別忘了 A 仍呼叫 C：需要給 C、D、E 的樁——共三個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "F 被尚未整合的 C 呼叫，因此此時還不加 F 的樁；數目是 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A 與 B 都有缺席的被呼叫者；這樣的被呼叫者共有三個（C、D、E）。"
+            }
+          ],
+          "generalFeedback": "已整合集合為 {A, B} 時，列出每一條「從已整合模組到未整合模組」的呼叫：A&#8594;C、B&#8594;D、B&#8594;E。（A&#8594;B 是真實的。）也就是給 C、D、E 的樁＝3 個樁。F 不加樁，因為它的呼叫者 C 尚未整合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上：所有葉節點的驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D 與 E；C 呼叫 F</strong>。使用<em>由下而上</em>整合，並且每個待測模組配一個驅動程式，作為第一步整合所有葉模組需要幾個驅動程式？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——葉節點為 D、E、F；每個一個驅動程式即為 3 個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "有三個葉節點（D、E、F），不是兩個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "第一步只整合葉模組；B 與 C 不是葉節點。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "由下而上對每個待測葉節點配一個驅動程式；有三個葉節點，所以 3 個驅動程式。"
+            }
+          ],
+          "generalFeedback": "葉節點（不呼叫任何模組者）為 D、E、F。由下而上先整合葉節點，每個待測模組一個驅動程式，因此需要 3 個驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三明治整合達成什麼",
+          "text": "<p>相較於純由上而下或純由下而上，團隊為何可能選擇<em>三明治</em>（混合式）整合？</p>",
+          "answers": [
+            {
+              "text": "它讓高層與低層模組能並行整合，結合由上而下的早期控制測試與由下而上的早期工具測試",
+              "fraction": 100,
+              "feedback": "正確——從兩端同時進行能兼得兩個方向的好處，並可縮短時程。"
+            },
+            {
+              "text": "它消除了對樁與驅動程式的需要",
+              "fraction": 0,
+              "feedback": "三明治使用樁（上層）與驅動程式（下層）——兩者都需要。"
+            },
+            {
+              "text": "它像大爆炸一樣一次整合所有模組",
+              "fraction": 0,
+              "feedback": "三明治是從兩端進行的漸進式，不是單一的大爆炸步驟。"
+            },
+            {
+              "text": "它保證不會殘留任何介面錯誤",
+              "fraction": 0,
+              "feedback": "沒有任何策略能保證不存在錯誤。"
+            }
+          ],
+          "generalFeedback": "三明治同時對上層採由上而下（樁）、對下層採由下而上（驅動程式），因此控制邏輯與工具模組都能提早被檢驗，且兩邊工作可並行進行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三明治整合的弱點",
+          "text": "<p><em>三明治</em>整合公認的一項弱點是：</p>",
+          "answers": [
+            {
+              "text": "兩端會合處的中間層模組可能較缺乏徹底的孤立測試",
+              "fraction": 100,
+              "feedback": "正確——由於兩端都朝中間收斂，該目標層可能未被充分地孤立測試。"
+            },
+            {
+              "text": "它無法測試頂層控制邏輯",
+              "fraction": 0,
+              "feedback": "它的由上而下部分很早就檢驗控制邏輯；那是優點。"
+            },
+            {
+              "text": "它既不需要樁也不需要驅動程式",
+              "fraction": 0,
+              "feedback": "三明治兩者都需要，所以此敘述為假。"
+            },
+            {
+              "text": "它的缺陷定位比大爆炸更差",
+              "fraction": 0,
+              "feedback": "身為漸進式，三明治的缺陷定位優於大爆炸，而非更差。"
+            }
+          ],
+          "generalFeedback": "由於由上而下與由下而上都朝一個中間目標層收斂，那些中間模組可能主要是作為較大組合體的一部分被測，而非徹底地孤立測試——這是三明治法主要受到的批評。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何由上而下可能隱藏低層缺陷",
+          "text": "<p>為何<em>由上而下</em>整合可能隱藏存在於低層模組中的缺陷？</p>",
+          "answers": [
+            {
+              "text": "樁回傳簡化的預設結果，因此真正的低層行為（及其錯誤）要到樁被替換後才會被執行",
+              "fraction": 100,
+              "feedback": "正確——過度簡化的樁可能遮蔽只有真實模組才會顯現的缺陷。"
+            },
+            {
+              "text": "由上而下根本不會執行低層模組",
+              "fraction": 0,
+              "feedback": "它們最終會被整合；問題在於樁長時間代替它們。"
+            },
+            {
+              "text": "驅動程式抑制了低層模組的輸出",
+              "fraction": 0,
+              "feedback": "由上而下使用樁而非驅動程式，而這裡造成遮蔽的是樁，不是驅動程式。"
+            },
+            {
+              "text": "低層缺陷永遠是等價的、無法偵測",
+              "fraction": 0,
+              "feedback": "它們是一般缺陷；只是在樁代替真實模組期間未被執行而已。"
+            }
+          ],
+          "generalFeedback": "由於由上而下用回傳預設值的樁來代替下層模組，真正（可能有錯的）低層邏輯要到很晚才執行。過度簡化的樁因此可能遮蔽某個缺陷，直到真實模組被整合後才顯現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何由下而上延後 UI／控制測試",
+          "text": "<p>在<em>由下而上</em>整合中，為何使用者介面或整體控制流程中的嚴重瑕疵可能較晚被發現？</p>",
+          "answers": [
+            {
+              "text": "頂層控制與 UI 模組最後才整合，因此其中的錯誤要到接近尾聲才浮現",
+              "fraction": 100,
+              "feedback": "正確——由下而上把頂端留到最後，延後了高階設計錯誤的發現。"
+            },
+            {
+              "text": "驅動程式永久取代了 UI 模組",
+              "fraction": 0,
+              "feedback": "驅動程式是暫時的；重點是真實的 UI／控制模組要到很晚才整合。"
+            },
+            {
+              "text": "由下而上從不測試頂層模組",
+              "fraction": 0,
+              "feedback": "它會測試它們——只是最後、在較低層之後才測。"
+            },
+            {
+              "text": "UI 錯誤永遠是介面錯誤，而由下而上忽略它們",
+              "fraction": 0,
+              "feedback": "由下而上確實會測介面；延後是因整合順序，而非忽略錯誤。"
+            }
+          ],
+          "generalFeedback": "由下而上先整合葉節點、最後才是頂層控制／UI 模組，因此那些頂層模組中重大的高階設計或介面瑕疵要到整合時程的很晚才被執行到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤：參數順序",
+          "text": "<p>下列何者是<em>介面（整合）錯誤</em>的例子？</p>",
+          "answers": [
+            {
+              "text": "模組 A 以呼叫 B，但 B 預期的是，因此引數順序被對調",
+              "fraction": 100,
+              "feedback": "正確——跨呼叫邊界的參數順序不匹配是典型的介面錯誤。"
+            },
+            {
+              "text": "模組 B 內部的迴圈少跑一次（B 內的差一錯誤）",
+              "fraction": 0,
+              "feedback": "那是侷限於 B 的內部邏輯（單元）錯誤，不是介面錯誤。"
+            },
+            {
+              "text": "A 內部某區域變數未初始化，且從未傳出",
+              "fraction": 0,
+              "feedback": "那是 A 的內部錯誤；與 A&#8211;B 介面無關。"
+            },
+            {
+              "text": "即使以正確引數呼叫，B 仍算出錯誤結果",
+              "fraction": 0,
+              "feedback": "那是 B 內部的邏輯錯誤，屬單元層級，不是介面不匹配。"
+            }
+          ],
+          "generalFeedback": "介面錯誤發生在模組之間的邊界。以錯誤順序傳遞引數（參數不匹配）是課本級的例子——兩模組對如何溝通的認知不一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤：時序／協定",
+          "text": "<p>模組 A 在模組 B 尚未完成初始化前就把資料送給 B，導致 B 偶爾處理到垃圾資料。這最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "時序／協定類的介面錯誤",
+              "fraction": 100,
+              "feedback": "正確——兩模組違反了彼此互動的預期順序／時序。"
+            },
+            {
+              "text": "B 計算內部的邏輯錯誤",
+              "fraction": 0,
+              "feedback": "B 的計算可能沒問題；錯誤在於 A 何時與 B 互動——一個介面上的時序／協定議題。"
+            },
+            {
+              "text": "編譯器最佳化錯誤",
+              "fraction": 0,
+              "feedback": "這關乎模組互動的順序，與編譯器無關。"
+            },
+            {
+              "text": "等價突變體",
+              "fraction": 0,
+              "feedback": "那是突變測試的概念，與整合時序錯誤無關。"
+            }
+          ],
+          "generalFeedback": "當模組對交換的順序或時序認知不一致——在對方尚未就緒前就發送——缺陷便落在介面上：一個協定／時序介面錯誤，正是整合測試所針對的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤：共享狀態",
+          "text": "<p>模組 A 與 B 都讀寫一個共享的全域計數器，各自都假設只有自己會修改它，結果彼此破壞了對方的值。這最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "源自對共享狀態不一致假設的介面錯誤",
+              "fraction": 100,
+              "feedback": "正確——兩模組透過共享資料互動且假設互相衝突，屬介面錯誤。"
+            },
+            {
+              "text": "只在 A 內部的純單元錯誤",
+              "fraction": 0,
+              "feedback": "問題源自 A 與 B 透過共享資料互動，而非 A 單獨造成。"
+            },
+            {
+              "text": "效能錯誤",
+              "fraction": 0,
+              "feedback": "問題是共享狀態衝突導致的錯誤結果，而非速度。"
+            },
+            {
+              "text": "文件錯誤",
+              "fraction": 0,
+              "feedback": "缺陷在於程式碼的共享狀態互動，而非文件。"
+            }
+          ],
+          "generalFeedback": "共享狀態（共享資料）錯誤發生在已整合的模組對全域或共享變數做出不一致假設時。缺陷存在於模組如何互動之中，因此屬介面／整合錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含共享工具模組的整合順序（由下而上）",
+          "text": "<p>考慮以下相依圖：<strong>Main 呼叫 A 與 B；A 呼叫 C；B 呼叫 C 與 D</strong>（因此 C 是被 A 與 B 共同呼叫的共享工具；D 是葉節點）。使用<em>由下而上</em>整合，應最早整合哪個模組？</p>",
+          "answers": [
+            {
+              "text": "C——它是被 A 與 B 共同呼叫的葉工具，因此必須在 A 或 B 能以真實被呼叫者受測之前就先就緒",
+              "fraction": 100,
+              "feedback": "正確——由下而上先整合葉節點，而共享工具 C 為 A 與 B 兩者所需。"
+            },
+            {
+              "text": "Main——因為它是階層的頂端",
+              "fraction": 0,
+              "feedback": "先整合根是由上而下；由下而上從葉節點開始。"
+            },
+            {
+              "text": "A——因為它在字母順序上排在 B 之前",
+              "fraction": 0,
+              "feedback": "A 不是葉節點（它呼叫 C）；由下而上會在 A 之前先整合葉節點 C。"
+            },
+            {
+              "text": "B——因為它的被呼叫者最多",
+              "fraction": 0,
+              "feedback": "B 不是葉節點（它呼叫 C 與 D）；它的被呼叫者必須先被整合。"
+            }
+          ],
+          "generalFeedback": "由下而上從葉節點往上整合。C 與 D 是葉節點；共享工具 C 被 A 與 B 共同呼叫，因此應最先整合（配一個驅動程式），A 與 B 才能對照真實被呼叫者被整合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合期間的回歸",
+          "text": "<p>在漸進式整合中，每加入一個新模組時，就重新執行先前已通過的整合測試，以檢查新模組沒有破壞既有互動。這項活動稱為：</p>",
+          "answers": [
+            {
+              "text": "回歸測試（regression testing）",
+              "fraction": 100,
+              "feedback": "正確——在變更後重跑先前的測試，以防範新引入的破壞。"
+            },
+            {
+              "text": "替換樁",
+              "fraction": 0,
+              "feedback": "替換樁是整合推進的一部分，不是對先前互動的重新測試。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試孤立地檢查單一模組，不是對先前已整合互動的再驗證。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試對照使用者需求驗證完成的系統，而非每個新加入模組的影響。"
+            }
+          ],
+          "generalFeedback": "每個新整合的模組都可能擾動原本可運作的互動。重跑先前的整合測試以確認沒有東西被破壞，就是回歸測試——漸進式整合的一項持續成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含共享工具模組的由上而下樁數",
+          "text": "<p>考慮以下相依圖：<strong>Main 呼叫 A 與 B；A 呼叫 C；B 呼叫 C 與 D</strong>（C 為共享，D 為葉節點）。使用<em>由上而下</em>整合，已整合的集合恰為 {Main, A, B}。必須就位幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——缺席的被呼叫者是 C（被 A 與 B 共同呼叫，但只需一個樁）與 D，共 2 個樁。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C 雖被 A 與 B 共同呼叫，但只需一個樁；連同 D 是 2 個樁，不是 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "有兩個相異模組缺席（C 與 D），一個樁太少。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只有 C 與 D 缺席；Main、A、B 已整合，所以 2 個樁就夠。"
+            }
+          ],
+          "generalFeedback": "已整合集合為 {Main, A, B} 時，指向缺席模組的呼叫為 A&#8594;C、B&#8594;C 與 B&#8594;D。C 即使有兩個模組呼叫它也只需單一樁，因此相異的樁是給 C 與 D＝2 個樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被呼叫者已整合時的由下而上輔助程式",
+          "text": "<p>考慮以下呼叫樹：<strong>P 呼叫 Q 與 R；Q 呼叫 S；R 呼叫 S</strong>（S 是共享葉節點）。使用<em>由下而上</em>整合，S 已被整合，你現在要整合 <strong>Q</strong>。整合 Q 需要多少輔助程式？</p>",
+          "answers": [
+            {
+              "text": "1 個驅動程式、0 個樁",
+              "fraction": 100,
+              "feedback": "正確——Q 的呼叫者 P 缺席（需要驅動程式），但 Q 的被呼叫者 S 已整合（不需樁）。"
+            },
+            {
+              "text": "1 個驅動程式、1 個樁",
+              "fraction": 0,
+              "feedback": "不需要給 S 的樁：S 已整合，Q 可呼叫真實的 S。"
+            },
+            {
+              "text": "0 個驅動程式、1 個樁",
+              "fraction": 0,
+              "feedback": "由下而上此處需要驅動程式，因為 Q 的呼叫者 P 尚未整合；而 S 是真實的，所以不需樁。"
+            },
+            {
+              "text": "2 個驅動程式、0 個樁",
+              "fraction": 0,
+              "feedback": "只有 Q 待測，一個驅動程式就夠。"
+            }
+          ],
+          "generalFeedback": "由下而上整合 Q：它的被呼叫者 S 已整合，因此 Q 呼叫真實的 S（0 個樁）。它的呼叫者 P 缺席，因此寫一個驅動程式來呼叫 Q。合計：1 個驅動程式、0 個樁。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "樁可能遮蔽低層缺陷",
+          "text": "<p>在由上而下整合中，樁可能遮蔽真實低層模組中的缺陷，因為樁回傳的是簡化、預先安排好的結果，而非執行真實邏輯。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——在樁被真實模組替換之前，真正（可能有錯的）低層行為從未被執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "樁確實可能隱藏低層缺陷：它回傳預設值，而非執行真實、可能有錯的程式碼。"
+            }
+          ],
+          "generalFeedback": "樁是回傳固定結果的過度簡化替身。當它代替真實模組時，該模組真正的邏輯——以及其中任何缺陷——都不會被執行，因此由上而下整合可能隱藏低層缺陷，直到樁被替換為止。"
+        },
+        {
+          "type": "truefalse",
+          "name": "三明治同時需要樁與驅動程式",
+          "text": "<p>三明治（混合式）整合同時需要樁與驅動程式。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它的由上而下部分為下層模組使用樁，由下而上部分為待測模組使用驅動程式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "三明治結合由上而下（樁）與由下而上（驅動程式），因此兩種輔助程式都需要。"
+            }
+          ],
+          "generalFeedback": "由於三明治整合對上層採由上而下（需為其被呼叫者加樁）、對下層採由下而上（需要驅動程式來呼叫它們），因此同時需要樁與驅動程式。"
+        }
+      ]
+    }
+  },
   "logic-active-clause": {
     "en": {
       "easy": [

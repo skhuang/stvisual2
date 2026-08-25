@@ -68545,6 +68545,2524 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "integration-testing": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What integration testing checks",
+            "text": "<p><em>Integration testing</em> primarily aims to expose faults in:</p>",
+            "answers": [
+              {
+                "text": "The interactions and interfaces between modules that are combined together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 integration testing targets the way separately-developed modules work together."
+              },
+              {
+                "text": "The internal logic of a single isolated function",
+                "fraction": 0,
+                "feedback": "That is unit testing; integration testing assumes units already work and focuses on their interactions."
+              },
+              {
+                "text": "The behaviour of the complete system against user requirements",
+                "fraction": 0,
+                "feedback": "That is system testing, which comes after integration."
+              },
+              {
+                "text": "The response time of the program under heavy load",
+                "fraction": 0,
+                "feedback": "That is performance/load testing, a non-functional concern, not integration."
+              }
+            ],
+            "generalFeedback": "Integration testing verifies that modules which have already passed unit testing cooperate correctly once combined \u2014 it hunts for interface and interaction faults, not for logic bugs inside a single unit.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Placing integration among the levels",
+            "text": "<p>In the usual ordering of test levels, integration testing sits:</p>",
+            "answers": [
+              {
+                "text": "After unit testing and before system testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 units are tested first, then integrated and tested together, then the whole system."
+              },
+              {
+                "text": "Before unit testing",
+                "fraction": 0,
+                "feedback": "Units must pass unit testing first, otherwise interaction failures cannot be distinguished from unit bugs."
+              },
+              {
+                "text": "After system testing",
+                "fraction": 0,
+                "feedback": "System testing is the last of these three levels, not before integration."
+              },
+              {
+                "text": "It replaces unit testing entirely",
+                "fraction": 0,
+                "feedback": "Integration testing complements unit testing; it does not replace it."
+              }
+            ],
+            "generalFeedback": "The common progression is unit &#8594; integration &#8594; system. Integration testing builds on already unit-tested modules and precedes end-to-end system testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Big-bang integration",
+            "text": "<p><em>Big-bang</em> integration means:</p>",
+            "answers": [
+              {
+                "text": "All modules are combined at once and the whole assembly is tested together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 big-bang integrates everything in a single step."
+              },
+              {
+                "text": "Modules are added one at a time from the top of the hierarchy downward",
+                "fraction": 0,
+                "feedback": "That is top-down incremental integration, not big-bang."
+              },
+              {
+                "text": "Modules are added one at a time from the leaves upward",
+                "fraction": 0,
+                "feedback": "That is bottom-up incremental integration, not big-bang."
+              },
+              {
+                "text": "Each module is tested completely in isolation before any are combined",
+                "fraction": 0,
+                "feedback": "That describes unit testing; big-bang is about combining all units simultaneously."
+              }
+            ],
+            "generalFeedback": "Big-bang (non-incremental) integration assembles all modules together and tests them as one. It needs little scaffolding but makes failures hard to localise.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-down integration",
+            "text": "<p><em>Top-down</em> integration proceeds by:</p>",
+            "answers": [
+              {
+                "text": "Integrating from the top of the call hierarchy downward, using stubs for not-yet-integrated lower modules",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the top control modules come first; their callees are stubbed until integrated."
+              },
+              {
+                "text": "Integrating from the leaf modules upward, using drivers",
+                "fraction": 0,
+                "feedback": "That is bottom-up integration."
+              },
+              {
+                "text": "Combining all modules at once",
+                "fraction": 0,
+                "feedback": "That is big-bang integration."
+              },
+              {
+                "text": "Testing each module in isolation with no other modules present",
+                "fraction": 0,
+                "feedback": "That is unit testing, not an integration strategy."
+              }
+            ],
+            "generalFeedback": "Top-down integration starts at the top (main control) module and works down the hierarchy. Lower modules that are not yet integrated are represented by stubs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottom-up integration",
+            "text": "<p><em>Bottom-up</em> integration proceeds by:</p>",
+            "answers": [
+              {
+                "text": "Integrating from the leaf modules upward, using drivers to call the modules under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 low-level modules are integrated first, driven by temporary drivers."
+              },
+              {
+                "text": "Integrating from the top control module downward, using stubs",
+                "fraction": 0,
+                "feedback": "That is top-down integration."
+              },
+              {
+                "text": "Combining all modules simultaneously",
+                "fraction": 0,
+                "feedback": "That is big-bang integration."
+              },
+              {
+                "text": "Delivering the software to end users to find faults",
+                "fraction": 0,
+                "feedback": "That is closer to acceptance/field testing, not bottom-up integration."
+              }
+            ],
+            "generalFeedback": "Bottom-up integration starts with the lowest-level (leaf) modules and works up the hierarchy. Because their callers are not yet present, a driver is written to invoke each module under test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sandwich integration",
+            "text": "<p><em>Sandwich</em> (hybrid) integration is best described as:</p>",
+            "answers": [
+              {
+                "text": "Combining top-down and bottom-up, working from both ends toward the middle at the same time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the top layers use stubs while the bottom layers use drivers, meeting in the middle."
+              },
+              {
+                "text": "Combining all modules at once with no stubs or drivers",
+                "fraction": 0,
+                "feedback": "That is big-bang integration."
+              },
+              {
+                "text": "Strictly top-down with no bottom-up element",
+                "fraction": 0,
+                "feedback": "Pure top-down is not hybrid; sandwich mixes both directions."
+              },
+              {
+                "text": "Testing only the middle layer and ignoring the top and bottom",
+                "fraction": 0,
+                "feedback": "Sandwich integrates all layers; it does not ignore the ends."
+              }
+            ],
+            "generalFeedback": "Sandwich (hybrid) integration applies top-down to the upper layers (with stubs) and bottom-up to the lower layers (with drivers) simultaneously, converging on a target middle layer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a stub is",
+            "text": "<p>A <em>stub</em> in integration testing is a temporary piece of code that:</p>",
+            "answers": [
+              {
+                "text": "Stands in for a lower-level module that the module under test calls",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a stub is called by the module under test and returns canned results."
+              },
+              {
+                "text": "Stands in for a higher-level module that calls the module under test",
+                "fraction": 0,
+                "feedback": "That is a driver, not a stub."
+              },
+              {
+                "text": "Is the final production version of a called module",
+                "fraction": 0,
+                "feedback": "A stub is a throwaway substitute, not the real module."
+              },
+              {
+                "text": "Is a defect deliberately injected into the code",
+                "fraction": 0,
+                "feedback": "That describes a mutant/seeded fault, not a stub."
+              }
+            ],
+            "generalFeedback": "A stub replaces a not-yet-integrated: the module under test calls it, and it returns simplified, pre-arranged values. Stubs are what top-down integration needs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a driver is",
+            "text": "<p>A <em>driver</em> in integration testing is a temporary piece of code that:</p>",
+            "answers": [
+              {
+                "text": "Stands in for a higher-level module and calls the module under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a driver is the caller: it invokes the module under test and passes inputs."
+              },
+              {
+                "text": "Stands in for a lower-level module that the module under test calls",
+                "fraction": 0,
+                "feedback": "That is a stub, not a driver."
+              },
+              {
+                "text": "Is the production main program shipped to users",
+                "fraction": 0,
+                "feedback": "A driver is a throwaway harness, not the real caller."
+              },
+              {
+                "text": "Is a tool that measures code coverage",
+                "fraction": 0,
+                "feedback": "That is a coverage tool, unrelated to a driver's role."
+              }
+            ],
+            "generalFeedback": "A driver replaces a not-yet-integrated: it calls the module under test, supplies inputs, and checks outputs. Drivers are what bottom-up integration needs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interface fault",
+            "text": "<p>An <em>interface (integration) fault</em> is a defect that:</p>",
+            "answers": [
+              {
+                "text": "Arises from an incorrect assumption or mismatch in how two modules communicate",
+                "fraction": 100,
+                "feedback": "Correct \u2014 e.g. wrong parameter type/order, a violated protocol, or inconsistent shared state."
+              },
+              {
+                "text": "Is a purely internal logic error confined to one module",
+                "fraction": 0,
+                "feedback": "That is a unit-level fault; interface faults are about communication between modules."
+              },
+              {
+                "text": "Is a spelling mistake in the user documentation",
+                "fraction": 0,
+                "feedback": "Documentation typos are not interface faults between software modules."
+              },
+              {
+                "text": "Is a hardware failure in the CPU",
+                "fraction": 0,
+                "feedback": "That is a hardware fault, not a software interface fault."
+              }
+            ],
+            "generalFeedback": "Interface faults surface when integrated modules interact: mismatched parameter lists, wrong call order, protocol/timing violations, or inconsistent assumptions about shared data. These are exactly what integration testing hunts for.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which strategy needs stubs",
+            "text": "<p>Which integration strategy characteristically requires <strong>stubs</strong>?</p>",
+            "answers": [
+              {
+                "text": "Top-down",
+                "fraction": 100,
+                "feedback": "Correct \u2014 top-down integrates upper modules first, so their not-yet-integrated callees are stubbed."
+              },
+              {
+                "text": "Bottom-up",
+                "fraction": 0,
+                "feedback": "Bottom-up needs drivers, not stubs, because it starts from the leaves."
+              },
+              {
+                "text": "Big-bang",
+                "fraction": 0,
+                "feedback": "Big-bang assembles everything at once and typically avoids per-step stubs."
+              },
+              {
+                "text": "None of these ever uses stubs",
+                "fraction": 0,
+                "feedback": "Top-down relies on stubs, so this is wrong."
+              }
+            ],
+            "generalFeedback": "Top-down integrates from the top down; the lower modules a top module calls are not ready yet, so they are replaced by stubs. (Bottom-up pairs with drivers.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which strategy needs drivers",
+            "text": "<p>Which integration strategy characteristically requires <strong>drivers</strong>?</p>",
+            "answers": [
+              {
+                "text": "Bottom-up",
+                "fraction": 100,
+                "feedback": "Correct \u2014 bottom-up integrates leaf modules first, so a driver is written to call each one."
+              },
+              {
+                "text": "Top-down",
+                "fraction": 0,
+                "feedback": "Top-down needs stubs, not drivers, because it starts from the top control module."
+              },
+              {
+                "text": "Big-bang",
+                "fraction": 0,
+                "feedback": "Big-bang combines all modules at once and typically avoids per-step drivers."
+              },
+              {
+                "text": "None of these ever uses drivers",
+                "fraction": 0,
+                "feedback": "Bottom-up relies on drivers, so this is wrong."
+              }
+            ],
+            "generalFeedback": "Bottom-up integrates from the leaves up; the higher modules that would call them are not ready yet, so a driver is written to invoke each module under test. (Top-down pairs with stubs.)",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "A stub is called by the module under test",
+            "text": "<p>A stub is <em>called by</em> the module under test (the module under test invokes the stub).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a stub is a substitute callee, so the module under test calls it."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A stub does sit below the module under test and is called by it; the caller-side substitute is the driver."
+              }
+            ],
+            "generalFeedback": "Direction matters: a stub is below and is called by the module under test (a substitute callee); a driver is above and calls the module under test (a substitute caller)."
+          },
+          {
+            "type": "truefalse",
+            "name": "A driver is called by the module under test",
+            "text": "<p>A driver is <em>called by</em> the module under test (the module under test invokes the driver).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This reverses the direction \u2014 a driver calls the module under test, not the other way round."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a driver is the caller: it calls the module under test. The thing the module under test calls is a stub."
+              }
+            ],
+            "generalFeedback": "A driver stands in for a higher-level caller, so itthe module under test. Only a stub is called by the module under test."
+          },
+          {
+            "type": "multichoice",
+            "name": "What a stub substitutes for",
+            "text": "<p>During integration, a stub substitutes for:</p>",
+            "answers": [
+              {
+                "text": "A not-yet-integrated lower-level module that the module under test calls",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the stub takes the place of an absent callee."
+              },
+              {
+                "text": "A not-yet-integrated higher-level module that calls the module under test",
+                "fraction": 0,
+                "feedback": "That absent caller is replaced by a driver, not a stub."
+              },
+              {
+                "text": "A test oracle that decides pass or fail",
+                "fraction": 0,
+                "feedback": "An oracle judges results; it is not a stand-in for a module."
+              },
+              {
+                "text": "The database used by the whole system",
+                "fraction": 0,
+                "feedback": "A stub is a code substitute for a called module, not a data store in general."
+              }
+            ],
+            "generalFeedback": "A stub replaces a missing\u2014 a lower module the module under test would call. Top-down integration relies on stubs while the lower levels are still absent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a driver substitutes for",
+            "text": "<p>During integration, a driver substitutes for:</p>",
+            "answers": [
+              {
+                "text": "A not-yet-integrated higher-level module that calls the module under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the driver takes the place of an absent caller."
+              },
+              {
+                "text": "A not-yet-integrated lower-level module that the module under test calls",
+                "fraction": 0,
+                "feedback": "That absent callee is replaced by a stub, not a driver."
+              },
+              {
+                "text": "A compiler that builds the modules",
+                "fraction": 0,
+                "feedback": "A driver is a test harness, not a build tool."
+              },
+              {
+                "text": "A defect report filed by a user",
+                "fraction": 0,
+                "feedback": "That is unrelated to what a driver stands in for."
+              }
+            ],
+            "generalFeedback": "A driver replaces a missing\u2014 a higher module that would invoke the module under test. Bottom-up integration relies on drivers while the upper levels are still absent.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Top-down step 1 stubs \u2014 two children",
+            "text": "<p>Consider this call tree: <strong>A calls B and C</strong> (A is the root; B and C are its only children). Using <em>top-down</em> integration, step 1 integrates the root A and stubs its not-yet-integrated direct children. How many stubs are needed at step 1?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 A directly calls B and C, so both are stubbed: 2 stubs."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A has two direct children (B and C), so one stub is not enough."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only B and C are directly called by A; there is no third child."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "Top-down step 1 must stub A's callees, and A calls two modules."
+              }
+            ],
+            "generalFeedback": "Top-down step 1 integrates the root A alone; every module A directly calls must be stubbed. A calls B and C, so 2 stubs are needed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-down step 1 stubs \u2014 three children",
+            "text": "<p>Consider this call tree: <strong>M calls N, O, and P</strong> (M is the root with three children). Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating M alone)?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 M directly calls N, O, and P, so all three are stubbed: 3 stubs."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "M has three direct children, not one."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "There are three direct children (N, O, P), so two stubs is too few."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "M calls exactly three modules; there is no fourth."
+              }
+            ],
+            "generalFeedback": "Top-down step 1 integrates M and stubs each module it directly calls. M calls N, O, and P, so 3 stubs are needed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottom-up driver for a single leaf",
+            "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D</strong> (so D is a leaf). Using <em>bottom-up</em> integration, you integrate the leaf D first. How many <strong>drivers</strong> are needed to integrate D?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 D's real caller (B) is not integrated yet, so one driver is written to call D."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "Something must call D; since B is not ready, a driver is required."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Only one module (D) is under test, so one driver suffices."
+              },
+              {
+                "text": "1 stub",
+                "fraction": 0,
+                "feedback": "Bottom-up uses drivers, not stubs; and D has no callees to stub."
+              }
+            ],
+            "generalFeedback": "Bottom-up integrates leaves first. D has no callees (no stubs needed), but its caller B is absent, so one driver is written to invoke D: 1 driver.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-down stubs when integrating an intermediate module",
+            "text": "<p>Consider this call tree: <strong>R calls X and Y; X calls Z</strong>. Using <em>top-down</em> integration you have already integrated R, and now you integrate <strong>X</strong>. How many stubs must be in place for X's own not-yet-integrated callees?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 X directly calls only Z, which is not yet integrated, so one stub (for Z) is needed."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Y is a sibling of X, not a callee of X; X calls only Z."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "X calls Z, and Z is not integrated yet, so a stub for Z is required."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "X has a single callee (Z); there are not three."
+              }
+            ],
+            "generalFeedback": "When integrating X top-down, only X's direct callees that are still absent must be stubbed. X calls only Z, so 1 stub is needed. (Y is R's other child, unrelated to X's callees.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottom-up drivers for two leaves",
+            "text": "<p>Consider this call tree: <strong>A calls B and C</strong>, where B and C are both leaves. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate B and C as the first step?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one driver per module under test, and two leaf modules (B and C) are being integrated: 2 drivers."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Two separate modules are under test; with one driver per module that is two drivers."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "Their caller A is not integrated yet, so drivers are required to invoke B and C."
+              },
+              {
+                "text": "2 stubs",
+                "fraction": 0,
+                "feedback": "Bottom-up uses drivers, not stubs; and leaves B and C have no callees to stub."
+              }
+            ],
+            "generalFeedback": "Bottom-up integrates leaves first. B and C are leaves whose caller A is absent, so with one driver per module under test, 2 drivers are needed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fault isolation: incremental vs big-bang",
+            "text": "<p>Compared with big-bang, incremental integration generally gives:</p>",
+            "answers": [
+              {
+                "text": "Better fault isolation, because a failure points to the newly added module or its interface",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding modules one at a time localises where a new failure came from."
+              },
+              {
+                "text": "Worse fault isolation, because more scaffolding is used",
+                "fraction": 0,
+                "feedback": "Extra stubs/drivers do not worsen isolation; incremental integration improves it."
+              },
+              {
+                "text": "No difference in fault isolation",
+                "fraction": 0,
+                "feedback": "There is a clear difference: incremental isolates faults far better than big-bang."
+              },
+              {
+                "text": "Guaranteed absence of interface faults",
+                "fraction": 0,
+                "feedback": "No strategy guarantees the absence of faults; it only makes them easier to locate."
+              }
+            ],
+            "generalFeedback": "Because incremental integration adds one module at a time, a new failure is most likely due to the module just added or its interface \u2014 so faults are much easier to isolate than in big-bang, where everything is combined at once.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which strategy tests top-level control earliest",
+            "text": "<p>Which strategy exercises the <strong>top-level control logic</strong> earliest?</p>",
+            "answers": [
+              {
+                "text": "Top-down",
+                "fraction": 100,
+                "feedback": "Correct \u2014 top-down integrates the main control module first, so control logic is tested early."
+              },
+              {
+                "text": "Bottom-up",
+                "fraction": 0,
+                "feedback": "Bottom-up tests leaves first; the top-level control logic is integrated last."
+              },
+              {
+                "text": "Big-bang",
+                "fraction": 0,
+                "feedback": "Big-bang tests everything only after all modules are combined, not the top earliest."
+              },
+              {
+                "text": "None can test control logic early",
+                "fraction": 0,
+                "feedback": "Top-down does exactly this by integrating the top module first."
+              }
+            ],
+            "generalFeedback": "Top-down starts at the main control module, so high-level control flow and major design decisions are exercised early \u2014 one of its main advantages.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which strategy tests leaf utilities earliest",
+            "text": "<p>Which strategy exercises the <strong>low-level leaf/utility modules</strong> earliest?</p>",
+            "answers": [
+              {
+                "text": "Bottom-up",
+                "fraction": 100,
+                "feedback": "Correct \u2014 bottom-up integrates leaf modules first, so utilities are tested early."
+              },
+              {
+                "text": "Top-down",
+                "fraction": 0,
+                "feedback": "Top-down tests the top first; leaf utilities are integrated (or only stubbed) until late."
+              },
+              {
+                "text": "Big-bang",
+                "fraction": 0,
+                "feedback": "Big-bang exercises everything only after all modules are combined."
+              },
+              {
+                "text": "None can test leaves early",
+                "fraction": 0,
+                "feedback": "Bottom-up does exactly this by integrating the leaves first."
+              }
+            ],
+            "generalFeedback": "Bottom-up starts at the leaves, so low-level utility modules are thoroughly exercised early \u2014 useful when those utilities are complex or critical.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Big-bang failure localisation",
+            "text": "<p>A team integrates all modules at once (big-bang) and a test fails. Why is diagnosing the failure typically hard?</p>",
+            "answers": [
+              {
+                "text": "Any of the many simultaneously-combined interfaces could be the cause, so the fault is hard to localise",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with everything combined at once, poor fault isolation makes the cause hard to pin down."
+              },
+              {
+                "text": "Big-bang produces no test output to examine",
+                "fraction": 0,
+                "feedback": "It still produces output; the problem is isolating which interface failed, not a lack of output."
+              },
+              {
+                "text": "Stubs and drivers hide the real modules",
+                "fraction": 0,
+                "feedback": "Big-bang uses little scaffolding; the difficulty is the many interfaces combined at once."
+              },
+              {
+                "text": "Big-bang cannot detect interface faults at all",
+                "fraction": 0,
+                "feedback": "It can detect them; it just makes them hard to locate."
+              }
+            ],
+            "generalFeedback": "Big-bang combines all modules together, so when a failure appears any of the numerous interfaces could be responsible. This poor fault isolation is big-bang's main drawback.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-down early skeleton",
+            "text": "<p>A frequently cited advantage of <em>top-down</em> integration is that:</p>",
+            "answers": [
+              {
+                "text": "An early working skeleton of the system is available, since the top control structure is built first",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a partial, demonstrable program emerges early."
+              },
+              {
+                "text": "No stubs are ever required",
+                "fraction": 0,
+                "feedback": "Top-down actually depends on stubs for its lower modules."
+              },
+              {
+                "text": "Low-level utility modules are fully tested first",
+                "fraction": 0,
+                "feedback": "That is a bottom-up characteristic, not top-down."
+              },
+              {
+                "text": "It removes the need for any regression testing",
+                "fraction": 0,
+                "feedback": "Regression testing is still needed as modules are added."
+              }
+            ],
+            "generalFeedback": "Because top-down builds the upper control structure first, an early demonstrable skeleton of the program appears, letting stakeholders see progress and letting major design errors surface early.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottom-up late control testing",
+            "text": "<p>A drawback of <em>bottom-up</em> integration is that:</p>",
+            "answers": [
+              {
+                "text": "The top-level control logic and user interface are integrated and tested last",
+                "fraction": 100,
+                "feedback": "Correct \u2014 high-level control and UI concerns surface late, so major design errors there appear late."
+              },
+              {
+                "text": "It cannot test leaf modules",
+                "fraction": 0,
+                "feedback": "Bottom-up tests leaf modules first; that is its strength, not a weakness."
+              },
+              {
+                "text": "It requires stubs for every leaf",
+                "fraction": 0,
+                "feedback": "Bottom-up uses drivers, not stubs, and leaves have no callees to stub."
+              },
+              {
+                "text": "It combines all modules at once",
+                "fraction": 0,
+                "feedback": "That describes big-bang, not bottom-up."
+              }
+            ],
+            "generalFeedback": "Since bottom-up integrates leaves first and the top last, the main control logic and user interface are exercised only late, so serious high-level design faults may be discovered late.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottom-up driver among three leaves",
+            "text": "<p>Consider this call tree: <strong>A calls B, C, and D</strong> (B, C, D are all leaves). Using <em>bottom-up</em> integration, how many drivers are needed to integrate <strong>just leaf B</strong>?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only B is under test, and its caller A is absent, so one driver is needed."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only B is being integrated here, not C and D, so one driver suffices."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "A is not integrated yet, so something must call B \u2014 a driver is required."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "A single module under test needs a single driver."
+              }
+            ],
+            "generalFeedback": "Integrating only leaf B: B has no callees (no stubs), and its caller A is absent, so exactly 1 driver is required to invoke B.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-down step 1 stubs with a grandchild",
+            "text": "<p>Consider this call tree: <strong>S calls T and U; T calls V</strong>. Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating the root S alone)?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at step 1 only S's direct children (T and U) are stubbed; V is not directly called by S."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "V is a callee of T, not of S; at step 1 only S's direct children are stubbed."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "S has two direct children (T and U), so one stub is not enough."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "Step 1 must stub S's direct callees, and S calls two modules."
+              }
+            ],
+            "generalFeedback": "Top-down step 1 integrates S and stubs only the modules S directly calls: T and U (2 stubs). V is reached only through T, which is not yet integrated, so V is not stubbed at step 1.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Big-bang scaffolding cost",
+            "text": "<p>In general, big-bang integration requires fewer temporary stubs and drivers than incremental integration.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 big-bang combines all real modules at once, so it needs little per-step scaffolding; the trade-off is much poorer fault isolation."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Big-bang does typically need less scaffolding; it just pays for it with poor fault isolation."
+              }
+            ],
+            "generalFeedback": "Because big-bang assembles all the real modules together, it avoids most of the per-step stubs and drivers that incremental integration needs. Its cost is elsewhere: when something fails, isolating the responsible interface is hard."
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-down stubs for two children of a subtree",
+            "text": "<p>Consider this call tree: <strong>A calls B and C; C calls D and E</strong>. Using <em>top-down</em> integration, A and B are already integrated and you now integrate <strong>C</strong>. How many stubs must be in place for C's own not-yet-integrated callees?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 C directly calls D and E, neither of which is integrated yet, so 2 stubs."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "C has two direct callees (D and E), so one stub is too few."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "C calls only D and E; B is A's other child, not a callee of C."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "C's callees D and E are absent, so stubs are required for them."
+              }
+            ],
+            "generalFeedback": "When integrating C top-down, only C's direct callees still absent must be stubbed. C calls D and E, so 2 stubs are needed.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Top-down stubs at a multi-level step",
+            "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>top-down</em> integration, suppose the integrated set is exactly {A, B}. How many stubs must be in place at this point?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 integrated modules call three absent modules: A calls C (stub), and B calls D and E (two stubs) &#8594; 3 stubs."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Do not forget A still calls C: stubs are needed for C, D, and E \u2014 three in total."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "F is called by C, which is not integrated, so F is not stubbed yet; the count is 3."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Both A and B have absent callees; there are three such callees (C, D, E)."
+              }
+            ],
+            "generalFeedback": "With integrated set {A, B}, list every call from an integrated module to a non-integrated one: A&#8594;C, B&#8594;D, B&#8594;E. (A&#8594;B is real.) That is stubs for C, D, and E = 3 stubs. F is not stubbed because its caller C is not integrated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottom-up drivers for all leaves",
+            "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate all the leaf modules as the first step?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the leaves are D, E, and F; with one driver each that is 3 drivers."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "There are three leaves (D, E, F), not two."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Only the leaf modules are integrated at the first step; B and C are not leaves."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Bottom-up uses one driver per leaf under test; there are three leaves, so 3 drivers."
+              }
+            ],
+            "generalFeedback": "The leaves (modules that call nothing) are D, E, and F. Bottom-up integrates the leaves first, one driver per module under test, so 3 drivers are needed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What sandwich integration achieves",
+            "text": "<p>Why might a team choose <em>sandwich</em> (hybrid) integration over pure top-down or pure bottom-up?</p>",
+            "answers": [
+              {
+                "text": "It lets high-level and low-level modules be integrated in parallel, combining top-down's early control testing with bottom-up's early utility testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 working from both ends at once gains the benefits of both directions and can shorten the schedule."
+              },
+              {
+                "text": "It eliminates the need for both stubs and drivers",
+                "fraction": 0,
+                "feedback": "Sandwich uses stubs (upper layers) and drivers (lower layers) \u2014 it needs both."
+              },
+              {
+                "text": "It integrates all modules at once like big-bang",
+                "fraction": 0,
+                "feedback": "Sandwich is incremental from both ends, not a single big-bang step."
+              },
+              {
+                "text": "It guarantees no interface faults will remain",
+                "fraction": 0,
+                "feedback": "No strategy guarantees the absence of faults."
+              }
+            ],
+            "generalFeedback": "Sandwich applies top-down to the upper layers (stubs) and bottom-up to the lower layers (drivers) simultaneously, so control logic and utility modules are both exercised early and the two efforts can proceed in parallel.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sandwich integration weakness",
+            "text": "<p>A recognised weakness of <em>sandwich</em> integration is that:</p>",
+            "answers": [
+              {
+                "text": "The middle-layer modules where the two ends meet may get less thorough isolated testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 because both ends converge on the middle, that target layer can be under-tested in isolation."
+              },
+              {
+                "text": "It cannot test the top-level control logic",
+                "fraction": 0,
+                "feedback": "Its top-down half exercises the control logic early; that is a strength."
+              },
+              {
+                "text": "It needs neither stubs nor drivers",
+                "fraction": 0,
+                "feedback": "Sandwich needs both stubs and drivers, so this is false."
+              },
+              {
+                "text": "It provides worse fault isolation than big-bang",
+                "fraction": 0,
+                "feedback": "Being incremental, sandwich isolates faults better than big-bang, not worse."
+              }
+            ],
+            "generalFeedback": "Because top-down and bottom-up converge on a middle target layer, those middle modules can end up tested mostly as part of larger assemblies rather than thoroughly in isolation \u2014 the main criticism of the sandwich approach.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why top-down can hide low-level defects",
+            "text": "<p>Why can <em>top-down</em> integration hide defects that live in low-level modules?</p>",
+            "answers": [
+              {
+                "text": "Stubs return simplified canned results, so the real low-level behaviour (and its bugs) is not exercised until the stub is replaced",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an oversimplified stub can mask a defect that only the real module would reveal."
+              },
+              {
+                "text": "Top-down never executes the low-level modules at all",
+                "fraction": 0,
+                "feedback": "They are eventually integrated; the issue is that stubs stand in for them for a long time."
+              },
+              {
+                "text": "Drivers suppress the outputs of low-level modules",
+                "fraction": 0,
+                "feedback": "Top-down uses stubs, not drivers, and stubs \u2014 not drivers \u2014 cause the masking here."
+              },
+              {
+                "text": "Low-level defects are always equivalent and undetectable",
+                "fraction": 0,
+                "feedback": "They are ordinary defects; they are simply not exercised while a stub substitutes for the real module."
+              }
+            ],
+            "generalFeedback": "Because top-down replaces lower modules with stubs that return canned values, the real (possibly buggy) low-level logic is not run until late. An oversimplified stub can therefore mask a defect that only surfaces once the actual module is integrated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why bottom-up delays UI/control testing",
+            "text": "<p>In <em>bottom-up</em> integration, why might a serious flaw in the user interface or overall control flow be discovered late?</p>",
+            "answers": [
+              {
+                "text": "The top-level control and UI modules are integrated last, so faults in them surface only near the end",
+                "fraction": 100,
+                "feedback": "Correct \u2014 bottom-up leaves the top for last, delaying discovery of high-level design faults."
+              },
+              {
+                "text": "Drivers permanently replace the UI modules",
+                "fraction": 0,
+                "feedback": "Drivers are temporary; the point is that the real UI/control modules are integrated only late."
+              },
+              {
+                "text": "Bottom-up never tests the top-level modules",
+                "fraction": 0,
+                "feedback": "It does test them \u2014 just last, after the lower levels."
+              },
+              {
+                "text": "UI faults are always interface faults, which bottom-up ignores",
+                "fraction": 0,
+                "feedback": "Bottom-up does test interfaces; the delay is due to integration order, not ignoring faults."
+              }
+            ],
+            "generalFeedback": "Bottom-up integrates leaves first and the top control/UI modules last, so major high-level design or interface flaws in those top modules are not exercised until late in the integration schedule.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interface fault: parameter order",
+            "text": "<p>Which of the following is an example of an <em>interface (integration) fault</em>?</p>",
+            "answers": [
+              {
+                "text": "Module A calls B asbut B expects, so the arguments are swapped",
+                "fraction": 100,
+                "feedback": "Correct \u2014 mismatched parameter order across a call boundary is a classic interface fault."
+              },
+              {
+                "text": "A loop inside module B iterates one time too few (an off-by-one within B)",
+                "fraction": 0,
+                "feedback": "That is an internal logic (unit) fault confined to B, not an interface fault."
+              },
+              {
+                "text": "A local variable inside A is left uninitialised and never passed out",
+                "fraction": 0,
+                "feedback": "That is an internal fault in A; it does not concern the A&#8211;B interface."
+              },
+              {
+                "text": "B computes the wrong result even when called with correct arguments",
+                "fraction": 0,
+                "feedback": "That is a logic fault inside B, a unit-level concern, not an interface mismatch."
+              }
+            ],
+            "generalFeedback": "Interface faults occur at the boundary between modules. Passing arguments in the wrong order (a parameter mismatch) is a textbook example \u2014 the modules disagree on how they communicate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interface fault: timing/protocol",
+            "text": "<p>Module A sends data to module B before B has finished initialising, so B occasionally processes garbage. This is best classified as:</p>",
+            "answers": [
+              {
+                "text": "An interface fault of the timing/protocol kind",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the modules violate the expected order/timing of their interaction."
+              },
+              {
+                "text": "An internal logic fault inside B's computation",
+                "fraction": 0,
+                "feedback": "B's computation may be fine; the fault is in when A interacts with B \u2014 a timing/protocol issue at the interface."
+              },
+              {
+                "text": "A compiler optimisation error",
+                "fraction": 0,
+                "feedback": "This is about module interaction order, not the compiler."
+              },
+              {
+                "text": "An equivalent mutant",
+                "fraction": 0,
+                "feedback": "That is a mutation-testing concept, unrelated to an integration timing fault."
+              }
+            ],
+            "generalFeedback": "When modules disagree on the order or timing of their exchanges \u2014 sending before the peer is ready \u2014 the defect lies at the interface: a protocol/timing interface fault, exactly what integration testing targets.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interface fault: shared state",
+            "text": "<p>Modules A and B both read and write a shared global counter, each assuming it alone modifies it, and they corrupt each other's value. This is best classified as:</p>",
+            "answers": [
+              {
+                "text": "An interface fault arising from inconsistent assumptions about shared state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the modules interact through shared data with conflicting assumptions, an interface fault."
+              },
+              {
+                "text": "A pure unit fault inside A only",
+                "fraction": 0,
+                "feedback": "The problem emerges from A and B interacting via shared data, not from A alone."
+              },
+              {
+                "text": "A performance fault",
+                "fraction": 0,
+                "feedback": "The issue is incorrect results from shared-state conflict, not speed."
+              },
+              {
+                "text": "A documentation fault",
+                "fraction": 0,
+                "feedback": "The defect is in the code's shared-state interaction, not in the docs."
+              }
+            ],
+            "generalFeedback": "Shared-state (shared-data) faults happen when integrated modules make inconsistent assumptions about global or shared variables. The defect lives in how the modules interact, so it is an interface/integration fault.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Ordering with a shared utility (bottom-up)",
+            "text": "<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (so C is a shared utility called by both A and B; D is a leaf). Using <em>bottom-up</em> integration, which module should be integrated earliest?</p>",
+            "answers": [
+              {
+                "text": "C \u2014 it is a leaf utility called by both A and B, so it must be available before A or B can be tested with real callees",
+                "fraction": 100,
+                "feedback": "Correct \u2014 bottom-up integrates leaves first, and the shared utility C is needed by both A and B."
+              },
+              {
+                "text": "Main \u2014 because it is the top of the hierarchy",
+                "fraction": 0,
+                "feedback": "Integrating the root first is top-down; bottom-up starts with the leaves."
+              },
+              {
+                "text": "A \u2014 because it appears before B alphabetically",
+                "fraction": 0,
+                "feedback": "A is not a leaf (it calls C); bottom-up integrates the leaf C before A."
+              },
+              {
+                "text": "B \u2014 because it has the most callees",
+                "fraction": 0,
+                "feedback": "B is not a leaf (it calls C and D); its callees must be integrated first."
+              }
+            ],
+            "generalFeedback": "Bottom-up integrates from the leaves up. C and D are the leaves; the shared utility C is called by both A and B, so it should be integrated first (with a driver) before A and B can be integrated against real callees.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Regression during integration",
+            "text": "<p>As each new module is added during incremental integration, the previously passing integration tests are re-run to check that the new module has not broken existing interactions. This activity is called:</p>",
+            "answers": [
+              {
+                "text": "Regression testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 re-running earlier tests after a change guards against newly introduced breakage."
+              },
+              {
+                "text": "Stub replacement",
+                "fraction": 0,
+                "feedback": "Replacing a stub is part of proceeding with integration, not the re-testing of prior interactions."
+              },
+              {
+                "text": "Unit testing",
+                "fraction": 0,
+                "feedback": "Unit testing checks a single module in isolation, not the re-verification of prior integrated interactions."
+              },
+              {
+                "text": "Acceptance testing",
+                "fraction": 0,
+                "feedback": "Acceptance testing validates the finished system against user needs, not the effect of each newly added module."
+              }
+            ],
+            "generalFeedback": "Each newly integrated module can perturb interactions that already worked. Re-running the earlier integration tests to confirm nothing was broken is regression testing \u2014 an ongoing cost of incremental integration.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-down stubs with a shared utility",
+            "text": "<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (C is shared, D is a leaf). Using <em>top-down</em> integration, the integrated set is exactly {Main, A, B}. How many stubs must be in place?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the absent callees are C (called by both A and B, but one stub) and D, giving 2 stubs."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "C is called by both A and B, but it needs only one stub; with D that is 2 stubs, not 3."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Two distinct modules are absent (C and D), so one stub is too few."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Only C and D are absent; Main, A, and B are integrated, so 2 stubs suffice."
+              }
+            ],
+            "generalFeedback": "With integrated set {Main, A, B}, the calls to absent modules are A&#8594;C, B&#8594;C, and B&#8594;D. C needs only a single stub even though two modules call it, so the distinct stubs are for C and D = 2 stubs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottom-up scaffolding when the callee is already integrated",
+            "text": "<p>Consider this call tree: <strong>P calls Q and R; Q calls S; R calls S</strong> (S is a shared leaf). Using <em>bottom-up</em> integration, S has already been integrated and you now integrate <strong>Q</strong>. How much scaffolding does integrating Q require?</p>",
+            "answers": [
+              {
+                "text": "1 driver and 0 stubs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q's caller P is absent (so a driver is needed), but Q's callee S is already integrated (so no stub is needed)."
+              },
+              {
+                "text": "1 driver and 1 stub",
+                "fraction": 0,
+                "feedback": "No stub is needed for S: S is already integrated, so Q can call the real S."
+              },
+              {
+                "text": "0 drivers and 1 stub",
+                "fraction": 0,
+                "feedback": "Bottom-up needs a driver here because Q's caller P is not integrated; and S is real, so no stub."
+              },
+              {
+                "text": "2 drivers and 0 stubs",
+                "fraction": 0,
+                "feedback": "Only Q is under test, so a single driver suffices."
+              }
+            ],
+            "generalFeedback": "Integrating Q bottom-up: its callee S is already integrated, so Q calls the real S (0 stubs). Its caller P is absent, so one driver is written to invoke Q. Total: 1 driver, 0 stubs.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Stub can mask a low-level defect",
+            "text": "<p>In top-down integration, a stub can mask a defect in the real lower-level module because the stub returns simplified, pre-arranged results instead of running the real logic.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 until the stub is replaced by the real module, the actual (possibly buggy) low-level behaviour is never exercised."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Stubs really can hide low-level defects: they return canned values rather than executing the real, possibly faulty, code."
+              }
+            ],
+            "generalFeedback": "A stub is an oversimplified stand-in that returns fixed results. While it substitutes for a real module, that module's genuine logic \u2014 and any defect in it \u2014 is not run, so top-down integration can hide low-level defects until the stub is replaced."
+          },
+          {
+            "type": "truefalse",
+            "name": "Sandwich needs both stubs and drivers",
+            "text": "<p>Sandwich (hybrid) integration requires both stubs and drivers.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 its top-down part uses stubs for lower modules while its bottom-up part uses drivers for the modules under test."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Sandwich combines top-down (stubs) and bottom-up (drivers), so it needs both kinds of scaffolding."
+              }
+            ],
+            "generalFeedback": "Because sandwich integration works top-down on the upper layers (needing stubs for their callees) and bottom-up on the lower layers (needing drivers to call them), it requires both stubs and drivers at once."
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u6574\u5408\u6E2C\u8A66\u6AA2\u67E5\u4EC0\u9EBC",
+            "text": "<p><em>\u6574\u5408\u6E2C\u8A66\uFF08integration testing\uFF09</em>\u7684\u4E3B\u8981\u76EE\u7684\u662F\u63ED\u9732\u4E0B\u5217\u4F55\u8005\u4E2D\u7684\u932F\u8AA4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u7D44\u5408\u5728\u4E00\u8D77\u7684\u5404\u6A21\u7D44\u4E4B\u9593\u7684\u4E92\u52D5\u8207\u4ECB\u9762",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6574\u5408\u6E2C\u8A66\u91DD\u5C0D\u7684\u662F\u5404\u81EA\u958B\u767C\u7684\u6A21\u7D44\u5408\u4F75\u5F8C\u5982\u4F55\u5354\u540C\u904B\u4F5C\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u5B64\u7ACB\u51FD\u5F0F\u7684\u5167\u90E8\u908F\u8F2F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u6E2C\u8A66\uFF1B\u6574\u5408\u6E2C\u8A66\u5047\u8A2D\u55AE\u5143\u5DF2\u53EF\u904B\u4F5C\uFF0C\u8457\u773C\u65BC\u5B83\u5011\u4E4B\u9593\u7684\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u7CFB\u7D71\u5C0D\u7167\u4F7F\u7528\u8005\u9700\u6C42\u7684\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7CFB\u7D71\u6E2C\u8A66\uFF0C\u767C\u751F\u5728\u6574\u5408\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u5728\u9AD8\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\uFF0F\u8CA0\u8F09\u6E2C\u8A66\uFF0C\u5C6C\u975E\u529F\u80FD\u6027\u8B70\u984C\uFF0C\u8207\u6574\u5408\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6574\u5408\u6E2C\u8A66\u9A57\u8B49\u5DF2\u901A\u904E\u55AE\u5143\u6E2C\u8A66\u7684\u6A21\u7D44\u5408\u4F75\u5F8C\u80FD\u5426\u6B63\u78BA\u5354\u4F5C\u2014\u2014\u5B83\u7375\u6355\u7684\u662F\u4ECB\u9762\u8207\u4E92\u52D5\u932F\u8AA4\uFF0C\u800C\u975E\u55AE\u4E00\u55AE\u5143\u5167\u90E8\u7684\u908F\u8F2F\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6574\u5408\u5728\u6E2C\u8A66\u5C64\u7D1A\u4E2D\u7684\u4F4D\u7F6E",
+            "text": "<p>\u5728\u5E38\u898B\u7684\u6E2C\u8A66\u5C64\u7D1A\u9806\u5E8F\u4E2D\uFF0C\u6574\u5408\u6E2C\u8A66\u4F4D\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u4E4B\u5F8C\u3001\u7CFB\u7D71\u6E2C\u8A66\u4E4B\u524D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u6E2C\u55AE\u5143\uFF0C\u518D\u628A\u5B83\u5011\u6574\u5408\u8D77\u4F86\u4E00\u8D77\u6E2C\uFF0C\u6700\u5F8C\u624D\u6E2C\u6574\u500B\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u4E4B\u524D",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u5FC5\u9808\u5148\u901A\u904E\u55AE\u5143\u6E2C\u8A66\uFF0C\u5426\u5247\u4E92\u52D5\u5931\u6557\u5C07\u7121\u6CD5\u8207\u55AE\u5143\u932F\u8AA4\u5340\u5206\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66\u4E4B\u5F8C",
+                "fraction": 0,
+                "feedback": "\u5728\u9019\u4E09\u500B\u5C64\u7D1A\u4E2D\u7CFB\u7D71\u6E2C\u8A66\u662F\u6700\u5F8C\u4E00\u500B\uFF0C\u4E0D\u6703\u5728\u6574\u5408\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u5B83\u5B8C\u5168\u53D6\u4EE3\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6574\u5408\u6E2C\u8A66\u662F\u5C0D\u55AE\u5143\u6E2C\u8A66\u7684\u88DC\u5145\uFF0C\u4E26\u975E\u53D6\u4EE3\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E38\u898B\u6D41\u7A0B\u662F \u55AE\u5143 &#8594; \u6574\u5408 &#8594; \u7CFB\u7D71\u3002\u6574\u5408\u6E2C\u8A66\u5EFA\u7ACB\u5728\u5DF2\u901A\u904E\u55AE\u5143\u6E2C\u8A66\u7684\u6A21\u7D44\u4E4B\u4E0A\uFF0C\u4E26\u5148\u65BC\u7AEF\u5230\u7AEF\u7684\u7CFB\u7D71\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5927\u7206\u70B8\u6574\u5408",
+            "text": "<p><em>\u5927\u7206\u70B8\uFF08big-bang\uFF09</em>\u6574\u5408\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6240\u6709\u6A21\u7D44\u4E00\u6B21\u5168\u90E8\u5408\u4F75\uFF0C\u6574\u500B\u7D44\u5408\u9AD4\u4E00\u8D77\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5927\u7206\u70B8\u5728\u55AE\u4E00\u6B65\u9A5F\u4E2D\u6574\u5408\u6240\u6709\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u5F9E\u968E\u5C64\u9802\u7AEF\u5F80\u4E0B\uFF0C\u4E00\u6B21\u52A0\u5165\u4E00\u500B\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7531\u4E0A\u800C\u4E0B\uFF08top-down\uFF09\u6F38\u9032\u5F0F\u6574\u5408\uFF0C\u4E0D\u662F\u5927\u7206\u70B8\u3002"
+              },
+              {
+                "text": "\u5F9E\u8449\u7BC0\u9EDE\u5F80\u4E0A\uFF0C\u4E00\u6B21\u52A0\u5165\u4E00\u500B\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7531\u4E0B\u800C\u4E0A\uFF08bottom-up\uFF09\u6F38\u9032\u5F0F\u6574\u5408\uFF0C\u4E0D\u662F\u5927\u7206\u70B8\u3002"
+              },
+              {
+                "text": "\u5728\u5408\u4F75\u4E4B\u524D\uFF0C\u5148\u628A\u6BCF\u500B\u6A21\u7D44\u5B8C\u5168\u5B64\u7ACB\u5730\u6E2C\u5B8C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u6E2C\u8A66\uFF1B\u5927\u7206\u70B8\u8B1B\u7684\u662F\u628A\u6240\u6709\u55AE\u5143\u540C\u6642\u5408\u4F75\u3002"
+              }
+            ],
+            "generalFeedback": "\u5927\u7206\u70B8\uFF08\u975E\u6F38\u9032\u5F0F\uFF09\u6574\u5408\u628A\u6240\u6709\u6A21\u7D44\u4E00\u8D77\u7D44\u88DD\u4E26\u7576\u6210\u4E00\u500B\u6574\u9AD4\u6E2C\u8A66\u3002\u5B83\u5E7E\u4E4E\u4E0D\u9700\u8981\u8F14\u52A9\u7A0B\u5F0F\uFF0C\u4F46\u4F7F\u5931\u6557\u5F88\u96E3\u5B9A\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\u6574\u5408",
+            "text": "<p><em>\u7531\u4E0A\u800C\u4E0B\uFF08top-down\uFF09</em>\u6574\u5408\u7684\u9032\u884C\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u547C\u53EB\u968E\u5C64\u9802\u7AEF\u5F80\u4E0B\u6574\u5408\uFF0C\u5C0D\u5C1A\u672A\u6574\u5408\u7684\u8F03\u4F4E\u5C64\u6A21\u7D44\u4F7F\u7528\u6A01\uFF08stub\uFF09\u4EE3\u66FF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9802\u5C64\u63A7\u5236\u6A21\u7D44\u5148\u6574\u5408\uFF0C\u5176\u88AB\u547C\u53EB\u8005\u5728\u6574\u5408\u524D\u4EE5\u6A01\u4EE3\u66FF\u3002"
+              },
+              {
+                "text": "\u5F9E\u8449\u6A21\u7D44\u5F80\u4E0A\u6574\u5408\uFF0C\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F\uFF08driver\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7531\u4E0B\u800C\u4E0A\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u5408\u4F75\u6240\u6709\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5927\u7206\u70B8\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u5728\u6C92\u6709\u5176\u4ED6\u6A21\u7D44\u5B58\u5728\u7684\u60C5\u6CC1\u4E0B\u5B64\u7ACB\u6E2C\u8A66\u6BCF\u500B\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u6E2C\u8A66\uFF0C\u4E26\u975E\u4E00\u7A2E\u6574\u5408\u7B56\u7565\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u6574\u5408\u5F9E\u9802\u7AEF\uFF08\u4E3B\u63A7\u5236\uFF09\u6A21\u7D44\u958B\u59CB\uFF0C\u6CBF\u968E\u5C64\u5F80\u4E0B\u9032\u884C\u3002\u5C1A\u672A\u6574\u5408\u7684\u8F03\u4F4E\u5C64\u6A21\u7D44\u4EE5\u6A01\uFF08stub\uFF09\u4EE3\u8868\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0B\u800C\u4E0A\u6574\u5408",
+            "text": "<p><em>\u7531\u4E0B\u800C\u4E0A\uFF08bottom-up\uFF09</em>\u6574\u5408\u7684\u9032\u884C\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u8449\u6A21\u7D44\u5F80\u4E0A\u6574\u5408\uFF0C\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F\uFF08driver\uFF09\u53BB\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F4E\u5C64\u6A21\u7D44\u5148\u6574\u5408\uFF0C\u7531\u66AB\u6642\u7684\u9A45\u52D5\u7A0B\u5F0F\u4F86\u9A45\u52D5\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5F9E\u9802\u5C64\u63A7\u5236\u6A21\u7D44\u5F80\u4E0B\u6574\u5408\uFF0C\u4F7F\u7528\u6A01\uFF08stub\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7531\u4E0A\u800C\u4E0B\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u540C\u6642\u5408\u4F75\u6240\u6709\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5927\u7206\u70B8\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u628A\u8EDF\u9AD4\u4EA4\u7D66\u7D42\u7AEF\u4F7F\u7528\u8005\u53BB\u627E\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u9A57\u6536\uFF0F\u5BE6\u5730\u6E2C\u8A66\uFF0C\u4E0D\u662F\u7531\u4E0B\u800C\u4E0A\u6574\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u6574\u5408\u5F9E\u6700\u4F4E\u5C64\uFF08\u8449\uFF09\u6A21\u7D44\u958B\u59CB\uFF0C\u6CBF\u968E\u5C64\u5F80\u4E0A\u9032\u884C\u3002\u7531\u65BC\u5B83\u5011\u7684\u547C\u53EB\u8005\u5C1A\u672A\u5B58\u5728\uFF0C\u9700\u5BEB\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB\u6BCF\u500B\u5F85\u6E2C\u6A21\u7D44\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u660E\u6CBB\u6574\u5408",
+            "text": "<p>\u5C0D<em>\u4E09\u660E\u6CBB\uFF08sandwich\uFF0C\u6DF7\u5408\u5F0F\uFF09</em>\u6574\u5408\u6700\u8CBC\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7D50\u5408\u7531\u4E0A\u800C\u4E0B\u8207\u7531\u4E0B\u800C\u4E0A\uFF0C\u540C\u6642\u5F9E\u5169\u7AEF\u5F80\u4E2D\u9593\u9032\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0A\u5C64\u4F7F\u7528\u6A01\u3001\u4E0B\u5C64\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u5169\u8005\u5728\u4E2D\u9593\u6703\u5408\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u5408\u4F75\u6240\u6709\u6A21\u7D44\uFF0C\u4E0D\u7528\u4EFB\u4F55\u6A01\u6216\u9A45\u52D5\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5927\u7206\u70B8\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u56B4\u683C\u7531\u4E0A\u800C\u4E0B\uFF0C\u5B8C\u5168\u6C92\u6709\u7531\u4E0B\u800C\u4E0A\u7684\u6210\u5206",
+                "fraction": 0,
+                "feedback": "\u7D14\u7531\u4E0A\u800C\u4E0B\u4E0D\u662F\u6DF7\u5408\u5F0F\uFF1B\u4E09\u660E\u6CBB\u6DF7\u5408\u4E86\u5169\u500B\u65B9\u5411\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u4E2D\u9593\u5C64\uFF0C\u5FFD\u7565\u9802\u7AEF\u8207\u5E95\u7AEF",
+                "fraction": 0,
+                "feedback": "\u4E09\u660E\u6CBB\u6703\u6574\u5408\u6240\u6709\u5C64\u7D1A\uFF0C\u4E26\u4E0D\u5FFD\u7565\u5169\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E09\u660E\u6CBB\uFF08\u6DF7\u5408\u5F0F\uFF09\u6574\u5408\u540C\u6642\u5C0D\u4E0A\u5C64\u63A1\u7531\u4E0A\u800C\u4E0B\uFF08\u7528\u6A01\uFF09\u3001\u5C0D\u4E0B\u5C64\u63A1\u7531\u4E0B\u800C\u4E0A\uFF08\u7528\u9A45\u52D5\u7A0B\u5F0F\uFF09\uFF0C\u671D\u76EE\u6A19\u4E2D\u9593\u5C64\u6536\u6582\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6A01",
+            "text": "<p>\u6574\u5408\u6E2C\u8A66\u4E2D\u7684<em>\u6A01\uFF08stub\uFF09</em>\u662F\u4E00\u6BB5\u66AB\u6642\u6027\u7A0B\u5F0F\u78BC\uFF0C\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4EE3\u66FF\u5F85\u6E2C\u6A21\u7D44\u6240\u547C\u53EB\u7684\u8F03\u4F4E\u5C64\u6A21\u7D44",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A01\u88AB\u5F85\u6E2C\u6A21\u7D44\u547C\u53EB\uFF0C\u4E26\u56DE\u50B3\u9810\u5148\u5B89\u6392\u597D\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u4EE3\u66FF\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\u7684\u8F03\u9AD8\u5C64\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9A45\u52D5\u7A0B\u5F0F\uFF08driver\uFF09\uFF0C\u4E0D\u662F\u6A01\u3002"
+              },
+              {
+                "text": "\u662F\u67D0\u500B\u88AB\u547C\u53EB\u6A21\u7D44\u7684\u6700\u7D42\u6B63\u5F0F\u7248\u672C",
+                "fraction": 0,
+                "feedback": "\u6A01\u662F\u53EF\u4E1F\u68C4\u7684\u66FF\u8EAB\uFF0C\u4E0D\u662F\u771F\u6B63\u7684\u6A21\u7D44\u3002"
+              },
+              {
+                "text": "\u662F\u523B\u610F\u6CE8\u5165\u7A0B\u5F0F\u78BC\u4E2D\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7A81\u8B8A\u9AD4\uFF0F\u690D\u5165\u7684\u932F\u8AA4\uFF0C\u4E0D\u662F\u6A01\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A01\u4EE3\u66FF\u5C1A\u672A\u6574\u5408\u7684\uFF1A\u5F85\u6E2C\u6A21\u7D44\u547C\u53EB\u5B83\uFF0C\u800C\u5B83\u56DE\u50B3\u7C21\u5316\u3001\u9810\u8A2D\u7684\u503C\u3002\u7531\u4E0A\u800C\u4E0B\u6574\u5408\u9700\u8981\u7684\u6B63\u662F\u6A01\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u9A45\u52D5\u7A0B\u5F0F",
+            "text": "<p>\u6574\u5408\u6E2C\u8A66\u4E2D\u7684<em>\u9A45\u52D5\u7A0B\u5F0F\uFF08driver\uFF09</em>\u662F\u4E00\u6BB5\u66AB\u6642\u6027\u7A0B\u5F0F\u78BC\uFF0C\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4EE3\u66FF\u8F03\u9AD8\u5C64\u6A21\u7D44\uFF0C\u4E26\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A45\u52D5\u7A0B\u5F0F\u662F\u547C\u53EB\u8005\uFF1A\u5B83\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\u4E26\u50B3\u5165\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4EE3\u66FF\u5F85\u6E2C\u6A21\u7D44\u6240\u547C\u53EB\u7684\u8F03\u4F4E\u5C64\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6A01\uFF08stub\uFF09\uFF0C\u4E0D\u662F\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u662F\u4EA4\u4ED8\u7D66\u4F7F\u7528\u8005\u7684\u6B63\u5F0F\u4E3B\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u9A45\u52D5\u7A0B\u5F0F\u662F\u53EF\u4E1F\u68C4\u7684\u6E2C\u8A66\u6846\u67B6\uFF0C\u4E0D\u662F\u771F\u6B63\u7684\u547C\u53EB\u8005\u3002"
+              },
+              {
+                "text": "\u662F\u7528\u4F86\u91CF\u6E2C\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u5DE5\u5177\uFF0C\u8207\u9A45\u52D5\u7A0B\u5F0F\u7684\u89D2\u8272\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A45\u52D5\u7A0B\u5F0F\u4EE3\u66FF\u5C1A\u672A\u6574\u5408\u7684\uFF1A\u5B83\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\u3001\u63D0\u4F9B\u8F38\u5165\u4E26\u6AA2\u67E5\u8F38\u51FA\u3002\u7531\u4E0B\u800C\u4E0A\u6574\u5408\u9700\u8981\u7684\u6B63\u662F\u9A45\u52D5\u7A0B\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4ECB\u9762\u932F\u8AA4",
+            "text": "<p><em>\u4ECB\u9762\uFF08\u6574\u5408\uFF09\u932F\u8AA4</em>\u662F\u4E00\u7A2E\u7F3A\u9677\uFF0C\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E90\u81EA\u5169\u500B\u6A21\u7D44\u5982\u4F55\u6E9D\u901A\u6642\u7684\u932F\u8AA4\u5047\u8A2D\u6216\u4E0D\u5339\u914D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5982\u53C3\u6578\u578B\u5225\uFF0F\u9806\u5E8F\u932F\u8AA4\u3001\u9055\u53CD\u5354\u5B9A\uFF0C\u6216\u5C0D\u5171\u4EAB\u72C0\u614B\u7684\u5047\u8A2D\u4E0D\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u662F\u4FB7\u9650\u65BC\u55AE\u4E00\u6A21\u7D44\u7684\u7D14\u5167\u90E8\u908F\u8F2F\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u5C64\u7D1A\u7684\u932F\u8AA4\uFF1B\u4ECB\u9762\u932F\u8AA4\u95DC\u4E4E\u6A21\u7D44\u4E4B\u9593\u7684\u6E9D\u901A\u3002"
+              },
+              {
+                "text": "\u662F\u4F7F\u7528\u8005\u624B\u518A\u88E1\u7684\u62FC\u5B57\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6587\u4EF6\u7684\u932F\u5B57\u4E0D\u662F\u8EDF\u9AD4\u6A21\u7D44\u4E4B\u9593\u7684\u4ECB\u9762\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u662F CPU \u7684\u786C\u9AD4\u6545\u969C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u786C\u9AD4\u932F\u8AA4\uFF0C\u4E0D\u662F\u8EDF\u9AD4\u4ECB\u9762\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u4ECB\u9762\u932F\u8AA4\u5728\u5DF2\u6574\u5408\u7684\u6A21\u7D44\u4E92\u52D5\u6642\u6D6E\u73FE\uFF1A\u53C3\u6578\u5217\u4E0D\u5339\u914D\u3001\u547C\u53EB\u9806\u5E8F\u932F\u8AA4\u3001\u9055\u53CD\u5354\u5B9A\uFF0F\u6642\u5E8F\uFF0C\u6216\u5C0D\u5171\u4EAB\u8CC7\u6599\u7684\u5047\u8A2D\u4E0D\u4E00\u81F4\u3002\u9019\u4E9B\u6B63\u662F\u6574\u5408\u6E2C\u8A66\u6240\u8981\u7375\u6355\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u7A2E\u7B56\u7565\u9700\u8981\u6A01",
+            "text": "<p>\u54EA\u4E00\u7A2E\u6574\u5408\u7B56\u7565\u5177\u6709\u9700\u8981<strong>\u6A01\uFF08stub\uFF09</strong>\u7684\u7279\u5FB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u4E0A\u800C\u4E0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u4E0A\u800C\u4E0B\u5148\u6574\u5408\u4E0A\u5C64\u6A21\u7D44\uFF0C\u56E0\u6B64\u5176\u5C1A\u672A\u6574\u5408\u7684\u88AB\u547C\u53EB\u8005\u4EE5\u6A01\u4EE3\u66FF\u3002"
+              },
+              {
+                "text": "\u7531\u4E0B\u800C\u4E0A",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u9700\u8981\u7684\u662F\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u4E0D\u662F\u6A01\uFF0C\u56E0\u70BA\u5B83\u5F9E\u8449\u7BC0\u9EDE\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u5927\u7206\u70B8",
+                "fraction": 0,
+                "feedback": "\u5927\u7206\u70B8\u4E00\u6B21\u7D44\u88DD\u6240\u6709\u6771\u897F\uFF0C\u901A\u5E38\u4E0D\u9700\u8981\u9010\u6B65\u7684\u6A01\u3002"
+              },
+              {
+                "text": "\u4EE5\u4E0A\u7686\u4E0D\u4F7F\u7528\u6A01",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0A\u800C\u4E0B\u4EF0\u8CF4\u6A01\uFF0C\u6240\u4EE5\u6B64\u9078\u9805\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u5F9E\u9802\u7AEF\u5F80\u4E0B\u6574\u5408\uFF1B\u4E0A\u5C64\u6A21\u7D44\u6240\u547C\u53EB\u7684\u4E0B\u5C64\u6A21\u7D44\u5C1A\u672A\u5C31\u7DD2\uFF0C\u56E0\u6B64\u4EE5\u6A01\u4EE3\u66FF\u3002\uFF08\u7531\u4E0B\u800C\u4E0A\u5247\u642D\u914D\u9A45\u52D5\u7A0B\u5F0F\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u7A2E\u7B56\u7565\u9700\u8981\u9A45\u52D5\u7A0B\u5F0F",
+            "text": "<p>\u54EA\u4E00\u7A2E\u6574\u5408\u7B56\u7565\u5177\u6709\u9700\u8981<strong>\u9A45\u52D5\u7A0B\u5F0F\uFF08driver\uFF09</strong>\u7684\u7279\u5FB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u4E0B\u800C\u4E0A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u6A21\u7D44\uFF0C\u56E0\u6B64\u9700\u5BEB\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB\u6BCF\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u7531\u4E0A\u800C\u4E0B",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0A\u800C\u4E0B\u9700\u8981\u7684\u662F\u6A01\uFF0C\u4E0D\u662F\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u56E0\u70BA\u5B83\u5F9E\u9802\u5C64\u63A7\u5236\u6A21\u7D44\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u5927\u7206\u70B8",
+                "fraction": 0,
+                "feedback": "\u5927\u7206\u70B8\u4E00\u6B21\u5408\u4F75\u6240\u6709\u6A21\u7D44\uFF0C\u901A\u5E38\u4E0D\u9700\u8981\u9010\u6B65\u7684\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u4EE5\u4E0A\u7686\u4E0D\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u4EF0\u8CF4\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u6240\u4EE5\u6B64\u9078\u9805\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u5F9E\u8449\u7BC0\u9EDE\u5F80\u4E0A\u6574\u5408\uFF1B\u6703\u547C\u53EB\u5B83\u5011\u7684\u8F03\u9AD8\u5C64\u6A21\u7D44\u5C1A\u672A\u5C31\u7DD2\uFF0C\u56E0\u6B64\u9700\u5BEB\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB\u6BCF\u500B\u5F85\u6E2C\u6A21\u7D44\u3002\uFF08\u7531\u4E0A\u800C\u4E0B\u5247\u642D\u914D\u6A01\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6A01\u662F\u88AB\u5F85\u6E2C\u6A21\u7D44\u547C\u53EB\u7684",
+            "text": "<p>\u6A01\u662F<em>\u88AB</em>\u5F85\u6E2C\u6A21\u7D44<em>\u547C\u53EB</em>\u7684\uFF08\u5F85\u6E2C\u6A21\u7D44\u6703\u53BB\u547C\u53EB\u8A72\u6A01\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A01\u662F\u88AB\u547C\u53EB\u8005\u7684\u66FF\u8EAB\uFF0C\u56E0\u6B64\u5F85\u6E2C\u6A21\u7D44\u6703\u547C\u53EB\u5B83\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6A01\u78BA\u5BE6\u4F4D\u65BC\u5F85\u6E2C\u6A21\u7D44\u4E4B\u4E0B\u4E26\u88AB\u5B83\u547C\u53EB\uFF1B\u4F4D\u65BC\u547C\u53EB\u7AEF\u7684\u66FF\u8EAB\u624D\u662F\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u65B9\u5411\u5F88\u91CD\u8981\uFF1A\u6A01\u5728\u4E0B\u65B9\u3001\u88AB\u5F85\u6E2C\u6A21\u7D44\u547C\u53EB\uFF08\u88AB\u547C\u53EB\u8005\u7684\u66FF\u8EAB\uFF09\uFF1B\u9A45\u52D5\u7A0B\u5F0F\u5728\u4E0A\u65B9\u3001\u53BB\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\uFF08\u547C\u53EB\u8005\u7684\u66FF\u8EAB\uFF09\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9A45\u52D5\u7A0B\u5F0F\u662F\u88AB\u5F85\u6E2C\u6A21\u7D44\u547C\u53EB\u7684",
+            "text": "<p>\u9A45\u52D5\u7A0B\u5F0F\u662F<em>\u88AB</em>\u5F85\u6E2C\u6A21\u7D44<em>\u547C\u53EB</em>\u7684\uFF08\u5F85\u6E2C\u6A21\u7D44\u6703\u53BB\u547C\u53EB\u8A72\u9A45\u52D5\u7A0B\u5F0F\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u65B9\u5411\u5F04\u53CD\u4E86\u2014\u2014\u662F\u9A45\u52D5\u7A0B\u5F0F\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\uFF0C\u800C\u975E\u53CD\u904E\u4F86\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A45\u52D5\u7A0B\u5F0F\u662F\u547C\u53EB\u8005\uFF1A\u5B83\u53BB\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\u3002\u88AB\u5F85\u6E2C\u6A21\u7D44\u547C\u53EB\u7684\u6771\u897F\u624D\u662F\u6A01\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A45\u52D5\u7A0B\u5F0F\u4EE3\u66FF\u8F03\u9AD8\u5C64\u7684\u547C\u53EB\u8005\uFF0C\u56E0\u6B64\u5B83\u5F85\u6E2C\u6A21\u7D44\u3002\u53EA\u6709\u6A01\u624D\u662F\u88AB\u5F85\u6E2C\u6A21\u7D44\u547C\u53EB\u7684\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A01\u4EE3\u66FF\u7684\u662F\u4EC0\u9EBC",
+            "text": "<p>\u5728\u6574\u5408\u904E\u7A0B\u4E2D\uFF0C\u6A01\u4EE3\u66FF\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F85\u6E2C\u6A21\u7D44\u6240\u547C\u53EB\u3001\u4F46\u5C1A\u672A\u6574\u5408\u7684\u8F03\u4F4E\u5C64\u6A21\u7D44",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A01\u53D6\u4EE3\u7F3A\u5E2D\u7684\u88AB\u547C\u53EB\u8005\u3002"
+              },
+              {
+                "text": "\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\u3001\u4F46\u5C1A\u672A\u6574\u5408\u7684\u8F03\u9AD8\u5C64\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u500B\u7F3A\u5E2D\u7684\u547C\u53EB\u8005\u7531\u9A45\u52D5\u7A0B\u5F0F\u53D6\u4EE3\uFF0C\u4E0D\u662F\u6A01\u3002"
+              },
+              {
+                "text": "\u5224\u5B9A\u901A\u904E\u6216\u5931\u6557\u7684\u6E2C\u8A66\u8AED\u793A\uFF08oracle\uFF09",
+                "fraction": 0,
+                "feedback": "\u8AED\u793A\u5224\u65B7\u7D50\u679C\uFF0C\u4E26\u4E0D\u662F\u67D0\u500B\u6A21\u7D44\u7684\u66FF\u8EAB\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u7CFB\u7D71\u6240\u4F7F\u7528\u7684\u8CC7\u6599\u5EAB",
+                "fraction": 0,
+                "feedback": "\u6A01\u662F\u88AB\u547C\u53EB\u6A21\u7D44\u7684\u7A0B\u5F0F\u78BC\u66FF\u8EAB\uFF0C\u4E26\u975E\u6CDB\u6307\u8CC7\u6599\u5132\u5B58\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A01\u4EE3\u66FF\u7F3A\u5E2D\u7684\u2014\u2014\u5F85\u6E2C\u6A21\u7D44\u539F\u672C\u6703\u547C\u53EB\u7684\u8F03\u4F4E\u5C64\u6A21\u7D44\u3002\u7531\u4E0A\u800C\u4E0B\u6574\u5408\u5728\u4E0B\u5C64\u5C1A\u672A\u5C31\u7DD2\u6642\u4EF0\u8CF4\u6A01\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A45\u52D5\u7A0B\u5F0F\u4EE3\u66FF\u7684\u662F\u4EC0\u9EBC",
+            "text": "<p>\u5728\u6574\u5408\u904E\u7A0B\u4E2D\uFF0C\u9A45\u52D5\u7A0B\u5F0F\u4EE3\u66FF\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\u3001\u4F46\u5C1A\u672A\u6574\u5408\u7684\u8F03\u9AD8\u5C64\u6A21\u7D44",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A45\u52D5\u7A0B\u5F0F\u53D6\u4EE3\u7F3A\u5E2D\u7684\u547C\u53EB\u8005\u3002"
+              },
+              {
+                "text": "\u5F85\u6E2C\u6A21\u7D44\u6240\u547C\u53EB\u3001\u4F46\u5C1A\u672A\u6574\u5408\u7684\u8F03\u4F4E\u5C64\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u500B\u7F3A\u5E2D\u7684\u88AB\u547C\u53EB\u8005\u7531\u6A01\u53D6\u4EE3\uFF0C\u4E0D\u662F\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u7528\u4F86\u5EFA\u7F6E\u5404\u6A21\u7D44\u7684\u7DE8\u8B6F\u5668",
+                "fraction": 0,
+                "feedback": "\u9A45\u52D5\u7A0B\u5F0F\u662F\u6E2C\u8A66\u6846\u67B6\uFF0C\u4E0D\u662F\u5EFA\u7F6E\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u63D0\u4EA4\u7684\u7F3A\u9677\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u9A45\u52D5\u7A0B\u5F0F\u6240\u4EE3\u66FF\u7684\u5C0D\u8C61\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A45\u52D5\u7A0B\u5F0F\u4EE3\u66FF\u7F3A\u5E2D\u7684\u2014\u2014\u539F\u672C\u6703\u547C\u53EB\u5F85\u6E2C\u6A21\u7D44\u7684\u8F03\u9AD8\u5C64\u6A21\u7D44\u3002\u7531\u4E0B\u800C\u4E0A\u6574\u5408\u5728\u4E0A\u5C64\u5C1A\u672A\u5C31\u7DD2\u6642\u4EF0\u8CF4\u9A45\u52D5\u7A0B\u5F0F\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\u6B65\u9A5F 1 \u7684\u6A01\u2014\u2014\u5169\u500B\u5B50\u7BC0\u9EDE",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>A \u547C\u53EB B \u8207 C</strong>\uFF08A \u662F\u6839\uFF1BB \u8207 C \u662F\u5B83\u50C5\u6709\u7684\u5B50\u7BC0\u9EDE\uFF09\u3002\u4F7F\u7528<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\uFF0C\u6B65\u9A5F 1 \u6574\u5408\u6839 A \u4E26\u5C0D\u5176\u5C1A\u672A\u6574\u5408\u7684\u76F4\u63A5\u5B50\u7BC0\u9EDE\u52A0\u6A01\u3002\u6B65\u9A5F 1 \u9700\u8981\u5E7E\u500B\u6A01\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014A \u76F4\u63A5\u547C\u53EB B \u8207 C\uFF0C\u5169\u8005\u90FD\u8981\u52A0\u6A01\uFF1A2 \u500B\u6A01\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A \u6709\u5169\u500B\u76F4\u63A5\u5B50\u7BC0\u9EDE\uFF08B \u8207 C\uFF09\uFF0C\u4E00\u500B\u6A01\u4E0D\u5920\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 B \u8207 C \u88AB A \u76F4\u63A5\u547C\u53EB\uFF1B\u6C92\u6709\u7B2C\u4E09\u500B\u5B50\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0A\u800C\u4E0B\u6B65\u9A5F 1 \u5FC5\u9808\u5C0D A \u7684\u88AB\u547C\u53EB\u8005\u52A0\u6A01\uFF0C\u800C A \u547C\u53EB\u5169\u500B\u6A21\u7D44\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u6B65\u9A5F 1 \u53EA\u6574\u5408\u6839 A\uFF1BA \u76F4\u63A5\u547C\u53EB\u7684\u6BCF\u500B\u6A21\u7D44\u90FD\u8981\u52A0\u6A01\u3002A \u547C\u53EB B \u8207 C\uFF0C\u6240\u4EE5\u9700\u8981 2 \u500B\u6A01\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\u6B65\u9A5F 1 \u7684\u6A01\u2014\u2014\u4E09\u500B\u5B50\u7BC0\u9EDE",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>M \u547C\u53EB N\u3001O \u8207 P</strong>\uFF08M \u662F\u6839\uFF0C\u6709\u4E09\u500B\u5B50\u7BC0\u9EDE\uFF09\u3002\u4F7F\u7528<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\uFF0C\u6B65\u9A5F 1\uFF08\u53EA\u6574\u5408 M\uFF09\u9700\u8981\u5E7E\u500B\u6A01\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014M \u76F4\u63A5\u547C\u53EB N\u3001O \u8207 P\uFF0C\u4E09\u8005\u90FD\u8981\u52A0\u6A01\uFF1A3 \u500B\u6A01\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "M \u6709\u4E09\u500B\u76F4\u63A5\u5B50\u7BC0\u9EDE\uFF0C\u4E0D\u662F\u4E00\u500B\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u6709\u4E09\u500B\u76F4\u63A5\u5B50\u7BC0\u9EDE\uFF08N\u3001O\u3001P\uFF09\uFF0C\u5169\u500B\u6A01\u592A\u5C11\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "M \u6070\u597D\u547C\u53EB\u4E09\u500B\u6A21\u7D44\uFF1B\u6C92\u6709\u7B2C\u56DB\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u6B65\u9A5F 1 \u6574\u5408 M \u4E26\u5C0D\u5B83\u76F4\u63A5\u547C\u53EB\u7684\u6BCF\u500B\u6A21\u7D44\u52A0\u6A01\u3002M \u547C\u53EB N\u3001O \u8207 P\uFF0C\u6240\u4EE5\u9700\u8981 3 \u500B\u6A01\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0B\u800C\u4E0A\uFF1A\u55AE\u4E00\u8449\u7BC0\u9EDE\u7684\u9A45\u52D5\u7A0B\u5F0F",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>A \u547C\u53EB B \u8207 C\uFF1BB \u547C\u53EB D</strong>\uFF08\u56E0\u6B64 D \u662F\u8449\u7BC0\u9EDE\uFF09\u3002\u4F7F\u7528<em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\uFF0C\u4F60\u5148\u6574\u5408\u8449\u7BC0\u9EDE D\u3002\u6574\u5408 D \u9700\u8981\u5E7E\u500B<strong>\u9A45\u52D5\u7A0B\u5F0F</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014D \u7684\u771F\u6B63\u547C\u53EB\u8005\uFF08B\uFF09\u5C1A\u672A\u6574\u5408\uFF0C\u56E0\u6B64\u9700\u5BEB\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB D\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u5FC5\u9808\u6709\u6771\u897F\u547C\u53EB D\uFF1B\u7531\u65BC B \u5C1A\u672A\u5C31\u7DD2\uFF0C\u9700\u8981\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u500B\u6A21\u7D44\uFF08D\uFF09\u5F85\u6E2C\uFF0C\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u5C31\u5920\u3002"
+              },
+              {
+                "text": "1 \u500B\u6A01",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F\u800C\u975E\u6A01\uFF1B\u4E14 D \u6C92\u6709\u88AB\u547C\u53EB\u8005\u53EF\u52A0\u6A01\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u7BC0\u9EDE\u3002D \u6C92\u6709\u88AB\u547C\u53EB\u8005\uFF08\u4E0D\u9700\u6A01\uFF09\uFF0C\u4F46\u5B83\u7684\u547C\u53EB\u8005 B \u7F3A\u5E2D\uFF0C\u56E0\u6B64\u9700\u5BEB\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB D\uFF1A1 \u500B\u9A45\u52D5\u7A0B\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\uFF1A\u6574\u5408\u4E2D\u9593\u6A21\u7D44\u6642\u7684\u6A01",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>R \u547C\u53EB X \u8207 Y\uFF1BX \u547C\u53EB Z</strong>\u3002\u4F7F\u7528<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\uFF0C\u4F60\u5DF2\u6574\u5408\u4E86 R\uFF0C\u73FE\u5728\u8981\u6574\u5408 <strong>X</strong>\u3002\u9700\u8981\u70BA X \u81EA\u5DF1\u5C1A\u672A\u6574\u5408\u7684\u88AB\u547C\u53EB\u8005\u6E96\u5099\u5E7E\u500B\u6A01\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014X \u53EA\u76F4\u63A5\u547C\u53EB Z\uFF0C\u800C Z \u5C1A\u672A\u6574\u5408\uFF0C\u56E0\u6B64\u9700\u8981\u4E00\u500B\u6A01\uFF08\u7D66 Z\uFF09\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Y \u662F X \u7684\u5144\u5F1F\u7BC0\u9EDE\uFF0C\u4E0D\u662F X \u7684\u88AB\u547C\u53EB\u8005\uFF1BX \u53EA\u547C\u53EB Z\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "X \u547C\u53EB Z\uFF0C\u800C Z \u5C1A\u672A\u6574\u5408\uFF0C\u56E0\u6B64\u9700\u8981\u7D66 Z \u7684\u6A01\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "X \u53EA\u6709\u4E00\u500B\u88AB\u547C\u53EB\u8005\uFF08Z\uFF09\uFF0C\u6C92\u6709\u4E09\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u6574\u5408 X \u6642\uFF0C\u53EA\u9700\u5C0D X \u5C1A\u672A\u6574\u5408\u7684\u76F4\u63A5\u88AB\u547C\u53EB\u8005\u52A0\u6A01\u3002X \u53EA\u547C\u53EB Z\uFF0C\u6240\u4EE5\u9700\u8981 1 \u500B\u6A01\u3002\uFF08Y \u662F R \u7684\u53E6\u4E00\u500B\u5B50\u7BC0\u9EDE\uFF0C\u8207 X \u7684\u88AB\u547C\u53EB\u8005\u7121\u95DC\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0B\u800C\u4E0A\uFF1A\u5169\u500B\u8449\u7BC0\u9EDE\u7684\u9A45\u52D5\u7A0B\u5F0F",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>A \u547C\u53EB B \u8207 C</strong>\uFF0C\u5176\u4E2D B \u8207 C \u90FD\u662F\u8449\u7BC0\u9EDE\u3002\u4F7F\u7528<em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\uFF0C\u4E26\u4E14\u6BCF\u500B\u5F85\u6E2C\u6A21\u7D44\u914D\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u5C07 B \u8207 C \u4F5C\u70BA\u7B2C\u4E00\u6B65\u6574\u5408\u9700\u8981\u5E7E\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u5F85\u6E2C\u6A21\u7D44\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u800C\u6B63\u5728\u6574\u5408\u5169\u500B\u8449\u6A21\u7D44\uFF08B \u8207 C\uFF09\uFF1A2 \u500B\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6709\u5169\u500B\u5404\u81EA\u7368\u7ACB\u7684\u5F85\u6E2C\u6A21\u7D44\uFF1B\u6BCF\u500B\u6A21\u7D44\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u5373\u70BA\u5169\u500B\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u7684\u547C\u53EB\u8005 A \u5C1A\u672A\u6574\u5408\uFF0C\u56E0\u6B64\u9700\u8981\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB B \u8207 C\u3002"
+              },
+              {
+                "text": "2 \u500B\u6A01",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F\u800C\u975E\u6A01\uFF1B\u4E14\u8449\u7BC0\u9EDE B \u8207 C \u6C92\u6709\u88AB\u547C\u53EB\u8005\u53EF\u52A0\u6A01\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u7BC0\u9EDE\u3002B \u8207 C \u662F\u8449\u7BC0\u9EDE\u4E14\u547C\u53EB\u8005 A \u7F3A\u5E2D\uFF0C\u56E0\u6B64\u4EE5\u6BCF\u500B\u5F85\u6E2C\u6A21\u7D44\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u8A08\uFF0C\u9700\u8981 2 \u500B\u9A45\u52D5\u7A0B\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\u5B9A\u4F4D\uFF1A\u6F38\u9032\u5F0F vs \u5927\u7206\u70B8",
+            "text": "<p>\u76F8\u8F03\u65BC\u5927\u7206\u70B8\uFF0C\u6F38\u9032\u5F0F\u6574\u5408\u901A\u5E38\u5E36\u4F86\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u66F4\u597D\u7684\u7F3A\u9677\u5B9A\u4F4D\uFF0C\u56E0\u70BA\u5931\u6557\u6703\u6307\u5411\u65B0\u52A0\u5165\u7684\u6A21\u7D44\u6216\u5176\u4ECB\u9762",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u6B21\u52A0\u5165\u4E00\u500B\u6A21\u7D44\u80FD\u5C07\u65B0\u5931\u6557\u7684\u4F86\u6E90\u5B9A\u4F4D\u3002"
+              },
+              {
+                "text": "\u66F4\u5DEE\u7684\u7F3A\u9677\u5B9A\u4F4D\uFF0C\u56E0\u70BA\u4F7F\u7528\u4E86\u8F03\u591A\u8F14\u52A9\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u984D\u5916\u7684\u6A01\uFF0F\u9A45\u52D5\u7A0B\u5F0F\u4E0D\u6703\u4F7F\u5B9A\u4F4D\u8B8A\u5DEE\uFF1B\u6F38\u9032\u5F0F\u6574\u5408\u53CD\u800C\u6539\u5584\u5B83\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5B9A\u4F4D\u6C92\u6709\u5DEE\u5225",
+                "fraction": 0,
+                "feedback": "\u5DEE\u5225\u5F88\u660E\u986F\uFF1A\u6F38\u9032\u5F0F\u7684\u7F3A\u9677\u5B9A\u4F4D\u9060\u512A\u65BC\u5927\u7206\u70B8\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u6C92\u6709\u4ECB\u9762\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u7B56\u7565\u80FD\u4FDD\u8B49\u4E0D\u5B58\u5728\u932F\u8AA4\uFF1B\u5B83\u53EA\u662F\u8B93\u932F\u8AA4\u66F4\u6613\u5B9A\u4F4D\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u6F38\u9032\u5F0F\u6574\u5408\u4E00\u6B21\u53EA\u52A0\u5165\u4E00\u500B\u6A21\u7D44\uFF0C\u65B0\u7684\u5931\u6557\u6700\u53EF\u80FD\u4F86\u81EA\u525B\u52A0\u5165\u7684\u6A21\u7D44\u6216\u5176\u4ECB\u9762\u2014\u2014\u56E0\u6B64\u6BD4\u4E00\u6B21\u5168\u90E8\u5408\u4F75\u7684\u5927\u7206\u70B8\u5BB9\u6613\u8A31\u591A\u5B9A\u4F4D\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u7A2E\u7B56\u7565\u6700\u65E9\u6E2C\u5230\u9802\u5C64\u63A7\u5236",
+            "text": "<p>\u54EA\u4E00\u7A2E\u7B56\u7565\u6700\u65E9\u6E2C\u5230<strong>\u9802\u5C64\u63A7\u5236\u908F\u8F2F</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u4E0A\u800C\u4E0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u4E0A\u800C\u4E0B\u5148\u6574\u5408\u4E3B\u63A7\u5236\u6A21\u7D44\uFF0C\u56E0\u6B64\u63A7\u5236\u908F\u8F2F\u5F88\u65E9\u88AB\u6E2C\u5230\u3002"
+              },
+              {
+                "text": "\u7531\u4E0B\u800C\u4E0A",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u5148\u6E2C\u8449\u7BC0\u9EDE\uFF1B\u9802\u5C64\u63A7\u5236\u908F\u8F2F\u6700\u5F8C\u624D\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u5927\u7206\u70B8",
+                "fraction": 0,
+                "feedback": "\u5927\u7206\u70B8\u8981\u7B49\u6240\u6709\u6A21\u7D44\u5408\u4F75\u5F8C\u624D\u6E2C\u8A66\u4E00\u5207\uFF0C\u4E26\u975E\u6700\u65E9\u6E2C\u9802\u5C64\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u7B56\u7565\u80FD\u63D0\u65E9\u6E2C\u63A7\u5236\u908F\u8F2F",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0A\u800C\u4E0B\u6B63\u662F\u9760\u5148\u6574\u5408\u9802\u5C64\u6A21\u7D44\u505A\u5230\u9019\u4EF6\u4E8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u5F9E\u4E3B\u63A7\u5236\u6A21\u7D44\u958B\u59CB\uFF0C\u56E0\u6B64\u9AD8\u968E\u63A7\u5236\u6D41\u7A0B\u8207\u91CD\u5927\u8A2D\u8A08\u6C7A\u7B56\u5F88\u65E9\u88AB\u6AA2\u9A57\u2014\u2014\u9019\u662F\u5B83\u7684\u4E3B\u8981\u512A\u9EDE\u4E4B\u4E00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u7A2E\u7B56\u7565\u6700\u65E9\u6E2C\u5230\u8449\u5DE5\u5177\u6A21\u7D44",
+            "text": "<p>\u54EA\u4E00\u7A2E\u7B56\u7565\u6700\u65E9\u6E2C\u5230<strong>\u4F4E\u5C64\u8449\uFF0F\u5DE5\u5177\u6A21\u7D44</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u4E0B\u800C\u4E0A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u6A21\u7D44\uFF0C\u56E0\u6B64\u5DE5\u5177\u6A21\u7D44\u5F88\u65E9\u88AB\u6E2C\u5230\u3002"
+              },
+              {
+                "text": "\u7531\u4E0A\u800C\u4E0B",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0A\u800C\u4E0B\u5148\u6E2C\u9802\u7AEF\uFF1B\u8449\u5DE5\u5177\u6A21\u7D44\u8981\u5230\u5F88\u665A\u624D\u6574\u5408\uFF08\u5728\u6B64\u4E4B\u524D\u53EA\u662F\u88AB\u52A0\u6A01\uFF09\u3002"
+              },
+              {
+                "text": "\u5927\u7206\u70B8",
+                "fraction": 0,
+                "feedback": "\u5927\u7206\u70B8\u8981\u7B49\u6240\u6709\u6A21\u7D44\u5408\u4F75\u5F8C\u624D\u6E2C\u8A66\u4E00\u5207\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u7B56\u7565\u80FD\u63D0\u65E9\u6E2C\u8449\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u6B63\u662F\u9760\u5148\u6574\u5408\u8449\u7BC0\u9EDE\u505A\u5230\u9019\u4EF6\u4E8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u5F9E\u8449\u7BC0\u9EDE\u958B\u59CB\uFF0C\u56E0\u6B64\u4F4E\u5C64\u5DE5\u5177\u6A21\u7D44\u5F88\u65E9\u5C31\u88AB\u5FB9\u5E95\u6AA2\u9A57\u2014\u2014\u7576\u90A3\u4E9B\u5DE5\u5177\u5F88\u8907\u96DC\u6216\u5F88\u95DC\u9375\u6642\u7279\u5225\u6709\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5927\u7206\u70B8\u7684\u5931\u6557\u5B9A\u4F4D",
+            "text": "<p>\u67D0\u5718\u968A\u4E00\u6B21\u6574\u5408\u6240\u6709\u6A21\u7D44\uFF08\u5927\u7206\u70B8\uFF09\uFF0C\u67D0\u500B\u6E2C\u8A66\u5931\u6557\u4E86\u3002\u70BA\u4F55\u8A3A\u65B7\u6B64\u5931\u6557\u901A\u5E38\u5F88\u56F0\u96E3\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u773E\u591A\u540C\u6642\u5408\u4F75\u7684\u4ECB\u9762\u4E2D\u4EFB\u4F55\u4E00\u500B\u90FD\u53EF\u80FD\u662F\u539F\u56E0\uFF0C\u56E0\u6B64\u7F3A\u9677\u5F88\u96E3\u5B9A\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6240\u6709\u6771\u897F\u4E00\u6B21\u5408\u4F75\uFF0C\u7F3A\u9677\u5B9A\u4F4D\u5DEE\u4F7F\u5F97\u539F\u56E0\u96E3\u4EE5\u91D0\u6E05\u3002"
+              },
+              {
+                "text": "\u5927\u7206\u70B8\u4E0D\u6703\u7522\u751F\u4EFB\u4F55\u53EF\u6AA2\u8996\u7684\u6E2C\u8A66\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u6703\u7522\u751F\u8F38\u51FA\uFF1B\u554F\u984C\u5728\u65BC\u96E3\u4EE5\u5B9A\u4F4D\u662F\u54EA\u500B\u4ECB\u9762\u5931\u6557\uFF0C\u800C\u975E\u7F3A\u4E4F\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u6A01\u8207\u9A45\u52D5\u7A0B\u5F0F\u906E\u853D\u4E86\u771F\u6B63\u7684\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u5927\u7206\u70B8\u5E7E\u4E4E\u4E0D\u7528\u8F14\u52A9\u7A0B\u5F0F\uFF1B\u56F0\u96E3\u5728\u65BC\u773E\u591A\u4ECB\u9762\u4E00\u6B21\u5408\u4F75\u3002"
+              },
+              {
+                "text": "\u5927\u7206\u70B8\u6839\u672C\u7121\u6CD5\u5075\u6E2C\u4ECB\u9762\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u5B83\u5075\u6E2C\u5F97\u5230\uFF0C\u53EA\u662F\u4F7F\u932F\u8AA4\u96E3\u4EE5\u5B9A\u4F4D\u3002"
+              }
+            ],
+            "generalFeedback": "\u5927\u7206\u70B8\u628A\u6240\u6709\u6A21\u7D44\u5408\u4F75\u5728\u4E00\u8D77\uFF0C\u56E0\u6B64\u51FA\u73FE\u5931\u6557\u6642\uFF0C\u773E\u591A\u4ECB\u9762\u4E2D\u4EFB\u4F55\u4E00\u500B\u90FD\u53EF\u80FD\u8CA0\u8CAC\u3002\u9019\u7A2E\u7F3A\u9677\u5B9A\u4F4D\u5DEE\u662F\u5927\u7206\u70B8\u7684\u4E3B\u8981\u7F3A\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\u7684\u65E9\u671F\u9AA8\u67B6",
+            "text": "<p><em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\u5E38\u88AB\u63D0\u53CA\u7684\u4E00\u9805\u512A\u9EDE\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7531\u65BC\u5148\u5EFA\u7ACB\u9802\u5C64\u63A7\u5236\u7D50\u69CB\uFF0C\u7CFB\u7D71\u5F88\u65E9\u5C31\u6709\u4E00\u500B\u53EF\u904B\u4F5C\u7684\u9AA8\u67B6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u53EF\u5C55\u793A\u7684\u90E8\u5206\u7A0B\u5F0F\u6703\u63D0\u65E9\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4E0D\u9700\u8981\u4EFB\u4F55\u6A01",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0A\u800C\u4E0B\u5176\u5BE6\u4EF0\u8CF4\u6A01\u4F86\u4EE3\u66FF\u5176\u4E0B\u5C64\u6A21\u7D44\u3002"
+              },
+              {
+                "text": "\u4F4E\u5C64\u5DE5\u5177\u6A21\u7D44\u6703\u6700\u5148\u88AB\u5B8C\u6574\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7531\u4E0B\u800C\u4E0A\u7684\u7279\u5FB5\uFF0C\u4E0D\u662F\u7531\u4E0A\u800C\u4E0B\u3002"
+              },
+              {
+                "text": "\u5B83\u6D88\u9664\u4E86\u4EFB\u4F55\u56DE\u6B78\u6E2C\u8A66\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u96A8\u8457\u6A21\u7D44\u52A0\u5165\u4ECD\u9700\u8981\u56DE\u6B78\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7531\u4E0A\u800C\u4E0B\u5148\u5EFA\u7ACB\u4E0A\u5C64\u63A7\u5236\u7D50\u69CB\uFF0C\u4E00\u500B\u53EF\u5C55\u793A\u7684\u7A0B\u5F0F\u9AA8\u67B6\u6703\u63D0\u65E9\u51FA\u73FE\uFF0C\u8B93\u5229\u5BB3\u95DC\u4FC2\u4EBA\u770B\u5230\u9032\u5EA6\uFF0C\u4E5F\u8B93\u91CD\u5927\u8A2D\u8A08\u932F\u8AA4\u63D0\u65E9\u6D6E\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0B\u800C\u4E0A\u5EF6\u5F8C\u63A7\u5236\u6E2C\u8A66",
+            "text": "<p><em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\u7684\u4E00\u9805\u7F3A\u9EDE\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9802\u5C64\u63A7\u5236\u908F\u8F2F\u8207\u4F7F\u7528\u8005\u4ECB\u9762\u6700\u5F8C\u624D\u6574\u5408\u8207\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9AD8\u968E\u63A7\u5236\u8207 UI \u8B70\u984C\u8F03\u665A\u6D6E\u73FE\uFF0C\u56E0\u6B64\u90A3\u88E1\u7684\u91CD\u5927\u8A2D\u8A08\u932F\u8AA4\u6703\u8F03\u665A\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "\u5B83\u7121\u6CD5\u6E2C\u8A66\u8449\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u6700\u5148\u6E2C\u8449\u6A21\u7D44\uFF1B\u90A3\u662F\u5B83\u7684\u5F37\u9805\u800C\u975E\u5F31\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u9700\u8981\u70BA\u6BCF\u500B\u8449\u7BC0\u9EDE\u6E96\u5099\u6A01",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F\u800C\u975E\u6A01\uFF0C\u4E14\u8449\u7BC0\u9EDE\u6C92\u6709\u88AB\u547C\u53EB\u8005\u53EF\u52A0\u6A01\u3002"
+              },
+              {
+                "text": "\u5B83\u4E00\u6B21\u5408\u4F75\u6240\u6709\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u5927\u7206\u70B8\uFF0C\u4E0D\u662F\u7531\u4E0B\u800C\u4E0A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u7BC0\u9EDE\u3001\u6700\u5F8C\u624D\u662F\u9802\u7AEF\uFF0C\u4E3B\u63A7\u5236\u908F\u8F2F\u8207\u4F7F\u7528\u8005\u4ECB\u9762\u8F03\u665A\u88AB\u6AA2\u9A57\uFF0C\u56E0\u6B64\u90A3\u4E9B\u9802\u5C64\u6A21\u7D44\u4E2D\u56B4\u91CD\u7684\u9AD8\u968E\u8A2D\u8A08\u932F\u8AA4\u53EF\u80FD\u8F03\u665A\u88AB\u767C\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B\u8449\u7BC0\u9EDE\u4E2D\u7684\u7531\u4E0B\u800C\u4E0A\u9A45\u52D5\u7A0B\u5F0F",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>A \u547C\u53EB B\u3001C \u8207 D</strong>\uFF08B\u3001C\u3001D \u90FD\u662F\u8449\u7BC0\u9EDE\uFF09\u3002\u4F7F\u7528<em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\uFF0C<strong>\u53EA\u6574\u5408\u8449\u7BC0\u9EDE B</strong> \u9700\u8981\u5E7E\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u88E1\u53EA\u6709 B \u5F85\u6E2C\uFF0C\u800C\u5B83\u7684\u547C\u53EB\u8005 A \u7F3A\u5E2D\uFF0C\u6240\u4EE5\u9700\u8981\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u53EA\u6574\u5408 B\uFF0C\u4E0D\u6574\u5408 C \u8207 D\uFF0C\u56E0\u6B64\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u5C31\u5920\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "A \u5C1A\u672A\u6574\u5408\uFF0C\u56E0\u6B64\u5FC5\u9808\u6709\u6771\u897F\u547C\u53EB B\u2014\u2014\u9700\u8981\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5F85\u6E2C\u6A21\u7D44\u9700\u8981\u55AE\u4E00\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6574\u5408\u8449\u7BC0\u9EDE B\uFF1AB \u6C92\u6709\u88AB\u547C\u53EB\u8005\uFF08\u4E0D\u9700\u6A01\uFF09\uFF0C\u800C\u5B83\u7684\u547C\u53EB\u8005 A \u7F3A\u5E2D\uFF0C\u56E0\u6B64\u6070\u597D\u9700\u8981 1 \u500B\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\u6B65\u9A5F 1 \u7684\u6A01\uFF08\u542B\u5B6B\u7BC0\u9EDE\uFF09",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>S \u547C\u53EB T \u8207 U\uFF1BT \u547C\u53EB V</strong>\u3002\u4F7F\u7528<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\uFF0C\u6B65\u9A5F 1\uFF08\u53EA\u6574\u5408\u6839 S\uFF09\u9700\u8981\u5E7E\u500B\u6A01\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B65\u9A5F 1 \u53EA\u5C0D S \u7684\u76F4\u63A5\u5B50\u7BC0\u9EDE\uFF08T \u8207 U\uFF09\u52A0\u6A01\uFF1BV \u4E0D\u662F\u88AB S \u76F4\u63A5\u547C\u53EB\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "V \u662F T \u7684\u88AB\u547C\u53EB\u8005\uFF0C\u4E0D\u662F S \u7684\uFF1B\u6B65\u9A5F 1 \u53EA\u5C0D S \u7684\u76F4\u63A5\u5B50\u7BC0\u9EDE\u52A0\u6A01\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "S \u6709\u5169\u500B\u76F4\u63A5\u5B50\u7BC0\u9EDE\uFF08T \u8207 U\uFF09\uFF0C\u4E00\u500B\u6A01\u4E0D\u5920\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u6B65\u9A5F 1 \u5FC5\u9808\u5C0D S \u7684\u76F4\u63A5\u88AB\u547C\u53EB\u8005\u52A0\u6A01\uFF0C\u800C S \u547C\u53EB\u5169\u500B\u6A21\u7D44\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u6B65\u9A5F 1 \u6574\u5408 S \u4E26\u53EA\u5C0D S \u76F4\u63A5\u547C\u53EB\u7684\u6A21\u7D44\u52A0\u6A01\uFF1AT \u8207 U\uFF082 \u500B\u6A01\uFF09\u3002V \u53EA\u80FD\u900F\u904E\u5C1A\u672A\u6574\u5408\u7684 T \u5230\u9054\uFF0C\u56E0\u6B64\u6B65\u9A5F 1 \u4E0D\u5C0D V \u52A0\u6A01\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5927\u7206\u70B8\u7684\u8F14\u52A9\u7A0B\u5F0F\u6210\u672C",
+            "text": "<p>\u4E00\u822C\u800C\u8A00\uFF0C\u5927\u7206\u70B8\u6574\u5408\u6240\u9700\u7684\u66AB\u6642\u6027\u6A01\u8207\u9A45\u52D5\u7A0B\u5F0F\u6BD4\u6F38\u9032\u5F0F\u6574\u5408\u5C11\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5927\u7206\u70B8\u4E00\u6B21\u5408\u4F75\u6240\u6709\u771F\u5BE6\u6A21\u7D44\uFF0C\u56E0\u6B64\u5E7E\u4E4E\u4E0D\u9700\u9010\u6B65\u7684\u8F14\u52A9\u7A0B\u5F0F\uFF1B\u4EE3\u50F9\u662F\u7F3A\u9677\u5B9A\u4F4D\u5DEE\u5F97\u591A\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5927\u7206\u70B8\u78BA\u5BE6\u901A\u5E38\u9700\u8981\u8F03\u5C11\u8F14\u52A9\u7A0B\u5F0F\uFF1B\u5B83\u53EA\u662F\u4EE5\u7F3A\u9677\u5B9A\u4F4D\u5DEE\u4F5C\u70BA\u4EE3\u50F9\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u5927\u7206\u70B8\u628A\u6240\u6709\u771F\u5BE6\u6A21\u7D44\u4E00\u8D77\u7D44\u88DD\uFF0C\u5B83\u7701\u53BB\u4E86\u6F38\u9032\u5F0F\u6574\u5408\u6240\u9700\u7684\u5927\u90E8\u5206\u9010\u6B65\u6A01\u8207\u9A45\u52D5\u7A0B\u5F0F\u3002\u5B83\u7684\u4EE3\u50F9\u5728\u5225\u8655\uFF1A\u4E00\u65E6\u51FA\u932F\uFF0C\u8981\u5B9A\u4F4D\u8CA0\u8CAC\u7684\u4ECB\u9762\u5F88\u56F0\u96E3\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\uFF1A\u67D0\u5B50\u6A39\u5169\u500B\u5B50\u7BC0\u9EDE\u7684\u6A01",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>A \u547C\u53EB B \u8207 C\uFF1BC \u547C\u53EB D \u8207 E</strong>\u3002\u4F7F\u7528<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\uFF0CA \u8207 B \u5DF2\u6574\u5408\uFF0C\u4F60\u73FE\u5728\u8981\u6574\u5408 <strong>C</strong>\u3002\u9700\u8981\u70BA C \u81EA\u5DF1\u5C1A\u672A\u6574\u5408\u7684\u88AB\u547C\u53EB\u8005\u6E96\u5099\u5E7E\u500B\u6A01\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014C \u76F4\u63A5\u547C\u53EB D \u8207 E\uFF0C\u5169\u8005\u90FD\u5C1A\u672A\u6574\u5408\uFF0C\u6240\u4EE5 2 \u500B\u6A01\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "C \u6709\u5169\u500B\u76F4\u63A5\u88AB\u547C\u53EB\u8005\uFF08D \u8207 E\uFF09\uFF0C\u4E00\u500B\u6A01\u592A\u5C11\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "C \u53EA\u547C\u53EB D \u8207 E\uFF1BB \u662F A \u7684\u53E6\u4E00\u500B\u5B50\u7BC0\u9EDE\uFF0C\u4E0D\u662F C \u7684\u88AB\u547C\u53EB\u8005\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "C \u7684\u88AB\u547C\u53EB\u8005 D \u8207 E \u7F3A\u5E2D\uFF0C\u56E0\u6B64\u9700\u8981\u70BA\u5B83\u5011\u52A0\u6A01\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0A\u800C\u4E0B\u6574\u5408 C \u6642\uFF0C\u53EA\u9700\u5C0D C \u5C1A\u672A\u6574\u5408\u7684\u76F4\u63A5\u88AB\u547C\u53EB\u8005\u52A0\u6A01\u3002C \u547C\u53EB D \u8207 E\uFF0C\u6240\u4EE5\u9700\u8981 2 \u500B\u6A01\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0A\u800C\u4E0B\u5728\u591A\u5C64\u67D0\u6B65\u9A5F\u7684\u6A01\u6578",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>A \u547C\u53EB B \u8207 C\uFF1BB \u547C\u53EB D \u8207 E\uFF1BC \u547C\u53EB F</strong>\u3002\u4F7F\u7528<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\uFF0C\u5047\u8A2D\u5DF2\u6574\u5408\u7684\u96C6\u5408\u6070\u70BA {A, B}\u3002\u6B64\u6642\u5FC5\u9808\u5C31\u4F4D\u5E7E\u500B\u6A01\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DF2\u6574\u5408\u6A21\u7D44\u5171\u547C\u53EB\u4E09\u500B\u7F3A\u5E2D\u6A21\u7D44\uFF1AA \u547C\u53EB C\uFF08\u6A01\uFF09\uFF0CB \u547C\u53EB D \u8207 E\uFF08\u5169\u500B\u6A01\uFF09&#8594; 3 \u500B\u6A01\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u5225\u5FD8\u4E86 A \u4ECD\u547C\u53EB C\uFF1A\u9700\u8981\u7D66 C\u3001D\u3001E \u7684\u6A01\u2014\u2014\u5171\u4E09\u500B\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "F \u88AB\u5C1A\u672A\u6574\u5408\u7684 C \u547C\u53EB\uFF0C\u56E0\u6B64\u6B64\u6642\u9084\u4E0D\u52A0 F \u7684\u6A01\uFF1B\u6578\u76EE\u662F 3\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "A \u8207 B \u90FD\u6709\u7F3A\u5E2D\u7684\u88AB\u547C\u53EB\u8005\uFF1B\u9019\u6A23\u7684\u88AB\u547C\u53EB\u8005\u5171\u6709\u4E09\u500B\uFF08C\u3001D\u3001E\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DF2\u6574\u5408\u96C6\u5408\u70BA {A, B} \u6642\uFF0C\u5217\u51FA\u6BCF\u4E00\u689D\u300C\u5F9E\u5DF2\u6574\u5408\u6A21\u7D44\u5230\u672A\u6574\u5408\u6A21\u7D44\u300D\u7684\u547C\u53EB\uFF1AA&#8594;C\u3001B&#8594;D\u3001B&#8594;E\u3002\uFF08A&#8594;B \u662F\u771F\u5BE6\u7684\u3002\uFF09\u4E5F\u5C31\u662F\u7D66 C\u3001D\u3001E \u7684\u6A01\uFF1D3 \u500B\u6A01\u3002F \u4E0D\u52A0\u6A01\uFF0C\u56E0\u70BA\u5B83\u7684\u547C\u53EB\u8005 C \u5C1A\u672A\u6574\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E0B\u800C\u4E0A\uFF1A\u6240\u6709\u8449\u7BC0\u9EDE\u7684\u9A45\u52D5\u7A0B\u5F0F",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>A \u547C\u53EB B \u8207 C\uFF1BB \u547C\u53EB D \u8207 E\uFF1BC \u547C\u53EB F</strong>\u3002\u4F7F\u7528<em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\uFF0C\u4E26\u4E14\u6BCF\u500B\u5F85\u6E2C\u6A21\u7D44\u914D\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u4F5C\u70BA\u7B2C\u4E00\u6B65\u6574\u5408\u6240\u6709\u8449\u6A21\u7D44\u9700\u8981\u5E7E\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8449\u7BC0\u9EDE\u70BA D\u3001E\u3001F\uFF1B\u6BCF\u500B\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u5373\u70BA 3 \u500B\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u6709\u4E09\u500B\u8449\u7BC0\u9EDE\uFF08D\u3001E\u3001F\uFF09\uFF0C\u4E0D\u662F\u5169\u500B\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u7B2C\u4E00\u6B65\u53EA\u6574\u5408\u8449\u6A21\u7D44\uFF1BB \u8207 C \u4E0D\u662F\u8449\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u5C0D\u6BCF\u500B\u5F85\u6E2C\u8449\u7BC0\u9EDE\u914D\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF1B\u6709\u4E09\u500B\u8449\u7BC0\u9EDE\uFF0C\u6240\u4EE5 3 \u500B\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8449\u7BC0\u9EDE\uFF08\u4E0D\u547C\u53EB\u4EFB\u4F55\u6A21\u7D44\u8005\uFF09\u70BA D\u3001E\u3001F\u3002\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u7BC0\u9EDE\uFF0C\u6BCF\u500B\u5F85\u6E2C\u6A21\u7D44\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u56E0\u6B64\u9700\u8981 3 \u500B\u9A45\u52D5\u7A0B\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u660E\u6CBB\u6574\u5408\u9054\u6210\u4EC0\u9EBC",
+            "text": "<p>\u76F8\u8F03\u65BC\u7D14\u7531\u4E0A\u800C\u4E0B\u6216\u7D14\u7531\u4E0B\u800C\u4E0A\uFF0C\u5718\u968A\u70BA\u4F55\u53EF\u80FD\u9078\u64C7<em>\u4E09\u660E\u6CBB</em>\uFF08\u6DF7\u5408\u5F0F\uFF09\u6574\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u8B93\u9AD8\u5C64\u8207\u4F4E\u5C64\u6A21\u7D44\u80FD\u4E26\u884C\u6574\u5408\uFF0C\u7D50\u5408\u7531\u4E0A\u800C\u4E0B\u7684\u65E9\u671F\u63A7\u5236\u6E2C\u8A66\u8207\u7531\u4E0B\u800C\u4E0A\u7684\u65E9\u671F\u5DE5\u5177\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u5169\u7AEF\u540C\u6642\u9032\u884C\u80FD\u517C\u5F97\u5169\u500B\u65B9\u5411\u7684\u597D\u8655\uFF0C\u4E26\u53EF\u7E2E\u77ED\u6642\u7A0B\u3002"
+              },
+              {
+                "text": "\u5B83\u6D88\u9664\u4E86\u5C0D\u6A01\u8207\u9A45\u52D5\u7A0B\u5F0F\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u4E09\u660E\u6CBB\u4F7F\u7528\u6A01\uFF08\u4E0A\u5C64\uFF09\u8207\u9A45\u52D5\u7A0B\u5F0F\uFF08\u4E0B\u5C64\uFF09\u2014\u2014\u5169\u8005\u90FD\u9700\u8981\u3002"
+              },
+              {
+                "text": "\u5B83\u50CF\u5927\u7206\u70B8\u4E00\u6A23\u4E00\u6B21\u6574\u5408\u6240\u6709\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u4E09\u660E\u6CBB\u662F\u5F9E\u5169\u7AEF\u9032\u884C\u7684\u6F38\u9032\u5F0F\uFF0C\u4E0D\u662F\u55AE\u4E00\u7684\u5927\u7206\u70B8\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u4E0D\u6703\u6B98\u7559\u4EFB\u4F55\u4ECB\u9762\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u7B56\u7565\u80FD\u4FDD\u8B49\u4E0D\u5B58\u5728\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E09\u660E\u6CBB\u540C\u6642\u5C0D\u4E0A\u5C64\u63A1\u7531\u4E0A\u800C\u4E0B\uFF08\u6A01\uFF09\u3001\u5C0D\u4E0B\u5C64\u63A1\u7531\u4E0B\u800C\u4E0A\uFF08\u9A45\u52D5\u7A0B\u5F0F\uFF09\uFF0C\u56E0\u6B64\u63A7\u5236\u908F\u8F2F\u8207\u5DE5\u5177\u6A21\u7D44\u90FD\u80FD\u63D0\u65E9\u88AB\u6AA2\u9A57\uFF0C\u4E14\u5169\u908A\u5DE5\u4F5C\u53EF\u4E26\u884C\u9032\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u660E\u6CBB\u6574\u5408\u7684\u5F31\u9EDE",
+            "text": "<p><em>\u4E09\u660E\u6CBB</em>\u6574\u5408\u516C\u8A8D\u7684\u4E00\u9805\u5F31\u9EDE\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5169\u7AEF\u6703\u5408\u8655\u7684\u4E2D\u9593\u5C64\u6A21\u7D44\u53EF\u80FD\u8F03\u7F3A\u4E4F\u5FB9\u5E95\u7684\u5B64\u7ACB\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u65BC\u5169\u7AEF\u90FD\u671D\u4E2D\u9593\u6536\u6582\uFF0C\u8A72\u76EE\u6A19\u5C64\u53EF\u80FD\u672A\u88AB\u5145\u5206\u5730\u5B64\u7ACB\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B83\u7121\u6CD5\u6E2C\u8A66\u9802\u5C64\u63A7\u5236\u908F\u8F2F",
+                "fraction": 0,
+                "feedback": "\u5B83\u7684\u7531\u4E0A\u800C\u4E0B\u90E8\u5206\u5F88\u65E9\u5C31\u6AA2\u9A57\u63A7\u5236\u908F\u8F2F\uFF1B\u90A3\u662F\u512A\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u65E2\u4E0D\u9700\u8981\u6A01\u4E5F\u4E0D\u9700\u8981\u9A45\u52D5\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u4E09\u660E\u6CBB\u5169\u8005\u90FD\u9700\u8981\uFF0C\u6240\u4EE5\u6B64\u6558\u8FF0\u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u5B83\u7684\u7F3A\u9677\u5B9A\u4F4D\u6BD4\u5927\u7206\u70B8\u66F4\u5DEE",
+                "fraction": 0,
+                "feedback": "\u8EAB\u70BA\u6F38\u9032\u5F0F\uFF0C\u4E09\u660E\u6CBB\u7684\u7F3A\u9677\u5B9A\u4F4D\u512A\u65BC\u5927\u7206\u70B8\uFF0C\u800C\u975E\u66F4\u5DEE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7531\u4E0A\u800C\u4E0B\u8207\u7531\u4E0B\u800C\u4E0A\u90FD\u671D\u4E00\u500B\u4E2D\u9593\u76EE\u6A19\u5C64\u6536\u6582\uFF0C\u90A3\u4E9B\u4E2D\u9593\u6A21\u7D44\u53EF\u80FD\u4E3B\u8981\u662F\u4F5C\u70BA\u8F03\u5927\u7D44\u5408\u9AD4\u7684\u4E00\u90E8\u5206\u88AB\u6E2C\uFF0C\u800C\u975E\u5FB9\u5E95\u5730\u5B64\u7ACB\u6E2C\u8A66\u2014\u2014\u9019\u662F\u4E09\u660E\u6CBB\u6CD5\u4E3B\u8981\u53D7\u5230\u7684\u6279\u8A55\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7531\u4E0A\u800C\u4E0B\u53EF\u80FD\u96B1\u85CF\u4F4E\u5C64\u7F3A\u9677",
+            "text": "<p>\u70BA\u4F55<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\u53EF\u80FD\u96B1\u85CF\u5B58\u5728\u65BC\u4F4E\u5C64\u6A21\u7D44\u4E2D\u7684\u7F3A\u9677\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6A01\u56DE\u50B3\u7C21\u5316\u7684\u9810\u8A2D\u7D50\u679C\uFF0C\u56E0\u6B64\u771F\u6B63\u7684\u4F4E\u5C64\u884C\u70BA\uFF08\u53CA\u5176\u932F\u8AA4\uFF09\u8981\u5230\u6A01\u88AB\u66FF\u63DB\u5F8C\u624D\u6703\u88AB\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u904E\u5EA6\u7C21\u5316\u7684\u6A01\u53EF\u80FD\u906E\u853D\u53EA\u6709\u771F\u5BE6\u6A21\u7D44\u624D\u6703\u986F\u73FE\u7684\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u7531\u4E0A\u800C\u4E0B\u6839\u672C\u4E0D\u6703\u57F7\u884C\u4F4E\u5C64\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6700\u7D42\u6703\u88AB\u6574\u5408\uFF1B\u554F\u984C\u5728\u65BC\u6A01\u9577\u6642\u9593\u4EE3\u66FF\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u9A45\u52D5\u7A0B\u5F0F\u6291\u5236\u4E86\u4F4E\u5C64\u6A21\u7D44\u7684\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0A\u800C\u4E0B\u4F7F\u7528\u6A01\u800C\u975E\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u800C\u9019\u88E1\u9020\u6210\u906E\u853D\u7684\u662F\u6A01\uFF0C\u4E0D\u662F\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u4F4E\u5C64\u7F3A\u9677\u6C38\u9060\u662F\u7B49\u50F9\u7684\u3001\u7121\u6CD5\u5075\u6E2C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u4E00\u822C\u7F3A\u9677\uFF1B\u53EA\u662F\u5728\u6A01\u4EE3\u66FF\u771F\u5BE6\u6A21\u7D44\u671F\u9593\u672A\u88AB\u57F7\u884C\u800C\u5DF2\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7531\u4E0A\u800C\u4E0B\u7528\u56DE\u50B3\u9810\u8A2D\u503C\u7684\u6A01\u4F86\u4EE3\u66FF\u4E0B\u5C64\u6A21\u7D44\uFF0C\u771F\u6B63\uFF08\u53EF\u80FD\u6709\u932F\u7684\uFF09\u4F4E\u5C64\u908F\u8F2F\u8981\u5230\u5F88\u665A\u624D\u57F7\u884C\u3002\u904E\u5EA6\u7C21\u5316\u7684\u6A01\u56E0\u6B64\u53EF\u80FD\u906E\u853D\u67D0\u500B\u7F3A\u9677\uFF0C\u76F4\u5230\u771F\u5BE6\u6A21\u7D44\u88AB\u6574\u5408\u5F8C\u624D\u986F\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7531\u4E0B\u800C\u4E0A\u5EF6\u5F8C UI\uFF0F\u63A7\u5236\u6E2C\u8A66",
+            "text": "<p>\u5728<em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\u4E2D\uFF0C\u70BA\u4F55\u4F7F\u7528\u8005\u4ECB\u9762\u6216\u6574\u9AD4\u63A7\u5236\u6D41\u7A0B\u4E2D\u7684\u56B4\u91CD\u7455\u75B5\u53EF\u80FD\u8F03\u665A\u88AB\u767C\u73FE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9802\u5C64\u63A7\u5236\u8207 UI \u6A21\u7D44\u6700\u5F8C\u624D\u6574\u5408\uFF0C\u56E0\u6B64\u5176\u4E2D\u7684\u932F\u8AA4\u8981\u5230\u63A5\u8FD1\u5C3E\u8072\u624D\u6D6E\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u4E0B\u800C\u4E0A\u628A\u9802\u7AEF\u7559\u5230\u6700\u5F8C\uFF0C\u5EF6\u5F8C\u4E86\u9AD8\u968E\u8A2D\u8A08\u932F\u8AA4\u7684\u767C\u73FE\u3002"
+              },
+              {
+                "text": "\u9A45\u52D5\u7A0B\u5F0F\u6C38\u4E45\u53D6\u4EE3\u4E86 UI \u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u9A45\u52D5\u7A0B\u5F0F\u662F\u66AB\u6642\u7684\uFF1B\u91CD\u9EDE\u662F\u771F\u5BE6\u7684 UI\uFF0F\u63A7\u5236\u6A21\u7D44\u8981\u5230\u5F88\u665A\u624D\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u7531\u4E0B\u800C\u4E0A\u5F9E\u4E0D\u6E2C\u8A66\u9802\u5C64\u6A21\u7D44",
+                "fraction": 0,
+                "feedback": "\u5B83\u6703\u6E2C\u8A66\u5B83\u5011\u2014\u2014\u53EA\u662F\u6700\u5F8C\u3001\u5728\u8F03\u4F4E\u5C64\u4E4B\u5F8C\u624D\u6E2C\u3002"
+              },
+              {
+                "text": "UI \u932F\u8AA4\u6C38\u9060\u662F\u4ECB\u9762\u932F\u8AA4\uFF0C\u800C\u7531\u4E0B\u800C\u4E0A\u5FFD\u7565\u5B83\u5011",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u78BA\u5BE6\u6703\u6E2C\u4ECB\u9762\uFF1B\u5EF6\u5F8C\u662F\u56E0\u6574\u5408\u9806\u5E8F\uFF0C\u800C\u975E\u5FFD\u7565\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u7BC0\u9EDE\u3001\u6700\u5F8C\u624D\u662F\u9802\u5C64\u63A7\u5236\uFF0FUI \u6A21\u7D44\uFF0C\u56E0\u6B64\u90A3\u4E9B\u9802\u5C64\u6A21\u7D44\u4E2D\u91CD\u5927\u7684\u9AD8\u968E\u8A2D\u8A08\u6216\u4ECB\u9762\u7455\u75B5\u8981\u5230\u6574\u5408\u6642\u7A0B\u7684\u5F88\u665A\u624D\u88AB\u57F7\u884C\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4ECB\u9762\u932F\u8AA4\uFF1A\u53C3\u6578\u9806\u5E8F",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F<em>\u4ECB\u9762\uFF08\u6574\u5408\uFF09\u932F\u8AA4</em>\u7684\u4F8B\u5B50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6A21\u7D44 A \u4EE5\u547C\u53EB B\uFF0C\u4F46 B \u9810\u671F\u7684\u662F\uFF0C\u56E0\u6B64\u5F15\u6578\u9806\u5E8F\u88AB\u5C0D\u8ABF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DE8\u547C\u53EB\u908A\u754C\u7684\u53C3\u6578\u9806\u5E8F\u4E0D\u5339\u914D\u662F\u5178\u578B\u7684\u4ECB\u9762\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u6A21\u7D44 B \u5167\u90E8\u7684\u8FF4\u5708\u5C11\u8DD1\u4E00\u6B21\uFF08B \u5167\u7684\u5DEE\u4E00\u932F\u8AA4\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4FB7\u9650\u65BC B \u7684\u5167\u90E8\u908F\u8F2F\uFF08\u55AE\u5143\uFF09\u932F\u8AA4\uFF0C\u4E0D\u662F\u4ECB\u9762\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "A \u5167\u90E8\u67D0\u5340\u57DF\u8B8A\u6578\u672A\u521D\u59CB\u5316\uFF0C\u4E14\u5F9E\u672A\u50B3\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F A \u7684\u5167\u90E8\u932F\u8AA4\uFF1B\u8207 A&#8211;B \u4ECB\u9762\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u5373\u4F7F\u4EE5\u6B63\u78BA\u5F15\u6578\u547C\u53EB\uFF0CB \u4ECD\u7B97\u51FA\u932F\u8AA4\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F B \u5167\u90E8\u7684\u908F\u8F2F\u932F\u8AA4\uFF0C\u5C6C\u55AE\u5143\u5C64\u7D1A\uFF0C\u4E0D\u662F\u4ECB\u9762\u4E0D\u5339\u914D\u3002"
+              }
+            ],
+            "generalFeedback": "\u4ECB\u9762\u932F\u8AA4\u767C\u751F\u5728\u6A21\u7D44\u4E4B\u9593\u7684\u908A\u754C\u3002\u4EE5\u932F\u8AA4\u9806\u5E8F\u50B3\u905E\u5F15\u6578\uFF08\u53C3\u6578\u4E0D\u5339\u914D\uFF09\u662F\u8AB2\u672C\u7D1A\u7684\u4F8B\u5B50\u2014\u2014\u5169\u6A21\u7D44\u5C0D\u5982\u4F55\u6E9D\u901A\u7684\u8A8D\u77E5\u4E0D\u4E00\u81F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4ECB\u9762\u932F\u8AA4\uFF1A\u6642\u5E8F\uFF0F\u5354\u5B9A",
+            "text": "<p>\u6A21\u7D44 A \u5728\u6A21\u7D44 B \u5C1A\u672A\u5B8C\u6210\u521D\u59CB\u5316\u524D\u5C31\u628A\u8CC7\u6599\u9001\u7D66 B\uFF0C\u5C0E\u81F4 B \u5076\u723E\u8655\u7406\u5230\u5783\u573E\u8CC7\u6599\u3002\u9019\u6700\u9069\u5408\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6642\u5E8F\uFF0F\u5354\u5B9A\u985E\u7684\u4ECB\u9762\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u6A21\u7D44\u9055\u53CD\u4E86\u5F7C\u6B64\u4E92\u52D5\u7684\u9810\u671F\u9806\u5E8F\uFF0F\u6642\u5E8F\u3002"
+              },
+              {
+                "text": "B \u8A08\u7B97\u5167\u90E8\u7684\u908F\u8F2F\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "B \u7684\u8A08\u7B97\u53EF\u80FD\u6C92\u554F\u984C\uFF1B\u932F\u8AA4\u5728\u65BC A \u4F55\u6642\u8207 B \u4E92\u52D5\u2014\u2014\u4E00\u500B\u4ECB\u9762\u4E0A\u7684\u6642\u5E8F\uFF0F\u5354\u5B9A\u8B70\u984C\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u5668\u6700\u4F73\u5316\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u9019\u95DC\u4E4E\u6A21\u7D44\u4E92\u52D5\u7684\u9806\u5E8F\uFF0C\u8207\u7DE8\u8B6F\u5668\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A81\u8B8A\u6E2C\u8A66\u7684\u6982\u5FF5\uFF0C\u8207\u6574\u5408\u6642\u5E8F\u932F\u8AA4\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6A21\u7D44\u5C0D\u4EA4\u63DB\u7684\u9806\u5E8F\u6216\u6642\u5E8F\u8A8D\u77E5\u4E0D\u4E00\u81F4\u2014\u2014\u5728\u5C0D\u65B9\u5C1A\u672A\u5C31\u7DD2\u524D\u5C31\u767C\u9001\u2014\u2014\u7F3A\u9677\u4FBF\u843D\u5728\u4ECB\u9762\u4E0A\uFF1A\u4E00\u500B\u5354\u5B9A\uFF0F\u6642\u5E8F\u4ECB\u9762\u932F\u8AA4\uFF0C\u6B63\u662F\u6574\u5408\u6E2C\u8A66\u6240\u91DD\u5C0D\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4ECB\u9762\u932F\u8AA4\uFF1A\u5171\u4EAB\u72C0\u614B",
+            "text": "<p>\u6A21\u7D44 A \u8207 B \u90FD\u8B80\u5BEB\u4E00\u500B\u5171\u4EAB\u7684\u5168\u57DF\u8A08\u6578\u5668\uFF0C\u5404\u81EA\u90FD\u5047\u8A2D\u53EA\u6709\u81EA\u5DF1\u6703\u4FEE\u6539\u5B83\uFF0C\u7D50\u679C\u5F7C\u6B64\u7834\u58DE\u4E86\u5C0D\u65B9\u7684\u503C\u3002\u9019\u6700\u9069\u5408\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E90\u81EA\u5C0D\u5171\u4EAB\u72C0\u614B\u4E0D\u4E00\u81F4\u5047\u8A2D\u7684\u4ECB\u9762\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u6A21\u7D44\u900F\u904E\u5171\u4EAB\u8CC7\u6599\u4E92\u52D5\u4E14\u5047\u8A2D\u4E92\u76F8\u885D\u7A81\uFF0C\u5C6C\u4ECB\u9762\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u53EA\u5728 A \u5167\u90E8\u7684\u7D14\u55AE\u5143\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u6E90\u81EA A \u8207 B \u900F\u904E\u5171\u4EAB\u8CC7\u6599\u4E92\u52D5\uFF0C\u800C\u975E A \u55AE\u7368\u9020\u6210\u3002"
+              },
+              {
+                "text": "\u6548\u80FD\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u662F\u5171\u4EAB\u72C0\u614B\u885D\u7A81\u5C0E\u81F4\u7684\u932F\u8AA4\u7D50\u679C\uFF0C\u800C\u975E\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u6587\u4EF6\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u5728\u65BC\u7A0B\u5F0F\u78BC\u7684\u5171\u4EAB\u72C0\u614B\u4E92\u52D5\uFF0C\u800C\u975E\u6587\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5171\u4EAB\u72C0\u614B\uFF08\u5171\u4EAB\u8CC7\u6599\uFF09\u932F\u8AA4\u767C\u751F\u5728\u5DF2\u6574\u5408\u7684\u6A21\u7D44\u5C0D\u5168\u57DF\u6216\u5171\u4EAB\u8B8A\u6578\u505A\u51FA\u4E0D\u4E00\u81F4\u5047\u8A2D\u6642\u3002\u7F3A\u9677\u5B58\u5728\u65BC\u6A21\u7D44\u5982\u4F55\u4E92\u52D5\u4E4B\u4E2D\uFF0C\u56E0\u6B64\u5C6C\u4ECB\u9762\uFF0F\u6574\u5408\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u542B\u5171\u4EAB\u5DE5\u5177\u6A21\u7D44\u7684\u6574\u5408\u9806\u5E8F\uFF08\u7531\u4E0B\u800C\u4E0A\uFF09",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u76F8\u4F9D\u5716\uFF1A<strong>Main \u547C\u53EB A \u8207 B\uFF1BA \u547C\u53EB C\uFF1BB \u547C\u53EB C \u8207 D</strong>\uFF08\u56E0\u6B64 C \u662F\u88AB A \u8207 B \u5171\u540C\u547C\u53EB\u7684\u5171\u4EAB\u5DE5\u5177\uFF1BD \u662F\u8449\u7BC0\u9EDE\uFF09\u3002\u4F7F\u7528<em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\uFF0C\u61C9\u6700\u65E9\u6574\u5408\u54EA\u500B\u6A21\u7D44\uFF1F</p>",
+            "answers": [
+              {
+                "text": "C\u2014\u2014\u5B83\u662F\u88AB A \u8207 B \u5171\u540C\u547C\u53EB\u7684\u8449\u5DE5\u5177\uFF0C\u56E0\u6B64\u5FC5\u9808\u5728 A \u6216 B \u80FD\u4EE5\u771F\u5BE6\u88AB\u547C\u53EB\u8005\u53D7\u6E2C\u4E4B\u524D\u5C31\u5148\u5C31\u7DD2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u4E0B\u800C\u4E0A\u5148\u6574\u5408\u8449\u7BC0\u9EDE\uFF0C\u800C\u5171\u4EAB\u5DE5\u5177 C \u70BA A \u8207 B \u5169\u8005\u6240\u9700\u3002"
+              },
+              {
+                "text": "Main\u2014\u2014\u56E0\u70BA\u5B83\u662F\u968E\u5C64\u7684\u9802\u7AEF",
+                "fraction": 0,
+                "feedback": "\u5148\u6574\u5408\u6839\u662F\u7531\u4E0A\u800C\u4E0B\uFF1B\u7531\u4E0B\u800C\u4E0A\u5F9E\u8449\u7BC0\u9EDE\u958B\u59CB\u3002"
+              },
+              {
+                "text": "A\u2014\u2014\u56E0\u70BA\u5B83\u5728\u5B57\u6BCD\u9806\u5E8F\u4E0A\u6392\u5728 B \u4E4B\u524D",
+                "fraction": 0,
+                "feedback": "A \u4E0D\u662F\u8449\u7BC0\u9EDE\uFF08\u5B83\u547C\u53EB C\uFF09\uFF1B\u7531\u4E0B\u800C\u4E0A\u6703\u5728 A \u4E4B\u524D\u5148\u6574\u5408\u8449\u7BC0\u9EDE C\u3002"
+              },
+              {
+                "text": "B\u2014\u2014\u56E0\u70BA\u5B83\u7684\u88AB\u547C\u53EB\u8005\u6700\u591A",
+                "fraction": 0,
+                "feedback": "B \u4E0D\u662F\u8449\u7BC0\u9EDE\uFF08\u5B83\u547C\u53EB C \u8207 D\uFF09\uFF1B\u5B83\u7684\u88AB\u547C\u53EB\u8005\u5FC5\u9808\u5148\u88AB\u6574\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u5F9E\u8449\u7BC0\u9EDE\u5F80\u4E0A\u6574\u5408\u3002C \u8207 D \u662F\u8449\u7BC0\u9EDE\uFF1B\u5171\u4EAB\u5DE5\u5177 C \u88AB A \u8207 B \u5171\u540C\u547C\u53EB\uFF0C\u56E0\u6B64\u61C9\u6700\u5148\u6574\u5408\uFF08\u914D\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\uFF09\uFF0CA \u8207 B \u624D\u80FD\u5C0D\u7167\u771F\u5BE6\u88AB\u547C\u53EB\u8005\u88AB\u6574\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6574\u5408\u671F\u9593\u7684\u56DE\u6B78",
+            "text": "<p>\u5728\u6F38\u9032\u5F0F\u6574\u5408\u4E2D\uFF0C\u6BCF\u52A0\u5165\u4E00\u500B\u65B0\u6A21\u7D44\u6642\uFF0C\u5C31\u91CD\u65B0\u57F7\u884C\u5148\u524D\u5DF2\u901A\u904E\u7684\u6574\u5408\u6E2C\u8A66\uFF0C\u4EE5\u6AA2\u67E5\u65B0\u6A21\u7D44\u6C92\u6709\u7834\u58DE\u65E2\u6709\u4E92\u52D5\u3002\u9019\u9805\u6D3B\u52D5\u7A31\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u56DE\u6B78\u6E2C\u8A66\uFF08regression testing\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u8B8A\u66F4\u5F8C\u91CD\u8DD1\u5148\u524D\u7684\u6E2C\u8A66\uFF0C\u4EE5\u9632\u7BC4\u65B0\u5F15\u5165\u7684\u7834\u58DE\u3002"
+              },
+              {
+                "text": "\u66FF\u63DB\u6A01",
+                "fraction": 0,
+                "feedback": "\u66FF\u63DB\u6A01\u662F\u6574\u5408\u63A8\u9032\u7684\u4E00\u90E8\u5206\uFF0C\u4E0D\u662F\u5C0D\u5148\u524D\u4E92\u52D5\u7684\u91CD\u65B0\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u5B64\u7ACB\u5730\u6AA2\u67E5\u55AE\u4E00\u6A21\u7D44\uFF0C\u4E0D\u662F\u5C0D\u5148\u524D\u5DF2\u6574\u5408\u4E92\u52D5\u7684\u518D\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\u5C0D\u7167\u4F7F\u7528\u8005\u9700\u6C42\u9A57\u8B49\u5B8C\u6210\u7684\u7CFB\u7D71\uFF0C\u800C\u975E\u6BCF\u500B\u65B0\u52A0\u5165\u6A21\u7D44\u7684\u5F71\u97FF\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u65B0\u6574\u5408\u7684\u6A21\u7D44\u90FD\u53EF\u80FD\u64FE\u52D5\u539F\u672C\u53EF\u904B\u4F5C\u7684\u4E92\u52D5\u3002\u91CD\u8DD1\u5148\u524D\u7684\u6574\u5408\u6E2C\u8A66\u4EE5\u78BA\u8A8D\u6C92\u6709\u6771\u897F\u88AB\u7834\u58DE\uFF0C\u5C31\u662F\u56DE\u6B78\u6E2C\u8A66\u2014\u2014\u6F38\u9032\u5F0F\u6574\u5408\u7684\u4E00\u9805\u6301\u7E8C\u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u542B\u5171\u4EAB\u5DE5\u5177\u6A21\u7D44\u7684\u7531\u4E0A\u800C\u4E0B\u6A01\u6578",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u76F8\u4F9D\u5716\uFF1A<strong>Main \u547C\u53EB A \u8207 B\uFF1BA \u547C\u53EB C\uFF1BB \u547C\u53EB C \u8207 D</strong>\uFF08C \u70BA\u5171\u4EAB\uFF0CD \u70BA\u8449\u7BC0\u9EDE\uFF09\u3002\u4F7F\u7528<em>\u7531\u4E0A\u800C\u4E0B</em>\u6574\u5408\uFF0C\u5DF2\u6574\u5408\u7684\u96C6\u5408\u6070\u70BA {Main, A, B}\u3002\u5FC5\u9808\u5C31\u4F4D\u5E7E\u500B\u6A01\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u5E2D\u7684\u88AB\u547C\u53EB\u8005\u662F C\uFF08\u88AB A \u8207 B \u5171\u540C\u547C\u53EB\uFF0C\u4F46\u53EA\u9700\u4E00\u500B\u6A01\uFF09\u8207 D\uFF0C\u5171 2 \u500B\u6A01\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "C \u96D6\u88AB A \u8207 B \u5171\u540C\u547C\u53EB\uFF0C\u4F46\u53EA\u9700\u4E00\u500B\u6A01\uFF1B\u9023\u540C D \u662F 2 \u500B\u6A01\uFF0C\u4E0D\u662F 3\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6709\u5169\u500B\u76F8\u7570\u6A21\u7D44\u7F3A\u5E2D\uFF08C \u8207 D\uFF09\uFF0C\u4E00\u500B\u6A01\u592A\u5C11\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 C \u8207 D \u7F3A\u5E2D\uFF1BMain\u3001A\u3001B \u5DF2\u6574\u5408\uFF0C\u6240\u4EE5 2 \u500B\u6A01\u5C31\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DF2\u6574\u5408\u96C6\u5408\u70BA {Main, A, B} \u6642\uFF0C\u6307\u5411\u7F3A\u5E2D\u6A21\u7D44\u7684\u547C\u53EB\u70BA A&#8594;C\u3001B&#8594;C \u8207 B&#8594;D\u3002C \u5373\u4F7F\u6709\u5169\u500B\u6A21\u7D44\u547C\u53EB\u5B83\u4E5F\u53EA\u9700\u55AE\u4E00\u6A01\uFF0C\u56E0\u6B64\u76F8\u7570\u7684\u6A01\u662F\u7D66 C \u8207 D\uFF1D2 \u500B\u6A01\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88AB\u547C\u53EB\u8005\u5DF2\u6574\u5408\u6642\u7684\u7531\u4E0B\u800C\u4E0A\u8F14\u52A9\u7A0B\u5F0F",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u547C\u53EB\u6A39\uFF1A<strong>P \u547C\u53EB Q \u8207 R\uFF1BQ \u547C\u53EB S\uFF1BR \u547C\u53EB S</strong>\uFF08S \u662F\u5171\u4EAB\u8449\u7BC0\u9EDE\uFF09\u3002\u4F7F\u7528<em>\u7531\u4E0B\u800C\u4E0A</em>\u6574\u5408\uFF0CS \u5DF2\u88AB\u6574\u5408\uFF0C\u4F60\u73FE\u5728\u8981\u6574\u5408 <strong>Q</strong>\u3002\u6574\u5408 Q \u9700\u8981\u591A\u5C11\u8F14\u52A9\u7A0B\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1 \u500B\u9A45\u52D5\u7A0B\u5F0F\u30010 \u500B\u6A01",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q \u7684\u547C\u53EB\u8005 P \u7F3A\u5E2D\uFF08\u9700\u8981\u9A45\u52D5\u7A0B\u5F0F\uFF09\uFF0C\u4F46 Q \u7684\u88AB\u547C\u53EB\u8005 S \u5DF2\u6574\u5408\uFF08\u4E0D\u9700\u6A01\uFF09\u3002"
+              },
+              {
+                "text": "1 \u500B\u9A45\u52D5\u7A0B\u5F0F\u30011 \u500B\u6A01",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u8981\u7D66 S \u7684\u6A01\uFF1AS \u5DF2\u6574\u5408\uFF0CQ \u53EF\u547C\u53EB\u771F\u5BE6\u7684 S\u3002"
+              },
+              {
+                "text": "0 \u500B\u9A45\u52D5\u7A0B\u5F0F\u30011 \u500B\u6A01",
+                "fraction": 0,
+                "feedback": "\u7531\u4E0B\u800C\u4E0A\u6B64\u8655\u9700\u8981\u9A45\u52D5\u7A0B\u5F0F\uFF0C\u56E0\u70BA Q \u7684\u547C\u53EB\u8005 P \u5C1A\u672A\u6574\u5408\uFF1B\u800C S \u662F\u771F\u5BE6\u7684\uFF0C\u6240\u4EE5\u4E0D\u9700\u6A01\u3002"
+              },
+              {
+                "text": "2 \u500B\u9A45\u52D5\u7A0B\u5F0F\u30010 \u500B\u6A01",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 Q \u5F85\u6E2C\uFF0C\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u5C31\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u4E0B\u800C\u4E0A\u6574\u5408 Q\uFF1A\u5B83\u7684\u88AB\u547C\u53EB\u8005 S \u5DF2\u6574\u5408\uFF0C\u56E0\u6B64 Q \u547C\u53EB\u771F\u5BE6\u7684 S\uFF080 \u500B\u6A01\uFF09\u3002\u5B83\u7684\u547C\u53EB\u8005 P \u7F3A\u5E2D\uFF0C\u56E0\u6B64\u5BEB\u4E00\u500B\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB Q\u3002\u5408\u8A08\uFF1A1 \u500B\u9A45\u52D5\u7A0B\u5F0F\u30010 \u500B\u6A01\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6A01\u53EF\u80FD\u906E\u853D\u4F4E\u5C64\u7F3A\u9677",
+            "text": "<p>\u5728\u7531\u4E0A\u800C\u4E0B\u6574\u5408\u4E2D\uFF0C\u6A01\u53EF\u80FD\u906E\u853D\u771F\u5BE6\u4F4E\u5C64\u6A21\u7D44\u4E2D\u7684\u7F3A\u9677\uFF0C\u56E0\u70BA\u6A01\u56DE\u50B3\u7684\u662F\u7C21\u5316\u3001\u9810\u5148\u5B89\u6392\u597D\u7684\u7D50\u679C\uFF0C\u800C\u975E\u57F7\u884C\u771F\u5BE6\u908F\u8F2F\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u6A01\u88AB\u771F\u5BE6\u6A21\u7D44\u66FF\u63DB\u4E4B\u524D\uFF0C\u771F\u6B63\uFF08\u53EF\u80FD\u6709\u932F\u7684\uFF09\u4F4E\u5C64\u884C\u70BA\u5F9E\u672A\u88AB\u57F7\u884C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6A01\u78BA\u5BE6\u53EF\u80FD\u96B1\u85CF\u4F4E\u5C64\u7F3A\u9677\uFF1A\u5B83\u56DE\u50B3\u9810\u8A2D\u503C\uFF0C\u800C\u975E\u57F7\u884C\u771F\u5BE6\u3001\u53EF\u80FD\u6709\u932F\u7684\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A01\u662F\u56DE\u50B3\u56FA\u5B9A\u7D50\u679C\u7684\u904E\u5EA6\u7C21\u5316\u66FF\u8EAB\u3002\u7576\u5B83\u4EE3\u66FF\u771F\u5BE6\u6A21\u7D44\u6642\uFF0C\u8A72\u6A21\u7D44\u771F\u6B63\u7684\u908F\u8F2F\u2014\u2014\u4EE5\u53CA\u5176\u4E2D\u4EFB\u4F55\u7F3A\u9677\u2014\u2014\u90FD\u4E0D\u6703\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u7531\u4E0A\u800C\u4E0B\u6574\u5408\u53EF\u80FD\u96B1\u85CF\u4F4E\u5C64\u7F3A\u9677\uFF0C\u76F4\u5230\u6A01\u88AB\u66FF\u63DB\u70BA\u6B62\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4E09\u660E\u6CBB\u540C\u6642\u9700\u8981\u6A01\u8207\u9A45\u52D5\u7A0B\u5F0F",
+            "text": "<p>\u4E09\u660E\u6CBB\uFF08\u6DF7\u5408\u5F0F\uFF09\u6574\u5408\u540C\u6642\u9700\u8981\u6A01\u8207\u9A45\u52D5\u7A0B\u5F0F\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u7684\u7531\u4E0A\u800C\u4E0B\u90E8\u5206\u70BA\u4E0B\u5C64\u6A21\u7D44\u4F7F\u7528\u6A01\uFF0C\u7531\u4E0B\u800C\u4E0A\u90E8\u5206\u70BA\u5F85\u6E2C\u6A21\u7D44\u4F7F\u7528\u9A45\u52D5\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4E09\u660E\u6CBB\u7D50\u5408\u7531\u4E0A\u800C\u4E0B\uFF08\u6A01\uFF09\u8207\u7531\u4E0B\u800C\u4E0A\uFF08\u9A45\u52D5\u7A0B\u5F0F\uFF09\uFF0C\u56E0\u6B64\u5169\u7A2E\u8F14\u52A9\u7A0B\u5F0F\u90FD\u9700\u8981\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u4E09\u660E\u6CBB\u6574\u5408\u5C0D\u4E0A\u5C64\u63A1\u7531\u4E0A\u800C\u4E0B\uFF08\u9700\u70BA\u5176\u88AB\u547C\u53EB\u8005\u52A0\u6A01\uFF09\u3001\u5C0D\u4E0B\u5C64\u63A1\u7531\u4E0B\u800C\u4E0A\uFF08\u9700\u8981\u9A45\u52D5\u7A0B\u5F0F\u4F86\u547C\u53EB\u5B83\u5011\uFF09\uFF0C\u56E0\u6B64\u540C\u6642\u9700\u8981\u6A01\u8207\u9A45\u52D5\u7A0B\u5F0F\u3002"
+          }
+        ]
+      }
+    },
     "logic-active-clause": {
       "en": {
         "easy": [

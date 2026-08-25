@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Integration Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>整合測試檢查什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>整合測試（integration testing）</em>的主要目的是揭露下列何者中的錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被組合在一起的各模組之間的互動與介面</text><feedback><text>正確——整合測試針對的是各自開發的模組合併後如何協同運作。</text></feedback></answer>
+    <answer fraction="0"><text>單一孤立函式的內部邏輯</text><feedback><text>那是單元測試；整合測試假設單元已可運作，著眼於它們之間的互動。</text></feedback></answer>
+    <answer fraction="0"><text>整個系統對照使用者需求的行為</text><feedback><text>那是系統測試，發生在整合之後。</text></feedback></answer>
+    <answer fraction="0"><text>程式在高負載下的回應時間</text><feedback><text>那是效能／負載測試，屬非功能性議題，與整合無關。</text></feedback></answer>
+    <generalfeedback><text>整合測試驗證已通過單元測試的模組合併後能否正確協作——它獵捕的是介面與互動錯誤，而非單一單元內部的邏輯錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整合在測試層級中的位置</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在常見的測試層級順序中，整合測試位於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試之後、系統測試之前</text><feedback><text>正確——先測單元，再把它們整合起來一起測，最後才測整個系統。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試之前</text><feedback><text>單元必須先通過單元測試，否則互動失敗將無法與單元錯誤區分。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試之後</text><feedback><text>在這三個層級中系統測試是最後一個，不會在整合之前。</text></feedback></answer>
+    <answer fraction="0"><text>它完全取代單元測試</text><feedback><text>整合測試是對單元測試的補充，並非取代。</text></feedback></answer>
+    <generalfeedback><text>常見流程是 單元 &#8594; 整合 &#8594; 系統。整合測試建立在已通過單元測試的模組之上，並先於端到端的系統測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>大爆炸整合</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>大爆炸（big-bang）</em>整合的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有模組一次全部合併，整個組合體一起測試</text><feedback><text>正確——大爆炸在單一步驟中整合所有東西。</text></feedback></answer>
+    <answer fraction="0"><text>從階層頂端往下，一次加入一個模組</text><feedback><text>那是由上而下（top-down）漸進式整合，不是大爆炸。</text></feedback></answer>
+    <answer fraction="0"><text>從葉節點往上，一次加入一個模組</text><feedback><text>那是由下而上（bottom-up）漸進式整合，不是大爆炸。</text></feedback></answer>
+    <answer fraction="0"><text>在合併之前，先把每個模組完全孤立地測完</text><feedback><text>那是單元測試；大爆炸講的是把所有單元同時合併。</text></feedback></answer>
+    <generalfeedback><text>大爆炸（非漸進式）整合把所有模組一起組裝並當成一個整體測試。它幾乎不需要輔助程式，但使失敗很難定位。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下整合</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>由上而下（top-down）</em>整合的進行方式是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從呼叫階層頂端往下整合，對尚未整合的較低層模組使用樁（stub）代替</text><feedback><text>正確——頂層控制模組先整合，其被呼叫者在整合前以樁代替。</text></feedback></answer>
+    <answer fraction="0"><text>從葉模組往上整合，使用驅動程式（driver）</text><feedback><text>那是由下而上整合。</text></feedback></answer>
+    <answer fraction="0"><text>一次合併所有模組</text><feedback><text>那是大爆炸整合。</text></feedback></answer>
+    <answer fraction="0"><text>在沒有其他模組存在的情況下孤立測試每個模組</text><feedback><text>那是單元測試，並非一種整合策略。</text></feedback></answer>
+    <generalfeedback><text>由上而下整合從頂端（主控制）模組開始，沿階層往下進行。尚未整合的較低層模組以樁（stub）代表。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由下而上整合</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>由下而上（bottom-up）</em>整合的進行方式是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從葉模組往上整合，使用驅動程式（driver）去呼叫待測模組</text><feedback><text>正確——低層模組先整合，由暫時的驅動程式來驅動它們。</text></feedback></answer>
+    <answer fraction="0"><text>從頂層控制模組往下整合，使用樁（stub）</text><feedback><text>那是由上而下整合。</text></feedback></answer>
+    <answer fraction="0"><text>同時合併所有模組</text><feedback><text>那是大爆炸整合。</text></feedback></answer>
+    <answer fraction="0"><text>把軟體交給終端使用者去找錯誤</text><feedback><text>那較接近驗收／實地測試，不是由下而上整合。</text></feedback></answer>
+    <generalfeedback><text>由下而上整合從最低層（葉）模組開始，沿階層往上進行。由於它們的呼叫者尚未存在，需寫一個驅動程式來呼叫每個待測模組。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三明治整合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對<em>三明治（sandwich，混合式）</em>整合最貼切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>結合由上而下與由下而上，同時從兩端往中間進行</text><feedback><text>正確——上層使用樁、下層使用驅動程式，兩者在中間會合。</text></feedback></answer>
+    <answer fraction="0"><text>一次合併所有模組，不用任何樁或驅動程式</text><feedback><text>那是大爆炸整合。</text></feedback></answer>
+    <answer fraction="0"><text>嚴格由上而下，完全沒有由下而上的成分</text><feedback><text>純由上而下不是混合式；三明治混合了兩個方向。</text></feedback></answer>
+    <answer fraction="0"><text>只測中間層，忽略頂端與底端</text><feedback><text>三明治會整合所有層級，並不忽略兩端。</text></feedback></answer>
+    <generalfeedback><text>三明治（混合式）整合同時對上層採由上而下（用樁）、對下層採由下而上（用驅動程式），朝目標中間層收斂。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是樁</text></name>
+    <questiontext format="html"><text><![CDATA[<p>整合測試中的<em>樁（stub）</em>是一段暫時性程式碼，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>代替待測模組所呼叫的較低層模組</text><feedback><text>正確——樁被待測模組呼叫，並回傳預先安排好的結果。</text></feedback></answer>
+    <answer fraction="0"><text>代替呼叫待測模組的較高層模組</text><feedback><text>那是驅動程式（driver），不是樁。</text></feedback></answer>
+    <answer fraction="0"><text>是某個被呼叫模組的最終正式版本</text><feedback><text>樁是可丟棄的替身，不是真正的模組。</text></feedback></answer>
+    <answer fraction="0"><text>是刻意注入程式碼中的缺陷</text><feedback><text>那描述的是突變體／植入的錯誤，不是樁。</text></feedback></answer>
+    <generalfeedback><text>樁代替尚未整合的<strong>被呼叫者（callee）</strong>：待測模組呼叫它，而它回傳簡化、預設的值。由上而下整合需要的正是樁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是驅動程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>整合測試中的<em>驅動程式（driver）</em>是一段暫時性程式碼，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>代替較高層模組，並呼叫待測模組</text><feedback><text>正確——驅動程式是呼叫者：它呼叫待測模組並傳入輸入。</text></feedback></answer>
+    <answer fraction="0"><text>代替待測模組所呼叫的較低層模組</text><feedback><text>那是樁（stub），不是驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>是交付給使用者的正式主程式</text><feedback><text>驅動程式是可丟棄的測試框架，不是真正的呼叫者。</text></feedback></answer>
+    <answer fraction="0"><text>是用來量測程式碼覆蓋率的工具</text><feedback><text>那是覆蓋率工具，與驅動程式的角色無關。</text></feedback></answer>
+    <generalfeedback><text>驅動程式代替尚未整合的<strong>呼叫者（caller）</strong>：它呼叫待測模組、提供輸入並檢查輸出。由下而上整合需要的正是驅動程式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>介面錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>介面（整合）錯誤</em>是一種缺陷，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>源自兩個模組如何溝通時的錯誤假設或不匹配</text><feedback><text>正確——例如參數型別／順序錯誤、違反協定，或對共享狀態的假設不一致。</text></feedback></answer>
+    <answer fraction="0"><text>是侷限於單一模組的純內部邏輯錯誤</text><feedback><text>那是單元層級的錯誤；介面錯誤關乎模組之間的溝通。</text></feedback></answer>
+    <answer fraction="0"><text>是使用者手冊裡的拼字錯誤</text><feedback><text>文件的錯字不是軟體模組之間的介面錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>是 CPU 的硬體故障</text><feedback><text>那是硬體錯誤，不是軟體介面錯誤。</text></feedback></answer>
+    <generalfeedback><text>介面錯誤在已整合的模組互動時浮現：參數列不匹配、呼叫順序錯誤、違反協定／時序，或對共享資料的假設不一致。這些正是整合測試所要獵捕的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪種策略需要樁</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種整合策略具有需要<strong>樁（stub）</strong>的特徵？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由上而下</text><feedback><text>正確——由上而下先整合上層模組，因此其尚未整合的被呼叫者以樁代替。</text></feedback></answer>
+    <answer fraction="0"><text>由下而上</text><feedback><text>由下而上需要的是驅動程式，不是樁，因為它從葉節點開始。</text></feedback></answer>
+    <answer fraction="0"><text>大爆炸</text><feedback><text>大爆炸一次組裝所有東西，通常不需要逐步的樁。</text></feedback></answer>
+    <answer fraction="0"><text>以上皆不使用樁</text><feedback><text>由上而下仰賴樁，所以此選項錯誤。</text></feedback></answer>
+    <generalfeedback><text>由上而下從頂端往下整合；上層模組所呼叫的下層模組尚未就緒，因此以樁代替。（由下而上則搭配驅動程式。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪種策略需要驅動程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種整合策略具有需要<strong>驅動程式（driver）</strong>的特徵？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由下而上</text><feedback><text>正確——由下而上先整合葉模組，因此需寫一個驅動程式來呼叫每一個。</text></feedback></answer>
+    <answer fraction="0"><text>由上而下</text><feedback><text>由上而下需要的是樁，不是驅動程式，因為它從頂層控制模組開始。</text></feedback></answer>
+    <answer fraction="0"><text>大爆炸</text><feedback><text>大爆炸一次合併所有模組，通常不需要逐步的驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>以上皆不使用驅動程式</text><feedback><text>由下而上仰賴驅動程式，所以此選項錯誤。</text></feedback></answer>
+    <generalfeedback><text>由下而上從葉節點往上整合；會呼叫它們的較高層模組尚未就緒，因此需寫一個驅動程式來呼叫每個待測模組。（由上而下則搭配樁。）</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>樁是被待測模組呼叫的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>樁是<em>被</em>待測模組<em>呼叫</em>的（待測模組會去呼叫該樁）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——樁是被呼叫者的替身，因此待測模組會呼叫它。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>樁確實位於待測模組之下並被它呼叫；位於呼叫端的替身才是驅動程式。</text></feedback></answer>
+    <generalfeedback><text>方向很重要：樁在下方、被待測模組呼叫（被呼叫者的替身）；驅動程式在上方、去呼叫待測模組（呼叫者的替身）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>驅動程式是被待測模組呼叫的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>驅動程式是<em>被</em>待測模組<em>呼叫</em>的（待測模組會去呼叫該驅動程式）。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>這把方向弄反了——是驅動程式呼叫待測模組，而非反過來。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——驅動程式是呼叫者：它去呼叫待測模組。被待測模組呼叫的東西才是樁。</text></feedback></answer>
+    <generalfeedback><text>驅動程式代替較高層的呼叫者，因此它<em>呼叫</em>待測模組。只有樁才是被待測模組呼叫的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>樁代替的是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在整合過程中，樁代替的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>待測模組所呼叫、但尚未整合的較低層模組</text><feedback><text>正確——樁取代缺席的被呼叫者。</text></feedback></answer>
+    <answer fraction="0"><text>呼叫待測模組、但尚未整合的較高層模組</text><feedback><text>那個缺席的呼叫者由驅動程式取代，不是樁。</text></feedback></answer>
+    <answer fraction="0"><text>判定通過或失敗的測試諭示（oracle）</text><feedback><text>諭示判斷結果，並不是某個模組的替身。</text></feedback></answer>
+    <answer fraction="0"><text>整個系統所使用的資料庫</text><feedback><text>樁是被呼叫模組的程式碼替身，並非泛指資料儲存。</text></feedback></answer>
+    <generalfeedback><text>樁代替缺席的<strong>被呼叫者（callee）</strong>——待測模組原本會呼叫的較低層模組。由上而下整合在下層尚未就緒時仰賴樁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驅動程式代替的是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在整合過程中，驅動程式代替的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>呼叫待測模組、但尚未整合的較高層模組</text><feedback><text>正確——驅動程式取代缺席的呼叫者。</text></feedback></answer>
+    <answer fraction="0"><text>待測模組所呼叫、但尚未整合的較低層模組</text><feedback><text>那個缺席的被呼叫者由樁取代，不是驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>用來建置各模組的編譯器</text><feedback><text>驅動程式是測試框架，不是建置工具。</text></feedback></answer>
+    <answer fraction="0"><text>使用者提交的缺陷報告</text><feedback><text>那與驅動程式所代替的對象無關。</text></feedback></answer>
+    <generalfeedback><text>驅動程式代替缺席的<strong>呼叫者（caller）</strong>——原本會呼叫待測模組的較高層模組。由下而上整合在上層尚未就緒時仰賴驅動程式。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Integration Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下步驟 1 的樁——兩個子節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C</strong>（A 是根；B 與 C 是它僅有的子節點）。使用<em>由上而下</em>整合，步驟 1 整合根 A 並對其尚未整合的直接子節點加樁。步驟 1 需要幾個樁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——A 直接呼叫 B 與 C，兩者都要加樁：2 個樁。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A 有兩個直接子節點（B 與 C），一個樁不夠。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>只有 B 與 C 被 A 直接呼叫；沒有第三個子節點。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>由上而下步驟 1 必須對 A 的被呼叫者加樁，而 A 呼叫兩個模組。</text></feedback></answer>
+    <generalfeedback><text>由上而下步驟 1 只整合根 A；A 直接呼叫的每個模組都要加樁。A 呼叫 B 與 C，所以需要 2 個樁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下步驟 1 的樁——三個子節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>M 呼叫 N、O 與 P</strong>（M 是根，有三個子節點）。使用<em>由上而下</em>整合，步驟 1（只整合 M）需要幾個樁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——M 直接呼叫 N、O 與 P，三者都要加樁：3 個樁。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>M 有三個直接子節點，不是一個。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>有三個直接子節點（N、O、P），兩個樁太少。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>M 恰好呼叫三個模組；沒有第四個。</text></feedback></answer>
+    <generalfeedback><text>由上而下步驟 1 整合 M 並對它直接呼叫的每個模組加樁。M 呼叫 N、O 與 P，所以需要 3 個樁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由下而上：單一葉節點的驅動程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D</strong>（因此 D 是葉節點）。使用<em>由下而上</em>整合，你先整合葉節點 D。整合 D 需要幾個<strong>驅動程式</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——D 的真正呼叫者（B）尚未整合，因此需寫一個驅動程式來呼叫 D。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>必須有東西呼叫 D；由於 B 尚未就緒，需要一個驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只有一個模組（D）待測，一個驅動程式就夠。</text></feedback></answer>
+    <answer fraction="0"><text>1 個樁</text><feedback><text>由下而上使用驅動程式而非樁；且 D 沒有被呼叫者可加樁。</text></feedback></answer>
+    <generalfeedback><text>由下而上先整合葉節點。D 沒有被呼叫者（不需樁），但它的呼叫者 B 缺席，因此需寫一個驅動程式來呼叫 D：1 個驅動程式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下：整合中間模組時的樁</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>R 呼叫 X 與 Y；X 呼叫 Z</strong>。使用<em>由上而下</em>整合，你已整合了 R，現在要整合 <strong>X</strong>。需要為 X 自己尚未整合的被呼叫者準備幾個樁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——X 只直接呼叫 Z，而 Z 尚未整合，因此需要一個樁（給 Z）。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Y 是 X 的兄弟節點，不是 X 的被呼叫者；X 只呼叫 Z。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>X 呼叫 Z，而 Z 尚未整合，因此需要給 Z 的樁。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>X 只有一個被呼叫者（Z），沒有三個。</text></feedback></answer>
+    <generalfeedback><text>由上而下整合 X 時，只需對 X 尚未整合的直接被呼叫者加樁。X 只呼叫 Z，所以需要 1 個樁。（Y 是 R 的另一個子節點，與 X 的被呼叫者無關。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由下而上：兩個葉節點的驅動程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C</strong>，其中 B 與 C 都是葉節點。使用<em>由下而上</em>整合，並且每個待測模組配一個驅動程式，將 B 與 C 作為第一步整合需要幾個驅動程式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——每個待測模組一個驅動程式，而正在整合兩個葉模組（B 與 C）：2 個驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>有兩個各自獨立的待測模組；每個模組一個驅動程式即為兩個。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>它們的呼叫者 A 尚未整合，因此需要驅動程式來呼叫 B 與 C。</text></feedback></answer>
+    <answer fraction="0"><text>2 個樁</text><feedback><text>由下而上使用驅動程式而非樁；且葉節點 B 與 C 沒有被呼叫者可加樁。</text></feedback></answer>
+    <generalfeedback><text>由下而上先整合葉節點。B 與 C 是葉節點且呼叫者 A 缺席，因此以每個待測模組一個驅動程式計，需要 2 個驅動程式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷定位：漸進式 vs 大爆炸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於大爆炸，漸進式整合通常帶來：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>更好的缺陷定位，因為失敗會指向新加入的模組或其介面</text><feedback><text>正確——一次加入一個模組能將新失敗的來源定位。</text></feedback></answer>
+    <answer fraction="0"><text>更差的缺陷定位，因為使用了較多輔助程式</text><feedback><text>額外的樁／驅動程式不會使定位變差；漸進式整合反而改善它。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷定位沒有差別</text><feedback><text>差別很明顯：漸進式的缺陷定位遠優於大爆炸。</text></feedback></answer>
+    <answer fraction="0"><text>保證沒有介面錯誤</text><feedback><text>沒有任何策略能保證不存在錯誤；它只是讓錯誤更易定位。</text></feedback></answer>
+    <generalfeedback><text>由於漸進式整合一次只加入一個模組，新的失敗最可能來自剛加入的模組或其介面——因此比一次全部合併的大爆炸容易許多定位缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪種策略最早測到頂層控制</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種策略最早測到<strong>頂層控制邏輯</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由上而下</text><feedback><text>正確——由上而下先整合主控制模組，因此控制邏輯很早被測到。</text></feedback></answer>
+    <answer fraction="0"><text>由下而上</text><feedback><text>由下而上先測葉節點；頂層控制邏輯最後才整合。</text></feedback></answer>
+    <answer fraction="0"><text>大爆炸</text><feedback><text>大爆炸要等所有模組合併後才測試一切，並非最早測頂層。</text></feedback></answer>
+    <answer fraction="0"><text>沒有策略能提早測控制邏輯</text><feedback><text>由上而下正是靠先整合頂層模組做到這件事。</text></feedback></answer>
+    <generalfeedback><text>由上而下從主控制模組開始，因此高階控制流程與重大設計決策很早被檢驗——這是它的主要優點之一。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪種策略最早測到葉工具模組</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種策略最早測到<strong>低層葉／工具模組</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由下而上</text><feedback><text>正確——由下而上先整合葉模組，因此工具模組很早被測到。</text></feedback></answer>
+    <answer fraction="0"><text>由上而下</text><feedback><text>由上而下先測頂端；葉工具模組要到很晚才整合（在此之前只是被加樁）。</text></feedback></answer>
+    <answer fraction="0"><text>大爆炸</text><feedback><text>大爆炸要等所有模組合併後才測試一切。</text></feedback></answer>
+    <answer fraction="0"><text>沒有策略能提早測葉節點</text><feedback><text>由下而上正是靠先整合葉節點做到這件事。</text></feedback></answer>
+    <generalfeedback><text>由下而上從葉節點開始，因此低層工具模組很早就被徹底檢驗——當那些工具很複雜或很關鍵時特別有用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>大爆炸的失敗定位</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊一次整合所有模組（大爆炸），某個測試失敗了。為何診斷此失敗通常很困難？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>眾多同時合併的介面中任何一個都可能是原因，因此缺陷很難定位</text><feedback><text>正確——所有東西一次合併，缺陷定位差使得原因難以釐清。</text></feedback></answer>
+    <answer fraction="0"><text>大爆炸不會產生任何可檢視的測試輸出</text><feedback><text>它仍會產生輸出；問題在於難以定位是哪個介面失敗，而非缺乏輸出。</text></feedback></answer>
+    <answer fraction="0"><text>樁與驅動程式遮蔽了真正的模組</text><feedback><text>大爆炸幾乎不用輔助程式；困難在於眾多介面一次合併。</text></feedback></answer>
+    <answer fraction="0"><text>大爆炸根本無法偵測介面錯誤</text><feedback><text>它偵測得到，只是使錯誤難以定位。</text></feedback></answer>
+    <generalfeedback><text>大爆炸把所有模組合併在一起，因此出現失敗時，眾多介面中任何一個都可能負責。這種缺陷定位差是大爆炸的主要缺點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下的早期骨架</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>由上而下</em>整合常被提及的一項優點是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由於先建立頂層控制結構，系統很早就有一個可運作的骨架</text><feedback><text>正確——一個可展示的部分程式會提早出現。</text></feedback></answer>
+    <answer fraction="0"><text>永遠不需要任何樁</text><feedback><text>由上而下其實仰賴樁來代替其下層模組。</text></feedback></answer>
+    <answer fraction="0"><text>低層工具模組會最先被完整測試</text><feedback><text>那是由下而上的特徵，不是由上而下。</text></feedback></answer>
+    <answer fraction="0"><text>它消除了任何回歸測試的需要</text><feedback><text>隨著模組加入仍需要回歸測試。</text></feedback></answer>
+    <generalfeedback><text>由於由上而下先建立上層控制結構，一個可展示的程式骨架會提早出現，讓利害關係人看到進度，也讓重大設計錯誤提早浮現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由下而上延後控制測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>由下而上</em>整合的一項缺點是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>頂層控制邏輯與使用者介面最後才整合與測試</text><feedback><text>正確——高階控制與 UI 議題較晚浮現，因此那裡的重大設計錯誤會較晚出現。</text></feedback></answer>
+    <answer fraction="0"><text>它無法測試葉模組</text><feedback><text>由下而上最先測葉模組；那是它的強項而非弱點。</text></feedback></answer>
+    <answer fraction="0"><text>它需要為每個葉節點準備樁</text><feedback><text>由下而上使用驅動程式而非樁，且葉節點沒有被呼叫者可加樁。</text></feedback></answer>
+    <answer fraction="0"><text>它一次合併所有模組</text><feedback><text>那描述的是大爆炸，不是由下而上。</text></feedback></answer>
+    <generalfeedback><text>由於由下而上先整合葉節點、最後才是頂端，主控制邏輯與使用者介面較晚被檢驗，因此那些頂層模組中嚴重的高階設計錯誤可能較晚被發現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三個葉節點中的由下而上驅動程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>A 呼叫 B、C 與 D</strong>（B、C、D 都是葉節點）。使用<em>由下而上</em>整合，<strong>只整合葉節點 B</strong> 需要幾個驅動程式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——這裡只有 B 待測，而它的呼叫者 A 缺席，所以需要一個驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>這裡只整合 B，不整合 C 與 D，因此一個驅動程式就夠。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>A 尚未整合，因此必須有東西呼叫 B——需要一個驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>單一待測模組需要單一驅動程式。</text></feedback></answer>
+    <generalfeedback><text>只整合葉節點 B：B 沒有被呼叫者（不需樁），而它的呼叫者 A 缺席，因此恰好需要 1 個驅動程式來呼叫 B。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下步驟 1 的樁（含孫節點）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>S 呼叫 T 與 U；T 呼叫 V</strong>。使用<em>由上而下</em>整合，步驟 1（只整合根 S）需要幾個樁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——步驟 1 只對 S 的直接子節點（T 與 U）加樁；V 不是被 S 直接呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>V 是 T 的被呼叫者，不是 S 的；步驟 1 只對 S 的直接子節點加樁。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>S 有兩個直接子節點（T 與 U），一個樁不夠。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>步驟 1 必須對 S 的直接被呼叫者加樁，而 S 呼叫兩個模組。</text></feedback></answer>
+    <generalfeedback><text>由上而下步驟 1 整合 S 並只對 S 直接呼叫的模組加樁：T 與 U（2 個樁）。V 只能透過尚未整合的 T 到達，因此步驟 1 不對 V 加樁。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>大爆炸的輔助程式成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一般而言，大爆炸整合所需的暫時性樁與驅動程式比漸進式整合少。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——大爆炸一次合併所有真實模組，因此幾乎不需逐步的輔助程式；代價是缺陷定位差得多。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>大爆炸確實通常需要較少輔助程式；它只是以缺陷定位差作為代價。</text></feedback></answer>
+    <generalfeedback><text>由於大爆炸把所有真實模組一起組裝，它省去了漸進式整合所需的大部分逐步樁與驅動程式。它的代價在別處：一旦出錯，要定位負責的介面很困難。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下：某子樹兩個子節點的樁</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；C 呼叫 D 與 E</strong>。使用<em>由上而下</em>整合，A 與 B 已整合，你現在要整合 <strong>C</strong>。需要為 C 自己尚未整合的被呼叫者準備幾個樁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——C 直接呼叫 D 與 E，兩者都尚未整合，所以 2 個樁。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>C 有兩個直接被呼叫者（D 與 E），一個樁太少。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>C 只呼叫 D 與 E；B 是 A 的另一個子節點，不是 C 的被呼叫者。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>C 的被呼叫者 D 與 E 缺席，因此需要為它們加樁。</text></feedback></answer>
+    <generalfeedback><text>由上而下整合 C 時，只需對 C 尚未整合的直接被呼叫者加樁。C 呼叫 D 與 E，所以需要 2 個樁。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Integration Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>由上而下在多層某步驟的樁數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D 與 E；C 呼叫 F</strong>。使用<em>由上而下</em>整合，假設已整合的集合恰為 {A, B}。此時必須就位幾個樁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——已整合模組共呼叫三個缺席模組：A 呼叫 C（樁），B 呼叫 D 與 E（兩個樁）&#8594; 3 個樁。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>別忘了 A 仍呼叫 C：需要給 C、D、E 的樁——共三個。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>F 被尚未整合的 C 呼叫，因此此時還不加 F 的樁；數目是 3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A 與 B 都有缺席的被呼叫者；這樣的被呼叫者共有三個（C、D、E）。</text></feedback></answer>
+    <generalfeedback><text>已整合集合為 {A, B} 時，列出每一條「從已整合模組到未整合模組」的呼叫：A&#8594;C、B&#8594;D、B&#8594;E。（A&#8594;B 是真實的。）也就是給 C、D、E 的樁＝3 個樁。F 不加樁，因為它的呼叫者 C 尚未整合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由下而上：所有葉節點的驅動程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D 與 E；C 呼叫 F</strong>。使用<em>由下而上</em>整合，並且每個待測模組配一個驅動程式，作為第一步整合所有葉模組需要幾個驅動程式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——葉節點為 D、E、F；每個一個驅動程式即為 3 個。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>有三個葉節點（D、E、F），不是兩個。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>第一步只整合葉模組；B 與 C 不是葉節點。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>由下而上對每個待測葉節點配一個驅動程式；有三個葉節點，所以 3 個驅動程式。</text></feedback></answer>
+    <generalfeedback><text>葉節點（不呼叫任何模組者）為 D、E、F。由下而上先整合葉節點，每個待測模組一個驅動程式，因此需要 3 個驅動程式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三明治整合達成什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於純由上而下或純由下而上，團隊為何可能選擇<em>三明治</em>（混合式）整合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它讓高層與低層模組能並行整合，結合由上而下的早期控制測試與由下而上的早期工具測試</text><feedback><text>正確——從兩端同時進行能兼得兩個方向的好處，並可縮短時程。</text></feedback></answer>
+    <answer fraction="0"><text>它消除了對樁與驅動程式的需要</text><feedback><text>三明治使用樁（上層）與驅動程式（下層）——兩者都需要。</text></feedback></answer>
+    <answer fraction="0"><text>它像大爆炸一樣一次整合所有模組</text><feedback><text>三明治是從兩端進行的漸進式，不是單一的大爆炸步驟。</text></feedback></answer>
+    <answer fraction="0"><text>它保證不會殘留任何介面錯誤</text><feedback><text>沒有任何策略能保證不存在錯誤。</text></feedback></answer>
+    <generalfeedback><text>三明治同時對上層採由上而下（樁）、對下層採由下而上（驅動程式），因此控制邏輯與工具模組都能提早被檢驗，且兩邊工作可並行進行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三明治整合的弱點</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>三明治</em>整合公認的一項弱點是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩端會合處的中間層模組可能較缺乏徹底的孤立測試</text><feedback><text>正確——由於兩端都朝中間收斂，該目標層可能未被充分地孤立測試。</text></feedback></answer>
+    <answer fraction="0"><text>它無法測試頂層控制邏輯</text><feedback><text>它的由上而下部分很早就檢驗控制邏輯；那是優點。</text></feedback></answer>
+    <answer fraction="0"><text>它既不需要樁也不需要驅動程式</text><feedback><text>三明治兩者都需要，所以此敘述為假。</text></feedback></answer>
+    <answer fraction="0"><text>它的缺陷定位比大爆炸更差</text><feedback><text>身為漸進式，三明治的缺陷定位優於大爆炸，而非更差。</text></feedback></answer>
+    <generalfeedback><text>由於由上而下與由下而上都朝一個中間目標層收斂，那些中間模組可能主要是作為較大組合體的一部分被測，而非徹底地孤立測試——這是三明治法主要受到的批評。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何由上而下可能隱藏低層缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何<em>由上而下</em>整合可能隱藏存在於低層模組中的缺陷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>樁回傳簡化的預設結果，因此真正的低層行為（及其錯誤）要到樁被替換後才會被執行</text><feedback><text>正確——過度簡化的樁可能遮蔽只有真實模組才會顯現的缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>由上而下根本不會執行低層模組</text><feedback><text>它們最終會被整合；問題在於樁長時間代替它們。</text></feedback></answer>
+    <answer fraction="0"><text>驅動程式抑制了低層模組的輸出</text><feedback><text>由上而下使用樁而非驅動程式，而這裡造成遮蔽的是樁，不是驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>低層缺陷永遠是等價的、無法偵測</text><feedback><text>它們是一般缺陷；只是在樁代替真實模組期間未被執行而已。</text></feedback></answer>
+    <generalfeedback><text>由於由上而下用回傳預設值的樁來代替下層模組，真正（可能有錯的）低層邏輯要到很晚才執行。過度簡化的樁因此可能遮蔽某個缺陷，直到真實模組被整合後才顯現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何由下而上延後 UI／控制測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<em>由下而上</em>整合中，為何使用者介面或整體控制流程中的嚴重瑕疵可能較晚被發現？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>頂層控制與 UI 模組最後才整合，因此其中的錯誤要到接近尾聲才浮現</text><feedback><text>正確——由下而上把頂端留到最後，延後了高階設計錯誤的發現。</text></feedback></answer>
+    <answer fraction="0"><text>驅動程式永久取代了 UI 模組</text><feedback><text>驅動程式是暫時的；重點是真實的 UI／控制模組要到很晚才整合。</text></feedback></answer>
+    <answer fraction="0"><text>由下而上從不測試頂層模組</text><feedback><text>它會測試它們——只是最後、在較低層之後才測。</text></feedback></answer>
+    <answer fraction="0"><text>UI 錯誤永遠是介面錯誤，而由下而上忽略它們</text><feedback><text>由下而上確實會測介面；延後是因整合順序，而非忽略錯誤。</text></feedback></answer>
+    <generalfeedback><text>由下而上先整合葉節點、最後才是頂層控制／UI 模組，因此那些頂層模組中重大的高階設計或介面瑕疵要到整合時程的很晚才被執行到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>介面錯誤：參數順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是<em>介面（整合）錯誤</em>的例子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模組 A 以 <code>B(width, height)</code> 呼叫 B，但 B 預期的是 <code>B(height, width)</code>，因此引數順序被對調</text><feedback><text>正確——跨呼叫邊界的參數順序不匹配是典型的介面錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>模組 B 內部的迴圈少跑一次（B 內的差一錯誤）</text><feedback><text>那是侷限於 B 的內部邏輯（單元）錯誤，不是介面錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>A 內部某區域變數未初始化，且從未傳出</text><feedback><text>那是 A 的內部錯誤；與 A&#8211;B 介面無關。</text></feedback></answer>
+    <answer fraction="0"><text>即使以正確引數呼叫，B 仍算出錯誤結果</text><feedback><text>那是 B 內部的邏輯錯誤，屬單元層級，不是介面不匹配。</text></feedback></answer>
+    <generalfeedback><text>介面錯誤發生在模組之間的邊界。以錯誤順序傳遞引數（參數不匹配）是課本級的例子——兩模組對如何溝通的認知不一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>介面錯誤：時序／協定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模組 A 在模組 B 尚未完成初始化前就把資料送給 B，導致 B 偶爾處理到垃圾資料。這最適合歸類為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>時序／協定類的介面錯誤</text><feedback><text>正確——兩模組違反了彼此互動的預期順序／時序。</text></feedback></answer>
+    <answer fraction="0"><text>B 計算內部的邏輯錯誤</text><feedback><text>B 的計算可能沒問題；錯誤在於 A 何時與 B 互動——一個介面上的時序／協定議題。</text></feedback></answer>
+    <answer fraction="0"><text>編譯器最佳化錯誤</text><feedback><text>這關乎模組互動的順序，與編譯器無關。</text></feedback></answer>
+    <answer fraction="0"><text>等價突變體</text><feedback><text>那是突變測試的概念，與整合時序錯誤無關。</text></feedback></answer>
+    <generalfeedback><text>當模組對交換的順序或時序認知不一致——在對方尚未就緒前就發送——缺陷便落在介面上：一個協定／時序介面錯誤，正是整合測試所針對的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>介面錯誤：共享狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模組 A 與 B 都讀寫一個共享的全域計數器，各自都假設只有自己會修改它，結果彼此破壞了對方的值。這最適合歸類為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>源自對共享狀態不一致假設的介面錯誤</text><feedback><text>正確——兩模組透過共享資料互動且假設互相衝突，屬介面錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>只在 A 內部的純單元錯誤</text><feedback><text>問題源自 A 與 B 透過共享資料互動，而非 A 單獨造成。</text></feedback></answer>
+    <answer fraction="0"><text>效能錯誤</text><feedback><text>問題是共享狀態衝突導致的錯誤結果，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>文件錯誤</text><feedback><text>缺陷在於程式碼的共享狀態互動，而非文件。</text></feedback></answer>
+    <generalfeedback><text>共享狀態（共享資料）錯誤發生在已整合的模組對全域或共享變數做出不一致假設時。缺陷存在於模組如何互動之中，因此屬介面／整合錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含共享工具模組的整合順序（由下而上）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下相依圖：<strong>Main 呼叫 A 與 B；A 呼叫 C；B 呼叫 C 與 D</strong>（因此 C 是被 A 與 B 共同呼叫的共享工具；D 是葉節點）。使用<em>由下而上</em>整合，應最早整合哪個模組？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>C——它是被 A 與 B 共同呼叫的葉工具，因此必須在 A 或 B 能以真實被呼叫者受測之前就先就緒</text><feedback><text>正確——由下而上先整合葉節點，而共享工具 C 為 A 與 B 兩者所需。</text></feedback></answer>
+    <answer fraction="0"><text>Main——因為它是階層的頂端</text><feedback><text>先整合根是由上而下；由下而上從葉節點開始。</text></feedback></answer>
+    <answer fraction="0"><text>A——因為它在字母順序上排在 B 之前</text><feedback><text>A 不是葉節點（它呼叫 C）；由下而上會在 A 之前先整合葉節點 C。</text></feedback></answer>
+    <answer fraction="0"><text>B——因為它的被呼叫者最多</text><feedback><text>B 不是葉節點（它呼叫 C 與 D）；它的被呼叫者必須先被整合。</text></feedback></answer>
+    <generalfeedback><text>由下而上從葉節點往上整合。C 與 D 是葉節點；共享工具 C 被 A 與 B 共同呼叫，因此應最先整合（配一個驅動程式），A 與 B 才能對照真實被呼叫者被整合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整合期間的回歸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在漸進式整合中，每加入一個新模組時，就重新執行先前已通過的整合測試，以檢查新模組沒有破壞既有互動。這項活動稱為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>回歸測試（regression testing）</text><feedback><text>正確——在變更後重跑先前的測試，以防範新引入的破壞。</text></feedback></answer>
+    <answer fraction="0"><text>替換樁</text><feedback><text>替換樁是整合推進的一部分，不是對先前互動的重新測試。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試孤立地檢查單一模組，不是對先前已整合互動的再驗證。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試對照使用者需求驗證完成的系統，而非每個新加入模組的影響。</text></feedback></answer>
+    <generalfeedback><text>每個新整合的模組都可能擾動原本可運作的互動。重跑先前的整合測試以確認沒有東西被破壞，就是回歸測試——漸進式整合的一項持續成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含共享工具模組的由上而下樁數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下相依圖：<strong>Main 呼叫 A 與 B；A 呼叫 C；B 呼叫 C 與 D</strong>（C 為共享，D 為葉節點）。使用<em>由上而下</em>整合，已整合的集合恰為 {Main, A, B}。必須就位幾個樁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——缺席的被呼叫者是 C（被 A 與 B 共同呼叫，但只需一個樁）與 D，共 2 個樁。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>C 雖被 A 與 B 共同呼叫，但只需一個樁；連同 D 是 2 個樁，不是 3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>有兩個相異模組缺席（C 與 D），一個樁太少。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>只有 C 與 D 缺席；Main、A、B 已整合，所以 2 個樁就夠。</text></feedback></answer>
+    <generalfeedback><text>已整合集合為 {Main, A, B} 時，指向缺席模組的呼叫為 A&#8594;C、B&#8594;C 與 B&#8594;D。C 即使有兩個模組呼叫它也只需單一樁，因此相異的樁是給 C 與 D＝2 個樁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>被呼叫者已整合時的由下而上輔助程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下呼叫樹：<strong>P 呼叫 Q 與 R；Q 呼叫 S；R 呼叫 S</strong>（S 是共享葉節點）。使用<em>由下而上</em>整合，S 已被整合，你現在要整合 <strong>Q</strong>。整合 Q 需要多少輔助程式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 個驅動程式、0 個樁</text><feedback><text>正確——Q 的呼叫者 P 缺席（需要驅動程式），但 Q 的被呼叫者 S 已整合（不需樁）。</text></feedback></answer>
+    <answer fraction="0"><text>1 個驅動程式、1 個樁</text><feedback><text>不需要給 S 的樁：S 已整合，Q 可呼叫真實的 S。</text></feedback></answer>
+    <answer fraction="0"><text>0 個驅動程式、1 個樁</text><feedback><text>由下而上此處需要驅動程式，因為 Q 的呼叫者 P 尚未整合；而 S 是真實的，所以不需樁。</text></feedback></answer>
+    <answer fraction="0"><text>2 個驅動程式、0 個樁</text><feedback><text>只有 Q 待測，一個驅動程式就夠。</text></feedback></answer>
+    <generalfeedback><text>由下而上整合 Q：它的被呼叫者 S 已整合，因此 Q 呼叫真實的 S（0 個樁）。它的呼叫者 P 缺席，因此寫一個驅動程式來呼叫 Q。合計：1 個驅動程式、0 個樁。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>樁可能遮蔽低層缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在由上而下整合中，樁可能遮蔽真實低層模組中的缺陷，因為樁回傳的是簡化、預先安排好的結果，而非執行真實邏輯。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——在樁被真實模組替換之前，真正（可能有錯的）低層行為從未被執行。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>樁確實可能隱藏低層缺陷：它回傳預設值，而非執行真實、可能有錯的程式碼。</text></feedback></answer>
+    <generalfeedback><text>樁是回傳固定結果的過度簡化替身。當它代替真實模組時，該模組真正的邏輯——以及其中任何缺陷——都不會被執行，因此由上而下整合可能隱藏低層缺陷，直到樁被替換為止。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>三明治同時需要樁與驅動程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>三明治（混合式）整合同時需要樁與驅動程式。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——它的由上而下部分為下層模組使用樁，由下而上部分為待測模組使用驅動程式。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>三明治結合由上而下（樁）與由下而上（驅動程式），因此兩種輔助程式都需要。</text></feedback></answer>
+    <generalfeedback><text>由於三明治整合對上層採由上而下（需為其被呼叫者加樁）、對下層採由下而上（需要驅動程式來呼叫它們），因此同時需要樁與驅動程式。</text></generalfeedback>
+  </question>
+</quiz>
