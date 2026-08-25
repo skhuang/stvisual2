@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Generation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是自動化測試生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>自動化測試生成（automated test generation）</strong>主要在做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它以演算法自動產生測試輸入（通常也包含測試案例），而非由人逐一手寫</text><feedback><text>正確——目標是機械化地合成輸入／案例，而非手動撰寫每一個。</text></feedback></answer>
+    <answer fraction="0"><text>它在沒有任何預言（oracle）的情況下自動判斷每個生成的測試通過或失敗</text><feedback><text>判斷通過／失敗屬於預言問題，生成本身無法解決。</text></feedback></answer>
+    <answer fraction="0"><text>它把受測程式編譯成最佳化過的二進位檔</text><feedback><text>那是編譯器；測試生成產生的是輸入／案例，而非機器碼。</text></feedback></answer>
+    <answer fraction="0"><text>它形式化地證明程式沒有任何缺陷</text><feedback><text>生成會找出或執行行為，但不證明正確性。</text></feedback></answer>
+    <generalfeedback><text>自動化測試生成以演算法取代人工撰寫測試輸入——可為隨機、搜尋式、符號式、模型式或組合式。它產生輸入（通常也含呼叫序列）；至於觀察到的行為是否正確，仍需另一個預言來判斷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隨機測試生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>隨機測試生成</strong>的特徵為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它從輸入定義域中隨機抽樣輸入，成本低廉，且不使用任何關於程式行為的回饋</text><feedback><text>正確——隨機生成之所以便宜簡單，正是因為它忽略程式的回饋。</text></feedback></answer>
+    <answer fraction="0"><text>它用約束求解器求解路徑條件以到達特定分支</text><feedback><text>那描述的是符號／混合執行生成，而非隨機生成。</text></feedback></answer>
+    <answer fraction="0"><text>它以適應度函數引導、演化一群輸入</text><feedback><text>那是搜尋式生成；隨機生成不使用任何適應度引導。</text></feedback></answer>
+    <answer fraction="0"><text>它從規格的有限狀態模型推導輸入</text><feedback><text>那是模型式生成；隨機生成忽略任何模型。</text></feedback></answer>
+    <generalfeedback><text>隨機生成從定義域中隨機挑選輸入。它便宜、易實作、不需分析，但很盲目：得不到回饋，因此難以滿足只有極小部分輸入能符合的狹窄條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隨機與導向式生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>導向式（引導式）</strong>生成與<strong>隨機</strong>生成有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>導向式生成利用關於程式的資訊（覆蓋率、路徑條件或適應度訊號）將輸入朝目標推進，隨機生成則盲目抽樣</text><feedback><text>正確——區別在於是否用程式的回饋來引導輸入選擇。</text></feedback></answer>
+    <answer fraction="0"><text>導向式生成必定比隨機生成便宜</text><feedback><text>導向式方法每個輸入的成本通常更高（分析、求解、評估）；其好處是到達困難目標，而非更低成本。</text></feedback></answer>
+    <answer fraction="0"><text>隨機生成保證比導向式生成得到更高覆蓋率</text><feedback><text>隨機生成常在難以到達的程式碼上停滯；導向式方法正是為了克服這點而存在。</text></feedback></answer>
+    <answer fraction="0"><text>導向式生成永遠不需要預言，而隨機生成需要</text><feedback><text>兩者都需要預言來判斷正確性；沒有哪一種能逃離預言問題。</text></feedback></answer>
+    <generalfeedback><text>導向式（引導式）生成利用回饋——覆蓋率、路徑約束或適應度值——把輸入朝目標（如未覆蓋的分支）推進。隨機生成忽略這類回饋。導向式方法每個輸入通常付出更多，但能到達隨機抽樣幾乎永遠碰不到的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是測試預言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在測試生成中，<strong>測試預言（test oracle）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用來判斷程式對某個輸入的行為是否正確的機制</text><feedback><text>正確——預言負責判斷通過／失敗，與生成輸入是分開的。</text></feedback></answer>
+    <answer fraction="0"><text>產生輸入值的演算法</text><feedback><text>那是生成器；預言判斷產生的行為，並不產生輸入。</text></feedback></answer>
+    <answer fraction="0"><text>用來量測測試套件的覆蓋率指標</text><feedback><text>覆蓋率量測程式執行了多少；預言判斷輸出是否正確。</text></feedback></answer>
+    <answer fraction="0"><text>用來讓執行可重現的亂數種子</text><feedback><text>種子讓生成可重複，並不判斷正確性。</text></feedback></answer>
+    <generalfeedback><text>測試預言是用來判斷某輸入對應之觀察行為是否可接受的東西——斷言、預期值、參考實作或蛻變關係。產生輸入是一個問題；判斷結果是否正確則是另一個獨立的預言問題。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是適應度函數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在搜尋式測試生成中，<strong>適應度函數（fitness function）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個數值量度，表示候選測試離達成目標有多近，用來引導搜尋朝更好的測試前進</text><feedback><text>正確——適應度為候選評分，讓搜尋能偏好並精煉有希望者。</text></feedback></answer>
+    <answer fraction="0"><text>一個只有在目標已達成時才為真的布林值</text><feedback><text>純布林值沒有梯度；有效的適應度會平滑變化，讓搜尋知道哪些候選更接近。</text></feedback></answer>
+    <answer fraction="0"><text>判斷輸出是否正確的預言</text><feedback><text>適應度量度朝覆蓋目標的進展；預言判斷正確性——角色不同。</text></feedback></answer>
+    <answer fraction="0"><text>傳給輸入生成器的亂數種子</text><feedback><text>種子控制可重現性，而非候選的好壞。</text></feedback></answer>
+    <generalfeedback><text>適應度函數把候選測試映射為一個數字，表示它離目標（例如到達目標分支）有多近。好的適應度函數提供梯度——測試越接近就逐步變好——讓後設啟發式演算法能朝目標攀升。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>搜尋式軟體測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>搜尋式軟體測試（SBST）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把測試生成重述為最佳化問題，用由適應度函數引導的後設啟發式演算法（如爬山法或基因演算法）搜尋能達成目標的測試</text><feedback><text>正確——SBST 把「找一個好測試」轉為「最佳化這個適應度函數」。</text></feedback></answer>
+    <answer fraction="0"><text>它窮舉列出程式所有可能的輸入</text><feedback><text>窮舉通常不可行；SBST 以適應度引導有選擇地搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>它在編譯前搜尋原始碼中的語法錯誤</text><feedback><text>SBST 搜尋的是測試空間，而非原始碼中的語法錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>它為每個分支條件查詢約束求解器</text><feedback><text>那是符號／混合執行生成；SBST 使用由適應度驅動的後設啟發式搜尋。</text></feedback></answer>
+    <generalfeedback><text>SBST 把測試生成當作最佳化：一個候選測試是搜尋空間中的一點，適應度函數依目標為它評分，後設啟發式演算法（爬山法、基因演算法等）反覆改良候選，朝如覆蓋某分支的目標前進。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型式測試生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>模型式測試生成（model-based test generation）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從描述預期行為的模型（如有限狀態機或形式規格）自動推導測試</text><feedback><text>正確——測試來自對行為模型的走訪／分析。</text></feedback></answer>
+    <answer fraction="0"><text>建立一個機器學習模型來預測哪些測試會失敗</text><feedback><text>那是失敗預測，而非從行為模型推導測試。</text></feedback></answer>
+    <answer fraction="0"><text>隨機變異原始碼以製造出有缺陷的版本</text><feedback><text>那是變異測試；模型式生成是從規格／FSM 推導測試。</text></feedback></answer>
+    <answer fraction="0"><text>量測手寫套件覆蓋了多少模型元素</text><feedback><text>那是模型覆蓋率量測；生成是從模型產生測試。</text></feedback></answer>
+    <generalfeedback><text>模型式測試生成從系統預期行為的模型出發——常見為有限狀態機、狀態圖或形式規格——並由此推導測試序列，例如覆蓋每條轉移的路徑。模型也能提供預期結果，有助於預言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是覆蓋目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在覆蓋率驅動的生成中，<strong>覆蓋目標（coverage target）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成器試圖執行到的特定程式元素，例如某個分支、敘述或路徑</text><feedback><text>正確——目標就是搜尋所要覆蓋的具體元素。</text></feedback></answer>
+    <answer fraction="0"><text>允許整個執行使用的總時鐘時間預算</text><feedback><text>那是時間預算，而非覆蓋目標。</text></feedback></answer>
+    <answer fraction="0"><text>判斷輸出是否正確的預言</text><feedback><text>目標是要到達的元素；預言另外判斷正確性。</text></feedback></answer>
+    <answer fraction="0"><text>套件必須包含的測試案例數量</text><feedback><text>那是套件大小限制，而非覆蓋目標。</text></feedback></answer>
+    <generalfeedback><text>覆蓋目標是生成器想讓某測試執行到的具體程式元素——分支、敘述、條件或路徑。覆蓋率驅動的生成挑選未覆蓋的目標，並搜尋能到達它的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符號／路徑式生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>符號式（路徑式）</strong>測試生成如何取得能沿某條路徑執行的輸入？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它建立路徑條件——沿該路徑各分支約束的合取——並用約束求解器求解，得到具體輸入值</text><feedback><text>正確——求解路徑條件即得到能驅動執行沿該路徑前進的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>它在既有輸入中隨機翻轉位元，直到路徑改變</text><feedback><text>那是變異式模糊測試，而非對路徑條件的符號求解。</text></feedback></answer>
+    <answer fraction="0"><text>它用基因演算法演化一群輸入</text><feedback><text>那是搜尋式生成；符號式生成改為求解約束。</text></feedback></answer>
+    <answer fraction="0"><text>它量測既有套件的覆蓋率並回報缺口</text><feedback><text>那是覆蓋率量測，而非以約束求解合成輸入。</text></feedback></answer>
+    <generalfeedback><text>符號式（路徑式）生成把輸入視為符號，追蹤沿路徑各分支所加的約束（路徑條件），並向約束／SMT 求解器索取滿足它的具體值。這些值驅動程式沿預期路徑前進。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合式測試生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>組合式（combinatorial）</strong>測試生成（如成對測試）背後的想法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它以遠少於窮舉所有完整組合的測試數，系統化地覆蓋參數值的各種組合（例如每一對）</text><feedback><text>正確——組合式生成在維持互動覆蓋的同時，讓測試數保持很小。</text></feedback></answer>
+    <answer fraction="0"><text>它窮舉執行所有參數值的每一種完整組合</text><feedback><text>完整組合會爆炸；組合式方法改以一小組測試覆蓋互動（如所有成對）。</text></feedback></answer>
+    <answer fraction="0"><text>它求解每條程式路徑的路徑條件</text><feedback><text>那是符號式生成；組合式生成作用於參數值的組合。</text></feedback></answer>
+    <answer fraction="0"><text>它純粹從定義域隨機挑選輸入</text><feedback><text>組合式生成對互動是系統化的，而非隨機。</text></feedback></answer>
+    <generalfeedback><text>組合式測試生成覆蓋參數間的互動——最常見的是所有成對（成對／2-way）——用一小組系統化建構的測試達成。它立基於一個觀察：許多缺陷是由少數互動參數觸發，因此便宜地覆蓋低階組合便能抓到許多缺陷。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>SBST 中把測試視為個體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在搜尋式測試生成中，候選測試可被表示為一個「個體」，由後設啟發式演算法以適應度函數評估、並朝目標演化。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——把測試編碼為由適應度評分的個體，正是 SBST 套用後設啟發式搜尋的方式。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>SBST 確實把測試編碼為個體（搜尋空間中的一點），並用適應度引導其演化。</text></feedback></answer>
+    <generalfeedback><text>SBST 借用最佳化的詞彙：候選測試是「個體」（或染色體），其品質是適應度值，變異與交配等運算子產生新候選，供搜尋在其中選擇以逼近目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試生成中的播種</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在測試生成中，<strong>播種（seeding）</strong>是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓生成器從有用的先驗資訊出發——例如程式碼中的常數或既有測試——而非從零開始</text><feedback><text>正確——播種注入已知有用的值，給搜尋一個起步優勢。</text></feedback></answer>
+    <answer fraction="0"><text>在生成結束後刪除多餘的測試</text><feedback><text>那是最小化／縮減，而非播種。</text></feedback></answer>
+    <answer fraction="0"><text>只是固定亂數種子，讓執行可重現</text><feedback><text>亂數種子關乎可重現性；此處的播種指提供有用的起始值。</text></feedback></answer>
+    <answer fraction="0"><text>判斷每個生成輸出是否正確</text><feedback><text>那是預言的工作，與播種無關。</text></feedback></answer>
+    <generalfeedback><text>播種為生成器提供有希望的起始素材——從原始碼挖掘的常數與字串字面值、來自既有或回歸測試的值，或先前的語料庫——讓搜尋不必盲目起步。例如播種字面值 42，能讓搜尋更快滿足 <code>x == 42</code>。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試套件最小化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>測試套件最小化（minimization／縮減）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>移除多餘的測試，得到一個較小、但仍滿足所選準則（例如維持相同覆蓋率）的套件</text><feedback><text>正確——最小化在保留既定性質（如覆蓋率）的前提下縮小套件。</text></feedback></answer>
+    <answer fraction="0"><text>盡量產生更多測試以最大化套件大小</text><feedback><text>那正好相反；最小化是移除冗餘，而非增加測試。</text></feedback></answer>
+    <answer fraction="0"><text>判斷每個測試的輸出是否正確</text><feedback><text>那是預言的工作，而非最小化。</text></feedback></answer>
+    <answer fraction="0"><text>求解路徑條件以到達未覆蓋的分支</text><feedback><text>那是符號式生成；最小化是修剪既有套件。</text></feedback></answer>
+    <generalfeedback><text>測試套件最小化依某準則移除被判為冗餘的測試——通常是在維持相同覆蓋率下減少測試數。它降低執行成本，但因為是以覆蓋率而非找錯能力為最佳化目標，可能會刪掉原本能抓到真實缺陷的測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>生成不等於驗證</text></name>
+    <questiontext format="html"><text><![CDATA[<p>自動生成測試輸入，也就自動判定了程式的輸出是否正確。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>不對——生成輸入與判斷其輸出是分開的；判定正確性需要預言。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——生成產生輸入，但本身不判定正確性；那是預言問題。</text></feedback></answer>
+    <generalfeedback><text>產生一個能觸及某行為的輸入，並不告訴你該行為是否正確。判定正確性是另一個獨立的預言問題，也正是它讓全自動測試困難：相較於驗證，生成是容易的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把蛻變關係當作預言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>被用作測試預言的<strong>蛻變關係（metamorphic relation）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關輸入之輸出間必須成立的一種關係，即使不知道確切的預期輸出也能檢查</text><feedback><text>正確——它檢查的是必需的關係，而非單一預期值。</text></feedback></answer>
+    <answer fraction="0"><text>某個特定輸入的單一確切預期輸出值</text><feedback><text>那是傳統的預期值預言；蛻變關係正是要避免需要確切值。</text></feedback></answer>
+    <answer fraction="0"><text>連結生成器兩次執行的亂數種子</text><feedback><text>種子關乎可重現性，而非輸出間的正確性關係。</text></feedback></answer>
+    <answer fraction="0"><text>程式兩個分支之間的覆蓋關係</text><feedback><text>蛻變關係連結的是相關輸入的輸出，而非分支的覆蓋。</text></feedback></answer>
+    <generalfeedback><text>蛻變關係陳述相關輸入的輸出之間必須如何關聯——例如 <code>sin(x)</code> 應等於 <code>sin(&#960; - x)</code>，或對排序後的清單再排序其排列應得到相同結果。當確切預期輸出未知時，它提供了部分預言，緩解自動生成輸入的預言問題。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Generation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何隨機難以通過狹窄守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 32 位元整數 <code>x</code>，為何隨機生成難以滿足像 <code>if (x == 42)</code> 這樣的狹窄條件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>大約四十億個值中只有一個能滿足它，因此盲目的隨機抽取幾乎永遠碰不到</text><feedback><text>正確——滿足集只佔定義域極小一部分，而隨機抽樣無從朝它收斂。</text></feedback></answer>
+    <answer fraction="0"><text>隨機生成器根本無法產生整數 42</text><feedback><text>它能產生 42；問題在於機率低到微乎其微，而非該值不可能出現。</text></feedback></answer>
+    <answer fraction="0"><text>整數的等於比較是未定義的</text><feedback><text>整數等於是完全良定義的；困難純粹來自命中機率極低。</text></feedback></answer>
+    <answer fraction="0"><text>隨機生成在這類守衛上總是陷入無窮迴圈</text><feedback><text>它不會永遠迴圈；只是不斷抽到絕大多數都錯過那唯一目標的值。</text></feedback></answer>
+    <generalfeedback><text>確切等於的守衛只被定義域中極小一部分滿足（32 位元整數約四十億分之一）。隨機抽樣得不到任何「是否更接近」的回饋，因此每次抽取命中的機率微乎其微。導向式方法——播種該常數、求解 <code>x == 42</code>，或使用基於距離的適應度——則可靠得多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以分支距離引導搜尋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對目標 <code>if (x == 42)</code>，<strong>分支距離（branch-distance）</strong>適應度函數如何引導搜尋走向真分支？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它以 <code>x</code> 離 42 有多遠來為候選評分（例如 |x - 42|），使搜尋獲得獎勵更接近之輸入的梯度</text><feedback><text>正確——把述詞轉成距離，就給了搜尋一個可最小化的量。</text></feedback></answer>
+    <answer fraction="0"><text>它在分支被走到時回傳 1、否則回傳 0，給搜尋一個明確訊號</text><feedback><text>純 0/1 訊號沒有梯度——搜尋無法分辨 x=41 比 x=1000 好；分支距離正好提供這個梯度。</text></feedback></answer>
+    <answer fraction="0"><text>它用 SMT 求解器求解約束 <code>x == 42</code></text><feedback><text>那是符號求解；分支距離適應度是搜尋式的替代方案，以數值量度接近程度。</text></feedback></answer>
+    <answer fraction="0"><text>它計算候選總共執行了多少敘述</text><feedback><text>總執行敘述數並不衡量離滿足該特定述詞有多近。</text></feedback></answer>
+    <generalfeedback><text>分支距離把述詞轉為一個數字，量度輸入離翻轉該分支有多近。對 <code>x == 42</code>，自然的距離是 |x - 42|：越小越近。搜尋最小化此距離，於是能分辨 x=41 遠優於 x=1000 並朝目標攀升——這是平坦的 0/1 訊號辦不到的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>陳述預言問題</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者最能刻畫<strong>測試預言問題</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成輸入相對容易，但判斷所得行為是否正確卻很難，且往往需要人所提供的知識</text><feedback><text>正確——困難處在於判斷正確性，而非產生輸入。</text></feedback></answer>
+    <answer fraction="0"><text>不可能生成任何能到達深層程式碼的輸入</text><feedback><text>到達深層程式碼是覆蓋／生成的挑戰；預言問題關乎判斷正確性。</text></feedback></answer>
+    <answer fraction="0"><text>約束求解器太慢，無法求解任何路徑條件</text><feedback><text>求解器效能是符號執行的議題，而非預言問題。</text></feedback></answer>
+    <answer fraction="0"><text>隨機生成總是勝過導向式生成</text><feedback><text>那是關於生成策略的錯誤論斷，與預言問題無關。</text></feedback></answer>
+    <generalfeedback><text>預言問題是指：即使手上有了輸入，判斷程式的回應是否正確通常仍需知道預期行為——預期值、斷言、參考或關係。由於取得這種知識代價高昂，成為全自動測試瓶頸的通常是預言，而非輸入生成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符號、隨機與搜尋式的比較</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於到達一個困難分支，下列何者正確概括<strong>隨機</strong>、<strong>搜尋式</strong>與<strong>符號式</strong>生成之間的取捨？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機最便宜但盲目；搜尋式需要適應度梯度才能攀升；符號式能求解確切條件，但可能碰上求解器限制與路徑爆炸</text><feedback><text>正確——三者各以不同的成本與失敗模式換取到達能力。</text></feedback></answer>
+    <answer fraction="0"><text>三者同樣有效，且成本完全相同</text><feedback><text>差異很大：隨機便宜／盲目、搜尋式需梯度、符號式需可處理的求解器。</text></feedback></answer>
+    <answer fraction="0"><text>符號式生成永遠不需要約束求解器</text><feedback><text>以求解器求解路徑條件正是符號式生成的本質。</text></feedback></answer>
+    <answer fraction="0"><text>搜尋式生成不論適應度地形如何都同樣有效</text><feedback><text>沒有梯度時（例如旗標問題），搜尋式生成會退化成接近隨機。</text></feedback></answer>
+    <answer fraction="0"><text>三者中只有隨機生成不需要預言</text><feedback><text>三者都需要預言來判斷正確性；那與如何生成輸入無關。</text></feedback></answer>
+    <generalfeedback><text>隨機生成便宜、不需分析但盲目，故錯過狹窄目標。搜尋式生成在適應度提供梯度時能到達目標，否則停滯。符號式生成能精確求解確切條件，卻受限於求解器能力（非線性算術、外部呼叫）與路徑爆炸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從 FSM 生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定一台描述某元件的有限狀態機，模型式生成通常如何產生測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它藉由走訪 FSM 來覆蓋所選元素（如每個狀態或每條轉移），從而推導出輸入序列</text><feedback><text>正確——對 FSM 的走訪化為帶有覆蓋目標的測試序列。</text></feedback></answer>
+    <answer fraction="0"><text>它在編譯後的元件中隨機翻轉位元，直到它改變狀態</text><feedback><text>那是對輸入的變異式模糊測試，而非從模型推導序列。</text></feedback></answer>
+    <answer fraction="0"><text>它量測元件有多少行原始碼</text><feedback><text>那是規模指標，而非從模型推導測試。</text></feedback></answer>
+    <answer fraction="0"><text>它證明該 FSM 無死結，但不產生任何測試</text><feedback><text>那是對性質的模型檢驗；模型式生成則會產出具體的測試序列。</text></feedback></answer>
+    <generalfeedback><text>從 FSM 出發，模型式生成建構走訪模型的輸入序列以滿足覆蓋目標——例如造訪每個狀態、執行每條轉移，或覆蓋轉移對。由於模型也編碼了預期回應，它還能提供預期輸出，有助於預言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>接近層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在搜尋式生成中，<strong>接近層級（approach level）</strong>對一個目標分支量度什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在執行偏離目標之前，還有多少個控制（巢狀）該目標的決策節點未被朝目標方向滿足</text><feedback><text>正確——接近層級計數在執行走偏處與目標之間，還有多少個包住目標的決策未被滿足。</text></feedback></answer>
+    <answer fraction="0"><text>某變數離滿足當下述詞的數值距離</text><feedback><text>那是分支距離；接近層級關乎還有多少包住目標的決策未被滿足。</text></feedback></answer>
+    <answer fraction="0"><text>整支程式的敘述總數</text><feedback><text>程式規模與執行離目標多近無關。</text></feedback></answer>
+    <answer fraction="0"><text>候選執行所花的時鐘時間</text><feedback><text>執行時間不衡量離目標分支的接近程度。</text></feedback></answer>
+    <generalfeedback><text>對錯過目標的執行，接近層級計數該目標控制相依（外圍）的決策節點中，有多少個未朝目標方向被走到——亦即執行在幾層巢狀之外就偏離了。它會與偏離點處的分支距離結合，形成該目標的整體適應度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>爬山法與基因演算法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>作為測試生成的後設啟發式，<strong>爬山法（hill-climbing）</strong>與<strong>基因演算法（genetic algorithm）</strong>有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>爬山法以局部移動改良單一候選，可能卡在局部最佳；基因演算法以交配與變異演化一群候選，較擅長跳脫局部最佳</text><feedback><text>正確——單點局部搜尋 vs 族群式演化正是關鍵差異。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法使用約束求解器，基因演算法只用隨機抽樣</text><feedback><text>兩者都不以求解器定義；兩者都用適應度函數，差別在局部與族群搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>基因演算法不評估任何適應度函數，爬山法則會</text><feedback><text>兩者都仰賴適應度函數；基因演算法用它在族群中做選擇。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一個演算法的兩個名稱</text><feedback><text>它們是機制不同的兩種搜尋策略。</text></feedback></answer>
+    <generalfeedback><text>爬山法只保留一個候選，每步移到較好的鄰居，快速但可能困在局部最佳或平台。基因演算法維持一個族群並套用選擇、交配與變異，因此有更多方式跳脫局部最佳，代價是更多次評估。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋率驅動生成的迴圈</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>覆蓋率驅動</strong>測試生成的核心迴圈是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>找出一個未覆蓋的目標、生成瞄準它的輸入、把成功的測試加入，並在剩下的未覆蓋目標上重複</text><feedback><text>正確——它反覆攻擊覆蓋缺口。</text></feedback></answer>
+    <answer fraction="0"><text>一次生成一大批隨機輸入，之後再也不看覆蓋率</text><feedback><text>那是普通隨機生成；覆蓋率驅動生成每一輪都用覆蓋率回饋來挑目標。</text></feedback></answer>
+    <answer fraction="0"><text>不斷刪測試直到覆蓋率降到零</text><feedback><text>那既破壞又無意義；覆蓋率驅動生成是加測試以提高覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>判斷每個輸出的正確性，並在全部正確時停止</text><feedback><text>那描述的是預言檢查；覆蓋率驅動生成關乎到達未覆蓋的元素。</text></feedback></answer>
+    <generalfeedback><text>覆蓋率驅動生成量測當前覆蓋率，挑選一個未覆蓋的目標（分支、敘述、路徑），並把生成——搜尋式、符號式或其他——導向到達它。命中新目標的測試被保留，此過程在剩餘缺口上重複，直到預算用盡或覆蓋率達標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何成對測試能減少測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何<strong>成對（pairwise）</strong>生成能以遠少於完整笛卡兒積的測試數覆蓋所有值對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個測試同時覆蓋許多不同的值對，因此一小組精選的測試就能囊括每一對</text><feedback><text>正確——一個測試一次貢獻許多對，故一個緊湊的覆蓋陣列即足夠。</text></feedback></answer>
+    <answer fraction="0"><text>它悄悄忽略大部分參數</text><feedback><text>成對仍涉及所有參數；只是不要求它們所有值的每一種完整組合。</text></feedback></answer>
+    <answer fraction="0"><text>它假設一次只有一個參數重要</text><feedback><text>成對覆蓋的是兩兩互動，而非孤立的單一參數。</text></feedback></answer>
+    <answer fraction="0"><text>它以隨機雜訊取代參數</text><feedback><text>成對是覆蓋陣列的系統化建構，而非隨機雜訊。</text></feedback></answer>
+    <generalfeedback><text>在覆蓋陣列中，每一列（測試）為每個參數固定一個值，因此一次覆蓋許多參數值對。由於對在各測試間共享，精心建構的一小組即可囊括每一對，故測試數大致隨參數數目呈對數成長，而非完整乘積。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>混合執行結合具體與符號</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>混合執行（concolic）</strong>生成如何結合具體與符號執行以探索新路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它以具體輸入執行程式並同時收集符號路徑約束，然後把某個分支約束取反並求解，得到走新路徑的輸入</text><feedback><text>正確——具體執行保持腳踏實地，符號約束則讓它能導向新分支。</text></feedback></answer>
+    <answer fraction="0"><text>它只執行具體輸入，從不記錄任何約束</text><feedback><text>那只是普通測試；混合執行會在具體執行旁記錄符號約束。</text></feedback></answer>
+    <answer fraction="0"><text>它只做符號推理，從不具體執行程式</text><feedback><text>那是純符號執行；混合執行刻意把具體執行與符號軌跡配對。</text></feedback></answer>
+    <answer fraction="0"><text>它用交配與變異演化一群輸入</text><feedback><text>那是基因演算法；混合執行用具體加符號執行搭配求解器。</text></feedback></answer>
+    <generalfeedback><text>混合執行（具體＋符號）以具體輸入執行程式，過程中記錄符號路徑條件。要到達新路徑時，它把某個分支約束取反、求解修改後的條件得到具體值，再重跑。以具體執行為基礎，讓它能在求解器無法推理處（如某些函式庫呼叫）使用真實值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>差分預言</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>差分（differential）</strong>預言如何判斷一個生成的輸入？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把輸入送入兩個或更多獨立實作，並把它們輸出的不一致視為可能的缺陷</text><feedback><text>正確——實作之間出現差異，代表至少有一個是錯的。</text></feedback></answer>
+    <answer fraction="0"><text>它量測輸入覆蓋了多少分支</text><feedback><text>那是覆蓋率，而非比較輸出的預言。</text></feedback></answer>
+    <answer fraction="0"><text>它要求為每個輸入手寫預期值</text><feedback><text>差分測試藉由讓多個實作互相比對，避免了需要手寫預期值。</text></feedback></answer>
+    <answer fraction="0"><text>它把某個分支約束取反以到達新路徑</text><feedback><text>那是混合執行的探索，而非差分預言。</text></feedback></answer>
+    <generalfeedback><text>差分預言把同一個生成輸入送入兩個或更多本應一致的實作（不同版本、參考實作或替代函式庫），並把任何輸出不一致當作缺陷證據。它避開了需要確切預期值，但無法抓到所有實作以相同方式共有的錯誤。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>把斷言當作預言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>嵌在程式中（或隨測試一起生成）的可執行斷言，可作為自動生成輸入的部分預言。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——當生成的輸入使某斷言失敗，即標示出不正確的行為，成為部分預言。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>斷言確實可作為部分預言：當生成的輸入使其失敗時，就揭露了缺陷。</text></feedback></answer>
+    <generalfeedback><text>斷言編碼了執行時必須成立的性質。當自動生成的輸入違反其中之一，就暴露出不正確的行為，故斷言可作為部分預言。之所以「部分」，是因為它只檢查實際被斷言的性質，而非完整正確性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何適應度梯度很重要</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何適應度函數中是否存在<strong>梯度</strong>，對搜尋式生成如此重要？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>梯度讓搜尋能分辨哪些候選更接近目標，因此能一步步改良，而非盲目亂猜</text><feedback><text>正確——沒有「更接近」的感覺，後設啟發式搜尋就無從攀升。</text></feedback></answer>
+    <answer fraction="0"><text>梯度保證目標恰好一步就能到達</text><feedback><text>它不保證一步；它提供方向，讓搜尋能歷經多步前進。</text></feedback></answer>
+    <answer fraction="0"><text>梯度免除了任何適應度評估</text><feedback><text>梯度是適應度值的性質，而適應度仍須被評估。</text></feedback></answer>
+    <answer fraction="0"><text>梯度使預言變得不必要</text><feedback><text>適應度引導覆蓋；預言仍獨立判斷正確性。</text></feedback></answer>
+    <generalfeedback><text>後設啟發式搜尋藉由朝更好的適應度移動來改良候選。若適應度隨接近目標而平滑變化（有梯度），搜尋便能循之前進。若適應度除了在目標處外都平坦（如布林旗標），就無梯度可攀，搜尋退化成接近隨機亂猜。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>播種常數以命中 x==42</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成器反覆無法滿足 <code>if (x == 42)</code>。下列哪個實務手法最直接有幫助？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用從原始碼挖掘的常數（含 42）播種生成器，讓候選輸入從這些字面值中取用</text><feedback><text>正確——挖掘並播種該字面值，使命中確切守衛變得可能。</text></feedback></answer>
+    <answer fraction="0"><text>加大族群規模，但仍以純均勻隨機抽樣取值</text><feedback><text>更多均勻隨機抽取幾乎不改變命中單一確切值那微乎其微的機率。</text></feedback></answer>
+    <answer fraction="0"><text>移除適應度函數以讓搜尋更快</text><feedback><text>移除引導只會更糟，把搜尋降級為盲目隨機。</text></feedback></answer>
+    <answer fraction="0"><text>把預言改成蛻變關係</text><feedback><text>預言判斷正確性；它無助於生成器到達該守衛。</text></feedback></answer>
+    <generalfeedback><text>常數播種從程式碼挖掘字面值（此處為 42），並餵入候選值池。由於確切常數現在可供生成器取用，滿足 <code>x == 42</code> 變得可能，而非機率極低。這與分支距離適應度、符號求解並列，皆為突破狹窄等於守衛的方法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>基因演算法如何處理測試個體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在用於測試生成的基因演算法中，各運算子對測試個體做了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>選擇偏好較適應的測試，交配重組兩個測試的片段，變異做小幅隨機更動——共同產生新一代</text><feedback><text>正確——選擇、交配與變異一起演化族群。</text></feedback></answer>
+    <answer fraction="0"><text>它們用 SMT 求解器求解每個個體的路徑條件</text><feedback><text>那是符號／混合執行生成，而非基因運算子。</text></feedback></answer>
+    <answer fraction="0"><text>它們刪除每個適應度尚未達到最大的個體</text><feedback><text>選擇是機率性的並保留多樣性；不是單純刪除所有非最佳個體。</text></feedback></answer>
+    <answer fraction="0"><text>它們在不執行測試的情況下計算程式覆蓋率</text><feedback><text>適應度通常需要執行測試；運算子演化個體，並不靜態計算覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>基因演算法演化一群測試個體：選擇機率性地保留較適應者，交配結合兩個親代的素材，變異對個體做小幅擾動。由適應度函數引導、反覆套用這些運算子，使族群朝達成目標的測試前進。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Generation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>分支距離加接近層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對一個深度巢狀的目標分支，為何搜尋式工具會把<strong>接近層級</strong>與<strong>分支距離</strong>結合，而非單用其一？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>接近層級說明執行還漏掉幾個外圍決策，分支距離則量度它偏離處的決策有多接近被滿足——兩者一起提供橫跨巢狀的梯度</text><feedback><text>正確——這對組合產生平滑的適應度：外圍決策被滿足得越多、偏離的那個越接近，適應度都會改善。</text></feedback></answer>
+    <answer fraction="0"><text>單靠接近層級就已在每個巢狀層級提供連續梯度</text><feedback><text>接近層級是整數，只有在整個外圍決策翻轉時才變動；分支距離填補這些階梯之間的空隙。</text></feedback></answer>
+    <answer fraction="0"><text>單靠分支距離就能表達漏掉了幾層巢狀</text><feedback><text>分支距離對單一述詞是局部的；它不編碼還剩多少外圍決策——那是接近層級的職責。</text></feedback></answer>
+    <answer fraction="0"><text>結合兩者可免除執行程式</text><feedback><text>兩者都由候選輸入的實際執行算得；結合它們並不能避免執行程式。</text></feedback></answer>
+    <generalfeedback><text>對巢狀目標，一次執行可能在目標之前幾個外圍決策就偏離。接近層級計數那些仍未被滿足的外圍決策（粗略、整數階梯）；在偏離點，分支距離量度該決策有多接近被滿足（階梯之間的細梯度）。常用的適應度是接近層級加上正規化後的分支距離，因此改善任一者都會降低適應度，給搜尋一條穿過巢狀的連續下坡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何預言問題限制自動化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>即使有出色的輸入生成，為何預言問題仍從根本上限制了<em>全</em>自動測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成能自動到達行為，但判斷該行為是否正確通常需要預期規格，而這終究得由人提供</text><feedback><text>正確——到達行為不等於知道它是對的；正確性知識必須有來源。</text></feedback></answer>
+    <answer fraction="0"><text>因為生成的輸入永遠無法到達超過一半的分支</text><feedback><text>可達性是覆蓋限制，而非預言問題；預言關乎判斷正確性。</text></feedback></answer>
+    <answer fraction="0"><text>因為約束求解器無法處理任何算術</text><feedback><text>求解器能處理許多算術；那是符號執行的限制，而非預言問題。</text></feedback></answer>
+    <answer fraction="0"><text>因為隨機生成總是比受測程式更快</text><feedback><text>相對速度與能否判斷輸出正確無關。</text></feedback></answer>
+    <generalfeedback><text>自動化擅長產生輸入與到達行為，但「程式做了 X」並不說明 X 是否是它該做的。判斷這點需要預期行為——規格、預期值或關係——而這無法從受測程式碼本身推導。部分預言（斷言、當機、蛻變與差分關係）縮小差距，卻無法消除，因此由人提供的正確性概念仍是極限。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>蛻變關係何時有幫助</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何<strong>蛻變關係</strong>對自動生成的輸入特別有價值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它讓你不必知道每個輸入的確切預期輸出即可檢查正確性，因此能規模化到生成器產生的大量輸入</text><feedback><text>正確——檢查相關輸入間的關係，避開了逐輸入的預期值。</text></feedback></answer>
+    <answer fraction="0"><text>它保證偵測到程式中每一個可能的缺陷</text><feedback><text>它只抓到違反所選關係的缺陷；其他缺陷可能不被察覺。</text></feedback></answer>
+    <answer fraction="0"><text>它既生成輸入又判斷輸入</text><feedback><text>它是預言技術；輸入仍來自另一個生成器（不過關係常會指定一個後續輸入）。</text></feedback></answer>
+    <answer fraction="0"><text>它免除了執行程式的需要</text><feedback><text>檢查關係需要以相關輸入執行程式。</text></feedback></answer>
+    <generalfeedback><text>對自動生成的輸入，逐一手寫預期輸出並不可行。蛻變關係改為約束相關輸入之輸出必須如何關聯（例如一個源輸入與一個轉換後的後續輸入）。若關係被違反，即暴露缺陷——不需逐輸入的預期值。其限制是它只抓到所選特定關係的違反。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>混合執行與搜尋的結合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何工具可能會<strong>結合</strong>混合執行與搜尋式生成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>搜尋以適應度處理求解器薄弱之處（非線性或不透明呼叫），而混合求解攻克搜尋難以對付的確切條件——彼此補足對方的盲點</text><feedback><text>正確——兩種技術在互補的情況下失效，故結合可擴大到達範圍。</text></feedback></answer>
+    <answer fraction="0"><text>因為混合執行與搜尋式生成完全相同，所以結合它們毫無成本</text><feedback><text>它們是強項不同的兩種技術；結合的重點在互補，而非重複。</text></feedback></answer>
+    <answer fraction="0"><text>為了永遠不必執行受測程式</text><feedback><text>兩種方法都會執行程式（混合執行具體地跑、搜尋為評估適應度而跑）。</text></feedback></answer>
+    <answer fraction="0"><text>因為這種結合消除了預言問題</text><feedback><text>兩種技術都不判斷正確性；預言問題依然存在。</text></feedback></answer>
+    <generalfeedback><text>混合求解擅長像 <code>x == 42</code> 的確切條件，但在求解器無法表達的約束（非線性算術、雜湊、外部呼叫）上停滯。搜尋式生成能以適應度引導闖過那些，卻在毫無梯度的狹窄等於上停滯。混合式在各自強項處運用兩者，故合力覆蓋任一單獨都到不了的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最小化與找錯能力</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把生成的套件最小化以維持相同覆蓋率時，關鍵風險是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩個覆蓋相同的測試在找錯能力上可能不同，因此把其一當「多餘」刪掉，即使覆蓋率不變也可能降低找錯能力</text><feedback><text>正確——覆蓋率相等並不代表找錯能力相等。</text></feedback></answer>
+    <answer fraction="0"><text>最小化總是同時提高覆蓋率與找錯能力</text><feedback><text>最小化是移除測試；它無法提高覆蓋率，且可能降低找錯能力。</text></feedback></answer>
+    <answer fraction="0"><text>最小化會更動受測程式</text><feedback><text>最小化修剪的是測試，而非程式。</text></feedback></answer>
+    <answer fraction="0"><text>只要維持覆蓋率，最小化就保證相同的找錯能力</text><feedback><text>並無此保證——覆蓋率相等仍可能抓到不同的缺陷。</text></feedback></answer>
+    <generalfeedback><text>最小化保留一個滿足某準則（通常是覆蓋率）的子集。但兩個覆蓋相同元素的測試，可能以不同資料執行它們，因而抓到不同缺陷。把其一當覆蓋率冗餘而刪除，可能在覆蓋率不變下降低套件的找錯能力——這個取捨是更小／更快的套件 vs 可能損失找錯能力。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>旗標問題</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮 <code>bool flag = (a == b); ... if (flag) { target; }</code>。為何這對搜尋式生成是困難情形（「旗標問題」）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在 <code>if (flag)</code> 處分支距離只有 0 或 1，形成平坦的適應度地形，沒有梯度告訴搜尋如何讓 <code>a</code> 逼近 <code>b</code></text><feedback><text>正確——布林值把距離資訊壓垮，只剩一片平台。</text></feedback></answer>
+    <answer fraction="0"><text>旗標變數使該分支永遠不可能被走到</text><feedback><text>當 a==b 時該分支可達；困難在於缺少梯度，而非不可能。</text></feedback></answer>
+    <answer fraction="0"><text>布林變數無法在搜尋空間中表示</text><feedback><text>布林可被表示；問題在於它丟棄了 <code>a == b</code> 的距離訊號。</text></feedback></answer>
+    <answer fraction="0"><text>旗標保證在評估期間造成無窮迴圈</text><feedback><text>並未隱含任何迴圈；問題是平坦的適應度地形。</text></feedback></answer>
+    <generalfeedback><text>把述詞結果存進布林旗標，會丟掉它有多接近被滿足的資訊。在 <code>if (flag)</code> 處分支距離只是 0 或 1，因此除了在解處外適應度都平坦（一片平台），搜尋得不到把 <code>a</code> 推向 <code>b</code> 的方向。補救之道包括旗標移除／轉換，或以可測試性轉換還原底層的距離。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>正規化分支距離</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何分支距離通常會先<strong>正規化</strong>（例如映到 [0,1)）再加到接近層級上？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>如此一來，多滿足一個外圍決策（更低的接近層級）永遠勝過任何分支距離的改善，讓兩個成分維持正確的排序</text><feedback><text>正確——正規化確保推進整整一層巢狀，優先於在當前層內只是更接近。</text></feedback></answer>
+    <answer fraction="0"><text>因為分支距離否則會是負的</text><feedback><text>分支距離依定義非負；正規化關乎尺度，而非正負號。</text></feedback></answer>
+    <answer fraction="0"><text>為了把適應度轉成布林的通過／失敗值</text><feedback><text>正規化保留連續值；它不會把適應度壓成布林。</text></feedback></answer>
+    <answer fraction="0"><text>為了讓預言變得不必要</text><feedback><text>正規化關乎適應度尺度，而非正確性判斷。</text></feedback></answer>
+    <generalfeedback><text>適應度通常是接近層級加上正規化後的分支距離。把距離限制在小於 1，保證把接近層級減 1（滿足另一個外圍決策）永遠比任何層內的距離收穫更能改善適應度，因此搜尋偏好真正的結構性進展，同時仍利用層內的細梯度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符號式生成的路徑爆炸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>路徑爆炸（path explosion）</strong>，為何它限制符號／混合執行生成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可行路徑數可能組合性地增長（例如隨分支與迴圈迭代），使得列舉並求解全部變得不可行</text><feedback><text>正確——路徑數爆增，在覆蓋所有路徑前就耗盡時間與求解器預算。</text></feedback></answer>
+    <answer fraction="0"><text>約束求解器對單一路徑回傳太多滿足解</text><feedback><text>路徑爆炸是關於要探索的路徑數，而非每條路徑的解數。</text></feedback></answer>
+    <answer fraction="0"><text>生成的輸入變得太大而無法儲存</text><feedback><text>爆增的是要分析的路徑，而非主要是輸入大小。</text></feedback></answer>
+    <answer fraction="0"><text>受測程式在執行時耗盡記憶體</text><feedback><text>路徑爆炸是生成器的分析擴展性問題，而非目標的執行時記憶體錯誤。</text></feedback></answer>
+    <generalfeedback><text>每個分支都可能使路徑數加倍，而迴圈更會使之相乘，因此可行路徑數組合性地增長。符號／混合執行生成必須為這些挑選並求解路徑條件，窮盡覆蓋它們變得難以處理。工具以搜尋啟發式、路徑修剪／合併，以及限制迴圈展開來緩解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隱式當機預言的限制</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對生成的輸入只依賴當機作為預言，有一個關鍵限制。是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它只抓到以當機／中止形式顯現的失敗；錯誤但不當機的結果會被忽略</text><feedback><text>正確——沉默的不正確輸出會溜過只看當機的預言。</text></feedback></answer>
+    <answer fraction="0"><text>它無法偵測記憶體區段錯誤</text><feedback><text>記憶體區段錯誤這類當機正是它能偵測的；它漏掉的是不當機的錯誤結果。</text></feedback></answer>
+    <answer fraction="0"><text>它要求為每個輸入提供確切預期值</text><feedback><text>當機預言不需預期值——這既是其吸引力，也正是它漏掉邏輯錯誤的原因。</text></feedback></answer>
+    <answer fraction="0"><text>它使生成器無法到達深層分支</text><feedback><text>預言的選擇不限制生成能到達哪些分支。</text></feedback></answer>
+    <generalfeedback><text>當機（或消毒器／斷言）預言完全自動且便宜，這正是模糊測試依賴它的原因。但它只標示以可觀察當機顯現的失敗。一個回傳錯誤值卻不當機的函式不產生任何訊號，因此只看當機的預言漏掉大多數邏輯錯誤——這促成了更豐富的部分預言，如蛻變與差分關係。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>差分與蛻變的選擇</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你正為一個數值常式生成輸入，且<em>沒有</em>獨立的參考實作。哪個部分預言適用，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>蛻變關係，因為它檢查相關輸入之輸出間必需的關係，且不需要第二個實作</text><feedback><text>正確——在沒有可比對的參考時，蛻變關係仍能提供檢查。</text></feedback></answer>
+    <answer fraction="0"><text>差分預言，因為它單憑這一個實作就能運作</text><feedback><text>差分測試需要至少兩個實作來比較；只有一個時並不適用。</text></feedback></answer>
+    <answer fraction="0"><text>都不行，因為沒有參考就永遠不可能有自動檢查</text><feedback><text>即使沒有參考，蛻變關係仍提供檢查，故自動的部分預言仍然可能。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋目標，因為覆蓋率能判斷正確性</text><feedback><text>覆蓋率量度執行了什麼，而非輸出是否正確。</text></feedback></answer>
+    <generalfeedback><text>差分預言需要兩個或更多實作才能出現不一致；只有一個時無法使用。蛻變關係改為檢查相關輸入之輸出必須如何關聯（例如把所有輸入放大，輸出應可預測地隨之放大），這只需要那唯一的實作——因此在沒有參考時，它是適用的部分預言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>達到覆蓋不代表找到錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成器達到 100% 分支覆蓋率。為何這<em>不</em>足以確立程式正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>執行到每個分支只表示程式碼跑過了，但若沒有預言檢查每個結果，被覆蓋分支上的錯誤輸出仍不會被察覺</text><feedback><text>正確——覆蓋率量度執行，而非正確性；預言仍是必需的。</text></feedback></answer>
+    <answer fraction="0"><text>100% 分支覆蓋率在數學上不可能，故此宣稱必為假</text><feedback><text>完整分支覆蓋常可達成；重點是覆蓋率本身不判斷正確性。</text></feedback></answer>
+    <answer fraction="0"><text>分支覆蓋率自動為每個分支內建了預言</text><feedback><text>覆蓋率記錄哪些分支跑過；它不判斷其結果是否正確。</text></feedback></answer>
+    <answer fraction="0"><text>因為覆蓋率總是高估實際執行的分支</text><feedback><text>問題不在計數失準；而在於跑過一個分支不等於驗證其輸出。</text></feedback></answer>
+    <generalfeedback><text>覆蓋率告訴你程式碼被執行了，而非它行為正確。一個分支可以跑過卻仍回傳錯誤值；若沒有斷言預期行為的預言，該缺陷不留痕跡。因此純以覆蓋率為目標的生成能最大化執行，但偵測隨之而來的缺陷仍完全取決於預言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>基因演算法跳脫平台</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在有平台的適應度地形上，為何基因演算法有時能在簡單爬山法停滯處取得進展？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>族群多樣性加上交配與變異，讓它同時探索多個區域並跨越平坦區，而非只依賴嚴格改善的局部移動</text><feedback><text>正確——族群式探索能跨越困住單點攀升者的平台。</text></feedback></answer>
+    <answer fraction="0"><text>它以約束求解器取代適應度函數</text><feedback><text>基因演算法仍使用適應度；它不換成求解器。</text></feedback></answer>
+    <answer fraction="0"><text>它保證在任何地形上找到全域最佳</text><feedback><text>沒有任何後設啟發式保證全域最佳；基因演算法只是提高跳脫局部陷阱的機會。</text></feedback></answer>
+    <answer fraction="0"><text>它藉由更動受測程式來移除平台</text><feedback><text>基因演算法不修改程式；重塑此類地形的是可測試性轉換，而非基因演算法本身。</text></feedback></answer>
+    <generalfeedback><text>爬山法只接受嚴格改善的鄰居，因此在平台上無處可去。基因演算法維持一個多樣的族群，並以交配與變異在空間中取樣，故能漂過平坦區並重組部分解。它仍不提供保證——真正平坦的地形（如未處理的旗標問題）也能擊敗它——但比純局部搜尋更穩健。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>可達性與良好梯度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>只要目標分支原則上可達，搜尋式生成器就保證能到達它，與適應度地形無關。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>不對——可達性不保證成功；沒有可用的梯度時（如旗標問題），搜尋可能找不到該輸入。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——若適應度地形毫無梯度，一個可達的目標對搜尋而言仍可能實際上不可達。</text></feedback></answer>
+    <generalfeedback><text>可達性是程式的性質；搜尋是否成功還取決於適應度地形。若適應度除了在解處外都平坦（平台或未處理的旗標），後設啟發式便無方向，可能到不了一個原則上完全可達的目標。這正是為何適應度設計與可測試性轉換很重要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>跨版本的回歸播種</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為新版本生成測試時，為何從舊版本的測試與輸入<strong>播種</strong>會有用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>先前的輸入已能到達大部分共享行為，故生成器可從相關狀態附近起步，把預算集中在改動過的程式碼</text><feedback><text>正確——重用先前素材給了起步優勢，並把心力集中在改動處。</text></feedback></answer>
+    <answer fraction="0"><text>它讓生成器完全跳過執行程式</text><feedback><text>播種提供起始輸入；程式仍必須被執行以評估它們。</text></feedback></answer>
+    <answer fraction="0"><text>它保證新版本沒有回歸</text><feedback><text>播種有助生成；它無法保證沒有回歸。</text></feedback></answer>
+    <answer fraction="0"><text>它免除了對新版本使用預言的需要</text><feedback><text>在新版本上判斷正確性仍需要預言。</text></feedback></answer>
+    <generalfeedback><text>跨版本時大量行為不變，故舊套件的輸入已把程式驅入相關的深層狀態。以它們播種生成器，代表它不必從零重新發現那些行為，而能把預算花在探索改動過的程式碼——在回歸情境中，這是對先驗資訊實用而有效的運用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整套最佳化與逐目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>現代 SBST 工具常對<strong>整套</strong>測試一次針對所有覆蓋目標最佳化，而非為每個目標各生成一個測試。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>逐個目標會把預算浪費在不可行或困難的目標上，且忽略了單一測試可命中多個目標；整套最佳化把心力花在有回報處並善用附帶覆蓋</text><feedback><text>正確——套件層級的目標避免卡在單一困難目標，並獎勵一次覆蓋多個目標的測試。</text></feedback></answer>
+    <answer fraction="0"><text>因為整套目標免除了任何適應度函數的需要</text><feedback><text>它仍使用適應度函數——一個聚合所有目標的函數——而非移除它。</text></feedback></answer>
+    <answer fraction="0"><text>因為整套最佳化保證在每支程式上都達到 100% 覆蓋率</text><feedback><text>並無此保證；不可行目標與困難地形仍限制覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>因為它使生成的測試不再需要預言</text><feedback><text>不論如何最佳化覆蓋率，判斷正確性仍需要預言。</text></feedback></answer>
+    <generalfeedback><text>依序為每個目標各生成一個測試，可能把整個預算耗在苦戰單一不可行或無梯度的目標上，讓容易的目標乾等，且忽略一個測試常能覆蓋多個目標。整套（以及多目標）方法對所有剩餘目標一起最佳化單一套件，故搜尋能自適應地分配心力，並收下個別測試帶來的附帶覆蓋。</text></generalfeedback>
+  </question>
+</quiz>

@@ -85956,6 +85956,2556 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           }
         ]
       }
+    },
+    "test-generation": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What automated test generation is",
+            "text": "<p>What does <strong>automated test generation</strong> primarily do?</p>",
+            "answers": [
+              {
+                "text": "It uses an algorithm to produce test inputs (and often test cases) automatically, instead of a human writing each one by hand",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the aim is to synthesize inputs/cases mechanically rather than hand-authoring every one."
+              },
+              {
+                "text": "It automatically decides whether every generated test passed or failed without any oracle",
+                "fraction": 0,
+                "feedback": "Deciding pass/fail is the oracle problem, which generation does not solve on its own."
+              },
+              {
+                "text": "It compiles the program under test into an optimized binary",
+                "fraction": 0,
+                "feedback": "That is a compiler; test generation produces inputs/cases, not machine code."
+              },
+              {
+                "text": "It formally proves the program has no defects",
+                "fraction": 0,
+                "feedback": "Generation finds or exercises behavior; it does not prove correctness."
+              }
+            ],
+            "generalFeedback": "Automated test generation replaces the manual authoring of test inputs with an algorithm \u2014 random, search-based, symbolic, model-based, or combinatorial. It produces the inputs (and often the calling sequence); deciding whether the observed behavior is correct still needs a separate oracle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Random test generation",
+            "text": "<p>What characterizes <strong>random test generation</strong>?</p>",
+            "answers": [
+              {
+                "text": "It samples inputs from the input domain at random, cheaply and without using any feedback about what the program did",
+                "fraction": 100,
+                "feedback": "Correct \u2014 random generation is cheap and simple precisely because it ignores program feedback."
+              },
+              {
+                "text": "It solves path conditions with a constraint solver to reach specific branches",
+                "fraction": 0,
+                "feedback": "That describes symbolic/concolic generation, not random generation."
+              },
+              {
+                "text": "It evolves a population of inputs guided by a fitness function",
+                "fraction": 0,
+                "feedback": "That is search-based generation; random generation uses no fitness guidance."
+              },
+              {
+                "text": "It derives inputs from a finite-state model of the specification",
+                "fraction": 0,
+                "feedback": "That is model-based generation; random generation ignores any model."
+              }
+            ],
+            "generalFeedback": "Random generation picks inputs from the domain at random. It is cheap, easy to implement, and needs no analysis, but it is blind: it gets no feedback and so struggles to satisfy narrow conditions that only a tiny fraction of inputs meet.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Random vs directed generation",
+            "text": "<p>How does <strong>directed</strong> (guided) generation differ from <strong>random</strong> generation?</p>",
+            "answers": [
+              {
+                "text": "Directed generation uses information about the program (coverage, path conditions, or a fitness signal) to steer inputs toward a goal, while random generation samples blindly",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the distinction is whether feedback about the program guides input selection."
+              },
+              {
+                "text": "Directed generation is always cheaper than random generation",
+                "fraction": 0,
+                "feedback": "Directed methods usually cost more per input (analysis, solving, evaluation); their benefit is reaching hard targets, not lower cost."
+              },
+              {
+                "text": "Random generation guarantees higher coverage than directed generation",
+                "fraction": 0,
+                "feedback": "Random generation often plateaus on hard-to-reach code; directed methods exist precisely to beat that."
+              },
+              {
+                "text": "Directed generation never needs an oracle, but random generation does",
+                "fraction": 0,
+                "feedback": "Both need an oracle to decide correctness; neither escapes the oracle problem."
+              }
+            ],
+            "generalFeedback": "Directed (guided) generation exploits feedback \u2014 coverage, path constraints, or a fitness value \u2014 to move inputs toward an objective such as an uncovered branch. Random generation ignores such feedback. Directed methods usually pay more per input but can reach targets random sampling almost never hits.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test oracle is",
+            "text": "<p>In test generation, what is a <strong>test oracle</strong>?</p>",
+            "answers": [
+              {
+                "text": "The mechanism that decides whether the program's behavior on a given input is correct",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the oracle is what judges pass/fail; it is separate from generating the input."
+              },
+              {
+                "text": "The algorithm that generates the input values",
+                "fraction": 0,
+                "feedback": "That is the generator; the oracle judges the resulting behavior, it does not produce inputs."
+              },
+              {
+                "text": "The coverage metric used to measure a test suite",
+                "fraction": 0,
+                "feedback": "Coverage measures how much code ran; the oracle decides whether the output was correct."
+              },
+              {
+                "text": "The random seed used to make a run reproducible",
+                "fraction": 0,
+                "feedback": "A seed makes generation repeatable; it does not decide correctness."
+              }
+            ],
+            "generalFeedback": "A test oracle is whatever decides whether the observed behavior for an input is acceptable \u2014 an assertion, an expected value, a reference implementation, or a metamorphic relation. Generating an input is one problem; deciding whether the result is correct is the separate oracle problem.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a fitness function is",
+            "text": "<p>In search-based test generation, what is a <strong>fitness function</strong>?</p>",
+            "answers": [
+              {
+                "text": "A numeric measure of how close a candidate test is to achieving the goal, used to guide the search toward better tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fitness scores candidates so the search can prefer and refine the promising ones."
+              },
+              {
+                "text": "A boolean that is only true when the goal is already reached",
+                "fraction": 0,
+                "feedback": "A pure boolean gives no gradient; effective fitness varies smoothly so the search knows which candidates are closer."
+              },
+              {
+                "text": "The oracle that decides whether the output is correct",
+                "fraction": 0,
+                "feedback": "Fitness measures progress toward a coverage goal; the oracle judges correctness \u2014 different roles."
+              },
+              {
+                "text": "The random seed passed to the input generator",
+                "fraction": 0,
+                "feedback": "The seed controls reproducibility, not how good a candidate is."
+              }
+            ],
+            "generalFeedback": "A fitness function maps a candidate test to a number saying how near it is to the objective (for example, reaching a target branch). A good fitness function provides a gradient \u2014 it improves gradually as tests get closer \u2014 so a metaheuristic can climb toward the goal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Search-based software testing",
+            "text": "<p>What is <strong>search-based software testing (SBST)</strong>?</p>",
+            "answers": [
+              {
+                "text": "It reformulates test generation as an optimization problem and uses a metaheuristic (e.g. hill-climbing or a genetic algorithm) guided by a fitness function to search for tests that meet a goal",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 SBST turns "find a good test" into "optimize this fitness function."'
+              },
+              {
+                "text": "It exhaustively enumerates every possible input to the program",
+                "fraction": 0,
+                "feedback": "Exhaustive enumeration is usually infeasible; SBST searches selectively using fitness guidance."
+              },
+              {
+                "text": "It searches the source code for syntax errors before compilation",
+                "fraction": 0,
+                "feedback": "SBST searches the space of tests, not the source for syntax errors."
+              },
+              {
+                "text": "It queries a constraint solver for every branch condition",
+                "fraction": 0,
+                "feedback": "That is symbolic/concolic generation; SBST uses metaheuristic search driven by fitness."
+              }
+            ],
+            "generalFeedback": "SBST casts test generation as optimization: a candidate test is a point in a search space, a fitness function scores it against the goal, and a metaheuristic (hill-climbing, genetic algorithms, etc.) iteratively improves candidates toward a target such as covering a branch.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Model-based test generation",
+            "text": "<p>What is <strong>model-based test generation</strong>?</p>",
+            "answers": [
+              {
+                "text": "Deriving tests automatically from a model of intended behavior, such as a finite-state machine or formal specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the tests come from traversing/analyzing a behavioral model."
+              },
+              {
+                "text": "Building a machine-learning model that predicts which tests will fail",
+                "fraction": 0,
+                "feedback": "That is failure prediction, not deriving tests from a behavioral model."
+              },
+              {
+                "text": "Randomly mutating the source code to create faulty versions",
+                "fraction": 0,
+                "feedback": "That is mutation testing; model-based generation derives tests from a spec/FSM."
+              },
+              {
+                "text": "Measuring how many model elements a hand-written suite covers",
+                "fraction": 0,
+                "feedback": "That is model coverage measurement; generation produces the tests from the model."
+              }
+            ],
+            "generalFeedback": "Model-based test generation starts from a model of the system's intended behavior \u2014 commonly a finite-state machine, statechart, or formal specification \u2014 and derives test sequences from it, for example paths that cover every transition. The model can also supply expected results, helping with the oracle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a coverage target is",
+            "text": "<p>In coverage-driven generation, what is a <strong>coverage target</strong>?</p>",
+            "answers": [
+              {
+                "text": "A specific program element the generator is trying to exercise, such as a particular branch, statement, or path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the target is the concrete element the search is aiming to cover."
+              },
+              {
+                "text": "The total wall-clock time budget allowed for the whole run",
+                "fraction": 0,
+                "feedback": "That is a time budget, not a coverage target."
+              },
+              {
+                "text": "The oracle that decides whether the output is correct",
+                "fraction": 0,
+                "feedback": "The target is an element to reach; the oracle judges correctness separately."
+              },
+              {
+                "text": "The number of test cases the suite must contain",
+                "fraction": 0,
+                "feedback": "That is a suite-size constraint, not a coverage goal."
+              }
+            ],
+            "generalFeedback": "A coverage target is a concrete program element the generator wants a test to exercise \u2014 a branch, statement, condition, or path. Coverage-driven generation picks uncovered targets and searches for inputs that reach them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symbolic/path-based generation",
+            "text": "<p>How does <strong>symbolic (path-based)</strong> test generation obtain an input that follows a chosen path?</p>",
+            "answers": [
+              {
+                "text": "It builds the path condition \u2014 the conjunction of branch constraints along the path \u2014 and solves it with a constraint solver to get concrete input values",
+                "fraction": 100,
+                "feedback": "Correct \u2014 solving the path condition yields inputs that drive execution down that path."
+              },
+              {
+                "text": "It flips random bits in an existing input until the path changes",
+                "fraction": 0,
+                "feedback": "That is mutation-style fuzzing, not symbolic solving of a path condition."
+              },
+              {
+                "text": "It evolves a population of inputs with a genetic algorithm",
+                "fraction": 0,
+                "feedback": "That is search-based generation; symbolic generation solves constraints instead."
+              },
+              {
+                "text": "It measures coverage of an existing suite and reports the gaps",
+                "fraction": 0,
+                "feedback": "That is coverage measurement, not input synthesis by constraint solving."
+              }
+            ],
+            "generalFeedback": "Symbolic (path-based) generation treats inputs as symbols, tracks the constraints imposed by each branch along a path (the path condition), and asks a constraint/SMT solver for concrete values satisfying it. Those values drive the program down the intended path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Combinatorial test generation",
+            "text": "<p>What is the idea behind <strong>combinatorial</strong> test generation (e.g. pairwise)?</p>",
+            "answers": [
+              {
+                "text": "It systematically covers combinations of parameter values (e.g. every pair) with far fewer tests than trying every full combination",
+                "fraction": 100,
+                "feedback": "Correct \u2014 combinatorial generation guarantees interaction coverage while keeping the test count small."
+              },
+              {
+                "text": "It runs every possible combination of all parameter values exhaustively",
+                "fraction": 0,
+                "feedback": "Exhaustive combination explodes; combinatorial methods cover interactions (like all pairs) with a small set instead."
+              },
+              {
+                "text": "It solves the path condition of each program path",
+                "fraction": 0,
+                "feedback": "That is symbolic generation; combinatorial generation works over parameter-value combinations."
+              },
+              {
+                "text": "It selects inputs purely at random from the domain",
+                "fraction": 0,
+                "feedback": "Combinatorial generation is systematic about interactions, not random."
+              }
+            ],
+            "generalFeedback": "Combinatorial test generation covers interactions among parameters \u2014 most commonly all pairs (pairwise / 2-way) \u2014 using a small, systematically constructed set of tests. It rests on the observation that many defects are triggered by a small number of interacting parameters, so covering low-order combinations catches many of them cheaply.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Test as an individual in SBST",
+            "text": '<p>In search-based test generation, a candidate test can be represented as an "individual" that a metaheuristic evaluates with a fitness function and evolves toward the goal.</p>',
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 encoding a test as an individual scored by fitness is exactly how SBST applies metaheuristic search."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "SBST does encode a test as an individual (a point in the search space) and uses fitness to guide its evolution."
+              }
+            ],
+            "generalFeedback": 'SBST borrows optimization vocabulary: a candidate test is an "individual" (or chromosome), its quality is a fitness value, and operators like mutation and crossover produce new candidates that the search selects among to approach the goal.'
+          },
+          {
+            "type": "multichoice",
+            "name": "Seeding in test generation",
+            "text": "<p>What does <strong>seeding</strong> mean in test generation?</p>",
+            "answers": [
+              {
+                "text": "Starting the generator from useful prior information \u2014 such as constants from the code or existing tests \u2014 rather than from nothing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 seeding injects known-useful values to give the search a head start."
+              },
+              {
+                "text": "Deleting redundant tests once generation finishes",
+                "fraction": 0,
+                "feedback": "That is minimization/reduction, not seeding."
+              },
+              {
+                "text": "Fixing the random seed only so runs are reproducible",
+                "fraction": 0,
+                "feedback": "A random seed governs reproducibility; seeding here means supplying useful starting values."
+              },
+              {
+                "text": "Deciding whether each generated output is correct",
+                "fraction": 0,
+                "feedback": "That is the oracle's job, unrelated to seeding."
+              }
+            ],
+            "generalFeedback": "Seeding supplies the generator with promising starting material \u2014 constants and string literals mined from the source, values from existing or regression tests, or a prior corpus \u2014 so the search does not begin blind. For instance, seeding the literal 42 lets a search satisfyfar sooner.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test-suite minimization",
+            "text": "<p>What is <strong>test-suite minimization</strong> (reduction)?</p>",
+            "answers": [
+              {
+                "text": "Removing redundant tests to obtain a smaller suite that still meets a chosen criterion, such as retaining the same coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 minimization shrinks the suite while preserving a stated property like coverage."
+              },
+              {
+                "text": "Generating as many tests as possible to maximize the suite size",
+                "fraction": 0,
+                "feedback": "That is the opposite; minimization removes redundancy rather than adding tests."
+              },
+              {
+                "text": "Deciding whether each test's output is correct",
+                "fraction": 0,
+                "feedback": "That is the oracle's job, not minimization."
+              },
+              {
+                "text": "Solving path conditions to reach uncovered branches",
+                "fraction": 0,
+                "feedback": "That is symbolic generation; minimization prunes an existing suite."
+              }
+            ],
+            "generalFeedback": "Test-suite minimization removes tests judged redundant with respect to a criterion \u2014 typically keeping the same coverage with fewer tests. It lowers execution cost, but because it optimizes for coverage rather than fault detection, it can drop tests that would have caught real faults.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Generation is not verification",
+            "text": "<p>Automatically generating test inputs also automatically determines whether the program's output is correct.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "No \u2014 generating an input is separate from judging its output; deciding correctness needs an oracle."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 generation produces inputs but does not by itself decide correctness; that is the oracle problem."
+              }
+            ],
+            "generalFeedback": "Producing an input that reaches some behavior does not tell you whether that behavior is right. Deciding correctness is the separate oracle problem, and it is what keeps fully automated testing hard: generation is easy compared with verification."
+          },
+          {
+            "type": "multichoice",
+            "name": "Metamorphic relation as an oracle",
+            "text": "<p>What is a <strong>metamorphic relation</strong> used as a test oracle?</p>",
+            "answers": [
+              {
+                "text": "A relation between the outputs of related inputs that must hold even when the exact expected output is unknown",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it checks a required relationship rather than a single expected value."
+              },
+              {
+                "text": "The single exact expected output value for one specific input",
+                "fraction": 0,
+                "feedback": "That is a conventional expected-value oracle; a metamorphic relation avoids needing the exact value."
+              },
+              {
+                "text": "A random seed relating two runs of the generator",
+                "fraction": 0,
+                "feedback": "A seed concerns reproducibility, not a correctness relation between outputs."
+              },
+              {
+                "text": "A coverage relation between two branches of the program",
+                "fraction": 0,
+                "feedback": "Metamorphic relations relate outputs of related inputs, not coverage of branches."
+              }
+            ],
+            "generalFeedback": "A metamorphic relation states how outputs of related inputs must relate \u2014 e.g.should equal, or sorting a permuted list should give the same result. It provides a partial oracle when the exact expected output is unknown, easing the oracle problem for automatically generated inputs.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Why random struggles with narrow guards",
+            "text": "<p>Why does random generation struggle to satisfy a narrow condition like <code>if (x == 42)</code> for a 32-bit integer <code>x</code>?</p>",
+            "answers": [
+              {
+                "text": "Only one value out of about four billion satisfies it, so a blind random draw almost never hits it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the satisfying set is a vanishing fraction of the domain, and random sampling has no way to home in on it."
+              },
+              {
+                "text": "Random generators cannot produce the integer 42 at all",
+                "fraction": 0,
+                "feedback": "They can produce 42; the problem is the probability is astronomically low, not that the value is impossible."
+              },
+              {
+                "text": "Equality comparisons are undefined for integers",
+                "fraction": 0,
+                "feedback": "Integer equality is perfectly well-defined; the difficulty is purely the low hit probability."
+              },
+              {
+                "text": "Random generation always gets stuck in an infinite loop on such guards",
+                "fraction": 0,
+                "feedback": "It does not loop forever; it simply keeps drawing values that overwhelmingly miss the single target."
+              }
+            ],
+            "generalFeedback": "An exact-equality guard is satisfied by a tiny fraction of the domain (one value in ~4 billion for a 32-bit int). Random sampling gets no feedback telling it whether it is getting closer, so its chance of hitting the target per draw is negligible. Directed methods \u2014 seeding the constant, solving, or using a distance-based fitness \u2014 reach it far more reliably.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Branch distance guiding the search",
+            "text": "<p>For the target <code>if (x == 42)</code>, how does a <strong>branch-distance</strong> fitness function guide a search toward taking the true branch?</p>",
+            "answers": [
+              {
+                "text": "It scores a candidate by how faris from 42 (e.g. |x - 42|), so the search gets a gradient rewarding inputs that move closer",
+                "fraction": 100,
+                "feedback": "Correct \u2014 turning the predicate into a distance gives the search something to minimize."
+              },
+              {
+                "text": "It returns 1 if the branch is taken and 0 otherwise, giving the search a clear signal",
+                "fraction": 0,
+                "feedback": "A pure 0/1 signal gives no gradient \u2014 the search cannot tell x=41 is better than x=1000; branch distance provides exactly that gradient."
+              },
+              {
+                "text": "It solves the constraintwith an SMT solver",
+                "fraction": 0,
+                "feedback": "That is symbolic solving; branch-distance fitness is the search-based alternative that measures nearness numerically."
+              },
+              {
+                "text": "It counts how many statements the candidate executed in total",
+                "fraction": 0,
+                "feedback": "Total statements executed does not measure closeness to satisfying the specific predicate."
+              }
+            ],
+            "generalFeedback": "Branch distance converts a predicate into a number measuring how near an input is to flipping the branch. Fora natural distance is |x - 42|: smaller means closer. The search minimizes this distance, so it can tell that x=41 is far better than x=1000 and climb toward the target \u2014 something a flat 0/1 signal cannot support.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Stating the oracle problem",
+            "text": "<p>Which statement best captures the <strong>test oracle problem</strong>?</p>",
+            "answers": [
+              {
+                "text": "Generating inputs is comparatively easy, but deciding whether the resulting behavior is correct is hard and often needs human-supplied knowledge",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the hard part is judging correctness, not producing inputs."
+              },
+              {
+                "text": "It is impossible to generate any input that reaches deep code",
+                "fraction": 0,
+                "feedback": "Reaching deep code is a coverage/generation challenge; the oracle problem is about judging correctness."
+              },
+              {
+                "text": "Constraint solvers are too slow to solve any path condition",
+                "fraction": 0,
+                "feedback": "Solver performance is a symbolic-execution concern, not the oracle problem."
+              },
+              {
+                "text": "Random generation always outperforms directed generation",
+                "fraction": 0,
+                "feedback": "That is a false claim about generation strategies, unrelated to the oracle problem."
+              }
+            ],
+            "generalFeedback": "The oracle problem is that, even with an input in hand, deciding whether the program's response is correct generally requires knowing the intended behavior \u2014 an expected value, an assertion, a reference, or a relation. Because this knowledge is expensive to obtain, the oracle, not input generation, is usually the bottleneck for fully automated testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symbolic vs random vs search-based",
+            "text": "<p>Which correctly summarizes a trade-off among <strong>random</strong>, <strong>search-based</strong>, and <strong>symbolic</strong> generation for reaching a hard branch?</p>",
+            "answers": [
+              {
+                "text": "Random is cheapest but blind; search-based needs a fitness gradient to climb; symbolic can solve exact conditions but may hit solver limits and path explosion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each buys reach with a different cost and failure mode."
+              },
+              {
+                "text": "All three are equally effective and have identical costs",
+                "fraction": 0,
+                "feedback": "They differ sharply: random is cheap/blind, search-based needs gradient, symbolic needs a tractable solver."
+              },
+              {
+                "text": "Symbolic generation never needs a constraint solver",
+                "fraction": 0,
+                "feedback": "Solving path conditions with a solver is the essence of symbolic generation."
+              },
+              {
+                "text": "Search-based generation works equally well regardless of the fitness landscape",
+                "fraction": 0,
+                "feedback": "Without a gradient (e.g. the flag problem) search-based generation degenerates toward random."
+              },
+              {
+                "text": "Random generation is the only one of the three that needs no oracle",
+                "fraction": 0,
+                "feedback": "All three need an oracle to judge correctness; that is independent of how inputs are generated."
+              }
+            ],
+            "generalFeedback": "Random generation is cheap and needs no analysis but is blind, so it misses narrow targets. Search-based generation reaches targets when the fitness function offers a gradient, but stalls when it does not. Symbolic generation can solve exact conditions precisely, yet is limited by solver capability (nonlinear arithmetic, external calls) and by path explosion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Generating from an FSM",
+            "text": "<p>Given a finite-state machine specifying a component, how does model-based generation typically produce tests?</p>",
+            "answers": [
+              {
+                "text": "It derives input sequences by traversing the FSM to cover chosen elements, such as every state or every transition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 walks over the FSM become test sequences with a coverage aim."
+              },
+              {
+                "text": "It flips random bits in the compiled component until it changes state",
+                "fraction": 0,
+                "feedback": "That is mutation-style fuzzing of inputs, not deriving sequences from the model."
+              },
+              {
+                "text": "It measures how many source lines the component has",
+                "fraction": 0,
+                "feedback": "That is a size metric, not test derivation from a model."
+              },
+              {
+                "text": "It proves the FSM is deadlock-free without producing any tests",
+                "fraction": 0,
+                "feedback": "That is model checking of a property; model-based generation instead emits concrete test sequences."
+              }
+            ],
+            "generalFeedback": "From an FSM, model-based generation constructs input sequences that traverse the model to satisfy a coverage goal \u2014 e.g. visiting every state, exercising every transition, or covering transition pairs. Because the model also encodes expected responses, it can additionally supply expected outputs, helping with the oracle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Approach level",
+            "text": "<p>In search-based generation, what does the <strong>approach level</strong> measure for a target branch?</p>",
+            "answers": [
+              {
+                "text": "How many of the target's controlling (nesting) decision nodes execution still failed to satisfy before it diverged away from the target",
+                "fraction": 100,
+                "feedback": "Correct \u2014 approach level counts the unsatisfied enclosing decisions between where the run went wrong and the target."
+              },
+              {
+                "text": "The numeric distance of a variable from satisfying the immediate predicate",
+                "fraction": 0,
+                "feedback": "That is branch distance; approach level is about how many enclosing decisions remained unsatisfied."
+              },
+              {
+                "text": "The total number of statements in the whole program",
+                "fraction": 0,
+                "feedback": "Program size is unrelated to how close a run came to the target."
+              },
+              {
+                "text": "The wall-clock time the candidate took to run",
+                "fraction": 0,
+                "feedback": "Run time is not a measure of proximity to the target branch."
+              }
+            ],
+            "generalFeedback": "Approach level counts, for a run that missed the target, how many of the target's control-dependent (enclosing) decision nodes were not taken toward the target \u2014 i.e. how many nesting levels away execution diverged. It is combined with the branch distance at the point of divergence to form the overall fitness for that target.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Hill-climbing vs genetic algorithm",
+            "text": "<p>How do <strong>hill-climbing</strong> and a <strong>genetic algorithm</strong> differ as metaheuristics for test generation?</p>",
+            "answers": [
+              {
+                "text": "Hill-climbing improves a single candidate by local moves and can stick in local optima; a genetic algorithm evolves a population with crossover and mutation, better at escaping local optima",
+                "fraction": 100,
+                "feedback": "Correct \u2014 local single-point search versus population-based evolution is the key distinction."
+              },
+              {
+                "text": "Hill-climbing uses a constraint solver; a genetic algorithm uses random sampling only",
+                "fraction": 0,
+                "feedback": "Neither is defined by a solver; both are metaheuristics using a fitness function, differing in local vs population search."
+              },
+              {
+                "text": "A genetic algorithm evaluates no fitness function, unlike hill-climbing",
+                "fraction": 0,
+                "feedback": "Both rely on a fitness function; the GA uses it to select among a population."
+              },
+              {
+                "text": "They are two names for the same algorithm",
+                "fraction": 0,
+                "feedback": "They are distinct search strategies with different mechanics."
+              }
+            ],
+            "generalFeedback": "Hill-climbing keeps one candidate and moves to a better neighbor each step, which is fast but can get trapped in a local optimum or on a plateau. A genetic algorithm maintains a population and applies selection, crossover, and mutation, giving it more ways to escape local optima at the cost of more evaluations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Coverage-driven generation loop",
+            "text": "<p>What is the core loop of <strong>coverage-driven</strong> test generation?</p>",
+            "answers": [
+              {
+                "text": "Identify an uncovered target, generate inputs aimed at reaching it, add successful tests, and repeat on the remaining uncovered targets",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it iteratively attacks the coverage gaps."
+              },
+              {
+                "text": "Generate one huge random batch once and never look at coverage again",
+                "fraction": 0,
+                "feedback": "That is plain random generation; coverage-driven generation uses coverage feedback to pick targets each iteration."
+              },
+              {
+                "text": "Delete tests until coverage drops to zero",
+                "fraction": 0,
+                "feedback": "That is destructive and pointless; coverage-driven generation adds tests to raise coverage."
+              },
+              {
+                "text": "Decide correctness of each output and stop when all are correct",
+                "fraction": 0,
+                "feedback": "That describes oracle checking; coverage-driven generation is about reaching uncovered elements."
+              }
+            ],
+            "generalFeedback": "Coverage-driven generation measures current coverage, selects an uncovered target (branch, statement, path), and directs generation \u2014 search-based, symbolic, or otherwise \u2014 at reaching it. Tests that hit new targets are kept, and the process repeats on the remaining gaps until the budget runs out or coverage is satisfied.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why pairwise cuts test count",
+            "text": "<p>Why can <strong>pairwise</strong> generation cover all value pairs with far fewer tests than the full Cartesian product?</p>",
+            "answers": [
+              {
+                "text": "Each single test simultaneously covers many different value pairs, so a small set of well-chosen tests can include every pair",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one test contributes many pairs at once, so a compact covering array suffices."
+              },
+              {
+                "text": "It silently ignores most of the parameters",
+                "fraction": 0,
+                "feedback": "Pairwise still involves all parameters; it just does not require every full combination of their values."
+              },
+              {
+                "text": "It assumes only one parameter ever matters at a time",
+                "fraction": 0,
+                "feedback": "Pairwise covers two-way interactions, not single parameters in isolation."
+              },
+              {
+                "text": "It replaces the parameters with random noise",
+                "fraction": 0,
+                "feedback": "Pairwise is a systematic construction of a covering array, not random noise."
+              }
+            ],
+            "generalFeedback": "In a covering array, each row (test) fixes a value for every parameter and therefore covers many parameter-value pairs at once. Because pairs are shared across tests, a carefully constructed small set can include every pair, so the count grows roughly logarithmically in the number of parameters rather than as the full product.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concolic combines concrete and symbolic",
+            "text": "<p>How does <strong>concolic</strong> generation combine concrete and symbolic execution to explore new paths?</p>",
+            "answers": [
+              {
+                "text": "It runs the program on a concrete input while collecting symbolic path constraints, then negates one branch constraint and solves it to get an input for a new path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concrete execution keeps it grounded while symbolic constraints let it steer to new branches."
+              },
+              {
+                "text": "It only ever runs concrete inputs and never records any constraints",
+                "fraction": 0,
+                "feedback": "That would be plain testing; concolic execution records symbolic constraints alongside the concrete run."
+              },
+              {
+                "text": "It only reasons symbolically and never runs the program concretely",
+                "fraction": 0,
+                "feedback": "That is pure symbolic execution; concolic deliberately pairs a concrete run with the symbolic trace."
+              },
+              {
+                "text": "It evolves a population of inputs using crossover and mutation",
+                "fraction": 0,
+                "feedback": "That is a genetic algorithm; concolic uses concrete-plus-symbolic execution with a solver."
+              }
+            ],
+            "generalFeedback": "Concolic (concrete + symbolic) execution runs the program on a concrete input, recording the symbolic path condition as it goes. To reach a new path it negates one branch constraint, solves the modified condition for concrete values, and reruns. Grounding in a concrete run lets it use real values where the solver cannot reason (e.g. some library calls).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Differential oracle",
+            "text": "<p>How does a <strong>differential</strong> oracle judge a generated input?</p>",
+            "answers": [
+              {
+                "text": "It runs the input through two or more independent implementations and flags a disagreement in their outputs as a likely fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a discrepancy between implementations signals that at least one is wrong."
+              },
+              {
+                "text": "It measures how many branches the input covered",
+                "fraction": 0,
+                "feedback": "That is coverage, not an oracle comparing outputs."
+              },
+              {
+                "text": "It requires a hand-written expected value for every input",
+                "fraction": 0,
+                "feedback": "Differential testing avoids needing a hand-written expected value by comparing implementations against each other."
+              },
+              {
+                "text": "It negates a branch constraint to reach a new path",
+                "fraction": 0,
+                "feedback": "That is concolic exploration, not a differential oracle."
+              }
+            ],
+            "generalFeedback": "A differential oracle runs the same generated input through two or more implementations that should agree (versions, a reference implementation, or alternative libraries) and treats any output disagreement as evidence of a fault. It sidesteps needing an exact expected value, though it cannot catch a bug shared identically by all implementations.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Assertions as oracles",
+            "text": "<p>Executable assertions embedded in the program (or generated with the test) can act as a partial oracle for automatically generated inputs.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an assertion that fails on a generated input flags incorrect behavior, serving as a partial oracle."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Assertions do serve as partial oracles: when a generated input makes one fail, it reveals a fault."
+              }
+            ],
+            "generalFeedback": "Assertions encode properties that must hold at runtime. When an automatically generated input violates one, it exposes incorrect behavior, so assertions act as a partial oracle. They are partial because they check only the properties actually asserted, not full correctness."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the fitness gradient matters",
+            "text": "<p>Why does the presence of a <strong>gradient</strong> in the fitness function matter so much for search-based generation?</p>",
+            "answers": [
+              {
+                "text": "A gradient lets the search tell which candidates are closer to the goal, so it can improve step by step instead of guessing blindly",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 without a sense of "closer," metaheuristic search has nothing to climb.'
+              },
+              {
+                "text": "A gradient guarantees the target is reachable in exactly one step",
+                "fraction": 0,
+                "feedback": "It does not guarantee one step; it provides direction so the search can progress over many steps."
+              },
+              {
+                "text": "A gradient removes the need for any fitness evaluation",
+                "fraction": 0,
+                "feedback": "The gradient is a property of the fitness values, which must still be evaluated."
+              },
+              {
+                "text": "A gradient makes the oracle unnecessary",
+                "fraction": 0,
+                "feedback": "Fitness guides coverage; the oracle still judges correctness independently."
+              }
+            ],
+            "generalFeedback": "Metaheuristic search improves candidates by moving toward better fitness. If the fitness function varies smoothly with nearness to the goal (a gradient), the search can follow it. If fitness is flat except at the goal (as with a boolean flag), there is nothing to climb and the search degenerates toward random guessing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seeding constants to hit x==42",
+            "text": "<p>A generator repeatedly fails to satisfy <code>if (x == 42)</code>. Which practical tactic most directly helps?</p>",
+            "answers": [
+              {
+                "text": "Seed the generator with constants mined from the source (including 42) so candidate inputs draw from those literal values",
+                "fraction": 100,
+                "feedback": "Correct \u2014 mining and seeding the literal makes hitting the exact guard likely."
+              },
+              {
+                "text": "Increase the population size but keep sampling values purely uniformly at random",
+                "fraction": 0,
+                "feedback": "More uniform random draws barely change the negligible per-draw odds of hitting one exact value."
+              },
+              {
+                "text": "Remove the fitness function so the search runs faster",
+                "fraction": 0,
+                "feedback": "Removing guidance makes it worse, reducing the search toward blind random."
+              },
+              {
+                "text": "Switch the oracle to a metamorphic relation",
+                "fraction": 0,
+                "feedback": "The oracle judges correctness; it does not help the generator reach the guard."
+              }
+            ],
+            "generalFeedback": "Constant seeding mines literals from the code (here, 42) and feeds them into the pool of candidate values. Because the exact constant is now available to the generator, satisfyingbecomes likely rather than astronomically improbable. This complements branch-distance fitness and symbolic solving as ways to beat narrow equality guards.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a GA does with test individuals",
+            "text": "<p>In a genetic algorithm for test generation, what do the operators do to the test individuals?</p>",
+            "answers": [
+              {
+                "text": "Selection favors fitter tests, crossover recombines parts of two tests, and mutation makes small random changes \u2014 producing a new generation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 selection, crossover, and mutation together evolve the population."
+              },
+              {
+                "text": "They solve the path condition of each individual with an SMT solver",
+                "fraction": 0,
+                "feedback": "That is symbolic/concolic generation, not the genetic operators."
+              },
+              {
+                "text": "They delete every individual whose fitness is not already maximal",
+                "fraction": 0,
+                "feedback": "Selection is probabilistic and preserves diversity; it does not simply delete all non-optimal individuals."
+              },
+              {
+                "text": "They compute code coverage without running the tests",
+                "fraction": 0,
+                "feedback": "Fitness usually requires running the tests; the operators evolve individuals, they do not statically compute coverage."
+              }
+            ],
+            "generalFeedback": "A genetic algorithm evolves a population of test individuals: selection probabilistically keeps fitter ones, crossover combines material from two parents, and mutation perturbs an individual slightly. Iterating these operators, guided by the fitness function, moves the population toward tests that meet the goal.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Branch distance plus approach level",
+            "text": "<p>For a deeply nested target branch, why do search-based tools combine <strong>approach level</strong> with <strong>branch distance</strong> rather than using either alone?</p>",
+            "answers": [
+              {
+                "text": "Approach level says how many enclosing decisions execution still missed, and branch distance measures how nearly the decision where it diverged was satisfied \u2014 together they give a gradient across the nesting",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the pair yields a smooth fitness that improves both as more enclosing decisions are satisfied and as the diverging one gets closer."
+              },
+              {
+                "text": "Approach level alone already gives a continuous gradient at every nesting level",
+                "fraction": 0,
+                "feedback": "Approach level is an integer that only changes when a whole enclosing decision flips; branch distance fills the gap between those steps."
+              },
+              {
+                "text": "Branch distance alone can express how many nesting levels were missed",
+                "fraction": 0,
+                "feedback": "Branch distance is local to one predicate; it does not encode how many enclosing decisions remain \u2014 that is approach level's job."
+              },
+              {
+                "text": "Combining them removes the need to execute the program",
+                "fraction": 0,
+                "feedback": "Both are computed from actual executions of candidate inputs; combining them does not avoid running the program."
+              }
+            ],
+            "generalFeedback": "For a nested target, a run may diverge several enclosing decisions before it. Approach level counts those still-unsatisfied enclosing decisions (coarse, integer steps); at the point of divergence, branch distance measures how nearly that decision was satisfied (fine gradient between steps). The usual fitness is approach level plus a normalized branch distance, so improving either lowers fitness and gives the search a continuous slope down through the nesting.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the oracle problem limits automation",
+            "text": "<p>Why does the oracle problem fundamentally limit <em>fully</em> automated testing, even with excellent input generation?</p>",
+            "answers": [
+              {
+                "text": "Generation can reach behavior automatically, but deciding whether that behavior is correct generally requires the intended specification, which must ultimately come from humans",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reaching behavior is not the same as knowing it is right; correctness knowledge has to come from somewhere."
+              },
+              {
+                "text": "Because generated inputs can never reach more than half of the branches",
+                "fraction": 0,
+                "feedback": "Reachability is a coverage limitation, not the oracle problem; the oracle concerns judging correctness."
+              },
+              {
+                "text": "Because constraint solvers cannot handle any arithmetic",
+                "fraction": 0,
+                "feedback": "Solvers handle much arithmetic; that is a symbolic-execution limitation, not the oracle problem."
+              },
+              {
+                "text": "Because random generation is always faster than the program under test",
+                "fraction": 0,
+                "feedback": "Relative speed is irrelevant to whether outputs can be judged correct."
+              }
+            ],
+            "generalFeedback": 'Automation is strong at producing inputs and reaching behavior, but "the program did X" says nothing about whether X is what it should do. Judging that needs the intended behavior \u2014 a specification, expected values, or a relation \u2014 which is not derivable from the code being tested. Partial oracles (assertions, crashes, metamorphic and differential relations) narrow the gap but do not close it, so a human-supplied notion of correctness remains the limit.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When metamorphic relations help",
+            "text": "<p>Why are <strong>metamorphic relations</strong> especially valuable for automatically generated inputs?</p>",
+            "answers": [
+              {
+                "text": "They let you check correctness without knowing each input's exact expected output, so they scale to the many inputs a generator produces",
+                "fraction": 100,
+                "feedback": "Correct \u2014 checking a relation across related inputs sidesteps per-input expected values."
+              },
+              {
+                "text": "They guarantee detection of every possible fault in the program",
+                "fraction": 0,
+                "feedback": "They only catch faults that violate the chosen relation; other faults can pass unnoticed."
+              },
+              {
+                "text": "They generate the inputs as well as judging them",
+                "fraction": 0,
+                "feedback": "They are an oracle technique; the inputs still come from a separate generator (though relations often prescribe a follow-up input)."
+              },
+              {
+                "text": "They remove the need to run the program",
+                "fraction": 0,
+                "feedback": "Checking a relation requires running the program on the related inputs."
+              }
+            ],
+            "generalFeedback": "For automatically generated inputs, hand-writing an expected output for each is infeasible. A metamorphic relation instead constrains how outputs of related inputs must relate (e.g. a source and a transformed follow-up input). If the relation is violated, a fault is exposed \u2014 no per-input expected value needed. The limitation is that it only catches violations of the specific relations chosen.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Hybrid concolic and search",
+            "text": "<p>Why might a tool <strong>combine</strong> concolic execution with search-based generation?</p>",
+            "answers": [
+              {
+                "text": "Search handles code where a solver is weak (nonlinear or opaque calls) using fitness, while concolic solving cracks exact conditions search struggles with \u2014 each covers the other's blind spot",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two techniques fail on complementary situations, so combining them widens reach."
+              },
+              {
+                "text": "Because concolic execution and search-based generation are identical, so combining them is free",
+                "fraction": 0,
+                "feedback": "They are different techniques with different strengths; the point of combining is complementarity, not redundancy."
+              },
+              {
+                "text": "To avoid ever needing to run the program under test",
+                "fraction": 0,
+                "feedback": "Both approaches run the program (concolic concretely, search to evaluate fitness)."
+              },
+              {
+                "text": "Because the combination removes the oracle problem",
+                "fraction": 0,
+                "feedback": "Neither technique judges correctness; the oracle problem remains regardless."
+              }
+            ],
+            "generalFeedback": "Concolic solving excels at exact conditions likebut stalls on constraints the solver cannot express (nonlinear arithmetic, hashing, external calls). Search-based generation can push through those with fitness guidance but stalls on narrow equalities that offer no gradient. A hybrid uses each where it is strong, so together they cover targets neither reaches alone.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimization vs fault detection",
+            "text": "<p>What is the key risk when minimizing a generated suite to preserve the same coverage?</p>",
+            "answers": [
+              {
+                "text": 'Two tests with identical coverage can differ in fault-detecting power, so dropping one as "redundant" can lower fault detection even though coverage is unchanged',
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage equivalence does not imply equal fault-finding ability."
+              },
+              {
+                "text": "Minimization always increases both coverage and fault detection",
+                "fraction": 0,
+                "feedback": "Minimization removes tests; it cannot increase coverage, and it can reduce fault detection."
+              },
+              {
+                "text": "Minimization changes the program under test",
+                "fraction": 0,
+                "feedback": "Minimization prunes tests, not the program."
+              },
+              {
+                "text": "Minimization guarantees the same fault detection whenever coverage is kept",
+                "fraction": 0,
+                "feedback": "No such guarantee holds \u2014 equal coverage can still mean different faults caught."
+              }
+            ],
+            "generalFeedback": "Minimization keeps a subset that preserves a criterion, usually coverage. But two tests that cover the same elements can exercise them with different data and thus catch different faults. Removing one as coverage-redundant can therefore reduce the suite's fault-detection ability even while coverage stays constant \u2014 the trade-off is smaller/faster suites versus possible loss of fault detection.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The flag problem",
+            "text": '<p>Consider <code>bool flag = (a == b); ... if (flag) { target; }</code>. Why is this a hard case ("flag problem") for search-based generation?</p>',
+            "answers": [
+              {
+                "text": "Atthe branch distance is only 0 or 1, giving a flat fitness landscape with no gradient telling the search how to makeapproach",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the boolean collapses the distance information, leaving a plateau."
+              },
+              {
+                "text": "The flag variable makes the branch impossible to ever take",
+                "fraction": 0,
+                "feedback": "The branch is reachable when a==b; the difficulty is the missing gradient, not impossibility."
+              },
+              {
+                "text": "Boolean variables cannot be represented in a search space",
+                "fraction": 0,
+                "feedback": "Booleans are representable; the issue is that they discard the distance signal from."
+              },
+              {
+                "text": "The flag guarantees an infinite loop during evaluation",
+                "fraction": 0,
+                "feedback": "There is no loop implied; the problem is a flat fitness landscape."
+              }
+            ],
+            "generalFeedback": "Storing a predicate's result in a boolean flag throws away how nearly it was satisfied. Atthe branch distance is just 0 or 1, so fitness is flat (a plateau) except at the solution, and the search gets no direction to drivetoward. Remedies include flag removal/transformation or testability transformations that recover the underlying distance.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Normalizing branch distance",
+            "text": "<p>Why is the branch distance usually <strong>normalized</strong> (e.g. into [0,1)) before being added to the approach level?</p>",
+            "answers": [
+              {
+                "text": "So one more satisfied enclosing decision (a lower approach level) always dominates any branch-distance improvement, keeping the two components correctly ordered",
+                "fraction": 100,
+                "feedback": "Correct \u2014 normalization ensures progressing a whole nesting level outranks merely getting closer within the current one."
+              },
+              {
+                "text": "Because branch distance would otherwise be negative",
+                "fraction": 0,
+                "feedback": "Branch distance is defined to be non-negative; normalization is about scale, not sign."
+              },
+              {
+                "text": "To convert the fitness into a boolean pass/fail value",
+                "fraction": 0,
+                "feedback": "Normalization keeps a continuous value; it does not collapse fitness to a boolean."
+              },
+              {
+                "text": "To make the oracle unnecessary",
+                "fraction": 0,
+                "feedback": "Normalization concerns the fitness scale, not correctness judgment."
+              }
+            ],
+            "generalFeedback": "Fitness is typically approach level plus a normalized branch distance. Bounding the distance below 1 guarantees that reducing the approach level by one (satisfying another enclosing decision) always improves fitness more than any within-level distance gain, so the search prefers real structural progress while still using the fine gradient inside a level.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Path explosion in symbolic generation",
+            "text": "<p>What is <strong>path explosion</strong>, and why does it limit symbolic/concolic generation?</p>",
+            "answers": [
+              {
+                "text": "The number of feasible paths can grow combinatorially (e.g. with branches and loop iterations), so enumerating and solving them all becomes infeasible",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the path count blows up, exhausting time and solver budget before all paths are covered."
+              },
+              {
+                "text": "The constraint solver returns too many satisfying assignments for a single path",
+                "fraction": 0,
+                "feedback": "Path explosion is about the number of paths to explore, not the number of solutions per path."
+              },
+              {
+                "text": "The generated inputs become too large to store",
+                "fraction": 0,
+                "feedback": "The blow-up is in paths to analyze, not primarily input size."
+              },
+              {
+                "text": "The program under test runs out of memory at runtime",
+                "fraction": 0,
+                "feedback": "Path explosion is an analysis-scaling problem for the generator, not a runtime memory fault of the target."
+              }
+            ],
+            "generalFeedback": "Each branch can double the number of paths, and loops multiply them further, so the feasible-path count grows combinatorially. Symbolic/concolic generation must pick and solve path conditions for these, and exhaustively covering them becomes intractable. Tools mitigate with search heuristics, path pruning/merging, and bounding loop unrolling.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Implicit crash oracle limits",
+            "text": "<p>Relying only on crashes as the oracle for generated inputs has a key limitation. What is it?</p>",
+            "answers": [
+              {
+                "text": "It catches only failures that manifest as a crash/abort; a wrong-but-non-crashing result passes unnoticed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 silent incorrect outputs slip past a crash-only oracle."
+              },
+              {
+                "text": "It cannot detect segmentation faults",
+                "fraction": 0,
+                "feedback": "Crashes such as segmentation faults are exactly what it does detect; it misses non-crashing wrong results."
+              },
+              {
+                "text": "It requires an exact expected value for every input",
+                "fraction": 0,
+                "feedback": "A crash oracle needs no expected value \u2014 that is its appeal and also why it misses logic errors."
+              },
+              {
+                "text": "It prevents the generator from reaching deep branches",
+                "fraction": 0,
+                "feedback": "The oracle choice does not constrain which branches generation can reach."
+              }
+            ],
+            "generalFeedback": "A crash (or sanitizer/assert) oracle is fully automatic and cheap, which is why fuzzers rely on it. But it only flags failures that surface as an observable crash. A function that returns a wrong value without crashing produces no signal, so crash-only oracles miss most logic errors \u2014 motivating richer partial oracles like metamorphic and differential relations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Differential vs metamorphic choice",
+            "text": "<p>You are generating inputs for a numerical routine and have <em>no</em> independent reference implementation. Which partial oracle is applicable, and why?</p>",
+            "answers": [
+              {
+                "text": "A metamorphic relation, because it checks a required relationship among outputs of related inputs and needs no second implementation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with no reference to compare against, a metamorphic relation still gives a check."
+              },
+              {
+                "text": "A differential oracle, because it works from the single implementation alone",
+                "fraction": 0,
+                "feedback": "Differential testing needs at least two implementations to compare; with only one it is not applicable."
+              },
+              {
+                "text": "Neither, because without a reference no automated check is ever possible",
+                "fraction": 0,
+                "feedback": "Metamorphic relations provide a check even without a reference, so an automated partial oracle is still possible."
+              },
+              {
+                "text": "A coverage target, because coverage decides correctness",
+                "fraction": 0,
+                "feedback": "Coverage measures what ran, not whether the output is correct."
+              }
+            ],
+            "generalFeedback": "A differential oracle needs two or more implementations to disagree; with only one, it cannot be used. A metamorphic relation instead checks how outputs of related inputs must relate (e.g. scaling all inputs scales the output predictably), which requires only the one implementation \u2014 making it the applicable partial oracle when no reference exists.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Coverage reached does not mean bug found",
+            "text": "<p>A generator achieves 100% branch coverage. Why does this <em>not</em> establish that the program is correct?</p>",
+            "answers": [
+              {
+                "text": "Executing every branch shows the code ran, but without an oracle checking each result, wrong outputs on covered branches go undetected",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage measures execution, not correctness; the oracle is still required."
+              },
+              {
+                "text": "100% branch coverage is mathematically impossible, so the claim must be false",
+                "fraction": 0,
+                "feedback": "Full branch coverage is often achievable; the point is that coverage alone does not judge correctness."
+              },
+              {
+                "text": "Branch coverage automatically includes an oracle for every branch",
+                "fraction": 0,
+                "feedback": "Coverage records which branches ran; it does not judge whether their results were right."
+              },
+              {
+                "text": "Because coverage always overcounts the branches actually executed",
+                "fraction": 0,
+                "feedback": "The issue is not miscounting; it is that running a branch is not the same as verifying its output."
+              }
+            ],
+            "generalFeedback": "Coverage tells you code was exercised, not that it behaved correctly. A branch can run and still return a wrong value; without an oracle asserting the expected behavior, the fault leaves no trace. So generation aimed purely at coverage maximizes execution, but detecting the resulting faults still depends entirely on the oracle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "GA escaping a plateau",
+            "text": "<p>On a fitness landscape with a plateau, why can a genetic algorithm sometimes make progress where simple hill-climbing stalls?</p>",
+            "answers": [
+              {
+                "text": "Its population diversity plus crossover and mutation let it explore several regions at once and jump across flat areas, rather than relying only on strictly-improving local moves",
+                "fraction": 100,
+                "feedback": "Correct \u2014 population-based exploration can cross plateaus that trap a single-point climber."
+              },
+              {
+                "text": "It replaces the fitness function with a constraint solver",
+                "fraction": 0,
+                "feedback": "A GA still uses fitness; it does not swap in a solver."
+              },
+              {
+                "text": "It guarantees finding the global optimum on any landscape",
+                "fraction": 0,
+                "feedback": "No metaheuristic guarantees the global optimum; a GA only improves the odds of escaping local traps."
+              },
+              {
+                "text": "It removes the plateau by changing the program under test",
+                "fraction": 0,
+                "feedback": "A GA does not modify the program; testability transformations, not the GA itself, reshape such landscapes."
+              }
+            ],
+            "generalFeedback": "Hill-climbing accepts only strictly-improving neighbors, so on a plateau it has nowhere to go. A genetic algorithm keeps a diverse population and uses crossover and mutation to sample across the space, so it can drift across flat regions and recombine partial solutions. It still offers no guarantee \u2014 a truly flat landscape (e.g. an untreated flag problem) can defeat it too \u2014 but it is more robust than pure local search.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Reachability versus a good gradient",
+            "text": "<p>If a target branch is reachable in principle, a search-based generator is guaranteed to reach it regardless of the fitness landscape.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "No \u2014 reachability does not guarantee success; without a usable gradient (e.g. the flag problem) the search can fail to find the input."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a reachable target can still be effectively unreachable for the search if the fitness landscape offers no gradient."
+              }
+            ],
+            "generalFeedback": "Reachability is a property of the program; search success also depends on the fitness landscape. If fitness is flat except at the solution (a plateau or an untreated flag), the metaheuristic has no direction and can fail to reach a target that is perfectly reachable in principle. This is why fitness design and testability transformations matter."
+          },
+          {
+            "type": "multichoice",
+            "name": "Regression seeding across versions",
+            "text": "<p>When generating tests for a new version, why is <strong>seeding</strong> from the previous version's tests and inputs useful?</p>",
+            "answers": [
+              {
+                "text": "Prior inputs already reach much of the shared behavior, so the generator can start near relevant states and focus its budget on the changed code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reusing prior material gives a head start and concentrates effort on what changed."
+              },
+              {
+                "text": "It lets the generator skip running the program entirely",
+                "fraction": 0,
+                "feedback": "Seeding provides starting inputs; the program still must be run to evaluate them."
+              },
+              {
+                "text": "It guarantees the new version has no regressions",
+                "fraction": 0,
+                "feedback": "Seeding helps generation; it cannot guarantee the absence of regressions."
+              },
+              {
+                "text": "It removes the need for an oracle on the new version",
+                "fraction": 0,
+                "feedback": "Judging correctness on the new version still needs an oracle."
+              }
+            ],
+            "generalFeedback": "Across versions, much behavior is unchanged, so the previous suite's inputs already drive the program deep into relevant states. Seeding the generator with them means it does not rediscover that behavior from scratch and can spend its budget exploring the modified code \u2014 a practical, effective use of prior information in regression settings.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Whole-suite versus one-target-at-a-time",
+            "text": "<p>Modern SBST tools often optimize a <strong>whole suite</strong> against all coverage targets at once instead of generating a separate test per target. Why?</p>",
+            "answers": [
+              {
+                "text": "Targeting one goal at a time wastes budget on infeasible or hard targets and ignores that a single test can hit many goals; optimizing the whole suite spends effort where it pays off and exploits collateral coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a suite-level objective avoids stalling on one hard target and rewards tests that cover several goals at once."
+              },
+              {
+                "text": "Because a whole-suite objective removes the need for any fitness function",
+                "fraction": 0,
+                "feedback": "It still uses a fitness function \u2014 one aggregated over all targets \u2014 rather than removing it."
+              },
+              {
+                "text": "Because optimizing the whole suite guarantees 100% coverage on every program",
+                "fraction": 0,
+                "feedback": "No such guarantee exists; infeasible targets and hard landscapes still limit coverage."
+              },
+              {
+                "text": "Because it makes an oracle unnecessary for the generated tests",
+                "fraction": 0,
+                "feedback": "Correctness judgment still needs an oracle regardless of how coverage is optimized."
+              }
+            ],
+            "generalFeedback": "Generating one test per target in sequence can burn the whole budget struggling with a single infeasible or gradient-free target while easy ones wait, and it ignores that one test often covers several targets. Whole-suite (and many-objective) approaches optimize a single suite against all remaining targets together, so the search allocates effort adaptively and banks the collateral coverage that individual tests provide.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u81EA\u52D5\u5316\u6E2C\u8A66\u751F\u6210",
+            "text": "<p><strong>\u81EA\u52D5\u5316\u6E2C\u8A66\u751F\u6210\uFF08automated test generation\uFF09</strong>\u4E3B\u8981\u5728\u505A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4EE5\u6F14\u7B97\u6CD5\u81EA\u52D5\u7522\u751F\u6E2C\u8A66\u8F38\u5165\uFF08\u901A\u5E38\u4E5F\u5305\u542B\u6E2C\u8A66\u6848\u4F8B\uFF09\uFF0C\u800C\u975E\u7531\u4EBA\u9010\u4E00\u624B\u5BEB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76EE\u6A19\u662F\u6A5F\u68B0\u5316\u5730\u5408\u6210\u8F38\u5165\uFF0F\u6848\u4F8B\uFF0C\u800C\u975E\u624B\u52D5\u64B0\u5BEB\u6BCF\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u6C92\u6709\u4EFB\u4F55\u9810\u8A00\uFF08oracle\uFF09\u7684\u60C5\u6CC1\u4E0B\u81EA\u52D5\u5224\u65B7\u6BCF\u500B\u751F\u6210\u7684\u6E2C\u8A66\u901A\u904E\u6216\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5224\u65B7\u901A\u904E\uFF0F\u5931\u6557\u5C6C\u65BC\u9810\u8A00\u554F\u984C\uFF0C\u751F\u6210\u672C\u8EAB\u7121\u6CD5\u89E3\u6C7A\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u53D7\u6E2C\u7A0B\u5F0F\u7DE8\u8B6F\u6210\u6700\u4F73\u5316\u904E\u7684\u4E8C\u9032\u4F4D\u6A94",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7DE8\u8B6F\u5668\uFF1B\u6E2C\u8A66\u751F\u6210\u7522\u751F\u7684\u662F\u8F38\u5165\uFF0F\u6848\u4F8B\uFF0C\u800C\u975E\u6A5F\u5668\u78BC\u3002"
+              },
+              {
+                "text": "\u5B83\u5F62\u5F0F\u5316\u5730\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u751F\u6210\u6703\u627E\u51FA\u6216\u57F7\u884C\u884C\u70BA\uFF0C\u4F46\u4E0D\u8B49\u660E\u6B63\u78BA\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u81EA\u52D5\u5316\u6E2C\u8A66\u751F\u6210\u4EE5\u6F14\u7B97\u6CD5\u53D6\u4EE3\u4EBA\u5DE5\u64B0\u5BEB\u6E2C\u8A66\u8F38\u5165\u2014\u2014\u53EF\u70BA\u96A8\u6A5F\u3001\u641C\u5C0B\u5F0F\u3001\u7B26\u865F\u5F0F\u3001\u6A21\u578B\u5F0F\u6216\u7D44\u5408\u5F0F\u3002\u5B83\u7522\u751F\u8F38\u5165\uFF08\u901A\u5E38\u4E5F\u542B\u547C\u53EB\u5E8F\u5217\uFF09\uFF1B\u81F3\u65BC\u89C0\u5BDF\u5230\u7684\u884C\u70BA\u662F\u5426\u6B63\u78BA\uFF0C\u4ECD\u9700\u53E6\u4E00\u500B\u9810\u8A00\u4F86\u5224\u65B7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96A8\u6A5F\u6E2C\u8A66\u751F\u6210",
+            "text": "<p><strong>\u96A8\u6A5F\u6E2C\u8A66\u751F\u6210</strong>\u7684\u7279\u5FB5\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5F9E\u8F38\u5165\u5B9A\u7FA9\u57DF\u4E2D\u96A8\u6A5F\u62BD\u6A23\u8F38\u5165\uFF0C\u6210\u672C\u4F4E\u5EC9\uFF0C\u4E14\u4E0D\u4F7F\u7528\u4EFB\u4F55\u95DC\u65BC\u7A0B\u5F0F\u884C\u70BA\u7684\u56DE\u994B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u96A8\u6A5F\u751F\u6210\u4E4B\u6240\u4EE5\u4FBF\u5B9C\u7C21\u55AE\uFF0C\u6B63\u662F\u56E0\u70BA\u5B83\u5FFD\u7565\u7A0B\u5F0F\u7684\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u5B83\u7528\u7D04\u675F\u6C42\u89E3\u5668\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\u4EE5\u5230\u9054\u7279\u5B9A\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7B26\u865F\uFF0F\u6DF7\u5408\u57F7\u884C\u751F\u6210\uFF0C\u800C\u975E\u96A8\u6A5F\u751F\u6210\u3002"
+              },
+              {
+                "text": "\u5B83\u4EE5\u9069\u61C9\u5EA6\u51FD\u6578\u5F15\u5C0E\u3001\u6F14\u5316\u4E00\u7FA4\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u641C\u5C0B\u5F0F\u751F\u6210\uFF1B\u96A8\u6A5F\u751F\u6210\u4E0D\u4F7F\u7528\u4EFB\u4F55\u9069\u61C9\u5EA6\u5F15\u5C0E\u3002"
+              },
+              {
+                "text": "\u5B83\u5F9E\u898F\u683C\u7684\u6709\u9650\u72C0\u614B\u6A21\u578B\u63A8\u5C0E\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6A21\u578B\u5F0F\u751F\u6210\uFF1B\u96A8\u6A5F\u751F\u6210\u5FFD\u7565\u4EFB\u4F55\u6A21\u578B\u3002"
+              }
+            ],
+            "generalFeedback": "\u96A8\u6A5F\u751F\u6210\u5F9E\u5B9A\u7FA9\u57DF\u4E2D\u96A8\u6A5F\u6311\u9078\u8F38\u5165\u3002\u5B83\u4FBF\u5B9C\u3001\u6613\u5BE6\u4F5C\u3001\u4E0D\u9700\u5206\u6790\uFF0C\u4F46\u5F88\u76F2\u76EE\uFF1A\u5F97\u4E0D\u5230\u56DE\u994B\uFF0C\u56E0\u6B64\u96E3\u4EE5\u6EFF\u8DB3\u53EA\u6709\u6975\u5C0F\u90E8\u5206\u8F38\u5165\u80FD\u7B26\u5408\u7684\u72F9\u7A84\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96A8\u6A5F\u8207\u5C0E\u5411\u5F0F\u751F\u6210",
+            "text": "<p><strong>\u5C0E\u5411\u5F0F\uFF08\u5F15\u5C0E\u5F0F\uFF09</strong>\u751F\u6210\u8207<strong>\u96A8\u6A5F</strong>\u751F\u6210\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0E\u5411\u5F0F\u751F\u6210\u5229\u7528\u95DC\u65BC\u7A0B\u5F0F\u7684\u8CC7\u8A0A\uFF08\u8986\u84CB\u7387\u3001\u8DEF\u5F91\u689D\u4EF6\u6216\u9069\u61C9\u5EA6\u8A0A\u865F\uFF09\u5C07\u8F38\u5165\u671D\u76EE\u6A19\u63A8\u9032\uFF0C\u96A8\u6A5F\u751F\u6210\u5247\u76F2\u76EE\u62BD\u6A23",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5340\u5225\u5728\u65BC\u662F\u5426\u7528\u7A0B\u5F0F\u7684\u56DE\u994B\u4F86\u5F15\u5C0E\u8F38\u5165\u9078\u64C7\u3002"
+              },
+              {
+                "text": "\u5C0E\u5411\u5F0F\u751F\u6210\u5FC5\u5B9A\u6BD4\u96A8\u6A5F\u751F\u6210\u4FBF\u5B9C",
+                "fraction": 0,
+                "feedback": "\u5C0E\u5411\u5F0F\u65B9\u6CD5\u6BCF\u500B\u8F38\u5165\u7684\u6210\u672C\u901A\u5E38\u66F4\u9AD8\uFF08\u5206\u6790\u3001\u6C42\u89E3\u3001\u8A55\u4F30\uFF09\uFF1B\u5176\u597D\u8655\u662F\u5230\u9054\u56F0\u96E3\u76EE\u6A19\uFF0C\u800C\u975E\u66F4\u4F4E\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u751F\u6210\u4FDD\u8B49\u6BD4\u5C0E\u5411\u5F0F\u751F\u6210\u5F97\u5230\u66F4\u9AD8\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u751F\u6210\u5E38\u5728\u96E3\u4EE5\u5230\u9054\u7684\u7A0B\u5F0F\u78BC\u4E0A\u505C\u6EEF\uFF1B\u5C0E\u5411\u5F0F\u65B9\u6CD5\u6B63\u662F\u70BA\u4E86\u514B\u670D\u9019\u9EDE\u800C\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u5C0E\u5411\u5F0F\u751F\u6210\u6C38\u9060\u4E0D\u9700\u8981\u9810\u8A00\uFF0C\u800C\u96A8\u6A5F\u751F\u6210\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u9700\u8981\u9810\u8A00\u4F86\u5224\u65B7\u6B63\u78BA\u6027\uFF1B\u6C92\u6709\u54EA\u4E00\u7A2E\u80FD\u9003\u96E2\u9810\u8A00\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0E\u5411\u5F0F\uFF08\u5F15\u5C0E\u5F0F\uFF09\u751F\u6210\u5229\u7528\u56DE\u994B\u2014\u2014\u8986\u84CB\u7387\u3001\u8DEF\u5F91\u7D04\u675F\u6216\u9069\u61C9\u5EA6\u503C\u2014\u2014\u628A\u8F38\u5165\u671D\u76EE\u6A19\uFF08\u5982\u672A\u8986\u84CB\u7684\u5206\u652F\uFF09\u63A8\u9032\u3002\u96A8\u6A5F\u751F\u6210\u5FFD\u7565\u9019\u985E\u56DE\u994B\u3002\u5C0E\u5411\u5F0F\u65B9\u6CD5\u6BCF\u500B\u8F38\u5165\u901A\u5E38\u4ED8\u51FA\u66F4\u591A\uFF0C\u4F46\u80FD\u5230\u9054\u96A8\u6A5F\u62BD\u6A23\u5E7E\u4E4E\u6C38\u9060\u78B0\u4E0D\u5230\u7684\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6E2C\u8A66\u9810\u8A00",
+            "text": "<p>\u5728\u6E2C\u8A66\u751F\u6210\u4E2D\uFF0C<strong>\u6E2C\u8A66\u9810\u8A00\uFF08test oracle\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528\u4F86\u5224\u65B7\u7A0B\u5F0F\u5C0D\u67D0\u500B\u8F38\u5165\u7684\u884C\u70BA\u662F\u5426\u6B63\u78BA\u7684\u6A5F\u5236",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9810\u8A00\u8CA0\u8CAC\u5224\u65B7\u901A\u904E\uFF0F\u5931\u6557\uFF0C\u8207\u751F\u6210\u8F38\u5165\u662F\u5206\u958B\u7684\u3002"
+              },
+              {
+                "text": "\u7522\u751F\u8F38\u5165\u503C\u7684\u6F14\u7B97\u6CD5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u751F\u6210\u5668\uFF1B\u9810\u8A00\u5224\u65B7\u7522\u751F\u7684\u884C\u70BA\uFF0C\u4E26\u4E0D\u7522\u751F\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u7528\u4F86\u91CF\u6E2C\u6E2C\u8A66\u5957\u4EF6\u7684\u8986\u84CB\u7387\u6307\u6A19",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u91CF\u6E2C\u7A0B\u5F0F\u57F7\u884C\u4E86\u591A\u5C11\uFF1B\u9810\u8A00\u5224\u65B7\u8F38\u51FA\u662F\u5426\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u7528\u4F86\u8B93\u57F7\u884C\u53EF\u91CD\u73FE\u7684\u4E82\u6578\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "\u7A2E\u5B50\u8B93\u751F\u6210\u53EF\u91CD\u8907\uFF0C\u4E26\u4E0D\u5224\u65B7\u6B63\u78BA\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u9810\u8A00\u662F\u7528\u4F86\u5224\u65B7\u67D0\u8F38\u5165\u5C0D\u61C9\u4E4B\u89C0\u5BDF\u884C\u70BA\u662F\u5426\u53EF\u63A5\u53D7\u7684\u6771\u897F\u2014\u2014\u65B7\u8A00\u3001\u9810\u671F\u503C\u3001\u53C3\u8003\u5BE6\u4F5C\u6216\u86FB\u8B8A\u95DC\u4FC2\u3002\u7522\u751F\u8F38\u5165\u662F\u4E00\u500B\u554F\u984C\uFF1B\u5224\u65B7\u7D50\u679C\u662F\u5426\u6B63\u78BA\u5247\u662F\u53E6\u4E00\u500B\u7368\u7ACB\u7684\u9810\u8A00\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u9069\u61C9\u5EA6\u51FD\u6578",
+            "text": "<p>\u5728\u641C\u5C0B\u5F0F\u6E2C\u8A66\u751F\u6210\u4E2D\uFF0C<strong>\u9069\u61C9\u5EA6\u51FD\u6578\uFF08fitness function\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u6578\u503C\u91CF\u5EA6\uFF0C\u8868\u793A\u5019\u9078\u6E2C\u8A66\u96E2\u9054\u6210\u76EE\u6A19\u6709\u591A\u8FD1\uFF0C\u7528\u4F86\u5F15\u5C0E\u641C\u5C0B\u671D\u66F4\u597D\u7684\u6E2C\u8A66\u524D\u9032",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9069\u61C9\u5EA6\u70BA\u5019\u9078\u8A55\u5206\uFF0C\u8B93\u641C\u5C0B\u80FD\u504F\u597D\u4E26\u7CBE\u7149\u6709\u5E0C\u671B\u8005\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u53EA\u6709\u5728\u76EE\u6A19\u5DF2\u9054\u6210\u6642\u624D\u70BA\u771F\u7684\u5E03\u6797\u503C",
+                "fraction": 0,
+                "feedback": "\u7D14\u5E03\u6797\u503C\u6C92\u6709\u68AF\u5EA6\uFF1B\u6709\u6548\u7684\u9069\u61C9\u5EA6\u6703\u5E73\u6ED1\u8B8A\u5316\uFF0C\u8B93\u641C\u5C0B\u77E5\u9053\u54EA\u4E9B\u5019\u9078\u66F4\u63A5\u8FD1\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u8F38\u51FA\u662F\u5426\u6B63\u78BA\u7684\u9810\u8A00",
+                "fraction": 0,
+                "feedback": "\u9069\u61C9\u5EA6\u91CF\u5EA6\u671D\u8986\u84CB\u76EE\u6A19\u7684\u9032\u5C55\uFF1B\u9810\u8A00\u5224\u65B7\u6B63\u78BA\u6027\u2014\u2014\u89D2\u8272\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u50B3\u7D66\u8F38\u5165\u751F\u6210\u5668\u7684\u4E82\u6578\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "\u7A2E\u5B50\u63A7\u5236\u53EF\u91CD\u73FE\u6027\uFF0C\u800C\u975E\u5019\u9078\u7684\u597D\u58DE\u3002"
+              }
+            ],
+            "generalFeedback": "\u9069\u61C9\u5EA6\u51FD\u6578\u628A\u5019\u9078\u6E2C\u8A66\u6620\u5C04\u70BA\u4E00\u500B\u6578\u5B57\uFF0C\u8868\u793A\u5B83\u96E2\u76EE\u6A19\uFF08\u4F8B\u5982\u5230\u9054\u76EE\u6A19\u5206\u652F\uFF09\u6709\u591A\u8FD1\u3002\u597D\u7684\u9069\u61C9\u5EA6\u51FD\u6578\u63D0\u4F9B\u68AF\u5EA6\u2014\u2014\u6E2C\u8A66\u8D8A\u63A5\u8FD1\u5C31\u9010\u6B65\u8B8A\u597D\u2014\u2014\u8B93\u5F8C\u8A2D\u555F\u767C\u5F0F\u6F14\u7B97\u6CD5\u80FD\u671D\u76EE\u6A19\u6500\u5347\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66\uFF08SBST\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u628A\u6E2C\u8A66\u751F\u6210\u91CD\u8FF0\u70BA\u6700\u4F73\u5316\u554F\u984C\uFF0C\u7528\u7531\u9069\u61C9\u5EA6\u51FD\u6578\u5F15\u5C0E\u7684\u5F8C\u8A2D\u555F\u767C\u5F0F\u6F14\u7B97\u6CD5\uFF08\u5982\u722C\u5C71\u6CD5\u6216\u57FA\u56E0\u6F14\u7B97\u6CD5\uFF09\u641C\u5C0B\u80FD\u9054\u6210\u76EE\u6A19\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014SBST \u628A\u300C\u627E\u4E00\u500B\u597D\u6E2C\u8A66\u300D\u8F49\u70BA\u300C\u6700\u4F73\u5316\u9019\u500B\u9069\u61C9\u5EA6\u51FD\u6578\u300D\u3002"
+              },
+              {
+                "text": "\u5B83\u7AAE\u8209\u5217\u51FA\u7A0B\u5F0F\u6240\u6709\u53EF\u80FD\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u901A\u5E38\u4E0D\u53EF\u884C\uFF1BSBST \u4EE5\u9069\u61C9\u5EA6\u5F15\u5C0E\u6709\u9078\u64C7\u5730\u641C\u5C0B\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u7DE8\u8B6F\u524D\u641C\u5C0B\u539F\u59CB\u78BC\u4E2D\u7684\u8A9E\u6CD5\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "SBST \u641C\u5C0B\u7684\u662F\u6E2C\u8A66\u7A7A\u9593\uFF0C\u800C\u975E\u539F\u59CB\u78BC\u4E2D\u7684\u8A9E\u6CD5\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u5B83\u70BA\u6BCF\u500B\u5206\u652F\u689D\u4EF6\u67E5\u8A62\u7D04\u675F\u6C42\u89E3\u5668",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B26\u865F\uFF0F\u6DF7\u5408\u57F7\u884C\u751F\u6210\uFF1BSBST \u4F7F\u7528\u7531\u9069\u61C9\u5EA6\u9A45\u52D5\u7684\u5F8C\u8A2D\u555F\u767C\u5F0F\u641C\u5C0B\u3002"
+              }
+            ],
+            "generalFeedback": "SBST \u628A\u6E2C\u8A66\u751F\u6210\u7576\u4F5C\u6700\u4F73\u5316\uFF1A\u4E00\u500B\u5019\u9078\u6E2C\u8A66\u662F\u641C\u5C0B\u7A7A\u9593\u4E2D\u7684\u4E00\u9EDE\uFF0C\u9069\u61C9\u5EA6\u51FD\u6578\u4F9D\u76EE\u6A19\u70BA\u5B83\u8A55\u5206\uFF0C\u5F8C\u8A2D\u555F\u767C\u5F0F\u6F14\u7B97\u6CD5\uFF08\u722C\u5C71\u6CD5\u3001\u57FA\u56E0\u6F14\u7B97\u6CD5\u7B49\uFF09\u53CD\u8986\u6539\u826F\u5019\u9078\uFF0C\u671D\u5982\u8986\u84CB\u67D0\u5206\u652F\u7684\u76EE\u6A19\u524D\u9032\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A21\u578B\u5F0F\u6E2C\u8A66\u751F\u6210",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u6A21\u578B\u5F0F\u6E2C\u8A66\u751F\u6210\uFF08model-based test generation\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u63CF\u8FF0\u9810\u671F\u884C\u70BA\u7684\u6A21\u578B\uFF08\u5982\u6709\u9650\u72C0\u614B\u6A5F\u6216\u5F62\u5F0F\u898F\u683C\uFF09\u81EA\u52D5\u63A8\u5C0E\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u4F86\u81EA\u5C0D\u884C\u70BA\u6A21\u578B\u7684\u8D70\u8A2A\uFF0F\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u5EFA\u7ACB\u4E00\u500B\u6A5F\u5668\u5B78\u7FD2\u6A21\u578B\u4F86\u9810\u6E2C\u54EA\u4E9B\u6E2C\u8A66\u6703\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5931\u6557\u9810\u6E2C\uFF0C\u800C\u975E\u5F9E\u884C\u70BA\u6A21\u578B\u63A8\u5C0E\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u8B8A\u7570\u539F\u59CB\u78BC\u4EE5\u88FD\u9020\u51FA\u6709\u7F3A\u9677\u7684\u7248\u672C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B8A\u7570\u6E2C\u8A66\uFF1B\u6A21\u578B\u5F0F\u751F\u6210\u662F\u5F9E\u898F\u683C\uFF0FFSM \u63A8\u5C0E\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u624B\u5BEB\u5957\u4EF6\u8986\u84CB\u4E86\u591A\u5C11\u6A21\u578B\u5143\u7D20",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6A21\u578B\u8986\u84CB\u7387\u91CF\u6E2C\uFF1B\u751F\u6210\u662F\u5F9E\u6A21\u578B\u7522\u751F\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u578B\u5F0F\u6E2C\u8A66\u751F\u6210\u5F9E\u7CFB\u7D71\u9810\u671F\u884C\u70BA\u7684\u6A21\u578B\u51FA\u767C\u2014\u2014\u5E38\u898B\u70BA\u6709\u9650\u72C0\u614B\u6A5F\u3001\u72C0\u614B\u5716\u6216\u5F62\u5F0F\u898F\u683C\u2014\u2014\u4E26\u7531\u6B64\u63A8\u5C0E\u6E2C\u8A66\u5E8F\u5217\uFF0C\u4F8B\u5982\u8986\u84CB\u6BCF\u689D\u8F49\u79FB\u7684\u8DEF\u5F91\u3002\u6A21\u578B\u4E5F\u80FD\u63D0\u4F9B\u9810\u671F\u7D50\u679C\uFF0C\u6709\u52A9\u65BC\u9810\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8986\u84CB\u76EE\u6A19",
+            "text": "<p>\u5728\u8986\u84CB\u7387\u9A45\u52D5\u7684\u751F\u6210\u4E2D\uFF0C<strong>\u8986\u84CB\u76EE\u6A19\uFF08coverage target\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u751F\u6210\u5668\u8A66\u5716\u57F7\u884C\u5230\u7684\u7279\u5B9A\u7A0B\u5F0F\u5143\u7D20\uFF0C\u4F8B\u5982\u67D0\u500B\u5206\u652F\u3001\u6558\u8FF0\u6216\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76EE\u6A19\u5C31\u662F\u641C\u5C0B\u6240\u8981\u8986\u84CB\u7684\u5177\u9AD4\u5143\u7D20\u3002"
+              },
+              {
+                "text": "\u5141\u8A31\u6574\u500B\u57F7\u884C\u4F7F\u7528\u7684\u7E3D\u6642\u9418\u6642\u9593\u9810\u7B97",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6642\u9593\u9810\u7B97\uFF0C\u800C\u975E\u8986\u84CB\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u8F38\u51FA\u662F\u5426\u6B63\u78BA\u7684\u9810\u8A00",
+                "fraction": 0,
+                "feedback": "\u76EE\u6A19\u662F\u8981\u5230\u9054\u7684\u5143\u7D20\uFF1B\u9810\u8A00\u53E6\u5916\u5224\u65B7\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u5957\u4EF6\u5FC5\u9808\u5305\u542B\u7684\u6E2C\u8A66\u6848\u4F8B\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5957\u4EF6\u5927\u5C0F\u9650\u5236\uFF0C\u800C\u975E\u8986\u84CB\u76EE\u6A19\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u76EE\u6A19\u662F\u751F\u6210\u5668\u60F3\u8B93\u67D0\u6E2C\u8A66\u57F7\u884C\u5230\u7684\u5177\u9AD4\u7A0B\u5F0F\u5143\u7D20\u2014\u2014\u5206\u652F\u3001\u6558\u8FF0\u3001\u689D\u4EF6\u6216\u8DEF\u5F91\u3002\u8986\u84CB\u7387\u9A45\u52D5\u7684\u751F\u6210\u6311\u9078\u672A\u8986\u84CB\u7684\u76EE\u6A19\uFF0C\u4E26\u641C\u5C0B\u80FD\u5230\u9054\u5B83\u7684\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u865F\uFF0F\u8DEF\u5F91\u5F0F\u751F\u6210",
+            "text": "<p><strong>\u7B26\u865F\u5F0F\uFF08\u8DEF\u5F91\u5F0F\uFF09</strong>\u6E2C\u8A66\u751F\u6210\u5982\u4F55\u53D6\u5F97\u80FD\u6CBF\u67D0\u689D\u8DEF\u5F91\u57F7\u884C\u7684\u8F38\u5165\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5EFA\u7ACB\u8DEF\u5F91\u689D\u4EF6\u2014\u2014\u6CBF\u8A72\u8DEF\u5F91\u5404\u5206\u652F\u7D04\u675F\u7684\u5408\u53D6\u2014\u2014\u4E26\u7528\u7D04\u675F\u6C42\u89E3\u5668\u6C42\u89E3\uFF0C\u5F97\u5230\u5177\u9AD4\u8F38\u5165\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\u5373\u5F97\u5230\u80FD\u9A45\u52D5\u57F7\u884C\u6CBF\u8A72\u8DEF\u5F91\u524D\u9032\u7684\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u65E2\u6709\u8F38\u5165\u4E2D\u96A8\u6A5F\u7FFB\u8F49\u4F4D\u5143\uFF0C\u76F4\u5230\u8DEF\u5F91\u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\uFF0C\u800C\u975E\u5C0D\u8DEF\u5F91\u689D\u4EF6\u7684\u7B26\u865F\u6C42\u89E3\u3002"
+              },
+              {
+                "text": "\u5B83\u7528\u57FA\u56E0\u6F14\u7B97\u6CD5\u6F14\u5316\u4E00\u7FA4\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u641C\u5C0B\u5F0F\u751F\u6210\uFF1B\u7B26\u865F\u5F0F\u751F\u6210\u6539\u70BA\u6C42\u89E3\u7D04\u675F\u3002"
+              },
+              {
+                "text": "\u5B83\u91CF\u6E2C\u65E2\u6709\u5957\u4EF6\u7684\u8986\u84CB\u7387\u4E26\u56DE\u5831\u7F3A\u53E3",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u91CF\u6E2C\uFF0C\u800C\u975E\u4EE5\u7D04\u675F\u6C42\u89E3\u5408\u6210\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u5F0F\uFF08\u8DEF\u5F91\u5F0F\uFF09\u751F\u6210\u628A\u8F38\u5165\u8996\u70BA\u7B26\u865F\uFF0C\u8FFD\u8E64\u6CBF\u8DEF\u5F91\u5404\u5206\u652F\u6240\u52A0\u7684\u7D04\u675F\uFF08\u8DEF\u5F91\u689D\u4EF6\uFF09\uFF0C\u4E26\u5411\u7D04\u675F\uFF0FSMT \u6C42\u89E3\u5668\u7D22\u53D6\u6EFF\u8DB3\u5B83\u7684\u5177\u9AD4\u503C\u3002\u9019\u4E9B\u503C\u9A45\u52D5\u7A0B\u5F0F\u6CBF\u9810\u671F\u8DEF\u5F91\u524D\u9032\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D44\u5408\u5F0F\u6E2C\u8A66\u751F\u6210",
+            "text": "<p><strong>\u7D44\u5408\u5F0F\uFF08combinatorial\uFF09</strong>\u6E2C\u8A66\u751F\u6210\uFF08\u5982\u6210\u5C0D\u6E2C\u8A66\uFF09\u80CC\u5F8C\u7684\u60F3\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4EE5\u9060\u5C11\u65BC\u7AAE\u8209\u6240\u6709\u5B8C\u6574\u7D44\u5408\u7684\u6E2C\u8A66\u6578\uFF0C\u7CFB\u7D71\u5316\u5730\u8986\u84CB\u53C3\u6578\u503C\u7684\u5404\u7A2E\u7D44\u5408\uFF08\u4F8B\u5982\u6BCF\u4E00\u5C0D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D44\u5408\u5F0F\u751F\u6210\u5728\u7DAD\u6301\u4E92\u52D5\u8986\u84CB\u7684\u540C\u6642\uFF0C\u8B93\u6E2C\u8A66\u6578\u4FDD\u6301\u5F88\u5C0F\u3002"
+              },
+              {
+                "text": "\u5B83\u7AAE\u8209\u57F7\u884C\u6240\u6709\u53C3\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u5B8C\u6574\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u7D44\u5408\u6703\u7206\u70B8\uFF1B\u7D44\u5408\u5F0F\u65B9\u6CD5\u6539\u4EE5\u4E00\u5C0F\u7D44\u6E2C\u8A66\u8986\u84CB\u4E92\u52D5\uFF08\u5982\u6240\u6709\u6210\u5C0D\uFF09\u3002"
+              },
+              {
+                "text": "\u5B83\u6C42\u89E3\u6BCF\u689D\u7A0B\u5F0F\u8DEF\u5F91\u7684\u8DEF\u5F91\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B26\u865F\u5F0F\u751F\u6210\uFF1B\u7D44\u5408\u5F0F\u751F\u6210\u4F5C\u7528\u65BC\u53C3\u6578\u503C\u7684\u7D44\u5408\u3002"
+              },
+              {
+                "text": "\u5B83\u7D14\u7CB9\u5F9E\u5B9A\u7FA9\u57DF\u96A8\u6A5F\u6311\u9078\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u7D44\u5408\u5F0F\u751F\u6210\u5C0D\u4E92\u52D5\u662F\u7CFB\u7D71\u5316\u7684\uFF0C\u800C\u975E\u96A8\u6A5F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D44\u5408\u5F0F\u6E2C\u8A66\u751F\u6210\u8986\u84CB\u53C3\u6578\u9593\u7684\u4E92\u52D5\u2014\u2014\u6700\u5E38\u898B\u7684\u662F\u6240\u6709\u6210\u5C0D\uFF08\u6210\u5C0D\uFF0F2-way\uFF09\u2014\u2014\u7528\u4E00\u5C0F\u7D44\u7CFB\u7D71\u5316\u5EFA\u69CB\u7684\u6E2C\u8A66\u9054\u6210\u3002\u5B83\u7ACB\u57FA\u65BC\u4E00\u500B\u89C0\u5BDF\uFF1A\u8A31\u591A\u7F3A\u9677\u662F\u7531\u5C11\u6578\u4E92\u52D5\u53C3\u6578\u89F8\u767C\uFF0C\u56E0\u6B64\u4FBF\u5B9C\u5730\u8986\u84CB\u4F4E\u968E\u7D44\u5408\u4FBF\u80FD\u6293\u5230\u8A31\u591A\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "SBST \u4E2D\u628A\u6E2C\u8A66\u8996\u70BA\u500B\u9AD4",
+            "text": "<p>\u5728\u641C\u5C0B\u5F0F\u6E2C\u8A66\u751F\u6210\u4E2D\uFF0C\u5019\u9078\u6E2C\u8A66\u53EF\u88AB\u8868\u793A\u70BA\u4E00\u500B\u300C\u500B\u9AD4\u300D\uFF0C\u7531\u5F8C\u8A2D\u555F\u767C\u5F0F\u6F14\u7B97\u6CD5\u4EE5\u9069\u61C9\u5EA6\u51FD\u6578\u8A55\u4F30\u3001\u4E26\u671D\u76EE\u6A19\u6F14\u5316\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6E2C\u8A66\u7DE8\u78BC\u70BA\u7531\u9069\u61C9\u5EA6\u8A55\u5206\u7684\u500B\u9AD4\uFF0C\u6B63\u662F SBST \u5957\u7528\u5F8C\u8A2D\u555F\u767C\u5F0F\u641C\u5C0B\u7684\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "SBST \u78BA\u5BE6\u628A\u6E2C\u8A66\u7DE8\u78BC\u70BA\u500B\u9AD4\uFF08\u641C\u5C0B\u7A7A\u9593\u4E2D\u7684\u4E00\u9EDE\uFF09\uFF0C\u4E26\u7528\u9069\u61C9\u5EA6\u5F15\u5C0E\u5176\u6F14\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "SBST \u501F\u7528\u6700\u4F73\u5316\u7684\u8A5E\u5F59\uFF1A\u5019\u9078\u6E2C\u8A66\u662F\u300C\u500B\u9AD4\u300D\uFF08\u6216\u67D3\u8272\u9AD4\uFF09\uFF0C\u5176\u54C1\u8CEA\u662F\u9069\u61C9\u5EA6\u503C\uFF0C\u8B8A\u7570\u8207\u4EA4\u914D\u7B49\u904B\u7B97\u5B50\u7522\u751F\u65B0\u5019\u9078\uFF0C\u4F9B\u641C\u5C0B\u5728\u5176\u4E2D\u9078\u64C7\u4EE5\u903C\u8FD1\u76EE\u6A19\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u751F\u6210\u4E2D\u7684\u64AD\u7A2E",
+            "text": "<p>\u5728\u6E2C\u8A66\u751F\u6210\u4E2D\uFF0C<strong>\u64AD\u7A2E\uFF08seeding\uFF09</strong>\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u751F\u6210\u5668\u5F9E\u6709\u7528\u7684\u5148\u9A57\u8CC7\u8A0A\u51FA\u767C\u2014\u2014\u4F8B\u5982\u7A0B\u5F0F\u78BC\u4E2D\u7684\u5E38\u6578\u6216\u65E2\u6709\u6E2C\u8A66\u2014\u2014\u800C\u975E\u5F9E\u96F6\u958B\u59CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u64AD\u7A2E\u6CE8\u5165\u5DF2\u77E5\u6709\u7528\u7684\u503C\uFF0C\u7D66\u641C\u5C0B\u4E00\u500B\u8D77\u6B65\u512A\u52E2\u3002"
+              },
+              {
+                "text": "\u5728\u751F\u6210\u7D50\u675F\u5F8C\u522A\u9664\u591A\u9918\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6700\u5C0F\u5316\uFF0F\u7E2E\u6E1B\uFF0C\u800C\u975E\u64AD\u7A2E\u3002"
+              },
+              {
+                "text": "\u53EA\u662F\u56FA\u5B9A\u4E82\u6578\u7A2E\u5B50\uFF0C\u8B93\u57F7\u884C\u53EF\u91CD\u73FE",
+                "fraction": 0,
+                "feedback": "\u4E82\u6578\u7A2E\u5B50\u95DC\u4E4E\u53EF\u91CD\u73FE\u6027\uFF1B\u6B64\u8655\u7684\u64AD\u7A2E\u6307\u63D0\u4F9B\u6709\u7528\u7684\u8D77\u59CB\u503C\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u6BCF\u500B\u751F\u6210\u8F38\u51FA\u662F\u5426\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9810\u8A00\u7684\u5DE5\u4F5C\uFF0C\u8207\u64AD\u7A2E\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u64AD\u7A2E\u70BA\u751F\u6210\u5668\u63D0\u4F9B\u6709\u5E0C\u671B\u7684\u8D77\u59CB\u7D20\u6750\u2014\u2014\u5F9E\u539F\u59CB\u78BC\u6316\u6398\u7684\u5E38\u6578\u8207\u5B57\u4E32\u5B57\u9762\u503C\u3001\u4F86\u81EA\u65E2\u6709\u6216\u56DE\u6B78\u6E2C\u8A66\u7684\u503C\uFF0C\u6216\u5148\u524D\u7684\u8A9E\u6599\u5EAB\u2014\u2014\u8B93\u641C\u5C0B\u4E0D\u5FC5\u76F2\u76EE\u8D77\u6B65\u3002\u4F8B\u5982\u64AD\u7A2E\u5B57\u9762\u503C 42\uFF0C\u80FD\u8B93\u641C\u5C0B\u66F4\u5FEB\u6EFF\u8DB3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u5957\u4EF6\u6700\u5C0F\u5316",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u6E2C\u8A66\u5957\u4EF6\u6700\u5C0F\u5316\uFF08minimization\uFF0F\u7E2E\u6E1B\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u79FB\u9664\u591A\u9918\u7684\u6E2C\u8A66\uFF0C\u5F97\u5230\u4E00\u500B\u8F03\u5C0F\u3001\u4F46\u4ECD\u6EFF\u8DB3\u6240\u9078\u6E96\u5247\uFF08\u4F8B\u5982\u7DAD\u6301\u76F8\u540C\u8986\u84CB\u7387\uFF09\u7684\u5957\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5C0F\u5316\u5728\u4FDD\u7559\u65E2\u5B9A\u6027\u8CEA\uFF08\u5982\u8986\u84CB\u7387\uFF09\u7684\u524D\u63D0\u4E0B\u7E2E\u5C0F\u5957\u4EF6\u3002"
+              },
+              {
+                "text": "\u76E1\u91CF\u7522\u751F\u66F4\u591A\u6E2C\u8A66\u4EE5\u6700\u5927\u5316\u5957\u4EF6\u5927\u5C0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u597D\u76F8\u53CD\uFF1B\u6700\u5C0F\u5316\u662F\u79FB\u9664\u5197\u9918\uFF0C\u800C\u975E\u589E\u52A0\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u6BCF\u500B\u6E2C\u8A66\u7684\u8F38\u51FA\u662F\u5426\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9810\u8A00\u7684\u5DE5\u4F5C\uFF0C\u800C\u975E\u6700\u5C0F\u5316\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\u4EE5\u5230\u9054\u672A\u8986\u84CB\u7684\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B26\u865F\u5F0F\u751F\u6210\uFF1B\u6700\u5C0F\u5316\u662F\u4FEE\u526A\u65E2\u6709\u5957\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5957\u4EF6\u6700\u5C0F\u5316\u4F9D\u67D0\u6E96\u5247\u79FB\u9664\u88AB\u5224\u70BA\u5197\u9918\u7684\u6E2C\u8A66\u2014\u2014\u901A\u5E38\u662F\u5728\u7DAD\u6301\u76F8\u540C\u8986\u84CB\u7387\u4E0B\u6E1B\u5C11\u6E2C\u8A66\u6578\u3002\u5B83\u964D\u4F4E\u57F7\u884C\u6210\u672C\uFF0C\u4F46\u56E0\u70BA\u662F\u4EE5\u8986\u84CB\u7387\u800C\u975E\u627E\u932F\u80FD\u529B\u70BA\u6700\u4F73\u5316\u76EE\u6A19\uFF0C\u53EF\u80FD\u6703\u522A\u6389\u539F\u672C\u80FD\u6293\u5230\u771F\u5BE6\u7F3A\u9677\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u751F\u6210\u4E0D\u7B49\u65BC\u9A57\u8B49",
+            "text": "<p>\u81EA\u52D5\u751F\u6210\u6E2C\u8A66\u8F38\u5165\uFF0C\u4E5F\u5C31\u81EA\u52D5\u5224\u5B9A\u4E86\u7A0B\u5F0F\u7684\u8F38\u51FA\u662F\u5426\u6B63\u78BA\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u751F\u6210\u8F38\u5165\u8207\u5224\u65B7\u5176\u8F38\u51FA\u662F\u5206\u958B\u7684\uFF1B\u5224\u5B9A\u6B63\u78BA\u6027\u9700\u8981\u9810\u8A00\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u751F\u6210\u7522\u751F\u8F38\u5165\uFF0C\u4F46\u672C\u8EAB\u4E0D\u5224\u5B9A\u6B63\u78BA\u6027\uFF1B\u90A3\u662F\u9810\u8A00\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7522\u751F\u4E00\u500B\u80FD\u89F8\u53CA\u67D0\u884C\u70BA\u7684\u8F38\u5165\uFF0C\u4E26\u4E0D\u544A\u8A34\u4F60\u8A72\u884C\u70BA\u662F\u5426\u6B63\u78BA\u3002\u5224\u5B9A\u6B63\u78BA\u6027\u662F\u53E6\u4E00\u500B\u7368\u7ACB\u7684\u9810\u8A00\u554F\u984C\uFF0C\u4E5F\u6B63\u662F\u5B83\u8B93\u5168\u81EA\u52D5\u6E2C\u8A66\u56F0\u96E3\uFF1A\u76F8\u8F03\u65BC\u9A57\u8B49\uFF0C\u751F\u6210\u662F\u5BB9\u6613\u7684\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u628A\u86FB\u8B8A\u95DC\u4FC2\u7576\u4F5C\u9810\u8A00",
+            "text": "<p>\u88AB\u7528\u4F5C\u6E2C\u8A66\u9810\u8A00\u7684<strong>\u86FB\u8B8A\u95DC\u4FC2\uFF08metamorphic relation\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u95DC\u8F38\u5165\u4E4B\u8F38\u51FA\u9593\u5FC5\u9808\u6210\u7ACB\u7684\u4E00\u7A2E\u95DC\u4FC2\uFF0C\u5373\u4F7F\u4E0D\u77E5\u9053\u78BA\u5207\u7684\u9810\u671F\u8F38\u51FA\u4E5F\u80FD\u6AA2\u67E5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6AA2\u67E5\u7684\u662F\u5FC5\u9700\u7684\u95DC\u4FC2\uFF0C\u800C\u975E\u55AE\u4E00\u9810\u671F\u503C\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u7279\u5B9A\u8F38\u5165\u7684\u55AE\u4E00\u78BA\u5207\u9810\u671F\u8F38\u51FA\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u50B3\u7D71\u7684\u9810\u671F\u503C\u9810\u8A00\uFF1B\u86FB\u8B8A\u95DC\u4FC2\u6B63\u662F\u8981\u907F\u514D\u9700\u8981\u78BA\u5207\u503C\u3002"
+              },
+              {
+                "text": "\u9023\u7D50\u751F\u6210\u5668\u5169\u6B21\u57F7\u884C\u7684\u4E82\u6578\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "\u7A2E\u5B50\u95DC\u4E4E\u53EF\u91CD\u73FE\u6027\uFF0C\u800C\u975E\u8F38\u51FA\u9593\u7684\u6B63\u78BA\u6027\u95DC\u4FC2\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u5169\u500B\u5206\u652F\u4E4B\u9593\u7684\u8986\u84CB\u95DC\u4FC2",
+                "fraction": 0,
+                "feedback": "\u86FB\u8B8A\u95DC\u4FC2\u9023\u7D50\u7684\u662F\u76F8\u95DC\u8F38\u5165\u7684\u8F38\u51FA\uFF0C\u800C\u975E\u5206\u652F\u7684\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u86FB\u8B8A\u95DC\u4FC2\u9673\u8FF0\u76F8\u95DC\u8F38\u5165\u7684\u8F38\u51FA\u4E4B\u9593\u5FC5\u9808\u5982\u4F55\u95DC\u806F\u2014\u2014\u4F8B\u5982\u61C9\u7B49\u65BC\uFF0C\u6216\u5C0D\u6392\u5E8F\u5F8C\u7684\u6E05\u55AE\u518D\u6392\u5E8F\u5176\u6392\u5217\u61C9\u5F97\u5230\u76F8\u540C\u7D50\u679C\u3002\u7576\u78BA\u5207\u9810\u671F\u8F38\u51FA\u672A\u77E5\u6642\uFF0C\u5B83\u63D0\u4F9B\u4E86\u90E8\u5206\u9810\u8A00\uFF0C\u7DE9\u89E3\u81EA\u52D5\u751F\u6210\u8F38\u5165\u7684\u9810\u8A00\u554F\u984C\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u96A8\u6A5F\u96E3\u4EE5\u901A\u904E\u72F9\u7A84\u5B88\u885B",
+            "text": "<p>\u5C0D 32 \u4F4D\u5143\u6574\u6578 <code>x</code>\uFF0C\u70BA\u4F55\u96A8\u6A5F\u751F\u6210\u96E3\u4EE5\u6EFF\u8DB3\u50CF <code>if (x == 42)</code> \u9019\u6A23\u7684\u72F9\u7A84\u689D\u4EF6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5927\u7D04\u56DB\u5341\u5104\u500B\u503C\u4E2D\u53EA\u6709\u4E00\u500B\u80FD\u6EFF\u8DB3\u5B83\uFF0C\u56E0\u6B64\u76F2\u76EE\u7684\u96A8\u6A5F\u62BD\u53D6\u5E7E\u4E4E\u6C38\u9060\u78B0\u4E0D\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6EFF\u8DB3\u96C6\u53EA\u4F54\u5B9A\u7FA9\u57DF\u6975\u5C0F\u4E00\u90E8\u5206\uFF0C\u800C\u96A8\u6A5F\u62BD\u6A23\u7121\u5F9E\u671D\u5B83\u6536\u6582\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u751F\u6210\u5668\u6839\u672C\u7121\u6CD5\u7522\u751F\u6574\u6578 42",
+                "fraction": 0,
+                "feedback": "\u5B83\u80FD\u7522\u751F 42\uFF1B\u554F\u984C\u5728\u65BC\u6A5F\u7387\u4F4E\u5230\u5FAE\u4E4E\u5176\u5FAE\uFF0C\u800C\u975E\u8A72\u503C\u4E0D\u53EF\u80FD\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "\u6574\u6578\u7684\u7B49\u65BC\u6BD4\u8F03\u662F\u672A\u5B9A\u7FA9\u7684",
+                "fraction": 0,
+                "feedback": "\u6574\u6578\u7B49\u65BC\u662F\u5B8C\u5168\u826F\u5B9A\u7FA9\u7684\uFF1B\u56F0\u96E3\u7D14\u7CB9\u4F86\u81EA\u547D\u4E2D\u6A5F\u7387\u6975\u4F4E\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u751F\u6210\u5728\u9019\u985E\u5B88\u885B\u4E0A\u7E3D\u662F\u9677\u5165\u7121\u7AAE\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u6703\u6C38\u9060\u8FF4\u5708\uFF1B\u53EA\u662F\u4E0D\u65B7\u62BD\u5230\u7D55\u5927\u591A\u6578\u90FD\u932F\u904E\u90A3\u552F\u4E00\u76EE\u6A19\u7684\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u5207\u7B49\u65BC\u7684\u5B88\u885B\u53EA\u88AB\u5B9A\u7FA9\u57DF\u4E2D\u6975\u5C0F\u4E00\u90E8\u5206\u6EFF\u8DB3\uFF0832 \u4F4D\u5143\u6574\u6578\u7D04\u56DB\u5341\u5104\u5206\u4E4B\u4E00\uFF09\u3002\u96A8\u6A5F\u62BD\u6A23\u5F97\u4E0D\u5230\u4EFB\u4F55\u300C\u662F\u5426\u66F4\u63A5\u8FD1\u300D\u7684\u56DE\u994B\uFF0C\u56E0\u6B64\u6BCF\u6B21\u62BD\u53D6\u547D\u4E2D\u7684\u6A5F\u7387\u5FAE\u4E4E\u5176\u5FAE\u3002\u5C0E\u5411\u5F0F\u65B9\u6CD5\u2014\u2014\u64AD\u7A2E\u8A72\u5E38\u6578\u3001\u6C42\u89E3\uFF0C\u6216\u4F7F\u7528\u57FA\u65BC\u8DDD\u96E2\u7684\u9069\u61C9\u5EA6\u2014\u2014\u5247\u53EF\u9760\u5F97\u591A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u5206\u652F\u8DDD\u96E2\u5F15\u5C0E\u641C\u5C0B",
+            "text": "<p>\u5C0D\u76EE\u6A19 <code>if (x == 42)</code>\uFF0C<strong>\u5206\u652F\u8DDD\u96E2\uFF08branch-distance\uFF09</strong>\u9069\u61C9\u5EA6\u51FD\u6578\u5982\u4F55\u5F15\u5C0E\u641C\u5C0B\u8D70\u5411\u771F\u5206\u652F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4EE5\u96E2 42 \u6709\u591A\u9060\u4F86\u70BA\u5019\u9078\u8A55\u5206\uFF08\u4F8B\u5982 |x - 42|\uFF09\uFF0C\u4F7F\u641C\u5C0B\u7372\u5F97\u734E\u52F5\u66F4\u63A5\u8FD1\u4E4B\u8F38\u5165\u7684\u68AF\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u8FF0\u8A5E\u8F49\u6210\u8DDD\u96E2\uFF0C\u5C31\u7D66\u4E86\u641C\u5C0B\u4E00\u500B\u53EF\u6700\u5C0F\u5316\u7684\u91CF\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u5206\u652F\u88AB\u8D70\u5230\u6642\u56DE\u50B3 1\u3001\u5426\u5247\u56DE\u50B3 0\uFF0C\u7D66\u641C\u5C0B\u4E00\u500B\u660E\u78BA\u8A0A\u865F",
+                "fraction": 0,
+                "feedback": "\u7D14 0/1 \u8A0A\u865F\u6C92\u6709\u68AF\u5EA6\u2014\u2014\u641C\u5C0B\u7121\u6CD5\u5206\u8FA8 x=41 \u6BD4 x=1000 \u597D\uFF1B\u5206\u652F\u8DDD\u96E2\u6B63\u597D\u63D0\u4F9B\u9019\u500B\u68AF\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u7528 SMT \u6C42\u89E3\u5668\u6C42\u89E3\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B26\u865F\u6C42\u89E3\uFF1B\u5206\u652F\u8DDD\u96E2\u9069\u61C9\u5EA6\u662F\u641C\u5C0B\u5F0F\u7684\u66FF\u4EE3\u65B9\u6848\uFF0C\u4EE5\u6578\u503C\u91CF\u5EA6\u63A5\u8FD1\u7A0B\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u8A08\u7B97\u5019\u9078\u7E3D\u5171\u57F7\u884C\u4E86\u591A\u5C11\u6558\u8FF0",
+                "fraction": 0,
+                "feedback": "\u7E3D\u57F7\u884C\u6558\u8FF0\u6578\u4E26\u4E0D\u8861\u91CF\u96E2\u6EFF\u8DB3\u8A72\u7279\u5B9A\u8FF0\u8A5E\u6709\u591A\u8FD1\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\u8DDD\u96E2\u628A\u8FF0\u8A5E\u8F49\u70BA\u4E00\u500B\u6578\u5B57\uFF0C\u91CF\u5EA6\u8F38\u5165\u96E2\u7FFB\u8F49\u8A72\u5206\u652F\u6709\u591A\u8FD1\u3002\u5C0D\uFF0C\u81EA\u7136\u7684\u8DDD\u96E2\u662F |x - 42|\uFF1A\u8D8A\u5C0F\u8D8A\u8FD1\u3002\u641C\u5C0B\u6700\u5C0F\u5316\u6B64\u8DDD\u96E2\uFF0C\u65BC\u662F\u80FD\u5206\u8FA8 x=41 \u9060\u512A\u65BC x=1000 \u4E26\u671D\u76EE\u6A19\u6500\u5347\u2014\u2014\u9019\u662F\u5E73\u5766\u7684 0/1 \u8A0A\u865F\u8FA6\u4E0D\u5230\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9673\u8FF0\u9810\u8A00\u554F\u984C",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6700\u80FD\u523B\u756B<strong>\u6E2C\u8A66\u9810\u8A00\u554F\u984C</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u751F\u6210\u8F38\u5165\u76F8\u5C0D\u5BB9\u6613\uFF0C\u4F46\u5224\u65B7\u6240\u5F97\u884C\u70BA\u662F\u5426\u6B63\u78BA\u537B\u5F88\u96E3\uFF0C\u4E14\u5F80\u5F80\u9700\u8981\u4EBA\u6240\u63D0\u4F9B\u7684\u77E5\u8B58",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56F0\u96E3\u8655\u5728\u65BC\u5224\u65B7\u6B63\u78BA\u6027\uFF0C\u800C\u975E\u7522\u751F\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4E0D\u53EF\u80FD\u751F\u6210\u4EFB\u4F55\u80FD\u5230\u9054\u6DF1\u5C64\u7A0B\u5F0F\u78BC\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u5230\u9054\u6DF1\u5C64\u7A0B\u5F0F\u78BC\u662F\u8986\u84CB\uFF0F\u751F\u6210\u7684\u6311\u6230\uFF1B\u9810\u8A00\u554F\u984C\u95DC\u4E4E\u5224\u65B7\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u7D04\u675F\u6C42\u89E3\u5668\u592A\u6162\uFF0C\u7121\u6CD5\u6C42\u89E3\u4EFB\u4F55\u8DEF\u5F91\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u6C42\u89E3\u5668\u6548\u80FD\u662F\u7B26\u865F\u57F7\u884C\u7684\u8B70\u984C\uFF0C\u800C\u975E\u9810\u8A00\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u751F\u6210\u7E3D\u662F\u52DD\u904E\u5C0E\u5411\u5F0F\u751F\u6210",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u95DC\u65BC\u751F\u6210\u7B56\u7565\u7684\u932F\u8AA4\u8AD6\u65B7\uFF0C\u8207\u9810\u8A00\u554F\u984C\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u9810\u8A00\u554F\u984C\u662F\u6307\uFF1A\u5373\u4F7F\u624B\u4E0A\u6709\u4E86\u8F38\u5165\uFF0C\u5224\u65B7\u7A0B\u5F0F\u7684\u56DE\u61C9\u662F\u5426\u6B63\u78BA\u901A\u5E38\u4ECD\u9700\u77E5\u9053\u9810\u671F\u884C\u70BA\u2014\u2014\u9810\u671F\u503C\u3001\u65B7\u8A00\u3001\u53C3\u8003\u6216\u95DC\u4FC2\u3002\u7531\u65BC\u53D6\u5F97\u9019\u7A2E\u77E5\u8B58\u4EE3\u50F9\u9AD8\u6602\uFF0C\u6210\u70BA\u5168\u81EA\u52D5\u6E2C\u8A66\u74F6\u9838\u7684\u901A\u5E38\u662F\u9810\u8A00\uFF0C\u800C\u975E\u8F38\u5165\u751F\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u865F\u3001\u96A8\u6A5F\u8207\u641C\u5C0B\u5F0F\u7684\u6BD4\u8F03",
+            "text": "<p>\u5C0D\u65BC\u5230\u9054\u4E00\u500B\u56F0\u96E3\u5206\u652F\uFF0C\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\u6982\u62EC<strong>\u96A8\u6A5F</strong>\u3001<strong>\u641C\u5C0B\u5F0F</strong>\u8207<strong>\u7B26\u865F\u5F0F</strong>\u751F\u6210\u4E4B\u9593\u7684\u53D6\u6368\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u96A8\u6A5F\u6700\u4FBF\u5B9C\u4F46\u76F2\u76EE\uFF1B\u641C\u5C0B\u5F0F\u9700\u8981\u9069\u61C9\u5EA6\u68AF\u5EA6\u624D\u80FD\u6500\u5347\uFF1B\u7B26\u865F\u5F0F\u80FD\u6C42\u89E3\u78BA\u5207\u689D\u4EF6\uFF0C\u4F46\u53EF\u80FD\u78B0\u4E0A\u6C42\u89E3\u5668\u9650\u5236\u8207\u8DEF\u5F91\u7206\u70B8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u8005\u5404\u4EE5\u4E0D\u540C\u7684\u6210\u672C\u8207\u5931\u6557\u6A21\u5F0F\u63DB\u53D6\u5230\u9054\u80FD\u529B\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u540C\u6A23\u6709\u6548\uFF0C\u4E14\u6210\u672C\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5DEE\u7570\u5F88\u5927\uFF1A\u96A8\u6A5F\u4FBF\u5B9C\uFF0F\u76F2\u76EE\u3001\u641C\u5C0B\u5F0F\u9700\u68AF\u5EA6\u3001\u7B26\u865F\u5F0F\u9700\u53EF\u8655\u7406\u7684\u6C42\u89E3\u5668\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u5F0F\u751F\u6210\u6C38\u9060\u4E0D\u9700\u8981\u7D04\u675F\u6C42\u89E3\u5668",
+                "fraction": 0,
+                "feedback": "\u4EE5\u6C42\u89E3\u5668\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\u6B63\u662F\u7B26\u865F\u5F0F\u751F\u6210\u7684\u672C\u8CEA\u3002"
+              },
+              {
+                "text": "\u641C\u5C0B\u5F0F\u751F\u6210\u4E0D\u8AD6\u9069\u61C9\u5EA6\u5730\u5F62\u5982\u4F55\u90FD\u540C\u6A23\u6709\u6548",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u68AF\u5EA6\u6642\uFF08\u4F8B\u5982\u65D7\u6A19\u554F\u984C\uFF09\uFF0C\u641C\u5C0B\u5F0F\u751F\u6210\u6703\u9000\u5316\u6210\u63A5\u8FD1\u96A8\u6A5F\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u4E2D\u53EA\u6709\u96A8\u6A5F\u751F\u6210\u4E0D\u9700\u8981\u9810\u8A00",
+                "fraction": 0,
+                "feedback": "\u4E09\u8005\u90FD\u9700\u8981\u9810\u8A00\u4F86\u5224\u65B7\u6B63\u78BA\u6027\uFF1B\u90A3\u8207\u5982\u4F55\u751F\u6210\u8F38\u5165\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u96A8\u6A5F\u751F\u6210\u4FBF\u5B9C\u3001\u4E0D\u9700\u5206\u6790\u4F46\u76F2\u76EE\uFF0C\u6545\u932F\u904E\u72F9\u7A84\u76EE\u6A19\u3002\u641C\u5C0B\u5F0F\u751F\u6210\u5728\u9069\u61C9\u5EA6\u63D0\u4F9B\u68AF\u5EA6\u6642\u80FD\u5230\u9054\u76EE\u6A19\uFF0C\u5426\u5247\u505C\u6EEF\u3002\u7B26\u865F\u5F0F\u751F\u6210\u80FD\u7CBE\u78BA\u6C42\u89E3\u78BA\u5207\u689D\u4EF6\uFF0C\u537B\u53D7\u9650\u65BC\u6C42\u89E3\u5668\u80FD\u529B\uFF08\u975E\u7DDA\u6027\u7B97\u8853\u3001\u5916\u90E8\u547C\u53EB\uFF09\u8207\u8DEF\u5F91\u7206\u70B8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F9E FSM \u751F\u6210",
+            "text": "<p>\u7D66\u5B9A\u4E00\u53F0\u63CF\u8FF0\u67D0\u5143\u4EF6\u7684\u6709\u9650\u72C0\u614B\u6A5F\uFF0C\u6A21\u578B\u5F0F\u751F\u6210\u901A\u5E38\u5982\u4F55\u7522\u751F\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u85C9\u7531\u8D70\u8A2A FSM \u4F86\u8986\u84CB\u6240\u9078\u5143\u7D20\uFF08\u5982\u6BCF\u500B\u72C0\u614B\u6216\u6BCF\u689D\u8F49\u79FB\uFF09\uFF0C\u5F9E\u800C\u63A8\u5C0E\u51FA\u8F38\u5165\u5E8F\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D FSM \u7684\u8D70\u8A2A\u5316\u70BA\u5E36\u6709\u8986\u84CB\u76EE\u6A19\u7684\u6E2C\u8A66\u5E8F\u5217\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u7DE8\u8B6F\u5F8C\u7684\u5143\u4EF6\u4E2D\u96A8\u6A5F\u7FFB\u8F49\u4F4D\u5143\uFF0C\u76F4\u5230\u5B83\u6539\u8B8A\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C0D\u8F38\u5165\u7684\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\uFF0C\u800C\u975E\u5F9E\u6A21\u578B\u63A8\u5C0E\u5E8F\u5217\u3002"
+              },
+              {
+                "text": "\u5B83\u91CF\u6E2C\u5143\u4EF6\u6709\u591A\u5C11\u884C\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u898F\u6A21\u6307\u6A19\uFF0C\u800C\u975E\u5F9E\u6A21\u578B\u63A8\u5C0E\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E\u8A72 FSM \u7121\u6B7B\u7D50\uFF0C\u4F46\u4E0D\u7522\u751F\u4EFB\u4F55\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C0D\u6027\u8CEA\u7684\u6A21\u578B\u6AA2\u9A57\uFF1B\u6A21\u578B\u5F0F\u751F\u6210\u5247\u6703\u7522\u51FA\u5177\u9AD4\u7684\u6E2C\u8A66\u5E8F\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E FSM \u51FA\u767C\uFF0C\u6A21\u578B\u5F0F\u751F\u6210\u5EFA\u69CB\u8D70\u8A2A\u6A21\u578B\u7684\u8F38\u5165\u5E8F\u5217\u4EE5\u6EFF\u8DB3\u8986\u84CB\u76EE\u6A19\u2014\u2014\u4F8B\u5982\u9020\u8A2A\u6BCF\u500B\u72C0\u614B\u3001\u57F7\u884C\u6BCF\u689D\u8F49\u79FB\uFF0C\u6216\u8986\u84CB\u8F49\u79FB\u5C0D\u3002\u7531\u65BC\u6A21\u578B\u4E5F\u7DE8\u78BC\u4E86\u9810\u671F\u56DE\u61C9\uFF0C\u5B83\u9084\u80FD\u63D0\u4F9B\u9810\u671F\u8F38\u51FA\uFF0C\u6709\u52A9\u65BC\u9810\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A5\u8FD1\u5C64\u7D1A",
+            "text": "<p>\u5728\u641C\u5C0B\u5F0F\u751F\u6210\u4E2D\uFF0C<strong>\u63A5\u8FD1\u5C64\u7D1A\uFF08approach level\uFF09</strong>\u5C0D\u4E00\u500B\u76EE\u6A19\u5206\u652F\u91CF\u5EA6\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u57F7\u884C\u504F\u96E2\u76EE\u6A19\u4E4B\u524D\uFF0C\u9084\u6709\u591A\u5C11\u500B\u63A7\u5236\uFF08\u5DE2\u72C0\uFF09\u8A72\u76EE\u6A19\u7684\u6C7A\u7B56\u7BC0\u9EDE\u672A\u88AB\u671D\u76EE\u6A19\u65B9\u5411\u6EFF\u8DB3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u8FD1\u5C64\u7D1A\u8A08\u6578\u5728\u57F7\u884C\u8D70\u504F\u8655\u8207\u76EE\u6A19\u4E4B\u9593\uFF0C\u9084\u6709\u591A\u5C11\u500B\u5305\u4F4F\u76EE\u6A19\u7684\u6C7A\u7B56\u672A\u88AB\u6EFF\u8DB3\u3002"
+              },
+              {
+                "text": "\u67D0\u8B8A\u6578\u96E2\u6EFF\u8DB3\u7576\u4E0B\u8FF0\u8A5E\u7684\u6578\u503C\u8DDD\u96E2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u652F\u8DDD\u96E2\uFF1B\u63A5\u8FD1\u5C64\u7D1A\u95DC\u4E4E\u9084\u6709\u591A\u5C11\u5305\u4F4F\u76EE\u6A19\u7684\u6C7A\u7B56\u672A\u88AB\u6EFF\u8DB3\u3002"
+              },
+              {
+                "text": "\u6574\u652F\u7A0B\u5F0F\u7684\u6558\u8FF0\u7E3D\u6578",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u898F\u6A21\u8207\u57F7\u884C\u96E2\u76EE\u6A19\u591A\u8FD1\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u5019\u9078\u57F7\u884C\u6240\u82B1\u7684\u6642\u9418\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u6642\u9593\u4E0D\u8861\u91CF\u96E2\u76EE\u6A19\u5206\u652F\u7684\u63A5\u8FD1\u7A0B\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u932F\u904E\u76EE\u6A19\u7684\u57F7\u884C\uFF0C\u63A5\u8FD1\u5C64\u7D1A\u8A08\u6578\u8A72\u76EE\u6A19\u63A7\u5236\u76F8\u4F9D\uFF08\u5916\u570D\uFF09\u7684\u6C7A\u7B56\u7BC0\u9EDE\u4E2D\uFF0C\u6709\u591A\u5C11\u500B\u672A\u671D\u76EE\u6A19\u65B9\u5411\u88AB\u8D70\u5230\u2014\u2014\u4EA6\u5373\u57F7\u884C\u5728\u5E7E\u5C64\u5DE2\u72C0\u4E4B\u5916\u5C31\u504F\u96E2\u4E86\u3002\u5B83\u6703\u8207\u504F\u96E2\u9EDE\u8655\u7684\u5206\u652F\u8DDD\u96E2\u7D50\u5408\uFF0C\u5F62\u6210\u8A72\u76EE\u6A19\u7684\u6574\u9AD4\u9069\u61C9\u5EA6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u722C\u5C71\u6CD5\u8207\u57FA\u56E0\u6F14\u7B97\u6CD5",
+            "text": "<p>\u4F5C\u70BA\u6E2C\u8A66\u751F\u6210\u7684\u5F8C\u8A2D\u555F\u767C\u5F0F\uFF0C<strong>\u722C\u5C71\u6CD5\uFF08hill-climbing\uFF09</strong>\u8207<strong>\u57FA\u56E0\u6F14\u7B97\u6CD5\uFF08genetic algorithm\uFF09</strong>\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u722C\u5C71\u6CD5\u4EE5\u5C40\u90E8\u79FB\u52D5\u6539\u826F\u55AE\u4E00\u5019\u9078\uFF0C\u53EF\u80FD\u5361\u5728\u5C40\u90E8\u6700\u4F73\uFF1B\u57FA\u56E0\u6F14\u7B97\u6CD5\u4EE5\u4EA4\u914D\u8207\u8B8A\u7570\u6F14\u5316\u4E00\u7FA4\u5019\u9078\uFF0C\u8F03\u64C5\u9577\u8DF3\u812B\u5C40\u90E8\u6700\u4F73",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u9EDE\u5C40\u90E8\u641C\u5C0B vs \u65CF\u7FA4\u5F0F\u6F14\u5316\u6B63\u662F\u95DC\u9375\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u722C\u5C71\u6CD5\u4F7F\u7528\u7D04\u675F\u6C42\u89E3\u5668\uFF0C\u57FA\u56E0\u6F14\u7B97\u6CD5\u53EA\u7528\u96A8\u6A5F\u62BD\u6A23",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u4EE5\u6C42\u89E3\u5668\u5B9A\u7FA9\uFF1B\u5169\u8005\u90FD\u7528\u9069\u61C9\u5EA6\u51FD\u6578\uFF0C\u5DEE\u5225\u5728\u5C40\u90E8\u8207\u65CF\u7FA4\u641C\u5C0B\u3002"
+              },
+              {
+                "text": "\u57FA\u56E0\u6F14\u7B97\u6CD5\u4E0D\u8A55\u4F30\u4EFB\u4F55\u9069\u61C9\u5EA6\u51FD\u6578\uFF0C\u722C\u5C71\u6CD5\u5247\u6703",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4EF0\u8CF4\u9069\u61C9\u5EA6\u51FD\u6578\uFF1B\u57FA\u56E0\u6F14\u7B97\u6CD5\u7528\u5B83\u5728\u65CF\u7FA4\u4E2D\u505A\u9078\u64C7\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u500B\u6F14\u7B97\u6CD5\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u6A5F\u5236\u4E0D\u540C\u7684\u5169\u7A2E\u641C\u5C0B\u7B56\u7565\u3002"
+              }
+            ],
+            "generalFeedback": "\u722C\u5C71\u6CD5\u53EA\u4FDD\u7559\u4E00\u500B\u5019\u9078\uFF0C\u6BCF\u6B65\u79FB\u5230\u8F03\u597D\u7684\u9130\u5C45\uFF0C\u5FEB\u901F\u4F46\u53EF\u80FD\u56F0\u5728\u5C40\u90E8\u6700\u4F73\u6216\u5E73\u53F0\u3002\u57FA\u56E0\u6F14\u7B97\u6CD5\u7DAD\u6301\u4E00\u500B\u65CF\u7FA4\u4E26\u5957\u7528\u9078\u64C7\u3001\u4EA4\u914D\u8207\u8B8A\u7570\uFF0C\u56E0\u6B64\u6709\u66F4\u591A\u65B9\u5F0F\u8DF3\u812B\u5C40\u90E8\u6700\u4F73\uFF0C\u4EE3\u50F9\u662F\u66F4\u591A\u6B21\u8A55\u4F30\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8986\u84CB\u7387\u9A45\u52D5\u751F\u6210\u7684\u8FF4\u5708",
+            "text": "<p><strong>\u8986\u84CB\u7387\u9A45\u52D5</strong>\u6E2C\u8A66\u751F\u6210\u7684\u6838\u5FC3\u8FF4\u5708\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u627E\u51FA\u4E00\u500B\u672A\u8986\u84CB\u7684\u76EE\u6A19\u3001\u751F\u6210\u7784\u6E96\u5B83\u7684\u8F38\u5165\u3001\u628A\u6210\u529F\u7684\u6E2C\u8A66\u52A0\u5165\uFF0C\u4E26\u5728\u5269\u4E0B\u7684\u672A\u8986\u84CB\u76EE\u6A19\u4E0A\u91CD\u8907",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u53CD\u8986\u653B\u64CA\u8986\u84CB\u7F3A\u53E3\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u751F\u6210\u4E00\u5927\u6279\u96A8\u6A5F\u8F38\u5165\uFF0C\u4E4B\u5F8C\u518D\u4E5F\u4E0D\u770B\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u666E\u901A\u96A8\u6A5F\u751F\u6210\uFF1B\u8986\u84CB\u7387\u9A45\u52D5\u751F\u6210\u6BCF\u4E00\u8F2A\u90FD\u7528\u8986\u84CB\u7387\u56DE\u994B\u4F86\u6311\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u4E0D\u65B7\u522A\u6E2C\u8A66\u76F4\u5230\u8986\u84CB\u7387\u964D\u5230\u96F6",
+                "fraction": 0,
+                "feedback": "\u90A3\u65E2\u7834\u58DE\u53C8\u7121\u610F\u7FA9\uFF1B\u8986\u84CB\u7387\u9A45\u52D5\u751F\u6210\u662F\u52A0\u6E2C\u8A66\u4EE5\u63D0\u9AD8\u8986\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u6BCF\u500B\u8F38\u51FA\u7684\u6B63\u78BA\u6027\uFF0C\u4E26\u5728\u5168\u90E8\u6B63\u78BA\u6642\u505C\u6B62",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u9810\u8A00\u6AA2\u67E5\uFF1B\u8986\u84CB\u7387\u9A45\u52D5\u751F\u6210\u95DC\u4E4E\u5230\u9054\u672A\u8986\u84CB\u7684\u5143\u7D20\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u7387\u9A45\u52D5\u751F\u6210\u91CF\u6E2C\u7576\u524D\u8986\u84CB\u7387\uFF0C\u6311\u9078\u4E00\u500B\u672A\u8986\u84CB\u7684\u76EE\u6A19\uFF08\u5206\u652F\u3001\u6558\u8FF0\u3001\u8DEF\u5F91\uFF09\uFF0C\u4E26\u628A\u751F\u6210\u2014\u2014\u641C\u5C0B\u5F0F\u3001\u7B26\u865F\u5F0F\u6216\u5176\u4ED6\u2014\u2014\u5C0E\u5411\u5230\u9054\u5B83\u3002\u547D\u4E2D\u65B0\u76EE\u6A19\u7684\u6E2C\u8A66\u88AB\u4FDD\u7559\uFF0C\u6B64\u904E\u7A0B\u5728\u5269\u9918\u7F3A\u53E3\u4E0A\u91CD\u8907\uFF0C\u76F4\u5230\u9810\u7B97\u7528\u76E1\u6216\u8986\u84CB\u7387\u9054\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6210\u5C0D\u6E2C\u8A66\u80FD\u6E1B\u5C11\u6E2C\u8A66\u6578",
+            "text": "<p>\u70BA\u4F55<strong>\u6210\u5C0D\uFF08pairwise\uFF09</strong>\u751F\u6210\u80FD\u4EE5\u9060\u5C11\u65BC\u5B8C\u6574\u7B1B\u5361\u5152\u7A4D\u7684\u6E2C\u8A66\u6578\u8986\u84CB\u6240\u6709\u503C\u5C0D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u6E2C\u8A66\u540C\u6642\u8986\u84CB\u8A31\u591A\u4E0D\u540C\u7684\u503C\u5C0D\uFF0C\u56E0\u6B64\u4E00\u5C0F\u7D44\u7CBE\u9078\u7684\u6E2C\u8A66\u5C31\u80FD\u56CA\u62EC\u6BCF\u4E00\u5C0D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u4E00\u6B21\u8CA2\u737B\u8A31\u591A\u5C0D\uFF0C\u6545\u4E00\u500B\u7DCA\u6E4A\u7684\u8986\u84CB\u9663\u5217\u5373\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "\u5B83\u6084\u6084\u5FFD\u7565\u5927\u90E8\u5206\u53C3\u6578",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u4ECD\u6D89\u53CA\u6240\u6709\u53C3\u6578\uFF1B\u53EA\u662F\u4E0D\u8981\u6C42\u5B83\u5011\u6240\u6709\u503C\u7684\u6BCF\u4E00\u7A2E\u5B8C\u6574\u7D44\u5408\u3002"
+              },
+              {
+                "text": "\u5B83\u5047\u8A2D\u4E00\u6B21\u53EA\u6709\u4E00\u500B\u53C3\u6578\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u8986\u84CB\u7684\u662F\u5169\u5169\u4E92\u52D5\uFF0C\u800C\u975E\u5B64\u7ACB\u7684\u55AE\u4E00\u53C3\u6578\u3002"
+              },
+              {
+                "text": "\u5B83\u4EE5\u96A8\u6A5F\u96DC\u8A0A\u53D6\u4EE3\u53C3\u6578",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u662F\u8986\u84CB\u9663\u5217\u7684\u7CFB\u7D71\u5316\u5EFA\u69CB\uFF0C\u800C\u975E\u96A8\u6A5F\u96DC\u8A0A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u8986\u84CB\u9663\u5217\u4E2D\uFF0C\u6BCF\u4E00\u5217\uFF08\u6E2C\u8A66\uFF09\u70BA\u6BCF\u500B\u53C3\u6578\u56FA\u5B9A\u4E00\u500B\u503C\uFF0C\u56E0\u6B64\u4E00\u6B21\u8986\u84CB\u8A31\u591A\u53C3\u6578\u503C\u5C0D\u3002\u7531\u65BC\u5C0D\u5728\u5404\u6E2C\u8A66\u9593\u5171\u4EAB\uFF0C\u7CBE\u5FC3\u5EFA\u69CB\u7684\u4E00\u5C0F\u7D44\u5373\u53EF\u56CA\u62EC\u6BCF\u4E00\u5C0D\uFF0C\u6545\u6E2C\u8A66\u6578\u5927\u81F4\u96A8\u53C3\u6578\u6578\u76EE\u5448\u5C0D\u6578\u6210\u9577\uFF0C\u800C\u975E\u5B8C\u6574\u4E58\u7A4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DF7\u5408\u57F7\u884C\u7D50\u5408\u5177\u9AD4\u8207\u7B26\u865F",
+            "text": "<p><strong>\u6DF7\u5408\u57F7\u884C\uFF08concolic\uFF09</strong>\u751F\u6210\u5982\u4F55\u7D50\u5408\u5177\u9AD4\u8207\u7B26\u865F\u57F7\u884C\u4EE5\u63A2\u7D22\u65B0\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4EE5\u5177\u9AD4\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\u4E26\u540C\u6642\u6536\u96C6\u7B26\u865F\u8DEF\u5F91\u7D04\u675F\uFF0C\u7136\u5F8C\u628A\u67D0\u500B\u5206\u652F\u7D04\u675F\u53D6\u53CD\u4E26\u6C42\u89E3\uFF0C\u5F97\u5230\u8D70\u65B0\u8DEF\u5F91\u7684\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u57F7\u884C\u4FDD\u6301\u8173\u8E0F\u5BE6\u5730\uFF0C\u7B26\u865F\u7D04\u675F\u5247\u8B93\u5B83\u80FD\u5C0E\u5411\u65B0\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u57F7\u884C\u5177\u9AD4\u8F38\u5165\uFF0C\u5F9E\u4E0D\u8A18\u9304\u4EFB\u4F55\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u662F\u666E\u901A\u6E2C\u8A66\uFF1B\u6DF7\u5408\u57F7\u884C\u6703\u5728\u5177\u9AD4\u57F7\u884C\u65C1\u8A18\u9304\u7B26\u865F\u7D04\u675F\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u505A\u7B26\u865F\u63A8\u7406\uFF0C\u5F9E\u4E0D\u5177\u9AD4\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D14\u7B26\u865F\u57F7\u884C\uFF1B\u6DF7\u5408\u57F7\u884C\u523B\u610F\u628A\u5177\u9AD4\u57F7\u884C\u8207\u7B26\u865F\u8ECC\u8DE1\u914D\u5C0D\u3002"
+              },
+              {
+                "text": "\u5B83\u7528\u4EA4\u914D\u8207\u8B8A\u7570\u6F14\u5316\u4E00\u7FA4\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u57FA\u56E0\u6F14\u7B97\u6CD5\uFF1B\u6DF7\u5408\u57F7\u884C\u7528\u5177\u9AD4\u52A0\u7B26\u865F\u57F7\u884C\u642D\u914D\u6C42\u89E3\u5668\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u5408\u57F7\u884C\uFF08\u5177\u9AD4\uFF0B\u7B26\u865F\uFF09\u4EE5\u5177\u9AD4\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\uFF0C\u904E\u7A0B\u4E2D\u8A18\u9304\u7B26\u865F\u8DEF\u5F91\u689D\u4EF6\u3002\u8981\u5230\u9054\u65B0\u8DEF\u5F91\u6642\uFF0C\u5B83\u628A\u67D0\u500B\u5206\u652F\u7D04\u675F\u53D6\u53CD\u3001\u6C42\u89E3\u4FEE\u6539\u5F8C\u7684\u689D\u4EF6\u5F97\u5230\u5177\u9AD4\u503C\uFF0C\u518D\u91CD\u8DD1\u3002\u4EE5\u5177\u9AD4\u57F7\u884C\u70BA\u57FA\u790E\uFF0C\u8B93\u5B83\u80FD\u5728\u6C42\u89E3\u5668\u7121\u6CD5\u63A8\u7406\u8655\uFF08\u5982\u67D0\u4E9B\u51FD\u5F0F\u5EAB\u547C\u53EB\uFF09\u4F7F\u7528\u771F\u5BE6\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DEE\u5206\u9810\u8A00",
+            "text": "<p><strong>\u5DEE\u5206\uFF08differential\uFF09</strong>\u9810\u8A00\u5982\u4F55\u5224\u65B7\u4E00\u500B\u751F\u6210\u7684\u8F38\u5165\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u628A\u8F38\u5165\u9001\u5165\u5169\u500B\u6216\u66F4\u591A\u7368\u7ACB\u5BE6\u4F5C\uFF0C\u4E26\u628A\u5B83\u5011\u8F38\u51FA\u7684\u4E0D\u4E00\u81F4\u8996\u70BA\u53EF\u80FD\u7684\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE6\u4F5C\u4E4B\u9593\u51FA\u73FE\u5DEE\u7570\uFF0C\u4EE3\u8868\u81F3\u5C11\u6709\u4E00\u500B\u662F\u932F\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u91CF\u6E2C\u8F38\u5165\u8986\u84CB\u4E86\u591A\u5C11\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\uFF0C\u800C\u975E\u6BD4\u8F03\u8F38\u51FA\u7684\u9810\u8A00\u3002"
+              },
+              {
+                "text": "\u5B83\u8981\u6C42\u70BA\u6BCF\u500B\u8F38\u5165\u624B\u5BEB\u9810\u671F\u503C",
+                "fraction": 0,
+                "feedback": "\u5DEE\u5206\u6E2C\u8A66\u85C9\u7531\u8B93\u591A\u500B\u5BE6\u4F5C\u4E92\u76F8\u6BD4\u5C0D\uFF0C\u907F\u514D\u4E86\u9700\u8981\u624B\u5BEB\u9810\u671F\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u67D0\u500B\u5206\u652F\u7D04\u675F\u53D6\u53CD\u4EE5\u5230\u9054\u65B0\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6DF7\u5408\u57F7\u884C\u7684\u63A2\u7D22\uFF0C\u800C\u975E\u5DEE\u5206\u9810\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DEE\u5206\u9810\u8A00\u628A\u540C\u4E00\u500B\u751F\u6210\u8F38\u5165\u9001\u5165\u5169\u500B\u6216\u66F4\u591A\u672C\u61C9\u4E00\u81F4\u7684\u5BE6\u4F5C\uFF08\u4E0D\u540C\u7248\u672C\u3001\u53C3\u8003\u5BE6\u4F5C\u6216\u66FF\u4EE3\u51FD\u5F0F\u5EAB\uFF09\uFF0C\u4E26\u628A\u4EFB\u4F55\u8F38\u51FA\u4E0D\u4E00\u81F4\u7576\u4F5C\u7F3A\u9677\u8B49\u64DA\u3002\u5B83\u907F\u958B\u4E86\u9700\u8981\u78BA\u5207\u9810\u671F\u503C\uFF0C\u4F46\u7121\u6CD5\u6293\u5230\u6240\u6709\u5BE6\u4F5C\u4EE5\u76F8\u540C\u65B9\u5F0F\u5171\u6709\u7684\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u628A\u65B7\u8A00\u7576\u4F5C\u9810\u8A00",
+            "text": "<p>\u5D4C\u5728\u7A0B\u5F0F\u4E2D\uFF08\u6216\u96A8\u6E2C\u8A66\u4E00\u8D77\u751F\u6210\uFF09\u7684\u53EF\u57F7\u884C\u65B7\u8A00\uFF0C\u53EF\u4F5C\u70BA\u81EA\u52D5\u751F\u6210\u8F38\u5165\u7684\u90E8\u5206\u9810\u8A00\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u751F\u6210\u7684\u8F38\u5165\u4F7F\u67D0\u65B7\u8A00\u5931\u6557\uFF0C\u5373\u6A19\u793A\u51FA\u4E0D\u6B63\u78BA\u7684\u884C\u70BA\uFF0C\u6210\u70BA\u90E8\u5206\u9810\u8A00\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u78BA\u5BE6\u53EF\u4F5C\u70BA\u90E8\u5206\u9810\u8A00\uFF1A\u7576\u751F\u6210\u7684\u8F38\u5165\u4F7F\u5176\u5931\u6557\u6642\uFF0C\u5C31\u63ED\u9732\u4E86\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u65B7\u8A00\u7DE8\u78BC\u4E86\u57F7\u884C\u6642\u5FC5\u9808\u6210\u7ACB\u7684\u6027\u8CEA\u3002\u7576\u81EA\u52D5\u751F\u6210\u7684\u8F38\u5165\u9055\u53CD\u5176\u4E2D\u4E4B\u4E00\uFF0C\u5C31\u66B4\u9732\u51FA\u4E0D\u6B63\u78BA\u7684\u884C\u70BA\uFF0C\u6545\u65B7\u8A00\u53EF\u4F5C\u70BA\u90E8\u5206\u9810\u8A00\u3002\u4E4B\u6240\u4EE5\u300C\u90E8\u5206\u300D\uFF0C\u662F\u56E0\u70BA\u5B83\u53EA\u6AA2\u67E5\u5BE6\u969B\u88AB\u65B7\u8A00\u7684\u6027\u8CEA\uFF0C\u800C\u975E\u5B8C\u6574\u6B63\u78BA\u6027\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9069\u61C9\u5EA6\u68AF\u5EA6\u5F88\u91CD\u8981",
+            "text": "<p>\u70BA\u4F55\u9069\u61C9\u5EA6\u51FD\u6578\u4E2D\u662F\u5426\u5B58\u5728<strong>\u68AF\u5EA6</strong>\uFF0C\u5C0D\u641C\u5C0B\u5F0F\u751F\u6210\u5982\u6B64\u91CD\u8981\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u68AF\u5EA6\u8B93\u641C\u5C0B\u80FD\u5206\u8FA8\u54EA\u4E9B\u5019\u9078\u66F4\u63A5\u8FD1\u76EE\u6A19\uFF0C\u56E0\u6B64\u80FD\u4E00\u6B65\u6B65\u6539\u826F\uFF0C\u800C\u975E\u76F2\u76EE\u4E82\u731C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u300C\u66F4\u63A5\u8FD1\u300D\u7684\u611F\u89BA\uFF0C\u5F8C\u8A2D\u555F\u767C\u5F0F\u641C\u5C0B\u5C31\u7121\u5F9E\u6500\u5347\u3002"
+              },
+              {
+                "text": "\u68AF\u5EA6\u4FDD\u8B49\u76EE\u6A19\u6070\u597D\u4E00\u6B65\u5C31\u80FD\u5230\u9054",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u4FDD\u8B49\u4E00\u6B65\uFF1B\u5B83\u63D0\u4F9B\u65B9\u5411\uFF0C\u8B93\u641C\u5C0B\u80FD\u6B77\u7D93\u591A\u6B65\u524D\u9032\u3002"
+              },
+              {
+                "text": "\u68AF\u5EA6\u514D\u9664\u4E86\u4EFB\u4F55\u9069\u61C9\u5EA6\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "\u68AF\u5EA6\u662F\u9069\u61C9\u5EA6\u503C\u7684\u6027\u8CEA\uFF0C\u800C\u9069\u61C9\u5EA6\u4ECD\u9808\u88AB\u8A55\u4F30\u3002"
+              },
+              {
+                "text": "\u68AF\u5EA6\u4F7F\u9810\u8A00\u8B8A\u5F97\u4E0D\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u9069\u61C9\u5EA6\u5F15\u5C0E\u8986\u84CB\uFF1B\u9810\u8A00\u4ECD\u7368\u7ACB\u5224\u65B7\u6B63\u78BA\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F8C\u8A2D\u555F\u767C\u5F0F\u641C\u5C0B\u85C9\u7531\u671D\u66F4\u597D\u7684\u9069\u61C9\u5EA6\u79FB\u52D5\u4F86\u6539\u826F\u5019\u9078\u3002\u82E5\u9069\u61C9\u5EA6\u96A8\u63A5\u8FD1\u76EE\u6A19\u800C\u5E73\u6ED1\u8B8A\u5316\uFF08\u6709\u68AF\u5EA6\uFF09\uFF0C\u641C\u5C0B\u4FBF\u80FD\u5FAA\u4E4B\u524D\u9032\u3002\u82E5\u9069\u61C9\u5EA6\u9664\u4E86\u5728\u76EE\u6A19\u8655\u5916\u90FD\u5E73\u5766\uFF08\u5982\u5E03\u6797\u65D7\u6A19\uFF09\uFF0C\u5C31\u7121\u68AF\u5EA6\u53EF\u6500\uFF0C\u641C\u5C0B\u9000\u5316\u6210\u63A5\u8FD1\u96A8\u6A5F\u4E82\u731C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u64AD\u7A2E\u5E38\u6578\u4EE5\u547D\u4E2D x==42",
+            "text": "<p>\u67D0\u751F\u6210\u5668\u53CD\u8986\u7121\u6CD5\u6EFF\u8DB3 <code>if (x == 42)</code>\u3002\u4E0B\u5217\u54EA\u500B\u5BE6\u52D9\u624B\u6CD5\u6700\u76F4\u63A5\u6709\u5E6B\u52A9\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528\u5F9E\u539F\u59CB\u78BC\u6316\u6398\u7684\u5E38\u6578\uFF08\u542B 42\uFF09\u64AD\u7A2E\u751F\u6210\u5668\uFF0C\u8B93\u5019\u9078\u8F38\u5165\u5F9E\u9019\u4E9B\u5B57\u9762\u503C\u4E2D\u53D6\u7528",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6316\u6398\u4E26\u64AD\u7A2E\u8A72\u5B57\u9762\u503C\uFF0C\u4F7F\u547D\u4E2D\u78BA\u5207\u5B88\u885B\u8B8A\u5F97\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "\u52A0\u5927\u65CF\u7FA4\u898F\u6A21\uFF0C\u4F46\u4ECD\u4EE5\u7D14\u5747\u52FB\u96A8\u6A5F\u62BD\u6A23\u53D6\u503C",
+                "fraction": 0,
+                "feedback": "\u66F4\u591A\u5747\u52FB\u96A8\u6A5F\u62BD\u53D6\u5E7E\u4E4E\u4E0D\u6539\u8B8A\u547D\u4E2D\u55AE\u4E00\u78BA\u5207\u503C\u90A3\u5FAE\u4E4E\u5176\u5FAE\u7684\u6A5F\u7387\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u9069\u61C9\u5EA6\u51FD\u6578\u4EE5\u8B93\u641C\u5C0B\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u5F15\u5C0E\u53EA\u6703\u66F4\u7CDF\uFF0C\u628A\u641C\u5C0B\u964D\u7D1A\u70BA\u76F2\u76EE\u96A8\u6A5F\u3002"
+              },
+              {
+                "text": "\u628A\u9810\u8A00\u6539\u6210\u86FB\u8B8A\u95DC\u4FC2",
+                "fraction": 0,
+                "feedback": "\u9810\u8A00\u5224\u65B7\u6B63\u78BA\u6027\uFF1B\u5B83\u7121\u52A9\u65BC\u751F\u6210\u5668\u5230\u9054\u8A72\u5B88\u885B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E38\u6578\u64AD\u7A2E\u5F9E\u7A0B\u5F0F\u78BC\u6316\u6398\u5B57\u9762\u503C\uFF08\u6B64\u8655\u70BA 42\uFF09\uFF0C\u4E26\u9935\u5165\u5019\u9078\u503C\u6C60\u3002\u7531\u65BC\u78BA\u5207\u5E38\u6578\u73FE\u5728\u53EF\u4F9B\u751F\u6210\u5668\u53D6\u7528\uFF0C\u6EFF\u8DB3\u8B8A\u5F97\u53EF\u80FD\uFF0C\u800C\u975E\u6A5F\u7387\u6975\u4F4E\u3002\u9019\u8207\u5206\u652F\u8DDD\u96E2\u9069\u61C9\u5EA6\u3001\u7B26\u865F\u6C42\u89E3\u4E26\u5217\uFF0C\u7686\u70BA\u7A81\u7834\u72F9\u7A84\u7B49\u65BC\u5B88\u885B\u7684\u65B9\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57FA\u56E0\u6F14\u7B97\u6CD5\u5982\u4F55\u8655\u7406\u6E2C\u8A66\u500B\u9AD4",
+            "text": "<p>\u5728\u7528\u65BC\u6E2C\u8A66\u751F\u6210\u7684\u57FA\u56E0\u6F14\u7B97\u6CD5\u4E2D\uFF0C\u5404\u904B\u7B97\u5B50\u5C0D\u6E2C\u8A66\u500B\u9AD4\u505A\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9078\u64C7\u504F\u597D\u8F03\u9069\u61C9\u7684\u6E2C\u8A66\uFF0C\u4EA4\u914D\u91CD\u7D44\u5169\u500B\u6E2C\u8A66\u7684\u7247\u6BB5\uFF0C\u8B8A\u7570\u505A\u5C0F\u5E45\u96A8\u6A5F\u66F4\u52D5\u2014\u2014\u5171\u540C\u7522\u751F\u65B0\u4E00\u4EE3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9078\u64C7\u3001\u4EA4\u914D\u8207\u8B8A\u7570\u4E00\u8D77\u6F14\u5316\u65CF\u7FA4\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u7528 SMT \u6C42\u89E3\u5668\u6C42\u89E3\u6BCF\u500B\u500B\u9AD4\u7684\u8DEF\u5F91\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B26\u865F\uFF0F\u6DF7\u5408\u57F7\u884C\u751F\u6210\uFF0C\u800C\u975E\u57FA\u56E0\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u522A\u9664\u6BCF\u500B\u9069\u61C9\u5EA6\u5C1A\u672A\u9054\u5230\u6700\u5927\u7684\u500B\u9AD4",
+                "fraction": 0,
+                "feedback": "\u9078\u64C7\u662F\u6A5F\u7387\u6027\u7684\u4E26\u4FDD\u7559\u591A\u6A23\u6027\uFF1B\u4E0D\u662F\u55AE\u7D14\u522A\u9664\u6240\u6709\u975E\u6700\u4F73\u500B\u9AD4\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5728\u4E0D\u57F7\u884C\u6E2C\u8A66\u7684\u60C5\u6CC1\u4E0B\u8A08\u7B97\u7A0B\u5F0F\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u9069\u61C9\u5EA6\u901A\u5E38\u9700\u8981\u57F7\u884C\u6E2C\u8A66\uFF1B\u904B\u7B97\u5B50\u6F14\u5316\u500B\u9AD4\uFF0C\u4E26\u4E0D\u975C\u614B\u8A08\u7B97\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u56E0\u6F14\u7B97\u6CD5\u6F14\u5316\u4E00\u7FA4\u6E2C\u8A66\u500B\u9AD4\uFF1A\u9078\u64C7\u6A5F\u7387\u6027\u5730\u4FDD\u7559\u8F03\u9069\u61C9\u8005\uFF0C\u4EA4\u914D\u7D50\u5408\u5169\u500B\u89AA\u4EE3\u7684\u7D20\u6750\uFF0C\u8B8A\u7570\u5C0D\u500B\u9AD4\u505A\u5C0F\u5E45\u64FE\u52D5\u3002\u7531\u9069\u61C9\u5EA6\u51FD\u6578\u5F15\u5C0E\u3001\u53CD\u8986\u5957\u7528\u9019\u4E9B\u904B\u7B97\u5B50\uFF0C\u4F7F\u65CF\u7FA4\u671D\u9054\u6210\u76EE\u6A19\u7684\u6E2C\u8A66\u524D\u9032\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u5206\u652F\u8DDD\u96E2\u52A0\u63A5\u8FD1\u5C64\u7D1A",
+            "text": "<p>\u5C0D\u4E00\u500B\u6DF1\u5EA6\u5DE2\u72C0\u7684\u76EE\u6A19\u5206\u652F\uFF0C\u70BA\u4F55\u641C\u5C0B\u5F0F\u5DE5\u5177\u6703\u628A<strong>\u63A5\u8FD1\u5C64\u7D1A</strong>\u8207<strong>\u5206\u652F\u8DDD\u96E2</strong>\u7D50\u5408\uFF0C\u800C\u975E\u55AE\u7528\u5176\u4E00\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u8FD1\u5C64\u7D1A\u8AAA\u660E\u57F7\u884C\u9084\u6F0F\u6389\u5E7E\u500B\u5916\u570D\u6C7A\u7B56\uFF0C\u5206\u652F\u8DDD\u96E2\u5247\u91CF\u5EA6\u5B83\u504F\u96E2\u8655\u7684\u6C7A\u7B56\u6709\u591A\u63A5\u8FD1\u88AB\u6EFF\u8DB3\u2014\u2014\u5169\u8005\u4E00\u8D77\u63D0\u4F9B\u6A6B\u8DE8\u5DE2\u72C0\u7684\u68AF\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u5C0D\u7D44\u5408\u7522\u751F\u5E73\u6ED1\u7684\u9069\u61C9\u5EA6\uFF1A\u5916\u570D\u6C7A\u7B56\u88AB\u6EFF\u8DB3\u5F97\u8D8A\u591A\u3001\u504F\u96E2\u7684\u90A3\u500B\u8D8A\u63A5\u8FD1\uFF0C\u9069\u61C9\u5EA6\u90FD\u6703\u6539\u5584\u3002"
+              },
+              {
+                "text": "\u55AE\u9760\u63A5\u8FD1\u5C64\u7D1A\u5C31\u5DF2\u5728\u6BCF\u500B\u5DE2\u72C0\u5C64\u7D1A\u63D0\u4F9B\u9023\u7E8C\u68AF\u5EA6",
+                "fraction": 0,
+                "feedback": "\u63A5\u8FD1\u5C64\u7D1A\u662F\u6574\u6578\uFF0C\u53EA\u6709\u5728\u6574\u500B\u5916\u570D\u6C7A\u7B56\u7FFB\u8F49\u6642\u624D\u8B8A\u52D5\uFF1B\u5206\u652F\u8DDD\u96E2\u586B\u88DC\u9019\u4E9B\u968E\u68AF\u4E4B\u9593\u7684\u7A7A\u9699\u3002"
+              },
+              {
+                "text": "\u55AE\u9760\u5206\u652F\u8DDD\u96E2\u5C31\u80FD\u8868\u9054\u6F0F\u6389\u4E86\u5E7E\u5C64\u5DE2\u72C0",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u8DDD\u96E2\u5C0D\u55AE\u4E00\u8FF0\u8A5E\u662F\u5C40\u90E8\u7684\uFF1B\u5B83\u4E0D\u7DE8\u78BC\u9084\u5269\u591A\u5C11\u5916\u570D\u6C7A\u7B56\u2014\u2014\u90A3\u662F\u63A5\u8FD1\u5C64\u7D1A\u7684\u8077\u8CAC\u3002"
+              },
+              {
+                "text": "\u7D50\u5408\u5169\u8005\u53EF\u514D\u9664\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u7531\u5019\u9078\u8F38\u5165\u7684\u5BE6\u969B\u57F7\u884C\u7B97\u5F97\uFF1B\u7D50\u5408\u5B83\u5011\u4E26\u4E0D\u80FD\u907F\u514D\u57F7\u884C\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u5DE2\u72C0\u76EE\u6A19\uFF0C\u4E00\u6B21\u57F7\u884C\u53EF\u80FD\u5728\u76EE\u6A19\u4E4B\u524D\u5E7E\u500B\u5916\u570D\u6C7A\u7B56\u5C31\u504F\u96E2\u3002\u63A5\u8FD1\u5C64\u7D1A\u8A08\u6578\u90A3\u4E9B\u4ECD\u672A\u88AB\u6EFF\u8DB3\u7684\u5916\u570D\u6C7A\u7B56\uFF08\u7C97\u7565\u3001\u6574\u6578\u968E\u68AF\uFF09\uFF1B\u5728\u504F\u96E2\u9EDE\uFF0C\u5206\u652F\u8DDD\u96E2\u91CF\u5EA6\u8A72\u6C7A\u7B56\u6709\u591A\u63A5\u8FD1\u88AB\u6EFF\u8DB3\uFF08\u968E\u68AF\u4E4B\u9593\u7684\u7D30\u68AF\u5EA6\uFF09\u3002\u5E38\u7528\u7684\u9069\u61C9\u5EA6\u662F\u63A5\u8FD1\u5C64\u7D1A\u52A0\u4E0A\u6B63\u898F\u5316\u5F8C\u7684\u5206\u652F\u8DDD\u96E2\uFF0C\u56E0\u6B64\u6539\u5584\u4EFB\u4E00\u8005\u90FD\u6703\u964D\u4F4E\u9069\u61C9\u5EA6\uFF0C\u7D66\u641C\u5C0B\u4E00\u689D\u7A7F\u904E\u5DE2\u72C0\u7684\u9023\u7E8C\u4E0B\u5761\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9810\u8A00\u554F\u984C\u9650\u5236\u81EA\u52D5\u5316",
+            "text": "<p>\u5373\u4F7F\u6709\u51FA\u8272\u7684\u8F38\u5165\u751F\u6210\uFF0C\u70BA\u4F55\u9810\u8A00\u554F\u984C\u4ECD\u5F9E\u6839\u672C\u4E0A\u9650\u5236\u4E86<em>\u5168</em>\u81EA\u52D5\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u751F\u6210\u80FD\u81EA\u52D5\u5230\u9054\u884C\u70BA\uFF0C\u4F46\u5224\u65B7\u8A72\u884C\u70BA\u662F\u5426\u6B63\u78BA\u901A\u5E38\u9700\u8981\u9810\u671F\u898F\u683C\uFF0C\u800C\u9019\u7D42\u7A76\u5F97\u7531\u4EBA\u63D0\u4F9B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5230\u9054\u884C\u70BA\u4E0D\u7B49\u65BC\u77E5\u9053\u5B83\u662F\u5C0D\u7684\uFF1B\u6B63\u78BA\u6027\u77E5\u8B58\u5FC5\u9808\u6709\u4F86\u6E90\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u751F\u6210\u7684\u8F38\u5165\u6C38\u9060\u7121\u6CD5\u5230\u9054\u8D85\u904E\u4E00\u534A\u7684\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u53EF\u9054\u6027\u662F\u8986\u84CB\u9650\u5236\uFF0C\u800C\u975E\u9810\u8A00\u554F\u984C\uFF1B\u9810\u8A00\u95DC\u4E4E\u5224\u65B7\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7D04\u675F\u6C42\u89E3\u5668\u7121\u6CD5\u8655\u7406\u4EFB\u4F55\u7B97\u8853",
+                "fraction": 0,
+                "feedback": "\u6C42\u89E3\u5668\u80FD\u8655\u7406\u8A31\u591A\u7B97\u8853\uFF1B\u90A3\u662F\u7B26\u865F\u57F7\u884C\u7684\u9650\u5236\uFF0C\u800C\u975E\u9810\u8A00\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u96A8\u6A5F\u751F\u6210\u7E3D\u662F\u6BD4\u53D7\u6E2C\u7A0B\u5F0F\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u76F8\u5C0D\u901F\u5EA6\u8207\u80FD\u5426\u5224\u65B7\u8F38\u51FA\u6B63\u78BA\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u81EA\u52D5\u5316\u64C5\u9577\u7522\u751F\u8F38\u5165\u8207\u5230\u9054\u884C\u70BA\uFF0C\u4F46\u300C\u7A0B\u5F0F\u505A\u4E86 X\u300D\u4E26\u4E0D\u8AAA\u660E X \u662F\u5426\u662F\u5B83\u8A72\u505A\u7684\u3002\u5224\u65B7\u9019\u9EDE\u9700\u8981\u9810\u671F\u884C\u70BA\u2014\u2014\u898F\u683C\u3001\u9810\u671F\u503C\u6216\u95DC\u4FC2\u2014\u2014\u800C\u9019\u7121\u6CD5\u5F9E\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u672C\u8EAB\u63A8\u5C0E\u3002\u90E8\u5206\u9810\u8A00\uFF08\u65B7\u8A00\u3001\u7576\u6A5F\u3001\u86FB\u8B8A\u8207\u5DEE\u5206\u95DC\u4FC2\uFF09\u7E2E\u5C0F\u5DEE\u8DDD\uFF0C\u537B\u7121\u6CD5\u6D88\u9664\uFF0C\u56E0\u6B64\u7531\u4EBA\u63D0\u4F9B\u7684\u6B63\u78BA\u6027\u6982\u5FF5\u4ECD\u662F\u6975\u9650\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u86FB\u8B8A\u95DC\u4FC2\u4F55\u6642\u6709\u5E6B\u52A9",
+            "text": "<p>\u70BA\u4F55<strong>\u86FB\u8B8A\u95DC\u4FC2</strong>\u5C0D\u81EA\u52D5\u751F\u6210\u7684\u8F38\u5165\u7279\u5225\u6709\u50F9\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u8B93\u4F60\u4E0D\u5FC5\u77E5\u9053\u6BCF\u500B\u8F38\u5165\u7684\u78BA\u5207\u9810\u671F\u8F38\u51FA\u5373\u53EF\u6AA2\u67E5\u6B63\u78BA\u6027\uFF0C\u56E0\u6B64\u80FD\u898F\u6A21\u5316\u5230\u751F\u6210\u5668\u7522\u751F\u7684\u5927\u91CF\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6AA2\u67E5\u76F8\u95DC\u8F38\u5165\u9593\u7684\u95DC\u4FC2\uFF0C\u907F\u958B\u4E86\u9010\u8F38\u5165\u7684\u9810\u671F\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u5075\u6E2C\u5230\u7A0B\u5F0F\u4E2D\u6BCF\u4E00\u500B\u53EF\u80FD\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EA\u6293\u5230\u9055\u53CD\u6240\u9078\u95DC\u4FC2\u7684\u7F3A\u9677\uFF1B\u5176\u4ED6\u7F3A\u9677\u53EF\u80FD\u4E0D\u88AB\u5BDF\u89BA\u3002"
+              },
+              {
+                "text": "\u5B83\u65E2\u751F\u6210\u8F38\u5165\u53C8\u5224\u65B7\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u9810\u8A00\u6280\u8853\uFF1B\u8F38\u5165\u4ECD\u4F86\u81EA\u53E6\u4E00\u500B\u751F\u6210\u5668\uFF08\u4E0D\u904E\u95DC\u4FC2\u5E38\u6703\u6307\u5B9A\u4E00\u500B\u5F8C\u7E8C\u8F38\u5165\uFF09\u3002"
+              },
+              {
+                "text": "\u5B83\u514D\u9664\u4E86\u57F7\u884C\u7A0B\u5F0F\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u6AA2\u67E5\u95DC\u4FC2\u9700\u8981\u4EE5\u76F8\u95DC\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u81EA\u52D5\u751F\u6210\u7684\u8F38\u5165\uFF0C\u9010\u4E00\u624B\u5BEB\u9810\u671F\u8F38\u51FA\u4E26\u4E0D\u53EF\u884C\u3002\u86FB\u8B8A\u95DC\u4FC2\u6539\u70BA\u7D04\u675F\u76F8\u95DC\u8F38\u5165\u4E4B\u8F38\u51FA\u5FC5\u9808\u5982\u4F55\u95DC\u806F\uFF08\u4F8B\u5982\u4E00\u500B\u6E90\u8F38\u5165\u8207\u4E00\u500B\u8F49\u63DB\u5F8C\u7684\u5F8C\u7E8C\u8F38\u5165\uFF09\u3002\u82E5\u95DC\u4FC2\u88AB\u9055\u53CD\uFF0C\u5373\u66B4\u9732\u7F3A\u9677\u2014\u2014\u4E0D\u9700\u9010\u8F38\u5165\u7684\u9810\u671F\u503C\u3002\u5176\u9650\u5236\u662F\u5B83\u53EA\u6293\u5230\u6240\u9078\u7279\u5B9A\u95DC\u4FC2\u7684\u9055\u53CD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DF7\u5408\u57F7\u884C\u8207\u641C\u5C0B\u7684\u7D50\u5408",
+            "text": "<p>\u70BA\u4F55\u5DE5\u5177\u53EF\u80FD\u6703<strong>\u7D50\u5408</strong>\u6DF7\u5408\u57F7\u884C\u8207\u641C\u5C0B\u5F0F\u751F\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u641C\u5C0B\u4EE5\u9069\u61C9\u5EA6\u8655\u7406\u6C42\u89E3\u5668\u8584\u5F31\u4E4B\u8655\uFF08\u975E\u7DDA\u6027\u6216\u4E0D\u900F\u660E\u547C\u53EB\uFF09\uFF0C\u800C\u6DF7\u5408\u6C42\u89E3\u653B\u514B\u641C\u5C0B\u96E3\u4EE5\u5C0D\u4ED8\u7684\u78BA\u5207\u689D\u4EF6\u2014\u2014\u5F7C\u6B64\u88DC\u8DB3\u5C0D\u65B9\u7684\u76F2\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u7A2E\u6280\u8853\u5728\u4E92\u88DC\u7684\u60C5\u6CC1\u4E0B\u5931\u6548\uFF0C\u6545\u7D50\u5408\u53EF\u64F4\u5927\u5230\u9054\u7BC4\u570D\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6DF7\u5408\u57F7\u884C\u8207\u641C\u5C0B\u5F0F\u751F\u6210\u5B8C\u5168\u76F8\u540C\uFF0C\u6240\u4EE5\u7D50\u5408\u5B83\u5011\u6BEB\u7121\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u5F37\u9805\u4E0D\u540C\u7684\u5169\u7A2E\u6280\u8853\uFF1B\u7D50\u5408\u7684\u91CD\u9EDE\u5728\u4E92\u88DC\uFF0C\u800C\u975E\u91CD\u8907\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u6C38\u9060\u4E0D\u5FC5\u57F7\u884C\u53D7\u6E2C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u65B9\u6CD5\u90FD\u6703\u57F7\u884C\u7A0B\u5F0F\uFF08\u6DF7\u5408\u57F7\u884C\u5177\u9AD4\u5730\u8DD1\u3001\u641C\u5C0B\u70BA\u8A55\u4F30\u9069\u61C9\u5EA6\u800C\u8DD1\uFF09\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9019\u7A2E\u7D50\u5408\u6D88\u9664\u4E86\u9810\u8A00\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u6280\u8853\u90FD\u4E0D\u5224\u65B7\u6B63\u78BA\u6027\uFF1B\u9810\u8A00\u554F\u984C\u4F9D\u7136\u5B58\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u5408\u6C42\u89E3\u64C5\u9577\u50CF\u7684\u78BA\u5207\u689D\u4EF6\uFF0C\u4F46\u5728\u6C42\u89E3\u5668\u7121\u6CD5\u8868\u9054\u7684\u7D04\u675F\uFF08\u975E\u7DDA\u6027\u7B97\u8853\u3001\u96DC\u6E4A\u3001\u5916\u90E8\u547C\u53EB\uFF09\u4E0A\u505C\u6EEF\u3002\u641C\u5C0B\u5F0F\u751F\u6210\u80FD\u4EE5\u9069\u61C9\u5EA6\u5F15\u5C0E\u95D6\u904E\u90A3\u4E9B\uFF0C\u537B\u5728\u6BEB\u7121\u68AF\u5EA6\u7684\u72F9\u7A84\u7B49\u65BC\u4E0A\u505C\u6EEF\u3002\u6DF7\u5408\u5F0F\u5728\u5404\u81EA\u5F37\u9805\u8655\u904B\u7528\u5169\u8005\uFF0C\u6545\u5408\u529B\u8986\u84CB\u4EFB\u4E00\u55AE\u7368\u90FD\u5230\u4E0D\u4E86\u7684\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u5C0F\u5316\u8207\u627E\u932F\u80FD\u529B",
+            "text": "<p>\u628A\u751F\u6210\u7684\u5957\u4EF6\u6700\u5C0F\u5316\u4EE5\u7DAD\u6301\u76F8\u540C\u8986\u84CB\u7387\u6642\uFF0C\u95DC\u9375\u98A8\u96AA\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u500B\u8986\u84CB\u76F8\u540C\u7684\u6E2C\u8A66\u5728\u627E\u932F\u80FD\u529B\u4E0A\u53EF\u80FD\u4E0D\u540C\uFF0C\u56E0\u6B64\u628A\u5176\u4E00\u7576\u300C\u591A\u9918\u300D\u522A\u6389\uFF0C\u5373\u4F7F\u8986\u84CB\u7387\u4E0D\u8B8A\u4E5F\u53EF\u80FD\u964D\u4F4E\u627E\u932F\u80FD\u529B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8986\u84CB\u7387\u76F8\u7B49\u4E26\u4E0D\u4EE3\u8868\u627E\u932F\u80FD\u529B\u76F8\u7B49\u3002"
+              },
+              {
+                "text": "\u6700\u5C0F\u5316\u7E3D\u662F\u540C\u6642\u63D0\u9AD8\u8986\u84CB\u7387\u8207\u627E\u932F\u80FD\u529B",
+                "fraction": 0,
+                "feedback": "\u6700\u5C0F\u5316\u662F\u79FB\u9664\u6E2C\u8A66\uFF1B\u5B83\u7121\u6CD5\u63D0\u9AD8\u8986\u84CB\u7387\uFF0C\u4E14\u53EF\u80FD\u964D\u4F4E\u627E\u932F\u80FD\u529B\u3002"
+              },
+              {
+                "text": "\u6700\u5C0F\u5316\u6703\u66F4\u52D5\u53D7\u6E2C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u6700\u5C0F\u5316\u4FEE\u526A\u7684\u662F\u6E2C\u8A66\uFF0C\u800C\u975E\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u7DAD\u6301\u8986\u84CB\u7387\uFF0C\u6700\u5C0F\u5316\u5C31\u4FDD\u8B49\u76F8\u540C\u7684\u627E\u932F\u80FD\u529B",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u4FDD\u8B49\u2014\u2014\u8986\u84CB\u7387\u76F8\u7B49\u4ECD\u53EF\u80FD\u6293\u5230\u4E0D\u540C\u7684\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u6700\u5C0F\u5316\u4FDD\u7559\u4E00\u500B\u6EFF\u8DB3\u67D0\u6E96\u5247\uFF08\u901A\u5E38\u662F\u8986\u84CB\u7387\uFF09\u7684\u5B50\u96C6\u3002\u4F46\u5169\u500B\u8986\u84CB\u76F8\u540C\u5143\u7D20\u7684\u6E2C\u8A66\uFF0C\u53EF\u80FD\u4EE5\u4E0D\u540C\u8CC7\u6599\u57F7\u884C\u5B83\u5011\uFF0C\u56E0\u800C\u6293\u5230\u4E0D\u540C\u7F3A\u9677\u3002\u628A\u5176\u4E00\u7576\u8986\u84CB\u7387\u5197\u9918\u800C\u522A\u9664\uFF0C\u53EF\u80FD\u5728\u8986\u84CB\u7387\u4E0D\u8B8A\u4E0B\u964D\u4F4E\u5957\u4EF6\u7684\u627E\u932F\u80FD\u529B\u2014\u2014\u9019\u500B\u53D6\u6368\u662F\u66F4\u5C0F\uFF0F\u66F4\u5FEB\u7684\u5957\u4EF6 vs \u53EF\u80FD\u640D\u5931\u627E\u932F\u80FD\u529B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65D7\u6A19\u554F\u984C",
+            "text": "<p>\u8003\u616E <code>bool flag = (a == b); ... if (flag) { target; }</code>\u3002\u70BA\u4F55\u9019\u5C0D\u641C\u5C0B\u5F0F\u751F\u6210\u662F\u56F0\u96E3\u60C5\u5F62\uFF08\u300C\u65D7\u6A19\u554F\u984C\u300D\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8655\u5206\u652F\u8DDD\u96E2\u53EA\u6709 0 \u6216 1\uFF0C\u5F62\u6210\u5E73\u5766\u7684\u9069\u61C9\u5EA6\u5730\u5F62\uFF0C\u6C92\u6709\u68AF\u5EA6\u544A\u8A34\u641C\u5C0B\u5982\u4F55\u8B93\u903C\u8FD1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5E03\u6797\u503C\u628A\u8DDD\u96E2\u8CC7\u8A0A\u58D3\u57AE\uFF0C\u53EA\u5269\u4E00\u7247\u5E73\u53F0\u3002"
+              },
+              {
+                "text": "\u65D7\u6A19\u8B8A\u6578\u4F7F\u8A72\u5206\u652F\u6C38\u9060\u4E0D\u53EF\u80FD\u88AB\u8D70\u5230",
+                "fraction": 0,
+                "feedback": "\u7576 a==b \u6642\u8A72\u5206\u652F\u53EF\u9054\uFF1B\u56F0\u96E3\u5728\u65BC\u7F3A\u5C11\u68AF\u5EA6\uFF0C\u800C\u975E\u4E0D\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "\u5E03\u6797\u8B8A\u6578\u7121\u6CD5\u5728\u641C\u5C0B\u7A7A\u9593\u4E2D\u8868\u793A",
+                "fraction": 0,
+                "feedback": "\u5E03\u6797\u53EF\u88AB\u8868\u793A\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u4E1F\u68C4\u4E86\u7684\u8DDD\u96E2\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u65D7\u6A19\u4FDD\u8B49\u5728\u8A55\u4F30\u671F\u9593\u9020\u6210\u7121\u7AAE\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u4E26\u672A\u96B1\u542B\u4EFB\u4F55\u8FF4\u5708\uFF1B\u554F\u984C\u662F\u5E73\u5766\u7684\u9069\u61C9\u5EA6\u5730\u5F62\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u8FF0\u8A5E\u7D50\u679C\u5B58\u9032\u5E03\u6797\u65D7\u6A19\uFF0C\u6703\u4E1F\u6389\u5B83\u6709\u591A\u63A5\u8FD1\u88AB\u6EFF\u8DB3\u7684\u8CC7\u8A0A\u3002\u5728\u8655\u5206\u652F\u8DDD\u96E2\u53EA\u662F 0 \u6216 1\uFF0C\u56E0\u6B64\u9664\u4E86\u5728\u89E3\u8655\u5916\u9069\u61C9\u5EA6\u90FD\u5E73\u5766\uFF08\u4E00\u7247\u5E73\u53F0\uFF09\uFF0C\u641C\u5C0B\u5F97\u4E0D\u5230\u628A\u63A8\u5411\u7684\u65B9\u5411\u3002\u88DC\u6551\u4E4B\u9053\u5305\u62EC\u65D7\u6A19\u79FB\u9664\uFF0F\u8F49\u63DB\uFF0C\u6216\u4EE5\u53EF\u6E2C\u8A66\u6027\u8F49\u63DB\u9084\u539F\u5E95\u5C64\u7684\u8DDD\u96E2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B63\u898F\u5316\u5206\u652F\u8DDD\u96E2",
+            "text": "<p>\u70BA\u4F55\u5206\u652F\u8DDD\u96E2\u901A\u5E38\u6703\u5148<strong>\u6B63\u898F\u5316</strong>\uFF08\u4F8B\u5982\u6620\u5230 [0,1)\uFF09\u518D\u52A0\u5230\u63A5\u8FD1\u5C64\u7D1A\u4E0A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5982\u6B64\u4E00\u4F86\uFF0C\u591A\u6EFF\u8DB3\u4E00\u500B\u5916\u570D\u6C7A\u7B56\uFF08\u66F4\u4F4E\u7684\u63A5\u8FD1\u5C64\u7D1A\uFF09\u6C38\u9060\u52DD\u904E\u4EFB\u4F55\u5206\u652F\u8DDD\u96E2\u7684\u6539\u5584\uFF0C\u8B93\u5169\u500B\u6210\u5206\u7DAD\u6301\u6B63\u78BA\u7684\u6392\u5E8F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u898F\u5316\u78BA\u4FDD\u63A8\u9032\u6574\u6574\u4E00\u5C64\u5DE2\u72C0\uFF0C\u512A\u5148\u65BC\u5728\u7576\u524D\u5C64\u5167\u53EA\u662F\u66F4\u63A5\u8FD1\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5206\u652F\u8DDD\u96E2\u5426\u5247\u6703\u662F\u8CA0\u7684",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u8DDD\u96E2\u4F9D\u5B9A\u7FA9\u975E\u8CA0\uFF1B\u6B63\u898F\u5316\u95DC\u4E4E\u5C3A\u5EA6\uFF0C\u800C\u975E\u6B63\u8CA0\u865F\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u628A\u9069\u61C9\u5EA6\u8F49\u6210\u5E03\u6797\u7684\u901A\u904E\uFF0F\u5931\u6557\u503C",
+                "fraction": 0,
+                "feedback": "\u6B63\u898F\u5316\u4FDD\u7559\u9023\u7E8C\u503C\uFF1B\u5B83\u4E0D\u6703\u628A\u9069\u61C9\u5EA6\u58D3\u6210\u5E03\u6797\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u8B93\u9810\u8A00\u8B8A\u5F97\u4E0D\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u6B63\u898F\u5316\u95DC\u4E4E\u9069\u61C9\u5EA6\u5C3A\u5EA6\uFF0C\u800C\u975E\u6B63\u78BA\u6027\u5224\u65B7\u3002"
+              }
+            ],
+            "generalFeedback": "\u9069\u61C9\u5EA6\u901A\u5E38\u662F\u63A5\u8FD1\u5C64\u7D1A\u52A0\u4E0A\u6B63\u898F\u5316\u5F8C\u7684\u5206\u652F\u8DDD\u96E2\u3002\u628A\u8DDD\u96E2\u9650\u5236\u5728\u5C0F\u65BC 1\uFF0C\u4FDD\u8B49\u628A\u63A5\u8FD1\u5C64\u7D1A\u6E1B 1\uFF08\u6EFF\u8DB3\u53E6\u4E00\u500B\u5916\u570D\u6C7A\u7B56\uFF09\u6C38\u9060\u6BD4\u4EFB\u4F55\u5C64\u5167\u7684\u8DDD\u96E2\u6536\u7A6B\u66F4\u80FD\u6539\u5584\u9069\u61C9\u5EA6\uFF0C\u56E0\u6B64\u641C\u5C0B\u504F\u597D\u771F\u6B63\u7684\u7D50\u69CB\u6027\u9032\u5C55\uFF0C\u540C\u6642\u4ECD\u5229\u7528\u5C64\u5167\u7684\u7D30\u68AF\u5EA6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u865F\u5F0F\u751F\u6210\u7684\u8DEF\u5F91\u7206\u70B8",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u8DEF\u5F91\u7206\u70B8\uFF08path explosion\uFF09</strong>\uFF0C\u70BA\u4F55\u5B83\u9650\u5236\u7B26\u865F\uFF0F\u6DF7\u5408\u57F7\u884C\u751F\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u884C\u8DEF\u5F91\u6578\u53EF\u80FD\u7D44\u5408\u6027\u5730\u589E\u9577\uFF08\u4F8B\u5982\u96A8\u5206\u652F\u8207\u8FF4\u5708\u8FED\u4EE3\uFF09\uFF0C\u4F7F\u5F97\u5217\u8209\u4E26\u6C42\u89E3\u5168\u90E8\u8B8A\u5F97\u4E0D\u53EF\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DEF\u5F91\u6578\u7206\u589E\uFF0C\u5728\u8986\u84CB\u6240\u6709\u8DEF\u5F91\u524D\u5C31\u8017\u76E1\u6642\u9593\u8207\u6C42\u89E3\u5668\u9810\u7B97\u3002"
+              },
+              {
+                "text": "\u7D04\u675F\u6C42\u89E3\u5668\u5C0D\u55AE\u4E00\u8DEF\u5F91\u56DE\u50B3\u592A\u591A\u6EFF\u8DB3\u89E3",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u7206\u70B8\u662F\u95DC\u65BC\u8981\u63A2\u7D22\u7684\u8DEF\u5F91\u6578\uFF0C\u800C\u975E\u6BCF\u689D\u8DEF\u5F91\u7684\u89E3\u6578\u3002"
+              },
+              {
+                "text": "\u751F\u6210\u7684\u8F38\u5165\u8B8A\u5F97\u592A\u5927\u800C\u7121\u6CD5\u5132\u5B58",
+                "fraction": 0,
+                "feedback": "\u7206\u589E\u7684\u662F\u8981\u5206\u6790\u7684\u8DEF\u5F91\uFF0C\u800C\u975E\u4E3B\u8981\u662F\u8F38\u5165\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u53D7\u6E2C\u7A0B\u5F0F\u5728\u57F7\u884C\u6642\u8017\u76E1\u8A18\u61B6\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u7206\u70B8\u662F\u751F\u6210\u5668\u7684\u5206\u6790\u64F4\u5C55\u6027\u554F\u984C\uFF0C\u800C\u975E\u76EE\u6A19\u7684\u57F7\u884C\u6642\u8A18\u61B6\u9AD4\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5206\u652F\u90FD\u53EF\u80FD\u4F7F\u8DEF\u5F91\u6578\u52A0\u500D\uFF0C\u800C\u8FF4\u5708\u66F4\u6703\u4F7F\u4E4B\u76F8\u4E58\uFF0C\u56E0\u6B64\u53EF\u884C\u8DEF\u5F91\u6578\u7D44\u5408\u6027\u5730\u589E\u9577\u3002\u7B26\u865F\uFF0F\u6DF7\u5408\u57F7\u884C\u751F\u6210\u5FC5\u9808\u70BA\u9019\u4E9B\u6311\u9078\u4E26\u6C42\u89E3\u8DEF\u5F91\u689D\u4EF6\uFF0C\u7AAE\u76E1\u8986\u84CB\u5B83\u5011\u8B8A\u5F97\u96E3\u4EE5\u8655\u7406\u3002\u5DE5\u5177\u4EE5\u641C\u5C0B\u555F\u767C\u5F0F\u3001\u8DEF\u5F91\u4FEE\u526A\uFF0F\u5408\u4F75\uFF0C\u4EE5\u53CA\u9650\u5236\u8FF4\u5708\u5C55\u958B\u4F86\u7DE9\u89E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96B1\u5F0F\u7576\u6A5F\u9810\u8A00\u7684\u9650\u5236",
+            "text": "<p>\u5C0D\u751F\u6210\u7684\u8F38\u5165\u53EA\u4F9D\u8CF4\u7576\u6A5F\u4F5C\u70BA\u9810\u8A00\uFF0C\u6709\u4E00\u500B\u95DC\u9375\u9650\u5236\u3002\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u53EA\u6293\u5230\u4EE5\u7576\u6A5F\uFF0F\u4E2D\u6B62\u5F62\u5F0F\u986F\u73FE\u7684\u5931\u6557\uFF1B\u932F\u8AA4\u4F46\u4E0D\u7576\u6A5F\u7684\u7D50\u679C\u6703\u88AB\u5FFD\u7565",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C89\u9ED8\u7684\u4E0D\u6B63\u78BA\u8F38\u51FA\u6703\u6E9C\u904E\u53EA\u770B\u7576\u6A5F\u7684\u9810\u8A00\u3002"
+              },
+              {
+                "text": "\u5B83\u7121\u6CD5\u5075\u6E2C\u8A18\u61B6\u9AD4\u5340\u6BB5\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u8A18\u61B6\u9AD4\u5340\u6BB5\u932F\u8AA4\u9019\u985E\u7576\u6A5F\u6B63\u662F\u5B83\u80FD\u5075\u6E2C\u7684\uFF1B\u5B83\u6F0F\u6389\u7684\u662F\u4E0D\u7576\u6A5F\u7684\u932F\u8AA4\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5B83\u8981\u6C42\u70BA\u6BCF\u500B\u8F38\u5165\u63D0\u4F9B\u78BA\u5207\u9810\u671F\u503C",
+                "fraction": 0,
+                "feedback": "\u7576\u6A5F\u9810\u8A00\u4E0D\u9700\u9810\u671F\u503C\u2014\u2014\u9019\u65E2\u662F\u5176\u5438\u5F15\u529B\uFF0C\u4E5F\u6B63\u662F\u5B83\u6F0F\u6389\u908F\u8F2F\u932F\u8AA4\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5B83\u4F7F\u751F\u6210\u5668\u7121\u6CD5\u5230\u9054\u6DF1\u5C64\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u9810\u8A00\u7684\u9078\u64C7\u4E0D\u9650\u5236\u751F\u6210\u80FD\u5230\u9054\u54EA\u4E9B\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6A5F\uFF08\u6216\u6D88\u6BD2\u5668\uFF0F\u65B7\u8A00\uFF09\u9810\u8A00\u5B8C\u5168\u81EA\u52D5\u4E14\u4FBF\u5B9C\uFF0C\u9019\u6B63\u662F\u6A21\u7CCA\u6E2C\u8A66\u4F9D\u8CF4\u5B83\u7684\u539F\u56E0\u3002\u4F46\u5B83\u53EA\u6A19\u793A\u4EE5\u53EF\u89C0\u5BDF\u7576\u6A5F\u986F\u73FE\u7684\u5931\u6557\u3002\u4E00\u500B\u56DE\u50B3\u932F\u8AA4\u503C\u537B\u4E0D\u7576\u6A5F\u7684\u51FD\u5F0F\u4E0D\u7522\u751F\u4EFB\u4F55\u8A0A\u865F\uFF0C\u56E0\u6B64\u53EA\u770B\u7576\u6A5F\u7684\u9810\u8A00\u6F0F\u6389\u5927\u591A\u6578\u908F\u8F2F\u932F\u8AA4\u2014\u2014\u9019\u4FC3\u6210\u4E86\u66F4\u8C50\u5BCC\u7684\u90E8\u5206\u9810\u8A00\uFF0C\u5982\u86FB\u8B8A\u8207\u5DEE\u5206\u95DC\u4FC2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DEE\u5206\u8207\u86FB\u8B8A\u7684\u9078\u64C7",
+            "text": "<p>\u4F60\u6B63\u70BA\u4E00\u500B\u6578\u503C\u5E38\u5F0F\u751F\u6210\u8F38\u5165\uFF0C\u4E14<em>\u6C92\u6709</em>\u7368\u7ACB\u7684\u53C3\u8003\u5BE6\u4F5C\u3002\u54EA\u500B\u90E8\u5206\u9810\u8A00\u9069\u7528\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u86FB\u8B8A\u95DC\u4FC2\uFF0C\u56E0\u70BA\u5B83\u6AA2\u67E5\u76F8\u95DC\u8F38\u5165\u4E4B\u8F38\u51FA\u9593\u5FC5\u9700\u7684\u95DC\u4FC2\uFF0C\u4E14\u4E0D\u9700\u8981\u7B2C\u4E8C\u500B\u5BE6\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u6C92\u6709\u53EF\u6BD4\u5C0D\u7684\u53C3\u8003\u6642\uFF0C\u86FB\u8B8A\u95DC\u4FC2\u4ECD\u80FD\u63D0\u4F9B\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u5DEE\u5206\u9810\u8A00\uFF0C\u56E0\u70BA\u5B83\u55AE\u6191\u9019\u4E00\u500B\u5BE6\u4F5C\u5C31\u80FD\u904B\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5DEE\u5206\u6E2C\u8A66\u9700\u8981\u81F3\u5C11\u5169\u500B\u5BE6\u4F5C\u4F86\u6BD4\u8F03\uFF1B\u53EA\u6709\u4E00\u500B\u6642\u4E26\u4E0D\u9069\u7528\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u884C\uFF0C\u56E0\u70BA\u6C92\u6709\u53C3\u8003\u5C31\u6C38\u9060\u4E0D\u53EF\u80FD\u6709\u81EA\u52D5\u6AA2\u67E5",
+                "fraction": 0,
+                "feedback": "\u5373\u4F7F\u6C92\u6709\u53C3\u8003\uFF0C\u86FB\u8B8A\u95DC\u4FC2\u4ECD\u63D0\u4F9B\u6AA2\u67E5\uFF0C\u6545\u81EA\u52D5\u7684\u90E8\u5206\u9810\u8A00\u4ECD\u7136\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u76EE\u6A19\uFF0C\u56E0\u70BA\u8986\u84CB\u7387\u80FD\u5224\u65B7\u6B63\u78BA\u6027",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u91CF\u5EA6\u57F7\u884C\u4E86\u4EC0\u9EBC\uFF0C\u800C\u975E\u8F38\u51FA\u662F\u5426\u6B63\u78BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DEE\u5206\u9810\u8A00\u9700\u8981\u5169\u500B\u6216\u66F4\u591A\u5BE6\u4F5C\u624D\u80FD\u51FA\u73FE\u4E0D\u4E00\u81F4\uFF1B\u53EA\u6709\u4E00\u500B\u6642\u7121\u6CD5\u4F7F\u7528\u3002\u86FB\u8B8A\u95DC\u4FC2\u6539\u70BA\u6AA2\u67E5\u76F8\u95DC\u8F38\u5165\u4E4B\u8F38\u51FA\u5FC5\u9808\u5982\u4F55\u95DC\u806F\uFF08\u4F8B\u5982\u628A\u6240\u6709\u8F38\u5165\u653E\u5927\uFF0C\u8F38\u51FA\u61C9\u53EF\u9810\u6E2C\u5730\u96A8\u4E4B\u653E\u5927\uFF09\uFF0C\u9019\u53EA\u9700\u8981\u90A3\u552F\u4E00\u7684\u5BE6\u4F5C\u2014\u2014\u56E0\u6B64\u5728\u6C92\u6709\u53C3\u8003\u6642\uFF0C\u5B83\u662F\u9069\u7528\u7684\u90E8\u5206\u9810\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9054\u5230\u8986\u84CB\u4E0D\u4EE3\u8868\u627E\u5230\u932F\u8AA4",
+            "text": "<p>\u67D0\u751F\u6210\u5668\u9054\u5230 100% \u5206\u652F\u8986\u84CB\u7387\u3002\u70BA\u4F55\u9019<em>\u4E0D</em>\u8DB3\u4EE5\u78BA\u7ACB\u7A0B\u5F0F\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u57F7\u884C\u5230\u6BCF\u500B\u5206\u652F\u53EA\u8868\u793A\u7A0B\u5F0F\u78BC\u8DD1\u904E\u4E86\uFF0C\u4F46\u82E5\u6C92\u6709\u9810\u8A00\u6AA2\u67E5\u6BCF\u500B\u7D50\u679C\uFF0C\u88AB\u8986\u84CB\u5206\u652F\u4E0A\u7684\u932F\u8AA4\u8F38\u51FA\u4ECD\u4E0D\u6703\u88AB\u5BDF\u89BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8986\u84CB\u7387\u91CF\u5EA6\u57F7\u884C\uFF0C\u800C\u975E\u6B63\u78BA\u6027\uFF1B\u9810\u8A00\u4ECD\u662F\u5FC5\u9700\u7684\u3002"
+              },
+              {
+                "text": "100% \u5206\u652F\u8986\u84CB\u7387\u5728\u6578\u5B78\u4E0A\u4E0D\u53EF\u80FD\uFF0C\u6545\u6B64\u5BA3\u7A31\u5FC5\u70BA\u5047",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u5206\u652F\u8986\u84CB\u5E38\u53EF\u9054\u6210\uFF1B\u91CD\u9EDE\u662F\u8986\u84CB\u7387\u672C\u8EAB\u4E0D\u5224\u65B7\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u8986\u84CB\u7387\u81EA\u52D5\u70BA\u6BCF\u500B\u5206\u652F\u5167\u5EFA\u4E86\u9810\u8A00",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u8A18\u9304\u54EA\u4E9B\u5206\u652F\u8DD1\u904E\uFF1B\u5B83\u4E0D\u5224\u65B7\u5176\u7D50\u679C\u662F\u5426\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u8986\u84CB\u7387\u7E3D\u662F\u9AD8\u4F30\u5BE6\u969B\u57F7\u884C\u7684\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u8A08\u6578\u5931\u6E96\uFF1B\u800C\u5728\u65BC\u8DD1\u904E\u4E00\u500B\u5206\u652F\u4E0D\u7B49\u65BC\u9A57\u8B49\u5176\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u7387\u544A\u8A34\u4F60\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u4E86\uFF0C\u800C\u975E\u5B83\u884C\u70BA\u6B63\u78BA\u3002\u4E00\u500B\u5206\u652F\u53EF\u4EE5\u8DD1\u904E\u537B\u4ECD\u56DE\u50B3\u932F\u8AA4\u503C\uFF1B\u82E5\u6C92\u6709\u65B7\u8A00\u9810\u671F\u884C\u70BA\u7684\u9810\u8A00\uFF0C\u8A72\u7F3A\u9677\u4E0D\u7559\u75D5\u8DE1\u3002\u56E0\u6B64\u7D14\u4EE5\u8986\u84CB\u7387\u70BA\u76EE\u6A19\u7684\u751F\u6210\u80FD\u6700\u5927\u5316\u57F7\u884C\uFF0C\u4F46\u5075\u6E2C\u96A8\u4E4B\u800C\u4F86\u7684\u7F3A\u9677\u4ECD\u5B8C\u5168\u53D6\u6C7A\u65BC\u9810\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57FA\u56E0\u6F14\u7B97\u6CD5\u8DF3\u812B\u5E73\u53F0",
+            "text": "<p>\u5728\u6709\u5E73\u53F0\u7684\u9069\u61C9\u5EA6\u5730\u5F62\u4E0A\uFF0C\u70BA\u4F55\u57FA\u56E0\u6F14\u7B97\u6CD5\u6709\u6642\u80FD\u5728\u7C21\u55AE\u722C\u5C71\u6CD5\u505C\u6EEF\u8655\u53D6\u5F97\u9032\u5C55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u65CF\u7FA4\u591A\u6A23\u6027\u52A0\u4E0A\u4EA4\u914D\u8207\u8B8A\u7570\uFF0C\u8B93\u5B83\u540C\u6642\u63A2\u7D22\u591A\u500B\u5340\u57DF\u4E26\u8DE8\u8D8A\u5E73\u5766\u5340\uFF0C\u800C\u975E\u53EA\u4F9D\u8CF4\u56B4\u683C\u6539\u5584\u7684\u5C40\u90E8\u79FB\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65CF\u7FA4\u5F0F\u63A2\u7D22\u80FD\u8DE8\u8D8A\u56F0\u4F4F\u55AE\u9EDE\u6500\u5347\u8005\u7684\u5E73\u53F0\u3002"
+              },
+              {
+                "text": "\u5B83\u4EE5\u7D04\u675F\u6C42\u89E3\u5668\u53D6\u4EE3\u9069\u61C9\u5EA6\u51FD\u6578",
+                "fraction": 0,
+                "feedback": "\u57FA\u56E0\u6F14\u7B97\u6CD5\u4ECD\u4F7F\u7528\u9069\u61C9\u5EA6\uFF1B\u5B83\u4E0D\u63DB\u6210\u6C42\u89E3\u5668\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u5728\u4EFB\u4F55\u5730\u5F62\u4E0A\u627E\u5230\u5168\u57DF\u6700\u4F73",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u5F8C\u8A2D\u555F\u767C\u5F0F\u4FDD\u8B49\u5168\u57DF\u6700\u4F73\uFF1B\u57FA\u56E0\u6F14\u7B97\u6CD5\u53EA\u662F\u63D0\u9AD8\u8DF3\u812B\u5C40\u90E8\u9677\u9631\u7684\u6A5F\u6703\u3002"
+              },
+              {
+                "text": "\u5B83\u85C9\u7531\u66F4\u52D5\u53D7\u6E2C\u7A0B\u5F0F\u4F86\u79FB\u9664\u5E73\u53F0",
+                "fraction": 0,
+                "feedback": "\u57FA\u56E0\u6F14\u7B97\u6CD5\u4E0D\u4FEE\u6539\u7A0B\u5F0F\uFF1B\u91CD\u5851\u6B64\u985E\u5730\u5F62\u7684\u662F\u53EF\u6E2C\u8A66\u6027\u8F49\u63DB\uFF0C\u800C\u975E\u57FA\u56E0\u6F14\u7B97\u6CD5\u672C\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "\u722C\u5C71\u6CD5\u53EA\u63A5\u53D7\u56B4\u683C\u6539\u5584\u7684\u9130\u5C45\uFF0C\u56E0\u6B64\u5728\u5E73\u53F0\u4E0A\u7121\u8655\u53EF\u53BB\u3002\u57FA\u56E0\u6F14\u7B97\u6CD5\u7DAD\u6301\u4E00\u500B\u591A\u6A23\u7684\u65CF\u7FA4\uFF0C\u4E26\u4EE5\u4EA4\u914D\u8207\u8B8A\u7570\u5728\u7A7A\u9593\u4E2D\u53D6\u6A23\uFF0C\u6545\u80FD\u6F02\u904E\u5E73\u5766\u5340\u4E26\u91CD\u7D44\u90E8\u5206\u89E3\u3002\u5B83\u4ECD\u4E0D\u63D0\u4F9B\u4FDD\u8B49\u2014\u2014\u771F\u6B63\u5E73\u5766\u7684\u5730\u5F62\uFF08\u5982\u672A\u8655\u7406\u7684\u65D7\u6A19\u554F\u984C\uFF09\u4E5F\u80FD\u64CA\u6557\u5B83\u2014\u2014\u4F46\u6BD4\u7D14\u5C40\u90E8\u641C\u5C0B\u66F4\u7A69\u5065\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u53EF\u9054\u6027\u8207\u826F\u597D\u68AF\u5EA6",
+            "text": "<p>\u53EA\u8981\u76EE\u6A19\u5206\u652F\u539F\u5247\u4E0A\u53EF\u9054\uFF0C\u641C\u5C0B\u5F0F\u751F\u6210\u5668\u5C31\u4FDD\u8B49\u80FD\u5230\u9054\u5B83\uFF0C\u8207\u9069\u61C9\u5EA6\u5730\u5F62\u7121\u95DC\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u53EF\u9054\u6027\u4E0D\u4FDD\u8B49\u6210\u529F\uFF1B\u6C92\u6709\u53EF\u7528\u7684\u68AF\u5EA6\u6642\uFF08\u5982\u65D7\u6A19\u554F\u984C\uFF09\uFF0C\u641C\u5C0B\u53EF\u80FD\u627E\u4E0D\u5230\u8A72\u8F38\u5165\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u82E5\u9069\u61C9\u5EA6\u5730\u5F62\u6BEB\u7121\u68AF\u5EA6\uFF0C\u4E00\u500B\u53EF\u9054\u7684\u76EE\u6A19\u5C0D\u641C\u5C0B\u800C\u8A00\u4ECD\u53EF\u80FD\u5BE6\u969B\u4E0A\u4E0D\u53EF\u9054\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u9054\u6027\u662F\u7A0B\u5F0F\u7684\u6027\u8CEA\uFF1B\u641C\u5C0B\u662F\u5426\u6210\u529F\u9084\u53D6\u6C7A\u65BC\u9069\u61C9\u5EA6\u5730\u5F62\u3002\u82E5\u9069\u61C9\u5EA6\u9664\u4E86\u5728\u89E3\u8655\u5916\u90FD\u5E73\u5766\uFF08\u5E73\u53F0\u6216\u672A\u8655\u7406\u7684\u65D7\u6A19\uFF09\uFF0C\u5F8C\u8A2D\u555F\u767C\u5F0F\u4FBF\u7121\u65B9\u5411\uFF0C\u53EF\u80FD\u5230\u4E0D\u4E86\u4E00\u500B\u539F\u5247\u4E0A\u5B8C\u5168\u53EF\u9054\u7684\u76EE\u6A19\u3002\u9019\u6B63\u662F\u70BA\u4F55\u9069\u61C9\u5EA6\u8A2D\u8A08\u8207\u53EF\u6E2C\u8A66\u6027\u8F49\u63DB\u5F88\u91CD\u8981\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DE8\u7248\u672C\u7684\u56DE\u6B78\u64AD\u7A2E",
+            "text": "<p>\u70BA\u65B0\u7248\u672C\u751F\u6210\u6E2C\u8A66\u6642\uFF0C\u70BA\u4F55\u5F9E\u820A\u7248\u672C\u7684\u6E2C\u8A66\u8207\u8F38\u5165<strong>\u64AD\u7A2E</strong>\u6703\u6709\u7528\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5148\u524D\u7684\u8F38\u5165\u5DF2\u80FD\u5230\u9054\u5927\u90E8\u5206\u5171\u4EAB\u884C\u70BA\uFF0C\u6545\u751F\u6210\u5668\u53EF\u5F9E\u76F8\u95DC\u72C0\u614B\u9644\u8FD1\u8D77\u6B65\uFF0C\u628A\u9810\u7B97\u96C6\u4E2D\u5728\u6539\u52D5\u904E\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u7528\u5148\u524D\u7D20\u6750\u7D66\u4E86\u8D77\u6B65\u512A\u52E2\uFF0C\u4E26\u628A\u5FC3\u529B\u96C6\u4E2D\u5728\u6539\u52D5\u8655\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u751F\u6210\u5668\u5B8C\u5168\u8DF3\u904E\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u64AD\u7A2E\u63D0\u4F9B\u8D77\u59CB\u8F38\u5165\uFF1B\u7A0B\u5F0F\u4ECD\u5FC5\u9808\u88AB\u57F7\u884C\u4EE5\u8A55\u4F30\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u65B0\u7248\u672C\u6C92\u6709\u56DE\u6B78",
+                "fraction": 0,
+                "feedback": "\u64AD\u7A2E\u6709\u52A9\u751F\u6210\uFF1B\u5B83\u7121\u6CD5\u4FDD\u8B49\u6C92\u6709\u56DE\u6B78\u3002"
+              },
+              {
+                "text": "\u5B83\u514D\u9664\u4E86\u5C0D\u65B0\u7248\u672C\u4F7F\u7528\u9810\u8A00\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u5728\u65B0\u7248\u672C\u4E0A\u5224\u65B7\u6B63\u78BA\u6027\u4ECD\u9700\u8981\u9810\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u8DE8\u7248\u672C\u6642\u5927\u91CF\u884C\u70BA\u4E0D\u8B8A\uFF0C\u6545\u820A\u5957\u4EF6\u7684\u8F38\u5165\u5DF2\u628A\u7A0B\u5F0F\u9A45\u5165\u76F8\u95DC\u7684\u6DF1\u5C64\u72C0\u614B\u3002\u4EE5\u5B83\u5011\u64AD\u7A2E\u751F\u6210\u5668\uFF0C\u4EE3\u8868\u5B83\u4E0D\u5FC5\u5F9E\u96F6\u91CD\u65B0\u767C\u73FE\u90A3\u4E9B\u884C\u70BA\uFF0C\u800C\u80FD\u628A\u9810\u7B97\u82B1\u5728\u63A2\u7D22\u6539\u52D5\u904E\u7684\u7A0B\u5F0F\u78BC\u2014\u2014\u5728\u56DE\u6B78\u60C5\u5883\u4E2D\uFF0C\u9019\u662F\u5C0D\u5148\u9A57\u8CC7\u8A0A\u5BE6\u7528\u800C\u6709\u6548\u7684\u904B\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6574\u5957\u6700\u4F73\u5316\u8207\u9010\u76EE\u6A19",
+            "text": "<p>\u73FE\u4EE3 SBST \u5DE5\u5177\u5E38\u5C0D<strong>\u6574\u5957</strong>\u6E2C\u8A66\u4E00\u6B21\u91DD\u5C0D\u6240\u6709\u8986\u84CB\u76EE\u6A19\u6700\u4F73\u5316\uFF0C\u800C\u975E\u70BA\u6BCF\u500B\u76EE\u6A19\u5404\u751F\u6210\u4E00\u500B\u6E2C\u8A66\u3002\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9010\u500B\u76EE\u6A19\u6703\u628A\u9810\u7B97\u6D6A\u8CBB\u5728\u4E0D\u53EF\u884C\u6216\u56F0\u96E3\u7684\u76EE\u6A19\u4E0A\uFF0C\u4E14\u5FFD\u7565\u4E86\u55AE\u4E00\u6E2C\u8A66\u53EF\u547D\u4E2D\u591A\u500B\u76EE\u6A19\uFF1B\u6574\u5957\u6700\u4F73\u5316\u628A\u5FC3\u529B\u82B1\u5728\u6709\u56DE\u5831\u8655\u4E26\u5584\u7528\u9644\u5E36\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5957\u4EF6\u5C64\u7D1A\u7684\u76EE\u6A19\u907F\u514D\u5361\u5728\u55AE\u4E00\u56F0\u96E3\u76EE\u6A19\uFF0C\u4E26\u734E\u52F5\u4E00\u6B21\u8986\u84CB\u591A\u500B\u76EE\u6A19\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6574\u5957\u76EE\u6A19\u514D\u9664\u4E86\u4EFB\u4F55\u9069\u61C9\u5EA6\u51FD\u6578\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u4F7F\u7528\u9069\u61C9\u5EA6\u51FD\u6578\u2014\u2014\u4E00\u500B\u805A\u5408\u6240\u6709\u76EE\u6A19\u7684\u51FD\u6578\u2014\u2014\u800C\u975E\u79FB\u9664\u5B83\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6574\u5957\u6700\u4F73\u5316\u4FDD\u8B49\u5728\u6BCF\u652F\u7A0B\u5F0F\u4E0A\u90FD\u9054\u5230 100% \u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u4FDD\u8B49\uFF1B\u4E0D\u53EF\u884C\u76EE\u6A19\u8207\u56F0\u96E3\u5730\u5F62\u4ECD\u9650\u5236\u8986\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u4F7F\u751F\u6210\u7684\u6E2C\u8A66\u4E0D\u518D\u9700\u8981\u9810\u8A00",
+                "fraction": 0,
+                "feedback": "\u4E0D\u8AD6\u5982\u4F55\u6700\u4F73\u5316\u8986\u84CB\u7387\uFF0C\u5224\u65B7\u6B63\u78BA\u6027\u4ECD\u9700\u8981\u9810\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u5E8F\u70BA\u6BCF\u500B\u76EE\u6A19\u5404\u751F\u6210\u4E00\u500B\u6E2C\u8A66\uFF0C\u53EF\u80FD\u628A\u6574\u500B\u9810\u7B97\u8017\u5728\u82E6\u6230\u55AE\u4E00\u4E0D\u53EF\u884C\u6216\u7121\u68AF\u5EA6\u7684\u76EE\u6A19\u4E0A\uFF0C\u8B93\u5BB9\u6613\u7684\u76EE\u6A19\u4E7E\u7B49\uFF0C\u4E14\u5FFD\u7565\u4E00\u500B\u6E2C\u8A66\u5E38\u80FD\u8986\u84CB\u591A\u500B\u76EE\u6A19\u3002\u6574\u5957\uFF08\u4EE5\u53CA\u591A\u76EE\u6A19\uFF09\u65B9\u6CD5\u5C0D\u6240\u6709\u5269\u9918\u76EE\u6A19\u4E00\u8D77\u6700\u4F73\u5316\u55AE\u4E00\u5957\u4EF6\uFF0C\u6545\u641C\u5C0B\u80FD\u81EA\u9069\u61C9\u5730\u5206\u914D\u5FC3\u529B\uFF0C\u4E26\u6536\u4E0B\u500B\u5225\u6E2C\u8A66\u5E36\u4F86\u7684\u9644\u5E36\u8986\u84CB\u3002",
+            "single": true
+          }
+        ]
+      }
     }
   };
 

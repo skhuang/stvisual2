@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Generation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What automated test generation is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>automated test generation</strong> primarily do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It uses an algorithm to produce test inputs (and often test cases) automatically, instead of a human writing each one by hand</text><feedback><text>Correct — the aim is to synthesize inputs/cases mechanically rather than hand-authoring every one.</text></feedback></answer>
+    <answer fraction="0"><text>It automatically decides whether every generated test passed or failed without any oracle</text><feedback><text>Deciding pass/fail is the oracle problem, which generation does not solve on its own.</text></feedback></answer>
+    <answer fraction="0"><text>It compiles the program under test into an optimized binary</text><feedback><text>That is a compiler; test generation produces inputs/cases, not machine code.</text></feedback></answer>
+    <answer fraction="0"><text>It formally proves the program has no defects</text><feedback><text>Generation finds or exercises behavior; it does not prove correctness.</text></feedback></answer>
+    <generalfeedback><text>Automated test generation replaces the manual authoring of test inputs with an algorithm — random, search-based, symbolic, model-based, or combinatorial. It produces the inputs (and often the calling sequence); deciding whether the observed behavior is correct still needs a separate oracle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Random test generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What characterizes <strong>random test generation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It samples inputs from the input domain at random, cheaply and without using any feedback about what the program did</text><feedback><text>Correct — random generation is cheap and simple precisely because it ignores program feedback.</text></feedback></answer>
+    <answer fraction="0"><text>It solves path conditions with a constraint solver to reach specific branches</text><feedback><text>That describes symbolic/concolic generation, not random generation.</text></feedback></answer>
+    <answer fraction="0"><text>It evolves a population of inputs guided by a fitness function</text><feedback><text>That is search-based generation; random generation uses no fitness guidance.</text></feedback></answer>
+    <answer fraction="0"><text>It derives inputs from a finite-state model of the specification</text><feedback><text>That is model-based generation; random generation ignores any model.</text></feedback></answer>
+    <generalfeedback><text>Random generation picks inputs from the domain at random. It is cheap, easy to implement, and needs no analysis, but it is blind: it gets no feedback and so struggles to satisfy narrow conditions that only a tiny fraction of inputs meet.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Random vs directed generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>directed</strong> (guided) generation differ from <strong>random</strong> generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Directed generation uses information about the program (coverage, path conditions, or a fitness signal) to steer inputs toward a goal, while random generation samples blindly</text><feedback><text>Correct — the distinction is whether feedback about the program guides input selection.</text></feedback></answer>
+    <answer fraction="0"><text>Directed generation is always cheaper than random generation</text><feedback><text>Directed methods usually cost more per input (analysis, solving, evaluation); their benefit is reaching hard targets, not lower cost.</text></feedback></answer>
+    <answer fraction="0"><text>Random generation guarantees higher coverage than directed generation</text><feedback><text>Random generation often plateaus on hard-to-reach code; directed methods exist precisely to beat that.</text></feedback></answer>
+    <answer fraction="0"><text>Directed generation never needs an oracle, but random generation does</text><feedback><text>Both need an oracle to decide correctness; neither escapes the oracle problem.</text></feedback></answer>
+    <generalfeedback><text>Directed (guided) generation exploits feedback — coverage, path constraints, or a fitness value — to move inputs toward an objective such as an uncovered branch. Random generation ignores such feedback. Directed methods usually pay more per input but can reach targets random sampling almost never hits.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test oracle is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In test generation, what is a <strong>test oracle</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mechanism that decides whether the program's behavior on a given input is correct</text><feedback><text>Correct — the oracle is what judges pass/fail; it is separate from generating the input.</text></feedback></answer>
+    <answer fraction="0"><text>The algorithm that generates the input values</text><feedback><text>That is the generator; the oracle judges the resulting behavior, it does not produce inputs.</text></feedback></answer>
+    <answer fraction="0"><text>The coverage metric used to measure a test suite</text><feedback><text>Coverage measures how much code ran; the oracle decides whether the output was correct.</text></feedback></answer>
+    <answer fraction="0"><text>The random seed used to make a run reproducible</text><feedback><text>A seed makes generation repeatable; it does not decide correctness.</text></feedback></answer>
+    <generalfeedback><text>A test oracle is whatever decides whether the observed behavior for an input is acceptable — an assertion, an expected value, a reference implementation, or a metamorphic relation. Generating an input is one problem; deciding whether the result is correct is the separate oracle problem.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a fitness function is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In search-based test generation, what is a <strong>fitness function</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A numeric measure of how close a candidate test is to achieving the goal, used to guide the search toward better tests</text><feedback><text>Correct — fitness scores candidates so the search can prefer and refine the promising ones.</text></feedback></answer>
+    <answer fraction="0"><text>A boolean that is only true when the goal is already reached</text><feedback><text>A pure boolean gives no gradient; effective fitness varies smoothly so the search knows which candidates are closer.</text></feedback></answer>
+    <answer fraction="0"><text>The oracle that decides whether the output is correct</text><feedback><text>Fitness measures progress toward a coverage goal; the oracle judges correctness — different roles.</text></feedback></answer>
+    <answer fraction="0"><text>The random seed passed to the input generator</text><feedback><text>The seed controls reproducibility, not how good a candidate is.</text></feedback></answer>
+    <generalfeedback><text>A fitness function maps a candidate test to a number saying how near it is to the objective (for example, reaching a target branch). A good fitness function provides a gradient — it improves gradually as tests get closer — so a metaheuristic can climb toward the goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Search-based software testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>search-based software testing (SBST)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It reformulates test generation as an optimization problem and uses a metaheuristic (e.g. hill-climbing or a genetic algorithm) guided by a fitness function to search for tests that meet a goal</text><feedback><text>Correct — SBST turns "find a good test" into "optimize this fitness function."</text></feedback></answer>
+    <answer fraction="0"><text>It exhaustively enumerates every possible input to the program</text><feedback><text>Exhaustive enumeration is usually infeasible; SBST searches selectively using fitness guidance.</text></feedback></answer>
+    <answer fraction="0"><text>It searches the source code for syntax errors before compilation</text><feedback><text>SBST searches the space of tests, not the source for syntax errors.</text></feedback></answer>
+    <answer fraction="0"><text>It queries a constraint solver for every branch condition</text><feedback><text>That is symbolic/concolic generation; SBST uses metaheuristic search driven by fitness.</text></feedback></answer>
+    <generalfeedback><text>SBST casts test generation as optimization: a candidate test is a point in a search space, a fitness function scores it against the goal, and a metaheuristic (hill-climbing, genetic algorithms, etc.) iteratively improves candidates toward a target such as covering a branch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model-based test generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>model-based test generation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Deriving tests automatically from a model of intended behavior, such as a finite-state machine or formal specification</text><feedback><text>Correct — the tests come from traversing/analyzing a behavioral model.</text></feedback></answer>
+    <answer fraction="0"><text>Building a machine-learning model that predicts which tests will fail</text><feedback><text>That is failure prediction, not deriving tests from a behavioral model.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly mutating the source code to create faulty versions</text><feedback><text>That is mutation testing; model-based generation derives tests from a spec/FSM.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring how many model elements a hand-written suite covers</text><feedback><text>That is model coverage measurement; generation produces the tests from the model.</text></feedback></answer>
+    <generalfeedback><text>Model-based test generation starts from a model of the system's intended behavior — commonly a finite-state machine, statechart, or formal specification — and derives test sequences from it, for example paths that cover every transition. The model can also supply expected results, helping with the oracle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a coverage target is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In coverage-driven generation, what is a <strong>coverage target</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A specific program element the generator is trying to exercise, such as a particular branch, statement, or path</text><feedback><text>Correct — the target is the concrete element the search is aiming to cover.</text></feedback></answer>
+    <answer fraction="0"><text>The total wall-clock time budget allowed for the whole run</text><feedback><text>That is a time budget, not a coverage target.</text></feedback></answer>
+    <answer fraction="0"><text>The oracle that decides whether the output is correct</text><feedback><text>The target is an element to reach; the oracle judges correctness separately.</text></feedback></answer>
+    <answer fraction="0"><text>The number of test cases the suite must contain</text><feedback><text>That is a suite-size constraint, not a coverage goal.</text></feedback></answer>
+    <generalfeedback><text>A coverage target is a concrete program element the generator wants a test to exercise — a branch, statement, condition, or path. Coverage-driven generation picks uncovered targets and searches for inputs that reach them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symbolic/path-based generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>symbolic (path-based)</strong> test generation obtain an input that follows a chosen path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It builds the path condition — the conjunction of branch constraints along the path — and solves it with a constraint solver to get concrete input values</text><feedback><text>Correct — solving the path condition yields inputs that drive execution down that path.</text></feedback></answer>
+    <answer fraction="0"><text>It flips random bits in an existing input until the path changes</text><feedback><text>That is mutation-style fuzzing, not symbolic solving of a path condition.</text></feedback></answer>
+    <answer fraction="0"><text>It evolves a population of inputs with a genetic algorithm</text><feedback><text>That is search-based generation; symbolic generation solves constraints instead.</text></feedback></answer>
+    <answer fraction="0"><text>It measures coverage of an existing suite and reports the gaps</text><feedback><text>That is coverage measurement, not input synthesis by constraint solving.</text></feedback></answer>
+    <generalfeedback><text>Symbolic (path-based) generation treats inputs as symbols, tracks the constraints imposed by each branch along a path (the path condition), and asks a constraint/SMT solver for concrete values satisfying it. Those values drive the program down the intended path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combinatorial test generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the idea behind <strong>combinatorial</strong> test generation (e.g. pairwise)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It systematically covers combinations of parameter values (e.g. every pair) with far fewer tests than trying every full combination</text><feedback><text>Correct — combinatorial generation guarantees interaction coverage while keeping the test count small.</text></feedback></answer>
+    <answer fraction="0"><text>It runs every possible combination of all parameter values exhaustively</text><feedback><text>Exhaustive combination explodes; combinatorial methods cover interactions (like all pairs) with a small set instead.</text></feedback></answer>
+    <answer fraction="0"><text>It solves the path condition of each program path</text><feedback><text>That is symbolic generation; combinatorial generation works over parameter-value combinations.</text></feedback></answer>
+    <answer fraction="0"><text>It selects inputs purely at random from the domain</text><feedback><text>Combinatorial generation is systematic about interactions, not random.</text></feedback></answer>
+    <generalfeedback><text>Combinatorial test generation covers interactions among parameters — most commonly all pairs (pairwise / 2-way) — using a small, systematically constructed set of tests. It rests on the observation that many defects are triggered by a small number of interacting parameters, so covering low-order combinations catches many of them cheaply.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Test as an individual in SBST</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In search-based test generation, a candidate test can be represented as an "individual" that a metaheuristic evaluates with a fitness function and evolves toward the goal.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — encoding a test as an individual scored by fitness is exactly how SBST applies metaheuristic search.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>SBST does encode a test as an individual (a point in the search space) and uses fitness to guide its evolution.</text></feedback></answer>
+    <generalfeedback><text>SBST borrows optimization vocabulary: a candidate test is an "individual" (or chromosome), its quality is a fitness value, and operators like mutation and crossover produce new candidates that the search selects among to approach the goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seeding in test generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>seeding</strong> mean in test generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Starting the generator from useful prior information — such as constants from the code or existing tests — rather than from nothing</text><feedback><text>Correct — seeding injects known-useful values to give the search a head start.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting redundant tests once generation finishes</text><feedback><text>That is minimization/reduction, not seeding.</text></feedback></answer>
+    <answer fraction="0"><text>Fixing the random seed only so runs are reproducible</text><feedback><text>A random seed governs reproducibility; seeding here means supplying useful starting values.</text></feedback></answer>
+    <answer fraction="0"><text>Deciding whether each generated output is correct</text><feedback><text>That is the oracle's job, unrelated to seeding.</text></feedback></answer>
+    <generalfeedback><text>Seeding supplies the generator with promising starting material — constants and string literals mined from the source, values from existing or regression tests, or a prior corpus — so the search does not begin blind. For instance, seeding the literal 42 lets a search satisfy <code>x == 42</code> far sooner.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test-suite minimization</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>test-suite minimization</strong> (reduction)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Removing redundant tests to obtain a smaller suite that still meets a chosen criterion, such as retaining the same coverage</text><feedback><text>Correct — minimization shrinks the suite while preserving a stated property like coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Generating as many tests as possible to maximize the suite size</text><feedback><text>That is the opposite; minimization removes redundancy rather than adding tests.</text></feedback></answer>
+    <answer fraction="0"><text>Deciding whether each test's output is correct</text><feedback><text>That is the oracle's job, not minimization.</text></feedback></answer>
+    <answer fraction="0"><text>Solving path conditions to reach uncovered branches</text><feedback><text>That is symbolic generation; minimization prunes an existing suite.</text></feedback></answer>
+    <generalfeedback><text>Test-suite minimization removes tests judged redundant with respect to a criterion — typically keeping the same coverage with fewer tests. It lowers execution cost, but because it optimizes for coverage rather than fault detection, it can drop tests that would have caught real faults.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Generation is not verification</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Automatically generating test inputs also automatically determines whether the program's output is correct.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — generating an input is separate from judging its output; deciding correctness needs an oracle.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — generation produces inputs but does not by itself decide correctness; that is the oracle problem.</text></feedback></answer>
+    <generalfeedback><text>Producing an input that reaches some behavior does not tell you whether that behavior is right. Deciding correctness is the separate oracle problem, and it is what keeps fully automated testing hard: generation is easy compared with verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Metamorphic relation as an oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>metamorphic relation</strong> used as a test oracle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A relation between the outputs of related inputs that must hold even when the exact expected output is unknown</text><feedback><text>Correct — it checks a required relationship rather than a single expected value.</text></feedback></answer>
+    <answer fraction="0"><text>The single exact expected output value for one specific input</text><feedback><text>That is a conventional expected-value oracle; a metamorphic relation avoids needing the exact value.</text></feedback></answer>
+    <answer fraction="0"><text>A random seed relating two runs of the generator</text><feedback><text>A seed concerns reproducibility, not a correctness relation between outputs.</text></feedback></answer>
+    <answer fraction="0"><text>A coverage relation between two branches of the program</text><feedback><text>Metamorphic relations relate outputs of related inputs, not coverage of branches.</text></feedback></answer>
+    <generalfeedback><text>A metamorphic relation states how outputs of related inputs must relate — e.g. <code>sin(x)</code> should equal <code>sin(&#960; - x)</code>, or sorting a permuted list should give the same result. It provides a partial oracle when the exact expected output is unknown, easing the oracle problem for automatically generated inputs.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Generation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why random struggles with narrow guards</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does random generation struggle to satisfy a narrow condition like <code>if (x == 42)</code> for a 32-bit integer <code>x</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only one value out of about four billion satisfies it, so a blind random draw almost never hits it</text><feedback><text>Correct — the satisfying set is a vanishing fraction of the domain, and random sampling has no way to home in on it.</text></feedback></answer>
+    <answer fraction="0"><text>Random generators cannot produce the integer 42 at all</text><feedback><text>They can produce 42; the problem is the probability is astronomically low, not that the value is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>Equality comparisons are undefined for integers</text><feedback><text>Integer equality is perfectly well-defined; the difficulty is purely the low hit probability.</text></feedback></answer>
+    <answer fraction="0"><text>Random generation always gets stuck in an infinite loop on such guards</text><feedback><text>It does not loop forever; it simply keeps drawing values that overwhelmingly miss the single target.</text></feedback></answer>
+    <generalfeedback><text>An exact-equality guard is satisfied by a tiny fraction of the domain (one value in ~4 billion for a 32-bit int). Random sampling gets no feedback telling it whether it is getting closer, so its chance of hitting the target per draw is negligible. Directed methods — seeding the constant, solving <code>x == 42</code>, or using a distance-based fitness — reach it far more reliably.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch distance guiding the search</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the target <code>if (x == 42)</code>, how does a <strong>branch-distance</strong> fitness function guide a search toward taking the true branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It scores a candidate by how far <code>x</code> is from 42 (e.g. |x - 42|), so the search gets a gradient rewarding inputs that move closer</text><feedback><text>Correct — turning the predicate into a distance gives the search something to minimize.</text></feedback></answer>
+    <answer fraction="0"><text>It returns 1 if the branch is taken and 0 otherwise, giving the search a clear signal</text><feedback><text>A pure 0/1 signal gives no gradient — the search cannot tell x=41 is better than x=1000; branch distance provides exactly that gradient.</text></feedback></answer>
+    <answer fraction="0"><text>It solves the constraint <code>x == 42</code> with an SMT solver</text><feedback><text>That is symbolic solving; branch-distance fitness is the search-based alternative that measures nearness numerically.</text></feedback></answer>
+    <answer fraction="0"><text>It counts how many statements the candidate executed in total</text><feedback><text>Total statements executed does not measure closeness to satisfying the specific predicate.</text></feedback></answer>
+    <generalfeedback><text>Branch distance converts a predicate into a number measuring how near an input is to flipping the branch. For <code>x == 42</code> a natural distance is |x - 42|: smaller means closer. The search minimizes this distance, so it can tell that x=41 is far better than x=1000 and climb toward the target — something a flat 0/1 signal cannot support.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Stating the oracle problem</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best captures the <strong>test oracle problem</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generating inputs is comparatively easy, but deciding whether the resulting behavior is correct is hard and often needs human-supplied knowledge</text><feedback><text>Correct — the hard part is judging correctness, not producing inputs.</text></feedback></answer>
+    <answer fraction="0"><text>It is impossible to generate any input that reaches deep code</text><feedback><text>Reaching deep code is a coverage/generation challenge; the oracle problem is about judging correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Constraint solvers are too slow to solve any path condition</text><feedback><text>Solver performance is a symbolic-execution concern, not the oracle problem.</text></feedback></answer>
+    <answer fraction="0"><text>Random generation always outperforms directed generation</text><feedback><text>That is a false claim about generation strategies, unrelated to the oracle problem.</text></feedback></answer>
+    <generalfeedback><text>The oracle problem is that, even with an input in hand, deciding whether the program's response is correct generally requires knowing the intended behavior — an expected value, an assertion, a reference, or a relation. Because this knowledge is expensive to obtain, the oracle, not input generation, is usually the bottleneck for fully automated testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symbolic vs random vs search-based</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which correctly summarizes a trade-off among <strong>random</strong>, <strong>search-based</strong>, and <strong>symbolic</strong> generation for reaching a hard branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Random is cheapest but blind; search-based needs a fitness gradient to climb; symbolic can solve exact conditions but may hit solver limits and path explosion</text><feedback><text>Correct — each buys reach with a different cost and failure mode.</text></feedback></answer>
+    <answer fraction="0"><text>All three are equally effective and have identical costs</text><feedback><text>They differ sharply: random is cheap/blind, search-based needs gradient, symbolic needs a tractable solver.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic generation never needs a constraint solver</text><feedback><text>Solving path conditions with a solver is the essence of symbolic generation.</text></feedback></answer>
+    <answer fraction="0"><text>Search-based generation works equally well regardless of the fitness landscape</text><feedback><text>Without a gradient (e.g. the flag problem) search-based generation degenerates toward random.</text></feedback></answer>
+    <answer fraction="0"><text>Random generation is the only one of the three that needs no oracle</text><feedback><text>All three need an oracle to judge correctness; that is independent of how inputs are generated.</text></feedback></answer>
+    <generalfeedback><text>Random generation is cheap and needs no analysis but is blind, so it misses narrow targets. Search-based generation reaches targets when the fitness function offers a gradient, but stalls when it does not. Symbolic generation can solve exact conditions precisely, yet is limited by solver capability (nonlinear arithmetic, external calls) and by path explosion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Generating from an FSM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given a finite-state machine specifying a component, how does model-based generation typically produce tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It derives input sequences by traversing the FSM to cover chosen elements, such as every state or every transition</text><feedback><text>Correct — walks over the FSM become test sequences with a coverage aim.</text></feedback></answer>
+    <answer fraction="0"><text>It flips random bits in the compiled component until it changes state</text><feedback><text>That is mutation-style fuzzing of inputs, not deriving sequences from the model.</text></feedback></answer>
+    <answer fraction="0"><text>It measures how many source lines the component has</text><feedback><text>That is a size metric, not test derivation from a model.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the FSM is deadlock-free without producing any tests</text><feedback><text>That is model checking of a property; model-based generation instead emits concrete test sequences.</text></feedback></answer>
+    <generalfeedback><text>From an FSM, model-based generation constructs input sequences that traverse the model to satisfy a coverage goal — e.g. visiting every state, exercising every transition, or covering transition pairs. Because the model also encodes expected responses, it can additionally supply expected outputs, helping with the oracle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Approach level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In search-based generation, what does the <strong>approach level</strong> measure for a target branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How many of the target's controlling (nesting) decision nodes execution still failed to satisfy before it diverged away from the target</text><feedback><text>Correct — approach level counts the unsatisfied enclosing decisions between where the run went wrong and the target.</text></feedback></answer>
+    <answer fraction="0"><text>The numeric distance of a variable from satisfying the immediate predicate</text><feedback><text>That is branch distance; approach level is about how many enclosing decisions remained unsatisfied.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of statements in the whole program</text><feedback><text>Program size is unrelated to how close a run came to the target.</text></feedback></answer>
+    <answer fraction="0"><text>The wall-clock time the candidate took to run</text><feedback><text>Run time is not a measure of proximity to the target branch.</text></feedback></answer>
+    <generalfeedback><text>Approach level counts, for a run that missed the target, how many of the target's control-dependent (enclosing) decision nodes were not taken toward the target — i.e. how many nesting levels away execution diverged. It is combined with the branch distance at the point of divergence to form the overall fitness for that target.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Hill-climbing vs genetic algorithm</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do <strong>hill-climbing</strong> and a <strong>genetic algorithm</strong> differ as metaheuristics for test generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hill-climbing improves a single candidate by local moves and can stick in local optima; a genetic algorithm evolves a population with crossover and mutation, better at escaping local optima</text><feedback><text>Correct — local single-point search versus population-based evolution is the key distinction.</text></feedback></answer>
+    <answer fraction="0"><text>Hill-climbing uses a constraint solver; a genetic algorithm uses random sampling only</text><feedback><text>Neither is defined by a solver; both are metaheuristics using a fitness function, differing in local vs population search.</text></feedback></answer>
+    <answer fraction="0"><text>A genetic algorithm evaluates no fitness function, unlike hill-climbing</text><feedback><text>Both rely on a fitness function; the GA uses it to select among a population.</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for the same algorithm</text><feedback><text>They are distinct search strategies with different mechanics.</text></feedback></answer>
+    <generalfeedback><text>Hill-climbing keeps one candidate and moves to a better neighbor each step, which is fast but can get trapped in a local optimum or on a plateau. A genetic algorithm maintains a population and applies selection, crossover, and mutation, giving it more ways to escape local optima at the cost of more evaluations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage-driven generation loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the core loop of <strong>coverage-driven</strong> test generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Identify an uncovered target, generate inputs aimed at reaching it, add successful tests, and repeat on the remaining uncovered targets</text><feedback><text>Correct — it iteratively attacks the coverage gaps.</text></feedback></answer>
+    <answer fraction="0"><text>Generate one huge random batch once and never look at coverage again</text><feedback><text>That is plain random generation; coverage-driven generation uses coverage feedback to pick targets each iteration.</text></feedback></answer>
+    <answer fraction="0"><text>Delete tests until coverage drops to zero</text><feedback><text>That is destructive and pointless; coverage-driven generation adds tests to raise coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Decide correctness of each output and stop when all are correct</text><feedback><text>That describes oracle checking; coverage-driven generation is about reaching uncovered elements.</text></feedback></answer>
+    <generalfeedback><text>Coverage-driven generation measures current coverage, selects an uncovered target (branch, statement, path), and directs generation — search-based, symbolic, or otherwise — at reaching it. Tests that hit new targets are kept, and the process repeats on the remaining gaps until the budget runs out or coverage is satisfied.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why pairwise cuts test count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can <strong>pairwise</strong> generation cover all value pairs with far fewer tests than the full Cartesian product?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each single test simultaneously covers many different value pairs, so a small set of well-chosen tests can include every pair</text><feedback><text>Correct — one test contributes many pairs at once, so a compact covering array suffices.</text></feedback></answer>
+    <answer fraction="0"><text>It silently ignores most of the parameters</text><feedback><text>Pairwise still involves all parameters; it just does not require every full combination of their values.</text></feedback></answer>
+    <answer fraction="0"><text>It assumes only one parameter ever matters at a time</text><feedback><text>Pairwise covers two-way interactions, not single parameters in isolation.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the parameters with random noise</text><feedback><text>Pairwise is a systematic construction of a covering array, not random noise.</text></feedback></answer>
+    <generalfeedback><text>In a covering array, each row (test) fixes a value for every parameter and therefore covers many parameter-value pairs at once. Because pairs are shared across tests, a carefully constructed small set can include every pair, so the count grows roughly logarithmically in the number of parameters rather than as the full product.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concolic combines concrete and symbolic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>concolic</strong> generation combine concrete and symbolic execution to explore new paths?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It runs the program on a concrete input while collecting symbolic path constraints, then negates one branch constraint and solves it to get an input for a new path</text><feedback><text>Correct — concrete execution keeps it grounded while symbolic constraints let it steer to new branches.</text></feedback></answer>
+    <answer fraction="0"><text>It only ever runs concrete inputs and never records any constraints</text><feedback><text>That would be plain testing; concolic execution records symbolic constraints alongside the concrete run.</text></feedback></answer>
+    <answer fraction="0"><text>It only reasons symbolically and never runs the program concretely</text><feedback><text>That is pure symbolic execution; concolic deliberately pairs a concrete run with the symbolic trace.</text></feedback></answer>
+    <answer fraction="0"><text>It evolves a population of inputs using crossover and mutation</text><feedback><text>That is a genetic algorithm; concolic uses concrete-plus-symbolic execution with a solver.</text></feedback></answer>
+    <generalfeedback><text>Concolic (concrete + symbolic) execution runs the program on a concrete input, recording the symbolic path condition as it goes. To reach a new path it negates one branch constraint, solves the modified condition for concrete values, and reruns. Grounding in a concrete run lets it use real values where the solver cannot reason (e.g. some library calls).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Differential oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does a <strong>differential</strong> oracle judge a generated input?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It runs the input through two or more independent implementations and flags a disagreement in their outputs as a likely fault</text><feedback><text>Correct — a discrepancy between implementations signals that at least one is wrong.</text></feedback></answer>
+    <answer fraction="0"><text>It measures how many branches the input covered</text><feedback><text>That is coverage, not an oracle comparing outputs.</text></feedback></answer>
+    <answer fraction="0"><text>It requires a hand-written expected value for every input</text><feedback><text>Differential testing avoids needing a hand-written expected value by comparing implementations against each other.</text></feedback></answer>
+    <answer fraction="0"><text>It negates a branch constraint to reach a new path</text><feedback><text>That is concolic exploration, not a differential oracle.</text></feedback></answer>
+    <generalfeedback><text>A differential oracle runs the same generated input through two or more implementations that should agree (versions, a reference implementation, or alternative libraries) and treats any output disagreement as evidence of a fault. It sidesteps needing an exact expected value, though it cannot catch a bug shared identically by all implementations.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Assertions as oracles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Executable assertions embedded in the program (or generated with the test) can act as a partial oracle for automatically generated inputs.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — an assertion that fails on a generated input flags incorrect behavior, serving as a partial oracle.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Assertions do serve as partial oracles: when a generated input makes one fail, it reveals a fault.</text></feedback></answer>
+    <generalfeedback><text>Assertions encode properties that must hold at runtime. When an automatically generated input violates one, it exposes incorrect behavior, so assertions act as a partial oracle. They are partial because they check only the properties actually asserted, not full correctness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the fitness gradient matters</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the presence of a <strong>gradient</strong> in the fitness function matter so much for search-based generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A gradient lets the search tell which candidates are closer to the goal, so it can improve step by step instead of guessing blindly</text><feedback><text>Correct — without a sense of "closer," metaheuristic search has nothing to climb.</text></feedback></answer>
+    <answer fraction="0"><text>A gradient guarantees the target is reachable in exactly one step</text><feedback><text>It does not guarantee one step; it provides direction so the search can progress over many steps.</text></feedback></answer>
+    <answer fraction="0"><text>A gradient removes the need for any fitness evaluation</text><feedback><text>The gradient is a property of the fitness values, which must still be evaluated.</text></feedback></answer>
+    <answer fraction="0"><text>A gradient makes the oracle unnecessary</text><feedback><text>Fitness guides coverage; the oracle still judges correctness independently.</text></feedback></answer>
+    <generalfeedback><text>Metaheuristic search improves candidates by moving toward better fitness. If the fitness function varies smoothly with nearness to the goal (a gradient), the search can follow it. If fitness is flat except at the goal (as with a boolean flag), there is nothing to climb and the search degenerates toward random guessing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seeding constants to hit x==42</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generator repeatedly fails to satisfy <code>if (x == 42)</code>. Which practical tactic most directly helps?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Seed the generator with constants mined from the source (including 42) so candidate inputs draw from those literal values</text><feedback><text>Correct — mining and seeding the literal makes hitting the exact guard likely.</text></feedback></answer>
+    <answer fraction="0"><text>Increase the population size but keep sampling values purely uniformly at random</text><feedback><text>More uniform random draws barely change the negligible per-draw odds of hitting one exact value.</text></feedback></answer>
+    <answer fraction="0"><text>Remove the fitness function so the search runs faster</text><feedback><text>Removing guidance makes it worse, reducing the search toward blind random.</text></feedback></answer>
+    <answer fraction="0"><text>Switch the oracle to a metamorphic relation</text><feedback><text>The oracle judges correctness; it does not help the generator reach the guard.</text></feedback></answer>
+    <generalfeedback><text>Constant seeding mines literals from the code (here, 42) and feeds them into the pool of candidate values. Because the exact constant is now available to the generator, satisfying <code>x == 42</code> becomes likely rather than astronomically improbable. This complements branch-distance fitness and symbolic solving as ways to beat narrow equality guards.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a GA does with test individuals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a genetic algorithm for test generation, what do the operators do to the test individuals?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Selection favors fitter tests, crossover recombines parts of two tests, and mutation makes small random changes — producing a new generation</text><feedback><text>Correct — selection, crossover, and mutation together evolve the population.</text></feedback></answer>
+    <answer fraction="0"><text>They solve the path condition of each individual with an SMT solver</text><feedback><text>That is symbolic/concolic generation, not the genetic operators.</text></feedback></answer>
+    <answer fraction="0"><text>They delete every individual whose fitness is not already maximal</text><feedback><text>Selection is probabilistic and preserves diversity; it does not simply delete all non-optimal individuals.</text></feedback></answer>
+    <answer fraction="0"><text>They compute code coverage without running the tests</text><feedback><text>Fitness usually requires running the tests; the operators evolve individuals, they do not statically compute coverage.</text></feedback></answer>
+    <generalfeedback><text>A genetic algorithm evolves a population of test individuals: selection probabilistically keeps fitter ones, crossover combines material from two parents, and mutation perturbs an individual slightly. Iterating these operators, guided by the fitness function, moves the population toward tests that meet the goal.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Generation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch distance plus approach level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a deeply nested target branch, why do search-based tools combine <strong>approach level</strong> with <strong>branch distance</strong> rather than using either alone?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Approach level says how many enclosing decisions execution still missed, and branch distance measures how nearly the decision where it diverged was satisfied — together they give a gradient across the nesting</text><feedback><text>Correct — the pair yields a smooth fitness that improves both as more enclosing decisions are satisfied and as the diverging one gets closer.</text></feedback></answer>
+    <answer fraction="0"><text>Approach level alone already gives a continuous gradient at every nesting level</text><feedback><text>Approach level is an integer that only changes when a whole enclosing decision flips; branch distance fills the gap between those steps.</text></feedback></answer>
+    <answer fraction="0"><text>Branch distance alone can express how many nesting levels were missed</text><feedback><text>Branch distance is local to one predicate; it does not encode how many enclosing decisions remain — that is approach level's job.</text></feedback></answer>
+    <answer fraction="0"><text>Combining them removes the need to execute the program</text><feedback><text>Both are computed from actual executions of candidate inputs; combining them does not avoid running the program.</text></feedback></answer>
+    <generalfeedback><text>For a nested target, a run may diverge several enclosing decisions before it. Approach level counts those still-unsatisfied enclosing decisions (coarse, integer steps); at the point of divergence, branch distance measures how nearly that decision was satisfied (fine gradient between steps). The usual fitness is approach level plus a normalized branch distance, so improving either lowers fitness and gives the search a continuous slope down through the nesting.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the oracle problem limits automation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the oracle problem fundamentally limit <em>fully</em> automated testing, even with excellent input generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generation can reach behavior automatically, but deciding whether that behavior is correct generally requires the intended specification, which must ultimately come from humans</text><feedback><text>Correct — reaching behavior is not the same as knowing it is right; correctness knowledge has to come from somewhere.</text></feedback></answer>
+    <answer fraction="0"><text>Because generated inputs can never reach more than half of the branches</text><feedback><text>Reachability is a coverage limitation, not the oracle problem; the oracle concerns judging correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Because constraint solvers cannot handle any arithmetic</text><feedback><text>Solvers handle much arithmetic; that is a symbolic-execution limitation, not the oracle problem.</text></feedback></answer>
+    <answer fraction="0"><text>Because random generation is always faster than the program under test</text><feedback><text>Relative speed is irrelevant to whether outputs can be judged correct.</text></feedback></answer>
+    <generalfeedback><text>Automation is strong at producing inputs and reaching behavior, but "the program did X" says nothing about whether X is what it should do. Judging that needs the intended behavior — a specification, expected values, or a relation — which is not derivable from the code being tested. Partial oracles (assertions, crashes, metamorphic and differential relations) narrow the gap but do not close it, so a human-supplied notion of correctness remains the limit.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When metamorphic relations help</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are <strong>metamorphic relations</strong> especially valuable for automatically generated inputs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They let you check correctness without knowing each input's exact expected output, so they scale to the many inputs a generator produces</text><feedback><text>Correct — checking a relation across related inputs sidesteps per-input expected values.</text></feedback></answer>
+    <answer fraction="0"><text>They guarantee detection of every possible fault in the program</text><feedback><text>They only catch faults that violate the chosen relation; other faults can pass unnoticed.</text></feedback></answer>
+    <answer fraction="0"><text>They generate the inputs as well as judging them</text><feedback><text>They are an oracle technique; the inputs still come from a separate generator (though relations often prescribe a follow-up input).</text></feedback></answer>
+    <answer fraction="0"><text>They remove the need to run the program</text><feedback><text>Checking a relation requires running the program on the related inputs.</text></feedback></answer>
+    <generalfeedback><text>For automatically generated inputs, hand-writing an expected output for each is infeasible. A metamorphic relation instead constrains how outputs of related inputs must relate (e.g. a source and a transformed follow-up input). If the relation is violated, a fault is exposed — no per-input expected value needed. The limitation is that it only catches violations of the specific relations chosen.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Hybrid concolic and search</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why might a tool <strong>combine</strong> concolic execution with search-based generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Search handles code where a solver is weak (nonlinear or opaque calls) using fitness, while concolic solving cracks exact conditions search struggles with — each covers the other's blind spot</text><feedback><text>Correct — the two techniques fail on complementary situations, so combining them widens reach.</text></feedback></answer>
+    <answer fraction="0"><text>Because concolic execution and search-based generation are identical, so combining them is free</text><feedback><text>They are different techniques with different strengths; the point of combining is complementarity, not redundancy.</text></feedback></answer>
+    <answer fraction="0"><text>To avoid ever needing to run the program under test</text><feedback><text>Both approaches run the program (concolic concretely, search to evaluate fitness).</text></feedback></answer>
+    <answer fraction="0"><text>Because the combination removes the oracle problem</text><feedback><text>Neither technique judges correctness; the oracle problem remains regardless.</text></feedback></answer>
+    <generalfeedback><text>Concolic solving excels at exact conditions like <code>x == 42</code> but stalls on constraints the solver cannot express (nonlinear arithmetic, hashing, external calls). Search-based generation can push through those with fitness guidance but stalls on narrow equalities that offer no gradient. A hybrid uses each where it is strong, so together they cover targets neither reaches alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimization vs fault detection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the key risk when minimizing a generated suite to preserve the same coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Two tests with identical coverage can differ in fault-detecting power, so dropping one as "redundant" can lower fault detection even though coverage is unchanged</text><feedback><text>Correct — coverage equivalence does not imply equal fault-finding ability.</text></feedback></answer>
+    <answer fraction="0"><text>Minimization always increases both coverage and fault detection</text><feedback><text>Minimization removes tests; it cannot increase coverage, and it can reduce fault detection.</text></feedback></answer>
+    <answer fraction="0"><text>Minimization changes the program under test</text><feedback><text>Minimization prunes tests, not the program.</text></feedback></answer>
+    <answer fraction="0"><text>Minimization guarantees the same fault detection whenever coverage is kept</text><feedback><text>No such guarantee holds — equal coverage can still mean different faults caught.</text></feedback></answer>
+    <generalfeedback><text>Minimization keeps a subset that preserves a criterion, usually coverage. But two tests that cover the same elements can exercise them with different data and thus catch different faults. Removing one as coverage-redundant can therefore reduce the suite's fault-detection ability even while coverage stays constant — the trade-off is smaller/faster suites versus possible loss of fault detection.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The flag problem</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider <code>bool flag = (a == b); ... if (flag) { target; }</code>. Why is this a hard case ("flag problem") for search-based generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At <code>if (flag)</code> the branch distance is only 0 or 1, giving a flat fitness landscape with no gradient telling the search how to make <code>a</code> approach <code>b</code></text><feedback><text>Correct — the boolean collapses the distance information, leaving a plateau.</text></feedback></answer>
+    <answer fraction="0"><text>The flag variable makes the branch impossible to ever take</text><feedback><text>The branch is reachable when a==b; the difficulty is the missing gradient, not impossibility.</text></feedback></answer>
+    <answer fraction="0"><text>Boolean variables cannot be represented in a search space</text><feedback><text>Booleans are representable; the issue is that they discard the distance signal from <code>a == b</code>.</text></feedback></answer>
+    <answer fraction="0"><text>The flag guarantees an infinite loop during evaluation</text><feedback><text>There is no loop implied; the problem is a flat fitness landscape.</text></feedback></answer>
+    <generalfeedback><text>Storing a predicate's result in a boolean flag throws away how nearly it was satisfied. At <code>if (flag)</code> the branch distance is just 0 or 1, so fitness is flat (a plateau) except at the solution, and the search gets no direction to drive <code>a</code> toward <code>b</code>. Remedies include flag removal/transformation or testability transformations that recover the underlying distance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Normalizing branch distance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the branch distance usually <strong>normalized</strong> (e.g. into [0,1)) before being added to the approach level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So one more satisfied enclosing decision (a lower approach level) always dominates any branch-distance improvement, keeping the two components correctly ordered</text><feedback><text>Correct — normalization ensures progressing a whole nesting level outranks merely getting closer within the current one.</text></feedback></answer>
+    <answer fraction="0"><text>Because branch distance would otherwise be negative</text><feedback><text>Branch distance is defined to be non-negative; normalization is about scale, not sign.</text></feedback></answer>
+    <answer fraction="0"><text>To convert the fitness into a boolean pass/fail value</text><feedback><text>Normalization keeps a continuous value; it does not collapse fitness to a boolean.</text></feedback></answer>
+    <answer fraction="0"><text>To make the oracle unnecessary</text><feedback><text>Normalization concerns the fitness scale, not correctness judgment.</text></feedback></answer>
+    <generalfeedback><text>Fitness is typically approach level plus a normalized branch distance. Bounding the distance below 1 guarantees that reducing the approach level by one (satisfying another enclosing decision) always improves fitness more than any within-level distance gain, so the search prefers real structural progress while still using the fine gradient inside a level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path explosion in symbolic generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>path explosion</strong>, and why does it limit symbolic/concolic generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of feasible paths can grow combinatorially (e.g. with branches and loop iterations), so enumerating and solving them all becomes infeasible</text><feedback><text>Correct — the path count blows up, exhausting time and solver budget before all paths are covered.</text></feedback></answer>
+    <answer fraction="0"><text>The constraint solver returns too many satisfying assignments for a single path</text><feedback><text>Path explosion is about the number of paths to explore, not the number of solutions per path.</text></feedback></answer>
+    <answer fraction="0"><text>The generated inputs become too large to store</text><feedback><text>The blow-up is in paths to analyze, not primarily input size.</text></feedback></answer>
+    <answer fraction="0"><text>The program under test runs out of memory at runtime</text><feedback><text>Path explosion is an analysis-scaling problem for the generator, not a runtime memory fault of the target.</text></feedback></answer>
+    <generalfeedback><text>Each branch can double the number of paths, and loops multiply them further, so the feasible-path count grows combinatorially. Symbolic/concolic generation must pick and solve path conditions for these, and exhaustively covering them becomes intractable. Tools mitigate with search heuristics, path pruning/merging, and bounding loop unrolling.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Implicit crash oracle limits</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Relying only on crashes as the oracle for generated inputs has a key limitation. What is it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It catches only failures that manifest as a crash/abort; a wrong-but-non-crashing result passes unnoticed</text><feedback><text>Correct — silent incorrect outputs slip past a crash-only oracle.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot detect segmentation faults</text><feedback><text>Crashes such as segmentation faults are exactly what it does detect; it misses non-crashing wrong results.</text></feedback></answer>
+    <answer fraction="0"><text>It requires an exact expected value for every input</text><feedback><text>A crash oracle needs no expected value — that is its appeal and also why it misses logic errors.</text></feedback></answer>
+    <answer fraction="0"><text>It prevents the generator from reaching deep branches</text><feedback><text>The oracle choice does not constrain which branches generation can reach.</text></feedback></answer>
+    <generalfeedback><text>A crash (or sanitizer/assert) oracle is fully automatic and cheap, which is why fuzzers rely on it. But it only flags failures that surface as an observable crash. A function that returns a wrong value without crashing produces no signal, so crash-only oracles miss most logic errors — motivating richer partial oracles like metamorphic and differential relations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Differential vs metamorphic choice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You are generating inputs for a numerical routine and have <em>no</em> independent reference implementation. Which partial oracle is applicable, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A metamorphic relation, because it checks a required relationship among outputs of related inputs and needs no second implementation</text><feedback><text>Correct — with no reference to compare against, a metamorphic relation still gives a check.</text></feedback></answer>
+    <answer fraction="0"><text>A differential oracle, because it works from the single implementation alone</text><feedback><text>Differential testing needs at least two implementations to compare; with only one it is not applicable.</text></feedback></answer>
+    <answer fraction="0"><text>Neither, because without a reference no automated check is ever possible</text><feedback><text>Metamorphic relations provide a check even without a reference, so an automated partial oracle is still possible.</text></feedback></answer>
+    <answer fraction="0"><text>A coverage target, because coverage decides correctness</text><feedback><text>Coverage measures what ran, not whether the output is correct.</text></feedback></answer>
+    <generalfeedback><text>A differential oracle needs two or more implementations to disagree; with only one, it cannot be used. A metamorphic relation instead checks how outputs of related inputs must relate (e.g. scaling all inputs scales the output predictably), which requires only the one implementation — making it the applicable partial oracle when no reference exists.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage reached does not mean bug found</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generator achieves 100% branch coverage. Why does this <em>not</em> establish that the program is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Executing every branch shows the code ran, but without an oracle checking each result, wrong outputs on covered branches go undetected</text><feedback><text>Correct — coverage measures execution, not correctness; the oracle is still required.</text></feedback></answer>
+    <answer fraction="0"><text>100% branch coverage is mathematically impossible, so the claim must be false</text><feedback><text>Full branch coverage is often achievable; the point is that coverage alone does not judge correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Branch coverage automatically includes an oracle for every branch</text><feedback><text>Coverage records which branches ran; it does not judge whether their results were right.</text></feedback></answer>
+    <answer fraction="0"><text>Because coverage always overcounts the branches actually executed</text><feedback><text>The issue is not miscounting; it is that running a branch is not the same as verifying its output.</text></feedback></answer>
+    <generalfeedback><text>Coverage tells you code was exercised, not that it behaved correctly. A branch can run and still return a wrong value; without an oracle asserting the expected behavior, the fault leaves no trace. So generation aimed purely at coverage maximizes execution, but detecting the resulting faults still depends entirely on the oracle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GA escaping a plateau</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a fitness landscape with a plateau, why can a genetic algorithm sometimes make progress where simple hill-climbing stalls?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its population diversity plus crossover and mutation let it explore several regions at once and jump across flat areas, rather than relying only on strictly-improving local moves</text><feedback><text>Correct — population-based exploration can cross plateaus that trap a single-point climber.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the fitness function with a constraint solver</text><feedback><text>A GA still uses fitness; it does not swap in a solver.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees finding the global optimum on any landscape</text><feedback><text>No metaheuristic guarantees the global optimum; a GA only improves the odds of escaping local traps.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the plateau by changing the program under test</text><feedback><text>A GA does not modify the program; testability transformations, not the GA itself, reshape such landscapes.</text></feedback></answer>
+    <generalfeedback><text>Hill-climbing accepts only strictly-improving neighbors, so on a plateau it has nowhere to go. A genetic algorithm keeps a diverse population and uses crossover and mutation to sample across the space, so it can drift across flat regions and recombine partial solutions. It still offers no guarantee — a truly flat landscape (e.g. an untreated flag problem) can defeat it too — but it is more robust than pure local search.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Reachability versus a good gradient</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a target branch is reachable in principle, a search-based generator is guaranteed to reach it regardless of the fitness landscape.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — reachability does not guarantee success; without a usable gradient (e.g. the flag problem) the search can fail to find the input.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — a reachable target can still be effectively unreachable for the search if the fitness landscape offers no gradient.</text></feedback></answer>
+    <generalfeedback><text>Reachability is a property of the program; search success also depends on the fitness landscape. If fitness is flat except at the solution (a plateau or an untreated flag), the metaheuristic has no direction and can fail to reach a target that is perfectly reachable in principle. This is why fitness design and testability transformations matter.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Regression seeding across versions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When generating tests for a new version, why is <strong>seeding</strong> from the previous version's tests and inputs useful?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prior inputs already reach much of the shared behavior, so the generator can start near relevant states and focus its budget on the changed code</text><feedback><text>Correct — reusing prior material gives a head start and concentrates effort on what changed.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the generator skip running the program entirely</text><feedback><text>Seeding provides starting inputs; the program still must be run to evaluate them.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the new version has no regressions</text><feedback><text>Seeding helps generation; it cannot guarantee the absence of regressions.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for an oracle on the new version</text><feedback><text>Judging correctness on the new version still needs an oracle.</text></feedback></answer>
+    <generalfeedback><text>Across versions, much behavior is unchanged, so the previous suite's inputs already drive the program deep into relevant states. Seeding the generator with them means it does not rediscover that behavior from scratch and can spend its budget exploring the modified code — a practical, effective use of prior information in regression settings.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Whole-suite versus one-target-at-a-time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Modern SBST tools often optimize a <strong>whole suite</strong> against all coverage targets at once instead of generating a separate test per target. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Targeting one goal at a time wastes budget on infeasible or hard targets and ignores that a single test can hit many goals; optimizing the whole suite spends effort where it pays off and exploits collateral coverage</text><feedback><text>Correct — a suite-level objective avoids stalling on one hard target and rewards tests that cover several goals at once.</text></feedback></answer>
+    <answer fraction="0"><text>Because a whole-suite objective removes the need for any fitness function</text><feedback><text>It still uses a fitness function — one aggregated over all targets — rather than removing it.</text></feedback></answer>
+    <answer fraction="0"><text>Because optimizing the whole suite guarantees 100% coverage on every program</text><feedback><text>No such guarantee exists; infeasible targets and hard landscapes still limit coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Because it makes an oracle unnecessary for the generated tests</text><feedback><text>Correctness judgment still needs an oracle regardless of how coverage is optimized.</text></feedback></answer>
+    <generalfeedback><text>Generating one test per target in sequence can burn the whole budget struggling with a single infeasible or gradient-free target while easy ones wait, and it ignores that one test often covers several targets. Whole-suite (and many-objective) approaches optimize a single suite against all remaining targets together, so the search allocates effort adaptively and banks the collateral coverage that individual tests provide.</text></generalfeedback>
+  </question>
+</quiz>

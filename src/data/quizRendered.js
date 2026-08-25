@@ -40144,5 +40144,2555 @@ export const QUIZ_RENDERED = {
         }
       ]
     }
+  },
+  "test-generation": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What automated test generation is",
+          "text": "<p>What does <strong>automated test generation</strong> primarily do?</p>",
+          "answers": [
+            {
+              "text": "It uses an algorithm to produce test inputs (and often test cases) automatically, instead of a human writing each one by hand",
+              "fraction": 100,
+              "feedback": "Correct — the aim is to synthesize inputs/cases mechanically rather than hand-authoring every one."
+            },
+            {
+              "text": "It automatically decides whether every generated test passed or failed without any oracle",
+              "fraction": 0,
+              "feedback": "Deciding pass/fail is the oracle problem, which generation does not solve on its own."
+            },
+            {
+              "text": "It compiles the program under test into an optimized binary",
+              "fraction": 0,
+              "feedback": "That is a compiler; test generation produces inputs/cases, not machine code."
+            },
+            {
+              "text": "It formally proves the program has no defects",
+              "fraction": 0,
+              "feedback": "Generation finds or exercises behavior; it does not prove correctness."
+            }
+          ],
+          "generalFeedback": "Automated test generation replaces the manual authoring of test inputs with an algorithm — random, search-based, symbolic, model-based, or combinatorial. It produces the inputs (and often the calling sequence); deciding whether the observed behavior is correct still needs a separate oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Random test generation",
+          "text": "<p>What characterizes <strong>random test generation</strong>?</p>",
+          "answers": [
+            {
+              "text": "It samples inputs from the input domain at random, cheaply and without using any feedback about what the program did",
+              "fraction": 100,
+              "feedback": "Correct — random generation is cheap and simple precisely because it ignores program feedback."
+            },
+            {
+              "text": "It solves path conditions with a constraint solver to reach specific branches",
+              "fraction": 0,
+              "feedback": "That describes symbolic/concolic generation, not random generation."
+            },
+            {
+              "text": "It evolves a population of inputs guided by a fitness function",
+              "fraction": 0,
+              "feedback": "That is search-based generation; random generation uses no fitness guidance."
+            },
+            {
+              "text": "It derives inputs from a finite-state model of the specification",
+              "fraction": 0,
+              "feedback": "That is model-based generation; random generation ignores any model."
+            }
+          ],
+          "generalFeedback": "Random generation picks inputs from the domain at random. It is cheap, easy to implement, and needs no analysis, but it is blind: it gets no feedback and so struggles to satisfy narrow conditions that only a tiny fraction of inputs meet.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Random vs directed generation",
+          "text": "<p>How does <strong>directed</strong> (guided) generation differ from <strong>random</strong> generation?</p>",
+          "answers": [
+            {
+              "text": "Directed generation uses information about the program (coverage, path conditions, or a fitness signal) to steer inputs toward a goal, while random generation samples blindly",
+              "fraction": 100,
+              "feedback": "Correct — the distinction is whether feedback about the program guides input selection."
+            },
+            {
+              "text": "Directed generation is always cheaper than random generation",
+              "fraction": 0,
+              "feedback": "Directed methods usually cost more per input (analysis, solving, evaluation); their benefit is reaching hard targets, not lower cost."
+            },
+            {
+              "text": "Random generation guarantees higher coverage than directed generation",
+              "fraction": 0,
+              "feedback": "Random generation often plateaus on hard-to-reach code; directed methods exist precisely to beat that."
+            },
+            {
+              "text": "Directed generation never needs an oracle, but random generation does",
+              "fraction": 0,
+              "feedback": "Both need an oracle to decide correctness; neither escapes the oracle problem."
+            }
+          ],
+          "generalFeedback": "Directed (guided) generation exploits feedback — coverage, path constraints, or a fitness value — to move inputs toward an objective such as an uncovered branch. Random generation ignores such feedback. Directed methods usually pay more per input but can reach targets random sampling almost never hits.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test oracle is",
+          "text": "<p>In test generation, what is a <strong>test oracle</strong>?</p>",
+          "answers": [
+            {
+              "text": "The mechanism that decides whether the program's behavior on a given input is correct",
+              "fraction": 100,
+              "feedback": "Correct — the oracle is what judges pass/fail; it is separate from generating the input."
+            },
+            {
+              "text": "The algorithm that generates the input values",
+              "fraction": 0,
+              "feedback": "That is the generator; the oracle judges the resulting behavior, it does not produce inputs."
+            },
+            {
+              "text": "The coverage metric used to measure a test suite",
+              "fraction": 0,
+              "feedback": "Coverage measures how much code ran; the oracle decides whether the output was correct."
+            },
+            {
+              "text": "The random seed used to make a run reproducible",
+              "fraction": 0,
+              "feedback": "A seed makes generation repeatable; it does not decide correctness."
+            }
+          ],
+          "generalFeedback": "A test oracle is whatever decides whether the observed behavior for an input is acceptable — an assertion, an expected value, a reference implementation, or a metamorphic relation. Generating an input is one problem; deciding whether the result is correct is the separate oracle problem.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a fitness function is",
+          "text": "<p>In search-based test generation, what is a <strong>fitness function</strong>?</p>",
+          "answers": [
+            {
+              "text": "A numeric measure of how close a candidate test is to achieving the goal, used to guide the search toward better tests",
+              "fraction": 100,
+              "feedback": "Correct — fitness scores candidates so the search can prefer and refine the promising ones."
+            },
+            {
+              "text": "A boolean that is only true when the goal is already reached",
+              "fraction": 0,
+              "feedback": "A pure boolean gives no gradient; effective fitness varies smoothly so the search knows which candidates are closer."
+            },
+            {
+              "text": "The oracle that decides whether the output is correct",
+              "fraction": 0,
+              "feedback": "Fitness measures progress toward a coverage goal; the oracle judges correctness — different roles."
+            },
+            {
+              "text": "The random seed passed to the input generator",
+              "fraction": 0,
+              "feedback": "The seed controls reproducibility, not how good a candidate is."
+            }
+          ],
+          "generalFeedback": "A fitness function maps a candidate test to a number saying how near it is to the objective (for example, reaching a target branch). A good fitness function provides a gradient — it improves gradually as tests get closer — so a metaheuristic can climb toward the goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Search-based software testing",
+          "text": "<p>What is <strong>search-based software testing (SBST)</strong>?</p>",
+          "answers": [
+            {
+              "text": "It reformulates test generation as an optimization problem and uses a metaheuristic (e.g. hill-climbing or a genetic algorithm) guided by a fitness function to search for tests that meet a goal",
+              "fraction": 100,
+              "feedback": "Correct — SBST turns \"find a good test\" into \"optimize this fitness function.\""
+            },
+            {
+              "text": "It exhaustively enumerates every possible input to the program",
+              "fraction": 0,
+              "feedback": "Exhaustive enumeration is usually infeasible; SBST searches selectively using fitness guidance."
+            },
+            {
+              "text": "It searches the source code for syntax errors before compilation",
+              "fraction": 0,
+              "feedback": "SBST searches the space of tests, not the source for syntax errors."
+            },
+            {
+              "text": "It queries a constraint solver for every branch condition",
+              "fraction": 0,
+              "feedback": "That is symbolic/concolic generation; SBST uses metaheuristic search driven by fitness."
+            }
+          ],
+          "generalFeedback": "SBST casts test generation as optimization: a candidate test is a point in a search space, a fitness function scores it against the goal, and a metaheuristic (hill-climbing, genetic algorithms, etc.) iteratively improves candidates toward a target such as covering a branch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model-based test generation",
+          "text": "<p>What is <strong>model-based test generation</strong>?</p>",
+          "answers": [
+            {
+              "text": "Deriving tests automatically from a model of intended behavior, such as a finite-state machine or formal specification",
+              "fraction": 100,
+              "feedback": "Correct — the tests come from traversing/analyzing a behavioral model."
+            },
+            {
+              "text": "Building a machine-learning model that predicts which tests will fail",
+              "fraction": 0,
+              "feedback": "That is failure prediction, not deriving tests from a behavioral model."
+            },
+            {
+              "text": "Randomly mutating the source code to create faulty versions",
+              "fraction": 0,
+              "feedback": "That is mutation testing; model-based generation derives tests from a spec/FSM."
+            },
+            {
+              "text": "Measuring how many model elements a hand-written suite covers",
+              "fraction": 0,
+              "feedback": "That is model coverage measurement; generation produces the tests from the model."
+            }
+          ],
+          "generalFeedback": "Model-based test generation starts from a model of the system's intended behavior — commonly a finite-state machine, statechart, or formal specification — and derives test sequences from it, for example paths that cover every transition. The model can also supply expected results, helping with the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a coverage target is",
+          "text": "<p>In coverage-driven generation, what is a <strong>coverage target</strong>?</p>",
+          "answers": [
+            {
+              "text": "A specific program element the generator is trying to exercise, such as a particular branch, statement, or path",
+              "fraction": 100,
+              "feedback": "Correct — the target is the concrete element the search is aiming to cover."
+            },
+            {
+              "text": "The total wall-clock time budget allowed for the whole run",
+              "fraction": 0,
+              "feedback": "That is a time budget, not a coverage target."
+            },
+            {
+              "text": "The oracle that decides whether the output is correct",
+              "fraction": 0,
+              "feedback": "The target is an element to reach; the oracle judges correctness separately."
+            },
+            {
+              "text": "The number of test cases the suite must contain",
+              "fraction": 0,
+              "feedback": "That is a suite-size constraint, not a coverage goal."
+            }
+          ],
+          "generalFeedback": "A coverage target is a concrete program element the generator wants a test to exercise — a branch, statement, condition, or path. Coverage-driven generation picks uncovered targets and searches for inputs that reach them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic/path-based generation",
+          "text": "<p>How does <strong>symbolic (path-based)</strong> test generation obtain an input that follows a chosen path?</p>",
+          "answers": [
+            {
+              "text": "It builds the path condition — the conjunction of branch constraints along the path — and solves it with a constraint solver to get concrete input values",
+              "fraction": 100,
+              "feedback": "Correct — solving the path condition yields inputs that drive execution down that path."
+            },
+            {
+              "text": "It flips random bits in an existing input until the path changes",
+              "fraction": 0,
+              "feedback": "That is mutation-style fuzzing, not symbolic solving of a path condition."
+            },
+            {
+              "text": "It evolves a population of inputs with a genetic algorithm",
+              "fraction": 0,
+              "feedback": "That is search-based generation; symbolic generation solves constraints instead."
+            },
+            {
+              "text": "It measures coverage of an existing suite and reports the gaps",
+              "fraction": 0,
+              "feedback": "That is coverage measurement, not input synthesis by constraint solving."
+            }
+          ],
+          "generalFeedback": "Symbolic (path-based) generation treats inputs as symbols, tracks the constraints imposed by each branch along a path (the path condition), and asks a constraint/SMT solver for concrete values satisfying it. Those values drive the program down the intended path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial test generation",
+          "text": "<p>What is the idea behind <strong>combinatorial</strong> test generation (e.g. pairwise)?</p>",
+          "answers": [
+            {
+              "text": "It systematically covers combinations of parameter values (e.g. every pair) with far fewer tests than trying every full combination",
+              "fraction": 100,
+              "feedback": "Correct — combinatorial generation guarantees interaction coverage while keeping the test count small."
+            },
+            {
+              "text": "It runs every possible combination of all parameter values exhaustively",
+              "fraction": 0,
+              "feedback": "Exhaustive combination explodes; combinatorial methods cover interactions (like all pairs) with a small set instead."
+            },
+            {
+              "text": "It solves the path condition of each program path",
+              "fraction": 0,
+              "feedback": "That is symbolic generation; combinatorial generation works over parameter-value combinations."
+            },
+            {
+              "text": "It selects inputs purely at random from the domain",
+              "fraction": 0,
+              "feedback": "Combinatorial generation is systematic about interactions, not random."
+            }
+          ],
+          "generalFeedback": "Combinatorial test generation covers interactions among parameters — most commonly all pairs (pairwise / 2-way) — using a small, systematically constructed set of tests. It rests on the observation that many defects are triggered by a small number of interacting parameters, so covering low-order combinations catches many of them cheaply.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Test as an individual in SBST",
+          "text": "<p>In search-based test generation, a candidate test can be represented as an \"individual\" that a metaheuristic evaluates with a fitness function and evolves toward the goal.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — encoding a test as an individual scored by fitness is exactly how SBST applies metaheuristic search."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SBST does encode a test as an individual (a point in the search space) and uses fitness to guide its evolution."
+            }
+          ],
+          "generalFeedback": "SBST borrows optimization vocabulary: a candidate test is an \"individual\" (or chromosome), its quality is a fitness value, and operators like mutation and crossover produce new candidates that the search selects among to approach the goal."
+        },
+        {
+          "type": "multichoice",
+          "name": "Seeding in test generation",
+          "text": "<p>What does <strong>seeding</strong> mean in test generation?</p>",
+          "answers": [
+            {
+              "text": "Starting the generator from useful prior information — such as constants from the code or existing tests — rather than from nothing",
+              "fraction": 100,
+              "feedback": "Correct — seeding injects known-useful values to give the search a head start."
+            },
+            {
+              "text": "Deleting redundant tests once generation finishes",
+              "fraction": 0,
+              "feedback": "That is minimization/reduction, not seeding."
+            },
+            {
+              "text": "Fixing the random seed only so runs are reproducible",
+              "fraction": 0,
+              "feedback": "A random seed governs reproducibility; seeding here means supplying useful starting values."
+            },
+            {
+              "text": "Deciding whether each generated output is correct",
+              "fraction": 0,
+              "feedback": "That is the oracle's job, unrelated to seeding."
+            }
+          ],
+          "generalFeedback": "Seeding supplies the generator with promising starting material — constants and string literals mined from the source, values from existing or regression tests, or a prior corpus — so the search does not begin blind. For instance, seeding the literal 42 lets a search satisfyfar sooner.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test-suite minimization",
+          "text": "<p>What is <strong>test-suite minimization</strong> (reduction)?</p>",
+          "answers": [
+            {
+              "text": "Removing redundant tests to obtain a smaller suite that still meets a chosen criterion, such as retaining the same coverage",
+              "fraction": 100,
+              "feedback": "Correct — minimization shrinks the suite while preserving a stated property like coverage."
+            },
+            {
+              "text": "Generating as many tests as possible to maximize the suite size",
+              "fraction": 0,
+              "feedback": "That is the opposite; minimization removes redundancy rather than adding tests."
+            },
+            {
+              "text": "Deciding whether each test's output is correct",
+              "fraction": 0,
+              "feedback": "That is the oracle's job, not minimization."
+            },
+            {
+              "text": "Solving path conditions to reach uncovered branches",
+              "fraction": 0,
+              "feedback": "That is symbolic generation; minimization prunes an existing suite."
+            }
+          ],
+          "generalFeedback": "Test-suite minimization removes tests judged redundant with respect to a criterion — typically keeping the same coverage with fewer tests. It lowers execution cost, but because it optimizes for coverage rather than fault detection, it can drop tests that would have caught real faults.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Generation is not verification",
+          "text": "<p>Automatically generating test inputs also automatically determines whether the program's output is correct.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — generating an input is separate from judging its output; deciding correctness needs an oracle."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — generation produces inputs but does not by itself decide correctness; that is the oracle problem."
+            }
+          ],
+          "generalFeedback": "Producing an input that reaches some behavior does not tell you whether that behavior is right. Deciding correctness is the separate oracle problem, and it is what keeps fully automated testing hard: generation is easy compared with verification."
+        },
+        {
+          "type": "multichoice",
+          "name": "Metamorphic relation as an oracle",
+          "text": "<p>What is a <strong>metamorphic relation</strong> used as a test oracle?</p>",
+          "answers": [
+            {
+              "text": "A relation between the outputs of related inputs that must hold even when the exact expected output is unknown",
+              "fraction": 100,
+              "feedback": "Correct — it checks a required relationship rather than a single expected value."
+            },
+            {
+              "text": "The single exact expected output value for one specific input",
+              "fraction": 0,
+              "feedback": "That is a conventional expected-value oracle; a metamorphic relation avoids needing the exact value."
+            },
+            {
+              "text": "A random seed relating two runs of the generator",
+              "fraction": 0,
+              "feedback": "A seed concerns reproducibility, not a correctness relation between outputs."
+            },
+            {
+              "text": "A coverage relation between two branches of the program",
+              "fraction": 0,
+              "feedback": "Metamorphic relations relate outputs of related inputs, not coverage of branches."
+            }
+          ],
+          "generalFeedback": "A metamorphic relation states how outputs of related inputs must relate — e.g.should equal, or sorting a permuted list should give the same result. It provides a partial oracle when the exact expected output is unknown, easing the oracle problem for automatically generated inputs.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why random struggles with narrow guards",
+          "text": "<p>Why does random generation struggle to satisfy a narrow condition like <code>if (x == 42)</code> for a 32-bit integer <code>x</code>?</p>",
+          "answers": [
+            {
+              "text": "Only one value out of about four billion satisfies it, so a blind random draw almost never hits it",
+              "fraction": 100,
+              "feedback": "Correct — the satisfying set is a vanishing fraction of the domain, and random sampling has no way to home in on it."
+            },
+            {
+              "text": "Random generators cannot produce the integer 42 at all",
+              "fraction": 0,
+              "feedback": "They can produce 42; the problem is the probability is astronomically low, not that the value is impossible."
+            },
+            {
+              "text": "Equality comparisons are undefined for integers",
+              "fraction": 0,
+              "feedback": "Integer equality is perfectly well-defined; the difficulty is purely the low hit probability."
+            },
+            {
+              "text": "Random generation always gets stuck in an infinite loop on such guards",
+              "fraction": 0,
+              "feedback": "It does not loop forever; it simply keeps drawing values that overwhelmingly miss the single target."
+            }
+          ],
+          "generalFeedback": "An exact-equality guard is satisfied by a tiny fraction of the domain (one value in ~4 billion for a 32-bit int). Random sampling gets no feedback telling it whether it is getting closer, so its chance of hitting the target per draw is negligible. Directed methods — seeding the constant, solving, or using a distance-based fitness — reach it far more reliably.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch distance guiding the search",
+          "text": "<p>For the target <code>if (x == 42)</code>, how does a <strong>branch-distance</strong> fitness function guide a search toward taking the true branch?</p>",
+          "answers": [
+            {
+              "text": "It scores a candidate by how faris from 42 (e.g. |x - 42|), so the search gets a gradient rewarding inputs that move closer",
+              "fraction": 100,
+              "feedback": "Correct — turning the predicate into a distance gives the search something to minimize."
+            },
+            {
+              "text": "It returns 1 if the branch is taken and 0 otherwise, giving the search a clear signal",
+              "fraction": 0,
+              "feedback": "A pure 0/1 signal gives no gradient — the search cannot tell x=41 is better than x=1000; branch distance provides exactly that gradient."
+            },
+            {
+              "text": "It solves the constraintwith an SMT solver",
+              "fraction": 0,
+              "feedback": "That is symbolic solving; branch-distance fitness is the search-based alternative that measures nearness numerically."
+            },
+            {
+              "text": "It counts how many statements the candidate executed in total",
+              "fraction": 0,
+              "feedback": "Total statements executed does not measure closeness to satisfying the specific predicate."
+            }
+          ],
+          "generalFeedback": "Branch distance converts a predicate into a number measuring how near an input is to flipping the branch. Fora natural distance is |x - 42|: smaller means closer. The search minimizes this distance, so it can tell that x=41 is far better than x=1000 and climb toward the target — something a flat 0/1 signal cannot support.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Stating the oracle problem",
+          "text": "<p>Which statement best captures the <strong>test oracle problem</strong>?</p>",
+          "answers": [
+            {
+              "text": "Generating inputs is comparatively easy, but deciding whether the resulting behavior is correct is hard and often needs human-supplied knowledge",
+              "fraction": 100,
+              "feedback": "Correct — the hard part is judging correctness, not producing inputs."
+            },
+            {
+              "text": "It is impossible to generate any input that reaches deep code",
+              "fraction": 0,
+              "feedback": "Reaching deep code is a coverage/generation challenge; the oracle problem is about judging correctness."
+            },
+            {
+              "text": "Constraint solvers are too slow to solve any path condition",
+              "fraction": 0,
+              "feedback": "Solver performance is a symbolic-execution concern, not the oracle problem."
+            },
+            {
+              "text": "Random generation always outperforms directed generation",
+              "fraction": 0,
+              "feedback": "That is a false claim about generation strategies, unrelated to the oracle problem."
+            }
+          ],
+          "generalFeedback": "The oracle problem is that, even with an input in hand, deciding whether the program's response is correct generally requires knowing the intended behavior — an expected value, an assertion, a reference, or a relation. Because this knowledge is expensive to obtain, the oracle, not input generation, is usually the bottleneck for fully automated testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic vs random vs search-based",
+          "text": "<p>Which correctly summarizes a trade-off among <strong>random</strong>, <strong>search-based</strong>, and <strong>symbolic</strong> generation for reaching a hard branch?</p>",
+          "answers": [
+            {
+              "text": "Random is cheapest but blind; search-based needs a fitness gradient to climb; symbolic can solve exact conditions but may hit solver limits and path explosion",
+              "fraction": 100,
+              "feedback": "Correct — each buys reach with a different cost and failure mode."
+            },
+            {
+              "text": "All three are equally effective and have identical costs",
+              "fraction": 0,
+              "feedback": "They differ sharply: random is cheap/blind, search-based needs gradient, symbolic needs a tractable solver."
+            },
+            {
+              "text": "Symbolic generation never needs a constraint solver",
+              "fraction": 0,
+              "feedback": "Solving path conditions with a solver is the essence of symbolic generation."
+            },
+            {
+              "text": "Search-based generation works equally well regardless of the fitness landscape",
+              "fraction": 0,
+              "feedback": "Without a gradient (e.g. the flag problem) search-based generation degenerates toward random."
+            },
+            {
+              "text": "Random generation is the only one of the three that needs no oracle",
+              "fraction": 0,
+              "feedback": "All three need an oracle to judge correctness; that is independent of how inputs are generated."
+            }
+          ],
+          "generalFeedback": "Random generation is cheap and needs no analysis but is blind, so it misses narrow targets. Search-based generation reaches targets when the fitness function offers a gradient, but stalls when it does not. Symbolic generation can solve exact conditions precisely, yet is limited by solver capability (nonlinear arithmetic, external calls) and by path explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Generating from an FSM",
+          "text": "<p>Given a finite-state machine specifying a component, how does model-based generation typically produce tests?</p>",
+          "answers": [
+            {
+              "text": "It derives input sequences by traversing the FSM to cover chosen elements, such as every state or every transition",
+              "fraction": 100,
+              "feedback": "Correct — walks over the FSM become test sequences with a coverage aim."
+            },
+            {
+              "text": "It flips random bits in the compiled component until it changes state",
+              "fraction": 0,
+              "feedback": "That is mutation-style fuzzing of inputs, not deriving sequences from the model."
+            },
+            {
+              "text": "It measures how many source lines the component has",
+              "fraction": 0,
+              "feedback": "That is a size metric, not test derivation from a model."
+            },
+            {
+              "text": "It proves the FSM is deadlock-free without producing any tests",
+              "fraction": 0,
+              "feedback": "That is model checking of a property; model-based generation instead emits concrete test sequences."
+            }
+          ],
+          "generalFeedback": "From an FSM, model-based generation constructs input sequences that traverse the model to satisfy a coverage goal — e.g. visiting every state, exercising every transition, or covering transition pairs. Because the model also encodes expected responses, it can additionally supply expected outputs, helping with the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Approach level",
+          "text": "<p>In search-based generation, what does the <strong>approach level</strong> measure for a target branch?</p>",
+          "answers": [
+            {
+              "text": "How many of the target's controlling (nesting) decision nodes execution still failed to satisfy before it diverged away from the target",
+              "fraction": 100,
+              "feedback": "Correct — approach level counts the unsatisfied enclosing decisions between where the run went wrong and the target."
+            },
+            {
+              "text": "The numeric distance of a variable from satisfying the immediate predicate",
+              "fraction": 0,
+              "feedback": "That is branch distance; approach level is about how many enclosing decisions remained unsatisfied."
+            },
+            {
+              "text": "The total number of statements in the whole program",
+              "fraction": 0,
+              "feedback": "Program size is unrelated to how close a run came to the target."
+            },
+            {
+              "text": "The wall-clock time the candidate took to run",
+              "fraction": 0,
+              "feedback": "Run time is not a measure of proximity to the target branch."
+            }
+          ],
+          "generalFeedback": "Approach level counts, for a run that missed the target, how many of the target's control-dependent (enclosing) decision nodes were not taken toward the target — i.e. how many nesting levels away execution diverged. It is combined with the branch distance at the point of divergence to form the overall fitness for that target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Hill-climbing vs genetic algorithm",
+          "text": "<p>How do <strong>hill-climbing</strong> and a <strong>genetic algorithm</strong> differ as metaheuristics for test generation?</p>",
+          "answers": [
+            {
+              "text": "Hill-climbing improves a single candidate by local moves and can stick in local optima; a genetic algorithm evolves a population with crossover and mutation, better at escaping local optima",
+              "fraction": 100,
+              "feedback": "Correct — local single-point search versus population-based evolution is the key distinction."
+            },
+            {
+              "text": "Hill-climbing uses a constraint solver; a genetic algorithm uses random sampling only",
+              "fraction": 0,
+              "feedback": "Neither is defined by a solver; both are metaheuristics using a fitness function, differing in local vs population search."
+            },
+            {
+              "text": "A genetic algorithm evaluates no fitness function, unlike hill-climbing",
+              "fraction": 0,
+              "feedback": "Both rely on a fitness function; the GA uses it to select among a population."
+            },
+            {
+              "text": "They are two names for the same algorithm",
+              "fraction": 0,
+              "feedback": "They are distinct search strategies with different mechanics."
+            }
+          ],
+          "generalFeedback": "Hill-climbing keeps one candidate and moves to a better neighbor each step, which is fast but can get trapped in a local optimum or on a plateau. A genetic algorithm maintains a population and applies selection, crossover, and mutation, giving it more ways to escape local optima at the cost of more evaluations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage-driven generation loop",
+          "text": "<p>What is the core loop of <strong>coverage-driven</strong> test generation?</p>",
+          "answers": [
+            {
+              "text": "Identify an uncovered target, generate inputs aimed at reaching it, add successful tests, and repeat on the remaining uncovered targets",
+              "fraction": 100,
+              "feedback": "Correct — it iteratively attacks the coverage gaps."
+            },
+            {
+              "text": "Generate one huge random batch once and never look at coverage again",
+              "fraction": 0,
+              "feedback": "That is plain random generation; coverage-driven generation uses coverage feedback to pick targets each iteration."
+            },
+            {
+              "text": "Delete tests until coverage drops to zero",
+              "fraction": 0,
+              "feedback": "That is destructive and pointless; coverage-driven generation adds tests to raise coverage."
+            },
+            {
+              "text": "Decide correctness of each output and stop when all are correct",
+              "fraction": 0,
+              "feedback": "That describes oracle checking; coverage-driven generation is about reaching uncovered elements."
+            }
+          ],
+          "generalFeedback": "Coverage-driven generation measures current coverage, selects an uncovered target (branch, statement, path), and directs generation — search-based, symbolic, or otherwise — at reaching it. Tests that hit new targets are kept, and the process repeats on the remaining gaps until the budget runs out or coverage is satisfied.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why pairwise cuts test count",
+          "text": "<p>Why can <strong>pairwise</strong> generation cover all value pairs with far fewer tests than the full Cartesian product?</p>",
+          "answers": [
+            {
+              "text": "Each single test simultaneously covers many different value pairs, so a small set of well-chosen tests can include every pair",
+              "fraction": 100,
+              "feedback": "Correct — one test contributes many pairs at once, so a compact covering array suffices."
+            },
+            {
+              "text": "It silently ignores most of the parameters",
+              "fraction": 0,
+              "feedback": "Pairwise still involves all parameters; it just does not require every full combination of their values."
+            },
+            {
+              "text": "It assumes only one parameter ever matters at a time",
+              "fraction": 0,
+              "feedback": "Pairwise covers two-way interactions, not single parameters in isolation."
+            },
+            {
+              "text": "It replaces the parameters with random noise",
+              "fraction": 0,
+              "feedback": "Pairwise is a systematic construction of a covering array, not random noise."
+            }
+          ],
+          "generalFeedback": "In a covering array, each row (test) fixes a value for every parameter and therefore covers many parameter-value pairs at once. Because pairs are shared across tests, a carefully constructed small set can include every pair, so the count grows roughly logarithmically in the number of parameters rather than as the full product.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concolic combines concrete and symbolic",
+          "text": "<p>How does <strong>concolic</strong> generation combine concrete and symbolic execution to explore new paths?</p>",
+          "answers": [
+            {
+              "text": "It runs the program on a concrete input while collecting symbolic path constraints, then negates one branch constraint and solves it to get an input for a new path",
+              "fraction": 100,
+              "feedback": "Correct — concrete execution keeps it grounded while symbolic constraints let it steer to new branches."
+            },
+            {
+              "text": "It only ever runs concrete inputs and never records any constraints",
+              "fraction": 0,
+              "feedback": "That would be plain testing; concolic execution records symbolic constraints alongside the concrete run."
+            },
+            {
+              "text": "It only reasons symbolically and never runs the program concretely",
+              "fraction": 0,
+              "feedback": "That is pure symbolic execution; concolic deliberately pairs a concrete run with the symbolic trace."
+            },
+            {
+              "text": "It evolves a population of inputs using crossover and mutation",
+              "fraction": 0,
+              "feedback": "That is a genetic algorithm; concolic uses concrete-plus-symbolic execution with a solver."
+            }
+          ],
+          "generalFeedback": "Concolic (concrete + symbolic) execution runs the program on a concrete input, recording the symbolic path condition as it goes. To reach a new path it negates one branch constraint, solves the modified condition for concrete values, and reruns. Grounding in a concrete run lets it use real values where the solver cannot reason (e.g. some library calls).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential oracle",
+          "text": "<p>How does a <strong>differential</strong> oracle judge a generated input?</p>",
+          "answers": [
+            {
+              "text": "It runs the input through two or more independent implementations and flags a disagreement in their outputs as a likely fault",
+              "fraction": 100,
+              "feedback": "Correct — a discrepancy between implementations signals that at least one is wrong."
+            },
+            {
+              "text": "It measures how many branches the input covered",
+              "fraction": 0,
+              "feedback": "That is coverage, not an oracle comparing outputs."
+            },
+            {
+              "text": "It requires a hand-written expected value for every input",
+              "fraction": 0,
+              "feedback": "Differential testing avoids needing a hand-written expected value by comparing implementations against each other."
+            },
+            {
+              "text": "It negates a branch constraint to reach a new path",
+              "fraction": 0,
+              "feedback": "That is concolic exploration, not a differential oracle."
+            }
+          ],
+          "generalFeedback": "A differential oracle runs the same generated input through two or more implementations that should agree (versions, a reference implementation, or alternative libraries) and treats any output disagreement as evidence of a fault. It sidesteps needing an exact expected value, though it cannot catch a bug shared identically by all implementations.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Assertions as oracles",
+          "text": "<p>Executable assertions embedded in the program (or generated with the test) can act as a partial oracle for automatically generated inputs.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — an assertion that fails on a generated input flags incorrect behavior, serving as a partial oracle."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Assertions do serve as partial oracles: when a generated input makes one fail, it reveals a fault."
+            }
+          ],
+          "generalFeedback": "Assertions encode properties that must hold at runtime. When an automatically generated input violates one, it exposes incorrect behavior, so assertions act as a partial oracle. They are partial because they check only the properties actually asserted, not full correctness."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the fitness gradient matters",
+          "text": "<p>Why does the presence of a <strong>gradient</strong> in the fitness function matter so much for search-based generation?</p>",
+          "answers": [
+            {
+              "text": "A gradient lets the search tell which candidates are closer to the goal, so it can improve step by step instead of guessing blindly",
+              "fraction": 100,
+              "feedback": "Correct — without a sense of \"closer,\" metaheuristic search has nothing to climb."
+            },
+            {
+              "text": "A gradient guarantees the target is reachable in exactly one step",
+              "fraction": 0,
+              "feedback": "It does not guarantee one step; it provides direction so the search can progress over many steps."
+            },
+            {
+              "text": "A gradient removes the need for any fitness evaluation",
+              "fraction": 0,
+              "feedback": "The gradient is a property of the fitness values, which must still be evaluated."
+            },
+            {
+              "text": "A gradient makes the oracle unnecessary",
+              "fraction": 0,
+              "feedback": "Fitness guides coverage; the oracle still judges correctness independently."
+            }
+          ],
+          "generalFeedback": "Metaheuristic search improves candidates by moving toward better fitness. If the fitness function varies smoothly with nearness to the goal (a gradient), the search can follow it. If fitness is flat except at the goal (as with a boolean flag), there is nothing to climb and the search degenerates toward random guessing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seeding constants to hit x==42",
+          "text": "<p>A generator repeatedly fails to satisfy <code>if (x == 42)</code>. Which practical tactic most directly helps?</p>",
+          "answers": [
+            {
+              "text": "Seed the generator with constants mined from the source (including 42) so candidate inputs draw from those literal values",
+              "fraction": 100,
+              "feedback": "Correct — mining and seeding the literal makes hitting the exact guard likely."
+            },
+            {
+              "text": "Increase the population size but keep sampling values purely uniformly at random",
+              "fraction": 0,
+              "feedback": "More uniform random draws barely change the negligible per-draw odds of hitting one exact value."
+            },
+            {
+              "text": "Remove the fitness function so the search runs faster",
+              "fraction": 0,
+              "feedback": "Removing guidance makes it worse, reducing the search toward blind random."
+            },
+            {
+              "text": "Switch the oracle to a metamorphic relation",
+              "fraction": 0,
+              "feedback": "The oracle judges correctness; it does not help the generator reach the guard."
+            }
+          ],
+          "generalFeedback": "Constant seeding mines literals from the code (here, 42) and feeds them into the pool of candidate values. Because the exact constant is now available to the generator, satisfyingbecomes likely rather than astronomically improbable. This complements branch-distance fitness and symbolic solving as ways to beat narrow equality guards.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a GA does with test individuals",
+          "text": "<p>In a genetic algorithm for test generation, what do the operators do to the test individuals?</p>",
+          "answers": [
+            {
+              "text": "Selection favors fitter tests, crossover recombines parts of two tests, and mutation makes small random changes — producing a new generation",
+              "fraction": 100,
+              "feedback": "Correct — selection, crossover, and mutation together evolve the population."
+            },
+            {
+              "text": "They solve the path condition of each individual with an SMT solver",
+              "fraction": 0,
+              "feedback": "That is symbolic/concolic generation, not the genetic operators."
+            },
+            {
+              "text": "They delete every individual whose fitness is not already maximal",
+              "fraction": 0,
+              "feedback": "Selection is probabilistic and preserves diversity; it does not simply delete all non-optimal individuals."
+            },
+            {
+              "text": "They compute code coverage without running the tests",
+              "fraction": 0,
+              "feedback": "Fitness usually requires running the tests; the operators evolve individuals, they do not statically compute coverage."
+            }
+          ],
+          "generalFeedback": "A genetic algorithm evolves a population of test individuals: selection probabilistically keeps fitter ones, crossover combines material from two parents, and mutation perturbs an individual slightly. Iterating these operators, guided by the fitness function, moves the population toward tests that meet the goal.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Branch distance plus approach level",
+          "text": "<p>For a deeply nested target branch, why do search-based tools combine <strong>approach level</strong> with <strong>branch distance</strong> rather than using either alone?</p>",
+          "answers": [
+            {
+              "text": "Approach level says how many enclosing decisions execution still missed, and branch distance measures how nearly the decision where it diverged was satisfied — together they give a gradient across the nesting",
+              "fraction": 100,
+              "feedback": "Correct — the pair yields a smooth fitness that improves both as more enclosing decisions are satisfied and as the diverging one gets closer."
+            },
+            {
+              "text": "Approach level alone already gives a continuous gradient at every nesting level",
+              "fraction": 0,
+              "feedback": "Approach level is an integer that only changes when a whole enclosing decision flips; branch distance fills the gap between those steps."
+            },
+            {
+              "text": "Branch distance alone can express how many nesting levels were missed",
+              "fraction": 0,
+              "feedback": "Branch distance is local to one predicate; it does not encode how many enclosing decisions remain — that is approach level's job."
+            },
+            {
+              "text": "Combining them removes the need to execute the program",
+              "fraction": 0,
+              "feedback": "Both are computed from actual executions of candidate inputs; combining them does not avoid running the program."
+            }
+          ],
+          "generalFeedback": "For a nested target, a run may diverge several enclosing decisions before it. Approach level counts those still-unsatisfied enclosing decisions (coarse, integer steps); at the point of divergence, branch distance measures how nearly that decision was satisfied (fine gradient between steps). The usual fitness is approach level plus a normalized branch distance, so improving either lowers fitness and gives the search a continuous slope down through the nesting.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the oracle problem limits automation",
+          "text": "<p>Why does the oracle problem fundamentally limit <em>fully</em> automated testing, even with excellent input generation?</p>",
+          "answers": [
+            {
+              "text": "Generation can reach behavior automatically, but deciding whether that behavior is correct generally requires the intended specification, which must ultimately come from humans",
+              "fraction": 100,
+              "feedback": "Correct — reaching behavior is not the same as knowing it is right; correctness knowledge has to come from somewhere."
+            },
+            {
+              "text": "Because generated inputs can never reach more than half of the branches",
+              "fraction": 0,
+              "feedback": "Reachability is a coverage limitation, not the oracle problem; the oracle concerns judging correctness."
+            },
+            {
+              "text": "Because constraint solvers cannot handle any arithmetic",
+              "fraction": 0,
+              "feedback": "Solvers handle much arithmetic; that is a symbolic-execution limitation, not the oracle problem."
+            },
+            {
+              "text": "Because random generation is always faster than the program under test",
+              "fraction": 0,
+              "feedback": "Relative speed is irrelevant to whether outputs can be judged correct."
+            }
+          ],
+          "generalFeedback": "Automation is strong at producing inputs and reaching behavior, but \"the program did X\" says nothing about whether X is what it should do. Judging that needs the intended behavior — a specification, expected values, or a relation — which is not derivable from the code being tested. Partial oracles (assertions, crashes, metamorphic and differential relations) narrow the gap but do not close it, so a human-supplied notion of correctness remains the limit.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When metamorphic relations help",
+          "text": "<p>Why are <strong>metamorphic relations</strong> especially valuable for automatically generated inputs?</p>",
+          "answers": [
+            {
+              "text": "They let you check correctness without knowing each input's exact expected output, so they scale to the many inputs a generator produces",
+              "fraction": 100,
+              "feedback": "Correct — checking a relation across related inputs sidesteps per-input expected values."
+            },
+            {
+              "text": "They guarantee detection of every possible fault in the program",
+              "fraction": 0,
+              "feedback": "They only catch faults that violate the chosen relation; other faults can pass unnoticed."
+            },
+            {
+              "text": "They generate the inputs as well as judging them",
+              "fraction": 0,
+              "feedback": "They are an oracle technique; the inputs still come from a separate generator (though relations often prescribe a follow-up input)."
+            },
+            {
+              "text": "They remove the need to run the program",
+              "fraction": 0,
+              "feedback": "Checking a relation requires running the program on the related inputs."
+            }
+          ],
+          "generalFeedback": "For automatically generated inputs, hand-writing an expected output for each is infeasible. A metamorphic relation instead constrains how outputs of related inputs must relate (e.g. a source and a transformed follow-up input). If the relation is violated, a fault is exposed — no per-input expected value needed. The limitation is that it only catches violations of the specific relations chosen.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Hybrid concolic and search",
+          "text": "<p>Why might a tool <strong>combine</strong> concolic execution with search-based generation?</p>",
+          "answers": [
+            {
+              "text": "Search handles code where a solver is weak (nonlinear or opaque calls) using fitness, while concolic solving cracks exact conditions search struggles with — each covers the other's blind spot",
+              "fraction": 100,
+              "feedback": "Correct — the two techniques fail on complementary situations, so combining them widens reach."
+            },
+            {
+              "text": "Because concolic execution and search-based generation are identical, so combining them is free",
+              "fraction": 0,
+              "feedback": "They are different techniques with different strengths; the point of combining is complementarity, not redundancy."
+            },
+            {
+              "text": "To avoid ever needing to run the program under test",
+              "fraction": 0,
+              "feedback": "Both approaches run the program (concolic concretely, search to evaluate fitness)."
+            },
+            {
+              "text": "Because the combination removes the oracle problem",
+              "fraction": 0,
+              "feedback": "Neither technique judges correctness; the oracle problem remains regardless."
+            }
+          ],
+          "generalFeedback": "Concolic solving excels at exact conditions likebut stalls on constraints the solver cannot express (nonlinear arithmetic, hashing, external calls). Search-based generation can push through those with fitness guidance but stalls on narrow equalities that offer no gradient. A hybrid uses each where it is strong, so together they cover targets neither reaches alone.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimization vs fault detection",
+          "text": "<p>What is the key risk when minimizing a generated suite to preserve the same coverage?</p>",
+          "answers": [
+            {
+              "text": "Two tests with identical coverage can differ in fault-detecting power, so dropping one as \"redundant\" can lower fault detection even though coverage is unchanged",
+              "fraction": 100,
+              "feedback": "Correct — coverage equivalence does not imply equal fault-finding ability."
+            },
+            {
+              "text": "Minimization always increases both coverage and fault detection",
+              "fraction": 0,
+              "feedback": "Minimization removes tests; it cannot increase coverage, and it can reduce fault detection."
+            },
+            {
+              "text": "Minimization changes the program under test",
+              "fraction": 0,
+              "feedback": "Minimization prunes tests, not the program."
+            },
+            {
+              "text": "Minimization guarantees the same fault detection whenever coverage is kept",
+              "fraction": 0,
+              "feedback": "No such guarantee holds — equal coverage can still mean different faults caught."
+            }
+          ],
+          "generalFeedback": "Minimization keeps a subset that preserves a criterion, usually coverage. But two tests that cover the same elements can exercise them with different data and thus catch different faults. Removing one as coverage-redundant can therefore reduce the suite's fault-detection ability even while coverage stays constant — the trade-off is smaller/faster suites versus possible loss of fault detection.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The flag problem",
+          "text": "<p>Consider <code>bool flag = (a == b); ... if (flag) { target; }</code>. Why is this a hard case (\"flag problem\") for search-based generation?</p>",
+          "answers": [
+            {
+              "text": "Atthe branch distance is only 0 or 1, giving a flat fitness landscape with no gradient telling the search how to makeapproach",
+              "fraction": 100,
+              "feedback": "Correct — the boolean collapses the distance information, leaving a plateau."
+            },
+            {
+              "text": "The flag variable makes the branch impossible to ever take",
+              "fraction": 0,
+              "feedback": "The branch is reachable when a==b; the difficulty is the missing gradient, not impossibility."
+            },
+            {
+              "text": "Boolean variables cannot be represented in a search space",
+              "fraction": 0,
+              "feedback": "Booleans are representable; the issue is that they discard the distance signal from."
+            },
+            {
+              "text": "The flag guarantees an infinite loop during evaluation",
+              "fraction": 0,
+              "feedback": "There is no loop implied; the problem is a flat fitness landscape."
+            }
+          ],
+          "generalFeedback": "Storing a predicate's result in a boolean flag throws away how nearly it was satisfied. Atthe branch distance is just 0 or 1, so fitness is flat (a plateau) except at the solution, and the search gets no direction to drivetoward. Remedies include flag removal/transformation or testability transformations that recover the underlying distance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Normalizing branch distance",
+          "text": "<p>Why is the branch distance usually <strong>normalized</strong> (e.g. into [0,1)) before being added to the approach level?</p>",
+          "answers": [
+            {
+              "text": "So one more satisfied enclosing decision (a lower approach level) always dominates any branch-distance improvement, keeping the two components correctly ordered",
+              "fraction": 100,
+              "feedback": "Correct — normalization ensures progressing a whole nesting level outranks merely getting closer within the current one."
+            },
+            {
+              "text": "Because branch distance would otherwise be negative",
+              "fraction": 0,
+              "feedback": "Branch distance is defined to be non-negative; normalization is about scale, not sign."
+            },
+            {
+              "text": "To convert the fitness into a boolean pass/fail value",
+              "fraction": 0,
+              "feedback": "Normalization keeps a continuous value; it does not collapse fitness to a boolean."
+            },
+            {
+              "text": "To make the oracle unnecessary",
+              "fraction": 0,
+              "feedback": "Normalization concerns the fitness scale, not correctness judgment."
+            }
+          ],
+          "generalFeedback": "Fitness is typically approach level plus a normalized branch distance. Bounding the distance below 1 guarantees that reducing the approach level by one (satisfying another enclosing decision) always improves fitness more than any within-level distance gain, so the search prefers real structural progress while still using the fine gradient inside a level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path explosion in symbolic generation",
+          "text": "<p>What is <strong>path explosion</strong>, and why does it limit symbolic/concolic generation?</p>",
+          "answers": [
+            {
+              "text": "The number of feasible paths can grow combinatorially (e.g. with branches and loop iterations), so enumerating and solving them all becomes infeasible",
+              "fraction": 100,
+              "feedback": "Correct — the path count blows up, exhausting time and solver budget before all paths are covered."
+            },
+            {
+              "text": "The constraint solver returns too many satisfying assignments for a single path",
+              "fraction": 0,
+              "feedback": "Path explosion is about the number of paths to explore, not the number of solutions per path."
+            },
+            {
+              "text": "The generated inputs become too large to store",
+              "fraction": 0,
+              "feedback": "The blow-up is in paths to analyze, not primarily input size."
+            },
+            {
+              "text": "The program under test runs out of memory at runtime",
+              "fraction": 0,
+              "feedback": "Path explosion is an analysis-scaling problem for the generator, not a runtime memory fault of the target."
+            }
+          ],
+          "generalFeedback": "Each branch can double the number of paths, and loops multiply them further, so the feasible-path count grows combinatorially. Symbolic/concolic generation must pick and solve path conditions for these, and exhaustively covering them becomes intractable. Tools mitigate with search heuristics, path pruning/merging, and bounding loop unrolling.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Implicit crash oracle limits",
+          "text": "<p>Relying only on crashes as the oracle for generated inputs has a key limitation. What is it?</p>",
+          "answers": [
+            {
+              "text": "It catches only failures that manifest as a crash/abort; a wrong-but-non-crashing result passes unnoticed",
+              "fraction": 100,
+              "feedback": "Correct — silent incorrect outputs slip past a crash-only oracle."
+            },
+            {
+              "text": "It cannot detect segmentation faults",
+              "fraction": 0,
+              "feedback": "Crashes such as segmentation faults are exactly what it does detect; it misses non-crashing wrong results."
+            },
+            {
+              "text": "It requires an exact expected value for every input",
+              "fraction": 0,
+              "feedback": "A crash oracle needs no expected value — that is its appeal and also why it misses logic errors."
+            },
+            {
+              "text": "It prevents the generator from reaching deep branches",
+              "fraction": 0,
+              "feedback": "The oracle choice does not constrain which branches generation can reach."
+            }
+          ],
+          "generalFeedback": "A crash (or sanitizer/assert) oracle is fully automatic and cheap, which is why fuzzers rely on it. But it only flags failures that surface as an observable crash. A function that returns a wrong value without crashing produces no signal, so crash-only oracles miss most logic errors — motivating richer partial oracles like metamorphic and differential relations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential vs metamorphic choice",
+          "text": "<p>You are generating inputs for a numerical routine and have <em>no</em> independent reference implementation. Which partial oracle is applicable, and why?</p>",
+          "answers": [
+            {
+              "text": "A metamorphic relation, because it checks a required relationship among outputs of related inputs and needs no second implementation",
+              "fraction": 100,
+              "feedback": "Correct — with no reference to compare against, a metamorphic relation still gives a check."
+            },
+            {
+              "text": "A differential oracle, because it works from the single implementation alone",
+              "fraction": 0,
+              "feedback": "Differential testing needs at least two implementations to compare; with only one it is not applicable."
+            },
+            {
+              "text": "Neither, because without a reference no automated check is ever possible",
+              "fraction": 0,
+              "feedback": "Metamorphic relations provide a check even without a reference, so an automated partial oracle is still possible."
+            },
+            {
+              "text": "A coverage target, because coverage decides correctness",
+              "fraction": 0,
+              "feedback": "Coverage measures what ran, not whether the output is correct."
+            }
+          ],
+          "generalFeedback": "A differential oracle needs two or more implementations to disagree; with only one, it cannot be used. A metamorphic relation instead checks how outputs of related inputs must relate (e.g. scaling all inputs scales the output predictably), which requires only the one implementation — making it the applicable partial oracle when no reference exists.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage reached does not mean bug found",
+          "text": "<p>A generator achieves 100% branch coverage. Why does this <em>not</em> establish that the program is correct?</p>",
+          "answers": [
+            {
+              "text": "Executing every branch shows the code ran, but without an oracle checking each result, wrong outputs on covered branches go undetected",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution, not correctness; the oracle is still required."
+            },
+            {
+              "text": "100% branch coverage is mathematically impossible, so the claim must be false",
+              "fraction": 0,
+              "feedback": "Full branch coverage is often achievable; the point is that coverage alone does not judge correctness."
+            },
+            {
+              "text": "Branch coverage automatically includes an oracle for every branch",
+              "fraction": 0,
+              "feedback": "Coverage records which branches ran; it does not judge whether their results were right."
+            },
+            {
+              "text": "Because coverage always overcounts the branches actually executed",
+              "fraction": 0,
+              "feedback": "The issue is not miscounting; it is that running a branch is not the same as verifying its output."
+            }
+          ],
+          "generalFeedback": "Coverage tells you code was exercised, not that it behaved correctly. A branch can run and still return a wrong value; without an oracle asserting the expected behavior, the fault leaves no trace. So generation aimed purely at coverage maximizes execution, but detecting the resulting faults still depends entirely on the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GA escaping a plateau",
+          "text": "<p>On a fitness landscape with a plateau, why can a genetic algorithm sometimes make progress where simple hill-climbing stalls?</p>",
+          "answers": [
+            {
+              "text": "Its population diversity plus crossover and mutation let it explore several regions at once and jump across flat areas, rather than relying only on strictly-improving local moves",
+              "fraction": 100,
+              "feedback": "Correct — population-based exploration can cross plateaus that trap a single-point climber."
+            },
+            {
+              "text": "It replaces the fitness function with a constraint solver",
+              "fraction": 0,
+              "feedback": "A GA still uses fitness; it does not swap in a solver."
+            },
+            {
+              "text": "It guarantees finding the global optimum on any landscape",
+              "fraction": 0,
+              "feedback": "No metaheuristic guarantees the global optimum; a GA only improves the odds of escaping local traps."
+            },
+            {
+              "text": "It removes the plateau by changing the program under test",
+              "fraction": 0,
+              "feedback": "A GA does not modify the program; testability transformations, not the GA itself, reshape such landscapes."
+            }
+          ],
+          "generalFeedback": "Hill-climbing accepts only strictly-improving neighbors, so on a plateau it has nowhere to go. A genetic algorithm keeps a diverse population and uses crossover and mutation to sample across the space, so it can drift across flat regions and recombine partial solutions. It still offers no guarantee — a truly flat landscape (e.g. an untreated flag problem) can defeat it too — but it is more robust than pure local search.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Reachability versus a good gradient",
+          "text": "<p>If a target branch is reachable in principle, a search-based generator is guaranteed to reach it regardless of the fitness landscape.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — reachability does not guarantee success; without a usable gradient (e.g. the flag problem) the search can fail to find the input."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a reachable target can still be effectively unreachable for the search if the fitness landscape offers no gradient."
+            }
+          ],
+          "generalFeedback": "Reachability is a property of the program; search success also depends on the fitness landscape. If fitness is flat except at the solution (a plateau or an untreated flag), the metaheuristic has no direction and can fail to reach a target that is perfectly reachable in principle. This is why fitness design and testability transformations matter."
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression seeding across versions",
+          "text": "<p>When generating tests for a new version, why is <strong>seeding</strong> from the previous version's tests and inputs useful?</p>",
+          "answers": [
+            {
+              "text": "Prior inputs already reach much of the shared behavior, so the generator can start near relevant states and focus its budget on the changed code",
+              "fraction": 100,
+              "feedback": "Correct — reusing prior material gives a head start and concentrates effort on what changed."
+            },
+            {
+              "text": "It lets the generator skip running the program entirely",
+              "fraction": 0,
+              "feedback": "Seeding provides starting inputs; the program still must be run to evaluate them."
+            },
+            {
+              "text": "It guarantees the new version has no regressions",
+              "fraction": 0,
+              "feedback": "Seeding helps generation; it cannot guarantee the absence of regressions."
+            },
+            {
+              "text": "It removes the need for an oracle on the new version",
+              "fraction": 0,
+              "feedback": "Judging correctness on the new version still needs an oracle."
+            }
+          ],
+          "generalFeedback": "Across versions, much behavior is unchanged, so the previous suite's inputs already drive the program deep into relevant states. Seeding the generator with them means it does not rediscover that behavior from scratch and can spend its budget exploring the modified code — a practical, effective use of prior information in regression settings.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Whole-suite versus one-target-at-a-time",
+          "text": "<p>Modern SBST tools often optimize a <strong>whole suite</strong> against all coverage targets at once instead of generating a separate test per target. Why?</p>",
+          "answers": [
+            {
+              "text": "Targeting one goal at a time wastes budget on infeasible or hard targets and ignores that a single test can hit many goals; optimizing the whole suite spends effort where it pays off and exploits collateral coverage",
+              "fraction": 100,
+              "feedback": "Correct — a suite-level objective avoids stalling on one hard target and rewards tests that cover several goals at once."
+            },
+            {
+              "text": "Because a whole-suite objective removes the need for any fitness function",
+              "fraction": 0,
+              "feedback": "It still uses a fitness function — one aggregated over all targets — rather than removing it."
+            },
+            {
+              "text": "Because optimizing the whole suite guarantees 100% coverage on every program",
+              "fraction": 0,
+              "feedback": "No such guarantee exists; infeasible targets and hard landscapes still limit coverage."
+            },
+            {
+              "text": "Because it makes an oracle unnecessary for the generated tests",
+              "fraction": 0,
+              "feedback": "Correctness judgment still needs an oracle regardless of how coverage is optimized."
+            }
+          ],
+          "generalFeedback": "Generating one test per target in sequence can burn the whole budget struggling with a single infeasible or gradient-free target while easy ones wait, and it ignores that one test often covers several targets. Whole-suite (and many-objective) approaches optimize a single suite against all remaining targets together, so the search allocates effort adaptively and banks the collateral coverage that individual tests provide.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是自動化測試生成",
+          "text": "<p><strong>自動化測試生成（automated test generation）</strong>主要在做什麼？</p>",
+          "answers": [
+            {
+              "text": "它以演算法自動產生測試輸入（通常也包含測試案例），而非由人逐一手寫",
+              "fraction": 100,
+              "feedback": "正確——目標是機械化地合成輸入／案例，而非手動撰寫每一個。"
+            },
+            {
+              "text": "它在沒有任何預言（oracle）的情況下自動判斷每個生成的測試通過或失敗",
+              "fraction": 0,
+              "feedback": "判斷通過／失敗屬於預言問題，生成本身無法解決。"
+            },
+            {
+              "text": "它把受測程式編譯成最佳化過的二進位檔",
+              "fraction": 0,
+              "feedback": "那是編譯器；測試生成產生的是輸入／案例，而非機器碼。"
+            },
+            {
+              "text": "它形式化地證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "生成會找出或執行行為，但不證明正確性。"
+            }
+          ],
+          "generalFeedback": "自動化測試生成以演算法取代人工撰寫測試輸入——可為隨機、搜尋式、符號式、模型式或組合式。它產生輸入（通常也含呼叫序列）；至於觀察到的行為是否正確，仍需另一個預言來判斷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨機測試生成",
+          "text": "<p><strong>隨機測試生成</strong>的特徵為何？</p>",
+          "answers": [
+            {
+              "text": "它從輸入定義域中隨機抽樣輸入，成本低廉，且不使用任何關於程式行為的回饋",
+              "fraction": 100,
+              "feedback": "正確——隨機生成之所以便宜簡單，正是因為它忽略程式的回饋。"
+            },
+            {
+              "text": "它用約束求解器求解路徑條件以到達特定分支",
+              "fraction": 0,
+              "feedback": "那描述的是符號／混合執行生成，而非隨機生成。"
+            },
+            {
+              "text": "它以適應度函數引導、演化一群輸入",
+              "fraction": 0,
+              "feedback": "那是搜尋式生成；隨機生成不使用任何適應度引導。"
+            },
+            {
+              "text": "它從規格的有限狀態模型推導輸入",
+              "fraction": 0,
+              "feedback": "那是模型式生成；隨機生成忽略任何模型。"
+            }
+          ],
+          "generalFeedback": "隨機生成從定義域中隨機挑選輸入。它便宜、易實作、不需分析，但很盲目：得不到回饋，因此難以滿足只有極小部分輸入能符合的狹窄條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨機與導向式生成",
+          "text": "<p><strong>導向式（引導式）</strong>生成與<strong>隨機</strong>生成有何不同？</p>",
+          "answers": [
+            {
+              "text": "導向式生成利用關於程式的資訊（覆蓋率、路徑條件或適應度訊號）將輸入朝目標推進，隨機生成則盲目抽樣",
+              "fraction": 100,
+              "feedback": "正確——區別在於是否用程式的回饋來引導輸入選擇。"
+            },
+            {
+              "text": "導向式生成必定比隨機生成便宜",
+              "fraction": 0,
+              "feedback": "導向式方法每個輸入的成本通常更高（分析、求解、評估）；其好處是到達困難目標，而非更低成本。"
+            },
+            {
+              "text": "隨機生成保證比導向式生成得到更高覆蓋率",
+              "fraction": 0,
+              "feedback": "隨機生成常在難以到達的程式碼上停滯；導向式方法正是為了克服這點而存在。"
+            },
+            {
+              "text": "導向式生成永遠不需要預言，而隨機生成需要",
+              "fraction": 0,
+              "feedback": "兩者都需要預言來判斷正確性；沒有哪一種能逃離預言問題。"
+            }
+          ],
+          "generalFeedback": "導向式（引導式）生成利用回饋——覆蓋率、路徑約束或適應度值——把輸入朝目標（如未覆蓋的分支）推進。隨機生成忽略這類回饋。導向式方法每個輸入通常付出更多，但能到達隨機抽樣幾乎永遠碰不到的目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是測試預言",
+          "text": "<p>在測試生成中，<strong>測試預言（test oracle）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "用來判斷程式對某個輸入的行為是否正確的機制",
+              "fraction": 100,
+              "feedback": "正確——預言負責判斷通過／失敗，與生成輸入是分開的。"
+            },
+            {
+              "text": "產生輸入值的演算法",
+              "fraction": 0,
+              "feedback": "那是生成器；預言判斷產生的行為，並不產生輸入。"
+            },
+            {
+              "text": "用來量測測試套件的覆蓋率指標",
+              "fraction": 0,
+              "feedback": "覆蓋率量測程式執行了多少；預言判斷輸出是否正確。"
+            },
+            {
+              "text": "用來讓執行可重現的亂數種子",
+              "fraction": 0,
+              "feedback": "種子讓生成可重複，並不判斷正確性。"
+            }
+          ],
+          "generalFeedback": "測試預言是用來判斷某輸入對應之觀察行為是否可接受的東西——斷言、預期值、參考實作或蛻變關係。產生輸入是一個問題；判斷結果是否正確則是另一個獨立的預言問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是適應度函數",
+          "text": "<p>在搜尋式測試生成中，<strong>適應度函數（fitness function）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "一個數值量度，表示候選測試離達成目標有多近，用來引導搜尋朝更好的測試前進",
+              "fraction": 100,
+              "feedback": "正確——適應度為候選評分，讓搜尋能偏好並精煉有希望者。"
+            },
+            {
+              "text": "一個只有在目標已達成時才為真的布林值",
+              "fraction": 0,
+              "feedback": "純布林值沒有梯度；有效的適應度會平滑變化，讓搜尋知道哪些候選更接近。"
+            },
+            {
+              "text": "判斷輸出是否正確的預言",
+              "fraction": 0,
+              "feedback": "適應度量度朝覆蓋目標的進展；預言判斷正確性——角色不同。"
+            },
+            {
+              "text": "傳給輸入生成器的亂數種子",
+              "fraction": 0,
+              "feedback": "種子控制可重現性，而非候選的好壞。"
+            }
+          ],
+          "generalFeedback": "適應度函數把候選測試映射為一個數字，表示它離目標（例如到達目標分支）有多近。好的適應度函數提供梯度——測試越接近就逐步變好——讓後設啟發式演算法能朝目標攀升。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋式軟體測試",
+          "text": "<p>什麼是<strong>搜尋式軟體測試（SBST）</strong>？</p>",
+          "answers": [
+            {
+              "text": "它把測試生成重述為最佳化問題，用由適應度函數引導的後設啟發式演算法（如爬山法或基因演算法）搜尋能達成目標的測試",
+              "fraction": 100,
+              "feedback": "正確——SBST 把「找一個好測試」轉為「最佳化這個適應度函數」。"
+            },
+            {
+              "text": "它窮舉列出程式所有可能的輸入",
+              "fraction": 0,
+              "feedback": "窮舉通常不可行；SBST 以適應度引導有選擇地搜尋。"
+            },
+            {
+              "text": "它在編譯前搜尋原始碼中的語法錯誤",
+              "fraction": 0,
+              "feedback": "SBST 搜尋的是測試空間，而非原始碼中的語法錯誤。"
+            },
+            {
+              "text": "它為每個分支條件查詢約束求解器",
+              "fraction": 0,
+              "feedback": "那是符號／混合執行生成；SBST 使用由適應度驅動的後設啟發式搜尋。"
+            }
+          ],
+          "generalFeedback": "SBST 把測試生成當作最佳化：一個候選測試是搜尋空間中的一點，適應度函數依目標為它評分，後設啟發式演算法（爬山法、基因演算法等）反覆改良候選，朝如覆蓋某分支的目標前進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模型式測試生成",
+          "text": "<p>什麼是<strong>模型式測試生成（model-based test generation）</strong>？</p>",
+          "answers": [
+            {
+              "text": "從描述預期行為的模型（如有限狀態機或形式規格）自動推導測試",
+              "fraction": 100,
+              "feedback": "正確——測試來自對行為模型的走訪／分析。"
+            },
+            {
+              "text": "建立一個機器學習模型來預測哪些測試會失敗",
+              "fraction": 0,
+              "feedback": "那是失敗預測，而非從行為模型推導測試。"
+            },
+            {
+              "text": "隨機變異原始碼以製造出有缺陷的版本",
+              "fraction": 0,
+              "feedback": "那是變異測試；模型式生成是從規格／FSM 推導測試。"
+            },
+            {
+              "text": "量測手寫套件覆蓋了多少模型元素",
+              "fraction": 0,
+              "feedback": "那是模型覆蓋率量測；生成是從模型產生測試。"
+            }
+          ],
+          "generalFeedback": "模型式測試生成從系統預期行為的模型出發——常見為有限狀態機、狀態圖或形式規格——並由此推導測試序列，例如覆蓋每條轉移的路徑。模型也能提供預期結果，有助於預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是覆蓋目標",
+          "text": "<p>在覆蓋率驅動的生成中，<strong>覆蓋目標（coverage target）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "生成器試圖執行到的特定程式元素，例如某個分支、敘述或路徑",
+              "fraction": 100,
+              "feedback": "正確——目標就是搜尋所要覆蓋的具體元素。"
+            },
+            {
+              "text": "允許整個執行使用的總時鐘時間預算",
+              "fraction": 0,
+              "feedback": "那是時間預算，而非覆蓋目標。"
+            },
+            {
+              "text": "判斷輸出是否正確的預言",
+              "fraction": 0,
+              "feedback": "目標是要到達的元素；預言另外判斷正確性。"
+            },
+            {
+              "text": "套件必須包含的測試案例數量",
+              "fraction": 0,
+              "feedback": "那是套件大小限制，而非覆蓋目標。"
+            }
+          ],
+          "generalFeedback": "覆蓋目標是生成器想讓某測試執行到的具體程式元素——分支、敘述、條件或路徑。覆蓋率驅動的生成挑選未覆蓋的目標，並搜尋能到達它的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號／路徑式生成",
+          "text": "<p><strong>符號式（路徑式）</strong>測試生成如何取得能沿某條路徑執行的輸入？</p>",
+          "answers": [
+            {
+              "text": "它建立路徑條件——沿該路徑各分支約束的合取——並用約束求解器求解，得到具體輸入值",
+              "fraction": 100,
+              "feedback": "正確——求解路徑條件即得到能驅動執行沿該路徑前進的輸入。"
+            },
+            {
+              "text": "它在既有輸入中隨機翻轉位元，直到路徑改變",
+              "fraction": 0,
+              "feedback": "那是變異式模糊測試，而非對路徑條件的符號求解。"
+            },
+            {
+              "text": "它用基因演算法演化一群輸入",
+              "fraction": 0,
+              "feedback": "那是搜尋式生成；符號式生成改為求解約束。"
+            },
+            {
+              "text": "它量測既有套件的覆蓋率並回報缺口",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測，而非以約束求解合成輸入。"
+            }
+          ],
+          "generalFeedback": "符號式（路徑式）生成把輸入視為符號，追蹤沿路徑各分支所加的約束（路徑條件），並向約束／SMT 求解器索取滿足它的具體值。這些值驅動程式沿預期路徑前進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合式測試生成",
+          "text": "<p><strong>組合式（combinatorial）</strong>測試生成（如成對測試）背後的想法是什麼？</p>",
+          "answers": [
+            {
+              "text": "它以遠少於窮舉所有完整組合的測試數，系統化地覆蓋參數值的各種組合（例如每一對）",
+              "fraction": 100,
+              "feedback": "正確——組合式生成在維持互動覆蓋的同時，讓測試數保持很小。"
+            },
+            {
+              "text": "它窮舉執行所有參數值的每一種完整組合",
+              "fraction": 0,
+              "feedback": "完整組合會爆炸；組合式方法改以一小組測試覆蓋互動（如所有成對）。"
+            },
+            {
+              "text": "它求解每條程式路徑的路徑條件",
+              "fraction": 0,
+              "feedback": "那是符號式生成；組合式生成作用於參數值的組合。"
+            },
+            {
+              "text": "它純粹從定義域隨機挑選輸入",
+              "fraction": 0,
+              "feedback": "組合式生成對互動是系統化的，而非隨機。"
+            }
+          ],
+          "generalFeedback": "組合式測試生成覆蓋參數間的互動——最常見的是所有成對（成對／2-way）——用一小組系統化建構的測試達成。它立基於一個觀察：許多缺陷是由少數互動參數觸發，因此便宜地覆蓋低階組合便能抓到許多缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "SBST 中把測試視為個體",
+          "text": "<p>在搜尋式測試生成中，候選測試可被表示為一個「個體」，由後設啟發式演算法以適應度函數評估、並朝目標演化。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——把測試編碼為由適應度評分的個體，正是 SBST 套用後設啟發式搜尋的方式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SBST 確實把測試編碼為個體（搜尋空間中的一點），並用適應度引導其演化。"
+            }
+          ],
+          "generalFeedback": "SBST 借用最佳化的詞彙：候選測試是「個體」（或染色體），其品質是適應度值，變異與交配等運算子產生新候選，供搜尋在其中選擇以逼近目標。"
+        },
+        {
+          "type": "multichoice",
+          "name": "測試生成中的播種",
+          "text": "<p>在測試生成中，<strong>播種（seeding）</strong>是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "讓生成器從有用的先驗資訊出發——例如程式碼中的常數或既有測試——而非從零開始",
+              "fraction": 100,
+              "feedback": "正確——播種注入已知有用的值，給搜尋一個起步優勢。"
+            },
+            {
+              "text": "在生成結束後刪除多餘的測試",
+              "fraction": 0,
+              "feedback": "那是最小化／縮減，而非播種。"
+            },
+            {
+              "text": "只是固定亂數種子，讓執行可重現",
+              "fraction": 0,
+              "feedback": "亂數種子關乎可重現性；此處的播種指提供有用的起始值。"
+            },
+            {
+              "text": "判斷每個生成輸出是否正確",
+              "fraction": 0,
+              "feedback": "那是預言的工作，與播種無關。"
+            }
+          ],
+          "generalFeedback": "播種為生成器提供有希望的起始素材——從原始碼挖掘的常數與字串字面值、來自既有或回歸測試的值，或先前的語料庫——讓搜尋不必盲目起步。例如播種字面值 42，能讓搜尋更快滿足。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試套件最小化",
+          "text": "<p>什麼是<strong>測試套件最小化（minimization／縮減）</strong>？</p>",
+          "answers": [
+            {
+              "text": "移除多餘的測試，得到一個較小、但仍滿足所選準則（例如維持相同覆蓋率）的套件",
+              "fraction": 100,
+              "feedback": "正確——最小化在保留既定性質（如覆蓋率）的前提下縮小套件。"
+            },
+            {
+              "text": "盡量產生更多測試以最大化套件大小",
+              "fraction": 0,
+              "feedback": "那正好相反；最小化是移除冗餘，而非增加測試。"
+            },
+            {
+              "text": "判斷每個測試的輸出是否正確",
+              "fraction": 0,
+              "feedback": "那是預言的工作，而非最小化。"
+            },
+            {
+              "text": "求解路徑條件以到達未覆蓋的分支",
+              "fraction": 0,
+              "feedback": "那是符號式生成；最小化是修剪既有套件。"
+            }
+          ],
+          "generalFeedback": "測試套件最小化依某準則移除被判為冗餘的測試——通常是在維持相同覆蓋率下減少測試數。它降低執行成本，但因為是以覆蓋率而非找錯能力為最佳化目標，可能會刪掉原本能抓到真實缺陷的測試。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "生成不等於驗證",
+          "text": "<p>自動生成測試輸入，也就自動判定了程式的輸出是否正確。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不對——生成輸入與判斷其輸出是分開的；判定正確性需要預言。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——生成產生輸入，但本身不判定正確性；那是預言問題。"
+            }
+          ],
+          "generalFeedback": "產生一個能觸及某行為的輸入，並不告訴你該行為是否正確。判定正確性是另一個獨立的預言問題，也正是它讓全自動測試困難：相較於驗證，生成是容易的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "把蛻變關係當作預言",
+          "text": "<p>被用作測試預言的<strong>蛻變關係（metamorphic relation）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "相關輸入之輸出間必須成立的一種關係，即使不知道確切的預期輸出也能檢查",
+              "fraction": 100,
+              "feedback": "正確——它檢查的是必需的關係，而非單一預期值。"
+            },
+            {
+              "text": "某個特定輸入的單一確切預期輸出值",
+              "fraction": 0,
+              "feedback": "那是傳統的預期值預言；蛻變關係正是要避免需要確切值。"
+            },
+            {
+              "text": "連結生成器兩次執行的亂數種子",
+              "fraction": 0,
+              "feedback": "種子關乎可重現性，而非輸出間的正確性關係。"
+            },
+            {
+              "text": "程式兩個分支之間的覆蓋關係",
+              "fraction": 0,
+              "feedback": "蛻變關係連結的是相關輸入的輸出，而非分支的覆蓋。"
+            }
+          ],
+          "generalFeedback": "蛻變關係陳述相關輸入的輸出之間必須如何關聯——例如應等於，或對排序後的清單再排序其排列應得到相同結果。當確切預期輸出未知時，它提供了部分預言，緩解自動生成輸入的預言問題。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何隨機難以通過狹窄守衛",
+          "text": "<p>對 32 位元整數 <code>x</code>，為何隨機生成難以滿足像 <code>if (x == 42)</code> 這樣的狹窄條件？</p>",
+          "answers": [
+            {
+              "text": "大約四十億個值中只有一個能滿足它，因此盲目的隨機抽取幾乎永遠碰不到",
+              "fraction": 100,
+              "feedback": "正確——滿足集只佔定義域極小一部分，而隨機抽樣無從朝它收斂。"
+            },
+            {
+              "text": "隨機生成器根本無法產生整數 42",
+              "fraction": 0,
+              "feedback": "它能產生 42；問題在於機率低到微乎其微，而非該值不可能出現。"
+            },
+            {
+              "text": "整數的等於比較是未定義的",
+              "fraction": 0,
+              "feedback": "整數等於是完全良定義的；困難純粹來自命中機率極低。"
+            },
+            {
+              "text": "隨機生成在這類守衛上總是陷入無窮迴圈",
+              "fraction": 0,
+              "feedback": "它不會永遠迴圈；只是不斷抽到絕大多數都錯過那唯一目標的值。"
+            }
+          ],
+          "generalFeedback": "確切等於的守衛只被定義域中極小一部分滿足（32 位元整數約四十億分之一）。隨機抽樣得不到任何「是否更接近」的回饋，因此每次抽取命中的機率微乎其微。導向式方法——播種該常數、求解，或使用基於距離的適應度——則可靠得多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以分支距離引導搜尋",
+          "text": "<p>對目標 <code>if (x == 42)</code>，<strong>分支距離（branch-distance）</strong>適應度函數如何引導搜尋走向真分支？</p>",
+          "answers": [
+            {
+              "text": "它以離 42 有多遠來為候選評分（例如 |x - 42|），使搜尋獲得獎勵更接近之輸入的梯度",
+              "fraction": 100,
+              "feedback": "正確——把述詞轉成距離，就給了搜尋一個可最小化的量。"
+            },
+            {
+              "text": "它在分支被走到時回傳 1、否則回傳 0，給搜尋一個明確訊號",
+              "fraction": 0,
+              "feedback": "純 0/1 訊號沒有梯度——搜尋無法分辨 x=41 比 x=1000 好；分支距離正好提供這個梯度。"
+            },
+            {
+              "text": "它用 SMT 求解器求解約束",
+              "fraction": 0,
+              "feedback": "那是符號求解；分支距離適應度是搜尋式的替代方案，以數值量度接近程度。"
+            },
+            {
+              "text": "它計算候選總共執行了多少敘述",
+              "fraction": 0,
+              "feedback": "總執行敘述數並不衡量離滿足該特定述詞有多近。"
+            }
+          ],
+          "generalFeedback": "分支距離把述詞轉為一個數字，量度輸入離翻轉該分支有多近。對，自然的距離是 |x - 42|：越小越近。搜尋最小化此距離，於是能分辨 x=41 遠優於 x=1000 並朝目標攀升——這是平坦的 0/1 訊號辦不到的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "陳述預言問題",
+          "text": "<p>下列何者最能刻畫<strong>測試預言問題</strong>？</p>",
+          "answers": [
+            {
+              "text": "生成輸入相對容易，但判斷所得行為是否正確卻很難，且往往需要人所提供的知識",
+              "fraction": 100,
+              "feedback": "正確——困難處在於判斷正確性，而非產生輸入。"
+            },
+            {
+              "text": "不可能生成任何能到達深層程式碼的輸入",
+              "fraction": 0,
+              "feedback": "到達深層程式碼是覆蓋／生成的挑戰；預言問題關乎判斷正確性。"
+            },
+            {
+              "text": "約束求解器太慢，無法求解任何路徑條件",
+              "fraction": 0,
+              "feedback": "求解器效能是符號執行的議題，而非預言問題。"
+            },
+            {
+              "text": "隨機生成總是勝過導向式生成",
+              "fraction": 0,
+              "feedback": "那是關於生成策略的錯誤論斷，與預言問題無關。"
+            }
+          ],
+          "generalFeedback": "預言問題是指：即使手上有了輸入，判斷程式的回應是否正確通常仍需知道預期行為——預期值、斷言、參考或關係。由於取得這種知識代價高昂，成為全自動測試瓶頸的通常是預言，而非輸入生成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號、隨機與搜尋式的比較",
+          "text": "<p>對於到達一個困難分支，下列何者正確概括<strong>隨機</strong>、<strong>搜尋式</strong>與<strong>符號式</strong>生成之間的取捨？</p>",
+          "answers": [
+            {
+              "text": "隨機最便宜但盲目；搜尋式需要適應度梯度才能攀升；符號式能求解確切條件，但可能碰上求解器限制與路徑爆炸",
+              "fraction": 100,
+              "feedback": "正確——三者各以不同的成本與失敗模式換取到達能力。"
+            },
+            {
+              "text": "三者同樣有效，且成本完全相同",
+              "fraction": 0,
+              "feedback": "差異很大：隨機便宜／盲目、搜尋式需梯度、符號式需可處理的求解器。"
+            },
+            {
+              "text": "符號式生成永遠不需要約束求解器",
+              "fraction": 0,
+              "feedback": "以求解器求解路徑條件正是符號式生成的本質。"
+            },
+            {
+              "text": "搜尋式生成不論適應度地形如何都同樣有效",
+              "fraction": 0,
+              "feedback": "沒有梯度時（例如旗標問題），搜尋式生成會退化成接近隨機。"
+            },
+            {
+              "text": "三者中只有隨機生成不需要預言",
+              "fraction": 0,
+              "feedback": "三者都需要預言來判斷正確性；那與如何生成輸入無關。"
+            }
+          ],
+          "generalFeedback": "隨機生成便宜、不需分析但盲目，故錯過狹窄目標。搜尋式生成在適應度提供梯度時能到達目標，否則停滯。符號式生成能精確求解確切條件，卻受限於求解器能力（非線性算術、外部呼叫）與路徑爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從 FSM 生成",
+          "text": "<p>給定一台描述某元件的有限狀態機，模型式生成通常如何產生測試？</p>",
+          "answers": [
+            {
+              "text": "它藉由走訪 FSM 來覆蓋所選元素（如每個狀態或每條轉移），從而推導出輸入序列",
+              "fraction": 100,
+              "feedback": "正確——對 FSM 的走訪化為帶有覆蓋目標的測試序列。"
+            },
+            {
+              "text": "它在編譯後的元件中隨機翻轉位元，直到它改變狀態",
+              "fraction": 0,
+              "feedback": "那是對輸入的變異式模糊測試，而非從模型推導序列。"
+            },
+            {
+              "text": "它量測元件有多少行原始碼",
+              "fraction": 0,
+              "feedback": "那是規模指標，而非從模型推導測試。"
+            },
+            {
+              "text": "它證明該 FSM 無死結，但不產生任何測試",
+              "fraction": 0,
+              "feedback": "那是對性質的模型檢驗；模型式生成則會產出具體的測試序列。"
+            }
+          ],
+          "generalFeedback": "從 FSM 出發，模型式生成建構走訪模型的輸入序列以滿足覆蓋目標——例如造訪每個狀態、執行每條轉移，或覆蓋轉移對。由於模型也編碼了預期回應，它還能提供預期輸出，有助於預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "接近層級",
+          "text": "<p>在搜尋式生成中，<strong>接近層級（approach level）</strong>對一個目標分支量度什麼？</p>",
+          "answers": [
+            {
+              "text": "在執行偏離目標之前，還有多少個控制（巢狀）該目標的決策節點未被朝目標方向滿足",
+              "fraction": 100,
+              "feedback": "正確——接近層級計數在執行走偏處與目標之間，還有多少個包住目標的決策未被滿足。"
+            },
+            {
+              "text": "某變數離滿足當下述詞的數值距離",
+              "fraction": 0,
+              "feedback": "那是分支距離；接近層級關乎還有多少包住目標的決策未被滿足。"
+            },
+            {
+              "text": "整支程式的敘述總數",
+              "fraction": 0,
+              "feedback": "程式規模與執行離目標多近無關。"
+            },
+            {
+              "text": "候選執行所花的時鐘時間",
+              "fraction": 0,
+              "feedback": "執行時間不衡量離目標分支的接近程度。"
+            }
+          ],
+          "generalFeedback": "對錯過目標的執行，接近層級計數該目標控制相依（外圍）的決策節點中，有多少個未朝目標方向被走到——亦即執行在幾層巢狀之外就偏離了。它會與偏離點處的分支距離結合，形成該目標的整體適應度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "爬山法與基因演算法",
+          "text": "<p>作為測試生成的後設啟發式，<strong>爬山法（hill-climbing）</strong>與<strong>基因演算法（genetic algorithm）</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "爬山法以局部移動改良單一候選，可能卡在局部最佳；基因演算法以交配與變異演化一群候選，較擅長跳脫局部最佳",
+              "fraction": 100,
+              "feedback": "正確——單點局部搜尋 vs 族群式演化正是關鍵差異。"
+            },
+            {
+              "text": "爬山法使用約束求解器，基因演算法只用隨機抽樣",
+              "fraction": 0,
+              "feedback": "兩者都不以求解器定義；兩者都用適應度函數，差別在局部與族群搜尋。"
+            },
+            {
+              "text": "基因演算法不評估任何適應度函數，爬山法則會",
+              "fraction": 0,
+              "feedback": "兩者都仰賴適應度函數；基因演算法用它在族群中做選擇。"
+            },
+            {
+              "text": "它們是同一個演算法的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是機制不同的兩種搜尋策略。"
+            }
+          ],
+          "generalFeedback": "爬山法只保留一個候選，每步移到較好的鄰居，快速但可能困在局部最佳或平台。基因演算法維持一個族群並套用選擇、交配與變異，因此有更多方式跳脫局部最佳，代價是更多次評估。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率驅動生成的迴圈",
+          "text": "<p><strong>覆蓋率驅動</strong>測試生成的核心迴圈是什麼？</p>",
+          "answers": [
+            {
+              "text": "找出一個未覆蓋的目標、生成瞄準它的輸入、把成功的測試加入，並在剩下的未覆蓋目標上重複",
+              "fraction": 100,
+              "feedback": "正確——它反覆攻擊覆蓋缺口。"
+            },
+            {
+              "text": "一次生成一大批隨機輸入，之後再也不看覆蓋率",
+              "fraction": 0,
+              "feedback": "那是普通隨機生成；覆蓋率驅動生成每一輪都用覆蓋率回饋來挑目標。"
+            },
+            {
+              "text": "不斷刪測試直到覆蓋率降到零",
+              "fraction": 0,
+              "feedback": "那既破壞又無意義；覆蓋率驅動生成是加測試以提高覆蓋率。"
+            },
+            {
+              "text": "判斷每個輸出的正確性，並在全部正確時停止",
+              "fraction": 0,
+              "feedback": "那描述的是預言檢查；覆蓋率驅動生成關乎到達未覆蓋的元素。"
+            }
+          ],
+          "generalFeedback": "覆蓋率驅動生成量測當前覆蓋率，挑選一個未覆蓋的目標（分支、敘述、路徑），並把生成——搜尋式、符號式或其他——導向到達它。命中新目標的測試被保留，此過程在剩餘缺口上重複，直到預算用盡或覆蓋率達標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何成對測試能減少測試數",
+          "text": "<p>為何<strong>成對（pairwise）</strong>生成能以遠少於完整笛卡兒積的測試數覆蓋所有值對？</p>",
+          "answers": [
+            {
+              "text": "每個測試同時覆蓋許多不同的值對，因此一小組精選的測試就能囊括每一對",
+              "fraction": 100,
+              "feedback": "正確——一個測試一次貢獻許多對，故一個緊湊的覆蓋陣列即足夠。"
+            },
+            {
+              "text": "它悄悄忽略大部分參數",
+              "fraction": 0,
+              "feedback": "成對仍涉及所有參數；只是不要求它們所有值的每一種完整組合。"
+            },
+            {
+              "text": "它假設一次只有一個參數重要",
+              "fraction": 0,
+              "feedback": "成對覆蓋的是兩兩互動，而非孤立的單一參數。"
+            },
+            {
+              "text": "它以隨機雜訊取代參數",
+              "fraction": 0,
+              "feedback": "成對是覆蓋陣列的系統化建構，而非隨機雜訊。"
+            }
+          ],
+          "generalFeedback": "在覆蓋陣列中，每一列（測試）為每個參數固定一個值，因此一次覆蓋許多參數值對。由於對在各測試間共享，精心建構的一小組即可囊括每一對，故測試數大致隨參數數目呈對數成長，而非完整乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混合執行結合具體與符號",
+          "text": "<p><strong>混合執行（concolic）</strong>生成如何結合具體與符號執行以探索新路徑？</p>",
+          "answers": [
+            {
+              "text": "它以具體輸入執行程式並同時收集符號路徑約束，然後把某個分支約束取反並求解，得到走新路徑的輸入",
+              "fraction": 100,
+              "feedback": "正確——具體執行保持腳踏實地，符號約束則讓它能導向新分支。"
+            },
+            {
+              "text": "它只執行具體輸入，從不記錄任何約束",
+              "fraction": 0,
+              "feedback": "那只是普通測試；混合執行會在具體執行旁記錄符號約束。"
+            },
+            {
+              "text": "它只做符號推理，從不具體執行程式",
+              "fraction": 0,
+              "feedback": "那是純符號執行；混合執行刻意把具體執行與符號軌跡配對。"
+            },
+            {
+              "text": "它用交配與變異演化一群輸入",
+              "fraction": 0,
+              "feedback": "那是基因演算法；混合執行用具體加符號執行搭配求解器。"
+            }
+          ],
+          "generalFeedback": "混合執行（具體＋符號）以具體輸入執行程式，過程中記錄符號路徑條件。要到達新路徑時，它把某個分支約束取反、求解修改後的條件得到具體值，再重跑。以具體執行為基礎，讓它能在求解器無法推理處（如某些函式庫呼叫）使用真實值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差分預言",
+          "text": "<p><strong>差分（differential）</strong>預言如何判斷一個生成的輸入？</p>",
+          "answers": [
+            {
+              "text": "它把輸入送入兩個或更多獨立實作，並把它們輸出的不一致視為可能的缺陷",
+              "fraction": 100,
+              "feedback": "正確——實作之間出現差異，代表至少有一個是錯的。"
+            },
+            {
+              "text": "它量測輸入覆蓋了多少分支",
+              "fraction": 0,
+              "feedback": "那是覆蓋率，而非比較輸出的預言。"
+            },
+            {
+              "text": "它要求為每個輸入手寫預期值",
+              "fraction": 0,
+              "feedback": "差分測試藉由讓多個實作互相比對，避免了需要手寫預期值。"
+            },
+            {
+              "text": "它把某個分支約束取反以到達新路徑",
+              "fraction": 0,
+              "feedback": "那是混合執行的探索，而非差分預言。"
+            }
+          ],
+          "generalFeedback": "差分預言把同一個生成輸入送入兩個或更多本應一致的實作（不同版本、參考實作或替代函式庫），並把任何輸出不一致當作缺陷證據。它避開了需要確切預期值，但無法抓到所有實作以相同方式共有的錯誤。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "把斷言當作預言",
+          "text": "<p>嵌在程式中（或隨測試一起生成）的可執行斷言，可作為自動生成輸入的部分預言。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——當生成的輸入使某斷言失敗，即標示出不正確的行為，成為部分預言。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "斷言確實可作為部分預言：當生成的輸入使其失敗時，就揭露了缺陷。"
+            }
+          ],
+          "generalFeedback": "斷言編碼了執行時必須成立的性質。當自動生成的輸入違反其中之一，就暴露出不正確的行為，故斷言可作為部分預言。之所以「部分」，是因為它只檢查實際被斷言的性質，而非完整正確性。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何適應度梯度很重要",
+          "text": "<p>為何適應度函數中是否存在<strong>梯度</strong>，對搜尋式生成如此重要？</p>",
+          "answers": [
+            {
+              "text": "梯度讓搜尋能分辨哪些候選更接近目標，因此能一步步改良，而非盲目亂猜",
+              "fraction": 100,
+              "feedback": "正確——沒有「更接近」的感覺，後設啟發式搜尋就無從攀升。"
+            },
+            {
+              "text": "梯度保證目標恰好一步就能到達",
+              "fraction": 0,
+              "feedback": "它不保證一步；它提供方向，讓搜尋能歷經多步前進。"
+            },
+            {
+              "text": "梯度免除了任何適應度評估",
+              "fraction": 0,
+              "feedback": "梯度是適應度值的性質，而適應度仍須被評估。"
+            },
+            {
+              "text": "梯度使預言變得不必要",
+              "fraction": 0,
+              "feedback": "適應度引導覆蓋；預言仍獨立判斷正確性。"
+            }
+          ],
+          "generalFeedback": "後設啟發式搜尋藉由朝更好的適應度移動來改良候選。若適應度隨接近目標而平滑變化（有梯度），搜尋便能循之前進。若適應度除了在目標處外都平坦（如布林旗標），就無梯度可攀，搜尋退化成接近隨機亂猜。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "播種常數以命中 x==42",
+          "text": "<p>某生成器反覆無法滿足 <code>if (x == 42)</code>。下列哪個實務手法最直接有幫助？</p>",
+          "answers": [
+            {
+              "text": "用從原始碼挖掘的常數（含 42）播種生成器，讓候選輸入從這些字面值中取用",
+              "fraction": 100,
+              "feedback": "正確——挖掘並播種該字面值，使命中確切守衛變得可能。"
+            },
+            {
+              "text": "加大族群規模，但仍以純均勻隨機抽樣取值",
+              "fraction": 0,
+              "feedback": "更多均勻隨機抽取幾乎不改變命中單一確切值那微乎其微的機率。"
+            },
+            {
+              "text": "移除適應度函數以讓搜尋更快",
+              "fraction": 0,
+              "feedback": "移除引導只會更糟，把搜尋降級為盲目隨機。"
+            },
+            {
+              "text": "把預言改成蛻變關係",
+              "fraction": 0,
+              "feedback": "預言判斷正確性；它無助於生成器到達該守衛。"
+            }
+          ],
+          "generalFeedback": "常數播種從程式碼挖掘字面值（此處為 42），並餵入候選值池。由於確切常數現在可供生成器取用，滿足變得可能，而非機率極低。這與分支距離適應度、符號求解並列，皆為突破狹窄等於守衛的方法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基因演算法如何處理測試個體",
+          "text": "<p>在用於測試生成的基因演算法中，各運算子對測試個體做了什麼？</p>",
+          "answers": [
+            {
+              "text": "選擇偏好較適應的測試，交配重組兩個測試的片段，變異做小幅隨機更動——共同產生新一代",
+              "fraction": 100,
+              "feedback": "正確——選擇、交配與變異一起演化族群。"
+            },
+            {
+              "text": "它們用 SMT 求解器求解每個個體的路徑條件",
+              "fraction": 0,
+              "feedback": "那是符號／混合執行生成，而非基因運算子。"
+            },
+            {
+              "text": "它們刪除每個適應度尚未達到最大的個體",
+              "fraction": 0,
+              "feedback": "選擇是機率性的並保留多樣性；不是單純刪除所有非最佳個體。"
+            },
+            {
+              "text": "它們在不執行測試的情況下計算程式覆蓋率",
+              "fraction": 0,
+              "feedback": "適應度通常需要執行測試；運算子演化個體，並不靜態計算覆蓋率。"
+            }
+          ],
+          "generalFeedback": "基因演算法演化一群測試個體：選擇機率性地保留較適應者，交配結合兩個親代的素材，變異對個體做小幅擾動。由適應度函數引導、反覆套用這些運算子，使族群朝達成目標的測試前進。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "分支距離加接近層級",
+          "text": "<p>對一個深度巢狀的目標分支，為何搜尋式工具會把<strong>接近層級</strong>與<strong>分支距離</strong>結合，而非單用其一？</p>",
+          "answers": [
+            {
+              "text": "接近層級說明執行還漏掉幾個外圍決策，分支距離則量度它偏離處的決策有多接近被滿足——兩者一起提供橫跨巢狀的梯度",
+              "fraction": 100,
+              "feedback": "正確——這對組合產生平滑的適應度：外圍決策被滿足得越多、偏離的那個越接近，適應度都會改善。"
+            },
+            {
+              "text": "單靠接近層級就已在每個巢狀層級提供連續梯度",
+              "fraction": 0,
+              "feedback": "接近層級是整數，只有在整個外圍決策翻轉時才變動；分支距離填補這些階梯之間的空隙。"
+            },
+            {
+              "text": "單靠分支距離就能表達漏掉了幾層巢狀",
+              "fraction": 0,
+              "feedback": "分支距離對單一述詞是局部的；它不編碼還剩多少外圍決策——那是接近層級的職責。"
+            },
+            {
+              "text": "結合兩者可免除執行程式",
+              "fraction": 0,
+              "feedback": "兩者都由候選輸入的實際執行算得；結合它們並不能避免執行程式。"
+            }
+          ],
+          "generalFeedback": "對巢狀目標，一次執行可能在目標之前幾個外圍決策就偏離。接近層級計數那些仍未被滿足的外圍決策（粗略、整數階梯）；在偏離點，分支距離量度該決策有多接近被滿足（階梯之間的細梯度）。常用的適應度是接近層級加上正規化後的分支距離，因此改善任一者都會降低適應度，給搜尋一條穿過巢狀的連續下坡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何預言問題限制自動化",
+          "text": "<p>即使有出色的輸入生成，為何預言問題仍從根本上限制了<em>全</em>自動測試？</p>",
+          "answers": [
+            {
+              "text": "生成能自動到達行為，但判斷該行為是否正確通常需要預期規格，而這終究得由人提供",
+              "fraction": 100,
+              "feedback": "正確——到達行為不等於知道它是對的；正確性知識必須有來源。"
+            },
+            {
+              "text": "因為生成的輸入永遠無法到達超過一半的分支",
+              "fraction": 0,
+              "feedback": "可達性是覆蓋限制，而非預言問題；預言關乎判斷正確性。"
+            },
+            {
+              "text": "因為約束求解器無法處理任何算術",
+              "fraction": 0,
+              "feedback": "求解器能處理許多算術；那是符號執行的限制，而非預言問題。"
+            },
+            {
+              "text": "因為隨機生成總是比受測程式更快",
+              "fraction": 0,
+              "feedback": "相對速度與能否判斷輸出正確無關。"
+            }
+          ],
+          "generalFeedback": "自動化擅長產生輸入與到達行為，但「程式做了 X」並不說明 X 是否是它該做的。判斷這點需要預期行為——規格、預期值或關係——而這無法從受測程式碼本身推導。部分預言（斷言、當機、蛻變與差分關係）縮小差距，卻無法消除，因此由人提供的正確性概念仍是極限。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "蛻變關係何時有幫助",
+          "text": "<p>為何<strong>蛻變關係</strong>對自動生成的輸入特別有價值？</p>",
+          "answers": [
+            {
+              "text": "它讓你不必知道每個輸入的確切預期輸出即可檢查正確性，因此能規模化到生成器產生的大量輸入",
+              "fraction": 100,
+              "feedback": "正確——檢查相關輸入間的關係，避開了逐輸入的預期值。"
+            },
+            {
+              "text": "它保證偵測到程式中每一個可能的缺陷",
+              "fraction": 0,
+              "feedback": "它只抓到違反所選關係的缺陷；其他缺陷可能不被察覺。"
+            },
+            {
+              "text": "它既生成輸入又判斷輸入",
+              "fraction": 0,
+              "feedback": "它是預言技術；輸入仍來自另一個生成器（不過關係常會指定一個後續輸入）。"
+            },
+            {
+              "text": "它免除了執行程式的需要",
+              "fraction": 0,
+              "feedback": "檢查關係需要以相關輸入執行程式。"
+            }
+          ],
+          "generalFeedback": "對自動生成的輸入，逐一手寫預期輸出並不可行。蛻變關係改為約束相關輸入之輸出必須如何關聯（例如一個源輸入與一個轉換後的後續輸入）。若關係被違反，即暴露缺陷——不需逐輸入的預期值。其限制是它只抓到所選特定關係的違反。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混合執行與搜尋的結合",
+          "text": "<p>為何工具可能會<strong>結合</strong>混合執行與搜尋式生成？</p>",
+          "answers": [
+            {
+              "text": "搜尋以適應度處理求解器薄弱之處（非線性或不透明呼叫），而混合求解攻克搜尋難以對付的確切條件——彼此補足對方的盲點",
+              "fraction": 100,
+              "feedback": "正確——兩種技術在互補的情況下失效，故結合可擴大到達範圍。"
+            },
+            {
+              "text": "因為混合執行與搜尋式生成完全相同，所以結合它們毫無成本",
+              "fraction": 0,
+              "feedback": "它們是強項不同的兩種技術；結合的重點在互補，而非重複。"
+            },
+            {
+              "text": "為了永遠不必執行受測程式",
+              "fraction": 0,
+              "feedback": "兩種方法都會執行程式（混合執行具體地跑、搜尋為評估適應度而跑）。"
+            },
+            {
+              "text": "因為這種結合消除了預言問題",
+              "fraction": 0,
+              "feedback": "兩種技術都不判斷正確性；預言問題依然存在。"
+            }
+          ],
+          "generalFeedback": "混合求解擅長像的確切條件，但在求解器無法表達的約束（非線性算術、雜湊、外部呼叫）上停滯。搜尋式生成能以適應度引導闖過那些，卻在毫無梯度的狹窄等於上停滯。混合式在各自強項處運用兩者，故合力覆蓋任一單獨都到不了的目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最小化與找錯能力",
+          "text": "<p>把生成的套件最小化以維持相同覆蓋率時，關鍵風險是什麼？</p>",
+          "answers": [
+            {
+              "text": "兩個覆蓋相同的測試在找錯能力上可能不同，因此把其一當「多餘」刪掉，即使覆蓋率不變也可能降低找錯能力",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率相等並不代表找錯能力相等。"
+            },
+            {
+              "text": "最小化總是同時提高覆蓋率與找錯能力",
+              "fraction": 0,
+              "feedback": "最小化是移除測試；它無法提高覆蓋率，且可能降低找錯能力。"
+            },
+            {
+              "text": "最小化會更動受測程式",
+              "fraction": 0,
+              "feedback": "最小化修剪的是測試，而非程式。"
+            },
+            {
+              "text": "只要維持覆蓋率，最小化就保證相同的找錯能力",
+              "fraction": 0,
+              "feedback": "並無此保證——覆蓋率相等仍可能抓到不同的缺陷。"
+            }
+          ],
+          "generalFeedback": "最小化保留一個滿足某準則（通常是覆蓋率）的子集。但兩個覆蓋相同元素的測試，可能以不同資料執行它們，因而抓到不同缺陷。把其一當覆蓋率冗餘而刪除，可能在覆蓋率不變下降低套件的找錯能力——這個取捨是更小／更快的套件 vs 可能損失找錯能力。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "旗標問題",
+          "text": "<p>考慮 <code>bool flag = (a == b); ... if (flag) { target; }</code>。為何這對搜尋式生成是困難情形（「旗標問題」）？</p>",
+          "answers": [
+            {
+              "text": "在處分支距離只有 0 或 1，形成平坦的適應度地形，沒有梯度告訴搜尋如何讓逼近",
+              "fraction": 100,
+              "feedback": "正確——布林值把距離資訊壓垮，只剩一片平台。"
+            },
+            {
+              "text": "旗標變數使該分支永遠不可能被走到",
+              "fraction": 0,
+              "feedback": "當 a==b 時該分支可達；困難在於缺少梯度，而非不可能。"
+            },
+            {
+              "text": "布林變數無法在搜尋空間中表示",
+              "fraction": 0,
+              "feedback": "布林可被表示；問題在於它丟棄了的距離訊號。"
+            },
+            {
+              "text": "旗標保證在評估期間造成無窮迴圈",
+              "fraction": 0,
+              "feedback": "並未隱含任何迴圈；問題是平坦的適應度地形。"
+            }
+          ],
+          "generalFeedback": "把述詞結果存進布林旗標，會丟掉它有多接近被滿足的資訊。在處分支距離只是 0 或 1，因此除了在解處外適應度都平坦（一片平台），搜尋得不到把推向的方向。補救之道包括旗標移除／轉換，或以可測試性轉換還原底層的距離。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正規化分支距離",
+          "text": "<p>為何分支距離通常會先<strong>正規化</strong>（例如映到 [0,1)）再加到接近層級上？</p>",
+          "answers": [
+            {
+              "text": "如此一來，多滿足一個外圍決策（更低的接近層級）永遠勝過任何分支距離的改善，讓兩個成分維持正確的排序",
+              "fraction": 100,
+              "feedback": "正確——正規化確保推進整整一層巢狀，優先於在當前層內只是更接近。"
+            },
+            {
+              "text": "因為分支距離否則會是負的",
+              "fraction": 0,
+              "feedback": "分支距離依定義非負；正規化關乎尺度，而非正負號。"
+            },
+            {
+              "text": "為了把適應度轉成布林的通過／失敗值",
+              "fraction": 0,
+              "feedback": "正規化保留連續值；它不會把適應度壓成布林。"
+            },
+            {
+              "text": "為了讓預言變得不必要",
+              "fraction": 0,
+              "feedback": "正規化關乎適應度尺度，而非正確性判斷。"
+            }
+          ],
+          "generalFeedback": "適應度通常是接近層級加上正規化後的分支距離。把距離限制在小於 1，保證把接近層級減 1（滿足另一個外圍決策）永遠比任何層內的距離收穫更能改善適應度，因此搜尋偏好真正的結構性進展，同時仍利用層內的細梯度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號式生成的路徑爆炸",
+          "text": "<p>什麼是<strong>路徑爆炸（path explosion）</strong>，為何它限制符號／混合執行生成？</p>",
+          "answers": [
+            {
+              "text": "可行路徑數可能組合性地增長（例如隨分支與迴圈迭代），使得列舉並求解全部變得不可行",
+              "fraction": 100,
+              "feedback": "正確——路徑數爆增，在覆蓋所有路徑前就耗盡時間與求解器預算。"
+            },
+            {
+              "text": "約束求解器對單一路徑回傳太多滿足解",
+              "fraction": 0,
+              "feedback": "路徑爆炸是關於要探索的路徑數，而非每條路徑的解數。"
+            },
+            {
+              "text": "生成的輸入變得太大而無法儲存",
+              "fraction": 0,
+              "feedback": "爆增的是要分析的路徑，而非主要是輸入大小。"
+            },
+            {
+              "text": "受測程式在執行時耗盡記憶體",
+              "fraction": 0,
+              "feedback": "路徑爆炸是生成器的分析擴展性問題，而非目標的執行時記憶體錯誤。"
+            }
+          ],
+          "generalFeedback": "每個分支都可能使路徑數加倍，而迴圈更會使之相乘，因此可行路徑數組合性地增長。符號／混合執行生成必須為這些挑選並求解路徑條件，窮盡覆蓋它們變得難以處理。工具以搜尋啟發式、路徑修剪／合併，以及限制迴圈展開來緩解。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隱式當機預言的限制",
+          "text": "<p>對生成的輸入只依賴當機作為預言，有一個關鍵限制。是什麼？</p>",
+          "answers": [
+            {
+              "text": "它只抓到以當機／中止形式顯現的失敗；錯誤但不當機的結果會被忽略",
+              "fraction": 100,
+              "feedback": "正確——沉默的不正確輸出會溜過只看當機的預言。"
+            },
+            {
+              "text": "它無法偵測記憶體區段錯誤",
+              "fraction": 0,
+              "feedback": "記憶體區段錯誤這類當機正是它能偵測的；它漏掉的是不當機的錯誤結果。"
+            },
+            {
+              "text": "它要求為每個輸入提供確切預期值",
+              "fraction": 0,
+              "feedback": "當機預言不需預期值——這既是其吸引力，也正是它漏掉邏輯錯誤的原因。"
+            },
+            {
+              "text": "它使生成器無法到達深層分支",
+              "fraction": 0,
+              "feedback": "預言的選擇不限制生成能到達哪些分支。"
+            }
+          ],
+          "generalFeedback": "當機（或消毒器／斷言）預言完全自動且便宜，這正是模糊測試依賴它的原因。但它只標示以可觀察當機顯現的失敗。一個回傳錯誤值卻不當機的函式不產生任何訊號，因此只看當機的預言漏掉大多數邏輯錯誤——這促成了更豐富的部分預言，如蛻變與差分關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差分與蛻變的選擇",
+          "text": "<p>你正為一個數值常式生成輸入，且<em>沒有</em>獨立的參考實作。哪個部分預言適用，為什麼？</p>",
+          "answers": [
+            {
+              "text": "蛻變關係，因為它檢查相關輸入之輸出間必需的關係，且不需要第二個實作",
+              "fraction": 100,
+              "feedback": "正確——在沒有可比對的參考時，蛻變關係仍能提供檢查。"
+            },
+            {
+              "text": "差分預言，因為它單憑這一個實作就能運作",
+              "fraction": 0,
+              "feedback": "差分測試需要至少兩個實作來比較；只有一個時並不適用。"
+            },
+            {
+              "text": "都不行，因為沒有參考就永遠不可能有自動檢查",
+              "fraction": 0,
+              "feedback": "即使沒有參考，蛻變關係仍提供檢查，故自動的部分預言仍然可能。"
+            },
+            {
+              "text": "覆蓋目標，因為覆蓋率能判斷正確性",
+              "fraction": 0,
+              "feedback": "覆蓋率量度執行了什麼，而非輸出是否正確。"
+            }
+          ],
+          "generalFeedback": "差分預言需要兩個或更多實作才能出現不一致；只有一個時無法使用。蛻變關係改為檢查相關輸入之輸出必須如何關聯（例如把所有輸入放大，輸出應可預測地隨之放大），這只需要那唯一的實作——因此在沒有參考時，它是適用的部分預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達到覆蓋不代表找到錯誤",
+          "text": "<p>某生成器達到 100% 分支覆蓋率。為何這<em>不</em>足以確立程式正確？</p>",
+          "answers": [
+            {
+              "text": "執行到每個分支只表示程式碼跑過了，但若沒有預言檢查每個結果，被覆蓋分支上的錯誤輸出仍不會被察覺",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率量度執行，而非正確性；預言仍是必需的。"
+            },
+            {
+              "text": "100% 分支覆蓋率在數學上不可能，故此宣稱必為假",
+              "fraction": 0,
+              "feedback": "完整分支覆蓋常可達成；重點是覆蓋率本身不判斷正確性。"
+            },
+            {
+              "text": "分支覆蓋率自動為每個分支內建了預言",
+              "fraction": 0,
+              "feedback": "覆蓋率記錄哪些分支跑過；它不判斷其結果是否正確。"
+            },
+            {
+              "text": "因為覆蓋率總是高估實際執行的分支",
+              "fraction": 0,
+              "feedback": "問題不在計數失準；而在於跑過一個分支不等於驗證其輸出。"
+            }
+          ],
+          "generalFeedback": "覆蓋率告訴你程式碼被執行了，而非它行為正確。一個分支可以跑過卻仍回傳錯誤值；若沒有斷言預期行為的預言，該缺陷不留痕跡。因此純以覆蓋率為目標的生成能最大化執行，但偵測隨之而來的缺陷仍完全取決於預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基因演算法跳脫平台",
+          "text": "<p>在有平台的適應度地形上，為何基因演算法有時能在簡單爬山法停滯處取得進展？</p>",
+          "answers": [
+            {
+              "text": "族群多樣性加上交配與變異，讓它同時探索多個區域並跨越平坦區，而非只依賴嚴格改善的局部移動",
+              "fraction": 100,
+              "feedback": "正確——族群式探索能跨越困住單點攀升者的平台。"
+            },
+            {
+              "text": "它以約束求解器取代適應度函數",
+              "fraction": 0,
+              "feedback": "基因演算法仍使用適應度；它不換成求解器。"
+            },
+            {
+              "text": "它保證在任何地形上找到全域最佳",
+              "fraction": 0,
+              "feedback": "沒有任何後設啟發式保證全域最佳；基因演算法只是提高跳脫局部陷阱的機會。"
+            },
+            {
+              "text": "它藉由更動受測程式來移除平台",
+              "fraction": 0,
+              "feedback": "基因演算法不修改程式；重塑此類地形的是可測試性轉換，而非基因演算法本身。"
+            }
+          ],
+          "generalFeedback": "爬山法只接受嚴格改善的鄰居，因此在平台上無處可去。基因演算法維持一個多樣的族群，並以交配與變異在空間中取樣，故能漂過平坦區並重組部分解。它仍不提供保證——真正平坦的地形（如未處理的旗標問題）也能擊敗它——但比純局部搜尋更穩健。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "可達性與良好梯度",
+          "text": "<p>只要目標分支原則上可達，搜尋式生成器就保證能到達它，與適應度地形無關。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不對——可達性不保證成功；沒有可用的梯度時（如旗標問題），搜尋可能找不到該輸入。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——若適應度地形毫無梯度，一個可達的目標對搜尋而言仍可能實際上不可達。"
+            }
+          ],
+          "generalFeedback": "可達性是程式的性質；搜尋是否成功還取決於適應度地形。若適應度除了在解處外都平坦（平台或未處理的旗標），後設啟發式便無方向，可能到不了一個原則上完全可達的目標。這正是為何適應度設計與可測試性轉換很重要。"
+        },
+        {
+          "type": "multichoice",
+          "name": "跨版本的回歸播種",
+          "text": "<p>為新版本生成測試時，為何從舊版本的測試與輸入<strong>播種</strong>會有用？</p>",
+          "answers": [
+            {
+              "text": "先前的輸入已能到達大部分共享行為，故生成器可從相關狀態附近起步，把預算集中在改動過的程式碼",
+              "fraction": 100,
+              "feedback": "正確——重用先前素材給了起步優勢，並把心力集中在改動處。"
+            },
+            {
+              "text": "它讓生成器完全跳過執行程式",
+              "fraction": 0,
+              "feedback": "播種提供起始輸入；程式仍必須被執行以評估它們。"
+            },
+            {
+              "text": "它保證新版本沒有回歸",
+              "fraction": 0,
+              "feedback": "播種有助生成；它無法保證沒有回歸。"
+            },
+            {
+              "text": "它免除了對新版本使用預言的需要",
+              "fraction": 0,
+              "feedback": "在新版本上判斷正確性仍需要預言。"
+            }
+          ],
+          "generalFeedback": "跨版本時大量行為不變，故舊套件的輸入已把程式驅入相關的深層狀態。以它們播種生成器，代表它不必從零重新發現那些行為，而能把預算花在探索改動過的程式碼——在回歸情境中，這是對先驗資訊實用而有效的運用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整套最佳化與逐目標",
+          "text": "<p>現代 SBST 工具常對<strong>整套</strong>測試一次針對所有覆蓋目標最佳化，而非為每個目標各生成一個測試。為什麼？</p>",
+          "answers": [
+            {
+              "text": "逐個目標會把預算浪費在不可行或困難的目標上，且忽略了單一測試可命中多個目標；整套最佳化把心力花在有回報處並善用附帶覆蓋",
+              "fraction": 100,
+              "feedback": "正確——套件層級的目標避免卡在單一困難目標，並獎勵一次覆蓋多個目標的測試。"
+            },
+            {
+              "text": "因為整套目標免除了任何適應度函數的需要",
+              "fraction": 0,
+              "feedback": "它仍使用適應度函數——一個聚合所有目標的函數——而非移除它。"
+            },
+            {
+              "text": "因為整套最佳化保證在每支程式上都達到 100% 覆蓋率",
+              "fraction": 0,
+              "feedback": "並無此保證；不可行目標與困難地形仍限制覆蓋率。"
+            },
+            {
+              "text": "因為它使生成的測試不再需要預言",
+              "fraction": 0,
+              "feedback": "不論如何最佳化覆蓋率，判斷正確性仍需要預言。"
+            }
+          ],
+          "generalFeedback": "依序為每個目標各生成一個測試，可能把整個預算耗在苦戰單一不可行或無梯度的目標上，讓容易的目標乾等，且忽略一個測試常能覆蓋多個目標。整套（以及多目標）方法對所有剩餘目標一起最佳化單一套件，故搜尋能自適應地分配心力，並收下個別測試帶來的附帶覆蓋。",
+          "single": true
+        }
+      ]
+    }
   }
 };
