@@ -99451,6 +99451,37 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   var LAB_RENDERED = {
     "graph-coverage": [
       {
+        "slug": "graph-coverage-paths",
+        "titleZh": "\u8CEA\u6578\u8DEF\u5F91\u679A\u8209",
+        "titleEn": "Prime path enumeration",
+        "topic": "graph-coverage",
+        "week": 4,
+        "difficulty": 2,
+        "tags": [
+          "graph",
+          "coverage",
+          "prime-path"
+        ],
+        "repoUrl": null,
+        "judgeUrl": null,
+        "judgeProblemId": null,
+        "judgeBase": null,
+        "statementHtml": {
+          "zh": "<h1>\u8CEA\u6578\u8DEF\u5F91\u679A\u8209</h1>\n<p>\u7D66\u5B9A\u4E00\u500B\u63A7\u5236\u6D41\u7A0B\u5716\uFF08CFG\uFF09\uFF0C\u8F38\u51FA\u5176\u6240\u6709 <strong>\u8CEA\u6578\u8DEF\u5F91</strong>\uFF08prime paths\uFF09\u3002</p>\n<h2>\u8F38\u5165\u683C\u5F0F</h2>\n<ul><li>\u7B2C\u4E00\u884C\u5169\u500B\u6574\u6578 <code>n m</code>\uFF1A\u7BC0\u9EDE\u6578\u8207\u908A\u6578\uFF08\u7BC0\u9EDE\u7DE8\u865F 0..n-1\uFF0C0 \u70BA\u5165\u53E3\uFF0Cn-1 \u70BA\u51FA\u53E3\uFF09</li><li>\u63A5\u4E0B\u4F86 <code>m</code> \u884C\uFF0C\u6BCF\u884C\u5169\u500B\u6574\u6578 <code>u v</code> \u8868\u793A\u908A u\u2192v</li></ul>\n<h2>\u8F38\u51FA\u683C\u5F0F</h2>\n<p>\u6BCF\u884C\u4E00\u689D\u8CEA\u6578\u8DEF\u5F91\uFF0C\u4EE5\u7A7A\u767D\u5206\u9694\u7BC0\u9EDE\u7DE8\u865F\uFF1B\u8DEF\u5F91\u4F9D\u300C\u9577\u5EA6\u905E\u6E1B\u3001\u518D\u5B57\u5178\u5E8F\u300D\u6392\u5E8F\u3002</p>\n<h2>\u63D0\u793A</h2>\n<ul><li>\u8CEA\u6578\u8DEF\u5F91\u662F\u300C\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u300D\uFF1A\u672C\u8EAB\u662F\u7C21\u55AE\u8DEF\u5F91\uFF0C\u4E14\u4E0D\u662F\u4EFB\u4F55\u5176\u4ED6\u7C21\u55AE\u8DEF\u5F91\u7684\u771F\u5B50\u8DEF\u5F91\u3002</li><li>\u5141\u8A31\u9996\u5C3E\u70BA\u540C\u4E00\u7BC0\u9EDE\uFF08\u8FF4\u5708\u908A\u754C\uFF09\u3002</li></ul>",
+          "en": "<h1>Prime path enumeration</h1>\n<p>Given a control-flow graph (CFG), output all of its <strong>prime paths</strong>.</p>\n<h2>Input</h2>\n<ul><li>Line 1: two integers <code>n m</code> \u2014 node and edge counts (nodes 0..n-1; 0 is the entry, n-1 the exit)</li><li>Next <code>m</code> lines: two integers <code>u v</code> for edge u\u2192v</li></ul>\n<h2>Output</h2>\n<p>One prime path per line as space-separated node ids, sorted by decreasing length, then lexicographically.</p>\n<h2>Hints</h2>\n<ul><li>A prime path is a <em>maximal simple path</em>: simple, and not a proper subpath of any other simple path.</li><li>The first and last node may coincide (a loop boundary).</li></ul>"
+        },
+        "samples": [
+          {
+            "in": "4 4\n0 1\n0 2\n1 3\n2 3\n",
+            "out": "0 1 3\n0 2 3\n"
+          },
+          {
+            "in": "3 3\n0 1\n1 1\n1 2\n",
+            "out": "0 1 2\n1 1\n"
+          }
+        ]
+      },
+      {
         "slug": "lab02-coverage",
         "titleZh": "Lab 2 \u2014 \u6DB5\u84CB\u6E96\u5247\uFF08\u5206\u652F\u6DB5\u84CB + \u8CEA\u6578\u8DEF\u5F91\uFF09",
         "titleEn": "Lab 2 \u2014 Coverage Criteria (branch + prime paths)",
@@ -99499,37 +99530,6 @@ make grade      # your suite + branch coverage, with the missing lines named
 <p>1. <code>tests/test_triangle.py</code> (submitted to the judge). 2. <code>reflection.md</code> \u2014 see <code>rubric.md</code> for what it must contain.</p>`
         },
         "samples": []
-      },
-      {
-        "slug": "graph-coverage-paths",
-        "titleZh": "\u8CEA\u6578\u8DEF\u5F91\u679A\u8209",
-        "titleEn": "Prime path enumeration",
-        "topic": "graph-coverage",
-        "week": 4,
-        "difficulty": 2,
-        "tags": [
-          "graph",
-          "coverage",
-          "prime-path"
-        ],
-        "repoUrl": null,
-        "judgeUrl": null,
-        "judgeProblemId": null,
-        "judgeBase": null,
-        "statementHtml": {
-          "zh": "<h1>\u8CEA\u6578\u8DEF\u5F91\u679A\u8209</h1>\n<p>\u7D66\u5B9A\u4E00\u500B\u63A7\u5236\u6D41\u7A0B\u5716\uFF08CFG\uFF09\uFF0C\u8F38\u51FA\u5176\u6240\u6709 <strong>\u8CEA\u6578\u8DEF\u5F91</strong>\uFF08prime paths\uFF09\u3002</p>\n<h2>\u8F38\u5165\u683C\u5F0F</h2>\n<ul><li>\u7B2C\u4E00\u884C\u5169\u500B\u6574\u6578 <code>n m</code>\uFF1A\u7BC0\u9EDE\u6578\u8207\u908A\u6578\uFF08\u7BC0\u9EDE\u7DE8\u865F 0..n-1\uFF0C0 \u70BA\u5165\u53E3\uFF0Cn-1 \u70BA\u51FA\u53E3\uFF09</li><li>\u63A5\u4E0B\u4F86 <code>m</code> \u884C\uFF0C\u6BCF\u884C\u5169\u500B\u6574\u6578 <code>u v</code> \u8868\u793A\u908A u\u2192v</li></ul>\n<h2>\u8F38\u51FA\u683C\u5F0F</h2>\n<p>\u6BCF\u884C\u4E00\u689D\u8CEA\u6578\u8DEF\u5F91\uFF0C\u4EE5\u7A7A\u767D\u5206\u9694\u7BC0\u9EDE\u7DE8\u865F\uFF1B\u8DEF\u5F91\u4F9D\u300C\u9577\u5EA6\u905E\u6E1B\u3001\u518D\u5B57\u5178\u5E8F\u300D\u6392\u5E8F\u3002</p>\n<h2>\u63D0\u793A</h2>\n<ul><li>\u8CEA\u6578\u8DEF\u5F91\u662F\u300C\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u300D\uFF1A\u672C\u8EAB\u662F\u7C21\u55AE\u8DEF\u5F91\uFF0C\u4E14\u4E0D\u662F\u4EFB\u4F55\u5176\u4ED6\u7C21\u55AE\u8DEF\u5F91\u7684\u771F\u5B50\u8DEF\u5F91\u3002</li><li>\u5141\u8A31\u9996\u5C3E\u70BA\u540C\u4E00\u7BC0\u9EDE\uFF08\u8FF4\u5708\u908A\u754C\uFF09\u3002</li></ul>",
-          "en": "<h1>Prime path enumeration</h1>\n<p>Given a control-flow graph (CFG), output all of its <strong>prime paths</strong>.</p>\n<h2>Input</h2>\n<ul><li>Line 1: two integers <code>n m</code> \u2014 node and edge counts (nodes 0..n-1; 0 is the entry, n-1 the exit)</li><li>Next <code>m</code> lines: two integers <code>u v</code> for edge u\u2192v</li></ul>\n<h2>Output</h2>\n<p>One prime path per line as space-separated node ids, sorted by decreasing length, then lexicographically.</p>\n<h2>Hints</h2>\n<ul><li>A prime path is a <em>maximal simple path</em>: simple, and not a proper subpath of any other simple path.</li><li>The first and last node may coincide (a loop boundary).</li></ul>"
-        },
-        "samples": [
-          {
-            "in": "4 4\n0 1\n0 2\n1 3\n2 3\n",
-            "out": "0 1 3\n0 2 3\n"
-          },
-          {
-            "in": "3 3\n0 1\n1 1\n1 2\n",
-            "out": "0 1 2\n1 1\n"
-          }
-        ]
       }
     ]
   };
