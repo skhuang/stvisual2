@@ -48399,6 +48399,2612 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "cause-effect": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a cause is",
+            "text": "<p>In a cause-effect graph, what is a <strong>cause</strong>?</p>",
+            "answers": [
+              {
+                "text": "A distinct input condition (something that can be true or false) drawn from the specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a cause is an individual input condition, evaluated as true or false."
+              },
+              {
+                "text": "An output or action the program produces",
+                "fraction": 0,
+                "feedback": "That is an effect, not a cause."
+              },
+              {
+                "text": "A line of source code that must be executed",
+                "fraction": 0,
+                "feedback": "Cause-effect graphing is black-box; causes come from the specification, not the code."
+              },
+              {
+                "text": "A column of the resulting decision table",
+                "fraction": 0,
+                "feedback": "A column is a rule/test case derived later; a cause is an input condition."
+              }
+            ],
+            "generalFeedback": "A cause is a distinct input condition \u2014 a boolean that can hold or not hold. Causes are identified by reading the specification and are wired through boolean nodes to the effects they influence.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an effect is",
+            "text": "<p>In a cause-effect graph, what is an <strong>effect</strong>?</p>",
+            "answers": [
+              {
+                "text": "An output condition or action the system produces in response to its inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 effects are the observable outputs/actions on the right of the graph."
+              },
+              {
+                "text": "An input condition that can be true or false",
+                "fraction": 0,
+                "feedback": "That describes a cause, not an effect."
+              },
+              {
+                "text": "A constraint between two inputs",
+                "fraction": 0,
+                "feedback": "Constraints (E/I/O/R) restrict causes; an effect is an output."
+              },
+              {
+                "text": "A boolean operator node such as AND or OR",
+                "fraction": 0,
+                "feedback": "Those nodes wire causes to effects; the effect itself is the output."
+              }
+            ],
+            "generalFeedback": "An effect is an output condition or action. In the graph, causes on the left are connected through boolean nodes to effects on the right, and each effect is ultimately true or false for a given cause assignment.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The IDENTITY node",
+            "text": "<p>What does an <strong>IDENTITY</strong> node mean when it connects a cause to an effect?</p>",
+            "answers": [
+              {
+                "text": "The effect is true exactly when the single cause is true (it copies the cause's value)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 identity passes the cause value straight through to the effect."
+              },
+              {
+                "text": "The effect is true exactly when the cause is false",
+                "fraction": 0,
+                "feedback": "That is the NOT node, not identity."
+              },
+              {
+                "text": "The effect is true when either of two causes is true",
+                "fraction": 0,
+                "feedback": "That is an OR node; identity connects a single cause."
+              },
+              {
+                "text": "The effect is always true regardless of the cause",
+                "fraction": 0,
+                "feedback": "Identity mirrors the cause; it is not a constant-true node."
+              }
+            ],
+            "generalFeedback": "An IDENTITY node ties one cause to one effect so that effect = cause: if the cause is true the effect is true, and if the cause is false the effect is false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The NOT node",
+            "text": "<p>What does a <strong>NOT</strong> (~) node compute?</p>",
+            "answers": [
+              {
+                "text": "The effect is true exactly when its single cause is false (it negates the cause)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 NOT inverts the cause value."
+              },
+              {
+                "text": "The effect is true exactly when the cause is true",
+                "fraction": 0,
+                "feedback": "That is IDENTITY; NOT gives the opposite."
+              },
+              {
+                "text": "The effect is true when all of several causes are true",
+                "fraction": 0,
+                "feedback": "That is AND; NOT takes a single cause and negates it."
+              },
+              {
+                "text": "The effect is true when at least one of several causes is true",
+                "fraction": 0,
+                "feedback": "That is OR; NOT negates one cause."
+              }
+            ],
+            "generalFeedback": "A NOT node (drawn ~) negates: the effect is true when the cause is false and false when the cause is true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The AND node",
+            "text": "<p>What does an <strong>AND</strong> (\u2227) node compute for an effect wired to several causes?</p>",
+            "answers": [
+              {
+                "text": "The effect is true only when every one of the connected causes is true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AND requires all inputs true."
+              },
+              {
+                "text": "The effect is true when at least one connected cause is true",
+                "fraction": 0,
+                "feedback": "That is OR, not AND."
+              },
+              {
+                "text": "The effect is true when exactly one connected cause is true",
+                "fraction": 0,
+                "feedback": "AND requires all of them, not exactly one."
+              },
+              {
+                "text": "The effect copies the value of the first cause only",
+                "fraction": 0,
+                "feedback": "AND depends on every input, not just the first."
+              }
+            ],
+            "generalFeedback": "An AND node yields true only when all its input causes (or intermediate nodes) are true; if any input is false, the effect is false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The OR node",
+            "text": "<p>What does an <strong>OR</strong> (\u2228) node compute for an effect wired to several causes?</p>",
+            "answers": [
+              {
+                "text": "The effect is true when at least one of the connected causes is true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 OR needs only one true input."
+              },
+              {
+                "text": "The effect is true only when all connected causes are true",
+                "fraction": 0,
+                "feedback": "That is AND, not OR."
+              },
+              {
+                "text": "The effect is true only when exactly one connected cause is true",
+                "fraction": 0,
+                "feedback": 'OR is true for one or more; "exactly one" is a different (O) idea.'
+              },
+              {
+                "text": "The effect is true only when all connected causes are false",
+                "fraction": 0,
+                "feedback": "That would be a NOR (NOT of an OR); a plain OR is true when any input is true."
+              }
+            ],
+            "generalFeedback": "An OR node yields true when one or more of its inputs is true, and false only when every input is false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The Exclusive (E) constraint",
+            "text": "<p>Among a set of causes, the <strong>Exclusive (E)</strong> constraint means what?</p>",
+            "answers": [
+              {
+                "text": "At most one of the causes may be true (they can all be false, but no two are true together)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E allows zero or one true, never two or more."
+              },
+              {
+                "text": "Exactly one of the causes must be true",
+                "fraction": 0,
+                "feedback": "That is the One-and-only-one (O) constraint; E also permits all false."
+              },
+              {
+                "text": "At least one of the causes must be true",
+                "fraction": 0,
+                "feedback": "That is the Inclusive (I) constraint."
+              },
+              {
+                "text": "All of the causes must be true together",
+                "fraction": 0,
+                "feedback": "E forbids two being true at once, so it can never require all true."
+              }
+            ],
+            "generalFeedback": "Exclusive (E): at most one of the constrained causes is true. Zero true is allowed; two or more true is forbidden.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The Inclusive (I) constraint",
+            "text": "<p>Among a set of causes, the <strong>Inclusive (I)</strong> constraint means what?</p>",
+            "answers": [
+              {
+                "text": "At least one of the causes must be true (they cannot all be false)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 I forbids the all-false case; one or more must hold."
+              },
+              {
+                "text": "At most one of the causes may be true",
+                "fraction": 0,
+                "feedback": "That is the Exclusive (E) constraint."
+              },
+              {
+                "text": "Exactly one of the causes must be true",
+                "fraction": 0,
+                "feedback": "That is the One-and-only-one (O) constraint; I allows several to be true."
+              },
+              {
+                "text": "The causes have no restriction at all",
+                "fraction": 0,
+                "feedback": "I does restrict them: it rules out all being false."
+              }
+            ],
+            "generalFeedback": "Inclusive (I): at least one of the constrained causes must be true. Any number from one up to all is allowed; only all-false is forbidden.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The One-and-only-one (O) constraint",
+            "text": "<p>Among a set of causes, the <strong>One-and-only-one (O)</strong> constraint means what?</p>",
+            "answers": [
+              {
+                "text": "Exactly one of the causes is true \u2014 no more, no fewer",
+                "fraction": 100,
+                "feedback": "Correct \u2014 O requires precisely one true."
+              },
+              {
+                "text": "At most one of the causes may be true (all-false allowed)",
+                "fraction": 0,
+                "feedback": "That is Exclusive (E); O forbids the all-false case."
+              },
+              {
+                "text": "At least one of the causes must be true",
+                "fraction": 0,
+                "feedback": "That is Inclusive (I), which also allows several true; O allows only one."
+              },
+              {
+                "text": "Either all or none of the causes are true",
+                "fraction": 0,
+                "feedback": "O requires exactly one true, not all-or-none."
+              }
+            ],
+            "generalFeedback": "One-and-only-one (O): exactly one of the constrained causes is true. It is the combination of Exclusive (at most one) and Inclusive (at least one).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The Requires (R) constraint",
+            "text": '<p>The <strong>Requires (R)</strong> constraint "cause a Requires cause b" means what?</p>',
+            "answers": [
+              {
+                "text": "Whenever a is true, b must also be true (so a=true with b=false is impossible)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 R rules out the a-true, b-false combination."
+              },
+              {
+                "text": "Whenever a is true, b must be false",
+                "fraction": 0,
+                "feedback": "That is the opposite; R forces b true when a is true."
+              },
+              {
+                "text": "a and b must always have the same value",
+                "fraction": 0,
+                "feedback": "R is one-directional: b may be true while a is false; only a-true-b-false is forbidden."
+              },
+              {
+                "text": "Exactly one of a and b may be true",
+                "fraction": 0,
+                "feedback": "That is closer to Exclusive/One-and-only-one; R is an implication a\u2192b."
+              }
+            ],
+            "generalFeedback": "Requires (R) is the implication a\u2192b: if a is true then b must be true. The only forbidden combination is a=true, b=false; all others (including a=false with any b) are allowed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The Masks (M) constraint",
+            "text": '<p>The <strong>Masks (M)</strong> constraint "effect a Masks effect b" means what?</p>',
+            "answers": [
+              {
+                "text": "If effect a occurs (is true), then effect b is masked and forced to be false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 M is a constraint among effects: a true suppresses b."
+              },
+              {
+                "text": "If cause a is true, cause b must be true",
+                "fraction": 0,
+                "feedback": "That is Requires (R), a constraint among causes; M constrains effects."
+              },
+              {
+                "text": "At most one of effects a and b may occur, but either may occur alone",
+                "fraction": 0,
+                "feedback": 'M is directional \u2014 a suppresses b, but b does not suppress a \u2014 so it is not a symmetric "at most one".'
+              },
+              {
+                "text": "Effects a and b must always occur together",
+                "fraction": 0,
+                "feedback": "M does the opposite: when a occurs, b cannot."
+              }
+            ],
+            "generalFeedback": "Masks (M) is the one constraint that applies among effects rather than causes: when effect a is true, effect b is masked (forced false), regardless of what the graph would otherwise compute for b.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read an identity graph",
+            "text": "<p>An effect is wired to a single cause by an IDENTITY node:</p><pre>\nE = IDENTITY(c1)\n</pre><p>If <code>c1 = true</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 identity copies the cause, so E = c1 = true."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Identity does not invert; E equals c1, which is true."
+              },
+              {
+                "text": "Undefined \u2014 an effect needs at least two causes",
+                "fraction": 0,
+                "feedback": "An identity node connects exactly one cause to the effect; that is valid."
+              },
+              {
+                "text": "It depends on other causes not shown",
+                "fraction": 0,
+                "feedback": "The effect is wired only to c1 via identity, so only c1 matters."
+              }
+            ],
+            "generalFeedback": "IDENTITY passes the cause straight through: E = c1. With c1 = true, E = true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read a NOT graph",
+            "text": "<p>An effect is wired to a single cause by a NOT node:</p><pre>\nE = ~c1\n</pre><p>If <code>c1 = false</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 NOT inverts: ~false = true."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "NOT negates the cause; with c1 false, E is true."
+              },
+              {
+                "text": "Undefined without a second cause",
+                "fraction": 0,
+                "feedback": "A NOT node takes a single cause; the effect is well defined."
+              },
+              {
+                "text": "Equal to c1",
+                "fraction": 0,
+                "feedback": "That would be identity; NOT gives the opposite of c1."
+              }
+            ],
+            "generalFeedback": "A NOT node gives E = ~c1. With c1 = false, E = ~false = true.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Cause-effect graphing is black-box",
+            "text": "<p>Cause-effect graphing is a black-box (specification-based) test-design technique.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it derives tests from the specification's input conditions and outputs, not from the source code."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Causes and effects are read from the specification, so the technique is black-box, not structural."
+              }
+            ],
+            "generalFeedback": "Cause-effect graphing identifies input conditions (causes) and outputs (effects) from the specification and wires them with boolean logic \u2014 a black-box technique, independent of the code's internal structure."
+          },
+          {
+            "type": "multichoice",
+            "name": "Which constraint governs effects",
+            "text": "<p>Four of the five constraint types (E, I, O, R, M) restrict combinations of <em>causes</em>. Which one instead restricts <em>effects</em>?</p>",
+            "answers": [
+              {
+                "text": "M (Masks)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Masks is the effect-side constraint; E, I, O, R all restrict causes."
+              },
+              {
+                "text": "E (Exclusive)",
+                "fraction": 0,
+                "feedback": "E restricts causes (at most one true), not effects."
+              },
+              {
+                "text": "R (Requires)",
+                "fraction": 0,
+                "feedback": "R restricts causes (a\u2192b), not effects."
+              },
+              {
+                "text": "O (One-and-only-one)",
+                "fraction": 0,
+                "feedback": "O restricts causes (exactly one true), not effects."
+              }
+            ],
+            "generalFeedback": "E, I, O, and R express relationships among causes (inputs). M (Masks) is the only one that relates two effects: if the first occurs, it forces the second to be false.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Evaluate an AND effect",
+            "text": "<p>An effect is wired as:</p><pre>\nE = c1 \u2227 c2\n</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AND needs both true; c2 is false, so E is false."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "AND requires every input true; c2 = false forces E false."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "Both inputs are given, so E is well defined."
+              },
+              {
+                "text": "Equal to c1",
+                "fraction": 0,
+                "feedback": "E depends on both causes; with c2 false the AND is false regardless of c1."
+              }
+            ],
+            "generalFeedback": "E = c1 \u2227 c2 = true \u2227 false = false. An AND is true only when all inputs are true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Evaluate an OR effect",
+            "text": "<p>An effect is wired as:</p><pre>\nE = c1 \u2228 c2\n</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 OR is true when any input is true; c2 is true."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "OR needs only one true input, and c2 is true."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "Both inputs are given, so E is well defined."
+              },
+              {
+                "text": "Equal to c1 only",
+                "fraction": 0,
+                "feedback": "E depends on both; c2 being true makes the OR true."
+              }
+            ],
+            "generalFeedback": "E = c1 \u2228 c2 = false \u2228 true = true. An OR is false only when every input is false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Evaluate AND with a negated input",
+            "text": "<p>An effect is wired as:</p><pre>\nE = c1 \u2227 ~c2\n</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ~c2 = true and c1 = true, so the AND is true."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Since c2 is false, ~c2 is true, and true \u2227 true = true."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "Both causes are given, so E is well defined."
+              },
+              {
+                "text": "Equal to c2",
+                "fraction": 0,
+                "feedback": "E uses ~c2, and combined with c1 it evaluates to true here."
+              }
+            ],
+            "generalFeedback": "First negate: ~c2 = ~false = true. Then E = c1 \u2227 ~c2 = true \u2227 true = true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Evaluate a three-input OR",
+            "text": "<p>An effect is wired as:</p><pre>\nE = c1 \u2228 c2 \u2228 c3\n</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, <code>c3 = false</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an OR is false only when every input is false, which is the case here."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "All three inputs are false, so the OR is false."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "All inputs are given; E is well defined."
+              },
+              {
+                "text": "Depends on a constraint",
+                "fraction": 0,
+                "feedback": "No constraint is stated; the OR of three falses is simply false."
+              }
+            ],
+            "generalFeedback": "E = false \u2228 false \u2228 false = false. An OR yields false precisely when all inputs are false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Model "at most one" with a constraint',
+            "text": '<p>A spec says: "<em>At most one</em> of the three coupon codes may be applied to an order (applying none is allowed)." Which constraint models this among the three cause inputs?</p>',
+            "answers": [
+              {
+                "text": "E (Exclusive)",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "at most one, none allowed" is exactly Exclusive.'
+              },
+              {
+                "text": "O (One-and-only-one)",
+                "fraction": 0,
+                "feedback": "O would force exactly one to be applied; here applying none is allowed, so it is E."
+              },
+              {
+                "text": "I (Inclusive)",
+                "fraction": 0,
+                "feedback": "I requires at least one true; here zero is allowed, so it is E."
+              },
+              {
+                "text": "R (Requires)",
+                "fraction": 0,
+                "feedback": 'R is an implication between two specific causes, not an "at most one of a set" rule.'
+              }
+            ],
+            "generalFeedback": '"At most one may be true, and all-false is allowed" is the Exclusive (E) constraint. If the spec had forbidden all-false, it would be One-and-only-one (O).',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Model "at least one" with a constraint',
+            "text": '<p>A spec says: "<em>At least one</em> contact method (phone, email, or address) must be provided." Which constraint models this among the three cause inputs?</p>',
+            "answers": [
+              {
+                "text": "I (Inclusive)",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "at least one" is exactly the Inclusive constraint.'
+              },
+              {
+                "text": "E (Exclusive)",
+                "fraction": 0,
+                "feedback": "E means at most one; here we need one or more, which is I."
+              },
+              {
+                "text": "O (One-and-only-one)",
+                "fraction": 0,
+                "feedback": "O means exactly one; here providing several is fine, so it is I."
+              },
+              {
+                "text": "M (Masks)",
+                "fraction": 0,
+                "feedback": "M is an effect constraint, not a rule about how many causes are true."
+              }
+            ],
+            "generalFeedback": '"At least one must be true" is the Inclusive (I) constraint; it forbids only the all-false case.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Model "exactly one" with a constraint',
+            "text": '<p>A spec says: "<em>Exactly one</em> payment method \u2014 cash, card, or voucher \u2014 must be selected." Which constraint models this among the three cause inputs?</p>',
+            "answers": [
+              {
+                "text": "O (One-and-only-one)",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "exactly one" is the One-and-only-one constraint.'
+              },
+              {
+                "text": "E (Exclusive)",
+                "fraction": 0,
+                "feedback": "E allows zero true; here one must always be selected, so it is O."
+              },
+              {
+                "text": "I (Inclusive)",
+                "fraction": 0,
+                "feedback": "I allows several true; here only one may be selected, so it is O."
+              },
+              {
+                "text": "R (Requires)",
+                "fraction": 0,
+                "feedback": 'R is an a\u2192b implication, not a "select exactly one of a set" rule.'
+              }
+            ],
+            "generalFeedback": '"Exactly one true" combines Exclusive (at most one) and Inclusive (at least one): that is the One-and-only-one (O) constraint.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Model "requires" with a constraint',
+            "text": '<p>A spec says: "Selecting <em>express shipping</em> requires that a <em>delivery address</em> has been entered." Which constraint models this?</p>',
+            "answers": [
+              {
+                "text": "R (Requires): express-shipping \u2192 delivery-address",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one cause being true forces another to be true."
+              },
+              {
+                "text": "O (One-and-only-one) between the two causes",
+                "fraction": 0,
+                "feedback": 'The spec is not "exactly one of the two"; it is an implication a\u2192b, i.e. R.'
+              },
+              {
+                "text": "E (Exclusive) between the two causes",
+                "fraction": 0,
+                "feedback": "E forbids both being true; here both true is exactly the intended, valid case."
+              },
+              {
+                "text": "M (Masks) between the two causes",
+                "fraction": 0,
+                "feedback": "M relates effects; this rule relates two input causes, so it is R."
+              }
+            ],
+            "generalFeedback": '"a requires b" is the Requires (R) constraint, the implication a\u2192b: express-shipping true forces delivery-address true, ruling out express-shipping with no address.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why graph then decision table",
+            "text": "<p>Why do we build a cause-effect graph and then convert it to a decision table, rather than testing every input combination?</p>",
+            "answers": [
+              {
+                "text": "The graph's logic and constraints let us derive only the feasible, behaviour-relevant combinations, yielding a manageable set of tests instead of all 2^n",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that systematic reduction to meaningful combinations is the whole point."
+              },
+              {
+                "text": "It guarantees 100% statement and branch coverage of the code",
+                "fraction": 0,
+                "feedback": "Cause-effect graphing is black-box; it targets input-combination logic, not code-coverage metrics."
+              },
+              {
+                "text": "It removes the need to specify expected outputs",
+                "fraction": 0,
+                "feedback": "Each rule/column still carries the expected effect; the technique does not drop the oracle."
+              },
+              {
+                "text": "It makes exhaustive testing of all 2^n combinations faster to run",
+                "fraction": 0,
+                "feedback": "The goal is to avoid exhaustive testing, keeping only the feasible, distinct combinations."
+              }
+            ],
+            "generalFeedback": "Testing all 2^n cause combinations is usually infeasible. The graph captures the logic and constraints, and tracing effects back yields a decision table whose columns are the feasible, distinct combinations \u2014 a systematic, manageable test set.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count the causes",
+            "text": '<p>Spec: "A withdrawal is allowed if the <em>card is valid</em>, the <em>PIN is correct</em>, and the <em>balance is sufficient</em>; otherwise the transaction is <em>declined</em> and, if the PIN is wrong three times, the card is <em>retained</em>." How many distinct <strong>causes</strong> does this spec suggest?</p>',
+            "answers": [
+              {
+                "text": "4 \u2014 card valid, PIN correct, balance sufficient, PIN wrong three times",
+                "fraction": 100,
+                "feedback": "Correct \u2014 these are the four distinct input conditions."
+              },
+              {
+                "text": "3 \u2014 card valid, PIN correct, balance sufficient",
+                "fraction": 0,
+                "feedback": '"PIN wrong three times" is a fourth distinct input condition.'
+              },
+              {
+                "text": "2 \u2014 allowed and declined",
+                "fraction": 0,
+                "feedback": '"Allowed" and "declined" are effects (outputs), not causes.'
+              },
+              {
+                "text": "6 \u2014 every noun in the sentence",
+                "fraction": 0,
+                "feedback": "Only distinct input conditions are causes; not every noun qualifies."
+              }
+            ],
+            "generalFeedback": 'Causes are the distinct input conditions: card valid, PIN correct, balance sufficient, and PIN wrong three times \u2014 four causes. "Allowed", "declined", and "retained" are effects.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count the effects",
+            "text": '<p>Using the same ATM spec \u2014 "\u2026the transaction is <em>allowed</em> or <em>declined</em>, and the card may be <em>retained</em>" \u2014 how many distinct <strong>effects</strong> are there?</p>',
+            "answers": [
+              {
+                "text": "3 \u2014 allowed, declined, card retained",
+                "fraction": 100,
+                "feedback": "Correct \u2014 those are the three distinct output conditions/actions."
+              },
+              {
+                "text": "2 \u2014 allowed and declined only",
+                "fraction": 0,
+                "feedback": '"Card retained" is a third distinct effect.'
+              },
+              {
+                "text": "4 \u2014 the same as the number of causes",
+                "fraction": 0,
+                "feedback": "Causes and effects are counted separately; there are three effects here."
+              },
+              {
+                "text": "1 \u2014 the transaction result",
+                "fraction": 0,
+                "feedback": "There are three distinct outputs, not one."
+              }
+            ],
+            "generalFeedback": "Effects are the distinct outputs/actions: allowed, declined, and card retained \u2014 three effects. Counting causes and effects is the first step of building the graph.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Evaluate an OR feeding an AND",
+            "text": "<p>The graph has an intermediate node and an effect:</p><pre>\nn1 = c1 \u2228 c2\nE  = n1 \u2227 c3\n</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, <code>c3 = true</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 n1 = false \u2228 true = true, then E = true \u2227 true = true."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "n1 is true (c2), and c3 is true, so the AND is true."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "All causes are given, so E is well defined."
+              },
+              {
+                "text": "Equal to c1",
+                "fraction": 0,
+                "feedback": "E depends on the OR of c1,c2 and on c3, not on c1 alone."
+              }
+            ],
+            "generalFeedback": "Evaluate the intermediate node first: n1 = c1 \u2228 c2 = false \u2228 true = true. Then E = n1 \u2227 c3 = true \u2227 true = true.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Model an effect masking another",
+            "text": `<p>A spec says: "When the '<em>account locked</em>' error is shown, the '<em>welcome</em>' message must not be shown." Which constraint captures this relationship between the two outputs?</p>`,
+            "answers": [
+              {
+                "text": "M (Masks): the account-locked effect masks the welcome effect",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one effect occurring forces the other to be suppressed, which is Masks."
+              },
+              {
+                "text": "E (Exclusive) between two causes",
+                "fraction": 0,
+                "feedback": "These are outputs, not causes; the effect-side constraint is M."
+              },
+              {
+                "text": "R (Requires) between two causes",
+                "fraction": 0,
+                "feedback": "R relates causes; here two effects are related, so it is M."
+              },
+              {
+                "text": "O (One-and-only-one) between two causes",
+                "fraction": 0,
+                "feedback": "O constrains causes; this rule constrains effects, so it is M."
+              }
+            ],
+            "generalFeedback": "A relationship that suppresses one output when another occurs is the Masks (M) constraint \u2014 the only constraint expressed among effects.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Evaluate a NOR effect",
+            "text": "<p>An effect is wired as:</p><pre>\nE = ~(c1 \u2228 c2)\n</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, what is E?</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 c1 \u2228 c2 = false, and ~false = true."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The OR of two falses is false, and its negation is true."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "Both causes are given, so E is well defined."
+              },
+              {
+                "text": "Equal to c1 \u2228 c2",
+                "fraction": 0,
+                "feedback": "The NOT node inverts the OR, so E is the opposite of c1 \u2228 c2."
+              }
+            ],
+            "generalFeedback": 'Evaluate inside first: c1 \u2228 c2 = false \u2228 false = false. Then negate: E = ~false = true. This "true only when all inputs are false" pattern is a NOR.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "O versus E on the all-false case",
+            "text": '<p>Two specs restrict the same set of causes. Spec 1: "select exactly one." Spec 2: "select at most one." What is the one difference between the constraints they imply?</p>',
+            "answers": [
+              {
+                "text": "Spec 1 is O (all-false forbidden); Spec 2 is E (all-false allowed) \u2014 they differ only on whether zero-true is feasible",
+                "fraction": 100,
+                "feedback": "Correct \u2014 O and E agree except that O forbids the all-false combination."
+              },
+              {
+                "text": "They are identical constraints",
+                "fraction": 0,
+                "feedback": "They differ on the all-false case: O forbids it, E allows it."
+              },
+              {
+                "text": "Spec 1 is I and Spec 2 is O",
+                "fraction": 0,
+                "feedback": '"Exactly one" is O and "at most one" is E; neither is Inclusive here.'
+              },
+              {
+                "text": "Spec 2 allows two true while Spec 1 does not",
+                "fraction": 0,
+                "feedback": "Both forbid two-or-more true; the only difference is the all-false case."
+              }
+            ],
+            "generalFeedback": "One-and-only-one (O) = exactly one true; Exclusive (E) = at most one true. Both forbid two or more true; they differ solely in that E permits the all-false combination and O does not. Hence O has one fewer feasible combination than E for the same causes.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Feasible combinations under O (3 causes)",
+            "text": "<p>Three causes c1, c2, c3 are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^3 = 8 assignments, how many are feasible?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exactly one true means one of {c1}, {c2}, {c3}: 3 feasible assignments."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 would be the count under Exclusive (which also allows all-false); O forbids all-false, leaving 3."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the Inclusive count (at least one true); O requires exactly one, giving 3."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "There are three different ways for exactly one cause to be the true one, so 3."
+              }
+            ],
+            "generalFeedback": "Under O exactly one cause is true. Enumerating the 8 assignments, only TFF, FTF, FFT qualify \u2014 3 feasible combinations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feasible combinations under E (3 causes)",
+            "text": "<p>Three causes c1, c2, c3 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 8 assignments, how many are feasible?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at most one true: all-false plus the three single-true assignments = 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is the One-and-only-one count; E additionally allows the all-false case, giving 4."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": '7 is the Inclusive count; E is "at most one", which yields 4.'
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": 'Enumerating "at most one true" gives FFF, TFF, FTF, FFT \u2014 4, not 5.'
+              }
+            ],
+            "generalFeedback": "Under E at most one cause is true. Feasible: FFF, TFF, FTF, FFT \u2014 4 combinations (one more than O, because all-false is allowed).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feasible combinations under I (3 causes)",
+            "text": "<p>Three causes c1, c2, c3 are governed by an <strong>Inclusive (I)</strong> constraint. Of the 8 assignments, how many are feasible?</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at least one true rules out only the all-false case: 8 \u2212 1 = 7."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "I forbids the all-false assignment, so 7 (not all 8) remain."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is the One-and-only-one count; Inclusive allows any number \u2265 1 true, giving 7."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": '4 is the Exclusive count; Inclusive is "at least one", which gives 7.'
+              }
+            ],
+            "generalFeedback": "Under I at least one cause is true, so only FFF is forbidden. That leaves 8 \u2212 1 = 7 feasible combinations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feasible combinations under E (2 causes)",
+            "text": "<p>Two causes c1, c2 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 2^2 = 4 assignments, how many are feasible?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at most one true: FF, TF, FT are feasible; only TT is ruled out."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is the One-and-only-one count; E also allows FF, giving 3."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "E forbids both true (TT), so only 3 of the 4 remain."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Three assignments have at most one true, so 3 are feasible."
+              }
+            ],
+            "generalFeedback": "Under E at most one of two causes is true, so TT is infeasible. Feasible: FF, TF, FT \u2014 3 combinations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feasible combinations under O (4 causes)",
+            "text": "<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^4 = 16 assignments, how many are feasible?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exactly one true, and there are 4 choices of which cause is the true one."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 would include the all-false case (that is Exclusive); O forbids all-false, leaving 4."
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 is the Inclusive count (at least one true); O requires exactly one, giving 4."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Any one of the four causes may be the single true one, so 4."
+              }
+            ],
+            "generalFeedback": "Under O exactly one of the four causes is true, so the feasible assignments are TFFF, FTFF, FFTF, FFFT \u2014 4 in all.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feasible combinations under Requires (2 causes)",
+            "text": "<p>Two causes a, b have the constraint <strong>a Requires b</strong> (a\u2192b). Of the 4 assignments, how many are feasible?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only a=true, b=false is forbidden; the other 3 are feasible."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Only one assignment is ruled out, not three; 3 remain feasible."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "The combination a=true, b=false violates a\u2192b, so only 3 are feasible."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "R rules out exactly one combination (a-true, b-false), leaving 3."
+              }
+            ],
+            "generalFeedback": "a\u2192b forbids only (a=true, b=false). The feasible assignments are (F,F), (F,T), (T,T) \u2014 3 combinations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feasible combinations under Requires (3 causes)",
+            "text": "<p>Three causes a, b, c have the single constraint <strong>a Requires b</strong> (a\u2192b); c is unconstrained. Of the 2^3 = 8 assignments, how many are feasible?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a=true with b=false is forbidden for either value of c, removing 2 of the 8."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "Two assignments are removed (a=T, b=F with c=F and with c=T), not one, so 6 remain."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Only the a-true, b-false cases are infeasible; that is 2 assignments, leaving 6."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "c is free, so 6 assignments satisfy a\u2192b, not 3."
+              }
+            ],
+            "generalFeedback": "a\u2192b forbids a=true, b=false. With c free, that pattern occurs for c=false and c=true \u2014 2 infeasible assignments. So 8 \u2212 2 = 6 are feasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is a combination feasible under O",
+            "text": "<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint. Is the assignment <code>c1 = true, c2 = true, c3 = false</code> feasible?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 two causes are true, but O allows exactly one true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with c1 and c2 both true, the O constraint is violated, so this column is infeasible."
+              },
+              {
+                "text": "Yes \u2014 at least one cause is true",
+                "fraction": 0,
+                "feedback": '"At least one" is the Inclusive constraint; O demands exactly one, and here two are true.'
+              },
+              {
+                "text": "Yes \u2014 c3 is false, satisfying the constraint",
+                "fraction": 0,
+                "feedback": "O counts how many are true overall; two true (c1, c2) violates it regardless of c3."
+              },
+              {
+                "text": "No \u2014 because c3 must be true",
+                "fraction": 0,
+                "feedback": "O does not require c3 specifically; it fails here simply because two causes are true."
+              }
+            ],
+            "generalFeedback": "Under O exactly one cause may be true. Here c1 and c2 are both true, so the assignment is infeasible and yields no test case.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect value under the Masks constraint",
+            "text": "<p>Two effects are computed from the graph, and effect A <strong>Masks</strong> effect B. For some input the graph gives <code>A = true</code> and would give <code>B = true</code>. After applying the Masks constraint, what are the observed effect values?</p>",
+            "answers": [
+              {
+                "text": "A = true, B = false \u2014 because A occurs, B is masked (forced false)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Masks forces the second effect false whenever the first occurs."
+              },
+              {
+                "text": "A = true, B = true \u2014 Masks does not change computed values",
+                "fraction": 0,
+                "feedback": "Masks specifically overrides B: when A is true, B is forced false."
+              },
+              {
+                "text": "A = false, B = true \u2014 B masks A",
+                "fraction": 0,
+                "feedback": "The direction is A masks B, so A stays true and B is suppressed."
+              },
+              {
+                "text": "Both false \u2014 a mask cancels both effects",
+                "fraction": 0,
+                "feedback": "Only the masked effect (B) is forced false; A remains as computed (true)."
+              }
+            ],
+            "generalFeedback": "Masks is directional: when the masking effect A is true, the masked effect B is forced to false, overriding whatever the graph computed for B. A itself is unaffected, so the result is A = true, B = false.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "True-points of an AND effect",
+            "text": `<p>An effect is <code>E = c1 \u2227 c2</code> with no constraints. Tracing back, how many cause assignments (the effect's "true points") make E true?</p>`,
+            "answers": [
+              {
+                "text": "1 \u2014 only (c1 = true, c2 = true)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an AND is true for exactly the all-true assignment."
+              },
+              {
+                "text": "3 \u2014 every assignment except all-false",
+                "fraction": 0,
+                "feedback": "That describes an OR; an AND is true only when both are true."
+              },
+              {
+                "text": "2 \u2014 whenever c1 is true",
+                "fraction": 0,
+                "feedback": "c1 true with c2 false gives E false, so not every c1-true case counts."
+              },
+              {
+                "text": "4 \u2014 all assignments",
+                "fraction": 0,
+                "feedback": "E is false whenever either cause is false, so not all 4 assignments are true points."
+              }
+            ],
+            "generalFeedback": "Tracing back from E = c1 \u2227 c2, the only assignment that makes it true is (T, T). So the effect has a single true point, which becomes one decision-table column that fires E.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "True-points of an OR effect",
+            "text": "<p>An effect is <code>E = c1 \u2228 c2</code> with no constraints. How many cause assignments make E true?</p>",
+            "answers": [
+              {
+                "text": "3 \u2014 (T,T), (T,F), (F,T)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an OR is true for every assignment except all-false."
+              },
+              {
+                "text": "1 \u2014 only (T,T)",
+                "fraction": 0,
+                "feedback": "That is the AND case; an OR needs only one true input."
+              },
+              {
+                "text": "2 \u2014 only the single-true assignments",
+                "fraction": 0,
+                "feedback": "(T,T) also makes an OR true, so there are 3 true points, not 2."
+              },
+              {
+                "text": "4 \u2014 all assignments",
+                "fraction": 0,
+                "feedback": "(F,F) makes the OR false, so only 3 assignments are true points."
+              }
+            ],
+            "generalFeedback": "E = c1 \u2228 c2 is true for (T,T), (T,F), (F,T) and false only for (F,F). That is 3 true points.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Decision-table columns from feasible combinations",
+            "text": "<p>A cause-effect graph has 3 causes under a <strong>One-and-only-one (O)</strong> constraint. If the decision table has one column per feasible cause combination, how many columns (and therefore test cases) does it have?</p>",
+            "answers": [
+              {
+                "text": "3 \u2014 one per feasible combination (exactly one cause true)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 O leaves 3 feasible combinations, so 3 columns and 3 tests."
+              },
+              {
+                "text": "8 \u2014 one per raw 2^3 combination",
+                "fraction": 0,
+                "feedback": "The O constraint removes the infeasible combinations; only 3 remain."
+              },
+              {
+                "text": "4 \u2014 the Exclusive count",
+                "fraction": 0,
+                "feedback": "Under O the all-false case is not allowed, so it is 3, not 4."
+              },
+              {
+                "text": "1 \u2014 a single column suffices",
+                "fraction": 0,
+                "feedback": "Each feasible combination is a distinct column; there are 3."
+              }
+            ],
+            "generalFeedback": "Building the decision table, each feasible cause combination becomes one column and thus one test case. With 3 causes under O there are 3 feasible combinations, giving 3 columns.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible combinations removed by E (3 causes)",
+            "text": "<p>Three causes are governed by an <strong>Exclusive (E)</strong> constraint. How many of the 2^3 = 8 raw combinations become <em>infeasible</em>?</p>",
+            "answers": [
+              {
+                "text": "4 \u2014 the combinations with two or more causes true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 8 total minus 4 feasible (at most one true) = 4 infeasible."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Feasible under E is 4 (all-false plus three single-true), so infeasible is 8 \u2212 4 = 4."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "That would leave only 3 feasible (the O count); under E, 4 are feasible, so 4 are infeasible."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Every combination with two or more true is infeasible \u2014 there are 4 of those (TTF, TFT, FTT, TTT)."
+              }
+            ],
+            "generalFeedback": "Under E at most one cause is true, so 4 combinations are feasible (FFF, TFF, FTF, FFT). The remaining 8 \u2212 4 = 4 (TTF, TFT, FTT, TTT) are infeasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Infeasible combinations removed by O (4 causes)",
+            "text": "<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. How many of the 2^4 = 16 raw combinations are <em>infeasible</em>?</p>",
+            "answers": [
+              {
+                "text": "12 \u2014 only 4 combinations (exactly one true) are feasible, so 16 \u2212 4 = 12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 O leaves 4 feasible, so 12 are infeasible."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of feasible combinations, not the infeasible ones; 16 \u2212 4 = 12."
+              },
+              {
+                "text": "11",
+                "fraction": 0,
+                "feedback": "That would leave 5 feasible (the Exclusive count); under O only 4 are feasible, so 12 are infeasible."
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 would leave a single feasible case; O has 4 feasible, so 12 infeasible."
+              }
+            ],
+            "generalFeedback": "Under O exactly one of four causes is true, giving 4 feasible combinations. The other 16 \u2212 4 = 12 combinations (all-false or two-or-more true) are infeasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect value across all feasible O columns",
+            "text": "<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint, and an effect is <code>E = c1 \u2228 c2 \u2228 c3</code>. In how many of the feasible columns is E true?</p>",
+            "answers": [
+              {
+                "text": "3 \u2014 in every feasible column, since exactly one cause is always true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 O guarantees one cause is true, so the OR is true in all 3 feasible columns."
+              },
+              {
+                "text": "1 \u2014 only when all three are true",
+                "fraction": 0,
+                "feedback": "Under O all-three-true is infeasible; the OR is true whenever any one is true, which is always here."
+              },
+              {
+                "text": "0 \u2014 the constraint makes E false",
+                "fraction": 0,
+                "feedback": "The constraint forces exactly one true, so the OR is true, not false."
+              },
+              {
+                "text": "7 \u2014 one per Inclusive combination",
+                "fraction": 0,
+                "feedback": "Under O there are only 3 feasible columns, and E is true in all of them."
+              }
+            ],
+            "generalFeedback": "O forces exactly one cause true in every feasible column, so c1 \u2228 c2 \u2228 c3 is true in each. There are 3 feasible columns, and E is true in all 3.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u539F\u56E0\uFF08cause\uFF09",
+            "text": "<p>\u5728\u56E0\u679C\u5716\uFF08cause-effect graph\uFF09\u4E2D\uFF0C<strong>\u539F\u56E0\uFF08cause\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53D6\u81EA\u898F\u683C\u7684\u4E00\u500B\u7368\u7ACB\u8F38\u5165\u689D\u4EF6\uFF08\u53EF\u70BA\u771F\u6216\u70BA\u5047\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u539F\u56E0\u662F\u4E00\u500B\u500B\u5225\u7684\u8F38\u5165\u689D\u4EF6\uFF0C\u53D6\u503C\u70BA\u771F\u6216\u5047\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7522\u751F\u7684\u8F38\u51FA\u6216\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u679C\uFF08effect\uFF09\uFF0C\u4E0D\u662F\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u88AB\u57F7\u884C\u7684\u4E00\u884C\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u56E0\u679C\u5716\u6CD5\u5C6C\u65BC\u9ED1\u7BB1\u6E2C\u8A66\uFF1B\u539F\u56E0\u4F86\u81EA\u898F\u683C\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u6240\u7522\u751F\u6C7A\u7B56\u8868\u7684\u4E00\u500B\u6B04\u4F4D",
+                "fraction": 0,
+                "feedback": "\u6B04\u4F4D\u662F\u7A0D\u5F8C\u5C0E\u51FA\u7684\u898F\u5247\uFF0F\u6E2C\u8A66\u6848\u4F8B\uFF1B\u539F\u56E0\u5247\u662F\u8F38\u5165\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u539F\u56E0\u662F\u4E00\u500B\u7368\u7ACB\u7684\u8F38\u5165\u689D\u4EF6\u2014\u2014\u4E00\u500B\u53EF\u6210\u7ACB\u6216\u4E0D\u6210\u7ACB\u7684\u5E03\u6797\u503C\u3002\u539F\u56E0\u900F\u904E\u95B1\u8B80\u898F\u683C\u627E\u51FA\uFF0C\u4E26\u7D93\u7531\u5E03\u6797\u7BC0\u9EDE\u9023\u5230\u5176\u5F71\u97FF\u7684\u6548\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6548\u679C\uFF08effect\uFF09",
+            "text": "<p>\u5728\u56E0\u679C\u5716\u4E2D\uFF0C<strong>\u6548\u679C\uFF08effect\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u56DE\u61C9\u5176\u8F38\u5165\u800C\u7522\u751F\u7684\u8F38\u51FA\u689D\u4EF6\u6216\u52D5\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6548\u679C\u662F\u5716\u53F3\u5074\u53EF\u89C0\u5BDF\u5230\u7684\u8F38\u51FA\uFF0F\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u53EF\u70BA\u771F\u6216\u70BA\u5047\u7684\u8F38\u5165\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u539F\u56E0\uFF0C\u4E0D\u662F\u6548\u679C\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u8F38\u5165\u4E4B\u9593\u7684\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u7D04\u675F\uFF08E\uFF0FI\uFF0FO\uFF0FR\uFF09\u9650\u5236\u7684\u662F\u539F\u56E0\uFF1B\u6548\u679C\u5247\u662F\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u5982 AND \u6216 OR \u7684\u5E03\u6797\u904B\u7B97\u7BC0\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u7BC0\u9EDE\u628A\u539F\u56E0\u9023\u5230\u6548\u679C\uFF1B\u6548\u679C\u672C\u8EAB\u662F\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u6548\u679C\u662F\u8F38\u51FA\u689D\u4EF6\u6216\u52D5\u4F5C\u3002\u5728\u5716\u4E2D\uFF0C\u5DE6\u5074\u7684\u539F\u56E0\u7D93\u7531\u5E03\u6797\u7BC0\u9EDE\u9023\u5230\u53F3\u5074\u7684\u6548\u679C\uFF0C\u4E14\u5C0D\u65BC\u7D66\u5B9A\u7684\u539F\u56E0\u6307\u6D3E\uFF0C\u6BCF\u500B\u6548\u679C\u6700\u7D42\u70BA\u771F\u6216\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "IDENTITY \u7BC0\u9EDE",
+            "text": "<p>\u7576 <strong>IDENTITY</strong> \u7BC0\u9EDE\u628A\u4E00\u500B\u539F\u56E0\u9023\u5230\u4E00\u500B\u6548\u679C\u6642\uFF0C\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u6070\u597D\u7576\u8A72\u55AE\u4E00\u539F\u56E0\u70BA\u771F\u6642\uFF08\u5B83\u628A\u539F\u56E0\u7684\u503C\u76F4\u63A5\u8907\u88FD\u904E\u53BB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014identity \u628A\u539F\u56E0\u503C\u539F\u6A23\u50B3\u7D66\u6548\u679C\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u6070\u597D\u7576\u8A72\u539F\u56E0\u70BA\u5047\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F NOT \u7BC0\u9EDE\uFF0C\u4E0D\u662F identity\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u7576\u5169\u500B\u539F\u56E0\u4E4B\u4E00\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F OR \u7BC0\u9EDE\uFF1Bidentity \u9023\u7684\u662F\u55AE\u4E00\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u539F\u56E0\u70BA\u4F55\uFF0C\u6548\u679C\u6C38\u9060\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "identity \u53CD\u6620\u539F\u56E0\u7684\u503C\uFF0C\u4E26\u975E\u6046\u771F\u7BC0\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "IDENTITY \u7BC0\u9EDE\u628A\u4E00\u500B\u539F\u56E0\u9023\u5230\u4E00\u500B\u6548\u679C\uFF0C\u4F7F effect = cause\uFF1A\u539F\u56E0\u70BA\u771F\u5247\u6548\u679C\u70BA\u771F\uFF0C\u539F\u56E0\u70BA\u5047\u5247\u6548\u679C\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "NOT \u7BC0\u9EDE",
+            "text": "<p><strong>NOT</strong>\uFF08~\uFF09\u7BC0\u9EDE\u8A08\u7B97\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u6070\u597D\u7576\u5176\u55AE\u4E00\u539F\u56E0\u70BA\u5047\u6642\uFF08\u5B83\u5C0D\u539F\u56E0\u53D6\u53CD\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014NOT \u53CD\u8F49\u539F\u56E0\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u6070\u597D\u7576\u539F\u56E0\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F IDENTITY\uFF1BNOT \u7D66\u51FA\u76F8\u53CD\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u7576\u591A\u500B\u539F\u56E0\u5168\u90E8\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F AND\uFF1BNOT \u53EA\u53D6\u55AE\u4E00\u539F\u56E0\u4E26\u53D6\u53CD\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u7576\u591A\u500B\u539F\u56E0\u4E2D\u81F3\u5C11\u4E00\u500B\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F OR\uFF1BNOT \u5C0D\u4E00\u500B\u539F\u56E0\u53D6\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "NOT \u7BC0\u9EDE\uFF08\u756B\u4F5C ~\uFF09\u53D6\u53CD\uFF1A\u539F\u56E0\u70BA\u5047\u6642\u6548\u679C\u70BA\u771F\uFF0C\u539F\u56E0\u70BA\u771F\u6642\u6548\u679C\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AND \u7BC0\u9EDE",
+            "text": "<p>\u5C0D\u65BC\u9023\u5230\u591A\u500B\u539F\u56E0\u7684\u6548\u679C\uFF0C<strong>AND</strong>\uFF08\u2227\uFF09\u7BC0\u9EDE\u8A08\u7B97\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u50C5\u7576\u6240\u9023\u7684\u6BCF\u4E00\u500B\u539F\u56E0\u90FD\u70BA\u771F\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AND \u8981\u6C42\u6240\u6709\u8F38\u5165\u90FD\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u7576\u6240\u9023\u539F\u56E0\u4E2D\u81F3\u5C11\u4E00\u500B\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F OR\uFF0C\u4E0D\u662F AND\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u7576\u6240\u9023\u539F\u56E0\u4E2D\u6070\u597D\u4E00\u500B\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "AND \u8981\u6C42\u5168\u90E8\u70BA\u771F\uFF0C\u800C\u975E\u6070\u597D\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u53EA\u8907\u88FD\u7B2C\u4E00\u500B\u539F\u56E0\u7684\u503C",
+                "fraction": 0,
+                "feedback": "AND \u53D6\u6C7A\u65BC\u6BCF\u500B\u8F38\u5165\uFF0C\u800C\u975E\u53EA\u6709\u7B2C\u4E00\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "AND \u7BC0\u9EDE\u50C5\u7576\u5176\u6240\u6709\u8F38\u5165\u539F\u56E0\uFF08\u6216\u4E2D\u9593\u7BC0\u9EDE\uFF09\u90FD\u70BA\u771F\u6642\u624D\u70BA\u771F\uFF1B\u53EA\u8981\u6709\u4EFB\u4E00\u8F38\u5165\u70BA\u5047\uFF0C\u6548\u679C\u5373\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "OR \u7BC0\u9EDE",
+            "text": "<p>\u5C0D\u65BC\u9023\u5230\u591A\u500B\u539F\u56E0\u7684\u6548\u679C\uFF0C<strong>OR</strong>\uFF08\u2228\uFF09\u7BC0\u9EDE\u8A08\u7B97\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u7576\u6240\u9023\u539F\u56E0\u4E2D\u81F3\u5C11\u4E00\u500B\u70BA\u771F\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014OR \u53EA\u9700\u4E00\u500B\u8F38\u5165\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u50C5\u7576\u6240\u9023\u539F\u56E0\u5168\u90E8\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F AND\uFF0C\u4E0D\u662F OR\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u50C5\u7576\u6240\u9023\u539F\u56E0\u4E2D\u6070\u597D\u4E00\u500B\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "OR \u5728\u4E00\u500B\u6216\u591A\u500B\u70BA\u771F\u6642\u7686\u70BA\u771F\uFF1B\u300C\u6070\u597D\u4E00\u500B\u300D\u662F\u4E0D\u540C\u7684\uFF08O\uFF09\u6982\u5FF5\u3002"
+              },
+              {
+                "text": "\u6548\u679C\u70BA\u771F\uFF0C\u50C5\u7576\u6240\u9023\u539F\u56E0\u5168\u90E8\u70BA\u5047\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F NOR\uFF08OR \u53D6\u53CD\uFF09\uFF1B\u7D14 OR \u5728\u4EFB\u4E00\u8F38\u5165\u70BA\u771F\u6642\u5373\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "OR \u7BC0\u9EDE\u5728\u5176\u8F38\u5165\u6709\u4E00\u500B\u6216\u591A\u500B\u70BA\u771F\u6642\u70BA\u771F\uFF0C\u53EA\u6709\u5728\u6BCF\u500B\u8F38\u5165\u90FD\u70BA\u5047\u6642\u624D\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E92\u65A5\uFF08E\uFF09\u7D04\u675F",
+            "text": "<p>\u5728\u4E00\u7D44\u539F\u56E0\u4E4B\u9593\uFF0C<strong>\u4E92\u65A5\uFF08Exclusive\uFF0CE\uFF09</strong>\u7D04\u675F\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u81F3\u591A\u4E00\u500B\u53EF\u70BA\u771F\uFF08\u53EF\u4EE5\u5168\u90E8\u70BA\u5047\uFF0C\u4F46\u6C92\u6709\u5169\u500B\u540C\u6642\u70BA\u771F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E \u5141\u8A31\u96F6\u500B\u6216\u4E00\u500B\u70BA\u771F\uFF0C\u7D55\u4E0D\u6703\u6709\u5169\u500B\u4EE5\u4E0A\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u6070\u597D\u4E00\u500B\u5FC5\u9808\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u300C\u552F\u4E00\u5176\u4E00\uFF08O\uFF09\u300D\u7D04\u675F\uFF1BE \u4E5F\u5141\u8A31\u5168\u90E8\u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u81F3\u5C11\u4E00\u500B\u5FC5\u9808\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u300C\u5167\u542B\uFF08I\uFF09\u300D\u7D04\u675F\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u5FC5\u9808\u5168\u90E8\u540C\u6642\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "E \u7981\u6B62\u5169\u500B\u540C\u6642\u70BA\u771F\uFF0C\u6545\u7D55\u4E0D\u53EF\u80FD\u8981\u6C42\u5168\u90E8\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E92\u65A5\uFF08E\uFF09\uFF1A\u53D7\u7D04\u675F\u7684\u539F\u56E0\u4E2D\u81F3\u591A\u4E00\u500B\u70BA\u771F\u3002\u5141\u8A31\u96F6\u500B\u70BA\u771F\uFF1B\u7981\u6B62\u5169\u500B\u4EE5\u4E0A\u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5167\u542B\uFF08I\uFF09\u7D04\u675F",
+            "text": "<p>\u5728\u4E00\u7D44\u539F\u56E0\u4E4B\u9593\uFF0C<strong>\u5167\u542B\uFF08Inclusive\uFF0CI\uFF09</strong>\u7D04\u675F\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u81F3\u5C11\u4E00\u500B\u5FC5\u9808\u70BA\u771F\uFF08\u4E0D\u80FD\u5168\u90E8\u70BA\u5047\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014I \u7981\u6B62\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\uFF1B\u81F3\u5C11\u4E00\u500B\u5FC5\u9808\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u81F3\u591A\u4E00\u500B\u53EF\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u300C\u4E92\u65A5\uFF08E\uFF09\u300D\u7D04\u675F\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u6070\u597D\u4E00\u500B\u5FC5\u9808\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u300C\u552F\u4E00\u5176\u4E00\uFF08O\uFF09\u300D\u7D04\u675F\uFF1BI \u5141\u8A31\u591A\u500B\u540C\u6642\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u5B8C\u5168\u6C92\u6709\u4EFB\u4F55\u9650\u5236",
+                "fraction": 0,
+                "feedback": "I \u78BA\u5BE6\u6709\u9650\u5236\uFF1A\u5B83\u6392\u9664\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\u3002"
+              }
+            ],
+            "generalFeedback": "\u5167\u542B\uFF08I\uFF09\uFF1A\u53D7\u7D04\u675F\u7684\u539F\u56E0\u4E2D\u81F3\u5C11\u4E00\u500B\u5FC5\u9808\u70BA\u771F\u3002\u5F9E\u4E00\u500B\u5230\u5168\u90E8\u7684\u4EFB\u610F\u6578\u76EE\u7686\u53EF\uFF1B\u53EA\u6709\u5168\u90E8\u70BA\u5047\u88AB\u7981\u6B62\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u552F\u4E00\u5176\u4E00\uFF08O\uFF09\u7D04\u675F",
+            "text": "<p>\u5728\u4E00\u7D44\u539F\u56E0\u4E4B\u9593\uFF0C<strong>\u552F\u4E00\u5176\u4E00\uFF08One-and-only-one\uFF0CO\uFF09</strong>\u7D04\u675F\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u6070\u597D\u4E00\u500B\u70BA\u771F\u2014\u2014\u4E0D\u591A\u4E5F\u4E0D\u5C11",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014O \u8981\u6C42\u6070\u597D\u4E00\u500B\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u81F3\u591A\u4E00\u500B\u53EF\u70BA\u771F\uFF08\u5141\u8A31\u5168\u90E8\u70BA\u5047\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E92\u65A5\uFF08E\uFF09\uFF1BO \u7981\u6B62\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u4E2D\u81F3\u5C11\u4E00\u500B\u5FC5\u9808\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5167\u542B\uFF08I\uFF09\uFF0C\u5B83\u4E5F\u5141\u8A31\u591A\u500B\u70BA\u771F\uFF1BO \u53EA\u5141\u8A31\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u539F\u56E0\u8981\u561B\u5168\u90E8\u70BA\u771F\u3001\u8981\u561B\u5168\u90E8\u70BA\u5047",
+                "fraction": 0,
+                "feedback": "O \u8981\u6C42\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF0C\u800C\u975E\u5168\u6709\u6216\u5168\u7121\u3002"
+              }
+            ],
+            "generalFeedback": "\u552F\u4E00\u5176\u4E00\uFF08O\uFF09\uFF1A\u53D7\u7D04\u675F\u7684\u539F\u56E0\u4E2D\u6070\u597D\u4E00\u500B\u70BA\u771F\u3002\u5B83\u7D50\u5408\u4E86\u4E92\u65A5\uFF08\u81F3\u591A\u4E00\u500B\uFF09\u8207\u5167\u542B\uFF08\u81F3\u5C11\u4E00\u500B\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9700\u8981\uFF08R\uFF09\u7D04\u675F",
+            "text": "<p><strong>\u9700\u8981\uFF08Requires\uFF0CR\uFF09</strong>\u7D04\u675F\u300C\u539F\u56E0 a \u9700\u8981\u539F\u56E0 b\u300D\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u8981 a \u70BA\u771F\uFF0Cb \u4E5F\u5FC5\u9808\u70BA\u771F\uFF08\u56E0\u6B64 a \u70BA\u771F\u800C b \u70BA\u5047\u662F\u4E0D\u53EF\u80FD\u7684\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014R \u6392\u9664\u4E86 a \u70BA\u771F\u3001b \u70BA\u5047\u7684\u7D44\u5408\u3002"
+              },
+              {
+                "text": "\u53EA\u8981 a \u70BA\u771F\uFF0Cb \u5FC5\u9808\u70BA\u5047",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u597D\u76F8\u53CD\uFF1BR \u5728 a \u70BA\u771F\u6642\u5F37\u5236 b \u70BA\u771F\u3002"
+              },
+              {
+                "text": "a \u8207 b \u5FC5\u9808\u6C38\u9060\u53D6\u76F8\u540C\u7684\u503C",
+                "fraction": 0,
+                "feedback": "R \u662F\u55AE\u5411\u7684\uFF1Aa \u70BA\u5047\u6642 b \u53EF\u70BA\u4EFB\u610F\u503C\uFF1B\u53EA\u6709 a \u771F b \u5047\u88AB\u7981\u6B62\u3002"
+              },
+              {
+                "text": "a \u8207 b \u4E2D\u6070\u597D\u4E00\u500B\u53EF\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u4E92\u65A5\uFF0F\u552F\u4E00\u5176\u4E00\uFF1BR \u662F\u860A\u6DB5 a\u2192b\u3002"
+              }
+            ],
+            "generalFeedback": "\u9700\u8981\uFF08R\uFF09\u662F\u860A\u6DB5 a\u2192b\uFF1A\u82E5 a \u70BA\u771F\u5247 b \u5FC5\u9808\u70BA\u771F\u3002\u552F\u4E00\u88AB\u7981\u6B62\u7684\u7D44\u5408\u662F a \u70BA\u771F\u3001b \u70BA\u5047\uFF1B\u5176\u9918\uFF08\u542B a \u70BA\u5047\u642D\u914D\u4EFB\u610F b\uFF09\u7686\u5141\u8A31\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u906E\u853D\uFF08M\uFF09\u7D04\u675F",
+            "text": "<p><strong>\u906E\u853D\uFF08Masks\uFF0CM\uFF09</strong>\u7D04\u675F\u300C\u6548\u679C a \u906E\u853D\u6548\u679C b\u300D\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u82E5\u6548\u679C a \u767C\u751F\uFF08\u70BA\u771F\uFF09\uFF0C\u5247\u6548\u679C b \u88AB\u906E\u853D\u4E26\u5F37\u5236\u70BA\u5047",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014M \u662F\u6548\u679C\u4E4B\u9593\u7684\u7D04\u675F\uFF1Aa \u70BA\u771F\u6703\u6291\u5236 b\u3002"
+              },
+              {
+                "text": "\u82E5\u539F\u56E0 a \u70BA\u771F\uFF0C\u539F\u56E0 b \u5FC5\u9808\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9700\u8981\uFF08R\uFF09\uFF0C\u4E00\u500B\u539F\u56E0\u4E4B\u9593\u7684\u7D04\u675F\uFF1BM \u7D04\u675F\u7684\u662F\u6548\u679C\u3002"
+              },
+              {
+                "text": "\u6548\u679C a \u8207 b \u4E2D\u81F3\u591A\u4E00\u500B\u53EF\u767C\u751F\uFF0C\u4F46\u4EFB\u4E00\u500B\u90FD\u53EF\u55AE\u7368\u767C\u751F",
+                "fraction": 0,
+                "feedback": "M \u662F\u6709\u65B9\u5411\u7684\u2014\u2014a \u6291\u5236 b\uFF0C\u4F46 b \u4E0D\u6291\u5236 a\u2014\u2014\u56E0\u6B64\u4E0D\u662F\u5C0D\u7A31\u7684\u300C\u81F3\u591A\u4E00\u500B\u300D\u3002"
+              },
+              {
+                "text": "\u6548\u679C a \u8207 b \u5FC5\u9808\u6C38\u9060\u4E00\u8D77\u767C\u751F",
+                "fraction": 0,
+                "feedback": "M \u6B63\u597D\u76F8\u53CD\uFF1A\u7576 a \u767C\u751F\u6642 b \u4E0D\u80FD\u767C\u751F\u3002"
+              }
+            ],
+            "generalFeedback": "\u906E\u853D\uFF08M\uFF09\u662F\u552F\u4E00\u4F5C\u7528\u65BC\u6548\u679C\uFF08\u800C\u975E\u539F\u56E0\uFF09\u4E4B\u9593\u7684\u7D04\u675F\uFF1A\u7576\u6548\u679C a \u70BA\u771F\u6642\uFF0C\u6548\u679C b \u88AB\u906E\u853D\uFF08\u5F37\u5236\u70BA\u5047\uFF09\uFF0C\u7121\u8AD6\u5716\u539F\u672C\u5C0D b \u8A08\u7B97\u51FA\u4EC0\u9EBC\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6 identity \u5716",
+            "text": "<p>\u4E00\u500B\u6548\u679C\u7D93\u7531 IDENTITY \u7BC0\u9EDE\u9023\u5230\u55AE\u4E00\u539F\u56E0\uFF1A</p><pre>\nE = IDENTITY(c1)\n</pre><p>\u82E5 <code>c1 = true</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014identity \u8907\u88FD\u539F\u56E0\uFF0C\u6545 E = c1 = true\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "identity \u4E0D\u53D6\u53CD\uFF1BE \u7B49\u65BC c1\uFF0C\u5373 true\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9\u2014\u2014\u4E00\u500B\u6548\u679C\u81F3\u5C11\u9700\u8981\u5169\u500B\u539F\u56E0",
+                "fraction": 0,
+                "feedback": "identity \u7BC0\u9EDE\u6070\u597D\u628A\u4E00\u500B\u539F\u56E0\u9023\u5230\u6548\u679C\uFF0C\u9019\u662F\u5408\u6CD5\u7684\u3002"
+              },
+              {
+                "text": "\u53D6\u6C7A\u65BC\u672A\u986F\u793A\u7684\u5176\u4ED6\u539F\u56E0",
+                "fraction": 0,
+                "feedback": "\u8A72\u6548\u679C\u53EA\u7D93\u7531 identity \u9023\u5230 c1\uFF0C\u6545\u53EA\u6709 c1 \u6709\u5F71\u97FF\u3002"
+              }
+            ],
+            "generalFeedback": "IDENTITY \u628A\u539F\u56E0\u539F\u6A23\u50B3\u904E\u53BB\uFF1AE = c1\u3002\u7576 c1 = true \u6642\uFF0CE = true\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6 NOT \u5716",
+            "text": "<p>\u4E00\u500B\u6548\u679C\u7D93\u7531 NOT \u7BC0\u9EDE\u9023\u5230\u55AE\u4E00\u539F\u56E0\uFF1A</p><pre>\nE = ~c1\n</pre><p>\u82E5 <code>c1 = false</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014NOT \u53D6\u53CD\uFF1A~false = true\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "NOT \u5C0D\u539F\u56E0\u53D6\u53CD\uFF1Bc1 \u70BA\u5047\u6642 E \u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u7B2C\u4E8C\u500B\u539F\u56E0\u5C31\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "NOT \u7BC0\u9EDE\u53D6\u55AE\u4E00\u539F\u56E0\uFF1B\u8A72\u6548\u679C\u662F\u6709\u5B9A\u7FA9\u7684\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC c1",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F identity\uFF1BNOT \u7D66\u51FA c1 \u7684\u76F8\u53CD\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "NOT \u7BC0\u9EDE\u7D66\u51FA E = ~c1\u3002\u7576 c1 = false \u6642\uFF0CE = ~false = true\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u56E0\u679C\u5716\u6CD5\u5C6C\u65BC\u9ED1\u7BB1",
+            "text": "<p>\u56E0\u679C\u5716\u6CD5\u662F\u4E00\u7A2E\u9ED1\u7BB1\uFF08\u4EE5\u898F\u683C\u70BA\u57FA\u790E\uFF09\u7684\u6E2C\u8A66\u8A2D\u8A08\u6280\u8853\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5F9E\u898F\u683C\u7684\u8F38\u5165\u689D\u4EF6\u8207\u8F38\u51FA\u5C0E\u51FA\u6E2C\u8A66\uFF0C\u800C\u975E\u5F9E\u539F\u59CB\u78BC\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u539F\u56E0\u8207\u6548\u679C\u90FD\u8B80\u81EA\u898F\u683C\uFF0C\u6545\u6B64\u6280\u8853\u5C6C\u65BC\u9ED1\u7BB1\uFF0C\u800C\u975E\u7D50\u69CB\u6027\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u679C\u5716\u6CD5\u5F9E\u898F\u683C\u627E\u51FA\u8F38\u5165\u689D\u4EF6\uFF08\u539F\u56E0\uFF09\u8207\u8F38\u51FA\uFF08\u6548\u679C\uFF09\uFF0C\u4E26\u4EE5\u5E03\u6797\u908F\u8F2F\u9023\u63A5\u2014\u2014\u9019\u662F\u4E00\u7A2E\u9ED1\u7BB1\u6280\u8853\uFF0C\u8207\u7A0B\u5F0F\u78BC\u7684\u5167\u90E8\u7D50\u69CB\u7121\u95DC\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u500B\u7D04\u675F\u4F5C\u7528\u65BC\u6548\u679C",
+            "text": "<p>\u5728\u4E94\u7A2E\u7D04\u675F\u578B\u5225\uFF08E\u3001I\u3001O\u3001R\u3001M\uFF09\u4E2D\uFF0C\u6709\u56DB\u7A2E\u9650\u5236\u7684\u662F<em>\u539F\u56E0</em>\u7684\u7D44\u5408\u3002\u54EA\u4E00\u500B\u6539\u70BA\u9650\u5236<em>\u6548\u679C</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "M\uFF08\u906E\u853D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u906E\u853D\u662F\u4F5C\u7528\u65BC\u6548\u679C\u90A3\u4E00\u5074\u7684\u7D04\u675F\uFF1BE\u3001I\u3001O\u3001R \u90FD\u9650\u5236\u539F\u56E0\u3002"
+              },
+              {
+                "text": "E\uFF08\u4E92\u65A5\uFF09",
+                "fraction": 0,
+                "feedback": "E \u9650\u5236\u7684\u662F\u539F\u56E0\uFF08\u81F3\u591A\u4E00\u500B\u70BA\u771F\uFF09\uFF0C\u800C\u975E\u6548\u679C\u3002"
+              },
+              {
+                "text": "R\uFF08\u9700\u8981\uFF09",
+                "fraction": 0,
+                "feedback": "R \u9650\u5236\u7684\u662F\u539F\u56E0\uFF08a\u2192b\uFF09\uFF0C\u800C\u975E\u6548\u679C\u3002"
+              },
+              {
+                "text": "O\uFF08\u552F\u4E00\u5176\u4E00\uFF09",
+                "fraction": 0,
+                "feedback": "O \u9650\u5236\u7684\u662F\u539F\u56E0\uFF08\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF09\uFF0C\u800C\u975E\u6548\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "E\u3001I\u3001O\u3001R \u8868\u9054\u7684\u662F\u539F\u56E0\uFF08\u8F38\u5165\uFF09\u4E4B\u9593\u7684\u95DC\u4FC2\u3002M\uFF08\u906E\u853D\uFF09\u662F\u552F\u4E00\u9023\u7D50\u5169\u500B\u6548\u679C\u7684\u7D04\u675F\uFF1A\u82E5\u7B2C\u4E00\u500B\u767C\u751F\uFF0C\u5C31\u5F37\u5236\u7B2C\u4E8C\u500B\u70BA\u5047\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 AND \u6548\u679C",
+            "text": "<p>\u4E00\u500B\u6548\u679C\u9023\u63A5\u5982\u4E0B\uFF1A</p><pre>\nE = c1 \u2227 c2\n</pre><p>\u7D66\u5B9A <code>c1 = true</code>\u3001<code>c2 = false</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AND \u9700\u5169\u8005\u7686\u70BA\u771F\uFF1Bc2 \u70BA\u5047\uFF0C\u6545 E \u70BA\u5047\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "AND \u8981\u6C42\u6BCF\u500B\u8F38\u5165\u90FD\u70BA\u771F\uFF1Bc2 = false \u4F7F E \u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u8F38\u5165\u90FD\u5DF2\u7D66\u5B9A\uFF0C\u6545 E \u6709\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC c1",
+                "fraction": 0,
+                "feedback": "E \u53D6\u6C7A\u65BC\u5169\u500B\u539F\u56E0\uFF1Bc2 \u70BA\u5047\u6642\uFF0C\u4E0D\u8AD6 c1 \u70BA\u4F55 AND \u7686\u70BA\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "E = c1 \u2227 c2 = true \u2227 false = false\u3002AND \u53EA\u6709\u5728\u6240\u6709\u8F38\u5165\u90FD\u70BA\u771F\u6642\u624D\u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 OR \u6548\u679C",
+            "text": "<p>\u4E00\u500B\u6548\u679C\u9023\u63A5\u5982\u4E0B\uFF1A</p><pre>\nE = c1 \u2228 c2\n</pre><p>\u7D66\u5B9A <code>c1 = false</code>\u3001<code>c2 = true</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014OR \u5728\u4EFB\u4E00\u8F38\u5165\u70BA\u771F\u6642\u5373\u70BA\u771F\uFF1Bc2 \u70BA\u771F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "OR \u53EA\u9700\u4E00\u500B\u8F38\u5165\u70BA\u771F\uFF0C\u800C c2 \u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u8F38\u5165\u90FD\u5DF2\u7D66\u5B9A\uFF0C\u6545 E \u6709\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u53EA\u7B49\u65BC c1",
+                "fraction": 0,
+                "feedback": "E \u53D6\u6C7A\u65BC\u5169\u8005\uFF1Bc2 \u70BA\u771F\u4F7F OR \u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "E = c1 \u2228 c2 = false \u2228 true = true\u3002OR \u53EA\u6709\u5728\u6BCF\u500B\u8F38\u5165\u90FD\u70BA\u5047\u6642\u624D\u70BA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u5E36\u53D6\u53CD\u8F38\u5165\u7684 AND",
+            "text": "<p>\u4E00\u500B\u6548\u679C\u9023\u63A5\u5982\u4E0B\uFF1A</p><pre>\nE = c1 \u2227 ~c2\n</pre><p>\u7D66\u5B9A <code>c1 = true</code>\u3001<code>c2 = false</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014~c2 = true \u4E14 c1 = true\uFF0C\u6545 AND \u70BA\u771F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u56E0 c2 \u70BA\u5047\uFF0C~c2 \u70BA\u771F\uFF0C\u4E14 true \u2227 true = true\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u539F\u56E0\u90FD\u5DF2\u7D66\u5B9A\uFF0C\u6545 E \u6709\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC c2",
+                "fraction": 0,
+                "feedback": "E \u4F7F\u7528 ~c2\uFF0C\u8207 c1 \u7D50\u5408\u5F8C\u5728\u6B64\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5148\u53D6\u53CD\uFF1A~c2 = ~false = true\u3002\u518D\u8A08\u7B97 E = c1 \u2227 ~c2 = true \u2227 true = true\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u4E09\u8F38\u5165 OR",
+            "text": "<p>\u4E00\u500B\u6548\u679C\u9023\u63A5\u5982\u4E0B\uFF1A</p><pre>\nE = c1 \u2228 c2 \u2228 c3\n</pre><p>\u7D66\u5B9A <code>c1 = false</code>\u3001<code>c2 = false</code>\u3001<code>c3 = false</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014OR \u53EA\u6709\u5728\u6BCF\u500B\u8F38\u5165\u90FD\u70BA\u5047\u6642\u624D\u70BA\u5047\uFF0C\u6B64\u8655\u6B63\u662F\u5982\u6B64\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u8F38\u5165\u90FD\u70BA\u5047\uFF0C\u6545 OR \u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u6240\u6709\u8F38\u5165\u90FD\u5DF2\u7D66\u5B9A\uFF1BE \u6709\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u53D6\u6C7A\u65BC\u67D0\u500B\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u984C\u76EE\u672A\u7D66\u4EFB\u4F55\u7D04\u675F\uFF1B\u4E09\u500B\u5047\u7684 OR \u5C31\u662F\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "E = false \u2228 false \u2228 false = false\u3002OR \u6070\u597D\u5728\u6240\u6709\u8F38\u5165\u90FD\u70BA\u5047\u6642\u7D66\u51FA\u5047\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u7D04\u675F\u8868\u9054\u300C\u81F3\u591A\u4E00\u500B\u300D",
+            "text": "<p>\u898F\u683C\u8AAA\uFF1A\u300C\u4E00\u5F35\u8A02\u55AE<em>\u81F3\u591A</em>\u53EF\u5957\u7528\u4E09\u500B\u512A\u60E0\u78BC\u4E2D\u7684\u4E00\u500B\uFF08\u4E0D\u5957\u7528\u4EFB\u4F55\u4E00\u500B\u4E5F\u53EF\u4EE5\uFF09\u3002\u300D\u5728\u9019\u4E09\u500B\u539F\u56E0\u8F38\u5165\u4E4B\u9593\uFF0C\u54EA\u500B\u7D04\u675F\u80FD\u8868\u9054\u6B64\u610F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "E\uFF08\u4E92\u65A5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u81F3\u591A\u4E00\u500B\u3001\u5141\u8A31\u96F6\u500B\u300D\u6B63\u662F\u4E92\u65A5\u3002"
+              },
+              {
+                "text": "O\uFF08\u552F\u4E00\u5176\u4E00\uFF09",
+                "fraction": 0,
+                "feedback": "O \u6703\u5F37\u5236\u6070\u597D\u5957\u7528\u4E00\u500B\uFF1B\u6B64\u8655\u5141\u8A31\u4E0D\u5957\u7528\uFF0C\u6545\u70BA E\u3002"
+              },
+              {
+                "text": "I\uFF08\u5167\u542B\uFF09",
+                "fraction": 0,
+                "feedback": "I \u8981\u6C42\u81F3\u5C11\u4E00\u500B\u70BA\u771F\uFF1B\u6B64\u8655\u5141\u8A31\u96F6\u500B\uFF0C\u6545\u70BA E\u3002"
+              },
+              {
+                "text": "R\uFF08\u9700\u8981\uFF09",
+                "fraction": 0,
+                "feedback": "R \u662F\u5169\u500B\u7279\u5B9A\u539F\u56E0\u9593\u7684\u860A\u6DB5\uFF0C\u800C\u975E\u300C\u4E00\u7D44\u4E2D\u81F3\u591A\u4E00\u500B\u300D\u7684\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u81F3\u591A\u4E00\u500B\u70BA\u771F\u3001\u4E14\u5141\u8A31\u5168\u90E8\u70BA\u5047\u300D\u662F\u4E92\u65A5\uFF08E\uFF09\u7D04\u675F\u3002\u82E5\u898F\u683C\u7981\u6B62\u5168\u90E8\u70BA\u5047\uFF0C\u90A3\u624D\u6703\u662F\u552F\u4E00\u5176\u4E00\uFF08O\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u7D04\u675F\u8868\u9054\u300C\u81F3\u5C11\u4E00\u500B\u300D",
+            "text": "<p>\u898F\u683C\u8AAA\uFF1A\u300C\u5FC5\u9808\u63D0\u4F9B\u81F3\u5C11\u4E00\u7A2E\u806F\u7D61\u65B9\u5F0F\uFF08\u96FB\u8A71\u3001\u96FB\u5B50\u90F5\u4EF6\u6216\u5730\u5740\uFF09\u3002\u300D\u5728\u9019\u4E09\u500B\u539F\u56E0\u8F38\u5165\u4E4B\u9593\uFF0C\u54EA\u500B\u7D04\u675F\u80FD\u8868\u9054\u6B64\u610F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "I\uFF08\u5167\u542B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u81F3\u5C11\u4E00\u500B\u300D\u6B63\u662F\u5167\u542B\u7D04\u675F\u3002"
+              },
+              {
+                "text": "E\uFF08\u4E92\u65A5\uFF09",
+                "fraction": 0,
+                "feedback": "E \u8868\u793A\u81F3\u591A\u4E00\u500B\uFF1B\u6B64\u8655\u9700\u8981\u4E00\u500B\u6216\u591A\u500B\uFF0C\u6545\u70BA I\u3002"
+              },
+              {
+                "text": "O\uFF08\u552F\u4E00\u5176\u4E00\uFF09",
+                "fraction": 0,
+                "feedback": "O \u8868\u793A\u6070\u597D\u4E00\u500B\uFF1B\u6B64\u8655\u63D0\u4F9B\u591A\u500B\u4E5F\u53EF\u4EE5\uFF0C\u6545\u70BA I\u3002"
+              },
+              {
+                "text": "M\uFF08\u906E\u853D\uFF09",
+                "fraction": 0,
+                "feedback": "M \u662F\u6548\u679C\u7D04\u675F\uFF0C\u800C\u975E\u95DC\u65BC\u6709\u5E7E\u500B\u539F\u56E0\u70BA\u771F\u7684\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u81F3\u5C11\u4E00\u500B\u5FC5\u9808\u70BA\u771F\u300D\u662F\u5167\u542B\uFF08I\uFF09\u7D04\u675F\uFF1B\u5B83\u53EA\u7981\u6B62\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u7D04\u675F\u8868\u9054\u300C\u6070\u597D\u4E00\u500B\u300D",
+            "text": "<p>\u898F\u683C\u8AAA\uFF1A\u300C\u5FC5\u9808\u9078\u64C7<em>\u6070\u597D\u4E00\u7A2E</em>\u4ED8\u6B3E\u65B9\u5F0F\u2014\u2014\u73FE\u91D1\u3001\u5361\u7247\u6216\u79AE\u5238\u3002\u300D\u5728\u9019\u4E09\u500B\u539F\u56E0\u8F38\u5165\u4E4B\u9593\uFF0C\u54EA\u500B\u7D04\u675F\u80FD\u8868\u9054\u6B64\u610F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "O\uFF08\u552F\u4E00\u5176\u4E00\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u6070\u597D\u4E00\u500B\u300D\u662F\u552F\u4E00\u5176\u4E00\u7D04\u675F\u3002"
+              },
+              {
+                "text": "E\uFF08\u4E92\u65A5\uFF09",
+                "fraction": 0,
+                "feedback": "E \u5141\u8A31\u96F6\u500B\u70BA\u771F\uFF1B\u6B64\u8655\u5FC5\u9808\u6C38\u9060\u9078\u4E00\u500B\uFF0C\u6545\u70BA O\u3002"
+              },
+              {
+                "text": "I\uFF08\u5167\u542B\uFF09",
+                "fraction": 0,
+                "feedback": "I \u5141\u8A31\u591A\u500B\u70BA\u771F\uFF1B\u6B64\u8655\u53EA\u80FD\u9078\u4E00\u500B\uFF0C\u6545\u70BA O\u3002"
+              },
+              {
+                "text": "R\uFF08\u9700\u8981\uFF09",
+                "fraction": 0,
+                "feedback": "R \u662F a\u2192b \u7684\u860A\u6DB5\uFF0C\u800C\u975E\u300C\u5F9E\u4E00\u7D44\u4E2D\u9078\u6070\u597D\u4E00\u500B\u300D\u7684\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u6070\u597D\u4E00\u500B\u70BA\u771F\u300D\u7D50\u5408\u4E86\u4E92\u65A5\uFF08\u81F3\u591A\u4E00\u500B\uFF09\u8207\u5167\u542B\uFF08\u81F3\u5C11\u4E00\u500B\uFF09\uFF1A\u90A3\u5C31\u662F\u552F\u4E00\u5176\u4E00\uFF08O\uFF09\u7D04\u675F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u7D04\u675F\u8868\u9054\u300C\u9700\u8981\u300D",
+            "text": "<p>\u898F\u683C\u8AAA\uFF1A\u300C\u9078\u64C7<em>\u5FEB\u905E\u904B\u9001</em>\u9700\u8981\u5DF2\u8F38\u5165<em>\u9001\u8CA8\u5730\u5740</em>\u3002\u300D\u54EA\u500B\u7D04\u675F\u80FD\u8868\u9054\u6B64\u610F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "R\uFF08\u9700\u8981\uFF09\uFF1A\u5FEB\u905E\u904B\u9001 \u2192 \u9001\u8CA8\u5730\u5740",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u539F\u56E0\u70BA\u771F\u6703\u5F37\u5236\u53E6\u4E00\u500B\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u539F\u56E0\u4E4B\u9593\u7684 O\uFF08\u552F\u4E00\u5176\u4E00\uFF09",
+                "fraction": 0,
+                "feedback": "\u898F\u683C\u4E0D\u662F\u300C\u5169\u8005\u6070\u597D\u5176\u4E00\u300D\uFF1B\u5B83\u662F\u860A\u6DB5 a\u2192b\uFF0C\u5373 R\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u539F\u56E0\u4E4B\u9593\u7684 E\uFF08\u4E92\u65A5\uFF09",
+                "fraction": 0,
+                "feedback": "E \u7981\u6B62\u5169\u8005\u540C\u6642\u70BA\u771F\uFF1B\u6B64\u8655\u5169\u8005\u540C\u6642\u70BA\u771F\u6B63\u662F\u9810\u671F\u4E14\u5408\u6CD5\u7684\u60C5\u5F62\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u539F\u56E0\u4E4B\u9593\u7684 M\uFF08\u906E\u853D\uFF09",
+                "fraction": 0,
+                "feedback": "M \u9023\u7D50\u7684\u662F\u6548\u679C\uFF1B\u6B64\u898F\u5247\u9023\u7D50\u7684\u662F\u5169\u500B\u8F38\u5165\u539F\u56E0\uFF0C\u6545\u70BA R\u3002"
+              }
+            ],
+            "generalFeedback": "\u300Ca \u9700\u8981 b\u300D\u662F\u9700\u8981\uFF08R\uFF09\u7D04\u675F\uFF0C\u5373\u860A\u6DB5 a\u2192b\uFF1A\u5FEB\u905E\u904B\u9001\u70BA\u771F\u6703\u5F37\u5236\u9001\u8CA8\u5730\u5740\u70BA\u771F\uFF0C\u6392\u9664\u4E86\u300C\u5FEB\u905E\u537B\u7121\u5730\u5740\u300D\u7684\u60C5\u5F62\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5148\u756B\u5716\u518D\u505A\u6C7A\u7B56\u8868",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u8981\u5148\u5EFA\u56E0\u679C\u5716\u3001\u518D\u8F49\u70BA\u6C7A\u7B56\u8868\uFF0C\u800C\u4E0D\u662F\u76F4\u63A5\u6E2C\u8A66\u6BCF\u4E00\u7A2E\u8F38\u5165\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5716\u7684\u908F\u8F2F\u8207\u7D04\u675F\u8B93\u6211\u5011\u53EA\u5C0E\u51FA\u53EF\u884C\u4E14\u8207\u884C\u70BA\u76F8\u95DC\u7684\u7D44\u5408\uFF0C\u5F97\u5230\u53EF\u7BA1\u7406\u7684\u6E2C\u8A66\u96C6\uFF0C\u800C\u975E\u5168\u90E8 2^n \u7A2E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u7A2E\u6709\u7CFB\u7D71\u5730\u7E2E\u6E1B\u5230\u6709\u610F\u7FA9\u7D44\u5408\u6B63\u662F\u91CD\u9EDE\u6240\u5728\u3002"
+              },
+              {
+                "text": "\u5B83\u80FD\u4FDD\u8B49\u7A0B\u5F0F\u7684\u6558\u8FF0\u8207\u5206\u652F\u8986\u84CB\u9054\u5230 100%",
+                "fraction": 0,
+                "feedback": "\u56E0\u679C\u5716\u6CD5\u5C6C\u9ED1\u7BB1\uFF1B\u5B83\u91DD\u5C0D\u8F38\u5165\u7D44\u5408\u7684\u908F\u8F2F\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u8986\u84CB\u5EA6\u91CF\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u6211\u5011\u4E0D\u5FC5\u518D\u6307\u5B9A\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u6BCF\u689D\u898F\u5247\uFF0F\u6B04\u4F4D\u4ECD\u5E36\u6709\u9810\u671F\u6548\u679C\uFF1B\u6B64\u6280\u8853\u4E26\u672A\u6368\u68C4\u5224\u6E96\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u7AAE\u8209\u6E2C\u8A66\u5168\u90E8 2^n \u7A2E\u7D44\u5408\u8DD1\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u76EE\u6A19\u662F\u907F\u514D\u7AAE\u8209\u6E2C\u8A66\uFF0C\u53EA\u4FDD\u7559\u53EF\u884C\u4E14\u76F8\u7570\u7684\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5168\u90E8 2^n \u7A2E\u539F\u56E0\u7D44\u5408\u901A\u5E38\u4E0D\u53EF\u884C\u3002\u5716\u6355\u6349\u4E86\u908F\u8F2F\u8207\u7D04\u675F\uFF0C\u5C07\u6548\u679C\u56DE\u6EAF\u5F8C\u4FBF\u5F97\u5230\u4E00\u5F35\u6C7A\u7B56\u8868\uFF0C\u5176\u6B04\u4F4D\u5373\u70BA\u53EF\u884C\u4E14\u76F8\u7570\u7684\u7D44\u5408\u2014\u2014\u4E00\u500B\u6709\u7CFB\u7D71\u4E14\u53EF\u7BA1\u7406\u7684\u6E2C\u8A66\u96C6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u539F\u56E0\u7684\u6578\u76EE",
+            "text": "<p>\u898F\u683C\uFF1A\u300C\u82E5<em>\u5361\u7247\u6709\u6548</em>\u3001<em>PIN \u6B63\u78BA</em>\u4E14<em>\u9918\u984D\u8DB3\u5920</em>\uFF0C\u5247\u5141\u8A31\u63D0\u6B3E\uFF1B\u5426\u5247\u4EA4\u6613\u88AB<em>\u62D2\u7D55</em>\uFF0C\u4E14\u82E5 PIN \u9023\u932F\u4E09\u6B21\u5247<em>\u6C92\u6536</em>\u5361\u7247\u3002\u300D\u6B64\u898F\u683C\u6697\u793A\u6709\u5E7E\u500B\u76F8\u7570\u7684<strong>\u539F\u56E0</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u5361\u7247\u6709\u6548\u3001PIN \u6B63\u78BA\u3001\u9918\u984D\u8DB3\u5920\u3001PIN \u9023\u932F\u4E09\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u56DB\u500B\u76F8\u7570\u7684\u8F38\u5165\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u5361\u7247\u6709\u6548\u3001PIN \u6B63\u78BA\u3001\u9918\u984D\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u300CPIN \u9023\u932F\u4E09\u6B21\u300D\u662F\u7B2C\u56DB\u500B\u76F8\u7570\u7684\u8F38\u5165\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u5141\u8A31\u8207\u62D2\u7D55",
+                "fraction": 0,
+                "feedback": "\u300C\u5141\u8A31\u300D\u8207\u300C\u62D2\u7D55\u300D\u662F\u6548\u679C\uFF08\u8F38\u51FA\uFF09\uFF0C\u4E0D\u662F\u539F\u56E0\u3002"
+              },
+              {
+                "text": "6\u2014\u2014\u53E5\u4E2D\u7684\u6BCF\u500B\u540D\u8A5E",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u76F8\u7570\u7684\u8F38\u5165\u689D\u4EF6\u624D\u7B97\u539F\u56E0\uFF1B\u4E26\u975E\u6BCF\u500B\u540D\u8A5E\u90FD\u7B26\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u539F\u56E0\u662F\u76F8\u7570\u7684\u8F38\u5165\u689D\u4EF6\uFF1A\u5361\u7247\u6709\u6548\u3001PIN \u6B63\u78BA\u3001\u9918\u984D\u8DB3\u5920\u3001PIN \u9023\u932F\u4E09\u6B21\u2014\u2014\u5171\u56DB\u500B\u539F\u56E0\u3002\u300C\u5141\u8A31\u300D\u300C\u62D2\u7D55\u300D\u300C\u6C92\u6536\u300D\u5247\u662F\u6548\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u6548\u679C\u7684\u6578\u76EE",
+            "text": "<p>\u6CBF\u7528\u540C\u4E00\u4EFD ATM \u898F\u683C\u2014\u2014\u300C\u2026\u2026\u4EA4\u6613\u88AB<em>\u5141\u8A31</em>\u6216<em>\u62D2\u7D55</em>\uFF0C\u4E14\u5361\u7247\u53EF\u80FD\u88AB<em>\u6C92\u6536</em>\u300D\u2014\u2014\u5171\u6709\u5E7E\u500B\u76F8\u7570\u7684<strong>\u6548\u679C</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014\u5141\u8A31\u3001\u62D2\u7D55\u3001\u6C92\u6536\u5361\u7247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u662F\u4E09\u500B\u76F8\u7570\u7684\u8F38\u51FA\u689D\u4EF6\uFF0F\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u53EA\u6709\u5141\u8A31\u8207\u62D2\u7D55",
+                "fraction": 0,
+                "feedback": "\u300C\u6C92\u6536\u5361\u7247\u300D\u662F\u7B2C\u4E09\u500B\u76F8\u7570\u7684\u6548\u679C\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u8207\u539F\u56E0\u6578\u76EE\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u539F\u56E0\u8207\u6548\u679C\u5206\u958B\u8A08\u7B97\uFF1B\u6B64\u8655\u6709\u4E09\u500B\u6548\u679C\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u4EA4\u6613\u7684\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u5171\u6709\u4E09\u500B\u76F8\u7570\u7684\u8F38\u51FA\uFF0C\u800C\u975E\u4E00\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6548\u679C\u662F\u76F8\u7570\u7684\u8F38\u51FA\uFF0F\u52D5\u4F5C\uFF1A\u5141\u8A31\u3001\u62D2\u7D55\u3001\u6C92\u6536\u5361\u7247\u2014\u2014\u5171\u4E09\u500B\u6548\u679C\u3002\u8A08\u7B97\u539F\u56E0\u8207\u6548\u679C\u7684\u6578\u76EE\u662F\u5EFA\u5716\u7684\u7B2C\u4E00\u6B65\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 OR \u9935\u5165 AND",
+            "text": "<p>\u5716\u4E2D\u6709\u4E00\u500B\u4E2D\u9593\u7BC0\u9EDE\u8207\u4E00\u500B\u6548\u679C\uFF1A</p><pre>\nn1 = c1 \u2228 c2\nE  = n1 \u2227 c3\n</pre><p>\u7D66\u5B9A <code>c1 = false</code>\u3001<code>c2 = true</code>\u3001<code>c3 = true</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014n1 = false \u2228 true = true\uFF0C\u518D E = true \u2227 true = true\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "n1 \u70BA\u771F\uFF08\u56E0 c2\uFF09\uFF0C\u4E14 c3 \u70BA\u771F\uFF0C\u6545 AND \u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u6240\u6709\u539F\u56E0\u90FD\u5DF2\u7D66\u5B9A\uFF0C\u6545 E \u6709\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC c1",
+                "fraction": 0,
+                "feedback": "E \u53D6\u6C7A\u65BC c1\u3001c2 \u7684 OR \u4EE5\u53CA c3\uFF0C\u800C\u975E\u53EA\u6709 c1\u3002"
+              }
+            ],
+            "generalFeedback": "\u5148\u7B97\u4E2D\u9593\u7BC0\u9EDE\uFF1An1 = c1 \u2228 c2 = false \u2228 true = true\u3002\u518D\u7B97 E = n1 \u2227 c3 = true \u2227 true = true\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8868\u9054\u4E00\u500B\u6548\u679C\u906E\u853D\u53E6\u4E00\u500B",
+            "text": "<p>\u898F\u683C\u8AAA\uFF1A\u300C\u7576\u986F\u793A\u300E<em>\u5E33\u865F\u5DF2\u9396\u5B9A</em>\u300F\u932F\u8AA4\u6642\uFF0C\u4E0D\u5F97\u986F\u793A\u300E<em>\u6B61\u8FCE</em>\u300F\u8A0A\u606F\u3002\u300D\u54EA\u500B\u7D04\u675F\u80FD\u8868\u9054\u9019\u5169\u500B\u8F38\u51FA\u4E4B\u9593\u7684\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "M\uFF08\u906E\u853D\uFF09\uFF1A\u5E33\u865F\u5DF2\u9396\u5B9A\u6548\u679C\u906E\u853D\u6B61\u8FCE\u6548\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u6548\u679C\u767C\u751F\u6703\u5F37\u5236\u53E6\u4E00\u500B\u88AB\u6291\u5236\uFF0C\u9019\u5C31\u662F\u906E\u853D\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u539F\u56E0\u4E4B\u9593\u7684 E\uFF08\u4E92\u65A5\uFF09",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u662F\u8F38\u51FA\uFF0C\u4E0D\u662F\u539F\u56E0\uFF1B\u6548\u679C\u90A3\u4E00\u5074\u7684\u7D04\u675F\u662F M\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u539F\u56E0\u4E4B\u9593\u7684 R\uFF08\u9700\u8981\uFF09",
+                "fraction": 0,
+                "feedback": "R \u9023\u7D50\u539F\u56E0\uFF1B\u6B64\u8655\u9023\u7D50\u7684\u662F\u5169\u500B\u6548\u679C\uFF0C\u6545\u70BA M\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u539F\u56E0\u4E4B\u9593\u7684 O\uFF08\u552F\u4E00\u5176\u4E00\uFF09",
+                "fraction": 0,
+                "feedback": "O \u7D04\u675F\u539F\u56E0\uFF1B\u6B64\u898F\u5247\u7D04\u675F\u7684\u662F\u6548\u679C\uFF0C\u6545\u70BA M\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u4E00\u500B\u8F38\u51FA\u767C\u751F\u5C31\u6291\u5236\u53E6\u4E00\u500B\u8F38\u51FA\u7684\u95DC\u4FC2\uFF0C\u5C31\u662F\u906E\u853D\uFF08M\uFF09\u7D04\u675F\u2014\u2014\u552F\u4E00\u5728\u6548\u679C\u4E4B\u9593\u8868\u9054\u7684\u7D04\u675F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 NOR \u6548\u679C",
+            "text": "<p>\u4E00\u500B\u6548\u679C\u9023\u63A5\u5982\u4E0B\uFF1A</p><pre>\nE = ~(c1 \u2228 c2)\n</pre><p>\u7D66\u5B9A <code>c1 = false</code>\u3001<code>c2 = false</code>\uFF0CE \u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c1 \u2228 c2 = false\uFF0C\u4E14 ~false = true\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u5047\u7684 OR \u70BA\u5047\uFF0C\u5176\u53D6\u53CD\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u539F\u56E0\u90FD\u5DF2\u7D66\u5B9A\uFF0C\u6545 E \u6709\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u7B49\u65BC c1 \u2228 c2",
+                "fraction": 0,
+                "feedback": "NOT \u7BC0\u9EDE\u6703\u53CD\u8F49\u8A72 OR\uFF0C\u6545 E \u662F c1 \u2228 c2 \u7684\u76F8\u53CD\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5148\u7B97\u62EC\u865F\u5167\uFF1Ac1 \u2228 c2 = false \u2228 false = false\u3002\u518D\u53D6\u53CD\uFF1AE = ~false = true\u3002\u9019\u7A2E\u300C\u53EA\u6709\u5728\u6240\u6709\u8F38\u5165\u90FD\u70BA\u5047\u6642\u624D\u70BA\u771F\u300D\u7684\u578B\u614B\u5C31\u662F NOR\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "O \u8207 E \u5728\u5168\u90E8\u70BA\u5047\u60C5\u5F62\u4E0A\u7684\u5DEE\u7570",
+            "text": "<p>\u5169\u4EFD\u898F\u683C\u9650\u5236\u540C\u4E00\u7D44\u539F\u56E0\u3002\u898F\u683C 1\uFF1A\u300C\u9078\u64C7\u6070\u597D\u4E00\u500B\u3002\u300D\u898F\u683C 2\uFF1A\u300C\u81F3\u591A\u9078\u64C7\u4E00\u500B\u3002\u300D\u5B83\u5011\u6240\u6697\u793A\u7684\u7D04\u675F\u552F\u4E00\u7684\u5DEE\u5225\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u898F\u683C 1 \u662F O\uFF08\u7981\u6B62\u5168\u90E8\u70BA\u5047\uFF09\uFF1B\u898F\u683C 2 \u662F E\uFF08\u5141\u8A31\u5168\u90E8\u70BA\u5047\uFF09\u2014\u2014\u5169\u8005\u53EA\u5728\u300C\u96F6\u500B\u70BA\u771F\u662F\u5426\u53EF\u884C\u300D\u4E0A\u4E0D\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014O \u8207 E \u9664\u4E86 O \u7981\u6B62\u5168\u90E8\u70BA\u5047\u4E4B\u5916\u5B8C\u5168\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u5B8C\u5168\u76F8\u540C\u7684\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5728\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\u4E0A\u4E0D\u540C\uFF1AO \u7981\u6B62\uFF0CE \u5141\u8A31\u3002"
+              },
+              {
+                "text": "\u898F\u683C 1 \u662F I\uFF0C\u898F\u683C 2 \u662F O",
+                "fraction": 0,
+                "feedback": "\u300C\u6070\u597D\u4E00\u500B\u300D\u662F O\uFF0C\u300C\u81F3\u591A\u4E00\u500B\u300D\u662F E\uFF1B\u6B64\u8655\u90FD\u4E0D\u662F\u5167\u542B\u3002"
+              },
+              {
+                "text": "\u898F\u683C 2 \u5141\u8A31\u5169\u500B\u70BA\u771F\uFF0C\u898F\u683C 1 \u4E0D\u5141\u8A31",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u7981\u6B62\u5169\u500B\u4EE5\u4E0A\u70BA\u771F\uFF1B\u552F\u4E00\u5DEE\u5225\u5728\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\u3002"
+              }
+            ],
+            "generalFeedback": "\u552F\u4E00\u5176\u4E00\uFF08O\uFF09\uFF1D\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF1B\u4E92\u65A5\uFF08E\uFF09\uFF1D\u81F3\u591A\u4E00\u500B\u70BA\u771F\u3002\u5169\u8005\u90FD\u7981\u6B62\u5169\u500B\u4EE5\u4E0A\u70BA\u771F\uFF1B\u552F\u4E00\u5DEE\u5225\u662F E \u5141\u8A31\u5168\u90E8\u70BA\u5047\u7684\u7D44\u5408\u800C O \u4E0D\u5141\u8A31\u3002\u56E0\u6B64\u5C0D\u540C\u4E00\u7D44\u539F\u56E0\uFF0CO \u6BD4 E \u5C11\u4E00\u500B\u53EF\u884C\u7D44\u5408\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "O \u7D04\u675F\u4E0B\u7684\u53EF\u884C\u7D44\u5408\uFF083 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u4E09\u500B\u539F\u56E0 c1\u3001c2\u3001c3 \u53D7<strong>\u552F\u4E00\u5176\u4E00\uFF08O\uFF09</strong>\u7D04\u675F\u3002\u5728 2^3 = 8 \u7A2E\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u662F\u53EF\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF0C\u5373 {c1}\u3001{c2}\u3001{c3} \u4E4B\u4E00\uFF1A3 \u7A2E\u53EF\u884C\u6307\u6D3E\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u4E92\u65A5\uFF08\u4E5F\u5141\u8A31\u5168\u90E8\u70BA\u5047\uFF09\u7684\u8A08\u6578\uFF1BO \u7981\u6B62\u5168\u90E8\u70BA\u5047\uFF0C\u5269\u4E0B 3\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u5167\u542B\uFF08\u81F3\u5C11\u4E00\u500B\u70BA\u771F\uFF09\u7684\u8A08\u6578\uFF1BO \u8981\u6C42\u6070\u597D\u4E00\u500B\uFF0C\u5F97 3\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u4E00\u500B\u70BA\u771F\u6709\u4E09\u7A2E\u4E0D\u540C\u9078\u6CD5\uFF0C\u6545\u70BA 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 O \u4E4B\u4E0B\u6070\u597D\u4E00\u500B\u539F\u56E0\u70BA\u771F\u3002\u5217\u8209 8 \u7A2E\u6307\u6D3E\u5F8C\uFF0C\u53EA\u6709 TFF\u3001FTF\u3001FFT \u7B26\u5408\u2014\u20143 \u7A2E\u53EF\u884C\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E \u7D04\u675F\u4E0B\u7684\u53EF\u884C\u7D44\u5408\uFF083 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u4E09\u500B\u539F\u56E0 c1\u3001c2\u3001c3 \u53D7<strong>\u4E92\u65A5\uFF08E\uFF09</strong>\u7D04\u675F\u3002\u5728 8 \u7A2E\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u662F\u53EF\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81F3\u591A\u4E00\u500B\u70BA\u771F\uFF1A\u5168\u90E8\u70BA\u5047\u52A0\u4E0A\u4E09\u7A2E\u55AE\u4E00\u70BA\u771F\uFF1D4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u552F\u4E00\u5176\u4E00\u7684\u8A08\u6578\uFF1BE \u53E6\u5916\u5141\u8A31\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\uFF0C\u5F97 4\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u5167\u542B\u7684\u8A08\u6578\uFF1BE \u662F\u300C\u81F3\u591A\u4E00\u500B\u300D\uFF0C\u5F97 4\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u5217\u8209\u300C\u81F3\u591A\u4E00\u500B\u70BA\u771F\u300D\u5F97 FFF\u3001TFF\u3001FTF\u3001FFT\u2014\u2014\u662F 4\uFF0C\u4E0D\u662F 5\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 E \u4E4B\u4E0B\u81F3\u591A\u4E00\u500B\u539F\u56E0\u70BA\u771F\u3002\u53EF\u884C\u8005\uFF1AFFF\u3001TFF\u3001FTF\u3001FFT\u2014\u20144 \u7A2E\u7D44\u5408\uFF08\u6BD4 O \u591A\u4E00\u7A2E\uFF0C\u56E0\u70BA\u5141\u8A31\u5168\u90E8\u70BA\u5047\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "I \u7D04\u675F\u4E0B\u7684\u53EF\u884C\u7D44\u5408\uFF083 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u4E09\u500B\u539F\u56E0 c1\u3001c2\u3001c3 \u53D7<strong>\u5167\u542B\uFF08I\uFF09</strong>\u7D04\u675F\u3002\u5728 8 \u7A2E\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u662F\u53EF\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81F3\u5C11\u4E00\u500B\u70BA\u771F\u53EA\u6392\u9664\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\uFF1A8 \u2212 1 = 7\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "I \u7981\u6B62\u5168\u90E8\u70BA\u5047\u7684\u6307\u6D3E\uFF0C\u6545\u5269\u4E0B 7\uFF08\u800C\u975E\u5168\u90E8 8\uFF09\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u552F\u4E00\u5176\u4E00\u7684\u8A08\u6578\uFF1B\u5167\u542B\u5141\u8A31\u4EFB\u610F\u6578\u76EE \u2265 1 \u70BA\u771F\uFF0C\u5F97 7\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u4E92\u65A5\u7684\u8A08\u6578\uFF1B\u5167\u542B\u662F\u300C\u81F3\u5C11\u4E00\u500B\u300D\uFF0C\u5F97 7\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 I \u4E4B\u4E0B\u81F3\u5C11\u4E00\u500B\u539F\u56E0\u70BA\u771F\uFF0C\u6545\u53EA\u6709 FFF \u88AB\u7981\u6B62\u3002\u5269\u4E0B 8 \u2212 1 = 7 \u7A2E\u53EF\u884C\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E \u7D04\u675F\u4E0B\u7684\u53EF\u884C\u7D44\u5408\uFF082 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u5169\u500B\u539F\u56E0 c1\u3001c2 \u53D7<strong>\u4E92\u65A5\uFF08E\uFF09</strong>\u7D04\u675F\u3002\u5728 2^2 = 4 \u7A2E\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u662F\u53EF\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81F3\u591A\u4E00\u500B\u70BA\u771F\uFF1AFF\u3001TF\u3001FT \u53EF\u884C\uFF1B\u53EA\u6709 TT \u88AB\u6392\u9664\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u552F\u4E00\u5176\u4E00\u7684\u8A08\u6578\uFF1BE \u4E5F\u5141\u8A31 FF\uFF0C\u5F97 3\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "E \u7981\u6B62\u5169\u8005\u7686\u70BA\u771F\uFF08TT\uFF09\uFF0C\u6545 4 \u7A2E\u4E2D\u53EA\u5269 3 \u7A2E\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6709\u4E09\u7A2E\u6307\u6D3E\u81F3\u591A\u4E00\u500B\u70BA\u771F\uFF0C\u6545 3 \u7A2E\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 E \u4E4B\u4E0B\u5169\u500B\u539F\u56E0\u81F3\u591A\u4E00\u500B\u70BA\u771F\uFF0C\u6545 TT \u4E0D\u53EF\u884C\u3002\u53EF\u884C\u8005\uFF1AFF\u3001TF\u3001FT\u2014\u20143 \u7A2E\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "O \u7D04\u675F\u4E0B\u7684\u53EF\u884C\u7D44\u5408\uFF084 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u56DB\u500B\u539F\u56E0\u53D7<strong>\u552F\u4E00\u5176\u4E00\uFF08O\uFF09</strong>\u7D04\u675F\u3002\u5728 2^4 = 16 \u7A2E\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u662F\u53EF\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF0C\u800C\u54EA\u4E00\u500B\u70BA\u771F\u6709 4 \u7A2E\u9078\u6CD5\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u6703\u628A\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\u4E5F\u7B97\u5165\uFF08\u90A3\u662F\u4E92\u65A5\uFF09\uFF1BO \u7981\u6B62\u5168\u90E8\u70BA\u5047\uFF0C\u5269\u4E0B 4\u3002"
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 \u662F\u5167\u542B\u7684\u8A08\u6578\uFF08\u81F3\u5C11\u4E00\u500B\u70BA\u771F\uFF09\uFF1BO \u8981\u6C42\u6070\u597D\u4E00\u500B\uFF0C\u5F97 4\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u539F\u56E0\u4E2D\u4EFB\u4E00\u500B\u90FD\u53EF\u70BA\u90A3\u500B\u552F\u4E00\u70BA\u771F\u8005\uFF0C\u6545 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 O \u4E4B\u4E0B\u56DB\u500B\u539F\u56E0\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF0C\u6545\u53EF\u884C\u6307\u6D3E\u70BA TFFF\u3001FTFF\u3001FFTF\u3001FFFT\u2014\u2014\u5171 4 \u7A2E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9700\u8981\uFF08R\uFF09\u7D04\u675F\u4E0B\u7684\u53EF\u884C\u7D44\u5408\uFF082 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u5169\u500B\u539F\u56E0 a\u3001b \u6709\u7D04\u675F <strong>a \u9700\u8981 b</strong>\uFF08a\u2192b\uFF09\u3002\u5728 4 \u7A2E\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u662F\u53EF\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709 a \u70BA\u771F\u3001b \u70BA\u5047\u88AB\u7981\u6B62\uFF1B\u5176\u9918 3 \u7A2E\u53EF\u884C\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u7A2E\u6307\u6D3E\u88AB\u6392\u9664\uFF0C\u800C\u975E\u4E09\u7A2E\uFF1B\u5269\u4E0B 3 \u7A2E\u53EF\u884C\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u7D44\u5408 a \u70BA\u771F\u3001b \u70BA\u5047\u9055\u53CD a\u2192b\uFF0C\u6545\u53EA\u6709 3 \u7A2E\u53EF\u884C\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "R \u6070\u597D\u6392\u9664\u4E00\u7A2E\u7D44\u5408\uFF08a \u771F\u3001b \u5047\uFF09\uFF0C\u5269\u4E0B 3\u3002"
+              }
+            ],
+            "generalFeedback": "a\u2192b \u53EA\u7981\u6B62\uFF08a \u70BA\u771F\u3001b \u70BA\u5047\uFF09\u3002\u53EF\u884C\u6307\u6D3E\u70BA (F,F)\u3001(F,T)\u3001(T,T)\u2014\u20143 \u7A2E\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9700\u8981\uFF08R\uFF09\u7D04\u675F\u4E0B\u7684\u53EF\u884C\u7D44\u5408\uFF083 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u4E09\u500B\u539F\u56E0 a\u3001b\u3001c \u53EA\u6709\u55AE\u4E00\u7D04\u675F <strong>a \u9700\u8981 b</strong>\uFF08a\u2192b\uFF09\uFF1Bc \u4E0D\u53D7\u7D04\u675F\u3002\u5728 2^3 = 8 \u7A2E\u6307\u6D3E\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u662F\u53EF\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a \u70BA\u771F\u4E14 b \u70BA\u5047\uFF0C\u7121\u8AD6 c \u70BA\u4F55\u503C\u7686\u88AB\u7981\u6B62\uFF0C\u5F9E 8 \u7A2E\u4E2D\u79FB\u9664 2 \u7A2E\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "\u88AB\u79FB\u9664\u7684\u662F\u5169\u7A2E\u6307\u6D3E\uFF08a=T\u3001b=F \u642D\u914D c=F \u8207 c=T\uFF09\uFF0C\u800C\u975E\u4E00\u7A2E\uFF0C\u6545\u5269 6\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 a \u771F\u3001b \u5047\u7684\u60C5\u5F62\u4E0D\u53EF\u884C\uFF1B\u90A3\u662F 2 \u7A2E\u6307\u6D3E\uFF0C\u5269\u4E0B 6\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "c \u662F\u81EA\u7531\u7684\uFF0C\u6545\u6709 6 \u7A2E\u6307\u6D3E\u6EFF\u8DB3 a\u2192b\uFF0C\u800C\u975E 3\u3002"
+              }
+            ],
+            "generalFeedback": "a\u2192b \u7981\u6B62 a \u70BA\u771F\u3001b \u70BA\u5047\u3002c \u81EA\u7531\u6642\uFF0C\u8A72\u578B\u614B\u5728 c=false \u8207 c=true \u5404\u51FA\u73FE\u4E00\u6B21\u2014\u20142 \u7A2E\u4E0D\u53EF\u884C\u6307\u6D3E\u3002\u6545 8 \u2212 2 = 6 \u7A2E\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u67D0\u7D44\u5408\u5728 O \u4E4B\u4E0B\u662F\u5426\u53EF\u884C",
+            "text": "<p>\u539F\u56E0 c1\u3001c2\u3001c3 \u53D7<strong>\u552F\u4E00\u5176\u4E00\uFF08O\uFF09</strong>\u7D04\u675F\u3002\u6307\u6D3E <code>c1 = true, c2 = true, c3 = false</code> \u53EF\u884C\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u53EF\u884C\u2014\u2014\u6709\u5169\u500B\u539F\u56E0\u70BA\u771F\uFF0C\u4F46 O \u53EA\u5141\u8A31\u6070\u597D\u4E00\u500B\u70BA\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c1 \u8207 c2 \u540C\u6642\u70BA\u771F\u9055\u53CD O \u7D04\u675F\uFF0C\u6545\u6B64\u6B04\u4F4D\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u53EF\u884C\u2014\u2014\u81F3\u5C11\u4E00\u500B\u539F\u56E0\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u300C\u81F3\u5C11\u4E00\u500B\u300D\u662F\u5167\u542B\u7D04\u675F\uFF1BO \u8981\u6C42\u6070\u597D\u4E00\u500B\uFF0C\u800C\u6B64\u8655\u6709\u5169\u500B\u70BA\u771F\u3002"
+              },
+              {
+                "text": "\u53EF\u884C\u2014\u2014c3 \u70BA\u5047\uFF0C\u6EFF\u8DB3\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "O \u8A08\u7B97\u6574\u9AD4\u6709\u5E7E\u500B\u70BA\u771F\uFF1B\u5169\u500B\u70BA\u771F\uFF08c1\u3001c2\uFF09\u5C31\u9055\u53CD\uFF0C\u8207 c3 \u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u4E0D\u53EF\u884C\u2014\u2014\u56E0\u70BA c3 \u5FC5\u9808\u70BA\u771F",
+                "fraction": 0,
+                "feedback": "O \u4E26\u4E0D\u7279\u5225\u8981\u6C42 c3\uFF1B\u6B64\u8655\u4E0D\u53EF\u884C\u53EA\u662F\u56E0\u70BA\u6709\u5169\u500B\u539F\u56E0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 O \u4E4B\u4E0B\u81F3\u591A\u4E14\u81F3\u5C11\u4E00\u500B\u539F\u56E0\u70BA\u771F\u3002\u6B64\u8655 c1 \u8207 c2 \u7686\u70BA\u771F\uFF0C\u6545\u8A72\u6307\u6D3E\u4E0D\u53EF\u884C\uFF0C\u4E0D\u7522\u751F\u6E2C\u8A66\u6848\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u906E\u853D\uFF08M\uFF09\u7D04\u675F\u4E0B\u7684\u6548\u679C\u503C",
+            "text": "<p>\u7531\u5716\u8A08\u7B97\u51FA\u5169\u500B\u6548\u679C\uFF0C\u4E14\u6548\u679C A <strong>\u906E\u853D</strong>\u6548\u679C B\u3002\u5C0D\u67D0\u500B\u8F38\u5165\uFF0C\u5716\u7D66\u51FA <code>A = true</code>\uFF0C\u4E14\u539F\u672C\u6703\u7D66\u51FA <code>B = true</code>\u3002\u5957\u7528\u906E\u853D\u7D04\u675F\u5F8C\uFF0C\u89C0\u5BDF\u5230\u7684\u6548\u679C\u503C\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "A = true\u3001B = false\u2014\u2014\u56E0\u70BA A \u767C\u751F\uFF0CB \u88AB\u906E\u853D\uFF08\u5F37\u5236\u70BA\u5047\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u906E\u853D\u5728\u7B2C\u4E00\u500B\u6548\u679C\u767C\u751F\u6642\u5F37\u5236\u7B2C\u4E8C\u500B\u70BA\u5047\u3002"
+              },
+              {
+                "text": "A = true\u3001B = true\u2014\u2014\u906E\u853D\u4E0D\u6539\u8B8A\u8A08\u7B97\u51FA\u7684\u503C",
+                "fraction": 0,
+                "feedback": "\u906E\u853D\u6B63\u662F\u6703\u8986\u5BEB B\uFF1A\u7576 A \u70BA\u771F\u6642\uFF0CB \u88AB\u5F37\u5236\u70BA\u5047\u3002"
+              },
+              {
+                "text": "A = false\u3001B = true\u2014\u2014B \u906E\u853D A",
+                "fraction": 0,
+                "feedback": "\u65B9\u5411\u662F A \u906E\u853D B\uFF0C\u6545 A \u7DAD\u6301\u70BA\u771F\uFF0C\u88AB\u6291\u5236\u7684\u662F B\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u70BA\u5047\u2014\u2014\u906E\u853D\u6703\u53D6\u6D88\u5169\u500B\u6548\u679C",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u88AB\u906E\u853D\u7684\u6548\u679C\uFF08B\uFF09\u88AB\u5F37\u5236\u70BA\u5047\uFF1BA \u7DAD\u6301\u5176\u8A08\u7B97\u503C\uFF08true\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u906E\u853D\u662F\u6709\u65B9\u5411\u7684\uFF1A\u7576\u906E\u853D\u6548\u679C A \u70BA\u771F\u6642\uFF0C\u88AB\u906E\u853D\u6548\u679C B \u88AB\u5F37\u5236\u70BA\u5047\uFF0C\u8986\u5BEB\u5716\u5C0D B \u8A08\u7B97\u51FA\u7684\u7D50\u679C\u3002A \u672C\u8EAB\u4E0D\u53D7\u5F71\u97FF\uFF0C\u6545\u7D50\u679C\u70BA A = true\u3001B = false\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AND \u6548\u679C\u7684\u771F\u503C\u9EDE",
+            "text": "<p>\u67D0\u6548\u679C\u70BA <code>E = c1 \u2227 c2</code>\uFF0C\u7121\u4EFB\u4F55\u7D04\u675F\u3002\u56DE\u6EAF\u5F8C\uFF0C\u6709\u5E7E\u7A2E\u539F\u56E0\u6307\u6D3E\uFF08\u6548\u679C\u7684\u300C\u771F\u503C\u9EDE\u300D\uFF09\u4F7F E \u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1\u2014\u2014\u53EA\u6709\uFF08c1 = true, c2 = true\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AND \u6070\u597D\u5728\u5168\u90E8\u70BA\u771F\u7684\u6307\u6D3E\u4E0B\u70BA\u771F\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u9664\u5168\u90E8\u70BA\u5047\u5916\u7684\u6BCF\u7A2E\u6307\u6D3E",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F OR\uFF1BAND \u53EA\u6709\u5728\u5169\u8005\u7686\u70BA\u771F\u6642\u624D\u70BA\u771F\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u53EA\u8981 c1 \u70BA\u771F",
+                "fraction": 0,
+                "feedback": "c1 \u70BA\u771F\u800C c2 \u70BA\u5047\u6703\u4F7F E \u70BA\u5047\uFF0C\u6545\u4E26\u975E\u6BCF\u500B c1 \u70BA\u771F\u7684\u60C5\u5F62\u90FD\u7B97\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u6240\u6709\u6307\u6D3E",
+                "fraction": 0,
+                "feedback": "\u53EA\u8981\u4EFB\u4E00\u539F\u56E0\u70BA\u5047 E \u5C31\u70BA\u5047\uFF0C\u6545\u4E26\u975E\u5168\u90E8 4 \u7A2E\u6307\u6D3E\u90FD\u662F\u771F\u503C\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E E = c1 \u2227 c2 \u56DE\u6EAF\uFF0C\u552F\u4E00\u4F7F\u5176\u70BA\u771F\u7684\u6307\u6D3E\u662F (T, T)\u3002\u6545\u6B64\u6548\u679C\u53EA\u6709\u55AE\u4E00\u771F\u503C\u9EDE\uFF0C\u6210\u70BA\u6C7A\u7B56\u8868\u4E2D\u89F8\u767C E \u7684\u4E00\u6B04\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "OR \u6548\u679C\u7684\u771F\u503C\u9EDE",
+            "text": "<p>\u67D0\u6548\u679C\u70BA <code>E = c1 \u2228 c2</code>\uFF0C\u7121\u4EFB\u4F55\u7D04\u675F\u3002\u6709\u5E7E\u7A2E\u539F\u56E0\u6307\u6D3E\u4F7F E \u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014(T,T)\u3001(T,F)\u3001(F,T)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014OR \u5728\u9664\u5168\u90E8\u70BA\u5047\u5916\u7684\u6BCF\u7A2E\u6307\u6D3E\u4E0B\u7686\u70BA\u771F\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u53EA\u6709 (T,T)",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F AND \u7684\u60C5\u5F62\uFF1BOR \u53EA\u9700\u4E00\u500B\u8F38\u5165\u70BA\u771F\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u53EA\u6709\u55AE\u4E00\u70BA\u771F\u7684\u6307\u6D3E",
+                "fraction": 0,
+                "feedback": "(T,T) \u4E5F\u4F7F OR \u70BA\u771F\uFF0C\u6545\u771F\u503C\u9EDE\u6709 3 \u500B\uFF0C\u800C\u975E 2\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u6240\u6709\u6307\u6D3E",
+                "fraction": 0,
+                "feedback": "(F,F) \u4F7F OR \u70BA\u5047\uFF0C\u6545\u53EA\u6709 3 \u7A2E\u6307\u6D3E\u662F\u771F\u503C\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "E = c1 \u2228 c2 \u5728 (T,T)\u3001(T,F)\u3001(F,T) \u70BA\u771F\uFF0C\u53EA\u6709 (F,F) \u70BA\u5047\u3002\u6545\u6709 3 \u500B\u771F\u503C\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u53EF\u884C\u7D44\u5408\u5F97\u51FA\u6C7A\u7B56\u8868\u6B04\u4F4D",
+            "text": "<p>\u4E00\u500B\u56E0\u679C\u5716\u6709 3 \u500B\u539F\u56E0\uFF0C\u53D7<strong>\u552F\u4E00\u5176\u4E00\uFF08O\uFF09</strong>\u7D04\u675F\u3002\u82E5\u6C7A\u7B56\u8868\u5C0D\u6BCF\u500B\u53EF\u884C\u7684\u539F\u56E0\u7D44\u5408\u8A2D\u4E00\u6B04\uFF0C\u9019\u5F35\u8868\u6709\u5E7E\u6B04\uFF08\u4E5F\u5C31\u662F\u5E7E\u500B\u6E2C\u8A66\u6848\u4F8B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014\u6BCF\u500B\u53EF\u884C\u7D44\u5408\u4E00\u6B04\uFF08\u6070\u597D\u4E00\u500B\u539F\u56E0\u70BA\u771F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014O \u7559\u4E0B 3 \u500B\u53EF\u884C\u7D44\u5408\uFF0C\u6545 3 \u6B04\u30013 \u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "8\u2014\u2014\u6BCF\u7A2E\u539F\u59CB 2^3 \u7D44\u5408\u4E00\u6B04",
+                "fraction": 0,
+                "feedback": "O \u7D04\u675F\u79FB\u9664\u4E86\u4E0D\u53EF\u884C\u7D44\u5408\uFF1B\u53EA\u5269 3 \u500B\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u4E92\u65A5\u7684\u8A08\u6578",
+                "fraction": 0,
+                "feedback": "\u5728 O \u4E4B\u4E0B\u4E0D\u5141\u8A31\u5168\u90E8\u70BA\u5047\u7684\u60C5\u5F62\uFF0C\u6545\u70BA 3\uFF0C\u800C\u975E 4\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u4E00\u6B04\u5C31\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u53EF\u884C\u7D44\u5408\u662F\u4E00\u500B\u76F8\u7570\u7684\u6B04\u4F4D\uFF1B\u5171\u6709 3 \u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5EFA\u7ACB\u6C7A\u7B56\u8868\u6642\uFF0C\u6BCF\u500B\u53EF\u884C\u7684\u539F\u56E0\u7D44\u5408\u6210\u70BA\u4E00\u6B04\uFF0C\u4E5F\u5C31\u662F\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\u30023 \u500B\u539F\u56E0\u53D7 O \u7D04\u675F\u6642\u6709 3 \u500B\u53EF\u884C\u7D44\u5408\uFF0C\u6545 3 \u6B04\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E \u79FB\u9664\u7684\u4E0D\u53EF\u884C\u7D44\u5408\uFF083 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u4E09\u500B\u539F\u56E0\u53D7<strong>\u4E92\u65A5\uFF08E\uFF09</strong>\u7D04\u675F\u3002\u5728 2^3 = 8 \u7A2E\u539F\u59CB\u7D44\u5408\u4E2D\uFF0C\u6709\u5E7E\u7A2E\u8B8A\u5F97<em>\u4E0D\u53EF\u884C</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u6709\u5169\u500B\u4EE5\u4E0A\u539F\u56E0\u70BA\u771F\u7684\u90A3\u4E9B\u7D44\u5408",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20148 \u7E3D\u6578\u6E1B\u53BB 4 \u500B\u53EF\u884C\uFF08\u81F3\u591A\u4E00\u500B\u70BA\u771F\uFF09\uFF1D 4 \u500B\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "E \u4E4B\u4E0B\u53EF\u884C\u8005\u70BA 4\uFF08\u5168\u90E8\u70BA\u5047\u52A0\u4E09\u7A2E\u55AE\u4E00\u70BA\u771F\uFF09\uFF0C\u6545\u4E0D\u53EF\u884C\u70BA 8 \u2212 4 = 4\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u53EA\u5269 3 \u500B\u53EF\u884C\uFF08O \u7684\u8A08\u6578\uFF09\uFF1B\u5728 E \u4E4B\u4E0B\u6709 4 \u500B\u53EF\u884C\uFF0C\u6545 4 \u500B\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u6709\u5169\u500B\u4EE5\u4E0A\u70BA\u771F\u7684\u7D44\u5408\u90FD\u4E0D\u53EF\u884C\u2014\u2014\u5171\u6709 4 \u500B\uFF08TTF\u3001TFT\u3001FTT\u3001TTT\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 E \u4E4B\u4E0B\u81F3\u591A\u4E00\u500B\u539F\u56E0\u70BA\u771F\uFF0C\u6545 4 \u500B\u7D44\u5408\u53EF\u884C\uFF08FFF\u3001TFF\u3001FTF\u3001FFT\uFF09\u3002\u5176\u9918 8 \u2212 4 = 4 \u500B\uFF08TTF\u3001TFT\u3001FTT\u3001TTT\uFF09\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "O \u79FB\u9664\u7684\u4E0D\u53EF\u884C\u7D44\u5408\uFF084 \u500B\u539F\u56E0\uFF09",
+            "text": "<p>\u56DB\u500B\u539F\u56E0\u53D7<strong>\u552F\u4E00\u5176\u4E00\uFF08O\uFF09</strong>\u7D04\u675F\u3002\u5728 2^4 = 16 \u7A2E\u539F\u59CB\u7D44\u5408\u4E2D\uFF0C\u6709\u5E7E\u7A2E<em>\u4E0D\u53EF\u884C</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "12\u2014\u2014\u53EA\u6709 4 \u500B\u7D44\u5408\uFF08\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF09\u53EF\u884C\uFF0C\u6545 16 \u2212 4 = 12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014O \u7559\u4E0B 4 \u500B\u53EF\u884C\uFF0C\u6545 12 \u500B\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u53EF\u884C\u7D44\u5408\u7684\u6578\u76EE\uFF0C\u4E0D\u662F\u4E0D\u53EF\u884C\u7684\uFF1B16 \u2212 4 = 12\u3002"
+              },
+              {
+                "text": "11",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u7559\u4E0B 5 \u500B\u53EF\u884C\uFF08\u4E92\u65A5\u7684\u8A08\u6578\uFF09\uFF1B\u5728 O \u4E4B\u4E0B\u53EA\u6709 4 \u500B\u53EF\u884C\uFF0C\u6545 12 \u500B\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "15 \u6703\u53EA\u7559\u4E0B\u4E00\u500B\u53EF\u884C\uFF1BO \u6709 4 \u500B\u53EF\u884C\uFF0C\u6545 12 \u500B\u4E0D\u53EF\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 O \u4E4B\u4E0B\u56DB\u500B\u539F\u56E0\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF0C\u5F97 4 \u500B\u53EF\u884C\u7D44\u5408\u3002\u5176\u9918 16 \u2212 4 = 12 \u500B\u7D44\u5408\uFF08\u5168\u90E8\u70BA\u5047\u6216\u5169\u500B\u4EE5\u4E0A\u70BA\u771F\uFF09\u4E0D\u53EF\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6548\u679C\u5728\u6240\u6709\u53EF\u884C O \u6B04\u4F4D\u4E2D\u7684\u503C",
+            "text": "<p>\u539F\u56E0 c1\u3001c2\u3001c3 \u53D7<strong>\u552F\u4E00\u5176\u4E00\uFF08O\uFF09</strong>\u7D04\u675F\uFF0C\u4E14\u67D0\u6548\u679C\u70BA <code>E = c1 \u2228 c2 \u2228 c3</code>\u3002E \u5728\u5E7E\u500B\u53EF\u884C\u6B04\u4F4D\u4E2D\u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014\u5728\u6BCF\u500B\u53EF\u884C\u6B04\u4F4D\u4E2D\uFF0C\u56E0\u70BA\u7E3D\u662F\u6070\u597D\u4E00\u500B\u539F\u56E0\u70BA\u771F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014O \u4FDD\u8B49\u6709\u4E00\u500B\u539F\u56E0\u70BA\u771F\uFF0C\u6545 OR \u5728\u5168\u90E8 3 \u500B\u53EF\u884C\u6B04\u4F4D\u4E2D\u70BA\u771F\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u53EA\u6709\u5728\u4E09\u8005\u7686\u70BA\u771F\u6642",
+                "fraction": 0,
+                "feedback": "\u5728 O \u4E4B\u4E0B\u4E09\u8005\u7686\u70BA\u771F\u4E0D\u53EF\u884C\uFF1BOR \u5728\u4EFB\u4E00\u70BA\u771F\u6642\u5373\u70BA\u771F\uFF0C\u6B64\u8655\u7E3D\u662F\u5982\u6B64\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u7D04\u675F\u4F7F E \u70BA\u5047",
+                "fraction": 0,
+                "feedback": "\u7D04\u675F\u5F37\u5236\u6070\u597D\u4E00\u500B\u70BA\u771F\uFF0C\u6545 OR \u70BA\u771F\uFF0C\u800C\u975E\u70BA\u5047\u3002"
+              },
+              {
+                "text": "7\u2014\u2014\u6BCF\u500B\u5167\u542B\u7D44\u5408\u4E00\u500B",
+                "fraction": 0,
+                "feedback": "\u5728 O \u4E4B\u4E0B\u53EA\u6709 3 \u500B\u53EF\u884C\u6B04\u4F4D\uFF0C\u4E14 E \u5728\u5176\u4E2D\u5168\u90E8\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "O \u5728\u6BCF\u500B\u53EF\u884C\u6B04\u4F4D\u4E2D\u5F37\u5236\u6070\u597D\u4E00\u500B\u539F\u56E0\u70BA\u771F\uFF0C\u6545 c1 \u2228 c2 \u2228 c3 \u5728\u6BCF\u4E00\u6B04\u90FD\u70BA\u771F\u3002\u5171\u6709 3 \u500B\u53EF\u884C\u6B04\u4F4D\uFF0CE \u5728\u5168\u90E8 3 \u500B\u4E2D\u70BA\u771F\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "code-coverage": {
       "en": {
         "easy": [

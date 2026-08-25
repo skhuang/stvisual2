@@ -2587,6 +2587,2612 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "cause-effect": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a cause is",
+          "text": "<p>In a cause-effect graph, what is a <strong>cause</strong>?</p>",
+          "answers": [
+            {
+              "text": "A distinct input condition (something that can be true or false) drawn from the specification",
+              "fraction": 100,
+              "feedback": "Correct — a cause is an individual input condition, evaluated as true or false."
+            },
+            {
+              "text": "An output or action the program produces",
+              "fraction": 0,
+              "feedback": "That is an effect, not a cause."
+            },
+            {
+              "text": "A line of source code that must be executed",
+              "fraction": 0,
+              "feedback": "Cause-effect graphing is black-box; causes come from the specification, not the code."
+            },
+            {
+              "text": "A column of the resulting decision table",
+              "fraction": 0,
+              "feedback": "A column is a rule/test case derived later; a cause is an input condition."
+            }
+          ],
+          "generalFeedback": "A cause is a distinct input condition — a boolean that can hold or not hold. Causes are identified by reading the specification and are wired through boolean nodes to the effects they influence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an effect is",
+          "text": "<p>In a cause-effect graph, what is an <strong>effect</strong>?</p>",
+          "answers": [
+            {
+              "text": "An output condition or action the system produces in response to its inputs",
+              "fraction": 100,
+              "feedback": "Correct — effects are the observable outputs/actions on the right of the graph."
+            },
+            {
+              "text": "An input condition that can be true or false",
+              "fraction": 0,
+              "feedback": "That describes a cause, not an effect."
+            },
+            {
+              "text": "A constraint between two inputs",
+              "fraction": 0,
+              "feedback": "Constraints (E/I/O/R) restrict causes; an effect is an output."
+            },
+            {
+              "text": "A boolean operator node such as AND or OR",
+              "fraction": 0,
+              "feedback": "Those nodes wire causes to effects; the effect itself is the output."
+            }
+          ],
+          "generalFeedback": "An effect is an output condition or action. In the graph, causes on the left are connected through boolean nodes to effects on the right, and each effect is ultimately true or false for a given cause assignment.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The IDENTITY node",
+          "text": "<p>What does an <strong>IDENTITY</strong> node mean when it connects a cause to an effect?</p>",
+          "answers": [
+            {
+              "text": "The effect is true exactly when the single cause is true (it copies the cause's value)",
+              "fraction": 100,
+              "feedback": "Correct — identity passes the cause value straight through to the effect."
+            },
+            {
+              "text": "The effect is true exactly when the cause is false",
+              "fraction": 0,
+              "feedback": "That is the NOT node, not identity."
+            },
+            {
+              "text": "The effect is true when either of two causes is true",
+              "fraction": 0,
+              "feedback": "That is an OR node; identity connects a single cause."
+            },
+            {
+              "text": "The effect is always true regardless of the cause",
+              "fraction": 0,
+              "feedback": "Identity mirrors the cause; it is not a constant-true node."
+            }
+          ],
+          "generalFeedback": "An IDENTITY node ties one cause to one effect so that effect = cause: if the cause is true the effect is true, and if the cause is false the effect is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The NOT node",
+          "text": "<p>What does a <strong>NOT</strong> (~) node compute?</p>",
+          "answers": [
+            {
+              "text": "The effect is true exactly when its single cause is false (it negates the cause)",
+              "fraction": 100,
+              "feedback": "Correct — NOT inverts the cause value."
+            },
+            {
+              "text": "The effect is true exactly when the cause is true",
+              "fraction": 0,
+              "feedback": "That is IDENTITY; NOT gives the opposite."
+            },
+            {
+              "text": "The effect is true when all of several causes are true",
+              "fraction": 0,
+              "feedback": "That is AND; NOT takes a single cause and negates it."
+            },
+            {
+              "text": "The effect is true when at least one of several causes is true",
+              "fraction": 0,
+              "feedback": "That is OR; NOT negates one cause."
+            }
+          ],
+          "generalFeedback": "A NOT node (drawn ~) negates: the effect is true when the cause is false and false when the cause is true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The AND node",
+          "text": "<p>What does an <strong>AND</strong> (∧) node compute for an effect wired to several causes?</p>",
+          "answers": [
+            {
+              "text": "The effect is true only when every one of the connected causes is true",
+              "fraction": 100,
+              "feedback": "Correct — AND requires all inputs true."
+            },
+            {
+              "text": "The effect is true when at least one connected cause is true",
+              "fraction": 0,
+              "feedback": "That is OR, not AND."
+            },
+            {
+              "text": "The effect is true when exactly one connected cause is true",
+              "fraction": 0,
+              "feedback": "AND requires all of them, not exactly one."
+            },
+            {
+              "text": "The effect copies the value of the first cause only",
+              "fraction": 0,
+              "feedback": "AND depends on every input, not just the first."
+            }
+          ],
+          "generalFeedback": "An AND node yields true only when all its input causes (or intermediate nodes) are true; if any input is false, the effect is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The OR node",
+          "text": "<p>What does an <strong>OR</strong> (∨) node compute for an effect wired to several causes?</p>",
+          "answers": [
+            {
+              "text": "The effect is true when at least one of the connected causes is true",
+              "fraction": 100,
+              "feedback": "Correct — OR needs only one true input."
+            },
+            {
+              "text": "The effect is true only when all connected causes are true",
+              "fraction": 0,
+              "feedback": "That is AND, not OR."
+            },
+            {
+              "text": "The effect is true only when exactly one connected cause is true",
+              "fraction": 0,
+              "feedback": "OR is true for one or more; \"exactly one\" is a different (O) idea."
+            },
+            {
+              "text": "The effect is true only when all connected causes are false",
+              "fraction": 0,
+              "feedback": "That would be a NOR (NOT of an OR); a plain OR is true when any input is true."
+            }
+          ],
+          "generalFeedback": "An OR node yields true when one or more of its inputs is true, and false only when every input is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Exclusive (E) constraint",
+          "text": "<p>Among a set of causes, the <strong>Exclusive (E)</strong> constraint means what?</p>",
+          "answers": [
+            {
+              "text": "At most one of the causes may be true (they can all be false, but no two are true together)",
+              "fraction": 100,
+              "feedback": "Correct — E allows zero or one true, never two or more."
+            },
+            {
+              "text": "Exactly one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is the One-and-only-one (O) constraint; E also permits all false."
+            },
+            {
+              "text": "At least one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is the Inclusive (I) constraint."
+            },
+            {
+              "text": "All of the causes must be true together",
+              "fraction": 0,
+              "feedback": "E forbids two being true at once, so it can never require all true."
+            }
+          ],
+          "generalFeedback": "Exclusive (E): at most one of the constrained causes is true. Zero true is allowed; two or more true is forbidden.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Inclusive (I) constraint",
+          "text": "<p>Among a set of causes, the <strong>Inclusive (I)</strong> constraint means what?</p>",
+          "answers": [
+            {
+              "text": "At least one of the causes must be true (they cannot all be false)",
+              "fraction": 100,
+              "feedback": "Correct — I forbids the all-false case; one or more must hold."
+            },
+            {
+              "text": "At most one of the causes may be true",
+              "fraction": 0,
+              "feedback": "That is the Exclusive (E) constraint."
+            },
+            {
+              "text": "Exactly one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is the One-and-only-one (O) constraint; I allows several to be true."
+            },
+            {
+              "text": "The causes have no restriction at all",
+              "fraction": 0,
+              "feedback": "I does restrict them: it rules out all being false."
+            }
+          ],
+          "generalFeedback": "Inclusive (I): at least one of the constrained causes must be true. Any number from one up to all is allowed; only all-false is forbidden.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The One-and-only-one (O) constraint",
+          "text": "<p>Among a set of causes, the <strong>One-and-only-one (O)</strong> constraint means what?</p>",
+          "answers": [
+            {
+              "text": "Exactly one of the causes is true — no more, no fewer",
+              "fraction": 100,
+              "feedback": "Correct — O requires precisely one true."
+            },
+            {
+              "text": "At most one of the causes may be true (all-false allowed)",
+              "fraction": 0,
+              "feedback": "That is Exclusive (E); O forbids the all-false case."
+            },
+            {
+              "text": "At least one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is Inclusive (I), which also allows several true; O allows only one."
+            },
+            {
+              "text": "Either all or none of the causes are true",
+              "fraction": 0,
+              "feedback": "O requires exactly one true, not all-or-none."
+            }
+          ],
+          "generalFeedback": "One-and-only-one (O): exactly one of the constrained causes is true. It is the combination of Exclusive (at most one) and Inclusive (at least one).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Requires (R) constraint",
+          "text": "<p>The <strong>Requires (R)</strong> constraint \"cause a Requires cause b\" means what?</p>",
+          "answers": [
+            {
+              "text": "Whenever a is true, b must also be true (so a=true with b=false is impossible)",
+              "fraction": 100,
+              "feedback": "Correct — R rules out the a-true, b-false combination."
+            },
+            {
+              "text": "Whenever a is true, b must be false",
+              "fraction": 0,
+              "feedback": "That is the opposite; R forces b true when a is true."
+            },
+            {
+              "text": "a and b must always have the same value",
+              "fraction": 0,
+              "feedback": "R is one-directional: b may be true while a is false; only a-true-b-false is forbidden."
+            },
+            {
+              "text": "Exactly one of a and b may be true",
+              "fraction": 0,
+              "feedback": "That is closer to Exclusive/One-and-only-one; R is an implication a→b."
+            }
+          ],
+          "generalFeedback": "Requires (R) is the implication a→b: if a is true then b must be true. The only forbidden combination is a=true, b=false; all others (including a=false with any b) are allowed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Masks (M) constraint",
+          "text": "<p>The <strong>Masks (M)</strong> constraint \"effect a Masks effect b\" means what?</p>",
+          "answers": [
+            {
+              "text": "If effect a occurs (is true), then effect b is masked and forced to be false",
+              "fraction": 100,
+              "feedback": "Correct — M is a constraint among effects: a true suppresses b."
+            },
+            {
+              "text": "If cause a is true, cause b must be true",
+              "fraction": 0,
+              "feedback": "That is Requires (R), a constraint among causes; M constrains effects."
+            },
+            {
+              "text": "At most one of effects a and b may occur, but either may occur alone",
+              "fraction": 0,
+              "feedback": "M is directional — a suppresses b, but b does not suppress a — so it is not a symmetric \"at most one\"."
+            },
+            {
+              "text": "Effects a and b must always occur together",
+              "fraction": 0,
+              "feedback": "M does the opposite: when a occurs, b cannot."
+            }
+          ],
+          "generalFeedback": "Masks (M) is the one constraint that applies among effects rather than causes: when effect a is true, effect b is masked (forced false), regardless of what the graph would otherwise compute for b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read an identity graph",
+          "text": "<p>An effect is wired to a single cause by an IDENTITY node:</p><pre>\nE = IDENTITY(c1)\n</pre><p>If <code>c1 = true</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — identity copies the cause, so E = c1 = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Identity does not invert; E equals c1, which is true."
+            },
+            {
+              "text": "Undefined — an effect needs at least two causes",
+              "fraction": 0,
+              "feedback": "An identity node connects exactly one cause to the effect; that is valid."
+            },
+            {
+              "text": "It depends on other causes not shown",
+              "fraction": 0,
+              "feedback": "The effect is wired only to c1 via identity, so only c1 matters."
+            }
+          ],
+          "generalFeedback": "IDENTITY passes the cause straight through: E = c1. With c1 = true, E = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read a NOT graph",
+          "text": "<p>An effect is wired to a single cause by a NOT node:</p><pre>\nE = ~c1\n</pre><p>If <code>c1 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — NOT inverts: ~false = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "NOT negates the cause; with c1 false, E is true."
+            },
+            {
+              "text": "Undefined without a second cause",
+              "fraction": 0,
+              "feedback": "A NOT node takes a single cause; the effect is well defined."
+            },
+            {
+              "text": "Equal to c1",
+              "fraction": 0,
+              "feedback": "That would be identity; NOT gives the opposite of c1."
+            }
+          ],
+          "generalFeedback": "A NOT node gives E = ~c1. With c1 = false, E = ~false = true.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Cause-effect graphing is black-box",
+          "text": "<p>Cause-effect graphing is a black-box (specification-based) test-design technique.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — it derives tests from the specification's input conditions and outputs, not from the source code."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Causes and effects are read from the specification, so the technique is black-box, not structural."
+            }
+          ],
+          "generalFeedback": "Cause-effect graphing identifies input conditions (causes) and outputs (effects) from the specification and wires them with boolean logic — a black-box technique, independent of the code's internal structure."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which constraint governs effects",
+          "text": "<p>Four of the five constraint types (E, I, O, R, M) restrict combinations of <em>causes</em>. Which one instead restricts <em>effects</em>?</p>",
+          "answers": [
+            {
+              "text": "M (Masks)",
+              "fraction": 100,
+              "feedback": "Correct — Masks is the effect-side constraint; E, I, O, R all restrict causes."
+            },
+            {
+              "text": "E (Exclusive)",
+              "fraction": 0,
+              "feedback": "E restricts causes (at most one true), not effects."
+            },
+            {
+              "text": "R (Requires)",
+              "fraction": 0,
+              "feedback": "R restricts causes (a→b), not effects."
+            },
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 0,
+              "feedback": "O restricts causes (exactly one true), not effects."
+            }
+          ],
+          "generalFeedback": "E, I, O, and R express relationships among causes (inputs). M (Masks) is the only one that relates two effects: if the first occurs, it forces the second to be false.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Evaluate an AND effect",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∧ c2\n</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — AND needs both true; c2 is false, so E is false."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AND requires every input true; c2 = false forces E false."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both inputs are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1",
+              "fraction": 0,
+              "feedback": "E depends on both causes; with c2 false the AND is false regardless of c1."
+            }
+          ],
+          "generalFeedback": "E = c1 ∧ c2 = true ∧ false = false. An AND is true only when all inputs are true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate an OR effect",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∨ c2\n</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — OR is true when any input is true; c2 is true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "OR needs only one true input, and c2 is true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both inputs are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1 only",
+              "fraction": 0,
+              "feedback": "E depends on both; c2 being true makes the OR true."
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 = false ∨ true = true. An OR is false only when every input is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate AND with a negated input",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∧ ~c2\n</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — ~c2 = true and c1 = true, so the AND is true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Since c2 is false, ~c2 is true, and true ∧ true = true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both causes are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c2",
+              "fraction": 0,
+              "feedback": "E uses ~c2, and combined with c1 it evaluates to true here."
+            }
+          ],
+          "generalFeedback": "First negate: ~c2 = ~false = true. Then E = c1 ∧ ~c2 = true ∧ true = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate a three-input OR",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∨ c2 ∨ c3\n</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, <code>c3 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — an OR is false only when every input is false, which is the case here."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "All three inputs are false, so the OR is false."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "All inputs are given; E is well defined."
+            },
+            {
+              "text": "Depends on a constraint",
+              "fraction": 0,
+              "feedback": "No constraint is stated; the OR of three falses is simply false."
+            }
+          ],
+          "generalFeedback": "E = false ∨ false ∨ false = false. An OR yields false precisely when all inputs are false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"at most one\" with a constraint",
+          "text": "<p>A spec says: \"<em>At most one</em> of the three coupon codes may be applied to an order (applying none is allowed).\" Which constraint models this among the three cause inputs?</p>",
+          "answers": [
+            {
+              "text": "E (Exclusive)",
+              "fraction": 100,
+              "feedback": "Correct — \"at most one, none allowed\" is exactly Exclusive."
+            },
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 0,
+              "feedback": "O would force exactly one to be applied; here applying none is allowed, so it is E."
+            },
+            {
+              "text": "I (Inclusive)",
+              "fraction": 0,
+              "feedback": "I requires at least one true; here zero is allowed, so it is E."
+            },
+            {
+              "text": "R (Requires)",
+              "fraction": 0,
+              "feedback": "R is an implication between two specific causes, not an \"at most one of a set\" rule."
+            }
+          ],
+          "generalFeedback": "\"At most one may be true, and all-false is allowed\" is the Exclusive (E) constraint. If the spec had forbidden all-false, it would be One-and-only-one (O).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"at least one\" with a constraint",
+          "text": "<p>A spec says: \"<em>At least one</em> contact method (phone, email, or address) must be provided.\" Which constraint models this among the three cause inputs?</p>",
+          "answers": [
+            {
+              "text": "I (Inclusive)",
+              "fraction": 100,
+              "feedback": "Correct — \"at least one\" is exactly the Inclusive constraint."
+            },
+            {
+              "text": "E (Exclusive)",
+              "fraction": 0,
+              "feedback": "E means at most one; here we need one or more, which is I."
+            },
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 0,
+              "feedback": "O means exactly one; here providing several is fine, so it is I."
+            },
+            {
+              "text": "M (Masks)",
+              "fraction": 0,
+              "feedback": "M is an effect constraint, not a rule about how many causes are true."
+            }
+          ],
+          "generalFeedback": "\"At least one must be true\" is the Inclusive (I) constraint; it forbids only the all-false case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"exactly one\" with a constraint",
+          "text": "<p>A spec says: \"<em>Exactly one</em> payment method — cash, card, or voucher — must be selected.\" Which constraint models this among the three cause inputs?</p>",
+          "answers": [
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 100,
+              "feedback": "Correct — \"exactly one\" is the One-and-only-one constraint."
+            },
+            {
+              "text": "E (Exclusive)",
+              "fraction": 0,
+              "feedback": "E allows zero true; here one must always be selected, so it is O."
+            },
+            {
+              "text": "I (Inclusive)",
+              "fraction": 0,
+              "feedback": "I allows several true; here only one may be selected, so it is O."
+            },
+            {
+              "text": "R (Requires)",
+              "fraction": 0,
+              "feedback": "R is an a→b implication, not a \"select exactly one of a set\" rule."
+            }
+          ],
+          "generalFeedback": "\"Exactly one true\" combines Exclusive (at most one) and Inclusive (at least one): that is the One-and-only-one (O) constraint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"requires\" with a constraint",
+          "text": "<p>A spec says: \"Selecting <em>express shipping</em> requires that a <em>delivery address</em> has been entered.\" Which constraint models this?</p>",
+          "answers": [
+            {
+              "text": "R (Requires): express-shipping → delivery-address",
+              "fraction": 100,
+              "feedback": "Correct — one cause being true forces another to be true."
+            },
+            {
+              "text": "O (One-and-only-one) between the two causes",
+              "fraction": 0,
+              "feedback": "The spec is not \"exactly one of the two\"; it is an implication a→b, i.e. R."
+            },
+            {
+              "text": "E (Exclusive) between the two causes",
+              "fraction": 0,
+              "feedback": "E forbids both being true; here both true is exactly the intended, valid case."
+            },
+            {
+              "text": "M (Masks) between the two causes",
+              "fraction": 0,
+              "feedback": "M relates effects; this rule relates two input causes, so it is R."
+            }
+          ],
+          "generalFeedback": "\"a requires b\" is the Requires (R) constraint, the implication a→b: express-shipping true forces delivery-address true, ruling out express-shipping with no address.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why graph then decision table",
+          "text": "<p>Why do we build a cause-effect graph and then convert it to a decision table, rather than testing every input combination?</p>",
+          "answers": [
+            {
+              "text": "The graph's logic and constraints let us derive only the feasible, behaviour-relevant combinations, yielding a manageable set of tests instead of all 2^n",
+              "fraction": 100,
+              "feedback": "Correct — that systematic reduction to meaningful combinations is the whole point."
+            },
+            {
+              "text": "It guarantees 100% statement and branch coverage of the code",
+              "fraction": 0,
+              "feedback": "Cause-effect graphing is black-box; it targets input-combination logic, not code-coverage metrics."
+            },
+            {
+              "text": "It removes the need to specify expected outputs",
+              "fraction": 0,
+              "feedback": "Each rule/column still carries the expected effect; the technique does not drop the oracle."
+            },
+            {
+              "text": "It makes exhaustive testing of all 2^n combinations faster to run",
+              "fraction": 0,
+              "feedback": "The goal is to avoid exhaustive testing, keeping only the feasible, distinct combinations."
+            }
+          ],
+          "generalFeedback": "Testing all 2^n cause combinations is usually infeasible. The graph captures the logic and constraints, and tracing effects back yields a decision table whose columns are the feasible, distinct combinations — a systematic, manageable test set.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the causes",
+          "text": "<p>Spec: \"A withdrawal is allowed if the <em>card is valid</em>, the <em>PIN is correct</em>, and the <em>balance is sufficient</em>; otherwise the transaction is <em>declined</em> and, if the PIN is wrong three times, the card is <em>retained</em>.\" How many distinct <strong>causes</strong> does this spec suggest?</p>",
+          "answers": [
+            {
+              "text": "4 — card valid, PIN correct, balance sufficient, PIN wrong three times",
+              "fraction": 100,
+              "feedback": "Correct — these are the four distinct input conditions."
+            },
+            {
+              "text": "3 — card valid, PIN correct, balance sufficient",
+              "fraction": 0,
+              "feedback": "\"PIN wrong three times\" is a fourth distinct input condition."
+            },
+            {
+              "text": "2 — allowed and declined",
+              "fraction": 0,
+              "feedback": "\"Allowed\" and \"declined\" are effects (outputs), not causes."
+            },
+            {
+              "text": "6 — every noun in the sentence",
+              "fraction": 0,
+              "feedback": "Only distinct input conditions are causes; not every noun qualifies."
+            }
+          ],
+          "generalFeedback": "Causes are the distinct input conditions: card valid, PIN correct, balance sufficient, and PIN wrong three times — four causes. \"Allowed\", \"declined\", and \"retained\" are effects.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the effects",
+          "text": "<p>Using the same ATM spec — \"…the transaction is <em>allowed</em> or <em>declined</em>, and the card may be <em>retained</em>\" — how many distinct <strong>effects</strong> are there?</p>",
+          "answers": [
+            {
+              "text": "3 — allowed, declined, card retained",
+              "fraction": 100,
+              "feedback": "Correct — those are the three distinct output conditions/actions."
+            },
+            {
+              "text": "2 — allowed and declined only",
+              "fraction": 0,
+              "feedback": "\"Card retained\" is a third distinct effect."
+            },
+            {
+              "text": "4 — the same as the number of causes",
+              "fraction": 0,
+              "feedback": "Causes and effects are counted separately; there are three effects here."
+            },
+            {
+              "text": "1 — the transaction result",
+              "fraction": 0,
+              "feedback": "There are three distinct outputs, not one."
+            }
+          ],
+          "generalFeedback": "Effects are the distinct outputs/actions: allowed, declined, and card retained — three effects. Counting causes and effects is the first step of building the graph.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate an OR feeding an AND",
+          "text": "<p>The graph has an intermediate node and an effect:</p><pre>\nn1 = c1 ∨ c2\nE  = n1 ∧ c3\n</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, <code>c3 = true</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — n1 = false ∨ true = true, then E = true ∧ true = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "n1 is true (c2), and c3 is true, so the AND is true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "All causes are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1",
+              "fraction": 0,
+              "feedback": "E depends on the OR of c1,c2 and on c3, not on c1 alone."
+            }
+          ],
+          "generalFeedback": "Evaluate the intermediate node first: n1 = c1 ∨ c2 = false ∨ true = true. Then E = n1 ∧ c3 = true ∧ true = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model an effect masking another",
+          "text": "<p>A spec says: \"When the '<em>account locked</em>' error is shown, the '<em>welcome</em>' message must not be shown.\" Which constraint captures this relationship between the two outputs?</p>",
+          "answers": [
+            {
+              "text": "M (Masks): the account-locked effect masks the welcome effect",
+              "fraction": 100,
+              "feedback": "Correct — one effect occurring forces the other to be suppressed, which is Masks."
+            },
+            {
+              "text": "E (Exclusive) between two causes",
+              "fraction": 0,
+              "feedback": "These are outputs, not causes; the effect-side constraint is M."
+            },
+            {
+              "text": "R (Requires) between two causes",
+              "fraction": 0,
+              "feedback": "R relates causes; here two effects are related, so it is M."
+            },
+            {
+              "text": "O (One-and-only-one) between two causes",
+              "fraction": 0,
+              "feedback": "O constrains causes; this rule constrains effects, so it is M."
+            }
+          ],
+          "generalFeedback": "A relationship that suppresses one output when another occurs is the Masks (M) constraint — the only constraint expressed among effects.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate a NOR effect",
+          "text": "<p>An effect is wired as:</p><pre>\nE = ~(c1 ∨ c2)\n</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — c1 ∨ c2 = false, and ~false = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The OR of two falses is false, and its negation is true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both causes are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1 ∨ c2",
+              "fraction": 0,
+              "feedback": "The NOT node inverts the OR, so E is the opposite of c1 ∨ c2."
+            }
+          ],
+          "generalFeedback": "Evaluate inside first: c1 ∨ c2 = false ∨ false = false. Then negate: E = ~false = true. This \"true only when all inputs are false\" pattern is a NOR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O versus E on the all-false case",
+          "text": "<p>Two specs restrict the same set of causes. Spec 1: \"select exactly one.\" Spec 2: \"select at most one.\" What is the one difference between the constraints they imply?</p>",
+          "answers": [
+            {
+              "text": "Spec 1 is O (all-false forbidden); Spec 2 is E (all-false allowed) — they differ only on whether zero-true is feasible",
+              "fraction": 100,
+              "feedback": "Correct — O and E agree except that O forbids the all-false combination."
+            },
+            {
+              "text": "They are identical constraints",
+              "fraction": 0,
+              "feedback": "They differ on the all-false case: O forbids it, E allows it."
+            },
+            {
+              "text": "Spec 1 is I and Spec 2 is O",
+              "fraction": 0,
+              "feedback": "\"Exactly one\" is O and \"at most one\" is E; neither is Inclusive here."
+            },
+            {
+              "text": "Spec 2 allows two true while Spec 1 does not",
+              "fraction": 0,
+              "feedback": "Both forbid two-or-more true; the only difference is the all-false case."
+            }
+          ],
+          "generalFeedback": "One-and-only-one (O) = exactly one true; Exclusive (E) = at most one true. Both forbid two or more true; they differ solely in that E permits the all-false combination and O does not. Hence O has one fewer feasible combination than E for the same causes.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under O (3 causes)",
+          "text": "<p>Three causes c1, c2, c3 are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^3 = 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — exactly one true means one of {c1}, {c2}, {c3}: 3 feasible assignments."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 would be the count under Exclusive (which also allows all-false); O forbids all-false, leaving 3."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the Inclusive count (at least one true); O requires exactly one, giving 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "There are three different ways for exactly one cause to be the true one, so 3."
+            }
+          ],
+          "generalFeedback": "Under O exactly one cause is true. Enumerating the 8 assignments, only TFF, FTF, FFT qualify — 3 feasible combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under E (3 causes)",
+          "text": "<p>Three causes c1, c2, c3 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — at most one true: all-false plus the three single-true assignments = 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the One-and-only-one count; E additionally allows the all-false case, giving 4."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the Inclusive count; E is \"at most one\", which yields 4."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Enumerating \"at most one true\" gives FFF, TFF, FTF, FFT — 4, not 5."
+            }
+          ],
+          "generalFeedback": "Under E at most one cause is true. Feasible: FFF, TFF, FTF, FFT — 4 combinations (one more than O, because all-false is allowed).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under I (3 causes)",
+          "text": "<p>Three causes c1, c2, c3 are governed by an <strong>Inclusive (I)</strong> constraint. Of the 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — at least one true rules out only the all-false case: 8 − 1 = 7."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "I forbids the all-false assignment, so 7 (not all 8) remain."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the One-and-only-one count; Inclusive allows any number ≥ 1 true, giving 7."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the Exclusive count; Inclusive is \"at least one\", which gives 7."
+            }
+          ],
+          "generalFeedback": "Under I at least one cause is true, so only FFF is forbidden. That leaves 8 − 1 = 7 feasible combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under E (2 causes)",
+          "text": "<p>Two causes c1, c2 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 2^2 = 4 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — at most one true: FF, TF, FT are feasible; only TT is ruled out."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the One-and-only-one count; E also allows FF, giving 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "E forbids both true (TT), so only 3 of the 4 remain."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Three assignments have at most one true, so 3 are feasible."
+            }
+          ],
+          "generalFeedback": "Under E at most one of two causes is true, so TT is infeasible. Feasible: FF, TF, FT — 3 combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under O (4 causes)",
+          "text": "<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^4 = 16 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — exactly one true, and there are 4 choices of which cause is the true one."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 would include the all-false case (that is Exclusive); O forbids all-false, leaving 4."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 is the Inclusive count (at least one true); O requires exactly one, giving 4."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Any one of the four causes may be the single true one, so 4."
+            }
+          ],
+          "generalFeedback": "Under O exactly one of the four causes is true, so the feasible assignments are TFFF, FTFF, FFTF, FFFT — 4 in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under Requires (2 causes)",
+          "text": "<p>Two causes a, b have the constraint <strong>a Requires b</strong> (a→b). Of the 4 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — only a=true, b=false is forbidden; the other 3 are feasible."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Only one assignment is ruled out, not three; 3 remain feasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The combination a=true, b=false violates a→b, so only 3 are feasible."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "R rules out exactly one combination (a-true, b-false), leaving 3."
+            }
+          ],
+          "generalFeedback": "a→b forbids only (a=true, b=false). The feasible assignments are (F,F), (F,T), (T,T) — 3 combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under Requires (3 causes)",
+          "text": "<p>Three causes a, b, c have the single constraint <strong>a Requires b</strong> (a→b); c is unconstrained. Of the 2^3 = 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — a=true with b=false is forbidden for either value of c, removing 2 of the 8."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Two assignments are removed (a=T, b=F with c=F and with c=T), not one, so 6 remain."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only the a-true, b-false cases are infeasible; that is 2 assignments, leaving 6."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "c is free, so 6 assignments satisfy a→b, not 3."
+            }
+          ],
+          "generalFeedback": "a→b forbids a=true, b=false. With c free, that pattern occurs for c=false and c=true — 2 infeasible assignments. So 8 − 2 = 6 are feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is a combination feasible under O",
+          "text": "<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint. Is the assignment <code>c1 = true, c2 = true, c3 = false</code> feasible?</p>",
+          "answers": [
+            {
+              "text": "No — two causes are true, but O allows exactly one true",
+              "fraction": 100,
+              "feedback": "Correct — with c1 and c2 both true, the O constraint is violated, so this column is infeasible."
+            },
+            {
+              "text": "Yes — at least one cause is true",
+              "fraction": 0,
+              "feedback": "\"At least one\" is the Inclusive constraint; O demands exactly one, and here two are true."
+            },
+            {
+              "text": "Yes — c3 is false, satisfying the constraint",
+              "fraction": 0,
+              "feedback": "O counts how many are true overall; two true (c1, c2) violates it regardless of c3."
+            },
+            {
+              "text": "No — because c3 must be true",
+              "fraction": 0,
+              "feedback": "O does not require c3 specifically; it fails here simply because two causes are true."
+            }
+          ],
+          "generalFeedback": "Under O exactly one cause may be true. Here c1 and c2 are both true, so the assignment is infeasible and yields no test case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect value under the Masks constraint",
+          "text": "<p>Two effects are computed from the graph, and effect A <strong>Masks</strong> effect B. For some input the graph gives <code>A = true</code> and would give <code>B = true</code>. After applying the Masks constraint, what are the observed effect values?</p>",
+          "answers": [
+            {
+              "text": "A = true, B = false — because A occurs, B is masked (forced false)",
+              "fraction": 100,
+              "feedback": "Correct — Masks forces the second effect false whenever the first occurs."
+            },
+            {
+              "text": "A = true, B = true — Masks does not change computed values",
+              "fraction": 0,
+              "feedback": "Masks specifically overrides B: when A is true, B is forced false."
+            },
+            {
+              "text": "A = false, B = true — B masks A",
+              "fraction": 0,
+              "feedback": "The direction is A masks B, so A stays true and B is suppressed."
+            },
+            {
+              "text": "Both false — a mask cancels both effects",
+              "fraction": 0,
+              "feedback": "Only the masked effect (B) is forced false; A remains as computed (true)."
+            }
+          ],
+          "generalFeedback": "Masks is directional: when the masking effect A is true, the masked effect B is forced to false, overriding whatever the graph computed for B. A itself is unaffected, so the result is A = true, B = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True-points of an AND effect",
+          "text": "<p>An effect is <code>E = c1 ∧ c2</code> with no constraints. Tracing back, how many cause assignments (the effect's \"true points\") make E true?</p>",
+          "answers": [
+            {
+              "text": "1 — only (c1 = true, c2 = true)",
+              "fraction": 100,
+              "feedback": "Correct — an AND is true for exactly the all-true assignment."
+            },
+            {
+              "text": "3 — every assignment except all-false",
+              "fraction": 0,
+              "feedback": "That describes an OR; an AND is true only when both are true."
+            },
+            {
+              "text": "2 — whenever c1 is true",
+              "fraction": 0,
+              "feedback": "c1 true with c2 false gives E false, so not every c1-true case counts."
+            },
+            {
+              "text": "4 — all assignments",
+              "fraction": 0,
+              "feedback": "E is false whenever either cause is false, so not all 4 assignments are true points."
+            }
+          ],
+          "generalFeedback": "Tracing back from E = c1 ∧ c2, the only assignment that makes it true is (T, T). So the effect has a single true point, which becomes one decision-table column that fires E.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True-points of an OR effect",
+          "text": "<p>An effect is <code>E = c1 ∨ c2</code> with no constraints. How many cause assignments make E true?</p>",
+          "answers": [
+            {
+              "text": "3 — (T,T), (T,F), (F,T)",
+              "fraction": 100,
+              "feedback": "Correct — an OR is true for every assignment except all-false."
+            },
+            {
+              "text": "1 — only (T,T)",
+              "fraction": 0,
+              "feedback": "That is the AND case; an OR needs only one true input."
+            },
+            {
+              "text": "2 — only the single-true assignments",
+              "fraction": 0,
+              "feedback": "(T,T) also makes an OR true, so there are 3 true points, not 2."
+            },
+            {
+              "text": "4 — all assignments",
+              "fraction": 0,
+              "feedback": "(F,F) makes the OR false, so only 3 assignments are true points."
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 is true for (T,T), (T,F), (F,T) and false only for (F,F). That is 3 true points.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision-table columns from feasible combinations",
+          "text": "<p>A cause-effect graph has 3 causes under a <strong>One-and-only-one (O)</strong> constraint. If the decision table has one column per feasible cause combination, how many columns (and therefore test cases) does it have?</p>",
+          "answers": [
+            {
+              "text": "3 — one per feasible combination (exactly one cause true)",
+              "fraction": 100,
+              "feedback": "Correct — O leaves 3 feasible combinations, so 3 columns and 3 tests."
+            },
+            {
+              "text": "8 — one per raw 2^3 combination",
+              "fraction": 0,
+              "feedback": "The O constraint removes the infeasible combinations; only 3 remain."
+            },
+            {
+              "text": "4 — the Exclusive count",
+              "fraction": 0,
+              "feedback": "Under O the all-false case is not allowed, so it is 3, not 4."
+            },
+            {
+              "text": "1 — a single column suffices",
+              "fraction": 0,
+              "feedback": "Each feasible combination is a distinct column; there are 3."
+            }
+          ],
+          "generalFeedback": "Building the decision table, each feasible cause combination becomes one column and thus one test case. With 3 causes under O there are 3 feasible combinations, giving 3 columns.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible combinations removed by E (3 causes)",
+          "text": "<p>Three causes are governed by an <strong>Exclusive (E)</strong> constraint. How many of the 2^3 = 8 raw combinations become <em>infeasible</em>?</p>",
+          "answers": [
+            {
+              "text": "4 — the combinations with two or more causes true",
+              "fraction": 100,
+              "feedback": "Correct — 8 total minus 4 feasible (at most one true) = 4 infeasible."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Feasible under E is 4 (all-false plus three single-true), so infeasible is 8 − 4 = 4."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "That would leave only 3 feasible (the O count); under E, 4 are feasible, so 4 are infeasible."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Every combination with two or more true is infeasible — there are 4 of those (TTF, TFT, FTT, TTT)."
+            }
+          ],
+          "generalFeedback": "Under E at most one cause is true, so 4 combinations are feasible (FFF, TFF, FTF, FFT). The remaining 8 − 4 = 4 (TTF, TFT, FTT, TTT) are infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible combinations removed by O (4 causes)",
+          "text": "<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. How many of the 2^4 = 16 raw combinations are <em>infeasible</em>?</p>",
+          "answers": [
+            {
+              "text": "12 — only 4 combinations (exactly one true) are feasible, so 16 − 4 = 12",
+              "fraction": 100,
+              "feedback": "Correct — O leaves 4 feasible, so 12 are infeasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of feasible combinations, not the infeasible ones; 16 − 4 = 12."
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "That would leave 5 feasible (the Exclusive count); under O only 4 are feasible, so 12 are infeasible."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 would leave a single feasible case; O has 4 feasible, so 12 infeasible."
+            }
+          ],
+          "generalFeedback": "Under O exactly one of four causes is true, giving 4 feasible combinations. The other 16 − 4 = 12 combinations (all-false or two-or-more true) are infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect value across all feasible O columns",
+          "text": "<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint, and an effect is <code>E = c1 ∨ c2 ∨ c3</code>. In how many of the feasible columns is E true?</p>",
+          "answers": [
+            {
+              "text": "3 — in every feasible column, since exactly one cause is always true",
+              "fraction": 100,
+              "feedback": "Correct — O guarantees one cause is true, so the OR is true in all 3 feasible columns."
+            },
+            {
+              "text": "1 — only when all three are true",
+              "fraction": 0,
+              "feedback": "Under O all-three-true is infeasible; the OR is true whenever any one is true, which is always here."
+            },
+            {
+              "text": "0 — the constraint makes E false",
+              "fraction": 0,
+              "feedback": "The constraint forces exactly one true, so the OR is true, not false."
+            },
+            {
+              "text": "7 — one per Inclusive combination",
+              "fraction": 0,
+              "feedback": "Under O there are only 3 feasible columns, and E is true in all of them."
+            }
+          ],
+          "generalFeedback": "O forces exactly one cause true in every feasible column, so c1 ∨ c2 ∨ c3 is true in each. There are 3 feasible columns, and E is true in all 3.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是原因（cause）",
+          "text": "<p>在因果圖（cause-effect graph）中，<strong>原因（cause）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "取自規格的一個獨立輸入條件（可為真或為假）",
+              "fraction": 100,
+              "feedback": "正確——原因是一個個別的輸入條件，取值為真或假。"
+            },
+            {
+              "text": "程式產生的輸出或動作",
+              "fraction": 0,
+              "feedback": "那是效果（effect），不是原因。"
+            },
+            {
+              "text": "必須被執行的一行原始碼",
+              "fraction": 0,
+              "feedback": "因果圖法屬於黑箱測試；原因來自規格，而非程式碼。"
+            },
+            {
+              "text": "所產生決策表的一個欄位",
+              "fraction": 0,
+              "feedback": "欄位是稍後導出的規則／測試案例；原因則是輸入條件。"
+            }
+          ],
+          "generalFeedback": "原因是一個獨立的輸入條件——一個可成立或不成立的布林值。原因透過閱讀規格找出，並經由布林節點連到其影響的效果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是效果（effect）",
+          "text": "<p>在因果圖中，<strong>效果（effect）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "系統回應其輸入而產生的輸出條件或動作",
+              "fraction": 100,
+              "feedback": "正確——效果是圖右側可觀察到的輸出／動作。"
+            },
+            {
+              "text": "可為真或為假的輸入條件",
+              "fraction": 0,
+              "feedback": "那描述的是原因，不是效果。"
+            },
+            {
+              "text": "兩個輸入之間的約束",
+              "fraction": 0,
+              "feedback": "約束（E／I／O／R）限制的是原因；效果則是輸出。"
+            },
+            {
+              "text": "如 AND 或 OR 的布林運算節點",
+              "fraction": 0,
+              "feedback": "那些節點把原因連到效果；效果本身是輸出。"
+            }
+          ],
+          "generalFeedback": "效果是輸出條件或動作。在圖中，左側的原因經由布林節點連到右側的效果，且對於給定的原因指派，每個效果最終為真或為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "IDENTITY 節點",
+          "text": "<p>當 <strong>IDENTITY</strong> 節點把一個原因連到一個效果時，代表什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，恰好當該單一原因為真時（它把原因的值直接複製過去）",
+              "fraction": 100,
+              "feedback": "正確——identity 把原因值原樣傳給效果。"
+            },
+            {
+              "text": "效果為真，恰好當該原因為假時",
+              "fraction": 0,
+              "feedback": "那是 NOT 節點，不是 identity。"
+            },
+            {
+              "text": "效果為真，當兩個原因之一為真時",
+              "fraction": 0,
+              "feedback": "那是 OR 節點；identity 連的是單一原因。"
+            },
+            {
+              "text": "不論原因為何，效果永遠為真",
+              "fraction": 0,
+              "feedback": "identity 反映原因的值，並非恆真節點。"
+            }
+          ],
+          "generalFeedback": "IDENTITY 節點把一個原因連到一個效果，使 effect = cause：原因為真則效果為真，原因為假則效果為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NOT 節點",
+          "text": "<p><strong>NOT</strong>（~）節點計算什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，恰好當其單一原因為假時（它對原因取反）",
+              "fraction": 100,
+              "feedback": "正確——NOT 反轉原因的值。"
+            },
+            {
+              "text": "效果為真，恰好當原因為真時",
+              "fraction": 0,
+              "feedback": "那是 IDENTITY；NOT 給出相反的值。"
+            },
+            {
+              "text": "效果為真，當多個原因全部為真時",
+              "fraction": 0,
+              "feedback": "那是 AND；NOT 只取單一原因並取反。"
+            },
+            {
+              "text": "效果為真，當多個原因中至少一個為真時",
+              "fraction": 0,
+              "feedback": "那是 OR；NOT 對一個原因取反。"
+            }
+          ],
+          "generalFeedback": "NOT 節點（畫作 ~）取反：原因為假時效果為真，原因為真時效果為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AND 節點",
+          "text": "<p>對於連到多個原因的效果，<strong>AND</strong>（∧）節點計算什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，僅當所連的每一個原因都為真時",
+              "fraction": 100,
+              "feedback": "正確——AND 要求所有輸入都為真。"
+            },
+            {
+              "text": "效果為真，當所連原因中至少一個為真時",
+              "fraction": 0,
+              "feedback": "那是 OR，不是 AND。"
+            },
+            {
+              "text": "效果為真，當所連原因中恰好一個為真時",
+              "fraction": 0,
+              "feedback": "AND 要求全部為真，而非恰好一個。"
+            },
+            {
+              "text": "效果只複製第一個原因的值",
+              "fraction": 0,
+              "feedback": "AND 取決於每個輸入，而非只有第一個。"
+            }
+          ],
+          "generalFeedback": "AND 節點僅當其所有輸入原因（或中間節點）都為真時才為真；只要有任一輸入為假，效果即為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "OR 節點",
+          "text": "<p>對於連到多個原因的效果，<strong>OR</strong>（∨）節點計算什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，當所連原因中至少一個為真時",
+              "fraction": 100,
+              "feedback": "正確——OR 只需一個輸入為真。"
+            },
+            {
+              "text": "效果為真，僅當所連原因全部為真時",
+              "fraction": 0,
+              "feedback": "那是 AND，不是 OR。"
+            },
+            {
+              "text": "效果為真，僅當所連原因中恰好一個為真時",
+              "fraction": 0,
+              "feedback": "OR 在一個或多個為真時皆為真；「恰好一個」是不同的（O）概念。"
+            },
+            {
+              "text": "效果為真，僅當所連原因全部為假時",
+              "fraction": 0,
+              "feedback": "那會是 NOR（OR 取反）；純 OR 在任一輸入為真時即為真。"
+            }
+          ],
+          "generalFeedback": "OR 節點在其輸入有一個或多個為真時為真，只有在每個輸入都為假時才為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "互斥（E）約束",
+          "text": "<p>在一組原因之間，<strong>互斥（Exclusive，E）</strong>約束代表什麼？</p>",
+          "answers": [
+            {
+              "text": "這些原因中至多一個可為真（可以全部為假，但沒有兩個同時為真）",
+              "fraction": 100,
+              "feedback": "正確——E 允許零個或一個為真，絕不會有兩個以上為真。"
+            },
+            {
+              "text": "這些原因中恰好一個必須為真",
+              "fraction": 0,
+              "feedback": "那是「唯一其一（O）」約束；E 也允許全部為假。"
+            },
+            {
+              "text": "這些原因中至少一個必須為真",
+              "fraction": 0,
+              "feedback": "那是「內含（I）」約束。"
+            },
+            {
+              "text": "這些原因必須全部同時為真",
+              "fraction": 0,
+              "feedback": "E 禁止兩個同時為真，故絕不可能要求全部為真。"
+            }
+          ],
+          "generalFeedback": "互斥（E）：受約束的原因中至多一個為真。允許零個為真；禁止兩個以上為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "內含（I）約束",
+          "text": "<p>在一組原因之間，<strong>內含（Inclusive，I）</strong>約束代表什麼？</p>",
+          "answers": [
+            {
+              "text": "這些原因中至少一個必須為真（不能全部為假）",
+              "fraction": 100,
+              "feedback": "正確——I 禁止全部為假的情形；至少一個必須成立。"
+            },
+            {
+              "text": "這些原因中至多一個可為真",
+              "fraction": 0,
+              "feedback": "那是「互斥（E）」約束。"
+            },
+            {
+              "text": "這些原因中恰好一個必須為真",
+              "fraction": 0,
+              "feedback": "那是「唯一其一（O）」約束；I 允許多個同時為真。"
+            },
+            {
+              "text": "這些原因完全沒有任何限制",
+              "fraction": 0,
+              "feedback": "I 確實有限制：它排除全部為假的情形。"
+            }
+          ],
+          "generalFeedback": "內含（I）：受約束的原因中至少一個必須為真。從一個到全部的任意數目皆可；只有全部為假被禁止。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "唯一其一（O）約束",
+          "text": "<p>在一組原因之間，<strong>唯一其一（One-and-only-one，O）</strong>約束代表什麼？</p>",
+          "answers": [
+            {
+              "text": "這些原因中恰好一個為真——不多也不少",
+              "fraction": 100,
+              "feedback": "正確——O 要求恰好一個為真。"
+            },
+            {
+              "text": "這些原因中至多一個可為真（允許全部為假）",
+              "fraction": 0,
+              "feedback": "那是互斥（E）；O 禁止全部為假的情形。"
+            },
+            {
+              "text": "這些原因中至少一個必須為真",
+              "fraction": 0,
+              "feedback": "那是內含（I），它也允許多個為真；O 只允許一個。"
+            },
+            {
+              "text": "這些原因要嘛全部為真、要嘛全部為假",
+              "fraction": 0,
+              "feedback": "O 要求恰好一個為真，而非全有或全無。"
+            }
+          ],
+          "generalFeedback": "唯一其一（O）：受約束的原因中恰好一個為真。它結合了互斥（至多一個）與內含（至少一個）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需要（R）約束",
+          "text": "<p><strong>需要（Requires，R）</strong>約束「原因 a 需要原因 b」代表什麼？</p>",
+          "answers": [
+            {
+              "text": "只要 a 為真，b 也必須為真（因此 a 為真而 b 為假是不可能的）",
+              "fraction": 100,
+              "feedback": "正確——R 排除了 a 為真、b 為假的組合。"
+            },
+            {
+              "text": "只要 a 為真，b 必須為假",
+              "fraction": 0,
+              "feedback": "那正好相反；R 在 a 為真時強制 b 為真。"
+            },
+            {
+              "text": "a 與 b 必須永遠取相同的值",
+              "fraction": 0,
+              "feedback": "R 是單向的：a 為假時 b 可為任意值；只有 a 真 b 假被禁止。"
+            },
+            {
+              "text": "a 與 b 中恰好一個可為真",
+              "fraction": 0,
+              "feedback": "那較接近互斥／唯一其一；R 是蘊涵 a→b。"
+            }
+          ],
+          "generalFeedback": "需要（R）是蘊涵 a→b：若 a 為真則 b 必須為真。唯一被禁止的組合是 a 為真、b 為假；其餘（含 a 為假搭配任意 b）皆允許。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "遮蔽（M）約束",
+          "text": "<p><strong>遮蔽（Masks，M）</strong>約束「效果 a 遮蔽效果 b」代表什麼？</p>",
+          "answers": [
+            {
+              "text": "若效果 a 發生（為真），則效果 b 被遮蔽並強制為假",
+              "fraction": 100,
+              "feedback": "正確——M 是效果之間的約束：a 為真會抑制 b。"
+            },
+            {
+              "text": "若原因 a 為真，原因 b 必須為真",
+              "fraction": 0,
+              "feedback": "那是需要（R），一個原因之間的約束；M 約束的是效果。"
+            },
+            {
+              "text": "效果 a 與 b 中至多一個可發生，但任一個都可單獨發生",
+              "fraction": 0,
+              "feedback": "M 是有方向的——a 抑制 b，但 b 不抑制 a——因此不是對稱的「至多一個」。"
+            },
+            {
+              "text": "效果 a 與 b 必須永遠一起發生",
+              "fraction": 0,
+              "feedback": "M 正好相反：當 a 發生時 b 不能發生。"
+            }
+          ],
+          "generalFeedback": "遮蔽（M）是唯一作用於效果（而非原因）之間的約束：當效果 a 為真時，效果 b 被遮蔽（強制為假），無論圖原本對 b 計算出什麼結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 identity 圖",
+          "text": "<p>一個效果經由 IDENTITY 節點連到單一原因：</p><pre>\nE = IDENTITY(c1)\n</pre><p>若 <code>c1 = true</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——identity 複製原因，故 E = c1 = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "identity 不取反；E 等於 c1，即 true。"
+            },
+            {
+              "text": "未定義——一個效果至少需要兩個原因",
+              "fraction": 0,
+              "feedback": "identity 節點恰好把一個原因連到效果，這是合法的。"
+            },
+            {
+              "text": "取決於未顯示的其他原因",
+              "fraction": 0,
+              "feedback": "該效果只經由 identity 連到 c1，故只有 c1 有影響。"
+            }
+          ],
+          "generalFeedback": "IDENTITY 把原因原樣傳過去：E = c1。當 c1 = true 時，E = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 NOT 圖",
+          "text": "<p>一個效果經由 NOT 節點連到單一原因：</p><pre>\nE = ~c1\n</pre><p>若 <code>c1 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——NOT 取反：~false = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "NOT 對原因取反；c1 為假時 E 為真。"
+            },
+            {
+              "text": "沒有第二個原因就未定義",
+              "fraction": 0,
+              "feedback": "NOT 節點取單一原因；該效果是有定義的。"
+            },
+            {
+              "text": "等於 c1",
+              "fraction": 0,
+              "feedback": "那會是 identity；NOT 給出 c1 的相反值。"
+            }
+          ],
+          "generalFeedback": "NOT 節點給出 E = ~c1。當 c1 = false 時，E = ~false = true。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "因果圖法屬於黑箱",
+          "text": "<p>因果圖法是一種黑箱（以規格為基礎）的測試設計技術。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它從規格的輸入條件與輸出導出測試，而非從原始碼。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "原因與效果都讀自規格，故此技術屬於黑箱，而非結構性測試。"
+            }
+          ],
+          "generalFeedback": "因果圖法從規格找出輸入條件（原因）與輸出（效果），並以布林邏輯連接——這是一種黑箱技術，與程式碼的內部結構無關。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個約束作用於效果",
+          "text": "<p>在五種約束型別（E、I、O、R、M）中，有四種限制的是<em>原因</em>的組合。哪一個改為限制<em>效果</em>？</p>",
+          "answers": [
+            {
+              "text": "M（遮蔽）",
+              "fraction": 100,
+              "feedback": "正確——遮蔽是作用於效果那一側的約束；E、I、O、R 都限制原因。"
+            },
+            {
+              "text": "E（互斥）",
+              "fraction": 0,
+              "feedback": "E 限制的是原因（至多一個為真），而非效果。"
+            },
+            {
+              "text": "R（需要）",
+              "fraction": 0,
+              "feedback": "R 限制的是原因（a→b），而非效果。"
+            },
+            {
+              "text": "O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 限制的是原因（恰好一個為真），而非效果。"
+            }
+          ],
+          "generalFeedback": "E、I、O、R 表達的是原因（輸入）之間的關係。M（遮蔽）是唯一連結兩個效果的約束：若第一個發生，就強制第二個為假。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算 AND 效果",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∧ c2\n</pre><p>給定 <code>c1 = true</code>、<code>c2 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——AND 需兩者皆為真；c2 為假，故 E 為假。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AND 要求每個輸入都為真；c2 = false 使 E 為假。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個輸入都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c1",
+              "fraction": 0,
+              "feedback": "E 取決於兩個原因；c2 為假時，不論 c1 為何 AND 皆為假。"
+            }
+          ],
+          "generalFeedback": "E = c1 ∧ c2 = true ∧ false = false。AND 只有在所有輸入都為真時才為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 OR 效果",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∨ c2\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = true</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——OR 在任一輸入為真時即為真；c2 為真。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "OR 只需一個輸入為真，而 c2 為真。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個輸入都已給定，故 E 有定義。"
+            },
+            {
+              "text": "只等於 c1",
+              "fraction": 0,
+              "feedback": "E 取決於兩者；c2 為真使 OR 為真。"
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 = false ∨ true = true。OR 只有在每個輸入都為假時才為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算帶取反輸入的 AND",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∧ ~c2\n</pre><p>給定 <code>c1 = true</code>、<code>c2 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——~c2 = true 且 c1 = true，故 AND 為真。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "因 c2 為假，~c2 為真，且 true ∧ true = true。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個原因都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c2",
+              "fraction": 0,
+              "feedback": "E 使用 ~c2，與 c1 結合後在此為真。"
+            }
+          ],
+          "generalFeedback": "先取反：~c2 = ~false = true。再計算 E = c1 ∧ ~c2 = true ∧ true = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算三輸入 OR",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∨ c2 ∨ c3\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = false</code>、<code>c3 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——OR 只有在每個輸入都為假時才為假，此處正是如此。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "三個輸入都為假，故 OR 為假。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "所有輸入都已給定；E 有定義。"
+            },
+            {
+              "text": "取決於某個約束",
+              "fraction": 0,
+              "feedback": "題目未給任何約束；三個假的 OR 就是假。"
+            }
+          ],
+          "generalFeedback": "E = false ∨ false ∨ false = false。OR 恰好在所有輸入都為假時給出假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「至多一個」",
+          "text": "<p>規格說：「一張訂單<em>至多</em>可套用三個優惠碼中的一個（不套用任何一個也可以）。」在這三個原因輸入之間，哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "E（互斥）",
+              "fraction": 100,
+              "feedback": "正確——「至多一個、允許零個」正是互斥。"
+            },
+            {
+              "text": "O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 會強制恰好套用一個；此處允許不套用，故為 E。"
+            },
+            {
+              "text": "I（內含）",
+              "fraction": 0,
+              "feedback": "I 要求至少一個為真；此處允許零個，故為 E。"
+            },
+            {
+              "text": "R（需要）",
+              "fraction": 0,
+              "feedback": "R 是兩個特定原因間的蘊涵，而非「一組中至多一個」的規則。"
+            }
+          ],
+          "generalFeedback": "「至多一個為真、且允許全部為假」是互斥（E）約束。若規格禁止全部為假，那才會是唯一其一（O）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「至少一個」",
+          "text": "<p>規格說：「必須提供至少一種聯絡方式（電話、電子郵件或地址）。」在這三個原因輸入之間，哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "I（內含）",
+              "fraction": 100,
+              "feedback": "正確——「至少一個」正是內含約束。"
+            },
+            {
+              "text": "E（互斥）",
+              "fraction": 0,
+              "feedback": "E 表示至多一個；此處需要一個或多個，故為 I。"
+            },
+            {
+              "text": "O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 表示恰好一個；此處提供多個也可以，故為 I。"
+            },
+            {
+              "text": "M（遮蔽）",
+              "fraction": 0,
+              "feedback": "M 是效果約束，而非關於有幾個原因為真的規則。"
+            }
+          ],
+          "generalFeedback": "「至少一個必須為真」是內含（I）約束；它只禁止全部為假的情形。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「恰好一個」",
+          "text": "<p>規格說：「必須選擇<em>恰好一種</em>付款方式——現金、卡片或禮券。」在這三個原因輸入之間，哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "O（唯一其一）",
+              "fraction": 100,
+              "feedback": "正確——「恰好一個」是唯一其一約束。"
+            },
+            {
+              "text": "E（互斥）",
+              "fraction": 0,
+              "feedback": "E 允許零個為真；此處必須永遠選一個，故為 O。"
+            },
+            {
+              "text": "I（內含）",
+              "fraction": 0,
+              "feedback": "I 允許多個為真；此處只能選一個，故為 O。"
+            },
+            {
+              "text": "R（需要）",
+              "fraction": 0,
+              "feedback": "R 是 a→b 的蘊涵，而非「從一組中選恰好一個」的規則。"
+            }
+          ],
+          "generalFeedback": "「恰好一個為真」結合了互斥（至多一個）與內含（至少一個）：那就是唯一其一（O）約束。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「需要」",
+          "text": "<p>規格說：「選擇<em>快遞運送</em>需要已輸入<em>送貨地址</em>。」哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "R（需要）：快遞運送 → 送貨地址",
+              "fraction": 100,
+              "feedback": "正確——一個原因為真會強制另一個為真。"
+            },
+            {
+              "text": "兩個原因之間的 O（唯一其一）",
+              "fraction": 0,
+              "feedback": "規格不是「兩者恰好其一」；它是蘊涵 a→b，即 R。"
+            },
+            {
+              "text": "兩個原因之間的 E（互斥）",
+              "fraction": 0,
+              "feedback": "E 禁止兩者同時為真；此處兩者同時為真正是預期且合法的情形。"
+            },
+            {
+              "text": "兩個原因之間的 M（遮蔽）",
+              "fraction": 0,
+              "feedback": "M 連結的是效果；此規則連結的是兩個輸入原因，故為 R。"
+            }
+          ],
+          "generalFeedback": "「a 需要 b」是需要（R）約束，即蘊涵 a→b：快遞運送為真會強制送貨地址為真，排除了「快遞卻無地址」的情形。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何先畫圖再做決策表",
+          "text": "<p>為什麼要先建因果圖、再轉為決策表，而不是直接測試每一種輸入組合？</p>",
+          "answers": [
+            {
+              "text": "圖的邏輯與約束讓我們只導出可行且與行為相關的組合，得到可管理的測試集，而非全部 2^n 種",
+              "fraction": 100,
+              "feedback": "正確——這種有系統地縮減到有意義組合正是重點所在。"
+            },
+            {
+              "text": "它能保證程式的敘述與分支覆蓋達到 100%",
+              "fraction": 0,
+              "feedback": "因果圖法屬黑箱；它針對輸入組合的邏輯，而非程式碼覆蓋度量。"
+            },
+            {
+              "text": "它讓我們不必再指定預期輸出",
+              "fraction": 0,
+              "feedback": "每條規則／欄位仍帶有預期效果；此技術並未捨棄判準。"
+            },
+            {
+              "text": "它讓窮舉測試全部 2^n 種組合跑得更快",
+              "fraction": 0,
+              "feedback": "目標是避免窮舉測試，只保留可行且相異的組合。"
+            }
+          ],
+          "generalFeedback": "測試全部 2^n 種原因組合通常不可行。圖捕捉了邏輯與約束，將效果回溯後便得到一張決策表，其欄位即為可行且相異的組合——一個有系統且可管理的測試集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算原因的數目",
+          "text": "<p>規格：「若<em>卡片有效</em>、<em>PIN 正確</em>且<em>餘額足夠</em>，則允許提款；否則交易被<em>拒絕</em>，且若 PIN 連錯三次則<em>沒收</em>卡片。」此規格暗示有幾個相異的<strong>原因</strong>？</p>",
+          "answers": [
+            {
+              "text": "4——卡片有效、PIN 正確、餘額足夠、PIN 連錯三次",
+              "fraction": 100,
+              "feedback": "正確——這是四個相異的輸入條件。"
+            },
+            {
+              "text": "3——卡片有效、PIN 正確、餘額足夠",
+              "fraction": 0,
+              "feedback": "「PIN 連錯三次」是第四個相異的輸入條件。"
+            },
+            {
+              "text": "2——允許與拒絕",
+              "fraction": 0,
+              "feedback": "「允許」與「拒絕」是效果（輸出），不是原因。"
+            },
+            {
+              "text": "6——句中的每個名詞",
+              "fraction": 0,
+              "feedback": "只有相異的輸入條件才算原因；並非每個名詞都符合。"
+            }
+          ],
+          "generalFeedback": "原因是相異的輸入條件：卡片有效、PIN 正確、餘額足夠、PIN 連錯三次——共四個原因。「允許」「拒絕」「沒收」則是效果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算效果的數目",
+          "text": "<p>沿用同一份 ATM 規格——「……交易被<em>允許</em>或<em>拒絕</em>，且卡片可能被<em>沒收</em>」——共有幾個相異的<strong>效果</strong>？</p>",
+          "answers": [
+            {
+              "text": "3——允許、拒絕、沒收卡片",
+              "fraction": 100,
+              "feedback": "正確——那是三個相異的輸出條件／動作。"
+            },
+            {
+              "text": "2——只有允許與拒絕",
+              "fraction": 0,
+              "feedback": "「沒收卡片」是第三個相異的效果。"
+            },
+            {
+              "text": "4——與原因數目相同",
+              "fraction": 0,
+              "feedback": "原因與效果分開計算；此處有三個效果。"
+            },
+            {
+              "text": "1——交易的結果",
+              "fraction": 0,
+              "feedback": "共有三個相異的輸出，而非一個。"
+            }
+          ],
+          "generalFeedback": "效果是相異的輸出／動作：允許、拒絕、沒收卡片——共三個效果。計算原因與效果的數目是建圖的第一步。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 OR 餵入 AND",
+          "text": "<p>圖中有一個中間節點與一個效果：</p><pre>\nn1 = c1 ∨ c2\nE  = n1 ∧ c3\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = true</code>、<code>c3 = true</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——n1 = false ∨ true = true，再 E = true ∧ true = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "n1 為真（因 c2），且 c3 為真，故 AND 為真。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "所有原因都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c1",
+              "fraction": 0,
+              "feedback": "E 取決於 c1、c2 的 OR 以及 c3，而非只有 c1。"
+            }
+          ],
+          "generalFeedback": "先算中間節點：n1 = c1 ∨ c2 = false ∨ true = true。再算 E = n1 ∧ c3 = true ∧ true = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "表達一個效果遮蔽另一個",
+          "text": "<p>規格說：「當顯示『<em>帳號已鎖定</em>』錯誤時，不得顯示『<em>歡迎</em>』訊息。」哪個約束能表達這兩個輸出之間的關係？</p>",
+          "answers": [
+            {
+              "text": "M（遮蔽）：帳號已鎖定效果遮蔽歡迎效果",
+              "fraction": 100,
+              "feedback": "正確——一個效果發生會強制另一個被抑制，這就是遮蔽。"
+            },
+            {
+              "text": "兩個原因之間的 E（互斥）",
+              "fraction": 0,
+              "feedback": "這些是輸出，不是原因；效果那一側的約束是 M。"
+            },
+            {
+              "text": "兩個原因之間的 R（需要）",
+              "fraction": 0,
+              "feedback": "R 連結原因；此處連結的是兩個效果，故為 M。"
+            },
+            {
+              "text": "兩個原因之間的 O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 約束原因；此規則約束的是效果，故為 M。"
+            }
+          ],
+          "generalFeedback": "當一個輸出發生就抑制另一個輸出的關係，就是遮蔽（M）約束——唯一在效果之間表達的約束。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 NOR 效果",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = ~(c1 ∨ c2)\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——c1 ∨ c2 = false，且 ~false = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "兩個假的 OR 為假，其取反為真。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個原因都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c1 ∨ c2",
+              "fraction": 0,
+              "feedback": "NOT 節點會反轉該 OR，故 E 是 c1 ∨ c2 的相反值。"
+            }
+          ],
+          "generalFeedback": "先算括號內：c1 ∨ c2 = false ∨ false = false。再取反：E = ~false = true。這種「只有在所有輸入都為假時才為真」的型態就是 NOR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O 與 E 在全部為假情形上的差異",
+          "text": "<p>兩份規格限制同一組原因。規格 1：「選擇恰好一個。」規格 2：「至多選擇一個。」它們所暗示的約束唯一的差別是什麼？</p>",
+          "answers": [
+            {
+              "text": "規格 1 是 O（禁止全部為假）；規格 2 是 E（允許全部為假）——兩者只在「零個為真是否可行」上不同",
+              "fraction": 100,
+              "feedback": "正確——O 與 E 除了 O 禁止全部為假之外完全一致。"
+            },
+            {
+              "text": "它們是完全相同的約束",
+              "fraction": 0,
+              "feedback": "它們在全部為假的情形上不同：O 禁止，E 允許。"
+            },
+            {
+              "text": "規格 1 是 I，規格 2 是 O",
+              "fraction": 0,
+              "feedback": "「恰好一個」是 O，「至多一個」是 E；此處都不是內含。"
+            },
+            {
+              "text": "規格 2 允許兩個為真，規格 1 不允許",
+              "fraction": 0,
+              "feedback": "兩者都禁止兩個以上為真；唯一差別在全部為假的情形。"
+            }
+          ],
+          "generalFeedback": "唯一其一（O）＝恰好一個為真；互斥（E）＝至多一個為真。兩者都禁止兩個以上為真；唯一差別是 E 允許全部為假的組合而 O 不允許。因此對同一組原因，O 比 E 少一個可行組合。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "O 約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束。在 2^3 = 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——恰好一個為真，即 {c1}、{c2}、{c3} 之一：3 種可行指派。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是互斥（也允許全部為假）的計數；O 禁止全部為假，剩下 3。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是內含（至少一個為真）的計數；O 要求恰好一個，得 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "恰好一個為真有三種不同選法，故為 3。"
+            }
+          ],
+          "generalFeedback": "在 O 之下恰好一個原因為真。列舉 8 種指派後，只有 TFF、FTF、FFT 符合——3 種可行組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E 約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 c1、c2、c3 受<strong>互斥（E）</strong>約束。在 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——至多一個為真：全部為假加上三種單一為真＝4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是唯一其一的計數；E 另外允許全部為假的情形，得 4。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是內含的計數；E 是「至多一個」，得 4。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "列舉「至多一個為真」得 FFF、TFF、FTF、FFT——是 4，不是 5。"
+            }
+          ],
+          "generalFeedback": "在 E 之下至多一個原因為真。可行者：FFF、TFF、FTF、FFT——4 種組合（比 O 多一種，因為允許全部為假）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "I 約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 c1、c2、c3 受<strong>內含（I）</strong>約束。在 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——至少一個為真只排除全部為假的情形：8 − 1 = 7。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "I 禁止全部為假的指派，故剩下 7（而非全部 8）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是唯一其一的計數；內含允許任意數目 ≥ 1 為真，得 7。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是互斥的計數；內含是「至少一個」，得 7。"
+            }
+          ],
+          "generalFeedback": "在 I 之下至少一個原因為真，故只有 FFF 被禁止。剩下 8 − 1 = 7 種可行組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E 約束下的可行組合（2 個原因）",
+          "text": "<p>兩個原因 c1、c2 受<strong>互斥（E）</strong>約束。在 2^2 = 4 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——至多一個為真：FF、TF、FT 可行；只有 TT 被排除。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是唯一其一的計數；E 也允許 FF，得 3。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "E 禁止兩者皆為真（TT），故 4 種中只剩 3 種。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "有三種指派至多一個為真，故 3 種可行。"
+            }
+          ],
+          "generalFeedback": "在 E 之下兩個原因至多一個為真，故 TT 不可行。可行者：FF、TF、FT——3 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O 約束下的可行組合（4 個原因）",
+          "text": "<p>四個原因受<strong>唯一其一（O）</strong>約束。在 2^4 = 16 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——恰好一個為真，而哪一個為真有 4 種選法。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 會把全部為假的情形也算入（那是互斥）；O 禁止全部為假，剩下 4。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 是內含的計數（至少一個為真）；O 要求恰好一個，得 4。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "四個原因中任一個都可為那個唯一為真者，故 4。"
+            }
+          ],
+          "generalFeedback": "在 O 之下四個原因恰好一個為真，故可行指派為 TFFF、FTFF、FFTF、FFFT——共 4 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需要（R）約束下的可行組合（2 個原因）",
+          "text": "<p>兩個原因 a、b 有約束 <strong>a 需要 b</strong>（a→b）。在 4 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——只有 a 為真、b 為假被禁止；其餘 3 種可行。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "只有一種指派被排除，而非三種；剩下 3 種可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "組合 a 為真、b 為假違反 a→b，故只有 3 種可行。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "R 恰好排除一種組合（a 真、b 假），剩下 3。"
+            }
+          ],
+          "generalFeedback": "a→b 只禁止（a 為真、b 為假）。可行指派為 (F,F)、(F,T)、(T,T)——3 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需要（R）約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 a、b、c 只有單一約束 <strong>a 需要 b</strong>（a→b）；c 不受約束。在 2^3 = 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——a 為真且 b 為假，無論 c 為何值皆被禁止，從 8 種中移除 2 種。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "被移除的是兩種指派（a=T、b=F 搭配 c=F 與 c=T），而非一種，故剩 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只有 a 真、b 假的情形不可行；那是 2 種指派，剩下 6。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "c 是自由的，故有 6 種指派滿足 a→b，而非 3。"
+            }
+          ],
+          "generalFeedback": "a→b 禁止 a 為真、b 為假。c 自由時，該型態在 c=false 與 c=true 各出現一次——2 種不可行指派。故 8 − 2 = 6 種可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某組合在 O 之下是否可行",
+          "text": "<p>原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束。指派 <code>c1 = true, c2 = true, c3 = false</code> 可行嗎？</p>",
+          "answers": [
+            {
+              "text": "不可行——有兩個原因為真，但 O 只允許恰好一個為真",
+              "fraction": 100,
+              "feedback": "正確——c1 與 c2 同時為真違反 O 約束，故此欄位不可行。"
+            },
+            {
+              "text": "可行——至少一個原因為真",
+              "fraction": 0,
+              "feedback": "「至少一個」是內含約束；O 要求恰好一個，而此處有兩個為真。"
+            },
+            {
+              "text": "可行——c3 為假，滿足約束",
+              "fraction": 0,
+              "feedback": "O 計算整體有幾個為真；兩個為真（c1、c2）就違反，與 c3 無關。"
+            },
+            {
+              "text": "不可行——因為 c3 必須為真",
+              "fraction": 0,
+              "feedback": "O 並不特別要求 c3；此處不可行只是因為有兩個原因為真。"
+            }
+          ],
+          "generalFeedback": "在 O 之下至多且至少一個原因為真。此處 c1 與 c2 皆為真，故該指派不可行，不產生測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "遮蔽（M）約束下的效果值",
+          "text": "<p>由圖計算出兩個效果，且效果 A <strong>遮蔽</strong>效果 B。對某個輸入，圖給出 <code>A = true</code>，且原本會給出 <code>B = true</code>。套用遮蔽約束後，觀察到的效果值為何？</p>",
+          "answers": [
+            {
+              "text": "A = true、B = false——因為 A 發生，B 被遮蔽（強制為假）",
+              "fraction": 100,
+              "feedback": "正確——遮蔽在第一個效果發生時強制第二個為假。"
+            },
+            {
+              "text": "A = true、B = true——遮蔽不改變計算出的值",
+              "fraction": 0,
+              "feedback": "遮蔽正是會覆寫 B：當 A 為真時，B 被強制為假。"
+            },
+            {
+              "text": "A = false、B = true——B 遮蔽 A",
+              "fraction": 0,
+              "feedback": "方向是 A 遮蔽 B，故 A 維持為真，被抑制的是 B。"
+            },
+            {
+              "text": "兩者皆為假——遮蔽會取消兩個效果",
+              "fraction": 0,
+              "feedback": "只有被遮蔽的效果（B）被強制為假；A 維持其計算值（true）。"
+            }
+          ],
+          "generalFeedback": "遮蔽是有方向的：當遮蔽效果 A 為真時，被遮蔽效果 B 被強制為假，覆寫圖對 B 計算出的結果。A 本身不受影響，故結果為 A = true、B = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AND 效果的真值點",
+          "text": "<p>某效果為 <code>E = c1 ∧ c2</code>，無任何約束。回溯後，有幾種原因指派（效果的「真值點」）使 E 為真？</p>",
+          "answers": [
+            {
+              "text": "1——只有（c1 = true, c2 = true）",
+              "fraction": 100,
+              "feedback": "正確——AND 恰好在全部為真的指派下為真。"
+            },
+            {
+              "text": "3——除全部為假外的每種指派",
+              "fraction": 0,
+              "feedback": "那描述的是 OR；AND 只有在兩者皆為真時才為真。"
+            },
+            {
+              "text": "2——只要 c1 為真",
+              "fraction": 0,
+              "feedback": "c1 為真而 c2 為假會使 E 為假，故並非每個 c1 為真的情形都算。"
+            },
+            {
+              "text": "4——所有指派",
+              "fraction": 0,
+              "feedback": "只要任一原因為假 E 就為假，故並非全部 4 種指派都是真值點。"
+            }
+          ],
+          "generalFeedback": "從 E = c1 ∧ c2 回溯，唯一使其為真的指派是 (T, T)。故此效果只有單一真值點，成為決策表中觸發 E 的一欄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "OR 效果的真值點",
+          "text": "<p>某效果為 <code>E = c1 ∨ c2</code>，無任何約束。有幾種原因指派使 E 為真？</p>",
+          "answers": [
+            {
+              "text": "3——(T,T)、(T,F)、(F,T)",
+              "fraction": 100,
+              "feedback": "正確——OR 在除全部為假外的每種指派下皆為真。"
+            },
+            {
+              "text": "1——只有 (T,T)",
+              "fraction": 0,
+              "feedback": "那是 AND 的情形；OR 只需一個輸入為真。"
+            },
+            {
+              "text": "2——只有單一為真的指派",
+              "fraction": 0,
+              "feedback": "(T,T) 也使 OR 為真，故真值點有 3 個，而非 2。"
+            },
+            {
+              "text": "4——所有指派",
+              "fraction": 0,
+              "feedback": "(F,F) 使 OR 為假，故只有 3 種指派是真值點。"
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 在 (T,T)、(T,F)、(F,T) 為真，只有 (F,F) 為假。故有 3 個真值點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由可行組合得出決策表欄位",
+          "text": "<p>一個因果圖有 3 個原因，受<strong>唯一其一（O）</strong>約束。若決策表對每個可行的原因組合設一欄，這張表有幾欄（也就是幾個測試案例）？</p>",
+          "answers": [
+            {
+              "text": "3——每個可行組合一欄（恰好一個原因為真）",
+              "fraction": 100,
+              "feedback": "正確——O 留下 3 個可行組合，故 3 欄、3 個測試。"
+            },
+            {
+              "text": "8——每種原始 2^3 組合一欄",
+              "fraction": 0,
+              "feedback": "O 約束移除了不可行組合；只剩 3 個。"
+            },
+            {
+              "text": "4——互斥的計數",
+              "fraction": 0,
+              "feedback": "在 O 之下不允許全部為假的情形，故為 3，而非 4。"
+            },
+            {
+              "text": "1——一欄就足夠",
+              "fraction": 0,
+              "feedback": "每個可行組合是一個相異的欄位；共有 3 個。"
+            }
+          ],
+          "generalFeedback": "建立決策表時，每個可行的原因組合成為一欄，也就是一個測試案例。3 個原因受 O 約束時有 3 個可行組合，故 3 欄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E 移除的不可行組合（3 個原因）",
+          "text": "<p>三個原因受<strong>互斥（E）</strong>約束。在 2^3 = 8 種原始組合中，有幾種變得<em>不可行</em>？</p>",
+          "answers": [
+            {
+              "text": "4——有兩個以上原因為真的那些組合",
+              "fraction": 100,
+              "feedback": "正確——8 總數減去 4 個可行（至多一個為真）＝ 4 個不可行。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "E 之下可行者為 4（全部為假加三種單一為真），故不可行為 8 − 4 = 4。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "那會只剩 3 個可行（O 的計數）；在 E 之下有 4 個可行，故 4 個不可行。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "每個有兩個以上為真的組合都不可行——共有 4 個（TTF、TFT、FTT、TTT）。"
+            }
+          ],
+          "generalFeedback": "在 E 之下至多一個原因為真，故 4 個組合可行（FFF、TFF、FTF、FFT）。其餘 8 − 4 = 4 個（TTF、TFT、FTT、TTT）不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O 移除的不可行組合（4 個原因）",
+          "text": "<p>四個原因受<strong>唯一其一（O）</strong>約束。在 2^4 = 16 種原始組合中，有幾種<em>不可行</em>？</p>",
+          "answers": [
+            {
+              "text": "12——只有 4 個組合（恰好一個為真）可行，故 16 − 4 = 12",
+              "fraction": 100,
+              "feedback": "正確——O 留下 4 個可行，故 12 個不可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是可行組合的數目，不是不可行的；16 − 4 = 12。"
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "那會留下 5 個可行（互斥的計數）；在 O 之下只有 4 個可行，故 12 個不可行。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 會只留下一個可行；O 有 4 個可行，故 12 個不可行。"
+            }
+          ],
+          "generalFeedback": "在 O 之下四個原因恰好一個為真，得 4 個可行組合。其餘 16 − 4 = 12 個組合（全部為假或兩個以上為真）不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "效果在所有可行 O 欄位中的值",
+          "text": "<p>原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束，且某效果為 <code>E = c1 ∨ c2 ∨ c3</code>。E 在幾個可行欄位中為真？</p>",
+          "answers": [
+            {
+              "text": "3——在每個可行欄位中，因為總是恰好一個原因為真",
+              "fraction": 100,
+              "feedback": "正確——O 保證有一個原因為真，故 OR 在全部 3 個可行欄位中為真。"
+            },
+            {
+              "text": "1——只有在三者皆為真時",
+              "fraction": 0,
+              "feedback": "在 O 之下三者皆為真不可行；OR 在任一為真時即為真，此處總是如此。"
+            },
+            {
+              "text": "0——約束使 E 為假",
+              "fraction": 0,
+              "feedback": "約束強制恰好一個為真，故 OR 為真，而非為假。"
+            },
+            {
+              "text": "7——每個內含組合一個",
+              "fraction": 0,
+              "feedback": "在 O 之下只有 3 個可行欄位，且 E 在其中全部為真。"
+            }
+          ],
+          "generalFeedback": "O 在每個可行欄位中強制恰好一個原因為真，故 c1 ∨ c2 ∨ c3 在每一欄都為真。共有 3 個可行欄位，E 在全部 3 個中為真。",
+          "single": true
+        }
+      ]
+    }
+  },
   "code-coverage": {
     "en": {
       "easy": [

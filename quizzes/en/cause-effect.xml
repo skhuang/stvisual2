@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Cause-Effect Graphing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a cause is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a cause-effect graph, what is a <strong>cause</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A distinct input condition (something that can be true or false) drawn from the specification</text><feedback><text>Correct — a cause is an individual input condition, evaluated as true or false.</text></feedback></answer>
+    <answer fraction="0"><text>An output or action the program produces</text><feedback><text>That is an effect, not a cause.</text></feedback></answer>
+    <answer fraction="0"><text>A line of source code that must be executed</text><feedback><text>Cause-effect graphing is black-box; causes come from the specification, not the code.</text></feedback></answer>
+    <answer fraction="0"><text>A column of the resulting decision table</text><feedback><text>A column is a rule/test case derived later; a cause is an input condition.</text></feedback></answer>
+    <generalfeedback><text>A cause is a distinct input condition — a boolean that can hold or not hold. Causes are identified by reading the specification and are wired through boolean nodes to the effects they influence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an effect is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a cause-effect graph, what is an <strong>effect</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An output condition or action the system produces in response to its inputs</text><feedback><text>Correct — effects are the observable outputs/actions on the right of the graph.</text></feedback></answer>
+    <answer fraction="0"><text>An input condition that can be true or false</text><feedback><text>That describes a cause, not an effect.</text></feedback></answer>
+    <answer fraction="0"><text>A constraint between two inputs</text><feedback><text>Constraints (E/I/O/R) restrict causes; an effect is an output.</text></feedback></answer>
+    <answer fraction="0"><text>A boolean operator node such as AND or OR</text><feedback><text>Those nodes wire causes to effects; the effect itself is the output.</text></feedback></answer>
+    <generalfeedback><text>An effect is an output condition or action. In the graph, causes on the left are connected through boolean nodes to effects on the right, and each effect is ultimately true or false for a given cause assignment.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The IDENTITY node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does an <strong>IDENTITY</strong> node mean when it connects a cause to an effect?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The effect is true exactly when the single cause is true (it copies the cause's value)</text><feedback><text>Correct — identity passes the cause value straight through to the effect.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true exactly when the cause is false</text><feedback><text>That is the NOT node, not identity.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true when either of two causes is true</text><feedback><text>That is an OR node; identity connects a single cause.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is always true regardless of the cause</text><feedback><text>Identity mirrors the cause; it is not a constant-true node.</text></feedback></answer>
+    <generalfeedback><text>An IDENTITY node ties one cause to one effect so that effect = cause: if the cause is true the effect is true, and if the cause is false the effect is false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The NOT node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a <strong>NOT</strong> (~) node compute?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The effect is true exactly when its single cause is false (it negates the cause)</text><feedback><text>Correct — NOT inverts the cause value.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true exactly when the cause is true</text><feedback><text>That is IDENTITY; NOT gives the opposite.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true when all of several causes are true</text><feedback><text>That is AND; NOT takes a single cause and negates it.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true when at least one of several causes is true</text><feedback><text>That is OR; NOT negates one cause.</text></feedback></answer>
+    <generalfeedback><text>A NOT node (drawn ~) negates: the effect is true when the cause is false and false when the cause is true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The AND node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does an <strong>AND</strong> (∧) node compute for an effect wired to several causes?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The effect is true only when every one of the connected causes is true</text><feedback><text>Correct — AND requires all inputs true.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true when at least one connected cause is true</text><feedback><text>That is OR, not AND.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true when exactly one connected cause is true</text><feedback><text>AND requires all of them, not exactly one.</text></feedback></answer>
+    <answer fraction="0"><text>The effect copies the value of the first cause only</text><feedback><text>AND depends on every input, not just the first.</text></feedback></answer>
+    <generalfeedback><text>An AND node yields true only when all its input causes (or intermediate nodes) are true; if any input is false, the effect is false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The OR node</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does an <strong>OR</strong> (∨) node compute for an effect wired to several causes?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The effect is true when at least one of the connected causes is true</text><feedback><text>Correct — OR needs only one true input.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true only when all connected causes are true</text><feedback><text>That is AND, not OR.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true only when exactly one connected cause is true</text><feedback><text>OR is true for one or more; "exactly one" is a different (O) idea.</text></feedback></answer>
+    <answer fraction="0"><text>The effect is true only when all connected causes are false</text><feedback><text>That would be a NOR (NOT of an OR); a plain OR is true when any input is true.</text></feedback></answer>
+    <generalfeedback><text>An OR node yields true when one or more of its inputs is true, and false only when every input is false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The Exclusive (E) constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among a set of causes, the <strong>Exclusive (E)</strong> constraint means what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At most one of the causes may be true (they can all be false, but no two are true together)</text><feedback><text>Correct — E allows zero or one true, never two or more.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly one of the causes must be true</text><feedback><text>That is the One-and-only-one (O) constraint; E also permits all false.</text></feedback></answer>
+    <answer fraction="0"><text>At least one of the causes must be true</text><feedback><text>That is the Inclusive (I) constraint.</text></feedback></answer>
+    <answer fraction="0"><text>All of the causes must be true together</text><feedback><text>E forbids two being true at once, so it can never require all true.</text></feedback></answer>
+    <generalfeedback><text>Exclusive (E): at most one of the constrained causes is true. Zero true is allowed; two or more true is forbidden.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The Inclusive (I) constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among a set of causes, the <strong>Inclusive (I)</strong> constraint means what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At least one of the causes must be true (they cannot all be false)</text><feedback><text>Correct — I forbids the all-false case; one or more must hold.</text></feedback></answer>
+    <answer fraction="0"><text>At most one of the causes may be true</text><feedback><text>That is the Exclusive (E) constraint.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly one of the causes must be true</text><feedback><text>That is the One-and-only-one (O) constraint; I allows several to be true.</text></feedback></answer>
+    <answer fraction="0"><text>The causes have no restriction at all</text><feedback><text>I does restrict them: it rules out all being false.</text></feedback></answer>
+    <generalfeedback><text>Inclusive (I): at least one of the constrained causes must be true. Any number from one up to all is allowed; only all-false is forbidden.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The One-and-only-one (O) constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among a set of causes, the <strong>One-and-only-one (O)</strong> constraint means what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exactly one of the causes is true — no more, no fewer</text><feedback><text>Correct — O requires precisely one true.</text></feedback></answer>
+    <answer fraction="0"><text>At most one of the causes may be true (all-false allowed)</text><feedback><text>That is Exclusive (E); O forbids the all-false case.</text></feedback></answer>
+    <answer fraction="0"><text>At least one of the causes must be true</text><feedback><text>That is Inclusive (I), which also allows several true; O allows only one.</text></feedback></answer>
+    <answer fraction="0"><text>Either all or none of the causes are true</text><feedback><text>O requires exactly one true, not all-or-none.</text></feedback></answer>
+    <generalfeedback><text>One-and-only-one (O): exactly one of the constrained causes is true. It is the combination of Exclusive (at most one) and Inclusive (at least one).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The Requires (R) constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>Requires (R)</strong> constraint "cause a Requires cause b" means what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Whenever a is true, b must also be true (so a=true with b=false is impossible)</text><feedback><text>Correct — R rules out the a-true, b-false combination.</text></feedback></answer>
+    <answer fraction="0"><text>Whenever a is true, b must be false</text><feedback><text>That is the opposite; R forces b true when a is true.</text></feedback></answer>
+    <answer fraction="0"><text>a and b must always have the same value</text><feedback><text>R is one-directional: b may be true while a is false; only a-true-b-false is forbidden.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly one of a and b may be true</text><feedback><text>That is closer to Exclusive/One-and-only-one; R is an implication a→b.</text></feedback></answer>
+    <generalfeedback><text>Requires (R) is the implication a→b: if a is true then b must be true. The only forbidden combination is a=true, b=false; all others (including a=false with any b) are allowed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The Masks (M) constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>Masks (M)</strong> constraint "effect a Masks effect b" means what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>If effect a occurs (is true), then effect b is masked and forced to be false</text><feedback><text>Correct — M is a constraint among effects: a true suppresses b.</text></feedback></answer>
+    <answer fraction="0"><text>If cause a is true, cause b must be true</text><feedback><text>That is Requires (R), a constraint among causes; M constrains effects.</text></feedback></answer>
+    <answer fraction="0"><text>At most one of effects a and b may occur, but either may occur alone</text><feedback><text>M is directional — a suppresses b, but b does not suppress a — so it is not a symmetric "at most one".</text></feedback></answer>
+    <answer fraction="0"><text>Effects a and b must always occur together</text><feedback><text>M does the opposite: when a occurs, b cannot.</text></feedback></answer>
+    <generalfeedback><text>Masks (M) is the one constraint that applies among effects rather than causes: when effect a is true, effect b is masked (forced false), regardless of what the graph would otherwise compute for b.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read an identity graph</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is wired to a single cause by an IDENTITY node:</p><pre>
+E = IDENTITY(c1)
+</pre><p>If <code>c1 = true</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — identity copies the cause, so E = c1 = true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Identity does not invert; E equals c1, which is true.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined — an effect needs at least two causes</text><feedback><text>An identity node connects exactly one cause to the effect; that is valid.</text></feedback></answer>
+    <answer fraction="0"><text>It depends on other causes not shown</text><feedback><text>The effect is wired only to c1 via identity, so only c1 matters.</text></feedback></answer>
+    <generalfeedback><text>IDENTITY passes the cause straight through: E = c1. With c1 = true, E = true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read a NOT graph</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is wired to a single cause by a NOT node:</p><pre>
+E = ~c1
+</pre><p>If <code>c1 = false</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — NOT inverts: ~false = true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>NOT negates the cause; with c1 false, E is true.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined without a second cause</text><feedback><text>A NOT node takes a single cause; the effect is well defined.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to c1</text><feedback><text>That would be identity; NOT gives the opposite of c1.</text></feedback></answer>
+    <generalfeedback><text>A NOT node gives E = ~c1. With c1 = false, E = ~false = true.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Cause-effect graphing is black-box</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Cause-effect graphing is a black-box (specification-based) test-design technique.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — it derives tests from the specification's input conditions and outputs, not from the source code.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Causes and effects are read from the specification, so the technique is black-box, not structural.</text></feedback></answer>
+    <generalfeedback><text>Cause-effect graphing identifies input conditions (causes) and outputs (effects) from the specification and wires them with boolean logic — a black-box technique, independent of the code's internal structure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which constraint governs effects</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Four of the five constraint types (E, I, O, R, M) restrict combinations of <em>causes</em>. Which one instead restricts <em>effects</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>M (Masks)</text><feedback><text>Correct — Masks is the effect-side constraint; E, I, O, R all restrict causes.</text></feedback></answer>
+    <answer fraction="0"><text>E (Exclusive)</text><feedback><text>E restricts causes (at most one true), not effects.</text></feedback></answer>
+    <answer fraction="0"><text>R (Requires)</text><feedback><text>R restricts causes (a→b), not effects.</text></feedback></answer>
+    <answer fraction="0"><text>O (One-and-only-one)</text><feedback><text>O restricts causes (exactly one true), not effects.</text></feedback></answer>
+    <generalfeedback><text>E, I, O, and R express relationships among causes (inputs). M (Masks) is the only one that relates two effects: if the first occurs, it forces the second to be false.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Cause-Effect Graphing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Evaluate an AND effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is wired as:</p><pre>
+E = c1 ∧ c2
+</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — AND needs both true; c2 is false, so E is false.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>AND requires every input true; c2 = false forces E false.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>Both inputs are given, so E is well defined.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to c1</text><feedback><text>E depends on both causes; with c2 false the AND is false regardless of c1.</text></feedback></answer>
+    <generalfeedback><text>E = c1 ∧ c2 = true ∧ false = false. An AND is true only when all inputs are true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Evaluate an OR effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is wired as:</p><pre>
+E = c1 ∨ c2
+</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — OR is true when any input is true; c2 is true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>OR needs only one true input, and c2 is true.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>Both inputs are given, so E is well defined.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to c1 only</text><feedback><text>E depends on both; c2 being true makes the OR true.</text></feedback></answer>
+    <generalfeedback><text>E = c1 ∨ c2 = false ∨ true = true. An OR is false only when every input is false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Evaluate AND with a negated input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is wired as:</p><pre>
+E = c1 ∧ ~c2
+</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — ~c2 = true and c1 = true, so the AND is true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Since c2 is false, ~c2 is true, and true ∧ true = true.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>Both causes are given, so E is well defined.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to c2</text><feedback><text>E uses ~c2, and combined with c1 it evaluates to true here.</text></feedback></answer>
+    <generalfeedback><text>First negate: ~c2 = ~false = true. Then E = c1 ∧ ~c2 = true ∧ true = true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Evaluate a three-input OR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is wired as:</p><pre>
+E = c1 ∨ c2 ∨ c3
+</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, <code>c3 = false</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — an OR is false only when every input is false, which is the case here.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>All three inputs are false, so the OR is false.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>All inputs are given; E is well defined.</text></feedback></answer>
+    <answer fraction="0"><text>Depends on a constraint</text><feedback><text>No constraint is stated; the OR of three falses is simply false.</text></feedback></answer>
+    <generalfeedback><text>E = false ∨ false ∨ false = false. An OR yields false precisely when all inputs are false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model "at most one" with a constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spec says: "<em>At most one</em> of the three coupon codes may be applied to an order (applying none is allowed)." Which constraint models this among the three cause inputs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>E (Exclusive)</text><feedback><text>Correct — "at most one, none allowed" is exactly Exclusive.</text></feedback></answer>
+    <answer fraction="0"><text>O (One-and-only-one)</text><feedback><text>O would force exactly one to be applied; here applying none is allowed, so it is E.</text></feedback></answer>
+    <answer fraction="0"><text>I (Inclusive)</text><feedback><text>I requires at least one true; here zero is allowed, so it is E.</text></feedback></answer>
+    <answer fraction="0"><text>R (Requires)</text><feedback><text>R is an implication between two specific causes, not an "at most one of a set" rule.</text></feedback></answer>
+    <generalfeedback><text>"At most one may be true, and all-false is allowed" is the Exclusive (E) constraint. If the spec had forbidden all-false, it would be One-and-only-one (O).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model "at least one" with a constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spec says: "<em>At least one</em> contact method (phone, email, or address) must be provided." Which constraint models this among the three cause inputs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>I (Inclusive)</text><feedback><text>Correct — "at least one" is exactly the Inclusive constraint.</text></feedback></answer>
+    <answer fraction="0"><text>E (Exclusive)</text><feedback><text>E means at most one; here we need one or more, which is I.</text></feedback></answer>
+    <answer fraction="0"><text>O (One-and-only-one)</text><feedback><text>O means exactly one; here providing several is fine, so it is I.</text></feedback></answer>
+    <answer fraction="0"><text>M (Masks)</text><feedback><text>M is an effect constraint, not a rule about how many causes are true.</text></feedback></answer>
+    <generalfeedback><text>"At least one must be true" is the Inclusive (I) constraint; it forbids only the all-false case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model "exactly one" with a constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spec says: "<em>Exactly one</em> payment method — cash, card, or voucher — must be selected." Which constraint models this among the three cause inputs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>O (One-and-only-one)</text><feedback><text>Correct — "exactly one" is the One-and-only-one constraint.</text></feedback></answer>
+    <answer fraction="0"><text>E (Exclusive)</text><feedback><text>E allows zero true; here one must always be selected, so it is O.</text></feedback></answer>
+    <answer fraction="0"><text>I (Inclusive)</text><feedback><text>I allows several true; here only one may be selected, so it is O.</text></feedback></answer>
+    <answer fraction="0"><text>R (Requires)</text><feedback><text>R is an a→b implication, not a "select exactly one of a set" rule.</text></feedback></answer>
+    <generalfeedback><text>"Exactly one true" combines Exclusive (at most one) and Inclusive (at least one): that is the One-and-only-one (O) constraint.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model "requires" with a constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spec says: "Selecting <em>express shipping</em> requires that a <em>delivery address</em> has been entered." Which constraint models this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R (Requires): express-shipping → delivery-address</text><feedback><text>Correct — one cause being true forces another to be true.</text></feedback></answer>
+    <answer fraction="0"><text>O (One-and-only-one) between the two causes</text><feedback><text>The spec is not "exactly one of the two"; it is an implication a→b, i.e. R.</text></feedback></answer>
+    <answer fraction="0"><text>E (Exclusive) between the two causes</text><feedback><text>E forbids both being true; here both true is exactly the intended, valid case.</text></feedback></answer>
+    <answer fraction="0"><text>M (Masks) between the two causes</text><feedback><text>M relates effects; this rule relates two input causes, so it is R.</text></feedback></answer>
+    <generalfeedback><text>"a requires b" is the Requires (R) constraint, the implication a→b: express-shipping true forces delivery-address true, ruling out express-shipping with no address.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why graph then decision table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why do we build a cause-effect graph and then convert it to a decision table, rather than testing every input combination?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The graph's logic and constraints let us derive only the feasible, behaviour-relevant combinations, yielding a manageable set of tests instead of all 2^n</text><feedback><text>Correct — that systematic reduction to meaningful combinations is the whole point.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees 100% statement and branch coverage of the code</text><feedback><text>Cause-effect graphing is black-box; it targets input-combination logic, not code-coverage metrics.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need to specify expected outputs</text><feedback><text>Each rule/column still carries the expected effect; the technique does not drop the oracle.</text></feedback></answer>
+    <answer fraction="0"><text>It makes exhaustive testing of all 2^n combinations faster to run</text><feedback><text>The goal is to avoid exhaustive testing, keeping only the feasible, distinct combinations.</text></feedback></answer>
+    <generalfeedback><text>Testing all 2^n cause combinations is usually infeasible. The graph captures the logic and constraints, and tracing effects back yields a decision table whose columns are the feasible, distinct combinations — a systematic, manageable test set.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count the causes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Spec: "A withdrawal is allowed if the <em>card is valid</em>, the <em>PIN is correct</em>, and the <em>balance is sufficient</em>; otherwise the transaction is <em>declined</em> and, if the PIN is wrong three times, the card is <em>retained</em>." How many distinct <strong>causes</strong> does this spec suggest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — card valid, PIN correct, balance sufficient, PIN wrong three times</text><feedback><text>Correct — these are the four distinct input conditions.</text></feedback></answer>
+    <answer fraction="0"><text>3 — card valid, PIN correct, balance sufficient</text><feedback><text>"PIN wrong three times" is a fourth distinct input condition.</text></feedback></answer>
+    <answer fraction="0"><text>2 — allowed and declined</text><feedback><text>"Allowed" and "declined" are effects (outputs), not causes.</text></feedback></answer>
+    <answer fraction="0"><text>6 — every noun in the sentence</text><feedback><text>Only distinct input conditions are causes; not every noun qualifies.</text></feedback></answer>
+    <generalfeedback><text>Causes are the distinct input conditions: card valid, PIN correct, balance sufficient, and PIN wrong three times — four causes. "Allowed", "declined", and "retained" are effects.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count the effects</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using the same ATM spec — "…the transaction is <em>allowed</em> or <em>declined</em>, and the card may be <em>retained</em>" — how many distinct <strong>effects</strong> are there?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — allowed, declined, card retained</text><feedback><text>Correct — those are the three distinct output conditions/actions.</text></feedback></answer>
+    <answer fraction="0"><text>2 — allowed and declined only</text><feedback><text>"Card retained" is a third distinct effect.</text></feedback></answer>
+    <answer fraction="0"><text>4 — the same as the number of causes</text><feedback><text>Causes and effects are counted separately; there are three effects here.</text></feedback></answer>
+    <answer fraction="0"><text>1 — the transaction result</text><feedback><text>There are three distinct outputs, not one.</text></feedback></answer>
+    <generalfeedback><text>Effects are the distinct outputs/actions: allowed, declined, and card retained — three effects. Counting causes and effects is the first step of building the graph.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Evaluate an OR feeding an AND</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The graph has an intermediate node and an effect:</p><pre>
+n1 = c1 ∨ c2
+E  = n1 ∧ c3
+</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, <code>c3 = true</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — n1 = false ∨ true = true, then E = true ∧ true = true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>n1 is true (c2), and c3 is true, so the AND is true.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>All causes are given, so E is well defined.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to c1</text><feedback><text>E depends on the OR of c1,c2 and on c3, not on c1 alone.</text></feedback></answer>
+    <generalfeedback><text>Evaluate the intermediate node first: n1 = c1 ∨ c2 = false ∨ true = true. Then E = n1 ∧ c3 = true ∧ true = true.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model an effect masking another</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spec says: "When the '<em>account locked</em>' error is shown, the '<em>welcome</em>' message must not be shown." Which constraint captures this relationship between the two outputs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>M (Masks): the account-locked effect masks the welcome effect</text><feedback><text>Correct — one effect occurring forces the other to be suppressed, which is Masks.</text></feedback></answer>
+    <answer fraction="0"><text>E (Exclusive) between two causes</text><feedback><text>These are outputs, not causes; the effect-side constraint is M.</text></feedback></answer>
+    <answer fraction="0"><text>R (Requires) between two causes</text><feedback><text>R relates causes; here two effects are related, so it is M.</text></feedback></answer>
+    <answer fraction="0"><text>O (One-and-only-one) between two causes</text><feedback><text>O constrains causes; this rule constrains effects, so it is M.</text></feedback></answer>
+    <generalfeedback><text>A relationship that suppresses one output when another occurs is the Masks (M) constraint — the only constraint expressed among effects.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Evaluate a NOR effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is wired as:</p><pre>
+E = ~(c1 ∨ c2)
+</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, what is E?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — c1 ∨ c2 = false, and ~false = true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The OR of two falses is false, and its negation is true.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>Both causes are given, so E is well defined.</text></feedback></answer>
+    <answer fraction="0"><text>Equal to c1 ∨ c2</text><feedback><text>The NOT node inverts the OR, so E is the opposite of c1 ∨ c2.</text></feedback></answer>
+    <generalfeedback><text>Evaluate inside first: c1 ∨ c2 = false ∨ false = false. Then negate: E = ~false = true. This "true only when all inputs are false" pattern is a NOR.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>O versus E on the all-false case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two specs restrict the same set of causes. Spec 1: "select exactly one." Spec 2: "select at most one." What is the one difference between the constraints they imply?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spec 1 is O (all-false forbidden); Spec 2 is E (all-false allowed) — they differ only on whether zero-true is feasible</text><feedback><text>Correct — O and E agree except that O forbids the all-false combination.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical constraints</text><feedback><text>They differ on the all-false case: O forbids it, E allows it.</text></feedback></answer>
+    <answer fraction="0"><text>Spec 1 is I and Spec 2 is O</text><feedback><text>"Exactly one" is O and "at most one" is E; neither is Inclusive here.</text></feedback></answer>
+    <answer fraction="0"><text>Spec 2 allows two true while Spec 1 does not</text><feedback><text>Both forbid two-or-more true; the only difference is the all-false case.</text></feedback></answer>
+    <generalfeedback><text>One-and-only-one (O) = exactly one true; Exclusive (E) = at most one true. Both forbid two or more true; they differ solely in that E permits the all-false combination and O does not. Hence O has one fewer feasible combination than E for the same causes.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Cause-Effect Graphing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible combinations under O (3 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three causes c1, c2, c3 are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^3 = 8 assignments, how many are feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — exactly one true means one of {c1}, {c2}, {c3}: 3 feasible assignments.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 would be the count under Exclusive (which also allows all-false); O forbids all-false, leaving 3.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the Inclusive count (at least one true); O requires exactly one, giving 3.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>There are three different ways for exactly one cause to be the true one, so 3.</text></feedback></answer>
+    <generalfeedback><text>Under O exactly one cause is true. Enumerating the 8 assignments, only TFF, FTF, FFT qualify — 3 feasible combinations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible combinations under E (3 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three causes c1, c2, c3 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 8 assignments, how many are feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — at most one true: all-false plus the three single-true assignments = 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the One-and-only-one count; E additionally allows the all-false case, giving 4.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the Inclusive count; E is "at most one", which yields 4.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Enumerating "at most one true" gives FFF, TFF, FTF, FFT — 4, not 5.</text></feedback></answer>
+    <generalfeedback><text>Under E at most one cause is true. Feasible: FFF, TFF, FTF, FFT — 4 combinations (one more than O, because all-false is allowed).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible combinations under I (3 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three causes c1, c2, c3 are governed by an <strong>Inclusive (I)</strong> constraint. Of the 8 assignments, how many are feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — at least one true rules out only the all-false case: 8 − 1 = 7.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>I forbids the all-false assignment, so 7 (not all 8) remain.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the One-and-only-one count; Inclusive allows any number ≥ 1 true, giving 7.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the Exclusive count; Inclusive is "at least one", which gives 7.</text></feedback></answer>
+    <generalfeedback><text>Under I at least one cause is true, so only FFF is forbidden. That leaves 8 − 1 = 7 feasible combinations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible combinations under E (2 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two causes c1, c2 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 2^2 = 4 assignments, how many are feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — at most one true: FF, TF, FT are feasible; only TT is ruled out.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the One-and-only-one count; E also allows FF, giving 3.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>E forbids both true (TT), so only 3 of the 4 remain.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Three assignments have at most one true, so 3 are feasible.</text></feedback></answer>
+    <generalfeedback><text>Under E at most one of two causes is true, so TT is infeasible. Feasible: FF, TF, FT — 3 combinations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible combinations under O (4 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^4 = 16 assignments, how many are feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — exactly one true, and there are 4 choices of which cause is the true one.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 would include the all-false case (that is Exclusive); O forbids all-false, leaving 4.</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 is the Inclusive count (at least one true); O requires exactly one, giving 4.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Any one of the four causes may be the single true one, so 4.</text></feedback></answer>
+    <generalfeedback><text>Under O exactly one of the four causes is true, so the feasible assignments are TFFF, FTFF, FFTF, FFFT — 4 in all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible combinations under Requires (2 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two causes a, b have the constraint <strong>a Requires b</strong> (a→b). Of the 4 assignments, how many are feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — only a=true, b=false is forbidden; the other 3 are feasible.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Only one assignment is ruled out, not three; 3 remain feasible.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The combination a=true, b=false violates a→b, so only 3 are feasible.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>R rules out exactly one combination (a-true, b-false), leaving 3.</text></feedback></answer>
+    <generalfeedback><text>a→b forbids only (a=true, b=false). The feasible assignments are (F,F), (F,T), (T,T) — 3 combinations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible combinations under Requires (3 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three causes a, b, c have the single constraint <strong>a Requires b</strong> (a→b); c is unconstrained. Of the 2^3 = 8 assignments, how many are feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — a=true with b=false is forbidden for either value of c, removing 2 of the 8.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>Two assignments are removed (a=T, b=F with c=F and with c=T), not one, so 6 remain.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Only the a-true, b-false cases are infeasible; that is 2 assignments, leaving 6.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>c is free, so 6 assignments satisfy a→b, not 3.</text></feedback></answer>
+    <generalfeedback><text>a→b forbids a=true, b=false. With c free, that pattern occurs for c=false and c=true — 2 infeasible assignments. So 8 − 2 = 6 are feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is a combination feasible under O</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint. Is the assignment <code>c1 = true, c2 = true, c3 = false</code> feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — two causes are true, but O allows exactly one true</text><feedback><text>Correct — with c1 and c2 both true, the O constraint is violated, so this column is infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — at least one cause is true</text><feedback><text>"At least one" is the Inclusive constraint; O demands exactly one, and here two are true.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — c3 is false, satisfying the constraint</text><feedback><text>O counts how many are true overall; two true (c1, c2) violates it regardless of c3.</text></feedback></answer>
+    <answer fraction="0"><text>No — because c3 must be true</text><feedback><text>O does not require c3 specifically; it fails here simply because two causes are true.</text></feedback></answer>
+    <generalfeedback><text>Under O exactly one cause may be true. Here c1 and c2 are both true, so the assignment is infeasible and yields no test case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect value under the Masks constraint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two effects are computed from the graph, and effect A <strong>Masks</strong> effect B. For some input the graph gives <code>A = true</code> and would give <code>B = true</code>. After applying the Masks constraint, what are the observed effect values?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A = true, B = false — because A occurs, B is masked (forced false)</text><feedback><text>Correct — Masks forces the second effect false whenever the first occurs.</text></feedback></answer>
+    <answer fraction="0"><text>A = true, B = true — Masks does not change computed values</text><feedback><text>Masks specifically overrides B: when A is true, B is forced false.</text></feedback></answer>
+    <answer fraction="0"><text>A = false, B = true — B masks A</text><feedback><text>The direction is A masks B, so A stays true and B is suppressed.</text></feedback></answer>
+    <answer fraction="0"><text>Both false — a mask cancels both effects</text><feedback><text>Only the masked effect (B) is forced false; A remains as computed (true).</text></feedback></answer>
+    <generalfeedback><text>Masks is directional: when the masking effect A is true, the masked effect B is forced to false, overriding whatever the graph computed for B. A itself is unaffected, so the result is A = true, B = false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>True-points of an AND effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is <code>E = c1 ∧ c2</code> with no constraints. Tracing back, how many cause assignments (the effect's "true points") make E true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 — only (c1 = true, c2 = true)</text><feedback><text>Correct — an AND is true for exactly the all-true assignment.</text></feedback></answer>
+    <answer fraction="0"><text>3 — every assignment except all-false</text><feedback><text>That describes an OR; an AND is true only when both are true.</text></feedback></answer>
+    <answer fraction="0"><text>2 — whenever c1 is true</text><feedback><text>c1 true with c2 false gives E false, so not every c1-true case counts.</text></feedback></answer>
+    <answer fraction="0"><text>4 — all assignments</text><feedback><text>E is false whenever either cause is false, so not all 4 assignments are true points.</text></feedback></answer>
+    <generalfeedback><text>Tracing back from E = c1 ∧ c2, the only assignment that makes it true is (T, T). So the effect has a single true point, which becomes one decision-table column that fires E.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>True-points of an OR effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An effect is <code>E = c1 ∨ c2</code> with no constraints. How many cause assignments make E true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — (T,T), (T,F), (F,T)</text><feedback><text>Correct — an OR is true for every assignment except all-false.</text></feedback></answer>
+    <answer fraction="0"><text>1 — only (T,T)</text><feedback><text>That is the AND case; an OR needs only one true input.</text></feedback></answer>
+    <answer fraction="0"><text>2 — only the single-true assignments</text><feedback><text>(T,T) also makes an OR true, so there are 3 true points, not 2.</text></feedback></answer>
+    <answer fraction="0"><text>4 — all assignments</text><feedback><text>(F,F) makes the OR false, so only 3 assignments are true points.</text></feedback></answer>
+    <generalfeedback><text>E = c1 ∨ c2 is true for (T,T), (T,F), (F,T) and false only for (F,F). That is 3 true points.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Decision-table columns from feasible combinations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A cause-effect graph has 3 causes under a <strong>One-and-only-one (O)</strong> constraint. If the decision table has one column per feasible cause combination, how many columns (and therefore test cases) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — one per feasible combination (exactly one cause true)</text><feedback><text>Correct — O leaves 3 feasible combinations, so 3 columns and 3 tests.</text></feedback></answer>
+    <answer fraction="0"><text>8 — one per raw 2^3 combination</text><feedback><text>The O constraint removes the infeasible combinations; only 3 remain.</text></feedback></answer>
+    <answer fraction="0"><text>4 — the Exclusive count</text><feedback><text>Under O the all-false case is not allowed, so it is 3, not 4.</text></feedback></answer>
+    <answer fraction="0"><text>1 — a single column suffices</text><feedback><text>Each feasible combination is a distinct column; there are 3.</text></feedback></answer>
+    <generalfeedback><text>Building the decision table, each feasible cause combination becomes one column and thus one test case. With 3 causes under O there are 3 feasible combinations, giving 3 columns.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible combinations removed by E (3 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three causes are governed by an <strong>Exclusive (E)</strong> constraint. How many of the 2^3 = 8 raw combinations become <em>infeasible</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — the combinations with two or more causes true</text><feedback><text>Correct — 8 total minus 4 feasible (at most one true) = 4 infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Feasible under E is 4 (all-false plus three single-true), so infeasible is 8 − 4 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>That would leave only 3 feasible (the O count); under E, 4 are feasible, so 4 are infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Every combination with two or more true is infeasible — there are 4 of those (TTF, TFT, FTT, TTT).</text></feedback></answer>
+    <generalfeedback><text>Under E at most one cause is true, so 4 combinations are feasible (FFF, TFF, FTF, FFT). The remaining 8 − 4 = 4 (TTF, TFT, FTT, TTT) are infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible combinations removed by O (4 causes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. How many of the 2^4 = 16 raw combinations are <em>infeasible</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12 — only 4 combinations (exactly one true) are feasible, so 16 − 4 = 12</text><feedback><text>Correct — O leaves 4 feasible, so 12 are infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of feasible combinations, not the infeasible ones; 16 − 4 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>That would leave 5 feasible (the Exclusive count); under O only 4 are feasible, so 12 are infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 would leave a single feasible case; O has 4 feasible, so 12 infeasible.</text></feedback></answer>
+    <generalfeedback><text>Under O exactly one of four causes is true, giving 4 feasible combinations. The other 16 − 4 = 12 combinations (all-false or two-or-more true) are infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect value across all feasible O columns</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint, and an effect is <code>E = c1 ∨ c2 ∨ c3</code>. In how many of the feasible columns is E true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — in every feasible column, since exactly one cause is always true</text><feedback><text>Correct — O guarantees one cause is true, so the OR is true in all 3 feasible columns.</text></feedback></answer>
+    <answer fraction="0"><text>1 — only when all three are true</text><feedback><text>Under O all-three-true is infeasible; the OR is true whenever any one is true, which is always here.</text></feedback></answer>
+    <answer fraction="0"><text>0 — the constraint makes E false</text><feedback><text>The constraint forces exactly one true, so the OR is true, not false.</text></feedback></answer>
+    <answer fraction="0"><text>7 — one per Inclusive combination</text><feedback><text>Under O there are only 3 feasible columns, and E is true in all of them.</text></feedback></answer>
+    <generalfeedback><text>O forces exactly one cause true in every feasible column, so c1 ∨ c2 ∨ c3 is true in each. There are 3 feasible columns, and E is true in all 3.</text></generalfeedback>
+  </question>
+</quiz>
