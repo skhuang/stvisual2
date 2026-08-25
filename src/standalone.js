@@ -82,9 +82,9 @@
   var UNIT_BY_ID = new Map(EXPLORER_UNITS.map((u) => [u.id, u]));
   var UNIT_BY_COMPONENT = new Map(EXPLORER_UNITS.map((u) => [u.componentName, u]));
   function resolveUnit(param) {
-    var _a, _b;
+    var _a2, _b2;
     if (!param) return null;
-    return (_b = (_a = UNIT_BY_ID.get(param)) != null ? _a : UNIT_BY_COMPONENT.get(param)) != null ? _b : null;
+    return (_b2 = (_a2 = UNIT_BY_ID.get(param)) != null ? _a2 : UNIT_BY_COMPONENT.get(param)) != null ? _b2 : null;
   }
 
   // src/utils/urlRouter.js
@@ -192,7 +192,7 @@
   };
   var FILTER_DIMS = ["level", "technique", "series", "difficulty"];
   function parseAppLocation(search, hash) {
-    var _a;
+    var _a2;
     const params = new URLSearchParams(search != null ? search : "");
     const out = {};
     const explorerRaw = params.get("explorer");
@@ -208,7 +208,7 @@
       const sec = params.get("section");
       if (sec) out.section = sec;
       const tab = params.get("tab");
-      if (tab && out.section && ((_a = TAB_SECTIONS[out.section]) == null ? void 0 : _a.tabs.includes(tab))) {
+      if (tab && out.section && ((_a2 = TAB_SECTIONS[out.section]) == null ? void 0 : _a2.tabs.includes(tab))) {
         out.tab = tab;
       }
     }
@@ -270,14 +270,14 @@
     return info.default;
   }
   function unitsForSection(sectionId) {
-    var _a;
+    var _a2;
     const units = EXPLORER_UNITS.filter(
       (u) => {
-        var _a2;
-        return ((_a2 = EXPLORER_TO_LOCATION[u.componentName]) == null ? void 0 : _a2.section) === sectionId;
+        var _a3;
+        return ((_a3 = EXPLORER_TO_LOCATION[u.componentName]) == null ? void 0 : _a3.section) === sectionId;
       }
     );
-    const tabs = (_a = TAB_SECTIONS[sectionId]) == null ? void 0 : _a.tabs;
+    const tabs = (_a2 = TAB_SECTIONS[sectionId]) == null ? void 0 : _a2.tabs;
     if (!tabs) return units;
     const rank = (u) => {
       const t4 = EXPLORER_TO_LOCATION[u.componentName].tab;
@@ -287,8 +287,8 @@
     return [...units].sort((a, b) => rank(a) - rank(b));
   }
   function locationForUnit(unit) {
-    var _a;
-    return (_a = EXPLORER_TO_LOCATION[unit.componentName]) != null ? _a : null;
+    var _a2;
+    return (_a2 = EXPLORER_TO_LOCATION[unit.componentName]) != null ? _a2 : null;
   }
 
   // src/i18n/dict.js
@@ -2808,6 +2808,7 @@
       "common.signedIn": "\u2713 Signed in",
       "common.notSignedIn": "Not signed in",
       "common.googleSignIn": "Google Sign in",
+      "common.maccountSignIn": "Sign in with NYCU account",
       "common.signOut": "Sign out",
       // Cloud panel
       "cloud.kicker": "Google + Firebase",
@@ -2872,6 +2873,7 @@
       "cloud.class.results": "result(s)",
       "cloud.class.viewResults": "\u{1F4CA} View Class Results",
       "td.title": "Class Results Dashboard",
+      "dashboard.disabled": "The class-results dashboard is temporarily unavailable while cloud sign-in is being migrated.",
       "td.close": "Close",
       "td.classCode": "Class Code",
       "td.codePlaceholder": "e.g. CS101-A",
@@ -5653,6 +5655,7 @@
       "common.signedIn": "\u2713 \u5DF2\u767B\u5165",
       "common.notSignedIn": "\u5C1A\u672A\u767B\u5165",
       "common.googleSignIn": "Google \u767B\u5165",
+      "common.maccountSignIn": "\u4EE5 NYCU \u5E33\u865F\u767B\u5165",
       "common.signOut": "\u767B\u51FA",
       "cloud.kicker": "Google + Firebase",
       "cloud.title": "\u96F2\u7AEF\u8A2D\u5B9A\u8207\u6A94\u6848\u5132\u5B58",
@@ -5716,6 +5719,7 @@
       "cloud.class.results": "\u7B46\u6210\u7E3E",
       "cloud.class.viewResults": "\u{1F4CA} \u67E5\u770B\u5168\u73ED\u6210\u7E3E",
       "td.title": "\u73ED\u7D1A\u6210\u7E3E\u5100\u8868\u677F",
+      "dashboard.disabled": "\u73ED\u7D1A\u6210\u7E3E\u5100\u8868\u677F\u5728\u96F2\u7AEF\u767B\u5165\u65B9\u5F0F\u9077\u79FB\u671F\u9593\u66AB\u6642\u505C\u7528\u3002",
       "td.close": "\u95DC\u9589",
       "td.classCode": "\u73ED\u7D1A\u4EE3\u78BC",
       "td.codePlaceholder": "\u4F8B\u5982 CS101-A",
@@ -5992,13 +5996,13 @@
   var DEFAULT_LOCALE = "en";
   var SUPPORTED = ["en", "zh"];
   var current = (() => {
-    var _a, _b;
+    var _a2, _b2;
     try {
-      const saved = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY);
+      const saved = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY);
       if (saved && SUPPORTED.includes(saved)) return saved;
     } catch {
     }
-    const browserLocale = ((_b = globalThis.navigator) == null ? void 0 : _b.language) || "";
+    const browserLocale = ((_b2 = globalThis.navigator) == null ? void 0 : _b2.language) || "";
     if (browserLocale.toLowerCase().startsWith("zh")) return "zh";
     return DEFAULT_LOCALE;
   })();
@@ -6010,12 +6014,12 @@
     return [...SUPPORTED];
   }
   function setLocale(locale, { persist: persist11 = true } = {}) {
-    var _a;
+    var _a2;
     if (!SUPPORTED.includes(locale) || locale === current) return;
     current = locale;
     if (persist11) {
       try {
-        (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY, locale);
+        (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY, locale);
       } catch {
       }
     }
@@ -6047,17 +6051,17 @@
     return value;
   }
   function pickField(item, base) {
-    var _a, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     if (!item) return "";
     if (current === "en") {
-      return (_b = (_a = item[base + "En"]) != null ? _a : item[base]) != null ? _b : "";
+      return (_b2 = (_a2 = item[base + "En"]) != null ? _a2 : item[base]) != null ? _b2 : "";
     }
     return (_d = (_c = item[base]) != null ? _c : item[base + "En"]) != null ? _d : "";
   }
   function applyDocumentLocale() {
-    var _a;
+    var _a2;
     if (typeof document === "undefined") return;
-    (_a = document.documentElement) == null ? void 0 : _a.setAttribute("lang", current === "zh" ? "zh-TW" : "en");
+    (_a2 = document.documentElement) == null ? void 0 : _a2.setAttribute("lang", current === "zh" ? "zh-TW" : "en");
     const title = t("app.title");
     if (title && title !== "app.title") {
       document.title = title;
@@ -7173,9 +7177,9 @@
     return false;
   }
   function buildDataFlowGraph(cfg) {
-    var _a;
+    var _a2;
     const out = { nodes: (cfg == null ? void 0 : cfg.nodes) || [], edges: [], defUseByNode: /* @__PURE__ */ new Map() };
-    if (!((_a = cfg == null ? void 0 : cfg.nodes) == null ? void 0 : _a.length)) return out;
+    if (!((_a2 = cfg == null ? void 0 : cfg.nodes) == null ? void 0 : _a2.length)) return out;
     const preds = new Map(cfg.nodes.map((n) => [n.id, []]));
     for (const e of cfg.edges || []) {
       if (preds.has(e.to)) preds.get(e.to).push(e.from);
@@ -7364,13 +7368,13 @@
   function collectDefUsePairs(graph, defUseMap) {
     const pairs = [];
     graph.nodes.forEach((defNode) => {
-      var _a;
-      const defs = (_a = defUseMap.get(defNode.id)) == null ? void 0 : _a.defs;
+      var _a2;
+      const defs = (_a2 = defUseMap.get(defNode.id)) == null ? void 0 : _a2.defs;
       if (!defs || defs.size === 0) return;
       defs.forEach((variable) => {
         graph.nodes.forEach((useNode) => {
-          var _a2;
-          const uses = (_a2 = defUseMap.get(useNode.id)) == null ? void 0 : _a2.uses;
+          var _a3;
+          const uses = (_a3 = defUseMap.get(useNode.id)) == null ? void 0 : _a3.uses;
           if (!uses || !uses.has(variable)) return;
           const sample = shortestDefClearPath(graph, defNode.id, useNode.id, variable, defUseMap);
           if (sample) {
@@ -7382,8 +7386,8 @@
     return pairs;
   }
   function nodeLabelOf(graph, nodeId) {
-    var _a;
-    return ((_a = graph.nodes.find((n) => n.id === nodeId)) == null ? void 0 : _a.label) || nodeId;
+    var _a2;
+    return ((_a2 = graph.nodes.find((n) => n.id === nodeId)) == null ? void 0 : _a2.label) || nodeId;
   }
   function getAllDefsRequirements(graph) {
     const normalizedGraph = normalizeGraph(graph);
@@ -7625,11 +7629,11 @@
     }));
   }
   function generateTestPaths(graph, options = {}) {
-    var _a, _b;
+    var _a2, _b2;
     const normalizedGraph = normalizeGraph(graph);
     const adjacency = buildAdjacency(normalizedGraph);
-    const nodeVisitLimit = (_a = options.nodeVisitLimit) != null ? _a : 2;
-    const maxDepthMultiplier = (_b = options.maxDepthMultiplier) != null ? _b : 2;
+    const nodeVisitLimit = (_a2 = options.nodeVisitLimit) != null ? _a2 : 2;
+    const maxDepthMultiplier = (_b2 = options.maxDepthMultiplier) != null ? _b2 : 2;
     const maxDepth = Math.max(2, normalizedGraph.nodes.length * maxDepthMultiplier);
     const uniquePaths = /* @__PURE__ */ new Map();
     if (!normalizedGraph.startNodeId || !normalizedGraph.endNodeId) {
@@ -7665,10 +7669,10 @@
     return Array.from(uniquePaths.values());
   }
   function buildTestPathSetForRequirements(graph, requirements, options = {}) {
-    var _a;
+    var _a2;
     const normalizedGraph = normalizeGraph(graph);
     const candidatePaths = generateTestPaths(normalizedGraph, options);
-    const optimizationMode = (_a = options.optimization) != null ? _a : "greedy-set-cover";
+    const optimizationMode = (_a2 = options.optimization) != null ? _a2 : "greedy-set-cover";
     const pathRecords = candidatePaths.map((path) => ({
       path,
       edgeIds: edgeIdsFromPath(normalizedGraph, path)
@@ -7808,10 +7812,10 @@
     return line;
   }
   function createAstNode(type, line, extra = {}) {
-    var _a;
+    var _a2;
     return {
       type,
-      sourceLine: (_a = line == null ? void 0 : line.lineNumber) != null ? _a : null,
+      sourceLine: (_a2 = line == null ? void 0 : line.lineNumber) != null ? _a2 : null,
       sourceText: (line == null ? void 0 : line.sourceText) || (line == null ? void 0 : line.text) || "",
       ...extra
     };
@@ -7957,7 +7961,7 @@
     return stopWhen.some((token) => upper.startsWith(token));
   }
   function parsePseudocodeIf(state41) {
-    var _a;
+    var _a2;
     const line = consumeLine(state41);
     const condition = line.text.replace(/^IF\s*/i, "").replace(/\s*THEN$/i, "").trim();
     const consequent = parsePseudocodeStatements(state41, ["ELSE", "ELSE IF", "END IF", "ENDIF", "END"]);
@@ -7970,7 +7974,7 @@
       consumeLine(state41);
       alternate = parsePseudocodeStatements(state41, ["END IF", "ENDIF", "END"]);
     }
-    if (/^(END IF|ENDIF|END)$/i.test(((_a = currentLine(state41)) == null ? void 0 : _a.text) || "")) {
+    if (/^(END IF|ENDIF|END)$/i.test(((_a2 = currentLine(state41)) == null ? void 0 : _a2.text) || "")) {
       consumeLine(state41);
     }
     return createAstNode("if", line, {
@@ -7980,11 +7984,11 @@
     });
   }
   function parsePseudocodeLoop(state41) {
-    var _a;
+    var _a2;
     const line = consumeLine(state41);
     const condition = line.text.replace(/^(WHILE|FOR)\s*/i, "").replace(/\s*DO$/i, "").trim();
     const body3 = parsePseudocodeStatements(state41, ["END WHILE", "END FOR", "END"]);
-    if (/^(END WHILE|END FOR|END)$/i.test(((_a = currentLine(state41)) == null ? void 0 : _a.text) || "")) {
+    if (/^(END WHILE|END FOR|END)$/i.test(((_a2 = currentLine(state41)) == null ? void 0 : _a2.text) || "")) {
       consumeLine(state41);
     }
     return createAstNode(/^WHILE\b/i.test(line.text) ? "while" : "for", line, {
@@ -8235,8 +8239,8 @@
     const depths = /* @__PURE__ */ new Map([["S", 0]]);
     const queue = ["S"];
     edges.forEach((edge) => {
-      var _a;
-      (_a = adjacency.get(edge.from)) == null ? void 0 : _a.push(edge.to);
+      var _a2;
+      (_a2 = adjacency.get(edge.from)) == null ? void 0 : _a2.push(edge.to);
     });
     while (queue.length) {
       const current3 = queue.shift();
@@ -8260,8 +8264,8 @@
     });
     const layers = /* @__PURE__ */ new Map();
     nodes.forEach((node2) => {
-      var _a;
-      const depth = (_a = depths.get(node2.id)) != null ? _a : 0;
+      var _a2;
+      const depth = (_a2 = depths.get(node2.id)) != null ? _a2 : 0;
       if (!layers.has(depth)) layers.set(depth, []);
       layers.get(depth).push(node2);
     });
@@ -8622,9 +8626,9 @@
   var INPUT_DIFFICULTIES = ["normal", "special", "edge", "large"];
   var DEFAULT = "normal";
   var current2 = (() => {
-    var _a;
+    var _a2;
     try {
-      const saved = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY2);
+      const saved = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY2);
       if (saved && INPUT_DIFFICULTIES.includes(saved)) return saved;
     } catch {
     }
@@ -8635,12 +8639,12 @@
     return current2;
   }
   function setInputDifficulty(tier, { persist: persist11 = true } = {}) {
-    var _a;
+    var _a2;
     if (!INPUT_DIFFICULTIES.includes(tier) || tier === current2) return;
     current2 = tier;
     if (persist11) {
       try {
-        (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY2, tier);
+        (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY2, tier);
       } catch {
       }
     }
@@ -8689,8 +8693,8 @@
   }
   function serializeEdges(edges) {
     return edges.map((edge) => {
-      var _a, _b;
-      if (((_a = edge.control) == null ? void 0 : _a.x) !== void 0 && ((_b = edge.control) == null ? void 0 : _b.y) !== void 0) {
+      var _a2, _b2;
+      if (((_a2 = edge.control) == null ? void 0 : _a2.x) !== void 0 && ((_b2 = edge.control) == null ? void 0 : _b2.y) !== void 0) {
         return `${edge.id},${edge.from},${edge.to},${edge.control.x},${edge.control.y}`;
       }
       return `${edge.id},${edge.from},${edge.to}`;
@@ -9316,10 +9320,10 @@
       render41();
     }
     function getState() {
-      var _a;
+      var _a2;
       const requirements = getCoverageRequirements(graph, criterionId);
       if (!requirements.some((item) => item.id === selectedRequirementId)) {
-        selectedRequirementId = ((_a = requirements[0]) == null ? void 0 : _a.id) || null;
+        selectedRequirementId = ((_a2 = requirements[0]) == null ? void 0 : _a2.id) || null;
       }
       const selectedRequirement = requirements.find((item) => item.id === selectedRequirementId) || requirements[0] || null;
       const selectedCriterion = graphCoverageCriteria.find((item) => item.id === criterionId);
@@ -9332,7 +9336,7 @@
       };
     }
     function render41() {
-      var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p;
+      var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p;
       const { requirements, selectedRequirement, selectedCriterion, pathPlan } = getState();
       const selectedSourceNodes = getSelectedSourceNodes(graph, selectedRequirement);
       const quizPanel = renderGraphQuizPanel(pathPlan, selectedCriterion);
@@ -9558,9 +9562,9 @@
       ${focus ? "" : `${quizPanel}${labReflectPanel}`}
     `;
       if (focus && exampleControls) {
-        (_a = root41.querySelector(".graph-criterion-row")) == null ? void 0 : _a.prepend(exampleControls.element);
+        (_a2 = root41.querySelector(".graph-criterion-row")) == null ? void 0 : _a2.prepend(exampleControls.element);
       }
-      (_b = root41.querySelector('[data-testid="graph-reset-btn"]')) == null ? void 0 : _b.addEventListener("click", () => {
+      (_b2 = root41.querySelector('[data-testid="graph-reset-btn"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         resetGraph();
       });
       (_c = root41.querySelector('[data-testid="program-example-select"]')) == null ? void 0 : _c.addEventListener("change", (event) => {
@@ -9693,9 +9697,9 @@
         render41();
       });
       (_n = root41.querySelector('[data-testid="graph-lab-reflect-close"]')) == null ? void 0 : _n.addEventListener("click", () => {
-        var _a2, _b2;
-        graphLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || graphLabReflect.a1;
-        graphLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || graphLabReflect.a2;
+        var _a3, _b3;
+        graphLabReflect.a1 = ((_a3 = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || graphLabReflect.a1;
+        graphLabReflect.a2 = ((_b3 = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || graphLabReflect.a2;
         graphLabReflect.active = false;
         render41();
       });
@@ -9708,9 +9712,9 @@
       const lrShare = root41.querySelector('[data-testid="graph-lab-reflect-share"]');
       if (lrShare) {
         lrShare.addEventListener("click", async () => {
-          var _a2, _b2;
-          const a1 = ((_a2 = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || "";
-          const a2 = ((_b2 = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || "";
+          var _a3, _b3;
+          const a1 = ((_a3 = root41.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root41.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "graph",
@@ -9748,11 +9752,11 @@
     render41();
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
-        var _a;
+        var _a2;
         if (!root41.isConnected) return;
         const detail = event.detail || {};
         if (detail.target !== "graph") return;
-        const content = String((_a = detail.content) != null ? _a : "");
+        const content = String((_a2 = detail.content) != null ? _a2 : "");
         const fileName = detail.name || "uploaded.code";
         try {
           const uploadedProgram = {
@@ -9817,9 +9821,9 @@
       return token;
     }
     function parseOr() {
-      var _a;
+      var _a2;
       let node2 = parseAnd();
-      while (((_a = peek()) == null ? void 0 : _a.type) === "or") {
+      while (((_a2 = peek()) == null ? void 0 : _a2.type) === "or") {
         consume("or");
         node2 = { type: "or", left: node2, right: parseAnd() };
       }
@@ -9842,8 +9846,8 @@
       return node2;
     }
     function parseNot() {
-      var _a;
-      if (((_a = peek()) == null ? void 0 : _a.type) === "not") {
+      var _a2;
+      if (((_a2 = peek()) == null ? void 0 : _a2.type) === "not") {
         consume("not");
         return { type: "not", operand: parseNot() };
       }
@@ -10817,9 +10821,15 @@
     drive: {
       uploadFolderId: "__DRIVE_UPLOAD_FOLDER_ID__",
       privateSlidesFolderId: "__DRIVE_PRIVATE_SLIDES_FOLDER_ID__"
-    }
+    },
+    maccount: {
+      workerBaseUrl: "__MACCOUNT_WORKER_URL__",
+      appId: "stvisual2"
+    },
+    firebaseEnabled: false
   };
   function getResolvedCloudConfig() {
+    var _a2;
     const runtimeConfig = globalThis.STVISUAL_CLOUD_CONFIG || {};
     return {
       ...cloudConfig,
@@ -10831,8 +10841,142 @@
       drive: {
         ...cloudConfig.drive,
         ...runtimeConfig.drive || {}
+      },
+      maccount: {
+        ...cloudConfig.maccount,
+        ...runtimeConfig.maccount || {}
+      },
+      firebaseEnabled: (_a2 = runtimeConfig.firebaseEnabled) != null ? _a2 : cloudConfig.firebaseEnabled
+    };
+  }
+
+  // src/utils/maccountClient.js
+  var USER_KEY = "stvisual:maccount:user";
+  var cachedClient = null;
+  var isPlaceholder = (v) => !v || /^__.+__$/.test(v);
+  function stripMtoken(href, hash) {
+    const base = href.replace(/#.*$/, "");
+    const segs = (hash || "").replace(/^#/, "").split(/[#&]/).filter((s) => s && !/^mtoken=/.test(s));
+    return segs.length ? base + "#" + segs.join("&") : base;
+  }
+  function stubClient(reason) {
+    return {
+      isConfigured: false,
+      missingReason: reason,
+      getUser: () => null,
+      subscribeAuthState(cb) {
+        cb(null);
+        return () => {
+        };
+      },
+      signIn() {
+      },
+      signOut() {
+      },
+      handleRedirect: () => Promise.resolve(false)
+    };
+  }
+  function buildClient() {
+    const cfg = getResolvedCloudConfig().maccount || null;
+    if (typeof location !== "undefined" && location.protocol === "file:")
+      return stubClient("Sign-in requires http(s), not file://.");
+    if (!cfg || isPlaceholder(cfg.workerBaseUrl))
+      return stubClient("maccount worker URL not configured.");
+    const base = cfg.workerBaseUrl.replace(/\/$/, "");
+    const appId = cfg.appId || "stvisual2";
+    const subs = [];
+    let redirectPromise = null;
+    const readUser = () => {
+      try {
+        const raw = sessionStorage.getItem(USER_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
       }
     };
+    let user = readUser();
+    const setUser = (u) => {
+      user = u;
+      try {
+        u ? sessionStorage.setItem(USER_KEY, JSON.stringify(u)) : sessionStorage.removeItem(USER_KEY);
+      } catch {
+      }
+      subs.forEach((cb) => {
+        try {
+          cb(user);
+        } catch {
+        }
+      });
+    };
+    async function runRedirect() {
+      const hash = location.hash || "";
+      const m = hash.match(/[#&]mtoken=([^&]+)/);
+      if (!m) return false;
+      let res;
+      try {
+        res = await fetch(base + "/api/app/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: decodeURIComponent(m[1]) })
+        });
+      } catch {
+        return false;
+      }
+      if (!res || !res.ok) return false;
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        return false;
+      }
+      if (!data || !data.student_id) return false;
+      try {
+        history.replaceState(null, "", stripMtoken(location.href, location.hash));
+      } catch {
+      }
+      setUser({
+        student_id: data.student_id,
+        uid: data.student_id,
+        displayName: data.student_id,
+        providers: {
+          github: !!(data.providers && data.providers.github),
+          google: !!(data.providers && data.providers.google)
+        }
+      });
+      return true;
+    }
+    return {
+      isConfigured: true,
+      missingReason: "",
+      getUser: () => user,
+      subscribeAuthState(cb) {
+        subs.push(cb);
+        try {
+          cb(user);
+        } catch {
+        }
+        return () => {
+          const i = subs.indexOf(cb);
+          if (i >= 0) subs.splice(i, 1);
+        };
+      },
+      signIn() {
+        location.assign(base + "/auth/app/start?app=" + encodeURIComponent(appId) + "&return=" + encodeURIComponent(location.href));
+      },
+      signOut() {
+        setUser(null);
+      },
+      handleRedirect() {
+        if (!redirectPromise) redirectPromise = runRedirect().then((ok) => {
+          if (!ok) redirectPromise = null;
+          return ok;
+        });
+        return redirectPromise;
+      }
+    };
+  }
+  function getMaccountClient() {
+    return cachedClient || (cachedClient = buildClient());
   }
 
   // src/utils/cloudIntegration.js
@@ -10841,7 +10985,7 @@
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive.readonly"
   ];
-  var cachedClient = null;
+  var cachedClient2 = null;
   function getMissingFirebaseKeys(firebaseConfig) {
     return REQUIRED_FIREBASE_KEYS.filter((key3) => !(firebaseConfig == null ? void 0 : firebaseConfig[key3]));
   }
@@ -10864,15 +11008,53 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     };
   }
   function createCloudIntegrationClient() {
-    if (cachedClient) return cachedClient;
-    cachedClient = buildClient();
-    return cachedClient;
+    if (cachedClient2) return cachedClient2;
+    cachedClient2 = buildClient2();
+    return cachedClient2;
   }
-  function buildClient() {
-    var _a;
+  function buildClient2() {
+    var _a2;
     const config = getResolvedCloudConfig();
+    if (!config.firebaseEnabled) {
+      const m = getMaccountClient();
+      const noop = async () => ({});
+      return {
+        isMaccount: true,
+        isConfigured: m.isConfigured,
+        missingReason: m.missingReason,
+        // Mirrors the Firebase client's shape: these are plain properties there
+        // (not methods), so the adapter exposes inert values of the same shape.
+        missingKeys: [],
+        isSupportedOrigin: true,
+        originWarning: "",
+        getUser: () => m.getUser(),
+        getAccessToken: () => null,
+        subscribeAuthState: (cb) => m.subscribeAuthState(cb),
+        signIn: () => m.signIn(),
+        signInWithGoogle: () => m.signIn(),
+        // drop-in alias; navigates away
+        signOut: () => m.signOut(),
+        signOutGoogle: () => m.signOut(),
+        handleRedirect: () => m.handleRedirect(),
+        loadSettings: noop,
+        saveSettings: noop,
+        loadLogicRecent: async () => [],
+        saveLogicRecent: noop,
+        loadSyntaxTests: noop,
+        saveSyntaxTests: noop,
+        uploadFileToDrive: async () => {
+          throw new Error("cloud upload disabled");
+        },
+        listDriveFiles: async () => [],
+        downloadDriveFile: async () => {
+          throw new Error("cloud download disabled");
+        },
+        loadCourseResults: async () => [],
+        saveResult: async () => ({})
+      };
+    }
     const missingKeys = getMissingFirebaseKeys(config.firebase);
-    const isFileProtocol = ((_a = globalThis.location) == null ? void 0 : _a.protocol) === "file:";
+    const isFileProtocol = ((_a2 = globalThis.location) == null ? void 0 : _a2.protocol) === "file:";
     const isSupportedOrigin = !isFileProtocol;
     const isConfigured = missingKeys.length === 0;
     const firebase = globalThis.firebase;
@@ -11074,7 +11256,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         }, { merge: true });
       },
       async uploadFileToDrive(file, options = {}) {
-        var _a2;
+        var _a3;
         if (!driveAccessToken) {
           throw new Error(t("cloud.err.noDriveToken"));
         }
@@ -11096,12 +11278,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
         const payload = await response.json();
         if (!response.ok) {
-          throw new Error(((_a2 = payload == null ? void 0 : payload.error) == null ? void 0 : _a2.message) || t("cloud.err.uploadFailed"));
+          throw new Error(((_a3 = payload == null ? void 0 : payload.error) == null ? void 0 : _a3.message) || t("cloud.err.uploadFailed"));
         }
         return payload;
       },
       async listDriveFiles(options = {}) {
-        var _a2;
+        var _a3;
         if (!driveAccessToken) {
           throw new Error(t("cloud.err.noDriveToken"));
         }
@@ -11119,12 +11301,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
         const payload = await response.json();
         if (!response.ok) {
-          throw new Error(((_a2 = payload == null ? void 0 : payload.error) == null ? void 0 : _a2.message) || t("cloud.err.listFailed"));
+          throw new Error(((_a3 = payload == null ? void 0 : payload.error) == null ? void 0 : _a3.message) || t("cloud.err.listFailed"));
         }
         return Array.isArray(payload.files) ? payload.files : [];
       },
       async downloadDriveFile(fileId) {
-        var _a2;
+        var _a3;
         if (!driveAccessToken) {
           throw new Error(t("cloud.err.noDriveToken"));
         }
@@ -11135,7 +11317,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           let msg = t("cloud.err.downloadFailed");
           try {
             const j = await response.json();
-            msg = ((_a2 = j == null ? void 0 : j.error) == null ? void 0 : _a2.message) || msg;
+            msg = ((_a3 = j == null ? void 0 : j.error) == null ? void 0 : _a3.message) || msg;
           } catch {
           }
           throw new Error(msg);
@@ -11311,13 +11493,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return null;
   }
   function solveAnalytic(clauseValues, bindings, varNames) {
-    var _a;
+    var _a2;
     const intervals = {};
     for (const v of varNames) {
       intervals[v] = { lo: -Infinity, loOpen: true, hi: Infinity, hiOpen: true, neq: /* @__PURE__ */ new Set() };
     }
     for (const [clause, clauseIsTrue] of Object.entries(clauseValues)) {
-      const expr = (_a = bindings[clause]) == null ? void 0 : _a.trim();
+      const expr = (_a2 = bindings[clause]) == null ? void 0 : _a2.trim();
       if (!expr) continue;
       const parsed = parseSimpleConstraint(expr);
       if (!parsed) return null;
@@ -11336,10 +11518,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return { witness };
   }
   function buildChecker(clauseValues, bindings, varNames) {
-    var _a;
+    var _a2;
     const parts = [];
     for (const [clause, val] of Object.entries(clauseValues)) {
-      const expr = (_a = bindings[clause]) == null ? void 0 : _a.trim();
+      const expr = (_a2 = bindings[clause]) == null ? void 0 : _a2.trim();
       if (!expr) return null;
       parts.push(val ? `(${expr})` : `!(${expr})`);
     }
@@ -11406,10 +11588,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return Object.entries(witness).map(([k, v]) => `${k}=${v}`).join(", ");
   }
   function buildConstraintStr(clauseValues, bindings) {
-    var _a;
+    var _a2;
     const parts = [];
     for (const [clause, val] of Object.entries(clauseValues)) {
-      const expr = (_a = bindings[clause]) == null ? void 0 : _a.trim();
+      const expr = (_a2 = bindings[clause]) == null ? void 0 : _a2.trim();
       if (!expr) continue;
       parts.push(val ? `(${expr})` : `!(${expr})`);
     }
@@ -11447,13 +11629,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const peek = () => tokens[pos];
     const consume = () => tokens[pos++];
     function primary() {
-      var _a;
+      var _a2;
       const t4 = peek();
       if (!t4) throw new Error("Unexpected end of expression");
       if (t4.type === "LPAREN") {
         consume();
         const node2 = expr();
-        if (((_a = peek()) == null ? void 0 : _a.type) !== "RPAREN") throw new Error("Expected )");
+        if (((_a2 = peek()) == null ? void 0 : _a2.type) !== "RPAREN") throw new Error("Expected )");
         consume();
         return node2;
       }
@@ -11464,26 +11646,26 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       throw new Error(`Unexpected token: ${t4.type}`);
     }
     function notExpr() {
-      var _a;
-      if (((_a = peek()) == null ? void 0 : _a.type) === "NOT") {
+      var _a2;
+      if (((_a2 = peek()) == null ? void 0 : _a2.type) === "NOT") {
         consume();
         return { type: "NOT", child: notExpr() };
       }
       return primary();
     }
     function andExpr() {
-      var _a;
+      var _a2;
       let left = notExpr();
-      while (((_a = peek()) == null ? void 0 : _a.type) === "AND") {
+      while (((_a2 = peek()) == null ? void 0 : _a2.type) === "AND") {
         consume();
         left = { type: "AND", left, right: notExpr() };
       }
       return left;
     }
     function expr() {
-      var _a;
+      var _a2;
       let left = andExpr();
-      while (((_a = peek()) == null ? void 0 : _a.type) === "OR") {
+      while (((_a2 = peek()) == null ? void 0 : _a2.type) === "OR") {
         consume();
         left = { type: "OR", left, right: andExpr() };
       }
@@ -11782,9 +11964,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   var RECENT_KEY = "stvisual.logic.recentPredicates";
   var RECENT_LIMIT = 8;
   function loadRecent() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(RECENT_KEY);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(RECENT_KEY);
       if (!raw) return [];
       const parsed = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed.filter((p) => typeof p === "string") : [];
@@ -11793,9 +11975,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
   }
   function saveRecent(list) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(RECENT_KEY, JSON.stringify(list));
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(RECENT_KEY, JSON.stringify(list));
     } catch {
     }
   }
@@ -11885,12 +12067,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }).join("");
     const corner = rowHeaderLabel ? `<th class="logic-kmap-corner"><span>${escapeHtml2(rowHeaderLabel)}</span><span class="logic-kmap-slash">\\</span><span>${escapeHtml2(colHeaderLabel)}</span></th>` : `<th class="logic-kmap-corner">${escapeHtml2(colHeaderLabel)}</th>`;
     const legend = implicantGroups.length ? `<ul class="logic-kmap-legend">${implicantGroups.map((g) => {
-      var _a;
+      var _a2;
       return `
           <li>
             <span class="logic-kmap-dot" style="background:${g.color}"></span>
             <code>${g.labelHtml || escapeHtml2(g.label)}</code>
-            ${((_a = g.testRowIndices) == null ? void 0 : _a.length) ? `<span class="logic-kmap-legend-tests">tests: ${g.testRowIndices.map((i) => `m${i}`).join(", ")}</span>` : ""}
+            ${((_a2 = g.testRowIndices) == null ? void 0 : _a2.length) ? `<span class="logic-kmap-legend-tests">tests: ${g.testRowIndices.map((i) => `m${i}`).join(", ")}</span>` : ""}
           </li>`;
     }).join("")}</ul>` : "";
     return `<div class="logic-kmap" data-testid="${target ? "logic-kmap-f" : "logic-kmap-not-f"}">
@@ -11906,8 +12088,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         rows.filter((row) => row.predicate === target && term.every((lit) => Boolean(row.values[lit.name]) !== lit.negated)).map((row) => row.index)
       );
       const testRowIndices = testsForPolarity.filter((t4) => {
-        var _a;
-        return ((_a = t4.implicantIndices) == null ? void 0 : _a.includes(idx)) || t4.implicantIndex === idx;
+        var _a2;
+        return ((_a2 = t4.implicantIndices) == null ? void 0 : _a2.includes(idx)) || t4.implicantIndex === idx;
       }).map((t4) => t4.row.index);
       return {
         color: IMPLICANT_PALETTE[(idx + paletteOffset) % IMPLICANT_PALETTE.length],
@@ -12100,7 +12282,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
     }
     function render41() {
-      var _a;
+      var _a2;
       const examplesMarkup = logicCoveragePredicates.map((p) => `
         <button
           type="button"
@@ -12192,7 +12374,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       <div class="logic-truth-table-wrap">${truthTableMarkup}</div>
     `;
       if (focus && exampleControls) {
-        (_a = root41.querySelector(".logic-toolbar")) == null ? void 0 : _a.prepend(exampleControls.element);
+        (_a2 = root41.querySelector(".logic-toolbar")) == null ? void 0 : _a2.prepend(exampleControls.element);
       }
       bindEvents40();
     }
@@ -12249,7 +12431,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     `;
     }
     function renderSummary3() {
-      var _a;
+      var _a2;
       if (state41.error || !state41.analysis) {
         return "";
       }
@@ -12274,7 +12456,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           ${isDuplicate ? `<span class="logic-test-dup-tag" aria-label="${t("logic.duplicate")}">${t("logic.duplicate")}</span>` : ""}
         </li>
       `).join("");
-      const unsatisfied = ((_a = set.unsatisfied) == null ? void 0 : _a.length) ? `<p class="logic-unsatisfied" data-testid="logic-unsatisfied">${t("logic.unsatisfied", { items: set.unsatisfied.join(", ") })}</p>` : "";
+      const unsatisfied = ((_a2 = set.unsatisfied) == null ? void 0 : _a2.length) ? `<p class="logic-unsatisfied" data-testid="logic-unsatisfied">${t("logic.unsatisfied", { items: set.unsatisfied.join(", ") })}</p>` : "";
       const dnfMarkup = ["ic", "utpc", "mutpc", "nfpc", "mnfpc", "cutpnfp"].includes(set.id) && state41.analysis.dnf ? `<p class="logic-dnf" data-testid="logic-dnf">${t("logic.dnfPrefix")}${dnfToHtml(state41.analysis.dnf)}
           <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state41.analysis.dnf)}${t("logic.textbookClose")}</span>
         </p>${set.id === "ic" && state41.analysis.negDnf ? `<p class="logic-dnf" data-testid="logic-dnf-neg">${t("logic.dnfNegPrefix")}${dnfToHtml(state41.analysis.negDnf)}
@@ -12420,8 +12602,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       if (!state41.analysis) return "";
       const { clauses } = state41.analysis;
       const hasAnyBinding = clauses.some((c) => {
-        var _a;
-        return (_a = state41.bindings[c]) == null ? void 0 : _a.trim();
+        var _a2;
+        return (_a2 = state41.bindings[c]) == null ? void 0 : _a2.trim();
       });
       if (!hasAnyBinding) {
         return `<p class="logic-binding-hint-noentry" data-testid="logic-binding-no-entry">${t("logic.binding.noBinding")}</p>`;
@@ -12437,11 +12619,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         return true;
       });
       const rows = uniqueTests.map((test) => {
-        var _a;
+        var _a2;
         const valStr = clauses.map((c) => `${c}=${test.row.values[c] ? "T" : "F"}`).join(", ");
         const boundClauseValues = {};
         for (const c of clauses) {
-          if ((_a = state41.bindings[c]) == null ? void 0 : _a.trim()) boundClauseValues[c] = test.row.values[c];
+          if ((_a2 = state41.bindings[c]) == null ? void 0 : _a2.trim()) boundClauseValues[c] = test.row.values[c];
         }
         const constraintStr = buildConstraintStr(boundClauseValues, state41.bindings);
         const result = solveBinding({
@@ -12561,7 +12743,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       if (el) el.innerHTML = buildBindingResultsHTML();
     }
     function bindEvents40() {
-      var _a, _b, _c, _d, _e, _f, _g, _h, _i;
+      var _a2, _b2, _c, _d, _e, _f, _g, _h, _i;
       const input = root41.querySelector('[data-testid="logic-expression-input"]');
       if (input) {
         input.addEventListener("input", (event) => {
@@ -12613,7 +12795,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           render41();
         });
       });
-      (_a = root41.querySelector('[data-testid="logic-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+      (_a2 = root41.querySelector('[data-testid="logic-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         logicQuiz.active = true;
         logicQuiz.phase = "question";
         logicQuiz.answer = "";
@@ -12626,14 +12808,14 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         quizEl.outerHTML = renderLogicQuizPanel();
         render41();
       });
-      (_b = root41.querySelector('[data-testid="logic-quiz-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
+      (_b2 = root41.querySelector('[data-testid="logic-quiz-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         logicQuiz.active = false;
         render41();
       });
       (_c = root41.querySelector('[data-testid="logic-quiz-check"]')) == null ? void 0 : _c.addEventListener("click", () => {
-        var _a2;
+        var _a3;
         const inp = root41.querySelector('[data-testid="logic-quiz-answer"]');
-        logicQuiz.answer = (_a2 = inp == null ? void 0 : inp.value) != null ? _a2 : "";
+        logicQuiz.answer = (_a3 = inp == null ? void 0 : inp.value) != null ? _a3 : "";
         logicQuiz.phase = "graded";
         const panel = root41.querySelector('[data-testid="logic-quiz"]');
         if (panel) panel.outerHTML = renderLogicQuizPanel();
@@ -12649,9 +12831,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         render41();
       });
       (_f = root41.querySelector('[data-testid="logic-lab-reflect-close"]')) == null ? void 0 : _f.addEventListener("click", () => {
-        var _a2, _b2;
-        logicLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || logicLabReflect.a1;
-        logicLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || logicLabReflect.a2;
+        var _a3, _b3;
+        logicLabReflect.a1 = ((_a3 = root41.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || logicLabReflect.a1;
+        logicLabReflect.a2 = ((_b3 = root41.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || logicLabReflect.a2;
         logicLabReflect.active = false;
         render41();
       });
@@ -12664,9 +12846,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const logicLrShare = root41.querySelector('[data-testid="logic-lab-reflect-share"]');
       if (logicLrShare) {
         logicLrShare.addEventListener("click", async () => {
-          var _a2, _b2;
-          const a1 = ((_a2 = root41.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || "";
-          const a2 = ((_b2 = root41.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || "";
+          var _a3, _b3;
+          const a1 = ((_a3 = root41.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root41.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "logic",
@@ -12720,8 +12902,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
       }
       (_i = root41.querySelector('[data-testid="logic-bridge-groupth"]')) == null ? void 0 : _i.addEventListener("click", () => {
-        var _a2;
-        (_a2 = document.querySelector('[data-section="groupth"]')) == null ? void 0 : _a2.click();
+        var _a3;
+        (_a3 = document.querySelector('[data-section="groupth"]')) == null ? void 0 : _a3.click();
       });
       root41.querySelectorAll("[data-binding-range]").forEach((input2) => {
         input2.addEventListener("change", () => {
@@ -13016,10 +13198,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return JSON.parse(value);
   }
   function createCloudStoragePanel() {
-    var _a;
+    var _a2;
     const root41 = document.createElement("div");
     const client = createCloudIntegrationClient();
     const canUseCloudAuth = client.isConfigured && client.isSupportedOrigin;
+    const canUseCloudData = !client.isMaccount;
     let user = null;
     let status = canUseCloudAuth ? t("cloud.signInPrompt") : client.isSupportedOrigin ? t("cloud.firebaseMissing", { keys: client.missingKeys.join(", ") }) : client.originWarning;
     let settings = { ...DEFAULT_SETTINGS };
@@ -13030,13 +13213,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     const CLASS_CODE_KEY = "stvisual.classCode";
     let classCode = "";
     try {
-      classCode = ((_a = globalThis.localStorage) == null ? void 0 : _a.getItem(CLASS_CODE_KEY)) || "";
+      classCode = ((_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(CLASS_CODE_KEY)) || "";
     } catch {
     }
     let uploadCount = 0;
     const uploadedResultIds = /* @__PURE__ */ new Set();
     function render41() {
-      var _a2, _b, _c, _d;
+      var _a3, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k;
       root41.className = "cloud-storage";
       root41.dataset.testid = "cloud-storage-panel";
       root41.innerHTML = `
@@ -13049,7 +13232,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             ${!client.isSupportedOrigin ? `<p class="cloud-warning" data-testid="cloud-origin-warning">${t("cloud.fileWarning")}</p>` : ""}
           </div>
           <div class="cloud-auth-actions">
-            ${user ? `<span class="cloud-signed-in" data-testid="cloud-signed-in">${t("common.signedIn")}</span>` : `<button type="button" class="cloud-btn" data-testid="cloud-signin-btn" ${!canUseCloudAuth ? "disabled" : ""}>${t("common.googleSignIn")}</button>`}
+            ${user ? `<span class="cloud-signed-in" data-testid="cloud-signed-in">${t("common.signedIn")}</span>` : `<button type="button" class="cloud-btn" data-testid="cloud-signin-btn" ${!canUseCloudAuth ? "disabled" : ""}>${t("common.maccountSignIn")}</button>`}
             <button type="button" class="cloud-btn cloud-btn--secondary" data-testid="cloud-signout-btn" ${!user ? "disabled" : ""}>${t("common.signOut")}</button>
           </div>
         </div>
@@ -13059,6 +13242,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <p data-testid="cloud-user">${user ? t("cloud.userPrefix", { name: user.email || user.uid }) : t("common.notSignedIn")}</p>
         </div>
 
+        ${canUseCloudData ? `
         <div class="cloud-grid">
           <section class="cloud-section">
             <h4>${t("cloud.section.settings")}</h4>
@@ -13156,20 +13340,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
                   ${t("cloud.class.viewResults")}
                 </button>` : `<p class="cloud-class-hint">${t("cloud.class.hint")}</p>`}
           </section>` : ""}
-        </div>
+        </div>` : ""}
       </div>
     `;
-      (_a2 = root41.querySelector('[data-testid="cloud-signin-btn"]')) == null ? void 0 : _a2.addEventListener("click", async () => {
-        try {
-          const result = await client.signInWithGoogle();
-          user = result.user;
-          status = result.hasDriveToken ? t("cloud.signedInOk") : t("cloud.signedInNoDrive");
-          ;
-          render41();
-        } catch (error) {
-          status = error.message;
-          render41();
-        }
+      (_a3 = root41.querySelector('[data-testid="cloud-signin-btn"]')) == null ? void 0 : _a3.addEventListener("click", () => {
+        client.signIn();
       });
       root41.querySelector('[data-testid="cloud-signout-btn"]').addEventListener("click", async () => {
         try {
@@ -13184,20 +13359,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           render41();
         }
       });
-      root41.querySelector('[data-testid="cloud-criterion-select"]').addEventListener("change", (event) => {
+      (_b2 = root41.querySelector('[data-testid="cloud-criterion-select"]')) == null ? void 0 : _b2.addEventListener("change", (event) => {
         settings.preferredCriterion = event.target.value;
       });
-      root41.querySelector('[data-testid="cloud-notes-input"]').addEventListener("input", (event) => {
+      (_c = root41.querySelector('[data-testid="cloud-notes-input"]')) == null ? void 0 : _c.addEventListener("input", (event) => {
         settings.notes = event.target.value;
       });
-      root41.querySelector('[data-testid="cloud-file-btn"]').addEventListener("click", () => {
+      (_d = root41.querySelector('[data-testid="cloud-file-btn"]')) == null ? void 0 : _d.addEventListener("click", () => {
         root41.querySelector('[data-testid="cloud-file-input"]').click();
       });
-      root41.querySelector('[data-testid="cloud-file-input"]').addEventListener("change", (event) => {
+      (_e = root41.querySelector('[data-testid="cloud-file-input"]')) == null ? void 0 : _e.addEventListener("change", (event) => {
         [selectedFile] = event.target.files || [];
         render41();
       });
-      root41.querySelector('[data-testid="cloud-load-settings-btn"]').addEventListener("click", async () => {
+      (_f = root41.querySelector('[data-testid="cloud-load-settings-btn"]')) == null ? void 0 : _f.addEventListener("click", async () => {
         try {
           const loaded = await client.loadSettings(user.uid);
           if (loaded) {
@@ -13216,7 +13391,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           render41();
         }
       });
-      root41.querySelector('[data-testid="cloud-save-settings-btn"]').addEventListener("click", async () => {
+      (_g = root41.querySelector('[data-testid="cloud-save-settings-btn"]')) == null ? void 0 : _g.addEventListener("click", async () => {
         try {
           const extras = parseJson(root41.querySelector('[data-testid="cloud-extras-input"]').value);
           settings.extras = extras;
@@ -13228,7 +13403,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           render41();
         }
       });
-      root41.querySelector('[data-testid="cloud-upload-btn"]').addEventListener("click", async () => {
+      (_h = root41.querySelector('[data-testid="cloud-upload-btn"]')) == null ? void 0 : _h.addEventListener("click", async () => {
         try {
           const fileToUpload = selectedFile;
           let content = null;
@@ -13258,7 +13433,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
       root41.querySelectorAll("[data-use-target]").forEach((btn) => {
         btn.addEventListener("click", async () => {
-          var _a3, _b2;
+          var _a4, _b3;
           const idx = Number(btn.dataset.useIdx);
           const target = btn.dataset.useTarget;
           const item = uploadedFiles[idx];
@@ -13285,32 +13460,32 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             return;
           }
           const sectionId = target === "graph" ? "section-graph" : "section-syntax";
-          const targetSection = (_a3 = globalThis.document) == null ? void 0 : _a3.querySelector(`[data-testid="${sectionId}"]`);
+          const targetSection = (_a4 = globalThis.document) == null ? void 0 : _a4.querySelector(`[data-testid="${sectionId}"]`);
           targetSection == null ? void 0 : targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
-          (_b2 = globalThis.dispatchEvent) == null ? void 0 : _b2.call(globalThis, new CustomEvent("stvisual:load-program-source", {
+          (_b3 = globalThis.dispatchEvent) == null ? void 0 : _b3.call(globalThis, new CustomEvent("stvisual:load-program-source", {
             detail: { target, name: item.fileName || item.name, content }
           }));
           status = target === "mutation" ? t("cloud.sentToMutation", { name: item.name }) : target === "grammar" ? t("cloud.sentToGrammar", { name: item.name }) : t("cloud.sentToGraph", { name: item.name });
           render41();
         });
       });
-      (_b = root41.querySelector('[data-testid="cloud-class-save"]')) == null ? void 0 : _b.addEventListener("click", () => {
-        var _a3;
+      (_i = root41.querySelector('[data-testid="cloud-class-save"]')) == null ? void 0 : _i.addEventListener("click", () => {
+        var _a4;
         const inp = root41.querySelector('[data-testid="cloud-class-code-input"]');
         classCode = ((inp == null ? void 0 : inp.value) || "").trim().toUpperCase();
         try {
-          (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(CLASS_CODE_KEY, classCode);
+          (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(CLASS_CODE_KEY, classCode);
         } catch {
         }
         render41();
       });
-      (_c = root41.querySelector('[data-testid="cloud-view-results"]')) == null ? void 0 : _c.addEventListener("click", () => {
-        var _a3;
-        (_a3 = globalThis.dispatchEvent) == null ? void 0 : _a3.call(globalThis, new CustomEvent("stvisual:open-teacher-dashboard", {
+      (_j = root41.querySelector('[data-testid="cloud-view-results"]')) == null ? void 0 : _j.addEventListener("click", () => {
+        var _a4;
+        (_a4 = globalThis.dispatchEvent) == null ? void 0 : _a4.call(globalThis, new CustomEvent("stvisual:open-teacher-dashboard", {
           detail: { classCode }
         }));
       });
-      (_d = root41.querySelector('[data-testid="cloud-refresh-drive-btn"]')) == null ? void 0 : _d.addEventListener("click", async () => {
+      (_k = root41.querySelector('[data-testid="cloud-refresh-drive-btn"]')) == null ? void 0 : _k.addEventListener("click", async () => {
         if (!user || typeof client.listDriveFiles !== "function") return;
         driveFilesLoading = true;
         status = t("cloud.refreshing");
@@ -13327,7 +13502,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
       root41.querySelectorAll("[data-drive-target]").forEach((btn) => {
         btn.addEventListener("click", async () => {
-          var _a3, _b2;
+          var _a4, _b3;
           const idx = Number(btn.dataset.driveIdx);
           const target = btn.dataset.driveTarget;
           const f = driveFiles[idx];
@@ -13337,9 +13512,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             render41();
             const content = await client.downloadDriveFile(f.id);
             const sectionId = target === "graph" ? "section-graph" : "section-syntax";
-            const targetSection = (_a3 = globalThis.document) == null ? void 0 : _a3.querySelector(`[data-testid="${sectionId}"]`);
+            const targetSection = (_a4 = globalThis.document) == null ? void 0 : _a4.querySelector(`[data-testid="${sectionId}"]`);
             targetSection == null ? void 0 : targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
-            (_b2 = globalThis.dispatchEvent) == null ? void 0 : _b2.call(globalThis, new CustomEvent("stvisual:load-program-source", {
+            (_b3 = globalThis.dispatchEvent) == null ? void 0 : _b3.call(globalThis, new CustomEvent("stvisual:load-program-source", {
               detail: { target, name: f.name, content }
             }));
             status = target === "mutation" ? t("cloud.sentToMutation", { name: f.name }) : target === "grammar" ? t("cloud.sentToGrammar", { name: f.name }) : t("cloud.sentToGraph", { name: f.name });
@@ -14143,9 +14318,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   var STORAGE_KEY3 = "stvisual.syntaxTests.v1";
   var SAVE_DEBOUNCE_MS = 600;
   function loadLocalPrograms() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY3);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY3);
       if (!raw) return {};
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : {};
@@ -14154,9 +14329,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
   }
   function saveLocalPrograms(programs) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY3, JSON.stringify(programs));
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY3, JSON.stringify(programs));
     } catch {
     }
   }
@@ -14220,7 +14395,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return null;
   }
   function createSyntaxCoverageExplorer() {
-    var _a;
+    var _a2;
     const root41 = document.createElement("div");
     root41.className = "syntax-coverage";
     root41.dataset.testid = "syntax-coverage";
@@ -14369,7 +14544,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }
     }
     async function reloadFromCloud({ force = false } = {}) {
-      var _a2, _b;
+      var _a3, _b2;
       if (!cloudClient || !state41.cloudUser) return;
       if (typeof cloudClient.loadSyntaxTests !== "function") return;
       await flushPendingSave();
@@ -14388,8 +14563,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         saveLocalPrograms(state41.programs);
         const current3 = state41.programs[state41.exampleId];
         if (current3) {
-          state41.params = (_a2 = current3.params) != null ? _a2 : state41.params;
-          state41.body = (_b = current3.body) != null ? _b : state41.body;
+          state41.params = (_a3 = current3.params) != null ? _a3 : state41.params;
+          state41.body = (_b2 = current3.body) != null ? _b2 : state41.body;
           state41.tests = Array.isArray(current3.tests) ? current3.tests.map((t4) => ({ ...t4 })) : state41.tests;
           state41.selectedMutantId = null;
         }
@@ -14404,7 +14579,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }
     }
     function recompute() {
-      var _a2;
+      var _a3;
       state41.error = null;
       let params;
       try {
@@ -14446,7 +14621,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       state41.mutants = finalMutants;
       state41.score = computeMutationScore(finalMutants);
       if (!state41.mutants.find((m) => m.id === state41.selectedMutantId)) {
-        state41.selectedMutantId = ((_a2 = finalMutants[0]) == null ? void 0 : _a2.id) || null;
+        state41.selectedMutantId = ((_a3 = finalMutants[0]) == null ? void 0 : _a3.id) || null;
       }
     }
     function loadExample(id) {
@@ -14815,7 +14990,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         }
         await reloadFromCloud();
       });
-      if (typeof ((_a = globalThis.document) == null ? void 0 : _a.addEventListener) === "function") {
+      if (typeof ((_a2 = globalThis.document) == null ? void 0 : _a2.addEventListener) === "function") {
         globalThis.document.addEventListener("visibilitychange", () => {
           if (globalThis.document.visibilityState === "visible" && state41.cloudUser) {
             reloadFromCloud();
@@ -14833,11 +15008,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
-        var _a2;
+        var _a3;
         if (!root41.isConnected) return;
         const detail = event.detail || {};
         if (detail.target !== "mutation") return;
-        const content = String((_a2 = detail.content) != null ? _a2 : "");
+        const content = String((_a3 = detail.content) != null ? _a3 : "");
         const parsed = parseFunctionSource(content);
         const baseName = (detail.name || "uploaded").replace(/\.[^.]+$/, "") || "uploaded";
         const id = `uploaded-${Date.now().toString(36)}`;
@@ -15007,9 +15182,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return parts.map((p) => p.trim());
   }
   function generateDerivations(grammar, options = {}) {
-    var _a, _b, _c;
-    const maxStrings = (_a = options.maxStrings) != null ? _a : 12;
-    const maxDepth = (_b = options.maxDepth) != null ? _b : 20;
+    var _a2, _b2, _c;
+    const maxStrings = (_a2 = options.maxStrings) != null ? _a2 : 12;
+    const maxDepth = (_b2 = options.maxDepth) != null ? _b2 : 20;
     const maxStringLen = (_c = options.maxStringLen) != null ? _c : 60;
     const startSym = options.start || grammar.start;
     const initial = {
@@ -15179,8 +15354,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return mutants;
   }
   function recognizes(grammar, input, options = {}) {
-    var _a;
-    const maxDepth = (_a = options.maxDepth) != null ? _a : 40;
+    var _a2;
+    const maxDepth = (_a2 = options.maxDepth) != null ? _a2 : 40;
     const memo = /* @__PURE__ */ new Map();
     function tryNT(name, pos, depth) {
       if (depth > maxDepth) return [];
@@ -15248,11 +15423,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return [...set];
   }
   function generateStringMutants(seed, opIds = STRING_MUTATION_OPERATORS, options = {}) {
-    var _a;
+    var _a2;
     if (typeof seed !== "string") throw new Error("Seed must be a string.");
     const ops = new Set(opIds);
     const alphabet = options.alphabet && options.alphabet.length > 0 ? [...new Set(options.alphabet)] : [...new Set(seed.split(""))];
-    const maxPerOp = (_a = options.maxPerOp) != null ? _a : 30;
+    const maxPerOp = (_a2 = options.maxPerOp) != null ? _a2 : 30;
     const out = [];
     const seen = /* @__PURE__ */ new Set();
     const push = (operator, mutated, description) => {
@@ -15369,18 +15544,18 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   ];
   var DEFAULT_TAB = "derivations";
   function loadActiveTab() {
-    var _a;
+    var _a2;
     try {
-      const v = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(TAB_STORAGE_KEY);
+      const v = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(TAB_STORAGE_KEY);
       return GRAMMAR_TABS.find((t4) => t4.id === v) ? v : DEFAULT_TAB;
     } catch {
       return DEFAULT_TAB;
     }
   }
   function saveActiveTab(id) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(TAB_STORAGE_KEY, id);
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(TAB_STORAGE_KEY, id);
     } catch {
     }
   }
@@ -15388,9 +15563,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadLocalGrammars() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY4);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY4);
       if (!raw) return {};
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : {};
@@ -15399,9 +15574,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
   }
   function saveLocalGrammars(programs) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY4, JSON.stringify(programs));
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY4, JSON.stringify(programs));
     } catch {
     }
   }
@@ -15451,7 +15626,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       saveLocalGrammars(state41.programs);
     }
     function recompute() {
-      var _a, _b;
+      var _a2, _b2;
       state41.parseError = null;
       state41.grammar = null;
       state41.derivations = [];
@@ -15475,7 +15650,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           state41.mutants = evaluateMutantsAgainstStrings(g, generated, allTestStrings);
         }
         if (!state41.mutants.find((m) => m.id === state41.selectedMutantId)) {
-          state41.selectedMutantId = ((_a = state41.mutants[0]) == null ? void 0 : _a.id) || null;
+          state41.selectedMutantId = ((_a2 = state41.mutants[0]) == null ? void 0 : _a2.id) || null;
         }
         state41.stringMutants = [];
         if (state41.derivations.length > 0 && state41.stringOperators.size > 0) {
@@ -15489,7 +15664,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           state41.stringMutants = classifyStringMutants(g, raw);
         }
         if (!state41.stringMutants.find((m) => m.id === state41.selectedStringMutantId)) {
-          state41.selectedStringMutantId = ((_b = state41.stringMutants[0]) == null ? void 0 : _b.id) || null;
+          state41.selectedStringMutantId = ((_b2 = state41.stringMutants[0]) == null ? void 0 : _b2.id) || null;
         }
       } catch (err) {
         state41.parseError = err.message || String(err);
@@ -15503,7 +15678,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       state41.selectedMutantId = null;
     }
     function render41() {
-      var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
+      var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j;
       recompute();
       const allExamples = [...grammarExamples, ...state41.customExamples];
       const exampleButtons = allExamples.map((ex) => `
@@ -15521,8 +15696,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </label>
     `).join("");
       const productionsHtml = state41.grammar ? state41.grammar.productions.map((p) => {
-        var _a2;
-        return formatProductionHtml(p, (_a2 = state41.coverage) == null ? void 0 : _a2.pdc.covered.has(p.id));
+        var _a3;
+        return formatProductionHtml(p, (_a3 = state41.coverage) == null ? void 0 : _a3.pdc.covered.has(p.id));
       }).join("") : "";
       const derivationsHtml = state41.derivations.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noDerivations"))}</p>` : `<ol class="grammar-derivations">
           ${state41.derivations.map((d) => `<li><code>${escapeHtml4(d.string === "" ? "\u2205" : d.string)}</code>
@@ -15531,8 +15706,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const pdcRatio = state41.coverage ? Math.round(state41.coverage.pdc.ratio * 100) : 0;
       const tscRatio = state41.coverage ? Math.round(state41.coverage.tsc.ratio * 100) : 0;
       const terminalsHtml = state41.grammar ? [...state41.grammar.terminals].map((tm) => {
-        var _a2;
-        const covered = (_a2 = state41.coverage) == null ? void 0 : _a2.tsc.covered.has(tm);
+        var _a3;
+        const covered = (_a3 = state41.coverage) == null ? void 0 : _a3.tsc.covered.has(tm);
         return `<span class="grammar-terminal-chip${covered ? " covered" : ""}">"${escapeHtml4(tm)}"</span>`;
       }).join("") : "";
       const mutantsHtml = state41.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noMutants"))}</p>` : `<ul class="grammar-mutant-list">
@@ -15631,7 +15806,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             <div class="grammar-coverage-summary">
               <div class="grammar-metric">
                 <span class="grammar-metric-label">PDC</span>
-                <span class="grammar-metric-value" data-testid="grammar-pdc">${((_a = state41.coverage) == null ? void 0 : _a.pdc.covered.size) || 0} / ${((_b = state41.coverage) == null ? void 0 : _b.pdc.all.size) || 0} (${pdcRatio}%)</span>
+                <span class="grammar-metric-value" data-testid="grammar-pdc">${((_a2 = state41.coverage) == null ? void 0 : _a2.pdc.covered.size) || 0} / ${((_b2 = state41.coverage) == null ? void 0 : _b2.pdc.all.size) || 0} (${pdcRatio}%)</span>
               </div>
               <div class="grammar-metric">
                 <span class="grammar-metric-label">TSC</span>
@@ -15766,11 +15941,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     render41();
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
-        var _a;
+        var _a2;
         if (!root41.isConnected) return;
         const detail = event.detail || {};
         if (detail.target !== "grammar") return;
-        const content = String((_a = detail.content) != null ? _a : "");
+        const content = String((_a2 = detail.content) != null ? _a2 : "");
         const baseName = (detail.name || "uploaded").replace(/\.[^.]+$/, "") || "uploaded";
         const id = `uploaded-grammar-${Date.now().toString(36)}`;
         const newExample = {
@@ -16357,9 +16532,9 @@ INVARSPEC !(x & y)`
     }
   ];
   function loadSaved() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY5);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY5);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -16368,9 +16543,9 @@ INVARSPEC !(x & y)`
     }
   }
   function persist(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY5, JSON.stringify({
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY5, JSON.stringify({
         text: state41.text,
         operators: [...state41.operators],
         activeCategory: state41.activeCategory,
@@ -16401,7 +16576,7 @@ INVARSPEC !(x & y)`
       // when true tests = full truth table
     };
     function recompute() {
-      var _a;
+      var _a2;
       state41.parseError = null;
       state41.parsed = null;
       state41.mutants = [];
@@ -16415,15 +16590,15 @@ INVARSPEC !(x & y)`
           tests = buildAssignmentSpace(parsed.clauses);
         } else {
           tests = (state41.tests || []).map((t4) => {
-            var _a2;
+            var _a3;
             const v = {};
-            for (const c of parsed.clauses) v[c] = !!((_a2 = t4.values) == null ? void 0 : _a2[c]);
+            for (const c of parsed.clauses) v[c] = !!((_a3 = t4.values) == null ? void 0 : _a3[c]);
             return v;
           });
         }
         state41.mutants = evaluateSpecMutants(parsed, generated, tests);
         if (!state41.mutants.find((m) => m.id === state41.selectedMutantId)) {
-          state41.selectedMutantId = ((_a = state41.mutants[0]) == null ? void 0 : _a.id) || null;
+          state41.selectedMutantId = ((_a2 = state41.mutants[0]) == null ? void 0 : _a2.id) || null;
         }
       } catch (err) {
         state41.parseError = err.message || String(err);
@@ -16431,7 +16606,7 @@ INVARSPEC !(x & y)`
       persist(state41);
     }
     function render41() {
-      var _a, _b, _c;
+      var _a2, _b2, _c;
       recompute();
       const currentExample7 = SPEC_EXAMPLES.find((ex) => state41.text.trim() === ex.text) || null;
       const categoryButtons = SPEC_CATEGORIES.map((cat) => `
@@ -16466,7 +16641,7 @@ INVARSPEC !(x & y)`
           </li>`).join("")}
          </ul>`;
       const selected = state41.mutants.find((m) => m.id === state41.selectedMutantId) || null;
-      const flippedSet = selected ? flippedKeysFromKillers(selected.killers, ((_a = state41.parsed) == null ? void 0 : _a.clauses) || []) : null;
+      const flippedSet = selected ? flippedKeysFromKillers(selected.killers, ((_a2 = state41.parsed) == null ? void 0 : _a2.clauses) || []) : null;
       const fsmHtml = state41.parsed ? `<div class="spec-fsm-grid" data-testid="spec-fsm-grid">
           ${renderMonitorSvg({
         ast: state41.parsed.ast,
@@ -16553,7 +16728,7 @@ INVARSPEC !(x & y)`
           render41();
         });
       });
-      (_b = root41.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _b.addEventListener("input", (e) => {
+      (_b2 = root41.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _b2.addEventListener("input", (e) => {
         state41.text = e.target.value;
       });
       (_c = root41.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _c.addEventListener("change", () => {
@@ -17195,7 +17370,7 @@ INVARSPEC !(x & y)`
     return m ? Number(m[1]) : 0;
   }
   function buildCfgIndex(cfg) {
-    var _a, _b;
+    var _a2, _b2;
     const nodeById = /* @__PURE__ */ new Map();
     for (const n of cfg.nodes) nodeById.set(n.id, n);
     const outgoing3 = /* @__PURE__ */ new Map();
@@ -17205,8 +17380,8 @@ INVARSPEC !(x & y)`
       incoming.set(n.id, []);
     }
     for (const e of cfg.edges) {
-      (_a = outgoing3.get(e.from)) == null ? void 0 : _a.push(e);
-      (_b = incoming.get(e.to)) == null ? void 0 : _b.push(e);
+      (_a2 = outgoing3.get(e.from)) == null ? void 0 : _a2.push(e);
+      (_b2 = incoming.get(e.to)) == null ? void 0 : _b2.push(e);
     }
     const loopHeads = /* @__PURE__ */ new Set();
     for (const n of cfg.nodes) {
@@ -17285,10 +17460,10 @@ INVARSPEC !(x & y)`
     return { x: to.x - dx / len * radius, y: to.y - dy / len * radius };
   }
   function computeBounds(cfg, padding = 60) {
-    var _a, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     const xs = [], ys = [];
     for (const n of cfg.nodes) {
-      xs.push(((_a = n.x) != null ? _a : 0) - 32, ((_b = n.x) != null ? _b : 0) + 32);
+      xs.push(((_a2 = n.x) != null ? _a2 : 0) - 32, ((_b2 = n.x) != null ? _b2 : 0) + 32);
       ys.push(((_c = n.y) != null ? _c : 0) - 32, ((_d = n.y) != null ? _d : 0) + 32);
     }
     for (const e of cfg.edges) {
@@ -17359,9 +17534,9 @@ INVARSPEC !(x & y)`
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadSaved2() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY6);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY6);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -17370,9 +17545,9 @@ INVARSPEC !(x & y)`
     }
   }
   function persist2(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY6, JSON.stringify({
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY6, JSON.stringify({
         sourceCode: state41.sourceCode,
         exampleId: state41.exampleId,
         maxLoopUnroll: state41.maxLoopUnroll,
@@ -17463,7 +17638,7 @@ INVARSPEC !(x & y)`
     `;
     }
     function recompute() {
-      var _a, _b;
+      var _a2, _b2;
       state41.result = null;
       state41.error = null;
       state41.cfg = null;
@@ -17482,7 +17657,7 @@ INVARSPEC !(x & y)`
       } catch (err) {
         state41.cfgError = err.message || String(err);
       }
-      if ((_b = (_a = state41.result) == null ? void 0 : _a.paths) == null ? void 0 : _b.length) {
+      if ((_b2 = (_a2 = state41.result) == null ? void 0 : _a2.paths) == null ? void 0 : _b2.length) {
         const stillExists = state41.result.paths.some((p) => p.id === state41.selectedPathId);
         if (!stillExists) {
           const firstFeasible = state41.result.paths.find((p) => p.feasible) || state41.result.paths[0];
@@ -17569,14 +17744,14 @@ INVARSPEC !(x & y)`
       bindEvents40();
     }
     function renderCfgPane() {
-      var _a, _b;
+      var _a2, _b2;
       if (state41.cfgError) {
         return `<div class="symbex-cfg" data-testid="symbex-cfg">
         <p class="symbex-cfg-error">${escapeHtml6(state41.cfgError)}</p>
       </div>`;
       }
       if (!state41.cfg) return "";
-      const selected = (_b = (_a = state41.result) == null ? void 0 : _a.paths) == null ? void 0 : _b.find((p) => p.id === state41.selectedPathId);
+      const selected = (_b2 = (_a2 = state41.result) == null ? void 0 : _a2.paths) == null ? void 0 : _b2.find((p) => p.id === state41.selectedPathId);
       const mapping = selected ? mapBranchesToCfg(state41.cfg, selected.branches) : { nodes: [], edges: [] };
       const svg = renderCfgSvg(state41.cfg, mapping, {
         idPrefix: "symbex-cfg",
@@ -17638,7 +17813,7 @@ INVARSPEC !(x & y)`
       return `${expr}  \u2192  ${concrete}`;
     }
     function bindEvents40() {
-      var _a, _b, _c, _d;
+      var _a2, _b2, _c, _d;
       root41.querySelectorAll("[data-symbex-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.symbexExample;
@@ -17727,14 +17902,14 @@ INVARSPEC !(x & y)`
           render41();
         });
       }
-      (_a = root41.querySelector('[data-testid="symbex-lab-reflect-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+      (_a2 = root41.querySelector('[data-testid="symbex-lab-reflect-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         symbexLabReflect.active = true;
         render41();
       });
-      (_b = root41.querySelector('[data-testid="symbex-lab-reflect-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
-        var _a2, _b2;
-        symbexLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || symbexLabReflect.a1;
-        symbexLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || symbexLabReflect.a2;
+      (_b2 = root41.querySelector('[data-testid="symbex-lab-reflect-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+        var _a3, _b3;
+        symbexLabReflect.a1 = ((_a3 = root41.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || symbexLabReflect.a1;
+        symbexLabReflect.a2 = ((_b3 = root41.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || symbexLabReflect.a2;
         symbexLabReflect.active = false;
         render41();
       });
@@ -17747,9 +17922,9 @@ INVARSPEC !(x & y)`
       const symbexLrShare = root41.querySelector('[data-testid="symbex-lab-reflect-share"]');
       if (symbexLrShare) {
         symbexLrShare.addEventListener("click", async () => {
-          var _a2, _b2;
-          const a1 = ((_a2 = root41.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || "";
-          const a2 = ((_b2 = root41.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || "";
+          var _a3, _b3;
+          const a1 = ((_a3 = root41.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root41.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "symbex",
@@ -17883,13 +18058,13 @@ INVARSPEC !(x & y)`
     return params.map((p) => `${p}=${inputs[p]}`).join(",");
   }
   function concolicExecute(programSource, options = {}) {
-    var _a;
+    var _a2;
     const opts = { ...DEFAULT_OPTIONS2, ...options };
     const fn = parse(programSource);
     const params = fn.params.slice();
     const seed = {};
     for (const p of params) {
-      seed[p] = ((_a = options.initialInputs) == null ? void 0 : _a[p]) != null ? options.initialInputs[p] : 0;
+      seed[p] = ((_a2 = options.initialInputs) == null ? void 0 : _a2[p]) != null ? options.initialInputs[p] : 0;
     }
     const worklist = [seed];
     const seenInputs = /* @__PURE__ */ new Set([inputKey(seed, params)]);
@@ -17982,9 +18157,9 @@ INVARSPEC !(x & y)`
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadSaved3() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY7);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY7);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -17993,9 +18168,9 @@ INVARSPEC !(x & y)`
     }
   }
   function persist3(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY7, JSON.stringify({
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY7, JSON.stringify({
         sourceCode: state41.sourceCode,
         exampleId: state41.exampleId,
         seedText: state41.seedText,
@@ -18078,7 +18253,7 @@ INVARSPEC !(x & y)`
     `;
     }
     function recompute() {
-      var _a, _b;
+      var _a2, _b2;
       state41.result = null;
       state41.error = null;
       state41.cfg = null;
@@ -18101,7 +18276,7 @@ INVARSPEC !(x & y)`
       } catch (err) {
         state41.cfgError = err.message || String(err);
       }
-      if ((_b = (_a = state41.result) == null ? void 0 : _a.iterations) == null ? void 0 : _b.length) {
+      if ((_b2 = (_a2 = state41.result) == null ? void 0 : _a2.iterations) == null ? void 0 : _b2.length) {
         const stillExists = state41.result.iterations.some((it) => it.id === state41.selectedIterId);
         if (!stillExists) {
           state41.selectedIterId = state41.result.iterations[0].id;
@@ -18193,14 +18368,14 @@ INVARSPEC !(x & y)`
       bindEvents40();
     }
     function renderCfgPane() {
-      var _a, _b;
+      var _a2, _b2;
       if (state41.cfgError) {
         return `<div class="concolic-cfg" data-testid="concolic-cfg">
         <p class="concolic-cfg-error">${escapeHtml7(state41.cfgError)}</p>
       </div>`;
       }
       if (!state41.cfg) return "";
-      const selected = (_b = (_a = state41.result) == null ? void 0 : _a.iterations) == null ? void 0 : _b.find((it) => it.id === state41.selectedIterId);
+      const selected = (_b2 = (_a2 = state41.result) == null ? void 0 : _a2.iterations) == null ? void 0 : _b2.find((it) => it.id === state41.selectedIterId);
       const mapping = selected ? mapBranchesToCfg(state41.cfg, selected.branches) : { nodes: [], edges: [] };
       const svg = renderCfgSvg(state41.cfg, mapping, {
         idPrefix: "concolic-cfg",
@@ -18498,7 +18673,7 @@ INVARSPEC !(x & y)`
     let totalDuration = 0;
     try {
       let runOne2 = function(input, isMutated) {
-        var _a;
+        var _a2;
         const args = parsed.paramNames.map((p) => input[p]);
         let output = null;
         let error = null;
@@ -18511,7 +18686,7 @@ INVARSPEC !(x & y)`
           crashed = true;
           crashes++;
           error = err instanceof Error ? err.message : String(err);
-          uniqueErrors.set(error, ((_a = uniqueErrors.get(error)) != null ? _a : 0) + 1);
+          uniqueErrors.set(error, ((_a2 = uniqueErrors.get(error)) != null ? _a2 : 0) + 1);
           failedTests++;
         }
         const duration = performance.now() - startTime;
@@ -18587,9 +18762,9 @@ INVARSPEC !(x & y)`
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadSaved4() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY8);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY8);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -18598,9 +18773,9 @@ INVARSPEC !(x & y)`
     }
   }
   function persist4(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(
         STORAGE_KEY8,
         JSON.stringify({
           sourceCode: state41.sourceCode,
@@ -18698,7 +18873,7 @@ INVARSPEC !(x & y)`
     `;
     }
     function recompute() {
-      var _a;
+      var _a2;
       state41.result = null;
       state41.cfg = null;
       state41.cfgError = null;
@@ -18736,7 +18911,7 @@ INVARSPEC !(x & y)`
         state41.coveredNodes = [...allNodes];
         state41.coveredEdges = [...allEdges];
       }
-      if ((_a = result == null ? void 0 : result.testCases) == null ? void 0 : _a.length) {
+      if ((_a2 = result == null ? void 0 : result.testCases) == null ? void 0 : _a2.length) {
         const stillExists = result.testCases.some((tc) => tc.id === state41.selectedCaseId);
         if (!stillExists) state41.selectedCaseId = null;
       } else {
@@ -18935,7 +19110,7 @@ INVARSPEC !(x & y)`
       return `<ol class="fuzz-cases" data-testid="fuzz-cases">${items}</ol>`;
     }
     function bindEvents40() {
-      var _a, _b, _c, _d;
+      var _a2, _b2, _c, _d;
       root41.querySelectorAll("[data-fuzz-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.fuzzExample;
@@ -19034,14 +19209,14 @@ INVARSPEC !(x & y)`
           render41();
         });
       }
-      (_a = root41.querySelector('[data-testid="fuzz-lab-reflect-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+      (_a2 = root41.querySelector('[data-testid="fuzz-lab-reflect-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         fuzzLabReflect.active = true;
         render41();
       });
-      (_b = root41.querySelector('[data-testid="fuzz-lab-reflect-close"]')) == null ? void 0 : _b.addEventListener("click", () => {
-        var _a2, _b2;
-        fuzzLabReflect.a1 = ((_a2 = root41.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || fuzzLabReflect.a1;
-        fuzzLabReflect.a2 = ((_b2 = root41.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || fuzzLabReflect.a2;
+      (_b2 = root41.querySelector('[data-testid="fuzz-lab-reflect-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+        var _a3, _b3;
+        fuzzLabReflect.a1 = ((_a3 = root41.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || fuzzLabReflect.a1;
+        fuzzLabReflect.a2 = ((_b3 = root41.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || fuzzLabReflect.a2;
         fuzzLabReflect.active = false;
         render41();
       });
@@ -19054,9 +19229,9 @@ INVARSPEC !(x & y)`
       const fuzzLrShare = root41.querySelector('[data-testid="fuzz-lab-reflect-share"]');
       if (fuzzLrShare) {
         fuzzLrShare.addEventListener("click", async () => {
-          var _a2, _b2;
-          const a1 = ((_a2 = root41.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || "";
-          const a2 = ((_b2 = root41.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || "";
+          var _a3, _b3;
+          const a1 = ((_a3 = root41.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root41.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "fuzz",
@@ -19207,7 +19382,7 @@ INVARSPEC !(x & y)`
     };
   }
   function coverageForRequirement(requirement, witnessedPaths) {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     const coveringIds = [];
     let representative = null;
     for (const wp of witnessedPaths) {
@@ -19222,8 +19397,8 @@ INVARSPEC !(x & y)`
       requirement,
       coveringPathIds: coveringIds,
       feasible: coveringIds.length > 0,
-      representativeWitness: (_a = representative == null ? void 0 : representative.witness) != null ? _a : null,
-      representativeReturn: (_b = representative == null ? void 0 : representative.concreteReturn) != null ? _b : null,
+      representativeWitness: (_a2 = representative == null ? void 0 : representative.witness) != null ? _a2 : null,
+      representativeReturn: (_b2 = representative == null ? void 0 : representative.concreteReturn) != null ? _b2 : null,
       representativePathId: (_c = representative == null ? void 0 : representative.id) != null ? _c : null
     };
   }
@@ -19349,9 +19524,9 @@ INVARSPEC !(x & y)`
     return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function loadSaved5() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY9);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY9);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && typeof parsed === "object" ? parsed : null;
@@ -19360,9 +19535,9 @@ INVARSPEC !(x & y)`
     }
   }
   function persist5(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY9, JSON.stringify({
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY9, JSON.stringify({
         exampleId: state41.exampleId,
         sourceCode: state41.sourceCode,
         criterion: state41.criterion,
@@ -19387,12 +19562,12 @@ INVARSPEC !(x & y)`
       selectedTestPathId: null
     };
     function recompute() {
-      var _a, _b, _c, _d;
+      var _a2, _b2, _c, _d;
       state41.result = generateTestsFromCoverage({
         sourceCode: state41.sourceCode,
         criterion: state41.criterion
       });
-      if ((_b = (_a = state41.result) == null ? void 0 : _a.requirements) == null ? void 0 : _b.length) {
+      if ((_b2 = (_a2 = state41.result) == null ? void 0 : _a2.requirements) == null ? void 0 : _b2.length) {
         const exists = state41.result.requirements.some((r) => r.id === state41.selectedRequirementId);
         if (!exists) state41.selectedRequirementId = state41.result.requirements[0].id;
       } else {
@@ -19530,15 +19705,15 @@ INVARSPEC !(x & y)`
       return `<ol class="testgen-req-list" data-testid="testgen-req-list">${items}</ol>`;
     }
     function buildVitestFile() {
-      var _a, _b;
+      var _a2, _b2;
       const r = state41.result;
       if (!r || r.error || !r.selectedTests.length) return null;
-      const fn = ((_a = r.function) == null ? void 0 : _a.name) || "fn";
-      const params = ((_b = r.function) == null ? void 0 : _b.params) || [];
+      const fn = ((_a2 = r.function) == null ? void 0 : _a2.name) || "fn";
+      const params = ((_b2 = r.function) == null ? void 0 : _b2.params) || [];
       const cases = r.selectedTests.map((tc, i) => {
         const args = params.map((p) => {
-          var _a2;
-          const v = (_a2 = tc.witness) == null ? void 0 : _a2[p];
+          var _a3;
+          const v = (_a3 = tc.witness) == null ? void 0 : _a3[p];
           return v === void 0 ? "undefined" : JSON.stringify(v);
         }).join(", ");
         const ret = tc.concreteReturn === void 0 ? "undefined" : JSON.stringify(tc.concreteReturn);
@@ -19697,10 +19872,10 @@ ${cases}
       const downloadBtn = root41.querySelector('[data-testid="testgen-download-btn"]');
       if (downloadBtn) {
         downloadBtn.addEventListener("click", () => {
-          var _a, _b;
+          var _a2, _b2;
           const content = buildVitestFile();
           if (!content) return;
-          const fn = ((_b = (_a = state41.result) == null ? void 0 : _a.function) == null ? void 0 : _b.name) || "generated";
+          const fn = ((_b2 = (_a2 = state41.result) == null ? void 0 : _a2.function) == null ? void 0 : _b2.name) || "generated";
           const blob = new Blob([content], { type: "text/javascript" });
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
@@ -19800,7 +19975,7 @@ ${cases}
     return [...base, ...extras];
   }
   function generateWectTests(params) {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     if (!params.length) return [];
     const perParam = params.map((p) => ({
       name: p.name,
@@ -19815,7 +19990,7 @@ ${cases}
       const coverage = [];
       for (const pp of perParam) {
         const cls = pp.valid[i % pp.valid.length];
-        values[pp.name] = (_c = (_b = cls == null ? void 0 : cls.representative) != null ? _b : (_a = pp.valid[0]) == null ? void 0 : _a.representative) != null ? _c : "";
+        values[pp.name] = (_c = (_b2 = cls == null ? void 0 : cls.representative) != null ? _b2 : (_a2 = pp.valid[0]) == null ? void 0 : _a2.representative) != null ? _c : "";
         coverage.push(`${pp.name}:${(_d = cls == null ? void 0 : cls.name) != null ? _d : "valid"}`);
       }
       tests.push({ id: `ec-${idx++}`, label: `Valid-${i + 1}`, values, coverage });
@@ -19877,9 +20052,9 @@ ${cases}
   }
   function generateDecisionTableTests(conditions, actions, rules) {
     return rules.map((rule, i) => {
-      var _a;
+      var _a2;
       return {
-        id: (_a = rule.id) != null ? _a : `dt-${i}`,
+        id: (_a2 = rule.id) != null ? _a2 : `dt-${i}`,
         label: `R${i + 1}`,
         conditions: { ...rule.conditions },
         actions: [...rule.actions]
@@ -19889,8 +20064,8 @@ ${cases}
   function validateDecisionTable(conditions, rules) {
     const keys = rules.map(
       (r) => conditions.map((c) => {
-        var _a;
-        return (_a = r.conditions[c.id]) != null ? _a : "\u2013";
+        var _a2;
+        return (_a2 = r.conditions[c.id]) != null ? _a2 : "\u2013";
       }).join("|")
     );
     const seen = /* @__PURE__ */ new Set();
@@ -19907,13 +20082,13 @@ ${cases}
   }
   function generateStTransitionTests(states, transitions) {
     return transitions.map((tr, i) => {
-      var _a, _b, _c, _d;
+      var _a2, _b2, _c, _d;
       const fromState = states.find((s) => s.id === tr.from);
       const toState = states.find((s) => s.id === tr.to);
       return {
-        id: (_a = tr.id) != null ? _a : `st-${i}`,
+        id: (_a2 = tr.id) != null ? _a2 : `st-${i}`,
         label: `T${i + 1}`,
-        from: (_b = fromState == null ? void 0 : fromState.name) != null ? _b : tr.from,
+        from: (_b2 = fromState == null ? void 0 : fromState.name) != null ? _b2 : tr.from,
         to: (_c = toState == null ? void 0 : toState.name) != null ? _c : tr.to,
         event: tr.event,
         action: (_d = tr.action) != null ? _d : ""
@@ -19921,8 +20096,8 @@ ${cases}
     });
   }
   function generateStSequenceTests(states, transitions) {
-    var _a, _b;
-    const initial = (_a = states.find((s) => s.initial)) != null ? _a : states[0];
+    var _a2, _b2;
+    const initial = (_a2 = states.find((s) => s.initial)) != null ? _a2 : states[0];
     if (!initial) return [];
     const adjOut = {};
     for (const s of states) adjOut[s.id] = [];
@@ -19933,7 +20108,7 @@ ${cases}
     const queue = [initial.id];
     while (queue.length) {
       const cur = queue.shift();
-      for (const tr of (_b = adjOut[cur]) != null ? _b : []) {
+      for (const tr of (_b2 = adjOut[cur]) != null ? _b2 : []) {
         if (!(tr.to in dist)) {
           dist[tr.to] = [...dist[cur], tr];
           queue.push(tr.to);
@@ -19941,10 +20116,10 @@ ${cases}
       }
     }
     return transitions.map((tr, i) => {
-      var _a2, _b2, _c;
-      const pathToFrom = (_a2 = dist[tr.from]) != null ? _a2 : [];
+      var _a3, _b3, _c;
+      const pathToFrom = (_a3 = dist[tr.from]) != null ? _a3 : [];
       const fullPath = [...pathToFrom, tr];
-      const stateNames = [(_b2 = initial.name) != null ? _b2 : initial.id];
+      const stateNames = [(_b3 = initial.name) != null ? _b3 : initial.id];
       const events = [];
       for (const step2 of fullPath) {
         const toSt = states.find((s) => s.id === step2.to);
@@ -20000,18 +20175,18 @@ ${cases}
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function loadSaved6() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY10);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY10);
       return raw ? JSON.parse(raw) : null;
     } catch {
       return null;
     }
   }
   function persist6(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY10, JSON.stringify({
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY10, JSON.stringify({
         exampleId: state41.exampleId,
         params: state41.params,
         robust: state41.robust
@@ -20025,15 +20200,15 @@ ${cases}
     return [min, min + 1, nom, max - 1, max];
   }
   function createBoundaryValueExplorer() {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     const root41 = document.createElement("div");
     root41.className = "bva-explorer";
     root41.dataset.testid = "bva-explorer";
     const saved = loadSaved6();
     const defaultEx = EXAMPLES[0];
     const state41 = {
-      exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
-      params: (_b = saved == null ? void 0 : saved.params) != null ? _b : defaultEx.params.map((p) => ({ ...p })),
+      exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
+      params: (_b2 = saved == null ? void 0 : saved.params) != null ? _b2 : defaultEx.params.map((p) => ({ ...p })),
       robust: (_c = saved == null ? void 0 : saved.robust) != null ? _c : false
     };
     const quiz = { active: false, paramIdx: 0, answers: ["", "", "", "", ""], phase: "question", result: null };
@@ -20053,10 +20228,10 @@ ${cases}
       quiz.result = null;
     }
     function gradeQuiz() {
-      var _a2;
+      var _a3;
       const vp = validParams();
       if (!vp.length) return;
-      const param = (_a2 = vp[quiz.paramIdx]) != null ? _a2 : vp[0];
+      const param = (_a3 = vp[quiz.paramIdx]) != null ? _a3 : vp[0];
       const expected = expectedBva(param);
       const userNums = quiz.answers.map((a) => Number(a));
       const correct = expected.map((e, i) => userNums[i] === e);
@@ -20065,7 +20240,7 @@ ${cases}
       render41();
     }
     function renderQuizPanel() {
-      var _a2;
+      var _a3;
       if (!quiz.active) return "";
       const vp = validParams();
       if (!vp.length) {
@@ -20073,7 +20248,7 @@ ${cases}
         <p>${escapeHtml10(t("bva.hint"))}</p>
       </div>`;
       }
-      const param = (_a2 = vp[quiz.paramIdx]) != null ? _a2 : vp[0];
+      const param = (_a3 = vp[quiz.paramIdx]) != null ? _a3 : vp[0];
       const prompt = t("quiz.bva.prompt").replace("{name}", escapeHtml10(param.name)).replace("{min}", param.min).replace("{max}", param.max);
       const labels = [0, 1, 2, 3, 4].map((i) => t(`quiz.bva.labels.${i}`));
       const isGraded = quiz.phase === "graded";
@@ -20200,7 +20375,7 @@ ${cases}
       persist6(state41);
     }
     function bindEvents40() {
-      var _a2, _b2, _c2, _d, _e, _f;
+      var _a3, _b3, _c2, _d, _e, _f;
       root41.querySelectorAll("[data-bva-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES.find((e) => e.id === btn.dataset.bvaExample);
@@ -20210,7 +20385,7 @@ ${cases}
           render41();
         });
       });
-      (_a2 = root41.querySelector('[data-testid="bva-robust-toggle"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
+      (_a3 = root41.querySelector('[data-testid="bva-robust-toggle"]')) == null ? void 0 : _a3.addEventListener("change", (e) => {
         state41.robust = e.target.checked;
         render41();
       });
@@ -20250,7 +20425,7 @@ ${cases}
           render41();
         });
       });
-      (_b2 = root41.querySelector('[data-testid="bva-add-param"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      (_b3 = root41.querySelector('[data-testid="bva-add-param"]')) == null ? void 0 : _b3.addEventListener("click", () => {
         if (state41.params.length >= PARAM_LIMIT) return;
         state41.params.push({ name: `p${state41.params.length + 1}`, min: 0, max: 100 });
         render41();
@@ -20364,18 +20539,18 @@ ${cases}
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function loadSaved7() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY11);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY11);
       return raw ? JSON.parse(raw) : null;
     } catch {
       return null;
     }
   }
   function persist7(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY11, JSON.stringify({
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY11, JSON.stringify({
         exampleId: state41.exampleId,
         params: state41.params,
         mode: state41.mode
@@ -20384,15 +20559,15 @@ ${cases}
     }
   }
   function createEquivalenceClassExplorer() {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     const root41 = document.createElement("div");
     root41.className = "ec-explorer";
     root41.dataset.testid = "ec-explorer";
     const saved = loadSaved7();
     const defaultEx = EXAMPLES2[0];
     const state41 = {
-      exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
-      params: (_b = saved == null ? void 0 : saved.params) != null ? _b : defaultEx.params.map((p) => ({ ...p, classes: p.classes.map((c) => ({ ...c })) })),
+      exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
+      params: (_b2 = saved == null ? void 0 : saved.params) != null ? _b2 : defaultEx.params.map((p) => ({ ...p, classes: p.classes.map((c) => ({ ...c })) })),
       mode: (_c = saved == null ? void 0 : saved.mode) != null ? _c : "wect"
       // 'wect' | 'sect'
     };
@@ -20505,8 +20680,8 @@ ${cases}
       const headerCols = paramNames.map((n) => `<th>${escapeHtml11(n)}</th>`).join("");
       const rows = tests.map((tc) => {
         const valCells = paramNames.map((n) => {
-          var _a2;
-          return `<td>${escapeHtml11(String((_a2 = tc.values[n]) != null ? _a2 : ""))}</td>`;
+          var _a3;
+          return `<td>${escapeHtml11(String((_a3 = tc.values[n]) != null ? _a3 : ""))}</td>`;
         }).join("");
         const hasInv = tc.hasInvalid ? " ec-row-invalid" : "";
         return `<tr class="ec-row${hasInv}" data-testid="ec-row-${tc.id}">
@@ -20572,7 +20747,7 @@ ${cases}
       persist7(state41);
     }
     function bindEvents40() {
-      var _a2, _b2, _c2, _d, _e, _f, _g;
+      var _a3, _b3, _c2, _d, _e, _f, _g;
       root41.querySelectorAll("[data-ec-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES2.find((e) => e.id === btn.dataset.ecExample);
@@ -20643,7 +20818,7 @@ ${cases}
           render41();
         });
       });
-      (_a2 = root41.querySelector('[data-testid="ec-add-param"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a3 = root41.querySelector('[data-testid="ec-add-param"]')) == null ? void 0 : _a3.addEventListener("click", () => {
         if (state41.params.length >= 5) return;
         state41.params.push({
           name: `param${state41.params.length + 1}`,
@@ -20654,7 +20829,7 @@ ${cases}
         });
         render41();
       });
-      (_b2 = root41.querySelector('[data-testid="ec-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      (_b3 = root41.querySelector('[data-testid="ec-quiz-start"]')) == null ? void 0 : _b3.addEventListener("click", () => {
         quiz.active = true;
         quiz.wectAnswer = "";
         quiz.sectAnswer = "";
@@ -20816,8 +20991,8 @@ ${cases}
     return tests.map((row) => {
       const obj = {};
       valid.forEach((p, i) => {
-        var _a;
-        obj[p.name] = (_a = row[i]) != null ? _a : p.values[0];
+        var _a2;
+        obj[p.name] = (_a2 = row[i]) != null ? _a2 : p.values[0];
       });
       return obj;
     });
@@ -21201,7 +21376,7 @@ ${cases}
       return idm.find((c) => c.id === cid);
     }
     function bindEvents40() {
-      var _a, _b, _c, _d, _e;
+      var _a2, _b2, _c, _d, _e;
       root41.querySelectorAll("[data-isp-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = ISP_EXAMPLES.find((e) => e.id === btn.dataset.ispExample);
@@ -21217,7 +21392,7 @@ ${cases}
           render41();
         });
       });
-      (_a = root41.querySelector("[data-isp-twise-t]")) == null ? void 0 : _a.addEventListener("change", (e) => {
+      (_a2 = root41.querySelector("[data-isp-twise-t]")) == null ? void 0 : _a2.addEventListener("change", (e) => {
         const v = parseInt(e.target.value, 10);
         twiseTVal = Number.isFinite(v) ? Math.max(2, Math.min(v, idm.length)) : 2;
         render41();
@@ -21231,7 +21406,7 @@ ${cases}
           }
         });
       });
-      (_b = root41.querySelector("[data-isp-add-char]")) == null ? void 0 : _b.addEventListener("click", () => {
+      (_b2 = root41.querySelector("[data-isp-add-char]")) == null ? void 0 : _b2.addEventListener("click", () => {
         const b1 = { id: uid(), label: "block 1" };
         const b2 = { id: uid(), label: "block 2" };
         idm.push({ id: uid(), name: "new characteristic", blocks: [b1, b2], baseBlockIds: [b1.id] });
@@ -21390,29 +21565,29 @@ ${cases}
     return JSON.parse(JSON.stringify(obj));
   }
   function loadSaved8() {
-    var _a, _b;
+    var _a2, _b2;
     try {
-      return JSON.parse((_b = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY12)) != null ? _b : "null");
+      return JSON.parse((_b2 = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY12)) != null ? _b2 : "null");
     } catch {
       return null;
     }
   }
   function persist8(state41) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY12, JSON.stringify({ exampleId: state41.exampleId, conditions: state41.conditions, actions: state41.actions, rules: state41.rules }));
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY12, JSON.stringify({ exampleId: state41.exampleId, conditions: state41.conditions, actions: state41.actions, rules: state41.rules }));
     } catch {
     }
   }
   function createDecisionTableExplorer() {
-    var _a;
+    var _a2;
     const root41 = document.createElement("div");
     root41.className = "dt-explorer";
     root41.dataset.testid = "dt-explorer";
     const saved = loadSaved8();
     const defaultEx = EXAMPLES3[0];
     const state41 = {
-      exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
+      exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
       conditions: (saved == null ? void 0 : saved.conditions) ? deepClone(saved.conditions) : deepClone(defaultEx.conditions),
       actions: (saved == null ? void 0 : saved.actions) ? deepClone(saved.actions) : deepClone(defaultEx.actions),
       rules: (saved == null ? void 0 : saved.rules) ? deepClone(saved.rules) : deepClone(defaultEx.rules)
@@ -21469,8 +21644,8 @@ ${cases}
       const rows = tests.map((tc, i) => {
         const rule = state41.rules[i];
         const condCells = state41.conditions.map((c) => {
-          var _a2;
-          const val = (_a2 = tc.conditions[c.id]) != null ? _a2 : "\u2013";
+          var _a3;
+          const val = (_a3 = tc.conditions[c.id]) != null ? _a3 : "\u2013";
           const cls = val === "T" || val === "Y" ? " dt-val-true" : val === "F" || val === "N" ? " dt-val-false" : " dt-val-dc";
           return `<td class="dt-cell${cls}">${esc3(val)}</td>`;
         }).join("");
@@ -21582,7 +21757,7 @@ ${cases}
       state41.rules.push({ id: `r${nextRuleId++}`, conditions, actions: [] });
     }
     function bindEvents40() {
-      var _a2, _b, _c, _d, _e, _f, _g;
+      var _a3, _b2, _c, _d, _e, _f, _g;
       root41.querySelectorAll("[data-dt-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES3.find((e) => e.id === btn.dataset.dtExample);
@@ -21626,14 +21801,14 @@ ${cases}
           render41();
         });
       });
-      (_a2 = root41.querySelector('[data-testid="dt-add-cond"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a3 = root41.querySelector('[data-testid="dt-add-cond"]')) == null ? void 0 : _a3.addEventListener("click", () => {
         if (state41.conditions.length >= 6) return;
         const id = `c${nextCondId++}`;
         state41.conditions.push({ id, name: `Condition ${state41.conditions.length + 1}`, values: ["T", "F"] });
         for (const r of state41.rules) r.conditions[id] = "T";
         render41();
       });
-      (_b = root41.querySelector('[data-testid="dt-add-act"]')) == null ? void 0 : _b.addEventListener("click", () => {
+      (_b2 = root41.querySelector('[data-testid="dt-add-act"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         if (state41.actions.length >= 6) return;
         const id = `a${nextActId++}`;
         state41.actions.push({ id, name: `Action ${state41.actions.length + 1}` });
@@ -21651,24 +21826,24 @@ ${cases}
       });
       root41.querySelectorAll(".dt-cell.dt-val-true, .dt-cell.dt-val-false, .dt-cell.dt-val-dc").forEach((td) => {
         td.addEventListener("click", () => {
-          var _a3, _b2;
+          var _a4, _b3;
           const row = td.closest("tr");
           if (!row) return;
           const ruleIdx = [...root41.querySelectorAll("tbody tr")].indexOf(row);
           const allCells = [...row.querySelectorAll('.dt-cell[class*="dt-val"]')];
           const colIdx = allCells.indexOf(td);
           if (ruleIdx < 0 || colIdx < 0) return;
-          const cid = (_a3 = state41.conditions[colIdx]) == null ? void 0 : _a3.id;
+          const cid = (_a4 = state41.conditions[colIdx]) == null ? void 0 : _a4.id;
           if (!cid) return;
           const cur = state41.rules[ruleIdx].conditions[cid];
           const cycle = { "T": "F", "F": "\u2013", "\u2013": "T" };
-          state41.rules[ruleIdx].conditions[cid] = (_b2 = cycle[cur]) != null ? _b2 : "T";
+          state41.rules[ruleIdx].conditions[cid] = (_b3 = cycle[cur]) != null ? _b3 : "T";
           refreshResults();
           persist8(state41);
         });
       });
       root41.querySelectorAll('.dt-cell.dt-act-fire, .dt-cell:not([class*="dt-val"]):not(.dt-separator):not(.dt-rule-label)').forEach((td) => {
-        var _a3;
+        var _a4;
         if (!td.closest("tbody")) return;
         const row = td.closest("tr");
         if (!row) return;
@@ -21679,7 +21854,7 @@ ${cases}
         const tdIdx = allTds.indexOf(td);
         const actColIdx = tdIdx - condCells - 2;
         if (actColIdx < 0 || actColIdx >= state41.actions.length) return;
-        const aid = (_a3 = state41.actions[actColIdx]) == null ? void 0 : _a3.id;
+        const aid = (_a4 = state41.actions[actColIdx]) == null ? void 0 : _a4.id;
         if (!aid) return;
         const r = state41.rules[ruleIdx];
         if (r.actions.includes(aid)) r.actions = r.actions.filter((a) => a !== aid);
@@ -21699,8 +21874,8 @@ ${cases}
         render41();
       });
       (_f = root41.querySelector('[data-testid="dt-quiz-check"]')) == null ? void 0 : _f.addEventListener("click", () => {
-        var _a3, _b2, _c2, _d2;
-        dtQuiz.ansCovered = (_b2 = (_a3 = root41.querySelector('[data-testid="dt-quiz-covered"]')) == null ? void 0 : _a3.value) != null ? _b2 : "";
+        var _a4, _b3, _c2, _d2;
+        dtQuiz.ansCovered = (_b3 = (_a4 = root41.querySelector('[data-testid="dt-quiz-covered"]')) == null ? void 0 : _a4.value) != null ? _b3 : "";
         dtQuiz.ansDup = (_d2 = (_c2 = root41.querySelector('[data-testid="dt-quiz-dup"]')) == null ? void 0 : _c2.value) != null ? _d2 : "";
         dtQuiz.phase = "graded";
         render41();
@@ -21713,7 +21888,7 @@ ${cases}
       });
     }
     function refreshResults() {
-      var _a2;
+      var _a3;
       const pane = root41.querySelector('[data-testid="dt-results"]');
       if (pane) {
         pane.innerHTML = `<h3>${t("dt.results.title")}
@@ -21725,23 +21900,23 @@ ${cases}
             render41();
           });
         });
-        (_a2 = pane.querySelector('[data-testid="dt-add-rule"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+        (_a3 = pane.querySelector('[data-testid="dt-add-rule"]')) == null ? void 0 : _a3.addEventListener("click", () => {
           addDefaultRule();
           render41();
         });
         pane.querySelectorAll(".dt-cell.dt-val-true, .dt-cell.dt-val-false, .dt-cell.dt-val-dc").forEach((td) => {
           td.addEventListener("click", () => {
-            var _a3, _b;
+            var _a4, _b2;
             const row = td.closest("tr");
             if (!row) return;
             const ruleIdx = [...pane.querySelectorAll("tbody tr")].indexOf(row);
             const colIdx = [...row.querySelectorAll('.dt-cell[class*="dt-val"]')].indexOf(td);
             if (ruleIdx < 0 || colIdx < 0) return;
-            const cid = (_a3 = state41.conditions[colIdx]) == null ? void 0 : _a3.id;
+            const cid = (_a4 = state41.conditions[colIdx]) == null ? void 0 : _a4.id;
             if (!cid) return;
             const cur = state41.rules[ruleIdx].conditions[cid];
             const cycle = { "T": "F", "F": "\u2013", "\u2013": "T" };
-            state41.rules[ruleIdx].conditions[cid] = (_b = cycle[cur]) != null ? _b : "T";
+            state41.rules[ruleIdx].conditions[cid] = (_b2 = cycle[cur]) != null ? _b2 : "T";
             refreshResults();
             persist8(state41);
           });
@@ -21817,32 +21992,32 @@ ${cases}
     return JSON.parse(JSON.stringify(o));
   }
   function loadSaved9() {
-    var _a, _b;
+    var _a2, _b2;
     try {
-      return JSON.parse((_b = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY13)) != null ? _b : "null");
+      return JSON.parse((_b2 = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY13)) != null ? _b2 : "null");
     } catch {
       return null;
     }
   }
   function persist9(s) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY13, JSON.stringify({ exampleId: s.exampleId, states: s.states, transitions: s.transitions, mode: s.mode }));
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY13, JSON.stringify({ exampleId: s.exampleId, states: s.states, transitions: s.transitions, mode: s.mode }));
     } catch {
     }
   }
   function createStateTransitionExplorer() {
-    var _a, _b;
+    var _a2, _b2;
     const root41 = document.createElement("div");
     root41.className = "st-explorer";
     root41.dataset.testid = "st-explorer";
     const saved = loadSaved9();
     const defaultEx = EXAMPLES4[0];
     const state41 = {
-      exampleId: (_a = saved == null ? void 0 : saved.exampleId) != null ? _a : defaultEx.id,
+      exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
       states: (saved == null ? void 0 : saved.states) ? deepClone2(saved.states) : deepClone2(defaultEx.states),
       transitions: (saved == null ? void 0 : saved.transitions) ? deepClone2(saved.transitions) : deepClone2(defaultEx.transitions),
-      mode: (_b = saved == null ? void 0 : saved.mode) != null ? _b : "transition"
+      mode: (_b2 = saved == null ? void 0 : saved.mode) != null ? _b2 : "transition"
       // 'transition' | 'sequence'
     };
     let nextSId = 20;
@@ -21948,7 +22123,7 @@ ${cases}
     }
     function renderTransitionList() {
       return state41.transitions.map((tr, i) => {
-        var _a2;
+        var _a3;
         const fromNames = state41.states.map((s) => `<option value="${esc4(s.id)}"${tr.from === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
         const toNames = state41.states.map((s) => `<option value="${esc4(s.id)}"${tr.to === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
         return `<tr class="st-tr-row" data-testid="st-transition-${i}">
@@ -21957,7 +22132,7 @@ ${cases}
         <td><select class="st-to-sel" data-tidx="${i}" data-testid="st-to-${i}">${toNames}</select></td>
         <td><input class="st-event-inp" data-tidx="${i}" value="${esc4(tr.event)}"
           placeholder="${t("st.transition.event")}" data-testid="st-event-${i}"/></td>
-        <td><input class="st-action-inp" data-tidx="${i}" value="${esc4((_a2 = tr.action) != null ? _a2 : "")}"
+        <td><input class="st-action-inp" data-tidx="${i}" value="${esc4((_a3 = tr.action) != null ? _a3 : "")}"
           placeholder="${t("st.transition.action")}" data-testid="st-action-${i}"/></td>
         <td><button class="st-del-btn" data-del-tr="${i}" aria-label="${t("common.remove")}"
           ${state41.transitions.length <= 1 ? "disabled" : ""} data-testid="st-del-tr-${i}">\xD7</button></td>
@@ -22061,7 +22236,7 @@ ${cases}
       persist9(state41);
     }
     function bindEvents40() {
-      var _a2, _b2, _c, _d, _e, _f;
+      var _a3, _b3, _c, _d, _e, _f;
       root41.querySelectorAll("[data-st-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES4.find((e) => e.id === btn.dataset.stExample);
@@ -22104,7 +22279,7 @@ ${cases}
           render41();
         });
       });
-      (_a2 = root41.querySelector('[data-testid="st-add-state"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a3 = root41.querySelector('[data-testid="st-add-state"]')) == null ? void 0 : _a3.addEventListener("click", () => {
         if (state41.states.length >= 8) return;
         state41.states.push({ id: `s${nextSId++}`, name: `State ${state41.states.length + 1}` });
         render41();
@@ -22138,10 +22313,10 @@ ${cases}
           render41();
         });
       });
-      (_b2 = root41.querySelector('[data-testid="st-add-transition"]')) == null ? void 0 : _b2.addEventListener("click", () => {
-        var _a3, _b3, _c2, _d2;
+      (_b3 = root41.querySelector('[data-testid="st-add-transition"]')) == null ? void 0 : _b3.addEventListener("click", () => {
+        var _a4, _b4, _c2, _d2;
         if (state41.transitions.length >= 16) return;
-        const from = (_b3 = (_a3 = state41.states[0]) == null ? void 0 : _a3.id) != null ? _b3 : "";
+        const from = (_b4 = (_a4 = state41.states[0]) == null ? void 0 : _a4.id) != null ? _b4 : "";
         const to = (_d2 = (_c2 = state41.states[1]) == null ? void 0 : _c2.id) != null ? _d2 : from;
         state41.transitions.push({ id: `t${nextTId++}`, from, to, event: "event", action: "" });
         render41();
@@ -22157,8 +22332,8 @@ ${cases}
         render41();
       });
       (_e = root41.querySelector('[data-testid="st-quiz-check"]')) == null ? void 0 : _e.addEventListener("click", () => {
-        var _a3, _b3;
-        stQuiz.answer = (_b3 = (_a3 = root41.querySelector('[data-testid="st-quiz-answer"]')) == null ? void 0 : _a3.value) != null ? _b3 : "";
+        var _a4, _b4;
+        stQuiz.answer = (_b4 = (_a4 = root41.querySelector('[data-testid="st-quiz-answer"]')) == null ? void 0 : _a4.value) != null ? _b4 : "";
         stQuiz.phase = "graded";
         render41();
       });
@@ -22339,8 +22514,8 @@ function linearSearch(arr, target) {
           descZh: "\u53CD\u8F49\u5169\u6B21\u7B49\u65BC\u539F\u5B57\u4E32\u3002",
           generateInput: () => randStr(),
           transform: (s, runner) => {
-            var _a;
-            return (_a = runner(s).value) != null ? _a : s;
+            var _a2;
+            return (_a2 = runner(s).value) != null ? _a2 : s;
           },
           transformLabel: (s) => `reverse("${s}")`,
           check: (o1, o2) => o1.ok && o2.ok && o2.value === o1.value.split("").reverse().join(""),
@@ -22361,8 +22536,8 @@ function linearSearch(arr, target) {
           descZh: "\u53CD\u8F49\u4E0D\u6539\u8B8A\u5B57\u4E32\u9577\u5EA6\u3002",
           generateInput: () => randStr(),
           transform: (s, runner) => {
-            var _a;
-            return (_a = runner(s).value) != null ? _a : s;
+            var _a2;
+            return (_a2 = runner(s).value) != null ? _a2 : s;
           },
           transformLabel: (s) => `reverse("${s}")`,
           check: (o1, o2) => o1.ok && o2.ok && o2.value.length === o1.value.length,
@@ -22463,9 +22638,9 @@ function linearSearch(arr, target) {
           transform: (arr) => arr.map((x) => -x),
           transformLabel: (arr) => `[${arr}].map(x=>-x)`,
           check: (o1, o2) => {
-            var _a;
+            var _a2;
             if (!o1.ok || !o2.ok) return false;
-            const minOrig = Math.min(...(_a = o1.value) != null ? _a : []);
+            const minOrig = Math.min(...(_a2 = o1.value) != null ? _a2 : []);
             return o2.value === -minOrig;
           },
           outputRelation: "max(-A) == -min(A)",
@@ -22645,8 +22820,8 @@ function linearSearch(arr, target) {
 
   // src/components/MetamorphicTestingExplorer.js
   function scrollToSection(testid) {
-    var _a;
-    (_a = document.querySelector(`[data-testid="${testid}"]`)) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth", block: "start" });
+    var _a2;
+    (_a2 = document.querySelector(`[data-testid="${testid}"]`)) == null ? void 0 : _a2.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   function escapeHtml12(v = "") {
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
@@ -22704,13 +22879,13 @@ function linearSearch(arr, target) {
     `;
     }
     function getExample() {
-      var _a;
-      return (_a = metamorphicExamples.find((e) => e.id === state41.exampleId)) != null ? _a : metamorphicExamples[0];
+      var _a2;
+      return (_a2 = metamorphicExamples.find((e) => e.id === state41.exampleId)) != null ? _a2 : metamorphicExamples[0];
     }
     function getRelation() {
-      var _a;
+      var _a2;
       const ex = getExample();
-      return (_a = ex.relations.find((r) => r.id === state41.relationId)) != null ? _a : ex.relations[0];
+      return (_a2 = ex.relations.find((r) => r.id === state41.relationId)) != null ? _a2 : ex.relations[0];
     }
     function render41() {
       const ex = getExample();
@@ -22818,7 +22993,7 @@ function linearSearch(arr, target) {
     `;
     }
     function bindEvents40() {
-      var _a;
+      var _a2;
       root41.querySelectorAll("[data-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           state41.exampleId = btn.dataset.example;
@@ -22847,7 +23022,7 @@ function linearSearch(arr, target) {
           if (resultsEl) resultsEl.innerHTML = renderResults(state41.results);
         });
       }
-      (_a = root41.querySelector('[data-testid="mt-bridge-groupth"]')) == null ? void 0 : _a.addEventListener("click", () => {
+      (_a2 = root41.querySelector('[data-testid="mt-bridge-groupth"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         scrollToSection("section-groupth");
       });
       const mqStart = root41.querySelector('[data-testid="mt-quiz-start"]');
@@ -22920,18 +23095,18 @@ function linearSearch(arr, target) {
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function loadSaved10() {
-    var _a;
+    var _a2;
     try {
-      const raw = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(STORAGE_KEY14);
+      const raw = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(STORAGE_KEY14);
       return raw ? JSON.parse(raw) : null;
     } catch {
       return null;
     }
   }
   function persist10(data) {
-    var _a;
+    var _a2;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(STORAGE_KEY14, JSON.stringify(data));
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY14, JSON.stringify(data));
     } catch {
     }
   }
@@ -23318,7 +23493,7 @@ function linearSearch(arr, target) {
         {
           id: "user-repo",
           run() {
-            var _a;
+            var _a2;
             const callLog = [];
             const stubRepo = {
               findById(id) {
@@ -23335,7 +23510,7 @@ function linearSearch(arr, target) {
             const assertions = [
               { desc: 'profile.displayName === "Alice"', passed: profile.displayName === "Alice" },
               { desc: "profile.isAdmin === true", passed: profile.isAdmin === true },
-              { desc: "findById called with id 42", passed: ((_a = callLog[0]) == null ? void 0 : _a.args[0]) === 42 }
+              { desc: "findById called with id 42", passed: ((_a2 = callLog[0]) == null ? void 0 : _a2.args[0]) === 42 }
             ];
             return { callLog, assertions };
           }
@@ -23383,8 +23558,8 @@ function linearSearch(arr, target) {
                 callLog.push({ method: "save", args: [user2], result: user2 });
               }
               findById(id) {
-                var _a;
-                const result = (_a = this._store.get(id)) != null ? _a : null;
+                var _a2;
+                const result = (_a2 = this._store.get(id)) != null ? _a2 : null;
                 callLog.push({ method: "findById", args: [id], result });
                 return result;
               }
@@ -23421,9 +23596,9 @@ function linearSearch(arr, target) {
                 callLog.push({ method: "set", args: [key3, value], result: void 0 });
               }
               get(key3) {
-                var _a, _b;
-                const expired = Date.now() > ((_a = this._ttl[key3]) != null ? _a : 0);
-                const result = expired ? null : (_b = this._data[key3]) != null ? _b : null;
+                var _a2, _b2;
+                const expired = Date.now() > ((_a2 = this._ttl[key3]) != null ? _a2 : 0);
+                const result = expired ? null : (_b2 = this._data[key3]) != null ? _b2 : null;
                 callLog.push({ method: "get", args: [key3], result });
                 return result;
               }
@@ -23449,7 +23624,7 @@ function linearSearch(arr, target) {
         {
           id: "email-mock",
           run() {
-            var _a, _b;
+            var _a2, _b2;
             const callLog = [];
             const mockEmail = {
               _expectations: [],
@@ -23477,8 +23652,8 @@ function linearSearch(arr, target) {
             const verified = mockEmail.verify();
             const assertions = [
               { desc: "send() called once", passed: callLog.length === 1 },
-              { desc: "send() called with correct email", passed: ((_a = callLog[0]) == null ? void 0 : _a.args[0]) === "alice@example.com" },
-              { desc: "send() called with correct subject", passed: ((_b = callLog[0]) == null ? void 0 : _b.args[1]) === "Password Reset" },
+              { desc: "send() called with correct email", passed: ((_a2 = callLog[0]) == null ? void 0 : _a2.args[0]) === "alice@example.com" },
+              { desc: "send() called with correct subject", passed: ((_b2 = callLog[0]) == null ? void 0 : _b2.args[1]) === "Password Reset" },
               { desc: "mock.verify() \u2192 all expectations met", passed: verified }
             ];
             return { callLog, assertions };
@@ -23487,7 +23662,7 @@ function linearSearch(arr, target) {
         {
           id: "payment-mock",
           run() {
-            var _a, _b;
+            var _a2, _b2;
             const callLog = [];
             const mockPayment = {
               charge(amount, currency, token) {
@@ -23509,7 +23684,7 @@ function linearSearch(arr, target) {
               { desc: 'checkout returns "ok"', passed: status === "ok" },
               { desc: "charge() called once", passed: callLog.length === 1 },
               { desc: "charged 5000 USD", passed: verified },
-              { desc: 'response txId is "TX99"', passed: ((_b = (_a = callLog[0]) == null ? void 0 : _a.result) == null ? void 0 : _b.txId) === "TX99" }
+              { desc: 'response txId is "TX99"', passed: ((_b2 = (_a2 = callLog[0]) == null ? void 0 : _a2.result) == null ? void 0 : _b2.txId) === "TX99" }
             ];
             return { callLog, assertions };
           }
@@ -23523,7 +23698,7 @@ function linearSearch(arr, target) {
         {
           id: "calc-spy",
           run() {
-            var _a;
+            var _a2;
             const realCalc = {
               add: (a, b) => a + b,
               multiply: (a, b) => a * b
@@ -23549,7 +23724,7 @@ function linearSearch(arr, target) {
               { desc: "total === 40 (real math used)", passed: total === 40 },
               { desc: "multiply called twice", passed: callLog.filter((c) => c.method === "multiply").length === 2 },
               { desc: "add called twice", passed: callLog.filter((c) => c.method === "add").length === 2 },
-              { desc: "first multiply: 10 \xD7 3 = 30", passed: ((_a = callLog.find((c) => c.method === "multiply" && c.args[0] === 10)) == null ? void 0 : _a.result) === 30 }
+              { desc: "first multiply: 10 \xD7 3 = 30", passed: ((_a2 = callLog.find((c) => c.method === "multiply" && c.args[0] === 10)) == null ? void 0 : _a2.result) === 30 }
             ];
             return { callLog, assertions };
           }
@@ -23557,7 +23732,7 @@ function linearSearch(arr, target) {
         {
           id: "logger-spy",
           run() {
-            var _a, _b;
+            var _a2, _b2;
             const callLog = [];
             const realLogger = {
               log: (msg) => `[LOG] ${msg}`,
@@ -23587,8 +23762,8 @@ function linearSearch(arr, target) {
             const assertions = [
               { desc: "log() called twice total", passed: callLog.filter((c) => c.method === "log").length === 2 },
               { desc: "warn() called once (for id -1)", passed: callLog.filter((c) => c.method === "warn").length === 1 },
-              { desc: "real logger still produced output", passed: ((_a = callLog[0]) == null ? void 0 : _a.result) === "[LOG] Processing 5" },
-              { desc: "warn recorded correct message", passed: ((_b = callLog[2]) == null ? void 0 : _b.result) === "[WARN] Invalid id: -1" }
+              { desc: "real logger still produced output", passed: ((_a2 = callLog[0]) == null ? void 0 : _a2.result) === "[LOG] Processing 5" },
+              { desc: "warn recorded correct message", passed: ((_b2 = callLog[2]) == null ? void 0 : _b2.result) === "[WARN] Invalid id: -1" }
             ];
             return { callLog, assertions };
           }
@@ -23885,17 +24060,17 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     `;
     }
     function getType() {
-      var _a;
-      return (_a = DOUBLE_TYPES.find((d) => d.id === state41.typeId)) != null ? _a : DOUBLE_TYPES[0];
+      var _a2;
+      return (_a2 = DOUBLE_TYPES.find((d) => d.id === state41.typeId)) != null ? _a2 : DOUBLE_TYPES[0];
     }
     function getScenario() {
-      var _a;
+      var _a2;
       const ty = getType();
-      return (_a = ty.scenarios.find((s) => s.id === state41.scenarioId)) != null ? _a : ty.scenarios[0];
+      return (_a2 = ty.scenarios.find((s) => s.id === state41.scenarioId)) != null ? _a2 : ty.scenarios[0];
     }
     function getCode() {
-      var _a;
-      return (_a = SCENARIO_CODE[`${state41.typeId}/${state41.scenarioId}`]) != null ? _a : {};
+      var _a2;
+      return (_a2 = SCENARIO_CODE[`${state41.typeId}/${state41.scenarioId}`]) != null ? _a2 : {};
     }
     function formatArg(v) {
       if (v === null || v === void 0) return String(v);
@@ -23952,7 +24127,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     `;
     }
     function render41() {
-      var _a, _b, _c;
+      var _a2, _b2, _c;
       const isZh = getLocale() === "zh";
       const ty = getType();
       const code = getCode();
@@ -24011,11 +24186,11 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           <div class="td-code-grid" data-testid="td-code-grid">
             <div class="td-code-panel">
               <div class="td-code-header td-code-header--sut">${t("td.code.sut")}</div>
-              <pre class="td-pre"><code>${escapeHtml14((_a = code.sutCode) != null ? _a : "")}</code></pre>
+              <pre class="td-pre"><code>${escapeHtml14((_a2 = code.sutCode) != null ? _a2 : "")}</code></pre>
             </div>
             <div class="td-code-panel">
               <div class="td-code-header td-code-header--double">${t(`td.type.${state41.typeId}`)}</div>
-              <pre class="td-pre"><code>${escapeHtml14((_b = code.doubleCode) != null ? _b : "")}</code></pre>
+              <pre class="td-pre"><code>${escapeHtml14((_b2 = code.doubleCode) != null ? _b2 : "")}</code></pre>
             </div>
             <div class="td-code-panel">
               <div class="td-code-header td-code-header--test">${t("td.code.test")}</div>
@@ -24726,8 +24901,8 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       const theadCols = vp.map((p, i) => `<th data-testid="pairwise-col-${i}">${escapeHtml18(p.name)}</th>`).join("");
       const tbodyRows = tests.map((test, ti) => {
         const cells = vp.map((p) => {
-          var _a;
-          return `<td>${escapeHtml18((_a = test[p.name]) != null ? _a : "")}</td>`;
+          var _a2;
+          return `<td>${escapeHtml18((_a2 = test[p.name]) != null ? _a2 : "")}</td>`;
         }).join("");
         return `<tr data-testid="pairwise-row-${ti}"><td style="color:#94a3b8;font-size:0.75rem">${ti + 1}</td>${cells}</tr>`;
       }).join("");
@@ -25230,9 +25405,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       });
       const lrShare = root41.querySelector('[data-testid="ceg-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
-        var _a, _b, _c;
-        const a1 = ((_a = root41.querySelector('[data-testid="ceg-lab-reflect-a1"]')) == null ? void 0 : _a.value) || cegLabReflect.a1;
-        const a2 = ((_b = root41.querySelector('[data-testid="ceg-lab-reflect-a2"]')) == null ? void 0 : _b.value) || cegLabReflect.a2;
+        var _a2, _b2, _c;
+        const a1 = ((_a2 = root41.querySelector('[data-testid="ceg-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || cegLabReflect.a1;
+        const a2 = ((_b2 = root41.querySelector('[data-testid="ceg-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || cegLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "ceg",
@@ -25910,9 +26085,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       });
       const lrShare = root41.querySelector('[data-testid="codecov-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
-        var _a, _b, _c;
-        const a1 = ((_a = root41.querySelector('[data-testid="codecov-lab-reflect-a1"]')) == null ? void 0 : _a.value) || codecovLabReflect.a1;
-        const a2 = ((_b = root41.querySelector('[data-testid="codecov-lab-reflect-a2"]')) == null ? void 0 : _b.value) || codecovLabReflect.a2;
+        var _a2, _b2, _c;
+        const a1 = ((_a2 = root41.querySelector('[data-testid="codecov-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || codecovLabReflect.a1;
+        const a2 = ((_b2 = root41.querySelector('[data-testid="codecov-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || codecovLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "codecov",
@@ -26386,9 +26561,9 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       });
       const lrShare = root41.querySelector('[data-testid="inttest-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
-        var _a, _b, _c;
-        const a1 = ((_a = root41.querySelector('[data-testid="inttest-lab-reflect-a1"]')) == null ? void 0 : _a.value) || inttestLabReflect.a1;
-        const a2 = ((_b = root41.querySelector('[data-testid="inttest-lab-reflect-a2"]')) == null ? void 0 : _b.value) || inttestLabReflect.a2;
+        var _a2, _b2, _c;
+        const a1 = ((_a2 = root41.querySelector('[data-testid="inttest-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || inttestLabReflect.a1;
+        const a2 = ((_b2 = root41.querySelector('[data-testid="inttest-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || inttestLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "inttest",
@@ -26974,9 +27149,9 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       });
       const lrShare = root41.querySelector('[data-testid="pbt-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
-        var _a, _b, _c;
-        const a1 = ((_a = root41.querySelector('[data-testid="pbt-lab-reflect-a1"]')) == null ? void 0 : _a.value) || pbtLabReflect.a1;
-        const a2 = ((_b = root41.querySelector('[data-testid="pbt-lab-reflect-a2"]')) == null ? void 0 : _b.value) || pbtLabReflect.a2;
+        var _a2, _b2, _c;
+        const a1 = ((_a2 = root41.querySelector('[data-testid="pbt-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || pbtLabReflect.a1;
+        const a2 = ((_b2 = root41.querySelector('[data-testid="pbt-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || pbtLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "pbt",
@@ -27328,9 +27503,9 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       });
       const lrShare = root41.querySelector('[data-testid="rbt-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
-        var _a, _b, _c;
-        const a1 = ((_a = root41.querySelector('[data-testid="rbt-lab-reflect-a1"]')) == null ? void 0 : _a.value) || rbtLabReflect.a1;
-        const a2 = ((_b = root41.querySelector('[data-testid="rbt-lab-reflect-a2"]')) == null ? void 0 : _b.value) || rbtLabReflect.a2;
+        var _a2, _b2, _c;
+        const a1 = ((_a2 = root41.querySelector('[data-testid="rbt-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || rbtLabReflect.a1;
+        const a2 = ((_b2 = root41.querySelector('[data-testid="rbt-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || rbtLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "rbt",
@@ -27777,7 +27952,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       bindEvents40();
     }
     function bindEvents40() {
-      var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
+      var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
       const inp = root41.querySelector('[data-testid="gth-formula-input"]');
       if (inp) {
         inp.addEventListener("change", () => {
@@ -27800,7 +27975,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       const copyBtn = root41.querySelector('[data-testid="gth-copy"]');
       if (copyBtn) {
         copyBtn.addEventListener("click", () => {
-          var _a2;
+          var _a3;
           const result = computeOrbits();
           if (!result) return;
           const { vars, orbits } = result;
@@ -27812,7 +27987,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
             const fv = _evalFormula(formula, env);
             return bools.map((b) => b ? "T" : "F").join("	") + "	" + (fv ? "T" : "F");
           });
-          (_a2 = navigator.clipboard) == null ? void 0 : _a2.writeText([header, ...rows].join("\n")).then(() => {
+          (_a3 = navigator.clipboard) == null ? void 0 : _a3.writeText([header, ...rows].join("\n")).then(() => {
             copyBtn.textContent = t("groupth.copy.done");
             setTimeout(() => {
               copyBtn.textContent = t("groupth.copy.btn");
@@ -27820,12 +27995,12 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
           });
         });
       }
-      (_a = root41.querySelector('[data-testid="gth-bridge-mt"]')) == null ? void 0 : _a.addEventListener("click", () => {
-        var _a2, _b2;
-        (_a2 = document.querySelector('[data-section="blackbox"]')) == null ? void 0 : _a2.click();
-        (_b2 = document.querySelector('[data-blackbox-tab="mt"]')) == null ? void 0 : _b2.click();
+      (_a2 = root41.querySelector('[data-testid="gth-bridge-mt"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+        var _a3, _b3;
+        (_a3 = document.querySelector('[data-section="blackbox"]')) == null ? void 0 : _a3.click();
+        (_b3 = document.querySelector('[data-blackbox-tab="mt"]')) == null ? void 0 : _b3.click();
       });
-      (_b = root41.querySelector('[data-testid="gth-cov-p"]')) == null ? void 0 : _b.addEventListener("change", (e) => {
+      (_b2 = root41.querySelector('[data-testid="gth-cov-p"]')) == null ? void 0 : _b2.addEventListener("change", (e) => {
         covP = Number(e.target.value);
         render41();
       });
@@ -27881,9 +28056,9 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       });
       root41.querySelectorAll("[data-share-payload]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          var _a2;
+          var _a3;
           const url = (window.__buildShareUrl__ || (() => btn.dataset.sharePayload))(btn.dataset.sharePayload);
-          (_a2 = navigator.clipboard) == null ? void 0 : _a2.writeText(url);
+          (_a3 = navigator.clipboard) == null ? void 0 : _a3.writeText(url);
         });
       });
     }
@@ -27945,26 +28120,26 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
       throw new Error("bad token");
     }
     function not_() {
-      var _a;
-      if (((_a = peek()) == null ? void 0 : _a.type) === "NOT") {
+      var _a2;
+      if (((_a2 = peek()) == null ? void 0 : _a2.type) === "NOT") {
         consume();
         return { type: "NOT", c: not_() };
       }
       return primary();
     }
     function and_() {
-      var _a;
+      var _a2;
       let l = not_();
-      while (((_a = peek()) == null ? void 0 : _a.type) === "AND") {
+      while (((_a2 = peek()) == null ? void 0 : _a2.type) === "AND") {
         consume();
         l = { type: "AND", l, r: not_() };
       }
       return l;
     }
     function expr() {
-      var _a;
+      var _a2;
       let l = and_();
-      while (((_a = peek()) == null ? void 0 : _a.type) === "OR") {
+      while (((_a2 = peek()) == null ? void 0 : _a2.type) === "OR") {
         consume();
         l = { type: "OR", l, r: and_() };
       }
@@ -28319,12 +28494,12 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     bindEvents();
   }
   function bindEvents() {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
-    (_a = root.querySelector('[data-testid="emx-btn-eq"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    var _a2, _b2, _c, _d, _e, _f, _g, _h;
+    (_a2 = root.querySelector('[data-testid="emx-btn-eq"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state.answers[PAIRS[state.pairIndex].id] = "eq";
       render();
     });
-    (_b = root.querySelector('[data-testid="emx-btn-neq"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root.querySelector('[data-testid="emx-btn-neq"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state.answers[PAIRS[state.pairIndex].id] = "neq";
       render();
     });
@@ -28639,7 +28814,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     </div>`;
   }
   function renderQuiz2(score) {
-    var _a;
+    var _a2;
     if (!state2.quiz.active) {
       return `<button type="button" class="msx-quiz-start" data-testid="msx-quiz-start">${t("quiz.start")}</button>`;
     }
@@ -28657,7 +28832,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         total: 1,
         items: [{
           q: t("msx.quiz.prompt", { total: NON_EQUIV_MUTANTS.length }),
-          a: String((_a = state2.quiz.answer) != null ? _a : ""),
+          a: String((_a2 = state2.quiz.answer) != null ? _a2 : ""),
           expected: String(score),
           ok: correct
         }]
@@ -28749,7 +28924,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     bindEvents2();
   }
   function bindEvents2() {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a2, _b2, _c, _d, _e, _f, _g;
     root2.querySelectorAll("[data-idx]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const idx = parseInt(btn.dataset.idx, 10);
@@ -28757,10 +28932,10 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         render2();
       });
     });
-    (_a = root2.querySelector('[data-testid="msx-score-input"]')) == null ? void 0 : _a.addEventListener("input", (e) => {
+    (_a2 = root2.querySelector('[data-testid="msx-score-input"]')) == null ? void 0 : _a2.addEventListener("input", (e) => {
       state2.inputVal = e.target.value;
     });
-    (_b = root2.querySelector('[data-testid="msx-expected-select"]')) == null ? void 0 : _b.addEventListener("change", (e) => {
+    (_b2 = root2.querySelector('[data-testid="msx-expected-select"]')) == null ? void 0 : _b2.addEventListener("change", (e) => {
       state2.expectedVal = e.target.value;
     });
     (_c = root2.querySelector('[data-testid="msx-add-btn"]')) == null ? void 0 : _c.addEventListener("click", () => {
@@ -29097,7 +29272,7 @@ fun testBoundaryAge() {
     bindEvents3();
   }
   function bindEvents3() {
-    var _a, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     root3.querySelectorAll("[data-agent]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state3.activeAgent = btn.dataset.agent;
@@ -29111,7 +29286,7 @@ fun testBoundaryAge() {
         render3();
       });
     });
-    (_a = root3.querySelector('[data-testid="llmp-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root3.querySelector('[data-testid="llmp-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state3.quiz = { active: true, phase: "question", answer: "" };
       render3();
     });
@@ -29121,7 +29296,7 @@ fun testBoundaryAge() {
         render3();
       });
     });
-    (_b = root3.querySelector('[data-testid="llmp-quiz-submit"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root3.querySelector('[data-testid="llmp-quiz-submit"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state3.quiz.phase = "done";
       render3();
     });
@@ -29439,7 +29614,7 @@ fun testIsAdultBoundary() {
     bindEvents4();
   }
   function bindEvents4() {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a2, _b2, _c, _d, _e, _f, _g;
     root4.querySelectorAll("[data-dim][data-val]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const sc = SCENARIOS[state4.scenarioIdx];
@@ -29448,11 +29623,11 @@ fun testIsAdultBoundary() {
         render4();
       });
     });
-    (_a = root4.querySelector('[data-testid="tqx-reveal"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root4.querySelector('[data-testid="tqx-reveal"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state4.revealed.add(SCENARIOS[state4.scenarioIdx].id);
       render4();
     });
-    (_b = root4.querySelector('[data-testid="tqx-prev"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root4.querySelector('[data-testid="tqx-prev"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       if (state4.scenarioIdx > 0) {
         state4.scenarioIdx--;
         render4();
@@ -29774,14 +29949,14 @@ fun testIsAdultBoundary() {
     bindEvents5();
   }
   function bindEvents5() {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a2, _b2, _c, _d, _e, _f, _g;
     root5.querySelectorAll("[data-mutant]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state5.selectedMutant = btn.dataset.mutant;
         render5();
       });
     });
-    (_a = root5.querySelector('[data-testid="fdx-prev"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root5.querySelector('[data-testid="fdx-prev"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       if (state5.issueIdx > 0) {
         state5.issueIdx--;
         state5.selectedMutant = null;
@@ -29789,7 +29964,7 @@ fun testIsAdultBoundary() {
         render5();
       }
     });
-    (_b = root5.querySelector('[data-testid="fdx-next"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root5.querySelector('[data-testid="fdx-next"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       if (state5.issueIdx < ISSUES.length - 1) {
         state5.issueIdx++;
         state5.selectedMutant = null;
@@ -30070,7 +30245,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents6();
   }
   function bindEvents6() {
-    var _a, _b, _c, _d, _e;
+    var _a2, _b2, _c, _d, _e;
     root6.querySelectorAll("[data-phase]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state6.activePhase = btn.dataset.phase;
@@ -30084,11 +30259,11 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
         render6();
       });
     });
-    (_a = root6.querySelector('[data-testid="sailor-bridge-symbex"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="symbex"]')) == null ? void 0 : _a2.click();
+    (_a2 = root6.querySelector('[data-testid="sailor-bridge-symbex"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3;
+      (_a3 = document.querySelector('[data-section="symbex"]')) == null ? void 0 : _a3.click();
     });
-    (_b = root6.querySelector('[data-testid="sailor-quiz-start"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root6.querySelector('[data-testid="sailor-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state6.quiz = { active: true, phase: "question", answer: "" };
       render6();
     });
@@ -30255,10 +30430,10 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     return out;
   }
   function substitute2(body3, header, row) {
-    var _a;
+    var _a2;
     let out = body3;
     for (let i = 0; i < header.length; i++) {
-      out = out.replaceAll(`<${header[i]}>`, (_a = row[i]) != null ? _a : "");
+      out = out.replaceAll(`<${header[i]}>`, (_a2 = row[i]) != null ? _a2 : "");
     }
     return out;
   }
@@ -30454,19 +30629,19 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents7();
   }
   function bindEvents7() {
-    var _a, _b, _c, _d, _e;
+    var _a2, _b2, _c, _d, _e;
     root7.querySelectorAll("[data-preset]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state7.presetIdx = Number(btn.dataset.preset);
         render7();
       });
     });
-    (_a = root7.querySelector('[data-testid="bdd-bridge-decision-table"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="blackbox"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-blackbox-tab="dt"]')) == null ? void 0 : _b2.click();
+    (_a2 = root7.querySelector('[data-testid="bdd-bridge-decision-table"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="blackbox"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-blackbox-tab="dt"]')) == null ? void 0 : _b3.click();
     });
-    (_b = root7.querySelector('[data-testid="bdd-quiz-start"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root7.querySelector('[data-testid="bdd-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state7.quiz = { active: true, phase: "question", answer: "" };
       render7();
     });
@@ -30801,7 +30976,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents8();
   }
   function bindEvents8() {
-    var _a, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     root8.querySelectorAll("[data-case]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state8.caseIdx = Number(btn.dataset.case);
@@ -30818,12 +30993,12 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     });
     root8.querySelectorAll('[data-testid="uc-bridge-rbt"]').forEach((btn) => {
       btn.addEventListener("click", () => {
-        var _a2, _b2;
-        (_a2 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a2.click();
-        (_b2 = document.querySelector('[data-testid="section-rbt"]')) == null ? void 0 : _b2.scrollIntoView({ behavior: "smooth", block: "start" });
+        var _a3, _b3;
+        (_a3 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a3.click();
+        (_b3 = document.querySelector('[data-testid="section-rbt"]')) == null ? void 0 : _b3.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
-    (_a = root8.querySelector('[data-testid="uc-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root8.querySelector('[data-testid="uc-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state8.quiz = { active: true, phase: "question", answer: "" };
       render8();
     });
@@ -30833,7 +31008,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
         render8();
       });
     });
-    (_b = root8.querySelector('[data-testid="uc-quiz-submit"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root8.querySelector('[data-testid="uc-quiz-submit"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state8.quiz.phase = "done";
       render8();
     });
@@ -30905,9 +31080,9 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     { logKey: "e2e.quiz.log", correct: "animation" }
   ];
   function stepPassProbability(step2) {
-    var _a;
+    var _a2;
     let p = 1;
-    for (const s of FLAKINESS_SOURCES) p *= 1 - ((_a = step2.risk[s]) != null ? _a : 0);
+    for (const s of FLAKINESS_SOURCES) p *= 1 - ((_a2 = step2.risk[s]) != null ? _a2 : 0);
     return p;
   }
   function journeyPassProbability(journey) {
@@ -31097,7 +31272,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents9();
   }
   function bindEvents9() {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a2, _b2, _c, _d, _e, _f, _g;
     root9.querySelectorAll("[data-journey]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state9.journeyIdx = Number(btn.dataset.journey);
@@ -31105,19 +31280,19 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
         render9();
       });
     });
-    (_a = root9.querySelector('[data-testid="e2e-sim-run"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root9.querySelector('[data-testid="e2e-sim-run"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state9.sim = simulateRuns(currentJourney(), 100, Date.now() & 2147483647);
       render9();
     });
-    (_b = root9.querySelector('[data-testid="e2e-bridge-tqx"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="advanced"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-advanced-tab="testquality"]')) == null ? void 0 : _b2.click();
+    (_b2 = root9.querySelector('[data-testid="e2e-bridge-tqx"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="advanced"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-advanced-tab="testquality"]')) == null ? void 0 : _b3.click();
     });
     (_c = root9.querySelector('[data-testid="e2e-bridge-rbt"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-testid="section-rbt"]')) == null ? void 0 : _b2.scrollIntoView({ behavior: "smooth", block: "start" });
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-testid="section-rbt"]')) == null ? void 0 : _b3.scrollIntoView({ behavior: "smooth", block: "start" });
     });
     (_d = root9.querySelector('[data-testid="e2e-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
       state9.quiz = { active: true, phase: "question", answer: "" };
@@ -31205,10 +31380,10 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     STATUS_MISMATCH: "status-mismatch"
   };
   function verifyScenario(scenario) {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     const issues = [];
     if (scenario.provider.requiredRequestFields) {
-      const req = (_a = scenario.consumer.request.body) != null ? _a : {};
+      const req = (_a2 = scenario.consumer.request.body) != null ? _a2 : {};
       for (const f of scenario.provider.requiredRequestFields) {
         if (!Object.prototype.hasOwnProperty.call(req, f)) {
           issues.push({ kind: BREAKAGE.MISSING_REQUIRED_REQUEST, field: f });
@@ -31220,7 +31395,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     if (ec.status !== ep.status) {
       issues.push({ kind: BREAKAGE.STATUS_MISMATCH, expected: ec.status, actual: ep.status });
     }
-    for (const k of Object.keys((_b = ec.body) != null ? _b : {})) {
+    for (const k of Object.keys((_b2 = ec.body) != null ? _b2 : {})) {
       if (!Object.prototype.hasOwnProperty.call((_c = ep.body) != null ? _c : {}, k)) {
         issues.push({ kind: BREAKAGE.MISSING_RESPONSE_FIELD, field: k });
       }
@@ -31284,8 +31459,8 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
       <strong>${t("ct.verdict.fail", { n: v.issues.length })}</strong>
       <ul class="ct-issues">
         ${v.issues.map((i) => {
-      var _a, _b, _c;
-      return `<li>${t("ct.issue." + i.kind, { field: (_a = i.field) != null ? _a : "", expected: (_b = i.expected) != null ? _b : "", actual: (_c = i.actual) != null ? _c : "" })}</li>`;
+      var _a2, _b2, _c;
+      return `<li>${t("ct.issue." + i.kind, { field: (_a2 = i.field) != null ? _a2 : "", expected: (_b2 = i.expected) != null ? _b2 : "", actual: (_c = i.actual) != null ? _c : "" })}</li>`;
     }).join("")}
       </ul>
     </div>`;
@@ -31402,19 +31577,19 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents10();
   }
   function bindEvents10() {
-    var _a, _b, _c, _d, _e;
+    var _a2, _b2, _c, _d, _e;
     root10.querySelectorAll("[data-scenario]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state10.scenarioIdx = Number(btn.dataset.scenario);
         render10();
       });
     });
-    (_a = root10.querySelector('[data-testid="ct-bridge-inttest"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="inttest"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-testid="section-inttest"]')) == null ? void 0 : _b2.scrollIntoView({ behavior: "smooth", block: "start" });
+    (_a2 = root10.querySelector('[data-testid="ct-bridge-inttest"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="inttest"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-testid="section-inttest"]')) == null ? void 0 : _b3.scrollIntoView({ behavior: "smooth", block: "start" });
     });
-    (_b = root10.querySelector('[data-testid="ct-quiz-start"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root10.querySelector('[data-testid="ct-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state10.quiz = { active: true, phase: "question", answer: "" };
       render10();
     });
@@ -31685,7 +31860,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents11();
   }
   function bindEvents11() {
-    var _a, _b, _c, _d, _e;
+    var _a2, _b2, _c, _d, _e;
     root11.querySelectorAll("[data-system]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state11.systemIdx = Number(btn.dataset.system);
@@ -31705,12 +31880,12 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
         render11();
       });
     });
-    (_a = root11.querySelector('[data-testid="plp-bridge-rbt"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-testid="section-rbt"]')) == null ? void 0 : _b2.scrollIntoView({ behavior: "smooth", block: "start" });
+    (_a2 = root11.querySelector('[data-testid="plp-bridge-rbt"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-testid="section-rbt"]')) == null ? void 0 : _b3.scrollIntoView({ behavior: "smooth", block: "start" });
     });
-    (_b = root11.querySelector('[data-testid="plp-quiz-start"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root11.querySelector('[data-testid="plp-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state11.quiz = { active: true, phase: "question", answer: "" };
       render11();
     });
@@ -31798,7 +31973,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     kill: [1]
   };
   function applyFault(topology, fault) {
-    var _a;
+    var _a2;
     const baseLatency = 60;
     const status = /* @__PURE__ */ new Map();
     for (const n of topology.nodes) status.set(n.id, { pass: 1, latencyMs: baseLatency });
@@ -31825,7 +32000,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     blastRadius.add(fault.nodeId);
     while (queue.length) {
       const cur = queue.shift();
-      for (const dep of (_a = dependentsOf.get(cur)) != null ? _a : []) {
+      for (const dep of (_a2 = dependentsOf.get(cur)) != null ? _a2 : []) {
         if (blastRadius.has(dep)) continue;
         const upstream = status.get(cur);
         const depState = status.get(dep);
@@ -31889,7 +32064,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     </div>`;
   }
   function renderFaultMenu() {
-    var _a, _b;
+    var _a2, _b2;
     const topo = currentTopo();
     return `
     <div class="chx-fault" data-testid="chx-fault">
@@ -31900,8 +32075,8 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
           <select data-testid="chx-fault-node">
             <option value="">${t("chx.fault.none")}</option>
             ${topo.nodes.map((n) => {
-      var _a2;
-      return `<option value="${n.id}" ${((_a2 = state12.fault) == null ? void 0 : _a2.nodeId) === n.id ? "selected" : ""}>${t(n.labelKey)}</option>`;
+      var _a3;
+      return `<option value="${n.id}" ${((_a3 = state12.fault) == null ? void 0 : _a3.nodeId) === n.id ? "selected" : ""}>${t(n.labelKey)}</option>`;
     }).join("")}
           </select>
         </label>
@@ -31909,17 +32084,17 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
           <span>${t("chx.fault.kind")}</span>
           <select data-testid="chx-fault-kind">
             ${FAULT_KINDS.map((k) => {
-      var _a2;
-      return `<option value="${k}" ${((_a2 = state12.fault) == null ? void 0 : _a2.kind) === k ? "selected" : ""}>${t("chx.kind." + k)}</option>`;
+      var _a3;
+      return `<option value="${k}" ${((_a3 = state12.fault) == null ? void 0 : _a3.kind) === k ? "selected" : ""}>${t("chx.kind." + k)}</option>`;
     }).join("")}
           </select>
         </label>
         <label>
           <span>${t("chx.fault.severity")}</span>
           <select data-testid="chx-fault-severity">
-            ${SEVERITY_MENU[(_b = (_a = state12.fault) == null ? void 0 : _a.kind) != null ? _b : "latency"].map((s) => {
-      var _a2, _b2, _c;
-      return `<option value="${s}" ${((_a2 = state12.fault) == null ? void 0 : _a2.severity) === s ? "selected" : ""}>${formatSeverity((_c = (_b2 = state12.fault) == null ? void 0 : _b2.kind) != null ? _c : "latency", s)}</option>`;
+            ${SEVERITY_MENU[(_b2 = (_a2 = state12.fault) == null ? void 0 : _a2.kind) != null ? _b2 : "latency"].map((s) => {
+      var _a3, _b3, _c;
+      return `<option value="${s}" ${((_a3 = state12.fault) == null ? void 0 : _a3.severity) === s ? "selected" : ""}>${formatSeverity((_c = (_b3 = state12.fault) == null ? void 0 : _b3.kind) != null ? _c : "latency", s)}</option>`;
     }).join("")}
           </select>
         </label>
@@ -32037,7 +32212,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents12();
   }
   function bindEvents12() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i;
+    var _a2, _b2, _c, _d, _e, _f, _g, _h, _i;
     root12.querySelectorAll("[data-topo]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state12.topoIdx = Number(btn.dataset.topo);
@@ -32045,36 +32220,36 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
         render12();
       });
     });
-    (_a = root12.querySelector('[data-testid="chx-fault-inject"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2;
+    (_a2 = root12.querySelector('[data-testid="chx-fault-inject"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3;
       const nodeId = root12.querySelector('[data-testid="chx-fault-node"]').value;
       const kind = root12.querySelector('[data-testid="chx-fault-kind"]').value;
       const rawSev = Number(root12.querySelector('[data-testid="chx-fault-severity"]').value);
-      const allowed = (_a2 = SEVERITY_MENU[kind]) != null ? _a2 : [];
+      const allowed = (_a3 = SEVERITY_MENU[kind]) != null ? _a3 : [];
       const severity = allowed.includes(rawSev) ? rawSev : allowed[0];
       if (!nodeId) return;
       state12.fault = { nodeId, kind, severity };
       render12();
     });
-    (_b = root12.querySelector('[data-testid="chx-fault-clear"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root12.querySelector('[data-testid="chx-fault-clear"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state12.fault = null;
       render12();
     });
     (_c = root12.querySelector('[data-testid="chx-fault-kind"]')) == null ? void 0 : _c.addEventListener("change", (e) => {
-      var _a2;
+      var _a3;
       const sevSelect = root12.querySelector('[data-testid="chx-fault-severity"]');
       if (!sevSelect) return;
-      sevSelect.innerHTML = ((_a2 = SEVERITY_MENU[e.target.value]) != null ? _a2 : []).map(
+      sevSelect.innerHTML = ((_a3 = SEVERITY_MENU[e.target.value]) != null ? _a3 : []).map(
         (s) => `<option value="${s}">${formatSeverity(e.target.value, s)}</option>`
       ).join("");
     });
     (_d = root12.querySelector('[data-testid="chx-bridge-e2e"]')) == null ? void 0 : _d.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-acceptance-tab="e2ejourney"]')) == null ? void 0 : _a2.click();
+      var _a3;
+      (_a3 = document.querySelector('[data-acceptance-tab="e2ejourney"]')) == null ? void 0 : _a3.click();
     });
     (_e = root12.querySelector('[data-testid="chx-bridge-contract"]')) == null ? void 0 : _e.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-acceptance-tab="contract"]')) == null ? void 0 : _a2.click();
+      var _a3;
+      (_a3 = document.querySelector('[data-acceptance-tab="contract"]')) == null ? void 0 : _a3.click();
     });
     (_f = root12.querySelector('[data-testid="chx-quiz-start"]')) == null ? void 0 : _f.addEventListener("click", () => {
       state12.quiz = { active: true, phase: "question", answer: "" };
@@ -32298,31 +32473,31 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents13();
   }
   function bindEvents13() {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
+    var _a2, _b2, _c, _d, _e, _f, _g, _h;
     root13.querySelectorAll("[data-stage]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state13.stageIdx = Number(btn.dataset.stage);
         render13();
       });
     });
-    (_a = root13.querySelector('[data-testid="atdd-prev"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root13.querySelector('[data-testid="atdd-prev"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       if (state13.stageIdx > 0) {
         state13.stageIdx -= 1;
         render13();
       }
     });
-    (_b = root13.querySelector('[data-testid="atdd-next"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root13.querySelector('[data-testid="atdd-next"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state13.stageIdx = (state13.stageIdx + 1) % STAGES.length;
       render13();
     });
     (_c = root13.querySelector('[data-testid="atdd-bridge-gherkin"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _a2.click();
+      var _a3;
+      (_a3 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _a3.click();
     });
     (_d = root13.querySelector('[data-testid="atdd-bridge-vmodel"]')) == null ? void 0 : _d.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-flow-tab="vmodel"]')) == null ? void 0 : _b2.click();
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-flow-tab="vmodel"]')) == null ? void 0 : _b3.click();
     });
     (_e = root13.querySelector('[data-testid="atdd-quiz-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
       state13.quiz = { active: true, phase: "question", answer: "" };
@@ -32580,14 +32755,14 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     bindEvents14();
   }
   function bindEvents14() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i;
+    var _a2, _b2, _c, _d, _e, _f, _g, _h, _i;
     root14.querySelectorAll("[data-source]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state14.picked = btn.dataset.source;
         render14();
       });
     });
-    (_a = root14.querySelector('[data-testid="flx-submit"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root14.querySelector('[data-testid="flx-submit"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       const sample = currentSample();
       if (!state14.picked || answerFor(sample.id)) return;
       state14.answers.push({
@@ -32598,7 +32773,7 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
       state14.picked = null;
       render14();
     });
-    (_b = root14.querySelector('[data-testid="flx-prev"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root14.querySelector('[data-testid="flx-prev"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       if (state14.sampleIdx > 0) {
         state14.sampleIdx -= 1;
         state14.picked = null;
@@ -32613,13 +32788,13 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
       }
     });
     (_d = root14.querySelector('[data-testid="flx-bridge-e2e"]')) == null ? void 0 : _d.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-acceptance-tab="e2ejourney"]')) == null ? void 0 : _a2.click();
+      var _a3;
+      (_a3 = document.querySelector('[data-acceptance-tab="e2ejourney"]')) == null ? void 0 : _a3.click();
     });
     (_e = root14.querySelector('[data-testid="flx-bridge-tqx"]')) == null ? void 0 : _e.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="advanced"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-advanced-tab="testquality"]')) == null ? void 0 : _b2.click();
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="advanced"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-advanced-tab="testquality"]')) == null ? void 0 : _b3.click();
     });
     (_f = root14.querySelector('[data-testid="flx-quiz-start"]')) == null ? void 0 : _f.addEventListener("click", () => {
       state14.quiz = { active: true, phase: "question", answer: "" };
@@ -32874,7 +33049,7 @@ VERDICT: pass  (conformance holds)`,
     bindEvents15();
   }
   function bindEvents15() {
-    var _a, _b, _c, _d, _e;
+    var _a2, _b2, _c, _d, _e;
     root15.querySelectorAll("[data-stage]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state15.activeStage = btn.dataset.stage;
@@ -32888,12 +33063,12 @@ VERDICT: pass  (conformance holds)`,
         render15();
       });
     });
-    (_a = root15.querySelector('[data-testid="mbtw-bridge-vmodel"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-flow-tab="vmodel"]')) == null ? void 0 : _b2.click();
+    (_a2 = root15.querySelector('[data-testid="mbtw-bridge-vmodel"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-flow-tab="vmodel"]')) == null ? void 0 : _b3.click();
     });
-    (_b = root15.querySelector('[data-testid="mbtw-quiz-start"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root15.querySelector('[data-testid="mbtw-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state15.quiz = { active: true, phase: "question", answer: "" };
       render15();
     });
@@ -33183,7 +33358,7 @@ VERDICT: pass  (conformance holds)`,
     return result.reverse();
   }
   function transitionTour(fsm) {
-    var _a;
+    var _a2;
     const E = fsm.transitions.length;
     const out = {};
     const inn = {};
@@ -33210,7 +33385,7 @@ VERDICT: pass  (conformance holds)`,
       let ok = true;
       const match = [];
       for (let i = 0; i < needOut.length; i++) {
-        const d = (_a = dist[needOut[i]]) == null ? void 0 : _a[perm[i]];
+        const d = (_a2 = dist[needOut[i]]) == null ? void 0 : _a2[perm[i]];
         if (d === void 0) {
           ok = false;
           break;
@@ -33449,7 +33624,7 @@ VERDICT: pass  (conformance holds)`,
     bindEvents16();
   }
   function bindEvents16() {
-    var _a, _b, _c, _d, _e;
+    var _a2, _b2, _c, _d, _e;
     root16.querySelectorAll("[data-fsm]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state16.fsmId = btn.dataset.fsm;
@@ -33462,12 +33637,12 @@ VERDICT: pass  (conformance holds)`,
         render16();
       });
     });
-    (_a = root16.querySelector('[data-testid="fsmgen-bridge-st"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="blackbox"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-blackbox-tab="st"]')) == null ? void 0 : _b2.click();
+    (_a2 = root16.querySelector('[data-testid="fsmgen-bridge-st"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="blackbox"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-blackbox-tab="st"]')) == null ? void 0 : _b3.click();
     });
-    (_b = root16.querySelector('[data-testid="fsmgen-quiz-start"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root16.querySelector('[data-testid="fsmgen-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state16.quiz = { active: true, phase: "question", answer: "" };
       render16();
     });
@@ -33840,7 +34015,7 @@ VERDICT: pass  (conformance holds)`,
     bindEvents17();
   }
   function bindEvents17() {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a2, _b2, _c, _d, _e, _f, _g;
     root17.querySelectorAll("[data-set]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state17.activeSet = btn.dataset.set;
@@ -33860,17 +34035,17 @@ VERDICT: pass  (conformance holds)`,
         render17();
       });
     });
-    (_a = root17.querySelector('[data-testid="wmethod-mutant-toggle"]')) == null ? void 0 : _a.addEventListener("change", (e) => {
+    (_a2 = root17.querySelector('[data-testid="wmethod-mutant-toggle"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
       state17.mutantOn = e.target.checked;
       render17();
     });
-    (_b = root17.querySelector('[data-testid="wmethod-bridge-groupth"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="groupth"]')) == null ? void 0 : _a2.click();
+    (_b2 = root17.querySelector('[data-testid="wmethod-bridge-groupth"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3;
+      (_a3 = document.querySelector('[data-section="groupth"]')) == null ? void 0 : _a3.click();
     });
     (_c = root17.querySelector('[data-testid="wmethod-bridge-logic"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="logic"]')) == null ? void 0 : _a2.click();
+      var _a3;
+      (_a3 = document.querySelector('[data-section="logic"]')) == null ? void 0 : _a3.click();
     });
     (_d = root17.querySelector('[data-testid="wmethod-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
       state17.quiz = { active: true, phase: "question", answer: "" };
@@ -34006,7 +34181,7 @@ VERDICT: pass  (conformance holds)`,
     </div>`;
   }
   function renderPathDetail() {
-    var _a;
+    var _a2;
     const path = PATHS.find((p) => p.id === state18.activePath);
     if (!path) return "";
     const res = solvePath(path);
@@ -34024,7 +34199,7 @@ VERDICT: pass  (conformance holds)`,
       </ol>
       <p class="efsm-conjunction">${t("efsm.conjunction")}: <code>${esc7(res.conjunction)}</code></p>
       ${res.feasible ? `<p class="efsm-verdict efsm-verdict--feasible" data-testid="efsm-verdict">
-             \u2705 ${t("efsm.feasible")} \u2014 ${t("efsm.solved", { val: (_a = res.witness.amount) != null ? _a : "\u2014" })}
+             \u2705 ${t("efsm.feasible")} \u2014 ${t("efsm.solved", { val: (_a2 = res.witness.amount) != null ? _a2 : "\u2014" })}
            </p>` : `<p class="efsm-verdict efsm-verdict--infeasible" data-testid="efsm-verdict">
              \u26D4 ${t("efsm.infeasible")}
            </p>`}
@@ -34130,20 +34305,20 @@ VERDICT: pass  (conformance holds)`,
     bindEvents18();
   }
   function bindEvents18() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root18.querySelectorAll("[data-path]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state18.activePath = btn.dataset.path;
         render18();
       });
     });
-    (_a = root18.querySelector('[data-testid="efsm-bridge-symbex"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="symbex"]')) == null ? void 0 : _a2.click();
+    (_a2 = root18.querySelector('[data-testid="efsm-bridge-symbex"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3;
+      (_a3 = document.querySelector('[data-section="symbex"]')) == null ? void 0 : _a3.click();
     });
-    (_b = root18.querySelector('[data-testid="efsm-bridge-logic"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="logic"]')) == null ? void 0 : _a2.click();
+    (_b2 = root18.querySelector('[data-testid="efsm-bridge-logic"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3;
+      (_a3 = document.querySelector('[data-section="logic"]')) == null ? void 0 : _a3.click();
     });
     (_c = root18.querySelector('[data-testid="efsm-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
       state18.quiz = { active: true, phase: "question", answer: "" };
@@ -34462,24 +34637,24 @@ VERDICT: pass  (conformance holds)`,
     bindEvents19();
   }
   function bindEvents19() {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a2, _b2, _c, _d, _e, _f, _g;
     root19.querySelectorAll("[data-n]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state19.n = Number(btn.dataset.n);
         render19();
       });
     });
-    (_a = root19.querySelector('[data-testid="usage-run"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root19.querySelector('[data-testid="usage-run"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state19.result = runStatistical(USAGE_MODEL, state19.n);
       render19();
     });
-    (_b = root19.querySelector('[data-testid="usage-bridge-rbt"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a2.click();
+    (_b2 = root19.querySelector('[data-testid="usage-bridge-rbt"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3;
+      (_a3 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a3.click();
     });
     (_c = root19.querySelector('[data-testid="usage-bridge-pbt"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="pbt"]')) == null ? void 0 : _a2.click();
+      var _a3;
+      (_a3 = document.querySelector('[data-section="pbt"]')) == null ? void 0 : _a3.click();
     });
     (_d = root19.querySelector('[data-testid="usage-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
       state19.quiz = { active: true, phase: "question", answer: "" };
@@ -34750,22 +34925,22 @@ VERDICT: pass  (conformance holds)`,
     bindEvents20();
   }
   function bindEvents20() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root20.querySelectorAll("[data-mutant]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state20.activeMutant = btn.dataset.mutant;
         render20();
       });
     });
-    (_a = root20.querySelector('[data-testid="modelmut-bridge-specmut"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="syntax"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-syntax-tab="spec"]')) == null ? void 0 : _b2.click();
+    (_a2 = root20.querySelector('[data-testid="modelmut-bridge-specmut"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="syntax"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-syntax-tab="spec"]')) == null ? void 0 : _b3.click();
     });
-    (_b = root20.querySelector('[data-testid="modelmut-bridge-equivmutant"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="advanced"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-advanced-tab="equivmutant"]')) == null ? void 0 : _b2.click();
+    (_b2 = root20.querySelector('[data-testid="modelmut-bridge-equivmutant"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="advanced"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-advanced-tab="equivmutant"]')) == null ? void 0 : _b3.click();
     });
     (_c = root20.querySelector('[data-testid="modelmut-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
       state20.quiz = { active: true, phase: "question", answer: "" };
@@ -34963,7 +35138,7 @@ VERDICT: pass  (conformance holds)`,
     bindEvents21();
   }
   function bindEvents21() {
-    var _a, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     root21.querySelectorAll("[data-quadrant]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state21.activeQuadrant = btn.dataset.quadrant;
@@ -34972,14 +35147,14 @@ VERDICT: pass  (conformance holds)`,
     });
     root21.querySelectorAll("[data-bridge-section]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        var _a2, _b2;
+        var _a3, _b3;
         const section = btn.dataset.bridgeSection;
         const tab = btn.dataset.bridgeTab;
-        (_a2 = document.querySelector(`[data-section="${section}"]`)) == null ? void 0 : _a2.click();
-        if (tab) (_b2 = document.querySelector(`[data-${section}-tab="${tab}"]`)) == null ? void 0 : _b2.click();
+        (_a3 = document.querySelector(`[data-section="${section}"]`)) == null ? void 0 : _a3.click();
+        if (tab) (_b3 = document.querySelector(`[data-${section}-tab="${tab}"]`)) == null ? void 0 : _b3.click();
       });
     });
-    (_a = root21.querySelector('[data-testid="agq-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root21.querySelector('[data-testid="agq-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state21.quiz = { active: true, phase: "question", answer: "" };
       render21();
     });
@@ -34989,7 +35164,7 @@ VERDICT: pass  (conformance holds)`,
         render21();
       });
     });
-    (_b = root21.querySelector('[data-testid="agq-quiz-submit"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root21.querySelector('[data-testid="agq-quiz-submit"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state21.quiz.phase = "done";
       render21();
     });
@@ -35190,7 +35365,7 @@ VERDICT: pass  (conformance holds)`,
     bindEvents22();
   }
   function bindEvents22() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root22.querySelectorAll("[data-mode]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state22.mode = btn.dataset.mode;
@@ -35204,15 +35379,15 @@ VERDICT: pass  (conformance holds)`,
         render22();
       });
     });
-    (_a = root22.querySelector('[data-testid="cadence-bridge-vmodel"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-flow-tab="vmodel"]')) == null ? void 0 : _b2.click();
+    (_a2 = root22.querySelector('[data-testid="cadence-bridge-vmodel"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-flow-tab="vmodel"]')) == null ? void 0 : _b3.click();
     });
-    (_b = root22.querySelector('[data-testid="cadence-bridge-defectcost"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-flow-tab="defectCost"]')) == null ? void 0 : _b2.click();
+    (_b2 = root22.querySelector('[data-testid="cadence-bridge-defectcost"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-flow-tab="defectCost"]')) == null ? void 0 : _b3.click();
     });
     (_c = root22.querySelector('[data-testid="cadence-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
       state22.quiz = { active: true, phase: "question", answer: "" };
@@ -35941,7 +36116,7 @@ ${items.join("\n")}
     bindEvents23();
   }
   function bindEvents23() {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     root23.querySelectorAll("[data-example-id]").forEach((btn) => {
       btn.addEventListener("click", () => {
         if (state23.exampleId !== btn.dataset.exampleId) {
@@ -35991,7 +36166,7 @@ ${items.join("\n")}
         render23();
       });
     });
-    (_a = root23.querySelector('[data-testid="slicing-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root23.querySelector('[data-testid="slicing-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state23.quiz = { active: true, phase: "question", answer: "" };
       render23();
     });
@@ -36001,7 +36176,7 @@ ${items.join("\n")}
         render23();
       });
     });
-    (_b = root23.querySelector('[data-testid="slicing-quiz-submit"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root23.querySelector('[data-testid="slicing-quiz-submit"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state23.quiz.phase = "done";
       render23();
     });
@@ -36232,9 +36407,9 @@ ${items.join("\n")}
   </div>`;
   }
   function renderScenarioChips() {
-    var _a;
+    var _a2;
     const scenarios = scenariosForMode(state24.mode);
-    const activeId = (_a = currentScenario()) == null ? void 0 : _a.id;
+    const activeId = (_a2 = currentScenario()) == null ? void 0 : _a2.id;
     return `<div class="sde-chip-bar">
     ${scenarios.map((s) => `
       <button type="button"
@@ -36382,7 +36557,7 @@ ${items.join("\n")}
     bindEvents24();
   }
   function bindEvents24() {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     root24.querySelectorAll("[data-dicing-mode]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const newMode = btn.dataset.dicingMode;
@@ -36416,7 +36591,7 @@ ${items.join("\n")}
         render24();
       });
     });
-    (_a = root24.querySelector('[data-testid="dicing-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root24.querySelector('[data-testid="dicing-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state24.quiz = { active: true, phase: "question", answer: "" };
       render24();
     });
@@ -36426,7 +36601,7 @@ ${items.join("\n")}
         render24();
       });
     });
-    (_b = root24.querySelector('[data-testid="dicing-quiz-submit"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root24.querySelector('[data-testid="dicing-quiz-submit"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state24.quiz.phase = "done";
       render24();
     });
@@ -36647,7 +36822,7 @@ ${items.join("\n")}
     bindEvents25();
   }
   function bindEvents25() {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     root25.querySelectorAll("[data-coverage-example-id]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const newId = btn.dataset.coverageExampleId;
@@ -36677,7 +36852,7 @@ ${items.join("\n")}
         render25();
       });
     });
-    (_a = root25.querySelector('[data-testid="coverage-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root25.querySelector('[data-testid="coverage-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state25.quiz = { active: true, phase: "question", answer: "" };
       render25();
     });
@@ -36687,7 +36862,7 @@ ${items.join("\n")}
         render25();
       });
     });
-    (_b = root25.querySelector('[data-testid="coverage-quiz-submit"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root25.querySelector('[data-testid="coverage-quiz-submit"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state25.quiz.phase = "done";
       render25();
     });
@@ -36896,7 +37071,7 @@ ${items.join("\n")}
     bindEvents26();
   }
   function bindEvents26() {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     root26.querySelectorAll("[data-regression-example-id]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const newId = btn.dataset.regressionExampleId;
@@ -36942,7 +37117,7 @@ ${items.join("\n")}
         render26();
       });
     });
-    (_a = root26.querySelector('[data-testid="regression-quiz-start"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root26.querySelector('[data-testid="regression-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state26.quiz = { active: true, phase: "question", answer: "" };
       render26();
     });
@@ -36952,7 +37127,7 @@ ${items.join("\n")}
         render26();
       });
     });
-    (_b = root26.querySelector('[data-testid="regression-quiz-submit"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root26.querySelector('[data-testid="regression-quiz-submit"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state26.quiz.phase = "done";
       render26();
     });
@@ -37311,7 +37486,7 @@ ${items.join("\n")}
     bindEvents27();
   }
   function bindEvents27() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root27.querySelectorAll("[data-tdc-kata-id]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const newId = btn.dataset.tdcKataId;
@@ -37330,7 +37505,7 @@ ${items.join("\n")}
         render27();
       });
     });
-    (_a = root27.querySelector('[data-testid="tdd-next-step"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root27.querySelector('[data-testid="tdd-next-step"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       const kata = currentKata();
       const isLast = state27.stepIndex >= kata.steps.length - 1;
       if (isLast) return;
@@ -37344,7 +37519,7 @@ ${items.join("\n")}
       }
       render27();
     });
-    (_b = root27.querySelector('[data-testid="tdd-reset"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root27.querySelector('[data-testid="tdd-reset"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state27.stepIndex = 0;
       state27.prediction = null;
       state27.predictResult = null;
@@ -37484,14 +37659,14 @@ ${items.join("\n")}
   </div>`;
   }
   function renderFeedback2() {
-    var _a, _b;
+    var _a2, _b2;
     let text = "";
-    if ((_a = state28.feedback) == null ? void 0 : _a.blocked) {
+    if ((_a2 = state28.feedback) == null ? void 0 : _a2.blocked) {
       text = t(state28.feedback.reasonKey);
     } else if (state28.feedback && !state28.feedback.blocked) {
       text = t("tdd.rules.ok");
     }
-    return `<div class="tdr-feedback${((_b = state28.feedback) == null ? void 0 : _b.blocked) ? " tdr-feedback--blocked" : state28.feedback ? " tdr-feedback--ok" : ""}" data-testid="tdd-rules-feedback">${text}</div>`;
+    return `<div class="tdr-feedback${((_b2 = state28.feedback) == null ? void 0 : _b2.blocked) ? " tdr-feedback--blocked" : state28.feedback ? " tdr-feedback--ok" : ""}" data-testid="tdd-rules-feedback">${text}</div>`;
   }
   function renderQuiz28() {
     if (!state28.quiz.active) {
@@ -37543,7 +37718,7 @@ ${items.join("\n")}
     bindEvents28();
   }
   function bindEvents28() {
-    var _a, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     root28.querySelectorAll("[data-tdr-action]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const action = btn.dataset.tdrAction;
@@ -37555,12 +37730,12 @@ ${items.join("\n")}
         render28();
       });
     });
-    (_a = root28.querySelector('[data-testid="tdd-rules-reset"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root28.querySelector('[data-testid="tdd-rules-reset"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       state28.tdd = initialTddState();
       state28.feedback = null;
       render28();
     });
-    (_b = root28.querySelector('[data-testid="tdd-rules-quiz-start"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root28.querySelector('[data-testid="tdd-rules-quiz-start"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state28.quiz = { active: true, phase: "question", answer: "" };
       render28();
     });
@@ -37884,8 +38059,8 @@ ${items.join("\n")}
     bindEvents29();
   }
   function bindEvents29() {
-    var _a, _b, _c, _d, _e, _f;
-    (_a = root29.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    var _a2, _b2, _c, _d, _e, _f;
+    (_a2 = root29.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       if (state29.phaseIndex >= PHASES3.length - 1) return;
       if (state29.predict && state29.phaseIndex === PREDICT_PHASE_INDEX && state29.prediction !== null) {
         state29.predictResult = state29.prediction === example().primaryDefenseId ? "correct" : "incorrect";
@@ -37893,7 +38068,7 @@ ${items.join("\n")}
       state29.phaseIndex += 1;
       render29();
     });
-    (_b = root29.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root29.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state29.phaseIndex = 0;
       state29.prediction = null;
       state29.predictResult = null;
@@ -38134,8 +38309,8 @@ ${items.join("\n")}
     bindEvents30();
   }
   function bindEvents30() {
-    var _a, _b, _c, _d, _e, _f;
-    (_a = root30.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    var _a2, _b2, _c, _d, _e, _f;
+    (_a2 = root30.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       if (state30.phaseIndex >= PHASES4.length - 1) return;
       if (state30.predict && state30.phaseIndex === PREDICT_PHASE_INDEX2 && state30.prediction !== null) {
         state30.predictResult = state30.prediction === example2().primaryDefenseId ? "correct" : "incorrect";
@@ -38143,7 +38318,7 @@ ${items.join("\n")}
       state30.phaseIndex += 1;
       render30();
     });
-    (_b = root30.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root30.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state30.phaseIndex = 0;
       state30.prediction = null;
       state30.predictResult = null;
@@ -38384,8 +38559,8 @@ ${items.join("\n")}
     bindEvents31();
   }
   function bindEvents31() {
-    var _a, _b, _c, _d, _e, _f;
-    (_a = root31.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    var _a2, _b2, _c, _d, _e, _f;
+    (_a2 = root31.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       if (state31.phaseIndex >= PHASES5.length - 1) return;
       if (state31.predict && state31.phaseIndex === PREDICT_PHASE_INDEX3 && state31.prediction !== null) {
         state31.predictResult = state31.prediction === example3().primaryDefenseId ? "correct" : "incorrect";
@@ -38393,7 +38568,7 @@ ${items.join("\n")}
       state31.phaseIndex += 1;
       render31();
     });
-    (_b = root31.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root31.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state31.phaseIndex = 0;
       state31.prediction = null;
       state31.predictResult = null;
@@ -38780,7 +38955,7 @@ ${items.join("\n")}
     bindEvents32();
   }
   function bindEvents32() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root32.querySelectorAll("[data-eog-example]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.dataset.eogExample;
@@ -38793,7 +38968,7 @@ ${items.join("\n")}
         render32();
       });
     });
-    (_a = root32.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root32.querySelector('[data-testid="exploit-next-phase"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       if (state32.phaseIndex >= PHASES6.length - 1) return;
       if (state32.predict && state32.phaseIndex === PREDICT_PHASE_INDEX4 && state32.prediction !== null) {
         state32.predictResult = state32.prediction === example4().primaryDefenseId ? "correct" : "incorrect";
@@ -38801,7 +38976,7 @@ ${items.join("\n")}
       state32.phaseIndex += 1;
       render32();
     });
-    (_b = root32.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root32.querySelector('[data-testid="exploit-reset"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state32.phaseIndex = 0;
       state32.prediction = null;
       state32.predictResult = null;
@@ -39451,7 +39626,7 @@ ${items.join("\n")}
     bindEvents33();
   }
   function bindEvents33() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root33.querySelectorAll("[data-sbst-example-id]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state33.exampleId = btn.dataset.sbstExampleId;
@@ -39459,14 +39634,14 @@ ${items.join("\n")}
         render33();
       });
     });
-    (_a = root33.querySelector('[data-testid="sbst-branch-next"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root33.querySelector('[data-testid="sbst-branch-next"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       const total = totalGenerations();
       if (state33.genIndex < total - 1) {
         state33.genIndex += 1;
         render33();
       }
     });
-    (_b = root33.querySelector('[data-testid="sbst-branch-run"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root33.querySelector('[data-testid="sbst-branch-run"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state33.genIndex = firstCoveredGenIndex();
       render33();
     });
@@ -39673,7 +39848,7 @@ ${items.join("\n")}
     bindEvents34();
   }
   function bindEvents34() {
-    var _a, _b, _c, _d, _e;
+    var _a2, _b2, _c, _d, _e;
     root34.querySelectorAll("[data-sbst-compare-example-id]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state34.exampleId = btn.dataset.sbstCompareExampleId;
@@ -39681,11 +39856,11 @@ ${items.join("\n")}
         render34();
       });
     });
-    (_a = root34.querySelector('[data-testid="sbst-compare-run"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root34.querySelector('[data-testid="sbst-compare-run"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       runAll();
       render34();
     });
-    (_b = root34.querySelector('[data-testid="sbst-compare-reset"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root34.querySelector('[data-testid="sbst-compare-reset"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state34.exampleId = SBST_EXAMPLES[0].id;
       state34.quiz = { active: false, phase: "idle", answer: "" };
       runAll();
@@ -39914,7 +40089,7 @@ ${items.join("\n")}
     bindEvents35();
   }
   function bindEvents35() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root35.querySelectorAll("[data-sbst-suite-example-id]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state35.exampleId = btn.dataset.sbstSuiteExampleId;
@@ -39922,14 +40097,14 @@ ${items.join("\n")}
         render35();
       });
     });
-    (_a = root35.querySelector('[data-testid="sbst-suite-next"]')) == null ? void 0 : _a.addEventListener("click", () => {
+    (_a2 = root35.querySelector('[data-testid="sbst-suite-next"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       const total = totalGenerations2();
       if (state35.genIndex < total - 1) {
         state35.genIndex += 1;
         render35();
       }
     });
-    (_b = root35.querySelector('[data-testid="sbst-suite-run"]')) == null ? void 0 : _b.addEventListener("click", () => {
+    (_b2 = root35.querySelector('[data-testid="sbst-suite-run"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       state35.genIndex = firstCoveredGenIndex2();
       render35();
     });
@@ -40130,7 +40305,7 @@ ${items.join("\n")}
     bindEvents36();
   }
   function bindEvents36() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root36.querySelectorAll("[data-crit]").forEach((inp) => {
       inp.addEventListener("change", () => {
         if (inp.checked) state36.enabled.add(inp.dataset.crit);
@@ -40138,15 +40313,15 @@ ${items.join("\n")}
         render36();
       });
     });
-    (_a = root36.querySelector('[data-testid="gate-bridge-defectcost"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-flow-tab="defectCost"]')) == null ? void 0 : _b2.click();
+    (_a2 = root36.querySelector('[data-testid="gate-bridge-defectcost"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-flow-tab="defectCost"]')) == null ? void 0 : _b3.click();
     });
-    (_b = root36.querySelector('[data-testid="gate-bridge-bdd"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _b2.click();
+    (_b2 = root36.querySelector('[data-testid="gate-bridge-bdd"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _b3.click();
     });
     (_c = root36.querySelector('[data-testid="gate-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
       state36.quiz = { active: true, phase: "question", answer: "" };
@@ -40343,7 +40518,7 @@ ${items.join("\n")}
     bindEvents37();
   }
   function bindEvents37() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root37.querySelectorAll("[data-role]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state37.role = btn.dataset.role;
@@ -40364,15 +40539,15 @@ ${items.join("\n")}
         render37();
       });
     });
-    (_a = root37.querySelector('[data-testid="emap-bridge-bdd"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _b2.click();
+    (_a2 = root37.querySelector('[data-testid="emap-bridge-bdd"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _b3.click();
     });
-    (_b = root37.querySelector('[data-testid="emap-bridge-gates"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="agile"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-agile-tab="gates"]')) == null ? void 0 : _b2.click();
+    (_b2 = root37.querySelector('[data-testid="emap-bridge-gates"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="agile"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-agile-tab="gates"]')) == null ? void 0 : _b3.click();
     });
     (_c = root37.querySelector('[data-testid="emap-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
       state37.quiz = { active: true, phase: "question", answer: "" };
@@ -40592,14 +40767,14 @@ ${items.join("\n")}
     bindEvents38();
   }
   function bindEvents38() {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a2, _b2, _c, _d, _e, _f, _g;
     root38.querySelectorAll("[data-tier-of]").forEach((sel) => {
       sel.addEventListener("change", () => {
         state38.tierOf[sel.dataset.tierOf] = sel.value;
         render38();
       });
     });
-    (_a = root38.querySelector('[data-testid="ctp-impact"]')) == null ? void 0 : _a.addEventListener("change", (e) => {
+    (_a2 = root38.querySelector('[data-testid="ctp-impact"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
       state38.impact = e.target.checked;
       render38();
     });
@@ -40609,15 +40784,15 @@ ${items.join("\n")}
         render38();
       });
     });
-    (_b = root38.querySelector('[data-testid="ctp-bridge-pyramid"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="types"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-types-tab="adjuster"]')) == null ? void 0 : _b2.click();
+    (_b2 = root38.querySelector('[data-testid="ctp-bridge-pyramid"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="types"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-types-tab="adjuster"]')) == null ? void 0 : _b3.click();
     });
     (_c = root38.querySelector('[data-testid="ctp-bridge-flaky"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-acceptance-tab="flaky"]')) == null ? void 0 : _b2.click();
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-acceptance-tab="flaky"]')) == null ? void 0 : _b3.click();
     });
     (_d = root38.querySelector('[data-testid="ctp-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
       state38.quiz = { active: true, phase: "question", answer: "" };
@@ -40860,21 +41035,21 @@ ${items.join("\n")}
     bindEvents39();
   }
   function bindEvents39() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a2, _b2, _c, _d, _e, _f;
     root39.querySelectorAll("[data-strategy]").forEach((inp) => {
       inp.addEventListener("change", () => {
         state39.strategies[inp.dataset.strategy] = inp.checked;
         render39();
       });
     });
-    (_a = root39.querySelector('[data-testid="rdebt-bridge-rbt"]')) == null ? void 0 : _a.addEventListener("click", () => {
-      var _a2;
-      (_a2 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a2.click();
+    (_a2 = root39.querySelector('[data-testid="rdebt-bridge-rbt"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3;
+      (_a3 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a3.click();
     });
-    (_b = root39.querySelector('[data-testid="rdebt-bridge-flaky"]')) == null ? void 0 : _b.addEventListener("click", () => {
-      var _a2, _b2;
-      (_a2 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a2.click();
-      (_b2 = document.querySelector('[data-acceptance-tab="flaky"]')) == null ? void 0 : _b2.click();
+    (_b2 = root39.querySelector('[data-testid="rdebt-bridge-flaky"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      var _a3, _b3;
+      (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
+      (_b3 = document.querySelector('[data-acceptance-tab="flaky"]')) == null ? void 0 : _b3.click();
     });
     (_c = root39.querySelector('[data-testid="rdebt-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
       state39.quiz = { active: true, phase: "question", answer: "" };
@@ -42335,9 +42510,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     }
   }
   async function fetchDeck({ accessToken, folderId, entry, num }) {
-    var _a, _b;
-    const enName = (_a = entry.files) == null ? void 0 : _a.en;
-    const zhName = (_b = entry.files) == null ? void 0 : _b["zh-TW"];
+    var _a2, _b2;
+    const enName = (_a2 = entry.files) == null ? void 0 : _a2.en;
+    const zhName = (_b2 = entry.files) == null ? void 0 : _b2["zh-TW"];
     if (!entry.id || !entry.section || !enName || !zhName) return null;
     const listed = await listByName({ accessToken, folderId, names: [enName, zhName] });
     if (listed === null) {
@@ -42421,9 +42596,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return SLIDE_DECKS.filter((d) => d.section === sectionId);
   }
   function getPrivateContext() {
-    var _a;
+    var _a2;
     const config = getResolvedCloudConfig();
-    const raw = ((_a = config == null ? void 0 : config.drive) == null ? void 0 : _a.privateSlidesFolderId) || "";
+    const raw = ((_a2 = config == null ? void 0 : config.drive) == null ? void 0 : _a2.privateSlidesFolderId) || "";
     const folderId = /^__.+__$/.test(raw) ? "" : raw;
     if (!folderId) return { folderId: "", token: null };
     const token = createCloudIntegrationClient().getAccessToken();
@@ -42458,17 +42633,17 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     } else if (e.key === "Tab") trapFocus(e);
   }
   function focusInViewer(testId = "slideviewer-close") {
-    var _a;
+    var _a2;
     const preferred = overlay == null ? void 0 : overlay.querySelector(`[data-testid="${testId}"]`);
     const target = preferred && !preferred.disabled ? preferred : (overlay == null ? void 0 : overlay.querySelector(FOCUSABLE_SELECTOR)) || (overlay == null ? void 0 : overlay.querySelector(".slideviewer-panel"));
-    (_a = target == null ? void 0 : target.focus) == null ? void 0 : _a.call(target);
+    (_a2 = target == null ? void 0 : target.focus) == null ? void 0 : _a2.call(target);
   }
   function trapFocus(e) {
-    var _a;
+    var _a2;
     const focusable = [...overlay.querySelectorAll(FOCUSABLE_SELECTOR)].filter((node2) => !node2.disabled && !node2.closest("[hidden]"));
     if (!focusable.length) {
       e.preventDefault();
-      (_a = overlay.querySelector(".slideviewer-panel")) == null ? void 0 : _a.focus();
+      (_a2 = overlay.querySelector(".slideviewer-panel")) == null ? void 0 : _a2.focus();
       return;
     }
     const first = focusable[0];
@@ -42561,9 +42736,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const signinRow = overlay.querySelector('[data-testid="slideviewer-signin-row"]');
     if (signinRow) {
       signinRow.addEventListener("click", () => {
-        const cloudBtn = document.querySelector("[data-app-cloud]");
-        closeSlideViewer();
-        cloudBtn == null ? void 0 : cloudBtn.click();
+        createCloudIntegrationClient().signIn();
       });
     }
     if (focusTestId) focusInViewer(focusTestId);
@@ -43238,13 +43411,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     sbst: ["SbstBranchExplorer", "SbstCompareExplorer", "SbstSuiteExplorer"]
   };
   function getSectionTags(sectionId) {
-    var _a, _b, _c, _d, _e;
-    const explorers = (_a = SECTION_EXPLORERS[sectionId]) != null ? _a : [];
+    var _a2, _b2, _c, _d, _e;
+    const explorers = (_a2 = SECTION_EXPLORERS[sectionId]) != null ? _a2 : [];
     const agg = { level: /* @__PURE__ */ new Set(), technique: /* @__PURE__ */ new Set(), series: /* @__PURE__ */ new Set(), difficulty: /* @__PURE__ */ new Set(), source: /* @__PURE__ */ new Set() };
     for (const id of explorers) {
       const tags = EXPLORER_TAGS[id];
       if (!tags) continue;
-      for (const v of (_b = tags.level) != null ? _b : []) agg.level.add(v);
+      for (const v of (_b2 = tags.level) != null ? _b2 : []) agg.level.add(v);
       for (const v of (_c = tags.technique) != null ? _c : []) agg.technique.add(v);
       for (const v of (_d = tags.series) != null ? _d : []) agg.series.add(v);
       if (tags.difficulty) agg.difficulty.add(tags.difficulty);
@@ -43283,7 +43456,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     root41.className = "tag-filter-bar";
     root41.dataset.testid = "tag-filter-bar";
     function render41() {
-      var _a;
+      var _a2;
       const totalActive = Object.values(state41.filter).reduce((n, arr) => n + arr.length, 0);
       root41.innerHTML = `
       <div class="tag-filter-bar__header">
@@ -43315,11 +43488,11 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       root41.querySelectorAll("[data-dim][data-value]").forEach((btn) => {
         btn.addEventListener("click", () => toggle(btn.dataset.dim, btn.dataset.value));
       });
-      (_a = root41.querySelector('[data-testid="tag-filter-clear"]')) == null ? void 0 : _a.addEventListener("click", () => clear());
+      (_a2 = root41.querySelector('[data-testid="tag-filter-clear"]')) == null ? void 0 : _a2.addEventListener("click", () => clear());
     }
     function toggle(dim, value) {
-      var _a;
-      const arr = (_a = state41.filter[dim]) != null ? _a : [];
+      var _a2;
+      const arr = (_a2 = state41.filter[dim]) != null ? _a2 : [];
       const i = arr.indexOf(value);
       if (i === -1) arr.push(value);
       else arr.splice(i, 1);
@@ -43424,8 +43597,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     }
   ];
   function getCoursePack(id) {
-    var _a;
-    return (_a = COURSE_PACKS.find((p) => p.id === id)) != null ? _a : null;
+    var _a2;
+    return (_a2 = COURSE_PACKS.find((p) => p.id === id)) != null ? _a2 : null;
   }
   function applyPackOrder(matched, order) {
     if (!Array.isArray(order) || order.length === 0) return matched;
@@ -43441,8 +43614,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return applyPackOrder(matched, pack.order);
   }
   function getCoursePackFilter(id) {
-    var _a, _b;
-    return (_b = (_a = getCoursePack(id)) == null ? void 0 : _a.filter) != null ? _b : null;
+    var _a2, _b2;
+    return (_b2 = (_a2 = getCoursePack(id)) == null ? void 0 : _a2.filter) != null ? _b2 : null;
   }
 
   // src/utils/coursePackExporter.js
@@ -43465,16 +43638,16 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return stripped.replace(/([a-z])([A-Z])/g, "$1 $2");
   }
   function tagLine(tags) {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     const parts = [];
-    if ((_a = tags.level) == null ? void 0 : _a.length) parts.push(`level: ${tags.level.join(", ")}`);
-    if ((_b = tags.technique) == null ? void 0 : _b.length) parts.push(`technique: ${tags.technique.join(", ")}`);
+    if ((_a2 = tags.level) == null ? void 0 : _a2.length) parts.push(`level: ${tags.level.join(", ")}`);
+    if ((_b2 = tags.technique) == null ? void 0 : _b2.length) parts.push(`technique: ${tags.technique.join(", ")}`);
     if (tags.difficulty) parts.push(`difficulty: ${tags.difficulty}`);
     if ((_c = tags.source) == null ? void 0 : _c.length) parts.push(`source: ${tags.source.join(", ")}`);
     return parts.join(" \xB7 ");
   }
   function buildCoursePackMarkdown(packId, { baseUrl = DEMO_URL } = {}) {
-    var _a;
+    var _a2;
     const pack = getCoursePack(packId);
     if (!pack) return "";
     const ids = getCoursePackExplorers(packId);
@@ -43490,7 +43663,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     lines.push(`## Explorers (${ids.length})`);
     lines.push("");
     for (const id of ids) {
-      const tags = (_a = EXPLORER_TAGS[id]) != null ? _a : {};
+      const tags = (_a2 = EXPLORER_TAGS[id]) != null ? _a2 : {};
       lines.push(`### ${explorerDisplayName(id)}`);
       lines.push("");
       lines.push(`- **ID:** \`${id}\``);
@@ -43533,7 +43706,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     root41.className = "course-pack-bar";
     root41.dataset.testid = "course-pack-bar";
     function render41() {
-      var _a;
+      var _a2;
       root41.innerHTML = `
       <div class="course-pack-bar__header">
         <span class="course-pack-bar__title">${t("pack.title")}</span>
@@ -43567,7 +43740,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       root41.querySelectorAll("[data-pack]").forEach((btn) => {
         btn.addEventListener("click", () => choose(btn.dataset.pack));
       });
-      (_a = root41.querySelector('[data-testid="course-pack-export"]')) == null ? void 0 : _a.addEventListener("click", () => {
+      (_a2 = root41.querySelector('[data-testid="course-pack-export"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         if (state41.activeId) downloadCoursePackMarkdown(state41.activeId);
       });
     }
@@ -43658,13 +43831,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         </tr></thead>
         <tbody>
           ${result.items.map((item) => {
-      var _a;
+      var _a2;
       return `
             <tr${result.mode === "quiz" ? ` data-ok="${item.ok ? "true" : "false"}"` : ""}>
               <td class="rv-item-q">${escapeHtml27(item.q)}</td>
               <td class="rv-item-a">${escapeHtml27(item.a)}</td>
               ${result.mode === "quiz" ? `
-                <td class="rv-item-exp">${escapeHtml27(String((_a = item.expected) != null ? _a : ""))}</td>
+                <td class="rv-item-exp">${escapeHtml27(String((_a2 = item.expected) != null ? _a2 : ""))}</td>
                 <td class="rv-item-ok">${item.ok ? "\u2713" : "\u2717"}</td>
               ` : ""}
             </tr>
@@ -43749,6 +43922,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     root41.dataset.testid = "teacher-dashboard";
     root41.className = "td-overlay";
     const client = createCloudIntegrationClient();
+    const disabled = Boolean(client.isMaccount);
     let classCode = "";
     let results = [];
     let loading = false;
@@ -43763,6 +43937,22 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       return results.filter((r) => r.explorer === filterExplorer);
     }
     function render41() {
+      if (disabled) {
+        root41.innerHTML = `
+        <div class="td-panel" role="dialog" aria-modal="true" aria-label="${t("td.title")}" data-testid="td-panel">
+          <div class="td-header">
+            <div class="td-header-left">
+              <h2 class="td-title">${t("td.title")}</h2>
+            </div>
+            <button type="button" class="td-close-btn" data-testid="td-close" aria-label="${t("td.close")}">\u2715</button>
+          </div>
+          <p class="td-disabled-notice" data-testid="td-disabled-notice">${t("dashboard.disabled")}</p>
+        </div>`;
+        root41.querySelector('[data-testid="td-close"]').addEventListener("click", () => {
+          root41.hidden = true;
+        });
+        return;
+      }
       const filtered = filteredResults();
       const explorerOpts = explorerOptions();
       root41.innerHTML = `
@@ -43841,7 +44031,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       bindEvents40();
     }
     function bindEvents40() {
-      var _a;
+      var _a2;
       root41.querySelector('[data-testid="td-close"]').addEventListener("click", () => {
         root41.hidden = true;
       });
@@ -43866,15 +44056,15 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         loading = false;
         render41();
       });
-      (_a = root41.querySelector('[data-testid="td-filter-explorer"]')) == null ? void 0 : _a.addEventListener("change", (e) => {
+      (_a2 = root41.querySelector('[data-testid="td-filter-explorer"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
         filterExplorer = e.target.value;
         render41();
       });
     }
     render41();
     window.addEventListener("stvisual:open-teacher-dashboard", (e) => {
-      var _a;
-      classCode = ((_a = e.detail) == null ? void 0 : _a.classCode) || classCode;
+      var _a2;
+      classCode = ((_a2 = e.detail) == null ? void 0 : _a2.classCode) || classCode;
       root41.hidden = false;
       render41();
     });
@@ -43941,32 +44131,32 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     sectionIds: cat.sectionIds
   }));
   function loadSavedSection(urlSection) {
-    var _a;
+    var _a2;
     if (urlSection && learningSectionsConfig.some((s) => s.id === urlSection)) return urlSection;
     try {
-      const saved = (_a = globalThis.localStorage) == null ? void 0 : _a.getItem(ACTIVE_SECTION_KEY);
+      const saved = (_a2 = globalThis.localStorage) == null ? void 0 : _a2.getItem(ACTIVE_SECTION_KEY);
       return learningSectionsConfig.some((section) => section.id === saved) ? saved : "all";
     } catch {
       return "all";
     }
   }
   function persistActiveSection(sectionId) {
-    var _a;
+    var _a2;
     if (!learningSectionsConfig.some((section) => section.id === sectionId)) return;
     try {
-      (_a = globalThis.localStorage) == null ? void 0 : _a.setItem(ACTIVE_SECTION_KEY, sectionId);
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(ACTIVE_SECTION_KEY, sectionId);
     } catch {
     }
   }
   function renderIntegratedApp(container) {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
+    var _a2, _b2, _c, _d, _e, _f, _g, _h;
     let initialDeeplinkHandled = false;
     let langInUrl = false;
-    let lastSearchSnapshot = (_b = (_a = globalThis.location) == null ? void 0 : _a.search) != null ? _b : "";
+    let lastSearchSnapshot = (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "";
     function paint2() {
-      var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s;
+      var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s;
       const urlState = parseAppLocation(
-        (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "",
+        (_b3 = (_a3 = globalThis.location) == null ? void 0 : _a3.search) != null ? _b3 : "",
         (_d2 = (_c2 = globalThis.location) == null ? void 0 : _c2.hash) != null ? _d2 : ""
       );
       container.innerHTML = `
@@ -44227,10 +44417,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         graphTabBar.querySelectorAll("[data-graph-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeGraphTab = btn.dataset.graphTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(GRAPH_TAB_KEY, activeGraphTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(GRAPH_TAB_KEY, activeGraphTab);
             } catch {
             }
             renderGraphTabs();
@@ -44299,10 +44489,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         logicTabBar.querySelectorAll("[data-logic-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeLogicTab = btn.dataset.logicTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(LOGIC_TAB_KEY, activeLogicTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(LOGIC_TAB_KEY, activeLogicTab);
             } catch {
             }
             renderLogicTabs();
@@ -44393,13 +44583,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         advancedPaperBar.querySelectorAll("[data-advanced-paper]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             const paper = advancedPapers.find((p) => p.id === btn.dataset.advancedPaper);
             if (!paper) return;
             activeAdvancedPaper = paper.id;
             activeAdvancedTab = paper.tabs[0].id;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(ADVANCED_TAB_KEY, activeAdvancedTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(ADVANCED_TAB_KEY, activeAdvancedTab);
             } catch {
             }
             renderAdvancedPaperBar();
@@ -44421,11 +44611,11 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         `)).join("");
         advancedTabBar.querySelectorAll("[data-advanced-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeAdvancedTab = btn.dataset.advancedTab;
             activeAdvancedPaper = paperOfAdvancedTab(activeAdvancedTab).id;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(ADVANCED_TAB_KEY, activeAdvancedTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(ADVANCED_TAB_KEY, activeAdvancedTab);
             } catch {
             }
             renderAdvancedPaperBar();
@@ -44492,10 +44682,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         acceptanceTabBar.querySelectorAll("[data-acceptance-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeAcceptanceTab = btn.dataset.acceptanceTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(ACCEPTANCE_TAB_KEY, activeAcceptanceTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(ACCEPTANCE_TAB_KEY, activeAcceptanceTab);
             } catch {
             }
             renderAcceptanceTabs();
@@ -44558,10 +44748,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         mbtTabBar.querySelectorAll("[data-mbt-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeMbtTab = btn.dataset.mbtTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(MBT_TAB_KEY, activeMbtTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(MBT_TAB_KEY, activeMbtTab);
             } catch {
             }
             renderMbtTabs();
@@ -44624,10 +44814,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         agileTabBar.querySelectorAll("[data-agile-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeAgileTab = btn.dataset.agileTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(AGILE_TAB_KEY, activeAgileTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(AGILE_TAB_KEY, activeAgileTab);
             } catch {
             }
             renderAgileTabs();
@@ -44701,10 +44891,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         slicingTabBar.querySelectorAll("[data-slicing-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeSlicingTab = btn.dataset.slicingTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(SLICING_TAB_KEY, activeSlicingTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(SLICING_TAB_KEY, activeSlicingTab);
             } catch {
             }
             renderSlicingTabs();
@@ -44774,10 +44964,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         exploitTabBar.querySelectorAll("[data-exploit-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeExploitTab = btn.dataset.exploitTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(EXPLOIT_TAB_KEY, activeExploitTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(EXPLOIT_TAB_KEY, activeExploitTab);
             } catch {
             }
             renderExploitTabs();
@@ -44844,10 +45034,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         sbstTabBar.querySelectorAll("[data-sbst-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeSbstTab = btn.dataset.sbstTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(SBST_TAB_KEY, activeSbstTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(SBST_TAB_KEY, activeSbstTab);
             } catch {
             }
             renderSbstTabs();
@@ -44911,10 +45101,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         tddTabBar.querySelectorAll("[data-tdd-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeTddTab = btn.dataset.tddTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(TDD_TAB_KEY, activeTddTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(TDD_TAB_KEY, activeTddTab);
             } catch {
             }
             renderTddTabs();
@@ -44974,10 +45164,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         syntaxTabBar.querySelectorAll("[data-syntax-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeSyntaxTab = btn.dataset.syntaxTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(SYNTAX_TAB_KEY, activeSyntaxTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(SYNTAX_TAB_KEY, activeSyntaxTab);
             } catch {
             }
             renderSyntaxTabs();
@@ -45044,10 +45234,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         blackboxTabBar.querySelectorAll("[data-blackbox-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeBlackboxTab = btn.dataset.blackboxTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(BLACKBOX_TAB_KEY, activeBlackboxTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(BLACKBOX_TAB_KEY, activeBlackboxTab);
             } catch {
             }
             renderBlackboxTabs();
@@ -45112,10 +45302,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       `).join("");
         flowTabBar.querySelectorAll("[data-flow-tab]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            var _a3;
+            var _a4;
             activeFlowTab = btn.dataset.flowTab;
             try {
-              (_a3 = globalThis.localStorage) == null ? void 0 : _a3.setItem(FLOW_TAB_KEY, activeFlowTab);
+              (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(FLOW_TAB_KEY, activeFlowTab);
             } catch {
             }
             renderFlowTabs();
@@ -45217,12 +45407,12 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       });
       overviewPacksHost.appendChild(packBar.element);
       function syncUrl(mode = "replace") {
-        var _a3, _b3, _c3, _d3, _e3;
+        var _a4, _b4, _c3, _d3, _e3;
         try {
           const state41 = {
             section: activeSection,
             tab: getCurrentTabForSection(activeSection),
-            pack: (_a3 = packBar == null ? void 0 : packBar.getActiveId()) != null ? _a3 : null,
+            pack: (_a4 = packBar == null ? void 0 : packBar.getActiveId()) != null ? _a4 : null,
             filter: activeFilter,
             lang: langInUrl ? getLocale() : void 0
           };
@@ -45231,7 +45421,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           const hash = /^#section-[a-z0-9-]+$/.test(rawHash) ? "" : rawHash;
           const url = `${globalThis.location.pathname}${qs}${hash}`;
           if (mode === "push") {
-            (_c3 = (_b3 = globalThis.history) == null ? void 0 : _b3.pushState) == null ? void 0 : _c3.call(_b3, null, "", url);
+            (_c3 = (_b4 = globalThis.history) == null ? void 0 : _b4.pushState) == null ? void 0 : _c3.call(_b4, null, "", url);
           } else {
             (_e3 = (_d3 = globalThis.history) == null ? void 0 : _d3.replaceState) == null ? void 0 : _e3.call(_d3, null, "", url);
           }
@@ -45383,9 +45573,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             event.stopPropagation();
             const nextOpen = !menu.classList.contains("open");
             nav.querySelectorAll("[data-nav-category]").forEach((node2) => {
-              var _a3;
+              var _a4;
               node2.classList.remove("open");
-              (_a3 = node2.querySelector("[data-nav-category-trigger]")) == null ? void 0 : _a3.setAttribute("aria-expanded", "false");
+              (_a4 = node2.querySelector("[data-nav-category-trigger]")) == null ? void 0 : _a4.setAttribute("aria-expanded", "false");
             });
             menu.classList.toggle("open", nextOpen);
             button.setAttribute("aria-expanded", nextOpen ? "true" : "false");
@@ -45553,16 +45743,16 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     paint2();
     onLocaleChange(() => paint2());
     (_g = globalThis.addEventListener) == null ? void 0 : _g.call(globalThis, "popstate", () => {
-      var _a2, _b2, _c2, _d2;
-      const current3 = (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "";
+      var _a3, _b3, _c2, _d2;
+      const current3 = (_b3 = (_a3 = globalThis.location) == null ? void 0 : _a3.search) != null ? _b3 : "";
       if (current3 !== lastSearchSnapshot) {
         lastSearchSnapshot = current3;
         (_d2 = (_c2 = globalThis.location) == null ? void 0 : _c2.reload) == null ? void 0 : _d2.call(_c2);
       }
     });
     (_h = globalThis.addEventListener) == null ? void 0 : _h.call(globalThis, "hashchange", () => {
-      var _a2, _b2, _c2, _d2, _e2, _f2;
-      const hash = (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.hash) != null ? _b2 : "";
+      var _a3, _b3, _c2, _d2, _e2, _f2;
+      const hash = (_b3 = (_a3 = globalThis.location) == null ? void 0 : _a3.hash) != null ? _b3 : "";
       if (/^#section-[a-z0-9-]+$/.test(hash)) {
         const lang2 = new URLSearchParams((_d2 = (_c2 = globalThis.location) == null ? void 0 : _c2.search) != null ? _d2 : "").get("lang");
         const qs = lang2 === "en" || lang2 === "zh" ? `?lang=${lang2}` : "";
@@ -45752,8 +45942,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     }
     latestExitFocus = exitFocus;
     root41.addEventListener("click", (e) => {
-      var _a, _b;
-      if ((_b = (_a = e.target) == null ? void 0 : _a.closest) == null ? void 0 : _b.call(_a, ".viz-focus-toggle")) {
+      var _a2, _b2;
+      if ((_b2 = (_a2 = e.target) == null ? void 0 : _a2.closest) == null ? void 0 : _b2.call(_a2, ".viz-focus-toggle")) {
         body3.classList.contains("viz-focus") ? exitFocus() : enterFocus();
       }
     });
@@ -98804,12 +98994,12 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   // src/utils/quizDeck.js
   var LEVELS = ["easy", "medium", "hard"];
   function bucketFor(rendered, id, lang2, lv) {
-    var _a, _b;
+    var _a2, _b2;
     const topic = rendered[id];
     if (!topic) return [];
-    const b = (_a = topic[lang2]) == null ? void 0 : _a[lv];
+    const b = (_a2 = topic[lang2]) == null ? void 0 : _a2[lv];
     if (b && b.length) return b;
-    const en = (_b = topic.en) == null ? void 0 : _b[lv];
+    const en = (_b2 = topic.en) == null ? void 0 : _b2[lv];
     return en && en.length ? en : [];
   }
   function mixSeed() {
@@ -98892,17 +99082,17 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     titleEl = overlay2.querySelector("#quiz-viewer-title");
     langToggle = overlay2.querySelector("#quiz-lang-toggle");
     overlay2.addEventListener("click", (e) => {
-      var _a, _b;
-      if (e.target === overlay2 || ((_b = (_a = e.target).closest) == null ? void 0 : _b.call(_a, "[data-quiz-close]"))) close();
+      var _a2, _b2;
+      if (e.target === overlay2 || ((_b2 = (_a2 = e.target).closest) == null ? void 0 : _b2.call(_a2, "[data-quiz-close]"))) close();
     });
     document.addEventListener("keydown", (e) => {
       if (overlay2 && !overlay2.hidden && e.key === "Escape") close();
     });
     body.addEventListener("click", onBodyClick);
     body.addEventListener("change", (e) => {
-      var _a;
+      var _a2;
       if (!st || st.phase !== "start") return;
-      if (((_a = e.target) == null ? void 0 : _a.name) === "qdiff") {
+      if (((_a2 = e.target) == null ? void 0 : _a2.name) === "qdiff") {
         st.difficulty = e.target.value;
         st.seed = null;
         renderStart();
@@ -98991,9 +99181,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     else renderQuestion();
   }
   function recentRow(a) {
-    var _a;
+    var _a2;
     const done = isDone(a);
-    const deck = deckFor(st.quizId, a.lang, (_a = a.difficulty) != null ? _a : st.difficulty, a.seed);
+    const deck = deckFor(st.quizId, a.lang, (_a2 = a.difficulty) != null ? _a2 : st.difficulty, a.seed);
     const stale = !done && (!a.given || a.given.length !== deck.length);
     const meta = done ? `${a.correct}/${a.total}` : `${t2("quiz.question", "Q")} ${(a.idx || 0) + 1}/${a.total}`;
     const badge = done ? t2("quiz.review", "Review") : stale ? t2("quiz.inprogress", "In progress") : t2("quiz.resume", "Resume");
@@ -99003,8 +99193,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return `<li><button type="button" class="quiz-recent-row" data-act="resume" data-id="${a.id}" data-testid="quiz-recent-resume">${inner}</button></li>`;
   }
   function bucketCount(difficulty) {
-    var _a;
-    const seed = difficulty === "mixed" ? (_a = st.seed) != null ? _a : 0 : void 0;
+    var _a2;
+    const seed = difficulty === "mixed" ? (_a2 = st.seed) != null ? _a2 : 0 : void 0;
     return deckFor(st.quizId, st.lang, difficulty, seed).length;
   }
   function renderStart() {
@@ -99128,8 +99318,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     body.innerHTML = html;
   }
   function resume(a) {
-    var _a;
-    const qs = deckFor(st.quizId, a.lang, (_a = a.difficulty) != null ? _a : st.difficulty, a.seed);
+    var _a2;
+    const qs = deckFor(st.quizId, a.lang, (_a2 = a.difficulty) != null ? _a2 : st.difficulty, a.seed);
     const given = a.given || [];
     if (!qs.length || given.length !== qs.length) return;
     st = {
@@ -99153,8 +99343,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     renderQuestion();
   }
   function review(a) {
-    var _a;
-    const qs = deckFor(st.quizId, a.lang, (_a = a.difficulty) != null ? _a : st.difficulty, a.seed);
+    var _a2;
+    const qs = deckFor(st.quizId, a.lang, (_a2 = a.difficulty) != null ? _a2 : st.difficulty, a.seed);
     st = {
       quizId: st.quizId,
       id: a.id,
@@ -99176,14 +99366,14 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     renderSummary2();
   }
   function findAttempt(id) {
-    var _a;
+    var _a2;
     const scoped = QuizAttempts.recentFor(localStorage, st.quizId, 10, st.difficulty);
     const legacy = QuizAttempts.recentFor(localStorage, st.quizId, 10);
-    return (_a = [...scoped, ...legacy].find((a) => String(a.id) === String(id))) != null ? _a : null;
+    return (_a2 = [...scoped, ...legacy].find((a) => String(a.id) === String(id))) != null ? _a2 : null;
   }
   function onBodyClick(e) {
-    var _a, _b;
-    const b = (_b = (_a = e.target).closest) == null ? void 0 : _b.call(_a, "[data-act]");
+    var _a2, _b2;
+    const b = (_b2 = (_a2 = e.target).closest) == null ? void 0 : _b2.call(_a2, "[data-act]");
     if (!b || !st) return;
     const act = b.getAttribute("data-act");
     if (act === "resume") {
@@ -99303,8 +99493,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function has2(unitId) {
-    var _a;
-    return Boolean((_a = LAB_RENDERED[unitId]) == null ? void 0 : _a.length);
+    var _a2;
+    return Boolean((_a2 = LAB_RENDERED[unitId]) == null ? void 0 : _a2.length);
   }
   function ensureRefs2() {
     if (overlay3) return;
@@ -99326,8 +99516,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     document.body.appendChild(overlay3);
     body2 = overlay3.querySelector("#lab-viewer-body");
     overlay3.addEventListener("click", (e) => {
-      var _a, _b;
-      if (e.target === overlay3 || ((_b = (_a = e.target).closest) == null ? void 0 : _b.call(_a, "[data-lab-close]"))) close2();
+      var _a2, _b2;
+      if (e.target === overlay3 || ((_b2 = (_a2 = e.target).closest) == null ? void 0 : _b2.call(_a2, "[data-lab-close]"))) close2();
     });
     document.addEventListener("keydown", (e) => {
       if (overlay3 && !overlay3.hidden && e.key === "Escape") close2();
@@ -99425,9 +99615,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const btn = overlay3.querySelector('[data-testid="lab-submit-tests"]');
     if (!btn) return;
     btn.addEventListener("click", async () => {
-      var _a;
+      var _a2;
       const input = overlay3.querySelector('[data-testid="lab-test-file"]');
-      const file = (_a = input == null ? void 0 : input.files) == null ? void 0 : _a[0];
+      const file = (_a2 = input == null ? void 0 : input.files) == null ? void 0 : _a2[0];
       if (!file) {
         setJudgeStatus(esc24(t3("lab.judgePickFile", "Choose a test_*.py file first.")), "error");
         return;
@@ -99483,7 +99673,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const unit = UNIT_BY_COMPONENT.get(urlState.explorer);
     if (!unit) return;
     function paint2() {
-      var _a, _b, _c, _d;
+      var _a2, _b2, _c, _d;
       const title = unitTitle(unit);
       document.title = `${title} \xB7 ${t("app.title")}`;
       container.innerHTML = `
@@ -99506,7 +99696,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                     data-testid="viz-focus-toggle" aria-pressed="false">
               \u26F6 ${t("unit.fullscreen")}
             </button>
-            ${QuizViewer.has((_a = unit.quizId) != null ? _a : unit.id) ? `
+            ${QuizViewer.has((_a2 = unit.quizId) != null ? _a2 : unit.id) ? `
               <button type="button" class="btn secondary" data-testid="unit-quiz-btn">
                 ${t("btn.quiz")}
               </button>` : ""}
@@ -99521,10 +99711,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const factory = FACTORY_BY_COMPONENT[unit.componentName];
       container.querySelector(".unit-main").appendChild(factory());
       container.querySelectorAll("[data-unit-lang]").forEach((btn) => btn.addEventListener("click", () => setLocale(btn.dataset.unitLang)));
-      (_b = container.querySelector('[data-testid="input-difficulty"]')) == null ? void 0 : _b.addEventListener("change", (e) => setInputDifficulty(e.target.value));
+      (_b2 = container.querySelector('[data-testid="input-difficulty"]')) == null ? void 0 : _b2.addEventListener("change", (e) => setInputDifficulty(e.target.value));
       (_c = container.querySelector('[data-testid="unit-quiz-btn"]')) == null ? void 0 : _c.addEventListener("click", () => {
-        var _a2;
-        return QuizViewer.open((_a2 = unit.quizId) != null ? _a2 : unit.id);
+        var _a3;
+        return QuizViewer.open((_a3 = unit.quizId) != null ? _a3 : unit.id);
       });
       (_d = container.querySelector('[data-testid="unit-lab-btn"]')) == null ? void 0 : _d.addEventListener("click", () => LabViewer.open(unit.id));
     }
@@ -99552,9 +99742,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     document.body.prepend(notice);
   }
   function renderApp(container) {
-    var _a, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     const state41 = parseAppLocation(
-      (_b = (_a = globalThis.location) == null ? void 0 : _a.search) != null ? _b : "",
+      (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "",
       (_d = (_c = globalThis.location) == null ? void 0 : _c.hash) != null ? _d : ""
     );
     if (state41.lang) setLocale(state41.lang, { persist: false });
@@ -99567,6 +99757,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   }
 
   // src/main.js
+  var _a, _b;
+  (_b = (_a = createCloudIntegrationClient()).handleRedirect) == null ? void 0 : _b.call(_a);
   var root40 = document.getElementById("root");
   if (root40) {
     renderApp(root40);
